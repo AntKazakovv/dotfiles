@@ -25,8 +25,8 @@ import {
 import {
     FinancesService,
     HistoryFilterService,
-    IBet,
-} from 'wlc-engine/modules/finances';
+} from 'wlc-engine/modules/finances/system/services';
+import {IBet} from 'wlc-engine/modules/finances/system/interfaces';
 
 import * as Params from './bet-history.params';
 

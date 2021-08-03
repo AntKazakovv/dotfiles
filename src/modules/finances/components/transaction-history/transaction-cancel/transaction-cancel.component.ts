@@ -17,8 +17,10 @@ import {
 
 import {
     FinancesService,
+} from 'wlc-engine/modules/finances/system/services/finances/finances.service';
+import {
     FinancesHelper,
-} from 'wlc-engine/modules/finances';
+} from 'wlc-engine/modules/finances/system/helpers/finances.helper';
 
 import * as Params from './transaction-cancel.params';
 

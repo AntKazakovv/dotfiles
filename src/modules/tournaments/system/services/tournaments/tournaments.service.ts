@@ -6,13 +6,11 @@ import {
     EventService,
     LogService,
     DataService,
-    CachingService,
     IIndexing,
     IForbidBanned,
     IPushMessageParams,
     NotificationEvents,
 } from 'wlc-engine/modules/core';
-import {UserService} from 'wlc-engine/modules/user/system/services';
 import {
     ITournament,
     RestType,
@@ -22,17 +20,18 @@ import {
     ITopTournamentUsers,
     ITournamentUser,
 } from '../../interfaces/tournaments.interface';
+import {UserProfile} from 'wlc-engine/modules/user';
 import {
     BehaviorSubject,
     Subscription,
     Observable,
     pipe,
-    interval as rxInterval,
+    interval,
 } from 'rxjs';
 import {
     takeUntil,
-    filter as rxFilter,
-    tap as rxTap,
+    filter,
+    tap,
 } from 'rxjs/operators';
 
 import _filter from 'lodash-es/filter';
@@ -61,17 +60,15 @@ export class TournamentsService {
 
     private winnersSubjects: IIndexing<BehaviorSubject<ITopTournamentUsers>> = {};
 
-    private profile = this.userService.userProfile;
+    private profile: UserProfile = {} as UserProfile;
     private useForbidUserFields = this.configService.get<boolean>('$loyalty.useForbidUserFields');
     private winLimit = this.configService.get<number>('$tournaments.winLimit') || 10;
     private winnersLimit: IIndexing<number> = {};
 
     constructor(
-        private cachingService: CachingService,
         private dataService: DataService,
         private eventService: EventService,
         private configService: ConfigService,
-        private userService: UserService,
         private logService: LogService,
     ) {
         this.registerMethods();
@@ -132,10 +129,15 @@ export class TournamentsService {
      * @param {number} tournamentID tournament id
      * @param {Observable<unknown>} until until observable
      * @param {number} limit limit of tops
-     * @param {number} interval get top interval
+     * @param {number} intervalValue get top interval
      * @returns {BehaviorSubject<ITopTournamentUsers>} tournament winners subjects
      */
-    public getWinnersSubjects(tournamentID: number, until?: Observable<unknown>, limit?: number, interval: number = 15000): BehaviorSubject<ITopTournamentUsers> {
+    public getWinnersSubjects(
+        tournamentID: number,
+        until?: Observable<unknown>,
+        limit?: number,
+        intervalValue: number = 15000,
+    ): BehaviorSubject<ITopTournamentUsers> {
 
         if (limit !== undefined) {
             if (limit === 0) {
@@ -148,9 +150,9 @@ export class TournamentsService {
         if (!this.winnersSubjects[tournamentID]) {
             this.winnersSubjects[tournamentID] = new BehaviorSubject(null);
 
-            const winnersInterval = rxInterval(interval).pipe(
-                rxFilter(() => this.winnersSubjects[tournamentID].observers.length > 0),
-            ).pipe(rxTap(() => this.getTournamentTop(tournamentID, this.winnersLimit['' + tournamentID])));
+            const winnersInterval = interval(intervalValue)
+                .pipe(filter(() => this.winnersSubjects[tournamentID].observers.length > 0))
+                .pipe(tap(() => this.getTournamentTop(tournamentID, this.winnersLimit['' + tournamentID])));
 
             winnersInterval.pipe(
                 (until) ? takeUntil(until) : pipe(),
@@ -418,6 +420,12 @@ export class TournamentsService {
     }
 
     private setSubscribers() {
+
+        this.configService.get<BehaviorSubject<UserProfile>>({name: '$user.userProfile$'})
+            .subscribe((userProfile) => {
+                this.profile = userProfile;
+            });
+
         this.subjects.tournaments$.subscribe({
             next: (tournaments: Tournament[]) => {
                 this.eventService.emit({

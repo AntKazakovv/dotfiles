@@ -19,11 +19,11 @@ import {
     ITableCParams,
     ISelectCParams,
     ConfigService,
+    InjectionService,
 } from 'wlc-engine/modules/core';
 import {
-    FinancesService,
     HistoryFilterService,
-} from 'wlc-engine/modules/finances';
+} from 'wlc-engine/modules/finances/system/services/history-filter/history-filter.service';
 import {
     Tournament,
     TournamentsService,
@@ -94,13 +94,13 @@ export class TournamentsHistoryComponent extends AbstractComponent implements On
     };
 
     protected allTournaments: Tournament[] = [];
+    protected historyFilterService: HistoryFilterService;
 
     constructor(
         @Inject('injectParams') protected params: Params.ITournamentsHistoryCParams,
         protected cdr: ChangeDetectorRef,
-        protected financesService: FinancesService,
         protected eventService: EventService,
-        protected historyFilterService: HistoryFilterService,
+        protected injectionService: InjectionService,
         protected tournamentsService: TournamentsService,
         protected configService: ConfigService,
     ) {
@@ -114,6 +114,7 @@ export class TournamentsHistoryComponent extends AbstractComponent implements On
     public async ngOnInit(): Promise<void> {
         super.ngOnInit();
         await this.tournamentsService.queryTournaments(true, 'history');
+        this.historyFilterService = await this.injectionService.getService<HistoryFilterService>('finances.history-filter');
         this.tournamentsService.getObserver('history').subscribe((value) => {
             this.allTournaments = value;
         });

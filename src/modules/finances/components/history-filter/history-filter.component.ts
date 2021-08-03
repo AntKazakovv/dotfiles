@@ -21,7 +21,9 @@ import {
     HistoryFilterFormComponent,
     IHistoryFilterFormCParams,
 } from './history-filter-form/history-filter-form.component';
-import {HistoryFilterService} from 'wlc-engine/modules/finances/system/services';
+import {
+    HistoryFilterService,
+} from 'wlc-engine/modules/finances/system/services/history-filter/history-filter.service';
 import {
     IFormWrapperCParams,
     IFormComponent,

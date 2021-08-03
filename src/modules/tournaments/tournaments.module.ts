@@ -3,7 +3,6 @@ import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {TranslateModule} from '@ngx-translate/core';
 import {CoreModule} from '../core/core.module';
-import {UserModule} from 'wlc-engine/modules/user/user.module';
 import {TournamentsService} from 'wlc-engine/modules/tournaments';
 import {MenuModule} from 'wlc-engine/modules/menu/menu.module';
 
@@ -45,7 +44,6 @@ export const components = {
     imports: [
         CommonModule,
         CoreModule,
-        UserModule,
         PromoModule,
         TranslateModule,
         MenuModule,

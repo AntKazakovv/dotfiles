@@ -19,7 +19,6 @@ import {IPushMessageParams, NotificationEvents} from 'wlc-engine/modules/core/sy
 import {FormElements} from 'wlc-engine/modules/core/system/config/form-elements';
 import {IFormComponent} from 'wlc-engine/modules/core/components/form-wrapper/form-wrapper.component';
 import {
-    AddProfileInfoComponent,
     IAddProfileInfoCParams,
 } from 'wlc-engine/modules/user/components/add-profile-info/';
 import {takeUntil} from 'rxjs/operators';
@@ -149,7 +148,7 @@ export class ProfileFormComponent extends AbstractComponent implements OnInit {
         this.modalService.showModal({
             id: 'add-profile-info',
             modifier: 'add-profile-info',
-            component: AddProfileInfoComponent,
+            componentName: 'user.wlc-add-profile-info',
             componentParams: <IAddProfileInfoCParams>{
                 title: gettext('Banking information'),
                 formConfig: {

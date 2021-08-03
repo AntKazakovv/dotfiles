@@ -26,8 +26,10 @@ import {
 import {
     FinancesService,
     HistoryFilterService,
+} from 'wlc-engine/modules/finances/system/services';
+import {
     Transaction,
-} from 'wlc-engine/modules/finances';
+} from 'wlc-engine/modules/finances/system/models';
 
 import * as Params from './transaction-history.params';
 

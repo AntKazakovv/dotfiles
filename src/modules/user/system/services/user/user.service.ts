@@ -65,6 +65,7 @@ export class UserService {
     public userProfile$: BehaviorSubject<UserProfile> = new BehaviorSubject(null);
     public userInfo$: BehaviorSubject<UserInfo> = new BehaviorSubject(null);
     private configUserProfile$: BehaviorSubject<UserProfile> = this.configService.get({name: '$user.userProfile$'});
+    private configUserInfo$: BehaviorSubject<UserInfo> = this.configService.get({name: '$user.userInfo$'});
 
     constructor(
         public translate: TranslateService,
@@ -74,11 +75,15 @@ export class UserService {
         private logService: LogService,
         private modalService: ModalService,
         private injector: Injector,
-        private stateService: StateService,
+        stateService: StateService,
     ) {
         this.isAuthenticated = this.configService.get('$user.isAuthenticated');
         this.userProfile$.subscribe((profile) => {
             this.configUserProfile$.next(profile);
+        });
+
+        this.userInfo$.subscribe((userInfo) => {
+            this.configUserInfo$.next(userInfo);
         });
 
         this.translate.onLangChange.subscribe(async () => {

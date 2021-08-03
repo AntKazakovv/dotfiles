@@ -23,7 +23,6 @@ import {
     ModalService,
 } from 'wlc-engine/modules/core';
 import {UserInfo} from 'wlc-engine/modules/user/system/models/info.model';
-import {UserService} from 'wlc-engine/modules/user/system/services';
 import {Tournament} from 'wlc-engine/modules/tournaments/system/models/tournament';
 import {TournamentsService} from 'wlc-engine/modules/tournaments/system/services/tournaments/tournaments.service';
 import {ITournamentDetailCParams} from 'wlc-engine/modules/tournaments/components/tournament/components/tournament-detail/tournament-detail.params';
@@ -69,7 +68,6 @@ export class TournamentComponent
         protected tournamentsService: TournamentsService,
         protected cdr: ChangeDetectorRef,
         protected configService: ConfigService,
-        protected userService: UserService,
         protected router: UIRouter,
     ) {
         super(
@@ -137,7 +135,7 @@ export class TournamentComponent
     }
 
     protected getUserInfo(): void {
-        this.userService.userInfo$
+        this.configService.get<BehaviorSubject<UserInfo>>({name: '$user.userInfo$'})
             .pipe(
                 skipWhile(v => !v),
                 takeUntil(this.$destroy),

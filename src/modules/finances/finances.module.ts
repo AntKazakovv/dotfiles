@@ -43,6 +43,10 @@ export const components = {
     'wlc-transaction-history': TransactionHistoryComponent,
 };
 
+export const services = {
+    'history-filter': HistoryFilterService,
+};
+
 @NgModule({
     imports: [
         CommonModule,

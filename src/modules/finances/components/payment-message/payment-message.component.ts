@@ -10,9 +10,12 @@ import {
 import {FormControl} from '@angular/forms';
 
 import {
-    PaymentSystem,
     IPaymentMessage,
-} from 'wlc-engine/modules/finances';
+} from 'wlc-engine/modules/finances/system/interfaces';
+import {
+    PaymentSystem,
+} from 'wlc-engine/modules/finances/system/models';
+
 import {
     AbstractComponent,
     ConfigService,

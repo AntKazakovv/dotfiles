@@ -35,8 +35,6 @@ import {
 } from 'wlc-engine/modules/core';
 import {CurrencyModel} from 'wlc-engine/modules/core/system/models/currency.model';
 import {
-    IHostedField,
-    IHostedFieldsParams,
     IHostedFormData,
     IPaymentAdditionalParam,
     PaymentSystem,
@@ -49,7 +47,6 @@ import {
 import {IPaymentListCParams} from 'wlc-engine/modules/finances/components/payment-list/payment-list.params';
 import {FormElements} from 'wlc-engine/modules/core/system/config/form-elements';
 import {
-    AddProfileInfoComponent,
     IAddProfileInfoCParams,
 } from 'wlc-engine/modules/user/components/add-profile-info';
 import {UserService} from 'wlc-engine/modules/user/system/services';
@@ -317,7 +314,7 @@ export class DepositWithdrawComponent extends AbstractComponent implements OnIni
         this.modalService.showModal({
             id: 'add-profile-info',
             modifier: 'add-profile-info',
-            component: AddProfileInfoComponent,
+            componentName: 'user.wlc-add-profile-info',
             componentParams: <IAddProfileInfoCParams>{
                 formConfig: this.profileForm,
                 themeMod: this.requiredFieldsKeys.length > 5 ? 'overflow' : '',

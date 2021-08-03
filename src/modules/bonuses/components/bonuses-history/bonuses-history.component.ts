@@ -19,8 +19,11 @@ import {
     ITableCParams,
     ISelectCParams,
     ConfigService,
+    InjectionService,
 } from 'wlc-engine/modules/core';
-import {HistoryFilterService} from 'wlc-engine/modules/finances/system/services';
+import {
+    HistoryFilterService,
+} from 'wlc-engine/modules/finances/system/services';
 import {BonusesService} from 'wlc-engine/modules/bonuses/system/services';
 import {Transaction} from 'wlc-engine/modules/finances/system/models/transaction-history.model';
 import {HistoryItemModel} from 'wlc-engine/modules/bonuses/system/models/bonus-history-item.model';
@@ -82,12 +85,13 @@ export class BonusesHistoryComponent extends AbstractComponent implements OnInit
     };
 
     protected allBets: any[] = [];
+    protected historyFilterService: HistoryFilterService;
 
     constructor(
         @Inject('injectParams') protected params: Params.IBonusesHistoryCParams,
         protected cdr: ChangeDetectorRef,
         protected eventService: EventService,
-        protected historyFilterService: HistoryFilterService,
+        protected injectionService: InjectionService,
         protected bonusesService: BonusesService,
         protected configService: ConfigService,
     ) {
@@ -100,6 +104,7 @@ export class BonusesHistoryComponent extends AbstractComponent implements OnInit
 
     public async ngOnInit(): Promise<void> {
         super.ngOnInit();
+        this.historyFilterService = await this.injectionService.getService<HistoryFilterService>('finances.history-filter');
         await this.bonusesService.queryBonuses(true, 'history');
         this.bonusesService.getObserver('history').subscribe((value) => {
             this.allBets = _map(value, (item) => {
