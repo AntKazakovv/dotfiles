@@ -18,6 +18,7 @@ export interface ILivechatConfig {
     verboxSetup?: IVerboxSetup;
     group?: IIndexing<string>; // chatra language groups
     autocomplete?: boolean;
+    zESettings?: IIndexing<any>; // https://developer.zendesk.com/api-reference/widget/settings/
 }
 
-export type TLiveChat = 'chatra' | 'livechatinc' | 'verbox' | 'tawkChat';
+export type TLiveChat = 'chatra' | 'livechatinc' | 'verbox' | 'tawkChat' | 'zendesk';

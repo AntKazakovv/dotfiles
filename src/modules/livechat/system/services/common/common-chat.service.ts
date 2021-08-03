@@ -1,4 +1,8 @@
-import {Injectable} from '@angular/core';
+import {
+    Injectable,
+    Injector,
+} from '@angular/core';
+
 import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
 import {ILivechatConfig} from 'wlc-engine/modules/livechat/system/interfaces/livechat.interface';
 import {ChatraService} from 'wlc-engine/modules/livechat/system/services/chatra/chatra.service';
@@ -6,8 +10,9 @@ import {LivechatincService} from 'wlc-engine/modules/livechat/system/services/li
 import {VerboxService} from 'wlc-engine/modules/livechat/system/services/verbox/verbox.service';
 import {TawkChatService} from 'wlc-engine/modules/livechat/system/services/tawk/tawk-chat.service';
 import {TLiveChat} from 'wlc-engine/modules/livechat/system/interfaces/livechat.interface';
+import {ZendeskService} from 'wlc-engine/modules/livechat/system/services/zendesk/zendesk.service';
 
-export type TChatService = LivechatincService | VerboxService | ChatraService | TawkChatService;
+export type TChatService = LivechatincService | VerboxService | ChatraService | TawkChatService | ZendeskService;
 
 @Injectable({
     providedIn: 'root',
@@ -19,10 +24,7 @@ export class CommonChatService {
 
     constructor(
         protected configService: ConfigService,
-        protected livechatincService: LivechatincService,
-        protected verboxService: VerboxService,
-        protected chatraService: ChatraService,
-        protected tawkChatService: TawkChatService,
+        protected injector: Injector,
     ) {
         this.init();
     }
@@ -35,16 +37,19 @@ export class CommonChatService {
 
             switch (config.type) {
                 case 'chatra':
-                    this.activeChatService = this.chatraService;
+                    this.activeChatService = this.injector.get(ChatraService);
                     break;
                 case 'livechatinc':
-                    this.activeChatService = this.livechatincService;
+                    this.activeChatService = this.injector.get(LivechatincService);
                     break;
                 case 'verbox':
-                    this.activeChatService = this.verboxService;
+                    this.activeChatService = this.injector.get(VerboxService);
                     break;
                 case 'tawkChat':
-                    this.activeChatService = this.tawkChatService;
+                    this.activeChatService = this.injector.get(TawkChatService);
+                    break;
+                case 'zendesk':
+                    this.activeChatService = this.injector.get(ZendeskService);
                     break;
             }
 
