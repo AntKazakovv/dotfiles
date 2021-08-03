@@ -197,12 +197,19 @@ export class CurrencyComponent
     }
 
     protected updateModel(): void {
-        const model = new CurrencyModel(this.$params.value, {
-            language: this.language,
-            currency: this.$params.currency || 'EUR',
-            digitsInfo: this.$params.digitsInfo,
-            svgPosition: this.svgPosition || 'right',
-        });
+        const model = new CurrencyModel(
+            {
+                component: 'CurrencyComponent',
+                method: 'updateModel',
+            },
+            this.$params.value,
+            {
+                language: this.language,
+                currency: this.$params.currency || 'EUR',
+                digitsInfo: this.$params.digitsInfo,
+                svgPosition: this.svgPosition || 'right',
+            },
+        );
 
         this.isNegative = model.numericValue < 0;
         let currencyParts = [...model.currencyParts];
@@ -219,14 +226,14 @@ export class CurrencyComponent
         if (this.$params.showIconOnly) {
             currencyParts = _filter(currencyParts, (part) => part.type === 'currency');
         }
-        
+
         this.displayValue = _join(_map(currencyParts, (part) => part.value), '').trim();
 
         if (this.$params.value > 0) {
             this.addModifiers('above-zero');
         } else if (this.$params.value < 0) {
             this.addModifiers('less-zero');
-        }   
+        }
     }
 
     protected getInlineParams(): Params.ICurrencyCParams {

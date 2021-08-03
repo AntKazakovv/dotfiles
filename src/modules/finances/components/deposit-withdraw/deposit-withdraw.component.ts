@@ -229,10 +229,17 @@ export class DepositWithdrawComponent extends AbstractComponent implements OnIni
                 title: gettext('Withdraw'),
                 message: [
                     gettext('Withdraw request has been successfully sent!'),
-                    this.translateService.instant(gettext('Withdraw sum')) + ' ' + new CurrencyModel(form.value.amount, {
-                        currency: this.userService.userProfile.currency,
-                        language: this.translateService.currentLang,
-                    }),
+                    this.translateService.instant(gettext('Withdraw sum')) + ' ' + new CurrencyModel(
+                        {
+                            component: 'DepositWithdrawComponent',
+                            method: 'withdraw',
+                        },
+                        form.value.amount,
+                        {
+                            currency: this.userService.userProfile.currency,
+                            language: this.translateService.currentLang,
+                        },
+                    ),
                 ],
                 wlcElement: 'notification_withdraw-request-success',
             });

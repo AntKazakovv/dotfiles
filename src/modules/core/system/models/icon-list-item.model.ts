@@ -1,4 +1,10 @@
+import {
+    AbstractModel,
+    IFromLog,
+} from 'wlc-engine/modules/core';
 import {RawParams} from '@uirouter/core';
+
+import _assign from 'lodash-es/assign';
 
 /** Input params for an icon in an icon list [IconListComponent]{@link IconListComponent}. */
 export interface IIconParams {
@@ -36,30 +42,83 @@ interface IPostfix {
 /** Type of displayed icon. */
 type IconType = 'img' | 'svg';
 
-export class IconModel {
-    readonly showAs: IconType;
-    readonly modifier: string;
-    readonly sref: string;
-    readonly srefParams: RawParams;
-    readonly href: string;
-    readonly target: string;
-    readonly alt: string;
-    readonly title: string;
-    readonly wlcElement: string;
+export class IconModel extends AbstractModel<IIconParams> {
     public isError: boolean = false;
 
     constructor(
-        protected icon: IIconParams,
+        from: IFromLog,
+        data: IIconParams,
     ) {
-        this.modifier = icon.modifier;
-        this.sref = icon.sref;
-        this.srefParams = icon.srefParams;
-        this.href = icon.href;
-        this.alt = icon.alt;
-        this.title = icon.title;
-        this.target = icon.target || (icon?.sref) ? '_self' : '_blank';
-        this.showAs = (icon.showAs !== 'img' && icon.iconUrl.split('.').pop()) === 'svg' ? 'svg' : 'img';
-        this.wlcElement = icon.wlcElement || 'wlc-icon';
+        super({from: _assign({model: 'IconModel'}, from)});
+        this.data = {
+            ...data,
+            target: data.target || (data?.sref) ? '_self' : '_blank',
+            showAs: (data.showAs !== 'img' && data.iconUrl.split('.').pop()) === 'svg' ? 'svg' : 'img',
+            wlcElement: data.wlcElement || 'wlc-icon',
+        };
+    }
+
+    /**
+     * @returns {string} return modifier
+     */
+    public get modifier(): string {
+        return this.data.modifier;
+    }
+
+    /**
+     * @returns {string} return sref
+     */
+    public get sref(): string {
+        return this.data.sref;
+    }
+
+    /**
+     * @returns {string} return srefParams
+     */
+    public get srefParams(): RawParams {
+        return this.data.srefParams;
+    }
+
+    /**
+     * @returns {string} return href
+     */
+    public get href(): string {
+        return this.data.href;
+    }
+
+    /**
+     * @returns {string} return alt icon
+     */
+    public get alt(): string {
+        return this.data.alt;
+    }
+
+    /**
+     * @returns {string} return target
+     */
+    public get target(): string {
+        return this.data.target;
+    }
+
+    /**
+     * @returns {string} return title
+     */
+    public get title(): string {
+        return this.data.title;
+    }
+
+    /**
+     * return showAs. Defines how to display image.
+     */
+    public get showAs(): IconType {
+        return this.data.showAs;
+    }
+
+    /**
+     * @returns {string} return wlcElement
+     */
+    public get wlcElement(): string {
+        return this.data.wlcElement;
     }
 
     public get template(): string {
@@ -73,26 +132,22 @@ export class IconModel {
     }
 
     public get image(): string {
-        if (this.icon.iconUrl) {
-            return this.icon.iconUrl;
-        }
+        return this.data.iconUrl;
     }
 
     public get imageHover(): string {
-        if (this.icon.iconHoverUrl) {
-            return this.icon.iconHoverUrl;
-        }
+        return this.data.iconHoverUrl;
     }
 
     public get image2x(): string {
-        if (this.icon.postfix?.main && this.icon.iconUrl) {
-            return this.addPostfix(this.icon.iconUrl, this.icon.postfix.main);
+        if (this.data.postfix?.main && this.data.iconUrl) {
+            return this.addPostfix(this.data.iconUrl, this.data.postfix.main);
         }
     }
 
     public get imageHover2x(): string {
-        if (this.icon.postfix?.hover && this.icon.iconHoverUrl) {
-            return this.addPostfix(this.icon.iconHoverUrl, this.icon.postfix.hover);
+        if (this.data.postfix?.hover && this.data.iconHoverUrl) {
+            return this.addPostfix(this.data.iconHoverUrl, this.data.postfix.hover);
         }
     }
 
