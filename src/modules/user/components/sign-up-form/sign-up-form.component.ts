@@ -33,7 +33,7 @@ export interface IRegFormDataForConfig {
 
 /**
  * Sign-up form component.
- *
+ * Can be called via url path (/en/signup) as a modal window or via modal service ((showModal('signup')).
  * @example
  *
  * {
