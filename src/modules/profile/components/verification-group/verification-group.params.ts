@@ -8,12 +8,10 @@ export type Type = 'default' | CustomType;
 export type ThemeMod = 'default' | CustomType;
 
 export interface IVerificationGroupCParams extends IComponentParams<Theme, Type, ThemeMod> {
-    maxSize: number; // MB
-    fileTypes: string[];
-    maxDocsCount: number;
 }
 
 export const defaultParams: Partial<IVerificationGroupCParams> = {
-    class: 'wlc-verification-group',
+    moduleName: 'profile',
     componentName: 'wlc-verification-group',
+    class: 'wlc-verification-group',
 };

@@ -27,6 +27,7 @@ import {
     LoaderStatus,
     VerificationService,
 } from 'wlc-engine/modules/profile';
+import {IVerification} from 'wlc-engine/modules/core/system/interfaces/base-config/profile.interface';
 
 import * as Params from './verification-group.params';
 
@@ -35,15 +36,17 @@ import * as Params from './verification-group.params';
     templateUrl: './verification-group.component.html',
     styleUrls: ['./styles/verification-group.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
-    preserveWhitespaces: true,
 })
 export class VerificationGroupComponent extends AbstractComponent implements OnInit, OnChanges {
-    @Input('doc-group') public currentDocGroup: DocGroupModel;
+    @Input() public currentDocGroup: DocGroupModel;
+    @Input() public fileTypes: string[];
+    @Input() public acceptFormat: string;
     @Output() protected needUpdate = new EventEmitter<void>();
     public $params: Params.IVerificationGroupCParams;
-    public acceptFormat: string;
+    public verificationParams: IVerification;
 
     constructor(
+        @Inject('injectParams') protected injectParams: Params.IVerificationGroupCParams,
         protected configService: ConfigService,
         protected verificationService: VerificationService,
         protected eventService: EventService,
@@ -56,9 +59,8 @@ export class VerificationGroupComponent extends AbstractComponent implements OnI
     }
 
     public ngOnInit(): void {
-        super.ngOnInit({
-            ...this.verificationService.params,
-        } as Params.IVerificationGroupCParams);
+        super.ngOnInit(this.injectParams);
+        this.verificationParams = this.configService.get<IVerification>('$base.profile.verification');
 
         this.eventService.filter([{
             name: 'DROP_FILES',
@@ -75,14 +77,21 @@ export class VerificationGroupComponent extends AbstractComponent implements OnI
         this.switchLoader();
     }
 
+    /**
+     * Upload file
+     * 
+     * @param {FileList} files
+     * @param {string} docLabel
+     * @returns {Promise<void>}
+     */
     public async uploadFile(files: FileList, docLabel: string): Promise<void> {
-        if (this.currentDocGroup.pending || !files.length) {
-            return;
-        }
+        const {maxSize, maxDocsCount} = this.verificationParams;
 
-        if (!this.verificationService.checkFile(files[0])) return;
-
-        if (this.verificationService.checkUploadLimit(this.currentDocGroup.docs.length)) return;
+        if (this.currentDocGroup.pending ||
+            !files.length ||
+            !this.verificationService.checkFile(files[0], this.fileTypes, maxSize) ||
+            this.verificationService.checkUploadLimit(this.currentDocGroup.docs.length, maxDocsCount)
+        ) return;
 
         this.switchLoader(LoaderStatus.Loading);
 
@@ -94,6 +103,12 @@ export class VerificationGroupComponent extends AbstractComponent implements OnI
         }
     }
 
+    /**
+     * Delete document
+     * 
+     * @param {DocModel} doc 
+     * @returns {Promise<void>}
+     */
     public async deleteDoc(doc: DocModel): Promise<void> {
         if (this.currentDocGroup.pending) {
             return;

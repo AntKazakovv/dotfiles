@@ -8,15 +8,14 @@ import {
     ViewChild,
 } from '@angular/core';
 import {FormControl} from '@angular/forms';
-
 import {takeUntil} from 'rxjs/operators';
 import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
 import {EventService} from 'wlc-engine/modules/core/system/services/event/event.service';
 import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
+import {VerificationService} from 'wlc-engine/modules/profile/system/services/verification/verification.service';
 import {IEvent} from 'wlc-engine/modules/core/system/services/event/event.service';
 import {IMixedParams} from 'wlc-engine/modules/core/system/classes/abstract.component';
 import {ISelectCParams} from 'wlc-engine/modules/core/components/select/select.params';
-
 import {
     IDoc,
     IDocTypeResponse,
@@ -24,10 +23,9 @@ import {
     LoaderStatus,
     ISelectOptions,
 } from 'wlc-engine/modules/profile/system/interfaces/verification.interface';
-
-import {VerificationService} from 'wlc-engine/modules/profile/system/services/verification/verification.service';
 import {DocModel} from 'wlc-engine/modules/profile/system/models/doc.model';
 import {DocGroupModel} from 'wlc-engine/modules/profile/system/models/doc-group.model';
+import {IVerification} from 'wlc-engine/modules/core/system/interfaces/base-config/profile.interface';
 
 import * as Params from './verification.params';
 
@@ -45,6 +43,8 @@ import _find from 'lodash-es/find';
 export class VerificationComponent extends AbstractComponent implements OnInit {
     @ViewChild('inputFile') public inputFile: ElementRef<HTMLInputElement>;
     public docGroups: DocGroupModel[];
+    public fileTypes: string[];
+    public acceptFormat: string;
     public currentDocGroup: DocGroupModel;
     public loaded: boolean = false;
     public $params: Params.IVerificationCParams;
@@ -56,9 +56,8 @@ export class VerificationComponent extends AbstractComponent implements OnInit {
         items: [],
         control: new FormControl(''),
     };
-
-    private docTypes: IDocTypeResponse[];
-    public acceptFormat: string;
+    public verificationParams: IVerification;
+    protected docTypes: IDocTypeResponse[];
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IVerificationCParams,
@@ -74,44 +73,31 @@ export class VerificationComponent extends AbstractComponent implements OnInit {
             }, configService);
     }
 
-    public get selectItems(): ISelectOptions[] {
-        return _map(this.docTypes, ({ID, Name}) => {
-            return {
-                value: ID,
-                title: Name,
-            };
-        });
-    }
-
-    public get isSelectMode(): boolean {
-        return this.docTypes.length >= this.$params.selectModeFrom
-            || this.configService.get('$base.profile.type') === 'first';
-    }
-
     public async ngOnInit(): Promise<void> {
-        super.ngOnInit({
-            ...this.verificationService.params,
-            ...this.injectParams,
-        } as Params.IVerificationCParams);
+        super.ngOnInit(this.injectParams);
         this.docTypes = await this.verificationService.getDocsTypes();
-        if (!this.docTypes.length) {
+        this.fileTypes = await this.verificationService.getFileTypes();
+        this.verificationParams = this.configService.get<IVerification>('$base.profile.verification');
+
+        if (!this.docTypes.length || !this.fileTypes.length) {
             this.loaded = true;
             return this.cdr.markForCheck();
         }
 
-        this.eventService.filter([{
-            name: 'DROP_FILES',
-        }])
-            .pipe(takeUntil(this.$destroy))
-            .subscribe(({data}: IEvent<IDroppedFiles>) => {
-                if (data.label === this.currentDocGroup.ID) {
-                    this.preloadFile(data.files);
-                }
-            });
+        if (this.isSelectMode) {
+            this.eventService.filter([{
+                name: 'DROP_FILES',
+            }])
+                .pipe(takeUntil(this.$destroy))
+                .subscribe(({data}: IEvent<IDroppedFiles>) => {
+                    if (data.label === this.currentDocGroup.ID) {
+                        this.preloadFile(data.files);
+                    }
+                });
+        }
 
-        this.acceptFormat = this.verificationService.acceptFormat();
-
-        this.selectParams.items = this.selectItems;
+        this.acceptFormat = this.fileTypes.map(item => `.${item}`).join(', ');
+        this.selectParams.items = this.selectItems();
         this.selectParams.control.setValue(this.docTypes[0].ID);
         this.selectParams.control.registerOnChange(this.setCurrentDocGroup.bind(this));
         await this.updateDocItems();
@@ -119,6 +105,21 @@ export class VerificationComponent extends AbstractComponent implements OnInit {
         this.loaded = true;
     }
 
+    /**
+     * Check is select mode
+     * 
+     * @returns {boolean}
+     */
+    public get isSelectMode(): boolean {
+        return this.docTypes.length >= this.verificationParams.selectModeFrom
+            || this.configService.get('$base.profile.type') === 'first';
+    }
+
+    /**
+     * Update document items
+     * 
+     * @returns {Promise<void>}
+     */
     public async updateDocItems(): Promise<void> {
         const docs: IDoc[] = await this.verificationService.getUserDocs();
         this.docGroups = _map(this.docTypes, (docType: IDocTypeResponse) => {
@@ -134,11 +135,17 @@ export class VerificationComponent extends AbstractComponent implements OnInit {
         if (this.currentDocGroup) {
             this.setCurrentDocGroup(this.currentDocGroup.ID);
         }
-        this.cdr.markForCheck();
+        this.cdr.markForCheck(); 
     }
 
+    /**
+     * Preload check file & preview
+     * 
+     * @param {FileList} files 
+     * @returns {Promise<void>}
+     */
     public async preloadFile(files: FileList): Promise<void> {
-        if (files[0] && this.verificationService.checkFile(files[0])) {
+        if (files[0] && this.verificationService.checkFile(files[0], this.fileTypes, this.verificationParams.maxSize)) {
             this.currentDocGroup.preview = {
                 base64: await this.verificationService.getPreview(files[0]),
                 file: files[0],
@@ -147,12 +154,15 @@ export class VerificationComponent extends AbstractComponent implements OnInit {
         this.cdr.markForCheck();
     }
 
+    /**
+     * Upload file
+     * 
+     * @returns {Promise<void>}
+     */
     public async uploadFile(): Promise<void> {
-        if (this.currentDocGroup.pending) {
-            return;
-        }
-
-        if (this.verificationService.checkUploadLimit(this.currentDocGroup.docs.length)) return;
+        if (this.currentDocGroup.pending ||
+            this.verificationService.checkUploadLimit(this.currentDocGroup.docs.length, this.verificationParams.maxSize)
+        ) return;
 
         this.switchLoader(LoaderStatus.Loading);
 
@@ -165,11 +175,22 @@ export class VerificationComponent extends AbstractComponent implements OnInit {
         }
     }
 
-    public clearPreview() {
+    /**
+     * Clear preview
+     * 
+     * @returns {void}
+     */
+    public clearPreview(): void {
         this.currentDocGroup.preview = {};
         this.inputFile.nativeElement.value = '';
     }
 
+    /**
+     * Delete document
+     * 
+     * @param {DocModel} doc 
+     * @returns {Promise<void>}
+     */
     public async deleteDoc(doc: DocModel): Promise<void> {
         doc.switchLoader(LoaderStatus.Deleting);
         this.cdr.markForCheck();
@@ -181,7 +202,21 @@ export class VerificationComponent extends AbstractComponent implements OnInit {
         }
     }
 
-    protected setCurrentDocGroup(id: string) {
+    /** 
+     * Get documents types
+     * 
+     * @returns {ISelectOptions[]}
+    */
+    protected selectItems(): ISelectOptions[] {
+        return _map(this.docTypes, ({ID, Name}) => {
+            return {
+                value: ID,
+                title: Name,
+            };
+        });
+    }
+
+    protected setCurrentDocGroup(id: string): void {
         this.currentDocGroup = _find(this.docGroups, ({ID}) => ID === id);
     }
 
@@ -189,5 +224,4 @@ export class VerificationComponent extends AbstractComponent implements OnInit {
         this.currentDocGroup.switchLoader(status);
         this.cdr.markForCheck();
     }
-
 }

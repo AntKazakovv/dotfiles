@@ -4,7 +4,9 @@
             <div *ngFor="let docGroup of docGroups"
                  wlc-verification-group
                  class="{{$class}}__item"
-                 [doc-group]="docGroup"
+                 [currentDocGroup]="docGroup"
+                 [fileTypes]="fileTypes"
+                 [acceptFormat]="acceptFormat"
                  (needUpdate)="updateDocItems()">
             </div>
         </div>
@@ -44,8 +46,8 @@
                     <span class="{{$class}}__text-inner">
                         {{'Click to select an image or drag the selected image here.'| translate}}
                     </span>
-                    <span>{{'Format' | translate}}: {{$params.fileTypes.join(', ')}}.
-                        <span>{{'Max size' | translate}} {{$params.maxSize}} MB</span>
+                    <span>{{'Format' | translate}}: {{acceptFormat}}.
+                        <span>{{'Max size' | translate}} {{verificationParams.maxSize}} MB</span>
                     </span>
                 </p>
             </div>

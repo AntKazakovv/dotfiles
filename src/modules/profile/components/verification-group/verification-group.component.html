@@ -10,9 +10,7 @@
         </div>
         <div class="{{$class}}__title">{{currentDocGroup.Name}}</div>
         <div class="{{$class}}__required">{{'Required' | translate}}</div>
-        <div *ngIf="currentDocGroup.Description" class="{{$class}}__description">
-            {{currentDocGroup.Description}}
-        </div>
+        <div *ngIf="currentDocGroup.Description" class="{{$class}}__description">{{currentDocGroup.Description}}</div>
     </div>
     <ul class="{{$class}}-docs-list" *ngIf="currentDocGroup.docs.length">
         <li *ngFor="let doc of currentDocGroup.docs" class="{{$class}}-docs-list__item {{doc.className}}">
@@ -62,9 +60,9 @@
             <ng-template ngSwitchDefault>
                 {{'Drop file here or' | translate}}
                 <span>{{'browse' | translate}}</span>
-                {{$params.fileTypes.join(', ')}}.
+                {{acceptFormat}}.
                 {{'Max size' | translate}}
-                {{$params.maxSize}} MB
+                {{verificationParams.maxSize}} MB
             </ng-template>
         </p>
     </div>
@@ -77,8 +75,8 @@
         ></button>
         <p class="{{$class}}__text">
             {{'browse' | translate | titlecase}}
-            {{$params.fileTypes?.join(', ')}}.
-            {{'Max size' | translate}} {{$params.maxSize}} MB
+            {{acceptFormat}}.
+            {{'Max size' | translate}} {{verificationParams.maxSize}} MB
         </p>
     </div>
 </ng-container>

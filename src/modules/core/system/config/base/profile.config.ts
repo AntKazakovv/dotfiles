@@ -9,6 +9,9 @@ export const profileConfig: IProfileConfig = {
     },
     verification: {
         use: true,
+        selectModeFrom: 4,
+        maxDocsCount: 5,
+        maxSize: 4,
     },
     limitations: {
         use: false,

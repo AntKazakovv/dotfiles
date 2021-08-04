@@ -10,39 +10,70 @@ import {
     IDoc,
     IDocTypeResponse,
 } from 'wlc-engine/modules/profile';
+import {LogService} from 'wlc-engine/modules/core/system/services/log/log.service';
 
-import _find from 'lodash-es/find';
 import _includes from 'lodash-es/includes';
-import _join from 'lodash-es/join';
-import _map from 'lodash-es/map';
+import _toArray from 'lodash-es/toArray';
 
 @Injectable({
     providedIn: 'root',
 })
 export class VerificationService {
-    public params = {
-        maxSize: 4,
-        fileTypes: ['jpg', 'png', 'jpeg'],
-        maxDocsCount: 5,
-    }
 
     constructor(
         private dataService: DataService,
         private eventService: EventService,
+        private logService: LogService,
     ) {
         this.init();
     }
 
-    public acceptFormat(): string {
-        return _join(_map(this.params.fileTypes, (type) => `image/${type}`), ', ');
+    public async getDocsTypes(): Promise<IDocTypeResponse[]> {
+        try {
+            return (await this.dataService.request<IData>('docs/docs-types'))?.data;
+        } catch (error) {
+            this.logService.sendLog({
+                code: '9.0.2',
+                from: {
+                    service: 'VerificationService',
+                    method: 'getDocsTypes',
+                },
+                data: error,
+            });
+            return [];
+        }
     }
 
-    public async getDocsTypes(): Promise<IDocTypeResponse[]> {
-        return (await this.dataService.request<IData>('docs/docs-types'))?.data;
+    public async getFileTypes(): Promise<string[]> {
+        try {
+            return _toArray((await this.dataService.request<IData>('docs/docs-extensions'))?.data);
+        } catch (error) {
+            this.logService.sendLog({
+                code: '9.0.3',
+                from: {
+                    service: 'VerificationService',
+                    method: 'getFileTypes',
+                },
+                data: error,
+            });
+            return [];
+        }
     }
 
     public async getUserDocs(): Promise<IDoc[]> {
-        return (await this.dataService.request<IData>('docs/docs-list'))?.data;
+        try {
+            return (await this.dataService.request<IData>('docs/docs-list'))?.data;
+        } catch (error) {
+            this.logService.sendLog({
+                code: '9.0.4',
+                from: {
+                    service: 'VerificationService',
+                    method: 'getUserDocs',
+                },
+                data: error,
+            });
+            return [];
+        }
     }
 
     public async uploadFile(file: File, docLabel: string): Promise<IData> {
@@ -57,6 +88,14 @@ export class VerificationService {
 
             return result;
         } catch (result) {
+            this.logService.sendLog({
+                code: '9.0.5',
+                from: {
+                    service: 'VerificationService',
+                    method: 'uploadFile',
+                },
+                data: result,
+            });
             this.showError(result.errors);
             return Promise.reject(result);
         }
@@ -74,6 +113,14 @@ export class VerificationService {
 
             return result;
         } catch (result) {
+            this.logService.sendLog({
+                code: '9.0.6',
+                from: {
+                    service: 'VerificationService',
+                    method: 'deleteDoc',
+                },
+                data: result,
+            });
             this.showError(result.errors);
             return Promise.reject(result);
         }
@@ -102,17 +149,15 @@ export class VerificationService {
         });
     }
 
-    public checkFile(file: File): boolean {
-        if (file.size > this.params.maxSize * 1000000) {
+    public checkFile(file: File, fileTypes: string[], maxSize: number): boolean {
+        const extension = file.name.split('.').pop();
+
+        if (file.size > maxSize * 1000000) {
             this.showError('No valid size');
             return false;
         }
-
-        const isValidType = !!_find(this.params.fileTypes, (item) => {
-            return _includes(file.type, item);
-        });
-
-        if (!isValidType) {
+ 
+        if (!_includes(fileTypes, extension)) {
             this.showError('No valid format');
             return false;
         }
@@ -130,8 +175,8 @@ export class VerificationService {
         });
     }
 
-    public checkUploadLimit(docsCount: number): boolean {
-        if (docsCount >= this.params.maxDocsCount) {
+    public checkUploadLimit(docsCount: number, maxDocsCount: number): boolean {
+        if (docsCount >= maxDocsCount) {
             this.eventService.emit({
                 name: NotificationEvents.PushMessage,
                 data: {
@@ -142,11 +187,11 @@ export class VerificationService {
             });
         }
 
-        return docsCount >= this.params.maxDocsCount;
+        return docsCount >= maxDocsCount;
     }
 
 
-    private init() {
+    private init(): void {
         this.dataService.registerMethod({
             name: 'docs-types',
             url: '/docs/types',
@@ -159,6 +204,13 @@ export class VerificationService {
         this.dataService.registerMethod({
             name: 'docs-list',
             url: '/docs',
+            type: 'GET',
+            system: 'docs',
+        });
+
+        this.dataService.registerMethod({
+            name: 'docs-extensions',
+            url: '/docs/extensions',
             type: 'GET',
             system: 'docs',
         });
