@@ -155,7 +155,9 @@ export class PaymentListComponent extends IconListAbstract<Params.IPaymentListCP
             if (this.configService.get<boolean>('$finances.payment.autoSelect')) {
                 const alias: string = this.configService.get<string>('$finances.payment.alias');
                 this.currentSystem = alias ? this.systems.find((system) => system.alias === alias) : systems[0];
-                this.selectPayment(this.currentSystem);
+                if (this.currentSystem) {
+                    this.selectPayment(this.currentSystem);
+                }
             }
 
             if (this.currentSystem && !this.systems.some((s) => s.id === this.currentSystem.id)) {
