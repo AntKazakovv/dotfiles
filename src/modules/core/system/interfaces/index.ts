@@ -9,6 +9,7 @@ export * from './categories.interface';
 export * from './base-config';
 export * from './loyalty-config.interface';
 export * from './base-config/notifications.interface';
+export * from './base-config/registration.interface';
 export {DeviceType} from 'wlc-engine/modules/core/system/models/device.model';
 export * from './config.interface';
 export * from './core.interface';

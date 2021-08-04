@@ -37,6 +37,10 @@
             height: ef.get-value($themeDefault, 'inputHeight');
             @include text.get-text-style('PrimaryText', ef.get-value($themeVertical, 'inputColor'));
 
+            &::placeholder {
+                color: ef.get-value($themeDefault, 'inputPlaceholderColor');
+            }
+
             &:focus {
                 outline: none;
                 border-color: ef.get-value($themeDefault, 'inputBorderFocusColor');

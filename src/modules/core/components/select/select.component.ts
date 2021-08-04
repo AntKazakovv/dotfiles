@@ -34,6 +34,7 @@ import _union from 'lodash-es/union';
 import _kebabCase from 'lodash-es/kebabCase';
 import _get from 'lodash-es/get';
 import _findIndex from 'lodash-es/findIndex';
+import _find from 'lodash-es/find';
 
 /**
  * Component select
@@ -135,11 +136,30 @@ export class SelectComponent extends AbstractComponent implements OnInit,
         }
 
         if (!this.$params.common?.placeholder) {
-            this.control.setValue(this.$params?.items[0]?.value || '');
+            this.control.setValue(this.$params.items[0]?.value || '');
         }
 
         if (this.$params.value) {
             this.control.setValue(this.$params.value);
+        }
+
+        if (this.$params.autoSelect) {
+
+            switch (this.$params.name) {
+                case 'currency': {
+                    const currency = this.configService.get<string>(`$base.registration.selectCurrencyByCountry.${this.configService.get<string>('appConfig.country')}`);
+                    
+                    if (currency && _find(this.$params.items, item => item.value === currency)) {
+                        this.control.setValue(currency);
+                    }
+
+                    break;
+                }
+                case 'countryCode': {
+                    this.control.setValue(this.configService.get<string>('appConfig.country'));
+                    break;
+                }
+            }
         }
     }
 

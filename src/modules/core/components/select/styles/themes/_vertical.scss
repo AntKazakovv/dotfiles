@@ -90,6 +90,10 @@
                 color: ef.get-value($themeDefault, 'inputPlaceholderColor');
             }
 
+            &.ng-valid {
+                color: ef.get-value($baseSettings, 'selectColor');
+            }
+
             &.ng-touched {
 
                 &.ng-invalid {
