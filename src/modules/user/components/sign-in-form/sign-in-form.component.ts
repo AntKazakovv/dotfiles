@@ -26,6 +26,7 @@ import _some from 'lodash-es/some';
 
 /**
  * Sign-in form component.
+ * Can be called via url path (/en/login) as a modal window or via modal service (showModal('login')).
  *
  * @example
  *
