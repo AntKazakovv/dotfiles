@@ -32,6 +32,7 @@ export interface ISelectCParams extends IComponentParams<ComponentTheme, Compone
     options?: string;
     items?: ISelectOptions[];
     modifiers?: Modifiers[];
+    autoSelect?: boolean;
 }
 
 export interface ISelectOptions {

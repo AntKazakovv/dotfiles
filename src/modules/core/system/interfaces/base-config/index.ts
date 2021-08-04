@@ -6,10 +6,9 @@ import {IAppConfig} from './app.interface';
 import {INotificationsConfig} from './notifications.interface';
 import {IInteractiveText} from './interactiveText.interface';
 import {ILivechatConfig} from 'wlc-engine/modules/livechat';
+import {IRedirectConfig} from 'wlc-engine/modules/core';
+import {IRegistrationConfig} from './registration.interface';
 import {ISocialItem} from 'wlc-engine/modules/core/components/social-icons/social-icons.params';
-import {
-    IRedirectConfig,
-} from 'wlc-engine/modules/core';
 
 export * from './games.interface';
 export * from './tournaments.interface';
@@ -46,4 +45,5 @@ export interface IBaseConfig {
      * Use seo service; Service gets information from wordpress plugin 'Seo Softgamings';
      */
     useSeo?: boolean;
+    registration?: IRegistrationConfig;
 }

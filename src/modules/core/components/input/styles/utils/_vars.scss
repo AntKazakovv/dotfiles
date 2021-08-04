@@ -11,6 +11,7 @@ $themeDefault: map-merge((
 
     'inputHeight': ef.get('form', 'inputHeight'),
     'inputMaxWidth': ef.get('form', 'inputMaxWidth'),
+    'inputPlaceholderColor': ef.get('fieldColors', 'placeholderColor'),
     'inputBorder': ef.get('form', 'inputBorder'),
     'inputBorderFocusColor': ef.get('form', 'inputBorderFocusColor'),
     'inputBorderRadius': ef.get('form', 'inputBorderRadius'),
