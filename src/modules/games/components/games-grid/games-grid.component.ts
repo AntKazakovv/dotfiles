@@ -224,7 +224,9 @@ export class GamesGridComponent extends AbstractComponent implements OnInit {
             const successTransitionListener = this.router.transitionService.onSuccess({}, () => {
                 this.$params.wlcElement = `wlc-games-grid-${this.getWlcSuffix()}`;
                 this.setWlcElementOnHost();
-                this.prepareGrid();
+                this.prepareGrid().finally(() => {
+                    this.setGridParams();
+                });
             });
 
             this.$destroy.subscribe(() => {
