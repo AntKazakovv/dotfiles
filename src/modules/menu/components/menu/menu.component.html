@@ -33,7 +33,7 @@
                [uiParams]="item.params?.state?.params"
                [uiOptions]="item.params?.state?.options"
                [attr.data-wlc-element]="item.wlcElement"
-               title="{{item.name}}"
+               title="{{item.name | translate}}"
                uiSrefActive="active">
 
                 <span *ngIf="$params.theme === 'first'"
