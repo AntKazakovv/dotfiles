@@ -49,6 +49,7 @@ export class BannersSliderComponent extends AbstractComponent implements OnInit 
         this.createSlides();
         setTimeout(() => {
             this.ready = true;
+            this.useNavigation = !this.$params.hideNavigation && this.slides.length > 1;
             this.cdr.detectChanges();
         }, 0);
     }
@@ -64,8 +65,6 @@ export class BannersSliderComponent extends AbstractComponent implements OnInit 
                 ),
             };
         });
-        this.useNavigation =
-            this.$params.theme === 'default-banner' && this.slides.length > 1 && !this.$params.hideNavigation;
 
         if (this.slides.length <= 1) {
             this.$params.sliderParams.swiper.loop = false;
