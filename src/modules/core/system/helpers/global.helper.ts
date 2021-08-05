@@ -9,6 +9,7 @@ import {
     fromEventPattern,
     Observable,
 } from 'rxjs';
+import Bowser from 'bowser';
 
 import {NgTemplateNameDirective} from 'wlc-engine/modules/core/directives/template-name/template-name.directive';
 import {IDisplayConfig} from 'wlc-engine/modules/core/system/interfaces';
@@ -25,6 +26,8 @@ import _assign from 'lodash-es/assign';
 import _reverse from 'lodash-es/reverse';
 
 export class GlobalHelper {
+
+    protected static bowser = Bowser.getParser(window.navigator.userAgent);
 
     public static gettext<T>(content: T): T {
         return content;
@@ -250,5 +253,48 @@ export class GlobalHelper {
         return _reduce(elementList, (res, element): boolean => {
             return res || !_isUndefined(element.display?.auth);
         }, false);
+    }
+
+    /**
+     * Used device with touch screen
+     *
+     * @returns {boolean}
+     */
+    public static touchSupported(): boolean {
+
+        const isTouchByMatchMedia = (): boolean => {
+            if (!window.matchMedia) {
+                return false;
+            }
+            const prefixes: string[] = [
+                '-webkit-',
+                '-moz-',
+                '-o-',
+                '-ms-',
+            ];
+            const query: string = `(${prefixes.join('touch-enabled),(')}heartz)`;
+            return !!(window.matchMedia(query).matches || window.matchMedia('only handheld'));
+        };
+
+        return !!('ontouchstart' in window
+            || document.documentElement.ontouchmove
+            || typeof window.ontouchstart !== 'undefined'
+            || 'createTouch' in document
+            || window.navigator.maxTouchPoints > 0
+            || window.navigator.msMaxTouchPoints > 0
+            || (window.navigator.msPointerEnabled && window['MSGesture'])
+            || isTouchByMatchMedia()
+        );
+    }
+
+    /**
+     * Device uses PC emulation mode
+     *
+     * @returns {boolean}
+     */
+    public static usedPcEmulation(): boolean {
+        return window.screen.availWidth <= 1024
+            && GlobalHelper.bowser.getPlatformType(true) === 'desktop'
+            && GlobalHelper.touchSupported();
     }
 }

@@ -64,7 +64,7 @@ module.exports = function inlineTask() {
             cb && cb();
             process.exit();
         });
-        await src(`${this.params.paths.inline}/*.ts`)
+        await src(`${this.params.paths.inline}/index.ts`)
             .pipe(webpack(Object.assign({}, config, {mode: 'development', watch: true}), wp))
             .pipe(dest(this.params.paths.dist));
         createInlineSymLink();

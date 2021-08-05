@@ -1,16 +1,27 @@
 import {EventService} from 'wlc-engine/modules/core/system/services/event/event.service';
 import {TranslateService} from '@ngx-translate/core';
-import {Injectable, Injector} from '@angular/core';
+import {
+    Injectable,
+    Injector,
+} from '@angular/core';
 import {
     LocalStorageService,
     SessionStorageService,
 } from 'ngx-webstorage';
-import {BehaviorSubject} from 'rxjs';
+import {
+    BehaviorSubject,
+} from 'rxjs';
 
 import {
     DataService,
     IData,
 } from '../data/data.service';
+import {LogService} from 'wlc-engine/modules/core/system/services/log/log.service';
+import {
+    DeviceModel,
+    IDeviceConfig,
+} from 'wlc-engine/modules/core/system/models/device.model';
+import {UserProfile} from 'wlc-engine/modules/user/system/models/profile.model';
 import {AppConfigModel} from './app-config.model';
 import * as appConfig from 'wlc-config/index';
 import * as wlcConfig from 'wlc-engine/modules/core/system/config/default.config';
@@ -21,23 +32,18 @@ import {
     $profileFirstLayouts,
     $layouts,
 } from 'wlc-engine/modules/core/system/config/layouts';
-import {LogService} from 'wlc-engine/modules/core/system/services/log/log.service';
 import {
     IParamsLayoutConfig,
     ILayoutsConfig,
     IBootstrap,
 } from 'wlc-engine/modules/core/system/interfaces';
 import {GlobalHelper} from 'wlc-engine/modules/core/system/helpers/global.helper';
+import {CookieHelper} from 'wlc-engine/modules/core/system/helpers/cookie.helper';
 import {
     IGlobalConfig,
     IGetParams,
     ISetParams,
 } from './config.interface';
-import {
-    DeviceModel,
-    IDeviceConfig,
-} from 'wlc-engine/modules/core/system/models/device.model';
-import {UserProfile} from 'wlc-engine/modules/user/system/models/profile.model';
 import {UserInfo} from 'wlc-engine/modules/user/system/models/info.model';
 
 export * from './app-config.model';
@@ -80,6 +86,7 @@ export class ConfigService {
         private sessionStorageService: SessionStorageService,
     ) {
         this.setGlobals();
+        this.pcEmulation();
 
         this.translateService.onLangChange
             .subscribe(() => {
@@ -247,5 +254,13 @@ export class ConfigService {
                 },
             });
         });
+    }
+
+    private pcEmulation(): void {
+        if (GlobalHelper.usedPcEmulation()) {
+            CookieHelper.set('PC_EMULATION', '1', 360);
+        } else {
+            CookieHelper.delete('PC_EMULATION');
+        }
     }
 }

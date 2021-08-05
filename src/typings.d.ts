@@ -40,6 +40,7 @@ declare interface Window {
     LC_API?: any;
     affiliate: string;
     WlcFlog: any;
+    WlcCookie: any;
     affCookie: any;
     _PaymentIQCashier?: IPaymentIQCashier;
     _PaymentIQCashierReset?: any;
