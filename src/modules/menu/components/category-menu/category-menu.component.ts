@@ -47,9 +47,11 @@ import _find from 'lodash-es/find';
 })
 export class CategoryMenuComponent extends AbstractComponent implements OnInit, OnChanges {
 
+    @Input() public inlineParams: Params.ICategoryMenuCParams;
+
     public $params: Params.ICategoryMenuCParams;
     public items: MenuParams.IMenuItem[];
-    @Input() public inlineParams: Params.ICategoryMenuCParams;
+    public inited: boolean = false;
 
     protected categories: CategoryModel[];
     protected parentCategory: CategoryModel;
@@ -235,6 +237,7 @@ export class CategoryMenuComponent extends AbstractComponent implements OnInit, 
             }
         }
         this.$params.menuParams = _clone(this.$params.menuParams);
+        this.inited = true;
         this.cdr.detectChanges();
     }
 
