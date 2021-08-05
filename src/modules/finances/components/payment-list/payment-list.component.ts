@@ -174,7 +174,7 @@ export class PaymentListComponent extends IconListAbstract<Params.IPaymentListCP
         const {iconsType, colorIconBg} = this.$params;
         const showAs = iconsType === 'black' ? 'svg' : 'img';
 
-        this.setItemsList<PaymentSystem>(
+        this.items = this.convertItemsToIconModel<PaymentSystem>(
             this.systems,
             (item) => {
                 return {

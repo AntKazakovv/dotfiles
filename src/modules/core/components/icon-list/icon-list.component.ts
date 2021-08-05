@@ -56,7 +56,7 @@ import _uniqBy from 'lodash-es/uniqBy';
 })
 export class IconListComponent extends IconListAbstract<Params.IIconListCParams> implements OnInit, AfterViewChecked {
     /** List of items being rendered. */
-    public items: IconModel[];
+    public items: IconModel[] = [];
     public $params: Params.IIconListCParams;
     protected wrapper: HTMLElement;
     protected resized: boolean = false;
@@ -132,7 +132,7 @@ export class IconListComponent extends IconListAbstract<Params.IIconListCParams>
                 await this.setMerchantsList();
                 break;
             case ('payments'):
-                this.setPaymentsLst();
+                this.setPaymentsList();
                 break;
             default:
                 this.setCustomList();
@@ -159,7 +159,7 @@ export class IconListComponent extends IconListAbstract<Params.IIconListCParams>
 
             merchants = this.updateList('merchant', merchants) as MerchantModel[];
 
-            this.setItemsList<MerchantModel>(
+            this.items = this.convertItemsToIconModel<MerchantModel>(
                 merchants,
                 (item) => {
                     return {
@@ -187,7 +187,7 @@ export class IconListComponent extends IconListAbstract<Params.IIconListCParams>
      * Calls if `theme` is `payments`.
      * Based on bootstrap request data.
      **/
-    protected setPaymentsLst(): void {
+    protected setPaymentsList(): void {
         const {theme, type, colorIconBg} = this.$params;
         const showIconAs = type === 'svg' ? 'svg' : 'img';
 
@@ -196,13 +196,13 @@ export class IconListComponent extends IconListAbstract<Params.IIconListCParams>
 
         payments = this.updateList('payment', payments) as IPaysystem[];
 
-        this.setItemsList<IPaysystem>(
+        const paymentsIcons = this.convertItemsToIconModel<IPaysystem>(
             payments,
             (item) => {
                 return {
                     from: {
                         component: 'IconListComponent',
-                        method: 'setPaymentsLst',
+                        method: 'setPaymentsList',
                     },
                     icon: this.merchantsPaymentsIterator(theme, {
                         showAs: showIconAs,
@@ -210,6 +210,33 @@ export class IconListComponent extends IconListAbstract<Params.IIconListCParams>
                         nameForPath: item.Name,
                         colorIconBg: colorIconBg,
                     }),
+                };
+            },
+        );
+
+        if (this.$params.items?.length) {
+            this.items = [...paymentsIcons, ...this.getConvertedCustomList()];
+        } else {
+            this.items = paymentsIcons;
+        }
+
+        this.cdr.markForCheck();
+    }
+
+    /**
+     * @returns {IconModel[]}
+     * create and return iconmodel based on items from params
+     **/
+    protected getConvertedCustomList(): IconModel[] {
+        return this.convertItemsToIconModel<IIconParams>(
+            this.$params.items,
+            (item) => {
+                return {
+                    icon: item,
+                    from: {
+                        component: 'IconListComponent',
+                        method: 'getConvertedCustomList',
+                    },
                 };
             },
         );
@@ -222,18 +249,7 @@ export class IconListComponent extends IconListAbstract<Params.IIconListCParams>
      **/
     protected setCustomList(): void {
         if (this.$params.items?.length) {
-            this.setItemsList<IIconParams>(
-                this.$params.items,
-                (item) => {
-                    return {
-                        icon: item,
-                        from: {
-                            component: 'IconListComponent',
-                            method: 'setCustomList',
-                        },
-                    };
-                },
-            );
+            this.items = this.getConvertedCustomList();
         } else {
             console.error('[wlc-icon-list] component requires "items" param on the custom theme');
         }

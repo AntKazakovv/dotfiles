@@ -44,12 +44,12 @@ export abstract class IconListAbstract<T> extends AbstractComponent {
     }
 
     /**
-     * Set items collection
+     * Convert items collection to icon model
      * @param items - collection of items
      * @param iterator - handler which returns IIconParams
      */
-    protected setItemsList<I>(items: I[], iterator: (item: I) => {from: IFromLog, icon: IIconParams}): void {
-        this.items = _map<I, IconModel>(items, (item: I): IconModel => {
+    protected convertItemsToIconModel<I>(items: I[], iterator: (item: I) => {from: IFromLog, icon: IIconParams}): IconModel[] {
+        return _map<I, IconModel>(items, (item: I): IconModel => {
             const {from, icon} = iterator(item);
             return new IconModel(from, icon);
         });
