@@ -8,7 +8,7 @@
         "dev:docs": "compodoc --serve --port=4201 --watch",
         "build:docs": "compodoc --silent",
         "build:sassdocs": "npm run gulp sassdoc",
-        "dist": "git submodule update --init && ng build --project wlc-engine --prod && npm run build:docs && npm run build:sassdocs",
+        "dist": "git submodule update --init && ng build --project wlc-engine --configuration production && npm run build:docs && npm run build:sassdocs",
         "test": "ng test",
         "lint": "ng lint",
         "e2e": "ng e2e",

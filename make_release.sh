@@ -1,5 +1,11 @@
 #!/bin/bash
 
+npm run dist
+
+if [ $? -eq 1 ]; then
+    exit 1;
+fi
+
 PROJECT_NAME=$(jq .name < ./package.json)
 stable_branch=$(git branch | awk '/^\* master/ { print $2 }')
 
@@ -44,12 +50,6 @@ fi
 
 ver=${2:-$nextver}
 tag="$ver"
-
-npm run dist
-
-if [ $? -eq 1 ]; then
-    exit 1;
-fi
 
 echo
 echo "Source: remotes/$git_remote/$stable_branch"

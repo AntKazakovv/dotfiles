@@ -40,6 +40,14 @@
                                 "src/engine-scss/dummy"
                             ]
                         },
+                        "allowedCommonJsDependencies": [
+                            "@formatjs/intl-locale/polyfill",
+                            "@formatjs/intl-numberformat/polyfill",
+                            "@formatjs/intl-pluralrules/polyfill",
+                            "css-element-queries",
+                            "text-overflow-clamp",
+                            "hosted-fields-sdk"
+                        ],
                         "webWorkerTsConfig": "./tsconfig.worker.json"
                     },
                     "configurations": {
