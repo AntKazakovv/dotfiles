@@ -26,7 +26,21 @@ module.exports = function messagesTask() {
             },
         });
 
-        this.execShell(commands, true).then(() => cb());
+        this.execShell(commands, true)
+            .then(() => cb())
+            .catch((err) => {
+                err.forEach(item => {
+                    if(item.exitCode) {
+                        console.log(
+                            '\x1b[31m',
+                            '***************************\n',
+                            'Translates error during execution command:\n',
+                            item.command.command,
+                            ' ***************************',
+                        );
+                    }
+                });
+            });
     });
 
     task('message:po_to_json', () => {  // Done
