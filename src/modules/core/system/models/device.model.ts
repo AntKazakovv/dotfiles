@@ -44,15 +44,27 @@ export class DeviceModel {
     }
 
     public get isMobile(): boolean {
-        return;
+        return this.platformType === 'mobile';
     }
 
     public get isTablet(): boolean {
-        return;
+        return this.platformType === 'tablet';
     }
 
     public get isDesktop(): boolean {
-        return;
+        return this.platformType === 'desktop';
+    }
+
+    public get isAndroid(): boolean {
+        return this.osName === 'android';
+    }
+
+    public get isIOS(): boolean {
+        return this.osName === 'ios';
+    }
+
+    public get platformType(): string {
+        return this.bowserParser.getPlatformType(true);
     }
 
     public get osName(): string {

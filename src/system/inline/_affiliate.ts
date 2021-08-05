@@ -1,6 +1,8 @@
 (() => {
     'use strict';
 
+    const cookie = window.WlcCookie;
+
     //TODO rewrite to ts and refactor #219820
     // Start helpers
     function sendLog(code: any, data: any) {
@@ -8,35 +10,6 @@
             return;
         }
         window.WlcFlog.log(code, data).finally();
-    }
-
-    function setCookie(name: any, value: any, days: any) {
-        let expires = '';
-        if (days) {
-            let date = new Date();
-            date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
-            expires = '; expires=' + date.toUTCString();
-        }
-        document.cookie = name + '=' + (value || '') + expires + '; path=/';
-    }
-
-    function getCookie(name: any) {
-        let nameEQ = name + '=';
-        let ca = document.cookie.split(';');
-        for (let i = 0; i < ca.length; i++) {
-            let c = ca[i];
-            while (c.charAt(0) === ' ') {
-                c = c.substring(1, c.length);
-            }
-            if (c.indexOf(nameEQ) === 0) {
-                return c.substring(nameEQ.length, c.length);
-            }
-        }
-        return null;
-    }
-
-    function deleteCookie(name: any) {
-        setCookie(name, '', {expires: -1});
     }
 
     function getQueryString(querystrings?: string) {
@@ -109,7 +82,7 @@
     }
 
     if (!(bodyElem.length && bodyElem[0].getAttribute('data-affiliate-rewrite-link'))) {
-        affCookieData = getCookie(affCookieName);
+        affCookieData = cookie.get(affCookieName);
         if (affCookieData) {
             window.affCookie = getQueryString(affCookieData);
             if (affSystem !== '') {
@@ -121,8 +94,8 @@
             return;
         }
     } else {
-        if (getCookie('egass')) {
-            setCookie(affCookieName, '', -1);
+        if (cookie.get('egass')) {
+            cookie.set(affCookieName, '');
         }
     }
 
@@ -132,11 +105,11 @@
                 params = affParams.split('_p');
             affData = tags[0];
             affParams = params[0];
-            setCookie('affPromoCode', tags[1], affMaxAge);
+            cookie.set('affPromoCode', tags[1], affMaxAge);
         } else {
             affData = qs.qtag;
-            if (getCookie('affPromoCode')) {
-                deleteCookie('affPromoCode');
+            if (cookie.get('affPromoCode')) {
+                cookie.delete('affPromoCode');
             }
         }
     }
@@ -153,7 +126,7 @@
             '&data=' + affdata.data +
             '&params=' + affdata.params;
         window.affCookie = getQueryString(affCookieData);
-        setCookie(affCookieName, affCookieData, affMaxAge);
+        cookie.set(affCookieName, affCookieData, affMaxAge);
         setTimeout(function () {
             if (affTrack) {
                 let rnd = window.WlcFlog && window.WlcFlog.fingerprint || Math.floor(Math.random() * 10000000000);
