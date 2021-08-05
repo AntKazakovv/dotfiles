@@ -91,7 +91,7 @@ export class ProviderLinksComponent extends IconListAbstract<Params.IProviderLin
         const merchants: MerchantModel[] = _sortedUniqBy(this.gamesCatalogService.getFilteredMerchants(),
             (item: MerchantModel) => item.alias);
 
-        this.setItemsList<MerchantModel>(
+        this.items = this.convertItemsToIconModel<MerchantModel>(
             merchants,
             (item) => {
                 return {
