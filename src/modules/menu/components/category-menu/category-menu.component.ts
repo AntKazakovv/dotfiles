@@ -19,9 +19,11 @@ import {
     InjectionService,
 } from 'wlc-engine/modules/core';
 import {
-    GamesCatalogService,
     CategoryModel,
 } from 'wlc-engine/modules/games';
+import {
+    GamesCatalogService,
+} from 'wlc-engine/modules/games/system/services/games-catalog/games-catalog.service';
 import {
     MenuHelper,
     MenuParams,
@@ -85,7 +87,7 @@ export class CategoryMenuComponent extends AbstractComponent implements OnInit, 
 
     public async ngOnInit(): Promise<void> {
         super.ngOnInit(this.inlineParams);
-        this.gamesCatalogService = await this.injectionService.getService('games.games-catalog-service');
+        this.gamesCatalogService = await this.injectionService.getService<GamesCatalogService>('games.games-catalog-service');
         _assign(this.$params.menuParams, {
             theme: this.$params.theme,
             themeMod: this.$params.themeMod,

@@ -34,10 +34,12 @@ import {
     Game,
     IGamesFilterData,
     gamesEvents,
-    GamesCatalogService,
     GamesFilterServiceEvents,
     GameThumbComponent,
 } from 'wlc-engine/modules/games';
+import {
+    GamesCatalogService,
+} from 'wlc-engine/modules/games/system/services/games-catalog/games-catalog.service';
 import {
     ISlide,
 } from 'wlc-engine/modules/promo';

@@ -17,8 +17,7 @@ import {
     IQueryParams,
     RestType,
 } from 'wlc-engine/modules/bonuses/system/interfaces/bonuses.interface';
-
-import {UserService} from 'wlc-engine/modules/user';
+import {UserProfile} from 'wlc-engine/modules/user/system/models/profile.model';
 import {
     CachingService,
     ConfigService,
@@ -67,7 +66,7 @@ export class BonusesService {
         store$: new BehaviorSubject(null),
     };
 
-    private profile = this.userService.userProfile;
+    private profile: UserProfile;
     private useForbidUserFields = this.configService.get<boolean>('$loyalty.useForbidUserFields');
     private depEvents = ['deposit', 'deposit first', 'deposit repeated', 'deposit sum'];
     private regEvents = ['deposit first', 'registration', 'verification'];
@@ -77,12 +76,17 @@ export class BonusesService {
         private dataService: DataService,
         private eventService: EventService,
         private configService: ConfigService,
-        private userService: UserService,
         private logService: LogService,
         private translate: TranslateService,
     ) {
         this.registerMethods();
         this.setSubscribers();
+
+        this.configService
+            .get<BehaviorSubject<UserProfile>>({name: '$user.userProfile$'})
+            .subscribe((UserProfile) => {
+                this.profile = UserProfile;
+            });
     }
 
     public get hasBonuses(): boolean {

@@ -14,6 +14,7 @@ import {LogService} from 'wlc-engine/modules/core/system/services/log/log.servic
 import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
 import {EventService} from 'wlc-engine/modules/core/system/services/event/event.service';
 import {ModalService} from 'wlc-engine/modules/core/system/services/modal/modal.service';
+import {InjectionService} from 'wlc-engine/modules/core/system/services';
 import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
 import {IMixedParams} from 'wlc-engine/modules/core/system/classes/abstract.component';
 import {IFormWrapperCParams} from 'wlc-engine/modules/core/components/form-wrapper/form-wrapper.component';
@@ -45,7 +46,6 @@ export class PlayGameForRealComponent extends AbstractComponent implements OnIni
 
     constructor(
         @Inject('injectParams') protected params: Params.IPlayGameForRealCParams,
-        protected userService: UserService,
         protected cdr: ChangeDetectorRef,
         protected modalService: ModalService,
         protected logService: LogService,
@@ -53,6 +53,7 @@ export class PlayGameForRealComponent extends AbstractComponent implements OnIni
         protected translateService: TranslateService,
         protected stateService: StateService,
         protected configService: ConfigService,
+        protected injectionService: InjectionService,
     ) {
         super(<IMixedParams<Params.IPlayGameForRealCParams>>{
             injectParams: params,
@@ -62,7 +63,7 @@ export class PlayGameForRealComponent extends AbstractComponent implements OnIni
             game: this.params.common?.game,
             disableDemo: this.params.common?.disableDemo,
             lang: translateService.currentLang || 'en',
-            authenticated: userService.isAuthenticated,
+            authenticated: this.ConfigService.get<boolean>('$user.isAuthenticated'),
         });
     }
 
@@ -79,7 +80,9 @@ export class PlayGameForRealComponent extends AbstractComponent implements OnIni
         const {email, login, password} = form.value;
         const loginParam = email ? email : login;
 
-        this.userService.loginRequest(loginParam, password);
+        this.injectionService.getService<UserService>('user.user-service').then((userService) => {
+            userService.loginRequest(loginParam, password);
+        });
     }
 
     /**

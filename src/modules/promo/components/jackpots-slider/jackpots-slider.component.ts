@@ -23,7 +23,9 @@ import {
     ISliderCssProps,
 } from 'wlc-engine/modules/promo/system/helpers/slider.helper';
 import {JackpotModel} from 'wlc-engine/modules/games/system/models/jackpot.model';
-import {GamesCatalogService} from 'wlc-engine/modules/games/system/services/games-catalog/games-catalog.service';
+import {
+    GamesCatalogService,
+} from 'wlc-engine/modules/games/system/services/games-catalog/games-catalog.service';
 import {InjectionService} from 'wlc-engine/modules/core/system/services';
 import {INoContentCParams} from 'wlc-engine/modules/core/components/no-content/no-content.params';
 import * as Params from './jackpots-slider.params';

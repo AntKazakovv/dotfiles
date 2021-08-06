@@ -1,5 +1,4 @@
 export {
-    GamesCatalogService,
     MerchantFieldsService,
 } from './system/services';
 export {

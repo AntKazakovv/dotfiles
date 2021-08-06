@@ -7,14 +7,15 @@ import {
     LangChangeEvent,
     TranslateService,
 } from '@ngx-translate/core';
+import {BehaviorSubject} from 'rxjs';
 import {filter} from 'rxjs/operators';
 
 import {EventService} from 'wlc-engine/modules/core/system/services/event/event.service';
 import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
 import {LogService} from 'wlc-engine/modules/core/system/services/log/log.service';
-import {UserService} from 'wlc-engine/modules/user/system/services/user/user.service';
 import {LivechatAbstract} from 'wlc-engine/modules/livechat/system/classes/livechatAbstract.class';
 import {ILivechatConfig} from 'wlc-engine/modules/livechat/system/interfaces/livechat.interface';
+import {UserProfile} from 'wlc-engine/modules/user/system/models/profile.model';
 
 @Injectable({
     providedIn: 'root',
@@ -30,7 +31,6 @@ export class VerboxService extends LivechatAbstract {
         protected configService: ConfigService,
         protected logService: LogService,
         protected translateService: TranslateService,
-        protected userService: UserService,
     ) {
         super(document, eventService);
     }
@@ -126,7 +126,9 @@ export class VerboxService extends LivechatAbstract {
         }
 
         this.eventService.subscribe({name: 'LOGIN'}, () => {
-            this.userService.userProfile$.pipe(filter((v) => !!v))
+            this.configService
+                .get<BehaviorSubject<UserProfile>>({name: '$user.userProfile$'})
+                .pipe(filter((v) => !!v))
                 .subscribe((userProfile) => {
                     window.Verbox('setClientInfo', {
                         email: userProfile.email,

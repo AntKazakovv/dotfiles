@@ -3,7 +3,8 @@ import {CommonModule} from '@angular/common';
 import {UIRouterModule} from '@uirouter/angular';
 import {TranslateModule} from '@ngx-translate/core';
 import {AngularResizedEventModule} from 'angular-resize-event';
-import {GamesCatalogService} from './system/services';
+import {GamesCatalogService} from './system/services/games-catalog/games-catalog.service';
+import {MerchantFieldsService} from './system/services/merchant-fields/merchant-fields.service';
 import {FormsModule} from '@angular/forms';
 import {GamesGridComponent} from './components/games-grid/games-grid.component';
 import {GameThumbComponent} from './components/game-thumb/game-thumb.component';
@@ -53,6 +54,7 @@ export const components = {
 
 export const services = {
     'games-catalog-service': GamesCatalogService,
+    'merchant-fields-service': MerchantFieldsService,
 };
 
 @NgModule({
@@ -87,6 +89,7 @@ export const services = {
     ],
     providers: [
         GamesCatalogService,
+        MerchantFieldsService,
     ],
     exports: [
         GamesGridComponent,

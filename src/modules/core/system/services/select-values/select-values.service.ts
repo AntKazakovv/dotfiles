@@ -10,7 +10,9 @@ import {ConfigService} from 'wlc-engine/modules/core/system/services/config/conf
 import {ICountry} from 'wlc-engine/modules/core/system/interfaces/fundist.interface';
 import {IIndexing} from 'wlc-engine/modules/core/system/interfaces/global.interface';
 import {ICurrency} from 'wlc-engine/modules/finances/system/interfaces/currencies.interface';
-import {GamesCatalogService} from 'wlc-engine/modules/games/system/services/games-catalog/games-catalog.service';
+import {
+    GamesCatalogService,
+} from 'wlc-engine/modules/games/system/services/games-catalog/games-catalog.service';
 
 import * as Params from 'wlc-engine/modules/core/components/select/select.params';
 
@@ -181,7 +183,7 @@ export class SelectValuesService {
 
         (async () => {
             await this.configService.ready;
-            this.gamesCatalogService = await this.injectionService.getService('games.games-catalog-service');
+            this.gamesCatalogService = await this.injectionService.getService<GamesCatalogService>('games.games-catalog-service');
             await this.gamesCatalogService.ready;
 
             merchants$.next([

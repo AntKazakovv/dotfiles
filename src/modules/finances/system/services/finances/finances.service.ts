@@ -8,8 +8,6 @@ import {BehaviorSubject} from 'rxjs';
 
 import {
     InjectionService,
-    IRequestMethod,
-    RestMethodType,
 } from 'wlc-engine/modules/core';
 import {IData} from 'wlc-engine/modules/core/system/services/data/data.service';
 import {DataService} from 'wlc-engine/modules/core/system/services/data/data.service';

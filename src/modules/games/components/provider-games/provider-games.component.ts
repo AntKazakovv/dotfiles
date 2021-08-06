@@ -19,9 +19,11 @@ import {
 } from 'wlc-engine/modules/core';
 import {GamesHelper} from 'wlc-engine/modules/games/system/helpers/games.helpers';
 import {
-    GamesCatalogService,
     MerchantModel,
 } from 'wlc-engine/modules/games';
+import {
+    GamesCatalogService,
+} from 'wlc-engine/modules/games/system/services/games-catalog/games-catalog.service';
 import {IGamesGridCParams} from 'wlc-engine/modules/games/components/games-grid/games-grid.params';
 import {IByMerchantItemCategory} from 'wlc-engine/modules/games/system/interfaces';
 import {IconModel} from 'wlc-engine/modules/core/system/models/icon-list-item.model';

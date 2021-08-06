@@ -19,9 +19,11 @@ import {
 } from 'wlc-engine/modules/core';
 import {
     gamesEvents,
-    GamesCatalogService,
     CategoryModel,
 } from 'wlc-engine/modules/games';
+import {
+    GamesCatalogService,
+} from 'wlc-engine/modules/games/system/services/games-catalog/games-catalog.service';
 import {
     TIconExtension,
     MenuHelper,

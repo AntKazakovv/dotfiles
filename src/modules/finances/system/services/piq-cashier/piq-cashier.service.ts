@@ -1,6 +1,7 @@
 import {Injectable, Inject} from '@angular/core';
 import {DOCUMENT} from '@angular/common';
 import {
+    BehaviorSubject,
     fromEvent,
     Subject,
 } from 'rxjs';
@@ -25,7 +26,7 @@ import {
     IPIQCashierTheme,
 } from 'wlc-engine/modules/finances/system/interfaces';
 import {PaymentSystem} from 'wlc-engine/modules/finances/system/models/payment-system.model';
-import {UserService} from 'wlc-engine/modules/user';
+import {UserInfo} from 'wlc-engine/modules/user/system/models/info.model';
 
 export enum PIQCashierServiceEvents {
     loadSuccess = 'PIQ_CASHIER_LOAD_SUCCESS',
@@ -51,7 +52,6 @@ export class PIQCashierService {
         protected configService: ConfigService,
         protected eventService: EventService,
         protected modalService: ModalService,
-        protected userService: UserService,
     ) {}
 
     /**
@@ -122,8 +122,16 @@ export class PIQCashierService {
             },
         };
 
-        const idUser = await this.userService.userInfo$.pipe(first((v) => !!v)).toPromise()
-            .then((userInfo) => userInfo.idUser);
+        const {idUser, userEmail} = await this.configService
+            .get<BehaviorSubject<UserInfo>>({name: '$user.userInfo$'})
+            .pipe(first((v) => !!v))
+            .toPromise()
+            .then((userInfo) => {
+                return {
+                    idUser: userInfo.idUser,
+                    userEmail: userInfo.email,
+                };
+            });
 
         const cashierConfig: IPiqCashierConfig = {
             environment: this.configService.get<string>('appConfig.env') === 'prod' ? 'production' : 'test',
@@ -160,7 +168,7 @@ export class PIQCashierService {
                     });
                     api.set({
                         user: {
-                            email: this.userService.userInfo.email,
+                            email: userEmail,
                         },
                         config: {
                             bonusCode: currentSystem.additionalParams.bonusId ?? null,

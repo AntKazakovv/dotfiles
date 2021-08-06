@@ -19,7 +19,9 @@ import {
     Deferred,
     InjectionService,
 } from 'wlc-engine/modules/core';
-import {GamesCatalogService} from 'wlc-engine/modules/games';
+import {
+    GamesCatalogService,
+} from 'wlc-engine/modules/games/system/services/games-catalog/games-catalog.service';
 import {
     ISportsbookSettings,
     ISportsbookSettingsFilter,

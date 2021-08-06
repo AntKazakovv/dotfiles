@@ -9,7 +9,9 @@ import {
     UIRouterGlobals,
 } from '@uirouter/core';
 import {GamesHelper} from 'wlc-engine/modules/games/system/helpers/games.helpers';
-import {GamesCatalogService} from 'wlc-engine/modules/games/system/services/games-catalog/games-catalog.service';
+import {
+    GamesCatalogService,
+} from 'wlc-engine/modules/games/system/services/games-catalog/games-catalog.service';
 import {IIndexing} from 'wlc-engine/modules/core/system/interfaces/global.interface';
 import {DataService} from 'wlc-engine/modules/core/system/services/data/data.service';
 import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
@@ -177,7 +179,7 @@ export class SeoService {
             if (!this.seoGames) {
                 return;
             }
-            this.gamesCatalogService = await this.injectionService.getService('games.games-catalog-service');
+            this.gamesCatalogService = await this.injectionService.getService<GamesCatalogService>('games.games-catalog-service');
             const currentLang = this.translate.currentLang;
             const params = this.router.params;
             const gameSeo = this.seoGames.find(el => {

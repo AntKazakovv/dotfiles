@@ -15,8 +15,10 @@ import {
     CachingService,
     ConfigService,
 } from 'wlc-engine/modules/core/system/services';
-import {GamesCatalogService} from 'wlc-engine/modules/games';
 import {INoContentCParams} from 'wlc-engine/modules/core/components/no-content/no-content.params';
+import {
+    GamesCatalogService,
+} from 'wlc-engine/modules/games/system/services/games-catalog/games-catalog.service';
 
 import * as Params from './total-jackpot.params';
 

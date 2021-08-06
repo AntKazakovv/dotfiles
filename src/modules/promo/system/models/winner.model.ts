@@ -1,6 +1,8 @@
 import {DateTime} from 'luxon';
 
-import {GamesCatalogService} from 'wlc-engine/modules/games';
+import {
+    GamesCatalogService,
+} from 'wlc-engine/modules/games/system/services/games-catalog/games-catalog.service';
 import {IWinnerData} from 'wlc-engine/modules/promo/system/services';
 import {Game} from 'wlc-engine/modules/games/system/models/game.model';
 import {AbstractModel} from 'wlc-engine/modules/core/system/models/abstract.model';

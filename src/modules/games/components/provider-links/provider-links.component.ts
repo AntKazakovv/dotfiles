@@ -13,7 +13,9 @@ import {
 import {IconListAbstract} from 'wlc-engine/modules/core/system/classes/icon-list-abstract.class';
 import {ConfigService, ModalService} from 'wlc-engine/modules/core';
 import {ISliderCParams} from 'wlc-engine/modules/promo';
-import {GamesCatalogService} from 'wlc-engine/modules/games';
+import {
+    GamesCatalogService,
+} from 'wlc-engine/modules/games/system/services/games-catalog/games-catalog.service';
 import {MerchantModel} from 'wlc-engine/modules/games/system/models/merchant.model';
 import {IconModel} from 'wlc-engine/modules/core/system/models/icon-list-item.model';
 

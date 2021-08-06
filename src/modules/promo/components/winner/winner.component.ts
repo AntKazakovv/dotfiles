@@ -22,7 +22,9 @@ import {
     InjectionService,
     ModalService,
 } from 'wlc-engine/modules/core';
-import {GamesCatalogService} from 'wlc-engine/modules/games/system/services';
+import {
+    GamesCatalogService,
+} from 'wlc-engine/modules/games/system/services/games-catalog/games-catalog.service';
 import * as Params from './winner.params';
 
 @Component({

@@ -16,10 +16,12 @@ import {
 } from 'wlc-engine/modules/core';
 import {
     CategoryModel,
-    GamesCatalogService,
     IGameBlock,
     IGamesGridCParams,
 } from 'wlc-engine/modules/games';
+import {
+    GamesCatalogService,
+} from 'wlc-engine/modules/games/system/services/games-catalog/games-catalog.service';
 
 import * as Params from './games-catalog.params';
 
