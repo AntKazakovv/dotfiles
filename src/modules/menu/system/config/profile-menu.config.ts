@@ -1186,6 +1186,6 @@ export const profileMenuFilter: ProfileMenuParams.IProfileMenuFilter[] = [
     },
     {
         config: '$base.profile.socials.use',
-        item: 'profile-menu-first:socials',
+        item: 'profile-first-menu:socials',
     },
 ];

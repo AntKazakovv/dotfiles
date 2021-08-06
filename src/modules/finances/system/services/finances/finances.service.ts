@@ -7,6 +7,7 @@ import {TranslateService} from '@ngx-translate/core';
 import {BehaviorSubject} from 'rxjs';
 
 import {
+    InjectionService,
     IRequestMethod,
     RestMethodType,
 } from 'wlc-engine/modules/core';
@@ -50,12 +51,13 @@ export class FinancesService {
 
     public paymentSystems$: BehaviorSubject<PaymentSystem[]> = new BehaviorSubject(undefined);
 
+    protected userService: UserService;
     private systems: PaymentSystem[] = [];
 
     constructor(
         protected dataService: DataService,
         protected eventService: EventService,
-        protected userService: UserService,
+        protected injectionService: InjectionService,
         protected injector: Injector,
         protected translateService: TranslateService,
     ) {
@@ -148,6 +150,9 @@ export class FinancesService {
     }
 
     public async fetchPaymentSystems(): Promise<PaymentSystem[]> {
+        if (!this.userService) {
+            this.userService = await this.injectionService.getService<UserService>('user.user-service');
+        }
         this.systems = (await this.dataService.request<IData>('finances/paymentSystems')).data as PaymentSystem[];
         this.paymentSystems$.next(this.paymentSystems);
         return this.paymentSystems;

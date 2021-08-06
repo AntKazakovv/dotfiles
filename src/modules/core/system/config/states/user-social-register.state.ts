@@ -15,24 +15,22 @@ const socialRegisterResolver = (): ResolveTypes => {
         deps: [
             StateService,
             Transition,
-            SocialService,
             InjectionService,
-            UserService,
         ],
         resolveFn: async (
             stateService: StateService,
             transition: Transition,
-            socialService: SocialService,
             injectionService: InjectionService,
-            userService: UserService,
         ) => {
-            await injectionService.importModules(['user']);
+
+            const userService = await injectionService.getService<UserService>('user.user-service');
 
             if (userService.isAuthenticated) {
                 setTimeout(() => {
                     stateService.go('app.error', transition.params());
                 });
             } else {
+                const socialService = await injectionService.getService<SocialService>('user.social-service');
                 setTimeout( async () => {
                     await stateService.go('app.home', transition.params());
                     socialService.continueRegistration();
