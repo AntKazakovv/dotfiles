@@ -74,6 +74,7 @@
 
                 &.active {
                     @include button();
+                    padding: ef.get-value($themeButton, 'buttonPadding');
                     cursor: default;
                 }
             }
