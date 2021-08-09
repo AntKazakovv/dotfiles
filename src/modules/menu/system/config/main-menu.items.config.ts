@@ -27,8 +27,9 @@ export const wlcMainMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
         params: {
             state: {
                 name: 'app.catalog',
-                params: {category: ''},
-                activeEq: true,
+                params: {
+                    category: '',
+                },
             },
             href: {
                 url: '/catalog/casino/',
