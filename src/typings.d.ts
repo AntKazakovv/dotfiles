@@ -27,6 +27,7 @@ declare interface Window {
     testSessionHash?: string;
     wlcPreload: any;
     Fingerprint2?: any;
+    fingerprintHash?: string;
     requestIdleCallback?: any;
     Chatra?: any;
     ChatraSetup?: any;

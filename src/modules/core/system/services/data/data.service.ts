@@ -23,7 +23,6 @@ import {TranslateService} from '@ngx-translate/core';
 import {CachingService} from 'wlc-engine/modules/core/system/services/caching/caching.service';
 import {EventService} from 'wlc-engine/modules/core/system/services/event/event.service';
 import {LogService} from 'wlc-engine/modules/core/system/services/log/log.service';
-import {Fingerprint2} from 'wlc-engine/system/inline/_fingerprint2';
 
 import _assign from 'lodash-es/assign';
 import _isString from 'lodash-es/isString';
@@ -276,10 +275,6 @@ export class DataService {
         if (this.socketUrl) {
             this.socketConnect();
         }
-
-        (Fingerprint2 as any).getHash().then((value) => {
-            this.fingerPrintHash = value;
-        });
     }
 
     protected addToSocketQueue(requestId: number, method: string, params?: any) {
@@ -343,7 +338,7 @@ export class DataService {
                     ? this.restoreCachedData(method, result)
                     : this.http.request<IData>(method.type, url, {
                         headers: {
-                            'HTTP_X_UA_FINGERPRINT': this.fingerPrintHash,
+                            'HTTP_X_UA_FINGERPRINT': window['fingerprintHash'],
                         },
                         params: requestParams,
                         body: requestBody,
