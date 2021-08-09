@@ -865,5 +865,12 @@ Fingerprint2.getV18 = function (options, callback) {
 Fingerprint2.x64hash128 = x64hash128;
 Fingerprint2.VERSION = '2.1.2';
 
+Fingerprint2.getHash = async function () {
+    return await(Fingerprint2 as any).getPromise().then((components: any[]) => {
+        const values = components.map((component: any) => component.value.toString());
+        return (Fingerprint2 as any).x64hash128(values.join(''), 31);
+    });
+}
+
 export {Fingerprint2};
 /* eslint-enable */

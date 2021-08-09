@@ -5,6 +5,7 @@ import {Fingerprint2} from './_fingerprint2';
 export interface IFlogData {
     code: string;
     level?: string;
+
     [key: string]: any;
 }
 
@@ -28,7 +29,9 @@ export class WlcFlog {
         }
         this.addListeners();
         this.sendInitLog().finally();
-        this.getHash().finally(() => {
+        (Fingerprint2 as any).getHash().then((value: string) => {
+            this._fingerprint = value;
+        }).finally(() => {
             this.isReadyResolve();
         });
     }
@@ -107,18 +110,6 @@ export class WlcFlog {
         await this.send({
             code: !window['WLC_FORBIDDEN'] ? '0.0.0' : '0.0.11',
             referrer: document.referrer,
-        });
-    }
-
-    /**
-     * Get hash for current device
-     *
-     * @returns {Promise<void>}
-     */
-    private async getHash(): Promise<void> {
-        await (Fingerprint2 as any).getPromise().then((components: any[]) => {
-            const values = components.map((component: any) => component.value.toString());
-            this._fingerprint = (Fingerprint2 as any).x64hash128(values.join(''), 31);
         });
     }
 
