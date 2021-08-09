@@ -27,7 +27,9 @@ export const wlcMainMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
         params: {
             state: {
                 name: 'app.catalog',
-                params: {category: ''},
+                params: {
+                    category: '',
+                },
             },
             href: {
                 url: '/catalog/casino/',
@@ -133,9 +135,6 @@ export const wlcMainMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
         params: {
             state: {
                 name: 'app.sportsbook',
-                params: {
-                    page: '.',
-                },
             },
             href: {
                 url: '/sportsbook/',
@@ -153,7 +152,7 @@ export const wlcMainMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
             state: {
                 name: 'app.sportsbook',
                 params: {
-                    page: 'inplay.',
+                    page: 'inplay',
                 },
             },
             href: {
