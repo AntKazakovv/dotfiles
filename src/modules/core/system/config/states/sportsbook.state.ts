@@ -33,30 +33,37 @@ export const sportsbookState: Ng2StateDeclaration = {
         page: {
             value: '',
             squash: true,
+            inherit: false,
         },
         page2: {
             value: '',
             squash: true,
+            inherit: false,
         },
         page3: {
             value: '',
             squash: true,
+            inherit: false,
         },
         page4: {
             value: '',
             squash: true,
+            inherit: false,
         },
         page5: {
             value: '',
             squash: true,
+            inherit: false,
         },
         page6: {
             value: '',
             squash: true,
+            inherit: false,
         },
         page7: {
             value: '',
             squash: true,
+            inherit: false,
         },
     },
     onEnter: async (trans) => {
