@@ -30,7 +30,7 @@ export class WlcFlog {
         this.addListeners();
         this.sendInitLog().finally();
         (Fingerprint2 as any).getHash().then((value: string) => {
-            this._fingerprint = value;
+            window['fingerprintHash'] = value;
         }).finally(() => {
             this.isReadyResolve();
         });
