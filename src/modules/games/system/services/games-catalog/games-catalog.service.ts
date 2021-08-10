@@ -775,6 +775,9 @@ export class GamesCatalogService {
             params: queryGamesParams,
             preload: 'games',
             system: 'games',
+            retries: {
+                count: [1000, 5000, 10000],
+            },
             events: {
                 success: gamesEvents.FETCH_GAME_CATALOG_SUCCEEDED,
                 fail: gamesEvents.FETCH_GAME_CATALOG_FAILED,
@@ -807,6 +810,9 @@ export class GamesCatalogService {
             type: 'GET',
             period: 10000,
             params: this.jackpotParams,
+            retries: {
+                count: [3000, 5000],
+            },
             events: {
                 success: gamesEvents.FETCH_JACKPOTS_SUCCEEDED,
                 fail: gamesEvents.FETCH_JACKPOTS_FAILED,
@@ -826,10 +832,10 @@ export class GamesCatalogService {
     }
 
     /**
-    * Load lastPlayed or favorites games
-    *
-    * @returns {Promise<void>}
-    */
+     * Load lastPlayed or favorites games
+     *
+     * @returns {Promise<void>}
+     */
     private async loadSpecialCategoryGames<T>(
         requestUrl: 'favorites' | 'lastGames',
         getterProperty: (item: T) => string,

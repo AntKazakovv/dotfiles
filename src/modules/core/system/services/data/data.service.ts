@@ -17,20 +17,24 @@ import {
     tap,
     filter,
     catchError,
+    retryWhen,
+    mergeMap,
+    delay,
 } from 'rxjs/operators';
 import {TranslateService} from '@ngx-translate/core';
 
 import {CachingService} from 'wlc-engine/modules/core/system/services/caching/caching.service';
 import {EventService} from 'wlc-engine/modules/core/system/services/event/event.service';
 import {LogService} from 'wlc-engine/modules/core/system/services/log/log.service';
+import {ISocketsData} from 'wlc-engine/modules/core/system/interfaces';
 
 import _assign from 'lodash-es/assign';
 import _isString from 'lodash-es/isString';
 import _isFunction from 'lodash-es/isFunction';
 import _get from 'lodash-es/get';
 import _has from 'lodash-es/has';
-
-import {ISocketsData} from 'wlc-engine/modules/core/system/interfaces';
+import _set from 'lodash-es/set';
+import _reverse from 'lodash-es/reverse';
 
 export interface IData {
     status: 'success' | 'error';
@@ -57,6 +61,13 @@ export interface IRequestMethod {
     fullUrl?: string;
     /** type of http request */
     type: RestMethodType;
+    /** number of retries and fallback url */
+    retries?: {
+        /** accept values in seconds for retries requests, ex. [1000, 5000, 10000] will repeat request in 1, 5, 10 seconds */
+        count: number[];
+        /** if requests are failed then method will use this url */
+        fallbackUrl?: string;
+    },
     /** cache time in ms */
     cache?: number;
     /** request parameters */
@@ -107,7 +118,6 @@ export class DataService {
     private requestId: number = 0;
     private socketQueue: ISocketQueue[] = [];
     private socketOpen: boolean = false;
-    private fingerPrintHash: string;
 
     constructor(
         private injector: Injector,
@@ -204,9 +214,11 @@ export class DataService {
         }
 
         return this.apiList[requestName].flow.subscribe(
-            _isFunction(observer)
-                ? {next: (response: IData) => {observer(response);}}
-                : observer);
+            _isFunction(observer) ? {
+                next: (response: IData) => {
+                    observer(response);
+                },
+            } : observer);
     }
 
     public reset(requestName: string): void {
@@ -266,7 +278,7 @@ export class DataService {
         return requestId;
     }
 
-    public closeSocket():void {
+    public closeSocket(): void {
         this.socket?.close();
         this.socketUrl = null;
     }
@@ -321,10 +333,18 @@ export class DataService {
         const cacheUrl = requestParams.lang ? `${url}|${requestParams.lang}` : url;
 
         const preloadData$: Observable<unknown> =
-            (method.type === 'GET' && _has(globalThis.wlcPreload, method.preload))
+            (method.type === 'GET'
+                && _has(globalThis.wlcPreload, method.preload)
+                && _get(globalThis.wlcPreload, `${method.preload}['fulfilled']`, true))
                 ? from(globalThis.wlcPreload[method.preload])
                 : of(undefined);
-
+        if (!method.retries?.count) {
+            _set(method, 'retries.count', [2000]);
+        } else {
+            method.retries.count = _reverse(method.retries.count);
+        }
+        let countLength = method.retries.count.length;
+        let notCacheStaticData = true;
 
         return preloadData$.pipe(
             switchMap((result: IData) => {
@@ -336,14 +356,29 @@ export class DataService {
             switchMap((result: IData) => {
                 return result
                     ? this.restoreCachedData(method, result)
-                    : this.http.request<IData>(method.type, url, {
-                        headers: {
-                            'HTTP_X_UA_FINGERPRINT': window['fingerprintHash'] || '',
-                        },
-                        params: requestParams,
-                        body: requestBody,
-                        withCredentials: true,
-                    }).pipe(catchError((error: HttpErrorResponse) => {
+                    : this.httpRequest(method, url, requestParams, requestBody).pipe(
+                        retryWhen((err: Observable<HttpErrorResponse>) => err.pipe(
+                            mergeMap((error: HttpErrorResponse) => {
+
+                                if (!error.statusText.startsWith('5')) {
+                                    return;
+                                }
+                                if (countLength-- > 0) {
+                                    notCacheStaticData = true;
+                                    return of(error).pipe(delay(method.retries.count[countLength]));
+                                } else if (method.retries.fallbackUrl) {
+                                    notCacheStaticData = false;
+                                    this.logService.sendLog({
+                                        code: '0.8.0',
+                                        from: {
+                                            service: 'DataService',
+                                            method: 'request$',
+                                        },
+                                    });
+                                    return this.httpRequest(method, method.retries.fallbackUrl, requestParams, requestBody);
+                                }
+                            }),
+                        ))).pipe(catchError((error: HttpErrorResponse) => {
                         this.logService.sendLog(error.error || error);
                         if (method.events?.fail) {
                             this.eventService.emit({
@@ -408,7 +443,11 @@ export class DataService {
                 this.flow$.next(data);
                 method.subject?.next(data);
 
-                if (method.type === 'GET' && method.cache > 0 && data.status === 'success' && data.source !== 'cache') {
+                if (method.type === 'GET'
+                    && method.cache > 0
+                    && data.status === 'success'
+                    && data.source !== 'cache'
+                    && notCacheStaticData) {
                     this.cachingService.set<T>(cacheUrl, data.data, false, method.cache);
                 }
             }),
@@ -509,5 +548,20 @@ export class DataService {
             return params;
         }
         return JSON.stringify(params);
+    }
+
+    private httpRequest(
+        method: IRegisteredMethod,
+        url: string, requestParams: {lang: string} & RequestParamsType,
+        requestBody: string | FormData,
+    ): Observable<IData> {
+        return this.http.request<IData>(method.type, url, {
+            headers: {
+                'HTTP_X_UA_FINGERPRINT': window['fingerprintHash'] || '',
+            },
+            params: requestParams,
+            body: requestBody,
+            withCredentials: true,
+        });
     }
 }
