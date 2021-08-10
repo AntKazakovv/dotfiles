@@ -43,7 +43,7 @@ $customThemeModal: () !default;
 $themeModal: map-merge((
     'dropdownFlagSize': 55px,
     'flagBoxShadow': 0 0 0 4px ef.get('mainColors', 'bg300'),
-    'flagBoxShadowHover': 0 0 0 4px ef.get('mainColors', 'main'),
+    'flagBoxShadowHover': (0 0 0 4px ef.get('mainColors', 'main'), 0 0 7px 7px rgba(0, 0, 0, 0.67)),
     'listGap': ef.get('size', 'smaller'),
     'listPadding': ef.get('size', 'smally'),
 ), $customThemeModal);
@@ -52,9 +52,15 @@ $customThemeBorderAround: () !default;
 $themeBorderAround: map-merge((
     'currentHeight': 40px,
     'currentBorder': 2px solid ef.get('mainColors', 'baseOpacity'),
+    'currentBorderHover': 2px solid ef.get('mainColors', 'bg100'),
+    'currentBorderOpened': 2px solid ef.get('mainColors', 'buttonColor'),
+    'currentArrowFill': ef.get('fieldColors', 'arrowColor'),
+    'currentArrowFillHover': ef.get('mainColors', 'bg100'),
+    'currentArrowFillOpened': ef.get('mainColors', 'baseMain'),
     'currentPadding': ef.get('size', 'smallest'),
     'currentRadius': ef.get('radius', 'biger'),
     'currentFlagSize': 27px,
+    'flagBoxShadowHover': none,
 ), $customThemeBorderAround);
 
 $customThemeDefaultModLog: () !default;
@@ -85,4 +91,5 @@ $themeDefaultModLog: map-merge((
     'burgerPanelCurrentMarginModLong': 20px auto,
     'burgerPanelCurrentBgModLong': ef.get('mainColors', 'bg500'),
     'burgerPanelCurrentBgModLongHover': rgba(ef.get('mainColors', 'baseMain'), 0.1),
+    'flagBoxShadowHover': (0 0 0 4px ef.get('mainColors', 'main'), 0 0 3px 3px rgba(0, 0, 0, 0.67)),
 ), $customThemeDefaultModLog);

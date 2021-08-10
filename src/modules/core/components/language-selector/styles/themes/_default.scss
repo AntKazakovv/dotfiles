@@ -62,7 +62,7 @@
             @include bm.hover {
 
                 .wlc-language-selector__current-flag {
-                    box-shadow: ef.get-value($themeModal, 'flagBoxShadowHover');
+                    box-shadow: ef.get-value($themeDefault, 'flagBoxShadowHover');
                 }
 
                 &.single-lang {
@@ -140,7 +140,7 @@
             .wlc-language-selector__link {
 
                 &-flag {
-                    box-shadow: ef.get-value($themeModal, 'flagBoxShadowHover'), 0 0 7px 7px rgba(0, 0, 0, 0.67);
+                    box-shadow: ef.get-value($themeModal, 'flagBoxShadowHover');
                 }
             }
         }
@@ -154,7 +154,7 @@
             }
 
             &-flag {
-                @include flag(ef.get-value($themeDefault, 'dropdownFlagSize'), ef.get-value($themeDefault, 'dropdownFlagSize'), 50%, ef.get-value($themeDefault, 'flagBoxShadow'), ef.get-value($themeModal, 'flagBoxShadowHover'));
+                @include flag(ef.get-value($themeDefault, 'dropdownFlagSize'), ef.get-value($themeDefault, 'dropdownFlagSize'), 50%, ef.get-value($themeDefault, 'flagBoxShadow'), ef.get-value($themeDefault, 'flagBoxShadowHover'));
             }
         }
     }
@@ -258,13 +258,6 @@
 
             &__link {
 
-                &:hover {
-
-                    .wlc-language-selector__link-flag {
-                        box-shadow: ef.get-value($themeDefault, 'flagBoxShadowHover'), 0 0 3px 3px rgba(0, 0, 0, 0.67);
-                    }
-                }
-
 
                 &-flag {
                     width: ef.get-value($themeDefaultModLog, 'currentFlagSize');
@@ -292,6 +285,13 @@
                         display: none;
                     }
                 }
+
+                @include bm.hover {
+
+                    .wlc-language-selector__link-flag {
+                        box-shadow: ef.get-value($themeDefaultModLog, 'flagBoxShadowHover');
+                    }
+                }
             }
         }
     }
@@ -302,11 +302,35 @@
         .wlc-language-selector {
 
             &__current {
+                @include bm.transition(border);
                 height: ef.get-value($themeBorderAround, 'currentHeight');
                 padding: ef.get-value($themeBorderAround, 'currentPadding');
-
                 border: ef.get-value($themeBorderAround, 'currentBorder');
                 border-radius: ef.get-value($themeBorderAround, 'currentRadius');
+
+                &--opened {
+                    border: ef.get-value($themeBorderAround, 'currentBorderOpened');
+
+                    .wlc-language-selector__current-arrow::ng-deep {
+
+                        svg {
+
+                            path {
+                                fill: ef.get-value($themeBorderAround, 'currentArrowFillOpened');
+                            }
+                        }
+                    }
+                }
+
+                &-arrow::ng-deep {
+
+                    svg {
+
+                        path {
+                            fill: ef.get-value($themeBorderAround, 'currentArrowFill');
+                        }
+                    }
+                }
 
                 &-flag {
                     width: ef.get-value($themeBorderAround, 'currentFlagSize');
@@ -315,6 +339,35 @@
                     img {
                         width: ef.get-value($themeBorderAround, 'currentFlagSize');
                         height: ef.get-value($themeBorderAround, 'currentFlagSize');
+                    }
+                }
+
+                @include bm.hover {
+                    border: ef.get-value($themeBorderAround, 'currentBorderHover');
+
+                    &.wlc-language-selector__current--opened {
+                        border: ef.get-value($themeBorderAround, 'currentBorderOpened');
+
+                        .wlc-language-selector__current-arrow::ng-deep {
+
+                            svg path {
+                                fill: ef.get-value($themeBorderAround, 'currentArrowFillOpened');
+                            }
+                        }
+                    }
+
+                    .wlc-language-selector__current {
+
+                        &-arrow::ng-deep {
+
+                            svg path {
+                                fill: ef.get-value($themeBorderAround, 'currentArrowFillHover');
+                            }
+                        }
+
+                        &-flag {
+                            box-shadow: ef.get-value($themeBorderAround, 'flagBoxShadowHover');
+                        }
                     }
                 }
             }
@@ -337,7 +390,7 @@
             .wlc-language-modal__link {
 
                 &-flag {
-                    box-shadow: ef.get-value($themeModal, 'flagBoxShadowHover'), 0 0 7px 7px rgba(0, 0, 0, 0.67);
+                    box-shadow: ef.get-value($themeModal, 'flagBoxShadowHover');
                 }
             }
         }
@@ -351,7 +404,7 @@
         }
 
         &-flag {
-            @include flag(ef.get-value($themeModal, 'dropdownFlagSize'), ef.get-value($themeModal, 'dropdownFlagSize'), 50%, ef.get-value($themeModal, 'flagBoxShadow'), ef.get-value($themeModal, 'flagBoxShadowHover'));
+            @include flag(ef.get-value($themeModal, 'dropdownFlagSize'), ef.get-value($themeModal, 'dropdownFlagSize'), 50%, ef.get-value($themeModal, 'flagBoxShadow'), ef.get-value($themeDefault, 'flagBoxShadowHover'));
         }
     }
 }
