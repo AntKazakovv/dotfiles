@@ -66,7 +66,7 @@ export const defaultParams: IGameDashboardCParams = {
 
 export interface IGameDashboardTab {
     id: DashboardTab;
-    icon: string;
+    iconPath: string;
     label?: string;
     auth?: boolean;
     updateOnOpen?: boolean;
@@ -76,26 +76,26 @@ export interface IGameDashboardTab {
 export const dashboardTabs: IGameDashboardTab[] = [
     {
         id: 'profile',
-        icon: 'game-dashboard/profile',
+        iconPath: '/wlc/game-dashboard/profile.svg',
         label: gettext('Profile'),
         auth: true,
         hideLabel: true,
     },
     {
         id: 'bonuses',
-        icon: 'game-dashboard/bonuses',
+        iconPath: '/wlc/game-dashboard/bonuses.svg',
         label: gettext('My Bonuses'),
         updateOnOpen: true,
     },
     {
         id: 'tournaments',
-        icon: 'game-dashboard/tournaments',
+        iconPath: '/wlc/game-dashboard/tournaments.svg',
         hideLabel: true,
         updateOnOpen: true,
     },
     {
         id: 'lastplayed',
-        icon: 'game-dashboard/last-played',
+        iconPath: '/wlc/game-dashboard/last-played.svg',
         label: gettext('Last played'),
         auth: true,
         updateOnOpen: true,
