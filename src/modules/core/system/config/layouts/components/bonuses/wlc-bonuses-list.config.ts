@@ -145,6 +145,7 @@ export namespace wlcBonusesList {
         params: <IBonusesListCParams>{
             type: 'swiper',
             theme: 'promo-home',
+            title: gettext('Bonus'),
             wlcElement: 'block_bonuses-main',
             common: {
                 sortOrder: ['active', 'subscribe', 'inventory'],

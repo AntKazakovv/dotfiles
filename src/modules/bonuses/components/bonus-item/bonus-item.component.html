@@ -257,22 +257,43 @@
             <ng-container [ngTemplateOutlet]="moreIcon"></ng-container>
 
             <div class="{{$class}}__btns">
-                <ng-container *ngIf="isAuth" [ngTemplateOutlet]="userIsAuth"></ng-container>
-                <button *ngIf="$params.common.bonus?.isDeposit && !isAuth"
+                <button *ngIf="!isAuth"
                         wlc-button
                         typeAttr="button"
-                        text="Deposit"
-                        (click)="action('deposit')"
-                        [wlcElement]="'button_deposit'">
+                        text="Sign up"
+                        wlcElement="button_register"
+                        (click)="action('register')">
                 </button>
-                <button *ngIf="isChooseBtn"
+                <button *ngIf="isAuth && $params.common.bonus?.canSubscribe"
                         wlc-button
                         typeAttr="button"
-                        text="Choose"
-                        [disabled]="$params.common.bonus.isChoose"
-                        (click)="chooseBonus($params.common.bonus, $params.common?.type)"
-                        [wlcElement]="'button_choose'">
+                        text="Subscribe"
+                        wlcElement="button_subscribe"
+                        (click)="join()">
                 </button>
+                <ng-container *ngIf="$params.common.useActionButtons; else unsubscribeButton">
+                    <button *ngIf="$params.common.bonus?.canUnsubscribe && $params.common.bonus?.isDeposit"
+                            wlc-button
+                            typeAttr="button"
+                            text="Deposit"
+                            wlcElement="button_deposit"
+                            (click)="action('deposit')">
+                    </button>
+                    <button *ngIf="$params.common.bonus?.canUnsubscribe && !$params.common.bonus?.isDeposit"
+                            wlc-button
+                            text="Play"
+                            typeAttr="button"
+                            wlcElement="button_play"
+                            (click)="action('play')">
+                    </button>
+                    <button *ngIf="$params.common.bonus?.isActive"
+                            wlc-button
+                            text="Play"
+                            typeAttr="button"
+                            wlcElement="button_play"
+                            (click)="action('play')">
+                    </button>
+                </ng-container>
             </div>
         </div>
     </div>
