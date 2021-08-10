@@ -14,8 +14,12 @@ interface IPreloadConfig {
     system: string;
 }
 
+interface IPromiseStatus {
+    fulfilled?: boolean;
+}
+
 interface IPreloadResult {
-    [key: string]: Promise<IData>;
+    [key: string]: Promise<IData> & IPromiseStatus;
 }
 
 const config: IPreloadConfig[] = [
@@ -36,14 +40,14 @@ const wlcPreload: IPreloadResult = {};
 window.wlcPreload = wlcPreload;
 config.forEach((request) => {
 
-    const req: Promise<IData> = fetch(request.url)
+    wlcPreload[request.flag] = fetch(request.url)
         .then((res) => res.json())
         .then((result) => {
             result.system = request.system;
             result.name = request.flag;
             result.source = 'inline';
             return result;
+        }).catch(() => {
+            wlcPreload[request.flag]['fulfilled'] = false;
         });
-
-    wlcPreload[request.flag] = req;
 });
