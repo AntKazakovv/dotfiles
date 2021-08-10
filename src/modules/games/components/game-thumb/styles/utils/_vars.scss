@@ -4,17 +4,25 @@
 
 $customThemeDefault: () !default;
 $themeDefault: map-merge((
+    'thumbAlignItems': center,
+    'thumbJustifyContent': center,
     'placeholderBg': darken(ef.get('mainColors', 'bg'), 1.5),
     'placeholderBgImg': url('/static/images/logo.svg'),
     'placeholderBgImgSize': 80%,
     'thumbBorderRadius': ef.get('radius', 'biger'),
     'thumbPadding': ef.get('size', 'small'),
     'thumbHoverBg': transparentize(ef.get('mainColors', 'bg'), 0.2),
+    'thumbHoverTransform': translateX(-100%) skewX(35deg),
+    'thumbTitleAlignItems': center,
+    'thumbTitleJustifyContent': center,
+    'thumbNameDisplay': flex,
+    'thumbNameAlignItems': center,
+    'thumbNameJustifyContent': center,
     'thumbNameColor': ef.get('mainColors', 'baseMain'),
     'thumbNamePadding': ef.get('size', 'small') 0 0,
     'thumbNamePosition': center,
-    'btnJustifyContent': space-between,
     'btnAlignItems': flex-end,
+    'btnJustifyContent': center,
     'btnMarginItems': 0,
     'btnGap': ef.get('size', 'small'),
     'thumbBtnPosition': horizontal,
@@ -50,8 +58,21 @@ $customThemeDefaultCircle: () !default;
 $themeDefaultModCircle: map-merge((
     'btnSize': 86px,
     'btnBorder': 4px solid #fff,
+    'btnBorderRadius': 50%,
     'btnDemoColor': #fff,
+
+    'thumbDescAlignItems': flex-end,
+    'thumbDescJustifyContent': flex-start,
 ), $customThemeDefaultCircle);
+
+$customThemeDefaultVertical: () !default;
+$themeDefaultVertical: map-merge((
+    'thumbTitleAlignItems': center,
+    'thumbTitleJustifyContent': flex-start,
+
+    'btnFlexDirection': column,
+    'btnAlignItems': stretch,
+), $customThemeDefaultVertical);
 
 $customThemeVertical: () !default;
 $themeVertical: map-merge((
@@ -75,3 +96,23 @@ $themeVertical: map-merge((
     'placeholderBgImg': url('/static/images/logo.svg'),
     'placeholderBgPosition': center,
 ), $customThemeVertical);
+
+$customThemeDefaultNamed: () !default;
+$ThemeDefaultNamed: map-merge((
+    'thumbFlexDirection': column,
+    'thumbFlexWrap': wrap,
+    'thumbAlignItems': stretch,
+
+    'thumbNameBg': ef.get('mainColors', 'bg700'),
+    'thumbNameHeight': 60px,
+    'thumbNamePadding': ef.get('size', 'small'),
+    'thumbNameColor': ef.get('mainColors', 'baseMain'),
+    'thumbButtonsMinWidth': 110px,
+
+    'favoritePositionTop': 10px,
+    'favoritePositionLeft': 10px,
+
+    'btnFlexDirection': column,
+    'btnAlignItems': center,
+    'btnJustifyContent': center,
+), $customThemeDefaultNamed);

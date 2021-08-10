@@ -7,8 +7,8 @@
 
     position: relative;
     display: flex;
-    align-items: center;
-    justify-content: center;
+    align-items: ef.get-value($themeDefault, 'thumbAlignItems');
+    justify-content: ef.get-value($themeDefault, 'thumbJustifyContent');
     height: 0;
     padding-top: 75%;
     overflow: hidden;
@@ -47,7 +47,6 @@
 
         &__desc {
             @include bm.transition(all, 0.25s);
-
             position: absolute;
             top: 0;
             left: 0;
@@ -76,7 +75,7 @@
                 height: 100%;
 
                 background: ef.get-value($themeDefault, 'thumbHoverBg');
-                transform: translateX(-100%) skewX(35deg);
+                transform: ef.get-value($themeDefault, 'thumbHoverTransform');
                 pointer-events: none;
             }
 
@@ -89,7 +88,7 @@
             position: relative;
 
             display: grid;
-            justify-content: center;
+            justify-content: ef.get-value($themeDefault, 'thumbTitleJustifyContent');
             grid: {
                 template-columns: 1fr;
                 template-rows: 1fr;
@@ -104,9 +103,9 @@
             @include text.get-text-style('ThirdTitleBold', ef.get-value($themeDefault, 'thumbNameColor'));
             z-index: 3;
 
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            display: ef.get-value($themeDefault, 'thumbNameDisplay');
+            align-items: ef.get-value($themeDefault, 'thumbNameAlignItems');
+            justify-content: ef.get-value($themeDefault, 'thumbNameJustifyContent');
             padding: ef.get-value($themeDefault, 'thumbNamePadding');
 
             text-align: ef.get-value($themeDefault, 'thumbNamePosition');
@@ -144,8 +143,8 @@
 
                 .wlc-icon-content {
                     display: flex;
-                    align-items: center;
-                    justify-content: center;
+                    align-items: ef.get-value($themeDefault, 'thumbAlignItems');
+                    justify-content: ef.get-value($themeDefault, 'thumbJustifyContent');
                     width: 100%;
                     height: 100%;
                 }
@@ -235,8 +234,8 @@
 
             &__title {
                 display: flex;
-                align-items: center;
-                justify-content: flex-start;
+                align-items: ef.get-value($themeDefaultVertical, 'thumbTitleAlignItems');
+                justify-content: ef.get-value($themeDefaultVertical, 'thumbTitleJustifyContent');
             }
 
             &__desc {
@@ -248,9 +247,9 @@
 
             &__buttons {
                 display: flex;
-                flex-direction: column;
-                align-items: stretch;
-                justify-content: center;
+                flex-direction: ef.get-value($themeDefaultVertical, 'btnFlexDirection');
+                align-items: ef.get-value($themeDefaultVertical, 'btnAlignItems');
+                justify-content: ef.get-value($themeDefault, 'btnJustifyContent');
             }
         }
     }
@@ -269,8 +268,8 @@
 
             &__desc {
                 display: flex;
-                align-items: flex-end;
-                justify-content: flex-start;
+                align-items: ef.get-value($themeDefaultModCircle, 'thumbDescAlignItems');
+                justify-content: ef.get-value($themeDefaultModCircle, 'thumbDescJustifyContent');
 
                 background: ef.get-value($themeDefault, 'thumbHoverBg');
                 visibility: visible;
@@ -293,7 +292,7 @@
                 font-size: 0;
 
                 border: ef.get-value($themeDefaultModCircle, 'btnBorder');
-                border-radius: 50%;
+                border-radius: ef.get-value($themeDefaultModCircle, 'btnBorderRadius');
 
                 ::ng-deep {
 
@@ -334,6 +333,84 @@
 
                 &__desc {
                     background: ef.get-value($themeDefault, 'thumbHoverBg');
+                }
+            }
+        }
+    }
+
+    &.wlc-game-thumb--theme-mod-named {
+        flex-direction: ef.get-value($ThemeDefaultNamed, 'thumbFlexDirection');
+        flex-wrap: ef.get-value($ThemeDefaultNamed, 'thumbFlexWrap');
+        align-items: ef.get-value($ThemeDefaultNamed, 'thumbAlignItems');
+        height: auto;
+        border-radius: ef.get-value($themeDefault, 'thumbBorderRadius');
+        padding-top: 0;
+        background-position: center 70px;
+
+        .wlc-game-thumb {
+
+            &__desc {
+                position: relative;
+                display: block;
+                padding: 75% 0 0;
+                overflow: hidden;
+                opacity: 1;
+
+                &:before {
+                    opacity: 0;
+                }
+            }
+
+            &__icon {
+                top: ef.get-value($ThemeDefaultNamed, 'favoritePositionTop');
+                left: ef.get-value($ThemeDefaultNamed, 'favoritePositionLeft');
+                opacity: 0;
+            }
+
+            &__title {
+                display: flex;
+                align-items: ef.get-value($themeDefault, 'thumbTitleAlignItems');
+                height: ef.get-value($ThemeDefaultNamed, 'thumbNameHeight');
+                padding: ef.get-value($ThemeDefaultNamed, 'thumbNamePadding');
+                background: ef.get-value($ThemeDefaultNamed, 'thumbNameBg');
+                border-radius: 0 0 ef.get-value($themeDefault, 'thumbBorderRadius') ef.get-value($themeDefault, 'thumbBorderRadius');
+            }
+
+            &__name {
+                @include text.get-text-style('PrimaryTextBold', ef.get-value($ThemeDefaultNamed, 'thumbNameColor'));
+                padding-top: 0;
+                font-size: ef.get-value($ThemeDefaultNamed, 'thumbNameFontSize');
+            }
+
+            &__buttons {
+                @include bm.transition;
+                @include bm.absoluteCentering();
+                display: flex;
+                flex-direction: ef.get-value($ThemeDefaultNamed, 'btnFlexDirection');
+                align-items: ef.get-value($ThemeDefaultNamed, 'btnAlignItems');
+                justify-content: ef.get-value($ThemeDefaultNamed, 'btnJustifyContent');
+                opacity: 0;
+
+                .wlc-btn {
+                    min-width: ef.get-value($ThemeDefaultNamed, 'thumbButtonsMinWidth');
+                }
+            }
+        }
+
+        @include bm.hover {
+
+            .wlc-game-thumb {
+
+                &__icon,
+                &__buttons {
+                    opacity: 1;
+                }
+
+                &__desc {
+
+                    &:before {
+                        opacity: 1;
+                    }
                 }
             }
         }

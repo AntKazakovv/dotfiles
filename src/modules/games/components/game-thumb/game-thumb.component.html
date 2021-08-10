@@ -3,6 +3,7 @@
         <ng-container [ngTemplateOutlet]="typeVertical" *ngSwitchCase="'vertical'"></ng-container>
         <ng-container [ngTemplateOutlet]="typeModal" *ngSwitchCase="'modal'"></ng-container>
         <ng-container [ngTemplateOutlet]="typePromoWidget" *ngSwitchCase="'promo-widget'"></ng-container>
+        <ng-container [ngTemplateOutlet]="typeNamed" *ngSwitchCase="'named'"></ng-container>
         <ng-container [ngTemplateOutlet]="typeDefault" *ngSwitchDefault></ng-container>
     </ng-container>
 </ng-container>
@@ -17,11 +18,11 @@
         </div>
         <div class="{{$class}}__buttons">
             <button wlc-button
+                    class="wlc-btn wlc-btn--play"
                     wlcElement="button_game-play"
                     [icon]="'wlc-game-play'"
                     [text]="'Play'"
                     (click)="startGame(false, false, $event)"
-                    class="wlc-btn wlc-btn--play"
             ></button>
             <button
                     *ngIf="game.hasDemo"
@@ -40,17 +41,10 @@
 
 <ng-template #typeModal>
     <picture class="{{$class}}__img"
-            data-wlc-element="block_game-thumb-img">
+             data-wlc-element="block_game-thumb-img">
         <img [src]="game.image" loading="lazy">
     </picture>
-    <div *ngIf="isAuth"
-         wlc-icon
-         class="{{$class}}__icon"
-         [ngClass]="{'active': game.isFavourite}"
-         wlcElement="button_favourite"
-         iconPath="/wlc/icons/favourite.svg"
-         (click)="toggleFavourites(game)">
-    </div>
+    <ng-container [ngTemplateOutlet]="buttonFavourite"></ng-container>
 </ng-template>
 
 <ng-template #typeVertical>
@@ -99,76 +93,85 @@
         </ng-template>
     </div>
     <div class="{{$class}}__control">
-        <div class="{{$class}}__buttons" [ngClass]="{'no-demo': !game.hasDemo}">
-            <button wlc-button
-                    class="wlc-btn wlc-btn--play"
-                    wlcElement="button_game-play"
-                    [icon]="'wlc-game-play'"
-                    [text]="'Play'"
-                    [theme]="gameThumbSettings.theme"
-                    [themeMod]="gameThumbSettings.themeMode"
-                    (click)="startGame(false, false, $event)"
-            ></button>
-            <button *ngIf="game.hasDemo"
-                    wlc-button
-                    class="wlc-btn wlc-btn--demo"
-                    wlcElement="button_game-demo"
-                    [text]="'Demo'"
-                    [theme]="gameThumbSettings.demoTheme"
-                    [themeMod]="gameThumbSettings.demoThemeMode"
-                    (click)="startGame(true, false, $event)"
-            ></button>
-        </div>
+        <ng-container [ngTemplateOutlet]="buttonsPlayDemo"></ng-container>
+    </div>
+</ng-template>
+
+<ng-template #typeNamed>
+    <div class="{{$class}}__desc">
+        <ng-container [ngTemplateOutlet]="thumbImg"></ng-container>
+        <ng-container [ngTemplateOutlet]="buttonFavourite"></ng-container>
+        <ng-container [ngTemplateOutlet]="buttonsPlayDemo"></ng-container>
+    </div>
+    <div class="{{$class}}__title">
+        <ng-container [ngTemplateOutlet]="thumbName"></ng-container>
     </div>
 </ng-template>
 
 <ng-template #typeDefault>
-    <picture class="{{$class}}__img"
-                data-wlc-element="block_game-thumb-img"
-                (click)="startGame(false, true, $event)">
-        <img [src]="game.image" loading="lazy">
-    </picture>
+    <ng-container [ngTemplateOutlet]="thumbImg"></ng-container>
     <div class="{{$class}}__desc">
         <div class="{{$class}}__title">
-            <span *ngIf="isAuth"
-                  wlc-icon
-                  class="{{$class}}__icon"
-                  [ngClass]="{'active': game.isFavourite}"
-                  wlcElement="button_favourite"
-                  iconPath="/wlc/icons/favourite.svg"
-                  (click)="toggleFavourites(game)">
-            </span>
-            <span class="{{$class}}__name"
-                  data-wlc-element="block_game-thumb-name"
-                  title="{{game.name.en}}">
-                {{game.name.en | truncate: 25}}
-            </span>
-            <span *ngIf="$params?.common?.useMerchantName" class="{{$class}}__merchant" data-wlc-element="block_game-thumb-alias">
+            <ng-container [ngTemplateOutlet]="buttonFavourite"></ng-container>
+            <ng-container [ngTemplateOutlet]="thumbName"></ng-container>
+            <span *ngIf="$params?.common?.useMerchantName"
+                  class="{{$class}}__merchant"
+                  data-wlc-element="block_game-thumb-alias">
                 {{game.merchantAlias}}
             </span>
         </div>
-        <div class="{{$class}}__buttons" [ngClass]="{'no-demo': !game.hasDemo}">
-            <button wlc-button
-                    class="wlc-btn wlc-btn--play"
-                    wlcElement="button_game-play"
-                    [icon]="'wlc-game-play'"
-                    [text]="'Play'"
-                    [theme]="gameThumbSettings.theme"
-                    [themeMod]="gameThumbSettings.themeMode"
-                    (click)="startGame(false, false, $event)"
-            ></button>
-            <button
-                    *ngIf="game.hasDemo"
-                    wlc-button
-                    class="wlc-btn wlc-btn--demo"
-                    wlcElement="button_game-demo"
-                    [text]="'Demo'"
-                    [theme]="gameThumbSettings.theme"
-                    [themeMod]="gameThumbSettings.demoThemeMode"
-                    (click)="startGame(true, false, $event)"
-            ></button>
-        </div>
+        <ng-container [ngTemplateOutlet]="buttonsPlayDemo"></ng-container>
     </div>
+</ng-template>
+
+<ng-template #thumbImg>
+    <picture class="{{$class}}__img"
+             data-wlc-element="block_game-thumb-img"
+             (click)="startGame(false, true, $event)">
+        <img [src]="game.image" loading="lazy">
+    </picture>
+</ng-template>
+
+<ng-template #buttonFavourite>
+    <div *ngIf="isAuth"
+          wlc-icon
+          class="{{$class}}__icon"
+          [wlcElement]="'button_favourite'"
+          [iconPath]="'/wlc/icons/favourite.svg'"
+          [ngClass]="{'active': game.isFavourite}"
+          (click)="toggleFavourites(game)">
+    </div>
+</ng-template>
+
+<ng-template #buttonsPlayDemo>
+    <div class="{{$class}}__buttons" [ngClass]="{'no-demo': !game.hasDemo}">
+        <button wlc-button
+                class="wlc-btn wlc-btn--play"
+                wlcElement="button_game-play"
+                [icon]="'wlc-game-play'"
+                [text]="'Play'"
+                [theme]="gameThumbSettings.theme"
+                [themeMod]="gameThumbSettings.themeMode"
+                (click)="startGame(false, false, $event)"
+        ></button>
+        <button *ngIf="game.hasDemo"
+                wlc-button
+                class="wlc-btn wlc-btn--demo"
+                wlcElement="button_game-demo"
+                [text]="'Demo'"
+                [theme]="gameThumbSettings.theme"
+                [themeMod]="gameThumbSettings.demoThemeMode"
+                (click)="startGame(true, false, $event)"
+        ></button>
+    </div>
+</ng-template>
+
+<ng-template #thumbName>
+    <span class="{{$class}}__name"
+          data-wlc-element="block_game-thumb-name"
+          title="{{game.name.en}}">
+        {{game.name.en | truncate: 25}}
+    </span>
 </ng-template>
 
 <ng-template #preloader>
