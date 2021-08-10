@@ -338,7 +338,7 @@ export class DataService {
                     ? this.restoreCachedData(method, result)
                     : this.http.request<IData>(method.type, url, {
                         headers: {
-                            'HTTP_X_UA_FINGERPRINT': window['fingerprintHash'],
+                            'HTTP_X_UA_FINGERPRINT': window['fingerprintHash'] || '',
                         },
                         params: requestParams,
                         body: requestBody,
