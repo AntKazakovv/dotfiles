@@ -58,7 +58,7 @@ export class WlcPaginationComponent extends AbstractComponent implements OnInit,
             this.pageChanged = this.pageChangedDefault;
         }
 
-        if (this.items?.length && this.totalItems !== this.items.length) {
+        if (this.items?.length) {
             this.totalItems = this.items.length;
             this.resetPage();
         }
