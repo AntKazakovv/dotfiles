@@ -136,7 +136,7 @@ export namespace wlcProfileForm {
                     },
                     {
                         name: 'core.wlc-wrapper',
-                        params: <IWrapperCParams>{
+                        params: <IWrapperCParams> {
                             class: 'wlc-profile-form__block wlc-profile-form__block--password',
                             components: [
                                 {

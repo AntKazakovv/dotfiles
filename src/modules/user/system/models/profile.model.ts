@@ -4,6 +4,7 @@ import {IFromLog} from 'wlc-engine/modules/core';
 
 import _assign from 'lodash-es/assign';
 import _get from 'lodash-es/get';
+import _toString from 'lodash-es/toString';
 
 export class UserProfile extends AbstractModel<IUserProfile> {
 
@@ -114,8 +115,8 @@ export class UserProfile extends AbstractModel<IUserProfile> {
         return this.data.phoneCode;
     }
 
-    public get phoneNumber(): number {
-        return this.data.phoneNumber ? +this.data.phoneNumber : undefined;
+    public get phoneNumber(): string {
+        return _toString(this.data.phoneNumber);
     }
 
     public get phoneVerified(): string | boolean {
