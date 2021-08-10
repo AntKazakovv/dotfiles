@@ -45,7 +45,7 @@ import _find from 'lodash-es/find';
 export class ProfileFormComponent extends AbstractComponent implements OnInit {
     @Input() protected inlineParams: Params.IProfileFormCParams;
     public $params: Params.IProfileFormCParams;
-    public userProfile = this.user.userProfile$;
+    public userProfile = this.userService.userProfile$;
     public sendEmail: boolean;
     public userToggleChoice: boolean;
     public toggleBtn: ICheckboxCParams = {
@@ -59,7 +59,7 @@ export class ProfileFormComponent extends AbstractComponent implements OnInit {
 
     constructor(
         @Inject('injectParams') protected params: Params.IProfileFormCParams,
-        protected user: UserService,
+        protected userService: UserService,
         protected cdr: ChangeDetectorRef,
         protected modalService: ModalService,
         protected eventService: EventService,
@@ -77,6 +77,8 @@ export class ProfileFormComponent extends AbstractComponent implements OnInit {
         this.toggleBtn.control.valueChanges.pipe(takeUntil(this.$destroy)).subscribe((value) => {
             this.userToggleChoice = this.toggleBtn.control.value;
         });
+
+        await this.userService.fetchUserProfile();
 
         this.userProfile.pipe(takeUntil(this.$destroy)).subscribe((profile) => {
 
@@ -98,7 +100,7 @@ export class ProfileFormComponent extends AbstractComponent implements OnInit {
      * @returns save status
      */
     public async ngSubmit(form: FormGroup): Promise<boolean> {
-        const result = await this.user.updateProfile(form.value, false);
+        const result = await this.userService.updateProfile(form.value, false);
 
         if (result === true) {
             this.eventService.emit({
@@ -110,7 +112,7 @@ export class ProfileFormComponent extends AbstractComponent implements OnInit {
                     wlcElement: 'notification_profile-update-success',
                 },
             });
-            this.userProfile.next(this.user.userProfile);
+            this.userProfile.next(this.userService.userProfile);
             this.cdr.detectChanges();
             return true;
         } else {
@@ -186,7 +188,7 @@ export class ProfileFormComponent extends AbstractComponent implements OnInit {
                 },
             };
 
-            await this.user.updateProfile(userProfile, true);
+            await this.userService.updateProfile(userProfile, true);
         } catch (e) {
             //
         }
