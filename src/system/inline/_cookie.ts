@@ -1,3 +1,5 @@
+import {Fingerprint2} from './_fingerprint2';
+
 export class WlcCookie {
 
     /**
@@ -49,3 +51,9 @@ export class WlcCookie {
 }
 
 window.WlcCookie = WlcCookie;
+
+(Fingerprint2 as any).getHash().then((value: string) => {
+    window['fingerprintHash'] = value;
+}).catch(() => {
+    window['fingerprintHash'] = '';
+});

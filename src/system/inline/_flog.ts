@@ -29,9 +29,8 @@ export class WlcFlog {
         }
         this.addListeners();
         this.sendInitLog().finally();
-        (Fingerprint2 as any).getHash().then((value: string) => {
-            window['fingerprintHash'] = value;
-        }).finally(() => {
+        (Fingerprint2 as any).getHash().finally(() => {
+            this._fingerprint = window['fingerprintHash'] || '';
             this.isReadyResolve();
         });
     }
