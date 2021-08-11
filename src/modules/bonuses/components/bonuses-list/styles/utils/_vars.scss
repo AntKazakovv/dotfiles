@@ -61,15 +61,10 @@ $themePromo: map-merge((
 
 $customThemePartial: () !default;
 $themePartial: map-merge((
-    'gridTemplateColumns': (
-        900: repeat(auto-fill, minmax(120px, max-content)),
-        1630: repeat(auto-fill, minmax(145px, 1fr)),
-    ),
-    'gridGap': (
-        900: 15px,
-        1630: 17px,
-    ),
+    'listMargin': ef.size(-2),
+    'itemMargin': ef.size(2),
     'bonusBodyHeight': 235px,
+    'bonusJustifyContent': center,
     'sliderZIndex': 2,
     'sliderPosLeft': 0,
     'sliderPosRight': 0,
