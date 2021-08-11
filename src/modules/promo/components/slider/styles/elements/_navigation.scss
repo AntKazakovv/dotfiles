@@ -106,6 +106,7 @@
     }
 
     &.swiper-button-disabled {
+        color: ef.get-value($themeDefaultBanner, 'iconFillDisabled');
         background: ef.get-value($themeDefaultBanner, 'buttonBgDisabled');
         cursor: default;
     }

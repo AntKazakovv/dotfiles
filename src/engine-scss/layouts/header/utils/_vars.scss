@@ -61,6 +61,7 @@ $theme1Header: map-merge((
     'headerDepositBtnFillColor': ef.get('mainColors', 'baseMain'),
     'headerLoginBtnFillColor': ef.get('mainColors', 'baseOpacity'),
     'headerUserBtnFill': ef.get('mainColors', 'secondary'),
+    'headerUserBtnInnerFillColor': ef.get('mainColors', 'baseMain'),
     'headerSvgBtnHover': ef.get('mainColors', 'baseMain'),
     'headerLoginBtnTabletPadding': (
         1200: ef.get('size', 'smallest') ef.get('size', 'small'),
