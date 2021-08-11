@@ -6,10 +6,10 @@
 
     .swiper-button-container {
         position: absolute;
-        z-index: ef.get-value($themePartial, 'sliderZIndex');
         top: calc(#{ef.get-value($themePartial, 'bonusBodyHeight')} / 2 - #{ef.get-value($themePartial, 'sliderButtonHeight')} / 2);
         right: ef.get-value($themePartial, 'sliderPosRight');
         left: ef.get-value($themePartial, 'sliderPosLeft');
+        z-index: ef.get-value($themePartial, 'sliderZIndex');
 
         display: flex;
         align-items: ef.get-value($themePartial, 'sliderAlignItems');
@@ -29,10 +29,14 @@
     .wlc-bonuses-list {
 
         &__list {
-            display: grid;
-            @include em.get-mq-map('grid-template-columns', $themePartial, 'gridTemplateColumns');
-            @include em.get-mq-map('grid-gap', $themePartial, 'gridGap');
-            justify-content: center;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: ef.get-value($themePartial, 'bonusJustifyContent');
+            margin: ef.get-value($themePartial, 'listMargin');
+
+            .wlc-bonus-item {
+                margin: ef.get-value($themePartial, 'itemMargin');
+            }
 
             &-wrapper {
                 position: relative;
