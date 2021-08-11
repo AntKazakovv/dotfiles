@@ -53,7 +53,7 @@ export class SeoService {
                 content: '',
             },
             {
-                property: 'og:title',
+                name: 'og:title',
                 content: '',
             },
             {
@@ -61,15 +61,19 @@ export class SeoService {
                 content: '',
             },
             {
-                property: 'og:description',
+                name: 'keywords',
                 content: '',
             },
             {
-                property: 'og:image',
+                name: 'og:keywords',
                 content: '',
             },
             {
-                property: 'og:keywords',
+                name: 'og:description',
+                content: '',
+            },
+            {
+                name: 'og:image',
                 content: '',
             },
         ]);
@@ -140,7 +144,7 @@ export class SeoService {
             content: _get(seoState, `opengraph_title.${currentLang}`, this.siteName),
         });
         this.meta.updateTag({
-            property: 'og:title',
+            name: 'og:title',
             content: _get(seoState, `opengraph_title.${currentLang}`, this.siteName),
         });
         this.meta.updateTag({
@@ -148,15 +152,19 @@ export class SeoService {
             content: _get(seoState, `opengraph_desc.${currentLang}`, ''),
         });
         this.meta.updateTag({
-            property: 'og:description',
+            name: 'og:description',
             content: _get(seoState, `opengraph_desc.${currentLang}`, ''),
         });
         this.meta.updateTag({
-            property: 'og:image',
+            name: 'og:image',
             content: _get(seoState, `opengraph_image.${currentLang}`, ''),
         });
         this.meta.updateTag({
-            property: 'og:keywords',
+            name: 'keywords',
+            content: _get(seoState, `opengraph_keywords.${currentLang}`, ''),
+        });
+        this.meta.updateTag({
+            name: 'og:keywords',
             content: _get(seoState, `opengraph_keywords.${currentLang}`, ''),
         });
     }
@@ -196,7 +204,7 @@ export class SeoService {
                 content: _get(gameSeo, `opengraph_title.${currentLang}`, this.siteName),
             });
             this.meta.updateTag({
-                property: 'og:title',
+                name: 'og:title',
                 content: _get(gameSeo, `opengraph_title.${currentLang}`, this.siteName),
             });
             this.meta.updateTag({
@@ -204,15 +212,19 @@ export class SeoService {
                 content: _get(gameSeo, `opengraph_desc.${currentLang}`, ''),
             });
             this.meta.updateTag({
-                property: 'og:description',
+                name: 'og:description',
                 content: _get(gameSeo, `opengraph_desc.${currentLang}`, ''),
             });
             this.meta.updateTag({
-                property: 'og:image',
+                name: 'og:image',
                 content: _get(gameSeo, `opengraph_image.${currentLang}`, ''),
             });
             this.meta.updateTag({
-                property: 'og:keywords',
+                name: 'keywords',
+                content: _get(gameSeo, `opengraph_keywords.${currentLang}`, ''),
+            });
+            this.meta.updateTag({
+                name: 'og:keywords',
                 content: _get(gameSeo, `opengraph_keywords.${currentLang}`, ''),
             });
         }
