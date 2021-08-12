@@ -154,6 +154,10 @@ export class FinancesService {
             this.userService = await this.injectionService.getService<UserService>('user.user-service');
         }
         this.systems = (await this.dataService.request<IData>('finances/paymentSystems')).data as PaymentSystem[];
+
+        // TODO delete when will be completed #247624
+        this.systems = this.systems.filter(system => !system.alias.includes('helper'));
+
         this.paymentSystems$.next(this.paymentSystems);
         return this.paymentSystems;
     }
