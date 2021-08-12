@@ -361,7 +361,7 @@ export class DataService {
                             mergeMap((error: HttpErrorResponse) => {
 
                                 if (!error.statusText.startsWith('5')) {
-                                    return;
+                                    return throwError(error);
                                 }
                                 if (countLength-- > 0) {
                                     notCacheStaticData = true;
