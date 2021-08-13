@@ -267,14 +267,7 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
         }
 
         try {
-            const result = await this.hooksService.run<IGameWrapperHookEvalScript>(gameWrapperHooks.evalScript, {
-                game: this.game,
-                customGameParams: this.$params?.gameParams,
-                disable: false,
-            });
-            if (!result.disable) {
-                eval(this.launchInfo.gameScript);
-            }
+            this.runGameScript();
         } catch (error) {
             this.logService.sendLog({
                 code: '3.0.8',
@@ -288,6 +281,17 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
                 },
             });
             this.setError();
+        }
+    }
+
+    protected async runGameScript(): Promise<void> {
+        const result = await this.hooksService.run<IGameWrapperHookEvalScript>(gameWrapperHooks.evalScript, {
+            game: this.game,
+            customGameParams: this.$params?.gameParams,
+            disable: false,
+        });
+        if (!result.disable) {
+            eval(this.launchInfo.gameScript);
         }
     }
 
@@ -534,6 +538,9 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
             if (this.useMobileIframe) {
                 return this.runInMobileIframe();
             }
+            if (!this.gameHtml) {
+                this.runGameScript();
+            }
             return true;
         } catch {
             return false;
@@ -594,7 +601,7 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
      * Set use or not mobile iframe
      */
     protected useOrNotMobileIframe(): void {
-        if (this.realMobile) {
+        if (this.realMobile && this.scriptCanBeRunInsideIframe()) {
             this.useMobileIframe = true;
 
             const excludeOptions: IExcludeMerchantSettings = this.configService.get(
@@ -621,66 +628,61 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
         let tryLoadIteration: number = 1,
             errorOccured: boolean = false;
 
-        const waiter = this.logService.waiter({code: '3.0.10', data: {game: this.game}});
+        const waiter = this.logService.waiter({code: '3.0.10', data: {game: this.game}}),
+            iframe: HTMLIFrameElement = this.document.createElement('iframe'),
+            html: string = this.gameHtml;
 
-        if (this.scriptCanBeRunInsideIframe()) {
-            const iframe: HTMLIFrameElement = this.document.createElement('iframe'),
-                html: string = this.gameHtml as string;
-            this.iframe = iframe;
+        this.iframe = iframe;
 
-            iframe.addEventListener('load', () => {
-                if (errorOccured) {
-                    return;
+        iframe.addEventListener('load', () => {
+            if (errorOccured) {
+                return;
+            }
+
+            tryLoadIteration++;
+            try {
+                const doc: HTMLDocument = (iframe.contentDocument) ?
+                    iframe.contentDocument : iframe.contentWindow.document;
+
+                const loadedMainSiteInIframe: boolean = tryLoadIteration == 4 && !!doc.querySelector('.wlc-application');
+                if (loadedMainSiteInIframe) {
+                    this.returnToPrevState();
                 }
 
-                tryLoadIteration++;
-                try {
-                    const doc: HTMLDocument = (iframe.contentDocument) ?
-                        iframe.contentDocument : iframe.contentWindow.document;
-
-                    const loadedMainSiteInIframe: boolean = tryLoadIteration == 4 && !!doc.querySelector('.wlc-application');
-                    if (loadedMainSiteInIframe) {
-                        this.returnToPrevState();
-                    }
-
-                    if (tryLoadIteration > 4) {
-                        this.gameScriptTimeout = setTimeout(() => {
-                            errorOccured = true;
-                            this.logService.sendLog({code: '3.0.9', data: {game: this.game}});
-                            this.eventService.emit({
-                                name: NotificationEvents.PushMessage,
-                                data: <IPushMessageParams>{
-                                    type: 'error',
-                                    title: gettext('Game error'),
-                                    message: gettext('Something wrong. Please try later.'),
-                                    wlcElement: 'notification_game-error',
-                                },
-                            });
-                        }, 500);
-                    } else {
-                        doc.open();
-                        doc.write(html);
-                        doc.write(`<script>${this.launchInfo.gameScript}</script>`);
-                        doc.close();
-                        this.mobileIframeLoaded = true;
-                    }
-                    return true;
-                } catch (error) {
-                    if (this.mobileIframeLoaded) {
-                        waiter();
-                    }
-                    if (this.gameScriptTimeout) {
-                        clearInterval(this.gameScriptTimeout);
-                    }
-                    return false;
+                if (tryLoadIteration > 4) {
+                    this.gameScriptTimeout = setTimeout(() => {
+                        errorOccured = true;
+                        this.logService.sendLog({code: '3.0.9', data: {game: this.game}});
+                        this.eventService.emit({
+                            name: NotificationEvents.PushMessage,
+                            data: <IPushMessageParams>{
+                                type: 'error',
+                                title: gettext('Game error'),
+                                message: gettext('Something wrong. Please try later.'),
+                                wlcElement: 'notification_game-error',
+                            },
+                        });
+                    }, 500);
+                } else {
+                    doc.open();
+                    doc.write(html);
+                    doc.write(`<script>${this.launchInfo.gameScript}</script>`);
+                    doc.close();
+                    this.mobileIframeLoaded = true;
                 }
-            });
-            this.renderer.appendChild(this.gameContainer.nativeElement, iframe);
-        } else {
-            eval(this.launchInfo.gameScript);
-            this.mobileIframeLoaded = true;
-            waiter();
-        }
+                return true;
+            } catch (error) {
+                if (this.mobileIframeLoaded) {
+                    waiter();
+                }
+                if (this.gameScriptTimeout) {
+                    clearInterval(this.gameScriptTimeout);
+                }
+                return false;
+            }
+        });
+
+        this.renderer.appendChild(this.gameContainer.nativeElement, iframe);
         return true;
     }
 
