@@ -3,5 +3,5 @@
 $customThemeDefault: () !default;
 $themeDefault: map-merge((
     'limitsColor': ef.get('fieldColors', 'labelColor'),
-    'limitsMargin': -3px 0 0 ef.get('size', 'smallest'),
+    'limitsMargin': -3px 0 0 ef.size(2),
 ), $customThemeDefault);
