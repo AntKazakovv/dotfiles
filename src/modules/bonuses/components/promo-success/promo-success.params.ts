@@ -11,7 +11,7 @@ export interface IPromoSuccessCParams extends IComponentParams<ComponentTheme, C
     common?: {
         title?: string,
         subtitle?: string
-        iconName?: string,
+        iconPath?: string,
         text?: string,
         btnText?: string,
         actionParams?: IActionParams
@@ -36,7 +36,7 @@ export const defaultParams: IPromoSuccessCParams = {
     class: 'wlc-promo-success',
     common: {
         title: gettext('Promo code'),
-        iconName: 'promo-success',
+        iconPath: '/wlc/decors/promo-success.svg',
         text: gettext('Congratulations your promo code is activated! Bonus added to the Bonuses page and waiting for subscription'),
         btnText: gettext('Go it'),
     },

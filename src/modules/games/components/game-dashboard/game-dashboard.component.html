@@ -3,7 +3,7 @@
     <div class="{{$class}}__tutorial-item" [@fadeIn]="decorAnimationState">
         <div class="{{$class}}__tutorial-arrow">
             <div class="{{$class}}__tutorial-arrow-icon">
-                <span wlc-icon iconName="game-dashboard/arrow-right"></span>
+                <span wlc-icon iconPath="/wlc/game-dashboard/arrow-right.svg"></span>
             </div>
             <div class="tutorial-text">
                 {{'Tap this' | translate}} !
@@ -61,7 +61,7 @@
                      (click)="openTab(tab)">
                     <div wlc-icon
                          class="{{$class}}__tab-icon"
-                         [iconName]="tab.icon">
+                         [iconPath]="tab.iconPath">
                     </div>
                 </div>
             </ng-container>

@@ -25,7 +25,7 @@ export class PromoSuccessComponent
     @Input() public inlineParams: Params.IPromoSuccessCParams;
     @Input() public actionParams: Params.IActionParams;
     @Input() public btnText: string;
-    @Input() public iconName: string;
+    @Input() public iconPath: string;
     @Input() public subtitle: string;
     @Input() public text: string;
     @Input() public title: string;
