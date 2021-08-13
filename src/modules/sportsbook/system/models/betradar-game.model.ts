@@ -158,8 +158,10 @@ export class BetradarGameModel extends AbstractModel<IBetradarGame> {
         if (!name) {
             return '';
         }
-        const reg = new RegExp('\\b[a-z]+\\b', 'gi');
-        const matches = name.match(reg);
+        const matches = name.match(/[a-zа-я]+/gi);
+        if (!matches.length) {
+            return '';
+        }
 
         let abbr = '';
         if (matches.length > 1) {
