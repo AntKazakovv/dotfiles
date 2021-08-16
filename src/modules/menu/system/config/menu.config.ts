@@ -188,6 +188,7 @@ export const menuConfig: IMenuConfig = {
     burgerPanel: {
         left: {
             headerMenu: {
+                use: true,
                 enableByFundistMenuSettings: true,
                 menuParams: {
                     type: 'burger-panel-header',

@@ -31,7 +31,11 @@ import {
 import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
 import {HammerConfig} from 'wlc-engine/modules/core/system/config/hammer.config';
 import {panelsEvents} from './../float-panels/float-panels.params';
-import {MenuHelper, MenuParams} from 'wlc-engine/modules/menu';
+import {
+    MenuHelper,
+    MenuParams,
+    IBurgerPanelHeaderMenu,
+} from 'wlc-engine/modules/menu';
 import {IWrapperCParams} from 'wlc-engine/modules/core';
 
 import * as Config from 'wlc-engine/modules/menu/system/config/main-menu.items.config';
@@ -125,14 +129,16 @@ export class BurgerPanelComponent extends AbstractComponent
         this.addModifiers(this.id);
         await this.configService.ready;
         await this.injectionService.importModules(['menu']);
-
-        const enableByFundist: boolean = this.configService.get<boolean>(`$menu.burgerPanel.${this.$params.type}.headerMenu.enableByFundistMenuSettings`);
-        if (enableByFundist) {
-            if (this.configService.get('appConfig.menuSettings')) {
+        const headerMenu = this.configService.get<IBurgerPanelHeaderMenu>(`$menu.burgerPanel.${this.$params.type}.headerMenu`);
+        
+        if (headerMenu?.use) {
+            if (headerMenu.enableByFundistMenuSettings) {
+                if (this.configService.get('appConfig.menuSettings')) {
+                    this.initHeaderMenu();
+                }
+            } else {
                 this.initHeaderMenu();
             }
-        } else {
-            this.initHeaderMenu();
         }
 
         this.title = this.$params.title || gettext('Menu');
