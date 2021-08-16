@@ -1,26 +1,41 @@
-import {IBanner} from 'wlc-engine/modules/core/system/interfaces';
+import {
+    AbstractModel,
+    IFromLog,
+    IBanner,
+} from 'wlc-engine/modules/core';
 
 import _filter from 'lodash-es/filter';
 import _map from 'lodash-es/map';
 import _assign from 'lodash-es/assign';
 
-export class BannerModel {
-    public readonly html: string;
-    public readonly platform: string[];
-    public readonly visibility: string[];
-    public tags: string[];
+export class BannerModel extends AbstractModel<IBanner>{
     public geo: string[];
-    public type: string;
 
-    constructor(data: IBanner) {
-        _assign(this, data);
-
-        this.geo = _map(_filter(this.tags, (tag) => tag.includes('geo:')), (tag) => tag.split(':')[1]);
-        this.tags = _filter(this.tags, (tag) => !tag.includes('geo:'));
+    constructor(
+        from: IFromLog,
+        data: IBanner,
+    ) {
+        super({from: _assign({model: 'BannerModel'}, from)});
+        this.data = {
+            ...data,
+            tags: _filter(data.tags, (tag) => !tag.includes('geo:')),
+        };
+        this.geo = _map(_filter(data.tags, (tag) => tag.includes('geo:')), (tag) => tag.split(':')[1]);
     }
 
-    public getHtml(): string {
+    public get html(): string {
+        return this.data.html;
+    }
 
-        return this.html;
+    public get platform(): string[] {
+        return this.data.platform;
+    }
+
+    public get visibility(): string[] {
+        return this.data.visibility;
+    }
+
+    public get tags(): string[] {
+        return this.data.tags;
     }
 }
