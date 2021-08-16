@@ -73,7 +73,7 @@ export namespace footer {
                                 class: 'footer-bottom__left',
                                 components: [
                                     componentLib.wlcSocialIcons.def,
-                                    componentLib.wlcLicense.def,
+                                    componentLib.wlcLicense.onlyDesktop,
                                 ],
                             },
                         },
@@ -87,6 +87,7 @@ export namespace footer {
                                 ],
                             },
                         },
+                        componentLib.wlcLicense.onlyMobile,
                     ],
                 },
             },
