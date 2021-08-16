@@ -96,7 +96,13 @@ export class BannersService {
                 this.configService.get<IBanner[]>(`appConfig.banners[${lang}]`),
                 banner => banner.html,
             ),
-            (banner: IBanner): BannerModel => new BannerModel(banner),
+            (banner: IBanner): BannerModel => new BannerModel(
+                {
+                    service: 'BannersService',
+                    method: 'prepareBanners',
+                },
+                banner,
+            ),
         );
 
         banners = this.filterByGeo(banners, '-');
