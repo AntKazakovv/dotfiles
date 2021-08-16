@@ -42,7 +42,8 @@ export interface IAffiliatesMenuSettings {
 }
 
 export interface IBurgerPanelHeaderMenu {
-    enableByFundistMenuSettings?: true,
+    use?: boolean,
+    enableByFundistMenuSettings?: boolean,
     menuParams?: MenuParams.IMenuCParams;
     icons?: {
         folder: string;
