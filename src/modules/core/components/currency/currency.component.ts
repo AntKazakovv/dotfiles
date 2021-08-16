@@ -35,6 +35,8 @@ import _each from 'lodash-es/each';
 import _keys from 'lodash-es/keys';
 import _join from 'lodash-es/join';
 import _map from 'lodash-es/map';
+import _isNil from 'lodash-es/isNil';
+import _isNaN from 'lodash-es/isNaN';
 
 /**
  * @ngModule CoreModule
@@ -117,6 +119,7 @@ export class CurrencyComponent
     public isNegative: boolean = false;
     public showName: boolean = false;
     public showSvg: boolean = false;
+    public isError: boolean = false;
     protected $init: boolean = false;
     protected language: string = this.translateService.currentLang;
 
@@ -197,6 +200,8 @@ export class CurrencyComponent
     }
 
     protected updateModel(): void {
+        this.isError = false;
+
         const model = new CurrencyModel(
             {
                 component: 'CurrencyComponent',
@@ -228,8 +233,10 @@ export class CurrencyComponent
         }
 
         this.displayValue = _join(_map(currencyParts, (part) => part.value), '').trim();
-
-        if (this.$params.value > 0) {
+        if (_isNil(this.$params.value) || _isNaN(this.$params.value)) {
+            this.addModifiers('is-error');
+            this.isError = true;
+        } else if (this.$params.value > 0) {
             this.addModifiers('above-zero');
         } else if (this.$params.value < 0) {
             this.addModifiers('less-zero');

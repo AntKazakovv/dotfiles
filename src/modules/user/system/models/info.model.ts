@@ -13,6 +13,8 @@ import _get from 'lodash-es/get';
 import _assign from 'lodash-es/assign';
 import _isString from 'lodash-es/isString';
 import _cloneDeep from 'lodash-es/cloneDeep';
+import _isNil from 'lodash-es/isNil';
+import _isNaN from 'lodash-es/isNaN';
 
 export class UserInfo extends AbstractModel<IUserInfo> {
 
@@ -100,7 +102,7 @@ export class UserInfo extends AbstractModel<IUserInfo> {
     }
 
     public get socketsData(): ISocketsData {
-        return this.data.socketsData;
+        return this.data?.socketsData;
     }
 
     public get status(): number {
@@ -108,9 +110,11 @@ export class UserInfo extends AbstractModel<IUserInfo> {
     }
 
     public get bonusBalance(): number {
-        return _reduce(this.data?.loyalty?.BonusesBalance, (accumulator: number, bonusBalance: number) => {
-            return accumulator + Number(_get(bonusBalance, 'Balance', 0));
-        }, 0);
+        return _isNil(this.data?.loyalty?.BonusesBalance)
+            ? null
+            : _reduce(this.data?.loyalty?.BonusesBalance, (accumulator: number, bonusBalance: number) => {
+                return accumulator + Number(_get(bonusBalance, 'Balance', 0));
+            }, 0);
     }
 
     public get realBalance(): number {
@@ -142,11 +146,18 @@ export class UserInfo extends AbstractModel<IUserInfo> {
 
     public set data(data: IUserInfo) {
         super.data = _cloneDeep(data);
-        if (this.separateLoyalty) {
-            this.data.loyalty = this.$loyaltyData;
-            this.data.loyalty.BonusesBalance = data.loyalty.BonusesBalance;
+        if (this.data && this.separateLoyalty) {
+            if (this.$loyaltyData) {
+                this.data.loyalty = this.$loyaltyData;
+            } else {
+                this.$loyaltyData = this.data.loyalty;
+            }
+
+            if (this.data.loyalty) {
+                this.data.loyalty.BonusesBalance = data.loyalty.BonusesBalance;
+            }
         } else {
-            this.$loyaltyData = this.data.loyalty;
+            this.$loyaltyData = this.data?.loyalty;
         }
     }
 

@@ -20,7 +20,9 @@
         </ng-container>
     </ng-container>
 
-    {{displayValue}}
+    <ng-container *ngIf="!isError; else error">
+        {{displayValue}}
+    </ng-container>
 
     <ng-container *ngIf="icon?.placement === 'right'">
         <ng-container *ngIf="icon.prefix">
@@ -38,4 +40,8 @@
 
 <ng-template #loading>
     ...
+</ng-template>
+
+<ng-template #error>
+    {{$params.textError | translate}}
 </ng-template>
