@@ -23,9 +23,9 @@ export const defaultParams: IGameWrapperCParams = {
     themeMod: 'default',
     type: 'default',
     updateOnWindowResize: true,
-    padding: 0,
+    padding: 20,
     gameParams: {
-        minGameWindowHeight: 550,
+        minGameWindowHeight: 250,
     },
     wlcElement: 'section_game-play-container',
 };
