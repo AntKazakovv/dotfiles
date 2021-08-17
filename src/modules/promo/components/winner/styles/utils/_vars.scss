@@ -134,6 +134,10 @@ $themeVertical: map-merge((
     'amountColor': ef.get('mainColors', 'baseMain'),
     'amountFontWeight': 700,
 
+    // safari
+    'safariGameAlignItems': canter,
+    'safariGameJustifyContant': space-between,
+
 ), $customThemeVertical);
 
 $customTheme1: () !default;

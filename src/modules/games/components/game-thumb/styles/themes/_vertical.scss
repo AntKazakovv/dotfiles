@@ -10,39 +10,8 @@
 
     border-radius: ef.get-value($themeVertical, 'borderRadius');
 
-    @media (hover) {
-
-        .wlc-game-thumb-media {
-            pointer-events: none;
-        }
-
-        &:hover,
-        &:focus-visible {
-
-            .wlc-game-thumb__control {
-                transform: translateY(0);
-                visibility: visible;
-                opacity: 1;
-
-                pointer-events: auto;
-            }
-
-            .wlc-game-thumb-media__bg {
-                transform: scale(1.01);
-            }
-
-            .wlc-game-thumb-media__logo {
-                transform: translateY(-40px);
-            }
-
-            .wlc-game-thumb-media__fg {
-                transform: scale(1.2);
-            }
-
-            .wlc-game-thumb-media__video {
-                transform: scale(1.1);
-            }
-        }
+    .wlc-body--browser-safari & {
+        -webkit-mask-image: -webkit-radial-gradient(white, black); /* stylelint-disable-line */
     }
 
     .wlc-game-thumb-media {
@@ -50,13 +19,13 @@
         @supports not (aspect-ratio: 1/1) {
 
             &:before {
+
+                @include bm.aspect-ratio-padding(ef.get-value($themeVertical, 'bgAspectRatio'));
+
+                content: '';
                 display: block;
                 width: 100%;
                 height: 0;
-
-                content: '';
-
-                @include bm.aspect-ratio-padding(ef.get-value($themeVertical, 'bgAspectRatio'));
             }
         }
     }
@@ -74,7 +43,7 @@
         background-position: ef.get-value($themeVertical, 'placeholderBgPosition');
 
         @supports (aspect-ratio: 1/1) {
-            aspect-ratio: ef.get-value($themeVertical, 'bgAspectRatio');
+            aspect-ratio: #{ef.get-value($themeVertical, 'bgAspectRatio')};
         }
 
         @supports not (aspect-ratio: 1/1) {
@@ -88,15 +57,15 @@
     }
 
     .wlc-game-thumb-media__video {
+        @include bm.transition(transform);
         object-fit: ef.get-value($themeVertical, 'videoObjectFit');
         object-position: ef.get-value($themeVertical, 'videoObjectPosition');
-        @include bm.transition(transform);
     }
 
     .wlc-game-thumb-media__bg {
-        transform: scale(1.1);
 
         @include bm.transition(transform);
+        transform: scale(1.1);
 
         img {
             position: absolute;
@@ -111,6 +80,8 @@
     }
 
     .wlc-game-thumb-media__fg {
+
+        @include bm.transition(transform);
         position: absolute;
         bottom: 0;
         left: 0;
@@ -122,14 +93,14 @@
 
         pointer-events: none;
 
-        @include bm.transition(transform);
-
         img {
             width: 100%;
         }
     }
 
     .wlc-game-thumb-media__logo {
+
+        @include bm.transition(transform);
         position: absolute;
         top: ef.get-value($themeVertical, 'logoTopGap');
         left: 0;
@@ -138,14 +109,13 @@
 
         pointer-events: none;
 
-        @include bm.transition(transform);
-
         img {
             width: 100%;
         }
     }
 
     .wlc-game-thumb__control {
+        @include bm.transition();
         position: absolute;
         top: 0;
         left: 0;
@@ -162,11 +132,43 @@
         opacity: 0;
 
         pointer-events: none;
-        @include bm.transition();
+
+        .wlc-game-thumb__buttons {
+            display: grid;
+            gap: ef.get-value($themeVertical, 'buttonsGap');
+        }
     }
 
-    .wlc-game-thumb__buttons {
-        display: grid;
-        gap: ef.get-value($themeVertical, 'buttonsGap');
+    @include bm.hover {
+        border-radius: 10px;
+
+        .wlc-game-thumb-media {
+            pointer-events: none;
+            border-radius: 10px;
+        }
+
+        .wlc-game-thumb__control {
+            transform: translateY(0);
+            visibility: visible;
+            opacity: 1;
+
+            pointer-events: auto;
+        }
+
+        .wlc-game-thumb-media__bg {
+            transform: scale(1.01);
+        }
+
+        .wlc-game-thumb-media__logo {
+            transform: translateY(-40px);
+        }
+
+        .wlc-game-thumb-media__fg {
+            transform: scale(1.2);
+        }
+
+        .wlc-game-thumb-media__video {
+            transform: scale(1.1);
+        }
     }
 }
