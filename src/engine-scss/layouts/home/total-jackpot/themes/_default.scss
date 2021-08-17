@@ -48,7 +48,7 @@
 
         svg {
 
-            .safari & {
+            .wlc-body--browser-safari & {
                 transform: translateX(3%);
 
                 @include mq.min(1366) {
@@ -72,7 +72,7 @@
                 @include textStroke(6, ef.get-value($themeTotalJackpot, 'textStrokeColor'));
             }
 
-            .safari & {
+            .wlc-body--browser-safari & {
                 text-shadow: none;
             }
         }

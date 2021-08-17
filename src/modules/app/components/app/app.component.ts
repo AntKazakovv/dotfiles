@@ -33,6 +33,7 @@ import {
     SeoService,
     LogService,
     InjectionService,
+    BodyClassService,
 } from 'wlc-engine/modules/core';
 import {
     ILivechatConfig,
@@ -84,6 +85,7 @@ export class AppComponent extends AbstractComponent implements OnInit, OnDestroy
         protected actionService: ActionService,
         protected modalService: ModalService,
         protected seo: SeoService,
+        protected bodyClassService: BodyClassService,
         private transition: TransitionService,
         private titleService: Title,
         private meta: Meta,
@@ -233,9 +235,6 @@ export class AppComponent extends AbstractComponent implements OnInit, OnDestroy
     private setHostClass(): void {
         const hostClass = [
             defaultParams.hostClass,
-            this.configService.get<DeviceModel>('device')?.osName,
-            this.configService.get<DeviceModel>('device')?.browserName,
-            `wlc-locale-${this.translate.currentLang}`,
             `${_get(this.uiRouter, '$current.name', '').replace(/\./g, '-')}-state`,
             ...this.additionalHostClass,
         ];

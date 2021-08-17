@@ -1,0 +1,7 @@
+<label class="{{$class}}__label" title="Switch theme">
+    <input class="{{$class}}__checkbox"
+        type="checkbox"
+        [(ngModel)]="status"
+        (ngModelChange)="toggleThemeHandler()">
+    <span class="{{$class}}__switcher"></span>
+</label>

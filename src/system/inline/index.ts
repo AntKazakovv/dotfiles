@@ -1,3 +1,4 @@
+require('./_body-class');
 require('./_cookie');
 require('./_flog');
 require('./_preload');
