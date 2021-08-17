@@ -56,7 +56,6 @@ module.exports = function(config) {
                 'changeOrigin': true,
             },
         },
-        autoWatch: true,
         browsers: ['WlcChromeHeadless'],
         customLaunchers: {
             WlcChromeHeadless: {
@@ -76,7 +75,8 @@ module.exports = function(config) {
                 ],
             },
         },
-        singleRun: false,
+        singleRun: true,
+        autoWatch: false,
         restartOnFileChange: false,
     });
 };
