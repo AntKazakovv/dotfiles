@@ -10,14 +10,14 @@
          [inlineParams]="$params.common?.landscapeSliderParams">
     </div>
     <div *ngIf="isDesktopAndSlidesLength" slot-container-end>
-        <div wlc-icon
-             class="swiper-button-prev"
+        <button wlc-icon
+             class="swiper-button-prev wlc-swiper-button-prev"
              iconPath="/wlc/icons/arrow.svg">
-    </div>
-        <div wlc-icon
-             class="swiper-button-next"
+        </button>
+        <button wlc-icon
+             class="swiper-button-next wlc-swiper-button-next"
              iconPath="/wlc/icons/arrow.svg">
-    </div>
+        </button>
     </div>
 </ng-container>
 

@@ -47,11 +47,9 @@
                         justify-content: center;
                         width: ef.get-value($themeDefault, 'pageItemWidth');
                         height: ef.get-value($themeDefault, 'pageItemHeight');
-                        line-height: 0;
                     }
 
                     svg {
-                        transform: rotate(-90deg);
                         fill: currentColor;
                     }
 
@@ -74,9 +72,16 @@
                     }
                 }
 
+                &-next {
+
+                    .wlc-btn {
+                        transform: rotate(-90deg);
+                    }
+                }
+
                 &-prev {
 
-                    svg {
+                    .wlc-btn {
                         transform: rotate(90deg);
                     }
                 }
