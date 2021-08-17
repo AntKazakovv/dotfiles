@@ -6,27 +6,26 @@
             position: relative;
 
             display: flex;
+            height: ef.get-value($themeVertical, 'imageSize');
 
             line-height: ef.get-value($themeVertical, 'lineHeight');
-            height: ef.get-value($themeVertical, 'imageSize');
         }
 
         &__block {
 
             &--left {
-                flex: 0 0 auto;
                 display: flex;
+                flex: 0 0 auto;
                 align-items: center;
             }
 
             &--right {
                 display: grid;
-                grid-template-columns: ef.get-value($themeVertical, 'rightGridTemplateColumns');
-                grid-template-areas: ef.get-value($themeVertical, 'rightGridTemplateAreas');
-                column-gap: ef.get-value($themeVertical, 'rightColumnGap');
-                row-gap: ef.get-value($themeVertical, 'rightRowGap');
 
                 flex: 1 1 auto;
+                grid-template-areas: ef.get-value($themeVertical, 'rightGridTemplateAreas');
+                grid-template-columns: ef.get-value($themeVertical, 'rightGridTemplateColumns');
+                gap: ef.get-value($themeVertical, 'rightRowGap')  ef.get-value($themeVertical, 'rightColumnGap');
 
                 min-width: 0;
 
@@ -54,10 +53,10 @@
         }
 
         &__image {
-            display: block;
             position: absolute;
             top: 0;
             left: 0;
+            display: block;
             width: 100%;
             height: 100%;
             object-fit: cover;
@@ -66,8 +65,8 @@
 
         &__user {
             display: flex;
-            align-items: center;
             grid-area: user;
+            align-items: center;
 
             min-width: 1px;
 
@@ -75,10 +74,10 @@
         }
 
         &__name {
-            flex: 1 1 auto;
-            white-space: nowrap;
 
             @include text.get-text-style(ef.get-value($themeVertical, 'winnerNameFontStyle'), ef.get-value($themeVertical, 'userColor'));
+            flex: 1 1 auto;
+            white-space: nowrap;
 
             overflow-x: hidden;
             overflow-y: visible;
@@ -114,6 +113,12 @@
 
             background: transparent;
             border: none;
+
+            .wlc-body--browser-safari & {
+                display: flex;
+                align-items: ef.get-value($themeVertical, 'safariGameAlignItems');
+                justify-content: ef.get-value($themeVertical, 'safariGameJustifyContant');
+            }
 
             &:focus {
                 outline: none;

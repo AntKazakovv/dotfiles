@@ -21,6 +21,10 @@
         repeat: no-repeat;
     }
 
+    .wlc-body--browser-safari & {
+        -webkit-mask-image: -webkit-radial-gradient(white, black); /* stylelint-disable-line */
+    }
+
     .wlc-game-thumb {
 
         &__img {
