@@ -15,6 +15,7 @@ import {
     HooksService,
     IWrapperCParams,
     IIndexing,
+    EventService,
 } from 'wlc-engine/modules/core';
 import {
     SportsbookService,
@@ -26,6 +27,8 @@ import {
 } from 'wlc-engine/modules/sportsbook';
 import {IGameWrapperCParams} from 'wlc-engine/modules/games';
 import * as Params from './sportsbook.params';
+
+import _cloneDeep from 'lodash-es/cloneDeep';
 
 @Component({
     selector: '[wlc-sportsbook]',
@@ -61,6 +64,7 @@ export class SportsbookComponent extends AbstractComponent implements OnInit, On
         protected sportsbookService: SportsbookService,
         protected betradarService: BetradarService,
         protected configService: ConfigService,
+        protected eventService: EventService,
         protected hooksService: HooksService,
         protected router: UIRouter,
         protected translate: TranslateService,
@@ -104,6 +108,14 @@ export class SportsbookComponent extends AbstractComponent implements OnInit, On
             if (this.settings.id === 'betradar') {
                 this.betradarService.setBetradarParams();
                 this.betradarService.initNavigation(this.$destroy, this.cdr);
+
+                this.eventService.subscribe([
+                    {name: 'LOGIN'},
+                    {name: 'LOGOUT'},
+                ], () => {
+                    this.gameConfig = _cloneDeep(this.gameConfig);
+                    this.cdr.detectChanges();
+                }, this.$destroy);
             } else if (this.settings.id === 'digitain') {
                 gameWrapperParams.gameParams.disableIframeSelfResize = true;
             } else if (this.settings.id === 'tglab') {
