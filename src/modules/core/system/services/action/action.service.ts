@@ -12,7 +12,7 @@ import {
     StateService,
     UIRouter,
 } from '@uirouter/core';
-
+import {Meta} from '@angular/platform-browser';
 import {
     BehaviorSubject,
     Subject,
@@ -40,6 +40,7 @@ import {IPushMessageParams} from 'wlc-engine/modules/core/system/services/notifi
 import {NotificationEvents} from 'wlc-engine/modules/core/system/services/notification/notification.service';
 import {AppType} from 'wlc-engine/modules/core/system/interfaces/base-config/app.interface';
 import {IRedirect} from 'wlc-engine/modules/core/system/interfaces/core.interface';
+import {IColorThemeSwitchingConfig} from 'wlc-engine/modules/core/system/interfaces/base-config/color-theme-switching.config';
 
 import {UserProfile} from 'wlc-engine/modules/user/system/models/profile.model';
 import {UserService} from 'wlc-engine/modules/user/system/services/user/user.service';
@@ -99,6 +100,7 @@ export class ActionService {
         private router: UIRouter,
         private stateService: StateService,
         private injectionService: InjectionService,
+        private meta: Meta,
         @Inject(DOCUMENT) protected document: HTMLDocument,
     ) {
         this.init();
@@ -281,8 +283,13 @@ export class ActionService {
         });
 
         this.runAffiliatesListener();
+        await this.configService.ready;
 
-        await this.createBreakpoints();
+        if (this.configService.get<boolean>('$base.colorThemeSwitching.use')) {
+            this.runColorThemeSwitching();
+        }
+
+        this.createBreakpoints();
         _forEach(this.breakpoints, (item: IBreakpoint) => {
             item.observer
                 .pipe(takeWhile(() => !!this.deviceTypeSubject.observers.length))
@@ -293,8 +300,7 @@ export class ActionService {
         this.deviceTypeSubject.next(this.getDeviceType());
     }
 
-    private async createBreakpoints(): Promise<void> {
-        await this.configService.ready;
+    private createBreakpoints(): void {
         const breakpoints = this.configService.get<IDeviceConfig>('$base.device')?.breakpoints;
         const createMq = (mq: number): IBreakpoint => {
             const mediaQuery = window.matchMedia(`(min-width: ${mq}px)`);
@@ -457,5 +463,38 @@ export class ActionService {
                 storageClear: 'localStorage',
             });
         });
+    }
+
+    private runColorThemeSwitching(): void {
+        const config = this.configService.get<IColorThemeSwitchingConfig>('$base.colorThemeSwitching');
+        const altName = config.altName || 'alt';
+
+        this.eventService.subscribe({name: 'THEME_CHANGE'}, (status: boolean) => {
+            this.configService.set({
+                name: 'colortheme',
+                value: altName,
+                storageType: 'localStorage',
+                storageClear: status ? null : 'localStorage',
+            });
+
+            this.configService.set({
+                name: 'colorTheme',
+                value: status ? altName : null,
+            });
+
+            if (config.metaColorConfig) {
+                this.meta.updateTag({
+                    name: 'theme-color',
+                    content: status
+                        ? config.metaColorConfig.alt || '#000'
+                        : config.metaColorConfig.default || '#000'});
+            }
+        });
+
+        const appStartStatus = this.configService.get<string>({name: 'colorTheme', storageType: 'localStorage'});
+
+        if (!!appStartStatus) {
+            this.eventService.emit({name: 'THEME_CHANGE', data: true});
+        }
     }
 }

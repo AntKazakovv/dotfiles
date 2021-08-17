@@ -32,6 +32,7 @@ import {
     NotificationService,
     LayoutService,
     SeoService,
+    BodyClassService,
 } from './system/services';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 // -- SERVICES IMPORTS END  --;
@@ -81,6 +82,7 @@ import {WlcPaginationComponent} from './components/pagination/pagination.compone
 import {PlugComponent} from './components/plug/plug.component';
 import {IconListItemComponent} from './components/icon-list-item/icon-list-item.component';
 import {WrapperComponent} from 'wlc-engine/modules/core/components';
+import {ThemeTogglerComponent} from './components/theme-toggler/theme-toggler.component';
 // -- COMPONENTS IMPORTS END  --;
 
 //  -- DIRECTIVES IMPORTS STARTS--;
@@ -146,6 +148,7 @@ export const components = {
     'wlc-steps': StepsComponent,
     'wlc-tab-switcher': TabSwitcherComponent,
     'wlc-table': TableComponent,
+    'wlc-theme-toggler': ThemeTogglerComponent,
     'wlc-text-block': TextBlockComponent,
     'wlc-textarea': TextareaComponent,
     'wlc-timer': TimerComponent,
@@ -189,6 +192,7 @@ export const components = {
         CachingService,
         NotificationService,
         GlobalHelper.bootstrapProviders(NotificationService),
+        BodyClassService,
     ],
     declarations: [
         AmountLimitComponent,
@@ -236,6 +240,7 @@ export const components = {
         StepsComponent,
         TabSwitcherComponent,
         TableComponent,
+        ThemeTogglerComponent,
         TextBlockComponent,
         TextareaComponent,
         TimerComponent,
@@ -291,6 +296,7 @@ export const components = {
         StepsComponent,
         TabSwitcherComponent,
         TableComponent,
+        ThemeTogglerComponent,
         TextBlockComponent,
         TextareaComponent,
         TimerComponent,

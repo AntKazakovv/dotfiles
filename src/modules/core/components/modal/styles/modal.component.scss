@@ -427,7 +427,7 @@ body.modal-open {
 }
 
 // fixes for ios
-.ios {
+.wlc-body--os-ios {
 
     .wlc-modal__dialog {
         margin: ef.get-value($hostModal, 'modalOffsetIosMobile');

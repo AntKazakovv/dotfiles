@@ -35,3 +35,7 @@ export {
     IPushComponentParams,
     IPushMessageParams,
 } from './notification/notification.interface';
+export {
+    BodyClassEvents,
+    BodyClassService,
+} from './body-class/body-class.service';
