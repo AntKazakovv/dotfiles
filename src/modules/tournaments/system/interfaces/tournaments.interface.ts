@@ -6,6 +6,17 @@ import {
     PartialObserver,
     Observable,
 } from 'rxjs';
+import {TournamentsListNoContentByThemeType} from 'wlc-engine/modules/tournaments/components/tournament-list/tournament-list.params';
+
+export interface ITournamentsModule {
+    components?: ITournamentsComponents,
+}
+
+export interface ITournamentsComponents {
+    'wlc-tournament-list'?: {
+        noContent: TournamentsListNoContentByThemeType,
+    },
+}
 
 export interface ITournamentGames {
     Categories: number[];

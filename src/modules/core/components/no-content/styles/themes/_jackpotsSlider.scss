@@ -1,0 +1,18 @@
+.wlc-no-content--wlc-jackpots-slider:host {
+    @include baseNoContent();
+
+    &.wlc-no-content--theme-1 {
+        text-align: ef.get-value($slidersWinnersTheme1, 'nodataTextAlign');
+
+        .wlc-no-content {
+
+            &__wrapper {
+                @include em.get-mq-map('padding', $slidersWinnersTheme1, 'wrapperPadding');
+            }
+
+            &__button-wrap {
+                margin: ef.get-value($slidersWinnersTheme1, 'btnsWrapMargin');
+            }
+        }
+    }
+}

@@ -1,0 +1,34 @@
+<div class="{{$class}}__wrapper"
+    [style.background-image]="$params.bgImage && 'url(' + $params.bgImage + ')'"
+>
+    <div class="{{$class}}__body">
+        <div class="{{$class}}__content">
+            <h5 *ngIf="$params.title"
+                class="{{$class}}__title">
+                {{$params.title | translate}}
+            </h5>
+            <p *ngIf="$params.text"
+                class="{{$class}}__text">
+                {{$params.text | translate}}
+                <a *ngIf="$params.link.useLink"
+                    class="{{$class}}__text-link"
+                    [uiSref]="$params.link.uiSref"
+                    [uiParams]="$params.link.uiParams"
+                    >{{'Play' | translate}}!
+                </a>
+            </p>
+        </div>
+
+        <div *ngIf="$params.redirectBtn.useBtn"
+            class="{{$class}}__button-wrap">
+            <button
+                wlc-button
+                text="Play"
+                [sref]="$params.redirectBtn.sref"
+                [srefParams]="$params.redirectBtn.srefParams"
+            ></button>
+        </div>
+    </div>
+
+    <img *ngIf="$params.decorImage" class="{{$class}}-decor" src="{{$params.decorImage}}"/>
+</div>

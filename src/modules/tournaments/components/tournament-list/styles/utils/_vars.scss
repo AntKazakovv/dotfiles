@@ -28,6 +28,18 @@ $themeBanner: map-merge((
     ),
     'tournamentBottomPosition': ef.get('size', 'main'),
     'tournamentRightPosition': ef.get('size', 'main'),
+    'listRadius': ef.get('radius', 'biger'),
+
+    'tagTopPosition': 0,
+    'tagLeftPosition': 0,
+    'tagPadding': (
+        375: ef.size(2),
+    ),
+    'tagBg': ef.get('mainColors', 'main'),
+    'tagMinWidth': 140px,
+    'tagTextAlign': center,
+    'tagBorderRadius': ef.size(2) 0 ef.size(2) 0,
+    'tagColor': ef.get('mainColors', 'baseMain'),
 ), $customThemeBanner);
 
 $customThemeAvailable: () !default;

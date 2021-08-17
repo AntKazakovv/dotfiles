@@ -1,6 +1,10 @@
 <div class="{{$class}}__wrapper" [attr.data-wlc-element]="'block-' + $params.type + '-wins'">
     <div class="{{$class}}__container" [ngClass]="{'container': $params.container}">
-        <h4 class="{{$class}}__title" [attr.data-wlc-element]="'title_' + $params.type + '-wins'" *ngIf="$params.title" >{{$params.title | translate}}</h4>
+        <h4 *ngIf="isTitleVisible"
+            class="{{$class}}__title"
+            [attr.data-wlc-element]="'title_' + $params.type + '-wins'"
+            >{{$params.title | translate}}
+        </h4>
         <ng-container *ngIf="ready; else loader">
             <div
                 *ngIf="slides.length; else noslides"
@@ -19,5 +23,5 @@
 </ng-template>
 
 <ng-template #noslides>
-    <div class="{{$class}}-no-data">{{'No data' | translate}}</div>
+    <div wlc-no-content [inlineParams]="noContentParams"></div>
 </ng-template>

@@ -16,6 +16,7 @@ import {
     IMixedParams,
     ConfigService,
     IPaginateOutput,
+    GlobalHelper,
 } from 'wlc-engine/modules/core';
 import {SliderComponent} from 'wlc-engine/modules/promo/components/slider/slider.component';
 import {
@@ -27,6 +28,7 @@ import {
     TournamentsService,
 } from 'wlc-engine/modules/tournaments';
 import {TournamentComponent} from '../tournament/tournament.component';
+import {INoContentCParams} from 'wlc-engine/modules/core/components/no-content/no-content.params';
 
 import * as Params from 'wlc-engine/modules/tournaments/components/tournament-list/tournament-list.params';
 
@@ -63,14 +65,15 @@ export class TournamentListComponent
     };
     public slides: ISlide[] = [];
     public isAuth: boolean;
+    public noContentParams: INoContentCParams;
 
     protected indexOfSelectedTournament: number;
     protected itemsPerPage: number = 0;
 
     constructor(
         @Inject('injectParams') protected params: Params.ITournamentListCParams,
-        protected tournamentsService: TournamentsService,
         protected configService: ConfigService,
+        protected tournamentsService: TournamentsService,
         protected cdr: ChangeDetectorRef,
         protected uiRouter: UIRouterGlobals,
     ) {
@@ -89,6 +92,7 @@ export class TournamentListComponent
         if (this.$params.type === 'swiper') {
             this.sliderParams.swiper = this.$params.common?.swiper;
         }
+        this.noContentParams = GlobalHelper.getNoContentParams(this.$params, this.$class, this.configService);
     }
 
     public ngAfterViewInit(): void {

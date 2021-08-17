@@ -2,24 +2,37 @@
     --wlc-winner-slider-slide-height: #{ef.get-value($theme1, 'slideHeight')};
     --wlc-winner-slider-slide-inner-gap: #{ef.get-value($theme1, 'slideInnerGap')};
 
-    background: ef.get-value($theme1, 'background');
-    max-width: ef.get-value($theme1, 'maxWidth');
     width: 100%;
+    max-width: ef.get-value($theme1, 'maxWidth');
+    background: ef.get-value($theme1, 'background');
     border-radius: ef.get-value($theme1, 'borderRadius');
     overflow: hidden;
 
+    .wlc-winners-slider {
+
+        &__wrapper {
+            height: ef.get-value($theme1, 'wrapperHeight');
+        }
+
+        &__container {
+            display: ef.get-value($theme1, 'containerDisplay');
+            flex-direction: ef.get-value($theme1, 'containerDirection');
+            height: ef.get-value($theme1, 'containerHeight');
+        }
+    }
+
     .wlc-winners-slider__title {
         @include text.get-text-style('ThirdTitleBold', ef.get-value($theme1, 'titleColor'));
+        padding: ef.get-value($theme1, 'titlePadding');
         text-align: ef.get-value($theme1, 'titleTextAlign');
         background: ef.get-value($theme1, 'titleBg');
-        padding: ef.get-value($theme1, 'titlePadding');
         box-shadow: ef.get-value($theme1, 'titleBoxShadow');
     }
 
     .wlc-winners-slider__slider {
-        position: relative;
         @include em.get-mq-map('margin', $theme1, 'sliderMargin');
         @include em.get-mq-map('height', $theme1, 'sliderHeight');
+        position: relative;
 
         &:before {
             content: '';
@@ -31,10 +44,5 @@
             height: ef.get-value($theme1, 'bottomLineHeight');
             background: ef.get-value($theme1, 'background');
         }
-    }
-
-    .wlc-winners-slider-no-data {
-        padding: ef.get-value($theme1, 'noDataPadding');
-        text-align: ef.get-value($theme1, 'noDataTextAlign');
     }
 }

@@ -12,6 +12,7 @@ $themeDefault: map-merge((
 
     // container
     'containerPadding': 0 15px,
+    'containerMinHeigth': 60px,
 
     // swiper consainer
     'swiperPaddingShadowFix': 10px 0, // for shadowf
@@ -36,6 +37,7 @@ $themeDefault: map-merge((
         1200: center,
     ),
     'loaderHeight': 62px,
+    'sliderWrapperHeight': 100%,
 ), $customThemeDefault);
 
 // ~~ theme VERTICAL
@@ -46,9 +48,9 @@ $themeVertical: map-merge((
 
     // wrapper
     'wrapperBorderRadius': ef.get('radius', 'biger'),
-    'wrapperPadding': (
-        375: 0 15px 30px,
-        1200: 0 35px 38px,
+    'wrapperMargin': (
+        375: ef.size(13) ef.size(3) ef.size(6),
+        1200: ef.size(13) ef.size(7) ef.size(8),
     ),
     'wrapperBackground': ef.get('mainColors', 'bg700'),
     'wrapperMaxWidth': 520px,
@@ -64,15 +66,15 @@ $themeVertical: map-merge((
     'titleFontSize': ef.get('font', 'main'),
     'titleFontWeight': 700,
     'titleColor': ef.get('mainColors', 'baseMain'),
-    'titleMargin': (
-        375: 0 0 15px -15px,
-        1200: 0 0 32px -35px,
-    ),
     'titlePadding': (
         375: 10px 15px,
         1200: 10px 22px,
     ),
     'titleBorderRadius': ef.get('radius', 'biger') 0 ef.get('radius', 'biger') 0,
+    'titlePosition': absolute,
+    'titleTop': 0,
+    'titleLeft': 0,
+    'titleZIndex': 2,
 
     // slider
     'sliderHeight': calc((var(--wlc-winner-slider-slide-height, 60px) + var(--wlc-winner-slider-slide-gap, 10px)) * var(--wlc-winner-slider-slides-per-view, 4)),
@@ -84,6 +86,11 @@ $theme1: map-merge((
     'maxWidth': 330px,
     'background': ef.get('mainColors', 'bg700'),
     'borderRadius': ef.get('size', 'small'),
+
+    'wrapperHeight': 100%,
+    'containerHeight': 100%,
+    'containerDisplay': flex,
+    'containerDirection': column,
 
     'slideHeight': 70px,
     'slideInnerGap': 15px,
@@ -97,8 +104,6 @@ $theme1: map-merge((
     'sliderHeight': calc((var(--wlc-winner-slider-slide-height, 70px) + var(--wlc-winner-slider-slide-gap, 15px) + var(--wlc-winner-slider-slide-inner-gap, 15px)) * var(--wlc-winner-slider-slides-per-view, 4) - var(--wlc-winner-slider-slide-inner-gap, 15px)),
     'sliderMargin': 25px ef.get('size', 'small') ef.get('size', 'smaller') ef.get('size', 'small'),
 
-    'noDataPadding': ef.get('size', 'smaller'),
-    'noDataTextAlign': center,
     // line overlapping the border of the last element
     'bottomLineHeight': 2px,
 ), $customTheme1);

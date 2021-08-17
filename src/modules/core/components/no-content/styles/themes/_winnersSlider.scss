@@ -1,0 +1,56 @@
+.wlc-no-content--wlc-winners-slider:host {
+    @include baseNoContent();
+
+    &.wlc-no-content--theme-1 {
+        text-align: ef.get-value($slidersWinnersTheme1, 'nodataTextAlign');
+
+        .wlc-no-content {
+
+            &__wrapper {
+                @include em.get-mq-map('padding', $slidersWinnersTheme1, 'wrapperPadding');
+            }
+
+            &__button-wrap {
+                margin: ef.get-value($slidersWinnersTheme1, 'btnsWrapMargin');
+            }
+        }
+    }
+
+    &.wlc-no-content--theme-default {
+        text-align: ef.get-value($slidersWinnersThemeDefault, 'nodataTextAlign');
+
+        .wlc-no-content {
+
+            &__wrapper {
+                @include em.get-mq-map('padding', $slidersWinnersThemeDefault, 'wrapperPadding');
+                display: ef.get-value($slidersWinnersThemeDefault, 'wrapperDisplay');
+                justify-content: ef.get-value($slidersWinnersThemeDefault, 'wrapperJustifyContent');
+                align-items: ef.get-value($slidersWinnersThemeDefault, 'wrapperAlignItems');
+            }
+
+            &__body {
+                max-width: ef.get-value($slidersWinnersThemeDefault, 'bodyMaxWidth');
+            }
+
+            &__text {
+
+                &-link {
+                    @include em.transition();
+                }
+            }
+        }
+    }
+
+    &.wlc-no-content--theme-mod-along-with-tournament {
+
+        .wlc-no-content {
+
+            &__wrapper {
+
+                &:before {
+                    @include linearGradient();
+                }
+            }
+        }
+    }
+}

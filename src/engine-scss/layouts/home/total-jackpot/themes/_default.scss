@@ -42,9 +42,14 @@
 
     .wlc-total-jackpot[class] {
         width: 100%;
-        @include bm.get-mq-map('height', $themeTotalJackpot, 'jackpotFontSize');
 
         @include bm.get-mq-map('margin', $themeTotalJackpot, 'jackpotMargin');
+
+        .wlc-total-jackpot-body {
+            @include bm.get-mq-map('height', $themeTotalJackpot, 'jackpotFontSize');
+            width: 100%;
+            display: flex;
+        }
 
         svg {
 

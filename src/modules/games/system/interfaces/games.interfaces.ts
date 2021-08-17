@@ -4,6 +4,7 @@ import {CategoryModel} from 'wlc-engine/modules/games/system/models/category.mod
 import {MerchantModel} from 'wlc-engine/modules/games/system/models/merchant.model';
 import {ICategorySettings} from 'wlc-engine/modules/core';
 import {ICategoryBlock} from 'wlc-engine/modules/core/system/interfaces/categories.interface';
+import {TotalJackpotNoContentByThemeType} from 'wlc-engine/modules/games/components/total-jackpot/total-jackpot.params';
 
 export interface IGamesConfig {
     sportsbookMerchants?: number[];
@@ -27,6 +28,13 @@ export interface IGamesConfig {
      * </pre>
      */
     excludeRequiredFields?: IIndexing<string[]>;
+    components?: IGamesComponents,
+}
+
+export interface IGamesComponents {
+    'wlc-total-jackpot'?: {
+        noContent?: TotalJackpotNoContentByThemeType,
+    }
 }
 
 export interface ICategories {

@@ -1,0 +1,84 @@
+$customThemeDefault: () !default;
+$themeDefault: map-merge((
+    'nodataMaxWidth': 100%,
+    'nodataHeight': 100%,
+    'nodataRadius': ef.get('radius', 'biger'),
+    'nodataBg': ef.get('mainColors', 'bg700'),
+    'nodataBackground': center center/cover no-repeat,
+
+    'beforeGradiend': (
+        320: linear-gradient(90deg, ef.get('mainColors', 'bg700') 30%, rgba(ef.get('mainColors', 'bg700'), 0.4) 70%, ef.get('mainColors', 'bg700') 100%),
+    ),
+    'beforePosition': 0,
+    'beforeZIndex': 1,
+
+    'nodataBodyZIndex': 2,
+    'nodataBodyDisplay': flex,
+    'nodataBodyDirection': column,
+    'nodataBodyAlignItems': flex-start,
+    'nodataBodyJustifyContent': space-between,
+    'nodataBodyMaxWidth': (
+        320: none,
+        768: 320px,
+    ),
+    'nodataBodyTextMargin': (
+        320: ef.size(4) 0 0 0,
+    ),
+    'nodataBodyTitleFontSize': 'QoteTextBold',
+    'nodataBodyText': 'PrimaryText',
+    'nodataBtnsWrapMargin': ef.size(10) 0 0 0,
+    'nodataDecorDisplay': (
+        320: none,
+        768: block,
+    ),
+    'nodataDecorWidth': (
+        375: 50%,
+    ),
+    'nodataDecorMaxWidth': 350px,
+    'nodataDecorPositionRight': 0,
+    'nodataDecorPositionBottom': -1%,
+    'nodataDecorZIindex': 1,
+    'nodataPadding': (
+        375: ef.size(13) ef.size(3) ef.size(6),
+        1200: ef.size(13) ef.size(7) ef.size(8),
+    ),
+), $customThemeDefault);
+
+$customSlidersWinnersTheme1: () !default;
+$slidersWinnersTheme1: map-merge((
+    'nodataTextAlign': center,
+
+    'wrapperPadding': (
+        375: ef.size(6) ef.size(3) ef.size(6),
+        1200: ef.size(6) ef.size(7) ef.size(8),
+    ),
+
+    'btnsWrapMargin': ef.size(10) auto 0 auto,
+), $customSlidersWinnersTheme1);
+
+$customSlidersWinnersThemeDefault: () !default;
+$slidersWinnersThemeDefault: map-merge((
+    'nodataTextAlign': center,
+
+    'wrapperPadding': (
+        375: 0,
+    ),
+    'wrapperDisplay': flex,
+    'wrapperJustifyContent': center,
+    'wrapperAlignItems': center,
+
+    'bodyMaxWidth': none,
+), $customSlidersWinnersThemeDefault);
+
+$customTotalJackpot: () !default;
+$totalJackpot: map-merge((
+    'nodataTextAlign': center,
+    'nodataBg': initial,
+    'nodataPadding': (
+        375: 0,
+    ),
+    'nodataBodyMaxWidth': (
+        375: 650px,
+    ),
+    'nodataBodyMargin': 0 auto,
+), $customTotalJackpot);

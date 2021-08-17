@@ -13,33 +13,37 @@
     border-radius: ef.get-value($theme1, 'borderRadius');
     overflow: hidden;
 
-    .wlc-jackpots-slider__title {
-        @include lib.get-text-style('ThirdTitleBold', ef.get-value($theme1, 'titleColor'));
-        text-align: ef.get-value($theme1, 'titleTextAlign');
-        background: ef.get-value($theme1, 'titleBg');
-        padding: ef.get-value($theme1, 'titlePadding');
-        box-shadow: ef.get-value($theme1, 'titleBoxShadow');
-    }
+    .wlc-jackpots-slider {
 
-    .wlc-jackpots-slider__slider {
-        position: relative;
-        height: ef.get-value($theme1, 'sliderHeight');
-        margin: ef.get-value($theme1, 'sliderMargin');
-
-        &:before {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            z-index: 2;
-            width: 100%;
-            height: ef.get-value($theme1, 'bottomLineHeight');
-            background: ef.get-value($theme1, 'background');
+        &__wrapper {
+            display: ef.get-value($theme1, 'sliderWrapperDisplay');
+            flex-direction: ef.get-value($theme1, 'sliderWrapperDirection');
+            height: ef.get-value($theme1, 'sliderWrapperHeight');
         }
-    }
 
-    .wlc-jackpots-slider-no-data {
-        padding: ef.get-value($theme1, 'noDataPadding');
-        text-align: ef.get-value($theme1, 'noDataTextAlign');
+        &__title {
+            @include lib.get-text-style('ThirdTitleBold', ef.get-value($theme1, 'titleColor'));
+            text-align: ef.get-value($theme1, 'titleTextAlign');
+            background: ef.get-value($theme1, 'titleBg');
+            padding: ef.get-value($theme1, 'titlePadding');
+            box-shadow: ef.get-value($theme1, 'titleBoxShadow');
+        }
+
+        &__slider {
+            position: relative;
+            height: ef.get-value($theme1, 'sliderHeight');
+            margin: ef.get-value($theme1, 'sliderMargin');
+
+            &:before {
+                content: '';
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                z-index: 2;
+                width: 100%;
+                height: ef.get-value($theme1, 'bottomLineHeight');
+                background: ef.get-value($theme1, 'background');
+            }
+        }
     }
 }

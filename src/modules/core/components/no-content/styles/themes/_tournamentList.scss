@@ -1,0 +1,16 @@
+.wlc-no-content--wlc-tournament-list:host {
+    @include baseNoContent();
+
+    &.wlc-no-content--theme-banner {
+
+        .wlc-no-content {
+
+            &__wrapper {
+
+                &:before {
+                    @include linearGradient();
+                }
+            }
+        }
+    }
+}

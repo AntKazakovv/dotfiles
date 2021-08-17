@@ -1,5 +1,6 @@
 import {ILayoutComponent} from 'wlc-engine/modules/core';
 import {SwiperOptions} from 'swiper';
+import {ITournamentListCParams} from 'wlc-engine/modules/tournaments';
 
 export namespace wlcTournamentBannersSlider {
     export const def: ILayoutComponent = {
@@ -8,7 +9,7 @@ export namespace wlcTournamentBannersSlider {
             components: [
                 {
                     name: 'tournaments.wlc-tournament-list',
-                    params: {
+                    params: <ITournamentListCParams>{
                         type: 'swiper',
                         theme: 'banner',
                         common: {
@@ -30,4 +31,3 @@ export namespace wlcTournamentBannersSlider {
         },
     };
 }
-

@@ -8,10 +8,15 @@ import {
 import {TranslateService} from '@ngx-translate/core';
 import {filter, takeUntil} from 'rxjs/operators';
 
+import {GlobalHelper} from 'wlc-engine/modules/core';
 import {JackpotModel} from 'wlc-engine/modules/games/system/models/jackpot.model';
 import {AbstractComponent} from 'wlc-engine/modules/core/system/classes';
-import {CachingService} from 'wlc-engine/modules/core/system/services';
+import {
+    CachingService,
+    ConfigService,
+} from 'wlc-engine/modules/core/system/services';
 import {GamesCatalogService} from 'wlc-engine/modules/games';
+import {INoContentCParams} from 'wlc-engine/modules/core/components/no-content/no-content.params';
 
 import * as Params from './total-jackpot.params';
 
@@ -43,9 +48,11 @@ export class TotalJackpotComponent extends AbstractComponent implements OnInit {
     public $params: Params.ITotalJackpotCParams;
     public amount: number;
     public currency: ITotalJackpotCurrency;
+    public noContentParams: INoContentCParams;
 
     constructor(
         @Inject('injectParams') protected params: Params.ITotalJackpotCParams,
+        protected configService: ConfigService,
         protected cdr: ChangeDetectorRef,
         protected translateService: TranslateService,
         protected cachingService: CachingService,
@@ -60,6 +67,7 @@ export class TotalJackpotComponent extends AbstractComponent implements OnInit {
         this.gamesCatalogService.ready.then(() => {
             this.getLastJackpots();
         });
+        this.noContentParams = GlobalHelper.getNoContentParams(this.$params, this.$class, this.configService);
     }
 
     private async getCache(): Promise<void> {

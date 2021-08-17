@@ -27,19 +27,6 @@ $themeDefault: map-merge((
     'timerSecondaryFont': 'PrimaryText',
     'timerSecondaryColor': ef.get('mainColors', 'baseMain'),
 
-    'headerPadding': 0 ef.get('size', 'smally'),
-    'headerFont': 'ThirdTitleBold',
-    'headerColor': ef.get('mainColors', 'baseMain'),
-    'headerBg': ef.get('mainColors', 'main'),
-    'headerRadius': ef.get('radius', 'biger') 0 ef.get('radius', 'biger') 0,
-    'headerMargin': 0 0 0 -#{ef.get('size', 'smally')},
-    'headerTitlePadding': ef.get('size', 'small') ef.get('size', 'smally'),
-    'headerAlignItems': center,
-    'headerJustifyContent': space-between,
-    'headerZIndex': 2,
-    'headerMaxHeight': 45px,
-    'headerPosition': 0,
-
     'moreIconColor': ef.get('mainColors', 'baseOpacity'),
 
     'bodyPadding': (
@@ -113,5 +100,16 @@ $themeDefault: map-merge((
     'loaderAfterAnimation': spin 1s infinite linear,
 
     'timerContentPadding': 0,
+
+    'tagTopPosition': 0,
+    'tagLeftPosition': 0,
+    'tagPadding': (
+        375: ef.size(2),
+    ),
+    'tagBg': ef.get('mainColors', 'main'),
+    'tagMinWidth': 140px,
+    'tagTextAlign': center,
+    'tagBorderRadius': ef.size(2) 0 ef.size(2) 0,
+    'tagColor': ef.get('mainColors', 'baseMain'),
 ), $customThemeDefault);
 

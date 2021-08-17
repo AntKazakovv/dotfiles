@@ -68,4 +68,16 @@ export const gamesConfig: IGamesConfig = {
     verticalThumbsConfigUrl: '/gstatic/vertical-thumbs/vertical-thumb.json',
     verticalImagesPath: '/gstatic/vertical-thumbs/',
     sportsbookMerchants: [958, 972, 993, 962, 937, 903, 922, 908],
+    components: {
+        'wlc-total-jackpot': {
+            noContent: {
+                default: {
+                    title: gettext('Oh, all the available jackpots have been played. New jackpots will appear later. In the meantime, we offer you to have a look at our new games.'),
+                    redirectBtn: {
+                        useBtn: false,
+                    },
+                },
+            },
+        },
+    },
 };

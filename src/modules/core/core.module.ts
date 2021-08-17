@@ -78,6 +78,7 @@ import {TimerComponent} from './components/timer/timer.component';
 import {TitleComponent} from './components/title/title.component';
 import {TooltipComponent} from './components/tooltip/tooltip.component';
 import {WlcModalComponent} from './components/modal';
+import {WlcNoContentComponent} from './components/no-content/no-content.component';
 import {WlcPaginationComponent} from './components/pagination/pagination.component';
 import {PlugComponent} from './components/plug/plug.component';
 import {IconListItemComponent} from './components/icon-list-item/icon-list-item.component';
@@ -140,6 +141,7 @@ export const components = {
     'wlc-loader': LoaderComponent,
     'wlc-logo': LogoComponent,
     'wlc-modal': WlcModalComponent,
+    'wlc-no-content': WlcNoContentComponent,
     'wlc-pagination': WlcPaginationComponent,
     'wlc-plug': PlugComponent,
     'wlc-radio-buttons': RadioButtonsComponent,
@@ -249,6 +251,7 @@ export const components = {
         TruncatePipe,
         ValueLengthDirective,
         WlcModalComponent,
+        WlcNoContentComponent,
         WlcPaginationComponent,
         WrapperComponent,
     ],
@@ -306,6 +309,7 @@ export const components = {
         TruncatePipe,
         ValueLengthDirective,
         WlcModalComponent,
+        WlcNoContentComponent,
         WlcPaginationComponent,
         WrapperComponent,
     ],

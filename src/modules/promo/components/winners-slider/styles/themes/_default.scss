@@ -5,11 +5,11 @@
 
         &__wrapper {
             @include em.get-mq-map('padding', $themeDefault, 'wrapperPadding');
+            height: ef.get-value($themeDefault, 'sliderWrapperHeight');
         }
 
         &__container {
             @include em.get-mq-map('padding', $themeDefault, 'containerPadding');
-
             @include mq.min(ef.get-value($themeDefault, 'breakpoint')) {
                 display: flex;
                 justify-content: center;
@@ -19,6 +19,7 @@
                     display: block;
                 }
             }
+            min-height: ef.get-value($themeDefault, 'containerMinHeigth');
         }
 
         &__loader {

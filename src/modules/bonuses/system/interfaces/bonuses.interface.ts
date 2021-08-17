@@ -8,6 +8,16 @@ import {
 } from 'rxjs';
 import {Bonus} from '../models/bonus';
 
+import {BonusesListNoContentByThemeType} from 'wlc-engine/modules/bonuses/components/bonuses-list/bonuses-list.params';
+
+export interface IBonusesModule {
+    components?: {
+        'wlc-bonuses-list': {
+            noContent: BonusesListNoContentByThemeType,
+        },
+    },
+}
+
 export interface IBonus {
     Active: number;
     AffiliateSystem: string;

@@ -1,5 +1,5 @@
 <div class="{{$class}}__wrapper">
-    <h4 class="{{$class}}__title" *ngIf="$params.title">
+    <h4 *ngIf="$params.title" class="{{$class}}__title">
         {{$params.title | translate}}
     </h4>
     <ng-container *ngIf="ready; else loader">
@@ -19,5 +19,5 @@
 </ng-template>
 
 <ng-template #noslides>
-    <div class="{{$class}}-no-data">{{'No data' | translate}}</div>
+    <div wlc-no-content [inlineParams]="noContentParams"></div>
 </ng-template>
