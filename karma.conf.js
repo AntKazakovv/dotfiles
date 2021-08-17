@@ -59,7 +59,7 @@ module.exports = function(config) {
         browsers: ['WlcChromeHeadless'],
         customLaunchers: {
             WlcChromeHeadless: {
-                base: 'ChromeHeadless',
+                base: 'ChromiumHeadless',
                 flags: [
                     '--no-sandbox',
                     '--allow-file-access-from-files',
