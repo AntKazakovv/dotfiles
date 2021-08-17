@@ -4,16 +4,42 @@
 module.exports = function(config) {
     config.set({
         basePath: '',
-        frameworks: ['jasmine', '@angular-devkit/build-angular'],
+        frameworks: ['jasmine', 'viewport', '@angular-devkit/build-angular'],
         plugins: [
             require('karma-jasmine'),
             require('karma-chrome-launcher'),
             require('karma-jasmine-html-reporter'),
             require('karma-coverage-istanbul-reporter'),
+            require('karma-viewport'),
             require('@angular-devkit/build-angular/plugins/karma'),
         ],
         client: {
             clearContext: false, // leave Jasmine Spec Runner output visible in browser
+        },
+        viewport: {
+            breakpoints: [
+                {
+                    name: 'mobile',
+                    size: {
+                        width: 320,
+                        height: 480,
+                    },
+                },
+                {
+                    name: 'tablet',
+                    size: {
+                        width: 768,
+                        height: 1024,
+                    },
+                },
+                {
+                    name: 'screen',
+                    size: {
+                        width: 1440,
+                        height: 900,
+                    },
+                },
+            ],
         },
         coverageIstanbulReporter: {
             dir: require('path').join(__dirname, '../../coverage/wlc-engine'),
@@ -23,13 +49,31 @@ module.exports = function(config) {
         reporters: ['progress'],
         port: 9876,
         colors: true,
-        logLevel: config.LOG_INFO,
-        autoWatch: false,
-        browsers: ['ChromeHeadless'],
+        logLevel: config.LOG_ERROR,
+        proxies: {
+            '/gstatic/': {
+                'target': 'https://static.egamings.com/',
+                'changeOrigin': true,
+            },
+        },
+        autoWatch: true,
+        browsers: ['WlcChromeHeadless'],
         customLaunchers: {
-            ChromeHeadlessNoSandbox: {
+            WlcChromeHeadless: {
                 base: 'ChromeHeadless',
-                flags: ['--no-sandbox'],
+                flags: [
+                    '--no-sandbox',
+                    '--allow-file-access-from-files',
+                    '--disable-web-security',
+                ],
+            },
+            WlcChrome: {
+                base: 'Chrome',
+                flags: [
+                    '--no-sandbox',
+                    '--allow-file-access-from-files',
+                    '--disable-web-security',
+                ],
             },
         },
         singleRun: false,
