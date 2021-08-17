@@ -16,6 +16,7 @@ import _map from 'lodash-es/map';
 import _findIndex from 'lodash-es/findIndex';
 import _uniq from 'lodash-es/uniq';
 import _isString from 'lodash-es/isString';
+import _isEmpty from 'lodash-es/isEmpty';
 
 export type FilterType = 'deposit' | 'Deposits' | 'withdraw' | 'Withdraws' | 'all' | 'All';
 
@@ -36,6 +37,7 @@ export interface IPaymentSystem {
     image: string;
     image_withdraw?: string;
     lastAccounts: string[];
+    lastAccountsObj?: IIndexing<string>;
     message: string | IIndexing<string> | IPaymentMessage;
     name: string;
     name_withdraw?: string;
@@ -178,7 +180,9 @@ const fieldTemplatesNames = {
 export class PaymentSystem extends AbstractModel<IPaymentSystem> {
 
     public cardFields: boolean;
+    public isPayCryptos: boolean = false;
     public isPayCryptosV2: boolean = false;
+    public isLastAccountsObj: boolean;
     public isHosted: boolean = false;
     public cryptoCheck: boolean;
     public isCashier: boolean = false;
@@ -269,6 +273,10 @@ export class PaymentSystem extends AbstractModel<IPaymentSystem> {
 
     public get lastAccounts(): string[] {
         return this.data.lastAccounts || [];
+    }
+
+    public get lastAccountsObj(): IIndexing<string> {
+        return this.data.lastAccountsObj || {};
     }
 
     public get message(): string | IIndexing<string> | IPaymentMessage {
@@ -394,10 +402,14 @@ export class PaymentSystem extends AbstractModel<IPaymentSystem> {
             this.importPackage();
         }
 
-        // TODO: remove when finished tiket #181785
-        if (this.alias.includes('paycryptos') && this.alias.includes('v2')) {
-            this.data.lastAccounts = [];
-            this.isPayCryptosV2 = true;
+        this.isLastAccountsObj = !_isEmpty(this.lastAccountsObj);
+
+        if (this.alias.includes('paycryptos')) {
+            this.isPayCryptos = true;
+
+            if (this.alias.includes('v2')) {
+                this.isPayCryptosV2 = true;
+            }
         } else if (this.alias.includes('paymentiq_cashier')) {
             this.isCashier = true;
         }

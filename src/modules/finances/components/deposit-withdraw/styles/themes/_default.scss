@@ -156,6 +156,10 @@
                     @include em.get-mq-map('max-width', $themeDefault, 'formInputMaxWidth');
                 }
 
+                .wlc-select__dropdown {
+                    word-break: break-all;
+                }
+
                 .wlc-checkbox--rules,
                 .wlc-btn--submit,
                 .wlc-field-container {
