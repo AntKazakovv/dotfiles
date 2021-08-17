@@ -1,0 +1,60 @@
+@mixin baseNoContent {
+    width: 100%;
+    height: 100%;
+
+    .wlc-no-content {
+
+        &__wrapper {
+            @include em.get-mq-map('padding', $themeDefault, 'nodataPadding');
+            position: relative;
+            height: ef.get-value($themeDefault, 'nodataHeight');
+            background: ef.get-value($themeDefault, 'nodataBackground');
+            background-color: ef.get-value($themeDefault, 'nodataBg');
+        }
+
+        &__body {
+            @include em.get-mq-map('max-width', $themeDefault, 'nodataBodyMaxWidth');
+            position: relative;
+            z-index: ef.get-value($themeDefault, 'nodataBodyZIndex');
+            display: ef.get-value($themeDefault, 'nodataBodyDisplay');
+            flex-direction: ef.get-value($themeDefault, 'nodataBodyDirection');
+            align-items: ef.get-value($themeDefault, 'nodataBodyAlignItems');
+            justify-content: ef.get-value($themeDefault, 'nodataBodyJustifyContent');
+            height: ef.get-value($themeDefault, 'nodataHeight');
+        }
+
+        &-decor {
+            @include em.get-mq-map('display', $themeDefault, 'nodataDecorDisplay');
+            @include em.get-mq-map('width', $themeDefault, 'nodataDecorWidth');
+            position: absolute;
+            right: ef.get-value($themeDefault, 'nodataDecorPositionRight');
+            bottom: ef.get-value($themeDefault, 'nodataDecorPositionBottom');
+            z-index: ef.get-value($themeDefault, 'nodataDecorZIindex');
+            max-width: ef.get-value($themeDefault, 'nodataDecorMaxWidth');
+        }
+
+        &__title {
+            @include text.get-text-style(ef.get-value($themeDefault, 'nodataBodyTitleFontSize'));
+        }
+
+        &__text {
+            @include em.get-mq-map('margin', $themeDefault, 'nodataBodyTextMargin');
+            @include text.get-text-style(ef.get-value($themeDefault, 'nodataBodyText'));
+        }
+
+        &__button-wrap {
+            margin: ef.get-value($themeDefault, 'nodataBtnsWrapMargin');
+        }
+    }
+}
+
+@mixin linearGradient {
+    @include em.get-mq-map('background', $themeDefault, 'beforeGradiend');
+    content: '';
+    position: absolute;
+    top: ef.get-value($themeDefault, 'beforePosition');
+    right: ef.get-value($themeDefault, 'beforePosition');
+    bottom: ef.get-value($themeDefault, 'beforePosition');
+    left: ef.get-value($themeDefault, 'beforePosition');
+    z-index: ef.get-value($themeDefault, 'beforeZIndex');
+}

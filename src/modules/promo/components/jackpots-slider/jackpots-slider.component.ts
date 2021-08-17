@@ -13,6 +13,7 @@ import {takeUntil} from 'rxjs/operators';
 import {SwiperOptions} from 'swiper';
 import SwiperCore from 'swiper/core';
 
+import {GlobalHelper} from 'wlc-engine/modules/core';
 import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
 import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
 import {JackpotComponent} from 'wlc-engine/modules/promo/components/jackpot/jackpot.component';
@@ -24,6 +25,7 @@ import {
 import {JackpotModel} from 'wlc-engine/modules/games/system/models/jackpot.model';
 import {GamesCatalogService} from 'wlc-engine/modules/games/system/services/games-catalog/games-catalog.service';
 import {InjectionService} from 'wlc-engine/modules/core/system/services';
+import {INoContentCParams} from 'wlc-engine/modules/core/components/no-content/no-content.params';
 import * as Params from './jackpots-slider.params';
 
 import _map from 'lodash-es/map';
@@ -42,6 +44,7 @@ export class JackpotsSliderComponent extends AbstractComponent implements OnInit
     public slides: ISlide[] = [];
     public ready: boolean = false;
     public $params: Params.IJackpotsSliderCParams;
+    public noContentParams: INoContentCParams;
 
     protected useCssProps: boolean = false;
     protected cssProps: ISliderCssProps = {
@@ -52,8 +55,8 @@ export class JackpotsSliderComponent extends AbstractComponent implements OnInit
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IJackpotsSliderCParams,
-        protected cdr: ChangeDetectorRef,
         protected configService: ConfigService,
+        protected cdr: ChangeDetectorRef,
         protected injectionService: InjectionService,
         protected renderer: Renderer2,
         private element: ElementRef,
@@ -64,7 +67,7 @@ export class JackpotsSliderComponent extends AbstractComponent implements OnInit
     public async ngOnInit(): Promise<void> {
         super.ngOnInit(this.inlineParams);
         this.gamesCatalogService = await this.injectionService.getService('games.games-catalog-service');
-
+        this.noContentParams = GlobalHelper.getNoContentParams(this.$params, this.$class, this.configService);
         this.initListener();
     }
 

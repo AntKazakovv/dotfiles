@@ -1,32 +1,38 @@
-<svg width="100%">
-     <defs>
-          <linearGradient id="jackpot-linear-gradient" gradientTransform="rotate(90)">
-               <stop offset="-37%" stop-color="#FFDB1F"/>
-               <stop offset="32%" stop-color="#F4CE4B"/>
-               <stop offset="55%" stop-color="#FFE8BD"/>
-               <stop offset="77%" stop-color="#FFD234"/>
-               <stop offset="140%" stop-color="#955C28"/>
-          </linearGradient>
-     </defs>
+<div *ngIf="amount; else noContent" class="{{$class}}-body">
+     <svg width="100%">
+          <defs>
+               <linearGradient id="jackpot-linear-gradient" gradientTransform="rotate(90)">
+                    <stop offset="-37%" stop-color="#FFDB1F"/>
+                    <stop offset="32%" stop-color="#F4CE4B"/>
+                    <stop offset="55%" stop-color="#FFE8BD"/>
+                    <stop offset="77%" stop-color="#FFD234"/>
+                    <stop offset="140%" stop-color="#955C28"/>
+               </linearGradient>
+          </defs>
 
-     <text x="50%" y="50%" dy=".35em"
-           text-anchor="middle"
-           fill="url(#jackpot-linear-gradient) #ffdb1f"
-           class="{{$class}}__text"
-     >
-          <tspan class="{{$class}}__currency"
-                 *ngIf="amount && currency?.position == 'left'"
-                 data-wlc-element="total-jackpot_currency"
-          >{{currency.currency}}&#032;</tspan>
-          <tspan class="{{$class}}__counter"
-                 [countUp]="amount"
-                 [options]="$params.countUpOptions"
-                 [reanimateOnClick]="false"
-                 data-wlc-element="total-jackpot_counter"
-                 [ngClass]="{'loading': !amount}"
-          >--- --- ---</tspan>
-          <tspan class="{{$class}}__currency"
-                 *ngIf="amount && currency?.position == 'right'"
-          >{{currency.currency}}</tspan>
-     </text>
-</svg>
+          <text x="50%" y="50%" dy=".35em"
+                    text-anchor="middle"
+                    fill="url(#jackpot-linear-gradient) #ffdb1f"
+                    class="{{$class}}__text"
+          >
+               <tspan class="{{$class}}__currency"
+                         *ngIf="amount && currency?.position == 'left'"
+                         data-wlc-element="total-jackpot_currency"
+               >{{currency.currency}}&#032;</tspan>
+               <tspan class="{{$class}}__counter"
+                         [countUp]="amount"
+                         [options]="$params.countUpOptions"
+                         [reanimateOnClick]="false"
+                         data-wlc-element="total-jackpot_counter"
+                         [ngClass]="{'loading': !amount}"
+               >--- --- ---</tspan>
+               <tspan class="{{$class}}__currency"
+                         *ngIf="amount && currency?.position == 'right'"
+               >{{currency.currency}}</tspan>
+          </text>
+     </svg>
+</div>
+
+<ng-template #noContent>
+     <div wlc-no-content [inlineParams]="noContentParams"></div>
+</ng-template>

@@ -1,0 +1,12 @@
+@use 'engine-scss/functions' as ef;
+@use 'engine-scss/mixins/text' as text;
+@use 'engine-scss/mixins/base.mixins' as em;
+
+@import './utilts/vars';
+@import './utilts/mixins';
+
+@import './themes/winnersSlider';
+@import './themes/jackpotsSlider';
+@import './themes/bonusesList';
+@import './themes/tournamentList';
+@import './themes/totalJackpot';

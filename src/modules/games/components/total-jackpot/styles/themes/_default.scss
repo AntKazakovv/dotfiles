@@ -15,3 +15,9 @@
         font-weight: ef.get-value($themeDefault, 'fontWeight');
     }
 }
+
+.wlc-total-jackpot-nodata {
+    text-align: ef.get-value($nodata, 'nodataTextAlign');
+    max-width: ef.get-value($nodata, 'nodataMaxWidth');
+    margin: ef.get-value($nodata, 'nodataMargin');
+}

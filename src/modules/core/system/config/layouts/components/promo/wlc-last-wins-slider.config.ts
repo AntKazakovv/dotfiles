@@ -25,13 +25,21 @@ export namespace wlcLastWinsSlider {
         },
     };
 
-    export const alongWithTournament = {
+    export const alongWithTournament: ILayoutComponent = {
         name: 'promo.wlc-winners-slider',
         params: <IWinnersSliderCParams>{
             type: 'latest',
             theme: 'vertical',
+            themeMod: 'along-with-tournament',
             title: gettext('Recent wins'),
             wlcElement: 'section_last-winners',
+            noContent: {
+                latest: {
+                    vertical: {
+                        bgImage: '/gstatic/wlc/bonuses/no-bonuses/no-bonus-block-background.jpg',
+                    },
+                },
+            },
             swiper: {
                 breakpoints: {
                     320: {

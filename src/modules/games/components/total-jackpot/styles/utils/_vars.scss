@@ -6,3 +6,10 @@ $themeDefault: map-merge((
     'fontWeight': bold,
     'loadingAnimation': pulse 2s infinite,
 ), $customThemeDefault);
+
+$customNoData: () !default;
+$nodata: map-merge((
+    'nodataTextAlign': center,
+    'nodataMaxWidth': 600px,
+    'nodataMargin': 0 auto,
+), $customNoData);

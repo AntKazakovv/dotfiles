@@ -11,6 +11,7 @@ import {
     RestType,
     BonusesFilterType,
 } from 'wlc-engine/modules/bonuses';
+import {INoContentCParams} from 'wlc-engine/modules/core/components/no-content/no-content.params';
 
 export type Type = 'default' | 'swiper' | CustomType;
 export type Theme = 'active' | 'default' | 'partial' | 'promo' | 'promo-home' | 'reg-first' | CustomType;
@@ -18,6 +19,7 @@ export type ThemeMod = 'default' | CustomType;
 export type AutoModifiers = Theme | ThemeMod;
 export type CustomMod = string;
 export type Modifiers = AutoModifiers | CustomMod | null;
+export type BonusesListNoContentByThemeType = Partial<Record<Theme, INoContentCParams>>;
 
 export interface IBonusesListCParams extends IComponentParams<Theme, Type, ThemeMod> {
     modifiers?: Modifiers[];
@@ -42,6 +44,7 @@ export interface IBonusesListCParams extends IComponentParams<Theme, Type, Theme
     redirectBtnToProfile?: IButtonCParams,
     useBtnNoBonuses?: boolean,
     btnNoBonuses?: IButtonCParams,
+    noContent?: BonusesListNoContentByThemeType,
 }
 
 

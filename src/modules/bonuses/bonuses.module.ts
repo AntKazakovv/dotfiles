@@ -7,7 +7,6 @@ import {UIRouterModule} from '@uirouter/angular';
 
 import {CoreModule} from '../core/core.module';
 import {PromoModule} from '../promo/promo.module';
-
 import {BonusItemComponent} from './components/bonus-item/bonus-item.component';
 import {BonusesListComponent} from './components/bonuses-list/bonuses-list.component';
 import {BonusesHistoryComponent} from './components/bonuses-history/bonuses-history.component';
@@ -16,6 +15,14 @@ import {GameDashboardBonusesComponent} from './components/game-dashboard-bonuses
 import {PromoSuccessComponent} from './components/promo-success/promo-success.component';
 import {RecommendedBonusesComponent} from './components/recommended-bonuses/recommended-bonuses.component';
 import {BonusesService} from './system/services/bonuses/bonuses.service';
+import {GlobalHelper} from 'wlc-engine/modules/core';
+import {IBonusesModule} from './system/interfaces/bonuses.interface';
+import {bonusesConfig} from './system/config/bonuses.config';
+import * as $config from 'wlc-config/index';
+
+import _get from 'lodash-es/get';
+
+export const moduleConfig = GlobalHelper.mergeConfig<IBonusesModule>(bonusesConfig, _get($config, '$bonuses', {}));
 
 export const components = {
     'wlc-bonus-item': BonusItemComponent,

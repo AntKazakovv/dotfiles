@@ -12,7 +12,13 @@ import {
 import Bowser from 'bowser';
 
 import {NgTemplateNameDirective} from 'wlc-engine/modules/core/directives/template-name/template-name.directive';
-import {IDisplayConfig} from 'wlc-engine/modules/core/system/interfaces';
+import {
+    IComponentParams,
+    IDisplayConfig,
+    IIndexing,
+} from 'wlc-engine/modules/core/system/interfaces';
+import {INoContentCParams} from 'wlc-engine/modules/core/components/no-content/no-content.params';
+import {ConfigService} from 'wlc-engine/modules/core';
 
 import _size from 'lodash-es/size';
 import _each from 'lodash-es/each';
@@ -24,6 +30,10 @@ import _keys from 'lodash-es/keys';
 import _reduce from 'lodash-es/reduce';
 import _assign from 'lodash-es/assign';
 import _reverse from 'lodash-es/reverse';
+
+interface IParams extends IComponentParams<string, string, string> {
+    noContent?: IIndexing<INoContentCParams> | IIndexing<IIndexing<INoContentCParams>>,
+}
 
 export class GlobalHelper {
 
@@ -296,5 +306,30 @@ export class GlobalHelper {
         return window.screen.availWidth <= 1024
             && GlobalHelper.bowser.getPlatformType(true) === 'desktop'
             && GlobalHelper.touchSupported();
+    }
+
+    /**
+     * Gets config from config service for no-content component and merge it with params from layouts
+     * @returns {INoContentCParams}
+     */
+    public static getNoContentParams(
+        params: IParams,
+        componentClass: string,
+        configService: ConfigService,
+        useTypeForGettingProps?: boolean,
+    ): INoContentCParams {
+        const settingsFromParams: INoContentCParams = _get(params.noContent, params.theme);
+        const defaultSettings = configService.get(`$${params.moduleName}.components.${params.componentName}.noContent`);
+
+        return _assign(
+            {
+                parentComponentClass: componentClass,
+                theme: params.theme,
+                themeMod: params.themeMod,
+            },
+            (useTypeForGettingProps ? _get(defaultSettings, params.type) : defaultSettings)['default'],
+            (useTypeForGettingProps ? _get(defaultSettings, params.type) : defaultSettings)[params.theme],
+            (settingsFromParams ? settingsFromParams : {}),
+        );
     }
 }

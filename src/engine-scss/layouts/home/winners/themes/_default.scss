@@ -15,15 +15,15 @@
 
     .winners-wrapper {
         display: flex;
-        justify-content: ef.get-value($themeWinnersSection, 'justifyContent');
         align-items: ef.get-value($themeWinnersSection, 'alignItems');
+        justify-content: ef.get-value($themeWinnersSection, 'justifyContent');
 
         & > div {
             margin: ef.get-value($themeWinnersSection, 'itemsMargin');
 
             &:first-child,
             &:last-child {
-                margin-top: ef.get-value($themeWinnersSection, 'indentTop');
+                transform: translateY(ef.get-value($themeWinnersSection, 'translateItems'));
             }
         }
     }

@@ -60,7 +60,7 @@
 </ng-template>
 
 <ng-template #promoHome>
-    <ng-container *ngIf="bonuses?.length && isReady; else: noBonuses">
+    <ng-container *ngIf="bonuses?.length && isReady; else: noContent">
         <div wlc-slider
              class="{{$class}}__slider"
              type="dashboard"
@@ -166,6 +166,11 @@
             class="{{$class}}__to-profile"
             [inlineParams]="$params.redirectBtnToProfile">
     </button>
+</ng-template>
+
+<ng-template #noContent>
+    <div class="{{$class}}-nocontent__tag">{{'Bonuses' | translate}}</div>
+    <div wlc-no-content [inlineParams]="noContentParams"></div>
 </ng-template>
 
 <ng-container [ngSwitch]="$params.theme">

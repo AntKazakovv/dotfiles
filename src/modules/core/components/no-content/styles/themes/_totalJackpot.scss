@@ -1,0 +1,20 @@
+.wlc-no-content--wlc-total-jackpot:host {
+    @include baseNoContent();
+
+    &.wlc-no-content--theme-default {
+        text-align: ef.get-value($totalJackpot, 'nodataTextAlign');
+
+        .wlc-no-content {
+
+            &__wrapper {
+                @include em.get-mq-map('padding', $totalJackpot, 'nodataPadding');
+                background-color: ef.get-value($totalJackpot, 'nodataBg');
+            }
+
+            &__body {
+                @include em.get-mq-map('max-width', $totalJackpot, 'nodataBodyMaxWidth');
+                margin: ef.get-value($totalJackpot, 'nodataBodyMargin');
+            }
+        }
+    }
+}

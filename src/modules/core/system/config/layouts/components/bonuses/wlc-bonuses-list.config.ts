@@ -165,6 +165,11 @@ export namespace wlcBonusesList {
                     nameClamp: 2,
                 },
             },
+            noContent: {
+                'promo-home': {
+                    bgImage: '/gstatic/wlc/bonuses/no-bonuses/no-bonus-block-background.jpg',
+                },
+            },
         },
     };
 }

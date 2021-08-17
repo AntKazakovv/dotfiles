@@ -56,31 +56,29 @@
 </ng-template>
 
 <ng-template #banner>
-    <ng-container *ngIf="tournaments?.length && isReady; else: noData">
-        <div class="{{$class}}__wrapper" *ngIf="slides.length">
-            <ng-container *ngIf="$params.type === 'swiper'">
-                <div class="{{$class}}__slider"
-                     wlc-slider
-                     type="banner"
-                     [slides]="slides"
-                     [inlineParams]="sliderParams"
-                ></div>
-            </ng-container>
-        </div>
-
-        <div slot-container-end *ngIf="slides.length > 1">
-            <div class="container swiper-button-container">
-                <button wlc-icon
-                        class="wlc-swiper-button-prev"
-                        iconPath="/wlc/icons/arrow.svg">
-                </button>
-                <button wlc-icon
-                        class="wlc-swiper-button-next"
-                        iconPath="/wlc/icons/arrow.svg">
-                </button>
-            </div>
-        </div>
+    <ng-container *ngIf="tournaments?.length && slides.length && isReady; else: noDataBanner">
+        <ng-container *ngIf="$params.type === 'swiper'">
+            <div class="{{$class}}__slider"
+                wlc-slider
+                type="banner"
+                [slides]="slides"
+                [inlineParams]="sliderParams"
+            ></div>
+        </ng-container>
     </ng-container>
+
+    <div slot-container-end *ngIf="slides.length > 1">
+        <div class="container swiper-button-container">
+            <button wlc-icon
+                    class="wlc-swiper-button-prev"
+                    iconPath="/wlc/icons/arrow.svg">
+            </button>
+            <button wlc-icon
+                    class="wlc-swiper-button-next"
+                    iconPath="/wlc/icons/arrow.svg">
+            </button>
+        </div>
+    </div>
 </ng-template>
 
 <ng-template #available>
@@ -161,6 +159,12 @@
         <div wlc-loader></div>
     </div>
 </ng-template>
+
+<ng-template #noDataBanner>
+    <div class="{{$class}}-nocontent__tag">{{'Tournaments' | translate}}</div>
+    <div wlc-no-content [inlineParams]="noContentParams"></div>
+</ng-template>
+
 <ng-container [ngSwitch]="$params.theme">
     <ng-container [ngTemplateOutlet]="active" *ngSwitchCase="'active'"></ng-container>
     <ng-container [ngTemplateOutlet]="available" *ngSwitchCase="'available'"></ng-container>

@@ -6,23 +6,38 @@
 
 .wlc-tournament-list--theme-banner:host {
     position: relative;
+    overflow: hidden;
     max-width: 100%;
     height: 100%;
+    border-radius: ef.get-value($themeBanner, 'listRadius');
 
     .swiper-button-container {
         position: absolute;
-        z-index: 22;
-        width: auto;
         right: ef.get-value($themeBanner, 'tournamentRightPosition');
         bottom: ef.get-value($themeBanner, 'tournamentBottomPosition');
-
+        z-index: 22;
         display: flex;
         align-items: center;
+        width: auto;
     }
 
     .wlc-tournament-list {
 
-        &__wrapper,
+        &-nocontent__tag {
+            @include text.get-text-style('ThirdTitleBold', ef.get-value($themeBanner, 'tagColor'));
+            @include em.get-mq-map('padding', $themeBanner, 'tagPadding');
+
+            position: absolute;
+            top: ef.get-value($themeBanner, 'tagTopPosition');
+            left: ef.get-value($themeBanner, 'tagLeftPosition');
+            z-index: 10;
+
+            min-width: ef.get-value($themeBanner, 'tagMinWidth');
+            text-align: ef.get-value($themeBanner, 'tagTextAlign');
+            background: ef.get-value($themeBanner, 'tagBg');
+            border-radius: ef.get-value($themeBanner, 'tagBorderRadius');
+        }
+
         &__slider {
             height: 100%;
 

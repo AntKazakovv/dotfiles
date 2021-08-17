@@ -35,30 +35,19 @@
         z-index: ef.get-value($themeDefault, 'tournamentBeforeZIndex');
     }
 
-    &__header {
+    &__tag {
+        @include text.get-text-style('ThirdTitleBold', ef.get-value($themeDefault, 'tagColor'));
+        @include em.get-mq-map('padding', $themeDefault, 'tagPadding');
+
         position: absolute;
-        top: ef.get-value($themeDefault, 'headerPosition');
-        left: ef.get-value($themeDefault, 'headerPosition');
-        z-index: ef.get-value($themeDefault, 'headerZIndex');
+        top: ef.get-value($themeDefault, 'tagTopPosition');
+        left: ef.get-value($themeDefault, 'tagLeftPosition');
+        z-index: 10;
 
-        display: flex;
-        align-items: ef.get-value($themeDefault, 'headerAlignItems');
-        justify-content: ef.get-value($themeDefault, 'headerJustifyContent');
-
-        max-height: ef.get-value($themeDefault, 'headerMaxHeight');
-
-        padding: ef.get-value($themeDefault, 'headerPadding');
-    }
-
-    &__header-title {
-        @include text.get-text-style(ef.get-value($themeDefault, 'headerFont'), ef.get-value($themeDefault, 'headerColor'));
-        display: inline-block;
-
-        margin: ef.get-value($themeDefault, 'headerMargin');
-        padding: ef.get-value($themeDefault, 'headerTitlePadding');
-
-        background: ef.get-value($themeDefault, 'headerBg');
-        border-radius: ef.get-value($themeDefault, 'headerRadius');
+        min-width: ef.get-value($themeDefault, 'tagMinWidth');
+        text-align: ef.get-value($themeDefault, 'tagTextAlign');
+        background: ef.get-value($themeDefault, 'tagBg');
+        border-radius: ef.get-value($themeDefault, 'tagBorderRadius');
     }
 
     &__more-icon {

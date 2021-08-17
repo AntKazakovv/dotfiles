@@ -27,6 +27,8 @@ import {
 import {WinnersService} from 'wlc-engine/modules/promo/system/services/winners/winners.service';
 import {WinnerModel} from 'wlc-engine/modules/promo/system/models/winner.model';
 import {WinnerComponent} from 'wlc-engine/modules/promo/components/winner/winner.component';
+import {INoContentCParams} from 'wlc-engine/modules/core/components/no-content/no-content.params';
+import {GlobalHelper} from 'wlc-engine/modules/core';
 
 import * as Params from './winners-slider.params';
 
@@ -52,6 +54,7 @@ export class WinnersSliderComponent extends AbstractComponent implements OnInit,
     };
     public slides: ISlide[] = [];
     public ready: boolean = false;
+    public noContentParams: INoContentCParams;
 
     protected useCssProps: boolean = false;
     protected cssProps: ISliderCssProps = {
@@ -77,7 +80,7 @@ export class WinnersSliderComponent extends AbstractComponent implements OnInit,
         if (!this.$params.title) {
             this.addModifiers('headless');
         }
-
+        this.noContentParams = GlobalHelper.getNoContentParams(this.$params, this.$class, this.configService, true);
         this.initSubscribers();
     }
 
@@ -89,6 +92,10 @@ export class WinnersSliderComponent extends AbstractComponent implements OnInit,
         if (this.useCssProps) {
             this.setCssProperties(swiper.params);
         }
+    }
+
+    public get isTitleVisible(): boolean {
+        return this.$params.title && !!(this.$params.theme !== 'default' || this.slides.length);
     }
 
     protected setCssProperties(swiperProps: SwiperOptions): void {

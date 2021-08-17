@@ -1,0 +1,16 @@
+.wlc-no-content--wlc-bonuses-list:host {
+    @include baseNoContent();
+
+    &.wlc-no-content--theme-promo-home {
+
+        .wlc-no-content {
+
+            &__wrapper {
+
+                &:before {
+                    @include linearGradient();
+                }
+            }
+        }
+    }
+}

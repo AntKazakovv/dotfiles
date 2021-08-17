@@ -21,6 +21,7 @@ import {
     IData,
     ICheckboxCParams,
     IPaginateOutput,
+    GlobalHelper,
 } from 'wlc-engine/modules/core';
 import {
     ISliderCParams,
@@ -35,6 +36,7 @@ import {
     ChosenBonusType,
     RecommendedListEvents,
 } from 'wlc-engine/modules/bonuses';
+import {INoContentCParams} from 'wlc-engine/modules/core/components/no-content/no-content.params';
 
 import {BonusItemComponent} from '../bonus-item/bonus-item.component';
 
@@ -87,6 +89,7 @@ export class BonusesListComponent extends AbstractComponent implements OnInit, O
             checked ? this.chooseBlankBonus(true) : this.chooseBonusByPosition(this.chosenBonusIndex);
         },
     };
+    public noContentParams: INoContentCParams;
 
     protected promocode: string = '';
     protected itemsPerPage: number = 0;
@@ -94,9 +97,9 @@ export class BonusesListComponent extends AbstractComponent implements OnInit, O
 
     constructor(
         @Inject('injectParams') protected params: Params.IBonusesListCParams,
+        protected configService: ConfigService,
         protected bonusesService: BonusesService,
         protected cachingService: CachingService,
-        protected configService: ConfigService,
         protected cdr: ChangeDetectorRef,
         protected eventService: EventService,
     ) {
@@ -115,6 +118,7 @@ export class BonusesListComponent extends AbstractComponent implements OnInit, O
         super.ngOnInit(this.inlineParams);
         this.prepareModifiers();
 
+        this.noContentParams = GlobalHelper.getNoContentParams(this.$params, this.$class, this.configService);
         if (!this.bonusesService.promoBonus) {
             await this.checkPromoBonus();
         }
