@@ -18,7 +18,7 @@ export class CookieHelper {
      * @param {number} days Cookie's expiration date in days from now
      */
     public static set(name: string, value: string, days?: number): void {
-        window.WlcCookie.set(name, value, days);
+        window.WlcCookie?.set(name, value, days);
     };
 
     /**
@@ -27,6 +27,6 @@ export class CookieHelper {
      * @param  {string} name Cookie's identification
      */
     public static delete(name: string): void {
-        window.WlcCookie.delete(name);
+        window.WlcCookie?.delete(name);
     };
 }
