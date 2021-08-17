@@ -58,7 +58,7 @@ import {
 } from 'wlc-engine/modules/finances/system/interfaces/';
 import {FinancesHelper} from '../../system/helpers/finances.helper';
 import {IFormComponent} from 'wlc-engine/modules/core/components/form-wrapper/form-wrapper.component';
-
+import {ISelectOptions} from 'wlc-engine/modules/profile';
 import * as Params from './deposit-withdraw.params';
 
 import _camelCase from 'lodash-es/camelCase';
@@ -68,9 +68,12 @@ import _has from 'lodash-es/has';
 import _isEmpty from 'lodash-es/isEmpty';
 import _isEqual from 'lodash-es/isEqual';
 import _isObject from 'lodash-es/isObject';
+import _isArrayLikeObject from 'lodash-es/isArrayLikeObject';
 import _startsWith from 'lodash-es/startsWith';
 import _transform from 'lodash-es/transform';
 import _assign from 'lodash-es/assign';
+import _map from 'lodash-es/map';
+import _keys from 'lodash-es/keys';
 
 @Component({
     selector: '[wlc-deposit-withdraw]',
@@ -292,7 +295,7 @@ export class DepositWithdrawComponent extends AbstractComponent implements OnIni
             this.requiredFields = checkedRequiredFields;
         }
 
-        this.requiredFieldsKeys = Object.keys(this.requiredFields);
+        this.requiredFieldsKeys = _keys(this.requiredFields);
 
         if (this.requiredFieldsKeys.length) {
             const fields = _transform(this.requiredFields, (result, item) => {
@@ -388,8 +391,8 @@ export class DepositWithdrawComponent extends AbstractComponent implements OnIni
     }
 
     protected getAdditionalParams(): IIndexing<string> {
-        return Object.keys(this.additionalParams).reduce((acc: IIndexing<string>, name: string) => {
-            if (this.formObject.value[name]) {
+        return _keys(this.formObject.value).reduce((acc: IIndexing<string>, name: string) => {
+            if (this.additionalParams[name] || name === 'payer') {
                 acc[name] = this.formObject.value[name];
             } else {
                 console.error(`${name} field is lost`);
@@ -407,7 +410,7 @@ export class DepositWithdrawComponent extends AbstractComponent implements OnIni
 
     protected setAdditionalValues(): void {
 
-        if (!Object.keys(this.currentSystem.additionalParams).length) {
+        if (_isEmpty(this.currentSystem.additionalParams)) {
             return;
         }
 
@@ -641,6 +644,7 @@ export class DepositWithdrawComponent extends AbstractComponent implements OnIni
 
         const {mode} = this.$params;
         const formComponents: IFormComponent[] = [];
+        let lastAccount: IFormComponent;
 
         // amount
         if (!(mode === 'deposit' && this.disableAmount)) {
@@ -659,6 +663,14 @@ export class DepositWithdrawComponent extends AbstractComponent implements OnIni
                 });
 
                 showLimits = true;
+
+                if (this.currentSystem.isPayCryptos && !this.currentSystem.isPayCryptosV2) {
+                    if (this.currentSystem.isLastAccountsObj) {
+                        lastAccount = this.getLastAccountSelect(this.currentSystem.lastAccountsObj);
+                    } else if (this.currentSystem.lastAccounts.length) {
+                        lastAccount = this.getLastAccountSelect(this.currentSystem.lastAccounts);
+                    }
+                }
             }
 
             const fieldWrap = {
@@ -692,7 +704,7 @@ export class DepositWithdrawComponent extends AbstractComponent implements OnIni
 
         // additional
         if (!_isEmpty(this.additionalParams)) {
-            const additionalFields = Object.keys(this.additionalParams).map((key) => {
+            const additionalFields = _map(_keys(this.additionalParams), (key) => {
                 const field = this.additionalParams[key];
                 if (field.type === 'input') {
                     return {
@@ -723,7 +735,7 @@ export class DepositWithdrawComponent extends AbstractComponent implements OnIni
                             common: {
                                 placeholder: field.name,
                             },
-                            items: Object.keys(field.params || {}).map((item) => {
+                            items: _map(_keys(field.params || {}), (item) => {
                                 return {
                                     value: item,
                                     title: field.params[item],
@@ -748,6 +760,10 @@ export class DepositWithdrawComponent extends AbstractComponent implements OnIni
             formComponents.push(additionalFieldsWrap);
         }
 
+        if (lastAccount) {
+            formComponents.push(lastAccount);
+        }
+
         // rules
         if (mode === 'deposit') {
             formComponents.push(FormElements.rules);
@@ -765,4 +781,30 @@ export class DepositWithdrawComponent extends AbstractComponent implements OnIni
         this.cdr.markForCheck();
     }
 
+    private getLastAccountSelect(lastAccounts: IIndexing<string> | string[]): IFormComponent {
+        const items: ISelectOptions[] = _map(_keys(lastAccounts), (item) => {
+            return {
+                value: lastAccounts[item],
+                title: _isArrayLikeObject(lastAccounts) ? lastAccounts[item] : item,
+            };
+        });
+
+        return {
+            name: 'core.wlc-select',
+            alwaysNew: {saveValue: false},
+            params: <ISelectCParams>{
+                labelText: gettext('Last account'),
+                name: 'payer',
+                theme: 'vertical',
+                common: {
+                    placeholder: gettext('Last account'),
+                },
+                items: items,
+                value: items[0].value,
+                control: new FormControl(''),
+                validators: ['required'],
+                customMod: ['additional'],
+            },
+        };
+    }
 }
