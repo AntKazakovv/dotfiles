@@ -12,16 +12,8 @@
             top: ef.get-value($themeDefault, 'buttonTop');
             right: 0;
 
-            .wlc-icon-content {
-                line-height: 0;
-            }
-
             &:after {
                 display: none;
-            }
-
-            svg {
-                transform: rotate(-90deg);
             }
         }
 
@@ -29,16 +21,8 @@
             top: ef.get-value($themeDefault, 'buttonTop');
             left: 0;
 
-            .wlc-icon-content {
-                line-height: 0;
-            }
-
             &:after {
                 display: none;
-            }
-
-            svg {
-                transform: rotate(90deg);
             }
         }
 
