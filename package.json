@@ -9,7 +9,7 @@
         "build:docs": "compodoc --silent",
         "build:sassdocs": "npm run gulp sassdoc",
         "dist": "git submodule update --init && ng build --project wlc-engine --configuration production && npm run build:docs && npm run build:sassdocs",
-        "test": "ng test",
+        "test": "CHROMIUM_BIN=chromium ng test",
         "lint": "ng lint",
         "e2e": "ng e2e",
         "update-locale": "ngx-translate-extract -i ./src/**/*.{ts,tsx,html} -o src/system/languages/messages.pot --sort --format pot && node ./utils/pot2po.js",
