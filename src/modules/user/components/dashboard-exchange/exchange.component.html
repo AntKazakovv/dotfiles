@@ -1,10 +1,13 @@
 <div class="{{$class}}__content">
     <div class="{{$class}}-points" data-wlc-element="exchange-points">
-        <div class="{{$class}}-points__value">{{(points | number: '.2-2') || 'Unknown' | translate}}
-            <span wlc-currency
-                  class="{{$class}}-points__currency"
+        <div class="{{$class}}-points__value">
+            <span *ngIf="points; else unknown"
+                  wlc-currency
                   currency="LP"
-                  [showIconOnly]="true"></span>
+                  [value]="points"></span>
+
+            <ng-template #unknown>{{'Unknown' | translate}}</ng-template>
+            
             <span wlc-tooltip
                   class="{{$class}}-icon__description-currency"
                   [inlineParams]="{modal: 'descriptionCasinosCurrency'}"></span>

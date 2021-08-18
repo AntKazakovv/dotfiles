@@ -20,24 +20,26 @@
     .wlc-icon-list {
 
         &__wrapper {
-            @include em.get-mq-map('flex-wrap', $themeMerchants, 'wrapperFlexWrap');
             @include em.get-mq-map('margin', $themeMerchants, 'wrapperMargin');
-            @include em.get-mq-map('justify-content', $themeMerchants, 'wrapperFlexJustify');
 
             position: relative;
             z-index: ef.get-value($themeMerchants, 'wrapperZIndex');
 
             display: ef.get-value($themeMerchants, 'wrapperDisplay');
 
+            flex-wrap: ef.get-value($themeMerchants, 'wrapperFlexWrap');
             align-items: ef.get-value($themeMerchants, 'wrapperAlignItems');
-            max-width: ef.get-value($themeMerchants, 'wrapperMaxWidth');
+            justify-content: ef.get-value($themeMerchants, 'wrapperJustifyContent');
 
             overflow-x: ef.get-value($themeMerchants, 'wrapperOverflow');
         }
 
         &__item,
         &-item {
-            @include em.get-mq-map('margin', $themeMerchants, 'iconMargin');
+            @include em.get-mq-map('flex', $themeMerchants, 'itemFlex');
+            @include em.get-mq-map('padding', $themeMerchants, 'itemPadding');
+
+            text-align: ef.get-value($themeMerchants, 'itemTextAlign');
 
             img,
             .wlc-icon img,

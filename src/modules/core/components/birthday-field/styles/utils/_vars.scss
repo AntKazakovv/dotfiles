@@ -2,10 +2,12 @@ $customThemeDefault: () !default;
 $themeDefault: map-merge((
     'gap': ef.get('size', 'small'),
     'templateColumns': minmax(0, 1fr),
+    'labelMarginRight': ef.size(-10),
 ), $customThemeDefault);
 
 $customThemeVertical: () !default;
 $themeVertical: map-merge((
     'gap': ef.get('size', 'small'),
     'templateColumns': repeat(3, 1fr),
+    'labelMarginRight': ef.size(-10),
 ), $customThemeVertical);

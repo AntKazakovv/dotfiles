@@ -392,11 +392,7 @@
     }
 
     &.show {
-        opacity: 1;
-
-        @include mq.min(560) {
-            opacity: 0.5;
-        }
+        @include bm.get-mq-map('opacity', $hostModal, 'backdropOpacity');
     }
 }
 

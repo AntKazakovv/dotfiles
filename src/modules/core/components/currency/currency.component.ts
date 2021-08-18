@@ -96,6 +96,8 @@ export class CurrencyComponent
 
     @Input() public showIconOnly: boolean;
 
+    @Input() public showValueOnly: boolean;
+
     @Input() public hideSvgName: boolean;
 
     @Input() public svgPosition: 'left' | 'right';
@@ -183,7 +185,7 @@ export class CurrencyComponent
 
                 this.updateModel();
                 this.showName = this.$params?.useSvgIconName && !this.icon.iconChar && !this.hideSvgName;
-                this.showSvg = this.icon?.svg && !this.$params?.useSvgIconName;
+                this.showSvg = !this.showValueOnly && this.icon?.svg && !this.$params?.useSvgIconName;
                 this.changeDetectorRef.markForCheck();
             });
 
@@ -230,6 +232,8 @@ export class CurrencyComponent
 
         if (this.$params.showIconOnly) {
             currencyParts = _filter(currencyParts, (part) => part.type === 'currency');
+        } else if (this.$params.showValueOnly) {
+            currencyParts = _filter(currencyParts, (part) => part.type !== 'currency');
         }
 
         this.displayValue = _join(_map(currencyParts, (part) => part.value), '').trim();
@@ -245,7 +249,7 @@ export class CurrencyComponent
 
     protected getInlineParams(): Params.ICurrencyCParams {
         const inline = {};
-        _each(['value', 'currency', 'digitsInfo', 'showIconOnly'], (key) => {
+        _each(['value', 'currency', 'digitsInfo', 'showIconOnly', 'showValueOnly'], (key) => {
             if (this[key] !== undefined) {
                 inline[key] = this[key];
             }

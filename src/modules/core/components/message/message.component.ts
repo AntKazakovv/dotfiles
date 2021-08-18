@@ -73,11 +73,12 @@ export class MessageComponent
 
         _assign(this, {
             title: title || this.$params.defaultTitles[this.$params.type],
-            messages: _isArray(message) ? message : _isObject(message) ? _values(message) : [message],
+            messages: this.prepareMessages(message),
             isHTML: displayAsHTML,
             image,
             icon: this.$params.typeIcons[this.$params.type],
         });
+        
 
         if (action) {
             this.action = {
@@ -87,5 +88,21 @@ export class MessageComponent
                     : action.onClick,
             };
         }
+    }
+
+    protected prepareMessages(messages: string | string[] | object): string[] {
+        let msgs: string[];
+
+        if (_isArray(messages)) {
+            msgs = messages;
+        } else if (_isObject(messages)) {
+            msgs = _values(messages);
+        } else if (messages) {
+            msgs = [messages];
+        } else {
+            msgs = [];
+        }
+
+        return msgs;
     }
 }

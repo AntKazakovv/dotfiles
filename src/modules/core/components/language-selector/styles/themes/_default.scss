@@ -90,7 +90,7 @@
                 padding-bottom: ef.get-value($themeDefault, 'dropdownArrowSize');
             }
             position: absolute;
-            z-index: 2;
+            z-index: 3;
         }
 
         &__list {

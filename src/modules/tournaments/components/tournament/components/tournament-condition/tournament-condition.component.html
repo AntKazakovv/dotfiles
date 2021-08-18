@@ -1,19 +1,29 @@
 <ng-template #join>
     <div class="{{$class}}__container">
-        <div class="{{$class}}__text" *ngIf="$params.common.feeCurrency !== 'LP'; else userPoints">
+        <div *ngIf="$params.common.feeCurrency !== 'LP'; else userPoints" class="{{$class}}__text">
             {{'Real balance' | translate}}: <span wlc-currency [value]="$params.common.userBalance"></span>
         </div>
         <ng-template #userPoints>
             <div class="{{$class}}__text">
-                {{'You have' | translate}}: <span class="{{$class}}__lpblock" wlc-currency currency="LP" [value]="$params.common.userBalance" digitsInfo="1-0-2"></span>
+                {{'You have' | translate}}:
+                <span wlc-currency
+                      class="{{$class}}__lpblock"
+                      currency="LP"
+                      [value]="$params.common.userBalance">
+                </span>
             </div>
         </ng-template>
-        <div class="{{$class}}__text" *ngIf="$params.common.feeCurrency !== 'LP'; else tournamentPoints">
+        <div *ngIf="$params.common.feeCurrency !== 'LP'; else tournamentPoints" class="{{$class}}__text">
             {{'Entry fee' | translate}}: <span wlc-currency [value]="$params.common.feeAmount"></span>
         </div>
         <ng-template #tournamentPoints>
             <div class="{{$class}}__text">
-                {{'Entry fee' | translate}}: <span class="{{$class}}__lpblock" wlc-currency currency="LP" [value]="$params.common.feeAmount" digitsInfo="1-0-2"></span>
+                {{'Entry fee' | translate}}:
+                <span wlc-currency
+                      class="{{$class}}__lpblock"
+                      currency="LP"
+                      [value]="$params.common.feeAmount">
+                </span>
             </div>
         </ng-template>
         <div class="{{$class}}__text">
@@ -30,6 +40,6 @@
 
 
 <ng-container [ngSwitch]="$params.common.actionType">
-    <ng-container [ngTemplateOutlet]="leave" *ngSwitchCase="'leave'"></ng-container>
-    <ng-container [ngTemplateOutlet]="join" *ngSwitchDefault></ng-container>
+    <ng-container *ngSwitchCase="'leave'" [ngTemplateOutlet]="leave"></ng-container>
+    <ng-container *ngSwitchDefault [ngTemplateOutlet]="join" ></ng-container>
 </ng-container>

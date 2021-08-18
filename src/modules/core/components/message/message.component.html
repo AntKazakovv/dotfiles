@@ -18,7 +18,10 @@
             class="wlc-notification-message__heading"
             [attr.data-wlc-element]="'notification-title'"
         >{{title | translate}}</h4>
-        <div class="wlc-notification-message__message-container" [attr.data-wlc-element]="'notification-text'">
+        <div *ngIf="messages.length" 
+             class="wlc-notification-message__message-container" 
+             [attr.data-wlc-element]="'notification-text'"
+        >
             <div class="wlc-notification-message__message">
                 <ng-container *ngFor="let message of messages">
                     <ng-container *ngIf="isHTML; else plainText">

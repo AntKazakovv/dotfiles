@@ -38,6 +38,7 @@ $themeDefault: map-merge((
     headingColor: ef.get('mainColors', 'baseMain'),
     messageStyle: 'PrimaryText',
     messageColor: ef.get('mainColors', 'baseMain'),
+    messageContainerMargin: ef.size(3) 0 0,
 ), $customThemeDefault);
 
 @function get($key) {
