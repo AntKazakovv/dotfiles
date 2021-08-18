@@ -95,13 +95,17 @@ export class SelectValuesService {
         const phoneCodes = new BehaviorSubject<Params.ISelectOptions[]>([]);
         this.configService.get<BehaviorSubject<ICountry[]>>('countries')
             .pipe(map(data => {
-                return _map(_sortBy(_filter(_uniqBy(data, (country) => country.phoneCode), (country) => !!country.phoneCode), (country) => +country.phoneCode), (country) => {
-                    return {
-                        title: `+${+country.phoneCode}`,
-                        value: `+${+country.phoneCode}`,
-                        country: country.value,
-                    };
-                });
+                return _map(_sortBy(
+                    _filter(
+                        _uniqBy(data, (country) => country.phoneCode),
+                        (country) => !!country.phoneCode,
+                    ),
+                    (country) => +country.phoneCode,
+                ), (country) => ({
+                    title: `+${+country.phoneCode}`,
+                    value: `+${+country.phoneCode}`,
+                    country: country.value,
+                }));
             })).subscribe(val => phoneCodes.next(val));
 
         return phoneCodes;
@@ -188,7 +192,8 @@ export class SelectValuesService {
 
         (async () => {
             await this.configService.ready;
-            this.gamesCatalogService = await this.injectionService.getService<GamesCatalogService>('games.games-catalog-service');
+            this.gamesCatalogService =
+                await this.injectionService.getService<GamesCatalogService>('games.games-catalog-service');
             await this.gamesCatalogService.ready;
 
             merchants$.next([

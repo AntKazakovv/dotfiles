@@ -16,8 +16,6 @@ import {
     ChatState,
 } from 'wlc-engine/modules/livechat/system/classes/livechatAbstract.class';
 
-import _get from 'lodash-es/get';
-
 @Injectable({
     providedIn: 'root',
 })
@@ -121,7 +119,11 @@ export class LivechatincService extends LivechatAbstract {
         const script = this.document.createElement('script');
         script.type = 'text/javascript';
         script.async = true;
-        script.src = ('https:' == this.document.location.protocol ? 'https://' : 'http://') + 'cdn.livechatinc.com/tracking.js';
+        script.src = ('https:' == this.document.location.protocol
+            ? 'https://'
+            : 'http://'
+        ) + 'cdn.livechatinc.com/tracking.js';
+
 
         this.document.head.appendChild(script);
 

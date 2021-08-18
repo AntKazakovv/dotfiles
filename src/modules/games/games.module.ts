@@ -19,7 +19,9 @@ import {CountUpModule} from 'ngx-countup';
 import {PlayGameForRealComponent} from './components/play-game-for-real/play-game-for-real.component';
 import {GameDashboardComponent} from './components/game-dashboard/game-dashboard.component';
 import {RandomGameComponent} from  'wlc-engine/modules/games/components/random-game/random-game.component';
-import {CategoryPreviewComponent} from 'wlc-engine/modules/games/components/category-preview/category-preview.component';
+import {
+    CategoryPreviewComponent,
+} from 'wlc-engine/modules/games/components/category-preview/category-preview.component';
 import {ProviderLinksComponent} from './components/provider-links/provider-links.component';
 import {ProviderGamesComponent} from './components/provider-games/provider-games.component';
 import {ProgressBarComponent} from './components/progress-bar/progress-bar.component';

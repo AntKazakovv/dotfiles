@@ -57,7 +57,8 @@ export class CounterComponent extends AbstractComponent implements OnInit {
             case ('bonuses-main' || 'bonuses-all'):
                 await this.configService.ready;
 
-                const bonusesService = await this.injectionService.getService<BonusesService>('bonuses.bonuses-service');
+                const bonusesService = await this.injectionService
+                    .getService<BonusesService>('bonuses.bonuses-service');
 
                 bonusesService.getSubscribe({
                     useQuery: !bonusesService.bonuses?.length,

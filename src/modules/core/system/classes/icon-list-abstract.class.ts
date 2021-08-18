@@ -48,7 +48,9 @@ export abstract class IconListAbstract<T> extends AbstractComponent {
      * @param items - collection of items
      * @param iterator - handler which returns IIconParams
      */
-    protected convertItemsToIconModel<I>(items: I[], iterator: (item: I) => {from: IFromLog, icon: IIconParams}): IconModel[] {
+    protected convertItemsToIconModel<I>(
+        items: I[], iterator: (item: I) => {from: IFromLog, icon: IIconParams},
+    ): IconModel[] {
         return _map<I, IconModel>(items, (item: I): IconModel => {
             const {from, icon} = iterator(item);
             return new IconModel(from, icon);
@@ -87,14 +89,20 @@ export abstract class IconListAbstract<T> extends AbstractComponent {
     /**
      * Creates path to paysystem or merchant images.
      * @param {string} name - Name of paysystem or alias of merchant
+     * @param pathDirectory
+     * @param showAs
+     * @param colorIconBg
      * @returns The path to image.
      */
-    protected getPath(name: string, pathDirectory: string, showAs: 'svg' | string, colorIconBg?: ColorIconBgType): string {
+    protected getPath(
+        name: string, pathDirectory: string, showAs: 'svg' | string, colorIconBg?: ColorIconBgType,
+    ): string {
         const rootPath = showAs === 'svg' ? '' : '/gstatic';
         const color = showAs === 'svg' ? 'black' : 'color';
         const colorBg = (color === 'color' && colorIconBg) ? 'color/' + colorIconBg : null;
 
-        return `${rootPath}/${ThemeToDirectory[pathDirectory]}/${colorBg || color}/${GlobalHelper.toSnakeCase(name)}.svg`;
+        return `${rootPath}/${ThemeToDirectory[pathDirectory]}/${colorBg || color}/${GlobalHelper
+            .toSnakeCase(name)}.svg`;
     }
 
     protected wlcElementTail(name: string): string {

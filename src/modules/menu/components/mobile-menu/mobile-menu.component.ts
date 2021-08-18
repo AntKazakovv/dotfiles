@@ -73,20 +73,23 @@ export class MobileMenuComponent extends AbstractComponent implements OnInit {
         this.menuSettings = _cloneDeep(this.configService.get('appConfig.menuSettings.mobileMenu'));
         if (this.menuSettings) {
 
-            const itemsBefore: IMenuItem[] = this.configService.get<IMenuItem[]>('$menu.mobileMenu.fundistMenuSettings.itemsBefore');
+            const itemsBefore: IMenuItem[] = this.configService
+                .get<IMenuItem[]>('$menu.mobileMenu.fundistMenuSettings.itemsBefore');
             if (itemsBefore) {
                 this.menuSettings.items = itemsBefore.concat(this.menuSettings.items);
             }
 
-            const itemsAfter: IMenuItem[] = this.configService.get<IMenuItem[]>('$menu.mobileMenu.fundistMenuSettings.itemsAfter');
+            const itemsAfter: IMenuItem[] = this.configService
+                .get<IMenuItem[]>('$menu.mobileMenu.fundistMenuSettings.itemsAfter');
             if (itemsAfter) {
                 this.menuSettings.items = this.menuSettings.items.concat(itemsAfter);
             }
 
-            this.menuConfig = MenuHelper.parseMenuSettings(this.menuSettings, 'mobile-menu', this.translateService.currentLang, {
-                isAuth: this.isAuth,
-                wlcElementPrefix: 'link_mobile-nav-',
-            });
+            this.menuConfig = MenuHelper
+                .parseMenuSettings(this.menuSettings, 'mobile-menu', this.translateService.currentLang, {
+                    isAuth: this.isAuth,
+                    wlcElementPrefix: 'link_mobile-nav-',
+                });
         } else {
             this.menuConfig = this.configService.get<MenuParams.MenuConfigItem[]>('$menu.mobileMenu.items');
         }
@@ -114,7 +117,8 @@ export class MobileMenuComponent extends AbstractComponent implements OnInit {
             ? this.$params.common.icons.use
             : this.configService.get<boolean>('$menu.mobileMenu.icons.use');
 
-        const iconsFolder: string = this.$params.common?.icons?.folder || this.configService.get<string>('$menu.mobileMenu.icons.folder');
+        const iconsFolder: string = this.$params.common?.icons?.folder ||
+            this.configService.get<string>('$menu.mobileMenu.icons.folder');
 
         if (!this.menuSettings && !this.configService.get<boolean>('$menu.mobileMenu.disableCategories')) {
             this.categoryMenuParams = {

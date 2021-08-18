@@ -28,7 +28,11 @@ export class TableRowModel {
                 if (_isString(value)) {
                     return value;
                 } else {
-                    return (col.format ? value?.toFormat(col.format) : value?.toFormat('dd-MM-yyyy HH:mm:ss')) || value?.toString();
+                    return (
+                        col.format
+                            ? value?.toFormat(col.format)
+                            : value?.toFormat('dd-MM-yyyy HH:mm:ss')
+                    ) || value?.toString();
                 }
 
             default:

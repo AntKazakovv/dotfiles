@@ -136,7 +136,8 @@ export class LayoutService {
                             const component = (_isString(section.components[position]))
                                 ? {name: section.components[position] as string}
                                 : section.components[position];
-                            section.components[position] = GlobalHelper.mergeConfig(_cloneDeep(component), item.component);
+                            section.components[position] = GlobalHelper
+                                .mergeConfig(_cloneDeep(component), item.component);
                             break;
                     }
                 });
@@ -245,7 +246,9 @@ export class LayoutService {
      */
     public async generateFullConfigWithLayouts(full: boolean = false): Promise<Partial<IGlobalConfig>> {
         await this.configService.ready;
-        await this.injectionService.importModules(['core', 'menu', 'games', 'static', 'promo', 'user', 'finances', 'bonuses', 'store', 'profile', 'sportsbook', 'livechat']);
+        await this.injectionService.importModules([
+            'core', 'menu', 'games', 'static', 'promo',
+            'user', 'finances', 'bonuses', 'store', 'profile', 'sportsbook', 'livechat']);
         const config = _cloneDeep(this.configService.globalConfig);
 
         if (full) {

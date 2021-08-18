@@ -11,8 +11,7 @@ import {
 
 import {ActionType} from 'wlc-engine/modules/tournaments';
 
-import * as Params
-    from 'wlc-engine/modules/tournaments/components/tournament/components/tournament-condition/tournament-condition.params';
+import * as Params from '../tournament-condition/tournament-condition.params';
 
 @Component({
     selector: '[wlc-tournament-condition]',

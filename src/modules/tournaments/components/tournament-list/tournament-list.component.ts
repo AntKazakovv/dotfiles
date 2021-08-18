@@ -157,7 +157,9 @@ export class TournamentListComponent
                     this.replaceTournaments(tournaments);
 
                     if (this.uiRouter.params.tournamentId) {
-                        tournaments = _filter(tournaments, tournament => tournament.id === +this.uiRouter.params.tournamentId);
+                        tournaments = _filter(
+                            tournaments, tournament => tournament.id === +this.uiRouter.params.tournamentId,
+                        );
                     }
 
                     this.paginatedTournaments = this.tournaments = tournaments;

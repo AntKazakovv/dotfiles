@@ -36,7 +36,8 @@ export class SentryService {
         private configService: ConfigService,
         private logService: LogService,
     ) {
-        this.autotest = Cookie.get('runautotest') === '7698155c459ee95063a26a7121b2b7916fa36004cbcfe787043d27692b249971';
+        this.autotest = Cookie
+            .get('runautotest') === '7698155c459ee95063a26a7121b2b7916fa36004cbcfe787043d27692b249971';
         if (this.autotest) {
             window.testSessionHash = this.sessionHash = this.generateHash();
         } else {
@@ -78,7 +79,8 @@ export class SentryService {
      * @returns {string} Hash string
      */
     private generateHash(save?: boolean): string {
-        const hash = window.crypto.getRandomValues(new Uint32Array(2)).reduce((res, item) => res + item.toString(16), '');
+        const hash = window.crypto.getRandomValues(new Uint32Array(2))
+            .reduce((res, item) => res + item.toString(16), '');
         if (save) {
             this.configService.set({
                 name: this.sessionKey,

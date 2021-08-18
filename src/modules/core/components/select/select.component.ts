@@ -60,7 +60,7 @@ import _find from 'lodash-es/find';
                 animate('150ms', style({opacity: 1, height: '*'})),
             ]),
             transition(':leave', [
-                style({ height: '*', opacity: 1}),
+                style({height: '*', opacity: 1}),
                 animate('100ms', style({opacity: 0, height: 0})),
             ]),
         ]),
@@ -144,11 +144,14 @@ export class SelectComponent extends AbstractComponent implements OnInit,
         }
 
         if (this.$params.autoSelect) {
+            const country = this.configService.get<string>('appConfig.country');
 
             switch (this.$params.name) {
                 case 'currency': {
-                    const currency = this.configService.get<string>(`$base.registration.selectCurrencyByCountry.${this.configService.get<string>('appConfig.country')}`);
-                    
+                    const currency = this.configService.get<string>(
+                        `$base.registration.selectCurrencyByCountry.${country}`,
+                    );
+
                     if (currency && _find(this.$params.items, item => item.value === currency)) {
                         this.control.setValue(currency);
                     }
@@ -156,7 +159,7 @@ export class SelectComponent extends AbstractComponent implements OnInit,
                     break;
                 }
                 case 'countryCode': {
-                    this.control.setValue(this.configService.get<string>('appConfig.country'));
+                    this.control.setValue(country);
                     break;
                 }
             }
@@ -176,7 +179,8 @@ export class SelectComponent extends AbstractComponent implements OnInit,
     public scrollSelectList(): void {
         if (this.activeItemIndex < 0) {
             return;
-        };
+        }
+
         this.selectList?.nativeElement?.children[this.activeItemIndex].scrollIntoView({block: 'nearest'});
     }
 

@@ -1,5 +1,7 @@
 import {ILayoutComponent} from 'wlc-engine/modules/core';
-import {ICRecommendedBonusesParams} from 'wlc-engine/modules/bonuses/components/recommended-bonuses/recommended-bonuses.params';
+import {
+    ICRecommendedBonusesParams,
+} from 'wlc-engine/modules/bonuses/components/recommended-bonuses/recommended-bonuses.params';
 
 export namespace wlcRecommendedBonuses {
     export const def: ILayoutComponent = {
@@ -62,4 +64,3 @@ export namespace wlcRecommendedBonuses {
         },
     };
 }
-;

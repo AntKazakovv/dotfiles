@@ -14,11 +14,19 @@ import {TranslateModule} from '@ngx-translate/core';
 import {BetHistoryComponent} from './components/bet-history/bet-history.component';
 import {DepositWithdrawComponent} from './components/deposit-withdraw/deposit-withdraw.component';
 import {TransactionHistoryComponent} from './components/transaction-history/transaction-history.component';
-import {TransactionStatusComponent} from './components/transaction-history/transaction-status/transaction-status.component';
-import {TransactionCancelComponent} from './components/transaction-history/transaction-cancel/transaction-cancel.component';
-import {TransactionPreviewComponent} from './components/transaction-history/transaction-preview/transaction-preview.component';
+import {
+    TransactionStatusComponent,
+} from './components/transaction-history/transaction-status/transaction-status.component';
+import {
+    TransactionCancelComponent,
+} from './components/transaction-history/transaction-cancel/transaction-cancel.component';
+import {
+    TransactionPreviewComponent,
+} from './components/transaction-history/transaction-preview/transaction-preview.component';
 import {HistoryFilterComponent} from './components/history-filter/history-filter.component';
-import {HistoryFilterFormComponent} from './components/history-filter/history-filter-form/history-filter-form.component';
+import {
+    HistoryFilterFormComponent,
+} from './components/history-filter/history-filter-form/history-filter-form.component';
 import {HistoryRangeComponent} from './components/transaction-range/history-range.component';
 import {PaymentListComponent} from './components/payment-list/payment-list.component';
 import {PaymentMessageComponent} from './components/payment-message/payment-message.component';

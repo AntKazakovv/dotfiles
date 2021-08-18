@@ -94,6 +94,7 @@ export class ProfileMenuService {
         this.subMenu = {};
         this.initConfig();
     }
+
     /**
      * Get menu for type 'submenu'
      *
@@ -105,17 +106,18 @@ export class ProfileMenuService {
             return this.subMenu[state];
         }
 
-        const parentInMenuConfig: MenuParams.MenuConfigItemsGroup = _find(this.profileMenuConfig, (item: MenuParams.MenuConfigItem) => {
-            if (!_isString(item) && _has(item, 'items')) {
-                for (const subitemAlias of _get(item, 'items')) {
-                    const subitem = Config.wlcProfileMenuItemsGlobal[subitemAlias];
-                    if (subitem && subitem.params?.state?.name === state) {
-                        return true;
+        const parentInMenuConfig: MenuParams.MenuConfigItemsGroup = _find(
+            this.profileMenuConfig, (item: MenuParams.MenuConfigItem) => {
+                if (!_isString(item) && _has(item, 'items')) {
+                    for (const subitemAlias of _get(item, 'items')) {
+                        const subitem = Config.wlcProfileMenuItemsGlobal[subitemAlias];
+                        if (subitem && subitem.params?.state?.name === state) {
+                            return true;
+                        }
                     }
                 }
-            }
-            return false;
-        }) as MenuParams.MenuConfigItemsGroup;
+                return false;
+            }) as MenuParams.MenuConfigItemsGroup;
 
         let items: MenuParams.IMenuItem[] = [];
         if (parentInMenuConfig) {
@@ -139,7 +141,8 @@ export class ProfileMenuService {
      */
     public getDropdownMenu(options?: IMenuOptions): MenuItemObjectType[] {
         if (!this.dropdownMenu.length) {
-            this.dropdownMenu = MenuHelper.parseMenuConfig(this.profileMenuConfig, Config.wlcProfileMenuItemsGlobal, options);
+            this.dropdownMenu =
+                MenuHelper.parseMenuConfig(this.profileMenuConfig, Config.wlcProfileMenuItemsGlobal, options);
         }
         return this.dropdownMenu;
     }
@@ -166,24 +169,25 @@ export class ProfileMenuService {
             }
         });
 
-        this.profileMenuConfig = _reduce(this.profileMenuConfig, (sum: MenuParams.MenuConfigItem[], item: MenuParams.MenuConfigItem) => {
-            if (_isString(item) && _includes(notUsed, item)) {
-                return sum;
-            } else if (_get(item, 'parent')) {
-                const itemsGroup = item as IProfileMenuItemsGroup<string>;
-                const parentItem: string = itemsGroup.parent;
-                if (_includes(notUsed, parentItem)) {
+        this.profileMenuConfig =
+            _reduce(this.profileMenuConfig, (sum: MenuParams.MenuConfigItem[], item: MenuParams.MenuConfigItem) => {
+                if (_isString(item) && _includes(notUsed, item)) {
+                    return sum;
+                } else if (_get(item, 'parent')) {
+                    const itemsGroup = item as IProfileMenuItemsGroup<string>;
+                    const parentItem: string = itemsGroup.parent;
+                    if (_includes(notUsed, parentItem)) {
+                        return sum;
+                    }
+                    itemsGroup.items = _filter(itemsGroup.items, (item: string) => {
+                        return !_includes(notUsed, item);
+                    });
+                    sum.push(itemsGroup);
                     return sum;
                 }
-                itemsGroup.items = _filter(itemsGroup.items, (item: string) => {
-                    return !_includes(notUsed, item);
-                });
-                sum.push(itemsGroup);
+                sum.push(item);
                 return sum;
-            }
-            sum.push(item);
-            return sum;
-        }, []);
+            }, []);
     }
 
 }

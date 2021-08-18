@@ -74,7 +74,10 @@ export class LayoutComponent implements OnInit, OnDestroy {
         }
 
         this.eventService.subscribe({name: 'TRANSITION_ENTER'}, (data) => {
-            this.setComponents(this.uiRouter.transition?.targetState().name(), this.uiRouter.transition?.targetState().params());
+            this.setComponents(
+                this.uiRouter.transition?.targetState().name(),
+                this.uiRouter.transition?.targetState().params(),
+            );
         }, this.$destroy);
 
     }
@@ -151,7 +154,9 @@ export class LayoutComponent implements OnInit, OnDestroy {
 
             _each(allComponents, (component, key) => {
                 const index = _findIndex(oldList, (item: ILayoutComponent) => {
-                    return component.name === item.name && !component.reloadOnStateChange && _isEqual(component.params, item.params);
+                    return component.name === item.name
+                        && !component.reloadOnStateChange
+                        && _isEqual(component.params, item.params);
                 });
                 if (index !== -1) {
                     allComponents[key] = oldList[index];

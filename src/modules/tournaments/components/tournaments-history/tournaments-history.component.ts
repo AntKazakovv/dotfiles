@@ -114,7 +114,8 @@ export class TournamentsHistoryComponent extends AbstractComponent implements On
     public async ngOnInit(): Promise<void> {
         super.ngOnInit();
         await this.tournamentsService.queryTournaments(true, 'history');
-        this.historyFilterService = await this.injectionService.getService<HistoryFilterService>('finances.history-filter');
+        this.historyFilterService = await this.injectionService
+            .getService<HistoryFilterService>('finances.history-filter');
         this.tournamentsService.getObserver('history').subscribe((value) => {
             this.allTournaments = value;
         });

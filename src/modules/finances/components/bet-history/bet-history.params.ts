@@ -1,7 +1,9 @@
 import {IComponentParams, CustomType} from 'wlc-engine/modules/core/system/classes/abstract.component';
 import {ITableCol} from 'wlc-engine/modules/core/components/table/table.params';
 import {Transaction} from 'wlc-engine/modules/finances/system/models/transaction-history.model';
-import {TransactionPreviewComponent} from 'wlc-engine/modules/finances/components/transaction-history/transaction-preview/transaction-preview.component';
+import {
+    TransactionPreviewComponent,
+} from 'wlc-engine/modules/finances/components/transaction-history/transaction-preview/transaction-preview.component';
 
 export type Theme = 'default' | CustomType;
 export type Type = 'default' | CustomType;

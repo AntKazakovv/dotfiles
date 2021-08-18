@@ -67,7 +67,8 @@ export class GamesCatalogComponent extends AbstractComponent implements OnInit {
         this.gameGrids = [];
 
         if (this.configService.get('appConfig.categories')) {
-            const category: CategoryModel = this.gamesCatalogService.getChildCategoryByState() || this.gamesCatalogService.getParentCategoryByState();
+            const category: CategoryModel = this.gamesCatalogService.getChildCategoryByState()
+                || this.gamesCatalogService.getParentCategoryByState();
 
             await category?.isReady;
 

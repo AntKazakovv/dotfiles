@@ -31,7 +31,8 @@ import _sortedUniqBy from 'lodash-es/sortedUniqBy';
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 
-export class ProviderLinksComponent extends IconListAbstract<Params.IProviderLinksCParams> implements OnInit, AfterViewInit {
+export class ProviderLinksComponent extends IconListAbstract<Params.IProviderLinksCParams>
+    implements OnInit, AfterViewInit {
     @Input() protected inlineParams: Params.IProviderLinksCParams;
 
     @ViewChild('iconItem') iconTemplate: TemplateRef<any>;

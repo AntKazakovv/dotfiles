@@ -141,7 +141,8 @@ export class GameDashboardBonusesComponent extends AbstractComponent implements 
         this.actionService.windowResize()
             .pipe(takeUntil(this.$destroy))
             .subscribe((event: IResizeEvent) => {
-                const landscapeOrientation = !event.device.isDesktop && event.device.orientation == DeviceOrientation.Landscape;
+                const landscapeOrientation = !event.device.isDesktop
+                    && event.device.orientation == DeviceOrientation.Landscape;
                 if (this.landscapeOrientation !== landscapeOrientation) {
                     this.landscapeOrientation = landscapeOrientation;
                     this.bonusesToSlides();

@@ -208,7 +208,9 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
      * @param {Event} event
      */
     public openOnFullscreen(event?: Event): void {
-        const container: HTMLElement = this.iframe ? this.iframe : this.wrp.element.nativeElement.querySelector('#egamings_container');
+        const container: HTMLElement = this.iframe
+            ? this.iframe
+            : this.wrp.element.nativeElement.querySelector('#egamings_container');
         if (container) {
             this.requestFullscreen(container);
             if (this.iframe) {
@@ -575,7 +577,8 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
                 if (this.configService.get<boolean>('appConfig.mobile')) {
                     this.useOrNotMobileIframe();
                 }
-                this.gameHtml = this.domSanitizer.bypassSecurityTrustHtml(launchInfo.gameHtml)?.['changingThisBreaksApplicationSecurity'];
+                this.gameHtml = this.domSanitizer
+                    .bypassSecurityTrustHtml(launchInfo.gameHtml)?.['changingThisBreaksApplicationSecurity'];
                 this.cdr.markForCheck();
             } else {
                 // error
@@ -647,7 +650,8 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
                 const doc: HTMLDocument = (iframe.contentDocument) ?
                     iframe.contentDocument : iframe.contentWindow.document;
 
-                const loadedMainSiteInIframe: boolean = tryLoadIteration == 4 && !!doc.querySelector('.wlc-application');
+                const loadedMainSiteInIframe: boolean = tryLoadIteration == 4
+                    && !!doc.querySelector('.wlc-application');
                 if (loadedMainSiteInIframe) {
                     this.returnToPrevState();
                 }

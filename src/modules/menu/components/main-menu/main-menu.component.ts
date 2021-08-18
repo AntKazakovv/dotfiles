@@ -115,7 +115,9 @@ export class MainMenuComponent extends AbstractComponent implements OnInit {
             ? this.$params.common.icons.use
             : this.configService.get<boolean>('$menu.mainMenu.icons.use');
 
-        this.iconsFolder = this.menuSettings?.iconsPack || this.$params.common?.icons?.folder || this.configService.get<string>('$menu.mainMenu.icons.folder');
+        this.iconsFolder = this.menuSettings?.iconsPack
+            || this.$params.common?.icons?.folder
+            || this.configService.get<string>('$menu.mainMenu.icons.folder');
 
         const extension: TIconExtension = this.configService.get<TIconExtension>('$menu.mainMenu.icons.extension');
         if (extension) {
@@ -168,7 +170,10 @@ export class MainMenuComponent extends AbstractComponent implements OnInit {
             },
         });
 
-        this.$params.menuParams.items = _sortBy(menuItems.concat(this.commonMenuItems as MenuParams.IMenuItem[]), (item) => item.sort);
+        this.$params.menuParams.items = _sortBy(
+            menuItems.concat(this.commonMenuItems as MenuParams.IMenuItem[]),
+            (item) => item.sort,
+        );
 
         this.$params.menuParams = _clone(this.$params.menuParams);
         this.cdr.markForCheck();

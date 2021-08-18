@@ -87,7 +87,8 @@ export class CategoryMenuComponent extends AbstractComponent implements OnInit, 
 
     public async ngOnInit(): Promise<void> {
         super.ngOnInit(this.inlineParams);
-        this.gamesCatalogService = await this.injectionService.getService<GamesCatalogService>('games.games-catalog-service');
+        this.gamesCatalogService = await this.injectionService
+            .getService<GamesCatalogService>('games.games-catalog-service');
         _assign(this.$params.menuParams, {
             theme: this.$params.theme,
             themeMod: this.$params.themeMod,
@@ -189,21 +190,25 @@ export class CategoryMenuComponent extends AbstractComponent implements OnInit, 
             if (this.gamesCatalogService.catalogOpened()) {
                 this.categories = this.gamesCatalogService.getCategoriesByState();
             } else {
-                const parentCategory = this.gamesCatalogService.getCategoryBySlug(['casino', 'livecasino', 'tablegames']);
+                const parentCategory = this.gamesCatalogService
+                    .getCategoryBySlug(['casino', 'livecasino', 'tablegames']);
                 const specialCategories = this.getSpecialCategories();
 
                 if (parentCategory) {
-                    const categories: CategoryModel[] = _concat(specialCategories, parentCategory.childCategories) as CategoryModel[];
+                    const categories: CategoryModel[] = _concat(
+                        specialCategories, parentCategory.childCategories,
+                    ) as CategoryModel[];
                     this.categories = this.gamesCatalogService.sortCategories(categories);
                 }
             }
 
             let menuItems;
             if (this.menuSettings) {
-                const itemsConfig = MenuHelper.parseMenuSettings(this.menuSettings, 'category-menu', this.translate.currentLang, {
-                    isAuth: this.isAuth,
-                    wlcElementPrefix: 'link_game-categories-',
-                });
+                const itemsConfig = MenuHelper
+                    .parseMenuSettings(this.menuSettings, 'category-menu', this.translate.currentLang, {
+                        isAuth: this.isAuth,
+                        wlcElementPrefix: 'link_game-categories-',
+                    });
 
                 menuItems = MenuHelper.parseMenuConfig(itemsConfig, Config.wlcCategoryMenuItemsGlobal, {
                     icons: {

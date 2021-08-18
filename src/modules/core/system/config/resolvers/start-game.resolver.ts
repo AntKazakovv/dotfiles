@@ -223,14 +223,18 @@ class StartGameHandler {
     }
 
     private setRealPlayDisabledByCountry(): void {
-        const realPlayDisableByCountry: IDisablePlayRealByCountry = this.configService.get('$games.realPlay.disableByCountry');
+        const realPlayDisableByCountry: IDisablePlayRealByCountry = this.configService
+            .get('$games.realPlay.disableByCountry');
         const counryListDefault: string[] = realPlayDisableByCountry.default || [];
 
         let counryListMerchant: string[] = [];
         if (realPlayDisableByCountry.forMerchant?.[this.merchantId]) {
-            counryListMerchant = _reduce(realPlayDisableByCountry.forMerchant, (res, countryList: string[], merchantId) => {
-                return this.gamesCatalogService.getMerchantById(_toNumber(merchantId)) ? _union(res, countryList) : res;
-            }, []);
+            counryListMerchant = _reduce(
+                realPlayDisableByCountry.forMerchant, (res, countryList: string[], merchantId) => {
+                    return this.gamesCatalogService.getMerchantById(_toNumber(merchantId))
+                        ? _union(res, countryList)
+                        : res;
+                }, []);
         }
         const countries: string[] = _union(counryListDefault, counryListMerchant);
 
@@ -243,7 +247,7 @@ class StartGameHandler {
      * @returns {boolean}
      */
     private checksForPlayReal(): boolean {
-        if(!this.isDemo && (this.realPlayDisabled || this.realPlayDisabledByCountry)) {
+        if (!this.isDemo && (this.realPlayDisabled || this.realPlayDisabledByCountry)) {
             let message: string;
 
             if (this.realPlayDisabled) {
