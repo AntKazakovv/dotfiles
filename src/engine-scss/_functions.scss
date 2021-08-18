@@ -23,6 +23,8 @@
         @return map-get(ev.$mainColors, $name);
     } @else if ($map == 'fieldColors') {
         @return map-get(ev.$fieldColors, $name);
+    } @else if ($map == 'baseVariables') {
+        @return map-get(ev.$baseVariables, $name);
     }
 }
 

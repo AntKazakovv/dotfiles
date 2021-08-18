@@ -1,0 +1,19 @@
+@use 'engine-scss/functions' as ef;
+@use 'engine-scss/mixins/base.mixins' as bm;
+@use 'engine-scss/mixins/section.mixins' as sm;
+
+.wlc-sections__home-promo {
+
+    .wlc-home-promo {
+        display: grid;
+
+        @include bm.get-mq-map('grid-template-columns', $homePromo, 'columns');
+        @include bm.get-mq-map('gap', $homePromo, 'gap');
+
+        @include sm.homePromoTournaments($homePromo);
+    }
+
+    &--theme-wins {
+        @include sm.homePromoWins($homePromo);
+    }
+}

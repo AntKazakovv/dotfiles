@@ -1,9 +1,31 @@
-@mixin wlcHeader() {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: {
-        top: 5px;
-        bottom: 5px;
-    };
+@use 'engine-scss/functions' as ef;
+@use 'engine-scss/mixins/base.mixins' as em;
+
+@mixin homePromoWins($map) {
+
+    .wlc-winners-slider.wlc-winners-slider--theme-vertical {
+
+        .wlc-winners-slider__wrapper {
+            max-width: ef.get-value($map, 'tournamentSliderWrapMaxWidth');
+        }
+    }
+}
+
+@mixin homePromoTournaments($map) {
+
+    .wlc-tournament-list.wlc-tournament-list--theme-banner {
+
+        .swiper-button-container {
+            @include em.get-mq-map('display', $map, 'tournamentSliderButtonDisplay');
+        }
+    }
+
+    .wlc-tournament-smart-info--theme-default .wlc-tournament-smart-info__content {
+        @include em.get-mq-map('justify-content', $map, 'tournamentSmartJustifyContent');
+    }
+
+    .wlc-tournament-banner {
+        @include em.get-mq-map('height', $map, 'tournamentBannerHeight');
+        @include em.get-mq-map('min-height', $map, 'tournamentBannerMinHeight');
+    }
 }
