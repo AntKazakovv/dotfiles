@@ -4,6 +4,7 @@ import {
     ResolveTypes,
     StateService,
 } from '@uirouter/core';
+import {first} from 'rxjs/operators';
 import {LazyLoadResult} from '@uirouter/core/lib/state/interface';
 
 // If you try to import everything from 'wlc-engine/modules/core' then the project failed loading
@@ -13,6 +14,7 @@ import {
     InjectionService,
 } from 'wlc-engine/modules/core/system/services';
 import {UserService} from 'wlc-engine/modules/user/system/services/user/user.service';
+import {TranslateService} from '@ngx-translate/core';
 import {Deferred} from 'wlc-engine/modules/core/system/classes';
 import {
     IRedirect,
@@ -73,6 +75,7 @@ export class StateHelper {
                 Transition,
                 InjectionService,
                 ModalService,
+                TranslateService,
             ],
             resolveFn: async (
                 configService: ConfigService,
@@ -80,20 +83,25 @@ export class StateHelper {
                 transition: Transition,
                 injectionService: InjectionService,
                 modalService: ModalService,
+                translate: TranslateService,
             ) => {
                 const result = new Deferred();
 
-                await configService.ready;
-                const userService: UserService = await injectionService.getService<UserService>('user.user-service');
-
-                if (userService.isAuthenticated) {
-                    result.resolve();
-                } else {
-                    result.reject();
-                    await stateService.go('app.home', transition.params());
-                    modalService.showModal('login');
-                }
-                return result.promise;
+                translate.stream('currentLang')
+                    .pipe(first())
+                    .subscribe(async () => {
+                        await configService.ready;
+                        const userService: UserService = await injectionService.getService<UserService>('user.user-service');
+        
+                        if (userService.isAuthenticated) {
+                            result.resolve();
+                        } else {
+                            result.reject();
+                            await stateService.go('app.home', transition.params());
+                            modalService.showModal('login');
+                        }
+                        return result.promise;
+                    });
             },
         };
     }
