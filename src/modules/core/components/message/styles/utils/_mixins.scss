@@ -16,6 +16,13 @@
         background: get('background');
         filter: drop-shadow(get('shadow'));
 
+
+        .wlc-notification-message__content {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
         .wlc-notification-message__icon,
         .wlc-notification-message__icon ::ng-deep svg {
             width: 50px;
@@ -99,7 +106,7 @@
         display: inline-block;
         width: 100%;
         max-width: 100%;
-        margin: 0;
+        margin: ef.get-value($themeDefault, 'messageContainerMargin'),;
     }
 
     .wlc-notification-message__message {

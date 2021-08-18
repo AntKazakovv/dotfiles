@@ -90,6 +90,10 @@ $hostModal: map-merge((
     'backdropZIndex': 1040,
     'backdropPosition': 0,
     'backdropBackground': ef.get('mainColors', 'bg'),
+    'backdropOpacity': (
+        375: 1,
+        560: 0.65,
+    ),
     'dialogBackground': ef.get('mainColors', 'bgModal'),
 
     'titleFontSize': 'QoteTextBold',

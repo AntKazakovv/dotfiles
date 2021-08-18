@@ -5,5 +5,17 @@
         grid-template-columns: ef.get-value($themeVertical, 'templateColumns');
         gap: ef.get-value($themeVertical, 'gap');
         align-items: flex-end;
+
+        ::ng-deep {
+
+            .wlc-select--day.wlc-select--theme-mod-default {
+
+                .wlc-select__label {
+                    margin-right: ef.get-value($themeVertical, 'labelMarginRight');
+                    overflow: visible;
+                    white-space: nowrap;
+                }
+            }
+        }
     }
 }

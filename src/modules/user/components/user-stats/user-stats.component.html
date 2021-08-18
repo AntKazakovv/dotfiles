@@ -24,10 +24,18 @@
              data-wlc-element="block_info"
              (click)="descriptionCasinosCurrency()">
             <div class="{{$class}}-balance__item {{$class}}-balance__item--points" [attr.data-wlc-element]="shownUserStats.points?.wlcElement">
-                <span class="value" wlc-currency currency="LP" [value]="shownUserStats.points?.value" digitsInfo="1-0-2"></span>
+                <span wlc-currency
+                      class="value"
+                      currency="LP"
+                      [value]="shownUserStats.points?.value"
+                ></span>
             </div>
             <div class="{{$class}}-balance__item {{$class}}-balance__item--exppoints" [attr.data-wlc-element]="shownUserStats.expPoints?.wlcElement">
-                <span class="value" wlc-currency currency="EXP" [value]="shownUserStats.expPoints?.value" digitsInfo="1-0-2"></span>
+                <span wlc-currency
+                      class="value"
+                      currency="EXP"
+                      [value]="shownUserStats.expPoints?.value"
+                ></span>
             </div>
         </div>
     </ng-template>
@@ -35,22 +43,28 @@
     <ng-template [ngSwitchCase]="'default'">
 
         <div class="{{$class}}-balance">
-            <div class="{{$class}}-balance__item {{$class}}-balance__item--{{item}}"
-                 *ngFor="let item of $params.fields" [attr.data-wlc-element]="shownUserStats[item]?.wlcElement">
+            <div *ngFor="let item of $params.fields"
+                  class="{{$class}}-balance__item {{$class}}-balance__item--{{item}}"
+                  [attr.data-wlc-element]="shownUserStats[item]?.wlcElement"
+            >
                 <ng-container [ngSwitch]="shownUserStats[item]?.modification">
 
                     <span class="name">{{shownUserStats[item]?.name | translate}}</span>
                     <span class="value" *ngSwitchDefault>
                         {{(shownUserStats[item]?.value | number: '.0-2') || 'Unknown' | translate}}
                     </span>
-                    <span class="value" *ngSwitchCase="'string'">
+                    <span *ngSwitchCase="'string'" class="value">
                         {{shownUserStats[item]?.value?.toString() || 'Unknown' | translate}}
                     </span>
-                    <span class="value" *ngSwitchCase="'amount'">
+                    <span *ngSwitchCase="'amount'" class="value">
                         <span wlc-currency [value]="shownUserStats[item]?.value"></span>
                     </span>
-                    <span class="value" *ngSwitchCase="'customCurrency'">
-                        <span wlc-currency [currency]="shownUserStats[item].currency" [value]="shownUserStats[item]?.value" digitsInfo="1-0-2" [hideSvgName]="true"></span>
+                    <span *ngSwitchCase="'customCurrency'" class="value">
+                        <span wlc-currency
+                              [currency]="shownUserStats[item].currency"
+                              [value]="shownUserStats[item]?.value"
+                              [hideSvgName]="true"
+                        ></span>
                     </span>
                 </ng-container>
             </div>

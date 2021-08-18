@@ -12,6 +12,8 @@
 @import './home/promo-bonuses/promo-bonuses';
 @import './home/winners/winners';
 @import './home/game-widgets/game-widgets';
+@import './home/banner-section/banner-section';
+@import './home/promo-steps/promo-steps';
 
 @include em.init-layout-gap(ev.$layoutGap);
 

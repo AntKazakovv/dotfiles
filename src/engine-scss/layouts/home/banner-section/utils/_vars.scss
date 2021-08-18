@@ -1,0 +1,9 @@
+@use 'engine-scss/functions' as ef;
+
+$customThemeBannerSection: () !default;
+$themeBannerSection: map-merge((
+    'bannerSectionMargin': (
+        375: 0 0 ef.size(6),
+        900: 0 0 ef.size(4),
+    ),
+), $customThemeBannerSection);

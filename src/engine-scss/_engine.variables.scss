@@ -535,8 +535,6 @@ $baseVariables: map-merge((
 $customLayoutGap: () !default;
 $layoutGap: map-merge((
     'all': (
-        '.wlc-sections__banner-section',
-        '.wlc-sections__promo-steps',
         '.wlc-sections__categories',
         '.wlc-sections__content-games-top',
         '.wlc-sections__content-games-bottom',

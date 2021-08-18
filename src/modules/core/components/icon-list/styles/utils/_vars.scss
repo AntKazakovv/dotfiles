@@ -17,19 +17,27 @@ $themeMerchants: map-merge((
     // wrapper
     'wrapperDisplay': flex,
     'wrapperZIndex': 1,
-    'wrapperFlexWrap': (
-        375: wrap,
-    ),
-    'wrapperFlexJustify': (
-        375: center
-    ),
-    'wrapperMargin': (
-        375: 0 -#{ef.get('size', 'smaller')} -#{ef.get('size', 'small')},
-        900: 0 -#{ef.get('size', 'smaller')} -#{ef.get('size', 'small')},
-        1630: 0 -#{ef.get('size', 'smaller')} -#{ef.get('size', 'main')},
-    ),
+    'wrapperFlexWrap': wrap,
     'wrapperAlignItems': center,
+    'wrapperJustifyContent': center,
+    'wrapperMargin': (
+        375: ef.size(-2) 0 0,
+        1630: ef.size(-4) 0 0,
+    ),
     'wrapperOverflow': auto,
+    //item
+    'itemFlex': (
+        375: 0 0 calc(100% / 4),
+        640: 0 0 calc(100% / 5),
+        768: 0 0 calc(100% / 6),
+        1024: 0 0 calc(100% / 7),
+        1200: 0 0 calc(100% / 8),
+    ),
+    'itemPadding': (
+        375: ef.size(2),
+        1630: ef.size(4) ef.size(2),
+    ) ,
+    'itemTextAlign': center,
     // icon
     'iconWidth': (
         375: 100%,
@@ -40,11 +48,6 @@ $themeMerchants: map-merge((
     'iconMaxHeight': (
         375: ef.get('size', 'less'),
         900: ef.get('size', 'less') * 1.2,
-    ),
-    'iconMargin': (
-        375: 0 ef.get('size', 'smaller') ef.get('size', 'smaller'),
-        900: 0 ef.get('size', 'smaller') ef.get('size', 'smaller'),
-        1630: 0 ef.get('size', 'smaller') ef.get('size', 'main'),
     ),
     'iconFill': ef.get('mainColors', 'bg100'),
 ), $customThemeMerchants);

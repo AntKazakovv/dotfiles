@@ -11,6 +11,7 @@ export interface ICurrencyCParams extends IComponentParams<ThemeType, ComponentT
     showIconOnly?: boolean;
     useSvgIconName?: boolean;
     textError?: string;
+    showValueOnly?: boolean;
 }
 
 export const defaultParams: ICurrencyCParams = {
@@ -21,4 +22,5 @@ export const defaultParams: ICurrencyCParams = {
     digitsInfo: '1-2-2',
     showIconOnly: false,
     textError: gettext('Error'),
+    showValueOnly: false,
 };

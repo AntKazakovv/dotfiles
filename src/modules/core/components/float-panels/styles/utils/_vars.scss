@@ -4,7 +4,7 @@ $customThemeDefault: () !default;
 $themeDefault: map-merge((
     'transition': ef.get('time', 'main') linear,
     'zindex': 999,
-    'backdropBackground': transparentize(ef.get('mainColors', 'bg'), 0.1),
+    'backdropBackground': transparentize(ef.get('mainColors', 'bg'), 0.35),
 ), $customThemeDefault);
 
 
