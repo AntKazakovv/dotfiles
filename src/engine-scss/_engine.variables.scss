@@ -50,7 +50,7 @@ $mainColors: map-merge((
     'baseOpacity': rgba(147, 158, 183, 0.5),
     'bg100': #515f84,
     'bg300': #50566c,
-    'bg500': #43485C,
+    'bg500': #43485c,
     'bg700': #3d4150,
     'bg': #1f1f26,
     'bgModal': #2e313d,
@@ -606,6 +606,17 @@ $tableBtnBlock: map-merge((
         1200: auto,
     ),
 ), $customTableBtnBlock);
+
+$customTagConfig: () !default;
+$tagConfig: map-merge((
+    'textStyle': 'SignText',
+    'bg': map-get($mainColors, 'secondary'),
+    'bgActive': map-get($mainColors, 'main'),
+    'color': map-get($mainColors, 'baseMain'),
+    'colorActive': map-get($mainColors, 'baseMain'),
+    'radius': map-get($radius, 'large'),
+    'padding': 4px 15px,
+), $customTagConfig);
 
 $body-bg: map-get($mainColors, 'bg') !default;
 $body-color: map-get($mainColors, 'baseMain') !default;

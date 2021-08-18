@@ -65,15 +65,8 @@ $themePromo: map-merge((
     'descriptionFontColor': ef.get('mainColors', 'PrimaryText'),
 
     //Tag
-    'tagFontColor': ef.get('mainColors', 'secondary'),
-    'tagFontColor2': ef.get('mainColors', 'main'),
-    'tagBg': none,
-    'tagBg2': none,
-    'tagPadding': 0,
-    'tagJusfify': start,
-    'tagMaxWidth': (
-        320: 100%,
-    ),
+    'tagJustify': start,
+    'tagAlignSelf': start,
 
     //Image
     'imgBlockAreaName': (
@@ -85,12 +78,6 @@ $themePromo: map-merge((
         375: linear-gradient(0deg, ef.get('mainColors', 'bg700') 50%, rgba(ef.get('mainColors', 'bg700'), 0) 85%),
         560: none,
     ),
-    // 'imgWidth': (
-    //     560: 250px,
-    //     900: 340px,
-    //     1200: 250px,
-    //     1630: 340px,
-    // ),
     'imgPadding': (
         375: ef.size(8) 0 0 0,
         560: ef.size(8) 0 0 ef.size(8)

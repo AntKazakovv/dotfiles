@@ -31,8 +31,6 @@ $themeFirst: map-merge((
     'topImgMargin': 65px,
     'bottomImgMargin': ef.get('size', 'smaller'),
     // // Font
-    'tagFontColor': ef.get('mainColors', 'baseMain'),
-    'tagFontSize': ef.get('font', 'small'),
     'nameFontColor': ef.get('mainColors', 'baseMain'),
     'nameFontSize': ef.get('font', 'big'),
     'priceFontColor': ef.get('mainColors', 'baseMain'),
@@ -45,15 +43,9 @@ $themeFirst: map-merge((
     'backgroundHover': ef.get('mainColors', 'bg500'),
     'imageBg': ef.get('mainColors', 'bg500'),
     'imageGradient': linear-gradient(180deg, #000000 0%, rgba(0, 0, 0, 0) 26.77%),
-    'tagBg': ef.get('mainColors', 'secondary'),
     // // Radius
     'radius': ef.get('radius', 'biger'),
-    'tagRadius': ef.get('radius', 'biger'),
     //Padding
-    'tagPadding': (
-        320: 2px 10px 1px,
-        1630: 4px 10px 3px,
-    ),
     'infoPadding': 0 ef.get('size', 'small'),
     'btnMargin': 0 ef.get('size', 'smallest'),
     'btnMarginMobile': 0 ef.get('size', 'smallest') ef.get('size', 'smaller') ef.get('size', 'smallest'),
@@ -85,4 +77,10 @@ $themeFirst: map-merge((
         320: translateY(35px),
         1630: translateY(35px),
     ),
+
+    'tagPadding': ef.get('tagConfig', 'padding'),
+    'tagRadius': ef.get('tagConfig', 'radius'),
+    'tagTextStyle': ef.get('tagConfig', 'textStyle'),
+    'tagFontColor': ef.get('tagConfig', 'color'),
+    'tagBg': ef.get('tagConfig', 'bg'),
 ), $customThemeFirst);
