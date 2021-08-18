@@ -14,12 +14,15 @@ $selector: '.wlc-tournament-detail';
             @include em.get-mq-map('grid-template-columns', $themeDefault, 'headerColumnWidth');
             @include em.get-mq-map('row-gap', $themeDefault, 'defaultRowGap');
             @include em.get-mq-map('justify-content', $themeDefault, 'headerJustifyContent');
+            @include em.get-mq-map('align-items', $themeDefault, 'headerAlignItems');
             @include em.get-mq-map('padding', $themeDefault, 'defaultPadding');
+            @include em.get-mq-map('min-height', $themeDefault, 'headerInfoMinHeight');
             @include em.get-mq-map('background', $themeDefault, 'headerBg');
             @include em.get-mq-map('background-position', $themeDefault, 'headerBgPosition');
             @include em.get-mq-map('background-size', $themeDefault, 'headerBgSize');
             @include em.get-mq-map('border-radius', $themeDefault, 'headerBorderRadius');
             @include em.get-mq-map('border-bottom', $themeDefault, 'headerBorderBottom');
+
             position: relative;
 
             display: grid;
@@ -91,6 +94,7 @@ $selector: '.wlc-tournament-detail';
             &--description {
                 @include em.get-mq-map('justify-self', $themeDefault, 'headerDescriptionJustifySelf');
                 @include em.get-mq-map('text-align', $themeDefault, 'headerDescriptionTextAlign');
+                @include em.lineClamp(2);
                 @include text.get-text-style(ef.get-value($themeDefault, 'headerDescriptionTextStyle'), ef.get-value($themeDefault, 'headerDescriptionTextColor'));
             }
 

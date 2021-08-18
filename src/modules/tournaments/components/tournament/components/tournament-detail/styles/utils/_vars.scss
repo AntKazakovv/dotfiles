@@ -3,14 +3,17 @@
 $customThemeDefault: () !default;
 $themeDefault: map-merge((
     'defaultRowGap': (
-        320: ef.get('size', 'smally'),
-        768: ef.get('size', 'smaller')
+        320: ef.size(3),
+        768: ef.size(4)
     ),
     'defaultPadding': (
-        320: ef.get('size', 'smally'),
-        768: ef.get('size', 'smaller') 0,
+        320: ef.size(4),
+        768: ef.size(4) 0,
     ),
-
+    'headerInfoMinHeight': (
+        320: auto,
+        768: 345px,
+    ),
     'headerTemplateAreas': (
         320: 'Hstatus' 'Htitle' 'Hdesc' 'Htimer' 'Hbutton',
     ),
@@ -19,6 +22,9 @@ $themeDefault: map-merge((
     ),
     'headerJustifyContent': (
         320: center,
+    ),
+    'headerAlignItems': (
+        320: start,
     ),
     'headerBorderRadius': (
         320: 0,
@@ -50,7 +56,7 @@ $themeDefault: map-merge((
     'headerBackLinkDecoration': none,
     'headerBackLinkIconTransform': rotate(90deg),
     'headerBackLinkIconColor': ef.get('mainColors', 'main'),
-    'headerBackLinkMaxWidth': ef.get('size', 'big'),
+    'headerBackLinkMaxWidth': ef.size(12),
 
     'headerStatusRadius': ef.get('radius', 'large'),
     'headerStatusBgAvaliable': ef.get('mainColors', 'secondary'),
@@ -58,8 +64,8 @@ $themeDefault: map-merge((
     'headerStatusColorAvaliable': ef.get('mainColors', 'baseMain'),
     'headerStatusColorActive': ef.get('mainColors', 'baseMain'),
     'headerStatusPadding': (
-        320: 0 ef.get('size', 'big'),
-        768: ef.get('size', 'smallest') ef.get('size', 'smaller'),
+        320: 2px ef.size(2),
+        768: ef.size(1) ef.size(4),
     ),
     'headerStatusTextStyle':'SignText',
     'headerStatusTextBackground': ef.get('mainColors', 'secondary'),
@@ -82,20 +88,20 @@ $themeDefault: map-merge((
     'anchorsBg': ef.get('mainColors', 'bg700'),
     'anchorsMenuAlignItems': center,
     'anchorsMenuPadding': (
-        320: ef.get('size', 'smaller') 0,
+        320: ef.size(4) 0,
     ),
     'anchorsMenuJustifyContent': center,
     'anchorsMenuLinkTextStyle': 'PrimaryText',
     'anchorsMenuLinkTextColor': ef.get('mainColors', 'baseMain'),
     'anchorsMenuLinkTextColorHover': ef.get('mainColors', 'main'),
     'anchorsMenuLinkTextDecoration': none,
-    'anchorsMenuLinkPadding': 0 ef.get('size', 'small'),
+    'anchorsMenuLinkPadding': 0 ef.size(2),
 
     'leaderboardBg': ef.get('mainColors', 'bg500'),
     'leaderboardJustifyContent': center,
     'leaderboardPadding': (
-        320: ef.get('size', 'less') ef.get('size', 'smally'),
-        768: ef.get('size', 'smaller') 0,
+        320: ef.size(6) ef.size(3),
+        768: ef.size(4) 0,
     ),
     'leaderboardColumnWidth': (
         320: 100%,
@@ -132,9 +138,9 @@ $themeDefault: map-merge((
     'prizeboardBg': ef.get('mainColors', 'bg500'),
 
     'gamesPadding': (
-        320: ef.get('size', 'smaller') ef.get('size', 'smally'),
-        768: ef.get('size', 'smaller') ef.get('size', 'main'),
-        1024: ef.get('size', 'smaller') ef.get('size', 'big'),
+        320: ef.size(4) ef.size(3),
+        768: ef.size(4) ef.size(8),
+        1024: ef.size(4) ef.size(12),
     ),
     'gamesTitleStyle': 'QoteTextBold',
     'gamesTitleColor': ef.get('mainColors', 'baseMain'),
@@ -177,5 +183,5 @@ $themeDefault: map-merge((
     'loaderAfterRadius': 50%,
     'loaderAfterAnimation': spin 1s infinite linear,
 
-    'gamesMoreBtn': ef.get('size', 'smaller') 0 0,
+    'gamesMoreBtn': ef.size(4) 0 0,
 ), $customThemeDefault);

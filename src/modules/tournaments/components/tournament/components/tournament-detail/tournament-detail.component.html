@@ -104,8 +104,9 @@
 
         <div wlc-dynamic-html
              class="{{$class}}__rules--terms"
-             [html]="tournament.terms">
+             [html]="tournament.description">
         </div>
+        
     </div>
 
     <div *ngIf="tournamentProcessing" class="{{$class}}__loader">
