@@ -77,6 +77,6 @@ export class NotificationThreadComponent extends AbstractComponent {
         @Optional() @Self()
         params: Params.INotificationParams,
     ) {
-        super({injectParams: params, defaultParams: Params.defaultParams}, configService);
+        super({injectParams: params, defaultParams: notificationService.$params}, configService);
     }
 }

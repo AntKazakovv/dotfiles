@@ -1,2 +1,54 @@
-@import './themes/bottom';
+@use 'engine-scss/mixins/mediaqueries' as mq;
+@use 'engine-scss/functions' as ef;
+@use 'engine-scss/mixins/base.mixins' as bm;
+
+@import './utils/vars';
+
 @import './themes/top';
+@import './themes/bottom';
+
+.wlc-notification-thread:host {
+    @include bm.get-mq-map('width', $notificationThread, 'width');
+    position: fixed;
+    right: 0;
+    left: 0;
+    margin: 0 auto;
+    pointer-events: none;
+
+    &.wlc-notification-thread {
+
+        &--theme-mod {
+
+            @include mq.min(900) {
+
+                &-left {
+                    right: auto;
+                }
+
+                &-right {
+                    left: auto;
+                }
+            }
+        }
+    }
+
+    .wlc-notification-thread {
+
+        &__list {
+            @include bm.get-mq-map('padding-right', $notificationThread, 'gap');
+            @include bm.get-mq-map('padding-left', $notificationThread, 'gap');
+
+            display: flex;
+            margin: 0;
+            list-style: none;
+            pointer-events: none;
+        }
+
+        &__item {
+            @include bm.get-mq-map('right', $notificationThread, 'gap');
+            @include bm.get-mq-map('left', $notificationThread, 'gap');
+
+            pointer-events: initial;
+        }
+    }
+}
