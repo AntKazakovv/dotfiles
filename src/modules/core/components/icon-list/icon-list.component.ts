@@ -26,7 +26,9 @@ import {
     TValueOf,
     InjectionService,
 } from 'wlc-engine/modules/core';
-import {GamesCatalogService} from 'wlc-engine/modules/games/system/services/games-catalog/games-catalog.service';
+import {
+    GamesCatalogService,
+} from 'wlc-engine/modules/games/system/services/games-catalog/games-catalog.service';
 import {
     IconModel,
     IIconParams,
@@ -151,7 +153,7 @@ export class IconListComponent extends IconListAbstract<Params.IIconListCParams>
         const showIconAs = type === 'svg' ? 'svg' : 'img';
 
         await this.configService.ready;
-        this.gamesCatalogService = await this.injectionService.getService('games.games-catalog-service');
+        this.gamesCatalogService = await this.injectionService.getService<GamesCatalogService>('games.games-catalog-service');
 
         this.gamesCatalogService.ready.then(() => {
             let merchants: MerchantModel[] = _sortedUniqBy(this.gamesCatalogService.getAvailableMerchants(),

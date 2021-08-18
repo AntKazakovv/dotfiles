@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
+import {BehaviorSubject} from 'rxjs';
 
-import {UserService} from 'wlc-engine/modules/user/system/services/user/user.service';
 import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
 import {UserProfile} from 'wlc-engine/modules/user/system/models/profile.model';
 
@@ -38,7 +38,6 @@ export class MerchantFieldsService {
 
     constructor(
         protected configService: ConfigService,
-        protected userService: UserService,
     ) {
         _concat(this.profileFields, this.DateOfBirth);
     }
@@ -52,11 +51,10 @@ export class MerchantFieldsService {
     public checkRequiredFields(merchantId: number): Promise<void> {
         return new Promise(async (resolve, reject) => {
             const requiredFields = this.getRequiredFields(merchantId);
-            if (!this.userService.isAuthenticated || !requiredFields.length) {
+            if (!this.configService.get<boolean>('$user.isAuthenticated') || !requiredFields.length) {
                 resolve();
             } else {
                 try {
-                    const profile: UserProfile = this.userService.userProfile;
                     const emptyFields: string[] = this.getEmptyFields(requiredFields, merchantId);
                     if (emptyFields.length) {
                         reject(emptyFields);
@@ -130,7 +128,9 @@ export class MerchantFieldsService {
      */
     private getEmptyFields(requiredFields: string[], merchantId: number): string[] {
         const emptyFields: string[] = [];
-        const profile: UserProfile = this.userService.userProfile;
+        const profile: UserProfile = this.configService
+            .get<BehaviorSubject<UserProfile>>({name: '$user.userProfile$'})
+            .getValue();
         _forEach(requiredFields, (field) => {
             if (!profile.hasField(field) && profile.fieldIsEmpty(field)) {
                 emptyFields.push(field);

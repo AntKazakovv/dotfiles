@@ -14,6 +14,7 @@ import {StateService} from '@uirouter/core';
 import {DOCUMENT} from '@angular/common';
 import {HttpClient} from '@angular/common/http';
 import {BehaviorSubject} from 'rxjs';
+import {takeUntil} from 'rxjs/operators';
 
 import {
     AbstractComponent,
@@ -32,6 +33,7 @@ import {
     IValidatorSettings,
     IPushMessageParams,
     NotificationEvents,
+    InjectionService,
 } from 'wlc-engine/modules/core';
 import {CurrencyModel} from 'wlc-engine/modules/core/system/models/currency.model';
 import {
@@ -59,6 +61,7 @@ import {
 import {FinancesHelper} from '../../system/helpers/finances.helper';
 import {IFormComponent} from 'wlc-engine/modules/core/components/form-wrapper/form-wrapper.component';
 import {ISelectOptions} from 'wlc-engine/modules/profile';
+import {UserProfile} from 'wlc-engine/modules/user/system/models';
 import * as Params from './deposit-withdraw.params';
 
 import _camelCase from 'lodash-es/camelCase';
@@ -111,6 +114,9 @@ export class DepositWithdrawComponent extends AbstractComponent implements OnIni
     protected inProgress: boolean = false;
     private isLoadingHostedFields: boolean = false;
 
+    private userProfile: UserProfile;
+    private userService: UserService;
+
     constructor(
         @Inject('injectParams') protected params: Params.IDepositWithdrawCParams,
         protected configService: ConfigService,
@@ -119,10 +125,10 @@ export class DepositWithdrawComponent extends AbstractComponent implements OnIni
         protected modalService: ModalService,
         protected validationService: ValidationService,
         protected stateService: StateService,
-        protected userService: UserService,
         protected cdr: ChangeDetectorRef,
         protected translateService: TranslateService,
         protected httpClient: HttpClient,
+        protected injectionService: InjectionService,
         protected piqCashierService: PIQCashierService,
         @Inject(DOCUMENT) protected document: HTMLDocument,
     ) {
@@ -141,6 +147,12 @@ export class DepositWithdrawComponent extends AbstractComponent implements OnIni
 
     public ngOnInit(): void {
         super.ngOnInit();
+        this.configService
+            .get<BehaviorSubject<UserProfile>>({name: '$user.userProfile$'})
+            .pipe(takeUntil(this.$destroy))
+            .subscribe((UserProfile) => {
+                this.userProfile = UserProfile;
+            });
         this.initSubscribers();
         this.updateFormConfig();
 
@@ -239,7 +251,7 @@ export class DepositWithdrawComponent extends AbstractComponent implements OnIni
                         },
                         form.value.amount,
                         {
-                            currency: this.userService.userProfile.currency,
+                            currency: this.userProfile.currency,
                             language: this.translateService.currentLang,
                         },
                     ),
@@ -263,12 +275,16 @@ export class DepositWithdrawComponent extends AbstractComponent implements OnIni
     }
 
     public async saveProfile(): Promise<true | IIndexing<any>> {
-        const extProfile: IExtProfile = this.userService.userProfile.extProfile,
+        const extProfile: IExtProfile = this.userProfile.extProfile,
             alias: string = this.currentSystem?.alias,
             additionalParams: IExtPaymentSystem = {additionalParams: this.checkSkipSaving()};
         extProfile.paymentSystems = _assign({}, extProfile.paymentSystems, {[alias]: additionalParams});
 
         try {
+            if (!this.userService) {
+                this.userService = await this.injectionService.getService<UserService>('user.user-service');
+            }
+
             return await this.userService.updateProfile({extProfile}, true, true);
         } catch (error) {
             this.eventService.emit({
@@ -414,7 +430,7 @@ export class DepositWithdrawComponent extends AbstractComponent implements OnIni
             return;
         }
 
-        const savedAdditional: IExtProfilePaymentSystems = this.userService.userProfile.extProfile?.paymentSystems;
+        const savedAdditional: IExtProfilePaymentSystems = this.userProfile.extProfile?.paymentSystems;
 
         if (savedAdditional?.[this.currentSystem.alias]) {
             delete savedAdditional[this.currentSystem.alias].additionalParams.bonusId;

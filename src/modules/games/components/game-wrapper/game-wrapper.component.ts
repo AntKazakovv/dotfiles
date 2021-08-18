@@ -22,7 +22,6 @@ import {fromEvent} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 import {
     Game,
-    GamesCatalogService,
     IExcludeMerchantSettings,
     ICustomGameParams,
     IGameParams,
@@ -30,6 +29,9 @@ import {
     IPlayGameForRealCParams,
     GameDashboardEvents,
 } from 'wlc-engine/modules/games';
+import {
+    GamesCatalogService,
+} from 'wlc-engine/modules/games/system/services/games-catalog/games-catalog.service';
 import {
     AbstractComponent,
     ActionService,

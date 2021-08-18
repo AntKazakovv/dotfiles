@@ -12,7 +12,9 @@ import {
     ModalService,
 } from 'wlc-engine/modules/core';
 import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
-import {GamesCatalogService} from 'wlc-engine/modules/games';
+import {
+    GamesCatalogService,
+} from 'wlc-engine/modules/games/system/services/games-catalog/games-catalog.service';
 import {Game} from 'wlc-engine/modules/games/system/models/game.model';
 import {IPushMessageParams, NotificationEvents} from 'wlc-engine/modules/core/system/services/notification';
 import * as Params from './random-game.params';

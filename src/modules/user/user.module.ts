@@ -43,6 +43,7 @@ import {SocialSignUpFormComponent} from './components/social-sign-up-form/social
 export const services = {
     'user-service': UserService,
     'social-service': SocialService,
+    'limitation-service': LimitationService,
 };
 
 export const components = {

@@ -38,7 +38,9 @@ import {
 import {CachingService} from 'wlc-engine/modules/core/system/services/caching/caching.service';
 import * as Params from './game-dashboard.params';
 import {DashboardSide} from 'wlc-engine/modules/games/components/game-dashboard/game-dashboard.params';
-import {GamesCatalogService} from 'wlc-engine/modules/games';
+import {
+    GamesCatalogService,
+} from 'wlc-engine/modules/games/system/services/games-catalog/games-catalog.service';
 import {Game} from 'wlc-engine/modules/games/system/models/game.model';
 import {ISlide, ISliderCParams} from 'wlc-engine/modules/promo/components/slider/slider.params';
 import {GameThumbComponent} from 'wlc-engine/modules/games/components/game-thumb/game-thumb.component';

@@ -23,7 +23,9 @@ import {
     RequestParamsType,
 } from 'wlc-engine/modules/core/system/services/data/data.service';
 import {WinnerModel} from 'wlc-engine/modules/promo/system/models/winner.model';
-import {GamesCatalogService} from 'wlc-engine/modules/games';
+import {
+    GamesCatalogService,
+} from 'wlc-engine/modules/games/system/services/games-catalog/games-catalog.service';
 
 import _merge from 'lodash-es/merge';
 import _differenceWith from 'lodash-es/differenceWith';

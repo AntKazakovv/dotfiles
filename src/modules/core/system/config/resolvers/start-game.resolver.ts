@@ -28,12 +28,14 @@ import {
     BonusesService,
 } from 'wlc-engine/modules/bonuses';
 import {
-    GamesCatalogService,
     Game,
     IDisablePlayRealByCountry,
     IPlayGameForRealCParams,
     MerchantFieldsService,
 } from 'wlc-engine/modules/games';
+import {
+    GamesCatalogService,
+} from 'wlc-engine/modules/games/system/services/games-catalog/games-catalog.service';
 import {
     UserService,
     UserInfo,
@@ -67,31 +69,26 @@ export const startGameResolver: ResolveTypes = {
         UIRouter,
         ModalService,
         Transition,
-        MerchantFieldsService,
         EventService,
         InjectionService,
     ],
     resolveFn: (
-        injector: Injector,
         configService: ConfigService,
         logService: LogService,
         stateService: StateService,
         router: UIRouter,
         modalService: ModalService,
         transition: Transition,
-        merchantFieldsService: MerchantFieldsService,
         eventService: EventService,
         injectionService: InjectionService,
     ) => {
         return new StartGameHandler(
-            injector,
             configService,
             logService,
             stateService,
             router,
             modalService,
             transition,
-            merchantFieldsService,
             eventService,
             injectionService,
         ).result.promise;
@@ -110,16 +107,15 @@ class StartGameHandler {
     private game: Game;
 
     private gamesCatalogService: GamesCatalogService;
+    private merchantFieldsService: MerchantFieldsService;
 
     constructor(
-        private injector: Injector,
         private configService: ConfigService,
         private logService: LogService,
         private stateService: StateService,
         private router: UIRouter,
         private modalService: ModalService,
         private transition: Transition,
-        private merchantFieldsService: MerchantFieldsService,
         private eventService: EventService,
         private injectionService: InjectionService,
     ) {
@@ -130,7 +126,10 @@ class StartGameHandler {
         const waiter = this.logService.waiter({code: '3.0.11'}, 7000);
 
         await this.configService.ready;
-        this.gamesCatalogService = await this.injectionService.getService('games.games-catalog-service');
+        this.gamesCatalogService = await this.injectionService
+            .getService<GamesCatalogService>('games.games-catalog-service');
+        this.merchantFieldsService = await this.injectionService
+            .getService<MerchantFieldsService>('games.merchant-fields-service');
 
         try {
             await this.gamesCatalogService.ready;

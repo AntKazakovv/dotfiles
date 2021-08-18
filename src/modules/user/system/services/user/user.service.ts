@@ -1,4 +1,4 @@
-import {Injectable, Injector} from '@angular/core';
+import {Injectable} from '@angular/core';
 import {TranslateService} from '@ngx-translate/core';
 import {StateService} from '@uirouter/core';
 
@@ -24,6 +24,7 @@ import {IUserProfile} from 'wlc-engine/modules/core/system/interfaces/user.inter
 import {IData} from 'wlc-engine/modules/core/system/services/data/data.service';
 import {UserInfo, UserProfile} from 'wlc-engine/modules/user/system/models';
 import {LimitationService} from 'wlc-engine/modules/user/system/services/limitation/limitation.service';
+import {InjectionService} from 'wlc-engine/modules/core/system/services/injection/injection.service';
 
 import _assign from 'lodash-es/assign';
 import _each from 'lodash-es/each';
@@ -67,6 +68,8 @@ export class UserService {
     private configUserProfile$: BehaviorSubject<UserProfile> = this.configService.get({name: '$user.userProfile$'});
     private configUserInfo$: BehaviorSubject<UserInfo> = this.configService.get({name: '$user.userInfo$'});
 
+    private limitationService: LimitationService;
+
     constructor(
         public translate: TranslateService,
         private dataService: DataService,
@@ -74,7 +77,7 @@ export class UserService {
         private configService: ConfigService,
         private logService: LogService,
         private modalService: ModalService,
-        private injector: Injector,
+        private injectionService: InjectionService,
         stateService: StateService,
     ) {
         this.isAuthenticated = this.configService.get('$user.isAuthenticated');
@@ -153,8 +156,11 @@ export class UserService {
         }, () => {
             this.isAuthenticated = true;
             this.configService.set({name: '$user.isAuthenticated', value: true});
-            this.fetchUserProfile().then(() => {
-                this.injector.get(LimitationService).initRealityChecker(this.userProfile$, true);
+            this.fetchUserProfile().then(async () => {
+                if (!this.limitationService) {
+                    this.limitationService = await this.injectionService.getService<LimitationService>('user.limitation-service');
+                }
+                this.limitationService.initRealityChecker(this.userProfile$, true);
                 this.fetchUserInfo();
                 this.startUserInfoFetcher();
             });
@@ -188,8 +194,11 @@ export class UserService {
         });
 
         if (this.isAuthenticated) {
-            this.fetchUserProfile().then(() => {
-                this.injector.get(LimitationService).initRealityChecker(this.userProfile$);
+            this.fetchUserProfile().then(async () => {
+                if (!this.limitationService) {
+                    this.limitationService = await this.injectionService.getService<LimitationService>('user.limitation-service');
+                }
+                this.limitationService.initRealityChecker(this.userProfile$);
                 this.fetchUserInfo();
                 this.startUserInfoFetcher();
             });

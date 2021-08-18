@@ -2,7 +2,6 @@ import {Injectable} from '@angular/core';
 import {
     ConfigService,
     EventService,
-    ModalService,
     LogService,
     DataService,
     IData,
@@ -11,7 +10,7 @@ import {
     IIndexing,
     IForbidBanned,
 } from 'wlc-engine/modules/core';
-import {UserService} from 'wlc-engine/modules/user/system/services';
+import {UserProfile} from 'wlc-engine/modules/user/system/models/profile.model';
 import {BonusesService} from 'wlc-engine/modules/bonuses/system/services';
 import {Bonus} from 'wlc-engine/modules/bonuses/system/models/bonus';
 import {
@@ -52,15 +51,13 @@ export class StoreService {
 
     private store$: BehaviorSubject<IStore> = new BehaviorSubject(null);
     private orders$: BehaviorSubject<IStoreOrder[]> = new BehaviorSubject(null);
-    private profile = this.userService.userProfile;
+    private profile: UserProfile;
     private useForbidUserFields = this.configService.get<boolean>('$loyalty.useForbidUserFields');
 
     constructor(
         private dataService: DataService,
         private eventService: EventService,
         private configService: ConfigService,
-        private modalService: ModalService,
-        private userService: UserService,
         private logService: LogService,
         private bonusesService: BonusesService,
     ) {
@@ -236,6 +233,12 @@ export class StoreService {
     }
 
     private setSubscribers() {
+        this.configService
+            .get<BehaviorSubject<UserProfile>>({name: '$user.userProfile$'})
+            .subscribe((userProfile) => {
+                this.profile = userProfile;
+            });
+
         this.store$.subscribe({
             next: (store: IStore) => {
                 this.eventService.emit({
