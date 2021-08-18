@@ -26,6 +26,7 @@ import {
 } from 'rxjs/operators';
 
 import {GlobalHelper} from 'wlc-engine/modules/core/system/helpers/global.helper';
+import {Deferred} from 'wlc-engine/modules/core/system/classes/deferred.class';
 import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
 import {DeviceType} from 'wlc-engine/modules/core/system/models/device.model';
 import {EventService} from 'wlc-engine/modules/core/system/services/event/event.service';
@@ -153,34 +154,37 @@ export class ActionService {
                 );
 
                 userProfile$.pipe(filter((profile) => !!profile), first()).subscribe((profile) => {
+                    this.configService.get<Deferred<null>>({name: 'firstLanguageReady'})
+                        .promise
+                        .then(() => {
+                            const paymentMessage = {
+                                name: NotificationEvents.PushMessage,
+                                data: <IPushMessageParams>{
+                                    type: 'success',
+                                    title: gettext('Payment success'),
+                                    displayAsHTML: true,
+                                    wlcElement: 'notification_deposit-success',
+                                    message: [
+                                        this.translateService.instant(gettext('Deposit completed successfully')),
+                                        `<span wlc-currency [value]="${initialPath.amount}" [currency]="'${profile.currency}'"></span> ` +
+                                        this.translateService.instant(gettext('were successfully deposited in your account.')),
+                                    ],
+                                },
+                            };
 
-                    const paymentMessage = {
-                        name: NotificationEvents.PushMessage,
-                        data: <IPushMessageParams>{
-                            type: 'success',
-                            title: gettext('Payment success'),
-                            displayAsHTML: true,
-                            wlcElement: 'notification_deposit-success',
-                            message: [
-                                this.translateService.instant(gettext('Deposit completed successfully')),
-                                `<span wlc-currency [value]="${initialPath.amount}" [currency]="'${profile.currency}'"></span> ` +
-                                this.translateService.instant(gettext('were successfully deposited in your account.')),
-                            ],
-                        },
-                    };
-
-                    if (initialPath.type?.toLowerCase() === 'withdraw') {
-                        _assign(paymentMessage.data,
-                            {
-                                wlcElement: 'notification_withdraw-success',
-                                message: [
-                                    this.translateService.instant(gettext('Withdraw request has been successfully sent!')),
-                                    this.translateService.instant(gettext('Withdraw sum'))
-                                    + ` <span wlc-currency [value]="${initialPath.amount}" [currency]="'${profile.currency}'"></span> `,
-                                ],
-                            });
-                    }
-                    this.eventService.emit(paymentMessage);
+                            if (initialPath.type?.toLowerCase() === 'withdraw') {
+                                _assign(paymentMessage.data,
+                                    {
+                                        wlcElement: 'notification_withdraw-success',
+                                        message: [
+                                            this.translateService.instant(gettext('Withdraw request has been successfully sent!')),
+                                            this.translateService.instant(gettext('Withdraw sum'))
+                                            + ` <span wlc-currency [value]="${initialPath.amount}" [currency]="'${profile.currency}'"></span> `,
+                                        ],
+                                    });
+                            }
+                            this.eventService.emit(paymentMessage);
+                        });
                 });
                 break;
             }
@@ -501,7 +505,8 @@ export class ActionService {
                     name: 'theme-color',
                     content: status
                         ? config.metaColorConfig.alt || '#000'
-                        : config.metaColorConfig.default || '#000'});
+                        : config.metaColorConfig.default || '#000',
+                });
             }
         });
 

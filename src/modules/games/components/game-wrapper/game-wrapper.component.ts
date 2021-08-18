@@ -264,7 +264,7 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
      * @returns {Promise<void>}
      */
     public async onGameHtmlRendered(): Promise<void> {
-        if(!this.launchInfo.gameScript) {
+        if(!this.launchInfo?.gameScript) {
             return;
         }
 
@@ -293,7 +293,7 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
             disable: false,
         });
         if (!result.disable) {
-            eval(this.launchInfo.gameScript);
+            eval(this.launchInfo?.gameScript);
         }
     }
 
@@ -721,7 +721,9 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
         this.modalService.showError({
             modalMessage: error.msg || gettext('Something wrong. Please try later.'),
             onModalHide: () => {
-                this.router.stateService.go(error.state || 'app.home', error.stateParams || {});
+                setTimeout(() => {
+                    this.router.stateService.go(error.state || 'app.home', error.stateParams || {});
+                });
             },
         });
     }

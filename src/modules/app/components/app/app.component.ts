@@ -2,7 +2,6 @@ import {
     ChangeDetectionStrategy,
     ChangeDetectorRef,
     Component,
-    Injector,
     OnDestroy,
     OnInit,
 } from '@angular/core';
@@ -23,7 +22,6 @@ import {
     ActionService,
     ConfigService,
     Deferred,
-    DeviceModel,
     EventService,
     GlobalHelper,
     ILanguage,
@@ -87,12 +85,12 @@ export class AppComponent extends AbstractComponent implements OnInit, OnDestroy
         protected seo: SeoService,
         protected bodyClassService: BodyClassService,
         private transition: TransitionService,
-        private titleService: Title,
         private meta: Meta,
-        private injector: Injector,
         private logService: LogService,
+        titleService: Title,
     ) {
         super({injectParams: {}, defaultParams}, configService);
+        this.configService.set({name: 'firstLanguageReady', value: new Deferred()});
         this.resolveLang();
 
         const siteName = this.configService.get<string>('$base.site.name');
@@ -286,7 +284,9 @@ export class AppComponent extends AbstractComponent implements OnInit, OnDestroy
 
         if (_includes(this.translate.langs, locale)) {
             this.translate.setDefaultLang(locale);
-            this.translate.use(locale);
+            this.translate.use(locale).toPromise().then(() => {
+                this.configService.get<Deferred<null>>({name: 'firstLanguageReady'}).resolve();
+            });
             this.configService.set({name: 'currentLanguage', value: this.translate.currentLang});
         } else {
             this.stateService.go('app.error', {
