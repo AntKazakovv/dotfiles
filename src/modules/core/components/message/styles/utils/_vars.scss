@@ -31,7 +31,10 @@ $themeDefault: map-merge((
         1200: 20px,
     ),
     modalIconMargin: 40px,
-    headingStyle: 'QoteTextBoldTight',
+    headingStyle: (
+        375: 'QoteTextBoldSmaller',
+        900: 'QoteTextBoldTight',
+    ),
     headingColor: ef.get('mainColors', 'baseMain'),
     messageStyle: 'PrimaryText',
     messageColor: ef.get('mainColors', 'baseMain'),

@@ -1,7 +1,15 @@
-@import '../utils/mixins';
-
 .wlc-notification-thread--theme-bottom:host {
     bottom: 0;
 
-    @include threadBase;
+    .wlc-notification-thread {
+
+        &__item {
+            @include bm.get-mq-map('padding-bottom', $notificationThread, 'gap');
+            top: 100%;
+        }
+
+        &__list {
+            flex-direction: column;
+        }
+    }
 }

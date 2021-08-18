@@ -145,8 +145,9 @@ export class NotificationService {
         }, <INotification[]>[]),
     );
 
+    public $params: Params.INotificationParams;
+
     private $config: INotificationsConfig;
-    private $params: Params.INotificationParams;
     private $init: Subject<void> = new Subject();
 
     private appRef: ApplicationRef;
@@ -298,6 +299,11 @@ export class NotificationService {
      * Changes number of display items on min-width events
      */
     private subscribeOnMedia(): void {
+        if (this.$params.themeMod === 'center') {
+            this.displayItems = 1;
+            return;
+        }
+
         // TODO switch to deviceMode;
         const breakpoints: {minWidth: number, items: number}[] = [];
         _each(this.$params.notificationsPerBreakpoint, (items, breakpoint) => {

@@ -2,6 +2,9 @@ import {CustomType, IComponentParams} from 'wlc-engine/modules/core/system/class
 
 export type TTheme = 'top' | 'bottom' | CustomType;
 export type TType = 'default' | CustomType;
+/**
+ * if we will use center, we display only 1 item
+ */
 export type TThemeMod = 'left' | 'center' | 'right' | CustomType;
 
 export interface INotificationParams extends IComponentParams<TTheme, TType, TThemeMod> {
@@ -54,14 +57,14 @@ export const defaultParams: INotificationParams = {
     moduleName: 'core',
     componentName: 'wlc-notification-thread',
     class: 'wlc-notification-thread',
-    theme: 'bottom',
+    theme: 'top',
     themeMod: 'right',
     zIndex: 1061,
     defaultDismissTime: 15000,
     notificationsPerBreakpoint: {
         0: 1,
-        900: 2,
-        1200: 3,
+        1200: 2,
+        1366: 3,
         1680: 4,
     },
 };

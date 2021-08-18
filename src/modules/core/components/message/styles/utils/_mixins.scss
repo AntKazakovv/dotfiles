@@ -82,6 +82,13 @@
         &:empty {
             margin: 0;
         }
+
+        @include mq.min(900) {
+            @include text.get-text-style(
+                ef.get-value($themeDefault, 'headingStyle', 900),
+                ef.get-value($themeDefault, 'headingColor'),
+            );
+        }
     }
 
     .wlc-notification-message__message-container {
