@@ -48,6 +48,7 @@ import {UserService} from 'wlc-engine/modules/user/system/services/user/user.ser
 import _isString from 'lodash-es/isString';
 import _toNumber from 'lodash-es/toNumber';
 import _forEach from 'lodash-es/forEach';
+import _assign from 'lodash-es/assign';
 
 export type ScrollPositionType = 'start' | 'end';
 
@@ -153,7 +154,7 @@ export class ActionService {
 
                 userProfile$.pipe(filter((profile) => !!profile), first()).subscribe((profile) => {
 
-                    this.eventService.emit({
+                    const paymentMessage = {
                         name: NotificationEvents.PushMessage,
                         data: <IPushMessageParams>{
                             type: 'success',
@@ -166,7 +167,20 @@ export class ActionService {
                                 this.translateService.instant(gettext('were successfully deposited in your account.')),
                             ],
                         },
-                    });
+                    };
+
+                    if (initialPath.type?.toLowerCase() === 'withdraw') {
+                        _assign(paymentMessage.data,
+                            {
+                                wlcElement: 'notification_withdraw-success',
+                                message: [
+                                    this.translateService.instant(gettext('Withdraw request has been successfully sent!')),
+                                    this.translateService.instant(gettext('Withdraw sum'))
+                                    + ` <span wlc-currency [value]="${initialPath.amount}" [currency]="'${profile.currency}'"></span> `,
+                                ],
+                            });
+                    }
+                    this.eventService.emit(paymentMessage);
                 });
                 break;
             }
