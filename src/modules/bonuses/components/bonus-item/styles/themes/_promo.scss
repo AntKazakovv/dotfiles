@@ -93,14 +93,9 @@
         }
 
         &__tag {
-            @include text.get-text-style('ThirdTitleBold', ef.get-value($themePromo, 'tagFontColor'));
-            @include em.get-mq-map('max-width', $themePromo, 'tagMaxWidth');
-            @include em.lineClamp(1);
-
             grid-area: tag;
-            justify-self: ef.get-value($themePromo, 'tagJusfity');
-            padding: ef.get-value($themePromo, 'tagPadding');
-            background: ef.get-value($themePromo, 'tagBg');
+            align-self: ef.get-value($themePromo, 'tagAlignSelf');
+            justify-self: ef.get-value($themePromo, 'tagJustify');
         }
 
         &__info {
@@ -135,15 +130,6 @@
         &__description {
             @include text.get-text-style(ef.get-value($themePromo, 'descrTextStyle'), ef.get-value($themePromo, 'descriptionFontColor'));
             @include em.lineClamp(3);
-        }
-    }
-
-    &.wlc-bonus-item--type-active,
-    .active {
-
-        .wlc-bonus-item__tag {
-            color: ef.get-value($themePromo, 'tagFontColor2');
-            background: ef.get-value($themePromo, 'tagBg2');
         }
     }
 

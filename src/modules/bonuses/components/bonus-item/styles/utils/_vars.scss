@@ -135,17 +135,17 @@ $themeDefault: map-merge((
     'remaningTextColor': ef.get('mainColors', 'baseMain'),
 
     // // Tag
-    'tagTextStyle': 'SignText',
-    'tagBg': ef.get('mainColors', 'secondary'),
-    'tagFontColor': ef.get('mainColors', 'baseMain'),
-    'tagBgActive': ef.get('mainColors', 'main'),
-    'tagFontColorActive': ef.get('mainColors', 'baseMain'),
+    'tagTextStyle': ef.get('tagConfig', 'textStyle'),
+    'tagBg': ef.get('tagConfig', 'bg'),
+    'tagFontColor': ef.get('tagConfig', 'color'),
+    'tagBgActive': ef.get('tagConfig', 'bgActive'),
+    'tagFontColorActive': ef.get('tagConfig', 'colorActive'),
+    'tagRadius': ef.get('tagConfig', 'radius'),
+    'tagPadding': ef.get('tagConfig', 'padding'),
     'tagPositionTop': ef.size(4),
     'tagPositionLeft': 50%,
     'tagZIndex': 2,
     'tagTransform': translateX(-50%),
-    'tagRadius': ef.get('radius', 'biger'),
-    'tagPadding': 4px 10px,
 
     // Btns
     'btnsInnerOffset': 0 ef.size(1),

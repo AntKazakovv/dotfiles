@@ -74,8 +74,6 @@ $themeDefault: map-merge((
     'bonusIconValueFontSizeSmaller': 1rem,
     'bonusIconValueFontW': 700,
     'bonusIconValueFontColor': ef.get('fieldColors', 'textColor'),
-    'tagFontColor': ef.get('mainColors', 'baseMain'),
-    'tagFontSize': ef.get('font', 'small'),
     'nameFontColor': ef.get('mainColors', 'baseMain'),
     'nameFontSize': ef.get('font', 'big'),
     'priceFontColor': ef.get('mainColors', 'baseMain'),
@@ -87,16 +85,13 @@ $themeDefault: map-merge((
     'backgroundHover':  ef.get('mainColors', 'bg500'),
     'imageBg': transparent,
     'bonusIconValueBg': ef.get('mainColors', 'baseMain'),
-    'tagBg': ef.get('mainColors', 'secondary'),
     // // Radius
     'radius': ef.get('radius', 'biger'),
-    'tagRadius': ef.get('radius', 'biger'),
     //Padding
     'bonusIconMargin': (
         320: 55px auto 0 auto,
         1630: 65px auto 0 auto,
     ),
-    'tagPadding': 4px 10px 3px,
     'infoPadding': 0 ef.size(2),
     'btnMargin': 0 ef.size(1),
     'imagePadding': (
@@ -113,4 +108,11 @@ $themeDefault: map-merge((
     'imageAlign': center,
     // Animation
     'time': ef.get('time', 'main'),
+
+    'tagTextStyle': ef.get('tagConfig', 'textStyle'),
+    'tagFontColor': ef.get('tagConfig', 'color'),
+    'tagPadding': ef.get('tagConfig', 'padding'),
+    'tagRadius': ef.get('tagConfig', 'radius'),
+    'tagBg': ef.get('tagConfig', 'bg'),
+
 ), $customThemeDefault);

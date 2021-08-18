@@ -105,19 +105,16 @@
         }
 
         &__tag {
-
             @include em.get-mq-map('padding', $themeFirst, 'tagPadding');
+            @include text.get-text-style(ef.get-value($themeFirst, 'tagTextStyle'), ef.get-value($themeFirst, 'tagFontColor'));
 
-            @include text.get-text-style('SignText', ef.get-value($themeFirst, 'tagFontColor'));
             position: absolute;
             top: ef.get-value($themeFirst, 'tagPositionTop');
             left: 50%;
             z-index: 2;
 
             background-color: ef.get-value($themeFirst, 'tagBg');
-
             transform: translateX(-50%);
-
             border-radius: ef.get-value($themeFirst, 'tagRadius');
         }
 

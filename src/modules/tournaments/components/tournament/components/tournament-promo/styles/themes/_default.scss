@@ -97,20 +97,17 @@
             line-height: 0;
 
             &-text {
-                display: inline-block;
-                @include em.get-mq-map('padding', $themeDefault, 'tagTextPadding');
-
                 @include text.get-text-style(ef.get-value($themeDefault, 'tagFontStyle'), ef.get-value($themeDefault, 'tagColor'));
 
-                @include mq.min(900) {
-                    @include text.get-text-style(ef.get-value($themeDefault, 'tagFontStyleDesk'), ef.get-value($themeDefault, 'tagColor'));
-                }
+                display: inline-block;
+                padding: ef.get-value($themeDefault, 'tagTextPadding');
 
                 border-radius: ef.get-value($themeDefault, 'tagTextBorderRadius');
                 background: ef.get-value($themeDefault, 'tagTextBackground');
 
                 &.active {
                     background: ef.get-value($themeDefault, 'tagActiveBackground');
+                    color: ef.get-value($themeDefault, 'tagColorActive');
                 }
             }
         }

@@ -195,7 +195,7 @@
         }
 
         &__tag {
-            @include text.get-text-style('SignText', ef.get-value($themeDefault, 'tagFontColor'));
+            @include text.get-text-style(ef.get-value($themeDefault, 'tagTextStyle'), ef.get-value($themeDefault, 'tagFontColor'));
 
             position: absolute;
             top: ef.get-value($themeDefault, 'tagPositionTop');
@@ -204,10 +204,8 @@
 
             padding: ef.get-value($themeDefault, 'tagPadding');
 
-            background-color: ef.get-value($themeDefault, 'tagBg');
-
+            background: ef.get-value($themeDefault, 'tagBg');
             transform: translateX(-50%);
-
             border-radius: ef.get-value($themeDefault, 'tagRadius');
         }
 

@@ -68,20 +68,17 @@ $selector: '.wlc-tournament-detail';
             }
 
             &--status {
-                @include em.get-mq-map('padding', $themeDefault, 'headerStatusPadding');
-                @include em.get-mq-map('border-radius', $themeDefault, 'headerStatusRadius');
                 @include text.get-text-style(ef.get-value($themeDefault, 'headerStatusTextStyle'), ef.get-value($themeDefault, 'headerStatusTextColor'));
-                justify-self: center;
-                background: ef.get-value($themeDefault, 'headerStatusTextBackground');
 
-                &.status-avaliable {
-                    @include em.get-mq-map('background', $themeDefault, 'headerStatusBgAvaliable');
-                    @include em.get-mq-map('color', $themeDefault, 'headerStatusColorAvaliable');
-                }
+                justify-self: center;
+                padding: ef.get-value($themeDefault, 'headerStatusPadding');
+                border-radius: ef.get-value($themeDefault, 'headerStatusRadius');
+                color: ef.get-value($themeDefault, 'headerStatusColorAvaliable');
+                background: ef.get-value($themeDefault, 'headerStatusBgAvaliable');
 
                 &.status-active {
-                    @include em.get-mq-map('background', $themeDefault, 'headerStatusBgActive');
-                    @include em.get-mq-map('color', $themeDefault, 'headerStatusColorActive');
+                    color: ef.get-value($themeDefault, 'headerStatusColorActive');
+                    background: ef.get-value($themeDefault, 'headerStatusBgActive');
                 }
             }
 
