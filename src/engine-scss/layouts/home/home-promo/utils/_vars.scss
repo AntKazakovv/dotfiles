@@ -1,0 +1,32 @@
+@use 'engine-scss/functions' as ef;
+
+$customHomePromo: () !default;
+$homePromo: map-merge((
+    'columns': (
+        320: minmax(250px, 1fr),
+        1200: calc((100% - 80px) / 5 * 2 + 20px) minmax(250px, 1fr),
+        1630: calc((100% - 100px) / 6 * 2 + 20px) minmax(250px, 1fr),
+    ),
+    'gap': (
+        375: ef.size(4),
+    ),
+    'tournamentSliderWrapMaxWidth': 100%,
+    'tournamentSliderButtonDisplay': (
+        320: none,
+        768: flex,
+    ),
+    'tournamentSmartJustifyContent': (
+        320: left,
+        480: center,
+    ),
+    'tournamentBannerHeight': (
+        320: 385px,
+        480: 325px,
+        768: 100%,
+    ),
+    'tournamentBannerMinHeight': (
+        320: auto,
+        1630: 380px,
+    ),
+), $customHomePromo);
+ 

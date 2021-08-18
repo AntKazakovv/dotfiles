@@ -18,3 +18,4 @@ export * from './game-widgets.section';
 export * from './winners.section';
 export * from './loyalty-program.section';
 export * from './providers-section';
+export * from './home-promo.section';

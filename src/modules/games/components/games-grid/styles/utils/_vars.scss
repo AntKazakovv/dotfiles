@@ -16,11 +16,6 @@ $themeDefault: map-merge((
     'allLinkDisplay': flex,
     'allLinkAlign': center,
     'allLinkDecoration': none,
-    'gridGap': (
-        375: ef.get('size', 'small'),
-        1024: ef.get('size', 'smally'),
-        1630: ef.get('size', 'smaller')
-    ),
     'contentPadding': ef.get('size', 'big'),
     'listMargin': ef.get('size', 'big'),
     'gridColumns': (
@@ -28,6 +23,11 @@ $themeDefault: map-merge((
         900: repeat(auto-fill, minmax(225px, 1fr)),
         1024: repeat(auto-fill, minmax(200px, 1fr)),
         1630: repeat(auto-fill, minmax(220px, 1fr)),
+    ),
+    'gridGap': (
+        375: ef.size(2),
+        1024: ef.size(3),
+        1630: ef.size(4)
     ),
     'placeholderBackground': ef.get('mainColors', 'bg'),
     'placeholderBorderRadius': ef.get('radius', 'less'),
@@ -91,7 +91,6 @@ $modHeaderInline: map-merge((
     'background': ef.get('mainColors', 'bg700'),
     'borderRadius': ef.get('radius', 'biger'),
     'flexDirection': column,
-
     'titleMargin': 0,
     'titleAlign': center,
     'iconMargin': 0,
