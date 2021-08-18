@@ -38,7 +38,7 @@
         <div class="{{$class}}__more-icon">
             <div wlc-icon
                  class="icon-btn"
-                 wlcElement="button_terms"                
+                 wlcElement="button_terms"
                  iconPath="/wlc/icons/info.svg"
                  (click)="readMore({selector: ''})">
             </div>
@@ -64,6 +64,7 @@
         <div *ngIf="!isTournamentSelected && tournament.description?.length"
              class="{{$class}}__description"
              [innerHtml]="tournament.description"
+             [wlc-clamp]="$params.common.descriptionClamp"
         ></div>
         <div *ngIf="!isTournamentSelected && tournament.isTournamentStarts" class="{{$class}}__btns">
             <button

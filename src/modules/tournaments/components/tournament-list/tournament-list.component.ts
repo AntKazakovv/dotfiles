@@ -16,6 +16,7 @@ import {
     IMixedParams,
     ConfigService,
     IPaginateOutput,
+    EventService,
     GlobalHelper,
 } from 'wlc-engine/modules/core';
 import {SliderComponent} from 'wlc-engine/modules/promo/components/slider/slider.component';
@@ -72,8 +73,9 @@ export class TournamentListComponent
 
     constructor(
         @Inject('injectParams') protected params: Params.ITournamentListCParams,
-        protected configService: ConfigService,
         protected tournamentsService: TournamentsService,
+        protected eventService: EventService,
+        protected configService: ConfigService,
         protected cdr: ChangeDetectorRef,
         protected uiRouter: UIRouterGlobals,
     ) {
@@ -92,6 +94,7 @@ export class TournamentListComponent
         if (this.$params.type === 'swiper') {
             this.sliderParams.swiper = this.$params.common?.swiper;
         }
+        this.subscribeOnTournamentLeave();
         this.noContentParams = GlobalHelper.getNoContentParams(this.$params, this.$class, this.configService);
     }
 
@@ -113,6 +116,17 @@ export class TournamentListComponent
         this.paginatedTournaments = value.paginatedItems as Tournament[];
         this.itemsPerPage = value.itemsPerPage;
         this.cdr.markForCheck();
+    }
+
+    protected subscribeOnTournamentLeave(): void {
+        this.eventService.subscribe(
+            {name: 'TOURNAMENT_LEAVE_SUCCEEDED'},
+            () => {
+                this.saveDataOfSelectedTournament(this.tournaments);
+                this.cdr.markForCheck();
+            },
+            this.$destroy,
+        );
     }
 
     protected getTournaments(): void {
@@ -155,8 +169,10 @@ export class TournamentListComponent
     }
 
     protected saveDataOfSelectedTournament(tournaments: Tournament[]): void {
+        let tournamentSelected = false;
         _each(tournaments, (tournament, index) => {
             if (tournament.isSelected) {
+                tournamentSelected = true;
                 this.isTournamentSelected = true;
                 this.activeTournament = tournament;
                 this.indexOfSelectedTournament = index;
@@ -164,6 +180,12 @@ export class TournamentListComponent
                 return false;
             }
         });
+
+        if (!tournamentSelected) {
+            this.isTournamentSelected = false;
+            this.activeTournament = null;
+            this.indexOfSelectedTournament = -1;
+        }
     }
 
     protected prepareModifiers(): void {

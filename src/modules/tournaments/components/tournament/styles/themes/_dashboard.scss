@@ -171,7 +171,7 @@
         }
 
         &__btns {
-            margin-top: ef.get-value($themeDashboard, 'gapNoSelect');
+            margin: ef.get-value($themeDashboard, 'buttonWrapperMargin');
             display: flex;
             align-items: center;
             justify-content: center;

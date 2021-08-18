@@ -24,6 +24,7 @@ export interface ITournamentCParams extends IComponentParams<ComponentTheme, Com
         customMod?: CustomMod;
         type?: ComponentType;
         tournament?: Tournament;
+        descriptionClamp?: number,
     };
 }
 
@@ -31,4 +32,7 @@ export const defaultParams: ITournamentCParams = {
     moduleName: 'tournaments',
     class: 'wlc-tournament',
     componentName: 'wlc-tournament',
+    common: {
+        descriptionClamp: 2,
+    },
 };
