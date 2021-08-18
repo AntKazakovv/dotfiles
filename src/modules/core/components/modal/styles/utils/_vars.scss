@@ -306,7 +306,7 @@ $themeDefault: map-merge((
     ),
     'tournamentDetailIconCloseTop': (
         320: ef.get('size', 'smally'),
-        768: ef.get('size', 'smaller'),
+        768: 17px,
     ),
     //tournament-details
 
