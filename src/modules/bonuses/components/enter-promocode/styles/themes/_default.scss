@@ -5,6 +5,8 @@
 @import '../utils/mixins';
 
 .wlc-enter-promocode--theme-default:host {
+    border-radius: ef.get-value($themeDefault, 'wrapperRadius');
+    overflow: hidden;
 
     .wlc-enter-promocode {
         width: ef.get-value($themeDefault, 'baseWidth');
@@ -22,7 +24,6 @@
             height: ef.get-value($themeDefault, 'containerHeight');
 
             background: ef.get-value($themeDefault, 'containerBackground');
-            border-radius: ef.get-value($themeDefault, 'containerRadius');
             box-shadow: ef.get-value($themeDefault, 'containerShadow');
         }
 

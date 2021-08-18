@@ -2,6 +2,7 @@
 
 $customThemeDefault: () !default;
 $themeDefault: map-merge((
+    'secondaryWrapperRadius': ef.get('radius', 'biger'),
     'baseHeight': 100%,
     'baseWidth': 100%,
     'containerPadding': (
@@ -12,7 +13,6 @@ $themeDefault: map-merge((
     ),
     'containerBackground': ef.get('mainColors', 'bg300'),
     'containerShadow': 0 4px 9px 0 rgba(ef.get('mainColors', 'bg'), 0.07),
-    'containerRadius': ef.get('radius', 'biger'),
     'containerHeight': 100%,
     'containerMinHeight': (
         375: 150px,
