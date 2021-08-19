@@ -1,6 +1,5 @@
 'use strict';
 
-import {Injector} from '@angular/core';
 import {
     StateService,
     UIRouter,
@@ -62,7 +61,6 @@ export enum RejectReason {
 export const startGameResolver: ResolveTypes = {
     token: 'startGame',
     deps: [
-        Injector,
         ConfigService,
         LogService,
         StateService,

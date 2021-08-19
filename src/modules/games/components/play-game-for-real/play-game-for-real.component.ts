@@ -63,7 +63,7 @@ export class PlayGameForRealComponent extends AbstractComponent implements OnIni
             game: this.params.common?.game,
             disableDemo: this.params.common?.disableDemo,
             lang: translateService.currentLang || 'en',
-            authenticated: this.ConfigService.get<boolean>('$user.isAuthenticated'),
+            authenticated: this.configService.get<boolean>('$user.isAuthenticated'),
         });
     }
 
@@ -149,4 +149,3 @@ export class PlayGameForRealComponent extends AbstractComponent implements OnIni
         }, this.$destroy);
     }
 }
-
