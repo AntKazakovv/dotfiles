@@ -382,7 +382,7 @@ export namespace FormElements {
                 usePasswordVisibilityBtn: true,
                 autocomplete: 'new-password',
             },
-            name: 'newPassword',
+            name: 'password',
             validators: [
                 'password',
                 {
@@ -410,7 +410,7 @@ export namespace FormElements {
                 usePasswordVisibilityBtn: true,
                 autocomplete: 'new-password',
             },
-            name: 'confirmPassword',
+            name: 'newPasswordRepeat',
             validators: [
                 {
                     name: 'minLength',

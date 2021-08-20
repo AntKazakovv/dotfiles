@@ -62,7 +62,7 @@ export const newPasswordFormConfig: IFormWrapperCParams = {
                     usePasswordVisibilityBtn: true,
                 },
                 wlcElement: 'block_password-confirm',
-                name: 'confirmPassword',
+                name: 'repeatPassword',
                 validators: ['required',
                     {
                         name: 'minLength',
@@ -90,7 +90,7 @@ export const newPasswordFormConfig: IFormWrapperCParams = {
     validators: [
         {
             name: 'matchingFields',
-            options: ['newPassword', 'confirmPassword'],
+            options: ['newPassword', 'repeatPassword'],
         },
     ],
 };

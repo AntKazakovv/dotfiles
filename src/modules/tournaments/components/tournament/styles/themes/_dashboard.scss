@@ -25,17 +25,6 @@
                 height: ef.get-value($themeDashboard, 'moreIconSize');
                 cursor: pointer;
 
-                &:after {
-                    display: none;
-                    content: '';
-                    position: absolute;
-                    width: ef.get-value($themeDashboard, 'moreIconAfterSize');
-                    height: ef.get-value($themeDashboard, 'moreIconAfterSize');
-                    background-color: ef.get-value($themeDashboard, 'moreIconColor');
-                    border-radius: ef.get-value($themeDashboard, 'moreIconAfterRadius');
-                    z-index: -1;
-                }
-
                 ::ng-deep {
 
                     .wlc-icon-content {
@@ -52,10 +41,6 @@
                 }
 
                 @include em.hover {
-
-                    &:after {
-                        display: block;
-                    }
 
                     ::ng-deep {
 

@@ -52,12 +52,12 @@ export class NewPasswordFormComponent extends AbstractComponent {
     }
 
     public async ngSubmit(form: FormGroup): Promise<void> {
-        const {newPassword, confirmPassword} = form.value;
+        const {newPassword, repeatPassword} = form.value;
         const code = this.injectParams.common.code;
 
         try {
             form.disable();
-            await this.userService.restoreNewPassword(newPassword, confirmPassword, code);
+            await this.userService.restoreNewPassword(newPassword, repeatPassword, code);
 
             this.stateService.go('app.home');
             this.eventService.emit({name: 'LOGIN'});

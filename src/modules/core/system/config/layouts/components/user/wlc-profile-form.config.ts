@@ -165,7 +165,7 @@ export namespace wlcProfileForm {
                 validators: [
                     {
                         name: 'matchingFields',
-                        options: ['newPassword', 'confirmPassword'],
+                        options: ['password', 'newPasswordRepeat'],
                     },
                 ],
             },

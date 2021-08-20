@@ -12,8 +12,6 @@ $themeDashboard: map-merge((
     'moreIconRight': 32px,
     'moreIconSelectedTop': -38px,
     'moreIconSelectedRight': 0,
-    'moreIconAfterSize': 90%,
-    'moreIconAfterRadius': 50%,
     'moreIconContent': 100%,
     'gap': ef.get('size', 'small'),
     'gapNoSelect': ef.size(4),
