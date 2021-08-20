@@ -148,7 +148,7 @@ export class WlcPaginationComponent extends AbstractComponent implements OnInit,
     protected paginationEmit(event: PageChangedEvent): void {
         this.paginationOnChange.emit({
             paginatedItems: this.paginatedItems,
-            itemsPerPage: event.itemsPerPage,
+            event,
         });
     }
 

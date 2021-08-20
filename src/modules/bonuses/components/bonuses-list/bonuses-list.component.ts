@@ -262,7 +262,7 @@ export class BonusesListComponent extends AbstractComponent implements OnInit, O
      */
     public paginationOnChange(value: IPaginateOutput): void {
         this.paginatedBonuses = value.paginatedItems as Bonus[];
-        this.itemsPerPage = value.itemsPerPage;
+        this.itemsPerPage = value.event.itemsPerPage;
         this.cdr.markForCheck();
     }
 

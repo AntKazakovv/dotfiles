@@ -114,7 +114,7 @@ export class TournamentListComponent
      */
     public paginationOnChange(value: IPaginateOutput): void {
         this.paginatedTournaments = value.paginatedItems as Tournament[];
-        this.itemsPerPage = value.itemsPerPage;
+        this.itemsPerPage = value.event.itemsPerPage;
         this.cdr.markForCheck();
     }
 

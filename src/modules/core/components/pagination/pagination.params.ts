@@ -1,3 +1,4 @@
+import {PageChangedEvent} from 'ngx-bootstrap/pagination';
 import {CustomType, IComponentParams} from 'wlc-engine/modules/core';
 
 export type ComponentTheme = 'default' | CustomType;
@@ -18,7 +19,7 @@ export interface IPagination {
 
 export interface IPaginateOutput {
     paginatedItems: unknown[],
-    itemsPerPage: number,
+    event: PageChangedEvent,
 }
 
 export const defaultParams: IPaginationCParams = {
