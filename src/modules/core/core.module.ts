@@ -62,6 +62,7 @@ import {LayoutComponent} from './components/layout/layout.component';
 import {LicenseComponent} from './components/license/license.component';
 import {LinkBlockComponent} from './components/link-block/link-block.component';
 import {LoaderComponent} from './components/loader/loader.component';
+import {LoginSignupComponent} from './components/login-signup/login-signup.component';
 import {LogoComponent} from './components/logo/logo.component';
 import {MessageComponent} from 'wlc-engine/modules/core/components';
 import {NotificationThreadComponent} from 'wlc-engine/modules/core/components';
@@ -139,6 +140,7 @@ export const components = {
     'wlc-license': LicenseComponent,
     'wlc-link-block': LinkBlockComponent,
     'wlc-loader': LoaderComponent,
+    'wlc-login-signup': LoginSignupComponent,
     'wlc-logo': LogoComponent,
     'wlc-modal': WlcModalComponent,
     'wlc-no-content': WlcNoContentComponent,
@@ -229,6 +231,7 @@ export const components = {
         LicenseComponent,
         LinkBlockComponent,
         LoaderComponent,
+        LoginSignupComponent,
         LogoComponent,
         MessageComponent,
         NgTemplateNameDirective,
@@ -288,6 +291,7 @@ export const components = {
         LicenseComponent,
         LinkBlockComponent,
         LoaderComponent,
+        LoginSignupComponent,
         LogoComponent,
         NgTemplateNameDirective,
         ParallaxMovementDirective,
