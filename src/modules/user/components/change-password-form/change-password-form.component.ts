@@ -50,11 +50,11 @@ export class ChangePasswordFormComponent extends AbstractComponent implements On
     }
 
     public async ngSubmit(form: FormGroup): Promise<void> {
-        const {currentPassword, confirmPassword} = form.value;
+        const {currentPassword, newPasswordRepeat} = form.value;
 
         try {
             form.disable();
-            await this.userService.setNewPassword(currentPassword, confirmPassword);
+            await this.userService.setNewPassword(currentPassword, newPasswordRepeat);
 
             this.eventService.emit({
                 name: NotificationEvents.PushMessage,

@@ -87,7 +87,7 @@ export const defaultParams: IChangePasswordFormCParams = {
                         customModifiers: 'right-shift',
                         usePasswordVisibilityBtn: true,
                     },
-                    name: 'confirmPassword',
+                    name: 'newPasswordRepeat',
                     validators: [
                         'required',
                         {
@@ -116,7 +116,7 @@ export const defaultParams: IChangePasswordFormCParams = {
         validators: [
             {
                 name: 'matchingFields',
-                options: ['newPassword', 'confirmPassword'],
+                options: ['newPassword', 'newPasswordRepeat'],
             },
         ],
     },
