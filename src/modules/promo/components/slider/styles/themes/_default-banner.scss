@@ -9,9 +9,9 @@
     &.container {
 
         .swiper-button-container {
+            right: 1%;
             left: initial;
             transform: initial;
-            right: 1%;
         }
     }
 
@@ -21,19 +21,36 @@
         display: none;
 
         @include mq.min(768) {
-            display: flex;
-            justify-content: flex-end;
             position: absolute;
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 1;
+            left: ef.get-value($themeDefaultPagination, 'swiperPagiContainerAbsoluteLeft');
+            z-index: ef.get-value($themeDefaultPagination, 'swiperPagiZindex');
+            display: ef.get-value($themeDefaultPagination, 'swiperPagiContainerDisplay');
+            justify-content: ef.get-value($themeDefaultPagination, 'swiperPagiContainerAlign');
+            transform: ef.get-value($themeDefaultPagination, 'swiperPagiTranslateX');
+
             pointer-events: none;
 
             * {
                 pointer-events: initial;
             }
         }
+    }
 
+    &.wlc-slider--theme-mod-ears {
+
+        .swiper-button-container {
+
+            @include mq.min(768) {
+                position: absolute;
+                left: ef.get-value($themeDefaultPagination, 'swiperPagiContainerAbsoluteLeft');
+                z-index: ef.get-value($themeDefaultPagination, 'swiperPagiZindex');
+                display: ef.get-value($themeDefaultPagination, 'swiperPagiContainerDisplay');
+                justify-content: ef.get-value($themeDefaultPagination, 'swiperPagiContainerAlign');
+                padding-right: ef.get-value($themeDefaultPagination, 'swiperPagiContainerPadding');
+                transform: ef.get-value($themeDefaultPagination, 'swiperWithEarsPagiTranslateX');
+                pointer-events: none;
+            }
+        }
     }
 }
 

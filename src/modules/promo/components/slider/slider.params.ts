@@ -12,7 +12,7 @@ import {
 
 export type ComponentTheme = 'default' | CustomType;
 export type ComponentType = 'default' | CustomType;
-export type ComponentThemeMod = 'default' | CustomType;
+export type ComponentThemeMod = 'default' | 'ears' | CustomType;
 
 export interface ISlide {
     /** Allow to past Component */

@@ -44,6 +44,13 @@ $themeDefaultPagination: map-merge((
     'swiperPagiProgressbarBorderRadius': 4px,
     'swiperPagiProgressbarBgFill': ef.get('mainColors', 'baseOpacity'),
     'swiperPagiProgressbarHeight': 4px,
+    'swiperPagiContainerDisplay': flex,
+    'swiperPagiContainerAlign': flex-end,
+    'swiperPagiContainerAbsoluteLeft': 50%,
+    'swiperPagiContainerPadding': 60px,
+    'swiperPagiTranslateX': translateX(-50%),
+    'swiperWithEarsPagiTranslateX': translateX(-55%),
+
 ), $customThemeDefaultPagination);
 
 $customThemeDefaultBanner: () !default;
