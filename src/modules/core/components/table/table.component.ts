@@ -8,7 +8,6 @@ import {
     Injector,
 } from '@angular/core';
 import {BehaviorSubject} from 'rxjs';
-import {PageChangedEvent} from 'ngx-bootstrap/pagination';
 import {
     animate,
     query,
@@ -183,12 +182,17 @@ export class TableComponent extends AbstractComponent implements OnInit {
             });
     }
 
-    public pageChanged(event: PageChangedEvent): void {
-        const startItem = (event.page - 1) * event.itemsPerPage;
-        const endItem = event.page * event.itemsPerPage;
+    /**
+     * Method updates the data when there was a change in `wlc-pagination` component
+     *
+     * @method paginationOnChange
+     * @param {IPaginateOutput} value - $event output from `wlc-pagination` component
+     */
+    public paginationOnChange(value: IPaginateOutput): void {
+        this.paginatedRows = value.paginatedItems as TableRowModel[];
+        this.itemPerPage = value.event.itemsPerPage;
         this.actionService.scrollTo('body');
-        this.paginatedRows = this.rows.slice(startItem, endItem);
-        this.indexFactor = startItem;
+        this.indexFactor = (value.event.page - 1) * value.event.itemsPerPage;
         this.cdr.markForCheck();
     }
 

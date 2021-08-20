@@ -39,7 +39,7 @@
                      wlc-icon
                      class="{{$class}}__cell-arrow"
                      iconPath="/wlc/icons/arrow.svg">
-                </div>                
+                </div>
             </div>
         </div>
 
@@ -53,9 +53,8 @@
     <div
          wlc-pagination
          [items]="rows"
-         [itemPerPage]="itemPerPage"
          [settings]="$params.pagination"
-         [pageChanged]="pageChanged.bind(this)">
+         (paginationOnChange)="paginationOnChange($event)">
     </div>
 </ng-template>
 

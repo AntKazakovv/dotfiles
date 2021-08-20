@@ -93,7 +93,7 @@ export class StoreListComponent extends AbstractComponent implements OnInit, OnD
      */
     public paginationOnChange(value: IPaginateOutput): void {
         this.paginatedStoreItems = value.paginatedItems as StoreItem[];
-        this.itemsPerPage = value.itemsPerPage;
+        this.itemsPerPage = value.event.itemsPerPage;
         this.cdr.markForCheck();
     }
 
