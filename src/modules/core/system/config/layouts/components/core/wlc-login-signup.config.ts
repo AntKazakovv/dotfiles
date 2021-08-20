@@ -2,7 +2,7 @@ import {ILayoutComponent} from 'wlc-engine/modules/core';
 
 export namespace wlcLoginSignup {
     export const header: ILayoutComponent = {
-        name: 'user.wlc-login-signup',
+        name: 'core.wlc-login-signup',
         display: {
             after: 1200,
             auth: false,
@@ -17,7 +17,7 @@ export namespace wlcLoginSignup {
         },
     };
     export const burgerPanel: ILayoutComponent = {
-        name: 'user.wlc-login-signup',
+        name: 'core.wlc-login-signup',
         display: {
             auth: false,
         },

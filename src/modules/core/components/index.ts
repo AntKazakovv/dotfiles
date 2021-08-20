@@ -18,6 +18,7 @@ export {ILicenseCParams} from './license/license.params';
 export {ILinkBlockCParams} from './link-block/link-block.params';
 export {IActionParams} from './link-block/link-block.params';
 export {ILoaderCParams} from './loader/loader.params';
+export {ILoginSignupCParams} from './login-signup/login-signup.params';
 export {ILogoCParams} from './logo/logo.params';
 export {IScrollbarCParams} from './scrollbar/scrollbar.params';
 export {ISelectCParams} from './select/select.params';

@@ -22,7 +22,6 @@ import {IconExpLpDescriptionComponent} from './components/icon-exp-lp-descriptio
 import {LimitationsComponent} from './components/limitations/limitations.component';
 import {LimitCancelComponent} from './components/limitations/limit-cancel/limit-cancel.component';
 import {LimitValueComponent} from './components/limitations/limit-value/limit-value.component';
-import {LoginSignupComponent} from './components/login-signup/login-signup.component';
 import {LogoutComponent} from './components/logout/logout.component';
 import {LoyaltyProgressComponent} from './components/loyalty-progress/loyalty-progress.component';
 import {NewPasswordFormComponent} from './components/new-password-form/new-password-form.component';
@@ -52,7 +51,6 @@ export const components = {
     'wlc-exchange': ExchangeComponent,
     'wlc-icon-exp-lp': IconExpLpDescriptionComponent,
     'wlc-limitations': LimitationsComponent,
-    'wlc-login-signup': LoginSignupComponent,
     'wlc-logout': LogoutComponent,
     'wlc-loyalty-block': DashboardLoyaltyBlockComponent,
     'wlc-loyalty-progress': LoyaltyProgressComponent,
@@ -82,7 +80,6 @@ export const components = {
         LimitationsComponent,
         LimitCancelComponent,
         LimitValueComponent,
-        LoginSignupComponent,
         LogoutComponent,
         LoyaltyProgressComponent,
         NewPasswordFormComponent,
@@ -120,7 +117,6 @@ export const components = {
         ExchangeComponent,
         IconExpLpDescriptionComponent,
         LimitationsComponent,
-        LoginSignupComponent,
         LogoutComponent,
         LoyaltyProgressComponent,
         ProfileFormComponent,
