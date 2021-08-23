@@ -212,6 +212,16 @@
             }
         }
     }
+
+    &.wlc-modal--payment-list {
+
+        .wlc-modal {
+
+            &__body {
+                @include em.get-mq-map('padding', $themeDefault, 'paymentListBodyPadding');
+            }
+        }
+    }
 }
 
 body.modal-open {

@@ -40,7 +40,7 @@ export const tournamentsHistoryTableHeadConfig: ITableCol[] = [
     {
         key: 'win',
         title: gettext('Win'),
-        type: 'text',
+        type: 'amount',
         order: 50,
         wlcElement: 'wlc-profile-table__cell_win',
     },

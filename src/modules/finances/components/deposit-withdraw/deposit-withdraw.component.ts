@@ -181,6 +181,7 @@ export class DepositWithdrawComponent extends AbstractComponent implements OnIni
             });
             return false;
         } else if (this.$params.mode === 'deposit' && !form.value.paymentRules) {
+            form.controls.paymentRules.markAsTouched();
             this.pushNotification({
                 type: 'error',
                 title: notificationTitle,

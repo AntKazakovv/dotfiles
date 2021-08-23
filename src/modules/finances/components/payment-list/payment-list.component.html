@@ -25,7 +25,7 @@
         </span>
     </button>
     <div *ngIf="paymentDescription" class="payments-description">{{paymentDescription}}</div>
-    <div *ngIf="currentSystem && $params.showSelectedInButton"  class="payments-chosen-method">
+    <div *ngIf="currentSystem && $params.showSelectedInButton" class="payments-chosen-method">
         <span class="payments-chosen-method__text">{{$params.chosenMethodText | translate}}</span>
         <span class="payments-chosen-method__name">{{activeName}}</span>
     </div>
@@ -63,17 +63,16 @@
 </ng-template>
 
 <ng-template #list>
-    <div class="{{$class}}__list" [ngClass]="asModal && classList">
-        <h3 *ngIf="asModal" class="{{$class}}__title">{{$params.modalTitle | translate}}</h3>
-
+    <div class="{{$class}}__list" [ngClass]="classList">
         <ul class="{{$class}}__ul" [@appearance]="ready && systems.length">
             <li *ngFor="let system of systems; index as $index"
-                class="{{$class}}__item" [attr.data-wlc-element]="'block_payment-item-' + system.id">
+                class="{{$class}}__item"
+                [attr.data-wlc-element]="'block_payment-item-' + system.id">
 
                 <button wlc-icon-list-item
-                        type="button"
                         class="{{$class}}__button"
                         [ngClass]="{'active': system.id === currentSystem?.id}"
+                        type="button"
                         [attr.aria-label]="system.name"
                         [attr.data-wlc-element]="'block_payment-item-name'"
                         [attr.title]="system.name"
