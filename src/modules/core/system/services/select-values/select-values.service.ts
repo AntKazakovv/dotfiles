@@ -86,8 +86,13 @@ export class SelectValuesService {
         return new BehaviorSubject<Params.ISelectOptions[]>(list);
     };
 
+    /**
+     * Returns a list of phone codes
+     *
+     * @returns {BehaviorSubject<Params.ISelectOptions[]>}
+     */
     public getPhoneCodes(): BehaviorSubject<Params.ISelectOptions[]> {
-        let phoneCodes: Params.ISelectOptions[] = [];
+        const phoneCodes = new BehaviorSubject<Params.ISelectOptions[]>([]);
         this.configService.get<BehaviorSubject<ICountry[]>>('countries')
             .pipe(map(data => {
                 return _map(_sortBy(_filter(_uniqBy(data, (country) => country.phoneCode), (country) => !!country.phoneCode), (country) => +country.phoneCode), (country) => {
@@ -97,9 +102,9 @@ export class SelectValuesService {
                         country: country.value,
                     };
                 });
-            })).subscribe(val => phoneCodes = val);
+            })).subscribe(val => phoneCodes.next(val));
 
-        return new BehaviorSubject<Params.ISelectOptions[]>(phoneCodes);
+        return phoneCodes;
     }
 
     public getPepList(): BehaviorSubject<Params.ISelectOptions[]> {
