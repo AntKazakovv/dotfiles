@@ -134,7 +134,6 @@ export class BonusesListComponent extends AbstractComponent implements OnInit, O
                 next: (bonuses: Bonus[]) => {
                     if (bonuses) {
                         this.paginatedBonuses = this.bonuses = this.bonusesService.filterBonuses(bonuses, this.$params.common?.filter);
-                        this.isReady = true;
 
                         const chosenBonus = this.configService.get<ChosenBonusType>(ChosenBonusSetParams.ChosenBonus);
 
@@ -208,6 +207,8 @@ export class BonusesListComponent extends AbstractComponent implements OnInit, O
                             this.isSingleBonus = false;
                         }
                     }
+
+                    this.isReady = true;
                     this.cdr.markForCheck();
                 },
             },
