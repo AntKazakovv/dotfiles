@@ -10,7 +10,7 @@ $themeDefault: map-merge((
     'contentAlignItems': center,
     'contentJustifyContent': center,
 
-    'background': ef.get('mainColors', 'bg'),
+    'background': var(--mc-bg),
     'radius': ef.get('radius', 'biger'),
     'padding': ef.get('size', 'small') ef.get('size', 'smaller'),
     'width': (
@@ -19,13 +19,13 @@ $themeDefault: map-merge((
     ),
 
     'prizeIconMargin': -5px  ef.get('size', 'small') 0 0,
-    'prizeIconColor': ef.get('mainColors', 'main'),
+    'prizeIconColor': var(--mc-main),
     'prizeTextStyle': 'PrimaryText',
-    'prizeTextColor': ef.get('mainColors', 'baseMain'),
+    'prizeTextColor': var(--mc-baseMain),
     'prizeNumStyle': 'ButtonText',
-    'prizeNumColor': ef.get('mainColors', 'baseMain'),
+    'prizeNumColor': var(--mc-baseMain),
 
-    'delimiterColor': ef.get('mainColors', 'baseOpacity'),
+    'delimiterColor': var(--mc-baseOpacity),
     'delimiterAlignSelf': stretch,
     'delimiterWidth': (
         320: 100%,
@@ -49,9 +49,9 @@ $themeDefault: map-merge((
     ),
 
     'timerTextStyle': 'PrimaryText',
-    'timerTextColor': ef.get('mainColors', 'baseMain'),
+    'timerTextColor': var(--mc-baseMain),
     'timerNumStyle': 'ButtonText',
-    'timerNumColor': ef.get('mainColors', 'baseMain'),
+    'timerNumColor': var(--mc-baseMain),
 
     'prizeBlockMinWidth': (
         320: 200px,

@@ -76,7 +76,13 @@ module.exports = function preBuildTask() {
         fs.access(`${this.params.paths.src}/app-styles/hosted.fields.scss`, (err) => {
             if (err) {
                 fs.writeFileSync(`${this.params.paths.src}/app-styles/hosted.fields.scss`,
-                    '@import \'wlc-engine/engine-scss/_hosted.fields.scss\';\n');
+                    '//For create alternate color theme styles for hosted fields:\n'+
+                    '// 1. Copy this file and set name hosted.fields.alt.scss\n' +
+                    '// 2. Generate new css vars using mixin makeCssColorVars ' +
+                    'and maps $mainColorsAlt and $fieldColorsAlt\n\n' +
+                    '@import \'wlc-engine/engine-scss/_hosted.fields.scss\';\n\n' +
+                    '@include makeCssColorVars($mainColors);\n' +
+                    '@include makeCssColorVars($fieldColors);\n');
             }
         });
     };

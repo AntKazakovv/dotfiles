@@ -2,8 +2,8 @@
 
 $customThemeDefault: () !default;
 $themeDefault: map-merge((
-    'iconColor': ef.get('mainColors', 'baseOpacity'),
+    'iconColor': var(--mc-baseOpacity),
     'textFont': 'ButtonText',
-    'textColor': ef.get('mainColors', 'baseOpacity'),
-    'textColorHover': ef.get('mainColors', 'baseMain'),
+    'textColor': var(--mc-baseOpacity),
+    'textColorHover': var(--mc-baseMain),
 ), $customThemeDefault);

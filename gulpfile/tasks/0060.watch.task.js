@@ -40,7 +40,7 @@ module.exports = function watchTask() {
     };
 
     const watchForHostedFields = () => {
-        watch(`${this.params.paths.src}/app-styles/hosted.fields.scss`).on('change',  () => {
+        watch(`${this.params.paths.src}/app-styles/hosted.fields*.scss`).on('change',  () => {
             series('build:hosted-fields-css', 'liveReload:reload')();
         });
     };

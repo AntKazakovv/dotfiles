@@ -16,7 +16,7 @@ $themeDefault: map-merge((
     ),
     'containerBackground': (
         320: transparent,
-        1200: ef.get('mainColors', 'bg700'),
+        1200: var(--mc-bg700),
     ),
     'containerPosition': relative,
     'containerWidth': 100%,
@@ -53,7 +53,7 @@ $themeDefault: map-merge((
     'decorRightHeight': 400px,
 
     'titleFont': 'QoteTextBold',
-    'titleFontColor': ef.get('mainColors', 'baseMain'),
+    'titleFontColor': var(--mc-baseMain),
     'titleMargin': (
         320: 0 auto ef.get('size', 'smaller') auto,
     ),
@@ -86,7 +86,7 @@ $themeDefault: map-merge((
     ),
     'itemRadius': ef.get('radius', 'biger'),
     'itemBackground': (
-        320: ef.get('mainColors', 'bg700'),
+        320: var(--mc-bg700),
         1200: transparent,
     ),
 
@@ -94,7 +94,7 @@ $themeDefault: map-merge((
     'itemImageBgDisplay': flex,
     'itemImageBgAlign': center,
     'itemImageBgJustify': center,
-    'itemImageBgColor': ef.get('mainColors', 'bg'),
+    'itemImageBgColor': var(--mc-bg),
     'itemImageBgWidth': 170px,
     'itemImageBgHeight': 170px,
     'itemImageBgBorderRadius': 100%,
@@ -121,10 +121,10 @@ $themeDefault: map-merge((
         320: ef.get('size', 'smallest') 0 ef.get('size', 'smally') 0,
     ),
     'itemTitleFont': 'QoteTextBold',
-    'itemTitleFontColor': ef.get('mainColors', 'baseMain'),
+    'itemTitleFontColor': var(--mc-baseMain),
 
     'itemPointsFont': 'PrimaryText',
-    'itemPointsFontColor': ef.get('mainColors', 'baseMain'),
+    'itemPointsFontColor': var(--mc-baseMain),
 
     'itemPointsDisplay': flex,
     'itemPointsAlign': center,

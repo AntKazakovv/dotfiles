@@ -104,7 +104,7 @@ $themePromoHome: map-merge((
 $customThemeActive: () !default;
 $themeActive: map-merge((
     'noContentPadding': ef.size(6) ef.size(4),
-    'noContentBg': ef.get('mainColors', 'bg500'),
+    'noContentBg': var(--mc-bg500),
     'noContentRadius': ef.size(2),
     'display': grid,
     'gridColumns': 1fr,

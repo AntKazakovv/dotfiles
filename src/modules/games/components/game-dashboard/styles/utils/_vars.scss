@@ -3,11 +3,11 @@ $customThemeDefault: () !default;
 
 $themeDefault: map-merge((
     'transition': 0.3s linear,
-    'backgroundAdUnit': ef.get('mainColors', 'bg'),
-    'backgroundTabs': ef.get('mainColors', 'bg700'),
-    'backgroundTabsActive': ef.get('mainColors', 'main'),
-    'backdropBackground': transparentize(ef.get('mainColors', 'bg'), 0.2),
-    'backgroundTabsUserLandscape': ef.get('mainColors', 'bg300'),
+    'backgroundAdUnit': var(--mc-bg),
+    'backgroundTabs': var(--mc-bg700),
+    'backgroundTabsActive': var(--mc-main),
+    'backdropBackground': var(--mc-bg-o8),
+    'backgroundTabsUserLandscape': var(--mc-bg300),
 
     'decorHeight': 247px,
     'decorWidth': 181px,
@@ -18,7 +18,7 @@ $themeDefault: map-merge((
     'imgMargin': 0 0 15px 0,
 
     'titleMarginBottom': ef.get('size', 'smally'),
-    'titleColor': ef.get('mainColors', 'baseMain'),
+    'titleColor': var(--mc-baseMain),
 
     'desktopUserInfoDisplay': flex,
     'desktopUserAlignItems': center,
@@ -29,16 +29,17 @@ $themeDefault: map-merge((
     'tutorialArrowTop': 135px,
     'tutorialArrowRight': unset,
     'tutorialArrowLeft': 20px,
-    'tutorialColor': ef.get('mainColors', 'baseMain'),
+    'tutorialColor': var(--mc-baseMain),
     'tutorialMargin': 0 0 ef.get('size', 'big') 0,
     'tutorialArrowTextMargin': 8px 0 0 20px,
-    'tutorialDontShowColor': ef.get('mainColors', 'baseMain'),
+    'tutorialDontShowColor': var(--mc-baseMain),
     'tutorialDontShowMargin': 0 0 0 0,
     'tutorialCheckTop': 2px,
     'tutorialCheckMargin': 2px 0 0,
+    'tutorialArrowColor': currentColor,
 
     'wrpWidth': 300px,
-    'wrpBackground': ef.get('mainColors', 'bg700'),
+    'wrpBackground': var(--mc-bg700),
 
     'panchTop': 100px,
     'panchLeft': -15px,
@@ -51,11 +52,11 @@ $themeDefault: map-merge((
     'panchBtnHeight': 53px,
     'panchBtnTop': 0,
     'panchBtnRight': 0,
-    'panchBtnBack': ef.get('mainColors', 'main'),
-    'panchBtnIcon': ef.get('mainColors', 'baseMain'),
-    'panchBtnIconActive': null,
+    'panchBtnBack': var(--mc-main),
+    'panchBtnIcon': var(--mc-baseMain),
+    'panchBtnIconActive': ef.get('mainColors', 'baseMain'),
 
-    'headerBackground': ef.get('mainColors', 'bg500'),
+    'headerBackground': var(--mc-bg500),
     'headerPadding': 10px 0,
 
     'tabWidth': 44px,

@@ -73,18 +73,20 @@ $themeDefault: map-merge((
     'bonusIconValueFontSizeSmall': 1.4rem,
     'bonusIconValueFontSizeSmaller': 1rem,
     'bonusIconValueFontW': 700,
-    'bonusIconValueFontColor': ef.get('fieldColors', 'textColor'),
-    'nameFontColor': ef.get('mainColors', 'baseMain'),
+    'bonusIconValueFontColor': ef.get('mainColors', 'baseContrast'),
+
+    'nameFontColor': var(--mc-baseMain),
     'nameFontSize': ef.get('font', 'big'),
-    'priceFontColor': ef.get('mainColors', 'baseMain'),
+    'priceFontColor': var(--mc-baseMain),
     'priceFontSize': ef.get('font', 'PrimaryText'),
-    'moreIconColor': ef.get('mainColors', 'baseOpacity'),
-    'moreIconColorHover': ef.get('mainColors', 'baseMain'),
+    'moreIconColor': var(--mc-baseOpacity),
+    'moreIconColorHover': var(--mc-baseMain),
     // // Backgrounds
-    'background': ef.get('mainColors', 'bg300'),
-    'backgroundHover':  ef.get('mainColors', 'bg500'),
+    'background': var(--mc-bg300),
+    'backgroundHover':  var(--mc-bg500),
     'imageBg': transparent,
     'bonusIconValueBg': ef.get('mainColors', 'baseMain'),
+
     // // Radius
     'radius': ef.get('radius', 'biger'),
     //Padding

@@ -8,7 +8,7 @@ $themeDefault: map-merge((
     ),
 
     'titleFontStyle': 'ThirdTitleBold',
-    'titleColor': ef.get('mainColors', 'baseMain'),
+    'titleColor': var(--mc-baseMain),
     'titleMargin': (
         320: ef.size(8) 0 ef.size(4),
     ),

@@ -18,8 +18,8 @@ $themeDefault: map-merge((
     'selectPadding': 7px ef.size(7) 7px 13px,
 
     'fieldMargin': 0 0 ef.size(4),
-    'inputBackground': ef.get('fieldColors', 'inputBg'),
-    'inputColor': ef.get('fieldColors', 'textColor'),
+    'inputBackground': var(--fc-inputBg),
+    'inputColor': var(--fc-textColor),
     'inputOpacity': 1,
 
     'btnMargin': (
@@ -27,10 +27,10 @@ $themeDefault: map-merge((
     ),
 
     'checkboxLinkTransition': color 0.3s linear#{','} border-bottom-color 0.3s linear,
-    'checkboxLinkColor': ef.get('mainColors', 'main'),
-    'checkboxLinkBorder': 1px solid ef.get('mainColors', 'main'),
-    'checkboxLinkColorHover': lighten(ef.get('mainColors', 'main'), 20%),
-    'checkboxLinkBorderColorHover': lighten(ef.get('mainColors', 'main'), 20%),
+    'checkboxLinkColor': var(--mc-main),
+    'checkboxLinkBorder': 1px solid var(--mc-main),
+    'checkboxLinkColorHover': var(--mc-baseMain),
+    'checkboxLinkBorderColorHover': var(--mc-main-l20),
 
     'checkboxPadding': ef.size(4) ef.size(2) 0 ef.size(2),
     'checkboxAgeMargin': -17px 0 0,

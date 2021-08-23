@@ -15,7 +15,7 @@
         transition: box-shadow 0.2s ease-out;
 
         &:hover {
-            box-shadow: $boxShadowHover, 0 0 7px 7px rgba(0, 0, 0, 0.67);
+            box-shadow: $boxShadowHover, 0 0 7px 7px var(--mc-bg-o8);
         }
     }
 

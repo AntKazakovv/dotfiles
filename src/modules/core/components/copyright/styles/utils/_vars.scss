@@ -10,9 +10,9 @@ $themeDefault: map-merge((
         375: center,
         1024: start,
     ),
-    'textColor': ef.get('mainColors', 'baseMain'),
-    'linkColor': ef.get('mainColors', 'main'),
-    'linkHoverColor': ef.get('mainColors', 'baseMain'),
+    'textColor': var(--mc-baseMain),
+    'linkColor': var(--mc-main),
+    'linkHoverColor': var(--mc-baseMain),
     'linkTextDecoration': none,
     'textDecoration': underline,
 ), $customThemeDefault);

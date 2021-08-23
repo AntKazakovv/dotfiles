@@ -2,7 +2,7 @@
 
 $customThemeDefault: () !default;
 $themeDefault: map-merge((
-    'bgColor': ef.get('mainColors', 'bg700'),
+    'bgColor': var(--mc-bg700),
     'columns': (
         375: 1fr,
         720: 250px 1fr,
@@ -15,7 +15,7 @@ $themeDefault: map-merge((
         375: ef.get('size', 'smaller'),
         1200: ef.get('size', 'main'),
     ),
-    'border': 2px solid ef.get('mainColors', 'bg500'),
+    'border': 2px solid var(--mc-bg500),
     'borderRadius': ef.get('size', 'small'),
     'padding': 0,
     'maxWidth': 1200px,

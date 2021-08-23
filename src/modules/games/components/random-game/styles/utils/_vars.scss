@@ -2,7 +2,7 @@
 
 $customThemeDefault: () !default;
 $themeDefault: map-merge((
-    'background': ef.get('mainColors', 'bg700'),
+    'background': var(--mc-bg700),
     'borderRadius': ef.get('size', 'small'),
     'gridRows': (
         375: auto 1fr auto,
@@ -15,9 +15,9 @@ $themeDefault: map-merge((
     'justifyItems': center,
     'height': 100%,
     'padding': ef.get('size', 'smaller'),
-    'titleColor': ef.get('mainColors', 'baseMain'),
+    'titleColor': var(--mc-baseMain),
     'titleFontWeight': bold,
     'titleTextTransform': none,
     'iconMargin': ef.get('size', 'small') 0,
-    'iconFill': ef.get('mainColors', 'baseOpacity'),
+    'iconFill': var(--mc-baseOpacity),
 ), $customThemeDefault);

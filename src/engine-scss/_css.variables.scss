@@ -1,0 +1,9 @@
+@use './mixins/css.vars.mixins' as cssVars;
+
+// CSS vars for default color theme
+@include cssVars.makeCssColorVars($mainColors);
+@include cssVars.makeCssColorVars($fieldColors);
+
+// CSS vars for alternate color theme
+@include cssVars.makeCssColorVars($mainColorsAlt, 'body.wlc-body--theme-alt');
+@include cssVars.makeCssColorVars($fieldColorsAlt, 'body.wlc-body--theme-alt');

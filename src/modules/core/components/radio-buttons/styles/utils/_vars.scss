@@ -6,7 +6,7 @@ $themeDefault: map-merge((
 
     // title
     'titleWidth': 100%,
-    'titleColor': ef.get('fieldColors', 'labelColor'),
+    'titleColor': var(--fc-labelColor),
     'titlePadding': 0 0 0 10px,
     'elemsColumns': minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr),
     'elemsGap': 10px,
@@ -18,9 +18,10 @@ $themeButton: map-merge((
 
     // title
     'titleWidth': 100%,
-    'titleColor': ef.get('fieldColors', 'labelColor'),
+    'titleColor': var(--fc-labelColor),
     'titlePadding': 0 0 0 10px,
     'elemsColumns': minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr),
     'elemsGap': 10px,
     'buttonPadding': 5px,
+    'buttonActiveColor': ef.get('buttonSettings', 'fontColor'),
 ), $customThemeButton);

@@ -7,9 +7,9 @@ $themeDefault: map-merge((
     'scrollbarSize': ef.get('size', 'smallest'),
     'scrollbarStretchSize': 98%,
     'scrollbarPadding': 3px,
-    'scrollbarBackground': ef.get('mainColors', 'bg700'),
+    'scrollbarBackground': var(--mc-bg700),
     'scrollbarBorderRadius': ef.get('radius', 'main'),
 
-    'draggerBackground': ef.get('mainColors', 'bg100'),
+    'draggerBackground': var(--mc-bg100),
     'draggerBorderRadius': ef.get('radius', 'main'),
 ), $customThemeDefault);

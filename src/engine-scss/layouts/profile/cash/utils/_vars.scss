@@ -5,16 +5,16 @@ $cashPagesThemeDefault: map-merge((
 
     // menu
     'menuMargin': 0 0 25px,
-    'menuBorder': 2px solid ef.get('mainColors', 'baseOpacity'),
+    'menuBorder': 2px solid var(--mc-baseOpacity),
 
     // menu item
     'menuItemRedefine': true,
     'menuItemFontName': 'PrimaryText',
-    'menuItemColor': ef.get('mainColors', 'baseMain'),
+    'menuItemColor': var(--mc-baseMain),
     'menuItemTextTransform': none,
     'menuItemActiveWheit': 700,
-    'menuItemActiveColor': ef.get('mainColors', 'baseMain'),
-    'menuItemActiveBorderBg': ef.get('mainColors', 'main')
+    'menuItemActiveColor': var(--mc-baseMain),
+    'menuItemActiveBorderBg': var(--mc-main)
 ), $customCashPagesThemeDefault);
 
 $customCashPagesThemeV1: () !default;

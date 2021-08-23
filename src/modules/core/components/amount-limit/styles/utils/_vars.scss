@@ -2,6 +2,6 @@
 
 $customThemeDefault: () !default;
 $themeDefault: map-merge((
-    'limitsColor': ef.get('fieldColors', 'labelColor'),
+    'limitsColor': var(--fc-labelColor),
     'limitsMargin': -3px 0 0 ef.size(2),
 ), $customThemeDefault);

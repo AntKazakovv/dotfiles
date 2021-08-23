@@ -25,9 +25,9 @@ $themeDefault: map-merge((
     'contentBgPos': center/cover,
 
     // Bonus icon
-    'bonusIconValueFontColor': ef.get('fieldColors', 'textColor'),
-    'bonusIconShadow': 2px 5px 1px rgba(ef.get('fieldColors', 'textColor'), 0.4),
-    'bonusIconValueBg': ef.get('mainColors', 'baseMain'),
+    'bonusIconValueFontColor': var(--fc-textColor),
+    'bonusIconShadow': 2px 5px 1px var(--fc-textColor-o4),
+    'bonusIconValueBg': ef.get('mainColors', 'baseMain'), // shouldn't be css-var!!!
     'bonusIconValRadius': 12px,
     'bonusIconValPosL': 50%,
     'bonusIconValPosB': 7%,
@@ -44,9 +44,9 @@ $themeDefault: map-merge((
 
     // Active block
     'activeBlockMaxWidth': 250px,
-    'activeBlockFontColor': ef.get('mainColors', 'baseMain'),
+    'activeBlockFontColor': var(--mc-baseMain),
     'activeBlockFontSize': ef.get('font', 'less'),
-    'activeBlockFontSecondaryColor': ef.get('mainColors', 'baseMain'),
+    'activeBlockFontSecondaryColor': var(--mc-baseMain),
     'activeBlockFontSecondarySize': ef.get('font', 'less'),
     'activeBlockMargin': 0 auto,
     'activeBlockTimerMargin': 0,
@@ -117,22 +117,22 @@ $themeDefault: map-merge((
         375: 'QoteTextBoldSmaller',
         1630: 'QoteTextBold',
     ),
-    'nameFontColor': ef.get('mainColors', 'baseMain'),
+    'nameFontColor': var(--mc-baseMain),
     'descriptionTextStyle': 'PrimaryText',
     'descriptionFontColor': ef.get('mainColors', 'PrimaryText'),
     'descriptionFontSize': ef.get('font', 'less'),
 
     // // Progress bar
     'progressBarSize': 7px,
-    'progressBarBg': ef.get('fieldColors', 'inputBg'),
-    'progressBarColor': ef.get('mainColors', 'main'),
+    'progressBarBg': var(--fc-inputBg),
+    'progressBarColor': var(--mc-main),
     'progressBarText': 'PrimaryText',
-    'progressBarSecondaryColor': ef.get('mainColors', 'baseMain'),
+    'progressBarSecondaryColor': var(--mc-baseMain),
     'progressBarMargin': ef.size(1) 0,
-    'progressBarBoxShadow': inset 0 0 4px rgba(#000, 0.25),
+    'progressBarBoxShadow': inset 0 0 4px var(--mc-baseContast-o2),
     'progressBarRadius': ef.get('radius', 'biger'),
     'remaningText': 'ButtonText',
-    'remaningTextColor': ef.get('mainColors', 'baseMain'),
+    'remaningTextColor': var(--mc-baseMain),
 
     // // Tag
     'tagTextStyle': ef.get('tagConfig', 'textStyle'),
@@ -176,8 +176,8 @@ $themeDefault: map-merge((
 
     // More icon
     'moreIconSize': 24px,
-    'moreIconColor': ef.get('mainColors', 'baseOpacity'),
-    'moreIconColorHover': ef.get('mainColors', 'baseMain'),
+    'moreIconColor': var(--mc-baseOpacity),
+    'moreIconColorHover': var(--mc-baseMain),
     'moreIconPosTop': (
         375: ef.size(4),
     ),
@@ -186,24 +186,24 @@ $themeDefault: map-merge((
     ),
 
     // // Backgrounds
-    'backgroundDefault': ef.get('mainColors', 'bg300'),
-    'backgroundDefaultHover': ef.get('mainColors', 'bg100'),
+    'backgroundDefault': var(--mc-bg300),
+    'backgroundDefaultHover': var(--mc-bg100),
     'backgroundDefaultSize': cover,
     'backgroundDefaultRepeat': no-repeat,
     'overlayOpacity': 0,
     'overlayOpacityHover': 0.5,
 
     // View-mode backgrounds
-    'backgroundExperience': linear-gradient(0deg, ef.get('mainColors', 'bgModal') 0%, rgba(ef.get('mainColors', 'bgModal'), 0) 75%),
-    'backgroundExperienceHover': ef.get('mainColors', 'bg100'),
-    'backgroundLoyalty': linear-gradient(0deg, ef.get('mainColors', 'bgModal') 0%, rgba(ef.get('mainColors', 'bgModal'), 0) 75%),
-    'backgroundLoyaltyHover': ef.get('mainColors', 'bg100'),
-    'backgroundBalance': linear-gradient(0deg, ef.get('mainColors', 'bgModal') 0%, rgba(ef.get('mainColors', 'bgModal'), 0) 75%),
-    'backgroundBalanceHover': ef.get('mainColors', 'bg100'),
-    'backgroundFreerounds': linear-gradient(0deg, ef.get('mainColors', 'bgModal') 0%, rgba(ef.get('mainColors', 'bgModal'), 0) 75%),
-    'backgroundFreeroundsHover': ef.get('mainColors', 'bg100'),
-    'backgroundRelative': linear-gradient(0deg, ef.get('mainColors', 'bgModal') 0%, rgba(ef.get('mainColors', 'bgModal'), 0) 75%),
-    'backgroundRelativeHover': ef.get('mainColors', 'bg100'),
+    'backgroundExperience': linear-gradient(0deg, var(--mc-bgModal) 0%, var(--mc-bgModal-o0) 75%),
+    'backgroundExperienceHover': var(--mc-bg100),
+    'backgroundLoyalty': linear-gradient(0deg, var(--mc-bgModal) 0%, var(--mc-bgModal-o0) 75%),
+    'backgroundLoyaltyHover': var(--mc-bg100),
+    'backgroundBalance': linear-gradient(0deg, var(--mc-bgModal) 0%, var(--mc-bgModal-o0) 75%),
+    'backgroundBalanceHover': var(--mc-bg100),
+    'backgroundFreerounds': linear-gradient(0deg, var(--mc-bgModal) 0%, var(--mc-bgModal-o0) 75%),
+    'backgroundFreeroundsHover': var(--mc-bg100),
+    'backgroundRelative': linear-gradient(0deg, var(--mc-bgModal) 0%, var(--mc-bgModal-o0) 75%),
+    'backgroundRelativeHover': var(--mc-bg100),
 ), $customThemeDefault);
 
 // Other themes vars

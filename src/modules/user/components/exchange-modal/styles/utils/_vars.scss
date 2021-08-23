@@ -2,5 +2,5 @@
 
 $customThemeDefault: () !default;
 $themeDefault: map-merge((
-    'background': ef.get('mainColors', 'bgModal'),
+    'background': var(--mc-bgModal),
 ), $customThemeDefault);

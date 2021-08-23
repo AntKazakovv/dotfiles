@@ -2,18 +2,18 @@
 
 $customThemePartial: () !default;
 $themePartial: map-merge((
-    'blankIconSignBorderColor': ef.get('mainColors', 'success'),
+    'blankIconSignBorderColor': var(--mc-success),
     'blankIconSignPadding': (
         320: ef.size(1),
         900: ef.size(3),
     ),
     'blankIconSignBackground': (
-        320: ef.get('mainColors', 'bg700'),
-        900: ef.get('mainColors', 'bg300'),
+        320: var(--mc-bg700),
+        900: var(--mc-bg300),
     ),
-    'blankIconSignChosenBorderColor': ef.get('mainColors', 'success'),
-    'blankCheckIconBackground': ef.get('mainColors', 'success'),
-    'blankCheckNameColor': ef.get('fieldColors', 'inputBg'),
+    'blankIconSignChosenBorderColor': var(--mc-success),
+    'blankCheckIconBackground': var(--mc-success),
+    'blankCheckNameColor': var(--mc-baseMain),
 
     'bodySize': (
         320: 235px,
@@ -31,7 +31,7 @@ $themePartial: map-merge((
     ),
     'bodyRadius': ef.get('radius', 'biger'),
     'bodyBackground': (
-        320: ef.get('mainColors', 'bg300'),
+        320: var(--mc-bg300),
         900: transparent,
     ),
 
@@ -39,7 +39,7 @@ $themePartial: map-merge((
         320: block,
         900: none,
     ),
-    'footerBackground': ef.get('mainColors', 'bg'),
+    'footerBackground': var(--mc-bg),
     'footerPadding': ef.size(3) ef.size(4),
     'footerRadius': ef.get('radius', 'biger'),
     'footerMaxWidth': 235px,
@@ -52,7 +52,7 @@ $themePartial: map-merge((
         1630: 8px,
     ),
     'checkIconSize': 25px,
-    'checkIconBackground': ef.get('mainColors', 'success'),
+    'checkIconBackground': var(--mc-success),
     'checkIconRadius': 50%,
     'checkIconSvgSize': 13px,
     'checkIconStrokeColor': ef.get('mainColors', 'baseMain'),
@@ -85,10 +85,10 @@ $themePartial: map-merge((
         900: none,
     ),
     'bonusNameStyle': 'ThirdTitleBold',
-    'bonusNameColor': ef.get('mainColors', 'baseMain'),
+    'bonusNameColor': var(--mc-baseMain),
 
     'bonusDescriptionStyle': 'PlaceholderText',
-    'bonusDescriptionColor': ef.get('mainColors', 'baseMain'),
+    'bonusDescriptionColor': var(--mc-baseMain),
 
     'bonusIconValueFontSizeSmall': 1.4rem,
     'bonusIconValueFontSizeSmaller': 1rem,

@@ -11,8 +11,8 @@ $themeDefault: map-merge((
         1024: 25px ef.get('size', 'main'),
         1630: ef.get('size', 'less') ef.get('size', 'main'),
     ),
-    'containerBackground': ef.get('mainColors', 'bg300'),
-    'containerShadow': 0 4px 9px 0 rgba(ef.get('mainColors', 'bg'), 0.07),
+    'containerBackground': var(--mc-bg300),
+    'containerShadow': 0 4px 9px 0 var(--mc-bg-o1),
     'containerHeight': 100%,
     'containerMinHeight': (
         375: 150px,
@@ -21,7 +21,7 @@ $themeDefault: map-merge((
     ),
 
     'titleFontStyle': 'ThirdTitleBold',
-    'titleColor': ef.get('mainColors', 'baseMain'),
+    'titleColor': var(--mc-baseMain),
     'titleMargin': (
         375: 0 0 ef.get('size', 'smaller'),
         560: 0 0 ef.get('size', 'less'),
@@ -31,13 +31,14 @@ $themeDefault: map-merge((
     ),
 
     'subtitleFontStyle': 'PlaceholderText',
-    'subtitleColor': ef.get('mainColors', 'baseMain'),
+    'subtitleColor': var(--mc-baseMain),
     'subtitleMargin': 0 0 ef.get('size', 'small') 0,
 
     'linkFontStyle': 'ButtonText',
-    'linkColor': ef.get('mainColors', 'main'),
-    'linkColorHover': lighten(ef.get('mainColors', 'main'), 20%),
+    'linkColor': var(--mc-main),
+    'linkColorHover': var(--mc-baseMain),
 
-    'iconFill': ef.get('mainColors', 'main'),
+    'iconFill': var(--mc-main),
+    'iconFillHover': var(--mc-baseMain),
     'iconMargin': 0 0 0 ef.get('size', 'smallest'),
 ), $customThemeDefault);

@@ -3,9 +3,9 @@
 $customThemeTournaments: () !default;
 $themeTournaments: map-merge((
     'background': (
-        375: ef.get('mainColors', 'bg700'),
+        375: var(--mc-bg700),
     ),
-    'color': ef.get('mainColors', 'baseMain'),
+    'color': var(--mc-baseMain),
     'borderRadius': ef.get('size', 'small'),
     'padding': (
         375: ef.get('size', 'small'),
@@ -20,8 +20,8 @@ $themeTournaments: map-merge((
         640: ef.get('size', 'less') 0 0 0,
     ),
     'labelBorderRadius': 0 0 ef.get('size', 'small') 0,
-    'labelBg': ef.get('mainColors', 'main'),
-    'labelColor': ef.get('mainColors', 'baseMain'),
+    'labelBg': var(--mc-main),
+    'labelColor': var(--mc-baseMain),
     'labelPadding': (
         375: ef.get('size', 'small'),
     ),

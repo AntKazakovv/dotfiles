@@ -10,5 +10,5 @@ $themeDefault: map-merge((
         375: center,
         1024: start,
     ),
-    'textColor': ef.get('mainColors', 'baseMain'),
+    'textColor': var(--mc-baseMain),
 ), $customThemeDefault);

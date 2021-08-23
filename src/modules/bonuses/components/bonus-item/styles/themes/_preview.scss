@@ -95,7 +95,7 @@
             background: ef.get-value($themePreview, 'blankBg');
 
             &-title {
-                @include text.get-text-style(ef.get-value($themePreview, 'bonusTitleStyle'));
+                @include text.get-text-style(ef.get-value($themePreview, 'bonusTitleStyle'), ef.get-value($themePreview, 'blankTextColor'));
                 margin: ef.get-value($themeDefault, 'bonusTitleMargin');
 
                 &:last-child {
@@ -104,12 +104,12 @@
             }
 
             &-subtitle {
-                @include text.get-text-style(ef.get-value($themePreview, 'bonusSubtitleStyle'));
+                @include text.get-text-style(ef.get-value($themePreview, 'bonusSubtitleStyle'), ef.get-value($themePreview, 'blankTextColor'));
                 margin: ef.get-value($themePreview, 'bonusSubtitleMargin');
             }
 
             &-text {
-                @include text.get-text-style(ef.get-value($themePreview, 'bonusTextStyle'));
+                @include text.get-text-style(ef.get-value($themePreview, 'bonusTextStyle'), ef.get-value($themePreview, 'blankTextColor'));
             }
         }
     }

@@ -12,10 +12,10 @@ $themeDefault: map-merge((
 $customThemeDashboard: () !default;
 $themeDashboard: map-merge((
     'titleTextStyle': 'ThirdTitleBold',
-    'titleColor': ef.get('mainColors', 'baseMain'),
+    'titleColor': var(--mc-baseMain),
     'headerMargin': 0 0 ef.get('size', 'smally') 0,
     'swiperNavTop': 140px,
-    'fillColor': ef.get('mainColors', 'baseMain'),
+    'fillColor': var(--mc-baseMain),
 ), $customThemeDashboard);
 
 $customThemeBanner: () !default;

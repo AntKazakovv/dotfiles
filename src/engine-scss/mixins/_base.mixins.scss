@@ -244,3 +244,9 @@
         pointer-events: none;
     }
 }
+
+@mixin colorThemeAlt() {
+    .wlc-body--theme-alt & {
+        @content;
+    }
+}

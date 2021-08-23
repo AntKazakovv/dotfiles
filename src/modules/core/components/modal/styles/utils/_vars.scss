@@ -60,15 +60,15 @@ $hostModal: map-merge((
         320: 32px,
     ),
     'closeSize': 30px,
-    'closeLineStroke': ef.get('mainColors', 'baseMain'),
+    'closeLineStroke': var(--mc-baseMain),
 
-    'modalHeaderColor': ef.get('mainColors', 'baseMain'),
-    'modalBodyColor': ef.get('mainColors', 'baseMain'),
-    'modalBg': ef.get('mainColors', 'bgModal'),
+    'modalHeaderColor': var(--mc-baseMain),
+    'modalBodyColor': var(--mc-baseMain),
+    'modalBg': var(--mc-bgModal),
     'modalOffset': 0 auto 50px auto,
     'modalOffsetMobile': -#{ef.get('size', 'less')} auto 0 auto,
     'modalOffsetIosMobile': -#{ef.get('size', 'less')} auto ef.get('size', 'biger') auto,
-    'modalBorder': 1px solid rgba(ef.get('mainColors', 'bg'), $alpha: 0.2),
+    'modalBorder': 1px solid var(--mc-bg-o2),
     'modalBorderRadius': ef.get('radius', 'small'),
     'modalFooterBtnsMargin': 0 ef.get('size', 'small'),
     'modalHeaderPadding': ef.get('size', 'smaller') ef.get('size', 'less'),
@@ -77,11 +77,11 @@ $hostModal: map-merge((
     'modalBodyPaddingConfirm': ef.get('size', 'small') ef.get('size', 'less'),
     'modalFooterPadding': ef.get('size', 'less'),
     'modalFooterPaddingConfirm': ef.get('size', 'less') ef.get('size', 'less') ef.get('size', 'main') ef.get('size', 'less'),
-    //'modalHeaderBorderBottom': 1px solid ef.get('mainColors', 'baseOpacity'),
+    //'modalHeaderBorderBottom': 1px solid var(--mc-baseOpacity),
     'modalHeaderBorderBottom': unset,
     'modalFooterBorderTop': 1px solid transparent,
     'modalFooterJustify': center,
-    'modalBackdrop': ef.get('mainColors', 'bg'),
+    'modalBackdrop': var(--mc-bg),
     'modalAnimation': 'fadeLeft',
     'modalAnimationSettings': 0.3s forwards ease-in-out,
 
@@ -89,17 +89,18 @@ $hostModal: map-merge((
     'modalPosition': 0,
     'backdropZIndex': 1040,
     'backdropPosition': 0,
-    'backdropBackground': ef.get('mainColors', 'bg'),
+    'backdropBackground': var(--mc-bg),
+    'dialogBackground': var(--mc-bgModal),
+    'dialogShadow': 0 0 20px var(--mc-bg-d20),
     'backdropOpacity': (
         375: 1,
         560: 0.65,
     ),
-    'dialogBackground': ef.get('mainColors', 'bgModal'),
 
     'titleFontSize': 'QoteTextBold',
     'titleFontSizeMobile': 'ThirdTitleBold',
     'titleMargin': 0,
-    'titleColor': ef.get('mainColors', 'baseMain'),
+    'titleColor': var(--mc-baseMain),
     'titleWidth': 100%,
     'titleMaxWidth': 100%,
     'titlePadding': 0 ef.get('size', 'smally') 0 ef.get('size', 'smally'),
@@ -124,8 +125,10 @@ $hostModal: map-merge((
     ),
     'backBtnFontStyle': 'PlaceholderTextBold',
     'backBtnPadding': 2px,
-    'backBtnColor': ef.get('mainColors', 'main'),
-    'backBtnIconColor': ef.get('mainColors', 'main'),
+    'backBtnColor': var(--mc-main),
+    'backBtnColorHover': var(--mc-baseMain),
+    'backBtnIconColor': var(--mc-main),
+    'backBtnIconColorHover': var(--mc-baseMain),
     'backBtnIconWidth': (
         320: 14px,
         900: 10px,
@@ -137,12 +140,12 @@ $hostModal: map-merge((
     'backBtnIconLineHeight': 0,
     'backBtnIconMargin': 1px ef.get('size', 'smallest') 0 0,
 
-    'messageColor': ef.get('mainColors', 'baseMain'),
+    'messageColor': var(--mc-baseMain),
     'messageFontSizeConfirm': ef.get('font', 'PrimaryText'),
 
     'iconSize': 120px,
     'iconMargin': 0 0 ef.get('size', 'main') 0,
-    'iconColorConfirm': ef.get('mainColors', 'bg500'),
+    'iconColorConfirm': var(--mc-bg500),
 
     'paddingDefault': 3rem 4rem,
     'paddingHeadless': 0,
@@ -171,8 +174,8 @@ $hostModal: map-merge((
 
     //scrollable
     'scrollBarWidth': 7px,
-    'scrollBarTrackColor': lighten(ef.get('mainColors', 'bgModal'), 5%),
-    'scrollBarColor': darken(ef.get('mainColors', 'bgModal'), 5%),
+    'scrollBarTrackColor': var(--mc-bgModal-l5),
+    'scrollBarColor': var(--mc-bgModal-d5),
     'staticMaxHeightMobile': (
         375: calc(100vh - 230px),
         560: calc(100vh - 295px),
@@ -191,15 +194,15 @@ $languageModal: map-merge((
 $customThemeDefault: () !default;
 $themeDefault: map-merge((
     'dialogBackground': (
-        375: ef.get('mainColors', 'bgModal'),
+        375: var(--mc-bgModal),
         560: none,
     ),
-    'dialogBorder': 1px solid rgba(ef.get('mainColors', 'bg'), $alpha: 0.2),
+    'dialogBorder': 1px solid var(--mc-bg-o2),
     'dialogBorderRadius': ef.get('radius', 'big'),
     'titleFontSize': 'QoteTextBold',
     'titleFontMobile': 'PrimaryText',
     'titleMargin': 0,
-    'titleColor': ef.get('mainColors', 'baseMain'),
+    'titleColor': var(--mc-baseMain),
 
     // loginSignUp modal modifier
     'loginSignUpModalWrapperPadding': (
@@ -207,7 +210,7 @@ $themeDefault: map-merge((
         900: 50px 0,
     ),
     'loginSignUpModalBackground': (
-        320: ef.get('mainColors', 'bgModal'),
+        320: var(--mc-bgModal),
         900: transparent,
     ),
 
@@ -233,7 +236,7 @@ $themeDefault: map-merge((
     ),
 
     'loginSignUpTitleStyle': 'PrimaryTextBold',
-    'loginSignUpTitleColor': ef.get('mainColors', 'baseMain'),
+    'loginSignUpTitleColor': var(--mc-baseMain),
     'loginSignUpTitleAlign': center,
 
     'loginSignUpDialogHeight': (
@@ -248,7 +251,7 @@ $themeDefault: map-merge((
 
     'loginSignUpDialogBorder': (
         320: none,
-        900: 1px solid rgba(ef.get('mainColors', 'bg'), $alpha: 0.2),
+        900: 1px solid var(--mc-bg-o2),
     ),
     // loginSignUp modal modifier
 
@@ -258,7 +261,7 @@ $themeDefault: map-merge((
         900: 50px 0,
     ),
     'restoreModalBackground': (
-        320: ef.get('mainColors', 'bgModal'),
+        320: var(--mc-bgModal),
         560: transparent,
     ),
 
@@ -266,7 +269,7 @@ $themeDefault: map-merge((
 
     'restoreDialogBorder': (
         320: none,
-        560: 1px solid rgba(ef.get('mainColors', 'bg'), $alpha: 0.2),
+        560: 1px solid var(--mc-bg-o2),
     ),
 
     'restoreDialogMarign': (
@@ -285,7 +288,7 @@ $themeDefault: map-merge((
     ),
     'restoreTitleStyleDesk': 'QoteTextBold',
     'restoreTitleStyle': 'PrimaryTextBold',
-    'restoreTitleColor': ef.get('mainColors', 'baseMain'),
+    'restoreTitleColor': var(--mc-baseMain),
 
     'restoreBodyPadding': (
         320: ef.get('size', 'big') ef.get('size', 'less') ef.get('size', 'less'),

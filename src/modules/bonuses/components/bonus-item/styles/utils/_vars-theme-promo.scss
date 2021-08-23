@@ -2,8 +2,8 @@
 
 $customThemePromo: () !default;
 $themePromo: map-merge((
-    'background': ef.get('mainColors', 'bg700'),
-    'backgroundHover': ef.get('mainColors', 'bg700'),
+    'background': var(--mc-bg700),
+    'backgroundHover': var(--mc-bg700),
     'radius': ef.get('radius', 'biger'),
     'height': (
         320: auto,
@@ -47,7 +47,7 @@ $themePromo: map-merge((
         560: start,
     ),
 
-    'nameFontColor': ef.get('mainColors', 'baseMain'),
+    'nameFontColor': var(--mc-baseMain),
     'nameTextStyle': (
         375: 'QoteTextBold',
         900: 'PromoTitle',
@@ -75,7 +75,7 @@ $themePromo: map-merge((
     ),
     'imageBg': ef.get-value($themeDefault, 'imageBg'),
     'imgOverlay': (
-        375: linear-gradient(0deg, ef.get('mainColors', 'bg700') 50%, rgba(ef.get('mainColors', 'bg700'), 0) 85%),
+        375: linear-gradient(0deg, var(--mc-bg700) 50%, var(--mc-bg700-o0) 85%),
         560: none,
     ),
     'imgPadding': (
@@ -89,8 +89,8 @@ $themePromo: map-merge((
         560: 0,
     ),
 
-    'baseBg': ef.get('mainColors', 'bg300'),
-    'baseBgHover': ef.get('mainColors', 'bg500'),
+    'baseBg': var(--mc-bg300),
+    'baseBgHover': var(--mc-bg500),
 
     'btnsJustifyContent': start,
 ), $customThemePromo);

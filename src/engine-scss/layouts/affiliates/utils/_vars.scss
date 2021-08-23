@@ -3,7 +3,7 @@
 $customAffSectionsDefault: () !default;
 $affSectionsDefault: map-merge((
     'anchorsBg': (
-        375:  ef.get('mainColors', 'bg100'),
+        375:  var(--mc-bg100),
     ),
     'anchorsPadding': ef.get('size', 'small') 0,
 
@@ -14,7 +14,7 @@ $affSectionsDefault: map-merge((
     'comissionPadding': 0 0 ef.get('size', 'main'),
 
     'descrBg': (
-        375: ef.get('mainColors', 'bg300'),
+        375: var(--mc-bg300),
     ),
     'descrPadding': ef.get('size', 'main') 0,
 
@@ -71,7 +71,7 @@ $themeDefaultBenefits: map-merge((
 
     'separatorWidth': 2px,
     'separatorHeight': 50%,
-    'separatorBg': ef.get('mainColors', 'baseOpacity'),
+    'separatorBg': var(--mc-baseOpacity),
     'separatorOpacity': (
         375: 0,
         1024: 1
@@ -94,7 +94,7 @@ $themeDefaultDigits: map-merge((
         375: ef.get('size', 'small'),
         1200: ef.get('size', 'smally'),
     ),
-    'itemBg': ef.get('mainColors', 'bg300'),
+    'itemBg': var(--mc-bg300),
     'itemRadius': ef.get('radius', 'biger'),
     'itemTextAlign': center,
     'itemPadding': (
@@ -107,7 +107,7 @@ $themeDefaultDigits: map-merge((
     'separatorWidth': 100%,
     'separatorHeight': 2px,
     'separatorRadius': ef.get('radius', 'large'),
-    'separatorBg': ef.get('mainColors', 'baseOpacity'),
+    'separatorBg': var(--mc-baseOpacity),
 
     'mainTextFontSize': (
         375: ef.get('font', 'PromoTitle'),

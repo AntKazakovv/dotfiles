@@ -2,8 +2,8 @@
 
 $customThemeDefault: () !default;
 $themeDefault: map-merge((
-    'contentColor': ef.get('mainColors', 'baseMain'),
-    'contentHeaderColor': ef.get('mainColors', 'baseMain'),
+    'contentColor': var(--mc-baseMain),
+    'contentHeaderColor': var(--mc-baseMain),
     'contentHeaderMargin': ef.get('size', 'small') 0,
     'contentMargin': 0 0 ef.get('size', 'smallest'),
 ), $customThemeDefault);
@@ -14,14 +14,14 @@ $themeAffiliates: map-merge((
         375: 'PrimaryText',
         768: 'ThirdTitle'
     ),
-    'contentColor': ef.get('mainColors', 'baseMain'),
+    'contentColor': var(--mc-baseMain),
 
     'titleTextStyle': (
         375: 'ThirdTitleBold',
         768: 'QoteTextBold',
     ),
     'titleTextTransform': uppercase,
-    'titleColor': ef.get('mainColors', 'baseMain'),
+    'titleColor': var(--mc-baseMain),
     'titleMargin': (
         375: ef.get('size', 'smaller') 0 ef.get('size', 'smally'),
         1200: ef.get('size', 'less') 0 ef.get('size', 'smally'),

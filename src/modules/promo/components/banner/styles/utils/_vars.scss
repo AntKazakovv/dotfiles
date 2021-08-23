@@ -2,7 +2,7 @@
 
 $customThemeDefaultBanner: () !default;
 $themeDefaultBanner: map-merge((
-    'background': ef.get('mainColors', 'bg500'),
+    'background': var(--mc-bg500),
     'height': (
         375: 220px,
         1024: 300px,
@@ -34,7 +34,7 @@ $themeDefaultBanner: map-merge((
     ),
     'backdropColor': linear-gradient(to bottom, #000000, transparent),
     'banner1DefaultColor': (
-        375: #fff,
+        375: ef.get('mainColors', 'baseMain'),
         1024: ef.get('mainColors', 'bg'),
     ),
     'banner1ColorShadow': (

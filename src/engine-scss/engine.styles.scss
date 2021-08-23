@@ -3,7 +3,8 @@
 @use './mixins/text' as text;
 
 @import './mixins/animations';
-@import 'engine.variables';
+@import './engine.variables';
+@import './css.variables';
 @import './base/fonts';
 
 @import '~bootstrap/scss/bootstrap-reboot';

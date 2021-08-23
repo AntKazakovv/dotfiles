@@ -19,18 +19,18 @@ $themePreview: map-merge((
     'contentHeigh': 100%,
     'contentBg': center/cover,
 
-    'tagFontColor': ef.get('mainColors', 'baseMain'),
+    'tagFontColor': var(--mc-baseMain),
     'tagBg': none,
     'tagPadding': 0,
 
     'iconSignBoreder': 3px solid transparent,
     'iconSignRadius': 50%,
-    'iconSignBackground': ef.get('mainColors', 'baseMain'),
+    'iconSignBackground': var(--mc-baseMain),
     'iconSignSize': (
         900: 180px,
         1630: 205px,
     ),
-    'iconSignShadow': 0 1px 14px 0 rgba(ef.get('fieldColors', 'textColor'), 0.15),
+    'iconSignShadow': 0 1px 14px 0 var(--fc-textColor-o2),
 
     'moreIconPosRight': 0,
     'moreIconPosTop': 0,
@@ -41,24 +41,25 @@ $themePreview: map-merge((
 
     'bonusNameMargin': 0 0 ef.size(2) 0,
     'bonusNameStyle': 'PromoTitle',
-    'bonusNameColor': ef.get('mainColors', 'baseMain'),
+    'bonusNameColor': var(--mc-baseMain),
 
     'bonusDescriptionStyle': 'ThirdTitle',
-    'bonusDescriptionColor': ef.get('mainColors', 'baseMain'),
+    'bonusDescriptionColor': var(--mc-baseMain),
 
     'bonusHeight': 100%,
-    'bonusBackround': rgba(ef.get('fieldColors', 'textColor'), 0.4),
+    'bonusBackround': var(--fc-textColor-o4),
     'bonusTitleStyle': 'PromoTitle',
     'bonusTitleMargin': auto auto ef.size(6),
     'bonusSubtitleStyle': 'PrimaryText',
     'bonusSubtitleMargin': 0 auto auto,
     'bonusTextStyle': 'ThirdTitle',
     'bonusPadding': ef.size(6) ef.size(12) ef.size(15),
-    'bonusBackground': ef.get('mainColors', 'bg300'),
+    'bonusBackground': var(--mc-bg300) no-repeat center top/cover,
 
     'bonusIconValueFontSizeSmaller': 1.4rem,
 
     'blankBg': #{url('/gstatic/wlc/bonuses/blank-bonus-decor.png') no-repeat center top/contain, linear-gradient(180deg, #8dacc9 0%, #003d5f 100%)},
     'contentOverlayOpacity': 0.9,
-    'contentOverlayBg': linear-gradient(0deg, ef.get('mainColors', 'bgModal') 0%, rgba(ef.get('mainColors', 'bgModal'), 0) 85%),
+    'blankTextColor': ef.get('mainColors', 'baseMain'),
+    'contentOverlayBg': linear-gradient(0deg, var(--mc-bgModal) 0%, var(--mc-bgModal-o0) 85%),
 ), $customThemePreview);

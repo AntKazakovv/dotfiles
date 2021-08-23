@@ -13,7 +13,9 @@ $themeDefault: map-merge((
     'profileMenuBg': (
         375: ef.get-value(ev.$profileSettings, 'profileBg', 375),
     ),
-    'profileMenuActiveColor': ef.get('mainColors', 'baseMain'),
+    'profileMenuTextStyle': 'PrimaryText',
+    'profileMenuTextColor': var(--mc-base-main),
+    'profileMenuActiveColor': var(--mc-baseMain),
     'profileMenuBgBeforeHeight': ef.get('size', 'smaller'),
     'profileMenuLinkPadding': (
         375: ef.get('size', 'small') ef.get('size', 'small'),
@@ -22,37 +24,39 @@ $themeDefault: map-merge((
     ),
     'profileMenuLinkBorderRadius': ef.get('radius', 'big') ef.get('radius', 'big') 0 0,
     'iconSize': 16px,
+    'profileMenuAngleBg': ef.get-value(ev.$profileSettings, 'profileTabAngleBg'),
+    'profileMenuAngleBgAlt': ef.get-value(ev.$profileSettings, 'profileTabAngleBgAlt'),
 ), $customThemeDefault);
 
 $customDropdownThemeDefault: () !default;
 $themeDropdownDefault: map-merge((
     'menuGag': 5px,
     'activeTabLinkColor': ef.get('mainColors', 'baseMain'),
-    'activeTabLinkBg': ef.get('mainColors', 'main'),
+    'activeTabLinkBg': var(--mc-main),
     'linkPadding': 8px 12px,
-    'linkColor': ef.get('mainColors', 'baseMain'),
+    'linkColor': var(--mc-baseMain),
     'hoverLinkColor': null,
-    'hoverLinkBg': ef.get('mainColors', 'bg500'),
+    'hoverLinkBg': var(--mc-bg500),
     'linkBg': (
-        375: ef.get('mainColors', 'bg700'),
-        1200: ef.get('mainColors', 'bg'),
+        375: var(--mc-bg700),
+        1200: var(--mc-bg),
     ),
     'activeLinkBg': (
-        375: ef.get('mainColors', 'bg500'),
-        1200: ef.get('mainColors', 'bg500'),
+        375: var(--mc-bg500),
+        1200: var(--mc-bg500),
     ),
-    'linkFill': ef.get('mainColors', 'baseMain'),
+    'linkFill': var(--mc-baseMain),
     'linkBorderRadius': ef.get('radius', 'biger'),
     'submenuBg': (
-        375: ef.get('mainColors', 'bg700'),
-        1200: ef.get('mainColors', 'bg'),
+        375: var(--mc-bg700),
+        1200: var(--mc-bg),
     ),
-    'activeLinkColor': ef.get('mainColors', 'baseMain'),
+    'activeLinkColor': var(--mc-baseMain),
 ), $customDropdownThemeDefault);
 
 $customSubmenuProfileDefault: () !default;
 $submenuProfileDefault: map-merge((
-    'submenuBorderBottom': ef.get('mainColors', 'baseOpacity'),
+    'submenuBorderBottom': var(--mc-baseOpacity),
     'submenuBorderBottomHeight': 2px,
     'submenuMargin': (
         375: ef.get('size', 'smally') 0,
@@ -62,7 +66,7 @@ $submenuProfileDefault: map-merge((
         375: 10px 0,
         1024: 15px 0
     ),
-    'submenuItemActiveBorder': ef.get('mainColors', 'main'),
+    'submenuItemActiveBorder': var(--mc-main),
     'menuGap': (
         375: 30px
     ),
@@ -75,16 +79,16 @@ $submenuProfileDefault: map-merge((
 
 $customFullProfileFirstDefault: () !default;
 $fullProfileFirstDefault: map-merge((
-    'menuBg': ef.get('mainColors', 'bg300'),
+    'menuBg': var(--mc-bg300),
     'menuPadding': ef.get('size', 'smallest') 0,
     'menuRadius': ef.get('radius', 'biger') 0 0 ef.get('radius', 'biger'),
     'menuItemDropdownPadding': (
         320: ef.get('size', 'small') ef.get('size', 'less'),
         1630: ef.get('size', 'smally') ef.get('size', 'less'),
     ),
-    'menuItemDropdownBorder': 2px solid ef.get('mainColors', 'baseOpacity'),
+    'menuItemDropdownBorder': 2px solid var(--mc-baseOpacity),
     'menuTitleFontStyle': 'QoteTextBold',
-    'menuTitleFontColor': ef.get('mainColors', 'baseMain'),
+    'menuTitleFontColor': var(--mc-baseMain),
     'menuTitleLineHeight': (
         320: 1.1,
         1630: 1.2,
@@ -94,15 +98,15 @@ $fullProfileFirstDefault: map-merge((
         320: 0 0 ef.get('size', 'small') 0,
     ),
     'menuLinkFontStyle': 'ThirdTitle',
-    'menuLinkFontColor': ef.get('mainColors', 'baseMain'),
+    'menuLinkFontColor': var(--mc-baseMain),
     'menuLinkTextDecoration': none,
     'menuLinkMargin': (
         320: 0 0 ef.get('size', 'smallest') 0,
         1630: 0 0 ef.get('size', 'small') 0,
     ),
     'menuLinkActiveFontStyle': 'ThirdTitleBold',
-    'menuLinkActiveFontColor': ef.get('mainColors', 'baseMain'),
-    'menuLinkHoverFontColor': ef.get('mainColors', 'main'),
+    'menuLinkActiveFontColor': var(--mc-baseMain),
+    'menuLinkHoverFontColor': var(--mc-main),
     'activeIconLeft': -45px,
     'activeIconTop': 50%,
     'activeIconTransform': translateY(-50%),
@@ -111,5 +115,5 @@ $fullProfileFirstDefault: map-merge((
         320: 16px,
         1630: 17px,
     ),
-    'activeIconColor': ef.get('mainColors', 'main'),
+    'activeIconColor': var(--mc-main),
 ), $customFullProfileFirstDefault);

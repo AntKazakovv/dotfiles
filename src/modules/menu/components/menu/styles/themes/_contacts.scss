@@ -9,14 +9,15 @@
     .wlc-menu__item {
 
         .wlc-menu__link {
-            display: block;
             @include text.get-text-style('ThirdTitleBold', ef.get-value($menuThemeContacts, 'textColor'));
+            @include bm.transition;
+
+            display: block;
             padding: ef.get-value($menuThemeContacts, 'padding');
             text-decoration: ef.get-value($menuThemeContacts, 'textDecoration');
             border-bottom: 2px solid ef.get-value($menuThemeContacts, 'borderColor');
             text-transform: ef.get-value($menuThemeContacts, 'textTransform');
             letter-spacing: ef.get-value($menuThemeContacts, 'letterSpacing');
-            @include bm.transition;
 
             &:hover {
                 background: ef.get-value($menuThemeContacts, 'hoverBg');

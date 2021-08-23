@@ -4,14 +4,14 @@ $customThemeDefault: () !default;
 $themeDefault: map-merge((
     'baseHeight': 100%,
 
-    'tournamentBg': ef.get('mainColors', 'bg700'),
+    'tournamentBg': var(--mc-bg700),
     'tournamentRadius': ef.get('radius', 'biger'),
     'tournamentMaxWidth': 100%,
     'tournamentFlexDirection': column,
 
     'tournamentGradient': (
-        320: linear-gradient(360deg, ef.get('mainColors', 'bg700') 55%, rgba(ef.get('mainColors', 'bg700'), 0) 101%, rgba(ef.get('mainColors', 'bg700'), 0.7) 155%),
-        768: linear-gradient(90deg, ef.get('mainColors', 'bg700') 35%, rgba(ef.get('mainColors', 'bg700'), 0) 77%, rgba(ef.get('mainColors', 'bg700'), 0.7) 100%),
+        320: linear-gradient(360deg, var(--mc-bg700) 55%, var(--mc-bg700-o0) 101%, var(--mc-bg700-o8) 155%),
+        768: linear-gradient(90deg, var(--mc-bg700) 35%, var(--mc-bg700-o0) 77%, var(--mc-bg700-o8) 100%),
     ),
 
     'tournamentBeforePosition': 0,
@@ -22,12 +22,12 @@ $themeDefault: map-merge((
         1024: 0 ef.get('size', 'smally'),
     ),
     'timerCountdownFont': 'PrimaryTextBold',
-    'timerCountdownColor': ef.get('mainColors', 'baseMain'),
+    'timerCountdownColor': var(--mc-baseMain),
 
     'timerSecondaryFont': 'PrimaryText',
-    'timerSecondaryColor': ef.get('mainColors', 'baseMain'),
+    'timerSecondaryColor': var(--mc-baseMain),
 
-    'moreIconColor': ef.get('mainColors', 'baseOpacity'),
+    'moreIconColor': var(--mc-baseOpacity),
 
     'bodyPadding': (
         320: 55px ef.get('size', 'smally') ef.get('size', 'less'),
@@ -35,7 +35,7 @@ $themeDefault: map-merge((
     ),
     'bodyFont': 'PromoTitle',
     'bodyFontM': 'QoteTextBold',
-    'bodyColor': ef.get('fieldColors', 'inputBg'),
+    'bodyColor': var(--mc-baseMain),
     'bodyMargin': 0 0 ef.get('size', 'smally'),
     'bodyBgSize': (
         320: contain,
@@ -62,7 +62,7 @@ $themeDefault: map-merge((
 
     'timerBlockMargin': 0 0 ef.get('size', 'smally'),
     'descriptionFont': 'PrimaryText',
-    'descriptionColor': ef.get('mainColors', 'baseMain'),
+    'descriptionColor': var(--mc-baseMain),
     'descriptionMargin': (
         320: 0 0 ef.get('size', 'smaller') 0,
         768: 0 0 ef.get('size', 'biger') 0,
@@ -83,7 +83,7 @@ $themeDefault: map-merge((
 
     'loaderZIndex': 10,
     'loaderPosition': 0,
-    'loaderBachround': rgba(ef.get('mainColors', 'disabled'), 0.7),
+    'loaderBachround': var(--mc-disabled-o6),
     'loaderRadius': ef.get('radius', 'biger'),
     'loaderAlignItems': center,
     'loaderJustifyContent': center,
@@ -91,11 +91,11 @@ $themeDefault: map-merge((
     'loaderBeforePosition': 0,
     'loaderBeforeSize': 60px,
     'loaderBeforeMargin': auto,
-    'loaderBeforeBackground': rgba(ef.get('mainColors', 'bg'), 0.9),
+    'loaderBeforeBackground': var(--mc-bg-o8),
     'loaderBeforeRadius': 50%,
 
     'loaderAfterSize': 50px,
-    'loaderAfterBorderColor': ef.get('mainColors', 'main'),
+    'loaderAfterBorderColor': var(--mc-main),
     'loaderAfterRadius': 50%,
     'loaderAfterAnimation': spin 1s infinite linear,
 

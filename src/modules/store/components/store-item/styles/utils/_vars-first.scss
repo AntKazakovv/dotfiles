@@ -31,18 +31,18 @@ $themeFirst: map-merge((
     'topImgMargin': 65px,
     'bottomImgMargin': ef.get('size', 'smaller'),
     // // Font
-    'nameFontColor': ef.get('mainColors', 'baseMain'),
+    'nameFontColor': var(--mc-baseMain),
     'nameFontSize': ef.get('font', 'big'),
-    'priceFontColor': ef.get('mainColors', 'baseMain'),
+    'priceFontColor': var(--mc-baseMain),
     'priceFontSize': ef.get('font', 'PrimaryText'),
-    'moreIconColor': ef.get('mainColors', 'baseOpacity'),
-    'moreIconColorHover': ef.get('mainColors', 'baseMain'),
+    'moreIconColor': var(--mc-baseOpacity),
+    'moreIconColorHover': var(--mc-baseMain),
     'moreIconPadding': ef.get('size', 'smallest'),
     // // Backgrounds
-    'background': ef.get('mainColors', 'bg300'),
-    'backgroundHover': ef.get('mainColors', 'bg500'),
-    'imageBg': ef.get('mainColors', 'bg500'),
-    'imageGradient': linear-gradient(180deg, #000000 0%, rgba(0, 0, 0, 0) 26.77%),
+    'background': var(--mc-bg300),
+    'backgroundHover': var(--mc-bg500),
+    'imageBg': var(--mc-bg500),
+    'imageGradient': linear-gradient(180deg, var(--mc-baseContrast-o8) 0%, var(--mc-baseContrast-o0) 25%),
     // // Radius
     'radius': ef.get('radius', 'biger'),
     //Padding

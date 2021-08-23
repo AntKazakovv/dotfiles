@@ -11,7 +11,7 @@ $themeDefault: map-merge((
     'filterGrodAutoCols': max-content,
     'filterMinWidth': 140px,
     'firstCellColumns': 1fr auto,
-    'rowHoverBgColor': ef.get('mainColors', 'bg100'),
+    'rowHoverBgColor': var(--mc-bg100),
     'cellVerticalAlign': middle,
     'statusCellMinWidth': (
         1024: 160px,

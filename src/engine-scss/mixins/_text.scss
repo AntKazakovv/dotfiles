@@ -1,7 +1,7 @@
 @use '../engine.variables' as ev;
 @use '../functions' as ef;
 
-@mixin get-text-style($style, $color: ef.get('mainColors', baseMain)) {
+@mixin get-text-style($style, $color: var(--mc-baseMain)) {
     font-style: normal;
     color: $color;
 

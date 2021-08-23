@@ -5,16 +5,16 @@ $themePromocodeBtn: map-merge((
     'btnBasePosition': 0,
     'btnRightPosition': 4px,
     'btnSize': 32px,
-    'btnBackground': ef.get('mainColors', 'main'),
-    'btnBackgroundHover': lighten(ef.get('mainColors', 'main'), 5%),
-    'btnBackgroundPending': lighten(ef.get('mainColors', 'main'), 5%),
+    'btnBackground': var(--mc-main),
+    'btnBackgroundHover': var(--mc-main-l5),
+    'btnBackgroundPending': var(--mc-main-l5),
     'btnRadius': ef.get('radius', 'main'),
 
     'btnIconSize': 13px,
     'btnIconFill': ef.get('mainColors', 'baseMain'),
 
     'btnTextSize': 16px,
-    'btnTextBorder': 2px solid ef.get('mainColors', 'baseMain'),
+    'btnTextBorder': 2px solid var(--mc-baseMain),
     'btnTextRadius': 50px,
     'btnTextLineHeight': 0,
 
@@ -37,19 +37,19 @@ $themeDefault: map-merge((
         1024: 25px ef.get('size', 'main'),
         1630: ef.get('size', 'less') ef.get('size', 'main'),
     ),
+    'containerBackground': var(--mc-bg300),
+    'containerShadow': 0 4px 9px 0 var(--mc-bg-o1),
     'containerMinHeight': (
         375: 150px,
         1366: initial,
     ),
-    'containerBackground': ef.get('mainColors', 'bg300'),
-    'containerShadow': 0 4px 9px 0 rgba(ef.get('mainColors', 'bg'), 0.07),
     'containerHeight': 100%,
     'containerFlexDirection': column,
     'containerAlignItems': center,
     'containerJustifyContent': center,
 
     'titleFontStyle': 'ThirdTitleBold',
-    'titleColor': ef.get('mainColors', 'baseMain'),
+    'titleColor': var(--mc-baseMain),
     'titleMargin': (
         375: 0 0 ef.get('size', 'less'),
         900: 0 0 ef.get('size', 'smaller'),
@@ -63,8 +63,8 @@ $themeDefault: map-merge((
         560: none,
     ),
 
-    'inputBackground': ef.get('fieldColors', 'inputBg'),
-    'inputColor': ef.get('fieldColors', 'textColor'),
+    'inputBackground': var(--fc-inputBg),
+    'inputColor': var(--fc-textColor),
     'inputTextTransform': uppercase,
     'inputOpacity': 1,
 

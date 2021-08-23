@@ -5,14 +5,14 @@ $themeDefault: map-merge((
     'headMargin': 0 0 ef.get('size', 'smaller') 0,
 
     'titleFontSize': 'QoteTextBold',
-    'titleColor': ef.get('mainColors', 'baseMain'),
+    'titleColor': var(--mc-baseMain),
     'titleMargin': 0 0 ef.get('size', 'small') 0,
 
     'subtitleFontSize': 'PrimaryText',
-    'subtitleColor': ef.get('mainColors', 'baseMain'),
+    'subtitleColor': var(--mc-baseMain),
     'subtitleMargin': 0 0 ef.get('size', 'small') 0,
 
     'dynamicFontSize': 'PrimaryText',
-    'dynamicColor': ef.get('mainColors', 'baseMain'),
+    'dynamicColor': var(--mc-baseMain),
     'dynamicMargin': 0 0 ef.get('size', 'small') 0,
 ), $customThemeDefault);

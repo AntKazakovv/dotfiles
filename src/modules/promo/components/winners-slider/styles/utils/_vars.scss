@@ -5,7 +5,7 @@
 $customThemeDefault: () !default;
 $themeDefault: map-merge((
     'breakpoint': 1200,
-    'background': ef.get('mainColors', 'bg700'),
+    'background': var(--mc-bg700),
 
     // wrapper
     'wrapperPadding': 15px 0,
@@ -21,7 +21,7 @@ $themeDefault: map-merge((
     // title
     'titleFontSize': ef.get('font', 'biger'),
     'titleFontWeight': 700,
-    'titleColor': ef.get('mainColors', 'baseOpacity'),
+    'titleColor': var(--mc-baseOpacity),
     'titleMarginBottom': (
         375: 15px,
         1200: 0,
@@ -52,7 +52,7 @@ $themeVertical: map-merge((
         375: ef.size(13) ef.size(3) ef.size(6),
         1200: ef.size(13) ef.size(7) ef.size(8),
     ),
-    'wrapperBackground': ef.get('mainColors', 'bg700'),
+    'wrapperBackground': var(--mc-bg700),
     'wrapperMaxWidth': 520px,
     'wrapperPaddingTopHeadless': (
         1200: 38px,
@@ -62,7 +62,7 @@ $themeVertical: map-merge((
     'loaderHeight': 280px,
 
     // title
-    'titleBackground': ef.get('mainColors', 'secondary'),
+    'titleBackground': var(--mc-secondary),
     'titleFontSize': ef.get('font', 'main'),
     'titleFontWeight': 700,
     'titleColor': ef.get('mainColors', 'baseMain'),
@@ -84,7 +84,7 @@ $themeVertical: map-merge((
 $customTheme1: () !default;
 $theme1: map-merge((
     'maxWidth': 330px,
-    'background': ef.get('mainColors', 'bg700'),
+    'background': var(--mc-bg700),
     'borderRadius': ef.get('size', 'small'),
 
     'wrapperHeight': 100%,
@@ -95,9 +95,9 @@ $theme1: map-merge((
     'slideHeight': 70px,
     'slideInnerGap': 15px,
 
-    'titleColor': ef.get('mainColors', 'baseMain'),
+    'titleColor': var(--mc-baseMain),
     'titleTextAlign': center,
-    'titleBg': ef.get('mainColors', 'bg500'),
+    'titleBg': var(--mc-bg500),
     'titlePadding': ef.get('size', 'smaller'),
     'titleBoxShadow': 0 4px 4px rgba(0, 0, 0, 0.13),
 

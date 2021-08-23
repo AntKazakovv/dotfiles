@@ -29,7 +29,7 @@ $themeDefault: map-merge((
         375: center,
         640: left,
     ),
-    'textColor': ef.get('mainColors', 'baseMain'),
+    'textColor': var(--mc-baseMain),
     'textRowMargin': 0 0 ef.get('size', 'smaller'),
 
     'textModalMaxWidth': none,
@@ -89,7 +89,7 @@ $themeDefault: map-merge((
         375: center,
         640: left,
     ),
-    'warningStressColor': ef.get('mainColors', 'error'),
+    'warningStressColor': var(--mc-error),
 
     'warningModalAlignment': center,
 

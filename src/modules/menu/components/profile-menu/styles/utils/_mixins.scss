@@ -7,3 +7,9 @@
 
     @return $string;
 }
+
+@mixin makeAngleBg($color) {
+    $fill: str-replace('#{$color}', '#', '%23');
+
+    content: url('data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 31 26\'%3E%3Cpath d=\'M27.54,23.57H3.81V1.5A23.77,23.77,0,0,0,27.54,23.57Z\' fill=\'#{$fill}\'/%3E%3Cpath d=\'M15.85,24.48h0Z\'/%3E%3C/svg%3E%0A');
+}
