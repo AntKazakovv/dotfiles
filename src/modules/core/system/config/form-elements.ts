@@ -247,6 +247,7 @@ export namespace FormElements {
             theme: 'vertical',
             common: {
                 placeholder: gettext('Iban number'),
+                autocomplete: 'off',
             },
             name: 'ibanNumber',
             validators: ['required'],

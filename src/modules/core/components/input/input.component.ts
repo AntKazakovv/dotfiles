@@ -6,8 +6,13 @@ import {
     OnChanges,
     OnInit,
     SimpleChanges,
+    ViewChild,
+    ElementRef,
+    AfterViewInit,
 } from '@angular/core';
 import {FormControl} from '@angular/forms';
+import {fromEvent} from 'rxjs';
+import {take, takeUntil} from 'rxjs/operators';
 
 import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
 import {
@@ -40,8 +45,10 @@ import _union from 'lodash-es/union';
     templateUrl: './input.component.html',
     styleUrls: ['./styles/input.component.scss'],
 })
-export class InputComponent extends AbstractComponent implements OnInit, OnChanges {
+export class InputComponent extends AbstractComponent implements OnInit, OnChanges, AfterViewInit {
     @Input() protected inlineParams: Params.IInputCParams;
+    @ViewChild('input') input: ElementRef;
+
     public $params: Params.IInputCParams;
     public control: FormControl;
     public fieldWlcElement: string;
@@ -55,11 +62,29 @@ export class InputComponent extends AbstractComponent implements OnInit, OnChang
         super({injectParams, defaultParams: Params.defaultParams});
     }
 
-    ngOnInit(): void {
+    public ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
         this.control = this.$params?.control;
         this.prepareModifiers();
         this.fieldWlcElement = 'input_' + _kebabCase(this.$params.name);
+
+        if (this.$params.common?.autocomplete === 'off') {
+            this.$params.common.readonly = true;
+        }
+    }
+
+    public ngAfterViewInit(): void {
+        if (this.$params.common?.autocomplete === 'off') {
+            fromEvent(this.input.nativeElement, 'focus')
+                .pipe(
+                    takeUntil(this.$destroy),
+                    take(1),
+                )
+                .subscribe(() => {
+                    this.$params.common.readonly = false;
+                    this.cdr.markForCheck();
+                });
+        }
     }
 
     public ngOnChanges(changes: SimpleChanges): void {
