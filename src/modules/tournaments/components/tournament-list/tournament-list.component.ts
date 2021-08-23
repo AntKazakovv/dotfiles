@@ -95,6 +95,7 @@ export class TournamentListComponent
             this.sliderParams.swiper = this.$params.common?.swiper;
         }
         this.subscribeOnTournamentLeave();
+        this.subscribeOnErrorGettingTournaments();
         this.noContentParams = GlobalHelper.getNoContentParams(this.$params, this.$class, this.configService);
     }
 
@@ -123,6 +124,18 @@ export class TournamentListComponent
             {name: 'TOURNAMENT_LEAVE_SUCCEEDED'},
             () => {
                 this.saveDataOfSelectedTournament(this.tournaments);
+                this.cdr.markForCheck();
+            },
+            this.$destroy,
+        );
+    }
+
+    protected subscribeOnErrorGettingTournaments(): void {
+        this.eventService.subscribe(
+            {name: 'TOURNAMENTS_FETCH_FAILED'},
+            () => {
+                this.paginatedTournaments = this.tournaments = [];
+                this.isReady = true;
                 this.cdr.markForCheck();
             },
             this.$destroy,
