@@ -758,12 +758,13 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
             this.cdr.markForCheck();
 
             if (this.router.globals.current.name === 'app.gameplay') {
-                this.router.stateService.go('app.home');
-                this.modalService.showModal<IPlayGameForRealCParams>('runGame', {
-                    common: {
-                        game: this.game,
-                        disableDemo: false,
-                    },
+                this.router.stateService.go('app.home').then(() => {
+                    this.modalService.showModal<IPlayGameForRealCParams>('runGame', {
+                        common: {
+                            game: this.game,
+                            disableDemo: false,
+                        },
+                    });
                 });
             }
         }, this.$destroy);
