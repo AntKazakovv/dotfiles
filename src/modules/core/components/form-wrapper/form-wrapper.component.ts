@@ -171,6 +171,19 @@ export class FormWrapperComponent extends WrapperComponent implements OnInit, On
             return;
         }
 
+        _each(this.form.controls, (control: FormControl) => {
+            if (!control.touched || !control.valid) {
+                control.markAsTouched();
+                control.updateValueAndValidity();
+            }
+        });
+
+        if (this.form.pending) {
+            await this.form.statusChanges
+                .pipe(takeWhile((status) => status === 'PENDING'))
+                .toPromise();
+        }
+
         if (this.form.valid) {
             if (await this.ngSubmit(this.form)) {
                 this.form.controls.currentPassword.setValue('');
@@ -182,19 +195,11 @@ export class FormWrapperComponent extends WrapperComponent implements OnInit, On
 
             for (const controlName in this.form.controls) {
                 const control = this.form.controls[controlName];
-                control.markAsTouched();
-                control.updateValueAndValidity();
 
                 if (!errorFound && control.errors) {
                     this.elRef.nativeElement.querySelector(`#${controlName}`)?.focus();
                     errorFound = true;
                 }
-            }
-
-            if (this.form.pending) {
-                await this.form.statusChanges
-                    .pipe(takeWhile((status) => status === 'PENDING'))
-                    .toPromise();
             }
 
             if (this.hasRequiredError) {

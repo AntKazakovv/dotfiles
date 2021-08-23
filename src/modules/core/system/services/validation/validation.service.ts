@@ -23,16 +23,15 @@ import {
     IData,
     IRequestMethod,
 } from 'wlc-engine/modules/core/system/services/data/data.service';
-import {matchingFields} from './validators/matchFields.validator';
-import {email} from './validators/email.validator';
 import {
-    regexpEmoji,
-    regexp,
-} from './validators/regexp.validator';
-import {
-    onlyLetters,
-} from './validators/letters.validator';
-import {newPassword} from './validators/new-password.validator';
+    matchingFieldsValidator,
+    emailValidator,
+    regexpEmojiValidator,
+    regexpValidator,
+    onlyLettersValidator,
+    newPasswordValidator,
+    requiredFieldValidator,
+} from './validators';
 
 export type ValidatorType = string | IValidatorSettings;
 
@@ -68,9 +67,6 @@ export class ValidationService {
             validator: this.passwordRule.bind(this),
             async: true,
         },
-        required: {
-            validator: Validators.required,
-        },
         requiredTrue: {
             validator: Validators.requiredTrue,
         },
@@ -103,12 +99,13 @@ export class ValidationService {
         private dataService: DataService,
         private eventService: EventService,
     ) {
-        this.setRule<IIndexing<boolean>>('matchingFields', matchingFields);
-        this.setRule<IIndexing<boolean>>('email', email);
-        this.setRule<IIndexing<boolean>>('onlyLetters', onlyLetters);
-        this.setRule<IIndexing<boolean>>('regExp', regexp);
-        this.setRule<IIndexing<boolean>>('regexpEmoji', regexpEmoji);
-        this.setRule<IIndexing<boolean>>('newPassword', newPassword);
+        this.setRule<IIndexing<boolean>>('matchingFields', matchingFieldsValidator);
+        this.setRule<IIndexing<boolean>>('email', emailValidator);
+        this.setRule<IIndexing<boolean>>('onlyLetters', onlyLettersValidator);
+        this.setRule<IIndexing<boolean>>('regExp', regexpValidator);
+        this.setRule<IIndexing<boolean>>('regexpEmoji', regexpEmojiValidator);
+        this.setRule<IIndexing<boolean>>('newPassword', newPasswordValidator);
+        this.setRule<IIndexing<boolean>>('required', requiredFieldValidator);
     }
 
     public emailUnique(ctrl: AbstractControl): Observable<IIndexing<boolean>> {
