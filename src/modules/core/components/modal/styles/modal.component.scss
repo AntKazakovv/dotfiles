@@ -11,15 +11,13 @@
 
 .wlc-modal {
     position: fixed;
-    z-index: ef.get-value($hostModal, 'modalZIndex');
     top: ef.get-value($hostModal, 'modalPosition');
-    left: ef.get-value($hostModal, 'modalPosition');
     right: ef.get-value($hostModal, 'modalPosition');
     bottom: ef.get-value($hostModal, 'modalPosition');
+    left: ef.get-value($hostModal, 'modalPosition');
+    z-index: ef.get-value($hostModal, 'modalZIndex');
     outline: 0;
     overflow: hidden;
-    visibility: hidden;
-    will-change: transform;
 
     &--search {
         z-index: ef.get-value($hostModal, 'modalZIndex') - 50;
@@ -252,7 +250,6 @@
         }
 
         &--scrollable {
-            will-change: transform;
 
             .wlc-modal__body {
                 @include bm.get-mq-map('height', $hostModal, 'staticMaxHeightMobile');

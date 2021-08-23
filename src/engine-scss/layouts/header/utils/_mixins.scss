@@ -64,24 +64,21 @@
 
         &-search {
             @include bm.transition(transform);
-
-            width: ef.get-value($theme, 'headerSearchBtnWidth');
-            margin: ef.get-value($theme, 'headerSearchBtnMargin');
             display: ef.get-value($theme, 'searchBtnDisplay');
-            justify-content: ef.get-value($theme, 'searchBtnJustifyContent');
             align-items: ef.get-value($theme, 'searchBtnAlignItems');
-            will-change: transform;
-
-            @include bm.hover {
-                transform: ef.get-value($theme, 'searchBtnTransformOnHover');
-            }
+            justify-content: ef.get-value($theme, 'searchBtnJustifyContent');
+            margin: ef.get-value($theme, 'headerSearchBtnMargin');
 
             &__text,
             .wlc-icon,
             .wlc-icon-content {
                 display: ef.get-value($theme, 'searchIconDisplay');
-                justify-content: ef.get-value($theme, 'searchIconJustifyContent');
                 align-items: ef.get-value($theme, 'searchIconAlignItems');
+                justify-content: ef.get-value($theme, 'searchIconJustifyContent');
+            }
+
+            @include bm.hover {
+                transform: ef.get-value($theme, 'searchBtnTransformOnHover');
             }
         }
 

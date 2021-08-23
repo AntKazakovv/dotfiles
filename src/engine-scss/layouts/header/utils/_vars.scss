@@ -12,8 +12,7 @@ $theme1Header: map-merge((
     'headerBurgerBtnTextAlign': (
         1024: center
     ),
-    'headerSearchBtnWidth': ef.get('size', 'less'),
-    'headerSearchBtnMargin': 0 0 0 auto,
+    'headerSearchBtnMargin': 0 ef.size(1),
     'headerContainerDesktopWidth': (
         1200: 100%
     ),
@@ -74,6 +73,7 @@ $theme1Header: map-merge((
     'logoImgAlignItems': center,
     'logoImgJustifyContent': center,
     'logoObjPosition': center,
+    'searchBtnTransformOnHover': rotate(30deg),
     'searchBtnDisplay': flex,
     'searchBtnJustifyContent': center,
     'searchBtnAlignItems': center,
@@ -93,8 +93,7 @@ $theme2Header: map-merge((
     'headerBurgerBtnTextAlign': (
         1024: center
     ),
-    'headerSearchBtnWidth': ef.get('size', 'less'),
-    'headerSearchBtnMargin': 0 0 0 auto,
+    'headerSearchBtnMargin': 0 ef.size(1),
     'headerContainerDesktopWidth': (
         1200: 100%
     ),

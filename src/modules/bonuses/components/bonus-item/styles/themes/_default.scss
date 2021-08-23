@@ -256,7 +256,6 @@
                 opacity: ef.get-value($themeDefault, 'overlayOpacity');
 
                 pointer-events: none;
-                will-change: opacity;
             }
         }
 
