@@ -46,7 +46,8 @@
             white-space: nowrap;
         }
 
-        &:hover {
+        @include bm.hover {
+
             @include bm.get-mq-map('background', $gamesCategoriesDefault, 'buttonSearchBgHover');
         }
 

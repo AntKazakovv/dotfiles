@@ -7,10 +7,10 @@ $themeDefault: map-merge((
     'headerJustifyContent': space-between,
     'headerAlignItems': center,
     'headerWidth': 100%,
-    'headerColor': ef.get('mainColors', 'baseMain'),
+    'headerColor': var(--mc-baseMain),
     'headerFontStyle': 'QoteTextBold',
-    'allLinkColor': ef.get('mainColors', 'main'),
-    'allLinkColorHover': lighten(ef.get('mainColors', 'main'), 20%),
+    'allLinkColor': var(--mc-main),
+    'allLinkColorHover': var(--mc-main-l20),
     'allLinkIconMargin': ef.get('size', 'smallest'),
     'allLinkTransform': rotate(-90deg),
     'allLinkDisplay': flex,
@@ -24,14 +24,14 @@ $themeDefault: map-merge((
         1024: repeat(auto-fill, minmax(200px, 1fr)),
         1630: repeat(auto-fill, minmax(220px, 1fr)),
     ),
+    'placeholderBackground': var(--mc-bg),
     'gridGap': (
         375: ef.size(2),
         1024: ef.size(3),
         1630: ef.size(4)
     ),
-    'placeholderBackground': ef.get('mainColors', 'bg'),
     'placeholderBorderRadius': ef.get('radius', 'less'),
-    'placeholderTextColor': ef.get('mainColors', 'baseMain'),
+    'placeholderTextColor': var(--mc-baseMain),
     'placeholderAlignItems': center,
     'placeholderJustifyContent': center,
     'moreButtonMargin': (
@@ -49,7 +49,7 @@ $themeDefault: map-merge((
     'titleWithIconMargin': 0 auto 0 0,
     'titleIconSize': ef.size(8),
     'titleIconSizeStretch': 100%,
-    'titleIconFill': ef.get('mainColors', 'baseMain'),
+    'titleIconFill': var(--mc-baseMain),
 
     'gridColumnsTournamentDetail': (
         375: repeat(auto-fill, minmax(150px, 1fr)),
@@ -73,7 +73,7 @@ $themeDefault: map-merge((
     'loadMoreAlign': center,
     'loadMoreJustify': center,
     'loadMoreBorderRadius': ef.get('radius', 'biger'),
-    'loadMoreBG': ef.get('mainColors', 'bg700'),
+    'loadMoreBG': var(--mc-bg700),
 
     'swiperButtonsColumns': auto auto,
 ), $customThemeDefault);
@@ -88,7 +88,7 @@ $modHeaderInline: map-merge((
         1024: ef.get('size', 'less') ef.get('size', 'smally') ef.get('size', 'smally'),
     ),
     'margin': 0,
-    'background': ef.get('mainColors', 'bg700'),
+    'background': var(--mc-bg700),
     'borderRadius': ef.get('radius', 'biger'),
     'flexDirection': column,
     'titleMargin': 0,
@@ -101,5 +101,5 @@ $modHeaderInline: map-merge((
         1024: 0,
     ),
     'headerFontStyle': 'QoteTextBold',
-    'allLinkColor': ef.get('mainColors', 'main'),
+    'allLinkColor': var(--mc-main),
 ), $customModHeaderInline);

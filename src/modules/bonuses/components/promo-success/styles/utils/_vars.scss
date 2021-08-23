@@ -5,11 +5,11 @@ $themeDefault: map-merge((
     'containerPadding': 0 ef.get('size', 'smally') ef.get('size', 'smally') ef.get('size', 'smally'),
 
     'titleFontStyle': 'QoteTextBold',
-    'titleColor': ef.get('mainColors', 'baseMain'),
+    'titleColor': var(--mc-baseMain),
     'titleMargin': ef.get('size', 'smallest') 0 ef.get('size', 'smaller') 0,
 
     'textFontStyle': 'PrimaryText',
-    'textColor': ef.get('mainColors', 'baseMain'),
+    'textColor': var(--mc-baseMain),
     'textMargin': 0 0 ef.get('size', 'smaller') 0,
 
     'iconMargin': 0 0 ef.get('size', 'smaller') 0,

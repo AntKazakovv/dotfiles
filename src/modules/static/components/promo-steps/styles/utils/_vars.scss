@@ -4,7 +4,7 @@
 // ~~ theme DEFAULT
 $customThemeDefault: () !default;
 $themeDefault: map-merge((
-    'promoStepsBackground': ef.get('mainColors', 'bg300'),
+    'promoStepsBackground': var(--mc-bg300),
 
     'desktopStepsDisplay': grid,
     'desktopStepsCols': (
@@ -49,19 +49,19 @@ $themeDefault: map-merge((
     'stepActiveDescJustifyContent': center,
 
     'titleTextStyle': 'QoteTextBold',
-    'titleColor': ef.get('mainColors', 'baseMain'),
+    'titleColor': var(--mc-baseMain),
     'titleTextAlign': left,
     'titleMargin': (
         375: 0 0 ef.get('size', 'smallest') 0,
     ),
 
     'descTextStyle': 'ThirdTitle',
-    'descColor': ef.get('mainColors', 'baseMain'),
+    'descColor': var(--mc-baseMain),
 
-    'linkDescColor': ef.get('mainColors', 'main'),
-    'linkDescHoverColor': lighten(ef.get('mainColors', 'main'), 20%),
-    'linkDescBorderBottom': 1px solid ef.get('mainColors', 'main'),
-    'linkDescHoverBorderBottom': 1px solid lighten(ef.get('mainColors', 'main'), 20%),
+    'linkDescColor': var(--mc-main),
+    'linkDescHoverColor': var(--mc-main-l20),
+    'linkDescBorderBottom': 1px solid var(--mc-main),
+    'linkDescHoverBorderBottom': 1px solid var(--mc-main-l20),
 
     'modalBtnWrapDisplay': flex,
     'modalBtnWrapJustifyContent': (
@@ -76,8 +76,8 @@ $themeDefault: map-merge((
     'modalBtnIconTransform': rotateZ(-90deg),
     'modalBtnTextStyle': 'ButtonText',
     'modalBtnTextSize': ef.get('font', 'ThirdTitle'),
-    'modalBtnColor': ef.get('mainColors', 'main'),
-    'modalBtnHoverColor': lighten(ef.get('mainColors', 'main'), 20%),
+    'modalBtnColor': var(--mc-main),
+    'modalBtnHoverColor': var(--mc-main-l20),
 
     'tabsHeadDisplay': grid,
     'tabsHeadFlow': column,
@@ -87,11 +87,11 @@ $themeDefault: map-merge((
     'tabsHeadMargin': 0 auto ef.get('size', 'small') auto,
 
     'tabPaddingTop': 100%,
-    'tabBackground': ef.get('mainColors', 'bg500'),
-    'tabBackgroundActive': ef.get('mainColors', 'main'),
+    'tabBackground': var(--mc-bg500),
+    'tabBackgroundActive': var(--mc-main),
     'tabRadius': ef.get('radius', 'large'),
     'tabNumberTextStyle': 'QoteTextBold',
-    'tabNumberColor': ef.get('mainColors', 'baseMain'),
+    'tabNumberColor': var(--mc-baseMain),
     'tabNumberTop': 0,
     'tabNumberLeft': 0,
     'tabNumberDisplay': flex,

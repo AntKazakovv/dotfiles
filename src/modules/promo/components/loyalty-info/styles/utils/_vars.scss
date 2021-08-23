@@ -4,20 +4,20 @@ $customThemeDefault: () !default;
 
 $themeDefault: map-merge((
     'titleFont': 'QoteTextBold',
-    'titleFontColor': ef.get('mainColors', 'baseMain'),
+    'titleFontColor': var(--mc-baseMain),
 
     'descFont': 'ThirdTitle',
-    'descFontColor': ef.get('mainColors', 'baseMain'),
+    'descFontColor': var(--mc-baseMain),
 
     'infoImageWidth': 100%,
 
     'infoTitleFont': 'ThirdTitleBold',
-    'infoTitleFontColor': ef.get('mainColors', 'baseMain'),
+    'infoTitleFontColor': var(--mc-baseMain),
     'infoTitlePadding': 0 0 ef.get('size', 'smaller') 0,
     'infoTitleTextAlign': center,
 
     'infoTextFont': 'PrimaryText',
-    'infoTextFontColor': ef.get('mainColors', 'baseMain'),
+    'infoTextFontColor': var(--mc-baseMain),
     'infoTextPadding': 0 0 ef.get('size', 'smaller') 0,
     'infoTextAlign': center,
 

@@ -23,7 +23,7 @@ $themeDefault: map-merge((
     'timerJustify': center,
 
     'timerTextMargin': 0 0 ef.size(1) 0,
-    'timerTextColor':ef.get('mainColors', 'baseOpacity'),
+    'timerTextColor':var(--mc-baseOpacity),
 
     'labelsMargin': 0 0 0 ef.size(2),
     'labelsFontSize': ef.get('font', 'SignText'),
@@ -31,8 +31,8 @@ $themeDefault: map-merge((
     'fieldMargin': 0 0 ef.size(4),
     'lastFieldMargin': 0,
     'fieldsGridGap': ef.size(4),
-    'inputBackground': ef.get('fieldColors', 'inputBg'),
-    'inputColor': ef.get('fieldColors', 'textColor'),
+    'inputBackground': var(--fc-inputBg),
+    'inputColor': var(--fc-textColor),
     'inputOpacity': 1,
 
     'btnMargin': (

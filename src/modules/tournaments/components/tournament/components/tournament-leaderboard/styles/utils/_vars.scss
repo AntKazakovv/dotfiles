@@ -23,13 +23,14 @@ $themeDefault: map-merge((
 
     'fontSize': ef.get('font', 'PrimaryText'),
     'btnFontSize': ef.get('font', 'PlaceholderText'),
-    'rowBg': ef.get('mainColors', 'bg'),
-    'rowUserBg': ef.get('mainColors', 'main'),
+    'rowBg': var(--mc-bg),
+    'rowUserBg': var(--mc-main),
     'rowUserColor': null,
     'rowUserFontWeight': 700,
-    'iconColor': ef.get('mainColors', 'main'),
-    'iconUserColor': ef.get('mainColors', 'bg'),
-    'btnTextColor': ef.get('mainColors', 'main'),
+    'iconColor': var(--mc-main),
+    'iconUserColor': var(--mc-bg),
+    'btnTextColor': var(--mc-main),
+    'btnTextColorHover': var(--mc-main-l20),
 
     'fontWeight': 700,
     'itemTopRadius': 0,
@@ -39,16 +40,16 @@ $customThemeDefaultModTournamentDetail: () !default;
 $themeDefaultModTournamentDetail: map-merge((
     'delimetrwidth': 100%,
     'delimetrheight': 2px,
-    'delimetrBg': ef.get('mainColors', 'baseOpacity'),
+    'delimetrBg': var(--mc-baseOpacity),
 
     'listGap': ef.get('size', 'smallest'),
     'listPadding': ef.get('size', 'small') 0,
-    'listBg': ef.get('mainColors', 'bg700'),
+    'listBg': var(--mc-bg700),
     'listRadius': ef.get-value($themeDefault, 'borderRadius'),
 
     'itemMargin': 0 ef.get('size', 'smally'),
     'itemGridTemplate': 80px 2fr 1fr,
-    'itemBg': ef.get('mainColors', 'bg700'),
+    'itemBg': var(--mc-bg700),
     'itemRadius': 0,
     'itemPaddingUser': 0 ef.get('size', 'smally'),
 
@@ -57,7 +58,7 @@ $themeDefaultModTournamentDetail: map-merge((
     'itemUserRadiusPlace': ef.get('radius', 'large') 0 0 ef.get('radius', 'large'),
     'itemUserRadiusPoints': 0 ef.get('radius', 'large') ef.get('radius', 'large') 0,
     'itemUserCellTextStyle': 'PrimaryTextBold',
-    'itemUserCellTextColor': ef.get('mainColors', 'baseMain'),
+    'itemUserCellTextColor': var(--mc-baseMain),
 
     'headBg': transparent,
     'headPadding': 0 0 ef.get('size', 'small') 0,
@@ -66,13 +67,13 @@ $themeDefaultModTournamentDetail: map-merge((
     'topCellUserPadding': 0 ef.get('size', 'smally') 0 ef.get('size', 'small'),
     'topIconMargin': 0 0 0 ef.get('size', 'smallest'),
     'topIconWidth': 12px,
-    'topIconColor': ef.get('mainColors', 'main'),
-    'topIconUserColor': ef.get('mainColors', 'bg'),
+    'topIconColor': var(--mc-main),
+    'topIconUserColor': var(--mc-bg),
 ), $customThemeDefaultModTournamentDetail);
 
 $customThemeDefaultModHistory: () !default;
 $themeDefaultModHistory: map-merge((
-    'rowPrimaryBg': ef.get('mainColors', 'bg500'),
+    'rowPrimaryBg': var(--mc-bg500),
     'rowSecondaryBg': transparent,
     'headBg': transparent,
     'tableMaxWidth': 375px,

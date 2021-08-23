@@ -3,11 +3,11 @@ $themeDefault: map-merge((
     'nodataMaxWidth': 100%,
     'nodataHeight': 100%,
     'nodataRadius': ef.get('radius', 'biger'),
-    'nodataBg': ef.get('mainColors', 'bg700'),
+    'nodataBg': var(--mc-bg700),
     'nodataBackground': center center/cover no-repeat,
 
     'beforeGradiend': (
-        320: linear-gradient(90deg, ef.get('mainColors', 'bg700') 30%, rgba(ef.get('mainColors', 'bg700'), 0.4) 70%, ef.get('mainColors', 'bg700') 100%),
+        320: linear-gradient(90deg, var(--mc-bg700) 30%, var(--mc-bg700-o4) 70%, var(--mc-bg700) 100%),
     ),
     'beforePosition': 0,
     'beforeZIndex': 1,

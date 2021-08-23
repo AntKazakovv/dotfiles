@@ -12,11 +12,11 @@ $themeDefault: map-merge((
     //border line
     'borderLineWidth': 3px,
     'borderLineRadius': 3px,
-    'borderLineColor': ef.get('mainColors', 'baseOpacity'),
+    'borderLineColor': var(--mc-baseOpacity),
     'borderLinePadding': 20px,
 
     // winner left block
-    'leftBackground': ef.get('mainColors', 'bg'),
+    'leftBackground': var(--mc-bg),
     'leftPadding': 8px 9px,
 
     // winner right block
@@ -37,7 +37,7 @@ $themeDefault: map-merge((
 
     // user
     'userFontSize': ef.get('font', 'smaller'),
-    'userColor': ef.get('mainColors', 'baseMain'),
+    'userColor': var(--mc-baseMain),
     'userFontWeight': 400,
     'userTextTransform': none,
     'userFontStyle': normal,
@@ -52,10 +52,10 @@ $themeDefault: map-merge((
     // game
     'gameTextStyle': 'ThirdTitleBold',
     'gameTextAlign': left,
-    'gameColor': ef.get('mainColors', 'baseMain'),
+    'gameColor': var(--mc-baseMain),
     'gameBorderColor': transparent,
     'gameArrowWidth': 16px,
-    'gameArrowColor': ef.get('mainColors', 'main'),
+    'gameArrowColor': var(--mc-main),
     'gameArrowMarginLeft': ef.get('size', 'small'),
     'gameColumns': 1fr auto,
     'gameAlignItems': center,
@@ -64,11 +64,11 @@ $themeDefault: map-merge((
 
     'gameHoverColor': currentColor,
     'gameHoverBorderColor': currentColor,
-    'gameHoverArrowColor': currentColor,
+    'gameHoverArrowColor': var(--mc-main-l20),
 
     // amount
     'amountFontSize': ef.get('font', 'main'),
-    'amountColor': ef.get('mainColors', 'baseMain'),
+    'amountColor': var(--mc-baseMain),
     'amountFontWeight': 700,
 ), $customThemeDefault);
 
@@ -80,7 +80,7 @@ $themeVertical: map-merge((
     // winner left block
 
     // winner right block
-    'rightBackground': ef.get('mainColors', 'bg'),
+    'rightBackground': var(--mc-bg),
     'rightGridTemplateColumns': auto 1fr,
     'rightGridTemplateAreas': 'user amount' 'game game',
     'rightColumnGap': 10px,
@@ -98,7 +98,7 @@ $themeVertical: map-merge((
 
     // user
     'userFontSize': ef.get('font', 'smaller'),
-    'userColor': ef.get('mainColors', 'baseMain'),
+    'userColor': var(--mc-baseMain),
     'userFontWeight': 400,
     'userTextTransform': none,
     'userFontStyle': normal,
@@ -111,9 +111,9 @@ $themeVertical: map-merge((
     'countryShadow': none,
 
     // game
-    'gameColor': ef.get('mainColors', 'baseMain'),
+    'gameColor': var(--mc-baseMain),
     'gameBorderColor': transparent,
-    'gameArrowColor': ef.get('mainColors', 'secondary'),
+    'gameArrowColor': var(--mc-secondary),
     'gameArrowMarginLeft': ef.get('size', 'small'),
     'gameArrowWidth': 16px,
     'gameTextAlign': left,
@@ -124,14 +124,14 @@ $themeVertical: map-merge((
 
     'gameHoverColor': currentColor,
     'gameHoverBorderColor': currentColor,
-    'gameHoverArrowColor': currentColor,
+    'gameHoverArrowColor': var(--mc-secondary-l20),
 
     'winnerNameFontStyle': 'PlaceholderText',
     'winnerGameFontStyle': 'ThirdTitleBold',
 
     // amount
     'amountFontSize': ef.get('font', 'main'),
-    'amountColor': ef.get('mainColors', 'baseMain'),
+    'amountColor': var(--mc-baseMain),
     'amountFontWeight': 700,
 
     // safari
@@ -147,7 +147,7 @@ $theme1: map-merge((
 
     'wrapperPadding': 0 0 var(--wlc-winner-slider-slide-inner-gap, #{ef.get('size', 'smally')}) 0,
     'wrapperMargin': 0 auto,
-    'wrapperPseudoBorderBg': ef.get('mainColors', 'baseOpacity'),
+    'wrapperPseudoBorderBg': var(--mc-baseOpacity),
     'wrapperPseudoBorderWidth': 100%,
     'wrapperPseudoBorderHeight': 2px,
     'wrapperPseudoBorderHideLast': true,
@@ -157,13 +157,13 @@ $theme1: map-merge((
     'iconAspectRatio': '1/1',
     'iconBorderRadius': ef.get('size', 'small'),
 
-    'userColor': ef.get('mainColors', 'baseMain'),
-    'amountColor': ef.get('mainColors', 'main'),
+    'userColor': var(--mc-baseMain),
+    'amountColor': var(--mc-main),
 
     'countryWidth': 16px,
     'countryMargin': 0 ef.get('size', 'small') 0 0,
 
-    'gameColor': ef.get('mainColors', 'baseMain'),
+    'gameColor': var(--mc-baseMain),
     'gameBorderBottomInactive': 1px solid transparent,
-    'gameBorderBottomActive': 1px solid ef.get('mainColors', 'baseMain'),
+    'gameBorderBottomActive': 1px solid var(--mc-baseMain),
 ), $customTheme1);

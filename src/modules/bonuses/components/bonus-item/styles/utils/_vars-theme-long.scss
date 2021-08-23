@@ -31,11 +31,11 @@ $themeLong: map-merge((
         1630: ef.size(4),
     ),
     'imageBlockSize': 235px,
-    'imageBlockBg': ef.get('mainColors', 'bg300'),
+    'imageBlockBg': var(--mc-bg300),
 
-    'nameFontColor': ef.get('mainColors', 'baseMain'),
+    'nameFontColor': var(--mc-baseMain),
     'descrTextStyle': 'PlaceholderText',
-    'descrColor': ef.get('mainColors', 'baseMain'),
-    'descrBg': ef.get('mainColors', 'bg'),
+    'descrColor': var(--mc-baseMain),
+    'descrBg': var(--mc-bg),
     'descrPadding': ef.size(3) ef.size(2),
 ), $customThemeLong);

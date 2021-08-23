@@ -3,7 +3,7 @@
 $customThemeDefault: () !default;
 
 $themeDefault: map-merge((
-    'color': ef.get('mainColors', 'baseMain'),
+    'color': var(--mc-baseMain),
 
     'groupDisplay': flex,
     'groupDirection': column,
@@ -23,7 +23,7 @@ $themeDefault: map-merge((
     'iconsWrpMargin': 0 0 ef.get('size', 'smally') 0,
     'iconsWrpContentDisplay': inline-block,
 
-    'backgroundItem': ef.get('mainColors', 'bg300'),
+    'backgroundItem': var(--mc-bg300),
     'borderRadius': ef.get('radius', 'biger'),
     'paddingItem': (
         320: ef.get('size', 'smaller'),
@@ -31,7 +31,7 @@ $themeDefault: map-merge((
         1630: ef.get('size', 'main') ef.get('size', 'big'),
     ),
 
-    'tileIconColor': ef.get('mainColors', 'main'),
+    'tileIconColor': var(--mc-main),
     'tileIconWidth': 100%,
     'tileIconHeigth': 100%,
     'tileIconSize': 30px,
@@ -78,12 +78,12 @@ $themeDefault: map-merge((
         768: repeat(2, 1fr),
         1024: repeat(3, 1fr)
     ),
-    'borderDocList': 1px solid ef.get('mainColors', 'baseOpacity'),
+    'borderDocList': 1px solid var(--mc-baseOpacity),
     'fontDocList': 'ButtonText',
-    'backgroundDropdown': ef.get('mainColors', 'bg700'),
-    'borderDropdown': 1px dashed ef.get('mainColors', 'bg500'),
-    'borderColorDrag': ef.get('mainColors', 'main'),
-    'successText': ef.get('mainColors', 'success'),
+    'backgroundDropdown': var(--mc-bg700),
+    'borderDropdown': 1px dashed var(--mc-bg500),
+    'borderColorDrag': var(--mc-main),
+    'successText': var(--mc-success),
 
     'iconContentSize': 100%,
 
@@ -91,23 +91,23 @@ $themeDefault: map-merge((
     'iconContentSvgPos': 0,
     'iconContentSvgPadding': 3px,
 
-    'infoIconBg': ef.get('mainColors', 'baseOpacity'),
-    'infoIconBgHover': ef.get('mainColors', 'baseMain'),
+    'infoIconBg': var(--mc-baseOpacity),
+    'infoIconBgHover': var(--mc-baseMain),
 
-    'tooltipBg': ef.get('mainColors', 'main'),
+    'tooltipBg': var(--mc-main),
     'tooltipOffset': ef.get('size', 'smally'),
     'tooltipShadow': 0 4px 4px rgba(0, 0, 0, 0.25),
-    'docsStatusAwaiting': ef.get('mainColors', 'warning'),
-    'docsStatusValidated': ef.get('mainColors', 'success'),
-    'docsStatusFailed': ef.get('mainColors', 'error'),
+    'docsStatusAwaiting': var(--mc-warning),
+    'docsStatusValidated': var(--mc-success),
+    'docsStatusFailed': var(--mc-error),
     'docOffset': ef.get('size', 'smallest'),
     'docTextOffset': ef.get('size', 'smaller'),
     'removeIconDocsDemensitons': ef.get('size', 'smally'),
-    'removeIconDocsHoverColor': ef.get('mainColors', 'main'),
+    'removeIconDocsHoverColor': var(--mc-main),
 
     'preloaderSize': 20px,
-    'preloaderColor': 1px solid ef.get('mainColors', 'main'),
-    'preloaderBg': 1px solid ef.get('mainColors', 'bg'),
+    'preloaderColor': 1px solid var(--mc-main),
+    'preloaderBg': 1px solid var(--mc-bg),
     'preloaderRadius': 100%,
 
     'dropzonePosition': relative,

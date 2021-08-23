@@ -37,7 +37,7 @@ $themeDefault: map-merge((
         768: none,
     ),
     'sliderPseudoWidth': ef.get('size', 'less'),
-    'sliderPseudoBackground': linear-gradient(to left, ef.get('mainColors', 'bg'), transparent),
+    'sliderPseudoBackground': linear-gradient(to left, var(--mc-bg), transparent),
     'sliderPseudoTop': 0,
     'sliderPseudoRight': 0,
     'sliderPseudoLeft': auto,
@@ -52,9 +52,9 @@ $themeDefault: map-merge((
     'sliderButtonGridArea': button,
     'sliderButtonMargin': 0 0 0 ef.get('size', 'smaller'),
 
-    'iconBackground': ef.get('mainColors', 'bg700'),
+    'iconBackground': var(--mc-bg700),
     'iconBorderRadius': ef.get('radius', 'biger'),
-    'iconColor': ef.get('mainColors', 'bg100'),
+    'iconColor': var(--mc-bg100),
     'iconTransition': #{transform 0.2s, box-shadow 2s},
     'iconWidth': 100%,
     'iconMaxWidth': 80%,
@@ -66,7 +66,7 @@ $themeDefault: map-merge((
     'iconPseudoPaddingTop': 35%,
     'iconHoverTransition': #{transform 0.2s, box-shadow 0.1s},
     'iconHoverTransform': translate3d(0, -3px, 0),
-    'iconHoverBoxShadow': 0 1px 5px ef.get('mainColors', 'bg100'),
+    'iconHoverBoxShadow': 0 1px 5px var(--mc-bg100),
 
     // TODO remove after come up with color icons
     'iconColorBackground': #777,

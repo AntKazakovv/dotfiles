@@ -148,13 +148,12 @@
         &:hover {
 
             .wlc-modal__back-btn-text {
-                color: lighten(ef.get-value($hostModal, 'backBtnColor'), 20%);
+                color: ef.get-value($hostModal, 'backBtnColorHover');
                 @include bm.transition(color);
             }
 
-
             .icon-arrow svg {
-                fill: lighten(ef.get-value($hostModal, 'backBtnIconColor'), 20%);
+                fill: ef.get-value($hostModal, 'backBtnIconColorHover');
                 @include bm.transition(fill);
             }
         }

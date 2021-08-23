@@ -32,7 +32,7 @@ $gamesCategoriesDefault: map-merge((
     ),
     'sectionBg': (
         375: none,
-        768: ef.get('mainColors', 'bg700'),
+        768: var(--mc-bg700),
     ),
     'buttonSearchHeight': ef.get('buttonSettings', 'heightDefault'),
     'buttonSearchWidth': (
@@ -43,8 +43,8 @@ $gamesCategoriesDefault: map-merge((
         375: 150px,
     ),
     'buttonSearchBg': (
-        375: ef.get('mainColors', 'bg500'),
-        768: ef.get('mainColors', 'bg')
+        375: var(--mc-bg500),
+        768: var(--mc-bg)
     ),
     'buttonSearchPadding': (
         375: 0 ef.get('size', 'small'),
@@ -53,9 +53,9 @@ $gamesCategoriesDefault: map-merge((
     'buttonSearchRadius': (
         375: ef.get('radius', 'biger'),
     ),
-    'buttonSearchColor': ef.get('mainColors', 'baseMain'),
-    'buttonSearchBgHover': lighten(ef.get('mainColors', 'bg'), 5%),
-    'buttonSearchIconFill': ef.get('mainColors', 'main'),
+    'buttonSearchColor': var(--mc-baseMain),
+    'buttonSearchBgHover': var(--mc-bg-o8),
+    'buttonSearchIconFill': var(--mc-main),
     'buttonSearchIconMargin': ef.get('size', 'small'),
     'buttonMerchMargin': ef.get('size', 'smally'),
     'buttonSearchTextStyle': 'PlaceholderText',
@@ -63,12 +63,12 @@ $gamesCategoriesDefault: map-merge((
 
 $customWithIcons: () !default;
 $withIcons: map-merge((
-    'searchButtonBg': ef.get('mainColors', 'bg500'),
-    'searchButtonBgHover': ef.get('mainColors', 'bg300'),
-    'searchButtonIconFill': ef.get('mainColors', 'main'),
-    'merchButtonBg': ef.get('mainColors', 'bg500'),
-    'merchButtonBgHover': ef.get('mainColors', 'bg300'),
-    'merchButtonIconFill': ef.get('mainColors', 'main'),
+    'searchButtonBg': var(--mc-bg500),
+    'searchButtonBgHover': var(--mc-bg300),
+    'searchButtonIconFill': var(--mc-main),
+    'merchButtonBg': var(--mc-bg500),
+    'merchButtonBgHover': var(--mc-bg300),
+    'merchButtonIconFill': var(--mc-main),
     'sectionGap': (
         768: ef.get('size', 'smaller'),
     ),
@@ -79,7 +79,7 @@ $withIcons: map-merge((
         375: ef.get('radius', 'biger'),
     ),
     'buttonWidth': 100%,
-    'buttonColor': ef.get('mainColors', 'baseMain'),
+    'buttonColor': var(--mc-baseMain),
     'buttonAlignItems': center,
     'buttonJustifyContent': space-between,
     'searchAlignSelf': end,

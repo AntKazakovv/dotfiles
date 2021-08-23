@@ -32,7 +32,7 @@ $themeActive: map-merge((
         1200: 'image info active' 'image info active' 'image btns active',
     ),
 
-    'imgBlockBg': ef.get('mainColors', 'bg300'),
+    'imgBlockBg': var(--mc-bg300),
     'imgSize': 100%,
     'imgBlockHeight': (
         375: 200px,
@@ -43,19 +43,19 @@ $themeActive: map-merge((
         1200: none,
     ),
 
-    'imgAfterBg': rgba(#000, 0.6),
+    'imgAfterBg': var(--mc-baseContrast-06),
 
     'tagPositionTop': ef.size(4),
     'tagPositionLeft': 50%,
     'tagPositionTransform': translateX(-50%),
 
-    'nameColor': ef.get('mainColors', 'baseMain'),
+    'nameColor': var(--mc-baseMain),
     'nameTextStyle': (
         375: 'ThirdTitleBold',
         560: 'QoteTextBold',
     ),
 
-    'descriptionColor': ef.get('mainColors', 'baseMain'),
+    'descriptionColor': var(--mc-baseMain),
     'descrMaxWidth': (
         1630: 34ch
     ),
@@ -114,12 +114,12 @@ $themeActive: map-merge((
 
     'progressPadding': ef.size(2),
     'progressBg': (
-        320: ef.get('mainColors', 'bg'),
+        320: var(--mc-bg),
     ),
 
-    'timerBg': ef.get('mainColors', 'bg'),
+    'timerBg': var(--mc-bg),
 
-    'headlineBg': ef.get('mainColors', 'baseOpacity'),
+    'headlineBg': var(--mc-baseOpacity),
     'headlineDisplay': (
         375: none,
         560: block,

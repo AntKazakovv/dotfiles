@@ -2,10 +2,10 @@
 
 $customThemeDefault: () !default;
 $themeDefault: map-merge((
-    'color': ef.get('mainColors', 'baseMain'),
+    'color': var(--mc-baseMain),
 
     'titleTextStyle': 'ThirdTitleBold',
-    'titleColor': ef.get('mainColors', 'main'),
+    'titleColor': var(--mc-main),
     'titleWeight': bold,
     'titlePadding': 0 0 ef.get('size', 'smaller') 0,
 
@@ -15,13 +15,13 @@ $themeDefault: map-merge((
     ),
     'linksGap': ef.get('size', 'small'),
 
-    'linkColor': ef.get('mainColors', 'baseMain'),
-    'linkColorHover': ef.get('mainColors', 'main'),
+    'linkColor': var(--mc-baseMain),
+    'linkColorHover': var(--mc-main),
     'linkSize': 100%,
     'linkDecoration': none,
 
     // theme contacts
-    'textColor': ef.get('mainColors', 'baseMain'),
+    'textColor': var(--mc-baseMain),
     'fontWeight': 700,
     'fontSize': ef.get('font', 'main'),
     'padding': 20px 25px,
@@ -63,18 +63,17 @@ $themeDefault: map-merge((
 $customMenuThemeContacts: () !default;
 $menuThemeContacts: map-merge((
     'textTransform': inherit,
-    'textColor': ef.get('mainColors', 'baseMain'),
-    'textColorHover': darken(ef.get('mainColors', 'baseMain'), 30%),
+    'textColor': var(--mc-baseMain),
     'textDecoration': none,
     'fontWeight': 700,
     'fontSize': ef.get('font', 'main'),
     'padding': 20px 25px,
     'letterSpacing': 1px,
 
-    'hoverBg': ef.get('mainColors', 'main'),
+    'hoverBg': var(--mc-main),
     'hoverColor': ef.get('mainColors', 'baseMain'),
 
-    'activeBg': ef.get('mainColors', 'main'),
+    'activeBg': var(--mc-main),
     'activeColor': ef.get('mainColors', 'baseMain'),
-    'border': 2px solid ef.get('mainColors', 'bg500'),
+    'border': 2px solid var(--mc-bg500),
 ), $customMenuThemeContacts);

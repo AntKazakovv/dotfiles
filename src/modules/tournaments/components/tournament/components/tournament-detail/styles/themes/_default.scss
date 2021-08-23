@@ -47,8 +47,9 @@ $selector: '.wlc-tournament-detail';
                 @include em.get-mq-map('left', $themeDefault, 'headerBackLinkLeft');
                 @include text.get-text-style(ef.get-value($themeDefault, 'headerBackLinkTextStyle'), ef.get-value($themeDefault, 'headerBackLinkTextColor'));
                 @include em.get-mq-map('text-decoration', $themeDefault, 'headerBackLinkDecoration');
-                position: absolute;
+                @include em.transition(color);
 
+                position: absolute;
                 max-width: ef.get-value($themeDefault, 'headerBackLinkMaxWidth');
 
                 overflow: hidden;
@@ -64,6 +65,10 @@ $selector: '.wlc-tournament-detail';
                     svg {
                         fill: ef.get-value($themeDefault, 'headerBackLinkIconColor');
                     }
+                }
+
+                @include em.hover {
+                    color: ef.get-value($themeDefault, 'headerBackLinkTextColorActive');
                 }
             }
 

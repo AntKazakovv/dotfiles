@@ -35,11 +35,11 @@
             @include bm.get-mq-map('margin', $themeDefault, 'amountMargin');
 
             &.success {
-                color: ef.get('mainColors', 'success');
+                color: var(--mc-success);
             }
 
             &.danger {
-                color: ef.get('mainColors', 'error');
+                color: var(--mc-error);
             }
 
             .wlc-sections__profile-content--theme-first & {

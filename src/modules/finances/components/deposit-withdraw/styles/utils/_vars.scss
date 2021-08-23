@@ -8,15 +8,15 @@ $themeDefault: map-merge((
     // Grid
     'gridTemplateColumns': minmax(0, 1fr),
     'gridGap': ef.get('size', 'smaller'),
-    'commonColor': ef.get('mainColors', 'baseMain'),
+    'commonColor': var(--mc-baseMain),
 
     // Title
     'titleFontStyle': 'ThirdTitleBold',
-    'titleColor': ef.get('mainColors', 'baseMain'),
+    'titleColor': var(--mc-baseMain),
 
     // Divider
     'dividerMargin': ef.get('size', 'small') 0,
-    'dividerBg': ef.get('mainColors', 'baseOpacity'),
+    'dividerBg': var(--mc-baseOpacity),
     'dividerHeight': 2px,
     'dividerWidth': 100%,
     'dividerRadius': ef.get('radius', 'biger'),
@@ -34,16 +34,16 @@ $themeDefault: map-merge((
     // Subtitle
     'subtitleFontStyle': 'ThirdTitle',
     'subtitleMargin': 0 0 ef.get('size', 'smaller'),
-    'subtitleColor': ef.get('mainColors', 'baseMain'),
+    'subtitleColor': var(--mc-baseMain),
     'subtitleAlignment': (
         375: center,
         900: left,
     ),
-    'subtitleStepColor': ef.get('mainColors', 'main'),
+    'subtitleStepColor': var(--mc-main),
     'subtitleStepMargin': 0 0 ef.get('size', 'small'),
 
     // Errors
-    'errorsColor': ef.get('mainColors', 'error'),
+    'errorsColor': var(--mc-error),
     'errorsMargin': 0 0 ef.get('size', 'smaller'),
 
     'errorsMessageMargin': 0 0 ef.get('size', 'small'),

@@ -43,8 +43,8 @@ module.exports = function inlineTask() {
     });
 
     task('build:hosted-fields-css', (cb) => {
-        this.addToGitIgnore('/roots/static', 'css', 'hosted.fields.css');
-        return src(`${this.params.paths.src}/app-styles/hosted.fields.scss`)
+        this.addToGitIgnore('/roots/static', 'css', 'hosted.fields*.css');
+        return src(`${this.params.paths.src}/app-styles/hosted.fields*.scss`)
             .pipe(sass({outputStyle: 'compressed', sync: true}).on('error', sass.logError))
             .pipe(dest(`${this.params.paths.static}/css/`));
     });

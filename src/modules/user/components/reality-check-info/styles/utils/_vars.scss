@@ -11,7 +11,7 @@ $themeDefault: map-merge(
         'resultMargin': 0 0 ef.get('size', 'main') 0,
         'resultHeadPadding': ef.get('size', 'small'),
         'resultValueBorderRadius': 10px,
-        'resultValueBackground': ef.get('mainColors', 'bg500'),
+        'resultValueBackground': var(--mc-bg500),
         'resultValuePadding': ef.get('size', 'smallest'),
         'resultItemTextAlign': center,
 

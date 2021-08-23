@@ -2,13 +2,13 @@
 
 $customThemeDefault: () !default;
 $themeDefault: map-merge((
-    'buttonIconFill': ef.get('mainColors', 'baseMain'),
-    'buttonIconFillHover': ef.get('mainColors', 'secondary'),
+    'buttonIconFill': var(--mc-baseMain),
+    'buttonIconFillHover': var(--mc-secondary),
     'buttonIconTransition': all 0.3s,
 
     'buttonSignalSize': 8px,
     'buttonSignalBorderRadius': 50%,
-    'buttonSignalBg': ef.get('mainColors', 'main'),
+    'buttonSignalBg': var(--mc-main),
     'buttonSignalPosTop': -4px,
     'buttonSignalPosRight': -4px,
     'buttonSignalTransition': all 0.3s,

@@ -25,7 +25,6 @@
     }
 
     @include bm.hover {
-        color: ef.get-value($themeDefault, 'colorDefaultHover');
         background: ef.get-value($themeDefault, 'backgroundHover');
         box-shadow: ef.get-value($themeDefault, 'shadowHover');
         border: ef.get-value($themeDefault, 'borderDefaultHover');
@@ -69,5 +68,9 @@
         background: ef.get-value($themeDefault, 'background');
         box-shadow: ef.get-value($themeDefault, 'shadow');
         border: ef.get-value($themeDefault, 'borderDefault');
+
+        .wlc-btn__text {
+            color: ef.get-value($themeDefault, 'fontColor');
+        }
     }
 }

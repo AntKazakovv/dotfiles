@@ -2,20 +2,20 @@
 
 $customThemeDefault: () !default;
 $themeDefault: map-merge((
-    'labelColor': ef.get('fieldColors', 'labelColor'),
+    'labelColor': var(--fc-labelColor),
     'labelGap': 0,
     'labelMargin': 0 0 0 ef.get('size', 'small'),
 
-    'textareaColor': ef.get('fieldColors', 'textColor'),
-    'textareaBg': ef.get('fieldColors', 'inputBg'),
-    'textareaPlaceholderColor': ef.get('fieldColors', 'placeholderColor'),
+    'textareaColor': var(--fc-textColor),
+    'textareaBg': var(--fc-inputBg),
+    'textareaPlaceholderColor': var(--fc-placeholderColor),
     'textareaWidth': ef.get('form', 'inputMaxWidth'),
     'textareaMaxWidth': ef.get('form', 'inputMaxWidth'),
     'textareaBorder': ef.get('form', 'inputBorder'),
     'textareaBorderFocusColor': ef.get('form', 'inputBorderFocusColor'),
     'textareaBorderRadius': ef.get('form', 'inputBorderRadius'),
-    'textareaBorderFeedbackForm': 2px solid ef.get('fieldColors', 'borderColor'),
-    'textareaBorderFocusColorFeedbackForm': ef.get('fieldColors', 'borderColor'),
+    'textareaBorderFeedbackForm': 2px solid var(--fc-borderColor),
+    'textareaBorderFocusColorFeedbackForm': var(--fc-borderColor),
     'textareaPadding': ef.get('form', 'inputPadding'),
     'textareaMinHeight': (
         375: ef.get('form', 'textareaMinHeight'),
@@ -34,7 +34,7 @@ $themeDefault: map-merge((
     'errorsMinWidth': ef.get('form', 'errorsMinWidth'),
     'errorsMaxWidth': ef.get('form', 'errorsMaxWidth'),
     'errorsBorderRadius': ef.get('form', 'errorsBorderRadius'),
-    'errorsBorderColor': darken(ef.get('form', 'errorsBgColor'), 10%),
+    'errorsBorderColor': ef.get('form', 'errorsBorderColor'),
     'errorsFontSize': ef.get('form', 'errorsFontSize'),
     'errorsPadding': ef.get('form', 'errorsPadding'),
 ), $customThemeDefault);

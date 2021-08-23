@@ -32,7 +32,7 @@
                 width: ef.get-value($themeDefaultBenefits, 'separatorWidth');
                 height: ef.get-value($themeDefaultBenefits, 'separatorHeight');
 
-                background: ef.get('mainColors', 'baseOpacity');
+                background: var(--mc-baseOpacity);
                 transform: translate(50%, -50%);
             }
 

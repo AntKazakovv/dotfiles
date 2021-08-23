@@ -4,10 +4,10 @@ $customThemeDefault: () !default;
 
 $themeDefault: map-merge((
     'mainColor': (
-        375:ef.get('mainColors', 'baseMain'),
+        375:var(--mc-baseMain),
     ),
     'secondColor': (
-        375: ef.get('mainColors', 'baseMain')
+        375: var(--mc-baseMain)
     ),
     'mainTitleStyle': 'QoteTextBold',
     'secondTitleStyle': 'PlaceholderText',

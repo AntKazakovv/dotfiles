@@ -53,7 +53,7 @@
                     ::ng-deep {
 
                         .wlc-icon svg * {
-                            fill: lighten(ef.get-value($themeDefault, 'iconFill'), 20%);
+                            fill: ef.get-value($themeDefault, 'iconFillHover');
                         }
                     }
                 }

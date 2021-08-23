@@ -40,7 +40,7 @@ $themeDefault: map-merge((
     'labelFont': 'SignText',
     'labelFontBig': 'PlaceholderText',
     'labelAlignItems': center,
-    'labelColor':  ef.get('fieldColors', 'labelColor'),
+    'labelColor':  var(--fc-labelColor),
     'labelPadding': 0 0 0 ef.get('radius', 'biger'),
     'labelLineHeight': 1.9,
     'labelMinHeight': ef.get('size', 'smaller'),

@@ -5,19 +5,19 @@ $customThemeDefault: () !default;
 
 $themeDefault: map-merge((
     closeIconSize:          42px,
-    closeIconColor:         ef.get('mainColors', 'baseMain'),
-    closeIconHoverColor:    ef.get('mainColors', 'baseMain'),
-    background:             ef.get('mainColors', 'bgModal'),
+    closeIconColor:         var(--mc-baseMain),
+    closeIconHoverColor:    var(--mc-baseMain),
+    background:             var(--mc-bgModal),
     border:                 null,
     borderRadius:           ef.get('radius', 'biger'),
-    shadow:                 0 0 4px #000,
+    shadow:                 0 0 4px ef.get('mainColors', 'baseContrast'),
     imageMaxWidth:          80px,
 
     typeColors: (
-        info:    ef.get('mainColors', 'success'),
-        success: ef.get('mainColors', 'success'),
-        warning: ef.get('mainColors', 'warning'),
-        error:   ef.get('mainColors', 'error'),
+        info:    var(--mc-success),
+        success: var(--mc-success),
+        warning: var(--mc-warning),
+        error:   var(--mc-error),
     ),
     padding: (
         // 42px - icon size
@@ -31,13 +31,13 @@ $themeDefault: map-merge((
         1200: 20px,
     ),
     modalIconMargin: 40px,
+    headingColor: var(--mc-baseMain),
+    messageColor: var(--mc-baseMain),
     headingStyle: (
         375: 'QoteTextBoldSmaller',
         900: 'QoteTextBoldTight',
     ),
-    headingColor: ef.get('mainColors', 'baseMain'),
     messageStyle: 'PrimaryText',
-    messageColor: ef.get('mainColors', 'baseMain'),
     messageContainerMargin: ef.size(3) 0 0,
 ), $customThemeDefault);
 

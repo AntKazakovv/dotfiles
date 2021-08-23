@@ -10,10 +10,10 @@
 
         .wlc-btn {
             @include text.get-text-style(ef.get-value($themeDefault, 'linkFontSize'), ef.get-value($themeDefault, 'linkColor'));
+            @include em.transition(color);
 
-            &:hover {
-                color: lighten(ef.get-value($themeDefault, 'linkColor'), 20%);
-                @include em.transition(color);
+            @include em.hover {
+                color: ef.get-value($themeDefault, 'linkColorHover');
             }
         }
     }

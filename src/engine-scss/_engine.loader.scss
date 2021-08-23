@@ -27,6 +27,10 @@
         background-repeat: map-get($appLoader, 'imgBgRepeat');
         background-position: map-get($appLoader, 'imgBgPosition');
         background-size: map-get($appLoader, 'imgBgSize');
+
+        .wlc-body--theme-alt & {
+            background-image: map-get($appLoader, 'imgBgAltUrl');
+        }
     }
 
     &-loader {

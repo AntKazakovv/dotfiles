@@ -60,7 +60,7 @@
                 }
 
                 &__link {
-                    @include text.get-text-style(ef.get-value($submenuProfileDefault, 'submenuItemTextStyle'), ef.get('mainColors', 'baseMain'));
+                    @include text.get-text-style(ef.get-value($submenuProfileDefault, 'submenuItemTextStyle'), var(--mc-baseMain));
                     @include bm.transition(color);
                     position: relative;
                     z-index: 2;
@@ -85,7 +85,7 @@
                     }
 
                     &.active {
-                        @include text.get-text-style(ef.get-value($submenuProfileDefault, 'submenuItemTextStyleActive'), ef.get('mainColors', 'baseMain'));
+                        @include text.get-text-style(ef.get-value($submenuProfileDefault, 'submenuItemTextStyleActive'), var(--mc-baseMain));
 
                         &:before {
                             width: 100%;

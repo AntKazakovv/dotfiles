@@ -49,7 +49,7 @@ $themeMerchants: map-merge((
         375: ef.get('size', 'less'),
         900: ef.get('size', 'less') * 1.2,
     ),
-    'iconFill': ef.get('mainColors', 'bg100'),
+    'iconFill': var(--mc-bg100),
 ), $customThemeMerchants);
 
 // ~~ theme PAYMENTS
@@ -98,7 +98,7 @@ $themePayments: map-merge((
         900: ef.size(2) ef.size(4),
         1630: ef.size(4),
     ),
-    'iconFill': ef.get('mainColors', 'bg100'),
+    'iconFill': var(--mc-bg100),
     // scrollable
     'scrollableWidth': 0,
     'scrollableTop': 50%,
@@ -109,6 +109,6 @@ $themePayments: map-merge((
     'scrollableLeft': -100px,
     'scrollableRight': -100px,
     'scrollableShadowWidth': 150px,
-    'scrollableShadowBgLeft': linear-gradient(-90deg, transparentize(ef.get('mainColors', 'bg'), 1) 0, ef.get('mainColors', 'bg') 35%),
-    'scrollableShadowBgRight': linear-gradient(90deg, transparentize(ef.get('mainColors', 'bg'), 1) 0, ef.get('mainColors', 'bg') 35%),
+    'scrollableShadowBgLeft': linear-gradient(-90deg, var(--mc-bg-o0) 0, var(--mc-bg) 35%),
+    'scrollableShadowBgRight': linear-gradient(90deg, var(--mc-bg-o0) 0, var(--mc-bg) 35%),
 ), $customThemePayments);

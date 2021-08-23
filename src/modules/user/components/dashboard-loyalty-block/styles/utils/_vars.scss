@@ -7,7 +7,7 @@ $themeDefault: map-merge((
         900: ef.get('size', 'smally') ef.get('size', 'smaller'),
         1630: ef.get('size', 'smaller'),
     ),
-    'bg': ef.get('mainColors', 'bg300'),
+    'bg': var(--mc-bg300),
     'boxShadow': null,
     'borderRadius': ef.get('radius', 'biger'),
     'gap': ef.size(2),
@@ -17,8 +17,8 @@ $themeDefault: map-merge((
     ),
 
     'allLinkTextStyle': 'ButtonText',
-    'allLinkColor': ef.get('mainColors', 'main'),
-    'allLinkColorHover': ef.get('mainColors', 'baseMain'),
+    'allLinkColor': var(--mc-main),
+    'allLinkColorHover': var(--mc-baseMain),
     'allLinkAlign': (
         375: center,
         900: left,

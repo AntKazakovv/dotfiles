@@ -3,27 +3,27 @@
 $customThemeDefault: () !default;
 $themeDefault: map-merge((
     'headerSize': ef.get('font', 'big'),
-    'headerColor': ef.get('mainColors', 'baseMain'),
+    'headerColor': var(--mc-baseMain),
     'headerStyle': 'QoteTextBold',
     'headerAlign': center,
     'headerMargin': 0 0 ef.get('size', 'smally') 0,
 
     'textSize': ef.get('font', 'main'),
-    'textColor': ef.get('mainColors', 'baseMain'),
+    'textColor': var(--mc-baseMain),
     'textStyle': 'ThirdTitle',
     'textAlign': center,
 
     'linkSize': ef.get('font', 'main'),
     'linkStyle': 'ThirdTitle',
-    'linkColor': ef.get('mainColors', 'baseMain'),
-    'linkColorActive': ef.get('mainColors', 'baseMain'),
+    'linkColor': var(--mc-baseMain),
+    'linkColorActive': var(--mc-baseMain),
 
-    'backgroundImage': ef.get('mainColors', 'bg700'),
-    'backgroundText': ef.get('mainColors', 'bg700'),
-    'backgroundLink': ef.get('mainColors', 'bg700'),
-    'backgroundLinkActive': ef.get('mainColors', 'bg500'),
+    'backgroundImage': var(--mc-bg700),
+    'backgroundText': var(--mc-bg700),
+    'backgroundLink': var(--mc-bg700),
+    'backgroundLinkActive': var(--mc-bg500),
 
-    'underline': ef.get('mainColors', 'main'),
+    'underline': var(--mc-main),
     'underlineHeight': 4px,
     'underlineRadius': ef.get('radius', 'small'),
     'radius': ef.get('radius', 'biger'),

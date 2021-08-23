@@ -1,10 +1,13 @@
-@use 'engine.variables' as ev;
+// TODO: переделать сборщик, чтобы он собирал 2 файла (3, 4 и т.д.) hosted.fields, в зависимости от цветовой схемы.
 @use 'functions' as ef;
 @use 'mixins/text' as text;
 
+@import 'mixins/css.vars.mixins';
+@import 'engine.variables';
+
 $customHostedFields: () !default;
 $hostedFields: map-merge((
-    'containerBg': ef.get('mainColors', 'bg700'),
+    'containerBg': var(--mc-bg700),
     'containerMargin': 0,
 
     'inputHeight': ef.get('form', 'inputHeight'),
@@ -14,9 +17,9 @@ $hostedFields: map-merge((
     'inputBg': ef.get('form', 'inputBackground'),
     'inputBorder': ef.get('form', 'inputBorder'),
     'inputRadius': ef.get('form', 'inputBorderRadius'),
-    'inputDisabledBg': ef.get('fieldColors', 'disableBg'),
-    'inputDisabledBorderColor': ef.get('fieldColors', 'disableBorder'),
-    'inputDisabledColor': ef.get('fieldColors', 'placeholderColor'),
+    'inputDisabledBg': var(--fc-disableBg),
+    'inputDisabledBorderColor': var(--fc-disableBorder),
+    'inputDisabledColor': var(--fc-placeholderColor),
     'inputBorderFocusColor': ef.get('form', 'inputBorderFocusColor'),
     'inputShadow': none,
 
@@ -24,9 +27,8 @@ $hostedFields: map-merge((
     'labelColor': ef.get('form', 'labelColor'),
     'labelLineHeight': 1.9,
     'labelMargin': 0 0 0 ef.get('size', 'small'),
-    'rootFontSize': ev.$font-size-root,
+    'rootFontSize': $font-size-root,
 ), $customHostedFields);
-
 
 html,
 body,

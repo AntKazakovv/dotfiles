@@ -4,8 +4,8 @@ $customThemeDefault: () !default;
 $themeDefault: map-merge((
     'containerRadius': ef.get('radius', 'biger'),
     'containerBackground': (
-        320: ef.get('mainColors', 'bg500'),
-        900: ef.get('mainColors', 'bg700'),
+        320: var(--mc-bg500),
+        900: var(--mc-bg700),
     ),
     'containerGridTemplateColumns': (
         320: minmax(290px, 1fr),
@@ -42,11 +42,11 @@ $themeDefault: map-merge((
     'boardTitleColor': ef.get('mainColors', 'baseMain'),
 
     'priceFontStyle': 'QoteTextBold',
-    'priceColor': ef.get('mainColors', 'main'),
+    'priceColor': var(--mc-main),
 
     'pseudoElementPosition': 0,
     'pseudoElementZIndex': 2,
-    'pseudoElementGradient': linear-gradient(0deg, #000 0%, rgba(#000, 0.2) 50%),
+    'pseudoElementGradient': linear-gradient(0deg, var(--mc-baseContrast-o6) 0%, var(--mc-baseContrast-o2) 60%),
 
     'innerBlockZIndex': 3,
 
@@ -61,7 +61,7 @@ $themeDefault: map-merge((
     'imageSize': 100%,
     'imagePosition': 0,
     'imageZIndex': 1,
-    'imageObjectFit': fill,
+    'imageObjectFit': cover,
     'imageObjectPosition': center,
 
     'textAlign': (
@@ -80,12 +80,12 @@ $themeDefault: map-merge((
 
     'titleFontStyle': 'ThirdTitleBold',
     'titleFontStyleDesk': 'PromoTitle',
-    'titleColor': ef.get('mainColors', 'baseMain'),
+    'titleColor': var(--mc-baseMain),
     'titleMargin': 0 0 ef.get('size', 'less'),
 
     'descriptionFontStyle': 'PrimaryText',
     'descriptionFontStyleDesk': 'ThirdTitle',
-    'descriptionColor': ef.get('mainColors', 'baseMain'),
+    'descriptionColor': var(--mc-baseMain),
     'descriptionMargin': 0 0 ef.get('size', 'main') ,
 
     'btnsWrapMargin': auto 0 0 0,
@@ -115,16 +115,16 @@ $themeDefault: map-merge((
 
     'loaderZIndex': 10,
     'loaderPosition': 0,
-    'loaderBachround': rgba(ef.get('mainColors', 'disabled'), 0.7),
+    'loaderBachround': var(--mc-disabled-o6),
     'loaderRadius': ef.get('radius', 'biger'),
 
     'loaderBeforePosition': 0,
     'loaderBeforeSize': 60px,
-    'loaderBeforeBackground': rgba(ef.get('mainColors', 'bg'), 0.9),
+    'loaderBeforeBackground': var(--mc-bg-o8),
     'loaderBeforeRadius': 50%,
 
     'loaderAfterSize': 50px,
-    'loaderAfterBorderColor': ef.get('mainColors', 'main'),
+    'loaderAfterBorderColor': var(--mc-main),
     'loaderAfterRadius': 50%,
     'loaderAfterAnimation': spin 1s infinite linear,
 ), $customThemeDefault);
@@ -137,7 +137,7 @@ $modAvailable: map-merge((
         1200: minmax(320px, 1fr) 340px,
     ),
     'containerBackground': (
-        320: ef.get('mainColors', 'bg500'),
+        320: var(--mc-bg500),
     ),
 
     'containerHeight': (

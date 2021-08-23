@@ -4,33 +4,33 @@
 $customThemeDefault: () !default;
 $themeDefault: map-merge((
     'minHeight': 380px,
-    'backgroundColor': ef.get('mainColors', 'bg700'),
+    'backgroundColor': var(--mc-bg700),
     'borderRadius': ef.get('radius', 'biger'),
     'headerTextStyle': 'ThirdTitleBold',
-    'headerTextColor': ef.get('mainColors', 'baseMain'),
+    'headerTextColor': var(--mc-baseMain),
     'headerPadding': ef.get('size', 'smaller'),
-    'imageShadowLayout': linear-gradient(180deg, #000000 5.56%, #171717e6 20%, rgba(0, 0, 0, 0) 39.22%),
+    'imageShadowLayout': linear-gradient(180deg, var(--mc-baseContrast) 5%, var(--mc-baseContrast-o8) 20%, var(--mc-baseContrast-o0) 40%),
 
     'titleEventPadding': (
         375: 15px 10px 25px,
         900: 25px 10px 35px,
     ),
-    'titleBackground': ef.get('mainColors', 'bg700'),
+    'titleBackground': var(--mc-bg700),
     'titleTextStyle': 'ThirdTitleBold',
-    'titleTextColor': ef.get('mainColors', 'baseMain'),
+    'titleTextColor': var(--mc-baseMain),
     'delimiterMargin': 0 ef.get('size', 'smallest'),
 
     'footerMaxHeight': 80px,
-    'footerBackground': ef.get('mainColors', 'bg700'),
+    'footerBackground': var(--mc-bg700),
 
     'betsPadding': 0 ef.get('size', 'small'),
-    'betItemBackground': ef.get('mainColors', 'bg500'),
+    'betItemBackground': var(--mc-bg500),
     'betMaxWidth': 153px,
     'betPadding': 8px 16px,
     'betMargin': 0 ef.get('size', 'smallest'),
     'betRadius': ef.get('radius', 'biger'),
-    'betItemHoverBackground': ef.get('mainColors', 'buttonColor'),
+    'betItemHoverBackground': var(--mc-buttonColor),
     'betDataStyle': 'ThirdTitleBold',
-    'betDataColor': ef.get('mainColors', 'baseMain'),
-    'betDataColorHover': ef.get('mainColors', 'baseMain'),
+    'betDataColor': var(--mc-baseMain),
+    'betDataColorHover': var(--mc-baseMain),
 ), $customThemeDefault);

@@ -3,18 +3,18 @@
 $customMenuThemeContacts: () !default;
 $menuThemeContacts: map-merge((
     'textTransform': inherit,
-    'textColor': ef.get('mainColors', 'baseMain'),
+    'textColor': var(--mc-baseMain),
     'textDecoration': none,
     'padding': 20px 25px,
     'letterSpacing': 1px,
 
-    'hoverBg': ef.get('mainColors', 'main'),
+    'hoverBg': var(--mc-main),
     'hoverColor': ef.get('mainColors', 'baseMain'),
 
-    'activeBg': ef.get('mainColors', 'main'),
+    'activeBg': var(--mc-main),
     'activeColor': ef.get('mainColors', 'baseMain'),
-    'borderColor': ef.get('mainColors', 'bg500'),
-    'iconColor': ef.get('mainColors', 'main'),
+    'borderColor': var(--mc-bg500),
+    'iconColor': var(--mc-main),
 ), $customMenuThemeContacts);
 
 $customMenuThemeDefault: () !default;

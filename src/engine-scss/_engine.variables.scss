@@ -21,6 +21,9 @@ $customButtonSettings: () !default;
 
 $customMainColors: () !default;
 $customFieldColors: () !default;
+$customMainColorsAlt: () !default;
+$customFieldColorsAlt: () !default;
+$customCssVarsConfig: () !default;
 
 /// Основные цвета проекта из дизайна.
 ///
@@ -46,6 +49,7 @@ $mainColors: map-merge((
     'main': #7f7cff,
     'secondary': #1dc0c0,
     'baseMain': #fff,
+    'baseContrast': #000,
     'buttonColor': #7f7cff,
     'baseOpacity': rgba(147, 158, 183, 0.5),
     'bg100': #515f84,
@@ -60,6 +64,30 @@ $mainColors: map-merge((
     'warning': #ffa756,
     'disabled': #c4c4c4,
 ), $customMainColors);
+
+/// Основные цвета для альтернативной цветовой схемы
+/// По набору полей совпадают с mainColors, по значениям - другие
+///
+/// @name mainColorsAlt
+$mainColorsAlt: map-merge((
+    'main': #7f7cff,
+    'secondary': #1dc0c0,
+    'baseMain': #000,
+    'baseContrast': #fff,
+    'buttonColor': #7f7cff,
+    'baseOpacity': rgba(0, 0, 0, 0.5),
+    'bg100': #7f99be,
+    'bg300': #f2f5f8,
+    'bg500': #ccd6e5,
+    'bg700': #e5eaf2,
+    'bg': #fff,
+    'bgModal': #e5eaf2,
+    'elementsColor': null,
+    'error': #d96969,
+    'success': #45c195,
+    'warning': #ffa756,
+    'disabled': #c4c4c4,
+), $customMainColorsAlt);
 
 /// Цвета ui элементов из дизайна.
 ///
@@ -97,6 +125,42 @@ $fieldColors: map-merge((
     'successElement': #45c195,
     'successBorder': #acf6d3,
 ), $customFieldColors);
+
+/// Цвета ui элементов из дизайна для альтернативной цветовой схемы.
+/// По набору полей совпадают с fieldColors
+///
+/// @name fieldColorsAlt
+$fieldColorsAlt: map-merge((
+    'labelColor': #7d7d7d,
+    'inputBg': #fff,
+    'borderColor': #c0c0c0,
+    'textColor': #000000,
+    'placeholderColor': #999,
+    'disabledPlaceholderColor': null,
+    'arrowColor': #999,
+    'iconColor': #999,
+    'disableBg': #d3d6da,
+    'disableBorder': #cbcdd1,
+    'errorBackground': #ffebf2,
+    'errorBorder': #f5e2e8,
+    'errorArrow': null,
+    'successElement': null,
+    'successBorder': null,
+), $customFieldColorsAlt);
+
+/// Конфиг для формирования цветовой палитры на CSS-переменных
+///
+/// Для каждого цвета из @mainColors, @fieldColors (а также для @mainColorsAlt и @fieldColorsAlt в случае использования дополнительной альтернативной цветовой схемы) генерируются соответствующие CSS-переменные с разными настройками яркости и прозрачности. Для генерации css-переменных используется миксин @makeCssColorVars
+///
+/// @name cssVarsConfig
+///
+/// @prop {list} colorTones [(5, 10, 20)] - степени изменения яркости, целые числа от 0 до 100
+/// @prop {list} opacities [(0, 1, 2, 4, 6, 8)] - степени изменения прозрачности, целые числа от 0 до 10
+$cssVarsConfig: map-merge((
+    'colorTones': (5, 10, 20),
+    'opacities': (0, 1, 2, 4, 6, 8),
+), $customCssVarsConfig);
+
 
 /// Размеры отступов на сайте.
 /// Здесь перечислены все возможные отступы и поля для всех стандартных элементов на сайте.
@@ -286,33 +350,34 @@ $dummy: map-merge((), $customForm);
 $form: map-merge((
     'maxWidth': 765px,
     'labelFontWeight': normal,
-    'labelColor': map-get($fieldColors, 'labelColor'),
+    'labelColor': var(--fc-labelColor),
     'labelFontSize': map-get($font, 'smaller'),
-    'inputColor': map-get($fieldColors, 'textColor'),
+    'inputColor': var(--fc-textColor),
     'inputFontSize': map-get($font, 'main'),
     'inputHeight': 40px,
-    'inputBackground': map-get($fieldColors, 'inputBg'),
-    'inputBorder': 2px solid map-get($fieldColors, 'borderColor'),
-    'inputBorderFocusColor': map-get($fieldColors, 'borderColor'),
+    'inputBackground': var(--fc-inputBg),
+    'inputBorder': 2px solid var(--fc-borderColor),
+    'inputBorderFocusColor': var(--fc-borderColor),
     'inputBorderRadius': map-get($radius, 'biger'),
     'inputPadding': map-get($size, 'small') map-get($size, 'main') map-get($size, 'small') map-get($size, 'small'),
     'selectDropdownPadding': map-get($size, 'small'),
     'inputTextAlign': left,
     'selectDropdownHeight': 300px,
     'selectDropdownItemTransition': map-get($time, 'main') ease-in-out background,
-    'selectArrowColor': map-get($fieldColors, 'arrowColor'),
+    'selectDroprownItemBgActive': var(--fc-inputBg-d20),
+    'selectArrowColor': var(--fc-arrowColor),
     'iconWidth': 12px,
     'iconHeight': 12px,
     'iconRightShift': 15px,
-    'successIconColor': map-get($fieldColors, 'successElement'),
-    'errorIconColor': map-get($fieldColors, 'errorArrow'),
+    'successIconColor': var(--fc-successElement),
+    'errorIconColor': var(--fc-errorArrow),
     'pendingIconColor': map-get($fieldColors, 'disabledBorder'),
-    'errorsBgColor': map-get($fieldColors, 'errorBackground'),
-    'errorsColor': map-get($fieldColors, 'textColor'),
+    'errorsBgColor': var(--fc-errorBackground),
+    'errorsColor': var(--fc-textColor),
     'errorsMinWidth': 300px,
     'errorsMaxWidth': 100%,
     'errorsBorderRadius': map-get($radius, 'biger'),
-    'errorsBorderColor': map-get($fieldColors, 'errorBorder'),
+    'errorsBorderColor': var(--fc-errorBorder),
     'errorsFontSize': map-get($font, 'smaller'),
     'errorsPadding': map-get($size, 'small'),
     'placeholderFontSize': map-get($font, 'smaller'),
@@ -398,7 +463,7 @@ $profileSettings: map-merge((
         1366: 1200px,
         1630: 1370px,
     ),
-    'titleColor': map-get($mainColors, 'baseMain'),
+    'titleColor': var(--mc-baseMain),
     'profilePadding': (
         375: map-get($size, 'smally') map-get($size, 'smally') map-get($size, 'less'),
         1024: map-get($size, 'smally') map-get($size, 'main') map-get($size, 'less'),
@@ -409,10 +474,10 @@ $profileSettings: map-merge((
         1024: 0,
     ),
     'profileBg': (
-        375: map-get($mainColors, 'bg700'),
-        1024: map-get($mainColors, 'bg700'),
+        375: var(--mc-bg700),
+        1024: var(--mc-bg700),
     ),
-    'profileBgV1': map-get($mainColors, 'bg700'),
+    'profileBgV1': var(--mc-bg700),
     'profileBorderRadius': (
         375: map-get($size, 'small'),
         1024: map-get($size, 'small')
@@ -443,7 +508,7 @@ $profileSettings: map-merge((
     'contentHeaderAlignV1': center,
     'contentHeaderJustifyV1': space-between,
     'contentHeaderBorderBottomV1': (
-        1024: 2px solid map-get($mainColors, 'baseOpacity'),
+        1024: 2px solid var(--mc-baseOpacity),
     ),
     'contentHeaderMarginV1': 0 0 map-get($size, 'smaller') 0,
     'contentHeaderUnderlinedMarginV1': 0 0 map-get($size, 'smaller') 0,
@@ -452,6 +517,10 @@ $profileSettings: map-merge((
         320: 70px,
         1024: 80px,
     ),
+
+    // Эти два цвета не пробрасываются, т.к. в дальнейшем используются внутри url("data:image/svg+xml;...), туда не подходят css-переменные
+    'profileTabAngleBg': map-get($mainColors, 'bg700'),
+    'profileTabAngleBgAlt': map-get($mainColorsAlt, 'bg700'),
 ), $customProfileSettings);
 
 /// Глобальные настройки профиля (первая тема):
@@ -479,26 +548,24 @@ $buttonSettings: map-merge((
     // Font
     'fontSize': map-get($font, 'less'),
     'fontWeight': bold,
-    'fontColor': map-get($mainColors, 'baseMain'),
-    'colorDefaultHover': darken(map-get($mainColors, 'baseMain'), 20),
-    'fontColorActive': map-get($mainColors, 'baseMain'),
-    'fontColorSecondary': map-get($mainColors, 'baseMain'),
-    'fontColorSecondaryHover': map-get($mainColors, 'baseMain'),
-    'fontColorActiveSecondary': lighten(map-get($mainColors, 'baseMain'), 20%),
+    'fontColor': map-get($mainColors, 'baseMain'), // Shouldn't be css var
+    'fontColorActive': var(--mc-baseMain),
+    'fontColorSecondary': var(--mc-baseMain),
+    'fontColorSecondaryHover': var(--mc-baseMain),
+    'fontColorActiveSecondary': var(--mc-baseMain),
     // Transform
     'textTransform': initial,
     // Background
-    'background': map-get($mainColors, 'buttonColor'),
-    //'backgroundHover': darken(map-get($mainColors, 'buttonColor'), 20%),
-    'backgroundHover': lighten(map-get($mainColors, 'buttonColor'), 5%),
+    'background': var(--mc-buttonColor),
+    'backgroundHover': var(--mc-buttonColor-l20),
     'backgroundSecondary': transparent,
-    'backgroundSecondaryHover': rgba(map-get($mainColors, 'secondary'), 0.3),
-    'backgroundResolve': map-get($mainColors, 'success'),
-    'backgroundResolveHover': darken(map-get($mainColors, 'success'), 20%),
-    'backgroundReject': map-get($mainColors, 'error'),
-    'backgroundRejectHover': darken(map-get($mainColors, 'error'), 20%),
-    'backgroundDisabled': map-get($mainColors, 'disabled'),
-    'backgroundDisabledHover': darken(map-get($mainColors, 'disabled'), 20%),
+    'backgroundSecondaryHover': var(--mc-secondary-o2),
+    'backgroundResolve': var(--mc-success),
+    'backgroundResolveHover': var(--mc-success-d20),
+    'backgroundReject': var(--mc-error),
+    'backgroundRejectHover': var(--mc-error-d20),
+    'backgroundDisabled': var(--mc-disabled),
+    'backgroundDisabledHover': var(--mc-disabled-d20),
     // Shadow
     'shadow': none,
     'shadowHover': none,
@@ -507,10 +574,10 @@ $buttonSettings: map-merge((
     //Border
     'borderDefault': 2px solid transparent,
     'borderRadiusDefault': map-get($radius, 'biger'),
-    'borderDefaultHover': 2px solid lighten(map-get($mainColors, 'buttonColor'), 5%),
-    'borderSecondary': 2px solid map-get($mainColors, 'secondary'),
-    'borderSecondaryHover': 2px solid map-get($mainColors, 'secondary'),
-    'borderColorRead': map-get($mainColors, 'baseOpacity'),
+    'borderDefaultHover': 2px solid var(--mc-buttonColor-l20),
+    'borderSecondary': 2px solid var(--mc-secondary),
+    'borderSecondaryHover': 2px solid var(--mc-secondary),
+    'borderColorRead': var(--mc-baseOpacity),
     //Padding
     'padding': map-get($size, 'smallest') map-get($size, 'smaller'),
     'gap': map-get($size, 'smallest'),
@@ -561,17 +628,18 @@ $layoutGap: map-merge((
 
 $customAppLoader: () !default;
 $appLoader: map-merge((
-    'background': linear-gradient(315deg, map-get($mainColors, 'bg700') 0%, map-get($mainColors, 'bg') 75%),
+    'background': linear-gradient(315deg, var(--mc-bg700) 0%, var(--mc-bg) 75%),
     'imgBlockPadding': 80px,
     'imgBlockWidth': 300px,
     'imgBgUrl': url('/static/images/logo.svg'),
+    'imgBgAltUrl': url('/static/images/logo-alt.svg'),
     'imgBgRepeat': no-repeat,
     'imgBgPosition': center,
     'imgBgSize': contain,
     'loaderBlockMargin': 35px 0 0,
     'loaderWidth': 50px,
     'loaderHeight': 50px,
-    'loaderBorder': 2px solid map-get($mainColors, 'baseMain'),
+    'loaderBorder': 2px solid var(--mc-baseMain),
 ), $customAppLoader);
 
 $customTableBtnBlock: () !default;
@@ -618,16 +686,17 @@ $tagConfig: map-merge((
     'padding': 4px 15px,
 ), $customTagConfig);
 
-$body-bg: map-get($mainColors, 'bg') !default;
-$body-color: map-get($mainColors, 'baseMain') !default;
+$body-bg: var(--mc-bg) !default;
+$body-color: var(--mc-baseMain) !default;
+
 $font-size-root: 10px !default;
 $font-size-base: map-get($font, 'base') !default;
 $font-family-sans-serif: Inter, sans-serif !default;
 $headings-margin-bottom: 0 !default;
 $paragraph-margin-bottom: 0 !default;
-$link-color: map-get($mainColors, 'main') !default;
+$link-color: var(--mc-main) !default;
 $link-decoration: underline !default;
-$link-hover-color: map-get($mainColors, 'baseMain') !default;
+$link-hover-color: var(--mc-baseMain) !default;
 $link-hover-decoration: underline !default;
 $enable-rfs: false;
 $tooltip-opacity: 1;

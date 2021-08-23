@@ -2,7 +2,7 @@
 
 $customThemeDefault: () !default;
 $themeDefault: map-merge((
-    'timerBg': ef.get('mainColors', 'bg'),
+    'timerBg': var(--mc-bg),
     'timerBgLight': transparent,
     'timerAlignItems': center,
     'timerRadius': ef.get('radius', 'biger'),
@@ -13,11 +13,11 @@ $themeDefault: map-merge((
     'timeIconMarginLight': -1px ef.size(1) 0 0,
     'timeIconSize': 18px,
     'timeIconSizeLight': ef.size(2),
-    'timeIconFill': ef.get('mainColors', 'secondary'),
-    'timeIconFillLight': ef.get('mainColors', 'main'),
+    'timeIconFill': var(--mc-secondary),
+    'timeIconFillLight': var(--mc-main),
     'timerFontStyle': 'PrimaryTextBold',
     'timerFontStyleLight': 'SignText',
-    'timerColor': ef.get('mainColors', 'baseMain'),
+    'timerColor': var(--mc-baseMain),
     'timerNumbersOffset': 0 ef.size(1),
     'timerNumbersOffsetLight': 0,
     'timerTextWidth': 100%,
@@ -27,6 +27,6 @@ $themeDefault: map-merge((
     'timerTextAlign': left,
 
     'secondaryTextFontStyle': 'PrimaryText',
-    'secondaryTextColor': ef.get('mainColors', 'baseMain'),
+    'secondaryTextColor': var(--mc-baseMain),
 ), $customThemeDefault);
 

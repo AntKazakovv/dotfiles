@@ -3,17 +3,17 @@
 $customThemeDefault: () !default;
 $themeDefault: map-merge((
     'padding': ef.get('size', 'smaller') ef.get('size', 'smaller') ef.get('size', 'main'),
-    'backgroundColor': ef.get('mainColors', 'bg700'),
+    'backgroundColor': var(--mc-bg700),
     'borderRadius': ef.get('radius', 'biger'),
     'headerTextStyle': 'ThirdTitleBold',
-    'headerTextColor': ef.get('mainColors', 'baseMain'),
+    'headerTextColor': var(--mc-baseMain),
     'headerMargin': (
         375: 0 0 25px,
         900: 0 0 35px,
     ),
 
     'matchTitleStyle': 'ThirdTitle',
-    'matchTitleColor': ef.get('mainColors', 'baseMain'),
+    'matchTitleColor': var(--mc-baseMain),
     'matchPadding': 0 0 ef.get('size', 'smaller'),
     'matchMargin': (
         375: 0 0 25px,
@@ -21,7 +21,7 @@ $themeDefault: map-merge((
     ),
     'matchBorderHeight': 2px,
     'matchBorderRadius': ef.get('radius', 'smaller'),
-    'matchBorderColor': ef.get('mainColors', 'main'),
+    'matchBorderColor': var(--mc-main),
     'matchBorderWidth': 158px,
     'delimiterMargin': 0 ef.get('size', 'smallest'),
 
@@ -45,7 +45,7 @@ $themeDefault: map-merge((
         1200: 90px,
         1630: 105px,
     ),
-    'teamCircleColor': ef.get('mainColors', 'bg300'),
+    'teamCircleColor': var(--mc-bg300),
     'teamCircleRadius': ef.get('radius', 'large'),
     'teamImgMaxHeight': (
         375: 54px,
@@ -54,9 +54,9 @@ $themeDefault: map-merge((
         1630: 67px,
     ),
     'teamTextStyle': 'ThirdTitle',
-    'teamTextColor': ef.get('mainColors', 'baseMain'),
+    'teamTextColor': var(--mc-baseMain),
     'matchInfoTextStyle': 'ThirdTitleBold',
-    'matchInfoTextColor': ef.get('mainColors', 'baseMain'),
-    'matchInfoIconFill': ef.get('mainColors', 'main'),
+    'matchInfoTextColor': var(--mc-baseMain),
+    'matchInfoIconFill': var(--mc-main),
     'matchInfoIconMargin': 7px,
 ), $customThemeDefault);

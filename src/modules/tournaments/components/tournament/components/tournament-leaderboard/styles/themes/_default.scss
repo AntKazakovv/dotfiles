@@ -163,12 +163,12 @@
                 ::ng-deep {
 
                     .wlc-btn__text {
-                        color: lighten(ef.get-value($themeDefault, 'btnTextColor'), 20%);
+                        color: ef.get-value($themeDefault, 'btnTextColorHover');
 
                         .wlc-icon::ng-deep {
 
                             svg {
-                                fill: lighten(ef.get-value($themeDefault, 'btnTextColor'), 20%);
+                                fill: ef.get-value($themeDefault, 'btnTextColorHover');
                             }
                         }
                     }

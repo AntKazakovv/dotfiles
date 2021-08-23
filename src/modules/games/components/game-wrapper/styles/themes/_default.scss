@@ -170,7 +170,7 @@
                 max-width: 100%;
                 height: 100%;
                 margin: 0;
-                background: #000;
+                background: ef.get-value($themeDefault, 'mobileContentBg');
             }
 
             &__game-area {

@@ -3,10 +3,10 @@
 $customThemeDefault: () !default;
 $themeDefault: map-merge((
     'userStatsEmailValueMargin': 0 ef.get('size', 'small'),
-    'userStatsEmailValueColor': ef.get('mainColors', 'baseMain'),
+    'userStatsEmailValueColor': var(--mc-baseMain),
     'userStatsIconSize': (
         375: 25px,
     ),
     'iconFill': ef.get('mainColors', 'baseMain'),
-    'iconFillBg': ef.get('mainColors', 'secondary'),
+    'iconFillBg': var(--mc-secondary),
 ), $customThemeDefault);

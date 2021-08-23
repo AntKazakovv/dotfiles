@@ -34,8 +34,8 @@ $mainInfoThemeDefault: map-merge((
         1200: 450px,
     ),
     'formLabelColor': (
-        375: ef.get('fieldColors', 'labelColor'),
-        768: ef.get('mainColors', 'baseMain')
+        375: var(--fc-labelColor),
+        768: var(--mc-baseMain)
     ),
     'phoneInnerGap': 140px + ef.get('size', 'small'),
     'phoneTemplateColumns': (
@@ -73,8 +73,8 @@ $mainInfoThemeDefault: map-merge((
     'addTitleFontSize': ef.get('font', 'smaller'),
     'addTitleFontWeight': 300,
     'addTitleColor': (
-        375: ef.get('mainColors', 'baseOpacity'),
-        768: ef.get('mainColors', 'baseMain')
+        375: var(--mc-baseOpacity),
+        768: var(--mc-baseMain)
     ),
     'addItemGap': ef.get('size', 'smaller'),
     'addItemWidth': max-content,
@@ -84,11 +84,11 @@ $mainInfoThemeDefault: map-merge((
     ),
     'addItemBtnIconMargin': 0 0 0 3px,
     'addItemTitleMainFontSize': ef.get('font', 'main'),
-    'addItemTitleMainColor': ef.get('mainColors', 'baseMain'),
+    'addItemTitleMainColor': var(--mc-baseMain),
     'addItemTitleSecondFontSize': ef.get('font', 'smaller'),
     'addItemTitleSecondColor': (
-        375: ef.get('mainColors', 'baseOpacity'),
-        768: ef.get('mainColors', 'baseMain')
+        375: var(--mc-baseOpacity),
+        768: var(--mc-baseMain)
     ),
     'addItemLinkFontSize': (
         375: ef.get('font', 'less'),
@@ -99,9 +99,9 @@ $mainInfoThemeDefault: map-merge((
     ),
     'addItemLinkColor': (
         375: ef.get('mainColors', 'baseMain'),
-        1024: ef.get('mainColors', 'main')
+        1024: var(--mc-main)
     ),
-    'addItemLinkColorHover': ef.get('mainColors', 'baseMain'),
+    'addItemLinkColorHover': var(--mc-baseMain),
     'addItemTitleMainMargin': (
         375: 0 0 5px 0,
     ),
@@ -113,7 +113,7 @@ $mainInfoThemeDefault: map-merge((
 
 $customMainInfoThemeV1: () !default;
 $mainInfoThemeV1: map-merge((
-    'dividerBackground': ef.get('mainColors', 'baseOpacity'),
+    'dividerBackground': var(--mc-baseOpacity),
     'dividerWidth': 100%,
     'dividerHeight': 2px,
     'dividerBottom': -2px,

@@ -113,8 +113,8 @@ $themeDefault: map-merge((
 
     'singupBtnTextFontSize': 0,
     'singupBtnTextFontSizeMD': 'PlaceholderTextBold',
-    'singupBtnTextColor': ef.get('mainColors', 'main'),
-    'singupBtnTextColorHover': lighten(ef.get('mainColors', 'main'), 20%),
+    'singupBtnTextColor': var(--mc-main),
+    'singupBtnTextColorHover': var(--mc-baseMain),
     'singupBtnTextAlign': center,
     'singupIconOrder': -1,
     'singupIconMargin': 0 ef.size(1) 0 0,
@@ -142,7 +142,7 @@ $themeDefault: map-merge((
 
     'asideBonusPadding': 28px ef.size(12) 100px ef.size(12),
     'asideBonusHeight': 100%,
-    'asideBonusBackround': rgba(#000, 0.4),
+    'asideBonusBackround': var(--mc-baseContrast-o4),
     'asideBonusTitleStyle': 'PromoTitle',
     'asideBonusTitleMargin':  auto auto ef.size(6),
     'asideBonusSubtitleStyle': 'PrimaryText',
@@ -155,11 +155,11 @@ $themeDefault: map-merge((
     'backBtnPositionTop': ef.size(6),
     'backBtnPositionLeft': ef.size(8),
     'backBtnMaxWidth': 100%,
-    'backBtnColorHover': ef.get('mainColors', 'main'),
+    'backBtnColorHover': var(--mc-main),
 
     'backBtnIconMargin': 0 ef.size(1) 0 0,
-    'backBtnIconFill': ef.get('mainColors', 'baseMain'),
-    'backBtnIconFillHover': ef.get('mainColors', 'main'),
+    'backBtnIconFill': var(--mc-baseMain),
+    'backBtnIconFillHover': var(--mc-main),
 
     'time': ef.get('time', 'main'),
 

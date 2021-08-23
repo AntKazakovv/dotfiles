@@ -46,12 +46,12 @@ $themeDefault: map-merge((
     ),
 
     'iconsListLinkSize': ef.get('size', 'main'),
-    'iconsListLinkBg': ef.get('mainColors', 'bg100'),
-    'iconsListLinkBgHover': ef.get('mainColors', 'main'),
+    'iconsListLinkBg': var(--mc-bg100),
+    'iconsListLinkBgHover': var(--mc-main),
     'iconsListLinkBorderRadius': 100%,
 
     'iconsListLinkSvgSize': ef.get('size', 'less'),
-    'iconsListLinkSvgColor': ef.get('mainColors', 'bg'),
+    'iconsListLinkSvgColor': var(--mc-bg),
 
     // theme mod compact
     'compactListDisplay': (
@@ -81,5 +81,5 @@ $customThemeColored: () !default;
 $themeColored: map-merge((
     'iconsListLinkBorderRadius': 5px,
 
-    'iconsListLinkSvgColor': ef.get('mainColors', 'baseMain'),
+    'iconsListLinkSvgColor': var(--mc-baseMain),
 ), $customThemeColored);

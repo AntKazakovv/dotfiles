@@ -30,7 +30,7 @@ $themeDefault: map-merge((
         320: 0,
         560: ef.get('radius', 'biger') ef.get('radius', 'biger') 0 0,
     ),
-    'headerBg': ef.get('mainColors', 'bg500'),
+    'headerBg': var(--mc-bg500),
     'headerBgPosition': center,
     'headerBgSize': cover,
     'headerColumnWidth': (
@@ -40,8 +40,8 @@ $themeDefault: map-merge((
         320: 100%,
         768: 490px,
     ),
-    'headerBorderBottom': 2px solid ef.get('mainColors', 'baseOpacity'),
-    'headerOverlayBg': linear-gradient(0deg, rgba(ef.get('fieldColors', 'textColor'), 0) 0%, ef.get('fieldColors', 'textColor') 90%),
+    'headerBorderBottom': 2px solid var(--mc-baseOpacity),
+    'headerOverlayBg': linear-gradient(0deg, var(--mc-baseContrast-o0) 0%, var(--mc-baseContrast-o8) 80%),
 
     'headerBackLinkTop': (
         320: 0,
@@ -52,10 +52,11 @@ $themeDefault: map-merge((
         768: 20px,
     ),
     'headerBackLinkTextStyle': 'PlaceholderTextBold',
-    'headerBackLinkTextColor': ef.get('mainColors', 'main'),
+    'headerBackLinkTextColor': var(--mc-main),
+    'headerBackLinkTextColorActive': var(--mc-baseMain),
     'headerBackLinkDecoration': none,
     'headerBackLinkIconTransform': rotate(90deg),
-    'headerBackLinkIconColor': ef.get('mainColors', 'main'),
+    'headerBackLinkIconColor': currentColor,
     'headerBackLinkMaxWidth': ef.size(12),
 
     'headerStatusRadius':  ef.get('tagConfig', 'radius'),
@@ -70,29 +71,29 @@ $themeDefault: map-merge((
     'headerTitleJustifySelf': center,
     'headerTitleTextAlign': center,
     'headerTitleTextStyle': 'QoteTextBold',
-    'headerTitleTextColor': ef.get('mainColors', 'baseMain'),
+    'headerTitleTextColor': var(--mc-baseMain),
 
     'headerDescriptionJustifySelf': center,
     'headerDescriptionTextAlign': center,
     'headerDescriptionTextStyle': 'PrimaryText',
-    'headerDescriptionTextColor': ef.get('mainColors', 'baseMain'),
+    'headerDescriptionTextColor': var(--mc-baseMain),
 
     'headerTimerBlockTimerSelf': center,
     'headerTimerBlockButtonSelf': center,
 
-    'anchorsBg': ef.get('mainColors', 'bg700'),
+    'anchorsBg': var(--mc-bg700),
     'anchorsMenuAlignItems': center,
     'anchorsMenuPadding': (
         320: ef.size(4) 0,
     ),
     'anchorsMenuJustifyContent': center,
     'anchorsMenuLinkTextStyle': 'PrimaryText',
-    'anchorsMenuLinkTextColor': ef.get('mainColors', 'baseMain'),
-    'anchorsMenuLinkTextColorHover': ef.get('mainColors', 'main'),
+    'anchorsMenuLinkTextColor': var(--mc-baseMain),
+    'anchorsMenuLinkTextColorHover': var(--mc-main),
     'anchorsMenuLinkTextDecoration': none,
     'anchorsMenuLinkPadding': 0 ef.size(2),
 
-    'leaderboardBg': ef.get('mainColors', 'bg500'),
+    'leaderboardBg': var(--mc-bg500),
     'leaderboardJustifyContent': center,
     'leaderboardPadding': (
         320: ef.size(6) ef.size(3),
@@ -103,19 +104,19 @@ $themeDefault: map-merge((
         768: 530px,
     ),
     'leaderboardTitleStyle':'QoteTextBold',
-    'leaderboardTitleColor': ef.get('mainColors', 'baseMain'),
+    'leaderboardTitleColor': var(--mc-baseMain),
     'leaderboardTitleAlign': center,
 
     'prizepoolTemplateAreas': (
         320: 'PPTitle' 'PPAmount',
     ),
     'prizepoolJustifyContent': center,
-    'prizepoolBg': ef.get('mainColors', 'bg700'),
+    'prizepoolBg': var(--mc-bg700),
     'prizepoolTitleStyle': 'QoteTextBold',
-    'prizepoolTitleColor': ef.get('mainColors', 'baseMain'),
+    'prizepoolTitleColor': var(--mc-baseMain),
     'prizepoolTitleSelf': center,
     'prizepoolAmoutTitleStyle': 'PromoTitle',
-    'prizepoolAmoutTitleColor': ef.get('mainColors', 'main'),
+    'prizepoolAmoutTitleColor': var(--mc-main),
     'prizepoolAmoutTitleSelf': center,
     'prizepoolColumnWidth': (
         320: 100%,
@@ -130,7 +131,7 @@ $themeDefault: map-merge((
     'prizeboardButtonSelf': center,
 
     'prizeboardButtonTransition': width 0s,
-    'prizeboardBg': ef.get('mainColors', 'bg500'),
+    'prizeboardBg': var(--mc-bg500),
 
     'gamesPadding': (
         320: ef.size(4) ef.size(3),
@@ -138,7 +139,7 @@ $themeDefault: map-merge((
         1024: ef.size(4) ef.size(12),
     ),
     'gamesTitleStyle': 'QoteTextBold',
-    'gamesTitleColor': ef.get('mainColors', 'baseMain'),
+    'gamesTitleColor': var(--mc-baseMain),
     'gamesTitleAlign': center,
 
     'rulesColumnWidth': (
@@ -147,18 +148,18 @@ $themeDefault: map-merge((
     ),
 
     'rulesJustifyContent': center,
-    'rulesBg': ef.get('mainColors', 'bg500'),
+    'rulesBg': var(--mc-bg500),
     'rulesTitleStyle': 'QoteTextBold',
-    'rulesTitleColor': ef.get('mainColors', 'baseMain'),
+    'rulesTitleColor': var(--mc-baseMain),
     'rulesTitleAlign': center,
     'rulesTermsStyle': 'PrimaryText',
-    'rulesTermsColor': ef.get('mainColors', 'baseMain'),
+    'rulesTermsColor': var(--mc-baseMain),
     'rulesTermsAlign': left,
     'rulesBorderRadius': 0 0 ef.get('radius', 'biger') ef.get('radius', 'biger'),
 
     'loaderZIndex': 10,
     'loaderPosition': 0,
-    'loaderBachround': rgba(ef.get('mainColors', 'disabled'), 0.7),
+    'loaderBachround': var(--mc-disabled-o6),
     'loaderRadius': ef.get('radius', 'biger'),
 
     'loaderElemPosition': 0,
@@ -170,11 +171,11 @@ $themeDefault: map-merge((
 
     'loaderBeforePosition': 0,
     'loaderBeforeSize': 60px,
-    'loaderBeforeBackground': rgba(ef.get('mainColors', 'bg'), 0.9),
+    'loaderBeforeBackground': var(--mc-bg-o8),
     'loaderBeforeRadius': 50%,
 
     'loaderAfterSize': 50px,
-    'loaderAfterBorderColor': ef.get('mainColors', 'main'),
+    'loaderAfterBorderColor': var(--mc-main),
     'loaderAfterRadius': 50%,
     'loaderAfterAnimation': spin 1s infinite linear,
 

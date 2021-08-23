@@ -2,10 +2,10 @@
 
 $customThemeDefault: () !default;
 $themeDefault: map-merge((
+    'bg': var(--mc-bg300),
     'minHeight': (
         375: 150px,
     ),
-    'bg': ef.get('mainColors', 'bg300'),
     'boxShadow': null,
 
     'outerPadding': (
@@ -52,15 +52,15 @@ $themeDefault: map-merge((
         640: 100%,
     ),
     'separatorBg': (
-        640: ef.get('mainColors', 'baseOpacity'),
+        640: var(--mc-baseOpacity),
     ),
     'separatorMaxWidth': 215px,
 
-    'pointsValueColor': ef.get('mainColors', 'baseMain'),
-    'pointsCurrencyColor': ef.get('mainColors', 'baseMain'),
+    'pointsValueColor': var(--mc-baseMain),
+    'pointsCurrencyColor': var(--mc-baseMain),
     'pointsCurrencySvgSize': 16px,
     'pointsCurrencyIconPosTop': 2px,
-    'pointsDescColor': ef.get('mainColors', 'baseMain'),
+    'pointsDescColor': var(--mc-baseMain),
     'pointsValueSize': 24px,
     'pointsValueWeight': bold,
     'pointsValueMargin': 0,

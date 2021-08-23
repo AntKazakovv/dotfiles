@@ -56,6 +56,7 @@
                 @include button();
                 padding: ef.get-value($themeButton, 'buttonPadding');
                 cursor: default;
+                color: ef.get-value($themeButton, 'buttonActiveColor');
             }
         }
     }

@@ -1,0 +1,100 @@
+////
+/// This is a poster comment.
+/// It will apply annotations to all items from file.
+/// @group global
+////
+@use 'sass:math';
+@use 'sass:list';
+@use 'sass:map';
+@use '../engine.variables' as ev;
+
+@function uniq($list1, $list2) {
+    $result: $list1;
+
+    @each $item in $list2 {
+
+        @if not list.index($result, $item) {
+            $result: list.append($result, $item);
+        }
+    }
+
+    @return $result;
+}
+
+@mixin generateTones($name, $val, $tones) {
+
+    @each $tone in $tones {
+
+        $toneLight: $tone * 1%;
+        $toneDark: $tone * -1%;
+
+        #{--}#{$name}-l#{$tone}: #{scale-color($val, $lightness: $toneLight)};
+        #{--}#{$name}-d#{$tone}: #{scale-color($val, $lightness: $toneDark)};
+    }
+}
+
+@mixin generateOpacities($name, $val, $opacities) {
+
+    @each $step in $opacities {
+        #{--}#{$name}-o#{$step}: #{transparentize($val, (1 - math.div($step, 10)))};
+    }
+}
+
+/// Миксин для генерации CSS-переменных.
+/// В соответствии с настройками из $cssVarsConfig. По умолчанию, на каждый цвет из $map миксин генерирует CSS-переменную. Для @mainColors и @mainColorsAlt переменные снабжаются префиксом --mc-, для @fieldColors и @fieldColorsAlt - префикс --fc-.
+///
+/// Также, по умолчанию для каждого цвета генерируются 6 оттенков яркости - на 5, 10, 15% ярче/темнее базового цвета (настроить можно в $cssVarsConfig -> colorTones) и 6 степеней прозрачности ($cssVarsConfig -> opacities).
+///
+/// Сгенерированные CSS-переменные в дальнейшем используются внутри стилей компонентов.
+///
+/// @example
+///   --mc-main: #7f7cff;
+///   --mc-main-l5: #8583ff;
+///   --mc-main-l10: #8c89ff;
+///   --mc-main-l20: #9996ff;
+///   --mc-main-d5: #6c69ff;
+///   --mc-main-d10: #5a56ff;
+///   --mc-main-d20: #3530ff;
+///   --mc-main-o0: rgba(127, 124, 255, 0);
+///   --mc-main-o1: rgba(127, 124, 255, 0.1);
+///   --mc-main-o2: rgba(127, 124, 255, 0.2);
+///   --mc-main-o4: rgba(127, 124, 255, 0.4);
+///   --mc-main-o6: rgba(127, 124, 255, 0.6);
+///   --mc-main-o8: rgba(127, 124, 255, 0.8);
+///
+/// @name makeCssColorVars
+///
+/// @param {map} $map - map with color variables
+/// @param {string} $selector [':root'] - selector for apply css-variables
+///
+@mixin makeCssColorVars($map, $selector: false) {
+    $defaultTones: (5, 10, 20);
+    $defaultOpacities: (0, 1, 2, 4, 6, 8);
+
+    $sel: ':root';
+    @if (type-of($selector) == 'string') {
+        $sel: $selector;
+    }
+
+    $prefix: 'mc';
+    @if (map.has-key($map, 'inputBg')) {
+        $prefix: 'fc';
+    }
+
+    $tones: uniq($defaultTones, map-get(ev.$cssVarsConfig, 'colorTones'));
+    $opacities: uniq($defaultOpacities, map-get(ev.$cssVarsConfig, 'opacities'));
+
+    #{$sel} {
+        @each $name, $val in $map {
+
+            @if (type-of($val) == 'color') {
+                $baseName: #{$prefix}-#{$name};
+
+                #{--}#{$baseName}: #{$val};
+
+                @include generateTones($baseName, $val, $tones);
+                @include generateOpacities($baseName, $val, $opacities);
+            }
+        }
+    }
+}

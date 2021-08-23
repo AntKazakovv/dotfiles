@@ -2,6 +2,6 @@
 
 $customThemeDefault: () !default;
 $themeDefault: map-merge((
-    'betHistoryColor': ef.get('mainColors', 'baseOpacity'),
+    'betHistoryColor': var(--mc-baseOpacity),
     'margin': 0 5px 0 0,
 ), $customThemeDefault);

@@ -4,21 +4,21 @@ $customThemeDefault: () !default;
 $themeDefault: map-merge((
     'maxWidth': 270px,
 
-    'colorName': ef.get('mainColors', 'baseMain'),
-    'colorValue': ef.get('mainColors', 'baseMain'),
+    'colorName': var(--mc-baseMain),
+    'colorValue': var(--mc-baseMain),
 
     'balancePadding': ef.get('size', 'small') ef.get('size', 'smally'),
     'balanceBorderRadius': ef.get('radius', 'biger'),
     'balanceBg': (
-        375: ef.get('mainColors', 'bg'),
+        375: var(--mc-bg),
     ),
     'balanceShortPadding': 0,
     'balanceShortMinWidth': 180px,
     'balanceShortBg': none,
-    'balanceShortBorderColor': ef.get('mainColors', 'baseOpacity'),
+    'balanceShortBorderColor': var(--mc-baseOpacity),
     'balanceItemPadding': 4px 0,
     'balanceItemBorder': (
-        375: 2px solid ef.get('mainColors', 'baseOpacity'),
+        375: 2px solid var(--mc-baseOpacity),
     ),
 
     'btnMargin': ef.get('size', 'small') auto,
@@ -29,10 +29,10 @@ $themeDefault: map-merge((
     'storePadding': 0,
     'storeDisplay': flex,
     'storeValueFont': 'ThirdTitleBold',
-    'storeValueFontColor': ef.get('mainColors', 'baseMain'),
-    'storeValueFontColorHover': ef.get('mainColors', 'main'),
+    'storeValueFontColor': var(--mc-baseMain),
+    'storeValueFontColorHover': var(--mc-main),
     'storeValueDisplay': flex,
-    'storeValueColorHover': ef.get('mainColors', 'main'),
+    'storeValueColorHover': var(--mc-main),
     'translateY': translateY(-50%),
     'zIndex': 1,
     'iconTop': 50%,

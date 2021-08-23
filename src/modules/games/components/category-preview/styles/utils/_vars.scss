@@ -3,11 +3,11 @@ $customThemeDefault: () !default;
 
 $themeDefault: map-merge((
     'categoryBg': (
-        radial-gradient(100% 100% at 50% 50%, ef.get('mainColors', 'baseOpacity') 49%, transparentize(ef.get('mainColors', 'baseOpacity'), 1) 50%) 10px 110px/74px 74px,
+        radial-gradient(100% 100% at 50% 50%, var(--mc-baseOpacity) 49%, var(--mc-baseOpacity-o0) 50%) 10px 110px/74px 74px,
 
-        radial-gradient(100% 100% at 50% 50%, ef.get('mainColors', 'bg500') 49%, transparentize(ef.get('mainColors', 'bg500'), 1) 50%) -40px 70px/170px 170px,
+        radial-gradient(100% 100% at 50% 50%, var(--mc-bg500) 49%, var(--mc-bg500-o0) 50%) -40px 70px/170px 170px,
 
-        linear-gradient(ef.get('mainColors', 'bg300'), ef.get('mainColors', 'bg300')) 0 0/100% 100%
+        linear-gradient(var(--mc-bg300), var(--mc-bg300)) 0 0/100% 100%
     ),
     'categoryBorderRadius': ef.get('size', 'small'),
     'gap': (
@@ -18,8 +18,8 @@ $themeDefault: map-merge((
         375: none,
         560: block,
     ),
-    'categoryLinkColor': ef.get('mainColors', 'baseMain'),
-    'categoryTitleColor': ef.get('mainColors', 'baseMain'),
+    'categoryLinkColor': var(--mc-baseMain),
+    'categoryTitleColor': var(--mc-baseMain),
     'categoryTitleFontSize': (
         375: 1.6rem,
         560: 2.4rem,
