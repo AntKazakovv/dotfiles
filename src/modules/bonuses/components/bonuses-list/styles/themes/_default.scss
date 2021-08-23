@@ -66,10 +66,6 @@
                     width: ef.get-value($themeDefault, 'swiperWidth');
                 }
 
-                .swiper-wrapper {
-                    will-change: transform;
-                }
-
                 .swiper-button-next {
                     @include bm.get-mq-map('display', $themeDefault, 'swiperButtonDisplay');
 

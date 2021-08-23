@@ -10,7 +10,6 @@
 
     transform: scale(1);
     animation: bounceInCheck 0.5s forwards;
-    will-change: transform;
 
     ::ng-deep {
 

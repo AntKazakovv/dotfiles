@@ -11,8 +11,6 @@
 
             @media (pointer: fine) {
                 @include bm.transition(transform);
-
-                will-change: transform;
             }
         }
 

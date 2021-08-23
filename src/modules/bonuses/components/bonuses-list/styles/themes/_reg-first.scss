@@ -32,11 +32,6 @@
 
             &-wrapper {
                 position: relative;
-
-                .swiper-slide,
-                .swiper-wrapper {
-                    will-change: transform;
-                }
             }
         }
 

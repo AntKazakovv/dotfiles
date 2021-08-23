@@ -167,7 +167,6 @@
             text-align: center;
 
             transition: transform ef.get-value($themeFirst, 'time') ease-in-out;
-            will-change: transform;
 
             .price-item {
                 @include em.get-mq-map('margin', $themeFirst, 'priceMargin');
