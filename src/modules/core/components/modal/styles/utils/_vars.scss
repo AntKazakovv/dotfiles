@@ -327,4 +327,11 @@ $themeDefault: map-merge((
     'dataIsProcessingHeight': 100%,
     'dataIsProcessingPadding': 0,
     //data-is-processing
+
+    //payment-list
+    'paymentListBodyPadding': (
+        375: ef.size(2) ef.size(6) ef.size(6),
+        560: ef.size(2) ef.size(6) 0,
+    ),
+    //payment-list
 ), $customThemeDefault);

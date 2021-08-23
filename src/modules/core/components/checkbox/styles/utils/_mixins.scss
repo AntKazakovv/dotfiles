@@ -6,7 +6,7 @@
 
 @mixin checkboxChecked {
     background: ef.get-value($themeDefault, 'checkboxElemBackgroundChecked');
-    border-color: ef.get-value($themeDefault, 'checkboxElemBorderColor');
+    border-color: ef.get-value($themeDefault, 'checkboxElemBorderColorChecked');
 
     transform: scale(1);
     animation: bounceInCheck 0.5s forwards;

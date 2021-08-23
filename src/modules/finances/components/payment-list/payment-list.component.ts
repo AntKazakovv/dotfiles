@@ -124,6 +124,7 @@ export class PaymentListComponent extends IconListAbstract<Params.IPaymentListCP
     public openModal(): void {
         this.modalService.showModal({
             id: 'payment-list',
+            modalTitle: this.$params.modalTitle,
             templateRef: this.list,
             size: this.$params.modalSize,
         });
