@@ -5,7 +5,6 @@ import {
     Input,
     OnInit,
 } from '@angular/core';
-import {Validators} from '@angular/forms';
 import {BehaviorSubject} from 'rxjs';
 import {
     distinctUntilChanged,
@@ -13,7 +12,14 @@ import {
     takeUntil,
 } from 'rxjs/operators';
 import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
-import {ConfigService, ICountry, IInputCParams, ISelectCParams, SelectValuesService} from 'wlc-engine/modules/core';
+import {
+    ConfigService,
+    ICountry,
+    IInputCParams,
+    ISelectCParams,
+    SelectValuesService,
+    ValidationService,
+} from 'wlc-engine/modules/core';
 import {ISelectOptions} from 'wlc-engine/modules/core/components/select/select.params';
 import {UserService} from 'wlc-engine/modules/user/system/services';
 
@@ -40,6 +46,7 @@ export class PhoneFieldComponent extends AbstractComponent implements OnInit {
         protected selectValues: SelectValuesService,
         protected cdr: ChangeDetectorRef,
         protected userService: UserService,
+        protected validationService: ValidationService,
     ) {
         super({injectParams, defaultParams: Params.defaultParams});
     }
@@ -98,7 +105,10 @@ export class PhoneFieldComponent extends AbstractComponent implements OnInit {
             mask: new RegExp(`^\\d{0,${max}}$`),
         };
         this.$params.phoneNumber.control.clearValidators();
-        this.$params.phoneNumber.control.setValidators([Validators.minLength(min), Validators.required]);
+        this.$params.phoneNumber.control.setValidators([
+            this.validationService.getValidator('minLength').validator(min),
+            this.validationService.getValidator('required').validator,
+        ]);
         this.$params.phoneNumber.control.updateValueAndValidity({
             onlySelf: true,
         });
