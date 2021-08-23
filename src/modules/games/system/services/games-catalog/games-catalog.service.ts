@@ -206,6 +206,10 @@ export class GamesCatalogService {
                 filter(data => !!data),
                 // TODO Delete after #246227
                 map<IData, IJackpot[]>((response) => {
+                    if (!response.data || !response.data?.length) {
+                        return [];
+                    }
+
                     const filtered = _filter(response.data, (data: IJackpot) => data.amount > 0);
                     if (response.data.length
                         && !filtered.length
@@ -223,12 +227,15 @@ export class GamesCatalogService {
                 distinctUntilChanged((prev, curr) => _isEqual(prev, curr)),
                 map((data: IJackpot[]) => {
                     // TODO Delete after #246227
-                    const exRate = this.jackpotCurrency
-                        ? _find(
-                            this.configService.get<IIndexing<ICurrency>>('appConfig.siteconfig.currencies'),
-                            (el) => el.Alias === this.jackpotCurrency,
-                        ).ExRate
-                        : null;
+                    const currencies = this.configService.get<IIndexing<ICurrency>>('appConfig.siteconfig.currencies');
+                    const currentCurrency = _find(
+                        currencies,
+                        (el) => el.Alias === this.jackpotCurrency,
+                    );
+                    const exRateFromCurrentOrDefault = (currentCurrency && currentCurrency.ExRate)
+                        ? currentCurrency.ExRate
+                        : _find(currencies, (el) => el.Name === 'EUR')?.ExRate;
+                    const exRate = this.jackpotCurrency ? exRateFromCurrentOrDefault : null;
                     // END Delete after #246227
                     return _map(data, (data: IJackpot) => {
                         // TODO Delete after #246227
