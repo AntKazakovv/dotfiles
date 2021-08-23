@@ -70,6 +70,12 @@
             "aot": false,
             "budgets": [
                 {
+                    "type": "bundle",
+                    "name": "main",
+                    "maximumWarning": "2.5mb",
+                    "maximumError": "3.5mb"
+                },
+                {
                     "type": "initial",
                     "maximumWarning": "2mb",
                     "maximumError": "5mb"
