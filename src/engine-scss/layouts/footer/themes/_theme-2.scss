@@ -106,16 +106,22 @@
     }
 
     .wlc-icon-list--theme-merchants {
-        @include em.get-mq-map('order', $theme2Footer, 'iconListMerchantsOrder');
         @include em.get-mq-map('margin', $theme2Footer, 'iconListMerchantsMargin');
     }
 
     .wlc-icon-list--theme-payments {
-        @include em.get-mq-map('order', $theme2Footer, 'iconListPaymentsOrder');
         @include em.get-mq-map('margin', $theme2Footer, 'iconListPaymentsMargin');
     }
 
     .footer-theme-toggler {
         @include em.get-mq-map('margin', $theme2Footer, 'themeTogglerMargin');
+    }
+
+    .wlc-icon-merchants-list--theme-default {
+        @include em.get-mq-map('order', $theme2Footer, 'iconListMerchantsOrder');
+    }
+
+    .wlc-icon-payments-list--theme-default {
+        @include em.get-mq-map('order', $theme2Footer, 'iconListPaymentsOrder');
     }
 }

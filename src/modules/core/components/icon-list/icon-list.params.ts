@@ -18,11 +18,7 @@ export type ComponentTheme = 'merchants' | 'payments' | CustomType;
 export type ComponentType = 'default' | 'svg';
 /** Available component theme modifiers */
 export type ComponentThemeMod = 'default' | CustomType;
-/** Available default types list icon */
-export type ListTypes = {
-    payment: IPaysystem[],
-    merchant: MerchantModel[],
-}
+
 /**
  * Component params
  */
@@ -45,17 +41,6 @@ export interface IIconListCParams extends IComponentParams<ComponentTheme, Compo
             include?: string[],
             exclude?: string[],
         }
-        /**
-         * Payments list customization by paysystem names.
-         *
-         * `Name` must match the name of paysystem in fundist.
-         * */
-        payment?: {
-            /** List of paysystem names to be included. */
-            include?: string[],
-            /** List of paysystems to be excluded. If `all` - all default paysystems are excluded. */
-            exclude?: string[],
-        },
     }
     /** Apply one of two types of colored icons (works only with colored) */
     colorIconBg?: ColorIconBgType;
