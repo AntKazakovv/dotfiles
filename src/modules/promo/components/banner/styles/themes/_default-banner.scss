@@ -40,6 +40,51 @@
                     object-position: inherit;
                     will-change: transform;
                 }
+
+                /* helper classes to clients */
+                &--top {
+
+                    &-in {
+                        top: 1%;
+                    }
+
+                    &-out {
+                        top: -1%;
+                    }
+                }
+
+                &--right {
+
+                    &-in {
+                        right: 1%;
+                    }
+
+                    &-out {
+                        right: -1%;
+                    }
+                }
+
+                &--bottom {
+
+                    &-in {
+                        bottom: 1%;
+                    }
+
+                    &-out {
+                        bottom: -1%;
+                    }
+                }
+
+                &--left {
+
+                    &-in {
+                        left: 1%;
+                    }
+
+                    &-out {
+                        left: -1%;
+                    }
+                }
             }
 
             &-1 {
