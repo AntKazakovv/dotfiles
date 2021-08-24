@@ -32,6 +32,10 @@ export interface IModalBsOptions {
      * If `true`, puts the focus on the modal when initialized
      */
     focus?: boolean;
+    /**
+     * If `true`, click by backdrop will be ignored
+     */
+    ignoreBackdropClick?: boolean;
 }
 
 /**
@@ -218,6 +222,7 @@ export interface IModalOptions extends IComponentParams<ModalTheme, ModalType, s
      * Describe modal configuration
      */
     config?: IModalConfig;
+    ignoreBackdropClickBreakpoint?: string,
 }
 
 /**

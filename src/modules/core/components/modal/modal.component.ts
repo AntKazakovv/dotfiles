@@ -11,12 +11,13 @@ import {
     ElementRef,
     Renderer2,
 } from '@angular/core';
+import {takeUntil} from 'rxjs/operators';
+import {ModalDirective} from 'ngx-bootstrap/modal';
 
 import {
-    ModalDirective,
-} from 'ngx-bootstrap/modal';
-
-import {Deferred} from 'wlc-engine/modules/core';
+    Deferred,
+    GlobalHelper,
+} from 'wlc-engine/modules/core';
 import {EventService} from 'wlc-engine/modules/core/system/services/event/event.service';
 import {ModalService} from 'wlc-engine/modules/core/system/services/modal/modal.service';
 import {
@@ -222,6 +223,26 @@ export class WlcModalComponent extends AbstractComponent
         if (this.$params.config.modalBg) {
             this.renderer.setStyle(this.element.nativeElement, 'background', this.$params.config.modalBg);
         }
+
+        if (this.$params.ignoreBackdropClickBreakpoint && config.backdrop !== 'static') {
+            const breakpoint = window.matchMedia(this.$params.ignoreBackdropClickBreakpoint);
+
+            if (breakpoint.matches) {
+                this.setIgnoreBackdropClick(true);
+            }
+
+            GlobalHelper.mediaQueryObserver(breakpoint)
+                .pipe(takeUntil(this.$destroy))
+                .subscribe((event: MediaQueryListEvent) => {
+                    this.setIgnoreBackdropClick(event.matches);
+                });
+        }
+    }
+
+    protected setIgnoreBackdropClick(matches: boolean): void {
+        this.modalRef.config = _assign(this.bsOptions, {
+            ignoreBackdropClick: matches || !!this.bsOptions.ignoreBackdropClick,
+        });
     }
 
     protected eventHandler(type: string, callback: () => void) {

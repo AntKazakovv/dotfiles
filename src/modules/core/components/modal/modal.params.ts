@@ -11,6 +11,7 @@ export const defaultParams: IModalOptions = {
     moduleName: 'core',
     componentName: 'wlc-modal-window',
     class: 'wlc-modal',
+    ignoreBackdropClickBreakpoint: '(max-width: 559px)',
 };
 
 export const DEFAULT_MODAL_CONFIG: Partial<IModalConfig> = {
