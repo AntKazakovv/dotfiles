@@ -287,10 +287,6 @@ export class ModalService {
             return;
         }
 
-        if (this.configService.get('appConfig.mobile')) {
-            config.backdrop = 'static';
-        }
-
         let windowFactory = this.cfr.resolveComponentFactory(WlcModalComponent);
         let injector = Injector.create({
             providers: [
