@@ -104,14 +104,20 @@ export interface IPaymentSystemCustomParams {
     merchant_id?: string; // PaymentIQ Cashier merchant ID
 }
 
-const fieldTemplatesNames = {
+export interface IFieldTemplate {
+    template: string;
+    dbName: string;
+    label: string;
+}
+
+const fieldTemplatesNames: IIndexing<IFieldTemplate> = {
     firstName: {
-        template: 'first-name',
+        template: 'firstName',
         dbName: 'Name',
         label: 'First name',
     },
     lastName: {
-        template: 'last-name',
+        template: 'lastName',
         dbName: 'LastName',
         label: 'Last name',
     },
@@ -126,7 +132,7 @@ const fieldTemplatesNames = {
         label: 'Gender',
     },
     idNumber: {
-        template: 'id-number',
+        template: 'idNumber',
         dbName: 'IDNumber',
         label: 'ID number',
     },
@@ -136,7 +142,7 @@ const fieldTemplatesNames = {
         label: 'Country',
     },
     postalCode: {
-        template: 'postal-code',
+        template: 'postalCode',
         dbName: 'PostalCode',
         label: 'Postal code',
     },
@@ -151,12 +157,12 @@ const fieldTemplatesNames = {
         label: 'Address',
     },
     bankName: {
-        template: 'bank-name-text',
+        template: 'bankNameText',
         dbName: 'BankName',
         label: 'Bank name',
     },
     branchCode: {
-        template: 'branch-code',
+        template: 'branchCode',
         dbName: 'BranchCode',
         label: 'Branch code',
     },
@@ -166,12 +172,12 @@ const fieldTemplatesNames = {
         label: 'SWIFT',
     },
     ibanNumber: {
-        template: 'iban-number',
+        template: 'ibanNumber',
         dbName: 'Iban',
         label: 'Iban number',
     },
     phoneNumber: {
-        template: 'mobile-phone',
+        template: 'mobilePhone',
         dbName: 'Phone',
         label: 'Mobile phone',
     },
@@ -331,9 +337,9 @@ export class PaymentSystem extends AbstractModel<IPaymentSystem> {
         return this.cardFields;
     }
 
-    public checkRequiredFields(): object {
+    public checkRequiredFields(): IIndexing<IFieldTemplate> {
 
-        return _pickBy(fieldTemplatesNames, (value, key) => {
+        return _pickBy(fieldTemplatesNames, (value: IFieldTemplate, key: string) => {
             return _includes(this.required, value.dbName) &&
                 GlobalHelper.getOwnProperty(this.UserService.userProfile as any, key) &&
                 !_get(this.UserService.userProfile, [key, 'length'], false);
