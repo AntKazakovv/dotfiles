@@ -22,7 +22,7 @@
     }
 
     .wlc-logo {
-        @include bm.get-mq-map('max-width', $theme, 'headerLogoMaxWidth');
+        @include bm.get-mq-map('width', $theme, 'headerLogoMaxWidth');
         margin: ef.get-value($theme, 'headerLogoMargin');
 
         &__image {

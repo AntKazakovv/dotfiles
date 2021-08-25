@@ -16,5 +16,6 @@
         display: block;
         width: ef.get-value($themeDefault, 'logoWidth');
         height: auto;
+        max-width: ef.get-value($themeDefault, 'logoMaxWidth');
     }
 }

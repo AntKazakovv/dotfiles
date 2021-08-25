@@ -30,10 +30,14 @@ import _keys from 'lodash-es/keys';
     encapsulation: ViewEncapsulation.None,
 })
 export class IconComponent extends AbstractComponent implements OnInit, OnChanges {
+    public $params: Params.IIconCParams;
     public imageHtml: SafeHtml;
     public imagePath: string;
     public ready: boolean;
 
+    /** if true, svg will be shown as image
+     **/
+    @Input() public showSvgAsImg: boolean = false;
     @Input() public wlcElement: string;
     @Input() public fallback: string;
     @Input() protected iconUrl: string;
@@ -92,7 +96,7 @@ export class IconComponent extends AbstractComponent implements OnInit, OnChange
             };
         }
 
-        if (file?.htmlString) {
+        if (file?.htmlString && !this.showSvgAsImg) {
             this.imageHtml = this.sanitizer.bypassSecurityTrustHtml(file.htmlString);
             this.addModifiers(['loaded', 'svg']);
         } else if (file?.url) {
