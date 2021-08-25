@@ -98,9 +98,10 @@ export namespace wlcBonusesList {
     };
     export const dashboard: ILayoutComponent = {
         name: 'bonuses.wlc-bonuses-list',
-        params: {
+        params: <IBonusesListCParams>{
             type: 'swiper',
             wlcElement: 'block_bonuses-main',
+            useBtnNoBonuses: false,
             common: {
                 sortOrder: ['active', 'subscribe', 'inventory'],
                 swiper: {
