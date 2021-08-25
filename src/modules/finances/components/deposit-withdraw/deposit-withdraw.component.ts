@@ -33,10 +33,12 @@ import {
     IValidatorSettings,
     IPushMessageParams,
     NotificationEvents,
+    LogService,
     InjectionService,
 } from 'wlc-engine/modules/core';
 import {CurrencyModel} from 'wlc-engine/modules/core/system/models/currency.model';
 import {
+    IFieldTemplate,
     IHostedFormData,
     IPaymentAdditionalParam,
     PaymentSystem,
@@ -96,7 +98,7 @@ export class DepositWithdrawComponent extends AbstractComponent implements OnIni
     public depositFormCrypto = Params.depositFormCrypto;
     public withdrawForm = Params.withdrawForm;
     public title: string = gettext('Deposit');
-    public requiredFields: Object = {};
+    public requiredFields: IIndexing<IFieldTemplate> = {};
     public requiredFieldsKeys: string[] = [];
     public additionalParams: IIndexing<IPaymentAdditionalParam> = {};
     public formData$: BehaviorSubject<IIndexing<string | number>> = new BehaviorSubject(null);
@@ -130,6 +132,7 @@ export class DepositWithdrawComponent extends AbstractComponent implements OnIni
         protected httpClient: HttpClient,
         protected injectionService: InjectionService,
         protected piqCashierService: PIQCashierService,
+        protected logService: LogService,
         @Inject(DOCUMENT) protected document: HTMLDocument,
     ) {
         super(
@@ -315,13 +318,11 @@ export class DepositWithdrawComponent extends AbstractComponent implements OnIni
         this.requiredFieldsKeys = _keys(this.requiredFields);
 
         if (this.requiredFieldsKeys.length) {
-            const fields = _transform(this.requiredFields, (result, item) => {
-                const template = _camelCase(item['template']);
-
-                if (FormElements[template]) {
-                    result.push(FormElements[template]);
+            const fields: IFormComponent[] = _transform(this.requiredFields, (result: IFormComponent[], item: IFieldTemplate) => {
+                if (FormElements[item.template]) {
+                    result.push(FormElements[item.template]);
                 } else {
-                    console.error(`Field '${template}' does not exist!`, item);
+                    this.logService.sendLog({code: '1.4.41', data: `Field '${item.template}' does not exist!`});
                 }
             }, []);
             fields.push(FormElements.password);
@@ -411,8 +412,6 @@ export class DepositWithdrawComponent extends AbstractComponent implements OnIni
         return _keys(this.formObject.value).reduce((acc: IIndexing<string>, name: string) => {
             if (this.additionalParams[name] || name === 'payer') {
                 acc[name] = this.formObject.value[name];
-            } else {
-                console.error(`${name} field is lost`);
             }
             return acc;
         }, {});
@@ -575,7 +574,7 @@ export class DepositWithdrawComponent extends AbstractComponent implements OnIni
 
     protected onProfileUpdate(): void {
         this.financesService.fetchPaymentSystems().then(() => {
-            this.checkUserProfileForPayment();
+            this.onPaymentSystemChange(this.currentSystem);
         });
     }
 
@@ -614,7 +613,9 @@ export class DepositWithdrawComponent extends AbstractComponent implements OnIni
         this.checkUserProfileForPayment();
         this.updateFormConfig();
 
-        if (this.currentSystem.isHosted && (!this.isLoadingHostedFields || !this.currentSystem.hostedFields.loaded)) {
+        if (this.currentSystem.isHosted
+            && (!this.isLoadingHostedFields || !this.currentSystem.hostedFields.loaded)
+            && _isEmpty(this.requiredFields)) {
             this.loadHostedFields();
         }
     }

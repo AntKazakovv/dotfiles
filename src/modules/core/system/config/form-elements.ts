@@ -1,3 +1,4 @@
+import {IFormComponent} from 'wlc-engine/modules/core/components/form-wrapper/form-wrapper.component';
 import {
     IInputCParams,
     ICheckboxCParams,
@@ -6,7 +7,7 @@ import {
 } from 'wlc-engine/modules/core';
 
 export namespace FormElements {
-    export const amount = {
+    export const amount: IFormComponent = {
         name: 'core.wlc-input',
         alwaysNew: {
             saveValue: true,
@@ -41,7 +42,7 @@ export namespace FormElements {
         },
     };
 
-    export const rules = {
+    export const rules: IFormComponent = {
         name: 'core.wlc-checkbox',
         params: <ICheckboxCParams>{
             name: 'paymentRules',
@@ -51,7 +52,7 @@ export namespace FormElements {
         },
     };
 
-    export const depositButton = {
+    export const depositButton: IFormComponent = {
         name: 'core.wlc-button',
         params: <IButtonCParams>{
             name: 'submit',
@@ -63,7 +64,7 @@ export namespace FormElements {
         },
     };
 
-    export const withdrawButton = {
+    export const withdrawButton: IFormComponent = {
         name: 'core.wlc-button',
         params: <IButtonCParams>{
             name: 'submit',
@@ -75,7 +76,7 @@ export namespace FormElements {
         },
     };
 
-    export const email = {
+    export const email: IFormComponent = {
         name: 'core.wlc-input',
         params: <IInputCParams>{
             theme: 'vertical',
@@ -92,7 +93,7 @@ export namespace FormElements {
         },
     };
 
-    export const firstName = {
+    export const firstName: IFormComponent = {
         name: 'core.wlc-input',
         params: <IInputCParams>{
             theme: 'vertical',
@@ -119,7 +120,7 @@ export namespace FormElements {
         },
     };
 
-    export const lastName = {
+    export const lastName: IFormComponent = {
         name: 'core.wlc-input',
         params: <IInputCParams>{
             theme: 'vertical',
@@ -146,7 +147,7 @@ export namespace FormElements {
         },
     };
 
-    export const gender = {
+    export const gender: IFormComponent = {
         name: 'core.wlc-select',
         params: <ISelectCParams>{
             theme: 'vertical',
@@ -163,7 +164,7 @@ export namespace FormElements {
         },
     };
 
-    export const country = {
+    export const country: IFormComponent = {
         name: 'core.wlc-select',
         params: <ISelectCParams>{
             theme: 'vertical',
@@ -180,7 +181,7 @@ export namespace FormElements {
         },
     };
 
-    export const city = {
+    export const city: IFormComponent = {
         name: 'core.wlc-input',
         params: <IInputCParams>{
             theme: 'vertical',
@@ -194,7 +195,7 @@ export namespace FormElements {
         },
     };
 
-    export const address = {
+    export const address: IFormComponent = {
         name: 'core.wlc-input',
         params: <IInputCParams>{
             theme: 'vertical',
@@ -208,7 +209,7 @@ export namespace FormElements {
         },
     };
 
-    export const postalCode = {
+    export const postalCode: IFormComponent = {
         name: 'core.wlc-input',
         params: <IInputCParams>{
             theme: 'vertical',
@@ -222,7 +223,7 @@ export namespace FormElements {
         },
     };
 
-    export const pep = {
+    export const pep: IFormComponent = {
         name: 'core.wlc-select',
         params: <IInputCParams>{
             theme: 'vertical',
@@ -240,7 +241,7 @@ export namespace FormElements {
         },
     };
 
-    export const ibanNumber = {
+    export const ibanNumber: IFormComponent = {
         name: 'core.wlc-input',
         params: <IInputCParams>{
             theme: 'vertical',
@@ -253,7 +254,7 @@ export namespace FormElements {
         },
     };
 
-    export const password = {
+    export const password: IFormComponent = {
         name: 'core.wlc-input',
         params: <IInputCParams>{
             theme: 'vertical',
@@ -280,7 +281,7 @@ export namespace FormElements {
         },
     };
 
-    export const mobilePhone = {
+    export const mobilePhone: IFormComponent = {
         name: 'user.wlc-phone-field',
         params: {
             name: ['phoneCode', 'phoneNumber'],
@@ -290,7 +291,7 @@ export namespace FormElements {
         },
     };
 
-    export const mobilePhoneWithCode = {
+    export const mobilePhoneWithCode: IFormComponent = {
         name: 'user.wlc-phone-field',
         params: {
             phoneCode: {
@@ -308,7 +309,7 @@ export namespace FormElements {
         },
     };
 
-    export const bankNameText = {
+    export const bankNameText: IFormComponent = {
         name: 'core.wlc-input',
         params: <IInputCParams>{
             theme: 'vertical',
@@ -322,7 +323,7 @@ export namespace FormElements {
         },
     };
 
-    export const branchCode = {
+    export const branchCode: IFormComponent = {
         name: 'core.wlc-input',
         params: <IInputCParams>{
             theme: 'vertical',
@@ -335,7 +336,7 @@ export namespace FormElements {
         },
     };
 
-    export const swift = {
+    export const swift: IFormComponent = {
         name: 'core.wlc-input',
         params: <IInputCParams>{
             theme: 'vertical',
@@ -348,7 +349,7 @@ export namespace FormElements {
         },
     };
 
-    export const submit = {
+    export const submit: IFormComponent = {
         name: 'core.wlc-button',
         params: <IButtonCParams>{
             name: 'submit',
@@ -360,7 +361,7 @@ export namespace FormElements {
         },
     };
 
-    export const birthDate = {
+    export const birthDate: IFormComponent = {
         name: 'core.wlc-birth-field',
         params: {
             theme:'vertical',
@@ -370,7 +371,7 @@ export namespace FormElements {
         },
     };
 
-    export const passwordNew = {
+    export const passwordNew: IFormComponent = {
         name: 'core.wlc-input',
         params: {
             theme: 'vertical',
@@ -398,7 +399,7 @@ export namespace FormElements {
         },
     };
 
-    export const passwordConfirm = {
+    export const passwordConfirm: IFormComponent = {
         name: 'core.wlc-input',
         params: {
             theme: 'vertical',
@@ -425,7 +426,7 @@ export namespace FormElements {
         },
     };
 
-    export const currency = {
+    export const currency: IFormComponent = {
         name: 'core.wlc-select',
         params: {
             labelText: gettext('Currency'),
@@ -440,7 +441,7 @@ export namespace FormElements {
         },
     };
 
-    export const promocode = {
+    export const promocode: IFormComponent = {
         name: 'core.wlc-input',
         params: {
             theme: 'vertical',
@@ -453,7 +454,7 @@ export namespace FormElements {
         },
     };
 
-    export const terms = {
+    export const terms: IFormComponent = {
         name: 'core.wlc-checkbox',
         params: {
             checkboxType: 'terms',
@@ -466,7 +467,7 @@ export namespace FormElements {
         },
     };
 
-    export const age = {
+    export const age: IFormComponent = {
         name: 'core.wlc-checkbox',
         params: {
             checkboxType: 'age',
@@ -479,7 +480,7 @@ export namespace FormElements {
         },
     };
 
-    export const signUp = {
+    export const signUp: IFormComponent = {
         name: 'core.wlc-button',
         params: {
             wlcElement: 'button_register-submit',
@@ -487,6 +488,19 @@ export namespace FormElements {
                 text: gettext('Sign up'),
                 type: 'submit',
             },
+        },
+    };
+
+    export const idNumber: IFormComponent = {
+        name: 'core.wlc-input',
+        params: <IInputCParams>{
+            theme: 'vertical',
+            common: {
+                placeholder: gettext('ID number'),
+            },
+            name: 'idNumber',
+            customMod: ['id-number'],
+            validators: ['required'],
         },
     };
 
