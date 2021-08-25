@@ -1,10 +1,19 @@
+@use 'engine-scss/functions' as ef;
+
 $customThemeDefault: () !default;
 $themeDefault: map-merge((
-    'descriptionMargin': 0 0 15px 0,
+    'titleFont': 'PrimaryTextBold',
+    'titleColor': ef.get('mainColors', 'baseMain'),
+    'titleMargin': 0 0 ef.size(4),
+
+    'textFont': 'PrimaryText',
+    'textColor': ef.get('mainColors', 'baseMain'),
+    'textMargin': ef.size(4) 0 0,
+
+    'descriptionMargin': 0 0 ef.size(4) 0,
     'descriptionMarginLastChild': 0,
-    'descriptionTextMargin': 3px 0 0 0,
-    'textAlign': center,
-    'descriptionIconWidth': 22px,
-    'descriptionIconHeight': 22px,
+    'textAlign': left,
+    'descriptionIconWidth': 15px,
+    'descriptionIconHeight': 15px,
     'verticalAlignIcon': sub,
 ), $customThemeDefault);
