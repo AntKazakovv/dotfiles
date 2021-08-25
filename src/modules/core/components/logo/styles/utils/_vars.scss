@@ -2,7 +2,8 @@
 
 $customThemeDefault: () !default;
 $themeDefault: map-merge((
-    'logoWidth': 100%,
+    'logoWidth': auto,
+    'logoMaxWidth': 100%,
     // footer theme first
     'ffLogoWidth': 120px,
 ), $customThemeDefault);

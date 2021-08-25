@@ -12,7 +12,11 @@ export interface ILogoCParams extends IComponentParams<string, ComponentType, st
     disableLink?: boolean;
     image?: {
         name?: string;
+        // if true, svg will be shown as image
+        showSvgAsImg?: boolean;
         url?: string;
+        // if there is value, it will be used as second logo on alt site theme
+        urlForAltImg?: string;
     };
     target?: '_self' | '_blank';
 }
@@ -28,6 +32,7 @@ export const defaultParams: ILogoCParams = {
     disableLink: false,
     image: {
         url: 'logo.svg',
+        showSvgAsImg: false,
     },
     moduleName: 'core',
     componentName: 'wlc-logo',

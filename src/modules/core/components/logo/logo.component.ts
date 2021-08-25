@@ -3,10 +3,16 @@ import {
     OnInit,
     ChangeDetectionStrategy,
     Inject,
+    ChangeDetectorRef,
 } from '@angular/core';
-import * as Params from './logo.params';
-import {ConfigService} from 'wlc-engine/modules/core/system/services';
+
+import {
+    ConfigService,
+    EventService,
+} from 'wlc-engine/modules/core/system/services';
 import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
+
+import * as Params from './logo.params';
 
 @Component({
     selector: '[wlc-logo]',
@@ -24,6 +30,8 @@ export class LogoComponent extends AbstractComponent implements OnInit {
     constructor(
         @Inject('injectParams') protected componentParams: Params.ILogoCParams,
         protected configService: ConfigService,
+        protected cdr: ChangeDetectorRef,
+        protected eventService: EventService,
     ) {
         super({
             injectParams: componentParams,
@@ -44,11 +52,15 @@ export class LogoComponent extends AbstractComponent implements OnInit {
         if (this.isAffiliate) {
             this.siteLink = this.configService.get<string>('currentLanguage');
         }
+        this.changeLogoOnToggleColorSiteTheme();
     }
 
     protected getLogoImageSource(): string {
+        const isUsedAltTheme: boolean = !!this.configService.get<string>('colorTheme');
         const customLogoName = this.$params.image?.name;
-        const customLogoUrl = this.$params.image?.url;
+        const customLogoUrl = (isUsedAltTheme && this.$params.image?.urlForAltImg)
+            ? this.$params.image?.urlForAltImg
+            : this.$params.image?.url;
         const customMainConfigLogoName = this.configService.get<string>({name: '$base.customLogoName'});
 
         if (customLogoUrl) {
@@ -58,6 +70,19 @@ export class LogoComponent extends AbstractComponent implements OnInit {
             return customLogoName;
         } else if (customMainConfigLogoName) {
             return customMainConfigLogoName;
+        }
+    }
+
+    protected changeLogoOnToggleColorSiteTheme(): void {
+        if (this.configService.get<boolean>('$base.colorThemeSwitching.use') && this.$params.image?.urlForAltImg) {
+            this.eventService.subscribe<boolean>(
+                {name: 'THEME_CHANGE'},
+                () => {
+                    this.logoImageSource = this.getLogoImageSource();
+                    this.cdr.markForCheck();
+                },
+                this.$destroy,
+            );
         }
     }
 }

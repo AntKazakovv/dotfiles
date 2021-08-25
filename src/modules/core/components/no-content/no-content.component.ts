@@ -9,7 +9,6 @@ import {
     AbstractComponent,
     ConfigService,
 } from 'wlc-engine/modules/core';
-import {IIndexing} from 'wlc-engine/modules/core/system/interfaces';
 
 import * as Params from './no-content.params';
 
