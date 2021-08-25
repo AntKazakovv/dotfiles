@@ -9,14 +9,18 @@
     line-height: 1;
 
     &__input {
-        width: 100%;
         @include bm.get-mq-map('background', $themeDefault, 'bgColor');
-        border-radius: ef.get-value($themeDefault, 'borderRadius');
-        border: ef.get-value($themeDefault, 'border');
+        @include text.get-text-style(ef.get-value($themeDefault, 'fontName'), ef.get-value($themeDefault, 'color'));
+        width: 100%;
+        height: ef.get-value($themeDefault, 'heightInput');
         padding: ef.get-value($themeDefault, 'inputPadding');
         transition: ef.get-value($themeDefault, 'transition');
-        height: ef.get-value($themeDefault, 'heightInput');
-        @include text.get-text-style(ef.get-value($themeDefault, 'fontName'), ef.get-value($themeDefault, 'color'));
+        border-radius: ef.get-value($themeDefault, 'borderRadius');
+        border: ef.get-value($themeDefault, 'border');
+
+        .wlc-body--browser-safari & {
+            -webkit-appearance: none; /* stylelint-disable-line */
+        }
 
         &::placeholder {
             color: ef.get-value($themeDefault, 'placeholderColor');
@@ -38,18 +42,18 @@
 
     &__clear {
         position: absolute;
-        right: ef.get-value($themeDefault, 'searchIconRight') + ef.get-value($themeDefault, 'searchIconSize')  + 5px;
         top: 50%;
+        right: ef.get-value($themeDefault, 'searchIconRight') + ef.get-value($themeDefault, 'searchIconSize')  + 5px;
         height: auto;
-        transform: translateY(-50%);
-        appearance: none;
-        border: none;
-        background: transparent;
-        color: ef.get-value($themeDefault, 'color');
         padding: 4px;
+        color: ef.get-value($themeDefault, 'color');
         font-size: 0;
+        background: transparent;
+        transform: translateY(-50%);
         opacity: 0.5;
         transition: opacity ef.get-value($themeDefault, 'transition');
+        appearance: none;
+        border: none;
 
         &:focus {
             outline: none;
