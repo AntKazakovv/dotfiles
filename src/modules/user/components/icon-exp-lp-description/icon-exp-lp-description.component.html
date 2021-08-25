@@ -1,27 +1,25 @@
 <div class="{{$class}}-description">
-    <p class="{{$class}}-description__title">{{'What is' | translate}} <ng-container [ngTemplateOutlet]="refEXP"></ng-container> ?
+    <p class="{{$class}}-description__title">{{'What are these diamonds' | translate}}?</p>
+    <p class="{{$class}}-description__text">
+        <ng-container [ngTemplateOutlet]="refEXP"></ng-container>
+        - {{'experience points. Experience points allow players to move up from level to level getting more effective bet-to-points conversion ratio' | translate}}.
     </p>
-    <p class="{{$class}}-description__text"><ng-container [ngTemplateOutlet]="refEXP"></ng-container> {{'- experience point. Experience points allow players to move up from level to level getting more effective bet-to-points conversion ratio.' | translate}}</p>
-</div>
-
-<div class="{{$class}}-description">
-    <p class="{{$class}}-description__title">{{'What is' | translate}}<ng-container [ngTemplateOutlet]="refLP"></ng-container> ?
-    </p>
-    <p class="{{$class}}-description__text"><ng-container [ngTemplateOutlet]="refLP"></ng-container> {{'- internal currency for casino' | translate}} {{siteName}}.</p>
-</div>
-
-<div class="{{$class}}-description">
-    <p class="{{$class}}-description__title">{{'How can you get' | translate}} <ng-container [ngTemplateOutlet]="refLP"></ng-container> {{'and' | translate}} <ng-container [ngTemplateOutlet]="refEXP"></ng-container> ?
-    </p>
-    <p class="{{$class}}-description__text">{{'You can get' | translate}} <ng-container [ngTemplateOutlet]="refLP"></ng-container> {{'and' | translate}} <ng-container [ngTemplateOutlet]="refEXP"></ng-container> {{'for every bet in our casino.' | translate}} <ng-container [ngTemplateOutlet]="refLP"></ng-container> {{'and' | translate}} <ng-container [ngTemplateOutlet]="refEXP"></ng-container> {{'depend upon your bet amount.' | translate}}
+    <p class="{{$class}}-description__text">
+        <ng-container [ngTemplateOutlet]="refLP"></ng-container>
+        - {{'internal currency for' | translate}} {{siteName}}.
     </p>
 </div>
 
 <div class="{{$class}}-description">
-    <p class="{{$class}}-description__title">{{'How can you use' | translate}} <ng-container [ngTemplateOutlet]="refLP"></ng-container> {{'and' | translate}} <ng-container [ngTemplateOutlet]="refEXP"></ng-container> ?
+    <p class="{{$class}}-description__title">{{'How can you get Experience point and Casino Currency' | translate}}?
     </p>
-    <p class="{{$class}}-description__text">{{'You can spend' | translate}} <ng-container [ngTemplateOutlet]="refLP"></ng-container> {{'and' | translate}} <ng-container [ngTemplateOutlet]="refEXP"></ng-container> {{'on bonuses and items in our store, or use them for participation in special tournaments.' | translate}}
+    <p class="{{$class}}-description__text">{{'You can get Experience point and Casino Currency for every bet in our casino. Experience point and Casino Currency depend upon your bet amount.' | translate}}</p>
+</div>
+
+<div class="{{$class}}-description">
+    <p class="{{$class}}-description__title">{{'How can you use Experience point and Casino Currency' | translate}}?
     </p>
+    <p class="{{$class}}-description__text">{{'You can spend Experience point and Casino Currency on bonuses and items in our store, or use them for participation in special tournaments.' | translate}}</p>
 </div>
 
 <ng-template #refLP>
