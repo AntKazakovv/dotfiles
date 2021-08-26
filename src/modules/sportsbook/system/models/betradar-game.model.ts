@@ -1,5 +1,8 @@
 import {DateTime} from 'luxon';
-import {AbstractModel, IFromLog} from 'wlc-engine/modules/core';
+import {
+    AbstractModel,
+    IFromLog,
+} from 'wlc-engine/modules/core';
 import {
     ConfigService,
     EventService,
@@ -10,7 +13,6 @@ import {
 import {MarketModel} from './market.model';
 
 import _assign from 'lodash-es/assign';
-import _toUpper from 'lodash-es/toUpper';
 
 export class BetradarGameModel extends AbstractModel<IBetradarGame> {
 
@@ -80,7 +82,7 @@ export class BetradarGameModel extends AbstractModel<IBetradarGame> {
      * @returns {string}
      */
     public get teamHomeNameAbbr(): string {
-        return this.getAbbr(this.data.team_home_name);
+        return this.data.team_home_abbr;
     }
 
     /**
@@ -89,7 +91,7 @@ export class BetradarGameModel extends AbstractModel<IBetradarGame> {
      * @returns {string}
      */
     public get teamAwayNameAbbr(): string {
-        return this.getAbbr(this.data.team_away_name);
+        return this.data.team_away_abbr;
     }
 
     /**
@@ -146,30 +148,6 @@ export class BetradarGameModel extends AbstractModel<IBetradarGame> {
      */
     public startTime(format: string = 'h:mm a'): string {
         return DateTime.fromMillis(this.data.start_time).toFormat(format);
-    }
-
-    /**
-     * Get abbreviature
-     *
-     * @param {string} name Team name
-     * @returns {string}
-     */
-    protected getAbbr(name: string): string {
-        if (!name) {
-            return '';
-        }
-        const matches = name.match(/[a-zа-я]+/gi);
-        if (!matches.length) {
-            return '';
-        }
-
-        let abbr = '';
-        if (matches.length > 1) {
-            abbr = _toUpper(`${matches[0].substr(0, 1)}${matches[1].substr(0, 1)}`);
-        } else if (matches.length === 1) {
-            abbr = _toUpper(`${matches[0].substr(0, 2)}`);
-        }
-        return abbr;
     }
 
     /**
