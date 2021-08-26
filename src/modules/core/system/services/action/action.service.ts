@@ -24,6 +24,7 @@ import {
     filter,
     first,
     takeWhile,
+    takeUntil,
 } from 'rxjs/operators';
 
 import {GlobalHelper} from 'wlc-engine/modules/core/system/helpers/global.helper';
@@ -81,6 +82,14 @@ export interface IResizeEvent {
     event: Event;
 }
 
+export interface IPaymentPostMessage {
+    eventType: 'PAYMENT_SUCCESS' | 'PAYMENT_FAIL';
+    eventData: {
+        amount: string;
+        transactionId: string;
+    }
+}
+
 @Injectable({
     providedIn: 'root',
 })
@@ -93,6 +102,7 @@ export class ActionService {
     private breakpoints: IDeviceBreakpoints;
     private renderer: Renderer2;
     private scrollTop: number;
+    private depositInIframe: boolean = false;
 
     constructor(
         private injector: Injector,
@@ -153,65 +163,26 @@ export class ActionService {
                 break;
             case 'PAYMENT_SUCCESS': {
                 await this.configService.ready;
-                const userProfile$ = this.configService.get<BehaviorSubject<UserProfile>>(
-                    {name: '$user.userProfile$'},
-                );
 
-                userProfile$.pipe(filter((profile) => !!profile), first()).subscribe((profile) => {
-                    this.configService.get<Deferred<null>>({name: 'firstLanguageReady'})
-                        .promise
-                        .then(() => {
-                            const currencyElement = `<span wlc-currency
-                                                               [value]="${initialPath.amount}"
-                                                               [currency]="'${profile.currency}'"></span>`;
-                            const paymentMessage = {
-                                name: NotificationEvents.PushMessage,
-                                data: <IPushMessageParams>{
-                                    type: 'success',
-                                    title: gettext('Payment success'),
-                                    displayAsHTML: true,
-                                    wlcElement: 'notification_deposit-success',
-                                    message: [
-                                        this.translateService.instant(gettext('Deposit completed successfully')),
-                                        currencyElement +
-                                        this.translateService.instant(
-                                            gettext('were successfully deposited in your account.')),
-                                    ],
-                                },
-                            };
+                if (this.depositInIframe) {
+                    try {
+                        window.parent?.postMessage({
+                            eventType: 'PAYMENT_SUCCESS',
+                            eventData: {
+                                amount: initialPath.amount,
+                                transactionId: initialPath.tid,
+                            },
+                        }, '*');
+                    } catch {
+                    }
+                } else {
+                    this.onPaymentSuccess(initialPath);
+                }
 
-                            if (initialPath.type?.toLowerCase() === 'withdraw') {
-
-                                _assign(paymentMessage.data,
-                                    {
-                                        wlcElement: 'notification_withdraw-success',
-                                        message: [
-                                            this.translateService.instant(
-                                                gettext('Withdraw request has been successfully sent!')),
-                                            this.translateService.instant(gettext('Withdraw sum'))
-                                            + currencyElement,
-                                        ],
-                                    });
-                            }
-                            this.eventService.emit(paymentMessage);
-                        });
-                });
                 break;
             }
             case 'PAYMENT_FAIL':
-                this.eventService.emit({
-                    name: NotificationEvents.PushMessage,
-                    data: <IPushMessageParams>{
-                        type: 'error',
-                        title: gettext('Payment failed'),
-                        message: [
-                            gettext('Unfortunately your payment didn\'t go through.'
-                                + ' An e-mail with detailed information has been sent to your e-mail address.'
-                                + ' If you have any questions, please don\'t hesitate to contact us.'),
-                        ],
-                        wlcElement: 'notification_deposit-error',
-                    },
-                });
+                this.onPaymentFail();
                 break;
             case 'SET_NEW_PASSWORD':
                 this.setNewPassword(initialPath);
@@ -293,6 +264,69 @@ export class ActionService {
         }
     }
 
+    private onPaymentFail(): void {
+        this.eventService.emit({
+            name: NotificationEvents.PushMessage,
+            data: <IPushMessageParams>{
+                type: 'error',
+                title: gettext('Payment failed'),
+                message: [
+                    gettext('Unfortunately your payment didn\'t go through.'
+                        + ' An e-mail with detailed information has been sent to your e-mail address.'
+                        + ' If you have any questions, please don\'t hesitate to contact us.'),
+                ],
+                wlcElement: 'notification_deposit-error',
+            },
+        });
+    }
+
+    private onPaymentSuccess(initialPath: IIndexing<string>): void {
+        const userProfile$ = this.configService.get<BehaviorSubject<UserProfile>>(
+            {name: '$user.userProfile$'},
+        );
+
+        userProfile$.pipe(filter((profile) => !!profile), first()).subscribe((profile) => {
+
+            this.configService.get<Deferred<null>>({name: 'firstLanguageReady'})
+                .promise
+                .then(() => {
+                    const currencyElement = `<span wlc-currency
+                                                        [value]="${initialPath.amount}"
+                                                        [currency]="'${profile.currency}'"></span>`;
+                    const paymentMessage = {
+                        name: NotificationEvents.PushMessage,
+                        data: <IPushMessageParams>{
+                            type: 'success',
+                            title: gettext('Payment success'),
+                            displayAsHTML: true,
+                            wlcElement: 'notification_deposit-success',
+                            message: [
+                                this.translateService.instant(gettext('Deposit completed successfully')),
+                                currencyElement +
+                                this.translateService.instant(
+                                    gettext('were successfully deposited in your account.')),
+                            ],
+                        },
+                    };
+
+
+                    if (initialPath.type?.toLowerCase() === 'withdraw') {
+                        _assign(paymentMessage.data,
+                            {
+                                wlcElement: 'notification_withdraw-success',
+                                message: [
+                                    this.translateService.instant(
+                                        gettext('Withdraw request has been successfully sent!')),
+                                    this.translateService.instant(gettext('Withdraw sum'))
+                                    + currencyElement,
+                                ],
+                            });
+                    }
+                    this.eventService.emit(paymentMessage);
+                });
+        });
+    }
+
     private getStyleNumValue(elem: HTMLElement, style: string): number {
         return _toNumber(globalThis.getComputedStyle(elem)[style].replace(/[^\d\.\-]/g, ''));
     }
@@ -327,6 +361,28 @@ export class ActionService {
                 });
         });
         this.deviceTypeSubject.next(this.getDeviceType());
+        this.depositInIframe = this.configService.get<boolean>('$base.finances.depositInIframe');
+
+        if (this.depositInIframe) {
+            fromEvent(window, 'message').subscribe((event: MessageEvent<IPaymentPostMessage>) => {
+                if (event.data) {
+                    const message: IPaymentPostMessage = event.data;
+
+                    if (['PAYMENT_SUCCESS', 'PAYMENT_FAIL'].includes(message.eventType)) {
+                        this.modalService.closeAllModals();
+
+                        if (message.eventType === 'PAYMENT_SUCCESS') {
+                            this.onPaymentSuccess({
+                                amount: message.eventData?.amount,
+                                transactionId: message.eventData?.transactionId,
+                            });
+                        } else if (message.eventType === 'PAYMENT_FAIL') {
+                            this.onPaymentFail();
+                        }
+                    }
+                }
+            });
+        }
     }
 
     private createBreakpoints(): void {

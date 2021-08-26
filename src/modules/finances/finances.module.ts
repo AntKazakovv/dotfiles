@@ -31,6 +31,7 @@ import {HistoryRangeComponent} from './components/transaction-range/history-rang
 import {PaymentListComponent} from './components/payment-list/payment-list.component';
 import {PaymentMessageComponent} from './components/payment-message/payment-message.component';
 import {PIQCashierComponent} from './components/piq-cashier/piq-cashier.component';
+import {IframeDepositComponent} from './components/iframe-deposit/iframe-deposit.component';
 
 import {GlobalHelper} from 'wlc-engine/modules/core';
 import {financesConfig} from './system/config/finances.config';
@@ -49,6 +50,7 @@ export const components = {
     'wlc-history-range': HistoryRangeComponent,
     'wlc-payment-list': PaymentListComponent,
     'wlc-transaction-history': TransactionHistoryComponent,
+    'wlc-iframe-deposit': IframeDepositComponent,
 };
 
 export const services = {
@@ -76,6 +78,7 @@ export const services = {
         HistoryFilterComponent,
         HistoryFilterFormComponent,
         HistoryRangeComponent,
+        IframeDepositComponent,
     ],
     providers: [
         FinancesService,

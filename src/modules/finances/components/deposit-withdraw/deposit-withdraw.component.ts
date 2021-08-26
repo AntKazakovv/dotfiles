@@ -62,6 +62,7 @@ import {
 } from 'wlc-engine/modules/user/components/add-profile-info';
 import {UserService} from 'wlc-engine/modules/user/system/services';
 import {IModalConfig} from 'wlc-engine/modules/core/components/modal';
+import {IModalParams} from 'wlc-engine/modules/core/system/services/modal/modal.service';
 import {PaymentMessageComponent} from '../payment-message/payment-message.component';
 import {
     IPaymentMessage,
@@ -390,7 +391,7 @@ export class DepositWithdrawComponent extends AbstractComponent implements OnIni
                     this.showDepositResponse(response[1], response[0]);
                     return;
                 } else if (response[0] === 'redirect') {
-                    if (this.currentSystem?.appearance === 'newtab') {
+                    if (this.currentSystem.appearance === 'newtab') {
                         window.open(response[1], '_blank');
                     } else {
                         window.location.replace(response[1]);
@@ -413,7 +414,10 @@ export class DepositWithdrawComponent extends AbstractComponent implements OnIni
 
             const formSubmit: HTMLFormElement = this.createForm(response);
             this.document.body.appendChild(formSubmit);
-            formSubmit.submit();
+
+            if (this.currentSystem.appearance !== 'iframe') {
+                formSubmit.submit();
+            }
         } catch (error) {
             this.pushNotification({
                 type: 'error',
@@ -425,6 +429,22 @@ export class DepositWithdrawComponent extends AbstractComponent implements OnIni
             this.inProgress = false;
             this.financesService.fetchPaymentSystems();
         }
+    }
+
+    protected showIFrame(form: HTMLFormElement): void {
+        const options: IModalParams = {
+            id: 'iframe-deposit',
+            modifier: 'iframe-deposit',
+            componentName: 'finances.wlc-iframe-deposit',
+            componentParams: {},
+            size: 'lg',
+            showFooter: false,
+            dismissAll: true,
+            backdrop: 'static',
+            modalTitle: gettext('Deposit'),
+            onModalShown: () => form.submit(),
+        };
+        this.modalService.showModal(options);
     }
 
     protected getAdditionalParams(): IIndexing<string> {
@@ -535,12 +555,6 @@ export class DepositWithdrawComponent extends AbstractComponent implements OnIni
         form.method = response[0];
         form.action = (response[1] && response[1].URL) ? response[1].URL : '';
 
-        if (this.currentSystem.appearance === 'iframe') {
-            form.target = 'deposit_frame';
-        } else if (this.currentSystem.appearance === 'newtab') {
-            form.target = '_blank';
-        }
-
         for (const key in response[1]) {
             if (key === 'URL' || !response[1].hasOwnProperty(key)) {
                 continue;
@@ -550,6 +564,14 @@ export class DepositWithdrawComponent extends AbstractComponent implements OnIni
         }
 
         form.style.display = 'none';
+
+        if (this.currentSystem.appearance === 'iframe') {
+            form.target = 'deposit_frame';
+            this.showIFrame(form);
+        } else if (this.currentSystem.appearance === 'newtab') {
+            form.target = '_blank';
+        }
+
         return form;
     }
 
