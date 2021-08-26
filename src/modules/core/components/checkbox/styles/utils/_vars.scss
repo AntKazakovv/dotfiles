@@ -12,9 +12,9 @@ $themeDefault: map-merge((
     'checkboxElemMarginTop': -12px,
     'checkboxElemBorderRadius': 5px,
     'checkboxElemBorderColor': var(--fc-borderColor),
-    'checkboxElemBorderColorHover': var(--mc--buttonColor),
-    'checkboxElemBorderColorChecked': var(--mc--main),
-    'checkboxElemBorderColorError': var(--fc--errorBorder),
+    'checkboxElemBorderColorHover': var(--mc-buttonColor),
+    'checkboxElemBorderColorChecked': var(--mc-main),
+    'checkboxElemBorderColorError': var(--fc-errorBorder),
 
     'iconLineHieght': 0,
     'iconSvgWidth': 8px,
