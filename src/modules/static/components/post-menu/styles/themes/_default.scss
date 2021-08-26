@@ -11,7 +11,7 @@
 
         .wlc-slider {
 
-            &--on-start {
+            &--on-start.wlc-slider--overflow {
                 box-shadow: ef.get-value($themeDefault, 'swiperBoxShadowStart');
             }
 

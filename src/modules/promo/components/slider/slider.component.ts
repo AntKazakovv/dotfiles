@@ -44,6 +44,7 @@ import _cloneDeep from 'lodash-es/cloneDeep';
 import _floor from 'lodash-es/floor';
 import _forEach from 'lodash-es/forEach';
 import _get from 'lodash-es/get';
+import _set from 'lodash-es/set';
 import _isNumber from 'lodash-es/isNumber';
 import _times from 'lodash-es/times';
 import _toNumber from 'lodash-es/toNumber';
@@ -284,8 +285,12 @@ export class SliderComponent extends AbstractComponent
             setTimeout(() => {
                 if (_get(this.swiper.swiperRef, 'virtualSize', 0) > _get(this.swiper.swiperRef, 'size', 0)) {
                     this.addModifiers('overflow');
-                } else if (this.hasModifier('overflow')) {
-                    this.removeModifiers('overflow');
+                    _set(this.swiper, 'swiperRef.allowTouchMove', true);
+                } else  {
+                    if (this.hasModifier('overflow')) {
+                        this.removeModifiers('overflow');
+                    }
+                    _set(this.swiper, 'swiperRef.allowTouchMove', false);
                 }
             });
         }
