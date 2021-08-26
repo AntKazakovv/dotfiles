@@ -745,6 +745,8 @@ export class GamesCatalog extends AbstractModel<IGames> {
     }
 
     protected sortNameByRegExp(searchQuery: string, gamesList: Game[]): Game[] {
+        searchQuery = searchQuery.replace(/[!()+\\]/g, '\\$&');
+
         const arrays: IIndexing<ISearchFilter> = {
             completeMatch: {
                 array: [],
