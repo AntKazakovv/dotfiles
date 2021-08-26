@@ -1,5 +1,203 @@
 @use 'engine-scss/functions' as ef;
+@use 'engine-scss/mixins/text' as text;
+@use 'engine-scss/mixins/base.mixins' as bm;
+
 @import './utils/vars';
+
+.wlc-select:host {
+    display: grid;
+    grid-template-columns: 1fr;
+    width: 100%;
+    max-width: 100%;
+
+    .wlc-select {
+
+        &__label {
+            display: flex;
+            cursor: pointer;
+        }
+
+        &__group {
+            position: relative;
+
+            &.field-disabled {
+
+                .wlc-select-status {
+
+                    &__arrow {
+                        color: ef.get-value($baseSettings, 'selectDisabledColor');
+                        cursor: default;
+                    }
+                }
+            }
+        }
+
+        &__field {
+            @include text.get-text-style('PrimaryText', ef.get-value($baseSettings, 'selectColor'));
+
+            width: ef.get-value($baseSettings, 'fieldWidth');
+            height: ef.get-value($baseSettings, 'selectHeight');
+            padding: ef.get-value($baseSettings, 'selectPadding');
+
+            overflow: hidden;
+            white-space: nowrap;
+            text-align: ef.get-value($baseSettings, 'selectTextAlign');
+            text-overflow: ellipsis;
+
+            background: ef.get-value($baseSettings, 'selectBackground');
+            border: ef.get-value($baseSettings, 'selectBorder');
+            border-radius: ef.get-value($baseSettings, 'selectBorderRadius');
+
+            &:focus {
+                outline: none;
+                border-color: ef.get-value($baseSettings, 'selectBorderFocusColor');
+            }
+
+            &.ng-valid {
+                color: ef.get-value($baseSettings, 'selectColor');
+            }
+
+            &.ng-touched {
+
+                &.ng-invalid {
+                    background: ef.get-value($baseSettings, 'errorsBgColor');
+                    border-color: ef.get-value($baseSettings, 'errorsBorderColor');
+                }
+            }
+
+            &.ng-untouched {
+                color: ef.get-value($baseSettings, 'inputPlaceholderColor');
+            }
+
+            &:disabled {
+                color: ef.get-value($baseSettings, 'selectDisabledColor');
+                background: ef.get-value($baseSettings, 'selectDisabledBg');
+                border-color: ef.get-value($baseSettings, 'selectDisabledBorder');
+            }
+        }
+
+
+        &__dropdown {
+            position: absolute;
+            top: calc(100% + 5px);
+            left: 0;
+            z-index: 15;
+
+            width: 100%;
+            max-height: ef.get-value($baseSettings, 'selectDropdownHeight');
+            padding: 0;
+
+            border: ef.get-value($baseSettings, 'selectDropdownBorder');
+            border-radius: ef.get-value($baseSettings, 'selectDropdownBorderRadius');
+
+            list-style: none;
+            background: ef.get-value($baseSettings, 'selectDropdownBackground');
+            box-shadow: ef.get-value($baseSettings, 'selectDropdownBoxShadow');
+            overflow: hidden auto;
+
+            &-item {
+                @include text.get-text-style(ef.get-value($baseSettings, 'dropdownTextStyle'), ef.get-value($baseSettings, 'selectDropdownItemColor'));
+
+                display: flex;
+                align-items: center;
+                width: 100%;
+                min-height: ef.get-value($baseSettings, 'selectHeight');
+                padding: ef.get-value($baseSettings, 'selectDropdownItemPadding');
+
+                text-overflow: ellipsis;
+                cursor: pointer;
+                overflow: hidden;
+                transition: ef.get-value($baseSettings, 'selectDropdownItemTransition');
+
+                &.active {
+                    color: ef.get-value($baseSettings, 'dropdownItemColorActive');
+                    background: ef.get-value($baseSettings, 'dropdownItemBgActive');
+                }
+
+                @include bm.hover() {
+                    color: ef.get-value($baseSettings, 'dropdownItemColorHover');
+                    background: ef.get-value($baseSettings, 'dropdownItemBgHover');
+                }
+            }
+        }
+
+        &-status {
+
+            &__icon {
+                position: absolute;
+                top: 50%;
+                right: ef.get-value($baseSettings, 'iconRightShift');
+                width: ef.get-value($baseSettings, 'iconWidth');
+                height: ef.get-value($baseSettings, 'iconHeight');
+                transform: translateY(-50%);
+                border-radius: 50%;
+
+                &:before {
+                    content: '';
+                    position: absolute;
+                }
+            }
+
+            &__arrow {
+                @include bm.transition(transform);
+
+                position: absolute;
+                top: 50%;
+                right: ef.get-value($baseSettings, 'iconRightShift');
+                color: ef.get-value($baseSettings, 'selectArrowColor');
+                transform: translateY(-50%);
+                cursor: pointer;
+
+                &.active {
+                    transform: translateY(-50%) rotate(180deg);
+                }
+
+                ::ng-deep {
+
+                    svg {
+                        fill: currentColor;
+                    }
+                }
+            }
+
+            &__errors {
+                position: absolute;
+                top: calc(100% - 5px);
+                right: 0;
+                z-index: 10;
+
+                width: fit-content;
+                min-width: ef.get-value($baseSettings, 'errorsMinWidth');
+                max-width: ef.get-value($baseSettings, 'errorsMaxWidth');
+                padding: ef.get-value($baseSettings, 'errorsPadding');
+
+                color: ef.get-value($baseSettings, 'errorsColor');
+                font-size: ef.get-value($baseSettings, 'errorsFontSize');
+                background: ef.get-value($baseSettings, 'errorsBgColor');
+                visibility: hidden;
+                opacity: 0;
+                border-radius: ef.get-value($baseSettings, 'errorsBorderRadius');
+
+                &:before {
+                    content: '';
+                    border: 8px solid transparent;
+                    border-bottom-color: ef.get-value($baseSettings, 'errorsBgColor');
+                    position: absolute;
+                    top: -15px;
+                    right: 13px;
+                }
+            }
+        }
+    }
+
+    &.wlc-select--currency {
+
+        .wlc-select__field {
+            color: ef.get-value($baseSettings, 'selectColor');
+        }
+    }
+}
+
 
 @import './themes/default';
 @import './themes/vertical';

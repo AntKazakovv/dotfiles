@@ -1,124 +1,24 @@
 @use 'engine-scss/functions' as ef;
-@use 'engine-scss/mixins/mediaqueries' as mq;
 @use 'engine-scss/mixins/text' as text;
-@use 'engine-scss/mixins/base.mixins' as em;
-
-@import '../utils/vars';
-@import '../utils/mixins';
+@use 'engine-scss/mixins/base.mixins' as bm;
 
 .wlc-select--theme-default:host {
-    @include selectBase($themeDefault);
+    gap: ef.get-value($themeDefault, 'labelGap');
 
     .wlc-select {
 
         &__label {
-            @include text.get-text-style('PrimaryText', ef.get-value($themeDefault, 'labelColor'));
-            display: flex;
+            @include text.get-text-style(ef.get-value($themeDefault, 'labelFont'), ef.get-value($themeDefault, 'labelColor'));
             align-items: center;
-            cursor: pointer;
 
             .wlc-tooltip {
-                @include em.get-mq-map('margin', $themeDefault, 'tooltipMargin');
+                @include bm.get-mq-map('margin', $themeDefault, 'tooltipMargin');
             }
         }
 
         &__group {
-            position: relative;
             width: ef.get-value($themeDefault, 'groupWidth');
             min-width: ef.get-value($themeDefault, 'groupMinWidth');
-
-            &.field-disabled {
-
-                .wlc-select-status {
-
-                    &__arrow {
-                        cursor: default;
-
-                        ::ng-deep {
-
-                            svg {
-                                fill: ef.get-value($themeDefault, 'selectDisabledColor');
-                            }
-                        }
-                    }
-                }
-            }
-        }
-
-        &__field {
-            @include text.get-text-style('PrimaryText', ef.get-value($themeDefault, 'selectColor'));
-            width: ef.get-value($themeDefault, 'fieldWidth');
-            height: ef.get-value($themeDefault, 'selectHeight');
-            padding: ef.get-value($themeDefault, 'selectPadding');
-            white-space: nowrap;
-            background: ef.get-value($themeDefault, 'selectBackground');
-            border: ef.get-value($themeDefault, 'selectBorder');
-            border-radius: ef.get-value($themeDefault, 'selectBorderRadius');
-            overflow: hidden;
-            text: {
-                overflow: ellipsis;
-                align: ef.get-value($themeDefault, 'selectTextAlign');
-            }
-
-            &:focus {
-                outline: none;
-                border-color: ef.get-value($themeDefault, 'selectBorderFocusColor');
-            }
-
-            &.ng-touched {
-
-                &.ng-invalid {
-                    background: ef.get-value($themeDefault, 'errorsBgColor');
-                    border-color: ef.get-value($themeDefault, 'errorsBorderColor');
-                }
-            }
-
-            &:disabled {
-                color: ef.get-value($themeDefault, 'selectDisabledColor');
-                background: ef.get-value($themeDefault, 'selectDisabledBg');
-                border-color: ef.get-value($themeDefault, 'selectDisabledBorder');
-            }
-        }
-
-        &__dropdown {
-            @include dropdownBase;
-
-            &-item {
-                @include dropdownItemBase;
-                @include text.get-text-style('PrimaryText', ef.get-value($themeDefault, 'selectDropdownItemColor'));
-
-                @include em.hover() {
-                    background: ef.get-value($themeDefault, 'selectDropdownItemBgActive');
-                    transition: ef.get-value($themeDefault, 'selectDropdownItemTransition');
-                }
-
-                &.active {
-                    background: ef.get-value($themeDefault, 'selectDropdownItemBgActive');
-                    transition: ef.get-value($themeDefault, 'selectDropdownItemTransition');
-                }
-            }
-        }
-
-        &-status {
-
-            &__icon {
-                @include baseStatusIcon;
-            }
-
-            &__arrow {
-                @include baseStatusArrow;
-            }
-
-            &__errors {
-                @include baseStatusErrors;
-            }
-        }
-    }
-
-    &.wlc-select--currency {
-
-        .wlc-select__field {
-            color: ef.get-value($baseSettings, 'selectColor');
         }
     }
 }
