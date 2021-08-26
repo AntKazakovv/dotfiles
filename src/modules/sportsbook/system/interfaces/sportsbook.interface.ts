@@ -47,6 +47,8 @@ interface ISportEvent {
     team_away_name: string;
     team_home_logo: string;
     team_away_logo: string;
+    team_home_abbr: string;
+    team_away_abbr: string;
     start_time: number;
     link: string;
     sport_alias: string;
