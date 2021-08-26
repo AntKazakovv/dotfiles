@@ -40,7 +40,7 @@ export class SearchFieldComponent extends AbstractComponent implements OnInit, A
     public searchQuery: string;
     public $params: ISearchFieldCParams;
 
-    protected disabledSymbols: RegExp = /[!$%*+;<=>?@\[\\\]^{|}~№]/gi;
+    protected disabledSymbols: RegExp = /[$%*;<=>?@\^{|}~№]/gi;
 
     constructor(
         @Inject('injectParams') protected injectParams: ISearchFieldCParams,
