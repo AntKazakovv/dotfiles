@@ -59,7 +59,8 @@
             @include bm.get-mq-map('max-width', $themeLeft, 'logoMaxWidth');
             @include bm.get-mq-map('margin', $themeLeft, 'logoMargin');
 
-            display: block;
+            display: flex;
+            justify-content: center;
 
             &__image {
 
