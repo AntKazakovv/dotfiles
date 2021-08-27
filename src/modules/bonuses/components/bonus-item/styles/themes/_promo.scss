@@ -95,7 +95,6 @@
         &__tag {
             grid-area: tag;
             align-self: ef.get-value($themePromo, 'tagAlignSelf');
-            justify-self: ef.get-value($themePromo, 'tagJustify');
         }
 
         &__info {
