@@ -191,6 +191,9 @@ export class SelectComponent extends AbstractComponent implements OnInit,
 
         if (this.isOpened) {
             this.clickedOutside = false;
+        } else {
+            this.control.markAsTouched();
+            this.control.updateValueAndValidity();
         }
 
         this.cdr.markForCheck();
@@ -200,6 +203,8 @@ export class SelectComponent extends AbstractComponent implements OnInit,
      * close select list
      */
     public closeDropdown(): void {
+        this.control.markAsTouched();
+        this.control.updateValueAndValidity();
         this.isOpened = false;
     }
 
