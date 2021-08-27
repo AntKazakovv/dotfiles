@@ -1,48 +1,78 @@
 @use 'engine-scss/functions' as ef;
 @use 'engine-scss/mixins/mediaqueries' as mq;
-@use 'engine-scss/mixins/base.mixins' as em;
+@use 'engine-scss/mixins/base.mixins' as bm;
+
+@import './utils/vars';
+@import './utils/mixins';
+
+@import './themes/default';
+@import './themes/long';
 
 .wlc-theme-toggler:host {
+    line-height: 1;
 
     .wlc-theme-toggler {
 
         &__label {
-            display: block;
+            cursor: pointer;
         }
 
         &__checkbox {
-            @include em.visuallyHidden();
+            @include bm.visuallyHidden();
+        }
 
-            &:checked + .wlc-theme-toggler__switcher {
-                background: #000;
+        &__icon {
+            @include bm.transition(all);
 
-                &:before {
-                    background-color: #fff;
-                    transform: translateX(30px);
+            height: 100%;
+            line-height: 1;
+            transform-origin: center;
+
+            &--alt {
+                opacity: 0;
+            }
+
+            ::ng-deep {
+
+                svg {
+                    display: block;
+                    width: 100%;
+                    height: 100%;
+                    fill: currentColor;
                 }
             }
         }
 
         &__switcher {
+            @include bm.transition(background);
+
             position: relative;
-            display: block;
-            width: 60px;
-            height: 30px;
-            border-radius: 30px;
-            background-color: #fff;
-            cursor: pointer;
-            transition: all 0.3s ease-in-out;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
 
             &:before {
+                @include bm.transition(all);
+
                 content: '';
                 position: absolute;
-                top: 2px;
-                left: 2px;
-                width: 26px;
-                height: 26px;
-                border-radius: 26px;
-                background-color: #000;
-                transition: all 0.3s ease-in-out;
+                top: 0;
+                left: 0;
+                z-index: 10;
+            }
+
+            &.active {
+
+                .wlc-theme-toggler__icon {
+
+                    &--default {
+                        opacity: 0;
+                    }
+
+                    &--alt {
+                        opacity: 1;
+                    }
+                }
             }
         }
     }

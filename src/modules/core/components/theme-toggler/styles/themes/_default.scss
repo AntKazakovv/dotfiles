@@ -1,0 +1,47 @@
+@use 'engine-scss/functions' as ef;
+@use 'engine-scss/mixins/base.mixins' as bm;
+
+.wlc-theme-toggler--theme-default:host {
+    @include iconsAnimation($themeDefault);
+
+    .wlc-theme-toggler {
+
+        &__icon {
+
+            &--default {
+                color: ef.get-value($themeDefault, 'iconDefaultColor');
+            }
+
+            &--alt {
+                color: ef.get-value($themeDefault, 'iconAltColor');
+                opacity: 0;
+            }
+        }
+
+        &__switcher {
+            @include switcherCommon($themeDefault);
+        }
+    }
+
+    &.wlc-theme-toggler--theme-mod-vertical {
+        @include iconsAnimation($themeModVertical);
+
+        .wlc-theme-toggler {
+
+            &__switcher {
+                @include switcherCommon($themeModVertical);
+            }
+        }
+    }
+
+    &.wlc-theme-toggler--theme-mod-compact {
+        @include iconsAnimation($themeModCompact);
+
+        .wlc-theme-toggler {
+
+            &__switcher {
+                @include switcherCommon($themeModCompact);
+            }
+        }
+    }
+}

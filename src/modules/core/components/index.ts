@@ -23,6 +23,7 @@ export {ILogoCParams} from './logo/logo.params';
 export {IScrollbarCParams} from './scrollbar/scrollbar.params';
 export {ISelectCParams} from './select/select.params';
 export {ITableCParams, ITableCol} from './table/table.params';
+export {IThemeTogglerCParams} from './theme-toggler/theme-toggler.params';
 export {ITooltipCParams} from './tooltip/tooltip.params';
 export {StepsEvents} from './steps/steps.params';
 export {

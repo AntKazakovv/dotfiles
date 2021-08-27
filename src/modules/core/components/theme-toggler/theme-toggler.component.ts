@@ -4,6 +4,7 @@ import {
     ChangeDetectionStrategy,
     Inject,
     Input,
+    ChangeDetectorRef,
 } from '@angular/core';
 
 import {
@@ -16,14 +17,30 @@ import * as Params from './theme-toggler.params';
 
 /**
  * Theme color switching functionality is turning on in $base config
- * export const $base: IBaseConfig = {
+ *
+ * `export const $base: IBaseConfig = {
  *      ...
  *      colorThemeSwitching: {
  *          use: true,
  *          altName: 'alt',
  *      },
  *      ...
- * };
+ * };`
+ *
+ * If your project has light theme by default, you need to specify `inverse` type for the component
+ * in `04.modules.config.ts`
+ *
+ * `export const $modules = {
+ *      ...
+ *      core: {
+ *          components: {
+ *              'wlc-theme-toggler': {
+ *                  type: 'inverse',
+ *              },
+ *          },
+ *      },
+ *      ...
+ * };`
  */
 @Component({
     selector: '[wlc-theme-toggler]',
@@ -37,11 +54,14 @@ export class ThemeTogglerComponent extends AbstractComponent implements OnInit {
 
     public $params: Params.IThemeTogglerCParams;
     public status: boolean;
+    public leftIcon: string;
+    public rightIcon: string;
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IThemeTogglerCParams,
         protected configService: ConfigService,
         protected eventService: EventService,
+        protected cdr: ChangeDetectorRef,
     ) {
         super({injectParams, defaultParams: Params.defaultParams}, configService);
     }
@@ -49,6 +69,18 @@ export class ThemeTogglerComponent extends AbstractComponent implements OnInit {
     public ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
         this.status = !!this.configService.get<string>('colorTheme');
+        this.eventService.subscribe({name: 'THEME_CHANGE'}, (status: boolean)=>{
+            this.status = status;
+            this.cdr.markForCheck();
+        }, this.$destroy);
+
+        this.leftIcon = '/wlc/icons/theme-toggler-alt.svg';
+        this.rightIcon = '/wlc/icons/theme-toggler-default.svg';
+
+        if (this.$params.type === 'inverse') {
+            this.leftIcon = '/wlc/icons/theme-toggler-default.svg';
+            this.rightIcon = '/wlc/icons/theme-toggler-alt.svg';
+        }
     }
 
     public toggleThemeHandler(): void {

@@ -1,7 +1,21 @@
-<label class="{{$class}}__label" title="Switch theme">
+
+<label class="{{$class}}__label" title="{{$params.title | translate}}">
+    <span *ngIf="$params.theme === 'long'"
+          class="{{$class}}__caption">{{$params.title | translate}}</span>
     <input class="{{$class}}__checkbox"
         type="checkbox"
         [(ngModel)]="status"
         (ngModelChange)="toggleThemeHandler()">
-    <span class="{{$class}}__switcher"></span>
+
+        <span class="{{$class}}__switcher"
+                [class.active]="status">
+        <span wlc-icon
+                class="{{$class}}__icon {{$class}}__icon--alt"
+                [iconPath]="leftIcon">
+        </span>
+        <span wlc-icon
+                class="{{$class}}__icon {{$class}}__icon--default"
+                [iconPath]="rightIcon">
+        </span>
+    </span>
 </label>

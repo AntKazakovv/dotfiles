@@ -1,0 +1,64 @@
+@use 'engine-scss/functions' as ef;
+@use 'engine-scss/mixins/base.mixins' as bm;
+
+@mixin switcherCommon($data) {
+    flex-direction: ef.get-value($data, 'switchDir');
+    width: ef.get-value($data, 'switchWidth');
+    height: ef.get-value($data, 'switchHeight');
+    padding: ef.get-value($data, 'switchPadding');
+
+    border-radius: ef.get-value($data, 'switchRadius');
+    background: ef.get-value($data, 'switchBg');
+
+    &:before {
+        width: ef.get-value($data, 'switchPseudoWidth');
+        height: ef.get-value($data, 'switchPseudoHeight');
+        margin: ef.get-value($data, 'switchPseudoMargin');
+
+        background: ef.get-value($data, 'switchPseudoBg');
+        border-radius: ef.get-value($data, 'switchPseudoRadius');
+        transform: ef.get-value($data, 'switchPseudoTransform');
+    }
+
+    &.active {
+        background: ef.get-value($data, 'switchBgActive');
+
+        &:before {
+            background: ef.get-value($data, 'switchPseudoBgActive');
+            transform: ef.get-value($data, 'switchPseudoTransformActive');
+        }
+    }
+
+    @include bm.hover() {
+        background: ef.get-value($data, 'switchPseudoBgHover');
+    }
+}
+
+@mixin iconsAnimation($data) {
+
+    .wlc-theme-toggler__icon {
+        width: ef.get-value($data, 'iconSize');
+        height: ef.get-value($data, 'iconSize');
+
+        &--default {
+            color: ef.get-value($data, 'iconDefColor');
+            transform: ef.get-value($data, 'iconDefTransform');
+        }
+
+        &--alt {
+            color: ef.get-value($data, 'iconAltColor');
+            transform: ef.get-value($data, 'iconAltTransform');
+        }
+    }
+
+    .active {
+
+        .wlc-theme-toggler__icon--default {
+            transform: ef.get-value($data, 'iconDefTransformActive');
+        }
+
+        .wlc-theme-toggler__icon--alt {
+            transform: ef.get-value($data, 'iconAltTransformActive');
+        }
+    }
+}
