@@ -1,0 +1,119 @@
+@use 'engine-scss/functions' as ef;
+
+$customTogglerBase: () !default;
+$togglerBase: map-merge((
+    'switchBg': var(--mc-bg100),
+    'switchBgActive': var(--mc-bg100),
+    'switchRadius': ef.get('radius', 'large'),
+
+    'switchPseudoScale': scale(0.82),
+    'switchPseudoBg': var(--mc-bg500),
+    'switchPseudoBgHover': var(--mc-bg100-l5),
+    'switchPseudoBgActive': var(--mc-bg500),
+    'switchPseudoRadius': ef.get('radius', 'large'),
+    'switchPseudoTransition': (all, 0.2s, ease-in-out),
+
+    'iconDefColor': ef.get('mainColors', 'baseMain'),
+    'iconAltColor': ef.get('mainColors', 'baseMain'),
+), $customTogglerBase);
+
+$customThemeDefault: () !default;
+$themeDefault: map-merge((
+    'switchWidth': 90px,
+    'switchHeight': 40px,
+    'switchBg': ef.get-value($togglerBase, 'switchBg'),
+    'switchBgActive': ef.get-value($togglerBase, 'switchBgActive'),
+    'switchRadius': ef.get-value($togglerBase, 'switchRadius'),
+    'switchPadding': 0 ef.size(2),
+
+    'switchPseudoWidth': 32px,
+    'switchPseudoHeight': 32px,
+    'switchPseudoBg': ef.get-value($togglerBase, 'switchPseudoBg'),
+    'switchPseudoBgHover': ef.get-value($togglerBase, 'switchPseudoBgHover'),
+    'switchPseudoBgActive': ef.get-value($togglerBase, 'switchPseudoBgActive'),
+    'switchPseudoRadius': ef.get-value($togglerBase, 'switchPseudoRadius'),
+    'switchPseudoTransform': translateX(0),
+    'switchPseudoTransformActive': translateX(50px),
+    'switchPseudoMargin': 4px,
+    'switchDir': row,
+
+    'iconSize': 24px,
+    'iconDefColor': ef.get-value($togglerBase, 'iconDefColor'),
+    'iconDefTransform': translateX(0),
+    'iconDefTransformActive': translateX(-50%) rotate(-105deg),
+    'iconAltColor': ef.get-value($togglerBase, 'iconAltColor'),
+    'iconAltTransform': translateX(50%) rotate(105deg),
+    'iconAltTransformActive': translateX(0) rotate(0),
+), $customThemeDefault);
+
+$customThemeModVertical: () !default;
+$themeModVertical: map-merge((
+    'switchDir': column,
+    'switchWidth': 20px,
+    'switchHeight': 40px,
+    'switchPadding': 3px 0,
+
+    'switchPseudoWidth': 16px,
+    'switchPseudoHeight': 16px,
+    'switchPseudoTransform': translate(0),
+    'switchPseudoTransformActive': translateY(20px),
+    'switchPseudoMargin': 2px,
+
+    'iconSize': 16px,
+    'iconDefTransform': translateY(0),
+    'iconDefTransformActive': translateY(-50%) rotate(-105deg),
+    'iconAltTransform': translateY(50%) rotate(105deg),
+    'iconAltTransformActive': translateY(0) rotate(0),
+), $customThemeModVertical);
+
+$themeModCompact: (
+    'switchWidth': 65px,
+    'switchHeight': 30px,
+
+    'switchPseudoWidth': 24px,
+    'switchPseudoHeight': 24px,
+    'switchPseudoMargin': 3px,
+    'switchPseudoTransform': translate(0),
+    'switchPseudoTransformActive': translateX(35px),
+
+    'iconSize': 18px,
+);
+
+
+$customThemeLong: () !default;
+$themeLong: map-merge((
+    'height': ef.size(8),
+    'padding': ef.size(1) ef.size(3) ef.size(1),
+    'radius': ef.get('radius', 'biger'),
+    'bg': var(--mc-bg700),
+
+    'captionColor': var(--mc-baseMain),
+    'captionTextStyle': 'PrimaryText',
+    'captionOffset': 0 ef.size(2) 0 0,
+
+    'switchWidth': 50px,
+    'switchHeight': 24px,
+    'switchPadding': 0 ef.size(1),
+    'switchBg': ef.get-value($togglerBase, 'switchBg'),
+    'switchBgActive': ef.get-value($togglerBase, 'switchBgActive'),
+    'switchRadius': ef.get-value($togglerBase, 'switchRadius'),
+
+    'switchPseudoWidth': 20px,
+    'switchPseudoHeight': 20px,
+    'switchPseudoTransform': translateX(0),
+    'switchPseudoTransformActive': translateX(26px),
+    'switchPseudoMargin': 2px,
+    'switchPseudoScale': ef.get-value($togglerBase, 'switchPseudoScale'),
+    'switchPseudoBg': ef.get-value($togglerBase, 'switchPseudoBg'),
+    'switchPseudoBgHover': ef.get-value($togglerBase, 'switchPseudoBgHover'),
+    'switchPseudoBgActive': ef.get-value($togglerBase, 'switchPseudoBgActive'),
+    'switchPseudoRadius': ef.get-value($togglerBase, 'switchPseudoRadius'),
+
+    'iconSize': 18px,
+    'iconDefColor': ef.get-value($togglerBase, 'iconDefColor'),
+    'iconDefTransform': translateX(0),
+    'iconDefTransformActive': translateX(-50%) rotate(-105deg),
+    'iconAltColor': ef.get-value($togglerBase, 'iconAltColor'),
+    'iconAltTransform': translateX(50%) rotate(105deg),
+    'iconAltTransformActive': translateX(0) rotate(0),
+), $customThemeLong);

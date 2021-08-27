@@ -1,0 +1,41 @@
+@use 'engine-scss/functions' as ef;
+@use 'engine-scss/mixins/text' as text;
+@use 'engine-scss/mixins/base.mixins' as bm;
+
+
+.wlc-theme-toggler--theme-long:host {
+    @include iconsAnimation($themeLong);
+
+    .wlc-theme-toggler {
+
+        &__label {
+            @include bm.transition(background);
+
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-between;
+            height: ef.get-value($themeLong, 'height');
+            padding: ef.get-value($themeLong, 'padding');
+
+            background: ef.get-value($themeLong, 'bg');
+            border-radius: ef.get-value($themeLong, 'radius');
+        }
+
+        &__switcher {
+            @include switcherCommon($themeLong);
+
+            flex: 0 0 auto;
+        }
+
+        &__caption {
+            @include bm.transition(color);
+            @include text.get-text-style(ef.get-value($themeLong, 'captionTextStyle'), ef.get-value($themeLong, 'captionColor'));
+
+            padding: ef.get-value($themeLong, 'captionOffset');
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+    }
+}
