@@ -370,7 +370,7 @@ export class Bonus extends AbstractModel<IBonus> {
      * @returns {boolean} is bonus active
      */
     public get isActive(): boolean {
-        return this.status == 1 && this.active;
+        return this.status !== 0 && this.active;
     }
 
     /**
