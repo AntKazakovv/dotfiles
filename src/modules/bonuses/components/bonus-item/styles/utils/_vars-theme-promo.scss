@@ -30,7 +30,7 @@ $themePromo: map-merge((
     'infoAreas': 'tag' 'info' 'buttons',
     'infoRows':  ef.size(5) 1fr auto,
     'infoPadding': (
-        320: ef.size(3) ef.size(4) ef.size(6),
+        375: ef.size(4) ef.size(4) ef.size(6),
         560: ef.size(6) ef.size(8) ef.size(8),
     ),
     'infoGap': (
@@ -65,7 +65,6 @@ $themePromo: map-merge((
     'descriptionFontColor': ef.get('mainColors', 'PrimaryText'),
 
     //Tag
-    'tagJustify': start,
     'tagAlignSelf': start,
 
     //Image
@@ -79,7 +78,7 @@ $themePromo: map-merge((
         560: none,
     ),
     'imgPadding': (
-        375: ef.size(8) 0 0 0,
+        375: ef.size(9) 0 0 0,
         560: ef.size(8) 0 0 ef.size(8)
     ),
 
