@@ -11,7 +11,7 @@ module.exports = {
             'npm run build:sassdocs',
         ]),
         'commit-msg': [
-            './utils/commit-msg $HUSKY_GIT_PARAMS',
+            'gulp githook:commit-msg --params "$HUSKY_GIT_PARAMS"',
         ]
     },
 };
