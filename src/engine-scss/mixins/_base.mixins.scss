@@ -245,8 +245,13 @@
     }
 }
 
-@mixin colorThemeAlt() {
-    .wlc-body--theme-alt & {
+/// Adding styles for alternate color theme
+///
+/// @name colorThemeAlt
+///
+/// @param {string} $suffix ['alt'] - name of alternate color theme
+@mixin colorThemeAlt($suffix: 'alt') {
+    .wlc-body--theme-#{$suffix} & {
         @content;
     }
 }

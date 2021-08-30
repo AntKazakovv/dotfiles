@@ -166,12 +166,13 @@
                     }
 
                     &.active {
-                        background: ef.get-value($themeLeft, 'menuLinksActiveBg');
                         color: ef.get-value($themeLeft, 'menuLinksActiveColor');
                         font-weight: ef.get-value($themeLeft, 'menuLinksActiveWeight');
+                        background: ef.get-value($themeLeft, 'menuLinksActiveBg');
                     }
 
                     @include bm.colorThemeAlt {
+
                         &:not(.active) {
 
                             @include bm.hover {
