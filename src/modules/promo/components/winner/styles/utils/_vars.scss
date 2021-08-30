@@ -2,168 +2,109 @@
 @use 'engine-scss/engine.variables' as ev;
 
 // if vertical, be careful with sizes
+$customWinnerBase: () !default;
+$winnerBase: map-merge((
+    'lineHeight': 1.3,
+
+    'wrapperGap': ef.size(4),
+    'wrapperTemplateCols': auto 1fr,
+    'wrapperTemplateAreas': 'picture details',
+    'wrapperAlignItems': center,
+
+    'imageSize': 60px,
+    'imageBorderRadius': ef.get('radius', 'biger'),
+    'imageBorder': none,
+    'imageShadow': 0 4px 5px rgba(ef.get('mainColors', 'baseContrast'), 0.7),
+    'imagePseudoPaddingTop': 100%,
+
+    'rightGridTemplateColumns': auto 1fr,
+    'rightGridTemplateAreas': 'user amount' 'game game',
+    'rightColumnGap': ef.size(2),
+
+    'userTextStyle': 'PlaceholderText',
+    'userColor': var(--mc-baseMain),
+    'userTextTransform': none,
+
+    'countryWidth': 17px,
+    'countryHeight': 11px,
+    'countryMarginRight': ef.size(2),
+    'countryBorder': none,
+    'countryShadow': none,
+
+    'gameTextStyle': 'ThirdTitleBold',
+    'gameColor': var(--mc-baseMain),
+    'gameAlignItems': center,
+    'gameJustifyContent': space-between,
+    'gamePadding': 0,
+    'gameTextAlign': left,
+    'gameBorder': 1px solid transparent,
+    'gameArrowWidth': 16px,
+    'gameArrowColor': var(--mc-main),
+    'gameArrowMargin': 0 0 0 ef.size(2),
+    'gameHoverColor': currentColor,
+    'gameHoverBorderColor': currentColor,
+    'gameHoverArrowColor': var(--mc-main-l20),
+
+    'amountTextStyle': 'ThirdTitleBold',
+    'amountColor': var(--mc-baseMain),
+    'amountTextAlign': right,
+), $customWinnerBase);
 
 // ~~ theme DEFAULT
 $customThemeDefault: () !default;
 $themeDefault: map-merge((
-    'transition': ef.get('time', 'main') linear,
-    'lineHeight': 1.3,
+    'gap': (
+        375: ef.size(3),
+        1024: ef.size(5),
+    ),
 
     //border line
     'borderLineWidth': 3px,
     'borderLineRadius': 3px,
     'borderLineColor': var(--mc-baseOpacity),
-    'borderLinePadding': 20px,
+    'borderLinePadding': ef.size(4),
 
-    // winner left block
-    'leftBackground': var(--mc-bg),
-    'leftPadding': 8px 9px,
-
-    // winner right block
-    'rightGridTemplateColumns': auto 1fr,
-    'rightGridTemplateAreas': 'user amount' 'game game',
-    'rightColumbGap': 10px,
-    'rightRowGap': 6px,
-    'rightMarginLeft': (
-        375: 15px,
-        1024: 28px,
-    ),
-
-    // image
-    'imageSize': 60px,
-    'imageBorderRadius': ef.get('radius', 'biger'),
-    'imageBorder': none,
-    'imageShadow': 0 4px 5px rgba($color: #000000, $alpha: 0.7),
-
-    // user
-    'userFontSize': ef.get('font', 'smaller'),
-    'userColor': var(--mc-baseMain),
-    'userFontWeight': 400,
-    'userTextTransform': none,
-    'userFontStyle': normal,
-
-    // country
-    'countryWidth': 17px,
-    'countryHeight': 11px,
-    'countryMarginRight': 10px,
-    'countryBorder': none,
-    'countryShadow': none,
-
-    // game
-    'gameTextStyle': 'ThirdTitleBold',
-    'gameTextAlign': left,
-    'gameColor': var(--mc-baseMain),
-    'gameBorderColor': transparent,
-    'gameArrowWidth': 16px,
-    'gameArrowColor': var(--mc-main),
-    'gameArrowMarginLeft': ef.get('size', 'small'),
-    'gameColumns': 1fr auto,
-    'gameAlignItems': center,
-    'gameJustifyItems': start,
-    'gamePadding': 0,
-
-    'gameHoverColor': currentColor,
-    'gameHoverBorderColor': currentColor,
-    'gameHoverArrowColor': var(--mc-main-l20),
-
-    // amount
-    'amountFontSize': ef.get('font', 'main'),
-    'amountColor': var(--mc-baseMain),
-    'amountFontWeight': 700,
+    'rightRowGap': ef.size(1),
 ), $customThemeDefault);
 
 // ~~ theme VERTICAL
 $customThemeVertical: () !default;
 $themeVertical: map-merge((
-    'lineHeight': 1.3,
-
-    // winner left block
+    'imageSize': var(--wlc-winner-slider-slide-height, 60px),
 
     // winner right block
     'rightBackground': var(--mc-bg),
-    'rightGridTemplateColumns': auto 1fr,
-    'rightGridTemplateAreas': 'user amount' 'game game',
-    'rightColumnGap': 10px,
-    'rightRowGap': 0,
-    'rightMargin': 0 0 0 ef.get('size', 'smaller'),
     'rightBorderRadius': ef.get('radius', 'biger'),
-    'rightPadding': 6px 9px,
-
-    // image
-    'imageSize': var(--wlc-winner-slider-slide-height, 60px),
-    'imageBorderRadius': ef.get('radius', 'biger'),
-    'imageBorder': none,
-    'imageShadow': 0 4px 5px rgba($color: #000000, $alpha: 0.7),
-    'imagePseudoPaddingTop': 100%,
-
-    // user
-    'userFontSize': ef.get('font', 'smaller'),
-    'userColor': var(--mc-baseMain),
-    'userFontWeight': 400,
-    'userTextTransform': none,
-    'userFontStyle': normal,
-
-    // country
-    'countryWidth': 17px,
-    'countryHeight': 11px,
-    'countryMarginRight': ef.get('size', 'small'),
-    'countryBorder': none,
-    'countryShadow': none,
+    'rightPadding': ef.size(1) ef.size(2),
 
     // game
-    'gameColor': var(--mc-baseMain),
-    'gameBorderColor': transparent,
     'gameArrowColor': var(--mc-secondary),
-    'gameArrowMarginLeft': ef.get('size', 'small'),
-    'gameArrowWidth': 16px,
-    'gameTextAlign': left,
-    'gameColumns': 1fr auto,
-    'gameAlignItems': center,
-    'gameJustifyItems': flex-start,
-    'gamePadding': 0,
-
-    'gameHoverColor': currentColor,
-    'gameHoverBorderColor': currentColor,
     'gameHoverArrowColor': var(--mc-secondary-l20),
-
-    'winnerNameFontStyle': 'PlaceholderText',
-    'winnerGameFontStyle': 'ThirdTitleBold',
-
-    // amount
-    'amountFontSize': ef.get('font', 'main'),
-    'amountColor': var(--mc-baseMain),
-    'amountFontWeight': 700,
-
-    // safari
-    'safariGameAlignItems': canter,
-    'safariGameJustifyContant': space-between,
-
 ), $customThemeVertical);
 
 $customTheme1: () !default;
 $theme1: map-merge((
     'maxWidth': 260px,
-    'itemGap': 20px,
 
-    'wrapperPadding': 0 0 var(--wlc-winner-slider-slide-inner-gap, #{ef.get('size', 'smally')}) 0,
     'wrapperMargin': 0 auto,
+    'wrapperPadding': 0 0 var(--wlc-winner-slider-slide-inner-gap, #{ef.size(3)}) 0,
     'wrapperPseudoBorderBg': var(--mc-baseOpacity),
     'wrapperPseudoBorderWidth': 100%,
     'wrapperPseudoBorderHeight': 2px,
     'wrapperPseudoBorderHideLast': true,
 
-    'slideHeight': var(--wlc-winner-slider-slide-height, 60px),
-    'iconWidth': var(--wlc-winner-slider-slide-height, 60px),
-    'iconAspectRatio': '1/1',
-    'iconBorderRadius': ef.get('size', 'small'),
+    'iconWidth': 70px,
 
-    'userColor': var(--mc-baseMain),
-    'amountColor': var(--mc-main),
-
-    'countryWidth': 16px,
-    'countryMargin': 0 ef.get('size', 'small') 0 0,
-
+    'gameJustifySelf': start,
     'gameColor': var(--mc-baseMain),
+    'gameHoverColor': var(--mc-baseMain),
     'gameBorderBottomInactive': 1px solid transparent,
     'gameBorderBottomActive': 1px solid var(--mc-baseMain),
+
+    'rightGap': 0,
+    'rightGridAreas': 'user' 'game' 'amount',
+    'rightGridColumns': 1fr,
+
+    'amountTextAlign': left,
+    'amountColor': var(--mc-main),
 ), $customTheme1);

@@ -3,163 +3,30 @@
     .wlc-winner {
 
         &__wrapper {
-            position: relative;
-
-            display: flex;
             height: ef.get-value($themeVertical, 'imageSize');
-
-            line-height: ef.get-value($themeVertical, 'lineHeight');
         }
 
         &__block {
 
-            &--left {
-                display: flex;
-                flex: 0 0 auto;
-                align-items: center;
-            }
-
             &--right {
-                display: grid;
-
-                flex: 1 1 auto;
-                grid-template-areas: ef.get-value($themeVertical, 'rightGridTemplateAreas');
-                grid-template-columns: ef.get-value($themeVertical, 'rightGridTemplateColumns');
-                gap: ef.get-value($themeVertical, 'rightRowGap')  ef.get-value($themeVertical, 'rightColumnGap');
-
-                min-width: 0;
-
-                margin: ef.get-value($themeVertical, 'rightMargin');
                 padding: ef.get-value($themeVertical, 'rightPadding');
-
-                background-color: ef.get-value($themeVertical, 'rightBackground');
+                background: ef.get-value($themeVertical, 'rightBackground');
                 border-radius: ef.get-value($themeVertical, 'rightBorderRadius');
             }
         }
 
-        &__picture {
-            position: relative;
-            width: ef.get-value($themeVertical, 'imageSize');
-            border: ef.get-value($themeVertical, 'imageBorder');
-            box-shadow: ef.get-value($themeVertical, 'imageShadow');
-            border-radius: ef.get-value($themeVertical, 'imageBorderRadius');
-            overflow: hidden;
-
-            &:before {
-                content: '';
-                display: block;
-                padding-top: ef.get-value($themeVertical, 'imagePseudoPaddingTop');
-            }
-        }
-
-        &__image {
-            position: absolute;
-            top: 0;
-            left: 0;
-            display: block;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            object-position: center;
-        }
-
-        &__user {
-            display: flex;
-            grid-area: user;
-            align-items: center;
-
-            min-width: 1px;
-
-            text-transform: ef.get-value($themeVertical, 'userTextTransform');
-        }
-
-        &__name {
-
-            @include text.get-text-style(ef.get-value($themeVertical, 'winnerNameFontStyle'), ef.get-value($themeVertical, 'userColor'));
-            flex: 1 1 auto;
-            white-space: nowrap;
-
-            overflow-x: hidden;
-            overflow-y: visible;
-        }
-
-        &__country {
-            flex: 0 0 auto;
-            object-fit: cover;
-            object-position: center;
-
-            width: ef.get-value($themeVertical, 'countryWidth');
-            height: ef.get-value($themeVertical, 'countryHeight');
-
-            margin-right: ef.get-value($themeVertical, 'countryMarginRight');
-
-            border: ef.get-value($themeVertical, 'countryBorder');
-            box-shadow: ef.get-value($themeVertical, 'countryShadow');
-        }
-
         &__game {
-            @include text.get-text-style(ef.get-value($themeVertical, 'winnerGameFontStyle'), ef.get-value($themeVertical, 'gameColor'));
-
-            display: grid;
-            grid-area: game;
-            grid-gap: ef.get-value($themeVertical, 'gameArrowMarginLeft');
-            grid-template-columns: ef.get-value($themeVertical, 'gameColumns');
-            align-items: ef.get-value($themeVertical, 'gameAlignItems');
-            justify-items: ef.get-value($themeVertical, 'gameJustifyItems');
-            padding: ef.get-value($themeVertical, 'gamePadding');
-
-            text-align: ef.get-value($themeVertical, 'gameTextAlign');
-            text-decoration: none;
-
-            background: transparent;
-            border: none;
-
-            .wlc-body--browser-safari & {
-                display: flex;
-                align-items: ef.get-value($themeVertical, 'safariGameAlignItems');
-                justify-content: ef.get-value($themeVertical, 'safariGameJustifyContant');
-            }
-
-            &:focus {
-                outline: none;
-            }
-
-            &-name {
-                @include em.transition(border-color);
-                @include gameNameOverflow();
-
-                border-bottom: 1px solid ef.get-value($themeVertical, 'gameBorderColor');
-            }
 
             &-arrow {
-                @include em.transition(color);
-
-                width: ef.get-value($themeVertical, 'gameArrowWidth');
-                min-width: 0;
-
                 color: ef.get-value($themeVertical, 'gameArrowColor');
-                border-bottom: 1px solid ef.get-value($themeVertical, 'gameBorderColor');
             }
 
             @include em.hover() {
-                color: ef.get-value($themeVertical, 'gameHoverColor');
-
-                .wlc-winner__game-name {
-                    border-bottom-color: ef.get-value($themeVertical, 'gameHoverBorderColor');
-                }
 
                 .wlc-winner__game-arrow {
                     color: ef.get-value($themeVertical, 'gameHoverArrowColor');
                 }
             }
-        }
-
-        &__amount {
-            @include text.get-text-style('ThirdTitleBold', ef.get-value($themeDefault, 'amountColor'));
-
-            grid-area: amount;
-            white-space: nowrap;
-            text-align: right;
         }
     }
 }
