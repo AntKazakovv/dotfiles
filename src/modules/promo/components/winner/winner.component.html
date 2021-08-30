@@ -1,32 +1,13 @@
 <ng-template #default>
     <div class="{{$class}}__wrapper">
         <div class="{{$class}}__block {{$class}}__block--left">
-            <div class="{{$class}}__picture">
-                <img class="{{$class}}__image"
-                     loading="lazy"
-                     [attr.src]="[gameImage]"
-                     [attr.alt]="[gameName]"
-                     [attr.data-wlc-element]="'img_item-' + $params.winnerType + '-wins'">
-            </div>
+            <ng-container [ngTemplateOutlet]="gamePicture"></ng-container>
         </div>
 
         <div class="{{$class}}__block {{$class}}__block--right">
-            <div class="{{$class}}__user">
-                <img *ngIf="countryIso2 && !$params.hideCountry"
-                     wlc-fallback
-                     class="{{$class}}__country"
-                     loading="lazy"
-                     [attr.alt]="[countryIso3]"
-                     [src]="countryUrl">
-                <div class="{{$class}}__name" [attr.data-wlc-element]="'name_user_item-' + $params.winnerType + '-wins'">{{name}}</div>
-            </div>
+            <ng-container [ngTemplateOutlet]="userInfo"></ng-container>
 
-            <div class="{{$class}}__amount" [attr.data-wlc-element]="'amount_item-' + $params.winnerType + '-wins'">
-                <span wlc-currency
-                      [value]="amount"
-                      [currency]="currency">
-                </span>
-            </div>
+            <ng-container [ngTemplateOutlet]="winAmount"></ng-container>
 
             <button class="{{$class}}__game"
                     type="button"
@@ -49,33 +30,47 @@
         (click)="startGame($event)"
         [attr.title]="[gameName]">
         <div class="{{$class}}__block {{$class}}__block--left">
-            <img class="{{$class}}__image"
-                 loading="lazy"
-                 [attr.src]="[gameImage]"
-                 [attr.alt]="[gameName]"
-                 [attr.data-wlc-element]="'img_item-' + $params.winnerType + '-wins'">
+            <ng-container [ngTemplateOutlet]="gamePicture"></ng-container>
         </div>
 
         <div class="{{$class}}__block {{$class}}__block--right">
-            <div class="{{$class}}__user">
-                <img *ngIf="countryIso2 && !$params.hideCountry"
-                     wlc-fallback
-                     loading="lazy"
-                     class="{{$class}}__country"
-                     [attr.alt]="[countryIso3]"
-                     [src]="countryUrl">
-                <div class="{{$class}}__name" [attr.data-wlc-element]="'name_user_item-' + $params.winnerType + '-wins'">{{name}}</div>
-            </div>
+            <ng-container [ngTemplateOutlet]="userInfo"></ng-container>
 
             <div class="{{$class}}__game">{{gameName}}</div>
 
-            <div class="{{$class}}__amount" [attr.data-wlc-element]="'amount_item-' + $params.winnerType + '-wins'">
-                <span wlc-currency
-                      [value]="amount"
-                      [currency]="currency">
-                </span>
-            </div>
+            <ng-container [ngTemplateOutlet]="winAmount"></ng-container>
         </div>
+    </div>
+</ng-template>
+
+<ng-template #gamePicture>
+    <div class="{{$class}}__picture">
+        <img class="{{$class}}__image"
+             loading="lazy"
+             [attr.src]="[gameImage]"
+             [attr.alt]="[gameName]"
+             [attr.data-wlc-element]="'img_item-' + $params.winnerType + '-wins'">
+    </div>
+</ng-template>
+
+<ng-template #winAmount>
+    <div class="{{$class}}__amount" [attr.data-wlc-element]="'amount_item-' + $params.winnerType + '-wins'">
+        <span wlc-currency
+              [value]="amount"
+              [currency]="currency">
+        </span>
+    </div>
+</ng-template>
+
+<ng-template #userInfo>
+    <div class="{{$class}}__user">
+        <img *ngIf="countryIso2 && !$params.hideCountry"
+             wlc-fallback
+             loading="lazy"
+             class="{{$class}}__country"
+             [attr.alt]="[countryIso3]"
+             [src]="countryUrl">
+        <div class="{{$class}}__name" [attr.data-wlc-element]="'name_user_item-' + $params.winnerType + '-wins'">{{name}}</div>
     </div>
 </ng-template>
 

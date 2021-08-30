@@ -9,13 +9,151 @@
 :host {
     // requires to reset swiper component styles
     overflow: visible !important;
-    max-height: none !important;
     max-width: none !important;
+    max-height: none !important;
+    line-height: ef.get-value($winnerBase, 'lineHeight');
 
     .wlc-winner {
 
         &__wrapper {
+            position: relative;
+            display: grid;
+            grid-template-areas: ef.get-value($winnerBase, 'wrapperTemplateAreas');
+            grid-template-columns: ef.get-value($winnerBase, 'wrapperTemplateCols');
+            gap: ef.get-value($winnerBase, 'wrapperGap');
+            align-items: ef.get-value($winnerBase, 'wrapperAlignItems');
             max-width: 100%;
+        }
+
+        &__block {
+
+            &--left {
+                grid-area: picture;
+            }
+
+            &--right {
+                display: grid;
+                grid-area: details;
+                grid-template-areas: ef.get-value($winnerBase, 'rightGridTemplateAreas');
+                grid-template-columns: ef.get-value($winnerBase, 'rightGridTemplateColumns');
+
+                min-width: 0;
+                column-gap: ef.get-value($winnerBase, 'rightColumnGap');
+            }
+        }
+
+        &__picture {
+            position: relative;
+            width: ef.get-value($winnerBase, 'imageSize');
+            border: ef.get-value($winnerBase, 'imageBorder');
+            box-shadow: ef.get-value($winnerBase, 'imageShadow');
+            border-radius: ef.get-value($winnerBase, 'imageBorderRadius');
+            overflow: hidden;
+
+            &:before {
+                content: '';
+                display: block;
+                padding-top: ef.get-value($winnerBase, 'imagePseudoPaddingTop');
+            }
+        }
+
+        &__image {
+            position: absolute;
+            top: 0;
+            left: 0;
+
+            display: block;
+            width: 100%;
+            height: 100%;
+
+            object-fit: cover;
+            object-position: center;
+        }
+
+        &__user {
+            @include text.get-text-style(ef.get-value($winnerBase, 'userTextStyle'), ef.get-value($winnerBase, 'userColor'));
+
+            display: flex;
+            grid-area: user;
+            align-items: center;
+            min-width: 1px;
+            text-transform: ef.get-value($winnerBase, 'userTextTransform');
+        }
+
+        &__name {
+            @include ellipsis();
+            flex: 1 1 auto;
+        }
+
+        &__country {
+            flex: 0 0 auto;
+            object-fit: cover;
+            object-position: center;
+
+            width: ef.get-value($winnerBase, 'countryWidth');
+            height: ef.get-value($winnerBase, 'countryHeight');
+            margin-right: ef.get-value($winnerBase, 'countryMarginRight');
+
+            border: ef.get-value($winnerBase, 'countryBorder');
+            box-shadow: ef.get-value($winnerBase, 'countryShadow');
+        }
+
+        &__game {
+            @include text.get-text-style(ef.get-value($winnerBase, 'gameTextStyle'), ef.get-value($winnerBase, 'gameColor'));
+
+            display: flex;
+            max-width: 100%;
+            grid-area: game;
+            align-items: ef.get-value($winnerBase, 'gameAlignItems');
+            justify-content: ef.get-value($winnerBase, 'gameJustifyContent');
+            padding: ef.get-value($winnerBase, 'gamePadding');
+
+            text-align: ef.get-value($winnerBase, 'gameTextAlign');
+            text-decoration: none;
+
+            background: transparent;
+            border: none;
+
+            &:focus {
+                outline: none;
+            }
+
+            &-name {
+                @include em.transition(border-color);
+                @include ellipsis();
+
+                border-bottom: ef.get-value($winnerBase, 'gameBorder');
+            }
+
+            &-arrow {
+                @include em.transition(color);
+
+                width: ef.get-value($winnerBase, 'gameArrowWidth');
+                min-width: 0;
+                margin: ef.get-value($winnerBase, 'gameArrowMargin');
+
+                color: ef.get-value($winnerBase, 'gameArrowColor');
+            }
+
+            @include em.hover() {
+                color: ef.get-value($winnerBase, 'gameHoverColor');
+
+                .wlc-winner__game-name {
+                    border-bottom-color: ef.get-value($winnerBase, 'gameHoverBorderColor');
+                }
+
+                .wlc-winner__game-arrow {
+                    color: ef.get-value($winnerBase, 'gameHoverArrowColor');
+                }
+            }
+        }
+
+        &__amount {
+            @include text.get-text-style(ef.get-value($winnerBase, 'amountTextStyle'), ef.get-value($winnerBase, 'amountColor'));
+
+            grid-area: amount;
+            white-space: nowrap;
+            text-align: ef.get-value($winnerBase, 'amountTextAlign');
         }
     }
 }
