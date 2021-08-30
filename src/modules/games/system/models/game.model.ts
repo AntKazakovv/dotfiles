@@ -33,16 +33,16 @@ export class Game extends AbstractModel<IGame> {
     public launchCode: string;
     public merchantID: number;
     public subMerchantID: number;
-    public sort: string;
+    public sort: number;
     public aspectRatio: string;
     public image: string;
     public merchantName: string;
     public merchantAlias?: string;
     public jackpot?: number;
     public isFavourite?: boolean;
+    public sortPerCategory: IIndexing<number>;
 
     protected url: string;
-    protected sortPerCategory: IIndexing<number>;
     protected isRestricted: boolean;
     protected IDCountryRestriction: string;
     protected freeround?: string;
@@ -88,7 +88,7 @@ export class Game extends AbstractModel<IGame> {
         this.launchCode = data.LaunchCode;
         this.merchantID = _toNumber(data.MerchantID);
         this.subMerchantID = _toNumber(data.SubMerchantID);
-        this.sort = data.Sort;
+        this.sort = _toNumber(data.Sort);
         this.url = data.Url;
         this.image = data.Image;
         this.sortPerCategory = data.SortPerCategory;
