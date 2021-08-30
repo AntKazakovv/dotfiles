@@ -351,6 +351,12 @@ module.exports = {
                 {
                     'type': 'at-rule',
                     'name': 'include',
+                    'parameter': /[.]colorThemeAlt/,
+                    'hasBlock': true,
+                },
+                {
+                    'type': 'at-rule',
+                    'name': 'include',
                     'parameter': /[.]hover/,
                     'hasBlock': true,
                 },
