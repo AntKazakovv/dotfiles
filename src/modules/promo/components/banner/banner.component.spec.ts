@@ -1,8 +1,8 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 import {AppModule} from 'wlc-engine/modules/app/app.module';
+import {BannerModel, BannersService} from 'wlc-engine/modules/promo';
 import {BannerComponent} from './banner.component';
 import {defaultParams} from './banner.params';
-import {BannerModel, BannersService} from 'wlc-engine/modules/promo';
 
 import _set from 'lodash-es/set';
 
@@ -63,17 +63,15 @@ describe('ButtonComponent', () => {
     });
 
     it('-> checking for the presence of an class', () => {
-        const classes = nativeElement.getAttribute('class');
-
-        expect(classes.includes(`${defaultParams.class}--theme-${injectParams.theme}`)).toBeTrue();
-        expect(classes.includes(`${defaultParams.class}--theme-mod-default`)).toBeTrue();
-        expect(classes.includes(`${defaultParams.class}--type-default`)).toBeTrue();
+        expect(nativeElement.classList.contains(`${defaultParams.class}--theme-${injectParams.theme}`)).toBeTrue();
+        expect(nativeElement.classList.contains(`${defaultParams.class}--theme-mod-default`)).toBeTrue();
+        expect(nativeElement.classList.contains(`${defaultParams.class}--type-default`)).toBeTrue();
     });
 
     it('-> getBanner: getting a banner by filter', () => {
         _set(component, 'inlineParams.filter.position', ['any']);
-        component.ngOnInit();
         fixture.detectChanges();
+        component.ngOnInit();
 
         expect(component.$params.banner).toEqual(testBanner);
     });

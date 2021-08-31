@@ -41,7 +41,7 @@ describe('ActionService', () => {
                 tablet: 768,
                 mobile: 0,
             },
-        }),
+        });
 
         viewport.set('mobile');
         expect(actionService.deviceOrientation()).toEqual('portrait');
