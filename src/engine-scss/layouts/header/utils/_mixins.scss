@@ -14,9 +14,6 @@
         @include bm.get-mq-map('margin', $theme, 'headerContainerDesktopMargin');
         @include bm.get-mq-map('padding', $theme, 'headerPadding');
 
-        position: relative;
-        z-index: 10;
-
         display: grid;
         align-items: center;
     }

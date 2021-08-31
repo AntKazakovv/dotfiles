@@ -2,3 +2,8 @@
 @import './utils/mixins';
 @import './themes/theme-1';
 @import './themes/theme-2';
+
+.wlc-sections__header {
+    position: relative;
+    z-index: 100;
+}
