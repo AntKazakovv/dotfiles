@@ -27,7 +27,6 @@
             display: ef.get-value($themeDefaultPagination, 'swiperPagiContainerDisplay');
             justify-content: ef.get-value($themeDefaultPagination, 'swiperPagiContainerAlign');
             transform: ef.get-value($themeDefaultPagination, 'swiperPagiTranslateX');
-
             pointer-events: none;
 
             * {
@@ -46,21 +45,35 @@
                 z-index: ef.get-value($themeDefaultPagination, 'swiperPagiZindex');
                 display: ef.get-value($themeDefaultPagination, 'swiperPagiContainerDisplay');
                 justify-content: ef.get-value($themeDefaultPagination, 'swiperPagiContainerAlign');
-                padding-right: ef.get-value($themeDefaultPagination, 'swiperPagiContainerPadding');
-                transform: ef.get-value($themeDefaultPagination, 'swiperWithEarsPagiTranslateX');
+                transform: ef.get-value($themeDefaultPagination, 'swiperPagiTranslateX');
                 pointer-events: none;
             }
         }
     }
 }
 
-.container > .wlc-slider--theme-default-banner {
-    border-radius: ef.get-value($themeDefaultBanner, 'containerBorderRadius');
-    overflow: hidden;
-    transform: scale3d(1, 1, 1); //fix border radius bug on ios
+.container {
 
-    .banner,
-    .swiper-button-container {
-        padding: ef.get-value($themeDefaultBanner, 'containerPadding');
+    & > .wlc-slider--theme-default-banner {
+        border-radius: ef.get-value($themeDefaultBanner, 'containerBorderRadius');
+        overflow: hidden;
+        transform: scale3d(1, 1, 1); //fix border radius bug on ios
+
+        .banner,
+        .swiper-button-container {
+            padding: ef.get-value($themeDefaultBanner, 'containerPadding');
+        }
+    }
+
+    & > .wlc-slider--theme-mod-ears {
+        border-radius: ef.get-value($themeDefaultBanner, 'containerBorderRadius');
+        overflow: visible;
+        transform: scale3d(1, 1, 1); //fix border radius bug on ios
+
+        .banner,
+        .swiper-button-container {
+            @include em.get-mq-map('padding', $themeDefaultPagination, 'paddingPagiContainer');
+        }
     }
 }
+

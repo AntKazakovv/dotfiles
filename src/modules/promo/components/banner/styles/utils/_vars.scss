@@ -10,7 +10,7 @@ $themeDefaultBanner: map-merge((
     ),
     'colorTitle': ef.get('mainColors', 'baseMain'),
     'colorDescription': ef.get('mainColors', 'baseMain'),
-    'containerZindex': 12,
+    'containerZindex': 20,
     'decorZindex': 11,
     'textContentShadow': #{1px 1px 2px ef.get('mainColors', 'bg'), 0 0 1em ef.get('mainColors', 'bg')},
     'buttonMargin': (
