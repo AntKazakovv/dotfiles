@@ -10,7 +10,7 @@ export namespace bannerSection {
     };
 
     export const withEars: ILayoutSectionConfig = {
-        container: false,
+        container: true,
         components: [
             componentLib.wlcBannersSlider.withEars,
         ],

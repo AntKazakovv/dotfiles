@@ -49,14 +49,17 @@ $themeDefaultPagination: map-merge((
     'swiperPagiContainerAbsoluteLeft': 50%,
     'swiperPagiContainerPadding': 60px,
     'swiperPagiTranslateX': translateX(-50%),
-    'swiperWithEarsPagiTranslateX': translateX(-55%),
-
+    'swiperWithEarsPagiTranslateX': translateX(-50%),
+    'paddingPagiContainer':  (
+        375: 0 2%,
+        1200: 0 10%,
+    )
 ), $customThemeDefaultPagination);
 
 $customThemeDefaultBanner: () !default;
 $themeDefaultBanner: map-merge((
     'bottomGap': (
-        375: ef.get('size', 'smaller'),
+        375: ef.size(4),
     ),
     'buttonGap': (
         375: 10px,
@@ -71,8 +74,12 @@ $themeDefaultBanner: map-merge((
     'iconFill': ef.get('mainColors', 'baseMain'),
     'iconFillDisabled': ef.get('mainColors', 'baseMain'),
     'iconFillHover': ef.get('mainColors', 'baseMain'),
-    'buttonBorderRadius': ef.get('size', 'small'),
-    'buttonSize': ef.get('size', 'main'),
-    'containerPadding': 0 ef.get('size', 'main'),
-    'containerBorderRadius': ef.get('size', 'small'),
+    'buttonBorderRadius': ef.size(2),
+    'buttonSize': ef.size(8),
+    'containerPadding': 0 ef.size(8),
+    'containerBorderRadius': ef.size(2),
+    'paddingAnimateContainer': (
+        450: 0 ef.size(2) ,
+        768: 0 ef.size(8),
+    ),
 ), $customThemeDefaultBanner);
