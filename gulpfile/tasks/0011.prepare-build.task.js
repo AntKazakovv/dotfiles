@@ -80,6 +80,7 @@ module.exports = function preBuildTask() {
                     '// 1. Copy this file and set name hosted.fields.alt.scss\n' +
                     '// 2. Generate new css vars using mixin makeCssColorVars ' +
                     'and maps $mainColorsAlt and $fieldColorsAlt\n\n' +
+                    '// 3. Add file name with css extension to config $base.colorThemeSwitching.altHostedFieldsStyles \n' +
                     '@import \'wlc-engine/engine-scss/_hosted.fields.scss\';\n\n' +
                     '@include makeCssColorVars($mainColors);\n' +
                     '@include makeCssColorVars($fieldColors);\n');

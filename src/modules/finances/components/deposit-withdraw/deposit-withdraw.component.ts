@@ -13,8 +13,15 @@ import {TranslateService} from '@ngx-translate/core';
 import {StateService} from '@uirouter/core';
 import {DOCUMENT} from '@angular/common';
 import {HttpClient} from '@angular/common/http';
-import {BehaviorSubject} from 'rxjs';
-import {takeUntil} from 'rxjs/operators';
+import {
+    BehaviorSubject,
+    of,
+    Observable,
+} from 'rxjs';
+import {
+    catchError,
+    takeUntil,
+} from 'rxjs/operators';
 
 import {
     AbstractComponent,
@@ -80,6 +87,7 @@ import _assign from 'lodash-es/assign';
 import _map from 'lodash-es/map';
 import _keys from 'lodash-es/keys';
 
+type THostedStyles = 'current' | 'def' | 'alt';
 @Component({
     selector: '[wlc-deposit-withdraw]',
     templateUrl: './deposit-withdraw.component.html',
@@ -114,7 +122,13 @@ export class DepositWithdrawComponent extends AbstractComponent implements OnIni
     protected formObject: FormGroup;
     protected profileForm: IFormWrapperCParams;
     protected inProgress: boolean = false;
+
     private isLoadingHostedFields: boolean = false;
+    private hostedFieldsStyles: Record<THostedStyles, string> = {
+        current: '/static/css/hosted.fields.css',
+        def: '/static/css/hosted.fields.css',
+        alt: null,
+    };
 
     private userProfile: UserProfile;
     private userService: UserService;
@@ -156,13 +170,16 @@ export class DepositWithdrawComponent extends AbstractComponent implements OnIni
             .subscribe((UserProfile) => {
                 this.userProfile = UserProfile;
             });
+
         this.initSubscribers();
+        this.initThemeToggleListener();
         this.updateFormConfig();
 
         if (this.$params.mode === 'withdraw') {
             this.title = gettext('Withdrawal');
             this.listConfig.paymentType = 'withdraw';
         }
+
     }
 
     public formBeforeSubmit(form: FormGroup): boolean {
@@ -570,6 +587,35 @@ export class DepositWithdrawComponent extends AbstractComponent implements OnIni
             },
             this.$destroy,
         );
+
+    }
+
+    protected initThemeToggleListener(): void {
+        if (!this.configService.get<boolean>('$base.colorThemeSwitching.use')) {
+            return;
+        }
+
+        const altHostedFieldsStyles = this.configService.get<string>('$base.colorThemeSwitching.altHostedFieldsStyles');
+
+        if (altHostedFieldsStyles) {
+            this.hostedFieldsStyles.alt = '/static/css/' + altHostedFieldsStyles;
+        } else {
+            return;
+        }
+
+        if (this.configService.get<string>('colorTheme')) {
+            this.hostedFieldsStyles.current = this.hostedFieldsStyles.alt;
+        }
+
+        this.eventService.subscribe({name: 'THEME_CHANGE'}, (status: boolean) => {
+            if (this.currentSystem?.isHosted) {
+                this.hostedFieldsStyles.current = status
+                    ? this.hostedFieldsStyles.alt
+                    : this.hostedFieldsStyles.def;
+
+                this.onPaymentSystemChange(this.currentSystem);
+            }
+        }, this.$destroy);
     }
 
     protected onProfileUpdate(): void {
@@ -642,7 +688,23 @@ export class DepositWithdrawComponent extends AbstractComponent implements OnIni
             this.cdr.markForCheck();
         };
 
-        this.httpClient.get('/static/css/hosted.fields.css', {responseType: 'text'}).subscribe((styles: any) => {
+        const requestStyles = (filePath: string, errorCallback: () => Observable<string>): Observable<string> => {
+            return this.httpClient.get(filePath, {responseType: 'text'})
+                .pipe(
+                    takeUntil(this.$destroy),
+                    catchError((error) => {
+                        this.logService.sendLog({code: '1.4.35', data: error});
+                        return errorCallback();
+                    }),
+                );
+        };
+
+        requestStyles(
+            this.hostedFieldsStyles.current,
+            () => this.hostedFieldsStyles.current === this.hostedFieldsStyles.alt
+                ? requestStyles(this.hostedFieldsStyles.def, () => of(''))
+                : of(''),
+        ).subscribe((styles: string) => {
             this.currentSystem.setupHostedFields(
                 formHasLoadedCallbackHandler,
                 formCallbackHandler,

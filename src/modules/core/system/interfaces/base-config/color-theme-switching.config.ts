@@ -17,4 +17,12 @@ export interface IColorThemeSwitchingConfig {
         /** #000 - by default */
         alt?: string,
     };
+    /**
+     * If project uses payment system with hosted fields, fill this parameter with alt css file name.
+     *
+     * Instruction how to add styles for alternative theme in `project_directory/src/app-styles/hosted.fields.scss`
+     *
+     * Recommended file name is`hosted.fields.alt.css`
+     */
+    altHostedFieldsStyles?: string;
 };

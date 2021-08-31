@@ -374,7 +374,7 @@ export class PaymentSystem extends AbstractModel<IPaymentSystem> {
         this.hostedFields.loaded = true;
     }
 
-    public setupHostedFields(formLoadedCallback: () => void, formCallback: (formData: IHostedFormData) => void, styles: any): void {
+    public setupHostedFields(formLoadedCallback: () => void, formCallback: (formData: IHostedFormData) => void, styles: string): void {
         const params: IHostedFieldsParams = {
             merchantId: this.hostedFields.merchantId,
             hostedfieldsurl: this.hostedFields.url,

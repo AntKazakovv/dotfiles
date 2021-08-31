@@ -62,7 +62,7 @@ export class SocialService {
                 formData: this.socialRegisterData,
             });
         } catch (error) {
-            this.logService.sendLog({code: '1.4.40', data: error});
+            this.logService.sendLog({code: '1.5.4', data: error});
             this.eventService.emit({
                 name: NotificationEvents.PushMessage,
                 data: <IPushMessageParams>{
@@ -98,7 +98,7 @@ export class SocialService {
             );
             this.socialRegisterData = null;
         } catch (error) {
-            this.logService.sendLog({code: '1.4.39', data: error});
+            this.logService.sendLog({code: '1.5.3', data: error});
             throw error;
         }
     }
@@ -138,7 +138,7 @@ export class SocialService {
             });
             return res.data || [];
         } catch (error) {
-            this.logService.sendLog({code: '1.4.36', data: error});
+            this.logService.sendLog({code: '1.5.1', data: error});
         }
     }
 
@@ -175,7 +175,7 @@ export class SocialService {
                 },
             });
         } catch (error) {
-            this.logService.sendLog({code: '1.4.38', data: error});
+            this.logService.sendLog({code: '1.5.2', data: error});
             this.eventService.emit({
                 name: NotificationEvents.PushMessage,
                 data: <IPushMessageParams>{
@@ -210,7 +210,7 @@ export class SocialService {
                 throw data;
             }
         } catch (error) {
-            this.logService.sendLog({code: '1.4.38', data: {
+            this.logService.sendLog({code: '1.5.2', data: {
                 message: error.status === 'success' ? 'Wrong social data' : 'Error',
                 error,
             }});
@@ -245,7 +245,7 @@ export class SocialService {
                 throw data;
             }
         } catch (error) {
-            this.logService.sendLog({code: '1.4.35', data: {
+            this.logService.sendLog({code: '1.5.0', data: {
                 message: error.status === 'success' ? 'No auth url in response' : 'Error',
                 error,
             }});

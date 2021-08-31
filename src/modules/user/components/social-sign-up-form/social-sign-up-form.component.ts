@@ -73,7 +73,7 @@ export class SocialSignUpFormComponent extends UserActionsAbstract<Params.ISocia
         } catch (error) {
             this.showRegError(
                 error,
-                '1.4.39',
+                '1.5.3',
                 gettext('Social registration failed'),
             );
         } finally {
