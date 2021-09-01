@@ -34,7 +34,7 @@ import _toNumber from 'lodash-es/toNumber';
 export class Bonus extends AbstractModel<IBonus> {
     public isReady: boolean = true;
     public isChoose: boolean = false;
-    protected userCurrency: string;
+    protected _userCurrency: string;
     private regEvents = ['deposit first', 'registration', 'verification'];
     private depEvents = ['deposit', 'deposit first', 'deposit repeated', 'deposit sum'];
     private welcomeEvents = ['registration', 'deposit first'];
@@ -68,7 +68,10 @@ export class Bonus extends AbstractModel<IBonus> {
         return super.data;
     }
 
-    // default
+    public set userCurrency(value: string) {
+        this._userCurrency = value;
+    }
+
     public get active(): boolean {
         return !!this.data.Active;
     }
@@ -268,14 +271,14 @@ export class Bonus extends AbstractModel<IBonus> {
     }
 
     public get maxBet(): number {
-        return _toNumber(this.data.MaxBet[this.userCurrency]) ||
+        return _toNumber(this.data.MaxBet[this._userCurrency]) ||
             _toNumber(this.data.MaxBet?.EUR) ||
             _toNumber(this.data.Conditions?.MaxBet?.Currency) ||
             _toNumber(this.data.Conditions?.MaxBet?.EUR) || 0;
     }
 
     public get minBet(): number {
-        return _toNumber(this.data.MinBet[this.userCurrency]) ||
+        return _toNumber(this.data.MinBet[this._userCurrency]) ||
             _toNumber(this.data.MinBet?.EUR) ||
             _toNumber(this.data.Conditions?.MinBet?.Currency) ||
             _toNumber(this.data.Conditions?.MinBet?.EUR) || 0;
@@ -419,7 +422,7 @@ export class Bonus extends AbstractModel<IBonus> {
      * @returns {number} bonus min deposit
      */
     public get minDeposit(): number {
-        return _toNumber(this.amountMin[this.userCurrency]) ||
+        return _toNumber(this.amountMin[this._userCurrency]) ||
             _toNumber(this.amountMin?.EUR) ||
             _toNumber(this.conditions?.AmountMin?.Currency) ||
             _toNumber(this.conditions?.AmountMin?.EUR) || 0;
@@ -429,7 +432,7 @@ export class Bonus extends AbstractModel<IBonus> {
      * @returns {number} bonus max deposit
      */
     public get maxDeposit(): number {
-        return _toNumber(this.amountMax[this.userCurrency]) ||
+        return _toNumber(this.amountMax[this._userCurrency]) ||
             _toNumber(this.amountMax?.EUR) ||
             _toNumber(this.conditions?.AmountMax?.Currency) ||
             _toNumber(this.conditions?.AmountMax?.EUR) || 0;
@@ -465,7 +468,7 @@ export class Bonus extends AbstractModel<IBonus> {
      */
     public get limitAmount(): number {
         if (this.results[this.target].Type === 'relative') {
-            return _toNumber(this.results?.bonus?.LimitValue[this.userCurrency]) ||
+            return _toNumber(this.results?.bonus?.LimitValue[this._userCurrency]) ||
                 _toNumber(this.results[this.target].LimitValue?.EUR) || 0;
         }
     }
@@ -474,7 +477,7 @@ export class Bonus extends AbstractModel<IBonus> {
      * @returns {boolean} is bonus limit in EUR (need for experience and loyalty bonuses)
      */
     public get isLimitAmountEUR(): boolean {
-        return !this.results?.balance?.LimitValue[this.userCurrency] && !!this.results?.balance?.LimitValue?.EUR;
+        return !this.results?.balance?.LimitValue[this._userCurrency] && !!this.results?.balance?.LimitValue?.EUR;
     }
 
     /**
@@ -486,7 +489,7 @@ export class Bonus extends AbstractModel<IBonus> {
             return _toNumber(this.results?.balance?.ReleaseWagering) || 0;
         } else {
             return _toNumber(resultsTarget?.AwardWagering?.COEF)
-                || _toNumber(resultsTarget?.AwardWagering[this.userCurrency])
+                || _toNumber(resultsTarget?.AwardWagering[this._userCurrency])
                 || _toNumber(resultsTarget?.AwardWagering?.EUR)
                 || 0;
         }
@@ -505,7 +508,7 @@ export class Bonus extends AbstractModel<IBonus> {
     public get isWagerEUR(): boolean {
         const resultsTarget = this.results[this.target];
         if (this.isWagerAbsolute) {
-            return !resultsTarget?.AwardWagering[this.userCurrency] && !!resultsTarget?.AwardWagering?.EUR;
+            return !resultsTarget?.AwardWagering[this._userCurrency] && !!resultsTarget?.AwardWagering?.EUR;
         }
     }
 
@@ -522,7 +525,7 @@ export class Bonus extends AbstractModel<IBonus> {
                 ? _toNumber(resultsTarget?.Value)
                 : _toNumber(resultsTarget?.Value?.EUR);
         } else {
-            return _toNumber(resultsTarget?.Value[this.userCurrency]) || _toNumber(resultsTarget?.Value?.Currency) ||
+            return _toNumber(resultsTarget?.Value[this._userCurrency]) || _toNumber(resultsTarget?.Value?.Currency) ||
                 _toNumber(resultsTarget?.Value?.EUR) || _toNumber(resultsTarget?.Value);
         }
     }
