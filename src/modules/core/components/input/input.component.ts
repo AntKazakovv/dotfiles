@@ -128,6 +128,7 @@ export class InputComponent extends AbstractComponent implements OnInit, OnChang
      * If params contains `prohibitedPattern` regular expression, prohibited symbols will be replaced
      */
     public onInput(event: Event): void {
+        this.control.markAsTouched();
         if (!(this.$params.prohibitedPattern && this.control)) {
             return;
         }

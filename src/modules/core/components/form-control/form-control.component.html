@@ -1,10 +1,17 @@
-<div class="{{className}}__icon form-control__icon"
-     [isDisabled]="!errors.length"
-     containerClass="form-control-tooltip"
-     placement="bottom"
-     [tooltip]="errorsRef">
+<div *ngIf="!errors.length; else controlWithErrors" class="{{className}}__icon form-control__icon">
     <div class="icon"></div>
 </div>
+
+<ng-template #controlWithErrors>
+    <div class="{{className}}__icon form-control__icon"
+         containerClass="form-control-tooltip"
+         placement="bottom"
+         [isDisabled]="!errors.length"
+         [tooltip]="errorsRef">
+        <div class="icon"></div>
+    </div>
+</ng-template>
+
 <ng-template #errorsRef>
     <ul class="form-control__errors">
         <li *ngFor="let error of errors">

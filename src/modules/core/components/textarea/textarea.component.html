@@ -1,7 +1,6 @@
 <ng-template #default>
-    <label [attr.for]="$params.id || $params.name"
-           class="{{$class}}__label"
-    >{{$params.common.placeholder | translate}}
+    <label class="{{$class}}__label" [attr.for]="$params.id || $params.name">
+        {{$params.common.placeholder | translate}}
         <ng-container *ngIf="isFieldRequired()">*</ng-container>
     </label>
     <div class="{{$class}}__textarea">
@@ -11,35 +10,39 @@
                   [attr.maxlength]="$params.common.maxlength"
                   placeholder="{{$params.exampleValue || $params.common.placeholder | translate}}"
                   [formControl]="control"
-        ></textarea>
+                  (input)="onInput($event)"
+                  (blur)="onBlur($event)">
+        </textarea>
         <div *ngIf="$params.name"
              wlc-form-control
              class="{{$class}}-status form-control"
              [className]="$class"
              [control]="control"
              [validators]="$params?.validators"
-             [fieldName]="$params.name.toLowerCase()"
-        ></div>
+             [fieldName]="$params.name.toLowerCase()">
+        </div>
     </div>
 </ng-template>
 
 <ng-template #placeholderShown>
-    <textarea [attr.id]="$params.id || $params.name"
+    <textarea class="{{$class}}__textarea"
               placeholder="{{$params.exampleValue || $params.common.placeholder | translate}}"
+              [attr.id]="$params.id || $params.name"
               [formControl]="control"
-              class="{{$class}}__textarea"
-    ></textarea>
-    <label [attr.for]="$params.id || $params.name"
-           class="{{$class}}__label"
-    >{{$params.common.placeholder | translate}}</label>
+              (input)="onInput($event)"
+              (blur)="onBlur($event)">
+    </textarea>
+    <label class="{{$class}}__label" [attr.for]="$params.id || $params.name">
+        {{$params.common.placeholder | translate}}
+    </label>
     <div *ngIf="$params.name"
          wlc-form-control
          class="{{$class}}-status"
          [className]="$class"
          [control]="control"
          [validators]="$params?.validators"
-         [fieldName]="$params.name.toLowerCase()"
-    ></div>
+         [fieldName]="$params.name.toLowerCase()">
+    </div>
 </ng-template>
 
 

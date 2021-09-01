@@ -3,9 +3,13 @@ import {
     Inject,
     OnInit,
     Input,
+    ChangeDetectorRef,
 } from '@angular/core';
 import {FormControl} from '@angular/forms';
-import {AbstractComponent, ConfigService} from 'wlc-engine/modules/core';
+import {
+    AbstractComponent,
+    ConfigService,
+} from 'wlc-engine/modules/core';
 
 import * as Params from './textarea.params';
 
@@ -33,8 +37,9 @@ export class TextareaComponent extends AbstractComponent implements OnInit {
     public fieldWlcElement: string;
 
     constructor(
-            @Inject('injectParams') protected injectParams: Params.ITextareaCParams,
-            protected configService: ConfigService,
+        @Inject('injectParams') protected injectParams: Params.ITextareaCParams,
+        protected configService: ConfigService,
+        protected cdr: ChangeDetectorRef,
     ) {
         super({injectParams, defaultParams: Params.defaultParams});
     }
@@ -47,5 +52,28 @@ export class TextareaComponent extends AbstractComponent implements OnInit {
 
     public isFieldRequired(): boolean {
         return this.$params.validators?.includes('required');
+    }
+
+    /**
+     * Handler for input event
+     *
+     * @param {Event} event Input event
+     */
+    public onInput(event: Event): void {
+        this.control.markAsTouched();
+    }
+
+    /**
+     * Handler for blur event
+     *
+     * @param {Event} event Blur event
+     */
+    public onBlur(event: Event): void {
+        this.control.patchValue(this.control.value, {emitEvent: false, emitModelToViewChange: true});
+
+        if (!this.control.touched || !this.control.valid) {
+            this.control.updateValueAndValidity();
+            this.cdr.markForCheck();
+        }
     }
 }
