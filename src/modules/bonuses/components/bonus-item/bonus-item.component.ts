@@ -19,6 +19,10 @@ import {
     EventService,
     GlobalHelper,
 } from 'wlc-engine/modules/core';
+
+import {BehaviorSubject} from 'rxjs';
+import {takeUntil} from 'rxjs/operators';
+
 import {
     Bonus,
     BonusesService,
@@ -27,6 +31,8 @@ import {
     ChosenBonusType,
     IBonusType,
 } from 'wlc-engine/modules/bonuses';
+import {UserProfile} from 'wlc-engine/modules/user';
+
 import * as Params from './bonus-item.params';
 
 import _union from 'lodash-es/union';
@@ -156,6 +162,13 @@ export class BonusItemComponent extends AbstractComponent implements OnInit, OnD
         if (!this.$params.common.bonus?.tag && !this.selectedTag) {
             this.addModifiers('no-tag');
         }
+
+        this.configService.get<BehaviorSubject<UserProfile>>('$user.userProfile$')
+            .pipe(takeUntil(this.$destroy))
+            .subscribe((profile) => {
+                this.bonus.userCurrency = profile?.currency || 'EUR';
+                this.cdr.markForCheck();
+            });
     }
 
     public openDescription(bonus: Bonus): void {
