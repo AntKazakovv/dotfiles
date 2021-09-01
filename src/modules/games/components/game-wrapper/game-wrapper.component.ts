@@ -117,7 +117,6 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
         },
     };
 
-    protected isMobile: boolean = false;
     protected realMobile: boolean = false;
     protected aspectRatio: string;
     protected aspectRatioCoefficient: number;
@@ -128,6 +127,7 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
     protected iframeObserver: MutationObserver;
     protected iframe: HTMLElement;
     protected isIframeHeight: boolean = false;
+    protected isMobile: boolean = false;
 
     constructor(
         @Inject('injectParams') protected injectParams: IGameWrapperCParams,
@@ -268,7 +268,7 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
      * @returns {Promise<void>}
      */
     public async onGameHtmlRendered(): Promise<void> {
-        if(!this.launchInfo?.gameScript) {
+        if (!this.launchInfo?.gameScript) {
             return;
         }
 

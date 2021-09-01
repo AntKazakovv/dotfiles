@@ -1,11 +1,11 @@
 <div *ngIf="$params.theme == 'default'" class="{{$class}}__content container" (resized)="onResize($event)">
     <div class="{{$class}}__header" #header data-wlc-element="block_game-play-title">
-        <h2>{{game?.name[locale] || game?.name['en'] || ''}}</h2>
+        <ng-container [ngTemplateOutlet]="gameName"></ng-container>
         <div class="{{$class}}__btn-left" *ngIf="gameParams.demo" data-wlc-element="wlc-game-play-for-real">
             <button wlc-button
                     text="Play for real"
-                    (click)="playForReal()"
-            ></button>
+                    (click)="playForReal()">
+            </button>
         </div>
         <div class="{{$class}}__btn-right">
             <div class="icon-btn">
@@ -28,12 +28,7 @@
                  wlcElement="button_fullscreen"
                  (click)="openOnFullscreen($event)">
             </div>
-            <div wlc-icon
-                 class="icon-btn"
-                 iconPath="/wlc/icons/close.svg"
-                 wlcElement="button_close"
-                 (click)="closeGame()">
-                </div>
+            <ng-container [ngTemplateOutlet]="buttonClose"></ng-container>
         </div>
     </div>
     <div class="{{$class}}__game-area" #wrp>
@@ -43,6 +38,11 @@
         </div>
 
         <div wlc-game-dashboard [opened]="openDashboard"></div>
+
+        <div *ngIf="game.merchantID === 990" class="{{$class}}__game-header">
+            <ng-container [ngTemplateOutlet]="gameName"></ng-container>
+            <ng-container [ngTemplateOutlet]="buttonClose"></ng-container>
+        </div>
 
         <ng-container [ngTemplateOutlet]="gameWrapper"></ng-container>
     </div>
@@ -78,5 +78,18 @@
          [html]="gameHtml"
          [canUseScriptTag]="true"
          (htmlRendered)="onGameHtmlRendered()">
+    </div>
+</ng-template>
+
+<ng-template #gameName>
+    <h2>{{game?.name[locale] || game?.name['en'] || ''}}</h2>
+</ng-template>
+
+<ng-template #buttonClose>
+    <div wlc-icon
+         class="icon-btn"
+         iconPath="/wlc/icons/close.svg"
+         wlcElement="button_close"
+         (click)="closeGame()">
     </div>
 </ng-template>

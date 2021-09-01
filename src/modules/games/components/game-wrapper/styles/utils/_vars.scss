@@ -2,6 +2,9 @@
 
 $customThemeDefault: () !default;
 $themeDefault: map-merge((
+    'gameHeaderPadding': ef.size(2),
+    'gameHeaderBg': var(--mc-bgModal),
+
     'contentMargin': 0 auto 40px auto,
     'contentPaddings': ef.get('size', 'big'),
     'mobileContentBg': var(--mc-baseContrast),
@@ -22,6 +25,10 @@ $themeDefault: map-merge((
     'iconsOpacity': 0.8,
     'buttonOpacity': 0.5,
     'buttonOpacityHover': 1,
+
+    'titleFontSize': 'PrimaryTextBold',
+    'titleColor': var(--mc-baseMain),
+    'iconsColorMob': var(--mc-bg300),
 ), $customThemeDefault);
 
 $customThemeFullscreenGameFrame: () !default;

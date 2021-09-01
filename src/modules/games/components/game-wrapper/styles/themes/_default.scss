@@ -1,4 +1,5 @@
 @use 'engine-scss/functions' as ef;
+@use 'engine-scss/mixins/text' as text;
 @use 'engine-scss/mixins/mediaqueries' as mq;
 @use 'engine-scss/mixins/base.mixins' as em;
 
@@ -31,6 +32,30 @@
     }
 
     .wlc-game-wrapper {
+
+        &__game-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: ef.get-value($themeDefault, 'gameHeaderPadding');
+            background: ef.get-value($themeDefault, 'gameHeaderBg');
+
+            h2 {
+                @include text.get-text-style(ef.get-value($themeDefault, 'titleFontSize'), ef.get-value($themeDefault, 'titleColor'));
+            }
+
+            .wlc-icon {
+
+                svg {
+                    fill: none;
+                    stroke: ef.get-value($themeDefault, 'iconsColorMob');
+
+                    line {
+                        stroke: ef.get-value($themeDefault, 'iconsColorMob');
+                    }
+                }
+            }
+        }
 
         &__content {
             margin: ef.get-value($themeDefault, 'contentMargin');
