@@ -162,13 +162,11 @@ export class BonusesListComponent extends AbstractComponent implements OnInit, O
                     }
 
                     if (this.$params.common?.useBlankBonus) {
-                        const blankBonus: any = {
-                            id: null,
-                            type: 'blank',
-                            isChoose: !this.chosenBonus,
-                            name: gettext('Without bonus'),
-                        };
-                        this.bonuses.push(blankBonus);
+                        const blankBonus: Params.IBlankBonusParams = 
+                            _merge({}, this.$params.common.blankBonus, {
+                                isChoose: !this.chosenBonus,
+                            });
+                        this.bonuses.push(blankBonus as Bonus);
                     }
 
                     this.prepareBonuses();
