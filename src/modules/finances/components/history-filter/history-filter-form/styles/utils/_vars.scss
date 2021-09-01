@@ -2,6 +2,11 @@
 
 $customThemeDefault: () !default;
 $themeDefault: map-merge((
+    'formMaxWidth': (
+        320: 100%,
+        768: 285px,
+    ),
+    'formMargin': auto,
     'formTemplateColumns': repeat(2, 1fr),
     'formTemplateAreas': 'textBlock textBlock' 'radioButtons radioButtons' 'datepicker1 datepicker2' 'button button',
     'formBetTemplateAreas': 'textBlock textBlock' 'datepicker1 datepicker2' 'selectType selectType' 'button button',
@@ -13,7 +18,7 @@ $themeDefault: map-merge((
     'formJustifyContent': center,
 
     'textBlockGridArea': textBlock,
-    'textBlockAlignment': left,
+    'textBlockAlignment': center,
 
     'selectGridArea': selectType,
 
@@ -24,5 +29,5 @@ $themeDefault: map-merge((
 
     'btnGridArea': button,
     'btnWidth': auto,
-    'btnMargin': 0 auto,
+    'btnMargin': ef.size(4) auto 0,
 ), $customThemeDefault);

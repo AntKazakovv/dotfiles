@@ -82,8 +82,7 @@ $themeDefault: map-merge((
 
     // warning
     'warningMargin': (
-        375: ef.get('size', 'smaller') 0,
-        640: ef.get('size', 'smaller') 0 0
+        375: ef.size(4) 0 0,
     ),
     'warningAlignment': (
         375: center,

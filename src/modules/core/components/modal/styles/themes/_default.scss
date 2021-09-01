@@ -1,3 +1,4 @@
+@use 'engine-scss/mixins/base.mixins' as bm;
 @use 'engine-scss/functions' as ef;
 @use 'engine-scss/mixins/mediaqueries' as mq;
 @use 'engine-scss/mixins/base.mixins' as em;
@@ -20,11 +21,11 @@
         }
 
         &__title {
-            @include text.get-text-style(ef.get-value($themeDefault, 'titleFontSizeMobile'), ef.get-value($themeDefault, 'titleColor'));
+            @include text.get-text-style(ef.get-value($themeDefault, 'titleFontSize', 320), ef.get-value($themeDefault, 'titleColor'));
             margin: ef.get-value($themeDefault, 'titleMargin');
 
-            @include mq.min(560) {
-                @include text.get-text-style(ef.get-value($themeDefault, 'titleFontSize'), ef.get-value($themeDefault, 'titleColor'));
+            @include mq.min(768) {
+                @include text.get-text-style(ef.get-value($themeDefault, 'titleFontSize', 768));
             }
         }
 
@@ -75,6 +76,14 @@
 
             &__body {
                 padding: 0;
+
+                .wlc-text-block__title {
+                    @include text.get-text-style(ef.get-value($themeDefault, 'loginSignUpTextFontSize', 320), ef.get-value($themeDefault, 'loginSignUpTextColor'));
+
+                    @include mq.min(768) {
+                        @include text.get-text-style(ef.get-value($themeDefault, 'loginSignUpTextFontSize', 768));
+                    }
+                }
             }
 
             &__dialog {
@@ -95,29 +104,22 @@
             }
 
             &__header {
-                padding: ef.get-value($themeDefault, 'restoreHeaderPadding');
-                //@include em.get-mq-map('padding', $themeDefault, 'restoreHeaderPadding');
                 border-bottom: none;
             }
 
             &__body {
-                @include em.get-mq-map('padding', $themeDefault, 'restoreBodyPadding');
+                @include em.get-mq-map('padding', $themeDefault, 'restoreModalBodyPadding');
             }
 
             &__title {
                 @include em.get-mq-map('display', $themeDefault, 'restoreTitleDisplay');
-                @include text.get-text-style(ef.get-value($themeDefault, 'restoreTitleStyle'), ef.get-value($themeDefault, 'restoreTitleColor'));
-
-                @include mq.min(640) {
-                    @include text.get-text-style(ef.get-value($themeDefault, 'restoreTitleStyleDesk'), ef.get-value($themeDefault, 'restoreTitleColor'));
-                    text-align: center;
-                }
             }
 
             &__back-btn {
                 justify-content: center;
 
                 .icon-arrow {
+
                     @include mq.min(900) {
                         margin-top: 0;
                     }
@@ -162,22 +164,12 @@
         }
     }
 
-    &.wlc-modal--play-game-for-real,
-    &.wlc-modal--new-password {
-
-        .wlc-modal {
-
-            &__body {
-                padding-top: 0;
-            }
-        }
-    }
-
     &.wlc-modal--registration-success,
     &.wlc-modal--data-is-processing {
         background: rgba($color: ef.get-value($hostModal, 'backdropBackground'), $alpha: 0.6);
 
         .wlc-modal__wrapper {
+
             @include mq.max(560) {
                 height: ef.get-value($hostModal, 'dataIsProcessingHeight');
                 padding: ef.get-value($hostModal, 'dataIsProcessingPadding');
@@ -185,6 +177,7 @@
         }
 
         .wlc-modal__dialog {
+
             @include mq.max(560) {
                 height: 100%;
                 margin: auto;
@@ -203,22 +196,8 @@
 
         .wlc-modal {
 
-            &__body {
-                padding: ef.get-value($themeDefault, 'bonusInfoBodyPadding');
-            }
-
             &__wrapper {
                 padding: ef.get-value($themeDefault, 'bonusInfoWrapperPadding');
-            }
-        }
-    }
-
-    &.wlc-modal--payment-list {
-
-        .wlc-modal {
-
-            &__body {
-                @include em.get-mq-map('padding', $themeDefault, 'paymentListBodyPadding');
             }
         }
     }

@@ -2,7 +2,10 @@
 
 $customThemeDefault: () !default;
 $themeDefault: map-merge((
-    'formMaxWidth': 285px,
+    'formMaxWidth': (
+        320: 100%,
+        768: 285px,
+    ),
     'formMargin': auto,
     'formHeight': 100%,
     'formFlexDirection': column,

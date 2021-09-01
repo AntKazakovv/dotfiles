@@ -69,8 +69,8 @@ $themeDefault: map-merge((
     // Title
     'titleColor': var(--mc-baseMain),
     'titleTextAlign': center,
-    'titleFontSize': 20px,
-    'titleMargin': -1px 10px 30px,
+    'titleFontSize': ef.size(4),
+    'titleMargin': 0 ef.size(5) ef.size(4),
 
     // Table
     'tableWidth': 100%,

@@ -1,18 +1,21 @@
+@use 'engine-scss/mixins/base.mixins' as bm;
 @use 'engine-scss/functions' as ef;
 @import '../utils/vars';
 
 .wlc-history-filter-form--theme-default:host {
+    @include bm.get-mq-map('max-width', $themeDefault, 'formMaxWidth');
+    margin: ef.get-value($themeDefault, 'formMargin');
 
     ::ng-deep {
 
         .wlc-form {
             display: grid;
-            grid-template-columns: ef.get-value($themeDefault, 'formTemplateColumns');
             grid-template-areas: ef.get-value($themeDefault, 'formTemplateAreas');
-            column-gap: ef.get-value($themeDefault, 'formColumnGap');
-            row-gap: ef.get-value($themeDefault, 'formRowGap');
+            grid-template-columns: ef.get-value($themeDefault, 'formTemplateColumns');
             align-items: ef.get-value($themeDefault, 'formAlignItems');
             justify-content: ef.get-value($themeDefault, 'formJustifyContent');
+            column-gap: ef.get-value($themeDefault, 'formColumnGap');
+            row-gap: ef.get-value($themeDefault, 'formRowGap');
         }
 
         .wlc-bet-filters {
@@ -67,8 +70,8 @@
             width: 100%;
 
             &__elems[class] {
-                margin: 0;
                 display: grid;
+                margin: 0;
             }
         }
 

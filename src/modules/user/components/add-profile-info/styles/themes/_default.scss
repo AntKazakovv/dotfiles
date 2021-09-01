@@ -1,6 +1,7 @@
+@use 'engine-scss/mixins/base.mixins' as bm;
+@use 'engine-scss/mixins/mediaqueries' as mq;
 @use 'engine-scss/functions' as ef;
 @use 'engine-scss/mixins/base.mixins' as em;
-@use 'engine-scss/mixins/mediaqueries' as mq;
 @use 'engine-scss/mixins/text' as text;
 
 .wlc-add-profile-info--theme-default:host {
@@ -25,9 +26,9 @@
             ::ng-deep {
 
                 .wlc-form {
+                    @include bm.get-mq-map('max-width', $themeDefault, 'formMaxWidth');
                     display: flex;
                     flex-direction: column;
-                    max-width: ef.get-value($themeDefault, 'formMaxWidth');
                     margin: auto;
 
                     & > .wlc-input,
@@ -39,7 +40,7 @@
                 }
 
                 .wlc-btn.wlc-btn--submit {
-                    margin: 25px auto 0;
+                    margin: ef.get-value($themeDefault, 'formBtnSubmit');
                 }
 
                 .wlc-input.wlc-input--password {

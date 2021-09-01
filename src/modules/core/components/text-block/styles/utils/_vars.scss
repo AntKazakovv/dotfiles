@@ -3,8 +3,15 @@
 $customThemeDefault: () !default;
 $themeDefault: map-merge((
     'headMargin': 0 0 ef.get('size', 'smaller') 0,
+    'headPadding': (
+        320: 0 ef.size(5),
+        480: 0,
+    ),
 
-    'titleFontSize': 'QoteTextBold',
+    'titleFontSize': (
+        320: 'PrimaryTextBold',
+        768: 'QoteTextBold',
+    ),
     'titleColor': var(--mc-baseMain),
     'titleMargin': 0 0 ef.get('size', 'small') 0,
 

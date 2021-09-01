@@ -55,13 +55,22 @@ $hostModal: map-merge((
         900: 50px 0,
     ),
 
-    'closePosRight': 25px,
+    'closePosRight': (
+        320: ef.size(2),
+        768: ef.size(5),
+    ),
     'closePosTop': (
-        320: 32px,
+        320: 42px,
+        768: 48px,
+    ),
+    'closePosTopHeadLess': (
+        320: 25px,
+        768: 32px,
     ),
     'closeSize': 30px,
     'closeLineStroke': var(--mc-baseMain),
 
+    'modalBodyFlex': 1 1 auto,
     'modalHeaderColor': var(--mc-baseMain),
     'modalBodyColor': var(--mc-baseMain),
     'modalBg': var(--mc-bgModal),
@@ -71,11 +80,20 @@ $hostModal: map-merge((
     'modalBorder': 1px solid var(--mc-bg-o2),
     'modalBorderRadius': ef.get('radius', 'small'),
     'modalFooterBtnsMargin': 0 ef.get('size', 'small'),
-    'modalHeaderPadding': ef.get('size', 'smaller') ef.get('size', 'less'),
+    'modalHeaderPadding': (
+        320: ef.size(6) ef.size(3) 0,
+        768: ef.size(6) ef.size(6) 0,
+    ),
     'modalHeaderLangPadding': ef.get('size', 'less'),
-    'modalBodyPadding': ef.get('size', 'less'),
+    'modalBodyPadding': (
+        320: ef.size(6) ef.size(3) ef.size(8),
+        768: ef.size(6),
+    ),
+    'modalFooterPadding': (
+        320: 0 ef.size(3) ef.size(6),
+        768: 0 ef.size(6) ef.size(6),
+    ),
     'modalBodyPaddingConfirm': ef.get('size', 'small') ef.get('size', 'less'),
-    'modalFooterPadding': ef.get('size', 'less'),
     'modalFooterPaddingConfirm': ef.get('size', 'less') ef.get('size', 'less') ef.get('size', 'main') ef.get('size', 'less'),
     //'modalHeaderBorderBottom': 1px solid var(--mc-baseOpacity),
     'modalHeaderBorderBottom': unset,
@@ -97,13 +115,15 @@ $hostModal: map-merge((
         560: 0.65,
     ),
 
-    'titleFontSize': 'QoteTextBold',
-    'titleFontSizeMobile': 'ThirdTitleBold',
+    'titleFontSize': (
+        320: 'PrimaryTextBold',
+        768: 'QoteTextBold',
+    ),
     'titleMargin': 0,
     'titleColor': var(--mc-baseMain),
     'titleWidth': 100%,
     'titleMaxWidth': 100%,
-    'titlePadding': 0 ef.get('size', 'smally') 0 ef.get('size', 'smally'),
+    'titlePadding': 0 ef.size(5),
     'titlePaddingLeft': (
         320:  ef.get('size', 'smally'),
     ),
@@ -120,11 +140,11 @@ $hostModal: map-merge((
         900: 60px,
     ),
     'backBtnHeight': (
-        320: 30px,
-        900: auto,
+        320: 20px,
+        768: 32px,
     ),
     'backBtnFontStyle': 'PlaceholderTextBold',
-    'backBtnPadding': 2px,
+    'backBtnPadding': ef.size(2) 0,
     'backBtnColor': var(--mc-main),
     'backBtnColorHover': var(--mc-baseMain),
     'backBtnIconColor': var(--mc-main),
@@ -177,12 +197,20 @@ $hostModal: map-merge((
     'scrollBarTrackColor': var(--mc-bgModal-l5),
     'scrollBarColor': var(--mc-bgModal-d5),
     'staticMaxHeightMobile': (
-        375: calc(100vh - 230px),
-        560: calc(100vh - 295px),
+        375: calc(100vh - 260px),
     ),
     'staticMaxHeightMobileIos': (
         375:calc(100vh - 260px),
-        560: calc(100vh - 295px),
+        560: calc(100vh - 215px),
+        768: calc(100vh - 260px),
+        1024: calc(100vh - 285px),
+    ),
+    'scrollModalBodyMargin': (
+        320: ef.size(6) 0,
+    ),
+    'scrollModalBodyPadding': (
+        320: 0 ef.size(3) 0,
+        768: 0 ef.size(6) 0,
     ),
 ), $customHostModal);
 
@@ -199,8 +227,10 @@ $themeDefault: map-merge((
     ),
     'dialogBorder': 1px solid var(--mc-bg-o2),
     'dialogBorderRadius': ef.get('radius', 'big'),
-    'titleFontSize': 'QoteTextBold',
-    'titleFontMobile': 'PrimaryText',
+    'titleFontSize': (
+        320: 'PrimaryTextBold',
+        768: 'QoteTextBold',
+    ),
     'titleMargin': 0,
     'titleColor': var(--mc-baseMain),
 
@@ -235,6 +265,11 @@ $themeDefault: map-merge((
         900: none,
     ),
 
+    'loginSignUpTextFontSize': (
+        320: ef.get('font', 'ThirdTitleBold'),
+        768: ef.get('font', 'QoteTextBold'),
+    ),
+    'loginSignUpTextColor': var(--mc-baseMain),
     'loginSignUpTitleStyle': 'PrimaryTextBold',
     'loginSignUpTitleColor': var(--mc-baseMain),
     'loginSignUpTitleAlign': center,
@@ -264,8 +299,10 @@ $themeDefault: map-merge((
         320: var(--mc-bgModal),
         560: transparent,
     ),
-
-    'restoreHeaderPadding': 20px 15px,
+    'restoreModalBodyPadding': (
+        320: ef.size(16) ef.size(3) ef.size(6),
+        768: ef.size(6) ef.size(6),
+    ),
 
     'restoreDialogBorder': (
         320: none,
@@ -322,7 +359,6 @@ $themeDefault: map-merge((
     //loyalty-info-modal
 
     //bonus-info
-    'bonusInfoBodyPadding': ef.get('size', 'small') ef.get('size', 'less') 0 ef.get('size', 'less'),
     'bonusInfoWrapperPadding': ef.get('size', 'less') 0 0 0,
     //bonus-info
 
@@ -330,11 +366,4 @@ $themeDefault: map-merge((
     'dataIsProcessingHeight': 100%,
     'dataIsProcessingPadding': 0,
     //data-is-processing
-
-    //payment-list
-    'paymentListBodyPadding': (
-        375: ef.size(2) ef.size(6) ef.size(6),
-        560: ef.size(2) ef.size(6) 0,
-    ),
-    //payment-list
 ), $customThemeDefault);
