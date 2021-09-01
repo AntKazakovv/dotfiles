@@ -323,7 +323,7 @@ class StartGameHandler {
 
         const bonusesService = await this.injectionService.getService<BonusesService>('bonuses.bonuses-service');
 
-        const activeBonuses: Bonus[] = await bonusesService.queryBonuses(true, 'active');
+        const activeBonuses: Bonus[] = await bonusesService.queryBonuses<Bonus>(true, 'active');
 
         if (activeBonuses && this.gameRestrictedByActiveBonuses(this.game, activeBonuses)) {
             this.showErrorNotification(gettext('Sorry, this game is disabled with an active bonus'));

@@ -47,6 +47,17 @@ interface IBonusData extends IData {
     data?: IBonus;
 }
 
+interface IBonusesData extends IData {
+    data?: IBonus[];
+}
+
+interface ISubjects {
+    bonuses$: BehaviorSubject<Bonus[]>;
+    active$: BehaviorSubject<Bonus[]>;
+    store$: BehaviorSubject<Bonus[]>;
+    history$: BehaviorSubject<IBonus[]>;
+}
+
 @Injectable({
     providedIn: 'root',
 })
@@ -57,9 +68,9 @@ export class BonusesService {
     public bonuses: Bonus[] = [];
 
     protected activeBonuses: Bonus[] = [];
-    protected historyBonuses: Bonus[] = [];
+    protected historyBonuses: IBonus[] = [];
 
-    private subjects: {[key: string]: BehaviorSubject<Bonus[]>} = {
+    private subjects: ISubjects = {
         bonuses$: new BehaviorSubject(null),
         active$: new BehaviorSubject(null),
         history$: new BehaviorSubject(null),
@@ -115,8 +126,8 @@ export class BonusesService {
      * @param {RestType} type bonuses rest type ('active' | 'history' | 'store' | 'any')
      * @returns {Observable<Bonus[]>} Observable
      */
-    public getObserver(type?: RestType): Observable<Bonus[]> {
-        let flow$: BehaviorSubject<Bonus[]>;
+    public getObserver<T extends IBonus | Bonus>(type?: RestType): Observable<T[]> {
+        let flow$: BehaviorSubject<(IBonus | Bonus)[]>;
 
         switch (type) {
             case 'active':
@@ -133,7 +144,7 @@ export class BonusesService {
                 break;
         }
 
-        return flow$.asObservable();
+        return (flow$ as BehaviorSubject<T[]>).asObservable();
     }
 
     /**
@@ -194,7 +205,7 @@ export class BonusesService {
     public async getBonusesByCode(code: string): Promise<Bonus[]> {
         try {
             let bonusResult: Bonus[] = [];
-            const bonuses = await this.queryBonuses(false, null, code);
+            const bonuses: Bonus[] = await this.queryBonuses(false, null, code);
             bonusResult = bonuses.filter((bonus: Bonus) => {
                 return bonus.status == 1 && !bonus.selected;
             });
@@ -358,8 +369,11 @@ export class BonusesService {
      * @param {string} promoCode bonus promocode (no required)
      * @returns {Bonus[]} bonuses array
      */
-    public async queryBonuses(publicSubject: boolean, type?: RestType, promoCode?: string): Promise<Bonus[]> {
-        let bonuses: Bonus[] = [];
+    public async queryBonuses<T extends Bonus | IBonus>(
+        publicSubject: boolean,
+        type?: RestType,
+        promoCode?: string,
+    ): Promise<T[]> {
         const queryParams: IQueryParams = {};
         if (type) {
             if (type === 'active' || type === 'history') {
@@ -369,49 +383,50 @@ export class BonusesService {
                 queryParams.event = type;
             }
         }
+
         if (promoCode) {
             queryParams.PromoCode = promoCode;
         }
+
         try {
-            const res: IData = await this.dataService.request('bonuses/bonuses', queryParams);
+            const res: IBonusesData = await this.dataService.request('bonuses/bonuses', queryParams);
 
-            if (type !== 'history') {
-                let result = this.modifyBonuses(res.data);
-                result = this.checkForbid(result, queryParams);
-                if (result.length) {
-                    await this.checkBonusesInCache(result);
+            if (type === 'history') {
+                if (publicSubject) {
+                    this.subjects.history$.next(res.data);
                 }
-                _each(result, (bonus: Bonus) => {
-                    bonus.setFromCache();
-                    bonuses.unshift(bonus);
-                });
+                this.historyBonuses = res.data;
+                return res.data as T[];
+            }
 
-                bonuses = _sortBy(bonuses, (bonus) => {
-                    return bonus.id;
-                });
-            } else {
-                bonuses = res.data;
+            const bonuses: Bonus[] = _sortBy(this.checkForbid(this.modifyBonuses(res.data), queryParams), ['id']);
+
+            if (bonuses.length) {
+                await this.checkBonusesInCache(bonuses);
             }
 
             switch (type) {
                 case 'active':
-                    publicSubject ? this.subjects.active$.next(bonuses) : null;
+                    if (publicSubject) {
+                        this.subjects.active$.next(bonuses);
+                    }
                     this.activeBonuses = bonuses;
                     break;
-                case 'history':
-                    publicSubject ? this.subjects.history$.next(bonuses) : null;
-                    this.historyBonuses = bonuses;
-                    break;
                 case 'store':
-                    publicSubject ? this.subjects.store$.next(bonuses) : null;
+                    if (publicSubject) {
+                        this.subjects.store$.next(bonuses);
+                    }
                     this.storeBonuses = bonuses;
                     break;
                 default:
-                    publicSubject ? this.subjects.bonuses$.next(bonuses) : null;
+                    if (publicSubject) {
+                        this.subjects.bonuses$.next(bonuses);
+                    }
                     this.bonuses = bonuses;
                     break;
             }
-            return bonuses;
+
+            return bonuses as T[];
         } catch (error) {
             this.logService.sendLog({code: '10.0.0', data: error});
             this.eventService.emit({
@@ -441,6 +456,7 @@ export class BonusesService {
                     this.translate,
                     this,
                 );
+                bonus.setFromCache();
                 queryBonuses.push(bonus);
             }
         }
@@ -459,6 +475,10 @@ export class BonusesService {
     }
 
     private checkForbid(bonuses: Bonus[], queryParams: IQueryParams): Bonus[] {
+        if (!bonuses.length) {
+            return bonuses;
+        }
+
         const userCategory: string = _get(this.profile, 'info.category', '').toLowerCase();
         const forbiddenCategories = this.configService.get<IIndexing<IForbidBanned>>('$loyalty.forbidBanned');
         if (
@@ -527,7 +547,7 @@ export class BonusesService {
         });
 
         this.subjects.history$.subscribe({
-            next: (bonuses: Bonus[]) => {
+            next: (bonuses: IBonus[]) => {
                 this.eventService.emit({
                     name: 'BONUSES_FETCH_HISTORY_SUCCESS',
                     data: bonuses,
