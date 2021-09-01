@@ -7,6 +7,7 @@ module.exports = function githookTask() {
 
         if (!/^scr\d+$/.test(currentBranch)) {
             cb();
+            return true;
         }
 
         const ticketNumber = currentBranch.replace(/^scr/, '').trim();
@@ -15,14 +16,17 @@ module.exports = function githookTask() {
             process.argv[process.argv.length - 1] || '.git/COMMIT_EDITMSG')
             .toString();
 
-        const re = new RegExp(`^SCR #(${ticketNumber}) - (major|BREAKING CHANGE|minor|feat|patch|fix|docs|test|refactor):.+`);
+        const re = new RegExp(
+            `^SCR #(${ticketNumber}) - (major|BREAKING CHANGE|minor|feat|patch|fix|docs|test|refactor):.+`
+        );
 
         if (!re.test(commitMessage)) {
             const message = '\n\x1b[31mBad commit message\x1b[0m\n'
                 + 'The commit-message should contain the number of ticket corresponding branch and type prefix\n'
                 + `Current branch is \x1b[33m${currentBranch}\x1b[0m\n`
                 + `See example: \x1b[32mSCR #${ticketNumber} - feat: subject of the ticket\x1b[0m\n`
-                + 'More details: \n - https://wiki.egamings.com/display/GS/Tasks+workflow\n - https://www.conventionalcommits.org/en/v1.0.0/\n'
+                + 'More details: \n - https://wiki.egamings.com/display/GS/Tasks+workflow\n'
+                + ' - https://www.conventionalcommits.org/en/v1.0.0/\n'
 
             // eslint-disable-next-line no-console
             console.log(message);
