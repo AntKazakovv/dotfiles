@@ -90,7 +90,7 @@ import {ThemeTogglerComponent} from './components/theme-toggler/theme-toggler.co
 //  -- DIRECTIVES IMPORTS STARTS--;
 import {NgTemplateNameDirective} from './directives/template-name/template-name.directive';
 import {ClickOutsideDirective} from './directives/click-outside.directive';
-import {FallbackImgDirective} from './directives/fallback-img.directive';
+import {FallbackImgDirective} from './directives/fallback-img/fallback-img.directive';
 import {InputMaskDirective} from './directives/input-mask.directive';
 import {ClampDirective} from './directives/clamp.directive';
 import {CopyToClipboardDirective} from './directives/copy-to-clipboard.directive';

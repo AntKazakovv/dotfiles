@@ -156,8 +156,8 @@ export class GlobalHelper {
      *
      * Note: You still have to provide it in providers.
      *
-     * Note: Providers are bootstrapped before ApplicationRef is created so you
-     * cannot inject it during service creation.
+     * Note: Providers are bootstrapped before ApplicationRef is created
+     * so you cannot inject it during service creation.
      *
      * **TRY TO AVOID IT**
      *
@@ -332,5 +332,16 @@ export class GlobalHelper {
             (useTypeForGettingProps ? _get(defaultSettings, params.type) : defaultSettings)[params.theme],
             (settingsFromParams ? settingsFromParams : {}),
         );
+    }
+
+    /**
+     * Set file extension
+     *
+     * @param {string} filePath File path
+     * @param {string} extension File extension
+     * @returns {string} File path with the specified extension
+     */
+    public static setFileExtension(filePath: string, extension: string): string {
+        return filePath.replace(/\.[\da-z]+$/i, '') + `.${extension}`;
     }
 }

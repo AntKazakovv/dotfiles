@@ -11,7 +11,10 @@ import {
 import {GamesHelper} from 'wlc-engine/modules/games/system/helpers/games.helpers';
 import {Bonus} from 'wlc-engine/modules/bonuses/system/models/bonus';
 import {CategoryModel} from 'wlc-engine/modules/games/system/models/category.model';
-import {IFromLog} from 'wlc-engine/modules/core';
+import {
+    GlobalHelper,
+    IFromLog,
+} from 'wlc-engine/modules/core';
 
 import _assign from 'lodash-es/assign';
 import _isObject from 'lodash-es/isObject';
@@ -202,13 +205,18 @@ export class Game extends AbstractModel<IGame> {
      * Get image path
      *
      * @param {TGameImageSize} size Image size
+     * @param {string} extension Image extension
      * @returns {string} Image path
      */
-    public getImage(size?: TGameImageSize): string {
+    public getImage(size?: TGameImageSize, extension: string = ''): string {
+        let image = this.image;
         if (size) {
             const replaceVal: string = (size === 640) ? '$1' : `${size}/$1`;
-            return this.image.replace(/\d+\/(.+)$/, replaceVal);
+            image = image.replace(/\d+\/(.+)$/, replaceVal);
         }
-        return this.image;
+        if (extension) {
+            image = GlobalHelper.setFileExtension(image, extension);
+        }
+        return image;
     }
 }

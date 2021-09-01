@@ -14,6 +14,8 @@ import {
 } from 'rxjs';
 import {IMediaContent} from 'wlc-engine/modules/games';
 
+import _forEach from 'lodash-es/forEach';
+
 /**
  * @example
  * <img
@@ -38,6 +40,14 @@ export class FallbackImgDirective implements AfterViewInit, OnDestroy {
     public ngAfterViewInit(): void {
 
         this.errors$ = fromEvent(this.element.nativeElement, 'error').subscribe((event: Event) => {
+            this.errors$.unsubscribe();
+
+            if (this.element.nativeElement.parentElement.tagName === 'PICTURE') {
+                const sourceElement = this.element.nativeElement.parentElement.querySelectorAll('source');
+                _forEach(sourceElement, (elem) => {
+                    elem.remove();
+                });
+            }
             this.imageError.emit();
 
             if (this.wlcFallback) {
