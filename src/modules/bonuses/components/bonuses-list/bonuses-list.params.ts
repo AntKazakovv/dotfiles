@@ -38,6 +38,7 @@ export interface IBonusesListCParams extends IComponentParams<Theme, Type, Theme
         useRecommendedBonuses?: boolean;
         useNoDataText?: boolean;
         useQuery?: boolean;
+        blankBonus?: IBlankBonusParams,
     };
     itemsParams?: IBonusItemCParams,
     useRedirectBtnToProfile?: boolean,
@@ -47,6 +48,13 @@ export interface IBonusesListCParams extends IComponentParams<Theme, Type, Theme
     noContent?: BonusesListNoContentByThemeType,
 }
 
+export interface IBlankBonusParams {
+    id?: number;
+    type?: string;
+    name?: string;
+    description?: string;
+    isChoose?: boolean;
+}
 
 export const defaultParams: IBonusesListCParams = {
     moduleName: 'bonuses',
@@ -62,6 +70,11 @@ export const defaultParams: IBonusesListCParams = {
         useRecommendedBonuses: false,
         useQuery: false,
         useNoDataText: false,
+        blankBonus: {
+            id: null,
+            type: 'blank',
+            name: gettext('Without bonus'),
+        },
     },
     useBtnNoBonuses: true,
     btnNoBonuses: {
