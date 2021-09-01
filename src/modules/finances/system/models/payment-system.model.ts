@@ -374,7 +374,11 @@ export class PaymentSystem extends AbstractModel<IPaymentSystem> {
         this.hostedFields.loaded = true;
     }
 
-    public setupHostedFields(formLoadedCallback: () => void, formCallback: (formData: IHostedFormData) => void, styles: string): void {
+    public setupHostedFields(
+        formLoadedCallback: () => void,
+        formCallback: (formData: IHostedFormData) => void,
+        styles: string,
+    ): void {
         const params: IHostedFieldsParams = {
             merchantId: this.hostedFields.merchantId,
             hostedfieldsurl: this.hostedFields.url,
@@ -422,7 +426,7 @@ export class PaymentSystem extends AbstractModel<IPaymentSystem> {
 
 
         this.cryptoCheck = !_isString(this.message)
-            && (this.message.translate === 'pay_to_address' && this.message.address) ? true : false;
+        && (this.message.translate === 'pay_to_address' && this.message.address) ? true : false;
 
         this.prepareAdditionalFields();
         this.cardFields = this.isWithCardFields();

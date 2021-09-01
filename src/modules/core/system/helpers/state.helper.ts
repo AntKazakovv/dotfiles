@@ -56,7 +56,9 @@ export class StateHelper {
         }
     }
 
-    public static lazyLoadModules(modules: string[]): (transition: Transition, state: StateDeclaration) => Promise<LazyLoadResult> {
+    public static lazyLoadModules(
+        modules: string[],
+    ): (transition: Transition, state: StateDeclaration) => Promise<LazyLoadResult> {
         return async ($transition) => {
             const configService: ConfigService = $transition.injector().get(ConfigService);
             await configService.ready;
@@ -91,8 +93,9 @@ export class StateHelper {
                     .pipe(first())
                     .subscribe(async () => {
                         await configService.ready;
-                        const userService: UserService = await injectionService.getService<UserService>('user.user-service');
-        
+                        const userService: UserService = await injectionService
+                            .getService<UserService>('user.user-service');
+
                         if (userService.isAuthenticated) {
                             result.resolve();
                         } else {

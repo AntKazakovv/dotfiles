@@ -33,7 +33,9 @@ import {SpecialCategoriesGamesSlug} from 'wlc-engine/modules/games/system/config
 import {CategoryModel} from 'wlc-engine/modules/games/system/models/category.model';
 import {GamesCatalog} from 'wlc-engine/modules/games/system/models/games-catalog.model';
 import {IGamesFilterData} from 'wlc-engine/modules/games/system/interfaces/filters.interfaces';
-import {IPlayGameForRealCParams} from 'wlc-engine/modules/games/components/play-game-for-real/play-game-for-real.params';
+import {
+    IPlayGameForRealCParams,
+} from 'wlc-engine/modules/games/components/play-game-for-real/play-game-for-real.params';
 import {JackpotModel} from 'wlc-engine/modules/games/system/models/jackpot.model';
 import {
     IFavourite,
@@ -96,9 +98,10 @@ export class GamesCatalogService {
     private verticalThumbsConfig: IVerticalThumbsConfig;
     private lastPlayed: Game[] = [];
     // TODO Delete after #246227
-    private jackpotParams: {currency?: string} = {};
+    private jackpotParams: { currency?: string } = {};
     private jackpotCurrency: string;
     private jackpotRestart$: Subject<void> = new Subject();
+
     // END Delete after #246227
 
     constructor(
@@ -466,7 +469,11 @@ export class GamesCatalogService {
 
     public getParentCategories(): CategoryModel[] {
         return _filter(this.gamesCatalog.getCategories(), (category: CategoryModel) => {
-            return category.isParent && !category.isLastPlayed && !category.isFavourites && !category.isNew && !category.isPopular;
+            return category.isParent
+                && !category.isLastPlayed
+                && !category.isFavourites
+                && !category.isNew
+                && !category.isPopular;
         });
     }
 
@@ -770,9 +777,7 @@ export class GamesCatalogService {
     }
 
     protected registerMethods(): void {
-        // TODO check config and types
-        // const queryGamesParams = this.configService.get<boolean>('appConfig.siteconfig.gamesCatalog.slim') ? {slim: true} : {};
-        const queryGamesParams = {slim: 'true'};
+        const queryGamesParams = this.configService.get<boolean>('$games.slimGamesRequest') ? {slim: true} : {};
 
         this.dataService.registerMethod({
             name: 'games',

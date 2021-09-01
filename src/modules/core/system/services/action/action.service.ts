@@ -41,7 +41,8 @@ import {IPushMessageParams} from 'wlc-engine/modules/core/system/services/notifi
 import {NotificationEvents} from 'wlc-engine/modules/core/system/services/notification/notification.service';
 import {AppType} from 'wlc-engine/modules/core/system/interfaces/base-config/app.interface';
 import {IRedirect} from 'wlc-engine/modules/core/system/interfaces/core.interface';
-import {IColorThemeSwitchingConfig} from 'wlc-engine/modules/core/system/interfaces/base-config/color-theme-switching.config';
+import {IColorThemeSwitchingConfig} from
+    'wlc-engine/modules/core/system/interfaces/base-config/color-theme-switching.config';
 
 import {UserProfile} from 'wlc-engine/modules/user/system/models/profile.model';
 import {UserService} from 'wlc-engine/modules/user/system/services/user/user.service';
@@ -91,6 +92,7 @@ export class ActionService {
     private breakpoints: IDeviceBreakpoints;
     private renderer: Renderer2;
     private scrollTop: number;
+
     constructor(
         private injector: Injector,
         private configService: ConfigService,
@@ -157,6 +159,9 @@ export class ActionService {
                     this.configService.get<Deferred<null>>({name: 'firstLanguageReady'})
                         .promise
                         .then(() => {
+                            const currencyElement = `<span wlc-currency
+                                                               [value]="${initialPath.amount}"
+                                                               [currency]="'${profile.currency}'"></span>`;
                             const paymentMessage = {
                                 name: NotificationEvents.PushMessage,
                                 data: <IPushMessageParams>{
@@ -166,20 +171,23 @@ export class ActionService {
                                     wlcElement: 'notification_deposit-success',
                                     message: [
                                         this.translateService.instant(gettext('Deposit completed successfully')),
-                                        `<span wlc-currency [value]="${initialPath.amount}" [currency]="'${profile.currency}'"></span> ` +
-                                        this.translateService.instant(gettext('were successfully deposited in your account.')),
+                                        currencyElement +
+                                        this.translateService.instant(
+                                            gettext('were successfully deposited in your account.')),
                                     ],
                                 },
                             };
 
                             if (initialPath.type?.toLowerCase() === 'withdraw') {
+
                                 _assign(paymentMessage.data,
                                     {
                                         wlcElement: 'notification_withdraw-success',
                                         message: [
-                                            this.translateService.instant(gettext('Withdraw request has been successfully sent!')),
+                                            this.translateService.instant(
+                                                gettext('Withdraw request has been successfully sent!')),
                                             this.translateService.instant(gettext('Withdraw sum'))
-                                            + ` <span wlc-currency [value]="${initialPath.amount}" [currency]="'${profile.currency}'"></span> `,
+                                            + currencyElement,
                                         ],
                                     });
                             }
@@ -245,7 +253,8 @@ export class ActionService {
                 });
 
                 if (options?.offsetY) {
-                    element.style.paddingBottom = this.getStyleNumValue(element, 'paddingBottom') - options.offsetY + 'px';
+                    element.style.paddingBottom =
+                        this.getStyleNumValue(element, 'paddingBottom') - options.offsetY + 'px';
                 }
             }, 100);
         }, 0);
@@ -337,7 +346,10 @@ export class ActionService {
 
     private async setNewPassword(initialPath: IIndexing<string>): Promise<void> {
         if (!initialPath.code) {
-            this.showErrorNotification(gettext('Code missing'), gettext('Password recovery error'), 'password-recovery-code');
+            this.showErrorNotification(
+                gettext('Code missing'),
+                gettext('Password recovery error'),
+                'password-recovery-code');
             return;
         }
 
@@ -347,7 +359,10 @@ export class ActionService {
             const userService = await this.injectionService.getService<UserService>('user.user-service');
             await userService.validateRestoreCode(initialPath.code);
         } catch (error) {
-            this.showErrorNotification(error.errors, gettext('Error occurred during password recovery'), 'password-recovery');
+            this.showErrorNotification(
+                error.errors,
+                gettext('Error occurred during password recovery'),
+                'password-recovery');
 
             return;
         }

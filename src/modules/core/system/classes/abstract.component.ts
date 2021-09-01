@@ -86,7 +86,9 @@ export class AbstractComponent implements OnDestroy, OnInit, OnChanges {
         }
         this.$class = this.$params?.class;
         if (this.$params.customMod) {
-            this.modifiers = (_isArray(this.$params.customMod)) ? this.$params.customMod : _split(this.$params.customMod, ' ');
+            this.modifiers = _isArray(this.$params.customMod)
+                ? this.$params.customMod
+                : _split(this.$params.customMod, ' ');
         }
 
         this.prepareHostClass();
@@ -130,8 +132,15 @@ export class AbstractComponent implements OnDestroy, OnInit, OnChanges {
 
     protected prepareHostClass(): void {
         this.modifiers = _union(this.modifiers, [(this.$params.type) ? `type-${this.$params.type}` : 'type-default']);
-        this.modifiers = _union(this.modifiers, [(this.$params.theme) ? `theme-${this.$params.theme}` : 'theme-default']);
-        this.modifiers = _union(this.modifiers, [(this.$params.themeMod) ? `theme-mod-${this.$params.themeMod}` : 'theme-mod-default']);
+        this.modifiers = _union(this.modifiers, [
+            (this.$params.theme)
+                ? `theme-${this.$params.theme}`
+                : 'theme-default',
+        ]);
+        this.modifiers = _union(this.modifiers, [
+            (this.$params.themeMod)
+                ? `theme-mod-${this.$params.themeMod}`
+                : 'theme-mod-default']);
         const preparedModifiers = _map(this.modifiers, (mod: string): string => `${this.$class}--${mod}`);
         this.$hostClass = [this.$class, ...preparedModifiers].join(' ');
         this.cdr?.markForCheck();

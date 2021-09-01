@@ -320,10 +320,12 @@ export class ModalService {
     }
 
     /**
-     * Add custom modals via project's settings. Use '$modals' constant in frontend config, same as $base, $modules and etc;
+     * Add custom modals via project's settings. Use '$modals' constant
+     * in frontend config, same as $base, $modules and etc;
      */
     private async mergeModalConfig(): Promise<void> {
         await this.configService.ready;
-        this.modalList = GlobalHelper.mergeConfig(this.modalList, this.configService.get<IModalList>('$modals.customModals'));
+        this.modalList = GlobalHelper
+            .mergeConfig(this.modalList, this.configService.get<IModalList>('$modals.customModals'));
     }
 }

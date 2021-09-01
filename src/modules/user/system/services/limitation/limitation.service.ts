@@ -145,7 +145,8 @@ export class LimitationService {
      */
     public async getUserSelfExclusion(): Promise<ISelfExclusion> {
         try {
-            const result = await this.dataService.request<ISelfExclusionData>('limit/getExclusion') as ISelfExclusionData;
+            const result = await this.dataService
+                .request<ISelfExclusionData>('limit/getExclusion') as ISelfExclusionData;
             return result.data;
         } catch (error) {
             this.eventService.emit({

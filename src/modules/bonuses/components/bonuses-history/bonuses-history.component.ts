@@ -104,7 +104,8 @@ export class BonusesHistoryComponent extends AbstractComponent implements OnInit
 
     public async ngOnInit(): Promise<void> {
         super.ngOnInit();
-        this.historyFilterService = await this.injectionService.getService<HistoryFilterService>('finances.history-filter');
+        this.historyFilterService = await this.injectionService
+            .getService<HistoryFilterService>('finances.history-filter');
         await this.bonusesService.queryBonuses(true, 'history');
         this.bonusesService.getObserver('history').subscribe((value) => {
             this.allBets = _map(value, (item) => {

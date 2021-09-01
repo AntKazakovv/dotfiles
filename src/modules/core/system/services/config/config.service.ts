@@ -209,8 +209,11 @@ export class ConfigService {
             ?? this.global.appConfig.siteconfig.RestrictRegistration
             ?? false);
 
-        _mergeWith(this.global, wlcConfig, layoutConfig, (target, source) => (source?.replaceConfig) ? _cloneDeep(source) : undefined);
-        _mergeWith(this.global, appConfig, (target, source) => (source?.replaceConfig) ? _cloneDeep(source) : undefined);
+        _mergeWith(this.global, wlcConfig, layoutConfig, (target, source) => (source?.replaceConfig)
+            ? _cloneDeep(source)
+            : undefined);
+        _mergeWith(this.global, appConfig, (target, source) => (source?.replaceConfig) ? _cloneDeep(source)
+            : undefined);
 
         GlobalHelper.deepFreeze(this.global.appConfig);
     }

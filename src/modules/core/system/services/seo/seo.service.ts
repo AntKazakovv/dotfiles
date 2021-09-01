@@ -87,7 +87,8 @@ export class SeoService {
     }
 
     /**
-     * Gets seo data from wordpress plugin 'Seo Softgamings'. Two different requests for usual seo data and for gameplay state.
+     * Gets seo data from wordpress plugin 'Seo Softgamings'.
+     * Two different requests for usual seo data and for gameplay state.
      */
     protected async getSeoData(): Promise<void> {
         try {
@@ -179,7 +180,8 @@ export class SeoService {
             if (!this.seoGames) {
                 return;
             }
-            this.gamesCatalogService = await this.injectionService.getService<GamesCatalogService>('games.games-catalog-service');
+            this.gamesCatalogService = await this.injectionService
+                .getService<GamesCatalogService>('games.games-catalog-service');
             const currentLang = this.translate.currentLang;
             const params = this.router.params;
             const gameSeo = this.seoGames.find(el => {

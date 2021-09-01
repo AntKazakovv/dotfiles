@@ -66,7 +66,9 @@ export class GamesFilterService {
      * @returns {IGamesFilterData}
      */
     public set(filterName: string, filterValues: IGamesFilterData, save?: boolean): IGamesFilterData {
-        const resultFilter: IGamesFilterData = this.filters[filterName] = _merge({}, this.filterInitValues, filterValues);
+        const resultFilter: IGamesFilterData = this.filters[filterName] = _merge(
+            {}, this.filterInitValues, filterValues,
+        );
 
         // if (save) {
         //     // TODO

@@ -29,6 +29,7 @@ export interface IGamesConfig {
      */
     excludeRequiredFields?: IIndexing<string[]>;
     components?: IGamesComponents,
+    slimGamesRequest?: boolean;
 }
 
 export interface IGamesComponents {

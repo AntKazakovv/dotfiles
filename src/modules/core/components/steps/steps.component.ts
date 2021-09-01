@@ -55,7 +55,8 @@ export class StepsComponent extends AbstractComponent implements OnInit {
         }
         this.stepList = this.prepareSteps();
 
-        this.currentStep = this.getStepParamByName(this.$params.startStepName) || this.getStepParamByName(this.$params.stepsNames[0]);
+        this.currentStep = this.getStepParamByName(this.$params.startStepName)
+            || this.getStepParamByName(this.$params.stepsNames[0]);
 
         this.setStepsCounters();
         this.setSubscription();

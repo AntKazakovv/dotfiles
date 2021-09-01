@@ -31,7 +31,8 @@ export class SliderHelper {
     /**
      * Sets css custom properties to the element according to `swiperOptions` and `cssProps`
      * @param swiperOptions Swiper params
-     * @param cssProps contains list of css custom properties for swiper params `{swiperProperty: --custom-css-property}`
+     * @param cssProps contains list of css custom properties
+     * for swiper params `{swiperProperty: --custom-css-property}`
      * @param element the element to which the css custom properties will be applied
      * @param renderer renderer 2
      */

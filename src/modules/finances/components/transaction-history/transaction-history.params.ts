@@ -1,8 +1,14 @@
 import {IComponentParams, CustomType} from 'wlc-engine/modules/core/system/classes/abstract.component';
 import {ITableCol} from 'wlc-engine/modules/core/components/table/table.params';
-import {TransactionStatusComponent} from 'wlc-engine/modules/finances/components/transaction-history/transaction-status/transaction-status.component';
-import {TransactionCancelComponent} from 'wlc-engine/modules/finances/components/transaction-history/transaction-cancel/transaction-cancel.component';
-import {TransactionPreviewComponent} from 'wlc-engine/modules/finances/components/transaction-history/transaction-preview/transaction-preview.component';
+import {
+    TransactionStatusComponent,
+} from 'wlc-engine/modules/finances/components/transaction-history/transaction-status/transaction-status.component';
+import {
+    TransactionCancelComponent,
+} from 'wlc-engine/modules/finances/components/transaction-history/transaction-cancel/transaction-cancel.component';
+import {
+    TransactionPreviewComponent,
+} from 'wlc-engine/modules/finances/components/transaction-history/transaction-preview/transaction-preview.component';
 import {Transaction} from 'wlc-engine/modules/finances/system/models/transaction-history.model';
 
 export type Theme = 'default' | CustomType;

@@ -485,8 +485,10 @@ export class Bonus extends AbstractModel<IBonus> {
         if (this.target === 'balance') {
             return _toNumber(this.results?.balance?.ReleaseWagering) || 0;
         } else {
-            return _toNumber(resultsTarget?.AwardWagering?.COEF) || _toNumber(resultsTarget?.AwardWagering[this.userCurrency]) ||
-                _toNumber(resultsTarget?.AwardWagering?.EUR) || 0;
+            return _toNumber(resultsTarget?.AwardWagering?.COEF)
+                || _toNumber(resultsTarget?.AwardWagering[this.userCurrency])
+                || _toNumber(resultsTarget?.AwardWagering?.EUR)
+                || 0;
         }
     }
 
@@ -516,7 +518,9 @@ export class Bonus extends AbstractModel<IBonus> {
             return 0;
         }
         if (this.target === 'loyalty' || this.target === 'experience') {
-            return resultsTarget?.Type === 'relative' ? _toNumber(resultsTarget?.Value) : _toNumber(resultsTarget?.Value?.EUR);
+            return resultsTarget?.Type === 'relative'
+                ? _toNumber(resultsTarget?.Value)
+                : _toNumber(resultsTarget?.Value?.EUR);
         } else {
             return _toNumber(resultsTarget?.Value[this.userCurrency]) || _toNumber(resultsTarget?.Value?.Currency) ||
                 _toNumber(resultsTarget?.Value?.EUR) || _toNumber(resultsTarget?.Value);

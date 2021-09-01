@@ -126,7 +126,7 @@ export class ProviderGamesComponent extends AbstractComponent implements OnInit 
         const {iconType, colorIconBg} = this.$params;
         const showAs = iconType === 'black' ? 'svg' : 'img';
         const iconColor = (iconType === 'color' && colorIconBg) ? '/' + colorIconBg : null;
-
+        const iconPath = `/merchants/svg/${iconType}${iconColor || ''}/${GlobalHelper.toSnakeCase(alias)}.svg`;
         this.icon = new IconModel(
             {
                 component: 'ProviderGamesComponent',
@@ -136,7 +136,7 @@ export class ProviderGamesComponent extends AbstractComponent implements OnInit 
                 showAs: showAs,
                 alt: name,
                 wlcElement: wlcElement,
-                iconUrl: `${showAs === 'img' ? '/gstatic' : ''}/merchants/svg/${iconType}${iconColor ||''}/${GlobalHelper.toSnakeCase(alias)}.svg`,
+                iconUrl: `${showAs === 'img' ? '/gstatic' : ''}${iconPath}`,
             },
         );
     }

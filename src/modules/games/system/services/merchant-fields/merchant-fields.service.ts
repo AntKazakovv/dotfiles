@@ -90,10 +90,12 @@ export class MerchantFieldsService {
     public getMerchantRequiredFields(merchantId: number): string[] {
         const excludeFields = this.configService.get<string[]>(`$games.excludeRequiredFields.${merchantId}`) || [];
 
-        const fields = _filter(this.configService.get<string[]>(`appConfig.siteconfig.systemsGamePlayInfo[${merchantId}].Fields`),
+        const fields = _filter(
+            this.configService.get<string[]>(`appConfig.siteconfig.systemsGamePlayInfo[${merchantId}].Fields`),
             (item) => {
                 return !excludeFields.includes(item);
-            });
+            },
+        );
 
         let requiredFields: string[] = [];
 

@@ -47,7 +47,9 @@ export class GamesHelper {
      * @param {IIndexing<string>} merchantMap
      * @returns {{merchantsArray: MerchantModel[]}}
      */
-    public static mapMerchants(merchants: IIndexingMerchants, merchantMap: IIndexing<string>): {merchantsArray: MerchantModel[]} {
+    public static mapMerchants(
+        merchants: IIndexingMerchants, merchantMap: IIndexing<string>,
+    ): {merchantsArray: MerchantModel[]} {
         if (!merchants) {
             return;
         }

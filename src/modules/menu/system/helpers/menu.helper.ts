@@ -60,7 +60,9 @@ export class MenuHelper {
      */
     public static getItems(params: IHelperGetItemsParams): MenuItemObjectType[] {
 
-        const items: MenuItemType[] = (_isArray(params?.items)) ? params.items : _get(wlcDefaultMenuItems, params.type, []);
+        const items: MenuItemType[] = (_isArray(params?.items))
+            ? params.items
+            : _get(wlcDefaultMenuItems, params.type, []);
         let resultList: MenuItemObjectType[] = [];
 
         _map(items, (item: MenuItemType) => {
@@ -176,19 +178,24 @@ export class MenuHelper {
             } else {
                 if (_has(configMenuItem, 'parent')) {
                     const item = configMenuItem as MenuConfigItemsGroup;
-                    const parent: Params.IMenuItem = _isObject(item.parent) ? item.parent : _cloneDeep(globalItemsConfig[item.parent]);
+                    const parent: Params.IMenuItem = _isObject(item.parent)
+                        ? item.parent
+                        : _cloneDeep(globalItemsConfig[item.parent]);
                     MenuHelper.setIcon(parent, iconsFolder, disableIcons);
 
                     const items: MenuItemObjectType[] = item.items?.map((item: MenuItemsGroupItem) => {
                         if (_has(item, 'parent')) {
-                            const dropdownItems = MenuHelper.parseMenuConfig((item as MenuConfigItemsGroup).items, globalItemsConfig, options);
+                            const dropdownItems = MenuHelper
+                                .parseMenuConfig((item as MenuConfigItemsGroup).items, globalItemsConfig, options);
                             return {
                                 parent: item['parent'],
                                 items: dropdownItems,
                             };
                         }
 
-                        const itemData: Params.IMenuItem = _isObject(item) ? item as Params.IMenuItem : _cloneDeep(globalItemsConfig[item]);
+                        const itemData: Params.IMenuItem = _isObject(item)
+                            ? item as Params.IMenuItem
+                            : _cloneDeep(globalItemsConfig[item]);
                         MenuHelper.setIcon(itemData, iconsFolder, disableIcons);
                         return itemData;
                     }) || [];
@@ -227,7 +234,8 @@ export class MenuHelper {
      * @param {IParseSettingsOptions} options
      * @returns {MenuConfigItem[]}
      */
-    public static parseMenuSettings(settings: IMenuOptions, type: MenuType, lang: string, options: IParseSettingsOptions): MenuConfigItem[] {
+    public static parseMenuSettings(settings: IMenuOptions, type: MenuType, lang: string,
+        options: IParseSettingsOptions): MenuConfigItem[] {
         return MenuHelper.geiItemsByMenuSettings(settings.items, type, lang, options);
     }
 
@@ -240,13 +248,15 @@ export class MenuHelper {
      * @param {IParseSettingsOptions} options
      * @returns {*}
      */
-    protected static geiItemsByMenuSettings(items: IMenuItem[], type: MenuType, lang: string, options: IParseSettingsOptions): MenuConfigItem[] {
+    protected static geiItemsByMenuSettings(items: IMenuItem[], type: MenuType, lang: string,
+        options: IParseSettingsOptions): MenuConfigItem[] {
 
         return _reduce(_orderBy(items, 'order', 'asc'), (items: MenuConfigItem[], item: IMenuItem) => {
             const authRequired: boolean = !options.isAuth && _includes(['favourites', 'lastplayed'], item.id);
 
             if (item.type === 'dropdown') {
-                const dropdownItems: MenuConfigItem[] = MenuHelper.geiItemsByMenuSettings(item.items, type, lang, options);
+                const dropdownItems: MenuConfigItem[] = MenuHelper.geiItemsByMenuSettings(item.items, type, lang,
+                    options);
                 const parentItem: Params.IMenuItem = {
                     name: item.name[lang] || item.name['en'],
                     type: 'sref',

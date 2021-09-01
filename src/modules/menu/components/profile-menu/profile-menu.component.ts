@@ -79,7 +79,8 @@ export class ProfileMenuComponent extends AbstractComponent implements OnInit {
             ? this.$params.common.icons.use
             : this.configService.get<boolean>(`$menu.${this.profileType}.${configKey}.use`);
 
-        this.iconsFolder = this.$params.common?.icons?.folder || this.configService.get<string>(`$menu.${this.profileType}.${configKey}.folder`);
+        this.iconsFolder = this.$params.common?.icons?.folder
+            || this.configService.get<string>(`$menu.${this.profileType}.${configKey}.folder`);
 
         this.menuParams = {
             type: this.profileType === 'profileFirstMenu' ? 'profile-first-menu' : 'profile-menu',
@@ -124,7 +125,8 @@ export class ProfileMenuComponent extends AbstractComponent implements OnInit {
                 break;
         }
 
-        const extension: TIconExtension = this.configService.get<TIconExtension>(`$menu.${this.profileType}.${iconsKey}.extension`);
+        const extension: TIconExtension = this.configService
+            .get<TIconExtension>(`$menu.${this.profileType}.${iconsKey}.extension`);
         _set(this.menuParams, 'common.icons.extension', extension);
 
         this.menuParams = _clone(this.menuParams);

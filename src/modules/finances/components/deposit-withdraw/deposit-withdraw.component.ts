@@ -335,13 +335,15 @@ export class DepositWithdrawComponent extends AbstractComponent implements OnIni
         this.requiredFieldsKeys = _keys(this.requiredFields);
 
         if (this.requiredFieldsKeys.length) {
-            const fields: IFormComponent[] = _transform(this.requiredFields, (result: IFormComponent[], item: IFieldTemplate) => {
-                if (FormElements[item.template]) {
-                    result.push(FormElements[item.template]);
-                } else {
-                    this.logService.sendLog({code: '1.4.41', data: `Field '${item.template}' does not exist!`});
-                }
-            }, []);
+            const fields: IFormComponent[] = _transform(
+                this.requiredFields,
+                (result: IFormComponent[], item: IFieldTemplate) => {
+                    if (FormElements[item.template]) {
+                        result.push(FormElements[item.template]);
+                    } else {
+                        this.logService.sendLog({code: '1.4.41', data: `Field '${item.template}' does not exist!`});
+                    }
+                }, []);
             fields.push(FormElements.password);
             fields.push(FormElements.submit);
 
@@ -767,8 +769,10 @@ export class DepositWithdrawComponent extends AbstractComponent implements OnIni
                                     {
                                         name: 'core.wlc-amount-limit',
                                         params: {
-                                            minValue: amount.params.validators.find((val) => val['name'] && val['name'] === 'min')['options'],
-                                            maxValue: amount.params.validators.find((val) => val['name'] && val['name'] === 'max')['options'],
+                                            minValue: amount.params.validators
+                                                .find((val) => val['name'] && val['name'] === 'min')['options'],
+                                            maxValue: amount.params.validators
+                                                .find((val) => val['name'] && val['name'] === 'max')['options'],
                                             showLimits,
                                         },
                                     },

@@ -29,7 +29,10 @@ import {
 } from 'wlc-engine/modules/core';
 import {FinancesService} from 'wlc-engine/modules/finances/system/services/finances/finances.service';
 import {PaymentSystem} from 'wlc-engine/modules/finances/system/models/payment-system.model';
-import {IconListAbstract, IMerchantsPaymentsIterator} from 'wlc-engine/modules/core/system/classes/icon-list-abstract.class';
+import {
+    IconListAbstract,
+    IMerchantsPaymentsIterator,
+} from 'wlc-engine/modules/core/system/classes/icon-list-abstract.class';
 import {IconModel, IIconParams} from 'wlc-engine/modules/core/system/models/icon-list-item.model';
 
 import * as Params from './payment-list.params';
@@ -188,7 +191,9 @@ export class PaymentListComponent extends IconListAbstract<Params.IPaymentListCP
                         wlcElement: 'block_payment-' + this.wlcElementTail(item.name),
                         nameForPath: item.name,
                         colorIconBg: colorIconBg,
-                        imgPath: this.$params.paymentType === 'deposit' ? item.image : (item.imageWithdraw || item.image),
+                        imgPath: this.$params.paymentType === 'deposit'
+                            ? item.image
+                            : (item.imageWithdraw || item.image),
                     }),
                 };
             },

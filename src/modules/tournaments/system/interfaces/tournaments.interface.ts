@@ -6,7 +6,9 @@ import {
     PartialObserver,
     Observable,
 } from 'rxjs';
-import {TournamentsListNoContentByThemeType} from 'wlc-engine/modules/tournaments/components/tournament-list/tournament-list.params';
+import {
+    TournamentsListNoContentByThemeType,
+} from 'wlc-engine/modules/tournaments/components/tournament-list/tournament-list.params';
 
 export interface ITournamentsModule {
     components?: ITournamentsComponents,

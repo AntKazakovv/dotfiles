@@ -71,7 +71,8 @@ export abstract class UserActionsAbstract<T> extends AbstractComponent {
             data: <IPushMessageParams>{
                 type: 'error',
                 title: gettext('Registration error'),
-                message: gettext('You must agree with Terms and Conditions as well as confirm that you are at least 18 years old'),
+                message: gettext('You must agree with Terms and Conditions ' +
+                    'as well as confirm that you are at least 18 years old'),
                 wlcElement: 'notification_registration-terms-error',
             },
         });

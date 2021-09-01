@@ -23,7 +23,11 @@ import _isString from 'lodash-es/isString';
  *
  * @example
  *
- * <div class="{{$class}}__timer" wlc-timer [value]="$params.common.bonus?.expirationTimeLuxon" text="Time remaining"></div>
+ * <div wlc-timer
+ *      class="{{$class}}__timer"
+ *      [value]="$params.common.bonus?.expirationTimeLuxon"
+ *      text="Time remaining">
+ * </div>
  *
  */
 @Component({
@@ -52,7 +56,7 @@ export class TimerComponent extends AbstractComponent implements OnInit {
     private milliSecondsInASecond = 1000;
     private hoursInADay = 24;
     private minutesInAnHour = 60;
-    private secondsInAMinute  = 60;
+    private secondsInAMinute = 60;
     private secondsToDday: number;
     private minutesToDday: number;
     private hoursToDday: number;
@@ -114,10 +118,14 @@ export class TimerComponent extends AbstractComponent implements OnInit {
     }
 
     private allocateTimeUnits(timeDifference: number): void {
-        this.secondsToDday = Math.floor((timeDifference) / (this.milliSecondsInASecond) % this.secondsInAMinute);
-        this.minutesToDday = Math.floor((timeDifference) / (this.milliSecondsInASecond * this.minutesInAnHour) % this.secondsInAMinute);
-        this.hoursToDday = Math.floor((timeDifference) / (this.milliSecondsInASecond * this.minutesInAnHour * this.secondsInAMinute) % this.hoursInADay);
-        this.daysToDday = Math.floor((timeDifference) / (this.milliSecondsInASecond * this.minutesInAnHour * this.secondsInAMinute * this.hoursInADay));
+        this.secondsToDday = Math.floor((timeDifference)
+            / (this.milliSecondsInASecond) % this.secondsInAMinute);
+        this.minutesToDday = Math.floor((timeDifference)
+            / (this.milliSecondsInASecond * this.minutesInAnHour) % this.secondsInAMinute);
+        this.hoursToDday = Math.floor((timeDifference)
+            / (this.milliSecondsInASecond * this.minutesInAnHour * this.secondsInAMinute) % this.hoursInADay);
+        this.daysToDday = Math.floor((timeDifference)
+            / (this.milliSecondsInASecond * this.minutesInAnHour * this.secondsInAMinute * this.hoursInADay));
 
         this.seconds = ('0' + this.secondsToDday).slice(-2);
         this.minutes = ('0' + this.minutesToDday).slice(-2);

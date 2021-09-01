@@ -60,7 +60,9 @@ export class EventService {
             .subscribe(subscriber);
     }
 
-    private filterEvents<T>(params: Partial<IFilterParams>[]): UnaryFunction<Observable<IEvent<T>>, Observable<IEvent<T>>> {
+    private filterEvents<T>(
+        params: Partial<IFilterParams>[],
+    ): UnaryFunction<Observable<IEvent<T>>, Observable<IEvent<T>>> {
         return pipe(filter((event: IEvent<T>) => {
             return params.reduce((result, eventFilter) => {
                 return result || this.filterEvent(eventFilter, event);

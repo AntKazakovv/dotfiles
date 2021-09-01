@@ -16,7 +16,9 @@ import {
 // Components
 import {AddProfileInfoComponent} from './components/add-profile-info/add-profile-info.component';
 import {ChangePasswordFormComponent} from './components/change-password-form/change-password-form.component';
-import {DashboardLoyaltyBlockComponent} from 'wlc-engine/modules/user/components/dashboard-loyalty-block/dashboard-loyalty-block.component';
+import {
+    DashboardLoyaltyBlockComponent,
+} from 'wlc-engine/modules/user/components/dashboard-loyalty-block/dashboard-loyalty-block.component';
 import {ExchangeComponent} from './components/dashboard-exchange/exchange.component';
 import {IconExpLpDescriptionComponent} from './components/icon-exp-lp-description/icon-exp-lp-description.component';
 import {LimitationsComponent} from './components/limitations/limitations.component';
@@ -27,7 +29,9 @@ import {LoyaltyProgressComponent} from './components/loyalty-progress/loyalty-pr
 import {NewPasswordFormComponent} from './components/new-password-form/new-password-form.component';
 import {PhoneFieldComponent} from './components/phone-field/phone-field.component';
 import {ProfileFormComponent} from './components/profile-form/profile-form.component';
-import {RealityCheckInfoComponent} from 'wlc-engine/modules/user/components/reality-check-info/reality-check-info.component';
+import {
+    RealityCheckInfoComponent,
+} from 'wlc-engine/modules/user/components/reality-check-info/reality-check-info.component';
 import {RestoreLinkComponent} from './components/restore-link/restore-link.component';
 import {RestorePasswordFormComponent} from './components/restore-password-form/restore-password-form.component';
 import {SignInFormComponent} from './components/sign-in-form/sign-in-form.component';

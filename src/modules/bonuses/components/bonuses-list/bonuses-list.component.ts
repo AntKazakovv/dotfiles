@@ -133,7 +133,8 @@ export class BonusesListComponent extends AbstractComponent implements OnInit, O
             observer: {
                 next: (bonuses: Bonus[]) => {
                     if (bonuses) {
-                        this.paginatedBonuses = this.bonuses = this.bonusesService.filterBonuses(bonuses, this.$params.common?.filter);
+                        this.paginatedBonuses = this.bonuses = this.bonusesService
+                            .filterBonuses(bonuses, this.$params.common?.filter);
 
                         const chosenBonus = this.configService.get<ChosenBonusType>(ChosenBonusSetParams.ChosenBonus);
 

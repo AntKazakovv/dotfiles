@@ -991,7 +991,6 @@ export const wlcProfileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
                 },
             },
         },
-        // sref: (this.appConfig.mobile) ? 'app.sportsbook({page: "history"})' : 'app.sportsbook({action: "show-open-bets"})',
     },
     'profile-first-menu:open-bets': {
         name: gettext('Open bets'),
@@ -1006,7 +1005,6 @@ export const wlcProfileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
                 },
             },
         },
-        // sref: (this.appConfig.mobile) ? 'app.sportsbook({page: "history"})' : 'app.sportsbook({action: "show-open-bets"})',
     },
 
     'profile-menu:loyalty-level': {

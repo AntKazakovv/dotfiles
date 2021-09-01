@@ -14,7 +14,10 @@ import {Observable} from 'rxjs';
 
 import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
 import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
-import {INotification, NotificationService} from 'wlc-engine/modules/core/system/services/notification/notification.service';
+import {
+    INotification,
+    NotificationService,
+} from 'wlc-engine/modules/core/system/services/notification/notification.service';
 import * as Params from 'wlc-engine/modules/core/system/services/notification/notification.params';
 
 export const HIDE_ANIMATION_DURATION: number = 300;

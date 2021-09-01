@@ -49,7 +49,8 @@ export class DigitainHooks extends AbstractHook {
         const pageCode: string = pages[this.params.router.stateService.params.page] || pages.home;
 
         let eventId: string = '';
-        if (_includes(['EventView', 'Upcoming', 'MultiView'], pageCode) && this.params.router.stateService.params.page2) {
+        if (_includes(['EventView', 'Upcoming', 'MultiView'], pageCode)
+            && this.params.router.stateService.params.page2) {
             eventId = `_sp.push(['eventId', ${this.params.router.stateService.params.page2}])`;
         }
 

@@ -25,11 +25,21 @@ import {
 import {UserInfo} from 'wlc-engine/modules/user/system/models/info.model';
 import {Tournament} from 'wlc-engine/modules/tournaments/system/models/tournament';
 import {TournamentsService} from 'wlc-engine/modules/tournaments/system/services/tournaments/tournaments.service';
-import {ITournamentDetailCParams} from 'wlc-engine/modules/tournaments/components/tournament/components/tournament-detail/tournament-detail.params';
-import {TournamentConditionComponent} from './components/tournament-condition/tournament-condition.component';
-import {TournamentDetailComponent} from './components/tournament-detail/tournament-detail.component';
-import {ITournamentConditionCParams} from 'wlc-engine/modules/tournaments/components/tournament/components/tournament-condition/tournament-condition.params';
-import {IActionParams} from 'wlc-engine/modules/tournaments/components/tournament/components/tournament-promo/tournament-promo.params';
+import {
+    ITournamentDetailCParams,
+} from 'wlc-engine/modules/tournaments/components/tournament/components/tournament-detail/tournament-detail.params';
+import {
+    TournamentConditionComponent,
+} from './components/tournament-condition/tournament-condition.component';
+import {
+    TournamentDetailComponent,
+} from './components/tournament-detail/tournament-detail.component';
+import {
+    ITournamentConditionCParams,
+} from '../tournament/components/tournament-condition/tournament-condition.params';
+import {
+    IActionParams,
+} from 'wlc-engine/modules/tournaments/components/tournament/components/tournament-promo/tournament-promo.params';
 
 import * as Params from 'wlc-engine/modules/tournaments/components/tournament/tournament.params';
 

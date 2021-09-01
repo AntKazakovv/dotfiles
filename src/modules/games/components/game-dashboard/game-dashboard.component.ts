@@ -543,10 +543,14 @@ export class GameDashboardComponent extends AbstractComponent implements OnInit,
             }
 
             if (leftDirection) {
-                translate = Math.abs(event.deltaY) < 50 ? event.deltaX + 0 : -this.dashboardWidth;
+                translate = Math.abs(event.deltaY) < 50
+                    ? event.deltaX + 0
+                    : -this.dashboardWidth;
                 this.oldDeltaX = event.deltaX;
             } else {
-                translate = Math.abs(event.deltaY) < 50 ? this.translate + event.deltaX - this.oldDeltaX : this.translate;
+                translate = Math.abs(event.deltaY) < 50
+                    ? this.translate + event.deltaX - this.oldDeltaX
+                    : this.translate;
                 this.oldDeltaX = event.deltaX;
             }
 
@@ -592,7 +596,8 @@ export class GameDashboardComponent extends AbstractComponent implements OnInit,
             .pipe(takeUntil(this.$destroy))
             .subscribe((event: IResizeEvent) => {
 
-                const usedLandscapeMode: boolean = this.isMobile && event.device.orientation === DeviceOrientation.Landscape;
+                const usedLandscapeMode: boolean = this.isMobile
+                    && event.device.orientation === DeviceOrientation.Landscape;
                 if (usedLandscapeMode !== this.landscapeOrientation) {
                     this.landscapeOrientation = usedLandscapeMode;
                     this.close();

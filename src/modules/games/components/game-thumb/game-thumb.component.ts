@@ -106,7 +106,8 @@ export class GameThumbComponent extends AbstractComponent implements OnInit, Aft
 
             try {
                 if (this.$params.common?.promoWidget?.gameCategory) {
-                    const gameList: Game[] = await this.gamesCatalogService.getGamesByCategorySlug(this.$params.common.promoWidget.gameCategory);
+                    const gameList: Game[] = await this.gamesCatalogService
+                        .getGamesByCategorySlug(this.$params.common.promoWidget.gameCategory);
                     if (gameList.length) {
                         this.game = gameList[0];
                     }

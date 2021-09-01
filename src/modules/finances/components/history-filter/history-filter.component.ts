@@ -99,7 +99,9 @@ export class HistoryFilterComponent extends AbstractComponent implements OnInit 
     }
 
     protected checkFilter(data: IIndexing<any>): void {
-        if (!data) { return; }
+        if (!data) {
+            return;
+        }
         const defaultData = this.historyFilterService.getDefaultFilter(this.$params.config);
         this.isFiltered = !_keys(defaultData).every((key: string) => _isEqual(defaultData[key], data[key]));
         this.cdr.markForCheck();
@@ -114,36 +116,46 @@ export class HistoryFilterComponent extends AbstractComponent implements OnInit 
         }
 
         if (defaultFormData.endDate || defaultFormData.startDate) {
-            const startIndex = formConfig.components.findIndex((input: IFormComponent) => input.params.name === 'startDate');
-            const endIndex = formConfig.components.findIndex((input: IFormComponent) => input.params.name === 'endDate');
+            const startIndex = formConfig.components
+                .findIndex((input: IFormComponent) => input.params.name === 'startDate');
+            const endIndex = formConfig.components
+                .findIndex((input: IFormComponent) => input.params.name === 'endDate');
 
             if (defaultFormData.startDate && startIndex + 1) {
                 formConfig = _merge({}, formConfig, {
-                    components: formConfig.components.map((el: IFormComponent, i: number) => i === startIndex ? _merge({}, el, {
-                        params: {
-                            datepickerOptions: {
-                                markDates: [{
-                                    dates: [defaultFormData.startDate.c],
-                                    styleClass: 'defaultDate',
-                                }],
-                            },
-                        },
-                    }) : el),
+                    components: formConfig.components
+                        .map((el: IFormComponent, i: number) => i === startIndex
+                            ? _merge({}, el, {
+                                params: {
+                                    datepickerOptions: {
+                                        markDates: [{
+                                            dates: [defaultFormData.startDate.c],
+                                            styleClass: 'defaultDate',
+                                        }],
+                                    },
+                                },
+                            })
+                            : el,
+                        ),
                 });
             }
 
             if (defaultFormData.endDate && endIndex + 1) {
                 formConfig = _merge({}, formConfig, {
-                    components: formConfig.components.map((el: IFormComponent, i: number) => i === endIndex ? _merge({}, el, {
-                        params: {
-                            datepickerOptions: {
-                                markDates: [{
-                                    dates: [defaultFormData.endDate.c],
-                                    styleClass: 'defaultDate',
-                                }],
-                            },
-                        },
-                    }) : el),
+                    components: formConfig.components
+                        .map((el: IFormComponent, i: number) => i === endIndex
+                            ? _merge({}, el, {
+                                params: {
+                                    datepickerOptions: {
+                                        markDates: [{
+                                            dates: [defaultFormData.endDate.c],
+                                            styleClass: 'defaultDate',
+                                        }],
+                                    },
+                                },
+                            })
+                            : el,
+                        ),
                 });
             }
         }

@@ -156,7 +156,8 @@ export class GlobalHelper {
      *
      * Note: You still have to provide it in providers.
      *
-     * Note: Providers are bootstrapped before ApplicationRef is created so you cannot inject it during service creation.
+     * Note: Providers are bootstrapped before ApplicationRef is created so you
+     * cannot inject it during service creation.
      *
      * **TRY TO AVOID IT**
      *

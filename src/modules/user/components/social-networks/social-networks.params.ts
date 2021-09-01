@@ -26,7 +26,8 @@ export interface ISocialNetworksCParams extends IComponentParams<ComponentTheme,
      */
     titlePrefix?: string;
     /**
-     * Relative gstatc path for icons. Default is 'wlc/icons/social/oauth/', search icons by network id and svg extension.
+     * Relative gstatc path for icons. Default is 'wlc/icons/social/oauth/',
+     * search icons by network id and svg extension.
      *
      * Be responsible, end path with slash.
      */

@@ -34,6 +34,7 @@ module.exports = {
         'comma-dangle': ['error', 'always-multiline'],
         'indent': ['error', 4, {'SwitchCase': 1}],
         'quotes': ['error', 'single'],
+        'max-len': ['warn', {code: 120}],
     },
     overrides: [
         {

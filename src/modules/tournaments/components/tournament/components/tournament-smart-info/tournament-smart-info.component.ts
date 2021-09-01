@@ -44,6 +44,7 @@ export class TournamentSmartInfoComponent extends AbstractComponent implements O
     }
     public ngOnInit(): void {
         super.ngOnInit(GlobalHelper.prepareParams(this,
-            ['tournament', 'type', 'theme', 'themeMod', 'customMod', 'prizePoolText', 'timerTextBeforeStart', 'timerTextAfterStart']));
+            ['tournament', 'type',
+                'theme', 'themeMod', 'customMod', 'prizePoolText', 'timerTextBeforeStart', 'timerTextAfterStart']));
     }
 }

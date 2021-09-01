@@ -158,7 +158,8 @@ export class UserService {
             this.configService.set({name: '$user.isAuthenticated', value: true});
             this.fetchUserProfile().then(async () => {
                 if (!this.limitationService) {
-                    this.limitationService = await this.injectionService.getService<LimitationService>('user.limitation-service');
+                    this.limitationService = await this.injectionService
+                        .getService<LimitationService>('user.limitation-service');
                 }
                 this.limitationService.initRealityChecker(this.userProfile$, true);
                 this.fetchUserInfo();
@@ -196,7 +197,8 @@ export class UserService {
         if (this.isAuthenticated) {
             this.fetchUserProfile().then(async () => {
                 if (!this.limitationService) {
-                    this.limitationService = await this.injectionService.getService<LimitationService>('user.limitation-service');
+                    this.limitationService = await this.injectionService
+                        .getService<LimitationService>('user.limitation-service');
                 }
                 this.limitationService.initRealityChecker(this.userProfile$);
                 this.fetchUserInfo();
@@ -269,7 +271,9 @@ export class UserService {
         return this.dataService.request('user/registrationComplete', {code});
     }
 
-    public async updateProfile(profile: IUserProfile, updatePartial: boolean = false, isAfterDepositWithdraw?: boolean): Promise<true | IIndexing<any>> {
+    public async updateProfile(
+        profile: IUserProfile, updatePartial: boolean = false, isAfterDepositWithdraw?: boolean,
+    ): Promise<true | IIndexing<any>> {
         const params = updatePartial
             ? _assign({}, profile, isAfterDepositWithdraw ? {isAfterDepositWithdraw} : {})
             : _assign({}, this.profile.data, profile);

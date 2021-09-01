@@ -110,7 +110,8 @@ export class SportsbookService {
      */
     public getSportsbookSettings(filter?: ISportsbookSettingsFilter): ISportsbookSettings {
         return _find(this.settings, (settings) => {
-            if ((filter?.id && settings.id !== filter.id) || (filter?.merchantId && settings.merchantId !== filter.merchantId)) {
+            if ((filter?.id && settings.id !== filter.id)
+                || (filter?.merchantId && settings.merchantId !== filter.merchantId)) {
                 return;
             }
             return !!this.gamesCatalogService.getGame(settings.merchantId, settings.launchCode, true);

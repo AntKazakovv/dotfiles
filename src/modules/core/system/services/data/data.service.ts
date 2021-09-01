@@ -63,7 +63,8 @@ export interface IRequestMethod {
     type: RestMethodType;
     /** number of retries and fallback url */
     retries?: {
-        /** accept values in seconds for retries requests, ex. [1000, 5000, 10000] will repeat request in 1, 5, 10 seconds */
+        /** accept values in seconds for retries requests,
+         * ex. [1000, 5000, 10000] will repeat request in 1, 5, 10 seconds */
         count: number[];
         /** if requests are failed then method will use this url */
         fallbackUrl?: string;
@@ -375,7 +376,12 @@ export class DataService {
                                             method: 'request$',
                                         },
                                     });
-                                    return this.httpRequest(method, method.retries.fallbackUrl, requestParams, requestBody);
+                                    return this.httpRequest(
+                                        method,
+                                        method.retries.fallbackUrl,
+                                        requestParams,
+                                        requestBody,
+                                    );
                                 }
                             }),
                         ))).pipe(catchError((error: HttpErrorResponse) => {

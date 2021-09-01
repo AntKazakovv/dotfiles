@@ -129,8 +129,9 @@ export class BurgerPanelComponent extends AbstractComponent
         this.addModifiers(this.id);
         await this.configService.ready;
         await this.injectionService.importModules(['menu']);
-        const headerMenu = this.configService.get<IBurgerPanelHeaderMenu>(`$menu.burgerPanel.${this.$params.type}.headerMenu`);
-        
+        const headerMenu = this.configService
+            .get<IBurgerPanelHeaderMenu>(`$menu.burgerPanel.${this.$params.type}.headerMenu`);
+
         if (headerMenu?.use) {
             if (headerMenu.enableByFundistMenuSettings) {
                 if (this.configService.get('appConfig.menuSettings')) {

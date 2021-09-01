@@ -89,8 +89,9 @@ export class CategoryModel extends AbstractModel<ICategory> {
     }
 
     public get isParent(): boolean {
-        return !this.parent &&
-            (this.menu === 'main-menu' || _includes(this.specialCategories, this.slug) || _includes(this.defaultParents, this.slug));
+        return !this.parent && (this.menu === 'main-menu'
+                || _includes(this.specialCategories, this.slug)
+                || _includes(this.defaultParents, this.slug));
     }
 
     public get parentId(): number {
