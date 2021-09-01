@@ -35,6 +35,7 @@ import {
     ConfigService,
     DeviceType,
     EventService,
+    GlobalHelper,
 } from 'wlc-engine/modules/core';
 import {
     ISlide,
@@ -216,7 +217,7 @@ export class MenuComponent extends AbstractComponent implements OnInit, OnChange
     }
 
     protected setExtension(iconPath: string): string {
-        return iconPath.replace(/\.[\da-z]+$/i, '') + `.${this.iconsExtension}`;
+        return GlobalHelper.setFileExtension(iconPath, this.iconsExtension);
     }
 
     protected initItems(): void {
