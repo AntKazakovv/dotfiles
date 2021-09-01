@@ -27,6 +27,7 @@ import {
 import {BonusesService} from 'wlc-engine/modules/bonuses/system/services';
 import {Transaction} from 'wlc-engine/modules/finances/system/models/transaction-history.model';
 import {HistoryItemModel} from 'wlc-engine/modules/bonuses/system/models/bonus-history-item.model';
+import {IBonus} from 'wlc-engine/modules/bonuses';
 
 import * as Params from './bonuses-history.params';
 
@@ -107,7 +108,7 @@ export class BonusesHistoryComponent extends AbstractComponent implements OnInit
         this.historyFilterService = await this.injectionService
             .getService<HistoryFilterService>('finances.history-filter');
         await this.bonusesService.queryBonuses(true, 'history');
-        this.bonusesService.getObserver('history').subscribe((value) => {
+        this.bonusesService.getObserver<IBonus>('history').subscribe((value) => {
             this.allBets = _map(value, (item) => {
                 return new HistoryItemModel({component: 'BonusesHistoryComponent', method: 'ngOnInit'}, item);
             });

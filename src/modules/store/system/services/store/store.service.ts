@@ -178,7 +178,7 @@ export class StoreService {
         if (data?.Items?.length) {
             const storeBonuses = this.bonusesService.storeBonuses.length ?
                 this.bonusesService.storeBonuses :
-                await this.bonusesService.queryBonuses(false, 'store');
+                await this.bonusesService.queryBonuses<Bonus>(false, 'store');
 
             for (const itemData of data.Items) {
                 const item: StoreItem = new StoreItem(
