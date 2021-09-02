@@ -370,15 +370,22 @@ export class ActionService {
         }
 
 
-        const finishedTransition = this.transition.onFinish({}, () => {
+        const showModal = () => {
             this.modalService.showModal('newPassword', {
                 wlcElement: 'form_forgot-password',
                 common: {
                     code: initialPath.code,
                 },
             });
-            finishedTransition();
-        });
+        };
+        if (this.configService.get<IRedirect>('$base.redirects.states["app.home"]')) {
+            const finishedTransition = this.transition.onFinish({}, () => {
+                showModal();
+                finishedTransition();
+            });
+        } else {
+            showModal();
+        }
     }
 
     private async completeRegistration(initialPath: IIndexing<string>): Promise<void> {
