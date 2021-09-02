@@ -14,10 +14,10 @@ export namespace wlcBonusesList {
                         0: {
                             itemPerPage: 3,
                         },
-                        720: {
+                        640: {
                             itemPerPage: 4,
                         },
-                        1024: {
+                        720: {
                             itemPerPage: 6,
                         },
                         1366: {
@@ -122,10 +122,6 @@ export namespace wlcBonusesList {
                             spaceBetween: 10,
                         },
                         1024: {
-                            spaceBetween: 10,
-                            slidesPerView: 3,
-                        },
-                        1200: {
                             spaceBetween: 15,
                             slidesPerView: 3,
                         },

@@ -1,14 +1,13 @@
 @use 'engine-scss/mixins/mediaqueries' as mq;
 @use 'engine-scss/mixins/text' as text;
-@use 'engine-scss/mixins/base.mixins' as em;
+@use 'engine-scss/mixins/base.mixins' as bm;
 @use 'engine-scss/functions' as ef;
 
 .wlc-bonus-item--theme-promo {
-    @include em.get-mq-map('max-width', $themePromo, 'maxWidth');
-    @include em.transition(background);
+    @include bm.get-mq-map('max-width', $themePromo, 'maxWidth');
+    @include bm.transition(background);
 
     width: 100%;
-    max-width: 790px;
     background: ef.get-value($themePromo, 'background');
     border-radius: ef.get-value($themePromo, 'radius');
     overflow: hidden;
@@ -16,7 +15,7 @@
     .wlc-bonus-item {
 
         &__content {
-            @include em.get-mq-map('height', $themePromo, 'height');
+            @include bm.get-mq-map('height', $themePromo, 'height');
 
             position: relative;
 
@@ -31,8 +30,8 @@
         }
 
         &__wrapper {
-            @include em.get-mq-map('grid-template-areas', $themePromo, 'wrapperAreas');
-            @include em.get-mq-map('grid-template-columns', $themePromo, 'wrapperColumns');
+            @include bm.get-mq-map('grid-template-areas', $themePromo, 'wrapperAreas');
+            @include bm.get-mq-map('grid-template-columns', $themePromo, 'wrapperColumns');
 
             position: relative;
             display: grid;
@@ -40,8 +39,8 @@
         }
 
         &__image-block {
-            @include em.get-mq-map('grid-area', $themePromo, 'imgBlockAreaName');
-            @include em.get-mq-map('padding', $themePromo, 'imgPadding');
+            @include bm.get-mq-map('grid-area', $themePromo, 'imgBlockAreaName');
+            @include bm.get-mq-map('padding', $themePromo, 'imgPadding');
 
             position: relative;
             z-index: 0;
@@ -59,7 +58,7 @@
             background: ef.get-value($themePromo, 'imgBlockBg');
 
             &:before {
-                @include em.get-mq-map('background', $themePromo, 'imgOverlay');
+                @include bm.get-mq-map('background', $themePromo, 'imgOverlay');
 
                 content: '';
                 position: absolute;
@@ -70,22 +69,20 @@
         }
 
         &__icon {
-            @include em.get-mq-map('margin', $themePromo, 'iconMargin');
+            @include bm.get-mq-map('margin', $themePromo, 'iconMargin');
         }
 
         &__info-block {
-            @include em.get-mq-map('grid-area', $themePromo, 'infoAreaName');
-            @include em.get-mq-map('height', $themePromo, 'height');
-            @include em.get-mq-map('padding', $themePromo, 'infoPadding');
-            @include em.get-mq-map('grid-gap', $themePromo, 'infoGap');
-            @include em.get-mq-map('justify-items', $themePromo, 'infoJustifyItems');
+            @include bm.get-mq-map('grid-area', $themePromo, 'infoAreaName');
+            @include bm.get-mq-map('height', $themePromo, 'height');
+            @include bm.get-mq-map('padding', $themePromo, 'infoPadding');
+            @include bm.get-mq-map('flex-direction', $themePromo, 'infoFlexDirection');
+            @include bm.get-mq-map('align-items', $themePromo, 'infoAlignItems');
 
             position: relative;
             z-index: 1;
 
-            display: grid;
-            grid-template-areas: ef.get-value($themePromo, 'infoAreas');
-            grid-template-rows: ef.get-value($themePromo, 'infoRows');
+            display: flex;
             min-width: 0;
             max-width: 100%;
 
@@ -93,14 +90,14 @@
         }
 
         &__tag {
-            grid-area: tag;
-            align-self: ef.get-value($themePromo, 'tagAlignSelf');
+            @include bm.get-mq-map('position', $themePromo, 'infoTagPosition');
+            @include bm.get-mq-map('top', $themePromo, 'infoTagPositionTop');
+            @include bm.get-mq-map('margin-bottom', $themePromo, 'infoItemsMargin');
         }
 
         &__info {
-            @include em.get-mq-map('text-align', $themePromo, 'infoJustifyItems');
-
-            grid-area: info;
+            @include bm.get-mq-map('margin-bottom', $themePromo, 'infoItemsMargin');
+            @include bm.get-mq-map('text-align', $themePromo, 'infoTextAlign');
         }
 
         &__btns {
@@ -109,8 +106,8 @@
         }
 
         &__name {
-            @include em.get-mq-map('margin', $themePromo, 'nameMargin');
-            @include em.lineClamp(2);
+            @include bm.get-mq-map('margin', $themePromo, 'nameMargin');
+            @include bm.lineClamp(2);
             @include text.get-text-style(ef.get-value($themePromo, 'nameTextStyle', 375), ef.get-value($themePromo, 'nameFontColor'));
 
             @include mq.min(900) {
@@ -128,11 +125,11 @@
 
         &__description {
             @include text.get-text-style(ef.get-value($themePromo, 'descrTextStyle'), ef.get-value($themePromo, 'descriptionFontColor'));
-            @include em.lineClamp(3);
+            @include bm.lineClamp(3);
         }
     }
 
-    @include em.hover() {
+    @include bm.hover() {
         background: ef.get-value($themePromo, 'backgroundHover');
     }
 }

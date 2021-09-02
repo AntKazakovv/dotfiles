@@ -202,7 +202,6 @@
     @include em.get-mq-map('max-width', $themeDefault, 'maxWidth');
 
     width: 100%;
-    max-width: 100%;
 
     background: ef.get-value($themeDefault, 'backgroundDefault');
 
