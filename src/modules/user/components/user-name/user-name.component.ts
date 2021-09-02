@@ -8,7 +8,7 @@ import {
     OnDestroy,
 } from '@angular/core';
 import {skipWhile, takeUntil} from 'rxjs/operators';
-import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
+import {AbstractComponent, ConfigService} from 'wlc-engine/modules/core';
 import {UserService} from 'wlc-engine/modules/user/system/services';
 import * as Params from './user-name.params';
 
@@ -30,21 +30,24 @@ import * as Params from './user-name.params';
 })
 export class UserNameComponent extends AbstractComponent implements OnInit, OnDestroy {
     @Input() public userNameLength: number;
+    @Input() public showSvgAsImg: boolean;
     @Input() protected inlineParams: Params.IUserNameCParams;
     public $params: Params.IUserNameCParams;
     public displayedName: string;
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IUserNameCParams,
+        protected configService: ConfigService,
         protected UserService: UserService,
         protected cdr: ChangeDetectorRef,
     ) {
-        super({injectParams, defaultParams: Params.defaultParams});
+        super({injectParams, defaultParams: Params.defaultParams}, configService);
     }
 
     public ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
         this.$params.userNameLength = this.userNameLength || this.$params.userNameLength;
+        this.$params.showSvgAsImg = this.showSvgAsImg || this.$params.showSvgAsImg;
         this.UserService.userProfile$.pipe(
             takeUntil(this.$destroy),
             skipWhile(v => !v),

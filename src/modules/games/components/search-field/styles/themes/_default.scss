@@ -18,10 +18,6 @@
         border-radius: ef.get-value($themeDefault, 'borderRadius');
         border: ef.get-value($themeDefault, 'border');
 
-        .wlc-body--browser-safari & {
-            -webkit-appearance: none; /* stylelint-disable-line */
-        }
-
         &::placeholder {
             color: ef.get-value($themeDefault, 'placeholderColor');
         }
@@ -37,6 +33,19 @@
 
         &::-ms-clear {
             display: none;
+        }
+    }
+
+    .wlc-body--browser-safari & {
+
+        &:host {
+
+            ::ng-deep {
+
+                .wlc-search-field__input {
+                    -webkit-appearance: none; /* stylelint-disable-line */
+                }
+            }
         }
     }
 
