@@ -14,6 +14,9 @@ export namespace rightPanel {
                         componentLib.wlcLogout.def,
                     ],
                 },
+                display: {
+                    auth: true,
+                },
             },
             componentLib.wlcUserStats.def,
             componentLib.wlcProfileMenu.vertical,

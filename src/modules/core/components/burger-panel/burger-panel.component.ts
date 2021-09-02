@@ -16,7 +16,10 @@ import {
     Optional,
 } from '@angular/core';
 import {TransitionService} from '@uirouter/core';
-import {Observable, fromEvent} from 'rxjs';
+import {
+    Observable,
+    fromEvent,
+} from 'rxjs';
 import {
     takeUntil,
     takeWhile,
@@ -31,17 +34,9 @@ import {
 import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
 import {HammerConfig} from 'wlc-engine/modules/core/system/config/hammer.config';
 import {panelsEvents} from './../float-panels/float-panels.params';
-import {
-    MenuHelper,
-    MenuParams,
-    IBurgerPanelHeaderMenu,
-} from 'wlc-engine/modules/menu';
 import {IWrapperCParams} from 'wlc-engine/modules/core';
 
-import * as Config from 'wlc-engine/modules/menu/system/config/main-menu.items.config';
 import * as Params from './burger-panel.params';
-
-import _cloneDeep from 'lodash-es/cloneDeep';
 
 enum Directions {
     left = 2,
@@ -129,18 +124,7 @@ export class BurgerPanelComponent extends AbstractComponent
         this.addModifiers(this.id);
         await this.configService.ready;
         await this.injectionService.importModules(['menu']);
-        const headerMenu = this.configService
-            .get<IBurgerPanelHeaderMenu>(`$menu.burgerPanel.${this.$params.type}.headerMenu`);
-
-        if (headerMenu?.use) {
-            if (headerMenu.enableByFundistMenuSettings) {
-                if (this.configService.get('appConfig.menuSettings')) {
-                    this.initHeaderMenu();
-                }
-            } else {
-                this.initHeaderMenu();
-            }
-        }
+        this.initHeaderMenu();
 
         this.title = this.$params.title || gettext('Menu');
 
@@ -161,9 +145,6 @@ export class BurgerPanelComponent extends AbstractComponent
                     setTimeout(() => {
                         this.closePanel();
                     }, 0);
-                    if (this.headerMenuConfig) {
-                        this.initHeaderMenu();
-                    }
                     this.cdr.detectChanges();
                 },
             });
@@ -242,26 +223,17 @@ export class BurgerPanelComponent extends AbstractComponent
     }
 
     protected initHeaderMenu(): void {
-        const headerMenu = this.configService.get<any>(`$menu.burgerPanel.${this.$params.type}.headerMenu`);
-        const items: MenuParams.MenuConfigItem[] = headerMenu?.items;
-        if (items) {
-            const headerMenuParams = _cloneDeep(headerMenu.menuParams);
-            const iconsFolder: string =  headerMenu.icons?.folder;
-            headerMenuParams.items = MenuHelper.parseMenuConfig(items, Config.wlcMainMenuItemsGlobal, {
-                icons: {
-                    folder: iconsFolder,
-                    disable: false,
-                },
-            });
-
-            this.headerMenuConfig = {
-                components: [
-                    {
-                        name: 'menu.wlc-menu',
-                        params: headerMenuParams,
+        this.headerMenuConfig = {
+            components: [
+                {
+                    name: 'menu.wlc-burger-panel-header-menu',
+                    params: {
+                        common: {
+                            panelType: this.$params.type,
+                        },
                     },
-                ],
-            };
-        }
+                },
+            ],
+        };
     }
 }

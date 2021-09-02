@@ -99,5 +99,8 @@ export namespace wlcProfileMenu {
                 useArrow: true,
             },
         },
+        display: {
+            auth: true,
+        },
     };
 }

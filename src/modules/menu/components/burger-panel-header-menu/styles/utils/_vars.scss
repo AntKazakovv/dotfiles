@@ -1,0 +1,13 @@
+@use 'engine-scss/functions' as ef;
+
+$customThemeDefault: () !default;
+$themeDefault: map-merge((
+    'justifyContent': center,
+    'itemActiveBg': var(--mc-main),
+    'itemIconColor': var(--mc-base-main),
+    'itemWidth': ef.size(8),
+    'itemHeight': ef.size(8),
+    'itemBackground': var(--mc-bg500),
+    'itemMargin': 0 ef.size(1),
+), $customThemeDefault);
+

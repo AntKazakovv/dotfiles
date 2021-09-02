@@ -21,40 +21,6 @@
 
     ::ng-deep {
 
-        @include headerNavBase;
-
-        .wlc-burger-panel__header-menu {
-
-            .wlc-menu {
-                justify-content: ef.get-value($themeLeft, 'headerMenuJustifyContent');
-
-                &__item {
-
-                    .wlc-icon {
-
-                        svg {
-                            fill: ef.get-value($themeLeft, 'headerMenuItemIconColor');
-                        }
-                    }
-                }
-
-                &__link {
-                    width: ef.get-value($themeLeft, 'headerMenuItemWidth');
-                    height: ef.get-value($themeLeft, 'headerMenuItemHeight');
-                    margin: ef.get-value($themeLeft, 'headerMenuItemMargin');
-                    background: ef.get-value($themeLeft, 'headerMenuItemBackground');
-
-                    &.active {
-                        background: ef.get-value($themeLeft, 'headerMenuItemActiveBg');
-                    }
-
-                    @include bm.hover {
-                        background: ef.get-value($themeLeft, 'headerMenuItemActiveBg');
-                    }
-                }
-            }
-        }
-
         .wlc-logo {
             @include bm.get-mq-map('max-width', $themeLeft, 'logoMaxWidth');
             @include bm.get-mq-map('margin', $themeLeft, 'logoMargin');

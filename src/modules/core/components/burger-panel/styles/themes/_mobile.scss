@@ -27,8 +27,6 @@
 
     ::ng-deep {
 
-        @include headerNavBase;
-
         .wlc-burger-panel__header {
             border-bottom: map-get($themeMobile, 'panelHeaderBorderBottom');
         }

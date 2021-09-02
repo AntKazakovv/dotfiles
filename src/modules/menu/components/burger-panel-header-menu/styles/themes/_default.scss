@@ -1,0 +1,50 @@
+@use 'engine-scss/mixins/base.mixins' as bm;
+@use 'engine-scss/mixins/mediaqueries' as mq;
+@use 'engine-scss/mixins/text' as text;
+@use 'engine-scss/functions' as ef;
+
+.wlc-burger-panel-header-menu--theme-default:host {
+
+    ::ng-deep {
+
+        .wlc-menu {
+            display: flex;
+            justify-content: ef.get-value($themeDefault, 'justifyContent');
+
+            &__item {
+
+                .wlc-icon {
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+
+                    svg {
+                        fill: ef.get-value($themeDefault, 'itemIconColor');
+                    }
+                }
+            }
+
+            &__link {
+                @include bm.transition(background);
+
+                position: relative;
+                display: flex;
+                width: ef.get-value($themeDefault, 'itemWidth');
+                height: ef.get-value($themeDefault, 'itemHeight');
+                margin: ef.get-value($themeDefault, 'itemMargin');
+                background: ef.get-value($themeDefault, 'itemBackground');
+                border-radius: 50%;
+                cursor: pointer;
+
+                &.active {
+                    background: ef.get-value($themeDefault, 'itemActiveBg');
+                }
+
+                @include bm.hover {
+                    background: ef.get-value($themeDefault, 'itemActiveBg');
+                }
+            }
+        }
+    }
+}

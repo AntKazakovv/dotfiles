@@ -1,52 +1,6 @@
 @use 'engine-scss/functions' as ef;
 @use 'engine-scss/mixins/base.mixins' as bm;
 
-@mixin headerNavBase {
-
-    .wlc-burger-panel__header-menu {
-        flex: 1 1 auto;
-
-        .wlc-menu {
-            display: flex;
-            justify-content: ef.get-value($themeMobile, 'headerMenuJustifyContent');
-
-            &__item {
-
-                .wlc-icon {
-                    position: absolute;
-                    top: 50%;
-                    left: 50%;
-                    transform: translate(-50%, -50%);
-
-                    svg {
-                        fill: ef.get-value($themeMobile, 'headerMenuItemIconColor');
-                    }
-                }
-            }
-
-            &__link {
-                position: relative;
-                display: flex;
-                width: ef.get-value($themeMobile, 'headerMenuItemWidth');
-                height: ef.get-value($themeMobile, 'headerMenuItemHeight');
-                margin: ef.get-value($themeMobile, 'headerMenuItemMargin');
-                background: ef.get-value($themeMobile, 'headerMenuItemBackground');
-                border-radius: 50%;
-                cursor: pointer;
-
-                &.active {
-                    background: ef.get-value($themeMobile, 'headerMenuItemActiveBg');
-                }
-
-                @include bm.transition();
-                @include bm.hover {
-                    background: ef.get-value($themeMobile, 'headerMenuItemActiveBg');
-                }
-            }
-        }
-    }
-}
-
 @mixin separator() {
     content: '';
 

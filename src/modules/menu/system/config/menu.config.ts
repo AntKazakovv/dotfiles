@@ -191,7 +191,7 @@ export const menuConfig: IMenuConfig = {
                 use: true,
                 enableByFundistMenuSettings: true,
                 menuParams: {
-                    type: 'burger-panel-header',
+                    type: 'burger-panel-header-menu',
                     items: [],
                     common: {
                         useSwiper: false,
@@ -201,47 +201,9 @@ export const menuConfig: IMenuConfig = {
                     folder: 'wlc/icons/categories/v2',
                 },
                 items: [
-                    {
-                        name: '',
-                        type: 'sref',
-                        icon: 'lobby',
-                        class: 'lobby',
-                        params: {
-                            state: {
-                                name: 'app.home',
-                            },
-                        },
-                    },
-                    {
-                        name: '',
-                        type: 'sref',
-                        icon: 'favourites',
-                        class: 'favourites',
-                        params: {
-                            state: {
-                                name: 'app.catalog',
-                                params: {
-                                    category: 'favourites',
-                                },
-                            },
-                        },
-                        auth: true,
-                    },
-                    {
-                        name: '',
-                        type: 'sref',
-                        icon: 'last-played',
-                        class: 'last-played',
-                        params: {
-                            state: {
-                                name: 'app.catalog',
-                                params: {
-                                    category: 'lastplayed',
-                                },
-                            },
-                        },
-                        auth: true,
-                    },
+                    'burger-panel-header-menu:lobby',
+                    'burger-panel-header-menu:favourites',
+                    'burger-panel-header-menu:lastplayed',
                 ],
             },
         },
