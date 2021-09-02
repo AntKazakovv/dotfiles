@@ -10,6 +10,7 @@ import {TranslateService} from '@ngx-translate/core';
 
 import {
     StateService,
+    TransitionService,
     UIRouter,
 } from '@uirouter/core';
 import {Meta} from '@angular/platform-browser';
@@ -105,6 +106,7 @@ export class ActionService {
         private stateService: StateService,
         private injectionService: InjectionService,
         private meta: Meta,
+        private transition: TransitionService,
         @Inject(DOCUMENT) protected document: HTMLDocument,
     ) {
         this.init();
@@ -367,11 +369,15 @@ export class ActionService {
             return;
         }
 
-        this.modalService.showModal('newPassword', {
-            wlcElement: 'form_forgot-password',
-            common: {
-                code: initialPath.code,
-            },
+
+        const finishedTransition = this.transition.onFinish({}, () => {
+            this.modalService.showModal('newPassword', {
+                wlcElement: 'form_forgot-password',
+                common: {
+                    code: initialPath.code,
+                },
+            });
+            finishedTransition();
         });
     }
 
