@@ -32,6 +32,8 @@
 
     .wlc-game-thumb-media__bg,
     .wlc-game-thumb-media__video {
+        @include alternateLogo($themeVertical);
+
         position: relative;
 
         display: block;
@@ -41,6 +43,7 @@
         background-image: ef.get-value($themeVertical, 'placeholderBgImg');
         background-repeat: no-repeat;
         background-position: ef.get-value($themeVertical, 'placeholderBgPosition');
+        background-size: ef.get-value($themeVertical, 'placeholderBgImgSize');
 
         @supports (aspect-ratio: 1/1) {
             aspect-ratio: #{ef.get-value($themeVertical, 'bgAspectRatio')};
