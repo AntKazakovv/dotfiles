@@ -9,6 +9,7 @@ import {
     OnInit,
     ViewChild,
 } from '@angular/core';
+import {TranslateService} from '@ngx-translate/core';
 import {FormControl} from '@angular/forms';
 import Swiper from 'swiper';
 
@@ -102,6 +103,7 @@ export class BonusesListComponent extends AbstractComponent implements OnInit, O
         protected cachingService: CachingService,
         protected cdr: ChangeDetectorRef,
         protected eventService: EventService,
+        protected translate: TranslateService,
     ) {
         super(
             <IMixedParams<Params.IBonusesListCParams>>{
@@ -166,6 +168,9 @@ export class BonusesListComponent extends AbstractComponent implements OnInit, O
                             _merge({}, this.$params.common.blankBonus, {
                                 isChoose: !this.chosenBonus,
                             });
+                        if (blankBonus.description) {
+                            blankBonus.description = this.translate.instant(gettext(blankBonus.description));
+                        }
                         this.bonuses.push(blankBonus as Bonus);
                     }
 
