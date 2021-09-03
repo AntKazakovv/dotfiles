@@ -602,7 +602,7 @@ export class GamesCatalog extends AbstractModel<IGames> {
         }
 
         this.availableCategories = this.sortCategories(this.availableCategories);
-        this.games = _orderBy(resultGames, (game: Game) => _toNumber(game.sort), 'desc');
+        this.games = _orderBy(resultGames, (game: Game) => game.sort, 'desc');
         this.prepareCategories();
     }
 
@@ -667,7 +667,6 @@ export class GamesCatalog extends AbstractModel<IGames> {
                     return game.hasCategory(category);
                 });
                 category.setGames(gamesList);
-                category.sortGames();
             });
 
             let gamesList: Game[] = this.games;
@@ -691,9 +690,7 @@ export class GamesCatalog extends AbstractModel<IGames> {
                 if (games.length) {
                     const newChildCategory: CategoryModel = _cloneDeep(category);
                     newChildCategory.setParentCategory(mainParentCategory);
-                    newChildCategory.setGames(
-                        _orderBy(games, (game: Game) => game[category.name + 'Sorted'] || 0, 'desc'),
-                    );
+                    newChildCategory.setGames(games);
                     availableChildCategories.push(newChildCategory);
                 }
             });

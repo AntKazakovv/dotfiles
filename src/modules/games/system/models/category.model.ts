@@ -215,7 +215,7 @@ export class CategoryModel extends AbstractModel<ICategory> {
 
     public sortGames(): void {
         if (this.gamesList.length) {
-            this.gamesList = _orderBy(this.gamesList, (game: Game) => game[this.name + 'Sorted'] || 0, 'desc');
+            this.gamesList = _orderBy(this.gamesList, (game: Game) => game.sortPerCategory[this.id] || game.sort, 'desc');
         }
     }
 
