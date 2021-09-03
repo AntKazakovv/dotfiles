@@ -116,6 +116,10 @@
                                 "file": "./300.config/320.frontend/326.fundist-menu-and-categories/3261.by-project-config.md"
                             }
                         ]
+                    },
+                    {
+                        "title": "3.2.7. Betradar sportsbook settings",
+                        "file": "./300.config/320.frontend/327.sportsbook/327.sportsbook-config.md"
                     }
                 ]
             }
