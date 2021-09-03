@@ -103,8 +103,8 @@ export class StateHelper {
                             await stateService.go('app.home', transition.params());
                             modalService.showModal('login');
                         }
-                        return result.promise;
                     });
+                return result.promise;
             },
         };
     }
