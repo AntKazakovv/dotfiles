@@ -27,9 +27,7 @@ describe('ButtonComponent', () => {
                 useValue: injectParams,
             }],
         }).compileComponents();
-    });
 
-    beforeEach(() => {
         fixture = TestBed.createComponent(ButtonComponent);
         component = fixture.componentInstance;
         nativeElement = fixture.nativeElement;
@@ -63,9 +61,9 @@ describe('ButtonComponent', () => {
     it('-> checking for the presence of an class', () => {
         const classes = nativeElement.getAttribute('class');
 
-        expect(classes.includes(`${defaultParams.class}--theme-${injectParams.theme}`)).toEqual(true);
-        expect(classes.includes(`${defaultParams.class}--theme-mod-${injectParams.themeMod}`)).toEqual(true);
-        expect(classes.includes(`${defaultParams.class}--type-default`)).toEqual(true);
-        expect(classes.includes(`${defaultParams.class}--size-default`)).toEqual(true);
+        expect(classes.includes(`${defaultParams.class}--theme-${injectParams.theme}`)).toBeTrue();
+        expect(classes.includes(`${defaultParams.class}--theme-mod-${injectParams.themeMod}`)).toBeTrue();
+        expect(classes.includes(`${defaultParams.class}--type-default`)).toBeTrue();
+        expect(classes.includes(`${defaultParams.class}--size-default`)).toBeTrue();
     });
 });

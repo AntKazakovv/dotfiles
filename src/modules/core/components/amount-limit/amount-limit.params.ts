@@ -7,14 +7,14 @@ export type ComponentTheme = 'default' | CustomType;
 export type ComponentType = 'default' | CustomType;
 
 export interface IAmountLimitCParams extends IComponentParams<ComponentTheme, ComponentType, string> {
-    minValue?: number,
-    maxValue?: number,
-    showLimits?: boolean | ILimits
+    minValue?: number;
+    maxValue?: number;
+    showLimits?: boolean | ILimits;
 }
 
 export interface ILimits {
-    min: number,
-    max: number,
+    min: number;
+    max: number;
 }
 
 export const defaultParams: IAmountLimitCParams = {

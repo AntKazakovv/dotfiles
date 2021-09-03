@@ -8,14 +8,14 @@ import * as Params from './banner.params';
  * Displaying banners, takes BannerModel as a parameter.
  *
  * @example
- *
  * {
  *     name: 'promo.wlc-banner',
  *     params: {
- *         html: "<p>Test test test</p>"
+ *         filter: {
+ *             position: ['any'],
+ *         },
  *     },
  * }
- *
  */
 @Component({
     selector: '[wlc-banner]',
