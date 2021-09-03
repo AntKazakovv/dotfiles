@@ -278,6 +278,8 @@ class StartGameHandler {
         this.game = this.gamesCatalogService.getGame(
             _toNumber(this.transition.params().merchantId),
             this.transition.params().launchCode,
+            false,
+            true,
         );
 
         if (!this.game) {

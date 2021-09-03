@@ -217,7 +217,7 @@ export class GamesGridComponent extends AbstractComponent implements OnInit {
         if (!this.games.length && this.$params.hideEmpty) {
             this.hideEmptyComponent = true;
         }
-        this.cdr.markForCheck();
+        this.cdr.detectChanges();
     }
 
     protected initEventListeners(): void {
@@ -227,10 +227,15 @@ export class GamesGridComponent extends AbstractComponent implements OnInit {
                 this.handleDeviceTypeChange(type);
             });
 
-        this.eventService.subscribe({name: gamesEvents.FETCH_GAME_CATALOG_SUCCEEDED},
-            () => {
-                this.prepareGrid();
-            }, this.$destroy);
+        this.eventService.subscribe([
+            {name: gamesEvents.FETCH_GAME_CATALOG_SUCCEEDED},
+            {name: gamesEvents.UPDATED_AVAILABLE_GAMES},
+        ],
+        () => {
+            this.prepareGrid().finally(() => {
+                this.setGridParams();
+            });
+        }, this.$destroy);
 
         if (this.$params.byState) {
             const successTransitionListener = this.router.transitionService.onSuccess({}, () => {

@@ -68,8 +68,7 @@ export class WinnerComponent extends AbstractComponent implements OnInit {
     }
 
     public get gameName(): string {
-        const lang = this.translate.currentLang;
-        return this.$params.winner.game.name[lang] || this.$params.winner.game.name.en;
+        return this.$params.winner.game.name[this.translate.currentLang] || this.$params.winner.game.name.en;
     }
 
     public get name(): string {

@@ -45,7 +45,7 @@ export class Game extends AbstractModel<IGame> {
 
     protected url: string;
     protected isRestricted: boolean;
-    protected IDCountryRestriction: string;
+    protected countryRestrictionId: string;
     protected freeround?: string;
     protected toggleFavourite?: any;
     protected isCurrencyDisabled?: boolean;
@@ -94,9 +94,9 @@ export class Game extends AbstractModel<IGame> {
         this.url = data.Url;
         this.image = data.Image;
         this.sortPerCategory = data.SortPerCategory;
+        this.countryRestrictionId = data.IDCountryRestriction;
         this.isRestricted = data.isRestricted;
         this.freeround = data.Freeround;
-        this.IDCountryRestriction = data.IDCountryRestriction;
         this.merchantName = this.getMerchantName();
         this.merchantAlias = this.getMerchantAlias();
     }
@@ -108,21 +108,23 @@ export class Game extends AbstractModel<IGame> {
      * @returns {boolean}
      */
     public gameRestricted(restrictions: IRestrictions, countries: string[]): boolean {
-        if (this.isRestricted) return true;
+        if (this.isRestricted) {
+            return true;
+        }
 
-        const restrictedCountries = this.IDCountryRestriction
-            ? restrictions.restrictedByID[this.IDCountryRestriction]
-            : restrictions.restrictedByDefault[this.merchantID];
+        let restricted: boolean = false;
+
+        const restrictedCountries: IIndexing<boolean> = restrictions.restrictedByDefault[this.merchantID]
+            || restrictions.restrictedByID[this.countryRestrictionId];
 
         if (_isObject(restrictedCountries)) {
             _each(countries, (country: string) => {
                 if (restrictedCountries[country]) {
-                    this.isRestricted = true;
+                    restricted = true;
                 }
             });
         }
-
-        return this.isRestricted;
+        return restricted;
     }
 
     /**

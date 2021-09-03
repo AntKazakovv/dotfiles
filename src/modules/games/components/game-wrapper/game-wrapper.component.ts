@@ -361,8 +361,12 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
     }
 
     protected getGame(): Game {
-        return this.gamesCatalogService.getGame(_toNumber(this.gameParams.merchantId), this.gameParams.launchCode,
-            !!this.$params.gameParams?.isSportsbook);
+        return this.gamesCatalogService.getGame(
+            _toNumber(this.gameParams.merchantId),
+            this.gameParams.launchCode,
+            !!this.$params.gameParams?.isSportsbook,
+            true,
+        );
     }
 
     /**

@@ -1,19 +1,24 @@
 import {UIRouter} from '@uirouter/core';
+import {BehaviorSubject} from 'rxjs';
 import {
     LangChangeEvent,
     TranslateService,
 } from '@ngx-translate/core';
 import {
+    skipWhile,
+} from 'rxjs/operators';
+import {
     ICategorySettings,
     IFromLog,
     IMenu,
 } from 'wlc-engine/modules/core';
+import {UserProfile} from 'wlc-engine/modules/user/system/models/profile.model';
 import {IIndexing} from 'wlc-engine/modules/core/system/interfaces/global.interface';
 import {AbstractModel} from 'wlc-engine/modules/core/system/models/abstract.model';
 import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
 import {GlobalHelper} from 'wlc-engine/modules/core/system/helpers/global.helper';
 import {EventService} from 'wlc-engine/modules/core/system/services/event/event.service';
-
+import {gamesEvents} from 'wlc-engine/modules/games/system/interfaces/games.interfaces';
 import {Game} from 'wlc-engine/modules/games/system/models/game.model';
 import {MerchantModel} from 'wlc-engine/modules/games/system/models/merchant.model';
 import {GamesHelper} from 'wlc-engine/modules/games/system/helpers/games.helpers';
@@ -57,6 +62,7 @@ import _uniqBy from 'lodash-es/uniqBy';
 export class GamesCatalog extends AbstractModel<IGames> {
 
     protected games: Game[];
+    protected availableGames: Game[];
     protected sportsbooks: Game[] = [];
     protected categories: CategoryModel[] = [];
     protected projectCategories: CategoryModel[] = [];
@@ -68,6 +74,8 @@ export class GamesCatalog extends AbstractModel<IGames> {
     protected overrideJackpots: boolean;
     protected categorySettings: IIndexing<ICategorySettings>;
     protected menuSettings: IMenu;
+    protected userProfile$: BehaviorSubject<UserProfile>;
+    protected userCountry: string;
     protected specialCategories: ICategory[] = [
         {
             ID: '-1',
@@ -128,6 +136,7 @@ export class GamesCatalog extends AbstractModel<IGames> {
         this.overrideJackpots = !this.configService.get<boolean>('$games.categories.useFundistJackpots');
         this.categorySettings = this.configService.get('appConfig.categories');
         this.menuSettings = this.configService.get('appConfig.menuSettings');
+
         this.processFetchedGamesCatalog(this.data);
 
         this.translateService.onLangChange.subscribe(({lang}: LangChangeEvent) => {
@@ -136,6 +145,7 @@ export class GamesCatalog extends AbstractModel<IGames> {
                 category.sortGames();
             });
         });
+        this.availableGamesHandler();
     }
 
     public isSpecialCategory(category: CategoryModel): boolean {
@@ -156,7 +166,7 @@ export class GamesCatalog extends AbstractModel<IGames> {
         const excludeMerchants = filter?.excludeMerchants || [];
         const searchQuery = filter?.searchQuery || '';
         const gameIds = filter?.ids;
-        let gameList: Game[] = _concat([], this.games);
+        let gameList: Game[] = _concat([], this.availableGames);
 
         if (includeCategories.length) {
             const categories: CategoryModel[] = this.getCategoriesBySlugs(includeCategories);
@@ -341,22 +351,36 @@ export class GamesCatalog extends AbstractModel<IGames> {
      * @returns {Game}
      */
     public getGameById(id: number): Game {
-        return _find(this.games, {ID: id});
+        return _find(this.availableGames, {ID: id});
     }
 
     /**
+     * Get game
      *
-     * @param {string} merchantID
-     * @param {string} launchCode
+     * @param {string} merchantID Game merchant id
+     * @param {string} launchCode Game launch code
+     * @param {boolean} sportsbook Game is sportsbook or not
+     * @param {boolean} byAllGames Try find game by allGames list or by availableGames list
      * @returns {Game}
      */
-    public getGame(merchantID: number, launchCode: string, isSportsbook: boolean = false): Game {
-        const gamesList: Game[] = isSportsbook ? this.sportsbooks : this.games;
+    public getGame(
+        merchantID: number,
+        launchCode: string,
+        isSportsbook: boolean = false,
+        byAllGames: boolean = false,
+    ): Game {
+
+        let gamesList: Game[] = [];
+        if (isSportsbook) {
+            gamesList = this.sportsbooks;
+        } else {
+            gamesList = byAllGames ? this.games : this.availableGames;
+        }
         return _find(gamesList, {merchantID, launchCode});
     }
 
     public getJackpotGames(): Game[] {
-        return _filter(this.games, (game: Game) => {
+        return _filter(this.availableGames, (game: Game) => {
             return !!game.jackpot;
         });
     }
@@ -472,6 +496,39 @@ export class GamesCatalog extends AbstractModel<IGames> {
     }
 
     /**
+     * Change available games (some games blocks by country restrictions) after login/logout
+     */
+    protected availableGamesHandler(): void {
+        this.userProfile$ = this.configService.get<BehaviorSubject<UserProfile>>('$user.userProfile$');
+        this.userProfile$
+            .pipe(
+                skipWhile(v => !v),
+            )
+            .subscribe((userProfile) => {
+                if (this.userCountry !== userProfile.countryCode) {
+                    this.updateAvailableGames(userProfile.countryCode);
+                }
+            });
+    }
+
+    protected updateAvailableGames(userCountry: string): void {
+        this.userCountry = userCountry;
+
+        const country: string = this.configService.get<string>('appConfig.country') || null;
+        const restrictCountries: string[] = [country, this.userCountry];
+
+        this.availableGames = _filter(this.games, (game: Game) => {
+            return !game.gameRestricted(this.restrictions, restrictCountries);
+        });
+
+        this.prepareCategories();
+        this.eventService.emit({
+            name: gamesEvents.UPDATED_AVAILABLE_GAMES,
+            data: this.availableGames,
+        });
+    }
+
+    /**
      *
      * @param {string} categoryName
      * @returns {ISupportedItem[]}
@@ -569,11 +626,6 @@ export class GamesCatalog extends AbstractModel<IGames> {
             this.configService.get<boolean>('appConfig.games.enableRestricted') || true;
         const authUserCountry = this.configService.get<string>('appConfig.user.country') || null;
         const country: string = this.configService.get<string>('appConfig.country') || 'unknown';
-        const restrictCountries: string[] = [country];
-
-        if (authUserCountry) {
-            restrictCountries.push(authUserCountry);
-        }
 
         this.restrictions = GamesHelper.createRestrictions(response.countriesRestrictions);
 
@@ -595,10 +647,6 @@ export class GamesCatalog extends AbstractModel<IGames> {
                 continue;
             }
 
-            if (enableCountryRestriction && game.gameRestricted(this.restrictions, restrictCountries)) {
-                continue;
-            }
-
             const merchantName: string = game.getMerchantName();
             if (!merchantName) {
                 continue;
@@ -614,6 +662,8 @@ export class GamesCatalog extends AbstractModel<IGames> {
 
         this.availableCategories = this.sortCategories(this.availableCategories);
         this.games = _orderBy(resultGames, (game: Game) => _toNumber(game.sort), 'desc');
+
+        this.updateAvailableGames(this.userCountry);
         this.prepareCategories();
     }
 
@@ -673,14 +723,14 @@ export class GamesCatalog extends AbstractModel<IGames> {
             });
 
             _forEach(otherCategories, (category) => {
-                const gamesList: Game[] = _filter(this.games, (game: Game) => {
+                const gamesList: Game[] = _filter(this.availableGames, (game: Game) => {
                     return game.hasCategory(category);
                 });
                 category.setGames(gamesList);
                 category.sortGames();
             });
 
-            let gamesList: Game[] = this.games;
+            let gamesList: Game[] = this.availableGames;
             if (mainParentCategory && mainParentCategory.slug !== 'casino') {
                 gamesList = this.getGamesByCategories([mainParentCategory]);
             }
@@ -694,14 +744,16 @@ export class GamesCatalog extends AbstractModel<IGames> {
 
             _forEach(childCategories, (category: CategoryModel) => {
 
-                const games: Game[] = _filter(this.games, (game: Game) => {
+                const games: Game[] = _filter(this.availableGames, (game: Game) => {
                     return _includes(game.categoryID, category.id);
                 });
 
                 if (games.length) {
                     const newChildCategory: CategoryModel = _cloneDeep(category);
                     newChildCategory.setParentCategory(mainParentCategory);
-                    newChildCategory.setGames(games);
+                    newChildCategory.setGames(
+                        _orderBy(games, (game: Game) => game[category.name + 'Sorted'] || 0, 'desc'),
+                    );
                     availableChildCategories.push(newChildCategory);
                 }
             });

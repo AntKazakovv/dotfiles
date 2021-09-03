@@ -23,15 +23,15 @@ import {
     RequestParamsType,
 } from 'wlc-engine/modules/core/system/services/data/data.service';
 import {WinnerModel} from 'wlc-engine/modules/promo/system/models/winner.model';
-import {
-    GamesCatalogService,
-} from 'wlc-engine/modules/games/system/services/games-catalog/games-catalog.service';
+import {GamesCatalogService} from 'wlc-engine/modules/games/system/services/games-catalog/games-catalog.service';
+import {gamesEvents} from 'wlc-engine/modules/games/system/interfaces/games.interfaces';
 
 import _merge from 'lodash-es/merge';
 import _differenceWith from 'lodash-es/differenceWith';
 import _isEqual from 'lodash-es/isEqual';
 import _map from 'lodash-es/map';
 import _assign from 'lodash-es/assign';
+import _filter from 'lodash-es/filter';
 
 /**
  * Params for request
@@ -63,7 +63,6 @@ export interface IWinnerData {
     ID: string;
     Name: string;
 };
-
 
 const defaultParams: IIndexing<IWinnersParams> = {
     latestWins: {
@@ -122,7 +121,7 @@ export class WinnersService {
      * @returns last success response of latest winners
      */
     public get latestWins(): WinnerModel[] {
-        return this.latestWins$.getValue();
+        return _filter(this.latestWins$.getValue(), (winner) => !!winner.game);
     }
 
     /**
@@ -130,7 +129,7 @@ export class WinnersService {
      * @returns last success response if biggest winners
      */
     public get biggestWins(): WinnerModel[] {
-        return this.biggestWins$.getValue();
+        return _filter(this.biggestWins$.getValue(), (winner) => !!winner.game);
     }
 
     /**
@@ -139,7 +138,7 @@ export class WinnersService {
      */
     public get latestWinsObserver(): Observable<WinnerModel[]> {
         this.runLatestStream();
-        return this.latestWins$.asObservable();
+        return this.filterByAvailableGames(this.latestWins$.asObservable());
     }
 
     /**
@@ -148,7 +147,7 @@ export class WinnersService {
      */
     public get biggestWinsObserver(): Observable<WinnerModel[]> {
         this.runBiggestStream();
-        return this.biggestWins$.asObservable();
+        return this.filterByAvailableGames(this.biggestWins$.asObservable());
     }
 
     /**
@@ -157,6 +156,7 @@ export class WinnersService {
     protected init(): void {
         this.registerMethods();
         this.initObservers();
+        this.initEventHandlers();
     }
 
     /**
@@ -184,12 +184,33 @@ export class WinnersService {
     }
 
     /**
+     * Init event handlers
+     *
+     * @protected
+     */
+    protected initEventHandlers(): void {
+        this.eventService.subscribe([
+            {name: gamesEvents.UPDATED_AVAILABLE_GAMES},
+        ],
+        () => {
+            if (this.latestWins$.observers?.length) {
+                this.latestWins$.next(this.latestWins$.getValue());
+            }
+            if (this.biggestWins$.observers?.length) {
+                this.biggestWins$.next(this.biggestWins$.getValue());
+            }
+        });
+    }
+
+    /**
      * Subscribe on stream if no subscribers, send first request if no data
      */
     protected runLatestStream(): void {
         if (!this.latestWins$.observers?.length) {
             this.latestWins$.pipe(first()).subscribe(() => {
-                this.latestStream$.subscribe((data) => this.latestWins$.next(data));
+                this.latestStream$.subscribe((data) => {
+                    this.latestWins$.next(data);
+                });
             });
         }
 
@@ -325,5 +346,17 @@ export class WinnersService {
             .get<IWinnersParams>(`$promo.winners.${name}`) || {};
 
         return _merge({}, defaultParams[name], bootstrapConfig, configParams);
+    }
+
+    /**
+     * Get only winners with available for user games
+     * @param observable Winners data source
+     */
+    protected filterByAvailableGames(observable: Observable<WinnerModel[]>): Observable<WinnerModel[]> {
+        return observable.pipe(
+            map((winners: WinnerModel[]) => {
+                return _filter(winners, (winner: WinnerModel) => !!winner.game);
+            }),
+        );
     }
 }

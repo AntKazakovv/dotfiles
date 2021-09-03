@@ -28,13 +28,11 @@ import {WinnersService} from 'wlc-engine/modules/promo/system/services/winners/w
 import {WinnerModel} from 'wlc-engine/modules/promo/system/models/winner.model';
 import {WinnerComponent} from 'wlc-engine/modules/promo/components/winner/winner.component';
 import {INoContentCParams} from 'wlc-engine/modules/core/components/no-content/no-content.params';
-import {GlobalHelper} from 'wlc-engine/modules/core';
-
+import {GlobalHelper} from 'wlc-engine/modules/core/system/helpers/global.helper';
 import * as Params from './winners-slider.params';
 
 import _merge from 'lodash-es/merge';
 import _clone from 'lodash-es/clone';
-import _forEach from 'lodash-es/forEach';
 import _assign from 'lodash-es/assign';
 
 @Component({
@@ -75,6 +73,7 @@ export class WinnersSliderComponent extends AbstractComponent implements OnInit,
 
     public ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
+
         this.prepareSliderParams();
 
         if (!this.$params.title) {
@@ -138,6 +137,7 @@ export class WinnersSliderComponent extends AbstractComponent implements OnInit,
     protected responseToSlides(response: WinnerModel[]): void {
 
         this.slides = response.map((item: WinnerModel) => {
+
             return {
                 component: WinnerComponent,
                 componentParams: _merge(
@@ -156,7 +156,7 @@ export class WinnersSliderComponent extends AbstractComponent implements OnInit,
             this.ready = true;
         }
 
-        this.cdr.markForCheck();
+        this.cdr.detectChanges();
     }
 
     protected prepareSliderParams(): void {

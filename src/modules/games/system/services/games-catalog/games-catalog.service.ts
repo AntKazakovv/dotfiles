@@ -140,6 +140,7 @@ export class GamesCatalogService {
         this.eventService.subscribe({
             name: gamesEvents.FETCH_GAME_CATALOG_SUCCEEDED,
         }, (data: IData) => {
+
             this.gamesCatalog = new GamesCatalog(
                 {service: 'GamesCatalogService', method: 'init'},
                 data.data,
@@ -189,13 +190,11 @@ export class GamesCatalogService {
             this.favoritesUpdated.next();
         });
 
-        // хз, надо ли заново грузить
         this.eventService.subscribe([
             // TODO перейти на константы
             {name: 'LOGIN'},
             {name: 'LOGOUT'},
         ], () => {
-            this.loadGames();
             // TODO Delete after #246227
             delete this.jackpotParams.currency;
             this.jackpotCurrency = null;
@@ -653,12 +652,22 @@ export class GamesCatalogService {
         }) : games;
     }
 
-    // public getGameById(id: string): Game {
-    //     return this.gameCatalog.getGameById(id);
-    // }
-
-    public getGame(merchantId: number, launchCode: string, isSportsbook: boolean = false): Game {
-        return this.gamesCatalog.getGame(merchantId, launchCode, isSportsbook);
+    /**
+     * Get game
+     *
+     * @param {number} merchantId
+     * @param {string} launchCode
+     * @param {boolean} isSportsbook
+     * @param {boolean} byAllGames Global find by all games (by available + not available for user)
+     * @returns {Game}
+     */
+    public getGame(
+        merchantId: number,
+        launchCode: string,
+        isSportsbook: boolean = false,
+        byAllGames: boolean = false,
+    ): Game {
+        return this.gamesCatalog.getGame(merchantId, launchCode, isSportsbook, byAllGames);
     }
 
     public getGameById(id: number): Game {
