@@ -22,6 +22,7 @@ import {IIndexing} from 'wlc-engine/modules/core/system/interfaces/global.interf
 import _merge from 'lodash-es/merge';
 
 export class StateHelper {
+
     public static async onStateEnter(trans: Transition) {
         const params = trans.params();
         const config = trans.injector().get(ConfigService);

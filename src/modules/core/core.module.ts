@@ -35,6 +35,7 @@ import {
     NotificationService,
     LayoutService,
     SeoService,
+    StateHistoryService,
     BodyClassService,
     ColorThemeService,
 } from './system/services';
@@ -204,6 +205,7 @@ export const components = {
         ContactsService,
         LayoutService,
         SeoService,
+        StateHistoryService,
         {
             provide: HAMMER_GESTURE_CONFIG,
             useClass: HammerConfig,

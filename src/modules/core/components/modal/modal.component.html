@@ -37,7 +37,7 @@
                     wlcElement="button_close"
                     theme="cleared"
                     iconPath="/wlc/icons/close.svg"
-                    (click)="closeModal($params.config.id)">
+                    (click)="closeModalByIcon($params.config.id)">
             </button>
         </div>
         <div
@@ -76,7 +76,7 @@
                     [text]="$params.config.closeBtnText || 'Close'"
                     [wlcElement]="'button_close'"
                     [inlineParams]="$params.config.closeBtnParams"
-                    (click)="closeModal($params.config.id)"
+                    (click)="closeModalByIcon($params.config.id)"
                     wlcElement="button_close">
             </button>
         </div>

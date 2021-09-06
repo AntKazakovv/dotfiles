@@ -25,7 +25,6 @@ import {
     IMixedParams,
 } from 'wlc-engine/modules/core/system/classes/abstract.component';
 import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
-import {DeviceModel} from 'wlc-engine/modules/core/system/models/device.model';
 import {
     IModalOptions,
     IModalBsOptions,
@@ -67,6 +66,7 @@ export class WlcModalComponent extends AbstractComponent
     public dialogClasses: string[] = [];
     public inject: Injector;
     public bsOptions: IModalBsOptions = {};
+    public closeReason: string = '';
 
     protected $closed: Deferred<string> = new Deferred();
 
@@ -97,16 +97,14 @@ export class WlcModalComponent extends AbstractComponent
     /**
      * A method that sets the closed state of the modal. Does not close the window itself, it is only used to put
      * the Promise object $closed in the Resolve state.
-     * @param {string} str Closed modal state.
      */
-    public setClosed(str: string): void {
-        this.$closed.resolve(str);
+    public setClosed(): void {
+        this.$closed.resolve(this.closeReason);
     }
 
     public ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
         this.applyConfig();
-        this.setDeviceClass();
         this.$params.wlcElement = this.$params.config?.wlcElement || this.$params.wlcElement || 'wlc-modal';
     }
 
@@ -126,6 +124,8 @@ export class WlcModalComponent extends AbstractComponent
         if (config.onConfirm) {
             config.onConfirm();
         }
+
+        this.closeReason = 'confirm';
         this.closeModal(modal);
     }
 
@@ -167,7 +167,17 @@ export class WlcModalComponent extends AbstractComponent
      * @param name
      */
     public goBack(name): void {
+        this.closeReason = 'goBack';
         this.modalService.showModal(name);
+    }
+
+    /**
+     * Close modal by close icon button
+     * @param modal {string}
+     */
+    public closeModalByIcon(modal: string): void {
+        this.closeReason = 'closeIcon';
+        this.closeModal(modal);
     }
 
     protected applyConfig(): void {
@@ -271,21 +281,12 @@ export class WlcModalComponent extends AbstractComponent
         });
 
         this.modalRef.onHidden.subscribe(() => {
-            this.$closed.resolve();
+            this.setClosed();
             this.eventHandler(this.modalService.events.MODAL_HIDDEN, this.$params.config.onModalHidden);
         });
 
         this.modalRef.onHide.subscribe(() => {
             this.eventHandler(this.modalService.events.MODAL_HIDE, this.$params.config.onModalHide);
         });
-    }
-
-    private setDeviceClass(): void {
-        const deviceClass = [
-            '',
-            this.ConfigService.get<DeviceModel>('device')?.osName,
-            this.ConfigService.get<DeviceModel>('device')?.browserName,
-        ];
-        this.$hostClass += deviceClass.join(' ');
     }
 }

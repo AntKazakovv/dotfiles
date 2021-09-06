@@ -19,8 +19,13 @@ import {ConfigService} from 'wlc-engine/modules/core/system/services/config/conf
 import {EventService} from 'wlc-engine/modules/core/system/services/event/event.service';
 import {InjectionService} from 'wlc-engine/modules/core/system/services/injection/injection.service';
 import {LogService} from 'wlc-engine/modules/core/system/services/log/log.service';
-import {MODALS_LIST, DEFAULT_MODAL_CONFIG} from 'wlc-engine/modules/core/components/modal/modal.params';
+import {
+    MODALS_LIST,
+    DEFAULT_MODAL_CONFIG,
+    RESTRICT_MODAL,
+} from 'wlc-engine/modules/core/components/modal/modal.params';
 import {WlcModalComponent} from 'wlc-engine/modules/core/components/modal/modal.component';
+import {IIndexing} from 'wlc-engine/modules/core/system/interfaces/global.interface';
 import {NotificationEvents} from 'wlc-engine/modules/core/system/services/notification/notification.service';
 import {IPushMessageParams} from 'wlc-engine/modules/core/system/services/notification/notification.interface';
 import {
@@ -30,6 +35,7 @@ import {
     IActiveModal,
     IModalName,
     IModalList,
+    IRestrictModalOption,
 } from 'wlc-engine/modules/core/components/modal/modal.interface';
 
 import _assignIn from 'lodash-es/assignIn';
@@ -55,6 +61,7 @@ export class ModalService {
     };
 
     protected modalList: IModalList = MODALS_LIST;
+    protected restrictModal: IIndexing<IRestrictModalOption> = RESTRICT_MODAL;
     protected activeModals: IActiveModal[] = [];
     protected closeQueue: string[] = [];
     protected $closeObserver: BehaviorSubject<number> = new BehaviorSubject(0);
@@ -95,16 +102,13 @@ export class ModalService {
         let modalConfig: IModalConfig;
 
         if (_isString(config)) {
-            if (config === 'signup' && this.configService.get<boolean>('$base.site.restrictRegistration')) {
-                this.eventService.emit({
-                    name: NotificationEvents.PushMessage,
-                    data: <IPushMessageParams>{
-                        type: 'error',
-                        message: gettext('Sorry, registration is disabled.'),
-                        wlcElement: 'registration-is-disabled',
-                    },
-                });
-                return;
+            if (this.restrictModal[config]) {
+                const {baseConfigKey, baseConfigValue, message, wlcElement} = this.restrictModal[config];
+
+                if (this.configService.get<unknown>(baseConfigKey) === baseConfigValue) {
+                    this.notificationError(message, wlcElement);
+                    return;
+                }
             }
 
             if (this.modalList[config]) {
@@ -142,6 +146,7 @@ export class ModalService {
         if (componentParams) {
             modalConfig.componentParams = componentParams;
         }
+
         if (modalConfig.dismissAll && this.activeModals.length) {
             this.closeAllModals();
         }
@@ -327,5 +332,26 @@ export class ModalService {
         await this.configService.ready;
         this.modalList = GlobalHelper
             .mergeConfig(this.modalList, this.configService.get<IModalList>('$modals.customModals'));
+        this.restrictModal = GlobalHelper.mergeConfig(this.restrictModal,
+            this.configService.get<IIndexing<IRestrictModalOption>>('$modals.restrictModal'));
+    }
+
+    /**
+     * Emit event with type error
+     *
+     * @param message {string} Error text
+     * @param wlcElement {string} wlc-element
+     *
+     * @private
+     */
+    private notificationError(message: string, wlcElement: string) {
+        this.eventService.emit({
+            name: NotificationEvents.PushMessage,
+            data: <IPushMessageParams>{
+                type: 'error',
+                message: gettext(message),
+                wlcElement,
+            },
+        });
     }
 }
