@@ -105,6 +105,14 @@
             }
             filter: drop-shadow(ef.get-value($themeDefault, 'listShadow'));
 
+            /// iOS, MacOS fix
+            /* stylelint-disable */
+            .wlc-body--os-macos &,
+            .wlc-body--os-ios & {
+                -webkit-backdrop-filter: drop-shadow(ef.get-value($themeDefault, 'listShadow'));
+            }
+            /* stylelint-enable */
+
             &:before {
 
                 @include mod('default', 'bottom-left') {
@@ -175,8 +183,8 @@
                 @include bm.get-mq-map('background', $themeDefaultModLog, 'currentBgModLong');
 
                 grid-template-columns: auto 1fr auto;
-                padding: ef.get-value($themeDefaultModLog, 'currentPaddingModLong');
                 min-height: ef.get-value($themeDefaultModLog, 'currentMinHeight');
+                padding: ef.get-value($themeDefaultModLog, 'currentPaddingModLong');
 
                 border-radius: ef.get-value($themeDefaultModLog, 'currentBorderRadiusModLong');
 
