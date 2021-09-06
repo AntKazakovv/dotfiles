@@ -97,6 +97,7 @@
 
             &-item {
                 @include text.get-text-style(ef.get-value($baseSettings, 'dropdownTextStyle'), ef.get-value($baseSettings, 'selectDropdownItemColor'));
+                @include bm.transition(ef.get-value($baseSettings, 'selectDropdownItemTransition')...);
 
                 display: flex;
                 align-items: center;
@@ -107,11 +108,17 @@
                 text-overflow: ellipsis;
                 cursor: pointer;
                 overflow: hidden;
-                transition: ef.get-value($baseSettings, 'selectDropdownItemTransition');
 
                 &.active {
                     color: ef.get-value($baseSettings, 'dropdownItemColorActive');
                     background: ef.get-value($baseSettings, 'dropdownItemBgActive');
+                }
+
+                &.no-result {
+                    @include bm.transition;
+                    @include text.get-text-style(
+                        ef.get-value($baseSettings, 'noResultTextStyle'),
+                        ef.get-value($baseSettings, 'noResultTextColor'));
                 }
 
                 @include bm.hover() {

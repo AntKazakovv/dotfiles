@@ -32,6 +32,9 @@ export interface ISelectCParams extends IComponentParams<ComponentTheme, Compone
     options?: string;
     items?: ISelectOptions[];
     modifiers?: Modifiers[];
+    useSearch?: boolean;
+    insensitiveSearch?: boolean;
+    noResultText?: string;
     autoSelect?: boolean;
 }
 
@@ -42,4 +45,5 @@ export interface ISelectOptions {
 
 export const defaultParams: Partial<ISelectCParams> = {
     class: 'wlc-select',
+    noResultText: gettext('No results available'),
 };

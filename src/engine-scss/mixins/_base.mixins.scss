@@ -84,7 +84,7 @@
 }
 
 @mixin transition($type: all, $speed: 0.3s, $mode: linear) {
-    transition: $type $speed $mode;
+    transition: #{$type} #{$speed} #{$mode};
 }
 
 /// Hides element but keeps it accessible
@@ -254,4 +254,30 @@
     .wlc-body--theme-#{$suffix} & {
         @content;
     }
+}
+
+/// Generate string array from variable value
+/// Write for transition mixin
+///
+/// @example
+/// var: 'selectDropdownItemTransition': map-get($time, 'main') ease-in-out background
+/// component: @include bm.transition(bm.split(#{ef.get-value($themeDefault, 'selectDropdownItemTransition')},' ')...);
+///
+/// @name strToList
+/// @param {string} $string - source string
+/// @param {string} $separator - separator for source string
+/// @return {string} splited string
+@function strToList($string, $separator) {
+    $split-arr: ();
+    $index : str-index($string, $separator);
+
+    @while $index != null {
+        $item: str-slice($string, 1, $index - 1);
+        $split-arr: append($split-arr, $item);
+        $string: str-slice($string, $index + 1);
+        $index : str-index($string, $separator);
+    }
+    $split-arr: append($split-arr, $string);
+
+    @return $split-arr;
 }

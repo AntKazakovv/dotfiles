@@ -363,7 +363,7 @@ $form: map-merge((
     'selectDropdownPadding': map-get($size, 'small'),
     'inputTextAlign': left,
     'selectDropdownHeight': 300px,
-    'selectDropdownItemTransition': map-get($time, 'main') ease-in-out background,
+    'selectDropdownItemTransition': (map-get($time, 'main') ease-in-out background),
     'selectDroprownItemBgActive': var(--fc-inputBg-d20),
     'selectArrowColor': var(--fc-arrowColor),
     'iconWidth': 12px,
@@ -685,6 +685,12 @@ $tagConfig: map-merge((
     'radius': map-get($radius, 'large'),
     'padding': 4px 15px,
 ), $customTagConfig);
+
+$customHlSubstr: () !default;
+$hlSubstr: map-merge((
+    'fontStyle': 'PrimaryTextBold',
+    'textColor': var(--fc-textColor),
+), $customHlSubstr);
 
 $body-bg: var(--mc-bg) !default;
 $body-color: var(--mc-baseMain) !default;
