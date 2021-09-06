@@ -23,9 +23,8 @@ $themeDefault: map-merge((
     'userInfoGap': ef.get('size', 'small'),
 
     'userInfoDepositBtnMargin': (
-        375:  0 ef.get('size', 'smally') 0 0,
-        1200: 0 ef.get('size', 'smaller') 0 0,
-        1420: 0 ef.get('size', 'less') 0 0,
+        375:  0 ef.size(3) 0 0,
+        1200: 0 ef.size(4) 0 0,
     ),
 
     'userInfoDepositBtnPadding': (

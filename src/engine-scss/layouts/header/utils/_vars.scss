@@ -1,3 +1,4 @@
+@use 'sass:list';
 @use 'engine-scss/functions' as ef;
 @use 'engine-scss/engine.variables' as ev;
 
@@ -12,7 +13,7 @@ $theme1Header: map-merge((
     'headerBurgerBtnTextAlign': (
         1024: center
     ),
-    'headerSearchBtnMargin': 0 ef.size(1),
+    'headerSearchBtnMargin': 0,
     'headerContainerDesktopWidth': (
         1200: 100%
     ),
@@ -28,9 +29,7 @@ $theme1Header: map-merge((
         1200: auto auto minmax(0, 1fr) auto auto,
     ),
     'headerGridGap': (
-        375: ef.get('size', 'less'),
-        1200: ef.get('size', 'smaller'),
-        1630: ef.get('size', 'main')
+        375: ef.size(4),
     ),
     'headerMinHeight': (
         375: 70px,
@@ -57,7 +56,7 @@ $theme1Header: map-merge((
     'headerSvgBtnSize': ef.get('size', 'main'),
     'headerDepositBtnMargin': 0 ef.get('size', 'small') 0 0,
     'headerDepositBtnFill': var(--mc-main),
-    'headerDepositBtnFillColor': var(--mc-baseMain),
+    'headerDepositBtnFillColor': ef.get('mainColors', 'baseMain'),
     'headerLoginBtnFillColor': var(--mc-baseOpacity),
     'headerUserBtnFill': var(--mc-secondary),
     'headerSvgBtnHover': var(--mc-baseMain),
@@ -80,6 +79,11 @@ $theme1Header: map-merge((
     'searchIconDisplay': flex,
     'searchIconJustifyContent': center,
     'searchIconAlignItems': center,
+
+    'gridColsToggler': (
+        375: 0.5fr 1fr 0.5fr,
+        1200: auto auto minmax(0, 1fr) auto auto auto,
+    ),
 ), $customTheme1Header);
 
 $customTheme2Header: () !default;
@@ -93,7 +97,7 @@ $theme2Header: map-merge((
     'headerBurgerBtnTextAlign': (
         1024: center
     ),
-    'headerSearchBtnMargin': 0 ef.size(1),
+    'headerSearchBtnMargin': 0,
     'headerContainerDesktopWidth': (
         1200: 100%
     ),
@@ -109,9 +113,7 @@ $theme2Header: map-merge((
         1200: auto auto minmax(0, 1fr) auto auto auto,
     ),
     'headerGridGap': (
-        375: ef.get('size', 'less'),
-        1200: ef.get('size', 'smaller'),
-        1630: ef.get('size', 'main')
+        375: ef.size(4),
     ),
     'headerMinHeight': (
         375: 70px,
@@ -142,8 +144,8 @@ $theme2Header: map-merge((
     'headerSvgBtnSize': ef.get('size', 'main'),
     'headerDepositBtnMargin': 0 ef.get('size', 'small') 0 0,
     'headerDepositBtnFill': var(--mc-main),
-    'headerDepositBtnInnerFillColor': var(--mc-baseMain),
-    'headerUserBtnInnerFillColor': var(--mc-baseMain),
+    'headerDepositBtnInnerFillColor': ef.get('mainColors', 'baseMain'),
+    'headerUserBtnInnerFillColor': ef.get('mainColors', 'baseMain'),
     'headerUserBtnFill': var(--mc-secondary),
     'headerSvgBtnHover': var(--mc-baseOpacity-d20),
     'headerLoginBtnTabletPadding': (
@@ -161,11 +163,16 @@ $theme2Header: map-merge((
     'searchIconJustifyContent': center,
     'searchIconAlignItems': center,
 
-    // Without burger mode
-    'withoutBurgerGridColumns': (
+    'gridColsNoBurger': (
         375: 0.5fr 1fr 0.5fr,
         1200: auto auto minmax(0, 1fr) auto auto,
     ),
+    'gridColsToggler': (
+        375: 0.5fr 2fr 0.5fr,
+        1200: auto auto minmax(0, 1fr) auto auto auto auto,
+    ),
+    'gridColsTogglerNoBurger': (
+        375: 0.5fr 1fr 0.5fr,
+        1200: auto auto minmax(0, 1fr) auto auto auto,
+    ),
 ), $customTheme2Header);
-
-// Header

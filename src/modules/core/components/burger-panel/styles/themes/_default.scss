@@ -22,7 +22,7 @@
     ::ng-deep {
 
         .container {
-            @include bm.get-mq-map('grid-gap', $themeDefault, 'containerGap');
+            @include bm.get-mq-map('gap', $themeDefault, 'containerGap');
             @include bm.get-mq-map('padding', $themeDefault, 'panelContentPadding');
 
             position: relative;
@@ -35,6 +35,8 @@
         }
 
         .wlc-language-selector[wlc-language-selector] {
+            grid-area: lang;
+            margin: ef.get-value($themeDefault, 'langMargin');
 
             .wlc-language-selector__current {
 
@@ -68,13 +70,13 @@
         }
 
         .wlc-burger-panel__close {
+            @include bm.get-mq-map('width', $themeDefault, 'panelContentPadding');
+            @include bm.get-mq-map('height', $themeDefault, 'panelContentPadding');
+
             position: absolute;
             top: 0;
             left: 0;
             z-index: 5;
-
-            @include bm.get-mq-map('width', $themeDefault, 'panelContentPadding');
-            @include bm.get-mq-map('height', $themeDefault, 'panelContentPadding');
         }
 
         .wlc-burger-panel__inner {
@@ -113,6 +115,8 @@
             cursor: pointer;
 
             &:before {
+                @include bm.transition();
+
                 content: '';
 
                 position: absolute;
@@ -135,9 +139,7 @@
 
                 &:before {
                     height: ef.get-value($themeDefault, 'panelUnderlineHeight');
-
                     opacity: 1;
-                    @include bm.transition();
                 }
             }
         }
@@ -193,13 +195,13 @@
         }
 
         .wlc-btn-search {
+            @include bm.get-mq-map('width', $themeDefault, 'panelContentPadding');
+            @include bm.get-mq-map('height', $themeDefault, 'panelContentPadding');
+
             position: absolute;
             top: 0;
             right: 0;
             z-index: 5;
-
-            @include bm.get-mq-map('width', $themeDefault, 'panelContentPadding');
-            @include bm.get-mq-map('height', $themeDefault, 'panelContentPadding');
 
             svg {
                 fill: ef.get-value($themeDefault, 'panelSearchColor');
@@ -211,6 +213,19 @@
             align-items: center;
             justify-content: space-between;
             margin: 0 0 ef.get-value($themeDefault, 'componentGap') 0;
+        }
+
+        .wlc-burger-panel__additional {
+            display: grid;
+            grid-template-areas: ef.get-value($themeDefault, 'additionalGridAreas');
+            grid-template-columns: ef.get-value($themeDefault, 'additionalGridColumns');
+            gap: ef.get-value($themeDefault, 'additionalGap');
+            align-self: ef.get-value($themeDefault, 'additionalAlignSelf');
+            justify-self: ef.get-value($themeDefault, 'additionalJustifySelf');
+        }
+
+        .wlc-theme-toggler {
+            grid-area: switcher;
         }
     }
 }

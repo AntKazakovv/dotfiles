@@ -89,6 +89,9 @@ $theme1Footer: map-merge((
         1200: 1fr,
     ),
     'licenceAlignSelf': self-start,
+
+    'langGap': ef.size(2),
+    'langAlignSelf': baseline,
 ), $customTheme1Footer);
 
 $customTheme2Footer: () !default;
@@ -127,8 +130,9 @@ $theme2Footer: map-merge((
     'footerPostMenuJustify': center,
     'footerPostMenuAlignItems': center,
     'footerPostMenuMargin': (
-        900: 0 ef.get('size', 'smally') 0 0,
-        1200: 0 ef.get('size', 'big') 0 0,
+        900: 0 ef.size(3) 0 0,
+        1200: 0 ef.size(7) 0 0,
+        1630: 0 ef.size(10) 0 0,
     ),
     'footerPostMenuWidth': (
         375: 100%,
@@ -263,4 +267,10 @@ $theme2Footer: map-merge((
 
     // language selector
     'languageMargin': ef.size(4) auto,
+
+    'themeTogglerMargin': (
+        375: 0 0 0 ef.size(3),
+        1200: 0 0 0 ef.size(6),
+        1630: 0 0 0 ef.size(8),
+    ),
 ), $customTheme2Footer);

@@ -172,10 +172,12 @@
 
             &__current {
                 @include bm.transition(background);
+                @include bm.get-mq-map('background', $themeDefaultModLog, 'currentBgModLong');
+
                 grid-template-columns: auto 1fr auto;
                 padding: ef.get-value($themeDefaultModLog, 'currentPaddingModLong');
+                min-height: ef.get-value($themeDefaultModLog, 'currentMinHeight');
 
-                background: ef.get-value($themeDefaultModLog, 'currentBgModLong');
                 border-radius: ef.get-value($themeDefaultModLog, 'currentBorderRadiusModLong');
 
                 &-lang {
@@ -194,7 +196,9 @@
                 }
 
                 &-arrow::ng-deep {
-                    color: ef.get-value($themeDefault, 'currentFillModLong');
+                    @include bm.transition(all);
+
+                    color: ef.get-value($themeDefaultModLog, 'currentFillModLong');
 
                     svg path {
                         fill: currentColor;
@@ -210,6 +214,10 @@
 
                     .wlc-language-selector__current-lang {
                         @include text.get-text-style(ef.get-value($themeDefaultModLog, 'langFontStyleActive'), ef.get-value($themeDefaultModLog, 'currentColorModLangOpened'));
+                    }
+
+                    + .wlc-language-selector__dropdown {
+                        margin: ef.get-value($themeDefaultModLog, 'dropdownMarginOpened');
                     }
                 }
 
@@ -233,10 +241,11 @@
             }
 
             &__dropdown {
+                @include bm.transition(margin);
+
                 position: relative;
 
                 width: 100%;
-                margin-top: 5px;
                 overflow: hidden;
 
                 transform-origin: top;
@@ -297,6 +306,7 @@
     }
 
     &.wlc-language-selector--border-around {
+        min-width: ef.get-value($themeBorderAround, 'minWidth');
         height: ef.get-value($themeBorderAround, 'currentHeight');
 
         .wlc-language-selector {

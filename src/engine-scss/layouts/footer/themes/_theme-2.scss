@@ -114,4 +114,8 @@
         @include em.get-mq-map('order', $theme2Footer, 'iconListPaymentsOrder');
         @include em.get-mq-map('margin', $theme2Footer, 'iconListPaymentsMargin');
     }
+
+    .footer-theme-toggler {
+        @include em.get-mq-map('margin', $theme2Footer, 'themeTogglerMargin');
+    }
 }

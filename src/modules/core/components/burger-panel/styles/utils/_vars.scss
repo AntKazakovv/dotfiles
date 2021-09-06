@@ -83,6 +83,7 @@ $themeDefault: map-merge((
     'langFlagBoxShadow': 0 0 0 6px var(--mc-baseOpacity),
     'langFlagBoxShadowHover': (0 0 0 6px var(--mc-main) , 0 0 7px 7px var(--mc-baseContrast-o6)),
     'langListBg': var(--mc-bg),
+    'langMargin': 6px,
 
     'containerWidth': 100%,
     'containerMaxWidth': 1920px,
@@ -94,6 +95,12 @@ $themeDefault: map-merge((
         1420: ef.size(8),
         1630: ef.size(12),
     ),
+
+    'additionalGridColumns': repeat(2, auto),
+    'additionalGridAreas': 'lang chat' 'switcher switcher',
+    'additionalGap': ef.size(4),
+    'additionalAlignSelf': start,
+    'additionalJustifySelf': start,
 ), $customThemeDefault);
 
 $customThemeLeft: () !default;
@@ -101,8 +108,6 @@ $themeLeft: map-merge((
     'panelWidth': 290px,
     'panelBackground': var(--mc-bg700),
     'loginBtnBg': var(--mc-bg),
-    'separatorHeight': 2px,
-    'separatorColor': var(--mc-baseMain-o2),
     'menuLinksColor': var(--mc-baseMain),
 
     'loginBtnMargin': ef.size(6) 0 0,
@@ -110,7 +115,10 @@ $themeLeft: map-merge((
 
     'gap': ef.size(1),
 
-    'separatorMargin': ef.size(2) ef.size(5),
+    'separatorHeight': 2px,
+    'separatorColor': var(--mc-baseMain-o2),
+    'separatorWidth': calc(100% - #{ef.size(10)}),
+    'separatorMargin': ef.size(2) auto,
 
     'menuLinksPadding': 8px ef.size(5),
     'menuLinksHoverColor': inherit,
@@ -143,7 +151,7 @@ $themeLeft: map-merge((
     'userStatsBalanceMargin': 0 0 ef.size(4),
 
     'userDepositMargin': 0 ef.size(5),
-    'userDepositPadding': ef.size(4) 0 ef.size(12),
+    'userDepositPadding': ef.size(4) 0 ef.size(8),
     'userDepositBtnHeight': auto,
     'userDepositBtnMinHeight': ef.size(8),
 
@@ -154,6 +162,11 @@ $themeLeft: map-merge((
     'headerMenuItemHeight': ef.size(8),
     'headerMenuItemBackground': var(--mc-bg500),
     'headerMenuItemMargin': 0 ef.size(1),
+
+    'themeTogglerPadding': 0 ef.size(5) ef.size(6),
+    'themeTogglerAlignItems': center,
+    'themeTogglerSeparatorWidth': 100%,
+    'themeTogglerSeparatorMargin': 0 auto ef.size(8),
 ), $customThemeLeft);
 
 $customThemeOption3: () !default;

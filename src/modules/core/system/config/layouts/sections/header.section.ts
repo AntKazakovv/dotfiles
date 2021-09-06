@@ -19,6 +19,25 @@ export namespace header {
         ],
     };
 
+    export const defThemeToggler: ILayoutSectionConfig = {
+        replaceConfig: true,
+        order: 0,
+        theme: '1',
+        modifiers: ['theme-toggler'],
+        container: true,
+        components: [
+            componentLib.wlcButton.burger,
+            componentLib.wlcLogo.header,
+            componentLib.wlcMainMenu.header,
+            componentLib.wlcLoginSignup.header,
+            componentLib.wlcUserInfo.header,
+            componentLib.wlcButton.userDepositIcon,
+            componentLib.wlcThemeToggler.vertical,
+            componentLib.wlcButton.searchV2,
+            componentLib.wlcButton.login,
+        ],
+    };
+
     export const theme2: ILayoutSectionConfig = {
         replaceConfig: true,
         order: 0,
@@ -32,6 +51,26 @@ export namespace header {
             componentLib.wlcUserInfo.header,
             componentLib.wlcButton.userDepositIcon,
             componentLib.wlcLanguageSelector.bottomLeft2,
+            componentLib.wlcButton.searchV2,
+            componentLib.wlcButton.login,
+        ],
+    };
+
+    export const theme2themeToggler: ILayoutSectionConfig = {
+        replaceConfig: true,
+        order: 0,
+        theme: '2',
+        modifiers: ['theme-toggler'],
+        container: true,
+        components: [
+            componentLib.wlcButton.burger,
+            componentLib.wlcLogo.header,
+            componentLib.wlcMainMenu.header,
+            componentLib.wlcLoginSignup.header,
+            componentLib.wlcUserInfo.header,
+            componentLib.wlcButton.userDepositIcon,
+            componentLib.wlcLanguageSelector.bottomLeft2,
+            componentLib.wlcThemeToggler.vertical,
             componentLib.wlcButton.searchV2,
             componentLib.wlcButton.login,
         ],
@@ -51,6 +90,26 @@ export namespace header {
             componentLib.wlcUserInfo.header,
             componentLib.wlcButton.userDepositIcon,
             componentLib.wlcLanguageSelector.bottomLeft2,
+            componentLib.wlcButton.searchV2,
+            componentLib.wlcButton.login,
+        ],
+    };
+
+    export const theme2withoutBurgerThemeToggler: ILayoutSectionConfig = {
+        replaceConfig: true,
+        order: 0,
+        theme: '2',
+        modifiers: ['without-burger', 'theme-toggler'],
+        container: true,
+        components: [
+            componentLib.wlcButton.burgerMobile,
+            componentLib.wlcLogo.header,
+            componentLib.wlcMainMenu.header,
+            componentLib.wlcLoginSignup.header,
+            componentLib.wlcUserInfo.header,
+            componentLib.wlcButton.userDepositIcon,
+            componentLib.wlcLanguageSelector.bottomLeft2,
+            componentLib.wlcThemeToggler.vertical,
             componentLib.wlcButton.searchV2,
             componentLib.wlcButton.login,
         ],

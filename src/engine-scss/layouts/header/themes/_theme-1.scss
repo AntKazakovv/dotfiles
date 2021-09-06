@@ -5,13 +5,6 @@
 @use 'engine-scss/functions' as ef;
 
 
-.wlc-sections__header--theme {
-
-    &-1 {
-        @include headerBase($theme1Header);
-
-        .container {
-            @include bm.get-mq-map('grid-template-columns', $theme1Header, 'headerGridColumns');
-        }
-    }
+.wlc-sections__header--theme-1 {
+    @include headerBase($theme1Header);
 }

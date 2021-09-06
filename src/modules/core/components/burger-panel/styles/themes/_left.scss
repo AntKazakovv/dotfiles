@@ -135,13 +135,7 @@
             .wlc-post-menu {
 
                 &:after {
-                    content: '';
-
-                    display: block;
-                    height: ef.get-value($themeLeft, 'separatorHeight');
-                    margin: ef.get-value($themeLeft, 'separatorMargin');
-
-                    background: ef.get-value($themeLeft, 'separatorColor');
+                    @include separator();
                 }
             }
 
@@ -167,6 +161,7 @@
 
                     &.active {
                         color: ef.get-value($themeLeft, 'menuLinksActiveColor');
+                        background: ef.get-value($themeLeft, 'menuLinksActiveBg');
                         font-weight: ef.get-value($themeLeft, 'menuLinksActiveWeight');
                         background: ef.get-value($themeLeft, 'menuLinksActiveBg');
                     }
@@ -238,6 +233,30 @@
             &.wlc-language-selector--theme-mod-long {
                 max-width: ef.get-value($themeLeft, 'langMaxWidthModLong');
                 margin: ef.get-value($themeLeft, 'langCurrentMarginModLong');
+            }
+
+            + .wlc-theme-toggler {
+
+                &:before {
+                    @include separator;
+
+                    width: ef.get-value($themeLeft, 'themeTogglerSeparatorWidth');
+                    margin: ef.get-value($themeLeft, 'themeTogglerSeparatorMargin');
+                }
+            }
+        }
+
+        .wlc-theme-toggler {
+            display: flex;
+            flex-direction: column;
+            align-items:  ef.get-value($themeLeft, 'themeTogglerAlignItems');
+            padding: ef.get-value($themeLeft, 'themeTogglerPadding');
+        }
+
+        .wlc-scrollbar {
+
+            &__slide {
+                padding-bottom: ef.size(4);
             }
         }
     }

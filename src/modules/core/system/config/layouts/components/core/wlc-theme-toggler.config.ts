@@ -15,6 +15,9 @@ export namespace wlcThemeToggler {
 
     export const vertical: ILayoutComponent = {
         name: 'core.wlc-theme-toggler',
+        display: {
+            after: 1200,
+        },
         params: <IThemeTogglerCParams>{
             themeMod: 'vertical',
         },
