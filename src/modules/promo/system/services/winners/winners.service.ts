@@ -31,6 +31,7 @@ import _merge from 'lodash-es/merge';
 import _differenceWith from 'lodash-es/differenceWith';
 import _isEqual from 'lodash-es/isEqual';
 import _map from 'lodash-es/map';
+import _assign from 'lodash-es/assign';
 
 /**
  * Params for request
@@ -308,9 +309,21 @@ export class WinnersService {
      * @param name - name of params by path `appConfig.$promo.winners`
      */
     protected prepareParams(name: string): IWinnersParams {
+        const bootstrapConfig = {};
+        if (name === 'latestWins') {
+            const minAmount = +(this.configService.get<string>('appConfig.siteconfig.LastWins')) || 0;
+            if (minAmount > 1) {
+                _assign(bootstrapConfig,  {
+                    params: {
+                        min: minAmount,
+                    },
+                });
+            }
+        }
+
         const configParams: IWinnersParams = this.configService
             .get<IWinnersParams>(`$promo.winners.${name}`) || {};
 
-        return _merge({}, defaultParams[name], configParams);
+        return _merge({}, defaultParams[name], bootstrapConfig, configParams);
     }
 }
