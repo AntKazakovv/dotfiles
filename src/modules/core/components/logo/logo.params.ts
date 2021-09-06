@@ -8,8 +8,9 @@ export type ComponentType= 'default' | 'affiliate' | CustomType;
 
 export interface ILogoImageParams {
     /**
-     * set the value of the image name, which is set in the 03.files.settings file, where it is set as the name of the * object property, and the value of the object property is the path to the image
-     * will not work if the url is set to
+     * set the value of the image name, which is set in the 03.files.settings file, where
+     * it is set as the name of the * object property, and the value of the object property is
+     * the path to the imagewill not work if the url is set to
      */
     name?: string;
     /**

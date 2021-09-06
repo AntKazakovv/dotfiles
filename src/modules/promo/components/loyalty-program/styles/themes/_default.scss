@@ -142,5 +142,9 @@
             display: ef.get-value($themeDefault, 'btnWrappDisplay');
             justify-content: ef.get-value($themeDefault, 'btnWrappJustify');
         }
+
+        &-nodata {
+            text-align: ef.get-value($themeDefault, 'nodataTextAlign');
+        }
     }
 }

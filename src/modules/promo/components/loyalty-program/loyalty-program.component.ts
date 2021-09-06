@@ -47,15 +47,22 @@ export class LoyaltyProgramComponent extends AbstractComponent implements OnInit
         await this.configService.ready;
         this.isAuth = this.configService.get('$user.isAuthenticated');
 
-        this.levels = (await this.loyaltyLevelsService.getLoyaltyLevels()).splice(0, this.$params.levelsLimit);
+        this.levels = (await this.loyaltyLevelsService.getLoyaltyLevelsSafely()).splice(0, this.$params.levelsLimit);
         this.ready = true;
         this.cdr.detectChanges();
     }
 
+    /**
+     * @returns string
+     * creates a path from configuration parameters and level values
+     */
     public imageLevel(level: number): string {
         return `${this.$params.imagePath}${level}.${this.$params.imageType}`;
     }
 
+    /**
+     * redirects to the profile page to the site levels, if not logged in - shows modal
+     */
     public readMore(): void {
         if (this.isAuth) {
             this.router.stateService.go('app.profile.loyalty-level');
@@ -64,6 +71,10 @@ export class LoyaltyProgramComponent extends AbstractComponent implements OnInit
         }
     }
 
+    /**
+     * @returns string
+     * sets how many points you need to get to the next level
+     */
     public setLoyaltyPoints(index: number): string {
         return `${index ? this.levels[index - 1].nextLevelPoints : 0} - ${this.levels[index].nextLevelPoints}`;
     }

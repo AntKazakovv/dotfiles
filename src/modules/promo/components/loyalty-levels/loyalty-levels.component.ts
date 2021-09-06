@@ -30,7 +30,7 @@ export class LoyaltyLevelsComponent extends AbstractComponent implements OnInit 
     public levels: BehaviorSubject<LoyaltyLevelModel[]> = new BehaviorSubject([]);
 
     public tableData: ITableCParams = {
-        noItemsText: gettext('No loyalty levels'),
+        noItemsText: gettext('An error occurred while loading data. Please try again later.'),
         head: Params.loyaltyTableHeadConfig,
         rows: this.levels,
     };
@@ -50,7 +50,7 @@ export class LoyaltyLevelsComponent extends AbstractComponent implements OnInit 
 
     public async ngOnInit(): Promise<void> {
         super.ngOnInit();
-        this.levels.next(await this.loyaltyLevelsService.getLoyaltyLevels());
+        this.levels.next(await this.loyaltyLevelsService.getLoyaltyLevelsSafely());
         this.ready = true;
         this.cdr.detectChanges();
     }

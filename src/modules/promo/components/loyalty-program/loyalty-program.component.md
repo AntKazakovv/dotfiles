@@ -1,11 +1,14 @@
-import {
-    CustomType,
-    IComponentParams,
-} from 'wlc-engine/modules/core';
+imagePath - sets path to levels images, images should be named like value of levels, and they type sets in imageType property
 
-export type ComponentTheme = 'default' | CustomType;
-export type ComponentType = 'default' | CustomType;
+imageType - set the type of images that will be used in the levels
 
+decorLeftPath - set the picture for the decor on the left and right
+
+levelsLimit - how many levels will be shown in the component
+
+emptyStateText - If the levels did not come, this text will be shown
+
+```typescript
 export interface ILoyaltyProgramCParams extends IComponentParams<ComponentTheme, ComponentType, string> {
     imagePath?: string;
     imageType?: string;
@@ -13,12 +16,11 @@ export interface ILoyaltyProgramCParams extends IComponentParams<ComponentTheme,
     decorRightPath?: string;
     decorImageType?: string;
     levelsLimit?: number;
-    /**
-     * this text will be shown on empty state(when there is no content)
-     */
     emptyStateText?: string;
-};
+}
+```
 
+```typescript
 export const defaultParams: ILoyaltyProgramCParams = {
     moduleName: 'promo',
     componentName: 'wlc-loyalty-program',
@@ -28,8 +30,6 @@ export const defaultParams: ILoyaltyProgramCParams = {
     decorLeftPath: '/gstatic/loyalty-program/decor/left-decor.png',
     decorRightPath: '/gstatic/loyalty-program/decor/right-decor.png',
     levelsLimit: 4,
-    /**
-     * this text will be shown on empty state(when there is no content)
-     */
-    emptyStateText: gettext('An error occurred while loading data. Please try again later.'),
-};
+    emptyStateText: 'An error occurred while loading data. Please try again later.',
+}
+```
