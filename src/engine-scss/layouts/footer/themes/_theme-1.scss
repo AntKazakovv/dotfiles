@@ -32,8 +32,11 @@
         grid-area: disclaimer;
     }
 
-    .wlc-language-selector {
+    .wlc-footer-lang {
+        display: grid;
         grid-area: language;
+        gap: ef.get-value($theme1Footer, 'langGap');
+        align-self: ef.get-value($theme1Footer, 'langAlignSelf');
     }
 
     .container {
@@ -48,7 +51,7 @@
         .wlc-icon-list,
         .wlc-post-menu,
         .wlc-footer-disclaimer,
-        .wlc-language-selector,
+        .wlc-footer-lang,
         .wlc-license,
         .wlc-logo {
             @include em.get-mq-map('margin', $theme1Footer, 'footerMobileOffset');

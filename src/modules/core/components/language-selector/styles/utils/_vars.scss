@@ -50,6 +50,7 @@ $themeModal: map-merge((
 
 $customThemeBorderAround: () !default;
 $themeBorderAround: map-merge((
+    'minWidth': 90px,
     'currentHeight': 40px,
     'currentBorder': 2px solid var(--mc-baseOpacity),
     'currentBorderHover': 2px solid var(--mc-bg100),
@@ -65,13 +66,17 @@ $themeBorderAround: map-merge((
 
 $customThemeDefaultModLog: () !default;
 $themeDefaultModLog: map-merge((
+    'currentMinHeight': ef.size(8),
     'maxWidthModLong': 275px,
     'currentBorderModLong': 0,
-    'currentPaddingModLong': 7px 15px,
-    'currentBgModLong': var(--mc-bg500),
+    'currentPaddingModLong': 5px 15px,
+    'currentBgModLong': (
+        375: var(--mc-bg700),
+        1024: var(--mc-bg500),
+    ),
     'currentBgModLongActive': var(--mc-main),
-    'currentBgModLongHover': var(--mc-baseOpacity),
-    'currentFillModLong': inherit,
+    'currentBgModLongHover': var(--mc-bg500-l10),
+    'currentFillModLong': var(--mc-baseOpacity),
     'currentFillModLongHover': inherit,
     'currentFillModLongActive': ef.get('mainColors', 'baseMain'),
     'currentBorderRadiusModLong': 10px,
@@ -79,6 +84,7 @@ $themeDefaultModLog: map-merge((
     'currentColorModLang': var(--mc-baseMain),
     'currentColorModLangOpened': ef.get('mainColors', 'baseMain'),
     'dropdownBgModLong': var(--mc-bg),
+    'dropdownMarginOpened': ef.size(1) 0 0,
     'dropdownBorderRadius': ef.get('size', 'small'),
     'listShadow': none,
     'currentFlagSize': ef.get('size', 'smaller'),

@@ -74,12 +74,12 @@ export class ThemeTogglerComponent extends AbstractComponent implements OnInit {
             this.cdr.markForCheck();
         }, this.$destroy);
 
-        this.leftIcon = '/wlc/icons/theme-toggler-alt.svg';
-        this.rightIcon = '/wlc/icons/theme-toggler-default.svg';
+        this.leftIcon = '/wlc/icons/theme-toggler-default.svg';
+        this.rightIcon = '/wlc/icons/theme-toggler-alt.svg';
 
         if (this.$params.type === 'inverse') {
-            this.leftIcon = '/wlc/icons/theme-toggler-default.svg';
-            this.rightIcon = '/wlc/icons/theme-toggler-alt.svg';
+            this.leftIcon = '/wlc/icons/theme-toggler-alt.svg';
+            this.rightIcon = '/wlc/icons/theme-toggler-default.svg';
         }
     }
 

@@ -46,3 +46,15 @@
         }
     }
 }
+
+@mixin separator() {
+    content: '';
+
+    display: block;
+    flex: 0 0 auto;
+    width: ef.get-value($themeLeft, 'separatorWidth');
+    height: ef.get-value($themeLeft, 'separatorHeight');
+    margin: ef.get-value($themeLeft, 'separatorMargin');
+
+    background: ef.get-value($themeLeft, 'separatorColor');
+}

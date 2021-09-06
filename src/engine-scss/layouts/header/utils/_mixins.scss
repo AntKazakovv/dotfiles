@@ -10,7 +10,8 @@
         @include bm.get-mq-map('width', $theme, 'headerContainerDesktopWidth');
         @include bm.get-mq-map('max-width', $theme, 'headerContainerDesktopMaxWidth');
         @include bm.get-mq-map('min-height', $theme, 'headerMinHeight');
-        @include bm.get-mq-map('grid-gap', $theme, 'headerGridGap');
+        @include bm.get-mq-map('grid-template-columns', $theme, 'headerGridColumns');
+        @include bm.get-mq-map('gap', $theme, 'headerGridGap');
         @include bm.get-mq-map('margin', $theme, 'headerContainerDesktopMargin');
         @include bm.get-mq-map('padding', $theme, 'headerPadding');
 
@@ -159,6 +160,13 @@
 
         &__content {
             justify-content: ef.get-value($theme, 'headerUserInfoJustifyContent');
+        }
+    }
+
+    &.wlc-sections__header--theme-toggler {
+
+        .container {
+            @include bm.get-mq-map('grid-template-columns', $theme, 'gridColsToggler');
         }
     }
 }

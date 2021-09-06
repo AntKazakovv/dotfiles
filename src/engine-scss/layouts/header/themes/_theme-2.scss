@@ -4,14 +4,17 @@
 .wlc-sections__header--theme-2 {
     @include headerBase($theme2Header);
 
-    .container {
-        @include bm.get-mq-map('grid-template-columns', $theme2Header, 'headerGridColumns');
-    }
-
     &.wlc-sections__header--without-burger {
 
         .container {
-            @include bm.get-mq-map('grid-template-columns', $theme2Header, 'withoutBurgerGridColumns');
+            @include bm.get-mq-map('grid-template-columns', $theme2Header, 'gridColsNoBurger');
+        }
+
+        &.wlc-sections__header--theme-toggler {
+
+            .container {
+                @include bm.get-mq-map('grid-template-columns', $theme2Header, 'gridColsTogglerNoBurger');
+            }
         }
     }
 }
