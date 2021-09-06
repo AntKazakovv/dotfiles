@@ -1,0 +1,6 @@
+.hl-substr {
+    @include text.get-text-style(
+            ef.get-value($hlSubstr, 'fontStyle'),
+            ef.get-value($hlSubstr, 'textColor')
+    );
+}

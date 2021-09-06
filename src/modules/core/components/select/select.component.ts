@@ -4,6 +4,7 @@ import {
     Inject,
     Input,
     OnInit,
+    AfterViewInit,
     SimpleChanges,
     OnChanges,
     HostListener,
@@ -17,7 +18,10 @@ import {
     trigger,
 } from '@angular/animations';
 import {FormControl} from '@angular/forms';
-import {BehaviorSubject} from 'rxjs';
+import {
+    BehaviorSubject,
+    fromEvent,
+} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 import {
     AbstractComponent,
@@ -26,15 +30,19 @@ import {
     SelectValuesService,
     IIndexing,
     ITooltipCParams,
+    GlobalHelper,
+    ISelectOptions,
 } from 'wlc-engine/modules/core';
 
 import * as Params from './select.params';
 
 import _union from 'lodash-es/union';
 import _kebabCase from 'lodash-es/kebabCase';
-import _get from 'lodash-es/get';
 import _findIndex from 'lodash-es/findIndex';
+import _filter from 'lodash-es/filter';
 import _find from 'lodash-es/find';
+import _sortBy from 'lodash-es/sortBy';
+import _cloneDeep from 'lodash-es/cloneDeep';
 
 /**
  * Component select
@@ -66,49 +74,20 @@ import _find from 'lodash-es/find';
         ]),
     ],
 })
-export class SelectComponent extends AbstractComponent implements OnInit,
-    OnChanges {
-    @Input() protected inlineParams: Params.ISelectCParams;
+export class SelectComponent extends AbstractComponent implements OnInit, OnChanges, AfterViewInit {
+
     @ViewChild('selectList') protected selectList: ElementRef<HTMLElement>;
+    @ViewChild('searchInput') protected searchInput: ElementRef<HTMLElement>;
+
+    @Input() protected inlineParams: Params.ISelectCParams;
+
     public $params: Params.ISelectCParams;
     public control: FormControl;
     public isOpened: boolean;
     public fieldWlcElement: string;
     public activeItemIndex: number;
-    public clickedOutside: boolean = false;
-    public searchText: string = '';
-
-    /**
-     * get index of active option in select list
-     */
-    public get selectedItemIndex(): number {
-        this.activeItemIndex = _findIndex(this.$params.items, (item) => {
-            return item.value == this.control.value;
-        });
-        return this.activeItemIndex;
-    };
-
-    /**
-     * Get text on selector button
-     */
-    public get buttonText(): string {
-        return (
-            this.$params.items[this.selectedItemIndex]?.title
-            || this.$params.common?.placeholder
-            || _get(this.$params, 'items[0].title')
-        ).toString();
-    }
-
-    /**
-     * get wlc-tooltip inline parameters
-     */
-    public get tooltipParams(): ITooltipCParams {
-        return {
-            inlineText: this.$params.common.tooltipText,
-            modal: this.$params.common?.tooltipModal,
-            modalParams: this.$params.common?.tooltipModalParams,
-        };
-    }
+    public searchText: string;
+    public foundItems: Params.ISelectOptions[];
 
     protected constantValues: IIndexing<BehaviorSubject<Params.ISelectOptions[]>> = {};
     protected dayList = this.selectValues.getDateList('days');
@@ -126,17 +105,18 @@ export class SelectComponent extends AbstractComponent implements OnInit,
     public ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
         this.prepareModifiers();
-
-        this.control = this.$params?.control;
         this.prepareConstantValues();
+
+        this.foundItems = _cloneDeep(this.$params.items);
+        this.control = this.$params.control;
         this.fieldWlcElement = 'select_' + _kebabCase(this.$params.name);
 
-        if (this.$params?.options) {
+        if (this.$params.options) {
             this.setOptions();
         }
 
         if (!this.$params.common?.placeholder) {
-            this.control.setValue(this.$params.items[0]?.value || '');
+            this.control.setValue(this.foundItems[0]?.value || '');
         }
 
         if (this.$params.value) {
@@ -152,7 +132,7 @@ export class SelectComponent extends AbstractComponent implements OnInit,
                         `$base.registration.selectCurrencyByCountry.${country}`,
                     );
 
-                    if (currency && _find(this.$params.items, item => item.value === currency)) {
+                    if (currency && _find(this.foundItems, item => item.value === currency)) {
                         this.control.setValue(currency);
                     }
 
@@ -164,6 +144,24 @@ export class SelectComponent extends AbstractComponent implements OnInit,
                 }
             }
         }
+        this.getSelectedItemIndex();
+    }
+
+    public ngAfterViewInit(): void {
+        if (this.$params.useSearch && this.searchInput?.nativeElement) {
+            fromEvent(this.searchInput.nativeElement, 'focus')
+                .pipe(takeUntil(this.$destroy))
+                .subscribe(() => {
+                    this.openDropdown();
+                    this.cdr.detectChanges();
+                });
+
+            setTimeout(() => {
+                if (!this.control.disabled) {
+                    this.searchText = this.placeholderText;
+                }
+            });
+        }
     }
 
     public ngOnChanges(changes: SimpleChanges): void {
@@ -174,46 +172,116 @@ export class SelectComponent extends AbstractComponent implements OnInit,
     }
 
     /**
-     * scroll select list on chosen option
+     * The method get text on selector button and input
+     *
+     * @method placeholderText
+     * @returns {string} string
+     */
+    public get placeholderText(): string {
+        const res = _find(this.$params.items, item => item.value === this.control.value);
+        if (res) {
+            return res.title.toString();
+        } else {
+            return this.$params.common?.placeholder.toString() || '';
+        }
+    }
+
+    /**
+     * The method get wlc-tooltip inline parameters
+     *
+     * @method tooltipParams
+     * @returns {ITooltipCParams} ITooltipCParams
+     */
+    public get tooltipParams(): ITooltipCParams {
+        return {
+            inlineText: this.$params.common?.tooltipText,
+            modal: this.$params.common?.tooltipModal,
+            modalParams: this.$params.common?.tooltipModalParams,
+        };
+    }
+
+    /**
+     * get index of active option in select list
+     */
+    public getSelectedItemIndex(): void {
+        this.activeItemIndex = _findIndex(this.foundItems, (item) => item.value === this.control.value);
+    };
+
+    /**
+     * The method scroll select list on chosen option
+     *
+     * @method scrollSelectList
+     * @returns {void} void
      */
     public scrollSelectList(): void {
         if (this.activeItemIndex < 0) {
             return;
         }
-
-        this.selectList?.nativeElement?.children[this.activeItemIndex].scrollIntoView({block: 'nearest'});
+        this.selectList?.nativeElement?.children[this.activeItemIndex]?.scrollIntoView({block: 'nearest'});
     }
 
     /**
-     * toggle open close select list
+     * The method toggle open close select list and clear search field
+     *
+     * @method toggleDropdown
+     * @returns {void} void
      */
     public toggleDropdown(): void {
-        if (this.control.status === 'DISABLED') {
+        if (this.control.disabled) {
             return;
         }
-        this.isOpened = !this.isOpened;
 
         if (this.isOpened) {
-            this.clickedOutside = false;
+            this.closeDropdown();
         } else {
-            this.control.markAsTouched();
-            this.control.updateValueAndValidity();
+            this.openDropdown();
+            if (this.$params.useSearch && this.searchInput?.nativeElement) {
+                this.searchInput.nativeElement.focus();
+            }
         }
 
         this.cdr.markForCheck();
     }
 
     /**
-     * close select list
+     * The method close select list and clear search field
+     *
+     * @method closeDropdown
+     * @returns {void} void
      */
     public closeDropdown(): void {
-        this.control.markAsTouched();
-        this.control.updateValueAndValidity();
+        if (!this.isOpened || this.control.disabled) {
+            return;
+        }
+
         this.isOpened = false;
+        this.clearSearchField();
+        this.searchText = this.placeholderText;
+        this.getSelectedItemIndex();
     }
 
     /**
-     * chose option in select list and close list
+     * The method open select list and clear search field
+     *
+     * @method openDropdown
+     * @returns {void} void
+     */
+    public openDropdown(): void {
+        if (this.isOpened || this.control.disabled) {
+            return;
+        }
+
+        this.isOpened = true;
+        this.clearSearchField();
+    }
+
+    /**
+     * The method chose option in select list and close list
+     *
+     * @method choseSelectByClick
+     * @param {ISelectOptions} item - select item
+     * @param {number} index - index select item
+     * @returns {void} void
      */
     public choseSelectByClick(item: Params.ISelectOptions, index: number): void {
         this.activeItemIndex = index;
@@ -222,54 +290,93 @@ export class SelectComponent extends AbstractComponent implements OnInit,
         this.cdr.markForCheck();
     }
 
+    /**
+     * The method check required rule in validators
+     *
+     * @method isFieldRequired
+     * @returns {boolean} boolean
+     */
     public isFieldRequired(): boolean {
         return this.$params.validators?.includes('required');
     }
 
     /**
+     * The method search include substr in items && sort array by index
+     *
+     * @method searchItems
+     * @returns {void} void
+     */
+    public searchItems(): void {
+        const searchText = GlobalHelper.shieldingString(this.searchText);
+        const regExp = new RegExp(`(${searchText})`, this.$params.insensitiveSearch ? 'i' : '');
+
+        this.foundItems = _cloneDeep(_filter(this.$params.items, option => !!option.title.toString().match(regExp)));
+
+        if (this.searchText) {
+            const sortFn = (obj: ISelectOptions) => obj.title.toString().match(regExp)?.index;
+            this.foundItems = _sortBy(this.foundItems, sortFn);
+            this.getSelectedItemIndex();
+        }
+    }
+
+    /**
      * listen event keydown and navigate on select list by this event
+     *
+     * @method onKeyDown
+     * @param {KeyboardEvent} event
+     * @returns {void} void
      */
     @HostListener('keydown', ['$event'])
-    public onKeyDown(event: KeyboardEvent): void {
-        if ('Tab' === event.code) {
-            this.closeDropdown();
-            return;
-        }
-        event.preventDefault();
+    protected onKeyDown(event: KeyboardEvent): void {
 
         switch (event.code) {
+            case 'Tab':
+                this.closeDropdown();
+                break;
             case 'Escape':
-                if (this.isOpened) {
-                    this.closeDropdown();
-                }
+                this.closeDropdown();
+                event.preventDefault();
                 break;
             case 'ArrowUp':
-                if (this.activeItemIndex < 1 || this.clickedOutside) {
+                if (this.activeItemIndex < 1) {
                     break;
                 }
-                this.selectOption(this.$params.items[--this.activeItemIndex]);
+                this.selectOption(this.foundItems[--this.activeItemIndex]);
                 this.scrollSelectList();
+                event.preventDefault();
                 break;
             case 'ArrowDown':
-                if (this.activeItemIndex === this.$params.items.length - 1 || this.clickedOutside) {
+                if (this.activeItemIndex === this.foundItems.length - 1) {
                     break;
                 }
-                this.selectOption(this.$params.items[++this.activeItemIndex]);
+                this.selectOption(this.foundItems[++this.activeItemIndex]);
                 this.scrollSelectList();
+                event.preventDefault();
                 break;
             case 'Enter':
                 this.toggleDropdown();
+                event.preventDefault();
                 break;
             case 'Space':
                 if (!this.isOpened) {
                     this.toggleDropdown();
+                }
+                event.preventDefault();
+                break;
+            default:
+                if (this.$params.useSearch && !this.isOpened) {
+                    event.preventDefault();
                 }
                 break;
         }
     }
 
     /**
-     * select option in select list
+     * The method select option in select list
+     *
+     * @method selectOption
+     * @param {ISelectOptions} item
+     * @returns {void} void
      */
     protected selectOption(item: Params.ISelectOptions): void {
         this.control.setValue(item.value);
@@ -278,12 +385,30 @@ export class SelectComponent extends AbstractComponent implements OnInit,
             name: `SELECT_CHOSEN_${this.$params?.name?.toUpperCase()}`,
             data: item,
         });
+
+        if (!this.isOpened) {
+            this.searchText = this.placeholderText;
+        }
     }
 
     /**
-     * get constant values from configService and selectValues by select fields names
+     * The method clear text in search field
+     *
+     * @method clearSearchField
+     * @returns {void} void
      */
-    private prepareConstantValues(): void {
+    protected clearSearchField(): void {
+        this.searchText = '';
+        this.searchItems();
+    }
+
+    /**
+     * The method get constant values from configService and selectValues by select fields names
+     *
+     * @method prepareConstantValues
+     * @returns {void} void
+     */
+    protected prepareConstantValues(): void {
         this.constantValues = {
             currencies: this.selectValues.prepareCurrency(),
             countries: this.configService.get('countries'),
@@ -311,9 +436,12 @@ export class SelectComponent extends AbstractComponent implements OnInit,
     }
 
     /**
-     * set constant values
+     * The method set constant values
+     *
+     * @method setOptions
+     * @returns {void} void
      */
-    private setOptions(): void {
+    protected setOptions(): void {
         this.constantValues[this.$params.options]
             .pipe(takeUntil(this.$destroy))
             .subscribe((value) => {
@@ -321,10 +449,17 @@ export class SelectComponent extends AbstractComponent implements OnInit,
                     title: gettext('No data'),
                     value: '',
                 }];
+                this.foundItems = _cloneDeep(this.$params.items);
             });
     }
 
-    private prepareModifiers(): void {
+    /**
+     * The method prepare modifiers
+     *
+     * @method prepareModifiers
+     * @returns {void} void
+     */
+    protected prepareModifiers(): void {
         if (!this.$params.common?.customModifiers) {
             return;
         }

@@ -310,6 +310,16 @@ export class GlobalHelper {
     }
 
     /**
+     * Escapes the input string
+     * @param {string} source
+     * @return shielding source string
+     */
+    public static shieldingString(source: string): string {
+        return source.replace(/[$()*+.?[\\\]^{|}]/g, '\\$&');
+    }
+
+
+    /**
      * Gets config from config service for no-content component and merge it with params from layouts
      * @returns {INoContentCParams}
      */

@@ -67,4 +67,6 @@ $baseSettings: map-merge((
     'errorsPadding': ef.get('form', 'errorsPadding'),
     'iconRightShift': ef.get('form', 'iconRightShift'),
     'fieldWidth': 100%,
+    'noResultTextStyle': 'PrimaryText',
+    'noResultTextColor': var(--mc-disabled),
 ), $customBaseSettings);

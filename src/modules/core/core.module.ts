@@ -102,6 +102,7 @@ import {AuthDirective} from './directives/auth.directive';
 
 //  -- PIPES IMPORTS STARTS--;
 import {TruncatePipe} from './pipes/truncate.pipe';
+import {HlSubstrPipe} from './pipes/hlsubstr.pipe';
 //  -- PIPES IMPORTS END  --;
 
 //  -- CONFIGS IMPORTS STARTS--;
@@ -252,6 +253,7 @@ export const components = {
         TitleComponent,
         TooltipComponent,
         TruncatePipe,
+        HlSubstrPipe,
         ValueLengthDirective,
         WlcModalComponent,
         WlcNoContentComponent,
@@ -311,6 +313,7 @@ export const components = {
         TooltipComponent,
         TooltipModule,
         TruncatePipe,
+        HlSubstrPipe,
         ValueLengthDirective,
         WlcModalComponent,
         WlcNoContentComponent,
