@@ -6,7 +6,7 @@ $themeDefault: map-merge((
     'headerColor': var(--mc-baseMain),
     'headerStyle': 'QoteTextBold',
     'headerAlign': center,
-    'headerMargin': 0 0 ef.get('size', 'smally') 0,
+    'headerMargin': 0 0 ef.size(3) 0,
 
     'textSize': ef.get('font', 'main'),
     'textColor': var(--mc-baseMain),
@@ -27,7 +27,7 @@ $themeDefault: map-merge((
     'underlineHeight': 4px,
     'underlineRadius': ef.get('radius', 'small'),
     'radius': ef.get('radius', 'biger'),
-    'padding': ef.get('size', 'smally'),
+    'padding': ef.size(3),
     'paddingImage': 0,
     'boxShadow': none,
 
@@ -36,8 +36,8 @@ $themeDefault: map-merge((
         768: 940px,
     ),
     'pageMargin':(
-        320: ef.get('size', 'smally') auto,
-        768: ef.get('size', 'biger') * 3 auto,
+        375: ef.size(3) auto ef.size(6),
+        768: ef.size(30) auto,
     ),
     'pageColumns': (
         320: repeat(2, 1fr),
@@ -48,7 +48,7 @@ $themeDefault: map-merge((
         768: repeat(2, 1fr),
     ),
     'pageGap': (
-        320: ef.get('size', 'smally'),
+        320: ef.size(3),
     ),
 
     'imageColunms': (

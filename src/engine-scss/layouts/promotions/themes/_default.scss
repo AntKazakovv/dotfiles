@@ -1,6 +1,7 @@
 @use 'engine-scss/functions' as ef;
 @use 'engine-scss/mixins/text' as text;
 @use 'engine-scss/mixins/mediaqueries' as mq;
+@use 'engine-scss/mixins/base.mixins' as em;
 
 @import '../utils/vars';
 
@@ -18,11 +19,7 @@
         }
 
         .wlc-bonuses-list {
-            margin: ef.get-value($promotionsThemeDefault, 'listMargin');
-
-            @include mq.min(900) {
-                margin: ef.get-value($promotionsThemeDefault, 'sectionMargin');
-            }
+            @include em.get-mq-map('margin', $promotionsThemeDefault, 'listMargin');
         }
 
         .wlc-btn--theme-mod-promotions {
@@ -36,8 +33,8 @@
     .wlc-sections__tournaments--theme-default {
 
         .wlc-title.wlc-title--tournaments[wlc-title] {
+            @include em.get-mq-map('margin', $promotionsThemeDefault, 'listMargin');
             text-align: ef.get-value($promotionsThemeDefault, 'titleAlign');
-            margin: ef.get-value($promotionsThemeDefault, 'listMargin');
 
             div.wlc-title__main {
                 font-size: ef.get-value($promotionsThemeDefault, 'titleFontSize');

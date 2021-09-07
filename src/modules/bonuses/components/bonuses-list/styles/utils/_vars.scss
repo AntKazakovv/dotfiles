@@ -56,7 +56,11 @@ $themePromo: map-merge((
     'minItemWidth1200': 400px,
     'minItemWidthDesktop': 600px,
     'noContentTextAlign': center,
-    'marginBtnGoToProfile': ef.size(8) auto,
+    'marginBtnGoToProfile': (
+        375: ef.size(6) auto 0,
+        900: ef.size(4) auto 0,
+        1630: ef.size(8) auto 0,
+    ),
 ), $customThemePromo);
 
 $customThemePartial: () !default;

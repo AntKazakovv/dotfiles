@@ -7,13 +7,13 @@
 
 .wlc-tournament-list--theme-default:host {
     // TODO подумать как сделать норм, получилось не по БЭМ
-    margin-bottom: 40px;
+    @include em.get-mq-map('margin', $themeDefault, 'containerMargin');
 
     .wlc-tournament-list {
 
         &__container {
-            display: grid;
             @include em.get-mq-map('grid-template-columns', $themeDefault, 'containerGridTemplateColumns');
+            display: grid;
             grid-gap: 15px;
         }
     }
