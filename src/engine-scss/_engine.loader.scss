@@ -28,8 +28,11 @@
         background-position: map-get($appLoader, 'imgBgPosition');
         background-size: map-get($appLoader, 'imgBgSize');
 
-        .wlc-body--theme-alt & {
-            background-image: map-get($appLoader, 'imgBgAltUrl');
+        @if (map-get($appLoader, 'imgBgAltUrl')) {
+
+            .wlc-body--theme-alt & {
+                background-image: map-get($appLoader, 'imgBgAltUrl');
+            }
         }
     }
 

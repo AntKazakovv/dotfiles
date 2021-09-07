@@ -4,6 +4,7 @@
 @use 'engine-scss/mixins/text' as text;
 
 .wlc-game-thumb--theme-default:host {
+    @include alternateLogo($themeDefault);
 
     position: relative;
     display: flex;
@@ -471,13 +472,15 @@
     &.wlc-game-thumb--theme-vertical {
 
         .wlc-game-thumb__loader {
+            @include alternateLogo($themeVertical);
+
             display: block;
             width: 100%;
             background: {
                 position: center;
-                color: ef.get-value($themeDefault, 'placeholderBg');
-                image: ef.get-value($themeDefault, 'placeholderBgImg');
-                size: ef.get-value($themeDefault, 'placeholderBgImgSize');
+                color: ef.get-value($themeVertical, 'fallbackBackgroundColor');
+                image: ef.get-value($themeVertical, 'placeholderBgImg');
+                size: ef.get-value($themeVertical, 'placeholderBgImgSize');
                 repeat: no-repeat;
             }
 

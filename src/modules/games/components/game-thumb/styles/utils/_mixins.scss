@@ -15,3 +15,13 @@
         }
     }
 }
+
+@mixin alternateLogo($theme) {
+
+    @if (ef.get-value($theme, 'placeholderBgImgAlt')) {
+
+        @include bm.colorThemeAlt() {
+            background-image: ef.get-value($theme, 'placeholderBgImgAlt');
+        }
+    }
+}
