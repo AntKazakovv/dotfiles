@@ -122,8 +122,8 @@ $theme2Header: map-merge((
     'headerBackground': transparent,
     'headerPadding': (
         375: 0,
-        1200: ef.get('size', 'smaller'),
-        1630: ef.get('size', 'main')
+        1200: 0 ef.get('size', 'smaller'),
+        1630: 0 ef.get('size', 'main')
     ),
 
     'logoImgHeight': null,
