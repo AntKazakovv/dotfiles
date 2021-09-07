@@ -93,9 +93,6 @@ export class PlayGameForRealComponent extends AbstractComponent implements OnIni
             name: Params.Events.PLAY_DEMO,
         }, () => {
             this.modalService.hideModal('play-game-for-real');
-            if (this.stateService.params.demo === 'true') {
-                return;
-            }
             if (this.$params.common?.game) {
                 this.$params.common.game.launch({
                     demo: true,
@@ -112,9 +109,6 @@ export class PlayGameForRealComponent extends AbstractComponent implements OnIni
             name: Params.Events.PLAY_REAL,
         }, () => {
             this.modalService.hideModal('play-game-for-real');
-            if (this.stateService.params.demo === 'false') {
-                return;
-            }
             if (this.$params.common?.game) {
                 this.$params.common.game.launch({
                     demo: false,
