@@ -263,7 +263,7 @@ $themeMobile: map-merge((
     'panelBackground': var(--mc-bg),
     'panelHeaderBorderBottom': 2px solid var(--mc-baseOpacity),
     'panelContentPadding': ef.size(4) ef.size(4) ef.size(8),
-    'loginBtnPadding': ef.size(4) 0,
+    'loginBtnPadding': ef.size(4) 0 ef.size(8),
     'gap': ef.size(1),
     'headerMenuJustifyContent': center,
     'headerMenuItemActiveBg': var(--mc-main),
