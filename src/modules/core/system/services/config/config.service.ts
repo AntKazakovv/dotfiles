@@ -59,6 +59,7 @@ import _get from 'lodash-es/get';
 import _set from 'lodash-es/set';
 import _isObject from 'lodash-es/isObject';
 import _cloneDeep from 'lodash-es/cloneDeep';
+import _sortBy from 'lodash-es/sortBy';
 
 /**
  * Examples of getter and setter:
@@ -247,7 +248,8 @@ export class ConfigService {
             type: 'GET',
         }).then(async (data: IData) => {
             await this.ready;
-            this.get<BehaviorSubject<any>>('countries').next(data.data.countries);
+            const sortedCountries = _sortBy(data.data.countries, 'title');
+            this.get<BehaviorSubject<any>>('countries').next(sortedCountries);
         }).catch(() => {
             this.injector.get(LogService).sendLog({
                 code: '0.0.61',
