@@ -313,6 +313,7 @@ export class ActionService {
                     if (initialPath.type?.toLowerCase() === 'withdraw') {
                         _assign(paymentMessage.data,
                             {
+                                title: gettext('Withdraw'),
                                 wlcElement: 'notification_withdraw-success',
                                 message: [
                                     this.translateService.instant(
