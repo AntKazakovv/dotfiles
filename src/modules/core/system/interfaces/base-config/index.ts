@@ -10,9 +10,11 @@ import {IRedirectConfig} from 'wlc-engine/modules/core';
 import {IRegistrationConfig} from './registration.interface';
 import {ISocialItem} from 'wlc-engine/modules/core/components/social-icons/social-icons.params';
 import {IColorThemeSwitchingConfig} from './color-theme-switching.config';
+import {IFinancesConfig} from './finances.interface';
 
 export * from './games.interface';
 export * from './tournaments.interface';
+export * from './finances.interface';
 
 export interface IBaseConfig {
     app?: IAppConfig;
@@ -48,4 +50,5 @@ export interface IBaseConfig {
     useSeo?: boolean;
     colorThemeSwitching?: IColorThemeSwitchingConfig;
     registration?: IRegistrationConfig;
+    finances?: IFinancesConfig;
 }
