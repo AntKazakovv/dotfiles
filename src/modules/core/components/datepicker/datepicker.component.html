@@ -16,7 +16,7 @@
         />
         <span wlc-icon
               class="{{$class}}__icon"
-              iconPath="/wlc/icons/calendar.svg"
+              [iconPath]="$params.iconPath"
               (click)="dp.toggleCalendar()"
         ></span>
     </div>
