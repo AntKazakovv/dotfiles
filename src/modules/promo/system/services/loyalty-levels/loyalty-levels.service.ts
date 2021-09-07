@@ -3,6 +3,7 @@ import {DataService, IData} from 'wlc-engine/modules/core/system/services/data/d
 import {IIndexing} from 'wlc-engine/modules/core/system/interfaces/global.interface';
 import {ILevel} from 'wlc-engine/modules/promo/system/interfaces/level.interface';
 import {LoyaltyLevelModel} from 'wlc-engine/modules/promo/system/models/loyalty-level.model';
+import {LogService} from 'wlc-engine/modules/core';
 
 import _map from 'lodash-es/map';
 
@@ -13,6 +14,7 @@ export class LoyaltyLevelsService {
     public levels: IIndexing<string>[] = [];
 
     constructor(
+        protected logService: LogService,
         private dataService: DataService,
     ) {
         this.registerMethods();
@@ -29,7 +31,19 @@ export class LoyaltyLevelsService {
             const response: IData = await this.dataService.request('loyalty/levels');
             return this.modifyLevels(response.data);
         } catch (error) {
+            this.logService.sendLog({code: '16.0.0', data: error});
             return Promise.reject(error);
+        }
+    }
+
+    /**
+     * get loyalty levels or return empty array on error in request
+     */
+    public async getLoyaltyLevelsSafely(): Promise<LoyaltyLevelModel[]> {
+        try {
+            return await this.getLoyaltyLevels();
+        } catch (error) {
+            return [];
         }
     }
 

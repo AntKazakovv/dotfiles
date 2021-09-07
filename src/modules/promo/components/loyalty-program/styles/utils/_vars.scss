@@ -136,4 +136,6 @@ $themeDefault: map-merge((
     'btnWrappMargin': (
         320: ef.get('size', 'smaller') 0 0 0,
     ),
+
+    'nodataTextAlign': center,
 ), $customThemeDefault);
