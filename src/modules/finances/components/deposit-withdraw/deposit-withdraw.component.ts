@@ -87,6 +87,7 @@ import _transform from 'lodash-es/transform';
 import _assign from 'lodash-es/assign';
 import _map from 'lodash-es/map';
 import _keys from 'lodash-es/keys';
+import _concat from 'lodash-es/concat';
 
 type THostedStyles = 'current' | 'def' | 'alt';
 @Component({
@@ -486,6 +487,9 @@ export class DepositWithdrawComponent extends AbstractComponent implements OnIni
 
         for (const key in this.additionalParams) {
             if (!this.currentSystem?.additionalParams[key]?.skipsaving) {
+                if (this.currentSystem?.additionalParams[key]?.optional && !this.formObject.value[key]) {
+                    continue;
+                }
                 additionalParams[key] = this.formObject.value[key];
             }
         }
@@ -812,6 +816,9 @@ export class DepositWithdrawComponent extends AbstractComponent implements OnIni
         if (!_isEmpty(this.additionalParams)) {
             const additionalFields = _map(_keys(this.additionalParams), (key) => {
                 const field = this.additionalParams[key];
+
+                const validators = field.optional ? [] : ['required'];
+
                 if (field.type === 'input') {
                     return {
                         name: 'core.wlc-input',
@@ -824,10 +831,8 @@ export class DepositWithdrawComponent extends AbstractComponent implements OnIni
                                 placeholder: field.name,
                             },
                             control: new FormControl(''),
-                            validators: [
-                                'required',
-                                ...FinancesHelper.getSpecialValidators(key, this.currentSystem.alias),
-                            ],
+                            validators: _concat(validators,
+                                ...FinancesHelper.getSpecialValidators(key, this.currentSystem.alias)),
                             customMod: ['additional'],
                         },
                     };
@@ -848,7 +853,7 @@ export class DepositWithdrawComponent extends AbstractComponent implements OnIni
                                 };
                             }),
                             control: new FormControl(''),
-                            validators: ['required'],
+                            validators: validators,
                             customMod: ['additional'],
                         },
                     };

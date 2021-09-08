@@ -54,6 +54,7 @@ export interface IPaymentAdditionalParam {
     name: string;
     showfor: FilterType;
     skipsaving?: number;
+    optional?: number;
     isHosted?: boolean;
     type?: 'input' | 'select';
     params?: IIndexing<string>;
@@ -489,6 +490,7 @@ export class PaymentSystem extends AbstractModel<IPaymentSystem> {
                 type: parsParam.type || 'input',
                 showfor: parsParam.showfor || 'all',
                 skipsaving: parsParam.skipsaving || 0,
+                optional: parsParam.optional || 0,
                 params: parsParam.data,
             };
         } else if (_isArray(parsParam)) {
