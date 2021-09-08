@@ -5,10 +5,10 @@
 .wlc-sections__promo-categories[class] {
 
     .container {
-        display: grid;
-
         @include bm.get-mq-map('grid-template-columns', $themePromoCategories, 'sectionGridColumns');
         @include bm.get-mq-map('gap', $themePromoCategories, 'sectionGap');
+
+        display: grid;
     }
 
     .wlc-winners-slider__wrapper {
@@ -16,19 +16,22 @@
     }
 
     .wlc-winners-slider[class] {
-        grid-column: 1 / -1;
-
-        @include mq.min(720) {
-            grid-column: unset;
-        }
+        @include bm.get-mq-map('grid-column', $themePromoCategories, 'winnersSliderGridColumn');
 
         .wlc-winners-slider__wrapper[class] {
-            padding: ef.get-value($themePromoCategories, 'winnersSliderPadding');
             max-width: 100%;
+            padding: ef.get-value($themePromoCategories, 'winnersSliderPadding');
         }
 
         .wlc-winners-slider__title[class] {
-            margin: ef.get-value($themePromoCategories, 'winnersSliderMargin');
+            @include bm.get-mq-map('margin', $themePromoCategories, 'winnersSliderMargin');
+        }
+
+        .no-winners {
+
+            .wlc-winners-slider__title[class] {
+                @include bm.get-mq-map('margin', $themePromoCategories, 'winnersSliderMarginNoWinners');
+            }
         }
     }
 

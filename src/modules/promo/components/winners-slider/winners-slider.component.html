@@ -1,5 +1,5 @@
 <div class="{{$class}}__wrapper" [attr.data-wlc-element]="'block-' + $params.type + '-wins'">
-    <div class="{{$class}}__container" [ngClass]="{'container': $params.container}">
+    <div class="{{$class}}__container" [ngClass]="{'container': $params.container, 'no-winners': !slides.length}">
         <h4 *ngIf="isTitleVisible"
             class="{{$class}}__title"
             [attr.data-wlc-element]="'title_' + $params.type + '-wins'"
