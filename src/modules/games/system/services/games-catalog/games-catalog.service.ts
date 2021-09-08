@@ -207,15 +207,14 @@ export class GamesCatalogService {
             .getMethodSubscribe('games/jackpots')
             .pipe(
                 filter(data => !!data),
-                // TODO Delete after #246227
                 map<IData, IJackpot[]>((response) => {
-                    if (!response.data || !response.data?.length) {
+                    if (!_isArray(response.data) || !response.data?.length) {
                         return [];
                     }
 
+                    // TODO Delete after #246227
                     const filtered = _filter(response.data, (data: IJackpot) => data.amount > 0);
-                    if (response.data.length
-                        && !filtered.length
+                    if (!filtered.length
                         && !this.jackpotCurrency
                         && response.data[0].currency !== 'EUR'
                     ) {
@@ -223,10 +222,10 @@ export class GamesCatalogService {
                         this.jackpotCurrency = response.data[0].currency;
                         this.jackpotRestart$.next();
                     }
+                    // END Delete after #246227
 
                     return filtered;
                 }),
-                // END Delete after #246227
                 distinctUntilChanged((prev, curr) => _isEqual(prev, curr)),
                 map((data: IJackpot[]) => {
                     // TODO Delete after #246227
