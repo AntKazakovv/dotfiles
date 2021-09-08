@@ -254,6 +254,8 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
     }
 
     public ngOnDestroy(): void {
+        super.ngOnDestroy();
+        this.destroyed = true;
         this.containerObserver?.disconnect();
         if (this.iframeObserver) {
             this.iframeObserver?.disconnect();
@@ -722,6 +724,10 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
      * @returns {ComponentRef<WlcModalComponent>}
      */
     protected setError(error: IError = {}): void {
+        if (this.destroyed) {
+            return;
+        }
+
         this.modalService.showError({
             modalMessage: error.msg || gettext('Something wrong. Please try later.'),
             onModalHide: () => {

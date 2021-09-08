@@ -9,9 +9,6 @@ export const wlcMobileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
         params: {
             state: {
                 name: 'app.sportsbook',
-                params: {
-                    'page': '.',
-                },
             },
             href: {
                 url: '/sportsbook/',
@@ -28,7 +25,7 @@ export const wlcMobileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
             state: {
                 name: 'app.sportsbook',
                 params: {
-                    page: 'inplay.',
+                    page: 'inplay',
                 },
             },
             href: {
