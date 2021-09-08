@@ -167,7 +167,7 @@ export const MODALS_LIST: IModalList = {
     runGame: {
         config: {
             id: 'play-game-for-real',
-            modalTitle: gettext('Lets\'s play!'),
+            modalTitle: gettext('Let\'s play!'),
             modifier: 'play-game-for-real',
             componentName: 'games.wlc-play-game-for-real',
             componentParams: {
