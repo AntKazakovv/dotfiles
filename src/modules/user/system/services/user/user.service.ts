@@ -107,6 +107,10 @@ export class UserService {
         this.eventService.subscribe({
             name: 'USER_INFO',
         }, (info: IData) => {
+            if (info?.code === 401) {
+                this.logout();
+                return;
+            }
             this.info.data = info?.data;
             this.userInfo$.next(this.info);
 
@@ -659,10 +663,6 @@ export class UserService {
             url: '/userInfo',
             type: 'GET',
             period: 10000,
-            // events: {
-            //     success: 'USER_INFO',
-            //     fail: 'USER_INFO_ERROR',
-            // },
         });
 
     }
