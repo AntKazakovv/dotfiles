@@ -6,16 +6,23 @@ import {
     GlobalHelper,
     IMixedParams,
     IFromLog,
+    IIconListCParams,
+    IPaysystem,
 } from 'wlc-engine/modules/core';
 import {
     IconModel,
     IIconParams,
 } from 'wlc-engine/modules/core/system/models/icon-list-item.model';
+import {MerchantModel} from 'wlc-engine/modules/games';
 
 import _map from 'lodash-es/map';
 
+export type ColorIconBgType = 'dark' | 'light';
+export type TIconShowAs = 'svg' | 'img';
+export type TypeComponent = 'payments' | 'merchants';
+
 export interface IMerchantsPaymentsIterator {
-    showAs: 'svg' | 'img',
+    showAs: TIconShowAs,
     wlcElement: string,
     nameForPath: string,
     alt?: string,
@@ -25,16 +32,12 @@ export interface IMerchantsPaymentsIterator {
     colorIconBg?: ColorIconBgType;
 }
 
-export type ColorIconBgType = 'dark' | 'light';
-
 enum ThemeToDirectory {
     payments = 'paysystems/V2/svg',
     merchants = 'merchants/svg',
 };
 
 export abstract class IconListAbstract<T> extends AbstractComponent {
-
-    abstract items: IconModel[];
 
     constructor(
         protected componentParams: IMixedParams<T>,
@@ -107,6 +110,42 @@ export abstract class IconListAbstract<T> extends AbstractComponent {
 
     protected wlcElementTail(name: string): string {
         return name.toLowerCase().replace(/\s/g, '-').replace(/[^\dA-Za-z-]/g, '');
+    }
+
+    /**
+     * Prepare icon data
+     *
+     * @param componentType
+     * @param params
+     * @param source
+     * @returns {IIconParams[]}
+     **/
+    protected prepareIconsParams(
+        componentType: TypeComponent,
+        params: IIconListCParams,
+        source: unknown[]): IIconParams[] {
+        const {theme, type = 'img', colorIconBg} = params;
+
+        if (componentType === 'merchants') {
+            return _map(source, (item: MerchantModel) => {
+                return this.merchantsPaymentsIterator(theme, {
+                    showAs: type as TIconShowAs,
+                    wlcElement: item.wlcElement,
+                    nameForPath: item.alias,
+                    colorIconBg,
+                    alt: item.name,
+                });
+            });
+        } else {
+            return _map(source, (item: IPaysystem) => {
+                return this.merchantsPaymentsIterator(theme, {
+                    showAs: type as TIconShowAs,
+                    wlcElement: 'block_payment-' + this.wlcElementTail(item.Name),
+                    nameForPath: item.Name,
+                    colorIconBg,
+                });
+            });
+        }
     }
 
 }

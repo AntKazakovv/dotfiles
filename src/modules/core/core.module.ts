@@ -55,6 +55,8 @@ import {FormControlComponent} from './components/form-control/form-control.compo
 import {FormWrapperComponent} from './components/form-wrapper/form-wrapper.component';
 import {IconComponent} from './components/icon/icon.component';
 import {IconListComponent} from './components/icon-list/icon-list.component';
+import {IconMerchantsListComponent} from './components/icon-merchants-list/icon-merchants-list.component';
+import {IconPaymentsListComponent} from './components/icon-payments-list/icon-payments-list.component';
 import {InfoPageComponent} from './components/info-page/info-page.component';
 import {InputComponent} from './components/input/input.component';
 import {LanguageSelectorComponent} from './components/language-selector/language-selector.component';
@@ -135,6 +137,8 @@ export const components = {
     'wlc-form-wrapper': FormWrapperComponent,
     'wlc-icon': IconComponent,
     'wlc-icon-list': IconListComponent,
+    'wlc-icon-payments-list': IconPaymentsListComponent,
+    'wlc-icon-merchants-list': IconMerchantsListComponent,
     'wlc-info-page': InfoPageComponent,
     'wlc-input': InputComponent,
     'wlc-language-selector': LanguageSelectorComponent,
@@ -223,6 +227,8 @@ export const components = {
         FormWrapperComponent,
         IconComponent,
         IconListComponent,
+        IconMerchantsListComponent,
+        IconPaymentsListComponent,
         IconListItemComponent,
         InfoPageComponent,
         InputComponent,
@@ -284,6 +290,8 @@ export const components = {
         FormWrapperComponent,
         IconComponent,
         IconListComponent,
+        IconMerchantsListComponent,
+        IconPaymentsListComponent,
         IconListItemComponent,
         InfoPageComponent,
         InputComponent,
