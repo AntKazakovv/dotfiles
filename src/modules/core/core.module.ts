@@ -1,3 +1,5 @@
+import {HTTP_INTERCEPTORS} from '@angular/common/http';
+
 // -- MODULES IMPORTS START --;
 import {CommonModule} from '@angular/common';
 import {NgModule} from '@angular/core';
@@ -7,6 +9,7 @@ import {
     HammerModule,
 } from '@angular/platform-browser';
 import {AngularMyDatePickerModule} from 'angular-mydatepicker';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {AngularResizedEventModule} from 'angular-resize-event';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {ModalModule} from 'ngx-bootstrap/modal';
@@ -34,7 +37,7 @@ import {
     SeoService,
     BodyClassService,
 } from './system/services';
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {RecaptchaService} from './system/services/recaptcha/recaptcha.service';
 // -- SERVICES IMPORTS END  --;
 
 // -- COMPONENTS IMPORTS  --;
@@ -101,6 +104,10 @@ import {ValueLengthDirective} from './directives/value-length.directive';
 import {ParallaxMovementDirective} from './directives/parallax-movement.directive';
 import {AuthDirective} from './directives/auth.directive';
 //  -- DIRECTIVES IMPORTS END  --;
+
+// -- INTERCEPTOR IMPORTS STARTS --;
+import {HeadersInterceptor} from 'wlc-engine/modules/core/system/interceptors/headers.interceptor';
+// -- INTERCEPTOR IMPORTS END
 
 //  -- PIPES IMPORTS STARTS--;
 import {TruncatePipe} from './pipes/truncate.pipe';
@@ -202,6 +209,12 @@ export const components = {
         NotificationService,
         GlobalHelper.bootstrapProviders(NotificationService),
         BodyClassService,
+        RecaptchaService,
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: HeadersInterceptor,
+            multi: true,
+        },
     ],
     declarations: [
         AmountLimitComponent,

@@ -360,11 +360,11 @@ export class DataService {
                     : this.httpRequest(method, url, requestParams, requestBody).pipe(
                         retryWhen((err: Observable<HttpErrorResponse>) => err.pipe(
                             mergeMap((error: HttpErrorResponse) => {
-
-                                if (!error.statusText.startsWith('5')) {
+                                if (!error.status.toString().startsWith('5')) {
                                     return throwError(error);
                                 }
-                                if (countLength-- > 0) {
+                                if (countLength > 0) {
+                                    countLength--;
                                     notCacheStaticData = true;
                                     return of(error).pipe(delay(method.retries.count[countLength]));
                                 } else if (method.retries.fallbackUrl) {
@@ -562,9 +562,6 @@ export class DataService {
         requestBody: string | FormData,
     ): Observable<IData> {
         return this.http.request<IData>(method.type, url, {
-            headers: {
-                'HTTP_X_UA_FINGERPRINT': window['fingerprintHash'] || '',
-            },
             params: requestParams,
             body: requestBody,
             withCredentials: true,

@@ -48,4 +48,5 @@ declare interface Window {
     zESettings?: any;
     zE?: any;
     zEACLoaded?: boolean;
+    grecaptcha?: ReCaptchaV2.ReCaptcha;
 }

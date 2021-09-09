@@ -33,6 +33,7 @@ export interface IFromLog {
     component?: string;
     pipe?: string;
     directive?: string;
+    interceptor?: string;
 }
 
 export interface ILogObj<T = any> extends ILogType {
