@@ -349,7 +349,7 @@ class StartGameHandler {
      */
     private checksForUnauthorized() {
         if (!this.isDemo) {
-            this.stateService.go('app.home', this.transition.params()).then(() => {
+            this.stateService.go('app.home').finally(() => {
 
                 this.modalService.showModal<IPlayGameForRealCParams>('runGame', {
                     common: {
@@ -357,7 +357,6 @@ class StartGameHandler {
                         disableDemo: false,
                     },
                 });
-
             });
             this.result.reject(RejectReason.AuthRequired);
         } else {
