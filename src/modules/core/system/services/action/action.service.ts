@@ -302,8 +302,8 @@ export class ActionService {
                             wlcElement: 'notification_deposit-success',
                             message: [
                                 this.translateService.instant(gettext('Deposit completed successfully')),
-                                currencyElement +
-                                this.translateService.instant(
+                                `${currencyElement} `
+                                + this.translateService.instant(
                                     gettext('were successfully deposited in your account.')),
                             ],
                         },
