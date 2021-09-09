@@ -58,6 +58,24 @@
         }
     }
 
+    .wlc-icon {
+
+        &-merchants-list,
+        &-payments-list {
+            width: 100%;
+            max-width: 100%;
+            overflow: hidden;
+        }
+
+        &-merchants-list {
+            grid-area: merchants;
+        }
+
+        &-payments-list {
+            grid-area: payments;
+        }
+    }
+
     .wlc-icon-list {
 
         &--theme-merchants {

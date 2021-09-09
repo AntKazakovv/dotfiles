@@ -6,7 +6,6 @@
     @include em.get-mq-map('max-width', $themePayments, 'paymentsMaxWidth');
     @include em.get-mq-map('padding', $themePayments, 'paymentsPadding');
 
-    grid-area: payments;
     width: ef.get-value($themePayments, 'paymentsWidth');
 
     background-color: ef.get-value($themePayments, 'paymentsBackground');
