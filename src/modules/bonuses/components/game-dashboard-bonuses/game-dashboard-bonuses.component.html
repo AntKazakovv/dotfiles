@@ -29,7 +29,9 @@
 </ng-template>
 
 <ng-template #bonus let-item="item">
-    <div class="{{$class}}__bonus-wrp" [ngClass]="{'active-bonus': item.bonus.isActive}">
+    <div wlc-scrollbar
+         class="{{$class}}__bonus-wrp"
+         [ngClass]="{'active-bonus': item.bonus.isActive}">
         <div wlc-bonus-item
              class="{{$class}}__bonus"
              [inlineParams]="item.bonusItemParams">
