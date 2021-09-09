@@ -5,33 +5,68 @@
 
 .wlc-game-dashboard-bonuses--theme-default:host {
     position: relative;
+    height: ef.get-value($themeDefault, 'totalHeightBonus');
+    margin: ef.get-value($themeDefault, 'dashboardMargin');
 
     ::ng-deep {
 
-        .swiper-button-next {
-            top: ef.get-value($themeDefault, 'buttonTop');
-            right: 0;
+        .wlc-bonus-item {
+            padding: ef.get-value($themeDefault, 'itemPadding');
+        }
 
-            &:after {
-                display: none;
+        .wlc-game-dashboard-bonuses__slider {
+            height: ef.get-value($themeDefault, 'totalHeightBonus');
+
+            & > .swiper-container {
+                height: ef.get-value($themeDefault, 'totalHeightBonus');
             }
         }
 
-        .swiper-button-prev {
-            top: ef.get-value($themeDefault, 'buttonTop');
-            left: 0;
+        .wlc-game-dashboard-bonuses__bonus-wrp {
+            height: ef.get-value($themeDefault, 'bonusWrpHeight');
+        }
 
-            &:after {
-                display: none;
+        .wlc-scrollbar--theme-default {
+
+            .wlc-scrollbar__container {
+                padding: ef.get-value($themeDefault, 'scrollbarPadding');
+            }
+
+            .swiper-container-vertical > .swiper-scrollbar {
+                right: ef.get-value($themeDefault, 'scrollbarPosition');
             }
         }
 
-        .swiper-slide {
-            height: ef.get-value($themeDefault, 'swiperSlideHeight');
-        }
+        .swiper {
 
-        .swiper-pagination {
-            bottom: 0;
+            &-button {
+
+                &-next,
+                &-prev {
+                    top: ef.get-value($themeDefault, 'buttonTop');
+
+                    &:after {
+                        display: none;
+                    }
+                }
+
+                &-next {
+                    right: ef.get-value($themeDefault, 'buttonPosition');
+                }
+
+                &-prev {
+                    left: ef.get-value($themeDefault, 'buttonPosition');
+                }
+            }
+
+            &-slide {
+                position: relative;
+                box-sizing: border-box;
+            }
+
+            &-pagination {
+                bottom: ef.get-value($themeDefault, 'paginationBottom');
+            }
         }
     }
 }
