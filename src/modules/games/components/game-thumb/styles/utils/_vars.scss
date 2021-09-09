@@ -4,118 +4,247 @@
 
 $customThemeDefault: () !default;
 $themeDefault: map-merge((
-    'placeholderBg': var(--mc-bg-d10),
-    'thumbAlignItems': center,
-    'thumbJustifyContent': center,
+    'thumbCursor': (
+        375: pointer,
+        1024: unset,
+    ),
+    'thumbAspectRatio': '4/3',
+    'thumbBorderRadius': ef.get('radius', 'biger'),
+
+    'placeholderBgColor': var(--mc-bg-d10),
     'placeholderBgImg': url('/static/images/logo.svg'),
     'placeholderBgImgAlt': null,
     'placeholderBgImgSize': 50%,
-    'thumbBorderRadius': ef.get('radius', 'biger'),
-    'thumbPadding': ef.size(2),
-    'thumbHoverBg': var(--mc-bg-o8),
-    'thumbNameColor': var(--mc-baseMain),
-    'thumbHoverTransform': translateX(-100%) skewX(35deg),
-    'thumbTitleAlignItems': center,
-    'thumbTitleJustifyContent': center,
-    'thumbNameDisplay': flex,
-    'thumbNameAlignItems': center,
-    'thumbNameJustifyContent': center,
-    'thumbNamePadding': ef.size(2) 0 0,
-    'thumbNamePosition': center,
-    'btnAlignItems': flex-end,
-    'btnJustifyContent': center,
-    'btnMarginItems': 0,
-    'btnGap': ef.size(2),
-    'thumbBtnPosition': horizontal,
-    'favoritePosition': left,
-    'favoriteBg': var(--mc-baseMain),
-    'favoriteHoverBg': var(--mc-main),
-    'favoriteActiveBg': var(--fc-inputBg),
-    'favoriteSize': 32px,
-    'favoriteBackBg': var(--mc-bg300),
-    'favoriteBackBgActive': var(--mc-main),
-    'favoriteBackSize': ef.size(8),
-    'favoriteBackRadius': ef.get('radius', 'biger'),
-    'favoriteBoxShadow': none,
-    'useAnimeSmoothWave': false,
+
+    'descPadding': ef.size(2),
+    'descDisplay': (
+        375: none,
+        1024: grid,
+    ),
+    'descGridRows': 1fr auto,
+    'descBeforeZIndex': 1,
+    'descBeforeBg': var(--mc-bg-o8),
+    'descBeforeTransform': translateX(-100%) skewX(35deg),
+
+    'titleZIndex': 3,
+    'titleDisplay': flex,
+    'titleFlexDirection': column,
+    'titleAlignItems': center,
+    'titleJustifyContent': center,
+    'titleTextAlign': center,
+
+    'nameDisplay': flex,
+    'nameAlignItems': center,
+    'nameJustifyContent': center,
+    'nameTextStyle': (
+        375: 'PrimaryTextBold',
+        1630: 'ThirdTitleBold',
+    ),
+    'nameColor': var(--mc-baseMain),
+    'merchantTextStyle': (
+        375: 'PrimaryText',
+        1630: 'ThirdTitle',
+    ),
+    'merchantColor': var(--mc-baseMain),
+
+    'btnsZIndex': 3,
+
+    'favouritePosition': ef.size(2),
+    'favouriteZIndex': 4,
+    'favouriteAlignItems': center,
+    'favouriteJustifyContent': center,
+    'favouriteTransformOrigin': center,
+    'favouriteColor': var(--mc-baseMain),
+    'favouriteHoverBg': var(--mc-main),
+    'favouriteActiveColor': var(--fc-inputBg),
+    'favouriteSize': ef.size(6),
+    'favouriteBackBg': var(--mc-bg300),
+    'favouriteBackBgActive': var(--mc-main),
+    'favouriteBackSize': ef.size(8),
+    'favouriteBackRadius': ef.get('radius', 'biger'),
+    'favouriteBoxShadow': none,
 ), $customThemeDefault);
+
+$customThemeDefaultCircle: () !default;
+$themeDefaultModCircle: map-merge((
+    'descBg': linear-gradient( 360deg, var(--mc-baseContrast) 0%, var(--mc-baseContrast-o0) 47%),
+
+    'titlePosition': ef.size(2),
+    'titleAlignItems': start,
+    'titleOpacity': 1,
+    'titleOpacityHover': 0,
+
+    'btnsGridRows': auto ef.size(8),
+    'btnsGridColumns': 1fr,
+    'btnsJustifyItems': center,
+    'btnsAndIconOpacity': 0,
+    'btnsAndIconOpacityHover': 1,
+
+    'btnPlayDisplay': flex,
+    'btnPlayAlignItems': center,
+    'btnPlayJustifyContent': center,
+    'btnPlayMargin': 0 auto,
+    'btnPlaySize': (
+        375: 60px,
+        900: 85px,
+    ),
+    'btnPlayColor': transparent,
+    'btnPlayBorder': 4px solid var(--mc-baseMain),
+    'btnPlayRadius': 50%,
+
+    'btnDemoColor': var(--mc-baseMain),
+    'btnDemoBg': none,
+    'btnDemoBorder': none,
+    'btnDemoHoverDecoration': underline,
+    'btnDemoHoverBoxShadow': none,
+), $customThemeDefaultCircle);
+
+$customThemeDefaultBottom: () !default;
+$themeDefaultBottom: map-merge((
+    'thumbBgPosition': center ef.size(12),
+
+    'imgBorderRadius': ef.get('radius', 'biger') ef.get('radius', 'biger') 0 0,
+
+    'descDisplay': (
+        375: none,
+        1024: grid,
+    ),
+    'descHeight': ef.size(12),
+    'descMarginTop': 75%, // (100% / aspect-ratio)
+    'descBg': var(--mc-bg700),
+    'descBeforeOpacity': 0,
+    'descBeforeOpacityHover': 1,
+
+    'iconOpacity': 0,
+    'iconOpacityHover': 1,
+), $customThemeDefaultBottom);
+
+$customBottomButtons: () !default;
+$bottomButtons: map-merge((
+    'descHeight': ef.size(12),
+
+    'titleWidth': 100%,
+    'titleTransform': translate(-50%, -40px),
+    'titleOpacity': 0,
+    'titleOpacityHover': 1,
+), $customBottomButtons);
+
+$customBottomAll: () !default;
+$bottomAll: map-merge((
+    'imgBeforeOpacity': 0,
+    'imgBeforeOpacityHover': 1,
+    'imgBeforeBg': linear-gradient(180deg, var(--mc-baseContrast-o0) 50%, var(--mc-baseContrast) 100%),
+
+    'descPosition': relative,
+    'descGridRows': ef.size(8) auto,
+    'descGridColumns': 1fr,
+    'descGap': ef.size(2),
+    'descHeight': auto,
+
+    'titleAlignItems': start,
+
+    'favouriteBg': var(--mc-bg700-o4),
+    'favouriteBoxShadow': 0 0 ef.size(2) var(--mc-bg700),
+    'favouriteActiveColor': var(--mc-secondary)
+), $customBottomAll);
+
+$customBottomTitle: () !default;
+$bottomTitle: map-merge((
+    'descHeight': ef.size(12),
+
+    'btnsTranslate': translate(-50%, -75px),
+    'btnsNoDemoTranslate': translate(-50%, -50px),
+    'btnsOpacity': 0,
+    'btnsOpacityHover': 1,
+), $customBottomTitle);
 
 $customThemePromoWidget: () !default;
 $themePromoWidget: map-merge((
+    'errFlexDirection': column,
+    'errAlignItems': center,
+    'errJustifyContent': center,
+    'contentFlexDirection': column,
+    'contentAlignItems': center,
     'titleStyle': 'ThirdTitleBold',
     'titleColor': var(--mc-baseMain),
     'titlePadding': ef.size(4) 0,
+    'titleTextAlign': center,
     'backgroundColor': var(--mc-bg700),
-    'buttonsGridColumns': minmax(0, 1fr) minmax(0, 1fr),
-    'buttonsBottom': 0,
-    'buttonsGap': 0 ef.size(2),
-    'buttonsMargin': 0 0 ef.size(8),
+    'buttonsBottom': ef.size(8),
     'borderRadius': ef.get('radius', 'biger'),
     'shadowLayoutTop': linear-gradient(180deg, var(--mc-baseContrast) 0, var(--mc-baseContrast-o0) 40%),
     'shadowLayoutBottom': linear-gradient(0deg, var(--mc-baseContrast) 0%, var(--mc-baseContrast-o0) 30%),
 ), $customThemePromoWidget);
 
-$customThemeDefaultCircle: () !default;
-$themeDefaultModCircle: map-merge((
-    'btnSize': 86px,
-    'btnBorder': 4px solid var(--mc-baseMain),
-    'btnBorderRadius': 50%,
-    'btnDemoColor': var(--mc-baseMain),
-
-    'thumbDescAlignItems': flex-end,
-    'thumbDescJustifyContent': flex-start,
-), $customThemeDefaultCircle);
-
-$customThemeDefaultVertical: () !default;
-$themeDefaultVertical: map-merge((
-    'thumbTitleAlignItems': center,
-    'thumbTitleJustifyContent': flex-start,
-
-    'btnFlexDirection': column,
-    'btnAlignItems': stretch,
-), $customThemeDefaultVertical);
-
 $customThemeVertical: () !default;
 $themeVertical: map-merge((
+    'bgWidth': 100%,
     'borderRadius': ef.get('radius', 'biger'),
-    'buttonsGap': ef.size(3),
     'logoTopGap': ef.size(8),
+    'logoLeftGap': 0,
     'logoWidth': 100%,
+    'descDisplay': flex,
     'descPadding': 0 0 ef.size(7) 0,
     'descJustifyConten': center,
     'descAlignItems': flex-end,
+    'fgBottom': 0,
+    'fgLeft': 0,
     'fgTransformOrigin': bottom center,
     'fgWidth': 100%,
     'fgHeight': auto,
     'bgAspectRatio': '10/16',
-    'bgWidth': 100%,
-    'fallbackBackgroundColor': var(--mc-bg-d10),
     'controlsBg': linear-gradient(0deg, darken(#ff8a00, 20%) 0%, rgba(255, 138, 0, 0) 100%), // TODO: not design system colors
     'controlsTransform': translateY(10%),
     'videoObjectFit': cover,
     'videoObjectPosition': center,
+    'placeholderBgColor': var(--mc-bg-d10),
     'placeholderBgImg': url('/static/images/logo.svg'),
     'placeholderBgImgAlt': null,
     'placeholderBgPosition': center,
     'placeholderBgImgSize': 50%,
+    'transformBg': scale(1.1),
+    'transformHoverBg': scale(1.01),
+    'transformHoverLogo': translateY(-40px),
+    'transformHoverFg': scale(1.2),
+    'transformHoverVideo': scale(1.1),
 ), $customThemeVertical);
 
-$customThemeDefaultNamed: () !default;
-$ThemeDefaultNamed: map-merge((
-    'thumbFlexDirection': column,
-    'thumbFlexWrap': wrap,
-    'thumbAlignItems': stretch,
+$customBtnsLayout: () !default;
+$btnsLayout: map-merge((
+    'btnsDisplay': (
+        375: none,
+        1024: grid,
+    ),
+    'btnsGap': ef.size(2),
+    'btnsJustifyContent': center,
 
-    'thumbNameBg': var(--mc-bg700),
-    'thumbNameColor': var(--mc-baseMain),
-    'thumbNameHeight': 60px,
-    'thumbNamePadding': ef.size(2),
-    'thumbButtonsMinWidth': 110px,
+    'btnsGridColumnsHor': minmax(0, 1fr) minmax(0, 1fr),
+    'btnsNoDemoGridColumnsHor': 50%,
 
-    'favoritePositionTop': ef.size(2),
-    'favoritePositionLeft': ef.size(2),
+    'btnsGridRowsVert': minmax(0, 1fr) minmax(0, 1fr),
+    'btnsGridColumnsVert': minmax(0, ef.size(22)),
+    'btnsNoDemoGridRowsVert': minmax(0, 1fr),
 
-    'btnFlexDirection': column,
-    'btnAlignItems': center,
-    'btnJustifyContent': center,
-), $customThemeDefaultNamed);
+    'btnsGridRowsCirc': auto ef.size(8),
+    'btnsGridColumnsCirc': 1fr,
+    'btnsJustifyItemsCirc': center,
+    'btnsAlignItemsCirc': end,
+    'btnsNoDemoGridRowsCircle': 1fr,
+    'btnsNoDemoAlignItemsCirc': center,
+), $customBtnsLayout);
+
+/*
+    set 'use': true, if you will be use custom animation
+    set 'themeMod***': true, to use this animation for a particular themeMod
+*/
+$customAnimations: () !default;
+$animations: map-merge((
+    'smoothWave': (
+        'use': false,
+        'themeModDefault': false,
+        'themeModVertical': false,
+        'themeModCircle': false,
+        'themeModButtomButtons': false,
+        'themeModButtomTitle': false,
+    ),
+), $customAnimations);

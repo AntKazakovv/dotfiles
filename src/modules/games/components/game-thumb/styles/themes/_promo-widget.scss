@@ -17,9 +17,9 @@
 
         &__error {
             display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
+            flex-direction: ef.get-value($themePromoWidget, 'errFlexDirection');
+            align-items: ef.get-value($themePromoWidget, 'errAlignItems');
+            justify-content: ef.get-value($themePromoWidget, 'errJustifyContent');
             height: 100%;
 
             background: ef.get-value($themePromoWidget, 'backgroundColor');
@@ -32,8 +32,8 @@
             left: 0;
 
             display: flex;
-            flex-direction: column;
-            align-items: center;
+            flex-direction: ef.get-value($themePromoWidget, 'contentFlexDirection');
+            align-items: ef.get-value($themePromoWidget, 'contentAlignItems');
             width: 100%;
             height: 100%;
 
@@ -42,6 +42,7 @@
             border-radius: ef.get-value($themePromoWidget, 'borderRadius');
 
             &:before {
+                content: '';
                 position: absolute;
 
                 width: 100%;
@@ -50,12 +51,11 @@
                 background:
                     ef.get-value($themePromoWidget, 'shadowLayoutTop'),
                     ef.get-value($themePromoWidget, 'shadowLayoutBottom');
-
-                content: '';
             }
         }
 
         &__img {
+            width: 100%;
             height: 100%;
 
             img {
@@ -68,24 +68,24 @@
         }
 
         &__title {
+            @include text.get-text-style(ef.get-value($themePromoWidget, 'titleStyle'), ef.get-value($themePromoWidget, 'titleColor'));
             position: absolute;
             top: 0;
 
             padding: ef.get-value($themePromoWidget, 'titlePadding');
 
-            @include text.get-text-style(ef.get-value($themePromoWidget, 'titleStyle'), ef.get-value($themePromoWidget, 'titleColor'));
-            text-align: center;
+            text-align: ef.get-value($themePromoWidget, 'titleTextAlign');
         }
 
         &__buttons {
+            @include btnsLayout(horizontal);
             position: absolute;
             bottom: ef.get-value($themePromoWidget, 'buttonsBottom');
+            display: ef.get-value($btnsLayout, 'btnsDisplay', 1024);
 
-            display: grid;
-            grid-template-columns: ef.get-value($themePromoWidget, 'buttonsGridColumns');
-            gap: ef.get-value($themePromoWidget, 'buttonsGap');
-
-            margin: ef.get-value($themePromoWidget, 'buttonsMargin');
+            .wlc-btn {
+                min-width: 110px;
+            }
         }
     }
 }

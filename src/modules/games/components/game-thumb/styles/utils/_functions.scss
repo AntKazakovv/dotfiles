@@ -1,0 +1,3 @@
+@function getAnimationsMapValue($map, $value) {
+    @return map-get(map-get($animations, $map), $value);
+}

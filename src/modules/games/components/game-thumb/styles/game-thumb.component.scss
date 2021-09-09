@@ -2,6 +2,7 @@
 @use 'engine-scss/mixins/mediaqueries' as mq;
 @use 'engine-scss/mixins/base.mixins' as bm;
 
+@import './utils/functions';
 @import './utils/mixins';
 @import './utils/vars';
 @import './utils/animations';
@@ -10,3 +11,117 @@
 @import './themes/promo-widget';
 @import './themes/vertical';
 
+// TODO: Refactor on preloaders ticket
+.wlc-game-thumb:host {
+
+    .wlc-game-thumb__icon {
+        position: absolute;
+        top: ef.get-value($themeDefault, 'favouritePosition');
+        left: ef.get-value($themeDefault, 'favouritePosition');
+        z-index: ef.get-value($themeDefault, 'favouriteZIndex');
+
+        display: flex;
+        width: ef.get-value($themeDefault, 'favouriteBackSize');
+        height: ef.get-value($themeDefault, 'favouriteBackSize');
+
+        color: ef.get-value($themeDefault, 'favouriteColor');
+
+        background: ef.get-value($themeDefault, 'favouriteBackBg');
+        border-radius: ef.get-value($themeDefault, 'favouriteBackRadius');
+        box-shadow: ef.get-value($themeDefault, 'favouriteBoxShadow');
+        cursor: pointer;
+
+        &::ng-deep {
+
+            .wlc-icon-content {
+                display: flex;
+                align-items: ef.get-value($themeDefault, 'favouriteAlignItems');
+                justify-content: ef.get-value($themeDefault, 'favouriteJustifyContent');
+                width: 100%;
+                height: 100%;
+            }
+
+            svg {
+                width: ef.get-value($themeDefault, 'favouriteSize');
+                height: ef.get-value($themeDefault, 'favouriteSize');
+
+                path {
+                    @include bm.transition();
+                    transform-origin: ef.get-value($themeDefault, 'favouriteTransformOrigin');
+                    fill: currentColor;
+                }
+            }
+        }
+
+        &.active {
+            color: ef.get-value($themeDefault, 'favouriteActiveColor');
+            background: ef.get-value($themeDefault, 'favouriteBackBgActive');
+
+            &::ng-deep {
+
+                path {
+                    transform: scaleX(-1);
+                }
+            }
+        }
+
+        &:not(.active) {
+
+            @include bm.hover {
+                color: ef.get-value($themeDefault, 'favouriteHoverBg');
+            }
+        }
+    }
+
+    &.wlc-game-thumb--theme-default {
+
+        .wlc-game-thumb__loader {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+    }
+
+    &.wlc-game-thumb--theme-promo-widget {
+
+        .wlc-game-thumb__loader {
+            // Change or not to change...
+        }
+    }
+
+    &.wlc-game-thumb--theme-vertical {
+
+        .wlc-game-thumb__loader {
+            @include alternateLogo($themeVertical);
+
+            display: block;
+            width: 100%;
+            background: {
+                position: center;
+                color: ef.get-value($themeVertical, 'placeholderBgColor');
+                image: ef.get-value($themeVertical, 'placeholderBgImg');
+                size: ef.get-value($themeVertical, 'placeholderBgImgSize');
+                repeat: no-repeat;
+            }
+
+            &:before {
+                @include bm.aspect-ratio-padding(ef.get-value($themeVertical, 'bgAspectRatio'));
+                content: '';
+                display: block;
+                width: 100%;
+                height: 0;
+            }
+
+            ::ng-deep {
+
+                .wlc-loader {
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                }
+            }
+        }
+    }
+}

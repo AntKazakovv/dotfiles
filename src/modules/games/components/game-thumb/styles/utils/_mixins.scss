@@ -1,16 +1,299 @@
 @import './vars';
 
-@mixin verticalBtn {
+@mixin btnsLayout($layout) {
+    @include bm.get-mq-map('display', $btnsLayout, 'btnsDisplay');
+    gap: ef.get-value($btnsLayout, 'btnsGap');
+    justify-content: ef.get-value($btnsLayout, 'btnsJustifyContent');
 
-    @if ($thumbBtnPosition == vertical) {
+    @if ($layout == horizontal) {
+        grid-template-columns: ef.get-value($btnsLayout, 'btnsGridColumnsHor');
 
-        flex-direction: column;
+        .wlc-btn {
+            min-width: auto;
+        }
 
-        button {
+        &.no-demo {
+            grid-template-columns: ef.get-value($btnsLayout, 'btnsNoDemoGridColumnsHor');
+        }
+    }
 
-            &:first-child {
-                margin-right: unset;
-                margin-bottom: 10px;
+    @if ($layout == vertical) {
+        grid-template-rows: ef.get-value($btnsLayout, 'btnsGridRowsVert');
+        grid-template-columns: ef.get-value($btnsLayout, 'btnsGridColumnsVert');
+
+        &.no-demo {
+            grid-template-rows: ef.get-value($btnsLayout, 'btnsNoDemoGridRowsVert');
+        }
+    }
+
+    @if ($layout == circle) {
+        grid-template-rows: ef.get-value($btnsLayout, 'btnsGridRowsCirc');
+        grid-template-columns: ef.get-value($btnsLayout, 'btnsGridColumnsCirc');
+        align-items: ef.get-value($btnsLayout, 'btnsAlignItemsCirc');
+        justify-items: ef.get-value($btnsLayout, 'btnsJustifyItemsCirc');
+
+        &.no-demo {
+            grid-template-rows: ef.get-value($btnsLayout, 'btnsNoDemoGridRowsCircle');
+            align-items: ef.get-value($btnsLayout, 'btnsNoDemoAlignItemsCirc');
+        }
+    }
+}
+
+@mixin smoothWaveCommonStyles {
+
+    .wlc-game-thumb {
+
+        &__desc:before {
+            transform: none;
+            opacity: 0;
+        }
+
+        &__img img {
+
+            @media (pointer: fine) {
+                @include bm.transition(transform);
+            }
+        }
+    }
+
+    @include bm.hover {
+
+        .wlc-game-thumb {
+
+            &__desc:before {
+                opacity: 1;
+            }
+
+            &__img img {
+                transform: scale(1.02);
+            }
+        }
+    }
+}
+
+@mixin smoothWaveDefaultAndVerticalMods {
+
+    .wlc-game-thumb {
+
+        &__title {
+            @include bm.transition();
+            z-index: 2;
+
+            transform: translate3d(0, ef.size(3), 0);
+            opacity: 0;
+        }
+
+        &__buttons {
+            @include bm.transition(all, ef.get('time', 'less'));
+
+            transform: translate3d(0, ef.size(2), 0);
+            opacity: 0;
+            transition-delay: ef.get('time', 'main');
+        }
+    }
+
+    @include bm.hover {
+
+        .wlc-game-thumb {
+
+            &__title,
+            &__buttons {
+                transform: translate3d(0, 0, 0);
+                opacity: 1;
+            }
+        }
+    }
+}
+
+@mixin thumbsBottom($opt) {
+
+    @media (pointer: fine) {
+        background-position: ef.get-value($themeDefaultBottom, 'thumbBgPosition');
+
+        .wlc-game-thumb {
+
+            &__img {
+
+                @supports (aspect-ratio: 1/1) {
+                    aspect-ratio: #{ef.get-value($themeDefault, 'thumbAspectRatio')};
+                    height: unset;
+                }
+
+                @supports not (aspect-ratio: 1/1) {
+                    @include bm.aspect-ratio-padding(ef.get-value($themeDefault, 'thumbAspectRatio'));
+                    height: 0;
+                }
+
+                border-radius: ef.get-value($themeDefaultBottom, 'imgBorderRadius');
+            }
+
+            &__desc {
+                @include bm.get-mq-map('display', $themeDefaultBottom, 'descDisplay');
+                position: static;
+                margin-top: ef.get-value($themeDefaultBottom, 'descMarginTop');
+                background: ef.get-value($themeDefaultBottom, 'descBg');
+                overflow: hidden;
+                opacity: 1;
+                border-radius: 0 0 ef.get-value($themeDefault, 'thumbBorderRadius') ef.get-value($themeDefault, 'thumbBorderRadius');
+
+                &:before {
+                    top: -(ef.get-value($themeDefaultBottom, 'descHeight'));
+                    opacity: ef.get-value($themeDefaultBottom, 'descBeforeOpacity');
+                }
+            }
+
+            &__icon {
+                @include bm.transition;
+                opacity: ef.get-value($themeDefaultBottom, 'iconOpacity');
+            }
+        }
+
+        &:hover {
+
+            .wlc-game-thumb {
+
+                &__icon {
+                    opacity: ef.get-value($themeDefaultBottom, 'iconOpacityHover');
+                }
+
+                &__desc {
+
+                    &:before {
+                        opacity: ef.get-value($themeDefaultBottom, 'descBeforeOpacityHover');
+                    }
+                }
+            }
+        }
+
+        @include mq.min(1024) {
+
+            @supports (aspect-ratio: 1/1) {
+                aspect-ratio: unset;
+            }
+
+            @supports not (aspect-ratio: 1/1) {
+                height: unset;
+                padding-top: 0;
+            }
+        }
+
+        @if ($opt == buttons) {
+
+            .wlc-game-thumb {
+
+                &__desc {
+                    height: ef.get-value($bottomButtons, 'descHeight');
+                }
+
+                &__title {
+                    @include bm.transition;
+                    @include bm.absoluteCentering();
+                    width: ef.get-value($bottomButtons, 'titleWidth');
+                    transform: ef.get-value($bottomButtons, 'titleTransform');
+                    opacity: ef.get-value($bottomButtons, 'titleOpacity');
+                }
+            }
+
+            &:hover {
+
+                .wlc-game-thumb {
+
+                    &__title {
+                        opacity: ef.get-value($bottomButtons, 'titleOpacityHover');
+                    }
+                }
+            }
+        }
+
+        @if ($opt == all) {
+
+            .wlc-game-thumb {
+
+                &__img {
+
+                    &:before {
+                        @include bm.transition;
+                        content: '';
+                        position: absolute;
+                        width: 100%;
+                        height: 100%;
+                        background: ef.get-value($bottomAll, 'imgBeforeBg');
+                        opacity: ef.get-value($bottomAll, 'imgBeforeOpacity');
+                    }
+                }
+
+                &__desc {
+                    position: ef.get-value($bottomAll, 'descPosition');
+                    grid-template-rows: ef.get-value($bottomAll, 'descGridRows');
+                    grid-template-columns: ef.get-value($bottomAll, 'descGridColumns');
+                    gap: ef.get-value($bottomAll, 'descGap');
+                    height: ef.get-value($bottomAll, 'descHeight');
+
+                    &:before {
+                        display: none;
+                    }
+                }
+
+                &__title {
+                    align-items: ef.get-value($bottomAll, 'titleAlignItems');
+                }
+
+                &__icon {
+                    right: ef.get-value($themeDefault, 'favouritePosition');
+                    left: unset;
+                    background-color: ef.get-value($bottomAll, 'favouriteBg');
+                    box-shadow: ef.get-value($bottomAll, 'favouriteBoxShadow');
+
+                    &.active {
+                        color: ef.get-value($bottomAll, 'favouriteActiveColor');
+                    }
+                }
+            }
+
+            &:hover {
+
+                .wlc-game-thumb {
+
+                    &__img {
+
+                        &:before {
+                            opacity: ef.get-value($bottomAll, 'imgBeforeOpacityHover');
+                        }
+                    }
+                }
+            }
+        }
+
+        @if ($opt == title) {
+
+            .wlc-game-thumb {
+
+                &__desc {
+                    height: ef.get-value($bottomTitle, 'descHeight');
+                }
+
+                &__buttons {
+                    @include btnsLayout(vertical);
+                    @include bm.transition;
+                    @include bm.absoluteCentering();
+
+                    transform: ef.get-value($bottomTitle, 'btnsTranslate');
+                    opacity: ef.get-value($bottomTitle, 'btnsOpacity');
+
+                    &.no-demo {
+                        transform: ef.get-value($bottomTitle, 'btnsNoDemoTranslate');
+                    }
+                }
+            }
+
+            &:hover {
+
+                .wlc-game-thumb {
+
+                    &__buttons {
+                        opacity: ef.get-value($bottomTitle, 'btnsOpacityHover');
+                    }
+                }
             }
         }
     }

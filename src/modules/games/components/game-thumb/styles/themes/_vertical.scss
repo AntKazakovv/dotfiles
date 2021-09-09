@@ -5,13 +5,45 @@
 
 .wlc-game-thumb--theme-vertical:host {
     position: relative;
-
     overflow: hidden;
-
     border-radius: ef.get-value($themeVertical, 'borderRadius');
 
     .wlc-body--browser-safari & {
         -webkit-mask-image: -webkit-radial-gradient(white, black); /* stylelint-disable-line */
+    }
+
+    .wlc-game-thumb {
+
+        &__icon {
+            @include bm.transition();
+
+            opacity: 0;
+        }
+
+        &__control {
+            @include bm.transition();
+            position: absolute;
+            top: 0;
+            left: 0;
+
+            display: ef.get-value($themeVertical, 'descDisplay');
+            align-items: ef.get-value($themeVertical, 'descAlignItems');
+            justify-content: ef.get-value($themeVertical, 'descJustifyConten');
+            width: 100%;
+            height: 100%;
+            padding: ef.get-value($themeVertical, 'descPadding');
+
+            background: ef.get-value($themeVertical, 'controlsBg');
+            transform: ef.get-value($themeVertical, 'controlsTransform');
+            opacity: 0;
+
+            pointer-events: none;
+
+            .wlc-game-thumb__buttons {
+                @include btnsLayout(vertical);
+                display: ef.get-value($btnsLayout, 'btnsDisplay', 1024);
+            }
+        }
     }
 
     .wlc-game-thumb-media {
@@ -19,7 +51,6 @@
         @supports not (aspect-ratio: 1/1) {
 
             &:before {
-
                 @include bm.aspect-ratio-padding(ef.get-value($themeVertical, 'bgAspectRatio'));
 
                 content: '';
@@ -28,150 +59,128 @@
                 height: 0;
             }
         }
-    }
 
-    .wlc-game-thumb-media__bg,
-    .wlc-game-thumb-media__video {
-        @include alternateLogo($themeVertical);
+        &__bg,
+        &__video {
+            @include alternateLogo($themeVertical);
 
-        position: relative;
+            position: relative;
 
-        display: block;
-        width: ef.get-value($themeVertical, 'bgWidth');
+            display: block;
+            width: ef.get-value($themeVertical, 'bgWidth');
 
-        background-color: ef.get-value($themeVertical, 'fallbackBackgroundColor');
-        background-image: ef.get-value($themeVertical, 'placeholderBgImg');
-        background-repeat: no-repeat;
-        background-position: ef.get-value($themeVertical, 'placeholderBgPosition');
-        background-size: ef.get-value($themeVertical, 'placeholderBgImgSize');
+            background: {
+                position: ef.get-value($themeVertical, 'placeholderBgPosition');
+                color: ef.get-value($themeVertical, 'placeholderBgColor');
+                image: ef.get-value($themeVertical, 'placeholderBgImg');
+                repeat: no-repeat;
+                size: ef.get-value($themeVertical, 'placeholderBgImgSize');
+            }
 
-        @supports (aspect-ratio: 1/1) {
-            aspect-ratio: #{ef.get-value($themeVertical, 'bgAspectRatio')};
+            @supports (aspect-ratio: 1/1) {
+                aspect-ratio: #{ef.get-value($themeVertical, 'bgAspectRatio')};
+            }
+
+            @supports not (aspect-ratio: 1/1) {
+                position: absolute;
+                top: 0;
+                left: 0;
+
+                width: 100%;
+                height: 100%;
+            }
         }
 
-        @supports not (aspect-ratio: 1/1) {
+        &__video {
+            @include bm.transition(transform);
+            object-fit: ef.get-value($themeVertical, 'videoObjectFit');
+            object-position: ef.get-value($themeVertical, 'videoObjectPosition');
+        }
+
+        &__bg {
+            @include bm.transition(transform);
+            transform: ef.get-value($themeVertical, 'transformBg');
+
+            img {
+                position: absolute;
+                top: 0;
+                left: 0;
+
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                object-position: center;
+            }
+        }
+
+        &__fg {
+            @include bm.transition(transform);
             position: absolute;
-            top: 0;
-            left: 0;
+            bottom: ef.get-value($themeVertical, 'fgBottom');
+            left: ef.get-value($themeVertical, 'fgLeft');
 
-            width: 100%;
-            height: 100%;
+            width: ef.get-value($themeVertical, 'fgWidth');
+            height: ef.get-value($themeVertical, 'fgHeight');
+
+            transform-origin: ef.get-value($themeVertical, 'fgTransformOrigin');
+
+            pointer-events: none;
+
+            img {
+                width: 100%;
+            }
         }
-    }
 
-    .wlc-game-thumb-media__video {
-        @include bm.transition(transform);
-        object-fit: ef.get-value($themeVertical, 'videoObjectFit');
-        object-position: ef.get-value($themeVertical, 'videoObjectPosition');
-    }
-
-    .wlc-game-thumb-media__bg {
-
-        @include bm.transition(transform);
-        transform: scale(1.1);
-
-        img {
+        &__logo {
+            @include bm.transition(transform);
             position: absolute;
-            top: 0;
-            left: 0;
+            top: ef.get-value($themeVertical, 'logoTopGap');
+            left: ef.get-value($themeVertical, 'logoLeftGap');
 
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            object-position: center;
-        }
-    }
+            width: ef.get-value($themeVertical, 'logoWidth');
 
-    .wlc-game-thumb-media__fg {
+            pointer-events: none;
 
-        @include bm.transition(transform);
-        position: absolute;
-        bottom: 0;
-        left: 0;
-
-        width: ef.get-value($themeVertical, 'fgWidth');
-        height: ef.get-value($themeVertical, 'fgHeight');
-
-        transform-origin: ef.get-value($themeVertical, 'fgTransformOrigin');
-
-        pointer-events: none;
-
-        img {
-            width: 100%;
-        }
-    }
-
-    .wlc-game-thumb-media__logo {
-
-        @include bm.transition(transform);
-        position: absolute;
-        top: ef.get-value($themeVertical, 'logoTopGap');
-        left: 0;
-
-        width: ef.get-value($themeVertical, 'logoWidth');
-
-        pointer-events: none;
-
-        img {
-            width: 100%;
-        }
-    }
-
-    .wlc-game-thumb__control {
-        @include bm.transition();
-        position: absolute;
-        top: 0;
-        left: 0;
-
-        display: flex;
-        align-items: ef.get-value($themeVertical, 'descAlignItems');
-        justify-content: ef.get-value($themeVertical, 'descJustifyConten');
-        width: 100%;
-        height: 100%;
-        padding: ef.get-value($themeVertical, 'descPadding');
-
-        background: ef.get-value($themeVertical, 'controlsBg');
-        transform: ef.get-value($themeVertical, 'controlsTransform');
-        opacity: 0;
-
-        pointer-events: none;
-
-        .wlc-game-thumb__buttons {
-            display: grid;
-            gap: ef.get-value($themeVertical, 'buttonsGap');
+            img {
+                width: 100%;
+            }
         }
     }
 
     @include bm.hover {
-        border-radius: 10px;
 
         .wlc-game-thumb-media {
             pointer-events: none;
-            border-radius: 10px;
+
+            &__bg {
+                transform: ef.get-value($themeVertical, 'transformHoverBg');
+            }
+
+            &__logo {
+                transform: ef.get-value($themeVertical, 'transformHoverLogo');
+            }
+
+            &__fg {
+                transform: ef.get-value($themeVertical, 'transformHoverFg');
+            }
+
+            &__video {
+                transform: ef.get-value($themeVertical, 'transformHoverVideo');
+            }
         }
 
-        .wlc-game-thumb__control {
-            transform: translateY(0);
-            visibility: visible;
-            opacity: 1;
+        .wlc-game-thumb {
 
-            pointer-events: auto;
-        }
+            &__icon {
+                opacity: 1;
+            }
 
-        .wlc-game-thumb-media__bg {
-            transform: scale(1.01);
-        }
+            &__control {
+                transform: translateY(0);
+                opacity: 1;
 
-        .wlc-game-thumb-media__logo {
-            transform: translateY(-40px);
-        }
-
-        .wlc-game-thumb-media__fg {
-            transform: scale(1.2);
-        }
-
-        .wlc-game-thumb-media__video {
-            transform: scale(1.1);
+                pointer-events: auto;
+            }
         }
     }
 }
