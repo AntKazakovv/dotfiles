@@ -3,7 +3,6 @@
         <ng-container [ngTemplateOutlet]="typeVertical" *ngSwitchCase="'vertical'"></ng-container>
         <ng-container [ngTemplateOutlet]="typeModal" *ngSwitchCase="'modal'"></ng-container>
         <ng-container [ngTemplateOutlet]="typePromoWidget" *ngSwitchCase="'promo-widget'"></ng-container>
-        <ng-container [ngTemplateOutlet]="typeNamed" *ngSwitchCase="'named'"></ng-container>
         <ng-container [ngTemplateOutlet]="typeDefault" *ngSwitchDefault></ng-container>
     </ng-container>
 </ng-container>
@@ -98,24 +97,13 @@
     <div class="{{$class}}__control">
         <ng-container [ngTemplateOutlet]="buttonsPlayDemo"></ng-container>
     </div>
-</ng-template>
-
-<ng-template #typeNamed>
-    <div class="{{$class}}__desc">
-        <ng-container [ngTemplateOutlet]="thumbImg"></ng-container>
-        <ng-container [ngTemplateOutlet]="buttonFavourite"></ng-container>
-        <ng-container [ngTemplateOutlet]="buttonsPlayDemo"></ng-container>
-    </div>
-    <div class="{{$class}}__title">
-        <ng-container [ngTemplateOutlet]="thumbName"></ng-container>
-    </div>
+    <ng-container [ngTemplateOutlet]="buttonFavourite"></ng-container>
 </ng-template>
 
 <ng-template #typeDefault>
     <ng-container [ngTemplateOutlet]="thumbImg"></ng-container>
     <div class="{{$class}}__desc">
         <div class="{{$class}}__title">
-            <ng-container [ngTemplateOutlet]="buttonFavourite"></ng-container>
             <ng-container [ngTemplateOutlet]="thumbName"></ng-container>
             <span *ngIf="$params?.common?.useMerchantName"
                   class="{{$class}}__merchant"
@@ -123,6 +111,7 @@
                 {{game.merchantAlias}}
             </span>
         </div>
+        <ng-container [ngTemplateOutlet]="buttonFavourite"></ng-container>
         <ng-container [ngTemplateOutlet]="buttonsPlayDemo"></ng-container>
     </div>
 </ng-template>

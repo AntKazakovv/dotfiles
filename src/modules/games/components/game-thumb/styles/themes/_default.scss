@@ -6,20 +6,25 @@
 .wlc-game-thumb--theme-default:host {
     @include alternateLogo($themeDefault);
 
+    @include bm.get-mq-map('cursor', $themeDefault, 'thumbCursor');
     position: relative;
-    display: flex;
-    align-items: ef.get-value($themeDefault, 'thumbAlignItems');
-    justify-content: ef.get-value($themeDefault, 'thumbJustifyContent');
-    height: 0;
-    padding-top: 75%;
     overflow: hidden;
     border-radius: ef.get-value($themeDefault, 'thumbBorderRadius');
     background: {
         position: center;
-        color: ef.get-value($themeDefault, 'placeholderBg');
+        color: ef.get-value($themeDefault, 'placeholderBgColor');
         image: ef.get-value($themeDefault, 'placeholderBgImg');
         size: ef.get-value($themeDefault, 'placeholderBgImgSize');
         repeat: no-repeat;
+    }
+
+    @supports (aspect-ratio: 1/1) {
+        aspect-ratio: #{ef.get-value($themeDefault, 'thumbAspectRatio')};
+    }
+
+    @supports not (aspect-ratio: 1/1) {
+        @include bm.aspect-ratio-padding(ef.get-value($themeDefault, 'thumbAspectRatio'));
+        height: 0;
     }
 
     .wlc-body--browser-safari & {
@@ -28,14 +33,18 @@
 
     .wlc-game-thumb {
 
-        &__img {
+        &__img,
+        &__desc,
+        &__desc:before {
             position: absolute;
             top: 0;
             left: 0;
 
             width: 100%;
             height: 100%;
+        }
 
+        &__img {
             border-radius: inherit;
 
             overflow: hidden;
@@ -51,36 +60,21 @@
         }
 
         &__desc {
-            @include bm.transition(all, 0.25s);
-            position: absolute;
-            top: 0;
-            left: 0;
-            z-index: 2;
-
-            display: grid;
-            width: 100%;
-            height: 100%;
-            padding: ef.get-value($themeDefault, 'thumbPadding');
+            @include bm.get-mq-map('display', $themeDefault, 'descDisplay');
+            @include bm.transition(opacity);
+            grid-template-rows: ef.get-value($themeDefault, 'descGridRows');
+            padding: ef.get-value($themeDefault, 'descPadding');
 
             opacity: 0;
-            grid: {
-                template-rows: 1fr auto;
-            }
 
             &:before {
                 @include bm.transition(all, 0.25s);
 
                 content: '';
-                position: absolute;
-                top: 0;
-                left: 0;
-                z-index: 1;
+                z-index: ef.get-value($themeDefault, 'descBeforeZIndex');
 
-                width: 100%;
-                height: 100%;
-
-                background: ef.get-value($themeDefault, 'thumbHoverBg');
-                transform: ef.get-value($themeDefault, 'thumbHoverTransform');
+                background: ef.get-value($themeDefault, 'descBeforeBg');
+                transform: ef.get-value($themeDefault, 'descBeforeTransform');
                 pointer-events: none;
             }
 
@@ -91,138 +85,44 @@
 
         &__title {
             position: relative;
+            z-index: ef.get-value($themeDefault, 'titleZIndex');
 
-            display: grid;
-            justify-content: ef.get-value($themeDefault, 'thumbTitleJustifyContent');
-            grid: {
-                template-columns: 1fr;
-                template-rows: 1fr;
-            }
+            display: ef.get-value($themeDefault, 'titleDisplay');
+            flex-direction: ef.get-value($themeDefault, 'titleFlexDirection');
+            align-items: ef.get-value($themeDefault, 'titleAlignItems');
+            justify-content: ef.get-value($themeDefault, 'titleJustifyContent');
 
-            @include mq.max(768) {
-                grid-template-rows: 1fr;
-            }
+            text-align: ef.get-value($themeDefault, 'titleTextAlign');
         }
 
         &__name {
-            @include text.get-text-style('ThirdTitleBold', ef.get-value($themeDefault, 'thumbNameColor'));
-            z-index: 3;
+            @include text.get-text-style(ef.get-value($themeDefault, 'nameTextStyle'), ef.get-value($themeDefault, 'nameColor'));
+            z-index: ef.get-value($themeDefault, 'nameZIndex');
 
-            display: ef.get-value($themeDefault, 'thumbNameDisplay');
-            align-items: ef.get-value($themeDefault, 'thumbNameAlignItems');
-            justify-content: ef.get-value($themeDefault, 'thumbNameJustifyContent');
-            padding: ef.get-value($themeDefault, 'thumbNamePadding');
+            display: ef.get-value($themeDefault, 'nameDisplay');
 
-            text-align: ef.get-value($themeDefault, 'thumbNamePosition');
-
-            @include mq.min(1420) {
-                padding-top: 0;
+            @include mq.min(1630) {
+                @include text.get-text-style(ef.get-value($themeDefault, 'nameTextStyle', 1630), ef.get-value($themeDefault, 'nameColor'));
             }
         }
 
         &__merchant {
-            @include text.get-text-style('ThirdTitle', ef.get-value($themeDefault, 'thumbNameColor'));
-            z-index: 11;
+            @include text.get-text-style(ef.get-value($themeDefault, 'merchantTextStyle'), ef.get-value($themeDefault, 'merchantColor'));
 
-            text-align: ef.get-value($themeDefault, 'thumbNamePosition');
-        }
-
-        &__icon {
-            @include bm.transition;
-            position: absolute;
-            top: 0;
-            left: 0;
-            z-index: 4;
-
-            display: flex;
-            justify-self: ef.get-value($themeDefault, 'favoritePosition');
-            width: ef.get-value($themeDefault, 'favoriteBackSize');
-            height: ef.get-value($themeDefault, 'favoriteBackSize');
-
-            background: ef.get-value($themeDefault, 'favoriteBackBg');
-            border-radius: ef.get-value($themeDefault, 'favoriteBackRadius');
-            box-shadow: ef.get-value($themeDefault, 'favoriteBoxShadow');
-            cursor: pointer;
-
-            &.wlc-icon::ng-deep {
-
-                .wlc-icon-content {
-                    display: flex;
-                    align-items: ef.get-value($themeDefault, 'thumbAlignItems');
-                    justify-content: ef.get-value($themeDefault, 'thumbJustifyContent');
-                    width: 100%;
-                    height: 100%;
-                }
-
-                svg {
-                    width: ef.get-value($themeDefault, 'favoriteSize');
-                    height: ef.get-value($themeDefault, 'favoriteSize');
-
-                    path {
-                        @include bm.transition();
-                        transform-origin: center;
-                        fill: ef.get-value($themeDefault, 'favoriteBg');
-                    }
-                }
-            }
-
-            &.active::ng-deep {
-                background: ef.get-value($themeDefault, 'favoriteBackBgActive');
-
-                svg {
-
-                    path {
-                        transform: scaleX(-1);
-                        fill: ef.get-value($themeDefault, 'favoriteActiveBg');
-                    }
-                }
-            }
-
-            @media (hover) {
-
-                &:not(.active):hover {
-
-                    &.wlc-icon::ng-deep {
-
-                        svg,
-                        path {
-                            fill: ef.get-value($themeDefault, 'favoriteHoverBg');
-                        }
-                    }
-                }
+            @include mq.min(1630) {
+                @include text.get-text-style(ef.get-value($themeDefault, 'merchantTextStyle', 1630), ef.get-value($themeDefault, 'merchantColor'));
             }
         }
 
         &__buttons {
-            z-index: 3;
-
-            display: none;
-            align-items: ef.get-value($themeDefault, 'btnAlignItems');
-            margin: ef.get-value($themeDefault, 'btnMarginItems');
-            grid: {
-                gap: ef.get-value($themeDefault, 'btnGap');
-                template-columns: minmax(0, 1fr) minmax(0, 1fr);
-                auto-flow: column;
-            }
-
-            &.no-demo {
-                grid-template-columns: 50%;
-                justify-content: center;
-            }
+            @include btnsLayout(horizontal);
+            z-index: ef.get-value($themeDefault, 'btnsZIndex');
 
             ::ng-deep {
 
                 .wlc-icon {
                     display: none;
                 }
-            }
-
-            .wlc-btn {
-                min-width: auto;
-            }
-
-            @include mq.min(768) {
-                display: grid;
             }
         }
     }
@@ -231,30 +131,13 @@
 
         .wlc-game-thumb {
 
-            &__icon {
-                position: relative;
-
-                margin-right: 12px;
+            &__buttons {
+                @include btnsLayout(vertical);
             }
 
             &__title {
-                display: flex;
-                align-items: ef.get-value($themeDefaultVertical, 'thumbTitleAlignItems');
-                justify-content: ef.get-value($themeDefaultVertical, 'thumbTitleJustifyContent');
-            }
-
-            &__desc {
-                grid: {
-                    gap: 10px;
-                    template-rows: 20% 1fr;
-                }
-            }
-
-            &__buttons {
-                display: flex;
-                flex-direction: ef.get-value($themeDefaultVertical, 'btnFlexDirection');
-                align-items: ef.get-value($themeDefaultVertical, 'btnAlignItems');
-                justify-content: ef.get-value($themeDefault, 'btnJustifyContent');
+                justify-self: center;
+                max-width: calc(100% - #{ef.get-value($themeDefault, 'favouriteBackSize')} * 2 * 1.2);
             }
         }
     }
@@ -263,41 +146,56 @@
 
         .wlc-game-thumb {
 
-            &__buttons {
-                grid-template-columns: 1fr;
-                height: 0;
-                overflow: hidden;
+            &__desc {
+                background: ef.get-value($themeDefaultModCircle, 'descBg');
 
-                opacity: 0;
+                &:before {
+                    opacity: ef.get-value($themeDefaultModCircle, 'btnsAndIconOpacity');
+                }
+
+                @include mq.min(1024) {
+                    opacity: 1;
+                }
             }
 
-            &__desc {
-                display: flex;
-                align-items: ef.get-value($themeDefaultModCircle, 'thumbDescAlignItems');
-                justify-content: ef.get-value($themeDefaultModCircle, 'thumbDescJustifyContent');
+            &__title {
+                @include bm.transition;
+                position: absolute;
+                bottom: ef.get-value($themeDefaultModCircle, 'titlePosition');
+                left: ef.get-value($themeDefaultModCircle, 'titlePosition');
 
-                background: ef.get-value($themeDefault, 'thumbHoverBg');
-                visibility: visible;
-                opacity: 1;
+                align-items: ef.get-value($themeDefaultModCircle, 'titleAlignItems');
+                opacity: ef.get-value($themeDefaultModCircle, 'titleOpacity');
+            }
+
+            &__buttons {
+                @include btnsLayout(circle);
+                @include bm.transition;
+                opacity: ef.get-value($themeDefaultModCircle, 'btnsAndIconOpacity');
+            }
+
+            &__icon {
+                @include bm.transition;
+                opacity: ef.get-value($themeDefaultModCircle, 'btnsAndIconOpacity');
             }
         }
 
         .wlc-btn {
 
             &--play {
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                width: ef.get-value($themeDefaultModCircle, 'btnSize');
-                min-width: auto;
-                height: ef.get-value($themeDefaultModCircle, 'btnSize');
-                margin: 0 auto;
+                @include bm.get-mq-map('width', $themeDefaultModCircle, 'btnPlaySize');
+                @include bm.get-mq-map('height', $themeDefaultModCircle, 'btnPlaySize');
 
-                color: transparent;
+                display: ef.get-value($themeDefaultModCircle, 'btnPlayDisplay');
+                align-items: ef.get-value($themeDefaultModCircle, 'btnPlayAlignItems');
+                justify-content: ef.get-value($themeDefaultModCircle, 'btnPlayJustifyContent');
+                margin: ef.get-value($themeDefaultModCircle, 'btnPlayMargin');
+
+                color: ef.get-value($themeDefaultModCircle, 'btnPlayColor');
                 font-size: 0;
 
-                border: ef.get-value($themeDefaultModCircle, 'btnBorder');
-                border-radius: ef.get-value($themeDefaultModCircle, 'btnBorderRadius');
+                border: ef.get-value($themeDefaultModCircle, 'btnPlayBorder');
+                border-radius: ef.get-value($themeDefaultModCircle, 'btnPlayRadius');
 
                 ::ng-deep {
 
@@ -310,12 +208,13 @@
             &--demo {
                 color: ef.get-value($themeDefaultModCircle, 'btnDemoColor');
 
-                background: none;
+                background: ef.get-value($themeDefaultModCircle, 'btnDemoBg');
+                border: ef.get-value($themeDefaultModCircle, 'btnDemoBorder');
 
                 @include bm.hover {
-                    text-decoration: underline;
+                    text-decoration: ef.get-value($themeDefaultModCircle, 'btnDemoHoverDecoration');
 
-                    box-shadow: none;
+                    box-shadow: ef.get-value($themeDefaultModCircle, 'btnDemoHoverBoxShadow');
                 }
             }
         }
@@ -324,108 +223,36 @@
 
             .wlc-game-thumb {
 
-                &__buttons {
-                    height: auto;
-                    overflow: initial;
-
-                    opacity: 1;
+                &__desc:before,
+                &__buttons,
+                &__icon {
+                    opacity: ef.get-value($themeDefaultModCircle, 'btnsAndIconOpacityHover');
                 }
 
-                &__name,
-                &__merchant {
-                    display: none;
-                }
-
-                &__desc {
-                    background: ef.get-value($themeDefault, 'thumbHoverBg');
+                &__title {
+                    opacity: ef.get-value($themeDefaultModCircle, 'titleOpacityHover');
                 }
             }
         }
     }
 
-    &.wlc-game-thumb--theme-mod-named {
-        flex-direction: ef.get-value($ThemeDefaultNamed, 'thumbFlexDirection');
-        flex-wrap: ef.get-value($ThemeDefaultNamed, 'thumbFlexWrap');
-        align-items: ef.get-value($ThemeDefaultNamed, 'thumbAlignItems');
-        height: auto;
-        border-radius: ef.get-value($themeDefault, 'thumbBorderRadius');
-        padding-top: 0;
-        background-position: center 70px;
+    &.wlc-game-thumb--theme-mod-bottom-buttons {
+        @include thumbsBottom(buttons);
+    }
 
-        .wlc-game-thumb {
+    &.wlc-game-thumb--theme-mod-bottom-all {
+        @include thumbsBottom(all);
+    }
 
-            &__desc {
-                position: relative;
-                display: block;
-                padding: 75% 0 0;
-                overflow: hidden;
-                opacity: 1;
-
-                &:before {
-                    opacity: 0;
-                }
-            }
-
-            &__icon {
-                top: ef.get-value($ThemeDefaultNamed, 'favoritePositionTop');
-                left: ef.get-value($ThemeDefaultNamed, 'favoritePositionLeft');
-                opacity: 0;
-            }
-
-            &__title {
-                display: flex;
-                align-items: ef.get-value($themeDefault, 'thumbTitleAlignItems');
-                height: ef.get-value($ThemeDefaultNamed, 'thumbNameHeight');
-                padding: ef.get-value($ThemeDefaultNamed, 'thumbNamePadding');
-                background: ef.get-value($ThemeDefaultNamed, 'thumbNameBg');
-                border-radius: 0 0 ef.get-value($themeDefault, 'thumbBorderRadius') ef.get-value($themeDefault, 'thumbBorderRadius');
-            }
-
-            &__name {
-                @include text.get-text-style('PrimaryTextBold', ef.get-value($ThemeDefaultNamed, 'thumbNameColor'));
-                padding-top: 0;
-                font-size: ef.get-value($ThemeDefaultNamed, 'thumbNameFontSize');
-            }
-
-            &__buttons {
-                @include bm.transition;
-                @include bm.absoluteCentering();
-                display: flex;
-                flex-direction: ef.get-value($ThemeDefaultNamed, 'btnFlexDirection');
-                align-items: ef.get-value($ThemeDefaultNamed, 'btnAlignItems');
-                justify-content: ef.get-value($ThemeDefaultNamed, 'btnJustifyContent');
-                opacity: 0;
-
-                .wlc-btn {
-                    min-width: ef.get-value($ThemeDefaultNamed, 'thumbButtonsMinWidth');
-                }
-            }
-        }
-
-        @include bm.hover {
-
-            .wlc-game-thumb {
-
-                &__icon,
-                &__buttons {
-                    opacity: 1;
-                }
-
-                &__desc {
-
-                    &:before {
-                        opacity: 1;
-                    }
-                }
-            }
-        }
+    &.wlc-game-thumb--theme-mod-bottom-title {
+        @include thumbsBottom(title);
     }
 
     &.wlc-game-thumb--type-modal {
 
         .wlc-game-thumb__icon {
-            top: ef.get-value($themeDefault, 'thumbPadding');
-            left: ef.get-value($themeDefault, 'thumbPadding');
+            top: ef.get-value($themeDefault, 'favouritePosition');
+            left: ef.get-value($themeDefault, 'favouritePosition');
         }
     }
 
@@ -441,66 +268,10 @@
     }
 
     // Custom hover animations
-    @if (ef.get-value($themeDefault, 'useAnimeSmoothWave')) {
+    @if (getAnimationsMapValue('smoothWave', 'use')) {
 
-        &.wlc-game-thumb--type-anime-smooth-wave {
+        &.wlc-game-thumb--anime-smooth-wave {
             @include animeSmoothWave();
-        }
-    }
-}
-
-// TODO: Refactor on preloaders ticket
-.wlc-game-thumb:host {
-
-    &.wlc-game-thumb--theme-default {
-
-        .wlc-game-thumb__loader {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-        }
-    }
-
-    &.wlc-game-thumb--theme-promo-widget {
-
-        .wlc-game-thumb__loader {
-            // Change or not to change...
-        }
-    }
-
-    &.wlc-game-thumb--theme-vertical {
-
-        .wlc-game-thumb__loader {
-            @include alternateLogo($themeVertical);
-
-            display: block;
-            width: 100%;
-            background: {
-                position: center;
-                color: ef.get-value($themeVertical, 'fallbackBackgroundColor');
-                image: ef.get-value($themeVertical, 'placeholderBgImg');
-                size: ef.get-value($themeVertical, 'placeholderBgImgSize');
-                repeat: no-repeat;
-            }
-
-            &:before {
-                @include bm.aspect-ratio-padding(ef.get-value($themeVertical, 'bgAspectRatio'));
-                content: '';
-                display: block;
-                width: 100%;
-                height: 0;
-            }
-
-            ::ng-deep {
-
-                .wlc-loader {
-                    position: absolute;
-                    top: 50%;
-                    left: 50%;
-                    transform: translate(-50%, -50%);
-                }
-            }
         }
     }
 }

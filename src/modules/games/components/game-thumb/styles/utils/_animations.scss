@@ -1,48 +1,128 @@
-@mixin animeSmoothWave() {
+@mixin animeSmoothWave {
 
-    .wlc-game-thumb {
+    @if (getAnimationsMapValue('smoothWave', 'themeModDefault')) {
 
-        &__desc:before {
-            transform: none;
-            opacity: 0;
-        }
-
-        &__img img {
-
-            @media (pointer: fine) {
-                @include bm.transition(transform);
-            }
-        }
-
-        &__name {
-            @include bm.transition();
-
-            transform: translate3d(0, ef.size(3), 0);
-            opacity: 0;
-        }
-
-        &__buttons {
-            @include bm.transition(all, ef.get('time', 'less'));
-
-            transform: translate3d(0, ef.size(2), 0);
-            opacity: 0;
-            transition-delay: ef.get('time', 'main');
+        &.wlc-game-thumb--theme-mod-default {
+            @include smoothWaveCommonStyles;
+            @include smoothWaveDefaultAndVerticalMods;
         }
     }
 
-    @include bm.hover {
+    @if (getAnimationsMapValue('smoothWave', 'themeModVertical')) {
 
-        .wlc-game-thumb {
+        &.wlc-game-thumb--theme-mod-vertical {
+            @include smoothWaveCommonStyles;
+            @include smoothWaveDefaultAndVerticalMods;
+        }
+    }
 
-            &__desc:before,
-            &__name,
-            &__buttons {
-                transform: translate3d(0, 0, 0);
-                opacity: 1;
+    @if (getAnimationsMapValue('smoothWave', 'themeModCircle')) {
+
+        &.wlc-game-thumb--theme-mod-circle {
+            @include smoothWaveCommonStyles;
+
+            .wlc-game-thumb {
+
+                &__title {
+                    @include bm.transition();
+                    opacity: 1;
+                }
+
+                &__buttons {
+                    @include bm.transition(all, ef.get('time', 'less'));
+                    transform: translate3d(0, ef.size(2), 0);
+                    opacity: 0;
+                    transition-delay: 0s;
+                }
             }
 
-            &__img img {
-                transform: scale(1.02);
+            @include bm.hover {
+
+                .wlc-game-thumb {
+
+                    &__buttons {
+                        transform: translate3d(0, 0, 0);
+                        opacity: 1;
+                        transition-delay: ef.get('time', 'main');
+                    }
+
+                    &__title {
+                        transform: translate3d(0, ef.size(3), 0);
+                        opacity: 0;
+                    }
+                }
+            }
+        }
+    }
+
+    @if (getAnimationsMapValue('smoothWave', 'themeModButtomButtons')) {
+
+        &.wlc-game-thumb--theme-mod-bottom-buttons {
+            @include smoothWaveCommonStyles;
+
+            .wlc-game-thumb {
+
+                &__title {
+                    @include bm.transition();
+                    transform: ef.get-value($bottomButtons, 'titleTransform') translate3d(0, ef.size(3), 0);
+                    opacity: 0;
+                }
+
+                &__buttons {
+                    opacity: 1;
+                }
+            }
+
+            @include bm.hover {
+
+                .wlc-game-thumb {
+
+                    &__title {
+                        transform: ef.get-value($bottomButtons, 'titleTransform') translate3d(0, 0, 0);
+                        opacity: 1;
+                    }
+                }
+            }
+        }
+    }
+
+    @if (getAnimationsMapValue('smoothWave', 'themeModButtomTitle')) {
+
+        &.wlc-game-thumb--theme-mod-bottom-title {
+            @include smoothWaveCommonStyles;
+
+            .wlc-game-thumb {
+
+                &__title {
+                    opacity: 1;
+                }
+
+                &__buttons {
+                    @include bm.transition(all, ef.get('time', 'less'));
+                    transform: ef.get-value($bottomTitle, 'btnsTranslate') translate3d(0, ef.size(2), 0);
+                    opacity: 0;
+                    transition-delay: 0s;
+
+                    &.no-demo {
+                        transform: ef.get-value($bottomTitle, 'btnsNoDemoTranslate') translate3d(0, ef.size(2), 0);
+                    }
+                }
+            }
+
+            @include bm.hover {
+
+                .wlc-game-thumb {
+
+                    &__buttons {
+                        transform: ef.get-value($bottomTitle, 'btnsTranslate');
+                        opacity: 1;
+                        transition-delay: ef.get('time', 'main');
+
+                        &.no-demo {
+                            transform: ef.get-value($bottomTitle, 'btnsNoDemoTranslate');
+                        }
+                    }
+                }
             }
         }
     }
