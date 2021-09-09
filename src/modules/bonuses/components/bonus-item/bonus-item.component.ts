@@ -166,8 +166,10 @@ export class BonusItemComponent extends AbstractComponent implements OnInit, OnD
         this.configService.get<BehaviorSubject<UserProfile>>('$user.userProfile$')
             .pipe(takeUntil(this.$destroy))
             .subscribe((profile) => {
-                this.bonus.userCurrency = profile?.currency || 'EUR';
-                this.cdr.markForCheck();
+                if (this.bonus) {
+                    this.bonus.userCurrency = profile?.currency || 'EUR';
+                    this.cdr.markForCheck();
+                }
             });
     }
 
