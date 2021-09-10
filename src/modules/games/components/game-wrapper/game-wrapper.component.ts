@@ -22,7 +22,9 @@ import {fromEvent} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 import {Game} from 'wlc-engine/modules/games/system/models/game.model';
 import {GamesCatalogService} from 'wlc-engine/modules/games/system/services/games-catalog/games-catalog.service';
-import {IPlayGameForRealCParams} from 'wlc-engine/modules/games/components/play-game-for-real/play-game-for-real.params';
+import {
+    IPlayGameForRealCParams,
+} from 'wlc-engine/modules/games/components/play-game-for-real/play-game-for-real.params';
 import {GameDashboardEvents} from 'wlc-engine/modules/games/components/game-dashboard/game-dashboard.params';
 import {
     IExcludeMerchantSettings,
