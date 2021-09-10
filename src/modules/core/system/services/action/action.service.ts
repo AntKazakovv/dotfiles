@@ -319,7 +319,7 @@ export class ActionService {
                                     this.translateService.instant(
                                         gettext('Withdraw request has been successfully sent!')),
                                     this.translateService.instant(gettext('Withdraw sum'))
-                                    + currencyElement,
+                                    + ` ${currencyElement}`,
                                 ],
                             });
                     }
