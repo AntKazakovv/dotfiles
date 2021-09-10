@@ -24,7 +24,7 @@ export type MenuType = 'main-menu'
     | 'footer:tc'
     | 'footer:about'
     | 'affiliates-menu'
-    | 'burger-panel-header';
+    | 'burger-panel-header-menu';
 export type ItemType = 'sref' | 'anchor' | 'modal' | 'href' | 'scroll' | 'title' | 'dropdown' | 'group';
 export type IMenuTarget = '_blank' | '_self' | '_parent' | '_top';
 export type MenuTheme = string;

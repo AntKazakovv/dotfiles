@@ -7,6 +7,7 @@ import {
 } from './mobile-menu.config';
 import {wlcAffiliatesMenuItemsGlobal} from './affiliates-menu.items.config';
 import {wlcProfileMenuItemsGlobal} from './profile-menu.config';
+import {wlcBurgerPanelHeaderMenuItemsGlobal} from './burger-panel-header-menu.items.config';
 
 export const wlcDefaultMenuItems = {
     'main-menu': [
@@ -41,6 +42,7 @@ export const wlcMenuItemsGlobal: Params.IMenuItemsGlobal = {
     ...wlcMobileMenuItemsGlobal,
     ...wlcAffiliatesMenuItemsGlobal,
     ...wlcProfileMenuItemsGlobal,
+    ...wlcBurgerPanelHeaderMenuItemsGlobal,
 };
 
 export const wlcMenuItemGroupsGlobal: Params.IMenuItemGroupsGlobal = {
