@@ -16,10 +16,8 @@ import {
 import {UserService} from 'wlc-engine/modules/user/system/services/user/user.service';
 import {TranslateService} from '@ngx-translate/core';
 import {Deferred} from 'wlc-engine/modules/core/system/classes';
-import {
-    IRedirect,
-    IIndexing,
-} from 'wlc-engine/modules/core';
+import {IRedirect} from 'wlc-engine/modules/core/system/interfaces/core.interface';
+import {IIndexing} from 'wlc-engine/modules/core/system/interfaces/global.interface';
 
 import _merge from 'lodash-es/merge';
 

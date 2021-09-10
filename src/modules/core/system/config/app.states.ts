@@ -2,12 +2,10 @@ import {Ng2StateDeclaration} from '@uirouter/angular';
 import {StateHelper} from '../helpers/state.helper';
 
 import {AppComponent} from 'wlc-engine/modules/app/components/app/app.component';
-import {
-    ConfigService,
-    ILanguage,
-} from 'wlc-engine/modules/core';
+import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
+import {ILanguage} from 'wlc-engine/modules/core/system/interfaces/app-config.interface';
 import {LayoutComponent} from 'wlc-engine/modules/core/components/layout/layout.component';
-import {polyfillsResolver} from 'wlc-engine/modules/core/system/config/resolvers';
+import {polyfillsResolver} from 'wlc-engine/modules/core/system/config/resolvers/polyfills.resolver';
 import {customStates} from 'wlc-src/custom/system/config/custom.states';
 import * as States from './states';
 

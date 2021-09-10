@@ -20,18 +20,16 @@ import {ResizedEvent} from 'angular-resize-event';
 import {UIRouter, RawParams} from '@uirouter/core';
 import {fromEvent} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
+import {Game} from 'wlc-engine/modules/games/system/models/game.model';
+import {GamesCatalogService} from 'wlc-engine/modules/games/system/services/games-catalog/games-catalog.service';
+import {IPlayGameForRealCParams} from 'wlc-engine/modules/games/components/play-game-for-real/play-game-for-real.params';
+import {GameDashboardEvents} from 'wlc-engine/modules/games/components/game-dashboard/game-dashboard.params';
 import {
-    Game,
     IExcludeMerchantSettings,
     ICustomGameParams,
     IGameParams,
     ILaunchInfo,
-    IPlayGameForRealCParams,
-    GameDashboardEvents,
-} from 'wlc-engine/modules/games';
-import {
-    GamesCatalogService,
-} from 'wlc-engine/modules/games/system/services/games-catalog/games-catalog.service';
+} from 'wlc-engine/modules/games/system/interfaces/games.interfaces';
 import {
     AbstractComponent,
     ActionService,
