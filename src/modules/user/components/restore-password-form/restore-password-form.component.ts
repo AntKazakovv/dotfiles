@@ -9,6 +9,7 @@ import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract
 import {EventService} from 'wlc-engine/modules/core/system/services/event/event.service';
 import {ModalService} from 'wlc-engine/modules/core/system/services/modal/modal.service';
 import {UserService} from 'wlc-engine/modules/user/system/services/user/user.service';
+import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
 import {IPushMessageParams} from 'wlc-engine/modules/core/system/services/notification/notification.interface';
 import {NotificationEvents} from 'wlc-engine/modules/core/system/services/notification/notification.service';
 
@@ -40,6 +41,7 @@ export class RestorePasswordFormComponent extends AbstractComponent {
         protected eventService: EventService,
         protected modalService: ModalService,
         protected userService: UserService,
+        protected configService: ConfigService,
     ) {
         super({
             injectParams,
@@ -86,6 +88,10 @@ export class RestorePasswordFormComponent extends AbstractComponent {
     }
 
     protected async doesEmailExist(email: string): Promise<boolean> {
+        const isHideEmailExistence = this.configService.get<boolean>('appConfig.hideEmailExistence');
+        if (isHideEmailExistence) {
+            return false;
+        }
         const response = await this.userService.emailUnique(email);
 
         if (response.data.result) {

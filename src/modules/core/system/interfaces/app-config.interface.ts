@@ -14,6 +14,7 @@ export interface IBootstrap {
     countryRestricted: boolean;
     env: TEnv;
     footerText: IIndexing<string>;
+    hideEmailExistence: boolean;
     ignoreProvidersForGameCatalog?: boolean;
     language: string;
     languages: ILanguage[];
