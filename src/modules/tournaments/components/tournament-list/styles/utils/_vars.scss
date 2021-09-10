@@ -7,6 +7,11 @@ $themeDefault: map-merge((
         900: repeat(auto-fit, minmax(790px, 1fr)),
         1630: repeat(2, minmax(790px, 1fr)),
     ),
+    'containerMargin': (
+        375: 0 0 ef.size(6) 0,
+        900: 0 0 ef.size(4) 0,
+        1630: 0 0 ef.size(8) 0,
+    ),
 ), $customThemeDefault);
 
 $customThemeDashboard: () !default;

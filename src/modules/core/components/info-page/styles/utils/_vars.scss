@@ -19,5 +19,5 @@ $themeDefault: map-merge((
     'borderRadius': ef.get('size', 'small'),
     'padding': 0,
     'maxWidth': 1200px,
-    'margin': 0 auto ef.get('size', 'main') auto,
+    'margin': 0 auto,
 ), $customThemeDefault);
