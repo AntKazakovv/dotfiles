@@ -40,7 +40,23 @@ module.exports = function changeLogsTask() {
             + '"';
 
         const response = this.execNativeShellSync(searchUrl);
-        const projectId = _.find(JSON.parse(response), (item) => item.ssh_url_to_repo === origin).id;
+        let result;
+
+        try {
+            result = JSON.parse(response);
+        } catch (error) {
+            // eslint-disable-next-line no-console
+            console.log(`\n\x1b[31mGitLab API response error: ${error}\x1b[0m\n`);
+            return false;
+        }
+
+        if (result.message) {
+            // eslint-disable-next-line no-console
+            console.log(`\n\x1b[31mGitLab API error: ${result.message}\x1b[0m\n`);
+            return false;
+        }
+
+        const projectId = _.find(result, (item) => item.ssh_url_to_repo === origin).id;
 
         const commitHistory = this.execNativeShellSync('git log --oneline --format="%s" -100');
         const history = commitHistory.split('\n');
