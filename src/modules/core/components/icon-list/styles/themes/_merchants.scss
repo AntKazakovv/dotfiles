@@ -9,7 +9,6 @@
     @include em.get-mq-map('max-width', $themeMerchants, 'paymentsMaxWidth');
     @include em.get-mq-map('padding', $themeMerchants, 'paymentsPadding');
 
-    grid-area: merchants;
     width: ef.get-value($themeMerchants, 'paymentsWidth');
 
     background-color: ef.get-value($themeMerchants, 'paymentsBackground');
