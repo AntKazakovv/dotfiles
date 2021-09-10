@@ -10,7 +10,7 @@
         <div *ngIf="storeItem.isBonus" class="{{$class}}__bonus-icon">
             <img class="icon-sign"
                  loading="lazy"
-                 [src]="$params.common?.bonusIconsPath + storeItem.bonus.viewTarget + '.svg'">
+                 [src]="bonusIconPath">
             <div
                 class="icon-text"
                 minLength="4"

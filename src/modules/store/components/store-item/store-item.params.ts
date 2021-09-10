@@ -9,6 +9,7 @@ export type ThemeMod = 'default' | CustomType;
 export type AutoModifiers = Theme | ThemeMod;
 export type CustomMod = string;
 export type Modifiers = AutoModifiers | CustomMod | null;
+export type TIconExtension = 'svg' | 'png' | 'jpg';
 
 export interface IStoreItemParams extends IComponentParams<Theme, Type, ThemeMod> {
     modifiers?: Modifiers[];
@@ -18,6 +19,8 @@ export interface IStoreItemParams extends IComponentParams<Theme, Type, ThemeMod
         bonusIconsPath?: string;
         defaultPicPath: string;
         defaultPicPathFirst: string;
+        /** allows to use svg/png/jpg extension */
+        iconFormat: TIconExtension;
     };
 }
 
@@ -29,5 +32,6 @@ export const defaultParams: IStoreItemParams = {
         bonusIconsPath: '/gstatic/bonuses/icons/',
         defaultPicPath: '/gstatic/store/default.png',
         defaultPicPathFirst: '/gstatic/store/default1.png',
+        iconFormat: 'svg',
     },
 };

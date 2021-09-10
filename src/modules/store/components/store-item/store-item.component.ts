@@ -88,6 +88,12 @@ export class StoreItemComponent extends AbstractComponent implements OnInit, OnD
         this.buyClick = false;
         this.cdr.markForCheck();
     }
+    /** builds path for bonus icon */
+    public get bonusIconPath(): string {
+        return `${this.$params.common?.bonusIconsPath}`
+            + `${this.storeItem.bonus.viewTarget}`
+            + `.${this.$params.common?.iconFormat}`;
+    }
 
     protected prepareModifiers(): void {
         let modifiers: Params.Modifiers[] = [];
