@@ -1,11 +1,9 @@
 import {
-    IComponentParams,
     CustomType,
     IPaysystem,
 } from 'wlc-engine/modules/core';
-import {ColorIconBgType} from 'wlc-engine/modules/core/system/classes/icon-list-abstract.class';
+import {IAbstractIconsListParams} from 'wlc-engine/modules/core/system/classes/icon-list-abstract.class';
 import {IIconParams} from 'wlc-engine/modules/core/system/models/icon-list-item.model';
-import {MerchantModel} from 'wlc-engine/modules/games';
 
 /** Available component themes */
 export type ComponentTheme = 'merchants' | 'payments' | CustomType;
@@ -22,15 +20,9 @@ export type ComponentThemeMod = 'default' | CustomType;
 /**
  * Component params
  */
-export interface IIconListCParams extends IComponentParams<ComponentTheme, ComponentType, ComponentThemeMod> {
+export interface IIconListCParams extends IAbstractIconsListParams<ComponentTheme, ComponentType, ComponentThemeMod> {
     /** Defines theme of component */
     theme: ComponentTheme;
-    /**
-     * Array of items [IIconParams]{@link IconModel}
-     *
-     * Requires if `custom` theme is used.
-     */
-    items?: IIconParams[];
     /** Placeholder for error images */
     imgPlaceholder?: string;
     /** If true - scroll overflow icons in row */
@@ -42,8 +34,6 @@ export interface IIconListCParams extends IComponentParams<ComponentTheme, Compo
             exclude?: string[],
         }
     }
-    /** Apply one of two types of colored icons (works only with colored) */
-    colorIconBg?: ColorIconBgType;
     /** `false` - by default, show alt of image instead of image. If `true` - block with image will be hidden */
     hideImgOnError?: boolean;
 }

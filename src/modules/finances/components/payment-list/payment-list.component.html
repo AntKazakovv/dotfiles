@@ -65,19 +65,19 @@
 <ng-template #list>
     <div class="{{$class}}__list" [ngClass]="classList">
         <ul class="{{$class}}__ul" [@appearance]="ready && systems.length">
-            <li *ngFor="let system of systems; index as $index"
+            <li *ngFor="let item of items; index as $index"
                 class="{{$class}}__item"
-                [attr.data-wlc-element]="'block_payment-item-' + system.id">
+                [attr.data-wlc-element]="'block_payment-item-' + systems[$index].id">
 
                 <button wlc-icon-list-item
                         class="{{$class}}__button"
-                        [ngClass]="{'active': system.id === currentSystem?.id}"
+                        [ngClass]="{'active': systems[$index].id === currentSystem?.id}"
                         type="button"
-                        [attr.aria-label]="system.name"
+                        [attr.aria-label]="systems[$index].name"
                         [attr.data-wlc-element]="'block_payment-item-name'"
-                        [attr.title]="system.name"
-                        [inlineParams]='{icon: items[$index], class: $class + "-item"}'
-                        (click)='selectPayment(system)'>
+                        [attr.title]="systems[$index].name"
+                        [inlineParams]='{icon: item, class: $class + "-item"}'
+                        (click)='selectPayment(systems[$index])'>
                 </button>
             </li>
         </ul>

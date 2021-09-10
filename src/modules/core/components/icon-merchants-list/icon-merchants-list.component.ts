@@ -3,15 +3,18 @@ import {
     Inject,
     OnInit,
     Component,
+    ChangeDetectorRef,
 } from '@angular/core';
 
 import {
     ConfigService,
+    EventService,
     InjectionService,
 } from 'wlc-engine/modules/core';
 import {MerchantModel} from 'wlc-engine/modules/games';
 import {GamesCatalogService} from 'wlc-engine/modules/games/system/services';
 import {IconListAbstract} from 'wlc-engine/modules/core/system/classes/icon-list-abstract.class';
+import {IconModel} from 'wlc-engine/modules/core/system/models/icon-list-item.model';
 
 import * as Params from './icon-merchants-list.params';
 
@@ -28,6 +31,7 @@ import _sortedUniqBy from 'lodash-es/sortedUniqBy';
 export class IconMerchantsListComponent extends IconListAbstract<Params.IIconMerchantsListCParams> implements OnInit {
     @Input() public inlineParams: Params.IIconMerchantsListCParams;
 
+    public items: IconModel[] = [];
     public $params: Params.IIconMerchantsListCParams;
 
     protected merchants: MerchantModel[];
@@ -36,9 +40,11 @@ export class IconMerchantsListComponent extends IconListAbstract<Params.IIconMer
     constructor(
         @Inject('injectParams') protected injectParams: Params.IIconMerchantsListCParams,
         protected configService: ConfigService,
+        protected eventService: EventService,
         protected injectionService: InjectionService,
+        protected cdr: ChangeDetectorRef,
     ) {
-        super({injectParams, defaultParams: Params.defaultParams}, configService);
+        super({injectParams, defaultParams: Params.defaultParams}, configService, eventService);
     }
 
     public async ngOnInit(): Promise<void> {
@@ -46,11 +52,45 @@ export class IconMerchantsListComponent extends IconListAbstract<Params.IIconMer
 
         this.gamesCatalogService = await this.injectionService
             .getService<GamesCatalogService>('games.games-catalog-service');
-
         await this.gamesCatalogService.ready;
+
         this.getMerchantsList();
-        this.$params.iconComponentParams.items =
-            this.prepareIconsParams('merchants', this.$params.iconComponentParams, this.merchants);
+
+        if (this.configService.get<boolean>('$base.colorThemeSwitching.use')
+        && this.$params.colorIconBg && this.$params.iconsType === 'color') {
+            this.subscribeOnToggleSiteTheme(() => this.setItemsList());
+        }
+
+        this.setItemsList();
+    }
+
+    /**
+     * sets items list and then pass it to icon list component and render them
+     */
+    protected setItemsList(): void {
+        const {iconsType, colorIconBg} = this.$params;
+        const showIconAs = iconsType === 'black' ? 'svg' : 'img';
+
+        this.items = this.convertItemsToIconModel<MerchantModel>(
+            this.merchants,
+            (item) => {
+                return {
+                    from: {
+                        component: 'IconMerchantsListComponent',
+                        method: 'setItemsList',
+                    },
+                    icon: this.merchantsPaymentsIterator('merchants', {
+                        showAs: showIconAs,
+                        wlcElement: item.wlcElement,
+                        nameForPath: item.alias,
+                        alt: item.name,
+                        colorIconBg,
+                    }),
+                };
+            },
+        );
+
+        this.cdr.markForCheck();
     }
 
     /**

@@ -1,14 +1,15 @@
 import {
     CustomType,
-    IComponentParams,
     IIconListCParams,
 } from 'wlc-engine/modules/core';
+import {IAbstractIconsListParams} from 'wlc-engine/modules/core/system/classes/icon-list-abstract.class';
 
 export type ComponentTheme = 'default' | CustomType;
 export type ComponentType = 'default' | CustomType;
 export type ComponentThemeMod = 'default' | CustomType;
 
-export interface IIconMerchantsListCParams extends IComponentParams<ComponentTheme, ComponentType, ComponentThemeMod> {
+export interface IIconMerchantsListCParams extends
+IAbstractIconsListParams<ComponentTheme, ComponentType, ComponentThemeMod> {
     /**
      * Params for iconListComponent
      *
@@ -41,9 +42,9 @@ export const defaultParams: IIconMerchantsListCParams = {
     class: 'wlc-icon-merchants-list',
     componentName: 'wlc-icon-merchants-list',
     moduleName: 'core',
+    iconsType: 'black',
     iconComponentParams: {
         theme: 'merchants',
-        type: 'svg',
         wlcElement: 'block_merchants',
         hideImgOnError: true,
     },

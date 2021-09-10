@@ -6,20 +6,19 @@ import {
     GlobalHelper,
     IMixedParams,
     IFromLog,
-    IIconListCParams,
-    IPaysystem,
 } from 'wlc-engine/modules/core';
 import {
     IconModel,
     IIconParams,
 } from 'wlc-engine/modules/core/system/models/icon-list-item.model';
-import {MerchantModel} from 'wlc-engine/modules/games';
+import {EventService} from 'wlc-engine/modules/core/system/services';
+import {IComponentParams} from 'wlc-engine/modules/core/system/interfaces';
 
 import _map from 'lodash-es/map';
 
 export type ColorIconBgType = 'dark' | 'light';
 export type TIconShowAs = 'svg' | 'img';
-export type TypeComponent = 'payments' | 'merchants';
+export type TIconsType = 'color' | 'black';
 
 export interface IMerchantsPaymentsIterator {
     showAs: TIconShowAs,
@@ -32,16 +31,45 @@ export interface IMerchantsPaymentsIterator {
     colorIconBg?: ColorIconBgType;
 }
 
-enum ThemeToDirectory {
+export interface IAbstractIconsListParams<T, R, M> extends IComponentParams<T, R, M> {
+    /** Apply one of two types of colored icons (works only with colored) */
+    colorIconBg?: ColorIconBgType,
+    /**
+     * Apply colored icons(they will be parsed as img), and black icons will be shown as svg
+     */
+    iconsType?: TIconsType,
+     /**
+     * Array for custom icons
+     *
+     * @example
+     * items: [
+     *      {
+     *          showAs: 'img',
+     *          iconUrl: '/static/images/payments/MCSecureCode.svg',
+     *      },
+     *      {
+     *          showAs: 'img',
+     *          iconUrl: '/static/images/payments/VerifiedByVisa .svg',
+     *      },
+     * ]
+     */
+    items?: IIconParams[],
+}
+
+export enum ThemeToDirectory {
     payments = 'paysystems/V2/svg',
     merchants = 'merchants/svg',
 };
 
 export abstract class IconListAbstract<T> extends AbstractComponent {
+    abstract items: IconModel[];
+
+    public $params: IAbstractIconsListParams<unknown, unknown, unknown>;
 
     constructor(
         protected componentParams: IMixedParams<T>,
         protected configService: ConfigService,
+        protected eventService: EventService,
     ) {
         super(componentParams, configService);
     }
@@ -66,7 +94,9 @@ export abstract class IconListAbstract<T> extends AbstractComponent {
      * @param params - object with parameters for creating IIconParams
      * @returns IIconParams
      */
-    protected merchantsPaymentsIterator(pathDirectory: string, params: IMerchantsPaymentsIterator): IIconParams {
+    protected merchantsPaymentsIterator(pathDirectory: keyof typeof ThemeToDirectory,
+        params: IMerchantsPaymentsIterator,
+    ): IIconParams {
         const {showAs, wlcElement, nameForPath, alt, sref, srefParams, title, colorIconBg} = params;
         return {
             showAs: showAs,
@@ -112,40 +142,46 @@ export abstract class IconListAbstract<T> extends AbstractComponent {
         return name.toLowerCase().replace(/\s/g, '-').replace(/[^\dA-Za-z-]/g, '');
     }
 
-    /**
-     * Prepare icon data
-     *
-     * @param componentType
-     * @param params
-     * @param source
-     * @returns {IIconParams[]}
+    /** On change color site theme method changes icons on another color from gstatic
+     * Wont work with custom list which creates from "items" params
      **/
-    protected prepareIconsParams(
-        componentType: TypeComponent,
-        params: IIconListCParams,
-        source: unknown[]): IIconParams[] {
-        const {theme, type = 'img', colorIconBg} = params;
+    protected subscribeOnToggleSiteTheme(themeChangeCallback: Function): void {
+        const defaultColorIconBg = this.$params.colorIconBg;
 
-        if (componentType === 'merchants') {
-            return _map(source, (item: MerchantModel) => {
-                return this.merchantsPaymentsIterator(theme, {
-                    showAs: type as TIconShowAs,
-                    wlcElement: item.wlcElement,
-                    nameForPath: item.alias,
-                    colorIconBg,
-                    alt: item.name,
-                });
-            });
-        } else {
-            return _map(source, (item: IPaysystem) => {
-                return this.merchantsPaymentsIterator(theme, {
-                    showAs: type as TIconShowAs,
-                    wlcElement: 'block_payment-' + this.wlcElementTail(item.Name),
-                    nameForPath: item.Name,
-                    colorIconBg,
-                });
-            });
+        if (!!this.configService.get<string>('colorTheme')) {
+            this.$params.colorIconBg = this.getColorThemeBgType(defaultColorIconBg);
         }
+
+        this.eventService.subscribe<boolean>(
+            {name: 'THEME_CHANGE'},
+            (theme) => {
+                this.$params.colorIconBg = this.getColorThemeBgType(defaultColorIconBg, theme);
+                themeChangeCallback();
+            },
+            this.$destroy,
+        );
     }
 
+    protected getColorThemeBgType(defaultIconsColor: ColorIconBgType, altSiteTheme: boolean = true): ColorIconBgType {
+        if (altSiteTheme) {
+            return defaultIconsColor === 'dark' ? 'light' : 'dark';
+        }
+        return defaultIconsColor;
+    }
+
+    /**
+     * @returns {IconModel[]}
+     * create and return iconmodel based on items from params
+     **/
+    protected getConvertedCustomList(from: IFromLog): IconModel[] {
+        return this.convertItemsToIconModel<IIconParams>(
+            this.$params.items,
+            (item) => {
+                return {
+                    icon: item,
+                    from,
+                };
+            },
+        );
+    }
 }

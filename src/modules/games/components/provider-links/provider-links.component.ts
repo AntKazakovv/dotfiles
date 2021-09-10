@@ -11,8 +11,15 @@ import {
 } from '@angular/core';
 
 import {IconListAbstract} from 'wlc-engine/modules/core/system/classes/icon-list-abstract.class';
-import {ConfigService, ModalService} from 'wlc-engine/modules/core';
-import {ISliderCParams} from 'wlc-engine/modules/promo';
+import {
+    ConfigService,
+    EventService,
+    ModalService,
+} from 'wlc-engine/modules/core';
+import {
+    ISlide,
+    ISliderCParams,
+} from 'wlc-engine/modules/promo';
 import {
     GamesCatalogService,
 } from 'wlc-engine/modules/games/system/services/games-catalog/games-catalog.service';
@@ -41,9 +48,9 @@ export class ProviderLinksComponent extends IconListAbstract<Params.IProviderLin
     public $params: Params.IProviderLinksCParams;
     public items: IconModel[] = [];
     public ready: boolean = false;
+    public slides: ISlide[] = [];
     public sliderParams: ISliderCParams = {
         swiper: {},
-        slides: [],
     };
 
     constructor(
@@ -51,9 +58,10 @@ export class ProviderLinksComponent extends IconListAbstract<Params.IProviderLin
         protected configService: ConfigService,
         protected gamesCatalogService: GamesCatalogService,
         protected modalService: ModalService,
+        protected eventService: EventService,
         protected cdr: ChangeDetectorRef,
     ) {
-        super({injectParams, defaultParams: Params.defaultParams}, configService);
+        super({injectParams, defaultParams: Params.defaultParams}, configService, eventService);
     }
 
     public ngOnInit(): void {
@@ -62,6 +70,11 @@ export class ProviderLinksComponent extends IconListAbstract<Params.IProviderLin
 
     public async ngAfterViewInit(): Promise<void> {
         await this.gamesCatalogService.ready;
+
+        if (this.configService.get<boolean>('$base.colorThemeSwitching.use')
+        && this.$params.colorIconBg && this.$params.iconsType === 'color') {
+            this.subscribeOnToggleSiteTheme(() => {this.setMerchantsList(); this.setSliderParams();});
+        }
         this.setMerchantsList();
         this.setSliderParams();
         this.ready = true;
@@ -122,7 +135,7 @@ export class ProviderLinksComponent extends IconListAbstract<Params.IProviderLin
     protected setSliderParams(): void {
         this.sliderParams.swiper = this.$params.sliderParams || {};
 
-        this.sliderParams.slides = _times(this.items.length, (index: number) => {
+        this.slides = _times(this.items.length, (index: number) => {
             return {
                 templateRef: this.iconTemplate,
                 templateParams: {item: this.items[index]},
