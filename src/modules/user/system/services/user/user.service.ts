@@ -22,7 +22,8 @@ import {DataService} from 'wlc-engine/modules/core/system/services/data/data.ser
 import {IUserProfile} from 'wlc-engine/modules/core/system/interfaces/user.interface';
 
 import {IData} from 'wlc-engine/modules/core/system/services/data/data.service';
-import {UserInfo, UserProfile} from 'wlc-engine/modules/user/system/models';
+import {UserProfile} from 'wlc-engine/modules/user/system/models/profile.model';
+import {UserInfo} from 'wlc-engine/modules/user/system/models/info.model';
 import {LimitationService} from 'wlc-engine/modules/user/system/services/limitation/limitation.service';
 import {InjectionService} from 'wlc-engine/modules/core/system/services/injection/injection.service';
 

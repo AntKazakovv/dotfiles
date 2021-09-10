@@ -4,7 +4,7 @@ import {
     OnInit,
     Input,
 } from '@angular/core';
-import {AbstractComponent} from 'wlc-engine/modules/core/system/classes';
+import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
 import * as Params from './plug.params';
 
 /**

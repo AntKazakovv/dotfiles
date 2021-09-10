@@ -7,11 +7,10 @@ import {
 } from '@angular/core';
 import {FormControl} from '@angular/forms';
 
-import {AbstractComponent} from 'wlc-engine/modules/core/system/classes';
-import {
-    ConfigService,
-    ModalService,
-} from 'wlc-engine/modules/core';
+
+import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
+import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
+import {ModalService} from 'wlc-engine/modules/core/system/services/modal/modal.service';
 
 import * as Params from './checkbox.params';
 

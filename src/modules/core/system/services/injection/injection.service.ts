@@ -3,10 +3,8 @@ import {
     InjectionToken,
     Injector,
 } from '@angular/core';
-import {
-    ConfigService,
-    IIndexing,
-} from 'wlc-engine/modules/core';
+import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
+import {IIndexing} from 'wlc-engine/modules/core/system/interfaces/global.interface';
 
 import _get from 'lodash-es/get';
 import _set from 'lodash-es/set';
