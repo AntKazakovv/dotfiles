@@ -99,6 +99,7 @@ export class FormWrapperComponent extends WrapperComponent implements OnInit, On
     private allControls: IControls = {};
     private globalValidators: IGlobalValidators;
     private formDataStorage: IIndexing<any> = {};
+    private listErrors: IIndexing<IIndexing<string>> = {};
 
     private locked: string[] = [];
 
@@ -131,12 +132,10 @@ export class FormWrapperComponent extends WrapperComponent implements OnInit, On
     public async ngOnInit() {
         this.prepareParams();
         this.initForm();
-
+        this.collectionErrors(this.config.components);
         super.ngOnInit();
     }
 
-    // Don't delete this because without it the app will crash
-    // eslint-disable-next-line @angular-eslint/no-empty-lifecycle-method
     public ngOnChanges(changes: SimpleChanges): void {
         if (this.form && changes.config) {
             this.formDataStorage = _assign({}, this.formDataStorage, this.form.value);
@@ -191,6 +190,7 @@ export class FormWrapperComponent extends WrapperComponent implements OnInit, On
                 this.form.markAsUntouched();
             }
         } else {
+            const formErrors = this.formErrors();
             let errorFound = false;
 
             for (const controlName in this.form.controls) {
@@ -212,13 +212,15 @@ export class FormWrapperComponent extends WrapperComponent implements OnInit, On
                         wlcElement: 'notification_form-filling-error',
                     },
                 });
-            } else if (this.hasAnyError) {
+            } else if (formErrors.length) {
                 this.eventService.emit({
                     name: NotificationEvents.PushMessage,
                     data: <IPushMessageParams>{
                         type: 'error',
                         title: gettext('Error filling form'),
-                        message: gettext('Check the correctness of filling out the form fields'),
+                        message: formErrors.length > 1
+                            ? gettext('Check the correctness of filling out the form fields')
+                            : _get(this.listErrors, formErrors[0], formErrors[0].replace(/^.+\./, 'validator-')),
                         wlcElement: 'notification_form-fields-error',
                     },
                 });
@@ -227,12 +229,42 @@ export class FormWrapperComponent extends WrapperComponent implements OnInit, On
         this.cdr.detectChanges();
     }
 
+    protected collectionErrors(components: IFormComponent[]): void {
+
+        _each(components, (component) => {
+            if (component.params.name) {
+                _each(component.params.validators, (validator) => {
+                    if (validator.name) {
+                        _set(this.listErrors, `${component.params.name}.${validator.name}`, validator.text);
+                    }
+                });
+            }
+
+            if (component.name.includes('wlc-wrapper')) {
+                this.collectionErrors(component.params.components);
+            }
+        });
+    }
+
     protected get hasRequiredError(): boolean {
         return !!_find(this.controls, (control) => control.errors?.required);
     }
 
-    protected get hasAnyError(): boolean {
-        return !!_find(this.controls, (control) => !!control.errors);
+    protected formErrors(): string[] {
+        const errors = [];
+
+        _each(this.controls, (control, controlName) => {
+
+            _each(control.errors, (_, errorName) => {
+                errors.push(`${controlName}.${errorName}`);
+            });
+
+            if (errors.length > 1) {
+                return false;
+            }
+        });
+
+        return errors;
     }
 
     protected prepareParams(): void {
