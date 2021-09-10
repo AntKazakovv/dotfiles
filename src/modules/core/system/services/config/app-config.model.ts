@@ -59,6 +59,10 @@ export class AppConfigModel extends AbstractModel<IBootstrap> {
         return this.data.games;
     }
 
+    public get hideEmailExistence(): boolean {
+        return this.data.hideEmailExistence;
+    }
+
     public get ignoreProvidersForGameCatalog(): boolean {
         return this.data.ignoreProvidersForGameCatalog;
     }
