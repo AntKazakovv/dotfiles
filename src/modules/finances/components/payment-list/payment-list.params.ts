@@ -1,9 +1,8 @@
 import {
-    IComponentParams,
     CustomType,
     DeviceType,
 } from 'wlc-engine/modules/core';
-import {ColorIconBgType} from 'wlc-engine/modules/core/system/classes/icon-list-abstract.class';
+import {IAbstractIconsListParams} from 'wlc-engine/modules/core/system/classes/icon-list-abstract.class';
 
 export type Theme = 'default' | CustomType;
 export type Type = 'default' | CustomType;
@@ -18,7 +17,7 @@ export type IconsType = 'color' | 'black';
  */
 export type ShowType = string | DeviceType;
 
-export interface IPaymentListCParams extends IComponentParams<Theme, Type, ThemeMod> {
+export interface IPaymentListCParams extends IAbstractIconsListParams<Theme, Type, ThemeMod> {
     paymentType?: 'deposit' | 'withdraw';
     asModal?: ShowType;
     showTable?: ShowType;
@@ -30,8 +29,6 @@ export interface IPaymentListCParams extends IComponentParams<Theme, Type, Theme
     modalTitle?: string;
     hideModalOnSelect?: boolean;
     chosenMethodText?: string;
-    /** Apply one of two types of colored icons (works only with colored) */
-    colorIconBg?: ColorIconBgType;
 }
 
 export const defaultParams: IPaymentListCParams = {

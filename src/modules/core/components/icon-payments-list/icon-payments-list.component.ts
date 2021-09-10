@@ -3,13 +3,16 @@ import {
     Inject,
     OnInit,
     Component,
+    ChangeDetectorRef,
 } from '@angular/core';
 
 import {
     IPaysystem,
     ConfigService,
+    EventService,
 } from 'wlc-engine/modules/core';
 import {IconListAbstract} from 'wlc-engine/modules/core/system/classes/icon-list-abstract.class';
+import {IconModel} from 'wlc-engine/modules/core/system/models/icon-list-item.model';
 
 import * as Params from './icon-payments-list.params';
 
@@ -27,28 +30,65 @@ import _includes from 'lodash-es/includes';
 export class IconPaymentsListComponent extends IconListAbstract<Params.IIconPaymentsListCParams> implements OnInit {
     @Input() protected inlineParams: Params.IIconPaymentsListCParams;
 
+    public items: IconModel[] = [];
     public $params: Params.IIconPaymentsListCParams;
-
     protected payments: IPaysystem[];
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IIconPaymentsListCParams,
         protected configService: ConfigService,
+        protected eventService: EventService,
+        protected cdr: ChangeDetectorRef,
     ) {
-        super({injectParams, defaultParams: Params.defaultParams}, configService);
+        super({injectParams, defaultParams: Params.defaultParams}, configService, eventService);
     }
 
     public async ngOnInit(): Promise<void> {
         super.ngOnInit(this.inlineParams);
         await this.configService.ready;
+
         this.getPaymentsList();
-        this.$params.iconComponentParams.items =
-            this.prepareIconsParams('payments', this.$params.iconComponentParams, this.payments);
+
+        if (this.configService.get<boolean>('$base.colorThemeSwitching.use')
+        && this.$params.colorIconBg && this.$params.iconsType === 'color') {
+            this.subscribeOnToggleSiteTheme(() => this.setItemsList());
+        }
+
+        this.setItemsList();
+    }
+
+    protected setItemsList(): void {
+        const {iconsType, colorIconBg} = this.$params;
+        const showIconAs = iconsType === 'black' ? 'svg' : 'img';
+
+        const list = this.convertItemsToIconModel<IPaysystem>(
+            this.payments,
+            (item) => {
+                return {
+                    from: {
+                        component: 'IconPaymentsListComponent',
+                        method: 'setItemsList',
+                    },
+                    icon: this.merchantsPaymentsIterator('payments', {
+                        showAs: showIconAs,
+                        wlcElement: 'block_payment-' + this.wlcElementTail(item.Name),
+                        nameForPath: item.Name,
+                        colorIconBg,
+                    }),
+                };
+            },
+        );
 
         if (this.$params.items?.length) {
-            this.$params.iconComponentParams.items =
-                _concat(this.$params.iconComponentParams.items, this.$params.items);
+            this.items = _concat(
+                list,
+                this.getConvertedCustomList({component: 'IconPaymentsListComponent', method: 'setItemsList'}),
+            );
+        } else {
+            this.items = list;
         }
+
+        this.cdr.markForCheck();
     }
 
     /**

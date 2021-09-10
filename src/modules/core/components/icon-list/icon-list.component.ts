@@ -25,16 +25,13 @@ import {
     ActionService,
     InjectionService,
 } from 'wlc-engine/modules/core';
-import {
-    GamesCatalogService,
-} from 'wlc-engine/modules/games/system/services/games-catalog/games-catalog.service';
-import {
-    IconModel,
-    IIconParams,
-} from 'wlc-engine/modules/core/system/models/icon-list-item.model';
+import {GamesCatalogService} from 'wlc-engine/modules/games/system/services/games-catalog/games-catalog.service';
+import {IconModel} from 'wlc-engine/modules/core/system/models/icon-list-item.model';
 import {IconListAbstract} from 'wlc-engine/modules/core/system/classes/icon-list-abstract.class';
 
 import * as Params from './icon-list.params';
+
+import _concat from 'lodash-es/concat';
 
 /**
  *  Component to display an icon list.
@@ -49,12 +46,12 @@ import * as Params from './icon-list.params';
 })
 export class IconListComponent extends IconListAbstract<Params.IIconListCParams> implements OnInit, AfterViewChecked {
     /** List of items being rendered. */
-    public items: IconModel[] = [];
     public $params: Params.IIconListCParams;
     protected wrapper: HTMLElement;
     protected resized: boolean = false;
     protected gamesCatalogService: GamesCatalogService;
 
+    @Input() public items: IconModel[] = [];
     @Input() protected inlineParams: Params.IIconListCParams;
     @HostBinding('class.scrollable--left') protected scrollableLeft: boolean = false;
     @HostBinding('class.scrollable--right') protected scrollableRight: boolean = false;
@@ -71,7 +68,7 @@ export class IconListComponent extends IconListAbstract<Params.IIconListCParams>
         private injector: Injector,
         private hostElement: ElementRef,
     ) {
-        super({injectParams, defaultParams: Params.defaultParams}, configService);
+        super({injectParams, defaultParams: Params.defaultParams}, configService, eventService);
     }
 
     /** Calls method based on the component theme */
@@ -121,34 +118,21 @@ export class IconListComponent extends IconListAbstract<Params.IIconListCParams>
     }
 
     /**
-     * @returns {IconModel[]}
-     * create and return iconmodel based on items from params
-     **/
-    protected getConvertedCustomList(): IconModel[] {
-        return this.convertItemsToIconModel<IIconParams>(
-            this.$params.items,
-            (item) => {
-                return {
-                    icon: item,
-                    from: {
-                        component: 'IconListComponent',
-                        method: 'getConvertedCustomList',
-                    },
-                };
-            },
-        );
-    }
-
-    /**
      * Creates the icon list.
      * Calls if `theme` is `custom`.
      * Based on `icons` param.
+     * It wont work if theme merchants or payments, it works only for custom list as separate component
      **/
     protected setCustomList(): void {
-        if (this.$params.items?.length) {
-            this.items = this.getConvertedCustomList();
-        } else {
-            console.error('[wlc-icon-list] component requires "items" param on the custom theme');
+        if (this.$params.theme === 'custom') {
+            if (this.$params.items?.length) {
+                this.items = _concat(
+                    this.items,
+                    this.getConvertedCustomList({component: 'IconListComponent', method: 'setCustomList'}),
+                );
+            } else {
+                console.error('[wlc-icon-list] component requires "items" param on the custom theme');
+            }
         }
     }
 }

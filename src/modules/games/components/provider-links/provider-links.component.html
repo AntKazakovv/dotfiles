@@ -30,6 +30,7 @@
 
             <div class="{{$class}}__slider"
                 wlc-slider
+                [slides]="slides"
                 [inlineParams]="sliderParams">
             </div>
         </ng-container>
@@ -49,8 +50,9 @@
     <div class="{{$class}}__item {{item.modifier}}"
         [attr.data-wlc-element]="item.wlcElement"
         wlc-icon-list-item
-        [inlineParams]='{icon: item, class: $class + "-item"}'>
-    </div>
+        [icon]="item"
+        [inlineParams]='{class: $class + "-item"}'
+        ></div>
 </ng-template>
 
 <ng-template #loader>

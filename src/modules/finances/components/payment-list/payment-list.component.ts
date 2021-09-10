@@ -32,6 +32,7 @@ import {PaymentSystem} from 'wlc-engine/modules/finances/system/models/payment-s
 import {
     IconListAbstract,
     IMerchantsPaymentsIterator,
+    ThemeToDirectory,
 } from 'wlc-engine/modules/core/system/classes/icon-list-abstract.class';
 import {IconModel, IIconParams} from 'wlc-engine/modules/core/system/models/icon-list-item.model';
 
@@ -83,11 +84,17 @@ export class PaymentListComponent extends IconListAbstract<Params.IPaymentListCP
         protected configService: ConfigService,
         private hostRef: ElementRef,
     ) {
-        super({injectParams, defaultParams: Params.defaultParams}, configService);
+        super({injectParams, defaultParams: Params.defaultParams}, configService, eventService);
     }
 
     public ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
+
+        if (this.configService.get<boolean>('$base.colorThemeSwitching.use')
+        && this.$params.colorIconBg && this.$params.iconsType === 'color') {
+            this.subscribeOnToggleSiteTheme(() => this.setPaymentsIconsList());
+        }
+
         this.getPaymentSystems();
         this.followBreakpoints();
 
@@ -198,9 +205,13 @@ export class PaymentListComponent extends IconListAbstract<Params.IPaymentListCP
                 };
             },
         );
+
+        this.cdr.markForCheck();
     }
 
-    protected merchantsPaymentsIterator(pathDirectory: string, params: IPaymentsIterator): IIconParams {
+    protected merchantsPaymentsIterator(pathDirectory: keyof typeof ThemeToDirectory,
+        params: IPaymentsIterator,
+    ): IIconParams {
 
         const res = super.merchantsPaymentsIterator(pathDirectory, params);
 
