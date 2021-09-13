@@ -12,7 +12,7 @@ $themeDefault: map-merge((
     'headerMargin': 0,
     'btnLeftMargin': 0 auto 0 30px,
     'titleWidth': 50%,
-    'iconsColor': var(--mc-bg700),
+    'iconsColor': var(--mc-baseMain),
     'iconsColorHover': var(--mc-baseMain),
     'iconsColorActive': var(--mc-main),
     'iconsGap': ef.get('size', 'smaller'),
@@ -20,6 +20,8 @@ $themeDefault: map-merge((
     'iconsWidth': 26px,
     'iconsHeight': 26px,
     'iconsOpacity': 0.8,
+    'buttonOpacity': 0.5,
+    'buttonOpacityHover': 1,
 ), $customThemeDefault);
 
 $customThemeFullscreenGameFrame: () !default;

@@ -5,8 +5,8 @@
 .wlc-restore-link {
 
     &:host {
-        text-align: ef.get-value($themeDefault, 'alignText') ;
         line-height: 1;
+        text-align: ef.get-value($themeDefault, 'alignText') ;
 
         .wlc-btn {
             @include text.get-text-style(ef.get-value($themeDefault, 'linkFontSize'), ef.get-value($themeDefault, 'linkColor'));

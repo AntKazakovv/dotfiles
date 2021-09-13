@@ -57,11 +57,7 @@ export class LoyaltyProgramComponent extends AbstractComponent implements OnInit
     }
 
     public readMore(): void {
-        if (this.isAuth) {
-            this.router.stateService.go('app.profile.loyalty-level');
-        } else {
-            this.modalService.showModal('loyaltyInfo');
-        }
+        this.modalService.showModal('loyaltyInfo');
     }
 
     public setLoyaltyPoints(index: number): string {
