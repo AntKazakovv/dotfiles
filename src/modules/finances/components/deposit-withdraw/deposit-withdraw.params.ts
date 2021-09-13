@@ -14,14 +14,19 @@ export type ThemeMod = 'default' | CustomType;
 
 export interface IDepositWithdrawCParams extends IComponentParams<Theme, Type, ThemeMod> {
     mode: 'deposit' | 'withdraw';
+    /** show/hide payment rules checkbox */
+    showPaymentRules?: boolean;
     common?: {
         themeMod?: ThemeMod;
     };
 }
 
 export const defaultParams: IDepositWithdrawCParams = {
+    moduleName: 'finances',
+    componentName: 'wlc-deposit-withdraw',
     mode: 'deposit',
     class: 'wlc-cash',
+    showPaymentRules: true,
 };
 
 export interface IAdditionalFields {
