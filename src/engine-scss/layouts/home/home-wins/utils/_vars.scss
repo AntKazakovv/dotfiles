@@ -31,7 +31,8 @@ $themeHomeWins: map-merge((
     'tournamentBannerHeight': (
         320: 385px,
         480: 325px,
-        768: 100%,
+        768: 370px,
+        1024: 100%,
     ),
     'tournamentBannerMinHeight': (
         320: auto,

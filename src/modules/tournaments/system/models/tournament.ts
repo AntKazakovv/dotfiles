@@ -30,6 +30,7 @@ export class Tournament extends AbstractModel<ITournament> {
     public topWin: ITournamentPlace[];
     public hasGames: boolean = false;
     protected userCurrency: string;
+    protected $descriptionClean: string;
 
     constructor(
         from: IFromLog,
@@ -40,6 +41,7 @@ export class Tournament extends AbstractModel<ITournament> {
         super({from: _assign({model: 'Tournament'}, from)});
         this.data = data;
         this.userCurrency = this.configService.get<string>('appConfig.user.currency') || 'EUR';
+        this.$descriptionClean = this.data.Description.replace(/<[^>]*>/g, '');
     }
 
     public set data(data: ITournament) {
@@ -58,6 +60,10 @@ export class Tournament extends AbstractModel<ITournament> {
 
     public get description(): string {
         return this.data.Description;
+    }
+
+    public get descriptionClean(): string {
+        return this.$descriptionClean;
     }
 
     public get ends(): string {

@@ -31,8 +31,8 @@
         }
 
         &__active-block {
-            padding: ef.get-value($themeLong, 'activeBlockPadding');
             max-width: ef.get-value($themeLong, 'activeBlockMaxWidth');
+            padding: ef.get-value($themeLong, 'activeBlockPadding');
         }
 
         &__btns {
@@ -98,8 +98,7 @@
             text-align: center;
         }
 
-        &__description {
-            @include text.get-text-style(ef.get-value($themeLong, 'descrTextStyle'), ef.get-value($themeDefault, 'descrColor'));
+        &__description-block {
             @include em.transition(opacity);
 
             width: 100%;
@@ -107,6 +106,11 @@
             padding: ef.get-value($themeLong, 'descrPadding');
             border-radius: ef.get-value($themeLong, 'radius');
             background: ef.get-value($themeLong, 'descrBg');
+        }
+
+        &__description {
+            @include text.get-text-style(ef.get-value($themeLong, 'descrTextStyle'), ef.get-value($themeDefault, 'descrColor'));
+            @include em.lineClamp(2);
         }
     }
 }
