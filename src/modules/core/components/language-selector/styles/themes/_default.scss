@@ -267,7 +267,7 @@
                 grid-template-columns: 1fr;
                 padding: ef.get-value($themeDefaultModLog, 'dropdownPaddingLong');
 
-                background: ef.get-value($themeDefaultModLog, 'dropdownBgModLong');
+                background: ef.get-value($themeDefaultModLog, 'dropdownBackgroundColor');
                 border-radius: ef.get-value($themeDefaultModLog, 'dropdownBorderRadius');
 
                 filter: (ef.get-value($themeDefaultModLog, 'listShadow'));

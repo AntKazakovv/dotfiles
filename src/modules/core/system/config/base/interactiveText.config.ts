@@ -49,7 +49,10 @@ export const interactiveTextConfig: IInteractiveText[] = [
         actionParams: {
             url: {
                 path: 'app.catalog',
-                params: {category: 'jackpots'},
+                params: {
+                    category: 'casino',
+                    childCategory: 'jackpots',
+                },
             },
         },
         useFor: 'all',

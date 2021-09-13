@@ -76,6 +76,16 @@
                 margin-left: ef.get-value($themeDefault, 'iconsGap');
                 cursor: pointer;
 
+
+                &.icon-btn {
+                    @include em.transition(all);
+                    opacity: ef.get-value($themeDefault, 'buttonOpacity');
+
+                    @include em.hover {
+                        opacity: ef.get-value($themeDefault, 'buttonOpacityHover');
+                    }
+                }
+
                 svg {
 
                     @include em.transition(all);
@@ -84,12 +94,6 @@
                     fill: none;
                     stroke: ef.get-value($themeDefault, 'iconsColor');
                     stroke-width: ef.get-value($themeDefault, 'iconsStroke');
-
-                    line {
-
-                        @include em.transition(all);
-                        stroke: ef.get-value($themeDefault, 'iconsColor');
-                    }
                 }
 
                 &.wlc-icon--favourite {

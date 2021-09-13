@@ -64,11 +64,7 @@ export class LoyaltyProgramComponent extends AbstractComponent implements OnInit
      * redirects to the profile page to the site levels, if not logged in - shows modal
      */
     public readMore(): void {
-        if (this.isAuth) {
-            this.router.stateService.go('app.profile.loyalty-level');
-        } else {
-            this.modalService.showModal('loyaltyInfo');
-        }
+        this.modalService.showModal('loyaltyInfo');
     }
 
     /**
