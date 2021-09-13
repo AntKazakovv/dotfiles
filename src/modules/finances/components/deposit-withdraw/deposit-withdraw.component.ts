@@ -202,7 +202,7 @@ export class DepositWithdrawComponent extends AbstractComponent implements OnIni
                 wlcElement: 'notification_deposit-fields-error',
             });
             return false;
-        } else if (this.$params.mode === 'deposit' && !form.value.paymentRules) {
+        } else if (this.$params.mode === 'deposit' && this.$params.showPaymentRules && !form.value.paymentRules) {
             form.controls.paymentRules.markAsTouched();
             this.pushNotification({
                 type: 'error',
@@ -876,7 +876,7 @@ export class DepositWithdrawComponent extends AbstractComponent implements OnIni
         }
 
         // rules
-        if (mode === 'deposit') {
+        if (mode === 'deposit' && this.$params.showPaymentRules) {
             formComponents.push(FormElements.rules);
         }
 
