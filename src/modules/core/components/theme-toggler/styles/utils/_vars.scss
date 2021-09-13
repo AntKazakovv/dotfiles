@@ -2,14 +2,13 @@
 
 $customTogglerBase: () !default;
 $togglerBase: map-merge((
-    'switchBg': var(--mc-bg100),
-    'switchBgActive': var(--mc-bg100),
+    'switchBg': var(--mc-baseOpacity),
+    'switchBgActive': var(--mc-baseOpacity),
     'switchRadius': ef.get('radius', 'large'),
 
     'switchPseudoScale': scale(0.82),
-    'switchPseudoBg': var(--mc-bg500),
-    'switchPseudoBgHover': var(--mc-bg100-l5),
-    'switchPseudoBgActive': var(--mc-bg500),
+    'switchPseudoBg': var(--mc-bg),
+    'switchPseudoBgActive': var(--mc-bg),
     'switchPseudoRadius': ef.get('radius', 'large'),
     'switchPseudoTransition': (all, 0.2s, ease-in-out),
 
@@ -29,7 +28,6 @@ $themeDefault: map-merge((
     'switchPseudoWidth': 32px,
     'switchPseudoHeight': 32px,
     'switchPseudoBg': ef.get-value($togglerBase, 'switchPseudoBg'),
-    'switchPseudoBgHover': ef.get-value($togglerBase, 'switchPseudoBgHover'),
     'switchPseudoBgActive': ef.get-value($togglerBase, 'switchPseudoBgActive'),
     'switchPseudoRadius': ef.get-value($togglerBase, 'switchPseudoRadius'),
     'switchPseudoTransform': translateX(0),
@@ -105,7 +103,6 @@ $themeLong: map-merge((
     'switchPseudoMargin': 2px,
     'switchPseudoScale': ef.get-value($togglerBase, 'switchPseudoScale'),
     'switchPseudoBg': ef.get-value($togglerBase, 'switchPseudoBg'),
-    'switchPseudoBgHover': ef.get-value($togglerBase, 'switchPseudoBgHover'),
     'switchPseudoBgActive': ef.get-value($togglerBase, 'switchPseudoBgActive'),
     'switchPseudoRadius': ef.get-value($togglerBase, 'switchPseudoRadius'),
 
