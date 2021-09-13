@@ -12,9 +12,9 @@
 
         &__more-icon {
             position: absolute;
-            z-index: 2;
             top: ef.get-value($themeDashboard, 'moreIconTop');
             right: ef.get-value($themeDashboard, 'moreIconRight');
+            z-index: 2;
 
             .wlc-icon {
                 position: relative;
@@ -33,10 +33,10 @@
                     }
 
                     svg {
+                        @include em.transition(fill);
                         width: 100%;
                         height: 100%;
                         fill: ef.get-value($themeDashboard, 'moreIconColor');
-                        @include em.transition(fill);
                     }
                 }
 
@@ -79,43 +79,43 @@
         }
 
         &__img-container {
+            position: relative;
+            z-index: 1;
             width: ef.get-value($themeDashboard, 'imgWidth');
             height: ef.get-value($themeDashboard, 'imgHeight');
             min-height: ef.get-value($themeDashboard, 'imgHeight');
-            position: relative;
-            z-index: 1;
-            overflow: hidden;
             margin: 0 auto;
             margin-bottom: ef.get-value($themeDashboard, 'gapNoSelect');
+            overflow: hidden;
             border-radius: ef.get-value($themeDashboard, 'borderRadius');
         }
 
         &__image {
             position: absolute;
-            width: 100%;
             top: 50%;
             left: 0;
+            width: 100%;
             transform: translateY(-50%);
         }
 
         &__title {
             position: absolute;
-            bottom: -1px;
             top: 33%;
-            left: 0;
             right: 0;
-            background: ef.get-value($themeDashboard, 'titleBg');
-            width: 100%;
-            font-weight: bold;
-            padding: ef.get-value($themeDashboard, 'titlePadding');
+            bottom: -1px;
+            left: 0;
             display: flex;
             flex-direction: column;
             justify-content: flex-end;
+            width: 100%;
+            padding: ef.get-value($themeDashboard, 'titlePadding');
+            font-weight: bold;
+            background: ef.get-value($themeDashboard, 'titleBg');
 
             span {
                 width: 100%;
-                line-height: 1.5;
                 font-size: ef.get-value($themeDashboard, 'headerFontSize');
+                line-height: 1.5;
                 text-align: center;
                 /* stylelint-disable */
                 display: -webkit-box;
@@ -137,29 +137,26 @@
         }
 
         &__description {
-            font-size: ef.get-value($themeDashboard, 'descrFontSize');
-            padding: ef.get-value($themeDashboard, 'descrPadding');
-            background-color: ef.get-value($themeDashboard, 'rowBg');
-            border-radius: ef.get-value($themeDashboard, 'borderRadius');
-            margin-top: ef.get-value($themeDashboard, 'gapNoSelect');
+            @include em.lineClamp(2);
+            @include text.get-text-style(ef.get-value($themeDashboard, 'descrTextStyle'), ef.get-value($themeDashboard, 'descrColor'));
+        }
 
-            span {
-                width: 100%;
-                text-align: center;
-                /* stylelint-disable */
-                display: -webkit-box;
-                -webkit-line-clamp: 4;
-                -webkit-box-orient: vertical;
-                /* stylelint-enable */
-                overflow: hidden;
-            }
+        &__description-block {
+            @include em.transition(opacity);
+
+            width: 100%;
+            min-width: 0;
+            margin-top: ef.get-value($themeDashboard, 'gapNoSelect');
+            padding: ef.get-value($themeDashboard, 'descrPadding');
+            border-radius: ef.get-value($themeDashboard, 'borderRadius');
+            background: ef.get-value($themeDashboard, 'rowBg');
         }
 
         &__btns {
-            margin: ef.get-value($themeDashboard, 'buttonWrapperMargin');
             display: flex;
             align-items: center;
             justify-content: center;
+            margin: ef.get-value($themeDashboard, 'buttonWrapperMargin');
         }
 
         &__board {

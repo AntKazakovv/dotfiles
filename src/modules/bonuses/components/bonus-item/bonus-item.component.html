@@ -37,10 +37,7 @@
                         data-wlc-element="bonus_title-name">
                         {{$params.common.bonus?.name}}
                     </h4>
-                    <p class="{{$class}}__description"
-                       [innerHtml]="$params.common.bonus?.description"
-                       [wlc-clamp]="2">
-                    </p>
+                    <ng-container [ngTemplateOutlet]="description"></ng-container>
                     <button *ngIf="!$params.common?.iconMoreBtn"
                             wlc-button
                             typeAttr="button"
@@ -92,7 +89,7 @@
                     <h4 class="{{$class}}__name" data-wlc-element="bonus_title-name">
                         {{$params.common.bonus?.name}}
                     </h4>
-                    <p class="{{$class}}__description" [innerHtml]="$params.common.bonus?.description"></p>
+                    <ng-container [ngTemplateOutlet]="description"></ng-container>
                 </div>
                 <div class="{{$class}}__btns">
                     <button *ngIf="!isAuth"
@@ -193,9 +190,7 @@
                         data-wlc-element="bonus_title-name">
                         {{$params.common.bonus?.name}}
                     </h4>
-                    <p class="{{$class}}__description" [wlc-clamp]="2">
-                        {{$params.common.bonus?.description | translate}}
-                    </p>
+                    <ng-container [ngTemplateOutlet]="description"></ng-container>
                 </div>
             </div>
         </div>
@@ -216,7 +211,7 @@
             <h4 class="{{$class}}__name">
                 {{$params.common.bonus?.name}}
             </h4>
-            <p class="{{$class}}__description" [innerHtml]="$params.common.bonus?.description"></p>
+            <ng-container [ngTemplateOutlet]="description"></ng-container>
         </div>
     </div>
 </ng-template>
@@ -242,10 +237,7 @@
                     <h4 class="{{$class}}__name"
                         data-wlc-element="bonus_title-name"
                         [wlc-clamp]="$params.common?.nameClamp || 2"> {{$params.common.bonus.name}} </h4>
-                    <p class="{{$class}}__description"
-                        data-wlc-element="bonus_description-name"
-                        [wlc-clamp]="3"
-                    >{{$params.common.bonus.description | translate}}</p>
+                    <ng-container [ngTemplateOutlet]="description"></ng-container>
                 </div>
 
                 <div class="{{$class}}__image-block" data-wlc-element="bonus_image">
@@ -336,10 +328,12 @@
             <div *ngIf="!$params.common.bonus?.isActive"
                     class="{{$class}}__info-block"
                     data-wlc-element="bonus_info">
-                <p class="{{$class}}__description"
-                    [innerHtml]="$params.common.bonus?.description"
-                    [wlc-clamp]="$params.common.descriptionClamp || 2">
-                </p>
+                <div *ngIf="$params.common.bonus?.descriptionClean"
+                     class="{{$class}}__description-block"
+                >
+                    <ng-container [ngTemplateOutlet]="description"></ng-container>
+                </div>
+
                 <button *ngIf="!$params.common?.iconMoreBtn"
                         wlc-button
                         typeAttr="button"
@@ -403,10 +397,7 @@
                     data-wlc-element="bonus_title-name">
                     {{$params.common.bonus?.name}}
                 </h4>
-                <p class="{{$class}}__description"
-                    [innerHtml]="$params.common.bonus?.description"
-                    [wlc-clamp]="5">
-                </p>
+                <ng-container [ngTemplateOutlet]="description"></ng-container>
                 <button *ngIf="!$params.common?.iconMoreBtn"
                         wlc-button
                         typeAttr="button"
@@ -420,7 +411,7 @@
             <div class="{{$class}}__btns">
                 <ng-container [ngTemplateOutlet]="userIsAuth"></ng-container>
                 <button *ngIf="isChooseBtn"
-                        wlc-button                        
+                        wlc-button
                         typeAttr="button"
                         text="Choose"
                         [disabled]="$params.common.bonus?.isChoose"
@@ -567,4 +558,11 @@
             </div>
         </div>
     </div>
+</ng-template>
+
+<ng-template #description>
+    <p class="{{$class}}__description"
+       data-wlc-element="bonus_description-name"
+       [innerHtml]="$params.common.bonus?.descriptionClean">
+    </p>
 </ng-template>

@@ -21,7 +21,7 @@
 
             <p *ngIf="tournament.description"
                class="{{$class}}__header-info--description"
-               [innerHtml]="tournament.description">
+               [innerHtml]="tournament.descriptionClean">
             </p>
 
             <div wlc-tournament-smart-info
@@ -106,7 +106,7 @@
              class="{{$class}}__rules--terms"
              [html]="tournament.description">
         </div>
-        
+
     </div>
 
     <div *ngIf="tournamentProcessing" class="{{$class}}__loader">

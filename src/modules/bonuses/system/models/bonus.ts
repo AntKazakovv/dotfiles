@@ -42,6 +42,7 @@ export class Bonus extends AbstractModel<IBonus> {
     private $isDep: boolean;
     private readonly _tag: string;
     private readonly _imageUrl: string;
+    protected $descriptionClean: string;
 
     constructor(
         from: IFromLog,
@@ -56,6 +57,7 @@ export class Bonus extends AbstractModel<IBonus> {
         this.userCurrency = this.ConfigService.get<string>('appConfig.user.currency') || 'EUR';
         this._imageUrl = this.image.length ? `url(${this.image})` : '';
         this._tag = this.getTag();
+        this.$descriptionClean = this.data.Description.replace(/<[^>]*>/g, '');
     }
 
     public set data(data: IBonus) {
@@ -137,7 +139,11 @@ export class Bonus extends AbstractModel<IBonus> {
     }
 
     public get description(): string {
-        return this.data.Description || this.translate.instant(gettext('No bonus description'));
+        return this.data.Description;
+    }
+
+    public get descriptionClean(): string {
+        return this.$descriptionClean;
     }
 
     public get disableCancel(): boolean {

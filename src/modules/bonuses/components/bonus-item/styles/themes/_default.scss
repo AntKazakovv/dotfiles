@@ -296,6 +296,7 @@
 
         &__description {
             @include descriptionCommonStyles;
+            margin: ef.get-value($themeDefault, 'descriptionMargin');
         }
 
         &__remaning {

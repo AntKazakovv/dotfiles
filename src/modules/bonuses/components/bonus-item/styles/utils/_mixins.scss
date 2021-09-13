@@ -45,6 +45,7 @@
 @mixin descriptionCommonStyles {
     @include text.get-text-style(ef.get-value($themeDefault, 'descriptionTextStyle', 375), ef.get-value($themeDefault, 'descriptionFontColor'));
     @include em.transition(opacity);
+    @include em.lineClamp(2);
 
     max-width: 100%;
 }

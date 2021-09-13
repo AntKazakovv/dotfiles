@@ -62,10 +62,12 @@
                     : 'Coming soon'">
         </div>
         <div *ngIf="!isTournamentSelected && tournament.description?.length"
-             class="{{$class}}__description"
-             [innerHtml]="tournament.description"
-             [wlc-clamp]="$params.common.descriptionClamp"
-        ></div>
+             class="{{$class}}__description-block"
+        >
+            <p class="{{$class}}__description"
+               [innerHtml]="tournament.descriptionClean"
+            ></p>
+        </div>
         <div *ngIf="!isTournamentSelected && tournament.isTournamentStarts" class="{{$class}}__btns">
             <button
                 wlc-button

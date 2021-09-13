@@ -106,6 +106,7 @@
         &__description {
             @include lib.get-text-style('PrimaryText', ef.get-value($themePromoHome, 'color'));
             @include em.get-mq-map('margin', $themePromoHome, 'descriptionMargin');
+            @include em.lineClamp(3);
         }
 
         &__btns {
