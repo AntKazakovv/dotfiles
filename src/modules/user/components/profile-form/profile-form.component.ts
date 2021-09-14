@@ -6,6 +6,7 @@ import {
     ChangeDetectorRef,
 } from '@angular/core';
 import {FormControl, FormGroup} from '@angular/forms';
+import {takeUntil} from 'rxjs/operators';
 import {
     AbstractComponent,
     ConfigService,
@@ -21,7 +22,6 @@ import {IFormComponent} from 'wlc-engine/modules/core/components/form-wrapper/fo
 import {
     IAddProfileInfoCParams,
 } from 'wlc-engine/modules/user/components/add-profile-info/';
-import {takeUntil} from 'rxjs/operators';
 
 import * as Params from './profile-form.params';
 
@@ -112,7 +112,6 @@ export class ProfileFormComponent extends AbstractComponent implements OnInit {
                     wlcElement: 'notification_profile-update-success',
                 },
             });
-            this.userProfile.next(this.userService.userProfile);
             this.cdr.detectChanges();
             return true;
         } else {

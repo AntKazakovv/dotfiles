@@ -55,10 +55,6 @@ export class UserProfile extends AbstractModel<IUserProfile> {
         return this.data.currency || 'EUR';
     }
 
-    public get currentPassword(): string {
-        return this.data.currentPassword;
-    }
-
     public get email(): string {
         return this.data.email;
     }
@@ -147,18 +143,6 @@ export class UserProfile extends AbstractModel<IUserProfile> {
         return this.data.birthDate;
     }
 
-    public get newPassword(): string {
-        return this.data.newPassword;
-    }
-
-    public get passwordRepeat(): string {
-        return this.data.passwordRepeat;
-    }
-
-    public get password(): string {
-        return this.data.password;
-    }
-
     public get oddsStyle(): string {
         return this.data.oddsStyle;
     }
@@ -187,7 +171,6 @@ export class UserProfile extends AbstractModel<IUserProfile> {
             city: '',
             countryCode: '',
             currency: '',
-            currentPassword: '',
             email: '',
             emailVerified: '',
             extProfile: {},
@@ -210,10 +193,6 @@ export class UserProfile extends AbstractModel<IUserProfile> {
             VerificationJobID: '',
             VerificationSessionID: '',
             birthDate: '',
-            newPassword: '',
-            newPasswordRepeat: '',
-            passwordRepeat: '',
-            password: '',
             oddsStyle: '',
         };
     }

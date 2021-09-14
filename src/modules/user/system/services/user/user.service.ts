@@ -213,10 +213,6 @@ export class UserService {
 
     public setProfileData(formData: IUserProfile): void {
         _each(_keys(formData), (field) => {
-            if (field === 'password') {
-                this.profile.data.passwordRepeat = formData[field];
-            }
-
             this.profile.data[field] = formData[field];
         });
 
@@ -296,11 +292,11 @@ export class UserService {
 
             if (response.data?.result) {
                 _assign(this.profile.data, profile);
+                this.userProfile$.next(this.userProfile);
                 return true;
             } else {
                 return response;
             }
-
         } catch (error) {
             return error;
         }
