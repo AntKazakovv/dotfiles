@@ -5,6 +5,7 @@ import {
 import {UIRouter} from '@uirouter/core';
 import {takeUntil} from 'rxjs/operators';
 import {Subject} from 'rxjs';
+import {IBetradar} from 'wlc-engine/modules/sportsbook';
 import {
     ConfigService,
     DataService,
@@ -80,14 +81,16 @@ export class BetradarService {
         });
         globalThis['SPORTSBOOK_URL_QUERY_PARAMS'] = urlQueryParams;
 
-        const customCssFile: string = this.configService.get<string>('$sportsbook.betradar.cssFile');
-        const configFile: string = this.configService.get<string>('$sportsbook.betradar.configFile');
+        const {cssFile, configFile, theme} = this.configService.get<IBetradar>('$sportsbook.betradar');
 
-        if (customCssFile) {
-            globalThis['SPORTSBOOK_CUSTOM_CSS'] = customCssFile;
+        if (cssFile) {
+            globalThis['SPORTSBOOK_CUSTOM_CSS'] = cssFile;
         }
         if (configFile) {
             globalThis['SPORTSBOOK_CUSTOM_CONFIG'] = configFile;
+        }
+        if (theme) {
+            globalThis['SPORTSBOOK_THEME'] = theme;
         }
     }
 
