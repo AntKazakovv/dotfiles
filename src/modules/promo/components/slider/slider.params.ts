@@ -4,6 +4,7 @@ import {
     Injector,
 } from '@angular/core';
 import {SwiperOptions} from 'swiper';
+import {NavigationOptions} from 'swiper/types';
 
 import {
     CustomType,
@@ -47,4 +48,13 @@ export interface ISliderCParams extends IComponentParams<ComponentTheme, Compone
 
 export const defaultParams: ISliderCParams = {
     class: 'wlc-slider',
+};
+
+export const defaultNavigationParams: NavigationOptions = {
+    disabledClass: 'swiper-button-disabled',
+    hiddenClass: 'swiper-button-hidden',
+    hideOnClick: false,
+    lockClass: 'swiper-button-lock',
+    nextEl: '.swiper-button-next',
+    prevEl: '.swiper-button-prev',
 };

@@ -11,6 +11,7 @@ import {
     OnInit,
     Output,
     Renderer2,
+    SimpleChanges,
     ViewChild,
     ViewEncapsulation,
 } from '@angular/core';
@@ -28,6 +29,7 @@ import SwiperCore, {
     SwiperOptions,
 } from 'swiper/core';
 import {SwiperComponent} from 'swiper/angular';
+import {NavigationOptions} from 'swiper/types';
 import {ResizedEvent} from 'angular-resize-event';
 import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
 import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
@@ -44,6 +46,9 @@ import _cloneDeep from 'lodash-es/cloneDeep';
 import _floor from 'lodash-es/floor';
 import _forEach from 'lodash-es/forEach';
 import _get from 'lodash-es/get';
+import _isNil from 'lodash-es/isNil';
+import _isObject from 'lodash-es/isObject';
+import _merge from 'lodash-es/merge';
 import _set from 'lodash-es/set';
 import _isNumber from 'lodash-es/isNumber';
 import _times from 'lodash-es/times';
@@ -137,12 +142,16 @@ export class SliderComponent extends AbstractComponent
         this.ready = true;
     }
 
-    public ngOnChanges(): void {
+    public ngOnChanges(changes: SimpleChanges): void {
         if (this.ready) {
             this.fixSlidesSequence();
             this.cdr.detectChanges();
             this.update();
+        }
 
+        const navigation = _get(changes, 'inlineParams.currentValue.swiper.navigation') as NavigationOptions | boolean;
+        if (!_isNil(navigation) && !changes['inlineParams'].firstChange) {
+            this.updateNavigation(navigation);
         }
     }
 
@@ -373,5 +382,27 @@ export class SliderComponent extends AbstractComponent
         } else {
             this.addModifiers('on-progress');
         }
+    }
+
+    protected updateNavigation(navigation: NavigationOptions | boolean): void {
+        setTimeout(() => {
+            if (_isObject(navigation)) {
+                this.swiper.swiperRef.params.navigation = _merge<NavigationOptions, NavigationOptions>(
+                    Params.defaultNavigationParams,
+                    navigation,
+                );
+            } else {
+                this.swiper.swiperRef.params.navigation = navigation;
+            }
+
+            if (this.swiper.swiperRef.params.slidesPerView == 'auto') {
+                this.swiper.swiperRef.params.slidesPerView = 1;
+            }
+            
+            this.swiper.swiperRef.navigation.destroy();
+            this.swiper.swiperRef.navigation.init();
+            this.swiper.swiperRef.navigation.update();
+            this.cdr.markForCheck();
+        });
     }
 }

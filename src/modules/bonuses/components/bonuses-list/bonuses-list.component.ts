@@ -180,34 +180,40 @@ export class BonusesListComponent extends AbstractComponent implements OnInit, O
                         this.bonusesToSlides(this.bonuses);
 
                         if (this.bonuses.length <= 1) {
-                            _merge(this.sliderParams.swiper, {
-                                navigation: false,
-                                slidesPerView: 'auto',
-                                spaceBetween: 0,
-                                allowTouchMove: false,
-                                breakpoints: {
-                                    320: {
-                                        spaceBetween: 0,
-                                    },
-                                    720: {
-                                        spaceBetween: 0,
-                                    },
-                                    1024: {
-                                        spaceBetween: 0,
-                                    },
-                                    1200: {
-                                        spaceBetween: 0,
+                            this.sliderParams = _merge<ISliderCParams, ISliderCParams>({}, {
+                                swiper: {
+                                    navigation: false,
+                                    slidesPerView: 'auto',
+                                    spaceBetween: 0,
+                                    allowTouchMove: false,
+                                    breakpoints: {
+                                        320: {
+                                            spaceBetween: 0,
+                                        },
+                                        720: {
+                                            spaceBetween: 0,
+                                        },
+                                        1024: {
+                                            spaceBetween: 0,
+                                        },
+                                        1200: {
+                                            spaceBetween: 0,
+                                        },
                                     },
                                 },
                             });
                             this.isSingleBonus = true;
                         } else {
-                            this.sliderParams.swiper = _merge({
-                                navigation: true,
-                                slidesPerView: 1,
-                                spaceBetween: 0,
-                                allowTouchMove: true,
-                            }, this.$params.common.swiper);
+                            this.sliderParams = _merge<ISliderCParams, ISliderCParams, ISliderCParams>({}, {
+                                swiper: {
+                                    navigation: true,
+                                    slidesPerView: 1,
+                                    spaceBetween: 0,
+                                    allowTouchMove: true,
+                                },
+                            },
+                            {swiper: this.$params.common.swiper},
+                            );
                             this.isSingleBonus = false;
                         }
                     }
@@ -254,7 +260,7 @@ export class BonusesListComponent extends AbstractComponent implements OnInit, O
     }
 
     public onSlideChangeTransitionEnd(swiper: Swiper): void {
-        if (swiper.params.slidesPerView === 1) {
+        if (swiper.params.slidesPerView === 1 || swiper.params.slidesPerView === 'auto') {
             this.chooseBonusByPosition(swiper.activeIndex);
         }
     }
