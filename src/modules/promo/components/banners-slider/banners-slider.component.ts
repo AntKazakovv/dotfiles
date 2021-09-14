@@ -10,6 +10,7 @@ import {
 import {
     AbstractComponent,
     ConfigService,
+    EventService,
 } from 'wlc-engine/modules/core';
 import {ISlide} from 'wlc-engine/modules/promo/components/slider/slider.params';
 import {BannersService} from 'wlc-engine/modules/promo/system/services';
@@ -39,6 +40,7 @@ export class BannersSliderComponent extends AbstractComponent implements OnInit 
         protected configService: ConfigService,
         protected bannerService: BannersService,
         protected cdr: ChangeDetectorRef,
+        protected eventService: EventService,
     ) {
         super({injectParams, defaultParams: Params.defaultParams}, configService);
     }
@@ -47,11 +49,19 @@ export class BannersSliderComponent extends AbstractComponent implements OnInit 
         super.ngOnInit(this.inlineParams);
 
         this.createSlides();
+
         setTimeout(() => {
             this.ready = true;
             this.useNavigation = !this.$params.hideNavigation && this.slides.length > 1;
             this.cdr.detectChanges();
-        }, 0);
+        });
+
+        this.eventService.subscribe([
+            {name: 'LOGIN'},
+            {name: 'LOGOUT'},
+        ], () => {
+            this.createSlides();
+        });
     }
 
     protected createSlides(): void {
