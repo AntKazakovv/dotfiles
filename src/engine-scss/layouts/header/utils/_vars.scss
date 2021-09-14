@@ -29,7 +29,8 @@ $theme1Header: map-merge((
         1200: auto auto minmax(0, 1fr) auto auto,
     ),
     'headerGridGap': (
-        375: ef.size(4),
+        375: ef.size(2),
+        480: ef.size(4),
     ),
     'headerMinHeight': (
         375: 70px,
@@ -113,7 +114,8 @@ $theme2Header: map-merge((
         1200: auto auto minmax(0, 1fr) auto auto auto,
     ),
     'headerGridGap': (
-        375: ef.size(4),
+        375: ef.size(2),
+        480: ef.size(4),
     ),
     'headerMinHeight': (
         375: 70px,
