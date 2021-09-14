@@ -28,10 +28,6 @@
             transform: ef.get-value($data, 'switchPseudoTransformActive');
         }
     }
-
-    @include bm.hover() {
-        background: ef.get-value($data, 'switchPseudoBgHover');
-    }
 }
 
 @mixin iconsAnimation($data) {
