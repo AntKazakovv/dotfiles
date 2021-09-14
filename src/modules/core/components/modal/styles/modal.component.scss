@@ -189,6 +189,7 @@
         @include mq.min(560) {
             border: ef.get-value($hostModal, 'modalBorder');
             margin: ef.get-value($hostModal, 'modalOffset');
+            overflow: visible;
         }
 
         .fade & {
