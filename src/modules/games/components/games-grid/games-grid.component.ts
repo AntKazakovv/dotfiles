@@ -94,6 +94,7 @@ export class GamesGridComponent extends AbstractComponent implements OnInit {
     public lazyLoading: boolean = false;
     public moreBtnCardView: boolean;
     public gameSlides: ISlide[] = [];
+    public noContentText: string = gettext('No games available');
 
     protected gamesRows: number = 1;
     protected gamesRowsLoaded: number = 0;
@@ -141,6 +142,7 @@ export class GamesGridComponent extends AbstractComponent implements OnInit {
             this.followBreakpoints();
         }
         this.prepareGrid().finally();
+        this.setNoContentText();
     }
 
     public get showDefaultHeader(): boolean {
@@ -185,6 +187,14 @@ export class GamesGridComponent extends AbstractComponent implements OnInit {
         this.cdr.markForCheck();
     }
 
+    /**
+    * Set no content text by suffix
+    */
+    private setNoContentText(): void {
+        this.noContentText = this.$params.noContentText?.[this.getWlcSuffix()]
+            || this.$params.noContentText?.default || gettext('No games available');
+    }
+
     protected async prepareGrid(): Promise<void> {
         this.isReady = false;
         this.gamesRowsLoaded = 0;
@@ -226,6 +236,7 @@ export class GamesGridComponent extends AbstractComponent implements OnInit {
             const successTransitionListener = this.router.transitionService.onSuccess({}, () => {
                 this.$params.wlcElement = `wlc-games-grid-${this.getWlcSuffix()}`;
                 this.setWlcElementOnHost();
+                this.setNoContentText();
                 this.prepareGrid().finally(() => {
                     this.setGridParams();
                 });

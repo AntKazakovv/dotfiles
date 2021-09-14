@@ -10,7 +10,7 @@ export type ComponentType = 'default' | CustomType;
 export interface IPromoSuccessCParams extends IComponentParams<ComponentTheme, ComponentType, string> {
     common?: {
         title?: string,
-        subtitle?: string
+        subtitle?: string,
         iconPath?: string,
         text?: string,
         btnText?: string,
@@ -31,7 +31,7 @@ export interface IActionParams {
 }
 
 export const defaultParams: IPromoSuccessCParams = {
-    moduleName: 'bonus',
+    moduleName: 'bonuses',
     componentName: 'wlc-promo-success',
     class: 'wlc-promo-success',
     common: {

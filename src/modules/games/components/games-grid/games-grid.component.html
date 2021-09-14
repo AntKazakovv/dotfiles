@@ -179,7 +179,7 @@
     </ng-template>
 
     <ng-template #noGames>
-        <div class="{{$class}}__nocontent" [@appearance]="'useAnim'">{{'No games available' | translate}}</div>
+        <div class="{{$class}}__nocontent" [@appearance]="'useAnim'">{{this.noContentText | translate}}</div>
     </ng-template>
 
     <ng-template #placeholders>
