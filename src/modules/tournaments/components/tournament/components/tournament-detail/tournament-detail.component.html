@@ -102,9 +102,8 @@
             {{$params.common?.rulesSectionTitle | translate}}
         </h4>
 
-        <div wlc-dynamic-html
-             class="{{$class}}__rules--terms"
-             [html]="tournament.description">
+        <div class="{{$class}}__rules--terms"
+             [innerHTML]="tournament.description">
         </div>
 
     </div>

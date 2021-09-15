@@ -57,7 +57,12 @@ export class DynamicHtmlComponent implements AfterViewInit, OnDestroy {
     }
 
     public ngAfterViewInit(): void {
-        this.createComponentFromRaw();
+        try {
+            this.createComponentFromRaw();
+        } catch {
+            this.parseAsPlainHTML = true;
+            this.createComponentFromRaw();
+        }
     }
 
     public ngOnDestroy(): void {
