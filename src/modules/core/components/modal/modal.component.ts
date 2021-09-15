@@ -111,6 +111,7 @@ export class WlcModalComponent extends AbstractComponent
     }
 
     public ngAfterViewInit(): void {
+        this.initBackdropConfigChange();
         this.modalDirect.show();
         this.initEventHandlers();
     }
@@ -223,8 +224,10 @@ export class WlcModalComponent extends AbstractComponent
         if (this.$params.config.modalBg) {
             this.renderer.setStyle(this.element.nativeElement, 'background', this.$params.config.modalBg);
         }
+    }
 
-        if (this.$params.ignoreBackdropClickBreakpoint && config.backdrop !== 'static') {
+    protected initBackdropConfigChange(): void {
+        if (this.$params.ignoreBackdropClickBreakpoint && this.$params.config?.backdrop !== 'static') {
             const breakpoint = window.matchMedia(this.$params.ignoreBackdropClickBreakpoint);
 
             if (breakpoint.matches) {
