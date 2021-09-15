@@ -5,9 +5,7 @@ export interface IProfileConfig {
     smsVerification?: {
         use: boolean,
     },
-    verification?: {
-        use: boolean;
-    },
+    verification?: IVerification,
     limitations?: {
         use: boolean;
     },
@@ -36,6 +34,13 @@ export interface IProfileConfig {
         usePage?: boolean;
     },
     type?: ProfileType,
+}
+
+export interface IVerification {
+    use: boolean;
+    selectModeFrom: number;
+    maxDocsCount: number;
+    maxSize: number;
 }
 
 export type ProfileType = 'default' | 'first';

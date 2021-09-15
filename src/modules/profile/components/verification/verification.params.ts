@@ -8,16 +8,12 @@ export type Type = 'default' | CustomType;
 export type ThemeMod = 'default' | CustomType;
 
 export interface IVerificationCParams extends IComponentParams<Theme, Type, ThemeMod> {
-    maxSize: number; // MB
-    fileTypes: string[];
-    maxDocsCount: number;
-    selectModeFrom: number;
     iconPath: string;
 }
 
-export const defaultParams: Partial<IVerificationCParams> = {
-    class: 'wlc-verification',
+export const defaultParams: IVerificationCParams = {
+    moduleName: 'profile',
     componentName: 'wlc-verification',
-    selectModeFrom: 4,
+    class: 'wlc-verification',
     iconPath: 'wlc/icons/doc-icons/',
 };
