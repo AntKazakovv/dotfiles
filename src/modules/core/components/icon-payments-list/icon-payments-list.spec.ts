@@ -66,7 +66,7 @@ describe('IconPaymentsListComponent', () => {
     };
 
     beforeEach(() => {
-        ConfigServiceSpy = jasmine.createSpyObj('ConfigService', ['load'], {
+        ConfigServiceSpy = jasmine.createSpyObj('ConfigService', ['load', 'set'], {
             'ready': Promise.resolve(),
             'get': () => payments,
         });

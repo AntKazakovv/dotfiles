@@ -46,7 +46,7 @@ describe('IconMerchantsListComponent', () => {
     ];
 
     beforeEach(() => {
-        ConfigServiceSpy = jasmine.createSpyObj('ConfigService', ['load', 'get'], {
+        ConfigServiceSpy = jasmine.createSpyObj('ConfigService', ['load', 'get', 'set'], {
             'ready': Promise.resolve(),
         });
         GamesCatalogServiceSpy = jasmine.createSpyObj('GamesCatalogService', [], {
