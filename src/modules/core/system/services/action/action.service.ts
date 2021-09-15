@@ -87,6 +87,7 @@ export interface IPaymentPostMessage {
     eventData: {
         amount: string;
         transactionId: string;
+        type?: string;
     }
 }
 
@@ -168,10 +169,7 @@ export class ActionService {
                     try {
                         window.parent?.postMessage({
                             eventType: 'PAYMENT_SUCCESS',
-                            eventData: {
-                                amount: initialPath.amount,
-                                transactionId: initialPath.tid,
-                            },
+                            eventData: initialPath,
                         }, '*');
                     } catch {
                     }
@@ -290,9 +288,31 @@ export class ActionService {
             this.configService.get<Deferred<null>>({name: 'firstLanguageReady'})
                 .promise
                 .then(() => {
-                    const currencyElement = `<span wlc-currency
-                                                        [value]="${initialPath.amount}"
-                                                        [currency]="'${profile.currency}'"></span>`;
+                    const type = initialPath.type?.toLowerCase();
+                    const message: string[] = [
+                        (type === 'withdraw')
+                            ? this.translateService.instant(gettext('Withdraw request has been successfully sent!'))
+                            : this.translateService.instant(gettext('Deposit completed successfully')),
+                    ];
+
+                    if (initialPath.amount) {
+                        const currencyElement = `<span wlc-currency [value]="${initialPath.amount}" `
+                            + `[currency]="'${profile.currency}'"></span>`;
+
+                        if (type === 'withdraw') {
+                            message.push(
+                                this.translateService.instant(gettext('Withdraw sum')) + ` ${currencyElement}`,
+                            );
+                        } else {
+                            message.push(
+                                `${currencyElement} `
+                                + this.translateService.instant(
+                                    gettext('were successfully deposited in your account.'),
+                                ),
+                            );
+                        }
+                    }
+
                     const paymentMessage = {
                         name: NotificationEvents.PushMessage,
                         data: <IPushMessageParams>{
@@ -300,27 +320,17 @@ export class ActionService {
                             title: gettext('Payment success'),
                             displayAsHTML: true,
                             wlcElement: 'notification_deposit-success',
-                            message: [
-                                this.translateService.instant(gettext('Deposit completed successfully')),
-                                `${currencyElement} `
-                                + this.translateService.instant(
-                                    gettext('were successfully deposited in your account.')),
-                            ],
+                            message,
                         },
                     };
 
 
-                    if (initialPath.type?.toLowerCase() === 'withdraw') {
+                    if (type === 'withdraw') {
                         _assign(paymentMessage.data,
                             {
                                 title: gettext('Withdraw'),
                                 wlcElement: 'notification_withdraw-success',
-                                message: [
-                                    this.translateService.instant(
-                                        gettext('Withdraw request has been successfully sent!')),
-                                    this.translateService.instant(gettext('Withdraw sum'))
-                                    + ` ${currencyElement}`,
-                                ],
+                                message,
                             });
                     }
                     this.eventService.emit(paymentMessage);
@@ -373,10 +383,7 @@ export class ActionService {
                         this.modalService.closeAllModals();
 
                         if (message.eventType === 'PAYMENT_SUCCESS') {
-                            this.onPaymentSuccess({
-                                amount: message.eventData?.amount,
-                                transactionId: message.eventData?.transactionId,
-                            });
+                            this.onPaymentSuccess(message.eventData);
                         } else if (message.eventType === 'PAYMENT_FAIL') {
                             this.onPaymentFail();
                         }

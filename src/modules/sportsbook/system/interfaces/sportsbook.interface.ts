@@ -25,7 +25,9 @@ export interface IBetradar {
      */
     configFile?: string;
     /**
-     * ``theme: v2` - the theme of the sportsbook that will be used by default. If there is no field, the first topic will be selected.To use the second theme, you need to register the value "v2".
+     * `theme: v2` - the theme of the sportsbook that will be used by default.
+     * If there is no field, the first topic will be selected.
+     * To use the second theme, you need to register the value "v2".
      */
     theme?: string;
     widgets?: {
