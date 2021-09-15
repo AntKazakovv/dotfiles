@@ -9,16 +9,17 @@
     padding: ef.get-value($themeDefault, 'padding');
     background: ef.get-value($themeDefault, 'bgColor');
     border-radius: ef.get-value($themeDefault, 'borderRadius');
-    overflow: hidden;
 
     @include bm.get-mq-map('grid-template-columns', $themeDefault, 'columns');
 
     .wlc-info-page__menu {
         display: none;
+        overflow: hidden;
+        border-radius: ef.get-value($themeDefault, 'menuBorderRadius');
 
         @include mq.min(720) {
             display: block;
-            border-right: ef.get-value($themeDefault, 'border');
+            border-right: ef.get-value($themeDefault, 'menuBorderRight');
         }
 
         ::ng-deep {

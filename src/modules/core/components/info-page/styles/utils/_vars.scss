@@ -12,12 +12,13 @@ $themeDefault: map-merge((
     'loaderMargin': 15px auto,
     'btnMargin': 0 auto,
     'contentPadding': (
-        375: ef.get('size', 'smaller'),
-        1200: ef.get('size', 'main'),
+        375: ef.size(4),
+        1200: ef.size(8),
     ),
-    'border': 2px solid var(--mc-bg500),
-    'borderRadius': ef.get('size', 'small'),
+    'menuBorderRight': 2px solid var(--mc-bg500),
+    'menuBorderRadius': ef.size(2) 0 0 ef.size(2),
+    'borderRadius': ef.size(2),
     'padding': 0,
     'maxWidth': 1200px,
-    'margin': 0 auto,
+    'margin': 0 auto ef.size(8) auto,
 ), $customThemeDefault);

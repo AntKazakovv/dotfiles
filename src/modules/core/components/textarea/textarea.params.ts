@@ -5,7 +5,7 @@ import {
     ValidatorType,
 } from 'wlc-engine/modules/core';
 
-export type ComponentTheme = 'default' | CustomType;
+export type ComponentTheme = 'default' | 'placeholder-shown' | CustomType;
 export type ComponentType = 'default' | CustomType;
 export type ComponentThemeMod = 'default' | 'feedback-form' | CustomType;
 
