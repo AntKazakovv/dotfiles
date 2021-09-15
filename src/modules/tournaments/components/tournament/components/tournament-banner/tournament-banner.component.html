@@ -1,6 +1,14 @@
 <div class="{{$class}}"
      [style]="{backgroundImage: 'url(' + $params.tournament.image + ')'}">
     <div class="{{$class}}__tag">{{'Tournaments' | translate}}</div>
+    <div class="{{$class}}__more-icon" >
+        <div wlc-icon
+             class="icon-btn"
+             iconPath="/wlc/icons/info.svg"
+             wlcElement="button_terms"
+             (click)="readMore()">
+        </div>
+    </div>
     <div class="{{$class}}__body">
         <h2 class="{{$class}}__body-title"
             [title]="$params.tournament.name"
@@ -27,6 +35,7 @@
             <button
                 wlc-button
                 themeMod="secondary"
+                type="read"
                 [text]="'Read more'"
                 (click)="readMore()">
             </button>

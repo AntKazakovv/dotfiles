@@ -51,19 +51,31 @@
     }
 
     &__more-icon {
-        line-height: 0;
+        @include em.get-mq-map('display', $themeDefault, 'moreIconDisplay');
+        @include em.get-mq-map('top', $themeDefault, 'moreIconPosTop');
+        @include em.get-mq-map('right', $themeDefault, 'moreIconPosRight');
 
-        cursor: pointer;
+        position: absolute;
+        z-index: 3;
+        line-height: 1;
+        color: ef.get-value($themeDefault, 'moreIconColor');
 
-        > * {
-            display: inline-block;
+        .icon-btn {
+            width: ef.get-value($themeDefault, 'moreIconSize');
+            height: ef.get-value($themeDefault, 'moreIconSize');
+
+            cursor: pointer;
+
+            &::ng-deep {
+
+                svg {
+                    fill: currentColor;
+                }
+            }
         }
 
-        ::ng-deep {
-
-            svg {
-                fill: ef.get-value($themeDefault, 'tournamentMoreIconColor');
-            }
+        @include em.hover {
+            color: ef.get-value($themeDefault, 'moreIconColorHover');
         }
     }
 
@@ -161,6 +173,10 @@
 
             &:last-child {
                 margin-right: 0;
+            }
+
+            &--type-read {
+                @include em.get-mq-map('display', $themeDefault, 'btnsDisplay');
             }
         }
     }

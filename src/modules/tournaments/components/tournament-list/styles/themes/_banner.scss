@@ -12,9 +12,10 @@
     border-radius: ef.get-value($themeBanner, 'listRadius');
 
     .swiper-button-container {
+        @include em.get-mq-map('right', $themeBanner, 'tournamentRightPosition');
+        @include em.get-mq-map('bottom', $themeBanner, 'tournamentBottomPosition');
+
         position: absolute;
-        right: ef.get-value($themeBanner, 'tournamentRightPosition');
-        bottom: ef.get-value($themeBanner, 'tournamentBottomPosition');
         z-index: 22;
         display: flex;
         align-items: center;

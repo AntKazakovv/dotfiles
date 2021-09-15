@@ -5,8 +5,8 @@ $themePromoHome: map-merge((
     'background': var(--mc-bg700),
     'color': var(--mc-baseMain),
     'padding': (
-        375: ef.size(12) ef.size(4) ef.size(4),
-        640: ef.size(12) ef.size(8) ef.size(8) ef.size(7),
+        320: ef.size(12) ef.size(4) ef.size(6),
+        1024: ef.size(12) ef.size(8) ef.size(8),
     ),
     'minHeight': (
         375: 300px,
