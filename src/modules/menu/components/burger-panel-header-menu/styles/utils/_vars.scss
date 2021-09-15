@@ -4,7 +4,7 @@ $customThemeDefault: () !default;
 $themeDefault: map-merge((
     'justifyContent': center,
     'itemActiveBg': var(--mc-main),
-    'itemIconColor': var(--mc-base-main),
+    'itemIconColor': var(--mc-baseMain),
     'itemWidth': ef.size(8),
     'itemHeight': ef.size(8),
     'itemBackground': var(--mc-bg500),

@@ -91,12 +91,18 @@ export class GamesHelper {
                 item,
                 categorySettings,
             );
+
+            if (_get(this.mapping, `categoryByName.${category.slug}`)) {
+                return;
+            }
+
             categoriesArray.push(category);
+
             _set(this.mapping, `categoryById.${category.id}`, category);
-            _set(this.mapping, `categoryByName.${category.name}`, category);
-            _set(this.mapping, `categoryNameToIdMapping.${category.name}`, category.id);
-            _set(this.mapping, `categoryNameToTitleMapping.${category.name}`, category.title);
-            _set(this.mapping, `categoryIdToNameMapping.${category.id}`, category.name);
+            _set(this.mapping, `categoryByName.${category.slug}`, category);
+            _set(this.mapping, `categoryNameToIdMapping.${category.slug}`, category.id);
+            _set(this.mapping, `categoryNameToTitleMapping.${category.slug}`, category.title);
+            _set(this.mapping, `categoryIdToNameMapping.${category.id}`, category.slug);
             _set(this.mapping, `categoryIdToTitleMapping.${category.id}`, category.title);
         });
         return categoriesArray;

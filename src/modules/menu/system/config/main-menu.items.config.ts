@@ -1,4 +1,5 @@
 import * as MenuParams from 'wlc-engine/modules/menu/components/menu/menu.params';
+import {commonMenuItems} from 'wlc-engine/modules/menu/system/config/common.items.config';
 
 export const wlcMainMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
     'main-menu:home': {
@@ -58,20 +59,7 @@ export const wlcMainMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
         wlcElement: 'link_main-nav-table',
     },
     'main-menu:promotions': {
-        name: gettext('Promotions'),
-        type: 'sref',
-        class: 'promo',
-        icon: 'promotions',
-        params: {
-            state: {
-                name: 'app.promotions',
-                params: {},
-            },
-            href: {
-                url: '/promotions/',
-                baseSiteUrl: true,
-            },
-        },
+        ...commonMenuItems.promotions,
         wlcElement: 'link_main-nav-promo',
     },
     'main-menu:contacts': {
@@ -112,35 +100,11 @@ export const wlcMainMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
         wlcElement: 'link_main-nav-lottery',
     },
     'main-menu:tournaments': {
-        name: gettext('Tournaments'),
-        type: 'sref',
-        class: 'tournaments',
-        icon: 'tournaments',
-        params: {
-            state: {
-                name: 'app.tournaments',
-            },
-            href: {
-                url: '/tournaments/',
-                baseSiteUrl: true,
-            },
-        },
+        ...commonMenuItems.tournaments,
         wlcElement: 'link_main-nav-tournaments',
     },
     'main-menu:sportsbook': {
-        name: gettext('Sportsbook'),
-        type: 'sref',
-        class: 'sportsbook',
-        icon: 'sportsbook',
-        params: {
-            state: {
-                name: 'app.sportsbook',
-            },
-            href: {
-                url: '/sportsbook/',
-                baseSiteUrl: true,
-            },
-        },
+        ...commonMenuItems.sportsbook,
         wlcElement: 'link_main-nav-sports',
     },
     'main-menu:sportsbook-inplay': {

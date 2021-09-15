@@ -251,8 +251,11 @@ export class MenuHelper {
     protected static geiItemsByMenuSettings(items: IMenuItem[], type: MenuType, lang: string,
         options: IParseSettingsOptions): MenuConfigItem[] {
 
+        const specialCategories: string[] = ['favourites', 'lastplayed'];
+
         return _reduce(_orderBy(items, 'order', 'asc'), (items: MenuConfigItem[], item: IMenuItem) => {
-            const authRequired: boolean = !options.isAuth && _includes(['favourites', 'lastplayed'], item.id);
+            const authRequired: boolean = !options.isAuth
+                && _includes(specialCategories, item.id);
 
             if (item.type === 'dropdown') {
                 const dropdownItems: MenuConfigItem[] = MenuHelper.geiItemsByMenuSettings(item.items, type, lang,

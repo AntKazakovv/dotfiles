@@ -1,21 +1,8 @@
 import * as MenuParams from 'wlc-engine/modules/menu/components/menu/menu.params';
+import {commonMenuItems} from 'wlc-engine/modules/menu/system/config/common.items.config';
 
 export const wlcMobileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
-    'mobile-menu:sportsbook': {
-        name: gettext('Sportsbook'),
-        type: 'sref',
-        icon: 'sportsbook',
-        class: 'sportsbook',
-        params: {
-            state: {
-                name: 'app.sportsbook',
-            },
-            href: {
-                url: '/sportsbook/',
-                baseSiteUrl: true,
-            },
-        },
-    },
+    'mobile-menu:sportsbook': commonMenuItems.sportsbook,
     'mobile-menu:sportsbook-inplay': {
         name: gettext('In play'),
         type: 'sref',
@@ -35,37 +22,8 @@ export const wlcMobileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
         },
         wlcElement: 'link_main-nav-sports-inplay',
     },
-    'mobile-menu:promotions': {
-        name: gettext('Promotions'),
-        type: 'sref',
-        icon: 'promotions',
-        class: 'promotions',
-        params: {
-            state: {
-                name: 'app.promotions',
-                params: {},
-            },
-            href: {
-                url: '/promotions/',
-                baseSiteUrl: true,
-            },
-        },
-    },
-    'mobile-menu:tournaments': {
-        name: gettext('Tournaments'),
-        type: 'sref',
-        class: 'tournaments',
-        icon: 'tournaments',
-        params: {
-            state: {
-                name: 'app.tournaments',
-            },
-            href: {
-                url: '/tournaments/',
-                baseSiteUrl: true,
-            },
-        },
-    },
+    'mobile-menu:promotions': commonMenuItems.promotions,
+    'mobile-menu:tournaments': commonMenuItems.tournaments,
     'mobile-menu:info': {
         name: gettext('Info'),
         type: 'sref',
@@ -180,39 +138,9 @@ export const wlcMobileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
             },
         },
     },
-    'mobile-menu:lobby': {
-        name: gettext('Lobby'),
-        type: 'sref',
-        icon: 'lobby',
-        class: 'lobby',
-        params: {
-            state: {
-                name: 'app.home',
-            },
-        },
-    },
-    'mobile-menu:favourites': {
-        name: gettext('Favourites'),
-        type: 'sref',
-        icon: 'favourites',
-        class: 'favourites',
-        params: {
-            state: {
-                name: 'app.catalog',
-            },
-        },
-    },
-    'mobile-menu:last-played': {
-        name: gettext('Last played'),
-        type: 'sref',
-        icon: 'lastplayed',
-        class: 'last-played',
-        params: {
-            state: {
-                name: 'app.catalog',
-            },
-        },
-    },
+    'mobile-menu:lobby': commonMenuItems.lobby,
+    'mobile-menu:favourites': commonMenuItems.favourites,
+    'mobile-menu:lastplayed': commonMenuItems.lastplayed,
 };
 
 export const wlcMobileMenuItemGroupsGlobal: MenuParams.IMenuItemGroupsGlobal = {

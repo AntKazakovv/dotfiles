@@ -13,6 +13,7 @@ import {
     TEnv,
     ISiteConfig,
     IUser,
+    ICategorySettings,
 } from 'wlc-engine/modules/core/system/interfaces';
 
 import _assign from 'lodash-es/assign';
@@ -25,6 +26,15 @@ export class AppConfigModel extends AbstractModel<IBootstrap> {
 
     public get banners(): IIndexing<IBanner> {
         return this.data.banners;
+    }
+
+    /**
+     * Fundist settings of categories
+     *
+     * @returns {IIndexing<ICategorySettings>} Settings of each category
+     */
+    public get categories(): IIndexing<ICategorySettings> {
+        return this.data.categories;
     }
 
     public get contacts(): IContacts {

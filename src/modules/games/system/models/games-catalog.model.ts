@@ -21,11 +21,11 @@ import {
     ICategory,
     IExcludeCategories,
     IFavourite,
-    IGameBlock,
     IGames,
     IJackpot,
     IRestrictions,
     ISearchFilter,
+    IGameBlock,
     ISortCategories,
     ISupportedItem,
 } from 'wlc-engine/modules/games/system/interfaces/games.interfaces';
@@ -550,12 +550,9 @@ export class GamesCatalog extends AbstractModel<IGames> {
          * COUNTRIES RESTRICTIONS
          **********************************************************************************************************/
         // TODO а как надо по дефолту то????
-        const enableCountryRestriction: boolean = this.configService
-            .get<boolean>('appConfig.games.enableRestricted') || true;
-        // TODO надо дописать, когда будет UserService
+        const enableCountryRestriction: boolean =
+            this.configService.get<boolean>('appConfig.games.enableRestricted') || true;
         const authUserCountry = this.configService.get<string>('appConfig.user.country') || null;
-        // const authUserCountry = this.UserService.isAuthenticated() ?
-        //     this.UserService.userProfile.countryCode || authUserAppConfigCountry : authUserAppConfigCountry;
         const country: string = this.configService.get<string>('appConfig.country') || 'unknown';
         const restrictCountries: string[] = [country];
 
@@ -602,7 +599,7 @@ export class GamesCatalog extends AbstractModel<IGames> {
         }
 
         this.availableCategories = this.sortCategories(this.availableCategories);
-        this.games = _orderBy(resultGames, (game: Game) => game.sort, 'desc');
+        this.games = _orderBy(resultGames, (game: Game) => _toNumber(game.sort), 'desc');
         this.prepareCategories();
     }
 
@@ -619,13 +616,11 @@ export class GamesCatalog extends AbstractModel<IGames> {
             }
         });
 
-        const excludeSettings: IExcludeCategories = this.configService
-            .get<IExcludeCategories>('$games.categories.exclude');
-        if (excludeSettings) {
+        const excludeSettings: IExcludeCategories =
+            this.configService.get<IExcludeCategories>('$games.categories.exclude');
+        if (excludeSettings?.bySlug) {
             this.categories = _filter(this.categories, (category: CategoryModel) => {
-                if (excludeSettings.bySlug) {
-                    return !_includes(excludeSettings.bySlug, category.slug);
-                }
+                return !_includes(excludeSettings.bySlug, category.slug);
             });
         }
 
@@ -641,11 +636,13 @@ export class GamesCatalog extends AbstractModel<IGames> {
 
         if (this.categorySettings && this.menuSettings) {
 
-            const categories: CategoryModel[] = _filter(this.categories, (category: CategoryModel) => {
-                return !!this.categorySettings[category.slug] || category.isSpecial;
+            this.projectCategories = _filter(this.categories, (category: CategoryModel) => {
+                if (!!this.categorySettings[category.slug] || category.isSpecial) {
+                    category.setAsParent();
+                    return true;
+                }
+                return false;
             });
-
-            this.projectCategories = categories;
             this.configureCategoriesView(this.projectCategories);
 
         } else {
@@ -654,9 +651,8 @@ export class GamesCatalog extends AbstractModel<IGames> {
                 return category.isParent;
             });
 
-            const mainParentCategory: CategoryModel = this.getCategoryBySlug(
-                ['casino', 'livecasino', 'tablegames'], true,
-            );
+            const mainParentCategory: CategoryModel =
+                this.getCategoryBySlug(['casino', 'livecasino', 'tablegames'], true);
 
             const otherCategories: CategoryModel[] = _filter(parentCategories, (category) => {
                 return category.slug !== mainParentCategory?.slug && !category.isSpecial;
@@ -667,6 +663,7 @@ export class GamesCatalog extends AbstractModel<IGames> {
                     return game.hasCategory(category);
                 });
                 category.setGames(gamesList);
+                category.sortGames();
             });
 
             let gamesList: Game[] = this.games;
@@ -717,15 +714,16 @@ export class GamesCatalog extends AbstractModel<IGames> {
                 mainCategory.setGames(games);
 
                 if (settings.view === 'blocks' || settings.view === 'restricted-blocks') {
-                    const gameBlocks: IGameBlock[] = _reduce(
-                        categories, (blocks: IGameBlock[], category: CategoryModel) => {
+                    const gameBlocks: IGameBlock[] =
+                        _reduce(categories, (blocks: IGameBlock[], category: CategoryModel) => {
+
                             if (category.slug !== mainCategory.slug) {
-                                const filterByCategries: CategoryModel[] = [category];
+                                const filterByCategories: CategoryModel[] = [category];
                                 if (mainCategory.slug !== 'casino') {
-                                    filterByCategries.push(mainCategory);
+                                    filterByCategories.push(mainCategory);
                                 }
 
-                                const games: Game[] = this.filterGames(filterByCategries);
+                                const games: Game[] = this.filterGames(filterByCategories);
                                 if (games.length) {
                                     blocks.push({
                                         category: category,
@@ -736,6 +734,7 @@ export class GamesCatalog extends AbstractModel<IGames> {
                             }
                             return blocks;
                         }, []);
+
                     mainCategory.setGameBlocks(gameBlocks);
                 }
             } else {

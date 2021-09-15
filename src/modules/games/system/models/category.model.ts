@@ -1,13 +1,15 @@
 import {
-    ICategory,
-    IGameBlock,
-} from 'wlc-engine/modules/games';
-import {
     ICategorySettings,
     CategoryViewType,
     ICategoryBlock,
+} from 'wlc-engine/modules/core/system/interfaces/categories.interface';
+import {
+    ICategory,
+    IGameBlock,
+} from 'wlc-engine/modules/games/system/interfaces/games.interfaces';
+import {
     IFromLog,
-} from 'wlc-engine/modules/core';
+} from 'wlc-engine/modules/core/system/services/log/log.service';
 import {IIndexing} from 'wlc-engine/modules/core/system/interfaces/global.interface';
 import {AbstractModel} from 'wlc-engine/modules/core/system/models/abstract.model';
 import {Deferred} from 'wlc-engine/modules/core/system/classes/deferred.class';
@@ -31,6 +33,7 @@ export class CategoryModel extends AbstractModel<ICategory> {
     private childs: CategoryModel[] = [];
     private specialCategories = ['casino', 'lastplayed', 'favourites', 'last-played'];
     private defaultParents = ['new', 'popular'];
+    private useAsParent: boolean = false;
     private usedMenu: string;
     private tagsData: IIndexing<string> = {};
     private merchantsList: MerchantModel[];
@@ -89,9 +92,12 @@ export class CategoryModel extends AbstractModel<ICategory> {
     }
 
     public get isParent(): boolean {
-        return !this.parent && (this.menu === 'main-menu'
-                || _includes(this.specialCategories, this.slug)
-                || _includes(this.defaultParents, this.slug));
+        return !this.parent && (
+            this.useAsParent
+            || this.menu === 'main-menu'
+            || _includes(this.specialCategories, this.slug)
+            || _includes(this.defaultParents, this.slug)
+        );
     }
 
     public get parentId(): number {
@@ -180,14 +186,38 @@ export class CategoryModel extends AbstractModel<ICategory> {
         this.updateMerchants = true;
     }
 
-    public setParentCategory(category: CategoryModel): void {
-        this.parent = category;
+    /**
+     * Mark category as parent category
+     */
+    public setAsParent(): void {
+        this.parent = null;
+        this.useAsParent = true;
     }
 
+    /**
+     * Set for this category parent category
+     *
+     * @param {CategoryModel} category Parent category
+     */
+    public setParentCategory(category: CategoryModel): void {
+        this.parent = category;
+        this.useAsParent = false;
+    }
+
+    /**
+     * Set for this category child categories
+     *
+     * @param {CategoryModel[]} categories Child categories
+     */
     public setChildCategories(categories: CategoryModel[]): void {
         this.childs = categories;
     }
 
+    /**
+     * Set used menu for this category
+     *
+     * @param {string} menu
+     */
     public setMenu(menu: string): void {
         this.usedMenu = menu;
     }
@@ -215,11 +245,7 @@ export class CategoryModel extends AbstractModel<ICategory> {
 
     public sortGames(): void {
         if (this.gamesList.length) {
-            this.gamesList = _orderBy(
-                this.gamesList,
-                (game: Game) => game.sortPerCategory[this.id] || game.sort,
-                'desc',
-            );
+            this.gamesList = _orderBy(this.gamesList, (game: Game) => game[this.slug + 'Sorted'] || 0, 'desc');
         }
     }
 

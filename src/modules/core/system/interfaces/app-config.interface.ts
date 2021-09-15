@@ -5,9 +5,11 @@ import {
 import {IIndexing} from './global.interface';
 import {IBanner} from './promo.interface';
 import {ILoyalty} from './loyalty.interface';
+import {ICategorySettings} from './categories.interface';
 
 export interface IBootstrap {
     banners: IIndexing<IBanner>;
+    categories?: IIndexing<ICategorySettings>;
     country: string;
     country2: string;
     countryLangs: string[];

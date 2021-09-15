@@ -13,6 +13,7 @@ import {
     ViewContainerRef,
 } from '@angular/core';
 import {
+    RawParams,
     StateService,
     TransitionService,
 } from '@uirouter/core';
@@ -54,6 +55,7 @@ import _find from 'lodash-es/find';
 import _filter from 'lodash-es/filter';
 import _forEach from 'lodash-es/forEach';
 import _map from 'lodash-es/map';
+import _get from 'lodash-es/get';
 
 @Component({
     selector: '[wlc-menu]',
@@ -130,12 +132,12 @@ export class MenuComponent extends AbstractComponent implements OnInit, OnChange
         );
     }
 
-    public isActive(state: string | string[]): boolean {
+    public isActive(state: string | string[], stateParams? : RawParams): boolean {
         if (_isString(state)) {
-            return this.stateService.includes(state);
+            return this.stateService.includes(state, stateParams);
         } else {
             return _reduce(state, (res, item) => {
-                return res || this.stateService.includes(item);
+                return res || this.stateService.includes(item, stateParams);
             }, false);
         }
     }
@@ -293,7 +295,10 @@ export class MenuComponent extends AbstractComponent implements OnInit, OnChange
                         if (_has(subItem, 'parent')) {
                             return false;
                         }
-                        return this.isActive((subItem as Params.IMenuItem).params?.state?.name);
+                        return this.isActive(
+                            _get(subItem, 'params.state.name'),
+                            _get(subItem, 'params.state.params'),
+                        );
                     });
                 }
             });
@@ -331,13 +336,15 @@ export class MenuComponent extends AbstractComponent implements OnInit, OnChange
             name: 'LOGOUT',
         }, () => {
             this.isAuth = false;
-        });
+            this.initItems();
+        }, this.$destroy);
 
         this.eventService.subscribe({
             name: 'LOGIN',
         }, () => {
             this.isAuth = true;
-        });
+            this.initItems();
+        }, this.$destroy);
 
         this.actionService.deviceType()
             .pipe(takeUntil(this.$destroy))
@@ -347,7 +354,7 @@ export class MenuComponent extends AbstractComponent implements OnInit, OnChange
                 }
 
                 this.isMobile = type !== DeviceType.Desktop;
-                this.cdr.markForCheck();
+                this.initItems();
             });
     }
 }
