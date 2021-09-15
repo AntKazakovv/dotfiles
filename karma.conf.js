@@ -64,6 +64,7 @@ module.exports = function(config) {
                     '--no-sandbox',
                     '--allow-file-access-from-files',
                     '--disable-web-security',
+                    '--enable-experimental-web-platform-features',
                 ],
             },
             WlcChrome: {
@@ -72,6 +73,7 @@ module.exports = function(config) {
                     '--no-sandbox',
                     '--allow-file-access-from-files',
                     '--disable-web-security',
+                    '--enable-experimental-web-platform-features',
                 ],
             },
         },

@@ -1,0 +1,32 @@
+image: node:14
+
+stages:
+    - checks
+
+default:
+    cache:
+        paths:
+            - node_modules/
+
+before_script:
+    - echo "fs.inotify.max_user_instances=524288" >> /etc/sysctl.conf
+    - echo "fs.inotify.max_user_watches=524288" >> /etc/sysctl.conf
+    - echo "fs.inotify.max_queued_events=524288" >> /etc/sysctl.conf
+    - 'command -v ssh-agent >/dev/null || ( apt-get update -y && apt-get install openssh-client -y )'
+    - eval $(ssh-agent -s)
+    - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add -
+    - mkdir -p ~/.ssh
+    - chmod 700 ~/.ssh
+    - ssh-keyscan -t rsa wlcgitlab.egamings.com >> ~/.ssh/known_hosts
+    - git submodule update --init
+    - npm ci
+    - apt-get update -qq
+    - apt-get install chromium -y
+
+run_checks:
+    stage: checks
+    script:
+        - npm run lint
+        - npm run test
+        - npm run build:docs
+        - npm run build:sassdocs
