@@ -80,6 +80,10 @@ export interface IShowAsSwiper {
     sliderParams: ISliderCParams;
 }
 
+export interface INoContentTexts extends IIndexing<string> {
+    default?: string;
+}
+
 export interface IGamesGridCParams extends IComponentParams<ComponentTheme, ComponentType, string> {
     /**
      * Amount of rows in a grid. `4` by default.
@@ -217,9 +221,16 @@ export interface IGamesGridCParams extends IComponentParams<ComponentTheme, Comp
      * Parameters for change load more btn
      */
     btnLoadMore?: IButtonCParams;
+    /**
+     * Parameter to change default noContent text if games not loaded.
+     * Also you can add parameter with category name to set it noContent text.
+     */
+    noContentText?: INoContentTexts;
 }
 
 export const defaultParams: IGamesGridCParams = {
+    moduleName: 'games',
+    componentName: 'wlc-games-grid',
     class: 'wlc-games-grid',
     gamesRows: 4,
     usePlaceholders: true,

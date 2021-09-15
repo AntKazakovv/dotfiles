@@ -4,12 +4,16 @@ import {
     Inject,
     Input,
 } from '@angular/core';
+import {UIRouter} from '@uirouter/core';
 import {GlobalHelper} from 'wlc-engine/modules/core/system/helpers/global.helper';
 import {ModalService} from 'wlc-engine/modules/core/system/services/modal/modal.service';
-import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
+import {
+    AbstractComponent, 
+    IMixedParams,
+} from 'wlc-engine/modules/core/system/classes/abstract.component';
+import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
 
 import * as Params from './promo-success.params';
-import {UIRouter} from '@uirouter/core';
 
 @Component({
     selector: '[wlc-promo-success]',
@@ -34,12 +38,14 @@ export class PromoSuccessComponent
         @Inject('injectParams') protected injectParams: Params.IPromoSuccessCParams,
         protected modalService: ModalService,
         protected router: UIRouter,
+        protected configService: ConfigService,
 
     ) {
-        super({
-            injectParams,
-            defaultParams: Params.defaultParams,
-        });
+        super(
+            <IMixedParams<Params.IPromoSuccessCParams>>{
+                injectParams,
+                defaultParams: Params.defaultParams,
+            }, configService);
     }
 
     public ngOnInit(): void {
