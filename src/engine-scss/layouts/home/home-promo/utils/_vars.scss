@@ -12,8 +12,7 @@ $homePromo: map-merge((
     ),
     'tournamentSliderWrapMaxWidth': 100%,
     'tournamentSliderButtonDisplay': (
-        320: none,
-        768: flex,
+        320: flex,
     ),
     'tournamentSmartJustifyContent': (
         320: left,

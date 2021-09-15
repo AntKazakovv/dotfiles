@@ -27,11 +27,9 @@ $themeDefault: map-merge((
     'timerSecondaryFont': 'PrimaryText',
     'timerSecondaryColor': var(--mc-baseMain),
 
-    'moreIconColor': var(--mc-baseOpacity),
-
     'bodyPadding': (
-        320: 55px ef.get('size', 'smally') ef.get('size', 'less'),
-        1024: 55px ef.get('size', 'main') ef.get('size', 'main'),
+        320: ef.size(11) ef.size(4) ef.size(6),
+        1024: ef.size(11) ef.size(8) ef.size(8),
     ),
     'bodyFont': 'PromoTitle',
     'bodyFontM': 'QoteTextBold',
@@ -80,6 +78,10 @@ $themeDefault: map-merge((
     'btnsGridColumnGap': 0,
     'btnsPadding': ef.get('size', 'smallest') ef.get('size', 'smally'),
     'btnsMargin': 0 ef.get('size', 'smaller') 0 0,
+    'btnsDisplay': (
+        375: none,
+        480: grid,
+    ),
 
     'loaderZIndex': 10,
     'loaderPosition': 0,
@@ -111,5 +113,21 @@ $themeDefault: map-merge((
     'tagTextAlign': center,
     'tagBorderRadius': ef.size(2) 0 ef.size(2) 0,
     'tagColor': ef.get('mainColors', 'baseMain'),
+
+    // More icon
+    'moreIconSize': 22px,
+    'moreIconColor': var(--mc-baseOpacity),
+    'moreIconColorHover': var(--mc-baseMain),
+    'moreIconPosTop': (
+        375: ef.size(4),
+    ),
+    'moreIconPosRight': (
+        375: ef.size(4),
+    ),
+
+    'moreIconDisplay': (
+        375: block,
+        480: none,
+    ),
 ), $customThemeDefault);
 

@@ -83,14 +83,15 @@ $customThemePromoHome: () !default;
 $themePromoHome: map-merge((
     'listRadius': ef.get('radius', 'biger'),
     'paginationBottom': (
-        768: ef.size(8),
+        320: ef.size(6),
+        1024: ef.size(8),
     ),
     'paginationRight': (
-        768: ef.size(8),
+        320: ef.size(4),
+        1024: ef.size(8),
     ),
     'paginationDisplay': (
-        375: none,
-        768: flex,
+        375: flex,
     ),
 
     'tagTopPosition': 0,
