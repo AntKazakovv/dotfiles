@@ -354,4 +354,13 @@ export class GlobalHelper {
     public static setFileExtension(filePath: string, extension: string): string {
         return filePath.replace(/\.[\da-z]+$/i, '') + `.${extension}`;
     }
+
+    /**
+     * Checking the opening of a site in an iframe
+     *
+     * @returns {boolean} Result of checking
+     */
+    public static isIframe(): boolean {
+        return window !== window.top || window !== window.parent || document !== top.document;
+    }
 }
