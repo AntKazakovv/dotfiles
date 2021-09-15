@@ -31,7 +31,7 @@ describe('BodyClassService', () => {
 
         ConfigServiceSpy = jasmine.createSpyObj(
             'ConfigService',
-            ['load', 'get'],
+            ['load', 'get', 'set'],
             {
                 'ready': Promise.resolve(),
             },
