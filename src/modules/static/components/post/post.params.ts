@@ -6,6 +6,7 @@ export interface IPostCParams extends IComponentParams<string, string, string> {
     modifiers?: ModifiersType[];
     slug?: string;
     setTitle?: (title: string) => void;
+    showTitle?: boolean,
     parseAsPlainHTML?: boolean;
 }
 

@@ -83,6 +83,7 @@ export class PostComponent extends AbstractComponent implements OnInit, AfterVie
                 data = this.replaceLinkPaths(data);
             }
 
+            this.data = data;
             this.html = this.domSanitizer.bypassSecurityTrustHtml(data.html)?.['changingThisBreaksApplicationSecurity'];
 
             if (this.useTitle) {

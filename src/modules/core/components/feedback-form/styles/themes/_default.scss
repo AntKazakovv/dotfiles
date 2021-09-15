@@ -1,4 +1,5 @@
 @use 'engine-scss/mixins/mediaqueries' as mq;
+@use 'engine-scss/mixins/base.mixins' as bm;
 @use 'engine-scss/mixins/text' as text;
 @use 'engine-scss/functions' as ef;
 
@@ -6,7 +7,9 @@
     margin: ef.get-value($themeDefault, 'margin');
 
     .wlc-feedback-form__header {
-        @include text.get-text-style('QoteTextBold', ef.get-value($themeDefault, 'headerColor'));
+        @include text.get-text-style(ef.get-value($themeDefault, 'headerTextStyle'), ef.get-value($themeDefault, 'headerColor'));
+        @include bm.get-mq-map('text-align', $themeDefault, 'headerTextAlign');
+
         margin: ef.get-value($themeDefault, 'headerMargin');
     }
 
@@ -15,19 +18,19 @@
         flex-wrap: wrap;
 
         flex-direction: row;
-        margin: 0 ef.get-value($themeDefault, 'contactsGap') * -1.5;
+        margin: 0 calc(#{ef.get-value($themeDefault, 'contactsGap')} * -1.5);
 
         @include mq.min(1024) {
-            margin: 0 ef.get-value($themeDefault, 'contactsGap') * -3;
+            margin: 0 calc(#{ef.get-value($themeDefault, 'contactsGap')} * -3);
         }
     }
 
     .wlc-feedback-form-details__item {
         margin-bottom: ef.get-value($themeDefault, 'contactsGap');
-        padding: 0 ef.get-value($themeDefault, 'contactsGap') * 1.5;
+        padding: 0 calc(#{ef.get-value($themeDefault, 'contactsGap')} * 1.5);
 
         @include mq.min(1024) {
-            padding: 0 ef.get-value($themeDefault, 'contactsGap') * 3;
+            padding: 0 calc(#{ef.get-value($themeDefault, 'contactsGap')} * 3);
             max-width: 50%;
         }
 

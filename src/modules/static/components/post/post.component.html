@@ -1,4 +1,8 @@
 <div *ngIf="isReady; else preloader">
+    <div *ngIf="$params.showTitle"
+         wlc-title
+         [mainText]="data.title">
+    </div>
     <div wlc-dynamic-html [html]="html" [parseAsPlainHTML]="parseAsPlainHTML" #wrp></div>
 </div>
 
