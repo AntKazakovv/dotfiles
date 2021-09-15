@@ -80,6 +80,7 @@ export class InfoPageComponent extends AbstractComponent implements OnInit {
                         slug: this.uiRouter.params.slug,
                         parseAsPlainHTML: true,
                         wlcElement: 'section_static-text_' + this.uiRouter.params.slug,
+                        showTitle: true,
                     },
                 }];
         }

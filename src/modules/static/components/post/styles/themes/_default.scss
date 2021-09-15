@@ -1,15 +1,22 @@
 @use 'engine-scss/functions' as ef;
 @use 'engine-scss/mixins/text' as text;
 @use 'engine-scss/mixins/mediaqueries' as mq;
+@use 'engine-scss/mixins/base.mixins' as bm;
 
 .wlc-post--theme-default:host {
-    @include text.get-text-style('PlaceholderText', ef.get-value($themeDefault, 'contentHeaderColor'));
-
-    @include mq.min(900) {
-        @include text.get-text-style('ThirdTitle', ef.get-value($themeDefault, 'contentHeaderColor'));
-    }
+    @include text.get-text-style(ef.get-value($themeDefault, 'contentTextStyle'), ef.get-value($themeDefault, 'contentColor'));
 
     ::ng-deep {
+
+        .wlc-title[class] {
+            @include bm.get-mq-map('text-align', $themeDefault, 'titleTextAlign');
+
+            margin: ef.get-value($themeDefault, 'titleMargin');
+
+            .wlc-title__main {
+                @include text.get-text-style(ef.get-value($themeDefault, 'titleTextStyle'), ef.get-value($themeDefault, 'titleColor'));
+            }
+        }
 
         table {
             width: 100%;
@@ -21,12 +28,8 @@
         h4,
         h5,
         h6 {
-            @include text.get-text-style('ThirdTitleBold', ef.get-value($themeDefault, 'contentColor'));
+            @include text.get-text-style(ef.get-value($themeDefault, 'contentHeadingTextStyle'), ef.get-value($themeDefault, 'contentHeaderColor'));
             margin: ef.get-value($themeDefault, 'contentHeaderMargin');
-
-            @include mq.min(900) {
-                @include text.get-text-style('QoteTextBold', ef.get-value($themeDefault, 'contentHeaderColor'));
-            }
 
             &:first-child {
                 margin-top: 0;

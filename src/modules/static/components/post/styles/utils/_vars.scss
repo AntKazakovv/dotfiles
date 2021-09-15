@@ -4,8 +4,18 @@ $customThemeDefault: () !default;
 $themeDefault: map-merge((
     'contentColor': var(--mc-baseMain),
     'contentHeaderColor': var(--mc-baseMain),
-    'contentHeaderMargin': ef.get('size', 'small') 0,
-    'contentMargin': 0 0 ef.get('size', 'smallest'),
+    'contentHeaderMargin': ef.size(2) 0,
+    'contentMargin': 0 0 ef.size(1),
+    'contentTextStyle': 'PrimaryText',
+    'contentHeadingTextStyle': 'ThirdTitleBold',
+
+    'titleTextStyle': 'QoteTextBold',
+    'titleColor': var(--mc-baseMain),
+    'titleMargin': 0 0 ef.size(4),
+    'titleTextAlign': (
+        375: center,
+        900: left,
+    ),
 ), $customThemeDefault);
 
 $customThemeAffiliates: () !default;
@@ -23,13 +33,13 @@ $themeAffiliates: map-merge((
     'titleTextTransform': uppercase,
     'titleColor': var(--mc-baseMain),
     'titleMargin': (
-        375: ef.get('size', 'smaller') 0 ef.get('size', 'smally'),
-        1200: ef.get('size', 'less') 0 ef.get('size', 'smally'),
+        375: ef.size(4) 0 ef.size(3),
+        1200: ef.size(6) 0 ef.size(3),
     ),
 
     'subtitleMaxWidth': 55ch,
     'subtitleMargin': 0 auto,
 
     'baseTextMaxWidth': 108ch,
-    'baseTextMargin': 0 auto ef.get('size', 'small'),
+    'baseTextMargin': 0 auto ef.size(2),
 ), $customThemeAffiliates);
