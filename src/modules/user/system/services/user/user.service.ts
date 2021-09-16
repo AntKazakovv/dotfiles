@@ -31,7 +31,6 @@ import _assign from 'lodash-es/assign';
 import _each from 'lodash-es/each';
 import _keys from 'lodash-es/keys';
 import _set from 'lodash-es/set';
-import _get from 'lodash-es/get';
 
 export enum LanguageChangeEvents {
     ChangeLanguage = 'CHANGE_LANGUAGE'
