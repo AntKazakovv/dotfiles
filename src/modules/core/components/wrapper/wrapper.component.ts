@@ -38,6 +38,11 @@ export class WrapperComponent extends LayoutComponent implements OnInit, OnChang
     @HostBinding('class') protected $hostClass: string;
     @HostBinding('attr.data-wlc-element') protected $wlcElement: string;
     @Input() protected inlineParams: IWrapperCParams;
+    /**
+     * additional input for pass inlineParams from dynamic html component
+     * because camelCase attributes translate to lowercase
+     */
+    @Input() protected inline: IWrapperCParams;
     protected $params: IWrapperCParams;
     private initReady: boolean = false;
 
@@ -77,7 +82,7 @@ export class WrapperComponent extends LayoutComponent implements OnInit, OnChang
     }
 
     protected prepareParams(): void {
-        this.$params = _merge(this.inlineParams, this.params);
+        this.$params = _merge(this.inlineParams, this.inline, this.params);
     }
 
     private async initComponents(): Promise<void> {
