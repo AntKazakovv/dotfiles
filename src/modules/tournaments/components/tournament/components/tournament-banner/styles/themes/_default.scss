@@ -57,8 +57,8 @@
 
         position: absolute;
         z-index: 3;
-        line-height: 1;
         color: ef.get-value($themeDefault, 'moreIconColor');
+        line-height: 1;
 
         .icon-btn {
             width: ef.get-value($themeDefault, 'moreIconSize');
@@ -175,7 +175,7 @@
                 margin-right: 0;
             }
 
-            &--type-read {
+            &--theme-mod-read {
                 @include em.get-mq-map('display', $themeDefault, 'btnsDisplay');
             }
         }
