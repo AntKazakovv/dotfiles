@@ -2,43 +2,46 @@
 
 $customThemeDefault: () !default;
 $themeDefault: map-merge((
-    'padding': ef.get('size', 'smaller') ef.get('size', 'smaller') ef.get('size', 'main'),
+    'padding': ef.size(4) ef.size(4) ef.size(8),
     'backgroundColor': var(--mc-bg700),
     'borderRadius': ef.get('radius', 'biger'),
     'headerTextStyle': 'ThirdTitleBold',
     'headerTextColor': var(--mc-baseMain),
     'headerMargin': (
-        375: 0 0 25px,
-        900: 0 0 35px,
+        375: 0 0 ef.size(5),
+        900: 0 0 ef.size(7),
     ),
 
     'matchTitleStyle': 'ThirdTitle',
     'matchTitleColor': var(--mc-baseMain),
-    'matchPadding': 0 0 ef.get('size', 'smaller'),
+    'matchPadding': 0 0 ef.size(4),
     'matchMargin': (
-        375: 0 0 25px,
-        900: 0 0 35px,
+        375: 0 0 ef.size(5),
+        900: 0 0 ef.size(7),
     ),
     'matchBorderHeight': 2px,
     'matchBorderRadius': ef.get('radius', 'smaller'),
-    'matchBorderColor': var(--mc-main),
+    'matchBorderColor': var(--mc-baseOpacity),
     'matchBorderWidth': 158px,
-    'delimiterMargin': 0 ef.get('size', 'smallest'),
+    'delimiterMargin': 0 ef.size(1),
 
     'teamsGridColumns': (
         375: minmax(0, 1fr),
         900: minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr),
     ),
     'teamsGridGap': (
-        375: 10px,
-        1024: 25px,
-        1630: 35px,
+        375: ef.size(2),
+        1024: ef.size(5),
+        1630: ef.size(7),
     ),
     'teamsMargin': (
-        375: 0 0 25px,
-        900: 0 0 35px,
+        375: 0 0 ef.size(5),
+        900: 0 0 ef.size(7),
     ),
-
+    'teamDisplay': (
+        375: none,
+        900: flex,
+    ),
     'teamCircleSize': (
         375: 85px,
         560: 105px,
@@ -57,6 +60,6 @@ $themeDefault: map-merge((
     'teamTextColor': var(--mc-baseMain),
     'matchInfoTextStyle': 'ThirdTitleBold',
     'matchInfoTextColor': var(--mc-baseMain),
-    'matchInfoIconFill': var(--mc-main),
+    'matchInfoIconFill': var(--mc-secondary),
     'matchInfoIconMargin': 7px,
 ), $customThemeDefault);
