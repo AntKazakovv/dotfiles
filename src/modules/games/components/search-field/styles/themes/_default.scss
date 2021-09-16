@@ -4,17 +4,18 @@
 
 .wlc-search-field {
     position: relative;
-    display: block;
+    display: ef.get-value($themeDefault, 'fieldDisplay');
     color: ef.get-value($themeDefault, 'color');
-    line-height: 1;
+    line-height: ef.get-value($themeDefault, 'lineHeight');
 
     &__input {
         @include bm.get-mq-map('background', $themeDefault, 'bgColor');
         @include text.get-text-style(ef.get-value($themeDefault, 'fontName'), ef.get-value($themeDefault, 'color'));
-        width: 100%;
-        height: ef.get-value($themeDefault, 'heightInput');
+        @include bm.transition;
+
+        width: ef.get-value($themeDefault, 'inputWidth');
+        height: ef.get-value($themeDefault, 'inputHeight');
         padding: ef.get-value($themeDefault, 'inputPadding');
-        transition: ef.get-value($themeDefault, 'transition');
         border-radius: ef.get-value($themeDefault, 'borderRadius');
         border: ef.get-value($themeDefault, 'border');
 
@@ -50,17 +51,17 @@
     }
 
     &__clear {
+        @include bm.transition(opacity);
         position: absolute;
-        top: 50%;
+        top: ef.get-value($themeDefault, 'searchIconTop');
         right: ef.get-value($themeDefault, 'searchIconRight') + ef.get-value($themeDefault, 'searchIconSize')  + 5px;
         height: auto;
-        padding: 4px;
+        padding: ef.get-value($themeDefault, 'paddingClear');
         color: ef.get-value($themeDefault, 'color');
         font-size: 0;
-        background: transparent;
-        transform: translateY(-50%);
-        opacity: 0.5;
-        transition: opacity ef.get-value($themeDefault, 'transition');
+        background: ef.get-value($themeDefault, 'backgroundClear');
+        transform: ef.get-value($themeDefault, 'translateY');
+        opacity: ef.get-value($themeDefault, 'opacity');
         appearance: none;
         border: none;
 
@@ -68,8 +69,8 @@
             outline: none;
         }
 
-        &:hover {
-            opacity: 1;
+        @include bm.hover {
+            opacity: ef.get-value($themeDefault, 'hoverOpacity');
         }
 
         ::ng-deep {
@@ -87,9 +88,9 @@
 
     &__icon {
         position: absolute;
-        top: 50%;
+        top: ef.get-value($themeDefault, 'searchIconTop');
         right: ef.get-value($themeDefault, 'searchIconRight');
-        transform: translateY(-50%);
+        transform: ef.get-value($themeDefault, 'searchIconTranslateY');
         pointer-events: none;
 
         ::ng-deep {
