@@ -2,7 +2,10 @@
 
 $customThemeDefault: () !default;
 $themeDefault: map-merge((
-    'formMaxWidth': 285px,
+    'formMaxWidth': (
+        320: 100%,
+        768: 285px,
+    ),
     'formMargin': auto,
     'formHeight': 100%,
 
@@ -12,8 +15,7 @@ $themeDefault: map-merge((
     'inputOpacity': 1,
 
     'btnMargin': (
-        320: auto auto ef.get('size', 'smaller'),
-        560: ef.get('size', 'main') auto ef.get('size', 'small'),
+        320: ef.size(8) auto ef.size(2),
     ),
 ), $customThemeDefault);
 

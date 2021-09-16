@@ -2,25 +2,28 @@
 
 $customThemeDefault: () !default;
 $themeDefault: map-merge((
-    'containerPadding': 0 ef.get('size', 'smally') ef.get('size', 'smally') ef.get('size', 'smally'),
+    'containerPadding': 0 ef.size(3) ef.size(3) ef.size(3),
 
-    'titleFontStyle': 'QoteTextBold',
+    'titleFontSize': (
+        320: 'PrimaryTextBold',
+        768: 'QoteTextBold',
+    ),
     'titleColor': var(--mc-baseMain),
-    'titleMargin': ef.get('size', 'smallest') 0 ef.get('size', 'smaller') 0,
-
-    'textFontStyle': 'PrimaryText',
-    'textColor': var(--mc-baseMain),
-    'textMargin': 0 0 ef.get('size', 'smaller') 0,
-
-    'iconMargin': 0 0 ef.get('size', 'smaller') 0,
-
-    'dialogMinHeight': (
-        375: 100vh,
-        560: auto,
+    'titleMargin': 0 0 ef.size(4),
+    'titlePadding': (
+        320: 0 ef.size(5),
+        480: 0,
     ),
 
-    'dialogMargin':(
-        375: -50px auto 0,
-        560: 0 auto,
-    )
+    'textFontSize': 'PrimaryText',
+    'textColor': var(--mc-baseMain),
+    'textMargin': 0 0 ef.size(8),
+
+    'iconMargin': 0 0 ef.size(4),
+
+    'btnMargin': ef.size(4) auto 0,
+
+    'dialogMinHeight': (
+        375: 100%,
+    ),
 ), $customThemeDefault);

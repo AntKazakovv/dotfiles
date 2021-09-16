@@ -1,10 +1,11 @@
+@use 'engine-scss/mixins/base.mixins' as bm;
 @use 'engine-scss/functions' as ef;
 @use 'engine-scss/mixins/text' as text;
 @use 'engine-scss/mixins/base.mixins' as em;
 @import '../utils/vars';
 
 .wlc-sign-in-form--theme-default:host {
-    max-width: ef.get-value($themeDefault, 'formMaxWidth');
+    @include bm.get-mq-map('max-width', $themeDefault, 'formMaxWidth');
     height: ef.get-value($themeDefault, 'formHeight');
 
     margin: ef.get-value($themeDefault, 'formMargin');

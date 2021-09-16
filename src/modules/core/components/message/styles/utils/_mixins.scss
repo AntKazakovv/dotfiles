@@ -30,7 +30,7 @@
 
         .wlc-notification-message__icon,
         .wlc-notification-message__image-container {
-            @include bm.get-mq-map('margin-right', $themeDefault, 'iconMargin');
+            @include bm.get-mq-map('margin', $themeDefault, 'iconMargin');
         }
     }
 
@@ -60,7 +60,6 @@
 
     .wlc-notification-message__icon {
         display: flex;
-        align-items: center;
     }
 
     .wlc-notification-message__image-container {
@@ -117,11 +116,11 @@
 
     .wlc-notification-message__dismiss {
         @include bm.transition(opacity);
+        @include bm.get-mq-map('top', $themeDefault, 'dismissPosTop');
+        @include bm.get-mq-map('right', $themeDefault, 'dismissPosRight');
+        @include bm.get-mq-map('padding', $themeDefault, 'dismissPadding');
         position: absolute;
-        top: 20px;
-        right: 20px;
         max-height: get('closeIconSize');
-        padding: 5px;
         background-color: transparent;
         outline: none;
         cursor: pointer;
@@ -129,7 +128,7 @@
         border: none;
 
         ::ng-deep line {
-            transition: stroke 0.3s ease;
+            @include bm.transition(stroke);
             stroke: get('closeIconColor');
         }
 

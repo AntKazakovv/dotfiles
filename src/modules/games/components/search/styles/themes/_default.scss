@@ -37,8 +37,8 @@
             @include text.get-text-style(ef.get-value($themeDefault, 'searchModalHeaderFont'), ef.get-value($themeDefault, 'searchModalHeaderFontColor'));
             margin: ef.get-value($themeDefault, 'searchModalHeaderMargin');
 
-            @include mq.min(560) {
-                @include text.get-text-style(ef.get-value($themeDefault, 'searchModalHeaderFont', 560), ef.get-value($themeDefault, 'searchModalHeaderFontColor'));
+            @include mq.min(1200) {
+                @include text.get-text-style(ef.get-value($themeDefault, 'searchModalHeaderFont', 1200));
             }
         }
 

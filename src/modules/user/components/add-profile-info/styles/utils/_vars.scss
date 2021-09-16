@@ -9,8 +9,12 @@ $themeDefault: map-merge((
     'formPadding': 0 0 20px,
     'formFieldsGap': 20px,
     'formFieldMarginBottom': 20px,
-    'formMaxWidth': 290px,
-    'formPasswordBorderTop': 2px solid var(--mc-baseOpacity),
+    'formMaxWidth': (
+        320: 100%,
+        768: 285px,
+    ),
+    'formBtnSubmit': 20px auto 0,
+    'formPasswordBorderTop': 2px solid ef.get('mainColors', 'baseOpacity'),
     'formPasswordPaddingTop': 5px,
     'formPasswordMarginTop': 5px,
 
