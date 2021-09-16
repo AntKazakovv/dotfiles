@@ -8,6 +8,8 @@ import {
     OnChanges,
     Output,
     EventEmitter,
+    Inject,
+    Optional,
 } from '@angular/core';
 import {
     DomSanitizer,
@@ -22,6 +24,7 @@ import {AbstractComponent} from 'wlc-engine/modules/core/system/classes';
 import * as Params from './icon.params';
 
 import _keys from 'lodash-es/keys';
+import _isNil from 'lodash-es/isNil';
 
 @Component({
     selector: '[wlc-icon]',
@@ -47,18 +50,25 @@ export class IconComponent extends AbstractComponent implements OnInit, OnChange
     @Output() imageError = new EventEmitter<void>();
 
     constructor(
+        @Optional()
+        @Inject('injectParams') protected injectParams: Params.IIconCParams,
         protected sanitizer: DomSanitizer,
         protected fileService: FilesService,
         protected elRef: ElementRef,
         protected cdr: ChangeDetectorRef,
     ) {
         super({
-            injectParams: {},
+            injectParams: injectParams || {},
             defaultParams: Params.defaultParams,
         });
     }
 
     public ngOnInit(): void {
+        if (this.injectParams && _isNil(this.iconPath) && _isNil(this.iconName) && _isNil(this.iconUrl)) {
+            this.iconPath = this.injectParams.iconPath;
+            this.iconName = this.injectParams.iconName;
+            this.iconUrl = this.injectParams.iconUrl;
+        }
         super.ngOnInit(this.prepareParams());
         this.getIconHtml();
         this.ready = true;
