@@ -131,9 +131,10 @@
                     </ng-container>
                 </div>
             </div>
-            <div class="{{$class}}__image-block" data-wlc-element="bonus_image">
+            <div class="{{$class}}__image-block"
+                 data-wlc-element="bonus_image">
                 <div class="{{$class}}__image"
-                     [style]="{backgroundImage: 'url(' + $params.common.bonus?.imagePromo + ')'}">
+                     [style]="{backgroundImage: promoBg}">
                 </div>
             <ng-container [ngTemplateOutlet]="bonusIcon"></ng-container>
             </div>
@@ -484,7 +485,7 @@
 
 <ng-template #bonusImage>
     <div class="{{$class}}__image"
-         [style]="{backgroundImage: 'url(' + bonusBg + ')'}">
+         [style]="{backgroundImage: bonusBg}">
     </div>
 </ng-template>
 
