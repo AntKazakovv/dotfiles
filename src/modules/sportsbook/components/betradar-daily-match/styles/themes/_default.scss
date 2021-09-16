@@ -42,12 +42,12 @@
 
         &__header {
             @include text.get-text-style(ef.get-value($themeDefault, 'headerTextStyle'), ef.get-value($themeDefault, 'headerTextColor'));
-            text-align: center;
-
             @include bm.get-mq-map('margin', $themeDefault, 'headerMargin');
         }
 
         &__title-match {
+            @include text.get-text-style(ef.get-value($themeDefault, 'matchTitleStyle'), ef.get-value($themeDefault, 'matchTitleColor'));
+            @include bm.get-mq-map('margin', $themeDefault, 'matchMargin');
             position: relative;
 
             display: flex;
@@ -55,13 +55,11 @@
             align-items: center;
             justify-content: center;
 
-            @include text.get-text-style(ef.get-value($themeDefault, 'matchTitleStyle'), ef.get-value($themeDefault, 'matchTitleColor'));
-
             width: 100%;
             padding: ef.get-value($themeDefault, 'matchPadding');
-            @include bm.get-mq-map('margin', $themeDefault, 'matchMargin');
 
             &:after {
+                content: '';
                 position: absolute;
                 bottom: 0;
 
@@ -70,18 +68,13 @@
 
                 background: ef.get-value($themeDefault, 'matchBorderColor');
                 border-radius: ef.get-value($themeDefault, 'matchBorderRadius');
-
-                content: '';
             }
         }
 
         &__title-team {
+            @include bm.lineClamp(1);
             max-width: 90%;
-            overflow: hidden;
-
-            white-space: nowrap;
             text-align: center;
-            text-overflow: ellipsis;
 
             &:first-child {
                 width: 100%;
@@ -94,28 +87,24 @@
         }
 
         &__teams {
-            display: grid;
             @include bm.get-mq-map('grid-template-columns',$themeDefault, 'teamsGridColumns');
             @include bm.get-mq-map('gap', $themeDefault, 'teamsGridGap');
-            justify-items: center;
-
             @include bm.get-mq-map('margin', $themeDefault, 'teamsMargin');
+            display: grid;
+            align-items: center;
+            justify-items: center;
         }
 
         &__team {
-            display: none;
             @include bm.get-mq-map('width', $themeDefault, 'teamCircleSize');
             @include bm.get-mq-map('height', $themeDefault, 'teamCircleSize');
+            @include bm.get-mq-map('display', $themeDefault, 'teamDisplay');
 
             align-items: center;
             justify-content: center;
 
             background: ef.get-value($themeDefault, 'teamCircleColor');
             border-radius: ef.get-value($themeDefault, 'teamCircleRadius');
-
-            @include mq.min(900) {
-                display: flex;
-            }
 
             img {
                 @include bm.get-mq-map('max-height', $themeDefault, 'teamImgMaxHeight');
@@ -124,29 +113,22 @@
             span {
                 @include text.get-text-style(ef.get-value($themeDefault, 'teamTextStyle'), ef.get-value($themeDefault, 'teamTextColor'));
             }
-
-            @include mq.min(900) {
-                display: flex;
-            }
         }
 
-        &__info {
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-            justify-content: center;
-        }
-
-        &__info-block--day {
-            @include text.get-text-style(ef.get-value($themeDefault, 'matchInfoTextStyle'), ef.get-value($themeDefault, 'matchInfoTextColor'));
-        }
-
+        &__info-block--day,
         &__info-block--time {
             @include text.get-text-style(ef.get-value($themeDefault, 'matchInfoTextStyle'), ef.get-value($themeDefault, 'matchInfoTextColor'));
+            display: flex;
+            align-items: center;
+            white-space: nowrap;
         }
 
         &__info-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
             margin: ef.get-value($themeDefault, 'matchInfoIconMargin');
+            line-height: 0;
 
             ::ng-deep {
 
