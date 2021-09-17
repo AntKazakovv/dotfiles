@@ -131,7 +131,8 @@ export class DepositWithdrawComponent extends AbstractComponent implements OnIni
         def: '/static/css/hosted.fields.css',
         alt: null,
     };
-
+    private depositInIframe: boolean;
+    private isShowIframe: boolean;
     private userProfile: UserProfile;
     private userService: UserService;
 
@@ -166,6 +167,7 @@ export class DepositWithdrawComponent extends AbstractComponent implements OnIni
 
     public ngOnInit(): void {
         super.ngOnInit();
+        this.depositInIframe = this.configService.get<boolean>('$base.finances.depositInIframe');
         this.configService
             .get<BehaviorSubject<UserProfile>>({name: '$user.userProfile$'})
             .pipe(takeUntil(this.$destroy))
@@ -375,6 +377,7 @@ export class DepositWithdrawComponent extends AbstractComponent implements OnIni
     }
 
     private async depositAction(amount: number, params: IIndexing<string>, saveProfile: boolean = true): Promise<void> {
+        this.isShowIframe = this.depositInIframe && this.currentSystem.appearance === 'iframe';
         try {
             const response = await this.financesService.deposit(
                 this.currentSystem.id,
@@ -416,7 +419,7 @@ export class DepositWithdrawComponent extends AbstractComponent implements OnIni
             const formSubmit: HTMLFormElement = this.createForm(response);
             this.document.body.appendChild(formSubmit);
 
-            if (this.currentSystem.appearance !== 'iframe') {
+            if (!this.isShowIframe) {
                 formSubmit.submit();
             }
         } catch (error) {
@@ -569,7 +572,7 @@ export class DepositWithdrawComponent extends AbstractComponent implements OnIni
 
         form.style.display = 'none';
 
-        if (this.currentSystem.appearance === 'iframe') {
+        if (this.isShowIframe) {
             form.target = 'deposit_frame';
             this.showIFrame(form);
         } else if (this.currentSystem.appearance === 'newtab') {
