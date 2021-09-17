@@ -106,6 +106,7 @@ export const gamesGridConfig: IWrapperCParams = {
                     gamesRows: 3,
                 },
                 themeMod: 'tournament-detail',
+                thumbParams: {},
             },
         },
     ],
