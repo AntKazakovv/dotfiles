@@ -32,6 +32,7 @@
 
         &__active-block {
             max-width: ef.get-value($themeLong, 'activeBlockMaxWidth');
+            min-height: unset;
             padding: ef.get-value($themeLong, 'activeBlockPadding');
         }
 

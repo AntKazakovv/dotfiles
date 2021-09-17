@@ -117,10 +117,13 @@
 
     &__active-block {
         @include em.get-mq-map('padding', $themeDefault, 'activeBlockPadding');
-        @include em.get-mq-map('grid-gap', $themeDefault, 'activeBlockGap');
+        @include em.get-mq-map('min-height', $themeDefault, 'activeBlockMinHeight');
 
-        display: grid;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
         width: 100%;
+
         max-width: ef.get-value($themeDefault, 'activeBlockMaxWidth');
         margin: ef.get-value($themeDefault, 'activeBlockMargin');
 
@@ -139,8 +142,10 @@
         flex-direction: column;
         align-items: center;
         justify-content: center;
+        margin: ef.get-value($themeDefault, 'activeBlockProgressMargin');
         padding: ef.get-value($themeDefault, 'activeBlockProgressPadding');
-        background-color: ef.get-value($themeDefault, 'activeBlockProgressBg');
+
+        background: ef.get-value($themeDefault, 'activeBlockProgressBg');
         border-radius: ef.get-value($themeDefault, 'activeBlockProgressRadius');
         transition: all ef.get-value($themeDefault, 'time') ease-in-out;
     }
@@ -151,10 +156,11 @@
     }
 
     &__progressbar {
+        @include em.get-mq-map('margin', $themeDefault, 'progressBarMargin');
+
         position: relative;
         width: 100%;
         height: ef.get-value($themeDefault, 'progressBarSize');
-        margin: ef.get-value($themeDefault, 'progressBarMargin');
         background: ef.get-value($themeDefault, 'progressBarBg');
         border-radius: ef.get-value($themeDefault, 'progressBarRadius');
         box-shadow: ef.get-value($themeDefault, 'progressBarBoxShadow');
@@ -291,6 +297,7 @@
 
         &__name {
             @include nameCommonStyles;
+            line-height: ef.get-value($themeDefault, 'nameLineHeight');
         }
 
         &__description {
@@ -334,6 +341,8 @@
             &__wrapper {
                 @include em.get-mq-map('grid-template-rows', $themeDefault, 'infoHeightWithImg');
 
+                background: ef.get-value($themeDefault, 'withImgWrapperBg');
+
                 @include em.hover(false) {
                     @include em.get-mq-map('grid-template-rows', $themeDefault, 'infoHeightWithImgMobile');
                 }
@@ -363,6 +372,14 @@
 
             &__btns {
                 @include em.get-mq-map('bottom', $themeDefault, 'btnBottomPositionWithImg');
+                margin: ef.get-value($themeDefault, 'btnsMarginWithImg');
+            }
+        }
+
+        @include em.hover {
+
+            .wlc-bonus-item__wrapper:before {
+                opacity: ef.get-value($themeDefault, 'withImgOverlayOpacityHover');
             }
         }
     }
@@ -377,23 +394,8 @@
                 display: none;
             }
 
-            &__name {
-                line-height: 1.2;
-            }
-
             &__wrapper {
                 @include em.get-mq-map('grid-template-rows', $themeDefault, 'infoHeightActive');
-            }
-
-            &__info-block {
-                @include em.get-mq-map('padding', $themeDefault, 'infoBlockPadding');
-            }
-        }
-
-        @include em.hover() {
-
-            .wlc-bonus-item__description {
-                opacity: 1;
             }
         }
 
@@ -414,7 +416,7 @@
         .wlc-bonus-item__wrapper {
 
             &:before {
-                opacity: ef.get-value($themeDefault, 'overlayOpacityHover');
+                display: none;
             }
         }
 
@@ -423,8 +425,7 @@
             opacity: 1;
         }
 
-        .wlc-bonus-item__description,
-        .wlc-bonus-item__progress {
+        .wlc-bonus-item__description {
             opacity: 0;
         }
     }

@@ -27,6 +27,8 @@
         @return map-get(ev.$tagConfig, $name);
     } @else if ($map == 'baseVariables') {
         @return map-get(ev.$baseVariables, $name);
+    } @else if ($map == 'shadow') {
+        @return map-get(ev.$shadows, $name);
     }
 }
 

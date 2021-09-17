@@ -54,11 +54,11 @@ $themeDefault: map-merge((
     'favouriteAlignItems': center,
     'favouriteJustifyContent': center,
     'favouriteTransformOrigin': center,
-    'favouriteColor': var(--mc-baseMain),
-    'favouriteHoverBg': var(--mc-main),
-    'favouriteActiveColor': var(--fc-inputBg),
     'favouriteSize': ef.size(6),
-    'favouriteBackBg': var(--mc-bg300),
+    'favouriteColor': ef.get('mainColors', 'baseMain'), // Locked color
+    'favouriteActiveColor': ef.get('mainColors', 'baseMain'), // Locked color
+    'favouriteBackBg': ef.get('mainColors', 'bg300'), // Locked color
+    'favouriteHoverBg': var(--mc-main),
     'favouriteBackBgActive': var(--mc-main),
     'favouriteBackSize': ef.size(8),
     'favouriteBackRadius': ef.get('radius', 'biger'),

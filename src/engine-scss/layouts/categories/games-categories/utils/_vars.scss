@@ -42,10 +42,6 @@ $gamesCategoriesDefault: map-merge((
     'buttonSearchMinWidth': (
         375: 150px,
     ),
-    'buttonSearchBg': (
-        375: var(--mc-bg500),
-        768: var(--mc-bg)
-    ),
     'buttonSearchPadding': (
         375: 0 ef.get('size', 'small'),
         1630: 0 ef.get('size', 'smally'),
@@ -53,9 +49,15 @@ $gamesCategoriesDefault: map-merge((
     'buttonSearchRadius': (
         375: ef.get('radius', 'biger'),
     ),
-    'buttonSearchColor': var(--mc-baseMain),
-    'buttonSearchBgHover': var(--mc-bg-o8),
+    'buttonSearchBg': (
+        375: var(--mc-bg500),
+        768: var(--mc-bg)
+    ),
+    'buttonSearchBgHover': var(--mc-main),
     'buttonSearchIconFill': var(--mc-main),
+    'buttonSearchColor': var(--mc-baseMain),
+    'buttonSearchColorHover': ef.get('mainColors', 'baseMain'), // Locked color
+    'buttonSearchIconFillHover': ef.get('mainColors', 'baseMain'), // Locked color
     'buttonSearchIconMargin': ef.get('size', 'small'),
     'buttonMerchMargin': ef.get('size', 'smally'),
     'buttonSearchTextStyle': 'PlaceholderText',

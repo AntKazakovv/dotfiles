@@ -62,22 +62,27 @@ $themeDefault: map-merge((
     'activeBlockFontSecondarySize': ef.get('font', 'less'),
     'activeBlockMargin': 0 auto,
     'activeBlockTimerMargin': 0,
-    'activeBlockProgressPadding': 0,
+    'activeBlockProgressPadding': ef.size(1) ef.size(3),
     'activeBlockRadius': 0,
     'activeBlockProgressRadius': ef.get('radius', 'biger'),
     'activeBlockTimerRadius': ef.get('radius', 'biger'),
-    'activeBlockProgressBg': transparent,
+    'activeBlockProgressBg': var(--mc-bg),
     'activeBlockTimerBg': transparent,
     'activeBlockTextAlign': center,
     'activeBlockPadding': (
-        320: 0,
-        900: ef.size(3) 0 0,
-        1630: ef.size(6) 0 0,
+        320: ef.size(2) 0,
+        900: ef.size(3) 0 ef.size(2),
+        1630: ef.size(6) 0 ef.size(4),
     ),
     'activeBlockGap': (
-        375: ef.size(3),
-        1630: ef.size(8),
+        375: ef.size(2),
+        1630: ef.size(6),
     ),
+    'activeBlockMinHeight': (
+        375: 145px,
+        1630: 200px,
+    ),
+    'activeBlockProgressMargin': ef.size(2) 0 0,
 
     // // Info block
     'infoPadding': 0 ef.size(3),
@@ -85,8 +90,8 @@ $themeDefault: map-merge((
     'infoAlignItems': center,
     'infoTextAlign': center,
     'infoHeight': (
-        320: auto 100px,
-        1630: auto 132px,
+        320: auto 92px,
+        1630: auto 130px,
     ),
     'infoHeightActive': (
         320: ef.size(8) auto,
@@ -130,6 +135,8 @@ $themeDefault: map-merge((
         1630: 'QoteTextBold',
     ),
     'nameFontColor': var(--mc-baseMain),
+    'nameLineHeight': 1.2,
+
     'descriptionTextStyle': 'PrimaryText',
     'descriptionFontColor': ef.get('mainColors', 'PrimaryText'),
     'descriptionFontSize': ef.get('font', 'less'),
@@ -140,9 +147,13 @@ $themeDefault: map-merge((
     'progressBarColor': var(--mc-main),
     'progressBarText': 'PrimaryText',
     'progressBarSecondaryColor': var(--mc-baseMain),
-    'progressBarMargin': ef.size(1) 0,
-    'progressBarBoxShadow': inset 0 0 4px var(--mc-baseContast-o2),
+    'progressBarMargin': (
+        375: 0,
+        1630: ef.size(1) 0,
+    ),
+    'progressBarBoxShadow': inset 0 0 4px rgba(0, 0, 0, 0.25),
     'progressBarRadius': ef.get('radius', 'biger'),
+
     'remaningText': 'ButtonText',
     'remaningTextColor': var(--mc-baseMain),
 
@@ -160,7 +171,7 @@ $themeDefault: map-merge((
     'tagTransform': translateX(-50%),
 
     // // Description
-    'descriptionMargin': 0 0 ef.size(2),
+    'descriptionMargin': 0,
 
     // Btns
     'btnsInnerOffset': 0 ef.size(1),
@@ -184,6 +195,7 @@ $themeDefault: map-merge((
         320: ef.size(6),
         1630: ef.size(7),
     ),
+    'btnsMarginWithImg': ef.size(2) 0 0,
 
     // Bottom
     'btmFlexDir': column,
@@ -202,23 +214,21 @@ $themeDefault: map-merge((
 
     // // Backgrounds
     'backgroundDefault': var(--mc-bg300),
-    'backgroundDefaultHover': var(--mc-bg100),
+    'backgroundDefaultHover': var(--mc-bg500),
     'backgroundDefaultSize': cover,
     'backgroundDefaultRepeat': no-repeat,
     'overlayOpacity': 0,
     'overlayOpacityHover': 0.5,
 
+    'withImgWrapperBg': none,
+    'withImgOverlayOpacityHover': 1,
+
     // View-mode backgrounds
-    'backgroundExperience': linear-gradient(0deg, var(--mc-bgModal) 0%, var(--mc-bgModal-o0) 75%),
-    'backgroundExperienceHover': var(--mc-bg100),
-    'backgroundLoyalty': linear-gradient(0deg, var(--mc-bgModal) 0%, var(--mc-bgModal-o0) 75%),
-    'backgroundLoyaltyHover': var(--mc-bg100),
-    'backgroundBalance': linear-gradient(0deg, var(--mc-bgModal) 0%, var(--mc-bgModal-o0) 75%),
-    'backgroundBalanceHover': var(--mc-bg100),
-    'backgroundFreerounds': linear-gradient(0deg, var(--mc-bgModal) 0%, var(--mc-bgModal-o0) 75%),
-    'backgroundFreeroundsHover': var(--mc-bg100),
-    'backgroundRelative': linear-gradient(0deg, var(--mc-bgModal) 0%, var(--mc-bgModal-o0) 75%),
-    'backgroundRelativeHover': var(--mc-bg100),
+    'backgroundExperience': linear-gradient(0deg, var(--mc-bgModal) 0%, var(--mc-bgModal-o0) 95%),
+    'backgroundLoyalty': linear-gradient(0deg, var(--mc-bgModal) 0%, var(--mc-bgModal-o0) 95%),
+    'backgroundBalance': linear-gradient(0deg, var(--mc-bgModal) 0%, var(--mc-bgModal-o0) 95%),
+    'backgroundFreerounds': linear-gradient(0deg, var(--mc-bgModal) 0%, var(--mc-bgModal-o0) 95%),
+    'backgroundRelative': linear-gradient(0deg, var(--mc-bgModal) 0%, var(--mc-bgModal-o0) 95%),
 ), $customThemeDefault);
 
 // Other themes vars
@@ -229,3 +239,5 @@ $themeDefault: map-merge((
 @import './vars-theme-promo';
 @import './vars-theme-promo-home';
 @import './vars-theme-mod-chip-v2';
+@import './vars-reg-first';
+

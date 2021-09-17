@@ -32,6 +32,8 @@
                 <ng-container [ngTemplateOutlet]="moreIcon"></ng-container>
             </div>
             <div class="{{$class}}__bottom" data-wlc-element="bonus_info">
+                <ng-container *ngIf="$params.common.bonus?.isActive" [ngTemplateOutlet]="activeBlock"></ng-container>
+
                 <div class="{{$class}}__info-block">
                     <h4 class="{{$class}}__name" [wlc-clamp]="$params.common?.nameClamp || 1"
                         data-wlc-element="bonus_title-name">
@@ -45,8 +47,6 @@
                             (click)="openDescription($params.common.bonus)">
                     </button>
                 </div>
-
-                <ng-container *ngIf="$params.common.bonus?.isActive" [ngTemplateOutlet]="activeBlock"></ng-container>
 
                 <div class="{{$class}}__btns">
                     <ng-container *ngIf="isAuth" [ngTemplateOutlet]="userIsAuth"></ng-container>

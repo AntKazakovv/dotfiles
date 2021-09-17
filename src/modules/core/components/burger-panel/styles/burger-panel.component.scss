@@ -18,6 +18,7 @@
     outline-style: none;
     visibility: hidden;
     transition: map-get($themeDefault, 'transition');
+    box-shadow: ef.get('shadow', 'lg');
 
     ::ng-deep {
 

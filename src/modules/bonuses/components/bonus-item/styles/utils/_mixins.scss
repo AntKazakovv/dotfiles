@@ -56,10 +56,6 @@
 
         .wlc-bonus-item__wrapper {
             background: ef.get-value($themeDefault, 'backgroundExperience');
-
-            &:before {
-                background: ef.get-value($themeDefault, 'backgroundExperienceHover');
-            }
         }
     }
 
@@ -67,10 +63,6 @@
 
         .wlc-bonus-item__wrapper {
             background: ef.get-value($themeDefault, 'backgroundLoyalty');
-
-            &:before {
-                background: ef.get-value($themeDefault, 'backgroundLoyaltyHover');
-            }
         }
     }
 
@@ -78,10 +70,6 @@
 
         .wlc-bonus-item__wrapper {
             background: ef.get-value($themeDefault, 'backgroundBalance');
-
-            &:before {
-                background: ef.get-value($themeDefault, 'backgroundBalanceHover');
-            }
         }
     }
 
@@ -89,10 +77,6 @@
 
         .wlc-bonus-item__wrapper {
             background: ef.get-value($themeDefault, 'backgroundFreerounds');
-
-            &:before {
-                background: ef.get-value($themeDefault, 'backgroundFreeroundsHover');
-            }
         }
     }
 
@@ -100,10 +84,6 @@
 
         .wlc-bonus-item__wrapper {
             background: ef.get-value($themeDefault, 'backgroundRelative');
-
-            &:before {
-                background: ef.get-value($themeDefault, 'backgroundRelativeHover');
-            }
         }
     }
 }

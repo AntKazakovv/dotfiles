@@ -3,7 +3,7 @@
 $customThemeDefault: () !default;
 $themeDefault: map-merge((
     'panelHeight': 250px,
-    'panelBackground': var(--mc-bg700),
+    'panelBackground': var(--mc-bgModal),
     'panelContentPadding': (
         900: ef.size(6),
         1366: ef.size(11)
@@ -106,7 +106,7 @@ $themeDefault: map-merge((
 $customThemeLeft: () !default;
 $themeLeft: map-merge((
     'panelWidth': 290px,
-    'panelBackground': var(--mc-bg700),
+    'panelBackground': var(--mc-bgModal),
     'loginBtnBg': var(--mc-bg),
     'menuLinksColor': var(--mc-baseMain),
 
@@ -172,7 +172,7 @@ $themeLeft: map-merge((
 $customThemeOption3: () !default;
 $themeOption3: map-merge((
     'panelWidth': 470px,
-    'panelBackground': var(--mc-bg700),
+    'panelBackground': var(--mc-bgModal),
 
     'logoMaxWidth': 100%,
     'logoMargin': 0 auto,

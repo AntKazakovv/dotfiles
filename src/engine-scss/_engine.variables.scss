@@ -81,7 +81,7 @@ $mainColorsAlt: map-merge((
     'bg500': #ccd6e5,
     'bg700': #e5eaf2,
     'bg': #fff,
-    'bgModal': #e5eaf2,
+    'bgModal': #f2f5f8,
     'elementsColor': null,
     'error': #d96969,
     'success': #45c195,
@@ -518,7 +518,7 @@ $profileSettings: map-merge((
         1024: 80px,
     ),
 
-    // Эти два цвета не пробрасываются, т.к. в дальнейшем используются внутри url("data:image/svg+xml;...), туда не подходят css-переменные
+    // Locked colors
     'profileTabAngleBg': map-get($mainColors, 'bg700'),
     'profileTabAngleBgAlt': map-get($mainColorsAlt, 'bg700'),
 ), $customProfileSettings);
@@ -548,7 +548,7 @@ $buttonSettings: map-merge((
     // Font
     'fontSize': map-get($font, 'less'),
     'fontWeight': bold,
-    'fontColor': map-get($mainColors, 'baseMain'), // Shouldn't be css var
+    'fontColor': map-get($mainColors, 'baseMain'), // Locked color
     'fontColorActive': var(--mc-baseMain),
     'fontColorSecondary': var(--mc-baseMain),
     'fontColorSecondaryHover': var(--mc-baseMain),
@@ -678,12 +678,14 @@ $tableBtnBlock: map-merge((
 $customTagConfig: () !default;
 $tagConfig: map-merge((
     'textStyle': 'SignText',
+    'radius': map-get($radius, 'large'),
+    'padding': 4px 15px,
+
+    // Locked colors
     'bg': map-get($mainColors, 'secondary'),
     'bgActive': map-get($mainColors, 'main'),
     'color': map-get($mainColors, 'baseMain'),
     'colorActive': map-get($mainColors, 'baseMain'),
-    'radius': map-get($radius, 'large'),
-    'padding': 4px 15px,
 ), $customTagConfig);
 
 $customHlSubstr: () !default;
@@ -691,6 +693,12 @@ $hlSubstr: map-merge((
     'fontStyle': 'PrimaryTextBold',
     'textColor': var(--fc-textColor),
 ), $customHlSubstr);
+
+// TODO: стандартизировать все тени, использующиеся в компонентах и ссылаться на них через этот конфиг
+$customShadows: () !default;
+$shadows: map-merge((
+    'lg': 0 0 20px rgba(0, 0, 0, 0.3),
+), $customShadows);
 
 $body-bg: var(--mc-bg) !default;
 $body-color: var(--mc-baseMain) !default;
