@@ -18,6 +18,7 @@ import {
     NotificationEvents,
 } from 'wlc-engine/modules/core';
 import {UserProfile} from 'wlc-engine/modules/user';
+import {IContactsConfig} from 'wlc-engine/modules/core/system/interfaces';
 import * as Params from './feedback-form.params';
 
 /**
@@ -39,8 +40,7 @@ export class FeedbackFormComponent extends AbstractComponent implements OnInit, 
     @Input() protected inlineParams: Params.IFeedbackFormCParams;
     public $params: Params.IFeedbackFormCParams;
     public config = Params.feedbackConfig;
-    public phone: string;
-    public email: string;
+    public contactsConfig: IContactsConfig;
     public formData$: BehaviorSubject<IIndexing<any>> = new BehaviorSubject(null);
     protected userProfile$: BehaviorSubject<UserProfile>;
     protected form: FormGroup;
@@ -57,8 +57,7 @@ export class FeedbackFormComponent extends AbstractComponent implements OnInit, 
     public ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
 
-        this.phone = this.configService.get<string>('$base.contacts.phone');
-        this.email = this.configService.get<string>('$base.contacts.email');
+        this.contactsConfig = this.configService.get<IContactsConfig>('$base.contacts');
     }
 
     public ngAfterViewInit(): void {

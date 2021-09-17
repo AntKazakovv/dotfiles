@@ -4,11 +4,11 @@ import {IProfileConfig} from './profile.interface';
 import {ITournamentsConfig} from './tournaments.interface';
 import {IAppConfig} from './app.interface';
 import {INotificationsConfig} from './notifications.interface';
+import {IContactsConfig} from './contacts.interface';
 import {IInteractiveText} from './interactiveText.interface';
 import {ILivechatConfig} from 'wlc-engine/modules/livechat';
 import {IRedirectConfig} from 'wlc-engine/modules/core';
 import {IRegistrationConfig} from './registration.interface';
-import {ISocialItem} from 'wlc-engine/modules/core/components/social-icons/social-icons.params';
 import {IAnalytics} from 'wlc-engine/modules/analytics/system/interfaces/analytics.interface';
 import {IColorThemeSwitchingConfig} from './color-theme-switching.config';
 import {IFinancesConfig} from './finances.interface';
@@ -16,6 +16,7 @@ import {IFinancesConfig} from './finances.interface';
 export * from './games.interface';
 export * from './tournaments.interface';
 export * from './finances.interface';
+export * from './contacts.interface';
 
 export interface IBaseConfig {
     app?: IAppConfig;
@@ -34,11 +35,7 @@ export interface IBaseConfig {
     games?: IGamesConfig,
     device?: IDeviceConfig,
     notifications?: INotificationsConfig,
-    contacts?: {
-        phone?: string;
-        email?: string;
-        socials?: ISocialItem[]
-    };
+    contacts?: IContactsConfig,
     interactiveText?: IInteractiveText[];
     livechat?: ILivechatConfig;
     /**
