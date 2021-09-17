@@ -109,6 +109,11 @@
         color: ef.get-value($themeDefaultBanner, 'iconFillDisabled');
         background: ef.get-value($themeDefaultBanner, 'buttonBgDisabled');
         cursor: default;
+
+        .wlc-slider--type-default[data-wlc-element]:not(.wlc-slider--overflow) + .ng-star-inserted &,
+        .wlc-slider--type-default:not(.wlc-slider--overflow) & {
+            display: none;
+        }
     }
 
     @include em.hover {
@@ -136,3 +141,4 @@
         transform: rotate(-90deg);
     }
 }
+
