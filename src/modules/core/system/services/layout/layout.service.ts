@@ -217,6 +217,7 @@ export class LayoutService {
      * @returns filtered elements
      */
     public filterDisplayElements<T>(elementList: ({display?: IDisplayConfig} & T)[]): T[] {
+        GlobalHelper.overrideDisplayResize(elementList);
         return _filter(elementList, (element) => {
             let result = true;
             if (_isObject(element)) {
