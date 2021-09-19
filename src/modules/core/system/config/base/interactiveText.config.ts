@@ -48,7 +48,7 @@ export const interactiveTextConfig: IInteractiveText[] = [
         text: gettext('Hit Jackpot'),
         actionParams: {
             url: {
-                path: 'app.catalog',
+                path: 'app.catalog.child',
                 params: {
                     category: 'casino',
                     childCategory: 'jackpots',
