@@ -9,6 +9,7 @@ import {ILivechatConfig} from 'wlc-engine/modules/livechat';
 import {IRedirectConfig} from 'wlc-engine/modules/core';
 import {IRegistrationConfig} from './registration.interface';
 import {ISocialItem} from 'wlc-engine/modules/core/components/social-icons/social-icons.params';
+import {IAnalytics} from 'wlc-engine/modules/analytics/system/interfaces/analytics.interface';
 import {IColorThemeSwitchingConfig} from './color-theme-switching.config';
 import {IFinancesConfig} from './finances.interface';
 
@@ -48,6 +49,10 @@ export interface IBaseConfig {
      * Use seo service; Service gets information from wordpress plugin 'Seo Softgamings';
      */
     useSeo?: boolean;
+    /**
+     * Config of web analytics systems
+     */
+    analytics?: IAnalytics;
     colorThemeSwitching?: IColorThemeSwitchingConfig;
     registration?: IRegistrationConfig;
     finances?: IFinancesConfig;
