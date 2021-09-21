@@ -1,6 +1,9 @@
 import {AbstractModel} from 'wlc-engine/modules/core/system/models/abstract.model';
 import {IMerchant} from 'wlc-engine/modules/games';
-import {IFromLog} from 'wlc-engine/modules/core';
+import {
+    IFromLog,
+    IIndexing,
+} from 'wlc-engine/modules/core';
 
 import _assign from 'lodash-es/assign';
 import _toNumber from 'lodash-es/toNumber';
@@ -41,6 +44,27 @@ export class MerchantModel extends AbstractModel<IMerchant> {
 
     public get wlcElement(): string {
         return 'block_merchant-' + this.alias.toLowerCase();
+    }
+
+    /**
+     * return merchant setting
+     */
+    public get settings(): IIndexing<any> {
+        return this.data.Settings;
+    }
+
+    /**
+     * return DGA_URL for PragmaticPlayLive merchant
+     */
+    public get dgaUrl(): string {
+        return this.settings?.DGA_URL;
+    }
+
+    /**
+     * return CASINO_ID for PragmaticPlayLive merchant
+     */
+    public get casinoID(): string {
+        return this.settings?.CASINO_ID;
     }
 
     protected init(data: IMerchant): void {

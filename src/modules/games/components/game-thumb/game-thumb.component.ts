@@ -18,6 +18,7 @@ import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract
 import {IIndexing} from 'wlc-engine/modules/core/system/interfaces/global.interface';
 import {ActionService} from 'wlc-engine/modules/core/system/services/action/action.service';
 import {Game} from 'wlc-engine/modules/games/system/models/game.model';
+import {PragmaticLiveModel} from 'wlc-engine/modules/games/system/models/pragmatic-live.model';
 import {
     GamesCatalogService,
 } from 'wlc-engine/modules/games/system/services/games-catalog/games-catalog.service';
@@ -59,6 +60,18 @@ export class GameThumbComponent extends AbstractComponent implements OnInit, Aft
     public inited: boolean = false;
     public initFailed: boolean = false;
 
+    /**
+     * Pragmatic play live data model
+     */
+    public pragmaticDGA: PragmaticLiveModel;
+
+    /**
+     * return true if pragmatic dga is presented
+     */
+    public get hasPragmaticDGA(): boolean {
+        return this.game.merchantID === 913 && !!this.pragmaticDGA;
+    }
+
     protected deviceType: DeviceType;
     protected idVerticalVideos: number[];
     protected mediaFormatTypes: IIndexing<string>;
@@ -96,6 +109,31 @@ export class GameThumbComponent extends AbstractComponent implements OnInit, Aft
             this.game = this.$params.common.game;
         } else if (this.$params.common?.gameId) {
             this.game = this.gamesCatalogService.getGameById(this.$params.common.gameId);
+        }
+
+        if (this.game.merchantID === 913) {
+            this.gamesCatalogService.subscribePragmaticLive(
+                this.game,
+                this.$destroy,
+                (pragmaticData: PragmaticLiveModel) => {
+                    if (pragmaticData) {
+                        this.pragmaticDGA = pragmaticData;
+                        this.cdr.detectChanges();
+                    }
+                });
+            this.eventService.subscribe(
+                [
+                    {name: 'LOGIN'},
+                    {name: 'LOGOUT'},
+                ],
+                () => {
+                    if (this.pragmaticDGA) {
+                        setTimeout(() => {
+                            this.cdr.detectChanges();
+                        });
+                    }
+                },
+                this.$destroy);
         }
 
         if (this.$params.type === 'promo-widget') {
@@ -155,7 +193,6 @@ export class GameThumbComponent extends AbstractComponent implements OnInit, Aft
      *
      * @param {boolean} demo
      * @param {boolean} modal
-     * @param {boolean} forMobile
      * @param {Event} $event
      */
     public startGame(demo: boolean, modal: boolean, $event: Event): void {

@@ -114,6 +114,10 @@
         <ng-container [ngTemplateOutlet]="buttonFavourite"></ng-container>
         <ng-container [ngTemplateOutlet]="buttonsPlayDemo"></ng-container>
     </div>
+    <ng-container
+        *ngIf="hasPragmaticDGA"
+        [ngTemplateOutlet]="pragmaticPlayLive">
+    </ng-container>
 </ng-template>
 
 <ng-template #thumbImg>
@@ -171,5 +175,61 @@
     <!-- TODO: do special preloader -->
     <div class="{{$class}}__loader">
         <div wlc-loader></div>
+    </div>
+</ng-template>
+
+<ng-template #pragmaticPlayLive>
+    <div class="{{$class}}__ppl-limits">
+        <span wlc-currency
+              [value]="pragmaticDGA.minBet"
+              [currency]="pragmaticDGA.currency">
+        </span> -
+        <span wlc-currency
+              [value]="pragmaticDGA.maxBet"
+              [currency]="pragmaticDGA.currency">
+        </span>
+    </div>
+
+    <div class="{{$class}}__ppl"
+         (click)="startGame(false, true, $event)">
+
+        <div *ngIf="pragmaticDGA.lastResult?.length"
+             class="{{$class}}__ppl-results" >
+            <div *ngFor="let item of pragmaticDGA.lastResult"
+                 class="{{$class}}__ppl-results-item {{$class}}__ppl-results-item--{{item.type}}">
+                {{item.value}}
+            </div>
+        </div>
+
+        <div class="{{$class}}__ppl-info"
+             [ngClass]="[pragmaticDGA.freePlaces ? '' : $class + '__ppl-info--no-available-place']">
+            <div class="{{$class}}__ppl-info-item">
+                <div wlc-icon
+                    [iconPath]="'/wlc/icons/pragmaticplaylive/places.svg'"
+                ></div>
+                <div class="{{$class}}__ppl-info-text">
+                    {{pragmaticDGA.seated}}
+                </div>
+            </div>
+
+            <div *ngIf="pragmaticDGA.freePlaces"
+                 class="{{$class}}__ppl-info-item">
+                <div wlc-icon
+                    [iconPath]="'/wlc/icons/pragmaticplaylive/players.svg'"
+                ></div>
+                <div class="{{$class}}__ppl-info-text">
+                    {{pragmaticDGA.freePlaces}}
+                </div>
+            </div>
+
+            <div class="{{$class}}__ppl-info-item">
+                <div wlc-icon
+                    [iconPath]="'/wlc/icons/pragmaticplaylive/dealer.svg'"
+                ></div>
+                <div class="{{$class}}__ppl-info-text">
+                    {{pragmaticDGA.dealer}}
+                </div>
+            </div>
+        </div>
     </div>
 </ng-template>
