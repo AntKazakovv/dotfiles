@@ -104,6 +104,8 @@ export interface IMenuCParams extends IComponentParams<MenuTheme, MenuType, stri
     },
     items?: MenuItemType[];
     scrollDuration?: number;
+    /** If true - dropdown menu is open by default */
+    expandOnStart?: boolean;
 }
 
 export interface IMenuItemsGlobal {
