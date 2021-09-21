@@ -63,6 +63,47 @@ $themeDefault: map-merge((
     'favouriteBackSize': ef.size(8),
     'favouriteBackRadius': ef.get('radius', 'biger'),
     'favouriteBoxShadow': none,
+
+    'pplTextStyle': (
+        375: 'SignText',
+        900: 'PrimaryText',
+    ),
+    'pplPosition': 0,
+    'pplWidth': 100%,
+    'pplBg': var(--mc-bg-o8),
+    'pplLimitsText': 'PlaceholderText',
+    'pplLimitsPadding': ef.size(1) ef.size(2),
+    'pplLimitsPosition': 5px,
+    'pplLimitsRadius': ef.get('radius', 'small'),
+
+    'pplInfoAlign': center,
+    'pplInfoJustify': space-between,
+    'pplInfoHeight': 40px,
+    'pplInfoPadding': ef.size(1),
+
+    'pplItemAlign': center,
+    'pplItemMargin': 0 ef.size(1) 0,
+    'pplItemRed': #ea7561,
+    'pplItemGreen': #49afab,
+    'pplItemBlue': #679ed0,
+    'pplItemMin': (
+        375: 40px,
+        1200: 50px,
+    ),
+
+    'pplResultsAlign': center,
+    'pplResultsJustify': center,
+    'pplResultsSize': 20px,
+    'pplResultTextStyle': 'SignText',
+    'pplResultBorder': 1px solid var(--mc-bg100),
+
+    'pplResultsFirstSize': 24px,
+    'pplResultsFirstMargin': -2px 0,
+
+    'pplIconWidth': (
+        320: 15px,
+        900: 20px,
+    ),
 ), $customThemeDefault);
 
 $customThemeDefaultCircle: () !default;

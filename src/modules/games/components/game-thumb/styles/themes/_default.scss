@@ -125,6 +125,97 @@
                 }
             }
         }
+
+        &__ppl {
+            @include bm.transition(all);
+            position: absolute;
+            bottom: ef.get-value($themeDefault, 'pplPosition');
+            z-index: 1;
+            width: ef.get-value($themeDefault, 'pplWidth');
+            background: ef.get-value($themeDefault, 'pplBg');
+
+            &-limits {
+                @include bm.transition(all);
+                @include text.get-text-style(ef.get-value($themeDefault, 'pplLimitsText'));
+
+                position: absolute;
+                top: ef.get-value($themeDefault, 'pplLimitsPosition');
+                left: ef.get-value($themeDefault, 'pplLimitsPosition');
+                z-index: 10;
+                padding: ef.get-value($themeDefault, 'pplLimitsPadding');
+                background: ef.get-value($themeDefault, 'pplBg');
+                border-radius: ef.get-value($themeDefault, 'pplLimitsRadius');
+            }
+
+            &-info {
+                @include text.get-text-style(ef.get-value($themeDefault, 'pplTextStyle', 375));
+                display: flex;
+                align-items: ef.get-value($themeDefault, 'pplInfoAlign');
+                justify-content: ef.get-value($themeDefault, 'pplInfoJustify');
+                min-height: ef.get-value($themeDefault, 'pplInfoHeight');
+                padding: ef.get-value($themeDefault, 'pplInfoPadding');
+
+                &-item {
+                    @include bm.get-mq-map('min-width', $themeDefault, 'pplItemMin');
+                    display: flex;
+                    align-items: ef.get-value($themeDefault, 'pplItemAlign');
+
+                    .wlc-icon {
+                        margin: ef.get-value($themeDefault, 'pplItemMargin');
+                        line-height: 0;
+
+                        ::ng-deep {
+
+                            svg {
+                                @include bm.get-mq-map('width', $themeDefault, 'pplIconWidth');
+                            }
+                        }
+                    }
+                }
+
+                &-text {
+                    overflow: hidden;
+                    white-space: nowrap;
+                    text-overflow: ellipsis;
+                }
+
+                @include mq.min(900) {
+                    @include text.get-text-style(ef.get-value($themeDefault, 'pplTextStyle', 900));
+                }
+            }
+
+            &-results {
+                display: flex;
+
+                &-item {
+                    @include text.get-text-style(ef.get-value($themeDefault, 'pplResultTextStyle'));
+                    display: flex;
+                    align-items: ef.get-value($themeDefault, 'pplResultsAlign');
+                    justify-content: ef.get-value($themeDefault, 'pplResultsJustify');
+                    width: ef.get-value($themeDefault, 'pplResultsSize');
+                    height: ef.get-value($themeDefault, 'pplResultsSize');
+                    border: ef.get-value($themeDefault, 'pplResultBorder');
+
+                    &:first-child {
+                        width: ef.get-value($themeDefault, 'pplResultsFirstSize');
+                        height: ef.get-value($themeDefault, 'pplResultsFirstSize');
+                        margin: ef.get-value($themeDefault, 'pplResultsFirstMargin');
+                    }
+
+                    &--red {
+                        background-color: ef.get-value($themeDefault, 'pplItemRed');
+                    }
+
+                    &--green {
+                        background-color: ef.get-value($themeDefault, 'pplItemGreen');
+                    }
+
+                    &--blue {
+                        background-color: ef.get-value($themeDefault, 'pplItemBlue');
+                    }
+                }
+            }
+        }
     }
 
     &.wlc-game-thumb--theme-mod-vertical {
@@ -264,6 +355,13 @@
             &:before {
                 transform: translateX(0) skewX(0);
             }
+        }
+
+        .wlc-game-thumb__ppl,
+        .wlc-game-thumb__ppl-limits {
+            transform: translateX(100%) skewX(35deg);
+            opacity: 0;
+            pointer-events: none;
         }
     }
 

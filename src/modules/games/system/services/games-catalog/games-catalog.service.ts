@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import {Injectable, Injector} from '@angular/core';
 import {
     UIRouter,
     UIRouterGlobals,
@@ -7,6 +7,7 @@ import {TranslateService} from '@ngx-translate/core';
 import {
     Observable,
     Subject,
+    Subscription,
 } from 'rxjs';
 import {
     distinctUntilChanged,
@@ -21,6 +22,11 @@ import {IData} from 'wlc-engine/modules/core/system/services/data/data.service';
 import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
 import {LogService} from 'wlc-engine/modules/core/system/services/log/log.service';
 import {ModalService} from 'wlc-engine/modules/core/system/services/modal/modal.service';
+import {
+    IPragmaticPlaySettings,
+    PragmaticPlayLiveService,
+} from 'wlc-engine/modules/games/system/services/pragmatic-play-live/pragmatic-play-live.service';
+
 import {IPushMessageParams} from 'wlc-engine/modules/core/system/services/notification/notification.interface';
 import {NotificationEvents} from 'wlc-engine/modules/core/system/services/notification/notification.service';
 import {DeviceType} from 'wlc-engine/modules/core/system/models/device.model';
@@ -37,6 +43,7 @@ import {
     IPlayGameForRealCParams,
 } from 'wlc-engine/modules/games/components/play-game-for-real/play-game-for-real.params';
 import {JackpotModel} from 'wlc-engine/modules/games/system/models/jackpot.model';
+import {PragmaticLiveModel} from 'wlc-engine/modules/games/system/models/pragmatic-live.model';
 import {
     IFavourite,
     IGameParams,
@@ -98,9 +105,10 @@ export class GamesCatalogService {
     private verticalThumbsConfig: IVerticalThumbsConfig;
     private lastPlayed: Game[] = [];
     // TODO Delete after #246227
-    private jackpotParams: { currency?: string } = {};
+    private jackpotParams: {currency?: string} = {};
     private jackpotCurrency: string;
     private jackpotRestart$: Subject<void> = new Subject();
+    private pragmaticPlayLiveService: PragmaticPlayLiveService;
 
     // END Delete after #246227
 
@@ -114,6 +122,7 @@ export class GamesCatalogService {
         protected actionService: ActionService,
         protected modalService: ModalService,
         protected logService: LogService,
+        protected injector: Injector,
     ) {
         this.init();
     }
@@ -149,6 +158,19 @@ export class GamesCatalogService {
                     },
                 });
             }
+
+            const PPL = this.getMerchantById(913);
+            if (PPL && PPL.dgaUrl && PPL.casinoID) {
+                this.configService.set<IPragmaticPlaySettings>({
+                    name: 'pragmaticPlaySettings',
+                    value: {
+                        dgaUrl: PPL.dgaUrl,
+                        casinoId: PPL.casinoID,
+                    },
+                });
+                this.pragmaticPlayLiveService = this.injector.get(PragmaticPlayLiveService);
+            }
+
             this.$resolve();
             this.loadJackpots();
             this.getFavouriteGames();
@@ -194,6 +216,22 @@ export class GamesCatalogService {
                 }
                 this.isMobile = type !== DeviceType.Desktop;
             });
+    }
+
+    /**
+     * Return Subscription to pragmatic play live
+     *
+     * @param game {Game} - game model
+     * @param until {Subject} - takeUntil subject
+     * @param observer {function} - observer
+     * @returns Subscription
+     */
+    public async subscribePragmaticLive(
+        game: Game,
+        until: Subject<any>,
+        observer: (pragmaticData: PragmaticLiveModel) => void,
+    ): Promise<Subscription> {
+        return this.pragmaticPlayLiveService?.subscribe(game, until, observer);
     }
 
     /**

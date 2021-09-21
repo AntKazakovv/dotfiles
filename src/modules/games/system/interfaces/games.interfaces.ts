@@ -104,6 +104,7 @@ export type IMerchant = {
     Name: string;
     menuId: string;
     IDParent: string | null;
+    Settings?: IIndexing<string>;
 }
 
 export type ICountriesRestriction = {
