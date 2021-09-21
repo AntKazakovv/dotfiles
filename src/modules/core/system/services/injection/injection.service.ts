@@ -217,6 +217,14 @@ export class InjectionService {
                     this.afterModuleLoad('custom', m);
                     return m.CustomModule;
                 });
+            case 'analytics':
+                if (this.loadedModules.analytics) {
+                    return this.loadedModules.analytics;
+                }
+                return import('wlc-engine/modules/analytics/analytics.module').then(m => {
+                    this.afterModuleLoad('analytics', m);
+                    return m.AnalyticsModule;
+                });
         }
     }
 

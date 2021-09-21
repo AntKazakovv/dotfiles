@@ -37,6 +37,8 @@ import {
     ILivechatConfig,
     CommonChatService,
 } from 'wlc-engine/modules/livechat';
+import {IAnalytics} from 'wlc-engine/modules/analytics/system/interfaces/analytics.interface';
+import {AnalyticsService} from 'wlc-engine/modules/analytics';
 
 import _each from 'lodash-es/each';
 import _findIndex from 'lodash-es/findIndex';
@@ -98,6 +100,8 @@ export class AppComponent extends AbstractComponent implements OnInit, OnDestroy
             titleService.setTitle(siteName);
         }
         this.isIOS = this.actionService.device.osName === 'ios';
+
+        this.loadAnalytics();
     }
 
     public async ngOnInit(): Promise<void> {
@@ -172,6 +176,17 @@ export class AppComponent extends AbstractComponent implements OnInit, OnDestroy
 
     public trackBySectionName(index: number, section: SectionModel): string {
         return section.name;
+    }
+
+    private async loadAnalytics(): Promise<void> {
+        await this.configService.ready;
+        const analyticsConfig = this.configService.get<IAnalytics>('$base.analytics');
+
+        if (!analyticsConfig || !analyticsConfig?.use) {
+            return;
+        }
+
+        this.injectionService.getService<AnalyticsService>('analytics.analytics-service');
     }
 
     private updateSections(): void {

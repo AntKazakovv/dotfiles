@@ -19,7 +19,13 @@ declare interface IPaymentIQCashier {
     new (el: string, cashierConfig: IPiqCashierConfig, callback?: Function);
 }
 
-declare interface Window {
+declare type TMethodName = 'fbq' | 'gtag';
+
+declare type TAnalyticMethod = {
+    [key in TMethodName]: Function;
+}
+
+declare interface Window extends TAnalyticMethod {
     WLC_VERSION: number;
     WLC_ENV?: string;
     WLC_FORBIDDEN?: boolean;
