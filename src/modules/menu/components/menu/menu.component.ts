@@ -280,16 +280,24 @@ export class MenuComponent extends AbstractComponent implements OnInit, OnChange
     }
 
     protected expandItems(): void {
-        _forEach(this.items, (item: Params.IMenuItemsGroup) => {
-            if (item.parent) {
-                item.expand = !!_find(item.items, (subItem) => {
-                    if (_has(subItem, 'parent')) {
-                        return false;
-                    }
-                    return this.isActive((subItem as Params.IMenuItem).params?.state?.name);
-                });
-            }
-        });
+        if (this.$params.expandOnStart) {
+            _forEach(this.items, (item: Params.IMenuItemsGroup) => {
+                if (item.parent) {
+                    item.expand = true;
+                }
+            });
+        } else {
+            _forEach(this.items, (item: Params.IMenuItemsGroup) => {
+                if (item.parent) {
+                    item.expand = !!_find(item.items, (subItem) => {
+                        if (_has(subItem, 'parent')) {
+                            return false;
+                        }
+                        return this.isActive((subItem as Params.IMenuItem).params?.state?.name);
+                    });
+                }
+            });
+        }
 
         if (this.isAffiliate) {
             this.items = this.changeLinkForAffiliate(this.items);

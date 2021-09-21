@@ -32,6 +32,7 @@ $themeLong: map-merge((
     ),
     'imageBlockSize': 235px,
     'imageBlockBg': var(--mc-bg300),
+    'imagePseudoBg': linear-gradient(180deg, var(--mc-bg-o0) 40%, var(--mc-bg) 75%),
 
     'nameFontColor': var(--mc-baseMain),
     'descrTextStyle': 'PlaceholderText',
