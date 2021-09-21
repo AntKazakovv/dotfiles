@@ -243,8 +243,10 @@ export class WlcModalComponent extends AbstractComponent
     }
 
     protected setIgnoreBackdropClick(matches: boolean): void {
-        this.modalRef.config = _assign(this.bsOptions, {
-            ignoreBackdropClick: matches || !!this.bsOptions.ignoreBackdropClick,
+        setTimeout(() => {
+            this.modalRef.config = _assign(this.bsOptions, {
+                ignoreBackdropClick: matches || !!this.bsOptions.ignoreBackdropClick,
+            });    
         });
     }
 
