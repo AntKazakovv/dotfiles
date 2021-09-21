@@ -12,7 +12,7 @@
             @include em.get-mq-map('padding', $themeDefault, 'containerPadding');
             height: ef.get-value($themeDefault, 'height');
             border-radius: ef.get-value($themeDefault, 'containerRadius');
-            overflow: hidden;
+            overflow: visible;
         }
 
         &-nav {

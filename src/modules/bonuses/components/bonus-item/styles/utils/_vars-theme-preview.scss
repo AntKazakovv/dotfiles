@@ -7,7 +7,7 @@ $themePreview: map-merge((
     'hostAlignContent': baseline,
     'hostJustifyItems': center,
     'hostTextAlign': center,
-    'hostRadius': 0,
+    'hostRadius': 0 ef.get('radius', 'big') ef.get('radius', 'big') 0,
     'hostRowOffset': (
         375: ef.size(6),
         1630: ef.size(12),
