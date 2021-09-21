@@ -71,7 +71,8 @@ $themePartial: map-merge((
     'iconSignBackground': ef.get('mainColors', 'baseMain'),
     'iconSignSize': (
         320: 120px,
-        900: 130px,
+        900: 110px,
+        1200: 130px,
         1630: 145px,
     ),
 

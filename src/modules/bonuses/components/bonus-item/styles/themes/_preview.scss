@@ -87,10 +87,11 @@
         }
 
         &__blank {
+            @include em.get-mq-map('padding', $themePreview, 'bonusPadding');
+
             display: flex;
             flex-direction: column;
             height: ef.get-value($themePreview, 'bonusHeight');
-            padding: ef.get-value($themePreview, 'bonusPadding');
             text-align: center;
             background: ef.get-value($themePreview, 'blankBg');
 

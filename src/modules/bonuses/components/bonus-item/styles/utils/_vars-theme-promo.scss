@@ -7,19 +7,23 @@ $themePromo: map-merge((
     'radius': ef.get('radius', 'biger'),
     'height': (
         320: auto,
-        560: 350px,
-        900: 450px,
-        1200: 350px,
-        1630: 450px,
+        560: 250px,
+        720: 380px,
+        1200: 280px,
+        1630: 380px,
     ),
     'maxWidth': (
-        320: 400px,
-        560: 575px,
-        900: 790px,
+        375: 315px,
+        560: 715px,
+        900: 970px,
+        1200: 100%
     ),
     'wrapperColumns': (
         375: 1fr,
-        560: 4fr 3fr,
+        560: 1fr 225px,
+        720: 1fr 340px,
+        1200: 1fr 250px,
+        1630: 1fr 340px,
     ),
     'wrapperAreas': (
         375: 'common',
@@ -27,24 +31,29 @@ $themePromo: map-merge((
     ),
 
     //Info
-    'infoAreas': 'tag' 'info' 'buttons',
-    'infoRows':  ef.size(5) 1fr auto,
     'infoPadding': (
-        375: ef.size(4) ef.size(4) ef.size(6),
-        560: ef.size(6) ef.size(8) ef.size(8),
+        375: 185px ef.size(4) ef.size(6),
+        560: ef.size(4),
+        720: ef.size(6) ef.size(8) ef.size(8),
+        1200: ef.size(4),
+        1630: ef.size(6) ef.size(8) ef.size(8),
     ),
-    'infoGap': (
+    'infoFlexDirection': column,
+    'infoAlignItems': (
+        375: center,
+        560: flex-start,
+    ),
+    'infoItemsMargin': (
         375: ef.size(4),
-        560: ef.size(6),
-        1630: ef.size(12),
+        560: auto,
     ),
     'infoAreaName': (
         375: common,
         560: info,
     ),
-    'infoJustifyItems': (
+    'infoTextAlign': (
         375: center,
-        560: start,
+        560: left,
     ),
 
     'nameFontColor': var(--mc-baseMain),
@@ -55,8 +64,7 @@ $themePromo: map-merge((
         1630: 'PromoTitle',
     ),
     'nameMargin': (
-        375: ef.size(24) 0 ef.size(2),
-        560: 0 0 ef.size(2),
+        375: 0 0 ef.size(2),
         900: 0 0 ef.size(4),
         1200: 0 0 ef.size(2),
         1630: 0 0 ef.size(4),
@@ -65,7 +73,14 @@ $themePromo: map-merge((
     'descriptionFontColor': ef.get('mainColors', 'PrimaryText'),
 
     //Tag
-    'tagAlignSelf': start,
+    'infoTagPosition': (
+        375: absolute,
+        560: relative
+    ),
+    'infoTagPositionTop': (
+        375: 20px,
+        560: auto
+    ),
 
     //Image
     'imgBlockAreaName': (
