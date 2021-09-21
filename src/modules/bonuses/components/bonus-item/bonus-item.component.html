@@ -168,7 +168,7 @@
         </div>
         <div *ngIf="$params.common.bonus?.description"
              class="{{$class}}__footer">
-            <div class="{{$class}}__description" [innerHtml]="$params.common.bonus.description"></div>
+            <ng-container [ngTemplateOutlet]="description"></ng-container>
         </div>
     </div>
 </ng-template>
