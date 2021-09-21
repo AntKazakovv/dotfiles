@@ -121,7 +121,7 @@
             @include text.get-text-style(ef.get-value($themePartial, 'bonusDescriptionStyle'), ef.get-value($themePartial, 'bonusDescriptionColor'));
             @include em.lineClamp(4);
 
-            text-align: justify;
+            text-align: center;
         }
     }
 
