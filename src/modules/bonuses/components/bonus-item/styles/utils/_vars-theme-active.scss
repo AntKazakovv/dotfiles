@@ -3,7 +3,7 @@
 $customThemeActive: () !default;
 $themeActive: map-merge((
     'background': ef.get-value($themeDefault, 'backgroundDefault'),
-    'backgroundHover': ef.get-value($themeDefault, 'backgroundDefaultHover'),
+    'backgroundHover': null,
     'radius': ef.size(2),
     'wrapperPadding': (
         375: 0 0 ef.size(4),
@@ -48,13 +48,19 @@ $themeActive: map-merge((
     'tagPositionLeft': 50%,
     'tagPositionTransform': translateX(-50%),
 
-    'nameColor': var(--mc-baseMain),
+    'nameColor': (
+        375: ef.get('mainColors', 'baseMain'), //Locked color
+        560: var(--mc-baseMain)
+    ),
     'nameTextStyle': (
         375: 'ThirdTitleBold',
         560: 'QoteTextBold',
     ),
 
-    'descriptionColor': var(--mc-baseMain),
+    'descriptionColor': (
+        375: ef.get('mainColors', 'baseMain'), //Locked color
+        560: var(--mc-baseMain)
+    ),
     'descrMaxWidth': (
         1630: 34ch
     ),
@@ -112,6 +118,7 @@ $themeActive: map-merge((
     ),
 
     'progressPadding': ef.size(2),
+    'progressMargin': 0,
     'progressBg': (
         320: var(--mc-bg),
     ),

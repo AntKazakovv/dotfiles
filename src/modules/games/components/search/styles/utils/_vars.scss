@@ -64,8 +64,8 @@ $themeDefault: map-merge((
         900: ef.get('size', 'smaller') 0 0,
     ),
     'listBtnTransition': ef.get('time', 'main'),
-    'listBtnIconBackground': var(--mc-bg300),
-    'listBtnIconBackgroundActive': var(--mc-bg300),
+    'listBtnIconBackground': none,
+    'listBtnIconBackgroundActive': none,
     'listBtnIconBorder': 2px solid var(--fc-borderColor),
     'listBtnIconActive': 2px solid var(--mc-main),
     'listBtnIconMargin': 0 0 0 5px,
@@ -189,7 +189,7 @@ $themeDefault: map-merge((
     ),
     'searchPanelBg': (
         375: none,
-        560: var(--mc-bg300),
+        560: var(--mc-bg700),
     ),
     'searchPanelBorderRadius': ef.get('radius', 'biger'),
     'searchColWidth': (

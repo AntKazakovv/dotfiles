@@ -40,7 +40,7 @@ $themeFirst: map-merge((
     'moreIconPadding': ef.get('size', 'smallest'),
     // // Backgrounds
     'background': var(--mc-bg300),
-    'backgroundHover': var(--mc-bg500),
+    'backgroundHover': null,
     'imageBg': var(--mc-bg500),
     'imageGradient': linear-gradient(180deg, var(--mc-baseContrast-o8) 0%, var(--mc-baseContrast-o0) 25%),
     // // Radius

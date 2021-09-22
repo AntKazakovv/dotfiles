@@ -3,8 +3,6 @@
 @use 'engine-scss/mixins/base.mixins' as em;
 @use 'engine-scss/mixins/mediaqueries' as mq;
 
-@import '../utils/vars';
-
 .wlc-tournament-promo--theme-default:host {
 
     .wlc-tournament-promo {
@@ -68,6 +66,24 @@
             &-price {
                 display: block;
                 @include text.get-text-style(ef.get-value($themeDefault, 'priceFontStyle'), ef.get-value($themeDefault, 'priceColor'));
+            }
+
+            ::ng-deep {
+
+                .wlc-link-block {
+
+                    .wlc-btn[class] {
+                        color: ef.get-value($themeDefault, 'linkBlockColor');
+
+                        @include em.hover {
+
+                            &,
+                            .wlc-icon {
+                                color: ef.get-value($themeDefault, 'linkBlockColorHover');
+                            }
+                        }
+                    }
+                }
             }
         }
 

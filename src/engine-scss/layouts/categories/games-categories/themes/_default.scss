@@ -25,11 +25,6 @@
 
     .wlc-btn-search.wlc-btn,
     .wlc-btn-merch.wlc-btn {
-        flex-shrink: 0;
-        justify-content: space-between;
-        align-items: center;
-        margin-left: auto;
-
         @include bm.get-mq-map('height', $gamesCategoriesDefault, 'buttonSearchHeight');
         @include bm.get-mq-map('width', $gamesCategoriesDefault, 'buttonSearchWidth');
         @include bm.get-mq-map('min-width', $gamesCategoriesDefault, 'buttonSearchMinWidth');
@@ -37,6 +32,12 @@
         @include bm.get-mq-map('padding', $gamesCategoriesDefault, 'buttonSearchPadding');
         @include bm.get-mq-map('border-radius', $gamesCategoriesDefault, 'buttonSearchRadius');
         @include text.get-text-style(ef.get-value($gamesCategoriesDefault, 'buttonSearchTextStyle'), ef.get-value($gamesCategoriesDefault, 'buttonSearchColor'));
+        @include bm.transition(all);
+
+        flex-shrink: 0;
+        justify-content: space-between;
+        align-items: center;
+        margin-left: auto;
 
         > span {
             display: flex;
@@ -46,24 +47,33 @@
             white-space: nowrap;
         }
 
+        .wlc-icon {
+            @include bm.transition(color);
+
+            margin-left: map-get($gamesCategoriesDefault, 'buttonSearchIconMargin');
+            color: map-get($gamesCategoriesDefault, 'buttonSearchIconFill');
+
+            svg {
+                fill: currentColor;
+            }
+        }
+
         @include bm.hover {
 
             @include bm.get-mq-map('background', $gamesCategoriesDefault, 'buttonSearchBgHover');
-        }
+            color: ef.get-value($gamesCategoriesDefault, 'buttonSearchColorHover');
 
-        svg {
-            fill: map-get($gamesCategoriesDefault, 'buttonSearchIconFill');
-        }
+            .wlc-icon {
+                color: map-get($gamesCategoriesDefault, 'buttonSearchIconFillHover');
+            }
 
-        .wlc-icon {
-            margin-left: map-get($gamesCategoriesDefault, 'buttonSearchIconMargin');
         }
     }
 
     .wlc-btn-merch[wlc-button] {
 
         path {
-            stroke: map-get($gamesCategoriesDefault, 'buttonSearchIconFill');
+            stroke: currentColor;
         }
     }
 

@@ -16,9 +16,9 @@ $themeDefault: map-merge((
     'userInfoDropdownTop': calc(100% + 10px),
     'userInfoDropdownRight': 0,
     'userInfoDropdownMinWidth': 270px,
-    'userInfoDropdownBoxShadow': 3px 4px 15px -3px var(--mc-bg),
+    'userInfoDropdownBoxShadow': ef.get('shadow', 'lg'),
     'userInfoDropdownPadding': 10px,
-    'userInfoDropdownBg': var(--mc-bg700),
+    'userInfoDropdownBg': var(--mc-bgModal),
     'userInfoDropdownBorderRadius': ef.get('radius', 'biger'),
     'userInfoGap': ef.get('size', 'small'),
 

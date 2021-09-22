@@ -40,20 +40,13 @@
                 @include text.get-text-style(ef.get-value($themeDefault, 'linkFontStyle'), ef.get-value($themeDefault, 'linkColor'));
                 @include em.transition(color);
 
-                ::ng-deep {
-
-                    .wlc-icon svg * {
-                        @include em.transition(fill);
-                    }
-                }
-
-                &:hover {
+                @include em.hover {
                     color: ef.get-value($themeDefault, 'linkColorHover');
 
                     ::ng-deep {
 
-                        .wlc-icon svg * {
-                            fill: ef.get-value($themeDefault, 'iconFillHover');
+                        .wlc-icon {
+                            color: ef.get-value($themeDefault, 'iconFillHover');
                         }
                     }
                 }
@@ -67,16 +60,16 @@
                 }
 
                 .wlc-icon {
+                    @include em.transition(color);
+
                     display: inline-block;
                     margin: ef.get-value($themeDefault, 'iconMargin');
+                    color: ef.get-value($themeDefault, 'iconFill');
                     line-height: 0;
 
                     svg {
                         transform: rotateZ(-90deg);
-
-                        * {
-                            fill: ef.get-value($themeDefault, 'iconFill');
-                        }
+                        fill: currentColor;
                     }
                 }
             }

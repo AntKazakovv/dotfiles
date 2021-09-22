@@ -73,6 +73,8 @@ $selector: '.wlc-table';
             }
 
             #{$selector}__cell {
+                @include em.transition(background, ef.get('time', 'less'));
+
                 display: table-cell;
                 padding: ef.get-value($themeDefault, 'paddingCellTable');
                 border: ef.get-value($themeDefault, 'cellBorderDesktop');

@@ -177,6 +177,8 @@
 
     &__dialog {
         @include bm.get-mq-map('overflow', $hostModal, 'dialogOverflow');
+        @include bm.get-mq-map('box-shadow', $hostModal, 'dialogShadow');
+
         position: relative;
         display: flex;
         flex-direction: column;
@@ -429,6 +431,7 @@ body.modal-open {
 
     .modal-dialog {
         @include bm.get-mq-map('width', $themeDefault, 'loginSignupWidth');
+        @include bm.get-mq-map('box-shadow', $themeDefault, 'loginSignUpDialogShadow');
         display: inline-block;
         text-align: left;
     }

@@ -29,7 +29,6 @@
 
     &.swiper-button-disabled {
         cursor: default;
-        opacity: ef.get-value($themeDefaultNavigation, 'swiperNaviButtonDisabledOpacity');
     }
 
     &:after {

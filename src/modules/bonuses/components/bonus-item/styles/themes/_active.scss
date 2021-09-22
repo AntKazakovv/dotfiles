@@ -76,6 +76,8 @@
             @include em.get-mq-map('gap', $themeActive, 'activeBlockGap');
             @include em.get-mq-map('align-self', $themeActive, 'activeBlockAlign');
             @include em.get-mq-map('justify-self', $themeActive, 'activeBlockJustify');
+
+            display: grid;
         }
 
         &__btns {
@@ -100,7 +102,7 @@
             }
 
             @include mq.min(560) {
-                @include text.get-text-style(ef.get-value($themeActive, 'nameTextStyle', 560), ef.get-value($themeActive, 'nameColor'));
+                @include text.get-text-style(ef.get-value($themeActive, 'nameTextStyle', 560), ef.get-value($themeActive, 'nameColor', 560));
             }
         }
 
@@ -111,11 +113,14 @@
 
             @include mq.min(560) {
                 -webkit-line-clamp: 5;
+                color: ef.get-value($themeActive, 'descriptionColor', 560);
             }
         }
 
         &__progress {
             @include em.get-mq-map('background', $themeActive, 'progressBg');
+
+            margin: ef.get-value($themeActive, 'progressMargin');
             padding: ef.get-value($themeActive, 'progressPadding');
         }
 

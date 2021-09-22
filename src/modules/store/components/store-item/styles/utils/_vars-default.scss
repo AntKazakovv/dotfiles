@@ -83,7 +83,7 @@ $themeDefault: map-merge((
     'moreIconColorHover': var(--mc-baseMain),
     // // Backgrounds
     'background': var(--mc-bg300),
-    'backgroundHover':  var(--mc-bg500),
+    'backgroundHover':  null,
     'imageBg': transparent,
     'bonusIconValueBg': ef.get('mainColors', 'baseMain'),
 

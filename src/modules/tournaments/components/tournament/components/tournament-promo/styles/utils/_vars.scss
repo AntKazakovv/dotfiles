@@ -46,7 +46,11 @@ $themeDefault: map-merge((
 
     'pseudoElementPosition': 0,
     'pseudoElementZIndex': 2,
-    'pseudoElementGradient': linear-gradient(0deg, var(--mc-baseContrast-o6) 0%, var(--mc-baseContrast-o2) 60%),
+    'pseudoElementGradient': linear-gradient(
+        0deg,
+        rgba(ef.get('mainColors', 'baseContrast'), 0.8) 0%,
+        rgba(ef.get('mainColors', 'baseContrast'), 0.2) 60%
+        ), // locked colors
 
     'innerBlockZIndex': 3,
 
@@ -127,6 +131,9 @@ $themeDefault: map-merge((
     'loaderAfterBorderColor': var(--mc-main),
     'loaderAfterRadius': 50%,
     'loaderAfterAnimation': spin 1s infinite linear,
+
+    'linkBlockColor': var(--mc-main),
+    'linkBlockColorHover': ef.get('mainColors', 'baseMain'), // Locked color
 ), $customThemeDefault);
 
 $customModAvailable: () !default;
