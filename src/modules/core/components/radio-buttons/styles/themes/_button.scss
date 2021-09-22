@@ -17,9 +17,11 @@
     .wlc-radio-buttons {
 
         &__title {
+            @include lib.get-text-style(ef.get-value($themeButton, 'titleTextStyle'), ef.get-value($themeDefault, 'titleColor'));
             width: ef.get-value($themeButton, 'titleWidth');
+            min-height: ef.get-value($themeButton, 'titleMinHeight');
+            margin: ef.get-value($themeButton, 'titleMargin');
             padding: ef.get-value($themeButton, 'titlePadding');
-            @include lib.get-text-style('SignText', ef.get-value($themeDefault, 'titleColor'));
         }
 
         &__elems {
