@@ -202,9 +202,15 @@
             top: 0;
             right: 0;
             z-index: 5;
+            color: ef.get-value($themeDefault, 'panelSearchColor');
 
             svg {
-                fill: ef.get-value($themeDefault, 'panelSearchColor');
+                fill: currentColor;
+            }
+
+            @include bm.hover {
+                transform: ef.get-value($themeDefault, 'panelSearchTransformHover');
+                color: ef.get-value($themeDefault, 'panelSearchColorHover');
             }
         }
 

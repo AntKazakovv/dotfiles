@@ -101,6 +101,8 @@ $themeDefault: map-merge((
     'additionalGap': ef.size(4),
     'additionalAlignSelf': start,
     'additionalJustifySelf': start,
+    'panelSearchTransformHover': rotate(30deg),
+    'panelSearchColorHover': var(--mc-baseMain),
 ), $customThemeDefault);
 
 $customThemeLeft: () !default;

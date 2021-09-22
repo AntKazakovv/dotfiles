@@ -5,7 +5,10 @@ $themeDefault: map-merge((
     'spaceBetweenButtons': 10px,
 
     // title
+    'titleTextStyle': 'SignText',
     'titleWidth': 100%,
+    'titleMargin': 0,
+    'titleMinHeight': ef.size(4),
     'titleColor': var(--fc-labelColor),
     'titlePadding': 0 0 0 10px,
     'elemsColumns': minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr),

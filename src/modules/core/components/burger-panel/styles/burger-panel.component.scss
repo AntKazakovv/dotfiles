@@ -1,4 +1,5 @@
 @use 'engine-scss/functions' as ef;
+@use 'engine-scss/mixins/base.mixins' as bm;
 @use 'engine-scss/mixins/text' as text;
 @import './utils/vars';
 @import './utils/mixins';
@@ -48,7 +49,7 @@
             padding: 0;
             color: ef.get-value($themeDefault, 'closeIconColor');
             background: transparent;
-            opacity: 0.5;
+            opacity: 0.4;
             transition: ef.get-value($themeDefault, 'transition');
             appearance: none;
             border: none;
@@ -57,8 +58,8 @@
                 outline: none;
             }
 
-            &:hover {
-                opacity: 1;
+            @include bm.hover {
+                opacity: 0.8;
             }
         }
 

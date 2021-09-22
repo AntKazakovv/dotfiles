@@ -30,10 +30,16 @@
     }
 
     .wlc-textarea__label {
-        @include lib.get-text-style('SignText', ef.get-value($themeDefault, 'labelColor'));
+        @include lib.get-text-style(ef.get-value($themeDefault, 'labelTextStyle'), ef.get-value($themeDefault, 'labelColor'));
+        display: flex;
+        align-items: center;
+        min-height: ef.get-value($themeDefault, 'labelMinHeight');
         margin: ef.get-value($themeDefault, 'labelMargin');
-        line-height: 1.9;
         cursor: pointer;
+
+        @include mq.min(1630) {
+            @include lib.get-text-style(ef.get-value($themeDefault, 'labelTextStyle', 1630), ef.get-value($themeDefault, 'labelColor'));
+        }
     }
 
     .wlc-textarea__textarea {
