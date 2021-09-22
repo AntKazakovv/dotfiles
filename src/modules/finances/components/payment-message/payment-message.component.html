@@ -1,18 +1,27 @@
 <ng-container *ngIf="error; else error" [ngSwitch]="type">
     <ng-container *ngSwitchCase="'pay_to_address'">
         <div class="{{$class}}__text">
+            <div *ngIf="inputParamsXaddress" class="{{$class}}__clipboard-x">
+                <div wlc-input [inlineParams]="inputParamsXaddress"></div>
+                <div class="{{$class}}__text-row">
+                    {{'If your wallet doesn\'t support X-addresses, you can make a deposit via casino wallet.' | translate}}
+                </div>
+            </div>
             <div class="{{$class}}__clipboard">
                 <div wlc-input [inlineParams]="inputParams"></div>
+                <div *ngIf="inputParamsXaddress" class="{{$class}}__text-row">
+                    {{'With the Destination Tag set to ' | translate}}{{message.tag}}
+                </div>
             </div>
 
-            <div class="{{$class}}__text-row">
+            <div *ngIf="!inputParamsXaddress" class="{{$class}}__text-row">
                 {{'This is your private depositing address.' | translate}}
             </div>
             <div class="{{$class}}__text-row">
                 {{'Please note, that minimum deposit amount for this method is' | translate}}
-                 <span wlc-currency [value]="system.depositMin"></span>,
-                  {{'maximum one is' | translate}}
-                  <span wlc-currency [value]="system.depositMax"></span>.
+                <span wlc-currency [value]="system.depositMin"></span>,
+                {{'maximum one is' | translate}}
+                <span wlc-currency [value]="system.depositMax"></span>.
             </div>
             <div class="{{$class}}__text-row">
                 {{'To make a deposit you need to replenish a wallet for a specified amount.' | translate}}

@@ -32,8 +32,14 @@
             @include em.get-mq-map('margin', $themeDefault, 'textRowMargin');
         }
 
-        &__clipboard {
+        &__clipboard,
+        &__clipboard-x {
             @include em.get-mq-map('margin', $themeDefault, 'clipboardMargin');
+
+            .wlc-payment-message__text-row {
+                @include text.get-text-style(ef.get-value($themeDefault, 'textAdditionalFont'), ef.get-value($themeDefault, 'textColorAdditional'));
+                margin: ef.get-value($themeDefault, 'textAdditionalMargin');
+            }
         }
 
         &__qr {
@@ -47,7 +53,7 @@
         }
 
         &__qr-text {
-            @include text.get-text-style('PrimaryText', ef.get-value($themeDefault, 'textColor'));
+            @include text.get-text-style(ef.get-value($themeDefault, 'textAdditionalFont'), ef.get-value($themeDefault, 'textColorAdditional'));
             @include em.get-mq-map('display', $themeDefault, 'qrTextDisplay');
         }
 
@@ -97,6 +103,7 @@
             }
 
             &__qr-text {
+                @include text.get-text-style(ef.get-value($themeDefault, 'textAdditionalFont'), ef.get-value($themeDefault, 'textColorAdditional'));
                 display: ef.get-value($themeDefault, 'qrTextModalDisplay');
             }
 

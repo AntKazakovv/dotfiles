@@ -427,7 +427,7 @@ export class PaymentSystem extends AbstractModel<IPaymentSystem> {
 
 
         this.cryptoCheck = !_isString(this.message)
-        && (this.message.translate === 'pay_to_address' && this.message.address) ? true : false;
+            && (this.message.translate === 'pay_to_address' && this.message.address) ? true : false;
 
         this.prepareAdditionalFields();
         this.cardFields = this.isWithCardFields();
