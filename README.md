@@ -1,10 +1,9 @@
 # WlcEngine
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.0.6.
-
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 12
 ## Development server
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+WLC-Engine is a Angular modules library without self-launching.
 
 ## Code scaffolding
 
@@ -12,23 +11,23 @@ Run `ng generate component component-name` to generate a new component. You can 
 
 ## Build
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+Run `npm run dist` to build the project. The build artifacts will be stored in the `dist/` directory. 
 
 ## Running unit tests
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+Run `npm run test` to execute the unit tests.
+    
+## Git submodules
 
-## Running end-to-end tests
+Run `git submodule update --init` to update [languages](https://wlcgitlab.egamings.com/wlc/wlc-engine-translate) и [shared-lib](https://wlcgitlab.egamings.com/wlc/wlc-shared-lib) git submodules 
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
+Run `gulp engineMessages` to add all phrases from **gettext** and **translate**.
 ## Further help
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+To get more help on the **Angular CLI** use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md) and [Compodoc and Sassdoc](https://wlc-engine-docs.egamings.com/)
 
 # Запуск compodoc локально 
 
 Для локального запуска нужно выполнить `npm run dev:docs` и открыть `http://localhost:4201/`  
 Если не запустилось, то для **VS Code** нужно установить расширение "Live Server" и открыть `docs/index.html` с его помощью.  
 В **Webstorm** должно всё работать из коробки.
-
