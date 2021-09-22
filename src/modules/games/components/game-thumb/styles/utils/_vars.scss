@@ -104,6 +104,7 @@ $themeDefault: map-merge((
         320: 15px,
         900: 20px,
     ),
+    'pplIconColor': var(--mc-main),
 ), $customThemeDefault);
 
 $customThemeDefaultCircle: () !default;
