@@ -95,10 +95,13 @@ export class FloatPanelsComponent extends AbstractComponent implements OnInit {
             this.initListeners();
         }
 
+        const {innerWidth} = window;
         this.actionService.windowResize()
             .pipe(debounceTime(500), takeUntil(this.$destroy))
             .subscribe((event: IResizeEvent) => {
-                this.filterSection();
+                if (innerWidth !== window.innerWidth) {
+                    this.filterSection();
+                }
             });
     }
 

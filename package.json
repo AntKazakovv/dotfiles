@@ -124,7 +124,7 @@
         "stylelint-config-rational-order": "^0.1.2",
         "stylelint-order": "^4.1.0",
         "stylelint-webpack-plugin": "^2.1.1",
-        "swiper": "^6.8.4",
+        "swiper": "6.4.10",
         "text-overflow-clamp": "^1.0.0",
         "through2": "^3.0.2",
         "tmp": "^0.2.1",
