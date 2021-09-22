@@ -168,6 +168,10 @@
 
                             svg {
                                 @include bm.get-mq-map('width', $themeDefault, 'pplIconWidth');
+
+                                path {
+                                    fill: ef.get-value($themeDefault, 'pplIconColor');
+                                }
                             }
                         }
                     }
