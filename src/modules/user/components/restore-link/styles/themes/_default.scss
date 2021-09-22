@@ -11,6 +11,7 @@
         .wlc-btn {
             @include text.get-text-style(ef.get-value($themeDefault, 'linkFontSize'), ef.get-value($themeDefault, 'linkColor'));
             @include em.transition(color);
+            text-decoration: underline;
 
             @include em.hover {
                 color: ef.get-value($themeDefault, 'linkColorHover');

@@ -104,11 +104,18 @@ $themeDefault: map-merge((
         320: (minmax(auto, 150px) 130px),
         1630: (minmax(auto, 225px) 145px),
     ),
+    'infoHeightWithImgHover': (
+        320: (minmax(auto, 150px) 155px),
+        1630: (minmax(auto, 225px) 170px),
+    ),
     'infoHeightWithImgMobile': (
         320: (minmax(auto, 150px) 130px)
     ),
     'infoBtmPaddingWithImg': (
-        320: 25px 0 0,
+        320: ef.size(5) 0 0,
+    ),
+    'infoBtmPaddingWithImgHover': (
+        320: ef.size(3) 0 0,
     ),
     'infoBlockPadding': (
         375: ef.size(2) ef.size(3) 0,
@@ -192,8 +199,8 @@ $themeDefault: map-merge((
         1630: ef.size(8),
     ),
     'btnBottomPositionWithImg': (
-        320: ef.size(6),
-        1630: ef.size(7),
+        320: ef.size(3),
+        1630: ef.size(4),
     ),
     'btnsMarginWithImg': ef.size(2) 0 0,
 
