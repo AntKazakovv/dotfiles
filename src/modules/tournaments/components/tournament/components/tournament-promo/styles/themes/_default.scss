@@ -8,9 +8,6 @@
     .wlc-tournament-promo {
 
         &__container {
-            position: relative;
-
-            display: grid;
             @include em.get-mq-map('grid-template-columns', $themeDefault, 'containerGridTemplateColumns');
             @include em.get-mq-map('grid-template-areas', $themeDefault, 'containerGridTemplateAreas');
 
@@ -18,18 +15,18 @@
 
             @include em.get-mq-map('background', $themeDefault, 'containerBackground');
 
+            position: relative;
+            display: grid;
             overflow: hidden;
 
             border-radius: ef.get-value($themeDefault, 'containerRadius');
-
         }
 
         &__info {
-            position: relative;
-
-            grid-area: info;
-
             @include em.get-mq-map('padding', $themeDefault, 'infoPadding');
+
+            position: relative;
+            grid-area: info;
 
             &:before {
                 @include em.get-mq-map('display', $themeDefault, 'infoPElementDisplay');
@@ -37,24 +34,22 @@
         }
 
         &__board {
+            @include em.get-mq-map('padding', $themeDefault, 'boardPadding');
             position: relative;
 
             display: flex;
             flex-direction: column;
             grid-area: board;
             justify-content: center;
-            @include em.get-mq-map('padding', $themeDefault, 'boardPadding');
-
 
             &:before {
                 @include em.get-mq-map('display', $themeDefault, 'boardPElementDisplay');
             }
 
             &-title {
-                margin: 0 0 10px 0;
-
                 @include text.get-text-style(ef.get-value($themeDefault, 'boardTitleFontStyle'), ef.get-value($themeDefault, 'boardTitleColor'));
 
+                margin: ef.get-value($themeDefault, 'boardTitleMargin');
                 text-align: center;
 
                 &:last-child {
@@ -64,8 +59,8 @@
 
 
             &-price {
-                display: block;
                 @include text.get-text-style(ef.get-value($themeDefault, 'priceFontStyle'), ef.get-value($themeDefault, 'priceColor'));
+                display: block;
             }
 
             ::ng-deep {
@@ -99,7 +94,6 @@
             z-index: ef.get-value($themeDefault, 'pseudoElementZIndex');
 
             background: ef.get-value($themeDefault, 'pseudoElementGradient');
-
         }
 
         &__inner {
@@ -122,8 +116,8 @@
                 background: ef.get-value($themeDefault, 'tagTextBackground');
 
                 &.active {
-                    background: ef.get-value($themeDefault, 'tagActiveBackground');
                     color: ef.get-value($themeDefault, 'tagColorActive');
+                    background: ef.get-value($themeDefault, 'tagActiveBackground');
                 }
             }
         }
@@ -132,7 +126,6 @@
             @include text.get-text-style(ef.get-value($themeDefault, 'titleFontStyle'), ef.get-value($themeDefault, 'titleColor'));
             @include em.lineClamp(2);
             margin: ef.get-value($themeDefault, 'titleMargin');
-
             text-transform: uppercase;
 
             @include mq.min(900) {
@@ -197,6 +190,7 @@
             border-radius: ef.get-value($themeDefault, 'loaderRadius');
 
             &:before {
+                content: '';
                 position: absolute;
                 top: ef.get-value($themeDefault, 'loaderBeforePosition');
                 right: ef.get-value($themeDefault, 'loaderBeforePosition');
@@ -211,11 +205,10 @@
                 background: ef.get-value($themeDefault, 'loaderBeforeBackground');
 
                 border-radius: ef.get-value($themeDefault, 'loaderBeforeRadius');
-
-                content: '';
             }
 
             &:after {
+                content: '';
                 width: ef.get-value($themeDefault, 'loaderAfterSize');
                 height: ef.get-value($themeDefault, 'loaderAfterSize');
 
@@ -224,8 +217,6 @@
                 border-radius: ef.get-value($themeDefault, 'loaderAfterRadius');
 
                 animation: ef.get-value($themeDefault, 'loaderAfterAnimation');
-
-                content: '';
             }
         }
     }
@@ -241,16 +232,14 @@
         }
 
         .buttons-wrap {
-
-            display: flex;
-            grid-area: btns;
-
             @include em.get-mq-map('justify-content', $themeDefault, 'btnsWrapAlign');
             @include em.get-mq-map('padding', $themeDefault, 'btnsWrapPadding');
             @include em.get-mq-map('flex-direction', $themeDefault, 'btnsWrapperFlexDirection');
 
-            margin: ef.get-value($themeDefault, 'btnsWrapMargin');
+            display: flex;
+            grid-area: btns;
             align-items: center;
+            margin: ef.get-value($themeDefault, 'btnsWrapMargin');
 
             & > .wlc-btn {
                 @include em.get-mq-map('min-width', $themeDefault, 'btnsMinWidthColumn');

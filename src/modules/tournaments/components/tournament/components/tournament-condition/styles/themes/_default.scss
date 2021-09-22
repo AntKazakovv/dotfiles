@@ -10,7 +10,7 @@
     .wlc-tournament-condition {
 
         &__text {
-            margin-bottom: 5px;
+            margin: ef.get-value($themeDefault, 'textMargin');
 
             &:last-child {
                 margin-bottom: 0;

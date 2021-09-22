@@ -12,14 +12,19 @@ $themeDefault: map-merge((
         900: 0 0 ef.size(4) 0,
         1630: 0 0 ef.size(8) 0,
     ),
+    'containerGap': ef.size(3),
 ), $customThemeDefault);
 
 $customThemeDashboard: () !default;
 $themeDashboard: map-merge((
+    'containerHeight': calc(100% - 60px),
+    'containerPadding': 0 ef.size(4),
+    'containerMargin': 0 ef.size(-4),
     'titleTextStyle': 'ThirdTitleBold',
     'titleColor': var(--mc-baseMain),
-    'headerMargin': 0 0 ef.get('size', 'smally') 0,
+    'headerMargin': 0 0 ef.size(3) 0,
     'swiperNavTop': 140px,
+    'swiperNavLeft': 0,
     'fillColor': var(--mc-baseMain),
 ), $customThemeDashboard);
 
@@ -55,7 +60,7 @@ $themeBanner: map-merge((
 
 $customThemeAvailable: () !default;
 $themeAvailable: map-merge((
-    'itemMargin': 0 0 ef.get('size', 'smaller') 0,
+    'itemMargin': 0 0 ef.size(4) 0,
 ), $customThemeAvailable);
 
 $customThemeActive: () !default;
@@ -66,7 +71,7 @@ $themeActive: map-merge((
 $customNoContent: () !default;
 $noContent: map-merge((
     'noContentMargin':  80px 0 140px 0,
-    'noContentMarginBtn': ef.get('size', 'main') 0 0 0,
+    'noContentMarginBtn': ef.size(8) 0 0 0,
     'noContentDisplay': flex,
     'noContentFDirection': column,
     'noContentAlignItems': center,

@@ -1,14 +1,14 @@
 @use 'engine-scss/mixins/mediaqueries' as mq;
 @use 'engine-scss/mixins/text' as text;
-@use 'engine-scss/mixins/base.mixins' as em;
+@use 'engine-scss/mixins/base.mixins' as bm;
 @use 'engine-scss/functions' as ef;
 @import '../utils/vars';
 
 
 .wlc-tournament-list--theme-dashboard:host {
-    height: calc(100% - 60px);
     display: flex;
     flex-direction: column;
+    height: ef.get-value($themeDashboard, 'containerHeight');
 
     .wlc-scrollbar {
 
@@ -17,10 +17,8 @@
 
             .wlc-scrollbar__container {
                 width: auto;
-                padding-left: 20px;
-                padding-right: 20px;
-                margin-left: -20px;
-                margin-right: -20px;
+                margin: ef.get-value($themeDashboard, 'containerMargin');
+                padding: ef.get-value($themeDashboard, 'containerPadding');
 
                 ::ng-deep {
 
@@ -36,14 +34,9 @@
 
         &__header {
             @include text.get-text-style(ef.get-value($themeDashboard, 'titleTextStyle'), ef.get-value($themeDashboard, 'titleColor'));
+            @include bm.lineClamp(1);
             margin: ef.get-value($themeDashboard, 'headerMargin');
             text-align: center;
-
-            /* stylelint-disable */
-            display: -webkit-box;
-            -webkit-line-clamp: 1;
-            -webkit-box-orient: vertical;
-            /* stylelint-enable */
         }
 
         &__nav {
@@ -55,8 +48,8 @@
                     &-prev,
                     &-next {
                         position: absolute;
-                        left: 0;
                         top: ef.get-value($themeDashboard, 'swiperNavTop');
+                        left: ef.get-value($themeDashboard, 'swiperNavLeft');
                         z-index: 100;
                     }
 

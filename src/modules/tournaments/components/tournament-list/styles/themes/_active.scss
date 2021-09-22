@@ -3,8 +3,3 @@
 @use 'engine-scss/mixins/base.mixins' as em;
 
 @import '../utils/vars';
-
-.wlc-tournament-list--theme-active:host {
-    // TODO Remove this after add margin to wlc-title
-    padding: ef.get-value($themeAvailable, 'listPadding');
-}

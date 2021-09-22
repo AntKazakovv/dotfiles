@@ -8,24 +8,24 @@
     .wlc-tournament-smart-info {
 
         &__content {
-            display: flex;
             @include bm.get-mq-map('flex-wrap', $themeDefault, 'contentFlexWrap');
-            align-items: ef.get-value($themeDefault, 'contentAlignItems');
-            justify-content: ef.get-value($themeDefault, 'contentJustifyContent');
-
-            height: 100%;
-
             @include bm.get-mq-map('min-width', $themeDefault, 'width');
             @include bm.get-mq-map('padding', $themeDefault, 'padding');
             @include bm.get-mq-map('background', $themeDefault, 'background');
             @include bm.get-mq-map('border-radius', $themeDefault, 'radius');
+
+            display: flex;
+            align-items: ef.get-value($themeDefault, 'contentAlignItems');
+            justify-content: ef.get-value($themeDefault, 'contentJustifyContent');
+
+            height: 100%;
         }
 
         &__prize-block {
+            @include bm.get-mq-map('min-width', $themeDefault, 'prizeBlockMinWidth');
+
             display: flex;
             align-items: center;
-
-            @include bm.get-mq-map('min-width', $themeDefault, 'prizeBlockMinWidth');
 
             &--icon {
                 @include bm.get-mq-map('margin', $themeDefault, 'prizeIconMargin');
@@ -36,17 +36,11 @@
                 line-height: 0;
 
                 &--subtitle {
-                    @include text.get-text-style(
-                        ef.get-value($themeDefault, 'prizeTextStyle'),
-                        ef.get-value($themeDefault, 'prizeTextColor')
-                    );
+                    @include text.get-text-style(ef.get-value($themeDefault, 'prizeTextStyle'), ef.get-value($themeDefault, 'prizeTextColor'));
                 }
 
                 &--value {
-                    @include text.get-text-style(
-                        ef.get-value($themeDefault, 'prizeNumStyle'),
-                        ef.get-value($themeDefault, 'prizeNumColor')
-                    );
+                    @include text.get-text-style(ef.get-value($themeDefault, 'prizeNumStyle'), ef.get-value($themeDefault, 'prizeNumColor'));
                 }
             }
         }
@@ -77,17 +71,11 @@
                         line-height: 0;
 
                         &--countdown {
-                            @include text.get-text-style(
-                                ef.get-value($themeDefault, 'timerNumStyle'),
-                                ef.get-value($themeDefault, 'timerNumColor')
-                            );
+                            @include text.get-text-style(ef.get-value($themeDefault, 'timerNumStyle'), ef.get-value($themeDefault, 'timerNumColor'));
                         }
 
                         .secondary-text {
-                            @include text.get-text-style(
-                                ef.get-value($themeDefault, 'timerTextStyle'),
-                                ef.get-value($themeDefault, 'timerTextColor')
-                            );
+                            @include text.get-text-style(ef.get-value($themeDefault, 'timerTextStyle'), ef.get-value($themeDefault, 'timerTextColor'));
                         }
                     }
                 }

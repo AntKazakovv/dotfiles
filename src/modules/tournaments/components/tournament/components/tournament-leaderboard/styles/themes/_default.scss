@@ -80,11 +80,7 @@
             }
 
             .user-login {
-                /* stylelint-disable */
-                display: -webkit-box;
-                -webkit-line-clamp: 1;
-                -webkit-box-orient: vertical;
-                /* stylelint-enable */
+                @include em.lineClamp(1);
                 overflow: hidden;
                 max-width: ef.get-value($themeDefault, 'loginMaxWidth');
             }

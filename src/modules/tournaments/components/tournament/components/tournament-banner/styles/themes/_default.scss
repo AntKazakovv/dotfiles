@@ -112,13 +112,13 @@
     }
 
     &__body-title {
-        @include text.get-text-style(ef.get-value($themeDefault, 'bodyFont'), ef.get-value($themeDefault, 'bodyColor'));
+        @include text.get-text-style(ef.get-value($themeDefault, 'bodyFont', 320), ef.get-value($themeDefault, 'bodyColor'));
         @include em.lineClamp(1);
 
         margin: ef.get-value($themeDefault, 'bodyMargin');
 
-        @include mq.max(768) {
-            @include text.get-text-style(ef.get-value($themeDefault, 'bodyFontM'), ef.get-value($themeDefault, 'bodyColor'));
+        @include mq.min(768) {
+            @include text.get-text-style(ef.get-value($themeDefault, 'bodyFont', 768), ef.get-value($themeDefault, 'bodyColor'));
         }
     }
 
@@ -140,16 +140,6 @@
             &-content {
                 display: inline-block;
                 line-height: 0;
-            }
-        }
-
-        @media screen and (max-width: 479px) {
-
-            .wlc-tournament-banner-timer.wlc-timer {
-
-                .wlc-timer__content {
-                    padding: ef.get-value($themeDefault, 'timerContentPadding');
-                }
             }
         }
     }

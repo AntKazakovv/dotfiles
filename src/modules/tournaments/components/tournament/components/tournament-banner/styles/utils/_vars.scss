@@ -18,8 +18,8 @@ $themeDefault: map-merge((
     'tournamentBeforeZIndex': 1,
 
     'timerPadding': (
-        375: 0 0 0 ef.get('size', 'small'),
-        1024: 0 ef.get('size', 'smally'),
+        375: 0 0 0 ef.size(2),
+        1024: 0 ef.size(3),
     ),
     'timerCountdownFont': 'PrimaryTextBold',
     'timerCountdownColor': var(--mc-baseMain),
@@ -31,8 +31,10 @@ $themeDefault: map-merge((
         320: ef.size(11) ef.size(4) ef.size(6),
         1024: ef.size(11) ef.size(8) ef.size(8),
     ),
-    'bodyFont': 'PromoTitle',
-    'bodyFontM': 'QoteTextBold',
+    'bodyFont': (
+        320: 'QoteTextBold',
+        768: 'PromoTitle',
+    ),
     'bodyColor': var(--mc-baseMain),
     'bodyMargin': 0 0 ef.get('size', 'smally'),
     'bodyBgSize': (
@@ -58,12 +60,12 @@ $themeDefault: map-merge((
     'bodyDecorPositionBottom': 0,
     'bodyDecorZIindex': 1,
 
-    'timerBlockMargin': 0 0 ef.get('size', 'smally'),
+    'timerBlockMargin': 0 0 ef.size(3),
     'descriptionFont': 'PrimaryText',
     'descriptionColor': var(--mc-baseMain),
     'descriptionMargin': (
-        320: 0 0 ef.get('size', 'smaller') 0,
-        768: 0 0 ef.get('size', 'biger') 0,
+        320: 0 0 ef.size(4) 0,
+        768: 0 0 ef.size(10) 0,
     ),
     'descriptionWidth': (
         375: 100%,
@@ -76,8 +78,8 @@ $themeDefault: map-merge((
     'btnsWrapMargin': auto 0 0,
     'btnsMinWidth': 110px,
     'btnsGridColumnGap': 0,
-    'btnsPadding': ef.get('size', 'smallest') ef.get('size', 'smally'),
-    'btnsMargin': 0 ef.get('size', 'smaller') 0 0,
+    'btnsPadding': ef.size(1) ef.size(3),
+    'btnsMargin': 0 ef.size(4) 0 0,
     'btnsDisplay': (
         375: none,
         480: grid,
@@ -100,8 +102,6 @@ $themeDefault: map-merge((
     'loaderAfterBorderColor': var(--mc-main),
     'loaderAfterRadius': 50%,
     'loaderAfterAnimation': spin 1s infinite linear,
-
-    'timerContentPadding': 0,
 
     'tagTopPosition': 0,
     'tagLeftPosition': 0,

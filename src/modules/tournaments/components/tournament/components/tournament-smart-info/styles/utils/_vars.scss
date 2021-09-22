@@ -12,13 +12,13 @@ $themeDefault: map-merge((
 
     'background': var(--mc-bg),
     'radius': ef.get('radius', 'biger'),
-    'padding': ef.get('size', 'small') ef.get('size', 'smaller'),
+    'padding': ef.size(2) ef.size(4),
     'width': (
         320: 100%,
         480: 350px,
     ),
 
-    'prizeIconMargin': -5px  ef.get('size', 'small') 0 0,
+    'prizeIconMargin': ef.size(-1) ef.size(2) 0 0,
     'prizeIconColor': var(--mc-main),
     'prizeTextStyle': 'PrimaryText',
     'prizeTextColor': var(--mc-baseMain),
@@ -36,8 +36,8 @@ $themeDefault: map-merge((
         480: initial,
     ),
     'delimiterMargin': (
-        320: ef.get('size', 'small') 0,
-        480: 0 ef.get('size', 'small'),
+        320: ef.size(2) 0,
+        480: 0 ef.size(2),
     ),
 
     'timerResetBg': transparent,

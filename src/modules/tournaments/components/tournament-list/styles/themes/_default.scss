@@ -6,7 +6,6 @@
 @import '../utils/vars';
 
 .wlc-tournament-list--theme-default:host {
-    // TODO подумать как сделать норм, получилось не по БЭМ
     @include em.get-mq-map('margin', $themeDefault, 'containerMargin');
 
     .wlc-tournament-list {
@@ -14,16 +13,16 @@
         &__container {
             @include em.get-mq-map('grid-template-columns', $themeDefault, 'containerGridTemplateColumns');
             display: grid;
-            grid-gap: 15px;
+            grid-gap: ef.get-value($themeDefault, 'containerGap');
         }
     }
 }
 
 .wlc-tournament-list__nocontent {
-    margin: ef.get-value($noContent, 'noContentMargin');
     display: ef.get-value($noContent, 'noContentDisplay');
     flex-direction: ef.get-value($noContent, 'noContentFDirection');
     align-items: ef.get-value($noContent, 'noContentAlignItems');
+    margin: ef.get-value($noContent, 'noContentMargin');
 
     &-btn {
         margin: ef.get-value($noContent, 'noContentMarginBtn');

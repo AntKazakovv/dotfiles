@@ -22,8 +22,8 @@ $themeDefault: map-merge((
     ),
 
     'infoPadding': (
-        320: ef.get('size', 'smaller') ef.get('size', 'smaller') ef.get('size', 'less'),
-        640: ef.get('size', 'less') ef.get('size', 'main') ef.get('size', 'main'),
+        320: ef.size(4) ef.size(4) ef.size(6),
+        640: ef.size(6) ef.size(8) ef.size(8),
     ),
     'infoPElementDisplay': (
         320: block,
@@ -31,8 +31,8 @@ $themeDefault: map-merge((
     ),
 
     'boardPadding': (
-        320: ef.get('size', 'smaller') ef.get('size', 'less'),
-        640: ef.get('size', 'smaller') ef.get('size', 'main'),
+        320: ef.size(4) ef.size(6),
+        640: ef.size(4) ef.size(8),
     ),
     'boardPElementDisplay': (
         320: none,
@@ -76,7 +76,7 @@ $themeDefault: map-merge((
     'tagFontStyle': ef.get('tagConfig', 'textStyle'),
     'tagColor': ef.get('tagConfig', 'color'),
     'tagColorActive': ef.get('tagConfig', 'colorActive'),
-    'tagMargin': 0 0 ef.get('size', 'smaller'),
+    'tagMargin': 0 0 ef.size(4),
     'tagTextPadding': ef.get('tagConfig', 'padding'),
     'tagTextBorderRadius': ef.get('tagConfig', 'radius'),
     'tagTextBackground': ef.get('tagConfig', 'bg'),
@@ -85,12 +85,12 @@ $themeDefault: map-merge((
     'titleFontStyle': 'ThirdTitleBold',
     'titleFontStyleDesk': 'PromoTitle',
     'titleColor': var(--mc-baseMain),
-    'titleMargin': 0 0 ef.get('size', 'less'),
+    'titleMargin': 0 0 ef.size(6),
 
     'descriptionFontStyle': 'PrimaryText',
     'descriptionFontStyleDesk': 'ThirdTitle',
     'descriptionColor': var(--mc-baseMain),
-    'descriptionMargin': 0 0 ef.get('size', 'main') ,
+    'descriptionMargin': 0 0 ef.size(8),
 
     'btnsWrapMargin': auto 0 0 0,
     'btnsWrapAlign': (
@@ -98,8 +98,8 @@ $themeDefault: map-merge((
         900: flex-start,
     ),
     'btnsWrapPadding': (
-        320: 0 ef.get('size', 'less') ef.get('size', 'smaller'),
-        640: 0 ef.get('size', 'main') ef.get('size', 'main'),
+        320: 0 ef.size(6) ef.size(4),
+        640: 0 ef.size(8) ef.size(8),
     ),
     'btnsWrapperFlexDirection': (
         320: column,
@@ -110,12 +110,12 @@ $themeDefault: map-merge((
         480: 110px,
     ),
     'btnsGridColumnGap': 0,
-    'btnsPadding': ef.get('size', 'smallest') ef.get('size', 'smally'),
+    'btnsPadding': ef.size(1) ef.size(3),
     'firstBtnColumnMargin': (
-        320: 0 0 ef.get('size', 'smaller') 0,
-        480: 0 ef.get('size', 'smaller') 0 0,
+        320: 0 0 ef.size(4) 0,
+        480: 0 ef.size(4) 0 0,
     ),
-    'prizesMargin': ef.get('size', 'small') auto,
+    'prizesMargin': ef.size(2) auto,
 
     'loaderZIndex': 10,
     'loaderPosition': 0,
@@ -134,6 +134,8 @@ $themeDefault: map-merge((
 
     'linkBlockColor': var(--mc-main),
     'linkBlockColorHover': ef.get('mainColors', 'baseMain'), // Locked color
+
+    'boardTitleMargin': 0 0 ef.size(2) 0,
 ), $customThemeDefault);
 
 $customModAvailable: () !default;
@@ -154,23 +156,23 @@ $modAvailable: map-merge((
     ),
 
     'infoPadding': (
-        320: ef.get('size', 'smaller'),
-        640: ef.get('size', 'smally'),
-        1024: ef.get('size', 'smaller') ef.get('size', 'smally'),
-        1630: ef.get('size', 'less') ef.get('size', 'main') ef.get('size', 'main'),
+        320: ef.size(4),
+        640: ef.size(3),
+        1024: ef.size(4) ef.size(3),
+        1630: ef.size(6) ef.size(8) ef.size(8),
     ),
 
     'btnsWrapPadding': (
-        320: 0 ef.get('size', 'less') ef.get('size', 'smaller'),
-        640: 0 ef.get('size', 'smally') ef.get('size', 'smally'),
-        1024: 0 ef.get('size', 'smally') ef.get('size', 'smaller'),
-        1630: 0 ef.get('size', 'main') ef.get('size', 'main'),
+        320: 0 ef.size(6) ef.size(4),
+        640: 0 ef.size(3) ef.size(3),
+        1024: 0 ef.size(3) ef.size(4),
+        1630: 0 ef.size(8) ef.size(8),
     ),
 
     'boardPadding': (
-        320:ef.get('size', 'small') ef.get('size', 'smaller') ef.get('size', 'smaller'),
-        640: ef.get('size', 'smally'),
-        1630: ef.get('size', 'smaller') ef.get('size', 'main'),
+        320:ef.size(2) ef.size(4) ef.size(4),
+        640: ef.size(3),
+        1630: ef.size(4) ef.size(8),
     ),
 ), $customModAvailable);
 
