@@ -29,12 +29,12 @@ export class CheckboxComponent extends AbstractComponent implements OnInit {
     public fieldWlcElement: string;
 
     constructor(
-        @Inject('injectParams') protected injectParams: any,
+        @Inject('injectParams') protected injectParams: Params.ICheckboxCParams,
         protected configService: ConfigService,
         protected cdr: ChangeDetectorRef,
         protected modalService: ModalService,
     ) {
-        super({injectParams, defaultParams: Params.defaultParams});
+        super({injectParams, defaultParams: Params.defaultParams}, configService);
     }
 
     public ngOnInit(): void {

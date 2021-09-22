@@ -33,4 +33,6 @@ export interface ICheckboxCParams extends IComponentParams<ComponentTheme, Compo
 
 export const defaultParams: ICheckboxCParams = {
     class: 'wlc-checkbox',
+    moduleName: 'core',
+    componentName: 'wlc-checkbox',
 };
