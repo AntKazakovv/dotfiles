@@ -89,7 +89,7 @@ $themePromo: map-merge((
     ),
     'imgBlockBg': ef.get-value($themeDefault, 'imageBg'),
     'imgOverlay': (
-        375: linear-gradient(0deg, var(--mc-bg700) 50%, var(--mc-bg700-o0) 85%),
+        375: linear-gradient(0deg, var(--mc-bg700) 55%, var(--mc-bg700-o0) 0%),
         560: none,
     ),
     'imgPadding': (

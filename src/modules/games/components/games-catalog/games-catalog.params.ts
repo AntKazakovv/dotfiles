@@ -83,7 +83,7 @@ export const defaultParams: IGamesCatalogCParams = {
     componentName: 'wlc-games-catalog',
     class: 'wlc-games-catalog',
     gamesGridParams: {
-        gamesRows: 2,
+        gamesRows: 3,
         byState: true,
     },
 };
