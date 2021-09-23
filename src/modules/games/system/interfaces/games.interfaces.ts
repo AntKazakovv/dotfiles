@@ -72,6 +72,7 @@ export interface IRunGameOptions {
 export interface IMobileGames {
     loginUser?: IMobileLoginUser;
     notRunInIframe?: INotRunInIframe;
+    showGameHeader?: IShowGameHeader;
 }
 
 export interface IMobileLoginUser {
@@ -80,6 +81,10 @@ export interface IMobileLoginUser {
 
 export interface INotRunInIframe {
     [key: string]: IExcludeMerchantSettings;
+}
+
+export interface IShowGameHeader {
+    merchants: number[];
 }
 
 export interface IExcludeMerchantSettings {
@@ -192,14 +197,14 @@ export type IMapping = {
     categoryByName?: IIndexing<CategoryModel>
     categoryIdToNameMapping?: IIndexing<string>;
     categoryNameToIdMapping?: IIndexing<number>;
-    categoryIdToTitleMapping?: { [key: string]: IIndexing<string>; };
-    categoryNameToTitleMapping?: { [key: string]: IIndexing<string>; };
+    categoryIdToTitleMapping?: {[key: string]: IIndexing<string>;};
+    categoryNameToTitleMapping?: {[key: string]: IIndexing<string>;};
     byCategory?: IByCategory;
 }
 
 export type IRestrictions = {
-    restrictedByID: { [key: string]: IIndexing<boolean>; };
-    restrictedByDefault: { [key: string]: IIndexing<boolean>; };
+    restrictedByID: {[key: string]: IIndexing<boolean>;};
+    restrictedByDefault: {[key: string]: IIndexing<boolean>;};
 }
 
 export type IJackpot = {
@@ -356,3 +361,4 @@ export interface ISearchFilter {
     array: Game[],
     regExp: string,
 }
+

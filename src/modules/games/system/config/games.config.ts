@@ -29,6 +29,12 @@ export const gamesConfig: IGamesConfig = {
             '917': {},
             '987': {},
         },
+        /**
+         * Show game header for a certain merchants
+         */
+        showGameHeader: {
+            merchants: [990],
+        },
     },
     run: {
         skipCheckBalance: false,

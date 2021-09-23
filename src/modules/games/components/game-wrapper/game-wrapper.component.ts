@@ -116,6 +116,8 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
             this.toggleDasgboard(checked);
         },
     };
+    public isMobile: boolean = false;
+    public enableGameHeader: boolean;
 
     protected realMobile: boolean = false;
     protected aspectRatio: string;
@@ -127,7 +129,6 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
     protected iframeObserver: MutationObserver;
     protected iframe: HTMLElement;
     protected isIframeHeight: boolean = false;
-    protected isMobile: boolean = false;
 
     constructor(
         @Inject('injectParams') protected injectParams: IGameWrapperCParams,
@@ -161,6 +162,11 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
         this.locale = this.router.stateService.params?.locale || 'en';
         this.gameParams = this.getGameParams();
         this.initEventHandlers();
+
+        this.enableGameHeader = _includes(
+            this.configService.get<number[]>('$games.mobile.showGameHeader.merchants'),
+            this.gameParams.merchantId,
+        );
 
         this.game = this.getGame();
         if (this.game) {

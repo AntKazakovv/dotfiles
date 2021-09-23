@@ -39,7 +39,7 @@
 
         <div wlc-game-dashboard [opened]="openDashboard"></div>
 
-        <div *ngIf="game.merchantID === 990" class="{{$class}}__game-header">
+        <div *ngIf="isMobile && enableGameHeader" class="{{$class}}__game-header">
             <ng-container [ngTemplateOutlet]="gameName"></ng-container>
             <ng-container [ngTemplateOutlet]="buttonClose"></ng-container>
         </div>
