@@ -62,10 +62,6 @@
 
             ::ng-deep {
 
-                .swiper-slide {
-                    width: ef.get-value($themeDefault, 'swiperWidth');
-                }
-
                 .swiper-button-next {
                     @include bm.get-mq-map('display', $themeDefault, 'swiperButtonDisplay');
 
