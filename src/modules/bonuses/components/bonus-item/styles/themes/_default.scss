@@ -206,6 +206,7 @@
     @include viewsBackgrounds;
     @include em.get-mq-map('min-width', $themeDefault, 'minWidth');
     @include em.get-mq-map('max-width', $themeDefault, 'maxWidth');
+
     width: 100%;
 
     background: ef.get-value($themeDefault, 'backgroundDefault');
@@ -281,7 +282,6 @@
         }
 
         &__bottom {
-            @include em.transition(padding);
             position: relative;
             z-index: 10;
 
@@ -344,7 +344,7 @@
                 background: ef.get-value($themeDefault, 'withImgWrapperBg');
 
                 @include em.hover(false) {
-                    @include em.get-mq-map('grid-template-rows', $themeDefault, 'infoHeightWithImgHover');
+                    @include em.get-mq-map('grid-template-rows', $themeDefault, 'infoHeightWithImgMobile');
                 }
             }
 
@@ -402,7 +402,7 @@
         @include em.hover(false) {
 
             .wlc-bonus-item__wrapper {
-                @include em.get-mq-map('grid-template-rows', $themeDefault, 'infoHeightWithImgHover');
+                @include em.get-mq-map('grid-template-rows', $themeDefault, 'infoHeightActive');
             }
 
             .wlc-bonus-item__btns {
@@ -414,15 +414,10 @@
     @include em.hover() {
 
         .wlc-bonus-item__wrapper {
-            @include em.get-mq-map('grid-template-rows', $themeDefault, 'infoHeightWithImgHover');
 
             &:before {
                 display: none;
             }
-        }
-
-        .wlc-bonus-item__bottom {
-            @include em.get-mq-map('padding', $themeDefault, 'infoBtmPaddingWithImgHover');
         }
 
         .wlc-bonus-item__btns {
@@ -430,7 +425,7 @@
             opacity: 1;
         }
 
-        .wlc-bonus-item__progress {
+        .wlc-bonus-item__description {
             opacity: 0;
         }
     }
@@ -439,6 +434,10 @@
 
         .wlc-bonus-item__content {
             @include em.get-mq-map('height', $themeDefault, 'heightMobile');
+        }
+
+        .wlc-bonus-item__wrapper {
+            @include em.get-mq-map('grid-template-rows', $themeDefault, 'infoHeightMobile');
         }
 
         .wlc-bonus-item__btns {
