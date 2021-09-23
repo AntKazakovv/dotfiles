@@ -5,9 +5,9 @@
     </div>
 
     <div wlc-payment-list
-         data-wlc-element="block_payment-list"
-         [inlineParams]='listConfig'
-         [currentSystem]='currentSystem'>
+        data-wlc-element="block_payment-list"
+        [inlineParams]='listConfig'
+        [currentSystem]='currentSystem'>
     </div>
 </div>
 
@@ -20,8 +20,8 @@
     </div>
 
     <div *ngIf="requiredFieldsKeys.length"
-         class="{{$class}}__fields-error"
-         data-wlc-element="add_required_fields">
+        class="{{$class}}__fields-error"
+        data-wlc-element="add_required_fields">
         <p class="{{$class}}__fields-message">{{'Payment method is not available. Please, add the following info' | translate}}:</p>
         <ul class="{{$class}}__fields-ul">
             <li *ngFor="let item of requiredFieldsKeys"
@@ -31,22 +31,27 @@
             </li>
         </ul>
         <button wlc-button
-                text="Edit profile"
-                wlcElement="add_info"
-                (click)="editProfile()"></button>
+            text="Edit profile"
+            wlcElement="add_info"
+            (click)="editProfile()"></button>
     </div>
 
     <ng-container *ngIf="currentSystem && cryptoCheck && $params.mode === 'deposit'">
         <div wlc-payment-message
-             class="{{$class}}__crypto-block"
-             [system]="currentSystem"></div>
+            class="{{$class}}__crypto-block"
+            [system]="currentSystem"></div>
 
         <div class="{{$class}}__divider"></div>
     </ng-container>
 
-    <div *ngIf="showPayCryptosV2Text"
-         class="{{$class}}__fields-error">
+    <div *ngIf="showCryptoInfo('msg1')"
+        class="{{$class}}__fields-error">
         {{'Before you can proceed with the deposit, you must read and accept the terms.' | translate}}
+    </div>
+
+    <div *ngIf="showCryptoInfo('msg2')"
+        class="{{$class}}__fields">
+        {{'Please click the Deposit button to create your wallet address.' | translate}}
     </div>
 
     <ng-container *ngIf="!requiredFieldsKeys.length">
@@ -64,11 +69,11 @@
         </div>
 
         <div wlc-form-wrapper
-             class="{{$class}}__form"
-             [config]="formConfig"
-             [formData]="formData$"
-             [beforeSubmit]="formBeforeSubmit.bind(this)"
-             [ngSubmit]="sendForm.bind(this)">
+            class="{{$class}}__form"
+            [config]="formConfig"
+            [formData]="formData$"
+            [beforeSubmit]="formBeforeSubmit.bind(this)"
+            [ngSubmit]="sendForm.bind(this)">
         </div>
     </ng-container>
 
