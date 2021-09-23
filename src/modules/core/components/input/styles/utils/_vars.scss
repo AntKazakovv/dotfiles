@@ -4,11 +4,6 @@ $customThemeDefault: () !default;
 $themeDefault: map-merge((
     'maxWidth': ef.get('form', 'maxWidth'),
 
-    'labelFontWeight': ef.get('form', 'labelFontWeight'),
-    'labelColor': ef.get('form', 'labelColor'),
-    'labelFontSize': ef.get('form', 'labelFontSize'),
-    'labelGap': ef.get('size', 'smallest'),
-
     'inputHeight': ef.get('form', 'inputHeight'),
     'inputMaxWidth': ef.get('form', 'inputMaxWidth'),
     'inputPlaceholderColor': ef.get('fieldColors', 'placeholderColor'),
@@ -59,18 +54,6 @@ $themePlaceholderShown: map-merge((
 
 $customThemeVertical: () !default;
 $themeVertical: map-merge((
-    'labelGap': 0,
-
-    'labelFont': 'SignText',
-    'labelFontBig': 'PlaceholderText',
-    'labelMinHeight': 20px,
-    'labelAlignItems': center,
-    'labelMargin': 0 0 0 ef.get('size', 'small'),
-    'labelFontSize': ef.get('font', 'small'),
-    'labelFontWeight': 500,
-    'labelLineHeight': 1,
-    'labelColor': var(--fc-labelColor),
-
     'inputWidth': 100%,
     'inputHeight': 40px,
     'inputPadding': ef.get('form', 'inputPadding'),

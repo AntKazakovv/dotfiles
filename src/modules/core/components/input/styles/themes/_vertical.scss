@@ -2,6 +2,7 @@
 @use 'engine-scss/mixins/text' as text;
 @use 'engine-scss/mixins/base.mixins' as bm;
 @use 'engine-scss/mixins/mediaqueries' as mq;
+@use 'engine-scss/mixins/common.mixins' as cm;
 @import '../utils/vars';
 @import '../utils/mixins';
 
@@ -21,20 +22,7 @@
     }
 
     .wlc-input__label {
-        @include text.get-text-style(ef.get-value($themeVertical, 'labelFont'), ef.get-value($themeVertical, 'labelColor'));
-
-        display: flex;
-        align-items: ef.get-value($themeVertical, 'labelAlignItems');
-
-        margin: ef.get-value($themeVertical, 'labelMargin');
-        min-height: ef.get-value($themeVertical, 'labelMinHeight');
-
-        cursor: pointer;
-        user-select: none;
-
-        @include mq.min(1630) {
-            @include text.get-text-style(ef.get-value($themeVertical, 'labelFontBig'), ef.get-value($themeVertical, 'labelColor'));
-        }
+        @include cm.labelStyle;
     }
 
     .wlc-input__container {

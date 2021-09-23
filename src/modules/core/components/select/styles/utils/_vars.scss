@@ -2,9 +2,6 @@
 
 $customThemeDefault: () !default;
 $themeDefault: map-merge((
-    'labelFont': 'PrimaryText',
-    'labelColor': ef.get('form', 'labelColor'),
-    'labelGap': ef.size(1),
     'tooltipMargin': (
         320: 0 0 0 ef.size(1),
     ),
@@ -14,14 +11,7 @@ $themeDefault: map-merge((
 
 $customThemeVertical: () !default;
 $themeVertical: map-merge((
-    'labelFont': 'SignText',
-    'labelFontBig': 'PlaceholderText',
     'labelGap': 0,
-    'labelMaxWidth': 100%,
-    'labelMargin': 0 0 0 ef.size(2),
-    'labelAlignItems': center,
-    'labelColor': ef.get('form', 'labelColor'),
-    'labelMinHeight': ef.size(4),
     'selectGroupSize': 100%,
     'tooltipTransform': translateY(-4px),
     'tooltipMargin': 0 0 0 ef.size(1),

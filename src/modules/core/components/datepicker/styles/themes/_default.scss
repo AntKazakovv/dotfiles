@@ -2,6 +2,7 @@
 @use 'engine-scss/functions' as ef;
 @use 'engine-scss/mixins/mediaqueries' as mq;
 @use 'engine-scss/mixins/base.mixins' as bm;
+@use 'engine-scss/mixins/common.mixins' as cm;
 
 
 .wlc-datepicker--theme-default:host {
@@ -15,18 +16,7 @@
     }
 
     .wlc-datepicker__label {
-        @include lib.get-text-style(ef.get-value($themeDefault, 'labelFont'), ef.get-value($themeDefault, 'labelColor'));
-
-        display: flex;
-        align-items: ef.get-value($themeDefault, 'labelAlignItems');
-
-        min-height: ef.get-value($themeDefault, 'labelMinHeight');
-        padding: ef.get-value($themeDefault, 'labelPadding');
-        cursor: pointer;
-
-        @include mq.min(1630) {
-            @include lib.get-text-style(ef.get-value($themeDefault, 'labelFontBig'), ef.get-value($themeDefault, 'labelColor'));
-        }
+        @include cm.labelStyle;
     }
 
     .wlc-datepicker__input {
@@ -52,16 +42,16 @@
     }
 
     .wlc-datepicker__icon {
-        z-index: 1;
         position: absolute;
         top: 0;
         right: 0;
-        height: 100%;
-        cursor: pointer;
+        z-index: 1;
         display: flex;
-        justify-content: center;
         align-items: center;
+        justify-content: center;
+        height: 100%;
         padding: ef.get-value($themeDefault, 'iconPadding');
+        cursor: pointer;
 
         &::ng-deep {
 
@@ -72,9 +62,9 @@
 
             span,
             svg {
+                display: block;
                 width: 100%;
                 height: 100%;
-                display: block;
             }
 
             svg {
@@ -185,13 +175,13 @@
         }
 
         .myDpDisabled {
-            opacity: ef.get-value($themeDefault, 'datepickerDisabledOpacity');
             cursor: not-allowed;
+            opacity: ef.get-value($themeDefault, 'datepickerDisabledOpacity');
         }
 
         .myDpIcon {
-            font-family: angular-mydatepicker;
             font-size: ef.get-value($themeDefault, 'datepickerIconSize');
+            font-family: angular-mydatepicker;
         }
     }
 }

@@ -3,6 +3,7 @@
 @use 'engine-scss/mixins/base.mixins' as bm;
 @use 'engine-scss/mixins/text' as text;
 @use 'modules/core/components/button/styles/utils/mixins' as button;
+@use 'engine-scss/mixins/common.mixins' as cm;
 
 .wlc-transaction-history--theme-default {
 
@@ -35,17 +36,8 @@
             grid-template-areas: ef.get-value($themeDefault, 'labelAreas');
 
             .wlc-label {
-                @include text.get-text-style(ef.get-value($themeDefault, 'labelFont'), ef.get-value($themeDefault, 'labelColor'));
-                display: flex;
+                @include cm.labelStyle;
                 grid-area: label;
-                align-items: center;
-                min-height: ef.get-value($themeDefault, 'labelMinHeight');
-                padding: ef.get-value($themeDefault, 'labelPadding');
-                cursor: pointer;
-
-                @include mq.min(1630) {
-                    @include text.get-text-style(ef.get-value($themeDefault, 'labelFontBig'), ef.get-value($themeDefault, 'labelColor'));
-                }
             }
         }
 

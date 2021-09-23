@@ -1,15 +1,14 @@
 @use 'engine-scss/functions' as ef;
 @use 'engine-scss/mixins/text' as text;
 @use 'engine-scss/mixins/base.mixins' as bm;
+@use 'engine-scss/mixins/common.mixins' as cm;
 
 .wlc-select--theme-default:host {
-    gap: ef.get-value($themeDefault, 'labelGap');
 
     .wlc-select {
 
         &__label {
-            @include text.get-text-style(ef.get-value($themeDefault, 'labelFont'), ef.get-value($themeDefault, 'labelColor'));
-            align-items: center;
+            @include cm.labelStyle;
 
             .wlc-tooltip {
                 @include bm.get-mq-map('margin', $themeDefault, 'tooltipMargin');

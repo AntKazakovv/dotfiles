@@ -1,6 +1,7 @@
 @use 'engine-scss/mixins/mediaqueries' as mq;
 @use 'engine-scss/mixins/text' as text;
 @use 'engine-scss/mixins/base.mixins' as bm;
+@use 'engine-scss/mixins/common.mixins' as cm;
 @use 'engine-scss/functions' as ef;
 
 @import '../utils/vars';
@@ -17,25 +18,24 @@
     @include inputBase($themeDefault);
 
     .wlc-input__label {
-        @include text.get-text-style('PrimaryText', ef.get-value($themeDefault, 'labelColor'));
-        cursor: pointer;
+        @include cm.labelStyle;
     }
 
     .wlc-input__input {
-        width: 100%;
         position: relative;
+        width: 100%;
 
         input {
             @include resetAppearance();
+            @include text.get-text-style('PrimaryText', ef.get-value($themeVertical, 'inputColor'));
 
             width: 100%;
+            height: ef.get-value($themeDefault, 'inputHeight');
             border: ef.get-value($themeDefault, 'inputBorder');
             border-radius: ef.get-value($themeDefault, 'inputBorderRadius');
             padding: ef.get-value($themeDefault, 'inputPadding');
             text-overflow: ellipsis;
             overflow: visible;
-            height: ef.get-value($themeDefault, 'inputHeight');
-            @include text.get-text-style('PrimaryText', ef.get-value($themeVertical, 'inputColor'));
 
             &::placeholder {
                 color: ef.get-value($themeDefault, 'inputPlaceholderColor');
@@ -59,9 +59,9 @@
             }
 
             &:disabled {
+                color: ef.get-value($themeDefault, 'inputDisabledColor');
                 background: ef.get-value($themeDefault, 'inputDisabledBg');
                 border-color: ef.get-value($themeDefault, 'inputDisabledBorder');
-                color: ef.get-value($themeDefault, 'inputDisabledColor');
                 -webkit-text-fill-color: ef.get-value($themeDefault, 'inputDisabledColor');
                 opacity: ef.get-value($themeDefault, 'inputDisabledOpacity');
             }
@@ -81,8 +81,8 @@
     }
 
     .wlc-input__limits {
-        display: block;
         @include text.get-text-style('PlaceholderText', ef.get-value($themeDefault, 'limitsColor'));
+        display: block;
     }
 
     //TODO Make cross themes variables and styles
@@ -98,14 +98,13 @@
         }
 
         .field-icon--copy {
-            border: none;
-            appearance: none;
-            background: none;
             position: absolute;
             top: ef.get-value($themeVertical, 'iconEyeTop');
             right: ef.get-value($themeVertical, 'iconEyeRight');
-
+            background: none;
+            border: none;
             transform: ef.get-value($themeVertical, 'iconEyeTransform');
+            appearance: none;
         }
 
         .field-icon--currency {
@@ -146,8 +145,20 @@
             ::ng-deep {
 
                 svg path {
-                    fill: ef.get-value($themeVertical, 'fieldIconSvgFill');
                     @include bm.transition(fill);
+                    fill: ef.get-value($themeVertical, 'fieldIconSvgFill');
+                }
+            }
+
+
+            &:active {
+
+                ::ng-deep {
+
+                    svg path {
+
+                        fill: ef.get-value($themeVertical, 'fieldIconSvgFillActive');
+                    }
                 }
             }
 
@@ -157,17 +168,6 @@
 
                     svg path {
                         fill: ef.get-value($themeVertical, 'fieldIconSvgFillHover');
-                    }
-                }
-            }
-
-            &:active {
-
-                ::ng-deep {
-
-                    svg path {
-
-                        fill: ef.get-value($themeVertical, 'fieldIconSvgFillActive');
                     }
                 }
             }

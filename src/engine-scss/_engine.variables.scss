@@ -350,9 +350,16 @@ $time: map-merge((
 $dummy: map-merge((), $customForm);
 $form: map-merge((
     'maxWidth': 765px,
-    'labelFontWeight': normal,
+
+    'labelFont': (
+        375: 'SignText',
+        1630: 'PlaceholderText',
+    ),
+    'labelMinHeight': 20px,
+    'labelAlignItems': center,
+    'labelMargin': 0 0 0 map-get($size, 'small'),
     'labelColor': var(--fc-labelColor),
-    'labelFontSize': map-get($font, 'smaller'),
+
     'inputColor': var(--fc-textColor),
     'inputFontSize': map-get($font, 'main'),
     'inputHeight': 40px,

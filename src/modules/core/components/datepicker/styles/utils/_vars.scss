@@ -5,14 +5,6 @@ $themeDefault: map-merge((
     'maxWidth': 140px,
     'transition': 0.5s ease-in,
 
-    'labelFont': 'SignText',
-    'labelFontBig': 'PlaceholderText',
-    'labelAlignItems': center,
-    'labelColor':  var(--fc-labelColor),
-    'labelPadding': 0 0 0 ef.get('radius', 'biger'),
-    'labelLineHeight': 1.9,
-    'labelMinHeight': 20px,
-
     'inputColor': var(--fc-textColor),
     'inputBg': var(--fc-inputBg),
     'inputPlaceholderColor': var(--fc-placeholderColor),

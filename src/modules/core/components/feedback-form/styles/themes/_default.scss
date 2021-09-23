@@ -2,6 +2,7 @@
 @use 'engine-scss/mixins/base.mixins' as bm;
 @use 'engine-scss/mixins/text' as text;
 @use 'engine-scss/functions' as ef;
+@use 'engine-scss/mixins/common.mixins' as cm;
 
 .wlc-feedback-form--theme-default:host {
     margin: ef.get-value($themeDefault, 'margin');
@@ -15,9 +16,9 @@
 
     .wlc-feedback-form-details {
         display: flex;
+        flex-direction: row;
         flex-wrap: wrap;
 
-        flex-direction: row;
         margin: 0 calc(#{ef.get-value($themeDefault, 'contactsGap')} * -1.5);
 
         @include mq.min(1024) {
@@ -29,13 +30,7 @@
         margin-bottom: ef.get-value($themeDefault, 'contactsGap');
         padding: 0 calc(#{ef.get-value($themeDefault, 'contactsGap')} * 1.5);
 
-        @include mq.min(1024) {
-            padding: 0 calc(#{ef.get-value($themeDefault, 'contactsGap')} * 3);
-            max-width: 50%;
-        }
-
         &:first-child {
-
             @include mq.min(900) {
                 margin: 0;
             }
@@ -47,7 +42,7 @@
         }
 
         span {
-            @include text.get-text-style('SignText', ef.get-value($themeDefault, 'detailsHeaderColor'));
+            @include cm.labelStyle(false, false);
         }
 
         a,
@@ -56,8 +51,8 @@
 
             max-width: 100%;
             overflow: hidden;
-            text-overflow: ellipsis;
             text-decoration: none;
+            text-overflow: ellipsis;
             transition: ef.get-value($themeDefault, 'transition');
 
             &:hover {
@@ -68,13 +63,18 @@
                 @include text.get-text-style(ef.get-value($themeDefault, 'contactsTextStyle', 560), ef.get-value($themeDefault, 'contactsContentColor'));
             }
         }
+
+        @include mq.min(1024) {
+            max-width: 50%;
+            padding: 0 calc(#{ef.get-value($themeDefault, 'contactsGap')} * 3);
+        }
     }
 
     hr {
-        background: ef.get-value($themeDefault, 'hrColor');
-        opacity: 1;
         height: 2px;
         margin: ef.get-value($themeDefault, 'hrMargin');
+        background: ef.get-value($themeDefault, 'hrColor');
+        opacity: 1;
     }
 
     &::ng-deep {

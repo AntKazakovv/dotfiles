@@ -108,6 +108,8 @@ $mainInfoThemeDefault: map-merge((
     'switcherPadding': 0,
     'labelAlignItems': center,
     'labelMargin': 0 0 0 ef.get('size', 'small'),
+    'labelFont': 'PrimaryText',
+    'labelFontColor': var(--mc-baseMain),
 ), $customMainInfoThemeDefault);
 
 
