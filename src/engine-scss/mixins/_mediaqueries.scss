@@ -1,6 +1,6 @@
 @use '../functions' as ef;
 @use '../engine.variables' as ev;
-@use '~bootstrap/scss/mixins/breakpoints' as bbp;
+@use './breakpoints' as bbp;
 
 @mixin min($name) {
     $min: bbp.breakpoint-min($name, ev.$grid-breakpoints);

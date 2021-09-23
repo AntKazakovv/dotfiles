@@ -379,7 +379,8 @@
         opacity: 0;
     }
 
-    &.show {
+    &.show,
+    &.in {
         @include bm.get-mq-map('opacity', $hostModal, 'backdropOpacity');
     }
 }

@@ -9,6 +9,14 @@
 @use './mediaqueries' as mq;
 @use '../engine.variables' as ev;
 
+@mixin make-container($gutter: ev.$container-padding-x) {
+    width: 100%;
+    margin-right: auto;
+    margin-left: auto;
+    padding-right: $gutter;
+    padding-left: $gutter;
+}
+
 @mixin themeMod($class, $theme, $mod) {
 
     @at-root #{selector.replace(&, '.#{$class}--theme-#{$theme}', '.#{$class}--theme-mod-#{$mod}')} {
