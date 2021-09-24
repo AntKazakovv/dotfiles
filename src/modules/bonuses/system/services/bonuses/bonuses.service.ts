@@ -24,6 +24,7 @@ import {
     DataService,
     EventService,
     IData,
+    IEvent,
     IForbidBanned,
     IIndexing,
     IPushMessageParams,
@@ -82,6 +83,15 @@ export class BonusesService {
     private depEvents = ['deposit', 'deposit first', 'deposit repeated', 'deposit sum'];
     private regEvents = ['deposit first', 'registration', 'verification'];
 
+    private queryPromises: {
+        [Property in RestType]: boolean;
+    } = {
+        active: false,
+        history: false,
+        store: false,
+        any: false,
+    };
+
     constructor(
         private cachingService: CachingService,
         private dataService: DataService,
@@ -111,7 +121,7 @@ export class BonusesService {
      * @returns {Subscription} subsctibtion
      */
     public getSubscribe(params: IGetSubscribeParams): Subscription {
-        if (params.useQuery) {
+        if (params.useQuery && !this.queryPromises[params?.type || 'any']) {
             this.queryBonuses(true, params?.type);
         }
 
@@ -374,6 +384,7 @@ export class BonusesService {
         type?: RestType,
         promoCode?: string,
     ): Promise<T[]> {
+        this.queryPromises[type || 'any'] = true;
         const queryParams: IQueryParams = {};
         if (type) {
             if (type === 'active' || type === 'history') {
@@ -433,6 +444,8 @@ export class BonusesService {
                 name: 'BONUSES_FETCH_FAILED',
                 data: error,
             });
+        } finally {
+            this.queryPromises[type || 'any'] = false;
         }
     }
 
@@ -527,7 +540,8 @@ export class BonusesService {
         }
     }
 
-    private setSubscribers() {
+    private setSubscribers(): void {
+
         this.subjects.bonuses$.subscribe({
             next: (bonuses: Bonus[]) => {
                 this.eventService.emit({
@@ -564,7 +578,7 @@ export class BonusesService {
             },
         });
 
-        this.eventService.subscribe([
+        this.eventService.filter([
             {name: 'LOGIN'},
             {name: 'LOGOUT'},
             {name: 'PROFILE_UPDATE'},
@@ -572,8 +586,14 @@ export class BonusesService {
             {name: 'BONUS_CANCEL_SUCCEEDED'},
             {name: 'BONUS_SUBSCRIBE_SUCCEEDED'},
             {name: 'BONUS_UNSUBSCRIBE_SUCCEEDED'},
-        ], () => {
-            this.updateSubscribers();
+        ]).subscribe({
+            next: (event: IEvent<unknown>) => {
+                if (event.name === 'LOGIN' || event.name === 'LOGOUT') {
+                    this.bonuses = [];
+                    this.subjects.bonuses$.next([]);
+                }
+                this.updateSubscribers();
+            },
         });
 
         this.eventService.subscribe([

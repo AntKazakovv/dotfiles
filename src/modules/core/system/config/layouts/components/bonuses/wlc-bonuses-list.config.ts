@@ -7,6 +7,7 @@ export namespace wlcBonusesList {
         params: {
             common: {
                 filter: 'main',
+                useQuery: true,
                 sortOrder: ['active', 'subscribe', 'inventory'],
                 pagination: {
                     use: true,
@@ -37,6 +38,7 @@ export namespace wlcBonusesList {
             themeMod: 'with-image',
             common: {
                 filter: 'main',
+                useQuery: true,
                 sortOrder: ['active', 'subscribe', 'inventory'],
                 pagination: {
                     use: true,
@@ -66,6 +68,7 @@ export namespace wlcBonusesList {
         params: {
             common: {
                 restType: 'active',
+                useQuery: true,
                 filter: 'active',
             },
         },
@@ -76,6 +79,7 @@ export namespace wlcBonusesList {
             theme: 'active',
             common: {
                 restType: 'active',
+                useQuery: true,
                 filter: 'active',
             },
             itemsParams: {
@@ -92,6 +96,7 @@ export namespace wlcBonusesList {
         name: 'bonuses.wlc-bonuses-list',
         params: {
             common: {
+                useQuery: true,
                 filter: 'inventory',
             },
         },
@@ -103,6 +108,7 @@ export namespace wlcBonusesList {
             wlcElement: 'block_bonuses-main',
             useBtnNoBonuses: false,
             common: {
+                useQuery: true,
                 sortOrder: ['active', 'subscribe', 'inventory'],
                 swiper: {
                     slidesPerView: 2,
