@@ -69,7 +69,7 @@ export class GameThumbComponent extends AbstractComponent implements OnInit, Aft
      * return true if pragmatic dga is presented
      */
     public get hasPragmaticDGA(): boolean {
-        return this.game.merchantID === 913 && !!this.pragmaticDGA;
+        return this.game?.merchantID === 913 && !!this.pragmaticDGA;
     }
 
     protected deviceType: DeviceType;
@@ -111,7 +111,7 @@ export class GameThumbComponent extends AbstractComponent implements OnInit, Aft
             this.game = this.gamesCatalogService.getGameById(this.$params.common.gameId);
         }
 
-        if (this.game.merchantID === 913) {
+        if (this.game?.merchantID === 913) {
             this.gamesCatalogService.subscribePragmaticLive(
                 this.game,
                 this.$destroy,
