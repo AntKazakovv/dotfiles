@@ -826,6 +826,7 @@ export class GamesCatalogService {
             system: 'games',
             retries: {
                 count: [1000, 5000, 10000],
+                fallbackUrl: '/static/dist/api/v1/games.json',
             },
             events: {
                 success: gamesEvents.FETCH_GAME_CATALOG_SUCCEEDED,
@@ -861,6 +862,7 @@ export class GamesCatalogService {
             params: this.jackpotParams,
             retries: {
                 count: [3000, 5000],
+                fallbackUrl: '/static/dist/api/v1/jackpots.json',
             },
             events: {
                 success: gamesEvents.FETCH_JACKPOTS_SUCCEEDED,

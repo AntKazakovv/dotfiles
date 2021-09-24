@@ -109,6 +109,10 @@ export class ConfigService {
             events: {
                 fail: 'LOAD_BOOTSTRAP_FAIL',
             },
+            retries: {
+                count: [1000, 3000],
+                fallbackUrl: '/static/dist/api/v1/bootstrap.json',
+            },
         })
             .then((data: IData) => {
                 this.prepareData(data.data);
@@ -246,6 +250,10 @@ export class ConfigService {
             cache: 120 * 60 * 1000,
             system: 'user',
             type: 'GET',
+            retries: {
+                count: [2000, 4000],
+                fallbackUrl: '/static/dist/api/v1/countries.json',
+            },
         }).then(async (data: IData) => {
             await this.ready;
             const sortedCountries = _sortBy(data.data.countries, 'title');
