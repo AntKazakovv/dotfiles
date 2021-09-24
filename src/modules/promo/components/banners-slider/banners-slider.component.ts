@@ -60,7 +60,10 @@ export class BannersSliderComponent extends AbstractComponent implements OnInit 
             {name: 'LOGIN'},
             {name: 'LOGOUT'},
         ], () => {
-            this.createSlides();
+            setTimeout(() => {
+                this.createSlides();
+                this.cdr.markForCheck();
+            });
         });
     }
 
