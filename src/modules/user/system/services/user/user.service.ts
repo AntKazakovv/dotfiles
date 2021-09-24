@@ -9,11 +9,12 @@ import {
 
 import {
     filter,
+    first,
 } from 'rxjs/operators';
 
 import {LogService} from 'wlc-engine/modules/core/system/services/log/log.service';
 import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
-import {EventService} from 'wlc-engine/modules/core/system/services/event/event.service';
+import {EventService, IEvent} from 'wlc-engine/modules/core/system/services/event/event.service';
 import {IIndexing} from 'wlc-engine/modules/core/system/interfaces/global.interface';
 import {ModalService} from 'wlc-engine/modules/core/system/services/modal/modal.service';
 import {IPushMessageParams} from 'wlc-engine/modules/core/system/services/notification/notification.interface';
@@ -407,6 +408,29 @@ export class UserService {
             message.push(gettext('Please complete registration using link in e-mail'));
         }
 
+        if (this.configService.get<boolean>('appConfig.hideEmailExistence')) {
+            this.eventService.filter([
+                {name: 'USER_PROFILE'},
+                {name: 'USER_PROFILE_ERROR'},
+            ]).pipe(first()).subscribe({
+                next: (event: IEvent<IData>) => {
+                    if (event.data.code === 401) {
+                        this.failedRegistration();
+                    } else {
+                        this.successfulRegistration(message);
+                    }
+                },
+            });
+        } else {
+            this.successfulRegistration(message);
+        }
+
+        if (this.modalService.getActiveModal('signup')) {
+            this.modalService.hideModal('signup');
+        }
+    }
+
+    private successfulRegistration(message: string[]): void {
         this.eventService.emit({
             name: NotificationEvents.PushMessage,
             data: <IPushMessageParams>{
@@ -416,10 +440,21 @@ export class UserService {
                 wlcElement: 'notification_registration-success',
             },
         });
+    }
 
-        if (this.modalService.getActiveModal('signup')) {
-            this.modalService.hideModal('signup');
-        }
+    private failedRegistration(): void {
+        this.modalService.showModal({
+            id: 'registration-errors',
+            modalTitle: gettext('Sorry, something went wrong!'),
+            modalMessage: gettext(
+                'Something went wrong during registration, check your email to change your password.',
+            ),
+            textAlign: 'center',
+            onModalHidden: () => {
+                this.logout();
+            },
+            dismissAll: true,
+        });
     }
 
     private async fetchUserInfo(): Promise<void> {
