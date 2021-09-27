@@ -6,7 +6,6 @@ import {
     IModalOptions,
 } from './index';
 
-
 export const defaultParams: IModalOptions = {
     moduleName: 'core',
     componentName: 'wlc-modal-window',
@@ -248,6 +247,14 @@ export const MODALS_LIST: IModalList = {
                     text: gettext('Close'),
                 },
             },
+        },
+    },
+    bonusModal: {
+        config: {
+            id: 'bonus-modal',
+            componentName: 'bonuses.wlc-bonus-modal',
+            showFooter: false,
+            size: 'lg',
         },
     },
     'social-register': {

@@ -38,7 +38,6 @@ export class FallbackImgDirective implements AfterViewInit, OnDestroy {
     ) {}
 
     public ngAfterViewInit(): void {
-
         this.errors$ = fromEvent(this.element.nativeElement, 'error').subscribe((event: Event) => {
             this.errors$.unsubscribe();
 
@@ -48,13 +47,14 @@ export class FallbackImgDirective implements AfterViewInit, OnDestroy {
                     elem.remove();
                 });
             }
-            this.imageError.emit();
 
             if (this.wlcFallback) {
                 this.src = this.wlcFallback;
             } else {
                 this.element.nativeElement.style.display = 'none';
             }
+
+            this.imageError.emit();
         });
     }
 

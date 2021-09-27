@@ -1,0 +1,48 @@
+<div class="{{$class}}__wrapper">
+    <div class="{{$class}}__info-wrapper">
+        <div class="{{$class}}__image-block"
+            data-wlc-element="bonus_image"
+            [ngStyle]="{'backgroundImage': 'url('+getBonusBg+')'}">
+            <ng-container [ngTemplateOutlet]="bonusIcon"></ng-container>
+        </div>
+        <div class="{{$class}}__info-block">
+            <h4 class="{{$class}}__name" data-wlc-element="bonus_title-name">{{bonus.name}}</h4>
+            <div class="{{$class}}__desc-block">
+                <div *ngIf="bonus.description"
+                    class="{{$class}}__description"
+                    data-wlc-element="bonus_description-name">
+                    <div wlc-dynamic-html [html]="bonus.description"></div>
+                </div>
+                <div *ngIf="bonus.terms"
+                    class="{{$class}}__terms"
+                    data-wlc-element="bonus_terms-name">
+                    <div wlc-dynamic-html [html]="bonus.terms"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div wlc-bonus-buttons
+        class="{{$class}}__btns"
+        [bonus]="bonus"
+        [bonusItemTheme]="$params.bonusItemTheme"></div>
+</div>
+
+<ng-template #bonusIcon>
+    <div *ngIf="$params.useIconBonusImage" class="{{$class}}__icon">
+        <img *ngIf="$params.iconsPath && bonus.viewTarget"
+            [wlc-fallback]="fallbackIconPath"
+            class="{{$class}}__icon-sign"
+            draggable="false"
+            loading="lazy"
+            alt="bonus icon"
+            [src]="iconPath"
+            (imageError)="iconError()">
+        <span *ngIf="bonus.value"
+            class="{{$class}}__icon-text"
+            [wlc-value-length]="bonus.value"
+            minLength="4"
+            maxLength="6">
+            {{bonus.value}}
+        </span>
+    </div>
+</ng-template>

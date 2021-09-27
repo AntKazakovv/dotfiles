@@ -192,12 +192,45 @@
         }
     }
 
-    &.wlc-modal--bonus-info {
+    &.wlc-modal--bonus-modal {
 
         .wlc-modal {
 
+            &__dialog {
+                @include bm.get-mq-map('max-width', $themeDefault, 'bonusModalMaxWidth');
+                overflow: ef.get-value($themeDefault, 'bonusModalOverflow');
+            }
+
+            &__body {
+                padding: ef.get-value($themeDefault, 'bonusModalBodyPadding');
+            }
+
             &__wrapper {
-                padding: ef.get-value($themeDefault, 'bonusInfoWrapperPadding');
+                padding: ef.get-value($themeDefault, 'bonusModalWrapperPadding');
+            }
+        }
+    }
+
+    &.wlc-modal--payment-list {
+
+        .wlc-modal {
+
+            &__body {
+                @include em.get-mq-map('padding', $themeDefault, 'paymentListBodyPadding');
+            }
+        }
+    }
+
+    &.wlc-modal--bonus-info-default {
+
+        .wlc-modal {
+
+            &__body {
+                padding: ef.get-value($themeDefault, 'bonusInfoDefaultBodyPadding');
+            }
+
+            &__wrapper {
+                padding: ef.get-value($themeDefault, 'bonusInfoDefaultWrapperPadding');
             }
         }
     }

@@ -366,8 +366,18 @@ $themeDefault: map-merge((
     //loyalty-info-modal
 
     //bonus-info
-    'bonusInfoWrapperPadding': ef.get('size', 'less') 0 0 0,
+    'bonusInfoDefaultBodyPadding': ef.size(2) ef.size(6) ef.size(6) ef.size(6),
+    'bonusInfoDefaultWrapperPadding': ef.size(6) 0 0 0,
     //bonus-info
+
+    //bonus-modal
+    'bonusModalMaxWidth': (
+        900: 650px,
+    ),
+    'bonusModalBodyPadding': 0,
+    'bonusModalWrapperPadding': ef.size(6) 0 0 0,
+    'bonusModalOverflow': hidden,
+    //bonus-modal
 
     //data-is-processing
     'dataIsProcessingHeight': 100%,

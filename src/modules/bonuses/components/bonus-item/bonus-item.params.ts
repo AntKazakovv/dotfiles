@@ -1,7 +1,6 @@
 import {
     IComponentParams,
     CustomType,
-    IIndexing,
 } from 'wlc-engine/modules/core';
 import {
     Bonus,
@@ -35,11 +34,6 @@ export type AutoModifiers = Theme | ThemeMod;
 export type CustomMod = string;
 export type Modifiers = AutoModifiers | CustomMod | null;
 
-export interface ILinkParams {
-    state: string;
-    params?: IIndexing<string>;
-}
-
 export interface IBonusItemCParams extends IComponentParams<Theme, Type, ThemeMod> {
     modifiers?: Modifiers[];
     bonus?: Bonus,
@@ -59,12 +53,7 @@ export interface IBonusItemCParams extends IComponentParams<Theme, Type, ThemeMo
         bonus?: Bonus;
         nameClamp?: number;
         usePreviewBonus?: boolean;
-        useActionButtons?: boolean;
         descriptionClamp?: number,
-        promoLinks?: {
-            deposit?: ILinkParams;
-            play?: ILinkParams;
-        };
     };
 }
 
@@ -84,17 +73,5 @@ export const defaultParams: IBonusItemCParams = {
         nameClamp: 1,
         descriptionClamp: 2,
         usePreviewBonus: false,
-        useActionButtons: true,
-        promoLinks: {
-            deposit: {
-                state: 'app.profile.cash.deposit',
-            },
-            play: {
-                state: 'app.catalog',
-                params: {
-                    category: 'casino',
-                },
-            },
-        },
     },
 };

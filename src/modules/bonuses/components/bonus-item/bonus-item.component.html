@@ -9,7 +9,6 @@
     <ng-container [ngTemplateOutlet]="default" *ngSwitchDefault></ng-container>
 </ng-container>
 
-
 <ng-template #default>
     <div class="{{$class}}__content"
          [ngStyle]="{'background-image': bonus.imageUrl}"
@@ -47,17 +46,11 @@
                             (click)="openDescription($params.common.bonus)">
                     </button>
                 </div>
-
-                <div class="{{$class}}__btns">
-                    <ng-container *ngIf="isAuth" [ngTemplateOutlet]="userIsAuth"></ng-container>
-                    <button wlc-button
-                            *ngIf="isChooseBtn"
-                            typeAttr="button"
-                            text="Choose"
-                            [disabled]="$params.common.bonus?.isChoose"
-                            (click)="chooseBonus($params.common.bonus, $params.common?.type)"
-                            [wlcElement]="'button_choose'">
-                    </button>
+                <div wlc-bonus-buttons
+                    class="{{$class}}__btns"
+                    [bonus]="bonus"
+                    [bonusItemTheme]="$params.theme"
+                    [isChooseBtn]="isChooseBtn">
                 </div>
             </div>
         </div>
@@ -91,44 +84,11 @@
                     </h4>
                     <ng-container [ngTemplateOutlet]="description"></ng-container>
                 </div>
-                <div class="{{$class}}__btns">
-                    <button *ngIf="!isAuth"
-                            wlc-button
-                            typeAttr="button"
-                            text="Sign up"
-                            (click)="action('register')"
-                            [wlcElement]="'button_register'">
-                    </button>
-                    <button *ngIf="isAuth && $params.common.bonus?.canSubscribe"
-                            wlc-button
-                            typeAttr="button"
-                            text="Subscribe"
-                            (click)="join()"
-                            [wlcElement]="'button_subscribe'">
-                    </button>
-                    <ng-container *ngIf="$params.common.useActionButtons; else unsubscribeButton">
-                        <button *ngIf="$params.common.bonus?.canUnsubscribe && $params.common.bonus?.isDeposit"
-                                wlc-button
-                                typeAttr="button"
-                                text="Deposit"
-                                (click)="action('deposit')"
-                                [wlcElement]="'button_deposit'">
-                        </button>
-                        <button *ngIf="$params.common.bonus?.canUnsubscribe && !$params.common.bonus?.isDeposit"
-                                wlc-button
-                                text="Play"
-                                typeAttr="button"
-                                (click)="action('play')"
-                                [wlcElement]="'button_play'">
-                        </button>
-                        <button *ngIf="$params.common.bonus?.isActive"
-                                wlc-button
-                                text="Play"
-                                typeAttr="button"
-                                (click)="action('play')"
-                                [wlcElement]="'button_play'">
-                        </button>
-                    </ng-container>
+                <div wlc-bonus-buttons
+                    class="{{$class}}__btns"
+                    [bonus]="bonus"
+                    [bonusItemTheme]="$params.theme"
+                    [isChooseBtn]="isChooseBtn">
                 </div>
             </div>
             <div class="{{$class}}__image-block"
@@ -249,44 +209,11 @@
 
             <ng-container [ngTemplateOutlet]="moreIcon"></ng-container>
 
-            <div class="{{$class}}__btns">
-                <button *ngIf="!isAuth"
-                        wlc-button
-                        typeAttr="button"
-                        text="Sign up"
-                        wlcElement="button_register"
-                        (click)="action('register')">
-                </button>
-                <button *ngIf="isAuth && $params.common.bonus?.canSubscribe"
-                        wlc-button
-                        typeAttr="button"
-                        text="Subscribe"
-                        wlcElement="button_subscribe"
-                        (click)="join()">
-                </button>
-                <ng-container *ngIf="$params.common.useActionButtons; else unsubscribeButton">
-                    <button *ngIf="$params.common.bonus?.canUnsubscribe && $params.common.bonus?.isDeposit"
-                            wlc-button
-                            typeAttr="button"
-                            text="Deposit"
-                            wlcElement="button_deposit"
-                            (click)="action('deposit')">
-                    </button>
-                    <button *ngIf="$params.common.bonus?.canUnsubscribe && !$params.common.bonus?.isDeposit"
-                            wlc-button
-                            text="Play"
-                            typeAttr="button"
-                            wlcElement="button_play"
-                            (click)="action('play')">
-                    </button>
-                    <button *ngIf="$params.common.bonus?.isActive"
-                            wlc-button
-                            text="Play"
-                            typeAttr="button"
-                            wlcElement="button_play"
-                            (click)="action('play')">
-                    </button>
-                </ng-container>
+            <div wlc-bonus-buttons
+                class="{{$class}}__btns"
+                [bonus]="bonus"
+                [bonusItemTheme]="$params.theme"
+                [isChooseBtn]="isChooseBtn">
             </div>
         </div>
     </div>
@@ -345,23 +272,11 @@
 
             <ng-container *ngIf="$params.common.bonus?.isActive" [ngTemplateOutlet]="activeBlock"></ng-container>
 
-            <div class="{{$class}}__btns">
-                <ng-container *ngIf="isAuth && !isTypeRegDeposit && !$params.common.bonus.isActive" [ngTemplateOutlet]="userIsAuth"></ng-container>
-                <button wlc-button
-                        *ngIf="!isAuth"
-                        class="{{$class}}__btn"
-                        typeAttr="button"
-                        text="Activate"
-                        (click)="registration()">
-                </button>
-                <button wlc-button
-                        *ngIf="isChooseBtn"
-                        typeAttr="button"
-                        text="Choose"
-                        [disabled]="$params.common.bonus?.isChoose"
-                        (click)="chooseBonus($params.common.bonus, $params.common.type)"
-                        [wlcElement]="'button_choose'">
-                </button>
+            <div wlc-bonus-buttons
+                class="{{$class}}__btns"
+                [bonus]="bonus"
+                [bonusItemTheme]="$params.theme"
+                [isChooseBtn]="isChooseBtn">
             </div>
         </div>
 
@@ -409,16 +324,11 @@
 
             <ng-container [ngTemplateOutlet]="activeBlock"></ng-container>
 
-            <div class="{{$class}}__btns">
-                <ng-container [ngTemplateOutlet]="userIsAuth"></ng-container>
-                <button *ngIf="isChooseBtn"
-                        wlc-button
-                        typeAttr="button"
-                        text="Choose"
-                        [disabled]="$params.common.bonus?.isChoose"
-                        wlcElement="button_choose"
-                        (click)="chooseBonus($params.common.bonus, $params.common?.type)">
-                </button>
+            <div wlc-bonus-buttons
+                class="{{$class}}__btns"
+                [bonus]="bonus"
+                [bonusItemTheme]="$params.theme"
+                [isChooseBtn]="isChooseBtn">
             </div>
         </div>
 
@@ -440,47 +350,6 @@
              (click)="openDescription($params.common.bonus)">
         </div>
     </div>
-</ng-template>
-
-<ng-template #userIsAuth>
-    <button *ngIf="$params.common.bonus.canSubscribe"
-            wlc-button
-            typeAttr="button"
-            text="Subscribe"
-            wlcElement="button_subscribe"
-            (click)="join()">
-    </button>
-    <button *ngIf="$params.common.bonus.inventoried"
-            wlc-button
-            typeAttr="button"
-            text="Take"
-            (click)="getInventory()">
-    </button>
-    <button *ngIf="$params.common.bonus.canUnsubscribe"
-            wlc-button
-            typeAttr="button"
-            text="Unsubscribe"
-            wlcElement="button_unsubscribe"
-            (click)="unsubscribe()">
-    </button>
-    <button *ngIf="$params.common.bonus.isActive"
-            wlc-button
-            typeAttr="button"
-            themeMod="secondary"
-            text="Cancel"
-            wlcElement="button_cancel"
-            (click)="leave()">
-    </button>
-</ng-template>
-
-<ng-template #unsubscribeButton>
-    <button *ngIf="$params.common.bonus.canUnsubscribe"
-        wlc-button
-        typeAttr="button"
-        text="Unsubscribe"
-        wlcElement="button_unsubscribe"
-        (click)="unsubscribe()">
-    </button>
 </ng-template>
 
 <ng-template #bonusImage>
