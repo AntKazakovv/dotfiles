@@ -7,9 +7,13 @@ import {UIRouterModule} from '@uirouter/angular';
 
 import {CoreModule} from '../core/core.module';
 import {PromoModule} from '../promo/promo.module';
+import {CompilerModule} from '../compiler/compiler.module';
+
 import {BonusItemComponent} from './components/bonus-item/bonus-item.component';
 import {BonusesListComponent} from './components/bonuses-list/bonuses-list.component';
 import {BonusesHistoryComponent} from './components/bonuses-history/bonuses-history.component';
+import {BonusModalComponent} from './components/bonus-modal/bonus-modal.component';
+import {BonusButtonsComponent} from './components/bonus-buttons/bonus-buttons.component';
 import {EnterPromocodeComponent} from './components/enter-promocode/enter-promocode.component';
 import {GameDashboardBonusesComponent} from './components/game-dashboard-bonuses/game-dashboard-bonuses.component';
 import {PromoSuccessComponent} from './components/promo-success/promo-success.component';
@@ -28,6 +32,8 @@ export const components = {
     'wlc-bonus-item': BonusItemComponent,
     'wlc-bonuses-history': BonusesHistoryComponent,
     'wlc-bonuses-list': BonusesListComponent,
+    'wlc-bonus-modal': BonusModalComponent,
+    'wlc-bonus-buttons': BonusButtonsComponent,
     'wlc-enter-promocode': EnterPromocodeComponent,
     'wlc-game-dashboard-bonuses': GameDashboardBonusesComponent,
     'wlc-promo-success': PromoSuccessComponent,
@@ -43,6 +49,8 @@ export const services = {
         BonusItemComponent,
         BonusesListComponent,
         BonusesHistoryComponent,
+        BonusModalComponent,
+        BonusButtonsComponent,
         EnterPromocodeComponent,
         PromoSuccessComponent,
         GameDashboardBonusesComponent,
@@ -54,6 +62,7 @@ export const services = {
         PromoModule,
         TranslateModule,
         UIRouterModule,
+        CompilerModule,
     ],
     providers: [
         BonusesService,
@@ -62,6 +71,8 @@ export const services = {
         BonusItemComponent,
         BonusesListComponent,
         BonusesHistoryComponent,
+        BonusModalComponent,
+        BonusButtonsComponent,
         EnterPromocodeComponent,
         PromoSuccessComponent,
         GameDashboardBonusesComponent,

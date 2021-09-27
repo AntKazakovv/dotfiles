@@ -9,11 +9,9 @@ import {
     OnInit,
     ViewEncapsulation,
 } from '@angular/core';
-import {UIRouter} from '@uirouter/core';
 import {
     AbstractComponent,
     IMixedParams,
-    CachingService,
     ConfigService,
     ModalService,
     EventService,
@@ -25,7 +23,6 @@ import {takeUntil} from 'rxjs/operators';
 
 import {
     Bonus,
-    BonusesService,
     BonusItemComponentEvents,
     ChosenBonusSetParams,
     ChosenBonusType,
@@ -66,13 +63,10 @@ export class BonusItemComponent extends AbstractComponent implements OnInit, OnD
 
     constructor(
         @Inject('injectParams') protected params: Params.IBonusItemCParams,
-        protected cachingService: CachingService,
         protected cdr: ChangeDetectorRef,
         protected configService: ConfigService,
         protected modalService: ModalService,
         protected eventService: EventService,
-        protected bonusesService: BonusesService,
-        protected router: UIRouter,
     ) {
         super(
             <IMixedParams<Params.IBonusItemCParams>>{
@@ -149,8 +143,6 @@ export class BonusItemComponent extends AbstractComponent implements OnInit, OnD
 
         this.prepareModifiers();
         this.isAuth = this.ConfigService.get<boolean>('$user.isAuthenticated');
-        this.currency = this.ConfigService.get<string>('appConfig.user.currency') === 'EUR' ?
-            '€' : this.ConfigService.get<string>('appConfig.user.currency');
         this.isTypeRegDeposit = this.$params.common?.type === 'reg' || this.$params.common?.type === 'deposit';
         this.isNoChooseBtn = this.$params.common?.hideChooseBtn && this.isTypeRegDeposit;
         this.isChooseBtn = !this.$params.common?.hideChooseBtn && this.isTypeRegDeposit;
@@ -178,114 +170,22 @@ export class BonusItemComponent extends AbstractComponent implements OnInit, OnD
     }
 
     public openDescription(bonus: Bonus): void {
-        this.modalService.showModal({
-            id: 'bonus-info',
-            modalTitle: bonus.name,
-            modifier: 'info',
-            html: bonus.description,
-            dismissAll: false,
-        });
+        this.modalService.showModal('bonusModal', {bonus, 'bonusItemTheme': this.$params.theme});
     }
 
     public chooseBonusNoBtn(bonus: Bonus, type: IBonusType): void {
         if (!this.isChooseBtn || this.$params.theme === 'reg-first') {
-            this.chooseBonus(bonus, type);
+            bonus.isChoose = this.$params.common.bonus.isChoose = true;
+            this.eventService.emit({
+                name: BonusItemComponentEvents[type] || BonusItemComponentEvents['other'],
+                data: bonus,
+            });
+            this.cdr.markForCheck();
         }
-    }
-
-    public chooseBonus(bonus: Bonus, type: IBonusType): void {
-        bonus.isChoose = this.$params.common.bonus.isChoose = true;
-        this.eventService.emit({
-            name: BonusItemComponentEvents[type] || BonusItemComponentEvents['other'],
-            data: bonus,
-        });
-        this.cdr.markForCheck();
     }
 
     public chooseBlankBonus(): void {
         this.eventService.emit({name: 'CHOOSE_BLANK_BONUS'});
-    }
-
-    public async getInventory(): Promise<void> {
-        const bonus = await this.bonusesService.takeInventory(this.bonus);
-        if (bonus) {
-            this.bonus = bonus;
-            this.cdr.markForCheck();
-        }
-    }
-
-    public async join(): Promise<void> {
-        const bonus = await this.bonusesService.subscribeBonus(this.bonus);
-        if (bonus) {
-            this.bonus = bonus;
-            this.bonusesService.clearPromoBonus();
-            this.cdr.markForCheck();
-        }
-    }
-
-    public leave(): void {
-        this.modalService.showModal({
-            id: 'bonus-info',
-            modalTitle: gettext('Confirmation'),
-            modifier: 'confirmation',
-            modalMessage: gettext('Are you sure?'),
-            showConfirmBtn: true,
-            closeBtnParams: {
-                themeMod: 'secondary',
-                common: {
-                    text: gettext('No'),
-                },
-            },
-            confirmBtnText: gettext('Yes'),
-            textAlign: 'center',
-            onConfirm: async () => {
-                const bonus = await this.bonusesService.cancelBonus(this.bonus);
-                if (bonus) {
-                    this.bonus = bonus;
-                    this.cdr.markForCheck();
-                }
-            },
-            dismissAll: true,
-        });
-    }
-
-    public async unsubscribe(): Promise<void> {
-        const bonus = await this.bonusesService.unsubscribeBonus(this.bonus);
-
-        if (bonus) {
-            this.bonus = bonus;
-            this.cdr.markForCheck();
-        }
-    }
-
-    /**
-     * Registration
-     */
-    public registration(): void {
-        this.modalService.showModal('signup');
-    }
-
-    public action(type: string) {
-        switch (type) {
-            case 'register':
-                this.modalService.showModal('signup');
-                setTimeout(() => {
-                    this.chooseBonus(this.$params.common?.bonus, 'reg');
-                });
-                break;
-            case 'deposit':
-                this.router.stateService.go(
-                    this.$params.common?.promoLinks?.deposit.state || 'app.profile.cash.deposit',
-                    this.$params.common?.promoLinks?.deposit?.params || {},
-                );
-                break;
-            case 'play':
-                this.router.stateService.go(
-                    this.$params.common?.promoLinks?.play.state || 'app.catalog',
-                    this.$params.common?.promoLinks?.play?.params || {category: 'casino'},
-                );
-                break;
-        }
     }
 
     protected prepareModifiers(): void {

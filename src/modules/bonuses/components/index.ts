@@ -4,4 +4,4 @@ export {IEnterPromocodeCParams} from './enter-promocode/enter-promocode.params';
 export {IGameDashboardBonusesCParams} from './game-dashboard-bonuses/game-dashboard-bonuses.params';
 export {IPromoSuccessCParams} from './promo-success/promo-success.params';
 export {RecommendedListEvents} from './recommended-bonuses/recommended-bonuses.params';
-
+export {IBonusModalCParams} from './bonus-modal/bonus-modal.params';

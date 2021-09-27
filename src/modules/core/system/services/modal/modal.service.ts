@@ -21,7 +21,6 @@ import {InjectionService} from 'wlc-engine/modules/core/system/services/injectio
 import {LogService} from 'wlc-engine/modules/core/system/services/log/log.service';
 import {MODALS_LIST, DEFAULT_MODAL_CONFIG} from 'wlc-engine/modules/core/components/modal/modal.params';
 import {WlcModalComponent} from 'wlc-engine/modules/core/components/modal/modal.component';
-import {IModalList} from 'wlc-engine/modules/core/components/modal/modal.interface';
 import {NotificationEvents} from 'wlc-engine/modules/core/system/services/notification/notification.service';
 import {IPushMessageParams} from 'wlc-engine/modules/core/system/services/notification/notification.interface';
 import {
@@ -30,6 +29,7 @@ import {
     IModalEvents,
     IActiveModal,
     IModalName,
+    IModalList,
 } from 'wlc-engine/modules/core/components/modal/modal.interface';
 
 import _assignIn from 'lodash-es/assignIn';
