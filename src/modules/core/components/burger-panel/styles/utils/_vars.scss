@@ -262,7 +262,7 @@ $themeOption3: map-merge((
 $customThemeMobile: () !default;
 $themeMobile: map-merge((
     'panelWidth': 290px,
-    'panelBackground': var(--mc-bg),
+    'panelBackground': var(--mc-bgModal),
     'panelHeaderBorderBottom': 2px solid var(--mc-baseOpacity),
     'panelContentPadding': ef.size(4) ef.size(4) ef.size(8),
     'loginBtnPadding': ef.size(4) 0 ef.size(8),

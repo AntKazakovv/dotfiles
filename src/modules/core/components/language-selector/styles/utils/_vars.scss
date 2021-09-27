@@ -14,7 +14,7 @@ $themeDefault: map-merge((
     'currentHeight': ef.get('size', 'less'),
     'dropdownGap': ef.get('size', 'small'),
     'dropdownPadding': ef.get('size', 'small'),
-    'dropdownBackgroundColor': var(--mc-bg700),
+    'dropdownBackgroundColor': var(--mc-bg),
     'dropdownBorderRadius': ef.get('radius', 'less'),
     'dropdownFlagSize': ef.get('size', 'less'),
     'listShadow': 0 0 5px ef.get('mainColors', 'baseContrast'),
@@ -71,7 +71,7 @@ $themeDefaultModLog: map-merge((
     'currentBorderModLong': 0,
     'currentPaddingModLong': 5px 15px,
     'currentBgModLong': (
-        375: var(--mc-bg700),
+        375: var(--mc-bg),
         1024: var(--mc-bg500),
     ),
     'currentBgModLongActive': var(--mc-main),
