@@ -40,7 +40,7 @@
                     padding-top: ef.get-value($themeDefault, 'itemBeforePaddingTop');
                 }
 
-                &:hover {
+                @include em.hover() {
                     box-shadow: ef.get-value($themeDefault, 'itemBoxShadowHover');
                     color: ef.get-value($themeDefault, 'itemSvgColorHover');
                 }

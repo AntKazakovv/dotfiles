@@ -19,6 +19,21 @@ export type ShowType = string | DeviceType;
 
 export interface IPaymentListCParams extends IAbstractIconsListParams<Theme, Type, ThemeMod> {
     paymentType?: 'deposit' | 'withdraw';
+    /**
+     * Available values 'null' or 'mediaQueryString'. Default is `'(max-width: 479px)'`
+     * We can pass in this param media queries (max-width for example), and payments list will be shown in
+     * modal by click on button "choose method"
+     * as well we can pass null in this param, and list will be shown as tiles
+     *
+     * if we want to set custom settings we have to write them in 04.modules.config.ts
+     * finances: {
+     *   components: {
+     *      'wlc-payment-list': {
+     *          asModal: null,
+     *      },
+     *   },
+     * },
+     */
     asModal?: ShowType;
     showTable?: ShowType;
     iconsType?: IconsType;
