@@ -105,7 +105,7 @@ export class AbstractComponent implements OnDestroy, OnInit, OnChanges {
         }
     }
 
-    public ngOnDestroy() {
+    public ngOnDestroy(): void {
         this.$destroy.next();
         this.$destroy.complete();
     }
