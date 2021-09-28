@@ -1,26 +1,36 @@
 import {
     ChangeDetectorRef,
     Directive,
+    ElementRef,
     Input,
+    OnDestroy,
+    OnInit,
     TemplateRef,
     ViewContainerRef,
-    OnChanges,
-    SimpleChanges,
 } from '@angular/core';
-import {
-    ConfigService,
-    EventService,
-} from 'wlc-engine/modules/core';
+import {Subject} from 'rxjs';
+
+import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
+import {EventService} from 'wlc-engine/modules/core/system/services/event/event.service';
 
 @Directive({
+    // Dynamic component doesn't save the kebabCase in the markup;
     // eslint-disable-next-line @angular-eslint/directive-selector
     selector: '[auth]',
 })
 
-export class AuthDirective implements OnChanges {
+export class AuthDirective implements OnInit, OnDestroy {
+
+    @Input()
+    public set auth(flag: boolean) {
+        this._auth = flag;
+        this.isAuth();
+    }
+    private readonly $destroy: Subject<void> = new Subject();
+    private _auth: boolean;
 
     constructor(
-        protected templateRef: TemplateRef<any>,
+        protected templateRef: TemplateRef<ElementRef>,
         protected viewContainer: ViewContainerRef,
         protected configService: ConfigService,
         protected eventService: EventService,
@@ -28,22 +38,22 @@ export class AuthDirective implements OnChanges {
     ) {
     }
 
-    @Input() set auth(flag: boolean) {
-        this.isAuthCheck(flag);
-    }
-
-    ngOnChanges(changes: SimpleChanges) {
+    public ngOnInit(): void {
         this.eventService.subscribe([
             {name: 'LOGIN'},
             {name: 'LOGOUT'},
         ], () => {
-            this.isAuthCheck(changes.auth.currentValue);
-            this.cdr.markForCheck();
-        });
+            this.isAuth();
+        }, this.$destroy);
     }
 
-    protected isAuthCheck(flag: boolean): void {
-        if (flag === this.configService.get<boolean>('$user.isAuthenticated')) {
+    public ngOnDestroy(): void {
+        this.$destroy.next();
+        this.$destroy.complete();
+    }
+
+    protected isAuth(): void {
+        if (this._auth === this.configService.get<boolean>('$user.isAuthenticated')) {
             this.viewContainer.createEmbeddedView(this.templateRef);
         } else {
             this.viewContainer.clear();
