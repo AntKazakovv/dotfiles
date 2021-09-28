@@ -91,7 +91,7 @@
         top: ef.get-value($themeDefault, 'searchIconTop');
         right: ef.get-value($themeDefault, 'searchIconRight');
         transform: ef.get-value($themeDefault, 'searchIconTranslateY');
-        pointer-events: none;
+        cursor: pointer;
 
         ::ng-deep {
 
