@@ -40,6 +40,7 @@ export class PaymentMessageComponent extends AbstractComponent implements OnInit
     public type: 'pay_to_address' | 'pay_to_bank';
 
     public inputParams: IInputCParams;
+    public inputParamsXaddress: IInputCParams;
     public imageLoaded: boolean = false;
 
     constructor(
@@ -75,17 +76,11 @@ export class PaymentMessageComponent extends AbstractComponent implements OnInit
             this.type = this.system.message['translate'];
         }
 
-        this.inputParams = {
-            name: 'address',
-            theme: 'vertical',
-            common: {
-                readonly: true,
-                placeholder: gettext('Wallet casino'),
-                customModifiers: 'right-shift',
-            },
-            clipboard: true,
-            control: new FormControl(this.message.address),
-        };
+        this.inputParams = this.getInputParams();
+
+        if (this.message.x_address) {
+            this.inputParamsXaddress = this.getInputParams(true);
+        }
     }
 
     public ngOnChanges(): void {
@@ -96,5 +91,19 @@ export class PaymentMessageComponent extends AbstractComponent implements OnInit
                 emitViewToModelChange: true,
             });
         }
+    }
+
+    protected getInputParams(isXaddress?: boolean): IInputCParams {
+        return {
+            name: 'address',
+            theme: 'vertical',
+            common: {
+                readonly: true,
+                placeholder: isXaddress ? gettext('X-addresses') : gettext('Wallet casino'),
+                customModifiers: 'right-shift',
+            },
+            clipboard: true,
+            control: isXaddress ? new FormControl(this.message.x_address) : new FormControl(this.message.address),
+        };
     }
 }

@@ -14,6 +14,8 @@ export interface IPaymentMessage {
     qrlink?: string;
     wallet_currency?: string;
     details?: string;
+    tag?: string;
+    x_address?: string;
 }
 
 export interface IBet {
