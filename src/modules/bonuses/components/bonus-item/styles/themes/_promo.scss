@@ -32,6 +32,8 @@
         &__wrapper {
             @include bm.get-mq-map('grid-template-areas', $themePromo, 'wrapperAreas');
             @include bm.get-mq-map('grid-template-columns', $themePromo, 'wrapperColumns');
+            @include bm.get-mq-map('grid-template-rows', $themePromo, 'wrapperRows');
+            @include bm.get-mq-map('height', $themePromo, 'wrapperHeight');
 
             position: relative;
             display: grid;
@@ -39,12 +41,16 @@
         }
 
         &__image-block {
+            @include bm.get-mq-map('position', $themePromo, 'imgPosition');
+            @include bm.get-mq-map('flex', $themePromo, 'imgFlex');
             @include bm.get-mq-map('grid-area', $themePromo, 'imgBlockAreaName');
             @include bm.get-mq-map('padding', $themePromo, 'imgPadding');
 
-            position: relative;
+            top: 0;
+            left: 0;
             z-index: 0;
             width: 100%;
+            height: 100%;
         }
 
         &__image {
@@ -74,12 +80,11 @@
 
         &__info-block {
             @include bm.get-mq-map('grid-area', $themePromo, 'infoAreaName');
-            @include bm.get-mq-map('height', $themePromo, 'height');
+            @include bm.get-mq-map('height', $themePromo, 'infoHeight');
             @include bm.get-mq-map('padding', $themePromo, 'infoPadding');
             @include bm.get-mq-map('flex-direction', $themePromo, 'infoFlexDirection');
             @include bm.get-mq-map('align-items', $themePromo, 'infoAlignItems');
 
-            position: relative;
             z-index: 1;
 
             display: flex;
@@ -124,8 +129,13 @@
         }
 
         &__description {
+            @include bm.get-mq-map('height', $themePromo, 'heightDescription');
             @include text.get-text-style(ef.get-value($themePromo, 'descrTextStyle'), ef.get-value($themePromo, 'descriptionFontColor'));
-            @include bm.lineClamp(3);
+            @include bm.lineClamp(2);
+
+            @include mq.min(560) {
+                @include bm.lineClamp(3);
+            }
         }
     }
 

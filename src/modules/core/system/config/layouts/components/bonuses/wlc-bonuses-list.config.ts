@@ -117,12 +117,18 @@ export namespace wlcBonusesList {
                         nextEl: '.wlc-swiper-button-next',
                         prevEl: '.wlc-swiper-button-prev',
                     },
+                    observer: true,
+                    observeSlideChildren: true,
                     breakpoints: {
                         320: {
-                            slidesPerView: 'auto',
+                            slidesPerView: 1,
                             spaceBetween: 10,
                         },
                         640: {
+                            slidesPerView: 2,
+                            spaceBetween: 10,
+                        },
+                        768: {
                             slidesPerView: 2,
                             spaceBetween: 10,
                         },

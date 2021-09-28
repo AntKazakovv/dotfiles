@@ -3,6 +3,14 @@
 
 .wlc-bonuses-list--theme-reg-first:host {
 
+    ::ng-deep {
+
+        .swiper-container {
+            @include bm.get-mq-map('max-width', $themeRegFirst, 'listMaxWidth');
+            @include bm.get-mq-map('margin', $themeRegFirst, 'listMargin');
+        }
+    }
+
     .swiper-button-container {
         @include bm.get-mq-map('top', $themeRegFirst, 'sliderTopPos');
         @include bm.get-mq-map('max-width', $themeRegFirst, 'sliderMaxWidth');

@@ -19,8 +19,11 @@ $themeActive: map-merge((
         375: 1fr,
         560: 250px minmax(0, 1fr),
         640: 300px minmax(0, 1fr),
-        720: 350px minmax(0, 1fr),
+        768: 330px minmax(0, 1fr),
+        900: 395px minmax(0, 1fr),
+        1024: 305px minmax(0, 1fr),
         1200: 270px minmax(0, 1fr) 250px,
+        1630: 320px minmax(0, 1fr) 250px,
     ),
     'wrapperHeight': (
         560: 260px,

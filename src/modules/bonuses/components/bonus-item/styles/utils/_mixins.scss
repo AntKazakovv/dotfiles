@@ -4,8 +4,8 @@
 @use 'engine-scss/mixins/text' as text;
 @import './vars';
 
-@mixin contentCommonStyles {
-    @include em.get-mq-map('height', $themeDefault, 'height');
+@mixin contentCommonStyles($theme: $themeDefault) {
+    @include em.get-mq-map('height', $theme, 'height');
     position: relative;
     margin-right: auto;
     margin-left: auto;
@@ -48,6 +48,11 @@
     @include em.lineClamp(2);
 
     max-width: 100%;
+
+    @include em.hover(false) {
+
+        display: none;
+    }
 }
 
 @mixin viewsBackgrounds {

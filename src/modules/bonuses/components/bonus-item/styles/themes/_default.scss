@@ -204,11 +204,9 @@
 
 .wlc-bonus-item--theme-default {
     @include viewsBackgrounds;
-    @include em.get-mq-map('min-width', $themeDefault, 'minWidth');
     @include em.get-mq-map('max-width', $themeDefault, 'maxWidth');
 
     width: 100%;
-
     background: ef.get-value($themeDefault, 'backgroundDefault');
 
     .wlc-bonus-item {
@@ -237,8 +235,13 @@
                 }
             }
 
+            .wlc-bonuses-list--type-swiper & {
+                @include em.get-mq-map('height', $themeDefault, 'swiperHeight');
+            }
+
             .wlc-sections__profile-content--theme-first & {
                 max-width: 100%;
+                height: auto;
             }
         }
 
@@ -317,6 +320,7 @@
             @include em.get-mq-map('bottom', $themeDefault, 'btnBottomPosition');
             @include em.get-mq-map('opacity', $themeDefault, 'btnsOpacity');
             @include em.get-mq-map('transform', $themeDefault, 'btnsTransform');
+            @include em.get-mq-map('margin', $themeDefault, 'btnsMargin');
             @include em.transition(transform);
 
             position: absolute;
@@ -405,6 +409,10 @@
                 @include em.get-mq-map('grid-template-rows', $themeDefault, 'infoHeightActive');
             }
 
+            .wlc-bonus-item__description {
+                @include em.get-mq-map('height', $themeDefault, 'descriptionHeightMobile');
+            }
+
             .wlc-bonus-item__btns {
                 margin-top: auto;
             }
@@ -444,7 +452,7 @@
             @include em.get-mq-map('transform', $themeDefault, 'btnsTransformMobile');
 
             position: static;
-            margin: auto 0 0;
+            margin: ef.get-value($themeDefault, 'btnsMarginMobile');
             padding: ef.get-value($themeDefault, 'btnsPaddingMobile');
             opacity: 1;
         }

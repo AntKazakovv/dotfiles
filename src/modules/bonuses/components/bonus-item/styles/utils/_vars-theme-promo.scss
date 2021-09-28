@@ -6,7 +6,7 @@ $themePromo: map-merge((
     'backgroundHover': var(--mc-bg700),
     'radius': ef.get('radius', 'biger'),
     'height': (
-        320: auto,
+        320: 350px,
         560: 250px,
         720: 380px,
         1200: 280px,
@@ -25,14 +25,28 @@ $themePromo: map-merge((
         1200: 1fr 250px,
         1630: 1fr 340px,
     ),
+    'wrapperRows': (
+        375: 1fr auto,
+        560: 1fr
+    ),
     'wrapperAreas': (
-        375: 'common',
+        375: 'visual' 'info',
         560: 'info visual'
+    ),
+    'wrapperHeight': (
+        375: 350px,
+        560: auto,
     ),
 
     //Info
+    'infoHeight': (
+        560: 250px,
+        720: 380px,
+        1200: 280px,
+        1630: 380px,
+    ),
     'infoPadding': (
-        375: 185px ef.size(4) ef.size(6),
+        375: ef.size(3) ef.size(4) ef.size(4),
         560: ef.size(4),
         720: ef.size(6) ef.size(8) ef.size(8),
         1200: ef.size(4),
@@ -48,8 +62,7 @@ $themePromo: map-merge((
         560: auto,
     ),
     'infoAreaName': (
-        375: common,
-        560: info,
+        375: info,
     ),
     'infoTextAlign': (
         375: center,
@@ -71,6 +84,10 @@ $themePromo: map-merge((
     ),
     'descrTextStyle': 'ThirdTitle',
     'descriptionFontColor': ef.get('mainColors', 'PrimaryText'),
+    'heightDescription': (
+        375: 0,
+        560: auto,
+    ),
 
     //Tag
     'infoTagPosition': (
@@ -83,17 +100,22 @@ $themePromo: map-merge((
     ),
 
     //Image
+    'imgPosition': (
+        375: absolute,
+        560: relative,
+    ),
+
     'imgBlockAreaName': (
-        375: common,
+        375: unset,
         560: visual,
     ),
     'imgBlockBg': ef.get-value($themeDefault, 'imageBg'),
     'imgOverlay': (
-        375: linear-gradient(0deg, var(--mc-bg700) 50%, var(--mc-bg700-o0) 85%),
+        375: linear-gradient(0deg, var(--mc-bg700) 0%, var(--mc-bg700-o0) 70%),
         560: none,
     ),
     'imgPadding': (
-        375: ef.size(9) 0 0 0,
+        375: ef.size(8) 0 0 0,
         560: ef.size(8) 0 0 ef.size(8)
     ),
 

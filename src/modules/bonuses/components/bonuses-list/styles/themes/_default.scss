@@ -9,10 +9,12 @@
 
         .wlc-bonuses-list__list {
             @include bm.get-mq-map('grid-template-columns', $themeDefault, 'gridColumn');
+            @include bm.get-mq-map('max-width', $themeDefault, 'widthList');
 
             display: grid;
             grid-gap: ef.get-value($themeDefault, 'gridGap');
             justify-items: center;
+            margin: ef.get-value($themeDefault, 'marginList');
 
             .wlc-sections__profile-content--theme-first & {
                 @include bm.get-mq-map('grid-template-columns', $themeDefault, 'gridColumnProfileThemeFirst');
@@ -41,15 +43,11 @@
                         .swiper-wrapper {
                             @include bm.get-mq-map('display', $themeDefault, 'sliderDispley');
 
-                            justify-content: center;
+                            justify-content: flex-start;
                         }
 
                         .swiper-slide {
-                            @include bm.get-mq-map('width', $themeDefault, 'bonusWidth');
-
-                            .wlc-bonus-item {
-                                @include bm.get-mq-map('min-width', $themeDefault, 'bonusMinWidth');
-                            }
+                            @include bm.get-mq-map('width', $themeDefault, 'bonusWidthFirst');
                         }
                     }
                 }
@@ -57,8 +55,10 @@
         }
 
         .wlc-bonuses-list__list-wrapper {
+            @include bm.get-mq-map('max-width', $themeDefault, 'swiperWidthWrapper');
 
             position: relative;
+            margin: 0 auto;
 
             ::ng-deep {
 
@@ -79,6 +79,14 @@
 
                     &:after {
                         display: none;
+                    }
+                }
+
+                .swiper-container {
+
+                    .swiper-slide {
+                        display: flex;
+                        justify-content: center;
                     }
                 }
             }

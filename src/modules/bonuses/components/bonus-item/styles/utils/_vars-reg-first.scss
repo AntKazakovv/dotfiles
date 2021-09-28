@@ -16,8 +16,9 @@ $themeRegFirst: map-merge((
         1630: 290px,
     ),
     'infoHeight': (
-        320: (minmax(auto, 150px) 130px),
-        1630: (minmax(auto, 225px) 145px),
+        320: (minmax(auto, 180px) 130px),
+        1366: (minmax(auto, 185px) 130px),
+        1630: (minmax(auto, 220px) 145px),
     ),
     'contentRadius': ef.get-value($themeDefault, 'radius'),
     'chosenNoBorder': 2px solid transparent,

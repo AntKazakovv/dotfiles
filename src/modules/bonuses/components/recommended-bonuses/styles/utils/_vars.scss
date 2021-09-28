@@ -2,32 +2,40 @@
 
 $customThemeDefault: () !default;
 $themeDefault: map-merge((
+    'sliderMaxWidth': (
+        375: 320px,
+        640: 100%,
+    ),
     'sliderMargin': (
-        320: 0 ef.size(3) 0,
+        375: 0 auto,
+        640: 0 ef.size(3) 0,
         1024: 0,
     ),
 
     'titleFontStyle': 'ThirdTitleBold',
     'titleColor': var(--mc-baseMain),
     'titleMargin': (
-        320: ef.size(8) 0 ef.size(4),
+        375: ef.size(8) 0 ef.size(4),
     ),
     'titleTextAlign': (
-        320: left,
+        375: left,
     ),
 
-    'baseSliderWidth': 270px,
+    'baseSliderWidth': 260px,
 
     'swiperContainerPadding': 0,
     'swiperContainerMargin': (
-        320: 0,
-        1024: 0 ef.size(4),
-        1366: 0,
+        375: 0 ef.size(2),
+        640: 0,
+        1024: 0 ef.size(3),
+        1200: 0,
     ),
     'swiperContainerJustifyContent': left,
+    'swiperBtnsDisplay': flex,
     'swiperBtnsPos': (
-        320: ef.size(-4),
+        375: ef.size(-1),
+        640: ef.size(-4),
         1024: 0,
-        1366: ef.size(-4),
+        1200: ef.size(-4),
     ),
 ), $customThemeDefault);

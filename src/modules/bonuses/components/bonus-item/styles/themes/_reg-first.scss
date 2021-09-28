@@ -23,7 +23,7 @@
         }
 
         &__content {
-            @include contentCommonStyles;
+            @include contentCommonStyles($themeRegFirst);
 
             cursor: pointer;
             border-radius: ef.get-value($themeRegFirst, 'contentRadius');

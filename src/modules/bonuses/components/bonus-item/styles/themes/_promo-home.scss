@@ -19,6 +19,7 @@
 
         &__content {
             height: 100%;
+            background-image: ef.get-value($themePromoHome, 'contentBgImg');
             background-repeat: ef.get-value($themePromoHome, 'contentBgRepeat');
             background-position: ef.get-value($themePromoHome, 'contentBgPos');
             background-size: ef.get-value($themePromoHome, 'contentBgSize');

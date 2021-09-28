@@ -178,9 +178,7 @@
 </ng-template>
 
 <ng-template #promoHome>
-    <div class="{{$class}}__content"
-         [ngStyle]="{'background-image': bonus.imageUrl}"
-    >
+    <div class="{{$class}}__content">
         <div class="{{$class}}__tag">{{'Bonuses' | translate}}</div>
         <div class="{{$class}}__wrapper"
              (click)="chooseBonusNoBtn($params.common.bonus, $params.common?.type)">
