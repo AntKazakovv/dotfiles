@@ -34,7 +34,27 @@ export namespace wlcProfileForm {
                                 FormElements.firstName,
                                 FormElements.lastName,
                                 FormElements.email,
-                                FormElements.mobilePhone,
+                                {
+                                    name: FormElements.mobilePhone.name,
+                                    params: {
+                                        ...FormElements.mobilePhone.params,
+                                        showVerification: true,
+                                        phoneCode: {
+                                            common: {
+                                                tooltipIcon: 'verified',
+                                                tooltipMod: 'resolve',
+                                                tooltipText: gettext('The phone has been successfully verified'),
+                                            },
+                                        },
+                                        phoneNumber: {
+                                            common: {
+                                                tooltipIcon: 'verified',
+                                                tooltipMod: 'resolve',
+                                                tooltipText: gettext('The phone has been successfully verified'),
+                                            },
+                                        },
+                                    },
+                                },
                                 FormElements.birthDate,
                                 FormElements.gender,
                                 {

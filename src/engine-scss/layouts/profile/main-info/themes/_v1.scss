@@ -95,6 +95,70 @@
                 & > .wlc-input.wlc-input--password {
                     @include bm.get-mq-map('flex-basis', $mainInfoThemeV1, 'profileFormCurrentPassFlexBasis');
                 }
+
+                & > .wlc-phone-field {
+
+                    .wlc-input[class] {
+                        display: flex;
+                        flex-wrap: wrap;
+
+                        .wlc-input__container {
+                            width: 100%;
+                        }
+
+                        .wlc-input__label {
+                            display: flex;
+                        }
+
+                        .wlc-tooltip {
+                            margin: ef.get-value($mainInfoThemeV1, 'phoneTooltipMargin');
+                        }
+                    }
+
+                    .wlc-input[class],
+                    .wlc-select[class] {
+
+                        .wlc-tooltip {
+                            display: none;
+                        }
+                    }
+
+                    &.wlc-phone-field--sms-not-verified {
+                        @include bm.get-mq-map('grid-template-areas', $mainInfoThemeV1, 'phoneNotVerAreas');
+                        @include bm.get-mq-map('grid-template-columns', $mainInfoThemeV1, 'phoneNotVerColumns');
+
+                        .wlc-btn[wlc-button] {
+                            grid-area: button;
+                            width: max-content;
+                        }
+
+                        .wlc-select[class] {
+                            grid-area: code;
+
+                            .wlc-tooltip {
+                                display: none;
+                            }
+                        }
+
+                        .wlc-input[class] {
+                            grid-area: phone;
+
+                            .wlc-tooltip {
+                                display: none;
+                            }
+                        }
+                    }
+
+                    &.wlc-phone-field--sms-verified {
+
+                        .wlc-input[class] {
+
+                            .wlc-tooltip {
+                                display: flex;
+                            }
+                        }
+                    }
+                }
             }
         }
     }

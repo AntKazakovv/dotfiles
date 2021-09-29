@@ -1,2 +1,9 @@
 <div wlc-select [inlineParams]="$params.phoneCode"></div>
 <div wlc-input [inlineParams]="$params.phoneNumber"></div>
+<button *ngIf="useVerificationBtn"
+        wlc-button
+        typeAttr="button"
+        text="Verify"
+        theme="resolve"
+        (click)="openSmsModal()">
+</button>

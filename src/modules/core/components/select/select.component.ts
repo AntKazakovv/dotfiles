@@ -216,6 +216,8 @@ export class SelectComponent extends AbstractComponent implements OnInit, OnChan
     public get tooltipParams(): ITooltipCParams {
         return {
             inlineText: this.$params.common?.tooltipText,
+            themeMod: this.$params.common?.tooltipMod,
+            iconName: this.$params.common?.tooltipIcon,
             modal: this.$params.common?.tooltipModal,
             modalParams: this.$params.common?.tooltipModalParams,
         };

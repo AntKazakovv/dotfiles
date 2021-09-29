@@ -95,9 +95,9 @@
         {{inputLabel | translate}}
         <ng-container *ngIf="isFieldRequired()">*</ng-container>
     </label>
-    <div *ngIf="$params.common?.tooltipText || $params.common?.tooltipModal"
+    <div *ngIf="useTooltip"
          wlc-tooltip
-         [inlineParams]="{inlineText: $params.common?.tooltipText, modal: $params.common?.tooltipModal, modalParams: $params.common?.tooltipModalParams}"
+         [inlineParams]="tooltipParams"
     ></div>
 </ng-template>
 

@@ -31,6 +31,7 @@ export class TooltipComponent extends AbstractComponent implements OnInit {
     public $class: string;
     public $params: Params.ITooltipCParams;
     public isShow: boolean;
+    public iconPath: string;
 
     protected positionChanged: boolean = false;
     protected resized: boolean = false;
@@ -51,6 +52,7 @@ export class TooltipComponent extends AbstractComponent implements OnInit {
 
     public ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
+        this.iconPath = `/wlc/icons/${this.$params.iconName}.svg`;
     }
 
     @HostListener('click', ['$event']) stopPropagation(event) {

@@ -6,6 +6,7 @@ import {
     ValidatorType,
     IIndexing,
 } from 'wlc-engine/modules/core';
+import {ThemeMod as TooltipThemeMod} from 'wlc-engine/modules/core/components/tooltip/tooltip.params';
 
 export type ComponentTheme = 'default'| 'placeholder-shown' | 'vertical' | CustomType;
 export type ComponentType = 'default' | CustomType;
@@ -27,6 +28,8 @@ export interface IInputCParams extends IComponentParams<ComponentTheme, Componen
         useLabel?: boolean;
         readonly?: boolean;
         tooltipText?: string;
+        tooltipIcon?: string;
+        tooltipMod?: TooltipThemeMod;
         tooltipModal?: string;
         tooltipModalParams?: IIndexing<string>;
         autocomplete?: string;

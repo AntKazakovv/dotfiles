@@ -15,10 +15,9 @@ import {fromEvent} from 'rxjs';
 import {take, takeUntil} from 'rxjs/operators';
 
 import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
-import {
-    ConfigService,
-    EventService,
-} from 'wlc-engine/modules/core';
+import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
+import {EventService} from 'wlc-engine/modules/core/system/services/event/event.service';
+import {ITooltipCParams} from 'wlc-engine/modules/core/components/tooltip/tooltip.params';
 import {
     NotificationEvents,
     IPushMessageParams,
@@ -52,6 +51,7 @@ export class InputComponent extends AbstractComponent implements OnInit, OnChang
     public $params: Params.IInputCParams;
     public control: FormControl;
     public fieldWlcElement: string;
+    public useTooltip: boolean;
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IInputCParams,
@@ -67,6 +67,7 @@ export class InputComponent extends AbstractComponent implements OnInit, OnChang
         this.control = this.$params?.control;
         this.prepareModifiers();
         this.fieldWlcElement = 'input_' + _kebabCase(this.$params.name);
+        this.useTooltip = !!(this.$params.common?.tooltipText || this.$params.common?.tooltipModal);
 
         if (this.$params.common?.autocomplete === 'off') {
             this.$params.common.readonly = true;
@@ -106,6 +107,22 @@ export class InputComponent extends AbstractComponent implements OnInit, OnChang
 
     public get inputLabel(): string {
         return this.$params.common.separateLabel || this.$params.common.placeholder;
+    }
+
+    /**
+     * The method get wlc-tooltip inline parameters
+     *
+     * @method tooltipParams
+     * @returns {ITooltipCParams} ITooltipCParams
+     */
+    public get tooltipParams(): ITooltipCParams {
+        return {
+            inlineText: this.$params.common?.tooltipText,
+            themeMod: this.$params.common?.tooltipMod,
+            iconName: this.$params.common?.tooltipIcon,
+            modal: this.$params.common?.tooltipModal,
+            modalParams: this.$params.common?.tooltipModalParams,
+        };
     }
 
     public toggleType(type: string): void {

@@ -12,8 +12,18 @@ export type CustomMod = string;
 export type Modifiers = AutoModifiers | CustomMod | null;
 
 export interface IPhoneFieldCParams extends IComponentParams<ComponentTheme, ComponentType, string> {
+    /**
+     * PhoneCode field settings
+     */
     phoneCode: ISelectCParams;
+    /**
+     * PhoneNumber field settings
+     */
     phoneNumber: IInputCParams;
+    /**
+     * Show verification detail
+     */
+    showVerification?: boolean;
 }
 
 export let defaultParams: Partial<IPhoneFieldCParams> = {

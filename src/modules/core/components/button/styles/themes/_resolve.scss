@@ -1,0 +1,16 @@
+@use 'engine-scss/functions' as ef;
+@use 'engine-scss/mixins/base.mixins' as bm;
+@import '../utils/mixins';
+
+.wlc-btn--theme-resolve {
+
+    &:host {
+        @include buttonBase;
+        background: ef.get-value($themeResolve, 'backgroundResolve');
+
+        @include bm.hover {
+            background: ef.get-value($themeResolve, 'backgroundResolveHover');
+            border-color: ef.get-value($themeResolve, 'backgroundResolveHover');
+        }
+    }
+}

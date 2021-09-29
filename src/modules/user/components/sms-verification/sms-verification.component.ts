@@ -11,16 +11,14 @@ import {FormGroup} from '@angular/forms';
 import {DateTime} from 'luxon';
 import {interval, Subscription} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
-import {
-    ConfigService,
-    EventService,
-    LogService,
-    AbstractComponent,
-    TimerComponent,
-    IPushMessageParams,
-    NotificationEvents,
-    IFormWrapperCParams,
-} from 'wlc-engine/modules/core';
+import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
+import {EventService} from 'wlc-engine/modules/core/system/services/event/event.service';
+import {LogService} from 'wlc-engine/modules/core/system/services/log/log.service';
+import {TimerComponent} from 'wlc-engine/modules/core/components/timer/timer.component';
+import {IPushMessageParams} from 'wlc-engine/modules/core/system/services/notification/notification.interface';
+import {NotificationEvents} from 'wlc-engine/modules/core/system/services/notification/notification.service';
+import {IFormWrapperCParams} from 'wlc-engine/modules/core/components/form-wrapper/form-wrapper.component';
+import {ModalService} from 'wlc-engine/modules/core/system/services/modal/modal.service';
 import {
     SmsService,
     UserService,
@@ -77,6 +75,7 @@ export class SmsVerificationComponent extends UserActionsAbstract<Params.ISmsVer
         protected logService: LogService,
         protected cdr: ChangeDetectorRef,
         protected smsService: SmsService,
+        protected modalService: ModalService,
     ) {
         super({
             injectParams,
@@ -130,8 +129,35 @@ export class SmsVerificationComponent extends UserActionsAbstract<Params.ISmsVer
             form.disable();
             const response = await this.smsService.validate(this.smsToken, smsCode, this.phoneCode, this.phoneNumber);
             if (response?.status) {
-                await this.userService.validateRegistration(this.formData);
-                await this.finishUserReg(this.formData.data);
+                if (this.$params.functional === 'profile') {
+                    const result = await this.userService.updateProfile({
+                        phoneCode: this.phoneCode,
+                        phoneNumber: this.phoneNumber,
+                        phoneVerified: true,
+                    }, true);
+
+                    if (result) {
+                        this.eventService.emit({
+                            name: NotificationEvents.PushMessage,
+                            data: <IPushMessageParams>{
+                                type: 'success',
+                                title: gettext('Profile updated successfully'),
+                                message: gettext('Your profile has been updated successfully'),
+                                wlcElement: 'notification_profile-update-success',
+                            },
+                        });
+
+                        if (this.modalService.getActiveModal('sms-verification')) {
+                            this.modalService.hideModal('sms-verification');
+                        }
+
+                        this.cdr.detectChanges();
+                    }
+                } else {
+                    await this.userService.validateRegistration(this.formData);
+                    await this.finishUserReg(this.formData.data);
+                }
+
             } else {
                 setTimeout(() => form.controls.code.setErrors({'wrong-sms-code': true}));
             }
@@ -205,7 +231,9 @@ export class SmsVerificationComponent extends UserActionsAbstract<Params.ISmsVer
                 this.smsToken = res.token;
                 if (!isResend) {
                     this.codeSended = true;
-                    this.createFormData();
+                    if (this.$params.functional === 'registration') {
+                        this.createFormData();
+                    }
                 }
                 this.setResendTimeout();
             } else {

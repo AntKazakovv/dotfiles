@@ -50,6 +50,39 @@
                 }
             }
         }
+
+        &.wlc-tooltip--theme-mod-resolve {
+            @include em.get-mq-map('width', $modResolve, 'iconSize');
+            @include em.get-mq-map('height', $modResolve, 'iconSize');
+
+            .wlc-tooltip__icon {
+                @include em.get-mq-map('width', $modResolve, 'iconSize');
+                @include em.get-mq-map('height', $modResolve, 'iconSize');
+
+                &.wlc-icon {
+
+                    ::ng-deep {
+
+                        svg {
+                            @include em.get-mq-map('width', $modResolve, 'iconSize');
+                            @include em.get-mq-map('height', $modResolve, 'iconSize');
+
+                            @include em.hover {
+
+                                path {
+                                    fill: ef.get-value($modResolve, 'iconColorOnHover');
+                                }
+                            }
+                        }
+
+                        path {
+                            @include em.transition(fill);
+                            fill: ef.get-value($modResolve, 'iconFill');
+                        }
+                    }
+                }
+            }
+        }
     }
 }
 

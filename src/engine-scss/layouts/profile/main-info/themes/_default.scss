@@ -179,13 +179,64 @@
                 .wlc-select[class] {
                     @include bm.get-mq-map('grid-gap', $mainInfoThemeDefault, 'phoneGap');
                     @include bm.get-mq-map('grid-template-columns', $mainInfoThemeDefault, 'phoneSize');
+
+                    .wlc-tooltip {
+                        display: none;
+                    }
                 }
 
                 .wlc-input[class] {
                     @include bm.get-mq-map('grid-template-columns', $mainInfoThemeDefault, 'phoneInputColumns');
+                    display: flex;
+                    flex-wrap: wrap;
 
+                    .wlc-tooltip,
                     .wlc-input__label {
                         @include bm.get-mq-map('display', $mainInfoThemeDefault, 'phoneInputLabelDisplay');
+                    }
+
+                    .wlc-tooltip {
+                        margin: ef.get-value($mainInfoThemeDefault, 'phoneTooltipMargin');
+                    }
+                }
+
+                &.wlc-phone-field--sms-verified {
+
+                    .wlc-select[class] {
+
+                        .wlc-tooltip {
+                            @include bm.get-mq-map('display', $mainInfoThemeDefault, 'phoneVerTooltipDisplay');
+                            @include bm.get-mq-map('margin', $mainInfoThemeDefault, 'phoneVerTooltipMargin');
+                        }
+                    }
+                }
+
+                &.wlc-phone-field--sms-not-verified {
+                    @include bm.get-mq-map('grid-template-areas', $mainInfoThemeDefault, 'phoneNotVerAreas');
+                    @include bm.get-mq-map('grid-template-columns', $mainInfoThemeDefault, 'phoneNotVerColumns');
+
+                    .wlc-btn[wlc-button] {
+                        @include bm.get-mq-map('display', $mainInfoThemeDefault, 'phoneNotVerBtnWidth');
+                        grid-area: button;
+                        justify-self: flex-start;
+                        margin: ef.get-value($mainInfoThemeDefault, 'phoneNotVerBtnMargin');
+                    }
+
+                    .wlc-select[class] {
+                        @include bm.get-mq-map('grid-template-columns', $mainInfoThemeDefault, 'phoneNotVerSelectColumn');
+                        grid-area: code;
+
+                        .wlc-tooltip {
+                            display: none;
+                        }
+                    }
+
+                    .wlc-input[class] {
+                        grid-area: phone;
+
+                        .wlc-tooltip {
+                            display: none;
+                        }
                     }
                 }
             }

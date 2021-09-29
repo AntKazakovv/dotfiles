@@ -1,7 +1,7 @@
 <ng-container *ngIf="$params.modal; else tooltip">
     <div wlc-icon
           class="{{$class}}__icon"
-          iconPath="/wlc/icons/info.svg"
+          [iconPath]="iconPath"
           (click)="openModal($event)">
     </div>
 </ng-container>
@@ -9,10 +9,10 @@
 <ng-template #tooltip>
     <div wlc-icon
          class="{{$class}}__icon"
-         iconPath="/wlc/icons/info.svg"
          containerClass="{{$class}}__bs-tooltip"
          placement="bottom"
          container="body"
+         [iconPath]="iconPath"
          [tooltip]="$params.inlineText | translate">
     </div>
 </ng-template>

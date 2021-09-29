@@ -1,9 +1,11 @@
-import {IComponentParams} from 'wlc-engine/modules/core/system/classes/abstract.component';
+import {CustomType, IComponentParams} from 'wlc-engine/modules/core/system/classes/abstract.component';
 import {IIndexing} from 'wlc-engine/modules/core/system/interfaces';
 
+export type ThemeMod = 'resolve' | CustomType;
 
-export interface ITooltipCParams extends IComponentParams<unknown, unknown, unknown> {
+export interface ITooltipCParams extends IComponentParams<unknown, unknown, ThemeMod> {
     inlineText?: string;
+    iconName?: string;
     modal?: string;
     modalParams?: IIndexing<string>;
 }
@@ -11,4 +13,5 @@ export interface ITooltipCParams extends IComponentParams<unknown, unknown, unkn
 export const defaultParams: ITooltipCParams = {
     class: 'wlc-tooltip',
     inlineText: 'Info',
+    iconName: 'info',
 };

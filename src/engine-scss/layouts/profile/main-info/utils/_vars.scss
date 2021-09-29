@@ -52,6 +52,32 @@ $mainInfoThemeDefault: map-merge((
         768: none,
     ),
     'phoneInputColumns': minmax(0, 1fr),
+    'phoneTooltipMargin': 0 0 ef.size(1) ef.size(3),
+
+    'phoneVerTooltipDisplay': (
+        375: none,
+        768: flex,
+    ),
+    'phoneVerTooltipMargin': (
+        768: 0 0 0 ef.size(1),
+    ),
+
+    'phoneNotVerColumns': (
+        375: 100px minmax(0, 1fr),
+        768: minmax(0, 1fr) 180px 130px,
+    ),
+    'phoneNotVerAreas': (
+        375: 'code phone' 'null button',
+        560: 'code phone button',
+    ),
+    'phoneNotVerBtnMargin': 0,
+    'phoneNotVerBtnWidth': (
+        768: 100%,
+    ),
+    'phoneNotVerSelectColumn': (
+        768: minmax(0, 1fr) 120px,
+    ),
+
     'birthColumns': (
         375: repeat(3, minmax(90px, 1fr)),
         768: 1fr 145px 145px
@@ -174,5 +200,16 @@ $mainInfoThemeV1: map-merge((
 
     'profileFormComposedFieldGap': (
         1630: ef.size(4),
+    ),
+
+    'phoneTooltipMargin': 0 0 ef.size(1) ef.size(3),
+
+    'phoneNotVerColumns': (
+        375: 1fr 2fr,
+        768: 1fr 2fr 110px,
+    ),
+    'phoneNotVerAreas': (
+        375: 'code phone' 'empty button',
+        560: 'code phone button',
     ),
 ), $customMainInfoThemeV1);

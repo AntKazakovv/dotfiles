@@ -14,3 +14,7 @@ $borderlessTheme: map-merge(map-merge(ev.$buttonSettings, (
     'underlineExtraSize': 0.25ch,
     'transition': ef.get('time', 'less') ease,
 )), $customThemeBorderless);
+
+$customThemeResolve: () !default;
+$themeResolve: map-merge(map-merge(ev.$buttonSettings, (
+)), $customThemeResolve);

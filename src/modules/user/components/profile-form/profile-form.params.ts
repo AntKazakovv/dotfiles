@@ -5,6 +5,7 @@ import {
     IInputCParams,
     IIndexing,
 } from 'wlc-engine/modules/core';
+import {IPhoneFieldCParams} from 'wlc-engine/modules/user/components/phone-field/phone-field.params';
 
 export type ComponentTheme = 'default' | CustomType;
 export type ComponentType = 'default' | CustomType;
@@ -173,6 +174,21 @@ export const defaultParams: IProfileFormCParams = {
                     //     },
                     // ],
                     locked: true,
+                    showVerification: true,
+                    phoneCode: {
+                        common: {
+                            tooltipIcon: 'verified',
+                            tooltipMod: 'resolve',
+                            tooltipText: gettext('The phone has been successfully verified'),
+                        },
+                    },
+                    phoneNumber: {
+                        common: {
+                            tooltipIcon: 'verified',
+                            tooltipMod: 'resolve',
+                            tooltipText: gettext('The phone has been successfully verified'),
+                        },
+                    },
                 },
             },
             {

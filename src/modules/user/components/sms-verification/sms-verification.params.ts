@@ -20,6 +20,7 @@ export interface ISmsVerificationCParams extends IComponentParams<ComponentTheme
     modifiers?: Modifiers[];
     formConfig?: IFormWrapperCParams;
     codeConfig?: IFormWrapperCParams;
+    functional: 'registration' | 'profile';
 }
 
 export const defaultParams: ISmsVerificationCParams = {
@@ -27,6 +28,7 @@ export const defaultParams: ISmsVerificationCParams = {
     wlcElement: 'modal_signup_sms_verification',
     componentName: 'wlc-sms-verification',
     moduleName: 'user',
+    functional: 'registration',
 };
 
 export const smsVerificationFormConfig: IFormWrapperCParams = {

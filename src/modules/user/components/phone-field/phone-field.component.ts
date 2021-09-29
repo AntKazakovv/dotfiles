@@ -12,16 +12,17 @@ import {
     takeUntil,
 } from 'rxjs/operators';
 import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
-import {
-    ConfigService,
-    ICountry,
-    IInputCParams,
-    ISelectCParams,
-    SelectValuesService,
-    ValidationService,
-} from 'wlc-engine/modules/core';
-import {ISelectOptions} from 'wlc-engine/modules/core/components/select/select.params';
+import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
+import {ICountry} from 'wlc-engine/modules/core/system/interfaces/fundist.interface';
+import {IInputCParams} from 'wlc-engine/modules/core/components/input/input.params';
+import {ISelectCParams} from 'wlc-engine/modules/core/components/select/select.params';
+import {ModalService} from 'wlc-engine/modules/core/system/services/modal/modal.service';
+import {SelectValuesService} from 'wlc-engine/modules/core/system/services/select-values/select-values.service';
+import {ValidationService} from 'wlc-engine/modules/core/system/services/validation/validation.service';
 import {UserService} from 'wlc-engine/modules/user/system/services';
+
+import {ProfileType} from 'wlc-engine/modules/core/system/interfaces/base-config/profile.interface';
+import {ISelectOptions} from 'wlc-engine/modules/core/components/select/select.params';
 
 import * as Params from './phone-field.params';
 
@@ -38,7 +39,10 @@ export class PhoneFieldComponent extends AbstractComponent implements OnInit {
     public $params: Params.IPhoneFieldCParams;
     public phoneCode: ISelectCParams;
     public phoneNumber: IInputCParams;
+    public phoneVerified: boolean;
+    public smsVerification: boolean;
     protected autoCodePhone: ISelectOptions;
+    protected profileType: ProfileType;
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IPhoneFieldCParams,
@@ -47,6 +51,7 @@ export class PhoneFieldComponent extends AbstractComponent implements OnInit {
         protected cdr: ChangeDetectorRef,
         protected userService: UserService,
         protected validationService: ValidationService,
+        protected modalService: ModalService,
     ) {
         super({injectParams, defaultParams: Params.defaultParams});
     }
@@ -55,9 +60,28 @@ export class PhoneFieldComponent extends AbstractComponent implements OnInit {
         super.ngOnInit(this.inlineParams);
         this.provideParams();
 
+        this.profileType = this.configService.get<ProfileType>('$base.profile.type');
+        this.smsVerification = this.configService.get<boolean>('$base.profile.smsVerification.use');
+
+        const tempPhoneCode = this.configService.get('phoneCode');
+        const tempPhoneNumber = this.configService.get('phoneNumber');
+
         this.userService.userProfile$
             .pipe(takeUntil(this.$destroy))
             .subscribe((profile => {
+
+                if (profile && this.smsVerification) {
+                    this.phoneVerified = !!profile.phoneVerified;
+
+                    if (!this.phoneVerified) {
+                        this.setModifiers('sms-not-verified');
+                        this.removeModifiers('sms-verified');
+                    } else if (this.$params.showVerification) {
+                        this.setModifiers('sms-verified');
+                        this.removeModifiers('sms-not-verified');
+                    }
+                }
+
                 if (!this.$params.phoneCode.control.value) {
                     this.configService.get<BehaviorSubject<ICountry[]>>('countries')
                         .pipe(first((v) => !!v.length))
@@ -75,6 +99,10 @@ export class PhoneFieldComponent extends AbstractComponent implements OnInit {
                                 });
                             }
                         });
+                } else if (profile && !this.$params.phoneCode.control.value) {
+                    this.$params.phoneCode.control.setValue(profile.phoneCode || tempPhoneCode);
+                    this.$params.phoneCode.control.updateValueAndValidity({onlySelf: true});
+                    this.$params.phoneNumber.control.setValue(profile.phoneNumber || tempPhoneNumber);
                 }
             }));
 
@@ -83,6 +111,10 @@ export class PhoneFieldComponent extends AbstractComponent implements OnInit {
             .subscribe(val => {
                 if (val) {
                     this.setValidators(val);
+                    this.configService.set({
+                        name: 'phoneCode',
+                        value: val,
+                    });
                 }
             });
 
@@ -91,9 +123,37 @@ export class PhoneFieldComponent extends AbstractComponent implements OnInit {
                 takeUntil(this.$destroy),
                 distinctUntilChanged(),
             )
-            .subscribe(() => {
+            .subscribe((val) => {
+                this.configService.set({
+                    name: 'phoneNumber',
+                    value: val,
+                });
                 this.$params.phoneNumber.control.updateValueAndValidity({onlySelf: true});
             });
+    }
+
+    /**
+     * Show modal for sms verification
+     * @returns {void}
+     */
+    public openSmsModal(): void {
+        this.modalService.showModal({
+            id: 'sms-verification',
+            componentName: 'user.wlc-sms-verification',
+            componentParams: {
+                functional: 'profile',
+            },
+            modalTitle: gettext('Verify your account'),
+            showFooter: false,
+        });
+    }
+
+    /**
+     * Needed use button for start verification
+     * @returns {boolean} `true` if need
+     */
+    public get useVerificationBtn(): boolean {
+        return this.$params.showVerification && !this.phoneVerified && this.smsVerification;
     }
 
     protected setValidators(value: string): void {
@@ -124,3 +184,4 @@ export class PhoneFieldComponent extends AbstractComponent implements OnInit {
         this.$params.phoneNumber['theme'] = this.$params.theme;
     }
 }
+
