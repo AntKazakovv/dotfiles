@@ -15,6 +15,7 @@ import {
 } from '@angular/core';
 import {DOCUMENT} from '@angular/common';
 import {DomSanitizer} from '@angular/platform-browser';
+import {Title} from '@angular/platform-browser';
 import {FormControl} from '@angular/forms';
 import {ResizedEvent} from 'angular-resize-event';
 import {UIRouter, RawParams} from '@uirouter/core';
@@ -103,6 +104,7 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
     public locale: string;
     public gameParams: IGameParams;
     public isAuth: boolean;
+    public gameTitle: string;
     public openDashboard: boolean = true;
     public showDashboardBtn: boolean = false;
     public mobileGame: boolean = this.configService.get<boolean>('appConfig.mobile');
@@ -127,8 +129,10 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
     protected destroyed: boolean = false;
     protected containerObserver: MutationObserver;
     protected iframeObserver: MutationObserver;
+    protected titleObserver: MutationObserver;
     protected iframe: HTMLElement;
     protected isIframeHeight: boolean = false;
+    protected savedSiteName: string;
 
     constructor(
         @Inject('injectParams') protected injectParams: IGameWrapperCParams,
@@ -146,6 +150,7 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
         protected renderer: Renderer2,
         protected hostElement: ElementRef,
         protected hooksService: HooksService,
+        protected titleService: Title,
     ) {
         super({injectParams, defaultParams});
     }
@@ -162,6 +167,7 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
         this.locale = this.router.stateService.params?.locale || 'en';
         this.gameParams = this.getGameParams();
         this.initEventHandlers();
+        this.savedSiteName = this.titleService.getTitle();
 
         this.enableGameHeader = _includes(
             this.configService.get<number[]>('$games.mobile.showGameHeader.merchants'),
@@ -169,6 +175,8 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
         );
 
         this.game = this.getGame();
+        this.gameTitle = this.game.name[this.locale] || this.game.name['en'] || '';
+
         if (this.game) {
             this.gamesCatalogService.getFavouriteGames();
             await this.openActiveGame();
@@ -187,6 +195,25 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
         this.showDashboardBtn = true;
         this.initStartResizeParams();
         this.initFullPageIframeSize();
+        if (!this.configService.get<boolean>('$base.useSeo')) {
+            this.titleService.setTitle(`${this.gameTitle} | ${this.configService.get<boolean>('$base.site.name')}`);
+        }
+
+        this.titleObserver = new MutationObserver(() => {
+            this.titleObserver.disconnect();
+            this.titleObserver = null;
+            if (this.configService.get<boolean>('$base.useSeo')) {
+                this.titleService.setTitle(this.savedSiteName);
+            } else {
+                this.titleService.setTitle(`${this.gameTitle} | ${this.configService.get<boolean>('$base.site.name')}`);
+            }
+        });
+
+        this.titleObserver.observe(this.document.querySelector('title'), {
+            childList: true,
+            subtree: true,
+            attributes: true,
+        });
     }
 
     @HostListener('window:resize') onWResize() {
@@ -265,6 +292,12 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
         this.containerObserver?.disconnect();
         if (this.iframeObserver) {
             this.iframeObserver?.disconnect();
+        }
+        if (!this.configService.get<boolean>('$base.useSeo')) {
+            this.titleService.setTitle(this.savedSiteName);
+        }
+        if (this.titleObserver) {
+            this.titleObserver.disconnect();
         }
     }
 
