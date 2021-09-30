@@ -203,22 +203,14 @@
 
         <div class="{{$class}}__ppl-info"
              [ngClass]="[pragmaticDGA.freePlaces ? '' : $class + '__ppl-info--no-available-place']">
-            <div class="{{$class}}__ppl-info-item">
-                <div wlc-icon
-                    [iconPath]="'/wlc/icons/pragmaticplaylive/places.svg'"
-                ></div>
-                <div class="{{$class}}__ppl-info-text">
-                    {{pragmaticDGA.seated}}
-                </div>
-            </div>
 
             <div *ngIf="pragmaticDGA.freePlaces"
                  class="{{$class}}__ppl-info-item">
                 <div wlc-icon
-                    [iconPath]="'/wlc/icons/pragmaticplaylive/players.svg'"
+                    [iconPath]="'/wlc/icons/pragmaticplaylive/places.svg'"
                 ></div>
                 <div class="{{$class}}__ppl-info-text">
-                    {{pragmaticDGA.freePlaces}}
+                    {{pragmaticDGA.freeFromPlaces}}
                 </div>
             </div>
 

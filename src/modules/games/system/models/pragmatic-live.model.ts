@@ -106,6 +106,39 @@ export class PragmaticLiveModel extends AbstractModel<PragmaticLiveData> {
     }
 
     /**
+     * get string free/total place
+     */
+    public get freeFromPlaces(): string {
+
+        if (!this.freePlaces) {
+            return '';
+        }
+
+        if (this.totalPlaces) {
+            return `${this.freePlaces}/${this.totalPlaces}`;
+        }
+
+        return this.freePlaces;
+    }
+
+    /**
+     * get total places
+     */
+    public get totalPlaces(): number {
+        if (_isUndefined(this.data.totalSeatedPlayers) || _isUndefined(this.data.availableSeats)) {
+            return 0;
+        }
+        return 0 + this.data.totalSeatedPlayers + this.data.availableSeats;
+    }
+
+    /**
+     * get table max playes
+     */
+    public get maxPlayers(): number {
+        return this.data.tableLimits.maxPlayers;
+    }
+
+    /**
      * dealer name
      */
     public get dealer(): string {
