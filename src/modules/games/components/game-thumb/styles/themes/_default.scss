@@ -155,6 +155,10 @@
                 min-height: ef.get-value($themeDefault, 'pplInfoHeight');
                 padding: ef.get-value($themeDefault, 'pplInfoPadding');
 
+                &--no-available-place {
+                    justify-content: flex-end;
+                }
+
                 &-item {
                     @include bm.get-mq-map('min-width', $themeDefault, 'pplItemMin');
                     display: flex;
