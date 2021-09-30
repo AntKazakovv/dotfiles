@@ -94,6 +94,7 @@ export class Game extends AbstractModel<IGame> {
         this.sortPerCategory = data.SortPerCategory;
         this.isRestricted = data.isRestricted;
         this.freeround = data.Freeround;
+        this.IDCountryRestriction = data.IDCountryRestriction;
         this.merchantName = this.getMerchantName();
         this.merchantAlias = this.getMerchantAlias();
     }
