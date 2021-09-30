@@ -90,6 +90,7 @@ import _map from 'lodash-es/map';
 import _keys from 'lodash-es/keys';
 import _concat from 'lodash-es/concat';
 
+type cryptoInfo = 'msg1' | 'msg2';
 type THostedStyles = 'current' | 'def' | 'alt';
 @Component({
     selector: '[wlc-deposit-withdraw]',
@@ -160,12 +161,6 @@ export class DepositWithdrawComponent extends AbstractComponent implements OnIni
             }, configService);
     }
 
-
-    public get showPayCryptosV2Text(): boolean {
-        return this.currentSystem?.isPayCryptosV2 && !this.cryptoCheck && this.$params.mode === 'deposit';
-
-    }
-
     public ngOnInit(): void {
         super.ngOnInit();
         this.depositInIframe = this.configService.get<boolean>('$base.finances.depositInIframe');
@@ -185,6 +180,27 @@ export class DepositWithdrawComponent extends AbstractComponent implements OnIni
             this.listConfig.paymentType = 'withdraw';
         }
 
+    }
+
+    /**
+     * The function checks which notification for crypto v2 to show.
+     *
+     * @returns {boolean}
+     */
+    public showCryptoInfo(msg: cryptoInfo): boolean {
+
+        if (this.$params.mode !== 'deposit' || !this.currentSystem?.isPayCryptosV2) {
+            return false;
+        }
+
+        if (this.cryptoCheck) {
+            return false;
+        }
+
+        switch (msg) {
+            case 'msg1': return this.$params.showPaymentRules;
+            case 'msg2': return !this.$params.showPaymentRules;
+        }
     }
 
     public formBeforeSubmit(form: FormGroup): boolean {
