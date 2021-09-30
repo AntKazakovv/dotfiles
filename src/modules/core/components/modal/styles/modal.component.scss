@@ -50,6 +50,10 @@
         }
     }
 
+    &--registration-errors {
+        z-index: ef.get-value($hostModal, 'modalZIndex') + 100;
+    }
+
     .show {
 
         &:focus {
