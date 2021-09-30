@@ -1179,11 +1179,11 @@ export const profileMenuFilter: ProfileMenuParams.IProfileMenuFilter[] = [
         item: 'profile-first-menu:cash-wallet',
     },
     {
-        config: '$base.profile.socials.use',
+        config: '$base.profile.socials.usePage',
         item: 'profile-menu:socials',
     },
     {
-        config: '$base.profile.socials.use',
+        config: '$base.profile.socials.usePage',
         item: 'profile-first-menu:socials',
     },
 ];
