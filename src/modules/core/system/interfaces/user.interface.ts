@@ -72,6 +72,7 @@ export interface IExtProfile {
     sendSMS?: boolean;
     paymentSystems?: IExtProfilePaymentSystems;
     realityCheckTime?: string;
+    colorTheme?: string;
 }
 
 export interface IExtProfilePaymentSystems {

@@ -66,10 +66,11 @@ describe('IconPaymentsListComponent', () => {
     };
 
     beforeEach(() => {
-        ConfigServiceSpy = jasmine.createSpyObj('ConfigService', ['load', 'set'], {
+        ConfigServiceSpy = jasmine.createSpyObj('ConfigService', ['load', 'get', 'set'], {
             'ready': Promise.resolve(),
-            'get': () => payments,
         });
+        ConfigServiceSpy.get.and.returnValues();
+        ConfigServiceSpy.get.withArgs('appConfig.siteconfig.payment_systems').and.returnValues({payments});
 
         TestBed.configureTestingModule({
             imports: [AppModule],

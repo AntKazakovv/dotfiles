@@ -7,6 +7,7 @@ import {
     IMixedParams,
     IFromLog,
 } from 'wlc-engine/modules/core';
+import {ColorThemeValues} from 'wlc-engine/modules/core/constants';
 import {
     IconModel,
     IIconParams,
@@ -148,12 +149,12 @@ export abstract class IconListAbstract<T> extends AbstractComponent {
     protected subscribeOnToggleSiteTheme(themeChangeCallback: Function): void {
         const defaultColorIconBg = this.$params.colorIconBg;
 
-        if (!!this.configService.get<string>('colorTheme')) {
+        if (!!this.configService.get<string>(ColorThemeValues.configName)) {
             this.$params.colorIconBg = this.getColorThemeBgType(defaultColorIconBg);
         }
 
         this.eventService.subscribe<boolean>(
-            {name: 'THEME_CHANGE'},
+            {name: ColorThemeValues.changeEvent},
             (theme) => {
                 this.$params.colorIconBg = this.getColorThemeBgType(defaultColorIconBg, theme);
                 themeChangeCallback();

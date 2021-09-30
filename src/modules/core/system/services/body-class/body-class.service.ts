@@ -11,6 +11,7 @@ import {
 import {EventService} from 'wlc-engine/modules/core/system/services/event/event.service';
 import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
 import {ActionService} from 'wlc-engine/modules/core/system/services/action/action.service';
+import {ColorThemeValues} from 'wlc-engine/modules/core/constants';
 import {LogService} from 'wlc-engine/modules/core/system/services/log/log.service';
 import {DeviceType} from 'wlc-engine/modules/core/system/interfaces';
 
@@ -147,15 +148,18 @@ export class BodyClassService {
     }
 
     private colorThemeSwitching(): void {
-        const altName = this.configService.get<string>('$base.colorThemeSwitching.altName') || 'alt';
-
-        this.eventService.subscribe([{name: 'THEME_CHANGE'}], (status: boolean) => {
-            if (status) {
-                this.addModifier(BodyClassPrefix.theme + altName);
-            } else {
-                this.removeClassByPrefix(BodyClassPrefix.theme);
-            }
-        });
+        this.eventService.subscribe(
+            {name: ColorThemeValues.changeEvent},
+            (status: boolean) => {
+                if (status) {
+                    this.addModifier(
+                        BodyClassPrefix.theme +
+                        this.configService.get<string>(ColorThemeValues.configName),
+                    );
+                } else {
+                    this.removeClassByPrefix(BodyClassPrefix.theme);
+                }
+            });
     }
 
     private emitClassEvent(className: string, action: keyof typeof BodyClassEvents): void {
