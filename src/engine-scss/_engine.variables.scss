@@ -63,6 +63,7 @@ $mainColors: map-merge((
     'success': #45c195,
     'warning': #ffa756,
     'disabled': #c4c4c4,
+    'black': #000,
 ), $customMainColors);
 
 /// Основные цвета для альтернативной цветовой схемы
@@ -700,22 +701,65 @@ $shadows: map-merge((
     'lg': 0 0 20px rgba(0, 0, 0, 0.3),
 ), $customShadows);
 
+
+/// Reboot base variables.
+///
+/// @name reboot
 $body-bg: var(--mc-bg) !default;
 $body-color: var(--mc-baseMain) !default;
 
 $font-size-root: 10px !default;
 $font-size-base: map-get($font, 'base') !default;
+$font-weight-base: 400 !default;
+
 $font-family-sans-serif: Inter, sans-serif !default;
-$headings-margin-bottom: 0 !default;
-$paragraph-margin-bottom: 0 !default;
+$font-family-monospace: SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace !default;
+
+$line-height-base: 1.5 !default;
+$body-text-align: null !default;
+
 $link-color: var(--mc-main) !default;
 $link-decoration: underline !default;
 $link-hover-color: var(--mc-baseMain) !default;
 $link-hover-decoration: underline !default;
-$enable-rfs: false;
-$tooltip-opacity: 1;
-$tooltip-border-radius: 10px;
-$tooltip-padding-y: 10px;
-$tooltip-padding-x: 10px;
-$tooltip-arrow-width: 0.8rem;
-$tooltip-arrow-height: 0.8rem;
+
+$hr-margin-y: 1rem !default;
+$hr-color: inherit !default;
+$hr-height: 1px !default;
+$hr-opacity: 0.25 !default;
+
+$headings-margin-bottom: 0 !default;
+$headings-font-family: null !default;
+$headings-font-style: null !default;
+$headings-font-weight: 500 !default;
+$headings-line-height: 1.2 !default;
+$headings-color: null !default;
+
+$h1-font-size: $font-size-base * 2.5 !default;
+$h2-font-size: $font-size-base * 2 !default;
+$h3-font-size: $font-size-base * 1.75 !default;
+$h4-font-size: $font-size-base * 1.5 !default;
+$h5-font-size: $font-size-base * 1.25 !default;
+$h6-font-size: $font-size-base !default;
+
+$paragraph-margin-bottom: 0 !default;
+
+$dt-font-weight: 700 !default;
+
+$table-cell-padding-y: 0.5rem !default;
+$table-cell-padding-x: 0.5rem !default;
+$table-cell-vertical-align: top !default;
+$table-th-font-weight: null !default;
+$table-caption-color: var(--mc-elementsColor) !default;
+
+$tooltip-font-size: $font-size-base * 0.875 !default;
+$tooltip-opacity: 1 !default;
+$tooltip-padding-y: 10px !default;
+$tooltip-padding-x: 10px !default;
+$tooltip-arrow-width: 0.8rem !default;
+$tooltip-arrow-height: 0.8rem !default;
+$tooltip-arrow-color: var(--mc-black) !default;
+$tooltip-max-width: 200px !default;
+$tooltip-bg: var(--mc-black) !default;
+$tooltip-color: var(--mc-main) !default;
+$tooltip-border-radius: map-get($radius, 'biger') !default;
