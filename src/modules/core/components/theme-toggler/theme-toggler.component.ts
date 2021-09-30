@@ -11,6 +11,7 @@ import {
     AbstractComponent,
     ConfigService,
 } from 'wlc-engine/modules/core';
+import {ColorThemeValues} from 'wlc-engine/modules/core/constants';
 import {EventService} from 'wlc-engine/modules/core/system/services/event/event.service';
 
 import * as Params from './theme-toggler.params';
@@ -68,11 +69,15 @@ export class ThemeTogglerComponent extends AbstractComponent implements OnInit {
 
     public ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
-        this.status = !!this.configService.get<string>('colorTheme');
-        this.eventService.subscribe({name: 'THEME_CHANGE'}, (status: boolean)=>{
-            this.status = status;
-            this.cdr.markForCheck();
-        }, this.$destroy);
+        this.status = this.configService
+            .get<string>(ColorThemeValues.configName) !== ColorThemeValues.defThemeColor;
+
+        this.eventService.subscribe(
+            {name: ColorThemeValues.changeEvent},
+            (status: boolean) => {
+                this.status = status;
+                this.cdr.markForCheck();
+            }, this.$destroy);
 
         this.leftIcon = '/wlc/icons/theme-toggler-default.svg';
         this.rightIcon = '/wlc/icons/theme-toggler-alt.svg';
@@ -83,9 +88,12 @@ export class ThemeTogglerComponent extends AbstractComponent implements OnInit {
         }
     }
 
+    /**
+     * It is fired by click on the toggler and emits change color theme event
+     */
     public toggleThemeHandler(): void {
         this.eventService.emit({
-            name: 'THEME_CHANGE',
+            name: ColorThemeValues.changeEvent,
             data: this.status,
         });
     }

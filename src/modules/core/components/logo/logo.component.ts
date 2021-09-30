@@ -11,6 +11,7 @@ import {
     EventService,
 } from 'wlc-engine/modules/core/system/services';
 import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
+import {ColorThemeValues} from 'wlc-engine/modules/core/constants';
 
 import * as Params from './logo.params';
 
@@ -56,7 +57,7 @@ export class LogoComponent extends AbstractComponent implements OnInit {
     }
 
     protected getLogoImageSource(): string {
-        const isUsedAltTheme: boolean = !!this.configService.get<string>('colorTheme');
+        const isUsedAltTheme: boolean = !!this.configService.get<string>(ColorThemeValues.configName);
         const customLogoName = this.$params.image?.name;
         const customLogoUrl = (isUsedAltTheme && this.$params.image?.urlForAltImg)
             ? this.$params.image?.urlForAltImg
@@ -76,7 +77,7 @@ export class LogoComponent extends AbstractComponent implements OnInit {
     protected changeLogoOnToggleColorSiteTheme(): void {
         if (this.configService.get<boolean>('$base.colorThemeSwitching.use') && this.$params.image?.urlForAltImg) {
             this.eventService.subscribe<boolean>(
-                {name: 'THEME_CHANGE'},
+                {name: ColorThemeValues.changeEvent},
                 () => {
                     this.logoImageSource = this.getLogoImageSource();
                     this.cdr.markForCheck();

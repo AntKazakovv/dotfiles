@@ -42,6 +42,7 @@ import {
     NotificationEvents,
     LogService,
     InjectionService,
+    ColorThemeValues,
 } from 'wlc-engine/modules/core';
 import {CurrencyModel} from 'wlc-engine/modules/core/system/models/currency.model';
 import {
@@ -634,19 +635,21 @@ export class DepositWithdrawComponent extends AbstractComponent implements OnIni
             return;
         }
 
-        if (this.configService.get<string>('colorTheme')) {
+        if (!!this.configService.get<string>(ColorThemeValues.configName)) {
             this.hostedFieldsStyles.current = this.hostedFieldsStyles.alt;
         }
 
-        this.eventService.subscribe({name: 'THEME_CHANGE'}, (status: boolean) => {
-            if (this.currentSystem?.isHosted) {
-                this.hostedFieldsStyles.current = status
-                    ? this.hostedFieldsStyles.alt
-                    : this.hostedFieldsStyles.def;
+        this.eventService.subscribe(
+            {name: ColorThemeValues.changeEvent},
+            (status: boolean) => {
+                if (this.currentSystem?.isHosted) {
+                    this.hostedFieldsStyles.current = status
+                        ? this.hostedFieldsStyles.alt
+                        : this.hostedFieldsStyles.def;
 
-                this.onPaymentSystemChange(this.currentSystem);
-            }
-        }, this.$destroy);
+                    this.onPaymentSystemChange(this.currentSystem);
+                }
+            }, this.$destroy);
     }
 
     protected onProfileUpdate(): void {

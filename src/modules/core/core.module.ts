@@ -36,6 +36,7 @@ import {
     LayoutService,
     SeoService,
     BodyClassService,
+    ColorThemeService,
 } from './system/services';
 import {RecaptchaService} from './system/services/recaptcha/recaptcha.service';
 // -- SERVICES IMPORTS END  --;
@@ -215,6 +216,7 @@ export const components = {
             useClass: HeadersInterceptor,
             multi: true,
         },
+        ColorThemeService,
     ],
     declarations: [
         AmountLimitComponent,
