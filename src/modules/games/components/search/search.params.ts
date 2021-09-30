@@ -18,6 +18,8 @@ export interface ISearchCParams extends IComponentParams<string, string, string>
 export type PanelType = 'merchants' | 'categories';
 
 export const defaultParams: ISearchCParams = {
+    moduleName: 'games',
+    componentName: 'wlc-search',
     class: 'wlc-search',
     common: {
         openProvidersList: false,
