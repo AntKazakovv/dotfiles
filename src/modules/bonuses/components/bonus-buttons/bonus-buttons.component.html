@@ -91,7 +91,7 @@
             text="Choose"
             typeAttr="button"
             wlcElement="button_choose"
-            (click)="chooseBonus(bonus, bonusType)">
+            (click)="chooseBonus(bonus, $params.bonusType)">
     </button>
 </ng-template>
 
@@ -132,4 +132,3 @@
             (click)="registration()">
     </button>
 </ng-template>
-
