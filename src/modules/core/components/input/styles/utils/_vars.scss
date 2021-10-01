@@ -18,7 +18,7 @@ $themeDefault: map-merge((
     'inputPadding': ef.get('form', 'inputPadding'),
     'inputDisabledBg': var(--fc-disableBg),
     'inputDisabledBorder': var(--fc-disableBorder),
-    'inputDisabledColor': var(--fc-placeholderColor),
+    'inputDisabledColor': var(--fc-disabledPlaceholderColor),
     'inputDisabledOpacity': 1,
 
     'iconWidth': ef.get('form', 'iconWidth'),
