@@ -586,6 +586,7 @@ export class BonusesService {
             {name: 'BONUS_CANCEL_SUCCEEDED'},
             {name: 'BONUS_SUBSCRIBE_SUCCEEDED'},
             {name: 'BONUS_UNSUBSCRIBE_SUCCEEDED'},
+            {name: 'PROMO_SUCCESS'},
         ]).subscribe({
             next: (event: IEvent<unknown>) => {
                 if (event.name === 'LOGIN' || event.name === 'LOGOUT') {
