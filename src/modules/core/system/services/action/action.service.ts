@@ -476,9 +476,9 @@ export class ActionService {
             this.showErrorNotification(error.errors, gettext('Registration error'), 'register');
         } finally {
             this.modalService.hideModal('registration-success');
-            const redirect: IRedirect = this.configService.get<IRedirect>('$base.redirects.registration');
+            const redirect = this.configService.get<IRedirect>('$base.redirects.registration');
             if (redirect) {
-                this.stateService.go(redirect.state, redirect?.params || {});
+                this.stateService.go(redirect.state, redirect.params || {});
             }
         }
     }
