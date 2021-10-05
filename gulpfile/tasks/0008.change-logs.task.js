@@ -10,14 +10,62 @@ const {task, src, dest} = require('gulp'),
     markdown = require('gulp-markdown'),
     concat = require('gulp-concat'),
     customFilter = require('gulp-custom-filter'),
+    glob = require('glob'),
     luxon = require('luxon');
 
 module.exports = function changeLogsTask() {
+
+    const generateSummary = () => {
+        const children = glob
+            .sync(`${this.params.paths.changeLogs}/*.md`)
+            .map((file) => {
+                const fileNameInfo = path.basename(file, '.md').split('_');
+                return {
+                    title: `${fileNameInfo[0].replace(/-rc.(\d*)$/, 'RC$1')} (${fileNameInfo[1]})`,
+                    file: `./900.change-logs/releases/${path.basename(file)}`,
+                };
+            });
+
+        let summary;
+        try {
+            summary = JSON.parse(
+                fs.readFileSync(this.params.paths.docsSummary).toString(),
+            );
+        } catch (error) {
+            // eslint-disable-next-line no-console
+            console.log('\n\x1b[31mCompodoc summary read or parse error\x1b[0m\n');
+            return false;
+        }
+        const changeLogs = _.find(summary, (i) => i._id === 'changelogs');
+        changeLogs.children = _.sortBy(children, 'title').reverse();
+        fs.writeFileSync(this.params.paths.docsSummary, JSON.stringify(summary, null, 4));
+    };
+
+    const deleteRClogs = () => {
+        glob
+            .sync(`${this.params.paths.changeLogs}/*.md`)
+            .forEach((file) => {
+                if (file.includes('-rc.')) {
+                    fs.unlinkSync(file);
+                }
+            });
+    };
+
     task('change-logs', async (done) => {
         const tag = argv.tag;
         if (!tag) {
             throw Error('Parameter tag (id of release tag) is empty');
         }
+
+        const isRC = argv.tag.includes('-rc');
+
+        const isLastItem = (message) => {
+            if (isRC) {
+                return message.includes('Updated for release');
+            } else {
+                return message.includes('Updated for release') && !message.includes('-rc.');
+            }
+        };
 
         //get repository url
         const origin = this.execNativeShellSync('git remote get-url origin').trim();
@@ -58,66 +106,124 @@ module.exports = function changeLogsTask() {
 
         const projectId = _.find(result, (item) => item.ssh_url_to_repo === origin).id;
 
-        const commitHistory = this.execNativeShellSync('git log --oneline --format="%s" -100');
-        const history = commitHistory.split('\n');
+        const commitHistory = this.execNativeShellSync('git log --oneline -100').trim();
 
-        let commits = [];
-        for (const item of history) {
+        let history = [];
 
-            const commit = {
-                title: item,
-                description: '',
-                branch: '',
-            };
+        for (const item of commitHistory.split('\n')) {
 
-            const scrMatch = item.match(/(#|scr)+([\d-]+)/);
-            if (_.isArray(scrMatch)) {
-                commit.branch = `scr${scrMatch[2]}`;
-            }
-
-            if (_.includes(commit.title, 'SCR #')) {
-                const searchText = encodeURIComponent(commit.title);
-                const response = this.execNativeShellSync(`curl "https://${gitUrl}/api/v4/projects/`
-                    + `${projectId}/merge_requests?state=merged&search=${searchText}&private_token=${apiKey}"`);
-
-                const data = JSON.parse(response);
-                if (_.isArray(data)) {
-                    commit.description = _.get(data, '[0].description', '');
-                }
-            } else if (_.includes(commit.title, 'Merge branch')) {
-                const sourceBranchArr = /scr[\d-]+/.exec(commit.title);
-                if (!_.isArray(sourceBranchArr)) {
-                    break;
-                }
-                const sourceBranch = sourceBranchArr[0];
-                const response = this.execNativeShellSync(`curl "https://${gitUrl}/api/v4/projects`
-                    + `/${projectId}/merge_requests?state=merged`
-                    + `&source_branch=${sourceBranch}&private_token=${apiKey}"`);
-                const data = JSON.parse(response);
-                if (_.isArray(data)) {
-                    commit.title = _.get(data, '[0].title', '');
-                    commit.description = _.get(data, '[0].description', '');
-                }
-            } else if (_.includes(item, 'Updated for release')) {
+            if (isLastItem(item)) {
                 break;
             }
-            commits.push(commit);
-        }
-        commits = _.uniqBy(commits, 'branch');
 
-        const filePath = `${this.params.paths.changeLogs}/${tag}_${luxon.DateTime.now().toFormat('dd-LL-yyyy')}.md`,
+            const match = item.match(/^(.*?)\s(.*)$/);
+
+            const res = {
+                message: match[2],
+                hash: match[1],
+                branch: '',
+                ticket: '',
+                mrTitle: '',
+                description: '',
+                mrId: Date.now(),
+            };
+
+            //get branch & ticket
+            const branch = item.match(/Merge branch \'(.*?)\'/);
+            if (branch) {
+                res.branch = branch[1];
+
+                const ticketMatch = res.branch.match(/scr(\d*)/);
+                res.ticket = ticketMatch[1];
+            } else {
+                const ticketMatch = item.match(/SCR #(\d*)/);
+                if (ticketMatch) {
+                    res.ticket = ticketMatch[1];
+                }
+            }
+
+            // make attempt to get branch from gitlab pipeline
+            if (!res.branch) {
+                const response = this.execNativeShellSync(
+                    `curl "https://${gitUrl}/api/v4/projects/${projectId}/`
+                    + `repository/commits/${res.hash}?private_token=${apiKey}"`,
+                );
+                try {
+                    const data = JSON.parse(response);
+                    res.branch = _.get(data, 'last_pipeline.ref');
+                } catch (error) {
+                    //
+                }
+            }
+
+            // attemp to get merge request data
+            let response = '';
+            if (res.branch) {
+                response = this.execNativeShellSync(`curl "https://${gitUrl}/api/v4/projects`
+                    + `/${projectId}/merge_requests?state=merged`
+                    + `&source_branch=${res.branch}&private_token=${apiKey}"`);
+            } else {
+                const searchText = encodeURIComponent(res.message);
+                response = this.execNativeShellSync(`curl "https://${gitUrl}/api/v4/projects/`
+                    + `${projectId}/merge_requests?state=merged&search=${searchText}&private_token=${apiKey}"`);
+            }
+
+            try {
+                const data = JSON.parse(response);
+                if (_.isArray(data)) {
+                    let mr;
+                    if (data.length > 1) {
+                        mr = _.find(data, (item) => {
+                            return item.merge_commit_sha.indexOf(res.hash) === 0
+                                || item.squash_commit_sha.indexOf(res.hash) === 0;
+                        });
+                    } else {
+                        mr = data[0];
+                    }
+                    res.mrTitle = _.get(mr, 'title', '');
+                    res.description = _.get(mr, 'description', '');
+                    res.mrId = _.get(mr, 'id', Date.now());
+                }
+            } catch (error) {
+                //
+            }
+
+            res.message = res.mrTitle || res.message;
+
+            history.push(res);
+        }
+
+        // uniqueness history items
+        history = _.uniqBy(history, 'mrId');
+        history.forEach((item, index) => {
+            if (!item) {
+                return;
+            }
+            const duplicate = _.filter(history, (subItem) => (subItem && (subItem.message === item.message)));
+            if (duplicate.length > 1 && !item.branch) {
+                delete history[index];
+            }
+        });
+        history = history.filter(i => !!i);
+
+        const date = luxon.DateTime.now().toFormat('dd-LL-yyyy');
+        const filePath = `${this.params.paths.changeLogs}/${tag}_${date}.md`,
             relativeFilePath = path.relative(__dirname, filePath),
             relativeDirPath = path.dirname(relativeFilePath);
 
         if (fs.existsSync(this.params.paths.changeLogs)) {
-
-            let content = '';
-            for (const commit of commits) {
-                const commitTitle = commit.title.replace(/#(\d+)/, '[#$1](https://tracker.egamings.com/issues/$1)');
-                content += `### ${commitTitle}${commit.description ? '\n' + _.trim(commit.description) : ''}\n\n`;
+            // generate history md
+            const content = [`## ${tag.replace(/-rc.(\d*)$/, 'RC$1')} (${date})`];
+            for (const item of history) {
+                const commitTitle = (item.message)
+                    .replace(/#(\d+)/, '[#$1](https://tracker.egamings.com/issues/$1)');
+                content.push(`### ${commitTitle}${item.description ? '\n\n' + _.trim(item.description) : ''}`);
             }
+
+            const contentText = content.join('\n\n') + '\n';
+
             // eslint-disable-next-line no-console
-            console.log(`\nChanges of release\n\n${content}`);
+            console.log(`\nChanges of release\n\n${contentText}`);
 
             let response;
             if (content) {
@@ -137,7 +243,7 @@ module.exports = function changeLogsTask() {
                 throw Error('Change logs aborted');
             }
 
-            fs.writeFileSync(filePath, content);
+            fs.writeFileSync(filePath, contentText);
             // eslint-disable-next-line no-console
             console.log(`Changes history saved to ${filePath}`);
         } else {
@@ -145,6 +251,10 @@ module.exports = function changeLogsTask() {
         }
 
         const minStartDate = luxon.DateTime.now().minus({months: 4});
+
+        if (!isRC) {
+            deleteRClogs();
+        }
 
         src([
             `${this.params.paths.changeLogs}/*.md`,
@@ -165,10 +275,17 @@ module.exports = function changeLogsTask() {
                 return false;
             }))
             .pipe(modifyFile((content, filePath, file) => {
+
                 const fileNameInfo = path.basename(filePath, '.md').split('_');
                 const tag = fileNameInfo[0];
+                const version = fileNameInfo[0].replace(/-rc.(\d*)$/, 'RC$1');
                 const date = fileNameInfo[1];
-                return `## ${tag} (${date})\n\n${content}`;
+
+                return content
+                    .replace(
+                        new RegExp(`^## ${version} \\(${date}\\)`),
+                        `## [${version} (${date})](./9.-change-logs/${tag}-(${date}).html)`,
+                    );
             }))
             .pipe(concat('900.change-logs.md'))
             .pipe(dest(this.params.paths.changeLogsDocDist))
@@ -176,6 +293,8 @@ module.exports = function changeLogsTask() {
             .pipe(modifyFile((content, filePath, file) => {
                 return `\ufeff<html><head></head><body>${content}</body></html>`;
             }));
+
+        generateSummary();
 
         done();
     });
