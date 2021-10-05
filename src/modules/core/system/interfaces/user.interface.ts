@@ -73,6 +73,7 @@ export interface IExtProfile {
     paymentSystems?: IExtProfilePaymentSystems;
     realityCheckTime?: string;
     colorTheme?: string;
+    pep?: string;
 }
 
 export interface IExtProfilePaymentSystems {

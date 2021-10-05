@@ -26,6 +26,7 @@ import {
 import * as Params from './profile-form.params';
 
 import _find from 'lodash-es/find';
+import _assign from 'lodash-es/assign';
 
 /**
  * Profile form component.
@@ -100,6 +101,12 @@ export class ProfileFormComponent extends AbstractComponent implements OnInit {
      * @returns save status
      */
     public async ngSubmit(form: FormGroup): Promise<boolean> {
+        const {pep} = form.value;
+        delete form.value['pep'];
+        if (pep) {
+            form.value.extProfile = _assign({}, form.value.extProfile, {pep});
+        }
+
         const result = await this.userService.updateProfile(form.value, false);
 
         if (result === true) {
