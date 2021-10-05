@@ -40,7 +40,7 @@ $themeDefault: map-merge((
     'imageHeight': 75px,
 
     // Button Modal
-    'btnBorder': none,
+    'btnBorder': 2px solid var(--mc-main),
     'btnBorderRadius': ef.get('radius', 'biger'),
     'btnBg': var(--mc-bg),
     'btnColor': var(--mc-main),
