@@ -130,7 +130,7 @@ export class SmsVerificationComponent extends UserActionsAbstract<Params.ISmsVer
             form.disable();
             const response = await this.smsService.validate(this.smsToken, smsCode, this.phoneCode, this.phoneNumber);
             if (response?.status) {
-                await this.userService.registration(this.formData);
+                await this.userService.validateRegistration(this.formData);
                 await this.finishUserReg(this.formData.data);
             } else {
                 setTimeout(() => form.controls.code.setErrors({'wrong-sms-code': true}));

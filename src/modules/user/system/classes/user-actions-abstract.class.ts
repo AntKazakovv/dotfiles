@@ -81,6 +81,10 @@ export abstract class UserActionsAbstract<T> extends AbstractComponent {
     }
 
     protected formDataPreparation(form: FormGroup): IValidateData {
+        if (!form.controls.hasOwnProperty('passwordRepeat')) {
+            form.value.passwordRepeat = form.value.password;
+        }
+
         const formData = {
             'TYPE': 'user-register',
             data: {...form.value},
