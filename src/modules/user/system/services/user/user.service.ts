@@ -5,7 +5,6 @@ import {StateService} from '@uirouter/core';
 import {
     Subscription,
     BehaviorSubject,
-    Subject,
 } from 'rxjs';
 
 import {
@@ -22,6 +21,7 @@ import {IPushMessageParams} from 'wlc-engine/modules/core/system/services/notifi
 import {NotificationEvents} from 'wlc-engine/modules/core/system/services/notification/notification.service';
 import {DataService} from 'wlc-engine/modules/core/system/services/data/data.service';
 import {IUserProfile} from 'wlc-engine/modules/core/system/interfaces/user.interface';
+import {IRedirect} from 'wlc-engine/modules/core/system/interfaces/core.interface';
 
 import {IData} from 'wlc-engine/modules/core/system/services/data/data.service';
 import {UserProfile} from 'wlc-engine/modules/user/system/models/profile.model';
@@ -82,7 +82,7 @@ export class UserService {
         private logService: LogService,
         private modalService: ModalService,
         private injectionService: InjectionService,
-        stateService: StateService,
+        private stateService: StateService,
     ) {
         this.isAuthenticated = this.configService.get('$user.isAuthenticated');
         this.userProfile$.subscribe((profile) => {
@@ -180,7 +180,7 @@ export class UserService {
         }, () => {
             this.isAuthenticated = false;
             this.configService.set({name: '$user.isAuthenticated', value: false});
-            stateService.go('app.home', {
+            this.stateService.go('app.home', {
                 locale: this.translate.currentLang,
             });
             this.dataService.closeSocket();
@@ -407,6 +407,11 @@ export class UserService {
 
         if (isFastRegistration) {
             this.eventService.emit({name: 'LOGIN'});
+            
+            const redirect = this.configService.get<IRedirect>('$base.redirects.registration');
+            if (redirect) {
+                this.stateService.go(redirect.state, redirect.params || {});
+            }
         } else {
             message.push(gettext('Please complete registration using link in e-mail'));
         }
