@@ -24,6 +24,8 @@ import _sortBy from 'lodash-es/sortBy';
 import _uniqBy from 'lodash-es/uniqBy';
 import _values from 'lodash-es/values';
 
+export type TDateList = 'days' | 'months' | 'years';
+
 export interface IPhoneLimits {
     [key: string]: {
         minLength?: number;
@@ -71,7 +73,13 @@ export class SelectValuesService {
         );
     }
 
-    public getDateList(value: string): BehaviorSubject<Params.ISelectOptions[]> {
+    /**
+     * Returns a data list
+     *
+     * @param {TDateList} value days or months or years
+     * @returns {BehaviorSubject<Params.ISelectOptions[]}
+     */
+    public getDateList(value: TDateList): BehaviorSubject<Params.ISelectOptions[]> {
         let list: Params.ISelectOptions[] = [];
         switch (value) {
             case 'days': {
@@ -114,8 +122,8 @@ export class SelectValuesService {
                     ),
                     (country) => +country.phoneCode,
                 ), (country) => ({
-                    title: `+${+country.phoneCode}`,
-                    value: `+${+country.phoneCode}`,
+                    title: `+${country.phoneCode}`,
+                    value: `+${country.phoneCode}`,
                     country: country.value,
                 }));
             })).subscribe(val => phoneCodes.next(val));
@@ -123,6 +131,11 @@ export class SelectValuesService {
         return phoneCodes;
     }
 
+    /**
+     * Returns a list of pep
+     *
+     * @returns {BehaviorSubject<Params.ISelectOptions[]>}
+     */
     public getPepList(): BehaviorSubject<Params.ISelectOptions[]> {
         return new BehaviorSubject<Params.ISelectOptions[]>([
             {
@@ -135,6 +148,11 @@ export class SelectValuesService {
             }]);
     }
 
+    /**
+     * Returns a phone limits default
+     *
+     * @returns {IPhoneLimits}
+     */
     public getPhoneLimitsDefault(): IPhoneLimits {
         return {
             'default': {
@@ -194,6 +212,11 @@ export class SelectValuesService {
         };
     }
 
+    /**
+     * Returns a merchants list
+     *
+     * @returns {BehaviorSubject<Params.ISelectOptions[]}
+     */
     public getMerchantsList(): BehaviorSubject<Params.ISelectOptions[]> {
         const merchants$ = new BehaviorSubject<Params.ISelectOptions[]>([
             {

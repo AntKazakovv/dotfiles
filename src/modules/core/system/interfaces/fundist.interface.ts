@@ -1,5 +1,5 @@
 export interface ICountry {
-    phoneCode: number;
+    phoneCode: string;
     title: string;
     value: string;
 }
