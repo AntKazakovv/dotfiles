@@ -17,6 +17,8 @@ import {LivechatAbstract} from 'wlc-engine/modules/livechat/system/classes/livec
 import {ILivechatConfig} from 'wlc-engine/modules/livechat/system/interfaces/livechat.interface';
 import {UserProfile} from 'wlc-engine/modules/user/system/models/profile.model';
 
+import _isNull from 'lodash-es/isNull';
+
 @Injectable({
     providedIn: 'root',
 })
@@ -24,6 +26,7 @@ export class VerboxService extends LivechatAbstract {
     public chatId = 'verbox';
     public forceHideStyles = '#supportTrigger {display: none !important;}';
     protected options: ILivechatConfig = this.configService.get<ILivechatConfig>('$base.livechat');
+    private currentEmail: string = null;
 
     constructor(
         @Inject(DOCUMENT) protected document: HTMLDocument,
@@ -49,7 +52,7 @@ export class VerboxService extends LivechatAbstract {
             }
         });
 
-        if (this.options.autocomplete) {
+        if (this.chatIsLoaded() && this.options.autocomplete) {
             this.setUserSettings();
         }
     }
@@ -82,6 +85,22 @@ export class VerboxService extends LivechatAbstract {
         } catch (error) {
             this.logService.sendLog({code: '14.0.0', data: error});
         }
+    }
+
+    /**
+     * destroy chat widget
+     */
+    public destroyWidget(): void {
+        if (window.Verbox) {
+            window.Verbox('destroy');
+        }
+    }
+
+    /**
+     * when we have showOnlyAuth in livechatConfig, init chat widget in login
+     */
+    public rerunWidget(): void {
+        this.initChat();
     }
 
     /**
@@ -121,29 +140,25 @@ export class VerboxService extends LivechatAbstract {
     }
 
     protected setUserSettings(): void {
-        if(!this.chatIsLoaded()) {
-            return;
-        }
-
-        this.eventService.subscribe({name: 'LOGIN'}, () => {
-            this.configService
-                .get<BehaviorSubject<UserProfile>>({name: '$user.userProfile$'})
-                .pipe(filter((v) => !!v))
-                .subscribe((userProfile) => {
+        this.configService
+            .get<BehaviorSubject<UserProfile>>({name: '$user.userProfile$'})
+            .pipe(
+                filter((v) => !!v && (this.currentEmail !== v.email)),
+            )
+            .subscribe((userProfile) => {
+                if (userProfile.email) {
                     window.Verbox('setClientInfo', {
                         email: userProfile.email,
                     });
-                    this.reloadChat();
-                });
-        });
-
-        this.eventService.subscribe({name: 'LOGOUT'}, () => {
-            for (const key in localStorage) {
-                if (key.indexOf('/Client/email')) {
-                    localStorage.removeItem(key);
+                } else {
+                    localStorage.clear();
                 }
-            }
-            this.reloadChat();
-        });
+
+                if (!this.options.showOnlyAuth && !_isNull(this.currentEmail)) {
+                    this.reloadChat();
+                }
+
+                this.currentEmail = userProfile.email;
+            });
     }
 }

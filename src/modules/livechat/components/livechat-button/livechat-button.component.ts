@@ -9,7 +9,10 @@ import {
     OnDestroy,
     Renderer2,
 } from '@angular/core';
-import {takeUntil} from 'rxjs/operators';
+import {
+    first,
+    takeUntil,
+} from 'rxjs/operators';
 
 import {
     AbstractComponent,
@@ -36,10 +39,13 @@ export class LivechatButtonComponent extends AbstractComponent implements OnInit
     public $params: Params.ILivechatButtonCParams;
     /** Hides button if chat is unavailable */
     public unavailable: boolean = false;
+    /** Hides button if chat is hide */
+    public chatIsHide: boolean;
 
     /** Styles element for hiding  */
     protected styles: HTMLElement;
     protected stylesId: string = 'livechat-styles';
+    protected isChatStateWatch: boolean = false;
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.ILivechatButtonCParams,
@@ -55,22 +61,40 @@ export class LivechatButtonComponent extends AbstractComponent implements OnInit
 
     public ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
-        this.init();
+
+        if (this.chatService.config.type) {
+
+            if (this.chatService.config.showOnlyAuth) {
+                this.chatService.chatIsHide$
+                    .pipe(takeUntil(this.$destroy))
+                    .subscribe((value) => {
+                        this.chatIsHide = value;
+                        this.cdr.markForCheck();
+                        if (!value) {
+                            this.hideDefaultButton();
+                        }
+                    });
+            }
+
+            this.init();
+        } else {
+            this.unavailable = true;
+            this.cdr.markForCheck();
+        }
     }
 
     public ngOnDestroy(): void {
         super.ngOnDestroy();
 
-        if (this.$params.replaceDefault) {
+        if (this.$params.replaceDefault && !this.chatIsHide) {
             if (this.styles) {
                 this.cancelForceHideWidgetButton();
             }
 
-            if (this.chatService.activeChatService.chatState$) {
+            if (!this.unavailable) {
                 this.chatService.activeChatService.showWidget();
             }
         }
-
     }
 
     /**
@@ -81,15 +105,23 @@ export class LivechatButtonComponent extends AbstractComponent implements OnInit
     }
 
     protected init(): void {
-        if (!this.chatService.chatType) {
-            this.unavailable = true;
-            this.cdr.markForCheck();
+        if (!this.chatService.chatIsInited) {
+            this.eventService
+                .filter({name: 'LOGIN'})
+                .pipe(
+                    takeUntil(this.$destroy),
+                    first(),
+                )
+                .subscribe(() => {
+                    this.init();
+                });
+
             return;
         }
 
-        this.addModifiers(this.chatService.chatType);
+        this.addModifiers(this.chatService.config.type);
 
-        if (this.$params.replaceDefault) {
+        if (this.$params.replaceDefault && !this.chatIsHide) {
             this.hideDefaultButton();
         }
     }
@@ -102,13 +134,17 @@ export class LivechatButtonComponent extends AbstractComponent implements OnInit
                 this.chatService.activeChatService.hideWidget();
             }
 
-            this.chatService.activeChatService.chatState$
-                .pipe(takeUntil(this.$destroy))
-                .subscribe((state: ChatState) => {
-                    if (state === ChatState.minimized || state === ChatState.loaded) {
-                        this.chatService.activeChatService.hideWidget();
-                    }
-                });
+            if (!this.isChatStateWatch) {
+                this.isChatStateWatch = true;
+
+                this.chatService.activeChatService.chatState$
+                    .pipe(takeUntil(this.$destroy))
+                    .subscribe((state: ChatState) => {
+                        if (state === ChatState.minimized || state === ChatState.loaded) {
+                            this.chatService.activeChatService.hideWidget();
+                        }
+                    });
+            }
         }
     }
 
@@ -129,10 +165,8 @@ export class LivechatButtonComponent extends AbstractComponent implements OnInit
     }
 
     protected cancelForceHideWidgetButton(): void {
-        if (this.styles) {
-            this.renderer.removeChild(this.document.body, this.styles);
-            this.styles = null;
-        }
+        this.renderer.removeChild(this.document.body, this.styles);
+        this.styles = null;
     }
 
 }

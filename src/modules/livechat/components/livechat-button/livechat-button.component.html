@@ -1,4 +1,4 @@
-<button *ngIf="!unavailable"
+<button *ngIf="!unavailable && !chatIsHide"
     class="{{$class}}__button"
     (click)="handleClick()">
     <span *ngIf="$params.iconPath"

@@ -23,8 +23,8 @@ export class LivechatincService extends LivechatAbstract {
     public chatId = 'chat-widget-container';
 
     protected options: ILivechatConfig = this.configService.get<ILivechatConfig>('$base.livechat');
-    protected isAuth: boolean;
     protected profile: UserProfile;
+    protected firstInit: boolean = true;
 
     constructor(
         @Inject(DOCUMENT) protected document: HTMLDocument,
@@ -101,6 +101,23 @@ export class LivechatincService extends LivechatAbstract {
         this.hideChat();
     }
 
+    /**
+     * destroy chat widget
+     */
+    public destroyWidget(): void {
+        window['LiveChatWidget']?.call('destroy');
+        this.document.head.querySelector('#LivechatincScript').remove();
+        this.document.head.querySelector('#LivechatincScriptSdk').remove();
+        this.document.head.querySelector('#incInnerScript').remove();
+    }
+
+    /**
+     * when we have showOnlyAuth in livechatConfig, init chat widget in login
+     */
+    public rerunWidget(): void {
+        this.initChat();
+    }
+
     protected initChat(): void {
         this.chatState$ = new BehaviorSubject(null);
 
@@ -117,17 +134,22 @@ export class LivechatincService extends LivechatAbstract {
         window.__lc.license = this.options.code;
 
         const script = this.document.createElement('script');
+        script.id = 'LivechatincScript';
         script.type = 'text/javascript';
         script.async = true;
-        script.src = ('https:' == this.document.location.protocol
-            ? 'https://'
-            : 'http://'
-        ) + 'cdn.livechatinc.com/tracking.js';
-
+        // script from https://my.livechatinc.com/settings/code
+        script.text = ';(function(n,t,c){function i(n){return e._h?e._h.apply(null,n):e._q.push(n)}var e={_q:[],' +
+        '_h:null,_v:"2.0",on:function(){i(["on",c.call(arguments)])},once:function(){i(["once",c.call(arguments)])},' +
+        'off:function(){i(["off",c.call(arguments)])},get:function(){if(!e._h)throw new Error("[LiveChatWidget]' +
+        ' You can\'t use getters before load.");return i(["get",c.call(arguments)])},call:function(){i(["call",' + 
+        'c.call(arguments)])},init:function(){var n=t.createElement("script");n.async=!0,n.type="text/javascript",' +
+        'n.src="https://cdn.livechatinc.com/tracking.js",n.id="incInnerScript",t.head.appendChild(n)}};' +
+        '!n.__lc.asyncInit&&e.init(),n.LiveChatWidget=n.LiveChatWidget||e}(window,document,[].slice))';
 
         this.document.head.appendChild(script);
 
         const scriptSdk = this.document.createElement('script');
+        scriptSdk.id = 'LivechatincScriptSdk';
         scriptSdk.type = 'text/javascript';
         scriptSdk.src = 'https://unpkg.com/@livechat/livechat-visitor-sdk@0.35.2/dist/livechat-visitor-sdk.min.js';
 
@@ -137,8 +159,9 @@ export class LivechatincService extends LivechatAbstract {
 
         window.LC_API.on_after_load = () => {
             this.chatState$.next(ChatState.loaded);
-            if (this.options.setUserDetails) {
+            if (this.options.setUserDetails && this.firstInit) {
                 this.setHandlers();
+                this.firstInit = false;
             }
         };
 
@@ -169,9 +192,9 @@ export class LivechatincService extends LivechatAbstract {
 
     protected setUserDetail(): void {
         if (this.chatIsLoaded()) {
-            if (this.isAuth) {
-                const userEmail = this.profile.email || 'unknown',
-                    userName = this.profile.firstName + ' ' + this.profile.lastName;
+            if (this.profile.email) {
+                const userEmail = this.profile.email;
+                const userName = this.profile.firstName + ' ' + this.profile.lastName;
 
                 window.LC_API.set_visitor_email(userEmail);
                 window.LC_API.set_visitor_name(userName);
@@ -186,7 +209,6 @@ export class LivechatincService extends LivechatAbstract {
         const userProfile$ = this.configService.get<BehaviorSubject<UserProfile>>('$user.userProfile$');
         userProfile$.pipe(skipWhile(v => !v))
             .subscribe((profile) => {
-                this.isAuth = this.configService.get<boolean>('$user.isAuthenticated');
                 this.profile = profile;
                 this.setUserDetail();
             });

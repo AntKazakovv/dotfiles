@@ -50,6 +50,17 @@ export abstract class LivechatAbstract {
      */
     public abstract hideChat(): void;
 
+
+    /**
+     * Destroy chat widget
+     */
+    public abstract destroyWidget(): void;
+
+    /**
+     * when we have showOnlyAuth in livechatConfig, init chat widget in login
+     */
+    public abstract rerunWidget(): void;
+
     /**
      * Hides chat widget button
      */
