@@ -84,6 +84,22 @@ export class ChatraService extends LivechatAbstract {
         this.initChat();
     }
 
+    /**
+     * destroy chat widget
+     */
+    public destroyWidget(): void {
+        if (window.Chatra) {
+            window.Chatra('kill');
+        }
+    }
+
+    /**
+     * when we have showOnlyAuth in livechatConfig, init chat widget in login
+     */
+    public rerunWidget():void {
+        window.Chatra('restart');
+    }
+
     protected initChat(): void {
         if (this.options.type !== 'chatra' || !this.options.code) {
             this.logService.sendLog({code: '14.0.1'});

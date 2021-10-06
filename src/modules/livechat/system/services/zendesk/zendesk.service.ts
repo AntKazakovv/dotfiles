@@ -90,6 +90,20 @@ export class ZendeskService extends LivechatAbstract {
     }
 
     /**
+     * when we have showOnlyAuth in livechatConfig, init chat widget in login
+     */
+    public rerunWidget():void {
+        this.showWidget();
+    }
+
+    /**
+     * Destroy chat widget
+     */
+    public destroyWidget():void {
+        this.hideWidget();
+    }
+
+    /**
      * Toggle chat window
      */
     public toggleChat(): void {

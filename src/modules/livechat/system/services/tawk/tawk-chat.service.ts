@@ -81,6 +81,20 @@ export class TawkChatService extends LivechatAbstract {
     }
 
     /**
+     * when we have showOnlyAuth in livechatConfig, init chat widget in login
+     */
+    public rerunWidget():void {
+        this.showWidget();
+    }
+
+    /**
+     * Destroy chat widget
+     */
+    public destroyWidget():void {
+        this.hideWidget();
+    }
+
+    /**
      * Shows hidden chats widget button
      */
     public showWidget(): void {
