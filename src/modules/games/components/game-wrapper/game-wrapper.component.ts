@@ -45,7 +45,11 @@ import {
     LogService,
     ModalService,
     ICheckboxCParams,
+    IIndexing,
 } from 'wlc-engine/modules/core';
+import {
+    BetGamesHooks,
+} from './hooks';
 import {
     defaultParams,
     IGameWrapperCParams,
@@ -53,6 +57,7 @@ import {
 
 import _isString from 'lodash-es/isString';
 import _isObject from 'lodash-es/isObject';
+import _isFunction from 'lodash-es/isFunction';
 import _includes from 'lodash-es/includes';
 import _toNumber from 'lodash-es/toNumber';
 import _find from 'lodash-es/find';
@@ -65,7 +70,8 @@ interface IError {
 
 export const gameWrapperHooks = {
     launchInfo: 'launchInfo@GameWrapperComponent',
-    evalScript: 'evalScript@GameWtapperComponent',
+    evalScript: 'evalScript@GameWrapperComponent',
+    iframeShown: 'iframeShown@GameWrapperComponent',
 };
 
 export interface IGameWrapperHookLaunchInfo {
@@ -79,6 +85,11 @@ export interface IGameWrapperHookEvalScript {
     game: Game;
     customGameParams: ICustomGameParams;
     disable: boolean;
+}
+
+export interface IGameWrapperHookIframeShown {
+    iframe: HTMLElement;
+    mobile: boolean;
 }
 
 @Component({
@@ -133,6 +144,14 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
     protected iframe: HTMLElement;
     protected isIframeHeight: boolean = false;
     protected savedSiteName: string;
+    protected hooksByMerchant: IIndexing<Function> = {
+        '990': () => {
+            new BetGamesHooks({
+                hooksService: this.hooksService,
+                disableHooks: this.$destroy,
+            });
+        },
+    };
 
     constructor(
         @Inject('injectParams') protected injectParams: IGameWrapperCParams,
@@ -424,6 +443,10 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
         this.containerObserver = new MutationObserver(() => {
             const iframe = this.wrp?.element?.nativeElement.querySelector('iframe');
             if (iframe) {
+                this.hooksService.run<IGameWrapperHookIframeShown>(gameWrapperHooks.iframeShown, {
+                    iframe: iframe,
+                    mobile: this.isMobile,
+                });
                 this.iframe = iframe;
                 const iframeAttrHeight = this.iframe.getAttribute('height');
                 if (iframeAttrHeight && iframeAttrHeight !== '100%') {
@@ -466,7 +489,7 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
 
         const iframeHeight: string = this.iframe?.getAttribute('height');
         if (iframeHeight && iframeHeight !== '100%') {
-            this.renderer.setStyle(gameWrapper, 'height', iframeHeight);
+            this.renderer.setStyle(gameWrapper, 'height', iframeHeight + 'px');
             return;
         }
 
@@ -781,6 +804,10 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
      * Init event hanlers
      */
     protected initEventHandlers(): void {
+        if (_isFunction(this.hooksByMerchant[this.gameParams.merchantId])) {
+            this.hooksByMerchant[this.gameParams.merchantId]();
+        }
+
         this.actionService.deviceType()
             .pipe(takeUntil(this.$destroy))
             .subscribe((type: DeviceType) => {
