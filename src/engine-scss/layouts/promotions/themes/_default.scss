@@ -9,7 +9,8 @@
 
     .wlc-sections__content--theme-default {
 
-        .wlc-title.wlc-title--promotions[wlc-title] {
+        .wlc-title.wlc-title--promotions[wlc-title],
+        .wlc-title.wlc-title--profile[wlc-title] {
             text-align: ef.get-value($promotionsThemeDefault, 'titleAlign');
             margin: ef.get-value($promotionsThemeDefault, 'listMargin');
 

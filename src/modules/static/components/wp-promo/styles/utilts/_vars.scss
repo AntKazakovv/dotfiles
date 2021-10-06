@@ -1,0 +1,112 @@
+$customThemeDefault: () !default;
+$themeDefault: map-merge((
+    'linearGradient': (
+        320: linear-gradient(90deg, var(--mc-bg700-o6) 30%, var(--mc-bg700-o4) 70%, var(--mc-bg700-o8) 100%),
+    ),
+
+    'marginList': 0 0 ef.size(8) 0,
+    'displayList': grid,
+    'justifyItems': center,
+    'gridColumn': (
+        375: 1fr,
+        1200: 1fr 1fr,
+    ),
+    'gridGap': ef.size(4),
+
+    'wrapperBorderRadius': ef.get('radius', 'biger'),
+    'wrapperWidth': 100%,
+    'wrapperOverflow': hidden,
+    'background': var(--mc-bg700),
+    'backgroundPosition': center,
+    'backgroundSize': cover,
+    'backgroundRepeat': no-repeat,
+    'wrapperMaxWidth': (
+        375: 315px,
+        560: 715px,
+        900: 970px,
+        1200: 100%,
+    ),
+
+    'contentHeight': (
+        320: 100%,
+    ),
+    'contentMinHeight': 300px,
+    'contentPadding': (
+        320: ef.size(4) ef.size(4) ef.size(6),
+        560: ef.size(8),
+    ),
+    'contentDisplay': flex,
+    'contentDirection': column,
+    'contentJustify': space-between,
+    'contentAlignItems': (
+        320: center,
+        560: flex-start,
+    ),
+    'contentTextAlign': (
+        320: center,
+        560: left,
+    ),
+
+    'nameMargin': (
+        375: 0 0 ef.size(2),
+        900: 0 0 ef.size(4),
+        1200: 0 0 ef.size(2),
+        1630: 0 0 ef.size(4),
+    ),
+    'nameTextStyle': (
+        375: 'QoteTextBold',
+        900: 'PromoTitle',
+        1200: 'QoteTextBold',
+        1630: 'PromoTitle',
+    ),
+
+    'infoMaxWidth': (
+        320: none,
+        640: 60%,
+    ),
+    'infoZIndex': 2,
+
+    'descriptionTextStyle': 'ThirdTitle',
+
+    'decorDisplay': (
+        320: none,
+        640: block,
+    ),
+    'decorMaxWidth': 50%,
+    'decorMaxHeight': 100%,
+    'decorPositionRight': 0,
+    'decorPositionBottom': -1%,
+    'decorZIindex': 1,
+
+    'fullwidthitemColumnStart': (
+        320: 1,
+        1200: 1,
+    ),
+    'fullwidthitemColumnEnd': (
+        320: 1,
+        1200: 3,
+    ),
+    'maxWidthFullWidthItem': (
+        375: 315px,
+        560: 715px,
+        900: 970px,
+        1200: 100%
+    ),
+
+    'maxWidthTextInFullWidthItem': (
+        1200: 50%,
+    ),
+
+    'bntsWrapperDisplay': flex,
+    'btnsWrapperMargin': ef.size(6) 0 0 0,
+    'btnsWrapperDirection': (
+        320: column,
+        900: row,
+    ),
+    'bntsWrapperZIndex': 2,
+
+    'firstButtonMargin': (
+        320: 0 0 ef.size(4) 0,
+        900: 0 ef.size(4) 0 0,
+    ),
+), $customThemeDefault);

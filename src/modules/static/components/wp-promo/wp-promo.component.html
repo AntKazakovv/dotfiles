@@ -1,0 +1,50 @@
+<ng-container *ngIf="items.length">
+    <div *ngIf="$params.titleComponentParams.mainText"
+        class="{{$class}}__title"
+        wlc-title
+        [inlineParams]="$params.titleComponentParams"
+    ></div>
+    <div class="{{$class}}__wrapper-list">
+        <ng-container *ngFor="let item of items;"
+            [ngTemplateOutlet]="wpItem"
+            [ngTemplateOutletContext]="{item}"
+        >
+        </ng-container>
+    </div>
+</ng-container>
+
+<ng-template #wpItem let-item="item">
+    <div class="{{$class}}__wrapper"
+        [style.background-image]="item.bgImageUrl"
+        [ngClass]="{'full-width-item': item.isFullscreenWidth}"
+    >
+        <div class="{{$class}}__content"
+            [ngClass]="{'linear-gradient': item.useBgGradient}"
+        >
+            <div class="{{$class}}__info">
+                <h4 class="{{$class}}__name">{{item.title}}</h4>
+                <div class="{{$class}}__description">{{item.description}}</div>
+            </div>
+
+            <div class="{{$class}}__btns">
+                <button *ngIf="item.buttonText && item.buttonSref"
+                        class="{{$class}}__button {{$class}}__button--first"
+                        wlc-button
+                        [typeAttr]="$params.redirectButton.common.typeAttr"
+                        [text]="item.buttonText"
+                        [sref]="item.buttonSref"
+                        [srefParams]="item.buttonSrefParams"
+                ></button>
+                <button class="{{$class}}__button"
+                        wlc-button
+                        [inlineParams]="$params.modalButton"
+                        (click)="openDescription(item)"
+                ></button>
+            </div>
+        </div>
+
+        <img *ngIf="item.decorImageUrl"
+            class="{{$class}}__decor"
+            src="{{item.decorImageUrl}}"/>
+    </div>
+</ng-template>

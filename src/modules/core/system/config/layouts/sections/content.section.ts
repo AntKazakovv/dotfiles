@@ -24,6 +24,16 @@ export namespace content {
         ],
     };
 
+    export const withWpPromotions: ILayoutSectionConfig = {
+        order: 2,
+        container: true,
+        components: [
+            componentLib.wlcWpPromo.def,
+            componentLib.wlcTitle.bonuses,
+            componentLib.wlcPromotionsBonusesList.def,
+        ],
+    };
+
     export const sportsbook: ILayoutSectionConfig = {
         order: 2,
         container: false,
