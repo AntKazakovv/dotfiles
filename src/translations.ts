@@ -67,3 +67,5 @@ gettext('Your state');
 gettext('National identification number');
 gettext('Province of Bank');
 gettext('Card Type(Debit/Credit)');
+gettext('Account Type');
+gettext('Document Type');
