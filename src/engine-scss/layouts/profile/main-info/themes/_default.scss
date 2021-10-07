@@ -195,12 +195,9 @@
 
                 .wlc-input__label,
                 .wlc-select__label {
-                    @include bm.get-mq-map('color', $mainInfoThemeDefault, 'formLabelColor');
-                    @include text.get-text-style('SignText', null);
-                    margin: ef.get-value($mainInfoThemeDefault, 'labelMargin');
 
                     @include mq.min(768) {
-                        @include text.get-text-style('PrimaryText', null);
+                        @include text.get-text-style(ef.get-value($mainInfoThemeDefault, 'labelFont'), ef.get-value($mainInfoThemeDefault, 'labelFontColor'));
                         margin: 0;
                     }
                 }

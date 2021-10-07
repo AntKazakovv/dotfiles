@@ -18,11 +18,6 @@ $themeDefault: map-merge((
 $customThemeButton: () !default;
 $themeButton: map-merge((
     'spaceBetweenButtons': 10px,
-
-    // title
-    'titleWidth': 100%,
-    'titleColor': var(--fc-labelColor),
-    'titlePadding': 0 0 0 10px,
     'elemsColumns': minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr),
     'elemsGap': 10px,
     'buttonPadding': 5px,

@@ -2,14 +2,15 @@
 @use 'engine-scss/mixins/base.mixins' as bm;
 @use 'engine-scss/mixins/text' as lib;
 @use 'modules/core/components/button/styles/utils/_mixins' as m;
+@use 'engine-scss/mixins/common.mixins' as cm;
 
 @use 'modules/core/components/button/styles/utils/_vars' as btn;
 @import '../utils/vars';
 
 @mixin button {
     @include m.buttonBase();
-    padding: ef.get('buttonSettings', 'padding');
     min-width: auto;
+    padding: ef.get('buttonSettings', 'padding');
 }
 
 .wlc-radio-buttons--theme-button:host {
@@ -17,26 +18,22 @@
     .wlc-radio-buttons {
 
         &__title {
-            @include lib.get-text-style(ef.get-value($themeButton, 'titleTextStyle'), ef.get-value($themeDefault, 'titleColor'));
-            width: ef.get-value($themeButton, 'titleWidth');
-            min-height: ef.get-value($themeButton, 'titleMinHeight');
-            margin: ef.get-value($themeButton, 'titleMargin');
-            padding: ef.get-value($themeButton, 'titlePadding');
+            @include cm.labelStyle;
         }
 
         &__elems {
             display: grid;
-            grid-template-columns: ef.get-value($themeButton, 'elemsColumns');
             grid-gap: ef.get-value($themeButton, 'elemsGap');
+            grid-template-columns: ef.get-value($themeButton, 'elemsColumns');
         }
 
         &__text {
             display: block;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
             grid-column: 2;
+            overflow: hidden;
+            white-space: nowrap;
             text-align: center;
+            text-overflow: ellipsis;
         }
 
         &__radio {
@@ -46,19 +43,19 @@
         &__group {
             @include button();
             @include m.buttonTransparency();
-            padding: ef.get-value($themeButton, 'buttonPadding');
+            @include bm.transition();
             flex: 1 1 auto;
             min-width: auto;
-            cursor: pointer;
+            padding: ef.get-value($themeButton, 'buttonPadding');
             font-weight: ef.get('buttonSettings', 'fontWeight');
             font-size: ef.get('font', 'PrimaryText');
-            @include bm.transition();
+            cursor: pointer;
 
             &.active {
                 @include button();
                 padding: ef.get-value($themeButton, 'buttonPadding');
-                cursor: default;
                 color: ef.get-value($themeButton, 'buttonActiveColor');
+                cursor: default;
             }
         }
     }
@@ -71,8 +68,8 @@
                 border-radius: ef.get('buttonSettings', 'radiusRoundingTheme');
 
                 &:hover {
-                    box-shadow: unset;
                     background: ef.get('buttonSettings', 'backgroundHover');
+                    box-shadow: unset;
                 }
 
                 &.active {

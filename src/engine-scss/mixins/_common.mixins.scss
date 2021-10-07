@@ -1,6 +1,8 @@
 @use 'engine-scss/engine.variables' as ev;
 @use 'engine-scss/mixins/base.mixins' as bm;
 @use 'engine-scss/functions' as ef;
+@use 'engine-scss/mixins/text' as text;
+@use 'engine-scss/mixins/mediaqueries' as mq;
 
 @mixin tableBtnBlockStyles() {
     @include bm.get-mq-map('align-items', ev.$tableBtnBlock, 'btnAlign');
@@ -27,5 +29,26 @@
         .action-btn {
             @include bm.get-mq-map('bottom', ev.$tableBtnBlock, 'btnBottomFirst');
         }
+    }
+}
+
+@mixin labelStyle($useMargin: true, $useHeight: true) {
+    @include text.get-text-style(ef.get-value(ev.$form, 'labelFont', 375), ef.get-value(ev.$form, 'labelColor'));
+
+    display: flex;
+    align-items: ef.get-value(ev.$form, 'labelAlignItems');
+    cursor: pointer;
+    user-select: none;
+
+    @if $useMargin {
+        margin: ef.get-value(ev.$form, 'labelMargin');
+    }
+
+    @if $useHeight {
+        min-height: ef.get-value(ev.$form, 'labelMinHeight');
+    }
+
+    @include mq.min(1630) {
+        @include text.get-text-style(ef.get-value(ev.$form, 'labelFont', 1630), ef.get-value(ev.$form, 'labelColor'));
     }
 }

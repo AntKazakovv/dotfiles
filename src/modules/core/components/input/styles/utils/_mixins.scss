@@ -4,7 +4,6 @@
 @mixin inputBase($theme) {
     display: grid;
     grid-template-columns: 1fr;
-    gap: map-get($theme, 'labelGap');
 }
 
 @mixin resetAppearance() {

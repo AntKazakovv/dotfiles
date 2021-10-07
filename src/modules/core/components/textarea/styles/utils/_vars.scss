@@ -2,14 +2,7 @@
 
 $customThemeDefault: () !default;
 $themeDefault: map-merge((
-    'labelColor': var(--fc-labelColor),
     'labelGap': 0,
-    'labelMargin': 0 0 0 ef.get('size', 'small'),
-    'labelMinHeight': ef.size(4),
-    'labelTextStyle': (
-        375: 'SignText',
-        1630: 'PlaceholderText',
-    ),
     'textareaColor': var(--fc-textColor),
     'textareaBg': var(--fc-inputBg),
     'textareaPlaceholderColor': var(--fc-placeholderColor),

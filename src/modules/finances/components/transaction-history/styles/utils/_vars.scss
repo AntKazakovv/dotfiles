@@ -37,11 +37,4 @@ $themeDefault: map-merge((
 
     'btnMinHeight': 40px,
     'labelAreas': 'label label label' '. . .',
-    'labelFont': 'SignText',
-    'labelFontBig': 'PlaceholderText',
-    'labelAlignItems': center,
-    'labelColor':  var(--fc-labelColor),
-    'labelPadding': 0 0 0 ef.get('radius', 'biger'),
-    'labelLineHeight': 1.9,
-    'labelMinHeight': ef.get('size', 'smaller'),
 ), $customThemeDefault);
