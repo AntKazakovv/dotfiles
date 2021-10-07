@@ -1,9 +1,9 @@
 <div class="{{$class}}__container">
     <div class="{{$class}}__info">
-        <img [src]="setDecorImage()"
+        <img [wlc-fallback]="$params.common.tournament.fallbackImagePromo"
+             [src]="$params.common.tournament.imagePromo"
              class="{{$class}}__image {{$class}}__image--mobile"
-             loading="lazy"
-             alt="tournament image">
+             loading="lazy">
         <div class="{{$class}}__inner">
             <div class="{{$class}}__tag">
                 <span class="{{$class}}__tag-text"
@@ -19,10 +19,10 @@
         </div>
     </div>
     <div class="{{$class}}__board">
-        <img [src]="setDecorImage()"
+        <img [wlc-fallback]="$params.common.tournament.fallbackImagePromo"
+             [src]="$params.common.tournament.imagePromo"
              class="{{$class}}__image {{$class}}__image--desk"
-             loading="lazy"
-             alt="tournament image">
+             loading="lazy">
         <div class="{{$class}}__inner">
             <h4 class="{{$class}}__board-title">
                 {{'Prize pool' | translate}}

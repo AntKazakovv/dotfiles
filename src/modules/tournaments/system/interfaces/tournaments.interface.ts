@@ -1,7 +1,7 @@
 import {
     IIndexing,
 } from 'wlc-engine/modules/core';
-import {Tournament} from '../models/tournament';
+import {Tournament} from '../models/tournament.model';
 import {
     PartialObserver,
     Observable,
@@ -76,6 +76,22 @@ export interface ITopTournamentUsers {
     results: ITournamentPlace[];
     start: number;
     user: ITournamentUser;
+}
+
+export interface ITournamentsModule {
+    components?: ITournamentsComponents;
+    defaultImages?: {
+        /** Tournament background image on home page */
+        image?: string;
+        /** Tournament image in tournaments */
+        imagePromo?: string;
+        /** Tournament image in game dashboard */
+        imageDashboard?: string;
+        /** Tournament image in tournaments-detail */
+        imageDescription?: string;
+        /** Tournament extra image to be displayed as decor over the main image on home page */
+        imageOther?: string;
+    }
 }
 
 export interface ITournamentPlace {

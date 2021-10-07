@@ -44,10 +44,10 @@
             </div>
         </div>
         <div class="{{$class}}__img-container" *ngIf="!isTournamentSelected">
-            <img [src]="getDashboardImage()"
+            <img [wlc-fallback]="tournament.fallbackImageDashboard"
+                 [src]="tournament.imageDashboard"
                  class="{{$class}}__image"
-                 loading="lazy"
-                 alt="tournament image">
+                 loading="lazy">
             <h3 class="{{$class}}__title">
                 <span>{{tournament.name}}</span>
             </h3>

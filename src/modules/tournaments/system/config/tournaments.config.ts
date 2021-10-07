@@ -1,6 +1,13 @@
 import {ITournamentsModule} from '../interfaces/tournaments.interface';
 
 export const tournamentsConfig: ITournamentsModule = {
+    defaultImages: {
+        image: '/gstatic/wlc/tournaments/tournament-decor.png',
+        imagePromo: '/gstatic/wlc/tournaments/tournament-decor.png',
+        imageDashboard: '/gstatic/wlc/tournaments/tournament-decor.png',
+        imageDescription: '',
+        imageOther: '',
+    },
     components: {
         'wlc-tournament-list': {
             noContent: {

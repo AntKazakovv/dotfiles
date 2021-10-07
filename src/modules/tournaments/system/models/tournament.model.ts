@@ -82,23 +82,36 @@ export class Tournament extends AbstractModel<ITournament> {
     }
 
     public get image(): string {
-        return this.data.Image;
+        return this.data.Image || this.configService.get('$tournaments.defaultImages.image');
     }
 
     public get imagePromo(): string {
-        return this.data.Image_promo || '';
+        return this.data.Image_promo || this.configService.get('$tournaments.defaultImages.imagePromo');
     }
 
     public get imageDashboard(): string {
-        return this.data.Image_dashboard || '';
+        return this.data.Image_dashboard || this.configService.get('$tournaments.defaultImages.imageDashboard');
     }
 
     public get imageDescription(): string {
-        return this.data.Image_description || '';
+        return this.data.Image_description || this.configService.get('$tournaments.defaultImages.imageDescription');
     }
 
+    /** Tournament default imageOther shall be displayed only if neither background nor decor image is set in Fundist */
     public get imageOther(): string {
-        return this.data.Image_other;
+        if (this.data.Image || this.data.Image_other) {
+            return this.data.Image_other;
+        } else {
+            return this.configService.get('$tournaments.defaultImages.imageOther');
+        }
+    }
+
+    public get fallbackImagePromo(): string {
+        return this.configService.get('$tournaments.defaultImages.imagePromo');
+    }
+
+    public get fallbackImageDashboard(): string {
+        return this.configService.get('$tournaments.defaultImages.imageDashboard');
     }
 
     public get name(): string {

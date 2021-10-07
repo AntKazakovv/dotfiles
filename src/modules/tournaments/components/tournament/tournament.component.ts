@@ -23,7 +23,7 @@ import {
     ModalService,
 } from 'wlc-engine/modules/core';
 import {UserInfo} from 'wlc-engine/modules/user/system/models/info.model';
-import {Tournament} from 'wlc-engine/modules/tournaments/system/models/tournament';
+import {Tournament} from 'wlc-engine/modules/tournaments/system/models/tournament.model';
 import {TournamentsService} from 'wlc-engine/modules/tournaments/system/services/tournaments/tournaments.service';
 import {
     ITournamentDetailCParams,
@@ -111,10 +111,6 @@ export class TournamentComponent
         this.prepareActionParams();
 
         this.getUserInfo();
-    }
-
-    public getDashboardImage(): string {
-        return this.tournament.imageDashboard || '/gstatic/wlc/tournaments/tournament-decor.png';
     }
 
     public join(): void {

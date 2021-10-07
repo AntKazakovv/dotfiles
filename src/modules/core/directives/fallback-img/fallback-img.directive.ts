@@ -7,6 +7,7 @@ import {
     EventEmitter,
     Input,
     OnDestroy,
+    ChangeDetectorRef,
 } from '@angular/core';
 import {
     Subscription,
@@ -35,6 +36,7 @@ export class FallbackImgDirective implements AfterViewInit, OnDestroy {
 
     constructor(
         protected element: ElementRef,
+        protected cdr: ChangeDetectorRef,
     ) {}
 
     public ngAfterViewInit(): void {
@@ -56,6 +58,7 @@ export class FallbackImgDirective implements AfterViewInit, OnDestroy {
 
             this.imageError.emit();
         });
+        this.cdr.markForCheck();
     }
 
     public ngOnDestroy(): void {
