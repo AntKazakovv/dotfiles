@@ -28,6 +28,7 @@ module.exports = function config(root, bundleType) {
             srcIndexFile: `${root}/src/index.html`,
             srcIndexHeadFile: `${root}/node_modules/@egamings/wlc-engine/src/head.tpl`,
             polyfillsFile: `${root}/src/polyfills.ts`,
+            docsSummary: `${root}/src/docs/content/summary.json`,
             changeLogs: `${root}/src/docs/content/900.change-logs/releases`,
             changeLogsDocDist: `${root}/src/docs/content/900.change-logs`,
         },
