@@ -214,6 +214,9 @@ $hostModal: map-merge((
         320: 0 ef.size(3) 0,
         768: 0 ef.size(6) 0,
     ),
+    'scrollbarTrackBg': var(--mc-bg500),
+    'scrollbarThumbBg': var(--mc-main),
+    'scrollbarBorder': 1px solid var(--mc-bg500),
 ), $customHostModal);
 
 $customLanguageModal: () !default;
