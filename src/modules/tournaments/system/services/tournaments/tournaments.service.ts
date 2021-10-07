@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {Tournament} from '../../models/tournament';
+import {Tournament} from '../../models/tournament.model';
 import {
     IData,
     ConfigService,
@@ -151,7 +151,7 @@ export class TournamentsService {
         if (!this.winnersSubjects[tournamentID]) {
             this.winnersSubjects[tournamentID] = new BehaviorSubject(null);
         }
-        
+
         const winnersInterval = interval(intervalValue)
             .pipe((until) ? takeUntil(until) : pipe())
             .pipe(filter(() => !!this.winnersSubjects[tournamentID].observers.length))

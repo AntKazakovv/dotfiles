@@ -20,7 +20,7 @@ import {
     ITableCParams, IIndexing, GlobalHelper,
 } from 'wlc-engine/modules/core';
 
-import {Tournament} from 'wlc-engine/modules/tournaments/system/models/tournament';
+import {Tournament} from 'wlc-engine/modules/tournaments/system/models/tournament.model';
 import {TournamentsService} from 'wlc-engine/modules/tournaments/system/services/tournaments/tournaments.service';
 import {TournamentComponent} from 'wlc-engine/modules/tournaments/components/tournament/tournament.component';
 import {MenuParams} from 'wlc-engine/modules/menu';

@@ -80,10 +80,6 @@ export class TournamentPromoComponent extends AbstractComponent implements OnIni
             });
     }
 
-    public setDecorImage(): string {
-        return this.$params.common.tournament?.imagePromo || '/gstatic/wlc/tournaments/tournament-decor.png';
-    }
-
     public joinToTournament(): void {
         this.parentInstance?.join();
     }
