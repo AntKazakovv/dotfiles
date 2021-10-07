@@ -18,6 +18,7 @@ import {
     trigger,
 } from '@angular/animations';
 import {FormControl} from '@angular/forms';
+import {TranslateService} from '@ngx-translate/core';
 import {
     BehaviorSubject,
     fromEvent,
@@ -43,6 +44,7 @@ import _filter from 'lodash-es/filter';
 import _find from 'lodash-es/find';
 import _sortBy from 'lodash-es/sortBy';
 import _cloneDeep from 'lodash-es/cloneDeep';
+import _map from 'lodash-es/map';
 
 /**
  * Component select
@@ -98,6 +100,7 @@ export class SelectComponent extends AbstractComponent implements OnInit, OnChan
         protected cdr: ChangeDetectorRef,
         protected EventService: EventService,
         protected selectValues: SelectValuesService,
+        protected translate: TranslateService,
     ) {
         super({injectParams, defaultParams: Params.defaultParams});
     }
@@ -149,6 +152,7 @@ export class SelectComponent extends AbstractComponent implements OnInit, OnChan
             }
         }
         this.getSelectedItemIndex();
+        this.translateItems();
     }
 
     public ngAfterViewInit(): void {
@@ -162,7 +166,7 @@ export class SelectComponent extends AbstractComponent implements OnInit, OnChan
 
             setTimeout(() => {
                 if (!this.control.disabled) {
-                    this.searchText = this.placeholderText;
+                    this.searchText = this.translate.instant(this.placeholderText);
                 }
             });
         }
@@ -188,6 +192,19 @@ export class SelectComponent extends AbstractComponent implements OnInit, OnChan
         } else {
             return this.$params.common?.placeholder.toString() || '';
         }
+    }
+
+    /**
+     * The method translate Items titles and placeholders
+     *
+     * @method  translateItems
+     * @returns {void} void
+     */
+    protected translateItems() {
+        this.$params.items = _map(this.$params.items, (item) => {
+            item.title = this.translate.instant(item.title.toString());
+            return item;
+        });
     }
 
     /**
@@ -261,7 +278,7 @@ export class SelectComponent extends AbstractComponent implements OnInit, OnChan
         this.control.updateValueAndValidity();
         this.isOpened = false;
         this.clearSearchField();
-        this.searchText = this.placeholderText;
+        this.searchText = this.translate.instant(this.placeholderText);
         this.getSelectedItemIndex();
     }
 
@@ -314,7 +331,6 @@ export class SelectComponent extends AbstractComponent implements OnInit, OnChan
     public searchItems(): void {
         const searchText = GlobalHelper.shieldingString(this.searchText);
         const regExp = new RegExp(`(${searchText})`, this.$params.insensitiveSearch ? 'i' : '');
-
         this.foundItems = _cloneDeep(_filter(this.$params.items, option => !!option.title.toString().match(regExp)));
 
         if (this.searchText) {
@@ -392,7 +408,7 @@ export class SelectComponent extends AbstractComponent implements OnInit, OnChan
         });
 
         if (!this.isOpened) {
-            this.searchText = this.placeholderText;
+            this.searchText = this.translate.instant(this.placeholderText);
         }
     }
 

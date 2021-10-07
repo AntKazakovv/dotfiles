@@ -19,7 +19,7 @@
         <input #searchInput
                class="{{$class}}__field"
                type="text"
-               placeholder="{{placeholderText | translate}}"
+               [placeholder]="placeholderText | translate"
                name="{{$params.name}}"
                autocomplete="off"
                [(ngModel)]="searchText"

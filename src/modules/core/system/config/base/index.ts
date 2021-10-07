@@ -20,5 +20,7 @@ export const $base: IBaseConfig = {
     interactiveText: interactiveTextConfig,
     redirects: redirectsConfig,
     useSeo: false,
-    turnOnSendEmailNotificationInRegister: false,
+    finances: {
+        depositInIframe: true,
+    },
 };
