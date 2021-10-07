@@ -1,0 +1,54 @@
+@use 'engine-scss/functions' as ef;
+@use 'engine-scss/mixins/base.mixins' as em;
+
+@mixin SafetyAndMerchants($map) {
+
+    @include em.get-mq-map('max-width', $map, 'paymentsMaxWidth');
+    @include em.get-mq-map('padding', $map, 'paymentsPadding');
+
+    width: ef.get-value($map, 'paymentsWidth');
+
+    background-color: ef.get-value($map, 'paymentsBackground');
+    border-radius: ef.get-value($map, 'paymentsBorderRadius');
+
+    overflow: hidden;
+
+    .wlc-icon-list {
+
+        &__wrapper {
+            @include em.get-mq-map('margin', $map, 'wrapperMargin');
+
+            position: relative;
+            z-index: ef.get-value($map, 'wrapperZIndex');
+
+            display: ef.get-value($map, 'wrapperDisplay');
+
+            flex-wrap: ef.get-value($map, 'wrapperFlexWrap');
+            align-items: ef.get-value($map, 'wrapperAlignItems');
+            justify-content: ef.get-value($map, 'wrapperJustifyContent');
+
+            overflow-x: ef.get-value($map, 'wrapperOverflow');
+        }
+
+        &__item,
+        &-item {
+            @include em.get-mq-map('flex', $map, 'itemFlex');
+            @include em.get-mq-map('padding', $map, 'itemPadding');
+
+            text-align: ef.get-value($map, 'itemTextAlign');
+
+            img,
+            .wlc-icon img,
+            .wlc-icon svg {
+                @include em.get-mq-map('width', $map, 'iconWidth');
+                @include em.get-mq-map('max-width', $map, 'iconMaxWidth');
+                @include em.get-mq-map('max-height', $map, 'iconMaxHeight');
+                @include em.get-mq-map('fill', $map, 'iconFill');
+
+                g {
+                    clip-path: none;
+                }
+            }
+        }
+    }
+}

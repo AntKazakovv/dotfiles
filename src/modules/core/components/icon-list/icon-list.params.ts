@@ -6,7 +6,7 @@ import {IAbstractIconsListParams} from 'wlc-engine/modules/core/system/classes/i
 import {IIconParams} from 'wlc-engine/modules/core/system/models/icon-list-item.model';
 
 /** Available component themes */
-export type ComponentTheme = 'merchants' | 'payments' | CustomType;
+export type ComponentTheme = 'merchants' | 'payments' | 'safety' | CustomType;
 /**
  * Available component types, use it for merchants and payments
  *

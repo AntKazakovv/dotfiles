@@ -1,4 +1,9 @@
+@import './utils/vars';
+@import './utils/mixins';
+
+@import './utils/mixins';
 @import './themes/default';
 @import './themes/merchants';
+@import './themes/safety';
 @import './themes/payments';
 @import './themes/custom';

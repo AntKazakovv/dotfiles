@@ -116,3 +116,55 @@ $themePayments: map-merge((
     'scrollableShadowBgLeft': linear-gradient(-90deg, var(--mc-bg-o0) 0, var(--mc-bg) 35%),
     'scrollableShadowBgRight': linear-gradient(90deg, var(--mc-bg-o0) 0, var(--mc-bg) 35%),
 ), $customThemePayments);
+
+// ~~ theme SAFETY
+$customThemeSafety: () !default;
+$themeSafety: map-merge((
+    // payments
+    'paymentsWidth': 100%,
+    'paymentsMaxWidth': (
+        375: 100%,
+        1420: 1420px,
+    ),
+    'paymentsPadding': (
+        375: 0,
+    ),
+    'paymentsBorderRadius': ef.get('radius', 'main'),
+    'paymentsBackground': none,
+    // wrapper
+    'wrapperDisplay': flex,
+    'wrapperZIndex': 1,
+    'wrapperFlexWrap': wrap,
+    'wrapperAlignItems': center,
+    'wrapperJustifyContent': center,
+    'wrapperMargin': (
+        375: ef.size(-2) 0 0,
+        1630: ef.size(-4) 0 0,
+    ),
+    'wrapperOverflow': auto,
+    //item
+    'itemFlex': (
+        375: 0 0 calc(100% / 4),
+        640: 0 0 calc(100% / 5),
+        768: 0 0 calc(100% / 6),
+        1024: 0 0 calc(100% / 7),
+        1200: 0 0 calc(100% / 8),
+    ),
+    'itemPadding': (
+        375: ef.size(2),
+        1630: ef.size(4) ef.size(2),
+    ) ,
+    'itemTextAlign': center,
+    // icon
+    'iconWidth': (
+        375: 100%,
+    ),
+    'iconMaxWidth': (
+        375: 105px,
+    ),
+    'iconMaxHeight': (
+        375: ef.get('size', 'less'),
+        900: ef.get('size', 'less') * 1.2,
+    ),
+    'iconFill': var(--mc-bg100),
+), $customThemeSafety);
