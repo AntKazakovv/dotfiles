@@ -151,6 +151,10 @@ export class UserProfile extends AbstractModel<IUserProfile> {
         return this.data.socketsData;
     }
 
+    public get pep(): string {
+        return this.data.extProfile.pep;
+    }
+
     public hasField(field: string): boolean {
         return !!_get(this.data, field);
     }
