@@ -212,8 +212,8 @@ export class Game extends AbstractModel<IGame> {
     public getImage(size?: TGameImageSize, extension: string = ''): string {
         let image = this.image;
         if (size) {
-            const replaceVal: string = (size === 640) ? '$1' : `${size}/$1`;
-            image = image.replace(/\d+\/(.+)$/, replaceVal);
+            const replaceVal: string = (size === 640) ? '$1' : `/${size}/$1`;
+            image = image.replace(/\/\d+\/(.+)$/, replaceVal);
         }
         if (extension) {
             image = GlobalHelper.setFileExtension(image, extension);
