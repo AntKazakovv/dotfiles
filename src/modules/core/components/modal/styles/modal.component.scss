@@ -246,26 +246,12 @@
         &--scrollable {
 
             .wlc-modal__body {
+                @include bm.scrollbar($hostModal);
+
                 @include bm.get-mq-map('height', $hostModal, 'staticMaxHeightMobile');
                 @include bm.get-mq-map('margin', $hostModal, 'scrollModalBodyMargin');
                 @include bm.get-mq-map('padding', $hostModal, 'scrollModalBodyPadding');
                 overflow-y: auto;
-
-                /* stylelint-disable */
-                &::-webkit-scrollbar {
-                    width: ef.get-value($hostModal, 'scrollBarWidth');
-                    background-color: transparent;
-                }
-
-                &::-webkit-scrollbar-thumb {
-                    border-radius: ef.get-value($hostModal, 'scrollBarWidth');
-                    background-color: ef.get-value($hostModal, 'scrollBarColor');
-                }
-
-                &::-webkit-scrollbar-track {
-                    background-color: ef.get-value($hostModal, 'scrollBarTrackColor');
-                }
-                /* stylelint-enable */
             }
         }
     }

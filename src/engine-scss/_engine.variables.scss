@@ -770,3 +770,16 @@ $tooltip-max-width: 200px !default;
 $tooltip-bg: var(--mc-black) !default;
 $tooltip-color: var(--mc-main) !default;
 $tooltip-border-radius: map-get($radius, 'biger') !default;
+
+
+/// Globar settings scrollbar
+/// @name scrollbarConfig
+/// @prop {Size} size [8px]
+/// @prop {Size} margin [5px]
+/// @prop {Size} borderRadius [6px]
+$customScrollbarConfig: () !default;
+$scrollbarConfig: (
+    'size': 8px,
+    'margin': 5px,
+    'borderRadius': map-get($radius, 'less'),
+);

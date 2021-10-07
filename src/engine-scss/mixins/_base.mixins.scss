@@ -289,3 +289,33 @@
 
     @return $split-arr;
 }
+
+/// Generate custom scrollbar
+///
+/// @name scrollbar
+/// @param {map} $map - scrollbar settings (scrollbarTrackBg, scrollbarThumbBg, scrollbarBorder)
+/// @param {string} $direction ['vertical'] - vertical or horizontal
+
+@mixin scrollbar($map, $direction: 'vertical') {
+    $config: ev.$scrollbarConfig;
+
+    &::-webkit-scrollbar {
+        @if ($direction == 'vertical') {
+            width: ef.get-value($config, 'size');
+        } @else {
+            height: ef.get-value($config, 'size');
+        }
+
+        &-track {
+            margin: ef.get-value($config, 'margin');
+            background: ef.get-value($map, 'scrollbarTrackBg');
+            border-radius: ef.get-value($config, 'borderRadius');
+        }
+
+        &-thumb {
+            background: ef.get-value($map, 'scrollbarThumbBg');
+            border-radius: ef.get-value($config, 'borderRadius');
+            border: ef.get-value($map, 'scrollbarBorder');
+        }
+    }
+}

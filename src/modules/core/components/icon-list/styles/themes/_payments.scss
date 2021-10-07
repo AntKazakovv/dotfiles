@@ -69,6 +69,8 @@
     .wlc-icon-list {
 
         &__wrapper {
+            @include em.scrollbar($themePayments, 'horizontal');
+
             @include em.get-mq-map('flex-wrap', $themePayments, 'wrapperFlexWrap');
             @include em.get-mq-map('margin', $themePayments, 'wrapperMargin');
             @include em.get-mq-map('padding', $themePayments, 'wrapperPadding');

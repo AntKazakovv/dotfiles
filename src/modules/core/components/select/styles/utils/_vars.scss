@@ -59,4 +59,7 @@ $baseSettings: map-merge((
     'fieldWidth': 100%,
     'noResultTextStyle': 'PrimaryText',
     'noResultTextColor': var(--mc-disabled),
+    'scrollbarTrackBg': var(--fc-inputBg),
+    'scrollbarThumbBg': var(--mc-main),
+    'scrollbarBorder': 1px solid var(--fc-inputBg),
 ), $customBaseSettings);

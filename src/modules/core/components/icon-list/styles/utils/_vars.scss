@@ -115,6 +115,9 @@ $themePayments: map-merge((
     'scrollableShadowWidth': 150px,
     'scrollableShadowBgLeft': linear-gradient(-90deg, var(--mc-bg-o0) 0, var(--mc-bg) 35%),
     'scrollableShadowBgRight': linear-gradient(90deg, var(--mc-bg-o0) 0, var(--mc-bg) 35%),
+    'scrollbarTrackBg': var(--mc-bg500),
+    'scrollbarThumbBg': var(--mc-main),
+    'scrollbarBorder': 1px solid var(--mc-bg500),
 ), $customThemePayments);
 
 // ~~ theme SAFETY
