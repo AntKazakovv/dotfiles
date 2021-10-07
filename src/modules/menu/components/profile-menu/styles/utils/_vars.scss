@@ -38,18 +38,15 @@ $themeDropdownDefault: map-merge((
     'hoverLinkColor': null,
     'hoverLinkBg': var(--mc-bg500),
     'linkBg': (
-        375: var(--mc-bg700),
-        1200: var(--mc-bg),
+        375: var(--mc-bg),
     ),
     'activeLinkBg': (
         375: var(--mc-bg500),
-        1200: var(--mc-bg500),
     ),
-    'linkFill': var(--mc-baseMain),
+    'linkFill': var(--mc-baseOpacity),
     'linkBorderRadius': ef.get('radius', 'biger'),
     'submenuBg': (
-        375: var(--mc-bg700),
-        1200: var(--mc-bg),
+        375: var(--mc-bg),
     ),
     'activeLinkColor': var(--mc-baseMain),
 ), $customDropdownThemeDefault);
