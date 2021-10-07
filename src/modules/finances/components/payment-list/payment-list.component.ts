@@ -32,9 +32,9 @@ import {PaymentSystem} from 'wlc-engine/modules/finances/system/models/payment-s
 import {
     IconListAbstract,
     IMerchantsPaymentsIterator,
-    ThemeToDirectory,
 } from 'wlc-engine/modules/core/system/classes/icon-list-abstract.class';
 import {IconModel, IIconParams} from 'wlc-engine/modules/core/system/models/icon-list-item.model';
+import {ThemeToDirectory} from 'wlc-engine/modules/core/system/config/base/icons.config';
 
 import * as Params from './payment-list.params';
 

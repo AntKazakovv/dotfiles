@@ -114,6 +114,30 @@
             }
         }
 
+        &__merchants {
+
+            &-block {
+                @include bm.get-mq-map('width', $themeDefault, 'merchantsBlockW');
+                @include bm.get-mq-map('height', $themeDefault, 'merchantsBlockH');
+                position: absolute;
+                top: ef.get-value($themeDefault, 'merchantsPostion');
+                right: ef.get-value($themeDefault, 'merchantsPostion');
+                z-index: 10;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                padding: ef.get-value($themeDefault, 'merchantsPadding');
+                background: ef.get-value($themeDefault, 'merchantsBg');
+                border-radius: ef.get-value($themeDefault, 'merchantsRadius');
+                pointer-events: none;
+            }
+
+            &-icon {
+                @include bm.get-mq-map('max-width', $themeDefault, 'merchantsIconW');
+                @include bm.get-mq-map('max-height', $themeDefault, 'merchantsIconH');
+            }
+        }
+
         &__buttons {
             @include btnsLayout(horizontal);
             z-index: ef.get-value($themeDefault, 'btnsZIndex');
