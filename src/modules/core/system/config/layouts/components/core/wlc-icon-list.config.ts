@@ -8,4 +8,8 @@ export namespace wlcIconList {
     export const payments: ILayoutComponent = {
         name: 'core.wlc-icon-payments-list',
     };
+
+    export const safety: ILayoutComponent = {
+        name: 'core.wlc-icon-safety-list',
+    };
 }

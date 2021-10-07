@@ -43,10 +43,15 @@
         @include em.get-mq-map('display', $theme1Footer, 'footerContainerDisplay');
 
         @include em.get-mq-map('grid-template-columns', $theme1Footer, 'footerContainerGridColumns');
-        @include em.get-mq-map('grid-template-areas', $theme1Footer, 'footerContainerGridAreas');
         @include em.get-mq-map('column-gap', $theme1Footer, 'footerContainerColumnGap');
         @include em.get-mq-map('row-gap', $theme1Footer, 'footerContainerRowGap');
         @include em.get-mq-map('justify-items', $theme1Footer, 'footerContainerJustifyItems');
+
+        @if ef.get-value($theme1Footer, 'useSafetyIcons') {
+            @include em.get-mq-map('grid-template-areas', $theme1Footer, 'containerGridAreasWithSafety');
+        } @else {
+            @include em.get-mq-map('grid-template-areas', $theme1Footer, 'footerContainerGridAreas');
+        }
 
         .wlc-icon-list,
         .wlc-post-menu,
@@ -60,6 +65,7 @@
 
     .wlc-icon {
 
+        &-safety-list,
         &-merchants-list,
         &-payments-list {
             width: 100%;
@@ -74,6 +80,10 @@
         &-payments-list {
             grid-area: payments;
         }
+
+        &-safety-list {
+            grid-area: safety;
+        }
     }
 
     .wlc-icon-list {
@@ -83,6 +93,15 @@
         }
 
         &--theme-payments {
+            @include em.get-mq-map('max-width', $theme1Footer, 'iconListPaymentsMaxWidth');
+
+            .wlc-icon-list__wrapper {
+                @include em.get-mq-map('background', $theme1Footer, 'iconListPaymentsWrapperBg');
+                @include em.get-mq-map('border-radius', $theme1Footer, 'iconListPaymentsWrapperRadius');
+            }
+        }
+
+        &--theme-safety {
             @include em.get-mq-map('max-width', $theme1Footer, 'iconListPaymentsMaxWidth');
 
             .wlc-icon-list__wrapper {
