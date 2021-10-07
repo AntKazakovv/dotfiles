@@ -32,6 +32,7 @@
             justify-content: ef.get-value($themeDefault, 'imageBlockJustifyContent');
             padding: ef.get-value($themeDefault, 'imageBlockPadding');
             background: {
+                position: ef.get-value($themeDefault, 'imageBlockPosition');
                 color: ef.get-value($themeDefault, 'imageBlockColor');
                 size: ef.get-value($themeDefault, 'imageBlockSize');
                 repeat: ef.get-value($themeDefault, 'imageBlockRepeat');

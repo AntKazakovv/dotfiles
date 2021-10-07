@@ -16,12 +16,13 @@ $themeDefault: map-merge((
 
     'imageBlockHeight': (
         375: 181px,
-        560: 211px,
-        640: 242px,
+        560: 200px,
+        640: 230px,
         720: 260px,
         768: 278px,
         900: 245px,
     ),
+    'imageBlockPosition': center,
     'imageBlockColor': inherit,
     'imageBlockSize': cover,
     'imageBlockRepeat': no-repeat,

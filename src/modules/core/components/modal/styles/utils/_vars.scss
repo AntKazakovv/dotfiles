@@ -377,6 +377,8 @@ $themeDefault: map-merge((
     'bonusModalBodyPadding': 0,
     'bonusModalWrapperPadding': ef.size(6) 0 0 0,
     'bonusModalOverflow': hidden,
+    'bonusModalIconCloseTop': ef.size(5),
+    'bonusModalIconCloseRight': ef.size(5),
     //bonus-modal
 
     //data-is-processing
