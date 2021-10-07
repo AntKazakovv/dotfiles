@@ -43,6 +43,7 @@ import {IRedirect} from 'wlc-engine/modules/core/system/interfaces/core.interfac
 import {ColorThemeService} from 'wlc-engine/modules/core/system/services/color-theme/color-theme.service';
 import {UserProfile} from 'wlc-engine/modules/user/system/models/profile.model';
 import {UserService} from 'wlc-engine/modules/user/system/services/user/user.service';
+import {LogService} from 'wlc-engine/modules/core/system/services/log/log.service';
 
 import _isString from 'lodash-es/isString';
 import _toNumber from 'lodash-es/toNumber';
@@ -50,6 +51,9 @@ import _forEach from 'lodash-es/forEach';
 import _assign from 'lodash-es/assign';
 
 export type ScrollPositionType = 'start' | 'end';
+
+type TPaymentStatus = 'PAYMENT_SUCCESS' | 'PAYMENT_PENDING';
+type TPaymentStatusAll = TPaymentStatus | 'PAYMENT_FAIL';
 
 export interface IScrollOptions {
     position: ScrollPositionType;
@@ -78,7 +82,7 @@ export interface IResizeEvent {
 }
 
 export interface IPaymentPostMessage {
-    eventType: 'PAYMENT_SUCCESS' | 'PAYMENT_FAIL';
+    eventType: TPaymentStatusAll;
     eventData: {
         amount: string;
         transactionId: string;
@@ -112,6 +116,7 @@ export class ActionService {
         private stateService: StateService,
         private injectionService: InjectionService,
         private transition: TransitionService,
+        private logService: LogService,
         @Inject(DOCUMENT) protected document: HTMLDocument,
     ) {
         this.init();
@@ -157,22 +162,12 @@ export class ActionService {
                 }
                 break;
             case 'PAYMENT_SUCCESS': {
-                await this.configService.ready;
-
-                if (this.depositInIframe) {
-                    try {
-                        window.parent?.postMessage({
-                            eventType: 'PAYMENT_SUCCESS',
-                            eventData: initialPath,
-                        }, '*');
-                    } catch {
-                    }
-                } else {
-                    this.onPaymentSuccess(initialPath);
-                }
-
+                this.checkDeposit('PAYMENT_SUCCESS', initialPath);
                 break;
             }
+            case 'PAYMENT_PENDING':
+                this.checkDeposit('PAYMENT_PENDING');
+                break;
             case 'PAYMENT_FAIL':
                 this.onPaymentFail();
                 break;
@@ -256,6 +251,36 @@ export class ActionService {
         }
     }
 
+    private async checkDeposit(type: TPaymentStatus, initialPath?: IIndexing<string>): Promise<void> {
+        await this.configService.ready;
+
+        if (this.depositInIframe && GlobalHelper.isIframe()) {
+
+            const postMessage: Partial<IPaymentPostMessage> = {
+                eventType: type,
+            };
+
+            if (type === 'PAYMENT_SUCCESS') {
+                postMessage.eventData = {
+                    amount: initialPath.amount,
+                    transactionId: initialPath.tid,
+                };
+            }
+
+            try {
+                window.parent?.postMessage(postMessage, '*');
+            } catch (error) {
+                this.logService.sendLog({code: '17.0.0', data: error});
+            }
+        } else {
+            if (type === 'PAYMENT_SUCCESS') {
+                this.onPaymentSuccess(initialPath);
+            } else {
+                this.onPaymentPending();
+            }
+        }
+    }
+
     private onPaymentFail(): void {
         this.eventService.emit({
             name: NotificationEvents.PushMessage,
@@ -268,6 +293,21 @@ export class ActionService {
                         + ' If you have any questions, please don\'t hesitate to contact us.'),
                 ],
                 wlcElement: 'notification_deposit-error',
+            },
+        });
+    }
+
+    private onPaymentPending(): void {
+        this.eventService.emit({
+            name: NotificationEvents.PushMessage,
+            data: <IPushMessageParams>{
+                type: 'info',
+                title: gettext('Payment pending'),
+                message: [
+                    gettext('Transaction is in the pending status.'
+                        + ' If everything goes as expected, your funds soon will reach the gaming balance.'),
+                ],
+                wlcElement: 'notification_deposit-pending',
             },
         });
     }
@@ -373,7 +413,7 @@ export class ActionService {
                 if (event.data) {
                     const message: IPaymentPostMessage = event.data;
 
-                    if (['PAYMENT_SUCCESS', 'PAYMENT_FAIL'].includes(message.eventType)) {
+                    if (['PAYMENT_SUCCESS', 'PAYMENT_PENDING', 'PAYMENT_FAIL'].includes(message.eventType)) {
                         this.modalService.closeAllModals();
 
                         if (message.eventType === 'PAYMENT_SUCCESS') {
