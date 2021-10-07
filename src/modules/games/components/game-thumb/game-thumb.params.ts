@@ -1,4 +1,9 @@
-import {IComponentParams, CustomType} from 'wlc-engine/modules/core';
+import {
+    IComponentParams,
+    CustomType,
+    TIconShowAs,
+    TIconColorBg,
+} from 'wlc-engine/modules/core';
 import {Game} from 'wlc-engine/modules/games';
 import * as ButtonParams from 'wlc-engine/modules/core/components/button/button.params';
 
@@ -30,6 +35,23 @@ export interface IGameThumbCParams extends IComponentParams<Theme, Type, ThemeMo
         gameId?: number;
         useMerchantName?: boolean,
         promoWidget?: IGamePromoWidget;
+        /**
+         * merchant icon usage params
+         */
+        merchantIcon?: {
+            /**
+             * enable/disable usage merchant icon
+             */
+            use: boolean;
+            /**
+             * show as 'img' or 'svg' ('img' by default)
+             */
+            showAs?: TIconShowAs;
+            /**
+             * background color depedency tag ('dark' or 'light')
+             */
+            colorIconBg?: TIconColorBg;
+        }
     }
 }
 

@@ -105,6 +105,27 @@ $themeDefault: map-merge((
         900: 20px,
     ),
     'pplIconColor': var(--mc-main),
+
+    'merchantsPostion': 0,
+    'merchantsPadding': ef.size(1),
+    'merchantsBg': var(--mc-bg-o8),
+    'merchantsRadius': 0 ef.get('radius', 'biger'),
+    'merchantsIconW': (
+        375: 50px,
+        900: 75px,
+    ),
+    'merchantsIconH': (
+        375: 25px,
+        900: 35px,
+    ),
+    'merchantsBlockW': (
+        375: 60px,
+        900: 85px,
+    ),
+    'merchantsBlockH': (
+        375: 35px,
+        900: 45px,
+    ),
 ), $customThemeDefault);
 
 $customThemeDefaultCircle: () !default;

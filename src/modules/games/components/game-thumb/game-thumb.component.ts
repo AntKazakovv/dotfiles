@@ -14,6 +14,8 @@ import {EventService} from 'wlc-engine/modules/core/system/services/event/event.
 import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
 import {ModalService} from 'wlc-engine/modules/core/system/services/modal/modal.service';
 import {DeviceType} from 'wlc-engine/modules/core/system/models/device.model';
+import {IconHelper} from 'wlc-engine/modules/core/system/helpers/icon.helper';
+import {ColorThemeValues} from 'wlc-engine/modules/core/constants/color-theme.constants';
 import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
 import {IIndexing} from 'wlc-engine/modules/core/system/interfaces/global.interface';
 import {ActionService} from 'wlc-engine/modules/core/system/services/action/action.service';
@@ -28,7 +30,6 @@ import _assign from 'lodash-es/assign';
 import _map from 'lodash-es/map';
 import _get from 'lodash-es/get';
 import _isArray from 'lodash-es/isArray';
-import _isEmpty from 'lodash-es/isEmpty';
 
 export type MediaType = 'background' | 'foreground' | 'logo' | 'video';
 export interface IMediaContent {
@@ -59,6 +60,7 @@ export class GameThumbComponent extends AbstractComponent implements OnInit, Aft
     public promoWidgetTitle: string;
     public inited: boolean = false;
     public initFailed: boolean = false;
+    public merchantIconPath: string;
 
     /**
      * Pragmatic play live data model
@@ -175,6 +177,40 @@ export class GameThumbComponent extends AbstractComponent implements OnInit, Aft
             _assign(this.gameThumbSettings, buttonParams);
         }
 
+        if (this.$params.common?.merchantIcon?.use) {
+            this.merchantIconPath = IconHelper.getIconPath(
+                this.game.getMerchantName(),
+                'merchants',
+                this.$params.common.merchantIcon.showAs || 'img',
+                IconHelper.getColorThemeBgType(
+                    this.$params.common.merchantIcon.colorIconBg || 'dark',
+                    this.configService
+                        .get<string>(ColorThemeValues.configName) === ColorThemeValues.altThemeName,
+                ),
+            );
+
+            this.addModifiers('merchant-icon');
+
+            if (this.configService.get<boolean>('$base.colorThemeSwitching.use')) {
+                this.eventService.subscribe<boolean>(
+                    {name: ColorThemeValues.changeEvent},
+                    (theme) => {
+                        this.merchantIconPath = IconHelper.getIconPath(
+                            this.game.getMerchantName(),
+                            'merchants',
+                            this.$params.common.merchantIcon.showAs || 'img',
+                            IconHelper.getColorThemeBgType(
+                                this.$params.common.merchantIcon.colorIconBg || 'dark',
+                                theme,
+                            ),
+                        );
+                        this.cdr.markForCheck();
+                    },
+                    this.$destroy,
+                );
+            }
+        }
+
         this.isAuth = this.configService.get<boolean>('$user.isAuthenticated');
         this.initEventHandlers();
         this.inited = true;
@@ -238,6 +274,14 @@ export class GameThumbComponent extends AbstractComponent implements OnInit, Aft
         } else {
             return `${path}/${type}.${format}`;
         }
+    }
+
+    /**
+     * hide merchant icon block where icon not found
+     */
+    public merchantIconErrorHolder(): void {
+        this.merchantIconPath = '';
+        this.removeModifiers('merchant-icon');
     }
 
     /**

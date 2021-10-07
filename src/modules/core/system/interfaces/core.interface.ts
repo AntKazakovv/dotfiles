@@ -32,3 +32,7 @@ export interface ISocketsData {
     server: string;
     token: string;
 }
+
+export type TIconColorBg = 'dark' | 'light';
+export type TIconShowAs = 'svg' | 'img';
+export type TIconsType = 'color' | 'black';

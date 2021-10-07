@@ -114,6 +114,14 @@
         <ng-container [ngTemplateOutlet]="buttonFavourite"></ng-container>
         <ng-container [ngTemplateOutlet]="buttonsPlayDemo"></ng-container>
     </div>
+    <div class="{{$class}}__merchants-block"
+        *ngIf="merchantIconPath">
+        <img class="{{$class}}__merchants-icon"
+            loading="lazy"
+            [src]="merchantIconPath"
+            [wlc-fallback]
+            (imageError)="merchantIconErrorHolder()">
+    </div>
     <ng-container
         *ngIf="hasPragmaticDGA"
         [ngTemplateOutlet]="pragmaticPlayLive">

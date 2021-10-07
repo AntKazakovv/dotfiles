@@ -9,17 +9,22 @@ import {
 } from 'wlc-engine/modules/core';
 import {ColorThemeValues} from 'wlc-engine/modules/core/constants';
 import {
+    IconHelper,
+} from 'wlc-engine/modules/core/system/helpers/icon.helper';
+import {
+    TIconsType,
+    TIconShowAs,
+    TIconColorBg,
+} from 'wlc-engine/modules/core/system/interfaces/core.interface';
+import {
     IconModel,
     IIconParams,
 } from 'wlc-engine/modules/core/system/models/icon-list-item.model';
 import {EventService} from 'wlc-engine/modules/core/system/services';
 import {IComponentParams} from 'wlc-engine/modules/core/system/interfaces';
+import {ThemeToDirectory} from 'wlc-engine/modules/core/system/config/base/icons.config';
 
 import _map from 'lodash-es/map';
-
-export type ColorIconBgType = 'dark' | 'light';
-export type TIconShowAs = 'svg' | 'img';
-export type TIconsType = 'color' | 'black';
 
 export interface IMerchantsPaymentsIterator {
     showAs: TIconShowAs,
@@ -29,12 +34,12 @@ export interface IMerchantsPaymentsIterator {
     sref?: string,
     srefParams?: RawParams,
     title?: string,
-    colorIconBg?: ColorIconBgType;
+    colorIconBg?: TIconColorBg;
 }
 
 export interface IAbstractIconsListParams<T, R, M> extends IComponentParams<T, R, M> {
     /** Apply one of two types of colored icons (works only with colored) */
-    colorIconBg?: ColorIconBgType,
+    colorIconBg?: TIconColorBg,
     /**
      * Apply colored icons(they will be parsed as img), and black icons will be shown as svg
      */
@@ -56,11 +61,6 @@ export interface IAbstractIconsListParams<T, R, M> extends IComponentParams<T, R
      */
     items?: IIconParams[],
 }
-
-export enum ThemeToDirectory {
-    payments = 'paysystems/V2/svg',
-    merchants = 'merchants/svg',
-};
 
 export abstract class IconListAbstract<T> extends AbstractComponent {
     abstract items: IconModel[];
@@ -129,14 +129,14 @@ export abstract class IconListAbstract<T> extends AbstractComponent {
      * @returns The path to image.
      */
     protected getPath(
-        name: string, pathDirectory: string, showAs: 'svg' | string, colorIconBg?: ColorIconBgType,
+        name: string, pathDirectory: string, showAs: TIconShowAs, colorIconBg?: TIconColorBg,
     ): string {
-        const rootPath = showAs === 'svg' ? '' : '/gstatic';
-        const color = showAs === 'svg' ? 'black' : 'color';
-        const colorBg = (color === 'color' && colorIconBg) ? 'color/' + colorIconBg : null;
-
-        return `${rootPath}/${ThemeToDirectory[pathDirectory]}/${colorBg || color}/${GlobalHelper
-            .toSnakeCase(name)}.svg`;
+        return IconHelper.getIconPath(
+            name,
+            pathDirectory,
+            showAs,
+            colorIconBg,
+        );
     }
 
     protected wlcElementTail(name: string): string {
@@ -163,11 +163,8 @@ export abstract class IconListAbstract<T> extends AbstractComponent {
         );
     }
 
-    protected getColorThemeBgType(defaultIconsColor: ColorIconBgType, altSiteTheme: boolean = true): ColorIconBgType {
-        if (altSiteTheme) {
-            return defaultIconsColor === 'dark' ? 'light' : 'dark';
-        }
-        return defaultIconsColor;
+    protected getColorThemeBgType(defaultIconsColor: TIconColorBg, altSiteTheme: boolean = true): TIconColorBg {
+        return IconHelper.getColorThemeBgType(defaultIconsColor, altSiteTheme);
     }
 
     /**
