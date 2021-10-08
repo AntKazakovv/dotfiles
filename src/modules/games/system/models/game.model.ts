@@ -78,7 +78,7 @@ export class Game extends AbstractModel<IGame> {
 
         // Object.assign(this, data);
         this.ID = _toNumber(data.ID);
-        this.aspectRatio = 'auto';
+        this.aspectRatio = data.AR;
         this.hasDemo = !!data.hasDemo;
         this.name = data.Name;
         this.categoryID = _map(data.CategoryID, (id: string) => {
