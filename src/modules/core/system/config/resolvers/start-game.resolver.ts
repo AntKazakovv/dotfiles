@@ -349,7 +349,7 @@ class StartGameHandler {
      */
     private checksForUnauthorized() {
         if (!this.isDemo) {
-            this.stateService.go('app.home').finally(() => {
+            this.stateService.go('app.home', this.transition.params()).finally(() => {
 
                 this.modalService.showModal<IPlayGameForRealCParams>('runGame', {
                     common: {
