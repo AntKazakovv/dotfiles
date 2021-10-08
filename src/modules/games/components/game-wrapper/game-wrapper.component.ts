@@ -493,32 +493,37 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
             return;
         }
 
-        const maxHeight: number = this.getMaxHeight();
-        const minHeight: number = this.$params.gameParams?.minGameWindowHeight || 0;
-        if (!width) {
-            width = this.wrp?.element?.nativeElement.parentElement.getBoundingClientRect().width;
-        }
-
-        if (this.aspectRatioCoefficient && width) {
-            let elementHeight: number = width / this.aspectRatioCoefficient,
-                elementNewWidth: number = 0;
-
-            if (elementHeight > maxHeight) {
-                elementHeight = maxHeight;
-            }
-            if (elementHeight < minHeight) {
-                elementHeight = minHeight;
-            }
-
-            elementNewWidth = elementHeight * this.aspectRatioCoefficient;
-
-            this.renderer.setStyle(gameWrapper, 'height', elementHeight + 'px');
-            this.renderer.setStyle(gameWrapper, 'maxWidth', elementNewWidth + 'px');
-            this.renderer.setStyle(this.footer.nativeElement, 'maxWidth', elementNewWidth + 'px');
-        } else {
+        if (this.isMobile) {
             this.renderer.setStyle(gameWrapper, 'height', '100%');
             this.renderer.setStyle(gameWrapper, 'maxWidth', '100%');
-            this.renderer.setStyle(this.footer.nativeElement, 'maxWidth', '100%');
+        } else {
+            const maxHeight: number = this.getMaxHeight();
+            const minHeight: number = this.$params.gameParams?.minGameWindowHeight || 0;
+            if (!width) {
+                width = this.wrp?.element?.nativeElement.parentElement.getBoundingClientRect().width;
+            }
+
+            if (this.aspectRatioCoefficient && width) {
+                let elementHeight: number = width / this.aspectRatioCoefficient,
+                    elementNewWidth: number = 0;
+
+                if (elementHeight > maxHeight) {
+                    elementHeight = maxHeight;
+                }
+                if (elementHeight < minHeight) {
+                    elementHeight = minHeight;
+                }
+
+                elementNewWidth = elementHeight * this.aspectRatioCoefficient;
+
+                this.renderer.setStyle(gameWrapper, 'height', elementHeight + 'px');
+                this.renderer.setStyle(gameWrapper, 'maxWidth', elementNewWidth + 'px');
+                this.renderer.setStyle(this.footer.nativeElement, 'maxWidth', elementNewWidth + 'px');
+            } else {
+                this.renderer.setStyle(gameWrapper, 'height', '100%');
+                this.renderer.setStyle(gameWrapper, 'maxWidth', '100%');
+                this.renderer.setStyle(this.footer.nativeElement, 'maxWidth', '100%');
+            }
         }
 
         if (this.iframe && this.isIframeHeight) {
@@ -817,6 +822,7 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
 
                 this.isMobile = type !== DeviceType.Desktop;
                 this.isMobile ? this.addModifiers('mobile') : this.removeModifiers('mobile');
+                this.setGameWindowSize();
                 this.cdr.markForCheck();
             });
 
