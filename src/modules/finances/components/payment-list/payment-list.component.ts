@@ -199,8 +199,9 @@ export class PaymentListComponent extends IconListAbstract<Params.IPaymentListCP
                     },
                     icon: this.merchantsPaymentsIterator('payments', {
                         showAs: showAs,
-                        wlcElement: 'block_payment-' + this.wlcElementTail(item.name),
-                        nameForPath: item.name,
+                        wlcElement: 'block_payment-' + this.wlcElementTail(item.alias),
+                        nameForPath: item.alias,
+                        alt: item.name,
                         colorIconBg: colorIconBg,
                         imgPath: this.$params.paymentType === 'deposit'
                             ? item.image

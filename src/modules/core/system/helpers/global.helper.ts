@@ -210,7 +210,7 @@ export class GlobalHelper {
      * @returns The snake cased string.
      */
     public static toSnakeCase(name: string): string {
-        return name.toLowerCase().replace(/\s+|\s/g, '_').replace(/[()]/g, '');
+        return name.toLowerCase().replace(/[^\dA-z]/ig, '_');
     }
 
     /**
