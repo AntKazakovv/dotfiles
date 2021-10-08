@@ -10,6 +10,7 @@ export namespace wlcPromotionsBonusesList {
                 filterByGroup: 'Promo',
             },
             useRedirectBtnToProfile: true,
+            useBtnNoBonuses: true,
         },
     };
 }
