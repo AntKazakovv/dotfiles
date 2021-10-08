@@ -20,6 +20,7 @@ import _get from 'lodash-es/get';
 export class ChatraService extends LivechatAbstract {
     public chatId = 'chatra';
     public forceHideStyles = '#chatra:not(.chatra--expanded) {display: none !important;}';
+    public canChatDestroy: true;
     protected options: ILivechatConfig = this.configService.get<ILivechatConfig>('$base.livechat');
 
     constructor(

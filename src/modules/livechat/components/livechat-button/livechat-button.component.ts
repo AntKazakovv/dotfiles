@@ -70,7 +70,7 @@ export class LivechatButtonComponent extends AbstractComponent implements OnInit
                     .subscribe((value) => {
                         this.chatIsHide = value;
                         this.cdr.markForCheck();
-                        if (!value) {
+                        if (!value && this.$params.replaceDefault) {
                             this.hideDefaultButton();
                         }
                     });
@@ -135,7 +135,7 @@ export class LivechatButtonComponent extends AbstractComponent implements OnInit
             }
 
             if (!this.isChatStateWatch) {
-                this.isChatStateWatch = true;
+                this.isChatStateWatch = !this.chatService.activeChatService.canChatDestroy;
 
                 this.chatService.activeChatService.chatState$
                     .pipe(takeUntil(this.$destroy))

@@ -22,6 +22,7 @@ import {
 
 @Injectable({providedIn: 'root'})
 export class ZendeskService extends LivechatAbstract {
+    public canChatDestroy = false;
 
     protected options: ILivechatConfig = this.configService.get<ILivechatConfig>('$base.livechat');
 

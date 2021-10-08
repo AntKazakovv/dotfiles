@@ -58,6 +58,7 @@ export class CommonChatService {
             this.setHandlers();
 
             if (!this.isAuth) {
+                this.chatIsHide$.next(true);
                 return;
             }
         }

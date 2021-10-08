@@ -26,6 +26,10 @@ export abstract class LivechatAbstract {
      * Left it undefined if chat supports events
      */
     public forceHideStyles: string;
+    /**
+     * true - if chat have destroy api and dont call hideWidget() in destroyWidget() method
+     */
+    public abstract canChatDestroy: boolean;
 
     constructor(
         protected document: HTMLDocument,

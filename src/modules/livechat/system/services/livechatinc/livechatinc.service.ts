@@ -21,6 +21,7 @@ import {
 })
 export class LivechatincService extends LivechatAbstract {
     public chatId = 'chat-widget-container';
+    public canChatDestroy = true;
 
     protected options: ILivechatConfig = this.configService.get<ILivechatConfig>('$base.livechat');
     protected profile: UserProfile;
