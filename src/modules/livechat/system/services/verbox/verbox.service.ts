@@ -25,6 +25,7 @@ import _isNull from 'lodash-es/isNull';
 export class VerboxService extends LivechatAbstract {
     public chatId = 'verbox';
     public forceHideStyles = '#supportTrigger {display: none !important;}';
+    public canChatDestroy = true;
     protected options: ILivechatConfig = this.configService.get<ILivechatConfig>('$base.livechat');
     private currentEmail: string = null;
 

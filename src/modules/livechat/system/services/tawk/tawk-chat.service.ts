@@ -21,6 +21,7 @@ import _get from 'lodash-es/get';
 })
 export class TawkChatService extends LivechatAbstract {
     public chatIsLoad: boolean = false;
+    public canChatDestroy = false;
     protected options: ILivechatConfig = this.configService.get<ILivechatConfig>('$base.livechat');
 
     constructor(
