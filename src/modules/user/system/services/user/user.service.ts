@@ -223,7 +223,7 @@ export class UserService {
         this.userProfile$.next(this.profile);
     }
 
-    public registration(formData): Promise<IIndexing<any>> {
+    public validateRegistration(formData): Promise<IIndexing<any>> {
         return this.dataService.request('user/userRegistration', formData);
     }
 

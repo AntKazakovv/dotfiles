@@ -112,12 +112,7 @@ export class SignUpFormComponent extends UserActionsAbstract<Params.ISignUpFormC
                 return;
             }
             const regData = this.formDataPreparation(form);
-
-            if (!form.controls.hasOwnProperty('passwordRepeat')) {
-                regData.data.passwordRepeat = regData.data.password;
-            }
-
-            await this.userService.registration(regData);
+            await this.userService.validateRegistration(regData);
             await this.finishUserReg(regData.data);
         } catch (error) {
             this.showRegError(error);
