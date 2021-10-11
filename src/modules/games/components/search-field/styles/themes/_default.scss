@@ -54,7 +54,7 @@
         @include bm.transition(opacity);
         position: absolute;
         top: ef.get-value($themeDefault, 'searchIconTop');
-        right: ef.get-value($themeDefault, 'searchIconRight') + ef.get-value($themeDefault, 'searchIconSize')  + 5px;
+        right: ef.get-value($themeDefault, 'clearButtonRightIndent');
         height: auto;
         padding: ef.get-value($themeDefault, 'paddingClear');
         color: ef.get-value($themeDefault, 'color');
