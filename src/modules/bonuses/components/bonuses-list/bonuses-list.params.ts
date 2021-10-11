@@ -76,7 +76,7 @@ export const defaultParams: IBonusesListCParams = {
             name: gettext('Without bonus'),
         },
     },
-    useBtnNoBonuses: true,
+    useBtnNoBonuses: false,
     btnNoBonuses: {
         common: {
             text: gettext('Go home'),

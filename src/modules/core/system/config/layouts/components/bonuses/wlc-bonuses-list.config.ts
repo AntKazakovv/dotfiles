@@ -106,7 +106,6 @@ export namespace wlcBonusesList {
         params: <IBonusesListCParams>{
             type: 'swiper',
             wlcElement: 'block_bonuses-main',
-            useBtnNoBonuses: false,
             common: {
                 useQuery: true,
                 sortOrder: ['active', 'subscribe', 'inventory'],
