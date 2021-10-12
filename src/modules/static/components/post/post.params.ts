@@ -8,6 +8,14 @@ export interface IPostCParams extends IComponentParams<string, string, string> {
     setTitle?: (title: string) => void;
     showTitle?: boolean,
     parseAsPlainHTML?: boolean;
+    /**
+     * if true - html puts via innerHTML without angular compilation;
+     */
+    withoutCompilation?: boolean;
+    /**
+     * Remove inline styles from html string;
+     */
+    shouldClearStyles?: boolean;
 }
 
 export const defaultParams: IPostCParams = {

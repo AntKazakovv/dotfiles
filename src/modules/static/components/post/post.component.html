@@ -3,7 +3,13 @@
          wlc-title
          [mainText]="data.title">
     </div>
-    <div wlc-dynamic-html [html]="html" [parseAsPlainHTML]="parseAsPlainHTML" #wrp></div>
+    <div wlc-dynamic-html
+         [html]="html"
+         [parseAsPlainHTML]="parseAsPlainHTML"
+         [withoutCompilation]="withoutCompilation"
+         [shouldClearStyles]="shouldClearStyles"
+         #wrp>
+    </div>
 </div>
 
 <ng-template #preloader>

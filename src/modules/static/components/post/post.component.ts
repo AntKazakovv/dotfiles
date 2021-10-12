@@ -42,6 +42,14 @@ export class PostComponent extends AbstractComponent implements OnInit, AfterVie
      * Use it if you **really** have to.
      */
     @Input() public parseAsPlainHTML: boolean;
+    /**
+     * Add content via innerHTML
+     */
+    @Input() public withoutCompilation: boolean;
+    /**
+     * Remove inline styles in dynamic html
+     */
+    @Input() public shouldClearStyles: boolean;
     @Input() public useTitle: boolean = true;
     @Input() protected slug: string;
     @Input() protected inlineParams: Params.IPostCParams;
@@ -69,6 +77,8 @@ export class PostComponent extends AbstractComponent implements OnInit, AfterVie
     public async ngOnInit(): Promise<void> {
         super.ngOnInit(this.inlineParams);
         this.parseAsPlainHTML ??= this.$params.parseAsPlainHTML;
+        this.withoutCompilation ??= this.$params.withoutCompilation;
+        this.shouldClearStyles ??= this.$params.shouldClearStyles;
         try {
             const slug = this.slug || this.$params.slug || this.uiRouter.params.slug;
 

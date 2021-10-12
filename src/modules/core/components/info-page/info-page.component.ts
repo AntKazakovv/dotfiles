@@ -14,6 +14,8 @@ import {
     AbstractComponent,
     ConfigService,
 } from 'wlc-engine/modules/core';
+import {IPostCParams} from 'wlc-engine/modules/static/components';
+
 import * as Params from './info-page.params';
 
 import _cloneDeep from 'lodash-es/cloneDeep';
@@ -76,9 +78,11 @@ export class InfoPageComponent extends AbstractComponent implements OnInit {
             default:
                 this.config.content.components = [{
                     name: 'static.wlc-post',
-                    params: {
+                    params: <IPostCParams>{
                         slug: this.uiRouter.params.slug,
                         parseAsPlainHTML: true,
+                        withoutCompilation: true,
+                        shouldClearStyles: true,
                         wlcElement: 'section_static-text_' + this.uiRouter.params.slug,
                         showTitle: true,
                     },

@@ -30,6 +30,14 @@ export class DynamicHtmlComponent implements AfterViewInit, OnDestroy {
      */
     @Input() public parseAsPlainHTML: boolean;
     /**
+     * if true - html puts via innerHTML without angular compilation;
+     */
+    @Input() public withoutCompilation: boolean;
+    /**
+     * Remove inline styles from html string;
+     */
+    @Input() public shouldClearStyles: boolean;
+    /**
      * change wrapper html tag, by default - div
      */
     @Input() public tag: string;
@@ -57,11 +65,23 @@ export class DynamicHtmlComponent implements AfterViewInit, OnDestroy {
     }
 
     public ngAfterViewInit(): void {
-        try {
-            this.createComponentFromRaw();
-        } catch {
-            this.parseAsPlainHTML = true;
-            this.createComponentFromRaw();
+        if (!this.html) {
+            return;
+        }
+
+        if (this.shouldClearStyles) {
+            this.html = this.html.replace(/style=["'].*["']/gi, '');
+        }
+
+        if (this.withoutCompilation) {
+            this.elementRef.nativeElement.innerHTML = this.extractBodyFromString(this.getHtml());
+        } else {
+            try {
+                this.createComponentFromRaw();
+            } catch {
+                this.parseAsPlainHTML = true;
+                this.createComponentFromRaw();
+            }
         }
     }
 
@@ -72,10 +92,7 @@ export class DynamicHtmlComponent implements AfterViewInit, OnDestroy {
     }
 
     private createComponentFromRaw(): void {
-        const html = this.parseAsPlainHTML
-            ? GlobalHelper.parseHtmlSafely(this.html)
-            : this.html;
-
+        const html = this.getHtml();
         const dynamicComponent = Component({
             template: this.extractBodyFromString(html),
             selector: `${this.tag || 'div'}[wlc-dynamic]`,
@@ -99,7 +116,7 @@ export class DynamicHtmlComponent implements AfterViewInit, OnDestroy {
                 this.componentReference.instance.name = 'my-dynamic-component';
                 this.viewRef.clear();
                 this.viewRef.insert(this.componentReference.hostView);
-                this.componentReference.changeDetectorRef.markForCheck();
+                this.componentReference.changeDetectorRef.detectChanges();
             }).then(() => {
                 this.htmlRendered.emit();
                 if (this.canUseScriptTag) {
@@ -120,6 +137,12 @@ export class DynamicHtmlComponent implements AfterViewInit, OnDestroy {
             element.appendChild(content);
             this.elementRef.nativeElement.appendChild(element);
         });
+    }
+
+    private getHtml(): string {
+        return this.parseAsPlainHTML
+            ? GlobalHelper.parseHtmlSafely(this.html)
+            : this.html;
     }
 
     private extractBodyFromString(html: string): string {
