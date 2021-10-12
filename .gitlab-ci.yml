@@ -1,4 +1,4 @@
-image: drxa.egamings.com:5000/chromium-node:14
+image: dockerproxy.egamings.com:443/chromium-node:14
 
 stages:
     - checks
