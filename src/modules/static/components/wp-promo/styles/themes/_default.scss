@@ -1,0 +1,112 @@
+.wlc-wp-promo--theme-default:host {
+
+    .wlc-wp-promo {
+
+        &__wrapper-list {
+            @include bm.get-mq-map('grid-template-columns', $themeDefault, 'gridColumn');
+
+            display: ef.get-value($themeDefault, 'displayList');
+            grid-gap: ef.get-value($themeDefault, 'gridGap');
+            justify-items: ef.get-value($themeDefault, 'justifyItems');
+            margin: ef.get-value($themeDefault, 'marginList');
+        }
+
+        &__wrapper {
+            @include bm.get-mq-map('max-width', $themeDefault, 'wrapperMaxWidth');
+
+            position: relative;
+            width: ef.get-value($themeDefault, 'wrapperWidth');
+            background: ef.get-value($themeDefault, 'background');
+            background-repeat: ef.get-value($themeDefault, 'backgroundRepeat');
+            background-position: ef.get-value($themeDefault, 'backgroundPosition');
+            background-size: ef.get-value($themeDefault, 'backgroundSize');
+            overflow: ef.get-value($themeDefault, 'wrapperOverflow');
+            border-radius: ef.get-value($themeDefault, 'wrapperBorderRadius');
+
+            &.full-width-item {
+                @include bm.get-mq-map('grid-column-start', $themeDefault, 'fullwidthitemColumnStart');
+                @include bm.get-mq-map('grid-column-end', $themeDefault, 'fullwidthitemColumnEnd');
+                @include bm.get-mq-map('max-width', $themeDefault, 'maxWidthFullWidthItem');
+
+                .wlc-wp-promo {
+
+                    &__info {
+                        @include bm.get-mq-map('max-width', $themeDefault, 'maxWidthTextInFullWidthItem');
+                    }
+                }
+            }
+        }
+
+        &__content {
+            @include bm.get-mq-map('height', $themeDefault, 'contentHeight');
+            @include bm.get-mq-map('align-items', $themeDefault, 'contentAlignItems');
+            @include bm.get-mq-map('padding', $themeDefault, 'contentPadding');
+            @include bm.get-mq-map('text-align', $themeDefault, 'contentPadding');
+
+            display: ef.get-value($themeDefault, 'contentDisplay');
+            flex-direction: ef.get-value($themeDefault, 'contentDirection');
+            justify-content: ef.get-value($themeDefault, 'contentJustify');
+            min-height: ef.get-value($themeDefault, 'contentMinHeight');
+        }
+
+        &__info {
+            @include bm.get-mq-map('max-width', $themeDefault, 'infoMaxWidth');
+            position: relative;
+            z-index: ef.get-value($themeDefault, 'infoZIndex');
+        }
+
+        &__name {
+            @include bm.get-mq-map('margin', $themeDefault, 'nameMargin');
+            @include bm.lineClamp(2);
+            @include text.get-text-style(ef.get-value($themeDefault, 'nameTextStyle', 375), ef.get-value($themeDefault, 'nameFontColor'));
+
+            @include mq.min(900) {
+                @include text.get-text-style(ef.get-value($themeDefault, 'nameTextStyle', 900));
+            }
+
+            @include mq.min(1200) {
+                @include text.get-text-style(ef.get-value($themeDefault, 'nameTextStyle', 1200));
+            }
+
+            @include mq.min(1630) {
+                @include text.get-text-style(ef.get-value($themeDefault, 'nameTextStyle', 1630));
+            }
+        }
+
+        &__description {
+            @include text.get-text-style(ef.get-value($themeDefault, 'descriptionTextStyle'));
+        }
+
+        &__btns {
+            @include bm.get-mq-map('flex-direction', $themeDefault, 'btnsWrapperDirection');
+
+            position: relative;
+            z-index: ef.get-value($themeDefault, 'bntsWrapperZIndex');
+            display: ef.get-value($themeDefault, 'bntsWrapperDisplay');
+            margin: ef.get-value($themeDefault, 'btnsWrapperMargin');
+        }
+
+        &__button {
+
+            &--first {
+                @include bm.get-mq-map('margin', $themeDefault, 'firstButtonMargin');
+            }
+        }
+
+        &__decor {
+            @include bm.get-mq-map('display', $themeDefault, 'decorDisplay');
+
+            position: absolute;
+            right: ef.get-value($themeDefault, 'decorPositionRight');
+            bottom: ef.get-value($themeDefault, 'decorPositionBottom');
+            z-index: ef.get-value($themeDefault, 'decorZIindex');
+            max-width: ef.get-value($themeDefault, 'decorMaxWidth');
+            max-height: ef.get-value($themeDefault, 'decorMaxHeight');
+        }
+    }
+}
+
+.linear-gradient {
+    @include bm.get-mq-map('background', $themeDefault, 'linearGradient');
+    content: '';
+}

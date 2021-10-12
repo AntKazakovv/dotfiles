@@ -388,4 +388,10 @@ $themeDefault: map-merge((
     'dataIsProcessingHeight': 100%,
     'dataIsProcessingPadding': 0,
     //data-is-processing
+
+    //wp-promo-content
+    'wpPromoModalMaxWidth': (
+        900: 650px,
+    ),
+    //wp-promo-content
 ), $customThemeDefault);

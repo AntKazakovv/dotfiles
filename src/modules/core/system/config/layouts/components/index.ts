@@ -53,6 +53,7 @@ export * from './games/wlc-game-thumb.config';
 
 export * from './static/wlc-post-menu.config';
 export * from './static/wlc-promo-steps.config';
+export * from './static/wlc-wp-promo.config';
 
 export * from './finances/wlc-deposit-withdraw.config';
 export * from './finances/wlc-transaction-history.config';

@@ -242,6 +242,16 @@
             }
         }
     }
+
+    &.wlc-modal--wp-promo-content {
+
+        .wlc-modal {
+
+            &__dialog {
+                @include bm.get-mq-map('max-width', $themeDefault, 'wpPromoModalMaxWidth');
+            }
+        }
+    }
 }
 
 body.modal-open {

@@ -7,6 +7,7 @@ import {PostComponent} from './components/post/post.component';
 import {FaqComponent} from './components/faq/faq.component';
 import {PostMenuComponent} from './components/post-menu/post-menu.component';
 import {PromoStepsComponent} from './components/promo-steps/promo-steps.component';
+import {WpPromoComponent} from 'wlc-engine/modules/static/components/wp-promo/wp-promo.component';
 import {GlobalHelper} from 'wlc-engine/modules/core';
 import {StaticService, IStaticConfig} from 'wlc-engine/modules/static';
 import {staticConfig} from './system/config/static.config';
@@ -23,6 +24,7 @@ export const components = {
     'wlc-faq': FaqComponent,
     'wlc-post-menu': PostMenuComponent,
     'wlc-promo-steps': PromoStepsComponent,
+    'wlc-wp-promo': WpPromoComponent,
 };
 
 @NgModule({
@@ -31,6 +33,7 @@ export const components = {
         FaqComponent,
         PostMenuComponent,
         PromoStepsComponent,
+        WpPromoComponent,
     ],
     id: 'StaticModule',
     imports: [
@@ -45,6 +48,7 @@ export const components = {
         FaqComponent,
         PostMenuComponent,
         PromoStepsComponent,
+        WpPromoComponent,
     ],
     providers: [
         StaticService,
