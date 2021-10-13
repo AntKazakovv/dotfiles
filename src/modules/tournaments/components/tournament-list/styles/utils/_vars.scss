@@ -37,12 +37,12 @@ $themeBanner: map-merge((
         1630: 1060px,
     ),
     'tournamentBottomPosition': (
-        320: ef.size(6),
-        1024: ef.size(8),
+        320: ef.size(4),
+        1200: ef.size(8),
     ),
     'tournamentRightPosition': (
         320: ef.size(4),
-        1024: ef.size(8),
+        1200: ef.size(8),
     ),
     'listRadius': ef.get('radius', 'biger'),
 

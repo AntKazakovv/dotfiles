@@ -16,7 +16,7 @@
                  [mainText]="title">
             </div>
 
-            <a *ngIf="$params.showAllLink?.use && isDesktop"
+            <a *ngIf="$params.showAllLink?.use && !isMobile"
                class="{{$class}}__link"
                [uiSref]="$params.showAllLink.sref || $params.showAllLink.link"
                [uiParams]="$params.showAllLink?.params || {}">
@@ -90,10 +90,10 @@
         <div *ngIf="isDesktop"
              class="{{$class}}__header">
 
-        <span *ngIf="$params.titleIcon?.name"
-              wlc-icon
-              [iconPath]="$params.titleIcon.name">
-        </span>
+            <span *ngIf="$params.titleIcon?.name"
+                wlc-icon
+                [iconPath]="$params.titleIcon.name">
+            </span>
 
             <div *ngIf="$params.showTitle"
                  wlc-title
@@ -112,14 +112,14 @@
             </a>
         </div>
 
-        <a *ngIf="!isDesktop && $params.showAllLink?.use"
+        <a *ngIf="isMobile && $params.showAllLink?.use"
            class="{{$class}}__header"
            uiSref="{{$params.showAllLink.sref || $params.showAllLink.link}}"
            [uiParams]="$params.showAllLink.params || {}">
 
-        <span *ngIf="$params.titleIcon?.name"
-              wlc-icon
-              [iconPath]="$params.titleIcon.name"></span>
+            <span *ngIf="$params.titleIcon?.name"
+                  wlc-icon
+                  [iconPath]="$params.titleIcon.name"></span>
             <span *ngIf="$params.showTitle"
                   wlc-title
                   [mainText]="title"></span>
@@ -134,7 +134,7 @@
              [currentValue]="gamesCount">
         </div>
 
-        <div *ngIf="(!hideShowMoreBtn && !$params.showAllLink?.use) || ($params.showAllLink?.use && !isDesktop)"
+        <div *ngIf="(!hideShowMoreBtn && !$params.showAllLink?.use) || ($params.showAllLink?.use && isMobile)"
              class="{{$class}}__more">
 
             <button *ngIf="!hideShowMoreBtn && !$params.showAllLink?.use"
@@ -144,7 +144,7 @@
                     (click)="loadMore()">
             </button>
 
-            <button *ngIf="$params.showAllLink?.use && !isDesktop"
+            <button *ngIf="$params.showAllLink?.use && isMobile"
                     wlc-button
                     [text]="$params.showAllLink.text"
                     [uiSref]="$params.showAllLink.sref || $params.showAllLink.link"

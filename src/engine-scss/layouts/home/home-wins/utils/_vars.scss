@@ -3,38 +3,38 @@
 $customThemeHomeWins: () !default;
 $themeHomeWins: map-merge((
     'homeWinsGridTemplateColumns': (
-        320: 1fr,
+        375: 1fr,
         720: repeat(2, 1fr),
     ),
     'homeWinsGap': (
-        320: ef.get('size', 'smaller'),
+        375: ef.size(4),
     ),
     'homeWinsSliderWrapMaxWidth': 100%,
 
     'tournamentGridTemplateColumns': (
-        320: minmax(250px, 1fr),
-        1200: calc((100% - #{ef.get('size', 'smaller')} * 4) / 5 * 2 + #{ef.get('size', 'smaller')}) minmax(250px, 1fr),
-        1630: calc((100% - #{ef.get('size', 'smaller')} * 5) / 6 * 2 + #{ef.get('size', 'smaller')}) minmax(250px, 1fr),
+        375: minmax(250px, 1fr),
+        768: repeat(2, minmax(0, 1fr)),
+        1200: calc((100% - 80px) / 5 * 2 + #{ef.size(4)}) minmax(250px, 1fr),
+        1630: calc((100% - 100px) / 6 * 2 + #{ef.size(4)}) minmax(250px, 1fr),
     ),
     'tournamentGap': (
-        320: ef.get('size', 'smaller'),
+        375: ef.size(2),
+        1200: ef.size(4),
     ),
     'tournamentSliderWrapMaxWidth': 100%,
     'tournamentSliderButtonDisplay': (
-        320: flex,
+        375: flex,
     ),
     'tournamentSmartJustifyContent': (
-        320: left,
+        375: left,
         480: center,
     ),
     'tournamentBannerHeight': (
-        320: 385px,
-        480: 325px,
-        768: 370px,
-        1024: 100%,
+        375: 100%,
+        720: 370px,
+        1200: 100%,
     ),
     'tournamentBannerMinHeight': (
-        320: auto,
-        1024: 380px,
+        375: 350px,
     ),
 ), $customThemeHomeWins);

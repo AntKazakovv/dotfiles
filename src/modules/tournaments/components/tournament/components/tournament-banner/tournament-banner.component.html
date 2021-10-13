@@ -10,11 +10,10 @@
         </div>
     </div>
     <div class="{{$class}}__body">
-        <h2 class="{{$class}}__body-title"
-            [title]="$params.tournament.name"
-        >
+        <div class="{{$class}}__body-title"
+            [title]="$params.tournament.name">
             {{$params.tournament.name}}
-        </h2>
+        </div>
         <div class="{{$class}}__timer-block"
              wlc-tournament-smart-info
              [tournament]="$params.tournament">
@@ -25,7 +24,7 @@
              [innerHtml]="$params.tournament.descriptionClean"
         ></div>
 
-        <div class="buttons-wrap">
+        <div class="{{$class}}__buttons">
             <button
                 *ngIf="!isProcessed && !isTournamentSelected && $params.tournament.isTournamentStarts"
                 wlc-button
