@@ -3,9 +3,6 @@
 @use 'engine-scss/mixins/base.mixins' as em;
 @use 'engine-scss/mixins/text' as text;
 
-@import '../utils/vars';
-@import '../utils/mixins';
-
 .wlc-payment-list--theme-default {
 
     &:host::ng-deep,
@@ -78,6 +75,8 @@
                         }
 
                         &__error {
+                            @include text.get-text-style(ef.get-value($themeDefault, 'errorTextStyle'), ef.get-value($themeDefault, 'errorColor'));
+
                             max-height: 100%;
                             width: 100%;
                             word-break: break-word;
@@ -222,6 +221,10 @@
 
             &--desktop {
                 @include em.get-mq-map('display', $themeDefault, 'descriptionDesktopDisplay');
+            }
+
+            @include mq.min(1200) {
+                @include text.get-text-style(ef.get-value($themeDefault, 'descriptionFont', 1200), ef.get-value($themeDefault, 'descriptionColor'));
             }
         }
 

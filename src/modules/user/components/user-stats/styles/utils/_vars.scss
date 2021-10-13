@@ -7,7 +7,7 @@ $themeDefault: map-merge((
     'colorName': var(--mc-baseMain),
     'colorValue': var(--mc-baseMain),
 
-    'balancePadding': ef.get('size', 'small') ef.get('size', 'smally'),
+    'balancePadding': ef.size(1) ef.size(3),
     'balanceBorderRadius': ef.get('radius', 'biger'),
     'balanceBg': (
         375: var(--mc-bg),
@@ -21,7 +21,7 @@ $themeDefault: map-merge((
         375: 2px solid var(--mc-baseOpacity),
     ),
 
-    'btnMargin': ef.get('size', 'small') auto,
+    'btnMargin': ef.size(2) auto,
 
     'loyaltyIconSize': 12px,
     'loyaltyIconStoreSize': 16px,

@@ -31,23 +31,60 @@ export namespace wlcDepositWithdraw {
         },
     };
 
-    export const balance: ILayoutComponent = {
-        name: 'user.wlc-user-stats',
-        display: {
-            before: 899,
-        },
+    export const balanceAdaptive: ILayoutComponent = {
+        name: 'core.wlc-wrapper',
         params: {
-            useDepositBtn: false,
-        },
-    };
-
-    export const balanceV1: ILayoutComponent = {
-        name: 'user.wlc-user-stats',
-        display: {
-            before: 1023,
-        },
-        params: {
-            useDepositBtn: false,
+            class: 'wlc-user-stats-wrapper',
+            components: [
+                {
+                    name: 'core.wlc-wrapper',
+                    display: {
+                        before: 899,
+                        after: 640,
+                    },
+                    params: {
+                        class: 'wlc-user-stats-wrapper__grid',
+                        components: [
+                            {
+                                name: 'user.wlc-user-stats',
+                                params: {
+                                    useDepositBtn: false,
+                                    fields: [
+                                        'balance',
+                                        'bonusBalance',
+                                    ],
+                                },
+                            },
+                            {
+                                name: 'user.wlc-user-stats',
+                                params: {
+                                    useDepositBtn: false,
+                                    fields: [
+                                        'points',
+                                        'level',
+                                    ],
+                                },
+                            },
+                        ],
+                    },
+                },
+                {
+                    name: 'core.wlc-wrapper',
+                    display: {
+                        before: 639,
+                    },
+                    params: {
+                        components: [
+                            {
+                                name: 'user.wlc-user-stats',
+                                params: {
+                                    useDepositBtn: false,
+                                },
+                            },
+                        ],
+                    },
+                },
+            ],
         },
     };
 };

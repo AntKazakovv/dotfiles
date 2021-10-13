@@ -1,10 +1,14 @@
+@use 'engine-scss/functions' as ef;
+
 $customCashPagesThemeDefault: () !default;
 $cashPagesThemeDefault: map-merge((
     // user stats
-    'userStatsMargin': 0 0 20px 0,
+    'userStatsMargin': 0 0 ef.size(4),
+    'userStatsGridColumns': repeat(2, 1fr),
+    'userStatsGridGap': ef.size(2),
 
     // menu
-    'menuMargin': 0 0 25px,
+    'menuMargin': ef.size(3) 0 ef.size(4),
     'menuBorder': 2px solid var(--mc-baseOpacity),
 
     // menu item
@@ -14,19 +18,22 @@ $cashPagesThemeDefault: map-merge((
     'menuItemTextTransform': none,
     'menuItemActiveWheit': 700,
     'menuItemActiveColor': var(--mc-baseMain),
-    'menuItemActiveBorderBg': var(--mc-main)
+    'menuItemActiveBorderBg': var(--mc-main),
 ), $customCashPagesThemeDefault);
 
 $customCashPagesThemeV1: () !default;
 $cashPagesThemeV1: map-merge((
-    'submenuMargin': 0 0 ef.get('size', 'smaller'),
     'cashTitleDisplay': (
         320: none,
         1024: block,
     ),
     'transactionsHeaderMargin': (
-        1024: 0 0 ef.get('size', 'smaller'),
+        1024: 0 0 ef.size(4),
     ),
     'transactionTableCellTypeMaxWidth': 100px,
+
+    'userStatsMargin': 0 0 ef.size(4),
+    'userStatsGridColumns': repeat(2, 1fr),
+    'userStatsGridGap': ef.size(2),
 ), $customCashPagesThemeV1);
 

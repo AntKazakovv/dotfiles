@@ -88,13 +88,16 @@ $themeDefault: map-merge((
     'tableTdPadding': 14px 0 14px 8px,
 
     // Description
-    'descriptionFont': 'PrimaryText',
+    'descriptionFont': (
+        375: 'SignText',
+        1200: 'PrimaryText',
+    ),
     'descriptionTextAlign': (
         320: center,
         900: left,
     ),
     'descriptionColor': var(--mc-baseMain),
-    'descriptionPadding': ef.get('size', 'smaller') 0 0,
+    'descriptionPadding': ef.size(4) 0 0,
     'descriptionWhiteSpace': pre-line,
     'descriptionDesktopDisplay': (
         320: none,
@@ -104,7 +107,10 @@ $themeDefault: map-merge((
     // ChosenMethod
     'сhosenMethodFont': 'PrimaryText',
     'сhosenMethodColor': var(--mc-baseMain),
-    'сhosenMethodPadding': ef.get('size', 'smaller') 0 0,
+    'сhosenMethodPadding': ef.size(4) 0 0,
     'сhosenMethodTextAlign': center,
-    'сhosenMethodNameMarginLeft': ef.get('size', 'smallest'),
+    'сhosenMethodNameMarginLeft': ef.size(1),
+
+    'errorTextStyle': 'PrimaryText',
+    'errorColor': inherit,
 ), $customThemeDefault);

@@ -7,8 +7,14 @@
 
         .wlc-profile-content {
 
-            .wlc-user-stats {
-                margin: ef.get-value($cashPagesThemeV1, 'submenuMargin');
+            .wlc-user-stats-wrapper {
+                margin: ef.get-value($cashPagesThemeV1, 'userStatsMargin');
+
+                &__grid {
+                    display: grid;
+                    grid-template-columns: ef.get-value($cashPagesThemeV1, 'userStatsGridColumns');
+                    gap: ef.get-value($cashPagesThemeV1, 'userStatsGridGap');
+                }
             }
 
             .wlc-cash {

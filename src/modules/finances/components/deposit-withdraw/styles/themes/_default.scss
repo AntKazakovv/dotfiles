@@ -17,22 +17,19 @@
             display: none;
 
             @include mq.min(ef.get-value($themeDefault, 'breakpoint')) {
-                display: block;
                 @include text.get-text-style(ef.get-value($themeDefault, 'titleFontStyle'), ef.get-value($themeDefault, 'titleColor'));
+                display: block;
             }
         }
 
         &__divider {
-            display: none;
+            @include em.get-mq-map('display', $themeDefault, 'dividerDisplay');
+
+            width: ef.get-value($themeDefault, 'dividerWidth');
+            height: ef.get-value($themeDefault, 'dividerHeight');
             margin: ef.get-value($themeDefault, 'dividerMargin');
             background: ef.get-value($themeDefault, 'dividerBg');
-            height: ef.get-value($themeDefault, 'dividerHeight');
-            width: ef.get-value($themeDefault, 'dividerWidth');
             border-radius: ef.get-value($themeDefault, 'dividerRadius');
-
-            @include mq.min(ef.get-value($themeDefault, 'breakpoint')) {
-                display: block;
-            }
         }
 
         &__step {
@@ -70,18 +67,9 @@
         }
 
         &__subtitle {
-            margin: ef.get-value($themeDefault, 'subtitleMargin');
             @include em.get-mq-map('text-align', $themeDefault, 'subtitleAlignment');
             @include text.get-text-style(ef.get-value($themeDefault, 'subtitleFontStyle'), ef.get-value($themeDefault, 'subtitleColor'));
-        }
-
-        &__subtitle-step {
-            color: ef.get-value($themeDefault, 'subtitleStepColor');
-            margin: ef.get-value($themeDefault, 'subtitleStepMargin');
-
-            @include mq.min(ef.get-value($themeDefault, 'breakpoint')) {
-                display: none;
-            }
+            margin: ef.get-value($themeDefault, 'subtitleMargin');
         }
 
         &__subtitle-name {
@@ -96,8 +84,13 @@
         }
 
         &__fields-error {
-            margin: ef.get-value($themeDefault, 'errorsMargin');
             @include text.get-text-style(ThirdTitle, ef.get-value($themeDefault, 'errorsColor'));
+            @include em.get-mq-map('text-align', $themeDefault, 'errorsTextAlign');
+            margin: ef.get-value($themeDefault, 'errorsMargin');
+
+            .wlc-btn {
+                display: inline-grid;
+            }
         }
 
         &__fields-message {
@@ -135,19 +128,19 @@
             ::ng-deep {
 
                 .wlc-form {
+                    @include em.get-mq-map('grid-template-columns', $themeDefault, 'formAdditionalGridTemplateColumns');
+                    @include em.get-mq-map('justify-items', $themeDefault, 'formJustifyItems');
+
                     display: grid;
                     gap: ef.get-value($themeDefault, 'formGap');
                     align-items: start;
-                    @include em.get-mq-map('justify-content', $themeDefault, 'formJustifyContent');
-
-                    @include em.get-mq-map('grid-template-columns', $themeDefault, 'formAdditionalGridTemplateColumns');
                 }
 
                 .wlc-field-container {
+                    @include em.get-mq-map('max-width', $themeDefault, 'fieldContaninerMaxWidth');
                     display: grid;
                     grid-template-columns: 1fr;
                     gap: ef.get-value($themeDefault, 'fieldContaninerGap');
-                    @include em.get-mq-map('max-width', $themeDefault, 'fieldContaninerMaxWidth');
                 }
 
                 .wlc-input,
@@ -173,9 +166,9 @@
                 }
 
                 .wlc-additional-fields {
-                    display: grid;
                     @include em.get-mq-map('grid-template-columns', $themeDefault, 'additionalFieldsTemplateColumns');
-                    grid-gap: ef.get-value($themeDefault, 'additionalFieldsGap');
+                    display: grid;
+                    gap: ef.get-value($themeDefault, 'additionalFieldsGap');
                 }
             }
         }

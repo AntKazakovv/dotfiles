@@ -64,6 +64,8 @@
 
         &__qr-image {
             @include em.get-mq-map('position', $themeDefault, 'qrImgPos');
+            @include em.get-mq-map('max-width', $themeDefault, 'qrImgMaxWidth');
+
             top: ef.get-value($themeDefault, 'qrImgPosTop');
             left: ef.get-value($themeDefault, 'qrImgPosLeft');
 
@@ -71,7 +73,6 @@
             width: ef.get-value($themeDefault, 'qrImgWidth');
             height: ef.get-value($themeDefault, 'qrImgHeight');
             max-height: ef.get-value($themeDefault, 'qrImgMaxHeight');
-            @include em.get-mq-map('max-width', $themeDefault, 'qrImgMaxWidth');
 
             object-fit: contain;
             object-position: ef.get-value($themeDefault, 'qrImgObjectPos');

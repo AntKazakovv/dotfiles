@@ -1,3 +1,7 @@
+@use 'engine-scss/functions' as ef;
+@use 'engine-scss/mixins/base.mixins' as bm;
+@use 'engine-scss/mixins/text' as text;
+
 @import '../utils/vars';
 
 .app-profile-cash-deposit-state,
@@ -5,14 +9,21 @@
 
     .wlc-sections__profile-content--theme-default {
 
-        .wlc-user-stats {
+        .wlc-user-stats-wrapper {
             margin: ef.get-value($cashPagesThemeDefault, 'userStatsMargin');
+
+            &__grid {
+                display: grid;
+                grid-template-columns: ef.get-value($cashPagesThemeDefault, 'userStatsGridColumns');
+                gap: ef.get-value($cashPagesThemeDefault, 'userStatsGridGap');
+            }
         }
 
         .wlc-menu.wlc-menu--theme-default {
             display: flex;
             align-items: flex-start;
             justify-content: flex-start;
+
             margin: ef.get-value($cashPagesThemeDefault, 'menuMargin');
             border-bottom: ef.get-value($cashPagesThemeDefault, 'menuBorder');
 

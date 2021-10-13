@@ -7,7 +7,7 @@ $themeDefault: map-merge((
 
     // Grid
     'gridTemplateColumns': minmax(0, 1fr),
-    'gridGap': ef.get('size', 'smaller'),
+    'gridGap': ef.size(4),
     'commonColor': var(--mc-baseMain),
 
     // Title
@@ -15,12 +15,15 @@ $themeDefault: map-merge((
     'titleColor': var(--mc-baseMain),
 
     // Divider
-    'dividerMargin': ef.get('size', 'small') 0,
+    'dividerMargin': 0,
     'dividerBg': var(--mc-baseOpacity),
     'dividerHeight': 2px,
     'dividerWidth': 100%,
     'dividerRadius': ef.get('radius', 'biger'),
-    'dividerCryptoMargin': ef.get('size', 'less') 0,
+    'dividerCryptoMargin': ef.size(6) 0,
+    'dividerDisplay': (
+        375: block,
+    ),
 
     // Step
     'step1Bg': transparent,
@@ -33,28 +36,30 @@ $themeDefault: map-merge((
 
     // Subtitle
     'subtitleFontStyle': 'ThirdTitle',
-    'subtitleMargin': 0 0 ef.get('size', 'smaller'),
+    'subtitleMargin': 0 0 ef.size(4),
     'subtitleColor': var(--mc-baseMain),
     'subtitleAlignment': (
         375: center,
         900: left,
     ),
-    'subtitleStepColor': var(--mc-main),
-    'subtitleStepMargin': 0 0 ef.get('size', 'small'),
 
     // Errors
     'errorsColor': var(--mc-error),
-    'errorsMargin': 0 0 ef.get('size', 'smaller'),
+    'errorsMargin': 0 0 ef.size(4),
 
-    'errorsMessageMargin': 0 0 ef.get('size', 'small'),
+    'errorsMessageMargin': 0 0 ef.size(2),
 
-    'errorsUlMargin': 0 0 ef.get('size', 'smaller'),
-    'errorsUlPadding': 0 0 0 ef.get('size', 'smally'),
+    'errorsUlMargin': 0 0 ef.size(4),
+    'errorsUlPadding': 0 0 0 ef.size(2),
 
     'errorsLiType': none,
     'errorsLiBeforeDisplay': inline-block,
     'errorsLiBeforeContent': '-',
-    'errorsLiBeforeMargin': 0 ef.get('size', 'smallest') 0 0,
+    'errorsLiBeforeMargin': 0 ef.size(1) 0 0,
+    'errorsTextAlign': (
+        375: center,
+        900: left,
+    ),
 
     // Forms
     'formInputMaxWidth': (
@@ -70,36 +75,37 @@ $themeDefault: map-merge((
         1366: 5,
     ),
     'formAdditionalGridTemplateColumns': (
-        720: repeat(2, minmax(max-content, 288px)),
+        375: 1fr,
+        900: repeat(2, minmax(max-content, 288px)),
         1024: repeat(3, 288px),
         1366: repeat(4, minmax(max-content, 288px)),
     ),
-    'formGap': ef.get('size', 'smally'),
-    'fieldContaninerGap': ef.get('size', 'small'),
-    'fieldGap': ef.get('size', 'small'),
+    'formGap': ef.size(2),
+    'fieldContaninerGap': ef.size(2),
+    'fieldGap': ef.size(2),
     'fieldContaninerMaxWidth': (
         320: 100%,
         480: 288px,
     ),
     'formSubmitJustifySelf': (
         320: center,
-        720: left,
+        900: left,
     ),
-    'formSubmitMargin': ef.get('size', 'smaller') 0 0,
-    'formJustifyContent': (
-        320: center,
-        720: stretch,
+    'formSubmitMargin': ef.size(4) 0 0,
+    'formJustifyItems': (
+        480: center,
+        900: start,
     ),
 
     'additionalFieldsTemplateColumns': (
         320: repeat(1, minmax(288px, 1fr)),
-        720: repeat(2, minmax(288px, 1fr)),
+        900: repeat(2, minmax(288px, 1fr)),
     ),
-    'additionalFieldsGap': ef.get('size', 'smally'),
+    'additionalFieldsGap': ef.size(2),
 
     'hostedFieldsJustifyItems': (
         375: center,
-        720: start,
+        900: start,
     ),
     'hostedFieldsIframeWidth': 100%,
     'hostedFieldsIframeHeight': 65px,
