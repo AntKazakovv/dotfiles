@@ -126,7 +126,8 @@
                         },
                         "scripts": [
                             "./src/gettext.js"
-                        ]
+                        ],
+                        "webWorkerTsConfig": "tsconfig.worker.json"
                     }
                 },
                 "lint": {

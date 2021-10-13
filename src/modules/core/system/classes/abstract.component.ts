@@ -56,7 +56,6 @@ export class AbstractComponent implements OnDestroy, OnInit, OnChanges {
     constructor(
         private mixedParams: IMixedParams<unknown>,
         protected ConfigService?: ConfigService,
-        protected actionService?: ActionService,
     ) {
     }
 

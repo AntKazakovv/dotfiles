@@ -6,6 +6,8 @@ import {
     BrowserDynamicTestingModule,
     platformBrowserDynamicTesting,
 } from '@angular/platform-browser-dynamic/testing';
+import {APP_BASE_HREF} from '@angular/common';
+import {NgModule} from '@angular/core';
 
 declare const require: {
     context(path: string, deep?: boolean, filter?: RegExp): {
@@ -14,12 +16,30 @@ declare const require: {
     };
 };
 
+@NgModule({
+    providers: [
+        {
+            provide: APP_BASE_HREF,
+            useValue: '/',
+        },
+    ],
+})
+export class CustomTestModule {}
 
 // First, initialize the Angular testing environment.
 getTestBed().initTestEnvironment(
-    BrowserDynamicTestingModule,
+    [
+        BrowserDynamicTestingModule,
+        CustomTestModule,
+    ],
     platformBrowserDynamicTesting(),
+    // {
+    //     teardown: {
+    //         destroyAfterEach: true,
+    //     },
+    // },
 );
+
 // Then we find all the tests.
 const context = require.context('./', true, /\.spec\.ts$/);
 // And load the modules.

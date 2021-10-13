@@ -3,7 +3,7 @@
 
 module.exports = function(config) {
     config.set({
-        basePath: '',
+        basePath: '/',
         frameworks: ['jasmine', 'viewport', '@angular-devkit/build-angular'],
         plugins: [
             require('karma-jasmine'),
@@ -13,9 +13,6 @@ module.exports = function(config) {
             require('karma-viewport'),
             require('@angular-devkit/build-angular/plugins/karma'),
         ],
-        client: {
-            clearContext: false, // leave Jasmine Spec Runner output visible in browser
-        },
         viewport: {
             breakpoints: [
                 {

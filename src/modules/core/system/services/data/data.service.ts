@@ -382,6 +382,8 @@ export class DataService {
                                         requestParams,
                                         requestBody,
                                     );
+                                } else {
+                                    return throwError(error);
                                 }
                             }),
                         ))).pipe(catchError((error: HttpErrorResponse) => {

@@ -119,7 +119,7 @@ export class GamesGridComponent extends AbstractComponent implements OnInit {
         protected renderer: Renderer2,
         protected elementRef: ElementRef,
     ) {
-        super({injectParams, defaultParams: Params.defaultParams}, configService, actionService);
+        super({injectParams, defaultParams: Params.defaultParams}, configService);
         this.trackGames = this.trackGames.bind(this);
     }
 
