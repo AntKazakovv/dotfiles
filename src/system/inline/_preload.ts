@@ -36,8 +36,14 @@ const config: IPreloadConfig[] = [
 ];
 
 const wlcPreload: IPreloadResult = {};
-
 window.wlcPreload = wlcPreload;
+
+if (window.WlcHelper.usedPcEmulation()) {
+    window.WlcCookie.set('PC_EMULATION', '1', 360);
+} else {
+    window.WlcCookie.delete('PC_EMULATION');
+}
+
 config.forEach((request) => {
 
     wlcPreload[request.flag] = fetch(request.url)

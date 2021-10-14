@@ -37,8 +37,6 @@ interface IParams extends IComponentParams<string, string, string> {
 
 export class GlobalHelper {
 
-    protected static bowser = Bowser.getParser(window.navigator.userAgent);
-
     public static gettext<T>(content: T): T {
         return content;
     }
@@ -272,30 +270,7 @@ export class GlobalHelper {
      * @returns {boolean}
      */
     public static touchSupported(): boolean {
-
-        const isTouchByMatchMedia = (): boolean => {
-            if (!window.matchMedia) {
-                return false;
-            }
-            const prefixes: string[] = [
-                '-webkit-',
-                '-moz-',
-                '-o-',
-                '-ms-',
-            ];
-            const query: string = `(${prefixes.join('touch-enabled),(')}heartz)`;
-            return !!(window.matchMedia(query).matches || window.matchMedia('only handheld'));
-        };
-
-        return !!('ontouchstart' in window
-            || document.documentElement.ontouchmove
-            || typeof window.ontouchstart !== 'undefined'
-            || 'createTouch' in document
-            || window.navigator.maxTouchPoints > 0
-            || window.navigator.msMaxTouchPoints > 0
-            || (window.navigator.msPointerEnabled && window['MSGesture'])
-            || isTouchByMatchMedia()
-        );
+        return window.WlcHelper.touchSupported();
     }
 
     /**
@@ -304,9 +279,7 @@ export class GlobalHelper {
      * @returns {boolean}
      */
     public static usedPcEmulation(): boolean {
-        return window.screen.availWidth <= 1024
-            && GlobalHelper.bowser.getPlatformType(true) === 'desktop'
-            && GlobalHelper.touchSupported();
+        return window.WlcHelper.usedPcEmulation();
     }
 
     /**

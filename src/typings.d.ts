@@ -49,6 +49,7 @@ declare interface Window extends TAnalyticMethod {
     affiliate: string;
     WlcFlog: any;
     WlcCookie: any;
+    WlcHelper: any;
     affCookie: any;
     _PaymentIQCashier?: IPaymentIQCashier;
     _PaymentIQCashierReset?: any;

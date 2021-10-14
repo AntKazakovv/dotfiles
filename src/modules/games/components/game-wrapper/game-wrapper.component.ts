@@ -145,6 +145,7 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
     protected iframe: HTMLElement;
     protected isIframeHeight: boolean = false;
     protected savedSiteName: string;
+    protected oldWindowWidth: number;
     protected hooksByMerchant: IIndexing<Function> = {
         '990': () => {
             new BetGamesHooks({
@@ -495,7 +496,8 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
         if (this.isMobile) {
             this.renderer.setStyle(gameWrapper, 'height', '100%');
             this.renderer.setStyle(gameWrapper, 'maxWidth', '100%');
-        } else {
+        } else if (!this.realMobile || (this.realMobile && this.windowWidthChanged())) {
+
             const iframeHeight: string = this.iframe?.getAttribute('height');
             if (iframeHeight && iframeHeight !== '100%') {
                 this.renderer.setStyle(gameWrapper, 'height', iframeHeight + 'px');
@@ -534,6 +536,19 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
         if (this.iframe && this.isIframeHeight) {
             this.renderer.setStyle(gameWrapper, 'height', _toNumber(this.iframe.getAttribute('height')));
         }
+    }
+
+    /**
+     * Was window width change or not from last time
+     *
+     * @returns {boolean}
+     */
+    protected windowWidthChanged(): boolean {
+        if (window.innerWidth != this.oldWindowWidth) {
+            this.oldWindowWidth = window.innerWidth;
+            return true;
+        }
+        return false;
     }
 
     protected getAspectRatioCoefficient(): number {

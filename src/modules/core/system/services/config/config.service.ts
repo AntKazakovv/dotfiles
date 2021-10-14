@@ -88,7 +88,6 @@ export class ConfigService {
         private sessionStorageService: SessionStorageService,
     ) {
         this.setGlobals();
-        this.pcEmulation();
 
         this.translateService.onLangChange
             .subscribe(() => {
@@ -278,13 +277,5 @@ export class ConfigService {
                 },
             });
         });
-    }
-
-    private pcEmulation(): void {
-        if (GlobalHelper.usedPcEmulation()) {
-            CookieHelper.set('PC_EMULATION', '1', 360);
-        } else {
-            CookieHelper.delete('PC_EMULATION');
-        }
     }
 }

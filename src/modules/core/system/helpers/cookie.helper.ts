@@ -7,7 +7,7 @@ export class CookieHelper {
      * @returns {string} result Cookie's value
      */
     public static get(name: string): string {
-        return window.WlcCookie.get(name);
+        return window.WlcCookie?.get(name);
     };
 
     /**
