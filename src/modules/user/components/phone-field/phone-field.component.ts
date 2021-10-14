@@ -58,13 +58,13 @@ export class PhoneFieldComponent extends AbstractComponent implements OnInit {
         this.userService.userProfile$
             .pipe(takeUntil(this.$destroy))
             .subscribe((profile => {
-                if (!profile?.countryCode && !this.$params.phoneCode.control.value) {
+                if (!this.$params.phoneCode.control.value) {
                     this.configService.get<BehaviorSubject<ICountry[]>>('countries')
                         .pipe(first((v) => !!v.length))
                         .subscribe(data => {
-                            const country = _find(data, (item) => {
-                                return this.configService.get<string>('appConfig.country') === item?.value;
-                            });
+                            const countryCode = profile?.countryCode ||
+                                this.configService.get<string>('appConfig.country');
+                            const country = _find(data, (item) => countryCode === item?.value);
                             if (country) {
                                 this.$params.phoneCode.control.setValue(`+${+(country.phoneCode)}`);
                                 this.$params.phoneCode.control.updateValueAndValidity({onlySelf: true});

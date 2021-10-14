@@ -34,13 +34,7 @@ export namespace wlcProfileForm {
                                 FormElements.firstName,
                                 FormElements.lastName,
                                 FormElements.email,
-                                {
-                                    name: FormElements.mobilePhone.name,
-                                    params: {
-                                        ...FormElements.mobilePhone.params,
-                                        validators: null,
-                                    },
-                                },
+                                FormElements.mobilePhone,
                                 FormElements.birthDate,
                                 FormElements.gender,
                                 {
