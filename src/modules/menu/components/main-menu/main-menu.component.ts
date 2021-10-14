@@ -8,26 +8,25 @@ import {
 import {
     TranslateService,
 } from '@ngx-translate/core';
+
 import {
     AbstractComponent,
     IMixedParams,
-    ConfigService,
-    LayoutService,
-    EventService,
-    IMenuOptions,
-    InjectionService,
-} from 'wlc-engine/modules/core';
-import {
-    gamesEvents,
-    CategoryModel,
-} from 'wlc-engine/modules/games';
+} from 'wlc-engine/modules/core/system/classes/abstract.component';
+import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
+import {LayoutService} from 'wlc-engine/modules/core/system/services/layout/layout.service';
+import {EventService} from 'wlc-engine/modules/core/system/services/event/event.service';
+import {IMenuOptions} from 'wlc-engine/modules/core/system/interfaces/menu.interface';
+import {InjectionService} from 'wlc-engine/modules/core/system/services/injection/injection.service';
+
+import {gamesEvents} from 'wlc-engine/modules/games/system/interfaces/games.interfaces';
+import {CategoryModel} from 'wlc-engine/modules/games/system/models/category.model';
 import {
     GamesCatalogService,
 } from 'wlc-engine/modules/games/system/services/games-catalog/games-catalog.service';
-import {
-    TIconExtension,
-    MenuHelper,
-} from 'wlc-engine/modules/menu';
+import {MenuService} from 'wlc-engine/modules/menu/system/services/menu.service';
+import {MenuHelper} from'wlc-engine/modules/menu/system/helpers/menu.helper';
+import {TIconExtension} from'wlc-engine/modules/menu/system/interfaces/menu.interface';
 
 import * as Config from 'wlc-engine/modules/menu/system/config/main-menu.items.config';
 import * as MenuParams from 'wlc-engine/modules/menu/components/menu/menu.params';
@@ -66,6 +65,7 @@ export class MainMenuComponent extends AbstractComponent implements OnInit {
         protected eventService: EventService,
         protected configService: ConfigService,
         protected injectionService: InjectionService,
+        protected menuService: MenuService,
     ) {
         super(
             <IMixedParams<Params.IMainMenuCParams>>{
@@ -82,14 +82,15 @@ export class MainMenuComponent extends AbstractComponent implements OnInit {
 
         this.isAuth = this.configService.get<boolean>('$user.isAuthenticated');
         this.initEventHandlers();
-        this.initConfig();
+
+        await this.initConfig();
         this.initMenu();
     }
 
-    protected initConfig(): void {
+    protected async initConfig(): Promise<void> {
         this.menuSettings = this.$params.type === 'burger-menu'
-            ? this.configService.get('appConfig.menuSettings.burgerMenu')
-            : this.configService.get('appConfig.menuSettings.mainMenu');
+            ? await this.menuService.getFundistMenuSettings('burgerMenu')
+            : await this.menuService.getFundistMenuSettings('mainMenu');
 
         if (this.menuSettings) {
             this.menuConfig = MenuHelper.parseMenuSettings(this.menuSettings, 'main-menu', this.translate.currentLang, {

@@ -3,6 +3,6 @@
 $customThemeDefault: () !default;
 
 $themeDefault: map-merge((
-    'gridRow': ef.get('size', 'main'),
+    'gridRowGap': ef.size(6),
     'gridTemplates': minmax(0, 1fr),
 ), $customThemeDefault);

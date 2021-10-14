@@ -6,20 +6,25 @@ import {
     ChangeDetectorRef,
 } from '@angular/core';
 import {TranslateService} from '@ngx-translate/core';
+
 import {
     AbstractComponent,
     IMixedParams,
-    ConfigService,
-    EventService,
+} from 'wlc-engine/modules/core/system/classes/abstract.component';
+import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
+import {EventService} from 'wlc-engine/modules/core/system/services/event/event.service';
+import {
     IMenuOptions,
     IMenuItem,
-} from 'wlc-engine/modules/core';
-import {
-    TIconExtension,
-    MenuHelper,
-    MenuParams,
-    ICategoryMenuCParams,
-} from 'wlc-engine/modules/menu';
+} from 'wlc-engine/modules/core/system/interfaces/menu.interface';
+import {InjectionService} from 'wlc-engine/modules/core/system/services/injection/injection.service';
+import {TIconExtension} from 'wlc-engine/modules/menu/system/interfaces/menu.interface';
+import {MenuHelper} from 'wlc-engine/modules/menu/system/helpers/menu.helper';
+import {ICategoryMenuCParams} from 'wlc-engine/modules/menu/components/category-menu/category-menu.params';
+import {MenuService} from 'wlc-engine/modules/menu/system/services/menu.service';
+import {GamesCatalogService} from 'wlc-engine/modules/games/system/services/games-catalog/games-catalog.service';
+
+import * as MenuParams from 'wlc-engine/modules/menu/components/menu/menu.params';
 import * as Config from 'wlc-engine/modules/menu/system/config/mobile-menu.config';
 import * as Params from './mobile-menu.params';
 
@@ -43,6 +48,7 @@ export class MobileMenuComponent extends AbstractComponent implements OnInit {
     protected menuConfig: MenuParams.MenuConfigItem[];
     protected menuSettings: IMenuOptions;
     protected isAuth: boolean;
+    protected gamesCatalogService: GamesCatalogService;
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IMobileMenuCParams,
@@ -50,6 +56,8 @@ export class MobileMenuComponent extends AbstractComponent implements OnInit {
         protected configService: ConfigService,
         protected translateService: TranslateService,
         protected eventService: EventService,
+        protected injectionService: InjectionService,
+        protected menuService: MenuService,
     ) {
         super(
             <IMixedParams<Params.IMobileMenuCParams>>{
@@ -60,17 +68,21 @@ export class MobileMenuComponent extends AbstractComponent implements OnInit {
         );
     }
 
-    ngOnInit(): void {
+    public async ngOnInit(): Promise<void> {
         super.ngOnInit();
+
+        this.gamesCatalogService = await this.injectionService
+            .getService<GamesCatalogService>('games.games-catalog-service');
 
         this.isAuth = this.configService.get<boolean>('$user.isAuthenticated');
         this.initEventHandlers();
-        this.initConfig();
+
+        await this.initConfig();
         this.initMenu();
     }
 
-    protected initConfig(): void {
-        this.menuSettings = _cloneDeep(this.configService.get('appConfig.menuSettings.mobileMenu'));
+    protected async initConfig(): Promise<void> {
+        this.menuSettings = _cloneDeep(await this.menuService.getFundistMenuSettings('mobileMenu'));
         if (this.menuSettings) {
 
             const itemsBefore: IMenuItem[] = this.configService

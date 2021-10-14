@@ -1,18 +1,18 @@
 import {UIRouter} from '@uirouter/core';
-import {BehaviorSubject} from 'rxjs';
 import {
     LangChangeEvent,
     TranslateService,
 } from '@ngx-translate/core';
+import {BehaviorSubject} from 'rxjs';
 import {
     skipWhile,
 } from 'rxjs/operators';
-import {
-    ICategorySettings,
-    IFromLog,
-    IMenu,
-} from 'wlc-engine/modules/core';
+
+import {Deferred} from 'wlc-engine/modules/core/system/classes/deferred.class';
 import {UserProfile} from 'wlc-engine/modules/user/system/models/profile.model';
+import {ICategorySettings} from 'wlc-engine/modules/core/system/interfaces/categories.interface';
+import {IFromLog} from 'wlc-engine/modules/core/system/services/log/log.service';
+import {InjectionService} from 'wlc-engine/modules/core/system/services/injection/injection.service';
 import {IIndexing} from 'wlc-engine/modules/core/system/interfaces/global.interface';
 import {AbstractModel} from 'wlc-engine/modules/core/system/models/abstract.model';
 import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
@@ -40,6 +40,7 @@ import {
     ISupportedItem,
 } from 'wlc-engine/modules/games/system/interfaces/games.interfaces';
 import {IGamesFilterData} from 'wlc-engine/modules/games/system/interfaces/filters.interfaces';
+import {MenuService} from 'wlc-engine/modules/menu/system/services/menu.service';
 
 import _assign from 'lodash-es/assign';
 import _cloneDeep from 'lodash-es/cloneDeep';
@@ -53,6 +54,7 @@ import _isArray from 'lodash-es/isArray';
 import _isNumber from 'lodash-es/isNumber';
 import _isString from 'lodash-es/isString';
 import _isUndefined from 'lodash-es/isUndefined';
+import _isEmpty from 'lodash-es/isEmpty';
 import _orderBy from 'lodash-es/orderBy';
 import _reduce from 'lodash-es/reduce';
 import _size from 'lodash-es/size';
@@ -63,6 +65,9 @@ import _uniqBy from 'lodash-es/uniqBy';
 
 export class GamesCatalog extends AbstractModel<IGames> {
 
+    public ready: Promise<void>;
+
+    protected readyStatus: Deferred<void> = new Deferred<void>();
     protected games: Game[];
     protected availableGames: Game[];
     protected availableMerchants: MerchantModel[];
@@ -76,10 +81,10 @@ export class GamesCatalog extends AbstractModel<IGames> {
     protected supportedMerchants: ISupportedItem[];
     protected overrideJackpots: boolean;
     protected categorySettings: IIndexing<ICategorySettings>;
-    protected menuSettings: IMenu;
     protected userProfile$: BehaviorSubject<UserProfile>;
     protected userCountry: string;
     protected searchByCyrillicLetters: boolean;
+    protected existMenuSettings: boolean;
     protected specialCategories: ICategory[] = [
         {
             ID: '-1',
@@ -133,25 +138,21 @@ export class GamesCatalog extends AbstractModel<IGames> {
         protected configService: ConfigService,
         protected router: UIRouter,
         protected eventService: EventService,
+        protected injectionService: InjectionService,
     ) {
         super({from: _assign({model: 'GamesCatalog'}, from)});
 
         this.data = _data;
-        this.overrideJackpots = !this.configService.get<boolean>('$games.categories.useFundistJackpots');
-        this.searchByCyrillicLetters = this.configService.get<boolean>('$games.search.byCyrillicLetters');
-        this.categorySettings = this.configService.get('appConfig.categories');
-        this.menuSettings = this.configService.get('appConfig.menuSettings');
+        this.init();
+    }
 
-        this.processFetchedGamesCatalog(this.data);
-
-        this.translateService.onLangChange.subscribe(({lang}: LangChangeEvent) => {
-            CategoryModel.language = lang;
-
-            _forEach(this.projectCategories, (category: CategoryModel): void => {
-                category.sortGames();
-            });
-        });
-        this.availableGamesHandler();
+    /**
+     * Get category settings
+     *
+     * @returns {IIndexing<ICategorySettings>}
+     */
+    public getCategorySettings(): IIndexing<ICategorySettings> {
+        return this.categorySettings;
     }
 
     public isSpecialCategory(category: CategoryModel): boolean {
@@ -519,6 +520,41 @@ export class GamesCatalog extends AbstractModel<IGames> {
         });
     }
 
+    protected async init(): Promise<void> {
+        this.ready = this.readyStatus.promise;
+        this.overrideJackpots = !this.configService.get<boolean>('$games.categories.useFundistJackpots');
+        this.searchByCyrillicLetters = this.configService.get<boolean>('$games.search.byCyrillicLetters');
+
+        this.categorySettings = this.configService.get('appConfig.categories');
+        if (!this.categorySettings && this.configService.get('$games.fundist.defaultCategorySettings.use')) {
+            try {
+                this.categorySettings =
+                    (await import('wlc-engine/modules/games/system/config/fundist-category-settings.config'))
+                        .categorySettings;
+            } catch {}
+        }
+
+        const menuService: MenuService = await this.injectionService.getService<MenuService>('menu.menu-service');
+        this.existMenuSettings = await menuService.existFundistMenuSettings();
+
+        this.processFetchedGamesCatalog(this.data);
+
+        this.translateService.onLangChange.subscribe(({lang}: LangChangeEvent) => {
+            CategoryModel.language = lang;
+
+            _forEach(this.projectCategories, (category) => {
+                category.sortGames();
+
+                _forEach(category.childCategories, (childCategory) => {
+                    childCategory.sortGames();
+                });
+            });
+        });
+
+        this.availableGamesHandler();
+        this.readyStatus.resolve();
+    }
+
     /**
      * Change available games (some games blocks by country restrictions) after login/logout
      */
@@ -735,15 +771,15 @@ export class GamesCatalog extends AbstractModel<IGames> {
             });
         }
 
-        if (this.categorySettings && this.menuSettings) {
+        if (this.categorySettings && this.existMenuSettings) {
 
-            this.projectCategories = _filter(this.categories, (category: CategoryModel) => {
+            this.projectCategories = this.sortCategories(_filter(this.categories, (category: CategoryModel) => {
                 if (!!this.categorySettings[category.slug] || category.isSpecial) {
                     category.setAsParent();
                     return true;
                 }
                 return false;
-            });
+            }));
             this.configureCategoriesView(this.projectCategories);
 
         } else {
@@ -809,6 +845,7 @@ export class GamesCatalog extends AbstractModel<IGames> {
     }
 
     protected configureCategoriesView(categories: CategoryModel[]): void {
+
         _forEach(categories, (mainCategory) => {
             const settings = _get(this.categorySettings, mainCategory.slug);
             if (settings) {
@@ -819,7 +856,11 @@ export class GamesCatalog extends AbstractModel<IGames> {
                     const gameBlocks: IGameBlock[] =
                         _reduce(categories, (blocks: IGameBlock[], category: CategoryModel) => {
 
-                            if (category.slug !== mainCategory.slug) {
+                            const skipCategory: boolean = !_isEmpty(settings.blocks)
+                                && !settings.blocks[category.slug];
+
+                            if (!skipCategory && category.slug !== mainCategory.slug) {
+
                                 const filterByCategories: CategoryModel[] = [category];
                                 if (mainCategory.slug !== 'casino') {
                                     filterByCategories.push(mainCategory);
@@ -830,7 +871,7 @@ export class GamesCatalog extends AbstractModel<IGames> {
                                     blocks.push({
                                         category: category,
                                         games: games,
-                                        settings: settings?.blocks?.[category.slug],
+                                        settings: _get(settings, `blocks.${category.slug}`),
                                     });
                                 }
                             }
@@ -840,7 +881,16 @@ export class GamesCatalog extends AbstractModel<IGames> {
                     mainCategory.setGameBlocks(gameBlocks);
                 }
             } else {
-                const games: Game[] = this.filterGames([mainCategory]);
+                let games: Game[] = [];
+
+                if (mainCategory.slug === 'casino') {
+                    games = this.getGameList({
+                        excludeCategories: ['livecasino'],
+                    });
+                } else {
+                    games = this.filterGames([mainCategory]);
+                }
+
                 if (games.length) {
                     mainCategory.setGames(games);
                 }
@@ -848,6 +898,13 @@ export class GamesCatalog extends AbstractModel<IGames> {
         });
     }
 
+    /**
+     * Find and sort games by searchQuery
+     *
+     * @param {string} searchQuery Some text to search by game name
+     * @param {Game[]} gamesList Games for search
+     * @returns {Game[]} Filtered and sorted games
+     */
     protected sortNameByRegExp(searchQuery: string, gamesList: Game[]): Game[] {
         searchQuery = this.searchByCyrillicLetters ? this.replaceCyrillicChars(searchQuery) : searchQuery;
         searchQuery = searchQuery.replace(/[!()+\\]/g, '\\$&');

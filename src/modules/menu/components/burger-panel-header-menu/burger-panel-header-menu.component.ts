@@ -5,17 +5,18 @@ import {
     OnInit,
     ChangeDetectorRef,
 } from '@angular/core';
+
 import {
     AbstractComponent,
     IMixedParams,
-    ConfigService,
-    EventService,
-} from 'wlc-engine/modules/core';
-import {
-    MenuHelper,
-    MenuParams,
-    IBurgerPanelHeaderMenu,
-} from 'wlc-engine/modules/menu';
+} from 'wlc-engine/modules/core/system/classes/abstract.component';
+import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
+import {EventService} from 'wlc-engine/modules/core/system/services/event/event.service';
+import {MenuHelper} from 'wlc-engine/modules/menu/system/helpers/menu.helper';
+import {IBurgerPanelHeaderMenu} from 'wlc-engine/modules/menu/system/interfaces/menu.interface';
+import {MenuService} from 'wlc-engine/modules/menu/system/services/menu.service';
+
+import * as MenuParams from 'wlc-engine/modules/menu/components/menu/menu.params';
 import * as Config from 'wlc-engine/modules/menu/system/config/burger-panel-header-menu.items.config';
 import * as Params from './burger-panel-header-menu.params';
 
@@ -39,6 +40,7 @@ export class BurgerPanelHeaderMenuComponent extends AbstractComponent implements
         protected cdr: ChangeDetectorRef,
         protected configService: ConfigService,
         protected eventService: EventService,
+        protected menuService: MenuService,
     ) {
         super(
             <IMixedParams<Params.IBurgerPanelHeaderMenuCParams>>{
@@ -49,17 +51,17 @@ export class BurgerPanelHeaderMenuComponent extends AbstractComponent implements
         );
     }
 
-    ngOnInit(): void {
+    public ngOnInit(): void {
         super.ngOnInit();
         this.initMenu();
     }
 
-    protected initMenu(): void {
+    protected async initMenu(): Promise<void> {
         this.headerMenu = this.configService
             .get<IBurgerPanelHeaderMenu>(`$menu.burgerPanel.${this.$params.common.panelType}.headerMenu`);
 
         if (this.headerMenu?.use) {
-            if (this.headerMenu.enableByFundistMenuSettings && !this.configService.get('appConfig.menuSettings')) {
+            if (this.headerMenu.enableByFundistMenuSettings && !await this.menuService.existFundistMenuSettings()) {
                 return;
             }
             this.initMenuParams();

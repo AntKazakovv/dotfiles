@@ -16,6 +16,8 @@ import {
     map,
 } from 'rxjs/operators';
 
+import {ICategorySettings} from 'wlc-engine/modules/core/system/interfaces/categories.interface';
+import {InjectionService} from 'wlc-engine/modules/core/system/services/injection/injection.service';
 import {DataService} from 'wlc-engine/modules/core/system/services/data/data.service';
 import {EventService} from 'wlc-engine/modules/core/system/services/event/event.service';
 import {IData} from 'wlc-engine/modules/core/system/services/data/data.service';
@@ -123,6 +125,7 @@ export class GamesCatalogService {
         protected modalService: ModalService,
         protected logService: LogService,
         protected injector: Injector,
+        protected injectionService: InjectionService,
     ) {
         this.init();
     }
@@ -149,32 +152,35 @@ export class GamesCatalogService {
                 this.configService,
                 this.router,
                 this.eventService,
+                this.injectionService,
             );
-            if (!this.gamesCatalog.getGameList().length) {
-                this.logService.sendLog({
-                    code: '3.0.25',
-                    from: {
-                        service: 'GamesCatalogService',
-                        method: 'init',
-                    },
-                });
-            }
+            this.gamesCatalog.ready.then(() => {
+                if (!this.gamesCatalog.getGameList().length) {
+                    this.logService.sendLog({
+                        code: '3.0.25',
+                        from: {
+                            service: 'GamesCatalogService',
+                            method: 'init',
+                        },
+                    });
+                }
 
-            const PPL = this.getMerchantById(913);
-            if (PPL && PPL.dgaUrl && PPL.casinoID) {
-                this.configService.set<IPragmaticPlaySettings>({
-                    name: 'pragmaticPlaySettings',
-                    value: {
-                        dgaUrl: PPL.dgaUrl,
-                        casinoId: PPL.casinoID,
-                    },
-                });
-                this.pragmaticPlayLiveService = this.injector.get(PragmaticPlayLiveService);
-            }
+                const PPL = this.getMerchantById(913);
+                if (PPL && PPL.dgaUrl && PPL.casinoID) {
+                    this.configService.set<IPragmaticPlaySettings>({
+                        name: 'pragmaticPlaySettings',
+                        value: {
+                            dgaUrl: PPL.dgaUrl,
+                            casinoId: PPL.casinoID,
+                        },
+                    });
+                    this.pragmaticPlayLiveService = this.injector.get(PragmaticPlayLiveService);
+                }
 
-            this.$resolve();
-            this.loadJackpots();
-            this.getFavouriteGames();
+                this.$resolve();
+                this.loadJackpots();
+                this.getFavouriteGames();
+            });
         });
 
         this.eventService.subscribe({
@@ -788,6 +794,15 @@ export class GamesCatalogService {
     public async getIdVerticalVideos(): Promise<number[]> {
         await this.getVerticalThumbsConfig();
         return this.verticalThumbsConfig.haveVideo;
+    }
+
+    /**
+     * Get fundist category settings
+     *
+     * @returns {IIndexing<ICategorySettings>}
+     */
+    public getFundistCategorySettings(): IIndexing<ICategorySettings> {
+        return this.gamesCatalog.getCategorySettings();
     }
 
     protected async getVerticalThumbsConfig(): Promise<IVerticalThumbsConfig> {

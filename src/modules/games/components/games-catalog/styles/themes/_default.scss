@@ -2,6 +2,6 @@
 
 .wlc-games-catalog--theme-default:host {
     display: grid;
-    grid-row-gap: ef.get-value($themeDefault, 'gridRow');
+    grid-row-gap: ef.get-value($themeDefault, 'gridRowGap');
     grid-template-columns: ef.get-value($themeDefault, 'gridTemplates');
 }

@@ -1,6 +1,11 @@
 import {IMenuConfig} from '../interfaces/menu.interface';
 
 export const menuConfig: IMenuConfig = {
+    fundist: {
+        defaultMenuSettings: {
+            use: false,
+        },
+    },
     mainMenu: {
         items: [
             'main-menu:home',

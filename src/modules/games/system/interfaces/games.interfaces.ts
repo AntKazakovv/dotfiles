@@ -8,6 +8,7 @@ import {TotalJackpotNoContentByThemeType} from 'wlc-engine/modules/games/compone
 export type TSortDirection = 'asc' | 'desc';
 
 export interface IGamesConfig {
+    fundist?: IFundist;
     sportsbookMerchants?: number[];
     run?: IRunGameOptions;
     mobile?: IMobileGames;
@@ -36,6 +37,14 @@ export interface IGamesConfig {
 
 export interface IGamesSearchSettings {
     byCyrillicLetters?: boolean;
+}
+
+export interface IFundist {
+    defaultCategorySettings: IFundistDefaultCategorySettings
+}
+
+export interface IFundistDefaultCategorySettings {
+    use: boolean;
 }
 
 export interface IGamesComponents {

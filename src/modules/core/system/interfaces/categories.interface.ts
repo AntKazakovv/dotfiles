@@ -10,10 +10,10 @@ export interface ICategorySettings {
 
 export interface ICategoryBlock {
     order: number;
+    showType: CategoryBlockShowType;
     gameRows?: {
         desktop?: number;
         mobile?: number;
     };
-    disable: boolean;
-    showType: CategoryBlockShowType;
+    disable?: boolean;
 }

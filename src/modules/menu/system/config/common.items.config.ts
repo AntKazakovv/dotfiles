@@ -3,7 +3,7 @@ import * as MenuParams from 'wlc-engine/modules/menu/components/menu/menu.params
 export namespace commonMenuItems {
 
     export const favourites: MenuParams.IMenuItem = {
-        name: gettext('Favourites'),
+        name: gettext('My favourites'),
         type: 'sref',
         icon: 'favourites',
         class: 'favourites',

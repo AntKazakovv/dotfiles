@@ -10,6 +10,7 @@ import {
 } from '@angular/core';
 import {UIRouter} from '@uirouter/core';
 import {TranslateService} from '@ngx-translate/core';
+
 import {
     AbstractComponent,
     IMixedParams,
@@ -28,7 +29,9 @@ import {
     MenuHelper,
     MenuParams,
     TIconExtension,
+    MenuService,
 } from 'wlc-engine/modules/menu';
+
 import * as Config from 'wlc-engine/modules/menu/system/config/category-menu.config';
 import * as Params from './category-menu.params';
 
@@ -75,6 +78,7 @@ export class CategoryMenuComponent extends AbstractComponent implements OnInit, 
         protected translate: TranslateService,
         protected router: UIRouter,
         protected injectionService: InjectionService,
+        protected menuService: MenuService,
     ) {
         super(
             <IMixedParams<Params.ICategoryMenuCParams>>{
@@ -94,7 +98,8 @@ export class CategoryMenuComponent extends AbstractComponent implements OnInit, 
             themeMod: this.$params.themeMod,
         });
 
-        this.menuSettings = this.configService.get('appConfig.menuSettings.categoryMenu');
+        this.menuSettings = await this.menuService.getFundistMenuSettings('categoryMenu');
+
         this.useLobbyBtn = this.configService.get<boolean>('$menu.categoryMenu.lobbyBtn.use');
         this.useIcons = _has(this.$params, 'common.icons.use')
             ? this.$params.common.icons.use

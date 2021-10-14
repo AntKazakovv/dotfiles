@@ -117,6 +117,13 @@ export class CategoryModel extends AbstractModel<ICategory> {
     }
 
     /**
+     * Required user authentication for show category or not
+     */
+    public get authRequired(): boolean {
+        return this.isLastPlayed || this.isFavourites;
+    }
+
+    /**
      * @deprecated
      */
     public get name(): string {

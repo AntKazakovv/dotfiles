@@ -12,6 +12,7 @@ import {ProfileMenuComponent} from './components/profile-menu/profile-menu.compo
 import {BurgerPanelHeaderMenuComponent} from './components/burger-panel-header-menu/burger-panel-header-menu.component';
 import {ProfileMenuService} from './system/services';
 import {PostMenuComponent} from './components/post-menu/post-menu.component';
+import {MenuService} from './system/services';
 import {PromoModule} from 'wlc-engine/modules/promo/promo.module';
 
 import {GlobalHelper} from 'wlc-engine/modules/core';
@@ -35,6 +36,11 @@ export const components = {
     'wlc-post-menu': PostMenuComponent,
 };
 
+export const services = {
+    'profile-menu-service': ProfileMenuService,
+    'menu-service': MenuService,
+};
+
 @NgModule({
     id: 'MenuModule',
     declarations: [
@@ -49,6 +55,7 @@ export const components = {
     ],
     providers: [
         ProfileMenuService,
+        MenuService,
     ],
     imports: [
         CommonModule,

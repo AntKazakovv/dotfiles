@@ -52,6 +52,7 @@ export interface IBurgerPanelHeaderMenu {
 }
 
 export interface IMenuConfig {
+    fundist?: IFundist;
     mainMenu?: IMenuSettings;
     categoryMenu?: ICategoryMenuSettings;
     mobileMenu?: IMobileMenuSettings;
@@ -63,6 +64,14 @@ export interface IMenuConfig {
             headerMenu?: IBurgerPanelHeaderMenu;
         }
     }
+}
+
+export interface IFundist {
+    defaultMenuSettings: IFundistDefaultMenuSettings
+}
+
+export interface IFundistDefaultMenuSettings {
+    use: boolean;
 }
 
 export type TIconExtension = 'jpeg' | 'jpg' | 'gif' | 'png' | 'svg' | 'webp' | 'avif';

@@ -6,6 +6,11 @@ export enum SpecialCategoriesGamesSlug {
 }
 
 export const gamesConfig: IGamesConfig = {
+    fundist: {
+        defaultCategorySettings: {
+            use: false,
+        },
+    },
     mobile: {
         loginUser: {
             disableDemo: false,
