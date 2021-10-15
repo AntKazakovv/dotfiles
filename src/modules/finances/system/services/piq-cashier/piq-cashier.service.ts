@@ -28,6 +28,8 @@ import {
 import {PaymentSystem} from 'wlc-engine/modules/finances/system/models/payment-system.model';
 import {UserInfo} from 'wlc-engine/modules/user/system/models/info.model';
 
+import _merge from 'lodash-es/merge';
+
 export enum PIQCashierServiceEvents {
     loadSuccess = 'PIQ_CASHIER_LOAD_SUCCESS',
     closed = 'PIQ_CASHIER_CLOSED',
@@ -143,7 +145,7 @@ export class PIQCashierService {
             userId: idUser,
             showHeader: !currentSystem.customParams?.provider,
             showFooter: !currentSystem.customParams?.provider,
-            theme: cashierTheme,
+            theme: _merge(cashierTheme, this.configService.get<IPIQCashierTheme>('$base.finances.piqCashier.theme')),
             blockBrowserNavigation: true,
         };
 
