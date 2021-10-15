@@ -1,82 +1,130 @@
-#!/bin/bash
+#!/bin/bash -e
 
-npm run dist
+project=$(jq .name < ./package.json)
+branch=$(git branch --show-current | awk '/master|hotfix/')
+remote=$(git remote | head -n 1)
 
-if [ $? -eq 1 ]; then
-    exit 1;
+declare prevver
+
+die() {
+    echo "$@"
+    git checkout "$branch"
+    exit 1
+}
+
+help() {
+    echo "library release publisher"
+    echo
+    echo -e "usage to publish:"
+    echo -e "\t$0 major   - increase major version (1.x.y, only from master branch)"
+    echo -e "\t$0 minor   - increase minor version (x.y.0, only from master branch)"
+    echo -e "\t$0 release - increased patch version (x.y.z from master branch, x.y.z.n from hotfix branch)"
+    echo -e "\t$0 rc      - create release candidate version x.y.z-rc.n"
+    echo -e "\t$0 x.y.z   - set version to x.y.z (only from master branch)"
+    echo -e "\t$0         - show this help message"
+
+    exit 0
+}
+
+release() {
+
+    tag="$@"
+
+    sed -i -e "s/\"version\": \"${prevver}\"/\"version\": \"$@\"/g" ./package.json
+
+    if ! git add src/docs/content; then
+        die "ERROR: git add src/docs/content failed"
+    fi
+
+    if ! git add package.json; then
+        die "ERROR: git add package.json failed"
+    fi
+
+    if ! git commit -m "Updated for release ${project} $ver"; then
+        die "ERROR: git commit failed"
+    fi
+
+    if ! git tag -a -m "Release ${project} $ver" $tag; then
+        die "ERROR: git tag failed"
+    fi
+
+    if ! git push $remote HEAD:$branch $tag; then
+        die "ERROR: git push failed"
+    fi
+
+    if ! git checkout $branch; then
+        die "ERROR: post-release git checkout failed (should never happen)"
+    fi
+    if ! git pull; then
+        die "ERROR: post-release git pull failed (should never happen)"
+    fi
+}
+
+if [ -z "$branch" ]; then
+    die "This script must be run from master or hotfix branch (by a release engineer)."
 fi
 
-PROJECT_NAME=$(jq .name < ./package.json)
-stable_branch=$(git branch | awk '/^\* master/ { print $2 }')
-
-if ! [ -n "$stable_branch" ]; then
-    echo "Stable branch must be '$stable_branch'"
-    exit -1
-fi
-
-echo "Making sure up-to-date $stable_branch branch is used"
-git_remote=$(git remote | head -n 1)
-if git fetch $git_remote && git checkout remotes/$git_remote/$stable_branch; then
+echo "Making sure up-to-date $branch branch is used"
+if git fetch $remote && git checkout remotes/$remote/$branch; then
     :
 else
-    echo "Failed to get the latest $stable_branch"
+    echo "Failed to get the latest $branch"
     exit -1
 fi
 
-prevver=$(jq .version < ./package.json | sed -e 's/"//g')
+prevver=$(jq -r .version < ./package.json)
 
-if [ ! -z "$1" ];then
-
-    if [[ $1 == 'major' ]]; then
-        read -p "Sure you want to change the major version? (yes/no): " CONT
-
-        if test "$CONT" != "yes"; then
-            exit -1
-        fi
-        nextver="$(( $(echo $prevver | cut -f1 -d.) + 1 )).0.0"
+case "x$1" in
+xmajor)
+    if [ "$branch" != "master" ]; then
+        die "ERROR: Cannot release new major version from '$branch'"
+    fi
+    nextver=$(./vermath "$prevver" --major)
+    ;;
+xminor)
+    if [ "$branch" != "master" ]; then
+        die "ERROR: Cannot release new minor version from '$branch'"
+    fi
+    nextver=$(./vermath "$prevver" --minor)
+    ;;
+xrelease)
+    if [ "$branch" == "master" ]; then
+        nextver=$(./vermath "$prevver" --normal)
+    else
+        nextver=$(./vermath "$prevver" --hotfix)
     fi
 
-    if [[ $1 == 'minor' ]]; then
-        read -p "Sure you want to change the minor version? (yes/no): " CONT
-
-        if test "$CONT" != "yes"; then
-            exit -1
-        fi
-        nextver="$(echo $prevver | cut -f1 -d.).$(( $(echo $prevver | cut -f2 -d.) + 1 )).0"
+    ;;
+xrc)
+    if [ "$branch" != "master" ]; then
+        die "ERROR: Cannot create release candidate from '$branch'"
     fi
-else
-    nextver="$(echo $prevver | cut -f1 -d.).$(echo $prevver | cut -f2 -d.).$(( $(echo $prevver | cut -f3 -d.) + 1 ))"
-fi
+    nextver=$(./vermath "$prevver" --preid)
+    ;;
+x)
+    help
+    ;;
+*)
+    if [ "$branch" != "master" ]; then
+        die "ERROR: Cannot release version '$1' from '$branch'"
+    fi
+    nextver="$1"
+    ;;
+esac
 
-ver=${2:-$nextver}
-tag="$ver"
+tag="$nextver"
 
 echo
-echo "Source: remotes/$git_remote/$stable_branch"
-echo "Tag: $tag"
+echo "Source: remotes/$git_remote/$branch"
+echo "Tag: $nextver"
 echo
 
-npm run gulp change-logs -- --tag=$tag
+read -p "Create new release tag (y/N): " y
+if [ "x$y" == "xy" ]; then
+    if ! npm run gulp change-logs -- --tag=$nextver; then
+        die "ERROR: changelog generation failed"
+    fi
 
-if [ $? -eq 1 ]; then
-    exit 1;
+    release "$nextver"
 fi
 
-read -p "Create new release tag (yes/no): " CONT
-
-if test "$CONT" != "yes"; then
-    exit -1
-fi
-
-sed -i -e "s/\"version\": \"${prevver}\"/\"version\": \"${ver}\"/g" ./package.json
-
-git add src/docs/content/*
-git add package.json
-
-git commit -m "Updated for release ${PROJECT_NAME} $ver" && \
-    git tag -a -m "Release ${PROJECT_NAME} $ver" $tag && \
-    git push $git_remote HEAD:$stable_branch $tag && \
-    echo "OK" || echo "FAILED"
-
-git checkout $stable_branch
-git pull
