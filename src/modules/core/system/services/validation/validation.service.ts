@@ -16,9 +16,9 @@ import {
     switchMap,
 } from 'rxjs/operators';
 
-import {EventService} from 'wlc-engine/modules/core/system/services/event/event.service';
 import {IIndexing} from 'wlc-engine/modules/core/system/interfaces/global.interface';
 import {DataService} from 'wlc-engine/modules/core/system/services/data/data.service';
+import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
 import {
     IData,
     IRequestMethod,
@@ -97,7 +97,7 @@ export class ValidationService {
 
     constructor(
         private dataService: DataService,
-        private eventService: EventService,
+        private configService: ConfigService,
     ) {
         this.setRule<IIndexing<boolean>>('matchingFields', matchingFieldsValidator);
         this.setRule<IIndexing<boolean>>('email', emailValidator);
@@ -165,7 +165,16 @@ export class ValidationService {
         };
     }
 
-    private checkEmail(ctrl): Promise<IIndexing<string> | IData> {
+    private checkEmail(ctrl): Promise<IData | Partial<IData>> {
+        if (this.configService.get<boolean>('appConfig.hideEmailExistence')) {
+            return new Promise(resolve => {
+                resolve({
+                    data: {
+                        result: true,
+                    },
+                });
+            });
+        }
         return this.dataService.request<IIndexing<string>>('user/emailUnique',
             {email: ctrl.value});
     }

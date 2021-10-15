@@ -40,7 +40,6 @@ export enum LanguageChangeEvents {
     ChangeLanguage = 'CHANGE_LANGUAGE'
 }
 
-
 @Injectable({
     providedIn: 'root',
 })
@@ -407,7 +406,7 @@ export class UserService {
 
         if (isFastRegistration) {
             this.eventService.emit({name: 'LOGIN'});
-            
+
             const redirect = this.configService.get<IRedirect>('$base.redirects.registration');
             if (redirect) {
                 this.stateService.go(redirect.state, redirect.params || {});
@@ -416,7 +415,8 @@ export class UserService {
             message.push(gettext('Please complete registration using link in e-mail'));
         }
 
-        if (this.configService.get<boolean>('appConfig.hideEmailExistence')) {
+        if (this.configService.get<boolean>('appConfig.hideEmailExistence') &&
+            !!this.configService.get<number>('appConfig.siteconfig.fastRegistration')) {
             this.eventService.filter([
                 {name: 'USER_PROFILE'},
                 {name: 'USER_PROFILE_ERROR'},
