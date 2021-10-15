@@ -31,10 +31,7 @@
                 align-items: ef.get-value($mainInfoThemeV1, 'profileFormBlockAlignItems');
 
                 &:first-child {
-
-                    @include mq.min(1024) {
-                        padding-top: 0;
-                    }
+                    padding-top: 0;
                 }
 
                 &--main,

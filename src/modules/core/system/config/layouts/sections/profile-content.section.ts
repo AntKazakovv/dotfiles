@@ -26,10 +26,16 @@ const profileFirstLoyaltyType = (isSingleLevels: boolean) => {
                     class: 'wlc-profile-content__header',
                     components: [
                         isSingleLevels ? componentLib.wlcTitle.profileLoyalty : componentLib.wlcTitle.profileStore,
+                        {
+                            ...componentLib.wlcLoyaltyProgress.def,
+                            display: {
+                                after: 640,
+                            },
+                        },
                     ],
                 },
                 display: {
-                    before: 1023,
+                    before: 1199,
                 },
             },
             componentLib.wlcProfileMenu.subMenuV1,
@@ -49,7 +55,7 @@ const profileFirstLoyaltyType = (isSingleLevels: boolean) => {
                                 ],
                             },
                             display: {
-                                after: 1024,
+                                after: 1200,
                             },
                         },
                         {
@@ -79,9 +85,30 @@ export namespace profileContent {
     export const profileMain: ILayoutSectionConfig = {
         container: true,
         components: [
-            componentLib.wlcTitle.profileV2,
+            {
+                name: 'core.wlc-wrapper',
+                params: {
+                    class: 'wlc-profile-content__top',
+                    components: [
+                        componentLib.wlcTitle.profileV2,
+                    ],
+                },
+            },
             componentLib.wlcProfileMenu.submenu,
             componentLib.wlcProfileForm.def,
+        ],
+    };
+
+    export const profileTypeFirstTabletMenu: ILayoutSectionConfig = {
+        container: true,
+        components: [
+            {
+                ...componentLib.wlcProfileMenu.def,
+                display: {
+                    before: 1199,
+                    after: 900,
+                },
+            },
         ],
     };
 
@@ -99,7 +126,7 @@ export namespace profileContent {
                     ],
                 },
                 display: {
-                    before: 1023,
+                    before: 1199,
                 },
             },
             componentLib.wlcProfileMenu.subMenuV1,
@@ -117,7 +144,7 @@ export namespace profileContent {
                                 ],
                             },
                             display: {
-                                after: 1024,
+                                after: 1200,
                             },
                         },
                         {
@@ -182,8 +209,16 @@ export namespace profileContent {
     export const profileBonusesMain: ILayoutSectionConfig = {
         container: true,
         components: [
-            componentLib.wlcTitle.bonuses,
-            componentLib.wlcCounter.bonuses,
+            {
+                name: 'core.wlc-wrapper',
+                params: {
+                    class: 'wlc-profile-content__top',
+                    components: [
+                        componentLib.wlcTitle.bonuses,
+                        componentLib.wlcCounter.bonuses,
+                    ],
+                },
+            },
             componentLib.wlcBonusesList.main,
         ],
     };
@@ -203,7 +238,7 @@ export namespace profileContent {
                     ],
                 },
                 display: {
-                    before: 1023,
+                    before: 1199,
                 },
             },
             componentLib.wlcProfileMenu.subMenuV1,
@@ -222,7 +257,7 @@ export namespace profileContent {
                                 ],
                             },
                             display: {
-                                after: 1024,
+                                after: 1200,
                             },
                         },
                         {
@@ -260,7 +295,6 @@ export namespace profileContent {
         ],
     };
 
-
     export const profileBonusesActiveTypeFirst: ILayoutSectionConfig = {
         container: true,
         theme: 'first',
@@ -275,7 +309,7 @@ export namespace profileContent {
                     ],
                 },
                 display: {
-                    before: 1023,
+                    before: 1199,
                 },
             },
             componentLib.wlcProfileMenu.subMenuV1,
@@ -293,7 +327,7 @@ export namespace profileContent {
                                 ],
                             },
                             display: {
-                                after: 1024,
+                                after: 1200,
                             },
                         },
                         {
@@ -356,7 +390,15 @@ export namespace profileContent {
     export const profileDeposit: ILayoutSectionConfig = {
         container: true,
         components: [
-            componentLib.wlcTitle.profileCashDeposit,
+            {
+                name: 'core.wlc-wrapper',
+                params: {
+                    class: 'wlc-profile-content__top',
+                    components: [
+                        componentLib.wlcTitle.profileCashDeposit,
+                    ],
+                },
+            },
             componentLib.wlcDepositWithdraw.submenu,
             componentLib.wlcDepositWithdraw.balanceAdaptive,
             componentLib.wlcDepositWithdraw.deposit,
@@ -377,7 +419,7 @@ export namespace profileContent {
                     ],
                 },
                 display: {
-                    before: 1023,
+                    before: 1199,
                 },
             },
             componentLib.wlcProfileMenu.subMenuV1,
@@ -395,7 +437,7 @@ export namespace profileContent {
                                 ],
                             },
                             display: {
-                                after: 1024,
+                                after: 1200,
                             },
                         },
                         {
@@ -417,7 +459,15 @@ export namespace profileContent {
     export const profileWithdraw: ILayoutSectionConfig = {
         container: true,
         components: [
-            componentLib.wlcTitle.profileCashWithdrawal,
+            {
+                name: 'core.wlc-wrapper',
+                params: {
+                    class: 'wlc-profile-content__top',
+                    components: [
+                        componentLib.wlcTitle.profileCashWithdrawal,
+                    ],
+                },
+            },
             componentLib.wlcDepositWithdraw.submenu,
             componentLib.wlcDepositWithdraw.balanceAdaptive,
             componentLib.wlcDepositWithdraw.withdraw,
@@ -438,7 +488,7 @@ export namespace profileContent {
                     ],
                 },
                 display: {
-                    before: 1023,
+                    before: 1199,
                 },
             },
             componentLib.wlcProfileMenu.subMenuV1,
@@ -456,7 +506,7 @@ export namespace profileContent {
                                 ],
                             },
                             display: {
-                                after: 1024,
+                                after: 1200,
                             },
                         },
                         {
@@ -478,7 +528,15 @@ export namespace profileContent {
     export const profileTransactions: ILayoutSectionConfig = {
         container: true,
         components: [
-            componentLib.wlcTransactionHistory.filter,
+            {
+                name: 'core.wlc-wrapper',
+                params: {
+                    class: 'wlc-profile-content__top',
+                    components: [
+                        componentLib.wlcTransactionHistory.filter,
+                    ],
+                },
+            },
             componentLib.wlcProfileMenu.submenuHistory,
             componentLib.wlcTransactionHistory.def,
         ],
@@ -499,7 +557,7 @@ export namespace profileContent {
                     ],
                 },
                 display: {
-                    before: 1023,
+                    before: 1199,
                 },
             },
             componentLib.wlcProfileMenu.subMenuV1,
@@ -518,7 +576,7 @@ export namespace profileContent {
                                 ],
                             },
                             display: {
-                                after: 1024,
+                                after: 1200,
                             },
                         },
                         {
@@ -539,14 +597,30 @@ export namespace profileContent {
     export const profileDashboard: ILayoutSectionConfig = {
         container: true,
         components: [
-            componentLib.wlcTitle.profileDashboard,
-            componentLib.wlcLogout.useText,
-            componentLib.wlcDashboardLoyaltyBlock.def,
-            componentLib.wlcDashboardExchange.def,
-            componentLib.wlcTitle.profileDashboardBonuses,
-            componentLib.wlcBonusesList.dashboard,
-            componentLib.wlcEnterPromocode.def,
-            componentLib.wlcSeeAllBonuses.def,
+            {
+                name: 'core.wlc-wrapper',
+                params: {
+                    class: 'wlc-profile-content__top',
+                    components: [
+                        componentLib.wlcTitle.profileDashboard,
+                        componentLib.wlcLogout.useText,
+                    ],
+                },
+            },
+            {
+                name: 'core.wlc-wrapper',
+                params: {
+                    class: 'wlc-dashboard-grid',
+                    components: [
+                        componentLib.wlcDashboardLoyaltyBlock.def,
+                        componentLib.wlcDashboardExchange.def,
+                        componentLib.wlcTitle.profileDashboardBonuses,
+                        componentLib.wlcBonusesList.dashboard,
+                        componentLib.wlcEnterPromocode.def,
+                        componentLib.wlcSeeAllBonuses.def,
+                    ],
+                },
+            },
         ],
     };
 
@@ -577,7 +651,15 @@ export namespace profileContent {
     export const profileVerification: ILayoutSectionConfig = {
         container: true,
         components: [
-            componentLib.wlcTitle.profileV2,
+            {
+                name: 'core.wlc-wrapper',
+                params: {
+                    class: 'wlc-profile-content__top',
+                    components: [
+                        componentLib.wlcTitle.profileV2,
+                    ],
+                },
+            },
             componentLib.wlcProfileMenu.submenu,
             componentLib.wlcVerification.def,
         ],
@@ -597,7 +679,7 @@ export namespace profileContent {
                     ],
                 },
                 display: {
-                    before: 1023,
+                    before: 1199,
                 },
             },
             componentLib.wlcProfileMenu.subMenuV1,
@@ -615,7 +697,7 @@ export namespace profileContent {
                                 ],
                             },
                             display: {
-                                after: 1024,
+                                after: 1200,
                             },
                         },
                         {
@@ -717,7 +799,7 @@ export namespace profileContent {
                     ],
                 },
                 display: {
-                    before: 1023,
+                    before: 1199,
                 },
             },
             componentLib.wlcProfileMenu.subMenuV1,
@@ -736,7 +818,7 @@ export namespace profileContent {
                                 ],
                             },
                             display: {
-                                after: 1024,
+                                after: 1200,
                             },
                         },
                         {
@@ -760,10 +842,19 @@ export namespace profileContent {
     export const profileLoyaltyLevelsTypeFirst: ILayoutSectionConfig = profileFirstLoyaltyType(false);
     export const profileLoyaltyLevelsTypeFirstSingle: ILayoutSectionConfig = profileFirstLoyaltyType(true);
 
+
     export const profileBetHistory: ILayoutSectionConfig = {
         container: true,
         components: [
-            componentLib.wlcBetHistory.filter,
+            {
+                name: 'core.wlc-wrapper',
+                params: {
+                    class: 'wlc-profile-content__top',
+                    components: [
+                        componentLib.wlcBetHistory.filter,
+                    ],
+                },
+            },
             componentLib.wlcProfileMenu.submenuBetHistory,
             componentLib.wlcBetHistory.def,
         ],
@@ -773,11 +864,25 @@ export namespace profileContent {
         container: true,
         theme: 'first',
         components: [
+            {
+                name: 'core.wlc-wrapper',
+                params: {
+                    class: 'wlc-profile-content__header',
+                    components: [
+                        componentLib.wlcTitle.gamblings,
+                        componentLib.wlcBetHistory.filterOnly,
+                    ],
+                },
+                display: {
+                    before: 1199,
+                },
+            },
+            componentLib.wlcProfileMenu.subMenuV1,
             componentLib.wlcProfileMenu.defTypeFirst,
             {
                 name: 'core.wlc-wrapper',
                 params: {
-                    class: 'wlc-profile-content header-inside',
+                    class: 'wlc-profile-content',
                     components: [
                         {
                             name: 'core.wlc-wrapper',
@@ -785,8 +890,10 @@ export namespace profileContent {
                                 class: 'wlc-profile-content__header underlined',
                                 components: [
                                     componentLib.wlcTitle.betHistory,
-                                    componentLib.wlcBetHistory.filterOnly,
                                 ],
+                            },
+                            display: {
+                                after: 1200,
                             },
                         },
                         {
@@ -807,7 +914,15 @@ export namespace profileContent {
     export const profileBonusesHistory: ILayoutSectionConfig = {
         container: true,
         components: [
-            componentLib.wlcBonusesHistory.filter,
+            {
+                name: 'core.wlc-wrapper',
+                params: {
+                    class: 'wlc-profile-content__top',
+                    components: [
+                        componentLib.wlcBonusesHistory.filter,
+                    ],
+                },
+            },
             componentLib.wlcProfileMenu.submenu,
             componentLib.wlcBonusesHistory.def,
         ],
@@ -824,11 +939,11 @@ export namespace profileContent {
                     class: 'wlc-profile-content__header',
                     components: [
                         componentLib.wlcTitle.bonuses,
-                        componentLib.wlcBonusesHistory.filterOnly,
+                        componentLib.wlcBonusesHistory.filterOnlyV1,
                     ],
                 },
                 display: {
-                    before: 1023,
+                    before: 1199,
                 },
             },
             componentLib.wlcProfileMenu.subMenuV1,
@@ -846,7 +961,7 @@ export namespace profileContent {
                                 ],
                             },
                             display: {
-                                after: 1024,
+                                after: 1200,
                             },
                         },
                         {
@@ -902,7 +1017,7 @@ export namespace profileContent {
                     ],
                 },
                 display: {
-                    before: 1023,
+                    before: 1199,
                 },
             },
             componentLib.wlcProfileMenu.subMenuV1,
@@ -920,7 +1035,7 @@ export namespace profileContent {
                                 ],
                             },
                             display: {
-                                after: 1024,
+                                after: 1200,
                             },
                         },
                         {
@@ -959,7 +1074,7 @@ export namespace profileContent {
                     ],
                 },
                 display: {
-                    before: 1023,
+                    before: 1199,
                 },
             },
             componentLib.wlcProfileMenu.subMenuV1,
@@ -977,7 +1092,7 @@ export namespace profileContent {
                                 ],
                             },
                             display: {
-                                after: 1024,
+                                after: 1200,
                             },
                         },
                         {
@@ -998,7 +1113,15 @@ export namespace profileContent {
     export const profileTournamentsHistory: ILayoutSectionConfig = {
         container: true,
         components: [
-            componentLib.wlcTournamentsHistory.filter,
+            {
+                name: 'core.wlc-wrapper',
+                params: {
+                    class: 'wlc-profile-content__top',
+                    components: [
+                        componentLib.wlcTournamentsHistory.filter,
+                    ],
+                },
+            },
             componentLib.wlcProfileMenu.submenu,
             componentLib.wlcTournamentsHistory.def,
         ],
@@ -1015,11 +1138,11 @@ export namespace profileContent {
                     class: 'wlc-profile-content__header',
                     components: [
                         componentLib.wlcTitle.tournaments,
-                        componentLib.wlcBonusesHistory.filterOnly,
+                        componentLib.wlcBonusesHistory.filterOnlyV1,
                     ],
                 },
                 display: {
-                    before: 1023,
+                    before: 1199,
                 },
             },
             componentLib.wlcProfileMenu.subMenuV1,
@@ -1037,7 +1160,7 @@ export namespace profileContent {
                                 ],
                             },
                             display: {
-                                after: 1024,
+                                after: 1200,
                             },
                         },
                         {

@@ -61,12 +61,13 @@
 
                 &__link {
                     @include text.get-text-style(ef.get-value($submenuProfileDefault, 'submenuItemTextStyle'), var(--mc-baseMain));
+                    @include bm.get-mq-map('padding', $submenuProfileDefault, 'submenuItemPadding');
                     @include bm.transition(color);
+
                     position: relative;
                     z-index: 2;
 
                     display: flex;
-                    padding: ef.get-value($submenuProfileDefault, 'submenuItemPadding');
 
                     text-decoration: none;
 
@@ -104,10 +105,6 @@
                         &:before {
                             width: 100%;
                         }
-                    }
-
-                    @include mq.min(1024) {
-                        padding: ef.get-value($submenuProfileDefault, 'submenuItemPadding', 1024);
                     }
                 }
             }

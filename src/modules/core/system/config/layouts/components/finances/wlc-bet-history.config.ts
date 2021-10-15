@@ -11,7 +11,7 @@ export namespace wlcBetHistory {
         params: {
             class: 'profile-history-filter',
             components: [
-                wlcTitle.betHistory,
+                wlcTitle.history,
                 {
                     name: 'finances.wlc-history-filter',
                     params: {

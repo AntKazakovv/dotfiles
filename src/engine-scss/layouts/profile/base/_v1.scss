@@ -1,3 +1,8 @@
+@use 'engine-scss/functions' as ef;
+@use 'engine-scss/mixins/base.mixins' as bm;
+@use 'engine-scss/mixins/mediaqueries' as mq;
+@use 'engine-scss/mixins/text' as text;
+
 .wlc-sections__profile-content--theme-first {
 
     > .container {
@@ -36,7 +41,8 @@
 
     .wlc-profile-content__header {
         @include bm.get-mq-map('padding', $profileSettings, 'contentHeaderPaddingV1');
-        @include bm.get-mq-map('height', $profileSettings, 'contentHeaderHeightV1');
+        @include bm.get-mq-map('min-height', $profileSettings, 'contentHeaderHeightV1');
+
         display: ef.get-value($profileSettings, 'contentHeaderDisplayV1');
         align-items: ef.get-value($profileSettings, 'contentHeaderAlignV1');
         justify-content: ef.get-value($profileSettings, 'contentHeaderJustifyV1');
@@ -49,6 +55,17 @@
         &.underlined {
             @include bm.get-mq-map('border-bottom', $profileSettings, 'contentHeaderBorderBottomV1');
             @include bm.get-mq-map('margin', $profileSettings, 'contentHeaderUnderlinedMarginV1');
+        }
+
+        .wlc-title[class] {
+
+            .wlc-title__main {
+                @include text.get-text-style(ef.get-value($profileSettings, 'titleTextStyleV1'), ef.get-value($profileSettings, 'titleColorV1'));
+
+                @include mq.min(1200) {
+                    @include text.get-text-style(ef.get-value($profileSettings, 'titleTextStyleV1', 1200), ef.get-value($profileSettings, 'titleColorV1'));
+                }
+            }
         }
     }
 }

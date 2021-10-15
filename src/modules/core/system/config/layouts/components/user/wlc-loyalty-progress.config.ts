@@ -8,7 +8,7 @@ export namespace wlcLoyaltyProgress {
     export const market: ILayoutComponent = {
         name: 'user.wlc-loyalty-progress',
         display: {
-            before: 1023,
+            before: 639,
         },
     };
 }

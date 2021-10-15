@@ -8,6 +8,18 @@
             @include bm.get-mq-map('border-radius', $profileSettings, 'profileBorderRadius');
         }
 
+        .wlc-profile-content__top {
+            @include bm.get-mq-map('margin', $profileSettings, 'topMargin');
+
+            .wlc-title {
+                display: inline-block;
+
+                + .wlc-counter {
+                    display: inline-block;
+                }
+            }
+        }
+
         .wlc-title.wlc-title--profile[wlc-title] {
 
             .wlc-title__main {
@@ -16,7 +28,8 @@
         }
 
         .profile-history-filter {
-            display: ef.get-value($profileSettings, 'historyFilterDisplay');
+            @include bm.get-mq-map('display', $profileSettings, 'historyFilterDisplay');
+
             align-items: ef.get-value($profileSettings, 'historyFilterAlign');
             justify-content: ef.get-value($profileSettings, 'historyFilterJustify');
         }

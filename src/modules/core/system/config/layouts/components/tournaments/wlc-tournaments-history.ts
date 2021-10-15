@@ -7,7 +7,7 @@ export namespace wlcTournamentsHistory {
         params: {
             class: 'profile-history-filter',
             components: [
-                wlcTitle.tournamentsHistory,
+                wlcTitle.history,
                 {
                     name: 'finances.wlc-history-filter',
                     params: {

@@ -11,19 +11,19 @@ $dashboardThemeDefault: map-merge((
         320: auto,
     ),
     'gridTemplateAreas': (
-        320: 'title' 'loyalty' 'exchange' 'bonuses-title' 'bonuses' 'promocode' 'see-all-bonuses',
-        768: 'title title'
+        320: 'loyalty' 'exchange' 'bonuses-title' 'bonuses' 'promocode' 'see-all-bonuses',
+        768:
         'loyalty loyalty'
         'exchange exchange'
         'bonuses-title bonuses-title'
         'bonuses bonuses'
         'promocode see-all-bonuses',
-        1024: 'title title title title title title'
+        1024:
         'loyalty loyalty exchange exchange exchange exchange'
         'promocode promocode see-all-bonuses see-all-bonuses see-all-bonuses see-all-bonuses'
         'bonuses-title bonuses-title bonuses-title bonuses-title bonuses-title bonuses-title'
         'bonuses bonuses bonuses bonuses bonuses bonuses',
-        1366: 'title title title title title title'
+        1366:
         'loyalty loyalty loyalty exchange exchange exchange'
         'bonuses-title bonuses-title bonuses-title bonuses-title bonuses-title bonuses-title'
         'bonuses bonuses bonuses bonuses promocode promocode'
@@ -35,10 +35,7 @@ $dashboardThemeDefault: map-merge((
         1630: ef.get('size', 'main'),
     ),
 
-    'logoutPosition': absolute,
-    'logoutTop': ef.get('size', 'smally'),
-    'logoutRight': ef.get('size', 'small'),
-    'logoutSvgMargin': 0 0 0 ef.get('size', 'smallest'),
+    'logoutSvgMargin': 0 0 0 ef.size(1),
 
     'titleMargin': (
         1024: 0 0 -5px,
@@ -77,5 +74,10 @@ $dashboardThemeDefault: map-merge((
     'swiperButtonLeft': (
         720: 0,
         1024: ef.size(-4),
+    ),
+
+    'topDisplay': (
+        375: flex,
+        640: block,
     ),
 ), $dashboardInfoThemeDefault);

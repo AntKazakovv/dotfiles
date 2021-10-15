@@ -1,7 +1,6 @@
 @use 'engine-scss/functions' as ef;
 @use 'engine-scss/mixins/base.mixins' as bm;
 
-@import '../utils/vars';
 
 .wlc-history-filter--theme-default:host {
 
@@ -29,6 +28,15 @@
 
                 &:after {
                     background-color: ef.get-value($themeDefault, 'buttonSignalBg');
+                }
+            }
+
+            ::ng-deep {
+
+                svg {
+                    display: block;
+                    width: ef.get-value($themeDefault, 'iconSize');
+                    height: ef.get-value($themeDefault, 'iconSize');
                 }
             }
 

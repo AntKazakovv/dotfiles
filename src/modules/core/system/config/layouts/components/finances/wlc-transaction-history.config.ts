@@ -11,13 +11,7 @@ export namespace wlcTransactionHistory {
         params: {
             class: 'profile-history-filter',
             components: [
-                wlcTitle.cashV1Mobile,
-                {
-                    ...wlcTitle.history,
-                    display: {
-                        after: 1024,
-                    },
-                },
+                wlcTitle.history,
                 {
                     name: 'finances.wlc-history-filter',
                     params: {
@@ -40,7 +34,7 @@ export namespace wlcTransactionHistory {
                 {
                     ...wlcTitle.history,
                     display: {
-                        after: 1024,
+                        after: 1200,
                     },
                 },
                 {
@@ -49,7 +43,7 @@ export namespace wlcTransactionHistory {
                         config: 'transaction',
                     },
                     display: {
-                        before: 1199,
+                        before: 1023,
                     },
                 },
             ],
@@ -62,7 +56,7 @@ export namespace wlcTransactionHistory {
             config: 'transaction',
         },
         display: {
-            before: 1199,
+            before: 1023,
         },
     };
 }

@@ -6,8 +6,6 @@
 
     &:host {
 
-        @include bm.get-mq-map('margin', $themeDefault, 'sectionMargin');
-
         .wlc-loader {
             min-height: ef.get-value($themeDefault, 'sectionLoaderMinHeight');
         }

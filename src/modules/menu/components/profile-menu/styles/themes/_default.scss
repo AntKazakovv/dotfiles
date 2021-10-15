@@ -22,7 +22,7 @@
 
 .wlc-profile-menu--theme-default.wlc-profile-menu--type-tabs:host {
 
-    .wlc-menu--theme-default.wlc-menu--type-profile-menu {
+    .wlc-menu--theme-default {
         display: none;
         @include bm.get-mq-map('grid-gap', $themeDefault, 'profileMenuGap');
         @include bm.get-mq-map('width', $themeDefault, 'profileMenuWidth');
@@ -62,6 +62,7 @@
             }
 
             .wlc-menu__link {
+                @include bm.transition(background);
                 position: relative;
                 display: flex;
                 align-items: flex-start;
@@ -75,6 +76,7 @@
 
                 &:before,
                 &:after {
+                    @include bm.transition(opacity);
                     @include mixin.makeAngleBg(ef.get-value($themeDefault, 'profileMenuAngleBg'));
 
                     position: absolute;
@@ -99,12 +101,10 @@
                     transform: scaleX(-1);
                 }
 
-                &:hover {
-                    transition: background 0.3s ease;
+                @include bm.hover {
 
                     &:before,
                     &:after {
-                        transition: opacity 0.3s ease;
                         opacity: 1;
                     }
                 }

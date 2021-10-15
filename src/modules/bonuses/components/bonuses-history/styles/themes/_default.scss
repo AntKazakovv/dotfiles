@@ -1,3 +1,4 @@
+@use 'engine-scss/mixins/base.mixins' as bm;
 @use 'engine-scss/mixins/mediaqueries' as mq;
 @use 'engine-scss/functions' as ef;
 
@@ -14,21 +15,20 @@
         }
 
         .wlc-bonuses-history-filter {
-            display: none;
+            @include bm.get-mq-map('display', $themeDefault, 'filterDisplay');
 
-            @include mq.min(1024) {
-                display: grid;
-                align-items: flex-end;
-                grid: {
-                    auto-flow: column;
-                    auto-columns: max-content;
-                    gap: ef.get-value($themeDefault, 'filterGap');
-                };
-                margin: ef.get-value($themeDefault, 'filterMargin');
-            }
+            align-items: flex-end;
+            grid-auto-flow: column;
+            grid-auto-columns: max-content;
+            gap: ef.get-value($themeDefault, 'filterGap');
+            margin: ef.get-value($themeDefault, 'filterMargin');
 
             .wlc-select[wlc-select] {
                 min-width: ef.get-value($themeDefault, 'filterMinWidth');
+            }
+
+            .wlc-sections__profile-content--theme-first & {
+                @include bm.get-mq-map('display', $themeDefault, 'filterDisplayV1');
             }
         }
 

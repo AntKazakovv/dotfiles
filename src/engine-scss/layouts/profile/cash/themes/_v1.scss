@@ -34,9 +34,5 @@
         .wlc-table__cell--type {
             min-width: ef.get-value($cashPagesThemeV1, 'transactionTableCellTypeMaxWidth');
         }
-
-        .wlc-profile-content__header {
-            @include bm.get-mq-map('margin', $cashPagesThemeV1, 'transactionsHeaderMargin');
-        }
     }
 }

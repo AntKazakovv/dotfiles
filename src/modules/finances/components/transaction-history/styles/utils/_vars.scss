@@ -21,7 +21,7 @@ $themeDefault: map-merge((
         1024: flex-end,
     ),
     'filterMargin': (
-        1024: ef.get('size', 'smaller') 0,
+        1024: 0 0 ef.size(4),
     ),
     'filterGridAutoFlow': (
         1024: column
@@ -30,10 +30,10 @@ $themeDefault: map-merge((
         1024: max-content
     ),
     'filterGap': (
-        1024: ef.get('size', 'smally')
+        1024: ef.size(3)
     ),
     'filterBtnGap': (
-        1024: 0 ef.get('size', 'smally')
+        1024: 0 ef.size(3)
     ),
     'filterMinWidth': 140px,
 

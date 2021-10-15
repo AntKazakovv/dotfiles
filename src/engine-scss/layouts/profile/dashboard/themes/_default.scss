@@ -8,7 +8,7 @@
 
     .wlc-sections__profile-content {
 
-        > .container {
+        .wlc-dashboard-grid {
             @include em.get-mq-map('grid-template-columns', $dashboardThemeDefault, 'gridTemplateColumns');
             @include em.get-mq-map('grid-template-rows', $dashboardThemeDefault, 'gridTemplateRows');
             @include em.get-mq-map('grid-template-areas', $dashboardThemeDefault, 'gridTemplateAreas');
@@ -16,27 +16,24 @@
 
             position: relative;
             display: grid;
+        }
+    }
 
-            > .wlc-logout {
-                position: ef.get-value($dashboardThemeDefault, 'logoutPosition');
-                top: ef.get-value($dashboardThemeDefault, 'logoutTop');
-                right: ef.get-value($dashboardThemeDefault, 'logoutRight');
+    .wlc-profile-content__top {
+        @include em.get-mq-map('display', $dashboardThemeDefault, 'topDisplay');
+        justify-content: space-between;
 
-                svg {
-                    margin: ef.get-value($dashboardThemeDefault, 'logoutSvgMargin');
-                }
+        .wlc-logout {
+
+            svg {
+                margin: ef.get-value($dashboardThemeDefault, 'logoutSvgMargin');
             }
         }
     }
 
-    .wlc-title {
+    .wlc-title--profile-bonuses {
         @include em.get-mq-map('margin', $dashboardThemeDefault, 'titleMargin');
-
-        grid-area: title;
-
-        &.wlc-title--profile-bonuses {
-            grid-area: bonuses-title;
-        }
+        grid-area: bonuses-title;
     }
 
     .wlc-loyalty-block {

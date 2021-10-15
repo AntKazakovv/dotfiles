@@ -4,6 +4,9 @@ import * as sectionsLib from 'wlc-engine/modules/core/system/config/layouts/sect
 export const $profileFirstLayouts: ILayoutsConfig = {
     'app.profile': {
         extends: 'app',
+        sections: {
+            'profile-tablet-menu-wrapper': sectionsLib.profileContent.profileTypeFirstTabletMenu,
+        },
     },
     'app.profile.history': {
         extends: 'app',

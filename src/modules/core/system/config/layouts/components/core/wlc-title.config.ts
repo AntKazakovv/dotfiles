@@ -3,8 +3,6 @@ import {
 } from 'wlc-engine/modules/core';
 import {ITitleCParams} from 'wlc-engine/modules/core/components';
 
-import _assign from 'lodash-es/assign';
-
 export namespace wlcTitle {
     export const promotions: ILayoutComponent = {
         name: 'core.wlc-title',
@@ -65,7 +63,7 @@ export namespace wlcTitle {
     export const cashV1Mobile: ILayoutComponent = {
         name: 'core.wlc-title',
         display: {
-            before: 1023,
+            before: 1199,
         },
         params: <ITitleCParams>{
             customMod: ['profile'],
@@ -132,6 +130,15 @@ export namespace wlcTitle {
         },
     };
 
+    export const gamblings: ILayoutComponent = {
+        name: 'core.wlc-title',
+        params: {
+            customMod: ['profile'],
+            mainText: gettext('Gamblings'),
+            wlcElement: 'header_bet-history',
+        },
+    };
+
     export const tournamentsHistory: ILayoutComponent = {
         name: 'core.wlc-title',
         params: {
@@ -152,9 +159,6 @@ export namespace wlcTitle {
 
     export const bonusesV1Mobile: ILayoutComponent = {
         name: 'core.wlc-title',
-        display: {
-            before: 1023,
-        },
         params: {
             customMod: ['profile'],
             mainText: gettext('Bonuses'),
@@ -202,7 +206,7 @@ export namespace wlcTitle {
         name: 'core.wlc-title',
         params: {
             customMod: ['profile'],
-            mainText: gettext('Transaction history'),
+            mainText: gettext('History'),
             wlcElement: 'header_transactions-history',
         },
     };
@@ -235,20 +239,36 @@ export namespace wlcTitle {
     };
 
     export const profileStore: ILayoutComponent = {
-        name: 'core.wlc-title',
-        params:  <ITitleCParams>{
-            customMod: ['profile'],
-            mainText: gettext('Market'),
-            wlcElement: 'header_store',
+        name: 'core.wlc-wrapper',
+        params: {
+            class: 'wlc-profile-content__top',
+            components: [
+                {
+                    name: 'core.wlc-title',
+                    params:  <ITitleCParams>{
+                        customMod: ['profile'],
+                        mainText: gettext('Market'),
+                        wlcElement: 'header_store',
+                    },
+                },
+            ],
         },
     };
 
     export const profileLoyalty: ILayoutComponent = {
-        name: 'core.wlc-title',
-        params:  <ITitleCParams>{
-            customMod: ['profile'],
-            mainText: gettext('Loyalty'),
-            wlcElement: 'header_loyalty',
+        name: 'core.wlc-wrapper',
+        params: {
+            class: 'wlc-profile-content__top',
+            components: [
+                {
+                    name: 'core.wlc-title',
+                    params:  <ITitleCParams>{
+                        customMod: ['profile'],
+                        mainText: gettext('Loyalty'),
+                        wlcElement: 'header_loyalty',
+                    },
+                },
+            ],
         },
     };
 
@@ -261,8 +281,23 @@ export namespace wlcTitle {
         },
     };
 
-    export const profileLoyaltyV1Single: ILayoutComponent =
-        _assign({}, profileLoyalty, {params: {mainText: gettext('Levels')}});
+
+    export const profileLoyaltyV1Single: ILayoutComponent = {
+        name: 'core.wlc-wrapper',
+        params: {
+            class: 'wlc-profile-content__top',
+            components: [
+                {
+                    name: 'core.wlc-title',
+                    params:  <ITitleCParams>{
+                        customMod: ['profile'],
+                        mainText: gettext('Levels'),
+                        wlcElement: 'header_loyalty',
+                    },
+                },
+            ],
+        },
+    };
 
     export const totalJackpot: ILayoutComponent = {
         name: 'core.wlc-title',

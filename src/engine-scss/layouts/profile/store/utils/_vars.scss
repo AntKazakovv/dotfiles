@@ -3,16 +3,16 @@
 $customStoreThemeDefault: () !default;
 $storeThemeDefault: map-merge((
     'sectionGap': (
-        719: ef.get('size', 'small'),
-        720: ef.get('size', 'smaller'),
+        719: ef.size(2),
+        720: ef.size(4),
     ),
     'statTop': (
-        375: ef.get('size', 'smally'),
-        1024: ef.get('size', 'less'),
+        375: ef.size(3),
+        1024: ef.size(6),
     ),
     'statRight': (
-        375: ef.get('size', 'smally'),
-        1024: ef.get('size', 'main'),
+        375: ef.size(3),
+        1024: ef.size(8),
     ),
     'statZIndex': 5,
 
@@ -21,12 +21,12 @@ $storeThemeDefault: map-merge((
         768: absolute,
     ),
     'loyaltyProgressTop': (
-        375: ef.get('size', 'small'),
-        1630: ef.get('size', 'less'),
+        375: ef.size(3),
+        1630: ef.size(4),
     ),
     'loyaltyProgressRight': (
-        375: ef.get('size', 'smally'),
-        1024: ef.get('size', 'main'),
+        375: ef.size(3),
+        1024: ef.size(8),
     ),
 
     'loyaltyProgressMaxWidth': (
@@ -34,7 +34,7 @@ $storeThemeDefault: map-merge((
         768: 300px,
     ),
     'loyaltyProgressMargin': (
-        375: 0 0 ef.get('size', 'small') 0,
+        375: 0 0 ef.size(3) 0,
         768: 0 0 0 auto,
     ),
 

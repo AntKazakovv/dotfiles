@@ -2,11 +2,19 @@
 
 $customThemeDefault: () !default;
 $themeDefault: map-merge((
-    'sectionMargin': ef.get('size', 'smaller') 0 0,
+    'sectionMargin': ef.size(4) 0 0,
     'sectionLoaderMinHeight': 400px,
-    'filterMargin': ef.get('size', 'smaller') 0 ,
-    'filterGap': ef.get('size', 'smally'),
+    'filterMargin': 0 0 ef.size(4) ,
+    'filterGap': ef.size(3),
     'filterMinWidth': 140px,
     'firstCellColumns':  1fr auto,
     'historyNameGap': ef.size(2),
+    'filterDisplay': (
+        375: none,
+        1024: grid,
+    ),
+    'filterDisplayV1': (
+        375: none,
+        1024: grid,
+    )
 ), $customThemeDefault);

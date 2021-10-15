@@ -2,14 +2,14 @@
 
 $customThemeDefault: () !default;
 $themeDefault: map-merge((
-    'sectionMargin': ef.get('size', 'smaller') 0 0,
+    'sectionMargin': ef.size(4) 0 0,
     'sectionLoaderMinHeight': 400px,
-    'filterMargin': ef.get('size', 'smaller') 0 ,
+    'filterMargin': 0 0 ef.size(4),
     'filterGap': ef.get('size', 'smally'),
     'filterMinWidth': 140px,
     'sectionDisplayTypeFirst': (
         375: none,
-        1200: grid,
+        1024: grid,
     ),
     'firstCellColumns': 1fr auto,
 ), $customThemeDefault);

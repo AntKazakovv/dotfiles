@@ -4,29 +4,10 @@
 
     .wlc-sections__profile-content--theme-default {
 
-        > .container {
-            @include bm.get-mq-map('grid-template-columns', $bonusesThemeDefault, 'gridColumns');
-            @include bm.get-mq-map('grid-template-areas', $bonusesThemeDefault, 'gridArea');
-            @include bm.get-mq-map('grid-template-rows', $bonusesThemeDefault, 'gridRows');
-            @include bm.get-mq-map('gap', $bonusesThemeDefault, 'gridGap');
-
-            position: relative;
-
-            display: grid;
-        }
-
-        .wlc-title {
-            grid-area: title;
-        }
-
         .wlc-counter {
-            @include text.get-text-style('ThirdTitleBold');
+            @include text.get-text-style(ef.get-value($bonusesThemeDefault, 'counterTextStyle'), ef.get-value($bonusesThemeDefault, 'counterColor'));
 
-            grid-area: counter;
-        }
-
-        .wlc-bonuses-list {
-            grid-area: bonuses-list;
+            margin: ef.get-value($bonusesThemeDefault, 'counterMargin');
         }
     }
 }

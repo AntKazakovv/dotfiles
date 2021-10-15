@@ -8,6 +8,8 @@
     @include bm.get-mq-map('background', $fullProfileFirstDefault, 'menuBg');
     @include bm.get-mq-map('border-radius', $fullProfileFirstDefault, 'menuRadius');
 
+    height: 100%;
+
     ::ng-deep {
 
         .wlc-menu--theme-first.wlc-menu--type-profile-first-menu {

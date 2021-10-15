@@ -8,13 +8,21 @@ export namespace wlcProfileMenu {
     };
 
     export const defTypeFirst: ILayoutComponent = {
-        name: 'menu.wlc-profile-menu',
-        display: {
-            after: 1024,
-        },
+        name: 'core.wlc-wrapper',
         params: {
-            theme: 'first',
-            type: 'full',
+            class: 'profile-menu-wrapper',
+            components: [
+                {
+                    name: 'menu.wlc-profile-menu',
+                    display: {
+                        after: 1200,
+                    },
+                    params: {
+                        theme: 'first',
+                        type: 'full',
+                    },
+                },
+            ],
         },
     };
 
@@ -31,7 +39,7 @@ export namespace wlcProfileMenu {
             type: 'submenu',
         },
         display: {
-            before: 1023,
+            before: 1199,
         },
     };
 

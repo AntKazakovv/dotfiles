@@ -474,12 +474,12 @@ $profileSettings: map-merge((
     'titleColor': var(--mc-baseMain),
     'profilePadding': (
         375: map-get($size, 'smally') map-get($size, 'smally') map-get($size, 'less'),
-        1024: map-get($size, 'smally') map-get($size, 'main') map-get($size, 'less'),
+        1024: map-get($size, 'smaller') map-get($size, 'main') map-get($size, 'less'),
         1630: map-get($size, 'less') map-get($size, 'main'),
     ),
     'profilePaddingV1': (
         375: map-get($size, 'smaller') map-get($size, 'smaller') map-get($size, 'main'),
-        1024: 0,
+        1200: 0,
     ),
     'profileBg': (
         375: var(--mc-bg700),
@@ -493,7 +493,10 @@ $profileSettings: map-merge((
     'profileBorderRadiusV1': map-get($radius, 'biger'),
     'profileBtnWeight': 700,
     'rangeMarginBottom': map-get($size, 'smally'),
-    'historyFilterDisplay': flex,
+    'historyFilterDisplay': (
+        375: flex,
+        1024: block,
+    ),
     'historyFilterAlign': center,
     'historyFilterJustify': space-between,
     'historyFilterMargin': 0 0 map-get($size, 'smallest'),
@@ -501,29 +504,43 @@ $profileSettings: map-merge((
         320: grid,
     ),
     'profileGridTemplateColumnsV1': (
-        1024: 285px auto,
+        1200: 285px auto,
     ),
     'contentPaddingV1': (
         375: map-get($size, 'smaller') 0 0,
-        1024: map-get($size, 'smaller') map-get($size, 'main'),
-    ),
-    'contentHeaderHeightV1': (
-        320: 70px,
-        1024: 80px,
+        1200: map-get($size, 'smally') map-get($size, 'less') map-get($size, 'smaller'),
+        1630: map-get($size, 'smaller') map-get($size, 'main') map-get($size, 'less'),
     ),
     'contentHeaderInsideMarginTopV1': (
         375: -#{map-get($size, 'smaller')},
         1024: 0,
     ),
     'contentHeaderDisplayV1': flex,
-    'contentHeaderAlignV1': center,
+    'contentHeaderAlignV1': start,
     'contentHeaderJustifyV1': space-between,
     'contentHeaderBorderBottomV1': (
         1024: 2px solid var(--mc-baseOpacity),
     ),
     'contentHeaderMarginV1': 0 0 map-get($size, 'smaller') 0,
     'contentHeaderUnderlinedMarginV1': 0 0 map-get($size, 'smaller') 0,
-    'contentHeaderPaddingV1': 0 0 map-get($size, 'smaller') 0,
+    'contentHeaderPaddingV1': (
+        375: 0,
+    ),
+    'contentHeaderHeightV1': (
+        320: 35px,
+        560: 50px,
+        1200: 60px,
+    ),
+    'titleColorV1': var(--mc-baseMain),
+    'titleTextStyleV1': (
+        375: 'ThirdTitleBold',
+        1200: 'QoteTextBold',
+    ),
+
+    'topMargin': (
+        375: 0 0 map-get($size, 'smally'),
+        1200: 0 0 map-get($size, 'smaller'),
+    ),
 
     // Locked colors
     'profileTabAngleBg': map-get($mainColors, 'bg700'),

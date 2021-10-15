@@ -25,10 +25,6 @@
             .wlc-select[wlc-select] {
                 min-width: ef.get-value($themeDefault, 'filterMinWidth');
             }
-
-            .wlc-sections__profile-content--theme-first & {
-                @include bm.get-mq-map('display', $themeDefault, 'sectionDisplayTypeFirst');
-            }
         }
 
         .wlc-transaction-history-filter__buttons {

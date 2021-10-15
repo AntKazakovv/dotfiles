@@ -27,9 +27,6 @@ $cashPagesThemeV1: map-merge((
         320: none,
         1024: block,
     ),
-    'transactionsHeaderMargin': (
-        1024: 0 0 ef.size(4),
-    ),
     'transactionTableCellTypeMaxWidth': 100px,
 
     'userStatsMargin': 0 0 ef.size(4),

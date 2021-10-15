@@ -11,7 +11,7 @@ export namespace wlcBonusesHistory {
         params: {
             class: 'profile-history-filter',
             components: [
-                wlcTitle.bonusesHistory,
+                wlcTitle.history,
                 {
                     name: 'finances.wlc-history-filter',
                     params: {
@@ -29,6 +29,16 @@ export namespace wlcBonusesHistory {
         name: 'finances.wlc-history-filter',
         params: {
             config: 'bonus',
+        },
+    };
+
+    export const filterOnlyV1: ILayoutComponent = {
+        name: 'finances.wlc-history-filter',
+        params: {
+            config: 'bonus',
+        },
+        display: {
+            before: 1023,
         },
     };
 }

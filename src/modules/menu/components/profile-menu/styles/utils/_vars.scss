@@ -56,12 +56,12 @@ $submenuProfileDefault: map-merge((
     'submenuBorderBottom': var(--mc-baseOpacity),
     'submenuBorderBottomHeight': 2px,
     'submenuMargin': (
-        375: ef.get('size', 'smally') 0,
-        900: ef.get('size', 'smally') 0 ef.get('size', 'smaller') 0,
+        375: 0 0 ef.size(3),
+        900: 0 0 ef.size(4),
     ),
     'submenuItemPadding': (
-        375: 10px 0,
-        1024: 15px 0
+        375: 0 0 ef.size(2),
+        1024: 0 0 ef.size(3)
     ),
     'submenuItemActiveBorder': var(--mc-main),
     'menuGap': (
