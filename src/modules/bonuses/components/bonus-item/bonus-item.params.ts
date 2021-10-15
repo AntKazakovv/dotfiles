@@ -71,7 +71,7 @@ export const defaultParams: IBonusItemCParams = {
         hideChooseBtn: true,
         iconsPath: '/gstatic/bonuses/icons/',
         nameClamp: 1,
-        descriptionClamp: 2,
+        descriptionClamp: 3,
         usePreviewBonus: false,
     },
 };

@@ -429,8 +429,8 @@
 </ng-template>
 
 <ng-template #description>
-    <p class="{{$class}}__description"
-       data-wlc-element="bonus_description-name"
-       [innerHtml]="$params.common.bonus?.descriptionClean">
-    </p>
+    <div class="{{$class}}__description"
+         data-wlc-element="bonus_description-name"
+         [wlc-clamp]="$params.common.descriptionClamp"
+    >{{$params.common.bonus?.descriptionClean}}</div>
 </ng-template>
