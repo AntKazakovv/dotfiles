@@ -1,6 +1,6 @@
 #!/bin/bash
 
-branches="scr1-profile";
+branches="scr1-profile scr2-var1 scr2-var2 scr2-var3 scr1-var1";
 git_url="git@wlcgitlab.egamings.com:wlcdevcasino/web.git";
 
 engine_ver=$(jq .version < ./package.json | sed -e 's/"//g');
