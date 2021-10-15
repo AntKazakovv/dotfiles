@@ -38,6 +38,16 @@
         }
     }
 
+    .wlc-games-catalog--theme-default:host & {
+
+        ::ng-deep {
+
+            .wlc-games-grid__more {
+                @include bm.get-mq-map('margin', $themeDefault, 'catalogMoreButtonMargin');
+            }
+        }
+    }
+
     .wlc-games-grid {
 
         &__header {
