@@ -30,9 +30,10 @@ fi
 
 # check updated wlc-engine version
 lock_ver=$(jq '.dependencies["@egamings/wlc-engine"].version' < package-lock.json | sed -e 's/"//g');
-if [[ $lock_ver == $engine_ver ]]; then
+if [[ $lock_ver != $engine_ver ]]; then
+    echo $lock_ver:$engine_ver
     clean_temp
-    echo -e "\e[5m\e[1m\e[91mEngine version don't match, something went wrong\e[25m\e[0m"
+    echo -e "\e[5m\e[1m\e[91mEngine version don't match, something went wrong ($lock_ver vs $engine_ver)\e[25m\e[0m"
     exit 1;
 fi
 
@@ -46,6 +47,14 @@ cd -
 npx gulp update:configs
 
 # commit all changes & make test release
+git status
+
+read -p "See diff and confirm process [y/N]" yn
+
+if [[ $yn != 'y' ]]; then
+    exit 1;
+fi
+
 git add .
 git commit -m "SCR #0 - project up $engine_ver"
 git push origin develop
