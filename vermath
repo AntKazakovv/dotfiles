@@ -1,0 +1,67 @@
+#!/usr/bin/env python3
+
+# simple cli-oriented version math support script
+# (by) Alex Nazarov <alex.nazarov@softgamings.com>
+# public domain
+
+import argparse
+
+def major_increase(v):
+    v[0] = v[0]+1
+    for i in range(1,len(v)):
+        v[i] = 0
+    return v[0:3]
+
+def normal_increase(v):
+    if not (len(v) > 3 and v[3] == 'rc'):
+        v[2] = v[2]+1
+    return v[0:3]
+
+def minor_increase(v):
+    v[1] = v[1]+1
+    v[2] = 0
+    return v[0:3]
+
+def hotfix_increase(v):
+    if len(v) < 4:
+        v.append(0)
+    v[3] = v[3]+1
+    return v
+
+def preid_increase(v):
+    rc = 1
+    if len(v) > 4 and v[3] == 'rc':
+        rc = v[4] + 1
+    else:
+        v = normal_increase(v)
+
+    v = v[0:3]
+    v[2] = str(v[2]) + '-rc'
+    v.append(rc)
+    return v
+
+def parse_version():
+    v = []
+    for k in args.version.split('.'):
+        if k.find('-rc') != -1:
+            v.append(int(k.replace('-rc', '')))
+            v.append('rc')
+        else:
+            v.append(int(k))
+    while len(v) < 3:
+        v.append(0)
+
+    return v
+
+ap = argparse.ArgumentParser(description='command line version math')
+ap.add_argument('version', help='version')
+ap.add_argument('--normal', help='normal version increase (3rd)', action='store_const', const=normal_increase, dest='action', default=normal_increase)
+ap.add_argument('--major', help='major version increase (1st)', action='store_const', const=major_increase, dest='action')
+ap.add_argument('--minor', help='minor version increase (2nd)', action='store_const', const=minor_increase, dest='action')
+ap.add_argument('--hotfix', help='hotfix version increase (4th)', action='store_const', const=hotfix_increase, dest='action')
+ap.add_argument('--preid', help='release candidate version (-rc.X prefix)', action='store_const', const=preid_increase, dest='action')
+args = ap.parse_args()
+
+v = args.action(parse_version())
+print('.'.join([str(k) for k in v]))
+
