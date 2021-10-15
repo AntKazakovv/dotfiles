@@ -69,8 +69,7 @@ export class ThemeTogglerComponent extends AbstractComponent implements OnInit {
 
     public ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
-        this.status = this.configService
-            .get<string>(ColorThemeValues.configName) !== ColorThemeValues.defThemeColor;
+        this.status = !!this.configService.get<string>(ColorThemeValues.configName);
 
         this.eventService.subscribe(
             {name: ColorThemeValues.changeEvent},
