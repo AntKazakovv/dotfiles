@@ -38,6 +38,10 @@ export interface IProfileConfig {
         usePage?: boolean;
     },
     type?: ProfileType,
+    /**
+     * Minimum age for the players, by default 18 years;
+     */
+    legalAge?: number,
 }
 
 export interface IVerification {

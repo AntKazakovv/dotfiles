@@ -12,21 +12,10 @@
 
             > .wlc-btn {
                 @include em.get-mq-map('margin', $themeDefault, 'btnMargin');
-                grid-area: btn;
             }
         }
 
         ::ng-deep {
-
-            .wlc-input {
-
-                .wlc-input__container {
-
-                    .wlc-input__input:disabled {
-                        @include inputDisabledStyles($themeDefault);
-                    }
-                }
-            }
 
             .wlc-select {
 
@@ -39,42 +28,31 @@
             }
         }
 
-        .wlc-text-block {
-            grid-area: head;
+        .wlc-input,
+        .wlc-select,
+        .wlc-checkbox,
+        .wlc-btn,
+        .wlc-birth-field,
+        .wlc-link-block,
+        .wlc-social-networks {
+            grid-column: ef.get-value($themeDefault, 'fullGridCol');
         }
 
-        .wlc-input--email {
-            grid-area: email;
-        }
-
-        .wlc-input--password {
-            grid-area: password;
-        }
-
-        .wlc-input--promocode {
-            grid-area: promocode;
+        .wlc-input--promocode,
+        .wlc-select--currency {
+            grid-column: ef.get-value($themeDefault, 'partGridCol');
         }
 
         .wlc-checkbox--terms {
             @include checkboxTermsStyles($themeDefault);
-            grid-area: terms;
         }
 
         .wlc-checkbox--age {
             @include checkboxAgeStyles($themeDefault);
-            grid-area: age;
-        }
-
-        .wlc-link-block {
-            grid-area: account;
         }
 
         .wlc-select[wlc-select] {
             @include selectStyles($themeDefault);
-
-            .wlc-select--currency {
-                grid-area: currency;
-            }
         }
 
         .wlc-checkbox[wlc-checkbox] {
@@ -83,18 +61,29 @@
                 @include checkboxLinkStyles($themeDefault);
             }
         }
+
+        .wlc-birth-field {
+            grid-template-columns: ef.get-value($themeDefault, 'birthFieldGridColumns');
+
+            .wlc-select {
+                grid-column: span 1;
+            }
+        }
     }
 
-    &.wlc-sign-up-form--socials {
+    &.mga-license {
 
         ::ng-deep {
 
             .wlc-form {
-                grid-template-areas: ef.get-value($modSocials, 'formTemplateAreas');
-            }
 
-            .wlc-social-networks {
-                grid-area: networks;
+                > .wlc-btn {
+                    margin: ef.get-value($themeDefault, 'btnMarginMga');
+                }
+
+                .wlc-checkbox {
+                    padding: ef.get-value($themeDefault, 'checkboxPaddingMga');
+                }
             }
         }
     }

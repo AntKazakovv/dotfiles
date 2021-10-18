@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 import {TranslateService} from '@ngx-translate/core';
 import {StateService} from '@uirouter/core';
+import {DateTime} from 'luxon';
 
 import {
     Subscription,
@@ -34,8 +35,6 @@ import _assign from 'lodash-es/assign';
 import _each from 'lodash-es/each';
 import _keys from 'lodash-es/keys';
 import _set from 'lodash-es/set';
-import _get from 'lodash-es/get';
-import _isUndefined from 'lodash-es/isUndefined';
 
 export enum LanguageChangeEvents {
     ChangeLanguage = 'CHANGE_LANGUAGE'
@@ -449,6 +448,20 @@ export class UserService {
         if (redirect) {
             this.stateService.go(redirect.state, redirect.params || {});
         }
+    }
+
+    /**
+     * Check if user is too young
+     *
+     * @param {birthDay, birthYear, birthMonth}: IUserProfile - Accepts part of profile of object with fields;
+     *
+     * @return {boolean}
+     */
+    public checkUserAge({birthDay, birthYear, birthMonth}: IUserProfile): boolean {
+        const legalAge: number = this.configService.get('$base.profile.legalAge');
+        return DateTime.utc(+birthYear, +birthMonth, +birthDay)
+            .diffNow('years')
+            .years * -1 >= legalAge;
     }
 
     private successfulRegistration(message: string[]): void {

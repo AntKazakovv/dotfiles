@@ -4,6 +4,8 @@
 
         &__list {
             @include listStyles($themeDefault);
+
+            flex-wrap: ef.get-value($themeDefault, 'listFlexWrap');
         }
 
         &__button {
@@ -13,11 +15,7 @@
                 @include buttonStyle($themeDefault);
             }
 
-            margin: ef.get-value($themeDefault, 'buttonMargin');
-
-            &:last-child {
-                margin: ef.get-value($themeDefault, 'buttonMarginLast');
-            }
+            padding: ef.get-value($themeDefault, 'buttonPadding');
         }
 
         &__icon {

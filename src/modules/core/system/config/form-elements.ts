@@ -189,7 +189,7 @@ export namespace FormElements {
                 placeholder: gettext('City'),
             },
             name: 'city',
-            validators: ['required'],
+            validators: ['required', 'onlyLetters'],
             wlcElement: 'block_city',
             customMod: ['city'],
         },

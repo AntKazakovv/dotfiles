@@ -19,8 +19,7 @@ $themeDefault: map-merge((
     'inputOpacity': 1,
 
     'btnMargin': (
-        320: auto auto ef.get('size', 'smaller'),
-        900: auto auto ef.get('size', 'less'),
+        320: auto auto ef.size(6),
     ),
 ), $customThemeDefault);
 

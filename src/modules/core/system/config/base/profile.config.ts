@@ -37,4 +37,5 @@ export const profileConfig: IProfileConfig = {
         use: false,
     },
     type: 'default',
+    legalAge: 18,
 };

@@ -10,3 +10,4 @@ gettext('validator-newPasswordReg');
 gettext('validator-onlyLetters');
 gettext('validator-wrong-sms-code');
 gettext('validator-currentPassword');
+gettext('validator-onlyLetters');

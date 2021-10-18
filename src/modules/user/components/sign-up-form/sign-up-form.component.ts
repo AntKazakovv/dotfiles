@@ -1,5 +1,6 @@
 import {
     Component,
+    HostBinding,
     Inject,
     OnInit,
 } from '@angular/core';
@@ -21,11 +22,15 @@ import {
 } from '../../system/classes/user-actions-abstract.class';
 import {SocialService} from 'wlc-engine/modules/user/system/services/social/social.service';
 import {IFormComponent} from 'wlc-engine/modules/core/components/form-wrapper/form-wrapper.component';
+import {IMGAConfig} from 'wlc-engine/modules/core/components/license/license.params';
 
 import * as Params from './sign-up-form.params';
 
 import _each from 'lodash-es/each';
 import _some from 'lodash-es/some';
+import _filter from 'lodash-es/filter';
+import _merge from 'lodash-es/merge';
+import _cloneDeep from 'lodash-es/cloneDeep';
 
 export interface IRegFormDataForConfig {
     form: IValidateData;
@@ -52,6 +57,8 @@ export class SignUpFormComponent extends UserActionsAbstract<Params.ISignUpFormC
     public config: IFormWrapperCParams;
     public $params: Params.ISignUpFormCParams;
     public formData: BehaviorSubject<IIndexing<unknown>>;
+    public isMGALicense: boolean = !!this.configService.get<IMGAConfig>('$modules.core.components["wlc-license"].mga');
+    @HostBinding('class.mga-license') useMGAClass: boolean = this.isMGALicense;
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.ISignUpFormCParams,
@@ -70,8 +77,19 @@ export class SignUpFormComponent extends UserActionsAbstract<Params.ISignUpFormC
     public ngOnInit(): void {
         super.ngOnInit();
         this.config = this.$params.formConfig || Params.signUpFormConfig;
+        this.config = _cloneDeep(this.config);
+        if (this.isMGALicense) {
+            if (this.isMGAFormStep()) {
+                this.config = Params.magLicenseFormConfig;
+            } else {
+                this.config.components = _filter(this.config.components, (el) => {
+                    return !['ageConfirmed', 'agreedWithTermsAndConditions'].includes(el.params.name);
+                });
+            }
+        }
 
-        if (this.configService.get<boolean>('$base.profile.smsVerification.use')) {
+        if (this.configService.get<boolean>('$base.profile.smsVerification.use')
+            || (this.isMGALicense && !this.isMGAFormStep())) {
             const formValues = this.configService.get<IRegFormDataForConfig>('regFormData');
             _each(this.config.components, (item) => {
                 if (item.name === 'core.wlc-button' && item.params?.common?.text) {
@@ -102,16 +120,21 @@ export class SignUpFormComponent extends UserActionsAbstract<Params.ISignUpFormC
     }
 
     public async ngSubmit(form: FormGroup): Promise<void> {
-        if (this.configService.get<boolean>('$base.profile.smsVerification.use')) {
+        if ((this.isMGALicense && !this.isMGAFormStep())
+            || this.configService.get<boolean>('$base.profile.smsVerification.use')) {
             this.nextStepSubmit(form);
             return;
         }
+
         try {
             form.disable();
             if (!this.checkConfirmation(form)) {
                 return;
             }
-            const regData = this.formDataPreparation(form);
+            let regData = this.formDataPreparation(form);
+            if (this.isMGALicense && this.isMGAFormStep()) {
+                regData = _merge(this.configService.get<IRegFormDataForConfig>('regFormData')?.form, regData);
+            }
             await this.userService.validateRegistration(regData);
             await this.finishUserReg(regData.data);
         } catch (error) {
@@ -122,15 +145,22 @@ export class SignUpFormComponent extends UserActionsAbstract<Params.ISignUpFormC
     }
 
     protected nextStepSubmit(form: FormGroup) {
-        if (!this.checkConfirmation(form)) {
+        if ((!this.isMGALicense || this.isMGAFormStep()) && !this.checkConfirmation(form)) {
             return;
         }
-        const formData = this.formDataPreparation(form);
+
+        const formData = _merge(
+            this.formDataPreparation(form), this.configService.get<IRegFormDataForConfig>('regFormData')?.form,
+        );
 
         this.configService.set<object>({
             name: 'regFormData',
             value: {form: formData},
         });
         this.eventService.emit({name: StepsEvents.Next});
+    }
+
+    protected isMGAFormStep(): boolean {
+        return this.$params.formType === 'mga';
     }
 }

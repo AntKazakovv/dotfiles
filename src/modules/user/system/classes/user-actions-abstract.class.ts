@@ -19,10 +19,10 @@ import {
 import _keys from 'lodash-es/keys';
 
 export interface IValidateData {
-    'TYPE': string,
-    data: Partial<IUserProfile>,
-    fields: string[],
-};
+    'TYPE': string;
+    data: Partial<IUserProfile>;
+    fields: string[];
+}
 
 export abstract class UserActionsAbstract<T> extends AbstractComponent {
 
@@ -60,7 +60,11 @@ export abstract class UserActionsAbstract<T> extends AbstractComponent {
     }
 
     protected checkConfirmation(form: FormGroup): boolean {
-        const {ageConfirmed, agreedWithTermsAndConditions} = form.value;
+        let {ageConfirmed, agreedWithTermsAndConditions} = form.value;
+
+        if (['birthYear', 'birthDay', 'birthMonth'].every(el => el in form.value)) {
+            ageConfirmed = this.userService.checkUserAge(form.value);
+        }
 
         if (ageConfirmed && agreedWithTermsAndConditions) {
             return true;

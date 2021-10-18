@@ -11,6 +11,8 @@ import {
     ConfigService,
     EventService,
 } from 'wlc-engine/modules/core';
+import {IMGAConfig} from 'wlc-engine/modules/core/components/license/license.params';
+
 import * as Params from 'wlc-engine/modules/core/components/steps/steps.params';
 
 import _entries from 'lodash-es/entries';
@@ -50,9 +52,15 @@ export class StepsComponent extends AbstractComponent implements OnInit {
     public ngOnInit(): void {
         this.themeMod = this.configService.get<string>('$base.profile.type') === 'first' ? 'first' : this.themeMod;
         super.ngOnInit();
+
+        if (this.configService.get<IMGAConfig>('$modules.core.components["wlc-license"].mga')) {
+            this.$params.stepsNames.push('signUpFormMagLicense');
+        }
+
         if (this.configService.get<boolean>('$base.profile.smsVerification.use')) {
             this.$params.stepsNames.push('signUpSmsVerify');
         }
+
         this.stepList = this.prepareSteps();
 
         this.currentStep = this.getStepParamByName(this.$params.startStepName)

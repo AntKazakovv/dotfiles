@@ -2,17 +2,17 @@
 
 $customThemeDefault: () !default;
 $themeDefault: map-merge((
-    'formMaxWidth': 290px,
+    'formMaxWidth': 320px,
     'formMargin': 0 auto,
     'formHeight': 100%,
     'formFlexDirection': column,
-
     'formWraperHeight': 100%,
 
     'gridColumns': 100px 1fr,
+    'fullGridCol': span 2,
+    'partGridCol': span 1,
     'gridAlignContent': start,
     'gridGap': ef.size(4) ef.size(3),
-    'templateAreas': 'email email' 'password password' 'currency promocode' 'terms terms' 'age age' 'btn btn' 'account account',
 
     'selectFontSize': 12px,
     'selectPadding': 7px ef.size(7) 7px 13px,
@@ -23,8 +23,9 @@ $themeDefault: map-merge((
     'inputOpacity': 1,
 
     'btnMargin': (
-        375: 0 auto ef.size(1),
+        375: 0 auto,
     ),
+    'btnMarginMga': ef.size(4) auto 0,
 
     'checkboxLinkTransition': color 0.3s linear#{','} border-bottom-color 0.3s linear,
     'checkboxLinkColor': var(--mc-main),
@@ -35,6 +36,9 @@ $themeDefault: map-merge((
     'checkboxPadding': ef.size(4) ef.size(2) 0 ef.size(2),
     'checkboxAgeMargin': -17px 0 0,
     'checkboxAgePadding': 0 ef.size(2) ef.size(4) ef.size(2),
+    'checkboxPaddingMga': 0 ef.size(2),
+
+    'birthFieldGridColumns': repeat(3, 1fr),
 ), $customThemeDefault);
 
 $customModSocials: () !default;

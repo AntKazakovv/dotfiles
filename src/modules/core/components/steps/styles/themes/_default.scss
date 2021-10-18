@@ -65,6 +65,7 @@
                             @include em.get-mq-map('max-width', $themeDefault, 'singupLinkBlockMaxWidth');
                             position: absolute;
                             right: ef.get-value($themeDefault, 'singupLinkBlockRightPos');
+                            left: initial;
                             align-items: ef.get-value($themeDefault, 'singupLinkBlockAlignItems');
                             justify-content: ef.get-value($themeDefault, 'singupLinkBlockJustify');
                             overflow: hidden;
@@ -133,9 +134,20 @@
             }
 
             &__main {
+                @include em.get-mq-map('padding', $themeDefault, 'mainPadding');
+
+                position: relative;
                 display: flex;
                 flex-direction: ef.get-value($themeDefault, 'mainDirection');
                 align-items: ef.get-value($themeDefault, 'mainAlignItems');
+
+                .wlc-link-block {
+                    @include em.get-mq-map('bottom', $themeDefault, 'singupLinkBlockBottomPos');
+
+                    position: absolute;
+                    left: ef.get-value($themeDefault, 'singupLinkBlockLeftPos');
+                    width: ef.get-value($themeDefault, 'singupLinkBlockWidth');
+                }
             }
         }
     }
@@ -158,6 +170,7 @@
             &__container {
                 @include em.get-mq-map('grid-template-columns', $themeDefault, 'containerTemplateCol');
                 @include em.get-mq-map('min-height', $themeDefault, 'containerMinHeight');
+
                 display: grid;
                 height: ef.get-value($themeDefault, 'stepsHeight');
 
@@ -177,7 +190,6 @@
 
             &__main {
                 @include em.get-mq-map('justify-content', $themeDefault, 'mainJustifyContent');
-                @include em.get-mq-map('padding', $themeDefault, 'mainPadding');
             }
         }
     }
@@ -218,17 +230,7 @@
 
             &__main {
                 @include em.get-mq-map('justify-content', $themeDefault, 'mainFirstJustifyContent');
-                @include em.get-mq-map('padding', $themeDefault, 'mainPaddingFirst');
                 @include em.get-mq-map('min-height', $themeDefault, 'containerFirstMinHeight');
-
-                .wlc-btn--next-step {
-                    margin: ef.get-value($themeDefault, 'singupBtnNextStepMargin');
-                }
-
-                .wlc-link-block {
-                    width: ef.get-value($themeDefault, 'singupLinkBlockWidth');
-                    margin: ef.get-value($themeDefault, 'singupLinkBlockMargin');
-                }
             }
         }
     }

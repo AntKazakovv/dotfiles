@@ -257,7 +257,8 @@ export class SelectComponent extends AbstractComponent implements OnInit, OnChan
         if (!this.isOpened || this.control.disabled) {
             return;
         }
-
+        this.control.markAsTouched();
+        this.control.updateValueAndValidity();
         this.isOpened = false;
         this.clearSearchField();
         this.searchText = this.placeholderText;

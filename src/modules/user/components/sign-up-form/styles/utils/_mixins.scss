@@ -13,7 +13,6 @@
 @mixin formStyles($map) {
     display: grid;
     grid-gap: ef.get-value($map, 'gridGap');
-    grid-template-areas: ef.get-value($map, 'templateAreas');
     grid-template-columns: ef.get-value($map, 'gridColumns');
     align-content: ef.get-value($map, 'gridAlignContent');
     height: ef.get-value($map, 'formHeight');

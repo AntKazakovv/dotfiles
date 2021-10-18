@@ -4,6 +4,7 @@ import {
     IFormWrapperCParams,
     IIndexing,
 } from 'wlc-engine/modules/core';
+import {FormElements} from 'wlc-engine/modules/core/system/config/form-elements';
 
 export type ComponentTheme = 'default' | CustomType;
 export type ComponentType = 'default' | CustomType;
@@ -19,6 +20,10 @@ export interface ISignUpFormCParams extends IComponentParams<ComponentTheme, Com
     modifiers?: Modifiers[];
     formConfig?: IFormWrapperCParams;
     formData?: IIndexing<unknown>;
+    /**
+     * Uses only for MGA license
+     */
+    formType?: 'mga' | null;
 }
 
 export const defaultParams: ISignUpFormCParams = {
@@ -31,104 +36,42 @@ export const defaultParams: ISignUpFormCParams = {
 export const signUpFormConfig: IFormWrapperCParams = {
     class: 'wlc-form-wrapper',
     components: [
+        FormElements.email,
+        FormElements.passwordNew,
+        FormElements.currency,
+        FormElements.promocode,
+        FormElements.terms,
+        FormElements.age,
+        FormElements.signUp,
         {
-            name: 'core.wlc-input',
+            name: 'core.wlc-link-block',
             params: {
-                theme: 'vertical',
-                wlcElement: 'block_email',
+                wlcElement: 'button_login-modal',
                 common: {
-                    placeholder: gettext('E-mail'),
-                    type: 'email',
-                    customModifiers: 'email',
-                },
-                name: 'email',
-                validators: ['required', 'email', 'emailUnique'],
-            },
-        },
-        {
-            name: 'core.wlc-input',
-            params: {
-                theme: 'vertical',
-                wlcElement: 'block_password-current',
-                common: {
-                    placeholder: gettext('Password'),
-                    type: 'password',
-                    customModifiers: 'right-shift password',
-                    usePasswordVisibilityBtn: true,
-                },
-                name: 'password',
-                validators: ['required', 'password',
-                    {
-                        name: 'minLength',
-                        options: 6,
+                    subtitle: gettext('Already have an account?'),
+                    link: gettext('Login now'),
+                    actionParams: {
+                        modal: {
+                            name: 'login',
+                        },
                     },
-                    {
-                        name: 'maxLength',
-                        options: 50,
-                    },
-                ],
-            },
-        },
-        {
-            name: 'core.wlc-select',
-            params: {
-                labelText: gettext('Currency'),
-                options: 'currencies',
-                theme: 'vertical',
-                wlcElement: 'block_currency',
-                common: {
-                    customModifiers: 'currency',
-                },
-                validators: ['required'],
-                name: 'currency',
-            },
-        },
-        {
-            name: 'core.wlc-input',
-            params: {
-                theme: 'vertical',
-                wlcElement: 'block_promocode',
-                common: {
-                    placeholder: gettext('Promocode'),
-                    customModifiers: 'promocode',
-                },
-                name: 'registrationPromoCode',
-            },
-        },
-        {
-            name: 'core.wlc-checkbox',
-            params: {
-                checkboxType: 'terms',
-                name: 'agreedWithTermsAndConditions',
-                wlcElement: 'block_rules',
-                common: {
-                    customModifiers: 'terms',
-                },
-                validators: ['requiredTrue'],
-            },
-        },
-        {
-            name: 'core.wlc-checkbox',
-            params: {
-                checkboxType: 'age',
-                name: 'ageConfirmed',
-                wlcElement: 'block_age-confirm',
-                common: {
-                    customModifiers: 'age',
-                },
-                validators: ['requiredTrue'],
-            },
-        },
-        {
-            name: 'core.wlc-button',
-            params: {
-                wlcElement: 'button_register-submit',
-                common: {
-                    text: gettext('Sign up'),
-                    type: 'submit',
                 },
             },
         },
+    ],
+};
+
+export const magLicenseFormConfig = {
+    components: [
+        FormElements.lastName,
+        FormElements.firstName,
+        FormElements.country,
+        FormElements.city,
+        FormElements.address,
+        FormElements.postalCode,
+        FormElements.birthDate,
+        FormElements.terms,
+        FormElements.signUp,
         {
             name: 'core.wlc-link-block',
             params: {

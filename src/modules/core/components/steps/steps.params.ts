@@ -158,6 +158,35 @@ const regFormStepTopComponents = {
     },
 };
 
+const getMagLicenseForm = (isSecondProfile: boolean) => {
+    const form: IStepConfig = {
+        name: 'core.wlc-wrapper',
+        class: 'wlc-steps__container wlc-steps__container--sign-up',
+        components: [
+            {
+                name: 'core.wlc-wrapper',
+                params: {
+                    class: 'wlc-steps__main',
+                    components: [
+                        regFormStepTopComponents,
+                        {
+                            name: 'user.wlc-sign-up-form',
+                            params: {
+                                customMod: ['mga'],
+                                formType: 'mga',
+                            },
+                        },
+                    ],
+                },
+            },
+        ],
+    };
+    if (isSecondProfile) {
+        form.components.push(bonusPrewiew);
+    }
+    return form;
+};
+
 const regFormComponent = {
     name: 'user.wlc-sign-up-form',
 };
@@ -197,7 +226,7 @@ const smsVerification = {
                 },
             },
             {
-                name:'user.wlc-sms-verification',
+                name: 'user.wlc-sms-verification',
             },
             linkBlock,
         ],
@@ -281,6 +310,7 @@ export const defaultParams: IStepsParams = {
                 bonusPrewiew,
             ],
         },
+        'signUpFormMagLicense': getMagLicenseForm(true),
         'signUpSmsVerify': {
             name: 'core.wlc-wrapper',
             class: 'wlc-steps__container wlc-steps__container--sign-up',
@@ -344,6 +374,7 @@ export const defaultParams: IStepsParams = {
                 },
             ],
         },
+        'signUpFormMagLicense': getMagLicenseForm(false),
         'signUpSmsVerify': {
             name: 'core.wlc-wrapper',
             class: 'wlc-steps__container wlc-steps__container--sign-up',

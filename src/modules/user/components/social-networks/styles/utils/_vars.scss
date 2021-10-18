@@ -45,14 +45,11 @@ $themeDefault: map-merge((
     'listDirection': row,
     'listJustify': center,
     'listAlign': center,
-    'listMargin': 0 -10px,
+    'listFlexWrap': wrap,
+    'listMargin': ef.size(-1) ef.size(-2),
     'listPadding': 0,
-    'listFlexWrap': (
-        375: wrap,
-        480: nowrap,
-    ),
 
-    'buttonMarginLast': 0,
+    'buttonPadding': ef.size(1) ef.size(2),
 ), $customThemeDefault);
 
 $customThemeProfile: () !default;
