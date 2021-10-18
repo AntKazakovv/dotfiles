@@ -68,7 +68,10 @@ export class RestorePasswordFormComponent extends AbstractComponent {
                 data: <IPushMessageParams>{
                     type: 'success',
                     title: gettext('Password reset success'),
-                    message: response.data.result,
+                    // TODO: Remove the check when the normal error text is received
+                    message: this.configService.get<boolean>('appConfig.hideEmailExistence')
+                        ? gettext('A password reset link will be sent to your e-mail address shortly.')
+                        : response.data.result,
                     wlcElement: 'notification_password-reset-success',
                 },
             });
