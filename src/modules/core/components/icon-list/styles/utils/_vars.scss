@@ -97,7 +97,7 @@ $themePayments: map-merge((
         375: ef.get('size', 'less'),
         900: ef.get('size', 'less') * 1.2,
     ),
-    'iconMargin': (
+    'iconPadding': (
         375: 0 ef.size(3),
         900: ef.size(2) ef.size(4),
         1630: ef.size(4),

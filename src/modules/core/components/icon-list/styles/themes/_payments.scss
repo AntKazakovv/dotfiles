@@ -89,7 +89,7 @@
 
         &__item,
         &-item {
-            @include em.get-mq-map('margin', $themePayments, 'iconMargin');
+            @include em.get-mq-map('padding', $themePayments, 'iconPadding');
 
             img,
             .wlc-icon img,
