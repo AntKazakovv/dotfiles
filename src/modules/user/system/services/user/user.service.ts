@@ -28,6 +28,7 @@ import {UserProfile} from 'wlc-engine/modules/user/system/models/profile.model';
 import {UserInfo} from 'wlc-engine/modules/user/system/models/info.model';
 import {LimitationService} from 'wlc-engine/modules/user/system/services/limitation/limitation.service';
 import {InjectionService} from 'wlc-engine/modules/core/system/services/injection/injection.service';
+import {IValidateData} from 'wlc-engine/modules/user/system/classes/user-actions-abstract.class';
 
 import _assign from 'lodash-es/assign';
 import _each from 'lodash-es/each';
@@ -222,8 +223,8 @@ export class UserService {
         this.userProfile$.next(this.profile);
     }
 
-    public validateRegistration(formData): Promise<IIndexing<any>> {
-        return this.dataService.request('user/userRegistration', formData);
+    public validateRegistration(regData: IValidateData): Promise<IIndexing<any>> {
+        return this.dataService.request('user/userRegistration', regData);
     }
 
     public login(login: string, password: string): Promise<IIndexing<any>> {
@@ -252,6 +253,10 @@ export class UserService {
         if (this.configService.get('$base.profile.limitations.use')
             && !userProfile.extProfile?.realityCheckTime) {
             _set(userProfile, 'extProfile.realityCheckTime', 30);
+        }
+
+        if (this.configService.get<boolean>('$base.turnOnSendEmailNotificationInRegister')) {
+            userProfile.emailAgree = true;
         }
 
         const response = this.dataService.request('user/createProfile', userProfile as any);

@@ -38,6 +38,7 @@ export interface IUserProfile {
     email?: string;
     emailVerified?: string;
     extProfile?: IExtProfile;
+    emailAgree?: boolean;
     firstName?: string;
     gender?: string;
     ibanNumber?: string;
@@ -53,6 +54,7 @@ export interface IUserProfile {
     phoneVerified?: string | boolean;
     postalCode?: string;
     registrationBonus?: string;
+    smsAgree?: boolean;
     swift?: string;
     VerificationJobID?: string;
     VerificationSessionID?: string;
@@ -62,7 +64,7 @@ export interface IUserProfile {
     passwordRepeat?: string;
     password?: string;
     oddsStyle?: string;
-    socketsData?: ISocketsData,
+    socketsData?: ISocketsData;
 }
 
 export interface IExtProfile {

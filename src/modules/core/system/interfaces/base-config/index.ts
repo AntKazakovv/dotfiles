@@ -53,4 +53,8 @@ export interface IBaseConfig {
     colorThemeSwitching?: IColorThemeSwitchingConfig;
     registration?: IRegistrationConfig;
     finances?: IFinancesConfig;
+    /**
+     * if true - аfter registering, the notifications will be automatically turned on
+     */
+    turnOnSendEmailNotificationInRegister?: boolean,
 }
