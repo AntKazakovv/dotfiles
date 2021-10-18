@@ -14,7 +14,12 @@ clean_temp() {
 # clone dev_casino
 git clone $git_url ./temp/devcasino
 cd ./temp/devcasino
+git fetch
 git checkout develop
+
+#lock engine version
+current_ver=$(jq '.dependencies["@egamings/wlc-engine"]' < package.json | sed -e 's/"//g')
+sed -i -e "s/\"@egamings\/wlc-engine\": \"$current_ver\"/\"@egamings\/wlc-engine\": \"$engine_ver\"/g" ./package.json
 
 # update npm dependencies
 rm -rf node_modules package-lock.json
@@ -69,7 +74,7 @@ echo y | ./make-prod-release
 # update neccesery branches
 for branch in $branches; do
     git checkout $branch
-    git rebase develop
+    git rebase origin/develop
     git push origin $branch --force-with-lease
 done;
 
