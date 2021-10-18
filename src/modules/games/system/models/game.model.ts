@@ -29,6 +29,7 @@ export class Game extends AbstractModel<IGame> {
     public hasDemo: boolean;
     public name: IIndexing<string>;
     public categoryID: number[];
+    public sortPerLanguage: IIndexing<number>;
     public description: IIndexing<string> | string[];
     public launchCode: string;
     public merchantID: number;
@@ -88,6 +89,7 @@ export class Game extends AbstractModel<IGame> {
         this.launchCode = data.LaunchCode;
         this.merchantID = _toNumber(data.MerchantID);
         this.subMerchantID = _toNumber(data.SubMerchantID);
+        this.sortPerLanguage = data.CustomSort.Lang || {};
         this.sort = _toNumber(data.Sort);
         this.url = data.Url;
         this.image = data.Image;
@@ -145,20 +147,6 @@ export class Game extends AbstractModel<IGame> {
     public getMerchantAlias(): string {
         return GamesHelper.getMerchantAliasById(this.merchantID)
             || GamesHelper.getMerchantAliasById(this.subMerchantID);
-    }
-
-    /**
-     *
-     */
-    public setSortedCategoryFields(): void {
-        if (this.sortPerCategory) {
-            _each(this.sortPerCategory, (value, key) => {
-                if (value) {
-                    const name = GamesHelper.mapping.categoryIdToNameMapping[key];
-                    this[name + 'Sorted'] = value;
-                }
-            });
-        }
     }
 
     /**

@@ -312,6 +312,7 @@ export interface IGame {
     SubMerchantID: string;
     Sort: string;
     SortPerCategory: IIndexing<number>;
+    CustomSort: ICustomSort;
     MobileUrl: string;
     MobileAndroidUrl?: string;
     MobileWindowsUrl?: string;
@@ -331,6 +332,10 @@ export interface IGame {
     TableID: string;
     isRestricted: boolean;
     Freeround?: string;
+}
+
+export interface ICustomSort {
+    Lang?: IIndexing<number>;
 }
 
 export type TGameImageSize = 196 | 208 | 232 | 250 | 315 | 640;

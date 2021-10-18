@@ -1,3 +1,4 @@
+import {TranslateService} from '@ngx-translate/core';
 import {
     IIndexing,
     ICategorySettings,
@@ -25,6 +26,7 @@ import _isArray from 'lodash-es/isArray';
 import _toNumber from 'lodash-es/toNumber';
 import _each from 'lodash-es/each';
 import _set from 'lodash-es/set';
+import _orderBy from 'lodash-es/orderBy';
 
 export class GamesHelper {
 
@@ -307,6 +309,16 @@ export class GamesHelper {
             }
         });
         return restrictions;
+    }
+
+    /**
+     * Sort games by default using global sort
+     *
+     * @param {Game[]} games Games list for sort
+     * @returns {Game[]} Sorted games
+     */
+    public static sortGamesByDefault(games: Game[]): Game[] {
+        return _orderBy(games, (game: Game) => game.sort || 0, 'desc');
     }
 
 }

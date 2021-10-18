@@ -1,5 +1,8 @@
 import {UIRouter} from '@uirouter/core';
-import {TranslateService} from '@ngx-translate/core';
+import {
+    LangChangeEvent,
+    TranslateService,
+} from '@ngx-translate/core';
 import {
     ICategorySettings,
     IFromLog,
@@ -120,11 +123,19 @@ export class GamesCatalog extends AbstractModel<IGames> {
         protected eventService: EventService,
     ) {
         super({from: _assign({model: 'GamesCatalog'}, from)});
+
         this.data = _data;
         this.overrideJackpots = !this.configService.get<boolean>('$games.categories.useFundistJackpots');
         this.categorySettings = this.configService.get('appConfig.categories');
         this.menuSettings = this.configService.get('appConfig.menuSettings');
         this.processFetchedGamesCatalog(this.data);
+
+        this.translateService.onLangChange.subscribe(({lang}: LangChangeEvent) => {
+            CategoryModel.language = lang;
+            _forEach(this.categories, (category) => {
+                category.sortGames();
+            });
+        });
     }
 
     public isSpecialCategory(category: CategoryModel): boolean {
@@ -150,6 +161,10 @@ export class GamesCatalog extends AbstractModel<IGames> {
         if (includeCategories.length) {
             const categories: CategoryModel[] = this.getCategoriesBySlugs(includeCategories);
             gameList = this.getGamesByCategories(categories);
+
+            if (!searchQuery && categories.length > 1) {
+                gameList = GamesHelper.sortGamesByDefault(gameList);
+            }
         }
 
         if (excludeCategories.length) {
@@ -588,7 +603,6 @@ export class GamesCatalog extends AbstractModel<IGames> {
             if (!merchantName) {
                 continue;
             }
-            game.setSortedCategoryFields();
             GamesHelper.fillGamesByCategoriesMerchants(game, this.availableCategories);
 
             if (this.isExcludeMerchant(sportsbookMerchants, game.merchantID, game.subMerchantID)) {

@@ -27,6 +27,8 @@ import _orderBy from 'lodash-es/orderBy';
 
 export class CategoryModel extends AbstractModel<ICategory> {
 
+    private static currentLanguage: string;
+
     private ready = new Deferred<void>();
     private gamesList: Game[] = [];
     private parent: CategoryModel;
@@ -186,6 +188,10 @@ export class CategoryModel extends AbstractModel<ICategory> {
         this.updateMerchants = true;
     }
 
+    public static set language(language: string) {
+        CategoryModel.currentLanguage = language;
+    }
+
     /**
      * Mark category as parent category
      */
@@ -245,7 +251,44 @@ export class CategoryModel extends AbstractModel<ICategory> {
 
     public sortGames(): void {
         if (this.gamesList.length) {
-            this.gamesList = _orderBy(this.gamesList, (game: Game) => game[this.slug + 'Sorted'] || 0, 'desc');
+
+            let useLangSort: boolean = false,
+                useCategorySort: boolean = false;
+
+            for (const game of this.gamesList) {
+                if (!!game.sortPerLanguage[CategoryModel.currentLanguage]) {
+                    useLangSort = true;
+                    break;
+                }
+                if (!!game.sortPerCategory[this.id]) {
+                    useCategorySort = true;
+                    break;
+                }
+            }
+
+            if (useLangSort || useCategorySort) {
+                this.gamesList = _orderBy(
+                    this.gamesList,
+                    [
+                        (game: Game) => {
+                            if (useLangSort){
+                                return game.sortPerLanguage[CategoryModel.currentLanguage] || null;
+                            } else if (useCategorySort) {
+                                return game.sortPerCategory[this.id] || null;
+                            }
+                        },
+                        (game: Game) => {
+                            return game.sort || 0;
+                        },
+                    ],
+                    [
+                        'asc',
+                        'desc',
+                    ],
+                );
+            } else {
+                this.gamesList = GamesHelper.sortGamesByDefault(this.gamesList);
+            }
         }
     }
 
