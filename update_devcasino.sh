@@ -1,82 +1,119 @@
 #!/bin/bash
 
-branches="scr1-profile scr2-var1 scr2-var2 scr2-var3 scr1-var1";
-git_url="git@wlcgitlab.egamings.com:wlcdevcasino/web.git";
-
 engine_ver=$(jq .version < ./package.json | sed -e 's/"//g');
 current_dir=$(pwd);
+temp_dir="temp/repo";
+
+declare -A projects
+declare -A branches
+
+projects[0]="git@wlcgitlab.egamings.com:wlcdevcasino/web.git";
+branches[0]="develop test master scr1-profile scr2-var1 scr2-var2 scr2-var3 scr1-var1";
+
+projects[1]="git@wlcgitlab.egamings.com:sportsbook/enginesportsbooks.git";
+branches[1]="develop test";
+
+projects[2]="git@wlcgitlab.egamings.com:tkcatcasino/web.git";
+branches[2]="+scr0-pretest";
 
 clean_temp() {
     cd $current_dir
-    rm -rf ./temp/devcasino
+    rm -rf "./$temp_dir"
 }
 
-# clone dev_casino
-git clone $git_url ./temp/devcasino
-cd ./temp/devcasino
-git fetch
-git checkout develop
-
-#lock engine version
-current_ver=$(jq '.dependencies["@egamings/wlc-engine"]' < package.json | sed -e 's/"//g')
-sed -i -e "s/\"@egamings\/wlc-engine\": \"$current_ver\"/\"@egamings\/wlc-engine\": \"$engine_ver\"/g" ./package.json
-
-# update npm dependencies
-rm -rf node_modules package-lock.json
-if [[ $1 != 'no-docker' ]]; then
+#clear npm cache
+if [[ $1 != "no-docker" ]]; then
     cd ~/Projects/wlc-docker/
-    ./node14.sh wlc-engine/temp/devcasino npm cache clear -f
-    ./node14.sh wlc-engine/temp/devcasino npm i
+    ./node14.sh wlc-engine npm cache clear -f
     cd -
 else
     npm cache clear -f
-    npm i
 fi
 
-# check updated wlc-engine version
-lock_ver=$(jq '.dependencies["@egamings/wlc-engine"].version' < package-lock.json | sed -e 's/"//g');
-if [[ $lock_ver != $engine_ver ]]; then
-    echo $lock_ver:$engine_ver
-    clean_temp
-    echo -e "\e[5m\e[1m\e[91mEngine version don't match, something went wrong ($lock_ver vs $engine_ver)\e[25m\e[0m"
-    exit 1;
-fi
+for key in ${!projects[*]}; do
 
-# update composer dependencies
-rm -rf vendor composer.lock
-cd ~/Projects/wlc-docker/
-./compose_php.sh wlc-engine/temp/devcasino composer install
-cd -
+    # clone repo
+    git clone ${projects[$key]} "./$temp_dir"
+    cd "./$temp_dir"
+    git fetch
+    git checkout develop
 
-# update project configs
-npx gulp update:configs
+    #lock engine version
+    current_ver=$(jq '.dependencies["@egamings/wlc-engine"]' < package.json | sed -e 's/"//g')
+    sed -i -e "s/\"@egamings\/wlc-engine\": \"$current_ver\"/\"@egamings\/wlc-engine\": \"$engine_ver\"/g" ./package.json
 
-# commit all changes & make test release
-git status
+    # update npm dependencies
+    rm -rf node_modules package-lock.json
+    if [[ $1 != "no-docker" ]]; then
+        cd ~/Projects/wlc-docker/
+        ./node14.sh wlc-engine/$temp_dir npm i
+        cd -
+    else
+        npm i
+    fi
 
-read -p "See diff and confirm process [y/N]" yn
+    # update composer dependencies
+    rm -rf vendor composer.lock
+    cd ~/Projects/wlc-docker/
+    ./compose_php.sh wlc-engine/$temp_dir composer install
+    cd -
 
-if [[ $yn != 'y' ]]; then
-    exit 1;
-fi
+    # check updated wlc-engine version
+    lock_ver=$(jq '.dependencies["@egamings/wlc-engine"].version' < package-lock.json | sed -e 's/"//g');
+    if [[ $lock_ver != $engine_ver ]]; then
+        clean_temp
+        echo -e "\e[5m\e[1m\e[91mEngine version don't match, something went wrong ($lock_ver vs $engine_ver)\e[25m\e[0m"
+        exit 1;
+    fi
 
-git add .
-git commit -m "SCR #0 - project up $engine_ver"
-git push origin develop
-echo y |  ./make-test-release
+    # update project configs
+    npx gulp update:configs
 
-# make prod release
-git checkout master
-git merge develop -m "SCR #0 - project up $engine_ver"
-git push origin master
-echo y | ./make-prod-release
+    git status
 
-# update neccesery branches
-for branch in $branches; do
-    git checkout $branch
-    git rebase origin/develop
-    git push origin $branch --force-with-lease
+    read -p "See diff for ${projects[$key]} and confirm process [y/N]" yn
+
+    if [[ $yn == 'y' ]]; then
+        git add .
+        git commit -m "SCR #0 - project up $engine_ver"
+
+        # update neccesery branches
+        for branch in ${branches[$key]}; do
+            if [[ $branch == "master" ]]; then
+                # make prod release
+                echo "make prod release";
+                git checkout master
+                git merge develop -m "SCR #0 - project up $engine_ver"
+                git push origin master
+                echo y | ./make-prod-release
+            elif [[ $branch == "develop" ]]; then
+                #update develop
+                echo "make update develop";
+                git checkout develop
+                git push origin develop
+            elif [[ $branch == "test" ]]; then
+                #make test release
+                echo "make test release";
+                git checkout develop
+                git push origin develop
+                echo y |  ./make-test-release
+            else
+                target=$(echo $branch | sed -e 's/\+//g')
+                if [[ $target == $branch ]]; then
+                    echo "make update $branch";
+                    git checkout $branch
+                    git rebase origin/develop
+                    git push origin $branch --force-with-lease
+                else
+                    echo "make create $target";
+                    git branch -D $target
+                    git checkout -b $target
+                    git push origin $target -f
+                fi
+            fi
+        done;
+    fi
+
+    # clean temp direcotory
+    clean_temp;
 done;
-
-# clean temp direcotory
-clean_temp
