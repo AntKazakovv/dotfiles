@@ -128,6 +128,11 @@ export class PragmaticLiveModel extends AbstractModel<PragmaticLiveData> {
         if (_isUndefined(this.data.totalSeatedPlayers) || _isUndefined(this.data.availableSeats)) {
             return 0;
         }
+
+        if (this.data.tableType === 'BLACKJACK') {
+            return 7;
+        }
+
         return 0 + this.data.totalSeatedPlayers + this.data.availableSeats;
     }
 
