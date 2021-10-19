@@ -40,11 +40,11 @@ release() {
         die "ERROR: git add package.json failed"
     fi
 
-    if ! git commit -m "Updated for release ${project} $ver"; then
+    if ! git commit -m "Updated for release ${project} $@"; then
         die "ERROR: git commit failed"
     fi
 
-    if ! git tag -a -m "Release ${project} $ver" $tag; then
+    if ! git tag -a -m "Release ${project} $@" $tag; then
         die "ERROR: git tag failed"
     fi
 
