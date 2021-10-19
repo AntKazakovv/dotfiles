@@ -89,7 +89,7 @@ export class Game extends AbstractModel<IGame> {
         this.launchCode = data.LaunchCode;
         this.merchantID = _toNumber(data.MerchantID);
         this.subMerchantID = _toNumber(data.SubMerchantID);
-        this.sortPerLanguage = data.CustomSort.Lang || {};
+        this.sortPerLanguage = data.CustomSort?.Lang || {};
         this.sort = _toNumber(data.Sort);
         this.url = data.Url;
         this.image = data.Image;
