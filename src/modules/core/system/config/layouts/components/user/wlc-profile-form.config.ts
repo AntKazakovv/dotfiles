@@ -140,9 +140,17 @@ export namespace wlcProfileForm {
                                         wlcElement: 'header_edit-password',
                                     },
                                 },
-                                FormElements.passwordNew,
-                                FormElements.passwordConfirm,
                                 FormElements.password,
+                                {
+                                    name: 'core.wlc-wrapper',
+                                    params: <IWrapperCParams> {
+                                        class: 'wlc-profile-form__block',
+                                        components: [
+                                            FormElements.passwordNew,
+                                            FormElements.passwordConfirm,
+                                        ],
+                                    },
+                                },
                             ],
                         },
                     },

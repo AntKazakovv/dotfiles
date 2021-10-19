@@ -3,8 +3,8 @@
 $customMainInfoThemeDefault: () !default;
 $mainInfoThemeDefault: map-merge((
     'sectionColGap': (
-        375: ef.get('size', 'main'),
-        1366: ef.get('size', 'main') * 2
+        375: ef.size(8),
+        1366: ef.size(16)
     ),
     'sectionFormColumns': (
         375: 1fr,
@@ -12,16 +12,16 @@ $mainInfoThemeDefault: map-merge((
         1200: minmax(675px, max-content) 270px,
     ),
     'sectionFormGap': (
-        375: ef.get('size', 'smaller'),
+        375: ef.size(4),
     ),
     'sectionRowGap': (
-        1024: ef.get('size', 'smaller'),
+        1024: ef.size(4),
     ),
     'formRowGap': (
-        375: ef.get('size', 'smaller'),
-        768: ef.get('size', 'small'),
+        375: ef.size(4),
+        768: ef.size(2),
     ),
-    'saveButtonShift': ef.get('size', 'main') - ef.get('size', 'smaller'),
+    'saveButtonShift': ef.size(4),
     'saveButtonAlign': (
         375: center,
         768: end,
@@ -37,7 +37,7 @@ $mainInfoThemeDefault: map-merge((
         375: var(--fc-labelColor),
         768: var(--mc-baseMain)
     ),
-    'phoneInnerGap': 140px + ef.get('size', 'small'),
+    'phoneInnerGap': 150px,
     'phoneTemplateColumns': (
         375: 100px minmax(0, 1fr),
         768: minmax(0, 1fr) 300px,
@@ -60,8 +60,8 @@ $mainInfoThemeDefault: map-merge((
         768: 1fr 140px,
     ),
     'birthSelectColumns': minmax(0, 1fr),
-    'birthInnerGap': 140px + ef.get('size', 'small') * 2,
-    'addBlockGap': ef.get('size', 'smaller'),
+    'birthInnerGap': 160px,
+    'addBlockGap': ef.size(4),
     'addBlockHeight': max-content,
     'addBlockColumns': 1fr auto,
     'addBlockAreas':  'title switcher' 'link .',
@@ -76,7 +76,7 @@ $mainInfoThemeDefault: map-merge((
         375: var(--mc-baseOpacity),
         768: var(--mc-baseMain)
     ),
-    'addItemGap': ef.get('size', 'smaller'),
+    'addItemGap': ef.size(4),
     'addItemWidth': max-content,
     'addItemBtnIconDisplay': (
         375: none,
@@ -107,7 +107,7 @@ $mainInfoThemeDefault: map-merge((
     ),
     'switcherPadding': 0,
     'labelAlignItems': center,
-    'labelMargin': 0 0 0 ef.get('size', 'small'),
+    'labelMargin': 0 0 0 ef.size(2),
     'labelFont': 'PrimaryText',
     'labelFontColor': var(--mc-baseMain),
 ), $customMainInfoThemeDefault);
@@ -127,12 +127,13 @@ $mainInfoThemeV1: map-merge((
     'profileFormBlockFlexWrap': wrap,
     'profileFormBlockAlignItems': center,
     'profileFormBlockMargin': (
-        375: 0 -#{ef.get('size', 'small')} 0,
+        375: 0 ef.size(-2) 0,
     ),
     'profileFormBlockPadding': (
-        375: ef.get('size', 'smaller') 0 ef.get('size', 'small'),
+        375: ef.size(4) 0 ef.size(2),
+        1630: ef.size(4) 0 0,
     ),
-    'profileFormBlockDividerWidth': calc(100% - #{ef.get('size', 'smaller')}),
+    'profileFormBlockDividerWidth': calc(100% - #{ef.size(4)}),
 
     'profileFormBlockSubmitDisplay': flex,
     'profileFormBlockSubmitJustify': center,
@@ -142,20 +143,20 @@ $mainInfoThemeV1: map-merge((
     ),
 
     'profileFormTitleFlex': 1 1 100%,
-    'profileFormTitlePadding': 0 ef.get('size', 'small'),
+    'profileFormTitlePadding': 0 ef.size(2),
     'profileFormTitleMargin': (
-        375: 0 0 ef.get('size', 'small'),
-        1630: 0 0 ef.get('size', 'smaller'),
+        375: 0 0 ef.size(2),
+        1630: 0 0 ef.size(4),
     ),
     'profileFormTitleFontSize': ef.get('font', 'ThirdTitleBold'),
     'profileFormTitleFontWeight': 700,
     'profileFormTitleFontLineHeight': 1.1,
 
     'profileFormFieldsMargin': (
-        375: 0 0 ef.get('size', 'small'),
-        1630: 0 0 ef.get('size', 'smaller'),
+        375: 0 0 ef.size(2),
+        1630: 0 0 ef.size(4),
     ),
-    'profileFormFieldsPadding': 0 ef.get('size', 'small'),
+    'profileFormFieldsPadding': 0 ef.size(2),
     'profileFormFieldsBaseFlex': (
         375: 0 1 100%,
         768: 0 1 50%,
@@ -166,7 +167,12 @@ $mainInfoThemeV1: map-merge((
         900: 50%,
     ),
 
+    'profileFormCurrentPassFlexBasis': (
+        375: 100%,
+        900: 50%,
+    ),
+
     'profileFormComposedFieldGap': (
-        1630: ef.get('size', 'smaller'),
+        1630: ef.size(4),
     ),
 ), $customMainInfoThemeV1);

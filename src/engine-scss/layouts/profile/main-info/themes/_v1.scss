@@ -7,11 +7,11 @@
     &:after {
         content: '';
         position: absolute;
-        width: $width;
-        height: ef.get-value($mainInfoThemeV1, 'dividerHeight');
-        left: ef.get-value($mainInfoThemeV1, 'dividerLeft');
         right: ef.get-value($mainInfoThemeV1, 'dividerRight');
         bottom: ef.get-value($mainInfoThemeV1, 'dividerBottom');
+        left: ef.get-value($mainInfoThemeV1, 'dividerLeft');
+        width: $width;
+        height: ef.get-value($mainInfoThemeV1, 'dividerHeight');
         margin: ef.get-value($mainInfoThemeV1, 'dividerMargin');
         background: ef.get-value($mainInfoThemeV1, 'dividerBackground');
     }
@@ -31,7 +31,10 @@
                 align-items: ef.get-value($mainInfoThemeV1, 'profileFormBlockAlignItems');
 
                 &:first-child {
-                    padding-top: 0;
+
+                    @include mq.min(1024) {
+                        padding-top: 0;
+                    }
                 }
 
                 &--main,
@@ -44,6 +47,15 @@
                     @include bm.get-mq-map('padding', $mainInfoThemeV1, 'profileFormBlockSubmitPadding');
                     display: ef.get-value($mainInfoThemeV1, 'profileFormBlockSubmitDisplay');
                     justify-content: ef.get-value($mainInfoThemeV1, 'profileFormBlockSubmitJustify');
+                }
+
+                &--password {
+
+                    .wlc-profile-form__block {
+                        width: 100%;
+                        margin: 0;
+                        padding: 0;
+                    }
                 }
 
                 .wlc-title {
@@ -81,6 +93,10 @@
                 & > .wlc-birth-field,
                 & > .wlc-phone-field {
                     @include bm.get-mq-map('flex-basis', $mainInfoThemeV1, 'profileFormFieldsWideFlexBasis');
+                }
+
+                & > .wlc-input.wlc-input--password {
+                    @include bm.get-mq-map('flex-basis', $mainInfoThemeV1, 'profileFormCurrentPassFlexBasis');
                 }
             }
         }
