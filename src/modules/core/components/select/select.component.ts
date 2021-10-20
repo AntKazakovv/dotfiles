@@ -115,12 +115,16 @@ export class SelectComponent extends AbstractComponent implements OnInit, OnChan
             this.setOptions();
         }
 
-        if (!this.$params.common?.placeholder) {
+        if (!this.control.value && !this.$params.common?.placeholder) {
             this.control.setValue(this.foundItems[0]?.value || '');
         }
 
-        if (this.$params.value) {
+        if (this.$params.value && _find(this.foundItems, item => item.value === this.$params.value)) {
             this.control.setValue(this.$params.value);
+        }
+
+        if (this.control.value  && !_find(this.foundItems, item => item.value === this.control.value)) {
+            this.control.setValue(this.foundItems[0]?.value || '');
         }
 
         if (this.$params.autoSelect) {

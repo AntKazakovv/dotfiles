@@ -5,6 +5,7 @@ import {
     DateTime,
     Info,
 } from 'luxon';
+import {GlobalHelper} from 'wlc-engine/modules/core/system/helpers/global.helper';
 import {InjectionService} from 'wlc-engine/modules/core/system/services/injection/injection.service';
 import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
 import {ICountry} from 'wlc-engine/modules/core/system/interfaces/fundist.interface';
@@ -21,6 +22,7 @@ import _map from 'lodash-es/map';
 import _range from 'lodash-es/range';
 import _sortBy from 'lodash-es/sortBy';
 import _uniqBy from 'lodash-es/uniqBy';
+import _values from 'lodash-es/values';
 
 export interface IPhoneLimits {
     [key: string]: {
@@ -47,8 +49,18 @@ export class SelectValuesService {
         });
     }
 
+    /**
+     * Prepares and returns currency objects
+     *
+     * @returns {BehaviorSubject<Params.ISelectOptions[]>} BehaviorSubject<Params.ISelectOptions[]>
+     *
+     */
     public prepareCurrency(): BehaviorSubject<Params.ISelectOptions[]> {
-        const modifyCurrencies = this.configService.get<IIndexing<ICurrency>>('appConfig.siteconfig.currencies');
+        const sortConfig = this.configService.get<string[]>('$base.registration.currencySort');
+        let modifyCurrencies = _values(this.configService.get<IIndexing<ICurrency>>('appConfig.siteconfig.currencies'));
+
+        modifyCurrencies = GlobalHelper.sortByOrder(modifyCurrencies, sortConfig, 'Name');
+
         return new BehaviorSubject(
             _map(
                 _filter(modifyCurrencies, (el: ICurrency) => {
