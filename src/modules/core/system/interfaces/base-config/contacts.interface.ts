@@ -2,6 +2,11 @@ import {ISocialItem} from 'wlc-engine/modules/core/components/social-icons/socia
 
 export type TimeUnits = 'hours' | 'minutes';
 
+export interface IAdditionalInfo {
+    label?: string;
+    text: string;
+}
+
 export interface IContactsConfig {
     /** Phone number */
     phone?: string;
@@ -13,4 +18,6 @@ export interface IContactsConfig {
     timeUnits?: TimeUnits;
     /** Social media icons */
     socials?: ISocialItem[];
+    /** Addidtional info */
+    additionalInfo?: IAdditionalInfo;
 }

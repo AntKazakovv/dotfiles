@@ -19,6 +19,12 @@
         <span>{{'Estimated response time' | translate}}</span>
         <span>{{contactsConfig.estResTime}} {{contactsConfig.timeUnits | translate}}</span>
     </div>
+    <div *ngIf="contactsConfig.additionalInfo"
+        class="{{$class}}-details__item"
+        data-wlc-element="block_additional_info">
+        <span>{{contactsConfig.additionalInfo.label | translate}}</span>
+        <span>{{contactsConfig.additionalInfo.text | translate}}</span>
+    </div>
 </div>
 
 <hr>

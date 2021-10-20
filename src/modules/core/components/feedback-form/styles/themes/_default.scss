@@ -42,7 +42,7 @@
         }
 
         span {
-            @include cm.labelStyle(false, false);
+            @include cm.labelStyle(false, true);
         }
 
         a,
