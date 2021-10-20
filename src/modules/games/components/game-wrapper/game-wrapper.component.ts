@@ -487,16 +487,16 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
             return;
         }
 
-        const iframeHeight: string = this.iframe?.getAttribute('height');
-        if (iframeHeight && iframeHeight !== '100%') {
-            this.renderer.setStyle(gameWrapper, 'height', iframeHeight + 'px');
-            return;
-        }
-
         if (this.isMobile) {
             this.renderer.setStyle(gameWrapper, 'height', '100%');
             this.renderer.setStyle(gameWrapper, 'maxWidth', '100%');
         } else {
+            const iframeHeight: string = this.iframe?.getAttribute('height');
+            if (iframeHeight && iframeHeight !== '100%') {
+                this.renderer.setStyle(gameWrapper, 'height', iframeHeight + 'px');
+                return;
+            }
+
             const maxHeight: number = this.getMaxHeight();
             const minHeight: number = this.$params.gameParams?.minGameWindowHeight || 0;
             if (!width) {

@@ -203,6 +203,8 @@
             }
 
             &__game-area {
+                display: flex;
+                flex-direction: column;
                 position: initial;
                 z-index: 10;
                 width: 100%;
@@ -214,16 +216,6 @@
 
             &__game-container {
                 height: 100%;
-            }
-        }
-
-        &.wlc-game-wrapper--real-mobile {
-
-            .wlc-game-wrapper {
-
-                &__game-area {
-                    height: 100% !important;
-                }
             }
         }
     }
