@@ -173,6 +173,7 @@ export type ICategory = {
     en?: string;
     CSort: string;
     CSubSort: string;
+    CustomSort?: ICustomSort;
     MappingName?: string;
     visibility?: boolean;
 }

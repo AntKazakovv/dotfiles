@@ -16,7 +16,6 @@ import {UserProfile} from 'wlc-engine/modules/user/system/models/profile.model';
 import {IIndexing} from 'wlc-engine/modules/core/system/interfaces/global.interface';
 import {AbstractModel} from 'wlc-engine/modules/core/system/models/abstract.model';
 import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
-import {GlobalHelper} from 'wlc-engine/modules/core/system/helpers/global.helper';
 import {EventService} from 'wlc-engine/modules/core/system/services/event/event.service';
 import {gamesEvents} from 'wlc-engine/modules/games/system/interfaces/games.interfaces';
 import {Game} from 'wlc-engine/modules/games/system/models/game.model';
@@ -146,7 +145,8 @@ export class GamesCatalog extends AbstractModel<IGames> {
 
         this.translateService.onLangChange.subscribe(({lang}: LangChangeEvent) => {
             CategoryModel.language = lang;
-            _forEach(this.categories, (category) => {
+
+            _forEach(this.projectCategories, (category: CategoryModel): void => {
                 category.sortGames();
             });
         });
@@ -278,7 +278,22 @@ export class GamesCatalog extends AbstractModel<IGames> {
      * @returns {CategoryModel[]}
      */
     public sortCategories(categories: CategoryModel[]): CategoryModel[] {
-        return GlobalHelper.sortByNumber<CategoryModel>(categories, 'sort', false);
+        const useSortByLang: boolean = !!_find(categories, (category: CategoryModel): boolean => !!category.sortByLang);
+        if (useSortByLang) {
+            return _orderBy(
+                categories,
+                [
+                    (category: CategoryModel) => category.sortByLang || null,
+                    (category: CategoryModel) => category.sort || 0,
+                ],
+                [
+                    'asc',
+                    'desc',
+                ],
+            );
+        } else {
+            return _orderBy(categories, (category: CategoryModel) => category.sort || 0, 'desc');
+        }
     }
 
     /**
@@ -636,6 +651,7 @@ export class GamesCatalog extends AbstractModel<IGames> {
          * CATEGORIES
          **********************************************************************************************************/
         response.categories = _concat(this.specialCategories, response.categories);
+        CategoryModel.language = this.translateService.currentLang;
 
         const categories = GamesHelper.mapCategories(response.categories, this.categorySettings);
         this.categories = this.sortCategories(categories);
@@ -681,8 +697,6 @@ export class GamesCatalog extends AbstractModel<IGames> {
                 resultGames.push(game);
             }
         }
-
-        this.availableCategories = this.sortCategories(this.availableCategories);
         this.games = _orderBy(resultGames, (game: Game) => _toNumber(game.sort), 'desc');
 
         this.updateAvailableGamesAndMerchants(this.userCountry);
@@ -773,14 +787,13 @@ export class GamesCatalog extends AbstractModel<IGames> {
                 if (games.length) {
                     const newChildCategory: CategoryModel = _cloneDeep(category);
                     newChildCategory.setParentCategory(mainParentCategory);
-                    newChildCategory.setGames(
-                        _orderBy(games, (game: Game) => game[category.name + 'Sorted'] || 0, 'desc'),
-                    );
+                    newChildCategory.setGames(games);
                     availableChildCategories.push(newChildCategory);
                 }
             });
 
             mainParentCategory.setChildCategories(availableChildCategories);
+
             this.projectCategories = this.sortCategories(_union(parentCategories, availableChildCategories));
             this.configureCategoriesView(this.projectCategories);
         }

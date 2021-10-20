@@ -121,8 +121,22 @@ export class CategoryModel extends AbstractModel<ICategory> {
         return this.slug;
     }
 
+    /**
+     * Value of sort by default
+     *
+     * @returns {number} Value of sort
+     */
     public get sort(): number {
         return this.defaultSort;
+    }
+
+    /**
+     * Value of sort by currently used language
+     *
+     * @returns {number} Value of sort
+     */
+    public get sortByLang(): number {
+        return this.data.CustomSort?.Lang?.[CategoryModel.currentLanguage];
     }
 
     public get tags(): string[] {
@@ -258,15 +272,16 @@ export class CategoryModel extends AbstractModel<ICategory> {
             for (const game of this.gamesList) {
                 if (!!game.sortPerLanguage[CategoryModel.currentLanguage]) {
                     useLangSort = true;
+                    useCategorySort = false;
                     break;
                 }
                 if (!!game.sortPerCategory[this.id]) {
                     useCategorySort = true;
-                    break;
                 }
             }
 
             if (useLangSort || useCategorySort) {
+
                 this.gamesList = _orderBy(
                     this.gamesList,
                     [
