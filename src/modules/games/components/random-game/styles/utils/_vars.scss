@@ -3,21 +3,25 @@
 $customThemeDefault: () !default;
 $themeDefault: map-merge((
     'background': var(--mc-bg700),
-    'borderRadius': ef.get('size', 'small'),
+    'borderRadius': ef.size(2),
     'gridRows': (
         375: auto 1fr auto,
     ),
     'gridColumns': (
         375: 1fr,
     ),
-    'gap': ef.get('size', 'smally'),
+    'gap': ef.size(3),
     'alignItems': center,
     'justifyItems': center,
     'height': 100%,
-    'padding': ef.get('size', 'smaller'),
+    'padding': (
+        375: ef.size(2),
+        480: ef.size(4),
+    ),
     'titleColor': var(--mc-baseMain),
     'titleFontWeight': bold,
     'titleTextTransform': none,
-    'iconMargin': ef.get('size', 'small') 0,
+    'iconMargin': ef.size(2) 0,
     'iconFill': var(--mc-baseOpacity),
+    'btnPadding': ef.size(1) ef.size(2),
 ), $customThemeDefault);

@@ -4,7 +4,10 @@ $commonStyles: map-merge((
     'buttonAlign': center,
     'buttonJustify': center,
     'buttonBg': none,
-    'buttonPadding': 0,
+    'buttonPadding': (
+        375: 0 ef.size(2) ef.size(2) ef.size(2),
+        480: 0 ef.size(2),
+    ),
     'buttonBorder': none,
     'buttonColor': ef.get('mainColors', 'baseMain'),
 
@@ -42,10 +45,13 @@ $themeDefault: map-merge((
     'listDirection': row,
     'listJustify': center,
     'listAlign': center,
-    'listMargin': 0,
+    'listMargin': 0 -10px,
     'listPadding': 0,
+    'listFlexWrap': (
+        375: wrap,
+        480: nowrap,
+    ),
 
-    'buttonMargin': 0 ef.size(4) 0 0,
     'buttonMarginLast': 0,
 ), $customThemeDefault);
 

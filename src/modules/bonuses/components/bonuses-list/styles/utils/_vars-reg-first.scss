@@ -17,5 +17,5 @@ $themeRegFirst: map-merge((
     'sliderAlignItems': center,
     'sliderJustifyContent': space-between,
     'checkBoxMargin': ef.get('size', 'main') 0 0 0,
-    'checkBoxAlign': center,
+    'checkBoxAlign': left,
 ), $customThemeRegFirst);

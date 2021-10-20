@@ -96,6 +96,10 @@
                         @include em.lineClamp(2);
                         color: ef.get-value($themePartial, 'blankCheckNameColor');
                     }
+
+                    @include em.colorThemeAlt {
+                        @include em.get-mq-map('background', $themePartial, 'blankIconSignBackgroundAlt');
+                    }
                 }
             }
 

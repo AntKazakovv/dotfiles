@@ -38,4 +38,7 @@ $themeTotalJackpot: map-merge((
     ),
 
     'textStrokeColor': #683c14,
+
+    'textColor': #{url(#jackpot-linear-gradient) #ffdb1f},
+    'textColorIos': #f8d23a
 ), $customThemeTotalJackpot);

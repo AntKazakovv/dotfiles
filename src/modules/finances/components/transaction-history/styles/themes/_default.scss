@@ -77,6 +77,20 @@
 
                 .wlc-table__row:not(.wlc-table__row--head) {
 
+                    @include bm.hover {
+
+                        .allow-cancelation {
+
+                            .action-text {
+                                opacity: 1;
+
+                                @include mq.min(1200) {
+                                    opacity: 0;
+                                }
+                            }
+                        }
+                    }
+
                     @include bm.hover(false) {
 
                         .allow-cancelation {

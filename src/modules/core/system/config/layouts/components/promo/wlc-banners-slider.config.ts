@@ -51,7 +51,7 @@ export namespace wlcBannersSlider {
                         delay: 10000,
                     },
                     breakpoints: {
-                        1200: {
+                        1366: {
                             slidesPerView: 1.2,
                             spaceBetween: 30,
                         },

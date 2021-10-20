@@ -25,9 +25,15 @@
     }
 
     &.profile-first {
+        @include bm.get-mq-map('min-width', ev.$tableBtnBlock, 'btnBlockMinWidthFirst');
 
         .action-btn {
+            @include bm.get-mq-map('display', ev.$tableBtnBlock, 'btnActionDisplayFirst');
             @include bm.get-mq-map('bottom', ev.$tableBtnBlock, 'btnBottomFirst');
+
+            @include bm.hover(false) {
+                display: block;
+            }
         }
     }
 }

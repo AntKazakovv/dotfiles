@@ -21,6 +21,13 @@ $themeDefault: map-merge((
     'underlineRadius': ef.get('radius', 'large'),
     'swiperBoxShadowStart': 5px 0 5px -5px #867f7f63,
     'swiperBoxShadowEnd': -5px 0 5px -5px #867f7f63,
+
+    'iconAlignItems': center,
+    'iconJustifyContent': center,
+    'iconOuterWidth': 30px,
+    'iconOuterHeight': 30px,
+    'iconMargin': 0 5px 0 0,
+    'iconSvgMaxWidth': 100%,
 ), $customThemeDefault);
 
 $customDropdownThemeDefault: () !default;

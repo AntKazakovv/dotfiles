@@ -663,6 +663,10 @@ $tableBtnBlock: map-merge((
     'btnBlockMinWidth': (
         1024: 110px,
     ),
+    'btnBlockMinWidthFirst': (
+        375: auto,
+        1200: 110px
+    ),
     'btnBlockPadding': (
         375: 0 0 45px,
         1024: 0,
@@ -680,6 +684,10 @@ $tableBtnBlock: map-merge((
         375: map-get($size, 'small'),
         1024: map-get($size, 'small'),
         1200: auto,
+    ),
+    'btnActionDisplayFirst': (
+        375: block,
+        1200: none,
     ),
 ), $customTableBtnBlock);
 

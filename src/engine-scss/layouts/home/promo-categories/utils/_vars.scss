@@ -18,6 +18,6 @@ $themePromoCategories: map-merge((
         375: list.slash(1, -1),
         720: unset,
     ),
-    'winnersSliderMargin': 0 0 ef.size(4) ef.size(-4),
-    'winnersSliderMarginNoWinners': 0 0 ef.size(4) ef.size(-4),
+    'winnersSliderMargin': 0 0 ef.size(4) 0,
+    'winnersSliderMarginNoWinners': 0 0 ef.size(4) 0,
 ), $customThemePromoCategories);

@@ -40,7 +40,7 @@ $themeDefault: map-merge((
     'descBlockGap': ef.size(4),
 
     'iconValFontColor': var(--fc-textColor),
-    'iconValBg': var(--mc-baseMain),
+    'iconValBg': ef.get('mainColors', 'baseMain'),
     'iconValDisplay': flex,
     'iconValAlignItems': center,
     'iconValJustifyContent': center,

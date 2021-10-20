@@ -65,6 +65,7 @@
         .wlc-total-jackpot__text[class] {
             @include bm.get-mq-map('font-size', $themeTotalJackpot, 'jackpotFontSize');
             @include textStroke(3, ef.get-value($themeTotalJackpot, 'textStrokeColor'));
+            fill: ef.get-value($themeTotalJackpot, 'textColor');
 
             transform: scale(0.95);
             transform-origin: center;
@@ -79,6 +80,10 @@
 
             .wlc-body--browser-safari & {
                 text-shadow: none;
+            }
+
+            .wlc-body--os-ios:not(.wlc-body--browser-safari) & {
+                fill: ef.get-value($themeTotalJackpot, 'textColorIos');
             }
         }
     }

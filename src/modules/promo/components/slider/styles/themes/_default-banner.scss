@@ -49,6 +49,11 @@
                 pointer-events: none;
             }
         }
+
+        .banner,
+        .swiper-button-container {
+            @include em.get-mq-map('padding', $themeDefaultPagination, 'paddingPagiContainer');
+        }
     }
 }
 
@@ -76,4 +81,3 @@
         }
     }
 }
-

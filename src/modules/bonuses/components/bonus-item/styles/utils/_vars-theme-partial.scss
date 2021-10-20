@@ -11,6 +11,9 @@ $themePartial: map-merge((
         320: var(--mc-bg700),
         900: var(--mc-bg300),
     ),
+    'blankIconSignBackgroundAlt': (
+        320: var(--mc-bg700),
+    ),
     'blankIconSignChosenBorderColor': var(--mc-success),
     'blankCheckIconBackground': var(--mc-success),
     'blankCheckNameColor': var(--mc-baseMain),

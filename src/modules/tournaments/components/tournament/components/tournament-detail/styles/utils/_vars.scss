@@ -28,7 +28,7 @@ $themeDefault: map-merge((
     ),
     'headerBorderRadius': (
         320: 0,
-        560: ef.get('radius', 'biger') ef.get('radius', 'biger') 0 0,
+        560: ef.get('radius', 'big') ef.get('radius', 'big') 0 0,
     ),
     'headerBg': var(--mc-bg500),
     'headerBgPosition': center,

@@ -101,15 +101,10 @@
                                     @include em.transition(color);
                                 }
 
-                                .wlc-icon svg * {
-                                    @include em.transition(fill);
-                                }
-
                                 @include em.hover {
                                     text-decoration: none;
 
-                                    .wlc-btn__text,
-                                    .wlc-icon svg * {
+                                    .wlc-btn__text {
                                         color: ef.get-value($themeDefault, 'singupBtnTextColorHover');
                                     }
                                 }
@@ -226,11 +221,13 @@
                 @include em.get-mq-map('padding', $themeDefault, 'mainPaddingFirst');
                 @include em.get-mq-map('min-height', $themeDefault, 'containerFirstMinHeight');
 
+                .wlc-btn--next-step {
+                    margin: ef.get-value($themeDefault, 'singupBtnNextStepMargin');
+                }
+
                 .wlc-link-block {
-                    @include em.get-mq-map('bottom', $themeDefault, 'singupLinkBlockBottomPos');
-                    position: absolute;
-                    left: ef.get-value($themeDefault, 'singupLinkBlockLeftPos');
                     width: ef.get-value($themeDefault, 'singupLinkBlockWidth');
+                    margin: ef.get-value($themeDefault, 'singupLinkBlockMargin');
                 }
             }
         }

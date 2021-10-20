@@ -37,4 +37,8 @@ $themeDefault: map-merge((
 
     'btnMinHeight': 40px,
     'labelAreas': 'label label label' '. . .',
+
+    'actionTextHoverOpacity': (
+        1200: 0
+    ),
 ), $customThemeDefault);

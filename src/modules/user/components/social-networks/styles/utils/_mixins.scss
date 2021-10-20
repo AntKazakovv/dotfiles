@@ -9,10 +9,10 @@
 @mixin buttonStyle($map) {
     @include bm.transition(all, 0.2s);
     @include applyBg(ef.get-value($map, 'iconBg'), '.wlc-social-networks__icon');
+    @include bm.get-mq-map('padding', $map, 'buttonPadding');
     display: ef.get-value($map, 'buttonDisplay');
     align-items: ef.get-value($map, 'buttonAlign');
     justify-content: ef.get-value($map, 'buttonJustify');
-    padding: ef.get-value($map, 'buttonPadding');
     border: ef.get-value($map, 'buttonBorder');
     color: ef.get-value($map, 'buttonColor');
     background: ef.get-value($map, 'buttonBg');
@@ -63,6 +63,7 @@
 }
 
 @mixin listStyles($map) {
+    @include bm.get-mq-map('flex-wrap', $map, 'listFlexWrap');
     display: ef.get-value($map, 'listDisplay');
     flex-direction: ef.get-value($map, 'listDirection');
     align-items: ef.get-value($map, 'listAlign');

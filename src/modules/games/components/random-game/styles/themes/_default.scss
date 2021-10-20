@@ -7,14 +7,18 @@
     border-radius: ef.get-value($themeDefault, 'borderRadius');
 
     .wlc-random-game__wrapper {
-        display: grid;
         @include bm.get-mq-map('grid-template-rows', $themeDefault, 'gridRows');
         @include bm.get-mq-map('grid-template-columns', $themeDefault, 'gridColumns');
+        @include bm.get-mq-map('padding', $themeDefault, 'padding');
+        display: grid;
         gap: ef.get-value($themeDefault, 'gap');
         align-items: ef.get-value($themeDefault, 'alignItems');
         justify-items: ef.get-value($themeDefault, 'justifyItems');
         height: ef.get-value($themeDefault, 'height');
-        padding: ef.get-value($themeDefault, 'padding');
+
+        .wlc-btn {
+            @include bm.get-mq-map('padding', $themeDefault, 'btnPadding');
+        }
     }
 
     .wlc-random-game__title {
