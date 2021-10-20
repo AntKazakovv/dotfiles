@@ -63,6 +63,10 @@ export class UserProfile extends AbstractModel<IUserProfile> {
         return this.data.emailVerified;
     }
 
+    public get emailAgree(): boolean {
+        return this.data.emailAgree;
+    }
+
     public get extProfile(): IExtProfile {
         return this.data.extProfile || {};
     }
@@ -129,6 +133,10 @@ export class UserProfile extends AbstractModel<IUserProfile> {
 
     public get swift(): string {
         return this.data.swift;
+    }
+
+    public get smsAgree(): boolean {
+        return this.data.smsAgree;
     }
 
     public get VerificationJobID(): string {

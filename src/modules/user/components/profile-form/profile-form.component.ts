@@ -87,7 +87,7 @@ export class ProfileFormComponent extends AbstractComponent implements OnInit {
                 if (!this.toggleBtn.control.untouched) {
                     this.toggleBtn.control.setValue(this.userToggleChoice);
                 } else {
-                    this.toggleBtn.control.setValue(profile.extProfile?.sendEmail);
+                    this.toggleBtn.control.setValue(profile.emailAgree);
                 }
                 this.cdr.detectChanges();
             }
@@ -188,10 +188,12 @@ export class ProfileFormComponent extends AbstractComponent implements OnInit {
 
         try {
             const userProfile = {
+                // for wlc_core old versions
                 extProfile: {
                     dontSendEmail: !checked,
                     sendEmail: checked,
                 },
+                emailAgree: checked,
             };
 
             await this.userService.updateProfile(userProfile, true);

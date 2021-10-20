@@ -68,9 +68,13 @@ export interface IUserProfile {
 }
 
 export interface IExtProfile {
+    /** @deprecated use IUserProfile.emailAgree */
     dontSendEmail?: boolean;
+    /** @deprecated use IUserProfile.smsAgree */
     dontSendSms?: boolean;
+    /** @deprecated use IUserProfile.emailAgree */
     sendEmail?: boolean;
+    /** @deprecated use IUserProfile.smsAgree */
     sendSMS?: boolean;
     paymentSystems?: IExtProfilePaymentSystems;
     realityCheckTime?: string;
