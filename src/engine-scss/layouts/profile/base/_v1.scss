@@ -9,9 +9,9 @@
         @include bm.get-mq-map('max-width', $profileSettings, 'profileWidthV1');
     }
 
-
     .wlc-profile-content {
         @include bm.get-mq-map('padding', $profileSettings, 'contentPaddingV1');
+        @include bm.get-mq-map('background', $profileSettings, 'profileContentBgV1');
         width: 100%;
         min-width: 0;
 
@@ -30,6 +30,10 @@
         min-width: 0;
     }
 
+    .wlc-profile-menu {
+        @include bm.get-mq-map('margin', $profileSettings, 'profileMenuMarginV1');
+    }
+
     .wlc-profile-content__header {
         @include bm.get-mq-map('padding', $profileSettings, 'contentHeaderPaddingV1');
         @include bm.get-mq-map('height', $profileSettings, 'contentHeaderHeightV1');
@@ -37,6 +41,10 @@
         align-items: ef.get-value($profileSettings, 'contentHeaderAlignV1');
         justify-content: ef.get-value($profileSettings, 'contentHeaderJustifyV1');
         min-width: 0;
+
+        div.wlc-title--theme-default div.wlc-title__main {
+            line-height: 1;
+        }
 
         &.underlined {
             @include bm.get-mq-map('border-bottom', $profileSettings, 'contentHeaderBorderBottomV1');

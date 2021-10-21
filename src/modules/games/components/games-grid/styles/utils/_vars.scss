@@ -57,8 +57,9 @@ $themeDefault: map-merge((
     'titleIconFill': var(--mc-baseMain),
 
     'gridColumnsTournamentDetail': (
-        375: repeat(auto-fill, minmax(150px, 1fr)),
-        900: repeat(auto-fill, minmax(200px, 1fr)),
+        375: repeat(auto-fill, minmax(130px, 1fr)),
+        900: repeat(auto-fill, minmax(160px, 1fr)),
+        1024: repeat(auto-fill, minmax(200px, 1fr)),
     ),
     'gridBannerRow': (
         320: #{'1 / 3'}

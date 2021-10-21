@@ -12,7 +12,7 @@ $themeDefault: map-merge((
     ),
     'headerInfoMinHeight': (
         320: auto,
-        768: 345px,
+        1024: 345px,
     ),
     'headerTemplateAreas': (
         320: 'Hstatus' 'Htitle' 'Hdesc' 'Htimer' 'Hbutton',
@@ -27,7 +27,6 @@ $themeDefault: map-merge((
         320: start,
     ),
     'headerBorderRadius': (
-        320: 0,
         560: ef.get('radius', 'big') ef.get('radius', 'big') 0 0,
     ),
     'headerBg': var(--mc-bg500),
@@ -64,7 +63,9 @@ $themeDefault: map-merge((
     'headerStatusBgActive': ef.get('tagConfig', 'bgActive'),
     'headerStatusColorAvaliable': ef.get('tagConfig', 'color'),
     'headerStatusColorActive': ef.get('tagConfig', 'colorActive'),
-    'headerStatusPadding': ef.get('tagConfig', 'padding'),
+    'headerStatusPadding': (
+        320: ef.get('tagConfig', 'padding'),
+    ),
     'headerStatusTextStyle': ef.get('tagConfig', 'textStyle'),
     'headerStatusTextColor':ef.get('mainColors', 'baseMain'),
 
@@ -135,8 +136,7 @@ $themeDefault: map-merge((
 
     'gamesPadding': (
         320: ef.size(4) ef.size(3),
-        768: ef.size(4) ef.size(8),
-        1024: ef.size(4) ef.size(12),
+        768: ef.size(4)
     ),
     'gamesTitleStyle': 'QoteTextBold',
     'gamesTitleColor': var(--mc-baseMain),
@@ -146,7 +146,10 @@ $themeDefault: map-merge((
         320: 100%,
         768: 600px,
     ),
-
+    'rulesGap': (
+        375: ef.size(3) 0,
+        1024: ef.size(4) 0,
+    ),
     'rulesJustifyContent': center,
     'rulesBg': var(--mc-bg500),
     'rulesTitleStyle': 'QoteTextBold',
@@ -156,7 +159,9 @@ $themeDefault: map-merge((
     'rulesTermsColor': var(--mc-baseMain),
     'rulesTermsAlign': left,
     'rulesBorderRadius': 0 0 ef.get('radius', 'biger') ef.get('radius', 'biger'),
-
+    'rulesDescrStyle': 'PrimaryText',
+    'rulesDescrAlign': left,
+    'rulesDescrColor': var(--mc-baseMain),
     'loaderZIndex': 10,
     'loaderPosition': 0,
     'loaderBachround': var(--mc-disabled-o6),
@@ -180,4 +185,16 @@ $themeDefault: map-merge((
     'loaderAfterAnimation': spin 1s infinite linear,
 
     'gamesMoreBtn': ef.size(4) 0 0,
+
+    //V1
+    'tournamentDetailAnchorsBgV1': none,
+    'tournamentDetailPrizepoolBgV1': none,
+    'headerInfoBorderRadiusV1': (
+        320: ef.get('radius', 'biger') ef.get('radius', 'biger') 0 0,
+    ),
+    'headerInfoMinHeightV1': (
+        320: auto,
+        1024: 300px,
+        1630: 345px,
+    ),
 ), $customThemeDefault);

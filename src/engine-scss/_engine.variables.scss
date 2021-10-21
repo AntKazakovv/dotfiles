@@ -504,9 +504,12 @@ $profileSettings: map-merge((
         1024: 285px auto,
     ),
     'contentPaddingV1': (
-        375: map-get($size, 'smaller') 0 0,
-        1024: map-get($size, 'smally') map-get($size, 'less') map-get($size, 'smaller'),
-        1630: map-get($size, 'smaller') map-get($size, 'main') map-get($size, 'less'),
+        375: 0,
+        1024: map-get($size, 'smaller') map-get($size, 'main'),
+    ),
+    'contentHeaderHeightV1': (
+        320: 70px,
+        1024: 80px,
     ),
     'contentHeaderInsideMarginTopV1': (
         375: -#{map-get($size, 'smaller')},
@@ -521,10 +524,6 @@ $profileSettings: map-merge((
     'contentHeaderMarginV1': 0 0 map-get($size, 'smaller') 0,
     'contentHeaderUnderlinedMarginV1': 0 0 map-get($size, 'smaller') 0,
     'contentHeaderPaddingV1': 0 0 map-get($size, 'smaller') 0,
-    'contentHeaderHeightV1': (
-        320: 70px,
-        1024: 80px,
-    ),
 
     // Locked colors
     'profileTabAngleBg': map-get($mainColors, 'bg700'),

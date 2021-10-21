@@ -75,9 +75,8 @@ $selector: '.wlc-tournament-detail';
 
             &--status {
                 @include text.get-text-style(ef.get-value($themeDefault, 'headerStatusTextStyle'), ef.get-value($themeDefault, 'headerStatusTextColor'));
-
+                @include em.get-mq-map('padding', $themeDefault, 'headerStatusPadding');
                 justify-self: center;
-                padding: ef.get-value($themeDefault, 'headerStatusPadding');
                 border-radius: ef.get-value($themeDefault, 'headerStatusRadius');
                 color: ef.get-value($themeDefault, 'headerStatusColorAvaliable');
                 background: ef.get-value($themeDefault, 'headerStatusBgAvaliable');
@@ -215,10 +214,6 @@ $selector: '.wlc-tournament-detail';
                 @include text.get-text-style(ef.get-value($themeDefault, 'gamesTitleStyle'), ef.get-value($themeDefault, 'gamesTitleColor'));
                 @include em.get-mq-map('text-align', $themeDefault, 'gamesTitleAlign');
             }
-
-            &:last-child {
-                padding-bottom: 0;
-            }
         }
 
         #{$selector}__rules {
@@ -227,6 +222,7 @@ $selector: '.wlc-tournament-detail';
             @include em.get-mq-map('padding', $themeDefault, 'defaultPadding');
             @include em.get-mq-map('background', $themeDefault, 'rulesBg');
             @include em.get-mq-map('border-radius', $themeDefault, 'rulesBorderRadius');
+            @include em.get-mq-map('gap', $themeDefault, 'rulesGap');
             display: grid;
 
             &--title {
@@ -239,6 +235,40 @@ $selector: '.wlc-tournament-detail';
             &--terms {
                 @include text.get-text-style(ef.get-value($themeDefault, 'rulesTermsStyle'), ef.get-value($themeDefault, 'rulesTermsColor'));
                 @include em.get-mq-map('text-align', $themeDefault, 'rulesTermsAlign');
+
+                &:empty {
+                    display: none;
+                }
+            }
+
+            &--descr {
+                @include text.get-text-style(ef.get-value($themeDefault, 'rulesDescrStyle'), ef.get-value($themeDefault, 'rulesDescrColor'));
+                @include em.get-mq-map('text-align', $themeDefault, 'rulesDescrAlign');
+
+                &:empty {
+                    display: none;
+                }
+            }
+        }
+
+        .wlc-sections__profile-content--theme-first & {
+
+            .wlc-tournament-detail__content {
+                overflow: hidden;
+            }
+
+            .wlc-tournament-detail__anchors {
+                @include em.get-mq-map('background', $themeDefault, 'tournamentDetailAnchorsBgV1');
+            }
+
+            .wlc-tournament-detail__header-info {
+                @include em.get-mq-map('border-radius', $themeDefault, 'headerInfoBorderRadiusV1');
+                @include em.get-mq-map('min-height', $themeDefault, 'headerInfoMinHeightV1');
+                overflow: hidden;
+            }
+
+            .wlc-tournament-detail__prizepool {
+                @include em.get-mq-map('background', $themeDefault, 'tournamentDetailPrizepoolBgV1');
             }
         }
     }
@@ -307,17 +337,6 @@ $selector: '.wlc-tournament-detail';
 
         .wlc-games-grid__list + .wlc-games-grid__more {
             margin: ef.get-value($themeDefault, 'gamesMoreBtn');
-        }
-    }
-}
-
-
-.app-profile-loyalty-tournaments-detail-state {
-
-    .wlc-sections__profile-content > .container {
-
-        @include mq.max(768) {
-            padding: 0;
         }
     }
 }

@@ -155,8 +155,12 @@
             }
         }
 
-        .wlc-tournament-detail__header-info--back-link {
-            display: none;
+        .wlc-tournament-detail__header-info {
+            overflow: hidden;
+
+            &--back-link {
+                display: none;
+            }
         }
 
         .wlc-tournament-detail__rules {
