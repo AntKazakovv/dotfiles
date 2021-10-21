@@ -136,6 +136,18 @@ export class ModalService {
             return;
         }
 
+        if (modalConfig.onModalHide) {
+            const callback = modalConfig.onModalHide;
+            let hideWasCalled: boolean = false;
+
+            modalConfig.onModalHide = () => {
+                if (!hideWasCalled) {
+                    hideWasCalled = true;
+                    callback();
+                }
+            };
+        }
+
         if (modalConfig.componentName) {
             const component = await this.injectionService.loadComponent(modalConfig.componentName);
             if (component) {
@@ -176,6 +188,7 @@ export class ModalService {
         this.showModal(_assignIn({
             id: 'Error',
             modalTitle: gettext('Error'),
+            textAlign: 'center',
             size: 'md',
         }, config));
     }

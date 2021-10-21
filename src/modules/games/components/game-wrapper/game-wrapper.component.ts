@@ -61,6 +61,7 @@ import _isFunction from 'lodash-es/isFunction';
 import _includes from 'lodash-es/includes';
 import _toNumber from 'lodash-es/toNumber';
 import _find from 'lodash-es/find';
+import _get from 'lodash-es/get';
 
 interface IError {
     msg?: string;
@@ -654,7 +655,9 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
             }
         } catch (err) {
             this.logService.sendLog({code: '3.0.2', data: {error: err, gameparam: this.gameParams}});
-            this.setError();
+            this.setError({
+                msg: _get(err, 'errors[0]'),
+            });
         } finally {
             waiter();
         }
