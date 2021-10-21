@@ -107,7 +107,7 @@ export class IconComponent extends AbstractComponent implements OnInit, OnChange
         }
 
         if (file?.htmlString && !this.showSvgAsImg) {
-            this.imageHtml = this.sanitizer.bypassSecurityTrustHtml(file.htmlString);
+            this.imageHtml = this.sanitizer.bypassSecurityTrustHtml(this.fileService.replaceSvgId(file.htmlString));
             this.addModifiers(['loaded', 'svg']);
         } else if (file?.url) {
             this.imagePath = file.url;

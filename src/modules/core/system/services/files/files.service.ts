@@ -6,6 +6,7 @@ import {getEngineFileBody} from 'wlc-engine/svg';
 import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
 import {IIndexing} from 'wlc-engine/modules/core/system/interfaces/global.interface';
 import {HttpClient, HttpResponse} from '@angular/common/http';
+import {LogService} from 'wlc-engine/modules/core';
 
 import _find from 'lodash-es/find';
 import _findIndex from 'lodash-es/findIndex';
@@ -14,6 +15,8 @@ import _reduce from 'lodash-es/reduce';
 import _unionBy from 'lodash-es/unionBy';
 import _flatten from 'lodash-es/flatten';
 import _includes from 'lodash-es/includes';
+import _forEach from 'lodash-es/forEach';
+import _random from 'lodash-es/random';
 
 type LocationFileType =
     'local-wlc'
@@ -47,6 +50,7 @@ export class FilesService {
     constructor(
         protected configService: ConfigService,
         private httpClient: HttpClient,
+        private logService: LogService,
     ) {
         this.init();
     }
@@ -126,6 +130,45 @@ export class FilesService {
         } catch (e) {
             return {key};
         }
+    }
+
+    /**
+     * Replace the "id" and all the attributes of the "url" with a random id key
+     * 
+     * @param htmlString {string} - file html string
+     * @returns {string} - file html string
+     */
+    public replaceSvgId(htmlString: string): string {
+        const svg = new DOMParser().parseFromString(htmlString, 'image/svg+xml');
+
+        if (svg.querySelector('parsererror')) {
+            this.logService.sendLog({
+                code: '0.9.0',
+                data: htmlString,
+                from: {
+                    service: 'FilesService',
+                    method: 'replaceSvgId',
+                },
+            });
+
+            return htmlString;
+        }
+
+        const allId = svg.querySelectorAll('[id]');
+
+        if (!allId.length) {
+            return htmlString;
+        }
+
+        _forEach(allId, (item) => {
+            const idKey = 'svg-' + _random(10000000).toString(16);
+            const regExp = `(id=["']${item.id}["'])|(url\\(#${item.id}\\))`;
+            htmlString = htmlString.replace(new RegExp(regExp, 'g'), (...match) => {
+                return match[1] ? `id="${idKey}"` : `url(#${idKey})`;
+            });
+        });
+
+        return htmlString;
     }
 
     protected async findFile(filePath: string): Promise<IFile> {
