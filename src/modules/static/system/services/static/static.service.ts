@@ -329,8 +329,22 @@ export class StaticService {
         responsePost = _isArray(responsePost) ? responsePost[0] : responsePost;
 
         return this.useWpPlugin
-            ? new WlcTextData(this.normalizeContent(responsePost), this.configService)
-            : new WpTextData(this.normalizeContent(responsePost), this.configService);
+            ? new WlcTextData(
+                {
+                    service: 'StaticService',
+                    method: 'switchTextData',
+                    model: 'WlcTextData',
+                },
+                this.normalizeContent(responsePost),
+                this.configService)
+            : new WpTextData(
+                {
+                    service: 'StaticService',
+                    method: 'switchTextData',
+                    model: 'WpTextData',
+                },
+                this.normalizeContent(responsePost),
+                this.configService);
     }
 
     private async getPostList(categories: number[], params: IStaticParams = {}): Promise<TextDataModel[]> {
@@ -356,7 +370,14 @@ export class StaticService {
         }
 
         return _map(posts, (item) => {
-            return new WpTextData(this.normalizeContent(item), this.configService);
+            return new WpTextData(
+                {
+                    service: 'StaticService',
+                    method: 'getPostList',
+                    model: 'WpTextData',
+                },
+                this.normalizeContent(item),
+                this.configService);
         });
     }
 
