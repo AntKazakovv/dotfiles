@@ -276,6 +276,10 @@
                 margin-bottom: 0;
             }
         }
+
+        &__not-found {
+            text-align: center;
+        }
     }
 
     ::ng-deep {

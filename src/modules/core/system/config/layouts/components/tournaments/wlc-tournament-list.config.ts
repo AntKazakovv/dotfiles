@@ -1,10 +1,12 @@
 import {ILayoutComponent} from 'wlc-engine/modules/core';
+import {ITournamentListCParams} from 'wlc-engine/modules/tournaments';
 
 export namespace wlcTournamentList {
     export const def: ILayoutComponent = {
         name: 'tournaments.wlc-tournament-list',
-        params: {
+        params: <ITournamentListCParams>{
             theme: 'default',
+            useNoTournamentsBtn: true,
         },
     };
 

@@ -35,7 +35,7 @@ export const defaultParams: ITournamentListCParams = {
     moduleName: 'tournaments',
     class: 'wlc-tournament-list',
     componentName: 'wlc-tournament-list',
-    useNoTournamentsBtn: true,
+    useNoTournamentsBtn: false,
     noTournamentsBtn: {
         common: {
             text: gettext('Go home'),

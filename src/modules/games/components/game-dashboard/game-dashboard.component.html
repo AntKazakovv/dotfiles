@@ -152,9 +152,10 @@
                 </div>
             </div>
         </ng-container>
-        <ng-container *ngIf="!lastPlayedGamesSlides.length">
+        <div *ngIf="!lastPlayedGamesSlides.length"
+            class="{{$class}}__not-found">
             {{'Games not found' | translate}}
-        </ng-container>
+        </div>
     </ng-container>
 </ng-template>
 
