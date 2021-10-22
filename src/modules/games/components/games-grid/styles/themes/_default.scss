@@ -38,12 +38,15 @@
         }
     }
 
-    .wlc-games-catalog--theme-default:host & {
+    .wlc-games-catalog--theme-default & {
 
-        ::ng-deep {
+        .wlc-games-grid__content {
 
-            .wlc-games-grid__more {
-                @include bm.get-mq-map('margin', $themeDefault, 'catalogMoreButtonMargin');
+            ::ng-deep {
+
+                .wlc-games-grid__more {
+                    @include bm.get-mq-map('margin', $themeDefault, 'catalogMoreButtonMargin');
+                }
             }
         }
     }
