@@ -430,7 +430,15 @@ export class UserService {
                 });
             }
         } else {
-            message.push(gettext('Please complete registration using link in e-mail'));
+            if (this.configService.get<boolean>('appConfig.hideEmailExistence')) {
+                message.push(gettext(
+                    'An email was sent to the specified email address. '
+                    + 'If you already have an account, we will send you a password recovery link. '
+                    + 'Kindly check your email box and confirm registration using the link in the email.',
+                ));
+            } else {
+                message.push(gettext('Please complete registration using link in e-mail'));
+            }
         }
 
         if (hideEmailExistence && !!isFastRegistration) {
