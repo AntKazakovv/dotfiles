@@ -8,7 +8,7 @@ declare -A projects
 declare -A branches
 
 projects[0]="git@wlcgitlab.egamings.com:wlcdevcasino/web.git";
-branches[0]="develop test master scr1-profile scr2-var1 scr2-var2 scr2-var3 scr1-var1";
+branches[0]="develop test master scr1-profile scr2-var1 scr2-var2 scr1-var1";
 
 projects[1]="git@wlcgitlab.egamings.com:sportsbook/enginesportsbooks.git";
 branches[1]="develop test";
