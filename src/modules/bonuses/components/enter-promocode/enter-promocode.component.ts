@@ -68,7 +68,6 @@ export class EnterPromocodeComponent
 
     public ngOnInit(): void {
         super.ngOnInit(GlobalHelper.prepareParams(this, ['title']));
-        this.setSubscribe();
     }
 
     public ngOnDestroy(): void {
@@ -123,13 +122,6 @@ export class EnterPromocodeComponent
                 message,
                 wlcElement: 'notification_promocode-error',
             },
-        });
-    }
-
-    protected setSubscribe(): void {
-        this.pendingSubscriber = this.pending$.subscribe((value) => {
-            const action = value ? 'disable' : 'enable';
-            this.enterPromocodeInput.control[action]();
         });
     }
 }
