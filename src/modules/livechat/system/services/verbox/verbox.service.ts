@@ -7,6 +7,11 @@ import {
     LangChangeEvent,
     TranslateService,
 } from '@ngx-translate/core';
+import {
+    Transition,
+    UIRouter,
+    UIRouterGlobals,
+} from '@uirouter/core';
 import {BehaviorSubject} from 'rxjs';
 import {filter} from 'rxjs/operators';
 
@@ -18,6 +23,7 @@ import {ILivechatConfig} from 'wlc-engine/modules/livechat/system/interfaces/liv
 import {UserProfile} from 'wlc-engine/modules/user/system/models/profile.model';
 
 import _isNull from 'lodash-es/isNull';
+import _includes from 'lodash-es/includes';
 
 @Injectable({
     providedIn: 'root',
@@ -35,6 +41,8 @@ export class VerboxService extends LivechatAbstract {
         protected configService: ConfigService,
         protected logService: LogService,
         protected translateService: TranslateService,
+        protected router: UIRouter,
+        protected routerGlobals: UIRouterGlobals,
     ) {
         super(document, eventService);
     }
@@ -53,6 +61,15 @@ export class VerboxService extends LivechatAbstract {
             }
         });
 
+        this.router.transitionService.onSuccess({}, (transition: Transition) => {
+            const stateName = transition.targetState().name();
+            if (_includes(this.options.excludeStates, stateName)) {
+                this.destroyWidget();
+                return;
+            }
+            this.reloadChat();
+        });
+
         if (this.chatIsLoaded() && this.options.autocomplete) {
             this.setUserSettings();
         }
@@ -62,7 +79,7 @@ export class VerboxService extends LivechatAbstract {
      * Reload chat (re-init)
      */
     public reloadChat(): void {
-        window.Verbox('destroy');
+        this.destroyWidget();
         this.initChat();
     }
 
@@ -94,6 +111,8 @@ export class VerboxService extends LivechatAbstract {
     public destroyWidget(): void {
         if (window.Verbox) {
             window.Verbox('destroy');
+            const sc = this.document.getElementById('supportScript');
+            sc?.parentNode?.removeChild(sc);
         }
     }
 
@@ -123,9 +142,17 @@ export class VerboxService extends LivechatAbstract {
             return;
         }
 
+        if (_includes(this.options.excludeStates, this.routerGlobals.$current.name)) {
+            return;
+        }
+
         const script = this.document.createElement('script');
+        script.type ='text/javascript';
+        script.id = 'supportScript';
         script.async = true;
         script.src = 'https://admin.verbox.ru/support/support.js?h=' + this.options.code;
+
+        const sc = this.document.getElementsByTagName('script')[0];
 
         window.VerboxSetup = this.options?.verboxSetup || {};
         window.VerboxSetup.language  = this.translateService.currentLang || 'en';
@@ -137,7 +164,11 @@ export class VerboxService extends LivechatAbstract {
             };
         }
 
-        this.document.head.appendChild(script);
+        if (sc) {
+            sc.parentNode.insertBefore(script, sc);
+        } else {
+            this.document.documentElement.firstChild.appendChild(script);
+        }
     }
 
     protected setUserSettings(): void {

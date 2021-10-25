@@ -20,6 +20,7 @@ export interface ILivechatConfig {
     autocomplete?: boolean;
     zESettings?: IIndexing<any>; // https://developer.zendesk.com/api-reference/widget/settings/
     showOnlyAuth?: boolean;
+    excludeStates?: string[]; // only for verbox - exclude states - chat will not shown
 }
 
 export type TLiveChat = 'chatra' | 'livechatinc' | 'verbox' | 'tawkChat' | 'zendesk';
