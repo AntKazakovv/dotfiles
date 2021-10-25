@@ -30,6 +30,10 @@ export class LoyaltyLevelsComponent extends AbstractComponent implements OnInit 
     public levels: BehaviorSubject<LoyaltyLevelModel[]> = new BehaviorSubject([]);
 
     public tableData: ITableCParams = {
+        pagination: {
+            use: false,
+            breakpoints: null,
+        },
         noItemsText: gettext('An error occurred while loading data. Please try again later.'),
         head: Params.loyaltyTableHeadConfig,
         rows: this.levels,

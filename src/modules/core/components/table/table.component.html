@@ -52,6 +52,7 @@
     </div>
     <div
          wlc-pagination
+         *ngIf="$params.pagination?.use"
          [items]="rows"
          [settings]="$params.pagination"
          (paginationOnChange)="paginationOnChange($event)">
