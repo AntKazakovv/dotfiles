@@ -13,6 +13,9 @@ import {
     EventService,
     ConfigService,
     LogService,
+    DataService,
+    IData,
+    IEvent,
 } from 'wlc-engine/modules/core';
 import {ILivechatConfig} from 'wlc-engine/modules/livechat/system/interfaces/livechat.interface';
 import {
@@ -20,11 +23,24 @@ import {
     LivechatAbstract,
 } from 'wlc-engine/modules/livechat/system/classes/livechatAbstract.class';
 
+interface IChatJwt {
+    chat: {
+        jwtFn: (callback: (token: string) => void) => void,
+    }
+}
+
 @Injectable({providedIn: 'root'})
 export class ZendeskService extends LivechatAbstract {
     public canChatDestroy = false;
 
     protected options: ILivechatConfig = this.configService.get<ILivechatConfig>('$base.livechat');
+    protected chatJwtFn: IChatJwt = {
+        chat: {
+            jwtFn: async (callback: (token: string) => void): Promise<void> => {
+                callback(await this.getToken());
+            },
+        },
+    };
 
     constructor(
         @Inject(DOCUMENT) protected document: HTMLDocument,
@@ -32,6 +48,7 @@ export class ZendeskService extends LivechatAbstract {
         private configService: ConfigService,
         private logService: LogService,
         private translateService: TranslateService,
+        private dataService: DataService,
     ) {
         super(document, eventService);
     }
@@ -93,14 +110,14 @@ export class ZendeskService extends LivechatAbstract {
     /**
      * when we have showOnlyAuth in livechatConfig, init chat widget in login
      */
-    public rerunWidget():void {
+    public rerunWidget(): void {
         this.showWidget();
     }
 
     /**
      * Destroy chat widget
      */
-    public destroyWidget():void {
+    public destroyWidget(): void {
         this.hideWidget();
     }
 
@@ -131,6 +148,10 @@ export class ZendeskService extends LivechatAbstract {
         script.async = true;
         script.id = 'ze-snippet';
         script.src = 'https://static.zdassets.com/ekr/snippet.js?key=' + this.options.code;
+
+        if (this.configService.get<boolean>('$user.isAuthenticated')) {
+            this.options.zESettings.webWidget.authenticate = this.chatJwtFn;
+        }
 
         window.zESettings = this.options.zESettings || {};
 
@@ -166,6 +187,29 @@ export class ZendeskService extends LivechatAbstract {
         this.document.head.appendChild(script);
     }
 
+    /**
+     * Authentication in chat after login and exit from chat after logout
+     */
+    protected initEvents(): void {
+        super.initEvents();
+
+        this.eventService.filter([
+            {name: 'LOGIN'},
+            {name: 'LOGOUT'},
+        ]).subscribe((event: IEvent<IData>) => {
+            if (this.chatIsLoaded()) {
+                switch (event.name) {
+                    case 'LOGIN':
+                        this.updateSettings();
+                        break;
+                    case 'LOGOUT':
+                        window.zE('webWidget', 'logout');
+                        break;
+                }
+            }
+        });
+    }
+
     protected setHandlers(): void {
         this.translateService.onLangChange.subscribe((event: LangChangeEvent) => {
             window.zE(
@@ -174,5 +218,38 @@ export class ZendeskService extends LivechatAbstract {
                 event.lang,
             );
         });
+    }
+
+    protected updateSettings(): void {
+        window.zE(
+            'webWidget',
+            'updateSettings',
+            {
+                webWidget: {
+                    authenticate: this.chatJwtFn,
+                },
+            },
+        );
+        window.zE('webWidget', 'chat:reauthenticate');
+    }
+
+    protected async getToken(): Promise<string> {
+        try {
+            return await this.dataService.request<IData>({
+                name: 'token',
+                system: 'zendesk',
+                url: '/zendesk',
+                type: 'GET',
+            }).then((data) => data.data);
+        } catch (error) {
+            this.logService.sendLog({
+                code: '0.0.12',
+                data: error,
+                from: {
+                    service: 'ZendeskService',
+                    method: 'getToken',
+                },
+            });
+        }
     }
 }
