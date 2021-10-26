@@ -1,4 +1,5 @@
 import {EventService} from 'wlc-engine/modules/core/system/services/event/event.service';
+import * as sectionsLib from 'wlc-engine/modules/core/system/config/layouts/sections';
 import {TranslateService} from '@ngx-translate/core';
 import {
     Injectable,
@@ -207,8 +208,12 @@ export class ConfigService {
 
         const layoutConfig = this.addLayoutConfig({
             appType: wlcConfig.$base.app.type,
-            profileType: wlcConfig.$base.profile.type,
+            profile: GlobalHelper.mergeConfig(wlcConfig.$base.profile, appConfig.$base.profile),
         });
+
+        if (appConfig.$base.profile?.store?.singleLevels) {
+            appConfig.$base.profile.store.use = false;
+        }
 
         appConfig.$base.site.restrictRegistration = !!(appConfig.$base.site.restrictRegistration
             ?? this.global.appConfig.siteconfig.RestrictRegistration
@@ -225,9 +230,15 @@ export class ConfigService {
 
     private addLayoutConfig(params: IParamsLayoutConfig): ILayoutsConfig {
         const mergedLayouts: ILayoutsConfig =
-            params.profileType === 'first'
+            params.profile.type === 'first'
                 ? _mergeWith($layouts, $profileFirstLayouts)
                 : _mergeWith($layouts, $profileLayouts);
+
+        if (params.profile.store.singleLevels && $layouts['app.profile.loyalty-level']?.sections?.['profile-content']) {
+            $layouts['app.profile.loyalty-level'].sections['profile-content'] = params.profile.type === 'default' ?
+                sectionsLib.profileContent.profileLoyaltyLevelsSingle :
+                sectionsLib.profileContent.profileLoyaltyLevelsTypeFirstSingle;
+        }
 
         switch (params.appType) {
             case 'aff':

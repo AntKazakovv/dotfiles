@@ -1,6 +1,6 @@
 import {Injector} from '@angular/core';
 import {AppType} from 'wlc-engine/modules/core';
-import {ProfileType} from 'wlc-engine/modules/core/system/interfaces/base-config/profile.interface';
+import {IProfileConfig} from 'wlc-engine/modules/core/system/interfaces/base-config/profile.interface';
 import {IDefaultConfig} from 'wlc-engine/modules/core/system/interfaces/config.interface';
 
 export interface ILayoutsConfig {
@@ -92,5 +92,5 @@ export interface IDisplayConfig {
 
 export interface IParamsLayoutConfig {
     appType: AppType;
-    profileType: ProfileType;
+    profile: IProfileConfig;
 }

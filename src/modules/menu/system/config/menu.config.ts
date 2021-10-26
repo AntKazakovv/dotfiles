@@ -64,6 +64,13 @@ export const menuConfig: IMenuConfig = {
             'profile-menu:dashboard',
             'profile-menu:bonuses-as-offers',
             {
+                parent: 'profile-menu:loyalty',
+                type: 'group',
+                items: [
+                    'profile-menu:loyalty-level-single',
+                ],
+            },
+            {
                 parent: 'profile-menu:market',
                 type: 'group',
                 items: [
@@ -153,6 +160,13 @@ export const menuConfig: IMenuConfig = {
                 type: 'group',
                 items: [
                     'profile-first-menu:bets-history',
+                ],
+            },
+            {
+                parent: 'profile-menu:loyalty',
+                type: 'group',
+                items: [
+                    'profile-menu:loyalty-level-single',
                 ],
             },
             {

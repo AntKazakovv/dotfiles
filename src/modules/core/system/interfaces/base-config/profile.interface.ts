@@ -11,6 +11,10 @@ export interface IProfileConfig {
     },
     store?: {
         use: boolean;
+        /**
+         * Use Loyalty only, without Market/Store
+         */
+        singleLevels?: boolean;
     },
     referrals?: {
         use: boolean;

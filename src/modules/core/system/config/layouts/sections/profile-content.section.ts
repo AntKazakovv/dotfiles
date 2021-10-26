@@ -1,6 +1,74 @@
 import {ILayoutSectionConfig} from 'wlc-engine/modules/core';
 import * as componentLib from '../components';
 
+const profileDefaultLoyaltyType = (isSingleLevels: boolean) => {
+    return {
+        container: true,
+        modifiers: isSingleLevels ? ['single-levels'] : null,
+        components: [
+            isSingleLevels ? componentLib.wlcTitle.profileLoyalty : componentLib.wlcTitle.profileStore,
+            componentLib.wlcLoyaltyProgress.def,
+            componentLib.wlcProfileMenu.submenu,
+            componentLib.wlcLoyaltyLevels.def,
+        ],
+    };
+};
+
+const profileFirstLoyaltyType = (isSingleLevels: boolean) => {
+    return {
+        container: true,
+        theme: 'first',
+        components: [
+            componentLib.wlcProfileMenu.defTypeFirst,
+            {
+                name: 'core.wlc-wrapper',
+                params: {
+                    class: 'wlc-profile-content__header',
+                    components: [
+                        isSingleLevels ? componentLib.wlcTitle.profileLoyalty : componentLib.wlcTitle.profileStore,
+                    ],
+                },
+                display: {
+                    before: 1023,
+                },
+            },
+            componentLib.wlcProfileMenu.subMenuV1,
+            {
+                name: 'core.wlc-wrapper',
+                params: {
+                    class: 'wlc-profile-content parent',
+                    components: [
+                        {
+                            name: 'core.wlc-wrapper',
+                            params: {
+                                class: 'wlc-profile-content__header underlined',
+                                components: [
+                                    isSingleLevels ? componentLib.wlcTitle.profileLoyaltyV1Single
+                                        : componentLib.wlcTitle.profileLoyalty,
+                                    componentLib.wlcLoyaltyProgress.def,
+                                ],
+                            },
+                            display: {
+                                after: 1024,
+                            },
+                        },
+                        {
+                            name: 'core.wlc-wrapper',
+                            params: {
+                                class: 'wlc-profile-content__body',
+                                components: [
+                                    componentLib.wlcLoyaltyProgress.market,
+                                    componentLib.wlcLoyaltyLevels.def,
+                                ],
+                            },
+                        },
+                    ],
+                },
+            },
+        ],
+    };
+};
+
 export namespace profileContent {
     export const empty: ILayoutSectionConfig = {
         container: true,
@@ -686,67 +754,11 @@ export namespace profileContent {
         ],
     };
 
-    export const profileLoyaltyLevels: ILayoutSectionConfig = {
-        container: true,
-        components: [
-            componentLib.wlcTitle.profileStore,
-            componentLib.wlcLoyaltyProgress.def,
-            componentLib.wlcProfileMenu.submenu,
-            componentLib.wlcLoyaltyLevels.def,
-        ],
-    };
+    export const profileLoyaltyLevels: ILayoutSectionConfig = profileDefaultLoyaltyType(false);
+    export const profileLoyaltyLevelsSingle: ILayoutSectionConfig = profileDefaultLoyaltyType(true);
 
-    export const profileLoyaltyLevelsTypeFirst: ILayoutSectionConfig = {
-        container: true,
-        theme: 'first',
-        components: [
-            componentLib.wlcProfileMenu.defTypeFirst,
-            {
-                name: 'core.wlc-wrapper',
-                params: {
-                    class: 'wlc-profile-content__header',
-                    components: [
-                        componentLib.wlcTitle.profileStore,
-                    ],
-                },
-                display: {
-                    before: 1023,
-                },
-            },
-            componentLib.wlcProfileMenu.subMenuV1,
-            {
-                name: 'core.wlc-wrapper',
-                params: {
-                    class: 'wlc-profile-content parent',
-                    components: [
-                        {
-                            name: 'core.wlc-wrapper',
-                            params: {
-                                class: 'wlc-profile-content__header underlined',
-                                components: [
-                                    componentLib.wlcTitle.profileLoyaltyV1,
-                                    componentLib.wlcLoyaltyProgress.def,
-                                ],
-                            },
-                            display: {
-                                after: 1024,
-                            },
-                        },
-                        {
-                            name: 'core.wlc-wrapper',
-                            params: {
-                                class: 'wlc-profile-content__body',
-                                components: [
-                                    componentLib.wlcLoyaltyProgress.market,
-                                    componentLib.wlcLoyaltyLevels.def,
-                                ],
-                            },
-                        },
-                    ],
-                },
-            },
-        ],
-    };
+    export const profileLoyaltyLevelsTypeFirst: ILayoutSectionConfig = profileFirstLoyaltyType(false);
+    export const profileLoyaltyLevelsTypeFirstSingle: ILayoutSectionConfig = profileFirstLoyaltyType(true);
 
     export const profileBetHistory: ILayoutSectionConfig = {
         container: true,

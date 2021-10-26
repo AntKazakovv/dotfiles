@@ -1,6 +1,20 @@
 import * as MenuParams from 'wlc-engine/modules/menu/components/menu/menu.params';
 import * as ProfileMenuParams from 'wlc-engine/modules/menu/components/profile-menu/profile-menu.params';
 
+const profileLoyaltyMenuItem: MenuParams.IMenuItem = {
+    name: gettext('Loyalty'),
+    type: 'sref',
+    icon: 'loyalty-levels',
+    class: 'loyalty-levels',
+    wlcElement: 'link_loyalty-level',
+    params: {
+        state: {
+            name: 'app.profile.loyalty-level',
+            params: {},
+        },
+    },
+};
+
 export const wlcProfileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
     'profile-menu:my-account': {
         name: gettext('My account'),
@@ -1007,32 +1021,16 @@ export const wlcProfileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
         },
     },
 
-    'profile-menu:loyalty-level': {
-        name: gettext('Loyalty'),
-        type: 'sref',
-        icon: 'loyalty-levels',
-        class: 'loyalty-levels',
-        wlcElement: 'link_loyalty-level',
-        params: {
-            state: {
-                name: 'app.profile.loyalty-level',
-                params: {},
-            },
-        },
+    'profile-menu:loyalty': profileLoyaltyMenuItem,
+
+    'profile-menu:loyalty-level-single': {
+        ...profileLoyaltyMenuItem,
+        name: gettext('Levels'),
     },
-    'profile-first-menu:loyalty-level': {
-        name: gettext('Loyalty'),
-        type: 'sref',
-        icon: 'loyalty-levels',
-        class: 'loyalty-levels',
-        wlcElement: 'link_loyalty-level',
-        params: {
-            state: {
-                name: 'app.profile.loyalty-level',
-                params: {},
-            },
-        },
-    },
+
+    'profile-menu:loyalty-level': profileLoyaltyMenuItem,
+
+    'profile-first-menu:loyalty-level': profileLoyaltyMenuItem,
 
     'profile-menu:referrals': {
         name: gettext('Referrals'),
@@ -1151,8 +1149,16 @@ export const profileMenuFilter: ProfileMenuParams.IProfileMenuFilter[] = [
         item: 'profile-menu:market',
     },
     {
+        config: '$base.profile.store.singleLevels',
+        item: 'profile-menu:loyalty',
+    },
+    {
         config: '$base.profile.store.use',
         item: 'profile-first-menu:market',
+    },
+    {
+        config: '$base.profile.store.singleLevels',
+        item: 'profile-first-menu:loyalty',
     },
     {
         config: '$base.profile.referrals.use',

@@ -1,5 +1,9 @@
-import {ILayoutComponent} from 'wlc-engine/modules/core';
+import {
+    ILayoutComponent,
+} from 'wlc-engine/modules/core';
 import {ITitleCParams} from 'wlc-engine/modules/core/components';
+
+import _assign from 'lodash-es/assign';
 
 export namespace wlcTitle {
     export const promotions: ILayoutComponent = {
@@ -232,30 +236,33 @@ export namespace wlcTitle {
 
     export const profileStore: ILayoutComponent = {
         name: 'core.wlc-title',
-        params: {
+        params:  <ITitleCParams>{
             customMod: ['profile'],
             mainText: gettext('Market'),
             wlcElement: 'header_store',
         },
     };
 
+    export const profileLoyalty: ILayoutComponent = {
+        name: 'core.wlc-title',
+        params:  <ITitleCParams>{
+            customMod: ['profile'],
+            mainText: gettext('Loyalty'),
+            wlcElement: 'header_loyalty',
+        },
+    };
+
     export const profileStoreV1: ILayoutComponent = {
         name: 'core.wlc-title',
-        params: {
+        params:  <ITitleCParams>{
             customMod: ['profile'],
             mainText: gettext('Store'),
             wlcElement: 'header_store',
         },
     };
 
-    export const profileLoyaltyV1: ILayoutComponent = {
-        name: 'core.wlc-title',
-        params: {
-            customMod: ['profile'],
-            mainText: gettext('Loyalty'),
-            wlcElement: 'header_store',
-        },
-    };
+    export const profileLoyaltyV1Single: ILayoutComponent =
+        _assign({}, profileLoyalty, {params: {mainText: gettext('Levels')}});
 
     export const totalJackpot: ILayoutComponent = {
         name: 'core.wlc-title',
