@@ -32,6 +32,7 @@ import _get from 'lodash-es/get';
 import _isArray from 'lodash-es/isArray';
 
 export type MediaType = 'background' | 'foreground' | 'logo' | 'video';
+
 export interface IMediaContent {
     src: string;
     type: string;
@@ -211,6 +212,8 @@ export class GameThumbComponent extends AbstractComponent implements OnInit, Aft
             }
         }
 
+        this.addModifiers(`${this.game.merchantAlias.toLowerCase()}`);
+
         this.isAuth = this.configService.get<boolean>('$user.isAuthenticated');
         this.initEventHandlers();
         this.inited = true;
@@ -218,6 +221,7 @@ export class GameThumbComponent extends AbstractComponent implements OnInit, Aft
     }
 
     public ngAfterViewInit(): void {
+
         if (this.video) {
             this.video.nativeElement.muted = true;
             this.video.nativeElement.play();

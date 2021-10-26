@@ -38,7 +38,7 @@ export class Game extends AbstractModel<IGame> {
     public aspectRatio: string;
     public image: string;
     public merchantName: string;
-    public merchantAlias?: string;
+    public merchantAlias: string;
     public jackpot?: number;
     public isFavourite?: boolean;
     public sortPerCategory: IIndexing<number>;
