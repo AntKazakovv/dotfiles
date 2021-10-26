@@ -405,6 +405,7 @@ export class UserService {
     public finishRegistration(): void {
 
         const isFastRegistration = this.configService.get<number>('appConfig.siteconfig.fastRegistration');
+        const hideEmailExistence = this.configService.get<boolean>('appConfig.hideEmailExistence');
         const message = [
             gettext('Your account has been registered.'),
         ];
@@ -412,25 +413,25 @@ export class UserService {
         if (isFastRegistration) {
             this.eventService.emit({name: 'LOGIN'});
 
-            const redirect = this.configService.get<IRedirect>('$base.redirects.registration');
-            if (redirect) {
-                this.stateService.go(redirect.state, redirect.params || {});
+            if (!hideEmailExistence) {
+                this.registrationRedirect();
             }
         } else {
             message.push(gettext('Please complete registration using link in e-mail'));
         }
 
-        if (this.configService.get<boolean>('appConfig.hideEmailExistence') &&
-            !!this.configService.get<number>('appConfig.siteconfig.fastRegistration')) {
+        if (hideEmailExistence && !!isFastRegistration) {
             this.eventService.filter([
                 {name: 'USER_PROFILE'},
                 {name: 'USER_PROFILE_ERROR'},
             ]).pipe(first()).subscribe({
                 next: (event: IEvent<IData>) => {
                     if (event.data.code === 401) {
+                        this.logout();
                         this.failedRegistration();
                     } else {
                         this.successfulRegistration(message);
+                        this.registrationRedirect();
                     }
                 },
             });
@@ -440,6 +441,13 @@ export class UserService {
 
         if (this.modalService.getActiveModal('signup')) {
             this.modalService.hideModal('signup');
+        }
+    }
+
+    private registrationRedirect(): void {
+        const redirect = this.configService.get<IRedirect>('$base.redirects.registration');
+        if (redirect) {
+            this.stateService.go(redirect.state, redirect.params || {});
         }
     }
 
@@ -463,9 +471,6 @@ export class UserService {
                 'Something went wrong during registration, check your email to change your password.',
             ),
             textAlign: 'center',
-            onModalHidden: () => {
-                this.logout();
-            },
             dismissAll: true,
         });
     }
