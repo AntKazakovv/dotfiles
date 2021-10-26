@@ -3,10 +3,10 @@ image: dockerproxy.egamings.com:443/chromium-node:14
 stages:
     - checks
 
-default:
-    cache:
-        paths:
-            - node_modules/
+# default:
+#     cache:
+#         paths:
+#             - node_modules/
 
 before_script:
     - source ~/.bashrc
