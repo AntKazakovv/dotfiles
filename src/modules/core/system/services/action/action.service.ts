@@ -476,8 +476,10 @@ export class ActionService {
                 },
             });
         };
-        if (this.configService.get<IRedirect>('$base.redirects.states["app.home"]')) {
-            const finishedTransition = this.transition.onFinish({}, () => {
+
+        const stateRedirect = this.configService.get<string>('$base.redirects.states["app.home"].state');
+        if (stateRedirect) {
+            const finishedTransition = this.transition.onBefore({to: stateRedirect}, () => {
                 showModal();
                 finishedTransition();
             });
