@@ -175,8 +175,16 @@ export class VerificationService {
         });
     }
 
+    /**
+     * Check uploaded files count less or equal to max docs count limit
+     *
+     * @param {number} docsCount Uploaded files count
+     * @param {number} maxDocsCount Max available docs count
+     * @returns {boolean}
+     */
     public checkUploadLimit(docsCount: number, maxDocsCount: number): boolean {
-        if (docsCount >= maxDocsCount) {
+        const check: boolean = docsCount >= maxDocsCount;
+        if (check) {
             this.eventService.emit({
                 name: NotificationEvents.PushMessage,
                 data: {
@@ -186,8 +194,7 @@ export class VerificationService {
                 },
             });
         }
-
-        return docsCount >= maxDocsCount;
+        return check;
     }
 
 

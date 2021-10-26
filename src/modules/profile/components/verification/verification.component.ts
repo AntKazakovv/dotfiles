@@ -161,7 +161,10 @@ export class VerificationComponent extends AbstractComponent implements OnInit {
      */
     public async uploadFile(): Promise<void> {
         if (this.currentDocGroup.pending ||
-            this.verificationService.checkUploadLimit(this.currentDocGroup.docs.length, this.verificationParams.maxSize)
+            this.verificationService.checkUploadLimit(
+                this.currentDocGroup.docs.length,
+                this.verificationParams.maxDocsCount,
+            )
         ) return;
 
         this.switchLoader(LoaderStatus.Loading);
