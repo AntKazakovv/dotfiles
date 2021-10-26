@@ -5,20 +5,34 @@
 @import '../utils/mixins';
 
 .wlc-enter-promocode--theme-clear:host {
-    width: ef.get-value($themeClear, 'width');
     @include em.get-mq-map('max-width', $themeClear, 'maxWidth');
+    width: ef.get-value($themeClear, 'width');
 
     .wlc-enter-promocode {
 
         &__control {
+            @include em.get-mq-map('max-width', $themeClear, 'controlMaxWidth');
             position: relative;
 
             width: ef.get-value($themeClear, 'controlWidth');
-            @include em.get-mq-map('max-width', $themeClear, 'controlMaxWidth');
         }
 
         &__btn {
             @include enterPromocodeButton();
+        }
+    }
+
+    ::ng-deep {
+
+        .wlc-input.wlc-input--promocode {
+
+            input {
+                text-transform: ef.get-value($themeClear, 'inputTextTransform');
+
+                &::placeholder {
+                    text-transform: none;
+                }
+            }
         }
     }
 }

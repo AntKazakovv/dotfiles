@@ -293,7 +293,7 @@ export namespace wlcTitle {
         name: 'core.wlc-title',
         params: {
             customMod: ['available-tournaments'],
-            mainText: gettext('Current tournaments'),
+            mainText: gettext('Available tournaments'),
             wlcElement: 'header_tournaments',
         },
     };

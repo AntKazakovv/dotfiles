@@ -81,7 +81,7 @@ export namespace FormElements {
         params: <IInputCParams>{
             theme: 'vertical',
             common: {
-                placeholder: gettext('Email'),
+                placeholder: gettext('E-mail'),
                 autocomplete: 'email',
             },
             locked: true,

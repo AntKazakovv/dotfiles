@@ -17,18 +17,23 @@
     .wlc-verification-group {
 
         &__check-wrp {
+            display: ef.get-value($themeDefault, 'checkWrpDisplay');
+            flex-direction: ef.get-value($themeDefault, 'checkWrpFlexDirection');
             grid-area: doc-icons;
             justify-self: ef.get-value($themeDefault, 'checkWrpJustifySelf');
-
             line-height: ef.get-value($themeDefault, 'checkWrpLineHeight');
 
             span {
-                display: ef.get-value($themeDefault, 'checkWrpDisplay');
+                display: ef.get-value($themeDefault, 'checkWrpSpanDisplay');
 
                 width: ef.get-value($themeDefault, 'iconStatusSize');
 
                 max-width: ef.get-value($themeDefault, 'iconStatusSize');
                 max-height: ef.get-value($themeDefault, 'iconStatusSize');
+
+                &:not(:first-child) {
+                    margin-right: ef.get-value($themeDefault, 'checkWrpSpanMargin');
+                }
             }
         }
 
@@ -211,8 +216,6 @@
 
                 margin: ef.get-value($themeDefault, 'docsItemMargin');
 
-                column-gap: ef.get-value($themeDefault, 'docsItemColGap');
-
                 &:last-child {
                     margin: ef.get-value($themeDefault, 'docsItemMarginLast');
                 }
@@ -307,8 +310,8 @@
                 display: ef.get-value($themeDefault, 'removeDisplay');
                 align-items: ef.get-value($themeDefault, 'removeAlignItems');
                 justify-content: ef.get-value($themeDefault, 'removeJustifyContent');
-
-                width: ef.get-value($themeDefault, 'docsRemoveSize');
+                width: 100%;
+                max-width: ef.get-value($themeDefault, 'docsRemoveSize');
                 height: ef.get-value($themeDefault, 'docsRemoveSize');
 
                 margin: ef.get-value($themeDefault, 'removeMargin');

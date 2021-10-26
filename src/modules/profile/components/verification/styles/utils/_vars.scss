@@ -12,7 +12,10 @@ $themeDefault: map-merge((
     'textFont': 'PrimaryText',
     'titlePadding': ef.get('size', 'smallest'),
     'tooltipShadow': 0 4px 4px rgba(0, 0, 0, 0.25),
-    'offset': ef.get('size', 'smaller'),
+    'offset':(
+        375: ef.size(4) 0 0 0,
+        1024: 0 0 0 ef.size(6),
+    ) ,
     'btnOffset': 0 0 ef.get('size', 'smaller'),
     'btnSelectedOffset': 0,
     'gapItem': ef.get('size', 'smaller'),
@@ -50,7 +53,6 @@ $themeDefault: map-merge((
     'docsStatusAwaiting': var(--mc-warning),
     'docsStatusValidated': var(--mc-success),
     'docsStatusFailed': var(--mc-error),
-    'docsOffsetDesctop': ef.get('size', 'biger'),
     'infoIconBg': var(--mc-baseOpacity),
     'smallIconDocsDemensitons': ef.get('size', 'smaller'),
     'removeIconDocsDemensitons': ef.get('size', 'smally'),
@@ -85,7 +87,7 @@ $themeDefault: map-merge((
     'docIconSvgSize': 100%,
 
     'docInfoFlex': 1 1 0%,
-    'docInfoMargin': 0 ef.get('size', 'smally'),
+    'docInfoMargin': 0 7px 0 ef.size(2),
     'docInfoMinWidth': 0,
 
     'docStatusWidth': 100%,
@@ -94,7 +96,7 @@ $themeDefault: map-merge((
     'docTitlePadding': 0 ef.get('size', 'smaller') 0 0,
     'docTitleMaxWidth': 100%,
 
-    'docRemoveMargin': -23px 0 0 auto,
+    'docRemoveMargin': ef.size(-5) 0 0 auto,
     'docProloadMargin': -23px 0 0 auto,
 
     'dragDirection': column,
@@ -121,7 +123,7 @@ $themeDefault: map-merge((
     'docTitleLinkDecoration': none,
     'docTitleLinkDecorationHover': underline,
 
-    'checkWrpDirection': row,
+    'checkWrpDirection': row-reverse,
 
     'preloadRadius': 100%,
 

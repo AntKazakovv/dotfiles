@@ -165,15 +165,12 @@
             }
 
             &__upload-docs {
+                @include em.get-mq-map('padding', $themeDefault, 'offset');
                 grid-area: docs-list;
-
-                padding-top: ef.get-value($themeDefault, 'offset');
 
                 border-top: 1px solid ef.get-value($themeDefault, 'borderTopUploadDocs');
 
                 @include mq.min(1024) {
-                    padding-left: ef.get-value($themeDefault, 'docsOffsetDesctop');
-
                     border-top: none;
                     border-left: ef.get-value($themeDefault, 'borderDocList');
                 }

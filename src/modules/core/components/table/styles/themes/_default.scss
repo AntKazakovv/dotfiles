@@ -204,12 +204,12 @@ $selector: '.wlc-table';
                 border-radius: ef.get-value($themeDefault, 'rowBorderRadiusSizeMobile') ef.get-value($themeDefault, 'rowBorderRadiusSizeMobile') 0 0;
             }
 
-            &-label,
-            &-arrow {
+            &-label {
                 justify-self: start;
             }
 
             &-arrow {
+                justify-self: end;
 
                 ::ng-deep svg {
                     @include em.betweenClass('.wlc-show') {

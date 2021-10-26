@@ -11,8 +11,11 @@ $themeDefault: map-merge((
     'groupSpaceBetween': space-between,
 
     'checkWrpJustifySelf': end,
-    'checkWrpDisplay': inline-block,
+    'checkWrpSpanDisplay': inline-block,
     'checkWrpLineHeight': 0,
+    'checkWrpDisplay': flex,
+    'checkWrpFlexDirection': row-reverse,
+    'checkWrpSpanMargin': ef.size(1),
 
     'docTypeDisplay': flex,
     'docTypeDirection': column,
@@ -68,7 +71,7 @@ $themeDefault: map-merge((
 
     'docsLinkMaxWidth': 100%,
 
-    'docsRemoveSize': 24px,
+    'docsRemoveSize': 20px,
 
     'docsPreloadMargin': 0 0 0 auto,
 

@@ -374,7 +374,7 @@ export const wlcProfileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
     },
 
     'profile-menu:tournaments-current': {
-        name: gettext('Current tournaments'),
+        name: gettext('Available tournaments'),
         type: 'sref',
         icon: 'current-tournaments',
         class: 'tournaments-current',
@@ -386,7 +386,7 @@ export const wlcProfileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
         },
     },
     'profile-first-menu:tournaments-current': {
-        name: gettext('Current'),
+        name: gettext('Available'),
         type: 'sref',
         icon: 'current-tournaments',
         class: 'tournaments-current',
