@@ -133,6 +133,12 @@
             }
         }
 
+        &--mobile-login[class] {
+            justify-self: ef.get-value($theme, 'loginBtnJustifySelf');
+            padding: ef.get-value($theme, 'loginBtnPadding');
+            white-space: ef.get-value($theme, 'loginBtnWhiteSpace');
+        }
+
         &--deposit {
             margin: ef.get-value($theme, 'headerDepositBtnMargin');
 

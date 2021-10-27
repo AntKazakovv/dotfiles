@@ -108,6 +108,7 @@ $theme2Header: map-merge((
     'headerContainerDesktopMargin': (
         1200: 0 auto
     ),
+    'containerJustifyContent': space-between,
     'headerGapColumns': ef.get('size', 'main'),
     'headerGridColumns': (
         375: auto minmax(0, 1fr) auto,
@@ -154,7 +155,12 @@ $theme2Header: map-merge((
         1200: ef.get('size', 'smallest') ef.get('size', 'small'),
         1366: ef.get('size', 'smallest') ef.get('size', 'smaller')
     ),
+    'loginBtnPadding': (
+        375: ef.size(1) ef.size(2),
+    ),
+    'loginBtnJustifySelf': flex-end,
     'headerLoginJustifyContent': flex-end,
+    'loginBtnWhiteSpace': nowrap,
     'headerUserInfoJustifyContent': flex-end,
 
     'searchBtnTransformOnHover': rotate(30deg),

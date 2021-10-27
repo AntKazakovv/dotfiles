@@ -207,6 +207,25 @@ export namespace wlcButton {
         },
     };
 
+    export const mobileLoginBtn: ILayoutComponent = {
+        name: 'core.wlc-button',
+        display: {
+            before: 1199,
+            auth: false,
+        },
+        params: {
+            themeMod: 'secondary',
+            common: {
+                customModifiers: 'mobile-login',
+                text: gettext('Login'),
+                event: {
+                    name: 'SHOW_MODAL',
+                    data: 'login',
+                },
+            },
+        },
+    };
+
     export const affLogin: ILayoutComponent = {
         name: 'core.wlc-button',
         display: {

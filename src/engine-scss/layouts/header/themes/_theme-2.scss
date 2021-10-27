@@ -17,4 +17,11 @@
             }
         }
     }
+
+    &.wlc-sections__header--with-login-btn {
+
+        .container {
+            justify-content: ef.get-value($theme2Header, 'containerJustifyContent');
+        }
+    }
 }

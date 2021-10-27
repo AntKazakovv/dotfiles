@@ -56,6 +56,25 @@ export namespace header {
         ],
     };
 
+    export const theme2WithMobileLoginBtn: ILayoutSectionConfig = {
+        replaceConfig: true,
+        order: 0,
+        theme: '2',
+        modifiers: ['with-login-btn'],
+        container: true,
+        components: [
+            componentLib.wlcButton.burger,
+            componentLib.wlcLogo.header,
+            componentLib.wlcMainMenu.header,
+            componentLib.wlcLoginSignup.header,
+            componentLib.wlcUserInfo.header,
+            componentLib.wlcButton.userDepositIcon,
+            componentLib.wlcLanguageSelector.bottomLeft2,
+            componentLib.wlcButton.searchV2,
+            componentLib.wlcButton.mobileLoginBtn,
+        ],
+    };
+
     export const theme2themeToggler: ILayoutSectionConfig = {
         replaceConfig: true,
         order: 0,
