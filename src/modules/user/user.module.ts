@@ -12,6 +12,7 @@ import {
     SmsService,
     SocialService,
 } from './system/services';
+import {IdleService} from 'wlc-engine/modules/user/system/services/idle/idle.service';
 
 // Components
 import {AddProfileInfoComponent} from './components/add-profile-info/add-profile-info.component';
@@ -47,6 +48,7 @@ export const services = {
     'user-service': UserService,
     'social-service': SocialService,
     'limitation-service': LimitationService,
+    'idle-service': IdleService,
 };
 
 export const components = {

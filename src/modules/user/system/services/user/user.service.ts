@@ -1,7 +1,9 @@
 import {Injectable} from '@angular/core';
 import {TranslateService} from '@ngx-translate/core';
-import {StateService} from '@uirouter/core';
 import {DateTime} from 'luxon';
+import {
+    StateService,
+} from '@uirouter/core';
 
 import {
     Subscription,
@@ -30,6 +32,8 @@ import {UserInfo} from 'wlc-engine/modules/user/system/models/info.model';
 import {LimitationService} from 'wlc-engine/modules/user/system/services/limitation/limitation.service';
 import {InjectionService} from 'wlc-engine/modules/core/system/services/injection/injection.service';
 import {IValidateData} from 'wlc-engine/modules/user/system/classes/user-actions-abstract.class';
+import {IdleService} from 'wlc-engine/modules/user/system/services/idle/idle.service';
+import {IMGAConfig} from 'wlc-engine/modules/core/components/license/license.params';
 
 import _assign from 'lodash-es/assign';
 import _each from 'lodash-es/each';
@@ -72,6 +76,7 @@ export class UserService {
     private configUserInfo$: BehaviorSubject<UserInfo> = this.configService.get({name: '$user.userInfo$'});
 
     private limitationService: LimitationService;
+    private idleService: IdleService;
 
     constructor(
         public translate: TranslateService,
@@ -83,6 +88,10 @@ export class UserService {
         private injectionService: InjectionService,
         private stateService: StateService,
     ) {
+        this.init();
+    }
+
+    public init(): void {
         this.isAuthenticated = this.configService.get('$user.isAuthenticated');
         this.userProfile$.subscribe((profile) => {
             this.configUserProfile$.next(profile);
@@ -100,10 +109,11 @@ export class UserService {
         });
 
         this.registerMethods();
+
         this.info = new UserInfo(
             {service: 'UserService', method: 'constructor'},
-            translate,
-            eventService,
+            this.translate,
+            this.eventService,
         );
         this.profile = new UserProfile({service: 'UserService', method: 'constructor'});
 
@@ -171,6 +181,7 @@ export class UserService {
                 this.limitationService.initRealityChecker(this.userProfile$, true);
                 this.fetchUserInfo();
                 this.startUserInfoFetcher();
+                this.idleHandler();
             });
         });
 
@@ -210,6 +221,7 @@ export class UserService {
                 this.limitationService.initRealityChecker(this.userProfile$);
                 this.fetchUserInfo();
                 this.startUserInfoFetcher();
+                this.idleHandler();
             });
         }
     }
@@ -726,6 +738,17 @@ export class UserService {
             type: 'GET',
             period: 10000,
         });
+    }
 
+    private async idleHandler(): Promise<void> {
+        if (!this.configService.get<IMGAConfig>('$modules.core.components["wlc-license"].mga')) {
+            return;
+        }
+
+        if (!this.idleService) {
+            this.idleService = await this.injectionService
+                .getService<IdleService>('user.idle-service');
+        }
+        this.idleService.init();
     }
 }
