@@ -35,6 +35,7 @@ import {IValidateData} from 'wlc-engine/modules/user/system/classes/user-actions
 import {IdleService} from 'wlc-engine/modules/user/system/services/idle/idle.service';
 import {IMGAConfig} from 'wlc-engine/modules/core/components/license/license.params';
 
+import _isUndefined from 'lodash-es/isUndefined';
 import _assign from 'lodash-es/assign';
 import _each from 'lodash-es/each';
 import _keys from 'lodash-es/keys';
@@ -297,6 +298,16 @@ export class UserService {
             ? _assign({}, profile, isAfterDepositWithdraw ? {isAfterDepositWithdraw} : {})
             : _assign({}, this.profile.data, profile);
 
+        if (this.checkUserAge(profile)) {
+            let errorAgeText = this.translate.instant(gettext('You are under the age of'));
+            errorAgeText += ' ' + this.configService.get('$base.profile.legalAge');
+            errorAgeText += this.translate.instant(gettext('age_end'));
+
+            return {
+                errors: [errorAgeText],
+            };
+        }
+
         try {
             const response: IData = await this.dataService.request({
                 name: 'updateProfile',
@@ -480,6 +491,10 @@ export class UserService {
      * @return {boolean}
      */
     public checkUserAge({birthDay, birthYear, birthMonth}: IUserProfile): boolean {
+        if (_isUndefined(birthDay) && _isUndefined(birthYear) && _isUndefined(birthMonth)) {
+            return true;
+        }
+
         const legalAge: number = this.configService.get('$base.profile.legalAge');
         return DateTime.utc(+birthYear, +birthMonth, +birthDay)
             .diffNow('years')
