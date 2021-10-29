@@ -14,5 +14,5 @@ export interface IRegistrationConfig {
      *      ],
      *  }
      */
-    currencySort: string[],
+    currencySort?: string[],
 }
