@@ -58,14 +58,7 @@ export const defaultParams: IProfileFormCParams = {
                     name: 'firstName',
                     locked: true,
                     prohibitedPattern: /[\d!"#$%&()*+,./:;<=>?@[\\\]^_{|}~¡¿÷ˆ№]/g,
-                    validators: [
-                        'required',
-                        'allowLettersOnly',
-                        {
-                            name: 'minLength',
-                            options: 2,
-                        },
-                    ],
+                    validators: ['required'],
                     exampleValue: gettext('Enter your name'),
                 },
             },
@@ -79,14 +72,7 @@ export const defaultParams: IProfileFormCParams = {
                     name: 'lastName',
                     locked: true,
                     prohibitedPattern: /[\d!"#$%&()*+,./:;<=>?@[\\\]^_{|}~¡¿÷ˆ№]/g,
-                    validators: [
-                        'required',
-                        'allowLettersOnly',
-                        {
-                            name: 'minLength',
-                            options: 2,
-                        },
-                    ],
+                    validators: ['required'],
                     exampleValue: gettext('Enter your last name'),
                 },
             },

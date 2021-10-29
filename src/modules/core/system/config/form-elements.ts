@@ -104,11 +104,6 @@ export namespace FormElements {
             name: 'firstName',
             validators: [
                 'required',
-                'allowLettersOnly',
-                {
-                    name: 'minLength',
-                    options: 2,
-                },
                 {
                     name: 'maxLength',
                     options: 25,
@@ -131,11 +126,6 @@ export namespace FormElements {
             name: 'lastName',
             validators: [
                 'required',
-                'allowLettersOnly',
-                {
-                    name: 'minLength',
-                    options: 2,
-                },
                 {
                     name: 'maxLength',
                     options: 25,
