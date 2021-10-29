@@ -160,6 +160,8 @@ export class BonusesListComponent extends AbstractComponent implements OnInit, O
                             this.chooseBlankBonus();
                         } else if (this.selectFirstBonus && !this.chosenBonus) {
                             this.chooseBonusByPosition(0);
+                        } else if (this.$params.theme === 'reg-first') {
+                            this.chooseBlankBonus();
                         }
                     }
 
@@ -244,6 +246,7 @@ export class BonusesListComponent extends AbstractComponent implements OnInit, O
                     bonus.isChoose = true;
                 }
             });
+            this.checkBoxParams.control.setValue(true);
             this.cdr.markForCheck();
         }, 0);
 
@@ -300,7 +303,7 @@ export class BonusesListComponent extends AbstractComponent implements OnInit, O
                 (item: Bonus) => item.id === bonus.id,
             );
 
-            if (this.checkBoxParams.control.touched) {
+            if (this.checkBoxParams.control.touched || this.checkBoxParams.control.value === true) {
                 this.checkBoxParams.control.setValue(false);
             }
 

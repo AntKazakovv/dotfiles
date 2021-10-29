@@ -113,7 +113,7 @@
 
 <ng-template #partial>
     <div class="{{$class}}__content"
-         [class.chosen]="chosen || $params.common.bonus.isChoose"
+         [class.chosen]="chosen ?? $params.common.bonus.isChoose"
          [ngClass]="{'blank-bonus': bonus.type === 'blank'}"
     >
         <div class="{{$class}}__body">
@@ -135,7 +135,7 @@
 
 <ng-template #regFirst>
     <div class="{{$class}}__content"
-         [class.chosen]="chosen || $params.common.bonus.isChoose">
+         [class.chosen]="chosen ?? $params.common.bonus.isChoose">
          <div class="{{$class}}__wrapper" (click)="chooseBonusNoBtn($params.common.bonus, $params.common?.type)">
                 <div class="{{$class}}__image-block" data-wlc-element="bonus_image">
                     <div *ngIf="$params.common?.showBonusTag && !!$params.common.bonus.tag"
@@ -362,7 +362,7 @@
 <ng-template #bonusIcon>
     <div *ngIf="$params.common?.useIconBonusImage"
         class="{{$class}}__icon">
-        <span *ngIf="(chosen || $params.common.bonus.isChoose) && $params.theme === 'partial'"
+        <span *ngIf="(chosen ?? $params.common.bonus.isChoose) && $params.theme === 'partial'"
                 class="{{$class}}__check-icon">
             <i wlc-icon
                 class="icon-btn"
