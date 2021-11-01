@@ -69,3 +69,7 @@ gettext('Province of Bank');
 gettext('Card Type(Debit/Credit)');
 gettext('Account Type');
 gettext('Document Type');
+gettext('Checkings');
+gettext('Savings');
+gettext('Joint checkings');
+gettext('Joint savings');
