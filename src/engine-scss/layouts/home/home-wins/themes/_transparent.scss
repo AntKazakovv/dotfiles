@@ -1,0 +1,14 @@
+@use 'engine-scss/mixins/base.mixins' as em;
+@use 'engine-scss/functions' as ef;
+@use 'engine-scss/mixins/section.mixins' as sm;
+
+.wlc-sections__content-wins--theme-transparent {
+
+    .wlc-home-wins {
+        @include em.get-mq-map('grid-template-columns', $themeHomeWinsTransparent, 'homeWinsGridTemplateColumns');
+        @include em.get-mq-map('gap', $themeHomeWinsTransparent, 'homeWinsGap');
+        display: grid;
+        max-width: ef.get-value($themeHomeWinsTransparent, 'homeWinsMaxWidth');
+        margin: ef.get-value($themeHomeWinsTransparent, 'homeWinsMargin');
+    }
+}

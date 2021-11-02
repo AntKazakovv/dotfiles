@@ -26,6 +26,14 @@ export const promoConfig: IPromoConfig = {
                             useLink: false,
                         },
                     },
+                    transparent: {
+                        redirectBtn: {
+                            useBtn: true,
+                        },
+                        link: {
+                            useLink: false,
+                        },
+                    },
                     vertical: {
                         bgImage: '/gstatic/wlc/bonuses/no-bonuses/no-bonus-block-background.jpg',
                         redirectBtn: {
@@ -52,6 +60,14 @@ export const promoConfig: IPromoConfig = {
                         bgImage: '/gstatic/wlc/bonuses/no-bonuses/no-bonus-block-background.jpg',
                         redirectBtn: {
                             useBtn: true,
+                        },
+                    },
+                    transparent: {
+                        redirectBtn: {
+                            useBtn: true,
+                        },
+                        link: {
+                            useLink: false,
                         },
                     },
                 },

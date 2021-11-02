@@ -81,6 +81,37 @@ $themeVertical: map-merge((
     'sliderShadowPadding': 10px, // `false` or [space between slides]px
 ), $customThemeVertical);
 
+// ~~ theme Transparent
+$customThemeTransparent: () !default;
+$themeTransparent: map-merge((
+    'slideHeight': 100px,
+
+    // wrapper
+    'wrapperRadius': ef.get('radius', 'biger'),
+    'wrapperMargin': (
+        375: ef.size(3) 0 0,
+        768: ef.size(3) 0 ef.size(6),
+        1200: ef.size(3) ef.size(6) ef.size(8),
+    ),
+    'wrapperMaxWidth': 100%,
+    'wrapperHeight': 100%,
+
+    //loader
+    'loaderHeight': 280px,
+
+    // title
+    'titleColor': ef.get('mainColors', 'baseMain'),
+    'titlePadding': (
+        375: ef.size(2) ef.size(3),
+    ),
+    'titleBorderRadius': ef.get('radius', 'biger') 0 ef.get('radius', 'biger') 0,
+    'titleFont': 'QoteTextBold',
+
+    // slider
+    'sliderHeight': calc((var(--wlc-winner-slider-slide-height, 100px) + var(--wlc-winner-slider-slide-gap, 10px)) * var(--wlc-winner-slider-slides-per-view, 4)),
+    'sliderShadowPadding': 10px, // `false` or [space between slides]px
+), $customThemeVertical);
+
 $customTheme1: () !default;
 $theme1: map-merge((
     'maxWidth': 330px,

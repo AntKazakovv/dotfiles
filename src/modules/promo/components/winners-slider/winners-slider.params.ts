@@ -9,7 +9,7 @@ import {INoContentCParams} from 'wlc-engine/modules/core/components/no-content/n
 import {IWinnerCParams} from 'wlc-engine/modules/promo/components/winner/winner.params';
 
 export type WinnersSliderType = 'latest' | 'biggest';
-export type WinnersSliderTheme = 'default' | 'vertical' | '1' | CustomType;
+export type WinnersSliderTheme = 'default' | 'vertical' | '1' | 'transparent' | CustomType;
 export type WinnersSliderThemeMod = 'default' | 'vertical' | 'along-with-tournament' | CustomType;
 export type NoContentByThemeType = Partial<Record<WinnersSliderTheme, INoContentCParams>>;
 export type WinnersSliderNoContentByThemeType = Partial<Record<WinnersSliderType, NoContentByThemeType>>;
@@ -82,6 +82,19 @@ export const swiperParamsDefault: IIndexing<SwiperOptions> = {
                 slidesPerView: 4,
             },
         },
+    },
+    transparent: {
+        direction: 'vertical',
+        slidesPerView: 3,
+        spaceBetween: 10,
+        loop: true,
+        autoplay: {
+            disableOnInteraction: false,
+        },
+        watchSlidesVisibility: true,
+        observer: true,
+        observeParents: true,
+        preventClicks: false,
     },
     1: {
         direction: 'vertical',

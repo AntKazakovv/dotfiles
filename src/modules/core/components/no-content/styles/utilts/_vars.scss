@@ -70,6 +70,25 @@ $slidersWinnersThemeDefault: map-merge((
     'bodyMaxWidth': none,
 ), $customSlidersWinnersThemeDefault);
 
+$customSlidersWinnersModDef: () !default;
+$slidersWinnersModDef: map-merge((
+    'nodataTextAlign': center,
+
+    'wrapperPadding': (
+        375: ef.size(10) ef.size(5) ef.size(10),
+    ),
+    'bodyMaxWidth': 100%,
+    'bodyAlign': center,
+    'buttonPadding': ef.size(5) 0 0,
+    'contentFlex': 0 1 100%,
+), $customSlidersWinnersModDef);
+
+$customSlidersWinnersTransparent: () !default;
+$slidersWinnersTransparent: map-merge((
+    'wrapperPadding': ef.size(6) 0 ef.size(6),
+    'buttonMargin': ef.size(5) 0 ef.size(5),
+), $customSlidersWinnersTransparent);
+
 $customTotalJackpot: () !default;
 $totalJackpot: map-merge((
     'nodataTextAlign': center,

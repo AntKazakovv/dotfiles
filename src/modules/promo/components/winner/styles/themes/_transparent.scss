@@ -1,0 +1,39 @@
+.wlc-winner--theme-transparent:host {
+
+    .wlc-winner {
+
+        &__wrapper {
+            gap: ef.get-value($themeTransparent, 'wrapperGap');
+            height: ef.get-value($themeTransparent, 'imageSize');
+        }
+
+        &__block {
+
+            &--right {
+                align-content: center;
+                height: ef.get-value($themeTransparent, 'imageSize');
+                padding: ef.get-value($themeTransparent, 'rightPadding');
+                background: ef.get-value($themeTransparent, 'rightBackground');
+                border-radius: ef.get-value($themeTransparent, 'rightBorderRadius');
+            }
+        }
+
+        &__picture {
+            width: ef.get-value($themeTransparent, 'imageSize');
+        }
+
+        &__game {
+
+            &-arrow {
+                color: ef.get-value($themeTransparent, 'gameArrowColor');
+            }
+
+            @include em.hover() {
+
+                .wlc-winner__game-arrow {
+                    color: ef.get-value($themeTransparent, 'gameHoverArrowColor');
+                }
+            }
+        }
+    }
+}

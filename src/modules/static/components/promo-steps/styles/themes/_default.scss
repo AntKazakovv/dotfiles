@@ -173,4 +173,14 @@
             @include text.get-text-style(ef.get-value($themeDefault, 'descTextStyle'), ef.get-value($themeDefault, 'descColor'));
         }
     }
+
+    .wlc-slider--theme-mod-ears + & {
+        @include bm.get-mq-map('margin', $themeDefault, 'containerMargin');
+    }
+
+    .container > .wlc-slider--theme-default-banner + & {
+        @include bm.get-mq-map('margin', $themeDefault, 'containerMargin');
+        border-radius: ef.get-value($themeDefault, 'containerRadius');
+        overflow: hidden;
+    }
 }

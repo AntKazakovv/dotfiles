@@ -47,11 +47,46 @@
         .wlc-no-content {
 
             &__wrapper {
+                @include em.get-mq-map('padding', $slidersWinnersModDef, 'wrapperPadding');
 
                 &:before {
                     @include linearGradient();
                 }
             }
+
+            &__body {
+                max-width: ef.get-value($slidersWinnersModDef, 'bodyMaxWidth');
+                align-items: ef.get-value($slidersWinnersModDef, 'bodyAlign');
+            }
+
+            &__button-wrap {
+                margin: ef.get-value($slidersWinnersModDef, 'buttonPadding');
+            }
+
+            &__content {
+                display: flex;
+                flex: ef.get-value($slidersWinnersModDef, 'contentFlex');
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                text-align: center;
+            }
+        }
+    }
+
+    &.wlc-no-content--theme-transparent {
+
+        .wlc-no-content__wrapper {
+            background: none;
+            padding: ef.get-value($slidersWinnersTransparent, 'wrapperPadding');
+
+            &:before {
+                display: none;
+            }
+        }
+
+        .wlc-no-content__button-wrap {
+            margin: ef.get-value($slidersWinnersTransparent, 'buttonMargin');
         }
     }
 }

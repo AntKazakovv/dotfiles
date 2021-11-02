@@ -1,0 +1,55 @@
+.wlc-winners-slider--theme-transparent:host {
+    --wlc-winner-slider-slide-height: #{ef.get-value($themeTransparent, 'slideHeight')};
+    position: relative;
+
+    .wlc-winners-slider {
+
+        &__wrapper {
+            max-width: ef.get-value($themeTransparent, 'wrapperMaxWidth');
+            height: ef.get-value($themeTransparent, 'wrapperHeight');
+            border-radius: ef.get-value($themeTransparent, 'wrapperRadius');
+            overflow: hidden;
+        }
+
+        &__container {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        &__loader {
+            @include em.get-mq-map('height', $themeTransparent, 'loaderHeight');
+        }
+
+        &__title {
+            @include em.get-mq-map('padding', $themeTransparent, 'titlePadding');
+            @include text.get-text-style(ef.get-value($themeTransparent, 'titleFont'), ef.get-value($themeTransparent, 'titleColor'));
+            display: flex;
+            flex: 0 1 100%;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        &__slider {
+            @include em.get-mq-map('height', $themeTransparent, 'sliderHeight');
+            @include em.get-mq-map('margin', $themeTransparent, 'wrapperMargin');
+
+            ::ng-deep {
+
+                .swiper-container {
+                    height: 100%;
+                    overflow-x: visible;
+
+                    @if ef.get-value($themeTransparent, 'sliderShadowPadding') {
+                        height: calc(100% + #{ef.get-value($themeTransparent, 'sliderShadowPadding')});
+                        margin-bottom: -1 * ef.get-value($themeTransparent, 'sliderShadowPadding');
+                        margin-left: -1 * ef.get-value($themeTransparent, 'sliderShadowPadding');
+                        padding-bottom: ef.get-value($themeTransparent, 'sliderShadowPadding');
+                        padding-left: ef.get-value($themeTransparent, 'sliderShadowPadding');
+                    }
+                }
+            }
+        }
+    }
+}

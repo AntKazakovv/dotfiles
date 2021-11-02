@@ -12,6 +12,16 @@ export namespace wlcBiggestWinsSlider {
         },
     };
 
+    export const transparent: ILayoutComponent = {
+        name: 'promo.wlc-winners-slider',
+        params: <IWinnersSliderCParams>{
+            type: 'biggest',
+            theme: 'transparent',
+            title: 'Biggest wins',
+            wlcElement: 'section_biggest-wins',
+        },
+    };
+
     export const one: ILayoutComponent = {
         name: 'promo.wlc-winners-slider',
         display: {

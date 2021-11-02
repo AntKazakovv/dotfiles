@@ -82,6 +82,22 @@ $themeVertical: map-merge((
     'gameHoverArrowColor': var(--mc-secondary-l20),
 ), $customThemeVertical);
 
+// ~~ theme TRANSPARENT
+$customThemeTransparent: () !default;
+$themeTransparent: map-merge((
+    'imageSize': var(--wlc-winner-slider-slide-height, 100px),
+    'wrapperGap': ef.size(2),
+
+    // winner right block
+    'rightBackground': var(--mc-bg700),
+    'rightBorderRadius': ef.get('radius', 'biger'),
+    'rightPadding': ef.size(1) ef.size(2),
+
+    // game
+    'gameArrowColor': var(--mc-secondary),
+    'gameHoverArrowColor': var(--mc-secondary-l20),
+), $customThemeVertical);
+
 $customTheme1: () !default;
 $theme1: map-merge((
     'maxWidth': 260px,

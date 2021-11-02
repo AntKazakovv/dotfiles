@@ -12,6 +12,16 @@ export namespace wlcLastWinsSlider {
         },
     };
 
+    export const transparent: ILayoutComponent = {
+        name: 'promo.wlc-winners-slider',
+        params: <IWinnersSliderCParams>{
+            type: 'latest',
+            theme: 'transparent',
+            title: gettext('Recent wins'),
+            wlcElement: 'section_last-winners',
+        },
+    };
+
     export const one: ILayoutComponent = {
         name: 'promo.wlc-winners-slider',
         display: {

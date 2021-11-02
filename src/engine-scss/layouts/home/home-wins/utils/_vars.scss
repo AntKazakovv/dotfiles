@@ -38,3 +38,16 @@ $themeHomeWins: map-merge((
         375: 350px,
     ),
 ), $customThemeHomeWins);
+
+$customThemeHomeWinsTransparent: () !default;
+$themeHomeWinsTransparent: map-merge((
+    'homeWinsGridTemplateColumns': (
+        320: 1fr,
+        720: repeat(2, 1fr),
+    ),
+    'homeWinsGap': (
+        320: ef.size(4),
+    ),
+    'homeWinsMaxWidth': 1170px,
+    'homeWinsMargin': 0 auto,
+), $customThemeHomeWins);

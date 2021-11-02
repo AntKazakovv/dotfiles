@@ -4,6 +4,10 @@
 // ~~ theme DEFAULT
 $customThemeDefault: () !default;
 $themeDefault: map-merge((
+    'containerMargin': (
+        375: ef.size(6) 0 0,
+    ),
+    'containerRadius': ef.get('radius', 'biger'),
     'promoStepsBackground': var(--mc-bg300),
 
     'desktopStepsDisplay': grid,
