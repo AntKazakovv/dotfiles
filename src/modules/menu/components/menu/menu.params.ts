@@ -21,14 +21,28 @@ export type MenuType = 'main-menu'
     | 'profile-menu'
     | 'profile-first-menu'
     | 'mobile-menu'
+    | 'post-menu'
     | 'footer:tc'
     | 'footer:about'
     | 'affiliates-menu'
     | 'burger-panel-header-menu';
-export type ItemType = 'sref' | 'anchor' | 'modal' | 'href' | 'scroll' | 'title' | 'dropdown' | 'group';
+export type ItemType = 'sref' | 'anchor' | 'modal' | 'href' | 'scroll' | 'title' | 'dropdown' | 'group' | 'wordpress';
+export type WpItemType = 'sref' | 'href';
 export type IMenuTarget = '_blank' | '_self' | '_parent' | '_top';
 export type MenuTheme = string;
 export type TMenuItemDevice = 'mobile' | 'desktop' | 'all';
+
+/**
+ * Settings for generate menu items by wordpress data
+ */
+export interface IMenuItemParamsWp {
+    /** category slugs for find posts in wordpress */
+    slug: string[];
+    /** default state for menu items */
+    defaultState: string;
+    /** default type for menu items */
+    defaultType: WpItemType;
+}
 
 export interface IMenuItemParamsState {
     parent?: string | string[];
@@ -64,6 +78,7 @@ export interface IMenuItemParams {
     href?: string | IMenuItemParamsHref;
     target?: IMenuTarget;
     blockExpand?: boolean;
+    wp?: IMenuItemParamsWp;
 }
 
 export interface IMenuItem {

@@ -9,6 +9,7 @@ import {
     IMenuItemsGlobal,
     IHelperGetItemsForCategories,
     IHelperGetItemsParams,
+    ItemType,
 } from 'wlc-engine/modules/menu/components/menu/menu.params';
 import {
     wlcDefaultMenuItems,
@@ -17,11 +18,12 @@ import {
 } from 'wlc-engine/modules/menu/system/config/menu.items.config';
 import {
     CategoryModel,
-} from 'wlc-engine/modules/games';
+} from 'wlc-engine/modules/games/system/models';
 import {
     IMenuItem,
     IMenuOptions,
-} from 'wlc-engine/modules/core';
+} from 'wlc-engine/modules/core/system/interfaces';
+import {TextDataModel} from 'wlc-engine/modules/static/system/models/textdata.model';
 import * as Params from 'wlc-engine/modules/menu/components/menu/menu.params';
 
 import _isString from 'lodash-es/isString';
@@ -37,6 +39,22 @@ import _reduce from 'lodash-es/reduce';
 import _orderBy from 'lodash-es/orderBy';
 import _filter from 'lodash-es/filter';
 import _includes from 'lodash-es/includes';
+import _sortBy from 'lodash-es/sortBy';
+import _forEach from 'lodash-es/forEach';
+
+export interface IGetItemsByWpPosts {
+    posts: TextDataModel[];
+    defaultItemState: string,
+    defaultItemType: Params.WpItemType,
+    hrefBasePath?: string;
+    wlcElementPrefix?: string;
+}
+
+export interface IGetHrefItemBasePath {
+    url: string;
+    lang?: string;
+    page?: string;
+}
 
 export interface IParseConfigOptions {
     icons?: {
@@ -60,9 +78,10 @@ export class MenuHelper {
      */
     public static getItems(params: IHelperGetItemsParams): MenuItemObjectType[] {
 
-        const items: MenuItemType[] = (_isArray(params?.items))
+        const items: MenuItemType[] = _isArray(params?.items)
             ? params.items
             : _get(wlcDefaultMenuItems, params.type, []);
+
         let resultList: MenuItemObjectType[] = [];
 
         _map(items, (item: MenuItemType) => {
@@ -156,6 +175,85 @@ export class MenuHelper {
     }
 
     /**
+     * Get menu items by wordpress posts data
+     *
+     * @param {TextDataModel[]} posts Wordpress articles
+     * @param {string} defaultState Default state for menu items, if it is not specified in the article params
+     * @returns {IMenuItem[]}
+     */
+    public static getItemsByWpPosts(options: IGetItemsByWpPosts) {
+        const wpItems: TextDataModel[] = _sortBy(options.posts, (item) => item.sortOrder);
+        const menuItems: Params.IMenuItem[] = [];
+
+        _forEach(wpItems, (wpItem) => {
+            const type: ItemType = wpItem.outerLink ? 'href' : options.defaultItemType || 'sref';
+            const wlcElement: string = options.wlcElementPrefix ? options.wlcElementPrefix + wpItem.slug : '';
+
+            let params: IMenuItemParams;
+
+            if (type === 'href') {
+                let basePath: string;
+                let url: string;
+
+                if (wpItem.outerLink) {
+                    url = _includes(wpItem.outerLink, '//') ? wpItem.outerLink : '//' + wpItem.outerLink;
+                } else {
+                    basePath = options.hrefBasePath || '';
+                    url = basePath + wpItem.slug;
+                }
+                params = {
+                    href: {
+                        url,
+                        baseSiteUrl: !wpItem.outerLink && !basePath,
+                    },
+                    target: wpItem.outerLink ? '_blank' : '_self',
+                };
+            } else {
+                params = {
+                    state: {
+                        name: options.defaultItemState,
+                        params: {
+                            slug: wpItem.slug,
+                        },
+                    },
+                };
+            }
+
+            const menuItem: Params.IMenuItem = {
+                name: wpItem.title,
+                type: type,
+                class: wpItem.slug,
+                icon: wpItem.slug,
+                params: params,
+                wlcElement: wlcElement,
+            };
+            menuItems.push(menuItem);
+        });
+        return menuItems;
+    }
+
+    /**
+     * Get base path for href menu item by params (url, lang, page)
+     *
+     * @param {IGetHrefItemBasePath} options Options for generate base path for href
+     * @returns {string} Base path for href item of menu
+     */
+    public static getHrefItemBasePath(options: IGetHrefItemBasePath): string {
+        let basePath = options.url;
+
+        if (!basePath.endsWith('/')) {
+            basePath += '/';
+        }
+        if (options.lang) {
+            basePath += options.lang + '/';
+        }
+        if (options.page) {
+            basePath += options.page + '/';
+        }
+        return basePath;
+    }
+
+    /**
      * Parse menu config
      *
      * @param {MenuConfigItem[]} config
@@ -185,8 +283,11 @@ export class MenuHelper {
 
                     const items: MenuItemObjectType[] = item.items?.map((item: MenuItemsGroupItem) => {
                         if (_has(item, 'parent')) {
-                            const dropdownItems = MenuHelper
-                                .parseMenuConfig((item as MenuConfigItemsGroup).items, globalItemsConfig, options);
+                            const dropdownItems = MenuHelper.parseMenuConfig(
+                                (item as MenuConfigItemsGroup).items,
+                                globalItemsConfig,
+                                options,
+                            );
                             return {
                                 parent: item['parent'],
                                 items: dropdownItems,
@@ -234,8 +335,12 @@ export class MenuHelper {
      * @param {IParseSettingsOptions} options
      * @returns {MenuConfigItem[]}
      */
-    public static parseMenuSettings(settings: IMenuOptions, type: MenuType, lang: string,
-        options: IParseSettingsOptions): MenuConfigItem[] {
+    public static parseMenuSettings(
+        settings: IMenuOptions,
+        type: MenuType,
+        lang: string,
+        options: IParseSettingsOptions,
+    ): MenuConfigItem[] {
         return MenuHelper.geiItemsByMenuSettings(settings.items, type, lang, options);
     }
 
@@ -248,8 +353,12 @@ export class MenuHelper {
      * @param {IParseSettingsOptions} options
      * @returns {*}
      */
-    protected static geiItemsByMenuSettings(items: IMenuItem[], type: MenuType, lang: string,
-        options: IParseSettingsOptions): MenuConfigItem[] {
+    protected static geiItemsByMenuSettings(
+        items: IMenuItem[],
+        type: MenuType,
+        lang: string,
+        options: IParseSettingsOptions,
+    ): MenuConfigItem[] {
 
         const specialCategories: string[] = ['favourites', 'lastplayed'];
 
@@ -258,8 +367,8 @@ export class MenuHelper {
                 && _includes(specialCategories, item.id);
 
             if (item.type === 'dropdown') {
-                const dropdownItems: MenuConfigItem[] = MenuHelper.geiItemsByMenuSettings(item.items, type, lang,
-                    options);
+                const dropdownItems: MenuConfigItem[] =
+                    MenuHelper.geiItemsByMenuSettings(item.items, type, lang, options);
                 const parentItem: Params.IMenuItem = {
                     name: item.name[lang] || item.name['en'],
                     type: 'sref',

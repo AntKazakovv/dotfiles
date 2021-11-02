@@ -3,7 +3,8 @@ import {
     ChangeDetectorRef,
     Component,
     Inject,
-    Input, OnChanges,
+    Input,
+    OnChanges,
     OnInit,
     SimpleChanges,
     ViewChild,
@@ -27,6 +28,7 @@ import {
 import {
     takeUntil,
 } from 'rxjs/operators';
+
 import {
     AbstractComponent,
     IMixedParams,
@@ -36,25 +38,27 @@ import {
     ConfigService,
     DeviceType,
     EventService,
-    GlobalHelper,
+    InjectionService,
 } from 'wlc-engine/modules/core';
-import {
-    ISlide,
-    SliderComponent,
-} from 'wlc-engine/modules/promo';
-import {
-    TIconExtension,
-    MenuHelper,
-} from 'wlc-engine/modules/menu';
+import {ISlide} from 'wlc-engine/modules/promo/components/slider/slider.params';
+import {SliderComponent} from 'wlc-engine/modules/promo/components/slider/slider.component';
+import {TIconExtension} from 'wlc-engine/modules/menu/system/interfaces/menu.interface';
+import {MenuHelper} from 'wlc-engine/modules/menu/system/helpers/menu.helper';
+import {TextDataModel} from 'wlc-engine/modules/static/system/models/textdata.model';
+import {StaticService} from 'wlc-engine/modules/static/system/services/static/static.service';
+import {IMenuItemsGroup} from 'wlc-engine/modules/menu/components/menu/menu.params';
+
 import * as Params from './menu.params';
 
 import _isString from 'lodash-es/isString';
 import _has from 'lodash-es/has';
+import _get from 'lodash-es/get';
+import _set from 'lodash-es/set';
 import _reduce from 'lodash-es/reduce';
 import _find from 'lodash-es/find';
 import _forEach from 'lodash-es/forEach';
 import _map from 'lodash-es/map';
-import _get from 'lodash-es/get';
+import _flatten from 'lodash-es/flatten';
 
 @Component({
     selector: '[wlc-menu]',
@@ -103,6 +107,7 @@ export class MenuComponent extends AbstractComponent implements OnInit, OnChange
     public slides: ISlide[] = [];
     public iconsFallback: string = '';
 
+    protected staticService: StaticService;
     protected iconsExtension: TIconExtension = 'svg';
     protected scrollDuration = 400;
     protected baseUrl: string = '';
@@ -121,6 +126,7 @@ export class MenuComponent extends AbstractComponent implements OnInit, OnChange
         protected transitionService: TransitionService,
         protected configService: ConfigService,
         protected eventService: EventService,
+        protected injectionService: InjectionService,
     ) {
         super(
             <IMixedParams<Params.IMenuCParams>>{
@@ -154,8 +160,8 @@ export class MenuComponent extends AbstractComponent implements OnInit, OnChange
     }
 
     public ngAfterViewInit(): void {
-        this.inited = true;
         this.initItems();
+        this.inited = true;
 
         this.transitionService.onSuccess({}, () => {
             this.expandItems();
@@ -218,10 +224,10 @@ export class MenuComponent extends AbstractComponent implements OnInit, OnChange
     }
 
     protected setExtension(iconPath: string): string {
-        return GlobalHelper.setFileExtension(iconPath, this.iconsExtension);
+        return iconPath.replace(/\.[\da-z]+$/i, '') + `.${this.iconsExtension}`;
     }
 
-    protected initItems(): void {
+    protected async initItems(): Promise<void> {
         this.items = MenuHelper.getItems(
             {
                 isMobile: this.isMobile,
@@ -230,7 +236,11 @@ export class MenuComponent extends AbstractComponent implements OnInit, OnChange
                 type: this.$params.type,
             },
         );
+        if (this.isAffiliate) {
+            this.items = this.changeLinkForAffiliate(this.items);
+        }
 
+        await this.initWpItems();
         this.expandItems();
 
         if (this.$params.common?.useSwiper) {
@@ -302,11 +312,6 @@ export class MenuComponent extends AbstractComponent implements OnInit, OnChange
                 }
             });
         }
-
-        if (this.isAffiliate) {
-            this.items = this.changeLinkForAffiliate(this.items);
-        }
-
         this.cdr.markForCheck();
     }
 
@@ -355,5 +360,50 @@ export class MenuComponent extends AbstractComponent implements OnInit, OnChange
                 this.isMobile = type !== DeviceType.Desktop;
                 this.initItems();
             });
+    }
+
+    /**
+     * Init wp items
+     *
+     * @returns {Promise<void>}
+     */
+    protected async initWpItems(): Promise<void> {
+        _forEach(this.items, async (item: Params.MenuItemObjectType): Promise<void> => {
+
+            if (item.type === 'group') {
+
+                const itemsGroup: IMenuItemsGroup = item as IMenuItemsGroup;
+                if (itemsGroup.parent.type !== 'wordpress') {
+                    return;
+                }
+
+                const wpParams: Params.IMenuItemParamsWp = itemsGroup.parent.params?.wp;
+                if (!wpParams?.slug) {
+                    return;
+                }
+
+                if (!this.staticService) {
+                    this.staticService = await this.injectionService.getService<StaticService>('static.static-service');
+                }
+
+                const requests: Promise<TextDataModel[]>[] = _map(
+                    wpParams.slug,
+                    (slug: string): Promise<TextDataModel[]> => {
+                        return this.staticService.getPostsListByCategorySlug(slug);
+                    });
+
+                Promise.all(requests).then((data: TextDataModel[][]) => {
+                    const posts: TextDataModel[] = _flatten<TextDataModel>(data);
+                    const subItems: Params.IMenuItem[] = MenuHelper.getItemsByWpPosts({
+                        posts: posts,
+                        defaultItemState: wpParams.defaultState,
+                        defaultItemType: wpParams.defaultType,
+                        wlcElementPrefix: `link_${this.$params.type}_`,
+                    });
+                    _set(item, 'items', subItems);
+                    this.expandItems();
+                });
+            }
+        });
     }
 }

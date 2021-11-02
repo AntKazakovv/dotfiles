@@ -1,0 +1,16 @@
+<div *ngIf="isReady; else preloader" class="{{$class}}__wrp">
+    <div *ngIf="title" class="{{$class}}__title">{{title | translate}}</div>
+    <div *ngIf="groupedMenu && !useSwiper; else default" class="{{$class}}__items">
+        <div *ngFor="let menuParams of groupedMenu" class="{{$class}}__items-group">
+            <div wlc-menu [inlineParams]="menuParams"></div>
+        </div>
+    </div>
+</div>
+
+<ng-template #default>
+    <div wlc-menu [inlineParams]="$params.menuParams"></div>
+</ng-template>
+
+<ng-template #preloader>
+    <div wlc-loader></div>
+</ng-template>

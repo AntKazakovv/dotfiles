@@ -42,6 +42,7 @@ export * from './menu/wlc-category-menu.config';
 export * from './menu/wlc-main-menu.config';
 export * from './menu/wlc-profile-menu.config';
 export * from './menu/wlc-mobile-menu.config';
+export * from './menu/wlc-post-menu.config';
 
 export * from './games/wlc-game-wrapper.config';
 export * from './games/wlc-games-catalog.config';
@@ -51,7 +52,6 @@ export * from './games/wlc-random-game.config';
 export * from './games/wlc-category-preview.config';
 export * from './games/wlc-game-thumb.config';
 
-export * from './static/wlc-post-menu.config';
 export * from './static/wlc-promo-steps.config';
 export * from './static/wlc-wp-promo.config';
 

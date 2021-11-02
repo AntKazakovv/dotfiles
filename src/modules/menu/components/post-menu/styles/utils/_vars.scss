@@ -71,9 +71,9 @@ $menuThemeContacts: map-merge((
     'letterSpacing': 1px,
 
     'hoverBg': var(--mc-main),
-    'hoverColor': ef.get('mainColors', 'baseMain'),
+    'hoverColor': var(--mc-baseMain),
 
     'activeBg': var(--mc-main),
-    'activeColor': ef.get('mainColors', 'baseMain'),
+    'activeColor': var(--mc-baseMain),
     'border': 2px solid var(--mc-bg500),
 ), $customMenuThemeContacts);

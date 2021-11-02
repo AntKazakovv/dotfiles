@@ -45,7 +45,7 @@ export const defaultParams: IInfoPageCParams = {
                     },
                 },
                 {
-                    name: 'static.wlc-post-menu',
+                    name: 'menu.wlc-post-menu',
                     params: {
                         theme: 'contacts',
                         common: {

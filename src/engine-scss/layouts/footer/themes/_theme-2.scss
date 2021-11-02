@@ -51,15 +51,25 @@
                     @include em.get-mq-map('gap', $theme2Footer, 'footerPostMenuGridGap');
                 }
 
-                &__item {
-                    @include em.get-mq-map('text-align', $theme2Footer, 'footerPostMenuItemAlignment');
-                    @include em.get-mq-map('white-space', $theme2Footer, 'footerPostMenuItemWhiteSpace');
-                }
+                .wlc-menu {
 
-                &__link {
-                    color: ef.get-value($theme2Footer, 'footerPostMenuLinkColor');
+                    &__link {
+                        color: ef.get-value($theme2Footer, 'footerPostMenuLinkColor');
+                    }
                 }
             }
+
+            &.wlc-post-menu--without-swiper {
+
+                .wlc-menu {
+
+                    &__item {
+                        @include em.get-mq-map('text-align', $theme2Footer, 'footerPostMenuItemAlignment');
+                        @include em.get-mq-map('white-space', $theme2Footer, 'footerPostMenuItemWhiteSpace');
+                    }
+                }
+            }
+
         }
     }
 

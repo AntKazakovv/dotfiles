@@ -5,7 +5,6 @@ import {UIRouterModule} from '@uirouter/angular';
 import {CoreModule} from 'wlc-engine/modules/core/core.module';
 import {PostComponent} from './components/post/post.component';
 import {FaqComponent} from './components/faq/faq.component';
-import {PostMenuComponent} from './components/post-menu/post-menu.component';
 import {PromoStepsComponent} from './components/promo-steps/promo-steps.component';
 import {WpPromoComponent} from 'wlc-engine/modules/static/components/wp-promo/wp-promo.component';
 import {GlobalHelper} from 'wlc-engine/modules/core';
@@ -22,16 +21,18 @@ export const moduleConfig =
 export const components = {
     'wlc-post': PostComponent,
     'wlc-faq': FaqComponent,
-    'wlc-post-menu': PostMenuComponent,
     'wlc-promo-steps': PromoStepsComponent,
     'wlc-wp-promo': WpPromoComponent,
+};
+
+export const services = {
+    'static-service': StaticService,
 };
 
 @NgModule({
     declarations: [
         PostComponent,
         FaqComponent,
-        PostMenuComponent,
         PromoStepsComponent,
         WpPromoComponent,
     ],
@@ -46,7 +47,6 @@ export const components = {
     exports: [
         PostComponent,
         FaqComponent,
-        PostMenuComponent,
         PromoStepsComponent,
         WpPromoComponent,
     ],

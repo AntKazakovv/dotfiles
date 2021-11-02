@@ -102,6 +102,7 @@ export class StaticService {
     }
 
     private async init(): Promise<void> {
+        await this.configService.ready;
         await this.setConfig();
         await this.getCategories();
         this.ready = Promise.resolve(true);

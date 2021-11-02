@@ -1,0 +1,49 @@
+@use 'engine-scss/functions' as ef;
+@use 'engine-scss/mixins/base.mixins' as bm;
+@use 'engine-scss/mixins/text' as text;
+
+.wlc-post-menu--theme-contacts:host {
+
+    ::ng-deep {
+
+        .wlc-menu {
+
+            &__link {
+                @include text.get-text-style('ThirdTitleBold', ef.get-value($menuThemeContacts, 'textColor'));
+                @include bm.transition;
+
+                display: block;
+                padding: ef.get-value($menuThemeContacts, 'padding');
+                letter-spacing: ef.get-value($menuThemeContacts, 'letterSpacing');
+                text-transform: ef.get-value($menuThemeContacts, 'textTransform');
+                text-decoration: ef.get-value($menuThemeContacts, 'textDecoration');
+                border-bottom: ef.get-value($menuThemeContacts, 'border');
+
+                &.active {
+                    color: ef.get-value($menuThemeContacts, 'activeColor');
+                    background: ef.get-value($menuThemeContacts, 'activeBg');
+
+                    @include bm.hover {
+                        color: ef.get-value($menuThemeContacts, 'hoverColor');
+                        background: ef.get-value($menuThemeContacts, 'hoverBg');
+                    }
+                }
+
+                @include bm.hover {
+                    color: ef.get-value($menuThemeContacts, 'hoverColor');
+                    background: ef.get-value($menuThemeContacts, 'hoverBg');
+                }
+            }
+
+            &__item {
+
+                &:last-child {
+
+                    .wlc-menu__link {
+                        border-bottom: 0;
+                    }
+                }
+            }
+        }
+    }
+}

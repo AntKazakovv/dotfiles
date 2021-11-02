@@ -30,14 +30,7 @@ export const menuConfig: IMenuConfig = {
             {
                 parent: 'mobile-menu:info',
                 type: 'group',
-                items: [
-                    'mobile-menu:privacy-policy',
-                    'mobile-menu:responsible-game',
-                    'mobile-menu:fair-play',
-                    'mobile-menu:games-rules',
-                    'mobile-menu:terms-and-conditions',
-                    'mobile-menu:contact-us',
-                ],
+                items: [],
             },
         ],
         icons: {

@@ -1,0 +1,108 @@
+@use 'engine-scss/mixins/text' as text;
+@use 'engine-scss/mixins/mediaqueries' as mq;
+@use 'engine-scss/mixins/base.mixins' as bm;
+@use 'engine-scss/functions' as ef;
+@import '../utils/vars';
+
+.wlc-post-menu--theme-default:host {
+    min-width: 0;
+
+    ::ng-deep {
+
+        .wlc-menu__link {
+            @include bm.transition(color);
+            @include text.get-text-style(ef.get-value($themeDefault, 'linkTextStyle', 375), ef.get-value($themeDefault, 'linkColor'));
+
+            text-decoration: ef.get-value($themeDefault, 'linkDecoration');
+
+            &.active {
+                color: ef.get-value($themeDefault, 'linkColorHover');
+            }
+
+            @include bm.hover {
+                color: ef.get-value($themeDefault, 'linkColorHover');
+            }
+
+            @include mq.min(1024) {
+                @include text.get-text-style(ef.get-value($themeDefault, 'linkTextStyle', 1024), ef.get-value($themeDefault, 'linkColor'));
+            }
+        }
+
+        .wlc-slider {
+
+            &--on-start {
+                box-shadow: ef.get-value($themeDefault, 'swiperBoxShadowStart');
+            }
+
+            &--on-end {
+                box-shadow: ef.get-value($themeDefault, 'swiperBoxShadowEnd');
+            }
+
+            &--on-progress {
+                box-shadow: ef.get-value($themeDefault, 'swiperBoxShadowStart'), ef.get-value($themeDefault, 'swiperBoxShadowEnd');
+            }
+        }
+
+        .swiper-wrapper {
+            width: auto;
+        }
+
+        .swiper-slide {
+            width: auto;
+        }
+    }
+
+    .wlc-post-menu {
+
+        &__wrp {
+            width: 100%;
+            max-width: 100%;
+        }
+
+        &__title {
+            @include text.get-text-style(ef.get-value($themeDefault, 'titleTextStyle'), ef.get-value($themeDefault, 'titleColor'));
+            padding: ef.get-value($themeDefault, 'titlePadding');
+        }
+
+        &__items {
+            display: grid;
+            grid-gap: map-get($themeDefault, 'linksGap');
+            grid-template-columns: 1fr;
+        }
+    }
+
+    &.wlc-post-menu--theme-mod-footer-first {
+        @include bm.get-mq-map('justify-content', $themeDefault, 'ffJustify');
+        @include bm.get-mq-map('padding', $themeDefault, 'ffPadding');
+
+        width: 100%;
+
+        &.wlc-post-menu--without-swiper {
+
+            .wlc-post-menu {
+
+                &__items {
+                    @include bm.get-mq-map('column-count', $themeDefault, 'ffColumns');
+                    @include bm.get-mq-map('text-align', $themeDefault, 'ffTextAlign');
+                    @include bm.get-mq-map('max-width', $themeDefault, 'ffItemsMaxWidth');
+                    @include bm.get-mq-map('margin', $themeDefault, 'ffItemsMargin');
+
+                    display: block;
+                    line-height: ef.get-value($themeDefault, 'ffLineHeight');
+                    column-gap: ef.get-value($themeDefault, 'ffColumnsGap');
+                }
+            }
+
+            ::ng-deep {
+
+                .wlc-menu {
+
+                    &__link {
+                        display: inline-block;
+                        padding: ef.get-value($themeDefault, 'ffLinkPadding');
+                    }
+                }
+            }
+        }
+    }
+}

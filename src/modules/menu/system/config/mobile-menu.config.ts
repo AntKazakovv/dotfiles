@@ -26,7 +26,14 @@ export const wlcMobileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
     'mobile-menu:tournaments': commonMenuItems.tournaments,
     'mobile-menu:info': {
         name: gettext('Info'),
-        type: 'sref',
+        type: 'wordpress',
+        params: {
+            wp: {
+                slug: ['legal', 'about-us'],
+                defaultState: 'app.contacts',
+                defaultType: 'sref',
+            },
+        },
         icon: 'info',
         class: 'info',
     },
@@ -147,13 +154,6 @@ export const wlcMobileMenuItemGroupsGlobal: MenuParams.IMenuItemGroupsGlobal = {
     'mobile-menu:info': {
         type: 'group',
         parent: 'mobile-menu:info',
-        items: [
-            'mobile-menu:privacy-policy',
-            'mobile-menu:responsible-game',
-            'mobile-menu:fair-play',
-            'mobile-menu:games-rules',
-            'mobile-menu:terms-and-conditions',
-            'mobile-menu:contact-us',
-        ],
+        items: [],
     },
 };

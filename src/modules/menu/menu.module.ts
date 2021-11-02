@@ -11,6 +11,7 @@ import {MobileMenuComponent} from './components/mobile-menu/mobile-menu.componen
 import {ProfileMenuComponent} from './components/profile-menu/profile-menu.component';
 import {BurgerPanelHeaderMenuComponent} from './components/burger-panel-header-menu/burger-panel-header-menu.component';
 import {ProfileMenuService} from './system/services';
+import {PostMenuComponent} from './components/post-menu/post-menu.component';
 import {PromoModule} from 'wlc-engine/modules/promo/promo.module';
 
 import {GlobalHelper} from 'wlc-engine/modules/core';
@@ -31,6 +32,7 @@ export const components = {
     'wlc-mobile-menu': MobileMenuComponent,
     'wlc-profile-menu': ProfileMenuComponent,
     'wlc-burger-panel-header-menu': BurgerPanelHeaderMenuComponent,
+    'wlc-post-menu': PostMenuComponent,
 };
 
 @NgModule({
@@ -43,6 +45,7 @@ export const components = {
         MobileMenuComponent,
         ProfileMenuComponent,
         BurgerPanelHeaderMenuComponent,
+        PostMenuComponent,
     ],
     providers: [
         ProfileMenuService,
