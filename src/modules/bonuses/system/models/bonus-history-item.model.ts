@@ -62,6 +62,10 @@ export class HistoryItemModel extends AbstractModel<IBonus> {
         return this.data.StatusName;
     }
 
+    public get id(): string {
+        return this.data.ID;
+    }
+
     protected modifyData(historyItem: any): any {
         switch (historyItem.Status) {
             case '-100': {

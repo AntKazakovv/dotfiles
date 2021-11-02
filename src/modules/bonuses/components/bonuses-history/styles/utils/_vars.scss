@@ -8,4 +8,5 @@ $themeDefault: map-merge((
     'filterGap': ef.get('size', 'smally'),
     'filterMinWidth': 140px,
     'firstCellColumns':  1fr auto,
+    'historyNameGap': ef.size(2),
 ), $customThemeDefault);

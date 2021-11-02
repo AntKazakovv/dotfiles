@@ -504,7 +504,7 @@ $profileSettings: map-merge((
         1024: 285px auto,
     ),
     'contentPaddingV1': (
-        375: 0,
+        375: map-get($size, 'smaller') 0 0,
         1024: map-get($size, 'smaller') map-get($size, 'main'),
     ),
     'contentHeaderHeightV1': (

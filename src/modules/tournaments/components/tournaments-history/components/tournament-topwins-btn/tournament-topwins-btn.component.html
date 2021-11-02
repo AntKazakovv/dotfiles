@@ -1,8 +1,8 @@
 <span class="action-text">{{$params.tournament.statusName | translate}}</span>
-<button class="action-btn"
-        wlc-button
-        typeAttr="button"
-        themeMod="secondary"
-        text="Read more"
-        (click)="showTopWins()">
+<button wlc-button
+     theme="cleared"
+     class="icon-btn"
+     iconPath="/wlc/icons/info.svg"
+     wlcElement="button_info"
+     (click)="showTopWins()">
 </button>

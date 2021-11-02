@@ -8,7 +8,6 @@ export type ThemeMod = 'default' | CustomType;
 
 export interface ITransactionPreviewParams extends IComponentParams<Theme, Type, ThemeMod> {
     transaction?: IBet | Transaction;
-    index?: number;
 }
 
 export const defaultParams: ITransactionPreviewParams = {

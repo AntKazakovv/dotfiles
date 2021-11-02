@@ -1,0 +1,13 @@
+:host {
+
+    .wlc-history-name {
+
+        &__status {
+            display: block;
+
+            .wlc-table--table & {
+                display: none;
+            }
+        }
+    }
+}

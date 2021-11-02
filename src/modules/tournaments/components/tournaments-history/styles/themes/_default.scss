@@ -6,6 +6,8 @@
 
     &:host {
 
+        @include bm.get-mq-map('margin', $themeDefault, 'sectionMargin');
+
         .wlc-loader {
             min-height: ef.get-value($themeDefault, 'sectionLoaderMinHeight');
         }
@@ -36,31 +38,7 @@
                 .wlc-table__row:not(.wlc-table__row--head) {
 
                     .wlc-table__cell {
-
-                        @include mq.min(1024) {
-                            transition: none;
-                        }
-                    }
-
-                    @include bm.hover {
-
-                        .action-btn {
-                            display: block;
-                        }
-
-                        .action-text {
-                            opacity: 0;
-                        }
-                    }
-
-                    @include bm.hover(false) {
-
-                        @include mq.min(1024) {
-
-                            .action-text {
-                                opacity: 0;
-                            }
-                        }
+                        @include bm.get-mq-map('transition', $themeDefault, 'cellTransition');
                     }
                 }
             }
@@ -73,6 +51,13 @@
 
                     .wlc-table__cell-label {
                         display: none;
+                    }
+
+                    .wlc-history-name {
+                        display: grid;
+                        grid-auto-flow: column;
+                        gap: ef.get-value($themeDefault, 'historyNameGap');
+                        justify-content: space-between;
                     }
                 }
 
@@ -88,8 +73,7 @@
         }
 
         .wlc-table--theme-mod-first::ng-deep {
-
-            margin: ef.get-value($themeDefault, 'sectionMargin');
+            @include bm.get-mq-map('margin', $themeDefault, 'sectionMargin');
 
             .wlc-table__content {
 
@@ -97,18 +81,8 @@
 
                     @include bm.hover(false) {
 
-                        @include mq.min(1024) {
-
-                            .action-text {
-                                opacity: 1;
-                            }
-                        }
-
-                        @include mq.min(1200) {
-
-                            .action-text {
-                                opacity: 0;
-                            }
+                        .action-text {
+                            @include bm.get-mq-map('opacity', $themeDefault, 'actionTextOpacity');
                         }
                     }
                 }
@@ -118,9 +92,5 @@
                 @include bm.get-mq-map('min-width', $themeDefault, 'statusCellMinWidthFirst');
             }
         }
-    }
-
-    @include mq.min(1024) {
-        margin: ef.get-value($themeDefault, 'sectionMargin');
     }
 }

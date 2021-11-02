@@ -17,10 +17,6 @@
 
     .wlc-transaction-preview {
 
-        &__index {
-            display: block;
-        }
-
         &__time {
             @include bm.get-mq-map('display', $themeDefault, 'timeDisplay');
             @include bm.get-mq-map('margin', $themeDefault, 'timeMargin');

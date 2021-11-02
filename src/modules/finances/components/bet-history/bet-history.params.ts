@@ -19,40 +19,33 @@ export const defaultParams: IBetHistoryCParams = {
 
 export const betHistoryTableHeadConfig: ITableCol[] = [
     {
-        key: 'index',
-        title: '#',
-        type: 'component',
-        order: 10,
-        mapValue: (item: Transaction, index?) => {return {transaction: item, index};},
-        componentClass: TransactionPreviewComponent,
-        wlcElement: 'wlc-profile-table__cell_num',
-    },
-    {
         key: 'Date',
         title: gettext('Bet time'),
-        type: 'date',
-        order: 20,
+        type: 'component',
+        order: 10,
+        mapValue: (item: Transaction, index?) => {return {transaction: item};},
+        componentClass: TransactionPreviewComponent,
         wlcElement: 'wlc-profile-table__cell_time',
     },
     {
         key: 'Amount',
         title: gettext('Amount'),
         type: 'amount',
-        order: 30,
+        order: 20,
         wlcElement: 'wlc-profile-table__cell_amount',
     },
     {
         key: 'Merchant',
         title: gettext('Merchant'),
         type: 'text',
-        order: 50,
+        order: 30,
         wlcElement: 'wlc-profile-table__cell_merchant',
     },
     {
         key: 'GameName',
         title: gettext('Game'),
         type: 'text',
-        order: 50,
+        order: 40,
         wlcElement: 'wlc-profile-table__cell_game',
     },
 ];

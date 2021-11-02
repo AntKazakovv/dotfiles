@@ -1,6 +1,12 @@
 import {IComponentParams, CustomType} from 'wlc-engine/modules/core/system/classes/abstract.component';
 import {ITableCol} from 'wlc-engine/modules/core/components/table/table.params';
 
+import {IHistoryNameItem} from 'wlc-engine/modules/core/components/table/components/history-name/history-name.params';
+import {
+    HistoryNameComponent,
+} from 'wlc-engine/modules/core/components/table/components/history-name/history-name.component';
+import {HistoryItemModel} from '../../system/models/bonus-history-item.model';
+
 export type Theme = 'default' | CustomType;
 export type Type = 'default' | CustomType;
 export type ThemeMod = 'default' | CustomType;
@@ -13,13 +19,23 @@ export const defaultParams: IBonusesHistoryCParams = {
     class: 'wlc-bonuses-history',
 };
 
-export const betHistoryTableHeadConfig: ITableCol[] = [
+export const bonusHistoryTableHeadConfig: ITableCol[] = [
     {
         key: 'Name',
         title: gettext('Bonus name'),
-        type: 'text',
+        type: 'component',
         order: 20,
         wlcElement: 'wlc-profile-table__cell_name',
+        mapValue: (item: HistoryItemModel): {item: IHistoryNameItem} => {
+            return {
+                item: {
+                    name: item.Name,
+                    status: item.StatusName,
+                    id: item.id,
+                },
+            };
+        },
+        componentClass: HistoryNameComponent,
     },
     {
         key: 'Balance',

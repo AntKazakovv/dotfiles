@@ -32,6 +32,17 @@
                 };
             }
         }
+
+        .wlc-table--theme-default.wlc-table::ng-deep {
+
+            .wlc-table__cell--first {
+                grid-template-columns: ef.get-value($themeDefault, 'firstCellColumns');
+
+                .wlc-table__cell-label {
+                    display: none;
+                }
+            }
+        }
     }
 
     @include mq.min(1024) {

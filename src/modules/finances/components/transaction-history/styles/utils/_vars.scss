@@ -12,7 +12,9 @@ $themeDefault: map-merge((
         1200: grid,
     ),
 
-    'sectionMargin': ef.get('size', 'smaller') 0 0,
+    'sectionMargin': (
+        1024: ef.size(4) 0 0,
+    ),
     'sectionLoaderMinHeight': 400px,
 
     'filterAlignItems': (
@@ -38,7 +40,12 @@ $themeDefault: map-merge((
     'btnMinHeight': 40px,
     'labelAreas': 'label label label' '. . .',
 
+    'actionTextOpacity':  (
+        1024: 1,
+        1200: 0,
+    ),
     'actionTextHoverOpacity': (
         1200: 0
     ),
+    'firstCellColumns': 1fr auto,
 ), $customThemeDefault);

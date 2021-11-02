@@ -2,7 +2,9 @@
 
 $customThemeDefault: () !default;
 $themeDefault: map-merge((
-    'sectionMargin': ef.get('size', 'smaller') 0 0,
+    'sectionMargin': (
+        1024: ef.size(4) 0 0,
+    ),
     'sectionLoaderMinHeight': 400px,
     'filterMargin': ef.get('size', 'smaller') 0 0,
     'filterGap': ef.get('size', 'smally'),
@@ -20,5 +22,13 @@ $themeDefault: map-merge((
     'statusCellMinWidthFirst': (
         1024: auto,
         1200: 160px,
+    ),
+    'historyNameGap': ef.size(2),
+    'cellTransition': (
+        1200: none,
+    ),
+    'actionTextOpacity':  (
+        1024: 1,
+        1200: 0,
     ),
 ), $customThemeDefault);

@@ -21,6 +21,7 @@ import {
     ConfigService,
     InjectionService,
 } from 'wlc-engine/modules/core';
+import {ProfileType} from 'wlc-engine/modules/core/system/interfaces/base-config/profile.interface';
 import {
     HistoryFilterService,
 } from 'wlc-engine/modules/finances/system/services/history-filter/history-filter.service';
@@ -81,17 +82,10 @@ export class TournamentsHistoryComponent extends AbstractComponent implements On
         ],
     };
 
-    protected tournaments: any = new BehaviorSubject([]);
-    protected filterType: 'all' | '-99' | '99' | '100' | '0' | '1' = 'all';
-    protected profileType: 'default' | 'first' = this.configService.get('$base.profile.type');
+    public tableData: ITableCParams;
 
-    public tableData: ITableCParams = {
-        themeMod: this.profileType || 'default',
-        noItemsText: gettext('No tournaments history'),
-        head: Params.tournamentsHistoryTableHeadConfig,
-        rows: this.tournaments,
-        switchWidth: this.profileType ? 1200 : 1024,
-    };
+    protected tournaments: BehaviorSubject<Tournament[]> = new BehaviorSubject([]);
+    protected filterType: 'all' | '-99' | '99' | '100' | '0' | '1' = 'all';
 
     protected allTournaments: Tournament[] = [];
     protected historyFilterService: HistoryFilterService;
@@ -109,10 +103,25 @@ export class TournamentsHistoryComponent extends AbstractComponent implements On
                 injectParams: params,
                 defaultParams: Params.defaultParams,
             });
+        this.init();
+    }
+
+    public init(): void {
+
+        const profileType = this.configService.get<ProfileType>('$base.profile.type') || 'default';
+
+        this.tableData = {
+            themeMod: profileType,
+            noItemsText: gettext('No tournaments history'),
+            head: Params.tournamentsHistoryTableHeadConfig,
+            rows: this.tournaments,
+            switchWidth: profileType === 'first' ? 1200 : 1024,
+        };
     }
 
     public async ngOnInit(): Promise<void> {
         super.ngOnInit();
+
         await this.tournamentsService.queryTournaments(true, 'history');
         this.historyFilterService = await this.injectionService
             .getService<HistoryFilterService>('finances.history-filter');
@@ -121,7 +130,6 @@ export class TournamentsHistoryComponent extends AbstractComponent implements On
         });
 
         this.tournaments.next(this.filterTransaction());
-
 
         this.filterSelect.control.valueChanges.pipe(takeUntil(this.$destroy)).subscribe((value) => {
             this.filterType = value;

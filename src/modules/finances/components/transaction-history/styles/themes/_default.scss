@@ -8,6 +8,7 @@
 .wlc-transaction-history--theme-default {
 
     &:host {
+        @include bm.get-mq-map('margin', $themeDefault, 'sectionMargin');
 
         .wlc-loader {
             min-height: ef.get-value($themeDefault, 'sectionLoaderMinHeight');
@@ -41,35 +42,33 @@
             }
         }
 
+        .wlc-table--theme-default.wlc-table::ng-deep {
+
+            .wlc-table__cell--first {
+                grid-template-columns: ef.get-value($themeDefault, 'firstCellColumns');
+
+                .wlc-table__cell-label {
+                    display: none;
+                }
+            }
+        }
+
         ::ng-deep {
 
             .wlc-table__row:not(.wlc-table__row--head) {
 
-                @include bm.hover {
+                .allow-cancelation {
 
-                    .allow-cancelation {
+                    .action-text {
 
-                        .action-text {
+                        @include mq.min(1024) {
                             opacity: 0;
                         }
                     }
-
-                    .action-btn {
-                        display: block;
-                    }
                 }
 
-                @include bm.hover(false) {
-
-                    @include mq.min(1024) {
-
-                        .allow-cancelation {
-
-                            .action-text {
-                                opacity: 0;
-                            }
-                        }
-                    }
+                .action-btn {
+                    display: block;
                 }
             }
 
@@ -77,35 +76,15 @@
 
                 .wlc-table__row:not(.wlc-table__row--head) {
 
-                    @include bm.hover {
+                    .allow-cancelation {
 
-                        .allow-cancelation {
-
-                            .action-text {
-                                opacity: 1;
-
-                                @include mq.min(1200) {
-                                    opacity: 0;
-                                }
-                            }
+                        .action-text {
+                            @include bm.get-mq-map('opacity', $themeDefault, 'actionTextOpacity');
                         }
                     }
 
-                    @include bm.hover(false) {
-
-                        .allow-cancelation {
-
-                            .action-text {
-
-                                @include mq.min(1024) {
-                                    opacity: 1;
-                                }
-
-                                @include mq.min(1200) {
-                                    opacity: 0;
-                                }
-                            }
-                        }
+                    .action-btn {
+                        display: block;
                     }
                 }
             }
@@ -114,9 +93,5 @@
                 cursor: default;
             }
         }
-    }
-
-    @include mq.min(1024) {
-        margin: ef.get-value($themeDefault, 'sectionMargin');
     }
 }

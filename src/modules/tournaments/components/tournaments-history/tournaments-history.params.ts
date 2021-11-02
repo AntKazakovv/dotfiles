@@ -3,7 +3,14 @@ import {
     CustomType,
     ITableCol,
 } from 'wlc-engine/modules/core';
-import {Tournament, TournamentTopwinsBtnComponent} from 'wlc-engine/modules/tournaments';
+import {
+    HistoryNameComponent,
+} from 'wlc-engine/modules/core/components/table/components/history-name/history-name.component';
+import {IHistoryNameItem} from 'wlc-engine/modules/core/components/table/components/history-name/history-name.params';
+import {
+    Tournament,
+    TournamentTopwinsBtnComponent,
+} from 'wlc-engine/modules/tournaments';
 
 export type Theme = 'default' | CustomType;
 export type Type = 'default' | CustomType;
@@ -19,7 +26,17 @@ export const tournamentsHistoryTableHeadConfig: ITableCol[] = [
     {
         key: 'name',
         title: gettext('Name'),
-        type: 'text',
+        type: 'component',
+        mapValue: (item: Tournament): {item: IHistoryNameItem} => {
+            return {
+                item: {
+                    name: item.name,
+                    status: item.statusName,
+                    id: item.id.toString(),
+                },
+            };
+        },
+        componentClass: HistoryNameComponent,
         order: 20,
         wlcElement: 'wlc-profile-table__cell_name',
     },

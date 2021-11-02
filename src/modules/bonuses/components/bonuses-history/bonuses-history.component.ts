@@ -80,7 +80,7 @@ export class BonusesHistoryComponent extends AbstractComponent implements OnInit
 
     public tableData: ITableCParams = {
         noItemsText: gettext('No bonuses history'),
-        head: Params.betHistoryTableHeadConfig,
+        head: Params.bonusHistoryTableHeadConfig,
         rows: this.bets,
         switchWidth: (this.configService.get('$base.profile.type') === 'first') ? 1200 : 1024,
     };

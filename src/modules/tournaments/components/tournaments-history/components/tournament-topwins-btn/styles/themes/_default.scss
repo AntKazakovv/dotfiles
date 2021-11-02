@@ -1,12 +1,40 @@
 @use 'engine-scss/mixins/base.mixins' as bm;
 @use 'engine-scss/mixins/common.mixins' as cm;
 @use 'engine-scss/engine.variables' as ev;
+@use 'engine-scss/mixins/base.mixins' as em;
+@use 'engine-scss/functions' as ef;
+
 
 .wlc-tournament-topwins-btn--theme-default:host {
-    @include bm.get-mq-map('padding', ev.$tableBtnBlock, 'btnBlockPadding');
-    @include cm.tableBtnBlockStyles;
 
-    &.profile-first {
-        @include bm.get-mq-map('padding', ev.$tableBtnBlock, 'btnBlockPaddingFirst');
+    .icon-btn {
+        position: relative;
+        z-index: 1;
+        display: inline-flex;
+        align-items: center;
+        width: ef.get-value($themeDefault, 'moreIconSize');
+        height: ef.get-value($themeDefault, 'moreIconSize');
+        margin: ef.get-value($themeDefault, 'moreIconMargin');
+        line-height: 1;
+        cursor: pointer;
+
+        ::ng-deep {
+
+            .wlc-icon-content {
+
+                svg {
+                    @include em.transition(fill);
+                    width: 100%;
+                    fill: ef.get-value($themeDefault, 'moreIconColor');
+                }
+
+                @include em.hover {
+
+                    svg {
+                        fill: ef.get-value($themeDefault, 'moreIconColorHover');
+                    }
+                }
+            }
+        }
     }
 }

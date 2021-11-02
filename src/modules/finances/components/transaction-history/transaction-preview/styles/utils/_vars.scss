@@ -9,7 +9,6 @@ $themeDefault: map-merge((
 
     'timeDisplay': (
         375: block,
-        1024: none,
     ),
     'timeMargin': (
         375: 0 ef.get('size', 'small')
@@ -25,7 +24,6 @@ $themeDefault: map-merge((
 
     'timeDisplayTypeFirst': (
         1024: block,
-        1200: none
     ),
     'amountDisplayTypeFirst': (
         1024: block,
