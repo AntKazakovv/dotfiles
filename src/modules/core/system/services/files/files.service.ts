@@ -134,7 +134,7 @@ export class FilesService {
 
     /**
      * Replace the "id" and all the attributes of the "url" with a random id key
-     * 
+     *
      * @param htmlString {string} - file html string
      * @returns {string} - file html string
      */
@@ -160,11 +160,17 @@ export class FilesService {
             return htmlString;
         }
 
-        _forEach(allId, (item) => {
+        _forEach(allId, (item: Element): void => {
             const idKey = 'svg-' + _random(10000000).toString(16);
-            const regExp = `(id=["']${item.id}["'])|(url\\(#${item.id}\\))`;
-            htmlString = htmlString.replace(new RegExp(regExp, 'g'), (...match) => {
-                return match[1] ? `id="${idKey}"` : `url(#${idKey})`;
+            const regExp = `(id=["']${item.id}["'])|(url\\(#${item.id}\\))|(xlink:href=["']#${item.id}["'])`;
+            htmlString = htmlString.replace(new RegExp(regExp, 'g'), (...match: string[]): string => {
+                if (match[1]) {
+                    return `id="${idKey}"`;
+                } else if (match[2]) {
+                    return `url(#${idKey})`;
+                } else {
+                    return `xlink:href="#${idKey}"`;
+                }
             });
         });
 

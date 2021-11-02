@@ -117,6 +117,7 @@ export namespace leftPanel {
                             name: 'core.wlc-wrapper',
                             params: {
                                 class: 'wlc-burger-panel__chat',
+                                components: [],
                             },
                         },
                         componentLib.wlcThemeToggler.def,

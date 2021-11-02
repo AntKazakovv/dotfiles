@@ -7,8 +7,8 @@ import {
 } from '@angular/core';
 
 import {
-    debounceTime,
     takeUntil,
+    throttleTime,
 } from 'rxjs/operators';
 
 import {
@@ -97,7 +97,7 @@ export class FloatPanelsComponent extends AbstractComponent implements OnInit {
 
         const {innerWidth} = window;
         this.actionService.windowResize()
-            .pipe(debounceTime(500), takeUntil(this.$destroy))
+            .pipe(throttleTime(500), takeUntil(this.$destroy))
             .subscribe((event: IResizeEvent) => {
                 if (innerWidth !== window.innerWidth) {
                     this.filterSection();

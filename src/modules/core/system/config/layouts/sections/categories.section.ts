@@ -20,6 +20,7 @@ export namespace categories {
         ],
     };
     export const catalogWithIcons: ILayoutSectionConfig = {
+        replaceConfig: true,
         container: true,
         theme: '2',
         components: [

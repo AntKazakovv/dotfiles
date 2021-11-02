@@ -39,6 +39,6 @@ export const defaultParams: IPromoSuccessCParams = {
         iconPath: '/wlc/decors/promo-success.svg',
         text: gettext('Congratulations your promo code is activated! Bonus added ' +
             'to the Bonuses page and waiting for subscription'),
-        btnText: gettext('Go it'),
+        btnText: gettext('Got it'),
     },
 };

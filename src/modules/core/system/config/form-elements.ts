@@ -400,6 +400,35 @@ export namespace FormElements {
         },
     };
 
+    export const registrationPasswordNew: IFormComponent = {
+        name: 'core.wlc-input',
+        params: {
+            theme: 'vertical',
+            wlcElement: 'block_password-new',
+            common: {
+                placeholder: gettext('New password'),
+                type: 'password',
+                customModifiers: 'right-shift',
+                usePasswordVisibilityBtn: true,
+                autocomplete: 'new-password',
+            },
+            name: 'password',
+            validators: [
+                'required',
+                'password',
+                {
+                    name: 'minLength',
+                    options: 6,
+                },
+                {
+                    name: 'maxLength',
+                    options: 50,
+                },
+            ],
+            customMod: ['password-new'],
+        },
+    };
+
     export const passwordConfirm: IFormComponent = {
         name: 'core.wlc-input',
         params: {

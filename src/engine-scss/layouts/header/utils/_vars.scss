@@ -176,7 +176,7 @@ $theme2Header: map-merge((
         1200: auto auto minmax(0, 1fr) auto auto,
     ),
     'gridColsToggler': (
-        375: 0.5fr 2fr 0.5fr,
+        375: 0.5fr minmax(0, 2fr) 0.5fr,
         1200: auto auto minmax(0, 1fr) auto auto auto auto,
     ),
     'gridColsTogglerNoBurger': (

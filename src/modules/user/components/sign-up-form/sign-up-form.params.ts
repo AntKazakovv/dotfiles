@@ -37,7 +37,7 @@ export const signUpFormConfig: IFormWrapperCParams = {
     class: 'wlc-form-wrapper',
     components: [
         FormElements.email,
-        FormElements.passwordNew,
+        FormElements.registrationPasswordNew,
         FormElements.currency,
         FormElements.promocode,
         FormElements.terms,
