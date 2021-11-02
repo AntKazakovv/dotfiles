@@ -153,14 +153,14 @@ export class BetHistoryComponent extends AbstractComponent implements OnInit {
 
     protected setMinMaxDate(): void {
         const dates = this.allBets.sort((bet, nextBet) => {
-            return DateTime.fromSQL(bet.DateISO).toSeconds() - DateTime.fromSQL(nextBet.DateISO).toSeconds();
+            return DateTime.fromSQL(nextBet.DateISO).toSeconds() - DateTime.fromSQL(bet.DateISO).toSeconds();
         });
 
         if (!dates.length) {
             return;
         }
-        this.startDate = (DateTime.fromSQL(dates[0]?.DateISO) || DateTime.local()).startOf('day');
-        this.endDate = (DateTime.fromSQL(dates[dates.length - 1]?.DateISO) || DateTime.local()).endOf('day');
+        this.startDate = (DateTime.fromSQL(dates[dates.length - 1]?.DateISO) || DateTime.local()).startOf('day');
+        this.endDate = (DateTime.fromSQL(dates[0]?.DateISO) || DateTime.local()).endOf('day');
         this.startDateInput.control.setValue(this.startDate.toFormat('dd.LL.yyyy'));
         this.endDateInput.control.setValue(this.endDate.toFormat('dd.LL.yyyy'));
         this.startDateInput = _clone(this.startDateInput);
