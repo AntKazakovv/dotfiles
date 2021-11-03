@@ -406,7 +406,7 @@ export namespace FormElements {
             theme: 'vertical',
             wlcElement: 'block_password-new',
             common: {
-                placeholder: gettext('New password'),
+                placeholder: gettext('Password'),
                 type: 'password',
                 customModifiers: 'right-shift',
                 usePasswordVisibilityBtn: true,
