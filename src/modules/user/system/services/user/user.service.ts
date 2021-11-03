@@ -425,7 +425,9 @@ export class UserService {
             this.eventService.emit({name: 'LOGIN'});
 
             if (!hideEmailExistence) {
-                this.registrationRedirect();
+                setTimeout(() => {
+                    this.registrationRedirect();
+                });
             }
         } else {
             message.push(gettext('Please complete registration using link in e-mail'));
