@@ -343,18 +343,14 @@
             }
 
             &__wrapper {
-                @include em.get-mq-map('grid-template-rows', $themeDefault, 'infoHeightWithImg');
-
+                display: block;
                 background: ef.get-value($themeDefault, 'withImgWrapperBg');
-
-                @include em.hover(false) {
-                    @include em.get-mq-map('grid-template-rows', $themeDefault, 'infoHeightWithImgMobile');
-                }
             }
 
             &__image-block {
-                justify-content: initial;
-                padding-bottom: 0;
+                @include em.transition(height, 0.3s, ease-in-out);
+                @include em.get-mq-map('height', $themeDefault, 'imgHeightWithImg');
+                display: block;
             }
 
             &__image {
@@ -371,19 +367,43 @@
             }
 
             &__bottom {
+                @include em.transition(height, 0.3s, ease-in-out);
                 @include em.get-mq-map('padding', $themeDefault, 'infoBtmPaddingWithImg');
+                @include em.get-mq-map('height', $themeDefault, 'infoHeightWithImg');
             }
 
             &__btns {
-                @include em.get-mq-map('bottom', $themeDefault, 'btnBottomPositionWithImg');
+                @include em.transition(all, 0.3s, ease-in-out);
+                @include em.get-mq-map('transform', $themeDefault, 'btnBottomTransform');
+                position: static;
                 margin: ef.get-value($themeDefault, 'btnsMarginWithImg');
             }
         }
 
         @include em.hover {
+            @include showBtnWithImg;
 
-            .wlc-bonus-item__wrapper:before {
-                opacity: ef.get-value($themeDefault, 'withImgOverlayOpacityHover');
+            .wlc-bonus-item {
+
+                &__image-block {
+                    @include em.get-mq-map('height', $themeDefault, 'imgHeightWithImgHover');
+                }
+
+                &__description {
+                    opacity: 1;
+                }
+            }
+        }
+
+        @include em.hover(false) {
+            @include showBtnWithImg;
+
+            .wlc-bonus-item {
+
+                &__description {
+                    /* stylelint-disable-next-line */
+                    display: -webkit-box;
+                }
             }
         }
     }

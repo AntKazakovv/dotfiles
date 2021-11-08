@@ -85,6 +85,30 @@ $themeDefault: map-merge((
     ),
     'activeBlockProgressMargin': ef.size(2) 0 0,
 
+    // image block
+    'imgHeightWithImg': (
+        320: 190px,
+        480: 205px,
+        640: 190px,
+        720: 215px,
+        768: 210px,
+        1024: 215px,
+        1200: 180px,
+        1366: 185px,
+        1630: 220px,
+    ),
+    'imgHeightWithImgHover': (
+        320: 150px,
+        480: 165px,
+        640: 150px,
+        720: 175px,
+        768: 170px,
+        1024: 175px,
+        1200: 140px,
+        1366: 145px,
+        1630: 180px,
+    ),
+
     // // Info block
     'infoPadding': 0 ef.size(3),
     'infoDirection': column,
@@ -104,26 +128,12 @@ $themeDefault: map-merge((
         1630: auto 130px,
     ),
     'infoHeightWithImg': (
-        320: (minmax(auto, 190px) 130px),
-        480: (minmax(auto, 205px) 130px),
-        640: (minmax(auto, 190px) 130px),
-        720: (minmax(auto, 215px) 130px),
-        768: (minmax(auto, 210px) 130px),
-        1024: (minmax(auto, 215px) 130px),
-        1200: (minmax(auto, 180px) 130px),
-        1366: (minmax(auto, 185px) 130px),
-        1630: (minmax(auto, 220px) 145px),
+        320: 130px,
+        1630: 145px,
     ),
-    'infoHeightWithImgMobile': (
-        320: (minmax(auto, 190px) 130px),
-        480: (minmax(auto, 205px) 130px),
-        640: (minmax(auto, 190px) 130px),
-        720: (minmax(auto, 215px) 130px),
-        768: (minmax(auto, 210px) 130px),
-        1024: (minmax(auto, 215px) 130px),
-        1200: (minmax(auto, 180px) 130px),
-        1366: (minmax(auto, 185px) 130px),
-        1630: (minmax(auto, 220px) 145px),
+    'infoHeightWithHover': (
+        320: 170px,
+        1630: 185px,
     ),
     'infoBtmPaddingWithImg': (
         320: ef.size(5) 0,
@@ -220,9 +230,11 @@ $themeDefault: map-merge((
         375: ef.size(4),
         1630: ef.size(8),
     ),
-    'btnBottomPositionWithImg': (
-        320: ef.size(6),
-        1630: ef.size(7),
+    'btnBottomTransform': (
+        320: translateY(200%),
+    ),
+    'btnBottomTransformHover': (
+        320: translateY(0),
     ),
     'btnsMarginWithImg': ef.size(2) 0 0,
 

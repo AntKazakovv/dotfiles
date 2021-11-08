@@ -104,3 +104,21 @@
         opacity: 0;
     }
 }
+
+@mixin showBtnWithImg {
+
+    .wlc-bonus-item {
+
+        &__wrapper:before {
+            opacity: ef.get-value($themeDefault, 'withImgOverlayOpacityHover');
+        }
+
+        &__bottom {
+            @include em.get-mq-map('height', $themeDefault, 'infoHeightWithHover');
+        }
+
+        &__btns {
+            @include em.get-mq-map('transform', $themeDefault, 'btnBottomTransformHover');
+        }
+    }
+}
