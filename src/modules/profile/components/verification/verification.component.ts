@@ -9,6 +9,7 @@ import {
 } from '@angular/core';
 import {FormControl} from '@angular/forms';
 import {takeUntil} from 'rxjs/operators';
+import {TranslateService} from '@ngx-translate/core';
 import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
 import {EventService} from 'wlc-engine/modules/core/system/services/event/event.service';
 import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
@@ -65,6 +66,7 @@ export class VerificationComponent extends AbstractComponent implements OnInit {
         protected verificationService: VerificationService,
         protected cdr: ChangeDetectorRef,
         protected eventService: EventService,
+        protected translate: TranslateService,
     ) {
         super(
             <IMixedParams<Params.IVerificationCParams>>{
@@ -107,7 +109,7 @@ export class VerificationComponent extends AbstractComponent implements OnInit {
 
     /**
      * Check is select mode
-     * 
+     *
      * @returns {boolean}
      */
     public get isSelectMode(): boolean {
@@ -117,7 +119,7 @@ export class VerificationComponent extends AbstractComponent implements OnInit {
 
     /**
      * Update document items
-     * 
+     *
      * @returns {Promise<void>}
      */
     public async updateDocItems(): Promise<void> {
@@ -135,13 +137,13 @@ export class VerificationComponent extends AbstractComponent implements OnInit {
         if (this.currentDocGroup) {
             this.setCurrentDocGroup(this.currentDocGroup.ID);
         }
-        this.cdr.markForCheck(); 
+        this.cdr.markForCheck();
     }
 
     /**
      * Preload check file & preview
-     * 
-     * @param {FileList} files 
+     *
+     * @param {FileList} files
      * @returns {Promise<void>}
      */
     public async preloadFile(files: FileList): Promise<void> {
@@ -156,7 +158,7 @@ export class VerificationComponent extends AbstractComponent implements OnInit {
 
     /**
      * Upload file
-     * 
+     *
      * @returns {Promise<void>}
      */
     public async uploadFile(): Promise<void> {
@@ -180,7 +182,7 @@ export class VerificationComponent extends AbstractComponent implements OnInit {
 
     /**
      * Clear preview
-     * 
+     *
      * @returns {void}
      */
     public clearPreview(): void {
@@ -190,8 +192,8 @@ export class VerificationComponent extends AbstractComponent implements OnInit {
 
     /**
      * Delete document
-     * 
-     * @param {DocModel} doc 
+     *
+     * @param {DocModel} doc
      * @returns {Promise<void>}
      */
     public async deleteDoc(doc: DocModel): Promise<void> {
@@ -205,16 +207,16 @@ export class VerificationComponent extends AbstractComponent implements OnInit {
         }
     }
 
-    /** 
+    /**
      * Get documents types
-     * 
+     *
      * @returns {ISelectOptions[]}
     */
     protected selectItems(): ISelectOptions[] {
         return _map(this.docTypes, ({ID, Name}) => {
             return {
                 value: ID,
-                title: Name,
+                title: this.translate.instant(ID) !== ID ? this.translate.instant(ID) : Name,
             };
         });
     }
