@@ -13,6 +13,8 @@ export interface IStaticConfig {
     additionalFields?: string[],
     normalizeInternalLinks?: boolean,
     rewritingLanguages?: IIndexing<string>,
+    /** `splitStaticTexts` settings for split static texts */
+    splitStaticTexts?: ISplitTexts;
 }
 
 export interface ICacheExpiry {
@@ -101,4 +103,11 @@ export interface ICategoryStaticText {
     id: number;
     slug: string;
     count: number;
+}
+
+export interface ISplitTexts {
+    /** `useByDefault` add lang postfix to all static page's slugs */
+    useByDefault?: boolean;
+    /** `slugs` add lang postfix to special pages */
+    slugs?: string[],
 }

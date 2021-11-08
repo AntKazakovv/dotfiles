@@ -9,6 +9,7 @@ import {
     ChangeDetectionStrategy,
     ChangeDetectorRef,
 } from '@angular/core';
+import {TranslateService} from '@ngx-translate/core';
 import {DomSanitizer} from '@angular/platform-browser';
 import {
     StateService,
@@ -22,11 +23,11 @@ import {LogService} from 'wlc-engine/modules/core/system/services/log/log.servic
 import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
 import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
 import {ActionService} from 'wlc-engine/modules/core/system/services/action/action.service';
+import {ISplitTexts} from 'wlc-engine/modules/static/system/interfaces/static.interface';
 
 import * as Params from './post.params';
 
 import _get from 'lodash-es/get';
-import _forEach from 'lodash-es/forEach';
 
 @Component({
     selector: '[wlc-post]',
@@ -70,6 +71,7 @@ export class PostComponent extends AbstractComponent implements OnInit, AfterVie
         protected stateService: StateService,
         protected logService: LogService,
         protected actionService: ActionService,
+        protected translate: TranslateService,
     ) {
         super({injectParams: params, defaultParams: Params.defaultParams});
     }
@@ -80,10 +82,14 @@ export class PostComponent extends AbstractComponent implements OnInit, AfterVie
         this.withoutCompilation ??= this.$params.withoutCompilation;
         this.shouldClearStyles ??= this.$params.shouldClearStyles;
         try {
-            const slug = this.slug || this.$params.slug || this.uiRouter.params.slug;
-
+            let slug: string = this.slug || this.$params.slug || this.uiRouter.params.slug;
             let data: TextDataModel;
+
             if (this.configService.get<string[]>({name: '$static.pages'}).includes(slug)) {
+                const splitSettings = this.configService.get<ISplitTexts>({name: '$static.splitStaticTexts'});
+                if (splitSettings?.useByDefault || _get(splitSettings, 'slugs', []).includes(slug)) {
+                    slug = `${slug}_${this.translate.currentLang}`;
+                }
                 data = await this.staticService.getPage(slug);
             } else {
                 data = await this.staticService.getPost(slug);
@@ -100,7 +106,7 @@ export class PostComponent extends AbstractComponent implements OnInit, AfterVie
                 this.params.setTitle?.(data.title);
             }
         } catch (error) {
-            // TODO: add log service in static service metods
+            // TODO: add log service in static service methods
             this.logService.sendLog({code: '12.0.0', data: error});
             if (this.uiRouter.params.slug) {
                 this.stateService.go('app.error', {
