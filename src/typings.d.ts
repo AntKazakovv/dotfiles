@@ -45,6 +45,7 @@ declare interface Window extends TAnalyticMethod {
     Tawk_API?: any,
     __lc?: any;
     LC_API?: any;
+    LiveChatWidget?: any;
     affiliate: string;
     WlcFlog: any;
     WlcCookie: any;
