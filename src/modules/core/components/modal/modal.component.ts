@@ -68,6 +68,7 @@ export class WlcModalComponent extends AbstractComponent
     public bsOptions: IModalBsOptions = {};
     public closeReason: string = '';
 
+    protected $ready: Deferred<void> = new Deferred();
     protected $closed: Deferred<string> = new Deferred();
 
     @Input() protected inlineParams: IModalOptions;
@@ -92,6 +93,13 @@ export class WlcModalComponent extends AbstractComponent
      */
     public get closed(): Promise<string> {
         return this.$closed.promise;
+    }
+
+    /**
+     * Ready Promise object that resolves when the ModalDirective is ready
+     */
+    public get ready(): Promise<void> {
+        return this.$ready.promise;
     }
 
     /**
@@ -256,7 +264,7 @@ export class WlcModalComponent extends AbstractComponent
         setTimeout(() => {
             this.modalRef.config = _assign(this.bsOptions, {
                 ignoreBackdropClick: matches || !!this.bsOptions.ignoreBackdropClick,
-            });    
+            });
         });
     }
 
@@ -273,6 +281,7 @@ export class WlcModalComponent extends AbstractComponent
 
     protected initEventHandlers(): void {
         this.modalRef.onShow.subscribe(() => {
+            this.$ready.resolve();
             this.eventHandler(this.modalService.events.MODAL_SHOW, this.$params.config.onModalShow);
         });
 

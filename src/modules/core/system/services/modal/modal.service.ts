@@ -210,10 +210,10 @@ export class ModalService {
             });
             return;
         }
-
         this.closeQueue.push(..._map(modals, ({id}) => id));
         this.$closeObserver.next(this.closeQueue.length);
-        _forEach(modals, (modal) => {
+        _forEach(modals, async (modal) => {
+            await modal.ref.instance.ready;
             modal.ref.instance.modalDirect.hide();
         });
     }
