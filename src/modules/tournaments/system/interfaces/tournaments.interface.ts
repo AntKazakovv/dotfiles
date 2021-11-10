@@ -1,11 +1,15 @@
 import {
-    IIndexing,
-} from 'wlc-engine/modules/core';
-import {Tournament} from '../models/tournament.model';
-import {
     PartialObserver,
     Observable,
 } from 'rxjs';
+
+import {
+    IIndexing,
+} from 'wlc-engine/modules/core/system/interfaces/global.interface';
+import {
+    TFreeRoundGames,
+} from 'wlc-engine/modules/core/system/interfaces/fundist.interface';
+import {Tournament} from '../models/tournament.model';
 import {
     TournamentsListNoContentByThemeType,
 } from 'wlc-engine/modules/tournaments/components/tournament-list/tournament-list.params';
@@ -35,6 +39,8 @@ export interface ITournamentAbstract {
     Description: string;
     FeeAmount: IIndexing<string | number> | string;
     FeeType: 'balance' | 'loyalty';
+    FreeroundGames: TFreeRoundGames;
+    Games: ITournamentGames;
     ID: number;
     Image: string;
     Image_dashboard?: string;

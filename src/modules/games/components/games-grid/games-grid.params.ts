@@ -1,10 +1,14 @@
 import {RawParams} from '@uirouter/core';
+
 import {
     IIndexing,
     IComponentParams,
     IButtonCParams,
     CustomType,
 } from 'wlc-engine/modules/core';
+import {
+    TFreeRoundGames,
+} from 'wlc-engine/modules/core/system/interfaces/fundist.interface';
 import {
     CategoryModel,
     Game,
@@ -121,6 +125,12 @@ export interface IGamesGridCParams extends IComponentParams<ComponentTheme, Comp
      * If no one filter is defined, games list contains all games.
      */
     tournamentGamesFilter?: ITournamentGames;
+    /**
+     * Tournament freeround games info for filter games list
+     *
+     * This property has higher priority then tournamentGamesFilter
+     */
+    tournamentFreeRoundGames?: TFreeRoundGames;
     /**
      * Sets the filter which returns games list for current state category.
      *

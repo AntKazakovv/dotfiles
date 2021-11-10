@@ -9,6 +9,7 @@ export type IGamesFilterData = {
     merchants?: number[];
     excludeCategories?: string[];
     excludeMerchants?: number[];
+    withFreeRounds?: boolean;
 }
 
 export type IIndexingFilter = {

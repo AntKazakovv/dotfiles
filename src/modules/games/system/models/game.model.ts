@@ -51,6 +51,7 @@ export class Game extends AbstractModel<IGame> {
     protected isCurrencyDisabled?: boolean;
     protected CategoryTitle?: IIndexing<string>[];
     protected disableDemoBtnsFor: TDisableDemoFor;
+    protected _withFreeRounds: boolean;
 
     // что-то не нужное
     // protected MobileUrl: string;
@@ -97,6 +98,7 @@ export class Game extends AbstractModel<IGame> {
         this.merchantName = this.getMerchantName();
         this.merchantAlias = this.getMerchantAlias();
         this.disableDemoBtnsFor = this.configService.get<TDisableDemoFor>('$games.disableDemoBtnsFor');
+        this._withFreeRounds = data.Freeround === '1';
         this.data = data;
     }
 
@@ -109,6 +111,15 @@ export class Game extends AbstractModel<IGame> {
             default:
                 return !!this.data.hasDemo;
         }
+    }
+
+    /**
+     * Game with support free rounds or not
+     *
+     * @returns {boolean} True if game supports free rounds
+     */
+    public get withFreeRounds(): boolean {
+        return this._withFreeRounds;
     }
 
     /**

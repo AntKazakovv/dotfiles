@@ -173,6 +173,8 @@ export class GamesCatalog extends AbstractModel<IGames> {
         const includeMerchants = filter?.merchants || [];
         const excludeMerchants = filter?.excludeMerchants || [];
         const gameIds = filter?.ids;
+        const withFreeRounds = filter?.withFreeRounds;
+
         let searchQuery = filter?.searchQuery || '';
         let gameList: Game[] = _concat([], this.availableGames);
 
@@ -231,6 +233,12 @@ export class GamesCatalog extends AbstractModel<IGames> {
         if (_size(gameIds)) {
             gameList = _filter(gameList, (game: Game): boolean => {
                 return _includes(gameIds, game.ID);
+            });
+        }
+
+        if (withFreeRounds) {
+            gameList = _filter(gameList, (game: Game): boolean => {
+                return game.withFreeRounds;
             });
         }
 
@@ -396,13 +404,23 @@ export class GamesCatalog extends AbstractModel<IGames> {
     }
 
     /**
-     * Get merchant by name
+     * Get merchant by name (for name used menuId)
      *
      * @param {string} merchantName Merchant name
      * @returns {MerchantModel}
      */
     public getMerchantByName(merchantName: string): MerchantModel {
         return _find(this.getAvailableMerchants(), {menuId: merchantName});
+    }
+
+    /**
+     * Get merchant by alias
+     *
+     * @param {string} merchantAlias
+     * @returns {MerchantModel}
+     */
+    public getMerchantByAlias(merchantAlias: string): MerchantModel {
+        return _find(this.merchants, {alias: merchantAlias});
     }
 
     /**

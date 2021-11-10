@@ -8,6 +8,7 @@ import {
     ConfigService,
     IFromLog,
 } from 'wlc-engine/modules/core';
+import {TFreeRoundGames} from 'wlc-engine/modules/core/system/interfaces/fundist.interface';
 import {
     ITournament,
     ITournamentGames,
@@ -191,6 +192,10 @@ export class Tournament extends AbstractTournamentModel<ITournament> {
 
     public get gamesFilterData(): ITournamentGames {
         return this.data.Games;
+    }
+
+    public get freeRoundGames(): TFreeRoundGames {
+        return this.data.FreeroundGames;
     }
 
     /**

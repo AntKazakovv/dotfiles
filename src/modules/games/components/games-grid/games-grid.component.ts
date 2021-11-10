@@ -10,8 +10,8 @@ import {
     Renderer2,
     ViewChild,
 } from '@angular/core';
-import {UIRouter} from '@uirouter/core';
 import {ResizedEvent} from 'angular-resize-event';
+import {UIRouter} from '@uirouter/core';
 
 import {
     fromEvent,
@@ -64,10 +64,7 @@ import {IGamesFilterData} from 'wlc-engine/modules/games/system/interfaces/filte
 import {gamesEvents} from 'wlc-engine/modules/games/system/interfaces/games.interfaces';
 import {GamesFilterServiceEvents} from 'wlc-engine/modules/games/system/services/games-filter.service';
 import {GameThumbComponent} from 'wlc-engine/modules/games/components/game-thumb/game-thumb.component';
-import {
-    GamesCatalogService,
-} from 'wlc-engine/modules/games/system/services/games-catalog/games-catalog.service';
-
+import {GamesCatalogService} from 'wlc-engine/modules/games/system/services/games-catalog/games-catalog.service';
 import * as Params from './games-grid.params';
 
 @Component({
@@ -492,7 +489,7 @@ export class GamesGridComponent extends AbstractComponent implements OnInit, OnD
             return this.$params.gamesList;
         } else if (this.gamesList) {
             return this.games;
-        } else if (this.$params.tournamentGamesFilter) {
+        } else if (this.$params.tournamentGamesFilter || this.$params.tournamentFreeRoundGames) {
             return this.getTournamentGames();
         } else if (this.$params.byState) {
             return await this.getGamesByState();
@@ -503,8 +500,17 @@ export class GamesGridComponent extends AbstractComponent implements OnInit, OnD
         }
     }
 
+    /**
+     * Get tournament games
+     *
+     * @returns {Game[]} Games list
+     */
     protected getTournamentGames(): Game[] {
-        return this.gamesCatalogService.getTournamentGames(this.$params.tournamentGamesFilter);
+        if (this.$params.tournamentFreeRoundGames) {
+            return this.gamesCatalogService.getGamesByFreeRounds(this.$params.tournamentFreeRoundGames);
+        } else if (this.$params.tournamentGamesFilter) {
+            return this.gamesCatalogService.getTournamentGames(this.$params.tournamentGamesFilter);
+        }
     }
 
     protected async getGamesByState(): Promise<Game[]> {

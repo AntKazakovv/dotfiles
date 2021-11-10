@@ -72,23 +72,25 @@ export const sportsbookState: Ng2StateDeclaration = {
     },
     onEnter: async (trans: Transition): Promise<void> => {
         const injectionService: InjectionService = trans.injector().get(InjectionService);
-        injectionService.getService('sportsbook.sportsbook-service').then((sportsbookService: SportsbookService): void => {
-            sportsbookService.ready.then(() => {
-                const sportsbookId: string = sportsbookIdByState[trans.to().name];
-                if (sportsbookId) {
-                    const settings: ISportsbookSettings = sportsbookService.getSportsbookSettings({
-                        id: sportsbookId,
-                    });
+        injectionService.getService('sportsbook.sportsbook-service')
+            .then((sportsbookService: SportsbookService): void => {
 
-                    if (!settings) {
-                        trans.abort();
-                        trans.router.stateService.go('app.error', {
-                            locale: trans.params().locale,
+                sportsbookService.ready.then(() => {
+                    const sportsbookId: string = sportsbookIdByState[trans.to().name];
+                    if (sportsbookId) {
+                        const settings: ISportsbookSettings = sportsbookService.getSportsbookSettings({
+                            id: sportsbookId,
                         });
+
+                        if (!settings) {
+                            trans.abort();
+                            trans.router.stateService.go('app.error', {
+                                locale: trans.params().locale,
+                            });
+                        }
                     }
-                }
+                });
             });
-        });
     },
 };
 

@@ -8,6 +8,7 @@ import {
     TargetState,
 } from '@uirouter/core';
 import {TranslateService} from '@ngx-translate/core';
+
 import {
     Observable,
     Subject,
@@ -19,6 +20,18 @@ import {
     first,
     map,
 } from 'rxjs/operators';
+import _startsWith from 'lodash-es/startsWith';
+import _isString from 'lodash-es/isString';
+import _isEqual from 'lodash-es/isEqual';
+import _map from 'lodash-es/map';
+import _includes from 'lodash-es/includes';
+import _isArray from 'lodash-es/isArray';
+import _filter from 'lodash-es/filter';
+import _find from 'lodash-es/find';
+import _toNumber from 'lodash-es/toNumber';
+import _size from 'lodash-es/size';
+import _union from 'lodash-es/union';
+import _forEach from 'lodash-es/forEach';
 
 import {ICategorySettings} from 'wlc-engine/modules/core/system/interfaces/categories.interface';
 import {InjectionService} from 'wlc-engine/modules/core/system/services/injection/injection.service';
@@ -59,18 +72,11 @@ import {
     gamesEvents,
 } from 'wlc-engine/modules/games/system/interfaces/games.interfaces';
 import {ITournamentGames} from 'wlc-engine/modules/tournaments/system/interfaces/tournaments.interface';
+import {
+    TFreeRoundGames,
+    TGamesWithFreeRounds,
+} from 'wlc-engine/modules/core/system/interfaces/fundist.interface';
 import {IIndexing} from 'wlc-engine/modules/core/system/interfaces/global.interface';
-
-import _startsWith from 'lodash-es/startsWith';
-import _isString from 'lodash-es/isString';
-import _isEqual from 'lodash-es/isEqual';
-import _map from 'lodash-es/map';
-import _includes from 'lodash-es/includes';
-import _isArray from 'lodash-es/isArray';
-import _filter from 'lodash-es/filter';
-import _find from 'lodash-es/find';
-import _toNumber from 'lodash-es/toNumber';
-import _size from 'lodash-es/size';
 
 export interface ILaunchGameModal {
     show: boolean;
@@ -623,6 +629,57 @@ export class GamesCatalogService {
         return data.GamesBL.length ? _filter(games, ({ID}) => {
             return !_includes(data.GamesBL, ID);
         }) : games;
+    }
+
+    /**
+     * Get games by freerounds settings
+     *
+     * @param {FreeraundGamesType} freerounds Freeraund games settings
+     * @returns {Game[]} Games list
+     */
+    public getGamesByFreeRounds(freeRounds: TFreeRoundGames): Game[] {
+        if (!freeRounds) {
+            return;
+        }
+
+        let merchants: number[] = [],
+            gameIds: number[] = [];
+
+        _forEach(freeRounds, (data: TGamesWithFreeRounds, merchantAlias: string): void => {
+            if (data === 'All') {
+                const merchantId: number = this.gamesCatalog.getMerchantByAlias(merchantAlias)?.id;
+                if (merchantId) {
+                    merchants.push(merchantId);
+                }
+            } else if (_isArray(data)){
+                gameIds = _union(gameIds, data);
+            }
+        });
+
+        let gamesList: Game[] = [];
+
+        if (merchants.length) {
+            const games: Game[] = this.getGameList({
+                merchants: merchants,
+                withFreeRounds: true,
+            });
+
+            if (games.length) {
+                gamesList = games;
+            }
+        }
+
+        if (gameIds.length) {
+            const games: Game[] = this.getGameList({
+                ids: gameIds,
+                withFreeRounds: true,
+            });
+            if (games.length) {
+                gamesList = _union(gamesList, games);
+            }
+        }
+
+        return gamesList;
     }
 
     /**

@@ -12,6 +12,8 @@ import {
 import {UIRouter} from '@uirouter/core';
 
 import {takeUntil} from 'rxjs/operators';
+import _each from 'lodash-es/each';
+import _set from 'lodash-es/set';
 
 import {
     AbstractComponent,
@@ -22,16 +24,12 @@ import {
     IIndexing,
     GlobalHelper,
 } from 'wlc-engine/modules/core';
-
 import {Tournament} from 'wlc-engine/modules/tournaments/system/models/tournament.model';
 import {TournamentsService} from 'wlc-engine/modules/tournaments/system/services/tournaments/tournaments.service';
 import {TournamentComponent} from 'wlc-engine/modules/tournaments/components/tournament/tournament.component';
 import {MenuParams} from 'wlc-engine/modules/menu';
 
 import * as Params from './tournament-detail.params';
-
-import _each from 'lodash-es/each';
-import _set from 'lodash-es/set';
 
 @Component({
     selector: '[wlc-tournament-detail]',
@@ -122,6 +120,7 @@ export class TournamentDetailComponent extends AbstractComponent implements OnIn
             this.preparePrizeboard();
             this.prepareMenu();
             _set(this.gamesGridConfig, 'components[0].params.tournamentGamesFilter', this.tournament.gamesFilterData);
+            _set(this.gamesGridConfig, 'components[0].params.tournamentFreeRoundGames', this.tournament.freeRoundGames);
         }
         this.isReady = true;
         this.cdr.markForCheck();
