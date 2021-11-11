@@ -5,7 +5,6 @@
 
 .wlc-bonus-item--theme-preview {
     height: ef.get-value($themePreview, 'hostHeight');
-    border-radius: ef.get-value($themePreview, 'hostRadius');
     background: ef.get-value($themePreview, 'bonusBackground');
 
     .wlc-bonus-item {

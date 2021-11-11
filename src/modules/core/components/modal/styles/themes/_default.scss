@@ -51,7 +51,6 @@
     &.wlc-modal--login-sign-up {
         @include em.get-mq-map('background', $themeDefault, 'loginSignUpModalBackground');
 
-
         .wlc-modal {
 
             &__wrapper {
@@ -90,6 +89,7 @@
                 @include em.get-mq-map('height', $themeDefault, 'loginSignUpDialogHeight');
                 @include em.get-mq-map('margin', $themeDefault, 'loginSignUpDialogMarign');
                 @include em.get-mq-map('border', $themeDefault, 'loginSignUpDialogBorder');
+                overflow: hidden;
             }
         }
     }
