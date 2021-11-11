@@ -76,6 +76,7 @@ export class GamesCatalog extends AbstractModel<IGames> {
     protected menuSettings: IMenu;
     protected userProfile$: BehaviorSubject<UserProfile>;
     protected userCountry: string;
+    protected searchByCyrillicLetters: boolean;
     protected specialCategories: ICategory[] = [
         {
             ID: '-1',
@@ -134,6 +135,7 @@ export class GamesCatalog extends AbstractModel<IGames> {
 
         this.data = _data;
         this.overrideJackpots = !this.configService.get<boolean>('$games.categories.useFundistJackpots');
+        this.searchByCyrillicLetters = this.configService.get<boolean>('$games.search.byCyrillicLetters');
         this.categorySettings = this.configService.get('appConfig.categories');
         this.menuSettings = this.configService.get('appConfig.menuSettings');
 
@@ -813,6 +815,7 @@ export class GamesCatalog extends AbstractModel<IGames> {
     }
 
     protected sortNameByRegExp(searchQuery: string, gamesList: Game[]): Game[] {
+        searchQuery = this.searchByCyrillicLetters ? this.replaceCyrillicChars(searchQuery) : searchQuery;
         searchQuery = searchQuery.replace(/[!()+\\]/g, '\\$&');
 
         const arrays: IIndexing<ISearchFilter> = {
@@ -844,5 +847,27 @@ export class GamesCatalog extends AbstractModel<IGames> {
             arrays.firstMatch.array,
             arrays.secondMatch.array,
             arrays.thirdMatch.array));
+    }
+
+    /**
+     * Replace cyrillic chars in search query
+     *
+     * @param {string} word input word (cyrillic)
+     * @returns {string} output latins chars from cyrillic word
+     */
+    protected replaceCyrillicChars(word: string): string {
+        word = word.toLowerCase();
+        const cyrillicAlphabet: string[] = ['й', 'ц', 'у', 'к', 'е', 'н', 'г', 'ш', 'щ', 'з', 'х', 'ъ',
+            'ф', 'ы', 'в', 'а', 'п', 'р', 'о', 'л', 'д', 'ж', 'э',
+            'я', 'ч', 'с', 'м', 'и', 'т', 'ь', 'б', 'ю'];
+        const latinAlphabet: string[] = ['q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p', '', '',
+            'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', '', '',
+            'z', 'x', 'c', 'v', 'b', 'n', 'm', '', ''];
+
+        for (let i = 0; i < cyrillicAlphabet.length; i++) {
+            word = word.replace(new RegExp(cyrillicAlphabet[i], 'g'), latinAlphabet[i]);
+        }
+
+        return word;
     }
 }

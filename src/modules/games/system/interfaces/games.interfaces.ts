@@ -28,8 +28,13 @@ export interface IGamesConfig {
      * </pre>
      */
     excludeRequiredFields?: IIndexing<string[]>;
-    components?: IGamesComponents,
+    components?: IGamesComponents;
     slimGamesRequest?: boolean;
+    search?: IGamesSearchSettings;
+}
+
+export interface IGamesSearchSettings {
+    byCyrillicLetters?: boolean;
 }
 
 export interface IGamesComponents {

@@ -88,4 +88,7 @@ export const gamesConfig: IGamesConfig = {
         },
     },
     slimGamesRequest: true,
+    search: {
+        byCyrillicLetters: true,
+    },
 };
