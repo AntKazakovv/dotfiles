@@ -15,35 +15,33 @@ import {
 } from '@angular/core';
 import {TranslateService} from '@ngx-translate/core';
 import {
-    RawParams,
-    StateService,
-    TransitionService,
-} from '@uirouter/core';
-import {
     animate,
     state,
     style,
     transition,
     trigger,
 } from '@angular/animations';
-
+import {
+    RawParams,
+    UIRouter,
+    StateService,
+} from '@uirouter/core';
 import {
     takeUntil,
 } from 'rxjs/operators';
 import _isString from 'lodash-es/isString';
 import _has from 'lodash-es/has';
-import _get from 'lodash-es/get';
 import _set from 'lodash-es/set';
 import _reduce from 'lodash-es/reduce';
 import _find from 'lodash-es/find';
 import _forEach from 'lodash-es/forEach';
 import _map from 'lodash-es/map';
 import _flatten from 'lodash-es/flatten';
+import _isEqual from 'lodash-es/isEqual';
 
 import {
     AbstractComponent,
     IMixedParams,
-    LayoutService,
     ActionService,
     ModalService,
     ConfigService,
@@ -60,6 +58,8 @@ import {StaticService} from 'wlc-engine/modules/static/system/services/static/st
 import {
     IMenuItem,
     IMenuItemsGroup,
+    IStateForExpand,
+    MenuItemObjectType,
 } from 'wlc-engine/modules/menu/components/menu/menu.params';
 
 import * as Params from './menu.params';
@@ -123,15 +123,14 @@ export class MenuComponent extends AbstractComponent implements OnInit, OnChange
     constructor(
         @Inject('injectParams') protected injectParams: Params.IMenuCParams,
         protected cdr: ChangeDetectorRef,
-        protected layoutService: LayoutService,
         protected actionService: ActionService,
         protected modalService: ModalService,
         protected stateService: StateService,
-        protected transitionService: TransitionService,
         protected configService: ConfigService,
         protected eventService: EventService,
         protected injectionService: InjectionService,
         protected translateService: TranslateService,
+        protected router: UIRouter,
     ) {
         super(
             <IMixedParams<Params.IMenuCParams>>{
@@ -140,6 +139,24 @@ export class MenuComponent extends AbstractComponent implements OnInit, OnChange
             },
             configService,
         );
+    }
+
+    /**
+     * Open or hide menu items dropdown
+     *
+     * @param {IMenuItemsGroup} item Menu items dropdown
+     */
+    public toggleDropdown(item: Params.IMenuItemsGroup): void {
+        if (!this.$params.dropdowns?.expandableOnClick) {
+            if (item.parent.type === 'sref') {
+                this.router.stateService.go(
+                    item.parent.params.state.name,
+                    item.parent.params.state.params,
+                );
+            }
+            return;
+        }
+        item.expand = !item.expand;
     }
 
     public ngOnChanges(changes: SimpleChanges): void {
@@ -153,10 +170,6 @@ export class MenuComponent extends AbstractComponent implements OnInit, OnChange
     public ngAfterViewInit(): void {
         this.initItems();
         this.inited = true;
-
-        this.transitionService.onSuccess({}, () => {
-            this.expandItems();
-        });
     }
 
     public ngOnInit(): void {
@@ -212,15 +225,6 @@ export class MenuComponent extends AbstractComponent implements OnInit, OnChange
                 return res || this.stateService.includes(item, stateParams);
             }, false);
         }
-    }
-
-    /**
-     * Open or hide menu items dropdown
-     *
-     * @param {IMenuItemsGroup} item Menu items dropdown
-     */
-    public toggleDropdown(item: Params.IMenuItemsGroup): void {
-        item.expand = !item.expand;
     }
 
     /**
@@ -364,33 +368,61 @@ export class MenuComponent extends AbstractComponent implements OnInit, OnChange
             }
         }
 
+        this.expandByCurrentState();
         this.cdr.detectChanges();
     }
 
-    protected expandItems(): void {
-        if (this.$params.expandOnStart) {
-            _forEach(this.items, (item: Params.IMenuItemsGroup) => {
+    /**
+     * Expand menu dropdowns
+     *
+     * @param {boolean} force Force expand all menu dropdowns
+     */
+    protected expandItems(force: boolean = false): void {
+        if (this.$params.expandOnStart || force) {
+            _forEach(this.items, (item: Params.IMenuItemsGroup): void => {
                 if (item.parent) {
                     item.expand = true;
                 }
             });
         } else {
-            _forEach(this.items, (item: Params.IMenuItemsGroup) => {
+            _forEach(this.items, (item: Params.IMenuItemsGroup): void => {
                 if (item.parent) {
-                    item.expand = !!_find(item.items, (subItem) => {
-                        if (_has(subItem, 'parent')) {
-                            return false;
+                    if (this.isActive(
+                        item.parent.params?.state?.name,
+                        item.parent.params?.state?.params,
+                    )) {
+                        item.expand = true;
+                        return;
+                    }
+
+                    item.expand = !!_find(item.items, (subItem: MenuItemObjectType): boolean => {
+                        if (this.checkIsMenuItem(subItem)) {
+                            const {name, params} = subItem.params?.state;
+
+                            return this.isActive(
+                                name,
+                                params,
+                            );
                         }
-                        return this.isActive(
-                            _get(subItem, 'params.state.name'),
-                            _get(subItem, 'params.state.params'),
-                        );
+
+                        return false;
                     });
+
                 }
             });
         }
         this.cdr.markForCheck();
     }
+
+    /**
+     * Check value is menuItem or menuItemGroup
+     *
+     * @param {MenuItemObjectType} value Item options
+     * @returns {value is IMenuItem}
+     */
+    protected checkIsMenuItem = (value: MenuItemObjectType): value is Params.IMenuItem => {
+        return !_has(value, 'parent');
+    };
 
     protected changeLinkForAffiliate(items: Params.MenuItemObjectType[]): Params.MenuItemObjectType[] {
         return _map(
@@ -437,6 +469,34 @@ export class MenuComponent extends AbstractComponent implements OnInit, OnChange
                 this.isMobile = type !== DeviceType.Desktop;
                 this.initItems();
             });
+
+        this.eventService.subscribe({name: 'TRANSITION_SUCCESS'}, (): void => {
+            if (this.$params.dropdowns?.expandByStates) {
+                this.expandByCurrentState();
+                return;
+            }
+            this.expandItems();
+        }, this.$destroy);
+    }
+
+    /**
+     * Expand menu dropdowns by current state name and state params
+     */
+    protected expandByCurrentState(): void {
+        if (!this.$params.dropdowns?.expandByStates) {
+            return;
+        }
+
+        const stateName = this.router.globals.current.name;
+        const stateParams = this.router.globals.current.params;
+
+        const forceExpand: boolean = !!_find(
+            this.$params.dropdowns.expandByStates,
+            (state: IStateForExpand): boolean => {
+                return state.name === stateName && _isEqual(state.params, state.params ? stateParams : undefined);
+            });
+
+        this.expandItems(forceExpand);
     }
 
     /**

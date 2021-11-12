@@ -83,7 +83,7 @@
 
                     &.active {
                         color: ef.get-value($themeDropdownDefault, 'activeLinkColor');
-                        background: ef.get-value($themeDropdownDefault, 'activeLinkBg');
+                        background: ef.get-value($themeDropdownDefault, 'activeTabLinkBg');
                     }
 
                     .wlc-menu__icon-arrow {
@@ -99,6 +99,11 @@
                     @include bm.hover {
                         color: ef.get-value($themeDropdownDefault, 'activeLinkColor');
                         background: ef.get-value($themeDropdownDefault, 'activeLinkBg');
+
+                        &.active {
+                            color: ef.get-value($themeDropdownDefault, 'activeLinkColor');
+                            background: ef.get-value($themeDropdownDefault, 'activeTabLinkBg');
+                        }
 
                         .wlc-menu__icon-arrow {
 

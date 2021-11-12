@@ -93,7 +93,15 @@ export const sideMenuHome = {
                                         },
                                     },
                                     menuParams: {
-                                        expandOnStart: true,
+                                        expandOnStart: false,
+                                        dropdowns: {
+                                            expandByStates: [
+                                                {
+                                                    name: 'app.home',
+                                                },
+                                            ],
+                                            expandableOnClick: false,
+                                        },
                                     },
                                 },
                                 display: {
@@ -153,7 +161,13 @@ export const sideMenuCatalog = {
                                 },
                             },
                             menuParams: {
-                                expandOnStart: true,
+                                expandOnStart: false,
+                                dropdowns: {
+                                    expandByStates: [{
+                                        name: 'app.home',
+                                    }],
+                                    expandableOnClick: false,
+                                },
                             },
                         },
                         display: {

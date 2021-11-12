@@ -11,6 +11,16 @@ import {
 import {UIRouter} from '@uirouter/core';
 import {TranslateService} from '@ngx-translate/core';
 
+import _set from 'lodash-es/set';
+import _clone from 'lodash-es/clone';
+import _assign from 'lodash-es/assign';
+import _forEach from 'lodash-es/forEach';
+import _has from 'lodash-es/has';
+import _trim from 'lodash-es/trim';
+import _concat from 'lodash-es/concat';
+import _find from 'lodash-es/find';
+import _filter from 'lodash-es/filter';
+
 import {
     AbstractComponent,
     IMixedParams,
@@ -34,16 +44,6 @@ import {
 
 import * as Config from 'wlc-engine/modules/menu/system/config/category-menu.config';
 import * as Params from './category-menu.params';
-
-import _set from 'lodash-es/set';
-import _clone from 'lodash-es/clone';
-import _assign from 'lodash-es/assign';
-import _forEach from 'lodash-es/forEach';
-import _has from 'lodash-es/has';
-import _trim from 'lodash-es/trim';
-import _concat from 'lodash-es/concat';
-import _find from 'lodash-es/find';
-import _filter from 'lodash-es/filter';
 
 @Component({
     selector: '[wlc-category-menu]',
@@ -169,6 +169,7 @@ export class CategoryMenuComponent extends AbstractComponent implements OnInit, 
                 this.initMenu();
             });
         }
+
         this.eventService.subscribe({
             name: 'LOGOUT',
         }, () => {

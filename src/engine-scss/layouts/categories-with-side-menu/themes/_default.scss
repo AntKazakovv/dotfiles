@@ -67,10 +67,6 @@
 
                 .wlc-menu__link {
 
-                    &.active {
-                        background: ef.get-value($gamesWithSideMenu, 'menuLinkBgActive');
-                    }
-
                     @include bm.hover {
                         background: ef.get-value($gamesWithSideMenu, 'menuLinkBgHover');
                     }
@@ -83,10 +79,6 @@
 
                         &.active {
                             background: ef.get-value($gamesWithSideMenu, 'menuLinkBgActive');
-                        }
-
-                        @include bm.hover {
-                            background: ef.get-value($gamesWithSideMenu, 'menuLinkBgHover');
                         }
                     }
                 }

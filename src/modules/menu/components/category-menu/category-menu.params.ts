@@ -52,5 +52,8 @@ export const defaultParams: ICategoryMenuCParams = {
                 fallback: '',
             },
         },
+        dropdowns: {
+            expandableOnClick: true,
+        },
     },
 };

@@ -3,10 +3,9 @@ import {CategoryModel} from 'wlc-engine/modules/games/system/models/category.mod
 import {ISliderCParams} from 'wlc-engine/modules/promo';
 import {TIconExtension} from 'wlc-engine/modules/menu/system/interfaces/menu.interface';
 import {ICategoryMenuCParams} from 'wlc-engine/modules/menu/components/category-menu/category-menu.params';
-import {
-    IMenuOptions,
-    ICounterCParams,
-} from 'wlc-engine/modules/core';
+import {IMenuOptions} from 'wlc-engine/modules/core/system/interfaces/menu.interface';
+import {IIndexing} from 'wlc-engine/modules/core/system/interfaces/global.interface';
+import {ICounterCParams} from 'wlc-engine/modules/core/components/counter/counter.params';
 
 export interface MenuConfigItemsGroup {
     parent: MenuItemsGroupParent;
@@ -136,6 +135,18 @@ export interface IMenuItemsGroup {
     expand?: boolean;
 }
 
+export interface IMenuDropdowns {
+    /** force expand all menu dropdowns when specified states opened */
+    expandByStates?: IStateForExpand[];
+    /** expand menu dropdowns by click or by opened state */
+    expandableOnClick: boolean;
+}
+
+export interface IStateForExpand {
+    name: string;
+    params?: IIndexing<string | number>;
+}
+
 export interface IMenuCParams extends IComponentParams<MenuTheme, MenuType, string> {
     sliderParams?: ISliderCParams,
     common?: {
@@ -153,6 +164,8 @@ export interface IMenuCParams extends IComponentParams<MenuTheme, MenuType, stri
     scrollDuration?: number;
     /** If true - dropdown menu is open by default */
     expandOnStart?: boolean;
+    /** Menu dropdowns options */
+    dropdowns?: IMenuDropdowns;
 }
 
 export interface IMenuItemsGlobal {
@@ -199,5 +212,8 @@ export const defaultParams: IMenuCParams = {
             slidesPerView: 'auto',
             spaceBetween: 10,
         },
+    },
+    dropdowns: {
+        expandableOnClick: true,
     },
 };
