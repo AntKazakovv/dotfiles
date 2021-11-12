@@ -40,7 +40,7 @@ for key in ${!projects[*]}; do
 
     #lock engine version
     current_ver=$(jq '.dependencies["@egamings/wlc-engine"]' < package.json | sed -e 's/"//g')
-    sed -i -e "s/\"@egamings\/wlc-engine\": \"$current_ver\"/\"@egamings\/wlc-engine\": \"$engine_ver\"/g" ./package.json
+    sed -i -e "s|\"@egamings\/wlc-engine\": \"$current_ver\"|\"@egamings\/wlc-engine\": \"$engine_ver\"|g" ./package.json
 
     # update npm dependencies
     rm -rf node_modules package-lock.json
