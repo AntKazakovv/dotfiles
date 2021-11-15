@@ -36,7 +36,6 @@ $themeDefault: map-merge((
 
     'dragGap': ef.get('size', 'less'),
     'dropzoneBg': var(--mc-bg-o4),
-    'reqListStyleColor': var(--mc-main),
     'borderTopUploadDocs': var(--mc-bg),
     'dropzoneBgRepeat': no-repeat,
     'dropzoneBgPosition': center,
@@ -75,11 +74,6 @@ $themeDefault: map-merge((
     'dropzoneWidth': 100%,
 
     'clearPosition': 10px,
-
-    'requirementsBeforeTop': 6px,
-    'requirementsBeforeLeft': 0,
-    'requirementsBeforeSize': 8px,
-    'requirementsBeforeRadius': 100%,
 
     'docsMargin': ef.get('size', 'smally') 0 0 0,
     'docsPadding': 0,
@@ -127,4 +121,10 @@ $themeDefault: map-merge((
 
     'preloadRadius': 100%,
 
+    'reqMargin': (
+        375: ef.size(6) 0 0,
+        1024: 0,
+    ),
+    'reqItemFontStyle': 'ThirdTitle',
+    'reqItemFontColor': var(--mc-baseMain),
 ), $customThemeDefault);

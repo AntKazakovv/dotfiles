@@ -8,25 +8,34 @@ import {
     ViewChild,
 } from '@angular/core';
 import {FormControl} from '@angular/forms';
-import {takeUntil} from 'rxjs/operators';
+import {Subscription} from 'rxjs';
+import {
+    filter,
+    takeUntil,
+} from 'rxjs/operators';
 import {TranslateService} from '@ngx-translate/core';
-import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
-import {EventService} from 'wlc-engine/modules/core/system/services/event/event.service';
-import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
+
+import {
+    AbstractComponent,
+    ActionService,
+    ConfigService,
+    DeviceType,
+    EventService,
+    IEvent,
+    IMixedParams,
+    ISelectCParams,
+    IVerification,
+} from 'wlc-engine/modules/core';
 import {VerificationService} from 'wlc-engine/modules/profile/system/services/verification/verification.service';
-import {IEvent} from 'wlc-engine/modules/core/system/services/event/event.service';
-import {IMixedParams} from 'wlc-engine/modules/core/system/classes/abstract.component';
-import {ISelectCParams} from 'wlc-engine/modules/core/components/select/select.params';
 import {
     IDoc,
     IDocTypeResponse,
     IDroppedFiles,
-    LoaderStatus,
     ISelectOptions,
+    LoaderStatus,
 } from 'wlc-engine/modules/profile/system/interfaces/verification.interface';
 import {DocModel} from 'wlc-engine/modules/profile/system/models/doc.model';
 import {DocGroupModel} from 'wlc-engine/modules/profile/system/models/doc-group.model';
-import {IVerification} from 'wlc-engine/modules/core/system/interfaces/base-config/profile.interface';
 
 import * as Params from './verification.params';
 
@@ -58,10 +67,13 @@ export class VerificationComponent extends AbstractComponent implements OnInit {
         control: new FormControl(''),
     };
     public verificationParams: IVerification;
+    public isSelectMode: boolean;
     protected docTypes: IDocTypeResponse[];
+    protected activateDragSub$: Subscription;
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IVerificationCParams,
+        protected actionService: ActionService,
         protected configService: ConfigService,
         protected verificationService: VerificationService,
         protected cdr: ChangeDetectorRef,
@@ -86,18 +98,7 @@ export class VerificationComponent extends AbstractComponent implements OnInit {
             return this.cdr.markForCheck();
         }
 
-        if (this.isSelectMode) {
-            this.eventService.filter([{
-                name: 'DROP_FILES',
-            }])
-                .pipe(takeUntil(this.$destroy))
-                .subscribe(({data}: IEvent<IDroppedFiles>) => {
-                    if (data.label === this.currentDocGroup.ID) {
-                        this.preloadFile(data.files);
-                    }
-                });
-        }
-
+        this.setSelectMode();
         this.acceptFormat = this.fileTypes.map(item => `.${item}`).join(', ');
         this.selectParams.items = this.selectItems();
         this.selectParams.control.setValue(this.docTypes[0].ID);
@@ -105,16 +106,6 @@ export class VerificationComponent extends AbstractComponent implements OnInit {
         await this.updateDocItems();
         this.currentDocGroup = this.docGroups[0];
         this.loaded = true;
-    }
-
-    /**
-     * Check is select mode
-     *
-     * @returns {boolean}
-     */
-    public get isSelectMode(): boolean {
-        return this.docTypes.length >= this.verificationParams.selectModeFrom
-            || this.configService.get('$base.profile.type') === 'first';
     }
 
     /**
@@ -207,6 +198,47 @@ export class VerificationComponent extends AbstractComponent implements OnInit {
         }
     }
 
+
+    /**
+     * Set the value to isSelectMode and the logic of working with isSelectMode
+     * @returns {void}
+     */
+    protected setSelectMode(): void {
+        if (
+            (this.configService.get('$base.profile.type') === 'first')
+            || (this.docTypes.length >= this.verificationParams.selectModeFrom)
+        ) {
+            this.isSelectMode = true;
+            this.activateDrag();
+        } else {
+            const deviceType = this.actionService.getDeviceType();
+
+            this.isSelectMode = !(deviceType === DeviceType.Desktop);
+
+            if (this.isSelectMode) {
+                this.activateDrag();
+            }
+
+            this.actionService.deviceType()
+                .pipe(
+                    takeUntil(this.$destroy),
+                    filter((type: DeviceType) => {
+                        return !!type && (type === DeviceType.Desktop === this.isSelectMode);
+                    }),
+                )
+                .subscribe((type: DeviceType) => {
+                    this.isSelectMode = !(type === DeviceType.Desktop);
+
+                    if (this.isSelectMode) {
+                        this.activateDrag();
+                    } else {
+                        this.activateDragSub$.unsubscribe();
+                    }
+                    this.cdr.markForCheck();
+                });
+        }
+    }
+
     /**
      * Get documents types
      *
@@ -228,5 +260,23 @@ export class VerificationComponent extends AbstractComponent implements OnInit {
     protected switchLoader(status: LoaderStatus = LoaderStatus.Ready): void {
         this.currentDocGroup.switchLoader(status);
         this.cdr.markForCheck();
+    }
+
+    /**
+     * Activate drag and drop to dropzone in isSelectMode
+     */
+    protected activateDrag(): void {
+        this.activateDragSub$ = (
+            this.eventService.filter([{
+                name: 'DROP_FILES',
+            }])
+                .pipe(
+                    takeUntil(this.$destroy),
+                    filter(({data}: IEvent<IDroppedFiles>) => data.label === this.currentDocGroup.ID),
+                )
+                .subscribe(({data}: IEvent<IDroppedFiles>) => {
+                    this.preloadFile(data.files);
+                })
+        );
     }
 }

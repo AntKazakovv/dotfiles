@@ -51,9 +51,11 @@
                     </span>
                 </p>
             </div>
-            <div *ngIf="currentDocGroup.Description" class="{{$class}}__description">
-                {{currentDocGroup.Description}}
-            </div>
+            <ul *ngIf="$params.requirements?.length" class="{{$class}}-requirements">
+                <li *ngFor="let requirement of $params.requirements"  class="{{$class}}-requirements__item">
+                    {{requirement | translate}}
+                </li>
+            </ul>
             <div class="{{$class}}__upload-docs">
                 <div *ngIf="!currentDocGroup.docs.length" class="{{$class}}__title">
                     {{'No uploaded documents' | translate}}

@@ -186,32 +186,14 @@
             }
 
             &-requirements {
+                @include em.get-mq-map('margin', $themeDefault, 'reqMargin');
                 grid-area: req-list;
 
-                padding-left: 0;
-
-                list-style-type: none;
-
                 &__item {
-
-                    @include text.get-text-style(ef.get-value($themeDefault, 'textFont'), ef.get-value($themeDefault, 'dropZoneBg'));
-                    position: relative;
-
-                    padding-left: ef.get-value($themeDefault, 'offset');
-
-                    &:before {
-
-                        content: '';
-                        position: absolute;
-                        top: ef.get-value($themeDefault, 'requirementsBeforeTop');
-                        left: ef.get-value($themeDefault, 'requirementsBeforeLeft');
-
-                        width: ef.get-value($themeDefault, 'requirementsBeforeSize');
-                        height: ef.get-value($themeDefault, 'requirementsBeforeSize');
-
-                        background: ef.get-value($themeDefault, 'reqListStyleColor');
-                        border-radius: ef.get-value($themeDefault, 'requirementsBeforeRadius');
-                    }
+                    @include text.get-text-style(
+                        ef.get-value($themeDefault, 'reqItemFontStyle'),
+                        ef.get-value($themeDefault, 'reqItemFontColor')
+                    );
                 }
             }
 

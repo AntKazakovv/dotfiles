@@ -17,6 +17,7 @@ export * from './games.interface';
 export * from './tournaments.interface';
 export * from './finances.interface';
 export * from './contacts.interface';
+export * from './profile.interface';
 
 export interface IBaseConfig {
     app?: IAppConfig;
