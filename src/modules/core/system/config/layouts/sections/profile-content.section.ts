@@ -718,7 +718,15 @@ export namespace profileContent {
     export const profileLimitations: ILayoutSectionConfig = {
         container: true,
         components: [
-            componentLib.wlcTitle.profileLimitations,
+            {
+                name: 'core.wlc-wrapper',
+                params: {
+                    class: 'wlc-profile-content__top',
+                    components: [
+                        componentLib.wlcTitle.profileV2,
+                    ],
+                },
+            },
             componentLib.wlcProfileMenu.submenu,
             componentLib.wlcLimitations.def,
         ],

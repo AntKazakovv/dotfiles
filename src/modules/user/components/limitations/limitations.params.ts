@@ -199,6 +199,10 @@ export const timeOutPeriod = {
                 title: gettext('1 Month'),
                 value: '30',
             },
+            {
+                title: gettext('Indefinite'),
+                value: '36525',
+            },
         ],
     },
 };
