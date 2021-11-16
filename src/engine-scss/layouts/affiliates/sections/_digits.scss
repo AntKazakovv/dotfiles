@@ -4,23 +4,22 @@
 @use 'engine-scss/mixins/text' as text;
 
 .wlc-digits {
-    display: grid;
     @include bm.get-mq-map('grid-template-columns', $themeDefaultDigits, 'wrapperGridColumns');
     @include bm.get-mq-map('grid-gap', $themeDefaultDigits, 'wrapperGridGap');
+    display: grid;
     justify-content: center;
 
     &__item {
-        display: grid;
         @include bm.get-mq-map('grid-gap', $themeDefaultDigits, 'itemGridGap');
-
         @include bm.get-mq-map('padding', $themeDefaultDigits, 'itemPadding');
+
+        display: grid;
 
         text-align: ef.get-value($themeDefaultDigits, 'itemTextAlign');
 
         background: ef.get-value($themeDefaultDigits, 'itemBg');
         border-radius: ef.get-value($themeDefaultDigits, 'itemRadius');
     }
-
 
     &__main {
         @include bm.get-mq-map('font-size', $themeDefaultDigits, 'mainTextFontSize');
@@ -47,6 +46,5 @@
         @include mq.min(1200) {
             @include text.get-text-style(ef.get-value($themeDefaultDigits, 'descriptionText'));
         }
-
     }
 }

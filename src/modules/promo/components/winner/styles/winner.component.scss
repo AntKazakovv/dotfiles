@@ -102,10 +102,10 @@
             @include text.get-text-style(ef.get-value($winnerBase, 'gameTextStyle'), ef.get-value($winnerBase, 'gameColor'));
 
             display: flex;
-            max-width: 100%;
             grid-area: game;
             align-items: ef.get-value($winnerBase, 'gameAlignItems');
             justify-content: ef.get-value($winnerBase, 'gameJustifyContent');
+            max-width: 100%;
             padding: ef.get-value($winnerBase, 'gamePadding');
 
             text-align: ef.get-value($winnerBase, 'gameTextAlign');

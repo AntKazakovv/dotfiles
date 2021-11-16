@@ -5,15 +5,15 @@
     .wlc-winners-slider {
 
         &__wrapper {
+            @include em.manualMod('wlc-winners-slider', 'vertical' ,'headless') {
+                padding-top: ef.get-value($themeVertical, 'wrapperPaddingTopHeadless', ef.get-value($themeVertical, 'breakpoint'));
+            }
+
             max-width: ef.get-value($themeVertical, 'wrapperMaxWidth');
             height: ef.get-value($themeDefault, 'sliderWrapperHeight');
             background: ef.get-value($themeVertical, 'wrapperBackground');
             border-radius: ef.get-value($themeVertical, 'wrapperBorderRadius');
             overflow: hidden;
-
-            @include em.manualMod('wlc-winners-slider', 'vertical' ,'headless') {
-                padding-top: ef.get-value($themeVertical, 'wrapperPaddingTopHeadless', ef.get-value($themeVertical, 'breakpoint'));
-            }
         }
 
         &__container {
@@ -29,16 +29,16 @@
         &__title {
             @include em.get-mq-map('padding', $themeVertical, 'titlePadding');
             @include text.get-text-style('ThirdTitleBold', ef.get-value($themeVertical, 'titleColor'));
+            @include em.manualMod('wlc-winners-slider', 'vertical' ,'headless') {
+                display: none;
+            }
+
             position: ef.get-value($themeVertical, 'titlePosition');
             top: ef.get-value($themeVertical, 'titleTop');
             left: ef.get-value($themeVertical, 'titleLeft');
             z-index: ef.get-value($themeVertical, 'titleZIndex');
             background: ef.get-value($themeVertical, 'titleBackground');
             border-radius: ef.get-value($themeVertical, 'titleBorderRadius');
-
-            @include em.manualMod('wlc-winners-slider', 'vertical' ,'headless') {
-                display: none;
-            }
         }
 
         &__slider {

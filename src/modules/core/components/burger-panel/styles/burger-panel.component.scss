@@ -17,9 +17,9 @@
     color: map-get($themeDefault, 'panelTextColor');
     font-size: map-get($themeDefault, 'panelTextSize');
     outline-style: none;
+    box-shadow: ef.get('shadow', 'lg');
     visibility: hidden;
     transition: map-get($themeDefault, 'transition');
-    box-shadow: ef.get('shadow', 'lg');
 
     ::ng-deep {
 

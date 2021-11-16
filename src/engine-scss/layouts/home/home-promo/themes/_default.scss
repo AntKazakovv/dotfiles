@@ -5,12 +5,10 @@
 .wlc-sections__home-promo {
 
     .wlc-home-promo {
-        display: grid;
-
         @include bm.get-mq-map('grid-template-columns', $homePromo, 'columns');
         @include bm.get-mq-map('gap', $homePromo, 'gap');
-
         @include sm.homePromoTournaments($homePromo);
+        display: grid;
     }
 
     &--theme-wins {

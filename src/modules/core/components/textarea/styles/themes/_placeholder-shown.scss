@@ -8,22 +8,18 @@
 
     .wlc-textarea__label,
     .wlc-textarea__textarea {
-        transition: $transitionPlaceholderShown;
         line-height: 1;
+        transition: $transitionPlaceholderShown;
     }
 
     .wlc-textarea__textarea {
+        min-height: $textareaMinHeightPlaceholderShown;
+        padding: $textareaPaddingPlaceholderShown;
         font-size: $textareaFontSizePlaceholderShown;
         border: $textareaBorderPlaceholderShown;
         border-radius: $textareaBorderRadiusPlaceholderShown;
-        padding: $textareaPaddingPlaceholderShown;
         text-overflow: ellipsis;
         overflow: visible;
-        min-height: $textareaMinHeightPlaceholderShown;
-
-        @include mq.min(720) {
-            min-height: $textareaMinHeightPlaceholderShown * 2;
-        }
 
         &::placeholder {
             opacity: 0;
@@ -39,23 +35,27 @@
         }
 
         &:placeholder-shown + .wlc-textarea__label {
-            cursor: text;
             white-space: nowrap;
-            overflow: hidden;
             text-overflow: ellipsis;
-            transform-origin: left bottom;
             transform: translateY(-50%);
+            transform-origin: left bottom;
+            cursor: text;
+            overflow: hidden;
         }
 
         &:not(:placeholder-shown),
         &:focus {
 
             & + .wlc-textarea__label {
-                transform: translateY($placeholderShiftPlaceholderShown);
-                font-size: $placeholderFontSizePlaceholderShown;
                 padding: $placeholderPaddingPlaceholderShown;
+                font-size: $placeholderFontSizePlaceholderShown;
+                transform: translateY($placeholderShiftPlaceholderShown);
                 cursor: pointer;
             }
+        }
+
+        @include mq.min(720) {
+            min-height: $textareaMinHeightPlaceholderShown * 2;
         }
     }
 
@@ -63,9 +63,9 @@
         position: absolute;
         top: 0;
         left: 0;
-        font-size: $textareaFontSizePlaceholderShown;
-        padding: $textareaPaddingPlaceholderShown;
         margin: $marginPlaceholderShown;
+        padding: $textareaPaddingPlaceholderShown;
+        font-size: $textareaFontSizePlaceholderShown;
         line-height: $labelLineHeightPlaceholderShown;
     }
 }

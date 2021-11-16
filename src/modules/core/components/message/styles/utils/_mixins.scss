@@ -156,12 +156,12 @@
                 .wlc-icon {
                     border-radius: 4px;
 
-                    &:hover {
-                        background-color: rgba($color, 0.2);
-                    }
-
                     &:active {
                         background-color: rgba($color, 0.1);
+                    }
+
+                    @include bm.hover {
+                        background-color: rgba($color, 0.2);
                     }
                 }
             }

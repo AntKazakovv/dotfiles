@@ -19,15 +19,15 @@
         }
 
         &__title {
+            @include text.get-text-style(ef.get-value($themeDefault, 'titleFont'), ef.get-value($themeDefault, 'titleFontColor'));
             padding: ef.get-value($themeDefault, 'titlePadding');
             text-align: ef.get-value($themeDefault, 'infoTitleTextAlign');
-            @include text.get-text-style(ef.get-value($themeDefault, 'titleFont'), ef.get-value($themeDefault, 'titleFontColor'));
         }
 
         &__description {
+            @include text.get-text-style(ef.get-value($themeDefault, 'descFont'), ef.get-value($themeDefault, 'descFontColor'));
             padding: ef.get-value($themeDefault, 'descriptionPadding');
             text-align: ef.get-value($themeDefault, 'infoTextAlign');
-            @include text.get-text-style(ef.get-value($themeDefault, 'descFont'), ef.get-value($themeDefault, 'descFontColor'));
         }
 
         &__levels-table {

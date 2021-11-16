@@ -7,9 +7,9 @@
     --wlc-jackpot-slider-slide-height: #{ef.get-value($theme1, 'slideHeight')};
     --wlc-jackpot-slider-slide-inner-gap: #{ef.get-value($theme1, 'slideInnerGap')};
 
-    background: ef.get-value($theme1, 'background');
-    max-width: ef.get-value($theme1, 'maxWidth');
     width: 100%;
+    max-width: ef.get-value($theme1, 'maxWidth');
+    background: ef.get-value($theme1, 'background');
     border-radius: ef.get-value($theme1, 'borderRadius');
     overflow: hidden;
 
@@ -23,9 +23,9 @@
 
         &__title {
             @include lib.get-text-style('ThirdTitleBold', ef.get-value($theme1, 'titleColor'));
+            padding: ef.get-value($theme1, 'titlePadding');
             text-align: ef.get-value($theme1, 'titleTextAlign');
             background: ef.get-value($theme1, 'titleBg');
-            padding: ef.get-value($theme1, 'titlePadding');
             box-shadow: ef.get-value($theme1, 'titleBoxShadow');
         }
 

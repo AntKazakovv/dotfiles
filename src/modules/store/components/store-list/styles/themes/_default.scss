@@ -28,7 +28,6 @@
                 &.first {
                     grid-template-columns: repeat(auto-fill, minmax(ef.get-value($themeDefault, 'minItemWidthFirst'), 1fr));
                 }
-
             }
 
             @include mq.min(1630) {

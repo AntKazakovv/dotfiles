@@ -138,7 +138,7 @@
             transform: translateY(0);
         }
 
-        &:hover {
+        @include bm.hover {
 
             .wlc-modal__back-btn-text {
                 @include bm.transition(color);
@@ -191,12 +191,6 @@
         border: none;
         border-radius: ef.get-value($hostModal, 'modalBorderRadius');
         opacity: 0;
-
-        @include mq.min(560) {
-            border: ef.get-value($hostModal, 'modalBorder');
-            margin: ef.get-value($hostModal, 'modalOffset');
-            overflow: visible;
-        }
 
         .fade & {
             animation: fadeAnimation ef.get-value($hostModal, 'modalAnimationSettings');
@@ -253,6 +247,12 @@
                 @include bm.get-mq-map('padding', $hostModal, 'scrollModalBodyPadding');
                 overflow-y: auto;
             }
+        }
+
+        @include mq.min(560) {
+            border: ef.get-value($hostModal, 'modalBorder');
+            margin: ef.get-value($hostModal, 'modalOffset');
+            overflow: visible;
         }
     }
 
@@ -316,17 +316,17 @@
             transform: translateY(0);
         }
 
-        &:hover {
-            cursor: pointer;
-            opacity: 0.8;
-        }
-
         span {
             display: flex;
         }
 
         line {
             stroke: ef.get-value($hostModal, 'closeLineStroke');
+        }
+
+        @include bm.hover {
+            cursor: pointer;
+            opacity: 0.8;
         }
     }
 
@@ -361,10 +361,6 @@
     z-index: ef.get-value($hostModal, 'backdropZIndex');
     background-color: ef.get-value($themeDefault, 'dialogBackground');
 
-    @include mq.min(560) {
-        background: ef.get-value($hostModal, 'backdropBackground');
-    }
-
     &.fade {
         opacity: 0;
     }
@@ -372,6 +368,10 @@
     &.show,
     &.in {
         @include bm.get-mq-map('opacity', $hostModal, 'backdropOpacity');
+    }
+
+    @include mq.min(560) {
+        background: ef.get-value($hostModal, 'backdropBackground');
     }
 }
 
@@ -384,19 +384,19 @@ body.modal-open {
         background-image: none;
     }
 
-    @include mq.min(560) {
-        background-color: ev.$body-bg;
-
-        @if (map-has-key(ev.$baseVariables, 'imageBackground')) {
-            background: map-get(ev.$baseVariables, 'imageBackground');
-        }
-    }
-
     .wlc-app {
         visibility: hidden;
 
         @include mq.min(560) {
             visibility: visible;
+        }
+    }
+
+    @include mq.min(560) {
+        background-color: ev.$body-bg;
+
+        @if (map-has-key(ev.$baseVariables, 'imageBackground')) {
+            background: map-get(ev.$baseVariables, 'imageBackground');
         }
     }
 }

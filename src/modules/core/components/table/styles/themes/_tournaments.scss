@@ -4,13 +4,12 @@
 @use 'engine-scss/mixins/text' as text;
 
 .wlc-table--theme-tournaments:host {
+    @include bm.get-mq-map('gap', $themeTournaments, 'btnShowMoreGap');
+    @include bm.get-mq-map('min-height', $themeTournaments, 'sectionLoaderHeight');
     display: flex;
     flex-direction: column;
     align-items: center;
 
-    @include bm.get-mq-map('gap', $themeTournaments, 'btnShowMoreGap');
-
-    @include bm.get-mq-map('min-height', $themeTournaments, 'sectionLoaderHeight');
 
     .wlc-btn--theme-default {
         @include bm.get-mq-map('margin', $themeTournaments, 'btnShowMoreMargin');
@@ -65,12 +64,12 @@
         }
 
         &__row {
-            position: relative;
-            display: table-row;
-            height: fit-content;
             @include bm.get-mq-map('border', $themeTournaments, 'rowBorder');
             @include bm.get-mq-map('border-radius', $themeTournaments, 'rowRadiusSize');
             @include bm.get-mq-map('background', $themeTournaments, 'rowBg');
+            position: relative;
+            display: table-row;
+            height: fit-content;
             overflow: hidden;
 
             &.wlc-show {
@@ -78,8 +77,8 @@
             }
 
             &--head {
-                display: table-row;
                 @include bm.get-mq-map('background', $themeTournaments, 'headBg');
+                display: table-row;
 
                 .wlc-table__cell {
                     padding: ef.get-value($themeTournaments, 'headCellPadding');
@@ -108,7 +107,7 @@
             &:nth-child(2) {
 
                 .wlc-table__cell {
-                    padding: ef.get-value($themeTournaments, 'cellPadding')*2 0 ef.get-value($themeTournaments, 'cellPadding');
+                    padding: (ef.get-value($themeTournaments, 'cellPadding') * 2) 0 ef.get-value($themeTournaments, 'cellPadding');
                     font-weight: ef.get-value($themeTournaments, 'cellTextStyleBold');
 
                     &:first-child {
@@ -140,7 +139,7 @@
             &:nth-child(4) {
 
                 .wlc-table__cell {
-                    padding: ef.get-value($themeTournaments, 'cellPadding') 0 ef.get-value($themeTournaments, 'cellPadding')*2;
+                    padding: ef.get-value($themeTournaments, 'cellPadding') 0 (ef.get-value($themeTournaments, 'cellPadding') * 2);
                     font-weight: ef.get-value($themeTournaments, 'cellTextStyleBold');
 
                     &:first-child {
@@ -155,13 +154,13 @@
         }
 
         &__cell {
-            display: table-cell;
             @include text.get-text-style(
                 ef.get-value($themeTournaments, 'cellTextStyle'),
                 ef.get-value($themeTournaments, 'cellTextColor')
             );
             @include bm.get-mq-map('border', $themeTournaments, 'cellBorder');
             @include bm.get-mq-map('text-align', $themeTournaments, 'cellTextAlign');
+            display: table-cell;
             height: 25px;
             vertical-align: middle;
 

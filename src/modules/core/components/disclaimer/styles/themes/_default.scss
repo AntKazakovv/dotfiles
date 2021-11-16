@@ -10,13 +10,13 @@
         @include text.get-text-style('SignText', map-get($themeDefault, 'textColor'));
         text-align: ef.get-value($themeDefault, 'textAlign');
 
+        .wlc-sections__footer--theme-1 & {
+            @include em.get-mq-map('text-align', $themeDefault, 'footerFirstTextAlign');
+        }
+
         @include mq.min(900) {
             @include text.get-text-style('PlaceholderText', map-get($themeDefault, 'textColor'));
             text-align: ef.get-value($themeDefault, 'textAlign', 900);
-        }
-
-        .wlc-sections__footer--theme-1 & {
-            @include em.get-mq-map('text-align', $themeDefault, 'footerFirstTextAlign');
         }
     }
 }

@@ -142,7 +142,7 @@
                     }
                 }
 
-                &:hover {
+                @include em.hover {
 
                     ::ng-deep .wlc-icon-content {
 
@@ -424,7 +424,7 @@
                         }
                     }
 
-                    &:hover {
+                    @include em.hover {
 
                         &::ng-deep .wlc-icon-content {
 

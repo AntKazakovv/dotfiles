@@ -11,8 +11,8 @@
 
         .wlc-title.wlc-title--promotions[wlc-title],
         .wlc-title.wlc-title--profile[wlc-title] {
-            text-align: ef.get-value($promotionsThemeDefault, 'titleAlign');
             margin: ef.get-value($promotionsThemeDefault, 'listMargin');
+            text-align: ef.get-value($promotionsThemeDefault, 'titleAlign');
 
             div.wlc-title__main {
                 font-size: ef.get-value($promotionsThemeDefault, 'titleFontSize');

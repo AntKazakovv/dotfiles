@@ -63,14 +63,19 @@
 
 @mixin secondaryActiveState() {
 
-    &,
-    &:hover {
-        background: ef.get-value($themeDefault, 'background');
-        box-shadow: ef.get-value($themeDefault, 'shadow');
-        border: ef.get-value($themeDefault, 'borderDefault');
+    @include secondaryActiveStateStyles;
 
-        .wlc-btn__text {
-            color: ef.get-value($themeDefault, 'fontColor');
-        }
+    @include bm.hover {
+        @include secondaryActiveStateStyles;
+    }
+}
+
+@mixin secondaryActiveStateStyles() {
+    background: ef.get-value($themeDefault, 'background');
+    box-shadow: ef.get-value($themeDefault, 'shadow');
+    border: ef.get-value($themeDefault, 'borderDefault');
+
+    .wlc-btn__text {
+        color: ef.get-value($themeDefault, 'fontColor');
     }
 }

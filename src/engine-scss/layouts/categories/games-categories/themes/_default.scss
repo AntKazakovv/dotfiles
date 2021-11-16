@@ -16,10 +16,10 @@
     }
 
     .games-categories {
-        display: grid;
         @include bm.get-mq-map('min-height', $gamesCategoriesDefault, 'sectionHeight');
         @include bm.get-mq-map('grid-gap', $gamesCategoriesDefault, 'gamesTemplateColumnsGap');
         @include bm.get-mq-map('grid-template-columns', $gamesCategoriesDefault, 'gamesTemplateColumns');
+        display: grid;
         align-items: ef.get-value($gamesCategoriesDefault, 'gamesCategoriesAlign');
     }
 
@@ -35,15 +35,15 @@
         @include bm.transition(all);
 
         flex-shrink: 0;
-        justify-content: space-between;
         align-items: center;
+        justify-content: space-between;
         margin-left: auto;
 
         > span {
             display: flex;
             align-items: center;
-            width: 100%;
             justify-content: space-between;
+            width: 100%;
             white-space: nowrap;
         }
 
@@ -66,7 +66,6 @@
             .wlc-icon {
                 color: map-get($gamesCategoriesDefault, 'buttonSearchIconFillHover');
             }
-
         }
     }
 

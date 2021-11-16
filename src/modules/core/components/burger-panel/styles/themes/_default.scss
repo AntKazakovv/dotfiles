@@ -134,8 +134,15 @@
                 pointer-events: none;
             }
 
-            &:hover,
             &.active {
+
+                &:before {
+                    height: ef.get-value($themeDefault, 'panelUnderlineHeight');
+                    opacity: 1;
+                }
+            }
+
+            @include bm.hover {
 
                 &:before {
                     height: ef.get-value($themeDefault, 'panelUnderlineHeight');
@@ -209,8 +216,8 @@
             }
 
             @include bm.hover {
-                transform: ef.get-value($themeDefault, 'panelSearchTransformHover');
                 color: ef.get-value($themeDefault, 'panelSearchColorHover');
+                transform: ef.get-value($themeDefault, 'panelSearchTransformHover');
             }
         }
 

@@ -8,8 +8,8 @@
     .wlc-reality-check-info {
 
         &-title {
-            text-align: ef.get-value($themeDefault, 'titleAlign');
             margin: ef.get-value($themeDefault, 'titleMargin');
+            text-align: ef.get-value($themeDefault, 'titleAlign');
         }
 
         &-time {
@@ -31,8 +31,8 @@
 
             &-value {
                 border-radius: ef.get-value($themeDefault, 'resultValueBorderRadius');
-                background: ef.get-value($themeDefault, 'resultValueBackground');
                 padding: ef.get-value($themeDefault, 'resultValuePadding');
+                background: ef.get-value($themeDefault, 'resultValueBackground');
             }
 
             &-item {
@@ -42,9 +42,9 @@
 
         &-footer {
             display: flex;
-            justify-content: ef.get-value($themeDefault, 'footerJustifyContent');
             flex-direction: ef.get-value($themeDefault, 'footerFlexDirection');
             align-items: ef.get-value($themeDefault, 'footerAlignItems');
+            justify-content: ef.get-value($themeDefault, 'footerJustifyContent');
 
             .wlc-checkbox {
                 margin: ef.get-value($themeDefault, 'footerCheckboxMargin');

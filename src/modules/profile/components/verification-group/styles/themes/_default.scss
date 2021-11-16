@@ -156,12 +156,6 @@
 
             cursor: pointer;
 
-            &:hover,
-            &.loading,
-            &.dragovered {
-                border-color: ef.get-value($themeDefault, 'borderColorDrag');
-            }
-
             input {
                 position: ef.get-value($themeDefault, 'dropzoneInputPosition');
                 top: ef.get-value($themeDefault, 'dropzoneInputPos');
@@ -172,6 +166,15 @@
                 cursor: pointer;
 
                 opacity: ef.get-value($themeDefault, 'dropzoneInputOpacity');
+            }
+
+            &.loading,
+            &.dragovered {
+                border-color: ef.get-value($themeDefault, 'borderColorDrag');
+            }
+
+            @include em.hover {
+                border-color: ef.get-value($themeDefault, 'borderColorDrag');
             }
         }
 

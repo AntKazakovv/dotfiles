@@ -15,12 +15,12 @@
         .wlc-menu--theme-first.wlc-menu--type-profile-first-menu {
 
             .wlc-menu__icon-active {
-                display: none;
-
-                position: absolute;
                 @include bm.get-mq-map('left', $fullProfileFirstDefault, 'activeIconLeft');
                 @include bm.get-mq-map('top', $fullProfileFirstDefault, 'activeIconTop');
                 @include bm.get-mq-map('transform', $fullProfileFirstDefault, 'activeIconTransform');
+                position: absolute;
+                display: none;
+
                 line-height: 0;
 
                 svg {
@@ -37,7 +37,6 @@
                 }
 
                 & > .wlc-menu__link {
-                    display: block;
                     @include bm.get-mq-map('margin', $fullProfileFirstDefault, 'menuTitleMargin');
                     @include text.get-text-style(
                         ef.get-value($fullProfileFirstDefault, 'menuTitleFontStyle'),
@@ -45,6 +44,7 @@
                     );
                     @include bm.get-mq-map('line-height', $fullProfileFirstDefault, 'menuTitleLineHeight');
                     @include bm.get-mq-map('text-decoration', $fullProfileFirstDefault, 'menuTitleTextDecoration');
+                    display: block;
 
                     .wlc-icon {
                         display: none;
@@ -54,7 +54,6 @@
                 .wlc-menu__submenu {
 
                     .wlc-menu__link {
-                        display: block;
                         @include bm.get-mq-map('margin', $fullProfileFirstDefault, 'menuLinkMargin');
                         @include text.get-text-style(
                             ef.get-value($fullProfileFirstDefault, 'menuLinkFontStyle'),
@@ -62,30 +61,27 @@
                         );
                         @include bm.get-mq-map('text-decoration', $fullProfileFirstDefault, 'menuLinkTextDecoration');
                         @include bm.transition(color);
+                        display: block;
 
                         &.active {
-                            position: relative;
                             @include text.get-text-style(
                                 ef.get-value($fullProfileFirstDefault, 'menuLinkActiveFontStyle'),
                                 ef.get-value($fullProfileFirstDefault, 'menuLinkActiveFontColor')
                             );
+                            position: relative;
 
                             .wlc-menu__icon-active {
-                                display: block;
                                 @include bm.get-mq-map('color', $fullProfileFirstDefault, 'activeIconColor');
+                                display: block;
                             }
 
-                            @media(hover) {
-                                &:hover {
-                                    color: ef.get-value($fullProfileFirstDefault, 'menuLinkActiveFontColor');
-                                }
+                            @include bm.hover {
+                                color: ef.get-value($fullProfileFirstDefault, 'menuLinkActiveFontColor');
                             }
                         }
 
-                        @media(hover) {
-                            &:hover {
-                                color: ef.get-value($fullProfileFirstDefault, 'menuLinkHoverFontColor');
-                            }
+                        @include bm.hover {
+                            color: ef.get-value($fullProfileFirstDefault, 'menuLinkHoverFontColor');
                         }
                     }
 

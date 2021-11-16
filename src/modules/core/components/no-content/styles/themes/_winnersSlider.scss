@@ -24,8 +24,8 @@
             &__wrapper {
                 @include em.get-mq-map('padding', $slidersWinnersThemeDefault, 'wrapperPadding');
                 display: ef.get-value($slidersWinnersThemeDefault, 'wrapperDisplay');
-                justify-content: ef.get-value($slidersWinnersThemeDefault, 'wrapperJustifyContent');
                 align-items: ef.get-value($slidersWinnersThemeDefault, 'wrapperAlignItems');
+                justify-content: ef.get-value($slidersWinnersThemeDefault, 'wrapperJustifyContent');
             }
 
             &__body {

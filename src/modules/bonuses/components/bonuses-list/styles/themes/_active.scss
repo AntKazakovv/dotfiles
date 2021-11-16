@@ -9,12 +9,12 @@
     &:host {
 
         .wlc-bonuses-list__nocontent-text {
+            @include text.get-text-style('PrimaryText', ef.get-value($themeDefault, 'activeBlockFontColor'));
+
             padding: ef.get-value($themeActive, 'noContentPadding');
 
             background: ef.get-value($themeActive, 'noContentBg');
             border-radius: ef.get-value($themeActive, 'noContentRadius');
-
-            @include text.get-text-style('PrimaryText', ef.get-value($themeDefault, 'activeBlockFontColor'));
 
             a {
                 @include bm.transition(color);

@@ -4,18 +4,6 @@
 @import '../utils/mixins';
 
 .wlc-btn--theme-borderless:host {
-
-    @include bm.hover {
-        color: ef.get-value($borderlessTheme, 'fontColor');
-
-        background: none;
-        border: 0;
-
-        &:after {
-            right: -(ef.get-value($borderlessTheme, 'underlineExtraSize'));
-            left: -(ef.get-value($borderlessTheme, 'underlineExtraSize'));
-        }
-    }
     position: relative;
     display: inline-grid;
 
@@ -57,6 +45,18 @@
         &:after {
             right: 50%;
             left: 50%;
+        }
+    }
+
+    @include bm.hover {
+        color: ef.get-value($borderlessTheme, 'fontColor');
+
+        background: none;
+        border: 0;
+
+        &:after {
+            right: -(ef.get-value($borderlessTheme, 'underlineExtraSize'));
+            left: -(ef.get-value($borderlessTheme, 'underlineExtraSize'));
         }
     }
 }

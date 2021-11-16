@@ -6,16 +6,16 @@
 .wlc-sections__categories--theme-2 {
 
     .games-categories {
-        display: grid;
-        align-items: ef.get-value($withIcons, 'gridAlignItems');
         @include bm.get-mq-map('grid-template-columns', $withIcons, 'gridColumns');
         @include bm.get-mq-map('grid-template-rows', $withIcons, 'gridRows');
         @include bm.get-mq-map('gap', $withIcons, 'sectionGap');
+        display: grid;
+        align-items: ef.get-value($withIcons, 'gridAlignItems');
 
         &__wrapper {
-            display: grid;
             @include bm.get-mq-map('gap', $withIcons, 'wrapperGridGap');
             @include bm.get-mq-map('padding', $withIcons, 'wrapperPadding');
+            display: grid;
         }
     }
 

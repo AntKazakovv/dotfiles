@@ -14,10 +14,10 @@
                 background: ef.get-value($themeDefault, 'successColor');
 
                 &:before {
-                    width: 4px;
-                    height: 6px;
                     top: calc(50% - 1px);
                     left: 50%;
+                    width: 4px;
+                    height: 6px;
                     transform: translate(-50%, -50%) rotate(45deg);
                     border-bottom: 1px solid ef.get-value($themeDefault, 'successIconColor');
                     border-right: 1px solid ef.get-value($themeDefault, 'successIconColor');
@@ -35,10 +35,10 @@
                 &:before {
                     top: 50%;
                     left: 50%;
-                    margin-top: -#{ef.get-value($themeDefault, 'iconHeight') * 0.5};
-                    margin-left: -#{ef.get-value($themeDefault, 'iconWidth') * 0.5};
                     width: ef.get-value($themeDefault, 'iconWidth');
                     height: ef.get-value($themeDefault, 'iconHeight');
+                    margin-top: -#{ef.get-value($themeDefault, 'iconHeight') * 0.5};
+                    margin-left: -#{ef.get-value($themeDefault, 'iconWidth') * 0.5};
                     animation: spin 1s infinite linear;
                     border: 2px solid ef.get-value($themeDefault, 'pendingIconColor');
                     border-left-color: transparent;
@@ -60,10 +60,10 @@
                 &:before {
                     top: 50%;
                     left: 50%;
-                    transform: translate(-50%, -50%);
-                    background: ef.get-value($themeDefault, 'errorIconColor');
                     width: 2px;
                     height: 7px;
+                    background: ef.get-value($themeDefault, 'errorIconColor');
+                    transform: translate(-50%, -50%);
                 }
 
                 &:after {
@@ -71,10 +71,10 @@
                     position: absolute;
                     top: 50%;
                     left: 50%;
-                    transform: translate(-50%, -50%);
-                    background: ef.get-value($themeDefault, 'errorIconColor');
                     width: 7px;
                     height: 2px;
+                    background: ef.get-value($themeDefault, 'errorIconColor');
+                    transform: translate(-50%, -50%);
                 }
             }
         }
@@ -84,12 +84,12 @@
         position: absolute;
         top: 50%;
         right: 0;
-        transform: translateY(-50%);
-        height: 100%;
-        width: 40px;
         display: flex;
-        justify-content: center;
         align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 100%;
+        transform: translateY(-50%);
 
         .icon {
             position: relative;
@@ -107,9 +107,9 @@
             position: absolute;
             top: 20px;
             right: 15px;
-            transform: translateY(-50%);
             width: ef.get-value($themeDefault, 'iconWidth');
             height: ef.get-value($themeDefault, 'iconHeight');
+            transform: translateY(-50%);
             border-radius: 50%;
 
             &:before {
@@ -120,9 +120,9 @@
     }
 
     &__errors {
-        list-style: none;
-        padding: 0;
         margin: 0;
+        padding: 0;
+        list-style: none;
 
         li {
             margin: ef.get-value($themeDefault, 'marginBetweenErrorsItem');
@@ -137,8 +137,8 @@
         min-width: ef.get-value($themeDefault, 'errorsMinWidth');
 
         .tooltip-inner {
-            background: ef.get-value($themeDefault, 'errorsBgColor');
             @include text.get-text-style('PrimaryText', ef.get-value($themeDefault, 'errorsColor'));
+            background: ef.get-value($themeDefault, 'errorsBgColor');
         }
 
         &.bottom {

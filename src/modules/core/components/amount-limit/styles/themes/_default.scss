@@ -6,8 +6,8 @@
 .wlc-amount-limit--theme-default:host {
 
     .wlc-amount-limit {
-        display: block;
         @include text.get-text-style('PlaceholderText', ef.get-value($themeDefault, 'limitsColor'));
+        display: block;
         margin: ef.get-value($themeDefault, 'limitsMargin');
     }
 }

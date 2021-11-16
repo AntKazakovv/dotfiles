@@ -7,28 +7,28 @@
     .wlc-post-menu__item {
 
         .wlc-post-menu__link {
-            display: block;
+            @include bm.transition;
             @include text.get-text-style('ThirdTitleBold', ef.get-value($menuThemeContacts, 'textColor'));
+            display: block;
             padding: ef.get-value($menuThemeContacts, 'padding');
+            letter-spacing: ef.get-value($menuThemeContacts, 'letterSpacing');
+            text-transform: ef.get-value($menuThemeContacts, 'textTransform');
             text-decoration: ef.get-value($menuThemeContacts, 'textDecoration');
             border-bottom: ef.get-value($menuThemeContacts, 'border');
-            text-transform: ef.get-value($menuThemeContacts, 'textTransform');
-            letter-spacing: ef.get-value($menuThemeContacts, 'letterSpacing');
-            @include bm.transition;
-
-            &:hover {
-                background: ef.get-value($menuThemeContacts, 'hoverBg');
-                color: ef.get-value($menuThemeContacts, 'hoverColor');
-            }
 
             &.active {
-                background: ef.get-value($menuThemeContacts, 'activeBg');
                 color: ef.get-value($menuThemeContacts, 'activeColor');
+                background: ef.get-value($menuThemeContacts, 'activeBg');
 
-                &:hover {
-                    background: ef.get-value($menuThemeContacts, 'hoverBg');
+                @include bm.hover {
                     color: ef.get-value($menuThemeContacts, 'hoverColor');
+                    background: ef.get-value($menuThemeContacts, 'hoverBg');
                 }
+            }
+
+            @include bm.hover {
+                color: ef.get-value($menuThemeContacts, 'hoverColor');
+                background: ef.get-value($menuThemeContacts, 'hoverBg');
             }
         }
 

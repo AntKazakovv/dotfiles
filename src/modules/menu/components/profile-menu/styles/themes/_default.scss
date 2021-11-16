@@ -23,16 +23,9 @@
 .wlc-profile-menu--theme-default.wlc-profile-menu--type-tabs:host {
 
     .wlc-menu--theme-default {
-        display: none;
         @include bm.get-mq-map('grid-gap', $themeDefault, 'profileMenuGap');
         @include bm.get-mq-map('width', $themeDefault, 'profileMenuWidth');
-
-        @include mq.min(900) {
-            display: grid;
-            grid-auto-columns: auto;
-            grid-auto-flow: column;
-            align-items: center;
-        }
+        display: none;
 
         ::ng-deep {
 
@@ -45,15 +38,19 @@
 
                         &:after {
                             content: '';
-                            width: 100%;
-                            height: ef.get-value($themeDefault, 'profileMenuBgBeforeHeight');
                             top: 100%;
                             left: 0;
+                            width: 100%;
+                            height: ef.get-value($themeDefault, 'profileMenuBgBeforeHeight');
                             background: ef.get-value($themeDefault, 'profileMenuBg');
                         }
 
-                        &:hover,
                         &.active {
+                            right: initial;
+                            left: 0;
+                        }
+
+                        @include bm.hover {
                             right: initial;
                             left: 0;
                         }
@@ -63,6 +60,8 @@
 
             .wlc-menu__link {
                 @include bm.transition(background);
+                @include bm.get-mq-map('padding', $themeDefault, 'profileMenuLinkPadding');
+                @include text.get-text-style('PrimaryText');
                 position: relative;
                 display: flex;
                 align-items: flex-start;
@@ -71,8 +70,6 @@
                 border-radius: ef.get-value($themeDefault, 'profileMenuLinkBorderRadius');
                 background-color: transparent;
 
-                @include bm.get-mq-map('padding', $themeDefault, 'profileMenuLinkPadding');
-                @include text.get-text-style('PrimaryText');
 
                 &:before,
                 &:after {
@@ -80,11 +77,11 @@
                     @include mixin.makeAngleBg(ef.get-value($themeDefault, 'profileMenuAngleBg'));
 
                     position: absolute;
+                    bottom: -3px;
                     display: block;
-                    opacity: 0;
                     width: ef.get-value($themeDefault, 'iconSize');
                     height: ef.get-value($themeDefault, 'iconSize');
-                    bottom: -3px;
+                    opacity: 0;
 
                     @include bm.colorThemeAlt {
 
@@ -101,17 +98,9 @@
                     transform: scaleX(-1);
                 }
 
-                @include bm.hover {
-
-                    &:before,
-                    &:after {
-                        opacity: 1;
-                    }
-                }
-
-                &:hover,
                 &.active {
                     color: ef.get-value($themeDefault, 'profileMenuActiveColor');
+                    font-weight: bold;
                     background-color: ef.get-value($themeDefault, 'profileMenuBg');
 
                     &:before,
@@ -120,10 +109,23 @@
                     }
                 }
 
-                &.active {
-                    font-weight: bold;
+                @include bm.hover {
+                    color: ef.get-value($themeDefault, 'profileMenuActiveColor');
+                    background-color: ef.get-value($themeDefault, 'profileMenuBg');
+
+                    &:before,
+                    &:after {
+                        opacity: 1;
+                    }
                 }
             }
+        }
+
+        @include mq.min(900) {
+            display: grid;
+            grid-auto-columns: auto;
+            grid-auto-flow: column;
+            align-items: center;
         }
     }
 }

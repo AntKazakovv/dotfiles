@@ -2,9 +2,9 @@
 
 .wlc-license {
     display: grid;
-    width: ef.get-value($themeDefault, 'licenseWidth');
     grid-template-columns: ef.get-value($themeDefault, 'licenseTemplateColumns');
     gap: ef.get-value($themeDefault, 'gap');
+    width: ef.get-value($themeDefault, 'licenseWidth');
 
     &--curacao {
         grid-template-columns: ef.get-value($themeDefault, 'curacaoGridTemplate');

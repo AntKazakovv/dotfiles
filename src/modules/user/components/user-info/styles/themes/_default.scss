@@ -13,8 +13,8 @@
         }
 
         &-short {
-            margin: ef.get-value($themeDefault, 'userInfoShortMargin');
             flex-shrink: 0;
+            margin: ef.get-value($themeDefault, 'userInfoShortMargin');
         }
 
         &-dropdown {
@@ -22,8 +22,8 @@
 
             &__btn {
                 display: flex;
-                align-items: center;
                 flex-shrink: 0;
+                align-items: center;
                 padding: ef.get-value($themeDefault, 'userInfoDropdownBtnPadding');
                 border: ef.get-value($themeDefault, 'userInfoDropdownBtnBorder');
                 border-radius: ef.get-value($themeDefault, 'userInfoDropdownBtnBorderRadius');
@@ -99,19 +99,19 @@
             }
 
             &__content {
-                z-index: 10;
                 position: absolute;
                 top: ef.get-value($themeDefault, 'userInfoDropdownTop');
                 right: ef.get-value($themeDefault, 'userInfoDropdownRight');
+                z-index: 10;
                 display: flex;
                 flex-direction: column;
-                justify-content: center;
                 align-items: center;
-                box-shadow: ef.get-value($themeDefault, 'userInfoDropdownBoxShadow');
-                min-width: ef.get-value($themeDefault, 'userInfoDropdownMinWidth');
+                justify-content: center;
                 width: ef.get-value($themeDefault, 'userInfoDropdownMinWidth');
+                min-width: ef.get-value($themeDefault, 'userInfoDropdownMinWidth');
                 padding: ef.get-value($themeDefault, 'userInfoDropdownPadding');
                 background: ef.get-value($themeDefault, 'userInfoDropdownBg');
+                box-shadow: ef.get-value($themeDefault, 'userInfoDropdownBoxShadow');
                 border-radius: ef.get-value($themeDefault, 'userInfoDropdownBorderRadius');
 
                 ::ng-deep {

@@ -11,13 +11,13 @@
     }
 
     .wlc-total-jackpot__text {
-        font-size: ef.get-value($themeDefault, 'fontSize');
         font-weight: ef.get-value($themeDefault, 'fontWeight');
+        font-size: ef.get-value($themeDefault, 'fontSize');
     }
 }
 
 .wlc-total-jackpot-nodata {
-    text-align: ef.get-value($nodata, 'nodataTextAlign');
     max-width: ef.get-value($nodata, 'nodataMaxWidth');
     margin: ef.get-value($nodata, 'nodataMargin');
+    text-align: ef.get-value($nodata, 'nodataTextAlign');
 }

@@ -47,10 +47,8 @@ $themeDefault: map-merge((
     'pseudoElementPosition': 0,
     'pseudoElementZIndex': 2,
     'pseudoElementGradient': linear-gradient(
-        0deg,
-        rgba(ef.get('mainColors', 'baseContrast'), 0.8) 0%,
-        rgba(ef.get('mainColors', 'baseContrast'), 0.2) 60%
-        ), // locked colors
+        0deg, rgba(ef.get('mainColors', 'baseContrast'), 0.8) 0%, rgba(ef.get('mainColors', 'baseContrast'), 0.2) 60%
+    ), // locked colors
 
     'innerBlockZIndex': 3,
 

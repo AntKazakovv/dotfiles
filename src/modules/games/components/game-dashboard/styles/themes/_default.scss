@@ -1,4 +1,5 @@
 @use 'engine-scss/mixins/mediaqueries' as mq;
+@use 'engine-scss/mixins/base.mixins' as bm;
 @use 'engine-scss/mixins/text' as text;
 @use 'engine-scss/functions' as ef;
 @import '../utils/mixins';
@@ -6,10 +7,10 @@
 
 .wlc-game-dashboard--theme-default:host {
     position: absolute;
-    width: 100%;
-    height: 100%;
     top: 0;
     right: 0;
+    width: 100%;
+    height: 100%;
     pointer-events: none;
 
     &.wlc-game-dashboard--animate {
@@ -43,13 +44,13 @@
         }
 
         &__backdrop {
-            display: none;
-            background: ef.get-value($themeDefault, 'backdropBackground');
             position: absolute;
             top: 0;
-            left: 0;
             right: 0;
             bottom: 0;
+            left: 0;
+            display: none;
+            background: ef.get-value($themeDefault, 'backdropBackground');
             pointer-events: all;
         }
 
@@ -63,34 +64,34 @@
         }
 
         &__tutorial {
-            pointer-events: all;
             position: fixed;
             top: 0;
             left: 0;
-            width: 100%;
-            height: 100%;
             display: none;
             align-items: center;
             justify-content: center;
+            width: 100%;
+            height: 100%;
             color: ef.get-value($themeDefault, 'tutorialColor');
             background: ef.get-value($themeDefault, 'backdropBackground');
+            pointer-events: all;
 
             &-left-decor {
-                background: url('/gstatic/wlc/game-dashboard/tutorial.png') right bottom no-repeat;
-                height: ef.get-value($themeDefault, 'decorHeight');
-                width: ef.get-value($themeDefault, 'decorWidth');
+                position: absolute;
                 bottom: 0;
                 left: 0;
-                position: absolute;
+                width: ef.get-value($themeDefault, 'decorWidth');
+                height: ef.get-value($themeDefault, 'decorHeight');
+                background: url('/gstatic/wlc/game-dashboard/tutorial.png') right bottom no-repeat;
             }
 
             &-right-decor {
-                background: url('/gstatic/wlc/game-dashboard/tutorial-top.png') top left no-repeat;
-                height: ef.get-value($themeDefault, 'decorHeight');
-                width: ef.get-value($themeDefault, 'decorWidth');
+                position: absolute;
                 top: 0;
                 right: 0;
-                position: absolute;
+                width: ef.get-value($themeDefault, 'decorWidth');
+                height: ef.get-value($themeDefault, 'decorHeight');
+                background: url('/gstatic/wlc/game-dashboard/tutorial-top.png') top left no-repeat;
             }
         }
 
@@ -127,8 +128,8 @@
         }
 
         &__tutorial-text {
-            margin: ef.get-value($themeDefault, 'tutorialMargin');
             @include text.get-text-style('ThirdTitle', ef.get-value($themeDefault, 'tutorialColor'));
+            margin: ef.get-value($themeDefault, 'tutorialMargin');
         }
 
         &__dont-show {
@@ -144,22 +145,21 @@
                     }
 
                     &__text {
-
-                        color: ef.get-value($themeDefault, 'tutorialDontShowColor');
                         margin: ef.get-value($themeDefault, 'tutorialDontShowMargin');
+                        color: ef.get-value($themeDefault, 'tutorialDontShowColor');
                     }
                 }
             }
         }
 
         &__wrp {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
             width: ef.get-value($themeDefault, 'wrpWidth');
             height: 100%;
             background: ef.get-value($themeDefault, 'wrpBackground');
-            position: absolute;
-            top: 0;
-            left: 0;
-            bottom: 0;
             transform: translateX(-300px);
             pointer-events: all;
         }
@@ -176,13 +176,13 @@
             }
 
             &-btn {
-                border-radius: ef.get-value($themeDefault, 'panchBtnRadius');
-                background: ef.get-value($themeDefault, 'panchBtnBack');
-                width: ef.get-value($themeDefault, 'panchBtnWidth');
-                height: ef.get-value($themeDefault, 'panchBtnHeight');
                 position: absolute;
                 top: ef.get-value($themeDefault, 'panchBtnTop');
                 right: ef.get-value($themeDefault, 'panchBtnRight');
+                width: ef.get-value($themeDefault, 'panchBtnWidth');
+                height: ef.get-value($themeDefault, 'panchBtnHeight');
+                border-radius: ef.get-value($themeDefault, 'panchBtnRadius');
+                background: ef.get-value($themeDefault, 'panchBtnBack');
                 cursor: pointer;
             }
         }
@@ -190,14 +190,14 @@
         &__header {
             display: flex;
             justify-content: space-around;
-            background: ef.get-value($themeDefault, 'headerBackground');
             padding: ef.get-value($themeDefault, 'headerPadding');
+            background: ef.get-value($themeDefault, 'headerBackground');
         }
 
         &__content {
-            padding: ef.get-value($themeDefault, 'contentPadding');
-            height: 100%;
             width: 100%;
+            height: 100%;
+            padding: ef.get-value($themeDefault, 'contentPadding');
 
             &-item {
                 height: 100%;
@@ -232,13 +232,13 @@
 
         &__tab {
             display: flex;
-            cursor: pointer;
-            width: ef.get-value($themeDefault, 'tabWidth');
-            height: ef.get-value($themeDefault, 'tabHeight');
-            border-radius: ef.get-value($themeDefault, 'tabRadius');
-            background: ef.get-value($themeDefault, 'backgroundTabs');
             align-items: center;
             justify-content: center;
+            width: ef.get-value($themeDefault, 'tabWidth');
+            height: ef.get-value($themeDefault, 'tabHeight');
+            background: ef.get-value($themeDefault, 'backgroundTabs');
+            cursor: pointer;
+            border-radius: ef.get-value($themeDefault, 'tabRadius');
             transition: background 0.2s ease-out;
 
             &-icon::ng-deep {
@@ -250,8 +250,19 @@
                 }
             }
 
-            &:hover,
             &.active {
+                background: ef.get-value($themeDefault, 'backgroundTabsActive');
+
+                .wlc-game-dashboard__tab-icon::ng-deep {
+
+                    svg,
+                    path {
+                        fill: ef.get-value($themeDefault, 'panchBtnIconActive');
+                    }
+                }
+            }
+
+            @include bm.hover {
                 background: ef.get-value($themeDefault, 'backgroundTabsActive');
 
                 .wlc-game-dashboard__tab-icon::ng-deep {
@@ -292,19 +303,19 @@
         .wlc-game-dashboard__games-slider {
 
             .swiper-container {
-                padding: 0;
                 height: 100%;
+                padding: 0;
             }
 
             .swiper-wrapper {
-                height: 95%;
                 display: flex;
                 justify-content: center;
+                height: 95%;
 
                 .swiper-slide {
-                    height: calc(98% / 2 - 15px);
                     display: inline-block;
                     max-width: 150px;
+                    height: calc(98% / 2 - 15px);
 
                     .wlc-game-thumb {
                         height: 100%;
@@ -389,48 +400,48 @@
 
                 &__container {
                     display: grid;
-                    grid-template-columns: minmax(0, 1fr) 60px;
                     grid-template-rows: 100%;
+                    grid-template-columns: minmax(0, 1fr) 60px;
                     height: 100%;
                 }
 
                 &__header {
                     flex-direction: column;
-                    align-items: center;
                     grid-column: 2;
+                    align-items: center;
                     border-radius: 0 15px 15px 0;
                 }
 
                 &__content {
-                    height: 100%;
-                    grid-column: 1;
                     grid-row: 1;
+                    grid-column: 1;
+                    height: 100%;
 
                     &--profile {
                         padding: 0;
 
                         .wlc-game-dashboard__content-item {
-                            height: 100%;
                             display: grid;
-                            grid-template-columns: 1fr 1fr;
-                            grid-template-rows: 1fr;
                             grid-template-areas: 'stats user';
+                            grid-template-rows: 1fr;
+                            grid-template-columns: 1fr 1fr;
+                            height: 100%;
                         }
                     }
                 }
 
                 &__backdrop-label {
                     position: absolute;
-                    right: 0;
                     top: 50%;
+                    right: 0;
                     transform: translate(50%, -50%);
                 }
 
                 &__profile-user-stats {
                     display: flex;
                     flex-direction: column;
-                    justify-content: center;
                     grid-area: stats;
+                    justify-content: center;
 
                     .wlc-user-stats {
                         margin: auto 20px;
@@ -445,13 +456,13 @@
                 }
 
                 &__profile-user::ng-deep {
-                    padding: 0 26px;
                     display: flex;
                     flex-direction: column;
-                    justify-content: center;
-                    align-items: center;
-                    background: ef.get-value($themeDefault, 'backgroundTabsUserLandscape');
                     grid-area: user;
+                    align-items: center;
+                    justify-content: center;
+                    padding: 0 26px;
+                    background: ef.get-value($themeDefault, 'backgroundTabsUserLandscape');
 
                     .wlc-user-name__email-value {
                         max-width: 110px;

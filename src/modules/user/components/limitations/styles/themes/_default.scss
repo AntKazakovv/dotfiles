@@ -11,12 +11,12 @@
     ::ng-deep {
 
         .wlc-form {
-            display: grid;
             @include em.get-mq-map('grid-template-columns', $themeDefault, 'formTemplateColumns');
-            column-gap: ef.get-value($themeDefault, 'formColumnGap');
-            row-gap: ef.get-value($themeDefault, 'formRowGap');
+            display: grid;
             align-items: ef.get-value($themeDefault, 'formAlignItems');
             justify-content: ef.get-value($themeDefault, 'formJustifyContent');
+            column-gap: ef.get-value($themeDefault, 'formColumnGap');
+            row-gap: ef.get-value($themeDefault, 'formRowGap');
         }
 
         .wlc-table--theme-default[class] {
@@ -27,9 +27,9 @@
         }
 
         .wlc-btn {
+            @include em.get-mq-map('margin', $themeDefault, 'btnMargin');
             width: ef.get-value($themeDefault, 'btnWidth');
             height: ef.get-value($themeDefault, 'btnHeight');
-            @include em.get-mq-map('margin', $themeDefault, 'btnMargin');
         }
     }
 }

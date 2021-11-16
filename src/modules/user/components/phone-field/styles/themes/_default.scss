@@ -4,8 +4,8 @@
 
     &:host {
         display: grid;
-        grid-template-columns: ef.get-value($themeDefault, 'templateColumns');
         grid-gap: ef.get-value($themeDefault, 'gap');
+        grid-template-columns: ef.get-value($themeDefault, 'templateColumns');
         align-items: flex-end;
     }
 }
@@ -14,11 +14,11 @@
 
     &:host {
         display: grid;
-        grid-template-columns: ef.get-value($themeDefault, 'templateColumnsVertical');
         grid-gap: ef.get-value($themeDefault, 'gap');
+        grid-template-columns: ef.get-value($themeDefault, 'templateColumnsVertical');
         align-items: flex-end;
-        padding: ef.get-value($themeDefault, 'paddingVertical');
         margin: ef.get-value($themeDefault, 'marginVertical');
+        padding: ef.get-value($themeDefault, 'paddingVertical');
 
         ::ng-deep {
 

@@ -67,15 +67,15 @@
             &__group {
                 border-radius: ef.get('buttonSettings', 'radiusRoundingTheme');
 
-                &:hover {
-                    background: ef.get('buttonSettings', 'backgroundHover');
-                    box-shadow: unset;
-                }
-
                 &.active {
                     @include button();
                     padding: ef.get-value($themeButton, 'buttonPadding');
                     cursor: default;
+                }
+
+                @include bm.hover {
+                    background: ef.get('buttonSettings', 'backgroundHover');
+                    box-shadow: unset;
                 }
             }
         }

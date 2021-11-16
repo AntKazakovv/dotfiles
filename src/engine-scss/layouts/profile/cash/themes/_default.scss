@@ -36,28 +36,28 @@
                 }
 
                 .wlc-menu__link {
+                    @include text.get-text-style(ef.get-value($cashPagesThemeDefault, 'menuItemFontName'), ef.get-value($cashPagesThemeDefault, 'menuItemColor'));
                     position: relative;
                     display: block;
                     padding: 0 0 10px;
-                    @include text.get-text-style(ef.get-value($cashPagesThemeDefault, 'menuItemFontName'), ef.get-value($cashPagesThemeDefault, 'menuItemColor'));
                     text-align: center;
-                    text-decoration: none;
                     text-transform: ef.get-value($cashPagesThemeDefault, 'menuItemTextTransform');
+                    text-decoration: none;
 
                     &:before {
+                        @include bm.transition(width);
                         content: '';
-                        z-index: 2;
                         position: absolute;
                         bottom: 0;
+                        z-index: 2;
                         width: 0;
                         height: 2px;
                         background: ef.get-value($cashPagesThemeDefault, 'menuItemActiveBorderBg');
-                        @include bm.transition(width);
                     }
 
                     &.active {
-                        font-weight: ef.get-value($cashPagesThemeDefault, 'menuItemActiveWheit');
                         color: ef.get-value($cashPagesThemeDefault, 'menuItemActiveColor');
+                        font-weight: ef.get-value($cashPagesThemeDefault, 'menuItemActiveWheit');
 
                         &:before {
                             width: 100%;

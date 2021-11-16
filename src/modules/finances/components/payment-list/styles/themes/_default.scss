@@ -11,24 +11,24 @@
         .wlc-payment-list {
 
             &__ul {
-                margin: ef.get-value($themeDefault, 'listMargin');
-                padding: ef.get-value($themeDefault, 'listPadding');
-                display: grid;
-                list-style-type: none;
                 @include em.get-mq-map('grid-template-columns', $themeDefault, 'listGridTemplateColumns');
                 @include em.get-mq-map('gap', $themeDefault, 'listGridGap');
+                display: grid;
+                margin: ef.get-value($themeDefault, 'listMargin');
+                padding: ef.get-value($themeDefault, 'listPadding');
+                list-style-type: none;
             }
 
             &__button {
                 position: relative;
-                height: 100%;
                 width: ef.get-value($themeDefault, 'itemWidth');
+                height: 100%;
                 border: ef.get-value($themeDefault, 'itemBorder');
+                color: ef.get-value($themeDefault, 'itemSvgColor');
                 background: ef.get-value($themeDefault, 'itemBg');
                 border-radius: ef.get-value($themeDefault, 'itemBorderRadius');
                 cursor: pointer;
                 transition: ef.get-value($themeDefault, 'itemTransition');
-                color: ef.get-value($themeDefault, 'itemSvgColor');
 
                 &:before {
                     content: '';
@@ -37,19 +37,19 @@
                     padding-top: ef.get-value($themeDefault, 'itemBeforePaddingTop');
                 }
 
-                @include em.hover() {
-                    box-shadow: ef.get-value($themeDefault, 'itemBoxShadowHover');
-                    color: ef.get-value($themeDefault, 'itemSvgColorHover');
-                }
-
                 &:focus {
                     outline: none;
                 }
 
                 &.active {
                     border-color: ef.get-value($themeDefault, 'itemBorderColorActive');
-                    box-shadow: ef.get-value($themeDefault, 'itemBoxShadowActive');
                     color: ef.get-value($themeDefault, 'itemSvgColorActive');
+                    box-shadow: ef.get-value($themeDefault, 'itemBoxShadowActive');
+                }
+
+                @include em.hover() {
+                    color: ef.get-value($themeDefault, 'itemSvgColorHover');
+                    box-shadow: ef.get-value($themeDefault, 'itemBoxShadowHover');
                 }
             }
 
@@ -65,20 +65,20 @@
                             top: 0;
                             left: 0;
                             display: flex;
-                            justify-content: center;
                             align-items: center;
+                            justify-content: center;
                             width: 100%;
                             height: 100%;
                             padding: ef.get-value($themeDefault, 'itemPadding');
-                            font-size: ef.get-value($themeDefault, 'itemIconFontSize');
                             color: ef.get-value($themeDefault, 'itemIconColor');
+                            font-size: ef.get-value($themeDefault, 'itemIconFontSize');
                         }
 
                         &__error {
                             @include text.get-text-style(ef.get-value($themeDefault, 'errorTextStyle'), ef.get-value($themeDefault, 'errorColor'));
 
-                            max-height: 100%;
                             width: 100%;
+                            max-height: 100%;
                             word-break: break-word;
                             overflow: hidden;
                         }
@@ -89,6 +89,7 @@
                             object-fit: contain;
                             object-position: center;
                         }
+
                         &__svg {
                             display: block;
                             width: 100%;
@@ -98,8 +99,8 @@
 
                                 .wlc-icon-content svg {
                                     width: 100%;
-                                    height: 100%;
                                     max-width: 100%;
+                                    height: 100%;
                                     max-height: 100%;
                                     fill: currentColor;
 
@@ -114,11 +115,6 @@
             }
 
             &__btn-modal {
-                border: ef.get-value($themeDefault, 'btnBorder');
-                border-radius: ef.get-value($themeDefault, 'btnBorderRadius');
-                background: ef.get-value($themeDefault, 'btnBg');
-                color: ef.get-value($themeDefault, 'btnColor');
-                padding: ef.get-value($themeDefault, 'btnPadding');
                 display: flex;
                 align-items: center;
                 justify-content: ef.get-value($themeDefault, 'btnJustifyContent');
@@ -126,6 +122,11 @@
                 max-width: ef.get-value($themeDefault, 'btnMaxWidth');
                 height: ef.get-value($themeDefault, 'btnHeight');
                 margin: ef.get-value($themeDefault, 'btnMargin');
+                padding: ef.get-value($themeDefault, 'btnPadding');
+                border: ef.get-value($themeDefault, 'btnBorder');
+                color: ef.get-value($themeDefault, 'btnColor');
+                border-radius: ef.get-value($themeDefault, 'btnBorderRadius');
+                background: ef.get-value($themeDefault, 'btnBg');
 
                 &.selected {
                     overflow: hidden;
@@ -137,10 +138,10 @@
             }
 
             &__btn-modal-wrap {
-                flex: 1 1 100%;
                 display: flex;
-                justify-content: center;
+                flex: 1 1 100%;
                 align-items: center;
+                justify-content: center;
                 padding: ef.get-value($themeDefault, 'btnWrapPadding');
             }
 
@@ -162,19 +163,19 @@
             &__btn-modal-image {
                 position: relative;
                 flex: 0 0 auto;
-                background: ef.get-value($themeDefault, 'btnImageBg');
-                padding: ef.get-value($themeDefault, 'btnImagePadding');
                 width: ef.get-value($themeDefault, 'btnImageWidth');
                 height: ef.get-value($themeDefault, 'btnImageHeight');
+                padding: ef.get-value($themeDefault, 'btnImagePadding');
                 color: ef.get-value($themeDefault, 'btnImageSvgColor');
+                background: ef.get-value($themeDefault, 'btnImageBg');
                 border-right: ef.get-value($themeDefault, 'btnImageBorderRight');
             }
 
             &__title {
                 @include text.get-text-style('ThirdTitle');
-                text-align: ef.get-value($themeDefault, 'titleTextAlign');
                 margin: ef.get-value($themeDefault, 'titleMargin');
                 color: ef.get-value($themeDefault, 'titleColor');
+                text-align: ef.get-value($themeDefault, 'titleTextAlign');
             }
 
             &__sys-table {
@@ -190,25 +191,25 @@
                 &--provider {
 
                     .wlc-payment-list__sys-td {
+                        max-width: 1em;
                         white-space: nowrap;
                         overflow-x: hidden;
                         text-overflow: ellipsis;
-                        max-width: 1em;
                     }
                 }
             }
 
             &__sys-th {
                 width: 1%;
-                font-weight: ef.get-value($themeDefault, 'tableThFontWeight');
-                color: ef.get-value($themeDefault, 'tableThColor');
                 padding: ef.get-value($themeDefault, 'tableThPadding');
+                color: ef.get-value($themeDefault, 'tableThColor');
+                font-weight: ef.get-value($themeDefault, 'tableThFontWeight');
             }
 
             &__sys-td {
-                text-align: ef.get-value($themeDefault, 'tableTdAlignment');
-                color: ef.get-value($themeDefault, 'tableTdColor');
                 padding: ef.get-value($themeDefault, 'tableTdPadding');
+                color: ef.get-value($themeDefault, 'tableTdColor');
+                text-align: ef.get-value($themeDefault, 'tableTdAlignment');
             }
         }
 

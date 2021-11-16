@@ -14,7 +14,6 @@
 
             background: ef.get-value($themeDefault, 'containerBackground');
             border-radius: ef.get-value($themeDefault, 'bodyRadius');
-
         }
 
         &__head {
@@ -24,13 +23,12 @@
             border-bottom: ef.get-value($themeDefault, 'headBorderBottom');
 
             &-text {
+                @include text.get-text-style(ef.get-value($themeDefault, 'headTextFontStyle'), ef.get-value($themeDefault, 'headTextColor'));
                 display: block;
 
                 white-space: nowrap;
                 overflow: hidden;
                 text-overflow: ellipsis;
-
-                @include text.get-text-style(ef.get-value($themeDefault, 'headTextFontStyle'), ef.get-value($themeDefault, 'headTextColor'));
             }
         }
 

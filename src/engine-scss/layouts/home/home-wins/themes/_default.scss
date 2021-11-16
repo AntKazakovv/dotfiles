@@ -20,9 +20,8 @@
     .wlc-home-wins.wlc-home-wins--tournament {
         @include em.get-mq-map('grid-template-columns', $themeHomeWins, 'tournamentGridTemplateColumns');
         @include em.get-mq-map('gap', $themeHomeWins, 'tournamentGap');
-        display: grid;
-
         @include sm.homePromoWins($themeHomeWins);
         @include sm.homePromoTournaments($themeHomeWins);
+        display: grid;
     }
 }

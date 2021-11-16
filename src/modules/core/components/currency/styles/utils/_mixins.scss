@@ -3,15 +3,15 @@
 
 @mixin currencyBase {
     display: inline-flex;
-    align-items: baseline;
     flex-wrap: nowrap;
+    align-items: baseline;
     color: map-get($themeDefault, textColor);
 
     .wlc-currency__icon {
         align-self: center;
+        font-weight: normal !important;
         font-family: CryptocurrencySymbols;
         font-style: normal !important;
-        font-weight: normal !important;
         font-variant: normal !important;
         text-transform: none !important;
         user-select: none;

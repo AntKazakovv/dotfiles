@@ -2,8 +2,8 @@
 
 @mixin flexBlock {
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    margin-left: auto;
+    justify-content: space-between;
     margin-right: auto;
+    margin-left: auto;
 }

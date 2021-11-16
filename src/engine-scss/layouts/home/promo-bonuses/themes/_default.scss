@@ -4,9 +4,8 @@
 .wlc-sections__promo-bonuses {
 
     > .container {
-        display: grid;
-
         @include bm.get-mq-map('grid-template-columns', $themePromoBonuses, 'columns');
         @include bm.get-mq-map('gap', $themePromoBonuses, 'gap');
+        display: grid;
     }
 }

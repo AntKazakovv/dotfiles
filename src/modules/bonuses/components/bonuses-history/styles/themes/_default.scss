@@ -4,10 +4,6 @@
 
 .wlc-bonuses-history--theme-default {
 
-    @include mq.min(1024) {
-        margin: ef.get-value($themeDefault, 'sectionMargin');
-    }
-
     &:host {
 
         .wlc-loader {
@@ -17,10 +13,10 @@
         .wlc-bonuses-history-filter {
             @include bm.get-mq-map('display', $themeDefault, 'filterDisplay');
 
-            align-items: flex-end;
-            grid-auto-flow: column;
             grid-auto-columns: max-content;
+            grid-auto-flow: column;
             gap: ef.get-value($themeDefault, 'filterGap');
+            align-items: flex-end;
             margin: ef.get-value($themeDefault, 'filterMargin');
 
             .wlc-select[wlc-select] {
@@ -49,5 +45,9 @@
                 }
             }
         }
+    }
+
+    @include mq.min(1024) {
+        margin: ef.get-value($themeDefault, 'sectionMargin');
     }
 }

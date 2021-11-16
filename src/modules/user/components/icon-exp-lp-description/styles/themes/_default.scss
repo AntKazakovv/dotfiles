@@ -27,8 +27,8 @@
         ::ng-deep {
 
             .wlc-currency svg {
-                height: ef.get-value($themeDefault, 'descriptionIconHeight');
                 width: ef.get-value($themeDefault, 'descriptionIconWidth');
+                height: ef.get-value($themeDefault, 'descriptionIconHeight');
                 vertical-align: ef.get-value($themeDefault, 'verticalAlignIcon');
             }
         }

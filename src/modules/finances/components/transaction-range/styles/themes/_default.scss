@@ -8,8 +8,8 @@
 
         &__content {
             display: flex;
-            align-items: center;
             flex-wrap: wrap;
+            align-items: center;
         }
 
         &__value {
@@ -23,8 +23,8 @@
 
         &__name,
         &__value {
-            white-space: nowrap;
             @include text.get-text-style('PlaceholderText', ef.get-value($themeDefault, 'betHistoryColor'));
+            white-space: nowrap;
         }
     }
 }

@@ -55,7 +55,7 @@
             text-overflow: ellipsis;
             transition: ef.get-value($themeDefault, 'transition');
 
-            &:hover {
+            @include bm.hover {
                 color: ef.get-value($themeDefault, 'contactsContentColorHover');
             }
 

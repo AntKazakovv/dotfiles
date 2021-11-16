@@ -3,53 +3,53 @@
 
 .wlc-exchange:host {
     display: grid;
-    grid: {
-        template-columns: 1fr 1fr;
-        auto-flow: column;
-    }
     width: 100%;
     padding: 20px 0;
     background: ef.get-value($themeDefault, 'background');
     border-radius: ef.get('radius', 'biger');
     overflow: hidden;
+    grid: {
+        template-columns: 1fr 1fr;
+        auto-flow: column;
+    }
 
     .wlc-exchange {
 
         &-points {
             position: relative;
             display: flex;
+            flex-direction: column;
             flex-wrap: wrap;
             justify-content: flex-end;
-            flex-direction: column;
+
+            &__value {
+                margin-right: 5px;
+                line-height: 1;
+                font: {
+                    size: 24px;
+                    weight: bold;
+                };
+            }
+
+            &__currency {
+                line-height: 1;
+                font: {
+                    size: 12px;
+                };
+            }
+
+            &__desc {
+                width: 100%;
+                margin: 5px 0 0;
+                font: {
+                    size: 12px;
+                }
+            }
 
             @include mq.min(1024) {
                 flex-direction: row;
                 align-items: flex-end;
                 justify-content: start;
-            }
-
-            &__value {
-                margin-right: 5px;
-                font: {
-                    size: 24px;
-                    weight: bold;
-                };
-                line-height: 1;
-            }
-
-            &__currency {
-                font: {
-                    size: 12px;
-                };
-                line-height: 1;
-            }
-
-            &__desc {
-                margin: 5px 0 0;
-                width: 100%;
-                font: {
-                    size: 12px;
-                }
             }
         }
 

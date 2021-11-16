@@ -20,8 +20,8 @@
 
                 .wlc-icon {
                     @include bm.transition();
-                    transform: rotate(-90deg);
                     color: ef.get-value($themeDropdownDefault, 'linkFill');
+                    transform: rotate(-90deg);
 
                     svg {
                         fill: currentColor;
@@ -40,8 +40,8 @@
 
                             .wlc-icon {
                                 @include bm.transition();
-                                transform: rotate(180deg);
                                 color: ef.get-value($themeDropdownDefault, 'activeTabLinkColor');
+                                transform: rotate(180deg);
                             }
                         }
                     }

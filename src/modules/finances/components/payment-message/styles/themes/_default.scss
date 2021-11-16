@@ -43,11 +43,11 @@
         }
 
         &__qr {
+            @include em.get-mq-map('grid-gap', $themeDefault, 'qrGridGap');
+            @include em.get-mq-map('justify-items', $themeDefault, 'qrJustifyContent');
             display: grid;
             grid-template-rows: ef.get-value($themeDefault, 'qrGridRows');
             grid-template-columns: ef.get-value($themeDefault, 'qrGridColumns');
-            @include em.get-mq-map('grid-gap', $themeDefault, 'qrGridGap');
-            @include em.get-mq-map('justify-items', $themeDefault, 'qrJustifyContent');
 
             min-height: ef.get-value($themeDefault, 'qrBlockMinHeight');
         }
@@ -58,8 +58,8 @@
         }
 
         &__qr-wrapper {
-            position: relative;
             @include em.get-mq-map('width', $themeDefault, 'qrWrapperWidth');
+            position: relative;
         }
 
         &__qr-image {

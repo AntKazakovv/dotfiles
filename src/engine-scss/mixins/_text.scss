@@ -2,8 +2,8 @@
 @use '../functions' as ef;
 
 @mixin get-text-style($style, $color: var(--mc-baseMain)) {
-    font-style: normal;
     color: $color;
+    font-style: normal;
 
     @if ($style == 'SignText') {
         @include SignText;

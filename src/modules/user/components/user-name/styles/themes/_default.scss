@@ -11,9 +11,9 @@
             align-items: center;
 
             &-icon::ng-deep {
+                flex-shrink: 0;
                 width: ef.get-value($themeDefault, 'userStatsIconSize', 375);
                 height: ef.get-value($themeDefault, 'userStatsIconSize', 375);
-                flex-shrink: 0;
 
                 svg {
                     display: block;
@@ -31,8 +31,8 @@
             }
 
             &-value {
-                margin: ef.get-value($themeDefault, 'userStatsEmailValueMargin');
                 @include text.get-text-style('PrimaryText', ef.get-value($themeDefault, 'userStatsEmailValueColor'));
+                margin: ef.get-value($themeDefault, 'userStatsEmailValueMargin');
                 overflow: hidden;
                 white-space: nowrap;
                 text-overflow: ellipsis;

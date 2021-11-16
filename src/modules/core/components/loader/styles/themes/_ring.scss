@@ -7,18 +7,18 @@
 
         &__element {
             position: relative;
-            height: ef.get-value($themeRingDefault, 'size');
             width: ef.get-value($themeRingDefault, 'size');
+            height: ef.get-value($themeRingDefault, 'size');
             border-radius: 50%;
 
             &:after,
             &:before {
-                position: absolute;
                 content: '';
+                position: absolute;
                 top: 50%;
                 left: 50%;
-                opacity: 0;
                 transform: translate(-50%, -50%);
+                opacity: 0;
                 border: ef.get-value($themeRingDefault, 'width') solid ef.get-value($themeRingDefault, 'color');
                 border-radius: 50%;
             }
@@ -37,9 +37,9 @@
 @keyframes loader {
 
     0% {
-        opacity: 0;
         width: 0;
         height: 0;
+        opacity: 0;
         border-width: 0;
     }
 
@@ -49,9 +49,9 @@
     }
 
     100% {
-        opacity: 0;
         width: 100%;
         height: 100%;
+        opacity: 0;
         border-width: ef.get-value($themeRingDefault, 'width') + 2;
     }
 }

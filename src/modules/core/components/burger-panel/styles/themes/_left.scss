@@ -127,7 +127,6 @@
 
                     &.active {
                         color: ef.get-value($themeLeft, 'menuLinksActiveColor');
-                        background: ef.get-value($themeLeft, 'menuLinksActiveBg');
                         font-weight: ef.get-value($themeLeft, 'menuLinksActiveWeight');
                         background: ef.get-value($themeLeft, 'menuLinksActiveBg');
                     }
@@ -215,7 +214,7 @@
         .wlc-theme-toggler {
             display: flex;
             flex-direction: column;
-            align-items:  ef.get-value($themeLeft, 'themeTogglerAlignItems');
+            align-items: ef.get-value($themeLeft, 'themeTogglerAlignItems');
             padding: ef.get-value($themeLeft, 'themeTogglerPadding');
         }
 

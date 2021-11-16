@@ -4,11 +4,10 @@
 .wlc-sections__game-widgets {
 
     > .container {
-        display: grid;
-
         @include bm.get-mq-map('grid-template-columns', $themeGameWidgets, 'columns');
         @include bm.get-mq-map('grid-template-rows', $themeGameWidgets, 'rows');
         @include bm.get-mq-map('gap', $themeGameWidgets, 'gap');
+        display: grid;
 
         & .wlc-betradar-popular-events {
 

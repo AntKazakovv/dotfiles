@@ -4,13 +4,13 @@ $baseClass: 'wlc-float-panels';
 :host {
 
     &.#{$baseClass} {
-        visibility: hidden;
         position: fixed;
         top: 0;
         left: 0;
+        z-index: ef.get-value($themeDefault, zindex);
         width: 100%;
         height: 100%;
-        z-index: ef.get-value($themeDefault, zindex);
+        visibility: hidden;
 
         &.#{$baseClass}--open {
             visibility: visible;

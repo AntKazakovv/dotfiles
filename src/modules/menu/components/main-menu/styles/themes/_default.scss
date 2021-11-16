@@ -103,8 +103,14 @@
                         border-radius: ef.get-value($themeDefault, 'underlineRadius');
                     }
 
-                    &:hover,
                     &.active {
+
+                        &:before {
+                            height: ef.get-value($themeDefault, 'underlineHeight');
+                        }
+                    }
+
+                    @include bm.hover {
 
                         &:before {
                             height: ef.get-value($themeDefault, 'underlineHeight');

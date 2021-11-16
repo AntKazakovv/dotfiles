@@ -2,10 +2,10 @@
 
 .swiper-pagination {
     position: absolute;
-    text-align: center;
-    transition: 0.3s opacity;
-    transform: translate3d(0, 0, 0);
     z-index: ef.get-value($themeDefaultPagination, 'swiperPagiZindex');
+    text-align: center;
+    transform: translate3d(0, 0, 0);
+    transition: 0.3s opacity;
 
     &.swiper-pagination-hidden {
         opacity: 0;
@@ -23,9 +23,9 @@
 
 // Bullets
 .swiper-pagination-bullet {
+    display: inline-block;
     width: ef.get-value($themeDefaultPagination, 'swiperPagiBulletWidth');
     height: ef.get-value($themeDefaultPagination, 'swiperPagiBulletHeight');
-    display: inline-block;
     border-radius: ef.get-value($themeDefaultPagination, 'swiperPagiBulletBorderRadius');
     background: ef.get-value($themeDefaultPagination, 'swiperPagiBulletColor');
 
@@ -43,9 +43,9 @@
 }
 
 .swiper-pagination-bullet-active {
-    background: ef.get-value($themeDefaultPagination, 'swiperPagiBulletColorActive');
     width: ef.get-value($themeDefaultPagination, 'swiperPagiBulletWidthActive');
     height: ef.get-value($themeDefaultPagination, 'swiperPagiBulletHeightActive');
+    background: ef.get-value($themeDefaultPagination, 'swiperPagiBulletColorActive');
 }
 
 .swiper-pagination-bullets-dynamic {
@@ -53,16 +53,16 @@
     font-size: 0;
 
     .swiper-pagination-bullet {
-        transform: scale(0.33);
         position: relative;
         width: ef.get-value($themeDefaultPagination, 'swiperPagiBulletDynamicSize');
         height: ef.get-value($themeDefaultPagination, 'swiperPagiBulletDynamicSize');
+        transform: scale(0.33);
     }
 
     .swiper-pagination-bullet-active {
-        transform: scale(1);
         width: ef.get-value($themeDefaultPagination, 'swiperPagiBulletDynamicSize');
         height: ef.get-value($themeDefaultPagination, 'swiperPagiBulletDynamicSize');
+        transform: scale(1);
     }
 
     .swiper-pagination-bullet-active-main {
@@ -91,13 +91,13 @@
 .swiper-container-vertical {
 
     >.swiper-pagination-bullets {
-        right: ef.get-value($themeDefaultPagination, 'swiperPagiVerticalAside');
         top: 50%;
+        right: ef.get-value($themeDefaultPagination, 'swiperPagiVerticalAside');
         transform: translate3d(0, -50%, 0);
 
         .swiper-pagination-bullet {
-            margin: ef.get-value($themeDefaultPagination, 'swiperPagiBulletMarginVertical');
             display: block;
+            margin: ef.get-value($themeDefaultPagination, 'swiperPagiBulletMarginVertical');
         }
 
         &.swiper-pagination-bullets-dynamic {
@@ -122,8 +122,8 @@
 
         &.swiper-pagination-bullets-dynamic {
             left: 50%;
-            transform: translateX(-50%);
             white-space: nowrap;
+            transform: translateX(-50%);
 
             .swiper-pagination-bullet {
                 transition: 0.2s transform, 0.2s left;
@@ -138,17 +138,17 @@
 
 // Progress
 .swiper-pagination-progressbar {
+    position: absolute;
     background: ef.get-value($themeDefaultPagination, 'swiperPagiProgressbarBg');
     border-radius: ef.get-value($themeDefaultPagination, 'swiperPagiProgressbarBorderRadius');
-    position: absolute;
 
     .swiper-pagination-progressbar-fill {
-        background: ef.get-value($themeDefaultPagination, 'swiperPagiProgressbarBgFill');
         position: absolute;
-        left: 0;
         top: 0;
+        left: 0;
         width: 100%;
         height: 100%;
+        background: ef.get-value($themeDefaultPagination, 'swiperPagiProgressbarBgFill');
         transform: scale(0);
         transform-origin: left top;
         border-radius: ef.get-value($themeDefaultPagination, 'swiperPagiProgressbarBorderRadius');
@@ -160,18 +160,18 @@
 
     .swiper-container-horizontal > &,
     .swiper-container-vertical > &.swiper-pagination-progressbar-opposite {
+        top: 0;
+        left: 0;
         width: 100%;
         height: ef.get-value($themeDefaultPagination, 'swiperPagiProgressbarHeight');
-        left: 0;
-        top: 0;
     }
 
     .swiper-container-vertical > &,
     .swiper-container-horizontal > &.swiper-pagination-progressbar-opposite {
+        top: 0;
+        left: 0;
         width: ef.get-value($themeDefaultPagination, 'swiperPagiProgressbarHeight');
         height: 100%;
-        left: 0;
-        top: 0;
     }
 }
 

@@ -4,29 +4,29 @@
 @use 'engine-scss/mixins/mediaqueries' as mq;
 
 .wlc-plug--theme-tournaments:host {
-    border-radius: ef.get-value($themeTournaments, 'borderRadius');
-    position: relative;
-    overflow: hidden;
-
     @include em.get-mq-map('background', $themeTournaments, 'background');
     @include em.get-mq-map('padding', $themeTournaments, 'padding');
     @include em.get-mq-map('min-height', $themeTournaments, 'minHeight');
 
-    .wrapper {
-        height: 100%;
+    border-radius: ef.get-value($themeTournaments, 'borderRadius');
+    position: relative;
+    overflow: hidden;
 
+
+    .wrapper {
         @include em.get-mq-map('margin', $themeTournaments, 'wrapperMargin');
+        height: 100%;
     }
 
     .wlc-plug__label {
         @include lib.get-text-style('ThirdTitleBold', ef.get-value($themeTournaments, 'labelColor'));
         @include em.get-mq-map('padding', $themeTournaments, 'labelPadding');
 
-        min-width: ef.get-value($themeTournaments, 'labelMinWidth');
-        text-align: ef.get-value($themeTournaments, 'labelTextAlign');
         position: absolute;
         top: ef.get-value($themeTournaments, 'labelPositionTop');
         left: ef.get-value($themeTournaments, 'labelPositionLeft');
+        min-width: ef.get-value($themeTournaments, 'labelMinWidth');
+        text-align: ef.get-value($themeTournaments, 'labelTextAlign');
         background: ef.get-value($themeTournaments, 'labelBg');
         border-radius: ef.get-value($themeTournaments, 'labelBorderRadius');
     }

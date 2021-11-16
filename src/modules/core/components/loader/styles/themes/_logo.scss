@@ -6,8 +6,8 @@
 
         &__element {
             position: relative;
-            height: ef.get-value($themeLogo, 'size');
             width: ef.get-value($themeLogo, 'size');
+            height: ef.get-value($themeLogo, 'size');
             animation: ef.get-value($themeLogo, 'animation');
         }
     }

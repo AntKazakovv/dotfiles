@@ -69,10 +69,6 @@
             outline: none;
         }
 
-        @include bm.hover {
-            opacity: ef.get-value($themeDefault, 'hoverOpacity');
-        }
-
         ::ng-deep {
 
             svg {
@@ -83,6 +79,10 @@
                     stroke: ef.get-value($themeDefault, 'searchIconColor');
                 }
             }
+        }
+
+        @include bm.hover {
+            opacity: ef.get-value($themeDefault, 'hoverOpacity');
         }
     }
 

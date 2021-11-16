@@ -14,7 +14,7 @@
         box-shadow: $boxShadow;
         transition: box-shadow 0.2s ease-out;
 
-        &:hover {
+        @include bm.hover {
             box-shadow: $boxShadowHover, 0 0 7px 7px var(--mc-bg-o8);
         }
     }
@@ -27,12 +27,12 @@
 }
 
 @mixin list($templateColumns, $gap, $padding, $background:null) {
+    position: relative;
     display: grid;
-    grid-template-columns: $templateColumns;
     grid-gap: $gap;
+    grid-template-columns: $templateColumns;
     padding: $padding;
     border-radius: ef.get-value($themeDefault, 'dropdownBorderRadius');
-    position: relative;
 
     @if $background != null {
         background: ef.get-value($themeDefault, 'dropdownBackgroundColor');
@@ -40,29 +40,29 @@
 }
 
 @mixin lang {
+    @include text.get-text-style(ef.get-value($themeDefault, 'langFontStyle'), ef.get-value($themeDefault, 'langFontColor'));
+    @include bm.transition(opacity);
     position: absolute;
+    bottom: ef.get-value($themeDefault, 'langBottom');
+    left: ef.get-value($themeDefault, 'langLeft');
+    z-index: 2;
     display: flex;
     align-items: center;
     justify-content: center;
-    left: ef.get-value($themeDefault, 'langLeft');
-    bottom: ef.get-value($themeDefault, 'langBottom');
-    background-color: ef.get-value($themeDefault, 'langBg');
-    padding: ef.get-value($themeDefault, 'langPadding');
     min-height: ef.get-value($themeDefault, 'langHeight');
-    border-radius: ef.get-value($themeDefault, 'langRadius');
-    visibility: hidden;
-    transform: translate(-50%, 0);
-    z-index: 2;
+    padding: ef.get-value($themeDefault, 'langPadding');
     white-space: nowrap;
+    background-color: ef.get-value($themeDefault, 'langBg');
+    border-radius: ef.get-value($themeDefault, 'langRadius');
+    transform: translate(-50%, 0);
+    visibility: hidden;
     opacity: 0;
-    @include text.get-text-style(ef.get-value($themeDefault, 'langFontStyle'), ef.get-value($themeDefault, 'langFontColor'));
-    @include bm.transition(opacity);
 
     &:before {
         content: '';
         position: absolute;
-        left: 50%;
         top: -6px;
+        left: 50%;
         border: 3px solid transparent;
         border-bottom: 4px solid ef.get-value($themeDefault, 'langBg');
         transform: translate(-50%, 0);
@@ -70,21 +70,21 @@
 }
 
 @mixin link {
-    justify-content: flex-start;
+    position: relative;
     display: grid;
     grid-auto-columns: auto;
     grid-auto-flow: column;
-    align-items: center;
     grid-gap: ef.get-value($themeDefault, 'dropdownGap');
+    align-items: center;
+    justify-content: flex-start;
     text-decoration: none;
-    position: relative;
 
-    &:hover {
+    @include bm.hover {
 
         .wlc-language-selector__link-lang,
         .wlc-language-modal__link-lang {
-            opacity: 1;
             visibility: visible;
+            opacity: 1;
         }
     }
 }
@@ -93,8 +93,8 @@
     display: grid;
     grid-auto-columns: auto;
     grid-auto-flow: column;
-    align-items: center;
     grid-gap: 10px;
+    align-items: center;
 }
 
 @mixin mod($theme, $mod) {
