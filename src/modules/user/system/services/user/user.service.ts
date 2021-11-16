@@ -298,7 +298,9 @@ export class UserService {
             ? _assign({}, profile, isAfterDepositWithdraw ? {isAfterDepositWithdraw} : {})
             : _assign({}, this.profile.data, profile);
 
-        if (this.checkUserAge(profile)) {
+        const needAgeCheck: boolean = ['birthYear', 'birthDay', 'birthMonth'].every(el => el in profile);
+
+        if (needAgeCheck && !this.checkUserAge(profile)) {
             let errorAgeText = this.translate.instant(gettext('You are under the age of'));
             errorAgeText += ' ' + this.configService.get('$base.profile.legalAge');
             errorAgeText += this.translate.instant(gettext('age_end'));
@@ -491,10 +493,6 @@ export class UserService {
      * @return {boolean}
      */
     public checkUserAge({birthDay, birthYear, birthMonth}: IUserProfile): boolean {
-        if (_isUndefined(birthDay) && _isUndefined(birthYear) && _isUndefined(birthMonth)) {
-            return true;
-        }
-
         const legalAge: number = this.configService.get('$base.profile.legalAge');
         return DateTime.utc(+birthYear, +birthMonth, +birthDay)
             .diffNow('years')
