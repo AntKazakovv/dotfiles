@@ -3,7 +3,7 @@ const tasks = (arr) => arr.join(' && ');
 module.exports = {
     hooks: {
         'pre-commit': [
-            'ng lint',
+            'lint-staged',
         ],
         'pre-push': tasks([
             'npm run test',
@@ -15,3 +15,4 @@ module.exports = {
         ]
     },
 };
+

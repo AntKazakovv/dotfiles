@@ -35,6 +35,8 @@ module.exports = {
         'indent': ['error', 4, {'SwitchCase': 1}],
         'quotes': ['error', 'single'],
         'max-len': ['warn', {code: 120}],
+        '@typescript-eslint/no-unused-vars': 'error',
+        '@typescript-eslint/object-curly-spacing': ['error', 'never'],
     },
     overrides: [
         {

@@ -10,12 +10,16 @@
         "build:sassdocs": "npm run gulp sassdoc",
         "dist": "git submodule update --init && ng build --project wlc-engine --configuration production && npm run build:docs && npm run build:sassdocs",
         "test": "CHROMIUM_BIN=chromium ng test",
-        "lint": "ng lint",
+        "lint": "lint-staged",
         "e2e": "ng e2e",
         "update-locale": "ngx-translate-extract -i ./src/**/*.{ts,tsx,html} -o src/system/languages/messages.pot --sort --format pot && node ./utils/pot2po.js",
         "gulp": "gulp",
         "update": "ng update @angular/cli @angular/core --force",
         "fullup": "git submodule update --init && rm -rf node_modules package-lock.json && npm install"
+    },
+    "lint-staged": {
+        "src/**/*.ts": "eslint",
+        "src/**/*.scss": "stylelint"
     },
     "private": true,
     "dependencies": {
@@ -103,6 +107,7 @@
         "karma-jasmine": "~4.0.1",
         "karma-jasmine-html-reporter": "^1",
         "karma-viewport": "^1.0.8",
+        "lint-staged": "^12.0.2",
         "lodash-es": "^4.17.20",
         "luxon": "^1.25.0",
         "make-dir": "^3.1.0",
