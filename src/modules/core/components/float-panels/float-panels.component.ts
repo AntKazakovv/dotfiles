@@ -4,7 +4,9 @@ import {
     ChangeDetectionStrategy,
     Input,
     ChangeDetectorRef,
+    Inject,
 } from '@angular/core';
+import {DOCUMENT} from '@angular/common';
 
 import {
     auditTime,
@@ -63,6 +65,7 @@ export class FloatPanelsComponent extends AbstractComponent implements OnInit {
     ];
 
     constructor(
+        @Inject(DOCUMENT) protected document: Document,
         protected configService: ConfigService,
         protected eventService: EventService,
         protected cdr: ChangeDetectorRef,
@@ -118,6 +121,7 @@ export class FloatPanelsComponent extends AbstractComponent implements OnInit {
         }
         this.openedPanel = '';
         this.removeModifiers(['open', `opened-${panelName}`]);
+        this.document.body.style.overflow = null;
     }
 
     protected normalizeBreakpoints(): void {
@@ -191,6 +195,7 @@ export class FloatPanelsComponent extends AbstractComponent implements OnInit {
 
     protected openPanel(panelName: string): void {
         if (!this.panelIds.includes(panelName)) {
+
             const error = `Panel ${panelName} doesn't exist! Add panel in $panelsLayouts config.`;
             this.logService.sendLog({code: '0.4.0', data: error});
             // this error for developers
@@ -199,5 +204,6 @@ export class FloatPanelsComponent extends AbstractComponent implements OnInit {
         }
         this.openedPanel = panelName;
         this.addModifiers(['open', `opened-${panelName}`]);
+        this.document.body.style.overflow = 'hidden';
     }
 }
