@@ -10,6 +10,7 @@ export const staticConfig: IStaticConfig = {
     ],
     wpPlugins: {
         wlcApi: false,
+        translateMode: 'query',
     },
     cacheExpiry: {
         category: 120 * 60 * 1000,

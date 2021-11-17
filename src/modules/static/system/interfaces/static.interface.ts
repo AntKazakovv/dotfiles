@@ -2,12 +2,17 @@ import {IIndexing} from 'wlc-engine/modules/core';
 
 export type StaticTextType = 'page' | 'post' | 'tag' | 'category';
 export type WpPluginsType = 'wlc-api';
+export type TWpTranslateMode = 'query' | 'pre-path';
 export interface IAcf extends IIndexing<any> {}
 
 export interface IStaticConfig {
     pages?: string[],
     wpPlugins?: {
         wlcApi?: boolean,
+        /**
+         * Changing url formation for translation links
+         */
+        translateMode?: TWpTranslateMode;
     },
     cacheExpiry?: ICacheExpiry,
     additionalFields?: string[],

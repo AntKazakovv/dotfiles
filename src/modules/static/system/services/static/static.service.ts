@@ -11,11 +11,15 @@ import {
     IPostResponse,
     IRequestUrlStaticText,
     StaticTextType,
+    TWpTranslateMode,
 } from 'wlc-engine/modules/static/system/interfaces/static.interface';
 import {TextDataModel} from 'wlc-engine/modules/static/system/models/textdata.model';
 import {WlcTextData} from 'wlc-engine/modules/static/system/models/textdata.wlc.model';
 import {WpTextData} from 'wlc-engine/modules/static/system/models/textdata.wp.model';
-import {WpPluginsType,ICacheExpiry} from 'wlc-engine/modules/static/system/interfaces/static.interface';
+import {
+    WpPluginsType,
+    ICacheExpiry,
+} from 'wlc-engine/modules/static/system/interfaces/static.interface';
 
 import _filter from 'lodash-es/filter';
 import _union from 'lodash-es/union';
@@ -240,8 +244,12 @@ export class StaticService {
         return this.configService.get<string[]>('$static.pagesOnly');
     }
 
-    private getWpApiUrl(type: StaticTextType): string {
-        const apiUrl = this.useWpPlugin ? '/content/wp-json/wp-wlc-api/v1/' : '/content//wp-json/wp/v2/';
+    private getWpApiUrl(type: StaticTextType, lang: string): string {
+        const mode = this.configService.get<TWpTranslateMode>('$static.wpPlugins.translateMode');
+
+        const apiUrl = this.useWpPlugin
+            ? '/content/wp-json/wp-wlc-api/v1/'
+            : `/content/${(mode === 'query') ? '' : lang}/wp-json/wp/v2/`;
 
         const requestUrls: IRequestUrlStaticText = {
             category: '/content//wp-json/wp/v2/categories',
@@ -255,8 +263,8 @@ export class StaticService {
     }
 
     private getHttpRequestParams<T>(type: StaticTextType, params: IStaticParams = {}): HttpRequest<T> {
-        const url = this.getWpApiUrl(type);
         const lang = this.getLanguageCode(params.lang || this.translateService.currentLang);
+        const url = this.getWpApiUrl(type, lang);
 
         let httpParams = new HttpParams({
             fromObject: _merge({}, this.params, params, {
