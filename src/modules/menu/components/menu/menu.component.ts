@@ -52,7 +52,6 @@ import _isString from 'lodash-es/isString';
 import _has from 'lodash-es/has';
 import _reduce from 'lodash-es/reduce';
 import _find from 'lodash-es/find';
-import _filter from 'lodash-es/filter';
 import _forEach from 'lodash-es/forEach';
 import _map from 'lodash-es/map';
 import _get from 'lodash-es/get';

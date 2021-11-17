@@ -1,5 +1,4 @@
 import {
-    AfterContentInit,
     AfterViewInit,
     ChangeDetectionStrategy,
     ChangeDetectorRef,
@@ -10,11 +9,8 @@ import {
     Input,
     OnChanges,
     OnDestroy,
-    SimpleChanges,
     OnInit,
     HostBinding,
-    Optional,
-    Self,
 } from '@angular/core';
 import {
     RawParams,

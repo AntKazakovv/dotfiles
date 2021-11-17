@@ -60,7 +60,7 @@ export class UserInfoComponent extends AbstractComponent implements OnInit {
 
     public ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
-        this.eventService.subscribe({name: 'TRANSITION_ENTER'}, (data) => {
+        this.eventService.subscribe({name: 'TRANSITION_ENTER'}, () => {
             this.isOpened = false;
             this.dropdownBtnActive = false;
         }, this.$destroy);

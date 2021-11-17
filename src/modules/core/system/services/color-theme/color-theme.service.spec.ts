@@ -1,9 +1,8 @@
 import {TestBed} from '@angular/core/testing';
 
 import {ColorThemeService} from './color-theme.service';
-import {ColorThemeValues, ConfigService} from 'wlc-engine/modules/core';
+import {ConfigService} from 'wlc-engine/modules/core';
 import {AppModule} from 'wlc-engine/modules/app/app.module';
-import {UserService} from 'wlc-engine/modules/user';
 
 describe('ColorThemeService', () => {
     let colorThemeService: ColorThemeService;

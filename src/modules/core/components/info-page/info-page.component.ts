@@ -55,7 +55,7 @@ export class InfoPageComponent extends AbstractComponent implements OnInit {
     public ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
         this.config = this.$params.config;
-        this.transition.onSuccess({}, async (transition) => {
+        this.transition.onSuccess({}, () => {
             this.setChildParams();
             this.cdr.detectChanges();
         });

@@ -55,7 +55,6 @@ export class CopyToClipboardDirective {
         this.createTextarea();
 
         const textarea = this.textarea;
-        let successful = false;
 
         try {
             if (textarea) {
@@ -63,7 +62,6 @@ export class CopyToClipboardDirective {
 
                 textarea.select();
                 textarea.setSelectionRange(0, textarea.value.length);
-                successful = this.document.execCommand('copy');
 
                 if (currentFocus) {
                     currentFocus.focus();

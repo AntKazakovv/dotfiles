@@ -13,7 +13,6 @@ import {
 } from 'rxjs';
 import {
     catchError,
-    map,
     switchMap,
 } from 'rxjs/operators';
 

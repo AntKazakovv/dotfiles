@@ -481,11 +481,8 @@ export class GameDashboardComponent extends AbstractComponent implements OnInit,
 
     /**
      * Handler for panstart event
-     *
-     * @param {HammerInput} event
-     * @param {IPanEventOptions} options
      */
-    protected panstartHandler(event: HammerInput, options?: IPanEventOptions): void {
+    protected panstartHandler(): void {
         if (!this.hasModifier('backdrop')) {
             this.addModifiers('backdrop');
         }
@@ -501,12 +498,8 @@ export class GameDashboardComponent extends AbstractComponent implements OnInit,
 
     /**
      * Handler for panend event
-     *
-     * @param {HammerInput} event
-     * @param {IPanEventOptions} options
      */
-    protected panendHandler(event: HammerInput, options?: IPanEventOptions): void {
-        const leftDirection = this.oldDirection == Direction.Left;
+    protected panendHandler(): void {
         const rightDirection = this.oldDirection == Direction.Right;
         this.addModifiers('animate');
         if (rightDirection) {
@@ -710,7 +703,7 @@ export class GameDashboardComponent extends AbstractComponent implements OnInit,
 
         fromEvent(hammer$, 'panstart').pipe(
             takeUntil(this.$destroy),
-        ).subscribe((event: HammerInput) => this.panstartHandler(event, options));
+        ).subscribe(() => this.panstartHandler());
 
         fromEvent(hammer$, 'panmove').pipe(
             takeUntil(this.$destroy),
@@ -718,6 +711,6 @@ export class GameDashboardComponent extends AbstractComponent implements OnInit,
 
         fromEvent(hammer$, 'panend').pipe(
             takeUntil(this.$destroy),
-        ).subscribe((event: HammerInput) => this.panendHandler(event, options));
+        ).subscribe(() => this.panendHandler());
     }
 }

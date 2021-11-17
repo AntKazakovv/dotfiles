@@ -1,10 +1,6 @@
 import {
-    IDoc,
     IDocTypeResponse,
-    IDroppedFiles,
     LoaderStatus,
-    ISelectOptions,
-    IDocResponse,
     ValidationStatus,
     IDocGroup,
 } from 'wlc-engine/modules/profile/system/interfaces/verification.interface';

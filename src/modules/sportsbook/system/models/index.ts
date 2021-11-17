@@ -1,2 +1,2 @@
 export {BetradarGameModel} from './betradar-game.model';
-import {MarketModel} from './market.model';
+export {MarketModel} from './market.model';

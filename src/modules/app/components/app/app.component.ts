@@ -328,7 +328,7 @@ export class AppComponent extends AbstractComponent implements OnInit, OnDestroy
     }
 
     private setTransitionHooks() {
-        this.transition.onSuccess({}, async (trans) => {
+        this.transition.onSuccess({}, () => {
             this.setHostClass();
             this.getAllSections();
             this.updateSections();

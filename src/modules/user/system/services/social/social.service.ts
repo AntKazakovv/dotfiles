@@ -23,9 +23,6 @@ import {
     ISocialUserDataResponse,
 } from '../../interfaces';
 
-import _isEmpty from 'lodash-es/isEmpty';
-import _isString from 'lodash-es/isString';
-
 @Injectable({providedIn: 'root'})
 export class SocialService {
 

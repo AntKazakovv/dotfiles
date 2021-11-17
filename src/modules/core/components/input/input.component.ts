@@ -161,7 +161,7 @@ export class InputComponent extends AbstractComponent implements OnInit, OnChang
         }
     }
 
-    public onBlur(event: Event): void {
+    public onBlur(): void {
         this.control.patchValue(this.control.value, {emitEvent: false, emitModelToViewChange: true});
 
         if (!this.control.touched || !this.control.valid) {

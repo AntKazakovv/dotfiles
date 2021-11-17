@@ -156,7 +156,7 @@ export class GamesCatalogComponent extends AbstractComponent implements OnInit {
      * Init event hanlers
      */
     protected initEventHandlers(): void {
-        const successTransitionListener = this.transition.onSuccess({}, (transition) => {
+        const successTransitionListener = this.transition.onSuccess({}, () => {
             this.initView();
         });
 

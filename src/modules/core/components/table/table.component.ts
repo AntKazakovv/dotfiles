@@ -20,7 +20,6 @@ import {takeUntil} from 'rxjs/operators';
 import {
     AbstractComponent,
     IMixedParams,
-    IResizeEvent,
     InjectionService,
     ActionService,
     ConfigService,
@@ -98,7 +97,7 @@ export class TableComponent extends AbstractComponent implements OnInit {
         }
 
         this.actionService.windowResize().pipe(takeUntil(this.$destroy)).subscribe({
-            next: (event: IResizeEvent) => {
+            next: () => {
                 if (window.innerWidth >= this.$params.switchWidth) {
                     this.tableType = 'table';
                     this.addModifiers('table');

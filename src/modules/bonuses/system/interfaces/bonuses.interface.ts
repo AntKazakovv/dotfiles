@@ -1,7 +1,4 @@
-import {
-    IIndexing,
-    ISetParams,
-} from 'wlc-engine/modules/core';
+import {IIndexing} from 'wlc-engine/modules/core';
 import {
     PartialObserver,
     Observable,

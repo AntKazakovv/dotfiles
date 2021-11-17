@@ -23,7 +23,7 @@ export const betHistoryTableHeadConfig: ITableCol[] = [
         title: gettext('Bet time'),
         type: 'component',
         order: 10,
-        mapValue: (item: Transaction, index?) => {return {transaction: item};},
+        mapValue: (item: Transaction) => ({transaction: item}),
         componentClass: TransactionPreviewComponent,
         wlcElement: 'wlc-profile-table__cell_time',
     },

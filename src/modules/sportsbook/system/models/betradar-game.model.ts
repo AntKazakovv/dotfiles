@@ -157,7 +157,7 @@ export class BetradarGameModel extends AbstractModel<IBetradarGame> {
      * @returns {Promise<boolean>}
      */
     protected checkImageIsset(src: string): Promise<boolean> {
-        return new Promise((resolve, reject) => {
+        return new Promise((resolve) => {
             const img = new Image();
             img.onload = () => {
                 const isset: boolean = !!(img.width > 10 && img.height > 10);

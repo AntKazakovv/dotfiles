@@ -40,7 +40,7 @@ export class FallbackImgDirective implements AfterViewInit, OnDestroy {
     ) {}
 
     public ngAfterViewInit(): void {
-        this.errors$ = fromEvent(this.element.nativeElement, 'error').subscribe((event: Event) => {
+        this.errors$ = fromEvent(this.element.nativeElement, 'error').subscribe(() => {
             this.errors$.unsubscribe();
 
             if (this.element.nativeElement.parentElement.tagName === 'PICTURE') {

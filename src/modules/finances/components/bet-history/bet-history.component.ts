@@ -107,7 +107,7 @@ export class BetHistoryComponent extends AbstractComponent implements OnInit {
 
         this.bets.next(this.filterTransaction());
 
-        this.filterSelect.control.valueChanges.pipe(takeUntil(this.$destroy)).subscribe((value) => {
+        this.filterSelect.control.valueChanges.pipe(takeUntil(this.$destroy)).subscribe(() => {
             this.bets.next(this.filterTransaction());
         });
 

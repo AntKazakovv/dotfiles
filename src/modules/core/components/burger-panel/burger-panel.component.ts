@@ -133,7 +133,7 @@ export class BurgerPanelComponent extends AbstractComponent
                 this.configService.get<boolean>('appConfig.mobile') : true;
         }
 
-        this.eventService.subscribe({name: 'TRANSITION_ENTER'}, (data) => {
+        this.eventService.subscribe({name: 'TRANSITION_ENTER'}, () => {
             this.closePanel();
         }, this.$destroy);
 
@@ -150,7 +150,7 @@ export class BurgerPanelComponent extends AbstractComponent
             });
     }
 
-    protected panstartHandler(event: HammerInput): void {
+    protected panstartHandler(): void {
         this.renderer.setStyle(
             this.hostElement.nativeElement,
             'transition',
@@ -186,7 +186,7 @@ export class BurgerPanelComponent extends AbstractComponent
         this.panstart$.pipe(
             takeUntil(this.$destroy),
             takeWhile(() => this.isOpened),
-        ).subscribe((event: HammerInput) => this.panstartHandler(event));
+        ).subscribe(() => this.panstartHandler());
 
         this.panmove$.pipe(
             takeUntil(this.$destroy),

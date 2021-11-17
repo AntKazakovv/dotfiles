@@ -88,7 +88,7 @@ export class ProfileMenuComponent extends AbstractComponent implements OnInit {
             themeMod: this.$params.themeMod,
         };
 
-        this.router.transitionService.onSuccess({}, (transition) => {
+        this.router.transitionService.onSuccess({}, () => {
             if (this.profileType !== 'profileFirstMenu' || this.$params.type === 'submenu') {
                 this.menuParams.items = [];
                 this.initMenu();

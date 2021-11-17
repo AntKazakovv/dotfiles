@@ -17,8 +17,6 @@ import {
 } from 'wlc-engine/modules/sportsbook';
 import * as Params from './betradar-daily-match.params';
 
-import _get from 'lodash-es/get';
-import _set from 'lodash-es/set';
 import _trim from 'lodash-es/trim';
 
 @Component({

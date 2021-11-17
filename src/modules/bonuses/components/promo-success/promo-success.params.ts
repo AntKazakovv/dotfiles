@@ -2,7 +2,6 @@ import {
     CustomType,
     IComponentParams,
 } from 'wlc-engine/modules/core/system/classes/abstract.component';
-import {IIndexing} from 'wlc-engine/modules/core';
 
 export type ComponentTheme = 'default' | CustomType;
 export type ComponentType = 'default' | CustomType;

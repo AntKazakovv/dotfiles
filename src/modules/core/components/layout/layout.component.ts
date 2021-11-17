@@ -73,7 +73,7 @@ export class LayoutComponent implements OnInit, OnDestroy {
             await this.setComponents(this.uiRouter.current.name, this.uiRouter.params);
         }
 
-        this.eventService.subscribe({name: 'TRANSITION_ENTER'}, (data) => {
+        this.eventService.subscribe({name: 'TRANSITION_ENTER'}, () => {
             this.setComponents(
                 this.uiRouter.transition?.targetState().name(),
                 this.uiRouter.transition?.targetState().params(),

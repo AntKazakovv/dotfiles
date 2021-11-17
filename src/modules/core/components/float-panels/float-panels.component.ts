@@ -17,7 +17,6 @@ import {
     ConfigService,
     EventService,
     IBurgerPanelCParams,
-    IResizeEvent,
     LayoutService,
     LogService,
     SectionModel,
@@ -100,7 +99,7 @@ export class FloatPanelsComponent extends AbstractComponent implements OnInit {
                 takeUntil(this.$destroy),
                 auditTime(100),
             )
-            .subscribe((event: IResizeEvent) => {
+            .subscribe(() => {
                 this.filterSection();
             });
     }

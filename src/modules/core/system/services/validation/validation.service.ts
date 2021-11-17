@@ -99,13 +99,13 @@ export class ValidationService {
         private dataService: DataService,
         private configService: ConfigService,
     ) {
-        this.setRule<IIndexing<boolean>>('matchingFields', matchingFieldsValidator);
-        this.setRule<IIndexing<boolean>>('email', emailValidator);
-        this.setRule<IIndexing<boolean>>('onlyLetters', onlyLettersValidator);
-        this.setRule<IIndexing<boolean>>('regExp', regexpValidator);
-        this.setRule<IIndexing<boolean>>('regexpEmoji', regexpEmojiValidator);
-        this.setRule<IIndexing<boolean>>('newPassword', newPasswordValidator);
-        this.setRule<IIndexing<boolean>>('required', requiredFieldValidator);
+        this.setRule('matchingFields', matchingFieldsValidator);
+        this.setRule('email', emailValidator);
+        this.setRule('onlyLetters', onlyLettersValidator);
+        this.setRule('regExp', regexpValidator);
+        this.setRule('regexpEmoji', regexpEmojiValidator);
+        this.setRule('newPassword', newPasswordValidator);
+        this.setRule('required', requiredFieldValidator);
     }
 
     public emailUnique(ctrl: AbstractControl): Observable<IIndexing<boolean>> {
@@ -158,7 +158,7 @@ export class ValidationService {
         return this.validatorList[validator];
     }
 
-    private setRule<T>(name: string, rule: any, async: boolean = false): void {
+    private setRule(name: string, rule: any, async: boolean = false): void {
         this.validatorList[name] = {
             validator: rule.bind(this),
             async,

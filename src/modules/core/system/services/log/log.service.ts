@@ -137,6 +137,7 @@ export class LogService {
      */
     public waiter(log: ILogObj, timeout: number = 3000): (v?: unknown) => void {
         const start = () => {
+            // eslint-disable-next-line @typescript-eslint/no-unused-vars
             let res = (v?: unknown): void => {
             };
             new Promise((resolve, reject) => {

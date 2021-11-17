@@ -1,4 +1,4 @@
-import {ComponentFixture, fakeAsync, TestBed, tick} from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 import {AppModule} from 'wlc-engine/modules/app/app.module';
 import {IconMerchantsListComponent} from './icon-merchants-list.component';
 import {defaultParams, IIconMerchantsListCParams} from './icon-merchants-list.params';

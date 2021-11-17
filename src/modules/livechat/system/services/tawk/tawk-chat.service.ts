@@ -138,7 +138,6 @@ export class TawkChatService extends LivechatAbstract {
         }
 
         window.Tawk_API = _get(window, 'Tawk_API', {});
-        const Tawk_LoadStart = new Date();
         const s1 = this.document.createElement('script'),
             s0 = this.document.getElementsByTagName('script')[0];
 

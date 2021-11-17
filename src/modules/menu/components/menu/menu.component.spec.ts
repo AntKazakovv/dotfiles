@@ -12,7 +12,6 @@ import {
 describe('MenuComponent', () => {
     let component: MenuComponent;
     let fixture: ComponentFixture<MenuComponent>;
-    let nativeElement: HTMLElement;
 
     function createComponent(injectParams: IMenuCParams): void {
         TestBed.overrideProvider(
@@ -22,7 +21,6 @@ describe('MenuComponent', () => {
 
         fixture = TestBed.createComponent(MenuComponent);
         component = fixture.componentInstance;
-        nativeElement = fixture.nativeElement;
         fixture.detectChanges();
     }
 

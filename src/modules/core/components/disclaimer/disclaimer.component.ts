@@ -44,7 +44,7 @@ export class DisclaimerComponent extends AbstractComponent implements OnInit {
         super.ngOnInit(this.inlineParams);
         this.getDisclaimer();
 
-        this.translate.onLangChange.pipe(takeUntil(this.$destroy)).subscribe((v) => {
+        this.translate.onLangChange.pipe(takeUntil(this.$destroy)).subscribe(() => {
             this.getDisclaimer();
         });
     }

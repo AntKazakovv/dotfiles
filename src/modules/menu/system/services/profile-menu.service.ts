@@ -3,12 +3,9 @@ import {
 } from '@angular/core';
 import {StateService} from '@uirouter/core';
 
-import {
-    ConfigService,
-} from 'wlc-engine/modules/core';
+import {ConfigService} from 'wlc-engine/modules/core';
 import {
     IMenuItem,
-    IMenuItemsGroup,
     MenuItemObjectType,
 } from 'wlc-engine/modules/menu/components/menu/menu.params';
 import {MenuHelper} from 'wlc-engine/modules/menu/system/helpers/menu.helper';
@@ -23,7 +20,6 @@ import {
 import {IIndexing} from 'wlc-engine/modules/core/system/interfaces';
 import * as MenuParams from 'wlc-engine/modules/menu/components/menu/menu.params';
 import * as Config from 'wlc-engine/modules/menu/system/config/profile-menu.config';
-import {GlobalHelper} from 'wlc-engine/modules/core/system/helpers/global.helper';
 
 export interface IMenuOptions {
     icons?: {

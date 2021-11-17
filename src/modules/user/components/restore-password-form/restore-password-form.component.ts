@@ -1,7 +1,6 @@
 import {
     Component,
     Inject,
-    Input,
 } from '@angular/core';
 import {FormGroup} from '@angular/forms';
 
@@ -57,9 +56,9 @@ export class RestorePasswordFormComponent extends AbstractComponent {
             if (await this.doesEmailExist(email)) {
                 setTimeout(() => form.controls.email.setErrors({'email-not-exist': true}));
                 return;
-            };
+            }
 
-            const response = await this.userService.sendPasswordRestore(email);
+            await this.userService.sendPasswordRestore(email);
 
             this.modalService.hideModal('restore-password');
 

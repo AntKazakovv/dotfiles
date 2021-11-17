@@ -1,9 +1,5 @@
-import {
-    CustomType,
-    IPaysystem,
-} from 'wlc-engine/modules/core';
+import {CustomType} from 'wlc-engine/modules/core';
 import {IAbstractIconsListParams} from 'wlc-engine/modules/core/system/classes/icon-list-abstract.class';
-import {IIconParams} from 'wlc-engine/modules/core/system/models/icon-list-item.model';
 
 /** Available component themes */
 export type ComponentTheme = 'merchants' | 'payments' | 'safety' | CustomType;

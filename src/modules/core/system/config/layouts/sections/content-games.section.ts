@@ -1,5 +1,4 @@
 import {ILayoutSectionConfig} from 'wlc-engine/modules/core';
-import {IWinnersSliderCParams} from 'wlc-engine/modules/promo';
 import * as componentLib from '../components';
 
 export namespace contentGames {

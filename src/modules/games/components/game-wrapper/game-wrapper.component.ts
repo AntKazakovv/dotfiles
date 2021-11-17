@@ -257,11 +257,9 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
     }
 
     /**
-     * Open game on full screeen
-     *
-     * @param {Event} event
+     * Open game on full screen
      */
-    public openOnFullscreen(event?: Event): void {
+    public openOnFullscreen(): void {
         const container: HTMLElement = this.iframe
             ? this.iframe
             : this.wrp.element.nativeElement.querySelector('#egamings_container');
@@ -272,7 +270,7 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
                 this.iframe.setAttribute('scrolling', 'auto');
 
                 const fullScreenEvent = fromEvent(container, 'onfullscreenchange');
-                const subscription = fullScreenEvent.subscribe((event) => {
+                const subscription = fullScreenEvent.subscribe(()=> {
                     if (!this.document.fullscreenElement) {
                         if (scrollAttr) {
                             this.iframe.setAttribute('scrolling', scrollAttr);
@@ -288,11 +286,9 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
 
     /**
      * Toggle favourite btn
-     *
-     * @param {Event} event
      * @returns {Promise<void>}
      */
-    public async toggleFavouriteBtn(event: Event): Promise<void> {
+    public async toggleFavouriteBtn(): Promise<void> {
         if (!this.game) {
             return;
         }

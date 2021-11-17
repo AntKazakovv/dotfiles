@@ -659,11 +659,6 @@ export class GamesCatalog extends AbstractModel<IGames> {
         /***********************************************************************************************************
          * COUNTRIES RESTRICTIONS
          **********************************************************************************************************/
-        // TODO а как надо по дефолту то????
-        const enableCountryRestriction: boolean =
-            this.configService.get<boolean>('appConfig.games.enableRestricted') || true;
-        const authUserCountry = this.configService.get<string>('appConfig.user.country') || null;
-        const country: string = this.configService.get<string>('appConfig.country') || 'unknown';
 
         this.restrictions = GamesHelper.createRestrictions(response.countriesRestrictions);
 

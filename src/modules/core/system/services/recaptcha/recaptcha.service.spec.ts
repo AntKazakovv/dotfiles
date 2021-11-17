@@ -1,5 +1,5 @@
 import {TestBed} from '@angular/core/testing';
-import {HttpClientTestingModule, HttpTestingController} from '@angular/common/http/testing';
+import {HttpClientTestingModule} from '@angular/common/http/testing';
 import {DOCUMENT} from '@angular/common';
 import {AppModule} from 'wlc-engine/modules/app/app.module';
 import {RecaptchaService} from './recaptcha.service';
@@ -10,7 +10,6 @@ class GRecaptcha {
 
 describe('RecaptchaService', () => {
     let recaptchaService: RecaptchaService;
-    let httpTestingController: HttpTestingController;
     let document: Document;
 
     beforeEach(() => {
@@ -20,7 +19,6 @@ describe('RecaptchaService', () => {
         });
 
         recaptchaService = TestBed.inject(RecaptchaService);
-        httpTestingController = TestBed.inject(HttpTestingController);
         document = TestBed.inject(DOCUMENT);
     });
 

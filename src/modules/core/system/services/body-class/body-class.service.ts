@@ -15,8 +15,6 @@ import {ColorThemeValues} from 'wlc-engine/modules/core/constants';
 import {LogService} from 'wlc-engine/modules/core/system/services/log/log.service';
 import {DeviceType} from 'wlc-engine/modules/core/system/interfaces';
 
-import _isArray from 'lodash-es/isArray';
-import _map from 'lodash-es/map';
 import _forEach from 'lodash-es/forEach';
 import _split from 'lodash-es/split';
 import _startsWith from 'lodash-es/startsWith';

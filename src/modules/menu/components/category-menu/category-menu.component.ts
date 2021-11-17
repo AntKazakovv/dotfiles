@@ -132,7 +132,7 @@ export class CategoryMenuComponent extends AbstractComponent implements OnInit, 
      */
     protected initEventHandlers(): void {
         if (this.$params.type !== 'dropdown') {
-            this.router.transitionService.onSuccess({}, (transition) => {
+            this.router.transitionService.onSuccess({}, () => {
                 this.$params.menuParams.items = [];
                 this.$params.menuParams.common.swiper.scrollToStart = true;
 

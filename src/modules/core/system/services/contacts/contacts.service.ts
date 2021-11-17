@@ -1,4 +1,3 @@
-import {HttpParams} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {DataService} from 'wlc-engine/modules/core/system/services/data/data.service';
 import {IData} from 'wlc-engine/modules/core/system/services/data/data.service';

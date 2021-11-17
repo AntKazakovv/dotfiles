@@ -38,7 +38,7 @@ export class DashboardLoyaltyBlockComponent extends AbstractComponent implements
             takeUntil(this.$destroy),
             skipWhile(v => !v),
         )
-            .subscribe((userInfo) => {
+            .subscribe(() => {
                 this.cdr.markForCheck();
             });
     }

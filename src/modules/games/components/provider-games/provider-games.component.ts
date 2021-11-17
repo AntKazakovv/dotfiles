@@ -30,7 +30,6 @@ import {IconModel} from 'wlc-engine/modules/core/system/models/icon-list-item.mo
 
 import * as Params from './provider-games.params';
 
-import _get from 'lodash-es/get';
 import _values from 'lodash-es/values';
 import _orderBy from 'lodash-es/orderBy';
 import _isEmpty from 'lodash-es/isEmpty';

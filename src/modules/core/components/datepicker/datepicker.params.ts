@@ -18,7 +18,7 @@ export interface IDatepickerCParams extends IComponentParams<ComponentTheme, Com
     defaultMonth?: IMyDefaultMonth;
 }
 
-const tomorrow = DateTime.local().plus({ days: 1 });
+const tomorrow = DateTime.local().plus({days: 1});
 
 export const defaultParams: Partial<IDatepickerCParams> = {
     class: 'wlc-datepicker',

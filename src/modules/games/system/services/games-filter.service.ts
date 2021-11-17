@@ -1,5 +1,4 @@
 import {Injectable} from '@angular/core';
-import {IIndexing} from 'wlc-engine/modules/core/system/interfaces';
 import {EventService} from 'wlc-engine/modules/core/system/services/event/event.service';
 
 import {
@@ -62,18 +61,13 @@ export class GamesFilterService {
      *
      * @param {string} filterName
      * @param {IGamesFilterData} filterValues
-     * @param {boolean} save
      * @returns {IGamesFilterData}
      */
-    public set(filterName: string, filterValues: IGamesFilterData, save?: boolean): IGamesFilterData {
+
+    public set(filterName: string, filterValues: IGamesFilterData): IGamesFilterData {
         const resultFilter: IGamesFilterData = this.filters[filterName] = _merge(
             {}, this.filterInitValues, filterValues,
         );
-
-        // if (save) {
-        //     // TODO
-        //     // this.filterCache.put(filterName, resultFilter);
-        // }
 
         this.eventService.emit({
             name: GamesFilterServiceEvents.FILTER_CHANGED,

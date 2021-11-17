@@ -159,17 +159,17 @@ export class PragmaticPlayLiveService {
         }
         this.websocket = new WebSocket(this.apiUrl);
 
-        this.websocket.onopen = (event: MessageEvent) => {
-            this.onWsOpen(event);
+        this.websocket.onopen = () => {
+            this.onWsOpen();
         };
-        this.websocket.onclose = (event: CloseEvent) => {
-            this.onWsClose(event);
+        this.websocket.onclose = () => {
+            this.onWsClose();
         };
         this.websocket.onmessage = (event: MessageEvent) => {
             this.onWsMessage(event);
         };
-        this.websocket.onerror = (event: MessageEvent) => {
-            this.onWsError(event);
+        this.websocket.onerror = () => {
+            this.onWsError();
         };
     }
 
@@ -220,7 +220,7 @@ export class PragmaticPlayLiveService {
         }
     }
 
-    private onWsOpen(event: MessageEvent): void {
+    private onWsOpen(): void {
         this.connected = true;
         this.connectInProgress = false;
         this.connectReady.resolve();
@@ -232,7 +232,7 @@ export class PragmaticPlayLiveService {
         });
     }
 
-    private onWsClose(event: CloseEvent): void {
+    private onWsClose(): void {
         this.connected = false;
         this.connectInProgress = false;
         this.connectReady = new Deferred();
@@ -256,7 +256,7 @@ export class PragmaticPlayLiveService {
         return !!_find(this.subscribed, (item) => !!item?.subscribers);
     }
 
-    private onWsError(event: MessageEvent): void {
+    private onWsError(): void {
         // TODO: maybe need some errors process, but i don't know which
     }
 }

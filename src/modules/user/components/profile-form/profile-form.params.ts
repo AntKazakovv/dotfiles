@@ -5,7 +5,6 @@ import {
     IInputCParams,
     IIndexing,
 } from 'wlc-engine/modules/core';
-import {IPhoneFieldCParams} from 'wlc-engine/modules/user/components/phone-field/phone-field.params';
 
 export type ComponentTheme = 'default' | CustomType;
 export type ComponentType = 'default' | CustomType;

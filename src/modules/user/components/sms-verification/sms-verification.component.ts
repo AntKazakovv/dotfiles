@@ -32,8 +32,6 @@ import {
 
 import * as Params from './sms-verification.params';
 
-import _each from 'lodash-es/each';
-
 /**
  * Sms verification component.
  *

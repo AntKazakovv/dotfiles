@@ -1,5 +1,3 @@
-import {RawParams} from '@uirouter/core';
-
 import {IActionParams} from 'wlc-engine/modules/core';
 
 export type TInteractiveUseFor = 'all' | 'tournaments' | 'store';

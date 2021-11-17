@@ -169,7 +169,7 @@ export class WinnersService {
                 takeWhile(() => !!this.biggestWins$.observers?.length),
                 pairwise(),
                 filter(([prev, current]: IData[]) => this.filterResponse(prev, current)),
-                map(([prev, current]: IData[]) => this.mapResponse(current, WinnersServiceEvents.BIGGEST_WINS_GET)),
+                map(([, current]: IData[]) => this.mapResponse(current, WinnersServiceEvents.BIGGEST_WINS_GET)),
             );
 
 
@@ -179,7 +179,7 @@ export class WinnersService {
                 takeWhile(() => !!this.latestWins$.observers?.length),
                 pairwise(),
                 filter(([prev, current]: IData[]) => this.filterResponse(prev, current)),
-                map(([prev, current]: IData[]) => this.mapResponse(current, WinnersServiceEvents.LATEST_WINS_GET)),
+                map(([, current]: IData[]) => this.mapResponse(current, WinnersServiceEvents.LATEST_WINS_GET)),
             );
     }
 

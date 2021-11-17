@@ -195,7 +195,7 @@ class StartGameHandler {
             }
         });
 
-        const stateChangeHandler = this.router.transitionService.onStart({}, (transition) => {
+        const stateChangeHandler = this.router.transitionService.onStart({}, () => {
             this.result.reject(RejectReason.StateChangeStart);
             this.logService.sendLog({
                 code: '3.0.28',
@@ -432,7 +432,7 @@ class StartGameHandler {
 
         this.merchantFieldsService.checkRequiredFields(this.merchantId).then(() => {
             defered.resolve();
-        }, (emptyFields: string[]) => {
+        }, () => {
 
             // @TODO Replace to modal with required fields
             this.modalService.showModal({

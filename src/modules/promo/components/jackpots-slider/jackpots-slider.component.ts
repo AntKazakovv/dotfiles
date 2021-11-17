@@ -31,8 +31,6 @@ import {INoContentCParams} from 'wlc-engine/modules/core/components/no-content/n
 import * as Params from './jackpots-slider.params';
 
 import _map from 'lodash-es/map';
-import _forEach from 'lodash-es/forEach';
-import _keys from 'lodash-es/keys';
 
 @Component({
     selector: '[wlc-jackpots-slider]',

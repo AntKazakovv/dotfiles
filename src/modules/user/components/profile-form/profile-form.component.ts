@@ -75,7 +75,7 @@ export class ProfileFormComponent extends AbstractComponent implements OnInit {
     public async ngOnInit(): Promise<void> {
         super.ngOnInit(this.inlineParams);
         await this.configService.ready;
-        this.toggleBtn.control.valueChanges.pipe(takeUntil(this.$destroy)).subscribe((value) => {
+        this.toggleBtn.control.valueChanges.pipe(takeUntil(this.$destroy)).subscribe(() => {
             this.userToggleChoice = this.toggleBtn.control.value;
         });
 

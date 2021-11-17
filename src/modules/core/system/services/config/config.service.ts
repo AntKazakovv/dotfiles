@@ -39,7 +39,6 @@ import {
     IBootstrap,
 } from 'wlc-engine/modules/core/system/interfaces';
 import {GlobalHelper} from 'wlc-engine/modules/core/system/helpers/global.helper';
-import {CookieHelper} from 'wlc-engine/modules/core/system/helpers/cookie.helper';
 import {
     IGlobalConfig,
     IGetParams,

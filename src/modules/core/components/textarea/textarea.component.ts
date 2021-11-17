@@ -56,19 +56,15 @@ export class TextareaComponent extends AbstractComponent implements OnInit {
 
     /**
      * Handler for input event
-     *
-     * @param {Event} event Input event
      */
-    public onInput(event: Event): void {
+    public onInput(): void {
         this.control.markAsTouched();
     }
 
     /**
      * Handler for blur event
-     *
-     * @param {Event} event Blur event
      */
-    public onBlur(event: Event): void {
+    public onBlur(): void {
         this.control.patchValue(this.control.value, {emitEvent: false, emitModelToViewChange: true});
 
         if (!this.control.touched || !this.control.valid) {

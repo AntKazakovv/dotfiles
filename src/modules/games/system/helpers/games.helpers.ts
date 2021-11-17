@@ -1,4 +1,3 @@
-import {TranslateService} from '@ngx-translate/core';
 import {
     IIndexing,
     ICategorySettings,
@@ -9,12 +8,10 @@ import {MerchantModel} from 'wlc-engine/modules/games/system/models/merchant.mod
 
 import {
     IByCategory,
-    IByMerchant,
     IMapping,
     ICategory,
     ICountriesRestriction,
     ICountriesRestrictions,
-    IIndexingCategories,
     IIndexingMerchants,
     IMerchant,
     IRestrictions,
@@ -268,7 +265,7 @@ export class GamesHelper {
     /**
      *
      * @param {string} merchantName
-     * @returns {IByMerchant}
+     * @returns {IIndexing<IByMerchantItemCategory>}
      */
     public static getCategoriesByMerchant(merchantName: string): IIndexing<IByMerchantItemCategory> {
         return _get(this.mapping, `byMerchant[${merchantName}].categories`, {});

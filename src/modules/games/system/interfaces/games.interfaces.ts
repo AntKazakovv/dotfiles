@@ -2,7 +2,6 @@ import {IIndexing} from 'wlc-engine/modules/core/system/interfaces';
 import {Game} from 'wlc-engine/modules/games/system/models/game.model';
 import {CategoryModel} from 'wlc-engine/modules/games/system/models/category.model';
 import {MerchantModel} from 'wlc-engine/modules/games/system/models/merchant.model';
-import {ICategorySettings} from 'wlc-engine/modules/core';
 import {ICategoryBlock} from 'wlc-engine/modules/core/system/interfaces/categories.interface';
 import {TotalJackpotNoContentByThemeType} from 'wlc-engine/modules/games/components/total-jackpot/total-jackpot.params';
 

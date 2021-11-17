@@ -14,7 +14,6 @@ import _assign from 'lodash-es/assign';
 import _isString from 'lodash-es/isString';
 import _cloneDeep from 'lodash-es/cloneDeep';
 import _isNil from 'lodash-es/isNil';
-import _isNaN from 'lodash-es/isNaN';
 
 export class UserInfo extends AbstractModel<IUserInfo> {
 
@@ -138,10 +137,6 @@ export class UserInfo extends AbstractModel<IUserInfo> {
 
     public get nextLevelPoints(): number {
         return +this.data?.loyalty?.NextLevelPoints || 0;
-    }
-
-    public updateBalance(balance: number): void {
-        //TODO update
     }
 
     public set data(data: IUserInfo) {

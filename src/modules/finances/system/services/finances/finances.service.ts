@@ -37,7 +37,6 @@ import {
 import {FinancesHelper} from '../../helpers/finances.helper';
 
 import _find from 'lodash-es/find';
-import _startsWith from 'lodash-es/startsWith';
 
 interface IQueries {
     amount: number;

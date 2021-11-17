@@ -2,16 +2,13 @@ import {
     APP_INITIALIZER,
     Type,
     Provider,
-    QueryList,
 } from '@angular/core';
 import {
     fromEvent,
     fromEventPattern,
     Observable,
 } from 'rxjs';
-import Bowser from 'bowser';
 
-import {NgTemplateNameDirective} from 'wlc-engine/modules/core/directives/template-name/template-name.directive';
 import {
     IComponentParams,
     IDisplayConfig,
@@ -61,12 +58,6 @@ export class GlobalHelper {
         });
 
         return target;
-    }
-
-    public static getTemplateByName(templatesList: QueryList<NgTemplateNameDirective>, name: string) {
-        // console.log(templatesList);
-        // const dir = templatesList.find((template: NgTemplateNameDirective) => template.name === name);
-        // return dir ? dir.template : null;
     }
 
     public static randomNumber(min: number, max: number): number {

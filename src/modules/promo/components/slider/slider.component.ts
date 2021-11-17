@@ -30,12 +30,10 @@ import SwiperCore, {
 } from 'swiper/core';
 import {SwiperComponent} from 'swiper/angular';
 import {NavigationOptions} from 'swiper/types';
-import {ResizedEvent} from 'angular-resize-event';
 import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
 import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
 import {ActionService} from 'wlc-engine/modules/core/system/services/action/action.service';
 import {WinnersService} from 'wlc-engine/modules/promo/system/services/winners/winners.service';
-import {IResizeEvent} from 'wlc-engine/modules/core/system/services/action/action.service';
 
 import * as Params from './slider.params';
 
@@ -183,7 +181,7 @@ export class SliderComponent extends AbstractComponent
         return slide.injector;
     }
 
-    public onUpdate(swiper): void {
+    public onUpdate(): void {
         if (this.isAutoSlidesAndColumnMode()) {
             this.setSliderWrapper();
             const slides: HTMLCollection = _get(this.sliderWrap, 'children');
@@ -205,11 +203,11 @@ export class SliderComponent extends AbstractComponent
         this.swiper.setIndex(0, 0, true);
     }
 
-    public onResize(event: ResizedEvent): void {
+    public onResize(): void {
         this.updateView();
     }
 
-    public onBeforeResize(swiper: SwiperComponent): void {
+    public onBeforeResize(): void {
         this.handleBeforeResize.emit(this.swiper.swiperRef);
     }
 
@@ -270,7 +268,6 @@ export class SliderComponent extends AbstractComponent
             const swiperWidth: number = swiperContainer.offsetWidth;
 
             const margin = parseInt(firstSlide.style.marginRight);
-            const slideWith = firstSlide.offsetWidth + margin;
 
             const groupCount: number = this.$params.swiper.slidesPerColumn *
                 _ceil(swiperWidth / (firstSlide.offsetWidth + margin));
@@ -278,7 +275,6 @@ export class SliderComponent extends AbstractComponent
                 _floor(swiperWidth / (firstSlide.offsetWidth + margin));
             const minGroup = _ceil(slides.length / this.$params.swiper.slidesPerColumn)
                 * this.$params.swiper.slidesPerColumn;
-            const minGroupWidth: number = minGroup / this.$params.swiper.slidesPerColumn * slideWith;
 
             if (this.slides.length < floorGroupCount) {
                 this.emptySlidesCount = floorGroupCount - this.slides.length;
@@ -311,7 +307,7 @@ export class SliderComponent extends AbstractComponent
     protected windowResizeHandler(): void {
         this.actionService.windowResize()
             .pipe(takeUntil(this.$destroy))
-            .subscribe((data: IResizeEvent) => {
+            .subscribe(() => {
                 this.updateView();
             });
     }
@@ -354,7 +350,7 @@ export class SliderComponent extends AbstractComponent
     protected initEventHandlers(): void {
         this.actionService.windowResize()
             .pipe(takeUntil(this.$destroy))
-            .subscribe((data: IResizeEvent) => {
+            .subscribe(() => {
                 this.updateView();
             });
 
@@ -398,7 +394,7 @@ export class SliderComponent extends AbstractComponent
             if (this.swiper.swiperRef.params.slidesPerView == 'auto') {
                 this.swiper.swiperRef.params.slidesPerView = 1;
             }
-            
+
             this.swiper.swiperRef.navigation.destroy();
             this.swiper.swiperRef.navigation.init();
             this.swiper.swiperRef.navigation.update();

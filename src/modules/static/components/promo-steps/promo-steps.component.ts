@@ -21,9 +21,7 @@ import {StaticService} from 'wlc-engine/modules/static/system/services/static/st
 
 import * as Params from './promo-steps.params';
 
-import _isObject from 'lodash-es/isObject';
 import _filter from 'lodash-es/filter';
-import _isUndefined from 'lodash-es/isUndefined';
 import _sortBy from 'lodash-es/sortBy';
 import _toNumber from 'lodash-es/toNumber';
 
