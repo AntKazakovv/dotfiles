@@ -285,13 +285,13 @@
         }
 
         &__bottom {
+            @include em.get-mq-map('padding', $themeDefault, 'btmPadding');
             position: relative;
             z-index: 10;
 
             display: flex;
             flex-direction: ef.get-value($themeDefault, 'btmFlexDir');
             min-width: 0;
-            padding: ef.get-value($themeDefault, 'btmPadding');
         }
 
         &__info-block {
@@ -440,21 +440,36 @@
 
     @include em.hover(false) {
 
-        .wlc-bonus-item__content {
-            @include em.get-mq-map('height', $themeDefault, 'heightMobile');
-        }
+        .wlc-bonus-item {
 
-        .wlc-bonus-item__wrapper {
-            @include em.get-mq-map('grid-template-rows', $themeDefault, 'infoHeightMobile');
-        }
+            &__content {
+                @include em.get-mq-map('height', $themeDefault, 'heightMobile');
+            }
 
-        .wlc-bonus-item__btns {
-            @include em.get-mq-map('transform', $themeDefault, 'btnsTransformMobile');
+            &__wrapper {
+                @include em.get-mq-map('grid-template-rows', $themeDefault, 'infoHeightMobile');
+            }
 
-            position: static;
-            margin: ef.get-value($themeDefault, 'btnsMarginMobile');
-            padding: ef.get-value($themeDefault, 'btnsPaddingMobile');
-            opacity: 1;
+            &__bottom {
+                display: grid;
+                grid-template-rows: ef.get-value($themeDefault, 'btmTemplateMobile');
+                width: 100%;
+            }
+
+            &__info-block {
+                justify-content: flex-end;
+                min-width: 0;
+                padding: ef.get-value($themeDefault, 'infoPaddingMobile');
+            }
+
+            &__btns {
+                @include em.get-mq-map('transform', $themeDefault, 'btnsTransformMobile');
+
+                position: static;
+                margin: ef.get-value($themeDefault, 'btnsMarginMobile');
+                padding: ef.get-value($themeDefault, 'btnsPaddingMobile');
+                opacity: 1;
+            }
         }
     }
 }
