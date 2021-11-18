@@ -189,14 +189,15 @@
                     @include bm.get-mq-map('grid-template-columns', $mainInfoThemeDefault, 'phoneInputColumns');
                     display: flex;
                     flex-wrap: wrap;
-
-                    .wlc-tooltip,
-                    .wlc-input__label {
-                        @include bm.get-mq-map('display', $mainInfoThemeDefault, 'phoneInputLabelDisplay');
-                    }
+                    align-items: center;
 
                     .wlc-tooltip {
+                        @include bm.get-mq-map('display', $mainInfoThemeDefault, 'phoneInputLabelDisplay');
                         margin: ef.get-value($mainInfoThemeDefault, 'phoneTooltipMargin');
+                    }
+
+                    .wlc-input__label {
+                        display: none;
                     }
                 }
 
@@ -209,6 +210,13 @@
                             @include bm.get-mq-map('margin', $mainInfoThemeDefault, 'phoneVerTooltipMargin');
                         }
                     }
+
+                    .wlc-input[class] {
+
+                        .wlc-input__label {
+                            @include bm.get-mq-map('display', $mainInfoThemeDefault, 'phoneVerInputLabelDisplay');
+                        }
+                    }
                 }
 
                 &.wlc-phone-field--sms-not-verified {
@@ -216,7 +224,7 @@
                     @include bm.get-mq-map('grid-template-columns', $mainInfoThemeDefault, 'phoneNotVerColumns');
 
                     .wlc-btn[wlc-button] {
-                        @include bm.get-mq-map('display', $mainInfoThemeDefault, 'phoneNotVerBtnWidth');
+                        @include bm.get-mq-map('width', $mainInfoThemeDefault, 'phoneNotVerBtnWidth');
                         grid-area: button;
                         justify-self: flex-start;
                         margin: ef.get-value($mainInfoThemeDefault, 'phoneNotVerBtnMargin');
@@ -233,6 +241,10 @@
 
                     .wlc-input[class] {
                         grid-area: phone;
+
+                        .wlc-input__label {
+                            display: none;
+                        }
 
                         .wlc-tooltip {
                             display: none;

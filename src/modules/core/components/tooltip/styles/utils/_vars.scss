@@ -18,7 +18,10 @@ $themeDefault: map-merge((
 
 $customModResolve: () !default;
 $modResolve: map-merge((
-    'iconSize': 20px,
+    'iconSize': (
+        375: 15px,
+        1024: 18px,
+    ),
     'iconFill': var(--mc-success),
     'iconColorOnHover': var(--mc-success-d20),
 ), $customModResolve);

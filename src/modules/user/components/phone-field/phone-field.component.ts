@@ -8,6 +8,7 @@ import {
 import {BehaviorSubject} from 'rxjs';
 import {
     distinctUntilChanged,
+    filter,
     first,
     takeUntil,
 } from 'rxjs/operators';
@@ -20,7 +21,7 @@ import {ModalService} from 'wlc-engine/modules/core/system/services/modal/modal.
 import {SelectValuesService} from 'wlc-engine/modules/core/system/services/select-values/select-values.service';
 import {ValidationService} from 'wlc-engine/modules/core/system/services/validation/validation.service';
 import {UserService} from 'wlc-engine/modules/user/system/services';
-
+import {UserProfile} from 'wlc-engine/modules/user';
 import {ProfileType} from 'wlc-engine/modules/core/system/interfaces/base-config/profile.interface';
 import {ISelectOptions} from 'wlc-engine/modules/core/components/select/select.params';
 
@@ -39,8 +40,8 @@ export class PhoneFieldComponent extends AbstractComponent implements OnInit {
     public $params: Params.IPhoneFieldCParams;
     public phoneCode: ISelectCParams;
     public phoneNumber: IInputCParams;
-    public phoneVerified: boolean;
     public smsVerification: boolean;
+    public useVerificationBtn: boolean = false;
     protected autoCodePhone: ISelectOptions;
     protected profileType: ProfileType;
 
@@ -68,21 +69,25 @@ export class PhoneFieldComponent extends AbstractComponent implements OnInit {
 
         this.userService.userProfile$
             .pipe(takeUntil(this.$destroy))
-            .subscribe((profile => {
+            .pipe(filter((profile: UserProfile): boolean => !!profile))
+            .subscribe(((profile: UserProfile): void => {
 
-                if (profile && this.smsVerification) {
-                    this.phoneVerified = !!profile.phoneVerified;
+                if (this.$params.showVerification && this.smsVerification) {
+                    this.useVerificationBtn = !profile.phoneVerified;
 
-                    if (!this.phoneVerified) {
+                    if (this.useVerificationBtn) {
                         this.setModifiers('sms-not-verified');
                         this.removeModifiers('sms-verified');
-                    } else if (this.$params.showVerification) {
+                    } else {
                         this.setModifiers('sms-verified');
                         this.removeModifiers('sms-not-verified');
                     }
                 }
 
-                if (!this.$params.phoneCode.control.value) {
+                if (profile.phoneCode || tempPhoneCode) {
+                    this.$params.phoneCode.control.setValue(profile.phoneCode || tempPhoneCode);
+                    this.$params.phoneCode.control.updateValueAndValidity({onlySelf: true});
+                } else if (!this.$params.phoneCode.control.value) {
                     this.configService.get<BehaviorSubject<ICountry[]>>('countries')
                         .pipe(first((v) => !!v.length))
                         .subscribe(data => {
@@ -99,11 +104,10 @@ export class PhoneFieldComponent extends AbstractComponent implements OnInit {
                                 });
                             }
                         });
-                } else if (profile && !this.$params.phoneCode.control.value) {
-                    this.$params.phoneCode.control.setValue(profile.phoneCode || tempPhoneCode);
-                    this.$params.phoneCode.control.updateValueAndValidity({onlySelf: true});
-                    this.$params.phoneNumber.control.setValue(profile.phoneNumber || tempPhoneNumber);
                 }
+
+                this.$params.phoneNumber.control.setValue(profile.phoneNumber || tempPhoneNumber);
+                this.$params.phoneNumber.control.updateValueAndValidity({onlySelf: true});
             }));
 
         this.$params.phoneCode?.control?.valueChanges
@@ -146,14 +150,6 @@ export class PhoneFieldComponent extends AbstractComponent implements OnInit {
             modalTitle: gettext('Verify your account'),
             showFooter: false,
         });
-    }
-
-    /**
-     * Needed use button for start verification
-     * @returns {boolean} `true` if need
-     */
-    public get useVerificationBtn(): boolean {
-        return this.$params.showVerification && !this.phoneVerified && this.smsVerification;
     }
 
     protected setValidators(value: string): void {

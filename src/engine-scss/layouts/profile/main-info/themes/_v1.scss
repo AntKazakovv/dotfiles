@@ -105,14 +105,6 @@
                         .wlc-input__container {
                             width: 100%;
                         }
-
-                        .wlc-input__label {
-                            display: flex;
-                        }
-
-                        .wlc-tooltip {
-                            margin: ef.get-value($mainInfoThemeV1, 'phoneTooltipMargin');
-                        }
                     }
 
                     .wlc-input[class],
@@ -120,6 +112,7 @@
 
                         .wlc-tooltip {
                             display: none;
+                            margin: ef.get-value($mainInfoThemeV1, 'phoneTooltipMargin');
                         }
                     }
 
@@ -128,8 +121,9 @@
                         @include bm.get-mq-map('grid-template-columns', $mainInfoThemeV1, 'phoneNotVerColumns');
 
                         .wlc-btn[wlc-button] {
+                            @include bm.get-mq-map('width', $mainInfoThemeDefault, 'phoneNotVerBtnWidth');
                             grid-area: button;
-                            width: max-content;
+                            margin: ef.get-value($mainInfoThemeDefault, 'phoneNotVerBtnMargin');
                         }
 
                         .wlc-select[class] {
@@ -151,10 +145,15 @@
 
                     &.wlc-phone-field--sms-verified {
 
-                        .wlc-input[class] {
+                        .wlc-select[class] {
+
+                            .wlc-input__label {
+                                display: flex;
+                            }
 
                             .wlc-tooltip {
                                 display: flex;
+                                align-items: center;
                             }
                         }
                     }

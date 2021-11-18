@@ -180,14 +180,7 @@ export const defaultParams: IProfileFormCParams = {
                     showVerification: true,
                     phoneCode: {
                         common: {
-                            tooltipIcon: 'verified',
-                            tooltipMod: 'resolve',
-                            tooltipText: gettext('The phone has been successfully verified'),
-                        },
-                    },
-                    phoneNumber: {
-                        common: {
-                            tooltipIcon: 'verified',
+                            tooltipIcon: 'verified-icon',
                             tooltipMod: 'resolve',
                             tooltipText: gettext('The phone has been successfully verified'),
                         },
