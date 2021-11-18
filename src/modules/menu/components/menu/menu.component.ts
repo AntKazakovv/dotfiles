@@ -233,7 +233,6 @@ export class MenuComponent extends AbstractComponent implements OnInit, OnChange
                 isMobile: this.isMobile,
                 isAuth: this.isAuth,
                 items: this.$params.items,
-                type: this.$params.type,
             },
         );
         if (this.isAffiliate) {

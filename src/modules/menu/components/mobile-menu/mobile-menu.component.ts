@@ -20,7 +20,6 @@ import {
 import {InjectionService} from 'wlc-engine/modules/core/system/services/injection/injection.service';
 import {TIconExtension} from 'wlc-engine/modules/menu/system/interfaces/menu.interface';
 import {MenuHelper} from 'wlc-engine/modules/menu/system/helpers/menu.helper';
-import {ICategoryMenuCParams} from 'wlc-engine/modules/menu/components/category-menu/category-menu.params';
 import {MenuService} from 'wlc-engine/modules/menu/system/services/menu.service';
 import {GamesCatalogService} from 'wlc-engine/modules/games/system/services/games-catalog/games-catalog.service';
 
@@ -32,6 +31,8 @@ import _clone from 'lodash-es/clone';
 import _cloneDeep from 'lodash-es/cloneDeep';
 import _has from 'lodash-es/has';
 import _pull from 'lodash-es/pull';
+import _filter from 'lodash-es/filter';
+import _isObject from 'lodash-es/isObject';
 
 @Component({
     selector: '[wlc-mobile-menu]',
@@ -43,7 +44,6 @@ export class MobileMenuComponent extends AbstractComponent implements OnInit {
 
     public $params: Params.IMobileMenuCParams;
     public menuParams: MenuParams.IMenuCParams;
-    public categoryMenuParams: ICategoryMenuCParams;
 
     protected menuConfig: MenuParams.MenuConfigItem[];
     protected menuSettings: IMenuOptions;
@@ -132,8 +132,19 @@ export class MobileMenuComponent extends AbstractComponent implements OnInit {
         const iconsFolder: string = this.$params.common?.icons?.folder ||
             this.configService.get<string>('$menu.mobileMenu.icons.folder');
 
-        if (!this.menuSettings && !this.configService.get<boolean>('$menu.mobileMenu.disableCategories')) {
-            this.categoryMenuParams = {
+        this.menuParams.items = MenuHelper.parseMenuConfig(this.menuConfig, Config.wlcMobileMenuItemsGlobal, {
+            icons: {
+                folder: iconsFolder,
+                disable: !useIcons,
+            },
+        });
+
+        if (this.configService.get<boolean>('$menu.mobileMenu.disableCategories')) {
+            this.menuParams.items = _filter(this.menuParams.items, (item): boolean => {
+                return !(_isObject(item) && item.type === 'categories');
+            });
+        } else {
+            MenuHelper.configureCategories(this.menuParams.items, {
                 type: 'dropdown',
                 theme: 'dropdown',
                 themeMod: 'vertical',
@@ -144,15 +155,8 @@ export class MobileMenuComponent extends AbstractComponent implements OnInit {
                         extension: this.configService.get<TIconExtension>('$menu.mobileMenu.categoryIcons.extension'),
                     },
                 },
-            };
+            });
         }
-
-        this.menuParams.items = MenuHelper.parseMenuConfig(this.menuConfig, Config.wlcMobileMenuItemsGlobal, {
-            icons: {
-                folder: iconsFolder,
-                disable: !useIcons,
-            },
-        });
 
         this.menuParams = _clone(this.menuParams);
         this.cdr.detectChanges();

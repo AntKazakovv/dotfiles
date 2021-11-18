@@ -148,6 +148,11 @@ export const wlcMobileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
     'mobile-menu:lobby': commonMenuItems.lobby,
     'mobile-menu:favourites': commonMenuItems.favourites,
     'mobile-menu:lastplayed': commonMenuItems.lastplayed,
+    'mobile-menu:categories': {
+        name: '',
+        type: 'categories',
+        params: {},
+    },
 };
 
 export const wlcMobileMenuItemGroupsGlobal: MenuParams.IMenuItemGroupsGlobal = {

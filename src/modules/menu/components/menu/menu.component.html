@@ -137,6 +137,10 @@
     </div>
 </ng-template>
 
+<ng-template #categories let-item="item">
+    <div wlc-category-menu [inlineParams]="item.params?.categories?.componentParams"></div>
+</ng-template>
+
 <ng-template #dropdown let-item="item">
     <div class="{{$class}}__item {{$class}}__item--dropdown {{$class}}__item--{{item.parent.class}}"
          [ngClass]="{'active': item.expand}">
@@ -155,34 +159,12 @@
                   iconPath="/wlc/icons/arrow.svg">
             </span>
         </a>
-
         <div class="{{$class}}__submenu"
              [@toggle]="item.expand ? 'opened' : 'closed'">
-            <ng-container *ngFor="let item of item.items" [ngSwitch]="item.type">
-
-                <ng-container *ngSwitchCase="'anchor'" [ngTemplateOutlet]="anchor"
+            <ng-container *ngFor="let item of item.items">
+                <ng-container [ngTemplateOutlet]="menuItem"
                               [ngTemplateOutletContext]="{item: item}">
                 </ng-container>
-
-                <ng-container *ngSwitchCase="'sref'" [ngTemplateOutlet]="sref" [ngTemplateOutletContext]="{item: item}">
-                </ng-container>
-
-                <ng-container *ngSwitchCase="'modal'" [ngTemplateOutlet]="modal"
-                              [ngTemplateOutletContext]="{item: item}">
-                </ng-container>
-
-                <ng-container *ngSwitchCase="'href'" [ngTemplateOutlet]="href" [ngTemplateOutletContext]="{item: item}">
-                </ng-container>
-
-                <ng-container *ngSwitchCase="'scroll'" [ngTemplateOutlet]="scroll"
-                              [ngTemplateOutletContext]="{item: item}">
-                </ng-container>
-
-
-                <ng-container *ngSwitchCase="'group'" [ngTemplateOutlet]="dropdown"
-                              [ngTemplateOutletContext]="{item: item}">
-                </ng-container>
-
             </ng-container>
         </div>
     </div>
@@ -199,37 +181,65 @@
                   iconPath="/wlc/icons/arrow.svg">
             </span>
         </a>
-
         <div class="{{$class}}__submenu">
-            <ng-container *ngFor="let item of item.items" [ngSwitch]="item.type">
-
-                <ng-container *ngSwitchCase="'anchor'" [ngTemplateOutlet]="anchor"
+            <ng-container *ngFor="let item of item.items">
+                <ng-container [ngTemplateOutlet]="menuItem"
                               [ngTemplateOutletContext]="{item: item}">
                 </ng-container>
-
-                <ng-container *ngSwitchCase="'sref'" [ngTemplateOutlet]="sref" [ngTemplateOutletContext]="{item: item}">
-                </ng-container>
-
-                <ng-container *ngSwitchCase="'modal'" [ngTemplateOutlet]="modal"
-                              [ngTemplateOutletContext]="{item: item}">
-                </ng-container>
-
-                <ng-container *ngSwitchCase="'href'" [ngTemplateOutlet]="href" [ngTemplateOutletContext]="{item: item}">
-                </ng-container>
-
-                <ng-container *ngSwitchCase="'scroll'" [ngTemplateOutlet]="scroll"
-                              [ngTemplateOutletContext]="{item: item}">
-                </ng-container>
-
-                <ng-container *ngSwitchCase="'group'">
-
-                    <ng-container [ngTemplateOutlet]="group" [ngTemplateOutletContext]="{item: item}">
-                    </ng-container>
-                </ng-container>
-
             </ng-container>
         </div>
     </div>
+</ng-template>
+
+<ng-template #group let-item="item">
+    <ng-container [ngSwitch]="$params.theme">
+        <ng-container *ngSwitchCase="'first'"
+                      [ngTemplateOutlet]="full"
+                      [ngTemplateOutletContext]="{item: item}">
+        </ng-container>
+        <ng-container *ngSwitchDefault
+                      [ngTemplateOutlet]="dropdown"
+                      [ngTemplateOutletContext]="{item: item}">
+        </ng-container>
+    </ng-container>
+</ng-template>
+
+<ng-template #menuItem let-item="item">
+    <ng-container [ngSwitch]="item.type">
+        <ng-container *ngSwitchCase="'anchor'"
+                      [ngTemplateOutlet]="anchor"
+                      [ngTemplateOutletContext]="{item: item}">
+        </ng-container>
+        <ng-container *ngSwitchCase="'sref'"
+                      [ngTemplateOutlet]="sref"
+                      [ngTemplateOutletContext]="{item: item}">
+        </ng-container>
+        <ng-container *ngSwitchCase="'title'"
+                      [ngTemplateOutlet]="sref"
+                      [ngTemplateOutletContext]="{item: item}">
+        </ng-container>
+        <ng-container *ngSwitchCase="'modal'"
+                      [ngTemplateOutlet]="modal"
+                      [ngTemplateOutletContext]="{item: item}">
+        </ng-container>
+        <ng-container *ngSwitchCase="'href'"
+                      [ngTemplateOutlet]="href"
+                      [ngTemplateOutletContext]="{item: item}">
+        </ng-container>
+        <ng-container *ngSwitchCase="'scroll'"
+                      [ngTemplateOutlet]="scroll"
+                      [ngTemplateOutletContext]="{item: item}">
+        </ng-container>
+        <ng-container *ngSwitchCase="'categories'"
+                      [ngTemplateOutlet]="categories"
+                      [ngTemplateOutletContext]="{item: item}">
+        </ng-container>
+        <ng-container *ngSwitchCase="'group'">
+            <ng-container [ngTemplateOutlet]="group"
+                          [ngTemplateOutletContext]="{item: item}">
+            </ng-container>
+        </ng-container>
+    </ng-container>
 </ng-template>
 
 <ng-container *ngIf="$params.common?.useSwiper && slides.length">
@@ -240,43 +250,9 @@
 </ng-container>
 
 <ng-container *ngIf="!$params.common?.useSwiper">
-    <ng-container *ngFor="let item of items" [ngSwitch]="item.type">
-
-        <ng-container *ngSwitchCase="'anchor'" [ngTemplateOutlet]="anchor" [ngTemplateOutletContext]="{item: item}">
-        </ng-container>
-
-        <ng-container *ngSwitchCase="'sref'" [ngTemplateOutlet]="sref" [ngTemplateOutletContext]="{item: item}">
-        </ng-container>
-
-        <ng-container *ngSwitchCase="'title'" [ngTemplateOutlet]="sref" [ngTemplateOutletContext]="{item: item}">
-        </ng-container>
-
-        <ng-container *ngSwitchCase="'modal'" [ngTemplateOutlet]="modal" [ngTemplateOutletContext]="{item: item}">
-        </ng-container>
-
-        <ng-container *ngSwitchCase="'href'" [ngTemplateOutlet]="href" [ngTemplateOutletContext]="{item: item}">
-        </ng-container>
-
-        <ng-container *ngSwitchCase="'scroll'" [ngTemplateOutlet]="scroll" [ngTemplateOutletContext]="{item: item}">
-        </ng-container>
-
-        <ng-container *ngSwitchCase="'group'">
-            <ng-container [ngTemplateOutlet]="group" [ngTemplateOutletContext]="{item: item}">
-            </ng-container>
+    <ng-container *ngFor="let item of items">
+        <ng-container [ngTemplateOutlet]="menuItem"
+                      [ngTemplateOutletContext]="{item: item}">
         </ng-container>
     </ng-container>
 </ng-container>
-
-<ng-template #group let-item="item">
-    <ng-container [ngSwitch]="$params.theme">
-
-        <ng-container *ngSwitchCase="'first'" [ngTemplateOutlet]="full"
-                      [ngTemplateOutletContext]="{item: item}">
-        </ng-container>
-
-        <ng-container *ngSwitchDefault [ngTemplateOutlet]="dropdown"
-                      [ngTemplateOutletContext]="{item: item}">
-        </ng-container>
-
-    </ng-container>
-</ng-template>

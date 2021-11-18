@@ -1,10 +1,10 @@
 import {IComponentParams, ICounterType} from 'wlc-engine/modules/core/system/interfaces/config.interface';
 import {CategoryModel} from 'wlc-engine/modules/games/system/models/category.model';
 import {ISliderCParams} from 'wlc-engine/modules/promo';
-import {TIconExtension} from 'wlc-engine/modules/menu';
-import {
-    IMenuOptions,
-} from 'wlc-engine/modules/core';
+import {TIconExtension} from 'wlc-engine/modules/menu/system/interfaces/menu.interface';
+import {ICategoryMenuCParams} from 'wlc-engine/modules/menu/components/category-menu/category-menu.params';
+import {IMenuOptions} from 'wlc-engine/modules/core/system/interfaces/menu.interface';
+
 
 export interface MenuConfigItemsGroup {
     parent: MenuItemsGroupParent;
@@ -26,7 +26,18 @@ export type MenuType = 'main-menu'
     | 'footer:about'
     | 'affiliates-menu'
     | 'burger-panel-header-menu';
-export type ItemType = 'sref' | 'anchor' | 'modal' | 'href' | 'scroll' | 'title' | 'dropdown' | 'group' | 'wordpress';
+export type ItemType =
+    | 'sref'
+    | 'anchor'
+    | 'modal'
+    | 'href'
+    | 'scroll'
+    | 'title'
+    | 'dropdown'
+    | 'group'
+    | 'wordpress'
+    | 'categories';
+
 export type WpItemType = 'sref' | 'href';
 export type IMenuTarget = '_blank' | '_self' | '_parent' | '_top';
 export type MenuTheme = string;
@@ -77,6 +88,9 @@ export interface IMenuItemParams {
     modal?: IMenuItemParamsModal;
     href?: string | IMenuItemParamsHref;
     target?: IMenuTarget;
+    categories?: {
+        componentParams: ICategoryMenuCParams;
+    }
     blockExpand?: boolean;
     wp?: IMenuItemParamsWp;
 }
@@ -134,9 +148,7 @@ export interface IMenuItemGroupsGlobal {
 export interface IHelperGetItemsParams {
     isMobile: boolean;
     isAuth: boolean;
-    items?: MenuItemType[];
-    type?: MenuType;
-    theme?: string;
+    items: MenuItemType[];
 }
 
 export interface IHelperGetItemsForCategories {

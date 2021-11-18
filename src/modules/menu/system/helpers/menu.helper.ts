@@ -12,7 +12,6 @@ import {
     ItemType,
 } from 'wlc-engine/modules/menu/components/menu/menu.params';
 import {
-    wlcDefaultMenuItems,
     wlcMenuItemsGlobal,
     wlcMenuItemGroupsGlobal,
 } from 'wlc-engine/modules/menu/system/config/menu.items.config';
@@ -24,6 +23,7 @@ import {
     IMenuOptions,
 } from 'wlc-engine/modules/core/system/interfaces';
 import {TextDataModel} from 'wlc-engine/modules/static/system/models/textdata.model';
+import {ICategoryMenuCParams} from 'wlc-engine/modules/menu/components/category-menu/category-menu.params';
 import * as Params from 'wlc-engine/modules/menu/components/menu/menu.params';
 
 import _isString from 'lodash-es/isString';
@@ -34,7 +34,6 @@ import _trim from 'lodash-es/trim';
 import _get from 'lodash-es/get';
 import _set from 'lodash-es/set';
 import _cloneDeep from 'lodash-es/cloneDeep';
-import _isArray from 'lodash-es/isArray';
 import _reduce from 'lodash-es/reduce';
 import _orderBy from 'lodash-es/orderBy';
 import _filter from 'lodash-es/filter';
@@ -60,7 +59,8 @@ export interface IParseConfigOptions {
     icons?: {
         folder?: string;
         disable?: boolean;
-    }
+    },
+    notUseCategoryMenu?: boolean;
 }
 
 export interface IParseSettingsOptions {
@@ -78,13 +78,9 @@ export class MenuHelper {
      */
     public static getItems(params: IHelperGetItemsParams): MenuItemObjectType[] {
 
-        const items: MenuItemType[] = _isArray(params?.items)
-            ? params.items
-            : _get(wlcDefaultMenuItems, params.type, []);
-
         let resultList: MenuItemObjectType[] = [];
 
-        _map(items, (item: MenuItemType) => {
+        _map(params.items, (item: MenuItemType) => {
             if (_isString(item)) {
                 const menuItem = _get(wlcMenuItemsGlobal, item);
                 if (menuItem) {
@@ -342,6 +338,29 @@ export class MenuHelper {
         options: IParseSettingsOptions,
     ): MenuConfigItem[] {
         return MenuHelper.geiItemsByMenuSettings(settings.items, type, lang, options);
+    }
+
+    /**
+     * Set settings for show correcty category buttons
+     *
+     * @param {MenuItemType[]} items Menu items
+     * @param {ICategoryMenuCParams} categoryParams Category menu params
+     */
+    public static configureCategories(items: MenuItemType[], categoryParams: ICategoryMenuCParams): void {
+        _forEach(items, (item: MenuItemType): void => {
+            if (_isObject(item)) {
+                const menuItem: MenuItemObjectType = item as MenuItemObjectType;
+                if (menuItem.type === 'categories') {
+                    (item as Params.IMenuItem).params = {
+                        categories: {
+                            componentParams: categoryParams,
+                        },
+                    };
+                } else if (menuItem.type === 'group') {
+                    this.configureCategories((item as Params.IMenuItemsGroup).items, categoryParams);
+                }
+            }
+        });
     }
 
     /**
