@@ -4,6 +4,9 @@
 @use 'engine-scss/functions' as ef;
 
 .wlc-bonus-item--theme-active {
+    @include em.get-mq-map('max-width', $themeActive, 'itemMaxWidth');
+    width: 100%;
+    margin: ef.get-value($themeActive, 'itemMargin');
     background: ef.get-value($themeActive, 'background');
 
     .wlc-bonus-item {
@@ -32,18 +35,6 @@
 
             width: ef.get-value($themeActive, 'imgSize');
             height: ef.get-value($themeActive, 'imgSize');
-
-            &:after {
-                @include em.absoluteCentering();
-                @include em.get-mq-map('display', $themeActive, 'imgAfterDisplay');
-
-                content: '';
-
-                width: ef.get-value($themeActive, 'imgSize');
-                height: ef.get-value($themeActive, 'imgSize');
-
-                background: ef.get-value($themeActive, 'imgAfterBg');
-            }
         }
 
         &__tag {
@@ -73,9 +64,11 @@
             @include em.get-mq-map('grid-area', $themeActive, 'activeBlockArea');
             @include em.get-mq-map('padding', $themeActive, 'activeBlockPadding');
             @include em.get-mq-map('grid-template-rows', $themeActive, 'activeBlockTemplateRows');
+            @include em.get-mq-map('grid-template-columns', $themeActive, 'activeBlockTemplateColumn');
             @include em.get-mq-map('gap', $themeActive, 'activeBlockGap');
             @include em.get-mq-map('align-self', $themeActive, 'activeBlockAlign');
             @include em.get-mq-map('justify-self', $themeActive, 'activeBlockJustify');
+            @include em.get-mq-map('max-width', $themeActive, 'activeBlockWidth');
 
             display: grid;
         }
@@ -90,6 +83,7 @@
 
         &__name {
             @include text.get-text-style(ef.get-value($themeActive, 'nameTextStyle', 375), ef.get-value($themeActive, 'nameColor'));
+            @include em.get-mq-map('line-height', $themeActive, 'nameLine');
 
             &:after {
                 @include em.get-mq-map('display', $themeActive, 'headlineDisplay');
@@ -110,6 +104,7 @@
             @include text.get-text-style('PrimaryText', ef.get-value($themeActive, 'descriptionColor'));
             @include em.get-mq-map('max-width', $themeActive, 'descrMaxWidth');
             @include em.lineClamp(3);
+            @include em.get-mq-map('display', $themeActive, 'infoBlockDscrDisplay');
 
             @include mq.min(560) {
                 -webkit-line-clamp: 5;

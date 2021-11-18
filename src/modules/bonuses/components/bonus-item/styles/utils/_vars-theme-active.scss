@@ -5,6 +5,14 @@ $themeActive: map-merge((
     'background': ef.get-value($themeDefault, 'backgroundDefault'),
     'backgroundHover': null,
     'radius': ef.size(2),
+
+    'itemMaxWidth': (
+        375: 320px,
+        560: unset,
+    ),
+
+    'itemMargin': 0 auto,
+
     'wrapperPadding': (
         375: 0 0 ef.size(4),
         560: 0 ef.size(4) 0 0,
@@ -29,7 +37,7 @@ $themeActive: map-merge((
         560: 260px,
     ),
     'wrapperTplAreas': (
-        375: 'image' 'active' 'btns',
+        375: 'image' 'info' 'active' 'btns',
         560: 'image info' 'image btns',
         1200: 'image info active' 'image info active' 'image btns active',
     ),
@@ -40,12 +48,6 @@ $themeActive: map-merge((
         375: 200px,
         560: auto
     ),
-    'imgAfterDisplay': (
-        375: block,
-        1200: none,
-    ),
-
-    'imgAfterBg': var(--mc-baseContrast-06),
 
     'tagPositionTop': ef.size(4),
     'tagPositionLeft': 50%,
@@ -54,6 +56,11 @@ $themeActive: map-merge((
     'nameColor': (
         375: ef.get('mainColors', 'baseMain'), //Locked color
         560: var(--mc-baseMain)
+    ),
+
+    'nameLine': (
+        375: 1,
+        560: 1.45,
     ),
     'nameTextStyle': (
         375: 'ThirdTitleBold',
@@ -69,17 +76,21 @@ $themeActive: map-merge((
     ),
 
     'infoBlockPadding': (
-        375: ef.size(3),
+        375: 0 ef.size(3),
+        560: ef.size(3),
         720: ef.size(3) ef.size(6),
         1200: ef.size(3),
     ),
     'infoBlockArea': (
-        375: image,
-        560: info,
+        375: info,
     ),
     'infoBlockAlignSelf': (
         375: center,
         560: start,
+    ),
+    'infoBlockDscrDisplay': (
+        375: none,
+        560: -webkit-box,
     ),
     'infoBlockTextAlign': (
         375: center,
@@ -87,16 +98,22 @@ $themeActive: map-merge((
     ),
 
     'activeBlockTemplateRows': min-content 1fr,
+    'activeBlockTemplateColumn': 100%,
     'activeBlockGap': 10px 0,
     'activeBlockAlign': (
         375: center,
         1200: initial,
+    ),
+    'activeBlockWidth': (
+        375: 280px,
+        560: 250px,
     ),
     'activeBlockJustify': (
         375: center,
         1200: initial,
     ),
     'activeBlockPadding': (
+        375: 0 ef.size(2),
         560: 0 ef.size(3),
         640: 0,
         1200: ef.size(3),
