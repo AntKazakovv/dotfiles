@@ -8,7 +8,7 @@ $themeDefault: map-merge((
     'paddingItem': ef.get('size', 'main') ef.get('size', 'big'),
     'color': var(--mc-baseMain),
     'titleFont': 'ThirdTitleBold',
-    'subTitleFont': 'PlaceholderText',
+    'subTitleFont': 'PrimaryText',
     'textFont': 'PrimaryText',
     'titlePadding': ef.get('size', 'smallest'),
     'tooltipShadow': 0 4px 4px rgba(0, 0, 0, 0.25),

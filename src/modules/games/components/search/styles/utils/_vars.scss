@@ -77,8 +77,8 @@ $themeDefault: map-merge((
         1200: 33px,
     ),
     'closeTop': (
-        375: 24px,
-        560: 30px,
+        375: ef.size(5),
+        1200: 33px,
     ),
     'searchBtnItemsFont': 'PrimaryText',
     'searchBtnItemsFontActive': 'ButtonText',

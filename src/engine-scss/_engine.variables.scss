@@ -536,6 +536,7 @@ $profileSettings: map-merge((
         375: 'ThirdTitleBold',
         1200: 'QoteTextBold',
     ),
+    'secondTitleStyle': 'PrimaryText',
 
     'topMargin': (
         375: 0 0 map-get($size, 'smally'),

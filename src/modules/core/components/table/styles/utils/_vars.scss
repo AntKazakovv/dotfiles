@@ -35,7 +35,7 @@ $themeDefault: map-merge((
     'rowTitleBackgroundDesktop': transparent,
     'rowEvenBackgroundDesktop': transparent,
     'rowOddBackgroundDesktop': var(--mc-bg300),
-    'rowBackgroundDesktopHover': var(--mc-bg700-d10),
+    'rowBackgroundDesktopHover': var(--mc-bg500),
     'rowBorderRadiusSizeDesktop': ef.get('radius', 'biger'),
     // Cell
     'cellBorderDesktop': none,
