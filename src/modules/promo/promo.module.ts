@@ -22,6 +22,7 @@ import {
     JackpotComponent,
     BannersSliderComponent,
     BannerComponent,
+    LevelNameComponent,
     IPromoConfig,
 } from 'wlc-engine/modules/promo';
 import {CompilerModule} from 'wlc-engine/modules/compiler';
@@ -44,6 +45,7 @@ export const components = {
     'wlc-loyalty-program': LoyaltyProgramComponent,
     'wlc-slider': SliderComponent,
     'wlc-winners-slider': WinnersSliderComponent,
+    'wlc-level-name': LevelNameComponent,
 };
 
 @NgModule({
@@ -58,6 +60,7 @@ export const components = {
         SliderComponent,
         WinnerComponent,
         WinnersSliderComponent,
+        LevelNameComponent,
     ],
     imports: [
         AngularResizedEventModule,
@@ -84,6 +87,7 @@ export const components = {
         SliderComponent,
         WinnerComponent,
         WinnersSliderComponent,
+        LevelNameComponent,
     ],
 })
 export class PromoModule {

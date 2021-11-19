@@ -1,0 +1,18 @@
+@use 'engine-scss/mixins/base.mixins' as bm;
+
+.wlc-level-name--theme-default:host {
+
+    .wlc-level-name {
+        @include bm.get-mq-map('display', $themeDefault, 'levelNameDisplay');
+        @include bm.get-mq-map('align-items', $themeDefault, 'levelNameAlignItems');
+        @include bm.get-mq-map('justify-content', $themeDefault, 'levelNameJustifyContent');
+
+        &.has-description {
+            @include bm.get-mq-map('margin', $themeDefault, 'levelNameHasDescMargin');
+        }
+
+        .wlc-tooltip {
+            @include bm.get-mq-map('margin', $themeDefault, 'tooltipMargin');
+        }
+    }
+}

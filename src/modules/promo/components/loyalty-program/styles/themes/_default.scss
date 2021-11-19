@@ -107,6 +107,21 @@
 
             background: ef.get-value($themeDefault, 'itemImageBgColor');
             border-radius: ef.get-value($themeDefault, 'itemImageBgBorderRadius');
+
+            &.custom-image {
+                @include em.get-mq-map('padding', $themeDefault, 'customImageBlockPadding');
+                @include em.get-mq-map('width', $themeDefault, 'customImageBlockWidth');
+                @include em.get-mq-map('background', $themeDefault, 'customImageBlockBackground');
+
+                img {
+                    @include em.get-mq-map('width', $themeDefault, 'customImageWidth');
+                    @include em.get-mq-map('max-width', $themeDefault, 'customImageMaxWidth');
+                    @include em.get-mq-map('height', $themeDefault, 'customImageHeight');
+                    @include em.get-mq-map('max-height', $themeDefault, 'customImageMaxHeight');
+                    @include em.get-mq-map('margin', $themeDefault, 'customImageMargin');
+                    @include em.get-mq-map('object-fit', $themeDefault, 'customImageObjectfit');
+                }
+            }
         }
 
         &--icon {
@@ -124,6 +139,14 @@
         &__item-title {
             @include em.get-mq-map('padding', $themeDefault, 'itemTitlePadding');
             @include text.get-text-style(ef.get-value($themeDefault, 'itemTitleFont'), ef.get-value($themeDefault, 'itemTitleFontColor'));
+        }
+
+        &__item-description {
+            @include em.get-mq-map('padding', $themeDefault, 'itemDescriptionPadding');
+            @include em.get-mq-map('margin', $themeDefault, 'itemDescriptionMargin');
+            @include text.get-text-style(ef.get-value($themeDefault, 'itemDescriptionFont'), ef.get-value($themeDefault, 'itemDescriptionFontColor'));
+            @include em.get-mq-map('text-align', $themeDefault, 'itemDescriptionTextAlign');
+            @include em.lineClamp(3);
         }
 
         &__item-points {

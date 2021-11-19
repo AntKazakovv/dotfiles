@@ -4,6 +4,9 @@ import {
 } from 'wlc-engine/modules/core/system/classes/abstract.component';
 
 import {ITableCol} from 'wlc-engine/modules/core/components/table/table.params';
+import {LevelNameComponent} from 'wlc-engine/modules/promo/components/loyalty-levels/level-name/level-name.component';
+import {LoyaltyLevelModel} from 'wlc-engine/modules/promo/system/models/loyalty-level.model';
+import {ILevelNameParams} from 'wlc-engine/modules/promo/components/loyalty-levels/level-name/level-name.params';
 
 export type Theme = 'default' | CustomType;
 export type Type = 'default' | CustomType;
@@ -28,10 +31,14 @@ export const loyaltyTableHeadConfig: ITableCol[] = [
     {
         key: 'name',
         title: gettext('Level name'),
-        type: 'text',
+        type: 'component',
         disableHideClass: true,
         order: 30,
         wlcElement: 'wlc-profile-table__cell_name',
+        mapValue: (item: LoyaltyLevelModel): ILevelNameParams => {
+            return {level: item};
+        },
+        componentClass: LevelNameComponent,
     },
     {
         key: 'nextLevelPoints',

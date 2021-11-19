@@ -10,6 +10,7 @@ export {JackpotsSliderComponent} from './jackpots-slider/jackpots-slider.compone
 export {WinnersSliderComponent} from './winners-slider/winners-slider.component';
 export {LoyaltyProgramComponent} from './loyalty-program/loyalty-program.component';
 export {LoyaltyLevelsComponent} from './loyalty-levels/loyalty-levels.component';
+export {LevelNameComponent} from './loyalty-levels/level-name/level-name.component';
 export {LoyaltyInfoComponent} from './loyalty-info/loyalty-info.component';
 export {BannersSliderComponent} from './banners-slider/banners-slider.component';
 export {BannerComponent} from './banner/banner.component';

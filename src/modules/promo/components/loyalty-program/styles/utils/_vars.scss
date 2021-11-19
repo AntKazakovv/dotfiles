@@ -123,6 +123,16 @@ $themeDefault: map-merge((
     'itemTitleFont': 'QoteTextBold',
     'itemTitleFontColor': var(--mc-baseMain),
 
+    'itemDescriptionPadding': (
+        320: 0 ef.size(3),
+    ),
+    'itemDescriptionMargin': (
+        320: 0 0 ef.size(3) 0,
+    ),
+    'itemDescriptionFont': 'PrimaryText',
+    'itemDescriptionFontColor': var(--mc-baseMain),
+    'itemDescriptionTextAlign': center,
+
     'itemPointsFont': 'PrimaryText',
     'itemPointsFontColor': var(--mc-baseMain),
 
@@ -138,4 +148,16 @@ $themeDefault: map-merge((
     ),
 
     'nodataTextAlign': center,
+    'customImageBlockPadding': (
+        320: 0 ef.size(3),
+        1200: 0,
+    ),
+    'customImageBlockWidth': unset,
+    'customImageBlockBackground': transparent,
+    'customImageWidth': unset,
+    'customImageMaxWidth': 100%,
+    'customImageHeight': unset,
+    'customImageMaxHeight': 100%,
+    'customImageMargin': 0 0 ef.size(2) 0,
+    'customImageObjectfit': cover,
 ), $customThemeDefault);

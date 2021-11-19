@@ -11,14 +11,15 @@
             <div class="{{$class}}__items-wrapper container">
                 <div *ngFor="let level of levels; index as $index;"
                      class="{{$class}}__item">
-                    <div class="{{$class}}__item-image">
+                    <div class="{{$class}}__item-image" [ngClass]="{'custom-image': level.image}">
                         <img class="{{$class}}--icon {{$class}}--icon--{{level.level}}"
                              loading="lazy"
-                             [src]="imageLevel(level.level)">
+                             [src]="level.image || imageLevel(level.level)">
                     </div>
                     <div class="{{$class}}__item-title">
                         {{level.level}} {{'Level' | translate}}
                     </div>
+                    <div class="{{$class}}__item-description" [innerHTML]="level.description"></div>
                     <div class="{{$class}}__item-points">
                         <span>{{setLoyaltyPoints($index)}}</span>
                         <span wlc-currency

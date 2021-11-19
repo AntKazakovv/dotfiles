@@ -1,0 +1,12 @@
+@use 'engine-scss/functions' as ef;
+
+$customThemeDefault: () !default;
+$themeDefault: map-merge((
+    'levelNameDisplay': flex,
+    'levelNameAlignItems': center,
+    'levelNameJustifyContent': center,
+    'levelNameHasDescMargin': (
+        1024: 0 -18px 0 0
+    ),
+    'tooltipMargin': 0 0 0 ef.size(1),
+), $customThemeDefault);

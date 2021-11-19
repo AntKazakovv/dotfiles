@@ -1,0 +1,7 @@
+<div class="{{$class}}" [ngClass]="{'has-description': $params.level.description}">
+    <span class="{{$class}}-text">{{$params.level.name}}</span>
+    <span *ngIf="$params.level.description && tooltipSettings"
+          wlc-tooltip
+          class="{{$class}}-icon__description"
+          [inlineParams]="tooltipSettings"></span>
+</div>
