@@ -10,7 +10,7 @@
             <link rel="shortcut icon" href="/favicon/favicon.ico" type="image/x-icon"/>
             <meta name="msapplication-TileColor" content="#f17105">
             <meta name="msapplication-TileImage" content="mstile-144x144.png">
-            <meta name="theme-color" content="#000000">
+            <meta name="theme-color" content="var(--mc-bg)">
             <meta name="apple-mobile-web-app-capable" content="yes">
             <meta name="apple-mobile-web-app-status-bar-style" content="#000000">
             <meta name="msapplication-TileColor" content="#000000">
