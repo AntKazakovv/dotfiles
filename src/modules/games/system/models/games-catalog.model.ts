@@ -58,11 +58,14 @@ import _toNumber from 'lodash-es/toNumber';
 import _union from 'lodash-es/union';
 import _uniq from 'lodash-es/uniq';
 import _uniqBy from 'lodash-es/uniqBy';
+import _keys from 'lodash-es/keys';
+import _map from 'lodash-es/map';
 
 export class GamesCatalog extends AbstractModel<IGames> {
 
     protected games: Game[];
     protected availableGames: Game[];
+    protected availableMerchants: MerchantModel[];
     protected sportsbooks: Game[] = [];
     protected categories: CategoryModel[] = [];
     protected projectCategories: CategoryModel[] = [];
@@ -279,6 +282,7 @@ export class GamesCatalog extends AbstractModel<IGames> {
     }
 
     /**
+     * Get all game merchants
      *
      * @returns {MerchantModel[]}
      */
@@ -287,11 +291,12 @@ export class GamesCatalog extends AbstractModel<IGames> {
     }
 
     /**
+     * Get available merchants (used country restriction of games)
      *
-     * @returns {MerchantModel[]}
+     * @returns {MerchantModel[]} Available merchants
      */
     public getAvailableMerchants(): MerchantModel[] {
-        return GamesHelper.availableMerchants;
+        return this.availableMerchants;
     }
 
     /**
@@ -401,12 +406,13 @@ export class GamesCatalog extends AbstractModel<IGames> {
     }
 
     /**
+     * Get merchantd by name
      *
-     * @param {string} merchantName
+     * @param {string} merchantName Merchant name
      * @returns {MerchantModel}
      */
     public getMerchantByName(merchantName: string): MerchantModel {
-        return _find(this.merchants, {menuId: merchantName});
+        return _find(this.getAvailableMerchants(), {menuId: merchantName});
     }
 
     /**
@@ -508,19 +514,33 @@ export class GamesCatalog extends AbstractModel<IGames> {
             )
             .subscribe((userProfile) => {
                 if (this.userCountry !== userProfile.countryCode) {
-                    this.updateAvailableGames(userProfile.countryCode);
+                    this.updateAvailableGamesAndMerchants(userProfile.countryCode);
                 }
             });
     }
 
-    protected updateAvailableGames(userCountry: string): void {
+    /**
+     * Update available games and merchants using country restriction of games
+     *
+     * @param {string} userCountry Country from user profile
+     */
+    protected updateAvailableGamesAndMerchants(userCountry: string): void {
         this.userCountry = userCountry;
 
         const country: string = this.configService.get<string>('appConfig.country') || null;
         const restrictCountries: string[] = [country, this.userCountry];
+        const merchantIds = new Set([]);
 
         this.availableGames = _filter(this.games, (game: Game) => {
-            return !game.gameRestricted(this.restrictions, restrictCountries);
+            if (!game.gameRestricted(this.restrictions, restrictCountries)) {
+                merchantIds.add(game.merchantID);
+                return true;
+            }
+            return false;
+        });
+
+        this.availableMerchants = _filter(this.merchants, (merchant: MerchantModel) => {
+            return merchantIds.has(merchant.id);
         });
 
         this.prepareCategories();
@@ -665,7 +685,7 @@ export class GamesCatalog extends AbstractModel<IGames> {
         this.availableCategories = this.sortCategories(this.availableCategories);
         this.games = _orderBy(resultGames, (game: Game) => _toNumber(game.sort), 'desc');
 
-        this.updateAvailableGames(this.userCountry);
+        this.updateAvailableGamesAndMerchants(this.userCountry);
         this.prepareCategories();
     }
 
