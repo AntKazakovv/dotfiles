@@ -45,6 +45,7 @@
 
                 &.wlc-table__cell--first {
                     grid-template-columns: ef.get-value($themeDefault, 'firstCellColumns');
+                    align-items: center;
                     word-break: break-word;
 
                     .wlc-table__cell-label {
@@ -52,10 +53,13 @@
                     }
 
                     .wlc-history-name {
+                        @include bm.get-mq-map('padding', $themeDefault, 'historyNamePadding');
                         display: grid;
                         grid-auto-flow: column;
                         gap: ef.get-value($themeDefault, 'historyNameGap');
+                        align-items: center;
                         justify-content: space-between;
+                        text-align: left;
                     }
                 }
 
