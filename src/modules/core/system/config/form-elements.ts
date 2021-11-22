@@ -168,6 +168,9 @@ export namespace FormElements {
             options: 'countries',
             wlcElement: 'block_country',
             customMod: ['country'],
+            useSearch: true,
+            insensitiveSearch: true,
+            noResultText: gettext('No results available'),
         },
     };
 

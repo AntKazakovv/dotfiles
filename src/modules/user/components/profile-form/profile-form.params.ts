@@ -111,6 +111,9 @@ export const defaultParams: IProfileFormCParams = {
                     name: 'countryCode',
                     validators: ['required'],
                     options: 'countries',
+                    useSearch: true,
+                    insensitiveSearch: true,
+                    noResultText: gettext('No results available'),
                 },
             },
             {
