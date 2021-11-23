@@ -141,7 +141,6 @@ $selector: '.wlc-table';
 
         #{$selector}__content {
             @include em.get-mq-map('grid-template-columns', $themeDefault, 'rowTemplateColumns');
-
             display: grid;
             grid-gap: ef.get-value($themeDefault, 'rowGapMobile');
             margin: ef.get-value($themeDefault, 'tableContentMargin');
@@ -170,6 +169,21 @@ $selector: '.wlc-table';
             &--head {
                 display: none;
             }
+
+            &--odd {
+
+                .wlc-table__cell {
+                    background: ef.get-value($themeDefault, 'rowOddBackgroundDesktop');
+                }
+            }
+
+            &--even {
+                background: none;
+
+                .wlc-table__cell {
+                    background: ef.get-value($themeDefault, 'rowEvenBackgroundDesktop');
+                }
+            }
         }
 
         #{$selector}__cell {
@@ -188,6 +202,14 @@ $selector: '.wlc-table';
                 margin: 0;
             }
 
+            &:first-child {
+                border-radius: ef.get-value($themeDefault, 'rowBorderRadiusSizeMobile') ef.get-value($themeDefault, 'rowBorderRadiusSizeMobile') 0 0;
+            }
+
+            &:last-child {
+                border-radius: 0 0 ef.get-value($themeDefault, 'rowBorderRadiusSizeMobile') ef.get-value($themeDefault, 'rowBorderRadiusSizeMobile');
+            }
+
             &--type {
                 position: relative;
             }
@@ -198,10 +220,11 @@ $selector: '.wlc-table';
                 }
 
                 grid-template-columns: ef.get-value($themeDefault, 'firstColumnColumns');
+                align-items: center;
+                min-height: ef.get-value($themeDefault, 'minRowHeight');
                 font-weight: bold;
                 font-size: ef.get-value($themeDefault, 'fontSizeTitleMobile');
                 background: ef.get-value($themeDefault, 'rowTitleBackgroundMobile');
-                border-radius: ef.get-value($themeDefault, 'rowBorderRadiusSizeMobile') ef.get-value($themeDefault, 'rowBorderRadiusSizeMobile') 0 0;
             }
 
             &-label {
