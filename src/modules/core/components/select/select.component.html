@@ -24,10 +24,16 @@
                autocomplete="off"
                [(ngModel)]="searchText"
                [disabled]="control.disabled"
+               [ngClass]="{
+                    'ng-invalid': control.invalid,
+                    'ng-valid': control.valid,
+                    'ng-touched': control.touched,
+                    'ng-untouched': control.untouched
+               }"
                (click)="openDropdown()"
                (input)="searchItems()">
     </ng-container>
-    <div *ngIf="control.touched && !control.valid && $params.name"
+    <div *ngIf="!control.disabled && control.touched && !control.valid && $params.name"
          wlc-form-control
          class="{{$class}}-status"
          [className]="$class"
@@ -36,7 +42,7 @@
          [fieldName]="$params.name.toLowerCase()">
     </div>
     <div class="{{$class}}-status">
-        <span *ngIf="control.untouched || control.valid"
+        <span *ngIf="control.disabled || control.untouched || control.valid"
               wlc-icon
               class="{{$class}}-status__arrow"
               iconPath="/wlc/icons/arrow.svg"
