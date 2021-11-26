@@ -1,7 +1,7 @@
 #!/bin/bash -e
 
 project=$(jq .name < ./package.json)
-branch=$(git branch --show-current | awk '/master|hotfix/')
+branch=$(git rev-parse --abbrev-ref HEAD | awk '/master|hotfix/')
 remote=$(git remote | head -n 1)
 
 declare prevver
@@ -121,8 +121,11 @@ echo
 
 read -p "Create new release tag (y/N): " y
 if [ "x$y" == "xy" ]; then
-    if ! npm run gulp change-logs -- --tag=$nextver; then
-        die "ERROR: changelog generation failed"
+
+    if [ "$branch" == "master" ]; then
+        if ! npm run gulp change-logs -- --tag=$nextver; then
+            die "ERROR: changelog generation failed"
+        fi
     fi
 
     release "$nextver"
