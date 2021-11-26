@@ -107,11 +107,19 @@ export class GameThumbComponent extends AbstractComponent implements OnInit, Aft
 
     public async init(): Promise<void> {
         await this.gamesCatalogService.ready;
+        const gameId = this.$params.common?.gameId;
 
         if (this.$params.common?.game) {
             this.game = this.$params.common.game;
-        } else if (this.$params.common?.gameId) {
-            this.game = this.gamesCatalogService.getGameById(this.$params.common.gameId);
+        } else if (gameId) {
+            if (_isArray(gameId)) {
+                gameId.some((game: number): boolean => {
+                    this.game = this.gamesCatalogService.getGameById(game);
+                    return !!this.game;
+                });
+            } else {
+                this.game = this.gamesCatalogService.getGameById(gameId);
+            }
         }
 
         if (this.game?.merchantID === 913) {
