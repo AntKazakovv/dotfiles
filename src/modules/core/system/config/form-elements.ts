@@ -395,7 +395,7 @@ export namespace FormElements {
 
     export const registrationPasswordNew: IFormComponent = {
         name: 'core.wlc-input',
-        params: {
+        params: <IInputCParams>{
             theme: 'vertical',
             wlcElement: 'block_password-new',
             common: {
@@ -404,6 +404,7 @@ export namespace FormElements {
                 customModifiers: 'right-shift',
                 usePasswordVisibilityBtn: true,
                 autocomplete: 'new-password',
+                fixAutoCompleteForm: false,
             },
             name: 'password',
             validators: [

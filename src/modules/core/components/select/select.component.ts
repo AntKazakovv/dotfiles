@@ -160,7 +160,11 @@ export class SelectComponent extends AbstractComponent implements OnInit, OnChan
             fromEvent(this.searchInput.nativeElement, 'focus')
                 .pipe(takeUntil(this.$destroy))
                 .subscribe(() => {
-                    this.searchInput.nativeElement.removeAttribute('readonly');
+                    if (this.searchInput.nativeElement.hasAttribute('readonly')) {
+                        this.searchInput.nativeElement.removeAttribute('readonly');
+                        this.searchInput.nativeElement.blur();
+                        this.searchInput.nativeElement.focus();
+                    }
                     this.openDropdown();
                     this.cdr.detectChanges();
                 });

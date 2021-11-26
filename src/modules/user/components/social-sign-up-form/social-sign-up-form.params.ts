@@ -3,6 +3,7 @@ import {
     CustomType,
     IFormWrapperCParams,
     IIndexing,
+    IInputCParams,
 } from 'wlc-engine/modules/core';
 import {FormElements} from 'wlc-engine/modules/core/system/config/form-elements';
 
@@ -49,13 +50,14 @@ export const socialSignUpFormConfig: IFormWrapperCParams = {
         },
         {
             name: 'core.wlc-input',
-            params: {
+            params: <IInputCParams>{
                 theme: 'vertical',
                 wlcElement: 'block_password-current',
                 common: {
                     placeholder: gettext('Password'),
                     type: 'password',
                     customModifiers: 'right-shift password',
+                    fixAutoCompleteForm: false,
                     usePasswordVisibilityBtn: true,
                 },
                 name: 'password',

@@ -66,6 +66,7 @@ export const signInFormConfig: IFormWrapperCParams = {
                     type: 'password',
                     customModifiers: 'right-shift',
                     usePasswordVisibilityBtn: true,
+                    fixAutoCompleteForm: false,
                 },
                 name: 'password',
                 validators: ['required'],

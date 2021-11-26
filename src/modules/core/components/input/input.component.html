@@ -1,7 +1,7 @@
 <ng-template #default>
     <ng-container [ngTemplateOutlet]="label"></ng-container>
     <div class="{{$class}}__input">
-        <input type="text" class="hidden-input" *ngIf="$params.common?.type==='password'">
+        <input type="text" class="hidden-input" *ngIf="useAutoCompleteFix">
         <input type="{{$params.common?.type || 'text'}}"
                id="{{$params.id || $params.name}}"
                placeholder="{{$params.exampleValue || $params.common?.placeholder | translate}}"
@@ -30,7 +30,7 @@
 </ng-template>
 
 <ng-template #placeholderShown>
-    <input type="text" class="hidden-input" *ngIf="$params.common?.type==='password'">
+    <input type="text" class="hidden-input" *ngIf="useAutoCompleteFix">
     <input type="{{$params.common?.type || 'text'}}"
            id="{{$params.id || $params.name}}"
            #input
@@ -52,7 +52,7 @@
     <div
         class="{{$class}}__container"
     >
-        <input type="text" class="hidden-input" *ngIf="$params.common?.type==='password'">
+        <input type="text" class="hidden-input" *ngIf="useAutoCompleteFix">
         <input
             type="{{$params.common?.type || 'text'}}"
             id="{{$params.id || $params.name}}"

@@ -110,6 +110,7 @@ export const playGameForRealConfig = (params: IPlayForRealParams): IFormWrapperC
                     type: 'password',
                     customModifiers: 'right-shift',
                     usePasswordVisibilityBtn: true,
+                    fixAutoCompleteForm: false,
                 },
                 name: 'password',
                 validators: ['required', 'password',

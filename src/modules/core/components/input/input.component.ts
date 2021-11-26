@@ -52,6 +52,7 @@ export class InputComponent extends AbstractComponent implements OnInit, OnChang
     public control: FormControl;
     public fieldWlcElement: string;
     public useTooltip: boolean;
+    public useAutoCompleteFix: boolean = true;
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IInputCParams,
@@ -72,6 +73,8 @@ export class InputComponent extends AbstractComponent implements OnInit, OnChang
         if (this.$params.common?.autocomplete === 'off') {
             this.$params.common.readonly = true;
         }
+
+        this.setUseAutoCompleteFix();
     }
 
     public ngAfterViewInit(): void {
@@ -92,6 +95,7 @@ export class InputComponent extends AbstractComponent implements OnInit, OnChang
         if (this.$params) {
             super.ngOnChanges(changes);
             this.$params = _clone(this.$params);
+            this.setUseAutoCompleteFix();
             this.cdr.detectChanges();
             this.cdr.markForCheck();
         }
@@ -179,5 +183,10 @@ export class InputComponent extends AbstractComponent implements OnInit, OnChang
 
         modifiers = _union(modifiers, this.$params.common.customModifiers.split(' '));
         this.addModifiers(modifiers);
+    }
+
+    protected setUseAutoCompleteFix(): void {
+        this.useAutoCompleteFix = this.$params.common.fixAutoCompleteForm
+            && this.$params.common.type === 'password';
     }
 }
