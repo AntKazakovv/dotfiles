@@ -1,6 +1,6 @@
 import {
     IRedirectConfig,
-} from 'wlc-engine/modules/core';
+} from 'wlc-engine/modules/core/system/interfaces/core.interface';
 
 export const redirectsConfig: IRedirectConfig = {
     registration: {

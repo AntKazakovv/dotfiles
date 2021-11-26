@@ -1,6 +1,7 @@
 import {IBonusesModule} from '../interfaces/bonuses.interface';
 
 export const bonusesConfig: IBonusesModule = {
+    useIconBonusImage: true,
     components: {
         'wlc-bonuses-list': {
             noContent: {

@@ -60,6 +60,7 @@ export class BonusItemComponent extends AbstractComponent implements OnInit, OnD
     public isNoChooseBtn: boolean;
     public isChooseBtn: boolean;
     public isTypeRegDeposit: boolean;
+    public useIconBonusImage: boolean;
 
     constructor(
         @Inject('injectParams') protected params: Params.IBonusItemCParams,
@@ -111,10 +112,6 @@ export class BonusItemComponent extends AbstractComponent implements OnInit, OnD
 
         super.ngOnInit(_isEmpty(inlineParams) ? null : inlineParams);
 
-        if (this.configService.get<string>('$base.profile.type') === 'first') {
-            this.$params.common.useIconBonusImage = false;
-        }
-
         if (this.$params.bonus) {
             this.$params.common.bonus = this.$params.bonus;
         }
@@ -143,10 +140,15 @@ export class BonusItemComponent extends AbstractComponent implements OnInit, OnD
         }
 
         this.prepareModifiers();
-        this.isAuth = this.ConfigService.get<boolean>('$user.isAuthenticated');
+        this.isAuth = this.configService.get<boolean>('$user.isAuthenticated');
         this.isTypeRegDeposit = this.$params.common?.type === 'reg' || this.$params.common?.type === 'deposit';
         this.isNoChooseBtn = this.$params.common?.hideChooseBtn && this.isTypeRegDeposit;
         this.isChooseBtn = !this.$params.common?.hideChooseBtn && this.isTypeRegDeposit;
+        this.useIconBonusImage = this.configService.get<boolean>('$bonuses.useIconBonusImage');
+
+        if (this.configService.get<string>('$base.profile.type') === 'first') {
+            this.useIconBonusImage = false;
+        }
 
         if (!this.$params.common.bonus?.description) {
             this.addModifiers('no-description');

@@ -10,7 +10,6 @@ export const defaultParams: IBonusItemCParams = {
     class: 'wlc-bonus-item',
     common: {
         imageByType: false,
-        useIconBonusImage: true,
         showAdditionalImage: false,
         showBonusTag: true,
         hideDescription: false,

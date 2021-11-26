@@ -2,12 +2,12 @@
     <div class="{{$class}}__image-block">
         <div class="{{$class}}__tag" data-wlc-element="store_item-title">{{storeItem.itemType | translate}}</div>
         <div
-            *ngIf="!storeItem.isBonus"
+            *ngIf="storeImage"
             class="{{$class}}__image"
             data-wlc-element="store_item-image">
             <img [src]="storeImage" loading="lazy">
         </div>
-        <div *ngIf="storeItem.isBonus" class="{{$class}}__bonus-icon">
+        <div *ngIf="useIconBonusImage" class="{{$class}}__bonus-icon">
             <img class="icon-sign"
                  loading="lazy"
                  [src]="bonusIconPath">

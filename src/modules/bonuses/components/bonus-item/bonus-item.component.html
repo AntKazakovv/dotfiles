@@ -26,7 +26,7 @@
              (click)="chooseBonusNoBtn($params.common.bonus, $params.common?.type)">
             <div class="{{$class}}__image-block" data-wlc-element="bonus_image">
                 <ng-container [ngTemplateOutlet]="bonusTag"></ng-container>
-                <ng-container *ngIf="!$params.common?.useIconBonusImage" [ngTemplateOutlet]="bonusImage"></ng-container>
+                <ng-container *ngIf="!useIconBonusImage" [ngTemplateOutlet]="bonusImage"></ng-container>
                 <ng-container [ngTemplateOutlet]="bonusIcon"></ng-container>
                 <ng-container [ngTemplateOutlet]="moreIcon"></ng-container>
             </div>
@@ -360,7 +360,7 @@
 </ng-template>
 
 <ng-template #bonusIcon>
-    <div *ngIf="$params.common?.useIconBonusImage"
+    <div *ngIf="useIconBonusImage"
         class="{{$class}}__icon">
         <span *ngIf="(chosen ?? $params.common.bonus.isChoose) && $params.theme === 'partial'"
                 class="{{$class}}__check-icon">

@@ -8,6 +8,7 @@ import {Bonus} from '../models/bonus';
 import {BonusesListNoContentByThemeType} from 'wlc-engine/modules/bonuses/components/bonuses-list/bonuses-list.params';
 
 export interface IBonusesModule {
+    useIconBonusImage?: boolean;
     components?: {
         'wlc-bonuses-list': {
             noContent: BonusesListNoContentByThemeType,

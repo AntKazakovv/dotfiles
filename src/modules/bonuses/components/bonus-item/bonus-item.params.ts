@@ -43,7 +43,6 @@ export interface IBonusItemCParams extends IComponentParams<Theme, Type, ThemeMo
         customModifiers?: CustomMod;
         type?: IBonusType;
         imageByType?: boolean;
-        useIconBonusImage?: boolean;
         showAdditionalImage?: boolean;
         showBonusTag?: boolean;
         hideDescription?: boolean;
@@ -63,7 +62,6 @@ export const defaultParams: IBonusItemCParams = {
     class: 'wlc-bonus-item',
     common: {
         imageByType: false,
-        useIconBonusImage: true,
         showAdditionalImage: false,
         showBonusTag: true,
         hideDescription: false,

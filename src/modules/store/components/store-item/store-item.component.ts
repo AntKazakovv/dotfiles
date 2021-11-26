@@ -43,6 +43,7 @@ export class StoreItemComponent extends AbstractComponent implements OnInit, OnD
     public isAuth: boolean;
     public buyClick: boolean = false;
     public storeImage: string;
+    public useIconBonusImage: boolean;
     protected isProfileFirst: boolean;
 
     constructor(
@@ -65,10 +66,16 @@ export class StoreItemComponent extends AbstractComponent implements OnInit, OnD
         this.prepareModifiers();
         this.isProfileFirst = this.configService.get<string>('$base.profile.type') === 'first';
         this.isAuth = this.configService.get<boolean>('$user.isAuthenticated');
-        this.storeImage = this.storeItem.image ||
-            (
-                this.isProfileFirst ? this.$params.common?.defaultPicPathFirst : this.$params.common?.defaultPicPath
-            );
+        this.storeImage = this.storeItem.image;
+        this.useIconBonusImage = this.storeItem.isBonus && !this.storeImage && 
+            this.configService.get<boolean>('$bonuses.useIconBonusImage');
+        if (!this.storeImage) {
+            if (this.isProfileFirst) {
+                this.storeImage = this.$params.common?.defaultPicPathFirst;
+            } else if (!this.storeItem.isBonus || !this.configService.get<boolean>('$bonuses.useIconBonusImage')) {
+                this.storeImage = this.$params.common?.defaultPicPath;
+            }
+        };
     }
 
     public openDescription(storeItem: StoreItem): void {

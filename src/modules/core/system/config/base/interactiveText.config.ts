@@ -1,4 +1,4 @@
-import {IInteractiveText} from 'wlc-engine/modules/core';
+import {IInteractiveText} from 'wlc-engine/modules/core/system/interfaces/base-config/interactiveText.interface';
 
 export const interactiveTextConfig: IInteractiveText[] = [
     {
