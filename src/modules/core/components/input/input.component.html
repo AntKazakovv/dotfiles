@@ -1,7 +1,8 @@
 <ng-template #default>
     <ng-container [ngTemplateOutlet]="label"></ng-container>
     <div class="{{$class}}__input">
-        <input type="{{$params.common?.type}}"
+        <input type="text" class="hidden-input" *ngIf="$params.common?.type==='password'">
+        <input type="{{$params.common?.type || 'text'}}"
                id="{{$params.id || $params.name}}"
                placeholder="{{$params.exampleValue || $params.common?.placeholder | translate}}"
                #input
@@ -29,7 +30,8 @@
 </ng-template>
 
 <ng-template #placeholderShown>
-    <input type="{{$params.common?.type}}"
+    <input type="text" class="hidden-input" *ngIf="$params.common?.type==='password'">
+    <input type="{{$params.common?.type || 'text'}}"
            id="{{$params.id || $params.name}}"
            #input
            [wlc-input-mask]="$any($params.maskOptions)"
@@ -50,8 +52,9 @@
     <div
         class="{{$class}}__container"
     >
+        <input type="text" class="hidden-input" *ngIf="$params.common?.type==='password'">
         <input
-            type="{{$params.common?.type}}"
+            type="{{$params.common?.type || 'text'}}"
             id="{{$params.id || $params.name}}"
             #input
             [value]="$params.value"

@@ -18,10 +18,11 @@
     <ng-container *ngIf="$params.useSearch; else button">
         <input #searchInput
                class="{{$class}}__field"
-               type="text"
+               type="search"
                [placeholder]="placeholderText | translate"
                name="{{$params.name}}"
                autocomplete="off"
+               readonly
                [(ngModel)]="searchText"
                [disabled]="control.disabled"
                [ngClass]="{

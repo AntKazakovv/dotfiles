@@ -1,3 +1,10 @@
 @import './themes/default';
 @import './themes/placeholder-shown';
 @import './themes/vertical';
+
+.hidden-input.hidden-input.hidden-input.hidden-input:not(.clever-chrome) {
+    position: absolute;
+    z-index: -1;
+    visibility: hidden;
+    opacity: 0;
+}
