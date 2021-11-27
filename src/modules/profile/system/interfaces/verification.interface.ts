@@ -1,6 +1,4 @@
-import {DocModel} from 'wlc-engine/modules/profile/system/models/doc.model';
-
-export interface IDocTypeResponse {
+export interface IDocType {
     ID: string;
     Name: string;
     TypeKey: string;
@@ -13,7 +11,7 @@ export enum ValidationStatus {
     Failed = 'FailedValidation',
 }
 
-export interface IDocResponse {
+export interface IUserDoc {
     ID: number;
     IDUser: number;
     IDVerifier: number;
@@ -29,32 +27,10 @@ export interface IDocResponse {
     DownloadLink: string;
 }
 
-export interface IDoc extends IDocResponse {
-    iconName: string;
-    className: string;
-    statusText: string;
-    validated: boolean;
-    canDelete: boolean;
-}
-
 export enum LoaderStatus {
     Loading = 'loading',
     Deleting = 'deleting',
     Ready = 'ready'
-}
-
-export interface IDocGroup extends IDocTypeResponse {
-    docs: DocModel[];
-    iconName: string;
-    buttonText: string;
-    statusIconName: string;
-    previewString: string;
-    pending: boolean;
-    preview: {
-        base64?: string,
-        file?: File,
-    };
-    switchLoader(status: LoaderStatus): void;
 }
 
 export interface IDroppedFiles {

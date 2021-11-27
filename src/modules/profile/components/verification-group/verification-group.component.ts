@@ -9,7 +9,6 @@ import {
     OnInit,
     Output,
 } from '@angular/core';
-
 import {takeUntil} from 'rxjs/operators';
 
 import {
@@ -19,7 +18,7 @@ import {
     IMixedParams,
     IEvent,
 } from 'wlc-engine/modules/core';
-
+import {IVerification} from 'wlc-engine/modules/core/system/interfaces/base-config/profile.interface';
 import {
     DocGroupModel,
     DocModel,
@@ -27,7 +26,6 @@ import {
     LoaderStatus,
     VerificationService,
 } from 'wlc-engine/modules/profile';
-import {IVerification} from 'wlc-engine/modules/core/system/interfaces/base-config/profile.interface';
 
 import * as Params from './verification-group.params';
 
@@ -67,7 +65,7 @@ export class VerificationGroupComponent extends AbstractComponent implements OnI
         }])
             .pipe(takeUntil(this.$destroy))
             .subscribe(({data}: IEvent<IDroppedFiles>) => {
-                if (data.label === this.currentDocGroup.ID) {
+                if (data.label === this.currentDocGroup.id) {
                     this.uploadFile(data.files, data.label);
                 }
             });
@@ -79,7 +77,7 @@ export class VerificationGroupComponent extends AbstractComponent implements OnI
 
     /**
      * Upload file
-     * 
+     *
      * @param {FileList} files
      * @param {string} docLabel
      * @returns {Promise<void>}
@@ -105,8 +103,8 @@ export class VerificationGroupComponent extends AbstractComponent implements OnI
 
     /**
      * Delete document
-     * 
-     * @param {DocModel} doc 
+     *
+     * @param {DocModel} doc
      * @returns {Promise<void>}
      */
     public async deleteDoc(doc: DocModel): Promise<void> {

@@ -15,6 +15,10 @@ import {
 } from 'rxjs/operators';
 import {TranslateService} from '@ngx-translate/core';
 
+import _map from 'lodash-es/map';
+import _filter from 'lodash-es/filter';
+import _find from 'lodash-es/find';
+
 import {
     AbstractComponent,
     ActionService,
@@ -26,22 +30,18 @@ import {
     ISelectCParams,
     IVerification,
 } from 'wlc-engine/modules/core';
-import {VerificationService} from 'wlc-engine/modules/profile/system/services/verification/verification.service';
 import {
-    IDoc,
-    IDocTypeResponse,
+    IDocType,
+    IUserDoc,
     IDroppedFiles,
     ISelectOptions,
     LoaderStatus,
 } from 'wlc-engine/modules/profile/system/interfaces/verification.interface';
+import {VerificationService} from 'wlc-engine/modules/profile/system/services/verification/verification.service';
 import {DocModel} from 'wlc-engine/modules/profile/system/models/doc.model';
 import {DocGroupModel} from 'wlc-engine/modules/profile/system/models/doc-group.model';
 
 import * as Params from './verification.params';
-
-import _map from 'lodash-es/map';
-import _filter from 'lodash-es/filter';
-import _find from 'lodash-es/find';
 
 @Component({
     selector: '[wlc-verification]',
@@ -68,7 +68,7 @@ export class VerificationComponent extends AbstractComponent implements OnInit {
     };
     public verificationParams: IVerification;
     public isSelectMode: boolean;
-    protected docTypes: IDocTypeResponse[];
+    protected docTypes: IDocType[];
     protected activateDragSub$: Subscription;
 
     constructor(
@@ -114,19 +114,24 @@ export class VerificationComponent extends AbstractComponent implements OnInit {
      * @returns {Promise<void>}
      */
     public async updateDocItems(): Promise<void> {
-        const docs: IDoc[] = await this.verificationService.getUserDocs();
-        this.docGroups = _map(this.docTypes, (docType: IDocTypeResponse) => {
-            const userDocs: IDoc[] = _filter(docs, (userDoc: IDoc) => {
+        const docs: IUserDoc[] = await this.verificationService.getUserDocs();
+        this.docGroups = _map(this.docTypes, (docType: IDocType) => {
+            const userDocs: IUserDoc[] = _filter(docs, (userDoc: IUserDoc) => {
                 return docType.TypeKey === userDoc.DocType;
             });
             return new DocGroupModel(
+                {component: 'VerificationComponent', method: 'updateDocItems'},
                 docType,
-                _map(userDocs, (doc) => new DocModel(doc, this.$params.iconPath)),
+                _map(userDocs, (doc: IUserDoc) => new DocModel(
+                    {component: 'VerificationComponent', method: 'updateDocItems'},
+                    doc,
+                    this.$params.iconPath,
+                )),
                 this.isSelectMode,
                 this.$params.iconPath);
         });
         if (this.currentDocGroup) {
-            this.setCurrentDocGroup(this.currentDocGroup.ID);
+            this.setCurrentDocGroup(this.currentDocGroup.id);
         }
         this.cdr.markForCheck();
     }
@@ -163,7 +168,7 @@ export class VerificationComponent extends AbstractComponent implements OnInit {
         this.switchLoader(LoaderStatus.Loading);
 
         try {
-            await this.verificationService.uploadFile(this.currentDocGroup.preview.file, this.currentDocGroup.ID);
+            await this.verificationService.uploadFile(this.currentDocGroup.previewFile, this.currentDocGroup.id);
             await this.updateDocItems();
         } finally {
             this.switchLoader();
@@ -254,7 +259,7 @@ export class VerificationComponent extends AbstractComponent implements OnInit {
     }
 
     protected setCurrentDocGroup(id: string): void {
-        this.currentDocGroup = _find(this.docGroups, ({ID}) => ID === id);
+        this.currentDocGroup = _find(this.docGroups, (docGroup) => docGroup.id === id);
     }
 
     protected switchLoader(status: LoaderStatus = LoaderStatus.Ready): void {
@@ -272,7 +277,7 @@ export class VerificationComponent extends AbstractComponent implements OnInit {
             }])
                 .pipe(
                     takeUntil(this.$destroy),
-                    filter(({data}: IEvent<IDroppedFiles>) => data.label === this.currentDocGroup.ID),
+                    filter(({data}: IEvent<IDroppedFiles>) => data.label === this.currentDocGroup.id),
                 )
                 .subscribe(({data}: IEvent<IDroppedFiles>) => {
                     this.preloadFile(data.files);

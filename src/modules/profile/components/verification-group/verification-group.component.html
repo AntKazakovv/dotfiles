@@ -8,14 +8,14 @@
             ></div>
             <div wlc-icon class="{{$class}}__icon-check" [iconUrl]="currentDocGroup.statusIconName"></div>
         </div>
-        <div class="{{$class}}__title">{{currentDocGroup.Name}}</div>
+        <div class="{{$class}}__title">{{currentDocGroup.name}}</div>
         <div class="{{$class}}__required">{{'Required' | translate}}</div>
-        <div *ngIf="currentDocGroup.Description" class="{{$class}}__description">{{currentDocGroup.Description}}</div>
+        <div *ngIf="currentDocGroup.description" class="{{$class}}__description">{{currentDocGroup.description}}</div>
     </div>
     <ul class="{{$class}}-docs-list" *ngIf="currentDocGroup.docs.length">
         <li *ngFor="let doc of currentDocGroup.docs" class="{{$class}}-docs-list__item {{doc.className}}">
             <p class="{{$class}}-docs-list__text">
-                <a class="{{$class}}-docs-list__link" [href]="doc.DownloadLink" target="_blank">{{doc.FileName}}</a>
+                <a class="{{$class}}-docs-list__link" [href]="doc.downloadLink" target="_blank">{{doc.fileName}}</a>
                 <span *ngIf="doc.canDelete && !doc.pending"
                       wlc-icon
                       class="{{$class}}-docs-list__remove"
@@ -26,14 +26,14 @@
             </p>
             <div class="{{$class}}__check-wrp">
                 <span wlc-icon class="{{$class}}-docs-list__icon" [iconPath]="doc.iconName"></span>
-                <span *ngIf="doc.StatusDescription"
+                <span *ngIf="doc.statusDescription"
                       wlc-icon
                       class="{{$class}}-docs-list__info info-icon"
                       containerClass="{{$class}}__tooltip"
                       placement="bottom"
                       iconPath="/wlc/icons/info.svg"
                       container="body"
-                      [tooltip]="doc.StatusDescription"
+                      [tooltip]="doc.statusDescription"
                 ></span>
             </div>
         </li>
@@ -41,7 +41,7 @@
     <div wlc-dnd
          class="{{$class}}__dropzone"
          [class.loading]="currentDocGroup.loadingStatus === 'loading'"
-         [dnd-data-label]="currentDocGroup.ID"
+         [dnd-data-label]="currentDocGroup.id"
          (click)="inputFile.click(); $event.stopPropagation()"
     >
         <input #inputFile
@@ -49,7 +49,7 @@
                hidden
                [accept]="acceptFormat"
                [disabled]="currentDocGroup.pending"
-               (change)="uploadFile($any($event.target).files, currentDocGroup.ID)">
+               (change)="uploadFile($any($event.target).files, currentDocGroup.id)">
         <p [ngSwitch]="currentDocGroup.loadingStatus" class="{{$class}}__text">
             <ng-template [ngSwitchCase]="'loading'">
                 {{'File is loading...' | translate}}

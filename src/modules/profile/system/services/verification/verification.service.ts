@@ -1,19 +1,20 @@
 import {Injectable} from '@angular/core';
+
+import _includes from 'lodash-es/includes';
+import _toArray from 'lodash-es/toArray';
+
 import {
     DataService,
     EventService,
     IData,
     NotificationEvents,
+    LogService,
 } from 'wlc-engine/modules/core';
+import {DocModel} from 'wlc-engine/modules/profile/system/models/doc.model';
 import {
-    DocModel,
-    IDoc,
-    IDocTypeResponse,
-} from 'wlc-engine/modules/profile';
-import {LogService} from 'wlc-engine/modules/core/system/services/log/log.service';
-
-import _includes from 'lodash-es/includes';
-import _toArray from 'lodash-es/toArray';
+    IUserDoc,
+    IDocType,
+} from 'wlc-engine/modules/profile/system/interfaces/verification.interface';
 
 @Injectable({
     providedIn: 'root',
@@ -28,7 +29,7 @@ export class VerificationService {
         this.init();
     }
 
-    public async getDocsTypes(): Promise<IDocTypeResponse[]> {
+    public async getDocsTypes(): Promise<IDocType[]> {
         try {
             return (await this.dataService.request<IData>('docs/docs-types'))?.data;
         } catch (error) {
@@ -60,7 +61,7 @@ export class VerificationService {
         }
     }
 
-    public async getUserDocs(): Promise<IDoc[]> {
+    public async getUserDocs(): Promise<IUserDoc[]> {
         try {
             return (await this.dataService.request<IData>('docs/docs-list'))?.data;
         } catch (error) {
@@ -105,7 +106,7 @@ export class VerificationService {
         try {
             const result = await this.dataService.request<IData>({
                 name: 'docs-delete',
-                url: `/docs/${doc.ID}`,
+                url: `/docs/${doc.id}`,
                 type: 'DELETE',
                 system: 'docs',
             });
@@ -156,7 +157,7 @@ export class VerificationService {
             this.showError('No valid size');
             return false;
         }
- 
+
         if (!_includes(fileTypes, extension)) {
             this.showError('No valid format');
             return false;

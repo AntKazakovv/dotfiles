@@ -22,7 +22,7 @@
                  class="{{$class}}__dropzone"
                  [ngStyle]="{'backgroundImage': 'url(' + currentDocGroup.previewString + ')'}"
                  [ngClass]="{'preloaded': currentDocGroup.previewString}"
-                 [dnd-data-label]="currentDocGroup.ID"
+                 [dnd-data-label]="currentDocGroup.id"
                  (click)="inputFile.click()">
                 <input #inputFile
                        type="file"
@@ -69,7 +69,7 @@
                         <div class="{{$class}}-docs__doc-info-wrp">
                             <div class="{{$class}}-docs__doc-status">{{doc.statusText | translate}}</div>
                             <p class="{{$class}}-docs__doc-title">
-                                <a [href]="doc.DownloadLink" target="_blank">{{doc.FileName}}</a>
+                                <a [href]="doc.downloadLink" target="_blank">{{doc.fileName}}</a>
                                 <span *ngIf="doc.canDelete && !doc.pending"
                                       wlc-icon
                                       class="{{$class}}-docs__remove"
@@ -81,14 +81,14 @@
                         </div>
                         <div class="{{$class}}-docs__check-wrp">
                             <div wlc-icon class="{{$class}}-docs__check-icon" [iconUrl]="doc.iconName"></div>
-                            <span *ngIf="doc.StatusDescription"
+                            <span *ngIf="doc.statusDescription"
                                   wlc-icon
                                   class="{{$class}}-docs__info info-icon"
                                   containerClass="{{$class}}__tooltip"
                                   placement="bottom"
                                   iconPath="/wlc/icons/info.svg"
                                   container="body"
-                                  [tooltip]="doc.StatusDescription"
+                                  [tooltip]="doc.statusDescription"
                             ></span>
                         </div>
                     </li>
