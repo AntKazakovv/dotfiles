@@ -48,7 +48,5 @@ export interface ISelectOptions {
 
 export const defaultParams: Partial<ISelectCParams> = {
     class: 'wlc-select',
-    useSearch: true,
-    insensitiveSearch: true,
     noResultText: gettext('No results available'),
 };
