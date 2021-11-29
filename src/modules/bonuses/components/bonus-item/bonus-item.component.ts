@@ -97,7 +97,8 @@ export class BonusItemComponent extends AbstractComponent implements OnInit, OnD
 
     public get promoBg(): string {
         const {bonus} = this.$params.common;
-        return bonus.imagePromo ? `url(${bonus.imagePromo})` : '';
+
+        return `url(${this.themeMod === 'with-image' ? bonus.image : bonus.imagePromo})`;
     }
 
     public ngOnInit(): void {

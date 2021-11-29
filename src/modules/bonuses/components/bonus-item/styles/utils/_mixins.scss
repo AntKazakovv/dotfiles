@@ -92,3 +92,15 @@
         }
     }
 }
+
+@mixin promoWithImageHover {
+
+    .wlc-bonus-item__btns {
+        transform: translateY(0);
+        opacity: 1;
+    }
+
+    .wlc-bonus-item__description {
+        opacity: 0;
+    }
+}

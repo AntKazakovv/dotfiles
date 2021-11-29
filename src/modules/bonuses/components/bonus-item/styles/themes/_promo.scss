@@ -137,6 +137,73 @@
         }
     }
 
+    &.wlc-bonus-item--theme-mod-with-image {
+        @include bm.get-mq-map('max-width', $themePromo, 'maxWidthWithImg');
+
+        .wlc-bonus-item {
+
+            &__content {
+                height: auto;
+            }
+
+            &__wrapper {
+                @include bm.get-mq-map('grid-template-rows', $themePromo, 'wrapperRowsWithImg');
+                height: auto;
+            }
+
+            &__name {
+                @include nameCommonStyles;
+                @include bm.lineClamp(1);
+                margin: ef.get-value($themePromo, 'nameMarginWithImg');
+            }
+
+            &__description {
+                @include descriptionCommonStyles;
+                height: auto;
+            }
+
+            &__btns {
+                @include bm.transition(transform);
+
+                position: absolute;
+                bottom: ef.get-value($themePromo, 'btnBottomPositionWithImg');
+                display: flex;
+                justify-content: center;
+                width: 100%;
+                margin: ef.get-value($themePromo, 'btnsMarginWithImg');
+                transform: ef.get-value($themePromo, 'btnsTransformWithImg');
+                opacity: ef.get-value($themePromo, 'btnsOpacityWithImg');
+            }
+
+            &__image-block {
+                position: relative;
+            }
+
+            &__image {
+
+                &:before {
+                    display: none;
+                }
+            }
+
+            &__info-block {
+                padding: ef.get-value($themePromo, 'infoBlockPaddingWithImg');
+            }
+
+            &__info {
+                padding: ef.get-value($themePromo, 'infoPaddingWithImg');
+            }
+        }
+
+        @include bm.hover {
+            @include promoWithImageHover;
+        }
+
+        @include bm.hover(false) {
+            @include promoWithImageHover;
+        }
+    }
+
     @include bm.hover() {
         background: ef.get-value($themePromo, 'backgroundHover');
     }
