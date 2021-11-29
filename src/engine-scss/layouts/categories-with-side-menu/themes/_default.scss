@@ -1,0 +1,118 @@
+@use 'engine-scss/mixins/base.mixins' as bm;
+@use 'engine-scss/mixins/mediaqueries' as mq;
+@use 'engine-scss/mixins/text' as text;
+@use 'engine-scss/functions' as ef;
+
+.wlc-sections__categories-with-side-menu {
+
+    .container {
+        @include bm.get-mq-map('grid-template-columns', $gamesWithSideMenu, 'sectionGrid');
+        @include bm.get-mq-map('gap', $gamesWithSideMenu, 'sectionGap');
+        @include bm.get-mq-map('margin', $gamesWithSideMenu, 'sectionMargin');
+        display: grid;
+
+        .wlc-side-menu {
+            @include bm.get-mq-map('gap', $gamesWithSideMenu, 'menuGap');
+            display: grid;
+            grid-auto-rows: min-content;
+
+            .wlc-btn-search,
+            .wlc-btn-merch {
+                @include bm.get-mq-map('height', $gamesWithSideMenu, 'buttonSearchHeight');
+                @include text.get-text-style(ef.get-value($gamesWithSideMenu, 'buttonSearchTextStyle'));
+                @include bm.transition(background);
+                width: ef.get-value($gamesWithSideMenu, 'buttonSearchWidth');
+                padding: ef.get-value($gamesWithSideMenu, 'buttonSearchPadding');
+                background: ef.get-value($gamesWithSideMenu, 'buttonSearchBg');
+                border-radius: ef.get-value($gamesWithSideMenu, 'buttonSearchRadius');
+                cursor: pointer;
+
+                > span {
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    width: 100%;
+                    white-space: nowrap;
+                }
+
+                .wlc-icon {
+                    @include bm.transition(color);
+                    margin-left: map-get($gamesWithSideMenu, 'buttonSearchIconMargin');
+                    color: map-get($gamesWithSideMenu, 'buttonSearchIconFill');
+
+                    svg {
+                        fill: currentColor;
+                    }
+                }
+
+                @include bm.hover {
+                    @include bm.get-mq-map('background', $gamesWithSideMenu, 'buttonSearchBgHover');
+
+                    .wlc-icon {
+                        color: map-get($gamesWithSideMenu, 'buttonSearchIconFillHover');
+                    }
+                }
+            }
+
+            .wlc-title--categories-title[class] {
+
+                div.wlc-title {
+
+                    &__main {
+                        @include text.get-text-style(ef.get-value($gamesWithSideMenu, 'titleText'));
+                        margin: ef.get-value($gamesWithSideMenu, 'categoriesTitleMargin');
+                    }
+                }
+            }
+        }
+
+        .wlc-category-menu--type-dropdown.wlc-category-menu--theme-mod-vertical[class] {
+
+            .wlc-menu {
+
+                .wlc-menu__link {
+
+                    &.active {
+                        background: ef.get-value($gamesWithSideMenu, 'menuLinkBgActive');
+                    }
+
+                    @include bm.hover {
+                        background: ef.get-value($gamesWithSideMenu, 'menuLinkBgHover');
+                    }
+                }
+
+                .wlc-menu__submenu {
+
+                    .wlc-menu__link {
+                        justify-content: flex-start;
+
+                        &.active {
+                            background: ef.get-value($gamesWithSideMenu, 'menuLinkBgActive');
+                        }
+
+                        @include bm.hover {
+                            background: ef.get-value($gamesWithSideMenu, 'menuLinkBgHover');
+                        }
+                    }
+                }
+            }
+        }
+
+        .wlc-games-catalog {
+            @include bm.get-mq-map('gap', $gamesWithSideMenu, 'catalogGap');
+            display: grid;
+
+            .wlc-games-grid--theme-default[class] {
+
+                .wlc-games-grid__header[class] {
+                    height: ef.get-value($gamesWithSideMenu, 'catalogHeaderHeight');
+                    margin: ef.get-value($gamesWithSideMenu, 'catalogHeaderMargin');
+                }
+
+                .wlc-btn--theme-default {
+                    padding: ef.get-value($gamesWithSideMenu, 'thumbButtonPadding');
+                }
+            }
+        }
+    }
+}

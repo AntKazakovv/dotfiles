@@ -1,0 +1,48 @@
+@use 'engine-scss/functions' as ef;
+
+$customGamesWithSideMenu: () !default;
+$gamesWithSideMenu: map-merge((
+    'sectionGrid': (
+        900: 1fr 3fr,
+        1200: 1fr 4fr,
+        1630: 1fr 5fr
+    ),
+    'sectionGap': (
+        375: ef.size(4),
+    ),
+    'sectionMargin': (
+        375: 0 auto ef.size(8),
+        900: ef.size(4) auto ef.size(8),
+    ),
+    'buttonSearchHeight': ef.get('buttonSettings', 'heightDefault'),
+    'buttonSearchWidth': (
+        375: 100%,
+    ),
+    'buttonSearchPadding': (
+        375: ef.size(2),
+        1630: 0 ef.size(3),
+    ),
+    'buttonSearchRadius': ef.size(2),
+    'buttonSearchBg': var(--mc-bg700),
+    'buttonSearchBgHover': var(--mc-bg100),
+    'buttonSearchIconFill': var(--mc-main),
+    'buttonSearchIconFillHover': var(--mc-baseMain),
+    'buttonSearchColor': var(--mc-baseMain),
+    'buttonSearchIconMargin': ef.size(2),
+    'buttonSearchTextStyle': 'PrimaryText',
+    'titleText': 'ButtonText',
+    'menuLinkBgHover': var(--mc-bg100),
+    'menuLinkBgActive': var(--mc-bg100),
+    'menuGap': (
+        375: ef.size(4),
+        900: ef.size(2),
+    ),
+    'catalogHeaderHeight': ef.size(8),
+    'catalogHeaderMargin': 0 0 ef.size(2),
+    'categoriesTitleMargin': ef.size(2) ef.size(4),
+    'catalogGap': (
+        375: ef.size(6),
+        1630: ef.size(8),
+    ),
+    'thumbButtonPadding': ef.size(1),
+), $customGamesWithSideMenu);
