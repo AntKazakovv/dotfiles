@@ -5,13 +5,22 @@ import {
     Inject,
 } from '@angular/core';
 import {DOCUMENT} from '@angular/common';
-import {TranslateService} from '@ngx-translate/core';
-import {StateService, UIRouter} from '@uirouter/core';
+import {UIRouter} from '@uirouter/core';
+
+import _cloneDeep from 'lodash-es/cloneDeep';
+import _get from 'lodash-es/get';
+import _intersection from 'lodash-es/intersection';
+import _merge from 'lodash-es/merge';
+
 import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
 import {
+    consoleLogProdCookie,
+    defaultConsoleLogLevels,
+    defaultLogLevel,
+    defaultLogMethods,
+    ILogType,
     logTypes,
     TLogMethods,
-    ILogType,
 } from 'wlc-engine/shared-lib/log-types';
 import {
     IIndexing,
@@ -19,11 +28,6 @@ import {
 import {IFlogData, WlcFlog} from 'wlc-engine/system/inline/_flog';
 import {IData} from 'wlc-engine/modules/core/system/services/data/data.service';
 import {WINDOW} from 'wlc-engine/modules/app/system';
-
-import _get from 'lodash-es/get';
-import _cloneDeep from 'lodash-es/cloneDeep';
-import _merge from 'lodash-es/merge';
-import _intersection from 'lodash-es/intersection';
 
 export interface IFromLog {
     service?: string;
@@ -46,17 +50,19 @@ export interface ILogObj<T = any> extends ILogType {
     from?: IFromLog;
 }
 
-interface IWaitElementParams {
+export interface IWaitElementParams {
     selector: string;
     logObj: ILogObj;
     minHeight?: number;
     timeout?: number;
 }
 
-interface IDurationWaiter {
+export interface IDurationWaiter {
     cancel: () => void;
     resolve: () => void;
 }
+
+export type TWaiter = (v?: unknown) => void;
 
 interface IRequestLog {
     coreLog: ILogObj;
@@ -71,8 +77,6 @@ export class LogService {
 
     constructor(
         private configService: ConfigService,
-        private translateService: TranslateService,
-        private stateService: StateService,
         private router: UIRouter,
         @Inject(DOCUMENT) private document: Document,
         @Inject(WINDOW) private window: Window,
@@ -110,13 +114,14 @@ export class LogService {
                 resolveFunc = resolve;
                 rejectFunc = reject;
             }).then(() => {
+                clearTimeout(timeoutHandler);
                 if (!log.data) {
                     log.data = {};
                 }
                 log.data.duration = (Date.now() - startTime) / 1000;
                 this.sendLog(log);
             }, () => {
-                clearInterval(timeoutHandler);
+                clearTimeout(timeoutHandler);
                 this.window.removeEventListener('onbeforeunload', waiter.resolve);
                 this.window.removeEventListener('pagehide', waiter.resolve);
             });
@@ -133,16 +138,16 @@ export class LogService {
     }
 
     /**
-     * Set waiter, wich will send log after timeout
+     * Set waiter, which will send log after timeout
      *
      * @param {ILogObj} log Log info
      * @param {number} timeout Timeout in milliseconds
      * @returns {() => void} Handler to prevent send log
      */
-    public waiter(log: ILogObj, timeout: number = 3000): (v?: unknown) => void {
+    public waiter(log: ILogObj, timeout: number = 3000): TWaiter {
         const start = () => {
             // eslint-disable-next-line @typescript-eslint/no-unused-vars
-            let res = (v?: unknown): void => {
+            let res: TWaiter = (v?: unknown): void => {
             };
             new Promise((resolve, reject) => {
                 res = resolve;
@@ -167,12 +172,10 @@ export class LogService {
     public waitForElement(params: IWaitElementParams): () => void {
         const timeoutHandler = setTimeout(() => {
             const element = this.document.querySelector(params.selector);
-            if (!element) {
+            if (!element ||
+                (params.minHeight && params.minHeight > element.getBoundingClientRect().height)
+            ) {
                 this.sendLog(params.logObj);
-            } else {
-                if (params.minHeight && element.getBoundingClientRect().height <= params.minHeight) {
-                    this.sendLog(params.logObj);
-                }
             }
         }, params.timeout || 5000);
 
@@ -202,32 +205,28 @@ export class LogService {
         }
 
         const isMethod = (item: TLogMethods): boolean => {
-            return !!_intersection(defaultLog.method, [item, 'all']).length;
+            return !!_intersection(resultLog.method, [item, 'all']).length;
         };
 
-        _merge(logObj, defaultLog);
-        logObj.level = logObj.level || 'log';
+        const resultLog: ILogObj = _cloneDeep(logObj);
 
-        if (
-            this.Flog.enabled
-            && (
-                !defaultLog.method // Using Flog as a default log method
-                || isMethod('flog')
-            )
-        ) {
-            this.sendFlog(logObj);
+        _merge(resultLog, defaultLog);
+        resultLog.level = resultLog.level || defaultLogLevel;
+        resultLog.method = resultLog.method || defaultLogMethods;
+
+        if (this.Flog.enabled && isMethod('flog')) {
+            this.sendFlog(resultLog);
         }
         if (
             isMethod('console')
-            || (['error', 'fatal'].includes(defaultLog.level)
+            || (defaultConsoleLogLevels.includes(resultLog.level)
                 && (
                     this.window['WLC_ENV']
-                    || (!this.window['WLC_ENV'] && this.document.cookie.indexOf('flog=') !== -1)
+                    || (!this.window['WLC_ENV'] && this.document.cookie.includes(consoleLogProdCookie))
                 )
             )
         ) {
-            // eslint-disable-next-line no-console
-            console.error(`${logObj.code} ${logObj.level}:`, logObj);
+            console.error(`${resultLog.code} ${resultLog.level}:`, resultLog);
         }
     }
 
@@ -248,27 +247,27 @@ export class LogService {
     }
 
     protected sendFlog(logObj: ILogObj): void {
-        const _logObj: ILogObj = _cloneDeep(logObj);
-        _logObj.flog = _logObj.flog || {};
-        _logObj.flog.mobile = this.configService.get<boolean>('appConfig.mobile');
+        const resultLog: ILogObj = _cloneDeep(logObj);
+        resultLog.flog = resultLog.flog || {};
+        resultLog.flog.mobile = this.configService.get<boolean>('appConfig.mobile');
 
-        switch (_get(_logObj, 'durationType')) {
+        switch (_get(resultLog, 'durationType')) {
             case 'fromStart':
-                _logObj.flog.duration = (new Date().getTime() - this.Flog.startTime.getTime()) / 1000;
+                resultLog.flog.duration = (new Date().getTime() - this.Flog.startTime.getTime()) / 1000;
                 break;
             default:
                 break;
         }
         const flogData: IFlogData = {
-            code: _logObj.code,
-            level: _logObj.level,
-            ..._get(_logObj, 'flog'),
+            code: resultLog.code,
+            level: resultLog.level,
+            ..._get(resultLog, 'flog'),
         };
-        if (logObj.from) {
-            flogData.from = logObj.from;
+        if (resultLog.from) {
+            flogData.from = resultLog.from;
         }
-        if (logObj.data?.duration && !logObj.flog?.duration) {
-            flogData.duration = logObj.data.duration;
+        if (resultLog.data?.duration && !resultLog.flog?.duration) {
+            flogData.duration = resultLog.data.duration;
         }
         this.Flog.send(flogData).finally();
     }

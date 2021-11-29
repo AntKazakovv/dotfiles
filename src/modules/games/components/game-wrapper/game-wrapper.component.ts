@@ -68,6 +68,7 @@ import {
     SeoService,
     InjectionService,
     AppType,
+    TWaiter,
 } from 'wlc-engine/modules/core';
 import {MerchantWalletService} from 'wlc-engine/modules/games/system/services/merchant-wallet/merchant-wallet.service';
 import {
@@ -685,7 +686,7 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
      * @returns {Promise<void>}
      */
     protected async getLaunchParams(): Promise<void> {
-        const waiter = this.logService.waiter({code: '3.0.3'});
+        const waiter: TWaiter = this.logService.waiter({code: '3.0.3'});
         try {
             const launchInfo: ILaunchInfo = await this.gamesCatalogService.getLaunchParams(this.gameParams);
 
@@ -765,7 +766,7 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
         let tryLoadIteration: number = 1,
             errorOccured: boolean = false;
 
-        const waiter = this.logService.waiter({code: '3.0.10', data: {game: this.game}}),
+        const waiter: TWaiter = this.logService.waiter({code: '3.0.10', data: {game: this.game}}),
             iframe: HTMLIFrameElement = this.document.createElement('iframe'),
             html: string = this.gameHtml;
 

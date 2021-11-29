@@ -22,7 +22,10 @@ import _isEmpty from 'lodash-es/isEmpty';
 
 import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
 import {EventService} from 'wlc-engine/modules/core/system/services/event/event.service';
-import {LogService} from 'wlc-engine/modules/core/system/services/log/log.service';
+import {
+    LogService,
+    TWaiter,
+} from 'wlc-engine/modules/core/system/services/log/log.service';
 import {ModalService} from 'wlc-engine/modules/core/system/services/modal/modal.service';
 import {IPushMessageParams} from 'wlc-engine/modules/core/system/services/notification/notification.interface';
 import {NotificationEvents} from 'wlc-engine/modules/core/system/services/notification/notification.service';
@@ -140,7 +143,7 @@ class StartGameHandler {
     }
 
     private async init(): Promise<void> {
-        const waiter = this.logService.waiter({code: '3.0.11'}, 7000);
+        const waiter: TWaiter = this.logService.waiter({code: '3.0.11'}, 7000);
 
         await this.configService.ready;
         this.gamesCatalogService = await this.injectionService
