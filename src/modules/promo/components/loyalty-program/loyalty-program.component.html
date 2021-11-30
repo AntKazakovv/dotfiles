@@ -1,5 +1,5 @@
 <div *ngIf="ready; else preloader" class="{{$class}}__wrapper">
-    <div class="{{$class}}__title">{{'Loyalty Program' | translate}}</div>
+    <div class="{{$class}}__title">{{$params.title | translate}}</div>
     <div class="{{$class}}__container">
         <div class="{{$class}}__container-decor">
             <div class="{{$class}}__decor-left"
