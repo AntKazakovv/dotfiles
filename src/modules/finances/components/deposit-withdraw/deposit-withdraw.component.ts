@@ -854,7 +854,7 @@ export class DepositWithdrawComponent extends AbstractComponent implements OnIni
                             },
                             control: new FormControl(''),
                             validators: _concat(validators,
-                                ...FinancesHelper.getSpecialValidators(key, this.currentSystem.alias)),
+                                ...FinancesHelper.getSpecialValidators(key)),
                             customMod: ['additional'],
                         },
                     };
