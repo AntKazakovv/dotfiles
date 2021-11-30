@@ -1,6 +1,15 @@
 @use 'engine-scss/functions' as ef;
 $customThemeDefault: () !default;
 $themeDefault: map-merge((
+    'btnBlockPadding': (
+        375: 0 0 ef.size(14),
+        1024: 0,
+    ),
+    'btnBlockPaddingFirst': (
+        375: 0 0 ef.size(14),
+        1200: 0,
+    ),
+    'actionBtnPadding': 0 0 ef.size(2),
     'moreIconSize': 18px,
     'moreIconMargin': 0 0 0 ef.size(1),
     'moreIconColor': var(--mc-baseOpacity),
