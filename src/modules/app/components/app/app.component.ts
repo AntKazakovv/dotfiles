@@ -267,7 +267,7 @@ export class AppComponent extends AbstractComponent implements OnInit, OnDestroy
             && _includes(current, 'width=device-width, initial-scale=1')) {
             this.meta.updateTag({
                 name: 'viewport',
-                content: this.isIOS ? 'width=375, maximum-scale=1' : 'width=375',
+                content: this.isIOS ? 'width=375, initial-scale=1, maximum-scale=1' : 'width=375',
             });
             return;
         } else {
@@ -293,7 +293,7 @@ export class AppComponent extends AbstractComponent implements OnInit, OnDestroy
             if (window.matchMedia('(max-width: 375px)').matches) {
                 this.meta.updateTag({
                     name: 'viewport',
-                    content: this.isIOS ? 'width=375, maximum-scale=1' : 'width=375',
+                    content: this.isIOS ? 'width=375, initial-scale=1, maximum-scale=1' : 'width=375',
                 });
             }
             setTimeout(() => {
