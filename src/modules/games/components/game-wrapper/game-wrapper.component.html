@@ -20,13 +20,13 @@
                  [class.active]="game?.isFavourite"
                  iconPath="/wlc/icons/favourite.svg"
                  wlcElement="button_favourite"
-                 (click)="toggleFavouriteBtn($event)">
+                 (click)="toggleFavouriteBtn()">
             </div>
             <div wlc-icon
                  class="icon-btn"
                  iconPath="/wlc/icons/fullscreen.svg"
                  wlcElement="button_fullscreen"
-                 (click)="openOnFullscreen($event)">
+                 (click)="openOnFullscreen()">
             </div>
             <ng-container [ngTemplateOutlet]="buttonClose"></ng-container>
         </div>

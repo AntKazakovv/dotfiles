@@ -11,7 +11,7 @@
                   placeholder="{{$params.exampleValue || $params.common.placeholder | translate}}"
                   [formControl]="control"
                   (input)="onInput($event)"
-                  (blur)="onBlur($event)">
+                  (blur)="onBlur()">
         </textarea>
         <div *ngIf="$params.name"
              wlc-form-control
@@ -30,7 +30,7 @@
               [attr.id]="$params.id || $params.name"
               [formControl]="control"
               (input)="onInput($event)"
-              (blur)="onBlur($event)">
+              (blur)="onBlur()">
     </textarea>
     <label class="{{$class}}__label" [attr.for]="$params.id || $params.name">
         {{$params.common.placeholder | translate}}

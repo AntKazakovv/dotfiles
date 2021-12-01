@@ -11,7 +11,7 @@
                [attr.autocomplete]="$params.common?.autocomplete"
                [formControl]="control"
                (input)="onInput($event)"
-               (blur)="onBlur($event)"
+               (blur)="onBlur()"
         >
         <ng-container
             *ngIf="$params.common?.usePasswordVisibilityBtn"
@@ -41,7 +41,7 @@
            [attr.autocomplete]="$params.common?.autocomplete"
            class="{{$class}}__input"
            (input)="onInput($event)"
-           (blur)="onBlur($event)"
+           (blur)="onBlur()"
     >
     <ng-container [ngTemplateOutlet]="label"></ng-container>
     <ng-container [ngTemplateOutlet]="status"></ng-container>
@@ -67,7 +67,7 @@
             class="{{$class}}__input"
             [ngClass]="setInputModifiers"
             (input)="onInput($event)"
-            (blur)="onBlur($event)"
+            (blur)="onBlur()"
         >
         <ng-container
             *ngIf="$params.common?.usePasswordVisibilityBtn"
