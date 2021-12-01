@@ -100,10 +100,11 @@ export namespace FormElements {
             common: {
                 placeholder: gettext('First name'),
             },
-            prohibitedPattern: /[\d!"#$%&()*+,./:;<=>?@[\\\]^_{|}~¡¿÷ˆ№]/g,
+            prohibitedPattern: /[\d!"#$%&'()*+,.\/:;<=>?@[\\\]^_`{|}~¡¿÷ˆ№]/g,
             name: 'firstName',
             validators: [
                 'required',
+                'allowLettersOnly',
                 {
                     name: 'maxLength',
                     options: 25,
@@ -122,10 +123,11 @@ export namespace FormElements {
             common: {
                 placeholder: gettext('Last name'),
             },
-            prohibitedPattern: /[\d!"#$%&()*+,./:;<=>?@[\\\]^_{|}~¡¿÷ˆ№]/g,
+            prohibitedPattern: /[\d!"#$%&'()*+,.\/:;<=>?@[\\\]^_`{|}~¡¿÷ˆ№]/g,
             name: 'lastName',
             validators: [
                 'required',
+                'allowLettersOnly',
                 {
                     name: 'maxLength',
                     options: 25,

@@ -23,28 +23,40 @@ import {
     TransitionService,
     UIRouterGlobals,
 } from '@uirouter/core';
-import {BehaviorSubject} from 'rxjs';
-import {takeWhile} from 'rxjs/operators';
-
 import {
-    EventService,
-    LayoutService,
+    BehaviorSubject,
+    Observable,
+} from 'rxjs';
+import {
+    takeUntil,
+    takeWhile,
+    filter,
+} from 'rxjs/operators';
+
+import {InjectionService} from 'wlc-engine/modules/core/system/services/injection/injection.service';
+import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
+import {LayoutService} from 'wlc-engine/modules/core/system/services/layout/layout.service';
+import {EventService} from 'wlc-engine/modules/core/system/services/event/event.service';
+import {
     ValidationService,
-    ConfigService,
-    WrapperComponent,
-    IWrapperCParams,
-    IValidatorListItem,
-    IValidatorSettings,
     ValidatorType,
-    IInputCParams,
-    ITextareaCParams,
-    ISelectCParams,
-    IButtonCParams,
-    IIndexing,
-    IPushMessageParams,
+    IValidatorSettings,
+    IValidatorListItem,
+} from 'wlc-engine/modules/core/system/services/validation/validation.service';
+import {
     NotificationEvents,
-    InjectionService,
-} from 'wlc-engine/modules/core';
+    IPushMessageParams,
+} from 'wlc-engine/modules/core/system/services/notification';
+import {IIndexing} from 'wlc-engine/modules/core/system/interfaces/global.interface';
+import {IButtonCParams} from 'wlc-engine/modules/core/components/button/button.params';
+import {ISelectCParams} from 'wlc-engine/modules/core/components/select/select.params';
+import {ITextareaCParams} from 'wlc-engine/modules/core/components/textarea/textarea.params';
+import {IInputCParams} from 'wlc-engine/modules/core/components/input/input.params';
+import {
+    IWrapperCParams,
+    WrapperComponent,
+} from 'wlc-engine/modules/core/components/wrapper/wrapper.component';
+
 
 import _assign from 'lodash-es/assign';
 import _each from 'lodash-es/each';
@@ -57,6 +69,7 @@ import _clone from 'lodash-es/clone';
 import _isUndefined from 'lodash-es/isUndefined';
 import _isArray from 'lodash-es/isArray';
 import _set from 'lodash-es/set';
+import _keys from 'lodash-es/keys';
 
 export interface IControls extends IIndexing<FormControl> {
 }
@@ -90,6 +103,7 @@ export class FormWrapperComponent extends WrapperComponent implements OnInit, On
     @Input() private beforeSubmit: (form: FormGroup) => boolean;
     @Input() private config: IFormWrapperCParams;
     @Input() private formData: BehaviorSubject<IIndexing<any>>;
+    @Input() private errors: Observable<IIndexing<string>>;
 
     @Output() public form$ = new EventEmitter<FormGroup>();
 
@@ -102,6 +116,7 @@ export class FormWrapperComponent extends WrapperComponent implements OnInit, On
     private listErrors: IIndexing<IIndexing<string>> = {};
 
     private locked: string[] = [];
+    private initiated: boolean;
 
     constructor(
         @Inject('injectParams') protected params: IFormWrapperCParams,
@@ -134,6 +149,16 @@ export class FormWrapperComponent extends WrapperComponent implements OnInit, On
         this.initForm();
         this.collectionErrors(this.config.components);
         super.ngOnInit();
+
+        if (!this.initiated) {
+            this.initiated = true;
+            this.errors?.pipe(
+                takeUntil(this.$destroy),
+                filter(v => !!v),
+            ).subscribe((data: IIndexing<string>): void => {
+                this.setErrors(data);
+            });
+        }
     }
 
     public ngOnChanges(changes: SimpleChanges): void {
@@ -440,5 +465,16 @@ export class FormWrapperComponent extends WrapperComponent implements OnInit, On
             return changeValidator;
         }
         return this.validationService.getValidator(validatorSettings);
+    }
+
+    private setErrors(errors: IIndexing<string>): void {
+        _each(_keys(errors), (key: string): void => {
+            const control: FormControl = this.controls[key];
+            if (control) {
+                control.setErrors({
+                    incomingError: errors[key],
+                });
+            }
+        });
     }
 }

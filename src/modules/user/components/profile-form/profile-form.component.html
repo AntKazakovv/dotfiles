@@ -3,6 +3,7 @@
      [config]="$params.config"
      [formData]="userProfile"
      [ngSubmit]="ngSubmit.bind(this)"
+     [errors]="errors$.asObservable()"
 ></div>
 
 <div class="{{$class}}__add" *ngIf="$params.additionalBlocks">

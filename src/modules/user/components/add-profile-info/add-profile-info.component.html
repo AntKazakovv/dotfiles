@@ -6,6 +6,6 @@
      wlc-form-wrapper
      [ngSubmit]="onSubmit.bind(this)"
      [formData]="$params.formData"
-     [config]="$params.formConfig">
+     [config]="$params.formConfig"
+     [errors]="errors$.asObservable()">
 </div>
-

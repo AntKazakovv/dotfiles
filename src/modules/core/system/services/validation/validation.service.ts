@@ -89,7 +89,9 @@ export class ValidationService {
             validator: Validators.pattern,
         },
         allowLettersOnly: {
-            validator: Validators.pattern(/[^\d!"#$%&()*+,./:;<=>?@[\\\]^_{|}~¡¿÷ˆ№]/g),
+            validator: Validators.pattern(/^(?!.*--)/.source
+                + /[^\d!"#$%&'()*+,.\/:;<=>?@[\\\]^_`{|}~¡¿÷ˆ№-]+/.source
+                + /[^\d!"#$%&'()*+,.\/:;<=>?@[\\\]^_`{|}~¡¿÷ˆ№]*$/.source),
         },
     };
 

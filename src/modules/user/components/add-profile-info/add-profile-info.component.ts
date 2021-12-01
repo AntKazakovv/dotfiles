@@ -1,3 +1,4 @@
+import {BehaviorSubject} from 'rxjs';
 import {
     Component,
     OnInit,
@@ -15,6 +16,7 @@ import {
     ModalService,
     IPushMessageParams,
     NotificationEvents,
+    IIndexing,
 } from 'wlc-engine/modules/core';
 import {UserService} from 'wlc-engine/modules/user/system/services';
 
@@ -33,6 +35,7 @@ export class AddProfileInfoComponent extends AbstractComponent implements OnInit
     @Input() protected inlineParams: Params.IAddProfileInfoCParams;
 
     public $params: Params.IAddProfileInfoCParams;
+    public errors$: BehaviorSubject<IIndexing<string>> = new BehaviorSubject(null);
     protected isPending: boolean = false;
 
     constructor(
@@ -79,6 +82,7 @@ export class AddProfileInfoComponent extends AbstractComponent implements OnInit
                 _each(result.errors, (error) => {
                     messages.push(error);
                 });
+                this.errors$.next(result.errors as IIndexing<string>);
             }
 
             this.modalService.hideModal('data-is-processing');

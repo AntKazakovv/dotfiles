@@ -5,8 +5,13 @@ import {
     Input,
     ChangeDetectorRef,
 } from '@angular/core';
-import {FormControl, FormGroup} from '@angular/forms';
+import {
+    FormControl,
+    FormGroup,
+} from '@angular/forms';
 import {takeUntil} from 'rxjs/operators';
+import {BehaviorSubject} from 'rxjs';
+
 import {
     AbstractComponent,
     ConfigService,
@@ -14,19 +19,20 @@ import {
     ModalService,
     ValidatorType,
     ICheckboxCParams,
+    IIndexing,
+    IPushMessageParams,
+    NotificationEvents,
 } from 'wlc-engine/modules/core';
 import {UserService} from 'wlc-engine/modules/user/system/services';
-import {IPushMessageParams, NotificationEvents} from 'wlc-engine/modules/core/system/services/notification';
 import {FormElements} from 'wlc-engine/modules/core/system/config/form-elements';
-import {IFormComponent} from 'wlc-engine/modules/core/components/form-wrapper/form-wrapper.component';
 import {
     IAddProfileInfoCParams,
 } from 'wlc-engine/modules/user/components/add-profile-info/';
 
 import * as Params from './profile-form.params';
 
-import _find from 'lodash-es/find';
 import _assign from 'lodash-es/assign';
+import _isObject from 'lodash-es/isObject';
 
 /**
  * Profile form component.
@@ -57,6 +63,7 @@ export class ProfileFormComponent extends AbstractComponent implements OnInit {
             this.notificationToggle(checked);
         },
     };
+    public errors$: BehaviorSubject<IIndexing<string>> = new BehaviorSubject(null);
 
     constructor(
         @Inject('injectParams') protected params: Params.IProfileFormCParams,
@@ -132,12 +139,10 @@ export class ProfileFormComponent extends AbstractComponent implements OnInit {
                 },
             });
 
-            if (result.errors.currentPassword) {
-                const currentPassword: IFormComponent = _find(this.$params.config.components, component => {
-                    return component.params.name === 'currentPassword';
-                });
-                currentPassword.params.control.setErrors({currentPassword: true});
+            if (_isObject(result.errors)) {
+                this.errors$.next(result.errors as IIndexing<string>);
             }
+
             return false;
         }
     }

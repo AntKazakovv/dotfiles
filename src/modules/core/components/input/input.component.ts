@@ -12,7 +12,11 @@ import {
 } from '@angular/core';
 import {FormControl} from '@angular/forms';
 import {fromEvent} from 'rxjs';
-import {take, takeUntil} from 'rxjs/operators';
+import {
+    distinctUntilChanged,
+    take,
+    takeUntil,
+} from 'rxjs/operators';
 
 import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
 import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
@@ -28,6 +32,7 @@ import * as Params from './input.params';
 import _kebabCase from 'lodash-es/kebabCase';
 import _clone from 'lodash-es/clone';
 import _union from 'lodash-es/union';
+import _isString from 'lodash-es/isString';
 
 /**
  * Component input
@@ -87,6 +92,27 @@ export class InputComponent extends AbstractComponent implements OnInit, OnChang
                 .subscribe(() => {
                     this.$params.common.readonly = false;
                     this.cdr.markForCheck();
+                });
+        }
+
+        if (this.control
+            && !this.$params.disabled
+            && !this.$params.clipboard
+            && !this.$params.common.readonly) {
+            this.control.valueChanges
+                .pipe(takeUntil(this.$destroy), distinctUntilChanged())
+                .subscribe((value: unknown): void => {
+                    if (_isString(value)) {
+                        let clearValue: string = value.trimStart().replace(/\s\s+/g, ' ');
+
+                        if (this.$params.prohibitedPattern && this.$params.prohibitedPattern.test(value)) {
+                            clearValue = value.replace(this.$params.prohibitedPattern, '');
+                        }
+
+                        if (clearValue !== value) {
+                            this.control.setValue(clearValue);
+                        }
+                    }
                 });
         }
     }
@@ -149,15 +175,8 @@ export class InputComponent extends AbstractComponent implements OnInit, OnChang
      * If params contains `prohibitedPattern` regular expression, prohibited symbols will be replaced
      */
     public onInput(event: Event): void {
-        this.control.markAsTouched();
-        if (!(this.$params.prohibitedPattern && this.control)) {
-            return;
-        }
-
-        let value = this.control.value;
-        if (this.$params.prohibitedPattern.test((event.target as HTMLInputElement).value)) {
-            value = value.replace(this.$params.prohibitedPattern, '');
-            this.control.patchValue(value, {emitEvent: false, emitModelToViewChange: true});
+        if (this.control.untouched) {
+            this.control.markAsTouched();
         }
     }
 

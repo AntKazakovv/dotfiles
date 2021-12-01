@@ -31,6 +31,7 @@ import _some from 'lodash-es/some';
 import _filter from 'lodash-es/filter';
 import _merge from 'lodash-es/merge';
 import _cloneDeep from 'lodash-es/cloneDeep';
+import _isObject from 'lodash-es/isObject';
 
 export interface IRegFormDataForConfig {
     form: IValidateData;
@@ -58,6 +59,7 @@ export class SignUpFormComponent extends UserActionsAbstract<Params.ISignUpFormC
     public $params: Params.ISignUpFormCParams;
     public formData: BehaviorSubject<IIndexing<unknown>>;
     public isMGALicense: boolean = !!this.configService.get<IMGAConfig>('$modules.core.components["wlc-license"].mga');
+    public errors$: BehaviorSubject<IIndexing<string>> = new BehaviorSubject(null);
     @HostBinding('class.mga-license') useMGAClass: boolean = this.isMGALicense;
 
     constructor(
@@ -139,6 +141,9 @@ export class SignUpFormComponent extends UserActionsAbstract<Params.ISignUpFormC
             await this.finishUserReg(regData.data);
         } catch (error) {
             this.showRegError(error);
+            if (_isObject(error.errors)) {
+                this.errors$.next(error.errors);
+            }
         } finally {
             form.enable();
         }

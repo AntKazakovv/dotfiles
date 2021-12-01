@@ -9,13 +9,19 @@ import {
     ViewEncapsulation,
 } from '@angular/core';
 import {FormControl} from '@angular/forms';
-import {takeUntil} from 'rxjs/operators';
+import {
+    takeUntil,
+    distinctUntilChanged,
+} from 'rxjs/operators';
 import {Subject} from 'rxjs';
 import {TranslateService} from '@ngx-translate/core';
-import {ValidatorType} from 'wlc-engine/modules/core';
+
+import {ValidatorType} from 'wlc-engine/modules/core/system/services/validation/validation.service';
 
 import _isObject from 'lodash-es/isObject';
 import _find from 'lodash-es/find';
+import _keys from 'lodash-es/keys';
+import _map from 'lodash-es/map';
 
 @Component({
     selector: '[wlc-form-control]',
@@ -46,7 +52,10 @@ export class FormControlComponent implements OnInit, OnDestroy {
             return;
         }
         this.errors = this.getErrors();
-        this.control.statusChanges.pipe(takeUntil(this.ngUnsubscribe)).subscribe(() => {
+        this.control.statusChanges.pipe(
+            takeUntil(this.ngUnsubscribe),
+            distinctUntilChanged(),
+        ).subscribe(() => {
             this.errors = this.getErrors();
             this.cdr.markForCheck();
         });
@@ -58,15 +67,18 @@ export class FormControlComponent implements OnInit, OnDestroy {
     }
 
     protected getErrors(): string[] {
+        return _map(_keys(this.control.errors), (item: string): string => {
+            if (item === 'incomingError') {
+                return this.control.errors[item];
+            }
 
-        return Object.keys(this.control?.errors || {}).map((item) => {
             const key = 'validator-' + this.fieldName + '-' + item;
 
             const validator = _find(this.validators, (validator) => {
                 return (_isObject(validator) ? validator['name'] : validator).toLowerCase() === item.toLowerCase();
             });
 
-            if (_isObject(validator) && validator?.text) {
+            if (_isObject(validator) && validator.text) {
                 return gettext(validator.text);
             } else if (this.translate.instant(key) !== key) {
                 return key;
