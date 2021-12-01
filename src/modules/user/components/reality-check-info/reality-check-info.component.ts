@@ -45,8 +45,7 @@ export class RealityCheckInfoComponent extends AbstractComponent implements OnIn
 
     public async ngOnInit(): Promise<void> {
         super.ngOnInit(this.inlineParams);
-        this.playTime = DateTime
-            .fromFormat(this.$params.FromTime, 'yyyy-LL-dd HH:mm:ss').diffNow().toFormat('hh:mm:ss');
+        this.playTime = DateTime.fromJSDate(new Date(this.$params.FromTime + ' UTC')).toFormat('yyyy-LL-dd HH:mm:ss');
     }
 
     public close(): void {

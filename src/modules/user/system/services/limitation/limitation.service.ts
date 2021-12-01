@@ -78,7 +78,7 @@ export class LimitationService {
             });
 
             if (!this.loginTime || force) {
-                this.loginTime = DateTime.now().toMillis();
+                this.loginTime = DateTime.now().toUTC().toMillis();
                 this.configService.set({
                     name: 'realityCheckerTime',
                     value: this.loginTime,
@@ -130,7 +130,7 @@ export class LimitationService {
     public async getRealityCheck(from: number): Promise<IRealityCheckerResult> {
         try {
             const result = await this.dataService.request<IData>('limit/realityCheck', {
-                from: DateTime.fromMillis(from).toFormat('yyyy-LL-dd HH:mm:ss'),
+                from: DateTime.fromMillis(from).toUTC().toFormat('yyyy-LL-dd HH:mm:ss'),
             });
             return result.data;
         } catch (error) {
@@ -254,11 +254,19 @@ export class LimitationService {
                 },
                 closeBtnVisibility: true,
                 showFooter: false,
-                onModalHide: () => {
-                    this.eventService.emit({name: 'USER_STATUS_DISABLE'});
-                },
                 onModalHidden: () => {
                     if (!this.intervalChecker && this.configService.get<boolean>('$user.isAuthenticated')) {
+                        this.configService.set<number>({
+                            name: 'realityLastCheckTime',
+                            storageType: 'sessionStorage',
+                            value: null,
+                        });
+                        this.configService.set<number>({
+                            name: 'realityCheckerTime',
+                            storageType: 'sessionStorage',
+                            value: null,
+                        });
+                        this.loginTime = DateTime.now().toMillis();
                         this.intervalChecker = timer(60000, 60000).subscribe(() => {
                             this.processRealityCheck();
                         });

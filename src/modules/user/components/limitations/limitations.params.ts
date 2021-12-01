@@ -67,7 +67,7 @@ export const limitType = {
         validators: ['required'],
         items: [
             {
-                title: gettext('Depostit Limit'),
+                title: gettext('Deposit Limit'),
                 value: 'MaxDepositSum',
             },
             {
@@ -99,14 +99,14 @@ export const limitAmount = {
         common: {
             placeholder: gettext('Amount'),
             customModifiers: 'right-shift',
-            type: 'number',
+            type: 'text',
         },
         wlcElement: 'limit_amount',
         validators: [
             'required',
         ],
         maskOptions: {
-            mask: /^\d+$/,
+            mask: /^(0|[1-9]+\d*)$/g,
             overwrite: true,
         },
     },
@@ -165,7 +165,7 @@ export const realityCheckerPeriod = {
                 value: '30',
             },
             {
-                title: gettext('60 Minutes'),
+                title: gettext('1 Hour'),
                 value: '60',
             },
             {

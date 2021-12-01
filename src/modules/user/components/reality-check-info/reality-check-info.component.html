@@ -1,7 +1,12 @@
 <div class="{{$class}}-title">{{'A kind reminder' | translate}}</div>
 <div class="{{$class}}-time">
-    <div wlc-timer [value]="$params.FromTime" [text]="'Play time' | translate" [countUp]="true" [noDays]="true"
-        [themeMod]="'play-time'"></div>
+    <div wlc-timer
+        [value]="playTime"
+        [text]="'Play time' | translate"
+        [countUp]="true"
+        [noDays]="true"
+        [themeMod]="'play-time'">
+    </div>
 </div>
 
 <div class="{{$class}}-result">
