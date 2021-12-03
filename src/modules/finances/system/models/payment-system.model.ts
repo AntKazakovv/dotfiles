@@ -287,7 +287,7 @@ export class PaymentSystem extends AbstractModel<IPaymentSystem> {
     }
 
     public get message(): string | IIndexing<string> | IPaymentMessage {
-        return this.data.message;
+        return this.data.message || '';
     }
 
     public set message(data: string | IIndexing<string> | IPaymentMessage) {
@@ -408,7 +408,7 @@ export class PaymentSystem extends AbstractModel<IPaymentSystem> {
     private init(data: IPaymentSystem): void {
         this.data = data;
 
-        if (this.data.hostedFields.fields?.length) {
+        if (this.data.hostedFields?.fields?.length) {
             this.isHosted = true;
             this.importPackage();
         }
