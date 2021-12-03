@@ -6,6 +6,7 @@ export const profileConfig: IProfileConfig = {
     },
     smsVerification: {
         use: false,
+        useInProfile: false,
     },
     verification: {
         use: true,

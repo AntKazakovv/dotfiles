@@ -62,7 +62,7 @@ export class PhoneFieldComponent extends AbstractComponent implements OnInit {
         this.provideParams();
 
         this.profileType = this.configService.get<ProfileType>('$base.profile.type');
-        this.smsVerification = this.configService.get<boolean>('$base.profile.smsVerification.use');
+        this.smsVerification = this.configService.get<boolean>('$base.profile.smsVerification.useInProfile');
 
         const tempPhoneCode = this.configService.get('phoneCode');
         const tempPhoneNumber = this.configService.get('phoneNumber');

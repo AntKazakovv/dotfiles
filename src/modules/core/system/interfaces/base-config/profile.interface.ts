@@ -3,7 +3,14 @@ export interface IProfileConfig {
         use: boolean;
     },
     smsVerification?: {
-        use: boolean,
+        /**
+         * Use sms verification in registration
+         */
+        use?: boolean,
+        /**
+         * Use sms verification in profile
+         */
+        useInProfile?: boolean;
     },
     verification?: IVerification,
     limitations?: {
