@@ -222,6 +222,24 @@
             }
         }
     }
+
+    &.wlc-select--with-icon {
+
+        .wlc-select__dropdown {
+
+            &-item {
+
+                img {
+                    min-width: ef.get-value($baseSettings, 'countryIconWidth');
+                    height: ef.get-value($baseSettings, 'countryIconHeight');
+                    margin: ef.get-value($baseSettings, 'countryIconMargin');
+
+                    border: ef.get-value($baseSettings, 'countryIconBorder');
+                    box-shadow: ef.get-value($baseSettings, 'countryIconShadow');
+                }
+            }
+        }
+    }
 }
 
 

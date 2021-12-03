@@ -2,16 +2,16 @@ import {TestBed} from '@angular/core/testing';
 import {BehaviorSubject} from 'rxjs';
 import {DateTime} from 'luxon';
 import {
-    ConfigService, 
-    ICountry, 
-    IIndexing, 
-    InjectionService, 
-    ISelectOptions, 
+    ConfigService,
+    ICountry,
+    IIndexing,
+    InjectionService,
+    ISelectOptions,
     SelectValuesService,
 } from 'wlc-engine/modules/core';
 import {ICurrency} from 'wlc-engine/modules/finances';
 import {
-    TDateList, 
+    TDateList,
     IPhoneLimits,
 } from 'wlc-engine/modules/core/system/services/select-values/select-values.service';
 import {GamesCatalogService} from 'wlc-engine/modules/games/system/services';
@@ -32,9 +32,9 @@ describe('SelectValuesService', () => {
         2: {ID: '2', Name: 'RUB', ExRate: '89.28111768', registration: true, Alias: 'RUB'},
     };
     const countries = new BehaviorSubject<ICountry[]>([
-        {value: 'ago', title: 'Angola', phoneCode: '244'},
-        {value: 'ago', title: 'Angola', phoneCode: '244'},
-        {value: 'bmu', title: 'Bermuda (UK)', phoneCode: '1'},
+        {value: 'ago', title: 'Angola', phoneCode: '244', iso2: 'ao'},
+        {value: 'ago', title: 'Angola', phoneCode: '244', iso2: 'ao'},
+        {value: 'bmu', title: 'Bermuda (UK)', phoneCode: '1', iso2: 'bm'},
     ]);
     const testMerchants = [
         {
@@ -94,6 +94,8 @@ describe('SelectValuesService', () => {
         configServiceSpy.get.withArgs('appConfig.siteconfig.currencies').and.returnValues(currencies);
         configServiceSpy.get.withArgs('$base.registration.currencySort').and.returnValues(['RUB']);
         configServiceSpy.get.withArgs('countries').and.returnValues(countries);
+        configServiceSpy.get.withArgs('$modules.user.formElements.showIcon.use').and.returnValues(true);
+        configServiceSpy.get.withArgs('$base.rewritingCurrencyName').and.returnValues({});
 
         gameCatalogServiceSpy = jasmine.createSpyObj(
             'GamesCatalogService',
@@ -172,12 +174,10 @@ describe('SelectValuesService', () => {
             {
                 title: '+1',
                 value: '+1',
-                country: 'bmu',
             },
             {
                 title: '+244',
                 value: '+244',
-                country: 'ago',
             },
         ]);
         const phoneCodes = selectValuesService.getPhoneCodes();

@@ -63,4 +63,9 @@ $baseSettings: map-merge((
     'scrollbarTrackBg': var(--fc-inputBg),
     'scrollbarThumbBg': var(--mc-main),
     'scrollbarBorder': 1px solid var(--fc-inputBg),
+    'countryIconWidth': 16px,
+    'countryIconHeight': 12px,
+    'countryIconMargin': 0 ef.size(2) 0 0,
+    'countryIconBorder': none,
+    'countryIconShadow': none,
 ), $customBaseSettings);

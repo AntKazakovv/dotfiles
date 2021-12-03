@@ -13,6 +13,7 @@ export type Theme = 'default' | CustomType;
 export type AutoModifiers = Theme | 'default';
 export type CustomMod = string;
 export type Modifiers = AutoModifiers | CustomMod | null;
+export type TComponentsWithIcon = 'phoneCode' | 'countryCode';
 
 export interface ISelectCParams extends IComponentParams<ComponentTheme, ComponentType, string> {
     name: string;
@@ -40,11 +41,23 @@ export interface ISelectCParams extends IComponentParams<ComponentTheme, Compone
     insensitiveSearch?: boolean;
     noResultText?: string;
     autoSelect?: boolean;
+    useIcon?: boolean;
 }
 
 export interface ISelectOptions {
     value: unknown;
     title: string | number;
+    /**
+     * Path by country flag. For show country flags.
+     * Need to enable config $modules.user.formElements.showIcon
+     */
+    icon?: string;
+}
+
+export interface ISelectOptionsWithIcon {
+    use: boolean;
+    components: TComponentsWithIcon[];
+    isoByPhoneCode?: IIndexing<string>;
 }
 
 export const defaultParams: Partial<ISelectCParams> = {

@@ -14,11 +14,19 @@ import {
     BehaviorSubject,
 } from 'rxjs';
 
+import _mergeWith from 'lodash-es/mergeWith';
+import _get from 'lodash-es/get';
+import _set from 'lodash-es/set';
+import _isObject from 'lodash-es/isObject';
+import _cloneDeep from 'lodash-es/cloneDeep';
+import _find from 'lodash-es/find';
+
 import {
     DataService,
     IData,
 } from '../data/data.service';
 import {LogService} from 'wlc-engine/modules/core/system/services/log/log.service';
+import {SelectValuesService} from 'wlc-engine/modules/core/system/services/select-values/select-values.service';
 import {
     DeviceModel,
     IDeviceConfig,
@@ -42,6 +50,7 @@ import {
     ILayoutsConfig,
     IBootstrap,
 } from 'wlc-engine/modules/core/system/interfaces';
+import {ICountry} from 'wlc-engine/modules/core/system/interfaces/fundist.interface';
 import {GlobalHelper} from 'wlc-engine/modules/core/system/helpers/global.helper';
 import {
     IGlobalConfig,
@@ -58,14 +67,6 @@ export enum storageType {
     'localStorage' = 'localStorageService',
     'sessionStorage' = 'sessionStorageService'
 }
-
-import _mergeWith from 'lodash-es/mergeWith';
-import _get from 'lodash-es/get';
-import _set from 'lodash-es/set';
-import _isObject from 'lodash-es/isObject';
-import _cloneDeep from 'lodash-es/cloneDeep';
-import _sortBy from 'lodash-es/sortBy';
-import _find from 'lodash-es/find';
 
 /**
  * Examples of getter and setter:
@@ -291,8 +292,11 @@ export class ConfigService {
             },
         }).then(async (data: IData) => {
             await this.ready;
-            const sortedCountries = _sortBy(data.data.countries, 'title');
-            this.get<BehaviorSubject<any>>('countries').next(sortedCountries);
+
+            const selectValuesService: SelectValuesService = this.injector.get(SelectValuesService);
+            this.get<BehaviorSubject<ICountry[]>>('countries').next(
+                selectValuesService.prepareCountries(data.data.countries),
+            );
         }).catch(() => {
             this.injector.get(LogService).sendLog({
                 code: '0.0.61',

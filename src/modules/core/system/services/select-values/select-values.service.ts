@@ -5,6 +5,17 @@ import {
     DateTime,
     Info,
 } from 'luxon';
+
+import _filter from 'lodash-es/filter';
+import _map from 'lodash-es/map';
+import _range from 'lodash-es/range';
+import _sortBy from 'lodash-es/sortBy';
+import _uniqBy from 'lodash-es/uniqBy';
+import _values from 'lodash-es/values';
+import _merge from 'lodash-es/merge';
+import _get from 'lodash-es/get';
+import _cloneDeep from 'lodash-es/cloneDeep';
+
 import {GlobalHelper} from 'wlc-engine/modules/core/system/helpers/global.helper';
 import {InjectionService} from 'wlc-engine/modules/core/system/services/injection/injection.service';
 import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
@@ -16,13 +27,6 @@ import {
 } from 'wlc-engine/modules/games/system/services/games-catalog/games-catalog.service';
 
 import * as Params from 'wlc-engine/modules/core/components/select/select.params';
-
-import _filter from 'lodash-es/filter';
-import _map from 'lodash-es/map';
-import _range from 'lodash-es/range';
-import _sortBy from 'lodash-es/sortBy';
-import _uniqBy from 'lodash-es/uniqBy';
-import _values from 'lodash-es/values';
 
 export type TDateList = 'days' | 'months' | 'years';
 
@@ -40,6 +44,7 @@ export class SelectValuesService {
     public daysInMonth: BehaviorSubject<number> = new BehaviorSubject(31);
     public dayList: BehaviorSubject<Params.ISelectOptions[]> = this.getDateList('days');
 
+    protected configSelectWithIcon: Params.ISelectOptionsWithIcon;
     protected gamesCatalogService: GamesCatalogService;
 
     constructor(
@@ -49,6 +54,10 @@ export class SelectValuesService {
         this.daysInMonth.subscribe(() => {
             this.dayList.next(this.getDateList('days').value);
         });
+
+        if (this.configService.get('$modules.user.formElements.showIcon.use')) {
+            this.prepareSelectWithIcon();
+        }
     }
 
     /**
@@ -122,11 +131,18 @@ export class SelectValuesService {
                         (country) => !!country.phoneCode,
                     ),
                     (country) => +country.phoneCode,
-                ), (country) => ({
-                    title: `+${country.phoneCode}`,
-                    value: `+${country.phoneCode}`,
-                    country: country.value,
-                }));
+                ), (country: ICountry) => {
+                    const countryData: Params.ISelectOptions = {
+                        title: `+${country.phoneCode}`,
+                        value: `+${country.phoneCode}`,
+                    };
+
+                    if (this.configSelectWithIcon?.components?.includes('phoneCode')) {
+                        countryData.icon = this.getCountryFlag(country, true);
+                    }
+
+                    return countryData;
+                });
             })).subscribe(val => phoneCodes.next(val));
 
         return phoneCodes;
@@ -246,5 +262,63 @@ export class SelectValuesService {
         })();
 
         return merchants$;
+    }
+
+    /**
+     * The method return url by country flag
+     *
+     * @param {ICountry} country
+     * @param {boolean} phoneCode - should be check iso config by phone code
+     * @returns {string} path by country flag
+     */
+    public getCountryFlag(country: ICountry, phoneCode?: boolean): string {
+        let iso = country.iso2;
+
+        if (phoneCode) {
+            iso = _get(this.configSelectWithIcon.isoByPhoneCode, `+${country.phoneCode}`, country.iso2);
+        }
+
+        return `/gstatic/wlc/flags/4x3/${iso}.svg`;
+    }
+
+    /**
+     * The method prepare countries
+     *
+     * @param {ICountry[]} countries
+     * @returns {ICountry[]}
+     */
+    public prepareCountries(countries: ICountry[]): ICountry[] {
+        let countryList = countries;
+
+        if (this.configSelectWithIcon?.components?.includes('countryCode')) {
+            countryList = _map(countries, (country: ICountry) => {
+                country.icon = this.getCountryFlag(country);
+                return country;
+            });
+        }
+
+        return _sortBy(countryList, 'title');
+    }
+
+    /**
+     * The method prepare config by select with icon
+     *
+     * @returns {void}
+     */
+    private prepareSelectWithIcon(): void {
+        this.configSelectWithIcon = _cloneDeep(this.configService.get('$modules.user.formElements.showIcon'));
+
+        if (this.configSelectWithIcon.components?.includes('phoneCode')) {
+            this.configSelectWithIcon.isoByPhoneCode = _merge(
+                {
+                    '+7': 'ru',
+                    '+1': 'ca',
+                    '+44': 'im',
+                    '+61': 'au',
+                    '+212': 'ma',
+                },
+                this.configSelectWithIcon.isoByPhoneCode,
+            );
+        }
     }
 }

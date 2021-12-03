@@ -59,13 +59,15 @@
         #selectList
         @openClose
         (@openClose.done)="scrollSelectList()">
-        <li *ngFor="let item of foundItems; index as $index;"
-            class="{{$class}}__dropdown-item"
-            [ngClass]="{'active': activeItemIndex === $index}"
-            [attr.data-wlc-element]="fieldWlcElement + '_' + (item.value || 'null')"
-            [innerHtml]="item.title.toString() | translate | hlSubstr :searchText :$params.insensitiveSearch"
-            (click)="choseSelectByClick(item, $index)">
-        </li>
+        <ng-container *ngIf="!$params.useIcon; else optionWithIcon">
+            <li *ngFor="let item of foundItems; index as $index;"
+                class="{{$class}}__dropdown-item"
+                [ngClass]="{'active': activeItemIndex === $index}"
+                [attr.data-wlc-element]="fieldWlcElement + '_' + (item.value || 'null')"
+                [innerHtml]="item.title.toString() | translate | hlSubstr :searchText :$params.insensitiveSearch"
+                (click)="choseSelectByClick(item, $index)">
+            </li>
+        </ng-container>
         <li *ngIf="$params.useSearch && !foundItems.length"
             class="{{$class}}__dropdown-item no-result">
             {{$params.noResultText | translate}}
@@ -84,4 +86,16 @@
             (click)="toggleDropdown()">
         {{placeholderText | translate}}
     </button>
+</ng-template>
+
+<ng-template #optionWithIcon>
+    <li *ngFor="let item of foundItems; index as $index;"
+        class="{{$class}}__dropdown-item"
+        [ngClass]="{'active': activeItemIndex === $index}"
+        [attr.data-wlc-element]="fieldWlcElement + '_' + (item.value || 'null')"
+        (click)="choseSelectByClick(item, $index)">
+        <img [src]="item.icon" wlc-fallback />
+        <span [innerHtml]="item.title.toString() | translate | hlSubstr :searchText :$params.insensitiveSearch">
+        </span>
+    </li>
 </ng-template>

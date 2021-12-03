@@ -4,6 +4,12 @@ export interface ICountry {
     phoneCode: string;
     title: string;
     value: string;
+    iso2?: string;
+    iso3?: string;
+    /**
+     * Path by country flag. Add field in selectValuesService if enable config
+     */
+    icon?: string;
 }
 
 export interface ICountries {

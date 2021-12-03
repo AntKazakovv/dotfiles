@@ -25,6 +25,17 @@ import {
     fromEvent,
 } from 'rxjs';
 import {takeUntil, first} from 'rxjs/operators';
+
+import _union from 'lodash-es/union';
+import _kebabCase from 'lodash-es/kebabCase';
+import _findIndex from 'lodash-es/findIndex';
+import _filter from 'lodash-es/filter';
+import _find from 'lodash-es/find';
+import _sortBy from 'lodash-es/sortBy';
+import _cloneDeep from 'lodash-es/cloneDeep';
+import _map from 'lodash-es/map';
+import _has from 'lodash-es/has';
+
 import {
     AbstractComponent,
     ConfigService,
@@ -37,15 +48,6 @@ import {
 } from 'wlc-engine/modules/core';
 
 import * as Params from './select.params';
-
-import _union from 'lodash-es/union';
-import _kebabCase from 'lodash-es/kebabCase';
-import _findIndex from 'lodash-es/findIndex';
-import _filter from 'lodash-es/filter';
-import _find from 'lodash-es/find';
-import _sortBy from 'lodash-es/sortBy';
-import _cloneDeep from 'lodash-es/cloneDeep';
-import _map from 'lodash-es/map';
 
 /**
  * Component select
@@ -130,6 +132,11 @@ export class SelectComponent extends AbstractComponent implements OnInit, OnChan
         if (this.control.value  && !_find(this.foundItems, item => item.value === this.control.value)) {
             this.control.setValue(this.foundItems[0]?.value || '');
         }
+
+        if (this.foundItems.length && _has(this.foundItems[0], 'icon')) {
+            this.$params.useIcon = true;
+            this.addModifiers('with-icon');
+        };
 
         if (this.$params.autoSelect) {
             const country = this.configService.get<string>('appConfig.country');
