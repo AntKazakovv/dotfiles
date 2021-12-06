@@ -419,11 +419,11 @@ export class GamesCatalog extends AbstractModel<IGames> {
         const games: Game[] = _reduce(categories, (acc: Game[], category: CategoryModel) => {
             return acc.concat(category.games);
         }, []);
-        return _uniqBy(games, 'ID');
+        return _uniqBy(games, (game: Game) => game.ID.toString() + game.launchCode);
     }
 
     /**
-     * Get merchantd by name
+     * Get merchant by name
      *
      * @param {string} merchantName Merchant name
      * @returns {MerchantModel}
@@ -795,12 +795,11 @@ export class GamesCatalog extends AbstractModel<IGames> {
                 return category.slug !== mainParentCategory?.slug && !category.isSpecial;
             });
 
-            _forEach(otherCategories, (category) => {
+            _forEach(otherCategories, (category: CategoryModel) => {
                 const gamesList: Game[] = _filter(this.availableGames, (game: Game) => {
                     return game.hasCategory(category);
                 });
                 category.setGames(gamesList);
-                category.sortGames();
             });
 
             let gamesList: Game[] = this.availableGames;
@@ -818,7 +817,7 @@ export class GamesCatalog extends AbstractModel<IGames> {
             _forEach(childCategories, (category: CategoryModel) => {
 
                 const games: Game[] = _filter(this.availableGames, (game: Game) => {
-                    return _includes(game.categoryID, category.id);
+                    return game.hasCategory(category);
                 });
 
                 if (games.length) {
