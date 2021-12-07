@@ -2,7 +2,6 @@ import {PaymentSystem} from '../models/payment-system.model';
 import {ValidatorType, IIndexing} from 'wlc-engine/modules/core';
 
 import _isString from 'lodash-es/isString';
-import _find from 'lodash-es/find';
 
 
 type FilterType = 'deposit' | 'Deposits' | 'withdraw' | 'Withdraws' | 'all' | 'All';
@@ -22,6 +21,7 @@ export class FinancesHelper {
             {
                 name: 'pattern',
                 options: '^[a-zA-Z0-9:]*$',
+                text: gettext('Cryptocurrency wallet address is incorrect'),
             },
             {
                 name: 'minLength',
