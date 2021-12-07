@@ -11,10 +11,8 @@ import {
     AfterViewInit,
 } from '@angular/core';
 import {FormControl} from '@angular/forms';
-import {fromEvent} from 'rxjs';
 import {
     distinctUntilChanged,
-    take,
     takeUntil,
 } from 'rxjs/operators';
 
@@ -75,29 +73,13 @@ export class InputComponent extends AbstractComponent implements OnInit, OnChang
         this.fieldWlcElement = 'input_' + _kebabCase(this.$params.name);
         this.useTooltip = !!(this.$params.common?.tooltipText || this.$params.common?.tooltipModal);
 
-        if (this.$params.common?.autocomplete === 'off') {
-            this.$params.common.readonly = true;
-        }
-
         this.setUseAutoCompleteFix();
     }
 
     public ngAfterViewInit(): void {
-        if (this.$params.common?.autocomplete === 'off') {
-            fromEvent(this.input.nativeElement, 'focus')
-                .pipe(
-                    takeUntil(this.$destroy),
-                    take(1),
-                )
-                .subscribe(() => {
-                    this.$params.common.readonly = false;
-                    this.cdr.markForCheck();
-                });
-        }
-
-        // TODO: after #313972 add `!this.$params.common.readonly` to condition below
         if (this.control
             && !this.$params.disabled
+            && !this.$params.common.readonly
             && !this.$params.clipboard) {
             this.control.valueChanges
                 .pipe(takeUntil(this.$destroy), distinctUntilChanged())
