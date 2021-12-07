@@ -265,45 +265,25 @@ export class CategoryModel extends AbstractModel<ICategory> {
 
     public sortGames(): void {
         if (this.gamesList.length) {
-
-            let useLangSort: boolean = false,
-                useCategorySort: boolean = false;
-
-            for (const game of this.gamesList) {
-                if (!!game.sortPerLanguage[CategoryModel.currentLanguage]) {
-                    useLangSort = true;
-                    useCategorySort = false;
-                    break;
-                }
-                if (!!game.sortPerCategory[this.id]) {
-                    useCategorySort = true;
-                }
-            }
-
-            if (useLangSort || useCategorySort) {
-
-                this.gamesList = _orderBy(
-                    this.gamesList,
-                    [
-                        (game: Game) => {
-                            if (useLangSort){
-                                return game.sortPerLanguage[CategoryModel.currentLanguage] || null;
-                            } else if (useCategorySort) {
-                                return game.sortPerCategory[this.id] || null;
-                            }
-                        },
-                        (game: Game) => {
-                            return game.sort || 0;
-                        },
-                    ],
-                    [
-                        'asc',
-                        'desc',
-                    ],
-                );
-            } else {
-                this.gamesList = GamesHelper.sortGamesByDefault(this.gamesList);
-            }
+            this.gamesList = _orderBy(
+                this.gamesList,
+                [
+                    (game: Game) => {
+                        return game.sortPerLanguage[CategoryModel.currentLanguage] || null;
+                    },
+                    (game: Game) => {
+                        return game.sortPerCategory[this.id] || null;
+                    },
+                    (game: Game) => {
+                        return game.sort || 0;
+                    },
+                ],
+                [
+                    'asc',
+                    'asc',
+                    'desc',
+                ],
+            );
         }
     }
 
