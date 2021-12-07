@@ -9,10 +9,7 @@ import {
     ViewEncapsulation,
 } from '@angular/core';
 import {FormControl} from '@angular/forms';
-import {
-    takeUntil,
-    distinctUntilChanged,
-} from 'rxjs/operators';
+import {takeUntil} from 'rxjs/operators';
 import {Subject} from 'rxjs';
 import {TranslateService} from '@ngx-translate/core';
 
@@ -54,7 +51,6 @@ export class FormControlComponent implements OnInit, OnDestroy {
         this.errors = this.getErrors();
         this.control.statusChanges.pipe(
             takeUntil(this.ngUnsubscribe),
-            distinctUntilChanged(),
         ).subscribe(() => {
             this.errors = this.getErrors();
             this.cdr.markForCheck();
