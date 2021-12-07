@@ -13,7 +13,19 @@ import {TranslateService} from '@ngx-translate/core';
 import {FormControl} from '@angular/forms';
 import {takeUntil} from 'rxjs/operators';
 import {Subject} from 'rxjs';
-import Swiper from 'swiper';
+import {Swiper, SwiperOptions} from 'swiper';
+
+import _find from 'lodash-es/find';
+import _findIndex from 'lodash-es/findIndex';
+import _merge from 'lodash-es/merge';
+import _isNumber from 'lodash-es/isNumber';
+import _union from 'lodash-es/union';
+import _unionBy from 'lodash-es/unionBy';
+import _each from 'lodash-es/each';
+import _reduce from 'lodash-es/reduce';
+import _filter from 'lodash-es/filter';
+import _isObject from 'lodash-es/isObject';
+import _cloneDeep from 'lodash-es/cloneDeep';
 
 import {
     AbstractComponent,
@@ -43,19 +55,6 @@ import {INoContentCParams} from 'wlc-engine/modules/core/components/no-content/n
 import {BonusItemComponent} from '../bonus-item/bonus-item.component';
 
 import * as Params from './bonuses-list.params';
-
-import _find from 'lodash-es/find';
-import _findIndex from 'lodash-es/findIndex';
-import _merge from 'lodash-es/merge';
-import _isNumber from 'lodash-es/isNumber';
-import _union from 'lodash-es/union';
-import _unionBy from 'lodash-es/unionBy';
-import _each from 'lodash-es/each';
-import _reduce from 'lodash-es/reduce';
-import _filter from 'lodash-es/filter';
-import _concat from 'lodash-es/concat';
-import _isObject from 'lodash-es/isObject';
-import _cloneDeep from 'lodash-es/cloneDeep';
 
 @Component({
     selector: '[wlc-bonuses-list]',
@@ -129,9 +128,6 @@ export class BonusesListComponent extends AbstractComponent implements OnInit, O
             this.configService,
         );
         this.cdr.detectChanges();
-        if (!this.bonusesService.promoBonus) {
-            await this.checkPromoBonus();
-        }
 
         if (this.$params.common?.useBlankBonus) {
             this.blankBonus = _cloneDeep(this.$params.common.blankBonus);
@@ -369,8 +365,6 @@ export class BonusesListComponent extends AbstractComponent implements OnInit, O
 
         if (!this.bonuses.length) return;
 
-        this.addPromoBonus();
-
         const result = _reduce(_union(this.$params.common.sortOrder), (res, element) => {
             if (_isNumber(element)) {
                 return _unionBy(res, [_find(this.bonuses, (bonus) => bonus.id === element)], 'id');
@@ -411,22 +405,6 @@ export class BonusesListComponent extends AbstractComponent implements OnInit, O
 
             this.bonuses = _filter(this.bonuses, (bonus) => bonus.data.Group === this.$params.common.filterByGroup);
         }
-    }
-
-    protected addPromoBonus(): void {
-        if (!this.bonusesService.promoBonus) return;
-
-        this.bonuses = _concat(this.bonusesService.promoBonus, this.bonuses);
-        this.$params.common.sortOrder = _concat(this.bonusesService.promoBonus.id, this.$params.common.sortOrder);
-    }
-
-    protected async checkPromoBonus(): Promise<void> {
-        this.promocode = await this.cachingService.get(this.bonusesService.dbPromoUrl);
-
-        if (!this.promocode) return;
-
-        const bonus: Bonus[] = await this.bonusesService.getBonusesByCode(this.promocode);
-        this.bonusesService.promoBonus = bonus[0];
     }
 
     protected checkBonuses() {
@@ -515,7 +493,7 @@ export class BonusesListComponent extends AbstractComponent implements OnInit, O
             this.bonusesToSlides(this.bonuses);
 
             if (this.bonuses.length <= 1) {
-                _merge(this.sliderParams.swiper, {
+                this.sliderParams.swiper = _merge<SwiperOptions, SwiperOptions>({}, {
                     navigation: false,
                     slidesPerView: 'auto',
                     spaceBetween: 0,

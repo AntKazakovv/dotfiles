@@ -12,6 +12,18 @@ import {
     takeWhile,
 } from 'rxjs/operators';
 
+import _each from 'lodash-es/each';
+import _extend from 'lodash-es/extend';
+import _filter from 'lodash-es/filter';
+import _get from 'lodash-es/get';
+import _includes from 'lodash-es/includes';
+import _isArray from 'lodash-es/isArray';
+import _isObject from 'lodash-es/isObject';
+import _map from 'lodash-es/map';
+import _size from 'lodash-es/size';
+import _sortBy from 'lodash-es/sortBy';
+import _unset from 'lodash-es/unset';
+
 import {Bonus} from 'wlc-engine/modules/bonuses/system/models/bonus';
 import {
     ActionType,
@@ -35,18 +47,6 @@ import {
     LogService,
     NotificationEvents,
 } from 'wlc-engine/modules/core';
-
-import _map from 'lodash-es/map';
-import _size from 'lodash-es/size';
-import _unset from 'lodash-es/unset';
-import _includes from 'lodash-es/includes';
-import _each from 'lodash-es/each';
-import _isArray from 'lodash-es/isArray';
-import _isObject from 'lodash-es/isObject';
-import _filter from 'lodash-es/filter';
-import _extend from 'lodash-es/extend';
-import _get from 'lodash-es/get';
-import _sortBy from 'lodash-es/sortBy';
 
 interface IBonusData extends IData {
     data?: IBonus;
@@ -223,17 +223,17 @@ export class BonusesService {
             switch (filter) {
                 case 'all':
                     return (allowCatalog || (!allowCatalog && (selected || active)))
-                        && (!hasPromoCode || (hasPromoCode && (selected || active)));
+                        && (!hasPromoCode || (hasPromoCode && (selected || active || this.isPromocodeEntered(bonus))));
                 case 'deposit':
                     return (allowCatalog || (!allowCatalog && (selected || active)))
-                        && (!hasPromoCode || (hasPromoCode && (selected || active)))
+                        && (!hasPromoCode || (hasPromoCode && (selected || active || this.isPromocodeEntered(bonus))))
                         && this.depEvents.indexOf(bonus.event) !== -1;
                 case 'reg':
                     return (allowCatalog || (!allowCatalog && (selected || active)))
-                        && (!hasPromoCode || (hasPromoCode && (selected || active)))
+                        && (!hasPromoCode || (hasPromoCode && (selected || active || this.isPromocodeEntered(bonus))))
                         && this.regEvents.indexOf(bonus.event) !== -1;
                 case 'main':
-                    return !active && (!hasPromoCode || (hasPromoCode && selected))
+                    return !active && (!hasPromoCode || (hasPromoCode && selected || this.isPromocodeEntered(bonus)))
                         && (allowCatalog || (!allowCatalog && selected))
                         && !inventoried;
                 case 'promocode':
@@ -257,7 +257,7 @@ export class BonusesService {
     public async getBonusesByCode(code: string): Promise<Bonus[]> {
         try {
             let bonusResult: Bonus[] = [];
-            const bonuses: Bonus[] = await this.queryBonuses(false, null, code);
+            const bonuses: Bonus[] = await this.queryBonuses(false, undefined, code);
             bonusResult = bonuses.filter((bonus: Bonus) => {
                 return bonus.status == 1 && !bonus.selected;
             });
@@ -312,7 +312,7 @@ export class BonusesService {
      * @returns {Bonus} bonus object
      */
     public async subscribeBonus(bonus: Bonus): Promise<Bonus> {
-        bonus.data.PromoCode = bonus.data.PromoCode || '';
+        bonus.data.PromoCode = (bonus.id === this.promoBonus?.id) ? this.promoBonus.promoCode : '';
         const params = {ID: bonus.id, PromoCode: bonus.promoCode, Selected: 1};
 
         try {
@@ -454,11 +454,20 @@ export class BonusesService {
                 return res.data as T[];
             }
 
-            const bonuses: Bonus[] = _sortBy(this.checkForbid(await this.modifyBonuses(res.data), queryParams), ['id']);
+            let bonuses: Bonus[] = this.checkForbid(await this.modifyBonuses(res.data), queryParams);
 
             if (bonuses.length) {
                 await this.checkBonusesInCache(bonuses);
+                if (!queryParams.PromoCode && !this.promoBonus) {
+                    await this.checkPromoBonus();
+                }
             }
+
+            bonuses = _sortBy<Bonus>(
+                bonuses,
+                (bonus: Bonus) => (bonus.id === this.promoBonus?.id) ? 0 : bonus.id,
+            );
+
 
             switch (type) {
                 case 'active':
@@ -580,6 +589,19 @@ export class BonusesService {
         } else {
             this.cachingService.clear('bonuses');
         }
+    }
+
+    private async checkPromoBonus(): Promise<void> {
+        const promocode: string = await this.cachingService.get<string>(this.dbPromoUrl);
+        if (!promocode) return;
+        const bonuses: Bonus[] = await this.getBonusesByCode(promocode);
+        if (bonuses.length) {
+            this.promoBonus = bonuses[0];
+        }
+    }
+
+    private isPromocodeEntered(bonus: Bonus): boolean {
+        return bonus.id === this.promoBonus?.id;
     }
 
     private setSubscribers(): void {
