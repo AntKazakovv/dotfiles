@@ -39,6 +39,8 @@ export type TBodyClassPrefix = keyof typeof BodyClassPrefix;
 @Injectable({providedIn: 'root'})
 export class BodyClassService {
 
+    private metaThemeColor: HTMLMetaElement = this.document.querySelector('meta[name="theme-color"]');
+
     constructor(
         @Inject(DOCUMENT) private document: HTMLDocument,
         private configService: ConfigService,
@@ -140,9 +142,18 @@ export class BodyClassService {
             this.replaceModifier('device', deviceType);
         });
 
+        this.setMetaThemeColor();
+
         if (this.configService.get<boolean>('$base.colorThemeSwitching.use')) {
             this.colorThemeSwitching();
         }
+    }
+
+    private setMetaThemeColor(): void {
+        if (!this.metaThemeColor) {
+            return;
+        }
+        this.metaThemeColor.content = getComputedStyle(this.document.body).getPropertyValue('--mc-bg') || '#000000';
     }
 
     private colorThemeSwitching(): void {
@@ -157,6 +168,9 @@ export class BodyClassService {
                 } else {
                     this.removeClassByPrefix(BodyClassPrefix.theme);
                 }
+                setTimeout(() => {
+                    this.setMetaThemeColor();
+                }, 0);
             });
     }
 
