@@ -83,7 +83,7 @@ export class IconMerchantsListComponent extends IconListAbstract<Params.IIconMer
                         showAs: showIconAs,
                         wlcElement: item.wlcElement,
                         nameForPath: item.alias,
-                        alt: item.name,
+                        alt: item.alias,
                         colorIconBg,
                     }),
                 };
@@ -100,7 +100,7 @@ export class IconMerchantsListComponent extends IconListAbstract<Params.IIconMer
      **/
     protected getMerchantsList(): void {
         this.merchants = _sortedUniqBy(this.gamesCatalogService.getAvailableMerchants(),
-            (item: MerchantModel) => item.name);
+            (item: MerchantModel) => item.alias);
         this.updateList();
     }
 

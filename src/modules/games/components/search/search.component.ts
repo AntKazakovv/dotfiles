@@ -247,7 +247,7 @@ export class SearchComponent extends AbstractComponent implements OnInit, OnDest
         }
 
         this.merchants = _sortBy(merchants, (merchant) => {
-            return merchant.name;
+            return merchant.alias;
         });
     }
 

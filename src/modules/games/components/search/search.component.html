@@ -70,7 +70,7 @@
     </div>
 
     <div wlc-games-grid
-         class="${{$class}}__games"         
+         class="${{$class}}__games"
          [inlineParams]="gamesGridParams"
     ></div>
 </div>
@@ -92,11 +92,11 @@
 
         <li class="{{$class}}__list-item"
             *ngFor="let merchant of merchants"
-            [attr.data-wlc-element]="'button_filter-' + merchant.name.toLowerCase() + '_' + merchant.id">
+            [attr.data-wlc-element]="'button_filter-' + merchant.alias.toLowerCase() + '_' + merchant.id">
             <button class="{{$class}}__list-btn"
                     [class.active]="isActive('merchants', merchant.id)"
                     (click)="chooseMerchant(merchant)">
-                <span class="{{$class}}__list-text">{{merchant.name | translate}}</span>
+                <span class="{{$class}}__list-text">{{merchant.alias | translate}}</span>
                 <span wlc-icon
                       class="{{$class}}__list-icon"
                       iconPath="/wlc/icons/tick.svg">
