@@ -5,5 +5,20 @@
     grid-auto-columns: auto;
     grid-auto-flow: column;
     grid-gap: ef.get-value($themeDefault, 'gap');
+    grid-template-areas: ef.get-value($themeDefault, 'loginTemplateAreas');
     align-items: center;
+
+    &::ng-deep {
+
+        .wlc-btn--type-default {
+
+            &[data-wlc-element='button_login-modal'] {
+                grid-area: login;
+            }
+
+            &[data-wlc-element='button_register-modal'] {
+                grid-area: sign;
+            }
+        }
+    }
 }

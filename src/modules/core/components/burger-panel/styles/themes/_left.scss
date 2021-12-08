@@ -38,6 +38,7 @@
 
         .wlc-login-signup {
             grid-auto-flow: initial;
+            grid-template-areas: ef.get-value($themeLeft, 'loginBtnTemplateAreas');
             justify-content: center;
             margin: ef.get-value($themeLeft, 'loginBtnMargin');
             padding: ef.get-value($themeLeft, 'loginBtnPadding');

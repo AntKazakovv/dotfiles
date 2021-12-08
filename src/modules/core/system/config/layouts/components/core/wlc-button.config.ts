@@ -201,7 +201,7 @@ export namespace wlcButton {
                 iconPath: '/wlc/icons/login.svg',
                 event: {
                     name: 'SHOW_MODAL',
-                    data: 'login',
+                    data: 'signup',
                 },
             },
         },
