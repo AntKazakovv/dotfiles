@@ -17,9 +17,12 @@ export const defaultParams: IScrollbarCParams = {
 export const defaultSwiperOptions: SwiperOptions = {
     direction: 'vertical',
     slidesPerView: 'auto',
-    freeMode: true,
     mousewheel: true,
     updateOnWindowResize: false,
-    freeModeMomentum: false,
-    freeModeMomentumBounce: false,
+    scrollbar: true,
+    freeMode: {
+        enabled: true,
+        momentum: false,
+        momentumBounce: false,
+    },
 };

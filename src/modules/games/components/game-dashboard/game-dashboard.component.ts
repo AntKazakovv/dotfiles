@@ -22,8 +22,16 @@ import {
     trigger,
 } from '@angular/animations';
 import {FormControl} from '@angular/forms';
+import {fromEvent} from 'rxjs';
+import {
+    takeUntil,
+} from 'rxjs/operators';
 
-import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
+import _get from 'lodash-es/get';
+import _filter from 'lodash-es/filter';
+import _find from 'lodash-es/find';
+import _map from 'lodash-es/map';
+
 import {HammerConfig} from 'wlc-engine/modules/core/system/config/hammer.config';
 import {
     ActionService,
@@ -34,28 +42,21 @@ import {
     IIndexing,
     IWrapperCParams,
     ICheckboxCParams,
+    AbstractComponent,
+    CachingService,
+    IResizeEvent,
 } from 'wlc-engine/modules/core';
-import {CachingService} from 'wlc-engine/modules/core/system/services/caching/caching.service';
-import * as Params from './game-dashboard.params';
-import {DashboardSide} from 'wlc-engine/modules/games/components/game-dashboard/game-dashboard.params';
 import {
-    GamesCatalogService,
-} from 'wlc-engine/modules/games/system/services/games-catalog/games-catalog.service';
-import {Game} from 'wlc-engine/modules/games/system/models/game.model';
-import {ISlide, ISliderCParams} from 'wlc-engine/modules/promo/components/slider/slider.params';
-import {GameThumbComponent} from 'wlc-engine/modules/games/components/game-thumb/game-thumb.component';
-import {IResizeEvent} from 'wlc-engine/modules/core/system/services/action/action.service';
+    ISlide,
+    ISliderCParams,
+} from 'wlc-engine/modules/promo';
 import * as componentLib from 'wlc-engine/modules/core/system/config/layouts/components';
+import {DashboardSide} from 'wlc-engine/modules/games/components/game-dashboard/game-dashboard.params';
+import {GamesCatalogService} from 'wlc-engine/modules/games/system/services/games-catalog/games-catalog.service';
+import {Game} from 'wlc-engine/modules/games/system/models/game.model';
+import {GameThumbComponent} from 'wlc-engine/modules/games/components/game-thumb/game-thumb.component';
 
-import {fromEvent} from 'rxjs';
-import {
-    takeUntil,
-} from 'rxjs/operators';
-
-import _get from 'lodash-es/get';
-import _filter from 'lodash-es/filter';
-import _find from 'lodash-es/find';
-import _map from 'lodash-es/map';
+import * as Params from './game-dashboard.params';
 
 enum Direction {
     Left = 'left',
@@ -271,7 +272,9 @@ export class GameDashboardComponent extends AbstractComponent implements OnInit,
             swiper: {
                 direction: 'horizontal',
                 slidesPerView: 'auto',
-                slidesPerColumn: lastPlayedSlidesPerColumn,
+                grid:{
+                    rows: lastPlayedSlidesPerColumn,
+                },
                 pagination: {
                     clickable: true,
                 },
@@ -280,7 +283,9 @@ export class GameDashboardComponent extends AbstractComponent implements OnInit,
                     1000: {
                         direction: 'horizontal',
                         slidesPerView: 'auto',
-                        slidesPerColumn: lastPlayedSlidesPerColumn,
+                        grid: {
+                            rows: lastPlayedSlidesPerColumn,
+                        },
                         spaceBetween: 10,
                         pagination: {
                             clickable: true,
@@ -289,7 +294,9 @@ export class GameDashboardComponent extends AbstractComponent implements OnInit,
                     860: {
                         direction: 'horizontal',
                         slidesPerView: 'auto',
-                        slidesPerColumn: lastPlayedSlidesPerColumn,
+                        grid: {
+                            rows: lastPlayedSlidesPerColumn,
+                        },
                         spaceBetween: 10,
                         pagination: {
                             clickable: true,

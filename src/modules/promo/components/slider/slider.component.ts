@@ -16,6 +16,7 @@ import {
     ViewEncapsulation,
 } from '@angular/core';
 import {takeUntil} from 'rxjs/operators';
+
 import SwiperCore, {
     EffectFade,
     EffectCube,
@@ -26,13 +27,17 @@ import SwiperCore, {
     Mousewheel,
     Scrollbar,
     Swiper,
+    Grid,
     SwiperOptions,
-} from 'swiper/core';
+} from 'swiper';
 import {SwiperComponent} from 'swiper/angular';
 import {NavigationOptions} from 'swiper/types';
-import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
-import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
-import {ActionService} from 'wlc-engine/modules/core/system/services/action/action.service';
+
+import {
+    AbstractComponent,
+    ConfigService,
+    ActionService,
+} from 'wlc-engine/modules/core';
 import {WinnersService} from 'wlc-engine/modules/promo/system/services/winners/winners.service';
 
 import * as Params from './slider.params';
@@ -61,6 +66,7 @@ SwiperCore.use([
     Autoplay,
     Mousewheel,
     Scrollbar,
+    Grid,
 ]);
 
 @Component({
@@ -121,8 +127,8 @@ export class SliderComponent extends AbstractComponent
     public initEmptySlidesCount(): void {
         if (this.isAutoSlidesAndColumnMode()) {
             const {swiper} = this.$params;
-            if (_isNumber(swiper?.slidesPerView) && swiper?.slidesPerColumn) {
-                const groupCount: number = swiper.slidesPerView * swiper.slidesPerColumn;
+            if (_isNumber(swiper?.slidesPerView) && swiper?.grid?.rows) {
+                const groupCount: number = swiper.slidesPerView * swiper.grid.rows;
                 const fullFilledSlides: number = Math.floor(this.slides.length / groupCount);
                 this.emptySlidesCount = groupCount - (this.slides.length - (groupCount * fullFilledSlides));
             }
@@ -236,7 +242,7 @@ export class SliderComponent extends AbstractComponent
     }
 
     protected isAutoSlidesAndColumnMode(): boolean {
-        return !!(this.$params.swiper?.slidesPerView === 'auto' && this.$params.swiper?.slidesPerColumn);
+        return !!(this.$params.swiper?.slidesPerView === 'auto' && this.$params.swiper?.grid?.rows);
     }
 
     protected updateView(): void {
@@ -269,12 +275,12 @@ export class SliderComponent extends AbstractComponent
 
             const margin = parseInt(firstSlide.style.marginRight);
 
-            const groupCount: number = this.$params.swiper.slidesPerColumn *
+            const groupCount: number = this.$params.swiper.grid?.rows *
                 _ceil(swiperWidth / (firstSlide.offsetWidth + margin));
-            const floorGroupCount: number = this.$params.swiper.slidesPerColumn *
+            const floorGroupCount: number = this.$params.swiper.grid?.rows *
                 _floor(swiperWidth / (firstSlide.offsetWidth + margin));
-            const minGroup = _ceil(slides.length / this.$params.swiper.slidesPerColumn)
-                * this.$params.swiper.slidesPerColumn;
+            const minGroup = _ceil(slides.length / this.$params.swiper.grid?.rows)
+                * this.$params.swiper.grid?.rows;
 
             if (this.slides.length < floorGroupCount) {
                 this.emptySlidesCount = floorGroupCount - this.slides.length;

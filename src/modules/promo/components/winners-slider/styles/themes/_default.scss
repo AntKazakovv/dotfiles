@@ -48,7 +48,7 @@
 
             ::ng-deep {
 
-                .swiper-container {
+                .swiper {
                     margin: ef.get-value($themeDefault, 'swiperMarginShadowFix');
                     padding: ef.get-value($themeDefault, 'swiperPaddingShadowFix');
                 }

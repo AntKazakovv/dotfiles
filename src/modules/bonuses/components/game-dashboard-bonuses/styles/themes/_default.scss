@@ -17,7 +17,7 @@
         .wlc-game-dashboard-bonuses__slider {
             height: ef.get-value($themeDefault, 'totalHeightBonus');
 
-            & > .swiper-container {
+            & > .swiper {
                 height: ef.get-value($themeDefault, 'totalHeightBonus');
             }
         }
@@ -32,7 +32,7 @@
                 padding: ef.get-value($themeDefault, 'scrollbarPadding');
             }
 
-            .swiper-container-vertical > .swiper-scrollbar {
+            .swiper-vertical > .swiper-scrollbar {
                 right: ef.get-value($themeDefault, 'scrollbarPosition');
             }
         }

@@ -40,7 +40,7 @@ export const swiperParamsDefault: IIndexing<SwiperOptions> = {
         autoplay: {
             disableOnInteraction: false,
         },
-        watchSlidesVisibility: true,
+        watchSlidesProgress: true,
         observer: true,
         observeParents: true,
         preventClicks: false,
@@ -70,7 +70,7 @@ export const swiperParamsDefault: IIndexing<SwiperOptions> = {
         autoplay: {
             disableOnInteraction: false,
         },
-        watchSlidesVisibility: true,
+        watchSlidesProgress: true,
         observer: true,
         observeParents: true,
         preventClicks: false,
@@ -91,7 +91,7 @@ export const swiperParamsDefault: IIndexing<SwiperOptions> = {
         autoplay: {
             disableOnInteraction: false,
         },
-        watchSlidesVisibility: true,
+        watchSlidesProgress: true,
         observer: true,
         observeParents: true,
         preventClicks: false,
@@ -104,7 +104,7 @@ export const swiperParamsDefault: IIndexing<SwiperOptions> = {
         autoplay: {
             disableOnInteraction: false,
         },
-        watchSlidesVisibility: true,
+        watchSlidesProgress: true,
         observer: true,
         observeParents: true,
         preventClicks: false,

@@ -2,12 +2,8 @@ import {
     IComponentParams,
     CustomType,
 } from 'wlc-engine/modules/core';
-import {
-    IGamesGridCParams,
-} from 'wlc-engine/modules/games';
-import {
-    ISliderCParams,
-} from 'wlc-engine/modules/promo';
+import {ISliderCParams} from 'wlc-engine/modules/promo';
+import {IGamesGridCParams} from 'wlc-engine/modules/games/components/games-grid/games-grid.params';
 
 export type Type = 'default' | CustomType;
 export type Theme = 'default' | CustomType;
@@ -27,52 +23,45 @@ export interface IGamesCatalogCParams extends IComponentParams<Theme, Type, Them
 
 export const sliderParams: ISliderCParams = {
     swiper: {
-        watchOverflow: true,
-        slidesPerColumnFill: 'row',
+        grid: {
+            rows: 2,
+            fill: 'row',
+        },
         slidesPerView: 6,
-        slidesPerColumn: 2,
         spaceBetween: 20,
         pagination: false,
         breakpoints: {
             200: {
                 slidesPerView: 1,
                 spaceBetween: 10,
-                slidesPerColumn: 2,
             },
             375: {
                 slidesPerView: 2,
                 spaceBetween: 10,
-                slidesPerColumn: 2,
             },
             560: {
                 slidesPerView: 3,
                 spaceBetween: 10,
-                slidesPerColumn: 2,
             },
             720: {
                 slidesPerView: 4,
                 spaceBetween: 10,
-                slidesPerColumn: 2,
             },
             900: {
                 slidesPerView: 3,
                 spaceBetween: 10,
-                slidesPerColumn: 2,
             },
             1024: {
                 slidesPerView: 4,
                 spaceBetween: 15,
-                slidesPerColumn: 2,
             },
             1200: {
                 slidesPerView: 5,
                 spaceBetween: 15,
-                slidesPerColumn: 2,
             },
             1630: {
                 slidesPerView: 6,
                 spaceBetween: 20,
-                slidesPerColumn: 2,
             },
         },
     },

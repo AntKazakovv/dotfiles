@@ -24,12 +24,12 @@
                 min-width: ef.get-value($themeDefault, 'baseSliderWidth');
             }
 
-            .wlc-bonuses-list__list-wrapper .swiper-container .swiper-slide {
+            .wlc-bonuses-list__list-wrapper .swiper .swiper-slide {
                 width: ef.get-value($themeDefault, 'baseSliderWidth');
             }
 
             .wlc-bonuses-list__content .wlc-bonuses-list__list-wrapper
-            .swiper-container.swiper-container-initialized {
+            .swiper.swiper-initialized {
                 @include bm.get-mq-map('margin', $themeDefault, 'swiperContainerMargin');
                 @include bm.get-mq-map('padding', $themeDefault, 'swiperContainerPadding');
 
@@ -46,7 +46,7 @@
 
         .wlc-bonuses-list--theme-default.wlc-bonuses-list--type-swiper .wlc-bonuses-list__list-wrapper {
 
-            .swiper-container {
+            .swiper {
                 @include bm.get-mq-map('padding', $themeDefault, 'swiperContainerPadding');
             }
 

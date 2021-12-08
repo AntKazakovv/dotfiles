@@ -37,7 +37,7 @@
 
                 ::ng-deep {
 
-                    .swiper-container {
+                    .swiper {
                         @include bm.get-mq-map('padding', $themeDefault, 'sliderPadding');
 
                         .swiper-wrapper {
@@ -82,7 +82,7 @@
                     }
                 }
 
-                .swiper-container {
+                .swiper {
 
                     .swiper-slide {
                         display: flex;

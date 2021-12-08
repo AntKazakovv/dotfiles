@@ -52,7 +52,7 @@
 }
 
 .swiper-button-prev,
-.swiper-container-rtl .swiper-button-next {
+.swiper-rtl .swiper-button-next {
     right: auto;
     left: ef.get-value($themeDefaultNavigation, 'swiperNaviAside');
 
@@ -66,7 +66,7 @@
 }
 
 .swiper-button-next,
-.swiper-container-rtl .swiper-button-prev {
+.swiper-rtl .swiper-button-prev {
     right: ef.get-value($themeDefaultNavigation, 'swiperNaviAside');
     left: auto;
 

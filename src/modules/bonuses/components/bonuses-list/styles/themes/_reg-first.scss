@@ -5,7 +5,7 @@
 
     ::ng-deep {
 
-        .swiper-container {
+        .swiper {
             @include bm.get-mq-map('max-width', $themeRegFirst, 'listMaxWidth');
             @include bm.get-mq-map('margin', $themeRegFirst, 'listMargin');
         }

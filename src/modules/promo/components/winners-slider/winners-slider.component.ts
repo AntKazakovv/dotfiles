@@ -11,11 +11,20 @@ import {
     Renderer2,
     AfterViewInit,
 } from '@angular/core';
-import {SwiperOptions} from 'swiper';
-import SwiperCore from 'swiper/core';
 import {takeUntil} from 'rxjs/operators';
-import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
-import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
+
+import {SwiperOptions} from 'swiper';
+import SwiperCore from 'swiper';
+import _merge from 'lodash-es/merge';
+import _clone from 'lodash-es/clone';
+import _assign from 'lodash-es/assign';
+
+import {
+    ConfigService,
+    AbstractComponent,
+    GlobalHelper,
+} from 'wlc-engine/modules/core';
+import {INoContentCParams} from 'wlc-engine/modules/core/components/no-content/no-content.params';
 import {
     SliderHelper,
     ISliderCssProps,
@@ -27,13 +36,8 @@ import {
 import {WinnersService} from 'wlc-engine/modules/promo/system/services/winners/winners.service';
 import {WinnerModel} from 'wlc-engine/modules/promo/system/models/winner.model';
 import {WinnerComponent} from 'wlc-engine/modules/promo/components/winner/winner.component';
-import {INoContentCParams} from 'wlc-engine/modules/core/components/no-content/no-content.params';
-import {GlobalHelper} from 'wlc-engine/modules/core/system/helpers/global.helper';
-import * as Params from './winners-slider.params';
 
-import _merge from 'lodash-es/merge';
-import _clone from 'lodash-es/clone';
-import _assign from 'lodash-es/assign';
+import * as Params from './winners-slider.params';
 
 @Component({
     selector: '[wlc-winners-slider]',

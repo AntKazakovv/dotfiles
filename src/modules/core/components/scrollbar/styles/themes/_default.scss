@@ -51,7 +51,7 @@
             }
         }
 
-        .swiper-container-horizontal > .swiper-scrollbar {
+        .swiper-horizontal > .swiper-scrollbar {
             position: absolute;
             bottom: ef.get-value($themeDefault, 'scrollbarPadding');
             left: (100% - ef.get-value($themeDefault, 'scrollbarStretchSize')) * 0.5;
@@ -61,7 +61,7 @@
             height: ef.get-value($themeDefault, 'scrollbarSize');
         }
 
-        .swiper-container-vertical > .swiper-scrollbar {
+        .swiper-vertical > .swiper-scrollbar {
             position: absolute;
             top: (100% - ef.get-value($themeDefault, 'scrollbarStretchSize')) * 0.5;
             right: ef.get-value($themeDefault, 'scrollbarPadding');

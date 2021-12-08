@@ -15,7 +15,7 @@
 // Common Styles
 .swiper-pagination-fraction,
 .swiper-pagination-custom,
-.swiper-container-horizontal > .swiper-pagination-bullets {
+.swiper-horizontal > .swiper-pagination-bullets {
     bottom: ef.get-value($themeDefaultPagination, 'swiperPagiBottom');
     left: 0;
     width: 100%;
@@ -88,7 +88,7 @@
 
 
 
-.swiper-container-vertical {
+.swiper-vertical {
 
     >.swiper-pagination-bullets {
         top: 50%;
@@ -112,7 +112,7 @@
     }
 }
 
-.swiper-container-horizontal {
+.swiper-horizontal {
 
     >.swiper-pagination-bullets {
 
@@ -131,7 +131,7 @@
         }
     }
 
-    &.swiper-container-rtl > .swiper-pagination-bullets-dynamic .swiper-pagination-bullet {
+    &.swiper-rtl > .swiper-pagination-bullets-dynamic .swiper-pagination-bullet {
         transition: 0.2s transform, 0.2s right;
     }
 }
@@ -154,20 +154,20 @@
         border-radius: ef.get-value($themeDefaultPagination, 'swiperPagiProgressbarBorderRadius');
     }
 
-    .swiper-container-rtl & .swiper-pagination-progressbar-fill {
+    .swiper-rtl & .swiper-pagination-progressbar-fill {
         transform-origin: right top;
     }
 
-    .swiper-container-horizontal > &,
-    .swiper-container-vertical > &.swiper-pagination-progressbar-opposite {
+    .swiper-horizontal > &,
+    .swiper-vertical > &.swiper-pagination-progressbar-opposite {
         top: 0;
         left: 0;
         width: 100%;
         height: ef.get-value($themeDefaultPagination, 'swiperPagiProgressbarHeight');
     }
 
-    .swiper-container-vertical > &,
-    .swiper-container-horizontal > &.swiper-pagination-progressbar-opposite {
+    .swiper-vertical > &,
+    .swiper-horizontal > &.swiper-pagination-progressbar-opposite {
         top: 0;
         left: 0;
         width: ef.get-value($themeDefaultPagination, 'swiperPagiProgressbarHeight');

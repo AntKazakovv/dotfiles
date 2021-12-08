@@ -5,16 +5,23 @@ import {
     OnInit,
     ViewChild,
 } from '@angular/core';
-import {SwiperOptions} from 'swiper';
-import {SwiperComponent} from 'swiper/angular';
-import SwiperCore, {Scrollbar, Swiper} from 'swiper/core';
-import {ConfigService} from 'wlc-engine/modules/core/system/services';
-import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
-import * as Params from './scrollbar.params';
 
+import {SwiperComponent} from 'swiper/angular';
+import SwiperCore, {
+    Scrollbar,
+    FreeMode,
+    Mousewheel,
+    Swiper,
+    SwiperOptions,
+} from 'swiper';
 import _get from 'lodash-es/get';
 
-SwiperCore.use([Scrollbar]);
+import {ConfigService} from 'wlc-engine/modules/core/system/services';
+import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
+
+import * as Params from './scrollbar.params';
+
+SwiperCore.use([Scrollbar, FreeMode, Mousewheel]);
 @Component({
     selector: '[wlc-scrollbar]',
     templateUrl: './scrollbar.component.html',

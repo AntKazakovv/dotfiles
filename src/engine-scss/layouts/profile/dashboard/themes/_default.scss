@@ -65,7 +65,7 @@
             .wlc-bonuses-list__list-wrapper {
                 @include em.get-mq-map('padding', $dashboardThemeDefault, 'swiperContainerPadding');
 
-                .swiper-container[class] {
+                .swiper[class] {
                     padding: 0;
                 }
 

@@ -10,27 +10,27 @@ import {
     AfterViewInit,
 } from '@angular/core';
 import {takeUntil} from 'rxjs/operators';
-import {SwiperOptions} from 'swiper';
-import SwiperCore from 'swiper/core';
 
-import {GlobalHelper} from 'wlc-engine/modules/core';
-import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
-import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
+import SwiperCore, {SwiperOptions} from 'swiper';
+import _map from 'lodash-es/map';
+
+import {
+    GlobalHelper,
+    AbstractComponent,
+    ConfigService,
+    InjectionService,
+} from 'wlc-engine/modules/core';
+import {INoContentCParams} from 'wlc-engine/modules/core/components/no-content/no-content.params';
+import {JackpotModel} from 'wlc-engine/modules/games';
+import {GamesCatalogService} from 'wlc-engine/modules/games/system/services/games-catalog/games-catalog.service';
 import {JackpotComponent} from 'wlc-engine/modules/promo/components/jackpot/jackpot.component';
 import {ISlide} from 'wlc-engine/modules/promo/components/slider/slider.params';
 import {
     SliderHelper,
     ISliderCssProps,
 } from 'wlc-engine/modules/promo/system/helpers/slider.helper';
-import {JackpotModel} from 'wlc-engine/modules/games/system/models/jackpot.model';
-import {
-    GamesCatalogService,
-} from 'wlc-engine/modules/games/system/services/games-catalog/games-catalog.service';
-import {InjectionService} from 'wlc-engine/modules/core/system/services';
-import {INoContentCParams} from 'wlc-engine/modules/core/components/no-content/no-content.params';
-import * as Params from './jackpots-slider.params';
 
-import _map from 'lodash-es/map';
+import * as Params from './jackpots-slider.params';
 
 @Component({
     selector: '[wlc-jackpots-slider]',

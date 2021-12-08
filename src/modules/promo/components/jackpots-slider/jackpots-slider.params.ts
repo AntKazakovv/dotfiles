@@ -34,7 +34,7 @@ export const defaultParams: Partial<IJackpotsSliderCParams> = {
             autoplay: {
                 disableOnInteraction: false,
             },
-            watchSlidesVisibility: true,
+            watchSlidesProgress: true,
             observer: true,
             observeParents: true,
             preventClicks: false,
