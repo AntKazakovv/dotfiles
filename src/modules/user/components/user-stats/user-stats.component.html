@@ -51,10 +51,10 @@
 
                     <span class="name">{{shownUserStats[item]?.name | translate}}</span>
                     <span class="value" *ngSwitchDefault>
-                        {{(shownUserStats[item]?.value | number: '.0-2') || 'Unknown' | translate}}
+                        {{(shownUserStats[item]?.value | number: '.0-2') || 'Loading' | translate}}
                     </span>
                     <span *ngSwitchCase="'string'" class="value">
-                        {{shownUserStats[item]?.value?.toString() || 'Unknown' | translate}}
+                        {{shownUserStats[item]?.value?.toString() || 'Loading' | translate}}
                     </span>
                     <span *ngSwitchCase="'amount'" class="value">
                         <span wlc-currency [value]="shownUserStats[item]?.value"></span>
