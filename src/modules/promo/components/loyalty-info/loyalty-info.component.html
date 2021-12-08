@@ -3,7 +3,7 @@
         <img [src]="$params.imagePath" loading="lazy">
     </div>
     <div class="{{$class}}__content">
-        <h2 class="{{$class}}__title">{{'Loyalty Program' | translate}}</h2>
+        <h2 class="{{$class}}__title">{{$params.title | translate}}</h2>
         <div wlc-post
              class="{{$class}}__description"
              slug="loyalty-description"

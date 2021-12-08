@@ -46,7 +46,7 @@ export class LoyaltyProgramComponent extends AbstractComponent implements OnInit
 
         await this.configService.ready;
         this.isAuth = this.configService.get('$user.isAuthenticated');
-
+        this.$params.title ??= this.configService.get<string>('$promo.loyalty.programTitle');
         this.levels = (await this.loyaltyLevelsService.getLoyaltyLevelsSafely()).splice(0, this.$params.levelsLimit);
         this.ready = true;
         this.cdr.detectChanges();

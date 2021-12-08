@@ -21,7 +21,6 @@ export interface ILoyaltyProgramCParams extends IComponentParams<ComponentTheme,
 };
 
 export const defaultParams: ILoyaltyProgramCParams = {
-    title: gettext('Loyalty Program'),
     moduleName: 'promo',
     componentName: 'wlc-loyalty-program',
     class: 'wlc-loyalty-program',

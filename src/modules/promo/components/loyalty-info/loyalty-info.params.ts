@@ -8,6 +8,7 @@ export type ComponentType = 'default' | CustomType;
 
 export interface ILoyaltyInfoCParams extends IComponentParams<ComponentTheme, ComponentType, string> {
     imagePath?: string;
+    title?: string;
 };
 
 export const defaultParams: ILoyaltyInfoCParams = {
