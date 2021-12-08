@@ -19,6 +19,7 @@ export interface IPIQCashierTheme {
     cashierbackground?: IPIQCashierThemeColor;
     border?: IPIQCashierThemeRadius;
     margin?: IPIQCashierThemeSize;
+    success?: IPIQCashierThemeColor;
 }
 
 interface IPIQCashierThemeInput {
