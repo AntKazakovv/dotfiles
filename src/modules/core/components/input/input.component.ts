@@ -95,10 +95,10 @@ export class InputComponent extends AbstractComponent implements OnInit, OnChang
                 });
         }
 
+        // TODO: after #313972 add `!this.$params.common.readonly` to condition below
         if (this.control
             && !this.$params.disabled
-            && !this.$params.clipboard
-            && !this.$params.common.readonly) {
+            && !this.$params.clipboard) {
             this.control.valueChanges
                 .pipe(takeUntil(this.$destroy), distinctUntilChanged())
                 .subscribe((value: unknown): void => {
@@ -174,7 +174,7 @@ export class InputComponent extends AbstractComponent implements OnInit, OnChang
     /**
      * If params contains `prohibitedPattern` regular expression, prohibited symbols will be replaced
      */
-    public onInput(event: Event): void {
+    public onInput(): void {
         if (this.control.untouched) {
             this.control.markAsTouched();
         }
