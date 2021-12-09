@@ -5,6 +5,8 @@ import {MerchantModel} from 'wlc-engine/modules/games/system/models/merchant.mod
 import {ICategoryBlock} from 'wlc-engine/modules/core/system/interfaces/categories.interface';
 import {TotalJackpotNoContentByThemeType} from 'wlc-engine/modules/games/components/total-jackpot/total-jackpot.params';
 
+export type TSortDirection = 'asc' | 'desc';
+
 export interface IGamesConfig {
     sportsbookMerchants?: number[];
     run?: IRunGameOptions;
@@ -47,6 +49,19 @@ export interface ICategories {
     exclude?: IExcludeCategories;
     sort?: ISortCategories,
     parents?: string[];
+    /** setting sorting games in category */
+    gamesSortSetting?: IGamesSortSetting;
+}
+
+export interface IGamesSortSetting {
+    direction?: {
+        /** direction of sorting by sortPerLanguage, 'asc' by default */
+        sortPerLanguage?: TSortDirection,
+        /** direction of sorting by sortPerCategory, 'asc' by default */
+        sortPerCategory?: TSortDirection;
+        /** direction of sorting by general sort value, 'desc' by default */
+        baseSort?: TSortDirection;
+    }
 }
 
 export interface IExcludeCategories {

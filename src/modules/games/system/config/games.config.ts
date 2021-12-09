@@ -61,6 +61,13 @@ export const gamesConfig: IGamesConfig = {
             'casino',
             'livecasino',
         ],
+        gamesSortSetting: {
+            direction: {
+                sortPerLanguage: 'asc',
+                sortPerCategory: 'asc',
+                baseSort: 'desc',
+            },
+        },
     },
     // See here for video compression: https://habr.com/ru/post/442020/
     mediaFormatTypes: {

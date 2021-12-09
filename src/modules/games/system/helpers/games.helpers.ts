@@ -16,6 +16,7 @@ import {
     IMerchant,
     IRestrictions,
     IByMerchantItemCategory,
+    IGamesSortSetting,
 } from 'wlc-engine/modules/games/system/interfaces/games.interfaces';
 
 import _get from 'lodash-es/get';
@@ -77,7 +78,11 @@ export class GamesHelper {
      * @param categories
      * @returns {{mapping: IMapping, categoriesArray: CategoryModel[]}}
      */
-    public static mapCategories(categories: ICategory[], settings?: IIndexing<ICategorySettings>): CategoryModel[] {
+    public static mapCategories(
+        categories: ICategory[],
+        settings: IIndexing<ICategorySettings>,
+        sortSetting: IGamesSortSetting,
+    ): CategoryModel[] {
         if (!categories) {
             return;
         }
@@ -89,6 +94,7 @@ export class GamesHelper {
                 {helper: 'GamesHelper', method: 'mapCategories'},
                 item,
                 categorySettings,
+                sortSetting,
             );
 
             if (_get(this.mapping, `categoryByName.${category.slug}`)) {

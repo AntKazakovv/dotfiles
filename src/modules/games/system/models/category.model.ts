@@ -6,6 +6,7 @@ import {
 import {
     ICategory,
     IGameBlock,
+    IGamesSortSetting,
 } from 'wlc-engine/modules/games/system/interfaces/games.interfaces';
 import {
     IFromLog,
@@ -48,6 +49,7 @@ export class CategoryModel extends AbstractModel<ICategory> {
         from: IFromLog,
         data: ICategory,
         private settings: ICategorySettings,
+        private sortSetting: IGamesSortSetting,
     ) {
         super({from: _assign({model: 'CategoryModel'}, from)});
         this.init(data);
@@ -279,9 +281,9 @@ export class CategoryModel extends AbstractModel<ICategory> {
                     },
                 ],
                 [
-                    'asc',
-                    'asc',
-                    'desc',
+                    this.sortSetting.direction?.sortPerLanguage || 'asc',
+                    this.sortSetting.direction?.sortPerCategory || 'asc',
+                    this.sortSetting.direction?.baseSort || 'desc',
                 ],
             );
         }

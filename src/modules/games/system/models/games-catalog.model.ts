@@ -17,7 +17,10 @@ import {IIndexing} from 'wlc-engine/modules/core/system/interfaces/global.interf
 import {AbstractModel} from 'wlc-engine/modules/core/system/models/abstract.model';
 import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
 import {EventService} from 'wlc-engine/modules/core/system/services/event/event.service';
-import {gamesEvents} from 'wlc-engine/modules/games/system/interfaces/games.interfaces';
+import {
+    gamesEvents,
+    IGamesSortSetting,
+} from 'wlc-engine/modules/games/system/interfaces/games.interfaces';
 import {Game} from 'wlc-engine/modules/games/system/models/game.model';
 import {MerchantModel} from 'wlc-engine/modules/games/system/models/merchant.model';
 import {GamesHelper} from 'wlc-engine/modules/games/system/helpers/games.helpers';
@@ -654,7 +657,9 @@ export class GamesCatalog extends AbstractModel<IGames> {
         response.categories = _concat(this.specialCategories, response.categories);
         CategoryModel.language = this.translateService.currentLang;
 
-        const categories = GamesHelper.mapCategories(response.categories, this.categorySettings);
+        const sortSetting = this.configService.get<IGamesSortSetting>('$games.categories.gamesSortSetting');
+
+        const categories = GamesHelper.mapCategories(response.categories, this.categorySettings, sortSetting);
         this.categories = this.sortCategories(categories);
 
         /***********************************************************************************************************
