@@ -8,6 +8,7 @@ module.exports = {
         '@typescript-eslint',
         'optimize-regex',
         'sonarjs',
+        'import',
     ],
     rules: {
         '@angular-eslint/no-input-rename': 'off',
@@ -37,6 +38,7 @@ module.exports = {
         'max-len': ['warn', {code: 120}],
         '@typescript-eslint/no-unused-vars': 'error',
         '@typescript-eslint/object-curly-spacing': ['error', 'never'],
+        'import/no-cycle': 'error',
     },
     overrides: [
         {
