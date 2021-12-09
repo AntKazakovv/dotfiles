@@ -57,8 +57,6 @@ import _toNumber from 'lodash-es/toNumber';
 import _union from 'lodash-es/union';
 import _uniq from 'lodash-es/uniq';
 import _uniqBy from 'lodash-es/uniqBy';
-import _keys from 'lodash-es/keys';
-import _map from 'lodash-es/map';
 
 export class GamesCatalog extends AbstractModel<IGames> {
 
@@ -549,6 +547,9 @@ export class GamesCatalog extends AbstractModel<IGames> {
         this.availableGames = _filter(this.games, (game: Game) => {
             if (!game.gameRestricted(this.restrictions, restrictCountries)) {
                 merchantIds.add(game.merchantID);
+                if (game.subMerchantID) {
+                    merchantIds.add(game.subMerchantID);
+                }
                 return true;
             }
             return false;
