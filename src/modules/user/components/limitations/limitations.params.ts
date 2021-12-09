@@ -105,10 +105,7 @@ export const limitAmount = {
         validators: [
             'required',
         ],
-        maskOptions: {
-            mask: /^(0|[1-9]+\d*)$/g,
-            overwrite: true,
-        },
+        prohibitedPattern: /[^\d,.]/,
     },
 };
 
