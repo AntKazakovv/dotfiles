@@ -88,8 +88,8 @@
                     ::ng-deep {
 
                         .wlc-icon svg {
-                            @include bm.get-mq-map('width', $themeDefault, 'svgSize');
-                            @include bm.get-mq-map('height', $themeDefault, 'svgSize');
+                            @include bm.get-mq-map('width', $themeDefault, 'svgWidth');
+                            @include bm.get-mq-map('height', $themeDefault, 'svgHeight');
                         }
                     }
                 }

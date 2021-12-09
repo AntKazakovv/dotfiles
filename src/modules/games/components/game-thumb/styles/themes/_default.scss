@@ -376,6 +376,7 @@
         .wlc-game-thumb__icon {
             top: ef.get-value($themeDefault, 'favouritePosition');
             left: ef.get-value($themeDefault, 'favouritePosition');
+            opacity: 1;
         }
     }
 

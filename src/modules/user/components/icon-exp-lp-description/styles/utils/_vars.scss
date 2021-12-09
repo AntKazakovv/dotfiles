@@ -3,11 +3,11 @@
 $customThemeDefault: () !default;
 $themeDefault: map-merge((
     'titleFont': 'PrimaryTextBold',
-    'titleColor': ef.get('mainColors', 'baseMain'),
+    'titleColor': var(--mc-baseMain),
     'titleMargin': 0 0 ef.size(4),
 
     'textFont': 'PrimaryText',
-    'textColor': ef.get('mainColors', 'baseMain'),
+    'textColor': var(--mc-baseMain),
     'textMargin': ef.size(4) 0 0,
 
     'descriptionMargin': 0 0 ef.size(4) 0,

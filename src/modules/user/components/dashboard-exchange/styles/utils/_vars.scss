@@ -73,7 +73,11 @@ $themeDefault: map-merge((
     'pointsJustifyContent': center,
     'pointsFlexWrap': wrap,
     'pointsAlignItems': flex-end,
-    'svgSize': (
+    'svgWidth': (
+        375: 22px,
+        640: 18px,
+    ),
+    'svgHeight': (
         375: 21px,
         640: 17px,
     ),

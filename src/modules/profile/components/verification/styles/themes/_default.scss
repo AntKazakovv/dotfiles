@@ -381,6 +381,22 @@
                             }
                         }
                     }
+
+                    @include em.hover {
+
+                        &.info-icon {
+
+                            ::ng-deep .wlc-icon-content {
+
+                                svg {
+
+                                    path {
+                                        fill: ef.get-value($themeDefault, 'infoIconBgHover');
+                                    }
+                                }
+                            }
+                        }
+                    }
                 }
 
                 &__remove {

@@ -94,11 +94,11 @@ export interface IGamesGridCParams extends IComponentParams<ComponentTheme, Comp
      */
     gamesRows?: number;
     /**
-     * List of games, wich will be showed in games grid (filtering logic not needed)
+     * List of games, which will be showed in games grid (filtering logic not needed)
      */
     gamesList?: Game[];
     /**
-     * Subcategory (usually will be need for game blocks)
+     * Subcategory (is usually needed for game blocks)
      */
     category?: CategoryModel;
     /**

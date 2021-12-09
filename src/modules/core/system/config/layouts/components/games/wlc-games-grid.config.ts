@@ -139,9 +139,10 @@ export namespace wlcGamesGrid {
             },
             showAllLink: {
                 use: true,
-                sref: 'app.catalog',
+                sref: 'app.catalog.child',
                 params: {
-                    category: 'vertical',
+                    category: 'casino',
+                    childCategory: 'vertical',
                 },
             },
         },
