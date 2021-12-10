@@ -54,6 +54,10 @@ export interface IGamesGridMoreBtn {
     lazy?: boolean;
     lazyTimeout?: number;
     scrollToEnd?: boolean;
+    /**
+     * if true will be turned on loading games by scroll after click on 'load more' button
+     */
+    lazyAfterClick?: boolean;
 }
 
 /** @deprecated use `IGamesGridBreakpoints` param instead */
@@ -242,8 +246,10 @@ export const defaultParams: IGamesGridCParams = {
     moreBtn: {
         hide: false,
         lazy: false,
-        lazyTimeout: 1000,
+        lazyTimeout: 0,
         scrollToEnd: true,
+        lazyAfterClick: false,
+        cardView: false,
     },
     btnLoadMore: {
         common: {

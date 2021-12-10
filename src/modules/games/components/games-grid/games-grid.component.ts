@@ -100,13 +100,15 @@ export class GamesGridComponent extends AbstractComponent implements OnInit {
     protected gamesRowsLoaded: number = 0;
     protected paginate: number;
     protected filterChangedCounter: number = 0;
-    protected lazyTimeout: number = 1000;
+    protected lazyTimeout: number;
     protected categoryTitle: string;
     protected filterName: string;
     protected deviceType: DeviceType;
     protected lastPlayedLoaded: boolean = false;
     protected favoritesLoaded: boolean = false;
     protected jackpotsLoaded: boolean = false;
+    protected isClickedLoadMoreBtn: boolean = false;
+    protected useLazyAfterClick: boolean = false;
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IGamesGridCParams,
@@ -131,18 +133,41 @@ export class GamesGridComponent extends AbstractComponent implements OnInit {
 
         if (this.$params.moreBtn?.lazy) {
             this.useLazy = this.$params.moreBtn.lazy;
-            this.lazyTimeout ??= this.$params.moreBtn?.lazyTimeout;
+            this.useLazyAfterClick = this.$params.moreBtn.lazyAfterClick;
+            this.lazyTimeout = this.$params.moreBtn.lazyTimeout;
         }
-        this.moreBtnCardView = this.$params.moreBtn?.cardView || false;
 
+        this.moreBtnCardView = this.$params.moreBtn.cardView;
         this.filterName = this.$params.searchFilterName || 'page';
 
         this.initEventListeners();
+
         if (_size(this.$params.breakpoints)) {
             this.followBreakpoints();
         }
+
         this.prepareGrid().finally();
         this.setNoContentText();
+    }
+
+    /**
+     * return true if visible games is less than games length
+     * and if cardView params setted to false
+     * and if useLazy is setted to false or useLazy setted to true and buton was clicked
+     * @returns boolean
+     */
+    public get moreBlockDisplayCondition(): boolean {
+        return !this.moreBtnCardView && this.gamesCount < this.games.length && this.lazyWithClick;
+    }
+
+    /**
+     * return true if hide param in button is false
+     * and showAllLink.use is setted to false
+     * and if useLazy is setted to false or useLazy setted to true and buton was clicked
+     * @returns boolean
+     */
+    public get loadMoreDisplayCondition(): boolean {
+        return !this.hideShowMoreBtn && !this.$params.showAllLink?.use && this.lazyWithClick;
     }
 
     public get showDefaultHeader(): boolean {
@@ -166,6 +191,20 @@ export class GamesGridComponent extends AbstractComponent implements OnInit {
      * Load more button handler
      */
     public loadMore(): void {
+        this.isClickedLoadMoreBtn = true;
+        this.loadMoreGames();
+
+        if (this.useLazyAfterClick && this.lazyLoadPositionFilter()) {
+            this.setLazyLoadingTrue();
+            this.loadMoreGames();
+        }
+    }
+
+    protected get lazyWithClick(): boolean {
+        return !this.useLazy || (this.useLazyAfterClick && !this.isClickedLoadMoreBtn);
+    }
+
+    protected loadMoreGames(): void {
         if (this.gamesCount === this.games?.length) {
             return;
         }
@@ -245,6 +284,10 @@ export class GamesGridComponent extends AbstractComponent implements OnInit {
                 this.prepareGrid().finally(() => {
                     this.setGridParams();
                 });
+
+                if (this.useLazyAfterClick) {
+                    this.isClickedLoadMoreBtn = false;
+                }
             });
 
             this.$destroy.subscribe(() => {
@@ -271,24 +314,26 @@ export class GamesGridComponent extends AbstractComponent implements OnInit {
             fromEvent(window, 'scroll')
                 .pipe(
                     takeUntil(this.$destroy),
-                    filter(() => this.lazyLoadPipeFilter()),
-                    tap(() => this.lazyLoadPipeTap()),
+                    filter((): boolean => this.lazyLoadPositionFilter()),
+                    tap((): void => this.setLazyLoadingTrue()),
                     throttleTime(this.lazyTimeout),
                 )
-                .subscribe(() => {
-                    this.loadMore();
+                .subscribe((): void => {
+                    this.loadMoreGames();
                 });
         }
     }
 
-    protected lazyLoadPipeFilter(): boolean {
+    protected lazyLoadPositionFilter(): boolean {
         const currentPosition = window.scrollY + window.window.innerHeight;
         const elemClientRect = this.elementRef.nativeElement.getBoundingClientRect();
         const elemBottom = (elemClientRect.top + window.scrollY + elemClientRect.height);
-        return (currentPosition > elemBottom && this.gamesCount < this.games.length);
+        const conditional = (currentPosition > elemBottom && this.gamesCount < this.games.length);
+
+        return this.useLazyAfterClick ? (conditional && this.isClickedLoadMoreBtn) : conditional;
     }
 
-    protected lazyLoadPipeTap(): void {
+    protected setLazyLoadingTrue(): void {
         if (!this.lazyLoading) {
             this.lazyLoading = true;
             this.cdr.markForCheck();

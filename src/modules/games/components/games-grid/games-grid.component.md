@@ -121,3 +121,20 @@ Also, device key words can be used as breakpoints. Here is exclusive logic, if b
     },
 },
 ```
+
+# More btn
+
+lazyAfterClick setting will turn on loading games by scroll after click button 'load more'
+
+```ts
+{
+    name: 'games.wlc-games-grid',
+    params: {
+        ...
+        moreBtn: {
+            lazy: true,
+            lazyAfterClick: true,
+        },
+    },
+},
+```

@@ -65,7 +65,7 @@
                              [currentValue]="gamesCount">
                         </div>
                         <div class="{{$class}}__card-more">
-                            <button *ngIf="!hideShowMoreBtn && !$params.showAllLink?.use && !useLazy"
+                            <button *ngIf="loadMoreDisplayCondition"
                                     wlc-button
                                     [inlineParams]="$params.btnLoadMore"
                                     (click)="loadMore()"></button>
@@ -82,7 +82,7 @@
 
             <ng-container *ngIf="$params.moreBtn.lazy && lazyLoading; then preloader"></ng-container>
 
-            <ng-container *ngIf="!moreBtnCardView && !useLazy && gamesCount < games.length; then more"></ng-container>
+            <ng-container *ngIf="moreBlockDisplayCondition; then more"></ng-container>
         </ng-container>
     </ng-template>
 
