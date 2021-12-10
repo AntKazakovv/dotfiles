@@ -19,9 +19,11 @@ import * as Params from './category-preview.params';
 import _includes from 'lodash-es/includes';
 
 interface ICategory {
+    state: string;
+    stateParams: IIndexing<string>;
+    slug: string;
     game: Game;
     name: IIndexing<string>;
-    slug: string;
 }
 
 @Component({
@@ -70,8 +72,16 @@ export class CategoryPreviewComponent extends AbstractComponent implements OnIni
 
                 this.categories.push({
                     name: category.data.Name,
-                    slug: category.data.Slug,
                     game: category.games[gameNumber],
+                    slug: category.slug,
+                    state: category.parentCategory ? 'app.catalog.child' : 'app.catalog',
+                    stateParams: category.parentCategory
+                        ? {
+                            category: category.parentCategory.slug,
+                            childCategory: category.slug,
+                        } : {
+                            category: category.slug,
+                        },
                 });
             }
         }

@@ -11,6 +11,6 @@ export interface ICategoryPreviewCParams extends IComponentParams<Theme, Type, T
 
 export const defaultParams: ICategoryPreviewCParams = {
     class: 'wlc-category-preview',
-    categories: ['popular', 'livecasino', 'blackjacks'],
+    categories: ['popular', 'livecasino', 'blackjacks', 'blackjack'],
     categoriesCount: 3,
 };

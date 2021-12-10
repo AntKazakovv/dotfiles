@@ -117,6 +117,8 @@ export class ProfileFormComponent extends AbstractComponent implements OnInit {
         const result = await this.userService.updateProfile(form.value, false);
 
         if (result === true) {
+            form.controls.password?.setValue('');
+            form.controls.newPasswordRepeat?.setValue('');
             this.eventService.emit({
                 name: NotificationEvents.PushMessage,
                 data: <IPushMessageParams>{

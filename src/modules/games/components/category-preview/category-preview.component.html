@@ -3,7 +3,7 @@
     <div *ngFor="let category of categories" class="{{$class}}-item">
 
         <div class="{{$class}}-item__category category-card category-card--{{category.slug}}">
-            <a class="wrapper" uiSref="app.catalog" [uiParams]="{category: category.slug}">
+            <a class="wrapper" [uiSref]="category.state" [uiParams]="category.stateParams">
                 <span class="category-card__title">{{category.name[lang] || category.name['en']}}</span>
                 <span class="category-card__link">
                     {{'All games' | translate}}
