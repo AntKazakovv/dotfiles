@@ -97,6 +97,7 @@ export class TournamentListComponent
         this.subscribeOnTournamentLeave();
         this.subscribeOnErrorGettingTournaments();
         this.noContentParams = GlobalHelper.getNoContentParams(this.$params, this.$class, this.configService);
+        this.cdr.detectChanges();
     }
 
     public ngAfterViewInit(): void {

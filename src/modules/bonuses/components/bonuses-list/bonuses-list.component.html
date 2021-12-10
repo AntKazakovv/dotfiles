@@ -47,7 +47,7 @@
 </ng-template>
 
 <ng-template #promoHome>
-    <ng-container *ngIf="bonuses?.length && isReady; else: noContent">
+    <ng-container *ngIf="bonuses?.length; else: noContent">
         <div wlc-slider
              class="{{$class}}__slider"
              type="dashboard"
@@ -157,7 +157,10 @@
 
 <ng-template #noContent>
     <div class="{{$class}}-nocontent__tag">{{'Bonuses' | translate}}</div>
-    <div wlc-no-content [inlineParams]="noContentParams"></div>
+    <div wlc-no-content
+        [inlineParams]="noContentParams"
+        [loading]="!isReady">
+    </div>
 </ng-template>
 
 <ng-template #noContentNative>

@@ -1,3 +1,6 @@
+@use 'engine-scss/mixins/base.mixins' as bm;
+@use 'engine-scss/mixins/mediaqueries' as mq;
+
 .wlc-no-content--wlc-tournament-list:host {
     @include baseNoContent();
 
@@ -6,9 +9,14 @@
         .wlc-no-content {
 
             &__wrapper {
+                @include bm.get-mq-map('min-height', $tournamentList, 'nodataWrapperMinHeight');
 
                 &:before {
                     @include linearGradient();
+                }
+
+                .wlc-loader {
+                    @include bm.absoluteCentering;
                 }
             }
         }

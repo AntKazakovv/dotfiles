@@ -56,7 +56,7 @@
 </ng-template>
 
 <ng-template #banner>
-    <ng-container *ngIf="tournaments?.length && slides.length && isReady; else: noDataBanner">
+    <ng-container *ngIf="tournaments?.length && slides.length; else noDataBanner">
         <ng-container *ngIf="$params.type === 'swiper'">
             <div class="{{$class}}__slider"
                 wlc-slider
@@ -162,7 +162,10 @@
 
 <ng-template #noDataBanner>
     <div class="{{$class}}-nocontent__tag">{{'Tournaments' | translate}}</div>
-    <div wlc-no-content [inlineParams]="noContentParams"></div>
+    <div wlc-no-content
+         [inlineParams]="noContentParams"
+         [loading]="!isReady">
+    </div>
 </ng-template>
 
 <ng-container [ngSwitch]="$params.theme">

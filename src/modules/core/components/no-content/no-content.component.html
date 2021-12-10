@@ -1,6 +1,7 @@
 <div class="{{$class}}__wrapper"
     [style.background-image]="$params.bgImage && 'url(' + $params.bgImage + ')'"
 >
+<ng-container *ngIf="!loading; else preloader">
     <div class="{{$class}}__body">
         <div class="{{$class}}__content">
             <h5 *ngIf="$params.title"
@@ -29,6 +30,10 @@
             ></button>
         </div>
     </div>
-
     <img *ngIf="$params.decorImage" class="{{$class}}-decor" src="{{$params.decorImage}}"/>
+    </ng-container>
 </div>
+
+<ng-template #preloader>
+    <div wlc-loader></div>
+</ng-template>

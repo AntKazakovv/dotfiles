@@ -20,6 +20,7 @@ import * as Params from './no-content.params';
 })
 export class WlcNoContentComponent extends AbstractComponent implements OnInit {
     @Input() public inlineParams: Params.INoContentCParams;
+    @Input() public loading: boolean = false;
     public $params: Params.INoContentCParams;
 
     constructor(

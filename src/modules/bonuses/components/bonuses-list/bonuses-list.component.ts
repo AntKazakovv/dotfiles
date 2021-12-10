@@ -128,6 +128,7 @@ export class BonusesListComponent extends AbstractComponent implements OnInit, O
             this.$class,
             this.configService,
         );
+        this.cdr.detectChanges();
         if (!this.bonusesService.promoBonus) {
             await this.checkPromoBonus();
         }
