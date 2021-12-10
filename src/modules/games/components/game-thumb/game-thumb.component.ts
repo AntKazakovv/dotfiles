@@ -161,6 +161,11 @@ export class GameThumbComponent extends AbstractComponent implements OnInit, Aft
                         this.game = gameList[0];
                     }
                 }
+
+                if (!this.promoWidgetTitle && this.game) {
+                    this.promoWidgetTitle = this.game.name[this.configService.get<string>('currentLanguage') || 'en']
+                        || this.game.name.en;
+                }
             } catch (err) {
                 this.initFailed = true;
             }

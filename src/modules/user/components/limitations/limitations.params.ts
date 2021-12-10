@@ -99,11 +99,12 @@ export const limitAmount = {
         common: {
             placeholder: gettext('Amount'),
             customModifiers: 'right-shift',
-            type: 'text',
+            type: 'number',
         },
         wlcElement: 'limit_amount',
         validators: [
             'required',
+            'numberDecimal',
         ],
         prohibitedPattern: /[^\d,.]/,
     },
