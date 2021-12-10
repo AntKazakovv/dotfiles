@@ -267,8 +267,8 @@ export class WinnersService {
      * @param current - current response
      */
     protected filterResponse(prev: IData, current: IData): boolean {
-        if (current?.data?.length) {
-            const diff = prev ? _differenceWith(prev?.data, current.data, _isEqual).length : true;
+        if (prev?.data?.length) {
+            const diff = prev ? _differenceWith(prev.data, current?.data, _isEqual).length : true;
             return !!diff;
         }
         return true;
