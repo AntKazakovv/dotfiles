@@ -39,17 +39,16 @@ export function routerConfigFn(router: UIRouter, injector: Injector) {
         if (_keys(stateRedirects).length) {
             _each(stateRedirects, (redirect, state) => {
                 if (profileType === redirect.profile || !redirect.profile) {
-                    router.transitionService.onEnter({to: state}, (transition: Transition) => {
-                        router.stateService.go(redirect.state, redirect?.params || transition.params());
+                    router.transitionService.onEnter({to: state}, (trans: Transition) => {
+                        return router.stateService.target(redirect.state, redirect?.params || trans.params());
                     });
                 }
             });
         }
 
-        router.transitionService.onBefore({to: criteria}, (trans) => {
+        router.transitionService.onBefore({to: criteria}, (trans: Transition) => {
             if (profileType !== profileRedirectsMap?.[trans.to().name]) {
-                trans.abort();
-                router.stateService.go('app.error', trans.params());
+                return router.stateService.target('app.error', trans.params());
             }
         });
 

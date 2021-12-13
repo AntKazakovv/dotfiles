@@ -482,6 +482,7 @@ export class ActionService {
             const finishedTransition = this.transition.onBefore({to: stateRedirect}, () => {
                 showModal();
                 finishedTransition();
+                return false;
             });
         } else {
             showModal();

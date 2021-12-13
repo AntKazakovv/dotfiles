@@ -15,7 +15,20 @@ import {
 } from '@uirouter/core';
 import {Title, Meta} from '@angular/platform-browser';
 import {Subscription, fromEvent} from 'rxjs';
-import {takeUntil, filter} from 'rxjs/operators';
+import {
+    takeUntil,
+    filter,
+} from 'rxjs/operators';
+
+import _assign from 'lodash-es/assign';
+import _each from 'lodash-es/each';
+import _findIndex from 'lodash-es/findIndex';
+import _get from 'lodash-es/get';
+import _includes from 'lodash-es/includes';
+import _isEqual from 'lodash-es/isEqual';
+import _remove from 'lodash-es/remove';
+import _sortBy from 'lodash-es/sortBy';
+import _union from 'lodash-es/union';
 
 import {
     AbstractComponent,
@@ -39,15 +52,6 @@ import {
 } from 'wlc-engine/modules/livechat';
 import {IAnalytics} from 'wlc-engine/modules/analytics/system/interfaces/analytics.interface';
 import {AnalyticsService} from 'wlc-engine/modules/analytics';
-
-import _each from 'lodash-es/each';
-import _findIndex from 'lodash-es/findIndex';
-import _get from 'lodash-es/get';
-import _includes from 'lodash-es/includes';
-import _isEqual from 'lodash-es/isEqual';
-import _remove from 'lodash-es/remove';
-import _sortBy from 'lodash-es/sortBy';
-import _union from 'lodash-es/union';
 
 const defaultParams = {
     class: 'wlc-sections',
@@ -114,7 +118,7 @@ export class AppComponent extends AbstractComponent implements OnInit, OnDestroy
         this.translate.onLangChange.pipe(takeUntil(this.$destroy)).subscribe((v) => {
             this.stateService.go(
                 this.uiRouter.current.name,
-                {locale: v.lang},
+                _assign({}, this.uiRouter.params, {locale: v.lang}),
             );
         });
 

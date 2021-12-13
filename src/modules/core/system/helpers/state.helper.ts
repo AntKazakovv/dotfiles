@@ -40,15 +40,13 @@ export class StateHelper {
             const redirectParams = _merge(locale, redirect.params);
 
             if (config.get('$base.profile.type') === redirect.profile || !redirect.profile) {
-                trans.abort();
-                trans.router.stateService.go(
+                return trans.router.stateService.target(
                     redirect.state,
                     redirectParams,
                 );
             }
         } else if (!params.locale) {
-            trans.abort();
-            trans.router.stateService.go(
+            return trans.router.stateService.target(
                 redirects['app.home']?.state || 'app.home',
                 _merge(locale, redirects['app.home']?.params),
             );
