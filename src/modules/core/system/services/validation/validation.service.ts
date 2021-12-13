@@ -160,6 +160,31 @@ export class ValidationService {
         return this.validatorList[validator];
     }
 
+    /**
+     * do request on server to check promocode is correct
+     * @param promocode string
+     * @param currency string
+     * @param country string
+     * @returns Promise<boolean>
+     */
+    public async checkPromocode(promocode: string, currency: string, country: string = ''): Promise<boolean> {
+        try {
+            const response = await this.dataService.request<IData>(
+                {
+                    name: 'promocode',
+                    system: 'user',
+                    url: '/profiles/promocode',
+                    type: 'PUT',
+                },
+                {promocode, currency, country},
+            );
+
+            return response.data.result;
+        } catch (error) {
+            throw new Error(error);
+        }
+    }
+
     private setRule(name: string, rule: any, async: boolean = false): void {
         this.validatorList[name] = {
             validator: rule.bind(this),

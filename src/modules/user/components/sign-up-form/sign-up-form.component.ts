@@ -21,6 +21,7 @@ import {
     IValidateData,
 } from '../../system/classes/user-actions-abstract.class';
 import {SocialService} from 'wlc-engine/modules/user/system/services/social/social.service';
+import {ValidationService} from 'wlc-engine/modules/core/system/services/validation/validation.service';
 import {IFormComponent} from 'wlc-engine/modules/core/components/form-wrapper/form-wrapper.component';
 import {IMGAConfig} from 'wlc-engine/modules/core/components/license/license.params';
 
@@ -65,6 +66,7 @@ export class SignUpFormComponent extends UserActionsAbstract<Params.ISignUpFormC
     constructor(
         @Inject('injectParams') protected injectParams: Params.ISignUpFormCParams,
         protected userService: UserService,
+        protected validationService: ValidationService,
         protected logService: LogService,
         protected configService: ConfigService,
         protected eventService: EventService,
@@ -121,6 +123,15 @@ export class SignUpFormComponent extends UserActionsAbstract<Params.ISignUpFormC
         }
     }
 
+    /**
+     * method runs before sending and checks if the form is correct
+     * @param form
+     * @returns {Promise}
+     */
+    public beforeSubmit(form: FormGroup): Promise<boolean> {
+        return this.checkRegisterPromocode(form);
+    }
+
     public async ngSubmit(form: FormGroup): Promise<void> {
         if ((this.isMGALicense && !this.isMGAFormStep())
             || this.configService.get<boolean>('$base.profile.smsVerification.use')) {
@@ -146,6 +157,45 @@ export class SignUpFormComponent extends UserActionsAbstract<Params.ISignUpFormC
             }
         } finally {
             form.enable();
+        }
+    }
+
+    protected async checkRegisterPromocode(form: FormGroup): Promise<boolean> {
+        const promocodeControl = form.get('registrationPromoCode');
+        const currencyControl = form.get('currency');
+
+        if (!promocodeControl.value || !currencyControl) {
+            return true;
+        }
+
+        promocodeControl.markAsPending();
+
+        try {
+            const result = await this.validationService.checkPromocode(
+                promocodeControl.value,
+                form.get('currency').value,
+                form.get('countryCode')?.value || '',
+            );
+
+            if (result) {
+                return true;
+            } else {
+                promocodeControl.setErrors({promocode: true});
+                return false;
+            }
+        } catch(error) {
+            promocodeControl.setErrors({promocode: true});
+
+            this.logService.sendLog({
+                code: '2.1.2',
+                data: error,
+                from: {
+                    component: 'SignUpFormComponent',
+                    method: 'checkRegisterPromocode',
+                },
+            });
+
+            return false;
         }
     }
 

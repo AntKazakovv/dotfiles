@@ -1,6 +1,7 @@
 <div wlc-form-wrapper
     [config]="config"
     [ngSubmit]="ngSubmit.bind(this)"
-    [formData]="formData"
-    [errors]="errors$.asObservable()">
+    [errors]="errors$.asObservable()"
+    [beforeSubmit]="beforeSubmit.bind(this)"
+    [formData]="formData">
 </div>

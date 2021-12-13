@@ -100,7 +100,7 @@ export interface IFormWrapperCParams extends IWrapperCParams {
 })
 export class FormWrapperComponent extends WrapperComponent implements OnInit, OnChanges {
     @Input() public ngSubmit: (form: FormGroup) => Promise<boolean>;
-    @Input() private beforeSubmit: (form: FormGroup) => boolean;
+    @Input() private beforeSubmit: (form: FormGroup) => boolean | Promise<boolean>;
     @Input() private config: IFormWrapperCParams;
     @Input() private formData: BehaviorSubject<IIndexing<any>>;
     @Input() private errors: Observable<IIndexing<string>>;
@@ -191,7 +191,7 @@ export class FormWrapperComponent extends WrapperComponent implements OnInit, On
     }
 
     public async submit(): Promise<void> {
-        if (this.beforeSubmit && !this.beforeSubmit(this.form)) {
+        if (this.beforeSubmit && !await this.beforeSubmit(this.form)) {
             return;
         }
 
@@ -301,7 +301,11 @@ export class FormWrapperComponent extends WrapperComponent implements OnInit, On
         this.prepareComponents(this.$params.components);
         this.prepareValidators();
 
-        this.form = new FormGroup(this.controls, this.globalValidators);
+        this.form = new FormGroup(
+            this.controls,
+            this.globalValidators.validators,
+            this.globalValidators.asyncValidators,
+        );
         this.form$.emit(this.form);
 
         this.dataSubscription();
