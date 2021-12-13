@@ -40,7 +40,8 @@ $theme1Footer: map-merge((
     'footerContainerGridColumns': (
         375: 1fr,
         768: auto 1fr auto,
-        1200: auto 1fr auto 2fr auto,
+        1200: auto 1fr auto minmax(0, 420px) auto,
+        1630: auto 1fr auto 2fr auto,
     ),
     'footerContainerGridAreas': (
         375: 'merchants' 'payments' 'menu' 'language' 'social' 'disclaimer' 'license',
