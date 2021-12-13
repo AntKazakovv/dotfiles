@@ -540,15 +540,17 @@ export class GamesCatalog extends AbstractModel<IGames> {
         this.processFetchedGamesCatalog(this.data);
 
         this.translateService.onLangChange.subscribe(({lang}: LangChangeEvent) => {
-            CategoryModel.language = lang;
+            if (CategoryModel.language !== lang) {
+                CategoryModel.language = lang;
 
-            _forEach(this.projectCategories, (category) => {
-                category.sortGames();
+                _forEach(this.projectCategories, (category) => {
+                    category.sortGames();
 
-                _forEach(category.childCategories, (childCategory) => {
-                    childCategory.sortGames();
+                    _forEach(category.childCategories, (childCategory) => {
+                        childCategory.sortGames();
+                    });
                 });
-            });
+            }
         });
 
         this.availableGamesHandler();
@@ -598,7 +600,6 @@ export class GamesCatalog extends AbstractModel<IGames> {
             return merchantIds.has(merchant.id);
         });
 
-        this.prepareCategories();
         this.eventService.emit({
             name: gamesEvents.UPDATED_AVAILABLE_GAMES,
             data: this.availableGames,
@@ -691,7 +692,7 @@ export class GamesCatalog extends AbstractModel<IGames> {
          * CATEGORIES
          **********************************************************************************************************/
         response.categories = _concat(this.specialCategories, response.categories);
-        CategoryModel.language = this.translateService.currentLang;
+        CategoryModel.language = this.translateService.currentLang || 'en';
 
         const sortSetting = this.configService.get<IGamesSortSetting>('$games.categories.gamesSortSetting');
 
@@ -795,19 +796,6 @@ export class GamesCatalog extends AbstractModel<IGames> {
                 return category.slug !== mainParentCategory?.slug && !category.isSpecial;
             });
 
-            _forEach(otherCategories, (category: CategoryModel) => {
-                const gamesList: Game[] = _filter(this.availableGames, (game: Game) => {
-                    return game.hasCategory(category);
-                });
-                category.setGames(gamesList);
-            });
-
-            let gamesList: Game[] = this.availableGames;
-            if (mainParentCategory && mainParentCategory.slug !== 'casino') {
-                gamesList = this.getGamesByCategories([mainParentCategory]);
-            }
-            mainParentCategory.setGames(gamesList);
-
             const childCategories: CategoryModel[] = _filter(this.categories, (category: CategoryModel) => {
                 return !category.isParent;
             });
@@ -816,21 +804,25 @@ export class GamesCatalog extends AbstractModel<IGames> {
 
             _forEach(childCategories, (category: CategoryModel) => {
 
-                const games: Game[] = _filter(this.availableGames, (game: Game) => {
-                    return game.hasCategory(category);
+                const hasGames = !!_find(this.availableGames, (game: Game) => {
+                    return _includes(game.categoryID, category.id);
                 });
 
-                if (games.length) {
+                if (hasGames) {
                     const newChildCategory: CategoryModel = _cloneDeep(category);
                     newChildCategory.setParentCategory(mainParentCategory);
-                    newChildCategory.setGames(games);
                     availableChildCategories.push(newChildCategory);
                 }
             });
 
             mainParentCategory.setChildCategories(availableChildCategories);
 
-            this.projectCategories = this.sortCategories(_union(parentCategories, availableChildCategories));
+            this.projectCategories = this.sortCategories(_union(
+                [mainParentCategory],
+                parentCategories,
+                availableChildCategories,
+                otherCategories),
+            );
             this.configureCategoriesView(this.projectCategories);
         }
 

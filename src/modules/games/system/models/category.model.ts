@@ -24,7 +24,24 @@ import _toNumber from 'lodash-es/toNumber';
 import _has from 'lodash-es/has';
 import _forEach from 'lodash-es/forEach';
 import _find from 'lodash-es/find';
-import _orderBy from 'lodash-es/orderBy';
+import _isNil from 'lodash-es/isNil';
+
+const directions = {
+    asc: -1,
+    desc: 1,
+};
+
+const specialCategories = [
+    'casino',
+    'lastplayed',
+    'favourites',
+    'last-played',
+];
+
+const defaultParentsCategories = [
+    'new',
+    'popular',
+];
 
 export class CategoryModel extends AbstractModel<ICategory> {
 
@@ -34,8 +51,7 @@ export class CategoryModel extends AbstractModel<ICategory> {
     private gamesList: Game[] = [];
     private parent: CategoryModel;
     private childs: CategoryModel[] = [];
-    private specialCategories = ['casino', 'lastplayed', 'favourites', 'last-played'];
-    private defaultParents = ['new', 'popular'];
+
     private useAsParent: boolean = false;
     private usedMenu: string;
     private tagsData: IIndexing<string> = {};
@@ -92,15 +108,15 @@ export class CategoryModel extends AbstractModel<ICategory> {
     }
 
     public get isSpecial(): boolean {
-        return _includes(this.specialCategories, this.slug);
+        return _includes(specialCategories, this.slug);
     }
 
     public get isParent(): boolean {
         return !this.parent && (
             this.useAsParent
             || this.menu === 'main-menu'
-            || _includes(this.specialCategories, this.slug)
-            || _includes(this.defaultParents, this.slug)
+            || _includes(specialCategories, this.slug)
+            || _includes(defaultParentsCategories, this.slug)
         );
     }
 
@@ -211,6 +227,10 @@ export class CategoryModel extends AbstractModel<ICategory> {
         this.updateMerchants = true;
     }
 
+    public static get language(): string {
+        return CategoryModel.currentLanguage;
+    }
+
     public static set language(language: string) {
         CategoryModel.currentLanguage = language;
     }
@@ -274,25 +294,40 @@ export class CategoryModel extends AbstractModel<ICategory> {
 
     public sortGames(): void {
         if (this.gamesList.length) {
-            this.gamesList = _orderBy(
-                this.gamesList,
-                [
-                    (game: Game) => {
-                        return game.sortPerLanguage[CategoryModel.currentLanguage] || null;
-                    },
-                    (game: Game) => {
-                        return game.sortPerCategory[this.id] || null;
-                    },
-                    (game: Game) => {
-                        return game.sort || 0;
-                    },
-                ],
-                [
-                    this.sortSetting.direction?.sortPerLanguage || 'asc',
-                    this.sortSetting.direction?.sortPerCategory || 'asc',
-                    this.sortSetting.direction?.baseSort || 'desc',
-                ],
-            );
+
+            const perLangDirection = this.sortSetting.direction?.sortPerLanguage || 'asc';
+            const perCatDirection = this.sortSetting.direction?.sortPerCategory || 'asc';
+            const baseDirection = this.sortSetting.direction?.baseSort || 'desc';
+
+            const lang = CategoryModel.currentLanguage;
+
+            this.gamesList
+                .sort((a, b) => {
+                    const perLangA = _isNil(a.sortPerLanguage[lang] || null);
+                    const perLangB = _isNil(b.sortPerLanguage[lang] || null);
+
+                    if (perLangA && !perLangB) {
+                        return 1;
+                    } else if (!perLangA && perLangB) {
+                        return -1;
+                    } else if (!perLangA && !perLangB && b.sortPerLanguage[lang] !== a.sortPerLanguage[lang]) {
+                        return directions[perLangDirection] * (b.sortPerLanguage[lang] - a.sortPerLanguage[lang]);
+                    }
+
+                    const perCatA = _isNil(a.sortPerCategory[this.id] || null);
+                    const perCatB = _isNil(b.sortPerCategory[this.id] || null);
+
+                    if (perCatA && !perCatB) {
+                        return 1;
+                    } else if (!perCatA && perCatB) {
+                        return -1;
+                    } else if (!perCatA && !perCatB && a.sortPerCategory[this.id] !== b.sortPerCategory[this.id]) {
+                        return directions[perCatDirection]
+                            * (b.sortPerCategory[this.id] - a.sortPerCategory[this.id]);
+                    }
+
+                    return directions[baseDirection] * ((b.sort || 0) - (a.sort || 0));
+                });
         }
     }
 
