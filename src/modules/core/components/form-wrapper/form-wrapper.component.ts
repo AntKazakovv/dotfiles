@@ -471,7 +471,13 @@ export class FormWrapperComponent extends WrapperComponent implements OnInit, On
         return this.validationService.getValidator(validatorSettings);
     }
 
-    private setErrors(errors: IIndexing<string>): void {
+    private async setErrors(errors: IIndexing<string>): Promise<void> {
+        if (this.form.disabled) {
+            await this.form.statusChanges
+                .pipe(takeWhile((status: string): boolean => status === 'DISABLED' || status === 'PENDING'))
+                .toPromise();
+        }
+
         _each(_keys(errors), (key: string): void => {
             const control: FormControl = this.controls[key];
             if (control) {
