@@ -46,12 +46,12 @@ export class Bonus extends AbstractModel<IBonus> {
     constructor(
         from: IFromLog,
         data: IBonus,
-        protected ConfigService: ConfigService,
+        protected configService: ConfigService,
         protected cachingService: CachingService,
     ) {
         super({from: _assign({model: 'Bonus'}, from)});
         this.data = this.modifyData(data);
-        this.userCurrency = this.ConfigService.get<string>('appConfig.user.currency') || 'EUR';
+        this.userCurrency = this.configService.get<string>('appConfig.user.currency') || 'EUR';
         this._imageUrl = this.image.length ? `url(${this.image})` : '';
         this._imageOtherUrl = this.imageOther ? `url(${this.imageOther})` : '';
         this._tag = this.getTag();
