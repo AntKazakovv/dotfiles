@@ -20,7 +20,7 @@ $themeDefault: map-merge((
         900: ef.size(6),
         1200: ef.size(8),
     ),
-    'menuBorderRight': 2px solid var(--mc-bg500),
+    'menuBorderRight': 2px solid var(--mc-baseOpacity),
     'menuBorderRadius': ef.get('radius', 'biger') 0 0 ef.get('radius', 'biger'),
     'borderRadius': ef.get('radius', 'biger'),
     'padding': 0,

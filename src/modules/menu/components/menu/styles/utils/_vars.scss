@@ -8,12 +8,12 @@ $menuThemeContacts: map-merge((
     'padding': 20px 25px,
     'letterSpacing': 1px,
 
-    'hoverBg': var(--mc-main),
-    'hoverColor': ef.get('mainColors', 'baseMain'),
+    'hoverBg': var(--mc-main-o6),
+    'hoverColor': var(--mc-baseMain),
 
     'activeBg': var(--mc-main),
-    'activeColor': ef.get('mainColors', 'baseMain'),
-    'borderColor': var(--mc-bg500),
+    'activeColor': var(--mc-baseMain),
+    'borderBottom': 2px solid var(--mc-baseOpacity),
     'iconColor': var(--mc-main),
 ), $customMenuThemeContacts);
 

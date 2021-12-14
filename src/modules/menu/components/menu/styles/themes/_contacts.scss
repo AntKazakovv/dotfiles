@@ -17,21 +17,19 @@
             letter-spacing: ef.get-value($menuThemeContacts, 'letterSpacing');
             text-transform: ef.get-value($menuThemeContacts, 'textTransform');
             text-decoration: ef.get-value($menuThemeContacts, 'textDecoration');
-            border-bottom: 2px solid ef.get-value($menuThemeContacts, 'borderColor');
+            border-bottom: ef.get-value($menuThemeContacts, 'borderBottom');
 
             &.active {
                 color: ef.get-value($menuThemeContacts, 'activeColor');
                 background: ef.get-value($menuThemeContacts, 'activeBg');
-
-                @include bm.hover {
-                    color: ef.get-value($menuThemeContacts, 'hoverColor');
-                    background: ef.get-value($menuThemeContacts, 'hoverBg');
-                }
             }
 
             @include bm.hover {
-                color: ef.get-value($menuThemeContacts, 'hoverColor');
-                background: ef.get-value($menuThemeContacts, 'hoverBg');
+
+                &:not(.active) {
+                    color: ef.get-value($menuThemeContacts, 'hoverColor');
+                    background: ef.get-value($menuThemeContacts, 'hoverBg');
+                }
             }
         }
     }

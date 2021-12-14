@@ -70,10 +70,10 @@ $menuThemeContacts: map-merge((
     'padding': 20px 25px,
     'letterSpacing': 1px,
 
-    'hoverBg': var(--mc-main),
+    'hoverBg': var(--mc-main-o6),
     'hoverColor': var(--mc-baseMain),
 
     'activeBg': var(--mc-main),
     'activeColor': var(--mc-baseMain),
-    'border': 2px solid var(--mc-bg500),
+    'borderBottom': 2px solid var(--mc-baseOpacity),
 ), $customMenuThemeContacts);
