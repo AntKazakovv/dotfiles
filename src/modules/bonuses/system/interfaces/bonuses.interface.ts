@@ -17,6 +17,22 @@ export interface IBonusesModule {
     },
 }
 
+export type TBonusEvent =
+    | 'deposit first'
+    | 'registration'
+    | 'verification'
+    | 'deposit'
+    | 'deposit repeated'
+    | 'deposit sum'
+    | 'bet sum'
+    | 'bet'
+    | 'win sum'
+    | 'loss sum'
+    | 'level up'
+    | 'sign up'
+    | 'store'
+    | 'promotion';
+
 export interface IBonus {
     Active: number;
     AffiliateSystem: string;
@@ -38,7 +54,7 @@ export interface IBonus {
     Description: string;
     DisableCancel: string;
     Date: string;
-    Event: string;
+    Event: TBonusEvent;
     EventAmount: string;
     ExperienceAction: string;
     ExperiencePoints: string;

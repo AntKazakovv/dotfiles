@@ -36,14 +36,14 @@ import _has from 'lodash-es/has';
 import _set from 'lodash-es/set';
 import _reverse from 'lodash-es/reverse';
 
-export interface IData {
+export interface IData<T = any> {
     status: 'success' | 'error';
     name: string;
     system: string;
     code?: number | string;
     errors?: string[];
     source?: string;
-    data?: any;
+    data?: T;
 }
 
 export type RestMethodType = 'GET' | 'POST' | 'PATCH' | 'PUT' | 'DELETE';

@@ -142,7 +142,7 @@ export class BonusButtonsComponent extends AbstractComponent implements OnInit {
 
     /**
      * Selects the specified bonus
-     * 
+     *
      * @param bonus {Bonus} choose bonus
      * @param type {IBonusType} bonus type
      */
@@ -157,7 +157,7 @@ export class BonusButtonsComponent extends AbstractComponent implements OnInit {
 
     /**
      * Execution select action
-     * 
+     *
      * @param type {string} action type
      */
     public async action(type: string) {
@@ -183,7 +183,7 @@ export class BonusButtonsComponent extends AbstractComponent implements OnInit {
 
     /**
      * Closed bonus modal
-     * 
+     *
      * @param id {string}
      */
     protected hideActiveModal(id: string): void {

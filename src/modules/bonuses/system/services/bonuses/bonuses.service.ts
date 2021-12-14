@@ -278,7 +278,7 @@ export class BonusesService {
      * @param {number} id bonus id
      * @returns {Bonus} bonus object
      */
-    public async getBonus(id: number): Promise<Bonus | void> {
+    public async getBonus(id: number): Promise<Bonus> {
         try {
             const data: IBonusData = await this.dataService.request({
                 name: 'bonusById',
@@ -287,12 +287,16 @@ export class BonusesService {
                 type: 'GET',
             });
             if (_isObject(data.data)) {
-                return new Bonus(
-                    {service: 'BonusesService', method: 'getBonus'},
-                    data.data,
-                    this.configService,
-                    this.cachingService,
-                );
+                try {
+                    return new Bonus(
+                        {service: 'BonusesService', method: 'getBonus'},
+                        data.data,
+                        this.configService,
+                        this.cachingService,
+                    );
+                } catch (error) {
+                    //
+                }
             } else {
                 this.logService.sendLog({code: '10.0.1', data: data.data});
             }
@@ -391,9 +395,9 @@ export class BonusesService {
      * @returns {Bonus} bonus object
      */
     public async takeInventory(bonus: Bonus): Promise<Bonus> {
-        const params = {ID: bonus.id, type: 'take'};
+        const params = {id: bonus.id, type: 'take'};
         try {
-            const response: IData = await this.dataService.request({
+            const response: IData<Bonus> = await this.dataService.request<IData<Bonus>>({
                 name: 'bonusTake',
                 system: 'bonuses',
                 url: `/bonuses/${bonus.id}`,
@@ -450,7 +454,7 @@ export class BonusesService {
                 return res.data as T[];
             }
 
-            const bonuses: Bonus[] = _sortBy(this.checkForbid(this.modifyBonuses(res.data), queryParams), ['id']);
+            const bonuses: Bonus[] = _sortBy(this.checkForbid(await this.modifyBonuses(res.data), queryParams), ['id']);
 
             if (bonuses.length) {
                 await this.checkBonusesInCache(bonuses);
@@ -496,7 +500,7 @@ export class BonusesService {
         }
     }
 
-    private modifyBonuses(data: IBonus[]): Bonus[] {
+    private async modifyBonuses(data: IBonus[]): Promise<Bonus[]> {
         const queryBonuses: Bonus[] = [];
 
         if (data?.length) {
@@ -507,7 +511,7 @@ export class BonusesService {
                     this.configService,
                     this.cachingService,
                 );
-                bonus.setFromCache();
+                await bonus.setFromCache();
                 queryBonuses.push(bonus);
             }
         }
@@ -686,6 +690,7 @@ export class BonusesService {
         switch (actionType) {
             case 'inventory':
                 bonus.data.Inventoried = 0;
+                bonus.data.Active = 1;
                 break;
             case 'cancel':
                 bonus.data.Status = 0;

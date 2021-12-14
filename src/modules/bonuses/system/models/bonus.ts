@@ -10,6 +10,7 @@ import {
     IBonusConditions,
     IBonusType,
     ActionType,
+    TBonusEvent,
 } from '../interfaces/bonuses.interface';
 import {DateTime} from 'luxon';
 
@@ -152,7 +153,7 @@ export class Bonus extends AbstractModel<IBonus> {
         return this.data.Date;
     }
 
-    public get event(): string {
+    public get event(): TBonusEvent {
         return this.data.Event;
     }
 
@@ -304,7 +305,7 @@ export class Bonus extends AbstractModel<IBonus> {
     }
 
     public get hasPromoCode(): boolean {
-        return _isNumber(this.data.PromoCode) ? !!this.data.PromoCode : !!this.data.PromoCode.length;
+        return _isNumber(this.data.PromoCode) ? !!this.data.PromoCode : !!this.data.PromoCode?.length;
     }
 
     public get promoCodeUsed(): string {
@@ -737,7 +738,7 @@ export class Bonus extends AbstractModel<IBonus> {
                         }
                         break;
                     case 'subscribe':
-                        if (this.selected) {
+                        if (this.selected || (this.inventoried && this.event === 'sign up')) {
                             _remove(list, (n) => n === this.id);
                         } else {
                             this.data.Selected = 1;
@@ -764,9 +765,9 @@ export class Bonus extends AbstractModel<IBonus> {
             }
         });
         if (_size(ls) !== 0) {
-            this.cachingService.set<IIndexing<number[]>>('bonuses', ls, true, Number.MAX_SAFE_INTEGER);
+            await this.cachingService.set<IIndexing<number[]>>('bonuses', ls, true, Number.MAX_SAFE_INTEGER);
         } else {
-            this.cachingService.clear('bonuses');
+            await this.cachingService.clear('bonuses');
         }
     }
 

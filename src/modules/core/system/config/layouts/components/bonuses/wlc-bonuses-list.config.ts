@@ -94,10 +94,30 @@ export namespace wlcBonusesList {
     };
     export const inventory: ILayoutComponent = {
         name: 'bonuses.wlc-bonuses-list',
-        params: {
+        params: <IBonusesListCParams>{
             common: {
                 useQuery: true,
                 filter: 'inventory',
+                pagination: {
+                    use: true,
+                    breakpoints: {
+                        0: {
+                            itemPerPage: 3,
+                        },
+                        640: {
+                            itemPerPage: 4,
+                        },
+                        720: {
+                            itemPerPage: 6,
+                        },
+                        1366: {
+                            itemPerPage: 8,
+                        },
+                        1630: {
+                            itemPerPage: 6,
+                        },
+                    },
+                },
             },
         },
     };
