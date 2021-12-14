@@ -11,6 +11,8 @@
         "dist": "git submodule update --init && ng build --project wlc-engine --configuration production && npm run build:docs && npm run build:sassdocs",
         "test": "CHROMIUM_BIN=chromium ng test",
         "lint": "lint-staged",
+        "eslint": "ng lint",
+        "stylelint": "stylelint \"./**/*.scss\" --config='./stylelint.config.js'",
         "e2e": "ng e2e",
         "update-locale": "ngx-translate-extract -i ./src/**/*.{ts,tsx,html} -o src/system/languages/messages.pot --sort --format pot && node ./utils/pot2po.js",
         "gulp": "gulp",

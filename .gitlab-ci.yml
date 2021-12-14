@@ -18,13 +18,11 @@ before_script:
     - ssh-keyscan -t rsa wlcgitlab.egamings.com >> ~/.ssh/known_hosts
     - git submodule update --init
     - PACKAGE_HASH=($(md5sum package-lock.json))
-    - DEPS_CACHE=../deps_${PACKAGE_HASH}.tgz
+    - DEPS_CACHE=/builds/deps_${PACKAGE_HASH}.tgz
     - if [ -f ${DEPS_CACHE} ]; then tar -xf ${DEPS_CACHE}; else npm ci; tar -czf ${DEPS_CACHE} ./node_modules; fi
 
 run_checks:
     stage: checks
     script:
-        - npm run lint
-        - npm run test
-        - npm run build:docs
-        - npm run build:sassdocs
+        - npx concurrently --names "eslint,stylelint,test,compodoc,sassdoc" "npm run eslint" "npm run stylelint" "npm run test" "npm run build:docs" "npm run build:sassdocs"
+        - echo "Job end at $(date +%H:%M:%S)"

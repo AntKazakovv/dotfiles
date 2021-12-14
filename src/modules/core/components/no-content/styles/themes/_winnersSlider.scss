@@ -55,8 +55,8 @@
             }
 
             &__body {
-                max-width: ef.get-value($slidersWinnersModDef, 'bodyMaxWidth');
                 align-items: ef.get-value($slidersWinnersModDef, 'bodyAlign');
+                max-width: ef.get-value($slidersWinnersModDef, 'bodyMaxWidth');
             }
 
             &__button-wrap {
@@ -77,8 +77,8 @@
     &.wlc-no-content--theme-transparent {
 
         .wlc-no-content__wrapper {
-            background: none;
             padding: ef.get-value($slidersWinnersTransparent, 'wrapperPadding');
+            background: none;
 
             &:before {
                 display: none;

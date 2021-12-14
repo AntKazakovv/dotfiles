@@ -75,13 +75,13 @@ export class TransactionHistoryComponent extends AbstractComponent implements On
         name: 'startDate',
         label: 'Start date',
         control: new FormControl(''),
-    }
+    };
 
     public endDateInput: IDatepickerCParams = {
         name: 'endDate',
         label: 'End date',
         control: new FormControl(''),
-    }
+    };
 
     protected transaction: BehaviorSubject<Transaction[]> = new BehaviorSubject([]);
     protected filterType: 'all' | 'deposit' | 'withdraw' = 'all';

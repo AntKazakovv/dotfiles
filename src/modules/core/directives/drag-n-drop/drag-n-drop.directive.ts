@@ -5,31 +5,32 @@ import {EventService} from 'wlc-engine/modules/core';
     selector: '[wlc-dnd]',
 })
 export class DragNDropDirective {
-    @Input('dnd-data-label') label: string
+    @Input('dnd-data-label') label: string;
+
     constructor(
         protected eventService: EventService,
     ) {
     }
 
     @HostListener('dragover', ['$event'])
-    public onDragOver(e) {
+    public onDragOver(e: DragEvent): void {
         e.preventDefault();
         e.stopPropagation();
-        e.currentTarget.classList.add('dragovered');
+        (e.currentTarget as Element).classList.add('dragovered');
     }
 
     @HostListener('dragleave', ['$event'])
-    public onDrugLeave(e) {
+    public onDrugLeave(e: DragEvent): void {
         e.preventDefault();
         e.stopPropagation();
-        e.currentTarget.classList.remove('dragovered');
+        (e.currentTarget as Element).classList.remove('dragovered');
     }
 
     @HostListener('drop', ['$event'])
-    public onDrop(e) {
+    public onDrop(e: DragEvent): void {
         e.preventDefault();
         e.stopPropagation();
-        e.currentTarget.classList.remove('dragovered');
+        (e.currentTarget as Element).classList.remove('dragovered');
         const files: FileList = e.dataTransfer.files;
         if (files.length) {
             this.eventService.emit({

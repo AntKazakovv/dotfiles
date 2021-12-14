@@ -19,18 +19,24 @@ import {GlobalHelper} from 'wlc-engine/modules/core';
 })
 export class HlSubstrPipe implements PipeTransform {
 
-    transform(
+    public transform(
         source: string,
         substring: string,
         insensitive: boolean = true,
         tagWrapper: string = 'span',
-        tagHighlight: string = 'span'): string {
+        tagHighlight: string = 'span',
+    ): string {
         if (!substring) {
             return source;
         }
 
         substring = GlobalHelper.shieldingString(substring);
-        return `<${tagWrapper}>${source.replace(new RegExp(`(${substring})`,insensitive ? 'i' : ''),
-            `<${tagHighlight} class="hl-substr">$1</${tagHighlight}>`)}</${tagWrapper}>`;
+
+        const content = source.replace(
+            new RegExp(`(${substring})`, insensitive ? 'i' : ''),
+            `<${tagHighlight} class="hl-substr">$1</${tagHighlight}>`,
+        );
+
+        return `<${tagWrapper}>${content}</${tagWrapper}>`;
     }
 }

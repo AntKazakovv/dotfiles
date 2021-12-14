@@ -56,7 +56,7 @@ export class SportsbookComponent extends AbstractComponent implements OnInit, On
                 disableHooks: this.$destroy,
             });
         },
-    }
+    };
 
     constructor(
         @Inject('injectParams') protected params: Params.ISportsbookCParams,

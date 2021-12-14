@@ -47,12 +47,14 @@ export class BetHistoryComponent extends AbstractComponent implements OnInit {
         name: 'startDate',
         label: 'Start date',
         control: new FormControl(''),
-    }
+    };
+
     public endDateInput: IDatepickerCParams = {
         name: 'endDate',
         label: 'End date',
         control: new FormControl(''),
-    }
+    };
+
     public filterSelect: ISelectCParams ={
         name: 'type',
         value: 'all',
