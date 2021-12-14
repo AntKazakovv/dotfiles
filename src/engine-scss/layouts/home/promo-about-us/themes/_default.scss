@@ -1,0 +1,25 @@
+@use 'engine-scss/mixins/base.mixins'as bm;
+@use 'engine-scss/mixins/mediaqueries'as mq;
+@use 'engine-scss/mixins/text'as text;
+@use 'engine-scss/functions'as ef;
+
+.wlc-sections {
+
+    &__home-about {
+        @include bm.get-mq-map('margin', $promoAboutUs, 'sectionMargin');
+
+        .wlc-title {
+            margin: ef.get-value($promoAboutUs, 'sectionTitleMargin');
+
+            &__main {
+                text-align: ef.get-value($promoAboutUs, 'sectionTitleAlign');
+            }
+        }
+
+        .home-about-list {
+            @include bm.get-mq-map('gap', $promoAboutUs, 'listGap');
+            @include bm.get-mq-map('grid-template-columns', $promoAboutUs, 'listTemplateColumns');
+            display: grid;
+        }
+    }
+}

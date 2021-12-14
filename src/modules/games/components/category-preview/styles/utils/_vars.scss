@@ -31,4 +31,12 @@ $themeDefault: map-merge((
     'categoryJustifyContent': flex-end,
     'categoryFlexDirection': column,
     'wraperGridColumns': repeat(auto-fit, minmax(100px, 1fr)),
+    'allLinkTextStyle': 'PrimaryTextBold',
+    'allLinkColor': var(--mc-main),
+    'allLinkColorHover': var(--mc-baseMain),
+    'allLinkIconMargin': 0 0 0 ef.size(1),
+    'allLinkTransform': rotate(-90deg),
+    'allLinkDisplay': flex,
+    'allLinkAlign': center,
+    'allLinkDecoration': none,
 ), $customThemeDefault);

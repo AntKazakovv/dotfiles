@@ -1,5 +1,6 @@
 @use 'engine-scss/mixins/text' as lib;
 @use 'engine-scss/mixins/mediaqueries' as mq;
+@use 'engine-scss/mixins/text' as text;
 @use 'engine-scss/functions' as ef;
 @use 'engine-scss/mixins/base.mixins' as bm;
 
@@ -67,26 +68,26 @@
     }
 
     .category-card__link {
+        @include text.get-text-style(ef.get-value($themeDefault,'allLinkTextStyle'), ef.get-value($themeDefault, 'allLinkColor'));
+        @include bm.transition(color);
+        display: ef.get-value( $themeDefault, 'allLinkDisplay');
+        align-items: ef.get-value($themeDefault, 'allLinkAlign');
+        text-decoration: ef.get-value($themeDefault, 'allLinkDecoration');
 
-        @include bm.get-mq-map('display', $themeDefault, 'categoryLinkDisplay');
+        ::ng-deep {
 
-        @include mq.min(560) {
-            @include lib.get-text-style('ThirdTitle', ef.get-value($themeDefault, 'categoryLinkColor'));
+            .wlc-icon {
+                margin: ef.get-value($themeDefault, 'allLinkIconMargin');
 
-            ::ng-deep {
-
-                .wlc-icon {
-
-                    svg {
-                        @include bm.transition(transform);
-                        transform: rotate(-90deg);
-
-                        path {
-                            fill: ef.get-value($themeDefault, 'categoryLinkColor');
-                        }
-                    }
+                svg {
+                    transform: ef.get-value($themeDefault, 'allLinkTransform');
+                    fill: currentColor;
                 }
             }
+        }
+
+        @include bm.hover {
+            color: ef.get-value($themeDefault, 'allLinkColorHover');
         }
     }
 }

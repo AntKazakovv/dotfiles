@@ -77,7 +77,7 @@ $themeDefault: map-merge((
     'modalBtnTextStyle': 'ButtonText',
     'modalBtnTextSize': ef.get('font', 'ThirdTitle'),
     'modalBtnColor': var(--mc-main),
-    'modalBtnHoverColor': var(--mc-main-l20),
+    'modalBtnHoverColor': var(--mc-baseMain),
 
     'tabsHeadDisplay': grid,
     'tabsHeadFlow': column,

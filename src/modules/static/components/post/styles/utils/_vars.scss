@@ -43,3 +43,47 @@ $themeAffiliates: map-merge((
     'baseTextMaxWidth': 108ch,
     'baseTextMargin': 0 auto ef.size(2),
 ), $customThemeAffiliates);
+
+$customThemeAboutUs: () !default;
+$themeAboutUs: map-merge((
+    'sectionMargin': (
+        375: 0 0 ef.size(6),
+        900: 0 0 ef.size(4),
+    ),
+
+    'sectionTitleMargin': 0 auto ef.size(4),
+    'sectionTitleAlign': center,
+
+    'listGap': (
+        375: ef.size(2),
+        1024: ef.size(4),
+    ),
+    'listTemplateColumns': (
+        375: 1fr,
+        720: repeat(3, 1fr),
+    ),
+
+    'titleFont': 'QoteTextBold',
+    'titleColor': var(--mc-baseMain),
+
+    'postMaxHeight': 385px,
+    'postBorderRadius': ef.get('radius', 'biger'),
+
+    'contentAlign': center,
+    'contentBottom': 0,
+    'contentWidth': 100%,
+    'contentFont': (
+        375: 'ThirdTitle',
+        720: 'PrimaryText',
+        1024: 'ThirdTitle',
+    ),
+    'contentColor': var(--mc-baseMain),
+    'contentPadding': (
+        350: 0 0 ef.size(9),
+        720: 0 0 ef.size(4),
+        1024: 0 0 ef.size(9),
+    ),
+
+    'descriptionMaxWidth': 300px,
+    'descriptionMargin': 0 auto,
+), $customThemeAboutUs);

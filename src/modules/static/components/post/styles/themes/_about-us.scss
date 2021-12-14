@@ -1,0 +1,49 @@
+@use 'engine-scss/functions'as ef;
+@use 'engine-scss/mixins/text'as text;
+@use 'engine-scss/mixins/mediaqueries'as mq;
+@use 'engine-scss/mixins/base.mixins'as bm;
+
+.wlc-post--theme-about-us:host {
+    position: relative;
+    max-height: ef.get-value($themeAboutUs, 'postMaxHeight');
+    border-radius: ef.get-value($themeAboutUs, 'postBorderRadius');
+    overflow: hidden;
+
+    ::ng-deep {
+
+        .wlc-post {
+
+            &__text-block {
+                @include text.get-text-style(ef.get-value($themeAboutUs, 'contentFont', 375), ef.get-value($themeAboutUs, 'contentColor'));
+                @include bm.get-mq-map('padding', $themeAboutUs, 'contentPadding');
+                position: absolute;
+                bottom: ef.get-value($themeAboutUs, 'contentBottom');
+                width: ef.get-value($themeAboutUs, 'contentWidth');
+                text-align: ef.get-value($themeAboutUs, 'contentAlign');
+
+                h4 {
+                    @include text.get-text-style(ef.get-value($themeAboutUs, 'titleFont'), ef.get-value($themeAboutUs, 'titleColor'));
+                }
+
+                p {
+                    max-width: ef.get-value($themeAboutUs, 'descriptionMaxWidth');
+                    margin: ef.get-value($themeAboutUs, 'descriptionMargin');
+                }
+
+                @include mq.min(720) {
+                    @include text.get-text-style(ef.get-value($themeAboutUs, 'contentFont', 720), null);
+                }
+
+                @include mq.min(1024) {
+                    @include text.get-text-style(ef.get-value($themeAboutUs, 'contentFont', 1024), null);
+                }
+            }
+        }
+
+        img {
+            display: block;
+            width: 100%;
+            max-height: 100%;
+        }
+    }
+}
