@@ -70,7 +70,7 @@ export class DynamicHtmlComponent implements AfterViewInit, OnDestroy {
         }
 
         if (this.shouldClearStyles) {
-            this.html = this.html.replace(/style=["'].*["']/gi, '');
+            this.html = this.html.replace(/style=["'][^"']*["']/gi, '');
         }
 
         if (this.withoutCompilation) {
