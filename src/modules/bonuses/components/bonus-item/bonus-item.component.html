@@ -203,7 +203,7 @@
                 </div>
 
                 <div class="{{$class}}__image-block" data-wlc-element="bonus_image">
-                    <ng-container *ngIf="!$params.common?.useIconBonusImage" [ngTemplateOutlet]="bonusImage"></ng-container>
+                    <ng-container *ngIf="!useIconBonusImage" [ngTemplateOutlet]="bonusImage"></ng-container>
                     <ng-container [ngTemplateOutlet]="bonusIcon"></ng-container>
                 </div>
             </div>
@@ -243,7 +243,7 @@
         <div class="{{$class}}__wrapper" (click)="chooseBonusNoBtn($params.common.bonus, $params.common.type)">
             <div class="{{$class}}__image-block" data-wlc-element="bonus_image">
                 <ng-container [ngTemplateOutlet]="bonusTag"></ng-container>
-                <ng-container *ngIf="!$params.common?.useIconBonusImage" [ngTemplateOutlet]="bonusImage"></ng-container>
+                <ng-container *ngIf="!useIconBonusImage" [ngTemplateOutlet]="bonusImage"></ng-container>
                 <ng-container [ngTemplateOutlet]="bonusIcon"></ng-container>
                 <ng-container [ngTemplateOutlet]="moreIcon"></ng-container>
 
