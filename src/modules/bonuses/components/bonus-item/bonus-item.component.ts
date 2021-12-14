@@ -9,6 +9,9 @@ import {
     OnInit,
     ViewEncapsulation,
 } from '@angular/core';
+import {BehaviorSubject} from 'rxjs';
+import {takeUntil} from 'rxjs/operators';
+
 import {
     AbstractComponent,
     IMixedParams,
@@ -17,10 +20,6 @@ import {
     EventService,
     GlobalHelper,
 } from 'wlc-engine/modules/core';
-
-import {BehaviorSubject} from 'rxjs';
-import {takeUntil} from 'rxjs/operators';
-
 import {
     Bonus,
     BonusItemComponentEvents,
@@ -53,6 +52,7 @@ export class BonusItemComponent extends AbstractComponent implements OnInit, OnD
     @Input() public view: string;
     @Input() public chosen: boolean;
     @Input() public bonus: Bonus;
+    @Input() public dummy: boolean;
 
     public $params: Params.IBonusItemCParams;
     public isAuth: boolean;
@@ -112,6 +112,11 @@ export class BonusItemComponent extends AbstractComponent implements OnInit, OnD
 
         super.ngOnInit(_isEmpty(inlineParams) ? null : inlineParams);
 
+        if (this.dummy) {
+            this.addModifiers('dummy');
+            return;
+        }
+
         if (this.$params.bonus) {
             this.$params.common.bonus = this.$params.bonus;
         }
@@ -121,22 +126,32 @@ export class BonusItemComponent extends AbstractComponent implements OnInit, OnD
             this.view = this.$params.common.bonus?.viewTarget || 'default';
         }
 
-        this.eventService.subscribe([
-            {name: BonusItemComponentEvents.reg},
-            {name: BonusItemComponentEvents.blank},
-        ], (bonus: Bonus) => {
-            if (this.isPreviewTheme) {
+        if (this.isPreviewTheme) {
+            this.eventService.subscribe([
+                {name: BonusItemComponentEvents.reg},
+                {name: BonusItemComponentEvents.blank},
+            ], (bonus: Bonus) => {
                 this.$params.common.bonus = bonus;
+                if (this.configService.get<boolean>('EMPTY_REGISTER_BONUSES')) {
+                    this.dummy = true;
+                    this.addModifiers('dummy');
+                } else if (this.dummy === true && this.hasModifier('dummy')) {
+                    this.dummy = false;
+                    this.removeModifiers('dummy');
+                }
                 this.cdr.markForCheck();
-            }
-        }, this.$destroy);
+            }, this.$destroy);
+        }
 
         if (this.isPreviewTheme && !this.$params.common.bonus) {
             const chosenBonus = this.configService.get<ChosenBonusType>(ChosenBonusSetParams.ChosenBonus);
             if (chosenBonus?.id) {
                 this.$params.common.bonus = chosenBonus as Bonus;
-                this.cdr.markForCheck();
+            } else if (this.configService.get<boolean>('EMPTY_REGISTER_BONUSES')) {
+                this.dummy = true;
+                this.addModifiers('dummy');
             }
+            this.cdr.markForCheck();
         }
 
         this.prepareModifiers();

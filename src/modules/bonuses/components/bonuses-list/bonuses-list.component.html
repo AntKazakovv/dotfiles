@@ -13,7 +13,8 @@
                      [inlineParams]="$params.itemsParams"
                      [themeMod]="$params.themeMod"></div>
             </div>
-            <div wlc-pagination
+            <div *ngIf="paginatedBonuses?.length"
+                 wlc-pagination
                  [items]="bonuses"
                  [settings]="$params.common?.pagination"
                  (paginationOnChange)="paginationOnChange($event)">
@@ -42,21 +43,7 @@
 </ng-template>
 
 <ng-template #noBonuses>
-    <div *ngIf="isReady && $params.common.useNoDataText" class="{{$class}}__nocontent-text">
-        {{ 'You don\'t have an active bonus. Choose from the recommended bonuses or go to the' | translate}}
-        <a class="{{$class}}__nocontent-link" [uiSref]="'app.profile.loyalty-bonuses.main'">{{'Offers' | translate}}</a>.
-    </div>
-    <div *ngIf="isReady && !$params.common.useNoDataText"
-         class="{{$class}}__nocontent">{{ 'No bonuses available' | translate}}
-        <button *ngIf="$params.useBtnNoBonuses"
-                wlc-button
-                class="{{$class}}__nocontent-btn"
-                [inlineParams]="$params.btnNoBonuses">
-        </button>
-    </div>
-    <div *ngIf="!isReady" class="{{$class}}__nocontent">
-        <div wlc-loader></div>
-    </div>
+    <ng-container *ngIf="isReady; then noContentNative; else loader"></ng-container>
 </ng-template>
 
 <ng-template #promoHome>
@@ -171,6 +158,60 @@
 <ng-template #noContent>
     <div class="{{$class}}-nocontent__tag">{{'Bonuses' | translate}}</div>
     <div wlc-no-content [inlineParams]="noContentParams"></div>
+</ng-template>
+
+<ng-template #noContentNative>
+    <ng-container [ngSwitch]="$params.theme">
+
+        <ng-container *ngSwitchCase="'reg-first'">
+            <div wlc-bonus-item
+                [theme]="$params.theme"
+                [inlineParams]="$params.itemsParams"
+                [dummy]="true"
+                [themeMod]="$params.themeMod">
+            </div>
+            <div class="{{$class}}__checkbox-wrapper">
+                <div wlc-checkbox
+                    class="{{$class}}__checkbox"
+                    [inlineParams]="checkBoxParams"></div>
+            </div>
+        </ng-container>
+        <ng-container *ngSwitchCase="'partial'">
+            <div wlc-bonus-item
+                [theme]="$params.theme"
+                [inlineParams]="$params.itemsParams"
+                [bonus]="blankBonus"
+                [themeMod]="$params.themeMod">
+            </div>
+        </ng-container>
+
+        <ng-container *ngSwitchDefault>
+            <div *ngIf="$params.common.useNoDataText"
+                class="{{$class}}__nocontent-text">
+                {{ 'You don\'t have an active bonus. Choose from the recommended bonuses or go to the' | translate}}
+                <a class="{{$class}}__nocontent-link"
+                    [uiSref]="'app.profile.loyalty-bonuses.main'">
+                    {{'Offers' | translate}}
+                </a>.
+            </div>
+            <div *ngIf="!$params.common.useNoDataText"
+                class="{{$class}}__nocontent">
+                {{ 'No bonuses available' | translate}}
+                <button *ngIf="$params.useBtnNoBonuses"
+                        wlc-button
+                        class="{{$class}}__nocontent-btn"
+                        [inlineParams]="$params.btnNoBonuses">
+                </button>
+            </div>
+        </ng-container>
+
+    </ng-container>
+</ng-template>
+
+<ng-template #loader>
+    <div class="{{$class}}__nocontent">
+        <div wlc-loader></div>
+    </div>
 </ng-template>
 
 <ng-container [ngSwitch]="$params.theme">

@@ -6,6 +6,8 @@ import {
     Input,
     OnInit,
 } from '@angular/core';
+import {first} from 'rxjs/operators';
+
 import {
     AbstractComponent,
     ConfigService,
@@ -78,6 +80,14 @@ export class StepsComponent extends AbstractComponent implements OnInit {
         this.eventService.subscribe({name: Params.StepsEvents.Prev}, () => {
             this.previousStep();
         }, this.$destroy);
+
+        if (this.$params.stepsNames.includes('signUpBonuses')) {
+            this.eventService.filter({name: 'EMPTY_REGISTER_BONUSES'}, this.$destroy)
+                .pipe(first())
+                .subscribe(() => {
+                    this.eventService.emit({name: Params.StepsEvents.Next});
+                });
+        }
     }
 
     protected currentStepIndex(): number {

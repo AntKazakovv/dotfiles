@@ -114,4 +114,15 @@
             }
         }
     }
+
+    &.wlc-bonus-item--dummy {
+        background: ef.get-value($themeDefault, 'dummyBg');
+
+        .wlc-bonus-item__content {
+
+            &:before {
+                display: none;
+            }
+        }
+    }
 }

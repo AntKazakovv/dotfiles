@@ -1,4 +1,4 @@
-<ng-container [ngSwitch]="$params.theme">
+<ng-container *ngIf="!dummy; else dummyTpl" [ngSwitch]="$params.theme">
     <ng-container [ngTemplateOutlet]="partial" *ngSwitchCase="'partial'"></ng-container>
     <ng-container [ngTemplateOutlet]="regFirst" *ngSwitchCase="'reg-first'"></ng-container>
     <ng-container [ngTemplateOutlet]="preview" *ngSwitchCase="'preview'"></ng-container>
@@ -436,4 +436,10 @@
          data-wlc-element="bonus_description-name"
          [wlc-clamp]="$params.common.descriptionClamp"
     >{{$params.common.bonus?.descriptionClean}}</div>
+</ng-template>
+
+<ng-template #dummyTpl>
+    <div class="{{$class}}__content">
+        <div class="{{$class}}__wrapper"></div>
+    </div>
 </ng-template>

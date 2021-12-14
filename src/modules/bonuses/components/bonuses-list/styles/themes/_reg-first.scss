@@ -45,11 +45,12 @@
 
         &__checkbox-wrapper {
             margin: ef.get-value($themeRegFirst, 'checkBoxMargin');
-            text-align: ef.get-value($themeRegFirst, 'checkBoxAlign');
+            text-align: ef.get-value($themeRegFirst, 'checkBoxWrapperAlign');
         }
 
         &__checkbox {
             display: inline-block;
+            text-align: ef.get-value($themeRegFirst, 'checkBoxAlign');
         }
     }
 }

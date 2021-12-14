@@ -11,6 +11,8 @@ import {
 } from '@angular/core';
 import {TranslateService} from '@ngx-translate/core';
 import {FormControl} from '@angular/forms';
+import {takeUntil} from 'rxjs/operators';
+import {Subject} from 'rxjs';
 import Swiper from 'swiper';
 
 import {
@@ -38,7 +40,6 @@ import {
     RecommendedListEvents,
 } from 'wlc-engine/modules/bonuses';
 import {INoContentCParams} from 'wlc-engine/modules/core/components/no-content/no-content.params';
-
 import {BonusItemComponent} from '../bonus-item/bonus-item.component';
 
 import * as Params from './bonuses-list.params';
@@ -91,10 +92,12 @@ export class BonusesListComponent extends AbstractComponent implements OnInit, O
         },
     };
     public noContentParams: INoContentCParams;
+    public blankBonus: Params.IBlankBonusParams;
 
     protected promocode: string = '';
     protected itemsPerPage: number = 0;
     protected chosenBonusIndex: number = 0;
+    protected ready$: Subject<boolean> = new Subject();
 
     constructor(
         @Inject('injectParams') protected params: Params.IBonusesListCParams,
@@ -120,112 +123,70 @@ export class BonusesListComponent extends AbstractComponent implements OnInit, O
         super.ngOnInit(this.inlineParams);
         this.prepareModifiers();
 
-        this.noContentParams = GlobalHelper.getNoContentParams(this.$params, this.$class, this.configService);
+        this.noContentParams = GlobalHelper.getNoContentParams(
+            this.$params,
+            this.$class,
+            this.configService,
+        );
         if (!this.bonusesService.promoBonus) {
             await this.checkPromoBonus();
         }
 
-        this.isReady = false;
+        if (this.$params.common?.useBlankBonus) {
+            this.blankBonus = _cloneDeep(this.$params.common.blankBonus);
+            this.blankBonus.isChoose = true;
+            if (this.blankBonus.description) {
+                this.blankBonus.description = this.translate.instant(this.blankBonus.description);
+            }
+        }
+
+        this.ready$.pipe(takeUntil(this.$destroy)).subscribe((isReady: boolean) => {
+            if (this.params.theme === 'reg-first' || this.$params.theme === 'partial') {
+                const minLength = this.$params.common?.useBlankBonus ? 1 : 0;
+                const isEmptyRegBonuses = isReady && this.bonuses.length <= minLength;
+
+                this.configService.set<boolean>({name: 'EMPTY_REGISTER_BONUSES', value: isEmptyRegBonuses});
+
+                if (isEmptyRegBonuses) {
+                    this.eventService.emit({name: 'EMPTY_REGISTER_BONUSES'});
+                }
+
+                if (isReady && this.$params.theme === 'reg-first') {
+                    if (!this.bonuses.length) {
+                        this.setCheckboxValue(true);
+                    } else if (this.checkBoxParams.control.value) {
+                        this.setCheckboxValue(false);
+                    }
+                }
+            }
+
+            this.isReady = isReady;
+            this.cdr.markForCheck();
+        });
+
+        this.ready$.next(false);
+
         if (this.$params.type === 'swiper') {
             this.sliderParams.swiper = _cloneDeep(this.$params.common?.swiper);
         }
 
+        const hasFilteredBonuses = this.bonusesService.hasFilteredBonuses(
+            this.$params.common?.filter,
+            this.$params.common?.restType);
+
         this.bonusesService.getSubscribe({
-            useQuery: this.$params.common.useQuery || !this.bonusesService.hasBonuses,
+            useQuery: this.$params.common.useQuery || !hasFilteredBonuses,
             observer: {
                 next: (bonuses: Bonus[]) => {
-                    if (bonuses) {
-                        this.paginatedBonuses = this.bonuses = this.bonusesService
-                            .filterBonuses(bonuses, this.$params.common?.filter);
-
-                        const chosenBonus = this.configService.get<ChosenBonusType>(ChosenBonusSetParams.ChosenBonus);
-
-                        if (chosenBonus?.id) {
-                            const chosenBonusIndex = _findIndex(this.bonuses,
-                                (item: Bonus) => item.id === chosenBonus.id,
-                            );
-                            if (chosenBonusIndex !== -1) {
-                                this.bonuses[chosenBonusIndex].isChoose = true;
-
-                                if (this.$params.type === 'swiper') {
-                                    setTimeout(() => {
-                                        this.slider?.swiper.swiperRef.slideTo(
-                                            chosenBonusIndex,
-                                            this.$params.common.swiperManualTransitionDuration,
-                                        );
-                                    });
-                                }
-                            }
-                        } else if (!this.selectFirstBonus && chosenBonus?.id === null) {
-                            this.chooseBlankBonus();
-                        } else if (this.selectFirstBonus && !this.chosenBonus) {
-                            this.chooseBonusByPosition(0);
-                        } else if (this.$params.theme === 'reg-first') {
-                            this.chooseBlankBonus();
-                        }
+                    this.onGetBonuses(bonuses || []);
+                    if (hasFilteredBonuses) {
+                        this.ready$.next(true);
                     }
-
-                    if (this.$params.common?.useBlankBonus) {
-                        const blankBonus: Params.IBlankBonusParams =
-                            _merge({}, this.$params.common.blankBonus, {
-                                isChoose: !this.chosenBonus,
-                            });
-                        if (blankBonus.description) {
-                            blankBonus.description = this.translate.instant(gettext(blankBonus.description));
-                        }
-                        this.bonuses.push(blankBonus as Bonus);
-                    }
-
-                    this.prepareBonuses();
-
-                    if (this.$params.type === 'swiper' && this.bonuses.length) {
-                        this.bonusesToSlides(this.bonuses);
-
-                        if (this.bonuses.length <= 1) {
-                            this.sliderParams = _merge<ISliderCParams, ISliderCParams>({}, {
-                                swiper: {
-                                    navigation: false,
-                                    slidesPerView: 'auto',
-                                    spaceBetween: 0,
-                                    allowTouchMove: false,
-                                    breakpoints: {
-                                        320: {
-                                            spaceBetween: 0,
-                                        },
-                                        720: {
-                                            spaceBetween: 0,
-                                        },
-                                        1024: {
-                                            spaceBetween: 0,
-                                        },
-                                        1200: {
-                                            spaceBetween: 0,
-                                        },
-                                    },
-                                },
-                            });
-                            this.isSingleBonus = true;
-                        } else {
-                            this.sliderParams = _merge<ISliderCParams, ISliderCParams, ISliderCParams>({}, {
-                                swiper: {
-                                    navigation: true,
-                                    slidesPerView: 1,
-                                    spaceBetween: 0,
-                                    allowTouchMove: true,
-                                },
-                            },
-                            {swiper: this.$params.common.swiper},
-                            );
-                            this.isSingleBonus = false;
-                        }
-                    }
-
-                    this.isReady = true;
-                    this.cdr.markForCheck();
                 },
             },
             type: this.$params.common?.restType,
             until: this.$destroy,
+            ready$: !hasFilteredBonuses ? this.ready$ : null,
         });
 
         this.setSubscription();
@@ -510,5 +471,94 @@ export class BonusesListComponent extends AbstractComponent implements OnInit, O
         }
 
         this.bonuses = bonuses;
+    }
+
+    protected onGetBonuses(bonuses: Bonus[]): void {
+        this.paginatedBonuses = this.bonuses = this.bonusesService
+            .filterBonuses(bonuses, this.$params.common?.filter);
+
+        const chosenBonus = this.configService.get<ChosenBonusType>(ChosenBonusSetParams.ChosenBonus);
+
+        if (chosenBonus?.id) {
+            const chosenBonusIndex = _findIndex(this.bonuses,
+                (item: Bonus) => item.id === chosenBonus.id,
+            );
+            if (chosenBonusIndex !== -1) {
+                this.bonuses[chosenBonusIndex].isChoose = true;
+
+                if (this.$params.type === 'swiper') {
+                    setTimeout(() => {
+                        this.slider?.swiper.swiperRef.slideTo(
+                            chosenBonusIndex,
+                            this.$params.common.swiperManualTransitionDuration,
+                        );
+                    });
+                }
+            }
+        } else if (!this.selectFirstBonus && chosenBonus?.id === null) {
+            this.chooseBlankBonus();
+        } else if (this.selectFirstBonus && !this.chosenBonus) {
+            this.chooseBonusByPosition(0);
+        } else if (this.$params.theme === 'reg-first') {
+            this.chooseBlankBonus();
+        }
+
+        if (this.blankBonus) {
+            this.blankBonus.isChoose = !this.chosenBonus;
+            this.bonuses.push(this.blankBonus as Bonus);
+        }
+
+        this.prepareBonuses();
+
+        if (this.$params.type === 'swiper' && this.bonuses.length) {
+            this.bonusesToSlides(this.bonuses);
+
+            if (this.bonuses.length <= 1) {
+                _merge(this.sliderParams.swiper, {
+                    navigation: false,
+                    slidesPerView: 'auto',
+                    spaceBetween: 0,
+                    allowTouchMove: false,
+                    breakpoints: {
+                        320: {
+                            spaceBetween: 0,
+                        },
+                        720: {
+                            spaceBetween: 0,
+                        },
+                        1024: {
+                            spaceBetween: 0,
+                        },
+                        1200: {
+                            spaceBetween: 0,
+                        },
+                    },
+                });
+                this.isSingleBonus = true;
+            } else {
+                this.sliderParams.swiper = _merge({
+                    navigation: true,
+                    slidesPerView: 1,
+                    spaceBetween: 0,
+                    allowTouchMove: true,
+                }, this.$params.common.swiper);
+                this.isSingleBonus = false;
+            }
+        }
+    }
+
+    protected setCheckboxValue(value: boolean): void {
+        if (value !== this.checkBoxParams.control.value) {
+            this.checkBoxParams.control.patchValue(value, {
+                emitEvent: true,
+                emitViewToModelChange: true,
+            });
+
+            if (!value && this.checkBoxParams.control.disabled) {
+                this.checkBoxParams.control.enable();
+            } else if (value) {
+                this.checkBoxParams.control.disable();
+            }
+        }
     }
 }

@@ -75,8 +75,8 @@
             grid-template-columns: ef.get-value($themeDefault, 'gridColumns');
             gap: ef.get-value($themeDefault, 'gridGap');
 
-            padding: 0;
             margin: 0;
+            padding: 0;
 
             .wlc-input,
             .wlc-select {

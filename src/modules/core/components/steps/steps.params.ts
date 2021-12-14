@@ -256,7 +256,7 @@ export const defaultParams: IStepsParams = {
                                 display: {
                                     before: 899,
                                 },
-                                params: {
+                                params: <IBonusesListCParams>{
                                     wlcElement: 'block_bonuses',
                                     type: 'swiper',
                                     theme: 'partial',
@@ -267,6 +267,7 @@ export const defaultParams: IStepsParams = {
                                         useBlankBonus: true,
                                         swiper: bonusesSwiperParams,
                                     },
+                                    useBtnNoBonuses: false,
                                 },
                             },
                             {
@@ -274,7 +275,7 @@ export const defaultParams: IStepsParams = {
                                 display: {
                                     after: 900,
                                 },
-                                params: {
+                                params: <IBonusesListCParams>{
                                     wlcElement: 'block_bonuses',
                                     theme: 'partial',
                                     common: {
@@ -283,6 +284,7 @@ export const defaultParams: IStepsParams = {
                                         selectFirstBonus: true,
                                         useBlankBonus: true,
                                     },
+                                    useBtnNoBonuses: false,
                                 },
                             },
                             bonusesStepButton,
@@ -349,6 +351,7 @@ export const defaultParams: IStepsParams = {
                                             type: 'reg',
                                         },
                                     },
+                                    useBtnNoBonuses: false,
                                 },
                             },
                             bonusesStepButton,

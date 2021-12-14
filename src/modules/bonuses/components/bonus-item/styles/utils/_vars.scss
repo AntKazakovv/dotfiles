@@ -262,6 +262,9 @@ $themeDefault: map-merge((
     'backgroundBalance': linear-gradient(0deg, var(--mc-bgModal) 0%, var(--mc-bgModal-o0) 95%),
     'backgroundFreerounds': linear-gradient(0deg, var(--mc-bgModal) 0%, var(--mc-bgModal-o0) 95%),
     'backgroundRelative': linear-gradient(0deg, var(--mc-bgModal) 0%, var(--mc-bgModal-o0) 95%),
+
+    //dummy
+    'dummyBg': var(--mc-bg500) url('/gstatic/wlc/bonuses/bonus-dummy.svg') no-repeat center center/90% 80%,
 ), $customThemeDefault);
 
 // Other themes vars

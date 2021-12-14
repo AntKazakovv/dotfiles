@@ -1,4 +1,3 @@
-import {TranslateService} from '@ngx-translate/core';
 import {
     IIndexing,
     AbstractModel,
@@ -12,7 +11,6 @@ import {
     IBonusType,
     ActionType,
 } from '../interfaces/bonuses.interface';
-import {BonusesService} from '../../system/services';
 import {DateTime} from 'luxon';
 
 import _assign from 'lodash-es/assign';
@@ -50,8 +48,6 @@ export class Bonus extends AbstractModel<IBonus> {
         data: IBonus,
         protected ConfigService: ConfigService,
         protected cachingService: CachingService,
-        protected translate: TranslateService,
-        protected bonusesService: BonusesService,
     ) {
         super({from: _assign({model: 'Bonus'}, from)});
         this.data = this.modifyData(data);

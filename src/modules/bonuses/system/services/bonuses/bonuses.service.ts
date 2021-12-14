@@ -6,7 +6,11 @@ import {
     Subscription,
     pipe,
 } from 'rxjs';
-import {takeUntil} from 'rxjs/operators';
+import {
+    takeUntil,
+    filter,
+    takeWhile,
+} from 'rxjs/operators';
 
 import {Bonus} from 'wlc-engine/modules/bonuses/system/models/bonus';
 import {
@@ -84,13 +88,13 @@ export class BonusesService {
     private regEvents = ['deposit first', 'registration', 'verification'];
 
     private queryPromises: {
-        [Property in RestType]: boolean;
+        [Property in RestType]: BehaviorSubject<boolean>;
     } = {
-        active: false,
-        history: false,
-        store: false,
-        any: false,
-    };
+            active: new BehaviorSubject(false),
+            history: new BehaviorSubject(false),
+            store: new BehaviorSubject(false),
+            any: new BehaviorSubject(false),
+        };
 
     constructor(
         private cachingService: CachingService,
@@ -115,19 +119,57 @@ export class BonusesService {
     }
 
     /**
-     * Get subscribtion from bonuses observer
-     *
-     * @param {IGetSubscribeParams} params params for subscribtion
-     * @returns {Subscription} subsctibtion
+     * Check if bonuses with type and filter are exist
+     * @param filter params for filtering
+     * @param type bonuses type
+     * @returns boolean
      */
-    public getSubscribe(params: IGetSubscribeParams): Subscription {
-        if (params.useQuery && !this.queryPromises[params?.type || 'any']) {
-            this.queryBonuses(true, params?.type);
+    public hasFilteredBonuses(filter: BonusesFilterType, type: RestType = 'any'): boolean {
+        let bonuses: Bonus[];
+
+        switch (type) {
+            case 'history':
+                return !!this.subjects.history$.getValue()?.length;
+            case 'active':
+                bonuses = this.subjects.active$.getValue();
+                break;
+            case 'store':
+                bonuses = this.subjects.store$.getValue();
+                break;
+            default:
+                bonuses = this.subjects.bonuses$.getValue();
+                break;
         }
 
-        return this.getObserver(params?.type).pipe(
-            (params?.until) ? takeUntil(params?.until) : pipe(),
-        ).subscribe(params.observer);
+        return !!this.filterBonuses(bonuses, filter).length;
+    }
+
+    /**
+     * Get subscription from bonuses observer
+     *
+     * @param {IGetSubscribeParams} params params for subscription
+     * @returns {Subscription} subscription
+     */
+    public getSubscribe(params: IGetSubscribeParams): Subscription {
+
+        if (params.useQuery) {
+            params.ready$?.next(false);
+            const subj$ = this.queryPromises[params.type || 'any'];
+            if (!subj$.getValue()) {
+                this.queryBonuses(true, params.type || 'any')
+                    .finally(() => params.ready$?.next(true));
+            } else {
+                subj$.pipe(takeWhile((v: boolean) => v))
+                    .toPromise()
+                    .finally(() => params.ready$?.next(true));
+            }
+        }
+
+        return this.getObserver(params.type)
+            .pipe(
+                filter((v) => !!v),
+                (params.until) ? takeUntil(params.until) : pipe(),
+            ).subscribe(params.observer);
     }
 
     /**
@@ -250,8 +292,6 @@ export class BonusesService {
                     data.data,
                     this.configService,
                     this.cachingService,
-                    this.translate,
-                    this,
                 );
             } else {
                 this.logService.sendLog({code: '10.0.1', data: data.data});
@@ -381,10 +421,10 @@ export class BonusesService {
      */
     public async queryBonuses<T extends Bonus | IBonus>(
         publicSubject: boolean,
-        type?: RestType,
+        type: RestType = 'any',
         promoCode?: string,
     ): Promise<T[]> {
-        this.queryPromises[type || 'any'] = true;
+        this.queryPromises[type].next(true);
         const queryParams: IQueryParams = {};
         if (type) {
             if (type === 'active' || type === 'history') {
@@ -445,7 +485,7 @@ export class BonusesService {
                 data: error,
             });
         } finally {
-            this.queryPromises[type || 'any'] = false;
+            this.queryPromises[type].next(false);
         }
     }
 
@@ -466,8 +506,6 @@ export class BonusesService {
                     bonusData,
                     this.configService,
                     this.cachingService,
-                    this.translate,
-                    this,
                 );
                 bonus.setFromCache();
                 queryBonuses.push(bonus);

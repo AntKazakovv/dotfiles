@@ -2,6 +2,7 @@ import {IIndexing} from 'wlc-engine/modules/core';
 import {
     PartialObserver,
     Observable,
+    Subject,
 } from 'rxjs';
 import {Bonus} from '../models/bonus';
 
@@ -137,6 +138,7 @@ export interface IGetSubscribeParams {
     observer: PartialObserver<Bonus[]>;
     type?: RestType;
     until?: Observable<unknown>;
+    ready$?: Subject<boolean>;
 }
 
 export type IBonusType = 'default' | 'reg' | 'deposit' | 'promo' | 'store' | 'other' | 'blank';
