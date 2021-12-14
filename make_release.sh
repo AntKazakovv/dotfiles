@@ -92,6 +92,9 @@ xrelease)
         nextver=$(./vermath "$prevver" --normal)
     else
         nextver=$(./vermath "$prevver" --hotfix)
+        while [ $(git tag -l $nextver) ]; do
+            nextver=$(./vermath "$nextver" --hotfix)
+        done
     fi
 
     ;;
