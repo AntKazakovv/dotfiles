@@ -62,6 +62,15 @@ export namespace wlcSportsbook {
         },
     };
 
+    export const esport: ILayoutComponent = {
+        name: 'sportsbook.wlc-sportsbook',
+        params: {
+            common: {
+                sportsbookId: 'esport',
+            },
+        },
+    };
+
     export const betradarDailyMatch: ILayoutComponent = {
         name: 'sportsbook.wlc-betradar-daily-match',
     };

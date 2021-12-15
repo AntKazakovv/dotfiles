@@ -67,6 +67,11 @@ export class SportsbookService {
             launchCode: 'sportsbookNEW',
         },
         {
+            id: 'esport',
+            merchantId: 958,
+            launchCode: 'esport',
+        },
+        {
             id: 'digitain',
             merchantId: 972,
             launchCode: '1',

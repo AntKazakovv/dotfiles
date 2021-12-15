@@ -102,7 +102,12 @@ export const $layouts: ILayoutsConfig = {
             content: sectionsLib.content.sportsbookBti,
         },
     },
-
+    'app.esport': {
+        extends: 'app',
+        sections: {
+            content: sectionsLib.content.sportsbookEsport,
+        },
+    },
     'app.contacts': {
         extends: 'app',
         sections: {

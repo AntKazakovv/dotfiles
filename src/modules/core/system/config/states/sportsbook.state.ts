@@ -20,6 +20,7 @@ const getCustomState = (sportsbookId: string): Ng2StateDeclaration => {
 
 const sportsbookIdByState: IIndexing<string> = {
     'app.betradar': 'betradar',
+    'app.esport': 'esport',
     'app.digitain': 'digitain',
     'app.pinnacle': 'pinnacleSW',
     'app.bti': 'bti',
@@ -98,5 +99,7 @@ export const altenarState: Ng2StateDeclaration = getCustomState('altenar');
 export const tglabState: Ng2StateDeclaration = getCustomState('tglab');
 
 export const btiState: Ng2StateDeclaration = getCustomState('bti');
+
+export const esportState: Ng2StateDeclaration = getCustomState('esport');
 
 

@@ -29,6 +29,7 @@ let states = {
     'app.altenar': States.altenarState,
     'app.tglab': States.tglabState,
     'app.bti': States.btiState,
+    'app.esport': States.esportState,
     'app.profile': States.profileState,
     'app.profile.main': States.profileMainState,
     'app.profile.main.info': States.profileMainInfoState,
