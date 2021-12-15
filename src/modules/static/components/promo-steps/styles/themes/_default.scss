@@ -15,9 +15,9 @@
                 &__content {
                     @include bm.get-mq-map('grid-template-columns', $themeDefault, 'desktopStepsCols');
                     @include bm.get-mq-map('gap', $themeDefault, 'desktopStepsGap');
-                    display: ef.get-value($themeDefault, 'desktopStepsDisplay');
+                    @include bm.get-mq-map('display', $themeDefault, 'desktopStepsDisplay');
+                    @include bm.get-mq-map('justify-content', $themeDefault, 'desktopStepsJustifyContent');
                     align-items: ef.get-value($themeDefault, 'desktopStepsAlignItems');
-                    justify-content: ef.get-value($themeDefault, 'desktopStepsJustifyContent');
                 }
 
                 &__step {
@@ -97,7 +97,6 @@
         }
 
         &__step {
-            width: ef.get-value($themeDefault, 'stepWidth');
 
             &--link {
                 text-decoration: none;

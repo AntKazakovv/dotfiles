@@ -10,15 +10,23 @@ $themeDefault: map-merge((
     'containerRadius': ef.get('radius', 'biger'),
     'promoStepsBackground': var(--mc-bg300),
 
-    'desktopStepsDisplay': grid,
+    'desktopStepsDisplay': (
+        1024: flex,
+        1200: grid
+    ),
     'desktopStepsCols': (
         375: repeat(3, 1fr),
+        1024: null,
         1200: repeat(3, max-content),
     ),
     'desktopStepsAlignItems': start,
-    'desktopStepsJustifyContent': center,
+    'desktopStepsJustifyContent': (
+        1024: space-around,
+        1200: center,
+    ),
     'desktopStepsGap': (
-        1024: ef.get('size', 'big'),
+        1024: null,
+        1200: 60px,
         1420: 120px,
         1630: 160px,
     ),
@@ -44,7 +52,6 @@ $themeDefault: map-merge((
     ),
     'mobileTitleTextAlign': center,
 
-    'stepWidth': 100%,
     'stepDescWrapLineHeight': normal,
     'stepActiveDisplay': grid,
     'stepActiveColumns': 1fr,
