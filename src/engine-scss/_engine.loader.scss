@@ -1,6 +1,9 @@
 @import 'engine.variables';
+@import './mixins/loader.mixins';
 
 .wlc-app__preload {
+    $animeName: map-get($appLoader, 'loaderAnime');
+
     position: fixed;
     top: 0;
     left: 0;
@@ -41,64 +44,48 @@
 
         height: map-get($appLoader, 'loaderHeight');
         margin: map-get($appLoader, 'loaderBlockMargin');
-
-        &:before,
-        &:after {
-            content: '';
-
-            position: absolute;
-            right: 0;
-            bottom: 0;
-            left: 0;
-
-            display: block;
-            width: map-get($appLoader, 'loaderWidth');
-            height: map-get($appLoader, 'loaderHeight');
-            margin: auto;
-
-            border: map-get($appLoader, 'loaderBorder');
-            border-radius: 50%;
-            opacity: 0;
-
-            animation: loader-6-1 1.5s cubic-bezier(0.075, 0.82, 0.165, 1) infinite;
-        }
-
-        &:after {
-            animation: loader-6-2 1.5s cubic-bezier(0.075, 0.82, 0.165, 1) 0.1s infinite;
-        }
-    }
-}
-
-@keyframes loader-6-1 {
-
-    0% {
-        transform: translate3d(0, 0, 0) scale(0);
-        opacity: 1;
     }
 
-    40% {
-        opacity: 1;
+    //For animatedGradient
+    @if (map-get($appLoader, 'useBgAnime')) {
+        @include bgAnime;
+        @include kfBgAnime;
     }
 
-    100% {
-        transform: translate3d(0, 0, 0) scale(1.5);
-        opacity: 0;
+    @if ($animeName == 'pulse') {
+        @include logoPulse;
+        @include kfLogoPulse;
     }
-}
-
-@keyframes loader-6-2 {
-
-    0% {
-        transform: translate3d(0, 0, 0) scale(0);
-        opacity: 1;
+    @else if ($animeName  == 'circle') {
+        @include loaderCircle;
+        @include kfLoaderCircle;
     }
-
-    40% {
-        opacity: 1;
+    @else if ($animeName  == 'circle2') {
+        @include loaderCircle2;
+        @include kfLoaderCircle2;
     }
-
-    100% {
-        transform: translate3d(0, 0, 0) scale(1);
-        opacity: 0;
+    @else if ($animeName =='dots1') {
+        @include loaderDots1;
+        @include kfLoaderDots1;
+    }
+    @else if ($animeName =='dots2') {
+        @include loaderDots2;
+        @include kfLoaderDots2;
+    }
+    @else if ($animeName =='dots3') {
+        @include loaderDots3;
+        @include kfLoaderDots3;
+    }
+    @else if ($animeName =='flip') {
+        @include loaderFlip;
+        @include kfLoaderFlip;
+    }
+    @else if ($animeName =='jelly') {
+        @include loaderJelly;
+        @include kfLoaderJelly;
+    }
+    @else {
+        @include loaderDefault;
+        @include kfLoaderDefault;
     }
 }

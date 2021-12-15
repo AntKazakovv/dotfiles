@@ -1,0 +1,586 @@
+@use '../engine.variables'as ev;
+@use 'sass:math';
+
+@mixin loaderDefault {
+
+    &-loader {
+        --speed: #{map-get($appLoader, 'defAnimeSpeed')};
+        --easing: #{map-get($appLoader, 'defAnimeEasing')};
+
+        &:before,
+        &:after {
+            content: '';
+
+            position: absolute;
+            right: 0;
+            bottom: 0;
+            left: 0;
+
+            display: block;
+            width: map-get($appLoader, 'loaderWidth');
+            height: map-get($appLoader, 'loaderHeight');
+            margin: auto;
+
+            border: map-get($appLoader, 'loaderBorder');
+            border-radius: 50%;
+            opacity: 0;
+
+            animation: loader-6-1 var(--speed) var(--easing) infinite;
+        }
+
+        &:after {
+            animation: loader-6-2 var(--speed) var(--easing) 0.1s infinite;
+        }
+    }
+}
+
+@mixin kfLoaderDefault {
+
+    @keyframes loader-6-1 {
+
+        0% {
+            transform: translate3d(0, 0, 0) scale(0);
+            opacity: 1;
+        }
+
+        40% {
+            opacity: 1;
+        }
+
+        100% {
+            transform: translate3d(0, 0, 0) scale(1.5);
+            opacity: 0;
+        }
+    }
+
+    @keyframes loader-6-2 {
+
+        0% {
+            transform: translate3d(0, 0, 0) scale(0);
+            opacity: 1;
+        }
+
+        40% {
+            opacity: 1;
+        }
+
+        100% {
+            transform: translate3d(0, 0, 0) scale(1);
+            opacity: 0;
+        }
+    }
+}
+
+
+//Background animation
+@mixin bgAnime {
+    overflow: hidden;
+
+    &:before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 0;
+        display: block;
+        width: 200%;
+        height: 100%;
+        background: inherit;
+        animation: loader_bg map-get($appLoader, 'bgAnimeSpeed') map-get($appLoader, 'bgAnimeEasing') infinite;
+    }
+}
+
+@mixin kfBgAnime {
+
+    @keyframes loader_bg {
+
+        50% {
+            transform: translateX(-50%);
+        }
+    }
+}
+
+// Logo animation
+@mixin logoPulse {
+
+    &-img {
+        animation: logo_pulse map-get($appLoader, 'pulseAnimeSpeed') map-get($appLoader, 'pulseAnimeEasing') infinite;
+    }
+
+    &-loader {
+        display: none;
+    }
+}
+
+@mixin kfLogoPulse {
+
+    @keyframes logo_pulse {
+
+        0% {
+            transform: scale(1);
+        }
+
+        14% {
+            transform: scale(1.03);
+        }
+
+        28% {
+            transform: scale(1);
+        }
+
+        42% {
+            transform: scale(1.03);
+        }
+
+        70% {
+            transform: scale(1);
+        }
+    }
+}
+
+// Loader element mixins
+@mixin loaderCircle {
+    background: map-get($appLoader, 'circleWrapperBg');
+
+    &-loader {
+        width: map-get($appLoader, 'circleLoaderSize');
+        height: map-get($appLoader, 'circleLoaderSize');
+        margin: map-get($appLoader, 'circleLoaderMargin');
+        background: map-get($appLoader, 'circleLoaderBg');
+        border-radius: 100%;
+        box-shadow: map-get($appLoader, 'circleLoaderOuterShadow');
+        overflow: hidden;
+
+        div {
+
+            &:nth-child(1) {
+                $innerSize: map-get($appLoader, 'circleLoaderSize') * map-get($appLoader, 'circleLoaderWidthСoef');
+
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                z-index: 5;
+                width: $innerSize;
+                height: $innerSize;
+                background: map-get($appLoader, 'circleLoaderBg');
+                box-shadow: map-get($appLoader, 'circleLoaderInnerShadow');
+                transform: translate(-50%, -50%);
+                border-radius: inherit;
+            }
+
+            &:nth-child(2) {
+                position: absolute;
+                top: 50%;
+                left: 0;
+                z-index: 1;
+                width: 100%;
+                height: map-get($appLoader, 'circleLoaderSpinnerSize');
+                margin-top: math.div(map-get($appLoader, 'circleLoaderSpinnerSize'), -2);
+                background: map-get($appLoader, 'circleLoaderSpinnerBg');
+                animation: loader_circle map-get($appLoader, 'circleLoaderAnimeSpeed') map-get($appLoader, 'circleLoaderAnimeEasing') infinite;
+                border-radius: map-get($appLoader, 'circleLoaderSpinnerRadius');
+            }
+        }
+    }
+}
+
+@mixin kfLoaderCircle {
+
+    @keyframes loader_circle {
+
+        0% {
+            transform: rotate(0deg);
+        }
+
+        100% {
+            transform: rotate(360deg);
+        }
+    }
+}
+
+@mixin loaderCircle2 {
+
+    &-loader {
+        height: map-get($appLoader, 'circle2Height');
+        margin: map-get($appLoader, 'circle2Margin');
+
+        div:first-child {
+            position: relative;
+            width: map-get($appLoader, 'circle2LoaderSize');
+            height: map-get($appLoader, 'circle2LoaderSize');
+            margin: auto;
+            background-clip: padding-box;
+            transform: map-get($appLoader, 'circle2LoaderTransform');
+            /*stylelint-disable-next-line*/
+            -webkit-mask: linear-gradient(rgba(0, 0, 0, 0.1), #000000 90%);
+            transform-origin: 50% 60%;
+            border-radius: 100%;
+            border: map-get($appLoader, 'circle2LoaderBorder');
+
+            &:before,
+            &:after {
+                content: '';
+                position: absolute;
+                width: inherit;
+                height: inherit;
+                margin: -4px;
+                opacity: 0.05;
+                animation:
+                    circle2-spin map-get($appLoader, 'circle2AnimeSpeed') cubic-bezier(0.6, 0.2, 0, 0.8) infinite,
+                    circle2-fade map-get($appLoader, 'circle2AnimeSpeed') linear infinite;
+                border-radius: inherit;
+                border: inherit;
+                border-color: transparent;
+            }
+
+            &:before {
+                border-top-color: map-get($appLoader, 'circle2mainColor');
+            }
+
+            &:after {
+                border-top-color: map-get($appLoader, 'circle2SecondaryColor');
+                animation-delay: 0.3s;
+            }
+        }
+    }
+}
+
+@mixin kfLoaderCircle2 {
+
+    @keyframes circle2-spin {
+
+        100% {
+            transform: rotate(360deg);
+        }
+    }
+
+    @keyframes circle2-fade {
+
+        20% {
+            opacity: 0.1;
+        }
+
+        40% {
+            opacity: 1;
+        }
+
+        60% {
+            opacity: 0.1;
+        }
+    }
+}
+
+@mixin loaderDots1 {
+
+    &-loader {
+        --speed: #{map-get($appLoader, 'dots1LoaderAnimeSpeed')};
+
+        width: map-get($appLoader, 'dots1Width');
+
+        div {
+            position: absolute;
+            top: 0;
+            width: map-get($appLoader, 'dots1LoaderDotSize');
+            height: map-get($appLoader, 'dots1LoaderDotSize');
+            border-radius: map-get($appLoader, 'dots1LoaderDotRadius');
+            background: map-get($appLoader, 'dots1LoaderDotBg');
+
+            &:nth-child(1) {
+                left: 8px;
+                animation: loader_dots1-1 var(--speed) infinite;
+            }
+
+            &:nth-child(2) {
+                left: 8px;
+                animation: loader_dots1-2 var(--speed) infinite;
+            }
+
+            &:nth-child(3) {
+                left: 32px;
+                animation: loader_dots1-2 var(--speed) infinite;
+            }
+
+            &:nth-child(4) {
+                left: 56px;
+                animation: loader_dots1-3 var(--speed) infinite;
+            }
+        }
+    }
+}
+
+@mixin kfLoaderDots1 {
+
+    @keyframes loader_dots1-1 {
+
+        0% {
+            transform: scale(0);
+            opacity: 0;
+        }
+
+        100% {
+            transform: scale(1);
+            opacity: 1;
+        }
+    }
+
+    @keyframes loader_dots1-2 {
+
+        0% {
+            transform: translate(0, 0);
+        }
+
+        100% {
+            transform: translate(24px, 0);
+        }
+    }
+
+    @keyframes loader_dots1-3 {
+
+        0% {
+            transform: scale(1);
+            opacity: 1;
+        }
+
+        100% {
+            transform: scale(0);
+            opacity: 0;
+        }
+    }
+}
+
+@mixin loaderDots2 {
+
+    &-loader {
+        --speed: #{map-get($appLoader, 'dots2LoaderAnimeSpeed')};
+        --easing: #{map-get($appLoader, 'dots2LoaderAnimeEasing')};
+        --step: #{map-get($appLoader, 'dots2LoaderAnimeStep')};
+
+        display: grid;
+        grid-auto-flow: column;
+        gap: map-get($appLoader, 'dots2gap');
+        justify-content: center;
+
+        width: auto;
+        margin: map-get($appLoader, 'dots2Margin');
+
+        div {
+            position: relative;
+            width: map-get($appLoader, 'dots2LoaderWidth');
+            height: map-get($appLoader, 'dots2LoaderHeight');
+
+            &:before,
+            &:after {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                z-index: 5;
+
+                display: block;
+                width: 100%;
+                height: 100%;
+
+                border-radius: map-get($appLoader, 'dots2LoaderRadius');
+            }
+
+            &:before {
+                animation: loader_dots2-1 var(--speed) var(--easing) calc(var(--n) * var(--step)) infinite;
+            }
+
+            &:after {
+                background: map-get($appLoader, 'dots2LoaderBg');
+                box-shadow: map-get($appLoader, 'dots2LoaderInnerShadow');
+                animation: loader_dots2-2 var(--speed) var(--easing) calc(var(--n) * var(--step)) infinite;
+            }
+        }
+    }
+}
+
+@mixin kfLoaderDots2 {
+
+    @keyframes loader_dots2-1 {
+
+        0% {
+            box-shadow: 0 0 0 transparent;
+            transform: translateY(0);
+        }
+
+        50% {
+            box-shadow: map-get($appLoader, 'dots2LoaderShadow');
+            transform: translateY(-50%);
+        }
+    }
+
+    @keyframes loader_dots2-2 {
+
+        0% {
+            transform: translate3d(0, 0, 0);
+            opacity: 0;
+        }
+
+        50% {
+            transform: translate3d(0, -50%, 0);
+            opacity: 1;
+        }
+
+        100% {
+            transform: translate3d(0, 0, 0);
+            opacity: 0;
+        }
+    }
+}
+
+@mixin loaderDots3 {
+
+    &-loader {
+        --speed: #{map-get($appLoader, 'dots3AnimeSpeed')};
+
+        display: grid;
+        grid-auto-flow: column;
+        gap: map-get($appLoader, 'dots3Gap');
+        justify-content: center;
+
+        div {
+            background: map-get($appLoader, 'dots3DotBg');
+
+            &,
+            &:after {
+                display: inline-block;
+                width: map-get($appLoader, 'dots3DotSize');
+                height: map-get($appLoader, 'dots3DotSize');
+                border-radius: map-get($appLoader, 'dots2DotRadius');
+                animation: loader-dots3 var(--speed) calc(((var(--n) + var(--o, 0)) / 4 - 1) * var(--speed)) infinite;
+            }
+
+            &:after {
+                --o: 1;
+
+                content: '';
+                background: map-get($appLoader, 'dots3InnerBg');
+            }
+        }
+    }
+}
+
+@mixin kfLoaderDots3 {
+
+    @keyframes loader-dots3 {
+
+        0%,
+        50% {
+            transform: scale3d(0, 0, 0);
+        }
+    }
+}
+
+@mixin loaderFlip {
+
+    &-loader {
+        --speed: #{map-get($appLoader, 'flipLoaderAnimeSpeed')};
+        --easing: #{map-get($appLoader, 'flipLoaderAnimeEasing')};
+
+        div:first-child {
+            position: relative;
+            display: block;
+            width: map-get($appLoader, 'flipLoaderWidth');
+            height: map-get($appLoader, 'flipLoaderHeight');
+            margin: 0 auto;
+
+            &:after {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                display: block;
+                width: 100%;
+                height: 100%;
+                background: map-get($appLoader, 'flipLoaderBg');
+                animation: loader_flip var(--speed) var(--easing) infinite;
+                border-radius: map-get($appLoader, 'flipLoaderRadius');
+            }
+        }
+    }
+}
+
+@mixin kfLoaderFlip {
+
+    @keyframes loader_flip {
+
+        50% {
+            background: map-get($appLoader, 'flipLoaderBgSecondary');
+            transform: perspective(80px) rotateX(180deg) rotateY(0deg);
+        }
+
+        100% {
+            transform: perspective(80px) rotateX(180deg) rotateY(-180deg);
+        }
+    }
+}
+
+@mixin loaderJelly {
+
+    &-loader {
+        --speed: #{map-get($appLoader, 'jellyAnimeSpeed')};
+        --easing: #{map-get($appLoader, 'jellyAnimeEasing')};
+
+        width: map-get($appLoader, 'jellyLoaderSize');
+
+        div {
+            position: absolute;
+            left: 0;
+
+            &:first-child {
+                top: 0;
+                width: map-get($appLoader, 'jellyLoaderSize');
+                height: map-get($appLoader, 'jellyLoaderSize');
+                background: map-get($appLoader, 'jellyLoaderBg');
+                animation: jelly-box var(--speed) var(--easing) infinite;
+                border-radius: map-get($appLoader, 'jellyLoaderRadius');
+            }
+
+            &:nth-child(2) {
+                top: map-get($appLoader, 'jellyShadowPosTop');
+                width: map-get($appLoader, 'jellyLoaderSize');
+                height: map-get($appLoader, 'jellyShadowSize');
+                background: map-get($appLoader, 'jellyShadowBg');
+                opacity: map-get($appLoader, 'jellyShadowOpacity');
+                animation: jelly-shadow var(--speed) var(--easing) infinite;
+                border-radius: 50%;
+            }
+        }
+    }
+}
+
+@mixin kfLoaderJelly {
+
+    @keyframes jelly-box {
+
+        17% {
+            border-bottom-right-radius: 3px;
+        }
+
+        25% {
+            transform: translate3d(0, 9px, 0) rotate(22.5deg);
+        }
+
+        50% {
+            transform: translate3d(0, 18px, 0) scale3d(1, 0.9, 1) rotate(45deg);
+            border-bottom-right-radius: 40px;
+        }
+
+        75% {
+            transform: translate3d(0, 9px, 0) rotate(67.5deg);
+        }
+
+        100% {
+            transform: translate3d(0, 0, 0) rotate(90deg);
+        }
+    }
+
+    @keyframes jelly-shadow {
+
+        50% {
+            transform: scale3d(1.2, 1, 1);
+        }
+    }
+}
