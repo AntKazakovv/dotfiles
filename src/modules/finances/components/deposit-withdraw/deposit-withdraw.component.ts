@@ -90,6 +90,7 @@ import _concat from 'lodash-es/concat';
 
 type cryptoInfo = 'msg1' | 'msg2';
 type THostedStyles = 'current' | 'def' | 'alt';
+type TFormData = IIndexing<string | number | boolean>;
 @Component({
     selector: '[wlc-deposit-withdraw]',
     templateUrl: './deposit-withdraw.component.html',
@@ -111,7 +112,7 @@ export class DepositWithdrawComponent extends AbstractComponent implements OnIni
     public requiredFields: IIndexing<IFieldTemplate> = {};
     public requiredFieldsKeys: string[] = [];
     public additionalParams: IIndexing<IPaymentAdditionalParam> = {};
-    public formData$: BehaviorSubject<IIndexing<string | number>> = new BehaviorSubject(null);
+    public formData$: BehaviorSubject<TFormData> = new BehaviorSubject(null);
 
     public listConfig: IPaymentListCParams = {
         paymentType: 'deposit',
@@ -706,6 +707,9 @@ export class DepositWithdrawComponent extends AbstractComponent implements OnIni
         this.setAdditionalValues();
         this.checkUserProfileForPayment();
         this.updateFormConfig();
+        this.formData$.next({
+            resetForm: true,
+        });
 
         if (this.currentSystem.isHosted
             && (!this.isLoadingHostedFields || !this.currentSystem.hostedFields.loaded)
