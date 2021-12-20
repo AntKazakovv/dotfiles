@@ -181,8 +181,12 @@ export class BonusItemComponent extends AbstractComponent implements OnInit, OnD
             .pipe(takeUntil(this.$destroy))
             .subscribe((profile) => {
                 this.isAuth = this.configService.get('$user.isAuthenticated');
-                if (this.bonus && this.isAuth) {
-                    this.bonus.userCurrency = profile?.currency || 'EUR';
+                if (this.bonus) {
+                    if (this.isAuth) {
+                        this.bonus.userCurrency = profile?.currency || 'EUR';
+                    } else {
+                        this.bonus.userCurrency = 'EUR';
+                    }
                     this.cdr.markForCheck();
                 }
             });
