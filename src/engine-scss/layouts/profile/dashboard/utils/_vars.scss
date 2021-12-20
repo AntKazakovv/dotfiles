@@ -35,6 +35,26 @@ $dashboardThemeDefault: map-merge((
         1630: ef.get('size', 'main'),
     ),
 
+    'gridTemplateAreasWithoutStore': (
+        320: 'loyalty' 'user-stats' 'bonuses-title' 'bonuses' 'promocode' 'see-all-bonuses',
+        768:
+        'loyalty loyalty'
+        'user-stats user-stats'
+        'bonuses-title bonuses-title'
+        'bonuses bonuses'
+        'promocode see-all-bonuses',
+        1024:
+        'loyalty loyalty loyalty loyalty user-stats user-stats'
+        'promocode promocode see-all-bonuses see-all-bonuses see-all-bonuses see-all-bonuses'
+        'bonuses-title bonuses-title bonuses-title bonuses-title bonuses-title bonuses-title'
+        'bonuses bonuses bonuses bonuses bonuses bonuses',
+        1366:
+        'loyalty loyalty loyalty loyalty user-stats user-stats'
+        'bonuses-title bonuses-title bonuses-title bonuses-title bonuses-title bonuses-title'
+        'bonuses bonuses bonuses bonuses promocode promocode'
+        'bonuses bonuses bonuses bonuses see-all-bonuses see-all-bonuses',
+    ),
+
     'logoutSvgMargin': 0 0 0 ef.size(1),
 
     'titleMargin': (

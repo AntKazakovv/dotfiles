@@ -39,3 +39,14 @@ $themeDefault: map-merge((
     'iconRigth': 0,
     'iconDescriptionCurrencyPosition': absolute,
 ), $customThemeDefault);
+
+$customDashboardWithoutStore: () !default;
+$dashboardWithoutStore: map-merge((
+    'userStatsBalancePadding': (
+        320: ef.size(4) ef.size(3),
+    ),
+    'userStatsBalanceItemPadding': (
+        320: ef.size(1) 0,
+    ),
+    'userStatsBalanceBg': var(--mc-bg300),
+), $customDashboardWithoutStore);

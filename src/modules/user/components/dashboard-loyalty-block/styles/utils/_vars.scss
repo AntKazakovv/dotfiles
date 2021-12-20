@@ -34,4 +34,9 @@ $themeDefault: map-merge((
         375: none,
         640: block,
     ),
+
+    'withoutStoreMargin': (
+        1366: 0 ef.size(4) 0 0,
+        1630: 0,
+    ),
 ), $customThemeDefault);

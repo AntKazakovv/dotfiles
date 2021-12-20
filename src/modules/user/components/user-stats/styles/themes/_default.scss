@@ -143,4 +143,20 @@
             }
         }
     }
+
+    .wlc-dashboard-grid.without-store & {
+        grid-area: user-stats;
+
+        .wlc-user-stats {
+
+            &-balance {
+                @include bm.get-mq-map('padding', $dashboardWithoutStore, 'userStatsBalancePadding');
+                background: ef.get-value($dashboardWithoutStore, 'userStatsBalanceBg');
+            }
+
+            &-balance__item {
+                @include bm.get-mq-map('padding', $dashboardWithoutStore, 'userStatsBalanceItemPadding');
+            }
+        }
+    }
 }

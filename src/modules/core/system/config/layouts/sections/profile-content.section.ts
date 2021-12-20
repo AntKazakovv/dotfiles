@@ -624,6 +624,41 @@ export namespace profileContent {
         ],
     };
 
+    export const profileDashboardWithoutStore: ILayoutSectionConfig = {
+        container: true,
+        components: [
+            {
+                name: 'core.wlc-wrapper',
+                params: {
+                    class: 'wlc-profile-content__top',
+                    components: [
+                        componentLib.wlcTitle.profileDashboard,
+                        componentLib.wlcLogout.useText,
+                    ],
+                },
+            },
+            {
+                name: 'core.wlc-wrapper',
+                params: {
+                    class: 'wlc-dashboard-grid without-store',
+                    components: [
+                        componentLib.wlcDashboardLoyaltyBlock.def,
+                        {
+                            name: 'user.wlc-user-stats',
+                            params: {
+                                useDepositBtn: false,
+                            },
+                        },
+                        componentLib.wlcTitle.profileDashboardBonuses,
+                        componentLib.wlcBonusesList.dashboard,
+                        componentLib.wlcEnterPromocode.def,
+                        componentLib.wlcSeeAllBonuses.def,
+                    ],
+                },
+            },
+        ],
+    };
+
     export const profileDashboardTypeFirst: ILayoutSectionConfig = {
         container: true,
         theme: 'first',
