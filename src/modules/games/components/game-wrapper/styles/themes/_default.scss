@@ -102,7 +102,7 @@
                 cursor: pointer;
 
 
-                &.icon-btn {
+                &.icon-btn:not(.active) {
                     @include em.transition(all);
                     opacity: ef.get-value($themeDefault, 'buttonOpacity');
 
