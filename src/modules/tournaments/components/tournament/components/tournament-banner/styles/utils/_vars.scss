@@ -10,8 +10,8 @@ $themeDefault: map-merge((
     'tournamentFlexDirection': column,
 
     'tournamentGradient': (
-        375: linear-gradient(180deg, var(--mc-bg300-o0) 0%, var(--mc-bg300) 67%),
-        1200: linear-gradient(90deg, var(--mc-bg700) 35%, var(--mc-bg700-o0) 77%, var(--mc-bg700-o8) 100%),
+        320: linear-gradient(360deg, var(--mc-bg700) 55%, var(--mc-bg700-o0) 101%, var(--mc-bg700-o8) 155%),
+        768: linear-gradient(90deg, var(--mc-bg700) 35%, var(--mc-bg700-o0) 77%, var(--mc-bg700-o8) 100%),
     ),
 
     'tournamentBeforePosition': 0,
@@ -28,20 +28,20 @@ $themeDefault: map-merge((
     'timerSecondaryColor': var(--mc-baseMain),
 
     'bodyPadding': (
-        375: ef.size(11) ef.size(4) ef.size(4),
-        1200: ef.size(11) ef.size(8) ef.size(8),
+        320: ef.size(11) ef.size(4) ef.size(6),
+        1024: ef.size(11) ef.size(8) ef.size(8),
     ),
     'bodyFont': (
         320: 'QoteTextBold',
         768: 'PromoTitle',
     ),
     'bodyColor': var(--mc-baseMain),
-    'bodyMargin': 0 0 ef.size(3),
+    'bodyMargin': 0 0 ef.get('size', 'smally'),
     'bodyBgSize': (
-        375: contain,
+        320: contain,
     ),
     'bodyBgPosition': (
-        375: right bottom,
+        320: right bottom,
     ),
     'bodyFlexDirection': column,
     'bodyAlignItems': flex-start,
@@ -51,7 +51,7 @@ $themeDefault: map-merge((
     'bodyNestedZIindex': 2,
 
     'bodyDecorDisplay': (
-        375: none,
+        320: none,
         768: block,
     ),
     'bodyDecorWidth': 50%,
@@ -60,21 +60,16 @@ $themeDefault: map-merge((
     'bodyDecorPositionBottom': 0,
     'bodyDecorZIindex': 1,
 
-    'timerBlockMargin': (
-        375: 0 0 ef.size(4),
-        768: 0 0 ef.size(3),
-        900: 0 0 ef.size(4)
-    ),
+    'timerBlockMargin': 0 0 ef.size(3),
     'descriptionFont': 'PrimaryText',
     'descriptionColor': var(--mc-baseMain),
     'descriptionMargin': (
-        375: 0 0 ef.size(4) 0,
-        768: 0 0 ef.size(3) 0,
-        900: 0 0 ef.size(4) 0,
-        1200: 0 0 ef.size(10) 0,
+        320: 0 0 ef.size(4) 0,
+        768: 0 0 ef.size(10) 0,
     ),
     'descriptionWidth': (
         375: 100%,
+        768: 50%,
         1024: 450px,
         1200: 50%,
     ),
@@ -87,7 +82,7 @@ $themeDefault: map-merge((
     'btnsMargin': 0 ef.size(4) 0 0,
     'btnsDisplay': (
         375: none,
-        1200: grid,
+        480: grid,
     ),
 
     'loaderZIndex': 10,
@@ -132,6 +127,7 @@ $themeDefault: map-merge((
 
     'moreIconDisplay': (
         375: block,
-        1200: none,
+        480: none,
     ),
 ), $customThemeDefault);
+

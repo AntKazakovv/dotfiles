@@ -89,7 +89,6 @@ export class GamesGridComponent extends AbstractComponent implements OnInit {
     public placeHolders: number[] = _times(6, Number);
     public hideShowMoreBtn: boolean = false;
     public isDesktop: boolean;
-    public isMobile: boolean;
     public hideEmptyComponent: boolean = false;
     public useLazy: boolean = false;
     public lazyLoading: boolean = false;
@@ -344,7 +343,6 @@ export class GamesGridComponent extends AbstractComponent implements OnInit {
     protected handleDeviceTypeChange(type: DeviceType): void {
         this.deviceType = type;
         this.isDesktop = this.deviceType === DeviceType.Desktop;
-        this.isMobile = this.deviceType === DeviceType.Mobile;
         this.applyMobileSettings();
         this.applyTabletSettings();
         this.cdr.markForCheck();

@@ -49,7 +49,7 @@ $themeVertical: map-merge((
     // wrapper
     'wrapperBorderRadius': ef.get('radius', 'biger'),
     'wrapperMargin': (
-        375: ef.size(14) ef.size(4) ef.size(4),
+        375: ef.size(13) ef.size(3) ef.size(6),
         1200: ef.size(13) ef.size(7) ef.size(8),
     ),
     'wrapperBackground': var(--mc-bg700),

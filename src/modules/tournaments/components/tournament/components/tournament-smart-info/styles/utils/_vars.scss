@@ -12,14 +12,10 @@ $themeDefault: map-merge((
 
     'background': var(--mc-bg),
     'radius': ef.get('radius', 'biger'),
-    'padding': (
-        375: ef.size(2),
-        900: ef.size(2) ef.size(4)
-    ),
+    'padding': ef.size(2) ef.size(4),
     'width': (
         320: 100%,
-        480: 320px,
-        900: 350px,
+        480: 350px,
     ),
 
     'prizeIconMargin': ef.size(-1) ef.size(2) 0 0,

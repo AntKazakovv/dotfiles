@@ -116,17 +116,21 @@
         @include em.lineClamp(1);
 
         margin: ef.get-value($themeDefault, 'bodyMargin');
+
+        @include mq.min(768) {
+            @include text.get-text-style(ef.get-value($themeDefault, 'bodyFont', 768), ef.get-value($themeDefault, 'bodyColor'));
+        }
     }
 
     &__timer-block {
-        @include em.get-mq-map('margin', $themeDefault, 'timerBlockMargin');
+        margin: ef.get-value($themeDefault, 'timerBlockMargin');
     }
 
     &__description {
         @include text.get-text-style(ef.get-value($themeDefault, 'descriptionFont'), ef.get-value($themeDefault, 'descriptionColor'));
         @include em.get-mq-map('max-width', $themeDefault, 'descriptionWidth');
         @include em.get-mq-map('margin', $themeDefault, 'descriptionMargin');
-        @include em.lineClamp(4);
+        @include em.lineClamp(3);
     }
 
     ::ng-deep {
@@ -140,7 +144,7 @@
         }
     }
 
-    &__buttons {
+    .buttons-wrap {
         @include em.get-mq-map('padding', $themeDefault, 'btnsWrapPadding');
 
         display: flex;
@@ -225,3 +229,4 @@
         transform: rotate(360deg);
     }
 }
+
