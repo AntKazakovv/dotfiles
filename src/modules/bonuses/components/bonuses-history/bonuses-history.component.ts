@@ -34,7 +34,6 @@ import {HistoryItemModel} from 'wlc-engine/modules/bonuses/system/models/bonus-h
 import {IBonus} from 'wlc-engine/modules/bonuses';
 
 import * as Params from './bonuses-history.params';
-
 @Component({
     selector: '[wlc-bonuses-history]',
     templateUrl: './bonuses-history.component.html',
@@ -137,11 +136,7 @@ export class BonusesHistoryComponent extends AbstractComponent implements OnInit
             });
         }
 
-        result = _orderBy(result, (item) => {
-            return DateTime.fromSQL(item.End).toSeconds();
-        }, ['desc']);
-
-        return result;
+        return result = _orderBy(result, (item: IBonus) => (DateTime.fromSQL(item.End).toSeconds()), 'desc');
     }
 
     protected historyFilter(): void {
