@@ -15,10 +15,10 @@ export namespace wlcLastWinsSlider {
     export const transparent: ILayoutComponent = {
         name: 'promo.wlc-winners-slider',
         params: <IWinnersSliderCParams>{
-            type: 'biggest',
+            type: 'latest',
             theme: 'transparent',
-            title: 'Biggest wins',
-            wlcElement: 'section_biggest-wins',
+            title: gettext('Recent wins'),
+            wlcElement: 'section_last-winners',
         },
     };
 

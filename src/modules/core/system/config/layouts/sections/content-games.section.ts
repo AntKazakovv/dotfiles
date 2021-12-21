@@ -27,7 +27,6 @@ export namespace contentGames {
 
     export const homeWinsTransparent: ILayoutSectionConfig = {
         container: true,
-        theme: 'transparent',
         components: [
             {
                 name: 'core.wlc-wrapper',

@@ -100,12 +100,14 @@ $themeTransparent: map-merge((
     'loaderHeight': 280px,
 
     // title
-    'titleColor': ef.get('mainColors', 'baseMain'),
+    'titleColor': var(--mc-baseMain),
     'titlePadding': (
         375: ef.size(2) ef.size(3),
     ),
     'titleBorderRadius': ef.get('radius', 'biger') 0 ef.get('radius', 'biger') 0,
     'titleFont': 'QoteTextBold',
+    'titleNoWinnersFlex': 0 1 auto,
+    'titleNoWinnersMinHeight': 95px,
 
     // slider
     'sliderHeight': calc((var(--wlc-winner-slider-slide-height, 100px) + var(--wlc-winner-slider-slide-gap, 10px)) * var(--wlc-winner-slider-slides-per-view, 4)),
