@@ -32,5 +32,6 @@ $baseClass: 'wlc-float-panels';
         height: 100%;
         background: transparent;
         transition: ef.get-value($themeDefault, transition);
+        touch-action: none;
     }
 }

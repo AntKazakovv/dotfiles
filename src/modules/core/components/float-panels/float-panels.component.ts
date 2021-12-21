@@ -10,6 +10,7 @@ import {DOCUMENT} from '@angular/common';
 
 import {
     auditTime,
+    filter,
     takeUntil,
 } from 'rxjs/operators';
 
@@ -46,7 +47,7 @@ export type PanelsType = 'left' | 'right';
 })
 export class FloatPanelsComponent extends AbstractComponent implements OnInit {
     @Input() public sections: SectionModel[] = [];
-    public openedPanel: string;
+    public openedPanel: string = '';
     public $params: Params.IFloatPanelsCParams;
     public shownSections: SectionModel[] = [];
 
@@ -101,6 +102,7 @@ export class FloatPanelsComponent extends AbstractComponent implements OnInit {
             .pipe(
                 takeUntil(this.$destroy),
                 auditTime(100),
+                filter(() => this.openedPanel !== ''),
             )
             .subscribe(() => {
                 this.filterSection();
