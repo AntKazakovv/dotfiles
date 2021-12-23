@@ -351,11 +351,12 @@ export class GamesGridComponent extends AbstractComponent implements OnInit, OnD
         this.moreButtonChangeState(false);
         this.resetGamesRows();
         const itemWidth = this.gameItem?.nativeElement.getBoundingClientRect().width;
+        const itemHeight = this.gameItem?.nativeElement.getBoundingClientRect().height;
         const bannerWidth = this.gameBanner?.nativeElement.getBoundingClientRect().width || 0;
+        const bannerHeight = this.gameBanner?.nativeElement.getBoundingClientRect().height || 0;
         const listWidth = this.gameListElement?.nativeElement.getBoundingClientRect().width;
-        const width = this.$params.bannerSettings ? listWidth - bannerWidth : listWidth;
 
-        const prevPlaceHoldersCount = _floor(width / itemWidth) || 1;
+        const prevPlaceHoldersCount = _floor(listWidth / itemWidth) || 1;
         this.gamesRows += this.gamesRowsLoaded;
         this.paginate = prevPlaceHoldersCount * this.gamesRows;
 
@@ -369,8 +370,8 @@ export class GamesGridComponent extends AbstractComponent implements OnInit, OnD
             this.gamesCount--;
         }
 
-        if (this.$params.bannerSettings) {
-            this.gamesCount += _floor(bannerWidth / itemWidth) * this.gamesRowsLoaded;
+        if (this.$params.bannerSettings && (bannerWidth < listWidth)) {
+            this.gamesCount -= (_floor(bannerWidth / itemWidth) + _floor(bannerHeight / itemHeight));
         }
 
         this.checkGamesLength();
