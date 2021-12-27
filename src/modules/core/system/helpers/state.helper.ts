@@ -178,4 +178,11 @@ export class StateHelper {
             },
         };
     }
+    public static goToErrorPage(trans: Transition): void {
+        trans.abort();
+        const {locale} = trans.params();
+        trans.router.stateService.go('app.error', {
+            locale: locale || trans.injector().get('lang') || 'en',
+        });
+    }
 }
