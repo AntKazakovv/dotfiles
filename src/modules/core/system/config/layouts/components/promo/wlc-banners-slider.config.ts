@@ -41,6 +41,7 @@ export namespace wlcBannersSlider {
                     slidesPerView: 1,
                     spaceBetween: 20,
                     centeredSlides: true,
+                    loopedSlides: 2,
                     loopAdditionalSlides: 3,
                     navigation: {
                         nextEl: '.wlc-slider--theme-default-banner .wlc-swiper-button-next',
