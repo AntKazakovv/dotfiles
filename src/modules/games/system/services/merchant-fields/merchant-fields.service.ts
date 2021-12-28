@@ -1,26 +1,26 @@
 import {Injectable} from '@angular/core';
 import {BehaviorSubject} from 'rxjs';
 
-import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
-import {UserProfile} from 'wlc-engine/modules/user/system/models/profile.model';
-
 import _get from 'lodash-es/get';
 import _includes from 'lodash-es/includes';
-import _sortedUniq from 'lodash-es/sortedUniq';
+import _uniq from 'lodash-es/uniq';
 import _filter from 'lodash-es/filter';
 import _concat from 'lodash-es/concat';
 import _forEach from 'lodash-es/forEach';
 import _isArray from 'lodash-es/isArray';
+
+import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
+import {UserProfile} from 'wlc-engine/modules/user/system/models/profile.model';
 
 @Injectable({
     providedIn: 'root',
 })
 export class MerchantFieldsService {
     private profileFields = [
-        'countryCode',
-        'gender',
         'firstName',
         'lastName',
+        'gender',
+        'countryCode',
     ];
     private DateOfBirth = [
         'birthDay',
@@ -78,7 +78,7 @@ export class MerchantFieldsService {
         const merchantFields: string[] = this.getMerchantRequiredFields(merchantId);
         const profileFields: string[] = this.getProfileRequiedFields();
 
-        return _sortedUniq<string>(merchantFields.concat(profileFields).sort());
+        return _uniq<string>(profileFields.concat(merchantFields));
     }
 
     /**

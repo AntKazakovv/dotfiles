@@ -8,6 +8,7 @@ import {
     ChangeDetectorRef,
 } from '@angular/core';
 import {FormGroup} from '@angular/forms';
+import {StateService} from '@uirouter/core';
 
 import {
     AbstractComponent,
@@ -45,6 +46,7 @@ export class AddProfileInfoComponent extends AbstractComponent implements OnInit
         protected modalService: ModalService,
         protected cdr: ChangeDetectorRef,
         protected eventService: EventService,
+        protected stateService: StateService,
     ) {
         super({injectParams, defaultParams: Params.defaultParams}, configService);
     }
@@ -65,6 +67,10 @@ export class AddProfileInfoComponent extends AbstractComponent implements OnInit
 
         if (result === true) {
             this.modalService.closeAllModals();
+
+            if (this.$params.redirect?.success) {
+                this.stateService.go(this.$params.redirect.success.to, this.$params.redirect.success.params);
+            }
 
             this.eventService.emit({
                 name: NotificationEvents.PushMessage,

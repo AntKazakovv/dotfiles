@@ -11,6 +11,13 @@ import {
     first,
 } from 'rxjs/operators';
 
+import _clone from 'lodash-es/clone';
+import _reduce from 'lodash-es/reduce';
+import _includes from 'lodash-es/includes';
+import _union from 'lodash-es/union';
+import _toNumber from 'lodash-es/toNumber';
+import _uniq from 'lodash-es/uniq';
+
 import {
     ConfigService,
     EventService,
@@ -38,13 +45,11 @@ import {
 import {
     UserService,
     UserInfo,
+    IAddProfileInfoCParams,
 } from 'wlc-engine/modules/user';
-
-import _clone from 'lodash-es/clone';
-import _reduce from 'lodash-es/reduce';
-import _includes from 'lodash-es/includes';
-import _union from 'lodash-es/union';
-import _toNumber from 'lodash-es/toNumber';
+import {AddProfileInfoComponent} from 'wlc-engine/modules/user/components/add-profile-info';
+import {FormElements} from 'wlc-engine/modules/core/system/config/form-elements';
+import {IFormComponent} from 'wlc-engine/modules/core/components/form-wrapper/form-wrapper.component';
 
 export enum RejectReason {
     RealPlayDisabled,
@@ -430,30 +435,40 @@ class StartGameHandler {
     private checkUserFields(): Promise<void> {
         const defered = new Deferred<void>();
 
-        this.merchantFieldsService.checkRequiredFields(this.merchantId).then(() => {
+        this.merchantFieldsService.checkRequiredFields(this.merchantId).then((): void => {
             defered.resolve();
-        }, () => {
+        }, (emptyFields: string[]): void => {
+            emptyFields.push('password', 'submit');
 
-            // @TODO Replace to modal with required fields
+            const emptyFieldsAlias = {
+                birthDay: 'birthDate',
+                birthMonth: 'birthDate',
+                birthYear: 'birthDate',
+            };
+
             this.modalService.showModal({
-                id: 'game-required-fields',
-                modalTitle: gettext('Fill required fields'),
-                modalMessage: gettext('For play, fill data in your profile'),
-                modifier: 'game-required-fields',
-                onModalHide: () => {
-                    this.stateService.go('app.profile.main.info', this.transition.params());
+                id: 'add-profile-info',
+                modifier: 'add-profile-info',
+                component: AddProfileInfoComponent,
+                componentParams: <IAddProfileInfoCParams>{
+                    formConfig: {
+                        class: 'wlc-form-wrapper',
+                        components: _uniq(emptyFields.map((field: string): IFormComponent => {
+                            return FormElements[emptyFieldsAlias[field] || field];
+                        })),
+                    },
+                    redirect: {
+                        success: {
+                            to: this.transition.$to(),
+                            params: this.transition.params(),
+                        },
+                    },
                 },
-                size: 'md',
+                showFooter: false,
+                dismissAll: true,
                 backdrop: 'static',
             });
 
-            // const modalParams = wlcModalRegistryProvider.get('requiredFields');
-            // modalParams.requiredFields = emptyFields;
-            // modalParams.showPassword = this.configService.get('appConfig.siteconfig.profile.checkPassOnUpdate');
-            // modalParams.onSuccess = () => {
-            //     this.stateService.go('app.games.play', this.stateService.params);
-            // };
-            // this.modalService.showDialog(modalParams);
             defered.reject(RejectReason.EmptyRequiredFields);
         });
         return defered.promise;

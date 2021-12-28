@@ -176,6 +176,8 @@ export namespace FormElements {
         },
     };
 
+    export const countryCode = country;
+
     export const city: IFormComponent = {
         name: 'core.wlc-input',
         params: <IInputCParams>{
