@@ -56,6 +56,10 @@
                                 {
                                     "replace": "src/system/environments/environment.ts",
                                     "with": "src/system/environments/environment.prod.ts"
+                                },
+                                {
+                                    "replace": "src/modules/core/system/interceptors/interceptors.ts",
+                                    "with": "src/modules/core/system/interceptors/interceptors.prod.ts"
                                 }
                             ],
                             "optimization": true,

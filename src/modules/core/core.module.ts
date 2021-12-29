@@ -1,5 +1,3 @@
-import {HTTP_INTERCEPTORS} from '@angular/common/http';
-
 // -- MODULES IMPORTS START --;
 import {CommonModule} from '@angular/common';
 import {NgModule} from '@angular/core';
@@ -106,7 +104,7 @@ import {AuthDirective} from './directives/auth.directive';
 //  -- DIRECTIVES IMPORTS END  --;
 
 // -- INTERCEPTOR IMPORTS STARTS --;
-import {HeadersInterceptor} from 'wlc-engine/modules/core/system/interceptors/headers.interceptor';
+import {interceptors} from 'wlc-engine/modules/core/system/interceptors/interceptors';
 // -- INTERCEPTOR IMPORTS END
 
 //  -- PIPES IMPORTS STARTS--;
@@ -207,12 +205,8 @@ export const components = {
         GlobalHelper.bootstrapProviders(NotificationService),
         BodyClassService,
         RecaptchaService,
-        {
-            provide: HTTP_INTERCEPTORS,
-            useClass: HeadersInterceptor,
-            multi: true,
-        },
         ColorThemeService,
+        ...interceptors,
     ],
     declarations: [
         AmountLimitComponent,
@@ -342,4 +336,5 @@ export const components = {
         WrapperComponent,
     ],
 })
-export class CoreModule {}
+export class CoreModule {
+}

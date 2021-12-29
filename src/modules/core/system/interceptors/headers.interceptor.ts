@@ -34,7 +34,7 @@ export class HeadersInterceptor implements HttpInterceptor {
     ) {
     }
 
-    intercept(
+    public intercept(
         req: HttpRequest<IData>,
         next: HttpHandler,
     ): Observable<HttpEvent<IData>> {
@@ -43,7 +43,6 @@ export class HeadersInterceptor implements HttpInterceptor {
                 headers: req.headers.set('HTTP_X_UA_FINGERPRINT', this.window['fingerprintHash'] || ''),
             });
         }
-
         return next.handle(req).pipe(
             catchError((error: HttpErrorResponse) => {
                 if (error.headers.get('X-RECAPTCHA') && !req.headers.get('X-RECAPTCHA')) {

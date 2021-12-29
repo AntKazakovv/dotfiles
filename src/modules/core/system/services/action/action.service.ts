@@ -12,6 +12,7 @@ import {
     TransitionService,
     UIRouter,
 } from '@uirouter/core';
+
 import {
     BehaviorSubject,
     Subject,
@@ -23,6 +24,10 @@ import {
     first,
     takeWhile,
 } from 'rxjs/operators';
+import _isString from 'lodash-es/isString';
+import _toNumber from 'lodash-es/toNumber';
+import _forEach from 'lodash-es/forEach';
+import _assign from 'lodash-es/assign';
 
 import {GlobalHelper} from 'wlc-engine/modules/core/system/helpers/global.helper';
 import {Deferred} from 'wlc-engine/modules/core/system/classes/deferred.class';
@@ -45,11 +50,6 @@ import {UserProfile} from 'wlc-engine/modules/user/system/models/profile.model';
 import {UserService} from 'wlc-engine/modules/user/system/services/user/user.service';
 import {LogService} from 'wlc-engine/modules/core/system/services/log/log.service';
 import {WINDOW} from 'wlc-engine/modules/app/system';
-
-import _isString from 'lodash-es/isString';
-import _toNumber from 'lodash-es/toNumber';
-import _forEach from 'lodash-es/forEach';
-import _assign from 'lodash-es/assign';
 
 export type ScrollPositionType = 'start' | 'end';
 

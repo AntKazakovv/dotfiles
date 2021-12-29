@@ -1,0 +1,352 @@
+{
+    "code": 200,
+    "status": "success",
+    "data": [
+        {
+            "ID": 13279,
+            "Series": "",
+            "Name": "Mazik Tournament",
+            "Description": "Players only from Mazik are eligable for the tournament",
+            "Selected": 0,
+            "Qualified": 0,
+            "WinnerBy": "winbet_ratio",
+            "PointsTotal": "23331.41",
+            "PointsLimit": 0,
+            "PointsLimitMin": 0,
+            "FeeType": "balance",
+            "FeeAmount": {
+                "EUR": "0",
+                "Currency": 0
+            },
+            "Qualification": "50",
+            "BetMin": {
+                "CAD": "",
+                "KZT": "",
+                "NOK": "",
+                "NZD": "",
+                "PLN": "",
+                "RUB": "",
+                "UAH": "",
+                "USD": "",
+                "UZS": "",
+                "EUR": ""
+            },
+            "BetMax": {
+                "CAD": "",
+                "KZT": "",
+                "NOK": "",
+                "NZD": "",
+                "PLN": "",
+                "RUB": "",
+                "UAH": "",
+                "USD": "",
+                "UZS": "",
+                "EUR": ""
+            },
+            "Repeat": "once",
+            "Target": "balance",
+            "Type": "absolute",
+            "Value": "3000",
+            "Starts": "2021-09-22 09:00:00",
+            "Ends": "2021-09-29 09:00:00",
+            "Status": "1",
+            "Games": {
+                "Games": [],
+                "Categories": [
+                    4
+                ],
+                "Merchants": [],
+                "GamesBL": [],
+                "CategoriesBL": [],
+                "MerchantsBL": []
+            },
+            "FreeroundGames": "",
+            "RemainingTime": 55878,
+            "CurrentTime": 1632850122,
+            "TotalFounds": {
+                "EUR": "3000",
+                "Currency": "3000"
+            },
+            "WinningSpread": {
+                "Percent": [
+                    "20",
+                    "15",
+                    "10",
+                    "10",
+                    "10",
+                    "4",
+                    "4",
+                    "4",
+                    "4",
+                    "4",
+                    "3",
+                    "3",
+                    "3",
+                    "3",
+                    "3"
+                ],
+                "EUR": [
+                    600,
+                    450,
+                    300,
+                    300,
+                    300,
+                    120,
+                    120,
+                    120,
+                    120,
+                    120,
+                    90,
+                    90,
+                    90,
+                    90,
+                    90
+                ],
+                "Currency": [
+                    600,
+                    450,
+                    300,
+                    300,
+                    300,
+                    120,
+                    120,
+                    120,
+                    120,
+                    120,
+                    90,
+                    90,
+                    90,
+                    90,
+                    90
+                ]
+            },
+            "Terms": "Minimum spins to qualify - 50\n\nYou will get points for each win\\bet rate \n\nAll games from \"Popular\" are eligable for tournament",
+            "Image": "",
+            "Image_promo": "",
+            "Image_dashboard": "",
+            "Image_description": "https:\/\/imagizer.imageshack.com\/img923\/741\/9ReqAO.png",
+            "Image_other": "https:\/\/imagizer.imageshack.com\/img923\/741\/9ReqAO.png"
+        },
+        {
+            "ID": 13583,
+            "Series": "",
+            "Name": "Daily Tournament",
+            "Description": "Win real money in Daily Tournament Series",
+            "Selected": 0,
+            "Qualified": 0,
+            "WinnerBy": "winbet_ratio",
+            "PointsTotal": "253.78",
+            "PointsLimit": 0,
+            "PointsLimitMin": 0,
+            "FeeType": "balance",
+            "FeeAmount": {
+                "EUR": "0",
+                "Currency": 0
+            },
+            "Qualification": "0",
+            "BetMin": {
+                "CAD": "",
+                "KZT": "",
+                "NOK": "",
+                "NZD": "",
+                "PLN": "",
+                "RUB": "",
+                "UAH": "",
+                "USD": "",
+                "UZS": "",
+                "EUR": ""
+            },
+            "BetMax": {
+                "CAD": "",
+                "KZT": "",
+                "NOK": "",
+                "NZD": "",
+                "PLN": "",
+                "RUB": "",
+                "UAH": "",
+                "USD": "",
+                "UZS": "",
+                "EUR": ""
+            },
+            "Repeat": "1 day",
+            "Target": "balance",
+            "Type": "absolute",
+            "Value": "100",
+            "Starts": "2021-09-28 16:00:00",
+            "Ends": "2021-09-29 16:00:00",
+            "Status": "1",
+            "Games": {
+                "Games": [],
+                "Categories": [
+                    35
+                ],
+                "Merchants": [],
+                "GamesBL": [],
+                "CategoriesBL": [],
+                "MerchantsBL": []
+            },
+            "FreeroundGames": "",
+            "RemainingTime": 81078,
+            "CurrentTime": 1632850122,
+            "TotalFounds": {
+                "EUR": "100",
+                "Currency": "100"
+            },
+            "WinningSpread": {
+                "Percent": [
+                    "50",
+                    "30",
+                    "20"
+                ],
+                "EUR": [
+                    50,
+                    30,
+                    20
+                ],
+                "Currency": [
+                    50,
+                    30,
+                    20
+                ]
+            },
+            "Terms": "Minimum number of spins to qualify in tournament games - 20\n\nYou will get points for each win\\bet ration in tournament games\n\nAll games from \"New\" section are eligable for the tournament",
+            "Image": ""
+        },
+        {
+            "ID": 13499,
+            "Series": "",
+            "Name": "Weekly Tournament",
+            "Description": "Become a part of our short-term tournaments and win real money prizes! Play any slot game from the list for a chance to win real cash ptizes.\n\nTotal prizepool €300 EUR \/ 300 USD \/ 27 000 RUB \/ 9900 UAH in cash.\n\nIn order to qualify for prizes you must do at least 50 spins in tournament games\n\nAvailable in all games from \"Top Games\"\n\nGet points for each winning spin in tournament games.\n\nNo additional charges",
+            "Selected": 0,
+            "Qualified": 0,
+            "WinnerBy": "wins",
+            "PointsTotal": "2261.99",
+            "PointsLimit": 0,
+            "PointsLimitMin": 0,
+            "FeeType": "balance",
+            "FeeAmount": {
+                "EUR": "0",
+                "Currency": 0
+            },
+            "Qualification": "50",
+            "BetMin": {
+                "CAD": "",
+                "KZT": "",
+                "NOK": "",
+                "NZD": "",
+                "PLN": "",
+                "RUB": "",
+                "UAH": "",
+                "USD": "",
+                "UZS": "",
+                "EUR": ""
+            },
+            "BetMax": {
+                "CAD": "",
+                "KZT": "",
+                "NOK": "",
+                "NZD": "",
+                "PLN": "",
+                "RUB": "",
+                "UAH": "",
+                "USD": "",
+                "UZS": "",
+                "EUR": ""
+            },
+            "Repeat": "1 week",
+            "Target": "balance",
+            "Type": "absolute",
+            "Value": "300",
+            "Starts": "2021-09-27 00:00:00",
+            "Ends": "2021-10-04 00:00:00",
+            "Status": "1",
+            "Games": {
+                "Games": [],
+                "Categories": [
+                    4
+                ],
+                "Merchants": [],
+                "GamesBL": [],
+                "CategoriesBL": [],
+                "MerchantsBL": []
+            },
+            "FreeroundGames": "",
+            "RemainingTime": 455478,
+            "CurrentTime": 1632850122,
+            "TotalFounds": {
+                "EUR": "300",
+                "Currency": "300"
+            },
+            "WinningSpread": {
+                "Percent": [
+                    "20",
+                    "15",
+                    "10",
+                    "5",
+                    "5",
+                    "5",
+                    "5",
+                    "5",
+                    "5",
+                    "5",
+                    "2",
+                    "2",
+                    "2",
+                    "2",
+                    "2",
+                    "2",
+                    "2",
+                    "2",
+                    "2",
+                    "2"
+                ],
+                "EUR": [
+                    60,
+                    45,
+                    30,
+                    15,
+                    15,
+                    15,
+                    15,
+                    15,
+                    15,
+                    15,
+                    6,
+                    6,
+                    6,
+                    6,
+                    6,
+                    6,
+                    6,
+                    6,
+                    6,
+                    6
+                ],
+                "Currency": [
+                    60,
+                    45,
+                    30,
+                    15,
+                    15,
+                    15,
+                    15,
+                    15,
+                    15,
+                    15,
+                    6,
+                    6,
+                    6,
+                    6,
+                    6,
+                    6,
+                    6,
+                    6,
+                    6,
+                    6
+                ]
+            },
+            "Terms": "Total prizepool €300 EUR \/ 300 USD \/ 27 000 RUB \/ 9900 UAH in cash.\n\nIn order to qualify for prizes you must do at least 50 spins in tournament games\n\nAvailable in all games from \"Top Games\"\n\nGet points for each winning spin in tournament games.\n\nNo additional charges",
+            "Image": ""
+        }
+    ]
+}

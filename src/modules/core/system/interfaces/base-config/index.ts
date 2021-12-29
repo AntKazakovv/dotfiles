@@ -16,6 +16,7 @@ import {IAnalytics} from 'wlc-engine/modules/analytics/system/interfaces/analyti
 import {IColorThemeSwitchingConfig} from './color-theme-switching.config';
 import {IFinancesConfig} from './finances.interface';
 import {IStickyHeaderConfig} from './sticky-header.interface';
+import {IMocksConfig} from './mocks.interface';
 
 export * from './games.interface';
 export * from './tournaments.interface';
@@ -70,4 +71,8 @@ export interface IBaseConfig {
      * add ability to change wp language code
      */
     rewritingWpLanguages?: IIndexing<string>,
+    /**
+     * Use mocks in project, makes sense for development mode only
+     */
+    mocks?: IMocksConfig;
 }

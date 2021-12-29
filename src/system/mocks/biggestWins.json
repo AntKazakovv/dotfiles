@@ -1,0 +1,106 @@
+{
+    "code": 200,
+    "status": "success",
+    "data": [
+        {
+            "GameID": 2003159,
+            "AmountEUR": 1519.5,
+            "Amount": 1519.5,
+            "Date": "2021-09-12 20:59:22",
+            "Name": "Thoma*****",
+            "Currency": "EUR",
+            "CountryIso2": "se",
+            "CountryIso3": "swe"
+        },
+        {
+            "GameID": 1951937,
+            "AmountEUR": 1518,
+            "Amount": 1518,
+            "Date": "2021-09-16 09:03:27",
+            "Name": "Abdel*****",
+            "Currency": "EUR",
+            "CountryIso2": "be",
+            "CountryIso3": "bel"
+        },
+        {
+            "GameID": 2008751,
+            "AmountEUR": 1243.34,
+            "Amount": 12635.2,
+            "Date": "2021-09-10 15:29:51",
+            "Name": "Jane *****",
+            "Currency": "NOK",
+            "CountryIso2": "no",
+            "CountryIso3": "nor"
+        },
+        {
+            "GameID": 1543972,
+            "AmountEUR": 1000,
+            "Amount": 1000,
+            "Date": "2021-09-03 19:11:22",
+            "Name": "Dave *****",
+            "Currency": "EUR",
+            "CountryIso2": "de",
+            "CountryIso3": "deu"
+        },
+        {
+            "GameID": 1541842,
+            "AmountEUR": 750,
+            "Amount": 750,
+            "Date": "2021-09-07 17:35:54",
+            "Name": "Micha*****",
+            "Currency": "EUR",
+            "CountryIso2": "pl",
+            "CountryIso3": "pol"
+        },
+        {
+            "GameID": 1927721,
+            "AmountEUR": 500,
+            "Amount": 500,
+            "Date": "2021-09-03 17:06:00",
+            "Name": "Adam *****",
+            "Currency": "EUR",
+            "CountryIso2": "pl",
+            "CountryIso3": "pol"
+        },
+        {
+            "GameID": 1858466,
+            "AmountEUR": 380,
+            "Amount": 380,
+            "Date": "2021-09-01 15:30:39",
+            "Name": "Denis*****",
+            "Currency": "EUR",
+            "CountryIso2": "at",
+            "CountryIso3": "aut"
+        },
+        {
+            "GameID": 1772647,
+            "AmountEUR": 302,
+            "Amount": 302,
+            "Date": "2021-09-05 02:37:42",
+            "Name": "Ewa K*****",
+            "Currency": "EUR",
+            "CountryIso2": "pl",
+            "CountryIso3": "pol"
+        },
+        {
+            "GameID": 1544908,
+            "AmountEUR": 286.39,
+            "Amount": 286.39,
+            "Date": "2021-09-09 21:15:38",
+            "Name": "Zeyne*****",
+            "Currency": "EUR",
+            "CountryIso2": "tr",
+            "CountryIso3": "tur"
+        },
+        {
+            "GameID": 2071335,
+            "AmountEUR": 277.06,
+            "Amount": 277.06,
+            "Date": "2021-09-15 12:40:24",
+            "Name": "Silvi*****",
+            "Currency": "EUR",
+            "CountryIso2": "de",
+            "CountryIso3": "deu"
+        }
+    ]
+}

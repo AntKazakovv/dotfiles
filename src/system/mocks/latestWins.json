@@ -1,0 +1,116 @@
+{
+    "code": 200,
+    "status": "success",
+    "data": [
+        {
+            "GameID": 1478706,
+            "AmountEUR": 2,
+            "Amount": 2,
+            "Date": "2021-09-28 16:22:13",
+            "Name": "Maria*****",
+            "Currency": "EUR",
+            "CountryIso2": "it",
+            "CountryIso3": "ita",
+            "ID": "0870484b7cbe8e7943a0cc40b15113cc"
+        },
+        {
+            "GameID": 1920316,
+            "AmountEUR": 2,
+            "Amount": 2,
+            "Date": "2021-09-28 13:23:03",
+            "Name": "Chris*****",
+            "Currency": "EUR",
+            "CountryIso2": "dk",
+            "CountryIso3": "dnk",
+            "ID": "e28adb8b7ec71a143c373f4fe4555e7b"
+        },
+        {
+            "GameID": 2047190,
+            "AmountEUR": 4.5,
+            "Amount": 4.5,
+            "Date": "2021-09-28 10:53:57",
+            "Name": "shahr*****",
+            "Currency": "EUR",
+            "CountryIso2": "my",
+            "CountryIso3": "mys",
+            "ID": "e844655e683ea698493004ee11a8b03d"
+        },
+        {
+            "GameID": 1916677,
+            "AmountEUR": 1,
+            "Amount": 1,
+            "Date": "2021-09-28 06:31:52",
+            "Name": "Libor*****",
+            "Currency": "EUR",
+            "CountryIso2": "cz",
+            "CountryIso3": "cze",
+            "ID": "f1f6f6f5f5a15e4d8ba43c419a68201b"
+        },
+        {
+            "GameID": 1475775,
+            "AmountEUR": 3.8,
+            "Amount": 3.8,
+            "Date": "2021-09-28 05:44:43",
+            "Name": "Claud*****",
+            "Currency": "EUR",
+            "CountryIso2": "de",
+            "CountryIso3": "deu",
+            "ID": "d2536bbceb24e802438ad4534dbe4eb2"
+        },
+        {
+            "GameID": 1921037,
+            "AmountEUR": 1.5,
+            "Amount": 1.5,
+            "Date": "2021-09-28 00:24:19",
+            "Name": "Andre*****",
+            "Currency": "EUR",
+            "CountryIso2": "es",
+            "CountryIso3": "esp",
+            "ID": "3c0d612a8c09852ee9c4c11c16c67631"
+        },
+        {
+            "GameID": 1858745,
+            "AmountEUR": 2.2,
+            "Amount": 2.2,
+            "Date": "2021-09-27 21:07:30",
+            "Name": "Anton*****",
+            "Currency": "EUR",
+            "CountryIso2": "it",
+            "CountryIso3": "ita",
+            "ID": "cb7cf14d5733ecabc078d362999c3f6c"
+        },
+        {
+            "GameID": 1656577,
+            "AmountEUR": 1.25,
+            "Amount": 1.25,
+            "Date": "2021-09-27 16:57:14",
+            "Name": "Arna *****",
+            "Currency": "EUR",
+            "CountryIso2": "my",
+            "CountryIso3": "mys",
+            "ID": "5516571ce8dfe2d06ecc6468a670e62e"
+        },
+        {
+            "GameID": 1537423,
+            "AmountEUR": 1.36,
+            "Amount": 1.36,
+            "Date": "2021-09-27 13:04:54",
+            "Name": "Janet*****",
+            "Currency": "EUR",
+            "CountryIso2": "it",
+            "CountryIso3": "ita",
+            "ID": "4e246e5521569f825969255c0a67a99f"
+        },
+        {
+            "GameID": 1569382,
+            "AmountEUR": 5,
+            "Amount": 5,
+            "Date": "2021-09-27 12:20:48",
+            "Name": "Davor*****",
+            "Currency": "EUR",
+            "CountryIso2": "me",
+            "CountryIso3": "mne",
+            "ID": "cb23e580165051e418acc53021a04447"
+        }
+    ]
+}

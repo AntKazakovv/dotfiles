@@ -1,0 +1,256 @@
+{
+    "code": 200,
+    "status": "success",
+    "data": [
+        {
+            "id": "158",
+            "game": "Treasure Room",
+            "image": "\/gstatic\/games\/betsoft\/315\/treasure_room.jpg",
+            "MerchantID": "991",
+            "MerchantName": "BetSoft",
+            "LaunchCode": "158",
+            "amount": 60031.2,
+            "currency": "EUR"
+        },
+        {
+            "id": "173",
+            "game": "Glam Life",
+            "image": "\/gstatic\/games\/betsoft\/315\/glam_life.jpg",
+            "MerchantID": "991",
+            "MerchantName": "BetSoft",
+            "LaunchCode": "173",
+            "amount": 914283.84,
+            "currency": "EUR"
+        },
+        {
+            "id": "210",
+            "game": "Mr. Vegas",
+            "image": "\/gstatic\/games\/betsoft\/315\/mr._vegas.jpg",
+            "MerchantID": "991",
+            "MerchantName": "BetSoft",
+            "LaunchCode": "210",
+            "amount": 19579.4,
+            "currency": "EUR"
+        },
+        {
+            "id": "258",
+            "game": "Slots Angels",
+            "image": "\/gstatic\/games\/betsoft\/315\/slots_angels.jpg",
+            "MerchantID": "991",
+            "MerchantName": "BetSoft",
+            "LaunchCode": "258",
+            "amount": 21669.94,
+            "currency": "EUR"
+        },
+        {
+            "id": "300",
+            "game": "At The Copa",
+            "image": "\/gstatic\/games\/betsoft\/315\/at_the_copa.jpg",
+            "MerchantID": "991",
+            "MerchantName": "BetSoft",
+            "LaunchCode": "300",
+            "amount": 42954.9,
+            "currency": "EUR"
+        },
+        {
+            "id": "341",
+            "game": "Greedy Goblins",
+            "image": "\/gstatic\/games\/betsoft\/315\/greedy_goblins.jpg",
+            "MerchantID": "991",
+            "MerchantName": "BetSoft",
+            "LaunchCode": "341",
+            "amount": 147892.43,
+            "currency": "EUR"
+        },
+        {
+            "id": "344",
+            "game": "Slotfather JP",
+            "image": "\/gstatic\/games\/betsoft\/315\/slotfather_jp.jpg",
+            "MerchantID": "991",
+            "MerchantName": "BetSoft",
+            "LaunchCode": "344",
+            "amount": 59102.18,
+            "currency": "EUR"
+        },
+        {
+            "id": "350",
+            "game": "Enchanted JP",
+            "image": "\/gstatic\/games\/betsoft\/315\/enchanted_jp.jpg",
+            "MerchantID": "991",
+            "MerchantName": "BetSoft",
+            "LaunchCode": "350",
+            "amount": 59115.88,
+            "currency": "EUR"
+        },
+        {
+            "id": "351",
+            "game": "A Night in Paris JP",
+            "image": "\/gstatic\/games\/betsoft\/315\/a_night_in_paris_jp.jpg",
+            "MerchantID": "991",
+            "MerchantName": "BetSoft",
+            "LaunchCode": "351",
+            "amount": 59072.53,
+            "currency": "EUR"
+        },
+        {
+            "id": "426",
+            "game": "Good Girl, Bad Girl",
+            "image": "\/gstatic\/games\/betsoft\/315\/good_girl,_bad_girl.jpg",
+            "MerchantID": "991",
+            "MerchantName": "BetSoft",
+            "LaunchCode": "426",
+            "amount": 26742.73,
+            "currency": "EUR"
+        },
+        {
+            "id": "471",
+            "game": "Tycoons Plus",
+            "image": "\/gstatic\/games\/betsoft\/315\/tycoons_plus.jpg",
+            "MerchantID": "991",
+            "MerchantName": "BetSoft",
+            "LaunchCode": "471",
+            "amount": 118241.28,
+            "currency": "EUR"
+        },
+        {
+            "id": "504",
+            "game": "It Came From Venus JP Plus",
+            "image": "\/gstatic\/games\/betsoft\/315\/it_came_from_venus_jp_plus.jpg",
+            "MerchantID": "991",
+            "MerchantName": "BetSoft",
+            "LaunchCode": "504",
+            "amount": 118300.74,
+            "currency": "EUR"
+        },
+        {
+            "id": "534",
+            "game": "Mega Gems",
+            "image": "\/gstatic\/games\/betsoft\/315\/mega_gems.jpg",
+            "MerchantID": "991",
+            "MerchantName": "BetSoft",
+            "LaunchCode": "534",
+            "amount": 24359.35,
+            "currency": "EUR"
+        },
+        {
+            "id": "691",
+            "game": "Charms And Clovers",
+            "image": "\/gstatic\/games\/betsoft\/315\/charms_and_clovers.jpg",
+            "MerchantID": "991",
+            "MerchantName": "BetSoft",
+            "LaunchCode": "691",
+            "amount": 66242.52,
+            "currency": "EUR"
+        },
+        {
+            "id": "1545784",
+            "game": "Arabian Nights",
+            "image": "https:\/\/static.egamings.com\/games\/netent\/arabian_not_mobile_sw.jpg",
+            "MerchantID": "992",
+            "MerchantName": "NetEnt",
+            "LaunchCode": "arabian_not_mobile_sw",
+            "amount": 5000,
+            "currency": "EUR"
+        },
+        {
+            "id": "1474217",
+            "game": "Divine Fortune",
+            "image": "https:\/\/static.egamings.com\/games\/netent\/godsoffortune_not_mobile_sw.jpg",
+            "MerchantID": "992",
+            "MerchantName": "NetEnt",
+            "LaunchCode": "godsoffortune_not_mobile_sw",
+            "amount": 10490,
+            "currency": "EUR"
+        },
+        {
+            "id": "1546027",
+            "game": "Mercy Of The Gods",
+            "image": "https:\/\/static.egamings.com\/games\/netent\/mercyofthegods_not_mobile_sw.jpg",
+            "MerchantID": "992",
+            "MerchantName": "NetEnt",
+            "LaunchCode": "mercyofthegods_not_mobile_sw",
+            "amount": 10000.06,
+            "currency": "EUR"
+        },
+        {
+            "id": "1554341",
+            "game": "Grand Spinn Superpot",
+            "image": "https:\/\/static.egamings.com\/games\/netent\/grand_spinn_superpot.jpg",
+            "MerchantID": "992",
+            "MerchantName": "NetEnt",
+            "LaunchCode": "grandspinn_progressive_not_mobile_sw",
+            "amount": 5000.03,
+            "currency": "EUR"
+        },
+        {
+            "id": "1559350",
+            "game": "Imperial Riches",
+            "image": "https:\/\/static.egamings.com\/games\/netent\/imperial_riches.jpg",
+            "MerchantID": "992",
+            "MerchantName": "NetEnt",
+            "LaunchCode": "imperialriches_not_mobile_sw",
+            "amount": 4582.78,
+            "currency": "EUR"
+        },
+        {
+            "id": "1559350",
+            "game": "Imperial Riches",
+            "image": "https:\/\/static.egamings.com\/games\/netent\/imperial_riches.jpg",
+            "MerchantID": "992",
+            "MerchantName": "NetEnt",
+            "LaunchCode": "imperialriches_not_mobile_sw",
+            "amount": 1035.12,
+            "currency": "EUR"
+        },
+        {
+            "id": "1559350",
+            "game": "Imperial Riches",
+            "image": "https:\/\/static.egamings.com\/games\/netent\/imperial_riches.jpg",
+            "MerchantID": "992",
+            "MerchantName": "NetEnt",
+            "LaunchCode": "imperialriches_not_mobile_sw",
+            "amount": 525.08,
+            "currency": "EUR"
+        },
+        {
+            "id": "1559350",
+            "game": "Imperial Riches",
+            "image": "https:\/\/static.egamings.com\/games\/netent\/imperial_riches.jpg",
+            "MerchantID": "992",
+            "MerchantName": "NetEnt",
+            "LaunchCode": "imperialriches_not_mobile_sw",
+            "amount": 500,
+            "currency": "EUR"
+        },
+        {
+            "id": "1559350",
+            "game": "Imperial Riches",
+            "image": "https:\/\/static.egamings.com\/games\/netent\/imperial_riches.jpg",
+            "MerchantID": "992",
+            "MerchantName": "NetEnt",
+            "LaunchCode": "imperialriches_not_mobile_sw",
+            "amount": 100,
+            "currency": "EUR"
+        },
+        {
+            "id": "1813820",
+            "game": "Vegas Night Life",
+            "image": "https:\/\/static.egamings.com\/games\/netent\/vegas_night_life.jpg",
+            "MerchantID": "992",
+            "MerchantName": "NetEnt",
+            "LaunchCode": "vegasnightlife_not_mobile_sw",
+            "amount": 1000.18,
+            "currency": "EUR"
+        },
+        {
+            "id": "1813820",
+            "game": "Vegas Night Life",
+            "image": "https:\/\/static.egamings.com\/games\/netent\/vegas_night_life.jpg",
+            "MerchantID": "992",
+            "MerchantName": "NetEnt",
+            "LaunchCode": "vegasnightlife_not_mobile_sw",
+            "amount": 0,
+            "currency": "EUR"
+        }
+    ]
+}

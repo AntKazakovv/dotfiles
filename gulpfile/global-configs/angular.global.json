@@ -58,6 +58,10 @@
                 {
                     "replace": "wlc-engine/system/environments/environment.ts",
                     "with": "wlc-engine/system/environments/environment.prod.ts"
+                },
+                {
+                    "replace": "src/modules/core/system/interceptors/interceptors.ts",
+                    "with": "src/modules/core/system/interceptors/interceptors.prod.ts"
                 }
             ],
             "optimization": true,
