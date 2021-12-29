@@ -1,6 +1,7 @@
 import {
     AbstractModel,
     IFromLog,
+    GlobalHelper,
 } from 'wlc-engine/modules/core';
 import {
     IBonus,
@@ -51,7 +52,7 @@ export class HistoryItemModel extends AbstractModel<IBonus> {
     }
 
     public get End(): string {
-        return this.data.End;
+        return GlobalHelper.toLocalTime(this.data.End, 'SQL', 'yyyy-MM-dd HH:mm:ss');
     }
 
     public get Status(): string {

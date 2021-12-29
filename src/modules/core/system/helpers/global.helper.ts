@@ -8,6 +8,10 @@ import {
     fromEventPattern,
     Observable,
 } from 'rxjs';
+import {
+    DateTime,
+    DateTimeOptions,
+} from 'luxon';
 
 import {
     IComponentParams,
@@ -326,5 +330,28 @@ export class GlobalHelper {
      */
     public static isIframe(): boolean {
         return window !== window.top || window !== window.parent || document !== top.document;
+    }
+
+    /**
+     * Returns the time relative to the current time zone
+     * 
+     * @param date {string}
+     * @param from {'ISO' | 'SQL'} recording format 
+     * @param toFormat {string} in what recording format should I remake
+     * @param options {DateTimeOptions} 
+     * @returns {string} local time
+     */
+    public static toLocalTime(
+        date: string,
+        from: 'ISO' | 'SQL',
+        toFormat: string,
+        options: DateTimeOptions = {zone: 'utc'},
+    ): string {
+        switch(from) {
+            case 'ISO':
+                return DateTime.fromISO(date, options).toLocal().toFormat(toFormat);
+            case 'SQL':
+                return DateTime.fromSQL(date, options).toLocal().toFormat(toFormat);
+        }
     }
 }

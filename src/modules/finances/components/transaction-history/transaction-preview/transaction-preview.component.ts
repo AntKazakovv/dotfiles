@@ -4,9 +4,9 @@ import {
     ChangeDetectorRef,
     Inject,
 } from '@angular/core';
-import {DateTime} from 'luxon';
 import {
     EventService,
+    GlobalHelper,
 } from 'wlc-engine/modules/core';
 import {AbstractComponent, IMixedParams} from 'wlc-engine/modules/core/system/classes/abstract.component';
 import {FinancesService} from 'wlc-engine/modules/finances/system/services/finances/finances.service';
@@ -41,12 +41,14 @@ export class TransactionPreviewComponent extends AbstractComponent implements On
     public async ngOnInit(): Promise<void> {
         super.ngOnInit();
         if (this.$params.transaction instanceof Transaction) {
-            this.date = this.$params.transaction.initialDate;
+            this.date = GlobalHelper.toLocalTime(this.$params.transaction.dateISO, 'ISO', 'HH:mm:ss dd-MM-yyyy');
             this.amount = this.$params.transaction.amount;
         } else {
-            this.date = (window.innerWidth < 480) ?
-                DateTime.fromSQL(this.$params.transaction.DateISO).toFormat('HH:mm dd-MM')
-                : DateTime.fromSQL(this.$params.transaction.DateISO).toFormat('dd-MM-yyyy HH:mm:ss');
+            this.date = GlobalHelper.toLocalTime(
+                this.$params.transaction.DateISO,
+                'SQL',
+                (window.innerWidth < 480) ? 'HH:mm dd-MM' : 'dd-MM-yyyy HH:mm:ss',
+            );
             this.amount = +this.$params.transaction.Amount;
         }
     }

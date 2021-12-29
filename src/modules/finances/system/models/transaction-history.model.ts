@@ -89,6 +89,15 @@ export class Transaction extends AbstractModel<ITransactionEx> {
         return DateTime.fromISO(this.data.DateISO);
     }
 
+    /**
+     * Returns the date of the transaction in ISO format
+     * 
+     * @return {string} the date in ISO format
+     */
+    public get dateISO(): string {
+        return this.data.DateISO;
+    }
+
     public get initialDate(): string {
         return this.data.Date;
     }

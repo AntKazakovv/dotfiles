@@ -13,6 +13,11 @@ import {
 } from 'rxjs/operators';
 import {DateTime} from 'luxon';
 
+import _clone from 'lodash-es/clone';
+import _filter from 'lodash-es/filter';
+import _last from 'lodash-es/last';
+import _first from 'lodash-es/first';
+
 import {
     AbstractComponent,
     IMixedParams,
@@ -20,7 +25,8 @@ import {
     ITableCParams,
     IDatepickerCParams,
     DatepickerComponent,
-    ISelectCParams, ConfigService,
+    ISelectCParams,
+    ConfigService,
 } from 'wlc-engine/modules/core';
 import {
     FinancesService,
@@ -29,9 +35,6 @@ import {
 import {IBet} from 'wlc-engine/modules/finances/system/interfaces';
 
 import * as Params from './bet-history.params';
-
-import _clone from 'lodash-es/clone';
-import _filter from 'lodash-es/filter';
 
 @Component({
     selector: '[wlc-bet-history]',
@@ -68,8 +71,8 @@ export class BetHistoryComponent extends AbstractComponent implements OnInit {
     };
 
     protected bets: BehaviorSubject<IBet[]> = new BehaviorSubject([]);
-    protected startDate: DateTime = DateTime.now().minus({month: 1});
-    protected endDate: DateTime = DateTime.now();
+    protected startDate: DateTime = DateTime.utc().minus({month: 1}).startOf('day');
+    protected endDate: DateTime = DateTime.utc().endOf('day');
 
     public tableData: ITableCParams = {
         noItemsText: gettext('No bets history'),
@@ -97,6 +100,7 @@ export class BetHistoryComponent extends AbstractComponent implements OnInit {
 
     public async ngOnInit(): Promise<void> {
         super.ngOnInit();
+
         this.allBets = await this.financesService.getBetsList({
             startDate: this.startDate.toFormat('y-LL-dd\'\T\'TT'),
             endDate: this.endDate.toFormat('y-LL-dd\'\T\'TT'),
@@ -146,8 +150,7 @@ export class BetHistoryComponent extends AbstractComponent implements OnInit {
         }
 
         result = _filter(result, (item) => {
-            const iso = DateTime.fromSQL(item.DateISO).startOf('hours');
-            return iso >= this.startDate.startOf('hours') && iso <= this.endDate.startOf('hours');
+            return DateTime.fromSQL(item.DateISO) >= this.startDate && DateTime.fromSQL(item.DateISO) <= this.endDate;
         });
 
         return result;
@@ -161,10 +164,13 @@ export class BetHistoryComponent extends AbstractComponent implements OnInit {
         if (!dates.length) {
             return;
         }
-        this.startDate = (DateTime.fromSQL(dates[dates.length - 1]?.DateISO) || DateTime.local()).startOf('day');
-        this.endDate = (DateTime.fromSQL(dates[0]?.DateISO) || DateTime.local()).endOf('day');
-        this.startDateInput.control.setValue(this.startDate.toFormat('dd.LL.yyyy'));
-        this.endDateInput.control.setValue(this.endDate.toFormat('dd.LL.yyyy'));
+
+        this.startDate = DateTime.fromSQL(_last(dates).DateISO);
+        this.endDate = DateTime.fromSQL(_first(dates).DateISO);
+        this.startDateInput.control.setValue(
+            this.startDate.plus({minutes: this.startDate.offset}).startOf('day').toFormat('dd.LL.yyyy'));
+        this.endDateInput.control.setValue(
+            this.endDate.plus({minutes: this.startDate.offset}).endOf('day').toFormat('dd.LL.yyyy'));
         this.startDateInput = _clone(this.startDateInput);
         this.endDateInput = _clone(this.endDateInput);
 

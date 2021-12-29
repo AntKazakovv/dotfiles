@@ -13,6 +13,11 @@ import {
 } from 'rxjs/operators';
 import {DateTime} from 'luxon';
 
+import _filter from 'lodash-es/filter';
+import _clone from 'lodash-es/clone';
+import _last from 'lodash-es/last';
+import _first from 'lodash-es/first';
+
 import {
     AbstractComponent,
     IMixedParams,
@@ -22,6 +27,7 @@ import {
     IDatepickerCParams,
     DatepickerComponent,
     ConfigService,
+    GlobalHelper,
 } from 'wlc-engine/modules/core';
 import {
     FinancesService,
@@ -32,9 +38,6 @@ import {
 } from 'wlc-engine/modules/finances/system/models';
 
 import * as Params from './transaction-history.params';
-
-import _filter from 'lodash-es/filter';
-import _clone from 'lodash-es/clone';
 
 @Component({
     selector: '[wlc-transaction-history]',
@@ -182,17 +185,26 @@ export class TransactionHistoryComponent extends AbstractComponent implements On
     }
 
     protected setMinMaxDate(min: boolean = true, max: boolean = true): void {
-        const dates = this.allTransactions.map((transaction) => transaction.date).sort();
+        const dates = this.allTransactions.map((transaction) => {
+            return {
+                dateISO: transaction.dateISO,
+                date: transaction.date,
+            };
+        });
+
+        if (!dates.length) {
+            return;
+        }
 
         if (min) {
-            this.startDate = (dates[0] || DateTime.local()).startOf('day');
-            this.startDateInput.control.setValue(this.startDate.toFormat('dd.LL.yyyy'));
+            this.startDate = _last(dates).date.startOf('day');
+            this.startDateInput.control.setValue(GlobalHelper.toLocalTime(_last(dates).dateISO, 'ISO', 'dd.LL.yyyy'));
             this.startDateInput = _clone(this.startDateInput);
         }
 
         if (max) {
-            this.endDate = (dates[dates.length - 1] || DateTime.local()).endOf('day');
-            this.endDateInput.control.setValue(this.endDate.toFormat('dd.LL.yyyy'));
+            this.endDate = _first(dates).date.endOf('day');
+            this.endDateInput.control.setValue(GlobalHelper.toLocalTime(_first(dates).dateISO, 'ISO', 'dd.LL.yyyy'));
             this.endDateInput = _clone(this.endDateInput);
         }
 

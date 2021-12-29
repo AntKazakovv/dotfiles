@@ -10,7 +10,11 @@ import {
     takeUntil,
     filter,
 } from 'rxjs/operators';
+
 import {DateTime} from 'luxon';
+import _orderBy from 'lodash-es/orderBy';
+import _map from 'lodash-es/map';
+import _filter from 'lodash-es/filter';
 
 import {
     AbstractComponent,
@@ -30,10 +34,6 @@ import {HistoryItemModel} from 'wlc-engine/modules/bonuses/system/models/bonus-h
 import {IBonus} from 'wlc-engine/modules/bonuses';
 
 import * as Params from './bonuses-history.params';
-
-import _sortBy from 'lodash-es/sortBy';
-import _map from 'lodash-es/map';
-import _filter from 'lodash-es/filter';
 
 @Component({
     selector: '[wlc-bonuses-history]',
@@ -137,9 +137,9 @@ export class BonusesHistoryComponent extends AbstractComponent implements OnInit
             });
         }
 
-        result = _sortBy(result, (item) => {
+        result = _orderBy(result, (item) => {
             return DateTime.fromSQL(item.End).toSeconds();
-        });
+        }, ['desc']);
 
         return result;
     }
