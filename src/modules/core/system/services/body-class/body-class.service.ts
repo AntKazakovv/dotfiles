@@ -175,6 +175,13 @@ export class BodyClassService {
         if (!this.metaThemeColor) {
             return;
         }
+        if (this.actionService.device.isIOS) {
+            let iosVersion = this.actionService.device.osVersion.split('.');
+            if (+iosVersion[0] > 15 || +iosVersion[0] === 15 && +iosVersion[1] > 0) {
+                this.metaThemeColor.content = 'currentColor';
+                return;
+            }
+        }
         this.metaThemeColor.content = getComputedStyle(this.document.body).getPropertyValue('--mc-bg') || '#000000';
     }
 

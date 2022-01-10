@@ -74,6 +74,10 @@ export class DeviceModel {
         return this.bowserParser.getOSName(true);
     }
 
+    public get osVersion(): string {
+        return this.bowserParser.getOSVersion();
+    }
+
     public get browserName(): string {
         return this.bowserParser.getBrowserName(true);
     }
