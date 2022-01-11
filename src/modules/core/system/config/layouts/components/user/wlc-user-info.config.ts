@@ -8,4 +8,15 @@ export namespace wlcUserInfo {
             after: 1200,
         },
     };
+
+    export const stickyHeader: ILayoutComponent = {
+        name: 'user.wlc-user-info',
+        params: {
+            theme: 'sticky',
+        },
+        display: {
+            auth: true,
+            after: 1200,
+        },
+    };
 }

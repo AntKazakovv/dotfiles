@@ -3,6 +3,8 @@
 @use 'engine-scss/mixins/mediaqueries' as mq;
 
 @mixin headerBase($theme) {
+    @include bm.transition;
+
     background: ef.get-value($theme, 'headerBackground');
 
     @if (ef.get-value($theme, 'headerBackground') != transparent) {
@@ -17,6 +19,7 @@
         @include bm.get-mq-map('gap', $theme, 'headerGridGap');
         @include bm.get-mq-map('margin', $theme, 'headerContainerDesktopMargin');
         @include bm.get-mq-map('padding', $theme, 'headerPadding');
+        @include bm.transition;
 
         display: grid;
         align-items: center;
@@ -176,6 +179,32 @@
 
         .container {
             @include bm.get-mq-map('grid-template-columns', $theme, 'gridColsToggler');
+        }
+    }
+
+    .wlc-body--sticky-header & {
+        position: sticky;
+        top: -1px;
+        width: 100%;
+        transform: translateY(0%);
+
+        .container {
+            @include bm.get-mq-map('min-height', $stickyHeader, 'headerMinHeight');
+        }
+    }
+
+    .wlc-body--sticky-header-scrolling & {
+
+        .container {
+            @include bm.get-mq-map('min-height', $stickyHeader, 'headerScrollingMinHeight');
+        }
+    }
+
+    .wlc-body--sticky-header-down & {
+        transform: translateY(-100%);
+
+        @media (pointer: fine) {
+            transform: unset;
         }
     }
 }

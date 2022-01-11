@@ -619,6 +619,20 @@ $baseVariables: map-merge((
     'baseSize': 5,
 ), $customBaseVariables);
 
+$customStickyHeader: () !default;
+$stickyHeader: map-merge((
+    'headerMinHeight': (
+        375: 60px,
+        1024: 70px,
+        1630: 100px
+    ),
+    'headerScrollingMinHeight': (
+        375: 60px,
+        1024: 70px,
+        1630: 70px
+    ),
+), $customStickyHeader);
+
 /// Глобальные настройки лейаута. В качестве параметров принимает map,
 /// состоящий из ключа (название родительского класса или глобально для всех "all")
 /// и листа с перечнем классов.

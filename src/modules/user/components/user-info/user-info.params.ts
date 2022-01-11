@@ -1,7 +1,7 @@
 import {CustomType, IComponentParams} from 'wlc-engine/modules/core/system/classes/abstract.component';
 import {ILayoutComponent} from 'wlc-engine/modules/core/system/interfaces';
 
-export type ComponentTheme = 'default' | CustomType;
+export type ComponentTheme = 'default' | 'sticky' | CustomType;
 export type ComponentType = 'default' | CustomType;
 
 export interface IUserInfoButton {
@@ -56,6 +56,47 @@ export const defaultParams: IUserInfoCParams = {
                         useArrow: true,
                     },
                 },
+            },
+        ],
+    },
+};
+
+export const stickyThemeParams: IUserInfoCParams = {
+    class: 'wlc-user-info sticky',
+    moduleName: 'user',
+    componentName: 'wlc-user-info',
+    wlcElement: 'block_user-stat',
+    button: {
+        use: true,
+        sref: 'app.profile.cash.deposit',
+        text: gettext('Deposit'),
+    },
+    dropdown: {
+        components: [
+            {
+                name: 'core.wlc-wrapper',
+                params: {
+                    class: 'wlc-user-info__wrp sticky',
+                    components: [
+                        {
+                            name: 'core.wlc-button',
+                            params: {
+                                class: 'wlc-btn wlc-btn-profile',
+                                common: {
+                                    iconPath: '/wlc/icons/user-icon.svg',
+                                    text: gettext('My Profile'),
+                                    sref: 'app.profile.dashboard',
+                                },
+                            },
+                        },
+                        {
+                            name: 'user.wlc-logout',
+                        },
+                    ],
+                },
+            },
+            {
+                name: 'user.wlc-user-stats',
             },
         ],
     },

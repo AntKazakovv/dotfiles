@@ -140,6 +140,10 @@
 
             .wlc-btn-deposit {
                 margin: ef.get-value($themeDefault, 'btnMargin');
+
+                .wlc-body--sticky-header .wlc-sections__header & {
+                    margin: ef.get-value($themeDefault, 'btnStickyMargin');
+                }
             }
         }
     }

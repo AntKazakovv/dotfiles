@@ -1,5 +1,6 @@
 import {IBaseConfig} from 'wlc-engine/modules/core/system/interfaces/base-config';
 import {deviceConfig} from './device.config';
+import {stickyHeaderConfig} from './sticky-header.config';
 import {profileConfig} from './profile.config';
 import {tournamentsConfig} from './tournaments.config';
 import {gamesConfig} from './games.config';
@@ -12,6 +13,7 @@ import {redirectsConfig} from './redirect.config';
 export const $base: IBaseConfig = {
     app: appConfig,
     device: deviceConfig,
+    stickyHeader: stickyHeaderConfig,
     profile: profileConfig,
     tournaments: tournamentsConfig,
     games: gamesConfig,

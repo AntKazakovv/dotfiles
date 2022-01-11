@@ -5,6 +5,7 @@ import {
     Input,
     ChangeDetectionStrategy,
     ElementRef,
+    ChangeDetectorRef,
 } from '@angular/core';
 import {
     animate,
@@ -54,15 +55,20 @@ export class UserInfoComponent extends AbstractComponent implements OnInit {
         protected elementRef: ElementRef,
         protected stateService: StateService,
         protected eventService: EventService,
+        protected cdr: ChangeDetectorRef,
     ) {
         super({injectParams, defaultParams: Params.defaultParams}, configService);
     }
 
     public ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
+        if (this.configService.get<boolean>('$base.stickyHeader.use')) {
+            this.$params = Params.stickyThemeParams;
+        };
         this.eventService.subscribe({name: 'TRANSITION_ENTER'}, () => {
             this.isOpened = false;
             this.dropdownBtnActive = false;
+            this.cdr.markForCheck();
         }, this.$destroy);
     }
 

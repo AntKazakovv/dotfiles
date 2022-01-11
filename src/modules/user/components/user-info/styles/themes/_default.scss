@@ -138,7 +138,51 @@
             align-items: center;
             justify-content: space-between;
             width: 100%;
-            margin-bottom: ef.get('size', 'small');
+            margin: ef.get-value($themeDefault, 'userInfoWrpMargin');
+
+            &.sticky {
+                margin: ef.get-value($themeDefault, 'userInfoWrpStickyMargin');
+            }
+        }
+
+        .wlc-btn-profile {
+            @include bm.get-mq-map('height', $themeDefault, 'userInfoProfileBtnHeight');
+            @include bm.transition;
+
+            min-width: ef.get-value($themeDefault, 'userInfoProfileBtnMinWidth');
+            padding: ef.get-value($themeDefault, 'userInfoProfileBtnPadding');
+            border: ef.get-value($themeDefault, 'userInfoProfileBtnBorder');
+            border-radius: ef.get-value($themeDefault, 'userInfoProfileBtnRadius');
+
+            &__text {
+                @include text.get-text-style(ef.get-value($themeDefault, 'userInfoProfileBtnFont'), ef.get-value($themeDefault, 'userInfoProfileBtnTxtColor'));
+
+                display: flex;
+                flex-direction: ef.get-value($themeDefault, 'userInfoProfileBtnFlxDir');
+                align-items: ef.get-value($themeDefault, 'userInfoProfileBtnAlignItms');
+                justify-content: ef.get-value($themeDefault, 'userInfoProfileBtnFlxJstfy');
+            }
+
+            .wlc-icon {
+                margin-right: ef.get-value($themeDefault, 'userInfoProfileBtnIconMrgnRight');
+            }
+
+            svg {
+                width: ef.get-value($themeDefault, 'userInfoProfileBtnSvgWidth');
+                height: ef.get-value($themeDefault, 'userInfoProfileBtnSvgHeight');
+            }
+
+            circle {
+                fill: ef.get-value($themeDefault, 'userInfoDropdownIconFill');
+            }
+
+            path {
+                fill: ef.get-value($themeDefault, 'userInfoDropdownIconInnerFill');
+            }
+
+            @include bm.hover {
+                border: ef.get-value($themeDefault, 'userInfoProfileBtnHoverBorder');
+            }
         }
     }
 }

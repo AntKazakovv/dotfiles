@@ -12,6 +12,7 @@ import {IRegistrationConfig} from './registration.interface';
 import {IAnalytics} from 'wlc-engine/modules/analytics/system/interfaces/analytics.interface';
 import {IColorThemeSwitchingConfig} from './color-theme-switching.config';
 import {IFinancesConfig} from './finances.interface';
+import {IStickyHeaderConfig} from './sticky-header.interface';
 
 export * from './games.interface';
 export * from './tournaments.interface';
@@ -27,6 +28,10 @@ export interface IBaseConfig {
         removeCreds?: boolean;
         restrictRegistration?: boolean,
     },
+    /**
+    * Sticky header enabling and settings;
+    */
+    stickyHeader?: IStickyHeaderConfig,
     affiliate?: {
         affiliateUrl: string;
         siteUrl: string;

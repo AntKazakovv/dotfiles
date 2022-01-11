@@ -150,6 +150,18 @@ export namespace wlcButton {
         },
     };
 
+    export const profileButton: ILayoutComponent = {
+        name: 'core.wlc-button',
+        params: {
+            class: 'wlc-btn wlc-btn-profile',
+            common: {
+                text: gettext('My Profile'),
+                iconPath: '/wlc/icons/user-icon.svg',
+                sref: 'app.profile.dashboard',
+            },
+        },
+    };
+
     export const userDepositIcon: ILayoutComponent = {
         name: 'core.wlc-wrapper',
         display: {

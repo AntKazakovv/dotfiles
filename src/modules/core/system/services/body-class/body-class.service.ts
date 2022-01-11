@@ -8,16 +8,24 @@ import {
     Injectable,
 } from '@angular/core';
 
+import _forEach from 'lodash-es/forEach';
+import _split from 'lodash-es/split';
+import _startsWith from 'lodash-es/startsWith';
+import {
+    fromEvent,
+} from 'rxjs';
+import {
+    throttleTime, 
+    map, 
+    pairwise,
+} from 'rxjs/operators';
+
 import {EventService} from 'wlc-engine/modules/core/system/services/event/event.service';
 import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
 import {ActionService} from 'wlc-engine/modules/core/system/services/action/action.service';
 import {ColorThemeValues} from 'wlc-engine/modules/core/constants';
 import {LogService} from 'wlc-engine/modules/core/system/services/log/log.service';
 import {DeviceType} from 'wlc-engine/modules/core/system/interfaces';
-
-import _forEach from 'lodash-es/forEach';
-import _split from 'lodash-es/split';
-import _startsWith from 'lodash-es/startsWith';
 
 export enum BodyClassEvents {
     add = 'BODY_ADD_MODIFIER',
@@ -36,10 +44,19 @@ export enum BodyClassPrefix {
 
 export type TBodyClassPrefix = keyof typeof BodyClassPrefix;
 
+export enum ScrollingDirection {
+    Up = 'Up',
+    Down = 'Down',
+    OnTop = 'OnTop',
+};
+
+
 @Injectable({providedIn: 'root'})
 export class BodyClassService {
 
     private metaThemeColor: HTMLMetaElement = this.document.querySelector('meta[name="theme-color"]');
+    private scrollStopPosition: number = 0;
+    private scrollingGap: number;
 
     constructor(
         @Inject(DOCUMENT) private document: HTMLDocument,
@@ -101,6 +118,9 @@ export class BodyClassService {
         await this.configService.ready;
         this.addStaticClasses();
         this.initListeners();
+        if (this.configService.get<boolean>('$base.stickyHeader.use')) {
+            this.useStickyHeader();
+        }
     }
 
     private addStaticClasses(): void {
@@ -184,5 +204,43 @@ export class BodyClassService {
 
     private replaceSpaces(str: string): string {
         return str.replace(/\s+|\s/g, '-');
+    }
+
+    private useStickyHeader(): void {
+        this.addModifier('wlc-body--sticky-header');
+        this.scrollingGap = this.configService.get('$base.stickyHeader.scrollingGap');
+
+        fromEvent(window, 'scroll').pipe(
+            throttleTime(10),
+            map((): number => window.pageYOffset),
+            pairwise(),
+            map(([y1, y2]: number[]): ScrollingDirection => {
+                if (y2 <= 0) {
+                    return ScrollingDirection.OnTop;
+                }
+                return y2 < y1 ? ScrollingDirection.Up : ScrollingDirection.Down;
+            }),
+        ).subscribe((value: ScrollingDirection) => {
+            this.addModifier('wlc-body--sticky-header-scrolling');
+
+            switch (value) {
+                case ScrollingDirection.OnTop:
+                    this.removeClassByPrefix('wlc-body--sticky-header-down');
+                    this.removeClassByPrefix('wlc-body--sticky-header-scrolling');
+                    break;
+                case ScrollingDirection.Up:
+                    if ((this.scrollStopPosition - window.pageYOffset) > this.scrollingGap) {
+                        this.removeClassByPrefix('wlc-body--sticky-header-down');
+                        this.scrollStopPosition = window.pageYOffset;
+                    }
+                    break;
+                case ScrollingDirection.Down:
+                    if ((window.pageYOffset - this.scrollStopPosition) > this.scrollingGap) {
+                        this.addModifier('wlc-body--sticky-header-down');
+                        this.scrollStopPosition = window.pageYOffset;
+                    }
+                    break;
+            }
+        });
     }
 }
