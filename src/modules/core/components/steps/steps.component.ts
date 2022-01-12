@@ -12,6 +12,7 @@ import {
     AbstractComponent,
     ConfigService,
     EventService,
+    IIndexing,
 } from 'wlc-engine/modules/core';
 import {IMGAConfig} from 'wlc-engine/modules/core/components/license/license.params';
 
@@ -38,6 +39,7 @@ export class StepsComponent extends AbstractComponent implements OnInit {
     public currentStep: Params.IStep;
     public stepList: Params.IStep[];
     public noBackLink: boolean;
+    protected isSkipBonus: boolean;
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IStepsParams,
@@ -49,18 +51,21 @@ export class StepsComponent extends AbstractComponent implements OnInit {
             injectParams,
             defaultParams: Params.defaultParams,
         }, configService);
+        this.isSkipBonus = this.configService.get<boolean>('$base.registration.skipBonusStep');
     }
 
     public ngOnInit(): void {
-        this.themeMod = this.configService.get<string>('$base.profile.type') === 'first' ? 'first' : this.themeMod;
+        this.setThemeMod();
         super.ngOnInit();
-
         if (this.configService.get<IMGAConfig>('$modules.core.components["wlc-license"].mga')) {
             this.$params.stepsNames.push('signUpFormMagLicense');
         }
 
         if (this.configService.get<boolean>('$base.profile.smsVerification.use')) {
             this.$params.stepsNames.push('signUpSmsVerify');
+        }
+        if (this.isSkipBonus) {
+            this.skipBonus();
         }
 
         this.stepList = this.prepareSteps();
@@ -120,8 +125,7 @@ export class StepsComponent extends AbstractComponent implements OnInit {
     }
 
     protected prepareSteps(): Params.IStep[] {
-        const stepsConfig = this.configService.get<string>('$base.profile.type') === 'first' ?
-            this.$params.stepsConfigFirst : this.$params.stepsConfig;
+        const stepsConfig = this.getStepsConfig();
         const filteredEntriesConfig = _filter(_entries(stepsConfig), (value) => {
             return _includes(this.$params.stepsNames, value[0]);
         });
@@ -133,11 +137,36 @@ export class StepsComponent extends AbstractComponent implements OnInit {
         });
     }
 
+    protected getStepsConfig(): IIndexing<Params.IStepConfig> {
+        if (this.isSkipBonus) {
+            return this.$params.stepsConfigWithoutBonus;
+        } else {
+            return this.configService.get<string>('$base.profile.type') === 'first' ?
+                this.$params.stepsConfigFirst : this.$params.stepsConfig;
+        }
+    }
+
     protected setStepsCounters(): void {
-        this.configService.set<string>({
-            name: 'regStepsCounter',
-            value: (this.currentStepIndex() + 1) + '/' + this.stepList.length,
-        });
+        if (this.stepList.length > 1) {
+            this.configService.set<string>({
+                name: 'regStepsCounter',
+                value: (this.currentStepIndex() + 1) + '/' + this.stepList.length,
+            });
+        }
         this.noBackLink = !this.currentStepIndex();
+    }
+
+    protected skipBonus(): void {
+        const signUpBonusesIndex = this.$params.stepsNames.indexOf('signUpBonuses');
+        this.$params.stepsNames.splice(signUpBonusesIndex, 1);
+    }
+
+    protected setThemeMod(): void {
+        if (this.isSkipBonus) {
+            this.themeMod = 'skip-bonus';
+        } else {
+            this.themeMod = this.configService.get<string>('$base.profile.type') === 'first' ?
+                'first' : this.themeMod;
+        }
     }
 }

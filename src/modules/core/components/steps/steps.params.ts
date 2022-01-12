@@ -13,7 +13,7 @@ import {IBonusesListCParams} from 'wlc-engine/modules/bonuses/components';
 export type ComponentTheme = 'default' | CustomType;
 export type ComponentType = 'default' | CustomType;
 export type Theme = 'default' | 'signInUp' | CustomType;
-export type ThemeMod = 'default' | 'first' | CustomType;
+export type ThemeMod = 'default' | 'first' | 'skip-bonus' | CustomType;
 export type AutoModifiers = Theme | ThemeMod;
 export type CustomMod = string;
 export type Modifiers = AutoModifiers | CustomMod | null;
@@ -39,6 +39,7 @@ export interface IStepsParams extends IComponentParams<Theme, Type, ThemeMod> {
     stepsConfig?: IIndexing<IStepConfig>,
     startStepName: string,
     stepsConfigFirst?: IIndexing<IStepConfig>,
+    stepsConfigWithoutBonus?: IIndexing<IStepConfig>,
 }
 
 const textBlockHeaderParams = {
@@ -371,6 +372,40 @@ export const defaultParams: IStepsParams = {
                         class: 'wlc-steps__main',
                         components: [
                             regFormStepTopComponents,
+                            regFormComponent,
+                        ],
+                    },
+                },
+            ],
+        },
+        'signUpFormMagLicense': getMagLicenseForm(false),
+        'signUpSmsVerify': {
+            name: 'core.wlc-wrapper',
+            class: 'wlc-steps__container wlc-steps__container--sign-up',
+            components: [
+                smsVerification,
+            ],
+        },
+    },
+    stepsConfigWithoutBonus: {
+        'signUpForm': {
+            name: 'core.wlc-wrapper',
+            class: 'wlc-steps__container wlc-steps__container--sign-up',
+            components: [
+                {
+                    name: 'core.wlc-wrapper',
+                    params: {
+                        class: 'wlc-steps__main',
+                        components: [
+                            {
+                                name: 'core.wlc-wrapper',
+                                params: {
+                                    class: 'wlc-steps__head',
+                                    components: [
+                                        textBlockHeaderReg,
+                                    ],
+                                },
+                            },
                             regFormComponent,
                         ],
                     },

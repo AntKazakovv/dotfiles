@@ -9,7 +9,7 @@ import {
 
 export type ComponentTheme = 'default' | CustomType;
 export type ComponentType = 'default' | CustomType;
-export type ThemeMod = 'default' | 'with-banner' | 'first' | CustomType;
+export type ThemeMod = 'default' | 'with-banner' | 'first' | 'skip-bonus' | CustomType;
 
 export interface ITab {
     name?: string;

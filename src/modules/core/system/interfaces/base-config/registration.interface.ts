@@ -15,4 +15,5 @@ export interface IRegistrationConfig {
      *  }
      */
     currencySort?: string[],
+    skipBonusStep?: boolean;
 }

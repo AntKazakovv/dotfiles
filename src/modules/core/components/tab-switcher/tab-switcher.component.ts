@@ -50,7 +50,7 @@ export class TabSwitcherComponent
     }
 
     public ngOnInit(): void {
-        this.themeMod = this.configService.get<string>('$base.profile.type') === 'first' ? 'first' : this.themeMod;
+        this.setThemeMod();
         super.ngOnInit();
         this.applyConfig();
         this.tabs[0].active = true;
@@ -95,5 +95,13 @@ export class TabSwitcherComponent
                 });
             }
         });
+    }
+
+    protected setThemeMod(): void {
+        if (this.configService.get<boolean>('$base.registration.skipBonusStep')) {
+            this.themeMod = 'skip-bonus';
+        } else {
+            this.themeMod = this.configService.get<string>('$base.profile.type') === 'first' ? 'first' : this.themeMod;
+        }
     }
 }

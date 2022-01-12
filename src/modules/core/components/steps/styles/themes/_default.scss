@@ -4,6 +4,7 @@
 @use 'engine-scss/mixins/mediaqueries' as mq;
 @import '../utils/vars';
 
+.wlc-steps--theme-mod-skip-bonus:host,
 .wlc-steps--theme-mod-default:host,
 .wlc-steps--theme-mod-first:host {
     height: ef.get-value($themeDefault, 'stepsHeight');
