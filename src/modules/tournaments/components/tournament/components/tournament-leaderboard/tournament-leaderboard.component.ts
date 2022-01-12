@@ -120,6 +120,15 @@ export class TournamentLeaderboardComponent
         });
     }
 
+    /**
+     * return user login or id by displayPlayerName option
+     * @param {ITournamentPlace} winner
+     * @returns string
+     */
+    public getPlayerName(winner: ITournamentPlace): string {
+        return this.$params.displayPlayerName === 'id' ? winner.IDUser : winner.UserLogin;
+    }
+
     protected prepareModifiers(): void {
         let modifiers: Params.Modifiers[] = [];
         if (this.$params.common?.customMod) {
