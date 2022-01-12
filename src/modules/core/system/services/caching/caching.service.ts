@@ -4,6 +4,7 @@ import {
 } from '@angular/core';
 import {LocalStorageService} from 'ngx-webstorage';
 import {LogService} from 'wlc-engine/modules/core/system/services/log/log.service';
+import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
 import {AbstractCache} from './classes/abstract.cache';
 import {WorkerStorageCache} from './classes/workerstorage.class';
 import {LocalStorageCache} from './classes/localstorage.class';
@@ -25,6 +26,7 @@ export class CachingService {
     constructor(
         private localStorageService: LocalStorageService,
         private logService: LogService,
+        private configService: ConfigService,
         @Inject(WINDOW) private window: Window,
     ) {
         this.init();
@@ -56,6 +58,7 @@ export class CachingService {
         items: T | T[],
         rewriting = false,
         keepTime = this.keepTimeDefault,
+        saveKey: boolean = false,
     ): Promise<void> {
         await this.ready;
 
@@ -70,8 +73,20 @@ export class CachingService {
             try {
                 if (data && rewriting) {
                     await this.storage.delete(key);
+                    this.configService.set({
+                        name: key,
+                        value: key,
+                        storageClear: 'localStorage',
+                    });
                 }
                 await this.storage.set(key, items, keepTime);
+                if (saveKey) {
+                    this.configService.set({
+                        name: key,
+                        value: key,
+                        storageType: 'localStorage',
+                    });
+                }
             } catch (error) {
                 this.logService.sendLog({code: this.storageType === 'indexeddb' ? '0.5.1': '0.5.4', data: error});
             }
