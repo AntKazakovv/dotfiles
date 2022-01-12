@@ -1,3 +1,34 @@
-<div class="{{$class}}" [hidden]="!ready" id="wlc-piq-cashier"></div>
+<div *ngIf="!ready" wlc-loader></div>
 
-<div [hidden]="ready" wlc-loader></div>
+<div *ngIf="!requiredFieldsKeys.length"
+    id="wlc-piq-cashier"
+    class="{{$class}}" 
+    [hidden]="!ready">
+</div>
+
+<div *ngIf="ready">
+    <div *ngIf="!isAvailablePayment"
+        class="{{$class}}__fields-message">
+        {{'Payment method is not available.' | translate}}
+    </div>
+
+    <div *ngIf="requiredFieldsKeys.length"
+        class="{{$class}}__fields-error"
+        data-wlc-element="add_required_fields">
+        <p class="{{$class}}__fields-message">
+            {{'Payment method is not available. Please, add the following info' | translate}}:
+        </p>
+        <ul class="{{$class}}__fields-ul">
+            <li *ngFor="let item of requiredFieldsKeys"
+                class="{{$class}}__fields-li"
+                [attr.data-wlc-element]="requiredFields[item].template">
+                {{requiredFields[item].label | translate}}
+            </li>
+        </ul>
+        <button wlc-button
+            text="{{'Edit profile' | translate}}"
+            wlcElement="add_info"
+            (click)="editProfile()">
+        </button>
+    </div>
+</div>

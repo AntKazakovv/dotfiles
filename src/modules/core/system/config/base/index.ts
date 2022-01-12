@@ -24,5 +24,9 @@ export const $base: IBaseConfig = {
     useSeo: false,
     finances: {
         depositInIframe: true,
+        piqCashier: {
+            blockBrowserNavigation: true,
+            fetchConfig: false,
+        },
     },
 };

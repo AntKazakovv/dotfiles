@@ -13,6 +13,7 @@ import {
 } from 'rxjs/operators';
 import {DateTime} from 'luxon';
 import {IPiqCashierConfig} from 'paymentiq-cashier-bootstrapper';
+import _merge from 'lodash-es/merge';
 
 import {
     ConfigService,
@@ -21,14 +22,14 @@ import {
     NotificationEvents,
 } from 'wlc-engine/modules/core';
 import {PIQCashierComponent} from 'wlc-engine/modules/finances/components/piq-cashier/piq-cashier.component';
+import {IPIQCashierCParams} from 'wlc-engine/modules/finances/components/piq-cashier/piq-cashier.params';
 import {
-    PIQCashierConvertedMethod,
+    TPaymentsMethods,
     IPIQCashierTheme,
+    PIQCashierConvertedMethod,
 } from 'wlc-engine/modules/finances/system/interfaces';
 import {PaymentSystem} from 'wlc-engine/modules/finances/system/models/payment-system.model';
 import {UserInfo} from 'wlc-engine/modules/user/system/models/info.model';
-
-import _merge from 'lodash-es/merge';
 
 export enum PIQCashierServiceEvents {
     loadSuccess = 'PIQ_CASHIER_LOAD_SUCCESS',
@@ -45,7 +46,7 @@ interface IIPiqCashierConfig extends IPiqCashierConfig {
     attributes: {
         hostUri?: string,
         didToken?: string,
-        [key: string]: string | number | boolean;
+        [key: string]: string | number | boolean;
     };
 }
 
@@ -54,8 +55,7 @@ interface IIPiqCashierConfig extends IPiqCashierConfig {
 })
 export class PIQCashierService {
 
-    protected modalClosed$: Subject<void>;
-
+    public closedIframe$: Subject<void>;
     protected method: PIQCashierConvertedMethod;
 
     constructor(
@@ -75,43 +75,47 @@ export class PIQCashierService {
      * @returns {Promise<void>} Promise<void>
      */
     public async openPIQCashier(
-        method: PIQCashierConvertedMethod,
+        method: TPaymentsMethods,
         currentSystem: PaymentSystem,
         amount: number,
     ): Promise<void> {
-        return new Promise(async (resolve) => {
-            await import('paymentiq-cashier-bootstrapper');
-            this.modalClosed$ = this.getModalClosedSubject();
-            this.method = method;
-            this.modalService.showModal({
+        return new Promise((resolve: () => void): void => {
+            this.method = PIQCashierConvertedMethod[method];
+            this.modalService.showModal<IPIQCashierCParams>({
                 id: 'piq-cashier',
                 modalTitle: method === 'deposit' ? gettext('Deposit') : gettext('Withdraw'),
                 component: PIQCashierComponent,
                 onModalShown: () => {
                     this.loadPIQCashier(currentSystem, amount);
                 },
-                onModalHide: () => {
-                    window._PaymentIQCashierReset();
-                },
-                onModalHidden: () => {
-                    this.eventService.emit({
-                        name: PIQCashierServiceEvents.closed,
-                        from: 'piq-cashier',
-                    });
-                    this.modalClosed$.next();
-                    this.modalClosed$.complete();
-                    this.modalClosed$ = null;
-                    resolve();
-                },
+                onModalHidden: () => resolve(),
                 size: 'lg',
                 dismissAll: true,
                 backdrop: 'static',
+            }, {
+                mode: method,
+                modal: true,
             });
         });
     }
 
-    protected async loadPIQCashier(currentSystem: PaymentSystem, amount: number): Promise<void> {
-        const cashierThemeSource = window.getComputedStyle(this.document.querySelector('.modal-dialog'));
+    /**
+     * Load and settings PIQ Cashier
+     * 
+     * @param currentSystem - Current payment system
+     * @param amount - value for deposit/withdraw
+     * @param method - payment method type
+     */
+    public async loadPIQCashier(
+        currentSystem: PaymentSystem,
+        amount: number,
+        method?: TPaymentsMethods): Promise<void> {
+        await import('paymentiq-cashier-bootstrapper');
+
+        const cashierThemeSource = window.getComputedStyle(
+            this.document.querySelector('.modal-dialog') ||
+            this.document.querySelector('.wlc-sections__profile-content'),
+        );
         const cashierTheme: IPIQCashierTheme = {
             background: {
                 color: cashierThemeSource.backgroundColor,
@@ -132,6 +136,9 @@ export class PIQCashierService {
                 fontSize: cashierThemeSource.fontSize,
             },
         };
+
+        this.method = PIQCashierConvertedMethod[method] || this.method;
+        this.closedIframe$ = this.getModalClosedSubject();
 
         const {idUser, userEmail} = await this.configService
             .get<BehaviorSubject<UserInfo>>({name: '$user.userInfo$'})
@@ -155,7 +162,8 @@ export class PIQCashierService {
             showHeader: !currentSystem.customParams?.provider,
             showFooter: !currentSystem.customParams?.provider,
             theme: _merge(cashierTheme, this.configService.get<IPIQCashierTheme>('$base.finances.piqCashier.theme')),
-            blockBrowserNavigation: true,
+            blockBrowserNavigation: this.configService.get<boolean>('$base.finances.piqCashier.blockBrowserNavigation'),
+            fetchConfig: this.configService.get<boolean>('$base.finances.piqCashier.fetchConfig'),
             attributes: {
                 paySystem: currentSystem.id,
             },
@@ -195,7 +203,9 @@ export class PIQCashierService {
                     `);
                 });
         } catch (error) {
-            this.modalService.hideModal('piq-cashier');
+            if (this.modalService.getActiveModal('piq-cashier')) {
+                this.modalService.hideModal('piq-cashier');
+            }
             this.showError(error.message);
         }
     }
@@ -204,7 +214,7 @@ export class PIQCashierService {
         fromEvent(window, 'message').pipe(
             filter((event: MessageEvent) => event.origin === `${window.origin}`),
             map((event: MessageEvent) => event.data),
-            takeUntil(this.modalClosed$),
+            takeUntil(this.closedIframe$),
         ).subscribe((data: IFrameMessage) => {
             switch (data.message) {
                 case 'PIQ_LOAD_SUCCESS':
@@ -225,7 +235,9 @@ export class PIQCashierService {
     }
 
     private onLoadError(error?: string): void {
-        this.modalService.hideModal('piq-cashier');
+        if (this.modalService.getActiveModal('piq-cashier')) {
+            this.modalService.hideModal('piq-cashier');
+        }
         this.showError(error);
     }
 
@@ -244,9 +256,9 @@ export class PIQCashierService {
     }
 
     private getModalClosedSubject(): Subject<void> {
-        if (this.modalClosed$) {
-            this.modalClosed$.next();
-            this.modalClosed$.complete();
+        if (this.closedIframe$) {
+            this.closedIframe$.next();
+            this.closedIframe$.complete();
         }
         return new Subject();
     }

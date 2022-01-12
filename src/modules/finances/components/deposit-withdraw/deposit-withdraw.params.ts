@@ -6,14 +6,14 @@ import {
     ICheckboxCParams,
 } from 'wlc-engine/modules/core';
 import {IButtonCParams} from 'wlc-engine/modules/core/components/button/button.component';
-
+import {TPaymentsMethods} from 'wlc-engine/modules/finances/system/interfaces';
 
 export type Theme = 'default' | CustomType;
 export type Type = 'default' | CustomType;
 export type ThemeMod = 'default' | CustomType;
 
 export interface IDepositWithdrawCParams extends IComponentParams<Theme, Type, ThemeMod> {
-    mode: 'deposit' | 'withdraw';
+    mode: TPaymentsMethods;
     /** show/hide payment rules checkbox */
     showPaymentRules?: boolean;
     common?: {

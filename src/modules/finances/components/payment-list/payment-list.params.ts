@@ -3,10 +3,11 @@ import {
     DeviceType,
 } from 'wlc-engine/modules/core';
 import {IAbstractIconsListParams} from 'wlc-engine/modules/core/system/classes/icon-list-abstract.class';
+import {TPaymentsMethods} from 'wlc-engine/modules/finances/system/interfaces';
 
 export type Theme = 'default' | CustomType;
 export type Type = 'default' | CustomType;
-export type ThemeMod = 'default'  | CustomType;
+export type ThemeMod = 'default' | CustomType;
 
 export type IconsType = 'color' | 'black';
 /**
@@ -18,7 +19,7 @@ export type IconsType = 'color' | 'black';
 export type ShowType = string | DeviceType;
 
 export interface IPaymentListCParams extends IAbstractIconsListParams<Theme, Type, ThemeMod> {
-    paymentType?: 'deposit' | 'withdraw';
+    paymentType?: TPaymentsMethods;
     /**
      * Available values 'null' or 'mediaQueryString'. Default is `'(max-width: 479px)'`
      * We can pass in this param media queries (max-width for example), and payments list will be shown in

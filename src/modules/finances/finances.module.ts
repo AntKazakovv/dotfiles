@@ -51,6 +51,7 @@ export const components = {
     'wlc-payment-list': PaymentListComponent,
     'wlc-transaction-history': TransactionHistoryComponent,
     'wlc-iframe-deposit': IframeDepositComponent,
+    'wlc-piq-cashier': PIQCashierComponent,
 };
 
 export const services = {

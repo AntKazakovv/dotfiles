@@ -22,9 +22,18 @@ import {
     catchError,
     takeUntil,
 } from 'rxjs/operators';
+import _cloneDeep from 'lodash-es/cloneDeep';
+import _forEach from 'lodash-es/forEach';
+import _has from 'lodash-es/has';
+import _isEmpty from 'lodash-es/isEmpty';
+import _isObject from 'lodash-es/isObject';
+import _isArrayLikeObject from 'lodash-es/isArrayLikeObject';
+import _assign from 'lodash-es/assign';
+import _map from 'lodash-es/map';
+import _keys from 'lodash-es/keys';
+import _concat from 'lodash-es/concat';
 
 import {
-    AbstractComponent,
     IIndexing,
     IMixedParams,
     ConfigService,
@@ -46,7 +55,6 @@ import {
 } from 'wlc-engine/modules/core';
 import {CurrencyModel} from 'wlc-engine/modules/core/system/models/currency.model';
 import {
-    IFieldTemplate,
     IHostedFormData,
     IPaymentAdditionalParam,
     PaymentSystem,
@@ -54,13 +62,9 @@ import {
 import {
     FinancesService,
     PIQCashierService,
-    PIQCashierServiceEvents,
 } from 'wlc-engine/modules/finances/system/services';
 import {IPaymentListCParams} from 'wlc-engine/modules/finances/components/payment-list/payment-list.params';
 import {FormElements} from 'wlc-engine/modules/core/system/config/form-elements';
-import {
-    IAddProfileInfoCParams,
-} from 'wlc-engine/modules/user/components/add-profile-info';
 import {UserService} from 'wlc-engine/modules/user/system/services';
 import {IModalConfig} from 'wlc-engine/modules/core/components/modal';
 import {IModalParams} from 'wlc-engine/modules/core/system/services/modal/modal.service';
@@ -73,20 +77,10 @@ import {FinancesHelper} from '../../system/helpers/finances.helper';
 import {IFormComponent} from 'wlc-engine/modules/core/components/form-wrapper/form-wrapper.component';
 import {ISelectOptions} from 'wlc-engine/modules/profile';
 import {UserProfile} from 'wlc-engine/modules/user/system/models';
+import {
+    AbstractDepositWithdrawComponent,
+} from 'wlc-engine/modules/finances/system/classes/abstract.deposit-withdraw.component';
 import * as Params from './deposit-withdraw.params';
-
-import _cloneDeep from 'lodash-es/cloneDeep';
-import _forEach from 'lodash-es/forEach';
-import _has from 'lodash-es/has';
-import _isEmpty from 'lodash-es/isEmpty';
-import _isEqual from 'lodash-es/isEqual';
-import _isObject from 'lodash-es/isObject';
-import _isArrayLikeObject from 'lodash-es/isArrayLikeObject';
-import _transform from 'lodash-es/transform';
-import _assign from 'lodash-es/assign';
-import _map from 'lodash-es/map';
-import _keys from 'lodash-es/keys';
-import _concat from 'lodash-es/concat';
 
 type cryptoInfo = 'msg1' | 'msg2';
 type THostedStyles = 'current' | 'def' | 'alt';
@@ -97,20 +91,17 @@ type TFormData = IIndexing<string | number | boolean>;
     styleUrls: ['./styles/deposit-withdraw.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class DepositWithdrawComponent extends AbstractComponent implements OnInit {
+export class DepositWithdrawComponent extends AbstractDepositWithdrawComponent implements OnInit {
 
     public showModalCryptoPayment: boolean = true;
     public $params: Params.IDepositWithdrawCParams;
     public cryptoCheck: boolean = false;
     public disableAmount: boolean = false;
-    public currentSystem: PaymentSystem;
     public formType: string = '';
     public depositForm = Params.depositForm;
     public depositFormCrypto = Params.depositFormCrypto;
     public withdrawForm = Params.withdrawForm;
     public title: string = gettext('Deposit');
-    public requiredFields: IIndexing<IFieldTemplate> = {};
-    public requiredFieldsKeys: string[] = [];
     public additionalParams: IIndexing<IPaymentAdditionalParam> = {};
     public formData$: BehaviorSubject<TFormData> = new BehaviorSubject(null);
 
@@ -123,7 +114,6 @@ export class DepositWithdrawComponent extends AbstractComponent implements OnIni
     public isShowHostedBlock: boolean = false;
 
     protected formObject: FormGroup;
-    protected profileForm: IFormWrapperCParams;
     protected inProgress: boolean = false;
 
     private isLoadingHostedFields: boolean = false;
@@ -138,7 +128,7 @@ export class DepositWithdrawComponent extends AbstractComponent implements OnIni
     private userService: UserService;
 
     constructor(
-        @Inject('injectParams') protected params: Params.IDepositWithdrawCParams,
+        @Inject('injectParams') protected injectParams: Params.IDepositWithdrawCParams,
         protected configService: ConfigService,
         protected financesService: FinancesService,
         protected eventService: EventService,
@@ -155,9 +145,9 @@ export class DepositWithdrawComponent extends AbstractComponent implements OnIni
     ) {
         super(
             <IMixedParams<Params.IDepositWithdrawCParams>>{
-                injectParams: params,
+                injectParams,
                 defaultParams: Params.defaultParams,
-            }, configService);
+            }, logService, modalService, configService);
     }
 
     public ngOnInit(): void {
@@ -309,7 +299,9 @@ export class DepositWithdrawComponent extends AbstractComponent implements OnIni
                 message: FinancesHelper.errorToMessage(error),
             });
         } finally {
-            this.modalService.hideModal('data-is-processing');
+            if (this.modalService.getActiveModal('data-is-processing')) {
+                this.modalService.hideModal('data-is-processing');
+            }
             this.inProgress = false;
             this.financesService.fetchPaymentSystems();
         }
@@ -337,59 +329,6 @@ export class DepositWithdrawComponent extends AbstractComponent implements OnIni
                 },
             });
         }
-    }
-
-    public checkUserProfileForPayment(): boolean {
-        if (!this.currentSystem) {
-            return;
-        }
-
-        this.profileForm = undefined;
-
-        const checkedRequiredFields = this.currentSystem.checkRequiredFields();
-
-        if (!_isEqual(this.requiredFields, checkedRequiredFields)) {
-            this.requiredFields = checkedRequiredFields;
-        }
-
-        this.requiredFieldsKeys = _keys(this.requiredFields);
-
-        if (this.requiredFieldsKeys.length) {
-            const fields: IFormComponent[] = _transform(
-                this.requiredFields,
-                (result: IFormComponent[], item: IFieldTemplate) => {
-                    if (FormElements[item.template]) {
-                        result.push(FormElements[item.template]);
-                    } else {
-                        this.logService.sendLog({code: '1.4.41', data: `Field '${item.template}' does not exist!`});
-                    }
-                }, []);
-            fields.push(FormElements.password);
-            fields.push(FormElements.submit);
-
-            this.profileForm = {
-                components: fields,
-                validators: ['required'],
-            };
-        }
-
-        this.cdr.markForCheck();
-    }
-
-    public editProfile(): void {
-
-        this.modalService.showModal({
-            id: 'add-profile-info',
-            modifier: 'add-profile-info',
-            componentName: 'user.wlc-add-profile-info',
-            componentParams: <IAddProfileInfoCParams>{
-                formConfig: this.profileForm,
-                themeMod: this.requiredFieldsKeys.length > 5 ? 'overflow' : '',
-            },
-            showFooter: false,
-            dismissAll: true,
-            backdrop: 'static',
-        });
     }
 
     private async depositAction(amount: number, params: IIndexing<string>, saveProfile: boolean = true): Promise<void> {
@@ -445,7 +384,9 @@ export class DepositWithdrawComponent extends AbstractComponent implements OnIni
                 message: FinancesHelper.errorToMessage(error),
             });
         } finally {
-            this.modalService.hideModal('data-is-processing');
+            if (this.modalService.getActiveModal('data-is-processing')) {
+                this.modalService.hideModal('data-is-processing');
+            }
             this.inProgress = false;
             this.financesService.fetchPaymentSystems();
         }
@@ -622,19 +563,6 @@ export class DepositWithdrawComponent extends AbstractComponent implements OnIni
             () => this.onProfileUpdate(),
             this.$destroy,
         );
-
-        this.eventService.subscribe(
-            {
-                name: PIQCashierServiceEvents.closed,
-                from: 'piq-cashier',
-            },
-            () => {
-                this.inProgress = false;
-                this.financesService.fetchPaymentSystems();
-            },
-            this.$destroy,
-        );
-
     }
 
     protected initThemeToggleListener(): void {

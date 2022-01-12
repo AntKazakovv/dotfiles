@@ -1,0 +1,43 @@
+@use 'engine-scss/mixins/text' as text;
+@use 'engine-scss/functions' as ef;
+@use 'engine-scss/mixins/base.mixins' as bm;
+
+.wlc-piq-cashier--theme-default:host {
+
+    .wlc-piq-cashier {
+
+        &__fields-error {
+            @include text.get-text-style(
+                ef.get-value($themeDefault, 'errorsFontFamily'), ef.get-value($themeDefault, 'errorsColor')
+            );
+            @include bm.get-mq-map('text-align', $themeDefault, 'errorsTextAlign');
+            margin: ef.get-value($themeDefault, 'errorsMargin');
+
+            .wlc-btn {
+                display: ef.get-value($themeDefault, 'errorBtn');
+            }
+        }
+
+        &__fields-message {
+            @include text.get-text-style(
+                ef.get-value($themeDefault, 'errorsFontFamily'), ef.get-value($themeDefault, 'errorsColor')
+            );
+            margin: ef.get-value($themeDefault, 'errorsMessageMargin');
+        }
+
+        &__fields-ul {
+            margin: ef.get-value($themeDefault, 'errorsUlMargin');
+            padding: ef.get-value($themeDefault, 'errorsUlPadding');
+        }
+
+        &__fields-li {
+            list-style-type: ef.get-value($themeDefault, 'errorsLiType');
+
+            &:before {
+                content: ef.get-value($themeDefault, 'errorsLiBeforeContent');
+                display: ef.get-value($themeDefault, 'errorsLiBeforeDisplay');
+                margin: ef.get-value($themeDefault, 'errorsLiBeforeMargin');
+            }
+        }
+    }
+}

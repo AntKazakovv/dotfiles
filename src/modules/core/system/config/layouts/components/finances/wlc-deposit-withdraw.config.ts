@@ -9,6 +9,22 @@ export namespace wlcDepositWithdraw {
         },
     };
 
+    export const pigCashierDeposit: ILayoutComponent = {
+        name: 'finances.wlc-piq-cashier',
+        params: {
+            mode: 'deposit',
+            wlcElement: 'block_profile-deposit',
+        },
+    };
+
+    export const pigCashierWithdraw: ILayoutComponent = {
+        name: 'finances.wlc-piq-cashier',
+        params: {
+            mode: 'withdraw',
+            wlcElement: 'block_profile-withdraw',
+        },
+    };
+
     export const withdraw: ILayoutComponent = {
         name: 'finances.wlc-deposit-withdraw',
         params: {
@@ -26,7 +42,7 @@ export namespace wlcDepositWithdraw {
             themeMod: 'underline',
             items: [
                 'profile-menu:cash-deposit',
-                'profile-menu:cash-withdrawal',
+                'profile-menu:cash-withdraw',
             ],
         },
     };

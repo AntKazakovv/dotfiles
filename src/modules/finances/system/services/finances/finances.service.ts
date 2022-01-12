@@ -26,8 +26,8 @@ import {
     ITransactionRequestParams,
 } from 'wlc-engine/modules/finances/system/models/transaction-history.model';
 import {
-    PIQCashierConvertedMethod,
     PIQCashierResponse,
+    TPaymentsMethods,
 } from 'wlc-engine/modules/finances/system/interfaces/piq-cashier.interface';
 import {
     LanguageChangeEvents,
@@ -80,8 +80,12 @@ export class FinancesService {
         return this.systems;
     }
 
-    public getSystemById(systemId: number): PaymentSystem {
-        return this.systems.length ? _find(this.systems, {'id': systemId}) : null;
+    public getSystemById(id: number): PaymentSystem {
+        return _find(this.systems, {id});
+    }
+
+    public getSystemByAlias(alias: string): PaymentSystem {
+        return _find(this.systems, {alias});
     }
 
     public async deposit(systemId: number, amount: number, additionalFields: object): Promise<any> {
@@ -89,7 +93,7 @@ export class FinancesService {
             systemId,
             amount,
             additionalFields,
-            PIQCashierConvertedMethod.deposit,
+            'deposit',
             'finances/deposits',
         );
     }
@@ -99,7 +103,7 @@ export class FinancesService {
             systemId,
             amount,
             additionalFields,
-            PIQCashierConvertedMethod.withdraw,
+            'withdraw',
             'finances/postWithdrawal',
         );
     }
@@ -191,7 +195,7 @@ export class FinancesService {
         systemId: number,
         amount: number,
         additionalFields: object,
-        method: PIQCashierConvertedMethod,
+        method: TPaymentsMethods,
         requestName: string,
     ): Promise<any> {
         try {
