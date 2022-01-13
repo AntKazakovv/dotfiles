@@ -257,4 +257,5 @@ export const defaultParams: IGamesGridCParams = {
             text: gettext('Load more games'),
         },
     },
+    searchFilterName: 'page',
 };

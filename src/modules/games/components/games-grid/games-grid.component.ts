@@ -5,6 +5,7 @@ import {
     ElementRef,
     Inject,
     Input,
+    OnDestroy,
     OnInit,
     Renderer2,
     ViewChild,
@@ -13,6 +14,7 @@ import {UIRouter} from '@uirouter/core';
 import {
     fromEvent,
     merge,
+    Subject,
 } from 'rxjs';
 import {
     filter,
@@ -72,7 +74,7 @@ import _every from 'lodash-es/every';
         ...ItemAppearanceAnimation,
     ],
 })
-export class GamesGridComponent extends AbstractComponent implements OnInit {
+export class GamesGridComponent extends AbstractComponent implements OnInit, OnDestroy {
 
     @Input() protected inlineParams: Params.IGamesGridCParams;
     @Input() protected gamesList: Game[];
@@ -110,6 +112,8 @@ export class GamesGridComponent extends AbstractComponent implements OnInit {
     protected isClickedLoadMoreBtn: boolean = false;
     protected useLazyAfterClick: boolean = false;
 
+    private $untilBreakpointOrDestroy: Subject<void> = new Subject();
+
     constructor(
         @Inject('injectParams') protected injectParams: Params.IGamesGridCParams,
         protected gamesCatalogService: GamesCatalogService,
@@ -127,18 +131,14 @@ export class GamesGridComponent extends AbstractComponent implements OnInit {
 
     public ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
+
         this.$params.wlcElement ??= `wlc-games-grid-${this.getWlcSuffix()}`;
+
         this.setWlcElementOnHost();
         this.initTitleIcon();
+        this.applyMoreBtnSettings();
 
-        if (this.$params.moreBtn?.lazy) {
-            this.useLazy = this.$params.moreBtn.lazy;
-            this.useLazyAfterClick = this.$params.moreBtn.lazyAfterClick;
-            this.lazyTimeout = this.$params.moreBtn.lazyTimeout;
-        }
-
-        this.moreBtnCardView = this.$params.moreBtn.cardView;
-        this.filterName = this.$params.searchFilterName || 'page';
+        this.filterName = this.$params.searchFilterName;
 
         this.initEventListeners();
 
@@ -148,6 +148,13 @@ export class GamesGridComponent extends AbstractComponent implements OnInit {
 
         this.prepareGrid().finally();
         this.setNoContentText();
+    }
+
+    public ngOnDestroy(): void {
+        super.ngOnDestroy();
+
+        this.$untilBreakpointOrDestroy.next();
+        this.$untilBreakpointOrDestroy.complete();
     }
 
     /**
@@ -310,18 +317,7 @@ export class GamesGridComponent extends AbstractComponent implements OnInit {
             }, this.$destroy);
         }
 
-        if (this.useLazy) {
-            fromEvent(window, 'scroll')
-                .pipe(
-                    takeUntil(this.$destroy),
-                    filter((): boolean => this.lazyLoadPositionFilter()),
-                    tap((): void => this.setLazyLoadingTrue()),
-                    throttleTime(this.lazyTimeout),
-                )
-                .subscribe((): void => {
-                    this.loadMoreGames();
-                });
-        }
+        this.initLazyLoading();
     }
 
     protected lazyLoadPositionFilter(): boolean {
@@ -631,6 +627,8 @@ export class GamesGridComponent extends AbstractComponent implements OnInit {
     }
 
     protected applyBreakpointParams(initiatedParams: Params.IGamesGridCParams, breakpoint: string | number): void {
+        this.$untilBreakpointOrDestroy.next();
+
         const {breakpoints} = this.$params;
 
         if (breakpoints[breakpoint]) {
@@ -638,6 +636,36 @@ export class GamesGridComponent extends AbstractComponent implements OnInit {
         } else {
             this.$params = _merge({}, initiatedParams);
         }
+
+        this.applyMoreBtnSettings();
+        this.initLazyLoading();
+
         this.cdr.markForCheck();
+    }
+
+    private applyMoreBtnSettings(): void {
+        const settings: Params.IGamesGridMoreBtn = this.$params.moreBtn || {};
+
+        this.useLazy = settings.lazy;
+        this.useLazyAfterClick = settings.lazyAfterClick;
+        this.moreBtnCardView = settings.cardView;
+        this.lazyTimeout = settings.lazyTimeout || 0;
+
+        this.isClickedLoadMoreBtn = false;
+    }
+
+    private initLazyLoading(): void {
+        if (this.useLazy) {
+            fromEvent(window, 'scroll')
+                .pipe(
+                    takeUntil(this.$untilBreakpointOrDestroy),
+                    filter((): boolean => this.lazyLoadPositionFilter()),
+                    tap((): void => this.setLazyLoadingTrue()),
+                    throttleTime(this.lazyTimeout),
+                )
+                .subscribe((): void => {
+                    this.loadMoreGames();
+                });
+        }
     }
 }
