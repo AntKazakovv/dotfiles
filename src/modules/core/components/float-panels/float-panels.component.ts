@@ -11,6 +11,9 @@ import {DOCUMENT} from '@angular/common';
 import {
     auditTime,
     filter,
+    map,
+    pairwise,
+    startWith,
     takeUntil,
 } from 'rxjs/operators';
 
@@ -101,8 +104,11 @@ export class FloatPanelsComponent extends AbstractComponent implements OnInit {
         this.actionService.windowResize()
             .pipe(
                 takeUntil(this.$destroy),
+                startWith(window.innerWidth),
                 auditTime(100),
-                filter(() => this.openedPanel !== ''),
+                map((): number => window.innerWidth),
+                pairwise(),
+                filter(([prev, current]: number[]): boolean => current !== prev),
             )
             .subscribe(() => {
                 this.filterSection();

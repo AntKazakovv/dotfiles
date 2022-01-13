@@ -19,6 +19,7 @@ export const defaultSwiperOptions: SwiperOptions = {
     slidesPerView: 'auto',
     freeMode: true,
     mousewheel: true,
+    updateOnWindowResize: false,
     freeModeMomentum: false,
     freeModeMomentumBounce: false,
 };
