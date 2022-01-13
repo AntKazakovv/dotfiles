@@ -13,6 +13,7 @@ import {TranslateService} from '@ngx-translate/core';
 import {StateService} from '@uirouter/core';
 import {DOCUMENT} from '@angular/common';
 import {HttpClient} from '@angular/common/http';
+
 import {
     BehaviorSubject,
     of,
@@ -32,6 +33,7 @@ import _assign from 'lodash-es/assign';
 import _map from 'lodash-es/map';
 import _keys from 'lodash-es/keys';
 import _concat from 'lodash-es/concat';
+import _find from 'lodash-es/find';
 
 import {
     IIndexing,
@@ -90,6 +92,7 @@ import * as Params from './deposit-withdraw.params';
 type cryptoInfo = 'msg1' | 'msg2';
 type THostedStyles = 'current' | 'def' | 'alt';
 type TFormData = IIndexing<string | number | boolean>;
+
 @Component({
     selector: '[wlc-deposit-withdraw]',
     templateUrl: './deposit-withdraw.component.html',
@@ -229,7 +232,10 @@ export class DepositWithdrawComponent extends AbstractDepositWithdrawComponent i
                 wlcElement: 'notification_deposit-fields-error',
             });
             return false;
-        } else if (this.$params.mode === 'deposit' && this.$params.showPaymentRules && !form.value.paymentRules) {
+        } else if (this.$params.mode === 'deposit'
+            && this.$params.showPaymentRules
+            && this.emptyOnlyField(form, 'paymentRules')
+        ) {
             form.controls.paymentRules.markAsTouched();
             this.pushNotification({
                 type: 'error',
@@ -241,6 +247,26 @@ export class DepositWithdrawComponent extends AbstractDepositWithdrawComponent i
         } else {
             return true;
         }
+    }
+
+    /**
+     * Check that in form empty only current field
+     *
+     * @param {FormGroup} form
+     * @param {string} field
+     * @returns {boolean} True if empty only current field
+     */
+    public emptyOnlyField(form: FormGroup, field: string): boolean {
+        if (form.controls[field]?.value) {
+            return false;
+        }
+
+        return !_find(form.controls, (control: FormControl, key: string): boolean => {
+            if (key !== 'submit' && key !== field) {
+                return !control.value;
+            }
+            return false;
+        });
     }
 
     public sendForm(form: FormGroup): void {
