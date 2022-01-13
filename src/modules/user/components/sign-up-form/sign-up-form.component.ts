@@ -205,7 +205,8 @@ export class SignUpFormComponent extends UserActionsAbstract<Params.ISignUpFormC
         }
 
         const formData = _merge(
-            this.formDataPreparation(form), this.configService.get<IRegFormDataForConfig>('regFormData')?.form,
+            this.configService.get<IRegFormDataForConfig>('regFormData')?.form,
+            this.formDataPreparation(form),
         );
 
         this.configService.set<object>({
