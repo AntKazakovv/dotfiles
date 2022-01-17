@@ -7,10 +7,11 @@ import {
     RawParams,
     ResolveTypes,
 } from '@uirouter/core';
+
 import {
     first,
 } from 'rxjs/operators';
-
+import _find from 'lodash-es/find';
 import _clone from 'lodash-es/clone';
 import _reduce from 'lodash-es/reduce';
 import _includes from 'lodash-es/includes';
@@ -18,17 +19,16 @@ import _union from 'lodash-es/union';
 import _toNumber from 'lodash-es/toNumber';
 import _uniq from 'lodash-es/uniq';
 
-import {
-    ConfigService,
-    EventService,
-    LogService,
-    ModalService,
-    IPushMessageParams,
-    NotificationEvents,
-    IRedirect,
-    Deferred,
-    InjectionService,
-} from 'wlc-engine/modules/core';
+import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
+import {EventService} from 'wlc-engine/modules/core/system/services/event/event.service';
+import {LogService} from 'wlc-engine/modules/core/system/services/log/log.service';
+import {ModalService} from 'wlc-engine/modules/core/system/services/modal/modal.service';
+import {IPushMessageParams} from 'wlc-engine/modules/core/system/services/notification/notification.interface';
+import {NotificationEvents} from 'wlc-engine/modules/core/system/services/notification/notification.service';
+import {IRedirect} from 'wlc-engine/modules/core/system/interfaces/core.interface';
+import {Deferred} from 'wlc-engine/modules/core/system/classes/deferred.class';
+import {InjectionService} from 'wlc-engine/modules/core/system/services/injection/injection.service';
+import {IFreeRound} from 'wlc-engine/modules/core/system/interfaces/loyalty.interface';
 import {
     Bonus,
     BonusesService,
@@ -392,6 +392,16 @@ class StartGameHandler {
         await userService.userInfo$.pipe(first((v: UserInfo) => v?.dataReady)).toPromise();
 
         if (userService.userInfo?.balance > 0) {
+            deferred.resolve();
+            return deferred.promise;
+        }
+        const merchantFreeRound = _find(userService.userInfo.freeRounds, (freeRound: IFreeRound): boolean => {
+            return this.merchantId === +freeRound.IDMerchant
+                && +freeRound.Count
+                && freeRound.Games.includes(this.game.launchCode);
+        });
+
+        if (merchantFreeRound) {
             deferred.resolve();
             return deferred.promise;
         }
