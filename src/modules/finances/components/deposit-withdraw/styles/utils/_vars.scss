@@ -34,6 +34,24 @@ $themeDefault: map-merge((
     'step1Padding': 0,
     'step1Margin': 0,
 
+    // Step Withdraw
+    'withdrawMargin': (
+        375: 0 auto ef.size(4),
+        480: 0 auto ef.size(4),
+        900: 0 0 ef.size(4),
+    ),
+    'withdrawGridGap': (
+        375: 0,
+        900: ef.size(4) 0,
+    ),
+    'withdrawMaxWidth': (
+        375: 100%,
+        480: 288px,
+    ),
+    'itemGridGap': ef.size(4) 0,
+    'itemBorderBottom': 1px solid var(--mc-baseOpacity),
+    'itemPadding': ef.size(1) 0,
+
     // Subtitle
     'subtitleFontStyle': 'ThirdTitle',
     'subtitleMargin': 0 0 ef.size(4),

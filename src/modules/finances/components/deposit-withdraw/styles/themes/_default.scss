@@ -83,6 +83,30 @@
             }
         }
 
+        &__withdraw {
+            @include em.get-mq-map('max-width', $themeDefault, 'withdrawMaxWidth');
+            @include em.get-mq-map('margin', $themeDefault, 'withdrawMargin');
+            @include em.get-mq-map(' grid-gap', $themeDefault, 'withdrawGridGap');
+            display: grid;
+
+            &-item {
+                display: flex;
+                grid-gap: ef.get-value($themeDefault, 'itemGridGap');
+                align-items: center;
+                justify-content: space-between;
+                padding: ef.get-value($themeDefault, 'itemPadding');
+                border-bottom: ef.get-value($themeDefault, 'itemBorderBottom');
+
+                .name {
+                    @include text.get-text-style('PrimaryText', ef.get-value($themeDefault, 'commonColor'));
+                }
+
+                .value {
+                    @include text.get-text-style('PrimaryTextBold', ef.get-value($themeDefault, 'commonColor'));
+                }
+            }
+        }
+
         &__fields-error {
             @include text.get-text-style(ThirdTitle, ef.get-value($themeDefault, 'errorsColor'));
             @include em.get-mq-map('text-align', $themeDefault, 'errorsTextAlign');

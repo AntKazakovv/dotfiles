@@ -76,10 +76,14 @@ import {
 import {FinancesHelper} from '../../system/helpers/finances.helper';
 import {IFormComponent} from 'wlc-engine/modules/core/components/form-wrapper/form-wrapper.component';
 import {ISelectOptions} from 'wlc-engine/modules/profile';
-import {UserProfile} from 'wlc-engine/modules/user/system/models';
+import {
+    UserInfo,
+    UserProfile,
+} from 'wlc-engine/modules/user/system/models';
 import {
     AbstractDepositWithdrawComponent,
 } from 'wlc-engine/modules/finances/system/classes/abstract.deposit-withdraw.component';
+
 import * as Params from './deposit-withdraw.params';
 
 type cryptoInfo = 'msg1' | 'msg2';
@@ -104,6 +108,8 @@ export class DepositWithdrawComponent extends AbstractDepositWithdrawComponent i
     public title: string = gettext('Deposit');
     public additionalParams: IIndexing<IPaymentAdditionalParam> = {};
     public formData$: BehaviorSubject<TFormData> = new BehaviorSubject(null);
+    public userTotalBonus: number;
+    public userAvailableWithdraw: number;
 
     public listConfig: IPaymentListCParams = {
         paymentType: 'deposit',
@@ -150,7 +156,7 @@ export class DepositWithdrawComponent extends AbstractDepositWithdrawComponent i
             }, logService, modalService, configService);
     }
 
-    public ngOnInit(): void {
+    public async ngOnInit(): Promise<void> {
         super.ngOnInit();
         this.depositInIframe = this.configService.get<boolean>('$base.finances.depositInIframe');
         this.configService
@@ -167,6 +173,18 @@ export class DepositWithdrawComponent extends AbstractDepositWithdrawComponent i
         if (this.$params.mode === 'withdraw') {
             this.title = gettext('Withdrawal');
             this.listConfig.paymentType = 'withdraw';
+
+            this.userService = await this.injectionService.getService<UserService>('user.user-service');
+            this.userService.userInfo$
+                .pipe(takeUntil(this.$destroy))
+                .subscribe((userInfo: UserInfo): void => {
+                    if(!userInfo) {
+                        return;
+                    }
+                    this.userTotalBonus = userInfo.balance;
+                    this.userAvailableWithdraw = userInfo.availableWithdraw;
+                    this.cdr.markForCheck();
+                });
         }
 
     }
