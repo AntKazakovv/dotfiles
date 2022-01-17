@@ -197,14 +197,16 @@ $hostModal: map-merge((
     'scrollBarWidth': 7px,
     'scrollBarTrackColor': var(--mc-bgModal-l5),
     'scrollBarColor': var(--mc-bgModal-d5),
+    'staticMinHeight': (
+        375: 150px,
+    ),
     'staticMaxHeightMobile': (
-        375: calc(100vh - 260px),
+        375: 100%,
+        1024: calc(100vh - 330px),
     ),
     'staticMaxHeightMobileIos': (
-        375:calc(100vh - 260px),
-        560: calc(100vh - 215px),
-        768: calc(100vh - 260px),
-        1024: calc(100vh - 285px),
+        375: 100%,
+        1024: calc(100vh - 350px),
     ),
     'scrollModalBodyMargin': (
         320: ef.size(6) 0,
