@@ -27,7 +27,7 @@ $themeDefault: map-merge((
 
     'teamsGridColumns': (
         375: minmax(0, 1fr),
-        900: minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr),
+        1024: minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr),
     ),
     'teamsGridGap': (
         375: ef.size(2),
@@ -40,7 +40,7 @@ $themeDefault: map-merge((
     ),
     'teamDisplay': (
         375: none,
-        900: flex,
+        1024: flex,
     ),
     'teamCircleSize': (
         375: 85px,
