@@ -3,7 +3,10 @@ import {
     Inject,
     Injectable,
 } from '@angular/core';
-import {UIRouter} from '@uirouter/core';
+import {
+    StateService,
+    UIRouterGlobals,
+} from '@uirouter/core';
 import {takeUntil} from 'rxjs/operators';
 import {Subject} from 'rxjs';
 import {IBetradar} from 'wlc-engine/modules/sportsbook';
@@ -46,7 +49,8 @@ export class BetradarService {
     };
 
     constructor(
-        protected router: UIRouter,
+        protected router: UIRouterGlobals,
+        protected stateService: StateService,
         protected sportsbookService: SportsbookService,
         protected configService: ConfigService,
         protected eventService: EventService,
@@ -62,7 +66,7 @@ export class BetradarService {
      */
     public setBetradarParams(): void {
         const urlParams: string[] = [];
-        const stateParams = this.router.stateService.params;
+        const stateParams = this.router.params;
 
         _forEach(this.sportsbookService.urlPathParams, (param: string) => {
             const stateParam = stateParams[param];
@@ -109,14 +113,23 @@ export class BetradarService {
                 const locationPath: string = _get(msg, 'path');
                 if (locationPath) {
                     _forEach(this.sportsbookService.urlPathParams, (param: string) => {
-                        _set(this.router.stateService.params, param, '');
+                        _set(this.router.params, param, '');
                     });
 
                     const stateParams = this.sportsbookService.generateStateParams(locationPath);
-                    _merge(this.router.stateService.params, stateParams);
+                    _merge(this.router.params, stateParams);
 
-                    let stateName: string = _get(this.router.stateService, '$current.self.name');
-                    const urlEvent: string = this.router.stateService.href(stateName, stateParams);
+                    const stateName: string = this.router.current.name;
+                    const urlEvent: string = this.stateService.href(stateName, stateParams);
+
+                    this.eventService.emit({
+                        name: 'BETRADAR_URL_CHANGE',
+                        data: {
+                            name: stateName,
+                            url: urlEvent,
+                        },
+                    });
+
                     history.replaceState(null, null, urlEvent);
                     cdr.detectChanges();
                 }

@@ -46,6 +46,7 @@ import {
     ModalService,
     ICheckboxCParams,
     IIndexing,
+    SeoService,
 } from 'wlc-engine/modules/core';
 import {
     BetGamesHooks,
@@ -174,6 +175,7 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
         protected hostElement: ElementRef,
         protected hooksService: HooksService,
         protected titleService: Title,
+        protected seoService: SeoService,
     ) {
         super({injectParams, defaultParams});
     }
@@ -226,7 +228,7 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
             this.titleObserver.disconnect();
             this.titleObserver = null;
             if (this.configService.get<boolean>('$base.useSeo')) {
-                this.titleService.setTitle(this.savedSiteName);
+                this.seoService.setTitle();
             } else {
                 this.titleService.setTitle(`${this.gameTitle} | ${this.configService.get<boolean>('$base.site.name')}`);
             }

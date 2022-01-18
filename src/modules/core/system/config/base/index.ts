@@ -29,4 +29,7 @@ export const $base: IBaseConfig = {
             fetchConfig: false,
         },
     },
+    rewritingWpLanguages: {
+        'pt-br': 'pb',
+    },
 };

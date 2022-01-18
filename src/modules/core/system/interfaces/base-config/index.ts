@@ -7,7 +7,10 @@ import {INotificationsConfig} from './notifications.interface';
 import {IContactsConfig} from './contacts.interface';
 import {IInteractiveText} from './interactiveText.interface';
 import {ILivechatConfig} from 'wlc-engine/modules/livechat';
-import {IRedirectConfig} from 'wlc-engine/modules/core';
+import {
+    IIndexing,
+    IRedirectConfig,
+} from 'wlc-engine/modules/core';
 import {IRegistrationConfig} from './registration.interface';
 import {IAnalytics} from 'wlc-engine/modules/analytics/system/interfaces/analytics.interface';
 import {IColorThemeSwitchingConfig} from './color-theme-switching.config';
@@ -63,4 +66,8 @@ export interface IBaseConfig {
      * if true - аfter registering, the notifications will be automatically turned on
      */
     turnOnSendEmailNotificationInRegister?: boolean,
+    /**
+     * add ability to change wp language code
+     */
+    rewritingWpLanguages?: IIndexing<string>,
 }
