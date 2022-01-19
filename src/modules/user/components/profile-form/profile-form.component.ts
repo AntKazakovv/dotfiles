@@ -181,7 +181,7 @@ export class ProfileFormComponent extends AbstractComponent implements OnInit {
             },
             showFooter: false,
             dismissAll: true,
-            backdrop: 'static',
+            backdrop: true,
         });
 
     }
