@@ -1,14 +1,16 @@
-import {
-    IMenu,
-    IMenuItem,
-} from './menu.interface';
 import {IIndexing} from './global.interface';
+import {IMenu} from './menu.interface';
 import {IBanner} from './promo.interface';
 import {ILoyalty} from './loyalty.interface';
 import {ICategorySettings} from './categories.interface';
 
+export interface IBootstrapMenuItem {
+    menuId: string;
+    menuName: IIndexing<string>;
+}
+
 export interface IBootstrap {
-    banners: IIndexing<IBanner>;
+    banners: IIndexing<IBanner[]>;
     categories?: IIndexing<ICategorySettings>;
     country: string;
     country2: string;
@@ -21,7 +23,7 @@ export interface IBootstrap {
     language: string;
     languages: ILanguage[];
     loggedIn: string;
-    menu: IMenuItem[];
+    menu: IBootstrapMenuItem[];
     mobile: boolean;
     // seo: any[]; // TODO Check when project with SEO appears
     sessionName: string;
@@ -36,7 +38,7 @@ export interface IBootstrap {
     showProfileMenu?: boolean; // TODO Does it need?
 }
 
-export type TEnv = 'dev' | 'test' | 'prod';
+export type TEnv = 'dev' | 'qa' | 'test' | 'prod';
 
 export interface IContacts {
     email: string;
@@ -112,7 +114,7 @@ export interface ISiteconfigLanguage {
 }
 
 export interface IPaysystem {
-    Alias: IIndexing<string>;
+    Alias: string | IIndexing<string>;
     Init: string;
     Name: string;
 }

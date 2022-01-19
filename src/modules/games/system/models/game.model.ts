@@ -23,6 +23,7 @@ import _intersection from 'lodash-es/intersection';
 import _includes from 'lodash-es/includes';
 import _toNumber from 'lodash-es/toNumber';
 import _map from 'lodash-es/map';
+import _isArray from 'lodash-es/isArray';
 
 export class Game extends AbstractModel<IGame> {
     public ID: number;
@@ -30,7 +31,6 @@ export class Game extends AbstractModel<IGame> {
     public name: IIndexing<string>;
     public categoryID: number[];
     public sortPerLanguage: IIndexing<number>;
-    public description: IIndexing<string> | string[];
     public launchCode: string;
     public merchantID: number;
     public subMerchantID: number;
@@ -46,7 +46,6 @@ export class Game extends AbstractModel<IGame> {
     protected url: string;
     protected isRestricted: boolean;
     protected countryRestrictionId: string;
-    protected freeround?: string;
     protected toggleFavourite?: any;
     protected isCurrencyDisabled?: boolean;
     protected CategoryTitle?: IIndexing<string>[];
@@ -85,18 +84,15 @@ export class Game extends AbstractModel<IGame> {
         this.categoryID = _map(data.CategoryID, (id: string) => {
             return _toNumber(id);
         });
-        this.description = data.Description;
         this.launchCode = data.LaunchCode;
         this.merchantID = _toNumber(data.MerchantID);
         this.subMerchantID = _toNumber(data.SubMerchantID);
-        this.sortPerLanguage = data.CustomSort?.Lang || {};
+        this.sortPerLanguage = !_isArray(data.CustomSort) ? data.CustomSort.Lang : {};
         this.sort = _toNumber(data.Sort);
         this.url = data.Url;
         this.image = data.Image;
-        this.sortPerCategory = data.SortPerCategory;
+        this.sortPerCategory = _isArray(data.SortPerCategory) ? {} : data.SortPerCategory;
         this.countryRestrictionId = data.IDCountryRestriction;
-        this.isRestricted = data.isRestricted;
-        this.freeround = data.Freeround;
         this.merchantName = this.getMerchantName();
         this.merchantAlias = this.getMerchantAlias();
     }
@@ -108,10 +104,6 @@ export class Game extends AbstractModel<IGame> {
      * @returns {boolean}
      */
     public gameRestricted(restrictions: IRestrictions, countries: string[]): boolean {
-        if (this.isRestricted) {
-            return true;
-        }
-
         let restricted: boolean = false;
 
         const restrictedCountries: IIndexing<boolean> = restrictions.restrictedByDefault[this.merchantID]

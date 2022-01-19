@@ -178,7 +178,7 @@ export type IByCategoryItem = {
 
 export type IMerchantCurrency = {
     Currencies: string[];
-    DefaultCurrency: string;
+    DefaultCurrency: string | null;
     ID: string;
     IDMerchant: string;
     IsDefault: string;
@@ -196,7 +196,7 @@ export type ICategory = {
     en?: string;
     CSort: string;
     CSubSort: string;
-    CustomSort?: ICustomSort;
+    CustomSort?: ICustomSort | [];
     MappingName?: string;
     visibility?: boolean;
 }
@@ -214,6 +214,10 @@ export type IGames = {
     merchants: IMerchants;
     merchantsCurrencies: IMerchantCurrency[];
 }
+
+export type TGamesResponse = {
+    data: IGames;
+};
 
 export type IMapping = {
     merchantIdToNameMapping?: IIndexing<string>;
@@ -330,36 +334,36 @@ export interface ILaunchParamsOptions {
 
 export interface IGame {
     ID: string;
-    Image: string;
-    hasDemo: number;
-    Url: string;
     Name: IIndexing<string>;
+    Image: string;
+    Url: string;
+    hasDemo: number;
     CategoryID: string[];
-    Description: IIndexing<string> | string[];
-    LaunchCode: string;
     MerchantID: string;
-    SubMerchantID: string;
+    AR: string;
+    IDCountryRestriction: string | null;
     Sort: string;
-    SortPerCategory: IIndexing<number>;
-    CustomSort: ICustomSort;
-    MobileUrl: string;
+    LaunchCode: string;
+    SortPerCategory: IIndexing<number> | [];
+    SubMerchantID: string | null;
+    CustomSort: ICustomSort | [];
+
+    Description?: IIndexing<string> | string[];
     MobileAndroidUrl?: string;
     MobileWindowsUrl?: string;
-    SuperBranded: number;
-    Branded: number;
-    AR: string;
-    IDCountryRestriction: string;
-    PageCode: string;
-    MobilePageCode: string;
-    MobileAndroidPageCode: string;
-    MobileWindowsPageCode: string;
-    ExternalCode: string;
-    MobileExternalCode: string;
-    ImageFullPath: string;
-    WorkingHours: string;
-    IsVirtual: string;
-    TableID: string;
-    isRestricted: boolean;
+    SuperBranded?: number;
+    Branded?: number;
+    PageCode?: string;
+    MobilePageCode?: string;
+    MobileAndroidPageCode?: string;
+    MobileWindowsPageCode?: string;
+    ExternalCode?: string;
+    MobileExternalCode?: string;
+    ImageFullPath?: string;
+    WorkingHours?: string;
+    IsVirtual?: string;
+    TableID?: string;
+    isRestricted?: boolean;
     Freeround?: string;
 }
 

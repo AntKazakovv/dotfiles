@@ -101,7 +101,7 @@ export class UserInfo extends AbstractModel<IUserInfo> {
     }
 
     public get socketsData(): ISocketsData {
-        return this.data?.socketsData;
+        return _isString(this.data?.socketsData) ? null : this.data?.socketsData;
     }
 
     public get status(): number {

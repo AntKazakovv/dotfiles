@@ -17,48 +17,57 @@ import _findIndex from 'lodash-es/findIndex';
 import _uniq from 'lodash-es/uniq';
 import _isString from 'lodash-es/isString';
 import _isEmpty from 'lodash-es/isEmpty';
+import _toNumber from 'lodash-es/toNumber';
 
 export type FilterType = 'deposit' | 'Deposits' | 'withdraw' | 'Withdraws' | 'all' | 'All';
 
+export type TPaymentSystems = IPaymentSystem[];
+
 export interface IPaymentSystem {
     additional: string;
-    additionalParams: IIndexing<IPaymentAdditionalParam>;
+    additionalParams: IIndexing<IPaymentAdditionalParam> | [];
     alias: string;
     allowiframe: number;
     appearance: string;
-    customParams?: IPaymentSystemCustomParams;
+    customParams?: IPaymentSystemCustomParams | [];
     description: string;
     description_withdraw?: string;
     disable_amount: boolean;
-    depositMax: number;
-    depositMin: number;
-    hostedFields: IHostedFields;
-    id: number;
+    depositMax?: number;
+    depositMin?: number;
+    hostedFields: IHostedFields | [];
+    id: string;
     image: string;
     image_withdraw?: string;
     lastAccounts: string[];
-    lastAccountsObj?: IIndexing<string>;
+    lastAccountsObj?: IIndexing<string> | [];
     message: string | IIndexing<string> | IPaymentMessage;
     name: string;
     name_withdraw?: string;
     required: string[];
     showfor: FilterType;
-    withdrawMax: number;
-    withdrawMin: number;
+    withdrawMax?: number;
+    withdrawMin?: number;
     paymentSuccess?: boolean;
     tokenRequired?: boolean;
     visible?: boolean;
 }
 
 export interface IPaymentAdditionalParam {
-    name: string;
+    label: string;
     showfor: FilterType;
-    skipsaving?: number;
-    optional?: number;
+    name?: string;
+    skipsaving?: string;
+    optional?: string;
     isHosted?: boolean;
     type?: 'input' | 'select';
     params?: IIndexing<string>;
     value?: string;
+}
+
+export interface IPaymentAdditionalParamEx extends Omit<IPaymentAdditionalParam, 'skipsaving' | 'optional'> {
+    skipsaving?: number;
+    optional?: number;
 }
 
 export interface IHostedFields {
@@ -215,7 +224,7 @@ export class PaymentSystem extends AbstractModel<IPaymentSystem> {
     }
 
     public get additionalParams(): IIndexing<IPaymentAdditionalParam> {
-        return this.data.additionalParams;
+        return _isArray(this.data.additionalParams) ? {} : this.data.additionalParams;
     }
 
     public set additionalParams(data: IIndexing<IPaymentAdditionalParam>) {
@@ -243,7 +252,7 @@ export class PaymentSystem extends AbstractModel<IPaymentSystem> {
     }
 
     public get customParams(): IPaymentSystemCustomParams {
-        return this.data.customParams;
+        return _isArray(this.data.customParams) ? null : this.data.customParams;
     }
 
     public get depositMax(): number {
@@ -267,7 +276,7 @@ export class PaymentSystem extends AbstractModel<IPaymentSystem> {
     }
 
     public get id(): number {
-        return this.data.id;
+        return +this.data.id;
     }
 
     public get image(): string {
@@ -283,7 +292,7 @@ export class PaymentSystem extends AbstractModel<IPaymentSystem> {
     }
 
     public get lastAccountsObj(): IIndexing<string> {
-        return this.data.lastAccountsObj || {};
+        return _isArray(this.data.lastAccountsObj) ? {} : this.data.lastAccountsObj;
     }
 
     public get message(): string | IIndexing<string> | IPaymentMessage {
@@ -331,7 +340,7 @@ export class PaymentSystem extends AbstractModel<IPaymentSystem> {
     }
 
     public get hostedFields(): IHostedFields {
-        return this.data.hostedFields;
+        return _isArray(this.data.hostedFields) ? null : this.data.hostedFields;
     }
 
     public get isCardFields(): boolean {
@@ -408,7 +417,7 @@ export class PaymentSystem extends AbstractModel<IPaymentSystem> {
     private init(data: IPaymentSystem): void {
         this.data = data;
 
-        if (this.data.hostedFields?.fields?.length) {
+        if (!_isArray(this.data.hostedFields) && this.data.hostedFields?.fields?.length) {
             this.isHosted = true;
             this.importPackage();
         }
@@ -475,8 +484,8 @@ export class PaymentSystem extends AbstractModel<IPaymentSystem> {
         return fields;
     }
 
-    private getField(param: string | any): IPaymentAdditionalParam {
-        let field: IPaymentAdditionalParam,
+    private getField(param: string | any): IPaymentAdditionalParamEx {
+        let field: IPaymentAdditionalParamEx,
             parsParam: any;
         try {
             parsParam = eval(param);
@@ -486,15 +495,17 @@ export class PaymentSystem extends AbstractModel<IPaymentSystem> {
 
         if (typeof parsParam === 'object') {
             field = {
+                label: parsParam.label,
                 name: parsParam.label || parsParam.name,
                 type: parsParam.type || 'input',
                 showfor: parsParam.showfor || 'all',
-                skipsaving: parsParam.skipsaving || 0,
-                optional: parsParam.optional || 0,
+                skipsaving: _toNumber(parsParam.skipsaving) || 0,
+                optional: _toNumber(parsParam.optional) || 0,
                 params: parsParam.data,
             };
         } else if (_isArray(parsParam)) {
             field = {
+                label: parsParam[0],
                 name: parsParam[0],
                 type: parsParam[1],
                 showfor: 'all',
@@ -503,6 +514,7 @@ export class PaymentSystem extends AbstractModel<IPaymentSystem> {
             };
         } else if (typeof parsParam === 'string') {
             field = {
+                label: parsParam,
                 name: parsParam,
                 type: 'input',
                 showfor: 'all',

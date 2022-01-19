@@ -161,7 +161,9 @@ export class CategoryModel extends AbstractModel<ICategory> {
      * @returns {number} Value of sort
      */
     public get sortByLang(): number {
-        return this.data.CustomSort?.Lang?.[CategoryModel.currentLanguage];
+        return !Array.isArray(this.data.CustomSort)
+            ? this.data.CustomSort?.Lang?.[CategoryModel.currentLanguage]
+            : undefined;
     }
 
     public get tags(): string[] {

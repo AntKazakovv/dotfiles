@@ -5,6 +5,7 @@ import {IFromLog} from 'wlc-engine/modules/core';
 import _assign from 'lodash-es/assign';
 import _get from 'lodash-es/get';
 import _toString from 'lodash-es/toString';
+import _isString from 'lodash-es/isString';
 
 export class UserProfile extends AbstractModel<IUserProfile> {
 
@@ -156,7 +157,7 @@ export class UserProfile extends AbstractModel<IUserProfile> {
     }
 
     public get socketData(): ISocketsData {
-        return this.data.socketsData;
+        return _isString(this.data.socketsData) ? null : this.data.socketsData;
     }
 
     public get pep(): string {

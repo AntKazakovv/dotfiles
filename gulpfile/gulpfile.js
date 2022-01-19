@@ -76,8 +76,8 @@ class gulpTask {
         return response.toString('UTF8');
     }
 
-    addToGitIgnore(block, type, path) {
-        const file = `${block}/${type}/${path}`;
+    addToGitIgnore(block, type, filePath) {
+        const file = path.normalize(`${block}/${type}/${filePath}`);
         let ignore = fs.readFileSync(this.params.paths.root + '/.gitignore').toString();
 
         if (ignore.indexOf(file) !== -1) {

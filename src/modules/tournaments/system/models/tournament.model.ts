@@ -2,7 +2,6 @@ import {
     AbstractModel,
     ConfigService,
     IFromLog,
-    GlobalHelper,
 } from 'wlc-engine/modules/core';
 import {
     ITournament,
@@ -69,10 +68,6 @@ export class Tournament extends AbstractModel<ITournament> {
 
     public get ends(): string {
         return this.data.Ends;
-    }
-
-    public get end(): string {
-        return GlobalHelper.toLocalTime(this.data.End, 'SQL', 'yyyy-MM-dd HH:mm:ss');
     }
 
     public get feeType(): string {
@@ -164,10 +159,6 @@ export class Tournament extends AbstractModel<ITournament> {
         return this.data.Starts;
     }
 
-    public get start(): string {
-        return GlobalHelper.toLocalTime(this.data.Start, 'SQL', 'yyyy-MM-dd HH:mm:ss');
-    }
-
     public get status(): number {
         return _toNumber(this.data.Status);
     }
@@ -188,16 +179,8 @@ export class Tournament extends AbstractModel<ITournament> {
         return _toNumber(this.data.Value);
     }
 
-    public get place(): string {
-        return _toNumber(this.data.Place) ? this.data.Place : '#';
-    }
-
     public get statusName(): string {
         return this.data.StatusText;
-    }
-
-    public get win(): string {
-        return this.data.Win || '-';
     }
 
     public get winnerBy(): string {

@@ -25,27 +25,24 @@ export interface ITournamentGames {
     MerchantsBL: number[];
 }
 
+export interface ITournamentResponse {
+    data: ITournament[];
+}
+
 export interface ITournament {
     BetMax: IIndexing<string>;
     BetMin: IIndexing<string>;
     CurrentTime: number;
     Description: string;
     Ends: string;
-    End: string;
-    FeeAmount: IIndexing<string> | string;
+    FeeAmount: IIndexing<string | number> | string;
     FeeType: 'balance' | 'loyalty';
     Games: ITournamentGames;
     ID: number;
     Image: string;
-    Image_dashboard: string;
-    Image_description: string;
-    Image_promo: string;
-    Image_other: string;
     Name: string;
-    Place: string;
-    Points: string;
-    PointsLimit: string;
-    PointsLimitMin: string;
+    PointsLimit: string | number;
+    PointsLimitMin: string | number;
     PointsTotal: string;
     Qualification: string;
     Qualified: number;
@@ -53,18 +50,21 @@ export interface ITournament {
     Repeat: string;
     Selected: number;
     Series: string;
-    Start: string;
     Starts: string;
     Status: string;
-    StatusText: string;
     Target: 'balance' | 'loyalty';
     Terms: string;
     TotalFounds: IIndexing<string>;
     Type: 'absolute' | 'relative';
     Value: string;
-    Win: string;
     WinnerBy: 'bets' | 'wins' | 'turnovers' | 'turnovers_loose' | 'max_win' | 'fr';
-    WinningSpread: IIndexing<string[]>;
+    WinningSpread: IIndexing<string[] | number[]>;
+    Image_dashboard?: string;
+    Image_description?: string;
+    Image_promo?: string;
+    Image_other?: string;
+    Points?: string;
+    StatusText?: string;
 }
 
 export interface ITopTournamentUsers {

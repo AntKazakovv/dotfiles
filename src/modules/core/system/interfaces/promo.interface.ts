@@ -3,4 +3,5 @@ export interface IBanner {
     platform: string[];
     tags: string[];
     visibility: string[];
+    NumberInGroup?: number;
 }

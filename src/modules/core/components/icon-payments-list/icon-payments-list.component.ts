@@ -119,7 +119,7 @@ export class IconPaymentsListComponent extends IconListAbstract<Params.IIconPaym
             if (!_find(this.payments, (item: IPaysystem) => item.Name.toLowerCase() === name)) {
                 this.payments.push({
                     Name: name,
-                    Alias: {},
+                    Alias: '',
                     Init: '',
                 });
             }

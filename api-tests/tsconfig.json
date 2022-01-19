@@ -1,0 +1,19 @@
+{
+    "compilerOptions": {
+        "target": "esnext",
+        "lib": [
+            "es2018",
+        ],
+        "module": "commonjs",
+        "types": [
+            "jasmine",
+            "node",
+            "global.d.ts"
+        ],
+        "esModuleInterop": true,
+        "forceConsistentCasingInFileNames": true,
+        "strict": true,
+        "noImplicitAny": true,
+        "skipLibCheck": true
+    }
+}

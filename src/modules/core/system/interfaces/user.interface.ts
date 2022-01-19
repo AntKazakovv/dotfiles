@@ -19,7 +19,7 @@ export interface IUserInfo {
     loyalty: ILoyalty;
     pincode: string;
     status: number;
-    socketsData?: ISocketsData,
+    socketsData?: ISocketsData | '',
     freerounds: IFreeRound[];
 }
 
@@ -64,7 +64,7 @@ export interface IUserProfile {
     passwordRepeat?: string;
     password?: string;
     oddsStyle?: string;
-    socketsData?: ISocketsData;
+    socketsData?: ISocketsData | '';
 }
 
 export interface IExtProfile {

@@ -61,6 +61,18 @@ module.exports = function preBuildTask() {
         fs.symlinkSync('../wlc-engine/polyfills.ts', this.params.paths.polyfillsFile);
     };
 
+    // Create symlink to the api tests directory
+    const makeApiTestSymlink = () => {
+        try {
+            fs.lstatSync(this.params.paths.apiTest);
+            fs.unlinkSync(this.params.paths.apiTest);
+        } catch {
+            //
+        }
+        fs.symlinkSync('./node_modules/@egamings/wlc-engine/api-tests', this.params.paths.apiTest);
+        this.addToGitIgnore('/', '', 'api-tests');
+    };
+
     // Create site preloader scss
     const createSitePreloader = () => {
         fs.access(`${this.params.paths.src}/app-styles/app.loader.scss`, (err) => {
@@ -130,6 +142,7 @@ module.exports = function preBuildTask() {
         makeCustomModule();
         createSitePreloader();
         createHostedFields();
+        makeApiTestSymlink();
 
         cb();
     });
