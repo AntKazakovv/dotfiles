@@ -86,6 +86,7 @@
                         display: ef.get-value($themeDefault, 'stepActiveDisplay');
                         grid-template-columns: ef.get-value($themeDefault, 'stepActiveColumns');
                         justify-content: ef.get-value($themeDefault, 'stepActiveJustifyContent');
+                        width: ef.get-value($themeDefault, 'stepActiveWidth');
                         text-align: ef.get-value($themeDefault, 'stepActiveTextAlign');
                     }
                 }
