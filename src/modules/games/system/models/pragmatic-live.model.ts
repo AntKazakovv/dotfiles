@@ -99,6 +99,10 @@ export class PragmaticLiveModel extends AbstractModel<PragmaticLiveData> {
 
         const count = +this.data.availableSeats;
 
+        if (this.data.tableType === 'BLACKJACK') {
+            return '' + (this.totalPlaces - count);
+        }
+
         if (count > 999) {
             return '999+';
         }
