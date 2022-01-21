@@ -77,4 +77,11 @@ export namespace contentGames {
             componentLib.wlcGamesGrid.vertical,
         ],
     };
+
+    export const popularVertical: ILayoutSectionConfig = {
+        container: true,
+        components: [
+            componentLib.wlcGamesGrid.popularVertical,
+        ],
+    };
 }

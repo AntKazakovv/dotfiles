@@ -1,3 +1,11 @@
+import _assign from 'lodash-es/assign';
+import _includes from 'lodash-es/includes';
+import _toNumber from 'lodash-es/toNumber';
+import _has from 'lodash-es/has';
+import _forEach from 'lodash-es/forEach';
+import _find from 'lodash-es/find';
+import _isNil from 'lodash-es/isNil';
+
 import {
     ICategorySettings,
     CategoryViewType,
@@ -18,14 +26,6 @@ import {Game} from 'wlc-engine/modules/games/system/models/game.model';
 import {MerchantModel} from 'wlc-engine/modules/games/system/models/merchant.model';
 import {GamesHelper} from 'wlc-engine/modules/games/system/helpers/games.helpers';
 
-import _assign from 'lodash-es/assign';
-import _includes from 'lodash-es/includes';
-import _toNumber from 'lodash-es/toNumber';
-import _has from 'lodash-es/has';
-import _forEach from 'lodash-es/forEach';
-import _find from 'lodash-es/find';
-import _isNil from 'lodash-es/isNil';
-
 const directions = {
     asc: -1,
     desc: 1,
@@ -44,6 +44,11 @@ const defaultParentsCategories = [
 ];
 
 export class CategoryModel extends AbstractModel<ICategory> {
+
+    /**
+     * Hidden category or not. Hidden categories used for seaching games, but not show in user interface
+     */
+    public isHidden: boolean;
 
     private static currentLanguage: string;
 

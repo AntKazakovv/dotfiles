@@ -147,4 +147,28 @@ export namespace wlcGamesGrid {
             },
         },
     };
+
+    export const popularVertical: ILayoutComponent = {
+        name: 'games.wlc-games-grid',
+        params: <IGamesGridCParams>{
+            gamesRows: 1,
+            title: gettext('Popular games'),
+            usePlaceholders: true,
+            filter: {
+                categories: ['vertical'],
+            },
+            thumbParams: {
+                theme: 'vertical',
+                type: 'vertical',
+            },
+            showAllLink: {
+                use: true,
+                sref: 'app.catalog',
+                params: {
+                    category: 'popular',
+                },
+            },
+        },
+    };
+
 }

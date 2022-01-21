@@ -1,5 +1,14 @@
 import {UIRouter} from '@uirouter/core';
 
+import _assign from 'lodash-es/assign';
+import _isObject from 'lodash-es/isObject';
+import _each from 'lodash-es/each';
+import _intersection from 'lodash-es/intersection';
+import _includes from 'lodash-es/includes';
+import _toNumber from 'lodash-es/toNumber';
+import _map from 'lodash-es/map';
+import _isArray from 'lodash-es/isArray';
+
 import {IIndexing} from 'wlc-engine/modules/core/system/interfaces/global.interface';
 import {AbstractModel} from 'wlc-engine/modules/core/system/models/abstract.model';
 import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
@@ -17,15 +26,6 @@ import {
     GlobalHelper,
     IFromLog,
 } from 'wlc-engine/modules/core';
-
-import _assign from 'lodash-es/assign';
-import _isObject from 'lodash-es/isObject';
-import _each from 'lodash-es/each';
-import _intersection from 'lodash-es/intersection';
-import _includes from 'lodash-es/includes';
-import _toNumber from 'lodash-es/toNumber';
-import _map from 'lodash-es/map';
-import _isArray from 'lodash-es/isArray';
 
 export class Game extends AbstractModel<IGame> {
     public ID: number;

@@ -65,6 +65,9 @@ export interface IGamesComponents {
 export interface ICategories {
     useFundistJackpots?: boolean;
     exclude?: IExcludeCategories;
+    /** settings for hide some categories
+     * (hidden categories will be work, but not will be shown in user interface) */
+    hide?: IHideCategories;
     sort?: ISortCategories,
     parents?: string[];
     /** setting sorting games in category */
@@ -83,6 +86,10 @@ export interface IGamesSortSetting {
 }
 
 export interface IExcludeCategories {
+    bySlug?: string[];
+}
+
+export interface IHideCategories {
     bySlug?: string[];
 }
 
@@ -281,10 +288,6 @@ export interface IAvailableItem {
 export interface ISupportedItem {
     value: string;
     title: string;
-}
-
-export interface ICatalogTreeItem extends ISupportedItem {
-    subcategories: ISupportedItem[];
 }
 
 export interface IGameParams {

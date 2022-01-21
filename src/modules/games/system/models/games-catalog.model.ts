@@ -3,10 +3,30 @@ import {
     LangChangeEvent,
     TranslateService,
 } from '@ngx-translate/core';
+
 import {BehaviorSubject} from 'rxjs';
 import {
     skipWhile,
 } from 'rxjs/operators';
+import _assign from 'lodash-es/assign';
+import _cloneDeep from 'lodash-es/cloneDeep';
+import _concat from 'lodash-es/concat';
+import _filter from 'lodash-es/filter';
+import _find from 'lodash-es/find';
+import _forEach from 'lodash-es/forEach';
+import _get from 'lodash-es/get';
+import _includes from 'lodash-es/includes';
+import _isArray from 'lodash-es/isArray';
+import _isNumber from 'lodash-es/isNumber';
+import _isString from 'lodash-es/isString';
+import _isEmpty from 'lodash-es/isEmpty';
+import _orderBy from 'lodash-es/orderBy';
+import _reduce from 'lodash-es/reduce';
+import _size from 'lodash-es/size';
+import _toNumber from 'lodash-es/toNumber';
+import _union from 'lodash-es/union';
+import _uniq from 'lodash-es/uniq';
+import _uniqBy from 'lodash-es/uniqBy';
 
 import {Deferred} from 'wlc-engine/modules/core/system/classes/deferred.class';
 import {UserProfile} from 'wlc-engine/modules/user/system/models/profile.model';
@@ -27,7 +47,6 @@ import {GamesHelper} from 'wlc-engine/modules/games/system/helpers/games.helpers
 import {CategoryModel} from 'wlc-engine/modules/games/system/models/category.model';
 import {GamesCatalogService} from 'wlc-engine/modules/games/system/services/games-catalog/games-catalog.service';
 import {
-    ICatalogTreeItem,
     ICategory,
     IExcludeCategories,
     IFavourite,
@@ -38,33 +57,13 @@ import {
     IGameBlock,
     ISortCategories,
     ISupportedItem,
+    IHideCategories,
 } from 'wlc-engine/modules/games/system/interfaces/games.interfaces';
 import {IGamesFilterData} from 'wlc-engine/modules/games/system/interfaces/filters.interfaces';
 import {MenuService} from 'wlc-engine/modules/menu/system/services/menu.service';
 import {
     categorySettings as defaultCategorySettings,
 } from 'wlc-engine/modules/games/system/config/fundist-category-settings.config';
-
-import _assign from 'lodash-es/assign';
-import _cloneDeep from 'lodash-es/cloneDeep';
-import _concat from 'lodash-es/concat';
-import _filter from 'lodash-es/filter';
-import _find from 'lodash-es/find';
-import _forEach from 'lodash-es/forEach';
-import _get from 'lodash-es/get';
-import _includes from 'lodash-es/includes';
-import _isArray from 'lodash-es/isArray';
-import _isNumber from 'lodash-es/isNumber';
-import _isString from 'lodash-es/isString';
-import _isUndefined from 'lodash-es/isUndefined';
-import _isEmpty from 'lodash-es/isEmpty';
-import _orderBy from 'lodash-es/orderBy';
-import _reduce from 'lodash-es/reduce';
-import _size from 'lodash-es/size';
-import _toNumber from 'lodash-es/toNumber';
-import _union from 'lodash-es/union';
-import _uniq from 'lodash-es/uniq';
-import _uniqBy from 'lodash-es/uniqBy';
 
 export class GamesCatalog extends AbstractModel<IGames> {
 
@@ -159,16 +158,11 @@ export class GamesCatalog extends AbstractModel<IGames> {
         return this.categorySettings;
     }
 
-    public isSpecialCategory(category: CategoryModel): boolean {
-        return !!_find(this.specialCategories, (item: ICategory) => {
-            return category.slug === item.Slug;
-        });
-    }
-
     /**
+     * Get games list by filter (used for search games)
      *
-     * @param {IGamesFilterData} filter
-     * @returns {Game[]}
+     * @param {IGamesFilterData} filter Filter for search games
+     * @returns {Game[]} Gammes list
      */
     public getGameList(filter?: IGamesFilterData): Game[] {
         const includeCategories = filter?.categories || [];
@@ -241,22 +235,25 @@ export class GamesCatalog extends AbstractModel<IGames> {
     }
 
     /**
+     * Get all categories
      *
-     * @returns {CategoryModel[]}
+     * @returns {CategoryModel[]} Categories list
      */
     public getCategories(): CategoryModel[] {
         return this.projectCategories;
     }
 
     /**
-     * Get categories by menu ids
+     * Get categories by slugs
      *
-     * @param {string[]} menuIds
-     * @returns {CategoryModel[]}
+     * @param {string[]} slugs Category slugs
+     * @param {boolean} onlyAvailable Search by all categories or only by available
+     * @returns {CategoryModel[]} Categories list
      */
-    public getCategoriesBySlugs(slug: string[]): CategoryModel[] {
-        return _filter(this.getCategories(), (category: CategoryModel) => {
-            return _includes(slug, category.slug);
+    public getCategoriesBySlugs(slugs: string[], onlyAvailable: boolean = false): CategoryModel[] {
+        const categories: CategoryModel[] = onlyAvailable ? this.getAvailableCategories() : this.getCategories();
+        return _filter(categories, (category: CategoryModel): boolean => {
+            return _includes(slugs, category.slug);
         });
     }
 
@@ -272,7 +269,7 @@ export class GamesCatalog extends AbstractModel<IGames> {
             return;
         }
         const slugs: string[] = _isString(slug) ? [slug] : slug;
-        const categoryList = byDefaultCategories ? this.categories : this.projectCategories;
+        const categoryList = byDefaultCategories ? this.categories : this.getAvailableCategories();
 
         for (const categorySlug of slugs) {
             const category = _find(categoryList, (category: CategoryModel) => {
@@ -287,8 +284,8 @@ export class GamesCatalog extends AbstractModel<IGames> {
     /**
      * Sort categories
      *
-     * @param {CategoryModel[]} categories
-     * @returns {CategoryModel[]}
+     * @param {CategoryModel[]} categories Category list
+     * @returns {CategoryModel[]} Sorted category list
      */
     public sortCategories(categories: CategoryModel[]): CategoryModel[] {
         const useSortByLang: boolean = !!_find(categories, (category: CategoryModel): boolean => !!category.sortByLang);
@@ -312,7 +309,7 @@ export class GamesCatalog extends AbstractModel<IGames> {
     /**
      * Get all game merchants
      *
-     * @returns {MerchantModel[]}
+     * @returns {MerchantModel[]} Merchants list
      */
     public getMerchants(): MerchantModel[] {
         return this.merchants;
@@ -328,59 +325,16 @@ export class GamesCatalog extends AbstractModel<IGames> {
     }
 
     /**
+     * Get available categories (which have games and not hidden)
      *
-     * @returns {CategoryModel[]}
+     * @returns {CategoryModel[]} Categories list
      */
     public getAvailableCategories(): CategoryModel[] {
-        return this.projectCategories;
-    }
-
-    public getCategoryByName(categoryName: string): CategoryModel {
-        return _find(this.categories, ['menuId', categoryName]);
-    }
-
-    public getCategoryTitle(
-        type: 'merchant' | 'category',
-        category: string,
-        subcategory?: string,
-        language?: string,
-    ): string | IIndexing<string> {
-        if (type === 'merchant') {
-            if (
-                !_isUndefined(subcategory) &&
-                !!subcategory &&
-                GamesHelper.mapping.byCategory.hasOwnProperty(subcategory)
-            ) {
-                return GamesHelper.mapping.byCategory[subcategory].title.hasOwnProperty(language) ?
-                    GamesHelper.mapping.byCategory[subcategory].title[language] :
-                    GamesHelper.mapping.byCategory[subcategory].title.en;
-            }
-
-            if (GamesHelper.mapping.merchantNameToTitleMapping.hasOwnProperty(category)) {
-                return GamesHelper.mapping.merchantNameToTitleMapping[category];
-            }
-        }
-
-        if (type === 'category') {
-            if (
-                !_isUndefined(subcategory) &&
-                !!subcategory &&
-                GamesHelper.mapping.categoryNameToTitleMapping.hasOwnProperty(subcategory)
-            ) {
-                return GamesHelper.mapping.categoryNameToTitleMapping[subcategory];
-            }
-
-            if (GamesHelper.mapping.byCategory.hasOwnProperty(category)) {
-                return GamesHelper.mapping.byCategory[category].title.hasOwnProperty(language) ?
-                    GamesHelper.mapping.byCategory[category].title[language] :
-                    GamesHelper.mapping.byCategory[category].title.en;
-            }
-        }
-
-        return '';
+        return this.availableCategories;
     }
 
     /**
+     * Get game by id (Search by available games, restricted games not will be found)
      *
      * @param {string} id
      * @returns {Game}
@@ -390,7 +344,7 @@ export class GamesCatalog extends AbstractModel<IGames> {
     }
 
     /**
-     * Get game
+     * Get game (Search by available games, restricted games not will be found)
      *
      * @param {string} merchantID Game merchant id
      * @param {string} launchCode Game launch code
@@ -414,6 +368,11 @@ export class GamesCatalog extends AbstractModel<IGames> {
         return _find(gamesList, {merchantID, launchCode});
     }
 
+    /**
+     * Get jackpot games (Search by available games, restricted games not will be found)
+     *
+     * @returns {Game[]} Jackpot games
+     */
     public getJackpotGames(): Game[] {
         return _filter(this.availableGames, (game: Game) => {
             return !!game.jackpot;
@@ -441,38 +400,6 @@ export class GamesCatalog extends AbstractModel<IGames> {
      */
     public getMerchantByName(merchantName: string): MerchantModel {
         return _find(this.getAvailableMerchants(), {menuId: merchantName});
-    }
-
-    /**
-     *
-     * @param {string} merchantId
-     * @param {string} launchCode
-     * @returns {string}
-     */
-    public getGameName(merchantId: number, launchCode: string): string {
-        return this.getGame(merchantId, launchCode)?.name?.en || '';
-    }
-
-    public getCatalogTree(type: string, name: string): ICatalogTreeItem[] {
-        let tree: ICatalogTreeItem[] = [];
-
-        if (type === 'merchant') {
-            const merchantList = this.getSupportedMerchants(name);
-
-            tree = merchantList.map((merchant: ISupportedItem): ICatalogTreeItem => {
-                (merchant as ICatalogTreeItem).subcategories = this.getSupportedCategories(merchant.value);
-                return merchant as ICatalogTreeItem;
-            });
-        } else {
-            const categoryList = this.getSupportedCategories(name);
-
-            tree = categoryList.map((category: ISupportedItem): ICatalogTreeItem => {
-                (category as ICatalogTreeItem).subcategories = this.getSupportedMerchants(category.value);
-                return category as ICatalogTreeItem;
-            });
-        }
-
-        return tree;
     }
 
     /**
@@ -734,7 +661,7 @@ export class GamesCatalog extends AbstractModel<IGames> {
             if (!merchantName) {
                 continue;
             }
-            GamesHelper.fillGamesByCategoriesMerchants(game, this.availableCategories);
+            GamesHelper.fillGamesByCategoriesMerchants(game);
 
             if (this.isExcludeMerchant(sportsbookMerchants, game.merchantID, game.subMerchantID)) {
                 this.sportsbooks.push(game);
@@ -742,6 +669,7 @@ export class GamesCatalog extends AbstractModel<IGames> {
                 resultGames.push(game);
             }
         }
+
         this.games = _orderBy(resultGames, (game: Game) => _toNumber(game.sort), 'desc');
 
         this.updateAvailableGamesAndMerchants(this.userCountry);
@@ -766,6 +694,16 @@ export class GamesCatalog extends AbstractModel<IGames> {
         if (excludeSettings?.bySlug) {
             this.categories = _filter(this.categories, (category: CategoryModel) => {
                 return !_includes(excludeSettings.bySlug, category.slug);
+            });
+        }
+
+        const hideSettings: IHideCategories =
+            this.configService.get<IHideCategories>('$games.categories.hide');
+        if (hideSettings?.bySlug) {
+            _forEach(this.categories, (category: CategoryModel): void => {
+                if (_includes(hideSettings.bySlug, category.slug)) {
+                    category.isHidden = true;
+                }
             });
         }
 
@@ -800,17 +738,18 @@ export class GamesCatalog extends AbstractModel<IGames> {
             const mainParentCategory: CategoryModel =
                 this.getCategoryBySlug(['casino', 'livecasino', 'tablegames'], true);
 
-            const otherCategories: CategoryModel[] = _filter(parentCategories, (category) => {
-                return category.slug !== mainParentCategory?.slug && !category.isSpecial;
-            });
-
             const childCategories: CategoryModel[] = _filter(this.categories, (category: CategoryModel) => {
                 return !category.isParent;
             });
 
             const availableChildCategories: CategoryModel[] = [];
+            const hiddenCategories: CategoryModel[] = [];
 
             _forEach(childCategories, (category: CategoryModel) => {
+                if (category.isHidden) {
+                    hiddenCategories.push(category);
+                    return;
+                }
 
                 const hasGames = !!_find(this.availableGames, (game: Game) => {
                     return _includes(game.categoryID, category.id);
@@ -826,11 +765,10 @@ export class GamesCatalog extends AbstractModel<IGames> {
             mainParentCategory.setChildCategories(availableChildCategories);
 
             this.projectCategories = this.sortCategories(_union(
-                [mainParentCategory],
                 parentCategories,
                 availableChildCategories,
-                otherCategories),
-            );
+                hiddenCategories,
+            ));
             this.configureCategoriesView(this.projectCategories);
         }
 
@@ -840,6 +778,10 @@ export class GamesCatalog extends AbstractModel<IGames> {
             } else {
                 category.setReady();
             }
+        });
+
+        this.availableCategories = _filter(this.projectCategories, (category: CategoryModel): boolean => {
+            return !category.isHidden;
         });
     }
 

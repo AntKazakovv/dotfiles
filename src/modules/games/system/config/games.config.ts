@@ -62,6 +62,11 @@ export const gamesConfig: IGamesConfig = {
                 'casinogames',
             ],
         },
+        hide: {
+            bySlug: [
+                'vertical',
+            ],
+        },
         parents: [
             'casino',
             'livecasino',

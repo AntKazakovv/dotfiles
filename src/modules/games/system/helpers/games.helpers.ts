@@ -116,12 +116,8 @@ export class GamesHelper {
     /**
      *
      * @param {Game} game
-     * @param {CategoryModel[]} availableCategories
-     * @param {IMerchant[]} availableMerchants
      */
-    public static fillGamesByCategoriesMerchants(
-        game: Game,
-        availableCategories: CategoryModel[]): void {
+    public static fillGamesByCategoriesMerchants(game: Game): void {
         const merchantName: string = game.getMerchantName();
         const merchants: string[] = [merchantName];
 
@@ -154,7 +150,6 @@ export class GamesHelper {
                     games: [],
                     merchants: {},
                 });
-                availableCategories.push(category);
             }
 
             if (category) {

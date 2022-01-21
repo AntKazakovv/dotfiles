@@ -326,10 +326,6 @@ export class GamesCatalogService {
         return !!response.data.favorite;
     }
 
-    public isSpecialCategory(category: CategoryModel): boolean {
-        return this.gamesCatalog.isSpecialCategory(category);
-    }
-
     /**
      * Sort categories (used desc order)
      *
