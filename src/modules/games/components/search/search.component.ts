@@ -141,10 +141,14 @@ export class SearchComponent extends AbstractComponent implements OnInit, OnDest
 
     public chooseCategory(category?: CategoryModel): void {
         if (!category) {
+            const hasCurrentCategories = this.filters.categories.length;
+
             this.filters.categories = [];
             this.selectedCategories = [];
             this.getMerchants();
-            this.setFilter();
+            if (hasCurrentCategories) {
+                this.setFilter();
+            }
             return;
         }
 
@@ -178,10 +182,14 @@ export class SearchComponent extends AbstractComponent implements OnInit, OnDest
 
     public chooseMerchant(merchant?: MerchantModel): void {
         if (!merchant) {
+            const hasCurrentMerchant = this.filters.merchants.length;
+
             this.filters.merchants = [];
             this.selectedMerchants = [];
             this.getCategories();
-            this.setFilter();
+            if (hasCurrentMerchant) {
+                this.setFilter();
+            }
             return;
         }
 

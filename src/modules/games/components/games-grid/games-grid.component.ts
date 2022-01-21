@@ -30,6 +30,7 @@ import {
     ActionService,
     EventService,
     ItemAppearanceAnimation,
+    CardLoadingAnimation,
     GlobalHelper,
 } from 'wlc-engine/modules/core';
 import {
@@ -73,6 +74,7 @@ import _every from 'lodash-es/every';
     changeDetection: ChangeDetectionStrategy.OnPush,
     animations: [
         ...ItemAppearanceAnimation,
+        ...CardLoadingAnimation,
     ],
 })
 export class GamesGridComponent extends AbstractComponent implements OnInit, OnDestroy {
@@ -183,6 +185,14 @@ export class GamesGridComponent extends AbstractComponent implements OnInit, OnD
         return (this.$params.showTitle || this.$params.showAllLink?.use) && this.$params.themeMod !== 'header-inline';
     }
 
+    /**
+     * return current animation state, when useLoadingAnimation param is true or empty string otherwise
+     * @returns number | string
+     */
+    public get isLoadingAnimation(): number | string {
+        return this.$params.useLoadingAnimation ? this.filterChangedCounter + this.gamesRowsLoaded : '';
+    }
+
     public trackGames(index: number, item: Game): string {
         return `${this.filterChangedCounter}.${item.ID}`;
     }
@@ -228,7 +238,7 @@ export class GamesGridComponent extends AbstractComponent implements OnInit, OnD
                     position: 'end',
                     offsetY: 40,
                 });
-            }, 500);
+            }, 750);
         }
 
         this.lazyLoading = false;

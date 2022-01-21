@@ -146,6 +146,10 @@ export interface IGamesGridCParams extends IComponentParams<ComponentTheme, Comp
      */
     usePlaceholders?: boolean;
     /**
+     * Enable/disable loading effect for game thumbs on loadMore and search actions
+     */
+    useLoadingAnimation?: boolean;
+    /**
      * Set of parameters for icon before title. Undefined by default.
      * @param {boolean} byCategory if `true` and `filter` contains category,
      * icon name will be set based on category name. The same algorithm as in category menu
@@ -238,6 +242,7 @@ export const defaultParams: IGamesGridCParams = {
     class: 'wlc-games-grid',
     gamesRows: 4,
     usePlaceholders: true,
+    useLoadingAnimation: true,
     showTitle: true,
     showAllLink: {
         use: false,

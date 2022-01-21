@@ -1,4 +1,6 @@
-<div class="{{$class}}__content" [hidden]="hideEmptyComponent">
+<div class="{{$class}}__content"
+     [@cardLoading]="isLoadingAnimation"
+     [hidden]="hideEmptyComponent">
 
     <ng-template *ngIf="$params.showAsSwiper; else default" [ngTemplateOutlet]="swiper"></ng-template>
 
