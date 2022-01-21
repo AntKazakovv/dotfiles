@@ -164,7 +164,7 @@ export class SignUpFormComponent extends UserActionsAbstract<Params.ISignUpFormC
         const promocodeControl = form.get('registrationPromoCode');
         const currencyControl = form.get('currency');
 
-        if (!promocodeControl.value || !currencyControl) {
+        if (!promocodeControl?.value || !currencyControl) {
             return true;
         }
 
