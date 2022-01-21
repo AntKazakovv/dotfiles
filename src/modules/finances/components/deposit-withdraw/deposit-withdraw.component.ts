@@ -285,6 +285,9 @@ export class DepositWithdrawComponent extends AbstractDepositWithdrawComponent i
             if (response[0] === 'redirect') {
                 this.window.location.replace(response[1]);
                 return;
+            } else if (response[0] === 'POST') {
+                this.addFormToBodyAndSubmit(response);
+                return;
             } else if (response[0] === PIQCashierResponse) {
                 return;
             }
@@ -390,12 +393,7 @@ export class DepositWithdrawComponent extends AbstractDepositWithdrawComponent i
                 }
             }
 
-            const formSubmit: HTMLFormElement = this.createForm(response);
-            this.document.body.appendChild(formSubmit);
-
-            if (!this.isShowIframe) {
-                formSubmit.submit();
-            }
+            this.addFormToBodyAndSubmit(response);
         } catch (error) {
             this.pushNotification({
                 type: 'error',
@@ -861,6 +859,15 @@ export class DepositWithdrawComponent extends AbstractDepositWithdrawComponent i
         };
 
         this.cdr.markForCheck();
+    }
+
+    protected addFormToBodyAndSubmit(response): void {
+        const formSubmit: HTMLFormElement = this.createForm(response);
+        this.document.body.appendChild(formSubmit);
+
+        if (!this.isShowIframe) {
+            formSubmit.submit();
+        }
     }
 
     private getLastAccountSelect(lastAccounts: IIndexing<string> | string[]): IFormComponent {
