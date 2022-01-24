@@ -150,42 +150,61 @@ module.exports = function changeLogsTask() {
                 );
                 try {
                     const data = JSON.parse(response);
-                    res.branch = _.get(data, 'last_pipeline.ref');
+                    const branch = _.get(data, 'last_pipeline.ref');
+                    if (branch !== 'master') {
+                        res.branch = _.get(data, 'last_pipeline.ref');
+                    }
                 } catch (error) {
                     //
                 }
             }
 
             // attemp to get merge request data
-            let response = '';
-            if (res.branch) {
-                response = this.execNativeShellSync(`curl "https://${gitUrl}/api/v4/projects`
-                    + `/${projectId}/merge_requests?state=merged`
-                    + `&source_branch=${res.branch}&private_token=${apiKey}"`);
-            } else {
-                const searchText = encodeURIComponent(res.message);
-                response = this.execNativeShellSync(`curl "https://${gitUrl}/api/v4/projects/`
-                    + `${projectId}/merge_requests?state=merged&search=${searchText}&private_token=${apiKey}"`);
-            }
+            let response = this.execNativeShellSync(`curl "https://${gitUrl}/api/v4/projects`
+                + `/${projectId}/repository/commits/${res.hash}/merge_requests?state=merged&private_token=${apiKey}"`);
 
             try {
                 const data = JSON.parse(response);
-                if (_.isArray(data)) {
-                    let mr;
-                    if (data.length > 1) {
-                        mr = _.find(data, (item) => {
-                            return item.merge_commit_sha.indexOf(res.hash) === 0
-                                || item.squash_commit_sha.indexOf(res.hash) === 0;
-                        });
-                    } else {
-                        mr = data[0];
-                    }
+                if (data && data.length) {
+                    const mr = data[0];
                     res.mrTitle = _.get(mr, 'title', '');
                     res.description = _.get(mr, 'description', '');
                     res.mrId = _.get(mr, 'id', Date.now());
                 }
             } catch (error) {
                 //
+            }
+
+            if (!res.mrId) {
+                if (res.branch) {
+                    response = this.execNativeShellSync(`curl "https://${gitUrl}/api/v4/projects`
+                        + `/${projectId}/merge_requests?state=merged`
+                        + `&source_branch=${res.branch}&private_token=${apiKey}"`);
+                } else {
+                    const searchText = encodeURIComponent(res.message);
+                    response = this.execNativeShellSync(`curl "https://${gitUrl}/api/v4/projects/`
+                        + `${projectId}/merge_requests?state=merged&search=${searchText}&private_token=${apiKey}"`);
+                }
+
+                try {
+                    const data = JSON.parse(response);
+                    if (_.isArray(data)) {
+                        let mr;
+                        if (data.length > 1) {
+                            mr = _.find(data, (item) => {
+                                return item.merge_commit_sha.indexOf(res.hash) === 0
+                                    || item.squash_commit_sha.indexOf(res.hash) === 0;
+                            });
+                        } else {
+                            mr = data[0];
+                        }
+                        res.mrTitle = _.get(mr, 'title', '');
+                        res.description = _.get(mr, 'description', '');
+                        res.mrId = _.get(mr, 'id', Date.now());
+                    }
+                } catch (error) {
+                    //
+                }
             }
 
             res.message = res.mrTitle || res.message;
