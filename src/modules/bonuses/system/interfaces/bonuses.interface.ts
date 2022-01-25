@@ -82,6 +82,7 @@ export interface IBonus {
     Image_store: string;
     Inventoried: number;
     IsInventory: string;
+    Weight: string;
     LBID: string;
     Limitation: string;
     LoyaltyPoints: string;
@@ -157,6 +158,7 @@ export interface IGetSubscribeParams {
     ready$?: Subject<boolean>;
 }
 
+export type TBonusSortOrder = 'active' | 'promocode' | 'subscribe' | 'inventory' | number;
 export type IBonusType = 'default' | 'reg' | 'deposit' | 'promo' | 'store' | 'other' | 'blank';
 export type BonusesFilterType = 'all' | 'reg' | 'deposit' | 'promocode' | 'inventory' | 'main' | 'active' | 'default';
 export type RestType = 'active' | 'history' | 'store' | 'any';

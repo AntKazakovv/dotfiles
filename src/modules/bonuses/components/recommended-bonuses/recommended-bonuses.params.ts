@@ -6,9 +6,10 @@ import {
 } from 'wlc-engine/modules/core';
 import {
     BonusesFilterType,
-    IBonusItemCParams,
     RestType,
-} from 'wlc-engine/modules/bonuses';
+} from 'wlc-engine/modules/bonuses/system/interfaces/bonuses.interface';
+import {TBonusSortOrder} from 'wlc-engine/modules/bonuses/system/interfaces/bonuses.interface';
+import {IBonusItemCParams} from 'wlc-engine/modules/bonuses/components/bonus-item/bonus-item.params';
 
 export type Type = 'default' | 'swiper' | CustomType;
 export type Theme = 'default' | 'active' | CustomType;
@@ -24,7 +25,7 @@ export interface ICommonParams {
     restType?: RestType;
     filter?: BonusesFilterType;
     filterByGroup?: string;
-    sortOrder?: ('active' | 'subscribe' | 'inventory' | number)[];
+    sortOrder?: TBonusSortOrder[];
     swiper?: SwiperOptions;
     useQuery?: boolean;
 }

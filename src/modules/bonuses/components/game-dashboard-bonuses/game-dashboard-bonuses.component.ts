@@ -94,7 +94,10 @@ export class GameDashboardBonusesComponent extends AbstractComponent implements 
             observer: {
                 next: (bonuses: Bonus[]) => {
                     if (bonuses) {
-                        this.bonuses = this.bonusesService.filterBonuses(bonuses, this.filter).slice(0, 9);
+                        this.bonuses = this.bonusesService.sortBonuses(
+                            this.bonusesService.filterBonuses(bonuses, this.filter).slice(0, 9),
+                            this.$params.common?.sortOrder,
+                        );
                         this.bonusesToSlides();
                         this.isReady = true;
                         this.cdr.markForCheck();

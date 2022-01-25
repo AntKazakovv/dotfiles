@@ -21,13 +21,19 @@ import _isArray from 'lodash-es/isArray';
 import _isObject from 'lodash-es/isObject';
 import _map from 'lodash-es/map';
 import _size from 'lodash-es/size';
-import _sortBy from 'lodash-es/sortBy';
 import _unset from 'lodash-es/unset';
+import _orderBy from 'lodash-es/orderBy';
+import _reduce from 'lodash-es/reduce';
+import _union from 'lodash-es/union';
+import _unionBy from 'lodash-es/unionBy';
+import _isNumber from 'lodash-es/isNumber';
+import _find from 'lodash-es/find';
 
 import {Bonus} from 'wlc-engine/modules/bonuses/system/models/bonus';
 import {
     ActionType,
     BonusesFilterType,
+    TBonusSortOrder,
     IBonus,
     IGetSubscribeParams,
     IQueryParams,
@@ -454,7 +460,11 @@ export class BonusesService {
                 return res.data as T[];
             }
 
-            let bonuses: Bonus[] = this.checkForbid(await this.modifyBonuses(res.data), queryParams);
+            const bonuses: Bonus[] = _orderBy(
+                this.checkForbid(await this.modifyBonuses(res.data), queryParams),
+                'weight',
+                'desc',
+            );
 
             if (bonuses.length) {
                 await this.checkBonusesInCache(bonuses);
@@ -462,12 +472,6 @@ export class BonusesService {
                     await this.checkPromoBonus();
                 }
             }
-
-            bonuses = _sortBy<Bonus>(
-                bonuses,
-                (bonus: Bonus) => (bonus.id === this.promoBonus?.id) ? 0 : bonus.id,
-            );
-
 
             switch (type) {
                 case 'active':
@@ -507,6 +511,41 @@ export class BonusesService {
             this.cachingService.clear(this.dbPromoUrl);
             this.promoBonus = null;
         }
+    }
+
+
+    /**
+     * Sorts bonuses according to sort order
+     * @param {Bonus[]} bonuses bonuses array
+     * @param {TBonusSortOrder[]} sortOrder bonuses order
+     * @returns {Bonus[]} bonuses bonuses array
+     */
+    public sortBonuses(bonuses: Bonus[], sortOrder: TBonusSortOrder[]): Bonus[] {
+        const result = _reduce(_union(sortOrder), (res: Bonus[], element: TBonusSortOrder): Bonus[] => {
+            if (_isNumber(element)) {
+                return _unionBy(res, [_find(bonuses, (bonus: Bonus): boolean => bonus.id === element)], 'id');
+            }
+            switch (element) {
+                case 'active':
+                    return _unionBy(res, _filter(bonuses, (bonus: Bonus): boolean => bonus.isActive), 'id');
+                case 'subscribe':
+                    return _unionBy(res, _filter(
+                        bonuses,
+                        (bonus: Bonus): boolean => bonus.isSubscribed,
+                    ), 'id');
+                case 'promocode':
+                    return _unionBy(res, _filter(bonuses, (bonus: Bonus): boolean => bonus.id === this.promoBonus?.id),
+                        'id');
+                case 'inventory':
+                    return _unionBy(res, _filter(bonuses, (bonus: Bonus): boolean => bonus.inventoried), 'id');
+                default:
+                    return _unionBy(res, bonuses, 'id');
+            }
+        }, []);
+
+        return (result.length === bonuses.length)
+            ? result : _unionBy(result, bonuses, 'id');
+
     }
 
     private async modifyBonuses(data: IBonus[]): Promise<Bonus[]> {

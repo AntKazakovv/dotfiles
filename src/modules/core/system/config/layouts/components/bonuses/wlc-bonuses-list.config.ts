@@ -4,11 +4,11 @@ import {ILayoutComponent} from 'wlc-engine/modules/core';
 export namespace wlcBonusesList {
     export const main: ILayoutComponent = {
         name: 'bonuses.wlc-bonuses-list',
-        params: {
+        params: <IBonusesListCParams>{
             common: {
                 filter: 'main',
                 useQuery: true,
-                sortOrder: ['active', 'subscribe', 'inventory'],
+                sortOrder: ['active', 'promocode', 'subscribe', 'inventory'],
                 pagination: {
                     use: true,
                     breakpoints: {
@@ -39,7 +39,7 @@ export namespace wlcBonusesList {
             common: {
                 filter: 'main',
                 useQuery: true,
-                sortOrder: ['active', 'subscribe', 'inventory'],
+                sortOrder: ['active', 'promocode', 'subscribe', 'inventory'],
                 pagination: {
                     use: true,
                     breakpoints: {
@@ -128,7 +128,7 @@ export namespace wlcBonusesList {
             wlcElement: 'block_bonuses-main',
             common: {
                 useQuery: true,
-                sortOrder: ['active', 'subscribe', 'inventory'],
+                sortOrder: ['active', 'promocode', 'subscribe', 'inventory'],
                 swiper: {
                     nested: true,
                     slidesPerView: 2,
@@ -182,7 +182,7 @@ export namespace wlcBonusesList {
             title: gettext('Bonus'),
             wlcElement: 'block_bonuses-main',
             common: {
-                sortOrder: ['active', 'subscribe', 'inventory'],
+                sortOrder: ['active', 'promocode', 'subscribe', 'inventory'],
                 swiper: {
                     slidesPerView: 1,
                     navigation: {

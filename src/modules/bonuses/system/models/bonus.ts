@@ -270,6 +270,13 @@ export class Bonus extends AbstractModel<IBonus> {
         return !!_toNumber(this.data.IsInventory);
     }
 
+    /**
+     * Returns weight of the bonus
+     */
+    public get weight(): number {
+        return _toNumber(this.data.Weight);
+    }
+
     public get LBID(): string {
         return this.data.LBID;
     }

@@ -18,11 +18,8 @@ import {Swiper, SwiperOptions} from 'swiper';
 import _find from 'lodash-es/find';
 import _findIndex from 'lodash-es/findIndex';
 import _merge from 'lodash-es/merge';
-import _isNumber from 'lodash-es/isNumber';
 import _union from 'lodash-es/union';
-import _unionBy from 'lodash-es/unionBy';
 import _each from 'lodash-es/each';
-import _reduce from 'lodash-es/reduce';
 import _filter from 'lodash-es/filter';
 import _isObject from 'lodash-es/isObject';
 import _cloneDeep from 'lodash-es/cloneDeep';
@@ -55,7 +52,6 @@ import {INoContentCParams} from 'wlc-engine/modules/core/components/no-content/n
 import {BonusItemComponent} from '../bonus-item/bonus-item.component';
 
 import * as Params from './bonuses-list.params';
-
 @Component({
     selector: '[wlc-bonuses-list]',
     templateUrl: './bonuses-list.component.html',
@@ -365,25 +361,7 @@ export class BonusesListComponent extends AbstractComponent implements OnInit, O
 
         if (!this.bonuses.length) return;
 
-        const result = _reduce(_union(this.$params.common.sortOrder), (res, element) => {
-            if (_isNumber(element)) {
-                return _unionBy(res, [_find(this.bonuses, (bonus) => bonus.id === element)], 'id');
-            } else {
-                switch (element) {
-                    case 'active':
-                        return _unionBy(res, _filter(this.bonuses, (bonus) => bonus.isActive), 'id');
-                    case 'subscribe':
-                        return _unionBy(res, _filter(this.bonuses, (bonus) => bonus.isSubscribed), 'id');
-                    case 'inventory':
-                        return _unionBy(res, _filter(this.bonuses, (bonus) => bonus.inventoried), 'id');
-                    default:
-                        return _unionBy(res, this.bonuses, 'id');
-                }
-            }
-        }, []);
-
-        return (result.length === this.bonuses.length)
-            ? result : _unionBy(result, this.bonuses, 'id');
+        return  this.bonusesService.sortBonuses(this.bonuses, this.$params.common?.sortOrder);
     }
 
     protected prepareBonuses(): void {

@@ -1,5 +1,6 @@
 import {IComponentParams, CustomType} from 'wlc-engine/modules/core';
 import {ISliderCParams} from 'wlc-engine/modules/promo';
+import {TBonusSortOrder} from 'wlc-engine/modules/bonuses/system/interfaces/bonuses.interface';
 
 export type Type = 'default' | CustomType;
 export type Theme = 'default' | CustomType;
@@ -14,6 +15,7 @@ export interface IGameDashboardBonusesCParams extends IComponentParams<Theme, Ty
         themeMod?: ThemeMod;
         sliderParams?: ISliderCParams,
         landscapeSliderParams?: ISliderCParams,
+        sortOrder?: TBonusSortOrder[];
     }
 }
 
@@ -41,5 +43,6 @@ export const defaultParams: IGameDashboardBonusesCParams = {
                 spaceBetween: 10,
             },
         },
+        sortOrder: ['active', 'promocode', 'subscribe', 'inventory'],
     },
 };

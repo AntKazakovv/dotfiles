@@ -12,10 +12,11 @@ import {
     BonusesFilterType,
 } from 'wlc-engine/modules/bonuses';
 import {INoContentCParams} from 'wlc-engine/modules/core/components/no-content/no-content.params';
+import {TBonusSortOrder} from 'wlc-engine/modules/bonuses/system/interfaces/bonuses.interface';
 
 export type Type = 'default' | 'swiper' | CustomType;
 export type Theme = 'active' | 'default' | 'partial' | 'promo' | 'promo-home' | 'reg-first' | CustomType;
-export type ThemeMod = 'default' | CustomType;
+export type ThemeMod = 'default' | 'with-image' | CustomType;
 export type AutoModifiers = Theme | ThemeMod;
 export type CustomMod = string;
 export type Modifiers = AutoModifiers | CustomMod | null;
@@ -29,7 +30,7 @@ export interface IBonusesListCParams extends IComponentParams<Theme, Type, Theme
         restType?: RestType;
         filter?: BonusesFilterType;
         filterByGroup?: string;
-        sortOrder?: ('active' | 'subscribe' | 'inventory' | number)[];
+        sortOrder?: TBonusSortOrder[];
         swiper?: SwiperOptions;
         swiperManualTransitionDuration?: number;
         useBlankBonus?: boolean;
