@@ -16,13 +16,19 @@
             grid-gap: ef.get-value($themeDefault, 'containerGap');
         }
     }
+
+    .app-tournaments-state & {
+
+        .wlc-tournament-list__nocontent {
+            margin: ef.get-value($noContent, 'noContentMargin');
+        }
+    }
 }
 
 .wlc-tournament-list__nocontent {
     display: ef.get-value($noContent, 'noContentDisplay');
     flex-direction: ef.get-value($noContent, 'noContentFDirection');
     align-items: ef.get-value($noContent, 'noContentAlignItems');
-    margin: ef.get-value($noContent, 'noContentMargin');
 
     &-btn {
         margin: ef.get-value($noContent, 'noContentMarginBtn');

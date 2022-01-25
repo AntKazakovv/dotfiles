@@ -70,7 +70,7 @@ $themeActive: map-merge((
 
 $customNoContent: () !default;
 $noContent: map-merge((
-    'noContentMargin':  80px 0 140px 0,
+    'noContentMargin': 80px 0 140px 0,
     'noContentMarginBtn': ef.size(8) 0 0 0,
     'noContentDisplay': flex,
     'noContentFDirection': column,
