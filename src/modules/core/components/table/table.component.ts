@@ -8,14 +8,7 @@ import {
     Injector,
 } from '@angular/core';
 import {BehaviorSubject} from 'rxjs';
-import {
-    animate,
-    query,
-    stagger,
-    style,
-    transition,
-    trigger,
-} from '@angular/animations';
+
 import {takeUntil} from 'rxjs/operators';
 import {
     AbstractComponent,
@@ -25,6 +18,7 @@ import {
     ConfigService,
     DeviceType,
     HeightToggleAnimation,
+    TableAppearanceAnimation,
     IPaginateOutput,
 } from 'wlc-engine/modules/core';
 import {TableRowModel} from './table-row.model';
@@ -44,16 +38,7 @@ import _sortBy from 'lodash-es/sortBy';
     styleUrls: ['./styles/table.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
     animations: [
-        trigger('tableAppearance', [
-            transition('* <=> *', [
-                query(':enter', [
-                    style({opacity: 0, transform: 'translateX(-35px)'}),
-                    stagger('0.2s', animate('0.2s',
-                        style({opacity: 1, transform: 'translateX(0)'},
-                        ))),
-                ], {optional: true}),
-            ]),
-        ]),
+        ...TableAppearanceAnimation,
         ...HeightToggleAnimation,
     ],
 })
@@ -198,7 +183,7 @@ export class TableComponent extends AbstractComponent implements OnInit {
     }
 
     public toggleRows(): void {
-        if(this.toggled) {
+        if (this.toggled) {
             this.paginatedRows = this.rows?.slice(0, this.itemPerPage);
         } else {
             this.paginatedRows = this.rows;

@@ -1,7 +1,7 @@
 <ng-template #default>
     <div *ngIf='ready'
          class="{{$class}}__content"
-         [@tableAppearance]="paginatedRows.length">
+         [@tableAppearance]="paginatedRows.length + indexFactor">
 
         <div *ngIf="rows.length" class="{{$class}}__row {{$class}}__row--head">
             <span *ngFor="let col of head"
