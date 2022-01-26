@@ -96,44 +96,22 @@
         }
 
         &__item-image {
-            @include em.get-mq-map('width', $themeDefault, 'itemImageBgWidth');
-            @include em.get-mq-map('height', $themeDefault, 'itemImageBgHeight');
+            @include em.get-mq-map('padding', $themeDefault, 'itemImagePadding');
 
-            position: ef.get-value($themeDefault, 'itemImageBgPosition');
-
-            display: ef.get-value($themeDefault, 'itemImageBgDisplay');
-            align-items: ef.get-value($themeDefault, 'itemImageBgAlign');
-            justify-content: ef.get-value($themeDefault, 'itemImageBgJustify');
-
-            background: ef.get-value($themeDefault, 'itemImageBgColor');
-            border-radius: ef.get-value($themeDefault, 'itemImageBgBorderRadius');
-
-            &.custom-image {
-                @include em.get-mq-map('padding', $themeDefault, 'customImageBlockPadding');
-                @include em.get-mq-map('width', $themeDefault, 'customImageBlockWidth');
-                @include em.get-mq-map('background', $themeDefault, 'customImageBlockBackground');
-
-                img {
-                    @include em.get-mq-map('width', $themeDefault, 'customImageWidth');
-                    @include em.get-mq-map('max-width', $themeDefault, 'customImageMaxWidth');
-                    @include em.get-mq-map('height', $themeDefault, 'customImageHeight');
-                    @include em.get-mq-map('max-height', $themeDefault, 'customImageMaxHeight');
-                    @include em.get-mq-map('margin', $themeDefault, 'customImageMargin');
-                    @include em.get-mq-map('object-fit', $themeDefault, 'customImageObjectfit');
-                }
-            }
+            position: ef.get-value($themeDefault, 'itemImagePosition');
+            display: ef.get-value($themeDefault, 'itemImageDisplay');
+            align-items: ef.get-value($themeDefault, 'itemImageAlign');
+            justify-content: ef.get-value($themeDefault, 'itemImageJustify');
+            width: ef.get-value($themeDefault, 'itemImageWidth');
+            height: ef.get-value($themeDefault, 'itemImageHeight');
         }
 
         &--icon {
-            display: ef.get-value($themeDefault, 'itemIconDisplay');
-
-            @for $i from 1 through 4 {
-                &--#{$i} {
-                    width: ef.get-value($themeDefault, 'itemIconWidth-#{$i}');
-                    height: ef.get-value($themeDefault, 'itemIconHeight-#{$i}');
-                    margin: ef.get-value($themeDefault, 'itemIconMargin-#{$i}');
-                }
-            }
+            width: ef.get-value($themeDefault, 'iconWidth');
+            max-width: ef.get-value($themeDefault, 'iconMaxWidth');
+            height: ef.get-value($themeDefault, 'iconHeight');
+            max-height: ef.get-value($themeDefault, 'iconMaxHeight');
+            object-fit: ef.get-value($themeDefault, 'iconObjectfit');
         }
 
         &__item-title {
@@ -145,8 +123,9 @@
             @include em.get-mq-map('padding', $themeDefault, 'itemDescriptionPadding');
             @include em.get-mq-map('margin', $themeDefault, 'itemDescriptionMargin');
             @include text.get-text-style(ef.get-value($themeDefault, 'itemDescriptionFont'), ef.get-value($themeDefault, 'itemDescriptionFontColor'));
-            @include em.get-mq-map('text-align', $themeDefault, 'itemDescriptionTextAlign');
             @include em.lineClamp(3);
+
+            text-align: ef.get-value($themeDefault, 'itemDescriptionTextAlign');
         }
 
         &__item-points {

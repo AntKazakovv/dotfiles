@@ -90,35 +90,26 @@ $themeDefault: map-merge((
         1200: transparent,
     ),
 
-    'itemImageBgPosition': relative,
-    'itemImageBgDisplay': flex,
-    'itemImageBgAlign': center,
-    'itemImageBgJustify': center,
-    'itemImageBgColor': var(--mc-bg),
-    'itemImageBgWidth': 170px,
-    'itemImageBgHeight': 170px,
-    'itemImageBgBorderRadius': 100%,
+    'itemImageWidth': auto,
+    'itemImageHeight': 190px,
+    'itemImagePadding': (
+        320: 0 ef.size(3),
+        1200: 0,
+    ),
 
-    'itemIconDisplay': block,
+    'itemImagePosition': relative,
+    'itemImageDisplay': flex,
+    'itemImageAlign': center,
+    'itemImageJustify': center,
 
-    'itemIconMargin-1': 0 0 9px 12px,
-    'itemIconWidth-1': 160px,
-    'itemIconHeight-1': 181px,
-
-    'itemIconMargin-2': 0 0 6px 12px,
-    'itemIconWidth-2': 164px,
-    'itemIconHeight-2': 179px,
-
-    'itemIconMargin-3': 0 0 12px 9px,
-    'itemIconWidth-3': 171px,
-    'itemIconHeight-3': 184px,
-
-    'itemIconMargin-4': 0 0 16px 9px,
-    'itemIconWidth-4': 199px,
-    'itemIconHeight-4': 185px,
+    'iconWidth': unset,
+    'iconMaxWidth': 100%,
+    'iconHeight': unset,
+    'iconMaxHeight': 100%,
+    'iconObjectfit': contain,
 
     'itemTitlePadding': (
-        320: ef.get('size', 'smallest') 0 ef.get('size', 'smally') 0,
+        320: ef.size(3) 0,
     ),
     'itemTitleFont': 'QoteTextBold',
     'itemTitleFontColor': var(--mc-baseMain),
@@ -148,16 +139,4 @@ $themeDefault: map-merge((
     ),
 
     'nodataTextAlign': center,
-    'customImageBlockPadding': (
-        320: 0 ef.size(3),
-        1200: 0,
-    ),
-    'customImageBlockWidth': unset,
-    'customImageBlockBackground': transparent,
-    'customImageWidth': unset,
-    'customImageMaxWidth': 100%,
-    'customImageHeight': unset,
-    'customImageMaxHeight': 100%,
-    'customImageMargin': 0 0 ef.size(2) 0,
-    'customImageObjectfit': cover,
 ), $customThemeDefault);
