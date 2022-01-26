@@ -135,7 +135,6 @@
 
         &__description {
             @include text.get-text-style(ef.get-value($themeDefault, 'descriptionFontStyle'), ef.get-value($themeDefault, 'descriptionColor'));
-            @include em.lineClamp(3);
             margin: ef.get-value($themeDefault, 'descriptionMargin');
 
             @include mq.min(900) {

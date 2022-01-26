@@ -4,4 +4,5 @@ $customThemeDefault: () !default;
 $themeDefault: map-merge((
     'gap': ef.get('size', 'smaller'),
     'loginTemplateAreas': 'login sign',
+    'loginTemplateAreasMobile': 'sign' 'login',
 ), $customThemeDefault);

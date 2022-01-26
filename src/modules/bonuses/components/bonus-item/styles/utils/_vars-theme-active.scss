@@ -53,10 +53,7 @@ $themeActive: map-merge((
     'tagPositionLeft': 50%,
     'tagPositionTransform': translateX(-50%),
 
-    'nameColor': (
-        375: ef.get('mainColors', 'baseMain'), //Locked color
-        560: var(--mc-baseMain)
-    ),
+    'nameColor': var(--mc-baseMain),
 
     'nameLine': (
         375: 1,
@@ -67,10 +64,7 @@ $themeActive: map-merge((
         560: 'QoteTextBold',
     ),
 
-    'descriptionColor': (
-        375: ef.get('mainColors', 'baseMain'), //Locked color
-        560: var(--mc-baseMain)
-    ),
+    'descriptionColor': var(--mc-baseMain),
     'descrMaxWidth': (
         1630: 34ch
     ),

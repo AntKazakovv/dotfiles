@@ -10,12 +10,10 @@
                       [class.active]="$params.common.tournament?.isSelected"
                 >{{$params.common.tournament.tag | translate}}</span>
             </div>
-            <h3 class="{{$class}}__title"
-                [title]="$params.common.tournament.name">{{$params.common.tournament.name}}</h3>
-            <div class="{{$class}}__description"
-                 [title]="$params.common.tournament.descriptionClean"
-                 [innerHtml]="$params.common.tournament.descriptionClean"
-            ></div>
+            <h3 class="{{$class}}__title">{{$params.common.tournament.name}}</h3>
+            <div class="{{$class}}__description" [wlc-clamp]="$params.descriptionClamp">
+                {{$params.common.tournament.descriptionClean}}
+            </div>
         </div>
     </div>
     <div class="{{$class}}__board">

@@ -22,6 +22,7 @@ export interface ITournamentPromoCParams extends IComponentParams<ComponentTheme
     type?: ComponentType;
     tournament?: Tournament;
     parentInstance?: TournamentComponent;
+    descriptionClamp?: number,
     common?: {
         tournament?: Tournament;
         parentInstance?: TournamentComponent;
@@ -47,5 +48,6 @@ export const defaultParams: ITournamentPromoCParams = {
     moduleName: 'tournaments',
     class: 'wlc-tournament-promo',
     componentName: 'wlc-tournament-promo',
+    descriptionClamp: 3,
     common: {},
 };

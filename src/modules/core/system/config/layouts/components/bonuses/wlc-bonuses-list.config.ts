@@ -130,6 +130,7 @@ export namespace wlcBonusesList {
                 useQuery: true,
                 sortOrder: ['active', 'subscribe', 'inventory'],
                 swiper: {
+                    nested: true,
                     slidesPerView: 2,
                     spaceBetween: 20,
                     loop: false,
@@ -143,18 +144,22 @@ export namespace wlcBonusesList {
                         320: {
                             slidesPerView: 1,
                             spaceBetween: 10,
+                            followFinger: false,
                         },
                         640: {
                             slidesPerView: 2,
                             spaceBetween: 10,
+                            followFinger: false,
                         },
                         768: {
                             slidesPerView: 2,
                             spaceBetween: 10,
+                            followFinger: false,
                         },
                         1024: {
                             slidesPerView: 3,
                             spaceBetween: 15,
+                            followFinger: true,
                         },
                         1366: {
                             slidesPerView: 2,
@@ -187,6 +192,14 @@ export namespace wlcBonusesList {
                     pagination: false,
                     lazy: true,
                     spaceBetween: 20,
+                    breakpoints: {
+                        320: {
+                            followFinger: false,
+                        },
+                        1024: {
+                            followFinger: true,
+                        },
+                    },
                 },
             },
             itemsParams: {

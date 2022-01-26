@@ -8,6 +8,10 @@
     grid-template-areas: ef.get-value($themeDefault, 'loginTemplateAreas');
     align-items: center;
 
+    .wlc-burger-panel--left-mobile & {
+        grid-template-areas: ef.get-value($themeDefault, 'loginTemplateAreasMobile');
+    }
+
     &::ng-deep {
 
         .wlc-btn--type-default {

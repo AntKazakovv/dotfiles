@@ -186,7 +186,6 @@ export class DepositWithdrawComponent extends AbstractDepositWithdrawComponent i
                     this.cdr.markForCheck();
                 });
         }
-
     }
 
     /**

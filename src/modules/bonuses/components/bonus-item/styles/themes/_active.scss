@@ -96,7 +96,7 @@
             }
 
             @include mq.min(560) {
-                @include text.get-text-style(ef.get-value($themeActive, 'nameTextStyle', 560), ef.get-value($themeActive, 'nameColor', 560));
+                @include text.get-text-style(ef.get-value($themeActive, 'nameTextStyle', 560), null);
             }
         }
 
@@ -108,7 +108,6 @@
 
             @include mq.min(560) {
                 -webkit-line-clamp: 5;
-                color: ef.get-value($themeActive, 'descriptionColor', 560);
             }
         }
 
