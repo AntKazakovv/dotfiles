@@ -23,8 +23,8 @@ import {ResizedEvent} from 'angular-resize-event';
 import {
     UIRouter,
     RawParams,
+    StateService,
 } from '@uirouter/core';
-
 import {fromEvent} from 'rxjs';
 import {
     filter,
@@ -50,6 +50,7 @@ import {
     ICustomGameParams,
     IGameParams,
     ILaunchInfo,
+    TDisableDemoFor,
 } from 'wlc-engine/modules/games/system/interfaces/games.interfaces';
 import {
     AbstractComponent,
@@ -187,6 +188,7 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
         protected hooksService: HooksService,
         protected titleService: Title,
         protected seoService: SeoService,
+        protected stateService: StateService,
     ) {
         super({injectParams, defaultParams});
     }
@@ -226,6 +228,19 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
                 msg: gettext('The game does not exist or the game settings are incorrect'),
                 state: 'app.home',
             });
+        }
+
+        if (
+            (this.configService.get<TDisableDemoFor>('$games.disableDemoBtnsFor') === 'auth')
+            && this.gameParams.demo
+        ) {
+            this.eventService.subscribe(
+                {name: 'LOGIN'},
+                () =>  {
+                    // Reload to get error if we play demo and login
+                    this.stateService.reload();
+                },
+                this.$destroy);
         }
     }
 

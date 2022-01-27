@@ -6,6 +6,10 @@ import {ICategoryBlock} from 'wlc-engine/modules/core/system/interfaces/categori
 import {TotalJackpotNoContentByThemeType} from 'wlc-engine/modules/games/components/total-jackpot/total-jackpot.params';
 
 export type TSortDirection = 'asc' | 'desc';
+/**
+* Disable demo for all users or only for authentificated users
+*/
+export type TDisableDemoFor = 'all' | 'auth';
 
 export interface IGamesConfig {
     fundist?: IFundist;
@@ -33,6 +37,10 @@ export interface IGamesConfig {
     components?: IGamesComponents;
     slimGamesRequest?: boolean;
     search?: IGamesSearchSettings;
+    /**
+     * Disable demo btn in wlc-game-thumb & wlc-play-for-real for all users or only for authentificated users
+     */
+    disableDemoBtnsFor?: TDisableDemoFor;
 }
 
 export interface IGamesSearchSettings {

@@ -215,7 +215,7 @@ export class GameThumbComponent extends AbstractComponent implements OnInit {
         }
 
         this.wlcElement = `block_game-thumb-id-${this.game.ID}`;
-        this.noDemoClass = !!this.game.hasDemo;
+        this.noDemoClass = this.game.hasDemo;
         const buttonParams = this.configService
             .get<string>('$modules.games.components.wlc-game-thumb.buttons');
 

@@ -1,4 +1,5 @@
 import {UIRouter} from '@uirouter/core';
+
 import {IIndexing} from 'wlc-engine/modules/core/system/interfaces/global.interface';
 import {AbstractModel} from 'wlc-engine/modules/core/system/models/abstract.model';
 import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
@@ -11,6 +12,7 @@ import {
 import {GamesHelper} from 'wlc-engine/modules/games/system/helpers/games.helpers';
 import {Bonus} from 'wlc-engine/modules/bonuses/system/models/bonus';
 import {CategoryModel} from 'wlc-engine/modules/games/system/models/category.model';
+import {TDisableDemoFor} from 'wlc-engine/modules/games/system/interfaces/games.interfaces';
 import {
     GlobalHelper,
     IFromLog,
@@ -27,7 +29,6 @@ import _isArray from 'lodash-es/isArray';
 
 export class Game extends AbstractModel<IGame> {
     public ID: number;
-    public hasDemo: boolean;
     public name: IIndexing<string>;
     public categoryID: number[];
     public sortPerLanguage: IIndexing<number>;
@@ -49,6 +50,7 @@ export class Game extends AbstractModel<IGame> {
     protected toggleFavourite?: any;
     protected isCurrencyDisabled?: boolean;
     protected CategoryTitle?: IIndexing<string>[];
+    protected disableDemoBtnsFor: TDisableDemoFor;
 
     // что-то не нужное
     // protected MobileUrl: string;
@@ -79,7 +81,6 @@ export class Game extends AbstractModel<IGame> {
         // Object.assign(this, data);
         this.ID = _toNumber(data.ID);
         this.aspectRatio = data.AR;
-        this.hasDemo = !!data.hasDemo;
         this.name = data.Name;
         this.categoryID = _map(data.CategoryID, (id: string) => {
             return _toNumber(id);
@@ -95,6 +96,19 @@ export class Game extends AbstractModel<IGame> {
         this.countryRestrictionId = data.IDCountryRestriction;
         this.merchantName = this.getMerchantName();
         this.merchantAlias = this.getMerchantAlias();
+        this.disableDemoBtnsFor = this.configService.get<TDisableDemoFor>('$games.disableDemoBtnsFor');
+        this.data = data;
+    }
+
+    public get hasDemo(): boolean {
+        switch (this.disableDemoBtnsFor) {
+            case 'all':
+                return false;
+            case 'auth':
+                return this.configService.get<boolean>('$user.isAuthenticated') ? false : !!this.data.hasDemo;
+            default:
+                return !!this.data.hasDemo;
+        }
     }
 
     /**
