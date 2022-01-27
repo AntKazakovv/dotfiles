@@ -10,3 +10,9 @@ $themeWinnersSection: map-merge((
     // from first and last elements
     'translateItems': ef.size(5),
 ), $customThemeWinnersSection);
+
+$customThemeWinnersSectionStripe: () !default;
+$themeWinnersSectionStripe: map-merge((
+    'background': var(--mc-bg700),
+    'containerRadius':  ef.get('radius', 'biger'),
+), $customThemeWinnersSectionStripe);

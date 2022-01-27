@@ -81,4 +81,22 @@ export namespace wlcLastWinsSlider {
             },
         },
     };
+
+    export const stripe: ILayoutComponent = 
+    {
+        name: 'promo.wlc-winners-slider',
+        params: {
+            type: 'latest',
+            wlcElement: 'section_last-winners',
+        },
+    };
+
+    export const stripeWithTitle: ILayoutComponent = {
+        name: 'promo.wlc-winners-slider',
+        params: {
+            type: 'latest',
+            title: gettext('Last Winners:'),
+            wlcElement: 'section_last-winners',
+        },
+    };
 }

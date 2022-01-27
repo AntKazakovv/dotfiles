@@ -62,6 +62,25 @@ export const swiperParamsDefault: IIndexing<SwiperOptions> = {
             },
         },
     },
+    defaultWithTitleAddition: {
+        breakpoints: {
+            320: {
+                slidesPerView: 1,
+            },
+            640: {
+                slidesPerView: 2,
+            },
+            1024: {
+                slidesPerView: 3,
+            },
+            1200: {
+                slidesPerView: 3,
+            },
+            1630: {
+                slidesPerView: 4,
+            },
+        },
+    },
     vertical: {
         direction: 'vertical',
         slidesPerView: 4,

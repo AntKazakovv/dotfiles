@@ -1,0 +1,15 @@
+@use 'engine-scss/functions' as ef;
+
+.wlc-sections__winners-section--theme-stripe {
+    background: ef.get-value($themeWinnersSectionStripe, 'background');
+
+    &.wlc-sections__winners-section--in-container {
+        background: none;
+
+        .container {
+            border-radius: ef.get-value($themeWinnersSectionStripe, 'containerRadius');
+            background: ef.get-value($themeWinnersSectionStripe, 'background');
+            overflow: hidden;
+        }
+    }
+}

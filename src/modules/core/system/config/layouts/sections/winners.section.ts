@@ -19,4 +19,29 @@ export namespace  winnersSection {
             },
         ],
     };
+
+    export const stripeDef: ILayoutSectionConfig = {
+        container: true,
+        theme: 'stripe',
+        components: [
+            componentLib.wlcLastWinsSlider.stripe,
+        ],
+    };
+
+    export const stripeWithTitle: ILayoutSectionConfig = {
+        container: true,
+        theme: 'stripe',
+        components: [
+            componentLib.wlcLastWinsSlider.stripeWithTitle,
+        ],
+    };
+
+    export const stripeWithTitleInContainer: ILayoutSectionConfig = {
+        container: true,
+        theme: 'stripe',
+        modifiers: ['in-container'],
+        components: [
+            componentLib.wlcLastWinsSlider.stripeWithTitle,
+        ],
+    };
 }

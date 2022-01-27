@@ -5,7 +5,6 @@
 $customThemeDefault: () !default;
 $themeDefault: map-merge((
     'breakpoint': 1200,
-    'background': var(--mc-bg700),
 
     // wrapper
     'wrapperPadding': 15px 0,
@@ -21,7 +20,7 @@ $themeDefault: map-merge((
     // title
     'titleFontSize': ef.get('font', 'biger'),
     'titleFontWeight': 700,
-    'titleColor': var(--mc-baseOpacity),
+    'titleColor': var(--mc-baseMain),
     'titleMarginBottom': (
         375: 15px,
         1200: 0,

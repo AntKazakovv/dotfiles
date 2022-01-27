@@ -170,6 +170,10 @@ export class WinnersSliderComponent extends AbstractComponent implements OnInit,
         let swiper: SwiperOptions = _clone(Params.swiperParamsDefault[this.$params.theme])
                                         || _clone(Params.swiperParamsDefault.default);
 
+        if (this.$params.theme === 'default' && this.$params.title) {
+            _merge(swiper, Params.swiperParamsDefault.defaultWithTitleAddition);
+        }
+
         if (this.$params.swiper) {
             swiper = _assign({}, swiper, this.$params.swiper);
         }
