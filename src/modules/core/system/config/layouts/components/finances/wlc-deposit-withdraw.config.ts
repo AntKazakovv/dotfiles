@@ -42,7 +42,7 @@ export namespace wlcDepositWithdraw {
             themeMod: 'underline',
             items: [
                 'profile-menu:cash-deposit',
-                'profile-menu:cash-withdraw',
+                'profile-menu:cash-withdrawal',
             ],
         },
     };
