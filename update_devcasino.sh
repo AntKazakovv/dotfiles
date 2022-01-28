@@ -38,8 +38,37 @@ for key in ${!projects[*]}; do
     git fetch
     git checkout develop
 
-    #lock engine version
+    #get current engine version
     current_ver=$(jq '.dependencies["@egamings/wlc-engine"]' < package.json | sed -e 's/"//g')
+
+    #make devcasino branch if previous engine release was stable
+    if [ $(echo $current_ver | awk -e '/^[0-9]+\.[0-9]+\.[0-9]+$/') ]  && [ $(echo ${projects[$key]} | awk '/wlcdevcasino/') ]; then
+        stable_branch="scr"$(echo $current_ver | sed -e 's/\./-/g')
+        for branch in ${branches[$key]}; do
+            if [[ $branch == "master" ]]; then
+                continue;
+            elif [[ $branch == "test" ]]; then
+                continue;
+            elif [[ $branch == "develop" ]]; then
+                git checkout develop
+                git branch -D $stable_branch
+                git checkout -b $stable_branch
+                git push origin $stable_branch -f
+            else
+                target=$(echo $branch | sed -e 's/\+//g')
+                if [[ $target == $branch ]]; then
+                    git branch -D $branch
+                    git checkout $branch
+                    git branch -D $branch-s
+                    git checkout -b $branch-s
+                    git push origin $branch-s --force-with-lease
+                fi
+            fi
+        done;
+        git checkout develop
+    fi
+
+    #lock engine version
     sed -i -e "s|\"@egamings\/wlc-engine\": \"$current_ver\"|\"@egamings\/wlc-engine\": \"$engine_ver\"|g" ./package.json
 
     # update npm dependencies
