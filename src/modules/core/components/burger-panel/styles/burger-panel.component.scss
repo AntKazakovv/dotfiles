@@ -72,5 +72,14 @@
             background: ef.get-value($themeDefault, 'panelContentBackground');
             overflow: hidden;
         }
+
+        .wlc-main-menu,
+        .wlc-post-menu,
+        .wlc-profile-menu,
+        .wlc-user-stats,
+        .wlc-user-info__wrp,
+        .wlc-burger-panel__user-deposit {
+            transform: translateZ(0);
+        }
     }
 }

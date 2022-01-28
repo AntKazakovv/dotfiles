@@ -271,9 +271,16 @@ export namespace leftPanel {
             before: 1023,
         },
         components: [
-            componentLib.wlcLoginSignup.burgerPanel,
-            componentLib.wlcMobileMenu.vertical,
-            componentLib.wlcLanguageSelector.long,
+            {
+                name: 'core.wlc-wrapper',
+                params: {
+                    components: [
+                        componentLib.wlcLoginSignup.burgerPanel,
+                        componentLib.wlcMobileMenu.vertical,
+                        componentLib.wlcLanguageSelector.long,
+                    ],
+                },
+            },
         ],
     };
 
@@ -285,8 +292,17 @@ export namespace leftPanel {
             before: 1023,
         },
         components: [
-            ...mobile.components,
-            componentLib.wlcThemeToggler.long,
+            {
+                name: 'core.wlc-wrapper',
+                params: {
+                    components: [
+                        componentLib.wlcLoginSignup.burgerPanel,
+                        componentLib.wlcMobileMenu.vertical,
+                        componentLib.wlcLanguageSelector.long,
+                        componentLib.wlcThemeToggler.long,
+                    ],
+                },
+            },
         ],
     };
 }

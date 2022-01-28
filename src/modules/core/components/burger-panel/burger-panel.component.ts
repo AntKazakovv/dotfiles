@@ -15,6 +15,7 @@ import {
     Inject,
     Optional,
 } from '@angular/core';
+
 import {TransitionService} from '@uirouter/core';
 import {
     Observable,
@@ -37,6 +38,7 @@ import {panelsEvents} from './../float-panels/float-panels.params';
 import {IWrapperCParams} from 'wlc-engine/modules/core';
 import {WINDOW} from 'wlc-engine/modules/app/system';
 
+import {BurgerPanelAppearanceAnimations} from './burger-panel.animations';
 import * as Params from './burger-panel.params';
 
 enum Directions {
@@ -49,6 +51,9 @@ enum Directions {
     templateUrl: './burger-panel.component.html',
     styleUrls: ['./styles/burger-panel.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
+    animations: [
+        ...BurgerPanelAppearanceAnimations,
+    ],
 })
 export class BurgerPanelComponent extends AbstractComponent
     implements OnInit, OnDestroy, OnChanges, AfterViewInit {
@@ -71,6 +76,7 @@ export class BurgerPanelComponent extends AbstractComponent
     protected panmove$: Observable<HammerInput>;
     protected panend$: Observable<HammerInput>;
     protected $width: number;
+    protected animeType: string;
 
     constructor(
         @Optional() @Inject('injectParams') protected injectParams: Params.IBurgerPanelCParams,
@@ -122,6 +128,10 @@ export class BurgerPanelComponent extends AbstractComponent
         });
     }
 
+    public get animationState(): string {
+        return this.isOpened ? `${this.animeType}-open` : 'close';
+    }
+
     protected async init(): Promise<void> {
         this.addModifiers(this.id);
         await this.configService.ready;
@@ -133,6 +143,11 @@ export class BurgerPanelComponent extends AbstractComponent
         if (this.$params.touchEvents?.use) {
             this.isUseTouchEvents = this.$params.touchEvents?.onlyMobile ?
                 this.configService.get<boolean>('appConfig.mobile') : true;
+        }
+
+        this.animeType = this.$params.animeType;
+        if (this.animeType === 'translate-stagger' && this.$params.theme === 'default') {
+            this.animeType += '-default';
         }
 
         this.eventService.subscribe({name: 'TRANSITION_ENTER'}, () => {

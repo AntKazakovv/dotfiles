@@ -15,7 +15,7 @@
     transform: translateX(-100%);
 
     &.wlc-burger-panel--open {
-        transform: none;
+        transform: translateX(0);
         visibility: visible;
     }
 
@@ -59,6 +59,7 @@
                 'stats stats';
             grid-template-columns: 1fr auto;
             align-items: center;
+            transform: translateZ(0);
 
             .wlc-user-name[wlc-user-name] {
                 grid-area: name;

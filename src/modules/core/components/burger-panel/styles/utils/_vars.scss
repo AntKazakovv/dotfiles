@@ -76,7 +76,7 @@ $themeDefault: map-merge((
     'userDepositBtnMinHeight': ef.size(8),
     'panelTextColor': var(--mc-baseMain),
     'panelTextSize': ef.get('font', 'size'),
-    'transition': ef.get('time', 'main') linear,
+    'transition': 0.6s cubic-bezier(0.4, 0, 0.2, 1),
     'panelHeaderBackground': transparent,
     'panelHeaderPadding': ef.size(4),
     'panelHeaderFontSize': ef.get('font', 'PrimaryText'),

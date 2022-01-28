@@ -21,7 +21,7 @@
 </ng-template>
 
 <ng-template #innerContent>
-    <div class="{{$class}}__inner">
+    <div class="{{$class}}__inner" [@innerAppearance]="animationState">
         <ng-content></ng-content>
     </div>
 </ng-template>
@@ -30,7 +30,7 @@
     <button *ngIf="$params.showClose;"
             wlc-icon
             class="{{$class}}__close"
-            type="button"        
+            type="button"
             [attr.title]="'Close' | translate"
             [attr.aria-label]="'Close' | translate"
             iconPath="/wlc/icons/close.svg"
