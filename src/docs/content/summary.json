@@ -223,6 +223,10 @@
         "file": "./900.change-logs/900.change-logs.md",
         "children": [
             {
+                "title": "1.3.74RC4 (28-01-2022)",
+                "file": "./900.change-logs/releases/1.3.74-rc.4_28-01-2022.md"
+            },
+            {
                 "title": "1.3.74RC3 (27-01-2022)",
                 "file": "./900.change-logs/releases/1.3.74-rc.3_27-01-2022.md"
             },
