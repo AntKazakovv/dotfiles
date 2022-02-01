@@ -6,7 +6,7 @@ import {
 import {
     Subject,
 } from 'rxjs';
-import {first} from 'rxjs/internal/operators';
+import {first} from 'rxjs/operators';
 import _includes from 'lodash-es/includes';
 
 import {AbstractHook} from 'wlc-engine/modules/core/system/classes/abstract.hook';
