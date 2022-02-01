@@ -28,6 +28,15 @@ export class WlcHelper {
             && !WlcHelper.usedMobileDevice
             && WlcHelper.touchSupported();
     }
+
+    /**
+     * Checks if app was run inside iframe or not
+     *
+     * @returns {boolean} True if app was run inside iframe
+     */
+    public static isIframe(): boolean {
+        return window !== window.top || window !== window.parent || document !== top.document;
+    }
 }
 
 window.WlcHelper = WlcHelper;

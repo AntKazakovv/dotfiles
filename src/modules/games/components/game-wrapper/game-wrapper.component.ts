@@ -14,8 +14,10 @@ import {
     Input,
 } from '@angular/core';
 import {DOCUMENT} from '@angular/common';
-import {DomSanitizer} from '@angular/platform-browser';
-import {Title} from '@angular/platform-browser';
+import {
+    DomSanitizer,
+    Title,
+} from '@angular/platform-browser';
 import {FormControl} from '@angular/forms';
 import {ResizedEvent} from 'angular-resize-event';
 import {
@@ -24,7 +26,11 @@ import {
 } from '@uirouter/core';
 
 import {fromEvent} from 'rxjs';
-import {takeUntil} from 'rxjs/operators';
+import {
+    filter,
+    map,
+    takeUntil,
+} from 'rxjs/operators';
 import _isString from 'lodash-es/isString';
 import _isObject from 'lodash-es/isObject';
 import _isFunction from 'lodash-es/isFunction';
@@ -908,5 +914,28 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
             .subscribe(() => {
                 this.closeGame();
             });
+
+        fromEvent(this.window, 'message').pipe(
+            takeUntil(this.$destroy),
+            map((message): IWlcPostMessage | boolean => {
+                const data: string = _get(message, 'data');
+                if (!_isString(data)) {
+                    return false;
+                }
+
+                let msg: IWlcPostMessage;
+                try {
+                    msg = JSON.parse(data);
+                } catch (error) {
+                    return false;
+                }
+                return msg;
+            }),
+            filter((message: IWlcPostMessage | boolean): boolean => {
+                return _get(message, 'event') === 'WLC_LOAD_STARTED';
+            }),
+        ).subscribe(() => {
+            this.closeGame();
+        });
     }
 }

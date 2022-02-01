@@ -244,7 +244,7 @@ export class ConfigService {
         if (!wlcConfig.$base.profile.store.use) {
             $layouts['app.profile.dashboard'].sections['profile-content'] =
                 sectionsLib.profileContent.profileDashboardWithoutStore;
-        };
+        }
 
         switch (params.appType) {
             case 'aff':

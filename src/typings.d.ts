@@ -4,6 +4,11 @@ declare function require(path: string): {
 };
 declare function gettext<T>(str: T): T;
 
+declare interface IWlcPostMessage {
+    event: string;
+    eventData?: string;
+}
+
 declare interface ISentryConfig {
     project?: string;
 }
