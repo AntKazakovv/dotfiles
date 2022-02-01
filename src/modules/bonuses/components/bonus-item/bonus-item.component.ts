@@ -61,6 +61,7 @@ export class BonusItemComponent extends AbstractComponent implements OnInit, OnD
     public isChooseBtn: boolean;
     public isTypeRegDeposit: boolean;
     public useIconBonusImage: boolean;
+    public profileTypeFirst: boolean;
 
     constructor(
         @Inject('injectParams') protected params: Params.IBonusItemCParams,
@@ -94,12 +95,6 @@ export class BonusItemComponent extends AbstractComponent implements OnInit, OnD
         } else if (bonus.image) {
             return `url(${bonus.image})`;
         }
-    }
-
-    public get promoBg(): string {
-        const {bonus} = this.$params.common;
-
-        return `url(${this.themeMod === 'with-image' ? bonus.image : bonus.imagePromo})`;
     }
 
     public ngOnInit(): void {
@@ -160,9 +155,11 @@ export class BonusItemComponent extends AbstractComponent implements OnInit, OnD
         this.isNoChooseBtn = this.$params.common?.hideChooseBtn && this.isTypeRegDeposit;
         this.isChooseBtn = !this.$params.common?.hideChooseBtn && this.isTypeRegDeposit;
         this.useIconBonusImage = this.configService.get<boolean>('$bonuses.useIconBonusImage');
+        this.profileTypeFirst = this.configService.get<string>('$base.profile.type') === 'first';
 
-        if (this.configService.get<string>('$base.profile.type') === 'first') {
+        if (this.profileTypeFirst) {
             this.useIconBonusImage = false;
+            this.addModifiers('theme-mod-with-image');
         }
 
         if (!this.$params.common.bonus?.description) {
@@ -190,6 +187,16 @@ export class BonusItemComponent extends AbstractComponent implements OnInit, OnD
                     this.cdr.markForCheck();
                 }
             });
+    }
+
+    public getPromoBg(imageType: 'promo' | 'default'): string {
+        const {bonus} = this.$params.common;
+
+        if (this.profileTypeFirst && (imageType === 'default')) {
+            return bonus.image;
+        }
+
+        return bonus.imagePromo;
     }
 
     public openDescription(bonus: Bonus): void {

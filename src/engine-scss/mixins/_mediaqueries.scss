@@ -18,7 +18,7 @@
     $max: bbp.breakpoint-min($name, ev.$grid-breakpoints);
     @if $max {
 
-        @media (max-width: $max) {
+        @media (max-width: ($max - 1)) {
             @content;
         }
     } @else {

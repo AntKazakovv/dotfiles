@@ -82,7 +82,9 @@
                     <h4 class="{{$class}}__name" data-wlc-element="bonus_title-name">
                         {{$params.common.bonus?.name}}
                     </h4>
-                    <ng-container [ngTemplateOutlet]="description"></ng-container>
+                    <ng-container *ngIf="$params.common.bonus?.description"
+                                  [ngTemplateOutlet]="description">
+                    </ng-container>
                 </div>
                 <div wlc-bonus-buttons
                     class="{{$class}}__btns"
@@ -93,10 +95,16 @@
             </div>
             <div class="{{$class}}__image-block"
                  data-wlc-element="bonus_image">
-                <div class="{{$class}}__image"
-                     [style]="{backgroundImage: promoBg}">
+                <div class="{{$class}}__image-wrapper">
+                    <picture *ngIf="getPromoBg('promo')">
+                        <source *ngIf="profileTypeFirst"
+                                media="(max-width: 559px)"
+                                [srcset]="getPromoBg('default')">
+                        <img class="{{$class}}__image"
+                             [src]="getPromoBg('promo')">
+                    </picture>
                 </div>
-            <ng-container [ngTemplateOutlet]="bonusIcon"></ng-container>
+                <ng-container [ngTemplateOutlet]="bonusIcon"></ng-container>
             </div>
         </div>
 

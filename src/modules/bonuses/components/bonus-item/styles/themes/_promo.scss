@@ -53,7 +53,7 @@
             height: 100%;
         }
 
-        &__image {
+        &__image-wrapper {
             position: absolute;
             top: 0;
             left: 0;
@@ -72,6 +72,12 @@
                 width: 100%;
                 height: 100%;
             }
+        }
+
+        &__image {
+            width: 100%;
+            height: 100%;
+            background: none;
         }
 
         &__icon {
@@ -138,69 +144,41 @@
     }
 
     &.wlc-bonus-item--theme-mod-with-image {
-        @include bm.get-mq-map('max-width', $themePromo, 'maxWidthWithImg');
 
-        .wlc-bonus-item {
+        @include mq.max(560) {
+            max-width: ef.get-value($themePromo, 'maxWidthWithImg');
 
-            &__content {
-                height: auto;
-            }
+            .wlc-bonus-item {
 
-            &__wrapper {
-                @include bm.get-mq-map('grid-template-rows', $themePromo, 'wrapperRowsWithImg');
-                height: auto;
-            }
+                &__content {
+                    height: auto;
+                }
 
-            &__name {
-                @include nameCommonStyles;
-                @include bm.lineClamp(1);
-                margin: ef.get-value($themePromo, 'nameMarginWithImg');
-            }
+                &__wrapper {
+                    grid-template-rows: ef.get-value($themePromo, 'wrapperRowsWithImg');
+                    height: auto;
+                }
 
-            &__description {
-                @include descriptionCommonStyles;
-                height: auto;
-            }
+                &__description {
+                    @include descriptionCommonStyles;
+                    height: auto;
+                }
 
-            &__btns {
-                @include bm.transition(transform);
+                &__image-block {
+                    position: relative;
+                }
 
-                position: absolute;
-                bottom: ef.get-value($themePromo, 'btnBottomPositionWithImg');
-                display: flex;
-                justify-content: center;
-                width: 100%;
-                margin: ef.get-value($themePromo, 'btnsMarginWithImg');
-                transform: ef.get-value($themePromo, 'btnsTransformWithImg');
-                opacity: ef.get-value($themePromo, 'btnsOpacityWithImg');
-            }
+                &__image-wrapper {
 
-            &__image-block {
-                position: relative;
-            }
+                    &:before {
+                        display: none;
+                    }
+                }
 
-            &__image {
-
-                &:before {
-                    display: none;
+                &__info-block {
+                    padding: ef.get-value($themePromo, 'infoBlockPaddingWithImg');
                 }
             }
-
-            &__info-block {
-                padding: ef.get-value($themePromo, 'infoBlockPaddingWithImg');
-            }
-
-            &__info {
-                padding: ef.get-value($themePromo, 'infoPaddingWithImg');
-            }
-        }
-
-        @include bm.hover {
-            @include promoWithImageHover;
-        }
-
-        @include bm.hover(false) {
-            @include promoWithImageHover;
         }
     }
 

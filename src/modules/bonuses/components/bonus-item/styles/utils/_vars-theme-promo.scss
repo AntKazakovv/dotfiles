@@ -131,20 +131,8 @@ $themePromo: map-merge((
     'btnsJustifyContent': start,
 
     // With image
-    'maxWidthWithImg': (
-        320: 275px,
-        480: 300px,
-    ),
+    'maxWidthWithImg': 320px,
     'withImgWrapperBg': none,
-    'wrapperRowsWithImg': (
-        320: (minmax(auto, 190px) 130px),
-        480: (minmax(auto, 205px) 130px),
-    ),
-    'nameMarginWithImg': 0,
-    'infoBlockPaddingWithImg': ef.size(5) 0,
-    'infoPaddingWithImg': 0 ef.size(5),
-    'btnBottomPositionWithImg': ef.size(6),
-    'btnsMarginWithImg': ef.size(2) 0 0,
-    'btnsOpacityWithImg': 0,
-    'btnsTransformWithImg':translateY(400%),
+    'wrapperRowsWithImg': minmax(auto, 220px) auto,
+    'infoBlockPaddingWithImg': ef.size(5) ,
 ), $customThemePromo);
