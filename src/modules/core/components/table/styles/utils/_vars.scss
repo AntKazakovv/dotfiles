@@ -96,4 +96,7 @@ $themeTournaments: map-merge((
     'headTextSize': ef.get('font', 'PrimaryText'),
     'headCellPadding': 0 0 ef.get('size', 'small'),
 
+    'prizeTextAlign': right,
+    'prizePaddingRight': ef.size(12),
+    'prizeWidth': 65%,
 ), $customThemeTournaments);

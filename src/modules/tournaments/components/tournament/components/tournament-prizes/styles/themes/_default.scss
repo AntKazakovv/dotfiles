@@ -49,6 +49,10 @@
 
             .wlc-tournament-prizes__col {
                 @include text.get-text-style(ef.get-value($themeDefault, 'bodyColFontStyle'), ef.get-value($themeDefault, 'bodyColColor'));
+
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
             }
 
             &-text {

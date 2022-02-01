@@ -16,11 +16,6 @@
                     [showIconOnly]="true"></span>)
                 </span>
             </div>
-            <div class="{{$class}}__col">
-                <span class="{{$class}}__head-text">
-                     {{'Percent' | translate}} (%)
-                </span>
-            </div>
         </div>
     </div>
     <div class="{{$class}}__body">
@@ -33,7 +28,6 @@
                 </span>
             </div>
             <div class="{{$class}}__col">{{$params.common.tournament?.winningSpread[index]}}</div>
-            <div class="{{$class}}__col {{$class}}__col--percent">{{value}}</div>
         </div>
     </div>
 </div>

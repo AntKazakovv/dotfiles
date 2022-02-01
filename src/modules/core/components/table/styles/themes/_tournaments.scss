@@ -84,6 +84,12 @@
                     padding: ef.get-value($themeTournaments, 'headCellPadding');
                     font-weight: ef.get-value($themeTournaments, 'headTextStyle');
                     font-size: ef.get-value($themeTournaments, 'headTextSize');
+
+                    &:last-child {
+                        @include bm.get-mq-map('text-align', $themeTournaments, 'prizeTextAlign');
+                        @include bm.get-mq-map('padding-right', $themeTournaments, 'prizePaddingRight');
+                        @include bm.get-mq-map('width', $themeTournaments, 'prizeWidth');
+                    }
                 }
             }
 
@@ -170,6 +176,11 @@
 
             &:last-child {
                 @include bm.get-mq-map('border-radius', $themeTournaments, 'cellRadiusLastChild');
+
+                .wlc-table__cell-content {
+                    @include bm.get-mq-map('text-align', $themeTournaments, 'prizeTextAlign');
+                    @include bm.get-mq-map('padding-right', $themeTournaments, 'prizePaddingRight');
+                }
             }
 
             &--index {

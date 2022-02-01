@@ -110,14 +110,13 @@ export class TournamentDetailComponent extends AbstractComponent implements OnIn
     }
 
     private preparePrizeboard(): void {
-        const rows = [];
+        const rows: Params.ITournamentPrizeRows[] = [];
         this.tablePrizeboard = this.$params.common.tablePrizeboard;
 
-        _each(this.tournament.winningSpreadByPercent, (percent, index) => {
+        _each(this.tournament.winningSpread, (value: number, index: number): void => {
             rows.push({
                 Place: index + 1,
                 Prize: {value: this.tournament.winningSpread[index], currency: 'EUR'},
-                Percent: percent,
             });
         });
 

@@ -52,7 +52,7 @@ export class TournamentPrizesComponent
 
     protected preparePrizesTable(): void {
         this.prizesTable = _slice(
-            this.$params.common.tournament?.winningSpreadByPercent,
+            this.$params.common.tournament?.winningSpread,
             0,
             this.$params.common.rowLimit || Params.PRIMARY_ROW_LIMIT);
     }

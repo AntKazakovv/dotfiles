@@ -40,6 +40,14 @@ export interface ITournamentDetailCParams extends IComponentParams<Theme, Type, 
     };
 }
 
+export interface ITournamentPrizeRows {
+    Place: number,
+    Prize: {
+        value: number,
+        currency: string
+    },
+}
+
 export const defaultParams: ITournamentDetailCParams = {
     moduleName: 'tournaments',
     componentName: 'wlc-tournament-detail',
@@ -80,13 +88,6 @@ export const defaultParams: ITournamentDetailCParams = {
                     type: 'amount',
                     order: 10,
                     wlcElement: 'wlc-profile-table__cell_prize',
-                },
-                {
-                    key: 'Percent',
-                    title: gettext('Percent'),
-                    type: 'text',
-                    order: 10,
-                    wlcElement: 'wlc-profile-table__cell_percent',
                 },
             ],
             rows: [],
