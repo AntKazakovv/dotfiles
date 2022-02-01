@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import {Inject, Injectable} from '@angular/core';
 
 import {GlobalHelper} from 'wlc-engine/modules/core/system/helpers/global.helper';
 import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
@@ -14,6 +14,7 @@ import {
     IPanelsConfig,
     IDisplayConfig,
 } from 'wlc-engine/modules/core/system/interfaces/layouts.interface';
+import {WINDOW} from 'wlc-engine/modules/app/system';
 
 import {SectionModel, ISectionData} from 'wlc-engine/modules/core/system/models/section.model';
 
@@ -58,6 +59,7 @@ export class LayoutService {
     constructor(
         protected configService: ConfigService,
         protected injectionService: InjectionService,
+        @Inject(WINDOW) protected window: Window,
     ) {
         this.prepareLayouts();
     }
@@ -228,7 +230,7 @@ export class LayoutService {
                 }
 
                 if (result && (element.display?.after || element.display?.before)) {
-                    result = result && window.matchMedia(this.createMediaQuery(element.display)).matches;
+                    result = result && this.window.matchMedia(this.createMediaQuery(element.display)).matches;
                 }
 
                 if (result && !_isUndefined(element.display?.auth)) {

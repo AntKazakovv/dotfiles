@@ -46,6 +46,7 @@ import {
 import {
     SHIFT_ANIMATION_DURATION,
 } from 'wlc-engine/modules/core/components/notification-thread/notification-thread.component';
+import {WINDOW} from 'wlc-engine/modules/app/system';
 
 import * as Params from './notification.params';
 
@@ -166,7 +167,8 @@ export class NotificationService {
 
     constructor(
         @Inject(DOCUMENT)
-        private document: HTMLDocument,
+        private document: Document,
+        @Inject(WINDOW) private window: Window,
         private componentFactoryResolver: ComponentFactoryResolver,
         private injector: Injector,
         private configService: ConfigService,
@@ -320,7 +322,7 @@ export class NotificationService {
         });
 
         _each(breakpoints, ({minWidth, items}, index) => {
-            const mq = window.matchMedia(`screen and (min-width: ${minWidth}px)`);
+            const mq = this.window.matchMedia(`screen and (min-width: ${minWidth}px)`);
 
             if (mq.matches) {
                 this.displayItems = items;

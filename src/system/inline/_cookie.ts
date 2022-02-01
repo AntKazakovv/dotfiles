@@ -1,3 +1,4 @@
+/* eslint-disable no-restricted-globals */
 import {Fingerprint2} from './_fingerprint2';
 
 export class WlcCookie {

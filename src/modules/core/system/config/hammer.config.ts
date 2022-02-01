@@ -5,9 +5,9 @@ import {IIndexing} from 'wlc-engine/modules/core/system/interfaces';
 
 @Injectable()
 export class HammerConfig extends HammerGestureConfig {
-    constructor() {
+    constructor(protected window: Window) {
         super();
-        (globalThis as any).Hammer = Hammer.default;
+        this.window['Hammer'] = Hammer.default;
     }
 
     public overrides = <IIndexing<Object>>{

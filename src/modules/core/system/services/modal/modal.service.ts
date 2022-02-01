@@ -37,6 +37,7 @@ import {
     IModalList,
     IRestrictModalOption,
 } from 'wlc-engine/modules/core/components/modal/modal.interface';
+import {WINDOW} from 'wlc-engine/modules/app/system';
 
 import _assignIn from 'lodash-es/assignIn';
 import _isString from 'lodash-es/isString';
@@ -71,11 +72,12 @@ export class ModalService {
         protected appRef: ApplicationRef,
         protected cfr: ComponentFactoryResolver,
         protected eventService: EventService,
-        @Inject(DOCUMENT) protected document: HTMLDocument,
+        @Inject(DOCUMENT) protected document: Document,
         protected configService: ConfigService,
         protected logService: LogService,
         protected BsModalService: BsModalService,
         private injectionService: InjectionService,
+        @Inject(WINDOW) private window: Window,
     ) {
         this.initListeners();
         this.mergeModalConfig();
@@ -329,7 +331,7 @@ export class ModalService {
         setTimeout(() => {
             const backDropElement = _get(windowCmptRef, 'instance.modalRef.backdrop.location.nativeElement');
             if (backDropElement) {
-                const currentZIndex = +globalThis?.getComputedStyle(modalElement).zIndex;
+                const currentZIndex = +this.window?.getComputedStyle(modalElement).zIndex;
                 modalElement.style.zIndex = currentZIndex + this.activeModals.length * 10;
                 backDropElement.style.zIndex = +modalElement.style.zIndex - 1;
             }

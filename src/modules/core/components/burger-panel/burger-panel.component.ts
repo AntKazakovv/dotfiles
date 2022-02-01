@@ -35,6 +35,7 @@ import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract
 import {HammerConfig} from 'wlc-engine/modules/core/system/config/hammer.config';
 import {panelsEvents} from './../float-panels/float-panels.params';
 import {IWrapperCParams} from 'wlc-engine/modules/core';
+import {WINDOW} from 'wlc-engine/modules/app/system';
 
 import * as Params from './burger-panel.params';
 
@@ -79,6 +80,7 @@ export class BurgerPanelComponent extends AbstractComponent
         protected logService: LogService,
         protected transitionService: TransitionService,
         protected cdr: ChangeDetectorRef,
+        @Inject(WINDOW) protected window: Window,
         private hostElement: ElementRef,
         private injectionService: InjectionService,
     ) {
@@ -103,7 +105,7 @@ export class BurgerPanelComponent extends AbstractComponent
             const element = (this.hostElement.nativeElement as HTMLElement);
             this.$width = element.clientWidth;
 
-            this.hammer$ = new HammerConfig().buildHammer(element);
+            this.hammer$ = new HammerConfig(this.window).buildHammer(element);
             this.panstart$ = fromEvent(this.hammer$, 'panstart');
             this.panmove$ = fromEvent(this.hammer$, 'panmove');
             this.panend$ = fromEvent(this.hammer$, 'panend');

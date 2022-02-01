@@ -36,6 +36,7 @@ import {
 import {WinnersService} from 'wlc-engine/modules/promo/system/services/winners/winners.service';
 import {WinnerModel} from 'wlc-engine/modules/promo/system/models/winner.model';
 import {WinnerComponent} from 'wlc-engine/modules/promo/components/winner/winner.component';
+import {WINDOW} from 'wlc-engine/modules/app/system';
 
 import * as Params from './winners-slider.params';
 
@@ -70,6 +71,7 @@ export class WinnersSliderComponent extends AbstractComponent implements OnInit,
         protected winnersService: WinnersService,
         protected cdr: ChangeDetectorRef,
         protected renderer: Renderer2,
+        @Inject(WINDOW) protected window: Window,
         private element: ElementRef,
     ) {
         super({injectParams, defaultParams: Params.defaultParams}, configService);
@@ -113,7 +115,7 @@ export class WinnersSliderComponent extends AbstractComponent implements OnInit,
     protected initBreakpoints(): void {
         if (this.sliderParams.swiper.direction === 'vertical') {
             this.useCssProps = true;
-            const activeBreakpoint = SliderHelper.getActiveBreakpoint(this.sliderParams.swiper);
+            const activeBreakpoint = SliderHelper.getActiveBreakpoint(this.sliderParams.swiper, this.window);
             this.setCssProperties({
                 ...this.sliderParams.swiper,
                 ...this.sliderParams.swiper.breakpoints?.[activeBreakpoint],

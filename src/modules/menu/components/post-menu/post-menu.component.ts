@@ -22,6 +22,7 @@ import {
 import {
     MenuHelper,
 } from 'wlc-engine/modules/menu/system/helpers';
+import {WINDOW} from 'wlc-engine/modules/app/system/tokens/window';
 
 import * as Params from './post-menu.params';
 import * as MenuParams from 'wlc-engine/modules/menu/components/menu/menu.params';
@@ -62,6 +63,7 @@ export class PostMenuComponent extends AbstractComponent implements OnInit {
         protected configService: ConfigService,
         protected actionService: ActionService,
         private translate: TranslateService,
+        @Inject(WINDOW) private window: Window,
     ) {
         super({injectParams, defaultParams: Params.defaultParams});
     }
@@ -101,7 +103,7 @@ export class PostMenuComponent extends AbstractComponent implements OnInit {
 
         this.useSwiper = _get(this.$params, 'menuParams.common.useSwiper', false);
         if (this.useSwiper) {
-            const breakpoint = window.matchMedia(this.$params.asListBp);
+            const breakpoint = this.window.matchMedia(this.$params.asListBp);
             this.useSwiper = !breakpoint.matches;
             this.updateSwiperMode();
 

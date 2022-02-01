@@ -19,6 +19,7 @@ export class PinnacleHooks extends AbstractHook {
 
     constructor(
         protected params: IPinnacleHooksParams,
+        protected window: Window,
     ) {
         super({
             hooksService: params.hooksService,
@@ -32,13 +33,13 @@ export class PinnacleHooks extends AbstractHook {
     }
 
     protected iframeMessages(): void {
-        fromEvent(window, 'message').pipe(
+        fromEvent(this.window, 'message').pipe(
             takeUntil(this.params.disableHooks),
         ).subscribe((event) => {
             if (_get(event, 'data.action') === 'OPEN_WINDOW') {
                 const url: string = _get(event, 'data.url');
                 if (url) {
-                    window.open(url);
+                    this.window.open(url);
                 }
             }
         });

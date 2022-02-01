@@ -54,6 +54,7 @@ import {
     defaultParams,
     IGameWrapperCParams,
 } from './game-wrapper.params';
+import {WINDOW} from 'wlc-engine/modules/app/system';
 
 import _isString from 'lodash-es/isString';
 import _isObject from 'lodash-es/isObject';
@@ -157,7 +158,8 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
 
     constructor(
         @Inject('injectParams') protected injectParams: IGameWrapperCParams,
-        @Inject(DOCUMENT) protected document: HTMLDocument,
+        @Inject(DOCUMENT) protected document: Document,
+        @Inject(WINDOW) protected window: Window,
         protected router: UIRouter,
         protected eventService: EventService,
         protected gamesCatalogService: GamesCatalogService,
@@ -424,7 +426,7 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
             const elem = this.hostElement.nativeElement;
             const iframe = this.wrp?.element?.nativeElement.querySelector('iframe');
 
-            let height: string = (globalThis.innerHeight - elem.offsetTop) + 'px';
+            let height: string = (this.window.innerHeight - elem.offsetTop) + 'px';
 
             const iframeHeightAttr: string = iframe?.getAttribute('height');
             if (_includes(iframeHeightAttr, 'px') && height && !this.$params.gameParams?.disableIframeSelfResize) {
@@ -540,8 +542,8 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
      * @returns {boolean}
      */
     protected windowWidthChanged(): boolean {
-        if (window.innerWidth != this.oldWindowWidth) {
-            this.oldWindowWidth = window.innerWidth;
+        if (this.window.innerWidth != this.oldWindowWidth) {
+            this.oldWindowWidth = this.window.innerWidth;
             return true;
         }
         return false;
@@ -561,8 +563,8 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
     }
 
     protected getMaxHeight(): number {
-        const windowHeight = window.innerHeight;
-        const wrpElTop = this.wrp?.element?.nativeElement.getBoundingClientRect().top + window.scrollY;
+        const windowHeight = this.window.innerHeight;
+        const wrpElTop = this.wrp?.element?.nativeElement.getBoundingClientRect().top + this.window.scrollY;
         const padding = this.$params?.padding || 0;
         const elFooterHeight = this.footer.nativeElement.getBoundingClientRect().height || 0;
         return windowHeight - wrpElTop - padding - elFooterHeight;
@@ -892,7 +894,7 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
             this.cdr.markForCheck();
         }, this.$destroy);
 
-        fromEvent(window, 'closeGame')
+        fromEvent(this.window, 'closeGame')
             .pipe(takeUntil(this.$destroy))
             .subscribe(() => {
                 this.closeGame();

@@ -83,6 +83,7 @@ import {
 import {
     AbstractDepositWithdrawComponent,
 } from 'wlc-engine/modules/finances/system/classes/abstract.deposit-withdraw.component';
+import {WINDOW} from 'wlc-engine/modules/app/system';
 
 import * as Params from './deposit-withdraw.params';
 
@@ -147,7 +148,8 @@ export class DepositWithdrawComponent extends AbstractDepositWithdrawComponent i
         protected injectionService: InjectionService,
         protected piqCashierService: PIQCashierService,
         protected logService: LogService,
-        @Inject(DOCUMENT) protected document: HTMLDocument,
+        @Inject(DOCUMENT) protected document: Document,
+        @Inject(WINDOW) private window: Window,
     ) {
         super(
             <IMixedParams<Params.IDepositWithdrawCParams>>{
@@ -281,7 +283,7 @@ export class DepositWithdrawComponent extends AbstractDepositWithdrawComponent i
             }
 
             if (response[0] === 'redirect') {
-                window.location.replace(response[1]);
+                this.window.location.replace(response[1]);
                 return;
             } else if (response[0] === PIQCashierResponse) {
                 return;
@@ -368,9 +370,9 @@ export class DepositWithdrawComponent extends AbstractDepositWithdrawComponent i
                     return;
                 } else if (response[0] === 'redirect') {
                     if (this.currentSystem.appearance === 'newtab') {
-                        window.open(response[1], '_blank');
+                        this.window.open(response[1], '_blank');
                     } else {
-                        window.location.replace(response[1]);
+                        this.window.location.replace(response[1]);
                     }
                     return;
                 } else if (response[0] === 'markup_redirect') {

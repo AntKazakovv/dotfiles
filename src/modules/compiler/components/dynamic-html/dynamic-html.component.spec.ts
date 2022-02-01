@@ -7,6 +7,7 @@ import {AppModule} from 'wlc-engine/modules/app/app.module';
 import {Component} from '@angular/core';
 import {CompilerModule} from 'wlc-engine/modules/compiler/compiler.module';
 import {DynamicHtmlComponent} from 'wlc-engine/modules/compiler/components/dynamic-html/dynamic-html.component';
+import {WINDOW} from 'wlc-engine/modules/app/system/tokens/window';
 
 @Component({
     selector: '[wlc-test-component]',
@@ -28,6 +29,7 @@ describe('DynamicHtml', () => {
     let component: TestComponent;
     let fixture: ComponentFixture<TestComponent>;
     let nativeElement: HTMLElement;
+    let window: Window;
 
     beforeEach((() => {
         fixture = TestBed.configureTestingModule({
@@ -42,6 +44,7 @@ describe('DynamicHtml', () => {
         }).createComponent(TestComponent);
         component = fixture.componentInstance;
         nativeElement = fixture.nativeElement;
+        window = TestBed.inject<Window>(WINDOW);
     }));
 
     it('-> should be created', () => {

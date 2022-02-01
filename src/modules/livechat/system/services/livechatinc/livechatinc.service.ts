@@ -15,6 +15,7 @@ import {
     LivechatAbstract,
     ChatState,
 } from 'wlc-engine/modules/livechat/system/classes/livechatAbstract.class';
+import {WINDOW} from 'wlc-engine/modules/app/system';
 
 import _assign from 'lodash-es/assign';
 
@@ -30,7 +31,8 @@ export class LivechatincService extends LivechatAbstract {
     protected firstInit: boolean = true;
 
     constructor(
-        @Inject(DOCUMENT) protected document: HTMLDocument,
+        @Inject(DOCUMENT) protected document: Document,
+        @Inject(WINDOW) protected window: Window,
         protected eventService: EventService,
         protected configService: ConfigService,
         protected logService: LogService,
@@ -46,9 +48,9 @@ export class LivechatincService extends LivechatAbstract {
     public chatIsLoaded(): boolean {
         const chatEl = this.document.getElementById(this.chatId);
         return chatEl
-            && window.LC_API
-            && window.LC_API.is_loaded
-            && window.LC_API.is_loaded();
+            && this.window.LC_API
+            && this.window.LC_API.is_loaded
+            && this.window.LC_API.is_loaded();
     }
 
     /**
@@ -56,7 +58,7 @@ export class LivechatincService extends LivechatAbstract {
      */
     public openChat(): void {
         try {
-            window.LC_API.open_chat_window();
+            this.window.LC_API.open_chat_window();
         } catch (error) {
             this.logService.sendLog({code: '14.0.0', data: error});
         }
@@ -69,7 +71,7 @@ export class LivechatincService extends LivechatAbstract {
      */
     public chatIsMinimized(): boolean {
         try {
-            return window.LC_API.chat_window_minimized();
+            return this.window.LC_API.chat_window_minimized();
         } catch {
             return false;
         }
@@ -80,7 +82,7 @@ export class LivechatincService extends LivechatAbstract {
      */
     public hideChat(): void {
         try {
-            window.LC_API.minimize_chat_window();
+            this.window.LC_API.minimize_chat_window();
         } catch (error) {
             this.logService.sendLog({code: '14.0.0', data: error});
         }
@@ -91,7 +93,7 @@ export class LivechatincService extends LivechatAbstract {
      */
     public hideWidget(): void {
         try {
-            window.LC_API.hide_chat_window();
+            this.window.LC_API.hide_chat_window();
         } catch (error) {
             this.logService.sendLog({code: '14.0.0', data: error});
         }
@@ -108,7 +110,7 @@ export class LivechatincService extends LivechatAbstract {
      * destroy chat widget
      */
     public destroyWidget(): void {
-        window['LiveChatWidget']?.call('destroy');
+        this.window['LiveChatWidget']?.call('destroy');
         this.document.head.querySelector('#LivechatincScript').remove();
         this.document.head.querySelector('#LivechatincScriptSdk').remove();
         this.document.head.querySelector('#incInnerScript').remove();
@@ -129,13 +131,13 @@ export class LivechatincService extends LivechatAbstract {
             return;
         }
 
-        if (this.options.onlyProd && window.WLC_ENV) {
+        if (this.options.onlyProd && this.window.WLC_ENV) {
             return;
         }
 
-        window.__lc = {};
-        window.__lc.license = this.options.code;
-        _assign(window.__lc, this.options.livechatincSetup);
+        this.window.__lc = {};
+        this.window.__lc.license = this.options.code;
+        _assign(this.window.__lc, this.options.livechatincSetup);
 
         const script = this.document.createElement('script');
         script.id = 'LivechatincScript';
@@ -159,9 +161,9 @@ export class LivechatincService extends LivechatAbstract {
 
         this.document.head.appendChild(scriptSdk);
 
-        window.LC_API = {};
+        this.window.LC_API = {};
 
-        window.LC_API.on_after_load = () => {
+        this.window.LC_API.on_after_load = () => {
             this.chatState$.next(ChatState.loaded);
             if (this.options.setUserDetails && this.firstInit) {
                 this.setHandlers();
@@ -169,23 +171,23 @@ export class LivechatincService extends LivechatAbstract {
             }
         };
 
-        window.LC_API.on_chat_window_opened = () => {
+        this.window.LC_API.on_chat_window_opened = () => {
             this.chatState$.next(ChatState.opened);
         };
 
-        window.LC_API.on_chat_window_minimized = () => {
+        this.window.LC_API.on_chat_window_minimized = () => {
             this.chatState$.next(ChatState.minimized);
         };
 
-        window.LC_API.on_chat_window_hidden = () => {
+        this.window.LC_API.on_chat_window_hidden = () => {
             this.chatState$.next(ChatState.hidden);
         };
 
-        window.LC_API.on_chat_started = () => {
+        this.window.LC_API.on_chat_started = () => {
             this.chatState$.next(ChatState.started);
         };
 
-        window.LC_API.on_chat_ended = () => {
+        this.window.LC_API.on_chat_ended = () => {
             this.chatState$.next(ChatState.ended);
         };
 
@@ -200,19 +202,19 @@ export class LivechatincService extends LivechatAbstract {
                 const userEmail = this.profile.email;
                 const userName = this.profile.firstName + ' ' + this.profile.lastName;
 
-                if (window.LiveChatWidget) {
-                    window.LiveChatWidget.call('set_customer_name', userName);
-                    window.LiveChatWidget.call('set_customer_email', userEmail);
+                if (this.window.LiveChatWidget) {
+                    this.window.LiveChatWidget.call('set_customer_name', userName);
+                    this.window.LiveChatWidget.call('set_customer_email', userEmail);
                 }
-                window.LC_API.set_visitor_email(userEmail);
-                window.LC_API.set_visitor_name(userName);
+                this.window.LC_API.set_visitor_email(userEmail);
+                this.window.LC_API.set_visitor_name(userName);
             } else {
-                if (window.LiveChatWidget) {
-                    window.LiveChatWidget.call('set_customer_name', 'unknown');
-                    window.LiveChatWidget.call('set_customer_email', 'unknown');
+                if (this.window.LiveChatWidget) {
+                    this.window.LiveChatWidget.call('set_customer_name', 'unknown');
+                    this.window.LiveChatWidget.call('set_customer_email', 'unknown');
                 }
-                window.LC_API.set_visitor_email('unknown');
-                window.LC_API.set_visitor_name('unknown');
+                this.window.LC_API.set_visitor_email('unknown');
+                this.window.LC_API.set_visitor_name('unknown');
             }
         }
     }
@@ -229,13 +231,13 @@ export class LivechatincService extends LivechatAbstract {
     protected hiddenChatStart(): void {
         let livechatStarted = false;
 
-        window.LC_API.on_before_load = () => {
-            if (!window.LC_API.visitor_engaged() && !livechatStarted) {
-                window.LC_API.hide_chat_window();
+        this.window.LC_API.on_before_load = () => {
+            if (!this.window.LC_API.visitor_engaged() && !livechatStarted) {
+                this.window.LC_API.hide_chat_window();
             }
         };
 
-        window.LC_API.on_chat_started = () => {
+        this.window.LC_API.on_chat_started = () => {
             livechatStarted = true;
         };
     }

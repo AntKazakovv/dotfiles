@@ -1,3 +1,4 @@
+/* eslint-disable no-restricted-globals */
 interface IData {
     status: 'success' | 'error';
     name: string;

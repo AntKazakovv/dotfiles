@@ -45,6 +45,7 @@ import {
 import {
     ISlide,
 } from 'wlc-engine/modules/promo';
+import {WINDOW} from 'wlc-engine/modules/app/system';
 
 import * as Params from './games-grid.params';
 
@@ -124,6 +125,7 @@ export class GamesGridComponent extends AbstractComponent implements OnInit, OnD
         protected cdr: ChangeDetectorRef,
         protected renderer: Renderer2,
         protected elementRef: ElementRef,
+        @Inject(WINDOW) protected window: Window,
     ) {
         super({injectParams, defaultParams: Params.defaultParams}, configService);
         this.trackGames = this.trackGames.bind(this);
@@ -321,9 +323,9 @@ export class GamesGridComponent extends AbstractComponent implements OnInit, OnD
     }
 
     protected lazyLoadPositionFilter(): boolean {
-        const currentPosition = window.scrollY + window.window.innerHeight;
+        const currentPosition = this.window.scrollY + this.window.window.innerHeight;
         const elemClientRect = this.elementRef.nativeElement.getBoundingClientRect();
-        const elemBottom = (elemClientRect.top + window.scrollY + elemClientRect.height);
+        const elemBottom = (elemClientRect.top + this.window.scrollY + elemClientRect.height);
         const conditional = (currentPosition > elemBottom && this.gamesCount < this.games.length);
 
         return this.useLazyAfterClick ? (conditional && this.isClickedLoadMoreBtn) : conditional;
@@ -612,7 +614,7 @@ export class GamesGridComponent extends AbstractComponent implements OnInit, OnD
 
             const mqList: MediaQueryList[] = _map(
                 breakpoints,
-                (value: number) => window.matchMedia(`(min-width: ${value}px)`),
+                (value: number) => this.window.matchMedia(`(min-width: ${value}px)`),
             );
 
             const active = breakpoints[_findLastIndex(mqList, (item) => item.matches)];
@@ -657,7 +659,7 @@ export class GamesGridComponent extends AbstractComponent implements OnInit, OnD
 
     private initLazyLoading(): void {
         if (this.useLazy) {
-            fromEvent(window, 'scroll')
+            fromEvent(this.window, 'scroll')
                 .pipe(
                     takeUntil(this.$untilBreakpointOrDestroy),
                     filter((): boolean => this.lazyLoadPositionFilter()),

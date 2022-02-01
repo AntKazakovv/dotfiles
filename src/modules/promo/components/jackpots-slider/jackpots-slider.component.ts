@@ -29,6 +29,7 @@ import {
     SliderHelper,
     ISliderCssProps,
 } from 'wlc-engine/modules/promo/system/helpers/slider.helper';
+import {WINDOW} from 'wlc-engine/modules/app/system';
 
 import * as Params from './jackpots-slider.params';
 
@@ -59,6 +60,7 @@ export class JackpotsSliderComponent extends AbstractComponent implements OnInit
         protected cdr: ChangeDetectorRef,
         protected injectionService: InjectionService,
         protected renderer: Renderer2,
+        @Inject(WINDOW) protected window: Window,
         private element: ElementRef,
     ) {
         super({injectParams, defaultParams: Params.defaultParams}, configService);
@@ -93,7 +95,7 @@ export class JackpotsSliderComponent extends AbstractComponent implements OnInit
     protected initBreakpoints(): void {
         this.useCssProps = true;
         if (this.$params.sliderParams.swiper.direction === 'vertical') {
-            const activeBreakpoint = SliderHelper.getActiveBreakpoint(this.$params.sliderParams.swiper);
+            const activeBreakpoint = SliderHelper.getActiveBreakpoint(this.$params.sliderParams.swiper, this.window);
             this.setCssProperties({
                 ...this.$params.sliderParams.swiper,
                 ...this.$params.sliderParams.swiper.breakpoints?.[activeBreakpoint],

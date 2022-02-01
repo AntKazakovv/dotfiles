@@ -7,6 +7,7 @@ import {
     OnInit,
     OnDestroy,
     ViewEncapsulation,
+    Inject,
 } from '@angular/core';
 import {
     TransitionService,
@@ -23,6 +24,7 @@ import {
     ILayoutStateConfig,
     ILayoutSectionConfig,
 } from 'wlc-engine/modules/core/system/interfaces/layouts.interface';
+import {WINDOW} from 'wlc-engine/modules/app/system';
 import {
     fromEvent,
     Subject,
@@ -65,6 +67,7 @@ export class LayoutComponent implements OnInit, OnDestroy {
         protected injector: Injector,
         private uiRouter: UIRouterGlobals,
         protected eventService: EventService,
+        @Inject(WINDOW) protected window: Window,
     ) {
     }
 
@@ -122,7 +125,7 @@ export class LayoutComponent implements OnInit, OnDestroy {
             GlobalHelper.overrideDisplayResize(this.allComponents$);
 
             if (!this.resize$) {
-                this.resize$ = fromEvent(window, 'resize').pipe(takeUntil(this.$destroy)).subscribe({
+                this.resize$ = fromEvent(this.window, 'resize').pipe(takeUntil(this.$destroy)).subscribe({
                     next: () => {
                         this.updateComponents();
                     },

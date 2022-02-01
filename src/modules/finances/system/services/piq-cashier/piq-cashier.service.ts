@@ -30,6 +30,7 @@ import {
 } from 'wlc-engine/modules/finances/system/interfaces';
 import {PaymentSystem} from 'wlc-engine/modules/finances/system/models/payment-system.model';
 import {UserInfo} from 'wlc-engine/modules/user/system/models/info.model';
+import {WINDOW} from 'wlc-engine/modules/app/system';
 
 export enum PIQCashierServiceEvents {
     loadSuccess = 'PIQ_CASHIER_LOAD_SUCCESS',
@@ -60,6 +61,7 @@ export class PIQCashierService {
 
     constructor(
         @Inject(DOCUMENT) protected document: Document,
+        @Inject(WINDOW) protected window: Window,
         protected configService: ConfigService,
         protected eventService: EventService,
         protected modalService: ModalService,
@@ -101,7 +103,7 @@ export class PIQCashierService {
 
     /**
      * Load and settings PIQ Cashier
-     * 
+     *
      * @param currentSystem - Current payment system
      * @param amount - value for deposit/withdraw
      * @param method - payment method type
@@ -112,7 +114,7 @@ export class PIQCashierService {
         method?: TPaymentsMethods): Promise<void> {
         await import('paymentiq-cashier-bootstrapper');
 
-        const cashierThemeSource = window.getComputedStyle(
+        const cashierThemeSource = this.window.getComputedStyle(
             this.document.querySelector('.modal-dialog') ||
             this.document.querySelector('.wlc-sections__profile-content'),
         );
@@ -172,19 +174,19 @@ export class PIQCashierService {
         this.subscribeToIFrameMessages();
 
         try {
-            new window._PaymentIQCashier('#wlc-piq-cashier', cashierConfig,
+            new this.window._PaymentIQCashier('#wlc-piq-cashier', cashierConfig,
                 (api: any) => {
                     api.on({
                         cashierInitLoad: () => {
-                            window.parent.postMessage({message: 'PIQ_LOAD_SUCCESS'}, `${window.origin}`);
+                            this.window.parent.postMessage({message: 'PIQ_LOAD_SUCCESS'}, `${this.window.origin}`);
                         },
                         onLoadError: (data: any) => {
-                            window.parent.postMessage(
+                            this.window.parent.postMessage(
                                 {
                                     message: 'PIQ_LOAD_ERROR',
                                     error: data.status,
                                 },
-                                `${window.origin}`,
+                                `${this.window.origin}`,
                             );
                         },
                     });
@@ -211,8 +213,8 @@ export class PIQCashierService {
     }
 
     private subscribeToIFrameMessages(): void {
-        fromEvent(window, 'message').pipe(
-            filter((event: MessageEvent) => event.origin === `${window.origin}`),
+        fromEvent(this.window, 'message').pipe(
+            filter((event: MessageEvent) => event.origin === `${this.window.origin}`),
             map((event: MessageEvent) => event.data),
             takeUntil(this.closedIframe$),
         ).subscribe((data: IFrameMessage) => {

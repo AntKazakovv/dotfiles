@@ -20,10 +20,10 @@ export class SliderHelper {
      * @param swiperOptions Swiper params
      * @returns active breakpoint if it exists in swiper options breakpoints list
      */
-    public static getActiveBreakpoint(swiperOptions: SwiperOptions): string {
+    public static getActiveBreakpoint(swiperOptions: SwiperOptions, window: Window): string {
         if (!_isEmpty(swiperOptions.breakpoints)) {
             return _findLast(_keys(swiperOptions.breakpoints), (breakpoint: string) => {
-                return window?.matchMedia(`(min-width: ${breakpoint}px)`).matches;
+                return window.matchMedia(`(min-width: ${breakpoint}px)`).matches;
             });
         }
     }

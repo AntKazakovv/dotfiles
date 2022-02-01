@@ -19,6 +19,7 @@ import {LayoutService} from 'wlc-engine/modules/core/system/services/layout/layo
 import {EventService} from 'wlc-engine/modules/core/system/services/event/event.service';
 import {ILayoutComponent} from 'wlc-engine/modules/core/system/interfaces/layouts.interface';
 import {InjectionService} from 'wlc-engine/modules/core/system/services/injection/injection.service';
+import {WINDOW} from 'wlc-engine/modules/app/system';
 
 import _merge from 'lodash-es/merge';
 
@@ -56,6 +57,7 @@ export class WrapperComponent extends LayoutComponent implements OnInit, OnChang
         uiRouter: UIRouterGlobals,
         eventService: EventService,
         protected injectionService: InjectionService,
+        @Inject(WINDOW) protected window: Window,
     ) {
         super(
             ConfigService,
@@ -65,6 +67,7 @@ export class WrapperComponent extends LayoutComponent implements OnInit, OnChang
             injector,
             uiRouter,
             eventService,
+            window,
         );
     }
 

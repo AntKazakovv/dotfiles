@@ -35,6 +35,7 @@ import {
 } from 'wlc-engine/modules/core/system/classes/icon-list-abstract.class';
 import {IconModel, IIconParams} from 'wlc-engine/modules/core/system/models/icon-list-item.model';
 import {ThemeToDirectory} from 'wlc-engine/modules/core/system/config/base/icons.config';
+import {WINDOW} from 'wlc-engine/modules/app/system';
 
 import * as Params from './payment-list.params';
 
@@ -83,6 +84,7 @@ export class PaymentListComponent extends IconListAbstract<Params.IPaymentListCP
         protected actionService: ActionService,
         protected configService: ConfigService,
         private hostRef: ElementRef,
+        @Inject(WINDOW) private window: Window,
     ) {
         super({injectParams, defaultParams: Params.defaultParams}, configService, eventService);
     }
@@ -232,7 +234,7 @@ export class PaymentListComponent extends IconListAbstract<Params.IPaymentListCP
 
         if (!_isUndefined(asModal)) {
             if (_isString(asModal)) {
-                const breakpoint = window.matchMedia(asModal as string);
+                const breakpoint = this.window.matchMedia(asModal as string);
                 this.asModal = breakpoint.matches;
                 GlobalHelper.mediaQueryObserver(breakpoint)
                     .pipe(takeUntil(this.$destroy))
@@ -252,7 +254,7 @@ export class PaymentListComponent extends IconListAbstract<Params.IPaymentListCP
 
         if (!_isUndefined(showTable)) {
             if (_isString(showTable)) {
-                const breakpoint = window.matchMedia(showTable as string);
+                const breakpoint = this.window.matchMedia(showTable as string);
                 this.showTable = breakpoint.matches;
                 GlobalHelper.mediaQueryObserver(breakpoint)
                     .pipe(takeUntil(this.$destroy))

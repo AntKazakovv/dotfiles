@@ -5,7 +5,10 @@ import {
     HttpEvent,
     HttpErrorResponse,
 } from '@angular/common/http';
-import {Injectable} from '@angular/core';
+import {
+    Inject,
+    Injectable,
+} from '@angular/core';
 import {
     Observable,
     throwError,
@@ -19,6 +22,7 @@ import {
 import {RecaptchaService} from 'wlc-engine/modules/core/system/services/recaptcha/recaptcha.service';
 import {IData} from 'wlc-engine/modules/core/system/services/data/data.service';
 import {LogService} from 'wlc-engine/modules/core/system/services/log/log.service';
+import {WINDOW} from 'wlc-engine/modules/app/system';
 
 @Injectable()
 export class HeadersInterceptor implements HttpInterceptor {
@@ -26,6 +30,7 @@ export class HeadersInterceptor implements HttpInterceptor {
     constructor(
         private recaptchaService: RecaptchaService,
         private logService: LogService,
+        @Inject(WINDOW) private window: Window,
     ) {
     }
 
@@ -35,7 +40,7 @@ export class HeadersInterceptor implements HttpInterceptor {
     ): Observable<HttpEvent<IData>> {
         if (req.url.includes('/api/v1/')) {
             req = req.clone({
-                headers: req.headers.set('HTTP_X_UA_FINGERPRINT', window['fingerprintHash'] || ''),
+                headers: req.headers.set('HTTP_X_UA_FINGERPRINT', this.window['fingerprintHash'] || ''),
             });
         }
 

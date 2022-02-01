@@ -26,6 +26,7 @@ import {
     ISportsbookSettings,
     ISportsbookSettingsFilter,
 } from 'wlc-engine/modules/sportsbook';
+import {WINDOW} from 'wlc-engine/modules/app/system';
 
 import _get from 'lodash-es/get';
 import _find from 'lodash-es/find';
@@ -102,7 +103,8 @@ export class SportsbookService {
         protected configService: ConfigService,
         protected injectionService: InjectionService,
         protected router: UIRouter,
-        @Inject(DOCUMENT) protected document: HTMLDocument,
+        @Inject(DOCUMENT) protected document: Document,
+        @Inject(WINDOW) protected window: Window,
     ) {
         this.init();
     }
@@ -191,7 +193,7 @@ export class SportsbookService {
      * @param {Subject<void>} cancel
      */
     protected enableMessageEventListener(): void {
-        fromEvent(window, 'message').pipe(
+        fromEvent(this.window, 'message').pipe(
             //takeUntil(cancel),
             map((message) => {
                 const data = _get(message, 'data');

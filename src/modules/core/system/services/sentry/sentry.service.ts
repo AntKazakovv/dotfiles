@@ -4,11 +4,15 @@ import * as Sentry from '@sentry/angular';
 import {Event, Severity, Scope} from '@sentry/angular';
 import {Cookie} from 'ng2-cookies';
 import {IIndexing} from 'wlc-engine/modules/core/system/interfaces';
-import {Injectable} from '@angular/core';
+import {
+    Inject,
+    Injectable,
+} from '@angular/core';
 import {
     ConfigService,
     LogService,
 } from 'wlc-engine/modules/core';
+import {WINDOW} from 'wlc-engine/modules/app/system';
 
 interface ISentryMessage {
     message: string;
@@ -23,7 +27,7 @@ export class SentryService {
     public isInstall: boolean = false;
 
     private sessionKey: string = 'wlc-session-hash';
-    private prod: boolean = !window.WLC_ENV;
+    private prod: boolean = !this.window.WLC_ENV;
     private dsn: IIndexing<string> = {
         prod: 'https://4005578ccdcd422580f551621158d92d@sentry.egamings.com/68',
         dev: 'https://850fc7b0547d49db8d67c363bfdd844a@sentry.egamings.com/67',
@@ -35,11 +39,12 @@ export class SentryService {
     constructor(
         private configService: ConfigService,
         private logService: LogService,
+        @Inject(WINDOW) private window: Window,
     ) {
         this.autotest = Cookie
             .get('runautotest') === '7698155c459ee95063a26a7121b2b7916fa36004cbcfe787043d27692b249971';
         if (this.autotest) {
-            window.testSessionHash = this.sessionHash = this.generateHash();
+            this.window.testSessionHash = this.sessionHash = this.generateHash();
         } else {
             const hashFromStorage: string = this.configService.get<string>({
                 name: this.sessionKey,
@@ -79,7 +84,7 @@ export class SentryService {
      * @returns {string} Hash string
      */
     private generateHash(save?: boolean): string {
-        const hash = window.crypto.getRandomValues(new Uint32Array(2))
+        const hash = this.window.crypto.getRandomValues(new Uint32Array(2))
             .reduce((res, item) => res + item.toString(16), '');
         if (save) {
             this.configService.set({
@@ -97,16 +102,16 @@ export class SentryService {
      * @returns {boolean} Was inited or not
      */
     private initSentry(): boolean {
-        if ((window.WLC_ENV !== 'dev' || Cookie.get('allowSentry')) || this.autotest) {
+        if ((this.window.WLC_ENV !== 'dev' || Cookie.get('allowSentry')) || this.autotest) {
             Sentry.init({
                 dsn: this.autotest ? this.dsn.autotest : this.prod ? this.dsn.prod : this.dsn.dev,
-                release: '' + window.WLC_VERSION,
-                environment: window.WLC_ENV || 'prod',
+                release: '' + this.window.WLC_VERSION,
+                environment: this.window.WLC_ENV || 'prod',
                 blacklistUrls: [
                     /https?:\/\/((www)\.)?1x2nwh\.com/,
                 ],
                 beforeSend: (event: Event): Event => {
-                    const project = window.wlcSentryConfig?.project || 'unknown';
+                    const project = this.window.wlcSentryConfig?.project || 'unknown';
                     event.tags = event.tags || {};
                     event.tags.project = project;
                     event.tags.sessionHash = this.sessionHash;

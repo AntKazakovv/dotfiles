@@ -44,6 +44,7 @@ import {ColorThemeService} from 'wlc-engine/modules/core/system/services/color-t
 import {UserProfile} from 'wlc-engine/modules/user/system/models/profile.model';
 import {UserService} from 'wlc-engine/modules/user/system/services/user/user.service';
 import {LogService} from 'wlc-engine/modules/core/system/services/log/log.service';
+import {WINDOW} from 'wlc-engine/modules/app/system';
 
 import _isString from 'lodash-es/isString';
 import _toNumber from 'lodash-es/toNumber';
@@ -117,14 +118,15 @@ export class ActionService {
         private injectionService: InjectionService,
         private transition: TransitionService,
         private logService: LogService,
-        @Inject(DOCUMENT) protected document: HTMLDocument,
+        @Inject(DOCUMENT) private document: Document,
+        @Inject(WINDOW) private window: Window,
     ) {
         this.init();
     }
 
     public lockBody(): void {
-        if (window.pageYOffset) {
-            this.scrollTop = window.pageYOffset;
+        if (this.window.pageYOffset) {
+            this.scrollTop = this.window.pageYOffset;
         }
 
         const elems = [this.document.documentElement, this.document.body];
@@ -142,7 +144,7 @@ export class ActionService {
         });
 
         if (this.scrollTop) {
-            window.scrollTo(0, this.scrollTop);
+            this.window.scrollTo(0, this.scrollTop);
             this.scrollTop = 0;
         }
     }
@@ -254,7 +256,7 @@ export class ActionService {
     private async checkDeposit(type: TPaymentStatus, initialPath?: IIndexing<string>): Promise<void> {
         await this.configService.ready;
 
-        if (this.depositInIframe && GlobalHelper.isIframe()) {
+        if (this.depositInIframe && GlobalHelper.isIframe(this.window)) {
 
             const postMessage: Partial<IPaymentPostMessage> = {
                 eventType: type,
@@ -268,7 +270,7 @@ export class ActionService {
             }
 
             try {
-                window.parent?.postMessage(postMessage, '*');
+                this.window.parent?.postMessage(postMessage, '*');
             } catch (error) {
                 this.logService.sendLog({code: '17.0.0', data: error});
             }
@@ -373,14 +375,14 @@ export class ActionService {
     }
 
     private getStyleNumValue(elem: HTMLElement, style: string): number {
-        return _toNumber(globalThis.getComputedStyle(elem)[style].replace(/[^\d\.\-]/g, ''));
+        return _toNumber(this.window.getComputedStyle(elem)[style].replace(/[^\d\.\-]/g, ''));
     }
 
     private async init(): Promise<void> {
         this.renderer = this.rendererFactory.createRenderer(null, null);
         this.configService.ready.then(() => {
             this.device = this.configService.get<DeviceModel>('device');
-            fromEvent(window, 'resize').subscribe({
+            fromEvent(this.window, 'resize').subscribe({
                 next: (event: Event) => {
                     this.windowResizeSubject.next({
                         device: this.device,
@@ -409,7 +411,7 @@ export class ActionService {
         this.depositInIframe = this.configService.get<boolean>('$base.finances.depositInIframe');
 
         if (this.depositInIframe) {
-            fromEvent(window, 'message').subscribe((event: MessageEvent<IPaymentPostMessage>) => {
+            fromEvent(this.window, 'message').subscribe((event: MessageEvent<IPaymentPostMessage>) => {
                 if (event.data) {
                     const message: IPaymentPostMessage = event.data;
 
@@ -430,7 +432,7 @@ export class ActionService {
     private createBreakpoints(): void {
         const breakpoints = this.configService.get<IDeviceConfig>('$base.device')?.breakpoints;
         const createMq = (mq: number): IBreakpoint => {
-            const mediaQuery = window.matchMedia(`(min-width: ${mq}px)`);
+            const mediaQuery = this.window.matchMedia(`(min-width: ${mq}px)`);
             return {
                 mq: mediaQuery,
                 observer: GlobalHelper.mediaQueryObserver(mediaQuery),
@@ -557,7 +559,7 @@ export class ActionService {
             if (!trans.paramsChanged()['locale'] && trans.to().name !== 'app.home') {
                 trans.abort();
                 const newUrl = `${params['locale'] || this.lang}${url[0]}${params[url[1]] || ''}`;
-                this.document.defaultView.open(address + newUrl, '_self', null, true);
+                this.window.open(address + newUrl, '_self', null);
             }
         });
 
@@ -565,7 +567,7 @@ export class ActionService {
 
         if (current.name !== 'app.home') {
             const locale = current.params?.['locale'] || this.lang;
-            this.document.defaultView.open(`${address}${locale}/error`);
+            this.window.open(`${address}${locale}/error`);
         }
 
         const affAddress = this.configService.get<string>('$base.affiliate.affiliateUrl');
@@ -573,13 +575,13 @@ export class ActionService {
         this.eventService.subscribe({
             name: 'AFFILIATE_LOGIN',
         }, () => {
-            this.document.defaultView.open(affAddress + this.lang, '_self');
+            this.window.open(affAddress + this.lang, '_self');
         });
 
         this.eventService.subscribe({
             name: 'AFFILIATE_SIGNIN',
         }, () => {
-            this.document.defaultView.open(affAddress + this.lang + '/Register', '_self');
+            this.window.open(affAddress + this.lang + '/Register', '_self');
         });
     }
 

@@ -1,10 +1,14 @@
-import {Injectable} from '@angular/core';
+import {
+    Inject,
+    Injectable,
+} from '@angular/core';
 import {
     IAnalytics,
     IEventParams,
     ITag,
     ITagEvent,
 } from 'wlc-engine/modules/analytics/system/interfaces/analytics.interface';
+import {WINDOW} from 'wlc-engine/modules/app/system';
 import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
 import {EventService} from 'wlc-engine/modules/core/system/services/event/event.service';
 
@@ -18,6 +22,7 @@ export class AnalyticsService {
     constructor(
         private configService: ConfigService,
         private eventService: EventService,
+        @Inject(WINDOW) private window: Window,
     ) {
         this.init();
     }
@@ -59,7 +64,7 @@ export class AnalyticsService {
 
     private getEventHandler(methodName: TMethodName, event: ITagEvent, params?: IEventParams): Function {
         return () => {
-            window[methodName](event.type, event.name, params);
+            this.window[methodName](event.type, event.name, params);
         };
     }
 

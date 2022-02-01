@@ -1,5 +1,6 @@
 import {
     ChangeDetectorRef,
+    Inject,
     Injectable,
 } from '@angular/core';
 import {UIRouter} from '@uirouter/core';
@@ -20,6 +21,7 @@ import {
 } from 'wlc-engine/modules/sportsbook/system/interfaces/sportsbook.interface';
 import {BetradarGameModel} from 'wlc-engine/modules/sportsbook/system/models/betradar-game.model';
 import {SportsbookService} from 'wlc-engine/modules/sportsbook/system/services/sportsbook/sportsbook.service';
+import {WINDOW} from 'wlc-engine/modules/app/system';
 
 import _get from 'lodash-es/get';
 import _forEach from 'lodash-es/forEach';
@@ -49,6 +51,7 @@ export class BetradarService {
         protected configService: ConfigService,
         protected eventService: EventService,
         protected dataService: DataService,
+        @Inject(WINDOW) private window: Window,
     ) {
         this.registerMethods();
     }
@@ -67,7 +70,7 @@ export class BetradarService {
                 urlParams.push(stateParam);
             }
         });
-        globalThis['SPORTSBOOK_URL_PATH'] = urlParams;
+        this.window['SPORTSBOOK_URL_PATH'] = urlParams;
 
         const urlQueryParams: {
             [key: string]: string
@@ -79,18 +82,18 @@ export class BetradarService {
                 urlQueryParams[param] = stateParamVal;
             }
         });
-        globalThis['SPORTSBOOK_URL_QUERY_PARAMS'] = urlQueryParams;
+        this.window['SPORTSBOOK_URL_QUERY_PARAMS'] = urlQueryParams;
 
         const {cssFile, configFile, theme} = this.configService.get<IBetradar>('$sportsbook.betradar');
 
         if (cssFile) {
-            globalThis['SPORTSBOOK_CUSTOM_CSS'] = cssFile;
+            this.window['SPORTSBOOK_CUSTOM_CSS'] = cssFile;
         }
         if (configFile) {
-            globalThis['SPORTSBOOK_CUSTOM_CONFIG'] = configFile;
+            this.window['SPORTSBOOK_CUSTOM_CONFIG'] = configFile;
         }
         if (theme) {
-            globalThis['SPORTSBOOK_THEME'] = theme;
+            this.window['SPORTSBOOK_THEME'] = theme;
         }
     }
 

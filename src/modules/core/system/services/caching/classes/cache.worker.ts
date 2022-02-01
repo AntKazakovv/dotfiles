@@ -10,7 +10,7 @@ import {
 
 const store = createStore('wlc-cache-db', 'cache');
 addEventListener('message', async ({data}) => {
-    if (!globalThis.indexedDB) {
+    if (!self.indexedDB) {
         postMessage(JSON.stringify({rid: data.rid, status: 'failed', error: 'indexedDB not supports'}));
         return;
     }

@@ -1,5 +1,6 @@
 import {TestBed} from '@angular/core/testing';
 import {AppModule} from 'wlc-engine/modules/app/app.module';
+import {WINDOW} from 'wlc-engine/modules/app/system';
 import {DeviceModel} from 'wlc-engine/modules/core/system/models/device.model';
 import {ActionService} from './action.service';
 
@@ -7,6 +8,7 @@ declare const viewport;
 
 describe('ActionService', () => {
     let actionService: ActionService;
+    let window: Window;
 
     beforeEach(() => {
         TestBed.configureTestingModule({
@@ -14,6 +16,7 @@ describe('ActionService', () => {
             providers: [ActionService],
         });
 
+        window = TestBed.inject<Window>(WINDOW);
         actionService = TestBed.inject(ActionService);
     });
 
@@ -41,7 +44,7 @@ describe('ActionService', () => {
                 tablet: 768,
                 mobile: 0,
             },
-        });
+        }, window);
 
         viewport.set('mobile');
         expect(actionService.deviceOrientation()).toEqual('portrait');

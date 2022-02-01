@@ -31,6 +31,8 @@ import {
     LogService,
     GlobalHelper,
 } from 'wlc-engine/modules/core';
+import {WINDOW} from 'wlc-engine/modules/app/system';
+
 import * as Params from './language-selector.params';
 
 import _find from 'lodash-es/find';
@@ -93,6 +95,7 @@ export class LanguageSelectorComponent
         protected elementRef: ElementRef,
         protected modalService: ModalService,
         protected logService: LogService,
+        @Inject(WINDOW) private window: Window,
     ) {
         super({injectParams, defaultParams: Params.defaultParams}, configService);
     }
@@ -125,8 +128,8 @@ export class LanguageSelectorComponent
         } else if (this.availableLanguages.length <= 6 && this.$params.toggleOnScroll) {
             this.defaultThemeMod = this.$params.themeMod;
             merge(
-                fromEvent(window, 'scroll'),
-                fromEvent(window, 'resize'),
+                fromEvent(this.window, 'scroll'),
+                fromEvent(this.window, 'resize'),
             ).pipe(takeUntil(this.$destroy)).subscribe(() => {
                 this.toggleThemeMod();
             });

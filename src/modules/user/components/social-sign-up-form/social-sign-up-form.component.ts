@@ -17,6 +17,7 @@ import {
 import {UserService} from 'wlc-engine/modules/user/system/services/user/user.service';
 import {UserActionsAbstract} from 'wlc-engine/modules/user/system/classes/user-actions-abstract.class';
 import {SocialService} from 'wlc-engine/modules/user/system/services/social/social.service';
+import {WINDOW} from 'wlc-engine/modules/app/system';
 
 import * as Params from './social-sign-up-form.params';
 
@@ -39,6 +40,7 @@ export class SocialSignUpFormComponent extends UserActionsAbstract<Params.ISocia
         protected userService: UserService,
         protected eventService: EventService,
         protected socialService: SocialService,
+        @Inject(WINDOW) protected window: Window,
     ) {
         super({
             injectParams,
@@ -67,9 +69,9 @@ export class SocialSignUpFormComponent extends UserActionsAbstract<Params.ISocia
             const regData = this.formDataPreparation(form);
 
             await this.socialService.socialRegisterComplete(regData.data);
-            // TODO: After registration error is caught, though the user has been registered successfully.
+            // TODO: 265405 After registration error is caught, though the user has been registered successfully.
             // {code: 400, errors: null, status: "error"}
-            window.location.reload();
+            this.window.location.reload();
         } catch (error) {
             this.showRegError(
                 error,

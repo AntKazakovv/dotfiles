@@ -23,6 +23,7 @@ import {
 import {EventService} from 'wlc-engine/modules/core/system/services/event/event.service';
 import {CachingService} from 'wlc-engine/modules/core/system/services/caching/caching.service';
 import {LogService} from 'wlc-engine/modules/core/system/services/log/log.service';
+import {WINDOW_PROVIDER} from 'wlc-engine/modules/app/system';
 
 import _each from 'lodash-es/each';
 import _values from 'lodash-es/values';
@@ -42,6 +43,7 @@ describe('DataService', () => {
         TestBed.configureTestingModule({
             imports: [HttpClientTestingModule],
             providers: [
+                WINDOW_PROVIDER,
                 DataService,
                 EventService,
                 {

@@ -15,8 +15,8 @@ import {
     fromEvent,
 } from 'rxjs';
 import {
-    throttleTime, 
-    map, 
+    throttleTime,
+    map,
     pairwise,
 } from 'rxjs/operators';
 
@@ -26,6 +26,7 @@ import {ActionService} from 'wlc-engine/modules/core/system/services/action/acti
 import {ColorThemeValues} from 'wlc-engine/modules/core/constants';
 import {LogService} from 'wlc-engine/modules/core/system/services/log/log.service';
 import {DeviceType} from 'wlc-engine/modules/core/system/interfaces';
+import {WINDOW} from 'wlc-engine/modules/app/system/tokens/window';
 
 export enum BodyClassEvents {
     add = 'BODY_ADD_MODIFIER',
@@ -59,7 +60,8 @@ export class BodyClassService {
     private scrollingGap: number;
 
     constructor(
-        @Inject(DOCUMENT) private document: HTMLDocument,
+        @Inject(DOCUMENT) private document: Document,
+        @Inject(WINDOW) protected window: Window,
         private configService: ConfigService,
         private eventService: EventService,
         private actionService: ActionService,
@@ -210,9 +212,9 @@ export class BodyClassService {
         this.addModifier('wlc-body--sticky-header');
         this.scrollingGap = this.configService.get('$base.stickyHeader.scrollingGap');
 
-        fromEvent(window, 'scroll').pipe(
+        fromEvent(this.window, 'scroll').pipe(
             throttleTime(10),
-            map((): number => window.pageYOffset),
+            map((): number => this.window.pageYOffset),
             pairwise(),
             map(([y1, y2]: number[]): ScrollingDirection => {
                 if (y2 <= 0) {
@@ -229,15 +231,15 @@ export class BodyClassService {
                     this.removeClassByPrefix('wlc-body--sticky-header-scrolling');
                     break;
                 case ScrollingDirection.Up:
-                    if ((this.scrollStopPosition - window.pageYOffset) > this.scrollingGap) {
+                    if ((this.scrollStopPosition - this.window.pageYOffset) > this.scrollingGap) {
                         this.removeClassByPrefix('wlc-body--sticky-header-down');
-                        this.scrollStopPosition = window.pageYOffset;
+                        this.scrollStopPosition = this.window.pageYOffset;
                     }
                     break;
                 case ScrollingDirection.Down:
-                    if ((window.pageYOffset - this.scrollStopPosition) > this.scrollingGap) {
+                    if ((this.window.pageYOffset - this.scrollStopPosition) > this.scrollingGap) {
                         this.addModifier('wlc-body--sticky-header-down');
-                        this.scrollStopPosition = window.pageYOffset;
+                        this.scrollStopPosition = this.window.pageYOffset;
                     }
                     break;
             }

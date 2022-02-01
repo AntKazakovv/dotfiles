@@ -2,6 +2,7 @@ import {
     ChangeDetectionStrategy,
     ChangeDetectorRef,
     Component,
+    Inject,
     OnDestroy,
     OnInit,
 } from '@angular/core';
@@ -52,6 +53,7 @@ import {
 } from 'wlc-engine/modules/livechat';
 import {IAnalytics} from 'wlc-engine/modules/analytics/system/interfaces/analytics.interface';
 import {AnalyticsService} from 'wlc-engine/modules/analytics';
+import {WINDOW} from 'wlc-engine/modules/app/system';
 
 const defaultParams = {
     class: 'wlc-sections',
@@ -94,6 +96,7 @@ export class AppComponent extends AbstractComponent implements OnInit, OnDestroy
         private meta: Meta,
         private logService: LogService,
         titleService: Title,
+        @Inject(WINDOW) private window: Window,
     ) {
         super({injectParams: {}, defaultParams}, configService);
         this.configService.set({name: 'firstLanguageReady', value: new Deferred()});
@@ -111,7 +114,7 @@ export class AppComponent extends AbstractComponent implements OnInit, OnDestroy
     public async ngOnInit(): Promise<void> {
         const depositInIframe = this.configService.get<boolean>('$base.finances.depositInIframe');
 
-        if (depositInIframe && GlobalHelper.isIframe()) {
+        if (depositInIframe && GlobalHelper.isIframe(this.window)) {
             return;
         }
 
@@ -156,15 +159,15 @@ export class AppComponent extends AbstractComponent implements OnInit, OnDestroy
                 this.logService.sendLog({
                     code: '0.0.9',
                     flog: {
-                        downlink: _get(window, 'navigator.connection.downlink', 0),
-                        effectiveType: _get(window, 'navigator.connection.effectiveType', ''),
+                        downlink: _get(this.window, 'navigator.connection.downlink', 0),
+                        effectiveType: _get(this.window, 'navigator.connection.effectiveType', ''),
                     },
                     from: {
                         component: 'AppComponent',
                         method: 'ngOnInit',
                     },
                 });
-                (window as any).WlcFlog?.setCompileSuccess();
+                this.window.WlcFlog?.setCompileSuccess();
             }
         });
 
@@ -173,7 +176,7 @@ export class AppComponent extends AbstractComponent implements OnInit, OnDestroy
         this.updateMetaTag();
         this.cdr.markForCheck();
 
-        fromEvent(window, 'resize').pipe(filter(() => !this.testViewPort)).subscribe(() => {
+        fromEvent(this.window, 'resize').pipe(filter(() => !this.testViewPort)).subscribe(() => {
             this.updateMetaTag();
         });
     }
@@ -206,7 +209,7 @@ export class AppComponent extends AbstractComponent implements OnInit, OnDestroy
             GlobalHelper.overrideDisplayResize(this.allSections);
 
             if (!this.resize$) {
-                this.resize$ = fromEvent(window, 'resize').pipe(takeUntil(this.$destroy)).subscribe({
+                this.resize$ = fromEvent(this.window, 'resize').pipe(takeUntil(this.$destroy)).subscribe({
                     next: () => {
                         this.updateSections();
                     },
@@ -267,7 +270,7 @@ export class AppComponent extends AbstractComponent implements OnInit, OnDestroy
     private updateMetaTag(): void {
         const current = this.meta.getTag('name=\'viewport\'')?.attributes.getNamedItem('content').value;
 
-        if (window.matchMedia('(max-width: 375px)').matches
+        if (this.window.matchMedia('(max-width: 375px)').matches
             && _includes(current, 'width=device-width, initial-scale=1')) {
             this.meta.updateTag({
                 name: 'viewport',
@@ -294,7 +297,7 @@ export class AppComponent extends AbstractComponent implements OnInit, OnDestroy
                     : 'width=device-width, initial-scale=1',
             });
 
-            if (window.matchMedia('(max-width: 375px)').matches) {
+            if (this.window.matchMedia('(max-width: 375px)').matches) {
                 this.meta.updateTag({
                     name: 'viewport',
                     content: this.isIOS ? 'width=375, initial-scale=1, maximum-scale=1' : 'width=375',

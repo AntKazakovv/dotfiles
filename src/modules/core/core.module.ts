@@ -4,10 +4,7 @@ import {HTTP_INTERCEPTORS} from '@angular/common/http';
 import {CommonModule} from '@angular/common';
 import {NgModule} from '@angular/core';
 
-import {
-    HAMMER_GESTURE_CONFIG,
-    HammerModule,
-} from '@angular/platform-browser';
+import {HammerModule} from '@angular/platform-browser';
 import {AngularMyDatePickerModule} from 'angular-mydatepicker';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {AngularResizedEventModule} from 'angular-resize-event';
@@ -118,7 +115,6 @@ import {HlSubstrPipe} from './pipes/hlsubstr.pipe';
 //  -- PIPES IMPORTS END  --;
 
 //  -- CONFIGS IMPORTS STARTS--;
-import {HammerConfig} from 'wlc-engine/modules/core/system/config/hammer.config';
 import {GlobalHelper} from 'wlc-engine/modules/core/index';
 import {coreConfig} from './system/config/core.config';
 import {ICoreConfig} from './system/interfaces/core.interface';
@@ -206,10 +202,6 @@ export const components = {
         LayoutService,
         SeoService,
         StateHistoryService,
-        {
-            provide: HAMMER_GESTURE_CONFIG,
-            useClass: HammerConfig,
-        },
         CachingService,
         NotificationService,
         GlobalHelper.bootstrapProviders(NotificationService),

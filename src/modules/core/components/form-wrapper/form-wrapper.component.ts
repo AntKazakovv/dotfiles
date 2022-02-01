@@ -56,6 +56,7 @@ import {
     IWrapperCParams,
     WrapperComponent,
 } from 'wlc-engine/modules/core/components/wrapper/wrapper.component';
+import {WINDOW} from 'wlc-engine/modules/app/system';
 
 
 import _assign from 'lodash-es/assign';
@@ -130,6 +131,7 @@ export class FormWrapperComponent extends WrapperComponent implements OnInit, On
         protected elRef: ElementRef,
         protected cdr: ChangeDetectorRef,
         protected injectionService: InjectionService,
+        @Inject(WINDOW) protected window: Window,
     ) {
         super(
             params,
@@ -141,6 +143,7 @@ export class FormWrapperComponent extends WrapperComponent implements OnInit, On
             uiRouter,
             eventService,
             injectionService,
+            window,
         );
     }
 

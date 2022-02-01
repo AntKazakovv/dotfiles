@@ -20,15 +20,16 @@ export interface IDeviceConfig {
 }
 
 export class DeviceModel {
-    protected bowserParser = Bowser.getParser(window.navigator.userAgent);
+    protected bowserParser = Bowser.getParser(this.window.navigator.userAgent);
 
     constructor(
         protected deviceConfig: IDeviceConfig,
+        protected window: Window,
     ) {
     }
 
     public get orientation(): DeviceOrientation {
-        return window.matchMedia('(orientation:portrait)').matches
+        return this.window.matchMedia('(orientation:portrait)').matches
             ? DeviceOrientation.Portrait
             : DeviceOrientation.Landscape;
     }
@@ -38,11 +39,11 @@ export class DeviceModel {
     }
 
     public get windowWidth(): number {
-        return window.innerWidth;
+        return this.window.innerWidth;
     }
 
     public get windowHeight(): number {
-        return window.innerHeight;
+        return this.window.innerHeight;
     }
 
     public get isMobile(): boolean {

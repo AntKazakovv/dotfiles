@@ -1,3 +1,4 @@
+/* eslint-disable no-restricted-globals */
 
 /* smoothscroll v0.4.4 - 2019 - Dustan Kasten, Jeremias Menichelli - MIT License */
 export const polyfill = (d: HTMLDocument) => {

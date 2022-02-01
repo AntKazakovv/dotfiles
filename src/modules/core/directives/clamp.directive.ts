@@ -3,7 +3,11 @@ import {
     ElementRef,
     AfterViewInit,
     Input,
+    Inject,
 } from '@angular/core';
+
+import {WINDOW} from 'wlc-engine/modules/app/system';
+
 import * as clampLib from 'text-overflow-clamp';
 
 import _ceil from 'lodash-es/ceil';
@@ -16,11 +20,12 @@ export class ClampDirective implements AfterViewInit {
 
     constructor(
         protected element: ElementRef,
+        @Inject(WINDOW) protected window: Window,
     ) {}
 
     public ngAfterViewInit(): void {
         if (!this.lines) {
-            const styles = window.getComputedStyle(this.element.nativeElement);
+            const styles = this.window.getComputedStyle(this.element.nativeElement);
             const lineHeight: number = parseInt(styles.lineHeight);
             const height: number = parseInt(styles.height);
             this.lines = _ceil(height/lineHeight);

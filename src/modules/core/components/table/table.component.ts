@@ -28,6 +28,7 @@ import {
     IPaginateOutput,
 } from 'wlc-engine/modules/core';
 import {TableRowModel} from './table-row.model';
+import {WINDOW} from 'wlc-engine/modules/app/system';
 
 import * as Params from './table.params';
 
@@ -80,6 +81,7 @@ export class TableComponent extends AbstractComponent implements OnInit {
         protected injector: Injector,
         protected configService: ConfigService,
         protected actionService: ActionService,
+        @Inject(WINDOW) protected window: Window,
     ) {
         super(
             <IMixedParams<Params.ITableCParams>>{
@@ -91,14 +93,14 @@ export class TableComponent extends AbstractComponent implements OnInit {
     public async ngOnInit(): Promise<void> {
         super.ngOnInit(this.inlineParams);
 
-        if (window.innerWidth >= this.$params.switchWidth) {
+        if (this.window.innerWidth >= this.$params.switchWidth) {
             this.tableType = 'table';
             this.addModifiers('table');
         }
 
         this.actionService.windowResize().pipe(takeUntil(this.$destroy)).subscribe({
             next: () => {
-                if (window.innerWidth >= this.$params.switchWidth) {
+                if (this.window.innerWidth >= this.$params.switchWidth) {
                     this.tableType = 'table';
                     this.addModifiers('table');
                 } else {

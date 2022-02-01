@@ -35,13 +35,13 @@ export class WorkerStorageCache extends AbstractCache {
         this.$resolve = resolve;
     });
 
-    constructor() {
+    constructor(protected window: Window) {
         super();
         this.init();
     }
 
     private async init(): Promise<void> {
-        if (globalThis.indexedDB && typeof (Worker) !== 'undefined') {
+        if (this.window.indexedDB && typeof (Worker) !== 'undefined') {
 
             this.worker = new Worker(new URL('./cache.worker', import.meta.url), {type: 'module'});
             this.worker.onmessage = ({data}) => {

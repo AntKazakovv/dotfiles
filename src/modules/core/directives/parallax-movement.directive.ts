@@ -14,6 +14,8 @@ import {
 } from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 
+import {WINDOW} from 'wlc-engine/modules/app/system';
+
 import _each from 'lodash-es/each';
 
 @Directive({
@@ -35,11 +37,12 @@ export class ParallaxMovementDirective implements OnInit, AfterViewInit, OnDestr
 
     constructor(
         private elementRef: ElementRef,
-        @Inject(DOCUMENT) protected document: HTMLDocument,
+        @Inject(DOCUMENT) protected document: Document,
+        @Inject(WINDOW) protected window: Window,
     ) {}
 
     public ngOnInit(): void {
-        if (window.matchMedia('(pointer: coarse)')) {
+        if (this.window.matchMedia('(pointer: coarse)')) {
             return;
         }
     }
@@ -82,7 +85,7 @@ export class ParallaxMovementDirective implements OnInit, AfterViewInit, OnDestr
     }
 
     protected mouseMovement(e: MouseEvent): void {
-        const width = window.innerWidth / 2, height = window.innerHeight / 2;
+        const width = this.window.innerWidth / 2, height = this.window.innerHeight / 2;
         const mouseX = e.clientX, mouseY = e.clientY;
         const deltaW = mouseX - width, deltaH = mouseY - height;
         const depth = `${deltaW * this.widthCoefficient}px, ${deltaH * this.widthCoefficient}px`;

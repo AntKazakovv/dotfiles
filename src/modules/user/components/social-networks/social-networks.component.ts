@@ -14,6 +14,7 @@ import {
     EventService,
 } from 'wlc-engine/modules/core';
 import {SocialService} from 'wlc-engine/modules/user/system/services/social/social.service';
+import {WINDOW} from 'wlc-engine/modules/app/system';
 
 import * as Params from './social-networks.params';
 
@@ -42,6 +43,7 @@ export class SocialNetworksComponent extends AbstractComponent implements OnInit
         protected socialService: SocialService,
         protected eventService: EventService,
         protected cdr: ChangeDetectorRef,
+        @Inject(WINDOW) protected window: Window,
     ) {
         super({injectParams, defaultParams: Params.defaultParams}, configService);
     }
@@ -101,7 +103,7 @@ export class SocialNetworksComponent extends AbstractComponent implements OnInit
     protected async socialLogin(provider: string): Promise<void> {
         const url = await this.socialService.socialLogin(provider);
         if (url) {
-            window.location.href = url;
+            this.window.location.href = url;
         }
     }
 
@@ -112,7 +114,7 @@ export class SocialNetworksComponent extends AbstractComponent implements OnInit
         } else {
             const url = await this.socialService.connectNetwork(provider);
             if (url) {
-                window.location.href = url;
+                this.window.location.href = url;
             }
         }
     }

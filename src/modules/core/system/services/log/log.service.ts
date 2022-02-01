@@ -18,6 +18,7 @@ import {
 } from 'wlc-engine/modules/core';
 import {IFlogData, WlcFlog} from 'wlc-engine/system/inline/_flog';
 import {IData} from 'wlc-engine/modules/core/system/services/data/data.service';
+import {WINDOW} from 'wlc-engine/modules/app/system';
 
 import _get from 'lodash-es/get';
 import _cloneDeep from 'lodash-es/cloneDeep';
@@ -64,14 +65,15 @@ interface IRequestLog {
 
 @Injectable()
 export class LogService {
-    private Flog: WlcFlog = _get(window, 'WlcFlog', {}) as WlcFlog;
+    private Flog: WlcFlog = _get(this.window, 'WlcFlog', {}) as WlcFlog;
 
     constructor(
         private configService: ConfigService,
         private translateService: TranslateService,
         private stateService: StateService,
         private router: UIRouter,
-        @Inject(DOCUMENT) protected document: HTMLDocument,
+        @Inject(DOCUMENT) private document: Document,
+        @Inject(WINDOW) private window: Window,
     ) {
     }
 
@@ -113,16 +115,16 @@ export class LogService {
                 this.sendLog(log);
             }, () => {
                 clearInterval(timeoutHandler);
-                window.removeEventListener('onbeforeunload', waiter.resolve);
-                window.removeEventListener('pagehide', waiter.resolve);
+                this.window.removeEventListener('onbeforeunload', waiter.resolve);
+                this.window.removeEventListener('pagehide', waiter.resolve);
             });
 
-            timeoutHandler = window.setTimeout(() => {
+            timeoutHandler = this.window.setTimeout(() => {
                 resolveFunc(log);
             }, timeout);
 
-            window.addEventListener('onbeforeunload', waiter.resolve);
-            window.addEventListener('pagehide', waiter.resolve);
+            this.window.addEventListener('onbeforeunload', waiter.resolve);
+            this.window.addEventListener('pagehide', waiter.resolve);
             return waiter;
         };
         return init();
@@ -148,7 +150,7 @@ export class LogService {
             }).then(null, (result) => {
                 this.sendLog(result);
             });
-            window.addEventListener('onbeforeunload', res);
+            this.window.addEventListener('onbeforeunload', res);
             return res;
         };
         return start();
@@ -179,9 +181,9 @@ export class LogService {
         const stopTimeout = () => {
             clearTimeout(timeoutHandler);
             destroyListener();
-            window.removeEventListener('onbeforeunload', stopTimeout);
+            this.window.removeEventListener('onbeforeunload', stopTimeout);
         };
-        window.addEventListener('onbeforeunload', stopTimeout);
+        this.window.addEventListener('onbeforeunload', stopTimeout);
         return stopTimeout;
     }
 
@@ -217,8 +219,8 @@ export class LogService {
             isMethod('console')
             || (['error', 'fatal'].includes(defaultLog.level)
                 && (
-                    window['WLC_ENV']
-                    || (!window['WLC_ENV'] && this.document.cookie.indexOf('flog=') !== -1)
+                    this.window['WLC_ENV']
+                    || (!this.window['WLC_ENV'] && this.document.cookie.indexOf('flog=') !== -1)
                 )
             )
         ) {

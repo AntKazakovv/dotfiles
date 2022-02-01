@@ -11,6 +11,7 @@ import {LogService} from 'wlc-engine/modules/core/system/services/log/log.servic
 
 import {LivechatAbstract} from 'wlc-engine/modules/livechat/system/classes/livechatAbstract.class';
 import {ILivechatConfig} from 'wlc-engine/modules/livechat/system/interfaces/livechat.interface';
+import {WINDOW} from 'wlc-engine/modules/app/system';
 
 import _get from 'lodash-es/get';
 
@@ -24,7 +25,8 @@ export class ChatraService extends LivechatAbstract {
     protected options: ILivechatConfig = this.configService.get<ILivechatConfig>('$base.livechat');
 
     constructor(
-        @Inject(DOCUMENT) protected document: HTMLDocument,
+        @Inject(DOCUMENT) protected document: Document,
+        @Inject(WINDOW) protected window: Window,
         protected eventService: EventService,
         protected configService: ConfigService,
         protected logService: LogService,
@@ -52,7 +54,7 @@ export class ChatraService extends LivechatAbstract {
      * @returns {boolean} true or false
      */
     public chatIsLoaded(): boolean {
-        return !!window.Chatra;
+        return !!this.window.Chatra;
     }
 
     /**
@@ -60,7 +62,7 @@ export class ChatraService extends LivechatAbstract {
      */
     public openChat(): void {
         try {
-            window.Chatra('openChat', true);
+            this.window.Chatra('openChat', true);
         } catch (error) {
             this.logService.sendLog({code: '14.0.0', data: error});
         }
@@ -71,8 +73,8 @@ export class ChatraService extends LivechatAbstract {
      */
     public hideChat(): void {
         try {
-            window.Chatra('minimizeWidget');
-            window.Chatra('hide');
+            this.window.Chatra('minimizeWidget');
+            this.window.Chatra('hide');
         } catch (error) {
             this.logService.sendLog({code: '14.0.0', data: error});
         }
@@ -89,8 +91,8 @@ export class ChatraService extends LivechatAbstract {
      * destroy chat widget
      */
     public destroyWidget(): void {
-        if (window.Chatra) {
-            window.Chatra('kill');
+        if (this.window.Chatra) {
+            this.window.Chatra('kill');
         }
     }
 
@@ -98,7 +100,7 @@ export class ChatraService extends LivechatAbstract {
      * when we have showOnlyAuth in livechatConfig, init chat widget in login
      */
     public rerunWidget():void {
-        window.Chatra('restart');
+        this.window.Chatra('restart');
     }
 
     protected initChat(): void {
@@ -107,7 +109,7 @@ export class ChatraService extends LivechatAbstract {
             return;
         }
 
-        if (this.options.onlyProd && window.WLC_ENV) {
+        if (this.options.onlyProd && this.window.WLC_ENV) {
             return;
         }
 
@@ -118,13 +120,13 @@ export class ChatraService extends LivechatAbstract {
             this.hiddenChatStart();
         }
 
-        window.ChatraSetup = this.options?.chatraSetup || {};
-        window.ChatraID = this.options.code;
+        this.window.ChatraSetup = this.options?.chatraSetup || {};
+        this.window.ChatraID = this.options.code;
 
         const s = this.document.createElement('script');
         // tslint:disable-next-line: only-arrow-functions space-before-function-paren
-        window['Chatra'] = function () {
-            (window['Chatra'].q = window['Chatra'].q || []).push(arguments);
+        this.window['Chatra'] = function () {
+            (this.window['Chatra'].q = this.window['Chatra'].q || []).push(arguments);
         };
         s.async = true;
         s.src = 'https://call.chatra.io/chatra.js';
@@ -135,12 +137,12 @@ export class ChatraService extends LivechatAbstract {
     protected changeLocale(locale: string): void {
         const locales = this.options.group;
         if (locales) {
-            window.ChatraGroupID = _get(locales, locale) || locales.en;
+            this.window.ChatraGroupID = _get(locales, locale) || locales.en;
         }
     }
 
     protected hiddenChatStart(): void {
-        window.ChatraSetup = {
+        this.window.ChatraSetup = {
             startHidden: true,
         };
     }

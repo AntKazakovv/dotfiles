@@ -1,9 +1,13 @@
-import {Injectable} from '@angular/core';
+import {
+    Inject,
+    Injectable,
+} from '@angular/core';
 import {LocalStorageService} from 'ngx-webstorage';
 import {LogService} from 'wlc-engine/modules/core/system/services/log/log.service';
 import {AbstractCache} from './classes/abstract.cache';
 import {WorkerStorageCache} from './classes/workerstorage.class';
 import {LocalStorageCache} from './classes/localstorage.class';
+import {WINDOW} from 'wlc-engine/modules/app/system';
 
 @Injectable({
     providedIn: 'root',
@@ -21,12 +25,13 @@ export class CachingService {
     constructor(
         private localStorageService: LocalStorageService,
         private logService: LogService,
+        @Inject(WINDOW) private window: Window,
     ) {
         this.init();
     }
 
     public async init(): Promise<void> {
-        let storage = new WorkerStorageCache();
+        let storage = new WorkerStorageCache(this.window);
         if (await storage.isAvailable) {
             this.storage = storage;
             this.storageType = 'indexeddb';

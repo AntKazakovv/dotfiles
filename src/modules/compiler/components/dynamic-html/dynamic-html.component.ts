@@ -56,7 +56,7 @@ export class DynamicHtmlComponent implements AfterViewInit, OnDestroy {
 
     constructor(
         public viewRef: ViewContainerRef,
-        @Inject(DOCUMENT) private document: HTMLDocument,
+        @Inject(DOCUMENT) private document: Document,
         private compiler: Compiler,
         private injector: Injector,
         private moduleRef: NgModuleRef<CoreModule>,
@@ -97,8 +97,6 @@ export class DynamicHtmlComponent implements AfterViewInit, OnDestroy {
             template: this.extractBodyFromString(html),
             selector: `${this.tag || 'div'}[wlc-dynamic]`,
         })(class {
-            public window = window;
-
             ngOnInit() {
             }
         });

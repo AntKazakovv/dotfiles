@@ -21,6 +21,7 @@ import {LogService} from 'wlc-engine/modules/core/system/services/log/log.servic
 import {LivechatAbstract} from 'wlc-engine/modules/livechat/system/classes/livechatAbstract.class';
 import {ILivechatConfig} from 'wlc-engine/modules/livechat/system/interfaces/livechat.interface';
 import {UserProfile} from 'wlc-engine/modules/user/system/models/profile.model';
+import {WINDOW} from 'wlc-engine/modules/app/system';
 
 import _isNull from 'lodash-es/isNull';
 import _includes from 'lodash-es/includes';
@@ -36,7 +37,8 @@ export class VerboxService extends LivechatAbstract {
     private currentEmail: string = null;
 
     constructor(
-        @Inject(DOCUMENT) protected document: HTMLDocument,
+        @Inject(DOCUMENT) protected document: Document,
+        @Inject(WINDOW) protected window: Window,
         protected eventService: EventService,
         protected configService: ConfigService,
         protected logService: LogService,
@@ -88,7 +90,7 @@ export class VerboxService extends LivechatAbstract {
      */
     public openChat(): void {
         try {
-            window.Verbox('openSupport');
+            this.window.Verbox('openSupport');
         } catch (error) {
             this.logService.sendLog({code: '14.0.0', data: error});
         }
@@ -99,7 +101,7 @@ export class VerboxService extends LivechatAbstract {
      */
     public hideChat(): void {
         try {
-            window.Verbox('closeSupport');
+            this.window.Verbox('closeSupport');
         } catch (error) {
             this.logService.sendLog({code: '14.0.0', data: error});
         }
@@ -109,8 +111,8 @@ export class VerboxService extends LivechatAbstract {
      * destroy chat widget
      */
     public destroyWidget(): void {
-        if (window.Verbox) {
-            window.Verbox('destroy');
+        if (this.window.Verbox) {
+            this.window.Verbox('destroy');
             const sc = this.document.getElementById('supportScript');
             sc?.parentNode?.removeChild(sc);
         }
@@ -129,7 +131,7 @@ export class VerboxService extends LivechatAbstract {
      * @returns {boolean} true or false
      */
     public chatIsLoaded(): boolean {
-        return !!window.Verbox;
+        return !!this.window.Verbox;
     }
 
     protected initChat(): void {
@@ -138,7 +140,7 @@ export class VerboxService extends LivechatAbstract {
             return;
         }
 
-        if (this.options.onlyProd && window.WLC_ENV) {
+        if (this.options.onlyProd && this.window.WLC_ENV) {
             return;
         }
 
@@ -154,13 +156,13 @@ export class VerboxService extends LivechatAbstract {
 
         const sc = this.document.getElementsByTagName('script')[0];
 
-        window.VerboxSetup = this.options?.verboxSetup || {};
-        window.VerboxSetup.language  = this.translateService.currentLang || 'en';
-        window.supportAPIMethod = 'Verbox';
+        this.window.VerboxSetup = this.options?.verboxSetup || {};
+        this.window.VerboxSetup.language  = this.translateService.currentLang || 'en';
+        this.window.supportAPIMethod = 'Verbox';
 
         if (!this.chatIsLoaded()) {
-            window['Verbox'] = function () {
-                (window['Verbox'].q = window['Verbox'].q || []).push(arguments);
+            this.window['Verbox'] = function () {
+                (this.window['Verbox'].q = this.window['Verbox'].q || []).push(arguments);
             };
         }
 
@@ -179,7 +181,7 @@ export class VerboxService extends LivechatAbstract {
             )
             .subscribe((userProfile) => {
                 if (userProfile.email) {
-                    window.Verbox('setClientInfo', {
+                    this.window.Verbox('setClientInfo', {
                         email: userProfile.email,
                     });
                 } else {

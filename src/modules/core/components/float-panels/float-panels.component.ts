@@ -27,6 +27,7 @@ import {
     LogService,
     SectionModel,
 } from 'wlc-engine/modules/core';
+import {WINDOW} from 'wlc-engine/modules/app/system';
 
 import * as Params from './float-panels.params';
 
@@ -76,6 +77,7 @@ export class FloatPanelsComponent extends AbstractComponent implements OnInit {
         protected logService: LogService,
         protected actionService: ActionService,
         protected layoutService: LayoutService,
+        @Inject(WINDOW) protected window: Window,
     ) {
         super({
             injectParams: {},
@@ -104,9 +106,9 @@ export class FloatPanelsComponent extends AbstractComponent implements OnInit {
         this.actionService.windowResize()
             .pipe(
                 takeUntil(this.$destroy),
-                startWith(window.innerWidth),
+                startWith(this.window.innerWidth),
                 auditTime(100),
-                map((): number => window.innerWidth),
+                map((): number => this.window.innerWidth),
                 pairwise(),
                 filter(([prev, current]: number[]): boolean => current !== prev),
             )
@@ -155,7 +157,7 @@ export class FloatPanelsComponent extends AbstractComponent implements OnInit {
             }
 
             if (section.display?.after || section.display?.before) {
-                return globalThis.matchMedia(this.layoutService.createMediaQuery(section.display)).matches;
+                return this.window.matchMedia(this.layoutService.createMediaQuery(section.display)).matches;
             }
         });
 

@@ -1,5 +1,6 @@
 import {fakeAsync, TestBed} from '@angular/core/testing';
 import {AppModule} from 'wlc-engine/modules/app/app.module';
+import {WINDOW} from 'wlc-engine/modules/app/system';
 import {ConfigService, EventService} from 'wlc-engine/modules/core';
 import {IAnalytics, ITagEvent} from '../../interfaces/analytics.interface';
 import {AnalyticsService} from './analytics.service';
@@ -8,6 +9,7 @@ describe('AnalyticsService', () => {
     let service: AnalyticsService;
     let eventService: EventService;
     let configServiceSpy: jasmine.SpyObj<ConfigService>;
+    let window: Window;
 
     const analyticsConfig: IAnalytics = {
         use: true,
@@ -53,6 +55,7 @@ describe('AnalyticsService', () => {
 
         service = TestBed.inject(AnalyticsService);
         eventService = TestBed.inject(EventService);
+        window = TestBed.inject<Window>(WINDOW);
 
         return configServiceSpy.ready;
     });
@@ -65,7 +68,7 @@ describe('AnalyticsService', () => {
         let result = {};
         let testEvent: ITagEvent = analyticsConfig.tags[0].events[0];
 
-        (window as any).fbq = (eventType, eventName) => {
+        window.fbq = (eventType, eventName) => {
             result = {
                 eventType,
                 eventName,

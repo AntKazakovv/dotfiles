@@ -10,11 +10,11 @@ import {
     ModalService,
     LogService,
 } from 'wlc-engine/modules/core/system/services';
+import {WINDOW} from 'wlc-engine/modules/app/system';
 
 import * as Params from './login-signup.params';
 
 import _get from 'lodash-es/get';
-import {DOCUMENT} from '@angular/common';
 
 
 @Component({
@@ -29,7 +29,7 @@ export class LoginSignupComponent extends AbstractComponent implements OnInit {
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.ILoginSignupCParams,
-        @Inject(DOCUMENT) protected document: Document,
+        @Inject(WINDOW) protected window: Window,
         protected modalService: ModalService,
         protected configService: ConfigService,
         protected logService: LogService,
@@ -63,7 +63,7 @@ export class LoginSignupComponent extends AbstractComponent implements OnInit {
                 const url = _get(this.$params, `${actionButton}.url`);
                 if (!url) return;
                 if (_get(this.$params, `${actionButton}.target`) === 'blank') {
-                    this.document.defaultView.open(url);
+                    this.window.open(url);
                 } else {
                     location.href = url;
                 }
@@ -81,7 +81,7 @@ export class LoginSignupComponent extends AbstractComponent implements OnInit {
         if (this.isAffiliate) {
             const lang = this.configService.get<string>('currentLanguage');
             const url = this.affiliateUrl + lang + (action === 'signup' ? '/Register' : '');
-            this.document.defaultView.open(url, '_self');
+            this.window.open(url, '_self');
         } else {
             const logWaiter = this.logService.waitForElement({
                 selector: (action === 'login') ? '.wlc-modal--login' : '.wlc-modal--signup',

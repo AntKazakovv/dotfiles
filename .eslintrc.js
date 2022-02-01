@@ -24,6 +24,7 @@ module.exports = {
         'optimize-regex/optimize-regex': ['warn', {
             'blacklist': ['charEscapeUnescape']
         }],
+        "no-restricted-globals": ["error", "window", "globalThis"],
         'sonarjs/cognitive-complexity': ['error', 140],
         'sonarjs/no-duplicate-string': 'off',
         'sonarjs/no-small-switch': 'off',

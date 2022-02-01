@@ -55,6 +55,7 @@ import {DashboardSide} from 'wlc-engine/modules/games/components/game-dashboard/
 import {GamesCatalogService} from 'wlc-engine/modules/games/system/services/games-catalog/games-catalog.service';
 import {Game} from 'wlc-engine/modules/games/system/models/game.model';
 import {GameThumbComponent} from 'wlc-engine/modules/games/components/game-thumb/game-thumb.component';
+import {WINDOW} from 'wlc-engine/modules/app/system';
 
 import * as Params from './game-dashboard.params';
 
@@ -173,7 +174,8 @@ export class GameDashboardComponent extends AbstractComponent implements OnInit,
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IGameDashboardCParams,
-        @Inject(DOCUMENT) protected document: HTMLDocument,
+        @Inject(DOCUMENT) protected document: Document,
+        @Inject(WINDOW) protected window: Window,
         protected cdr: ChangeDetectorRef,
         protected actionService: ActionService,
         protected configService: ConfigService,
@@ -706,7 +708,7 @@ export class GameDashboardComponent extends AbstractComponent implements OnInit,
      */
     protected setPanEvents(elem: ElementRef, options?: IPanEventOptions): void {
         const nativeElem = (elem.nativeElement as HTMLElement);
-        const hammer$ = new HammerConfig().buildHammer(nativeElem) as HammerManager;
+        const hammer$ = new HammerConfig(this.window).buildHammer(nativeElem) as HammerManager;
 
         fromEvent(hammer$, 'panstart').pipe(
             takeUntil(this.$destroy),

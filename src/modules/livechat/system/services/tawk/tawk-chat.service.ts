@@ -13,6 +13,7 @@ import {
     ChatState,
 } from 'wlc-engine/modules/livechat/system/classes/livechatAbstract.class';
 import {ILivechatConfig} from 'wlc-engine/modules/livechat/system/interfaces/livechat.interface';
+import {WINDOW} from 'wlc-engine/modules/app/system';
 
 import _get from 'lodash-es/get';
 
@@ -25,7 +26,8 @@ export class TawkChatService extends LivechatAbstract {
     protected options: ILivechatConfig = this.configService.get<ILivechatConfig>('$base.livechat');
 
     constructor(
-        @Inject(DOCUMENT) protected document: HTMLDocument,
+        @Inject(DOCUMENT) protected document: Document,
+        @Inject(WINDOW) protected window: Window,
         protected eventService: EventService,
         protected configService: ConfigService,
         protected logService: LogService,
@@ -39,7 +41,7 @@ export class TawkChatService extends LivechatAbstract {
      * @returns {boolean} true or false
      */
     public chatIsLoaded(): boolean {
-        return window.Tawk_API && this.chatIsLoad;
+        return this.window.Tawk_API && this.chatIsLoad;
     }
 
     /**
@@ -47,10 +49,10 @@ export class TawkChatService extends LivechatAbstract {
      */
     public openChat(): void {
         try {
-            if (window.Tawk_API.isChatHidden()) {
-                window.Tawk_API.showWidget();
+            if (this.window.Tawk_API.isChatHidden()) {
+                this.window.Tawk_API.showWidget();
             }
-            window.Tawk_API.maximize();
+            this.window.Tawk_API.maximize();
         } catch (error) {
             this.logService.sendLog({code: '14.0.0', data: error});
         }
@@ -61,10 +63,10 @@ export class TawkChatService extends LivechatAbstract {
      */
     public hideChat(): void {
         try {
-            if (window.Tawk_API.isChatMaximized()) {
-                window.Tawk_API.minimize();
+            if (this.window.Tawk_API.isChatMaximized()) {
+                this.window.Tawk_API.minimize();
             }
-            window.Tawk_API.hideWidget();
+            this.window.Tawk_API.hideWidget();
         } catch (error) {
             this.logService.sendLog({code: '14.0.0', data: error});
         }
@@ -75,7 +77,7 @@ export class TawkChatService extends LivechatAbstract {
      */
     public hideWidget(): void {
         try {
-            window.Tawk_API.hideWidget();
+            this.window.Tawk_API.hideWidget();
         } catch (error) {
             this.logService.sendLog({code: '14.0.0', data: error});
         }
@@ -100,7 +102,7 @@ export class TawkChatService extends LivechatAbstract {
      */
     public showWidget(): void {
         try {
-            window.Tawk_API.showWidget();
+            this.window.Tawk_API.showWidget();
         } catch (error) {
             this.logService.sendLog({code: '14.0.0', data: error});
         }
@@ -113,15 +115,15 @@ export class TawkChatService extends LivechatAbstract {
         if (!this.chatIsLoaded()) {
             return;
         }
-        if (window.Tawk_API.isChatHidden()) {
-            window.Tawk_API.showWidget();
+        if (this.window.Tawk_API.isChatHidden()) {
+            this.window.Tawk_API.showWidget();
         } else {
-            window.Tawk_API.hideWidget();
+            this.window.Tawk_API.hideWidget();
         }
-        if (window.Tawk_API.isChatMaximized()) {
-            window.Tawk_API.minimize();
+        if (this.window.Tawk_API.isChatMaximized()) {
+            this.window.Tawk_API.minimize();
         } else {
-            window.Tawk_API.maximize();
+            this.window.Tawk_API.maximize();
         }
     }
 
@@ -133,11 +135,11 @@ export class TawkChatService extends LivechatAbstract {
             return;
         }
 
-        if (this.options.onlyProd && window.WLC_ENV) {
+        if (this.options.onlyProd && this.window.WLC_ENV) {
             return;
         }
 
-        window.Tawk_API = _get(window, 'Tawk_API', {});
+        this.window.Tawk_API = _get(this.window, 'Tawk_API', {});
         const s1 = this.document.createElement('script'),
             s0 = this.document.getElementsByTagName('script')[0];
 
@@ -148,7 +150,7 @@ export class TawkChatService extends LivechatAbstract {
         s1.setAttribute('crossorigin', '*');
         s0.parentNode.insertBefore(s1, s0);
 
-        window.Tawk_API.onLoad = () => {
+        this.window.Tawk_API.onLoad = () => {
             this.chatState$.next(ChatState.loaded);
             this.chatIsLoad = true;
 
@@ -157,23 +159,23 @@ export class TawkChatService extends LivechatAbstract {
             }
         };
 
-        window.Tawk_API.onChatMaximized = () => {
+        this.window.Tawk_API.onChatMaximized = () => {
             this.chatState$.next(ChatState.opened);
         };
 
-        window.Tawk_API.onChatMinimized = () => {
+        this.window.Tawk_API.onChatMinimized = () => {
             this.chatState$.next(ChatState.minimized);
         };
 
-        window.Tawk_API.onChatHidden = () => {
+        this.window.Tawk_API.onChatHidden = () => {
             this.chatState$.next(ChatState.hidden);
         };
 
-        window.Tawk_API.onChatStarted = () => {
+        this.window.Tawk_API.onChatStarted = () => {
             this.chatState$.next(ChatState.started);
         };
 
-        window.Tawk_API.onChatEnded = () => {
+        this.window.Tawk_API.onChatEnded = () => {
             this.chatState$.next(ChatState.ended);
         };
 

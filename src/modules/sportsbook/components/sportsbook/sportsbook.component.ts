@@ -26,6 +26,8 @@ import {
     PinnacleHooks,
 } from 'wlc-engine/modules/sportsbook';
 import {IGameWrapperCParams} from 'wlc-engine/modules/games';
+import {WINDOW} from 'wlc-engine/modules/app/system';
+
 import * as Params from './sportsbook.params';
 
 import _cloneDeep from 'lodash-es/cloneDeep';
@@ -54,7 +56,7 @@ export class SportsbookComponent extends AbstractComponent implements OnInit, On
             new PinnacleHooks({
                 hooksService: this.hooksService,
                 disableHooks: this.$destroy,
-            });
+            }, this.window);
         },
     };
 
@@ -68,6 +70,7 @@ export class SportsbookComponent extends AbstractComponent implements OnInit, On
         protected hooksService: HooksService,
         protected router: UIRouter,
         protected translate: TranslateService,
+        @Inject(WINDOW) protected window: Window,
     ) {
         super(
             <IMixedParams<Params.ISportsbookCParams>>{

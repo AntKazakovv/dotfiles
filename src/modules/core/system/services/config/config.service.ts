@@ -2,6 +2,7 @@ import {EventService} from 'wlc-engine/modules/core/system/services/event/event.
 import * as sectionsLib from 'wlc-engine/modules/core/system/config/layouts/sections';
 import {TranslateService} from '@ngx-translate/core';
 import {
+    Inject,
     Injectable,
     Injector,
 } from '@angular/core';
@@ -45,6 +46,7 @@ import {
     ISetParams,
 } from './config.interface';
 import {UserInfo} from 'wlc-engine/modules/user/system/models/info.model';
+import {WINDOW} from 'wlc-engine/modules/app/system';
 
 export * from './app-config.model';
 export * from './config.interface';
@@ -85,6 +87,7 @@ export class ConfigService {
         // to not delete next two lines. You will be thanked.
         private localStorageService: LocalStorageService,
         private sessionStorageService: SessionStorageService,
+        @Inject(WINDOW) private window: Window,
     ) {
         this.setGlobals();
 
@@ -189,7 +192,7 @@ export class ConfigService {
 
         this.set<DeviceModel>({
             name: 'device',
-            value: new DeviceModel(this.get<IDeviceConfig>('$base.device')),
+            value: new DeviceModel(this.get<IDeviceConfig>('$base.device'), this.window),
         });
 
         this.$resolve();
@@ -239,7 +242,8 @@ export class ConfigService {
         }
 
         if (!wlcConfig.$base.profile.store.use) {
-            $layouts['app.profile.dashboard'].sections['profile-content'] = sectionsLib.profileContent.profileDashboardWithoutStore;
+            $layouts['app.profile.dashboard']
+                .sections['profile-content'] = sectionsLib.profileContent.profileDashboardWithoutStore;
         };
 
         switch (params.appType) {

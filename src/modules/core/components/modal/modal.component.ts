@@ -30,6 +30,7 @@ import {
     IModalBsOptions,
 } from 'wlc-engine/modules/core/components/modal/modal.interface';
 import {defaultParams} from 'wlc-engine/modules/core/components/modal/modal.params';
+import {WINDOW} from 'wlc-engine/modules/app/system';
 
 import _isString from 'lodash-es/isString';
 import _assign from 'lodash-es/assign';
@@ -81,6 +82,7 @@ export class WlcModalComponent extends AbstractComponent
         protected modalService: ModalService,
         protected element: ElementRef,
         protected renderer: Renderer2,
+        @Inject(WINDOW) private window: Window,
     ) {
         super(<IMixedParams<IModalOptions>>{
             injectParams: params,
@@ -246,7 +248,7 @@ export class WlcModalComponent extends AbstractComponent
 
     protected initBackdropConfigChange(): void {
         if (this.$params.ignoreBackdropClickBreakpoint && this.$params.config?.backdrop !== 'static') {
-            const breakpoint = window.matchMedia(this.$params.ignoreBackdropClickBreakpoint);
+            const breakpoint = this.window.matchMedia(this.$params.ignoreBackdropClickBreakpoint);
 
             if (breakpoint.matches) {
                 this.setIgnoreBackdropClick(true);

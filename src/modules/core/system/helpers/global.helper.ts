@@ -260,24 +260,6 @@ export class GlobalHelper {
     }
 
     /**
-     * Used device with touch screen
-     *
-     * @returns {boolean}
-     */
-    public static touchSupported(): boolean {
-        return window.WlcHelper.touchSupported();
-    }
-
-    /**
-     * Device uses PC emulation mode
-     *
-     * @returns {boolean}
-     */
-    public static usedPcEmulation(): boolean {
-        return window.WlcHelper.usedPcEmulation();
-    }
-
-    /**
      * Escapes the input string
      * @param {string} source
      * @return shielding source string
@@ -285,7 +267,6 @@ export class GlobalHelper {
     public static shieldingString(source: string): string {
         return source.replace(/[$()*+.?[\\\]^{|}]/g, '\\$&');
     }
-
 
     /**
      * Gets config from config service for no-content component and merge it with params from layouts
@@ -328,17 +309,17 @@ export class GlobalHelper {
      *
      * @returns {boolean} Result of checking
      */
-    public static isIframe(): boolean {
+    public static isIframe(window: Window): boolean {
         return window !== window.top || window !== window.parent || document !== top.document;
     }
 
     /**
      * Returns the time relative to the current time zone
-     * 
+     *
      * @param date {string}
-     * @param from {'ISO' | 'SQL'} recording format 
+     * @param from {'ISO' | 'SQL'} recording format
      * @param toFormat {string} in what recording format should I remake
-     * @param options {DateTimeOptions} 
+     * @param options {DateTimeOptions}
      * @returns {string} local time
      */
     public static toLocalTime(

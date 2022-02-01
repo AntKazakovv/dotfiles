@@ -1,3 +1,4 @@
+/* eslint-disable no-restricted-globals */
 import {WlcFlog} from './_flog';
 
 const regExp = {

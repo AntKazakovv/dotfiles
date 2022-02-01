@@ -1,5 +1,13 @@
-import {Injectable, Injector} from '@angular/core';
-import {HttpClient, HttpParams, HttpErrorResponse} from '@angular/common/http';
+import {
+    Inject,
+    Injectable,
+    Injector,
+} from '@angular/core';
+import {
+    HttpClient,
+    HttpParams,
+    HttpErrorResponse,
+} from '@angular/common/http';
 import {
     Observable,
     Subject,
@@ -27,6 +35,7 @@ import {CachingService} from 'wlc-engine/modules/core/system/services/caching/ca
 import {EventService} from 'wlc-engine/modules/core/system/services/event/event.service';
 import {LogService} from 'wlc-engine/modules/core/system/services/log/log.service';
 import {ISocketsData} from 'wlc-engine/modules/core/system/interfaces';
+import {WINDOW} from 'wlc-engine/modules/app/system';
 
 import _assign from 'lodash-es/assign';
 import _isString from 'lodash-es/isString';
@@ -127,6 +136,7 @@ export class DataService {
         private eventService: EventService,
         private cachingService: CachingService,
         private logService: LogService,
+        @Inject(WINDOW) private window: Window,
     ) {
         this.init();
     }
@@ -251,9 +261,9 @@ export class DataService {
     public setSocketUrl(socketsData?: ISocketsData): void {
 
         // TODO: just for test, remove after fundist & wlc_core release
-        if (window.location.host.match(/localhost$/)
-            || window.location.host.match(/^qa-/)
-            || window.location.host.match(/qa\.egamings\.com$/)) {
+        if (this.window.location.host.match(/localhost$/)
+            || this.window.location.host.match(/^qa-/)
+            || this.window.location.host.match(/qa\.egamings\.com$/)) {
             socketsData.server = 'wss://wsqa.egamings.com/ws';
         }
 
@@ -335,9 +345,9 @@ export class DataService {
 
         const preloadData$: Observable<unknown> =
             (method.type === 'GET'
-                && _has(globalThis.wlcPreload, method.preload)
-                && _get(globalThis.wlcPreload, `${method.preload}['fulfilled']`, true))
-                ? from(globalThis.wlcPreload[method.preload])
+                && _has(this.window.wlcPreload, method.preload)
+                && _get(this.window.wlcPreload, `${method.preload}['fulfilled']`, true))
+                ? from(this.window.wlcPreload[method.preload])
                 : of(undefined);
         if (!method.retries?.count) {
             _set(method, 'retries.count', [2000]);

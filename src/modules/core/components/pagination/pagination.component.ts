@@ -16,6 +16,7 @@ import {
     GlobalHelper,
     AbstractComponent,
 } from 'wlc-engine/modules/core';
+import {WINDOW} from 'wlc-engine/modules/app/system';
 
 import * as Params from './pagination.params';
 
@@ -45,6 +46,7 @@ export class WlcPaginationComponent extends AbstractComponent implements OnInit,
     constructor(
         @Inject('injectParams') protected params: Params.IPaginationCParams,
         protected cdr: ChangeDetectorRef,
+        @Inject(WINDOW) private window: Window,
     ) {
         super(
             <IMixedParams<Params.IPaginationCParams>>{
@@ -110,7 +112,7 @@ export class WlcPaginationComponent extends AbstractComponent implements OnInit,
         const breakpoints: string[] = _keys(this.settings.breakpoints);
 
         _each(breakpoints, (breakpoint: string, index: number) => {
-            const mediaQuery = window.matchMedia(`(min-width: ${breakpoint}px)`);
+            const mediaQuery = this.window.matchMedia(`(min-width: ${breakpoint}px)`);
 
             if (mediaQuery.matches) {
                 this.itemPerPage = this.settings.breakpoints[breakpoint].itemPerPage;
