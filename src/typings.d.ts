@@ -49,6 +49,8 @@ declare type ScreenfullRawEventNames = {
     readonly fullscreenerror: string;
 };
 
+declare type TExternalSBPageSwitch = (pageId: number) => void;
+
 declare type TMethodName = 'fbq' | 'gtag';
 
 declare type TAnalyticMethod = {
@@ -87,4 +89,6 @@ declare interface Window extends TAnalyticMethod {
     zE?: any;
     zEACLoaded?: boolean;
     grecaptcha?: ReCaptchaV2.ReCaptcha;
+    // change page of tglab sportsbook
+    externalSBPageSwitch?: TExternalSBPageSwitch;
 }

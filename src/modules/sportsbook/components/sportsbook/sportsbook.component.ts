@@ -24,6 +24,7 @@ import {
     ISportsbookSettingsFilter,
     DigitainHooks,
     PinnacleHooks,
+    TglabHooks,
 } from 'wlc-engine/modules/sportsbook';
 import {IGameWrapperCParams} from 'wlc-engine/modules/games';
 import {WINDOW} from 'wlc-engine/modules/app/system';
@@ -56,6 +57,13 @@ export class SportsbookComponent extends AbstractComponent implements OnInit, On
             new PinnacleHooks({
                 hooksService: this.hooksService,
                 disableHooks: this.$destroy,
+            }, this.window);
+        },
+        'tglab': () => {
+            new TglabHooks({
+                hooksService: this.hooksService,
+                disableHooks: this.$destroy,
+                router: this.router,
             }, this.window);
         },
     };
