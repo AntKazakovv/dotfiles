@@ -19,6 +19,31 @@ declare interface IPaymentIQCashier {
     new (el: string, cashierConfig: IPiqCashierConfig, callback?: Function);
 }
 
+declare interface IScreenfull {
+    isFullscreen: boolean;
+    element: Element | undefined;
+    isEnabled: boolean;
+    raw: ScreenfullRawEventNames;
+    request(element?: Element, options?: FullscreenOptions): Promise<void>;
+    exit(): Promise<void>;
+    toggle(element?: Element, options?: FullscreenOptions): Promise<void>;
+    on(name: ScreenfullEventName, handler: (event: Event) => void): void;
+    off(name: ScreenfullEventName, handler: (event: Event) => void): void;
+    onchange(handler: (event: Event) => void): void;
+    onerror(handler: (event: Event) => void): void;
+}
+
+declare type ScreenfullEventName = 'change' | 'error';
+
+declare type ScreenfullRawEventNames = {
+    readonly requestFullscreen: string;
+    readonly exitFullscreen: string;
+    readonly fullscreenElement: string;
+    readonly fullscreenEnabled: string;
+    readonly fullscreenchange: string;
+    readonly fullscreenerror: string;
+};
+
 declare type TMethodName = 'fbq' | 'gtag';
 
 declare type TAnalyticMethod = {

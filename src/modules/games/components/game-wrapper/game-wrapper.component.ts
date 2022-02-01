@@ -18,9 +18,21 @@ import {DomSanitizer} from '@angular/platform-browser';
 import {Title} from '@angular/platform-browser';
 import {FormControl} from '@angular/forms';
 import {ResizedEvent} from 'angular-resize-event';
-import {UIRouter, RawParams} from '@uirouter/core';
+import {
+    UIRouter,
+    RawParams,
+} from '@uirouter/core';
+
 import {fromEvent} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
+import _isString from 'lodash-es/isString';
+import _isObject from 'lodash-es/isObject';
+import _isFunction from 'lodash-es/isFunction';
+import _includes from 'lodash-es/includes';
+import _toNumber from 'lodash-es/toNumber';
+import _find from 'lodash-es/find';
+import _get from 'lodash-es/get';
+
 import {Game} from 'wlc-engine/modules/games/system/models/game.model';
 import {GamesCatalogService} from 'wlc-engine/modules/games/system/services/games-catalog/games-catalog.service';
 import {
@@ -56,14 +68,6 @@ import {
     IGameWrapperCParams,
 } from './game-wrapper.params';
 import {WINDOW} from 'wlc-engine/modules/app/system';
-
-import _isString from 'lodash-es/isString';
-import _isObject from 'lodash-es/isObject';
-import _isFunction from 'lodash-es/isFunction';
-import _includes from 'lodash-es/includes';
-import _toNumber from 'lodash-es/toNumber';
-import _find from 'lodash-es/find';
-import _get from 'lodash-es/get';
 
 interface IError {
     msg?: string;
@@ -148,6 +152,7 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
     protected isIframeHeight: boolean = false;
     protected savedSiteName: string;
     protected oldWindowWidth: number;
+    protected screenfull: IScreenfull;
     protected hooksByMerchant: IIndexing<Function> = {
         '990': () => {
             new BetGamesHooks({
@@ -182,6 +187,8 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
 
     public async ngOnInit(): Promise<void> {
         super.ngOnInit(this.inlineParams);
+
+        this.screenfull = (await import('screenfull'))?.default;
 
         if (this.configService.get<boolean>('appConfig.mobile')) {
             this.isMobile = true;
@@ -578,8 +585,8 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
      * @param {HTMLElement} element
      */
     protected requestFullscreen(element: HTMLElement): void {
-        if (this.document.fullscreenEnabled) {
-            element.requestFullscreen();
+        if (this.screenfull?.isEnabled) {
+            this.screenfull.request(element);
         }
     }
 
