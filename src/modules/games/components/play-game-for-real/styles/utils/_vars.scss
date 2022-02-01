@@ -8,23 +8,23 @@ $themeDefault: map-merge((
     ),
     'formMargin': auto,
     'formPadding': 0,
-    'fieldMargin': 0 0 ef.get('size', 'smaller') 0,
-    'btnMargin': 0 auto ef.get('size', 'smaller') auto,
-    'titleMargin': 0 auto ef.get('size', 'small') auto,
-    'titleMarginMobile': 0 auto ef.get('size', 'less') auto,
+    'fieldMargin': 0 0 ef.size(4) 0,
+    'btnMargin': 0 auto ef.size(4) auto,
+    'titleMargin': 0 auto ef.size(2) auto,
+    'titleMarginMobile': 0 auto ef.size(6) auto,
     'titleFontSize': 'QoteTextBold',
     'titleFontSizeMobile': 'ThirdTitleBold',
-    'restoreLinkMargin': 0 0 ef.get('size', 'main') 0,
-    'gameTitleMargin': ef.get('size', 'main') 0,
-    'linkBlockMargin': ef.get('size', 'smaller') 0 0 0,
+    'restoreLinkMargin': 0 0 ef.size(8) 0,
+    'gameTitleMargin': ef.size(8) 0,
+    'linkBlockMargin': ef.size(4) 0 0 0,
 
     'modalBg': var(--mc-bgModal),
-    'modalBorderRadius': ef.get('size', 'smally'),
+    'modalBorderRadius': ef.size(3),
     'colorTitle': var(--mc-baseMain),
-    'subtitleMargin': ef.get('size', 'small') 0 0,
+    'subtitleMargin': ef.size(2) 0 0,
     'widthGameThumbImg': 100%,
 
-    'linkBlockBtnMargin': 0 auto ef.get('size', 'small') auto,
+    'linkBlockBtnMargin': 0 auto ef.size(2) auto,
 
     'textBlockHeadMargin': (
         320: ef.size(6) 0 ef.size(8),
@@ -32,4 +32,7 @@ $themeDefault: map-merge((
 
     'textBlockSubtitleFont': 'ThirdTitleBold',
     'textBlockSubtitleFontColor': var(--mc-baseMain),
+
+    'captchaMargin': 0 0 ef.size(2),
+    'captchaInputMargin': 0 0 ef.size(7),
 ), $customThemeDefault);

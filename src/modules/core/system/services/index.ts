@@ -41,3 +41,4 @@ export {
     BodyClassService,
 } from './body-class/body-class.service';
 export {ColorThemeService} from './color-theme/color-theme.service';
+export {CaptchaService} from './captcha/captcha.service';

@@ -23,14 +23,16 @@ import {RecaptchaService} from 'wlc-engine/modules/core/system/services/recaptch
 import {IData} from 'wlc-engine/modules/core/system/services/data/data.service';
 import {LogService} from 'wlc-engine/modules/core/system/services/log/log.service';
 import {WINDOW} from 'wlc-engine/modules/app/system';
+import {CaptchaService} from 'wlc-engine/modules/core/system/services/captcha/captcha.service';
 
 @Injectable()
 export class HeadersInterceptor implements HttpInterceptor {
 
     constructor(
+        @Inject(WINDOW) private window: Window,
         private recaptchaService: RecaptchaService,
         private logService: LogService,
-        @Inject(WINDOW) private window: Window,
+        private captchaService: CaptchaService,
     ) {
     }
 
@@ -38,6 +40,13 @@ export class HeadersInterceptor implements HttpInterceptor {
         req: HttpRequest<IData>,
         next: HttpHandler,
     ): Observable<HttpEvent<IData>> {
+        if (req.url.includes('/api/v1/auth') && this.captchaService.captchaCode) {
+            req = req.clone({
+                headers: req.headers.set('X-Captcha', this.captchaService.captchaCode),
+            });
+            this.captchaService.captchaCode = null;
+        }
+
         if (req.url.includes('/api/v1/')) {
             req = req.clone({
                 headers: req.headers.set('HTTP_X_UA_FINGERPRINT', this.window['fingerprintHash'] || ''),

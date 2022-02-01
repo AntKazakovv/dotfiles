@@ -1,0 +1,15 @@
+@use 'engine-scss/functions' as ef;
+
+$customThemeDefault: () !default;
+$themeDefault: map-merge((
+    'bodyDisplay': flex,
+    'bodyJustifyContent': center,
+
+    'imageWidth': 150px,
+
+    'buttonPadding': 0,
+    'buttonMargin': 0 ef.size(-2) 0 ef.size(1),
+    'buttonMinWidth': ef.size(8),
+    'buttonColor': var(--mc-baseMain-o4),
+    'buttonColorHover': var(--mc-baseMain),
+), $customThemeDefault);

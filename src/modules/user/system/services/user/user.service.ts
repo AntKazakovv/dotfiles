@@ -419,23 +419,6 @@ export class UserService {
         return this.dataService.request('user/userProfile');
     }
 
-    public async loginRequest(loginParam: string, password: string): Promise<void> {
-        try {
-            await this.login(loginParam, password);
-            this.modalService.hideModal('login');
-        } catch (error) {
-            this.eventService.emit({
-                name: NotificationEvents.PushMessage,
-                data: <IPushMessageParams>{
-                    type: 'error',
-                    title: gettext('Login error'),
-                    message: error.errors,
-                    wlcElement: 'notification_login-error',
-                },
-            });
-        }
-    }
-
     public finishRegistration(): void {
 
         const isFastRegistration = this.configService.get<number>('appConfig.siteconfig.fastRegistration');

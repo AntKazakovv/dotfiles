@@ -15,6 +15,7 @@ export {
     AbstractComponent,
     IMixedParams,
 } from './system/classes/abstract.component';
+export {SignInFormAbstract} from './system/classes/sign-in-form-abstract.class';
 export {
     Deferred,
     AbstractHook,

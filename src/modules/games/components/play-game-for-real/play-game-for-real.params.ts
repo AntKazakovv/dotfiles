@@ -1,7 +1,6 @@
-import {
-    CustomType,
-    IComponentParams,
-} from 'wlc-engine/modules/core/system/classes/abstract.component';
+import _assign from 'lodash-es/assign';
+
+import {CustomType} from 'wlc-engine/modules/core/system/classes/abstract.component';
 import {Game} from 'wlc-engine/modules/games/system/models/game.model';
 
 import {
@@ -11,6 +10,10 @@ import {
     ITextBlockCParams,
 } from 'wlc-engine/modules/core';
 import {IIndexing} from 'wlc-engine/modules/core/system/interfaces';
+import {
+    defaultSignInFormParams,
+    IAbstractSignInFormCParams,
+} from 'wlc-engine/modules/core/system/classes/sign-in-form-abstract.class';
 
 export type ComponentTheme = 'default' | CustomType;
 export type ComponentType = 'default' | CustomType;
@@ -19,7 +22,7 @@ export type AutoModifiers = Theme | 'default';
 export type CustomMod = string;
 export type Modifiers = AutoModifiers | CustomMod | null;
 
-export interface IPlayGameForRealCParams extends IComponentParams<ComponentTheme, ComponentType, string> {
+export interface IPlayGameForRealCParams extends IAbstractSignInFormCParams<ComponentTheme, ComponentType, string> {
     common?: {
         customModifiers?: CustomMod;
         game?: Game,
@@ -28,9 +31,15 @@ export interface IPlayGameForRealCParams extends IComponentParams<ComponentTheme
     modifiers?: Modifiers[];
 }
 
-export const defaultParams: IPlayGameForRealCParams = {
-    class: 'wlc-play-for-real',
-};
+export const defaultParams: IPlayGameForRealCParams = _assign(
+    {},
+    defaultSignInFormParams,
+    <IPlayGameForRealCParams>{
+        class: 'wlc-play-for-real',
+        moduleName: 'games',
+        componentName: 'wlc-play-for-real',
+    },
+);
 
 export const Events: IIndexing<string> = {
     PLAY_DEMO: 'runDemo@playGameForRealModal',

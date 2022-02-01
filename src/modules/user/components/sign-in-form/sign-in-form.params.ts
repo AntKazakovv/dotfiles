@@ -1,12 +1,18 @@
+import _assign from 'lodash-es/assign';
+
 import {
     CustomType,
-    IComponentParams,
     IFormWrapperCParams,
     IInputCParams,
     IButtonCParams,
     ITextBlockCParams,
     IWrapperCParams,
 } from 'wlc-engine/modules/core';
+
+import {
+    defaultSignInFormParams,
+    IAbstractSignInFormCParams,
+} from 'wlc-engine/modules/core/system/classes/sign-in-form-abstract.class';
 
 export type ComponentTheme = 'default' | CustomType;
 export type ComponentType = 'default' | CustomType;
@@ -15,7 +21,7 @@ export type AutoModifiers = Theme | 'default';
 export type CustomMod = string;
 export type Modifiers = AutoModifiers | CustomMod | null;
 
-export interface ISignInFormCParams extends IComponentParams<ComponentTheme, ComponentType, string> {
+export interface ISignInFormCParams extends IAbstractSignInFormCParams<ComponentTheme, ComponentType, string> {
     common?: {
         customModifiers?: CustomMod;
     };
@@ -23,13 +29,6 @@ export interface ISignInFormCParams extends IComponentParams<ComponentTheme, Com
     modifiers?: Modifiers[];
     formConfig?: IFormWrapperCParams;
 }
-
-export const defaultParams: ISignInFormCParams = {
-    class: 'wlc-sign-in-form',
-    moduleName: 'user',
-    componentName: 'wlc-sign-in-form',
-    wlcElement: 'modal_login',
-};
 
 export const signInFormConfig: IFormWrapperCParams = {
     class: 'wlc-form-wrapper',
@@ -110,3 +109,15 @@ export const signInFormConfig: IFormWrapperCParams = {
         },
     ],
 };
+
+export const defaultParams: ISignInFormCParams = _assign(
+    {},
+    defaultSignInFormParams,
+    <ISignInFormCParams>{
+        class: 'wlc-sign-in-form',
+        moduleName: 'user',
+        componentName: 'wlc-sign-in-form',
+        wlcElement: 'modal_login',
+        formConfig: signInFormConfig,
+    },
+);

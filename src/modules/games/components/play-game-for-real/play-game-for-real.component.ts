@@ -6,7 +6,6 @@ import {
     ChangeDetectorRef,
     HostBinding,
 } from '@angular/core';
-import {FormGroup} from '@angular/forms';
 import {TranslateService} from '@ngx-translate/core';
 import {StateService} from '@uirouter/core';
 
@@ -15,11 +14,12 @@ import {ConfigService} from 'wlc-engine/modules/core/system/services/config/conf
 import {EventService} from 'wlc-engine/modules/core/system/services/event/event.service';
 import {ModalService} from 'wlc-engine/modules/core/system/services/modal/modal.service';
 import {InjectionService} from 'wlc-engine/modules/core/system/services';
-import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
 import {IMixedParams} from 'wlc-engine/modules/core/system/classes/abstract.component';
-import {IFormWrapperCParams} from 'wlc-engine/modules/core/components/form-wrapper/form-wrapper.component';
-
-import {UserService} from 'wlc-engine/modules/user/system/services/user/user.service';
+import {
+    CaptchaService,
+    SignInFormAbstract,
+} from 'wlc-engine/modules/core';
+import {UserService} from 'wlc-engine/modules/user';
 
 import * as Params from './play-game-for-real.params';
 
@@ -38,11 +38,9 @@ import * as Params from './play-game-for-real.params';
     templateUrl: './play-game-for-real.component.html',
     styleUrls: ['./styles/play-game-for-real.component.scss'],
 })
-export class PlayGameForRealComponent extends AbstractComponent implements OnInit {
+export class PlayGameForRealComponent extends SignInFormAbstract<Params.IPlayGameForRealCParams> implements OnInit {
     @Input() public inlineParams: Params.IPlayGameForRealCParams;
     @HostBinding('class.is-auth') protected isAuth: boolean;
-    public $params: Params.IPlayGameForRealCParams;
-    public config: IFormWrapperCParams;
 
     constructor(
         @Inject('injectParams') protected params: Params.IPlayGameForRealCParams,
@@ -54,11 +52,21 @@ export class PlayGameForRealComponent extends AbstractComponent implements OnIni
         protected stateService: StateService,
         protected configService: ConfigService,
         protected injectionService: InjectionService,
+        protected captchaService: CaptchaService,
+        protected userService: UserService,
     ) {
-        super(<IMixedParams<Params.IPlayGameForRealCParams>>{
-            injectParams: params,
-            defaultParams: Params.defaultParams,
-        });
+        super(
+            <IMixedParams<Params.IPlayGameForRealCParams>>{
+                injectParams: params,
+                defaultParams: Params.defaultParams,
+            },
+            captchaService,
+            userService,
+            modalService,
+            eventService,
+            configService,
+        );
+
         this.config = Params.playGameForRealConfig({
             game: this.params.common?.game,
             disableDemo: this.params.common?.disableDemo,
@@ -74,15 +82,6 @@ export class PlayGameForRealComponent extends AbstractComponent implements OnIni
         this.onPlayReal();
         this.onSignUp();
         this.isAuth = this.configService.get<boolean>('$user.isAuthenticated');
-    }
-
-    public ngSubmit(form: FormGroup): void {
-        const {email, login, password} = form.value;
-        const loginParam = email ? email : login;
-
-        this.injectionService.getService<UserService>('user.user-service').then((userService) => {
-            userService.loginRequest(loginParam, password);
-        });
     }
 
     /**

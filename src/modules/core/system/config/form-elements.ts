@@ -4,6 +4,7 @@ import {
     ICheckboxCParams,
     IButtonCParams,
     ISelectCParams,
+    ICaptchaCParams,
 } from 'wlc-engine/modules/core';
 
 export namespace FormElements {
@@ -153,6 +154,25 @@ export namespace FormElements {
             options: 'genders',
             wlcElement: 'block_gender',
             customMod: ['gender'],
+        },
+    };
+
+    export const captcha: IFormComponent = {
+        name: 'core.wlc-captcha',
+        params: <ICaptchaCParams>{},
+    };
+
+    export const captchaInput: IFormComponent = {
+        name: 'core.wlc-input',
+        params: <IInputCParams>{
+            theme: 'vertical',
+            common: {
+                placeholder: gettext('Captcha'),
+                customModifiers: 'captcha',
+            },
+            name: 'captcha',
+            validators: ['required'],
+            wlcElement: 'block_captcha',
         },
     };
 

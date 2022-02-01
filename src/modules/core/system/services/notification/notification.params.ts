@@ -59,7 +59,7 @@ export const defaultParams: INotificationParams = {
     class: 'wlc-notification-thread',
     theme: 'top',
     themeMod: 'right',
-    zIndex: 1061,
+    zIndex: 1200,
     defaultDismissTime: 15000,
     notificationsPerBreakpoint: {
         0: 1,

@@ -32,11 +32,19 @@
             }
         }
 
+        .wlc-captcha {
+            margin: ef.get-value($themeDefault, 'captchaMargin');
+        }
+
         .wlc-input {
             margin: ef.get-value($themeDefault, 'fieldMargin');
 
             &:last-child {
                 margin-bottom: 0;
+            }
+
+            &--captcha {
+                margin: ef.get-value($themeDefault, 'captchaInputMargin');
             }
 
             ::ng-deep {

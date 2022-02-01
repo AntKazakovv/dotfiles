@@ -20,6 +20,7 @@ import {MonitoringModule} from 'wlc-engine/modules/monitoring/monitoring.module'
 // -- SERVICES IMPORTS START --;
 import {
     ActionService,
+    CaptchaService,
     CachingService,
     ConfigService,
     ContactsService,
@@ -43,6 +44,7 @@ import {AmountLimitComponent} from './components/amount-limit/amount-limit.compo
 import {BirthdayFieldComponent} from './components/birthday-field/birthday-field.component';
 import {BurgerPanelComponent} from './components/burger-panel/burger-panel.component';
 import {ButtonComponent} from './components/button/button.component';
+import {CaptchaComponent} from './components/captcha/captcha.component';
 import {CheckboxComponent} from './components/checkbox/checkbox.component';
 import {CopyrightComponent} from './components/copyright/copyright.component';
 import {CounterComponent} from './components/counter/counter.component';
@@ -130,6 +132,7 @@ export const components = {
     'wlc-birth-field': BirthdayFieldComponent,
     'wlc-button': ButtonComponent,
     'wlc-burger-panel': BurgerPanelComponent,
+    'wlc-captcha': CaptchaComponent,
     'wlc-checkbox': CheckboxComponent,
     'wlc-copyright': CopyrightComponent,
     'wlc-counter': CounterComponent,
@@ -193,6 +196,7 @@ export const components = {
     providers: [
         DataService,
         EventService,
+        CaptchaService,
         ConfigService,
         FilesService,
         LogService,
@@ -222,6 +226,7 @@ export const components = {
         BirthdayFieldComponent,
         BurgerPanelComponent,
         ButtonComponent,
+        CaptchaComponent,
         CheckboxComponent,
         ClampDirective,
         ClickOutsideDirective,
@@ -287,6 +292,7 @@ export const components = {
         BrowserAnimationsModule,
         BurgerPanelComponent,
         ButtonComponent,
+        CaptchaComponent,
         CheckboxComponent,
         ClampDirective,
         ClickOutsideDirective,

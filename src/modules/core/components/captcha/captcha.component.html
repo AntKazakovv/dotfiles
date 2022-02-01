@@ -1,0 +1,10 @@
+<div class="{{$class}}__body">
+    <img class="{{$class}}__image"
+        [src]="imageUrl"/>
+    <button *ngIf="$params.refreshButton.isShown"
+        wlc-button
+        class="{{$class}}__button"
+        typeAttr="button"
+        [inlineParams]="$params.refreshButton.params"
+    ></button>
+</div>

@@ -1,0 +1,35 @@
+.wlc-captcha--theme-default:host {
+
+    .wlc-captcha {
+
+        &__body {
+            display: ef.get-value($themeDefault, 'bodyDisplay');
+            justify-content: ef.get-value($themeDefault, 'bodyJustifyContent');
+        }
+
+        &__image {
+            width: ef.get-value($themeDefault, 'imageWidth');
+        }
+
+        &__button {
+            min-width: ef.get-value($themeDefault, 'buttonMinWidth');
+            margin: ef.get-value($themeDefault, 'buttonMargin');
+            padding: ef.get-value($themeDefault, 'buttonPadding');
+            color: ef.get-value($themeDefault, 'buttonColor');
+
+            ::ng-deep {
+
+                .wlc-icon {
+
+                    svg {
+                        color: currentColor;
+                    }
+                }
+            }
+
+            @include bm.hover {
+                color: ef.get-value($themeDefault, 'buttonColorHover');
+            }
+        }
+    }
+}

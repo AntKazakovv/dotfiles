@@ -3,10 +3,9 @@ import {
     Inject,
     OnInit,
 } from '@angular/core';
-import {FormGroup} from '@angular/forms';
-import {BehaviorSubject} from 'rxjs';
 
-import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
+import _some from 'lodash-es/some';
+
 import {
     EventService,
     LogService,
@@ -14,18 +13,15 @@ import {
 } from 'wlc-engine/modules/core/system/services';
 import {
     ConfigService,
-    IFormWrapperCParams,
-    IPushMessageParams,
-    NotificationEvents,
-    IIndexing,
+    CaptchaService,
+    SignInFormAbstract,
+    IMixedParams,
 } from 'wlc-engine/modules/core';
 import {UserService} from 'wlc-engine/modules/user/system/services';
 import {IFormComponent} from 'wlc-engine/modules/core/components/form-wrapper/form-wrapper.component';
 
 import * as Params from './sign-in-form.params';
 
-import _some from 'lodash-es/some';
-import _isObject from 'lodash-es/isObject';
 
 /**
  * Sign-in form component.
@@ -44,12 +40,7 @@ import _isObject from 'lodash-es/isObject';
     templateUrl: './sign-in-form.component.html',
     styleUrls: ['./styles/sign-in-form.component.scss'],
 })
-export class SignInFormComponent extends AbstractComponent implements OnInit {
-
-    public $params: Params.ISignInFormCParams;
-    public config: IFormWrapperCParams;
-    public errors$: BehaviorSubject<IIndexing<string>> = new BehaviorSubject(null);
-
+export class SignInFormComponent extends SignInFormAbstract<Params.ISignInFormCParams> implements OnInit {
     constructor(
         @Inject('injectParams') protected injectParams: Params.ISignInFormCParams,
         protected eventService: EventService,
@@ -57,16 +48,24 @@ export class SignInFormComponent extends AbstractComponent implements OnInit {
         protected configService: ConfigService,
         protected modalService: ModalService,
         protected userService: UserService,
+        protected captchaService: CaptchaService,
     ) {
-        super({
-            injectParams,
-            defaultParams: Params.defaultParams,
-        }, configService);
+        super(
+            <IMixedParams<Params.ISignInFormCParams>>{
+                injectParams,
+                defaultParams: Params.defaultParams,
+            },
+            captchaService,
+            userService,
+            modalService,
+            eventService,
+            configService,
+        );
     }
 
     public ngOnInit(): void {
         super.ngOnInit();
-        this.config = this.$params.formConfig || Params.signInFormConfig;
+        this.config = this.$params.formConfig;
 
         if (this.configService.get<boolean>('$base.profile.socials.use')) {
             this.addModifiers('socials');
@@ -77,33 +76,6 @@ export class SignInFormComponent extends AbstractComponent implements OnInit {
                     params: {},
                 });
             }
-        }
-    }
-
-    public async ngSubmit(form: FormGroup): Promise<void> {
-        const {email, login, password} = form.value;
-        const loginParam = email ? email : login;
-
-        try {
-            form.disable();
-            await this.userService.login(loginParam, password);
-            this.modalService.getActiveModal('login').ref.instance.closeReason = 'submit';
-            this.modalService.hideModal('login');
-        } catch (error) {
-            this.eventService.emit({
-                name: NotificationEvents.PushMessage,
-                data: <IPushMessageParams>{
-                    type: 'error',
-                    title: gettext('Login error'),
-                    message: error.errors,
-                    wlcElement: 'notification_login-error',
-                },
-            });
-            if (_isObject(error.errors)) {
-                this.errors$.next(error.errors);
-            }
-        } finally {
-            form.enable();
         }
     }
 }
