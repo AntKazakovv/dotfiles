@@ -171,8 +171,8 @@ export class GamesCatalog extends AbstractModel<IGames> {
         const excludeCategories = filter?.excludeCategories || [];
         const includeMerchants = filter?.merchants || [];
         const excludeMerchants = filter?.excludeMerchants || [];
-        const searchQuery = filter?.searchQuery || '';
         const gameIds = filter?.ids;
+        let searchQuery = filter?.searchQuery || '';
         let gameList: Game[] = _concat([], this.availableGames);
 
         if (includeCategories.length) {
@@ -217,7 +217,14 @@ export class GamesCatalog extends AbstractModel<IGames> {
         }
 
         if (searchQuery) {
-            gameList = this.sortNameByRegExp(searchQuery, gameList);
+            searchQuery = searchQuery.replace(/[!()+\\]/g, '\\$&');
+            let result = this.sortNameByRegExp(searchQuery, gameList);
+
+            if (!result.length && this.searchByCyrillicLetters) {
+                result = this.sortNameByRegExp(this.replaceCyrillicChars(searchQuery), gameList);
+            }
+
+            gameList = result;
         }
 
         if (_size(gameIds)) {
@@ -897,9 +904,6 @@ export class GamesCatalog extends AbstractModel<IGames> {
      * @returns {Game[]} Filtered and sorted games
      */
     protected sortNameByRegExp(searchQuery: string, gamesList: Game[]): Game[] {
-        searchQuery = this.searchByCyrillicLetters ? this.replaceCyrillicChars(searchQuery) : searchQuery;
-        searchQuery = searchQuery.replace(/[!()+\\]/g, '\\$&');
-
         const arrays: IIndexing<ISearchFilter> = {
             completeMatch: {
                 array: [],
@@ -919,9 +923,11 @@ export class GamesCatalog extends AbstractModel<IGames> {
             },
         };
 
-        _forEach(arrays, (item: any) => {
-            item.array = gamesList.filter((game: Game) => {
-                return new RegExp(item.regExp, 'gi').test(game.name.en);
+        _forEach(arrays, (item: ISearchFilter): void => {
+            item.array = _filter(gamesList, (game: Game): boolean => {
+                return !!_find(game.name, (lang: string): boolean => {
+                    return new RegExp(item.regExp, 'gi').test(lang);
+                });
             });
         });
 

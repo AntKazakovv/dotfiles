@@ -10,6 +10,12 @@ import {
     ViewChild,
 } from '@angular/core';
 import {takeUntil} from 'rxjs/operators';
+
+import _assign from 'lodash-es/assign';
+import _map from 'lodash-es/map';
+import _get from 'lodash-es/get';
+import _isArray from 'lodash-es/isArray';
+
 import {EventService} from 'wlc-engine/modules/core/system/services/event/event.service';
 import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
 import {ModalService} from 'wlc-engine/modules/core/system/services/modal/modal.service';
@@ -25,11 +31,6 @@ import {
     GamesCatalogService,
 } from 'wlc-engine/modules/games/system/services/games-catalog/games-catalog.service';
 import * as Params from './game-thumb.params';
-
-import _assign from 'lodash-es/assign';
-import _map from 'lodash-es/map';
-import _get from 'lodash-es/get';
-import _isArray from 'lodash-es/isArray';
 
 export type MediaType = 'background' | 'foreground' | 'logo' | 'video';
 
@@ -78,6 +79,7 @@ export class GameThumbComponent extends AbstractComponent implements OnInit, Aft
     protected deviceType: DeviceType;
     protected idVerticalVideos: number[];
     protected mediaFormatTypes: IIndexing<string>;
+    protected currentLanguage: string;
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IGameThumbCParams,
@@ -105,9 +107,20 @@ export class GameThumbComponent extends AbstractComponent implements OnInit, Aft
         this.init();
     }
 
+    /**
+     * Returns the name of the game in the current language, if any.
+     * Otherwise in English.
+     * 
+     * @return {string} game name
+     */
+    public get name(): string {
+        return this.game.name[this.currentLanguage] || this.game.name.en;
+    }
+
     public async init(): Promise<void> {
         await this.gamesCatalogService.ready;
         const gameId = this.$params.common?.gameId;
+        this.currentLanguage = this.configService.get<string>('currentLanguage');
 
         if (this.$params.common?.game) {
             this.game = this.$params.common.game;
