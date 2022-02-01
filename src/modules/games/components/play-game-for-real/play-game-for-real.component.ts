@@ -92,6 +92,7 @@ export class PlayGameForRealComponent extends AbstractComponent implements OnIni
         this.eventService.subscribe({
             name: Params.Events.PLAY_DEMO,
         }, () => {
+            this.modalService.getActiveModal('play-game-for-real').ref.instance.closeReason = 'submit';
             this.modalService.hideModal('play-game-for-real');
             if (this.$params.common?.game) {
                 this.$params.common.game.launch({
@@ -108,6 +109,7 @@ export class PlayGameForRealComponent extends AbstractComponent implements OnIni
         this.eventService.subscribe({
             name: Params.Events.PLAY_REAL,
         }, () => {
+            this.modalService.getActiveModal('play-game-for-real').ref.instance.closeReason = 'submit';
             this.modalService.hideModal('play-game-for-real');
             if (this.$params.common?.game) {
                 this.$params.common.game.launch({
@@ -122,6 +124,7 @@ export class PlayGameForRealComponent extends AbstractComponent implements OnIni
             name: 'USER_PROFILE',
         }, () => {
             if (this.$params.common?.game) {
+                this.modalService.getActiveModal('play-game-for-real').ref.instance.closeReason = 'submit';
                 this.modalService.hideModal('play-game-for-real');
                 this.$params.common.game.launch({
                     demo: false,

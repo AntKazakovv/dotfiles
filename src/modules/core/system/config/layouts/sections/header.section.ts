@@ -15,7 +15,7 @@ export namespace header {
             componentLib.wlcUserInfo.header,
             componentLib.wlcButton.userDepositIcon,
             componentLib.wlcButton.searchV2,
-            componentLib.wlcButton.login,
+            componentLib.wlcButton.signup,
         ],
     };
 
@@ -34,7 +34,7 @@ export namespace header {
             componentLib.wlcButton.userDepositIcon,
             componentLib.wlcThemeToggler.vertical,
             componentLib.wlcButton.searchV2,
-            componentLib.wlcButton.login,
+            componentLib.wlcButton.signup,
         ],
     };
 
@@ -52,7 +52,7 @@ export namespace header {
             componentLib.wlcButton.userDepositIcon,
             componentLib.wlcLanguageSelector.bottomLeft2,
             componentLib.wlcButton.searchV2,
-            componentLib.wlcButton.login,
+            componentLib.wlcButton.signup,
         ],
     };
 
@@ -91,7 +91,7 @@ export namespace header {
             componentLib.wlcLanguageSelector.bottomLeft2,
             componentLib.wlcThemeToggler.vertical,
             componentLib.wlcButton.searchV2,
-            componentLib.wlcButton.login,
+            componentLib.wlcButton.signup,
         ],
     };
 
@@ -110,7 +110,7 @@ export namespace header {
             componentLib.wlcButton.userDepositIcon,
             componentLib.wlcLanguageSelector.bottomLeft2,
             componentLib.wlcButton.searchV2,
-            componentLib.wlcButton.login,
+            componentLib.wlcButton.signup,
         ],
     };
 
@@ -130,7 +130,7 @@ export namespace header {
             componentLib.wlcLanguageSelector.bottomLeft2,
             componentLib.wlcThemeToggler.vertical,
             componentLib.wlcButton.searchV2,
-            componentLib.wlcButton.login,
+            componentLib.wlcButton.signup,
         ],
     };
 

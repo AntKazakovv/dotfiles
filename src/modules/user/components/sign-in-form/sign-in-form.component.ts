@@ -87,6 +87,7 @@ export class SignInFormComponent extends AbstractComponent implements OnInit {
         try {
             form.disable();
             await this.userService.login(loginParam, password);
+            this.modalService.getActiveModal('login').ref.instance.closeReason = 'submit';
             this.modalService.hideModal('login');
         } catch (error) {
             this.eventService.emit({

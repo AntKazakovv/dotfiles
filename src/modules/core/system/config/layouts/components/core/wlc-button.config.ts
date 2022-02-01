@@ -1,4 +1,8 @@
 import {ILayoutComponent} from 'wlc-engine/modules/core';
+import {
+    IProcessEventData,
+    ProcessServiceEvents,
+} from 'wlc-engine/modules/monitoring';
 
 export namespace wlcButton {
     export const searchMerchants: ILayoutComponent = {
@@ -201,6 +205,25 @@ export namespace wlcButton {
         },
     };
 
+    export const signup: ILayoutComponent = {
+        name: 'core.wlc-button',
+        display: {
+            before: 1199,
+            auth: false,
+        },
+        params: {
+            class: 'wlc-btn wlc-btn-signup',
+            common: {
+                iconPath: '/wlc/icons/login.svg',
+                event: {
+                    name: 'SHOW_MODAL',
+                    data: 'signup',
+                },
+            },
+        },
+    };
+
+    /** @deprecated use signup config */
     export const login: ILayoutComponent = {
         name: 'core.wlc-button',
         display: {
@@ -211,10 +234,19 @@ export namespace wlcButton {
             class: 'wlc-btn wlc-btn-login',
             common: {
                 iconPath: '/wlc/icons/login.svg',
-                event: {
-                    name: 'SHOW_MODAL',
-                    data: 'signup',
-                },
+                event: [
+                    {
+                        name: 'SHOW_MODAL',
+                        data: 'login',
+                    },
+                    {
+                        name: ProcessServiceEvents.buttonPress,
+                        data: <IProcessEventData>{
+                            eventId: 'login',
+                            description: 'Login button pressed',
+                        },
+                    },
+                ],
             },
         },
     };
@@ -230,10 +262,19 @@ export namespace wlcButton {
             common: {
                 customModifiers: 'mobile-login',
                 text: gettext('Login'),
-                event: {
-                    name: 'SHOW_MODAL',
-                    data: 'login',
-                },
+                event: [
+                    {
+                        name: 'SHOW_MODAL',
+                        data: 'login',
+                    },
+                    {
+                        name: ProcessServiceEvents.buttonPress,
+                        data: <IProcessEventData>{
+                            eventId: 'login',
+                            description: 'Login button pressed',
+                        },
+                    },
+                ],
             },
         },
     };

@@ -30,6 +30,7 @@ import _isEqual from 'lodash-es/isEqual';
 import _remove from 'lodash-es/remove';
 import _sortBy from 'lodash-es/sortBy';
 import _union from 'lodash-es/union';
+import _some from 'lodash-es/some';
 
 import {
     AbstractComponent,
@@ -54,6 +55,11 @@ import {
 import {IAnalytics} from 'wlc-engine/modules/analytics/system/interfaces/analytics.interface';
 import {AnalyticsService} from 'wlc-engine/modules/analytics';
 import {WINDOW} from 'wlc-engine/modules/app/system';
+import {
+    processConfigsCommon,
+    ProcessService,
+    TProcessConfigs,
+} from 'wlc-engine/modules/monitoring';
 
 const defaultParams = {
     class: 'wlc-sections',
@@ -109,6 +115,7 @@ export class AppComponent extends AbstractComponent implements OnInit, OnDestroy
         this.isIOS = this.actionService.device.osName === 'ios';
 
         this.loadAnalytics();
+        this.launchMonitoring();
     }
 
     public async ngOnInit(): Promise<void> {
@@ -194,6 +201,15 @@ export class AppComponent extends AbstractComponent implements OnInit, OnDestroy
         }
 
         this.injectionService.getService<AnalyticsService>('analytics.analytics-service');
+    }
+
+    private launchMonitoring(): void {
+        const processConfigsLocal = this.configService.get<TProcessConfigs>('$base.monitoring.processConfigs');
+        if (_some(processConfigsCommon, ['use', true])
+            || _some(processConfigsLocal, ['use', true])
+        ) {
+            this.injectionService.getService<ProcessService>('monitoring.process-service');
+        }
     }
 
     private updateSections(): void {

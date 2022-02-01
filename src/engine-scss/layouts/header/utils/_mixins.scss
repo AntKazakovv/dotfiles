@@ -107,6 +107,7 @@
         }
 
         &-login,
+        &-signup,
         &-user {
             display: flex;
             margin-left: auto;
@@ -122,7 +123,8 @@
             }
         }
 
-        &-login {
+        &-login,
+        &-signup {
 
             .wlc-icon {
 

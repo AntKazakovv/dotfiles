@@ -34,6 +34,10 @@ import {InjectionService} from 'wlc-engine/modules/core/system/services/injectio
 import {IValidateData} from 'wlc-engine/modules/user/system/classes/user-actions-abstract.class';
 import {IdleService} from 'wlc-engine/modules/user/system/services/idle/idle.service';
 import {IMGAConfig} from 'wlc-engine/modules/core/components/license/license.params';
+import {
+    IProcessEventData,
+    ProcessServiceEvents,
+} from 'wlc-engine/modules/monitoring';
 
 import _assign from 'lodash-es/assign';
 import _each from 'lodash-es/each';
@@ -241,7 +245,7 @@ export class UserService {
     public login(login: string, password: string): Promise<IIndexing<any>> {
         const response = this.dataService.request<IIndexing<any>>('user/userLogin', {login, password});
         this.logService.sendLog({code: '1.2.5'});
-        response.catch((error: unknown) => {
+        response.catch((error) => {
             this.logService.sendRequestLog({
                 coreLog: {code: '1.2.3'},
                 networkLog: {code: '1.2.4'},
@@ -250,6 +254,13 @@ export class UserService {
                     method: 'login',
                 },
                 responseData: error,
+            });
+            this.eventService.emit({
+                name: ProcessServiceEvents.failTrigger,
+                data: <IProcessEventData>{
+                    eventId: 'login',
+                    description: `Response error code: ${error.code}`,
+                },
             });
         });
         return response;

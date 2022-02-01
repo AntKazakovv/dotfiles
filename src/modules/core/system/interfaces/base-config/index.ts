@@ -17,6 +17,7 @@ import {IColorThemeSwitchingConfig} from './color-theme-switching.config';
 import {IFinancesConfig} from './finances.interface';
 import {IStickyHeaderConfig} from './sticky-header.interface';
 import {IMocksConfig} from './mocks.interface';
+import {IMonitoringConfig} from './monitoring.interface';
 
 export * from './games.interface';
 export * from './tournaments.interface';
@@ -30,22 +31,22 @@ export interface IBaseConfig {
         name: string;
         url: string;
         removeCreds?: boolean;
-        restrictRegistration?: boolean,
-    },
+        restrictRegistration?: boolean;
+    };
     /**
     * Sticky header enabling and settings;
     */
-    stickyHeader?: IStickyHeaderConfig,
+    stickyHeader?: IStickyHeaderConfig;
     affiliate?: {
         affiliateUrl: string;
         siteUrl: string;
-    },
-    profile?: IProfileConfig,
-    tournaments?: ITournamentsConfig,
-    games?: IGamesConfig,
-    device?: IDeviceConfig,
-    notifications?: INotificationsConfig,
-    contacts?: IContactsConfig,
+    };
+    profile?: IProfileConfig;
+    tournaments?: ITournamentsConfig;
+    games?: IGamesConfig;
+    device?: IDeviceConfig;
+    notifications?: INotificationsConfig;
+    contacts?: IContactsConfig;
     interactiveText?: IInteractiveText[];
     livechat?: ILivechatConfig;
     /**
@@ -66,13 +67,17 @@ export interface IBaseConfig {
     /**
      * if true - аfter registering, the notifications will be automatically turned on
      */
-    turnOnSendEmailNotificationInRegister?: boolean,
+    turnOnSendEmailNotificationInRegister?: boolean;
     /**
      * add ability to change wp language code
      */
-    rewritingWpLanguages?: IIndexing<string>,
+    rewritingWpLanguages?: IIndexing<string>;
     /**
      * Use mocks in project, makes sense for development mode only
      */
     mocks?: IMocksConfig;
+    /**
+     * Config for monitoring system
+     */
+    monitoring?: IMonitoringConfig;
 }

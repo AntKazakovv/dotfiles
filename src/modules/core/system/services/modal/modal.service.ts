@@ -38,6 +38,10 @@ import {
     IRestrictModalOption,
 } from 'wlc-engine/modules/core/components/modal/modal.interface';
 import {WINDOW} from 'wlc-engine/modules/app/system';
+import {
+    IProcessEventData,
+    ProcessServiceEvents,
+} from 'wlc-engine/modules/monitoring';
 
 import _assignIn from 'lodash-es/assignIn';
 import _isString from 'lodash-es/isString';
@@ -336,6 +340,15 @@ export class ModalService {
                 backDropElement.style.zIndex = +modalElement.style.zIndex - 1;
             }
         });
+
+        this.eventService.emit({
+            name: ProcessServiceEvents.modalOpen,
+            data: <IProcessEventData>{
+                eventId: config.id,
+                description: `Modal ${config.id} opened`,
+            },
+        });
+
         return windowCmptRef.instance;
     }
 

@@ -225,6 +225,14 @@ export class InjectionService {
                     this.afterModuleLoad('analytics', m);
                     return m.AnalyticsModule;
                 });
+            case 'monitoring':
+                if (this.loadedModules.monitoring) {
+                    return this.loadedModules.monitoring;
+                }
+                return import('wlc-engine/modules/monitoring/monitoring.module').then(m => {
+                    this.afterModuleLoad('monitoring', m);
+                    return m.MonitoringModule;
+                });
         }
     }
 

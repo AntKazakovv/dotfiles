@@ -37,10 +37,12 @@ export interface IFromLog {
     interceptor?: string;
 }
 
+export type TLogObjFlog = IIndexing<string | number | boolean>;
+
 export interface ILogObj<T = any> extends ILogType {
     code: string;
     data?: T;
-    flog?: IIndexing<string | number | boolean>;
+    flog?: TLogObjFlog;
     from?: IFromLog;
 }
 

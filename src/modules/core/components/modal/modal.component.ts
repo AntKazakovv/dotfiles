@@ -34,6 +34,10 @@ import {WINDOW} from 'wlc-engine/modules/app/system';
 
 import _isString from 'lodash-es/isString';
 import _assign from 'lodash-es/assign';
+import {
+    IProcessEventData,
+    ProcessServiceEvents,
+} from 'wlc-engine/modules/monitoring';
 
 /**
  * A wrapper component for displaying the component in a modal window.
@@ -275,6 +279,17 @@ export class WlcModalComponent extends AbstractComponent
             name: type,
             data: this.$params.config.id,
         });
+        if (type === this.modalService.events.MODAL_HIDDEN) {
+            const reason: string = this.modalRef.dismissReason || this.closeReason || '';
+            this.eventService.emit({
+                name: ProcessServiceEvents.modalClose,
+                data: <IProcessEventData>{
+                    eventId: this.$params.config.id,
+                    description: `Close reason: ${reason}`,
+                },
+            });
+        }
+
 
         if (callback) {
             callback();
