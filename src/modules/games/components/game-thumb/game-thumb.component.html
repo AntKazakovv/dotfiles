@@ -9,8 +9,7 @@
 
 <ng-template #typePromoWidget>
     <div *ngIf="!initFailed" class="{{$class}}__content">
-        <picture class="{{$class}}__img"
-                 data-wlc-element="block_game-thumb-img">
+        <picture class="{{$class}}__img" data-wlc-element="block_game-thumb-img">
             <source [srcset]="game.getImage(640, 'webp')" type="image/webp">
             <img [wlc-fallback]="game.getImage(640)" [src]="game.getImage(640)" loading="lazy">
         </picture>
@@ -50,54 +49,62 @@
 </ng-template>
 
 <ng-template #typeVertical>
-    <div class="{{$class}}-media"
-         (click)="startGame(false, true, $event)"
-    >
-        <ng-container *ngIf="!hasVideo; else videoTemplate">
-            <picture class="{{$class}}-media__bg"
-                     data-wlc-element="block_game-thumb-media">
+    <div #transform class="{{$class}}__transform">
+        <div class="{{$class}}-media" (click)="startGame(false, true, $event)">
+            <ng-container *ngIf="!hasVideo; else videoTemplate">
+                <picture class="{{$class}}-media__bg" data-wlc-element="block_game-thumb-media">
 
-                <ng-container *ngFor="let image of $any(getVerticalContent('background', ['webp']))">
-                    <source [srcset]="image.src" [type]="image.type">
-                </ng-container>
+                    <ng-container *ngFor="let image of background">
+                        <source [srcset]="image.src" [type]="image.type">
+                    </ng-container>
 
-                <img wlc-fallback [src]="getVerticalContent('background', 'jpg')" loading="lazy">
-            </picture>
+                    <img wlc-fallback 
+                        [src]="getVerticalContent('background', ['jpg'])" 
+                        loading="lazy">
+                </picture>
 
-            <picture class="{{$class}}-media__fg"
-                     data-wlc-element="block_game-thumb-media">
+                <picture class="{{$class}}-media__fg" data-wlc-element="block_game-thumb-media">
 
-                <ng-container *ngFor="let image of $any(getVerticalContent('foreground', ['webp']))">
-                    <source [srcset]="image.src" [type]="image.type">
-                </ng-container>
+                    <ng-container *ngFor="let image of foreground">
+                        <source [srcset]="image.src" [type]="image.type">
+                    </ng-container>
 
-                <img wlc-fallback [src]="getVerticalContent('foreground', 'png')" loading="lazy">
-            </picture>
+                    <img wlc-fallback
+                        #layersOne
+                        [src]="getVerticalContent('foreground', ['png'])" 
+                        loading="lazy">
+                </picture>
 
-            <picture class="{{$class}}-media__logo"
-                     data-wlc-element="block_game-thumb-media">
+                <picture class="{{$class}}-media__logo" data-wlc-element="block_game-thumb-media">
 
-                <ng-container *ngFor="let image of $any(getVerticalContent('logo', ['webp']))">
-                    <source [srcset]="image.src" [type]="image.type">
-                </ng-container>
+                    <ng-container *ngFor="let image of logo">
+                        <source [srcset]="image.src" [type]="image.type">
+                    </ng-container>
 
-                <img wlc-fallback [src]="getVerticalContent('logo', 'png')" loading="lazy">
-            </picture>
-        </ng-container>
+                    <img wlc-fallback
+                        #layersOne
+                        [src]="getVerticalContent('logo', ['png'])"
+                        loading="lazy">
+                </picture>
+            </ng-container>
 
-        <ng-template #videoTemplate>
-            <video autoplay playsinline muted loop class="{{$class}}-media__video" #video>
-
-                <ng-container *ngFor="let video of $any(getVerticalContent('video', ['av1.mp4', 'hevc.mp4', 'h264.mp4']))">
-                    <source [src]="video.src" [type]="video.type">
-                </ng-container>
-            </video>
-        </ng-template>
+            <ng-template #videoTemplate>
+                <video #video
+                    class="{{$class}}-media__video"
+                    playsinline
+                    muted
+                    loop>
+                    <ng-container *ngFor="let video of videos">
+                        <source [src]="video.src" [type]="video.type">
+                    </ng-container>
+                </video>
+            </ng-template>
+        </div>
+        <div class="{{$class}}__control">
+            <ng-container [ngTemplateOutlet]="buttonsPlayDemo"></ng-container>
+        </div>
+        <ng-container [ngTemplateOutlet]="buttonFavourite"></ng-container>
     </div>
-    <div class="{{$class}}__control">
-        <ng-container [ngTemplateOutlet]="buttonsPlayDemo"></ng-container>
-    </div>
-    <ng-container [ngTemplateOutlet]="buttonFavourite"></ng-container>
 </ng-template>
 
 <ng-template #typeDefault>
@@ -139,6 +146,7 @@
 
 <ng-template #buttonFavourite>
     <div *ngIf="isAuth"
+          #layersTwo
           wlc-icon
           class="{{$class}}__icon"
           [wlcElement]="'button_favourite'"
@@ -149,7 +157,9 @@
 </ng-template>
 
 <ng-template #buttonsPlayDemo>
-    <div class="{{$class}}__buttons" [ngClass]="{'no-demo': !game.hasDemo}">
+    <div #layersTwo
+        class="{{$class}}__buttons"
+        [ngClass]="{'no-demo': !game.hasDemo}">
         <button wlc-button
                 class="wlc-btn wlc-btn--play"
                 wlcElement="button_game-play"

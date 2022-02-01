@@ -1,5 +1,4 @@
 import {
-    AfterViewInit,
     ChangeDetectorRef,
     Component,
     ElementRef,
@@ -8,13 +7,26 @@ import {
     Input,
     OnInit,
     ViewChild,
+    ViewChildren,
+    QueryList,
+    Renderer2,
 } from '@angular/core';
-import {takeUntil} from 'rxjs/operators';
+import {
+    fromEvent,
+    Subscription,
+} from 'rxjs';
+import {
+    map,
+    takeUntil,
+} from 'rxjs/operators';
 
 import _assign from 'lodash-es/assign';
 import _map from 'lodash-es/map';
 import _get from 'lodash-es/get';
 import _isArray from 'lodash-es/isArray';
+import _forEach from 'lodash-es/forEach';
+import _concat from 'lodash-es/concat';
+import _includes from 'lodash-es/includes';
 
 import {EventService} from 'wlc-engine/modules/core/system/services/event/event.service';
 import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
@@ -32,19 +44,12 @@ import {
 } from 'wlc-engine/modules/games/system/services/games-catalog/games-catalog.service';
 import * as Params from './game-thumb.params';
 
-export type MediaType = 'background' | 'foreground' | 'logo' | 'video';
-
-export interface IMediaContent {
-    src: string;
-    type: string;
-}
-
 @Component({
     selector: '[wlc-game-thumb]',
     templateUrl: './game-thumb.component.html',
     styleUrls: ['./styles/game-thumb.component.scss'],
 })
-export class GameThumbComponent extends AbstractComponent implements OnInit, AfterViewInit {
+export class GameThumbComponent extends AbstractComponent implements OnInit {
 
     @Input() public game: Game;
     @Input() public dumpy: boolean = false;
@@ -52,6 +57,9 @@ export class GameThumbComponent extends AbstractComponent implements OnInit, Aft
     @HostBinding('attr.data-wlc-element') protected wlcElement;
     @HostBinding('class.no-demo') protected noDemoClass;
     @ViewChild('video') video: ElementRef;
+    @ViewChild('transform') transform: ElementRef;
+    @ViewChildren('layersOne') layersOne: QueryList<ElementRef<HTMLElement>>;
+    @ViewChildren('layersTwo', {read: ElementRef}) layersTwo: QueryList<ElementRef<HTMLElement>>;
 
     public thumbParams: Params.IGameThumbCParams;
     public gameThumbSettings: Params.IGameThumbButtonsSettings = {
@@ -63,7 +71,11 @@ export class GameThumbComponent extends AbstractComponent implements OnInit, Aft
     public inited: boolean = false;
     public initFailed: boolean = false;
     public merchantIconPath: string;
-
+    public foreground: Params.IMediaContent[];
+    public background: Params.IMediaContent[];
+    public logo: Params.IMediaContent[];
+    public videos: Params.IMediaContent[];
+    
     /**
      * Pragmatic play live data model
      */
@@ -80,6 +92,7 @@ export class GameThumbComponent extends AbstractComponent implements OnInit, Aft
     protected idVerticalVideos: number[];
     protected mediaFormatTypes: IIndexing<string>;
     protected currentLanguage: string;
+    protected staticTData: Partial<Params.IStaticTransformData>;
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IGameThumbCParams,
@@ -89,6 +102,8 @@ export class GameThumbComponent extends AbstractComponent implements OnInit, Aft
         protected eventService: EventService,
         protected gamesCatalogService: GamesCatalogService,
         protected modalService: ModalService,
+        protected elementRef: ElementRef<HTMLElement>,
+        protected renderer: Renderer2,
     ) {
         super({
             injectParams,
@@ -193,6 +208,10 @@ export class GameThumbComponent extends AbstractComponent implements OnInit, Aft
         if (this.$params.type === 'vertical') {
             this.idVerticalVideos = await this.gamesCatalogService.getIdVerticalVideos();
             this.mediaFormatTypes = this.configService.get<IIndexing<string>>('$games.mediaFormatTypes');
+            this.background = this.getVerticalContent('background', ['webp']);
+            this.foreground = this.getVerticalContent('foreground', ['webp']);
+            this.logo = this.getVerticalContent('logo', ['webp']);
+            this.videos = this.getVerticalContent('video', ['av1.mp4', 'hevc.mp4', 'h264.mp4']);
         }
 
         this.wlcElement = `block_game-thumb-id-${this.game.ID}`;
@@ -244,13 +263,14 @@ export class GameThumbComponent extends AbstractComponent implements OnInit, Aft
         this.initEventHandlers();
         this.inited = true;
         this.cdr.detectChanges();
-    }
-
-    public ngAfterViewInit(): void {
 
         if (this.video) {
-            this.video.nativeElement.muted = true;
+            this.renderer.setProperty(this.video.nativeElement, 'muted', true);
             this.video.nativeElement.play();
+        }
+
+        if (this.$params.themeMod === 'transform') {
+            this.settingVerticalThumb();
         }
     }
 
@@ -285,8 +305,14 @@ export class GameThumbComponent extends AbstractComponent implements OnInit, Aft
         return this.idVerticalVideos.includes(this.game.ID);
     }
 
-
-    public getVerticalContent(type: MediaType, format: string[] | string): IMediaContent[] | string {
+    /**
+     * getting media content for vertical thumbs
+     *
+     * @param type - kinds media content
+     * @param format - extension file
+     * @returns {Params.IMediaContent[] | string}
+     */
+    public getVerticalContent(type: Params.MediaType, format: string[]): Params.IMediaContent[] {
         const gameName = this.game.name?.en;
 
         if (!gameName) return;
@@ -296,14 +322,10 @@ export class GameThumbComponent extends AbstractComponent implements OnInit, Aft
             .replace(/[&\/:\\|]/g, '')
             .replace(/\s/g, '-');
 
-        if (_isArray(format)) {
-            return _map(format, el => ({
-                src: `${path}/${type}.${el}`,
-                type: _get(this.mediaFormatTypes, el),
-            }));
-        } else {
-            return `${path}/${type}.${format}`;
-        }
+        return _map(format, (el: string): Params.IMediaContent => ({
+            src: `${path}/${type}.${el}`,
+            type: _get(this.mediaFormatTypes, el),
+        }));
     }
 
     /**
@@ -315,34 +337,131 @@ export class GameThumbComponent extends AbstractComponent implements OnInit, Aft
     }
 
     /**
+     * method for settings thumb
+     */
+    protected settingVerticalThumb(): void {
+        const transformThumb: Params.ITransformThumb = this.$params.transformThumb;
+
+        this.staticTData = {
+            layersAll: _concat(this.layersOne.toArray(), this.layersTwo.toArray()),
+            centerCoords: {
+                x: this.elementRef.nativeElement.offsetWidth / 2,
+                y: this.elementRef.nativeElement.offsetHeight / 2,
+            },
+        };
+
+        this.staticTData.hostSteps = {
+            x: (this.layersOne.length || 1) / (this.staticTData.centerCoords.x /
+                (transformThumb?.correct?.host?.x || 1)),
+            y: (this.layersOne.length || 1) / (this.staticTData.centerCoords.y /
+                (transformThumb?.correct?.host?.y || 2.5)),
+        };
+        
+        this.staticTData.layerSteps = _map(this.staticTData.layersAll,
+            (layer: ElementRef<HTMLElement>, index: number): Params.ICoordinates => {
+                const indexLayer: number = _includes(this.layersTwo.toArray(), layer) ? 
+                    this.layersOne.length + 1 : index + 1;
+                const stepX: number = indexLayer / (this.staticTData.centerCoords.x /
+                    (transformThumb?.correct?.layers?.x || 1.5));
+                const stepY: number = indexLayer / (this.staticTData.centerCoords.y /
+                    (transformThumb?.correct?.layers?.y || 2.5));
+                return {x: stepX, y: stepY};
+            });
+    }
+
+    /**
+     * Handler mouse move
+     * 
+     * @param mouseCoords {Params.ICoordinates}
+     */
+    protected mouseMove(mouseCoords: Params.ICoordinates): void {
+        const mouseX: number = mouseCoords.x - this.elementRef.nativeElement.getBoundingClientRect().left;
+        const mouseY: number = mouseCoords.y - this.elementRef.nativeElement.getBoundingClientRect().top;
+        const rotateX: string = ((this.staticTData.centerCoords.y - mouseY) * this.staticTData.hostSteps.x).toFixed(2);
+        const rotateY: string = ((mouseX - this.staticTData.centerCoords.x) * this.staticTData.hostSteps.y).toFixed(2);
+
+        this.renderer.setStyle(
+            this.transform.nativeElement,
+            'transform',
+            `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`,
+        );
+
+        _forEach(this.staticTData.layerSteps, (layer: Params.ICoordinates, index: number): void => {
+            const translateX: string = ((mouseX - this.staticTData.centerCoords.x) * layer.x).toFixed(2);
+            const translateY: string = (-1 * ((this.staticTData.centerCoords.y - mouseY) * layer.y)).toFixed(2);
+
+            this.renderer.setStyle(
+                this.staticTData.layersAll[index].nativeElement,
+                'transform',
+                `translate(${translateX}px, ${translateY}px)`,
+            );
+        });
+    }
+
+    /**
      * Init event handlers
      */
     protected initEventHandlers(): void {
+        let mouseEvents$: Subscription;
+
         this.actionService.deviceType()
             .pipe(takeUntil(this.$destroy))
-            .subscribe((type: DeviceType) => {
+            .subscribe((type: DeviceType): void => {
                 this.deviceType = type;
+
+                if (this.deviceType === DeviceType.Desktop && this.$params.themeMod === 'transform') {
+                    mouseEvents$ = fromEvent(this.elementRef.nativeElement, 'mousemove')
+                        .pipe(
+                            takeUntil(this.$destroy),
+                            map((event: MouseEvent): Params.ICoordinates => ({x: event.x, y: event.y})),
+                        )
+                        .subscribe((mouseCoords: Params.ICoordinates): void => {
+                            this.mouseMove(mouseCoords);
+                        }),
+                    mouseEvents$.add(
+                        fromEvent(this.elementRef.nativeElement, 'mouseleave')
+                            .pipe(takeUntil(this.$destroy))
+                            .subscribe((): void => {
+                                _forEach(
+                                    [...this.staticTData.layersAll, this.transform],
+                                    (element: ElementRef<HTMLElement>): void => {
+                                        this.renderer.removeStyle(element.nativeElement, 'transform');
+                                    });
+                            }),
+                    );
+                } else if (mouseEvents$) {
+                    mouseEvents$.unsubscribe();
+                }
+
                 this.cdr.markForCheck();
             });
 
         this.eventService.subscribe({
             name: 'LOGOUT',
-        }, () => {
+        }, (): void => {
             this.isAuth = false;
-            this.cdr.markForCheck();
+            this.cdr.detectChanges();
+
+            if (this.$params.themeMod === 'transform') {
+                this.settingVerticalThumb();
+            }
         });
 
         this.eventService.subscribe({
             name: 'LOGIN',
-        }, () => {
+        }, (): void => {
             this.isAuth = true;
-            this.cdr.markForCheck();
+            this.cdr.detectChanges();
+
+            if (this.$params.themeMod === 'transform') {
+                this.settingVerticalThumb();
+            }
         });
 
         this.gamesCatalogService.favoritesUpdated.pipe(
             takeUntil(this.$destroy),
-        ).subscribe(() => {
-            this.game = this.gamesCatalogService.getGame(this.game.merchantID, this.game.launchCode);
+        ).subscribe((): void => {
+            this.game = this.gamesCatalogService.getGame(this.game.merchantID, this.game.launchCode) || this.game;
             this.cdr.detectChanges();
         });
     }

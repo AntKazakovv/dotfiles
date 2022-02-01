@@ -16,28 +16,24 @@
 
         &__icon {
             @include bm.transition();
-
-            opacity: 0;
+            opacity: ef.get-value($themeVertical, 'iconOpacity');
         }
 
         &__control {
             @include bm.transition();
-            position: absolute;
-            top: 0;
-            left: 0;
-
+            position: ef.get-value($themeVertical, 'controlPosition');
+            top: ef.get-value($themeVertical, 'controlTop');
+            left: ef.get-value($themeVertical, 'controlLeft');
             display: ef.get-value($themeVertical, 'descDisplay');
             align-items: ef.get-value($themeVertical, 'descAlignItems');
             justify-content: ef.get-value($themeVertical, 'descJustifyConten');
-            width: 100%;
-            height: 100%;
+            width: ef.get-value($themeVertical, 'controlSize');
+            height: ef.get-value($themeVertical, 'controlSize');
             padding: ef.get-value($themeVertical, 'descPadding');
-
             background: ef.get-value($themeVertical, 'controlsBg');
-            transform: ef.get-value($themeVertical, 'controlsTransform');
-            opacity: 0;
-
-            pointer-events: none;
+            transform: ef.get-value($themeVertical, 'controlTransform');
+            opacity: ef.get-value($themeVertical, 'controlOpacity');
+            pointer-events: ef.get-value($themeVertical, 'pointerEvents');
 
             .wlc-game-thumb__buttons {
                 @include btnsLayout(vertical);
@@ -52,21 +48,17 @@
 
             &:before {
                 @include bm.aspect-ratio-padding(ef.get-value($themeVertical, 'bgAspectRatio'));
-
                 content: '';
-                display: block;
-                width: 100%;
-                height: 0;
+                display: ef.get-value($themeVertical, 'mediaBeforeDisplay');
+                width: ef.get-value($themeVertical, 'mediaBeforeWidth');
+                height: ef.get-value($themeVertical, 'mediaBeforeHeight');
             }
         }
 
         &__bg,
         &__video {
             @include alternateLogo($themeVertical);
-
-            position: relative;
-
-            display: block;
+            display: ef.get-value($themeVertical, 'bgDisplay');
             width: ef.get-value($themeVertical, 'bgWidth');
 
             background: {
@@ -82,12 +74,11 @@
             }
 
             @supports not (aspect-ratio: 1/1) {
-                position: absolute;
-                top: 0;
-                left: 0;
-
-                width: 100%;
-                height: 100%;
+                position: ef.get-value($themeVertical, 'notARPosition');
+                top: ef.get-value($themeVertical, 'notARTop');
+                left: ef.get-value($themeVertical, 'notARLeft');
+                width: ef.get-value($themeVertical, 'notARSize');
+                height: ef.get-value($themeVertical, 'notARSize');
             }
         }
 
@@ -102,84 +93,143 @@
             transform: ef.get-value($themeVertical, 'transformBg');
 
             img {
-                position: absolute;
-                top: 0;
-                left: 0;
-
-                width: 100%;
-                height: 100%;
-                object-fit: cover;
-                object-position: center;
+                position: ef.get-value($themeVertical, 'bgImgPosition');
+                top: ef.get-value($themeVertical, 'bgImgTop');
+                left: ef.get-value($themeVertical, 'bgImgLeft');
+                width: ef.get-value($themeVertical, 'bgImgSize');
+                height: ef.get-value($themeVertical, 'bgImgSize');
+                object-fit: ef.get-value($themeVertical, 'bgImgSize');
+                object-position: ef.get-value($themeVertical, 'bgImgObjectPos');
             }
         }
 
         &__fg {
             @include bm.transition(transform);
-            position: absolute;
+            position: ef.get-value($themeVertical, 'fgPosition');
             bottom: ef.get-value($themeVertical, 'fgBottom');
             left: ef.get-value($themeVertical, 'fgLeft');
-
             width: ef.get-value($themeVertical, 'fgWidth');
             height: ef.get-value($themeVertical, 'fgHeight');
-
             transform-origin: ef.get-value($themeVertical, 'fgTransformOrigin');
-
-            pointer-events: none;
+            pointer-events: ef.get-value($themeVertical, 'pointerEvents');
 
             img {
-                width: 100%;
+                width: ef.get-value($themeVertical, 'fgImgWidth');
             }
         }
 
         &__logo {
             @include bm.transition(transform);
-            position: absolute;
+            position: ef.get-value($themeVertical, 'logoPosition');
             top: ef.get-value($themeVertical, 'logoTopGap');
             left: ef.get-value($themeVertical, 'logoLeftGap');
-
             width: ef.get-value($themeVertical, 'logoWidth');
-
-            pointer-events: none;
+            pointer-events: ef.get-value($themeVertical, 'pointerEvents');
 
             img {
-                width: 100%;
+                width: ef.get-value($themeVertical, 'logoImgWidth');
+            }
+        }
+    }
+
+    &.wlc-game-thumb--theme-mod-transform {
+        perspective: ef.get-value($themeVertical, 'perspective');
+        overflow: visible;
+
+        .wlc-game-thumb {
+
+            &__transform {
+                @include bm.transition(
+                    ef.get-value($themeVertical, 'transformProp'),
+                    ef.get-value($themeVertical, 'transformDuration'),
+                    ef.get-value($themeVertical, 'transformTimFun'),
+                );
+                overflow: ef.get-value($themeVertical, 'transformOverflow');
+                border-radius: ef.get-value($themeVertical, 'borderRadius');
+
+                /*fix video flickering during transformation*/
+                transform: rotateX(0.1deg) rotateY(0.1deg) translateZ(0);
+
+                .wlc-game-thumb-media {
+
+                    img {
+                        @include bm.transition(
+                            ef.get-value($themeVertical, 'transformProp'),
+                            ef.get-value($themeVertical, 'transformDuration'),
+                            ef.get-value($themeVertical, 'transformTimFun'),
+                        );
+                    }
+
+                    &__fg {
+                        transform-origin: ef.get-value($themeVertical, 'fg3DTransformOrigin');
+                    }
+                }
+
+                .wlc-game-thumb__buttons {
+                    will-change: ef.get-value($themeVertical, 'btnWillChange');
+                }
+            }
+
+            &__icon {
+                transition-timing-function: ef.get-value($themeVertical, 'iconTransTimFun');
+                transition-duration: ef.get-value($themeVertical, 'iconTransDuration');
+                transition-property: ef.get-value($themeVertical, 'iconTransProperty');
+            }
+
+            &__control {
+                transition-timing-function: ef.get-value($themeVertical, 'controlTransTimFun');
+                transition-duration: ef.get-value($themeVertical, 'controlTransDuration');
+                transition-property: ef.get-value($themeVertical, 'controlTransProperty');
+
+                .wlc-game-thumb__buttons {
+                    @include bm.transition(
+                        ef.get-value($themeVertical, 'transformProp'),
+                        ef.get-value($themeVertical, 'transformDuration'),
+                        ef.get-value($themeVertical, 'transformTimFun'),
+                    );
+                }
+            }
+        }
+    }
+
+    &.wlc-game-thumb--theme-mod-default {
+
+        @include bm.hover {
+
+            .wlc-game-thumb-media {
+                pointer-events: ef.get-value($themeVertical, 'pointerEvents');
+
+                &__bg {
+                    transform: ef.get-value($themeVertical, 'transformHoverBg');
+                }
+
+                &__logo {
+                    transform: ef.get-value($themeVertical, 'transformHoverLogo');
+                }
+
+                &__fg {
+                    transform: ef.get-value($themeVertical, 'transformHoverFg');
+                }
+
+                &__video {
+                    transform: ef.get-value($themeVertical, 'transformHoverVideo');
+                }
             }
         }
     }
 
     @include bm.hover {
 
-        .wlc-game-thumb-media {
-            pointer-events: none;
-
-            &__bg {
-                transform: ef.get-value($themeVertical, 'transformHoverBg');
-            }
-
-            &__logo {
-                transform: ef.get-value($themeVertical, 'transformHoverLogo');
-            }
-
-            &__fg {
-                transform: ef.get-value($themeVertical, 'transformHoverFg');
-            }
-
-            &__video {
-                transform: ef.get-value($themeVertical, 'transformHoverVideo');
-            }
-        }
-
         .wlc-game-thumb {
 
             &__icon {
-                opacity: 1;
+                opacity: ef.get-value($themeVertical, 'hoverIconOpacity');
             }
 
             &__control {
-                transform: translateY(0);
-                opacity: 1;
-
-                pointer-events: auto;
+                transform: ef.get-value($themeVertical, 'hoverControlTransform');
+                opacity: ef.get-value($themeVertical, 'hoverControlOpacity');
+                pointer-events: ef.get-value($themeVertical, 'hoverControlPE');
             }
         }
     }
