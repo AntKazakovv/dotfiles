@@ -1,5 +1,6 @@
 import {
     CustomType,
+    IButtonCParams,
     IComponentParams,
     IFormWrapperCParams,
     ISelectCParams,
@@ -20,6 +21,7 @@ export interface ISmsVerificationCParams extends IComponentParams<ComponentTheme
     modifiers?: Modifiers[];
     formConfig?: IFormWrapperCParams;
     codeConfig?: IFormWrapperCParams;
+    resendButton?: IButtonCParams,
     functional: 'registration' | 'profile';
 }
 
@@ -29,6 +31,11 @@ export const defaultParams: ISmsVerificationCParams = {
     componentName: 'wlc-sms-verification',
     moduleName: 'user',
     functional: 'registration',
+    resendButton: {
+        common: {
+            text: gettext('Send again'),
+        },
+    },
 };
 
 export const smsVerificationFormConfig: IFormWrapperCParams = {

@@ -11,7 +11,7 @@
     <button
         wlc-button
         class="{{$class}}__btn"
-        text="Sent again"
+        [text]="$params.resendButton?.common?.text || 'Send again'"
         typeAttr="button"
         [disabled]="lockResend"
         (click)="resendCode()"
