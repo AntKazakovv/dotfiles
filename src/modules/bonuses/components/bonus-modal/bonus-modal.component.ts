@@ -47,8 +47,8 @@ export class BonusModalComponent extends AbstractComponent implements OnInit {
 
         this.bonus = this.$params.bonus;
         this.iconPath = `${this.$params.iconsPath}${this.bonus.viewTarget}.${this.$params.iconType}`;
-        this.fallbackIconPath = `${this.$params.fallback?.IconsPath}${this.bonus.viewTarget}.
-            ${this.$params.fallback?.iconType}`;
+        this.fallbackIconPath = `${this.$params.fallback?.IconsPath +
+            this.bonus.viewTarget}.${this.$params.fallback?.iconType}`;
         this.getBonusBg = this.bonus.imageOther ? this.bonus.imageOther : this.$params.bgImage;
     }
 
