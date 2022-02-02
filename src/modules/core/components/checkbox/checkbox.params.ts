@@ -27,7 +27,7 @@ export interface ICheckboxCParams extends IComponentParams<ComponentTheme, Compo
     onChange?: OnChange,
     common?: {
         customModifiers?: CustomMod;
-        сheckedDefault?: boolean;
+        checkedDefault?: boolean;
     }
     modifiers?: Modifiers[];
 }
@@ -37,6 +37,6 @@ export const defaultParams: ICheckboxCParams = {
     moduleName: 'core',
     componentName: 'wlc-checkbox',
     common: {
-        сheckedDefault: false,
+        checkedDefault: false,
     },
 };

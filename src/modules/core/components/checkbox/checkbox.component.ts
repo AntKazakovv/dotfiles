@@ -39,7 +39,7 @@ export class CheckboxComponent extends AbstractComponent implements OnInit {
 
     public ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
-        if (this.$params.common?.сheckedDefault) {
+        if (this.$params.common?.checkedDefault) {
             this.$params.control?.setValue(true);
         }
         this.control = this.$params.control;
