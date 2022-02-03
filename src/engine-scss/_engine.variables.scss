@@ -892,10 +892,10 @@ $tooltip-padding-y: 10px !default;
 $tooltip-padding-x: 10px !default;
 $tooltip-arrow-width: 0.8rem !default;
 $tooltip-arrow-height: 0.8rem !default;
-$tooltip-arrow-color: var(--mc-black) !default;
+$tooltip-arrow-color: var(--mc-bg100) !default;
 $tooltip-max-width: 200px !default;
-$tooltip-bg: var(--mc-black) !default;
-$tooltip-color: var(--mc-baseContrast) !default;
+$tooltip-bg: var(--mc-bg100) !default;
+$tooltip-color: var(--mc-baseMain) !default;
 $tooltip-border-radius: map-get($radius, 'biger') !default;
 
 

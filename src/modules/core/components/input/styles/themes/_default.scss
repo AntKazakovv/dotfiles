@@ -62,20 +62,7 @@
                 color: ef.get-value($themeDefault, 'inputDisabledColor');
                 background: ef.get-value($themeDefault, 'inputDisabledBg');
                 border-color: ef.get-value($themeDefault, 'inputDisabledBorder');
-                -webkit-text-fill-color: ef.get-value($themeDefault, 'inputDisabledColor');
                 opacity: ef.get-value($themeDefault, 'inputDisabledOpacity');
-            }
-
-            &[type='number'] {
-                /* stylelint-disable */
-                -moz-appearance: textfield;
-
-                &::-webkit-outer-spin-button,
-                &::-webkit-inner-spin-button {
-                    -webkit-appearance: none;
-                    margin: 0;
-                }
-                /* stylelint-enable */
             }
         }
     }

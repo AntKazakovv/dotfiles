@@ -1,3 +1,5 @@
+@use 'engine-scss/functions' as ef;
+
 @import './themes/default';
 @import './themes/placeholder-shown';
 @import './themes/vertical';
@@ -8,4 +10,32 @@
     width: 0;
     height: 0;
     opacity: 0;
+}
+
+.wlc-input:host {
+
+    input {
+
+        &:disabled {
+            /* stylelint-disable */
+            -webkit-opacity: ef.get-value($themeDefault, 'inputDisabledOpacity');
+            -webkit-text-fill-color: ef.get-value($themeDefault, 'inputDisabledColor');
+        }
+
+        &[type='number'] {
+            -moz-appearance: textfield;
+
+            &::-webkit-outer-spin-button,
+            &::-webkit-inner-spin-button {
+                -webkit-appearance: none;
+                margin: 0;
+            }
+            /* stylelint-enable */
+        }
+
+
+        &[type='password'] {
+            font-family: Helvetica, Arial, sans-serif;
+        }
+    }
 }

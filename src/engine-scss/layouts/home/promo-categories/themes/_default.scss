@@ -33,6 +33,10 @@
                 @include bm.get-mq-map('margin', $themePromoCategories, 'winnersSliderMarginNoWinners');
             }
         }
+
+        .wlc-slider {
+            @include bm.get-mq-map('margin', $themePromoCategories, 'sliderMargin');
+        }
     }
 
     .wlc-category-preview[class] {

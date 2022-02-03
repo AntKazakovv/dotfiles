@@ -481,38 +481,3 @@
         }
     }
 }
-
-::ng-deep body {
-
-    .wlc-verification__tooltip {
-
-        .tooltip-inner {
-            padding: ef.get-value($themeDefault, 'tooltipOffset');
-            background: ef.get-value($themeDefault, 'tooltipBg');
-            border-radius: ef.get-value($themeDefault, 'borderRadius');
-            box-shadow: ef.get-value($themeDefault, 'tooltipShadow');
-        }
-
-        &.top {
-            margin-right: ef.get-value($themeDefault, 'tooltipOffset');
-
-            .tooltip-arrow {
-
-                &:before {
-                    border-top-color: ef.get-value($themeDefault, 'tooltipBg');
-                }
-            }
-        }
-
-        &.bottom {
-            margin-right: ef.get-value($themeDefault, 'tooltipOffset');
-
-            .tooltip-arrow {
-
-                &:before {
-                    border-bottom-color: ef.get-value($themeDefault, 'tooltipBg');
-                }
-            }
-        }
-    }
-}

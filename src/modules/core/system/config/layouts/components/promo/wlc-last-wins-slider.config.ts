@@ -55,4 +55,30 @@ export namespace wlcLastWinsSlider {
             },
         },
     };
+
+    export const withPromoCategories: ILayoutComponent = {
+        name: 'promo.wlc-winners-slider',
+        params: <IWinnersSliderCParams>{
+            type: 'latest',
+            theme: 'vertical',
+            title: gettext('Recent wins'),
+            wlcElement: 'section_last-winners',
+            swiper: {
+                breakpoints: {
+                    320: {
+                        slidesPerView: 3,
+                    },
+                    900: {
+                        slidesPerView: 4,
+                    },
+                    1024: {
+                        slidesPerView: 5,
+                    },
+                    1630: {
+                        slidesPerView: 4,
+                    },
+                },
+            },
+        },
+    };
 }

@@ -72,7 +72,11 @@
             &:disabled {
                 color: ef.get-value($baseSettings, 'selectDisabledColor');
                 background: ef.get-value($baseSettings, 'selectDisabledBg');
+                opacity: ef.get-value($baseSettings, 'selectDisabledOpacity');
                 border-color: ef.get-value($baseSettings, 'selectDisabledBorder');
+
+                -webkit-text-fill-color: ef.get-value($baseSettings, 'selectDisabledColor');
+                -webkit-opacity: ef.get-value($baseSettings, 'selectDisabledOpacity');
             }
         }
 

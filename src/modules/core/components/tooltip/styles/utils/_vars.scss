@@ -13,10 +13,10 @@ $themeDefault: map-merge((
     'iconFill': var(--mc-baseOpacity),
     'iconColorOnHover': var(--mc-baseMain),
     'contentPadding': ef.get('size', 'small') ef.get('size', 'smaller'),
-    'contentBg': var(--mc-buttonColor),
+    'contentBg': var(--mc-bg100),
     'contentBorderRadius': ef.get('radius', 'biger'),
     'textStyle': 'PrimaryText',
-    'contentColor': var(--mc-baseContrast),
+    'contentColor': var(--mc-baseMain),
     'contentBoxShadow': 0 4px 4px rgba(0, 0, 0, 0.25),
 ), $customThemeDefault);
 

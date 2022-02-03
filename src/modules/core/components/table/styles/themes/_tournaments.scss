@@ -15,6 +15,32 @@
         @include bm.get-mq-map('margin', $themeTournaments, 'btnShowMoreMargin');
     }
 
+    &.wlc-table--paginated-rows-2 {
+
+        .wlc-table__row {
+
+            &:nth-child(3) {
+
+                .wlc-table__cell {
+                    padding: ef.get-value($themeTournaments, 'cellPadding') 0 (ef.get-value($themeTournaments, 'cellPadding') * 2);
+                }
+            }
+        }
+    }
+
+    &.wlc-table--paginated-rows-1 {
+
+        .wlc-table__row {
+
+            &:last-child {
+
+                .wlc-table__cell {
+                    padding: (ef.get-value($themeTournaments, 'cellPadding') * 2) 0;
+                }
+            }
+        }
+    }
+
     .wlc-table {
 
         &__content {

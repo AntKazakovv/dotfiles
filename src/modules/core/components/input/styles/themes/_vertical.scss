@@ -63,18 +63,6 @@
             color: ef.get-value($themeDefault, 'inputDisabledColor');
             opacity: ef.get-value($themeDefault, 'inputDisabledOpacity');
         }
-
-        &[type='number'] {
-            -moz-appearance: textfield;
-
-            &::-webkit-outer-spin-button,
-            &::-webkit-inner-spin-button {
-                -webkit-appearance: none;
-                margin: 0;
-            }
-
-            /* stylelint-enable */
-        }
     }
 
     &.wlc-input--right-shift {

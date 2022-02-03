@@ -52,6 +52,12 @@ $themeDefault: map-merge((
     'userDepositTitleMargin': 0 0 ef.size(4),
     'userDepositPositionText': center,
 
+    'depositLinkBlockMaxWidth': (
+        320: 270px,
+        1366: 330px,
+        1630: 430px,
+    ),
+
     'userDepositSizeAfter': (
         320: 270px,
         1366: 330px,

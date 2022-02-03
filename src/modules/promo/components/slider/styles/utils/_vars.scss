@@ -49,7 +49,7 @@ $themeDefaultPagination: map-merge((
     'swiperPagiContainerPadding': 60px,
     'swiperPagiTranslateX': translateX(-50%),
     'swiperWithEarsPagiTranslateX': translateX(-50%),
-    'paddingPagiContainer': ef.size(8)
+    'paddingPagiContainer': ef.size(8),
 ), $customThemeDefaultPagination);
 
 $customThemeDefaultBanner: () !default;

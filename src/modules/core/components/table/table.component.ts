@@ -135,6 +135,7 @@ export class TableComponent extends AbstractComponent implements OnInit {
         }
 
         this.paginatedRows = this.rows?.slice(0, this.itemPerPage);
+        this.setPaginatedRowsModifier();
         this.cdr.markForCheck();
         this.subscribeDeviceChange();
     }
@@ -168,6 +169,10 @@ export class TableComponent extends AbstractComponent implements OnInit {
             });
     }
 
+    protected setPaginatedRowsModifier(): void {
+        this.addModifiers(`paginated-rows-${this.paginatedRows.length}`);
+    }
+
     /**
      * Method updates the data when there was a change in `wlc-pagination` component
      *
@@ -179,6 +184,7 @@ export class TableComponent extends AbstractComponent implements OnInit {
         this.itemPerPage = value.event.itemsPerPage;
         this.actionService.scrollTo('body');
         this.indexFactor = (value.event.page - 1) * value.event.itemsPerPage;
+        this.setPaginatedRowsModifier();
         this.cdr.markForCheck();
     }
 
@@ -188,6 +194,8 @@ export class TableComponent extends AbstractComponent implements OnInit {
         } else {
             this.paginatedRows = this.rows;
         }
+
+        this.setPaginatedRowsModifier();
         this.toggled = !this.toggled;
     }
 

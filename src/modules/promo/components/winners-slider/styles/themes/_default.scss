@@ -39,8 +39,10 @@
             @include em.get-mq-map('flex', $themeDefault, 'titleFlex');
             @include em.get-mq-map('text-align', $themeDefault, 'titleAlignment');
 
-            @include em.manualMod('wlc-winners-slider', 'default' ,'headless') {
-                display: none;
+            display: none;
+
+            @include mq.min(ef.get-value($themeDefault, 'breakpoint')) {
+                display: block;
             }
         }
 

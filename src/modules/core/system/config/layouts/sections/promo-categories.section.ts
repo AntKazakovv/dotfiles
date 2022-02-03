@@ -8,7 +8,7 @@ export namespace promoCategories {
             componentLib.wlcRandomGame.def,
             componentLib.wlcCategoryPreview.desktopDef,
             componentLib.wlcCategoryPreview.mobileDef,
-            componentLib.wlcLastWinsSlider.def,
+            componentLib.wlcLastWinsSlider.withPromoCategories,
         ],
     };
 }

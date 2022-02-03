@@ -351,6 +351,13 @@
             padding: ef.get-value($languageModal, 'paddingBody');
         }
     }
+
+    .wlc-select[class] {
+
+        .wlc-select__dropdown[class] {
+            max-height: ef.get-value($themeDefault, 'selectMaxHeight');
+        }
+    }
 }
 
 .modal-backdrop {

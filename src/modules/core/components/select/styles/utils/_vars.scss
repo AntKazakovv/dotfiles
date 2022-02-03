@@ -39,6 +39,7 @@ $baseSettings: map-merge((
     'selectDropdownItemPadding': ef.get('form', 'selectDropdownPadding'),
     'selectDropdownItemTransition': ef.get('form', 'selectDropdownItemTransition'),
     'selectDropdownBoxShadow': 0 8px 6px -6px var(--mc-bg),
+    'selectDisabledOpacity': 1,
     'dropdownTextStyle': 'PrimaryText',
     'dropdownItemBgActive': var(--fc-inputBg-d20),
     'dropdownItemColorActive': ef.get('form', 'inputColor'),

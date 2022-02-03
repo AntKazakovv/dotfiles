@@ -193,6 +193,7 @@
             }
 
             .wlc-link-block {
+                @include bm.get-mq-map('max-width', $themeDefault, 'depositLinkBlockMaxWidth');
 
                 .wlc-btn {
                     height: ef.get-value($themeDefault, 'userDepositBtnHeight');

@@ -22,6 +22,10 @@
         max-height: 100%;
     }
 
+    .swiper-slide {
+        height: auto;
+    }
+
     &--type-dashboard {
 
         .swiper {
