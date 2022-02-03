@@ -212,7 +212,7 @@ export class CurrencyComponent
             this.$params.value,
             {
                 language: this.language,
-                currency: this.$params.currency || 'EUR',
+                currency: this.$params.currency || this.configService.get<string>('$base.defaultCurrency'),
                 digitsInfo: this.$params.digitsInfo,
                 svgPosition: this.svgPosition || 'right',
             },

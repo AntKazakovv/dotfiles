@@ -86,4 +86,8 @@ export interface IBaseConfig {
      * Settings for logout when idle
      */
     idle?: IIdleConfig,
+    /**
+     * Config default currency
+     */
+    defaultCurrency?: string,
 }

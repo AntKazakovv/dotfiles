@@ -180,7 +180,8 @@ export class BonusItemComponent extends AbstractComponent implements OnInit, OnD
                 this.isAuth = this.configService.get('$user.isAuthenticated');
                 if (this.bonus) {
                     if (this.isAuth) {
-                        this.bonus.userCurrency = profile?.currency || 'EUR';
+                        this.bonus.userCurrency = profile?.currency
+                            || this.configService.get<string>('$base.defaultCurrency');
                     } else {
                         this.bonus.userCurrency = 'EUR';
                     }

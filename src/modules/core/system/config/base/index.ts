@@ -34,4 +34,5 @@ export const $base: IBaseConfig = {
         'pt-br': 'pb',
     },
     idle: idleConfig,
+    defaultCurrency: 'EUR',
 };

@@ -26,7 +26,8 @@ export class StoreItem extends AbstractModel<IStoreItem> {
         protected StoreService: StoreService,
     ) {
         super({from: _assign({model: 'StoreItem'}, from)});
-        this.userCurrency = this.ConfigService.get<string>('appConfig.user.currency') || 'EUR';
+        this.userCurrency = this.ConfigService.get<string>('appConfig.user.currency')
+            || this.ConfigService.get<string>('$base.defaultCurrency');
         this.data = data;
     }
 

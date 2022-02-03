@@ -60,14 +60,18 @@ export class PragmaticPlayLiveService {
         this.casinoId = settings?.casinoId;
 
         this.configService.ready.then(() => {
-            this.currency = this.configService.get<string>('appConfig.user.currency') || 'EUR';
+            this.currency = this.configService.get<string>('appConfig.user.currency')
+                || this.configService.get<string>('$base.defaultCurrency');
         });
 
         this.configService.get<BehaviorSubject<UserProfile>>('$user.userProfile$')
             .pipe(
-                filter((user) => !!user && this.configService.get<boolean>('$user.isAuthenticated')),
-                map((user) => user.currency || 'EUR'),
-                filter((currency) => currency !== this.currency),
+                filter((user: UserProfile): boolean =>
+                    !!user && this.configService.get<boolean>('$user.isAuthenticated'),
+                ),
+                map((user: UserProfile): string =>
+                    user.currency || this.configService.get<string>('$base.defaultCurrency')),
+                filter((currency: string): boolean => currency !== this.currency),
             )
             .subscribe(async (currency) => {
                 this.currency = currency;
@@ -78,7 +82,7 @@ export class PragmaticPlayLiveService {
 
         this.eventService.subscribe([{name: 'LOGOUT'}],
             () => {
-                this.currency = 'EUR';
+                this.currency = this.configService.get<string>('$base.defaultCurrency');
                 if (this.hasSubscribers()) {
                     this.disconnect();
                 }

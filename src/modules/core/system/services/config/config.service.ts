@@ -62,6 +62,7 @@ import _set from 'lodash-es/set';
 import _isObject from 'lodash-es/isObject';
 import _cloneDeep from 'lodash-es/cloneDeep';
 import _sortBy from 'lodash-es/sortBy';
+import _find from 'lodash-es/find';
 
 /**
  * Examples of getter and setter:
@@ -214,6 +215,10 @@ export class ConfigService {
 
         if (appConfig.$base.profile?.store?.singleLevels) {
             appConfig.$base.profile.store.use = false;
+        }
+
+        if (!_find(this.global.appConfig.siteconfig.currencies, {Alias: appConfig.$base.defaultCurrency})) {
+            appConfig.$base.defaultCurrency = this.global.appConfig.siteconfig.currencies[0]?.Alias || 'EUR';
         }
 
         appConfig.$base.site.restrictRegistration = !!(appConfig.$base.site.restrictRegistration

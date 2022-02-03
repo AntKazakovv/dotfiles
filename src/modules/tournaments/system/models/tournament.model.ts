@@ -40,7 +40,8 @@ export class Tournament extends AbstractModel<ITournament> {
     ) {
         super({from: _assign({model: 'Tournament'}, from)});
         this.data = data;
-        this.userCurrency = this.configService.get<string>('appConfig.user.currency') || 'EUR';
+        this.userCurrency = this.configService.get<string>('appConfig.user.currency')
+            || this.configService.get<string>('$base.defaultCurrency');
         this.$descriptionClean = this.data.Description.replace(/<[^>]*>/g, '');
     }
 

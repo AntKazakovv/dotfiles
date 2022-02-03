@@ -52,7 +52,8 @@ export class Bonus extends AbstractModel<IBonus> {
     ) {
         super({from: _assign({model: 'Bonus'}, from)});
         this.data = this.modifyData(data);
-        this.userCurrency = this.configService.get<string>('appConfig.user.currency') || 'EUR';
+        this.userCurrency = this.configService.get<string>('appConfig.user.currency')
+            || this.configService.get<string>('$base.defaultCurrency');
         this._imageUrl = this.image.length ? `url(${this.image})` : '';
         this._imageOtherUrl = this.imageOther ? `url(${this.imageOther})` : '';
         this._tag = this.getTag();
