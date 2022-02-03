@@ -15,12 +15,13 @@ import {
     fromEvent,
     Subject,
 } from 'rxjs';
-import IMask, {InputMask} from 'imask';
-
-import {IIndexing} from 'wlc-engine/modules/core/system/interfaces';
+import IMask, {AnyMaskedOptions, InputMask} from 'imask';
 
 import _isString from 'lodash-es/isString';
 import _assign from 'lodash-es/assign';
+import _isObject from 'lodash-es/isObject';
+
+import {IIndexing} from 'wlc-engine/modules/core/system/interfaces';
 
 /**
  * See more: [imask docs]{@link https://imask.js.org/}.
@@ -46,11 +47,9 @@ export interface IMaskOptions {
 @Directive({
     selector: '[wlc-input-mask]',
 })
-export class InputMaskDirective implements AfterViewInit,
-    OnChanges,
-    OnDestroy {
-    @Input('wlc-input-mask') wlcInputMask: IMask.AnyMaskedOptions;
-    protected mask: InputMask<IMask.AnyMaskedOptions>;
+export class InputMaskDirective implements AfterViewInit, OnChanges, OnDestroy {
+    @Input('wlc-input-mask') wlcInputMask: AnyMaskedOptions | string;
+    protected mask: InputMask<AnyMaskedOptions>;
     protected ngControl: NgControl;
     protected $destroy: Subject<null> = new Subject();
 
@@ -64,7 +63,7 @@ export class InputMaskDirective implements AfterViewInit,
     public ngAfterViewInit(): void {
         this.getPattern(this.wlcInputMask);
 
-        if (this.wlcInputMask?.mask) {
+        if (_isObject(this.wlcInputMask) && this.wlcInputMask.mask) {
 
             if (!this.mask) {
                 this.mask = IMask(this.element.nativeElement, this.wlcInputMask);
@@ -93,7 +92,8 @@ export class InputMaskDirective implements AfterViewInit,
 
     public ngOnChanges(changes: SimpleChanges): void {
         this.getPattern(this.wlcInputMask);
-        if (!this.mask && this.wlcInputMask?.mask) {
+
+        if (!this.mask && _isObject(this.wlcInputMask) && this.wlcInputMask.mask) {
             this.mask = IMask(this.element.nativeElement, this.wlcInputMask);
             _assign(this.element.nativeElement, {mask: this.mask});
         }
@@ -110,7 +110,7 @@ export class InputMaskDirective implements AfterViewInit,
         this.$destroy.complete();
     }
 
-    public getPattern(pattern: IMaskOptions | string): void {
+    public getPattern(pattern: AnyMaskedOptions | string): void {
         if (_isString(pattern)) {
             switch (pattern) {
                 case 'textField': {
