@@ -3,12 +3,12 @@
 $customThemeDefault: () !default;
 $themeDefault: map-merge((
     'gapSize': (
-        375: ef.get('size', 'small'),
-        1024: ef.get('size', 'less'),
-        1420: ef.get('size', 'big')
+        375: ef.size(2),
+        1024: ef.size(6),
+        1420: ef.size(12)
     ),
-    'paddingSize': ef.get('size', 'smaller'),
-    'menuGag': ef.get('size', 'smallest'),
+    'paddingSize': ef.size(4),
+    'menuGag': ef.size(1),
     'linkPadding': 12px 5px,
     'linkActiveWeight': bold,
     'linkFont': PrimaryText,
@@ -32,7 +32,7 @@ $themeDefault: map-merge((
 
 $customDropdownThemeDefault: () !default;
 $themeDropdownDefault: map-merge((
-    'menuGag': ef.get('size', 'smallest'),
+    'menuGag': ef.size(1),
     'activeTabLinkColor': var(--mc-baseMain),
     'activeTabLinkBg': var(--mc-main),
     'linkPadding': 10px 12px,
@@ -49,12 +49,12 @@ $themeDropdownDefault: map-merge((
 
 $customWithIcons: () !default;
 $withIcons: map-merge((
-    'menuGag': ef.get('size', 'small'),
+    'menuGag': ef.size(2),
     'iconDirection': column,
     'iconAlign': center,
     'menuItemColor': var(--mc-baseMain),
     'menuItemPadding': (
-        375: 0 ef.get('size', 'smaller') 0 0,
+        375: 0 ef.size(4) 0 0,
     ),
     'menuItemMargin': (
         375: 0 auto,
@@ -66,15 +66,30 @@ $withIcons: map-merge((
     'menuIconJustifyContent': center,
     'menuIconOuterWidth': 86px,
     'menuIconOuterHeight': 86px,
-    'menuIconInnerHeight': initial,
-    'menuIconInnerWidth': initial,
+    'menuIconInnerWidth': 40px,
+    'menuIconInnerHeight': 40px,
     'menuItemTextAlign': center,
     'menuIconBackground': var(--mc-bg700),
+    'menuIconBoxTransition': all 0.15s ease-out,
+    'menuIconTransition': fill 0.3s ease-out,
+    'menuIconBackgroundHover': null,
+    'menuIconBackgroundActive': null,
+    'menuIconTransformHover': null,
+    'menuIconShadow': null,
+    'menuIconShadowHover': null,
+    'menuIconShadowActive': null,
     'menuIconBorderRadius': ef.get('radius', 'biger'),
-    'menuIconHoverBackground': var(--mc-main),
     'transition': 0.5s ease-in,
-    'iconColor': var(--mc-main),
-    'menuIconInnerMaxWidth': initial,
-    'menuIconInnerMaxHeight': initial,
     'menuIconInnerFill': null,
+    'menuIconInnerFillHover': null,
+    'menuIconInnerFillActive': null,
+
+    'pseudoPosTop': 50%,
+    'pseudoPosLeft': 50%,
+    'pseudoTransition': all 0.5s ease-out,
+    'pseudoTransform': translate(-50%, -50%),
+    'pseudoTransformHover': null,
+    'pseudoTransformActive': null,
+
+    'hideUnderline': false,
 ), $customWithIcons);

@@ -123,20 +123,74 @@
                     flex-direction: ef.get-value($withIcons, 'iconDirection');
                     align-items: ef.get-value($withIcons, 'iconAlign');
                     width: ef.get-value($withIcons, 'linkWidth');
+
+                    @if (ef.get-value($withIcons, 'hideUnderline')==true) {
+
+                        &:before {
+                            display: none;
+                        }
+                    }
+
+                    &.active {
+
+                        .wlc-menu__icon {
+                            box-shadow: ef.get-value($withIcons, 'menuIconShadow');
+
+                            &:before {
+                                background: ef.get-value($withIcons, 'pseudoBgActive');
+                            }
+
+                            svg,
+                            path {
+                                fill: ef.get-value($withIcons, 'menuIconInnerFillActive');
+                            }
+                        }
+                    }
+
+                    @include bm.hover() {
+
+                        &:not(.active) {
+
+                            .wlc-menu__icon {
+                                box-shadow: ef.get-value($withIcons, 'menuIconShadowHover');
+                                transform: ef.get-value($withIcons, 'menuIconTransformHover');
+
+                                &:before {
+                                    background: ef.get-value($withIcons, 'pseudoBgHover');
+                                }
+
+                                svg,
+                                path {
+                                    fill: ef.get-value($withIcons, 'menuIconInnerFillHover');
+                                }
+                            }
+                        }
+                    }
                 }
 
                 &__icon {
+                    position: relative;
+
                     display: flex;
                     flex-direction: ef.get-value($withIcons, 'menuIconFlexDirection');
                     align-items: ef.get-value($withIcons, 'menuIconAlignItems');
                     justify-content: ef.get-value($withIcons, 'menuIconJustifyContent');
+                    overflow: hidden;
 
                     width: ef.get-value($withIcons, 'menuIconOuterWidth');
                     height: ef.get-value($withIcons, 'menuIconOuterHeight');
                     margin-bottom: ef.get-value($withIcons, 'menuGag');
 
                     background: ef.get-value($withIcons, 'menuIconBackground');
+                    box-shadow: ef.get-value($withIcons, 'menuIconShadow');
                     border-radius: ef.get-value($withIcons, 'menuIconBorderRadius');
+                    transition: ef.get-value($withIcons, 'menuIconBoxTransition');
+
+                    img,
+                    svg {
+                        position: relative;
+                        z-index: 1;
+                    }
 
                     img {
                         display: block;
@@ -146,11 +200,32 @@
 
                     svg {
                         width: ef.get-value($withIcons, 'menuIconInnerWidth');
-                        max-width: ef.get-value($withIcons, 'menuIconInnerMaxWidth');
                         height: ef.get-value($withIcons, 'menuIconInnerHeight');
-                        max-height: ef.get-value($withIcons, 'menuIconInnerMaxHeight');
 
-                        fill: ef.get-value($withIcons, 'menuIconInnerFill');
+                        &,
+                        path {
+                            transition: ef.get-value($withIcons, 'menuIconTransition');
+                            fill: ef.get-value($withIcons, 'menuIconInnerFill');
+                        }
+                    }
+
+
+                    &:before {
+                        content: '';
+
+                        position: absolute;
+                        top: ef.get-value($withIcons, 'pseudoPosTop');
+                        left: ef.get-value($withIcons, 'pseudoPosLeft');
+                        z-index: 0;
+
+                        display: block;
+                        width: 100%;
+                        height: 100%;
+
+                        background: inherit;
+                        border-radius: inherit;
+                        transform: ef.get-value($withIcons, 'pseudoTransform');
+                        transition: ef.get-value($withIcons, 'pseudoTransition');
                     }
                 }
 
