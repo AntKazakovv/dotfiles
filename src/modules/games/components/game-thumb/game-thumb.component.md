@@ -10,7 +10,7 @@
 <div class="tab-pane fade active in" id="c-english">
 
 # Game thumb Component
-For activation "3D" animation necessary choice **type: 'vertical'** and **themeMod: 'transform'**.
+For activation "3D" animation necessary choice **type: 'vertical'**, **theme: 'vertical'** and **themeMod: 'transform'**.
 
 ## Params
 Interface [IGameThumbCParams](/docs/compodoc/interfaces/IGameThumbCParams.html#info)
@@ -51,7 +51,7 @@ export const $modules = {
 <div class="tab-pane fade" id="c-russian">
 
 # Game thumb Component
-Для активации «3D» анимации необходимо выбрать **type: 'vertical'** и **themeMod: 'transform'**.
+Для активации «3D» анимации необходимо выбрать **type: 'vertical'**, **theme: 'vertical'** и **themeMod: 'transform'**.
 
 ## Params
 Интерфейс [IGameThumbCParams](/docs/compodoc/interfaces/IGameThumbCParams.html#info)

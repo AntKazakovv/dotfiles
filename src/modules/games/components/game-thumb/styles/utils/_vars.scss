@@ -336,6 +336,7 @@ $btnsLayout: map-merge((
     'btnsAlignItemsCirc': end,
     'btnsNoDemoGridRowsCircle': 1fr,
     'btnsNoDemoAlignItemsCirc': center,
+    'verticalBtnDemoColor': ef.get('mainColors', 'baseMain'),
 ), $customBtnsLayout);
 
 /*

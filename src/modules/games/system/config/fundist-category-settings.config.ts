@@ -62,4 +62,7 @@ export const categorySettings: IIndexing<ICategorySettings> = {
     tablegames: {
         view: 'all-games',
     },
+    vertical: {
+        view: 'all-games',
+    },
 };

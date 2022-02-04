@@ -21,6 +21,19 @@
         grid-template-rows: ef.get-value($btnsLayout, 'btnsGridRowsVert');
         grid-template-columns: ef.get-value($btnsLayout, 'btnsGridColumnsVert');
 
+        ::ng-deep {
+
+            .wlc-btn {
+
+                &--demo {
+
+                    .wlc-btn__text {
+                        color: ef.get-value($btnsLayout, 'verticalBtnDemoColor');
+                    }
+                }
+            }
+        }
+
         &.no-demo {
             grid-template-rows: ef.get-value($btnsLayout, 'btnsNoDemoGridRowsVert');
         }
