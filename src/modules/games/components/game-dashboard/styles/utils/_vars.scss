@@ -5,6 +5,7 @@ $themeDefault: map-merge((
     'transition': 0.3s linear,
     'backgroundAdUnit': var(--mc-bg),
     'backgroundTabs': var(--mc-bg700),
+    'backgroundTabsHover': var(--mc-bg100),
     'backgroundTabsActive': var(--mc-main),
     'backdropBackground': var(--mc-bg-o8),
     'backgroundTabsUserLandscape': var(--mc-bg300),
@@ -54,6 +55,7 @@ $themeDefault: map-merge((
     'panchBtnRight': 0,
     'panchBtnBack': var(--mc-main),
     'panchBtnIcon': var(--mc-baseMain),
+    'panchBtnIconHover': var(--mc-baseMain),
     'panchBtnIconActive': ef.get('mainColors', 'baseMain'),
 
     'headerBackground': var(--mc-bg500),

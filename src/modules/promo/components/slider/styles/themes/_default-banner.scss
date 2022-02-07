@@ -38,6 +38,7 @@
     &.wlc-slider--theme-mod-ears {
 
         .swiper-button-container {
+            @include em.get-mq-map('max-width', $themeDefaultBanner, 'containerMaxWidth');
 
             @include mq.min(768) {
                 position: absolute;

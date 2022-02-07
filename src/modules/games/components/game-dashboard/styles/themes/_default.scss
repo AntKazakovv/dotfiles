@@ -231,46 +231,37 @@
         }
 
         &__tab {
+            @include bm.transition(all);
+
             display: flex;
             align-items: center;
             justify-content: center;
             width: ef.get-value($themeDefault, 'tabWidth');
             height: ef.get-value($themeDefault, 'tabHeight');
+            color: ef.get-value($themeDefault, 'panchBtnIcon');
             background: ef.get-value($themeDefault, 'backgroundTabs');
             cursor: pointer;
             border-radius: ef.get-value($themeDefault, 'tabRadius');
-            transition: background 0.2s ease-out;
 
             &-icon::ng-deep {
 
                 svg,
                 path {
-                    fill: ef.get-value($themeDefault, 'panchBtnIcon');
+                    fill: currentColor;
                     stroke: none;
                 }
             }
 
             &.active {
+                color: ef.get-value($themeDefault, 'panchBtnIconActive');
                 background: ef.get-value($themeDefault, 'backgroundTabsActive');
-
-                .wlc-game-dashboard__tab-icon::ng-deep {
-
-                    svg,
-                    path {
-                        fill: ef.get-value($themeDefault, 'panchBtnIconActive');
-                    }
-                }
             }
 
             @include bm.hover {
-                background: ef.get-value($themeDefault, 'backgroundTabsActive');
 
-                .wlc-game-dashboard__tab-icon::ng-deep {
-
-                    svg,
-                    path {
-                        fill: ef.get-value($themeDefault, 'panchBtnIconActive');
-                    }
+                &:not(.active) {
+                    color: ef.get-value($themeDefault, 'panchBtnIconHover');
+                    background: ef.get-value($themeDefault, 'backgroundTabsHover');
                 }
             }
         }

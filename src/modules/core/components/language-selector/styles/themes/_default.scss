@@ -30,6 +30,7 @@
             &--opened {
 
                 .wlc-language-selector__current-arrow {
+                    color: ef.get-value($themeDefault, 'currentArrowColorOpened');
                     transform: rotate(0.5turn);
                 }
             }
@@ -40,13 +41,15 @@
             }
 
             &-arrow {
-                @include bm.transition(transform);
+                @include bm.transition(all);
+                margin: auto;
+                color: ef.get-value($themeDefault, 'currentArrowColor');
 
                 ::ng-deep svg {
 
                     path {
                         @include bm.transition(fill);
-                        fill: ef.get-value($themeDefault, 'currentArrowColor');
+                        fill: currentColor;
                     }
                 }
             }
@@ -330,23 +333,15 @@
                     border: ef.get-value($themeBorderAround, 'currentBorderOpened');
 
                     .wlc-language-selector__current-arrow::ng-deep {
-
-                        svg {
-
-                            path {
-                                fill: ef.get-value($themeBorderAround, 'currentArrowFillOpened');
-                            }
-                        }
+                        color: ef.get-value($themeBorderAround, 'currentArrowFillOpened');
                     }
                 }
 
                 &-arrow::ng-deep {
+                    color: ef.get-value($themeBorderAround, 'currentArrowFill');
 
-                    svg {
-
-                        path {
-                            fill: ef.get-value($themeBorderAround, 'currentArrowFill');
-                        }
+                    svg path {
+                        fill: currentColor;
                     }
                 }
 

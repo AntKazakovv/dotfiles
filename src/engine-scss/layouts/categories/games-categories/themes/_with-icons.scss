@@ -33,7 +33,7 @@
 
             .wlc-btn-search__text,
             .wlc-btn-merch__text {
-                @include lib.get-text-style('PlaceholderText', ef.get-value($withIcons, 'buttonColor'));
+                @include lib.get-text-style(ef.get-value($withIcons, 'searchButtonTextStyle'), ef.get-value($withIcons, 'buttonColor'));
                 display: flex;
                 align-items: ef.get-value($withIcons, 'buttonAlignItems');
                 justify-content: ef.get-value($withIcons, 'buttonJustifyContent');

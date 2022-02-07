@@ -67,8 +67,8 @@
             }
 
             .title {
+                @include text.get-text-style(ef.get-value($themeDefault, 'searchColTextStyle'), ef.get-value($themeDefault, 'searchColColor'));
                 display: block;
-                font-size: ef.get-value($themeDefault, 'searchColSize');
                 white-space: nowrap;
                 text-overflow: ellipsis;
                 overflow: hidden;

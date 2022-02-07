@@ -197,7 +197,8 @@ $themeDefault: map-merge((
         900: 170px,
     ),
     'searchTitleWidth': 95px,
-    'searchColSize': 14px,
+    'searchColTextStyle': 'ThirdTitle',
+    'searchColColor': var(--mc-baseMain),
     'btnPadding': (
         375: 8px 35px,
         900: 10px 30px 10px 35px,

@@ -15,6 +15,7 @@
 
             img {
                 width: ef.get-value($themeDefault, 'infoImageWidth');
+                border-radius: ef.get-value($themeDefault, 'infoImageRadius');
             }
         }
 

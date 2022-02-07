@@ -74,6 +74,10 @@ $themeDefaultBanner: map-merge((
     'buttonSize': ef.size(8),
     'containerPadding': 0 ef.size(8),
     'containerBorderRadius': ef.size(2),
+    'containerMaxWidth': (
+        375: calc(100% - 30px),
+        1366: 80%,
+    ),
     'paddingAnimateContainer': (
         450: 0 ef.size(2) ,
         768: 0 ef.size(8),
