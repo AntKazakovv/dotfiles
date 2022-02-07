@@ -1,30 +1,59 @@
 'use strict';
 
 import {Ng2StateDeclaration} from '@uirouter/angular';
-import {ConfigService, EventService} from 'wlc-engine/modules/core';
+import {Subscription, interval} from 'rxjs';
+import {ConfigService, EventService, ModalService} from 'wlc-engine/modules/core';
+
+let subs$: Subscription;
+let timeoutId: ReturnType<typeof setTimeout>;
 
 export const errorPageState: Ng2StateDeclaration = {
     url: '/error',
     onEnter: async (trans) => {
-        const configService = trans.injector().get(ConfigService);
-        const eventService = trans.injector().get(EventService);
+        const configService: ConfigService = trans.injector().get(ConfigService);
+        const eventService: EventService = trans.injector().get(EventService);
+        const modalService: ModalService = trans.injector().get(ModalService);
         await configService.ready;
-        const timeout = configService.get('$base.app.toHomeFromErrorTimeout');
+        const timeout: number = configService.get<number>('$base.app.toHomeFromErrorTimeout');
+        const setTimeoutFn = (): void => {
+            trans.router.stateService.go('app.home');
+        };
+        let openModal$: Subscription;
+        let delay: number = timeout;
+        let allTime: number = 0;
+        let openModalTime: number = 0;
+        
         if (timeout) {
-            const timeoutId = setTimeout(() => {
-                trans.router.stateService.go('app.home');
-            }, timeout);
-            eventService.emit({
-                name: 'ERROR_PAGE_ENTER',
-                data: timeoutId,
+            timeoutId = setTimeout(setTimeoutFn, delay);
+            subs$ = interval(1000).subscribe((): void => {
+                allTime++;
             });
-        }
 
+            subs$.add(eventService.subscribe([
+                {name: modalService.events.MODAL_SHOWN},
+                {name: 'PANEL_OPEN'},
+            ], (): void => {
+                clearTimeout(timeoutId);
+                openModal$ = interval(1000).subscribe((): void => {
+                    openModalTime++;
+                });
+            }));
+
+            subs$.add(eventService.subscribe([
+                {name: modalService.events.MODAL_HIDDEN},
+                {name: 'PANEL_CLOSE'},
+            ], (): void => {
+                if (openModal$) {
+                    openModal$.unsubscribe();
+                    delay = timeout - ((allTime - openModalTime) * 1000);
+                    timeoutId = setTimeout(setTimeoutFn, delay);
+                }
+            },
+            ));
+        }
     },
-    onExit: (trans) => {
-        const eventService = trans.injector().get(EventService);
-        eventService.emit({
-            name: 'ERROR_PAGE_LEAVE',
-        });
+    onExit: (): void => {
+        clearTimeout(timeoutId);
+        subs$.unsubscribe();
     },
 };

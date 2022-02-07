@@ -122,8 +122,27 @@ export class FloatPanelsComponent extends AbstractComponent implements OnInit {
             return _get(this.$params.panels, name);
         }
     }
+    
+    /**
+     * Emit the 'PANEL_CLOSE' event
+     * 
+     * @param panelName {string} the name of the panel to close
+     * @returns {void}
+     */
+    public emitEventClosePanel(panelName: string): void {
+        this.eventService.emit({
+            name: 'PANEL_CLOSE',
+            data: panelName,
+        });
+    }
 
-    public closePanel(panelName?: string): void {
+    /**
+     * Method to close panels
+     * 
+     * @param panelName {string} the name of the panel to close
+     * @returns {void}
+     */
+    protected closePanel(panelName?: string): void {
         if (!this.panelIds.includes(panelName)) {
             const error = `Panel ${panelName} doesn't exist! Add panel in $panelsLayouts config.`;
             this.logService.sendLog({code: '0.4.0', data: error});

@@ -4,6 +4,9 @@ import * as componentLib from '../components';
 export namespace  winnersSection {
     export const home: ILayoutSectionConfig = {
         container: true,
+        display: {
+            after: 900,
+        },
         components: [
             componentLib.wlcTitle.winnersSection,
             {

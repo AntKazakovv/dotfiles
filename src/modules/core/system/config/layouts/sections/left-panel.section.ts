@@ -76,7 +76,7 @@ export namespace leftPanel {
                     ],
                 },
             },
-            componentLib.wlcButton.searchDef,
+            componentLib.wlcButton.searchInPanel,
         ],
     };
 

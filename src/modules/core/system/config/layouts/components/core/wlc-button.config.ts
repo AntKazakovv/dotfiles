@@ -48,15 +48,10 @@ export namespace wlcButton {
             wlcElement: 'wlc-btn-search',
             common: {
                 iconPath: '/wlc/icons/search.svg',
-                event: [
-                    {
-                        name: 'PANEL_CLOSE',
-                    },
-                    {
-                        name: 'SHOW_MODAL',
-                        data: 'search',
-                    },
-                ],
+                event: {
+                    name: 'SHOW_MODAL',
+                    data: 'search',
+                },
             },
         },
     };
@@ -71,15 +66,10 @@ export namespace wlcButton {
             wlcElement: 'wlc-btn-search',
             common: {
                 iconPath: '/wlc/icons/search.svg',
-                event: [
-                    {
-                        name: 'PANEL_CLOSE',
-                    },
-                    {
-                        name: 'SHOW_MODAL',
-                        data: 'search',
-                    },
-                ],
+                event: {
+                    name: 'SHOW_MODAL',
+                    data: 'search',
+                },
             },
         },
     };
@@ -98,6 +88,30 @@ export namespace wlcButton {
                     name: 'SHOW_MODAL',
                     data: 'search',
                 },
+            },
+        },
+    };
+
+    export const searchInPanel: ILayoutComponent = {
+        name: 'core.wlc-button',
+        display: {
+            after: 900,
+        },
+        params: {
+            class: 'wlc-btn wlc-btn-search',
+            wlcElement: 'wlc-btn-search',
+            common: {
+                iconPath: '/wlc/icons/search.svg',
+                event: [
+                    {
+                        name: 'PANEL_CLOSE',
+                        data: 'left-def',
+                    },
+                    {
+                        name: 'SHOW_MODAL',
+                        data: 'search',
+                    },
+                ],
             },
         },
     };

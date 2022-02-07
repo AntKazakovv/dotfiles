@@ -45,6 +45,14 @@
         border: ef.get-value($themeVertical, 'inputBorder');
         border-radius: ef.get-value($themeVertical, 'inputBorderRadius');
 
+        &--promocode {
+            text-transform: ef.get-value($themeVertical, 'inputPromoTextTransform');
+        
+            &::placeholder {
+                text-transform: none;
+            }
+        }
+
         &::placeholder {
             color: ef.get-value($themeVertical, 'inputPlaceholderColor');
         }

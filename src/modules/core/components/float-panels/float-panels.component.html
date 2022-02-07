@@ -1,6 +1,6 @@
 <div class="{{$class}}__backdrop"
      *ngIf="openedPanel"
-     (click)="closePanel(openedPanel)"></div>
+     (click)="emitEventClosePanel(openedPanel)"></div>
 
 <ng-container *ngFor="let section of shownSections">
     <div wlc-burger-panel

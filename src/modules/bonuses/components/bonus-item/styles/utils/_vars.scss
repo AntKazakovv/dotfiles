@@ -38,7 +38,7 @@ $themeDefault: map-merge((
     ),
 
     // Bonus icon
-    'bonusIconValueFontColor': var(--fc-textColor),
+    'bonusIconValueFontColor': ef.get('mainColors', 'black'),
     'bonusIconShadow': 2px 5px 1px var(--fc-textColor-o4),
     'bonusIconValueBg': ef.get('mainColors', 'baseMain'), // shouldn't be css-var!!!
     'bonusIconValRadius': 12px,

@@ -9,7 +9,8 @@
     display: grid;
     grid-column-gap: ef.get-value($themeDefault, 'gap');
     grid-template-columns: auto 1fr auto;
-    align-items: center;
+    align-items: ef.get-value($themeDefault, 'alignItems');
+    justify-content: ef.get-value($themeDefault, 'justifyContent');
 
     min-width: ef.get-value($themeDefault, 'minWidth');
     padding: ef.get-value($themeDefault, 'padding');

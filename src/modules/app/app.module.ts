@@ -17,7 +17,6 @@ import {AppComponent} from './components/app/app.component';
 import {CoreModule} from '../core/core.module';
 import {
     ConfigService,
-    EventService,
     ActionService,
     LogService,
 } from 'wlc-engine/modules/core/system/services';
@@ -95,31 +94,14 @@ export class GlobalDeps {
 })
 export class AppModule {
     public initialPath: IIndexing<string>;
-    private errorTimeoutId: number;
 
     constructor(
         location: Location,
         protected actionService: ActionService,
-        private eventService: EventService,
         private logService: LogService,
     ) {
         this.parseInitPath(location.path());
         GlobalDeps.logService = this.logService;
-        this.eventService.subscribe({
-            name: 'ERROR_PAGE_ENTER',
-        }, (data: number) => {
-            this.errorTimeoutId = data;
-        });
-
-        this.eventService.subscribe({
-            name: 'ERROR_PAGE_LEAVE',
-        }, () => {
-            if (this.errorTimeoutId) {
-                clearTimeout(this.errorTimeoutId);
-                this.errorTimeoutId = null;
-            }
-        });
-
     }
 
     protected parseInitPath(path: string): void {

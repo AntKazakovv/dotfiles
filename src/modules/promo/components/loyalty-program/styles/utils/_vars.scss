@@ -11,7 +11,6 @@ $themeDefault: map-merge((
     'wrapperAlignItems': center,
 
     'containerPadding': (
-        320: 0 0 ef.get('size', 'main') 0,
         1200: ef.get('size', 'main') 0,
     ),
     'containerBackground': (

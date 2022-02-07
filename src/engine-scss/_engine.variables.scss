@@ -562,6 +562,8 @@ $container-padding-x: 0;
 
 $dummy: ();
 $buttonSettings: map-merge((
+    'alignItems': center,
+    'justifyContent': center,
     'scaleParam': 0.9,
     // Size
     'minWidth': 110px,

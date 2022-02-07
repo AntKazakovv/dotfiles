@@ -66,6 +66,7 @@ $themeVertical: map-merge((
     'inputPlaceholderColor': var(--fc-placeholderColor),
     'inputBorder': ef.get('form', 'inputBorder'),
     'inputBorderRadius': ef.get('form', 'inputBorderRadius'),
+    'inputPromoTextTransform': uppercase,
 
     'iconTextStyle': 'PrimaryText',
     'iconTextColor': var(--fc-iconColor),

@@ -194,10 +194,17 @@ export class ActionService {
         }
     }
 
-    public scrollTo(elem?: string | Element, options?: IScrollOptions): void {
-        setTimeout(() => {
-            elem = elem || 'body';
-            let element;
+    public scrollTo(elem?: string | HTMLElement, options?: IScrollOptions): void {
+        setTimeout((): void => {
+            if(!elem) {
+                this.window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth',
+                });
+                return;
+            }
+
+            let element: HTMLElement;
             if (_isString(elem)) {
                 element = this.document.querySelector(elem);
             } else {
@@ -208,7 +215,7 @@ export class ActionService {
                 element.style.paddingBottom = this.getStyleNumValue(element, 'paddingBottom') + options.offsetY + 'px';
             }
 
-            setTimeout(() => {
+            setTimeout((): void => {
                 element.scrollIntoView({
                     behavior: 'smooth',
                     block: options?.position || 'start',
