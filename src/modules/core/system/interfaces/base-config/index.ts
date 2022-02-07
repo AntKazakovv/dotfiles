@@ -18,12 +18,14 @@ import {IFinancesConfig} from './finances.interface';
 import {IStickyHeaderConfig} from './sticky-header.interface';
 import {IMocksConfig} from './mocks.interface';
 import {IMonitoringConfig} from './monitoring.interface';
+import {IIdleConfig} from './idle.interface';
 
 export * from './games.interface';
 export * from './tournaments.interface';
 export * from './finances.interface';
 export * from './contacts.interface';
 export * from './profile.interface';
+export * from './idle.interface';
 
 export interface IBaseConfig {
     app?: IAppConfig;
@@ -80,4 +82,8 @@ export interface IBaseConfig {
      * Config for monitoring system
      */
     monitoring?: IMonitoringConfig;
+    /**
+     * Settings for logout when idle
+     */
+    idle?: IIdleConfig,
 }

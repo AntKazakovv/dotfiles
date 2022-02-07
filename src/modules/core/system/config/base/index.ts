@@ -9,6 +9,7 @@ import {notificationsConfig} from './notifications.config';
 import {contactsConfig} from './contacts.config';
 import {interactiveTextConfig} from './interactiveText.config';
 import {redirectsConfig} from './redirect.config';
+import {idleConfig} from './idle.config';
 
 export const $base: IBaseConfig = {
     app: appConfig,
@@ -32,4 +33,5 @@ export const $base: IBaseConfig = {
     rewritingWpLanguages: {
         'pt-br': 'pb',
     },
+    idle: idleConfig,
 };

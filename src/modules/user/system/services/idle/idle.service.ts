@@ -4,23 +4,28 @@ import {
 } from '@angular/core';
 import {DOCUMENT} from '@angular/common';
 import {
+    StateService,
     TransitionService,
-    UIRouterGlobals,
 } from '@uirouter/core';
 import {
     Subscription,
     fromEvent,
-    of,
+    interval,
+    merge,
 } from 'rxjs';
 import {
-    mergeMap,
-    throttleTime,
+    debounceTime,
+    filter,
+    map,
 } from 'rxjs/operators';
 
+import {IIdleConfig} from 'wlc-engine/modules/core';
+import {WINDOW} from 'wlc-engine/modules/app/system';
 import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
 import {EventService} from 'wlc-engine/modules/core/system/services/event/event.service';
 import {ModalService} from 'wlc-engine/modules/core/system/services/modal/modal.service';
 import {UserService} from 'wlc-engine/modules/user/system/services/user/user.service';
+
 @Injectable({
     providedIn: 'root',
 })
@@ -30,23 +35,25 @@ export class IdleService {
     protected timerSubscription: Subscription;
     protected transitionEnter: Function;
     protected transitionLeft: Function;
+    protected config: IIdleConfig;
 
     constructor(
         protected configService: ConfigService,
         protected userService: UserService,
-        protected router: UIRouterGlobals,
         protected transition: TransitionService,
         protected eventService: EventService,
         protected modalService: ModalService,
+        protected stateService: StateService,
         @Inject(DOCUMENT) protected document: Document,
-    ) {
-    }
+        @Inject(WINDOW) protected window: Window,
+    ) {}
 
     public init(): void {
+        this.config = this.configService.get<IIdleConfig>('$base.idle');
         this.checkUserIdle();
         this.eventService.filter({name: 'LOGOUT'}).subscribe({
             next: () => {
-                this.clearSubscrition();
+                this.clearSubscription();
             },
         });
     }
@@ -58,40 +65,42 @@ export class IdleService {
      */
     private checkUserIdle(): void {
         this.runTimer();
-        const isGamePlayState = this.router.current.name === 'app.gameplay';
-        this.createDefaultHandler(isGamePlayState);
-
-        this.transitionEnter = this.transition.onEnter({to: 'app.gameplay'}, () => {
-            this.createDefaultHandler(true);
-        });
-        this.transitionLeft = this.transition.onExit({from: 'app.gameplay'}, () => {
-            this.createDefaultHandler(false);
-        });
+        this.createDefaultHandler();
     }
 
     private runTimer(): void {
+        if (!this.document.hidden) {
+            this.configService.set({
+                name: 'idle',
+                value: new Date().toString(),
+                storageType: 'localStorage',
+            });
+        }
         if (this.timer) {
             clearTimeout(this.timer);
         }
-        this.timer = setTimeout(
-            () => {
-                this.userService.logout();
-                this.modalService.showModal({
-                    id: 'idle-logout-info',
-                    modalTitle: gettext('Info'),
-                    modifier: 'info',
-                    modalMessage: [
-                        gettext('You have been inactive for 30 minutes.'),
-                        gettext('For your safety, you have been logged out of your account.'),
-                    ],
-                    textAlign: 'center',
-                    dismissAll: true,
-                });
-                this.clearSubscrition();
-            }, 30 * 60 * 1000); // 30 minutes
+        this.timer = setTimeout(() => {
+            this.logout();
+        }, this.config.idleTime);
     }
 
-    private clearSubscrition(): void {
+    private logout(): void {
+        this.configService.set({
+            name: 'idle-logout',
+            value: new Date().toString(),
+            storageType: 'localStorage',
+        });
+
+        this.stateService.go('app.home').transition.promise
+            .catch(() => {})
+            .finally(() => {
+                this.userService.logout();
+                this.showModal();
+                this.clearSubscription();
+            });
+    }
+
+    private clearSubscription(): void {
         if (this.timer) {
             clearTimeout(this.timer);
             this.timer = null;
@@ -102,19 +111,37 @@ export class IdleService {
         this.transitionLeft();
     }
 
-    private createDefaultHandler(useMouseMove: boolean): void {
+    private showModal(): void {
+        this.modalService.showModal({
+            id: 'idle-logout-info',
+            modalTitle: gettext('Info'),
+            modifier: 'info',
+            modalMessage: this.config.idleMessage,
+            textAlign: 'center',
+            dismissAll: true,
+        });
+    }
+
+    private createDefaultHandler(): void {
         this.timerSubscription?.unsubscribe();
-        this.timerSubscription = fromEvent(this.document, 'click').pipe((
-            mergeMap((event) => {
-                if (useMouseMove) {
-                    return fromEvent(this.document, 'mousemove').pipe(
-                        throttleTime(1000),
-                    );
-                }
-                return of(event);
-            })
-        )).subscribe(() => {
-            this.runTimer();
+        this.timerSubscription = merge(
+            fromEvent(this.document, 'click').pipe(
+                debounceTime(this.config.frequencyChecks),
+            ),
+            fromEvent(this.document, 'mousemove').pipe(
+                debounceTime(this.config.frequencyChecks),
+            ),
+            fromEvent(this.window, 'storage'),
+            interval(this.config.frequencyChecks).pipe(
+                map((): string => this.document.activeElement.tagName),
+                filter(((el: string): boolean => !this.document.hidden && el === 'IFRAME')),
+            ),
+        ).subscribe((event: StorageEvent | PointerEvent | MouseEvent): void => {
+            if (event['key'] === 'ngx-webstorage|idle-logout') {
+                this.logout();
+            } else {
+                this.runTimer();
+            }
         });
     };
 }
