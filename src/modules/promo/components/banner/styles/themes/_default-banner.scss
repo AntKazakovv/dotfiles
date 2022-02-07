@@ -1,5 +1,5 @@
 @use 'engine-scss/mixins/text' as lib;
-@use 'engine-scss/mixins/base.mixins' as em;
+@use 'engine-scss/mixins/base.mixins' as bm;
 @use 'engine-scss/mixins/mediaqueries' as mq;
 @use 'engine-scss/functions' as ef;
 
@@ -8,7 +8,7 @@
     ::ng-deep {
 
         .banner {
-            @include em.get-mq-map('min-height', $themeDefaultBanner, 'height');
+            @include bm.get-mq-map('min-height', $themeDefaultBanner, 'height');
 
             position: relative;
             display: flex;
@@ -18,9 +18,8 @@
             background-repeat: no-repeat;
             background-size: cover;
 
-
             .wlc-btn {
-                @include em.get-mq-map('margin', $themeDefaultBanner, 'buttonMargin');
+                @include bm.get-mq-map('margin', $themeDefaultBanner, 'buttonMargin');
             }
 
             .container {
@@ -92,7 +91,7 @@
                 .banner_bg {
 
                     &:before {
-                        @include em.get-mq-map('display', $themeDefault1Banner, 'bgShadowDisplay');
+                        @include bm.get-mq-map('display', $themeDefault1Banner, 'bgShadowDisplay');
                     }
                 }
 
@@ -100,10 +99,10 @@
 
                     &--center {
 
-                        @include em.get-mq-map('left', $themeDefault1Banner, 'bannerDecorCenterLeft');
-                        @include em.get-mq-map('bottom', $themeDefault1Banner, 'bannerDecorCenterBottom');
-                        @include em.get-mq-map('max-width', $themeDefault1Banner, 'bannerDecorCenterMaxWidth');
-                        @include em.get-mq-map('max-height', $themeDefault1Banner, 'bannerDecorCenterHeight');
+                        @include bm.get-mq-map('left', $themeDefault1Banner, 'bannerDecorCenterLeft');
+                        @include bm.get-mq-map('bottom', $themeDefault1Banner, 'bannerDecorCenterBottom');
+                        @include bm.get-mq-map('max-width', $themeDefault1Banner, 'bannerDecorCenterMaxWidth');
+                        @include bm.get-mq-map('max-height', $themeDefault1Banner, 'bannerDecorCenterHeight');
 
                         @include mq.min(1420) {
                             max-height: 320px;
@@ -111,10 +110,10 @@
                     }
 
                     &--right {
-                        @include em.get-mq-map('right', $themeDefault1Banner, 'rightDecorPosRight');
-                        @include em.get-mq-map('bottom', $themeDefault1Banner, 'rightDecorPosBottom');
-                        @include em.get-mq-map('max-width', $themeDefault1Banner, 'rightDecorMaxWidth');
-                        @include em.get-mq-map('max-height', $themeDefault1Banner, 'rightDecorMaxHeight');
+                        @include bm.get-mq-map('right', $themeDefault1Banner, 'rightDecorPosRight');
+                        @include bm.get-mq-map('bottom', $themeDefault1Banner, 'rightDecorPosBottom');
+                        @include bm.get-mq-map('max-width', $themeDefault1Banner, 'rightDecorMaxWidth');
+                        @include bm.get-mq-map('max-height', $themeDefault1Banner, 'rightDecorMaxHeight');
 
                         @media (min-width: 2500px) {
                             left: ef.get-value($themeDefault1Banner, 'rightDecorPosLeft');
@@ -124,8 +123,8 @@
 
                 .banner__title,
                 .banner__description {
-                    @include em.get-mq-map('color', $themeDefaultBanner, 'banner1DefaultColor');
-                    @include em.get-mq-map('text-shadow', $themeDefaultBanner, 'banner1ColorShadow');
+                    @include bm.get-mq-map('color', $themeDefaultBanner, 'banner1DefaultColor');
+                    @include bm.get-mq-map('text-shadow', $themeDefaultBanner, 'banner1ColorShadow');
                 }
             }
 
@@ -134,15 +133,15 @@
                 .banner__decor {
 
                     &--left {
-                        @include em.get-mq-map('left', $themeDefault2Banner, 'leftDecorPosLeft');
-                        @include em.get-mq-map('bottom', $themeDefault2Banner, 'leftDecorPosBottom');
-                        @include em.get-mq-map('max-width', $themeDefault2Banner, 'leftDecorMaxWidth');
+                        @include bm.get-mq-map('left', $themeDefault2Banner, 'leftDecorPosLeft');
+                        @include bm.get-mq-map('bottom', $themeDefault2Banner, 'leftDecorPosBottom');
+                        @include bm.get-mq-map('max-width', $themeDefault2Banner, 'leftDecorMaxWidth');
                     }
 
                     &--right {
-                        @include em.get-mq-map('right', $themeDefault2Banner, 'rightDecorPosRight');
-                        @include em.get-mq-map('top', $themeDefault2Banner, 'rightDecorPosTop');
-                        @include em.get-mq-map('max-width', $themeDefault2Banner, 'rightDecorMaxWidth');
+                        @include bm.get-mq-map('right', $themeDefault2Banner, 'rightDecorPosRight');
+                        @include bm.get-mq-map('top', $themeDefault2Banner, 'rightDecorPosTop');
+                        @include bm.get-mq-map('max-width', $themeDefault2Banner, 'rightDecorMaxWidth');
                     }
                 }
             }
@@ -157,35 +156,35 @@
                     }
 
                     &--left {
-                        @include em.get-mq-map('top', $themeDefault3Banner, 'leftDecorPosTop');
-                        @include em.get-mq-map('bottom', $themeDefault3Banner, 'leftDecorPosBottom');
-                        @include em.get-mq-map('left', $themeDefault3Banner, 'leftDecorPosLeft');
-                        @include em.get-mq-map('display', $themeDefault3Banner, 'leftDecorDisplay');
-                        @include em.get-mq-map('max-width', $themeDefault3Banner, 'leftDecorMaxWidth');
+                        @include bm.get-mq-map('top', $themeDefault3Banner, 'leftDecorPosTop');
+                        @include bm.get-mq-map('bottom', $themeDefault3Banner, 'leftDecorPosBottom');
+                        @include bm.get-mq-map('left', $themeDefault3Banner, 'leftDecorPosLeft');
+                        @include bm.get-mq-map('display', $themeDefault3Banner, 'leftDecorDisplay');
+                        @include bm.get-mq-map('max-width', $themeDefault3Banner, 'leftDecorMaxWidth');
 
                         z-index: ef.get-value($themeDefault3Banner, 'leftDecorZindex');
                         animation-delay: ef.get-value($themeDefault3Banner, 'leftDecorAnimDelay');
                     }
 
                     &--center {
-                        @include em.get-mq-map('top', $themeDefault3Banner, 'centerDecorPosTop');
-                        @include em.get-mq-map('right', $themeDefault3Banner, 'centerDecorPosRight');
-                        @include em.get-mq-map('left', $themeDefault3Banner, 'centerDecorPosLeft');
-                        @include em.get-mq-map('display', $themeDefault3Banner, 'centerDecorDisplay');
-                        @include em.get-mq-map('max-width', $themeDefault3Banner, 'centerDecorMaxWidth');
-                        @include em.get-mq-map('height', $themeDefault3Banner, 'centerDecorHeight');
+                        @include bm.get-mq-map('top', $themeDefault3Banner, 'centerDecorPosTop');
+                        @include bm.get-mq-map('right', $themeDefault3Banner, 'centerDecorPosRight');
+                        @include bm.get-mq-map('left', $themeDefault3Banner, 'centerDecorPosLeft');
+                        @include bm.get-mq-map('display', $themeDefault3Banner, 'centerDecorDisplay');
+                        @include bm.get-mq-map('max-width', $themeDefault3Banner, 'centerDecorMaxWidth');
+                        @include bm.get-mq-map('height', $themeDefault3Banner, 'centerDecorHeight');
 
                         z-index: ef.get-value($themeDefault3Banner, 'centerDecorZindex');
                         animation-delay: ef.get-value($themeDefault3Banner, 'centerDecorAnimDelay');
                     }
 
                     &--right {
-                        @include em.get-mq-map('top', $themeDefault3Banner, 'rightDecorPosTop');
-                        @include em.get-mq-map('right', $themeDefault3Banner, 'rightDecorPosRight');
-                        @include em.get-mq-map('left', $themeDefault3Banner, 'rightDecorPosLeft');
-                        @include em.get-mq-map('display', $themeDefault3Banner, 'rightDecorDisplay');
-                        @include em.get-mq-map('max-width', $themeDefault3Banner, 'rightDecorMaxWidth');
-                        @include em.get-mq-map('height', $themeDefault3Banner, 'rightDecorHeight');
+                        @include bm.get-mq-map('top', $themeDefault3Banner, 'rightDecorPosTop');
+                        @include bm.get-mq-map('right', $themeDefault3Banner, 'rightDecorPosRight');
+                        @include bm.get-mq-map('left', $themeDefault3Banner, 'rightDecorPosLeft');
+                        @include bm.get-mq-map('display', $themeDefault3Banner, 'rightDecorDisplay');
+                        @include bm.get-mq-map('max-width', $themeDefault3Banner, 'rightDecorMaxWidth');
+                        @include bm.get-mq-map('height', $themeDefault3Banner, 'rightDecorHeight');
 
                         z-index: ef.get-value($themeDefault3Banner, 'rightDecorZindex');
                         animation-delay: ef.get-value($themeDefault3Banner, 'rightDecorAnimDelay');
@@ -205,13 +204,13 @@
                     }
 
                     &__fixed-bg {
-                        @include em.get-mq-map('top', $themeDefault4Banner, 'fixedBgPosTop');
-                        @include em.get-mq-map('left', $themeDefault4Banner, 'fixedBgPosLeft');
-                        @include em.get-mq-map('display', $themeDefault4Banner, 'fixedBgDisplay');
-                        @include em.get-mq-map('width', $themeDefault4Banner, 'fixedBgWidth');
-                        @include em.get-mq-map('height', $themeDefault4Banner, 'fixedBgHeight');
-                        @include em.get-mq-map('background-image', $themeDefault4Banner, 'fixedBgImages');
-                        @include em.get-mq-map('background-position', $themeDefault4Banner, 'fixedBgPos');
+                        @include bm.get-mq-map('top', $themeDefault4Banner, 'fixedBgPosTop');
+                        @include bm.get-mq-map('left', $themeDefault4Banner, 'fixedBgPosLeft');
+                        @include bm.get-mq-map('display', $themeDefault4Banner, 'fixedBgDisplay');
+                        @include bm.get-mq-map('width', $themeDefault4Banner, 'fixedBgWidth');
+                        @include bm.get-mq-map('height', $themeDefault4Banner, 'fixedBgHeight');
+                        @include bm.get-mq-map('background-image', $themeDefault4Banner, 'fixedBgImages');
+                        @include bm.get-mq-map('background-position', $themeDefault4Banner, 'fixedBgPos');
 
                         position: absolute;
                         background-repeat: no-repeat;
@@ -231,10 +230,10 @@
                     }
 
                     &__decor-fixed {
-                        @include em.get-mq-map('display', $themeDefault4Banner, 'fixedDecorDisplay');
-                        @include em.get-mq-map('top', $themeDefault4Banner, 'fixedDecorPosTop');
-                        @include em.get-mq-map('left', $themeDefault4Banner, 'fixedDecorPosLeft');
-                        @include em.get-mq-map('bottom', $themeDefault4Banner, 'fixedDecorPosBottom');
+                        @include bm.get-mq-map('display', $themeDefault4Banner, 'fixedDecorDisplay');
+                        @include bm.get-mq-map('top', $themeDefault4Banner, 'fixedDecorPosTop');
+                        @include bm.get-mq-map('left', $themeDefault4Banner, 'fixedDecorPosLeft');
+                        @include bm.get-mq-map('bottom', $themeDefault4Banner, 'fixedDecorPosBottom');
 
                         position: absolute;
                         width: ef.get-value($themeDefault4Banner, 'fixedDecorMaxWidth');
@@ -242,14 +241,14 @@
                     }
 
                     &__decor {
-                        @include em.get-mq-map('display', $themeDefault4Banner, 'decorDisplay');
-                        @include em.get-mq-map('align-items', $themeDefault4Banner, 'decorAlignItems');
+                        @include bm.get-mq-map('display', $themeDefault4Banner, 'decorDisplay');
+                        @include bm.get-mq-map('align-items', $themeDefault4Banner, 'decorAlignItems');
 
                         &--left {
-                            @include em.get-mq-map('top', $themeDefault4Banner, 'leftDecorPosTop');
-                            @include em.get-mq-map('bottom', $themeDefault4Banner, 'leftDecorPosBottom');
-                            @include em.get-mq-map('left', $themeDefault4Banner, 'leftDecorPosLeft');
-                            @include em.get-mq-map('width', $themeDefault4Banner, 'leftDecorWidth');
+                            @include bm.get-mq-map('top', $themeDefault4Banner, 'leftDecorPosTop');
+                            @include bm.get-mq-map('bottom', $themeDefault4Banner, 'leftDecorPosBottom');
+                            @include bm.get-mq-map('left', $themeDefault4Banner, 'leftDecorPosLeft');
+                            @include bm.get-mq-map('width', $themeDefault4Banner, 'leftDecorWidth');
 
                             img {
                                 object-position: ef.get-value($themeDefault4Banner, 'leftDecorObjPos');
@@ -257,16 +256,50 @@
                         }
 
                         &--right {
-                            @include em.get-mq-map('top', $themeDefault4Banner, 'rightDecorPosTop');
-                            @include em.get-mq-map('right', $themeDefault4Banner, 'rightDecorPosRight');
-                            @include em.get-mq-map('bottom', $themeDefault4Banner, 'rightDecorPosBottom');
-                            @include em.get-mq-map('width', $themeDefault4Banner, 'rightDecorWidth');
+                            @include bm.get-mq-map('top', $themeDefault4Banner, 'rightDecorPosTop');
+                            @include bm.get-mq-map('right', $themeDefault4Banner, 'rightDecorPosRight');
+                            @include bm.get-mq-map('bottom', $themeDefault4Banner, 'rightDecorPosBottom');
+                            @include bm.get-mq-map('width', $themeDefault4Banner, 'rightDecorWidth');
 
                             img {
                                 object-position: ef.get-value($themeDefault4Banner, 'rightDecorObjPos');
                             }
                         }
                     }
+                }
+            }
+
+            &-video {
+
+                &__bg {
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+
+                    img {
+                        @include bm.get-mq-map('object-fit', $themeDefaultBanner, 'videoBgObjectFit');
+                        @include bm.get-mq-map('object-position', $themeDefaultBanner, 'videoBgObjectPosition');
+
+                        display: block;
+                        width: 100%;
+                        height: 100%;
+                    }
+                }
+
+                &__video {
+                    @include bm.get-mq-map('top', $themeDefaultBanner, 'videoPositionTop');
+                    @include bm.get-mq-map('right', $themeDefaultBanner, 'videoPositionRight');
+                    @include bm.get-mq-map('bottom', $themeDefaultBanner, 'videoPositionBottom');
+                    @include bm.get-mq-map('left', $themeDefaultBanner, 'videoPositionLeft');
+                    @include bm.get-mq-map('width', $themeDefaultBanner, 'videoWidth');
+                    @include bm.get-mq-map('height', $themeDefaultBanner, 'videoHeight');
+                    @include bm.get-mq-map('object-fit', $themeDefaultBanner, 'videoObjectFit');
+                    @include bm.get-mq-map('object-position', $themeDefaultBanner, 'videoObjectPosition');
+
+                    position: absolute;
+                    z-index: 2;
                 }
             }
 
@@ -291,7 +324,7 @@
                 }
 
                 img {
-                    @include em.transition(transform, 0.1s);
+                    @include bm.transition(transform, 0.1s);
 
                     display: block;
                     width: 100%;
@@ -307,7 +340,7 @@
 
             &__title {
                 @include lib.get-text-style('QoteTextBold', ef.get-value($themeDefaultBanner, 'colorTitle'));
-                @include em.get-mq-map('text-align', $themeDefaultBanner, 'textAlign');
+                @include bm.get-mq-map('text-align', $themeDefaultBanner, 'textAlign');
 
                 text-shadow: ef.get-value($themeDefaultBanner, 'textContentShadow');
 
@@ -322,7 +355,7 @@
 
             &__description {
                 @include lib.get-text-style('PrimaryText', ef.get-value($themeDefaultBanner, 'colorDescription'));
-                @include em.get-mq-map('text-align', $themeDefaultBanner, 'textAlign');
+                @include bm.get-mq-map('text-align', $themeDefaultBanner, 'textAlign');
 
                 text-shadow: ef.get-value($themeDefaultBanner, 'textContentShadow');
 
@@ -343,7 +376,7 @@
                 }
 
                 .wlc-btn[wlc-button] {
-                    @include em.get-mq-map('margin', $themeDefaultBanner, 'centerButtonMargin');
+                    @include bm.get-mq-map('margin', $themeDefaultBanner, 'centerButtonMargin');
                 }
             }
 
@@ -351,11 +384,11 @@
 
                 .banner__title,
                 .banner__description {
-                    @include em.get-mq-map('text-align', $themeDefaultBanner, 'rightBannerTextAlign');
+                    @include bm.get-mq-map('text-align', $themeDefaultBanner, 'rightBannerTextAlign');
                 }
 
                 .wlc-btn[wlc-button] {
-                    @include em.get-mq-map('margin', $themeDefaultBanner, 'rightButtonMargin');
+                    @include bm.get-mq-map('margin', $themeDefaultBanner, 'rightButtonMargin');
                 }
             }
         }

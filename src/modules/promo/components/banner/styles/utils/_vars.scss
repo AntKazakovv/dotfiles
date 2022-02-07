@@ -43,6 +43,16 @@ $themeDefaultBanner: map-merge((
     ),
     'backdropZindex': 1,
     'bgObjectPos': right,
+
+    'videoBgObjectFit': cover,
+    'videoBgObjectPosition': center,
+
+    'videoPositionTop': 0,
+    'videoPositionLeft': 0,
+    'videoWidth': 100%,
+    'videoHeight': 100%,
+    'videoObjectFit': cover,
+    'videoObjectPosition': center,
 ), $customThemeDefaultBanner);
 
 $customThemeDefault1Banner: () !default;
