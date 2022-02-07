@@ -7,7 +7,7 @@ import {AngularMyDatePickerModule} from 'angular-mydatepicker';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {AngularResizedEventModule} from 'angular-resize-event';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {ModalModule} from 'ngx-bootstrap/modal';
+import {ModalModule, MODAL_CONFIG_DEFAULT_OVERRIDE} from 'ngx-bootstrap/modal';
 import {PaginationModule} from 'ngx-bootstrap/pagination';
 import {SwiperModule} from 'swiper/angular';
 import {TooltipModule} from 'ngx-bootstrap/tooltip';
@@ -209,6 +209,12 @@ export const components = {
         RecaptchaService,
         ColorThemeService,
         ...interceptors,
+        {
+            provide: MODAL_CONFIG_DEFAULT_OVERRIDE,
+            useValue: {
+                animated: true,
+            },
+        },
     ],
     declarations: [
         AmountLimitComponent,

@@ -333,7 +333,7 @@ export class ModalService {
         });
 
         setTimeout(() => {
-            const backDropElement = _get(windowCmptRef, 'instance.modalRef.backdrop.location.nativeElement');
+            const backDropElement = _get(windowCmptRef, 'instance.modalDirect.backdrop.location.nativeElement');
             if (backDropElement) {
                 const currentZIndex = +this.window?.getComputedStyle(modalElement).zIndex;
                 modalElement.style.zIndex = currentZIndex + this.activeModals.length * 10;

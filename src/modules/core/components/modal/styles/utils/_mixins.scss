@@ -1,53 +1,190 @@
 @use 'engine-scss/functions' as ef;
+@use 'engine-scss/engine.variables' as ev;
+@use 'engine-scss/mixins/base.mixins' as bm;
+
 @import './vars';
 
-@mixin fadeAnimationMx($translateFrom: translate(0, -50px), $translateTo: translate(0, 0)) {
+// animation @keyframes and backdrop
+@mixin animationMx(
+    $from: translate(0, -50px),
+    $between: null,
+    $to: translate(0, 0),
+    $closeFrom : $to,
+    $closeTo: $from) {
 
-    @keyframes fadeAnimation {
+    @keyframes animationModal {
 
         0% {
-            transform: $translateFrom;
+            transform: $from;
             opacity: 0;
         }
 
+        @if $between {
+
+            50% {
+                transform: $between;
+                animation-timing-function: ease-in;
+            }
+        }
+
         100% {
-            transform: $translateTo;
+            transform: $to;
             opacity: 1;
+        }
+    }
+
+    @keyframes animationModalClose {
+
+        0% {
+            transform: $closeFrom;
+            opacity: 1;
+        }
+
+        @if $between {
+
+            50% {
+                transform: $between;
+                animation-timing-function: ease-in;
+            }
+        }
+
+        100% {
+            transform: $closeTo;
+            opacity: 0;
+        }
+    }
+
+    @if map-get(ev.$modalAnimation, 'modalClosingAnimation') {
+
+        @at-root {
+
+            .modal-backdrop {
+                @include bm.transition(opacity);
+            }
+        }
+    } @else {
+
+        @at-root {
+
+            .modal-backdrop {
+                @include bm.transition(opacity, 0s);
+
+                &.in {
+                    @include bm.transition(opacity);
+                }
+            }
+
+            .wlc-modal__wrapper.fade.close .wlc-modal__dialog {
+                opacity: 1;
+                animation: unset;
+            }
+        }
+    }
+
+    @if (map-get(ev.$modalAnimation, 'modalMobileAnimation') != true) {
+
+        @media (pointer: coarse) {
+            opacity: 1;
+            animation: unset;
+
+            @at-root {
+
+                .modal-backdrop {
+                    @include bm.transition(opacity, 0s);
+
+                    &.in {
+                        @include bm.transition(opacity, 0s);
+                    }
+                }
+            }
         }
     }
 }
 
+// end @keyframes
+
+// Mixin animation
+
 @mixin fadeTop() {
-    @include fadeAnimationMx();
+    @include animationMx();
 }
 
 @mixin fadeBottom() {
-    @include fadeAnimationMx(
-        $translateFrom: translate(ef.get-value($hostModal, 'fadeBottomFromHorizontal'), ef.get-value($hostModal, 'fadeBottomFromVertical')),
-        $translateTo: translate(ef.get-value($hostModal, 'fadeBottomToHorizontal'), ef.get-value($hostModal, 'fadeBottomToVertical'))
+
+    @include animationMx(
+        $from: translate(ef.get-value($hostModal, 'fadeBottomFromHorizontal'), ef.get-value($hostModal, 'fadeBottomFromVertical')),
+        $to: translate(ef.get-value($hostModal, 'fadeBottomToHorizontal'), ef.get-value($hostModal, 'fadeBottomToVertical')),
     );
 }
 
 @mixin fadeLeft() {
-    @include fadeAnimationMx(
-        $translateFrom: translate(ef.get-value($hostModal, 'fadeLeftFromHorizontal'), ef.get-value($hostModal, 'fadeLeftFromVertical')),
-        $translateTo: translate(ef.get-value($hostModal, 'fadeLeftToHorizontal'), ef.get-value($hostModal, 'fadeLeftToVertical'))
-    );
-}
-
-@mixin fadeLeftMobile() {
-    @include fadeAnimationMx(
-        $translateFrom: translate(-50px, 0),
-        $translateTo: translate(0, 0)
+    @include animationMx(
+        $from: translate(ef.get-value($hostModal, 'fadeLeftFromHorizontal'), ef.get-value($hostModal, 'fadeLeftFromVertical')),
+        $to: translate(ef.get-value($hostModal, 'fadeLeftToHorizontal'), ef.get-value($hostModal, 'fadeLeftToVertical')),
     );
 }
 
 @mixin fadeRight() {
-    @include fadeAnimationMx(
-        $translateFrom: translate(ef.get-value($hostModal, 'fadeRightFromHorizontal'), ef.get-value($hostModal, 'fadeRightFromVertical')),
-        $translateTo: translate(ef.get-value($hostModal, 'fadeRightToHorizontal'), ef.get-value($hostModal, 'fadeRightToVertical'))
+    @include animationMx(
+        $from: translate(ef.get-value($hostModal, 'fadeRightFromHorizontal'), ef.get-value($hostModal, 'fadeRightFromVertical')),
+        $to: translate(ef.get-value($hostModal, 'fadeRightToHorizontal'), ef.get-value($hostModal, 'fadeRightToVertical')),
     );
 }
+
+@mixin scale {
+    @include animationMx(
+        $from: ef.get-value($hostModal, 'scaleFrom'),
+        $to: ef.get-value($hostModal, 'scaleTo'),
+    );
+}
+
+@mixin fall() {
+    @include animationMx(
+        $from: ef.get-value($hostModal, 'fallFrom'),
+        $to: ef.get-value($hostModal, 'fallTo'),
+    );
+
+    transform-style: preserve-3d;
+}
+
+@mixin sideFall() {
+    @include animationMx(
+        $from: ef.get-value($hostModal, 'sideFallFrom'),
+        $to: ef.get-value($hostModal, 'sideFallTo'),
+    );
+
+    transform-style: preserve-3d;
+}
+
+@mixin flip() {
+    @include animationMx(
+        $from: ef.get-value($hostModal, 'flipFrom'),
+        $to: ef.get-value($hostModal, 'flipTo'),
+    );
+
+    transform-style: preserve-3d;
+}
+
+@mixin superScaled() {
+    @include animationMx(
+        $from: ef.get-value($hostModal, 'superScaledFrom'),
+        $to: ef.get-value($hostModal, 'superScaledTo'),
+    );
+
+    transform-style: preserve-3d;
+}
+
+@mixin slit() {
+    @include animationMx(
+        $from: ef.get-value($hostModal, 'slitFrom'),
+        $between: ef.get-value($hostModal, 'slitBetween'),
+        $to: ef.get-value($hostModal, 'slitTo'),
+    );
+
+    transform-style: preserve-3d;
+}
+
+// end Mixin animation
 
 @mixin ellipsisText() {
     white-space: nowrap;

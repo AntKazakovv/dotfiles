@@ -5,6 +5,11 @@
 body {
     min-width: 375px;
 
+    @media (pointer: fine) {
+        margin-right: calc(-1 * (100vw - 100%));
+        overflow-x: hidden;
+    }
+
     @if (map-has-key(ev.$baseVariables, 'imageBackground')) {
         background: map-get(ev.$baseVariables, 'imageBackground');
     }

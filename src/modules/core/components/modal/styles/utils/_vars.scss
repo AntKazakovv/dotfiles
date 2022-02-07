@@ -99,7 +99,6 @@ $hostModal: map-merge((
     'modalFooterBorderTop': 1px solid transparent,
     'modalFooterJustify': center,
     'modalBackdrop': var(--mc-bg),
-    'modalAnimation': 'fadeLeft',
     'modalAnimationSettings': 0.3s forwards ease-in-out,
 
     'modalZIndex': 1050,
@@ -107,6 +106,8 @@ $hostModal: map-merge((
     'backdropZIndex': 1040,
     'backdropPosition': 0,
     'backdropBackground': var(--mc-bg),
+    'backdropSignUpBackground': var(--mc-bgModal),
+    'backdropSignUpOpacity': 1,
     'dialogBackground': var(--mc-bgModal),
     'dialogShadow': (
         375: none,
@@ -191,7 +192,33 @@ $hostModal: map-merge((
     'fadeRightFromVertical': 50px,
     'fadeRightToHorizontal': 0,
     'fadeRightToVertical': 50px,
-    //animation
+
+    // Scale
+    'scaleFrom': scale(0.7),
+    'scaleTo': scale(1),
+
+    // Fall
+    'fallFrom':translateZ(600px) rotateX(20deg),
+    'fallTo': translateZ(0) rotateX(0deg),
+
+    // SideFall
+    'sideFallFrom': translate(30%) translateZ(600px) rotate(10deg),
+    'sideFallTo': translate(0%) translateZ(0) rotate(0deg),
+
+    // Flip
+    'flipFrom': rotateY(-70deg),
+    'flipTo': rotateY(0deg),
+
+    // SuperScaled
+    'superScaledFrom': scale(2),
+    'superScaledTo': scale(1),
+
+    // Slit
+    'slitFrom': translateZ(-3000px) rotateY(90deg),
+    'slitBetween': translateZ(-250px) rotateY(89deg),
+    'slitTo': translateZ(0) rotateY(0deg),
+
+    // and animation
 
     //scrollable
     'scrollBarWidth': 7px,

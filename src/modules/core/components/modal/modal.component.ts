@@ -51,7 +51,7 @@ import {
  *
  * It is called automatically from the ModalService during the calling of a modal window. No manual call required.
  *
- * @param {ModalDirective} modalRef Modal component from ngx bootstrap package
+ * @param {ModalDirective} modalDirect Modal component from ngx bootstrap package
  * @param {IModalOptions} $params Component parameters
  * @param {Injector} inject Angular Injector class.
  * @param {IModalBsOptions} bsOptions Bootstrap modal config.
@@ -64,7 +64,7 @@ import {
 })
 export class WlcModalComponent extends AbstractComponent
     implements OnInit, AfterViewInit, OnDestroy {
-    @ViewChild('modal') public modalRef: ModalDirective;
+    @ViewChild('modal') public modalElement: ElementRef;
     @ViewChild(ModalDirective) modalDirect: ModalDirective;
 
     public $params: IModalOptions;
@@ -148,6 +148,7 @@ export class WlcModalComponent extends AbstractComponent
      * @param {string} modal Modal ID
      */
     public closeModal(modal: string): void {
+
         this.modalService.hideModal(modal);
     }
 
@@ -268,7 +269,7 @@ export class WlcModalComponent extends AbstractComponent
 
     protected setIgnoreBackdropClick(matches: boolean): void {
         setTimeout(() => {
-            this.modalRef.config = _assign(this.bsOptions, {
+            this.modalDirect.config = _assign(this.bsOptions, {
                 ignoreBackdropClick: matches || !!this.bsOptions.ignoreBackdropClick,
             });
         });
@@ -280,7 +281,7 @@ export class WlcModalComponent extends AbstractComponent
             data: this.$params.config.id,
         });
         if (type === this.modalService.events.MODAL_HIDDEN) {
-            const reason: string = this.modalRef.dismissReason || this.closeReason || '';
+            const reason: string = this.modalDirect.dismissReason || this.closeReason || '';
             this.eventService.emit({
                 name: ProcessServiceEvents.modalClose,
                 data: <IProcessEventData>{
@@ -297,21 +298,22 @@ export class WlcModalComponent extends AbstractComponent
     }
 
     protected initEventHandlers(): void {
-        this.modalRef.onShow.subscribe(() => {
+        this.modalDirect.onShow.subscribe(() => {
             this.$ready.resolve();
             this.eventHandler(this.modalService.events.MODAL_SHOW, this.$params.config.onModalShow);
         });
 
-        this.modalRef.onShown.subscribe(() => {
+        this.modalDirect.onShown.subscribe(() => {
             this.eventHandler(this.modalService.events.MODAL_SHOWN, this.$params.config.onModalShown);
         });
 
-        this.modalRef.onHidden.subscribe(() => {
+        this.modalDirect.onHidden.subscribe(() => {
             this.setClosed();
             this.eventHandler(this.modalService.events.MODAL_HIDDEN, this.$params.config.onModalHidden);
         });
 
-        this.modalRef.onHide.subscribe(() => {
+        this.modalDirect.onHide.subscribe(() => {
+            this.renderer.addClass(this.modalElement.nativeElement, 'close');
             this.eventHandler(this.modalService.events.MODAL_HIDE, this.$params.config.onModalHide);
         });
     }

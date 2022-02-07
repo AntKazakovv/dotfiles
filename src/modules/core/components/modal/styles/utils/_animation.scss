@@ -1,0 +1,50 @@
+@use 'engine-scss/engine.variables' as ev;
+@use 'engine-scss/functions' as ef;
+@use 'engine-scss/mixins/base.mixins' as bm;
+
+@import './mixins';
+@import './vars';
+
+.wlc-modal__dialog {
+    $effect: map-get(ev.$modalAnimation, 'modalAnimationEffects');
+
+    .fade & {
+        animation: animationModal ef.get-value($hostModal, 'modalAnimationSettings');
+
+        @if $effect == 'fadeTop' {
+            @include fadeTop;
+        } @else if ($effect == 'fadeBottom') {
+            @include fadeBottom;
+        } @else if ($effect == 'fadeLeft') {
+            @include fadeLeft;
+        } @else if ($effect == 'fadeRight') {
+            @include fadeRight;
+        } @else if ($effect == 'scale') {
+            @include scale;
+        } @else if ($effect == 'fall') {
+            @include fall;
+        } @else if ($effect == 'sideFall') {
+            @include sideFall;
+        } @else if ($effect == 'flip') {
+            @include flip;
+        } @else if ($effect == 'superScaled') {
+            @include superScaled;
+        } @else if ($effect == 'slit') {
+            @include slit;
+        }
+    }
+
+    .fade.close & {
+        animation: animationModalClose ef.get-value($hostModal, 'modalAnimationSettings');
+        animation-delay: 0s;
+
+        @if map-get(ev.$modalAnimation, 'modalDisableAnimationMobile') {
+
+            @media (pointer: coarse) {
+                opacity: 1;
+                animation: unset;
+            }
+        }
+    }
+}
+

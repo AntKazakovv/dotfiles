@@ -8,7 +8,6 @@
 
 
 .wlc-modal--theme-default {
-    @include em.get-mq-map('background', $themeDefault, 'dialogBackground');
 
     .wlc-modal {
 
@@ -49,7 +48,6 @@
     // Modifiers
 
     &.wlc-modal--login-sign-up {
-        @include em.get-mq-map('background', $themeDefault, 'loginSignUpModalBackground');
 
         .wlc-modal {
 
@@ -259,7 +257,6 @@
 }
 
 body.modal-open {
-    background-color: ef.get-value($themeDefault, 'dialogBackground');
 
     @include mq.min(560) {
         background-color: ev.$body-bg;

@@ -771,6 +771,19 @@ $appLoader: map-merge((
     'jellyShadowOpacity': 1,
 ), $customAppLoader);
 
+/// Глобальная настройка анимации Pop up
+/// modalAnimationEffects может приниимать значения
+/// 'fadeTop' 'fadeBottom' 'fadeLeft' 'fadeRight'
+/// 'scale' 'fall' 'sideFall'
+/// 'flip' 'superScaled' 'slit'
+$customModalAnimation: () !default;
+$modalAnimation: map-merge((
+    'modalAnimationEffects': 'fadeLeft',
+    'modalMobileAnimation': true,
+    'modalClosingAnimation': false,
+), $customModalAnimation);
+
+
 $customTableBtnBlock: () !default;
 $tableBtnBlock: map-merge((
     'btnLeft': 50%,

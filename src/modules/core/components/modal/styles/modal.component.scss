@@ -6,6 +6,7 @@
 
 @import './utils/mixins';
 @import './utils/vars';
+@import './utils/animation';
 
 @import './themes/default';
 
@@ -64,6 +65,7 @@
     &__wrapper {
         @include bm.get-mq-map('padding', $hostModal, 'modalWrapperPadding');
         min-height: 100%;
+        perspective: 1200px;
     }
 
     .fade {
@@ -191,21 +193,6 @@
         border: none;
         border-radius: ef.get-value($hostModal, 'modalBorderRadius');
         opacity: 0;
-
-        .fade & {
-            animation: fadeAnimation ef.get-value($hostModal, 'modalAnimationSettings');
-            animation-delay: 0.2s;
-
-            @if ef.get-value($hostModal, 'modalAnimation') == 'fadeTop' {
-                @include fadeTop;
-            } @else if (ef.get-value($hostModal, 'modalAnimation') == 'fadeBottom') {
-                @include fadeBottom;
-            } @else if (ef.get-value($hostModal, 'modalAnimation') == 'fadeLeft') {
-                @include fadeLeft;
-            } @else if (ef.get-value($hostModal, 'modalAnimation') == 'fadeRight') {
-                @include fadeRight;
-            }
-        }
 
         &-fluid {
             width: 100%;
@@ -358,6 +345,23 @@
             max-height: ef.get-value($themeDefault, 'selectMaxHeight');
         }
     }
+
+    .modal-backdrop + & {
+
+        .fade {
+
+            .wlc-modal__dialog {
+                animation-delay: 0.3s;
+            }
+
+            &.close {
+
+                .wlc-modal__dialog {
+                    animation-delay: 0s;
+                }
+            }
+        }
+    }
 }
 
 .modal-backdrop {
@@ -378,34 +382,26 @@
         @include bm.get-mq-map('opacity', $hostModal, 'backdropOpacity');
     }
 
+    @include mq.max(900) {
+
+        .wlc-modal--login-sign-up + &.fade {
+
+            @if map-get(ev.$modalAnimation, 'modalDisableAnimationMobile') {
+                opacity: 1;
+            } @else {
+                opacity: 0;
+            }
+
+            background: ef.get-value($hostModal, 'backdropSignUpBackground');
+        }
+
+        .wlc-modal--login-sign-up + &.in {
+            opacity: 1;
+        }
+    }
+
     @include mq.min(560) {
         background: ef.get-value($hostModal, 'backdropBackground');
-    }
-}
-
-body.modal-open {
-    overflow: hidden;
-
-    background-color: ef.get-value($hostModal, 'dialogBackground');
-
-    @if (map-has-key(ev.$baseVariables, 'imageBackground')) {
-        background-image: none;
-    }
-
-    .wlc-app {
-        visibility: hidden;
-
-        @include mq.min(560) {
-            visibility: visible;
-        }
-    }
-
-    @include mq.min(560) {
-        background-color: ev.$body-bg;
-
-        @if (map-has-key(ev.$baseVariables, 'imageBackground')) {
-            background: map-get(ev.$baseVariables, 'imageBackground');
-        }
     }
 }
 
