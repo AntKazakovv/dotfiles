@@ -8,7 +8,7 @@ import {FormControl} from '@angular/forms';
 export type ComponentTheme = 'default' | CustomType;
 export type ComponentType = 'default' | 'toggle' | CustomType;
 export type TextSide = 'left' | 'right';
-export type CheckboxType ='terms' | 'age' | 'payment-rules';
+export type CheckboxType ='terms' | 'age' | 'payment-rules' | 'privacy-policy';
 export type Theme = 'default' | CustomType;
 export type AutoModifiers = Theme | TextSide | 'default';
 export type CustomMod = string;

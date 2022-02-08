@@ -48,6 +48,10 @@
             @include checkboxTermsStyles($themeDefault);
         }
 
+        .wlc-checkbox--privacy {
+            @include checkboxPrivacyStyles($themeDefault);
+        }
+
         .wlc-checkbox--age {
             @include checkboxAgeStyles($themeDefault);
         }

@@ -37,6 +37,15 @@
     }
 }
 
+@mixin checkboxPrivacyStyles($map) {
+    margin: ef.get-value($map, 'checkboxPrivacyMargin');
+    padding: ef.get-value($map, 'checkboxPrivacyPadding');
+
+    .wlc-checkbox__label {
+        position: relative;
+    }
+}
+
 @mixin checkboxAgeStyles($map) {
     margin: ef.get-value($map, 'checkboxAgeMargin');
     padding: ef.get-value($map, 'checkboxAgePadding');

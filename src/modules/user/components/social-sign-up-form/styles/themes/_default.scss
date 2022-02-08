@@ -60,6 +60,11 @@
             grid-area: terms;
         }
 
+        .wlc-checkbox--privacy {
+            @include inherit.checkboxPrivacyStyles($themeDefault);
+            grid-area: privacy;
+        }
+
         .wlc-checkbox--age {
             @include inherit.checkboxAgeStyles($themeDefault);
             grid-area: age;

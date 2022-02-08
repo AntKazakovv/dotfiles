@@ -515,6 +515,19 @@ export namespace FormElements {
         },
     };
 
+    export const privacy: IFormComponent = {
+        name: 'core.wlc-checkbox',
+        params: {
+            checkboxType: 'privacy-policy',
+            name: 'agreedWithPrivacyPolicy',
+            wlcElement: 'block_rules',
+            common: {
+                customModifiers: 'privacy',
+            },
+            validators: ['requiredTrue'],
+        },
+    };
+
     export const age: IFormComponent = {
         name: 'core.wlc-checkbox',
         params: {
