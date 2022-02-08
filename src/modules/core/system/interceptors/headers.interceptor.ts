@@ -49,7 +49,7 @@ export class HeadersInterceptor implements HttpInterceptor {
 
         if (req.url.includes('/api/v1/')) {
             req = req.clone({
-                headers: req.headers.set('HTTP_X_UA_FINGERPRINT', this.window['fingerprintHash'] || ''),
+                headers: req.headers.set('X-UA-Fingerprint', this.window['fingerprintHash'] || ''),
             });
         }
         return next.handle(req).pipe(
