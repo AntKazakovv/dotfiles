@@ -2,7 +2,7 @@ import {CommonModule} from '@angular/common';
 import {NgModule} from '@angular/core';
 import {TranslateModule} from '@ngx-translate/core';
 import {CoreModule} from 'wlc-engine/modules/core/core.module';
-import {AngularResizedEventModule} from 'angular-resize-event';
+import {AngularResizeEventModule} from 'angular-resize-event';
 import {SportsbookComponent} from './components/sportsbook/sportsbook.component';
 import {BetradarDailyMatchComponent} from './components/betradar-daily-match/betradar-daily-match.component';
 import {BetradarPopularEventsComponent} from './components/betradar-popular-events/betradar-popular-events.component';
@@ -43,7 +43,7 @@ export const services = {
         CommonModule,
         TranslateModule,
         CoreModule,
-        AngularResizedEventModule,
+        AngularResizeEventModule,
     ],
     providers: [
         SportsbookService,

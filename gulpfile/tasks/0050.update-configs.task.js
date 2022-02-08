@@ -26,6 +26,8 @@ module.exports = function updateConfigs() {
     const root = this.params.paths.root;
 
     task('update:configs', async () => {
+        this.addToGitIgnore('/', '', '.angular');
+
         const configs = glob.sync(`${__dirname}/../global-configs/*.global.json`);
 
         for (const config of configs) {

@@ -5,7 +5,7 @@ import {NgModule} from '@angular/core';
 import {HammerModule} from '@angular/platform-browser';
 import {AngularMyDatePickerModule} from 'angular-mydatepicker';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {AngularResizedEventModule} from 'angular-resize-event';
+import {AngularResizeEventModule} from 'angular-resize-event';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {ModalModule, MODAL_CONFIG_DEFAULT_OVERRIDE} from 'ngx-bootstrap/modal';
 import {PaginationModule} from 'ngx-bootstrap/pagination';
@@ -191,7 +191,7 @@ export const components = {
         FormsModule,
         SwiperModule,
         ReactiveFormsModule,
-        AngularResizedEventModule,
+        AngularResizeEventModule,
         ModalModule,
         TooltipModule.forRoot(),
         PaginationModule.forRoot(),

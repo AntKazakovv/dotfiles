@@ -175,7 +175,7 @@ export class ModalService {
             const $watcher = new Subject();
             this.$closeObserver.pipe(takeUntil($watcher)).subscribe((val: number) => {
                 if (!val) {
-                    $watcher.next();
+                    $watcher.next(null);
                     $watcher.complete();
                     this.openModal(modalConfig);
                 }

@@ -81,7 +81,7 @@
 
             &-icon {
                 @include bm.get-mq-map('width', $themeDefault, 'titleIconSize');
-                @include bm.get-mq-map('heght', $themeDefault, 'titleIconSize');
+                @include bm.get-mq-map('height', $themeDefault, 'titleIconSize');
                 flex-grow: 0;
                 min-width: ef.get-value($themeDefault, 'titleIconSize');
                 transition: all ef.get-value($themeDefault, 'time');

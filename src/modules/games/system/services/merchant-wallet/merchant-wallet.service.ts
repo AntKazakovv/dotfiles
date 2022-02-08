@@ -223,7 +223,7 @@ export class MerchantWalletService {
     public endMerchantWalletGame(): void {
         if (this.merchant) {
             this.balance$.next(null);
-            this.watcher$.next();
+            this.watcher$.next(null);
             this.watcher$.complete();
             this.watcher$ = null;
             this._merchant = null;

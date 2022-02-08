@@ -233,7 +233,7 @@ describe('EventService', () => {
             eventService.emit(testEventOne);
             eventService.emit(testEventOne);
             eventService.emit(testEventOne);
-            $destroy.next();
+            $destroy.next(null);
             $destroy.complete();
             eventService.emit(testEventOne);
             eventService.emit(testEventOne);
@@ -266,7 +266,7 @@ describe('EventService', () => {
             eventService.emit(testEventTwo);
             eventService.emit(testEventTwo);
             eventService.emit(testEventTwo);
-            $destroy.next();
+            $destroy.next(null);
             $destroy.complete();
             eventService.emit(testEventTwo);
             eventService.emit(testEventTwo);

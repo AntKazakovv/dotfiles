@@ -11,12 +11,15 @@
             "allowedCommonJsDependencies": [
                 "@formatjs/intl-locale/polyfill",
                 "@formatjs/intl-numberformat/polyfill",
+                "@formatjs/intl-numberformat/should-polyfill",
                 "@formatjs/intl-pluralrules/polyfill",
+                "@formatjs/intl-pluralrules/should-polyfill",
                 "css-element-queries",
                 "text-overflow-clamp",
                 "hosted-fields-sdk"
             ],
             "outputPath": "roots/static/dist",
+            "baseHref": "/",
             "deployUrl": "/static/dist/",
             "index": "src/index.html",
             "main": "src/main.ts",
@@ -93,6 +96,9 @@
             "serviceWorker": true,
             "ngswConfigPath": "./ngsw-config.json",
             "watch": false
+        },
+        "projects.wlc-site.architect.serve.options": {
+            "baseHref": "/"
         }
     }
 }

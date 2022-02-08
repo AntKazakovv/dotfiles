@@ -3,7 +3,7 @@ import {CommonModule} from '@angular/common';
 import {FormsModule} from '@angular/forms';
 import {UIRouterModule} from '@uirouter/angular';
 import {TranslateModule} from '@ngx-translate/core';
-import {AngularResizedEventModule} from 'angular-resize-event';
+import {AngularResizeEventModule} from 'angular-resize-event';
 import {CountUpModule} from 'ngx-countup';
 
 import _get from 'lodash-es/get';
@@ -106,7 +106,7 @@ export const services = {
         CommonModule,
         UIRouterModule,
         TranslateModule,
-        AngularResizedEventModule,
+        AngularResizeEventModule,
         FormsModule,
         CountUpModule,
         CoreModule,
@@ -137,6 +137,7 @@ export const services = {
         MerchantWalletInfoComponent,
         MerchantWalletPreviewComponent,
         LuckyButtonComponent,
+        TranslateModule,
     ],
 })
 export class GamesModule {

@@ -12,7 +12,7 @@
             min-height: ef.get-value($themeDefault, 'containerMinHeigth');
 
             @include mq.min(ef.get-value($themeDefault, 'breakpoint')) {
-                @include manualMod('wlc-winners-slider', 'default' ,'headless') {
+                @include manualMod('wlc-winners-slider', 'default', 'headless') {
                     display: block;
                 }
 

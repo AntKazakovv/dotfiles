@@ -33,11 +33,11 @@ getTestBed().initTestEnvironment(
         CustomTestModule,
     ],
     platformBrowserDynamicTesting(),
-    // {
-    //     teardown: {
-    //         destroyAfterEach: true,
-    //     },
-    // },
+    {
+        teardown: {
+            destroyAfterEach: false,
+        },
+    },
 );
 
 // Then we find all the tests.

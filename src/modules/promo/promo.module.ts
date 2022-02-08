@@ -1,4 +1,4 @@
-import {AngularResizedEventModule} from 'angular-resize-event';
+import {AngularResizeEventModule} from 'angular-resize-event';
 import {CommonModule} from '@angular/common';
 import {NgModule} from '@angular/core';
 import {SwiperModule} from 'swiper/angular';
@@ -69,7 +69,7 @@ export const components = {
         TopRatedComponent,
     ],
     imports: [
-        AngularResizedEventModule,
+        AngularResizeEventModule,
         CommonModule,
         CoreModule,
         StaticModule,

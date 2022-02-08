@@ -284,7 +284,7 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
     }
 
     public onResize(event: ResizedEvent): void {
-        this.setGameWindowSize(event.newWidth);
+        this.setGameWindowSize(event.newRect.width);
     }
 
     /**

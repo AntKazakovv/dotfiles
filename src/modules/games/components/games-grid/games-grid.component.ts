@@ -215,7 +215,7 @@ export class GamesGridComponent extends AbstractComponent implements OnInit, OnD
      * Resize container handler
      */
     public onResize(event: ResizedEvent): void {
-        if (!event.oldWidth || Math.abs(event.oldWidth - event.newWidth) > 20) {
+        if (!event.oldRect?.width || Math.abs(event.oldRect.width  - event.newRect.width) > 20) {
             this.setGridParams();
         }
     }

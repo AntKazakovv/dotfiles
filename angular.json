@@ -42,7 +42,9 @@
                         },
                         "allowedCommonJsDependencies": [
                             "@formatjs/intl-locale/polyfill",
+                            "@formatjs/intl-numberformat/should-polyfill",
                             "@formatjs/intl-numberformat/polyfill",
+                            "@formatjs/intl-pluralrules/should-polyfill",
                             "@formatjs/intl-pluralrules/polyfill",
                             "css-element-queries",
                             "text-overflow-clamp",
@@ -65,7 +67,6 @@
                             "optimization": true,
                             "outputHashing": "all",
                             "sourceMap": false,
-                            "extractCss": true,
                             "namedChunks": false,
                             "extractLicenses": true,
                             "vendorChunk": false,

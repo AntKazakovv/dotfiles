@@ -1,12 +1,13 @@
 const {resolve} = require('path');
-const CSSMQPackerPlugin = require('css-mqpacker-webpack-plugin');
 const StylelintPlugin = require('stylelint-webpack-plugin');
+const CSSMQPackerPlugin = require('css-mqpacker-webpack-plugin');
 
 const WlcTemplateReplacePlugins = require('./wlcTemplateReplacePlugins');
 const WlcStructureInfoPlugin = require('./wlcStructureInfoPlugin');
 const WlcStaticImagePlugin = require('./wlcStaticImagePlugin');
 const WlcWatchExtFilesPlugin = require('./wlcWatchExtFilesPlugin');
 const sortMqList = require('./wlcMqSortingPlugin');
+
 
 module.exports = (config, schema, env) => {
     const isDev = env.configuration === 'dev';

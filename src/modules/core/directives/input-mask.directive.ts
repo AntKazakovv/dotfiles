@@ -106,7 +106,7 @@ export class InputMaskDirective implements AfterViewInit, OnChanges, OnDestroy {
 
     public ngOnDestroy(): void {
         this?.mask?.destroy();
-        this.$destroy.next();
+        this.$destroy.next(null);
         this.$destroy.complete();
     }
 

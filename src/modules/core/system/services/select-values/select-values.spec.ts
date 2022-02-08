@@ -182,7 +182,7 @@ describe('SelectValuesService', () => {
         ]);
         const phoneCodes = selectValuesService.getPhoneCodes();
         expect(phoneCodes.value.length).toBe(2);
-        expect(phoneCodes).toEqual(phoneCodesResult);
+        expect(phoneCodes.getValue()).toEqual(phoneCodesResult.getValue());
     });
 
     it('-> should get pep list', () => {

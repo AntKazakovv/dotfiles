@@ -13,19 +13,19 @@ export const polyfillsResolver: ResolveTypes = {
     async resolveFn(
         configService: ConfigService,
         translateService: TranslateService,
-        document: HTMLDocument,
+        document: Document,
     ) {
         return new PolyfillsResolver(configService, translateService, document).resolve();
     },
 };
 
 class PolyfillsResolver {
-    private static readonly shouldPolyfillNumberFormat: boolean = shouldPolyfillNumberFormat();
+    private static readonly shouldPolyfillNumberFormat: string = shouldPolyfillNumberFormat();
 
     constructor(
         private configService: ConfigService,
         private translateService: TranslateService,
-        private document: HTMLDocument,
+        private document: Document,
     ) {
     }
 

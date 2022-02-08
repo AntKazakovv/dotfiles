@@ -94,6 +94,7 @@ export const services = {
         PaymentListComponent,
         TransactionHistoryComponent,
         HistoryRangeComponent,
+        TranslateModule,
     ],
 })
 export class FinancesModule {

@@ -35,40 +35,38 @@ const config = {
 
 module.exports = function inlineTask() {
 
-    task('build:loader-css', (cb) => {
+    task('build:loader-css', () => {
         this.addToGitIgnore('/roots/static', 'css', 'app.loader.scss');
         return src(`${this.params.paths.src}/app-styles/app.loader.scss`)
             .pipe(sass({outputStyle: 'compressed', sync: true}).on('error', sass.logError))
             .pipe(dest(`${this.params.paths.static}/css/`));
     });
 
-    task('build:hosted-fields-css', (cb) => {
+    task('build:hosted-fields-css', () => {
         this.addToGitIgnore('/roots/static', 'css', 'hosted.fields*.css');
         return src(`${this.params.paths.src}/app-styles/hosted.fields*.scss`)
             .pipe(sass({outputStyle: 'compressed', sync: true}).on('error', sass.logError))
             .pipe(dest(`${this.params.paths.static}/css/`));
     });
 
-    task('build:inline', async (cb) => {
+    task('build:inline', (cb) => {
         this.addToGitIgnore('/roots', 'template', 'inline.js');
-        await src(`${this.params.paths.inline}/index.ts`)
+        return src(`${this.params.paths.inline}/index.ts`)
             .pipe(webpack(config, wp))
-            .pipe(dest(this.params.paths.dist));
-        createInlineSymLink();
-        cb();
+            .pipe(dest(this.params.paths.dist))
+            .on('end', () => {createInlineSymLink(); cb();});
     });
 
-    task('watch:inline', async (cb) => {
+    task('watch:inline', (cb) => {
         this.addToGitIgnore('/roots', 'template', 'inline.js');
         process.on('SIGINT', () => {
             cb && cb();
             process.exit();
         });
-        await src(`${this.params.paths.inline}/index.ts`)
+        return src(`${this.params.paths.inline}/index.ts`)
             .pipe(webpack(Object.assign({}, config, {mode: 'development', watch: true}), wp))
-            .pipe(dest(this.params.paths.dist));
-        createInlineSymLink();
-        cb();
+            .pipe(dest(this.params.paths.dist))
+            .on('end', () => {createInlineSymLink(); cb();});
     });
 
     const createInlineSymLink = () => {
