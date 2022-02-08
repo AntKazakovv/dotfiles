@@ -193,6 +193,20 @@ export class GamesCatalogService {
             this.favoritesUpdated.next();
         });
 
+        this.eventService.filter({
+            name: 'LOGIN',
+        }).subscribe({
+            next: () => {
+                this.eventService.filter({
+                    name: 'USER_PROFILE',
+                }).pipe(first()).subscribe({
+                    next: () => {
+                        this.getFavouriteGames();
+                    },
+                });
+            },
+        });
+
         this.actionService.deviceType()
             .subscribe((type: DeviceType) => {
                 if (!type) {
