@@ -247,7 +247,10 @@ export class LayoutService {
      * @param full - full or slim mode generation
      * @returns project config
      */
-    public async generateFullConfigWithLayouts(full: boolean = false): Promise<Partial<IGlobalConfig>> {
+    public async generateFullConfigWithLayouts(
+        full: boolean = false,
+    ): Promise<Partial<IGlobalConfig> & IIndexing<any>> {
+
         await this.configService.ready;
         await this.injectionService.importModules([
             'core', 'menu', 'games', 'static', 'promo',

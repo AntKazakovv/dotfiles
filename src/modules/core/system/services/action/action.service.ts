@@ -156,7 +156,10 @@ export class ActionService {
                     const a = this.document.createElement('a');
                     const config = await this.layoutService
                         .generateFullConfigWithLayouts(initialPath.slim !== 'true');
+
                     delete config.$user?.userProfile$;
+                    delete config.device?.window;
+
                     var file = new Blob([JSON.stringify(config)], {type: 'application/json'});
                     a.href = URL.createObjectURL(file);
                     a.download = initialPath.configname || 'config.json';
