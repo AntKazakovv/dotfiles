@@ -360,10 +360,11 @@ export class DataService {
         return preloadData$.pipe(
             switchMap((result: IData) => {
                 if (result) {
+                    const items = result.data || result;
                     if (method.cache > 0) {
-                        this.cachingService.set<T>(cacheUrl, result.data, false, method.cache, true);
+                        this.cachingService.set<T>(cacheUrl, items, false, method.cache, true);
                     }
-                    return of(result.data ? result.data : result);
+                    return of(items);
                 }
                 return method.cache > 0 ? from(this.cachingService.get<T>(cacheUrl)) : of(undefined);
             }),

@@ -108,7 +108,7 @@ export class SearchComponent extends AbstractComponent implements OnInit, OnDest
         this.currentLanguage = this.translate.currentLang;
     }
 
-    public ngOnInit(): void {
+    public async ngOnInit(): Promise<void> {
         super.ngOnInit();
         this.gamesGridParams = _assignIn(
             {},
@@ -121,14 +121,16 @@ export class SearchComponent extends AbstractComponent implements OnInit, OnDest
         if (this.$params.common?.openProvidersList) {
             this.togglePanel('merchants');
         }
-        this.parentCategory = this.gamesCatalogService.getParentCategoryByState();
-        this.childCategory = this.gamesCatalogService.getChildCategoryByState();
 
-        this.getCategories();
-        this.getMerchants();
         this.initSearchListener();
         this.setFilter();
         this.initActiveFilters();
+
+        await this.gamesCatalogService.ready;
+        this.parentCategory = this.gamesCatalogService.getParentCategoryByState();
+        this.childCategory = this.gamesCatalogService.getChildCategoryByState();
+        this.getCategories();
+        this.getMerchants();
     }
 
     public togglePanel(panel: PanelType): void {
