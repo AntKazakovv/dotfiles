@@ -9,11 +9,13 @@ import {
     FormControl,
     FormGroup,
 } from '@angular/forms';
+
 import {takeUntil} from 'rxjs/operators';
 import {BehaviorSubject} from 'rxjs';
+import _assign from 'lodash-es/assign';
+import _isObject from 'lodash-es/isObject';
 
 import {
-    AbstractComponent,
     ConfigService,
     EventService,
     ModalService,
@@ -28,11 +30,9 @@ import {FormElements} from 'wlc-engine/modules/core/system/config/form-elements'
 import {
     IAddProfileInfoCParams,
 } from 'wlc-engine/modules/user/components/add-profile-info/';
+import {ProfileFormAbstract} from 'wlc-engine/modules/user/system/classes/profile-form.abstract';
 
 import * as Params from './profile-form.params';
-
-import _assign from 'lodash-es/assign';
-import _isObject from 'lodash-es/isObject';
 
 /**
  * Profile form component.
@@ -49,7 +49,7 @@ import _isObject from 'lodash-es/isObject';
     templateUrl: './profile-form.component.html',
     styleUrls: ['./styles/profile-form.component.scss'],
 })
-export class ProfileFormComponent extends AbstractComponent implements OnInit {
+export class ProfileFormComponent extends ProfileFormAbstract implements OnInit {
     @Input() protected inlineParams: Params.IProfileFormCParams;
     public $params: Params.IProfileFormCParams;
     public userProfile = this.userService.userProfile$;
@@ -75,6 +75,8 @@ export class ProfileFormComponent extends AbstractComponent implements OnInit {
     ) {
         super(
             {injectParams: params, defaultParams: Params.defaultParams},
+            eventService,
+            userService,
             configService,
         );
     }

@@ -10,8 +10,9 @@ import {
 import {FormGroup} from '@angular/forms';
 import {StateService} from '@uirouter/core';
 
+import _each from 'lodash-es/each';
+
 import {
-    AbstractComponent,
     ConfigService,
     EventService,
     ModalService,
@@ -21,9 +22,9 @@ import {
 } from 'wlc-engine/modules/core';
 import {UserService} from 'wlc-engine/modules/user/system/services';
 
-import * as Params from './add-profile-info.params';
+import {ProfileFormAbstract} from 'wlc-engine/modules/user/system/classes/profile-form.abstract';
 
-import _each from 'lodash-es/each';
+import * as Params from './add-profile-info.params';
 
 @Component({
     selector: '[wlc-add-profile-info]',
@@ -32,7 +33,7 @@ import _each from 'lodash-es/each';
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 
-export class AddProfileInfoComponent extends AbstractComponent implements OnInit {
+export class AddProfileInfoComponent extends ProfileFormAbstract implements OnInit {
     @Input() protected inlineParams: Params.IAddProfileInfoCParams;
 
     public $params: Params.IAddProfileInfoCParams;
@@ -48,7 +49,11 @@ export class AddProfileInfoComponent extends AbstractComponent implements OnInit
         protected eventService: EventService,
         protected stateService: StateService,
     ) {
-        super({injectParams, defaultParams: Params.defaultParams}, configService);
+        super({injectParams, defaultParams: Params.defaultParams},
+            eventService,
+            userService,
+            configService,
+        );
     }
 
     public ngOnInit(): void {
