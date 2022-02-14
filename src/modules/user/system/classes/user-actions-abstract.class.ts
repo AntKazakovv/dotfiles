@@ -9,6 +9,7 @@ import {
     NotificationEvents,
     IPushMessageParams,
     IUserProfile,
+    IIndexing,
 } from 'wlc-engine/modules/core';
 import {UserService} from 'wlc-engine/modules/user';
 import {
@@ -60,10 +61,11 @@ export abstract class UserActionsAbstract<T> extends AbstractComponent {
     }
 
     protected checkConfirmation(form: FormGroup): boolean {
-        let {ageConfirmed, agreedWithTermsAndConditions} = form.value;
+        const formValues: IIndexing<number | string | boolean> = form.getRawValue();
+        let {ageConfirmed, agreedWithTermsAndConditions} = formValues;
 
-        if (['birthYear', 'birthDay', 'birthMonth'].every(el => el in form.value)) {
-            ageConfirmed = this.userService.checkUserAge(form.value);
+        if (['birthYear', 'birthDay', 'birthMonth'].every(el => el in formValues)) {
+            ageConfirmed = this.userService.checkUserAge(formValues);
         }
 
         if (ageConfirmed && agreedWithTermsAndConditions) {
@@ -85,14 +87,16 @@ export abstract class UserActionsAbstract<T> extends AbstractComponent {
     }
 
     protected formDataPreparation(form: FormGroup): IValidateData {
+        const formValues: IIndexing<number | string | boolean> = form.getRawValue();
+
         if (!form.controls.hasOwnProperty('passwordRepeat')) {
-            form.value.passwordRepeat = form.value.password;
+            formValues.passwordRepeat = formValues.password;
         }
 
         const formData = {
             'TYPE': 'user-register',
-            data: {...form.value},
-            fields: _keys(form.value),
+            data: {...formValues},
+            fields: _keys(formValues),
         };
 
         const chosenBonus = this.configService.get<ChosenBonusType>(ChosenBonusSetParams.ChosenBonus);
