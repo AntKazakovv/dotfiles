@@ -58,6 +58,7 @@ export class SelectValuesService {
      *
      */
     public prepareCurrency(): BehaviorSubject<Params.ISelectOptions[]> {
+        const currencies = this.configService.get<IIndexing<string>>('$base.rewritingCurrencyName');
         const sortConfig = this.configService.get<string[]>('$base.registration.currencySort');
         let modifyCurrencies = _values(this.configService.get<IIndexing<ICurrency>>('appConfig.siteconfig.currencies'));
 
@@ -68,7 +69,7 @@ export class SelectValuesService {
                 _filter(modifyCurrencies, (el: ICurrency) => {
                     return el.registration;
                 }), (el) => {
-                    return {title: el.Name, value: el.Alias};
+                    return {title: currencies[el.Name] || el.Name, value: el.Alias};
                 }),
         );
     }

@@ -35,4 +35,14 @@ export const $base: IBaseConfig = {
     },
     idle: idleConfig,
     defaultCurrency: 'EUR',
+    rewritingCurrencyName: {
+        'ET1': 'ETH',
+        'ET2': 'ETH',
+        'MBC': 'BTC',
+        'XB3': 'BTC',
+        'BC1': 'BCH',
+        'BC2': 'BCH',
+        'LT1': 'LTC',
+        'LT2': 'LTC',
+    },
 };

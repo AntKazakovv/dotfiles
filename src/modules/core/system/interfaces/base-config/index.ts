@@ -90,4 +90,8 @@ export interface IBaseConfig {
      * Config default currency
      */
     defaultCurrency?: string,
+    /**
+     * Change currency name. It will be shown in select
+     */
+    rewritingCurrencyName?: IIndexing<string>,
 }
