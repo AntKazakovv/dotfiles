@@ -1,3 +1,18 @@
+import _isString from 'lodash-es/isString';
+import _map from 'lodash-es/map';
+import _isObject from 'lodash-es/isObject';
+import _has from 'lodash-es/has';
+import _trim from 'lodash-es/trim';
+import _get from 'lodash-es/get';
+import _set from 'lodash-es/set';
+import _cloneDeep from 'lodash-es/cloneDeep';
+import _reduce from 'lodash-es/reduce';
+import _orderBy from 'lodash-es/orderBy';
+import _filter from 'lodash-es/filter';
+import _includes from 'lodash-es/includes';
+import _sortBy from 'lodash-es/sortBy';
+import _forEach from 'lodash-es/forEach';
+
 import {
     MenuConfigItem,
     MenuConfigItemsGroup,
@@ -26,21 +41,6 @@ import {TextDataModel} from 'wlc-engine/modules/static/system/models/textdata.mo
 import {ICategoryMenuCParams} from 'wlc-engine/modules/menu/components/category-menu/category-menu.params';
 import * as Params from 'wlc-engine/modules/menu/components/menu/menu.params';
 
-import _isString from 'lodash-es/isString';
-import _map from 'lodash-es/map';
-import _isObject from 'lodash-es/isObject';
-import _has from 'lodash-es/has';
-import _trim from 'lodash-es/trim';
-import _get from 'lodash-es/get';
-import _set from 'lodash-es/set';
-import _cloneDeep from 'lodash-es/cloneDeep';
-import _reduce from 'lodash-es/reduce';
-import _orderBy from 'lodash-es/orderBy';
-import _filter from 'lodash-es/filter';
-import _includes from 'lodash-es/includes';
-import _sortBy from 'lodash-es/sortBy';
-import _forEach from 'lodash-es/forEach';
-
 export interface IGetItemsByWpPosts {
     posts: TextDataModel[];
     defaultItemState: string,
@@ -57,9 +57,14 @@ export interface IGetHrefItemBasePath {
 
 export interface IParseConfigOptions {
     icons?: {
+        /** icon folder */
         folder?: string;
+        /** disable use icon */
         disable?: boolean;
+        /** fallback icon if the main one cannot be loaded */
+        fallback?: string;
     },
+    /** hide category menu */
     notUseCategoryMenu?: boolean;
 }
 
@@ -263,11 +268,12 @@ export class MenuHelper {
 
         const disableIcons: boolean = options?.icons?.disable;
         const iconsFolder: string = _trim(options?.icons?.folder, '/');
+        const iconsFallback: string = options?.icons?.fallback;
 
         return _map(config, (configMenuItem: MenuConfigItem) => {
             if (_isString(configMenuItem)) {
                 const menuItem: Params.IMenuItem = _cloneDeep(globalItemsConfig[configMenuItem]);
-                MenuHelper.setIcon(menuItem, iconsFolder, disableIcons);
+                MenuHelper.setIcon(menuItem, iconsFolder, disableIcons, iconsFallback);
                 return menuItem;
             } else {
                 if (_has(configMenuItem, 'parent')) {
@@ -275,7 +281,7 @@ export class MenuHelper {
                     const parent: Params.IMenuItem = _isObject(item.parent)
                         ? item.parent
                         : _cloneDeep(globalItemsConfig[item.parent]);
-                    MenuHelper.setIcon(parent, iconsFolder, disableIcons);
+                    MenuHelper.setIcon(parent, iconsFolder, disableIcons, iconsFallback);
 
                     const items: MenuItemObjectType[] = item.items?.map((item: MenuItemsGroupItem) => {
                         if (_has(item, 'parent')) {
@@ -291,9 +297,9 @@ export class MenuHelper {
                         }
 
                         const itemData: Params.IMenuItem = _isObject(item)
-                            ? item as Params.IMenuItem
+                            ? _cloneDeep(item) as Params.IMenuItem
                             : _cloneDeep(globalItemsConfig[item]);
-                        MenuHelper.setIcon(itemData, iconsFolder, disableIcons);
+                        MenuHelper.setIcon(itemData, iconsFolder, disableIcons, iconsFallback);
                         return itemData;
                     }) || [];
 
@@ -304,20 +310,32 @@ export class MenuHelper {
                     };
                 } else {
                     const item: Params.IMenuItem = _cloneDeep(configMenuItem as Params.IMenuItem);
-                    MenuHelper.setIcon(item, iconsFolder, disableIcons);
+                    MenuHelper.setIcon(item, iconsFolder, disableIcons, iconsFallback);
                     return item;
                 }
             }
         });
     }
 
-    public static setIcon(item: Params.IMenuItem, iconsFolder: string, disable: boolean): void {
+    /**
+     * Set icon for menu item
+     *
+     * @param {IMenuItem} item Menu item
+     * @param {string} iconsFolder Icon folder
+     * @param {boolean} disable Disable use of icon
+     * @param {string} fallback Fallback icon if the main one cannot be loaded
+     */
+    public static setIcon(item: Params.IMenuItem, iconsFolder: string, disable: boolean, fallback?: string): void {
         if (item) {
             if (disable) {
                 item.icon = '';
                 item.iconUrl = '';
             } else if (item.icon && iconsFolder) {
                 item.icon = `${iconsFolder}/${item.icon}`;
+
+                if (fallback) {
+                    item.iconFallback = `${iconsFolder}/${fallback}`;
+                }
             }
         }
     }

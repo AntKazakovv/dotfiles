@@ -19,26 +19,6 @@
 
                 .wlc-menu__item {
 
-                    .wlc-menu__link {
-
-                        span {
-                            white-space: normal;
-
-                            &.wlc-menu__icon {
-                                @include bm.get-mq-map('width', $themeDropdownDefault, 'iconWidth');
-                                @include bm.get-mq-map('height', $themeDropdownDefault, 'iconHeight');
-                                @include bm.get-mq-map('margin', $themeDropdownDefault, 'iconMargin');
-
-                                img,
-                                svg {
-                                    display: block;
-                                    max-width: 100%;
-                                    max-height: 100%;
-                                }
-                            }
-                        }
-                    }
-
                     &.active {
 
                         > .wlc-menu__link {
@@ -68,6 +48,25 @@
                     }
                 }
 
+                .wlc-menu__icon {
+                    @include bm.get-mq-map('width', $themeDropdownDefault, 'iconWidth');
+                    @include bm.get-mq-map('height', $themeDropdownDefault, 'iconHeight');
+                    @include bm.get-mq-map('margin', $themeDropdownDefault, 'iconMargin');
+                    color: ef.get-value($themeDropdownDefault, 'iconColor');
+
+                    img,
+                    svg {
+                        display: block;
+                        max-width: 100%;
+                        max-height: 100%;
+                    }
+
+                    svg path,
+                    svg {
+                        fill: currentColor;
+                    }
+                }
+
                 .wlc-menu__link {
                     @include text.get-text-style('PrimaryText', ef.get-value($themeDropdownDefault, 'linkColor'));
                     @include bm.transition(background);
@@ -82,6 +81,10 @@
                     background: ef.get-value($themeDropdownDefault, 'linkBg');
                     cursor: pointer;
                     border-radius: ef.get-value($themeDropdownDefault, 'linkBorderRadius');
+
+                    span {
+                        white-space: normal;
+                    }
 
                     &.active {
                         color: ef.get-value($themeDropdownDefault, 'activeLinkColor');

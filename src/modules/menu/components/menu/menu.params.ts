@@ -102,6 +102,7 @@ export interface IMenuItem {
     icon?: string;
     iconPath?: string;
     iconUrl?: string;
+    iconFallback?: string;
     class?: string;
     wlcElement?: string;
     params?: IMenuItemParams;

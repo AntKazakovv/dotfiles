@@ -7,6 +7,14 @@ import {
 } from '@angular/core';
 import {TranslateService} from '@ngx-translate/core';
 
+import _clone from 'lodash-es/clone';
+import _cloneDeep from 'lodash-es/cloneDeep';
+import _has from 'lodash-es/has';
+import _pull from 'lodash-es/pull';
+import _filter from 'lodash-es/filter';
+import _isObject from 'lodash-es/isObject';
+import _findIndex from 'lodash-es/findIndex';
+
 import {
     AbstractComponent,
     IMixedParams,
@@ -26,13 +34,6 @@ import {GamesCatalogService} from 'wlc-engine/modules/games/system/services/game
 import * as MenuParams from 'wlc-engine/modules/menu/components/menu/menu.params';
 import * as Config from 'wlc-engine/modules/menu/system/config/mobile-menu.config';
 import * as Params from './mobile-menu.params';
-
-import _clone from 'lodash-es/clone';
-import _cloneDeep from 'lodash-es/cloneDeep';
-import _has from 'lodash-es/has';
-import _pull from 'lodash-es/pull';
-import _filter from 'lodash-es/filter';
-import _isObject from 'lodash-es/isObject';
 
 @Component({
     selector: '[wlc-mobile-menu]',
@@ -129,7 +130,8 @@ export class MobileMenuComponent extends AbstractComponent implements OnInit {
             ? this.$params.common.icons.use
             : this.configService.get<boolean>('$menu.mobileMenu.icons.use');
 
-        const iconsFolder: string = this.$params.common?.icons?.folder ||
+        const iconsFolder: string = this.menuSettings?.iconsPack ||
+            this.$params.common?.icons?.folder ||
             this.configService.get<string>('$menu.mobileMenu.icons.folder');
 
         this.menuParams.items = MenuHelper.parseMenuConfig(this.menuConfig, Config.wlcMobileMenuItemsGlobal, {
@@ -138,6 +140,24 @@ export class MobileMenuComponent extends AbstractComponent implements OnInit {
                 disable: !useIcons,
             },
         });
+
+        const categoriesDropdownIndex: number = _findIndex(this.menuSettings?.items, (item: IMenuItem): boolean => {
+            return item.id === 'game-categories';
+        });
+
+        if (categoriesDropdownIndex) {
+            this.menuParams.items[categoriesDropdownIndex] = MenuHelper.parseMenuConfig(
+                [this.menuConfig[categoriesDropdownIndex]],
+                Config.wlcMobileMenuItemsGlobal,
+                {
+                    icons: {
+                        folder: this.configService.get<string>('$menu.mobileMenu.categoryIcons.folder'),
+                        disable: !this.configService.get<boolean>('$menu.mobileMenu.categoryIcons.use'),
+                        fallback: 'plug',
+                    },
+                },
+            )[0];
+        }
 
         if (this.configService.get<boolean>('$menu.mobileMenu.disableCategories')) {
             this.menuParams.items = _filter(this.menuParams.items, (item): boolean => {

@@ -24,7 +24,7 @@
             ::ng-deep {
 
                 .wlc-icon-content {
-                    display: inline-block;
+                    display: flex;
                     width: ef.get-value($themeDefault, 'titleIconSize');
                     height: ef.get-value($themeDefault, 'titleIconSize');
 

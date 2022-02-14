@@ -25,9 +25,19 @@ import {
     transition,
     trigger,
 } from '@angular/animations';
+
 import {
     takeUntil,
 } from 'rxjs/operators';
+import _isString from 'lodash-es/isString';
+import _has from 'lodash-es/has';
+import _get from 'lodash-es/get';
+import _set from 'lodash-es/set';
+import _reduce from 'lodash-es/reduce';
+import _find from 'lodash-es/find';
+import _forEach from 'lodash-es/forEach';
+import _map from 'lodash-es/map';
+import _flatten from 'lodash-es/flatten';
 
 import {
     AbstractComponent,
@@ -49,16 +59,6 @@ import {StaticService} from 'wlc-engine/modules/static/system/services/static/st
 import {IMenuItemsGroup} from 'wlc-engine/modules/menu/components/menu/menu.params';
 
 import * as Params from './menu.params';
-
-import _isString from 'lodash-es/isString';
-import _has from 'lodash-es/has';
-import _get from 'lodash-es/get';
-import _set from 'lodash-es/set';
-import _reduce from 'lodash-es/reduce';
-import _find from 'lodash-es/find';
-import _forEach from 'lodash-es/forEach';
-import _map from 'lodash-es/map';
-import _flatten from 'lodash-es/flatten';
 
 @Component({
     selector: '[wlc-menu]',
@@ -137,20 +137,6 @@ export class MenuComponent extends AbstractComponent implements OnInit, OnChange
         );
     }
 
-    public isActive(state: string | string[], stateParams? : RawParams): boolean {
-        if (_isString(state)) {
-            return this.stateService.includes(state, stateParams);
-        } else {
-            return _reduce(state, (res, item) => {
-                return res || this.stateService.includes(item, stateParams);
-            }, false);
-        }
-    }
-
-    public toggleDropdown(item: Params.IMenuItemsGroup): void {
-        item.expand = !item.expand;
-    }
-
     public ngOnChanges(changes: SimpleChanges): void {
         super.ngOnChanges(changes);
         if (!this.inited) {
@@ -192,10 +178,47 @@ export class MenuComponent extends AbstractComponent implements OnInit, OnChange
         this.initEventHandlers();
     }
 
+    /**
+     * Check menu item is active or not by state
+     *
+     * @param {string | string[]} state State
+     * @param {RawParams} stateParams State params
+     * @returns {boolean} True if menu item active by specified state
+     */
+    public isActive(state: string | string[], stateParams?: RawParams): boolean {
+        if (_isString(state)) {
+            return this.stateService.includes(state, stateParams);
+        } else {
+            return _reduce(state, (res: boolean, item: string): boolean => {
+                return res || this.stateService.includes(item, stateParams);
+            }, false);
+        }
+    }
+
+    /**
+     * Open or hide menu items dropdown
+     *
+     * @param {IMenuItemsGroup} item Menu items dropdown
+     */
+    public toggleDropdown(item: Params.IMenuItemsGroup): void {
+        item.expand = !item.expand;
+    }
+
+    /**
+     * Scroll to element with specified selector
+     *
+     * @param {string} selector Html element selector
+     */
     public scrollTo(selector: string): void {
         this.actionService.scrollTo(selector);
     }
 
+    /**
+     * Get menu item icon
+     *
+     * @param {IMenuItem} item Menu item
+     * @returns {string} Menu item icon path
+     */
     public getIcon(item: Params.IMenuItem): string {
         if (item.iconUrl) {
             return item.iconUrl;
@@ -206,6 +229,25 @@ export class MenuComponent extends AbstractComponent implements OnInit, OnChange
         return '';
     }
 
+    /**
+     * Get icon fallabck
+     *
+     * @param {IMenuItem} item Menu item
+     * @returns {string} Fallback icon path
+     */
+    public getIconFallback(item: Params.IMenuItem): string {
+        if (item.iconFallback) {
+            return this.setExtension(item.iconFallback);
+        }
+        return this.iconsFallback;
+    }
+
+    /**
+     * Open modal
+     *
+     * @param {IMenuItemParamsModal} item Modal params
+     * @returns {Promise<void>}
+     */
     public async openModal(item: Params.IMenuItemParamsModal) {
         const {name, params} = item.params.modal;
         if (name) {
@@ -213,6 +255,12 @@ export class MenuComponent extends AbstractComponent implements OnInit, OnChange
         }
     }
 
+    /**
+     * Get href link
+     *
+     * @param {string | IMenuItemParamsHref} data Href options
+     * @returns {string} Href link
+     */
     public getHref(data: string | Params.IMenuItemParamsHref): string {
         if (_isString(data)) {
             return data;
@@ -223,10 +271,21 @@ export class MenuComponent extends AbstractComponent implements OnInit, OnChange
         }
     }
 
+    /**
+     * Set or change icon extension
+     *
+     * @param {string} iconPath Icon path with or without icon extension
+     * @returns {string} Icon path with extension
+     */
     protected setExtension(iconPath: string): string {
         return iconPath.replace(/\.[\da-z]+$/i, '') + `.${this.iconsExtension}`;
     }
 
+    /**
+     * Init menu items
+     *
+     * @returns {Promise<void>}
+     */
     protected async initItems(): Promise<void> {
         this.items = MenuHelper.getItems(
             {
