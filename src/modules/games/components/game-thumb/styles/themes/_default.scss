@@ -266,6 +266,7 @@
     }
 
     &.wlc-game-thumb--theme-mod-circle {
+        @include circleButton;
 
         .wlc-game-thumb {
 
@@ -289,72 +290,6 @@
 
                 align-items: ef.get-value($themeDefaultModCircle, 'titleAlignItems');
                 opacity: ef.get-value($themeDefaultModCircle, 'titleOpacity');
-            }
-
-            &__buttons {
-                @include btnsLayout(circle);
-                @include bm.transition;
-                opacity: ef.get-value($themeDefaultModCircle, 'btnsAndIconOpacity');
-            }
-
-            &__icon {
-                @include bm.transition;
-                opacity: ef.get-value($themeDefaultModCircle, 'btnsAndIconOpacity');
-            }
-        }
-
-        .wlc-btn {
-
-            &--play {
-                @include bm.get-mq-map('width', $themeDefaultModCircle, 'btnPlaySize');
-                @include bm.get-mq-map('height', $themeDefaultModCircle, 'btnPlaySize');
-
-                display: ef.get-value($themeDefaultModCircle, 'btnPlayDisplay');
-                align-items: ef.get-value($themeDefaultModCircle, 'btnPlayAlignItems');
-                justify-content: ef.get-value($themeDefaultModCircle, 'btnPlayJustifyContent');
-                margin: ef.get-value($themeDefaultModCircle, 'btnPlayMargin');
-
-                color: ef.get-value($themeDefaultModCircle, 'btnPlayColor');
-                font-size: 0;
-
-                border: ef.get-value($themeDefaultModCircle, 'btnPlayBorder');
-                border-radius: ef.get-value($themeDefaultModCircle, 'btnPlayRadius');
-
-                ::ng-deep {
-
-                    .wlc-icon {
-                        display: flex;
-                    }
-                }
-            }
-
-            &--demo {
-                color: ef.get-value($themeDefaultModCircle, 'btnDemoColor');
-
-                background: ef.get-value($themeDefaultModCircle, 'btnDemoBg');
-                border: ef.get-value($themeDefaultModCircle, 'btnDemoBorder');
-
-                @include bm.hover {
-                    text-decoration: ef.get-value($themeDefaultModCircle, 'btnDemoHoverDecoration');
-
-                    box-shadow: ef.get-value($themeDefaultModCircle, 'btnDemoHoverBoxShadow');
-                }
-            }
-        }
-
-        @include bm.hover {
-
-            .wlc-game-thumb {
-
-                &__desc:before,
-                &__buttons,
-                &__icon {
-                    opacity: ef.get-value($themeDefaultModCircle, 'btnsAndIconOpacityHover');
-                }
-
-                &__title {
-                    opacity: ef.get-value($themeDefaultModCircle, 'titleOpacityHover');
-                }
             }
         }
     }

@@ -28,7 +28,7 @@
                 &--demo {
 
                     .wlc-btn__text {
-                        color: ef.get-value($btnsLayout, 'verticalBtnDemoColor');
+                        color: ef.get-value($btnsLayout, 'btnDemoColor');
                     }
                 }
             }
@@ -45,9 +45,8 @@
         align-items: ef.get-value($btnsLayout, 'btnsAlignItemsCirc');
         justify-items: ef.get-value($btnsLayout, 'btnsJustifyItemsCirc');
 
-        &.no-demo {
-            grid-template-rows: ef.get-value($btnsLayout, 'btnsNoDemoGridRowsCircle');
-            align-items: ef.get-value($btnsLayout, 'btnsNoDemoAlignItemsCirc');
+        .wlc-btn {
+            min-width: auto;
         }
     }
 }
@@ -319,6 +318,86 @@
 
         @include bm.colorThemeAlt() {
             background-image: ef.get-value($theme, 'placeholderBgImgAlt');
+        }
+    }
+}
+
+@mixin circleButton {
+
+    .wlc-game-thumb {
+
+        &__buttons {
+            @include btnsLayout(circle);
+            @include bm.transition;
+            opacity: ef.get-value($themeDefaultModCircle, 'btnsAndIconOpacity');
+        }
+
+        &__icon {
+            @include bm.transition;
+            opacity: ef.get-value($themeDefaultModCircle, 'btnsAndIconOpacity');
+        }
+    }
+
+    .wlc-btn {
+
+        &--play {
+            display: ef.get-value($themeDefaultModCircle, 'btnPlayDisplay');
+            align-items: ef.get-value($themeDefaultModCircle, 'btnPlayAlignItems');
+            justify-content: ef.get-value($themeDefaultModCircle, 'btnPlayJustifyContent');
+            width: ef.get-value($themeDefaultModCircle, 'btnPlaySize');
+            height: ef.get-value($themeDefaultModCircle, 'btnPlaySize');
+            margin: ef.get-value($themeDefaultModCircle, 'btnPlayMargin');
+
+            text-indent: ef.get-value($themeDefaultModCircle, 'btnPlayTextIndent');
+            border: ef.get-value($themeDefaultModCircle, 'btnPlayBorder');
+            border-radius: ef.get-value($themeDefaultModCircle, 'btnPlayRadius');
+
+            &:before {
+                content: '';
+                position: absolute;
+                left: ef.get-value($themeDefaultModCircle, 'btnPlayIconLeft');
+                width: ef.get-value($themeDefaultModCircle, 'btnPlayIconWidth');
+                height: ef.get-value($themeDefaultModCircle, 'btnPlayIconHeight');
+
+                background: ef.get-value($themeDefaultModCircle, 'btnPlayIconBg');
+                background-repeat: no-repeat;
+                background-position: center;
+                background-size: auto 100%;
+            }
+
+            ::ng-deep {
+
+                .wlc-icon {
+                    display: flex;
+                }
+            }
+        }
+
+        &--demo {
+            color: ef.get-value($themeDefaultModCircle, 'btnDemoColor');
+            background: ef.get-value($themeDefaultModCircle, 'btnDemoBg');
+            border: ef.get-value($themeDefaultModCircle, 'btnDemoBorder');
+
+            @include bm.hover {
+                text-decoration: ef.get-value($themeDefaultModCircle, 'btnDemoHoverDecoration');
+                box-shadow: ef.get-value($themeDefaultModCircle, 'btnDemoHoverBoxShadow');
+            }
+        }
+    }
+
+    @include bm.hover {
+
+        .wlc-game-thumb {
+
+            &__desc:before,
+            &__buttons,
+            &__icon {
+                opacity: ef.get-value($themeDefaultModCircle, 'btnsAndIconOpacityHover');
+            }
+
+            &__title {
+                opacity: ef.get-value($themeDefaultModCircle, 'titleOpacityHover');
+            }
         }
     }
 }

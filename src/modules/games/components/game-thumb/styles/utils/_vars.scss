@@ -147,13 +147,15 @@ $themeDefaultModCircle: map-merge((
     'btnPlayAlignItems': center,
     'btnPlayJustifyContent': center,
     'btnPlayMargin': 0 auto,
-    'btnPlaySize': (
-        375: 60px,
-        900: 85px,
-    ),
-    'btnPlayColor': transparent,
-    'btnPlayBorder': 4px solid var(--mc-baseMain),
+    'btnPlaySize': 85px,
+    'btnPlayBorder': 4px solid ef.get('mainColors', 'baseMain'),
     'btnPlayRadius': 50%,
+
+    'btnPlayTextIndent': -9999px,
+    'btnPlayIconLeft': calc(50% - 10px),
+    'btnPlayIconWidth': 26px,
+    'btnPlayIconHeight': 32px,
+    'btnPlayIconBg': url('/gstatic/wlc/icons/game-play.svg'),
 
     'btnDemoColor': var(--mc-baseMain),
     'btnDemoBg': none,
@@ -245,15 +247,18 @@ $themeVertical: map-merge((
     'perspective': 250px,
     'bgWidth': 100%,
     'borderRadius': ef.get('radius', 'biger'),
+
     'logoPosition': absolute,
     'logoTopGap': ef.size(8),
     'logoLeftGap': 0,
     'logoWidth': 100%,
     'logoImgWidth': 100%,
+
     'descDisplay': flex,
     'descPadding': 0 0 ef.size(7) 0,
     'descJustifyConten': center,
     'descAlignItems': flex-end,
+
     'fgPosition': absolute,
     'fgBottom': 0,
     'fgLeft': 0,
@@ -262,6 +267,7 @@ $themeVertical: map-merge((
     'fgWidth': 100%,
     'fgHeight': auto,
     'fgImgWidth': 100%,
+
     'bgAspectRatio': '10/16',
     'bgDisplay': block,
     'bgImgPosition': absolute,
@@ -270,11 +276,13 @@ $themeVertical: map-merge((
     'bgImgSize': 100%,
     'bgImgObjectFit': cover,
     'bgImgObjectPos': center,
+
     'notARPosition': absolute,
     'notARTop': 0,
     'notARLeft': 0,
     'notARSize': 100%,
-    'controlsBg': linear-gradient(0deg, darken(#ff8a00, 20%) 0%, rgba(255, 138, 0, 0) 100%), // TODO: not design system colors
+
+    'controlsBg': linear-gradient(0deg, var(--mc-baseContrast) 0%, var(--mc-baseContrast-o0) 75%),
     'controlPosition': absolute,
     'controlTop': 0,
     'controlLeft': 0,
@@ -284,13 +292,16 @@ $themeVertical: map-merge((
     'controlTransProperty': (transform, opacity),
     'controlTransDuration': ef.get('time', 'main'),
     'controlTransTimFun': ease-out,
+
     'videoObjectFit': cover,
     'videoObjectPosition': center,
+
     'placeholderBgColor': var(--mc-bg-d10),
     'placeholderBgImg': url('/static/images/logo.svg'),
     'placeholderBgImgAlt': null,
     'placeholderBgPosition': center,
     'placeholderBgImgSize': 50%,
+
     'transformBg': scale(1.1),
     'transformHoverBg': scale(1.01),
     'transformHoverLogo': translateY(-40px),
@@ -301,10 +312,12 @@ $themeVertical: map-merge((
     'transformProp': transform,
     'transformOverflow': hidden,
     'btnWillChange': transform,
+
     'iconTransProperty': (color, background, opacity, transform),
     'iconTransDuration': ef.get('time', 'main'),
     'iconTransTimFun': ease-out,
     'iconOpacity': 0,
+
     'hoverIconOpacity': 1,
     'mediaBeforeDisplay': block,
     'mediaBeforeWidth': 100%,
@@ -334,9 +347,6 @@ $btnsLayout: map-merge((
     'btnsGridColumnsCirc': 1fr,
     'btnsJustifyItemsCirc': center,
     'btnsAlignItemsCirc': end,
-    'btnsNoDemoGridRowsCircle': 1fr,
-    'btnsNoDemoAlignItemsCirc': center,
-    'verticalBtnDemoColor': ef.get('mainColors', 'baseMain'),
 ), $customBtnsLayout);
 
 /*

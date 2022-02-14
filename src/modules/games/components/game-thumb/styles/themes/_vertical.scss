@@ -192,7 +192,7 @@
         }
     }
 
-    &.wlc-game-thumb--theme-mod-default {
+    &:not(.wlc-game-thumb--theme-mod-transform) {
 
         @include bm.hover {
 
@@ -213,6 +213,24 @@
 
                 &__video {
                     transform: ef.get-value($themeVertical, 'transformHoverVideo');
+                }
+            }
+        }
+    }
+
+    &.wlc-game-thumb--theme-mod-circle {
+        @include circleButton;
+
+        .wlc-game-thumb {
+
+            &__control {
+
+                .wlc-game-thumb__buttons {
+                    align-items: start;
+
+                    &.no-demo {
+                        grid-template-rows: ef.get-value($btnsLayout, 'btnsGridRowsVert');
+                    }
                 }
             }
         }
