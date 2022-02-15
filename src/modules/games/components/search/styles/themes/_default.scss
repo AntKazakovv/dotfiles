@@ -67,7 +67,7 @@
             }
 
             .title {
-                @include text.get-text-style(ef.get-value($themeDefault, 'searchColTextStyle'), ef.get-value($themeDefault, 'searchColColor'));
+                @include text.get-text-style(ef.get-value($themeDefault, 'btnFont'), ef.get-value($themeDefault, 'btnColor'));
                 display: block;
                 white-space: nowrap;
                 text-overflow: ellipsis;
@@ -83,7 +83,6 @@
         }
 
         &__btn {
-            @include text.get-text-style(ef.get-value($themeDefault, 'btnFont'), ef.get-value($themeDefault, 'btnTextColor'));
             @include bm.get-mq-map('padding', $themeDefault, 'btnPadding');
             @include bm.get-mq-map('background', $themeDefault, 'btnBackground');
             @include bm.get-mq-map('border', $themeDefault, 'btnBorder');
@@ -149,12 +148,15 @@
 
             &.active {
                 @include bm.get-mq-map('border', $themeDefault, 'btnBorderActive');
-                @include text.get-text-style(ef.get-value($themeDefault, 'btnFontActive'), ef.get-value($themeDefault, 'btnColorActive'));
                 background: ef.get-value($themeDefault, 'btnBackgroundActive');
 
                 &:after {
                     transform: ef.get-value($themeDefault, 'btnActiveAfterTransform');
                     border-color: ef.get-value($themeDefault, 'btnArrowColorActive');
+                }
+
+                .title {
+                    @include text.get-text-style(ef.get-value($themeDefault, 'btnFontActive'), ef.get-value($themeDefault, 'btnColorActive'));
                 }
 
                 .icon {
@@ -178,11 +180,14 @@
 
             @include bm.hover {
                 @include bm.get-mq-map('background', $themeDefault, 'btnBackgroundHover',true);
-                @include text.get-text-style(ef.get-value($themeDefault, 'btnFont'), ef.get-value($themeDefault, 'btnColorHover'));
 
                 &:after {
                     border-top: ef.get-value($themeDefault, 'btnArrowWidth') solid ef.get-value($themeDefault, 'btnColorHover');
                     border-left: ef.get-value($themeDefault, 'btnArrowWidth') solid ef.get-value($themeDefault, 'btnColorHover');
+                }
+
+                .title {
+                    @include text.get-text-style(ef.get-value($themeDefault, 'btnFont'), ef.get-value($themeDefault, 'btnColorHover'));
                 }
 
                 .icon {
