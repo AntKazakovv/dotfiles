@@ -214,6 +214,10 @@
             {
                 "title": "8.6. Tournament images",
                 "file": "./800.misc/860.tournaments-images.md"
+            },
+            {
+                "title": "8.7. Mocks",
+                "file": "./800.misc/870.mocks.md"
             }
         ]
     },
