@@ -57,17 +57,18 @@
         &__wrp {
             width: 100%;
             max-width: 100%;
+
+            .wlc-post-menu__items,
+            & > .wlc-menu--type-post-menu {
+                @include bm.get-mq-map('column-count', $themeDefault, 'footerSecondColumns');
+
+                display: block;
+            }
         }
 
         &__title {
             @include text.get-text-style(ef.get-value($themeDefault, 'titleTextStyle'), ef.get-value($themeDefault, 'titleColor'));
             padding: ef.get-value($themeDefault, 'titlePadding');
-        }
-
-        &__items {
-            display: grid;
-            grid-gap: map-get($themeDefault, 'linksGap');
-            grid-template-columns: 1fr;
         }
     }
 
@@ -79,18 +80,16 @@
 
         &.wlc-post-menu--without-swiper {
 
-            .wlc-post-menu {
+            .wlc-post-menu__items,
+            .wlc-post-menu__wrp > .wlc-menu--type-post-menu {
+                @include bm.get-mq-map('column-count', $themeDefault, 'ffColumns');
+                @include bm.get-mq-map('text-align', $themeDefault, 'ffTextAlign');
+                @include bm.get-mq-map('max-width', $themeDefault, 'ffItemsMaxWidth');
+                @include bm.get-mq-map('margin', $themeDefault, 'ffItemsMargin');
 
-                &__items {
-                    @include bm.get-mq-map('column-count', $themeDefault, 'ffColumns');
-                    @include bm.get-mq-map('text-align', $themeDefault, 'ffTextAlign');
-                    @include bm.get-mq-map('max-width', $themeDefault, 'ffItemsMaxWidth');
-                    @include bm.get-mq-map('margin', $themeDefault, 'ffItemsMargin');
-
-                    display: block;
-                    line-height: ef.get-value($themeDefault, 'ffLineHeight');
-                    column-gap: ef.get-value($themeDefault, 'ffColumnsGap');
-                }
+                display: block;
+                line-height: ef.get-value($themeDefault, 'ffLineHeight');
+                column-gap: ef.get-value($themeDefault, 'ffColumnsGap');
             }
 
             ::ng-deep {

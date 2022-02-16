@@ -13,7 +13,6 @@ $themeDefault: map-merge((
         375: 'PrimaryText',
         1024: 'ButtonText',
     ),
-    'linksGap': ef.get('size', 'small'),
 
     'linkColor': var(--mc-baseMain),
     'linkColorHover': var(--mc-main),
@@ -38,6 +37,11 @@ $themeDefault: map-merge((
         560: 2,
         1024: 3,
         1200: 2,
+    ),
+    'footerSecondColumns': (
+        375: 1,
+        560: 2,
+        900: 1,
     ),
     'ffPadding': (
         375: 0,
