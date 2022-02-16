@@ -122,15 +122,16 @@ export class SearchComponent extends AbstractComponent implements OnInit, OnDest
             this.togglePanel('merchants');
         }
 
-        this.initSearchListener();
-        this.setFilter();
-        this.initActiveFilters();
-
         await this.gamesCatalogService.ready;
+
         this.parentCategory = this.gamesCatalogService.getParentCategoryByState();
         this.childCategory = this.gamesCatalogService.getChildCategoryByState();
         this.getCategories();
         this.getMerchants();
+
+        this.initSearchListener();
+        this.setFilter();
+        this.initActiveFilters();
     }
 
     public togglePanel(panel: PanelType): void {

@@ -41,6 +41,9 @@ import {
 } from 'wlc-engine/modules/games/system/interfaces/games.interfaces';
 import {IGamesFilterData} from 'wlc-engine/modules/games/system/interfaces/filters.interfaces';
 import {MenuService} from 'wlc-engine/modules/menu/system/services/menu.service';
+import {
+    categorySettings as defaultCategorySettings,
+} from 'wlc-engine/modules/games/system/config/fundist-category-settings.config';
 
 import _assign from 'lodash-es/assign';
 import _cloneDeep from 'lodash-es/cloneDeep';
@@ -534,11 +537,7 @@ export class GamesCatalog extends AbstractModel<IGames> {
 
         this.categorySettings = this.configService.get('appConfig.categories');
         if (!this.categorySettings && this.configService.get('$games.fundist.defaultCategorySettings.use')) {
-            try {
-                this.categorySettings =
-                    (await import('wlc-engine/modules/games/system/config/fundist-category-settings.config'))
-                        .categorySettings;
-            } catch {}
+            this.categorySettings = defaultCategorySettings;
         }
 
         const menuService: MenuService = await this.injectionService.getService<MenuService>('menu.menu-service');

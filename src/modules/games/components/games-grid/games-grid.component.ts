@@ -507,7 +507,9 @@ export class GamesGridComponent extends AbstractComponent implements OnInit, OnD
         await this.preloadSpecialGames(filter);
         this.games = this.gamesCatalogService.getGameList(filter);
         this.filterChangedCounter++;
-        this.gamesCount = this.paginate;
+        if (this.paginate) {
+            this.gamesCount = this.paginate;
+        }
         this.moreButtonChangeState();
 
         this.isReady = true;
