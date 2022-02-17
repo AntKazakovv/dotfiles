@@ -12,12 +12,17 @@ import {
     takeUntil,
 } from 'rxjs/operators';
 import {DateTime} from 'luxon';
-import {IPiqCashierConfig} from 'paymentiq-cashier-bootstrapper';
+import _PaymentIQCashier, {
+    IPiqCashierApiMethods,
+    IPiqCashierConfig,
+    Theme as IPiqCashierTheme,
+} from 'paymentiq-cashier-bootstrapper';
 import _merge from 'lodash-es/merge';
 
 import {
     ConfigService,
     EventService,
+    IIndexing,
     ModalService,
     NotificationEvents,
 } from 'wlc-engine/modules/core';
@@ -25,7 +30,6 @@ import {PIQCashierComponent} from 'wlc-engine/modules/finances/components/piq-ca
 import {IPIQCashierCParams} from 'wlc-engine/modules/finances/components/piq-cashier/piq-cashier.params';
 import {
     TPaymentsMethods,
-    IPIQCashierTheme,
     PIQCashierConvertedMethod,
 } from 'wlc-engine/modules/finances/system/interfaces';
 import {PaymentSystem} from 'wlc-engine/modules/finances/system/models/payment-system.model';
@@ -118,7 +122,7 @@ export class PIQCashierService {
             this.document.querySelector('.modal-dialog') ||
             this.document.querySelector('.wlc-sections__profile-content'),
         );
-        const cashierTheme: IPIQCashierTheme = {
+        const cashierTheme: IPiqCashierTheme = {
             background: {
                 color: cashierThemeSource.backgroundColor,
             },
@@ -146,7 +150,7 @@ export class PIQCashierService {
             .get<BehaviorSubject<UserInfo>>({name: '$user.userInfo$'})
             .pipe(first((v) => !!v))
             .toPromise()
-            .then((userInfo) => {
+            .then((userInfo: UserInfo): IIndexing<string> => {
                 return {
                     idUser: userInfo.idUser,
                     userEmail: userInfo.email,
@@ -161,9 +165,14 @@ export class PIQCashierService {
             amount: amount || null,
             sessionId: `${idUser}-${DateTime.local().toMillis()}`,
             userId: idUser,
+            user: {
+                email: userEmail,
+            },
+            // bonusCode: somewhere.bonusId ?? null,
+            // TODO Add bonusId if selected while deposit after implement in engine
             showHeader: !currentSystem.customParams?.provider,
             showFooter: !currentSystem.customParams?.provider,
-            theme: _merge(cashierTheme, this.configService.get<IPIQCashierTheme>('$base.finances.piqCashier.theme')),
+            theme: _merge(cashierTheme, this.configService.get<IPiqCashierTheme>('$base.finances.piqCashier.theme')),
             blockBrowserNavigation: this.configService.get<boolean>('$base.finances.piqCashier.blockBrowserNavigation'),
             fetchConfig: this.configService.get<boolean>('$base.finances.piqCashier.fetchConfig'),
             attributes: {
@@ -174,8 +183,8 @@ export class PIQCashierService {
         this.subscribeToIFrameMessages();
 
         try {
-            new this.window._PaymentIQCashier('#wlc-piq-cashier', cashierConfig,
-                (api: any) => {
+            new _PaymentIQCashier('#wlc-piq-cashier', cashierConfig,
+                (api: IPiqCashierApiMethods): void => {
                     api.on({
                         cashierInitLoad: () => {
                             this.window.parent.postMessage({message: 'PIQ_LOAD_SUCCESS'}, `${this.window.origin}`);
@@ -188,14 +197,6 @@ export class PIQCashierService {
                                 },
                                 `${this.window.origin}`,
                             );
-                        },
-                    });
-                    api.set({
-                        user: {
-                            email: userEmail,
-                        },
-                        config: {
-                            bonusCode: currentSystem.additionalParams.bonusId ?? null,
                         },
                     });
                     api.css(`

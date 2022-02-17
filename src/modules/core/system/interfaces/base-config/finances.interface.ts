@@ -1,10 +1,10 @@
-import {IPIQCashierTheme} from 'wlc-engine/modules/finances';
+import {Theme as IPiqCashierTheme} from 'paymentiq-cashier-bootstrapper';
 
 export interface IPIQCashier {
     /**
      * Config for customize by [constructor]{@link https://pay.paymentiq.io/cashier-config/}
      */
-    theme?: IPIQCashierTheme;
+    theme?: IPiqCashierTheme;
     /**
      * Prevents the user from navigating back and forward via browser navigation.
      */

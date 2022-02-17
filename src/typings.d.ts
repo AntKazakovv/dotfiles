@@ -20,10 +20,6 @@ declare interface IVerboxSetup {
     returnMobileTriggerTimeout?: number;
 }
 
-declare interface IPaymentIQCashier {
-    new (el: string, cashierConfig: IPiqCashierConfig, callback?: Function);
-}
-
 declare interface IScreenfull {
     isFullscreen: boolean;
     element: Element | undefined;
@@ -83,8 +79,7 @@ declare interface Window extends TAnalyticMethod {
     WlcCookie: any;
     WlcHelper: any;
     affCookie: any;
-    _PaymentIQCashier?: IPaymentIQCashier;
-    _PaymentIQCashierReset?: any;
+    _PaymentIQCashierReset?: () => void;
     zESettings?: any;
     zE?: any;
     zEACLoaded?: boolean;
