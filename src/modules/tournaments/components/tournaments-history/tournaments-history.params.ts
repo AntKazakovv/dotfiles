@@ -8,7 +8,7 @@ import {
 } from 'wlc-engine/modules/core/components/table/components/history-name/history-name.component';
 import {IHistoryNameItem} from 'wlc-engine/modules/core/components/table/components/history-name/history-name.params';
 import {
-    Tournament,
+    TournamentHistory,
     TournamentTopwinsBtnComponent,
 } from 'wlc-engine/modules/tournaments';
 
@@ -27,7 +27,7 @@ export const tournamentsHistoryTableHeadConfig: ITableCol[] = [
         key: 'name',
         title: gettext('Name'),
         type: 'component',
-        mapValue: (item: Tournament): {item: IHistoryNameItem} => {
+        mapValue: (item: TournamentHistory): {item: IHistoryNameItem} => {
             return {
                 item: {
                     name: item.name,
@@ -79,7 +79,7 @@ export const tournamentsHistoryTableHeadConfig: ITableCol[] = [
         key: 'statusName',
         title: gettext('Status'),
         type: 'component',
-        mapValue: (item: Tournament) => {return {tournament: item};},
+        mapValue: (item: TournamentHistory) => {return {tournament: item};},
         componentClass: TournamentTopwinsBtnComponent,
         order: 50,
         wlcElement: 'wlc-profile-table__cell_status',

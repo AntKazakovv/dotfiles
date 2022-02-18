@@ -29,42 +29,57 @@ export interface ITournamentResponse {
     data: ITournament[];
 }
 
-export interface ITournament {
+export interface ITournamentAbstract {
     BetMax: IIndexing<string>;
     BetMin: IIndexing<string>;
-    CurrentTime: number;
     Description: string;
-    Ends: string;
     FeeAmount: IIndexing<string | number> | string;
     FeeType: 'balance' | 'loyalty';
-    Games: ITournamentGames;
     ID: number;
     Image: string;
-    Name: string;
-    PointsLimit: string | number;
-    PointsLimitMin: string | number;
-    PointsTotal: string;
-    Qualification: string;
-    Qualified: number;
-    RemainingTime: number;
-    Repeat: string;
-    Selected: number;
-    Series: string;
-    Starts: string;
-    Status: string;
-    Target: 'balance' | 'loyalty';
-    Terms: string;
-    TotalFounds: IIndexing<string>;
-    Type: 'absolute' | 'relative';
-    Value: string;
-    WinnerBy: 'bets' | 'wins' | 'turnovers' | 'turnovers_loose' | 'max_win' | 'fr';
-    WinningSpread: IIndexing<string[] | number[]>;
     Image_dashboard?: string;
     Image_description?: string;
     Image_promo?: string;
     Image_other?: string;
+    Name: string;
+    WinnerBy: 'bets' | 'wins' | 'turnovers' | 'turnovers_loose' | 'max_win' | 'fr';
+    Terms: string;
+    Target: 'balance' | 'loyalty';
+    Status: string;
+    Series: string;
+    Qualification: string;
+    PointsTotal: string;
     Points?: string;
     StatusText?: string;
+}
+
+export interface ITournamentHistory extends ITournamentAbstract {
+    BetsAmount: string;
+    BetsCount: string;
+    End: string;
+    Place: string;
+    Start: string;
+    Win: string;
+    WinningSpreadCount: number;
+    WinsAmount: string;
+    WinsCount: string;
+}
+
+export interface ITournament extends ITournamentAbstract {
+    CurrentTime: number;
+    Ends: string;
+    Games: ITournamentGames;
+    PointsLimit: string | number;
+    PointsLimitMin: string | number;
+    Qualified: number;
+    RemainingTime: number;
+    Repeat: string;
+    Selected: number;
+    Starts: string;
+    TotalFounds: IIndexing<string>;
+    Type: 'absolute' | 'relative';
+    Value: string;
+    WinningSpread: IIndexing<string[] | number[]>;
 }
 
 export interface ITopTournamentUsers {

@@ -26,7 +26,7 @@ import {
     HistoryFilterService,
 } from 'wlc-engine/modules/finances/system/services/history-filter/history-filter.service';
 import {
-    Tournament,
+    TournamentHistory,
     TournamentsService,
 } from 'wlc-engine/modules/tournaments';
 
@@ -84,10 +84,10 @@ export class TournamentsHistoryComponent extends AbstractComponent implements On
 
     public tableData: ITableCParams;
 
-    protected tournaments: BehaviorSubject<Tournament[]> = new BehaviorSubject([]);
+    protected tournaments: BehaviorSubject<TournamentHistory[]> = new BehaviorSubject([]);
     protected filterType: 'all' | '-99' | '99' | '100' | '0' | '1' = 'all';
 
-    protected allTournaments: Tournament[] = [];
+    protected allTournaments: TournamentHistory[] = [];
     protected historyFilterService: HistoryFilterService;
 
     constructor(
@@ -125,9 +125,10 @@ export class TournamentsHistoryComponent extends AbstractComponent implements On
         await this.tournamentsService.queryTournaments(true, 'history');
         this.historyFilterService = await this.injectionService
             .getService<HistoryFilterService>('finances.history-filter');
-        this.tournamentsService.getObserver('history').subscribe((value) => {
-            this.allTournaments = value;
-        });
+        this.tournamentsService.getObserver<TournamentHistory[]>('history')
+            .subscribe((value) => {
+                this.allTournaments = value;
+            });
 
         this.tournaments.next(this.filterTransaction());
 
@@ -141,9 +142,9 @@ export class TournamentsHistoryComponent extends AbstractComponent implements On
         this.cdr.markForCheck();
     }
 
-    protected filterTransaction(): Tournament[] {
+    protected filterTransaction(): TournamentHistory[] {
 
-        let result: Tournament[] = this.allTournaments || [];
+        let result: TournamentHistory[] = this.allTournaments || [];
 
         if (this.filterType !== 'all') {
             result = _filter(result, item => {
@@ -152,7 +153,7 @@ export class TournamentsHistoryComponent extends AbstractComponent implements On
         }
 
         result = _sortBy(result, (item) => {
-            return DateTime.fromSQL(item.ends).toSeconds();
+            return DateTime.fromSQL(item.end).toSeconds();
         });
 
         return result;

@@ -1,5 +1,29 @@
 import {Injectable} from '@angular/core';
+
+import {
+    BehaviorSubject,
+    Subscription,
+    Observable,
+    pipe,
+    interval,
+} from 'rxjs';
+import {
+    takeUntil,
+    filter,
+    tap,
+} from 'rxjs/operators';
+
+import _filter from 'lodash-es/filter';
+import _extend from 'lodash-es/extend';
+import _isObject from 'lodash-es/isObject';
+import _get from 'lodash-es/get';
+import _some from 'lodash-es/some';
+import _isNil from 'lodash-es/isNil';
+import _map from 'lodash-es/map';
+
 import {Tournament} from '../../models/tournament.model';
+import {TournamentHistory} from 'wlc-engine/modules/tournaments/system/models/tournament-history.model';
+import {ITournamentHistory} from 'wlc-engine/modules/tournaments/system/interfaces/tournaments.interface';
 import {
     IData,
     ConfigService,
@@ -21,25 +45,6 @@ import {
     ITournamentUser,
 } from '../../interfaces/tournaments.interface';
 import {UserProfile} from 'wlc-engine/modules/user';
-import {
-    BehaviorSubject,
-    Subscription,
-    Observable,
-    pipe,
-    interval,
-} from 'rxjs';
-import {
-    takeUntil,
-    filter,
-    tap,
-} from 'rxjs/operators';
-
-import _filter from 'lodash-es/filter';
-import _extend from 'lodash-es/extend';
-import _isObject from 'lodash-es/isObject';
-import _get from 'lodash-es/get';
-import _some from 'lodash-es/some';
-import _isNil from 'lodash-es/isNil';
 
 interface ITournamentData extends IData {
     data?: ITournament;
@@ -53,10 +58,10 @@ export class TournamentsService {
     public isProcessed$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
     public updateData: boolean = true;
 
-    private subjects: {[key: string]: BehaviorSubject<Tournament[]>} = {
-        tournaments$: new BehaviorSubject(null),
-        active$: new BehaviorSubject(null),
-        history$: new BehaviorSubject(null),
+    private subjects = {
+        tournaments$: new BehaviorSubject<Tournament[]>(null),
+        active$: new BehaviorSubject<Tournament[]>(null),
+        history$: new BehaviorSubject<TournamentHistory[]>(null),
     };
 
     private winnersSubjects: IIndexing<BehaviorSubject<ITopTournamentUsers>> = {};
@@ -106,8 +111,8 @@ export class TournamentsService {
      * @param {RestType} type bonuses rest type ('active' | 'history' | 'any')
      * @returns {Observable<Tournament[]>} Observable
      */
-    public getObserver(type?: RestType): Observable<Tournament[]> {
-        let flow$: BehaviorSubject<Tournament[]>;
+    public getObserver<T extends Tournament[] | TournamentHistory[]>(type?: RestType): Observable<T> {
+        let flow$: BehaviorSubject<Tournament[] | TournamentHistory[]>;
 
         switch (type) {
             case 'active':
@@ -121,7 +126,7 @@ export class TournamentsService {
                 break;
         }
 
-        return flow$.asObservable();
+        return (flow$ as BehaviorSubject<T>).asObservable();
     }
 
     /**
@@ -302,27 +307,34 @@ export class TournamentsService {
      * @param {RestType} type bonuses rest type ('active' | 'history' | 'any') (no required)
      * @returns {Tournament[]} bonuses array
      */
-    public async queryTournaments(publicSubject: boolean, type?: RestType): Promise<Tournament[]> {
-        let tournaments: Tournament[] = [];
+    public async queryTournaments(
+        publicSubject: boolean,
+        type?: RestType,
+    ): Promise<Tournament[] | TournamentHistory[]> {
+        let tournaments: Tournament[] | TournamentHistory[] = [];
         const queryParams: IQueryParams = {};
+
         if (type === 'active' || type === 'history') {
             queryParams.type = type;
         }
+
         try {
-            const res: IData = await this.dataService.request('tournaments/tournaments', queryParams);
-            let result = this.modifyTournaments(res.data);
-            tournaments = this.checkForbid(result, queryParams);
+            const res: IData<ITournament[] | ITournamentHistory[]> = await this.dataService.request(
+                'tournaments/tournaments', queryParams,
+            );
+            const result = this.modifyTournaments(res.data, type);
+            tournaments = this.checkForbid(result, type);
 
             switch (type) {
                 case 'active':
-                    publicSubject ? this.subjects.active$.next(tournaments) : null;
+                    publicSubject ? this.subjects.active$.next(tournaments as Tournament[]) : null;
                     break;
                 case 'history':
-                    publicSubject ? this.subjects.history$.next(tournaments) : null;
+                    publicSubject ? this.subjects.history$.next(tournaments as TournamentHistory[]) : null;
                     break;
                 default:
-                    publicSubject ? this.subjects.tournaments$.next(tournaments) : null;
-                    this.tournaments = tournaments;
+                    publicSubject ? this.subjects.tournaments$.next(tournaments as Tournament[]) : null;
+                    this.tournaments = tournaments as Tournament[];
                     break;
             }
 
@@ -385,7 +397,10 @@ export class TournamentsService {
         });
     }
 
-    private checkForbid(tournaments: Tournament[], queryParams: IQueryParams): Tournament[] {
+    private checkForbid(
+        tournaments: Tournament[] | TournamentHistory[],
+        type: RestType,
+    ): Tournament[] | TournamentHistory[] {
         const userCategory: string = _get(this.profile, 'info.category', '').toLowerCase();
         const forbiddenCategories = this.configService.get<IIndexing<IForbidBanned>>('$loyalty.forbidBanned');
 
@@ -395,29 +410,54 @@ export class TournamentsService {
                 _get(this.profile, 'info.loyalty.ForbidTournaments') === '1' ||
                 _get(forbiddenCategories, `${userCategory}.ForbidTournaments`, false)
             ) &&
-            queryParams.type !== 'history' &&
-            queryParams.type !== 'active'
+            type !== 'history' && type !== 'active'
         ) {
-            tournaments = _filter(tournaments, (item: Tournament) => item.isSelected);
+            tournaments = _filter(tournaments as Tournament[], (item: Tournament) => item.isSelected);
         }
+
         return tournaments;
     }
 
-    private modifyTournaments(data: ITournament[]): Tournament[] {
-        const queryTournaments: Tournament[] = [];
-
+    private modifyTournaments(
+        data: ITournament[] | ITournamentHistory[],
+        type: RestType,
+    ): TournamentHistory[] | Tournament[] {
         if (data?.length) {
-            for (const tournamentData of data) {
-                const tournament: Tournament = new Tournament(
-                    {service: 'TournamentsService', method: 'modifyTournaments'},
-                    tournamentData,
-                    this.configService,
-                    this,
+
+            if (type === 'history') {
+                const queryTournaments = _map<ITournamentHistory, TournamentHistory>(
+                    data as ITournamentHistory[],
+                    (item) => {
+                        return new TournamentHistory(
+                            {service: 'TournamentsService', method: 'modifyTournaments'},
+                            item,
+                            this.configService,
+                            this,
+                        );
+                    });
+
+                return _filter(
+                    queryTournaments,
+                    item => item.status !== -1,
                 );
-                queryTournaments.push(tournament);
+            } else {
+                const queryTournaments = _map<ITournament, Tournament>(
+                    data as ITournament[],
+                    item => {
+                        return new Tournament(
+                            {service: 'TournamentsService', method: 'modifyTournaments'},
+                            item,
+                            this.configService,
+                            this,
+                        );
+                    });
+
+                return _filter(
+                    queryTournaments,
+                    item => item.status !== -1,
+                );
             }
         }
-        return _filter(queryTournaments, (item: Tournament) => item.status !== -1);
     }
 
     private setSubscribers() {
@@ -446,7 +486,7 @@ export class TournamentsService {
         });
 
         this.subjects.history$.subscribe({
-            next: (tournaments: Tournament[]) => {
+            next: (tournaments: TournamentHistory[]) => {
                 this.eventService.emit({
                     name: 'TOURNAMENTS_FETCH_HISTORY_SUCCESS',
                     data: tournaments,
