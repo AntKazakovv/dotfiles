@@ -45,7 +45,7 @@ export const socialSignUpFormConfig: IFormWrapperCParams = {
             params: {
                 ...FormElements.email.params,
                 locked: false,
-                validators: ['required', 'email', 'emailUnique'],
+                validators: ['required', 'email'],
             },
         },
         {

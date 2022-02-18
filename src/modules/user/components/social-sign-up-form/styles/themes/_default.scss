@@ -12,21 +12,10 @@
 
             > .wlc-btn {
                 @include em.get-mq-map('margin', $themeDefault, 'btnMargin');
-                grid-area: btn;
             }
         }
 
         ::ng-deep {
-
-            .wlc-input {
-
-                .wlc-input__container {
-
-                    .wlc-input__input:disabled {
-                        @include inherit.inputDisabledStyles($themeDefault);
-                    }
-                }
-            }
 
             .wlc-select {
 
@@ -39,25 +28,24 @@
             }
         }
 
-        .wlc-text-block {
-            grid-area: head;
+        .wlc-input,
+        .wlc-select,
+        .wlc-checkbox,
+        .wlc-btn,
+        .wlc-birth-field,
+        .wlc-link-block,
+        .wlc-social-networks,
+        .wlc-phone-field {
+            grid-column: ef.get-value($themeDefault, 'fullGridCol');
         }
 
-        .wlc-input--email {
-            grid-area: email;
-        }
-
-        .wlc-input--password {
-            grid-area: password;
-        }
-
-        .wlc-input--promocode {
-            grid-area: promocode;
+        .wlc-input--promocode,
+        .wlc-select--currency {
+            grid-column: ef.get-value($themeDefault, 'partGridCol');
         }
 
         .wlc-checkbox--terms {
             @include inherit.checkboxTermsStyles($themeDefault);
-            grid-area: terms;
         }
 
         .wlc-checkbox--privacy {
@@ -67,19 +55,10 @@
 
         .wlc-checkbox--age {
             @include inherit.checkboxAgeStyles($themeDefault);
-            grid-area: age;
-        }
-
-        .wlc-link-block {
-            grid-area: account;
         }
 
         .wlc-select[wlc-select] {
             @include inherit.selectStyles($themeDefault);
-
-            .wlc-select--currency {
-                grid-area: currency;
-            }
         }
 
         .wlc-checkbox[wlc-checkbox] {
@@ -89,12 +68,25 @@
             }
         }
 
-        .wlc-input--first-name[wlc-input] {
-            grid-area: firstName;
+        .wlc-birth-field {
+            grid-template-columns: ef.get-value($themeDefault, 'birthFieldGridColumns');
+
+            .wlc-select {
+                grid-column: span 1;
+            }
         }
 
-        .wlc-input--last-name[wlc-input] {
-            grid-area: lastName;
+        .wlc-phone-field {
+            grid-template-columns: ef.get-value($themeDefault, 'gridColumns');
+            gap: ef.get-value($themeDefault, 'gridGap');
+
+            margin: 0;
+            padding: 0;
+
+            .wlc-input,
+            .wlc-select {
+                grid-column: initial;
+            }
         }
     }
 }

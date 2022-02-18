@@ -94,6 +94,8 @@ export class SocialService {
                 },
             );
             this.socialRegisterData = null;
+            this.eventService.emit({name: 'LOGIN'});
+            this.modalService.hideModal('social-register');
         } catch (error) {
             this.logService.sendLog({code: '1.5.3', data: error});
             throw error;

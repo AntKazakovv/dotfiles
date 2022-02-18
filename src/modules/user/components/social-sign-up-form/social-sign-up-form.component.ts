@@ -69,9 +69,6 @@ export class SocialSignUpFormComponent extends UserActionsAbstract<Params.ISocia
             const regData = this.formDataPreparation(form);
 
             await this.socialService.socialRegisterComplete(regData.data);
-            // TODO: 265405 After registration error is caught, though the user has been registered successfully.
-            // {code: 400, errors: null, status: "error"}
-            this.window.location.reload();
         } catch (error) {
             this.showRegError(
                 error,
