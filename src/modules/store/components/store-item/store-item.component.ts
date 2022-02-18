@@ -8,6 +8,9 @@ import {
     OnInit,
     ViewEncapsulation,
 } from '@angular/core';
+
+import _union from 'lodash-es/union';
+
 import {
     AbstractComponent,
     IMixedParams,
@@ -15,13 +18,9 @@ import {
     ModalService,
     EventService,
 } from 'wlc-engine/modules/core';
-import {StoreItem} from '../../system/models/store-item';
-import {StoreService} from '../../system/services';
+import {StoreItem} from 'wlc-engine/modules/store/system/models/store-item';
+import {StoreService} from 'wlc-engine/modules/store/system/services';
 import * as Params from './store-item.params';
-
-import _union from 'lodash-es/union';
-
-export {IStoreItemParams} from './store-item.params';
 
 @Component({
     selector: '[wlc-store-item]',
@@ -32,14 +31,14 @@ export {IStoreItemParams} from './store-item.params';
     encapsulation: ViewEncapsulation.None,
 })
 export class StoreItemComponent extends AbstractComponent implements OnInit, OnDestroy {
-    @Input() public inlineParams: Params.IStoreItemParams;
+    @Input() public inlineParams: Params.IStoreItemCParams;
     @Input() public storeItem: StoreItem;
     @Input() public type: Params.Type;
     @Input() public theme: Params.Theme;
     @Input() public themeMod: Params.ThemeMod;
     @Input() public customMod: Params.CustomMod;
 
-    public $params: Params.IStoreItemParams;
+    public $params: Params.IStoreItemCParams;
     public isAuth: boolean;
     public buyClick: boolean = false;
     public storeImage: string;
@@ -47,7 +46,7 @@ export class StoreItemComponent extends AbstractComponent implements OnInit, OnD
     protected isProfileFirst: boolean;
 
     constructor(
-        @Inject('injectParams') protected params: Params.IStoreItemParams,
+        @Inject('injectParams') protected params: Params.IStoreItemCParams,
         protected cdr: ChangeDetectorRef,
         protected configService: ConfigService,
         protected modalService: ModalService,
@@ -55,7 +54,7 @@ export class StoreItemComponent extends AbstractComponent implements OnInit, OnD
         protected storeService: StoreService,
     ) {
         super(
-            <IMixedParams<Params.IStoreItemParams>>{
+            <IMixedParams<Params.IStoreItemCParams>>{
                 injectParams: params,
                 defaultParams: Params.defaultParams,
             }, configService);

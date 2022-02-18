@@ -353,7 +353,13 @@ export class AppComponent extends AbstractComponent implements OnInit, OnDestroy
     }
 
     private setTransitionHooks() {
-        this.transition.onSuccess({}, () => {
+        this.transition.onSuccess({}, (transition: Transition): void => {
+            this.eventService.emit({
+                name: 'TRANSITION_SUCCESS',
+                data: {
+                    transition,
+                },
+            });
             this.setHostClass();
             this.getAllSections();
             this.updateSections();
@@ -362,7 +368,7 @@ export class AppComponent extends AbstractComponent implements OnInit, OnDestroy
             }
         });
 
-        this.transition.onEnter({}, (transition: Transition) => {
+        this.transition.onEnter({}, (transition: Transition): void => {
             this.eventService.emit({
                 name: 'TRANSITION_ENTER',
                 data: {

@@ -1,9 +1,11 @@
-import {IIndexing} from 'wlc-engine/modules/core';
-import {StoreItem} from '../models/store-item';
 import {
     PartialObserver,
     Observable,
 } from 'rxjs';
+
+import {IIndexing} from 'wlc-engine/modules/core';
+import {StoreItem} from '../models/store-item';
+import {StoreCategory} from 'wlc-engine/modules/store/system/models/store-category';
 
 export interface IStoreOrder {
     AddDate: string;
@@ -76,7 +78,7 @@ export interface IStoreResponse {
 }
 
 export interface IStore {
-    categories: IStoreCategory[];
+    categories: StoreCategory[];
     items: StoreItem[];
 }
 

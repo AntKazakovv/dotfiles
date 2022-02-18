@@ -10,16 +10,23 @@ import {StoreService} from './system/services';
 
 import {StoreItemComponent} from './components/store-item/store-item.component';
 import {StoreListComponent} from './components/store-list/store-list.component';
+import {StoreTitleComponent} from './components/store-title/store-title.component';
 
 export const components = {
     'wlc-store-item': StoreItemComponent,
     'wlc-store-list': StoreListComponent,
+    'wlc-store-title': StoreTitleComponent,
+};
+
+export const services = {
+    'store-service': StoreService,
 };
 
 @NgModule({
     declarations: [
         StoreItemComponent,
         StoreListComponent,
+        StoreTitleComponent,
     ],
     imports: [
         CommonModule,
@@ -34,6 +41,7 @@ export const components = {
     exports: [
         StoreItemComponent,
         StoreListComponent,
+        StoreTitleComponent,
     ],
 })
 

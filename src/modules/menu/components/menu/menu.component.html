@@ -20,7 +20,7 @@
                       class="{{$class}}__icon"
                       [iconPath]="getIcon(item)"
                       [fallback]="getIconFallback(item)"></span>
-                {{item.name | translate}}
+                {{menuItemName(item)}}
                 <span *ngIf="item.counterParams"
                       wlc-counter
                       [inlineParams]="item.counterParams"
@@ -33,7 +33,7 @@
                [uiParams]="item.params?.state?.params"
                [uiOptions]="item.params?.state?.options"
                [attr.data-wlc-element]="item.wlcElement"
-               title="{{item.name | translate}}"
+               title="{{menuItemName(item)}}"
                uiSrefActive="active">
 
                 <span *ngIf="$params.theme === 'first'"
@@ -45,7 +45,7 @@
                       [iconPath]="getIcon(item)"
                       [fallback]="getIconFallback(item)"></span>
                 <span class="{{$class}}__link-text">
-                    <span>{{item.name | translate}}</span>
+                    <span>{{menuItemName(item)}}</span>
                     <span *ngIf="item.counterParams"
                           wlc-counter
                           [inlineParams]="item.counterParams"
@@ -69,7 +69,7 @@
                [uiOptions]="item.params?.state?.options"
                [attr.data-wlc-element]="item.wlcElement"
                [class.active]="isActive(item.params?.state?.parent)">
-                {{item.name | translate}}
+                {{menuItemName(item)}}
                 <span *ngIf="$params.theme === 'first'"
                       wlc-icon
                       class="{{$class}}__icon-active"
@@ -99,7 +99,7 @@
                   class="{{$class}}__icon"
                   [iconPath]="getIcon(item)"
                   [fallback]="getIconFallback(item)"></span>
-            <span>{{item.name | translate}}</span>
+            <span>{{menuItemName(item.name)}}</span>
         </a>
     </div>
 </ng-template>
@@ -122,7 +122,7 @@
     <div class="{{$class}}__item {{$class}}__item--anchor {{$class}}__item--{{item.class}}">
         <a class="{{$class}}__link"
            (click)="scrollTo(item.params.scroll)"
-        >{{item?.name | translate}}</a>
+        > {{menuItemName(item)}}</a>
     </div>
 </ng-template>
 
@@ -136,7 +136,7 @@
         </span>
         <a class="{{$class}}__link"
            (click)="openModal(item)"
-        >{{item.name | translate}}</a>
+        >{{menuItemName(item)}}</a>
     </div>
 </ng-template>
 
@@ -156,7 +156,7 @@
         <a class="{{$class}}__link"
            [attr.data-wlc-element]="item.wlcElement || item.parent.wlcElement"
            (click)="toggleDropdown(item)">
-            {{item.parent.name | translate}}
+            {{menuItemName(item.parent)}}
             <span wlc-icon
                   class="{{$class}}__icon-arrow"
                   iconPath="/wlc/icons/arrow.svg">
@@ -178,7 +178,7 @@
         <span class="{{$class}}__icon" *ngIf="item.icon" wlc-icon [iconPath]="getIcon(item)" [fallback]="getIconFallback(item)">
         </span>
         <a class="{{$class}}__link"
-           [attr.data-wlc-element]="item.wlcElement || item.parent.wlcElement">{{item.parent.name | translate}}
+           [attr.data-wlc-element]="item.wlcElement || item.parent.wlcElement">{{menuItemName(item.parent)}}
             <span wlc-icon
                   class="{{$class}}__icon-arrow"
                   iconPath="/wlc/icons/arrow.svg">

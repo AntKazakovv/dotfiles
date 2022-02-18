@@ -1,5 +1,29 @@
 import {Injectable} from '@angular/core';
 import {
+    UIRouter,
+    Transition,
+    RawParams,
+} from '@uirouter/core';
+
+import {
+    BehaviorSubject,
+    Subscription,
+    Observable,
+    pipe,
+} from 'rxjs';
+import {
+    first,
+    takeUntil,
+} from 'rxjs/operators';
+import _filter from 'lodash-es/filter';
+import _get from 'lodash-es/get';
+import _toString from 'lodash-es/toString';
+import _toNumber from 'lodash-es/toNumber';
+import _find from 'lodash-es/find';
+import _includes from 'lodash-es/includes';
+import _orderBy from 'lodash-es/orderBy';
+
+import {
     ConfigService,
     EventService,
     LogService,
@@ -17,24 +41,12 @@ import {
     IStoreResponse,
     IStore,
     IStoreOrder,
-    IStoreCategory,
     IStoreBuyResponse,
     IGetSubscribeParams,
     StoreRestType,
-} from '../../interfaces/store.interface';
-import {StoreItem} from '../../models/store-item';
-import {
-    BehaviorSubject,
-    Subscription,
-    Observable,
-    pipe,
-} from 'rxjs';
-import {takeUntil} from 'rxjs/operators';
-
-import _filter from 'lodash-es/filter';
-import _get from 'lodash-es/get';
-import _toString from 'lodash-es/toString';
-import _find from 'lodash-es/find';
+} from 'wlc-engine/modules/store/system/interfaces/store.interface';
+import {StoreItem} from 'wlc-engine/modules/store/system/models/store-item';
+import {StoreCategory} from 'wlc-engine/modules/store/system/models/store-category';
 
 interface IRequestParams {
     type?: string;
@@ -46,7 +58,7 @@ interface IRequestParams {
 })
 export class StoreService {
     protected storeItems: StoreItem[] = [];
-    protected storeCategories: IStoreCategory[] = [];
+    protected storeCategories: StoreCategory[] = [];
     protected storeOrders: IStoreOrder[] = [];
 
     private store$: BehaviorSubject<IStore> = new BehaviorSubject(null);
@@ -60,6 +72,7 @@ export class StoreService {
         private configService: ConfigService,
         private logService: LogService,
         private bonusesService: BonusesService,
+        private uiRouter: UIRouter,
     ) {
         this.registerMethods();
         this.setSubscribers();
@@ -94,6 +107,15 @@ export class StoreService {
     }
 
     /**
+     * Get current store info
+     *
+     * @returns {IStore} Store info
+     */
+    public getCurrentStore(): IStore {
+        return this.store$.getValue();
+    }
+
+    /**
      * Get store
      *
      * @param {boolean} publicSubject is public rxjs subject from query
@@ -109,6 +131,7 @@ export class StoreService {
             }
             this.storeItems = result.items;
             this.storeCategories = result.categories;
+
             return result;
         } catch (error) {
             this.logService.sendLog({code: '11.0.0', data: error});
@@ -169,6 +192,30 @@ export class StoreService {
         }
     }
 
+    /**
+     * Get store category by state
+     *
+     * @returns {StoreCategory} Store category
+     */
+    public async getCategoryByState(transition?: Transition): Promise<StoreCategory> {
+        const stateName: string = transition ? transition.targetState().name() : this.uiRouter.globals.current.name;
+
+        if (!_includes(stateName, 'loyalty-store')) {
+            return;
+        }
+
+        const stateParams: RawParams = transition ? transition.targetState().params() : this.uiRouter.globals.params;
+        const categoryId: number = _toNumber(stateParams?.['category']) || 0;
+
+        const store: IStore = !this.store$.getValue()
+            ? await this.getStore(true)
+            : await this.store$.pipe(first()).toPromise();
+
+        return _find(store.categories, (category: StoreCategory): boolean => {
+            return category.id === categoryId;
+        });
+    }
+
     private async modifyStoreResponse(data: IStoreResponse): Promise<IStore> {
         const queryStore: IStore = {
             categories: [],
@@ -199,8 +246,22 @@ export class StoreService {
 
         if (data?.Categories?.length) {
             for (const categoryData of data.Categories) {
-                queryStore.categories.push(categoryData);
+                queryStore.categories.push(new StoreCategory(
+                    {service: 'StoresService', method: 'modifyStoreResponse'},
+                    categoryData,
+                ));
             }
+
+            queryStore.categories.push(new StoreCategory(
+                {service: 'StoresService', method: 'modifyStoreResponse'},
+                {
+                    ID: '0',
+                    Name: gettext('All goods'),
+                    Order: '999999',
+                    Status: '1',
+                }));
+
+            queryStore.categories = _orderBy(queryStore.categories, 'order', 'desc');
         }
 
         return queryStore;

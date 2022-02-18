@@ -74,6 +74,7 @@ export * from './bonuses/wlc-recommended-bonuses.config';
 export * from './profile/wlc-verification.config';
 
 export * from './store/wlc-store-list.config';
+export * from './store/wlc-store-title.config';
 
 export * from './tournaments/wlc-tournament-detail.config';
 

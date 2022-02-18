@@ -1,3 +1,9 @@
+import _assign from 'lodash-es/assign';
+import _toNumber from 'lodash-es/toNumber';
+import _includes from 'lodash-es/includes';
+import _map from 'lodash-es/map';
+import _has from 'lodash-es/has';
+
 import {
     AbstractModel,
     ConfigService,
@@ -8,11 +14,6 @@ import {
 } from '../interfaces/store.interface';
 import {StoreService} from '../services';
 import {Bonus} from 'wlc-engine/modules/bonuses/system/models/bonus';
-
-import _assign from 'lodash-es/assign';
-import _toNumber from 'lodash-es/toNumber';
-import _map from 'lodash-es/map';
-import _has from 'lodash-es/has';
 
 export class StoreItem extends AbstractModel<IStoreItem> {
     public bonus: Bonus;
@@ -29,6 +30,16 @@ export class StoreItem extends AbstractModel<IStoreItem> {
         this.userCurrency = this.ConfigService.get<string>('appConfig.user.currency')
             || this.ConfigService.get<string>('$base.defaultCurrency');
         this.data = data;
+    }
+
+    /**
+     * Check has storeItem current category or not
+     *
+     * @param {string} categoryId Category id
+     * @returns {boolean}
+     */
+    public hasCategory(categoryId: string): boolean {
+        return _includes(this.data.Categories, categoryId);
     }
 
     public set data(data: IStoreItem) {

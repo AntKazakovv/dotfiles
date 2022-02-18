@@ -28,7 +28,9 @@ const profileFirstLoyaltyType = (isSingleLevels: boolean) => {
                 params: {
                     class: 'wlc-profile-content__header',
                     components: [
-                        isSingleLevels ? componentLib.wlcTitle.profileLoyalty : componentLib.wlcTitle.profileStore,
+                        isSingleLevels
+                            ? componentLib.wlcTitle.profileLoyaltyV1Single
+                            : componentLib.wlcTitle.profileStore,
                         {
                             ...componentLib.wlcLoyaltyProgress.def,
                             display: {
@@ -1018,7 +1020,7 @@ export namespace profileContent {
         container: true,
         usePreloader: true,
         components: [
-            componentLib.wlcTitle.profileStore,
+            componentLib.wlcStoreTitle.def,
             componentLib.wlcUserStats.storeWithDescriptionIcon,
             componentLib.wlcProfileMenu.submenu,
             componentLib.wlcStoreList.def,
@@ -1035,7 +1037,7 @@ export namespace profileContent {
                 params: {
                     class: 'wlc-profile-content__header',
                     components: [
-                        componentLib.wlcTitle.profileStore,
+                        componentLib.wlcStoreTitle.def,
                         componentLib.wlcUserStats.store,
                     ],
                 },
@@ -1054,7 +1056,7 @@ export namespace profileContent {
                             params: {
                                 class: 'wlc-profile-content__header underlined',
                                 components: [
-                                    componentLib.wlcTitle.profileStoreV1,
+                                    componentLib.wlcStoreTitle.category,
                                     componentLib.wlcUserStats.store,
                                 ],
                             },

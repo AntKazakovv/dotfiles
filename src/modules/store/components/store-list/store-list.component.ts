@@ -7,11 +7,17 @@ import {
     OnDestroy,
     OnInit,
 } from '@angular/core';
+import {UIRouter} from '@uirouter/core';
+
+import _union from 'lodash-es/union';
+import _filter from 'lodash-es/filter';
+
 import {
     AbstractComponent,
     IMixedParams,
     ConfigService,
     IPaginateOutput,
+    EventService,
 } from 'wlc-engine/modules/core';
 import {
     StoreService,
@@ -20,8 +26,6 @@ import {
 } from 'wlc-engine/modules/store';
 
 import * as Params from 'wlc-engine/modules/store/components/store-list/store-list.params';
-
-import _union from 'lodash-es/union';
 
 @Component({
     selector: '[wlc-store-list]',
@@ -48,12 +52,15 @@ export class StoreListComponent extends AbstractComponent implements OnInit, OnD
     public itemTheme: Params.Theme = 'default';
 
     protected itemsPerPage: number = 0;
+    protected store: IStore;
 
     constructor(
         @Inject('injectParams') protected params: Params.IStoreListCParams,
         protected cdr: ChangeDetectorRef,
         protected ConfigService: ConfigService,
         protected storeService: StoreService,
+        protected eventService: EventService,
+        protected router: UIRouter,
     ) {
         super(
             <IMixedParams<Params.IStoreListCParams>>{
@@ -73,16 +80,18 @@ export class StoreListComponent extends AbstractComponent implements OnInit, OnD
             useQuery: true,
             observer: {
                 next: (store: IStore) => {
-                    if (store) {
-                        this.paginatedStoreItems = this.storeItems = store.items;
-                        this.isReady = true;
-                    }
-                    this.cdr.markForCheck();
+                    this.initStore(store);
                 },
             },
             type: 'all',
             until: this.$destroy,
         });
+
+        this.eventService.subscribe({name: 'TRANSITION_SUCCESS'}, (): void => {
+            if (this.store) {
+                this.initStore(this.store);
+            }
+        }, this.$destroy);
     }
 
     /**
@@ -94,7 +103,31 @@ export class StoreListComponent extends AbstractComponent implements OnInit, OnD
     public paginationOnChange(value: IPaginateOutput): void {
         this.paginatedStoreItems = value.paginatedItems as StoreItem[];
         this.itemsPerPage = value.event.itemsPerPage;
-        this.cdr.markForCheck();
+        this.cdr.detectChanges();
+    }
+
+    /**
+     * Init store
+     *
+     * @param {IStore} store Store info
+     */
+    protected initStore(store: IStore) {
+        if (store) {
+            this.store = store;
+
+            let storeItems: StoreItem[] = store.items;
+            const category = this.router.globals.params['category'];
+
+            if (category) {
+                storeItems = _filter(storeItems, (item: StoreItem): boolean => {
+                    return item.hasCategory(category);
+                });
+            }
+
+            this.paginatedStoreItems = this.storeItems = storeItems;
+            this.isReady = true;
+            this.cdr.detectChanges();
+        }
     }
 
     protected prepareModifiers(): void {

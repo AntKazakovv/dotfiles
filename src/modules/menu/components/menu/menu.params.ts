@@ -38,7 +38,8 @@ export type ItemType =
     | 'dropdown'
     | 'group'
     | 'wordpress'
-    | 'categories';
+    | 'categories'
+    | 'market';
 
 export type WpItemType = 'sref' | 'href';
 export type IMenuTarget = '_blank' | '_self' | '_parent' | '_top';
@@ -119,7 +120,9 @@ export interface IMenuItem {
      * undefined - always.
      */
     auth?: boolean | undefined;
-    sort?: number,
+    sort?: number;
+    /** no translate item name */
+    noTranslate?: boolean;
 }
 
 export interface IMenuItemsGroup {

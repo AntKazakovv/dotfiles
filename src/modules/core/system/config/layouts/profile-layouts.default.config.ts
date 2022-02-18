@@ -132,7 +132,7 @@ export const $profileLayouts: IPanelsConfig = {
     'app.profile.loyalty-level': {
         extends: 'app.profile',
         sections: {
-            'profile-content': sectionsLib.profileContent.profileLoyaltyLevels,
+            'profile-content': sectionsLib.profileContent.profileLoyaltyLevelsSingle,
         },
     },
     'app.profile.messages': {

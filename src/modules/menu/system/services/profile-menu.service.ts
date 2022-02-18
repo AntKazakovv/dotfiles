@@ -3,7 +3,22 @@ import {
 } from '@angular/core';
 import {StateService} from '@uirouter/core';
 
-import {ConfigService} from 'wlc-engine/modules/core';
+import _cloneDeep from 'lodash-es/cloneDeep';
+import _isString from 'lodash-es/isString';
+import _reduce from 'lodash-es/reduce';
+import _get from 'lodash-es/get';
+import _includes from 'lodash-es/includes';
+import _map from 'lodash-es/map';
+import _has from 'lodash-es/has';
+import _filter from 'lodash-es/filter';
+import _find from 'lodash-es/find';
+import _findIndex from 'lodash-es/findIndex';
+import _forEach from 'lodash-es/forEach';
+
+import {
+    ConfigService,
+    InjectionService,
+} from 'wlc-engine/modules/core';
 import {
     IMenuItem,
     MenuItemObjectType,
@@ -18,6 +33,13 @@ import {
     profileMenuFilter,
 } from 'wlc-engine/modules/menu/system/config/profile-menu.config';
 import {IIndexing} from 'wlc-engine/modules/core/system/interfaces';
+import {
+    IStore,
+    StoreService,
+} from 'wlc-engine/modules/store';
+import {Deferred} from 'wlc-engine/modules/core/system/classes/deferred.class';
+import {StoreCategory} from 'wlc-engine/modules/store/system/models/store-category';
+
 import * as MenuParams from 'wlc-engine/modules/menu/components/menu/menu.params';
 import * as Config from 'wlc-engine/modules/menu/system/config/profile-menu.config';
 
@@ -28,22 +50,13 @@ export interface IMenuOptions {
     }
 }
 
-import _cloneDeep from 'lodash-es/cloneDeep';
-import _isString from 'lodash-es/isString';
-import _reduce from 'lodash-es/reduce';
-import _get from 'lodash-es/get';
-import _includes from 'lodash-es/includes';
-import _map from 'lodash-es/map';
-import _has from 'lodash-es/has';
-import _filter from 'lodash-es/filter';
-import _find from 'lodash-es/find';
-import _forEach from 'lodash-es/forEach';
-
 @Injectable({
     providedIn: 'root',
 })
 export class ProfileMenuService {
 
+    protected readyStatus: Deferred<void> = new Deferred<void>();
+    protected ready: Promise<void>;
     protected profileMenuConfig: MenuParams.MenuConfigItem[];
     protected tabsMenu: IMenuItem[];
     protected subMenu: IIndexing<IMenuItem[]> = {};
@@ -52,8 +65,10 @@ export class ProfileMenuService {
     constructor(
         protected configService: ConfigService,
         protected stateService: StateService,
+        protected injectionService: InjectionService,
     ) {
-        this.initConfig();
+        this.ready = this.readyStatus.promise;
+        this.init();
     }
 
     /**
@@ -61,7 +76,9 @@ export class ProfileMenuService {
      *
      * @returns {IMenuItem[]}
      */
-    public getTabsMenu(options?: IMenuOptions): IMenuItem[] {
+    public async getTabsMenu(options?: IMenuOptions): Promise<IMenuItem[]> {
+        await this.ready;
+
         if (!this.tabsMenu) {
             const disbaleIcons: boolean = options?.icons?.disable;
             const iconsFolder: string = options?.icons?.folder;
@@ -96,7 +113,9 @@ export class ProfileMenuService {
      *
      * @returns {IMenuItem[]}
      */
-    public getSubMenu(options?: IMenuOptions): IMenuItem[] {
+    public async getSubMenu(options?: IMenuOptions): Promise<IMenuItem[]> {
+        await this.ready;
+
         const state = this.stateService.current.name;
         if (this.subMenu[state]) {
             return this.subMenu[state];
@@ -104,10 +123,13 @@ export class ProfileMenuService {
 
         const parentInMenuConfig: MenuParams.MenuConfigItemsGroup = _find(
             this.profileMenuConfig, (item: MenuParams.MenuConfigItem) => {
-                if (!_isString(item) && _has(item, 'items')) {
-                    for (const subitemAlias of _get(item, 'items')) {
-                        const subitem = Config.wlcProfileMenuItemsGlobal[subitemAlias];
-                        if (subitem && subitem.params?.state?.name === state) {
+                if (_has(item, 'items')) {
+                    for (const subItemData of _get(item, 'items')) {
+                        const subItem = _isString(subItemData)
+                            ? Config.wlcProfileMenuItemsGlobal[subItemData]
+                            : subItemData;
+
+                        if (subItem && subItem.params?.state?.name === state) {
                             return true;
                         }
                     }
@@ -120,8 +142,11 @@ export class ProfileMenuService {
             const disableIcons: boolean = options?.icons?.disable;
             const iconsFolder: string = options?.icons?.folder;
 
-            items = _map(parentInMenuConfig.items, (itemAlias: string) => {
-                const menuItem: MenuParams.IMenuItem = _cloneDeep(Config.wlcProfileMenuItemsGlobal[itemAlias]);
+            items = _map(parentInMenuConfig.items, (itemData: string | MenuParams.IMenuItem): MenuParams.IMenuItem => {
+                const menuItem: MenuParams.IMenuItem = _cloneDeep(_isString(itemData)
+                    ? Config.wlcProfileMenuItemsGlobal[itemData]
+                    : itemData,
+                );
                 MenuHelper.setIcon(menuItem, iconsFolder, disableIcons);
                 return menuItem;
             });
@@ -135,12 +160,89 @@ export class ProfileMenuService {
      *
      * @returns {MenuItemObjectType[]}
      */
-    public getDropdownMenu(options?: IMenuOptions): MenuItemObjectType[] {
+    public async getDropdownMenu(options?: IMenuOptions): Promise<MenuItemObjectType[]> {
+        await this.ready;
+
         if (!this.dropdownMenu.length) {
             this.dropdownMenu =
                 MenuHelper.parseMenuConfig(this.profileMenuConfig, Config.wlcProfileMenuItemsGlobal, options);
         }
         return this.dropdownMenu;
+    }
+
+    /**
+     * Init profile menu
+     *
+     * @returns {Promise<void>}
+     */
+    protected async init(): Promise<void> {
+        this.initConfig();
+
+        if (this.configService.get<boolean>('$base.profile.store.use')) {
+            await this.prepareMarket();
+        }
+        this.readyStatus.resolve();
+    }
+
+    /**
+     * Prepare profile market
+     */
+    protected async prepareMarket(): Promise<void> {
+
+        let marketItemIndex: number = _findIndex(this.profileMenuConfig, (item: MenuParams.MenuConfigItem): boolean => {
+            if (_isString(item)) {
+                const menuItem = Config.wlcProfileMenuItemsGlobal[item];
+                return menuItem.type === 'market';
+            } else {
+                return item?.type === 'market';
+            }
+        });
+
+        if (marketItemIndex !== -1) {
+            const storeService: StoreService = await this.injectionService.getService('store.store-service');
+
+            let store: IStore = storeService.getCurrentStore();
+
+            if (!store) {
+                store = await storeService.getStore(true);
+            }
+
+            if (!store) {
+                return;
+            }
+
+            let storeCategories: StoreCategory[] = _filter(
+                store.categories, (category: StoreCategory): boolean => {
+                    return category.isEnabled;
+                });
+
+            const menuItems: MenuParams.IMenuItem[] = _map(
+                storeCategories, (category: StoreCategory): IMenuItem => {
+                    return {
+                        name: category.name,
+                        noTranslate: !category.isAllGoods,
+                        type: 'sref',
+                        icon: 'store-category',
+                        class: 'store-category',
+                        wlcElement: 'link_cc-profile-menu_store-category',
+                        params: {
+                            state: {
+                                name: 'app.profile.loyalty-store.main',
+                                params: {
+                                    category: category.id || undefined,
+                                },
+                            },
+                        },
+                    };
+                });
+
+            this.profileMenuConfig[marketItemIndex] = {
+                parent: 'profile-menu:market',
+                type: 'group',
+                items: menuItems,
+            };
+
+        }
     }
 
     /**

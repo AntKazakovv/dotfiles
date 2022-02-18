@@ -13,6 +13,7 @@ import {
     ElementRef,
     ViewContainerRef,
 } from '@angular/core';
+import {TranslateService} from '@ngx-translate/core';
 import {
     RawParams,
     StateService,
@@ -56,7 +57,10 @@ import {TIconExtension} from 'wlc-engine/modules/menu/system/interfaces/menu.int
 import {MenuHelper} from 'wlc-engine/modules/menu/system/helpers/menu.helper';
 import {TextDataModel} from 'wlc-engine/modules/static/system/models/textdata.model';
 import {StaticService} from 'wlc-engine/modules/static/system/services/static/static.service';
-import {IMenuItemsGroup} from 'wlc-engine/modules/menu/components/menu/menu.params';
+import {
+    IMenuItem,
+    IMenuItemsGroup,
+} from 'wlc-engine/modules/menu/components/menu/menu.params';
 
 import * as Params from './menu.params';
 
@@ -127,6 +131,7 @@ export class MenuComponent extends AbstractComponent implements OnInit, OnChange
         protected configService: ConfigService,
         protected eventService: EventService,
         protected injectionService: InjectionService,
+        protected translateService: TranslateService,
     ) {
         super(
             <IMixedParams<Params.IMenuCParams>>{
@@ -176,6 +181,20 @@ export class MenuComponent extends AbstractComponent implements OnInit, OnChange
 
         this.lang = this.configService.get<string>('currentLanguage') || 'en';
         this.initEventHandlers();
+    }
+
+    /**
+     * Get translated name of menu item
+     *
+     * @param {IMenuItem} item Menu item
+     * @returns {string} Translated item name
+     */
+    public menuItemName(item: IMenuItem): string {
+        const itemName: string = item.name || '';
+        if (itemName) {
+            return item.noTranslate ? itemName : this.translateService.instant(itemName);
+        }
+        return itemName;
     }
 
     /**

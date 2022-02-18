@@ -113,7 +113,7 @@ export class ProfileMenuComponent extends AbstractComponent implements OnInit, O
     /**
      * Init menu
      */
-    protected initMenu(): void {
+    protected async initMenu(): Promise<void> {
         const menuOptions: IMenuOptions = {
             icons: {
                 folder: this.iconsFolder,
@@ -124,16 +124,16 @@ export class ProfileMenuComponent extends AbstractComponent implements OnInit, O
 
         switch (this.$params.type) {
             case 'tabs':
-                this.menuParams.items = this.profileMenuService.getTabsMenu(menuOptions);
+                this.menuParams.items = await this.profileMenuService.getTabsMenu(menuOptions);
                 iconsKey = 'icons';
                 break;
             case 'submenu':
-                this.menuParams.items = this.profileMenuService.getSubMenu(menuOptions);
+                this.menuParams.items = await this.profileMenuService.getSubMenu(menuOptions);
                 iconsKey = 'subMenuIcons';
                 break;
             case 'full':
             case 'dropdown':
-                this.menuParams.items = this.profileMenuService.getDropdownMenu(menuOptions);
+                this.menuParams.items = await this.profileMenuService.getDropdownMenu(menuOptions);
                 iconsKey = 'dropdownMenuIcons';
                 break;
         }

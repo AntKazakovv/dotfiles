@@ -495,12 +495,26 @@ export const wlcProfileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
         wlcElement: 'link_cc-profile-menu_market',
         params: {
             state: {
-                parent: ['app.profile.loyalty-store', 'app.profile.loyalty-level'],
                 name: 'app.profile.loyalty-store.main',
                 params: {},
             },
         },
     },
+
+    'profile-menu:market-with-categories': {
+        name: gettext('Market'),
+        type: 'market',
+        icon: 'market',
+        class: 'market',
+        wlcElement: 'link_cc-profile-menu_market',
+        params: {
+            state: {
+                name: 'app.profile.loyalty-store.main',
+                params: {},
+            },
+        },
+    },
+
     'profile-first-menu:market': {
         name: gettext('Market'),
         type: 'title',
@@ -510,7 +524,7 @@ export const wlcProfileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
         params: {
             blockExpand: true,
             state: {
-                parent: ['app.profile.loyalty-store', 'app.profile.loyalty-level'],
+                parent: ['app.profile.loyalty-store', 'app.profile.loyalty-level-2'],
                 name: 'app.profile.loyalty-store.main',
                 params: {},
             },
@@ -1092,6 +1106,23 @@ export const wlcProfileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
                 params: {
                     action: 'show-open-bets',
                 },
+            },
+        },
+    },
+
+    'profile-menu:loyalty-section': {
+        name: gettext('Loyalty'),
+        type: 'title',
+        icon: 'loyalty',
+        class: 'loyalty',
+        wlcElement: 'link_loyalty',
+        params: {
+            state: {
+                parent: [
+                    'app.profile.loyalty-level',
+                ],
+                name: 'app.profile.loyalty-level',
+                params: {},
             },
         },
     },

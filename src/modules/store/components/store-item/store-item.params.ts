@@ -11,7 +11,7 @@ export type CustomMod = string;
 export type Modifiers = AutoModifiers | CustomMod | null;
 export type TIconExtension = 'svg' | 'png' | 'jpg';
 
-export interface IStoreItemParams extends IComponentParams<Theme, Type, ThemeMod> {
+export interface IStoreItemCParams extends IComponentParams<Theme, Type, ThemeMod> {
     modifiers?: Modifiers[];
     common?: {
         themeMod?: ThemeMod;
@@ -24,7 +24,7 @@ export interface IStoreItemParams extends IComponentParams<Theme, Type, ThemeMod
     };
 }
 
-export const defaultParams: IStoreItemParams = {
+export const defaultParams: IStoreItemCParams = {
     moduleName: 'store',
     componentName: 'wlc-store-item',
     class: 'wlc-store-item',

@@ -131,7 +131,7 @@ export const $profileFirstLayouts: ILayoutsConfig = {
     'app.profile.loyalty-level': {
         extends: 'app.profile',
         sections: {
-            'profile-content': sectionsLib.profileContent.profileLoyaltyLevelsTypeFirst,
+            'profile-content': sectionsLib.profileContent.profileLoyaltyLevelsTypeFirstSingle,
         },
     },
     'app.profile.messages': {

@@ -77,12 +77,12 @@ export const menuConfig: IMenuConfig = {
                     'profile-menu:loyalty-level-single',
                 ],
             },
+            'profile-menu:market-with-categories',
             {
-                parent: 'profile-menu:market',
+                parent: 'profile-menu:loyalty-section',
                 type: 'group',
                 items: [
-                    'profile-menu:store',
-                    'profile-menu:loyalty-level',
+                    'profile-menu:loyalty-level-single',
                 ],
             },
             'profile-menu:cash-deposit',
@@ -178,12 +178,12 @@ export const menuConfig: IMenuConfig = {
                     'profile-menu:loyalty-level-single',
                 ],
             },
+            'profile-menu:market-with-categories',
             {
-                parent: 'profile-first-menu:market',
+                parent: 'profile-menu:loyalty-section',
                 type: 'group',
                 items: [
-                    'profile-first-menu:store',
-                    'profile-first-menu:loyalty-level',
+                    'profile-menu:loyalty-level-single',
                 ],
             },
         ],
