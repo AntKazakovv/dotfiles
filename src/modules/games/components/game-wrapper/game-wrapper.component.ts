@@ -196,8 +196,6 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
     public async ngOnInit(): Promise<void> {
         super.ngOnInit(this.inlineParams);
 
-        this.screenfull = (await import('screenfull'))?.default;
-
         if (this.configService.get<boolean>('appConfig.mobile')) {
             this.isMobile = true;
             this.realMobile = true;
@@ -242,6 +240,7 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
                 },
                 this.$destroy);
         }
+        this.screenfull = (await import('screenfull'))?.default;
     }
 
     public ngAfterViewInit(): void {
