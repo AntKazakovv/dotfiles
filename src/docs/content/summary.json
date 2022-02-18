@@ -223,6 +223,10 @@
         "file": "./900.change-logs/900.change-logs.md",
         "children": [
             {
+                "title": "1.3.76RC7 (18-02-2022)",
+                "file": "./900.change-logs/releases/1.3.76-rc.7_18-02-2022.md"
+            },
+            {
                 "title": "1.3.76RC6 (17-02-2022)",
                 "file": "./900.change-logs/releases/1.3.76-rc.6_17-02-2022.md"
             },
