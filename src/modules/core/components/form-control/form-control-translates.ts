@@ -13,3 +13,5 @@ gettext('validator-currentPassword');
 gettext('validator-onlyLetters');
 gettext('validator-promocode');
 gettext('validator-login');
+gettext('validator-passwordMaxlength');
+gettext('validator-configPassword');

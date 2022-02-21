@@ -61,16 +61,7 @@ export const socialSignUpFormConfig: IFormWrapperCParams = {
                     usePasswordVisibilityBtn: true,
                 },
                 name: 'password',
-                validators: ['required', 'password',
-                    {
-                        name: 'minLength',
-                        options: 6,
-                    },
-                    {
-                        name: 'maxLength',
-                        options: 50,
-                    },
-                ],
+                validators: ['required', 'password', 'passwordLength'],
             },
         },
         FormElements.currency,

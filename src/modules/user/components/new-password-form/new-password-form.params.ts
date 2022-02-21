@@ -39,16 +39,7 @@ export const newPasswordFormConfig: IFormWrapperCParams = {
                 },
                 wlcElement: 'block_password-new',
                 name: 'newPassword',
-                validators: ['required', 'password',
-                    {
-                        name: 'minLength',
-                        options: 6,
-                    },
-                    {
-                        name: 'maxLength',
-                        options: 50,
-                    },
-                ],
+                validators: ['required', 'password', 'passwordLength'],
             },
         },
         {
@@ -63,16 +54,7 @@ export const newPasswordFormConfig: IFormWrapperCParams = {
                 },
                 wlcElement: 'block_password-confirm',
                 name: 'repeatPassword',
-                validators: ['required',
-                    {
-                        name: 'minLength',
-                        options: 6,
-                    },
-                    {
-                        name: 'maxLength',
-                        options: 50,
-                    },
-                ],
+                validators: ['required', 'passwordLength'],
             },
         },
         {

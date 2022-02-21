@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {
     AbstractControl,
     AsyncValidatorFn,
+    ValidationErrors,
     ValidatorFn,
     Validators,
 } from '@angular/forms';
@@ -34,6 +35,7 @@ import {
     loginEmailFieldValidator,
     loginFieldValidator,
 } from './validators';
+import {IValidationPasswordRules} from 'wlc-engine/modules/core/system/interfaces/base-config/profile.interface';
 
 export type ValidatorType = string | IValidatorSettings;
 
@@ -68,6 +70,9 @@ export class ValidationService {
         password: {
             validator: this.passwordRule.bind(this),
             async: true,
+        },
+        passwordLength: {
+            validator: this.passwordLength.bind(this),
         },
         requiredTrue: {
             validator: Validators.requiredTrue,
@@ -154,9 +159,9 @@ export class ValidationService {
             url: '/validate/user-register',
             type: 'POST',
         } as IRequestMethod, {data: {password: ctrl.value}, fields: ['password']}).then(value => {
-            return value.data.result ? null : {
-                'password': true,
-            };
+            return value.data.result ? null :
+                this.configService.get<IValidationPasswordRules>('$base.profile.passwordValidation.rules') ?
+                    {'configPassword': true} : {'password': true};
         });
     };
 
@@ -186,6 +191,38 @@ export class ValidationService {
             return response.data.result;
         } catch (error) {
             throw new Error(error);
+        }
+    }
+
+    /**
+     * Validate length password
+     * @param {AbstractControl} ctrl Form control
+     * @returns {{ValidationErrors | null} True if length right, else false
+     */
+    private passwordLength(ctrl: AbstractControl): ValidationErrors | null {
+        let minLength = 6;
+        let maxLength = 50;
+
+        if (this.configService.get<boolean>('$base.profile.passwordValidation.use')) {
+            const rules = this.configService.get<IValidationPasswordRules>('$base.profile.passwordValidation.rules');
+
+            minLength = rules.minLength ?? minLength;
+
+            if (rules.maxLength) {
+                maxLength = rules.maxLength;
+            }
+        }
+
+        if (ctrl.value.length < minLength && ctrl.value) {
+            return {'minlength': true};
+        }
+
+        if (ctrl.value.length > maxLength) {
+            return {'passwordMaxlength': true};
+        }
+
+        if (ctrl.value.length >= minLength && ctrl.value.length <= maxLength) {
+            return null;
         }
     }
 

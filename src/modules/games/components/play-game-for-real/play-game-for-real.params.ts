@@ -129,12 +129,7 @@ export const playGameForRealConfig = (params: IPlayForRealParams): IFormWrapperC
                         fixAutoCompleteForm: false,
                     },
                     name: 'password',
-                    validators: ['required', 'password',
-                        {
-                            name: 'minLength',
-                            options: 6,
-                        },
-                    ],
+                    validators: ['required', 'password', 'passwordLength'],
                 },
             },
             {

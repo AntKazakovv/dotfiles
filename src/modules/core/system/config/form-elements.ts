@@ -286,16 +286,7 @@ export namespace FormElements {
             },
             customMod: ['password'],
             name: 'currentPassword',
-            validators: ['required', 'password',
-                {
-                    name: 'minLength',
-                    options: 6,
-                },
-                {
-                    name: 'maxLength',
-                    options: 50,
-                },
-            ],
+            validators: ['required', 'password', 'passwordLength'],
             wlcElement: 'block_password-current',
         },
     };
@@ -405,14 +396,7 @@ export namespace FormElements {
             name: 'password',
             validators: [
                 'password',
-                {
-                    name: 'minLength',
-                    options: 6,
-                },
-                {
-                    name: 'maxLength',
-                    options: 50,
-                },
+                'passwordLength',
             ],
             customMod: ['password-new'],
         },
@@ -435,14 +419,7 @@ export namespace FormElements {
             validators: [
                 'required',
                 'password',
-                {
-                    name: 'minLength',
-                    options: 6,
-                },
-                {
-                    name: 'maxLength',
-                    options: 50,
-                },
+                'passwordLength',
             ],
             customMod: ['password-new'],
         },
@@ -461,16 +438,7 @@ export namespace FormElements {
                 autocomplete: 'new-password',
             },
             name: 'newPasswordRepeat',
-            validators: [
-                {
-                    name: 'minLength',
-                    options: 6,
-                },
-                {
-                    name: 'maxLength',
-                    options: 50,
-                },
-            ],
+            validators: ['passwordLength'],
             customMod: ['password-confirm'],
         },
     };

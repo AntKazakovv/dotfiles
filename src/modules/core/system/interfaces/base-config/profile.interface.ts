@@ -49,6 +49,11 @@ export interface IProfileConfig {
      * Minimum age for the players, by default 18 years;
      */
     legalAge?: number,
+    /**
+     * For change difficult password.
+     * Need to change also back config $cfg['PasswordSecureLevel'] value show to wiki
+     */
+    passwordValidation?: IPasswordValidation,
 }
 
 export interface IVerification {
@@ -56,6 +61,16 @@ export interface IVerification {
     selectModeFrom: number;
     maxDocsCount: number;
     maxSize: number;
+}
+
+export interface IPasswordValidation {
+    use: boolean;
+    rules: IValidationPasswordRules;
+}
+
+export interface IValidationPasswordRules {
+    minLength?: number;
+    maxLength?: number;
 }
 
 export type ProfileType = 'default' | 'first';
