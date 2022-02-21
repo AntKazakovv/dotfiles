@@ -9,10 +9,9 @@ $themeDefault: map-merge((
     'boxShadow': null,
 
     'outerPadding': (
-        375: ef.get('size', 'smaller') ef.get('size', 'smaller') ef.get('size', 'smallest'),
-        640: ef.get('size', 'smally') 0,
-        900: ef.get('size', 'smally') 0,
-        1630: ef.get('size', 'smaller') 0,
+        375: ef.size(3) ef.size(3) ef.size(1),
+        640: ef.size(3) 0,
+        1630: ef.size(4) 0,
     ),
 
     'contentDisplay': flex,
@@ -102,6 +101,6 @@ $themeDefault: map-merge((
     'iconExpLpDescriptionTransform': none,
     'iconExpLpDescriptionPosition': absolute,
 
-    'userStatsPadding': ef.size(1) ef.size(3),
+    'userStatsPadding': ef.size(1) 0,
     'userStatsBg': none,
 ), $customThemeDefault);

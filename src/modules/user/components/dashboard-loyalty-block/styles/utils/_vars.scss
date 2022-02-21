@@ -3,9 +3,7 @@
 $customThemeDefault: () !default;
 $themeDefault: map-merge((
     'padding': (
-        375: ef.get('size', 'smaller'),
-        900: ef.get('size', 'smally') ef.get('size', 'smaller'),
-        1630: ef.get('size', 'smaller'),
+        375: ef.size(3),
     ),
     'bg': var(--mc-bg300),
     'boxShadow': null,
