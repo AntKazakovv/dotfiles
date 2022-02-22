@@ -25,6 +25,7 @@ import {
     ITopTournamentUsers,
     ITournamentLeaderboardCParams,
 } from 'wlc-engine/modules/tournaments';
+import {TournamentHistory} from 'wlc-engine/modules/tournaments/system/models/tournament-history.model';
 
 import * as Params from './tournament-leaderboard.params';
 
@@ -43,7 +44,7 @@ export class TournamentLeaderboardComponent
     @Input() public theme: Params.ComponentTheme;
     @Input() public themeMod: Params.ThemeMod;
     @Input() public customMod: Params.CustomMod;
-    @Input() public tournament: Tournament;
+    @Input() public tournament: Tournament | TournamentHistory;
     @Input() public limit: number;
     @Input() public showAllBtn: boolean;
     @Input() public useUserLogin: boolean;

@@ -434,7 +434,7 @@ export class TournamentsService {
             if (type === 'history') {
                 const queryTournaments = _map<ITournamentHistory, TournamentHistory>(
                     data as ITournamentHistory[],
-                    (item) => {
+                    (item: ITournamentHistory) => {
                         return new TournamentHistory(
                             {service: 'TournamentsService', method: 'modifyTournaments'},
                             item,
@@ -445,12 +445,12 @@ export class TournamentsService {
 
                 return _filter(
                     queryTournaments,
-                    item => item.status !== -1,
+                    (item: TournamentHistory) => item.status !== -1,
                 );
             } else {
                 const queryTournaments = _map<ITournament, Tournament>(
                     data as ITournament[],
-                    item => {
+                    (item: ITournament) => {
                         return new Tournament(
                             {service: 'TournamentsService', method: 'modifyTournaments'},
                             item,
@@ -461,7 +461,7 @@ export class TournamentsService {
 
                 return _filter(
                     queryTournaments,
-                    item => item.status !== -1,
+                    (item: Tournament) => item.status !== -1,
                 );
             }
         }

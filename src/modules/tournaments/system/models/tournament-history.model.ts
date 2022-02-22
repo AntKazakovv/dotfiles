@@ -26,8 +26,8 @@ export class TournamentHistory extends AbstractTournamentModel<ITournamentHistor
         );
     }
 
-    public get place(): string {
-        return _toNumber(this.data.Place) ? this.data.Place : '#';
+    public get place(): string | number {
+        return _toNumber(this.data.Place) || '#';
     }
 
     public get start(): string {

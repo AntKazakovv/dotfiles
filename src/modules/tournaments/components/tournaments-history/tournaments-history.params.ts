@@ -88,7 +88,9 @@ export const tournamentsHistoryTableHeadConfig: ITableCol[] = [
         key: 'statusName',
         title: gettext('Status'),
         type: 'component',
-        mapValue: (item: TournamentHistory) => {return {tournament: item};},
+        mapValue: (item: TournamentHistory) => {
+            return {tournament: item};
+        },
         componentClass: TournamentTopwinsBtnComponent,
         order: 50,
         wlcElement: 'wlc-profile-table__cell_status',

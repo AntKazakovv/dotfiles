@@ -1,12 +1,16 @@
-import {IComponentParams, CustomType} from 'wlc-engine/modules/core';
+import {
+    IComponentParams,
+    CustomType,
+} from 'wlc-engine/modules/core';
 import {Tournament} from 'wlc-engine/modules/tournaments';
+import {TournamentHistory} from 'wlc-engine/modules/tournaments/system/models/tournament-history.model';
 
 export type Theme = 'default' | CustomType;
 export type Type = 'default' | CustomType;
 export type ThemeMod = 'default' | CustomType;
 
 export interface ITournamentTopwinsBtnParams extends IComponentParams<Theme, Type, ThemeMod> {
-    tournament?: Tournament;
+    tournament?: Tournament | TournamentHistory;
     limit?: number;
 }
 

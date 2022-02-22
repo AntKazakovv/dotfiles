@@ -1,7 +1,3 @@
-import _uniqBy from 'lodash-es/uniqBy';
-import _each from 'lodash-es/each';
-import _toString from 'lodash-es/toString';
-import _toNumber from 'lodash-es/toNumber';
 import {takeUntil} from 'rxjs/operators';
 import {
     BehaviorSubject,
@@ -10,6 +6,11 @@ import {
     pipe,
     Subscription,
 } from 'rxjs';
+
+import _uniqBy from 'lodash-es/uniqBy';
+import _each from 'lodash-es/each';
+import _toString from 'lodash-es/toString';
+import _toNumber from 'lodash-es/toNumber';
 
 import {
     AbstractModel,
