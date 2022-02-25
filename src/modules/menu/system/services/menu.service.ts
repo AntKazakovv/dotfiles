@@ -14,6 +14,7 @@ import {
 
 import _forEach from 'lodash-es/forEach';
 import _reduce from 'lodash-es/reduce';
+import _cloneDeep from 'lodash-es/cloneDeep';
 
 @Injectable({
     providedIn: 'root',
@@ -61,7 +62,7 @@ export class MenuService {
         await this.configService.ready;
 
         if (!this.menuSettings && !this.loadFailed) {
-            this.menuSettings = this.configService.get('appConfig.menuSettings');
+            this.menuSettings = _cloneDeep(this.configService.get('appConfig.menuSettings'));
 
             if (!this.menuSettings && this.configService.get('$menu.fundist.defaultMenuSettings.use')) {
                 try {
