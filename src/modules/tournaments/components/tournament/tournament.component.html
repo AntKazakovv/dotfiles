@@ -54,6 +54,7 @@
         </div>
         <div wlc-timer
              class="{{$class}}__timer"
+             (timerEnds)="updateTournaments()"
              [value]="tournament.isTournamentStarts
                 ? tournament.endsLuxon
                 : tournament.startsLuxon"

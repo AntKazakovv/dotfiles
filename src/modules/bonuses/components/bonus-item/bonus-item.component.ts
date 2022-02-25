@@ -219,6 +219,20 @@ export class BonusItemComponent extends AbstractComponent implements OnInit, OnD
         this.eventService.emit({name: 'CHOOSE_BLANK_BONUS'});
     }
 
+    /**
+     * Add to cache expired bonus and refresh bonus list
+     * Refresh one more time after 5 min (backend crone timer)
+     */
+    public updateBonuses(): void {
+        if (this.bonus.isActive && !this.bonus.isExpired) {
+            this.bonus.addToCache('expired');
+            this.eventService.emit({name: 'BONUS_REFRESH'});
+            setTimeout (() => {
+                this.eventService.emit({name: 'BONUS_REFRESH'});
+            }, 310000);
+        }
+    }
+
     protected prepareModifiers(): void {
         let modifiers: Params.Modifiers[] = [];
         modifiers.push(`view-${this.view}`);

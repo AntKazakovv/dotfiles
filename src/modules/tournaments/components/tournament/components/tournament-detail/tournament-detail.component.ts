@@ -17,7 +17,10 @@ import {
     AbstractComponent,
     IMixedParams,
     ConfigService,
-    ITableCParams, IIndexing, GlobalHelper,
+    ModalService,
+    ITableCParams,
+    IIndexing,
+    GlobalHelper,
 } from 'wlc-engine/modules/core';
 
 import {Tournament} from 'wlc-engine/modules/tournaments/system/models/tournament.model';
@@ -56,6 +59,7 @@ export class TournamentDetailComponent extends AbstractComponent implements OnIn
         protected injectParams: Params.ITournamentDetailCParams,
         protected configService: ConfigService,
         protected tournamentsService: TournamentsService,
+        protected modalService: ModalService,
         protected router: UIRouter,
         protected cdr: ChangeDetectorRef,
     ) {
@@ -97,6 +101,15 @@ export class TournamentDetailComponent extends AbstractComponent implements OnIn
 
     public leaveTournament(): void {
         this.$params.parentInstance.leave();
+    }
+
+    /**
+     * Update tournament list
+     */
+    public updateTournaments(): void {
+        if (this.tournament.isTournamentEnds) {
+            this.modalService.hideModal('tournament-detail-modal');
+        }
     }
 
     private prepareTournament(): void {

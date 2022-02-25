@@ -132,6 +132,13 @@ export class TournamentComponent
         );
     }
 
+    /**
+     * Update tournament list
+     */
+    public updateTournaments(): void {
+        this.tournamentsService.updateTournaments();
+    }
+
     protected prepareModifiers(): void {
         let modifiers: Params.Modifiers[] = [];
         if (this.$params.common?.customMod) {

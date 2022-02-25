@@ -5,8 +5,15 @@ import {
     OnInit,
     ChangeDetectorRef,
     Inject,
+    Output,
+    EventEmitter,
 } from '@angular/core';
-import {AbstractComponent, ConfigService, GlobalHelper, IMixedParams} from 'wlc-engine/modules/core';
+import {
+    AbstractComponent,
+    ConfigService,
+    GlobalHelper,
+    IMixedParams,
+} from 'wlc-engine/modules/core';
 
 import {Tournament} from 'wlc-engine/modules/tournaments';
 
@@ -29,6 +36,8 @@ export class TournamentSmartInfoComponent extends AbstractComponent implements O
     @Input() public timerTextBeforeStart: string;
     @Input() public timerTextAfterStart: string;
 
+    @Output() public timerEnds = new EventEmitter();
+
     public $params: Params.ITournamentSmartInfoCParams;
 
     constructor(
@@ -46,5 +55,13 @@ export class TournamentSmartInfoComponent extends AbstractComponent implements O
         super.ngOnInit(GlobalHelper.prepareParams(this,
             ['tournament', 'type',
                 'theme', 'themeMod', 'customMod', 'prizePoolText', 'timerTextBeforeStart', 'timerTextAfterStart']));
+    }
+
+    /**
+     * Update tournament list
+     */
+    public updateTournaments(): void {
+        this.timerEnds.emit();
+        this.cdr.detectChanges();
     }
 }

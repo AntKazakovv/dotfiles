@@ -16,6 +16,7 @@
     </div>
     <div class="{{$class}}__delimiter"></div>
     <div class="{{$class}}__timer-block" wlc-timer
+        (timerEnds)="updateTournaments()"
         [value]="(tournament.isTournamentStarts) ? tournament.endsLuxon : tournament.startsLuxon"
         [text]="(tournament.isTournamentStarts) ? $params.common?.timerTextAfterStart : $params.common?.timerTextBeforeStart">
     </div>

@@ -468,6 +468,7 @@ export class BonusesService {
 
             if (bonuses.length) {
                 await this.checkBonusesInCache(bonuses);
+                await this.checkExpiredBonusesInCache(bonuses);
                 if (!queryParams.PromoCode && !this.promoBonus) {
                     await this.checkPromoBonus();
                 }
@@ -560,6 +561,7 @@ export class BonusesService {
                     this.cachingService,
                 );
                 await bonus.setFromCache();
+                await bonus.setExpiredFromCache();
                 queryBonuses.push(bonus);
             }
         }
@@ -630,6 +632,35 @@ export class BonusesService {
         }
     }
 
+    private async checkExpiredBonusesInCache(bonuses: Bonus[]): Promise<void> {
+        const bonusesIDs: number[] = _map(bonuses, 'id');
+        let expBonuses: IIndexing<number[]>;
+
+        try {
+            expBonuses = await this.cachingService.get('expired-bonuses') || {};
+        } catch {
+            expBonuses = {};
+        }
+
+        _each(expBonuses, (list: number[], key: string) => {
+
+            if (!_isArray(list) || list.length === 0) {
+                _unset(expBonuses, key);
+                return;
+            }
+
+            list = _filter(list, (bonusId: number) => _includes(bonusesIDs, bonusId));
+
+            if (list.length === 0) {
+                _unset(expBonuses, key);
+            }
+        });
+
+        if (expBonuses.expired && _size(expBonuses) === 0) {
+            this.cachingService.clear('expired-bonuses');
+        }
+    }
+
     private async checkPromoBonus(): Promise<void> {
         const promocode: string = await this.cachingService.get<string>(this.dbPromoUrl);
         if (!promocode) return;
@@ -690,6 +721,7 @@ export class BonusesService {
             {name: 'BONUS_SUBSCRIBE_SUCCEEDED'},
             {name: 'BONUS_UNSUBSCRIBE_SUCCEEDED'},
             {name: 'PROMO_SUCCESS'},
+            {name: 'BONUS_REFRESH'},
         ]).subscribe({
             next: (event: IEvent<unknown>) => {
                 if (event.name === 'LOGIN' || event.name === 'LOGOUT') {

@@ -46,7 +46,7 @@
                             (click)="openDescription($params.common.bonus)">
                     </button>
                 </div>
-                <div wlc-bonus-buttons
+                <div *ngIf="!$params.common.bonus?.isExpired" wlc-bonus-buttons
                     class="{{$class}}__btns"
                     [bonus]="bonus"
                     [bonusItemTheme]="$params.theme"
@@ -61,6 +61,13 @@
                  iconPath="/wlc/icons/check.svg">
             </div>
         </div>
+    </div>
+    <div *ngIf="$params.common.bonus?.isExpired"
+         wlc-bonus-buttons
+         class="{{$class}}__btns"
+         [bonus]="bonus"
+         [bonusItemTheme]="$params.theme"
+         [isChooseBtn]="isChooseBtn">
     </div>
 </ng-template>
 
@@ -416,11 +423,13 @@
 
 <ng-template #activeBlock>
     <div class="{{$class}}__active-block">
-        <div class="{{$class}}__timer"
+        <div *ngIf="!$params.common.bonus?.isExpired"
+             class="{{$class}}__timer"
              wlc-timer
              text="Time remaining"
+             (timerEnds)="updateBonuses()"
              [value]="$params.common.bonus?.expirationTimeLuxon"></div>
-        <div *ngIf="$params.common.bonus?.wageringTotal" class="{{$class}}__progress">
+        <div *ngIf="$params.common.bonus?.wageringTotal && !$params.common.bonus?.isExpired" class="{{$class}}__progress">
             <div class="{{$class}}__remaning">
                 <span wlc-currency [value]="$params.common.bonus?.wageringLeft"></span>
                 {{'of'| translate}}

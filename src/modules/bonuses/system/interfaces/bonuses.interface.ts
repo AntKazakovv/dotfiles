@@ -162,7 +162,7 @@ export type TBonusSortOrder = 'active' | 'promocode' | 'subscribe' | 'inventory'
 export type IBonusType = 'default' | 'reg' | 'deposit' | 'promo' | 'store' | 'other' | 'blank';
 export type BonusesFilterType = 'all' | 'reg' | 'deposit' | 'promocode' | 'inventory' | 'main' | 'active' | 'default';
 export type RestType = 'active' | 'history' | 'store' | 'any';
-export type ActionType = 'inventory' | 'cancel' | 'subscribe' | 'unsubscribe';
+export type ActionType = 'inventory' | 'cancel' | 'expired' | 'subscribe' | 'unsubscribe';
 
 interface IBlankBonus {
     id: null

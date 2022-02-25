@@ -5,6 +5,9 @@ import {
     Input,
     ChangeDetectionStrategy,
     ChangeDetectorRef,
+    OnChanges,
+    Output,
+    EventEmitter,
 } from '@angular/core';
 import {DateTime} from 'luxon';
 import {interval, Subscription} from 'rxjs';
@@ -36,7 +39,7 @@ import _isString from 'lodash-es/isString';
     styleUrls: ['./styles/timer.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class TimerComponent extends AbstractComponent implements OnInit {
+export class TimerComponent extends AbstractComponent implements OnInit, OnChanges {
     @Input() public value: string | DateTime;
     @Input() public text: string;
     @Input() public noCountDown: boolean;
@@ -45,6 +48,9 @@ export class TimerComponent extends AbstractComponent implements OnInit {
     @Input() public noHours: boolean;
     @Input() public themeMod: Params.ThemeMod;
     @Input() protected inlineParams: Params.ITimerCParams;
+
+    @Output() public timerEnds = new EventEmitter();
+
     public $params: Params.ITimerCParams;
 
     public seconds: string = '00';
@@ -63,6 +69,7 @@ export class TimerComponent extends AbstractComponent implements OnInit {
     private daysToDday: number;
     private reg: RegExp = /^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}$/;
     private intervalSub: Subscription;
+    private isInited: boolean = false;
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.ITimerCParams,
@@ -83,6 +90,13 @@ export class TimerComponent extends AbstractComponent implements OnInit {
                     this.getTimeDifference();
                     this.cdr.detectChanges();
                 });
+        }
+        this.isInited = true;
+    }
+
+    public ngOnChanges(): void {
+        if (this.isInited && !this.intervalSub) {
+            this.ngOnInit();
         }
     }
 
@@ -113,7 +127,11 @@ export class TimerComponent extends AbstractComponent implements OnInit {
         }
 
         if (this.intervalSub && timeDifference <= 0 && !this.countUp) {
+            setTimeout(() => {
+                this.timerEnds.emit();
+            }, 1000);
             this.intervalSub.unsubscribe();
+            this.intervalSub = null;
         }
     }
 

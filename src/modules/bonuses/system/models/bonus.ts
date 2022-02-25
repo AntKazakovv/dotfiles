@@ -397,6 +397,13 @@ export class Bonus extends AbstractModel<IBonus> {
     }
 
     /**
+    * @returns {boolean} is bonus expire
+    */
+    public get isExpired(): boolean {
+        return this.status === -99 && this.active;
+    }
+
+    /**
      * @returns {boolean} is bonus deposit
      */
     public get isDeposit(): boolean {
@@ -678,7 +685,7 @@ export class Bonus extends AbstractModel<IBonus> {
     /**
      * Add bonus to cache
      *
-     * @param type action type ('inventory' | 'cancel' | 'subscribe' | 'unsubscribe')
+     * @param type action type ('inventory' | 'cancel' | 'expired' | 'subscribe' | 'unsubscribe')
      */
     public async addToCache(type: ActionType): Promise<void> {
         const target = this.results[this.target];
@@ -715,7 +722,11 @@ export class Bonus extends AbstractModel<IBonus> {
                 _remove(list, (n) => n === this.id);
             }
         });
-        this.cachingService.set<IIndexing<number[]>>('bonuses', ls, true, Number.MAX_SAFE_INTEGER);
+        if (type === 'expired' && ls) {
+            this.cachingService.set<IIndexing<number[]>>('expired-bonuses', ls, true, 300000);
+        } else {
+            this.cachingService.set<IIndexing<number[]>>('bonuses', ls, true, Number.MAX_SAFE_INTEGER);
+        }
     }
 
     /**
@@ -776,6 +787,37 @@ export class Bonus extends AbstractModel<IBonus> {
             await this.cachingService.set<IIndexing<number[]>>('bonuses', ls, true, Number.MAX_SAFE_INTEGER);
         } else {
             await this.cachingService.clear('bonuses');
+        }
+    }
+
+    /**
+     * Set expired bonus to local storage
+     */
+    public async setExpiredFromCache(): Promise<void> {
+        let expBonuses: IIndexing<number[]>;
+
+        try {
+            expBonuses = await this.cachingService.get('expired-bonuses') || {};
+        } catch {
+            expBonuses = {};
+        }
+
+        _each(expBonuses, (list, key) => {
+            if (!_isArray(list) || list.length === 0) {
+                _unset(expBonuses, key);
+                return;
+            }
+            if (_includes(list, this.id) && key === 'expired') {
+                if (!this.active) {
+                    _remove(list, (n: number): boolean => n === this.id);
+                } else {
+                    this.data.Active = 1;
+                    this.data.Status = -99;
+                }
+            }
+        });
+        if (expBonuses.expired && _size(expBonuses) === 0) {
+            await this.cachingService.clear('expired-bonuses');
         }
     }
 

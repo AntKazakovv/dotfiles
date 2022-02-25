@@ -33,6 +33,7 @@
             </h4>
             <div wlc-timer
                  class="{{$class}}-timer"
+                 (timerEnds)="updateTournaments()"
                  [value]="$params.common.tournament.isTournamentStarts
                             ? $params.common.tournament.endsLuxon
                             : $params.common.tournament.startsLuxon"

@@ -388,6 +388,13 @@ export class TournamentsService {
         }
     }
 
+    /**
+     * Update tournament list
+     */
+    public updateTournaments(): void {
+        this.updateSubscribers();
+    }
+
     private registerMethods(): void {
         this.dataService.registerMethod({
             name: 'tournaments',

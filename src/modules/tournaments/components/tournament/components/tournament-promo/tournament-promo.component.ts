@@ -84,6 +84,13 @@ export class TournamentPromoComponent extends AbstractComponent implements OnIni
         this.parentInstance?.join();
     }
 
+    /**
+     * Update tournament list
+     */
+    public updateTournaments(): void {
+        this.tournamentsService.updateTournaments();
+    }
+
     public readMore(useSelector: boolean = false): void {
         if (!useSelector) {
             _set(this.$params, 'common.actionParams.selector', '');
