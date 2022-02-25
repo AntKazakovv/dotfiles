@@ -82,12 +82,18 @@ $themeDefault: map-merge((
 
     'titleFontStyle': 'ThirdTitleBold',
     'titleFontStyleDesk': 'PromoTitle',
-    'titleColor': var(--mc-baseMain),
+    'titleColor': (
+        320: ef.get('mainColors', 'baseMain'),
+        900: var(--mc-baseMain),
+    ),
     'titleMargin': 0 0 ef.size(6),
 
     'descriptionFontStyle': 'PrimaryText',
     'descriptionFontStyleDesk': 'ThirdTitle',
-    'descriptionColor': var(--mc-baseMain),
+    'descriptionColor': (
+        320: ef.get('mainColors', 'baseMain'),
+        900: var(--mc-baseMain),
+    ),
     'descriptionMargin': 0 0 ef.size(8),
 
     'btnsWrapMargin': auto 0 0 0,

@@ -123,22 +123,22 @@
         }
 
         &__title {
-            @include text.get-text-style(ef.get-value($themeDefault, 'titleFontStyle'), ef.get-value($themeDefault, 'titleColor'));
+            @include text.get-text-style(ef.get-value($themeDefault, 'titleFontStyle'), ef.get-value($themeDefault, 'titleColor', 320));
             @include em.lineClamp(2);
             margin: ef.get-value($themeDefault, 'titleMargin');
             text-transform: uppercase;
 
             @include mq.min(900) {
-                @include text.get-text-style(ef.get-value($themeDefault, 'titleFontStyleDesk'), ef.get-value($themeDefault, 'titleColor'));
+                @include text.get-text-style(ef.get-value($themeDefault, 'titleFontStyleDesk'), ef.get-value($themeDefault, 'titleColor', 900));
             }
         }
 
         &__description {
-            @include text.get-text-style(ef.get-value($themeDefault, 'descriptionFontStyle'), ef.get-value($themeDefault, 'descriptionColor'));
+            @include text.get-text-style(ef.get-value($themeDefault, 'descriptionFontStyle'), ef.get-value($themeDefault, 'descriptionColor', 320));
             margin: ef.get-value($themeDefault, 'descriptionMargin');
 
             @include mq.min(900) {
-                @include text.get-text-style(ef.get-value($themeDefault, 'descriptionFontStyleDesk'), ef.get-value($themeDefault, 'descriptionColor'));
+                @include text.get-text-style(ef.get-value($themeDefault, 'descriptionFontStyleDesk'), ef.get-value($themeDefault, 'descriptionColor', 900));
             }
         }
 

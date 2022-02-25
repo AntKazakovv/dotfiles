@@ -65,11 +65,12 @@
             @include em.get-mq-map('align-self', $themeActive, 'infoBlockAlignSelf');
             @include em.get-mq-map('text-align', $themeActive, 'infoBlockTextAlign');
             @include em.get-mq-map('padding', $themeActive, 'infoBlockPadding');
-
+            justify-content: center;
             width: 100%;
         }
 
         &__active-block {
+            @include em.get-mq-map('display', $themeActive, 'activeBlockDisplay');
             @include em.get-mq-map('grid-area', $themeActive, 'activeBlockArea');
             @include em.get-mq-map('padding', $themeActive, 'activeBlockPadding');
             @include em.get-mq-map('grid-template-rows', $themeActive, 'activeBlockTemplateRows');
@@ -79,7 +80,7 @@
             @include em.get-mq-map('justify-self', $themeActive, 'activeBlockJustify');
             @include em.get-mq-map('max-width', $themeActive, 'activeBlockWidth');
 
-            display: grid;
+            min-height: auto;
         }
 
         &__btns {

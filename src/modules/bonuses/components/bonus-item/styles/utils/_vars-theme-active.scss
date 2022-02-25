@@ -91,6 +91,10 @@ $themeActive: map-merge((
         560: left,
     ),
 
+    'activeBlockDisplay': (
+        320: flex,
+        1200: grid,
+    ),
     'activeBlockTemplateRows': min-content 1fr,
     'activeBlockTemplateColumn': 100%,
     'activeBlockGap': 10px 0,

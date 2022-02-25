@@ -502,6 +502,8 @@ export class BonusesListComponent extends AbstractComponent implements OnInit, O
                 this.isSingleBonus = false;
             }
         }
+
+        this.cdr.detectChanges();
     }
 
     protected setCheckboxValue(value: boolean): void {

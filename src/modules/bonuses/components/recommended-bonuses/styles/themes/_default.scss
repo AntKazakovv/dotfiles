@@ -17,52 +17,55 @@
 
     ::ng-deep {
 
-        .wlc-bonuses-list.wlc-bonuses-list--type-swiper {
-            @include bm.get-mq-map('max-width', $themeDefault, 'sliderMaxWidth');
+        .wlc-bonuses-list {
 
-            .wlc-bonus-item--theme-default .wlc-bonus-item__content {
-                min-width: ef.get-value($themeDefault, 'baseSliderWidth');
-            }
+            &--type-swiper {
+                @include bm.get-mq-map('max-width', $themeDefault, 'sliderMaxWidth');
 
-            .wlc-bonuses-list__list-wrapper .swiper .swiper-slide {
-                width: ef.get-value($themeDefault, 'baseSliderWidth');
-            }
+                .wlc-bonus-item--theme-default .wlc-bonus-item__content {
+                    min-width: ef.get-value($themeDefault, 'baseSliderWidth');
+                }
 
-            .wlc-bonuses-list__content .wlc-bonuses-list__list-wrapper
-            .swiper.swiper-initialized {
-                @include bm.get-mq-map('margin', $themeDefault, 'swiperContainerMargin');
-                @include bm.get-mq-map('padding', $themeDefault, 'swiperContainerPadding');
+                .wlc-bonuses-list__list-wrapper .swiper .swiper-slide {
+                    width: ef.get-value($themeDefault, 'baseSliderWidth');
+                }
+
+                .wlc-bonuses-list__content .wlc-bonuses-list__list-wrapper
+                .swiper.swiper-initialized {
+                    @include bm.get-mq-map('margin', $themeDefault, 'swiperContainerMargin');
+                    @include bm.get-mq-map('padding', $themeDefault, 'swiperContainerPadding');
 
 
-                .swiper-wrapper[class] {
-                    justify-content: ef.get-value($themeDefault, 'swiperContainerJustifyContent');
+                    .swiper-wrapper[class] {
+                        justify-content: ef.get-value($themeDefault, 'swiperContainerJustifyContent');
+                    }
+                }
+
+                &:not(.single-bonus-swiper) {
+                    @include bm.get-mq-map('margin', $themeDefault, 'sliderMargin');
                 }
             }
 
-            &:not(.single-bonus-swiper) {
-                @include bm.get-mq-map('margin', $themeDefault, 'sliderMargin');
-            }
-        }
+            &--theme-default.wlc-bonuses-list--type-swiper .wlc-bonuses-list__list-wrapper {
 
-        .wlc-bonuses-list--theme-default.wlc-bonuses-list--type-swiper .wlc-bonuses-list__list-wrapper {
+                .swiper {
+                    @include bm.get-mq-map('padding', $themeDefault, 'swiperContainerPadding');
+                }
 
-            .swiper {
-                @include bm.get-mq-map('padding', $themeDefault, 'swiperContainerPadding');
-            }
+                .swiper-button-prev {
+                    @include bm.get-mq-map('display', $themeDefault, 'swiperBtnsDisplay');
+                    @include bm.get-mq-map('left', $themeDefault, 'swiperBtnsPos');
+                }
 
-            .swiper-button-prev {
-                @include bm.get-mq-map('display', $themeDefault, 'swiperBtnsDisplay');
-                @include bm.get-mq-map('left', $themeDefault, 'swiperBtnsPos');
-            }
+                .swiper-button-next {
+                    @include bm.get-mq-map('display', $themeDefault, 'swiperBtnsDisplay');
+                    @include bm.get-mq-map('right', $themeDefault, 'swiperBtnsPos');
+                }
 
-            .swiper-button-next {
-                @include bm.get-mq-map('display', $themeDefault, 'swiperBtnsDisplay');
-                @include bm.get-mq-map('right', $themeDefault, 'swiperBtnsPos');
-            }
-
-            .wlc-slider--type-default[data-wlc-element]:not(.wlc-slider--overflow) + .ng-star-inserted .swiper-button-disabled,
-            .wlc-slider--type-default:not(.wlc-slider--overflow) .swiper-button-disabled {
-                display: none;
+                .wlc-slider--type-default[data-wlc-element]:not(.wlc-slider--overflow) + .ng-star-inserted .swiper-button-disabled,
+                .wlc-slider--type-default:not(.wlc-slider--overflow) .swiper-button-disabled {
+                    display: none;
+                }
             }
         }
     }
