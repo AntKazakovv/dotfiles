@@ -37,7 +37,10 @@
              class="{{$class}}__preloader">
         </div>
 
-        <div wlc-game-dashboard [opened]="openDashboard"></div>
+        <div wlc-game-dashboard
+            [opened]="openDashboard"
+            [isMerchantWallet]="isMerchantWallet"
+        ></div>
 
         <div *ngIf="isMobile && enableGameHeader" class="{{$class}}__game-header">
             <ng-container [ngTemplateOutlet]="gameName"></ng-container>

@@ -1,0 +1,6 @@
+$customThemeDefault: () !default;
+$themeDefault: map-merge((
+    'textStyle': 'PrimaryText',
+    'textAlign': center,
+    'textColor': null,
+), $customThemeDefault);

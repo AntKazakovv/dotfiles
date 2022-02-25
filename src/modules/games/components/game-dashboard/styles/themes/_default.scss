@@ -279,6 +279,10 @@
             }
         }
 
+        &__merchant-balance {
+            margin: ef.get-value($themeDefault, 'merchantBalanceMargin');
+        }
+
         &__not-found {
             text-align: center;
         }

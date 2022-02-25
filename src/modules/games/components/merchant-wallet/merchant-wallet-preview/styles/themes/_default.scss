@@ -1,0 +1,61 @@
+.wlc-merchant-wallet-preview--theme-default:host {
+    @include text.get-text-style(ef.get-value($themeDefault, 'textStyle'), ef.get-value($themeDefault, 'textColor'));
+    text-align: ef.get-value($themeDefault, 'textAlign');
+
+    .wlc-merchant-wallet-preview {
+
+        &__text {
+            margin: ef.get-value($themeDefault, 'infoMargin');
+        }
+
+        &__balance {
+            @include text.get-text-style(ef.get-value($themeDefault, 'balanceTextStyle'), ef.get-value($themeDefault, 'balanceTextColor'));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: ef.get-value($themeDefault, 'balanceMargin');
+        }
+
+        &__amount {
+            margin: ef.get-value($themeDefault, 'amountMargin');
+        }
+
+        &__update {
+            position: relative;
+            width: ef.get-value($themeDefault, 'updateBtnWidth');
+            height: ef.get-value($themeDefault, 'updateBtnHeight');
+            color: ef.get-value($themeDefault, 'updateBtnColor');
+            border-radius: ef.get-value($themeDefault, 'updateBtnRadius');
+            background: ef.get-value($themeDefault, 'updateBtnBg');
+
+            ::ng-deep {
+
+                .wlc-icon-content {
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    width: 100%;
+                    height: 100%;
+                }
+            }
+
+            &.pending {
+                animation: ef.get-value($themeDefault, 'updateBtnAnimation');
+            }
+
+            @include bm.hover {
+                color: ef.get-value($themeDefault, 'updateBtnColorHover');
+                background: ef.get-value($themeDefault, 'updateBtnBgHover');
+            }
+        }
+
+        &__buttons {
+            display: ef.get-value($themeDefault, 'buttonsDisplay');
+            gap: ef.get-value($themeDefault, 'buttonsGap');
+            justify-content: ef.get-value($themeDefault, 'buttonsJustifyContent');
+        }
+    }
+}

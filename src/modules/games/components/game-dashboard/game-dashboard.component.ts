@@ -121,6 +121,7 @@ export class GameDashboardComponent extends AbstractComponent implements OnInit,
     @ViewChild('activeTabLabel') activeTabLabel: ElementRef;
 
     @Input() public opened: boolean;
+    @Input() public isMerchantWallet: boolean;
 
     public $params: Params.IGameDashboardCParams;
     public tabs: Params.IGameDashboardTab[] = Params.dashboardTabs;

@@ -1,0 +1,37 @@
+$customThemeDefault: () !default;
+$themeDefault: map-merge((
+    // base
+    'padding': 0 ef.size(11),
+
+    // text
+    'textAlign': center,
+    'textStyle': 'PrimaryText',
+    'textMargin': 0 0 ef.size(2) 0,
+    'textColor': null,
+
+    // balance
+    'balanceTextStyle': 'ThirdTitleBold',
+    'balanceTextColor': null,
+    'balanceMargin': 0 0 ef.size(2) 0,
+
+    // amount
+    'amountMargin': 0 ef.size(1) 0 0,
+
+    // updateButton
+    'updateBtnWidth': 24px,
+    'updateBtnHeight': 24px,
+    'updateBtnRadius': 50%,
+    'updateBtnColor': var(--mc-baseOpacity),
+    'updateBtnColorHover': var(--mc-baseMain),
+    'updateBtnBg': var(--mc-bg700),
+    'updateBtnBgHover': null,
+    'updateBtnAnimation': spin 2.5s linear infinite,
+
+    // form
+    'formDisplay': grid,
+    'formAmountLimitMargin': ef.size(1) 0 0 0,
+    'formWalletExRateMargin': ef.size(4) 0 0 0,
+    'formButtonMargin': ef.size(8) 0 0 0,
+    'formButtonJustifySelf': center,
+
+), $customThemeDefault);

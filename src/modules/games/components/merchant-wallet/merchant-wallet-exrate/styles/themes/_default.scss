@@ -1,0 +1,4 @@
+.wlc-merchant-wallet-exrate--theme-default:host {
+    @include text.get-text-style(ef.get-value($themeDefault, 'textStyle'), ef.get-value($themeDefault, 'textColor'));
+    text-align: ef.get-value($themeDefault, 'textAlign');
+}

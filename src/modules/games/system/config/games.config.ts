@@ -103,4 +103,8 @@ export const gamesConfig: IGamesConfig = {
     search: {
         byCyrillicLetters: true,
     },
+    merchantWallet: {
+        availableMerchants: [937, 964, 982, 883],
+        balanceRequestTimeout: 30000,
+    },
 };

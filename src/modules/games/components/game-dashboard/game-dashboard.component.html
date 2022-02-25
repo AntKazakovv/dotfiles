@@ -106,6 +106,10 @@
         </div>
         <div wlc-loyalty-progress>
         </div>
+        <div *ngIf="isMerchantWallet"
+            class="{{$class}}__merchant-balance"
+            wlc-merchant-wallet-preview
+        ></div>
     </ng-container>
     <ng-container *ngIf="isAuth && isMobile && landscapeOrientation">
         <div class="{{$class}}__profile-user">

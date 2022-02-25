@@ -1,0 +1,9 @@
+<span class="{{$class}}__text">{{'Converted at the rate:' | translate}}</span>
+{{' '}}
+<span wlc-currency
+    class="{{$class}}__amount"
+    [value]="value"
+    [showValueOnly]="true"
+></span>
+{{' '}}
+<span class="{{$class}}__currency">USD</span>

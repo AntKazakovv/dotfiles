@@ -1,0 +1,26 @@
+<div class="{{$class}}__text">
+    {{merchantName}} {{'balance:' | translate}}
+</div>
+
+<div class="{{$class}}__balance">
+    <span class="{{$class}}__amount"
+        wlc-currency
+        [value]="merchantWalletBalance?.available"
+    ></span>
+
+    <button class="{{$class}}__update"
+        [ngClass]="{'pending': isUpdatePending}"
+        wlc-button
+        iconPath="/wlc/icons/loader.svg"
+        [theme]="'custom'"
+        title="{{'Update' | translate}}"
+        (click)="handleUpdate()"
+    ></button>
+</div>
+
+<div class="{{$class}}__form"
+    wlc-form-wrapper
+    [config]="formConfig"
+    [ngSubmit]="handleSubmit.bind(this)"
+    (form$)="getForm($event)"
+></div>

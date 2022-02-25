@@ -1,0 +1,15 @@
+.wlc-merchant-wallet-info--theme-default:host {
+
+    .wlc-merchant-wallet-info {
+
+        &__text {
+            @include text.get-text-style(ef.get-value($themeDefault, 'textStyle'), ef.get-value($themeDefault, 'textColor'));
+            margin: ef.get-value($themeDefault, 'textMargin');
+            text-align: ef.get-value($themeDefault, 'textAlign');
+
+            &:last-child {
+                margin: ef.get-value($themeDefault, 'textMarginLast');
+            }
+        }
+    }
+}

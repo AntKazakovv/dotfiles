@@ -66,7 +66,9 @@ import {
     ICheckboxCParams,
     IIndexing,
     SeoService,
+    InjectionService,
 } from 'wlc-engine/modules/core';
+import {MerchantWalletService} from 'wlc-engine/modules/games/system/services/merchant-wallet/merchant-wallet.service';
 import {
     BetGamesHooks,
 } from './hooks';
@@ -145,6 +147,7 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
     };
     public isMobile: boolean = false;
     public enableGameHeader: boolean;
+    public isMerchantWallet: boolean;
 
     protected realMobile: boolean = false;
     protected aspectRatio: string;
@@ -168,6 +171,7 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
             });
         },
     };
+    protected merchantWalletService: MerchantWalletService;
 
     constructor(
         @Inject('injectParams') protected injectParams: IGameWrapperCParams,
@@ -189,6 +193,7 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
         protected titleService: Title,
         protected seoService: SeoService,
         protected stateService: StateService,
+        protected injectionService: InjectionService,
     ) {
         super({injectParams, defaultParams});
     }
@@ -346,6 +351,9 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
         }
         if (this.titleObserver) {
             this.titleObserver.disconnect();
+        }
+        if (this.merchantWalletService) {
+            this.merchantWalletService.endMerchantWalletGame();
         }
     }
 
@@ -696,6 +704,8 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
                 this.gameHtml = this.domSanitizer
                     .bypassSecurityTrustHtml(launchInfo.gameHtml)?.['changingThisBreaksApplicationSecurity'];
                 this.cdr.markForCheck();
+
+                this.checkAndInitMerchantWallet();
             } else {
                 // error
             }
@@ -951,5 +961,17 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
         ).subscribe(() => {
             this.closeGame();
         });
+    }
+
+    protected async checkAndInitMerchantWallet(): Promise<void> {
+        if (_includes(
+            this.configService.get<number[]>('$games.merchantWallet.availableMerchants'),
+            this.gameParams.merchantId,
+        )) {
+            this.isMerchantWallet = true;
+            this.merchantWalletService = await this.injectionService
+                .getService<MerchantWalletService>('games.merchant-wallet-service');
+            this.merchantWalletService.startMerchantWalletGame(this.game);
+        }
     }
 }

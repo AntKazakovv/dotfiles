@@ -1,0 +1,44 @@
+<ng-container *ngIf="isReady">
+    <div class="{{$class}}__text">
+        {{merchantName}} {{'balance:' | translate}}
+    </div>
+
+    <div class="{{$class}}__balance">
+        <span *ngIf="!isError"
+            class="{{$class}}__amount"
+            wlc-currency
+            [value]="userBalance?.available"
+        ></span>
+
+        <button class="{{$class}}__update"
+            [ngClass]="{'pending': isPending}"
+            wlc-button
+            iconPath="/wlc/icons/loader.svg"
+            [theme]="'custom'"
+            title="{{'Update' | translate}}"
+            (click)="handleUpdate()"
+        ></button>
+    </div>
+
+
+    <ng-container *ngIf="isError, else buttons">
+        <p class="{{$class}}__error">{{'Error getting merchant wallet balance.' | translate}}</p>
+    </ng-container>
+</ng-container>
+
+<ng-template #buttons>
+    <div class="{{$class}}__buttons">
+        <button class="{{$class}}__btn {{$class}}__btn--add"
+            wlc-button
+            text="{{'Add' | translate}}"
+            [themeMod]="'default'"
+            (click)="buttonHandler('deposit')"
+        ></button>
+        <button class="{{$class}}__btn {{$class}}__btn--withdraw"
+            wlc-button
+            text="{{'Withdraw' | translate}}"
+            [themeMod]="'secondary'"
+            (click)="buttonHandler('withdraw')"
+        ></button>
+    </div>
+</ng-template>

@@ -41,6 +41,7 @@ export interface IGamesConfig {
      * Disable demo btn in wlc-game-thumb & wlc-play-for-real for all users or only for authentificated users
      */
     disableDemoBtnsFor?: TDisableDemoFor;
+    merchantWallet?: IMerchantWalletConfig;
 }
 
 export interface IGamesSearchSettings {
@@ -409,3 +410,27 @@ export interface ISearchFilter {
     regExp: string,
 }
 
+/**
+ * @param availableMerchants - number array of merchants IDs which have external wallet
+ * @param balanceRequestTimeout number of timeout for interval request. 30000 by default
+ * @param systemOptions objects with options for each of available systems, key is system ID,
+ * value is `IMerchantWalletSystemConfig`
+ */
+export interface IMerchantWalletConfig {
+    availableMerchants?: number[];
+    balanceRequestTimeout?: number;
+    systemOptions?: IIndexing<IMerchantWalletSystemConfig>;
+}
+
+/**
+ * @param minDeposit value of min deposit value; default is 0.1
+ * @param maxDeposit value of max deposit value; default is 10000
+ * @param minWithdraw value of min withdraw value; default is 1
+ * @param maxWithdraw value of min withdraw value; default is 100 before user balance will be got
+ */
+export interface IMerchantWalletSystemConfig {
+    minDeposit?: number;
+    maxDeposit?: number;
+    minWithdraw?: number;
+    maxWithdraw?: number;
+}
