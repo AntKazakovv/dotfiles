@@ -182,7 +182,7 @@ export class SeoService {
         let seoState = this.seo[currentState === 'app.catalog.child' ? 'app.catalog' : currentState]
             || this.seo['app.home'];
 
-        if (seoState.childred?.length) {
+        if (seoState?.childred?.length) {
             const currentUrl = url || this.stateService.href(this.router.current);
             const nested = _find(seoState.childred, (item) => currentUrl.endsWith('/' + item.page));
             if (nested) {

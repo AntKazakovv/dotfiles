@@ -30,14 +30,6 @@
             @include bm.get-mq-map('display', $themeDefault, 'amountDisplay');
             @include bm.get-mq-map('margin', $themeDefault, 'amountMargin');
 
-            &.success {
-                color: var(--mc-success);
-            }
-
-            &.danger {
-                color: var(--mc-error);
-            }
-
             .wlc-sections__profile-content--theme-first & {
                 @include bm.get-mq-map('display', $themeDefault, 'amountDisplayTypeFirst');
             }

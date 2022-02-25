@@ -1,7 +1,7 @@
 <div *ngIf="$params.theme == 'default'" class="{{$class}}__content container" (resized)="onResize($event)">
     <div class="{{$class}}__header" #header data-wlc-element="block_game-play-title">
         <ng-container [ngTemplateOutlet]="gameName"></ng-container>
-        <div class="{{$class}}__btn-left" *ngIf="gameParams.demo" data-wlc-element="wlc-game-play-for-real">
+        <div class="{{$class}}__btn-left" *ngIf="gameParams?.demo" data-wlc-element="wlc-game-play-for-real">
             <button wlc-button
                     text="Play for real"
                     (click)="playForReal()">

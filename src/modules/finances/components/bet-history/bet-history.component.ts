@@ -102,8 +102,8 @@ export class BetHistoryComponent extends AbstractComponent implements OnInit {
         super.ngOnInit();
 
         this.allBets = await this.financesService.getBetsList({
-            startDate: this.startDate.toFormat('y-LL-dd\'\T\'TT'),
-            endDate: this.endDate.toFormat('y-LL-dd\'\T\'TT'),
+            startDate: this.startDate.toFormat('y-LL-dd\'\T\'HH:mm:ss'),
+            endDate: this.endDate.toFormat('y-LL-dd\'\T\'HH:mm:ss'),
         });
 
         this.historyFilter();

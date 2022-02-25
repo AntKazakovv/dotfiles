@@ -8,9 +8,7 @@ import {
 
 import {SwiperComponent} from 'swiper/angular';
 import SwiperCore, {
-    Scrollbar,
     FreeMode,
-    Mousewheel,
     Swiper,
     SwiperOptions,
 } from 'swiper';
@@ -21,7 +19,7 @@ import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract
 
 import * as Params from './scrollbar.params';
 
-SwiperCore.use([Scrollbar, FreeMode, Mousewheel]);
+SwiperCore.use([FreeMode]);
 @Component({
     selector: '[wlc-scrollbar]',
     templateUrl: './scrollbar.component.html',

@@ -54,11 +54,4 @@ export class TransactionPreviewComponent extends AbstractComponent implements On
             this.amount = +this.$params.transaction.Amount;
         }
     }
-
-    public getPaymentStatus(): string {
-        const className = this.$params.transaction instanceof Transaction ?
-            this.$params.transaction.type === 'Debit' :
-            this.$params.transaction.Action === 'bet';
-        return className ? 'danger' : 'success';
-    }
 }

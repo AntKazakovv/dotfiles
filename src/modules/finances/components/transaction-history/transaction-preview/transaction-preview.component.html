@@ -1,6 +1,5 @@
 <span class="{{$class}}__time">{{date}}</span>
-<span class="{{$class}}__amount"
-      [ngClass]="getPaymentStatus()"
-      wlc-currency
+<span wlc-currency
+      class="{{$class}}__amount"
       value="{{amount}}"
 ></span>
