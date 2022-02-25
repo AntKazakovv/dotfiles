@@ -19,6 +19,9 @@ $themePreview: map-merge((
     'contentHeigh': 100%,
     'contentBg': center/cover,
 
+    'withoutIconContentGridRows': auto auto 1fr,
+    'withoutIconDetailsAlign': center,
+
     'tagFontColor': var(--mc-baseMain),
     'tagBg': none,
     'tagPadding': 0,

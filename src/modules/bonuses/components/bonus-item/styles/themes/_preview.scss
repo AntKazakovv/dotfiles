@@ -33,6 +33,18 @@
                 background: ef.get-value($themePreview, 'contentOverlayBg');
                 opacity: ef.get-value($themePreview, 'contentOverlayOpacity');
             }
+
+            &.without-icon {
+                grid-template-rows: ef.get-value($themePreview, 'withoutIconContentGridRows');
+
+                .wlc-bonus-item__icon-wrapper {
+                    width: 100%;
+                }
+
+                .wlc-bonus-item__details {
+                    align-self: ef.get-value($themePreview, 'withoutIconDetailsAlign');
+                }
+            }
         }
 
         &__details {

@@ -28,7 +28,7 @@
 </div>
 
 <ng-template #bonusIcon>
-    <div *ngIf="$params.useIconBonusImage" class="{{$class}}__icon">
+    <div *ngIf="useIconBonusImage" class="{{$class}}__icon">
         <img *ngIf="$params.iconsPath && bonus.viewTarget"
             [wlc-fallback]="fallbackIconPath"
             class="{{$class}}__icon-sign"

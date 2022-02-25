@@ -25,6 +25,7 @@ export class BonusModalComponent extends AbstractComponent implements OnInit {
     public iconPath: string;
     public fallbackIconPath: string;
     public getBonusBg: string;
+    public useIconBonusImage: boolean;
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IBonusModalCParams,
@@ -42,7 +43,7 @@ export class BonusModalComponent extends AbstractComponent implements OnInit {
         super.ngOnInit();
 
         if (this.configService.get<string>('$base.profile.type') === 'first') {
-            this.$params.useIconBonusImage = false;
+            this.useIconBonusImage = false;
         }
 
         this.bonus = this.$params.bonus;
@@ -50,6 +51,7 @@ export class BonusModalComponent extends AbstractComponent implements OnInit {
         this.fallbackIconPath = `${this.$params.fallback?.IconsPath +
             this.bonus.viewTarget}.${this.$params.fallback?.iconType}`;
         this.getBonusBg = this.bonus.imageOther ? this.bonus.imageOther : this.$params.bgImage;
+        this.useIconBonusImage = this.configService.get<boolean>('$bonuses.useIconBonusImage');
     }
 
     /**

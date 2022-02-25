@@ -160,6 +160,8 @@ export class BonusItemComponent extends AbstractComponent implements OnInit, OnD
         if (this.profileTypeFirst) {
             this.useIconBonusImage = false;
             this.addModifiers('theme-mod-with-image');
+        } else if (this.$params.theme === 'partial') {
+            this.useIconBonusImage = true;
         }
 
         if (!this.$params.common.bonus?.description) {

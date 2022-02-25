@@ -21,8 +21,6 @@ export interface IBonusModalCParams extends IComponentParams<Theme, Type, ThemeM
         /** Path to icon folder */
         IconsPath?: string;
     };
-    /** Using icon */
-    useIconBonusImage?: boolean;
     /** Background image */
     bgImage: string;
 }
@@ -33,7 +31,6 @@ export const defaultParams: IBonusModalCParams = {
     class: 'wlc-bonus-modal',
     iconType: 'svg',
     iconsPath: '/gstatic/bonuses/icons/',
-    useIconBonusImage: true,
     bgImage: '/gstatic/wlc/bonuses/modal-bonus-default.png',
     fallback: {
         iconType: 'svg',

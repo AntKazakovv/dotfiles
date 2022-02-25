@@ -32,8 +32,6 @@ describe('BonusModalComponent', () => {
             wlcElement: 'wlc-bonus-modal',
             bonus: bonusSpy,
             iconType: 'svg',
-            iconsPath: '/gstatic/bonuses/icons/',
-            useIconBonusImage: true,
             bgImage: '/gstatic/wlc/bonuses/modal-bonus-default.png',
         };
         TestBed.configureTestingModule({
@@ -68,6 +66,11 @@ describe('BonusModalComponent', () => {
     });
 
     it('-> checking image block', () => {
+        component.ngOnInit();
+        component.useIconBonusImage = true;
+        fixture.detectChanges();
+
+
         expect(nativeElement.querySelector(`.${defaultParams.class}__icon`)).toBeDefined();
         expect(nativeElement.querySelector(`.${defaultParams.class}__icon-sign`)).toBeDefined();
         expect(nativeElement.querySelector(`.${defaultParams.class}__icon-text`).textContent.trim())

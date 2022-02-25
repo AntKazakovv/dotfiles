@@ -177,6 +177,7 @@
 <ng-template #preview>
     <div *ngIf="$params.common.bonus; else blank"
          class="{{$class}}__content"
+         [class.without-icon]="!useIconBonusImage"
          [style]="{backgroundImage: 'url(' + $params.common.bonus?.imageReg + ')'}">
         <div class="{{$class}}__tag" data-wlc-element="bonus_type-title">{{'The chosen bonus' | translate}}</div>
         <div class="{{$class}}__icon-wrapper">
