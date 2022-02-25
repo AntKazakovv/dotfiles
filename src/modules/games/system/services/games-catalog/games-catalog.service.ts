@@ -2,6 +2,10 @@ import {Injectable, Injector} from '@angular/core';
 import {
     UIRouter,
     UIRouterGlobals,
+    RawParams,
+    Transition,
+    StateObject,
+    TargetState,
 } from '@uirouter/core';
 import {TranslateService} from '@ngx-translate/core';
 import {
@@ -196,6 +200,15 @@ export class GamesCatalogService {
                 }
                 this.isMobile = type !== DeviceType.Desktop;
             });
+
+        this.router.transitionService.onBefore(
+            {to: this.catalogCriteria.bind(this)},
+            (trans: Transition): TargetState => {
+                return this.router.stateService.target('app.catalog', {
+                    category: trans.paramsChanged<RawParams>().childCategory,
+                });
+            },
+        );
     }
 
     /**
@@ -850,6 +863,10 @@ export class GamesCatalogService {
                 fail: gamesEvents.FETCH_FAVOURITES_FAILED,
             },
         });
+    }
+
+    protected catalogCriteria({name}: StateObject): boolean {
+        return 'app.catalog.child' === name && !this.gamesCatalog.defaultCategoryArchitecture;
     }
 
     /**

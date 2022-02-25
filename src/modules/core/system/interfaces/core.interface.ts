@@ -18,7 +18,7 @@ export interface IRedirectConfig {
      * redirect by state name
      */
     states?: IIndexing<IRedirect>;
-    profileRedirects?: IIndexing<profileRedirectType>
+    profileRedirects?: IIndexing<profileRedirectType>;
 }
 
 export interface IRedirect {

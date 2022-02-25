@@ -69,6 +69,7 @@ import _uniqBy from 'lodash-es/uniqBy';
 export class GamesCatalog extends AbstractModel<IGames> {
 
     public ready: Promise<void>;
+    public defaultCategoryArchitecture: boolean = true;
 
     protected readyStatus: Deferred<void> = new Deferred<void>();
     protected games: Game[];
@@ -779,6 +780,7 @@ export class GamesCatalog extends AbstractModel<IGames> {
         }
 
         if (this.categorySettings && this.existMenuSettings) {
+            this.defaultCategoryArchitecture = false;
 
             this.projectCategories = this.sortCategories(_filter(this.categories, (category: CategoryModel) => {
                 if (!!this.categorySettings[category.slug] || category.isSpecial) {
