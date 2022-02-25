@@ -51,6 +51,7 @@ export namespace CurrenciesInfo {
         'BCH',
         'BC1',
         'BC2',
+        'DOGE',
     ]);
 
     export const formats: ICurrencies = {
@@ -160,6 +161,9 @@ export namespace CurrenciesInfo {
         EXP: {
             svg: '/currency/exp.svg',
             name: gettext('EXP'),
+        },
+        DOGE: {
+            symbol: [208],
         },
     };
 }
