@@ -196,7 +196,7 @@ export class MerchantWalletService {
             })
             .catch((error: any): void => {
                 this.logService.sendLog({
-                    code: '19.0.0',
+                    code: '21.0.0',
                     data: error,
                     from: {
                         service: 'MerchantWalletService',

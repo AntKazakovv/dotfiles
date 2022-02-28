@@ -94,7 +94,7 @@ export class MerchantWalletPreviewComponent extends AbstractComponent implements
             this.isError = true;
 
             this.logService.sendLog({
-                code: '19.0.0',
+                code: '21.0.0',
                 data: error,
                 from: {
                     component: 'MerchantWalletPreviewComponent',

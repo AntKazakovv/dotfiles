@@ -118,7 +118,7 @@ export class MerchantWalletFormComponent extends AbstractComponent implements On
             });
         } catch (error) {
             this.logService.sendLog({
-                code: `19.0.${this.$params.method === 'deposit' ? 1 : 2}`,
+                code: `21.0.${this.$params.method === 'deposit' ? 1 : 2}`,
                 data: error,
                 from: {
                     service: 'MerchantWalletFormComponent',
@@ -160,7 +160,7 @@ export class MerchantWalletFormComponent extends AbstractComponent implements On
             this.merchantWalletBalance = await this.merchantWalletService.getMWBalance();
         } catch (error) {
             this.logService.sendLog({
-                code: '19.0.0',
+                code: '21.0.0',
                 data: error,
                 from: {
                     component: 'MerchantWalletFormComponent',
