@@ -95,7 +95,9 @@ export class TableComponent extends AbstractComponent implements OnInit {
             },
         });
 
-        this.itemPerPage = this.$params.pageCount;
+        if (this.$params.pagination.use) {
+            this.itemPerPage = this.$params.pageCount;
+        }
         this.theme = this.$params.theme;
         this.prepareHead();
         if (this.$params.rows instanceof BehaviorSubject) {
