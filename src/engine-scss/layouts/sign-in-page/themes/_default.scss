@@ -1,0 +1,49 @@
+@use 'engine-scss/functions' as ef;
+@use 'engine-scss/mixins/mediaqueries' as mq;
+@use 'engine-scss/mixins/base.mixins' as bm;
+
+.wlc-sections__sign-in-page {
+    @include bm.get-mq-map('background', $signInPageThemeDefault, 'sectionBg');
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: ef.get-value($signInPageThemeDefault, 'sectionPadding');
+
+    .wlc-sign-in-page {
+
+        &__wrapper {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            max-width: ef.get-value($signInPageThemeDefault, 'wrapperMaxWidth');
+        }
+
+        &__form-wrapper {
+            padding: ef.get-value($signInPageThemeDefault, 'formWrapperPadding');
+            border-radius: ef.get-value($signInPageThemeDefault, 'formWrapperRadius');
+            background: ef.get-value($signInPageThemeDefault, 'formWrapperBg');
+
+            @include mq.min(768) {
+                width: ef.get-value($signInPageThemeDefault, 'formWrapperWidthDesktop');
+            }
+        }
+    }
+
+    .wlc-logo {
+        @include bm.get-mq-map('margin', $signInPageThemeDefault, 'logoMargin');
+
+        .wlc-logo__image {
+
+            .wlc-icon-content {
+                display: flex;
+                justify-content: center;
+            }
+
+            svg {
+                @include bm.get-mq-map('width', $signInPageThemeDefault, 'logoWidth');
+            }
+        }
+    }
+}

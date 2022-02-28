@@ -30,3 +30,4 @@ export * from './profile/profile-social.state';
 export * from './providers.state';
 export * from './profile/profile-limitations.state';
 export * from './user-social-register.state';
+export * from './signin.state';

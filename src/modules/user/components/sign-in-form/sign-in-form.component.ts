@@ -3,6 +3,7 @@ import {
     Inject,
     OnInit,
 } from '@angular/core';
+import {StateService} from '@uirouter/core';
 
 import _some from 'lodash-es/some';
 
@@ -49,6 +50,7 @@ export class SignInFormComponent extends SignInFormAbstract<Params.ISignInFormCP
         protected modalService: ModalService,
         protected userService: UserService,
         protected captchaService: CaptchaService,
+        protected stateService: StateService,
     ) {
         super(
             <IMixedParams<Params.ISignInFormCParams>>{
@@ -59,6 +61,7 @@ export class SignInFormComponent extends SignInFormAbstract<Params.ISignInFormCP
             userService,
             modalService,
             eventService,
+            stateService,
             configService,
         );
     }

@@ -168,6 +168,24 @@ export namespace wlcButton {
         },
     };
 
+    export const userIconKiosk: ILayoutComponent = {
+        name: 'core.wlc-button',
+        display: {
+            auth: true,
+            before: 1199,
+        },
+        params: {
+            class: 'wlc-btn wlc-btn--user',
+            common: {
+                iconPath: '/wlc/icons/user-icon.svg',
+                event: {
+                    name: 'PANEL_OPEN',
+                    data: 'right',
+                },
+            },
+        },
+    };
+
     export const profileButton: ILayoutComponent = {
         name: 'core.wlc-button',
         params: {

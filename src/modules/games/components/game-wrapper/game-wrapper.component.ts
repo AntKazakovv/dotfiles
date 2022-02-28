@@ -67,6 +67,7 @@ import {
     IIndexing,
     SeoService,
     InjectionService,
+    AppType,
 } from 'wlc-engine/modules/core';
 import {MerchantWalletService} from 'wlc-engine/modules/games/system/services/merchant-wallet/merchant-wallet.service';
 import {
@@ -131,6 +132,7 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
     public locale: string;
     public gameParams: IGameParams;
     public isAuth: boolean;
+    public isKiosk: boolean;
     public gameTitle: string;
     public openDashboard: boolean = true;
     public showDashboardBtn: boolean = false;
@@ -207,6 +209,7 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
             this.addModifiers('real-mobile');
         }
         this.isAuth = this.configService.get<boolean>('$user.isAuthenticated');
+        this.isKiosk = this.configService.get<AppType>('$base.app.type') === 'kiosk';
         this.locale = this.router.stateService.params?.locale || 'en';
         this.gameParams = this.getGameParams();
         this.initEventHandlers();

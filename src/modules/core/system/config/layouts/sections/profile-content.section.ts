@@ -162,6 +162,56 @@ export namespace profileContent {
         ],
     };
 
+    export const profileMainTypeKiosk: ILayoutSectionConfig = {
+        container: true,
+        theme: 'first',
+        components: [
+            componentLib.wlcProfileMenu.defTypeFirst,
+            {
+                name: 'core.wlc-wrapper',
+                params: {
+                    class: 'wlc-profile-content__header',
+                    components: [
+                        componentLib.wlcTitle.myAccountV1,
+                    ],
+                },
+                display: {
+                    before: 899,
+                },
+            },
+            componentLib.wlcProfileMenu.subMenuV1,
+            {
+                name: 'core.wlc-wrapper',
+                params: {
+                    class: 'wlc-profile-content',
+                    components: [
+                        {
+                            name: 'core.wlc-wrapper',
+                            params: {
+                                class: 'wlc-profile-content__header underlined',
+                                components: [
+                                    componentLib.wlcTitle.profileV1,
+                                ],
+                            },
+                            display: {
+                                after: 1200,
+                            },
+                        },
+                        {
+                            name: 'core.wlc-wrapper',
+                            params: {
+                                class: 'wlc-profile-content__body',
+                                components: [
+                                    componentLib.wlcProfileForm.kiosk,
+                                ],
+                            },
+                        },
+                    ],
+                },
+            },
+        ],
+    };
+
     export const profileHistory: ILayoutSectionConfig = {
         container: true,
         components: [
@@ -918,6 +968,57 @@ export namespace profileContent {
                 },
                 display: {
                     before: 1199,
+                },
+            },
+            componentLib.wlcProfileMenu.subMenuV1,
+            componentLib.wlcProfileMenu.defTypeFirst,
+            {
+                name: 'core.wlc-wrapper',
+                params: {
+                    class: 'wlc-profile-content',
+                    components: [
+                        {
+                            name: 'core.wlc-wrapper',
+                            params: {
+                                class: 'wlc-profile-content__header underlined',
+                                components: [
+                                    componentLib.wlcTitle.betHistory,
+                                ],
+                            },
+                            display: {
+                                after: 1200,
+                            },
+                        },
+                        {
+                            name: 'core.wlc-wrapper',
+                            params: {
+                                class: 'wlc-profile-content__body',
+                                components: [
+                                    componentLib.wlcBetHistory.def,
+                                ],
+                            },
+                        },
+                    ],
+                },
+            },
+        ],
+    };
+
+    export const profileBetHistoryTypeKiosk: ILayoutSectionConfig = {
+        container: true,
+        theme: 'first',
+        components: [
+            {
+                name: 'core.wlc-wrapper',
+                params: {
+                    class: 'wlc-profile-content__header',
+                    components: [
+                        componentLib.wlcTitle.gamblings,
+                        componentLib.wlcBetHistory.filterOnly,
+                    ],
+                },
+                display: {
+                    before: 899,
                 },
             },
             componentLib.wlcProfileMenu.subMenuV1,

@@ -82,6 +82,23 @@ export const wlcProfileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
             },
         },
     },
+    'profile-kiosk-menu:account-settings': {
+        name: gettext('My account'),
+        class: 'account-settings',
+        type: 'sref',
+        icon: 'account-settings',
+        wlcElement: 'link_cc-profile-menu_account-settings',
+        params: {
+            blockExpand: true,
+            state: {
+                parent: [
+                    'app.profile.main',
+                ],
+                name: 'app.profile.main.info',
+                params: {},
+            },
+        },
+    },
 
     'profile-menu:edit-profile': {
         name: gettext('General'),
@@ -98,6 +115,19 @@ export const wlcProfileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
     },
     'profile-first-menu:edit-profile': {
         name: gettext('General'),
+        type: 'sref',
+        icon: 'edit-profile',
+        wlcElement: 'link_profileMain',
+        class: 'edit-profile',
+        params: {
+            state: {
+                name: 'app.profile.main.info',
+                params: {},
+            },
+        },
+    },
+    'profile-kiosk-menu:edit-profile': {
+        name: gettext('Profile'),
         type: 'sref',
         icon: 'edit-profile',
         wlcElement: 'link_profileMain',

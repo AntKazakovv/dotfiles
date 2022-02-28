@@ -14,7 +14,7 @@
                      [inlineParams]="dashboardBtn">
                 </div>
             </div>
-            <div *ngIf="isAuth"
+            <div *ngIf="isAuth && !isKiosk"
                  wlc-icon
                  class="icon-btn wlc-icon--favourite"
                  [class.active]="game?.isFavourite"

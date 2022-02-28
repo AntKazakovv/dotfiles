@@ -1,0 +1,29 @@
+@use 'engine-scss/functions' as ef;
+
+$customSignInPageThemeDefault: () !default;
+$signInPageThemeDefault: map-merge((
+    'sectionBg': (
+        375: var(--mc-bgModal),
+        768: linear-gradient(100deg, #50566c 10%, #1f1f26 90%),
+    ),
+    'sectionPadding': ef.size(6) 0,
+
+    'wrapperMaxWidth': 500px,
+
+    'formWrapperPadding': ef.size(4),
+    'formWrapperRadius': ef.size(3),
+    'formWrapperBg': var(--mc-bgModal),
+    'formWrapperWidthDesktop': 500px,
+
+    'logoMargin': (
+        375: 0 0 ef.size(2),
+        768: 0 0 ef.size(4),
+        1024: 0 0 ef.size(6),
+        1366: 0 0 ef.size(8),
+    ),
+    'logoWidth': (
+        375: 200px,
+        1024: 240px,
+        1366: 286px,
+    ),
+), $customSignInPageThemeDefault);

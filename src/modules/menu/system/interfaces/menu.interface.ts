@@ -54,10 +54,12 @@ export interface IBurgerPanelHeaderMenu {
 export interface IMenuConfig {
     fundist?: IFundist;
     mainMenu?: IMenuSettings;
+    mainMenuKiosk?: IMenuSettings;
     categoryMenu?: ICategoryMenuSettings;
     mobileMenu?: IMobileMenuSettings;
     profileMenu?: IProfileMenuSettings;
     profileFirstMenu?: IProfileMenuSettings;
+    profileKioskMenu?: IProfileMenuSettings;
     affiliatesMenu?: IAffiliatesMenuSettings;
     burgerPanel?: {
         left?: {

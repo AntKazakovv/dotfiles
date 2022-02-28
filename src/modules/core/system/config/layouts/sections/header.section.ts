@@ -147,4 +147,20 @@ export namespace header {
             componentLib.wlcButton.affLogin,
         ],
     };
+
+    export const kiosk: ILayoutSectionConfig = {
+        replaceConfig: true,
+        order: 0,
+        theme: '1',
+        container: true,
+        components: [
+            componentLib.wlcButton.burgerMobile,
+            componentLib.wlcLogo.header,
+            componentLib.wlcMainMenu.header,
+            componentLib.wlcUserInfo.header,
+            componentLib.wlcButton.userIconKiosk,
+            componentLib.wlcLanguageSelector.bottomLeft2,
+            componentLib.wlcButton.searchV2,
+        ],
+    };
 }

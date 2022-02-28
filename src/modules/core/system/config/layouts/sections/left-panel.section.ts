@@ -284,6 +284,18 @@ export namespace leftPanel {
         ],
     };
 
+    export const kiosk: IPanelSectionConfig = {
+        replaceConfig: true,
+        theme: 'mobile',
+        display: {
+            before: 1365,
+        },
+        components: [
+            componentLib.wlcMobileMenu.vertical,
+            componentLib.wlcLanguageSelector.long,
+        ],
+    };
+
     export const mobileThemeToggler: IPanelSectionConfig = {
         replaceConfig: true,
         theme: 'mobile',

@@ -17,6 +17,7 @@ import {
 import {StateService} from '@uirouter/core';
 import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
 import {ConfigService, EventService} from 'wlc-engine/modules/core/system/services';
+import {AppType} from 'wlc-engine/modules/core';
 import * as Params from './user-info.params';
 
 @Component({
@@ -64,6 +65,8 @@ export class UserInfoComponent extends AbstractComponent implements OnInit {
         super.ngOnInit(this.inlineParams);
         if (this.configService.get<boolean>('$base.stickyHeader.use')) {
             this.$params = Params.stickyThemeParams;
+        } else if (this.configService.get<AppType>('$base.app.type') === 'kiosk') {
+            this.$params = Params.kioskParams;
         };
         this.eventService.subscribe({name: 'TRANSITION_ENTER'}, () => {
             this.isOpened = false;

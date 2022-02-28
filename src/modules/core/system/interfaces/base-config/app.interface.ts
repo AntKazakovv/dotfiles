@@ -1,4 +1,4 @@
-export type AppType = 'wlc' | 'aff';
+export type AppType = 'wlc' | 'aff' | 'kiosk';
 
 export interface IAppConfig {
     type?: AppType;

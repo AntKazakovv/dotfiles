@@ -12,6 +12,7 @@ import {
     StateHistoryService,
     IStateModalOption,
 } from 'wlc-engine/modules/core';
+import {AppType} from 'wlc-engine/modules/core/system/interfaces/base-config/app.interface';
 
 import _keys from 'lodash-es/keys';
 import _each from 'lodash-es/each';
@@ -29,9 +30,14 @@ export function routerConfigFn(router: UIRouter, injector: Injector) {
         const stateRedirects = configService.get<IIndexing<IRedirect>>('$base.redirects.states') || {};
         const profileRedirectsMap =
             configService.get<IIndexing<profileRedirectType>>('$base.redirects.profileRedirects');
+        const isKiosk: boolean = configService.get<AppType>('$base.app.type') === 'kiosk';
         const criteria = ({name}): boolean => {
             return _includes(_keys(profileRedirectsMap), name);
         };
+        const kioskAuthUserOnlyCriteria = ({name}): boolean => {
+            return isKiosk && !configService.get<boolean>('$user.isAuthenticated') && name !== 'app.signin';
+        };
+
         const stateModals = configService.get<IIndexing<IStateModalOption>>('$modals.states');
 
         router.urlService.rules.initial({state: 'app.home', params: {locale: lang}});
@@ -43,6 +49,13 @@ export function routerConfigFn(router: UIRouter, injector: Injector) {
                         return router.stateService.target(redirect.state, redirect?.params || trans.params());
                     });
                 }
+            });
+        }
+
+        if (isKiosk) {
+            router.transitionService.onBefore({to: kioskAuthUserOnlyCriteria}, (trans: Transition) => {
+                trans.abort();
+                router.stateService.go('app.signin', trans.params());
             });
         }
 

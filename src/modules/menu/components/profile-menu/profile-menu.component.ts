@@ -4,11 +4,14 @@ import {
     Component,
     OnInit,
     Inject,
+    OnDestroy,
 } from '@angular/core';
 
 import {
     AbstractComponent,
+    AppType,
     IMixedParams,
+    ProfileType,
 } from 'wlc-engine/modules/core';
 import {UIRouter} from '@uirouter/core';
 import {ConfigService} from 'wlc-engine/modules/core';
@@ -30,13 +33,14 @@ import _set from 'lodash-es/set';
     styleUrls: ['./styles/profile-menu.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ProfileMenuComponent extends AbstractComponent implements OnInit {
+export class ProfileMenuComponent extends AbstractComponent implements OnInit, OnDestroy {
     public $params: Params.IProfileMenuCParams;
     public menuParams: MenuParams.IMenuCParams;
 
     protected iconsFolder: string;
     protected useIcons: boolean;
-    protected profileType: string;
+    protected profileConfig: string;
+    protected transitionOnSuccessDestroy: Function;
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IProfileMenuCParams,
@@ -52,6 +56,7 @@ export class ProfileMenuComponent extends AbstractComponent implements OnInit {
             },
             configService,
         );
+        
     }
 
     public ngOnInit(): void {
@@ -71,30 +76,38 @@ export class ProfileMenuComponent extends AbstractComponent implements OnInit {
                 break;
         }
 
-        this.profileType = this.configService.get<string>('$base.profile.type') === 'first'
-            ? 'profileFirstMenu'
-            : 'profileMenu';
+        if (this.configService.get<AppType>('$base.app.type') === 'kiosk') {
+            this.profileConfig = 'profileKioskMenu';
+        } else if (this.configService.get<ProfileType>('$base.profile.type') === 'first') {
+            this.profileConfig = 'profileFirstMenu';
+        } else {
+            this.profileConfig = 'profileMenu';
+        }
 
         this.useIcons = _has(this.$params, 'common.icons.use')
             ? this.$params.common.icons.use
-            : this.configService.get<boolean>(`$menu.${this.profileType}.${configKey}.use`);
+            : this.configService.get<boolean>(`$menu.${this.profileConfig}.${configKey}.use`);
 
         this.iconsFolder = this.$params.common?.icons?.folder
-            || this.configService.get<string>(`$menu.${this.profileType}.${configKey}.folder`);
+            || this.configService.get<string>(`$menu.${this.profileConfig}.${configKey}.folder`);
 
         this.menuParams = {
-            type: this.profileType === 'profileFirstMenu' ? 'profile-first-menu' : 'profile-menu',
+            type: this.profileConfig === 'profileMenu' ? 'profile-menu' : 'profile-first-menu',
             theme: this.$params.theme,
             themeMod: this.$params.themeMod,
         };
 
-        this.router.transitionService.onSuccess({}, () => {
-            if (this.profileType !== 'profileFirstMenu' || this.$params.type === 'submenu') {
+        this.transitionOnSuccessDestroy = this.router.transitionService.onSuccess({}, () => {
+            if (this.profileConfig === 'profileMenu' || this.$params.type === 'submenu') {
                 this.menuParams.items = [];
                 this.initMenu();
             }
         });
         this.initMenu();
+    }
+
+    public ngOnDestroy(): void {
+        this.transitionOnSuccessDestroy();
     }
 
     /**
@@ -126,7 +139,7 @@ export class ProfileMenuComponent extends AbstractComponent implements OnInit {
         }
 
         const extension: TIconExtension = this.configService
-            .get<TIconExtension>(`$menu.${this.profileType}.${iconsKey}.extension`);
+            .get<TIconExtension>(`$menu.${this.profileConfig}.${iconsKey}.extension`);
         _set(this.menuParams, 'common.icons.extension', extension);
 
         this.menuParams = _clone(this.menuParams);

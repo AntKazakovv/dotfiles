@@ -104,7 +104,9 @@ export class MobileMenuComponent extends AbstractComponent implements OnInit {
                     wlcElementPrefix: 'link_mobile-nav-',
                 });
         } else {
-            this.menuConfig = this.configService.get<MenuParams.MenuConfigItem[]>('$menu.mobileMenu.items');
+            this.menuConfig = this.configService.get('$base.app.type') === 'kiosk'
+                ? this.$params.kioskItems
+                : this.configService.get<MenuParams.MenuConfigItem[]>('$menu.mobileMenu.items');
         }
 
         const useTournaments = this.configService.get<boolean>('$base.tournaments.use');

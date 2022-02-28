@@ -8,6 +8,18 @@ export namespace wlcUserStats {
         },
     };
 
+    export const kiosk: ILayoutComponent = {
+        name: 'user.wlc-user-stats',
+        params: {
+            customMod: 'without-btn',
+            fields: [
+                'balance',
+                'bonusBalance',
+            ],
+            useDepositBtn: false,
+        },
+    };
+
     export const store: ILayoutComponent = {
         name: 'user.wlc-user-stats',
         params: {

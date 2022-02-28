@@ -145,7 +145,7 @@
 </ng-template>
 
 <ng-template #buttonFavourite>
-    <div *ngIf="isAuth"
+    <div *ngIf="isAuth && !isKiosk"
           #layersTwo
           wlc-icon
           class="{{$class}}__icon"

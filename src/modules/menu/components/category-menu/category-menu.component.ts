@@ -43,6 +43,7 @@ import _has from 'lodash-es/has';
 import _trim from 'lodash-es/trim';
 import _concat from 'lodash-es/concat';
 import _find from 'lodash-es/find';
+import _filter from 'lodash-es/filter';
 
 @Component({
     selector: '[wlc-category-menu]',
@@ -259,16 +260,10 @@ export class CategoryMenuComponent extends AbstractComponent implements OnInit, 
             specialCategories.push(this.gamesCatalogService.getCategoryBySlug('favourites'));
             specialCategories.push(this.gamesCatalogService.getCategoryBySlug('lastplayed'));
         }
-        const newCategory = this.gamesCatalogService.getCategoryBySlug('new');
-        const popularCategory = this.gamesCatalogService.getCategoryBySlug('popular');
-        if (newCategory) {
-            specialCategories.push(newCategory);
-        }
-        if (popularCategory) {
-            specialCategories.push(popularCategory);
-        }
-        this.gamesCatalogService.sortCategories(specialCategories);
-        return specialCategories;
+        specialCategories.push(this.gamesCatalogService.getCategoryBySlug('new'));
+        specialCategories.push(this.gamesCatalogService.getCategoryBySlug('popular'));
+
+        return _filter(specialCategories, (item) => !!item);
     }
 
     /**

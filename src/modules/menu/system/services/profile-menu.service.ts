@@ -147,9 +147,16 @@ export class ProfileMenuService {
      * Init config of menu
      */
     protected initConfig(): void {
-        this.profileMenuConfig = this.configService.get<string>('$base.profile.type') === 'first'
-            ? this.configService.get<MenuParams.MenuConfigItem[]>('$menu.profileFirstMenu.items')
-            : this.configService.get<MenuParams.MenuConfigItem[]>('$menu.profileMenu.items');
+        if (this.configService.get('$base.app.type') === 'kiosk') {
+            this.profileMenuConfig =
+                this.configService.get<MenuParams.MenuConfigItem[]>('$menu.profileKioskMenu.items');
+        } else if (this.configService.get<string>('$base.profile.type') === 'first') {
+            this.profileMenuConfig =
+                this.configService.get<MenuParams.MenuConfigItem[]>('$menu.profileFirstMenu.items');
+        } else {
+            this.profileMenuConfig = this.configService.get<MenuParams.MenuConfigItem[]>('$menu.profileMenu.items');
+        }
+
         this.filterConfig();
     }
 

@@ -6,6 +6,8 @@ import {TranslateModule} from '@ngx-translate/core';
 import {AngularResizedEventModule} from 'angular-resize-event';
 import {CountUpModule} from 'ngx-countup';
 
+import _get from 'lodash-es/get';
+
 // Modules
 import {CoreModule} from 'wlc-engine/modules/core/core.module';
 import {UserModule} from 'wlc-engine/modules/user/user.module';
@@ -45,8 +47,6 @@ import {
 } from './components/merchant-wallet';
 
 import * as $config from 'wlc-config/index';
-
-import _get from 'lodash-es/get';
 
 export const moduleConfig =
     GlobalHelper.mergeConfig<IGamesConfig>(gamesConfig, _get($config, '$games', {}));

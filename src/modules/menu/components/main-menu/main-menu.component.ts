@@ -18,6 +18,7 @@ import {LayoutService} from 'wlc-engine/modules/core/system/services/layout/layo
 import {EventService} from 'wlc-engine/modules/core/system/services/event/event.service';
 import {IMenuOptions} from 'wlc-engine/modules/core/system/interfaces/menu.interface';
 import {InjectionService} from 'wlc-engine/modules/core/system/services/injection/injection.service';
+import {AppType} from 'wlc-engine/modules/core';
 
 import {gamesEvents} from 'wlc-engine/modules/games/system/interfaces/games.interfaces';
 import {CategoryModel} from 'wlc-engine/modules/games/system/models/category.model';
@@ -97,6 +98,8 @@ export class MainMenuComponent extends AbstractComponent implements OnInit {
                 isAuth: this.isAuth,
                 wlcElementPrefix: 'link_main-nav-',
             });
+        } else if (this.configService.get<AppType>('$base.app.type') === 'kiosk') {
+            this.menuConfig = this.configService.get<MenuParams.MenuConfigItem[]>('$menu.mainMenuKiosk.items');
         } else {
             this.menuConfig = this.configService.get<MenuParams.MenuConfigItem[]>('$menu.mainMenu.items');
         }

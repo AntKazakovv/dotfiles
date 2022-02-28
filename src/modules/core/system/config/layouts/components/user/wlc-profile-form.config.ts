@@ -186,4 +186,58 @@ export namespace wlcProfileForm {
             },
         },
     };
+
+    export const kiosk: ILayoutComponent = {
+        name: 'user.wlc-profile-form',
+        params: <IProfileFormCParams>{
+            additionalBlocks: null,
+            common: null,
+            config: <IFormWrapperCParams>{
+                class: 'wlc-form-wrapper',
+                components: [
+                    {
+                        name: 'core.wlc-wrapper',
+                        params: <IWrapperCParams> {
+                            class: 'wlc-profile-form__block wlc-profile-form__block--password',
+                            components: [
+                                {
+                                    name: 'core.wlc-title',
+                                    params: {
+                                        mainText: gettext('Password'),
+                                        wlcElement: 'header_edit-password',
+                                    },
+                                },
+                                FormElements.password,
+                                {
+                                    name: 'core.wlc-wrapper',
+                                    params: <IWrapperCParams> {
+                                        class: 'wlc-profile-form__block',
+                                        components: [
+                                            FormElements.passwordNew,
+                                            FormElements.passwordConfirm,
+                                        ],
+                                    },
+                                },
+                            ],
+                        },
+                    },
+                    {
+                        name: 'core.wlc-wrapper',
+                        params: <IWrapperCParams>{
+                            class: 'wlc-profile-form__block wlc-profile-form__block--submit',
+                            components: [
+                                FormElements.submit,
+                            ],
+                        },
+                    },
+                ],
+                validators: [
+                    {
+                        name: 'matchingFields',
+                        options: ['password', 'newPasswordRepeat'],
+                    },
+                ],
+            },
+        },
+    };
 }

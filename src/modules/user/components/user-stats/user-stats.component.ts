@@ -81,6 +81,14 @@ export class UserStatsComponent extends AbstractComponent implements OnInit, OnD
                 break;
         }
 
+        if (this.configService.get('$base.app.type') === 'kiosk') {
+            this.$params.fields = [
+                'balance',
+                'bonusBalance',
+            ];
+            this.$params.useDepositBtn = false;
+        }
+
         this.userStats = this.UserService.userInfo;
         this.UserService.userInfo$
             .pipe(takeUntil(this.$destroy))

@@ -2,6 +2,7 @@ import {
     IComponentParams,
     CustomType,
 } from 'wlc-engine/modules/core';
+import * as MenuParams from 'wlc-engine/modules/menu/components/menu/menu.params';
 
 export type Type = CustomType;
 export type Theme = 'default' | CustomType;
@@ -20,10 +21,14 @@ export interface IMobileMenuCParams extends IComponentParams<Theme, Type, ThemeM
             use?: boolean,
         },
     };
+    kioskItems?: MenuParams.MenuConfigItem[];
 };
 
 export const defaultParams: IMobileMenuCParams = {
     moduleName: 'menu',
     componentName: 'wlc-mobile-menu',
     class: 'wlc-mobile-menu',
+    kioskItems: [
+        'mobile-menu:categories',
+    ],
 };

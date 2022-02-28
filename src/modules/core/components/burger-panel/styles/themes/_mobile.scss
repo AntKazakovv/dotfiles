@@ -47,6 +47,10 @@
 
         .wlc-user-stats {
             margin-bottom: map-get($themeMobile, 'gap');
+
+            &.wlc-user-stats--without-btn {
+                margin-bottom: map-get($themeMobile, 'gapWithoutBtn');
+            }
         }
 
         .wlc-user-info__wrp {

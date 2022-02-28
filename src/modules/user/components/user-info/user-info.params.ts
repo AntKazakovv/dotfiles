@@ -101,3 +101,43 @@ export const stickyThemeParams: IUserInfoCParams = {
         ],
     },
 };
+
+export const kioskParams: IUserInfoCParams = {
+    class: 'wlc-user-info',
+    moduleName: 'user',
+    componentName: 'wlc-user-info',
+    wlcElement: 'block_user-stat',
+    button: {
+        use: false,
+    },
+    dropdown: {
+        components: [
+            {
+                name: 'core.wlc-wrapper',
+                params: {
+                    class: 'wlc-user-info__wrp',
+                    components: [
+                        {
+                            name: 'core.wlc-button',
+                            params: {
+                                class: 'wlc-btn wlc-btn-profile',
+                                common: {
+                                    iconPath: '/wlc/icons/user-icon.svg',
+                                    text: gettext('My Profile'),
+                                    sref: 'app.profile.main.info',
+                                },
+                            },
+                        },
+                        {
+                            name: 'user.wlc-logout',
+                        },
+                    ],
+                },
+            },
+            {
+                name: 'user.wlc-user-stats',
+            },
+        ],
+    },
+};
+

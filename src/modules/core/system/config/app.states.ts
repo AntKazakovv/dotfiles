@@ -73,6 +73,7 @@ let states = {
     'app.user-social-register': States.userSocialRegister,
     'app.signup': States.signUpState,
     'app.login': States.loginState,
+    'app.signin': States.signin,
 };
 
 const appState: Ng2StateDeclaration = {

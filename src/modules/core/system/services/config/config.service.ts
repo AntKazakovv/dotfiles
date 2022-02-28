@@ -31,8 +31,11 @@ import {
     $layoutsAff,
     $panelsLayouts,
     $profileLayouts,
+    $panelsLayoutsKiosk,
     $profileFirstLayouts,
     $layouts,
+    $layoutsKiosk,
+    $profileKioskLayouts,
 } from 'wlc-engine/modules/core/system/config/layouts';
 import {
     IParamsLayoutConfig,
@@ -66,9 +69,7 @@ import _find from 'lodash-es/find';
 
 /**
  * Examples of getter and setter:
- * SET: this.config.set({name: 'url', value: 'google.com'}
-
- );
+ * SET: this.config.set({name: 'url', value: 'google.com'});
  * GET: this.config.get<boolean>('appConfig.mobile');
  */
 
@@ -240,6 +241,8 @@ export class ConfigService {
                 ? _mergeWith($layouts, $profileFirstLayouts)
                 : _mergeWith($layouts, $profileLayouts);
 
+        const mergedLayoutsKiosk: ILayoutsConfig = _mergeWith($layoutsKiosk, $profileKioskLayouts);
+
         if (params.profile.store.singleLevels && $layouts['app.profile.loyalty-level']?.sections?.['profile-content']) {
             $layouts['app.profile.loyalty-level'].sections['profile-content'] = params.profile.type === 'default' ?
                 sectionsLib.profileContent.profileLoyaltyLevelsSingle :
@@ -247,15 +250,20 @@ export class ConfigService {
         }
 
         if (!wlcConfig.$base.profile.store.use) {
-            $layouts['app.profile.dashboard'].sections['profile-content'] =
-                sectionsLib.profileContent.profileDashboardWithoutStore;
-        }
+            $layouts['app.profile.dashboard'].sections['profile-content']
+                = sectionsLib.profileContent.profileDashboardWithoutStore;
+        };
 
         switch (params.appType) {
             case 'aff':
                 return {
                     $layouts: $layoutsAff,
                     $panelsLayouts,
+                };
+            case 'kiosk':
+                return {
+                    $layouts: mergedLayoutsKiosk,
+                    $panelsLayouts: $panelsLayoutsKiosk,
                 };
             default:
                 return {

@@ -45,6 +45,7 @@ import {
     AbstractComponent,
     CachingService,
     IResizeEvent,
+    AppType,
 } from 'wlc-engine/modules/core';
 import {
     ISlide,
@@ -124,10 +125,11 @@ export class GameDashboardComponent extends AbstractComponent implements OnInit,
     @Input() public isMerchantWallet: boolean;
 
     public $params: Params.IGameDashboardCParams;
-    public tabs: Params.IGameDashboardTab[] = Params.dashboardTabs;
+    public tabs: Params.IGameDashboardTab[];
     public activeTab: Params.IGameDashboardTab;
     public isMobile: boolean = false;
     public isAuth: boolean = false;
+    public isKiosk: boolean;
     public hideBackdropLabel: boolean = false;
     public lastPlayedGames: Game[] = [];
     public lastPlayedGamesSlides: ISlide[] = [];
@@ -193,6 +195,10 @@ export class GameDashboardComponent extends AbstractComponent implements OnInit,
 
     public async ngOnInit(): Promise<void> {
         super.ngOnInit();
+
+        this.isKiosk = this.configService.get<AppType>('$base.app.type') === 'kiosk';
+
+        this.tabs = this.isKiosk ? Params.dashboardTabsKiosk : Params.dashboardTabs;
 
         if (this.configService.get<boolean>('$base.tournaments.use')) {
             this.tournamentsConfig = {

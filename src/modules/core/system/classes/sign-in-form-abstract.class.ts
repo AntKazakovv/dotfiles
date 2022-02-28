@@ -1,4 +1,5 @@
 import {FormGroup} from '@angular/forms';
+import {StateService} from '@uirouter/core';
 
 import {BehaviorSubject} from 'rxjs';
 import _isObject from 'lodash-es/isObject';
@@ -73,6 +74,7 @@ export abstract class SignInFormAbstract<T extends IAbstractSignInFormCParams<un
         protected userService: UserService,
         protected modalService: ModalService,
         protected eventService: EventService,
+        protected stateService: StateService,
         protected configService?: ConfigService,
     ) {
         super(mixedParams, configService);
@@ -103,7 +105,12 @@ export abstract class SignInFormAbstract<T extends IAbstractSignInFormCParams<un
         try {
             form.disable();
             await this.userService.login(email || login, password);
-            this.modalService.hideModal('login');
+
+            if (this.stateService.is('app.signin')) {
+                this.stateService.go('app.home');
+            } else if (this.modalService.getActiveModal('login')) {
+                this.modalService.hideModal('login');
+            }
         } catch (error) {
             const errors: IIndexing<string> = error.errors;
             let errorMessage: string | IIndexing<string>;

@@ -402,8 +402,11 @@ export class ActionService {
             });
         });
 
-        this.runAffiliatesListener();
         await this.configService.ready;
+
+        if (this.configService.get<AppType>('$base.app.type') === 'aff') {
+            this.runAffiliatesListener();
+        }
 
         if (this.configService.get<boolean>('$base.colorThemeSwitching.use')) {
             this.injector.get(ColorThemeService);
@@ -555,12 +558,6 @@ export class ActionService {
     }
 
     private async runAffiliatesListener(): Promise<void> {
-        await this.configService.ready;
-
-        if (this.configService.get<AppType>('$base.app.type') === 'wlc') {
-            return;
-        }
-
         const address = this.configService.get<string>('$base.affiliate.siteUrl');
 
         this.router.transitionService.onBefore({}, (trans) => {

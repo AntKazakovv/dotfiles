@@ -28,15 +28,18 @@ import _union from 'lodash-es/union';
 import _uniq from 'lodash-es/uniq';
 import _uniqBy from 'lodash-es/uniqBy';
 
-import {Deferred} from 'wlc-engine/modules/core/system/classes/deferred.class';
+import {
+    AppType,
+    EventService,
+    ConfigService,
+    AbstractModel,
+    IIndexing,
+    InjectionService,
+    IFromLog,
+    Deferred,
+} from 'wlc-engine/modules/core';
 import {UserProfile} from 'wlc-engine/modules/user/system/models/profile.model';
 import {ICategorySettings} from 'wlc-engine/modules/core/system/interfaces/categories.interface';
-import {IFromLog} from 'wlc-engine/modules/core/system/services/log/log.service';
-import {InjectionService} from 'wlc-engine/modules/core/system/services/injection/injection.service';
-import {IIndexing} from 'wlc-engine/modules/core/system/interfaces/global.interface';
-import {AbstractModel} from 'wlc-engine/modules/core/system/models/abstract.model';
-import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
-import {EventService} from 'wlc-engine/modules/core/system/services/event/event.service';
 import {
     gamesEvents,
     IGamesSortSetting,
@@ -625,6 +628,11 @@ export class GamesCatalog extends AbstractModel<IGames> {
         /***********************************************************************************************************
          * CATEGORIES
          **********************************************************************************************************/
+        if (this.configService.get<AppType>('$base.app.type') === 'kiosk') {
+            this.specialCategories = _filter(this.specialCategories, (category: ICategory) => {
+                return category.Slug !== 'lastplayed' && category.Slug !== 'favourites'; 
+            });
+        }
         response.categories = _concat(this.specialCategories, response.categories);
         CategoryModel.language = this.translateService.currentLang || 'en';
 

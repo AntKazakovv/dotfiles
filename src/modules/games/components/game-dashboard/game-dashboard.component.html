@@ -104,7 +104,7 @@
         </div>
         <div wlc-user-stats>
         </div>
-        <div wlc-loyalty-progress>
+        <div *ngIf="!isKiosk" wlc-loyalty-progress>
         </div>
         <div *ngIf="isMerchantWallet"
             class="{{$class}}__merchant-balance"

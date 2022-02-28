@@ -43,6 +43,7 @@ import {
     GamesCatalogService,
 } from 'wlc-engine/modules/games/system/services/games-catalog/games-catalog.service';
 import * as Params from './game-thumb.params';
+import {AppType} from 'wlc-engine/modules/core';
 
 @Component({
     selector: '[wlc-game-thumb]',
@@ -66,6 +67,7 @@ export class GameThumbComponent extends AbstractComponent implements OnInit {
         demoThemeMode: 'secondary',
     };
     public isAuth: boolean;
+    public isKiosk: boolean;
     public $params: Params.IGameThumbCParams;
     public promoWidgetTitle: string;
     public inited: boolean = false;
@@ -260,6 +262,7 @@ export class GameThumbComponent extends AbstractComponent implements OnInit {
         this.addModifiers(`${this.game.merchantAlias.toLowerCase()}`);
 
         this.isAuth = this.configService.get<boolean>('$user.isAuthenticated');
+        this.isKiosk = this.configService.get<AppType>('$base.app.type') === 'kiosk';
         this.initEventHandlers();
         this.inited = true;
         this.cdr.detectChanges();

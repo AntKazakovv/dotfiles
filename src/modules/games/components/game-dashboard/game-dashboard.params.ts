@@ -101,3 +101,20 @@ export const dashboardTabs: IGameDashboardTab[] = [
         updateOnOpen: true,
     },
 ];
+
+export const dashboardTabsKiosk: IGameDashboardTab[] = [
+    {
+        id: 'profile',
+        iconPath: '/wlc/game-dashboard/profile.svg',
+        label: gettext('Profile'),
+        auth: true,
+        hideLabel: true,
+    },
+    {
+        id: 'lastplayed',
+        iconPath: '/wlc/game-dashboard/last-played.svg',
+        label: gettext('Last played'),
+        auth: true,
+        updateOnOpen: true,
+    },
+];

@@ -18,6 +18,15 @@ export const menuConfig: IMenuConfig = {
             use: false,
         },
     },
+    mainMenuKiosk: {
+        items: [
+            'main-menu:home',
+        ],
+        icons: {
+            folder: 'wlc/icons/european/v1',
+            use: false,
+        },
+    },
     categoryMenu: {
         icons: {
             folder: 'wlc/icons/european/v1',
@@ -174,6 +183,36 @@ export const menuConfig: IMenuConfig = {
                 items: [
                     'profile-first-menu:store',
                     'profile-first-menu:loyalty-level',
+                ],
+            },
+        ],
+        icons: {
+            folder: 'wlc/icons/european/v1',
+            use: false,
+        },
+        subMenuIcons: {
+            folder: 'wlc/icons/european/v1',
+            use: false,
+        },
+        dropdownMenuIcons: {
+            folder: 'wlc/icons/european/v1',
+            use: false,
+        },
+    },
+    profileKioskMenu: {
+        items: [
+            {
+                parent: 'profile-kiosk-menu:account-settings',
+                type: 'sref',
+                items: [
+                    'profile-kiosk-menu:edit-profile',
+                ],
+            },
+            {
+                parent: 'profile-first-menu:gamblings',
+                type: 'group',
+                items: [
+                    'profile-first-menu:bets-history',
                 ],
             },
         ],

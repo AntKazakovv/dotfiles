@@ -17,6 +17,7 @@
 @import './home/promo-steps/promo-steps';
 @import './categories-with-side-menu/categories-with-side-menu';
 @import './home/promo-about-us/promo-about-us';
+@import './sign-in-page/sign-in-page';
 
 @include em.init-layout-gap(ev.$layoutGap);
 
