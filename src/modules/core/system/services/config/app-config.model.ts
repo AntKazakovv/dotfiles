@@ -205,4 +205,18 @@ export class AppConfigModel extends AbstractModel<IBootstrap> {
     public get version(): string {
         return this.data.version;
     }
+
+    protected checkData(): void {
+        super.checkData();
+
+        if (!this.objectData.languages?.length) {
+            this.sendLog({code: '0.0.13'});
+            this.objectData.languages = [
+                {
+                    code: 'en',
+                    label: 'English',
+                },
+            ];
+        }
+    }
 }

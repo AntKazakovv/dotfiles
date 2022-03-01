@@ -337,7 +337,9 @@ export class AppComponent extends AbstractComponent implements OnInit, OnDestroy
             this.configService.set({name: 'currentLanguage', value: this.translate.currentLang});
         } else {
             this.stateService.go('app.error', {
-                locale: 'en',
+                locale: _includes(this.translate.langs, this.configService.get<string>('appConfig.language'))
+                    ? this.configService.get<string>('appConfig.language')
+                    : (this.translate.langs[0] || 'en'),
             });
         }
     }
