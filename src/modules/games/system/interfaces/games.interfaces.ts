@@ -18,6 +18,7 @@ export interface IGamesConfig {
     mobile?: IMobileGames;
     realPlay?: IRealPlayOptions;
     categories?: ICategories;
+    gameDashboard?: IGameDashboard;
     mediaFormatTypes?: IIndexing<string>;
     idVerticalVideos?: number[];
     verticalThumbsConfigUrl?: string;
@@ -72,6 +73,14 @@ export interface ICategories {
     parents?: string[];
     /** setting sorting games in category */
     gamesSortSetting?: IGamesSortSetting;
+}
+
+export interface IGameDashboard {
+    mobileUsageInstruction?: IDashboardMobileUsageInstruction;
+}
+
+export interface IDashboardMobileUsageInstruction {
+    disable?: boolean;
 }
 
 export interface IGamesSortSetting {

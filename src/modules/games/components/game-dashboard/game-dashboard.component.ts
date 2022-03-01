@@ -238,8 +238,9 @@ export class GameDashboardComponent extends AbstractComponent implements OnInit,
         this.initEventHandlers();
 
         if (!this.landscapeOrientation) {
-            this.showMobileInstruction = !await this.cachingService.get<boolean>(this.dontShowInstructionKey) &&
-                !this.configService.get(`$games.${this.dontShowInstructionKey}`);
+            this.showMobileInstruction = !this.configService.get('$games.gameDashboard.mobileUsageInstruction.disable')
+                && !await this.cachingService.get<boolean>(this.dontShowInstructionKey)
+                && !this.configService.get(`$games.${this.dontShowInstructionKey}`);
         }
 
         if (this.showMobileInstruction) {
