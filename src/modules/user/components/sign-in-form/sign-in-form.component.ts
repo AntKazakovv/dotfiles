@@ -68,7 +68,11 @@ export class SignInFormComponent extends SignInFormAbstract<Params.ISignInFormCP
 
     public ngOnInit(): void {
         super.ngOnInit();
-        this.config = this.$params.formConfig;
+        this.config = this.$params.formConfig || Params.generateConfig();
+
+        if (this.configService.get<boolean>('$base.site.useLogin')) {
+            this.config = Params.generateConfig(true);
+        }
 
         if (this.configService.get<boolean>('$base.profile.socials.use')) {
             this.addModifiers('socials');

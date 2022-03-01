@@ -87,6 +87,7 @@
                 & > .wlc-input--first-name,
                 & > .wlc-input--last-name,
                 & > .wlc-input--email,
+                & > .wlc-input--login,
                 & > .wlc-birth-field,
                 & > .wlc-phone-field {
                     @include bm.get-mq-map('flex-basis', $mainInfoThemeV1, 'profileFormFieldsWideFlexBasis');

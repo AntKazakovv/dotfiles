@@ -4,3 +4,4 @@ export * from './matchFields.validator';
 export * from './new-password.validator';
 export * from './regexp.validator';
 export * from './required.validator';
+export * from './loginEmail.validator';

@@ -73,6 +73,7 @@ export class PlayGameForRealComponent extends SignInFormAbstract<Params.IPlayGam
             disableDemo: this.params.common?.disableDemo,
             lang: translateService.currentLang || 'en',
             authenticated: this.configService.get<boolean>('$user.isAuthenticated'),
+            useLogin: this.configService.get<boolean>('$base.site.useLogin'),
         });
     }
 

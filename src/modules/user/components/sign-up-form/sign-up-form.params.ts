@@ -61,6 +61,35 @@ export const signUpFormConfig: IFormWrapperCParams = {
     ],
 };
 
+export const signUpWithLoginFormConfig: IFormWrapperCParams = {
+    class: 'wlc-form-wrapper',
+    components: [
+        FormElements.email,
+        FormElements.login,
+        FormElements.registrationPasswordNew,
+        FormElements.currency,
+        FormElements.promocode,
+        FormElements.terms,
+        FormElements.age,
+        FormElements.signUp,
+        {
+            name: 'core.wlc-link-block',
+            params: {
+                wlcElement: 'button_login-modal',
+                common: {
+                    subtitle: gettext('Already have an account?'),
+                    link: gettext('Login now'),
+                    actionParams: {
+                        modal: {
+                            name: 'login',
+                        },
+                    },
+                },
+            },
+        },
+    ],
+};
+
 export const magLicenseFormConfig = {
     components: [
         FormElements.lastName,

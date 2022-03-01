@@ -71,6 +71,7 @@ import _isUndefined from 'lodash-es/isUndefined';
 import _isArray from 'lodash-es/isArray';
 import _set from 'lodash-es/set';
 import _keys from 'lodash-es/keys';
+import _filter from 'lodash-es/filter';
 
 export interface IControls extends IIndexing<FormControl> {
 }
@@ -175,6 +176,8 @@ export class FormWrapperComponent extends WrapperComponent implements OnInit, On
     public getInjector(component: any): Injector {
 
         if (component.params.components) {
+
+            component.params.components = this.filterNullComponents(component.params.components);
             _each(component.params.components, component => {
                 this.getInjector(component);
             });
@@ -258,7 +261,7 @@ export class FormWrapperComponent extends WrapperComponent implements OnInit, On
     }
 
     protected collectionErrors(components: IFormComponent[]): void {
-
+        components = this.filterNullComponents(components);
         _each(components, (component) => {
             if (component.params.name) {
                 _each(component.params.validators, (validator) => {
@@ -297,10 +300,10 @@ export class FormWrapperComponent extends WrapperComponent implements OnInit, On
 
     protected prepareParams(): void {
         this.$params = _merge(this.config, this.params);
+        this.$params.components = this.filterNullComponents(this.$params.components);
     }
 
     private initForm(): void {
-
         this.prepareComponents(this.$params.components);
         this.prepareValidators();
 
@@ -316,8 +319,9 @@ export class FormWrapperComponent extends WrapperComponent implements OnInit, On
 
     private prepareComponents(components: IFormComponent[]): void {
         const controls = {};
-        _each(components, (component) => {
 
+        components = this.filterNullComponents(components);
+        _each(components, (component) => {
             if (component.params.components) {
                 this.prepareComponents(component.params.components);
                 return;
@@ -494,5 +498,9 @@ export class FormWrapperComponent extends WrapperComponent implements OnInit, On
                 });
             }
         });
+    }
+
+    private filterNullComponents(components: IFormComponent[]): IFormComponent[] {
+        return _filter(components, (component: IFormComponent): boolean => _isObject(component) && !!component.name);
     }
 }

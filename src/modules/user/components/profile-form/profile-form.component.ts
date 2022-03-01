@@ -74,7 +74,10 @@ export class ProfileFormComponent extends ProfileFormAbstract implements OnInit 
         protected configService: ConfigService,
     ) {
         super(
-            {injectParams: params, defaultParams: Params.defaultParams},
+            {injectParams: params,
+                defaultParams: configService.get<boolean>('$base.site.useLogin')
+                    ? Params.generateConfig(true)
+                    : Params.generateConfig()},
             eventService,
             userService,
             configService,

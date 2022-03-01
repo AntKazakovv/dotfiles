@@ -565,4 +565,32 @@ export namespace FormElements {
         },
     };
 
+    export const login: IFormComponent = {
+        name: 'core.wlc-input',
+        params: <IInputCParams>{
+            theme: 'vertical',
+            common: {
+                placeholder: gettext('Username'),
+                autocomplete: 'Username',
+            },
+            locked: true,
+            name: 'login',
+            validators: ['required', 'login'],
+            wlcElement: 'block_login',
+            customMod: ['login'],
+        },
+    };
+
+    export const loginEmail: IFormComponent = {
+        name: 'core.wlc-input',
+        params: <IInputCParams>{
+            theme: 'vertical',
+            wlcElement: 'block_email-login',
+            common: {
+                placeholder: gettext('Username or E-mail'),
+            },
+            name: 'email',
+            validators: ['required', 'loginEmail'],
+        },
+    };
 }

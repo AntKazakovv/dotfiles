@@ -31,6 +31,8 @@ import {
     onlyLettersValidator,
     newPasswordValidator,
     requiredFieldValidator,
+    loginEmailFieldValidator,
+    loginFieldValidator,
 } from './validators';
 
 export type ValidatorType = string | IValidatorSettings;
@@ -108,6 +110,8 @@ export class ValidationService {
         this.setRule('regexpEmoji', regexpEmojiValidator);
         this.setRule('newPassword', newPasswordValidator);
         this.setRule('required', requiredFieldValidator);
+        this.setRule('loginEmail', loginEmailFieldValidator);
+        this.setRule('login', loginFieldValidator);
     }
 
     public emailUnique(ctrl: AbstractControl): Observable<IIndexing<boolean>> {

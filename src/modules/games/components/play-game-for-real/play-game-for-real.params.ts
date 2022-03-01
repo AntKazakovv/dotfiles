@@ -9,7 +9,9 @@ import {
     IButtonCParams,
     ITextBlockCParams,
 } from 'wlc-engine/modules/core';
+import {FormElements} from 'wlc-engine/modules/core/system/config/form-elements';
 import {IIndexing} from 'wlc-engine/modules/core/system/interfaces';
+import {IFormComponent} from 'wlc-engine/modules/core/components/form-wrapper/form-wrapper.component';
 import {
     defaultSignInFormParams,
     IAbstractSignInFormCParams,
@@ -52,6 +54,10 @@ interface IPlayForRealParams {
     disableDemo: boolean;
     lang: string;
     authenticated: boolean;
+    /**
+     * Use field username/login
+     */
+    useLogin?: boolean;
 }
 
 export const playGameForRealConfig = (params: IPlayForRealParams): IFormWrapperCParams => {
@@ -88,87 +94,91 @@ export const playGameForRealConfig = (params: IPlayForRealParams): IFormWrapperC
         ];
     }
 
-    const forNotAuthenticated = [
-        {
-            name: 'core.wlc-text-block',
-            params: <ITextBlockCParams>{
-                common: {
-                    textBlockTitle: params.game.name['en'],
-                    textBlockSubtitle: gettext('Login to play for real'),
-                },
-            },
-        },
-        {
-            name: 'core.wlc-input',
-            params: <IInputCParams>{
-                theme: 'vertical',
-                common: {
-                    placeholder: gettext('E-mail'),
-                    type: 'email',
-                },
-                name: 'email',
-                validators: ['required', 'email'],
-            },
-        },
-        {
-            name: 'core.wlc-input',
-            params: <IInputCParams>{
-                theme: 'vertical',
-                common: {
-                    placeholder: gettext('Password'),
-                    type: 'password',
-                    customModifiers: 'right-shift',
-                    usePasswordVisibilityBtn: true,
-                    fixAutoCompleteForm: false,
-                },
-                name: 'password',
-                validators: ['required', 'password',
-                    {
-                        name: 'minLength',
-                        options: 6,
+    const generateConfigForNotAuthenticated = (params: IPlayForRealParams): IFormComponent[] => {
+        return [
+            {
+                name: 'core.wlc-text-block',
+                params: <ITextBlockCParams>{
+                    common: {
+                        textBlockTitle: params.game.name['en'],
+                        textBlockSubtitle: gettext('Login to play for real'),
                     },
-                ],
-            },
-        },
-        {
-            name: 'user.wlc-restore-link',
-            params: {
-                common: {
-                    typeAttr: 'button',
                 },
             },
-        },
-        {
-            name: 'user.wlc-pseudo-link',
-            params: {},
-        },
-        {
-            name: 'core.wlc-button',
-            params: <IButtonCParams>{
-                name: 'submit',
-                themeMod: 'secondary',
-                common: {
-                    text: gettext('Login'),
-                    type: 'submit',
+            params.useLogin ? FormElements.loginEmail : {
+                name: 'core.wlc-input',
+                params: <IInputCParams>{
+                    theme: 'vertical',
+                    common: {
+                        placeholder: gettext('E-mail'),
+                        type: 'email',
+                    },
+                    name: 'email',
+                    validators: ['required', 'email'],
                 },
             },
-        },
-        ...orDemoBtn,
-        {
-            name: 'core.wlc-link-block',
-            params: {
-                common: {
-                    subtitle: gettext('Don\'t have an account?'),
-                    link: gettext('Sign up now'),
-                    actionParams: {
-                        event: {
-                            name: Events.SIGN_UP,
+            {
+                name: 'core.wlc-input',
+                params: <IInputCParams>{
+                    theme: 'vertical',
+                    common: {
+                        placeholder: gettext('Password'),
+                        type: 'password',
+                        customModifiers: 'right-shift',
+                        usePasswordVisibilityBtn: true,
+                        fixAutoCompleteForm: false,
+                    },
+                    name: 'password',
+                    validators: ['required', 'password',
+                        {
+                            name: 'minLength',
+                            options: 6,
+                        },
+                    ],
+                },
+            },
+            {
+                name: 'user.wlc-restore-link',
+                params: {
+                    common: {
+                        typeAttr: 'button',
+                    },
+                },
+            },
+            {
+                name: 'user.wlc-pseudo-link',
+                params: {},
+            },
+            {
+                name: 'core.wlc-button',
+                params: <IButtonCParams>{
+                    name: 'submit',
+                    themeMod: 'secondary',
+                    common: {
+                        text: gettext('Login'),
+                        type: 'submit',
+                    },
+                },
+            },
+            ...orDemoBtn,
+            {
+                name: 'core.wlc-link-block',
+                params: {
+                    common: {
+                        subtitle: gettext('Don\'t have an account?'),
+                        link: gettext('Sign up now'),
+                        actionParams: {
+                            event: {
+                                name: Events.SIGN_UP,
+                            },
                         },
                     },
                 },
             },
-        },
-    ];
+        ];
+    };
+
+    const forNotAuthenticated = generateConfigForNotAuthenticated(params);
 
     const forAuthenticated = [
         {

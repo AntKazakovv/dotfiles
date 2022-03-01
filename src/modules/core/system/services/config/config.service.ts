@@ -249,6 +249,11 @@ export class ConfigService {
                 sectionsLib.profileContent.profileLoyaltyLevelsTypeFirstSingle;
         }
 
+        if (appConfig.$base.site.useLogin && params.profile.type === 'first') {
+            $layouts['app.profile.main.info'].sections['profile-content'] =
+                sectionsLib.profileContent.profileMainTypeFirstWithLogin;
+        }
+
         if (!wlcConfig.$base.profile.store.use) {
             $layouts['app.profile.dashboard'].sections['profile-content']
                 = sectionsLib.profileContent.profileDashboardWithoutStore;

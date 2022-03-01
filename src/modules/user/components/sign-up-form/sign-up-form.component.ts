@@ -82,6 +82,11 @@ export class SignUpFormComponent extends UserActionsAbstract<Params.ISignUpFormC
         super.ngOnInit();
         this.config = this.$params.formConfig || Params.signUpFormConfig;
         this.config = _cloneDeep(this.config);
+
+        if (this.configService.get<boolean>('$base.site.useLogin')) {
+            this.config = Params.signUpWithLoginFormConfig;
+        }
+
         if (this.isMGALicense) {
             if (this.isMGAFormStep()) {
                 this.config = Params.magLicenseFormConfig;

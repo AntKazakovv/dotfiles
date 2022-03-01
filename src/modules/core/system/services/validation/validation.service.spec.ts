@@ -32,7 +32,7 @@ describe('ValidationService', () => {
     const validatorsNames: string[] = [
         'emailUnique', 'emailExist', 'loginUnique', 'password', 'requiredTrue',
         'minLength', 'maxLength', 'max', 'min', 'numberDecimal', 'pattern', 'allowLettersOnly', 'matchingFields',
-        'email', 'onlyLetters', 'regExp', 'regexpEmoji', 'newPassword', 'required',
+        'email', 'onlyLetters', 'regExp', 'regexpEmoji', 'newPassword', 'required', 'loginEmail', 'login',
     ];
 
     beforeEach(() => {

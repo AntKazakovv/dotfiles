@@ -12,3 +12,4 @@ gettext('validator-wrong-sms-code');
 gettext('validator-currentPassword');
 gettext('validator-onlyLetters');
 gettext('validator-promocode');
+gettext('validator-login');

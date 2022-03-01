@@ -34,6 +34,10 @@ export interface IBaseConfig {
         url: string;
         removeCreds?: boolean;
         restrictRegistration?: boolean;
+        /**
+         * Use field username/login
+         */
+        useLogin?: boolean;
     };
     /**
     * Sticky header enabling and settings;
