@@ -28,14 +28,14 @@ export class CopyToClipboardDirective {
     ) {}
 
     @HostListener('click', ['$event'])
-    public onClick(event: MouseEvent): void {
+    public async onClick(event: MouseEvent): Promise <void> {
         event.preventDefault();
 
         if (!this.payload) {
             return;
         }
 
-        this.copy();
+        await this.copy();
     }
 
     private createTextarea(): void {
@@ -51,7 +51,7 @@ export class CopyToClipboardDirective {
         this.document.body.appendChild(textarea);
     }
 
-    private copy(): void {
+    private async copy(): Promise <void> {
         this.createTextarea();
 
         const textarea = this.textarea;
@@ -66,6 +66,7 @@ export class CopyToClipboardDirective {
                 if (currentFocus) {
                     currentFocus.focus();
                 }
+                await navigator.clipboard.writeText(this.payload);
             }
         } catch (error) {
             // beer or not to beer...
