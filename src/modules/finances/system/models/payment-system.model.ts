@@ -5,6 +5,7 @@ import {GlobalHelper} from 'wlc-engine/modules/core/system/helpers/global.helper
 import {FinancesHelper} from '../helpers/finances.helper';
 import {IPaymentMessage} from 'wlc-engine/modules/finances/system/interfaces/finances.interface';
 import {IFromLog} from 'wlc-engine/modules/core';
+import {TPaymentsMethods} from '../interfaces';
 
 import _assign from 'lodash-es/assign';
 import _get from 'lodash-es/get';
@@ -19,7 +20,7 @@ import _isString from 'lodash-es/isString';
 import _isEmpty from 'lodash-es/isEmpty';
 import _toNumber from 'lodash-es/toNumber';
 
-export type FilterType = 'deposit' | 'Deposits' | 'withdraw' | 'Withdraws' | 'all' | 'All';
+export type FilterType = TPaymentsMethods | 'Deposits' | 'Withdraws' | 'all' | 'All';
 
 export type TPaymentSystems = IPaymentSystem[];
 
@@ -46,6 +47,7 @@ export interface IPaymentSystem {
     name: string;
     name_withdraw?: string;
     required: string[];
+    required_withdraw: string[];
     showfor: FilterType;
     withdrawMax?: number;
     withdrawMin?: number;
@@ -320,6 +322,10 @@ export class PaymentSystem extends AbstractModel<IPaymentSystem> {
         return this.data.required || [];
     }
 
+    public get requiredWithdraw(): string[] {
+        return this.data.required_withdraw || [];
+    }
+
     public get showFor(): FilterType {
         return this.data.showfor;
     }
@@ -352,10 +358,11 @@ export class PaymentSystem extends AbstractModel<IPaymentSystem> {
         return this.cardFields;
     }
 
-    public checkRequiredFields(): IIndexing<IFieldTemplate> {
+    public checkRequiredFields(type: TPaymentsMethods = 'deposit'): IIndexing<IFieldTemplate> {
+        const fields = type === 'deposit' ? this.required : this.requiredWithdraw;
 
         return _pickBy(fieldTemplatesNames, (value: IFieldTemplate, key: string) => {
-            return _includes(this.required, value.dbName) &&
+            return _includes(fields, value.dbName) &&
                 GlobalHelper.getOwnProperty(this.UserService.userProfile as any, key) &&
                 !_get(this.UserService.userProfile, [key, 'length'], false);
         });

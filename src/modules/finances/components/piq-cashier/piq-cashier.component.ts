@@ -27,7 +27,7 @@ import * as Params from './piq-cashier.params';
     styleUrls: ['./styles/piq-cashier.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class PIQCashierComponent extends AbstractDepositWithdrawComponent implements OnInit, OnDestroy {
+export class PIQCashierComponent extends AbstractDepositWithdrawComponent<Params.IPIQCashierCParams> implements OnInit, OnDestroy {
 
     public ready = false;
     public $params: Params.IPIQCashierCParams;
@@ -80,7 +80,7 @@ export class PIQCashierComponent extends AbstractDepositWithdrawComponent implem
     }
 
     /**
-     * check is available payment 
+     * check is available payment
      */
     public get isAvailablePayment(): boolean {
         return this.$params.modal || !!this.currentSystem;

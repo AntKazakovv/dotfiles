@@ -10,6 +10,7 @@ import {
     ModalService,
     IFormWrapperCParams,
     LogService,
+    IComponentParams,
 } from 'wlc-engine/modules/core';
 import {
     IFieldTemplate,
@@ -20,10 +21,11 @@ import {IFormComponent} from 'wlc-engine/modules/core/components/form-wrapper/fo
 import {
     IAddProfileInfoCParams,
 } from 'wlc-engine/modules/user/components/add-profile-info';
+import {TPaymentsMethods} from '../interfaces';
 
-export abstract class AbstractDepositWithdrawComponent extends AbstractComponent {
+export abstract class AbstractDepositWithdrawComponent<T extends {mode: TPaymentsMethods}> extends AbstractComponent {
 
-    public $params: unknown;
+    public $params: T & IComponentParams<unknown, unknown, unknown>;
     public currentSystem: PaymentSystem;
     public requiredFields: IIndexing<IFieldTemplate> = {};
     public requiredFieldsKeys: string[] = [];
@@ -62,8 +64,7 @@ export abstract class AbstractDepositWithdrawComponent extends AbstractComponent
         }
 
         this.profileForm = undefined;
-
-        const checkedRequiredFields = this.currentSystem.checkRequiredFields();
+        const checkedRequiredFields = this.currentSystem.checkRequiredFields(this.$params.mode);
 
         if (!_isEqual(this.requiredFields, checkedRequiredFields)) {
             this.requiredFields = checkedRequiredFields;
