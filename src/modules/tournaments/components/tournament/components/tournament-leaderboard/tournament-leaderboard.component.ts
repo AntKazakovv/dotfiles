@@ -7,6 +7,11 @@ import {
     ChangeDetectorRef,
 } from '@angular/core';
 
+import _findIndex from 'lodash-es/findIndex';
+import _isNumber from 'lodash-es/isNumber';
+import _union from 'lodash-es/union';
+import _toNumber from 'lodash-es/toNumber';
+
 import {
     AbstractComponent,
     GlobalHelper,
@@ -22,10 +27,6 @@ import {
 } from 'wlc-engine/modules/tournaments';
 
 import * as Params from './tournament-leaderboard.params';
-
-import _findIndex from 'lodash-es/findIndex';
-import _isNumber from 'lodash-es/isNumber';
-import _union from 'lodash-es/union';
 
 @Component({
     selector: '[wlc-tournament-leaderboard]',
@@ -127,6 +128,16 @@ export class TournamentLeaderboardComponent
      */
     public getPlayerName(winner: ITournamentPlace): string {
         return this.$params.displayPlayerName === 'id' ? winner.IDUser : winner.UserLogin;
+    }
+
+    /**
+     * will return the winnings according to the currency, otherwise it will return '-'
+     * @param {ITournamentPlace} win
+     * @returns number | string
+     */
+    public getCurrencyValue(win: ITournamentPlace): number | string {
+        return this.tournament.target === 'loyalty' ? _toNumber(win.Win) || '-' :
+            _toNumber(win.WinEUR) || '-';
     }
 
     protected prepareModifiers(): void {

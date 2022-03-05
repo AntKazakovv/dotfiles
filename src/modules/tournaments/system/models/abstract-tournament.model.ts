@@ -151,6 +151,20 @@ export abstract class AbstractTournamentModel<T extends ITournamentAbstract> ext
     }
 
     /**
+     * @returns {string} tournament target currency
+     */
+    public get targetCurrency(): string {
+        return this.checkTargetCurrency(false);
+    }
+
+    /**
+     * @returns {string} tournament target currency loaylty or EUR
+     */
+    public get targetDefaultCurrency(): string {
+        return this.checkTargetCurrency(true);
+    }
+
+    /**
      * Winners subscription
      *
      * @param {PartialObserver<ITopTournamentUsers>} observer observer
@@ -195,7 +209,7 @@ export abstract class AbstractTournamentModel<T extends ITournamentAbstract> ext
                 Login: this.configService.get<string>('appConfig.user.user_id'),
                 Points: _toString(result.user.Points),
                 UserLogin: this.configService.get<string>('appConfig.user.login'),
-                Win: _toNumber(result.user.Win),
+                Win: result.user.Win,
             });
         }
 
@@ -215,5 +229,13 @@ export abstract class AbstractTournamentModel<T extends ITournamentAbstract> ext
         } else {
             return item.Email.substring(0, 6) + '***';
         }
+    }
+
+    /**
+     * @param {boolean} useDefaultCurrency
+     * @returns {string} check use default currency EUR
+     */
+    protected checkTargetCurrency(useDefaultCurrency?: boolean): string {
+        return (this.target === 'loyalty') ? 'LP' : (useDefaultCurrency ? 'EUR' : this.userCurrency);
     }
 }

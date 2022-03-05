@@ -2,7 +2,9 @@ import {
     IComponentParams,
     CustomType,
     ITableCol,
+    ICurrencyCParams,
 } from 'wlc-engine/modules/core';
+import {CurrencyComponent} from 'wlc-engine/modules/core/components/currency/currency.component';
 import {
     HistoryNameComponent,
 } from 'wlc-engine/modules/core/components/table/components/history-name/history-name.component';
@@ -57,7 +59,14 @@ export const tournamentsHistoryTableHeadConfig: ITableCol[] = [
     {
         key: 'win',
         title: gettext('Win'),
-        type: 'amount',
+        type: 'component',
+        mapValue: (item: TournamentHistory): ICurrencyCParams => {
+            return {
+                value: item.win,
+                currency: item.targetCurrency,
+            };
+        },
+        componentClass: CurrencyComponent,
         order: 50,
         wlcElement: 'wlc-profile-table__cell_win',
     },

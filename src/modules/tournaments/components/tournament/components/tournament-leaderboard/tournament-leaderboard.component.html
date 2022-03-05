@@ -7,7 +7,10 @@
         <div class="{{$class}}__cell item-points">{{'Points' | translate}}</div>
         <div *ngIf="paramInclude('themeMod', 'history')" class="{{$class}}__cell item-win">
             <span class="win-text">{{'Win' | translate}}</span>
-            <span>(&euro;)</span>
+            <span wlc-currency
+                  [currency]="tournament.targetDefaultCurrency"
+                  [showIconOnly]="true">
+            </span>
         </div>
     </div>
 
@@ -30,17 +33,21 @@
                       iconPath="/wlc/icons/cup.svg"></span>
                 <span *ngIf="win.IDUser !== userId; else: userThee" class="user-login">{{getPlayerName(win)}}</span>
             </div>
-            <div class="{{$class}}__cell item-points">{{win.points | number: '.0-2'}}</div>
-            <div *ngIf="paramInclude('themeMod', 'history')" class="{{$class}}__cell item-win">{{win.WinEUR || '-'}}</div>
+            <span class="{{$class}}__cell item-points">{{win.points | number: '.0-2'}}</span>
+            <span *ngIf="paramInclude('themeMod', 'history')" class="{{$class}}__cell item-win">
+                {{getCurrencyValue(win)}}
+            </span>
         </div>
         <div *ngIf="winsRest.length && paramInclude('themeMod', 'tournament-detail')" class="delimetr"></div>
         <div *ngFor="let win of winsRest" class="{{$class}}__item" [class.user]="userId === win.IDUser">
-            <div class="{{$class}}__cell item-place">{{win.IDUserPlace}}</div>
+            <span class="{{$class}}__cell item-place">{{win.IDUserPlace}}</span>
             <div class="{{$class}}__cell item-user">
                 <span *ngIf="win.IDUser !== userId; else: userThee" class="user-login">{{getPlayerName(win)}}</span>
             </div>
-            <div class="{{$class}}__cell item-points">{{win.points | number: '.0-2'}}</div>
-            <div *ngIf="paramInclude('themeMod', 'history')" class="{{$class}}__cell item-win">{{win.WinEUR || '-'}}</div>
+            <span class="{{$class}}__cell item-points">{{win.points | number: '.0-2'}}</span>
+            <span *ngIf="paramInclude('themeMod', 'history')" class="{{$class}}__cell item-win">
+                {{getCurrencyValue(win)}}
+            </span>
         </div>
     </div>
 

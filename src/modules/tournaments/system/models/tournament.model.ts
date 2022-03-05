@@ -116,13 +116,6 @@ export class Tournament extends AbstractTournamentModel<ITournament> {
     }
 
     /**
-     * @returns {string} tournament target currency
-     */
-    public get targetCurrency(): string {
-        return (this.target === 'loyalty') ? 'LP' : this.userCurrency;
-    }
-
-    /**
      * @returns {number} tournament total founds
      */
     public get totalFounds(): number {
@@ -174,6 +167,13 @@ export class Tournament extends AbstractTournamentModel<ITournament> {
     public get isTournamentStarts(): boolean {
         const timeDifference = this.startsLuxon.toMillis() - DateTime.local().toMillis();
         return timeDifference <= 0;
+    }
+
+    /**
+     * @returns {DateTime} returns the date for the tournament based on its state
+     */
+    public get stateDateTournament(): DateTime {
+        return this.isTournamentStarts ? this.endsLuxon : this.startsLuxon;
     }
 
     /**

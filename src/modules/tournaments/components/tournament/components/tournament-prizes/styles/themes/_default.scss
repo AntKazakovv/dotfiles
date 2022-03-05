@@ -29,6 +29,13 @@
                 white-space: nowrap;
                 overflow: hidden;
                 text-overflow: ellipsis;
+
+                ::ng-deep {
+
+                    .wlc-currency__svg {
+                        margin: 0;
+                    }
+                }
             }
         }
 

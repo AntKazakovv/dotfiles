@@ -9,16 +9,20 @@
             <div class="{{$class}}__prize-block__text--subtitle">
                 {{$params.common?.prizePoolText | translate}}
             </div>
-            <div class="{{$class}}__prize-block__text--value" wlc-currency digitsInfo="1-0-0"
-                [value]="tournament.totalFounds" [currency]="'EUR'">
+            <div wlc-currency
+                 class="{{$class}}__prize-block__text--value"
+                 digitsInfo="1-0-0"
+                 [value]="tournament.totalFounds"
+                 [currency]="tournament.targetDefaultCurrency">
             </div>
         </div>
     </div>
     <div class="{{$class}}__delimiter"></div>
-    <div class="{{$class}}__timer-block" wlc-timer
-        (timerEnds)="updateTournaments()"
-        [value]="(tournament.isTournamentStarts) ? tournament.endsLuxon : tournament.startsLuxon"
-        [text]="(tournament.isTournamentStarts) ? $params.common?.timerTextAfterStart : $params.common?.timerTextBeforeStart">
+    <div wlc-timer
+         class="{{$class}}__timer-block"
+         [value]="tournament.stateDateTournament"
+         [text]="getTimerText()"
+         (timerEnds)="updateTournaments()">
     </div>
 </div>
 

@@ -102,7 +102,7 @@ export interface ITournamentsModule {
         imageDescription?: string;
         /** Tournament extra image to be displayed as decor over the main image on home page */
         imageOther?: string;
-    }
+    },
 }
 
 export interface ITournamentPlace {
@@ -114,7 +114,7 @@ export interface ITournamentPlace {
     Login: string;
     Points: string;
     UserLogin: string;
-    Win: number;
+    Win: string;
     WinEUR?: string;
     points?: number;
 }

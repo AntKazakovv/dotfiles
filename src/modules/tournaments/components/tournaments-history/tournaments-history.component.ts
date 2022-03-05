@@ -10,7 +10,10 @@ import {
     filter,
     takeUntil,
 } from 'rxjs/operators';
+
 import {DateTime} from 'luxon';
+import _filter from 'lodash-es/filter';
+import _orderBy from 'lodash-es/orderBy';
 
 import {
     AbstractComponent,
@@ -31,9 +34,6 @@ import {
 } from 'wlc-engine/modules/tournaments';
 
 import * as Params from './tournaments-history.params';
-
-import _filter from 'lodash-es/filter';
-import _sortBy from 'lodash-es/sortBy';
 
 @Component({
     selector: '[wlc-tournaments-history]',
@@ -152,11 +152,7 @@ export class TournamentsHistoryComponent extends AbstractComponent implements On
             });
         }
 
-        result = _sortBy(result, (item) => {
-            return DateTime.fromSQL(item.end).toSeconds();
-        });
-
-        return result;
+        return _orderBy(result, (item: TournamentHistory): number => DateTime.fromSQL(item.end).toSeconds(), 'desc');
     }
 
     protected historyFilter(): void {

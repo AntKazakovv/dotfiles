@@ -64,4 +64,12 @@ export class TournamentSmartInfoComponent extends AbstractComponent implements O
         this.timerEnds.emit();
         this.cdr.detectChanges();
     }
+
+    /**
+     * get timer text from its state
+     */
+    public getTimerText(): string {
+        return this.tournament.isTournamentStarts ? this.$params.common?.timerTextAfterStart :
+            this.$params.common?.timerTextBeforeStart;
+    }
 }

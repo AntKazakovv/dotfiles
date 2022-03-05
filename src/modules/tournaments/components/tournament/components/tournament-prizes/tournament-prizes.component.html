@@ -9,11 +9,11 @@
             <div class="{{$class}}__col">
                 <span class="{{$class}}__head-text">
                     {{'Prize' | translate}}
-                    (<span
-                    wlc-currency
-                    [value]="$params.common.tournament?.feeCurrency"
-                    [currency]="'EUR'"
-                    [showIconOnly]="true"></span>)
+                    (<span wlc-currency
+                           [value]="tournament.feeCurrency"
+                           [currency]="tournament.targetDefaultCurrency"
+                           [showIconOnly]="true">
+                    </span>)
                 </span>
             </div>
         </div>

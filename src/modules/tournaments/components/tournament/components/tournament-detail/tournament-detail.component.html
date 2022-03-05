@@ -81,7 +81,7 @@
                  class="{{$class}}__prizepool--amount"
                  [value]="tournament.totalFounds"
                  digitsInfo="1-0-0"
-                 [currency]="'EUR'">
+                 [currency]="tournament.targetDefaultCurrency">
             </div>
         </div>
         <div *ngIf="tablePrizeboard" class="{{$class}}__prizeboard">

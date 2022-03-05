@@ -27,19 +27,15 @@
                 <span wlc-currency
                       class="{{$class}}__board-price"
                       digitsInfo="1-0-0"
-                      [value]="$params.common.tournament.totalFounds"
-                      [currency]="'EUR'"
+                      [value]="tournament.totalFounds"
+                      [currency]="tournament.targetDefaultCurrency"
                 ></span>
             </h4>
             <div wlc-timer
                  class="{{$class}}-timer"
-                 (timerEnds)="updateTournaments()"
-                 [value]="$params.common.tournament.isTournamentStarts
-                            ? $params.common.tournament.endsLuxon
-                            : $params.common.tournament.startsLuxon"
-                 [text]="$params.common.tournament.isTournamentStarts
-                             ? 'Time remaining'
-                             : 'Coming soon'">
+                 [value]="tournament.stateDateTournament"
+                 [text]="getTimerText()"
+                 (timerEnds)="updateTournaments()">
             </div>
             <div wlc-tournament-prizes
                  class="{{$class}}-prizes"

@@ -98,6 +98,14 @@ export class TournamentPromoComponent extends AbstractComponent implements OnIni
         this.parentInstance?.readMore(this.$params.common.actionParams);
     }
 
+    /**
+     * get timer text from its state
+     */
+    public getTimerText(): string {
+        return this.tournament.isTournamentStarts ? this.$params.common?.timerTextAfterStart :
+            this.$params.common?.timerTextBeforeStart;
+    }
+
     protected checkParentInstance(): void {
         if (!this.parentInstance) return;
 
