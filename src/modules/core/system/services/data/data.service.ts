@@ -373,40 +373,34 @@ export class DataService {
                     ? this.restoreCachedData(method, result)
                     : this.httpRequest(method, url, requestParams, requestBody).pipe(
                         retryWhen((err: Observable<HttpErrorResponse>) => err.pipe(
-                            mergeMap((error: HttpErrorResponse): Observable<HttpErrorResponse> => {
-                                if (error.status.toString().startsWith('5') && countLength > 0) {
+                            mergeMap((error: HttpErrorResponse) => {
+                                if (!error.status.toString().startsWith('5')) {
+                                    return throwError(error);
+                                }
+                                if (countLength > 0) {
                                     countLength--;
                                     notCacheStaticData = true;
                                     return of(error).pipe(delay(method.retries.count[countLength]));
+                                } else if (method.retries.fallbackUrl) {
+                                    notCacheStaticData = false;
+                                    this.logService.sendLog({
+                                        code: '0.8.0',
+                                        from: {
+                                            service: 'DataService',
+                                            method: 'request$',
+                                        },
+                                    });
+                                    return this.httpRequest(
+                                        method,
+                                        method.retries.fallbackUrl,
+                                        requestParams,
+                                        requestBody,
+                                    );
+                                } else {
+                                    return throwError(error);
                                 }
-
-                                return throwError(error);
                             }),
-                        ))).pipe(catchError(async (error: HttpErrorResponse): Promise<IData | Observable<never>> => {
-
-                        if (method.retries?.fallbackUrl) {
-                            const fallback = await this.httpRequest(
-                                method,
-                                method.retries.fallbackUrl,
-                                requestParams,
-                                requestBody,
-                            ).toPromise();
-
-                            if (fallback) {
-                                notCacheStaticData = false;
-
-                                this.logService.sendLog({
-                                    code: '0.8.0',
-                                    from: {
-                                        service: 'DataService',
-                                        method: 'request$',
-                                    },
-                                });
-
-                                return fallback;
-                            }
-                        }
-
+                        ))).pipe(catchError((error: HttpErrorResponse) => {
                         this.logService.sendLog(error.error || error);
                         if (method.events?.fail) {
                             this.eventService.emit({
