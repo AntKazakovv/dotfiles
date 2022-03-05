@@ -108,7 +108,12 @@ export class TournamentDetailComponent extends AbstractComponent implements OnIn
      */
     public updateTournaments(): void {
         if (this.tournament.isTournamentEnds) {
-            this.modalService.hideModal('tournament-detail-modal');
+            if (this.modalService.getActiveModal('tournament-detail-modal')) {
+                this.modalService.hideModal('tournament-detail-modal');
+            } else {
+                this.tournamentsService.updateTournaments();
+                this.router.stateService.go('app.profile.loyalty-tournaments.main');
+            }
         }
     }
 
