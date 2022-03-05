@@ -159,6 +159,10 @@
                     @include text.get-text-style(ef.get-value($themeDefault, 'btnFontActive'), ef.get-value($themeDefault, 'btnColorActive'));
                 }
 
+                .counter {
+                    color: ef.get-value($themeDefault, 'btnColorActive');
+                }
+
                 .icon {
                     color: ef.get-value($themeDefault, 'btnIconColorActive');
 
@@ -190,7 +194,12 @@
                     @include text.get-text-style(ef.get-value($themeDefault, 'btnFont'), ef.get-value($themeDefault, 'btnColorHover'));
                 }
 
+                .counter {
+                    color: ef.get-value($themeDefault, 'btnColorHover');
+                }
+
                 .icon {
+                    color: ef.get-value($themeDefault, 'btnColorHover');
 
                     ::ng-deep {
 

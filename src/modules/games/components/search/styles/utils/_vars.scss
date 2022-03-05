@@ -205,7 +205,6 @@ $themeDefault: map-merge((
     ),
     'btnBorderRadius': ef.get('radius', 'biger'),
     'btnFontActive': 'ThirdTitle',
-    'btnTextColorActive': var(--mc-baseMain),
     'btnColorHover': ef.get('mainColors', 'baseMain'),
 
     'heightBtn': ef.get('size', 'main'),
