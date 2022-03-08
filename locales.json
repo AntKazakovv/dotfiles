@@ -1,7 +1,7 @@
 {
     "au": {"code": "au", "label": "Australian", "locale": "au_AU"},
     "az": {"code": "az", "label": "Azerbaijan", "locale": "az_AZ"},
-    "ca": {"code": "ca", "label": "Canadian", "locale": "ca_CA"},
+    "ca": {"code": "ca", "label": "Canadian", "locale": "en_CA"},
     "ar": {"code": "ar", "label": "Arabic ", "locale": "ar_KW"},
     "bg": {"code": "bg", "label": "Bulgarian", "locale": "bg_BG"},
     "cn": {"code": "cn", "label": "China", "locale": "cn_CN"},
@@ -12,6 +12,7 @@
     "el": {"code": "el", "label": "Greece", "locale": "el_GR"},
     "el-gr": {"code": "el-gr", "label": "Greece", "locale": "el_GR"},
     "en": {"code": "en", "label": "English", "locale": "en_US"},
+    "enc": {"code": "enc", "label": "Canadian english", "locale": "en_CA"},
     "en-ph": {"code": "en-ph", "label": "Philippines", "locale": "en_PH"},
     "ph": {"code": "ph", "label": "Philippines", "locale": "en_PH"},
     "es": {"code": "es", "label": "Spanish", "locale": "es_ES"},
