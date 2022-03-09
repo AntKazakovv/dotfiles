@@ -1,3 +1,10 @@
+@use 'engine-scss/mixins/base.mixins' as bm;
+@use 'engine-scss/mixins/mediaqueries' as mq;
+@use 'engine-scss/mixins/text' as text;
+@use 'engine-scss/functions' as ef;
+
 @import './games-categories/utils/vars';
+
 @import './games-categories/themes/default';
 @import './games-categories/themes/with-icons';
+@import './games-categories/themes/mod-without-back';

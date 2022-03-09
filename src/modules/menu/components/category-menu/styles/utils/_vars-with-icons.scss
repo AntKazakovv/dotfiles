@@ -1,0 +1,106 @@
+$customWithIcons: () !default;
+$withIcons: map-merge((
+    'menuContentPading': 0 ef.size(1),
+    'menuGag': ef.size(2),
+    'iconDirection': column,
+    'iconAlign': center,
+    'menuItemColor': var(--mc-baseMain),
+    'menuItemPadding': (
+        375: ef.size(3) 0 0,
+        1630: ef.size(4) 0 0,
+    ),
+    'menuItemMargin': (
+        375: 0 auto,
+    ),
+    'menuItemTextAlign': center,
+
+    'linkTextStyle': 'PrimaryText',
+    'linkTextStyleActive': 'PrimaryTextBold',
+    'linkColor': var(--mc-baseMain),
+    'linkColorActive': var(--mc-main),
+    'linkDecoration': none,
+    'linkTransform': null,
+    'linkTransformHover': translateY(-5px),
+    'linkTransformActive': translateY(-5px),
+    'linkTransition': all 0.25s ease-out,
+    'linkWidth': 130px,
+
+    'menuIconFlexDirection': column,
+    'menuIconAlignItems': center,
+    'menuIconJustifyContent': center,
+    'menuIconOuterWidth': (
+        375: 70px,
+        1630: 86px,
+    ),
+    'menuIconOuterHeight': (
+        375: 70px,
+        1630: 86px,
+    ),
+    'menuIconInnerWidth': (
+        375: 40px,
+        1630: 50px,
+    ),
+    'menuIconInnerHeight': (
+        375: 40px,
+        1630: 50px,
+    ),
+    'menuIconObjPosition': center,
+    'menuIconBackground': var(--mc-bg500),
+    'menuIconBackgroundHover': var(--mc-bg300),
+    'menuIconBackgroundActive': var(--mc-bg300),
+    'menuIconBoxTransition': all 0.15s ease-out,
+    'menuIconTransition': fill 0.3s ease-out,
+    'menuIconTransformHover': null,
+    'menuIconShadow': null,
+    'menuIconShadowHover': null,
+    'menuIconShadowActive': null,
+    'menuIconBorderRadius': ef.get('radius', 'biger'),
+    'menuIconSvgFill': null,
+    'menuIconInnerFill': null,
+    'menuIconInnerFillHover': null,
+    'menuIconInnerFillActive': null,
+
+    'transition': 0.5s ease-in,
+
+    'pseudoPosTop': 0,
+    'pseudoPosLeft': 0,
+    'pseudoTransformOrigin': center,
+    'pseudoTransition': all 0.5s ease-out,
+    'pseudoTransform': null,
+    'pseudoTransformHover': null,
+    'pseudoTransformActive': null,
+
+    // theme-mod big-icons
+    'bigMenuPadding': (
+        375: ef.size(1) 0 0,
+        1630: 0,
+    ),
+
+    'bigIconSize': (
+        375: 60px,
+        1630: 70px,
+    ),
+    'bigIconTransformOrigin': bottom,
+    'bigIconTransformHover': translateY(-5px),
+    'bigIconTransformActive': scale(1.15),
+    'bigLinkTransformHover': none,
+    'bigLinkTransformActive': none,
+
+    // Slider controls
+    'controlWidth': 60px,
+    'controlHeight': 100%,
+    'controlPadding': ef.size(1),
+    'controlArrowColor': var(--mc-baseMain),
+    'controlArrowColorHover': var(--mc-main),
+    'controlTransition': all 0.3s ease-out,
+    'controlPrevSvgTransform': rotate(90deg),
+    'controlNextSvgTransform': rotate(-90deg),
+    'controlPrevJustifyContent': flex-start,
+    'controlNextJustifyContent': flex-end,
+    'controlBg': linear-gradient(90deg, var(--mc-bg) 30%, var(--mc-bg-o0) 100%),
+    'controlArrowTransform': translateY(-7px),
+    'controlArrowTransformModBig': (
+        375: translateY(ef.size(1)),
+        1630: none,
+    ),
+), $customWithIcons);

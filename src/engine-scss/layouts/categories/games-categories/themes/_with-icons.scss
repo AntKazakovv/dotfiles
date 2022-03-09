@@ -1,8 +1,3 @@
-@use 'engine-scss/mixins/base.mixins' as bm;
-@use 'engine-scss/mixins/mediaqueries' as mq;
-@use 'engine-scss/mixins/text' as lib;
-@use 'engine-scss/functions' as ef;
-
 .wlc-sections__categories--theme-2 {
 
     .games-categories {
@@ -30,13 +25,24 @@
             @include bm.get-mq-map('border-radius', $withIcons, 'buttonBorderRadius');
             @include bm.get-mq-map('padding', $withIcons, 'buttonPadding');
             width: ef.get-value($withIcons, 'buttonWidth');
+            height: ef.get-value($withIcons, 'buttonHeight');
 
             .wlc-btn-search__text,
             .wlc-btn-merch__text {
-                @include lib.get-text-style(ef.get-value($withIcons, 'searchButtonTextStyle'), ef.get-value($withIcons, 'buttonColor'));
+                @include text.get-text-style(ef.get-value($withIcons, 'searchButtonTextStyle'), ef.get-value($withIcons, 'buttonColor'));
                 display: flex;
                 align-items: ef.get-value($withIcons, 'buttonAlignItems');
                 justify-content: ef.get-value($withIcons, 'buttonJustifyContent');
+            }
+
+            .wlc-icon {
+                display: block;
+                line-height: 1;
+
+                svg {
+                    width: ef.get-value($withIcons, 'btnIconWidth');
+                    height: ef.get-value($withIcons, 'btnIconHeight');
+                }
             }
         }
 

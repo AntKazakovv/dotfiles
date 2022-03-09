@@ -1,0 +1,17 @@
+$customDropdownThemeDefault: () !default;
+$themeDropdownDefault: map-merge((
+    'menuGag': ef.size(1),
+    'activeTabLinkColor': var(--mc-baseMain),
+    'activeTabLinkBg': var(--mc-main),
+    'linkPadding': ef.size(2) ef.size(3),
+    'linkColor': var(--mc-baseMain),
+    'linkBg': var(--mc-bg700),
+    'activeLinkBg': var(--mc-bg500),
+    'linkFill': var(--mc-baseMain),
+    'linkBorderRadius': ef.get('radius', 'biger'),
+    'submenuBg': var(--mc-bg700),
+    'submenuPadding': ef.size(1) 0,
+    'arrowFillColor': var(--mc-baseOpacity),
+    'arrowFillColorActive': var(--mc-baseMain),
+), $customDropdownThemeDefault);
+

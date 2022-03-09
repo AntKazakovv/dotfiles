@@ -1,8 +1,3 @@
-@use 'engine-scss/mixins/base.mixins' as bm;
-@use 'engine-scss/mixins/mediaqueries' as mq;
-@use 'engine-scss/mixins/text' as text;
-@use 'engine-scss/functions' as ef;
-
 .wlc-sections__categories--theme-1 {
 
     &[class] {
@@ -49,11 +44,15 @@
 
         .wlc-icon {
             @include bm.transition(color);
-
+            display: block;
             margin-left: map-get($gamesCategoriesDefault, 'buttonSearchIconMargin');
+
             color: map-get($gamesCategoriesDefault, 'buttonSearchIconFill');
+            line-height: 1;
 
             svg {
+                width: ef.get-value($gamesCategoriesDefault, 'btnIconWidth');
+                height: ef.get-value($gamesCategoriesDefault, 'btnIconHeight');
                 fill: currentColor;
             }
         }

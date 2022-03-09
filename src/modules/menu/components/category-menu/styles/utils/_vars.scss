@@ -1,95 +1,50 @@
-@use 'engine-scss/functions' as ef;
+
+@import './vars-with-icons';
+@import './vars-icons-compact';
+@import './vars-dropdown';
 
 $customThemeDefault: () !default;
 $themeDefault: map-merge((
+    'menuContentPading': 0 ef.size(1),
     'gapSize': (
         375: ef.size(2),
         1024: ef.size(6),
         1420: ef.size(12)
     ),
+    'itemHeight': 80px,
     'paddingSize': ef.size(4),
     'menuGag': ef.size(1),
-    'linkPadding': 12px 5px,
+    'linkPadding': (
+        375: 8px ef.size(3) ef.size(1),
+        1024: 8px ef.size(4) ef.size(1),
+    ),
+    'linkTextPadding': ef.size(1),
     'linkActiveWeight': bold,
-    'linkFont': PrimaryText,
+    'linkFont': 'PrimaryText',
     'linkColor': var(--mc-baseMain),
     'linkColorHovered': var(--mc-baseMain),
+    'linkColorActive': var(--mc-main),
     'linkDecoration': none,
-    'underlineOffset': 0,
+
     'underlineColor': var(--mc-main),
-    'underlineHeight': 6px,
-    'underlineRadius': ef.get('radius', 'large'),
-    'swiperBoxShadowStart': 5px 0 5px -5px #867f7f63,
-    'swiperBoxShadowEnd': -5px 0 5px -5px #867f7f63,
+    'underlineHeight': 3px,
+    'underlineOffset': -3px,
+    'underlineRadius': ef.get('radius', 'small'),
+    'underlineTransform': scaleX(0.5),
+    'underlineTransformHover': scaleX(1),
+    'underlineTransformActive': scaleX(1),
+    'underlineTransition': all 0.5s cubic-bezier(0.6, 0.1, 0.05, 1.5),
 
-    'iconAlignItems': center,
-    'iconJustifyContent': center,
-    'iconOuterWidth': 30px,
-    'iconOuterHeight': 30px,
-    'iconMargin': 0 5px 0 0,
-    'iconSvgMaxWidth': 100%,
+    //Controls
+    'controlWidth': 80px,
+    'controlHeight': 100%,
+    'controlPadding': ef.size(1),
+    'controlArrowColor': var(--mc-baseMain),
+    'controlArrowColorHover': var(--mc-main),
+    'controlPrevSvgTransform': rotate(90deg),
+    'controlNextSvgTransform': rotate(-90deg),
+    'controlPrevJustifyContent': flex-start,
+    'controlNextJustifyContent': flex-end,
+    'controlTransition': all 0.3s ease-out,
+    'controlBg': linear-gradient(90deg, var(--mc-bg700) 30%, var(--mc-bg700-o0) 100%),
 ), $customThemeDefault);
-
-$customDropdownThemeDefault: () !default;
-$themeDropdownDefault: map-merge((
-    'menuGag': ef.size(1),
-    'activeTabLinkColor': var(--mc-baseMain),
-    'activeTabLinkBg': var(--mc-main),
-    'linkPadding': 10px 12px,
-    'linkColor': var(--mc-baseMain),
-    'linkBg': var(--mc-bg700),
-    'activeLinkBg': var(--mc-bg500),
-    'linkFill': var(--mc-baseMain),
-    'linkBorderRadius': ef.get('radius', 'biger'),
-    'submenuBg': var(--mc-bg700),
-    'submenuPadding': 5px 0,
-    'arrowFillColor': var(--mc-baseOpacity),
-    'arrowFillColorActive': var(--mc-baseMain),
-), $customDropdownThemeDefault);
-
-$customWithIcons: () !default;
-$withIcons: map-merge((
-    'menuGag': ef.size(2),
-    'iconDirection': column,
-    'iconAlign': center,
-    'menuItemColor': var(--mc-baseMain),
-    'menuItemPadding': (
-        375: 0 ef.size(4) 0 0,
-    ),
-    'menuItemMargin': (
-        375: 0 auto,
-    ),
-    'linkWidth': 140px,
-    'linkTextWidth': 130px,
-    'menuIconFlexDirection': column,
-    'menuIconAlignItems': center,
-    'menuIconJustifyContent': center,
-    'menuIconOuterWidth': 86px,
-    'menuIconOuterHeight': 86px,
-    'menuIconInnerWidth': 40px,
-    'menuIconInnerHeight': 40px,
-    'menuItemTextAlign': center,
-    'menuIconBackground': var(--mc-bg700),
-    'menuIconBoxTransition': all 0.15s ease-out,
-    'menuIconTransition': fill 0.3s ease-out,
-    'menuIconBackgroundHover': null,
-    'menuIconBackgroundActive': null,
-    'menuIconTransformHover': null,
-    'menuIconShadow': null,
-    'menuIconShadowHover': null,
-    'menuIconShadowActive': null,
-    'menuIconBorderRadius': ef.get('radius', 'biger'),
-    'transition': 0.5s ease-in,
-    'menuIconInnerFill': null,
-    'menuIconInnerFillHover': null,
-    'menuIconInnerFillActive': null,
-
-    'pseudoPosTop': 50%,
-    'pseudoPosLeft': 50%,
-    'pseudoTransition': all 0.5s ease-out,
-    'pseudoTransform': translate(-50%, -50%),
-    'pseudoTransformHover': null,
-    'pseudoTransformActive': null,
-
-    'hideUnderline': false,
-), $customWithIcons);

@@ -371,5 +371,4 @@ export class CategoryMenuComponent extends AbstractComponent implements OnInit, 
         }
         return '';
     }
-
 }

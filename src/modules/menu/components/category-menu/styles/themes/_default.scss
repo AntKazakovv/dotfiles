@@ -1,25 +1,13 @@
-@use 'engine-scss/mixins/base.mixins' as bm;
-@use 'engine-scss/mixins/mediaqueries' as mq;
-@use 'engine-scss/mixins/text' as text;
-@use 'engine-scss/functions' as ef;
-
 .wlc-category-menu--theme-default:host {
     width: 100%;
 
     ::ng-deep {
+        @include mx.menuControls($themeDefault);
 
-        .wlc-slider {
+        .wlc-category-menu {
 
-            &--on-start.wlc-slider--overflow {
-                box-shadow: ef.get-value($themeDefault, 'swiperBoxShadowStart');
-            }
-
-            &--on-end {
-                box-shadow: ef.get-value($themeDefault, 'swiperBoxShadowEnd');
-            }
-
-            &--on-progress {
-                box-shadow: ef.get-value($themeDefault, 'swiperBoxShadowStart'), ef.get-value($themeDefault, 'swiperBoxShadowEnd');
+            &__content {
+                padding: ef.get-value($themeDefault, 'menuContentPading');
             }
         }
 
@@ -32,209 +20,65 @@
             align-items: center;
             width: 100%;
 
+            &__item {
+                padding: ef.get-value($themeDefault, 'itemPadding');
+            }
+
             &__link {
                 @include text.get-text-style(ef.get-value($themeDefault, 'linkFont'), ef.get-value($themeDefault, 'linkColor'));
+                @include bm.get-mq-map('padding', $themeDefault, 'linkPadding');
                 position: relative;
                 display: block;
-                padding: ef.get-value($themeDefault, 'linkPadding');
                 text-decoration: ef.get-value($themeDefault, 'linkDecoration');
 
-                &:before {
-                    content: '';
-                    position: absolute;
-                    bottom: ef.get-value($themeDefault, 'underlineOffset');
-                    left: 0;
-                    display: block;
-                    width: 100%;
-                    height: 0;
-                    background-color: ef.get-value($themeDefault, 'underlineColor');
-                    opacity: 0;
-                    pointer-events: none;
-                    border-radius: ef.get-value($themeDefault, 'underlineRadius');
+                &-text {
+                    position: relative;
+                    display: inline-block;
+                    padding: ef.get-value($themeDefault, 'linkTextPadding');
+
+                    &:before {
+                        content: '';
+                        position: absolute;
+                        bottom: ef.get-value($themeDefault, 'underlineOffset');
+                        left: 0;
+                        display: block;
+                        width: 100%;
+                        height: ef.get-value($themeDefault, 'underlineHeight');
+                        background: ef.get-value($themeDefault, 'underlineColor');
+                        transform: ef.get-value($themeDefault, 'underlineTransform');
+                        opacity: 0;
+                        transition: ef.get-value($themeDefault, 'underlineTransition');
+                        pointer-events: none;
+                        border-radius: ef.get-value($themeDefault, 'underlineRadius');
+                    }
                 }
 
                 &.active {
-                    color: ef.get-value($themeDefault, 'linkColorHovered');
+                    color: ef.get-value($themeDefault, 'linkColorActive');
                     font-weight: ef.get-value($themeDefault, 'linkActiveWeight');
 
-                    &:before {
-                        @include bm.transition();
-                        height: ef.get-value($themeDefault, 'underlineHeight');
-                        opacity: 100%;
+                    .wlc-menu__link-text {
+
+                        &:before {
+                            transform: ef.get-value($themeDefault, 'underlineTransformActive');
+                            opacity: 1;
+                        }
                     }
                 }
 
                 @include bm.hover {
-                    color: ef.get-value($themeDefault, 'linkColorHovered');
 
-                    &:before {
-                        @include bm.transition();
-                        height: ef.get-value($themeDefault, 'underlineHeight');
-                        opacity: 100%;
-                    }
-                }
-            }
-        }
-    }
+                    &:not(.active) {
+                        color: ef.get-value($themeDefault, 'linkColorHovered');
 
-    &.wlc-category-menu--theme-mod-default {
-
-        ::ng-deep {
-
-            .wlc-menu {
-
-                &__icon {
-                    display: inline-flex;
-                    flex-direction: ef.get-value($themeDefault, 'iconFlexDirection');
-                    align-items: ef.get-value($themeDefault, 'iconAlignItems');
-                    justify-content: ef.get-value($themeDefault, 'iconJustifyContent');
-
-                    width: ef.get-value($themeDefault, 'iconOuterWidth');
-                    height: ef.get-value($themeDefault, 'iconOuterHeight');
-                    margin: ef.get-value($themeDefault, 'iconMargin');
-
-                    img {
-                        display: block;
-                        max-width: 100%;
-                        max-height: 100%;
-                    }
-
-                    svg {
-                        width: ef.get-value($themeDefault, 'iconSvgWidth');
-                        max-width: ef.get-value($themeDefault, 'iconSvgMaxWidth');
-                        height: ef.get-value($themeDefault, 'iconSvgHeight');
-                        max-height: ef.get-value($themeDefault, 'iconSvgMaxHeight');
-
-                        fill: ef.get-value($themeDefault, 'iconSvgFill');
-                    }
-                }
-            }
-        }
-    }
-
-    &.wlc-category-menu--theme-mod-with-icons {
-
-        ::ng-deep {
-
-            .wlc-menu {
-
-                &__link {
-                    display: flex;
-                    flex-direction: ef.get-value($withIcons, 'iconDirection');
-                    align-items: ef.get-value($withIcons, 'iconAlign');
-                    width: ef.get-value($withIcons, 'linkWidth');
-
-                    @if (ef.get-value($withIcons, 'hideUnderline')==true) {
-
-                        &:before {
-                            display: none;
-                        }
-                    }
-
-                    &.active {
-
-                        .wlc-menu__icon {
-                            box-shadow: ef.get-value($withIcons, 'menuIconShadow');
+                        .wlc-menu__link-text {
 
                             &:before {
-                                background: ef.get-value($withIcons, 'pseudoBgActive');
-                            }
-
-                            svg,
-                            path {
-                                fill: ef.get-value($withIcons, 'menuIconInnerFillActive');
+                                transform: ef.get-value($themeDefault, 'underlineTransformHover');
+                                opacity: 1;
                             }
                         }
                     }
-
-                    @include bm.hover() {
-
-                        &:not(.active) {
-
-                            .wlc-menu__icon {
-                                box-shadow: ef.get-value($withIcons, 'menuIconShadowHover');
-                                transform: ef.get-value($withIcons, 'menuIconTransformHover');
-
-                                &:before {
-                                    background: ef.get-value($withIcons, 'pseudoBgHover');
-                                }
-
-                                svg,
-                                path {
-                                    fill: ef.get-value($withIcons, 'menuIconInnerFillHover');
-                                }
-                            }
-                        }
-                    }
-                }
-
-                &__icon {
-                    position: relative;
-
-                    display: flex;
-                    flex-direction: ef.get-value($withIcons, 'menuIconFlexDirection');
-                    align-items: ef.get-value($withIcons, 'menuIconAlignItems');
-                    justify-content: ef.get-value($withIcons, 'menuIconJustifyContent');
-                    overflow: hidden;
-
-                    width: ef.get-value($withIcons, 'menuIconOuterWidth');
-                    height: ef.get-value($withIcons, 'menuIconOuterHeight');
-                    margin-bottom: ef.get-value($withIcons, 'menuGag');
-
-                    background: ef.get-value($withIcons, 'menuIconBackground');
-                    box-shadow: ef.get-value($withIcons, 'menuIconShadow');
-                    border-radius: ef.get-value($withIcons, 'menuIconBorderRadius');
-                    transition: ef.get-value($withIcons, 'menuIconBoxTransition');
-
-                    img,
-                    svg {
-                        position: relative;
-                        z-index: 1;
-                    }
-
-                    img {
-                        display: block;
-                        max-width: 100%;
-                        max-height: 100%;
-                    }
-
-                    svg {
-                        width: ef.get-value($withIcons, 'menuIconInnerWidth');
-                        height: ef.get-value($withIcons, 'menuIconInnerHeight');
-
-                        &,
-                        path {
-                            transition: ef.get-value($withIcons, 'menuIconTransition');
-                            fill: ef.get-value($withIcons, 'menuIconInnerFill');
-                        }
-                    }
-
-
-                    &:before {
-                        content: '';
-
-                        position: absolute;
-                        top: ef.get-value($withIcons, 'pseudoPosTop');
-                        left: ef.get-value($withIcons, 'pseudoPosLeft');
-                        z-index: 0;
-
-                        display: block;
-                        width: 100%;
-                        height: 100%;
-
-                        background: inherit;
-                        border-radius: inherit;
-                        transform: ef.get-value($withIcons, 'pseudoTransform');
-                        transition: ef.get-value($withIcons, 'pseudoTransition');
-                    }
-                }
-
-                &__link-text {
-                    width: ef.get-value($withIcons, 'linkTextWidth');
-                    white-space: nowrap;
-                    text-align: center;
-                    overflow: hidden;
-                    text-overflow: ellipsis;
                 }
             }
         }

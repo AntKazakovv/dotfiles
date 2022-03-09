@@ -1,0 +1,172 @@
+
+
+.wlc-category-menu--theme-icons-compact:host {
+    width: 100%;
+
+    ::ng-deep {
+        @include mx.menuControls($themeIconsCompact);
+
+        .wlc-category-menu {
+
+            &__content {
+                padding: ef.get-value($themeIconsCompact, 'menuContentPading');
+            }
+        }
+
+        .wlc-menu {
+
+            &__item {
+                padding: ef.get-value($themeIconsCompact, 'itemPadding');
+            }
+
+            &__link {
+                @include bm.get-mq-map('height', $themeIconsCompact, 'linkHeight');
+                @include bm.get-mq-map('padding', $themeIconsCompact, 'linkPadding');
+                @include text.get-text-style(ef.get-value($themeIconsCompact, 'linkTextStyle'), ef.get-value($themeIconsCompact, 'linkColor'));
+                @include bm.transition('all');
+
+                position: relative;
+                display: flex;
+                align-items: center;
+                padding: ef.get-value($themeIconsCompact, 'linkPadding');
+
+                line-height: 1;
+                text-transform: ef.get-value($themeIconsCompact, 'linkTransform');
+                text-decoration: ef.get-value($themeIconsCompact, 'linkDecoration');
+                background: ef.get-value($themeIconsCompact, 'linkBg');
+
+                &.active {
+                    color: ef.get-value($themeIconsCompact, 'linkColorActive');
+                    font-weight: ef.get-value($themeIconsCompact, 'linkWeightActive');
+                    background: ef.get-value($themeIconsCompact, 'linkBgActive');
+
+                    .wlc-menu__icon {
+                        color: ef.get-value($themeIconsCompact, 'iconFillActive');
+                    }
+                }
+
+                @include bm.hover {
+                    background: ef.get-value($themeIconsCompact, 'linkBgHover');
+
+                    &:not(.active) {
+                        color: ef.get-value($themeIconsCompact, 'linkColorHover');
+
+                        .wlc-menu__icon {
+                            color: ef.get-value($themeIconsCompact, 'iconFillHover');
+                        }
+                    }
+
+                    svg {
+                        animation: ef.get-value($themeIconsCompact, 'iconAnimation');
+                    }
+                }
+            }
+
+            &__icon {
+                display: inline-block;
+                width: ef.get-value($themeIconsCompact, 'iconSize');
+                height: ef.get-value($themeIconsCompact, 'iconSize');
+                margin: ef.get-value($themeIconsCompact, 'iconMargin');
+                color: ef.get-value($themeIconsCompact, 'iconFill');
+
+                svg {
+                    width: ef.get-value($themeIconsCompact, 'iconSize');
+                    height: ef.get-value($themeIconsCompact, 'iconSize');
+                    transform: translateZ(0);
+
+                    &,
+                    path {
+                        fill: ef.get-value($themeIconsCompact, 'iconSvgFill');
+                    }
+                }
+
+                img {
+                    max-width: 100%;
+                    max-height: 100%;
+                    object-fit: contain;
+                    object-position: ef.get-value($themeIconsCompact, 'iconObjPosition');
+                }
+            }
+        }
+    }
+
+    &.wlc-category-menu--theme-mod-underlined {
+
+        ::ng-deep {
+
+            .wlc-category-menu {
+
+                &__control {
+
+                    &:before {
+                        background: ef.get-value($themeIconsCompact, 'underlineControlBg');
+                    }
+                }
+            }
+
+            .wlc-menu {
+
+                &__item {
+                    @include bm.get-mq-map('padding', $themeIconsCompact, 'underlineItemPadding');
+                }
+
+                &__link {
+                    height: auto;
+                    padding: ef.get-value($themeIconsCompact, 'underlineLinkPadding');
+                    text-transform: ef.get-value($themeIconsCompact, 'underlineLinkTransform');
+                    background: none;
+
+                    &:before {
+                        content: '';
+
+                        position: absolute;
+                        bottom: ef.get-value($themeIconsCompact, 'underlineOffset');
+                        left: 0;
+
+                        display: block;
+                        width: 100%;
+                        height: ef.get-value($themeIconsCompact, 'underlineHeight');
+
+                        background: ef.get-value($themeIconsCompact, 'underlineBg');
+                        transform: ef.get-value($themeIconsCompact, 'underlineTransform');
+                        opacity: 0;
+                        transition: ef.get-value($themeIconsCompact, 'underlineTransition');
+                        pointer-events: none;
+                        border-radius: ef.get-value($themeIconsCompact, 'underlineRadius');
+                    }
+
+                    &.active {
+
+                        &:before {
+                            transform: ef.get-value($themeIconsCompact, 'underlineTransformActive');
+                            opacity: 1;
+                        }
+                    }
+
+                    @include bm.hover {
+
+                        &:not(.active) {
+
+                            &:before {
+                                transform: ef.get-value($themeIconsCompact, 'underlineTransformHover');
+                                opacity: 1;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+@keyframes iconScale {
+
+    55% {
+        transform: scale(ef.get-value($themeIconsCompact, 'animeIconScale')) rotate(ef.get-value($themeIconsCompact, 'animeIconRotate'));
+    }
+
+    100% {
+        transform: scale(1) rotate(0deg);
+    }
+}
+

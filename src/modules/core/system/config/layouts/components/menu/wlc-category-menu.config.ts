@@ -16,8 +16,62 @@ export namespace wlcCategoryMenu {
             after: 768,
         },
         params: {
-            themeMod: 'with-icons',
+            theme: 'with-icons',
             type: 'categories-menu',
+            common: {
+                icons: {
+                    use: true,
+                    folder: '/wlc/icons/color/v1/',
+                },
+            },
+        },
+    };
+    export const categoriesWithIconsBig: ILayoutComponent = {
+        name: 'menu.wlc-category-menu',
+        display: {
+            after: 768,
+        },
+        params: {
+            theme: 'with-icons',
+            themeMod: 'big-icons',
+            type: 'categories-menu',
+            common: {
+                icons: {
+                    use: true,
+                    folder: '/wlc/icons/color/v2/',
+                },
+            },
+        },
+    };
+    export const iconsCompact: ILayoutComponent = {
+        name: 'menu.wlc-category-menu',
+        display: {
+            after: 768,
+        },
+        params: {
+            theme: 'icons-compact',
+            common: {
+                icons: {
+                    use: true,
+                    folder: '/wlc/icons/european/v2/',
+                },
+            },
+        },
+    };
+    export const iconsCompactUnderlined: ILayoutComponent = {
+        name: 'menu.wlc-category-menu',
+        display: {
+            after: 768,
+        },
+        params: {
+            theme: 'icons-compact',
+            themeMod: 'underlined',
+            common: {
+                icons: {
+                    use: true,
+                    folder: '/wlc/icons/european/v2/',
+                },
+            },
         },
     };
 }

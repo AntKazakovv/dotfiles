@@ -6,8 +6,8 @@ import {TIconExtension} from 'wlc-engine/modules/menu';
 import * as MenuParams from 'wlc-engine/modules/menu/components/menu/menu.params';
 
 export type Type = 'default' | 'dropdown' | CustomType;
-export type Theme = 'default' | 'dropdown' | CustomType;
-export type ThemeMod = 'default' | 'vertical' | CustomType;
+export type Theme = 'default' | 'dropdown' | 'with-icons' | 'icons-compact' | CustomType;
+export type ThemeMod = 'default' | 'vertical' | 'underlined' | CustomType;
 export type AutoModifiers = Theme | ThemeMod;
 export type CustomMod = string;
 export type Modifiers = AutoModifiers | CustomMod | null;
@@ -34,6 +34,15 @@ export const defaultParams: ICategoryMenuCParams = {
     menuParams: {
         type: 'category-menu',
         items: [],
+        sliderParams: {
+            swiper: {
+                spaceBetween: 0,
+                navigation: {
+                    nextEl: '.wlc-category-menu__control--next',
+                    prevEl: '.wlc-category-menu__control--prev',
+                },
+            },
+        },
         common: {
             useSwiper: true,
             swiper: {

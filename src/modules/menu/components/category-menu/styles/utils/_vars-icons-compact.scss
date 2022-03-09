@@ -1,0 +1,66 @@
+$customThemeIconsCompact: () !default;
+$themeIconsCompact: map-merge((
+    'menuContentPading': 0 ef.size(1),
+    'linkHeight': (
+        375: 60px,
+        1200: 80px,
+    ),
+    'linkPadding': (
+        375: 0 ef.size(2),
+        1200: 0 ef.size(3),
+        1630: 0 ef.size(4),
+    ),
+    'linkTextStyle': 'PrimaryText',
+    'linkBg': null,
+    'linkBgHover': var(--mc-bg300-o6),
+    'linkBgActive': null,
+    'linkColor': var(--mc-baseMain),
+    'linkColorHover': null,
+    'linkColorActive': var(--mc-main),
+    'linkWeightActive': 700,
+    'linkTransform': null,
+    'linkDecoration': none,
+
+    'iconSize': 20px,
+    'iconMargin': 0 ef.size(1) 0 0,
+    'iconFill': inherit,
+    'iconFillHover': null,
+    'iconFillActive': null,
+    'iconSvgFill': currentColor,
+    'iconAnimation': iconScale 0.6s ease-out,
+    'iconObjPosition': center,
+
+    'animeIconRotate': 10deg,
+    'animeIconScale': 1.25,
+
+    // Mod underline
+    'underlineItemPadding': (
+        375: 0 ef.size(2),
+        1200: 0 ef.size(3),
+        1630: 0 ef.size(4),
+    ),
+    'underlineLinkPadding': 13px 0 12px,
+    'underlineLinkTransform': uppercase,
+    'underlineHeight': 3px,
+    'underlineBg': var(--mc-main),
+    'underlineTransform': scaleX(0.5),
+    'underlineTransformHover': scaleX(1),
+    'underlineTransformActive': scaleX(1),
+    'underlineTransition': all 0.5s cubic-bezier(0.6, 0.1, 0.05, 1.5),
+    'underlineRadius': ef.get('radius', 'small'),
+    'underlineOffset': 0,
+
+    // Slider shadows and controls
+
+    'controlWidth': 80px,
+    'controlHeight': 100%,
+    'controlArrowColor': var(--mc-baseMain),
+    'controlArrowColorHover': var(--mc-main),
+    'controlPrevSvgTransform': rotate(90deg),
+    'controlNextSvgTransform': rotate(-90deg),
+    'controlPrevJustifyContent': flex-start,
+    'controlNextJustifyContent': flex-end,
+    'controlTransition': all 0.3s ease-out,
+    'controlBg': linear-gradient(90deg, var(--mc-bg700) 30%, var(--mc-bg700-o0) 100%),
+    'underlineControlBg': linear-gradient(90deg, var(--mc-bg) 30%, var(--mc-bg-o0) 100%),
+), $customThemeIconsCompact);

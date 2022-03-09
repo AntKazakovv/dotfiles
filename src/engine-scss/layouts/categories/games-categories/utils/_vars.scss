@@ -5,26 +5,26 @@ $gamesCategoriesDefault: map-merge((
     'sectionHeight': (
         375: auto,
         768: 60px,
-        1630: 75px,
+        1200: 80px,
     ),
     'sectionMargin': (
-        375: -15px 0 20px,
-        768: 0 0 ef.get-value(ef.get('size', 'sectionsGap'), 375),
-        1630: 0 0 ef.get-value(ef.get('size', 'sectionsGap'), 1630),
+        375: ef.size(-3) 0 ef.size(4),
+        768: 0 0 ef.size(6),
+        1630: 0 0 ef.size(8),
     ),
     'sectionPadding': (
         375: 0,
-        768: ef.get('size', 'small'),
-        1024: 0 ef.get('size', 'small') 0 ef.get('size', 'main'),
-        1630: 0 ef.get('size', 'smally') 0 ef.get('size', 'biger'),
+        768: 0 ef.size(2),
+        1630: 0 ef.size(3),
     ),
     'gamesTemplateColumns': (
         375: minmax(0, 1fr),
-        768: minmax(0, 1fr) auto auto
+        768: minmax(0, 1fr) auto,
+        900: minmax(0, 1fr) auto auto,
     ),
     'gamesCategoriesAlign': center,
     'gamesTemplateColumnsGap': (
-        375: ef.get('size', 'smaller'),
+        375: ef.size(4),
     ),
     'sectionRadius': (
         375: 0,
@@ -43,8 +43,8 @@ $gamesCategoriesDefault: map-merge((
         375: 150px,
     ),
     'buttonSearchPadding': (
-        375: 0 ef.get('size', 'small'),
-        1630: 0 ef.get('size', 'smally'),
+        375: 0 ef.size(2),
+        1630: 0 ef.size(3),
     ),
     'buttonSearchRadius': (
         375: ef.get('radius', 'biger'),
@@ -56,11 +56,19 @@ $gamesCategoriesDefault: map-merge((
     'buttonSearchBgHover': var(--mc-main),
     'buttonSearchIconFill': var(--mc-main),
     'buttonSearchColor': var(--mc-baseMain),
-    'buttonSearchColorHover': ef.get('mainColors', 'baseMain'), // Locked color
-    'buttonSearchIconFillHover': ef.get('mainColors', 'baseMain'), // Locked color
-    'buttonSearchIconMargin': ef.get('size', 'small'),
-    'buttonMerchMargin': ef.get('size', 'smally'),
+    'buttonSearchColorHover': ef.get('mainColors', 'baseMain'),
+    'buttonSearchIconFillHover': ef.get('mainColors', 'baseMain'),
+    'buttonSearchIconMargin': ef.size(2),
+    'buttonMerchMargin': ef.size(3),
     'buttonSearchTextStyle': 'PrimaryText',
+    'btnIconWidth': 20px,
+    'btnIconHeight': 20px,
+
+    'withoutBackContainerPadding': 0,
+    'withoutBackBtnBorder': 2px solid var(--mc-baseOpacity),
+    'withoutBackBtnBorderHover': null,
+    'withoutBackBg': none,
+    'withoutBackBgHover': var(--mc-bg300),
 ), $customGamesCategoriesDefault);
 
 $customWithIcons: () !default;
@@ -75,8 +83,9 @@ $withIcons: map-merge((
     'sectionGap': (
         768: ef.size(4),
     ),
+    'buttonHeight': 40px,
     'buttonPadding': (
-        375: 8px ef.size(4),
+        375: 0 ef.size(4),
     ),
     'buttonBorderRadius': (
         375: ef.get('radius', 'biger'),
@@ -85,6 +94,8 @@ $withIcons: map-merge((
     'buttonColor': var(--mc-baseMain),
     'buttonAlignItems': center,
     'buttonJustifyContent': space-between,
+    'btnIconWidth': 20px,
+    'btnIconHeight': 20px,
     'searchAlignSelf': end,
     'merchAlignSelf': start,
     'searchButtonMargin': null,
@@ -100,10 +111,10 @@ $withIcons: map-merge((
     ),
     'gridAlignItems': start,
     'wrapperGridGap': (
-        375: 8px,
+        375: 6px,
     ),
     'wrapperPadding': (
         375: 0,
-        900: 12px 0 0,
+        900: ef.size(3) 0 0,
     ),
 ), $customWithIcons);
