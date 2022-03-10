@@ -29,6 +29,7 @@ const sportsbookIdByState: IIndexing<string> = {
     'app.bti': 'bti',
     'app.altenar': 'altenar',
     'app.tglab': 'tglab',
+    'app.nova': 'nova',
 };
 
 export const sportsbookState: Ng2StateDeclaration = {
@@ -107,3 +108,5 @@ export const tglabState: Ng2StateDeclaration = getCustomState('tglab');
 export const btiState: Ng2StateDeclaration = getCustomState('bti');
 
 export const esportState: Ng2StateDeclaration = getCustomState('esport');
+
+export const novaState: Ng2StateDeclaration = getCustomState('nova');

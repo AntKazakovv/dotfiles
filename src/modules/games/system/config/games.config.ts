@@ -91,7 +91,7 @@ export const gamesConfig: IGamesConfig = {
     },
     verticalThumbsConfigUrl: '/gstatic/vertical-thumbs/vertical-thumb.json',
     verticalImagesPath: '/gstatic/vertical-thumbs/',
-    sportsbookMerchants: [958, 972, 993, 962, 937, 903, 922, 908],
+    sportsbookMerchants: [958, 972, 993, 962, 937, 903, 922, 908, 893],
     components: {
         'wlc-total-jackpot': {
             noContent: {
@@ -110,7 +110,7 @@ export const gamesConfig: IGamesConfig = {
         byCyrillicLetters: true,
     },
     merchantWallet: {
-        availableMerchants: [937, 964, 982, 883, 890],
+        availableMerchants: [937, 964, 982, 883, 890, 893],
         balanceRequestTimeout: 30000,
         systemOptions: {
             883: {

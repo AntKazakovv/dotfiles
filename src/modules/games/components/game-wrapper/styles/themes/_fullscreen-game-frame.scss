@@ -8,6 +8,10 @@
 
     .wlc-game-wrapper {
 
+        &__header {
+            margin: ef.get-value($themeFullscreenGameFrame, 'headerMargin');
+        }
+
         &__game-area,
         &__content {
             height: 100%;

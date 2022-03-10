@@ -108,6 +108,12 @@ export const $layouts: ILayoutsConfig = {
             content: sectionsLib.content.sportsbookEsport,
         },
     },
+    'app.nova': {
+        extends: 'app',
+        sections: {
+            content: sectionsLib.content.sportsbookNova,
+        },
+    },
     'app.contacts': {
         extends: 'app',
         sections: {

@@ -74,6 +74,7 @@ export class ButtonComponent extends AbstractComponent implements OnInit,
     @Input() protected wlcElement: string;
     @Input() protected inlineParams: Params.IButtonCParams;
 
+    public ready: boolean = false;
     public $params: Params.IButtonCParams;
     protected $loading = new Subject<boolean>();
     @HostBinding('attr.type') get typeAttrValue() {return this.params?.common?.typeAttr || this.typeAttr;}
@@ -97,12 +98,19 @@ export class ButtonComponent extends AbstractComponent implements OnInit,
     public ngOnInit(): void {
         super.ngOnInit(this.prepareParams());
         this.prepareModifiers();
+        this.ready = true;
     }
 
     public ngOnChanges(changes) {
+        if (!this.ready) {
+            return;
+        }
+
+        super.ngOnChanges(changes);
         if (_get(changes, 'text') && _get(this, '$params.common.text')) {
             this.$params.common.text = this.text;
         }
+        this.cdr.detectChanges();
     }
 
     public ngAfterViewInit(): void {

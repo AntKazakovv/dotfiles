@@ -1,6 +1,7 @@
 $customThemeDefault: () !default;
 $themeDefault: map-merge((
     // common
+    'display': block,
     'textStyle': 'ThirdTitle',
     'textColor': null,
     'textAlign': center,
@@ -30,4 +31,21 @@ $themeDefault: map-merge((
     'buttonsDisplay': grid,
     'buttonsGap': ef.size(4),
     'buttonsJustifyContent': center,
+    'buttonsColumns': 1fr,
+
+    // mini buttons
+    'miniButtonsColor': var(--mc-main),
 ), $customThemeDefault);
+
+$customThemeFullscreenGameFrame: () !default;
+$themeFullscreenGameFrame: map-merge((
+    map-merge($themeDefault, (
+        'display': flex,
+        'infoMargin': 0 ef.size(2) 0 0,
+        'balanceMargin': 0 ef.size(2) 0 0,
+        'buttonsDisplay': grid,
+        'buttonsGap': ef.size(2),
+        'buttonsColumns': 1fr 1fr,
+    ))
+), $customThemeFullscreenGameFrame);
+
