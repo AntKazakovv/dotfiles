@@ -17,6 +17,10 @@ import * as Params from './checkbox.params';
 import _union from 'lodash-es/union';
 import _kebabCase from 'lodash-es/kebabCase';
 
+export interface ILegalAge {
+    age: number;
+}
+
 @Component({
     selector: '[wlc-checkbox]',
     templateUrl: './checkbox.component.html',
@@ -27,6 +31,7 @@ export class CheckboxComponent extends AbstractComponent implements OnInit {
     public $params: Params.ICheckboxCParams;
     public control: FormControl;
     public fieldWlcElement: string;
+    public legalAge: ILegalAge;
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.ICheckboxCParams,
@@ -45,6 +50,9 @@ export class CheckboxComponent extends AbstractComponent implements OnInit {
         this.control = this.$params.control;
         this.prepareModifiers();
         this.fieldWlcElement = 'checkbox_' + _kebabCase(this.$params.name);
+        this.legalAge = {
+            age: this.configService.get('$base.profile.legalAge') || 18,
+        };
     }
 
     public showModal(name: string, slug: string): void {
