@@ -143,7 +143,7 @@ export class PostMenuComponent extends AbstractComponent implements OnInit {
     protected setBasePath(): void {
         this.basePath = MenuHelper.getHrefItemBasePath({
             url: this.$params.common.basePath?.url,
-            lang: this.$params.common.basePath?.addLanguage ? this.translate.currentLang + '/' : '',
+            lang: this.$params.common.basePath?.addLanguage ? this.translate.currentLang : '',
             page: this.$params.common.basePath?.page,
         });
     }
