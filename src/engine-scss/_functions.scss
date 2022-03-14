@@ -1,5 +1,12 @@
 @use './engine.variables' as ev;
 
+/// Returns value from global variables. It's using inside maps with variables for components and sections.
+///
+/// @name get
+///
+/// @param {string} $map - source alias name (see function implementation)
+/// @param {string} $name - name of variable
+
 @function get($map, $name) {
     @if ($map == 'size') {
         @return map-get(ev.$size, $name);
@@ -32,6 +39,14 @@
     }
 }
 
+/// Returns value from map. It's using inside components and sections styles
+///
+/// @name get-value
+///
+/// @param {map} $map - target map
+/// @param {string} $name - name of variable
+/// @param {number} $breakpoint [375] - target breakpoint if value of $name option is map with breakpoints (optional)
+
 @function get-value($map, $name, $breakpoint: 375) {
     @if (type-of(map-get($map, $name)) == map and map-has-key(map-get($map, $name), $breakpoint)) {
         @return map-get(map-get($map, $name), $breakpoint);
@@ -44,8 +59,8 @@
 ///
 /// @name size
 ///
-/// @param {number} $value - The value is a multiple of the passed parameter multiplied by the base coefficient
-/// @param {$units} $units - Units of returned value, for default - px
+/// @param {number} $value [1] - The value is a multiple of the passed parameter multiplied by the base coefficient
+/// @param {$units} $units [px] - Units of returned value
 
 @function size($value: 1, $units: 'px') {
     @return #{map-get(ev.$baseVariables, 'baseSize') * $value} + $units;

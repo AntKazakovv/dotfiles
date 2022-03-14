@@ -108,7 +108,7 @@
             }
             filter: drop-shadow(ef.get-value($themeDefault, 'listShadow'));
 
-            /// iOS, MacOS fix
+            // iOS, MacOS fix
             /* stylelint-disable */
             .wlc-body--os-macos &,
             .wlc-body--os-ios & {

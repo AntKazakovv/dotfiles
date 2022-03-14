@@ -2,6 +2,12 @@
 @use '../engine.variables' as ev;
 @use './breakpoints' as bbp;
 
+/// Alias for @media (min-width: ...). Always use it instead of traditional media-query
+///
+/// @name min
+///
+/// @param {number} $name - breakpoint value (see valid breakpoints values at grid-breakpoints map)
+
 @mixin min($name) {
     $min: bbp.breakpoint-min($name, ev.$grid-breakpoints);
     @if $min {
@@ -14,6 +20,12 @@
     }
 }
 
+/// Alias for @media (max-width: ...). Always use it instead of traditional media-query
+///
+/// @name max
+///
+/// @param {number} $name - breakpoint value (see valid breakpoints values at grid-breakpoints map)
+
 @mixin max($name) {
     $max: bbp.breakpoint-min($name, ev.$grid-breakpoints);
     @if $max {
@@ -25,6 +37,13 @@
         @warn 'no breackpoint: #{$name}';
     }
 }
+
+/// Alias for @media (min-width: ...) and (max-width: ...) Always use it instead of traditional media-query
+///
+/// @name between
+///
+/// @param {number} $lower - start breakpoint value (see valid breakpoints values at grid-breakpoints map)
+/// @param {number} $upper - end breakpoint value (see valid breakpoints values at grid-breakpoints map)
 
 @mixin between($lower, $upper) {
     $min: bbp.breakpoint-min($lower, ev.$grid-breakpoints);

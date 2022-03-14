@@ -9,6 +9,12 @@
 @use './mediaqueries' as mq;
 @use '../engine.variables' as ev;
 
+/// Sets base container styles (moved from bootstrap)
+///
+/// @name make-container
+///
+/// @param {size} $gutter [ev.$container-padding-x]
+
 @mixin make-container($gutter: ev.$container-padding-x) {
     width: 100%;
     margin-right: auto;
@@ -16,6 +22,34 @@
     padding-right: $gutter;
     padding-left: $gutter;
 }
+
+/// Creates selector with component modifier and doesn't add extra nesting
+///
+/// @name themeMod
+///
+/// @param {string} $class - base class name of component
+/// @param {string} $theme - name of component theme
+/// @param {string} $mod - component modifier
+///
+/// @example
+/// // Input
+/// .block--theme-default {
+///
+///     .block {
+///
+///         &__elem {
+///             max-width: 1600px;
+///
+///             @include bm.themeMod('block', 'default', 'new') {
+///                 max-width: 100%;
+///             }
+///         }
+///     }
+/// }
+///
+/// // Output
+/// .block--theme-default .block__elem { max-width: 1600px; }
+/// .block--theme-mod-new .block__elem { max-width: 100%; }
 
 @mixin themeMod($class, $theme, $mod) {
 
@@ -31,12 +65,51 @@
 /// @param {string} $class - base class name of component
 /// @param {string} $theme - name of component theme
 /// @param {string} $mod - component modifier
+///
+/// @example
+/// // Input
+/// .block--theme-default {
+///
+///     .block {
+///
+///         &__elem {
+///             max-width: 1600px;
+///
+///             @include bm.manualMod('block', 'default', 'new') {
+///                 max-width: 100%;
+///             }
+///         }
+///     }
+/// }
+///
+/// // Output
+/// .block--theme-default .block__elem { max-width: 1600px; }
+/// .block--theme-default.block--new .block__elem { max-width: 100%; }
+
 @mixin manualMod($class, $theme, $mod) {
 
     @at-root #{selector.replace(&, '.#{$class}--theme-#{$theme}', '.#{$class}--theme-#{$theme}.#{$class}--#{$mod}')} {
         @content;
     }
 }
+
+/// Modifies selectors chain
+///
+/// @name betweenClass
+///
+/// @param {selector} $class
+///
+/// @example
+/// // Input
+/// .block {
+///
+///     &__elem {
+///         @include betweenClass('.middle-class') { ... }
+///     }
+/// }
+///
+/// // Output
+/// .block .middle-class .block__elem { ... }
 
 @mixin betweenClass($class: '') {
     $stringSelector: string.unquote('#{&}');
@@ -51,6 +124,7 @@
 /// TODO: delete
 /// Left because it can be used on projects
 /// @deprecated This mixin is deprecated. Use mixin hover.
+
 @mixin desktopHover {
     @warn 'This mixin is deprecated. Use mixin hover.';
 
@@ -72,7 +146,9 @@
 /// "@media (hover: none)" // work on: ios
 ///
 /// @name hover
+///
 /// @param {type} $type [true] - true - if there is a hover, false - if not
+
 @mixin hover($type: true) {
 
     @if ($type) {
@@ -91,11 +167,22 @@
     }
 }
 
+/// Simple way to add default transition
+///
+/// @name transition
+///
+/// @param {string} $type [all] - transition property
+/// @param {time} $speed [0.3s] - transition duration
+/// @param {string} $mode [linear] - transition timing function
+
 @mixin transition($type: all, $speed: 0.3s, $mode: linear) {
     transition: #{$type} #{$speed} #{$mode};
 }
 
 /// Hides element but keeps it accessible
+///
+/// @name visuallyHidden
+
 @mixin visuallyHidden {
     position: absolute;
     width: 1px;
@@ -118,6 +205,7 @@
 /// @param {string} $prop - name of css property
 /// @param {variable} $map - theme variable with map of values
 /// @param {string} $name - name of value in the map
+/// @param {string} $mediaAlwaysOn [false] - always use @media query
 
 @mixin get-mq-map($prop, $map, $name, $mediaAlwaysOn: false) {
     @if (type-of(map-get($map, $name)) == map) {
@@ -141,6 +229,12 @@
     }
 }
 
+/// Creates indent on section
+///
+/// @name init-indent
+///
+/// @param {list} $classes - classes list to apply indents
+
 @mixin init-indent($classes) {
     $key: '';
 
@@ -163,6 +257,12 @@
     }
 }
 
+/// Creates indents between sections
+///
+/// @name init-layout-gap
+///
+/// @param {map} $map
+
 @mixin init-layout-gap($map) {
 
     @each $page, $classes in $map {
@@ -176,6 +276,10 @@
         }
     }
 }
+
+/// Creates hover effect on wlc-icon
+///
+/// @name arrowIconAnimation
 
 @mixin arrowIconAnimation() {
 
@@ -195,7 +299,7 @@
 ///
 /// @name lineClamp
 ///
-/// @param {number} $clamp - name of css property. By default 1
+/// @param {number} $clamp [1] - number of rows
 
 @mixin lineClamp($clamp: 1) {
     /* stylelint-disable */
@@ -209,6 +313,12 @@
     text-overflow: ellipsis;
     word-break: break-word;
 }
+
+/// Creates block with defined aspect ratio
+///
+/// @name aspect-ratio-position
+///
+/// @param {string} $value - (1/1 | 4/3 | 16/9 | 3/2 | 8/5 | 10/16)
 
 @mixin aspect-ratio-padding($value) {
     @if ($value == '1/1') {
@@ -227,7 +337,9 @@
 }
 
 
-///Absolute centering
+/// Helper for absolute centering element, using absolute position and transform
+///
+/// @name absoluteCentering
 
 @mixin absoluteCentering {
     position: absolute;
@@ -238,7 +350,12 @@
     transform: translate(-50%, -50%);
 }
 
-// Fix layout shift problem for inline elements
+/// Helper for fix layout shift problem for inline elements
+///
+/// @name inlineLayoutShiftFix
+///
+/// @param {string} $pseudoName [after] - which pseudo element will be used (before or after)
+
 @mixin inlineLayoutShiftFix($pseudoName: 'after') {
 
     &:#{$pseudoName} {
@@ -258,6 +375,7 @@
 /// @name colorThemeAlt
 ///
 /// @param {string} $suffix ['alt'] - name of alternate color theme
+
 @mixin colorThemeAlt($suffix: 'alt') {
     .wlc-body--theme-#{$suffix} & {
         @content;
@@ -267,14 +385,16 @@
 /// Generate string array from variable value
 /// Write for transition mixin
 ///
+/// @name strToList
+///
+/// @param {string} $string - Source string
+/// @param {string} $separator - Separator for source string
+/// @return {string} splited string
+///
 /// @example
 /// var: 'selectDropdownItemTransition': map-get($time, 'main') ease-in-out background
 /// component: @include bm.transition(bm.split(#{ef.get-value($themeDefault, 'selectDropdownItemTransition')},' ')...);
-///
-/// @name strToList
-/// @param {string} $string - source string
-/// @param {string} $separator - separator for source string
-/// @return {string} splited string
+
 @function strToList($string, $separator) {
     $split-arr: ();
     $index : str-index($string, $separator);
@@ -293,6 +413,7 @@
 /// Generate custom scrollbar
 ///
 /// @name scrollbar
+///
 /// @param {map} $map - scrollbar settings (scrollbarTrackBg, scrollbarThumbBg, scrollbarBorder)
 /// @param {string} $direction ['vertical'] - vertical or horizontal
 

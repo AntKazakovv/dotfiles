@@ -1,6 +1,13 @@
 @use '../engine.variables' as ev;
 @use '../functions' as ef;
 
+/// Sets defined text-style from design system
+///
+/// @name get-text-style
+///
+/// @param {string} $style - name of text style (see implementation for look available text styles)
+/// @param {color} $color [var(--mc-baseMain)] color of text. Use `null` to reset any color
+
 @mixin get-text-style($style, $color: var(--mc-baseMain)) {
     color: $color;
     font-style: normal;

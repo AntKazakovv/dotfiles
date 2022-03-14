@@ -6,7 +6,7 @@
         gap: ef.get-value($themeDefault, 'gap');
         align-items: flex-end;
 
-        /// TODO: delete if we will use datepicker
+        // TODO: delete if we will use datepicker
         ::ng-deep {
 
             .wlc-select--day.wlc-select--theme-mod-default.wlc-select--type-default {
