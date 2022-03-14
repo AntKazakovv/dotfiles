@@ -209,4 +209,29 @@ export namespace wlcBonusesList {
             },
         },
     };
+    export const bannerPlusOne: ILayoutComponent = {
+        name: 'bonuses.wlc-bonuses-list',
+        display: {
+            auth: true,
+            after: 1200,
+        },
+        params: <IBonusesListCParams>{
+            type: 'swiper',
+            theme: 'promo-home',
+            title: gettext('Bonus'),
+            wlcElement: 'block_bonuses-main',
+            common: {
+                sortOrder: ['active', 'promocode', 'subscribe', 'inventory'],
+                swiper: {
+                    slidesPerView: 1,
+                    navigation: {
+                        nextEl: '.wlc-bonuses-list .wlc-swiper-button-next',
+                        prevEl: '.wlc-bonuses-list .wlc-swiper-button-prev',
+                    },
+                    lazy: true,
+                    loop: true,
+                },
+            },
+        },
+    };
 }

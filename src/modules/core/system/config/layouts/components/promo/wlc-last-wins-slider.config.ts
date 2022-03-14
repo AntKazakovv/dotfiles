@@ -82,7 +82,7 @@ export namespace wlcLastWinsSlider {
         },
     };
 
-    export const stripe: ILayoutComponent = 
+    export const stripe: ILayoutComponent =
     {
         name: 'promo.wlc-winners-slider',
         params: {
@@ -97,6 +97,27 @@ export namespace wlcLastWinsSlider {
             type: 'latest',
             title: gettext('Last Winners:'),
             wlcElement: 'section_last-winners',
+        },
+    };
+
+    export const bannerPlusOne: ILayoutComponent = {
+        name: 'promo.wlc-winners-slider',
+        display: {
+            auth: false,
+            after: 1200,
+        },
+        params: <IWinnersSliderCParams>{
+            type: 'latest',
+            theme: 'vertical',
+            title: gettext('Recent wins'),
+            wlcElement: 'section_last-winners',
+            swiper: {
+                breakpoints: {
+                    1200: {
+                        slidesPerView: 4,
+                    },
+                },
+            },
         },
     };
 }

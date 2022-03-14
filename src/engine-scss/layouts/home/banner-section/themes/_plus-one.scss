@@ -1,0 +1,33 @@
+.wlc-sections__banner-section--theme-plus-one {
+
+    .wlc-banner-plus-one {
+        @include bm.get-mq-map('grid-template-columns', $themePlusOne, 'sectionGridTemplateColumns');
+        @include bm.get-mq-map('gap', $themePlusOne, 'sectionGap');
+        display: grid;
+
+        .wlc-slider--theme-default-banner {
+            border-radius: ef.get-value($themePlusOne, 'sliderBannerBorderRadius');
+            overflow: hidden;
+
+            .swiper-button-container {
+                bottom: ef.get-value($themePlusOne, 'swiperButtonsBottom');
+                padding: ef.get-value($themePlusOne, 'swiperButtonsPadding');
+            }
+        }
+
+        .wlc-banner {
+
+            .banner {
+                @include bm.get-mq-map('min-height', $themePlusOne, 'minHeightBanner');
+                padding: ef.get-value($themePlusOne, 'bannerPadding');
+            }
+        }
+
+        .wlc-winners-slider--theme-vertical[class] {
+
+            .wlc-winners-slider__slider {
+                margin: ef.get-value($themePlusOne, 'winnersSliderMargin');
+            }
+        }
+    }
+}

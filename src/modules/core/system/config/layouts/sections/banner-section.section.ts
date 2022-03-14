@@ -37,4 +37,22 @@ export namespace bannerSection {
             componentLib.wlcPromoSteps.def,
         ],
     };
+
+    export const plusOneWinnersAndBonuses: ILayoutSectionConfig = {
+        container: true,
+        theme: 'plus-one',
+        components: [
+            {
+                name: 'core.wlc-wrapper',
+                params: {
+                    class: 'wlc-banner-plus-one',
+                    components: [
+                        componentLib.wlcBannersSlider.home,
+                        componentLib.wlcLastWinsSlider.bannerPlusOne,
+                        componentLib.wlcBonusesList.bannerPlusOne,
+                    ],
+                },
+            },
+        ],
+    };
 }
