@@ -28,6 +28,7 @@ export type Theme = 'active'
     | 'promocode'
     | 'promo-home'
     | 'reg-first'
+    | 'modal'
     | CustomType;
 export type ThemeMod = 'default' | 'active' | 'chip-v2' | 'with-image' | CustomType;
 export type AutoModifiers = Theme | ThemeMod;

@@ -6,6 +6,7 @@
     <ng-container [ngTemplateOutlet]="promoHome" *ngSwitchCase="'promo-home'"></ng-container>
     <ng-container [ngTemplateOutlet]="long" *ngSwitchCase="'long'"></ng-container>
     <ng-container [ngTemplateOutlet]="active" *ngSwitchCase="'active'"></ng-container>
+    <ng-container [ngTemplateOutlet]="modal" *ngSwitchCase="'modal'"></ng-container>
     <ng-container [ngTemplateOutlet]="default" *ngSwitchDefault></ng-container>
 </ng-container>
 
@@ -304,6 +305,10 @@
             </div>
         </div>
     </div>
+</ng-template>
+
+<ng-template #modal>
+    <ng-container [ngTemplateOutlet]="bonusIcon"></ng-container>
 </ng-template>
 
 <ng-template #active>

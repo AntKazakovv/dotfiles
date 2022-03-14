@@ -3,7 +3,7 @@
         <div class="{{$class}}__image-block"
             data-wlc-element="bonus_image"
             [ngStyle]="{'backgroundImage': 'url('+getBonusBg+')'}">
-            <ng-container [ngTemplateOutlet]="bonusIcon"></ng-container>
+            <div wlc-bonus-item [inlineParams]="{bonus, theme: 'modal'}"></div>
         </div>
         <div class="{{$class}}__info-block">
             <h4 class="{{$class}}__name" data-wlc-element="bonus_title-name">{{bonus.name}}</h4>

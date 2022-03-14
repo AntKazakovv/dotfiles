@@ -65,18 +65,6 @@ describe('BonusModalComponent', () => {
         expect(classes.includes(`${defaultParams.class}--type-default`)).toBeTrue();
     });
 
-    it('-> checking image block', () => {
-        component.ngOnInit();
-        component.useIconBonusImage = true;
-        fixture.detectChanges();
-
-
-        expect(nativeElement.querySelector(`.${defaultParams.class}__icon`)).toBeDefined();
-        expect(nativeElement.querySelector(`.${defaultParams.class}__icon-sign`)).toBeDefined();
-        expect(nativeElement.querySelector(`.${defaultParams.class}__icon-text`).textContent.trim())
-            .toBe(bonusSpy.value.toString());
-    });
-
     it('-> checking info block', () => {
         expect(nativeElement.querySelector(`.${defaultParams.class}__name`).textContent)
             .toBe(bonusSpy.name);
