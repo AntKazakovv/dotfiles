@@ -406,20 +406,26 @@ class StartGameHandler {
             return deferred.promise;
         }
 
-        //WlcStateService.setRedirect('app.games.play', $stateParams);
-        this.showErrorNotification(
-            gettext('Deposit more money to play this game.'),
-            gettext('Insufficient balance!'),
-        );
-
         deferred.reject(RejectReason.LowBalance);
         const redirect: IRedirect = this.configService.get<IRedirect>('$base.redirects.zeroBalance');
-        if (this.configService.get('$finances.fastDeposit.use')) {
-            //@TODO After ready fast deposit
-            //this.modalService.showModal('fastDeposit');
+
+        //WlcStateService.setRedirect('app.games.play', $stateParams);
+        if (redirect.modalInsteadRedirect) {
+            this.modalService.showModal(redirect.modalInsteadRedirect, {game: this.game});
         } else {
-            this.stateService.go(redirect.state, redirect?.params || this.transition.params());
+            this.showErrorNotification(
+                gettext('Deposit more money to play this game.'),
+                gettext('Insufficient balance!'),
+            );
+
+            if (this.configService.get('$finances.fastDeposit.use')) {
+                //@TODO After ready fast deposit
+                //this.modalService.showModal('fastDeposit');
+            } else {
+                this.stateService.go(redirect.state, redirect?.params || this.transition.params());
+            }
         }
+
         return deferred.promise;
     }
 

@@ -22,7 +22,8 @@ export interface IRedirectConfig {
 }
 
 export interface IRedirect {
-    state: string;
+    modalInsteadRedirect?: string;
+    state?: string;
     params?: IIndexing<any>;
     profile?: profileRedirectType;
 }
