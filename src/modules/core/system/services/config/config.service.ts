@@ -13,6 +13,7 @@ import {
 import {
     BehaviorSubject,
 } from 'rxjs';
+import {distinctUntilChanged} from 'rxjs/operators';
 
 import _mergeWith from 'lodash-es/mergeWith';
 import _get from 'lodash-es/get';
@@ -50,7 +51,11 @@ import {
     ILayoutsConfig,
     IBootstrap,
 } from 'wlc-engine/modules/core/system/interfaces';
-import {ICountry} from 'wlc-engine/modules/core/system/interfaces/fundist.interface';
+import {
+    ICountry,
+    TStates,
+    IState,
+} from 'wlc-engine/modules/core/system/interfaces/fundist.interface';
 import {GlobalHelper} from 'wlc-engine/modules/core/system/helpers/global.helper';
 import {
     IGlobalConfig,
@@ -97,6 +102,7 @@ export class ConfigService {
         this.translateService.onLangChange
             .subscribe(() => {
                 this.getCountries();
+                this.getStates();
             });
     }
 
@@ -198,8 +204,18 @@ export class ConfigService {
         this.set<boolean>({name: '$user.isAuthenticated', value: this.global.appConfig.loggedIn});
         this.addSiteConfig();
 
-        this.set<any>({
+        this.set<BehaviorSubject<ICountry[]>>({
             name: 'countries',
+            value: new BehaviorSubject([]),
+        });
+
+        this.set<BehaviorSubject<TStates>>({
+            name: 'states',
+            value: new BehaviorSubject({}),
+        });
+
+        this.set<BehaviorSubject<IState[]>>({
+            name: 'countryStates',
             value: new BehaviorSubject([]),
         });
 
@@ -331,6 +347,37 @@ export class ConfigService {
                 from: {
                     service: 'ConfigService',
                     method: 'getCountries',
+                },
+            });
+        });
+    }
+
+    private async getStates(): Promise<void> {
+        this.injector.get<DataService>(DataService).request({
+            name: 'states',
+            url: '/states',
+            cache: 120 * 60 * 1000,
+            system: 'user',
+            type: 'GET',
+        }).then(async (data: IData) => {
+            await this.ready;
+            this.get<BehaviorSubject<TStates>>('states').next(data.data.states);
+
+            this.get<BehaviorSubject<UserProfile>>('$user.userProfile$')
+                .pipe(distinctUntilChanged())
+                .subscribe((userProfile: UserProfile) => {
+                    if (userProfile?.countryCode) {
+                        this.get<BehaviorSubject<IState[]>>('countryStates')
+                            .next(data.data.states[userProfile.countryCode]);
+                    }
+                });
+
+        }).catch(() => {
+            this.injector.get(LogService).sendLog({
+                code: '0.0.62',
+                from: {
+                    service: 'ConfigService',
+                    method: 'getStates',
                 },
             });
         });

@@ -11,11 +11,13 @@ import {FormGroup} from '@angular/forms';
 import {StateService} from '@uirouter/core';
 
 import _each from 'lodash-es/each';
+import _assign from 'lodash-es/assign';
 
 import {
     ConfigService,
     EventService,
     ModalService,
+    SelectValuesService,
     IPushMessageParams,
     NotificationEvents,
     IIndexing,
@@ -48,6 +50,7 @@ export class AddProfileInfoComponent extends ProfileFormAbstract implements OnIn
         protected cdr: ChangeDetectorRef,
         protected eventService: EventService,
         protected stateService: StateService,
+        protected selectService: SelectValuesService,
     ) {
         super({injectParams, defaultParams: Params.defaultParams},
             eventService,
@@ -57,6 +60,7 @@ export class AddProfileInfoComponent extends ProfileFormAbstract implements OnIn
 
     public ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
+        this.disableStatesControl();
     }
 
     public async onSubmit(form: FormGroup): Promise<void> {
@@ -110,5 +114,17 @@ export class AddProfileInfoComponent extends ProfileFormAbstract implements OnIn
 
         this.isPending = false;
         this.cdr.markForCheck();
+    }
+
+    protected disableStatesControl(): void {
+        this.selectService.countryStates$.next([{value: '', title: 'Please select country'}]);
+
+        this.eventService.subscribe(
+            {name: 'COUNTRY_STATES'},
+            () => {
+                this.$params.formConfig = _assign({}, this.$params.formConfig);
+            },
+            this.$destroy,
+        );
     }
 }

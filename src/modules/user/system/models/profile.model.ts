@@ -52,6 +52,10 @@ export class UserProfile extends AbstractModel<IUserProfile> {
         return this.data.countryCode;
     }
 
+    public get stateCode(): string {
+        return this.data.stateCode;
+    }
+
     public get currency(): string {
         return this.data.currency || 'EUR';
     }

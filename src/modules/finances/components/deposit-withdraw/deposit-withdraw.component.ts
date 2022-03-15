@@ -197,6 +197,7 @@ export class DepositWithdrawComponent
                     this.cdr.markForCheck();
                 });
         }
+        await this.financesService.fetchPaymentSystems();
     }
 
     /**

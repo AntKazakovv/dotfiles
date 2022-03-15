@@ -47,6 +47,7 @@ import {BirthdayFieldComponent} from './components/birthday-field/birthday-field
 import {BurgerPanelComponent} from './components/burger-panel/burger-panel.component';
 import {ButtonComponent} from './components/button/button.component';
 import {CaptchaComponent} from './components/captcha/captcha.component';
+import {CountryAndStateComponent} from './components/country-and-state/country-and-state.component';
 import {CheckboxComponent} from './components/checkbox/checkbox.component';
 import {CopyrightComponent} from './components/copyright/copyright.component';
 import {CounterComponent} from './components/counter/counter.component';
@@ -139,6 +140,7 @@ export const components = {
     'wlc-button': ButtonComponent,
     'wlc-burger-panel': BurgerPanelComponent,
     'wlc-captcha': CaptchaComponent,
+    'wlc-country-and-state': CountryAndStateComponent,
     'wlc-checkbox': CheckboxComponent,
     'wlc-copyright': CopyrightComponent,
     'wlc-counter': CounterComponent,
@@ -238,6 +240,7 @@ export const components = {
         BurgerPanelComponent,
         ButtonComponent,
         CaptchaComponent,
+        CountryAndStateComponent,
         CheckboxComponent,
         ClampDirective,
         ClickOutsideDirective,
@@ -308,6 +311,7 @@ export const components = {
         BurgerPanelComponent,
         ButtonComponent,
         CaptchaComponent,
+        CountryAndStateComponent,
         CheckboxComponent,
         ClampDirective,
         ClickOutsideDirective,

@@ -33,6 +33,20 @@ import {
     filter,
 } from 'rxjs/operators';
 
+import _assign from 'lodash-es/assign';
+import _each from 'lodash-es/each';
+import _isObject from 'lodash-es/isObject';
+import _merge from 'lodash-es/merge';
+import _find from 'lodash-es/find';
+import _get from 'lodash-es/get';
+import _includes from 'lodash-es/includes';
+import _clone from 'lodash-es/clone';
+import _isArray from 'lodash-es/isArray';
+import _set from 'lodash-es/set';
+import _keys from 'lodash-es/keys';
+import _filter from 'lodash-es/filter';
+import _isUndefined from 'lodash-es/isUndefined';
+
 import {UserService} from 'wlc-engine/modules/user';
 import {InjectionService} from 'wlc-engine/modules/core/system/services/injection/injection.service';
 import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
@@ -59,21 +73,6 @@ import {
     WrapperComponent,
 } from 'wlc-engine/modules/core/components/wrapper/wrapper.component';
 import {WINDOW} from 'wlc-engine/modules/app/system';
-
-
-import _assign from 'lodash-es/assign';
-import _each from 'lodash-es/each';
-import _isObject from 'lodash-es/isObject';
-import _merge from 'lodash-es/merge';
-import _find from 'lodash-es/find';
-import _get from 'lodash-es/get';
-import _includes from 'lodash-es/includes';
-import _clone from 'lodash-es/clone';
-import _isUndefined from 'lodash-es/isUndefined';
-import _isArray from 'lodash-es/isArray';
-import _set from 'lodash-es/set';
-import _keys from 'lodash-es/keys';
-import _filter from 'lodash-es/filter';
 
 export interface IControls extends IIndexing<FormControl> {
 }
@@ -378,21 +377,23 @@ export class FormWrapperComponent extends WrapperComponent implements OnInit, On
             }
 
             _each(component.params.validators, (validator) => {
-                const validationRule = this.getValidator(validator);
-                if (!validationRule) {
-                    console.error('Validator not found: ', validator);
-                    return;
-                }
+                this.getValidator(validator, asyncValidators, validators);
 
-                if (validationRule?.async) {
-                    asyncValidators.push(validationRule.validator);
-                } else {
-                    validators.push(validationRule.validator);
+                if (validator === 'required' && _isUndefined(component.params.locked)) {
+                    component.params.locked = true;
                 }
             });
 
             if (_isArray(component.params.name)) {
                 _each(component.params.name, (field: string) => {
+
+                    const fieldValidator: ValidatorFn[] = [];
+                    const fieldAsyncValidators: AsyncValidatorFn[] = [];
+
+                    if(_find(component.params.validatorsField, {name: field})) {
+                        const validator = _find(component.params.validatorsField, {name: field})['validators'];
+                        this.getValidator(validator, fieldAsyncValidators, fieldValidator);
+                    }
 
                     if (!this.allControls[field] || component.alwaysNew) {
                         this.allControls[field] = new FormControl(
@@ -400,8 +401,8 @@ export class FormWrapperComponent extends WrapperComponent implements OnInit, On
                                 value: _get(this.formData?.value, field, ''),
                                 disabled: component.params.disabled,
                             },
-                            validators,
-                            asyncValidators,
+                            !!fieldValidator.length ? fieldValidator : validators,
+                            !!fieldAsyncValidators.length ? fieldAsyncValidators : asyncValidators,
                         );
 
                         if (component.alwaysNew?.saveValue && this.formDataStorage[field]) {
@@ -413,6 +414,10 @@ export class FormWrapperComponent extends WrapperComponent implements OnInit, On
                     controls[field] = this.allControls[field];
 
                     if (component.params.locked) {
+                        if(_isArray(component.params.locked)) {
+                            this.locked.push(...component.params.locked);
+                            return;
+                        }
                         this.locked.push(field);
                     }
                 });
@@ -451,18 +456,7 @@ export class FormWrapperComponent extends WrapperComponent implements OnInit, On
         };
 
         _each(this.$params.validators, validator => {
-            const validationRule = this.getValidator(validator);
-
-            if (!validationRule) {
-                console.error('Validator not found: ', validator);
-                return;
-            }
-
-            if (validationRule?.async) {
-                this.globalValidators.asyncValidators.push(validationRule.validator);
-            } else {
-                this.globalValidators.validators.push(validationRule.validator);
-            }
+            this.getValidator(validator, this.globalValidators.asyncValidators, this.globalValidators.validators);
         });
     }
 
@@ -476,7 +470,7 @@ export class FormWrapperComponent extends WrapperComponent implements OnInit, On
 
                 _each(this.form.controls, (control, key) => {
                     const value = _get(data, key);
-                    if (!_isUndefined(value)) {
+                    if (!!value) {
                         control.setValue(value);
                     }
 
@@ -490,14 +484,31 @@ export class FormWrapperComponent extends WrapperComponent implements OnInit, On
             });
     }
 
-    private getValidator(validatorSettings: string | IValidatorSettings): IValidatorListItem {
-        if (_isObject(validatorSettings)) {
-            const changeValidator = _clone(this.validationService.getValidator(validatorSettings.name));
-            changeValidator.validator = changeValidator.validator(validatorSettings.options);
+    private getValidator(
+        validatorSettings: string | IValidatorSettings,
+        asyncValidators: AsyncValidatorFn[],
+        validators: ValidatorFn[],
+    ): void {
 
-            return changeValidator;
+        let validationRule: IValidatorListItem;
+
+        if (_isObject(validatorSettings)) {
+            validationRule = _clone(this.validationService.getValidator(validatorSettings.name));
+            validationRule.validator = validationRule.validator(validatorSettings.options);
+        } else {
+            validationRule = this.validationService.getValidator(validatorSettings);
         }
-        return this.validationService.getValidator(validatorSettings);
+
+        if(!validationRule) {
+            console.error('Validator not found: ', validatorSettings);
+            return;
+        }
+
+        if (validationRule?.async) {
+            asyncValidators.push(validationRule.validator);
+        } else {
+            validators.push(validationRule.validator);
+        }
     }
 
     private async setErrors(errors: IIndexing<string>): Promise<void> {

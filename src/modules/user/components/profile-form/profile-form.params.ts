@@ -98,20 +98,14 @@ export const generateConfig = (useLogin: boolean = false): IProfileFormCParams =
                     },
                 },
                 {
-                    name: 'core.wlc-select',
-                    params: <ISelectCParams>{
-                        labelText: gettext('Country'),
-                        wlcElement: 'block_country',
-                        common: {
-                            placeholder: gettext('Country'),
-                        },
-                        locked: true,
-                        name: 'countryCode',
-                        validators: ['required'],
-                        options: 'countries',
-                        useSearch: true,
-                        insensitiveSearch: true,
-                        noResultText: gettext('No results available'),
+                    name: 'core.wlc-country-and-state',
+                    params: {
+                        name:  ['countryCode', 'stateCode'],
+                        locked: ['countryCode'],
+                        validatorsField: [{
+                            name: 'countryCode',
+                            validators: 'required',
+                        }],
                     },
                 },
                 {
