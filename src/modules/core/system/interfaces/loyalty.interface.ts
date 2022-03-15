@@ -1,28 +1,28 @@
 export interface ILoyalty {
-    Balance: string;
-    Block: number;
-    BonusRestrictions: any;
+    Balance?: string;
+    Block?: number;
+    BonusRestrictions?: any;
     BonusesBalance: any;
-    CheckDate: string;
-    ConfirmPoints: string;
-    Country: string;
-    Currency: string;
-    DepositsCount: string;
-    DuplicateLevel: string;
-    ForbidBonuses: string;
-    ForbidLoyaltyPoints: string;
-    ForbidTournaments: string;
-    IDUser: string;
-    Language: string;
-    Level: string;
-    LevelCoef: string;
+    CheckDate?: string;
+    ConfirmPoints?: string;
+    Country?: string;
+    Currency?: string;
+    DepositsCount?: string;
+    DuplicateLevel?: string;
+    ForbidBonuses?: string;
+    ForbidLoyaltyPoints?: string;
+    ForbidTournaments?: string;
+    IDUser?: string;
+    Language?: string;
+    Level?: string;
+    LevelCoef?: string;
     LevelName: any;
-    LevelUp: boolean;
-    Login: string;
-    NextLevelPoints: string;
-    Points: string;
-    TotalBets: string;
-    TotalPoints: string;
+    LevelUp?: boolean;
+    Login?: string;
+    NextLevelPoints?: string;
+    Points?: string;
+    TotalBets?: string;
+    TotalPoints?: string;
 }
 
 export interface IFreeRound {
