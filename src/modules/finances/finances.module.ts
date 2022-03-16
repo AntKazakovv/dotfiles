@@ -10,6 +10,7 @@ import {
     PIQCashierService,
 } from './system/services';
 import {CoreModule} from 'wlc-engine/modules/core/core.module';
+import {CompilerModule} from 'wlc-engine/modules/compiler';
 import {TranslateModule} from '@ngx-translate/core';
 import {BetHistoryComponent} from './components/bet-history/bet-history.component';
 import {DepositWithdrawComponent} from './components/deposit-withdraw/deposit-withdraw.component';
@@ -61,10 +62,11 @@ export const services = {
 @NgModule({
     imports: [
         CommonModule,
-        TranslateModule,
+        CompilerModule,
         CoreModule,
         FormsModule,
         ReactiveFormsModule,
+        TranslateModule,
     ],
     declarations: [
         BetHistoryComponent,

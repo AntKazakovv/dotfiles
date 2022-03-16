@@ -9,13 +9,15 @@ export interface IFastDeposit {
 }
 
 export interface IPaymentMessage {
-    translate: string;
+    translate?: string;
     address?: string;
     qrlink?: string;
     wallet_currency?: string;
     details?: string;
     tag?: string;
     x_address?: string;
+    html?: string;
+    scripts?: string[];
 }
 
 export interface IBet {

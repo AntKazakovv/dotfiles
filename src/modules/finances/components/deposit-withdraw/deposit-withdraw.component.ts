@@ -534,7 +534,7 @@ export class DepositWithdrawComponent extends AbstractDepositWithdrawComponent i
             const messageData: IModalConfig = {
                 id: 'payment-message',
                 modalTitle: gettext('Payment'),
-                modifier: 'info',
+                modifier: type === 'markup' ? 'markup' : 'info',
                 component: PaymentMessageComponent,
                 componentParams: {
                     themeMod: 'modal',

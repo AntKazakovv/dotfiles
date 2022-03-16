@@ -1,4 +1,4 @@
-<ng-container *ngIf="error; else error" [ngSwitch]="type">
+<ng-container *ngIf="!isError; else error" [ngSwitch]="type">
     <ng-container *ngSwitchCase="'pay_to_address'">
         <div class="{{$class}}__text">
             <div *ngIf="inputParamsXaddress" class="{{$class}}__clipboard-x">
@@ -44,8 +44,17 @@
             <span class="stress">{{'Attention!' | translate}}</span> {{'Payments through contracts are not supported.' | translate}}
         </div>
     </ng-container>
+
     <div *ngSwitchCase="'pay_to_bank'" class="{{$class}}__text">
         {{details | translate}}
+    </div>
+
+    <div *ngSwitchCase="'html'" class="{{$class}}__markup">
+        <div *ngIf="html"
+            wlc-dynamic-html
+            [html]="html"
+            [canUseScriptTag]="true">
+        </div>
     </div>
 </ng-container>
 
