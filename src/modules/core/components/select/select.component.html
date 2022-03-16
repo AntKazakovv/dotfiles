@@ -31,6 +31,7 @@
                     'ng-touched': control.touched,
                     'ng-untouched': control.untouched
                }"
+               [attr.data-wlc-element]="fieldWlcElement"
                (click)="openDropdown()"
                (input)="searchItems()">
     </ng-container>
