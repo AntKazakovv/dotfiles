@@ -102,7 +102,7 @@ export interface IFormWrapperCParams extends IWrapperCParams {
 })
 export class FormWrapperComponent extends WrapperComponent implements OnInit, OnChanges {
     @Input() public ngSubmit: (form: FormGroup) => Promise<boolean>;
-    @Input() private beforeSubmit: (form: FormGroup) => boolean | Promise<boolean>;
+    @Input() private beforeSubmit: (form: FormGroup, initialFormValues?: IIndexing<any>) => boolean | Promise<boolean>;
     @Input() private config: IFormWrapperCParams;
     @Input() private formData: BehaviorSubject<IIndexing<any>>;
     @Input() private errors: Observable<IIndexing<string>>;
@@ -116,6 +116,7 @@ export class FormWrapperComponent extends WrapperComponent implements OnInit, On
     private globalValidators: IGlobalValidators;
     private formDataStorage: IIndexing<any> = {};
     private listErrors: IIndexing<IIndexing<string>> = {};
+    private initialFormValues: IIndexing<any> = {};
 
     private locked: string[] = [];
     private initiated: boolean;
@@ -197,7 +198,7 @@ export class FormWrapperComponent extends WrapperComponent implements OnInit, On
     }
 
     public async submit(): Promise<void> {
-        if (this.beforeSubmit && !await this.beforeSubmit(this.form)) {
+        if (this.beforeSubmit && !await this.beforeSubmit(this.form, this.initialFormValues)) {
             return;
         }
 
@@ -313,6 +314,7 @@ export class FormWrapperComponent extends WrapperComponent implements OnInit, On
             this.globalValidators.asyncValidators,
         );
         this.form$.emit(this.form);
+        this.initialFormValues = this.form.getRawValue();
 
         this.dataSubscription();
     }
@@ -469,6 +471,8 @@ export class FormWrapperComponent extends WrapperComponent implements OnInit, On
                     control.disable();
                 }
             });
+
+            this.initialFormValues = this.form.getRawValue();
             this.cdr.markForCheck();
         });
     }

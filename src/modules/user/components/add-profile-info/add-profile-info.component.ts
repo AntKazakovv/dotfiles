@@ -51,7 +51,6 @@ export class AddProfileInfoComponent extends ProfileFormAbstract implements OnIn
     ) {
         super({injectParams, defaultParams: Params.defaultParams},
             eventService,
-            userService,
             configService,
         );
     }

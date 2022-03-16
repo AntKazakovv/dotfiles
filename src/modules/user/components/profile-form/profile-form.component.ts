@@ -79,7 +79,6 @@ export class ProfileFormComponent extends ProfileFormAbstract implements OnInit 
                     ? Params.generateConfig(true)
                     : Params.generateConfig()},
             eventService,
-            userService,
             configService,
         );
     }
