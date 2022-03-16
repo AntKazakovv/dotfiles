@@ -150,8 +150,6 @@ export class TournamentListComponent
             useQuery: this.tournamentsService.updateData,
             observer: {
                 next: (tournaments: Tournament[]) => {
-                    if (!tournaments) return;
-
                     this.indexOfSelectedTournament = null;
 
                     this.saveDataOfSelectedTournament(tournaments);
@@ -159,7 +157,8 @@ export class TournamentListComponent
 
                     if (this.uiRouter.params.tournamentId) {
                         tournaments = _filter(
-                            tournaments, tournament => tournament.id === +this.uiRouter.params.tournamentId,
+                            tournaments,
+                            tournament => tournament.id === +this.uiRouter.params.tournamentId,
                         );
                     }
 
