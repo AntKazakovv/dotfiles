@@ -3,6 +3,7 @@ import {SwiperOptions} from 'swiper';
 import {
     CustomType,
     IComponentParams,
+    IPagination,
 } from 'wlc-engine/modules/core';
 import {
     BonusesFilterType,
@@ -28,6 +29,10 @@ export interface ICommonParams {
     sortOrder?: TBonusSortOrder[];
     swiper?: SwiperOptions;
     useQuery?: boolean;
+    /**
+     * the value containing pagination usage and breakpoints
+     */
+    pagination?: IPagination;
 }
 
 export enum RecommendedListEvents {

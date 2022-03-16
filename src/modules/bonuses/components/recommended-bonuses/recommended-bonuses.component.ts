@@ -53,10 +53,10 @@ export class RecommendedBonusesComponent
                 restType: this.$params.common.restType,
                 useNoDataText: this.$params.useNoDataText,
                 useQuery: this.$params.common.useQuery,
+                pagination: this.$params.common.pagination,
             },
             itemsParams: this.$params.itemsParams,
         };
-
 
         this.eventService.filter([{
             name: Params.RecommendedListEvents.RecommendedListVisibility,

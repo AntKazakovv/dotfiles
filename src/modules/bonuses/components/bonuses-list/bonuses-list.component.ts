@@ -371,6 +371,7 @@ export class BonusesListComponent extends AbstractComponent implements OnInit, O
                 data: this.bonuses.length,
             });
         }
+        this.cdr.markForCheck();
 
         if (this.$params.common?.filterByGroup) {
             if (this.$params.common.useRecommendedBonuses) {
@@ -466,37 +467,38 @@ export class BonusesListComponent extends AbstractComponent implements OnInit, O
 
         if (this.$params.type === 'swiper' && this.bonuses.length) {
             this.bonusesToSlides(this.bonuses);
-
-            if (this.bonuses.length <= 1) {
-                this.sliderParams.swiper = _merge<SwiperOptions, SwiperOptions>({}, {
-                    navigation: false,
-                    slidesPerView: 'auto',
-                    spaceBetween: 0,
-                    allowTouchMove: false,
-                    breakpoints: {
-                        320: {
-                            spaceBetween: 0,
+            if (!this.configService.get<boolean>('$user.isAuthenticated')) {
+                if (this.bonuses.length <= 1) {
+                    this.sliderParams.swiper = _merge<SwiperOptions, SwiperOptions>({}, {
+                        navigation: false,
+                        slidesPerView: 'auto',
+                        spaceBetween: 0,
+                        allowTouchMove: false,
+                        breakpoints: {
+                            320: {
+                                spaceBetween: 0,
+                            },
+                            720: {
+                                spaceBetween: 0,
+                            },
+                            1024: {
+                                spaceBetween: 0,
+                            },
+                            1200: {
+                                spaceBetween: 0,
+                            },
                         },
-                        720: {
-                            spaceBetween: 0,
-                        },
-                        1024: {
-                            spaceBetween: 0,
-                        },
-                        1200: {
-                            spaceBetween: 0,
-                        },
-                    },
-                });
-                this.isSingleBonus = true;
-            } else {
-                this.sliderParams.swiper = _merge({
-                    navigation: true,
-                    slidesPerView: 1,
-                    spaceBetween: 0,
-                    allowTouchMove: true,
-                }, this.$params.common.swiper);
-                this.isSingleBonus = false;
+                    });
+                    this.isSingleBonus = true;
+                } else {
+                    this.sliderParams.swiper = _merge({
+                        navigation: true,
+                        slidesPerView: 1,
+                        spaceBetween: 0,
+                        allowTouchMove: true,
+                    }, this.$params.common.swiper);
+                    this.isSingleBonus = false;
+                }
             }
         }
 

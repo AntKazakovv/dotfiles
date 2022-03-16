@@ -95,9 +95,10 @@ export class GameDashboardBonusesComponent extends AbstractComponent implements 
                 next: (bonuses: Bonus[]) => {
                     if (bonuses) {
                         this.bonuses = this.bonusesService.sortBonuses(
-                            this.bonusesService.filterBonuses(bonuses, this.filter).slice(0, 9),
+                            this.bonusesService.filterBonuses(bonuses, this.filter),
                             this.$params.common?.sortOrder,
                         );
+                        this.bonuses = this.bonuses.slice(0, 9);
                         this.bonusesToSlides();
                         this.isReady = true;
                         this.cdr.markForCheck();

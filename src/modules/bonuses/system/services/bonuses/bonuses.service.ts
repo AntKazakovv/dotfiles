@@ -555,7 +555,6 @@ export class BonusesService {
 
         return (result.length === bonuses.length)
             ? result : _unionBy(result, bonuses, 'id');
-
     }
 
     private async modifyBonuses(data: IBonus[]): Promise<Bonus[]> {

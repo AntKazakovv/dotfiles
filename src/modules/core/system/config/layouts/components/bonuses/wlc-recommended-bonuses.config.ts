@@ -11,6 +11,14 @@ export namespace wlcRecommendedBonuses {
                 restType: 'active',
                 filter: 'active',
                 useQuery: true,
+                pagination: {
+                    use: true,
+                    breakpoints: {
+                        0: {
+                            itemPerPage: 10,
+                        },
+                    },
+                },
             },
             itemsParams: {
                 common: {
