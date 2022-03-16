@@ -164,7 +164,7 @@ export class TournamentListComponent
 
                     this.paginatedTournaments = this.tournaments = tournaments;
 
-                    if (this.$params.type === 'swiper' && this.tournaments.length) {
+                    if (this.$params.type === 'swiper' && this.tournaments?.length) {
                         this.tournamentsToSlides(true);
                     }
 
