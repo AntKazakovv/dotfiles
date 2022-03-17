@@ -27,13 +27,13 @@
                 <span wlc-currency
                       class="{{$class}}__board-price"
                       digitsInfo="1-0-0"
-                      [value]="tournament.totalFounds"
-                      [currency]="tournament.targetDefaultCurrency"
+                      [value]="$params.common.tournament?.totalFounds"
+                      [currency]="$params.common.tournament?.targetDefaultCurrency"
                 ></span>
             </h4>
             <div wlc-timer
                  class="{{$class}}-timer"
-                 [value]="tournament.stateDateTournament"
+                 [value]="$params.common.tournament?.stateDateTournament"
                  [text]="getTimerText()"
                  (timerEnds)="updateTournaments()">
             </div>
@@ -52,7 +52,7 @@
 
     <div class="buttons-wrap">
         <button
-            *ngIf="!isProcessed && !isTournamentSelected && $params.common.tournament.isTournamentStarts"
+            *ngIf="!isProcessed && !isTournamentSelected && $params.common.tournament?.isTournamentStarts"
             wlc-button
             text="Join now"
             (click)="joinToTournament()">

@@ -102,8 +102,9 @@ export class TournamentPromoComponent extends AbstractComponent implements OnIni
      * get timer text from its state
      */
     public getTimerText(): string {
-        return this.tournament.isTournamentStarts ? this.$params.common?.timerTextAfterStart :
-            this.$params.common?.timerTextBeforeStart;
+        return this.$params.common.tournament?.isTournamentStarts
+            ? this.$params.common?.timerTextAfterStart
+            : this.$params.common?.timerTextBeforeStart;
     }
 
     protected checkParentInstance(): void {
