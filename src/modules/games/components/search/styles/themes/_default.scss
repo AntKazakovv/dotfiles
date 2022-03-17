@@ -142,8 +142,8 @@
             }
 
             .counter {
+                @include text.get-text-style(ef.get-value($themeDefault, 'btnFont'), ef.get-value($themeDefault, 'btnColor'));
                 margin-left: ef.get-value($themeDefault, 'btnCounterMarginLeft');
-                font-size: ef.get-value($themeDefault, 'searchColSize');
             }
 
             &.active {
