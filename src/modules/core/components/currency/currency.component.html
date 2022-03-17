@@ -1,40 +1,34 @@
 <ng-container *ngIf="loaded; else loading">
     <ng-container *ngIf="icon">
-        <ng-container *ngIf="isNegative && icon.minusBeforeCurrency">
-            -
-        </ng-container>
+        <ng-container *ngIf="isNegative && icon.minusBeforeCurrency">-</ng-container>
         <ng-container *ngIf="icon.placement === 'left'">
-            <ng-container *ngIf="icon.prefix">
-                {{icon.prefix}}
-            </ng-container>
+            <ng-container *ngIf="icon.prefix">{{icon.prefix}}</ng-container>
             <span *ngIf="icon.iconChar" class="wlc-currency__icon">{{icon.iconChar}}</span>
             <span *ngIf="showSvg"
                 wlc-icon
                 class="wlc-currency__svg wlc-currency__svg--left"
                 [iconUrl]="icon.svg">
             </span>
-            <span *ngIf="showName" class="wlc-currency__name wlc-currency__name--left">{{icon.name | translate}}</span>
+            <span *ngIf="showName" class="wlc-currency__name wlc-currency__name--left">
+                {{icon.name | translate}}
+            </span>
         </ng-container>
-        <ng-container *ngIf="isNegative && !icon.minusBeforeCurrency">
-            -
-        </ng-container>
+        <ng-container *ngIf="isNegative && !icon.minusBeforeCurrency">-</ng-container>
     </ng-container>
 
-    <ng-container *ngIf="!isError; else error">
-        {{displayValue}}
-    </ng-container>
+    <ng-container *ngIf="!isError; else error">{{displayValue.trim()}}</ng-container>
 
     <ng-container *ngIf="icon?.placement === 'right'">
-        <ng-container *ngIf="icon.prefix">
-            {{icon.prefix}}
-        </ng-container>
+        <ng-container *ngIf="icon.prefix">{{icon.prefix}}</ng-container>
         <span *ngIf="icon.iconChar" class="wlc-currency__icon">{{icon.iconChar}}</span>
         <span *ngIf="showSvg"
             wlc-icon
             class="wlc-currency__svg wlc-currency__svg--right"
             [iconUrl]="icon.svg">
         </span>
-        <span *ngIf="showName" class="wlc-currency__name wlc-currency__name--right">{{icon.name | translate}}</span>
+        <span *ngIf="showName" class="wlc-currency__name wlc-currency__name--right">
+            {{icon.name | translate}}
+        </span>
     </ng-container>
 </ng-container>
 

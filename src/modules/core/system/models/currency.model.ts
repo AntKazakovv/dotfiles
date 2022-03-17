@@ -141,7 +141,7 @@ export class CurrencyModel extends AbstractModel<ICurrencyOptions>{
                 part.value = this.getCryptocurrencyIndicator();
             } else if (part.type === 'fraction') {
                 part.value = this.getCryptocurrencyFraction();
-            } else if (part.type === 'minusSign' && this.icon.placement === 'left') {
+            } else if (part.type === 'minusSign' && this.icon?.placement === 'left') {
                 return acc;
             }
 

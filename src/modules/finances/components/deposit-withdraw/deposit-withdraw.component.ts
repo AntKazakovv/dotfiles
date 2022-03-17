@@ -55,7 +55,6 @@ import {
     InjectionService,
     ColorThemeValues,
 } from 'wlc-engine/modules/core';
-import {CurrencyModel} from 'wlc-engine/modules/core/system/models/currency.model';
 import {
     IHostedFormData,
     IPaymentAdditionalParam,
@@ -318,24 +317,21 @@ export class DepositWithdrawComponent extends AbstractDepositWithdrawComponent i
                 return;
             }
 
+            const currencyIcon = `
+                <span wlc-currency
+                    [value]="${form.value.amount}"
+                    [currency]="'${this.userProfile.currency}'"
+                ><span>`;
+
             this.pushNotification({
                 type: 'success',
                 title: gettext('Withdraw'),
                 message: [
                     gettext('Withdraw request has been successfully sent!'),
-                    this.translateService.instant(gettext('Withdraw sum')) + ' ' + new CurrencyModel(
-                        {
-                            component: 'DepositWithdrawComponent',
-                            method: 'withdraw',
-                        },
-                        form.value.amount,
-                        {
-                            currency: this.userProfile.currency,
-                            language: this.translateService.currentLang,
-                        },
-                    ),
+                    this.translateService.instant(gettext('Withdraw sum')) + ` ${currencyIcon}`,
                 ],
                 wlcElement: 'notification_withdraw-request-success',
+                displayAsHTML: true,
             });
 
             this.resetPaymentSystem();
