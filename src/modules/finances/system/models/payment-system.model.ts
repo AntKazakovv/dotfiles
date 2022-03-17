@@ -39,6 +39,7 @@ export interface IPaymentSystem {
     id: string;
     image: string;
     image_withdraw?: string;
+    default_images?: string[];
     lastAccounts: string[];
     lastAccountsObj?: IIndexing<string> | [];
     message: string | IIndexing<string> | IPaymentMessage;
@@ -253,6 +254,10 @@ export class PaymentSystem extends AbstractModel<IPaymentSystem> {
 
     public get customParams(): IPaymentSystemCustomParams {
         return _isArray(this.data.customParams) ? null : this.data.customParams;
+    }
+
+    public get defaultImages(): string[] {
+        return this.data.default_images || [];
     }
 
     public get depositMax(): number {

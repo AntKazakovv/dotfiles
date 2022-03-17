@@ -28,6 +28,7 @@ import {
     ConfigService,
 } from 'wlc-engine/modules/core';
 import {FinancesService} from 'wlc-engine/modules/finances/system/services/finances/finances.service';
+import {TPaymentsMethods} from 'wlc-engine/modules/finances/system/interfaces';
 import {PaymentSystem} from 'wlc-engine/modules/finances/system/models/payment-system.model';
 import {
     IconListAbstract,
@@ -45,6 +46,8 @@ import _findIndex from 'lodash-es/findIndex';
 
 interface IPaymentsIterator extends IMerchantsPaymentsIterator {
     imgPath: string;
+    defaultImages: string[];
+    paymentType: TPaymentsMethods;
 }
 
 @Component({
@@ -208,6 +211,8 @@ export class PaymentListComponent extends IconListAbstract<Params.IPaymentListCP
                         imgPath: this.$params.paymentType === 'deposit'
                             ? item.image
                             : (item.imageWithdraw || item.image),
+                        defaultImages: item.defaultImages,
+                        paymentType: this.$params.paymentType,
                     }),
                 };
             },
@@ -221,8 +226,9 @@ export class PaymentListComponent extends IconListAbstract<Params.IPaymentListCP
     ): IIconParams {
 
         const res = super.merchantsPaymentsIterator(pathDirectory, params);
+        const imageType = params.paymentType === 'deposit' ? 'image' : 'image_withdraw';
 
-        if (params.imgPath.indexOf('static.egamings.com') === -1) {
+        if (!params.defaultImages.includes(imageType)) {
             res.iconUrl = params.imgPath;
         }
 
