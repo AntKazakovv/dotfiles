@@ -34,6 +34,7 @@ export namespace footer {
                     ],
                 },
             },
+            componentLib.wlcScrollUp.def,
         ],
     };
 
@@ -82,6 +83,7 @@ export namespace footer {
                     ],
                 },
             },
+            componentLib.wlcScrollUp.def,
         ],
     };
 
@@ -147,6 +149,7 @@ export namespace footer {
                     ],
                 },
             },
+            componentLib.wlcScrollUp.def,
         ],
     };
 
@@ -226,6 +229,7 @@ export namespace footer {
                     ],
                 },
             },
+            componentLib.wlcScrollUp.def,
         ],
     };
 }

@@ -47,3 +47,5 @@ export {DatepickerComponent} from './datepicker/datepicker.component';
 export {IconComponent} from './icon/icon.component';
 export {TimerComponent} from './timer/timer.component';
 export {ISocialIconsCParams} from './social-icons/social-icons.params';
+export {IScrollUpParams} from './scroll-up/scroll-up.params';
+export {ScrollUpComponent} from './scroll-up/scroll-up.component';

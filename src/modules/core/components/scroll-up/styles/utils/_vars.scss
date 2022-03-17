@@ -1,0 +1,40 @@
+$customThemeDefault: () !default;
+$themeDefault: map-merge((
+    'padding': (
+        375: 0 ef.size(6),
+        1630: 0 ef.size(2),
+    ),
+    'bottom': ef.size(10),
+    'maxWidth': 1800px,
+
+    'btnWidth': (
+        375: ef.size(8),
+        900: ef.size(10),
+    ),
+    'btnHeight': (
+        375: ef.size(8),
+        900: ef.size(10),
+    ),
+    'btnMargin': 0 0 0 auto,
+    'btnBg': var(--mc-baseOpacity),
+    'btnBgHover': ef.get('mainColors', 'main'),
+    'btnRadius': ef.get('buttonSettings', 'borderRadiusDefault'),
+    'btnDisplayMobileOnly': (
+        375: flex,
+        900: none,
+    ),
+
+    'iconColor': ef.get('mainColors', 'baseMain'),
+    'iconColorHover': ef.get('mainColors', 'baseMain'),
+    'iconWidth': (
+        375: auto,
+        900: 20px
+    ),
+
+    'btnRadiusModCircle': ef.get('radius', 'large'),
+    'iconWidthModCircle': (
+        375: auto,
+        900: 18px,
+    ),
+), $customThemeDefault);
+

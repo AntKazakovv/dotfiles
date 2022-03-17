@@ -1,0 +1,12 @@
+<button
+    *ngIf="$params.showButton"
+    wlc-icon
+    class="{{$class}}__button"
+    [ngClass]="{
+        'show': windowScrolled,
+        'mobile-only': $params.mobileOnly
+    }"
+    [iconPath]="$params.iconPath"
+    (click)="scrollToTop()">
+</button>
+

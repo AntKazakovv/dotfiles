@@ -74,6 +74,7 @@ import {MessageComponent} from 'wlc-engine/modules/core/components';
 import {NotificationThreadComponent} from 'wlc-engine/modules/core/components';
 import {RadioButtonsComponent} from './components/radio-buttons/radio-buttons.component';
 import {ScrollbarComponent} from './components/scrollbar/scrollbar.component';
+import {ScrollUpComponent} from 'wlc-engine/modules/core/components/scroll-up/scroll-up.component';
 import {SelectComponent} from './components/select/select.component';
 import {SocialIconsComponent} from './components/social-icons/social-icons.component';
 import {StepsComponent} from './components/steps/steps.component';
@@ -161,6 +162,7 @@ export const components = {
     'wlc-pagination': WlcPaginationComponent,
     'wlc-plug': PlugComponent,
     'wlc-radio-buttons': RadioButtonsComponent,
+    'wlc-scroll-up': ScrollUpComponent,
     'wlc-select': SelectComponent,
     'wlc-social-icons': SocialIconsComponent,
     'wlc-steps': StepsComponent,
@@ -266,6 +268,7 @@ export const components = {
         PlugComponent,
         RadioButtonsComponent,
         ScrollbarComponent,
+        ScrollUpComponent,
         SelectComponent,
         SocialIconsComponent,
         StepsComponent,
@@ -329,6 +332,7 @@ export const components = {
         PlugComponent,
         RadioButtonsComponent,
         ScrollbarComponent,
+        ScrollUpComponent,
         SelectComponent,
         SocialIconsComponent,
         StepsComponent,
