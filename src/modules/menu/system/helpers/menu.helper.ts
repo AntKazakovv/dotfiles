@@ -111,6 +111,8 @@ export class MenuHelper {
             switch (_get(item, 'auth')) {
                 case true:
                     return params.isAuth;
+                case false:
+                    return !params.isAuth;
                 default:
                     return true;
             }
