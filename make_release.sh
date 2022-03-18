@@ -135,6 +135,10 @@ if [ "x$y" == "xy" ]; then
         if ! npm run gulp change-logs -- --tag=$nextver; then
             die "ERROR: changelog generation failed"
         fi
+
+        if ! npm run gulp translations-logs; then
+            die "ERROR: translations report generation failed"
+        fi
     fi
 
     release "$nextver"

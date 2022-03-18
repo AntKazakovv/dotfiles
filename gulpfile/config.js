@@ -31,6 +31,8 @@ module.exports = function config(root, bundleType) {
             docsSummary: `${root}/src/docs/content/summary.json`,
             changeLogs: `${root}/src/docs/content/900.change-logs/releases`,
             changeLogsDocDist: `${root}/src/docs/content/900.change-logs`,
+            translationLogs: `${root}/src/docs/content/1000.translations/history`,
+            translationLogsDocDist: `${root}/src/docs/content/1000.translations`,
             apiTest: `${root}/api-tests`,
         },
         tmpFileOptions: {

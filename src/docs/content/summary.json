@@ -507,5 +507,16 @@
     {
         "title": "10. Releases",
         "file": "../../../RELEASES.md"
+    },
+    {
+        "_id": "translations",
+        "title": "11. Translations",
+        "file": "./1000.translations/1000.translations.md",
+        "children": [
+            {
+                "title": "24-03-2022",
+                "file": "./1000.translations/history/24-03-2022.md"
+            }
+        ]
     }
 ]
