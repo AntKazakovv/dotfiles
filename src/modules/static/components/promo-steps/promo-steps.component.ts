@@ -51,7 +51,7 @@ export class PromoStepsComponent extends AbstractComponent implements OnInit {
     public steps: IStep[] = [];
     protected activeStep: number = 0;
     protected showErrors: boolean;
-    protected isAuth: boolean;
+    private _isAuth: boolean;
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IPromoStepsCParams,
@@ -72,10 +72,14 @@ export class PromoStepsComponent extends AbstractComponent implements OnInit {
 
         this.eventService.subscribe([
             {name: 'LOGIN'},
+        ], () => {
+            this.isAuth = true;
+        }, this.$destroy);
+
+        this.eventService.subscribe([
             {name: 'LOGOUT'},
         ], () => {
-            this.isAuth = this.configService.get('$user.isAuthenticated');
-            this.cdr.detectChanges();
+            this.isAuth = false;
         }, this.$destroy);
 
         try {
@@ -107,13 +111,29 @@ export class PromoStepsComponent extends AbstractComponent implements OnInit {
                 case 'all':
                     return true;
                 case 'auth':
-                    return this.isAuth ? true : false;
+                    return this.isAuth;
                 case 'not-auth':
-                    return !this.isAuth ? true : false;
+                    return !this.isAuth;
                 default:
                     return true;
             }
         });
+    }
+
+    /**
+     * Set authorization value
+     * @param value {boolean} - promo step
+     */
+    protected set isAuth(value: boolean) {
+        this._isAuth = value;
+        this.cdr.markForCheck();
+    }
+
+    /**
+     * Get authorization value
+     */
+    protected get isAuth(): boolean {
+        return this._isAuth;
     }
 
     /**
