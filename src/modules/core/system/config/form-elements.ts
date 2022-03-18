@@ -1,3 +1,5 @@
+import {FormControl} from '@angular/forms';
+
 import {IFormComponent} from 'wlc-engine/modules/core/components/form-wrapper/form-wrapper.component';
 import {
     IInputCParams,
@@ -287,20 +289,19 @@ export namespace FormElements {
     };
 
     export const pep: IFormComponent = {
-        name: 'core.wlc-select',
-        params: <IInputCParams>{
-            theme: 'vertical',
+        name: 'user.wlc-pep-select',
+        params: <ISelectCParams>{
+            class: 'wlc-select',
             labelText: gettext('PEP'),
-            wlcElement: 'block_pep',
+            control: new FormControl(''),
             common: {
                 placeholder: gettext('PEP'),
                 tooltipText: gettext('Politically Exposed Person'),
             },
             locked: true,
             name: 'pep',
+            validators: [],
             options: 'pep',
-            validators: ['required'],
-            customMod: ['pep'],
         },
     };
 

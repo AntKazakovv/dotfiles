@@ -1,0 +1,28 @@
+$customThemeDefault: () !default;
+
+$themeDefault: map-merge((
+    'fontSize': ef.get('font', 'PrimaryText'),
+    'fontWeightHighlighted': bold,
+
+    'articleMargin': ef.get('size', 'smaller') 0,
+
+    'iconMargin': ef.get('size', 'smaller') 0,
+    'iconSize': ef.get('size', 'biger'),
+    'iconColor': ef.get('fieldColors', 'iconColor'),
+
+    'dividerMargin': ef.get('size', 'smaller') 0,
+    'dividerHeight': 2px,
+    'dividerColor': ef.get('fieldColors', 'iconColor'),
+
+    'controlsMargin': ef.get('size', 'smaller') 0,
+    'controlsPadding': 0 ef.get('size', 'main'),
+
+    'actionsMargin': ef.get('size', 'smaller') 0,
+    'actionsButtonGap': ef.get('size', 'smaller'),
+
+    'actionsFlexDirection': row,
+    'actionsJustifyContent': center,
+    'actionsAlignItems': center,
+
+    'formPadding': ef.get('size', 'smallest') ef.get('size', 'smallest'),
+), $customThemeDefault);

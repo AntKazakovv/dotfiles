@@ -1,0 +1,13 @@
+.wlc-pep-saved--theme-default:host {
+
+    &::ng-deep {
+
+        .wlc-pep-saved {
+            font-size: ef.get-value($themeDefault, 'fontSize');
+
+            &__message {
+                text-align: ef.get-value($themeDefault, 'messageTextAlign');
+            }
+        }
+    }
+}

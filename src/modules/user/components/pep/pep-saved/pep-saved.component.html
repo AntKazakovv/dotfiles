@@ -1,0 +1,14 @@
+<div class="{{$class}}_message">
+    <span>{{phrases.modals.saved.success | translate}}</span>
+    <span>
+        <ng-container *ngIf="markedAsPep then pep else notPep"></ng-container>
+    </span>
+</div>
+
+<ng-template #pep>
+    {{phrases.modals.saved.markedAsPep | translate}}
+</ng-template>
+
+<ng-template #notPep>
+    {{phrases.modals.saved.markedAsNotPep | translate}}
+</ng-template>

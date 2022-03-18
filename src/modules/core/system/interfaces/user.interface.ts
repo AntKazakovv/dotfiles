@@ -9,6 +9,10 @@ export type TUserValidationLevel = 'not-secure' | 'secure';
 
 export type TSQLDate = string;
 
+export type PepStatus = '' | 'true' | 'false';
+
+export type PepStatusValuableOnly = Exclude<PepStatus, ''>;
+
 export interface IUserInfo {
     LockExpiresAt?: string;
     affiliateID?: string;
@@ -110,7 +114,7 @@ export interface IExtProfile {
     paymentSystems?: IExtProfilePaymentSystems;
     realityCheckTime?: string;
     colorTheme?: string;
-    pep?: string;
+    pep?: PepStatus;
 }
 
 export interface IExtProfilePaymentSystems {
