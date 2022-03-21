@@ -112,8 +112,8 @@ export class TotalJackpotComponent extends AbstractComponent implements OnInit {
     private getLastJackpots(): void {
         this.gamesCatalogService.subscribeJackpots
             .pipe(
-                takeUntil(this.$destroy),
                 filter((data) => !!data.length), //TODO Delete after #246227
+                takeUntil(this.$destroy),
             )
             .subscribe((data: JackpotModel[]) => {
                 this.calcAmount(data);

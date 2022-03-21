@@ -41,10 +41,10 @@ export class EventService {
 
     public filter<T>(params: FilterType, until?: Observable<any>): Observable<IEvent<T>> {
         return this.flow.pipe(
-            (until) ? takeUntil(until) : pipe(),
             this.filterEvents<T>(
                 _isArray(params) ? params : [params],
             ),
+            (until) ? takeUntil(until) : pipe(),
         );
     }
 

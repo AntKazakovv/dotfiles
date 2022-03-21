@@ -118,11 +118,11 @@ export class MerchantWalletPreviewComponent extends AbstractComponent implements
     protected initListeners(): void {
         this.merchantWalletService.balanceObserver
             .pipe(
-                takeUntil(this.$destroy),
                 tap((value: IMerchantWalletBalance): void => {
                     this.isError = !!value?.['errors'];
                 }),
                 distinctUntilChanged(_isEqual),
+                takeUntil(this.$destroy),
             )
             .subscribe((value: IMerchantWalletBalance): void => {
                 this.userBalance = value;

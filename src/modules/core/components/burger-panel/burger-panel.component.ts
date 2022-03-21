@@ -201,18 +201,18 @@ export class BurgerPanelComponent extends AbstractComponent
 
     protected initPanListeners(): void {
         this.panstart$.pipe(
-            takeUntil(this.$destroy),
             takeWhile(() => this.isOpened),
+            takeUntil(this.$destroy),
         ).subscribe(() => this.panstartHandler());
 
         this.panmove$.pipe(
-            takeUntil(this.$destroy),
             takeWhile(() => this.isOpened),
+            takeUntil(this.$destroy),
         ).subscribe((event: HammerInput) => this.panmoveHandler(event));
 
         this.panend$.pipe(
-            takeUntil(this.$destroy),
             takeWhile(() => this.isOpened),
+            takeUntil(this.$destroy),
         ).subscribe((event: HammerInput) => this.panendHandler(event));
     }
 

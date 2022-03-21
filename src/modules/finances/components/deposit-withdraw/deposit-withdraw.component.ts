@@ -714,11 +714,11 @@ export class DepositWithdrawComponent extends AbstractDepositWithdrawComponent i
         const requestStyles = (filePath: string, errorCallback: () => Observable<string>): Observable<string> => {
             return this.httpClient.get(filePath, {responseType: 'text'})
                 .pipe(
-                    takeUntil(this.$destroy),
                     catchError((error) => {
                         this.logService.sendLog({code: '1.4.35', data: error});
                         return errorCallback();
                     }),
+                    takeUntil(this.$destroy),
                 );
         };
 

@@ -226,10 +226,10 @@ export class VerificationComponent extends AbstractComponent implements OnInit {
 
             this.actionService.deviceType()
                 .pipe(
-                    takeUntil(this.$destroy),
                     filter((type: DeviceType) => {
                         return !!type && (type === DeviceType.Desktop === this.isSelectMode);
                     }),
+                    takeUntil(this.$destroy),
                 )
                 .subscribe((type: DeviceType) => {
                     this.isSelectMode = !(type === DeviceType.Desktop);
@@ -276,8 +276,8 @@ export class VerificationComponent extends AbstractComponent implements OnInit {
                 name: 'DROP_FILES',
             }])
                 .pipe(
-                    takeUntil(this.$destroy),
                     filter(({data}: IEvent<IDroppedFiles>) => data.label === this.currentDocGroup.id),
+                    takeUntil(this.$destroy),
                 )
                 .subscribe(({data}: IEvent<IDroppedFiles>) => {
                     this.preloadFile(data.files);

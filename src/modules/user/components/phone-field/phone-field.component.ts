@@ -124,8 +124,8 @@ export class PhoneFieldComponent extends AbstractComponent implements OnInit {
 
         this.$params.phoneNumber?.control?.valueChanges
             .pipe(
-                takeUntil(this.$destroy),
                 distinctUntilChanged(),
+                takeUntil(this.$destroy),
             )
             .subscribe((val) => {
                 this.configService.set({

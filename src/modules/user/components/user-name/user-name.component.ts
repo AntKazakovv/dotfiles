@@ -49,8 +49,8 @@ export class UserNameComponent extends AbstractComponent implements OnInit, OnDe
         this.$params.userNameLength = this.userNameLength || this.$params.userNameLength;
         this.$params.showSvgAsImg = this.showSvgAsImg || this.$params.showSvgAsImg;
         this.UserService.userProfile$.pipe(
-            takeUntil(this.$destroy),
             skipWhile(v => !v),
+            takeUntil(this.$destroy),
         )
             .subscribe((userInfo) => {
                 if (userInfo.firstName || userInfo.lastName) {

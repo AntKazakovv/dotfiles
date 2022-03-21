@@ -741,10 +741,10 @@ export class GamesGridComponent extends AbstractComponent implements OnInit, OnD
         if (this.useLazy) {
             fromEvent(this.window, 'scroll')
                 .pipe(
-                    takeUntil(this.$untilBreakpointOrDestroy),
                     filter((): boolean => this.lazyLoadPositionFilter()),
                     tap((): void => this.setLazyLoadingTrue()),
                     throttleTime(this.lazyTimeout),
+                    takeUntil(this.$untilBreakpointOrDestroy),
                 )
                 .subscribe((): void => {
                     this.loadMoreGames();

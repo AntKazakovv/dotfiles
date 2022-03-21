@@ -186,8 +186,8 @@ export class BetHistoryComponent extends AbstractComponent implements OnInit {
 
         this.historyFilterService.getFilter('bet')
             .pipe(
-                takeUntil(this.$destroy),
                 filter((data) => !!data),
+                takeUntil(this.$destroy),
             )
             .subscribe((data) => {
                 this.endDate = data.endDate;

@@ -146,8 +146,8 @@ export class BonusesHistoryComponent extends AbstractComponent implements OnInit
 
         this.historyFilterService.getFilter('bonus')
             .pipe(
-                takeUntil(this.$destroy),
                 filter((data) => !!data),
+                takeUntil(this.$destroy),
             )
             .subscribe((data) => {
                 this.filterType = data.filterType;

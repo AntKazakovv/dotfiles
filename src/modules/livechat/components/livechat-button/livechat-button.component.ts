@@ -109,8 +109,8 @@ export class LivechatButtonComponent extends AbstractComponent implements OnInit
             this.eventService
                 .filter({name: 'LOGIN'})
                 .pipe(
-                    takeUntil(this.$destroy),
                     first(),
+                    takeUntil(this.$destroy),
                 )
                 .subscribe(() => {
                     this.init();

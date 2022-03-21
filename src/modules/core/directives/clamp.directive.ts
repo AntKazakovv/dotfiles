@@ -42,9 +42,9 @@ export class ClampDirective implements OnInit, AfterViewInit, OnDestroy {
     public ngOnInit(): void {
         this.actionService.windowResize()
             .pipe(
-                takeUntil(this.$destroy),
                 map((event: IResizeEvent): DeviceOrientation => event.device.orientation),
                 distinctUntilChanged(),
+                takeUntil(this.$destroy),
             )
             .subscribe((): void => {
                 setTimeout((): void => {

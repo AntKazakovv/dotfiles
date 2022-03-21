@@ -386,9 +386,9 @@ export class MerchantWalletService {
     private initBalanceObserver(): void {
         interval(this.configService.get<number>('$games.merchantWallet.balanceRequestTimeout'))
             .pipe(
-                takeUntil(this.watcher$),
                 filter((): boolean => this.balance$.observers.length > 0 && !this.pauseIntervalRequest),
                 mergeMap((): Promise<IMerchantWalletBalance> => this.getBalance()),
+                takeUntil(this.watcher$),
             ).subscribe();
     }
 }

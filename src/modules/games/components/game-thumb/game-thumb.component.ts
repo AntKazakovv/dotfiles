@@ -426,8 +426,8 @@ export class GameThumbComponent extends AbstractComponent implements OnInit {
                 if (this.deviceType === DeviceType.Desktop && this.$params.themeMod === 'transform') {
                     mouseEvents$ = fromEvent(this.elementRef.nativeElement, 'mousemove')
                         .pipe(
-                            takeUntil(this.$destroy),
                             map((event: MouseEvent): Params.ICoordinates => ({x: event.x, y: event.y})),
+                            takeUntil(this.$destroy),
                         )
                         .subscribe((mouseCoords: Params.ICoordinates): void => {
                             this.mouseMove(mouseCoords);

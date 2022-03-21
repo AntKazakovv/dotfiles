@@ -943,7 +943,6 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
             });
 
         fromEvent(this.window, 'message').pipe(
-            takeUntil(this.$destroy),
             map((message): IWlcPostMessage | boolean => {
                 const data: string = _get(message, 'data');
                 if (!_isString(data)) {
@@ -961,6 +960,7 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
             filter((message: IWlcPostMessage | boolean): boolean => {
                 return _get(message, 'event') === 'WLC_LOAD_STARTED';
             }),
+            takeUntil(this.$destroy),
         ).subscribe(() => {
             this.closeGame();
         });

@@ -158,8 +158,8 @@ export class FormWrapperComponent extends WrapperComponent implements OnInit, On
         if (!this.initiated) {
             this.initiated = true;
             this.errors?.pipe(
-                takeUntil(this.$destroy),
                 filter(v => !!v),
+                takeUntil(this.$destroy),
             ).subscribe((data: IIndexing<string>): void => {
                 this.setErrors(data);
             });

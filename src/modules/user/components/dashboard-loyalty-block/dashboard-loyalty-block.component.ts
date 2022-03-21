@@ -35,8 +35,8 @@ export class DashboardLoyaltyBlockComponent extends AbstractComponent implements
     ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
         this.UserService.userInfo$.pipe(
-            takeUntil(this.$destroy),
             skipWhile(v => !v),
+            takeUntil(this.$destroy),
         )
             .subscribe(() => {
                 this.cdr.markForCheck();

@@ -162,8 +162,8 @@ export class TournamentsHistoryComponent extends AbstractComponent implements On
 
         this.historyFilterService.getFilter('tournaments')
             .pipe(
-                takeUntil(this.$destroy),
                 filter((data) => !!data),
+                takeUntil(this.$destroy),
             )
             .subscribe((data) => {
                 this.filterType = data.filterType;

@@ -220,8 +220,8 @@ export class TransactionHistoryComponent extends AbstractComponent implements On
 
         this.historyFilterService.getFilter('transaction')
             .pipe(
-                takeUntil(this.$destroy),
                 filter((data) => !!data),
+                takeUntil(this.$destroy),
             )
             .subscribe((data) => {
                 this.filterType = data.filterType;

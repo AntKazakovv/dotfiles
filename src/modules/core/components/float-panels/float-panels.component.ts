@@ -105,12 +105,12 @@ export class FloatPanelsComponent extends AbstractComponent implements OnInit {
 
         this.actionService.windowResize()
             .pipe(
-                takeUntil(this.$destroy),
                 startWith(this.window.innerWidth),
                 auditTime(100),
                 map((): number => this.window.innerWidth),
                 pairwise(),
                 filter(([prev, current]: number[]): boolean => current !== prev),
+                takeUntil(this.$destroy),
             )
             .subscribe(() => {
                 this.filterSection();
@@ -122,10 +122,10 @@ export class FloatPanelsComponent extends AbstractComponent implements OnInit {
             return _get(this.$params.panels, name);
         }
     }
-    
+
     /**
      * Emit the 'PANEL_CLOSE' event
-     * 
+     *
      * @param panelName {string} the name of the panel to close
      * @returns {void}
      */
@@ -138,7 +138,7 @@ export class FloatPanelsComponent extends AbstractComponent implements OnInit {
 
     /**
      * Method to close panels
-     * 
+     *
      * @param panelName {string} the name of the panel to close
      * @returns {void}
      */
