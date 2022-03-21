@@ -161,10 +161,15 @@ export class PhoneFieldComponent extends AbstractComponent implements OnInit {
             mask: new RegExp(`^\\d{0,${max}}$`),
         };
         this.$params.phoneNumber.control.clearValidators();
-        this.$params.phoneNumber.control.setValidators([
-            this.validationService.getValidator('minLength').validator(min),
-            this.validationService.getValidator('required').validator,
-        ]);
+        this.$params.phoneNumber.control.setValidators(
+            this.validationService.getValidator('minLength').validator(min));
+
+        if (!this.$params.notRequiredPhone) {
+            this.$params.phoneNumber.control.setValidators(this.validationService.getValidator('required').validator);
+        }
+        else {
+            this.$params.phoneCode.validators = [];
+        }
         this.$params.phoneNumber.control.updateValueAndValidity({
             onlySelf: true,
         });

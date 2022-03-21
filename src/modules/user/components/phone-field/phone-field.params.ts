@@ -24,6 +24,10 @@ export interface IPhoneFieldCParams extends IComponentParams<ComponentTheme, Com
      * Show verification detail
      */
     showVerification?: boolean;
+    /**
+     * Disable required validator phoneNumber for registration
+     */
+    notRequiredPhone?: boolean,
 }
 
 export let defaultParams: Partial<IPhoneFieldCParams> = {
@@ -38,6 +42,7 @@ export let defaultParams: Partial<IPhoneFieldCParams> = {
         name: 'phoneCode',
         validators: ['required'],
         options: 'phoneCodes',
+        autoSelect: false,
     },
     phoneNumber: {
         common: {

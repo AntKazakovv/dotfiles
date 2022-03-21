@@ -11,6 +11,7 @@ import {
     ElementRef,
     ViewChild,
 } from '@angular/core';
+import {ICountry} from 'wlc-engine/modules/core/system/interfaces/fundist.interface';
 import {
     animate,
     style,
@@ -23,7 +24,7 @@ import {
     BehaviorSubject,
     fromEvent,
 } from 'rxjs';
-import {takeUntil} from 'rxjs/operators';
+import {takeUntil, first} from 'rxjs/operators';
 import {
     AbstractComponent,
     ConfigService,
@@ -147,6 +148,16 @@ export class SelectComponent extends AbstractComponent implements OnInit, OnChan
                 }
                 case 'countryCode': {
                     this.control.setValue(country);
+                    break;
+                }
+                case 'phoneCode': {
+                    this.configService.get<BehaviorSubject<ICountry[]>>('countries')
+                        .pipe(first((v) => !!v.length))
+                        .subscribe(data => {
+                            const country = this.configService.get<string>('appConfig.country');
+                            const countryCode = _find(data, (item) => country === item?.value);
+                            this.control.setValue(`+${+(countryCode.phoneCode)}`);
+                        });
                     break;
                 }
             }

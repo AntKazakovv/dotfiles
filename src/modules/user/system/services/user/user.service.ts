@@ -281,6 +281,10 @@ export class UserService {
             userProfile.emailAgree = true;
         }
 
+        if (userProfile?.phoneCode && !userProfile?.phoneNumber) {
+            userProfile.phoneCode = '';
+        }
+
         const response = this.dataService.request('user/createProfile', userProfile as any);
         this.logService.sendLog({code: '1.1.25'});
         response.catch((error: unknown) => {
