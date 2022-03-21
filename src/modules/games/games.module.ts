@@ -119,6 +119,7 @@ export const services = {
     exports: [
         GamesGridComponent,
         GameWrapperComponent,
+        GameThumbComponent,
         SearchFieldComponent,
         SearchComponent,
         TotalJackpotComponent,
