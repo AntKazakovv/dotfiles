@@ -14,13 +14,10 @@
     }
 
     .wlc-category-preview-item__category {
-
         @include bm.get-mq-map('margin-bottom', $themeDefault, 'gap');
         position: relative;
         height: 0;
         padding-top: 75%;
-        background: ef.get-value($themeDefault, 'categoryBg');
-        background-repeat: no-repeat;
         border-radius: ef.get-value($themeDefault, 'categoryBorderRadius');
 
         .wrapper {
@@ -34,6 +31,21 @@
 
     .category-card {
         position: relative;
+
+        &--popular {
+            background: ef.get-value($themeDefault, 'categoryBgPopularGames');
+            background-repeat: no-repeat;
+        }
+
+        &--blackjacks {
+            background: ef.get-value($themeDefault, 'categoryBgBlackjacksGames');
+            background-repeat: no-repeat;
+        }
+
+        &--livecasino {
+            background: ef.get-value($themeDefault, 'categoryBgLivecasino');
+            background-repeat: no-repeat;
+        }
 
         .wrapper {
 
@@ -88,6 +100,7 @@
 
         @include bm.hover {
             color: ef.get-value($themeDefault, 'allLinkColorHover');
+            text-decoration: ef.get-value($themeDefault, 'allLinkDecorationHover');
         }
     }
 }

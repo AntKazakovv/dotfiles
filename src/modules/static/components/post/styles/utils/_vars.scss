@@ -64,7 +64,7 @@ $themeAboutUs: map-merge((
     ),
 
     'titleFont': 'QoteTextBold',
-    'titleColor': var(--mc-baseMain),
+    'titleColor': ef.get('mainColors', 'baseMain'),
 
     'postMaxHeight': 385px,
     'postBorderRadius': ef.get('radius', 'biger'),
@@ -77,7 +77,7 @@ $themeAboutUs: map-merge((
         720: 'PrimaryText',
         1024: 'ThirdTitle',
     ),
-    'contentColor': var(--mc-baseMain),
+    'contentColor': ef.get('mainColors', 'baseMain'),
     'contentPadding': (
         350: 0 0 ef.size(9),
         720: 0 0 ef.size(4),

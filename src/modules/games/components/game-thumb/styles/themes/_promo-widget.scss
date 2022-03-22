@@ -49,9 +49,7 @@
                 width: 100%;
                 height: 100%;
 
-                background:
-                    ef.get-value($themePromoWidget, 'shadowLayoutTop'),
-                    ef.get-value($themePromoWidget, 'shadowLayoutBottom');
+                background: ef.get-value($themePromoWidget, 'shadowLayout');
             }
         }
 

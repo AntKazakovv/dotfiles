@@ -35,7 +35,7 @@ $themeDefault: map-merge((
 
     'dragGap': ef.get('size', 'less'),
     'dropzoneBg': var(--mc-bg-o4),
-    'borderTopUploadDocs': var(--mc-bg),
+    'borderTopUploadDocs': var(--mc-baseOpacity),
     'dropzoneBgRepeat': no-repeat,
     'dropzoneBgPosition': center,
     'dropzoneBgSize': contain,
@@ -125,4 +125,6 @@ $themeDefault: map-merge((
     ),
     'reqItemFontStyle': 'ThirdTitle',
     'reqItemFontColor': var(--mc-baseMain),
+    'markerColor': var(--mc-main),
+
 ), $customThemeDefault);

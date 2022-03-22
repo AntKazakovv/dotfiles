@@ -39,7 +39,7 @@ $storeThemeDefault: map-merge((
     ),
 
     'containerColumns': (
-        375: minmax(0, 1fr) minmax(0, 1fr),
+        375: minmax(0, 1fr),
         768: repeat(2, 1fr),
     ),
     'containerAreas': (

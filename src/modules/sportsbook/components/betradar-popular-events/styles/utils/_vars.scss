@@ -9,8 +9,11 @@ $themeDefault: map-merge((
     'headerTextStyle': 'ThirdTitleBold',
     'headerTextColor': var(--mc-baseMain),
     'headerPadding': ef.get('size', 'smaller'),
-    'imageShadowLayout': linear-gradient(180deg, var(--mc-baseContrast) 5%, var(--mc-baseContrast-o8) 20%, var(--mc-baseContrast-o0) 40%),
+    'imageShadowLayout': (
+        linear-gradient(360deg, var(--mc-baseContrast-o8) 4%, var(--mc-baseContrast-o0) 30%),
 
+        linear-gradient(179.75deg, var(--mc-baseContrast-o8) 1%, var(--mc-baseContrast-o0) 30%),
+    ),
     'titleEventPadding': (
         375: 15px 10px 25px,
         900: 25px 10px 35px,

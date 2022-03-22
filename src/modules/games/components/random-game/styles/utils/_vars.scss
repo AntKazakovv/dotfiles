@@ -2,7 +2,7 @@
 
 $customThemeDefault: () !default;
 $themeDefault: map-merge((
-    'background': var(--mc-bg700),
+    'background': ef.get('mainColors', 'warning'),
     'borderRadius': ef.size(2),
     'gridRows': (
         375: auto 1fr auto,
@@ -18,10 +18,10 @@ $themeDefault: map-merge((
         375: ef.size(2),
         480: ef.size(4),
     ),
-    'titleColor': var(--mc-baseMain),
+    'titleColor': ef.get('mainColors', 'baseMain'),
     'titleFontWeight': bold,
     'titleTextTransform': none,
     'iconMargin': ef.size(2) 0,
-    'iconFill': var(--mc-baseOpacity),
+    'iconFill': ef.get('mainColors', 'baseMain'),
     'btnPadding': ef.size(1) ef.size(2),
 ), $customThemeDefault);

@@ -166,7 +166,7 @@ $themeLeft: map-merge((
 
     'headerMenuJustifyContent': center,
     'headerMenuItemActiveBg': var(--mc-main),
-    'headerMenuItemIconColor': #fff,
+    'headerMenuItemIconColor': ef.get('mainColors', 'baseMain'),
     'headerMenuItemWidth': ef.size(8),
     'headerMenuItemHeight': ef.size(8),
     'headerMenuItemBackground': var(--mc-bg500),

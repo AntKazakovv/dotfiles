@@ -194,6 +194,10 @@
                         ef.get-value($themeDefault, 'reqItemFontStyle'),
                         ef.get-value($themeDefault, 'reqItemFontColor')
                     );
+
+                    &::marker {
+                        color: ef.get-value($themeDefault, 'markerColor');
+                    }
                 }
             }
 

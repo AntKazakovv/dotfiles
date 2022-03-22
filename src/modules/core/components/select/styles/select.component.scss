@@ -212,6 +212,16 @@
             color: ef.get-value($baseSettings, 'selectColor');
         }
     }
+
+    &.wlc-select--country {
+
+        .wlc-select__field {
+
+            &::placeholder {
+                color: ef.get-value($baseSettings, 'selectDisabledColor');
+            }
+        }
+    }
 }
 
 

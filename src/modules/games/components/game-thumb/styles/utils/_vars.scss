@@ -238,8 +238,10 @@ $themePromoWidget: map-merge((
     'backgroundColor': var(--mc-bg700),
     'buttonsBottom': ef.size(8),
     'borderRadius': ef.get('radius', 'biger'),
-    'shadowLayoutTop': linear-gradient(180deg, var(--mc-baseContrast) 0, var(--mc-baseContrast-o0) 40%),
-    'shadowLayoutBottom': linear-gradient(0deg, var(--mc-baseContrast) 0%, var(--mc-baseContrast-o0) 30%),
+    'shadowLayout': (
+        linear-gradient(360deg, var(--mc-baseContrast-o8) 4%, var(--mc-baseContrast-o0) 30%),
+        linear-gradient(179.75deg, var(--mc-baseContrast-o8) 1%, var(--mc-baseContrast-o0) 30%),
+    ),
 ), $customThemePromoWidget);
 
 $customThemeVertical: () !default;
@@ -283,7 +285,7 @@ $themeVertical: map-merge((
     'notARLeft': 0,
     'notARSize': 100%,
 
-    'controlsBg': linear-gradient(0deg, var(--mc-baseContrast) 0%, var(--mc-baseContrast-o0) 75%),
+    'controlsBg': linear-gradient(0deg, darken(ef.get('mainColors', 'warning'), 20%) 0%, rgba(255, 138, 0, 0) 100%), // TODO: not design system colors
     'controlPosition': absolute,
     'controlTop': 0,
     'controlLeft': 0,
@@ -318,8 +320,8 @@ $themeVertical: map-merge((
     'iconTransDuration': ef.get('time', 'main'),
     'iconTransTimFun': ease-out,
     'iconOpacity': 0,
-
     'hoverIconOpacity': 1,
+
     'mediaBeforeDisplay': block,
     'mediaBeforeWidth': 100%,
     'mediaBeforeHeight': 0,
@@ -348,6 +350,9 @@ $btnsLayout: map-merge((
     'btnsGridColumnsCirc': 1fr,
     'btnsJustifyItemsCirc': center,
     'btnsAlignItemsCirc': end,
+    'btnsNoDemoGridRowsCirc': 1fr,
+    'btnsNoDemoAlignItemsCirc': center,
+    'verticalBtnDemoColor': ef.get('mainColors', 'baseMain'),
 ), $customBtnsLayout);
 
 /*
