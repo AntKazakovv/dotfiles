@@ -223,20 +223,8 @@
         "file": "./900.change-logs/900.change-logs.md",
         "children": [
             {
-                "title": "1.3.77RC4 (22-03-2022)",
-                "file": "./900.change-logs/releases/1.3.77-rc.4_22-03-2022.md"
-            },
-            {
-                "title": "1.3.77RC3 (18-03-2022)",
-                "file": "./900.change-logs/releases/1.3.77-rc.3_18-03-2022.md"
-            },
-            {
-                "title": "1.3.77RC2 (15-03-2022)",
-                "file": "./900.change-logs/releases/1.3.77-rc.2_15-03-2022.md"
-            },
-            {
-                "title": "1.3.77RC1 (02-03-2022)",
-                "file": "./900.change-logs/releases/1.3.77-rc.1_02-03-2022.md"
+                "title": "1.3.77 (22-03-2022)",
+                "file": "./900.change-logs/releases/1.3.77_22-03-2022.md"
             },
             {
                 "title": "1.3.76 (21-02-2022)",
