@@ -18,3 +18,9 @@ $borderlessTheme: map-merge(map-merge(ev.$buttonSettings, (
 $customThemeResolve: () !default;
 $themeResolve: map-merge(map-merge(ev.$buttonSettings, (
 )), $customThemeResolve);
+
+$customThemeSkew: () !default;
+$themeSkew: map-merge(map-merge(ev.$buttonSettings, (
+    'transform': ef.get('buttonSettings', 'transformSkew'),
+    'transformText': ef.get('buttonSettings', 'transformSkewText'),
+)), $customThemeSkew);

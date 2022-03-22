@@ -292,6 +292,20 @@
                 opacity: ef.get-value($themeDefaultModCircle, 'titleOpacity');
             }
         }
+
+        .wlc-btn {
+
+            &--play {
+                transform: none;
+
+                ::ng-deep {
+
+                    .wlc-btn__text {
+                        transform: none;
+                    }
+                }
+            }
+        }
     }
 
     &.wlc-game-thumb--theme-mod-bottom-buttons {

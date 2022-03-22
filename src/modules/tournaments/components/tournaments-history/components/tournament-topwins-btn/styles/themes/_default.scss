@@ -4,7 +4,6 @@
 @use 'engine-scss/mixins/base.mixins' as em;
 @use 'engine-scss/functions' as ef;
 
-
 .wlc-tournament-topwins-btn--theme-default:host {
 
     @include bm.get-mq-map('padding', $themeDefault, 'btnBlockPadding');
@@ -14,8 +13,16 @@
         @include bm.get-mq-map('padding', $themeDefault, 'btnBlockPaddingFirst');
     }
 
+    .wlc-btn--theme-skew {
+
+        &.action-btn {
+            transform: ef.get-value(ev.$tableBtnBlock, 'btnTransform') ef.get-value($themeDefault, 'transformSkew');
+        }
+    }
+
     .action-btn {
-        display: block;
+        display: flex;
+        justify-content: center;
         margin: ef.get-value($themeDefault, 'actionBtnPadding');
 
         .wlc-table--table & {

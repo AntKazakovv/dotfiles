@@ -3,8 +3,8 @@
 @use 'engine-scss/mixins/text' as lib;
 @use 'modules/core/components/button/styles/utils/_mixins' as m;
 @use 'engine-scss/mixins/common.mixins' as cm;
-
 @use 'modules/core/components/button/styles/utils/_vars' as btn;
+
 @import '../utils/vars';
 
 @mixin button {
@@ -77,6 +77,41 @@
                     background: ef.get('buttonSettings', 'backgroundHover');
                     box-shadow: unset;
                 }
+            }
+        }
+    }
+
+    &.wlc-radio-buttons--theme-button-skew {
+
+        .wlc-radio-buttons {
+
+            &__group {
+                background: ef.get-value($themeButton, 'buttonBackgroundSecondary');
+                border: ef.get-value($themeButton, 'buttonBorderSecondary');
+                transform: ef.get-value($themeButton, 'buttonTransform');
+
+                &.active {
+                    @include button();
+                    padding: ef.get-value($themeButton, 'buttonPadding');
+                    background: ef.get-value($themeButton, 'buttonBackgroundActive');
+                    cursor: default;
+                    border: ef.get-value($themeButton, 'buttonBorderActive');
+
+
+                    @include bm.hover {
+                        background: ef.get-value($themeButton, 'buttonBackgroundActiveHover');
+                        border: ef.get-value($themeButton, 'buttonBorderActiveHover');
+                    }
+                }
+
+                @include bm.hover {
+                    background: ef.get-value($themeButton, 'buttonBackgroundSecondaryHover');
+                    box-shadow: unset;
+                }
+            }
+
+            &__text {
+                transform: ef.get-value($themeButton, 'buttonTransformText');
             }
         }
     }

@@ -1,3 +1,4 @@
+@use 'engine-scss/functions' as ef;
 @use 'engine-scss/mixins/base.mixins' as bm;
 @use 'engine-scss/mixins/common.mixins' as cm;
 @use 'engine-scss/engine.variables' as ev;
@@ -10,6 +11,13 @@
 
         &.profile-first {
             @include bm.get-mq-map('padding', ev.$tableBtnBlock, 'btnBlockPaddingFirst');
+        }
+    }
+
+    .wlc-btn--theme-skew {
+
+        &.action-btn {
+            transform: ef.get-value(ev.$tableBtnBlock, 'btnTransform') ef.get-value($themeDefault, 'transformSkew');
         }
     }
 }

@@ -257,6 +257,7 @@
             text-indent: ef.get-value($themeDefaultModCircle, 'btnPlayTextIndent');
             border: ef.get-value($themeDefaultModCircle, 'btnPlayBorder');
             border-radius: ef.get-value($themeDefaultModCircle, 'btnPlayRadius');
+            transform: ef.get-value($themeDefaultModCircle, 'btnPlayTransform');
 
             &:before {
                 content: '';

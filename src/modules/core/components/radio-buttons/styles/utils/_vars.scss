@@ -1,4 +1,5 @@
 @use 'engine-scss/functions' as ef;
+@use 'modules/core/components/button/styles/utils/_vars' as btnSkew;
 
 $customThemeDefault: () !default;
 $themeDefault: map-merge((
@@ -22,4 +23,16 @@ $themeButton: map-merge((
     'elemsGap': 10px,
     'buttonPadding': 5px,
     'buttonActiveColor': ef.get('buttonSettings', 'fontColor'),
+
+    'buttonBorderActive': ef.get('buttonSettings', 'borderSecondaryActive'),
+    'buttonBorderActiveHover': ef.get('buttonSettings', 'borderSecondaryActiveHover'),
+    'buttonBorderSecondary': ef.get('buttonSettings', 'borderSecondary'),
+
+    'buttonTransform': ef.get('buttonSettings', 'transformSkew'),
+    'buttonTransformText': ef.get('buttonSettings', 'transformSkewText'),
+
+    'buttonBackgroundActive': ef.get('buttonSettings', 'backgroundSecondaryActive'),
+    'buttonBackgroundActiveHover': ef.get('buttonSettings', 'backgroundSecondaryActiveHover'),
+    'buttonBackgroundSecondary': ef.get('buttonSettings', 'backgroundSecondary'),
+    'buttonBackgroundSecondaryHover': ef.get('buttonSettings', 'backgroundSecondaryHover'),
 ), $customThemeButton);

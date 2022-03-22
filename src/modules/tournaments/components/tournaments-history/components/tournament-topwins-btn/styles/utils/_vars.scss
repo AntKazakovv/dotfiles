@@ -1,4 +1,5 @@
 @use 'engine-scss/functions' as ef;
+@use 'engine-scss/engine.variables' as ev;
 $customThemeDefault: () !default;
 $themeDefault: map-merge((
     'btnBlockPadding': (
@@ -14,4 +15,5 @@ $themeDefault: map-merge((
     'moreIconMargin': 0 0 0 ef.size(1),
     'moreIconColor': var(--mc-baseOpacity),
     'moreIconColorHover': var(--mc-baseMain),
+    'transformSkew': ef.get-value(ev.$buttonSettings, 'transformSkew'),
 ), $customThemeDefault);

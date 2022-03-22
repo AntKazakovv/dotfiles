@@ -1,3 +1,4 @@
+@use 'engine-scss/engine.variables' as ev;
 @use 'engine-scss/functions' as ef;
 @use 'engine-scss/mixins/base.mixins' as bm;
 
@@ -8,25 +9,37 @@
 
     &:host {
         @include buttonBase;
-        background-image: linear-gradient(to right, ef.get-value($themeDefault, 'background'), ef.get-value($themeDefault, 'backgroundSecondary'));
-        transform: skew(-20deg, 0);
-        border-image-source: linear-gradient(to right, ef.get-value($themeDefault, 'backgroundSecondary'), ef.get-value($themeDefault, 'background'));
-        border-image-slice: 1;
-        border-image-width: 6px;
+        background: ef.get-value($themeDefault, 'background');
+        border: ef.get-value($themeDefault, 'borderDefault');
+        transform: ef.get-value($themeSkew, 'transform');
+
+        .wlc-btn__text {
+            transform: ef.get-value($themeSkew, 'transformText');
+        }
 
         &.wlc-btn--theme-mod-secondary {
-            background-image: unset;
-            border-image-width: 0;
+            background: ef.get-value($themeDefault, 'backgroundSecondary');
+            border: ef.get-value($themeDefault, 'borderSecondary');
+
+            &.active {
+                background: ef.get-value($themeDefault, 'backgroundSecondaryActive');
+                border: ef.get-value($themeDefault, 'borderSecondaryActive');
+
+                @include bm.hover {
+                    background: ef.get-value($themeDefault, 'backgroundSecondaryActiveHover');
+                    border: ef.get-value($themeDefault, 'borderSecondaryActiveHover');
+                }
+            }
 
             @include bm.hover {
-                background-image: linear-gradient(to right, ef.get-value($themeDefault, 'background'), ef.get-value($themeDefault, 'backgroundSecondary'));
-                border-image-width: 6px;
-                border-image-source: linear-gradient(to right, ef.get-value($themeDefault, 'backgroundSecondary'), ef.get-value($themeDefault, 'background'));
+                background: ef.get-value($themeDefault, 'backgroundSecondaryHover');
+                border: ef.get-value($themeDefault, 'borderSecondaryHover');
             }
         }
 
         @include bm.hover {
-            background: transparent;
+            background: ef.get-value($themeDefault, 'backgroundHover');
+            border: ef.get-value($themeDefault, 'borderHover');
         }
     }
 }

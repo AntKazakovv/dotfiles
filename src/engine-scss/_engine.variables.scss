@@ -587,6 +587,8 @@ $buttonSettings: map-merge((
     'backgroundHover': var(--mc-buttonColor-l20),
     'backgroundSecondary': transparent,
     'backgroundSecondaryHover': var(--mc-secondary-o2),
+    'backgroundSecondaryActive': var(--mc-buttonColor),
+    'backgroundSecondaryActiveHover': var(--mc-buttonColor),
     'backgroundResolve': var(--mc-success),
     'backgroundResolveHover': var(--mc-success-d20),
     'backgroundReject': var(--mc-error),
@@ -604,6 +606,8 @@ $buttonSettings: map-merge((
     'borderDefaultHover': 2px solid var(--mc-buttonColor-l20),
     'borderSecondary': 2px solid var(--mc-secondary),
     'borderSecondaryHover': 2px solid var(--mc-secondary),
+    'borderSecondaryActive': 2px solid var(--mc-buttonColor),
+    'borderSecondaryActiveHover': 2px solid var(--mc-buttonColor),
     'borderColorRead': var(--mc-baseOpacity),
     //Padding
     'padding': map-get($size, 'smallest') map-get($size, 'smaller'),
@@ -611,6 +615,9 @@ $buttonSettings: map-merge((
     // Animation
     'time': map-get($time, 'main'),
     'radiusRoundingTheme': 100px,
+    // Transform
+    'transformSkew': skew(-20deg, 0),
+    'transformSkewText': skew(20deg, 0),
 ), $customButtonSettings);
 
 $customBaseVariables: () !default;
