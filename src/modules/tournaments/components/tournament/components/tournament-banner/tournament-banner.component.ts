@@ -76,6 +76,13 @@ export class TournamentBannerComponent
             });
     }
 
+    /**
+     * Update tournament list
+     */
+    public updateTournaments(): void {
+        this.tournamentsService.updateTournaments();
+    }
+
     protected checkParentInstance(): void {
         if (!this.parentInstance) return;
 

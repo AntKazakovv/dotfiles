@@ -17,6 +17,7 @@
         </h2>
         <div class="{{$class}}__timer-block"
              wlc-tournament-smart-info
+             (timerEnds)="updateTournaments()"
              [tournament]="$params.tournament">
         </div>
 
