@@ -112,21 +112,26 @@ export class Tournament extends AbstractTournamentModel<ITournament> {
      * @returns {string} tournament fee currency
      */
     public get feeCurrency(): string {
-        return (this.feeType === 'loyalty') ? 'LP' : this.userCurrency;
+        return (this.feeType === 'loyalty') ? 'LP' : this.targetDefaultCurrency;
     }
 
     /**
      * @returns {number} tournament total founds
      */
     public get totalFounds(): number {
-        return _toNumber(this.data.TotalFounds?.EUR);
+        return _toNumber(this.targetDefaultCurrency === 'EUR'
+            ? this.data.TotalFounds?.EUR
+            : this.data.TotalFounds?.Currency,
+        );
     }
 
     /**
      * @returns {number[]} tournament winningSpread
      */
     public get winningSpread(): number[] {
-        const winningsArr = this.data.WinningSpread?.EUR;
+        const winningsArr = this.targetDefaultCurrency === 'EUR'
+            ? this.data.WinningSpread?.EUR
+            : this.data.WinningSpread?.Currency;
         return _map(winningsArr, (item: string) => _toNumber(item));
     }
 

@@ -2,4 +2,5 @@ import {ITournamentsConfig} from 'wlc-engine/modules/core/system/interfaces/base
 
 export const tournamentsConfig: ITournamentsConfig = {
     use: false,
+    useUsersCurrency: false,
 };

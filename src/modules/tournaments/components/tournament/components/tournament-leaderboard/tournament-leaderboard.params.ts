@@ -23,6 +23,7 @@ export interface ITournamentLeaderboardCParams extends IComponentParams<Componen
         limit?: number;
         showAllBtn?: boolean;
         useListHead?: boolean;
+        useMainCurrency?: boolean;
     };
     /**
      * this option is used how to display the name in leaderboard (it can be shown userId or userLogin for example)
@@ -35,4 +36,7 @@ export const defaultParams: ITournamentLeaderboardCParams = {
     class: 'wlc-tournament-leaderboard',
     componentName: 'wlc-tournament-leaderboard',
     displayPlayerName: 'login',
+    common: {
+        useMainCurrency: false,
+    },
 };

@@ -8,7 +8,7 @@
         <div *ngIf="paramInclude('themeMod', 'history')" class="{{$class}}__cell item-win">
             <span class="win-text">{{'Win' | translate}}</span>
             <span wlc-currency
-                  [currency]="tournament.targetDefaultCurrency"
+                  [currency]="currency"
                   [showIconOnly]="true">
             </span>
         </div>

@@ -23,6 +23,7 @@ import {ITournamentPlace} from 'wlc-engine/modules/tournaments/system/interfaces
 export abstract class AbstractTournamentModel<T extends ITournamentAbstract> extends AbstractModel<T> {
     protected userCurrency: string;
     protected $descriptionClean: string;
+    protected useUsersCurrency: boolean = false;
 
     constructor(
         params: IAbstractModelParams,
@@ -36,6 +37,7 @@ export abstract class AbstractTournamentModel<T extends ITournamentAbstract> ext
         this.$descriptionClean = this.data.Description.replace(/<[^>]*>/g, '');
         this.userCurrency = this.configService.get<string>('appConfig.user.currency')
             || this.configService.get<string>('$base.defaultCurrency');
+        this.useUsersCurrency = this.configService.get<boolean>('$base.tournaments.useUsersCurrency');
     }
 
     public get points(): number {
@@ -158,10 +160,10 @@ export abstract class AbstractTournamentModel<T extends ITournamentAbstract> ext
     }
 
     /**
-     * @returns {string} tournament target currency loaylty or EUR
+     * @returns {string} tournament target currency loyalty or EUR
      */
     public get targetDefaultCurrency(): string {
-        return this.checkTargetCurrency(true);
+        return this.checkTargetCurrency(!this.useUsersCurrency);
     }
 
     /**
@@ -236,6 +238,11 @@ export abstract class AbstractTournamentModel<T extends ITournamentAbstract> ext
      * @returns {string} check use default currency EUR
      */
     protected checkTargetCurrency(useDefaultCurrency?: boolean): string {
-        return (this.target === 'loyalty') ? 'LP' : (useDefaultCurrency ? 'EUR' : this.userCurrency);
+
+        if (this.target === 'loyalty') {
+            return 'LP';
+        }
+
+        return useDefaultCurrency ? 'EUR' : this.userCurrency;
     }
 }

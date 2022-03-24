@@ -56,6 +56,7 @@ export class TournamentLeaderboardComponent
     public winsRest: ITournamentPlace[];
     public userId: string;
     public isReady: boolean;
+    public currency: string = 'EUR';
 
     protected restLimit: number;
 
@@ -85,6 +86,13 @@ export class TournamentLeaderboardComponent
         if (this.$params.common?.tournament && !this.tournament) {
             this.tournament = this.$params.common.tournament;
         }
+
+        if (this.tournament.target === 'loyalty') {
+            this.currency = 'LP';
+        } else if (!this.$params.common.useMainCurrency) {
+            this.currency = this.tournament.targetDefaultCurrency;
+        }
+
         this.isReady = false;
         this.tournament?.getWinnersSubscribe({
             next: (result) => {
@@ -136,8 +144,7 @@ export class TournamentLeaderboardComponent
      * @returns number | string
      */
     public getCurrencyValue(win: ITournamentPlace): number | string {
-        return this.tournament.target === 'loyalty' ? _toNumber(win.Win) || '-' :
-            _toNumber(win.WinEUR) || '-';
+        return _toNumber(this.currency === 'EUR' ? win.WinEUR : win.Win) || '-';
     }
 
     protected prepareModifiers(): void {

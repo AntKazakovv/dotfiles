@@ -60,6 +60,7 @@ export class TournamentTopwinsBtnComponent extends AbstractComponent implements 
                     tournament: this.$params.tournament,
                     limit: this.$params.limit,
                     useListHead: true,
+                    useMainCurrency: true,
                 },
             },
             closeBtnText: gettext('Ok'),
