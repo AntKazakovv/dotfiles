@@ -36,7 +36,8 @@ import {IdleService} from 'wlc-engine/modules/user/system/services/idle/idle.ser
 import {IMGAConfig} from 'wlc-engine/modules/core/components/license/license.params';
 import {
     IProcessEventData,
-    ProcessServiceEvents,
+    ProcessEvents,
+    ProcessEventsDescriptions,
 } from 'wlc-engine/modules/monitoring';
 
 import _assign from 'lodash-es/assign';
@@ -256,10 +257,10 @@ export class UserService {
                 responseData: error,
             });
             this.eventService.emit({
-                name: ProcessServiceEvents.failTrigger,
+                name: ProcessEvents.failTrigger,
                 data: <IProcessEventData>{
                     eventId: 'login',
-                    description: `Response error code: ${error.code}`,
+                    description: ProcessEventsDescriptions.failTrigger + error.code + ' (/auth PUT)',
                 },
             });
         });
@@ -506,6 +507,13 @@ export class UserService {
                 wlcElement: 'notification_registration-success',
             },
         });
+        this.eventService.emit({
+            name: ProcessEvents.successTrigger,
+            data: <IProcessEventData>{
+                eventId: 'signup',
+                description: ProcessEventsDescriptions.successTrigger + 'user registered',
+            },
+        });
     }
 
     private failedRegistration(): void {
@@ -517,6 +525,13 @@ export class UserService {
             ),
             textAlign: 'center',
             dismissAll: true,
+        });
+        this.eventService.emit({
+            name: ProcessEvents.failTrigger,
+            data: <IProcessEventData>{
+                eventId: 'signup',
+                description: ProcessEventsDescriptions.failTrigger + '401 (/profiles GET)',
+            },
         });
     }
 

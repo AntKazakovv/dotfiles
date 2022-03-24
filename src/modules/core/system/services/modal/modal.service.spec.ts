@@ -184,7 +184,7 @@ describe('ModalService', () => {
         modalService.closeAllModals();
 
         modalService['activeModals'].forEach(({id}) => {
-            expect(modalServiceHideModalSpy).toHaveBeenCalledWith(id);
+            expect(modalServiceHideModalSpy).toHaveBeenCalledWith(id, jasmine.any(String));
         });
     });
 

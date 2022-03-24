@@ -30,7 +30,8 @@ import {
 import {
     emptyLaunchedProcess,
     processConfigsCommon,
-    ProcessServiceEvents,
+    ProcessEvents,
+    ProcessEventsDescriptions,
 } from 'wlc-engine/modules/monitoring/system/config/process.config';
 import {
     ILaunchedProcess,
@@ -54,6 +55,22 @@ interface IFlogData extends TLogObjFlog {
     processName?: string;
     description?: string;
 }
+
+const allEvents: TProcessSubscribeEvent[] = [
+    'launch',
+    'start',
+    'fail',
+    'success',
+    'stop',
+    'restart',
+];
+
+const afterStartEvents: TProcessSubscribeEvent[] = [
+    'fail',
+    'success',
+    'stop',
+    'restart',
+];
 
 @Injectable({
     providedIn: 'root',
@@ -115,7 +132,10 @@ export class ProcessService {
         fromEvent(this.window, 'beforeunload')
             .subscribe((): void => {
                 this.eventService.emit({
-                    name: ProcessServiceEvents.beforeunload,
+                    name: ProcessEvents.beforeunload,
+                    data: <IProcessEventData>{
+                        description: ProcessEventsDescriptions.beforeunload,
+                    },
                 });
             });
     }
@@ -139,15 +159,8 @@ export class ProcessService {
     }
 
     protected killLaunchedProcess(processName: string): void {
-        const types: TProcessSubscribeEvent[] = [
-            'launch',
-            'start',
-            'fail',
-            'success',
-            'stop',
-        ];
-        this.unsubscribeSubscriptionsByTypes(processName, types);
-        this.stopTimer(processName, types);
+        this.unsubscribeSubscriptionsByTypes(processName, allEvents);
+        this.stopTimer(processName, allEvents);
         delete this.launchedProcesses[processName];
     }
 
@@ -163,7 +176,7 @@ export class ProcessService {
                         this.checkTriggerEventData(trigger.event, data) &&
                         this.checkTriggerConfigExceptions(processName, trigger.exceptions)
                     ) {
-                        this.triggerProcess(processName, type, data?.description);
+                        this.triggerProcess(processName, type, data?.description || trigger.event.data?.description);
                     }
                 },
             );
@@ -300,6 +313,9 @@ export class ProcessService {
             case 'stop':
                 this.stopProcess(processName, description);
                 break;
+            case 'restart':
+                this.restartProcess(processName, description);
+                break;
             default:
                 break;
         }
@@ -315,15 +331,11 @@ export class ProcessService {
         this.unsubscribeSubscriptionsByTypes(processName, ['start']);
         this.stopTimer(processName, ['start']);
 
-        this.createSubscriptionsByType(processName, 'fail');
-        this.createSubscriptionsByType(processName, 'success');
-        this.createSubscriptionsByType(processName, 'stop');
+        _each(afterStartEvents, (event: TProcessSubscribeEvent) => {
+            this.createSubscriptionsByType(processName, event);
+        });
 
-        this.createTimer(processName, [
-            'fail',
-            'success',
-            'stop',
-        ]);
+        this.createTimer(processName, afterStartEvents);
     }
     
     protected unsubscribeSubscriptionsByTypes(processName: string, types: TProcessSubscribeEvent[]): void {
@@ -343,20 +355,12 @@ export class ProcessService {
             return;
         }
         this.launchedProcesses[processName].status = 'failed';
-        this.unsubscribeSubscriptionsByTypes(processName, [
-            'fail',
-            'success',
-            'stop',
-        ]);
-        this.stopTimer(processName, [
-            'fail',
-            'success',
-            'stop',
-        ]);
+        this.unsubscribeSubscriptionsByTypes(processName, afterStartEvents);
+        this.stopTimer(processName, afterStartEvents);
 
         this.sendLog('18.0.2', {processName, description});
 
-        if (this.processConfigs[processName].restartAfterFail){
+        if (this.processConfigs[processName].relaunchAfterFail){
             this.launchProcess(processName);
         }
     }
@@ -366,20 +370,12 @@ export class ProcessService {
             return;
         }
         this.launchedProcesses[processName].status = 'succeed';
-        this.unsubscribeSubscriptionsByTypes(processName, [
-            'fail',
-            'success',
-            'stop',
-        ]);
-        this.stopTimer(processName, [
-            'fail',
-            'success',
-            'stop',
-        ]);
+        this.unsubscribeSubscriptionsByTypes(processName, afterStartEvents);
+        this.stopTimer(processName, afterStartEvents);
 
         this.sendLog('18.0.1', {processName, description});
 
-        if (this.processConfigs[processName].restartAfterSuccess){
+        if (this.processConfigs[processName].relaunchAfterSuccess){
             this.launchProcess(processName);
         }
     }
@@ -389,22 +385,28 @@ export class ProcessService {
             return;
         }
         this.launchedProcesses[processName].status = 'stopped';
-        this.unsubscribeSubscriptionsByTypes(processName, [
-            'fail',
-            'success',
-            'stop',
-        ]);
-        this.stopTimer(processName, [
-            'fail',
-            'success',
-            'stop',
-        ]);
+        this.unsubscribeSubscriptionsByTypes(processName, afterStartEvents);
+        this.stopTimer(processName, afterStartEvents);
 
         this.sendLog('18.0.3', {processName, description});
 
-        if (this.processConfigs[processName].restartAfterStop) {
+        if (this.processConfigs[processName].relaunchAfterStop) {
             this.launchProcess(processName);
         }
+    }
+
+    protected restartProcess(processName: string, description: string): void {
+        if (this.launchedProcesses[processName].status !== 'started') {
+            return;
+        }
+        this.launchedProcesses[processName].status = 'stopped';
+        this.unsubscribeSubscriptionsByTypes(processName, afterStartEvents);
+        this.stopTimer(processName, afterStartEvents);
+
+        this.sendLog('18.0.4', {processName, description});
+
+        this.launchProcess(processName);
+        this.startProcess(processName, ProcessEventsDescriptions.restartTrigger + description);
     }
 
     protected sendLog(code: string, flog: IFlogData): void {

@@ -16,14 +16,15 @@ export interface IProcessConfig {
     fail?: IProcessConfigGroup;
     success?: IProcessConfigGroup;
     stop?: IProcessConfigGroup;
+    restart?: IProcessConfigGroup;
     launchAfterTimer?: number;
     startAfterTimer?: number;
     failAfterTimer?: number;
     successAfterTimer?: number;
     stopAfterTimer?: number;
-    restartAfterFail?: boolean;
-    restartAfterSuccess?: boolean;
-    restartAfterStop?: boolean;
+    relaunchAfterFail?: boolean;
+    relaunchAfterSuccess?: boolean;
+    relaunchAfterStop?: boolean;
 }
 
 export interface IProcessConfigGroup {
@@ -33,10 +34,12 @@ export interface IProcessConfigGroup {
 
 
 export interface IProcessEventData {
-    eventId: string;
+    eventId?: string;
     description?: string;
-    comparator?: (triggerData: unknown, eventData: unknown) => boolean;
+    comparator?: TComparatorFn;
 }
+
+export type TComparatorFn = (triggerData: IProcessEventData, eventData: unknown) => boolean;
 
 export interface IProcessConfigEvent {
     events: IEvent<IProcessEventData>[];
@@ -66,7 +69,7 @@ type TLaunchedProcessSubscriptions = {
     [Key in TProcessSubscribeEvent]: ILaunchedProcessSubscription[];
 }
 
-export type TProcessSubscribeEvent = 'launch' | 'start' | 'fail' | 'success' | 'stop';
+export type TProcessSubscribeEvent = 'launch' | 'start' | 'fail' | 'success' | 'stop' | 'restart';
 
 export interface ILaunchedProcessSubscription {
     subscription: Subscription;

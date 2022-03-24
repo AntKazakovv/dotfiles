@@ -4,18 +4,23 @@ import {
     OnInit,
 } from '@angular/core';
 
+import _get from 'lodash-es/get';
+
 import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
 import {
     ConfigService,
     ModalService,
     LogService,
+    EventService,
 } from 'wlc-engine/modules/core/system/services';
+import {
+    IProcessEventData,
+    ProcessEvents,
+    ProcessEventsDescriptions,
+} from 'wlc-engine/modules/monitoring';
 import {WINDOW} from 'wlc-engine/modules/app/system';
 
 import * as Params from './login-signup.params';
-
-import _get from 'lodash-es/get';
-
 
 @Component({
     selector: '[wlc-login-signup]',
@@ -33,6 +38,7 @@ export class LoginSignupComponent extends AbstractComponent implements OnInit {
         protected modalService: ModalService,
         protected configService: ConfigService,
         protected logService: LogService,
+        protected eventService: EventService,
     ) {
         super({injectParams, defaultParams: Params.defaultParams}, configService);
     }
@@ -71,6 +77,13 @@ export class LoginSignupComponent extends AbstractComponent implements OnInit {
             }
             case 'login':
             case 'signup': {
+                this.eventService.emit({
+                    name: ProcessEvents.buttonPressed,
+                    data: <IProcessEventData>{
+                        eventId: actionButton,
+                        description: ProcessEventsDescriptions.buttonPressed + actionButton,
+                    },
+                });
                 this.setAction((actionButton as Params.IActionNameType));
                 break;
             }

@@ -1,5 +1,8 @@
 import {FormGroup} from '@angular/forms';
 
+import _keys from 'lodash-es/keys';
+import _isArray from 'lodash-es/isArray';
+
 import {
     AbstractComponent,
     ConfigService,
@@ -16,8 +19,11 @@ import {
     ChosenBonusSetParams,
     ChosenBonusType,
 } from 'wlc-engine/modules/bonuses';
-
-import _keys from 'lodash-es/keys';
+import {
+    IProcessEventData,
+    ProcessEvents,
+    ProcessEventsDescriptions,
+} from 'wlc-engine/modules/monitoring';
 
 export interface IValidateData {
     'TYPE': string;
@@ -44,7 +50,7 @@ export abstract class UserActionsAbstract<T> extends AbstractComponent {
     }
 
     protected showRegError(
-        error: {errors: string[]},
+        error: {errors: string[]; code?: string},
         code?: string,
         title?: string,
     ): void {
@@ -58,6 +64,17 @@ export abstract class UserActionsAbstract<T> extends AbstractComponent {
             },
         });
         this.logService.sendLog({code: code || '2.1.0', data: error});
+
+        let msg: string = _isArray(error.errors) ? error.errors.toString() : null;
+        msg ||= error.code ? `http ${error.code}` : null;
+        msg ||= code ? `flog ${code}` : ProcessEventsDescriptions.noReason;
+        this.eventService.emit({
+            name: ProcessEvents.failTrigger,
+            data: <IProcessEventData>{
+                eventId: 'signup',
+                description: ProcessEventsDescriptions.failTrigger + msg,
+            },
+        });
     }
 
     protected checkConfirmation(form: FormGroup): boolean {

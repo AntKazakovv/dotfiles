@@ -36,7 +36,8 @@ import _isString from 'lodash-es/isString';
 import _assign from 'lodash-es/assign';
 import {
     IProcessEventData,
-    ProcessServiceEvents,
+    ProcessEvents,
+    ProcessEventsDescriptions,
 } from 'wlc-engine/modules/monitoring';
 
 /**
@@ -281,12 +282,13 @@ export class WlcModalComponent extends AbstractComponent
             data: this.$params.config.id,
         });
         if (type === this.modalService.events.MODAL_HIDDEN) {
-            const reason: string = this.modalDirect.dismissReason || this.closeReason || '';
+            const reason: string = this.modalDirect.dismissReason || this.closeReason ||
+                ProcessEventsDescriptions.noReason;
             this.eventService.emit({
-                name: ProcessServiceEvents.modalClose,
+                name: ProcessEvents.modalClosed,
                 data: <IProcessEventData>{
                     eventId: this.$params.config.id,
-                    description: `Close reason: ${reason}`,
+                    description: ProcessEventsDescriptions.modalClosed + reason,
                 },
             });
         }

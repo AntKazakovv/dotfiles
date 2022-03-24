@@ -40,7 +40,8 @@ import {
 import {WINDOW} from 'wlc-engine/modules/app/system';
 import {
     IProcessEventData,
-    ProcessServiceEvents,
+    ProcessEvents,
+    ProcessEventsDescriptions,
 } from 'wlc-engine/modules/monitoring';
 
 import _assignIn from 'lodash-es/assignIn';
@@ -53,6 +54,8 @@ import _forEach from 'lodash-es/forEach';
 import _get from 'lodash-es/get';
 
 export type IModalParams = IModalConfig | IModalName;
+
+const CLOSE_ALL_REASON = 'closeAll';
 
 @Injectable({providedIn: 'root'})
 export class ModalService {
@@ -203,9 +206,10 @@ export class ModalService {
      * Close modal by Id
      *
      * @param id modal identifier
+     * @param reason modal close reason
      * @returns void
      */
-    public hideModal(id: string): void {
+    public hideModal(id: string, reason?: string): void {
         const modals: IActiveModal[] = _filter(this.activeModals, (item: IActiveModal) => item.id === id);
 
         if (!modals.length) {
@@ -219,8 +223,12 @@ export class ModalService {
         this.closeQueue.push(..._map(modals, ({id}) => id));
         this.$closeObserver.next(this.closeQueue.length);
         _forEach(modals, async (modal) => {
-            await modal.ref.instance.ready;
-            modal.ref.instance.modalDirect.hide();
+            const modalInstance = modal.ref.instance;
+            await modalInstance.ready;
+            if (!modalInstance.modalDirect.dismissReason && !modalInstance.closeReason && reason) {
+                modalInstance.closeReason = reason;
+            }
+            modalInstance.modalDirect.hide();
         });
     }
 
@@ -229,7 +237,7 @@ export class ModalService {
      */
     public closeAllModals(): void {
         _forEach(this.activeModals, (item: IActiveModal) => {
-            this.hideModal(item.id);
+            this.hideModal(item.id, CLOSE_ALL_REASON);
         });
     }
 
@@ -342,10 +350,10 @@ export class ModalService {
         });
 
         this.eventService.emit({
-            name: ProcessServiceEvents.modalOpen,
+            name: ProcessEvents.modalOpened,
             data: <IProcessEventData>{
                 eventId: config.id,
-                description: `Modal ${config.id} opened`,
+                description: ProcessEventsDescriptions.modalOpened + config.id,
             },
         });
 

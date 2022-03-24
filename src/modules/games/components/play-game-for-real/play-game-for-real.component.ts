@@ -93,8 +93,7 @@ export class PlayGameForRealComponent extends SignInFormAbstract<Params.IPlayGam
         this.eventService.subscribe({
             name: Params.Events.PLAY_DEMO,
         }, () => {
-            this.modalService.getActiveModal('play-game-for-real').ref.instance.closeReason = 'submit';
-            this.modalService.hideModal('play-game-for-real');
+            this.modalService.hideModal('play-game-for-real', 'submit');
             if (this.$params.common?.game) {
                 this.$params.common.game.launch({
                     demo: true,
@@ -110,8 +109,7 @@ export class PlayGameForRealComponent extends SignInFormAbstract<Params.IPlayGam
         this.eventService.subscribe({
             name: Params.Events.PLAY_REAL,
         }, () => {
-            this.modalService.getActiveModal('play-game-for-real').ref.instance.closeReason = 'submit';
-            this.modalService.hideModal('play-game-for-real');
+            this.modalService.hideModal('play-game-for-real', 'submit');
             if (this.$params.common?.game) {
                 this.$params.common.game.launch({
                     demo: false,
@@ -125,8 +123,7 @@ export class PlayGameForRealComponent extends SignInFormAbstract<Params.IPlayGam
             name: 'USER_PROFILE',
         }, () => {
             if (this.$params.common?.game) {
-                this.modalService.getActiveModal('play-game-for-real').ref.instance.closeReason = 'submit';
-                this.modalService.hideModal('play-game-for-real');
+                this.modalService.hideModal('play-game-for-real', 'submit');
                 this.$params.common.game.launch({
                     demo: false,
                 });
@@ -139,7 +136,7 @@ export class PlayGameForRealComponent extends SignInFormAbstract<Params.IPlayGam
             name: Params.Events.SIGN_UP,
         }, () => {
             if (!this.configService.get<boolean>('$base.site.restrictRegistration')) {
-                this.modalService.hideModal('play-game-for-real');
+                this.modalService.hideModal('play-game-for-real', 'will signup');
             }
             setTimeout(() => {
                 this.modalService.showModal('signup');

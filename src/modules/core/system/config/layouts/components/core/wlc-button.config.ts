@@ -1,8 +1,4 @@
 import {ILayoutComponent} from 'wlc-engine/modules/core';
-import {
-    IProcessEventData,
-    ProcessServiceEvents,
-} from 'wlc-engine/modules/monitoring';
 
 export namespace wlcButton {
     export const searchMerchants: ILayoutComponent = {
@@ -266,19 +262,10 @@ export namespace wlcButton {
             class: 'wlc-btn wlc-btn-login',
             common: {
                 iconPath: '/wlc/icons/login.svg',
-                event: [
-                    {
-                        name: 'SHOW_MODAL',
-                        data: 'login',
-                    },
-                    {
-                        name: ProcessServiceEvents.buttonPress,
-                        data: <IProcessEventData>{
-                            eventId: 'login',
-                            description: 'Login button pressed',
-                        },
-                    },
-                ],
+                event: {
+                    name: 'SHOW_MODAL',
+                    data: 'login',
+                },
             },
         },
     };
@@ -294,19 +281,10 @@ export namespace wlcButton {
             common: {
                 customModifiers: 'mobile-login',
                 text: gettext('Login'),
-                event: [
-                    {
-                        name: 'SHOW_MODAL',
-                        data: 'login',
-                    },
-                    {
-                        name: ProcessServiceEvents.buttonPress,
-                        data: <IProcessEventData>{
-                            eventId: 'login',
-                            description: 'Login button pressed',
-                        },
-                    },
-                ],
+                event: {
+                    name: 'SHOW_MODAL',
+                    data: 'login',
+                },
             },
         },
     };

@@ -1,6 +1,7 @@
 export * from './system/services';
 export * from './system/interfaces';
 export {
-    ProcessServiceEvents,
+    ProcessEvents,
+    ProcessEventsDescriptions,
     processConfigsCommon,
 } from './system/config/process.config';

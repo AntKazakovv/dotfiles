@@ -36,6 +36,8 @@ enum events {
     stop = 'stop',
     stopGroupException = 'stop-group-exception',
     stopTriggerException = 'stop-trigger-exception',
+
+    restart = 'restart',
 };
 
 const processConfigsMock: IIndexing<IProcessConfig> = {
@@ -55,6 +57,9 @@ const processConfigsMock: IIndexing<IProcessConfig> = {
         },
         stop: {
             triggers: [{name: events.stop}],
+        },
+        restart: {
+            triggers: [{name: events.restart}],
         },
     },
     'simple config with event exceptions': {
@@ -247,7 +252,7 @@ const processConfigsMock: IIndexing<IProcessConfig> = {
         use: true,
         launchOnAppStart: true,
     },
-    'check restart': {
+    'check relaunch': {
         use: true,
         launch: {
             triggers: [{name: events.launch}],
@@ -258,15 +263,15 @@ const processConfigsMock: IIndexing<IProcessConfig> = {
         fail: {
             triggers: [{name: events.fail}],
         },
-        restartAfterFail: true,
+        relaunchAfterFail: true,
         success: {
             triggers: [{name: events.success}],
         },
-        restartAfterSuccess: true,
+        relaunchAfterSuccess: true,
         stop: {
             triggers: [{name: events.stop}],
         },
-        restartAfterStop: true,
+        relaunchAfterStop: true,
     },
     'check timers': {
         use: true,
@@ -432,6 +437,15 @@ describe('ProcessService', () => {
         expect(service['launchedProcesses']['simple config'].status).toBe('stopped');
     });
 
+    it('-> should restart', () => {
+        eventService.emit({name: events.launch});
+        eventService.emit({name: events.start});
+        eventService.emit({name: events.restart});
+        expect(logServiceSpy.sendLog).toHaveBeenCalledWith(jasmine.objectContaining({code: '18.0.4'}));
+        expect(service['launchedProcesses']['simple config'].status).toBe('started');
+        expect(logServiceSpy.sendLog).toHaveBeenCalledWith(jasmine.objectContaining({code: '18.0.0'}));
+    });
+
     it('-> should not launch with flag use = false', () => {
         expect(service['launchedProcesses']['check use']).toBeUndefined();
     });
@@ -439,23 +453,23 @@ describe('ProcessService', () => {
         expect(service['launchedProcesses']['check launchOnAppStart'].status).toBe('launched');
     });
 
-    it('-> should restart after fail', () => {
+    it('-> should relaunch after fail', () => {
         eventService.emit({name: events.launch});
         eventService.emit({name: events.start});
         eventService.emit({name: events.fail});
-        expect(service['launchedProcesses']['check restart'].status).toBe('launched');
+        expect(service['launchedProcesses']['check relaunch'].status).toBe('launched');
     });
-    it('-> should restart after success', () => {
+    it('-> should relaunch after success', () => {
         eventService.emit({name: events.launch});
         eventService.emit({name: events.start});
         eventService.emit({name: events.success});
-        expect(service['launchedProcesses']['check restart'].status).toBe('launched');
+        expect(service['launchedProcesses']['check relaunch'].status).toBe('launched');
     });
-    it('-> should restart after stop', () => {
+    it('-> should relaunch after stop', () => {
         eventService.emit({name: events.launch});
         eventService.emit({name: events.start});
         eventService.emit({name: events.stop});
-        expect(service['launchedProcesses']['check restart'].status).toBe('launched');
+        expect(service['launchedProcesses']['check relaunch'].status).toBe('launched');
     });
 
     it('-> should launch, start and success by timers', (done) => {

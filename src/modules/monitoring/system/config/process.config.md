@@ -17,9 +17,9 @@
     - по таймеру `launchAfterTimer`
     <br>Мониторятся триггеры группы `start`, т.е. начала процесса.
 - `started` - процесс стартовал:
-    - по триггеру группы `start`
+    - по триггеру группы `start` или `restart`
     - по таймеру `startAfterTimer`
-    <br>Мониторятся триггеры группы `success`, `fail`, `stop`.
+    <br>Мониторятся триггеры группы `success`, `fail`, `stop`, `restart`.
     <br>Отправлен flog с кодом `18.0.0`.
 - `succeed` - процесс успешно завершен:
     - по триггеру группы `success`
@@ -50,9 +50,11 @@
 
 ### Рестарт процесса
 Возможен перезапуск процесса после завершения по соответствующим флагам:
-<br> `restartAfterFail`
-<br> `restartAfterSuccess`
-<br> `restartAfterStop`
+<br> `relaunchAfterFail`
+<br> `relaunchAfterSuccess`
+<br> `relaunchAfterStop`
+Также есть возможность задать триггеры для рестарта уже стартовавшего процесса. Отправляется flog с кодом `18.0.4`.
+Процесс запускается и стартует снова. Используется, например, для рестарта процесса логина после ввода неверного пароля.
 
 ### Группа триггеров ###
 **Группа триггеров** представляет собой события `IEvent` и исключения, которые отменяют соответствующие события.
@@ -70,7 +72,7 @@
 где data представляет собой:
 ```typescript
 {
-    eventId: string;
+    eventId?: string;
     description?: string;
     comparator?: (triggerData: unknown, eventData: unknown) => boolean;
 }
@@ -127,6 +129,8 @@ export const $base: IBaseConfig = {
         fail?: IProcessConfigGroup;
         success?: IProcessConfigGroup;
         stop?: IProcessConfigGroup;
+        restart?: IProcessConfigGroup;
+
         // Таймеры (мс) для выполнения соответствующего события.
         // Отсчет времени начинается в момент начала мониторинга соответствующей
         // группы триггеров.
@@ -134,10 +138,11 @@ export const $base: IBaseConfig = {
         startAfterTimer?: number;
         failAfterTimer?: number;
         successAfterTimer?: number;
-        stopAfterTimer?: number; 
+        stopAfterTimer?: number;
+
         // Флаги рестарта после соответствующего события завершения процесса:
-        restartAfterFail?: boolean;
-        restartAfterSuccess?: boolean;
-        restartAfterStop?: boolean;
+        relaunchAfterFail?: boolean;
+        relaunchAfterSuccess?: boolean;
+        relaunchAfterStop?: boolean;
     },
 ```

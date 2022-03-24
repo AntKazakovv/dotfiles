@@ -109,7 +109,7 @@ export abstract class SignInFormAbstract<T extends IAbstractSignInFormCParams<un
             if (this.stateService.is('app.signin')) {
                 this.stateService.go('app.home');
             } else if (this.modalService.getActiveModal('login')) {
-                this.modalService.hideModal('login');
+                this.modalService.hideModal('login', 'submit');
             }
         } catch (error) {
             const errors: IIndexing<string> = error.errors;
