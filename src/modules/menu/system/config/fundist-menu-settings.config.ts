@@ -220,12 +220,6 @@ export const fundistSettings: IMenu = {
             },
             {
                 type: 'page',
-                id: 'sportsbook',
-                order: 40,
-                device: 'all',
-            },
-            {
-                type: 'page',
                 id: 'promotions',
                 order: 50,
                 device: 'all',

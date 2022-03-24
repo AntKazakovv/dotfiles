@@ -39,7 +39,6 @@ export const menuConfig: IMenuConfig = {
     mobileMenu: {
         items: [
             'mobile-menu:categories',
-            'mobile-menu:sportsbook',
             'mobile-menu:promotions',
             'mobile-menu:tournaments',
             {
