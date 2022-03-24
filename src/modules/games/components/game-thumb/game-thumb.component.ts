@@ -77,7 +77,7 @@ export class GameThumbComponent extends AbstractComponent implements OnInit {
     public background: Params.IMediaContent[];
     public logo: Params.IMediaContent[];
     public videos: Params.IMediaContent[];
-    
+
     /**
      * Pragmatic play live data model
      */
@@ -127,7 +127,7 @@ export class GameThumbComponent extends AbstractComponent implements OnInit {
     /**
      * Returns the name of the game in the current language, if any.
      * Otherwise in English.
-     * 
+     *
      * @return {string} game name
      */
     public get name(): string {
@@ -359,10 +359,10 @@ export class GameThumbComponent extends AbstractComponent implements OnInit {
             y: (this.layersOne.length || 1) / (this.staticTData.centerCoords.y /
                 (transformThumb?.correct?.host?.y || 2.5)),
         };
-        
+
         this.staticTData.layerSteps = _map(this.staticTData.layersAll,
             (layer: ElementRef<HTMLElement>, index: number): Params.ICoordinates => {
-                const indexLayer: number = _includes(this.layersTwo.toArray(), layer) ? 
+                const indexLayer: number = _includes(this.layersTwo.toArray(), layer) ?
                     this.layersOne.length + 1 : index + 1;
                 const stepX: number = indexLayer / (this.staticTData.centerCoords.x /
                     (transformThumb?.correct?.layers?.x || 1.5));
@@ -374,7 +374,7 @@ export class GameThumbComponent extends AbstractComponent implements OnInit {
 
     /**
      * Handler mouse move
-     * 
+     *
      * @param mouseCoords {Params.ICoordinates}
      */
     protected mouseMove(mouseCoords: Params.ICoordinates): void {
@@ -399,6 +399,13 @@ export class GameThumbComponent extends AbstractComponent implements OnInit {
                 `translate(${translateX}px, ${translateY}px)`,
             );
         });
+    }
+
+    /**
+     * Successful image load
+     */
+    public successfulLoadImage(): void {
+        this.addModifiers('successful-load-image');
     }
 
     /**

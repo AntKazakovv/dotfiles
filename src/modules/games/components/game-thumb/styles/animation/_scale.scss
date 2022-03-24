@@ -1,0 +1,90 @@
+@use 'engine-scss/functions' as ef;
+@use 'engine-scss/mixins/base.mixins' as bm;
+
+@mixin animationScale {
+    @include bm.transition();
+    box-shadow: ef.get-value($animations, 'modScaleShadow');
+    transform: ef.get-value($animations, 'modScaleTransform');
+
+    .wlc-game-thumb {
+
+        &__desc:before {
+            transform: none;
+            opacity: 0;
+        }
+    }
+
+    &.wlc-game-thumb--theme-mod-circle {
+
+        @include bm.hover {
+
+            .wlc-game-thumb {
+
+                &__desc {
+                    @include bm.transition();
+                    background: transparent;
+                }
+
+                &__icon {
+                    opacity: 1;
+                }
+
+                &__title {
+                    opacity: 0;
+                }
+
+                &__buttons {
+                    opacity: 1;
+                }
+            }
+        }
+    }
+
+    &.wlc-game-thumb--theme-mod-bottom-buttons {
+
+        @include bm.hover {
+
+            .wlc-game-thumb {
+
+                &__title {
+                    opacity: 1;
+                }
+            }
+        }
+    }
+
+    &.wlc-game-thumb--theme-mod-bottom-title {
+
+        @include bm.hover {
+
+            .wlc-game-thumb {
+
+                &__buttons {
+                    opacity: 1;
+                }
+            }
+        }
+    }
+
+    @include bm.hover {
+        box-shadow: ef.get-value($animations, 'hoverScaleShadow');
+        transform: ef.get-value($animations, 'hoverScaleTransform');
+
+        .wlc-game-thumb {
+
+            &__desc {
+                opacity: 1;
+
+                &:before {
+                    opacity: 1;
+                }
+            }
+
+            &__ppl,
+            &__ppl-limits {
+                opacity: 0;
+                pointer-events: none;
+            }
+        }
+    }
+}

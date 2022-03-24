@@ -1,0 +1,185 @@
+@use 'engine-scss/functions' as ef;
+@use 'engine-scss/mixins/base.mixins' as bm;
+
+@mixin smoothSimpleDefaultAndVerticalMods {
+
+    .wlc-game-thumb {
+
+        &__title {
+            @include bm.transition();
+            z-index: 2;
+
+            opacity: 0;
+        }
+
+        &__buttons {
+            @include bm.transition();
+
+            opacity: 0;
+        }
+    }
+
+    @include bm.hover {
+
+        .wlc-game-thumb {
+
+            &__title,
+            &__buttons {
+                opacity: 1;
+            }
+        }
+    }
+}
+
+@mixin animationSmoothSimple {
+
+    .wlc-game-thumb {
+
+        &__desc:before {
+            transform: none;
+            opacity: 0;
+        }
+
+        &__icon {
+            @include bm.transition();
+            opacity: 0;
+        }
+
+        &__img {
+            display: block;
+
+            img {
+
+                @media (pointer: fine) {
+                    @include bm.transition(transform);
+                }
+            }
+        }
+    }
+
+    &.wlc-game-thumb--theme-mod-default {
+        @include smoothSimpleDefaultAndVerticalMods;
+    }
+
+    &.wlc-game-thumb--theme-mod-vertical {
+        @include smoothSimpleDefaultAndVerticalMods;
+    }
+
+    &.wlc-game-thumb--theme-mod-circle {
+
+        .wlc-game-thumb {
+
+            &__title {
+                @include bm.transition();
+                opacity: 1;
+            }
+
+            &__buttons {
+                @include bm.transition();
+                opacity: 0;
+            }
+        }
+
+        @include bm.hover {
+
+            .wlc-game-thumb {
+
+                &__buttons {
+                    opacity: 1;
+                }
+
+                &__title {
+                    opacity: 0;
+                }
+            }
+        }
+    }
+
+    &.wlc-game-thumb--theme-mod-bottom-buttons {
+
+        .wlc-game-thumb {
+
+            &__title {
+                @include bm.transition();
+                opacity: 0;
+            }
+
+            &__buttons {
+                opacity: 1;
+            }
+        }
+
+        @include bm.hover {
+
+            .wlc-game-thumb {
+
+                &__title {
+                    opacity: 1;
+                }
+            }
+        }
+    }
+
+    &.wlc-game-thumb--theme-mod-bottom-title {
+
+        .wlc-game-thumb {
+
+            &__title {
+                opacity: 1;
+            }
+
+            &__buttons {
+                @include bm.transition();
+                transform: ef.get-value($bottomTitle, 'btnsTranslate');
+                opacity: 0;
+
+                &.no-demo {
+                    transform: ef.get-value($bottomTitle, 'btnsNoDemoTranslate');
+                }
+            }
+        }
+
+        @include bm.hover {
+
+            .wlc-game-thumb {
+
+                &__buttons {
+                    transform: ef.get-value($bottomTitle, 'btnsTranslate');
+                    opacity: 1;
+
+                    &.no-demo {
+                        transform: ef.get-value($bottomTitle, 'btnsNoDemoTranslate');
+                    }
+                }
+            }
+        }
+    }
+
+    @include bm.hover {
+
+        .wlc-game-thumb {
+
+            &__icon {
+                opacity: 1;
+            }
+
+            &__desc {
+                opacity: 1;
+
+                &:before {
+                    opacity: 1;
+                }
+            }
+
+            &__ppl,
+            &__ppl-limits {
+                opacity: 0;
+                pointer-events: none;
+            }
+
+            &__img img {
+                transform: scale(1.1);
+            }
+        }
+    }
+}

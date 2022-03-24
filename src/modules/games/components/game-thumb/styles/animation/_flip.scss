@@ -1,0 +1,180 @@
+@use 'engine-scss/functions' as ef;
+@use 'engine-scss/mixins/base.mixins' as bm;
+
+@mixin animationCommonFlip {
+    @include bm.transition(transform, 0.5s);
+    overflow: visible;
+    outline: 1px solid transparent;
+    transform: ef.get-value($animations, 'modCardTransform');
+    transform-origin: ef.get-value($animations, 'modCardTransformOrigin');
+    transform-style: ef.get-value($animations, 'modCardTransformStyle');
+    will-change: transform;
+
+    &.wlc-game-thumb--successful-load-image {
+        background: transparent;
+    }
+
+    .wlc-game-thumb {
+
+
+        &__desc {
+            transform: ef.get-value($animations, 'modCardDescTransform');
+            opacity: ef.get-value($animations, 'modCardDescOpacity');
+            transition: all 0s linear;
+            border-radius: 10px;
+            transition-delay: ef.get-value($animations, 'modCardImgDelay');
+
+            &:before {
+                display: block;
+                transform: unset;
+                opacity: 0;
+                transition: all 0s linear;
+                transition-delay: ef.get-value($animations, 'modCardImgDelay');
+            }
+        }
+
+        &__img {
+            transition-delay: ef.get-value($animations, 'modCardImgDelay');
+        }
+    }
+
+    @media (pointer: fine) {
+
+        .wlc-games-grid__item:hover & {
+            transform: ef.get-value($animations, 'hoverCardTransform');
+
+            .wlc-game-thumb__desc {
+                opacity: 1;
+
+                &:before {
+                    opacity: 1;
+                }
+            }
+
+            .wlc-game-thumb__img {
+                transform: ef.get-value($animations, 'hoverCardImgTransform');
+            }
+        }
+    }
+}
+
+@mixin animationBounce {
+    @include bm.transition();
+    transform: translateY(0);
+
+    @include bm.hover {
+        transform: translateY(-5px);
+
+        .wlc-game-thumb {
+
+            &__desc {
+                opacity: 1;
+
+                &:before {
+                    opacity: 1;
+                }
+            }
+        }
+    }
+}
+
+@mixin animationFlip {
+
+    &.wlc-game-thumb--theme-mod-default {
+        @include animationCommonFlip;
+    }
+
+    &.wlc-game-thumb--theme-mod-vertical {
+        @include animationCommonFlip;
+    }
+
+    &.wlc-game-thumb--theme-mod-circle {
+        @include animationCommonFlip;
+
+        .wlc-game-thumb {
+
+            &__desc {
+                transform: translateZ(0);
+                opacity: 1;
+                border-radius: 10px;
+            }
+
+            &__icon,
+            &__title,
+            &__buttons,
+            &__desc {
+                transition: all 0s linear;
+                transition-delay: ef.get-value($animations, 'modCardImgDelay');
+            }
+        }
+
+        @media (pointer: fine) {
+
+            .wlc-games-grid__item:hover & {
+                transform: ef.get-value($animations, 'hoverCardTransform');
+
+                .wlc-game-thumb {
+
+                    &__title {
+                        opacity: 0;
+                    }
+
+                    &__icon {
+                        opacity: 1;
+                    }
+
+                    &__buttons {
+                        opacity: 1;
+                    }
+
+                    &__desc {
+                        transform: ef.get-value($animations, 'modCardDescTransform');
+                    }
+                }
+            }
+        }
+    }
+
+    &.wlc-game-thumb--theme-mod-bottom-buttons {
+        @include animationBounce;
+
+        @include bm.hover {
+
+            .wlc-game-thumb {
+
+                &__title {
+                    opacity: 1;
+                }
+            }
+        }
+    }
+
+    &.wlc-game-thumb--theme-mod-bottom-all {
+        @include animationBounce;
+    }
+
+    &.wlc-game-thumb--theme-mod-bottom-title {
+        @include animationBounce;
+
+        @include bm.hover {
+
+            .wlc-game-thumb {
+
+                &__buttons {
+                    opacity: 1;
+                }
+            }
+        }
+    }
+
+    @include bm.hover {
+
+        .wlc-game-thumb__ppl,
+        .wlc-game-thumb__ppl-limits {
+            opacity: 0;
+            transition: all 0s linear;
+            transition-delay: ef.get-value($animations, 'modCardImgDelay');
+            pointer-events: none;
+        }
+    }
+}

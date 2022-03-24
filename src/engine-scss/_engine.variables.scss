@@ -784,6 +784,14 @@ $modalAnimation: map-merge((
 ), $customModalAnimation);
 
 
+/// Глобальная настройка анимации тумбнях
+/// thumbAnimationEffects может приниимать значения
+/// 'default' 'smooth' 'smoothSimple' 'zoom' 'flip' 'scale' 'rotate'  'bounce'
+$customThumbAnimation: () !default;
+$thumbAnimation: map-merge((
+    'thumbAnimationEffects': 'rotate',
+), $customThumbAnimation);
+
 $customTableBtnBlock: () !default;
 $tableBtnBlock: map-merge((
     'btnLeft': 50%,

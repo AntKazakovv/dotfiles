@@ -1,0 +1,214 @@
+@use 'engine-scss/functions' as ef;
+@use 'engine-scss/mixins/base.mixins' as bm;
+
+@mixin smoothWaveDefaultAndVerticalMods {
+
+    .wlc-game-thumb {
+
+        &__title {
+            @include bm.transition();
+            z-index: 2;
+
+            transform: translate3d(0, ef.size(3), 0);
+            opacity: 0;
+        }
+
+        &__buttons {
+            @include bm.transition(all, ef.get('time', 'less'));
+
+            transform: translate3d(0, ef.size(2), 0);
+            opacity: 0;
+            transition-delay: 0.1s;
+        }
+    }
+
+    @include bm.hover {
+
+        .wlc-game-thumb {
+
+            &__title,
+            &__buttons {
+                transform: translate3d(0, 0, 0);
+                opacity: 1;
+            }
+        }
+    }
+}
+
+@mixin animationSmoothWave {
+
+    .wlc-game-thumb {
+
+        &__desc:before {
+            transform: none;
+            opacity: 0;
+        }
+
+        &__icon {
+            @include bm.transition();
+            z-index: 2;
+
+            transform: translate3d(0, ef.size(3), 0);
+            opacity: 0;
+        }
+
+        &__img {
+            display: block;
+
+            img {
+                transform: translate3d(0, 0, 0);
+
+                @media (pointer: fine) {
+                    @include bm.transition(transform);
+                }
+            }
+        }
+    }
+
+    &.wlc-game-thumb--theme-mod-default {
+        @include smoothWaveDefaultAndVerticalMods;
+    }
+
+    &.wlc-game-thumb--theme-mod-vertical {
+        @include smoothWaveDefaultAndVerticalMods;
+    }
+
+    &.wlc-game-thumb--theme-mod-circle {
+
+        .wlc-game-thumb {
+
+            &__title {
+                @include bm.transition();
+                opacity: 1;
+            }
+
+            &__buttons {
+                @include bm.transition(all, ef.get('time', 'less'));
+                transform: translate3d(0, ef.size(2), 0);
+                opacity: 0;
+                transition-delay: 0s;
+            }
+        }
+
+        @include bm.hover {
+
+            .wlc-game-thumb {
+
+                &__buttons {
+                    transform: translate3d(0, 0, 0);
+                    opacity: 1;
+                    transition-delay: 0.1s;
+                }
+
+                &__title {
+                    transform: translate3d(0, ef.size(3), 0);
+                    opacity: 0;
+                }
+            }
+        }
+    }
+
+    &.wlc-game-thumb--theme-mod-bottom-buttons {
+
+        .wlc-game-thumb {
+
+            &__title {
+                @include bm.transition();
+                transform: ef.get-value($bottomButtons, 'titleTransform') translate3d(0, ef.size(3), 0);
+                opacity: 0;
+            }
+
+            &__buttons {
+                opacity: 1;
+            }
+        }
+
+        @include bm.hover {
+
+            .wlc-game-thumb {
+
+                &__title {
+                    transform: ef.get-value($bottomButtons, 'titleTransform') translate3d(0, 0, 0);
+                    opacity: 1;
+                }
+            }
+        }
+    }
+
+    &.wlc-game-thumb--theme-mod-bottom-all {
+
+        .wlc-game-thumb {
+
+            &__icon {
+                transform: translate3d(0, 0, 0);
+            }
+        }
+    }
+
+    &.wlc-game-thumb--theme-mod-bottom-title {
+
+        .wlc-game-thumb {
+
+            &__title {
+                opacity: 1;
+            }
+
+            &__buttons {
+                @include bm.transition(all, ef.get('time', 'less'));
+                transform: ef.get-value($bottomTitle, 'btnsTranslate') translate3d(0, ef.size(2), 0);
+                opacity: 0;
+                transition-delay: 0s;
+
+                &.no-demo {
+                    transform: ef.get-value($bottomTitle, 'btnsNoDemoTranslate') translate3d(0, ef.size(2), 0);
+                }
+            }
+        }
+
+        @include bm.hover {
+
+            .wlc-game-thumb {
+
+                &__buttons {
+                    transform: ef.get-value($bottomTitle, 'btnsTranslate');
+                    opacity: 1;
+                    transition-delay: 0.1s;
+
+                    &.no-demo {
+                        transform: ef.get-value($bottomTitle, 'btnsNoDemoTranslate');
+                    }
+                }
+            }
+        }
+    }
+
+    @include bm.hover {
+
+        .wlc-game-thumb {
+
+            &__icon {
+                transform: translate3d(0, 0, 0);
+                opacity: 1;
+            }
+
+            &__desc {
+                opacity: 1;
+
+                &:before {
+                    transform: translateX(0) skewX(0);
+                    opacity: 1;
+                }
+            }
+
+            &__ppl,
+            &__ppl-limits {
+                opacity: 0;
+                pointer-events: none;
+            }
+
+            &__img img {
+                transform: scale(1.1);
+            }
+        }
+    }
+}

@@ -355,12 +355,44 @@ $btnsLayout: map-merge((
 */
 $customAnimations: () !default;
 $animations: map-merge((
-    'smoothWave': (
-        'use': false,
-        'themeModDefault': false,
-        'themeModVertical': false,
-        'themeModCircle': false,
-        'themeModButtomButtons': false,
-        'themeModButtomTitle': false,
-    ),
+
+    // Hover zoom
+
+    'modZoomPosition': 1000px,
+    'modZoomOrigin': 50% 50%,
+    'modZoomTransform': scale(0.8),
+    'modZoomTransition': transform 0.35s#{','} border-radius 0.4s ease-out#{','} opacity 0.3s ease-in-out,
+    'modZoomBorderRadius': 50%,
+    'modZoomOpacity': 0,
+    'modZoomBg': var(--mc-bg-o8),
+    'modZoomTransformOrigin': center,
+    'hoverModZoomOpacity': 1,
+    'hoverModZoomBorderRadius': 0,
+    'hoverModZoomTransform': scale(0.999),
+
+    // Hover card
+
+    'modCardTransform': rotateY(0deg),
+    'modCardTransformOrigin': center,
+    'modCardTransformStyle': preserve-3d,
+
+    'modCardDescTransform': rotateY(-180deg) translateZ(0),
+    'modCardDescOpacity': 0,
+    'modCardDescBg': var(--mc-bg-o8),
+
+    'modCardImgDelay': 0.25s,
+
+    'hoverCardTransform': rotateY(-180deg),
+    'hoverCardImgTransform': rotateY(-180deg),
+
+    // Hover Scale
+
+    'modScaleTransform': scale(0.999),
+    'modScaleShadow': 0 0 0 var(--mc-baseContrast-o6),
+    'modScaleOpacity': 0,
+    'modScaleDescOpacity': translateX(0) skewX(0),
+
+    'hoverScaleTransform': scale(1.03),
+    'hoverScaleShadow': 0 0 10px var(--mc-baseContrast-o6),
+    'hoverScaleDescShadow': 1,
 ), $customAnimations);

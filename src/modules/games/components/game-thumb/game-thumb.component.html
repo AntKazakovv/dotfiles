@@ -140,7 +140,11 @@
              data-wlc-element="block_game-thumb-img"
              (click)="startGame(false, true, $event)">
         <source [srcset]="game.getImage(315, 'webp')" type="image/webp">
-        <img [wlc-fallback]="game.getImage(315)" [src]="game.getImage(315)" loading="lazy">
+        <img [wlc-fallback]="game.getImage(315)"
+             [src]="game.getImage(315)"
+             loading="lazy"
+             (load)="successfulLoadImage()"
+        >
     </picture>
 </ng-template>
 

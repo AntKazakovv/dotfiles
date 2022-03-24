@@ -5,11 +5,12 @@
 @import './utils/functions';
 @import './utils/mixins';
 @import './utils/vars';
-@import './utils/animations';
 
 @import './themes/default';
 @import './themes/promo-widget';
 @import './themes/vertical';
+
+@import './utils/animations';
 
 // TODO: Refactor on preloaders ticket
 .wlc-game-thumb:host {

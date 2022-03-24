@@ -112,6 +112,8 @@
         }
 
         &__item {
+            perspective: 1000px;
+            perspective-origin: 50% 50%;
 
             &--load-more {
                 display: flex;

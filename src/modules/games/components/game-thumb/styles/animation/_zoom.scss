@@ -1,0 +1,192 @@
+@use 'engine-scss/functions' as ef;
+@use 'engine-scss/mixins/base.mixins' as bm;
+
+@mixin animationCommonZoom {
+
+    @include bm.hover {
+
+        .wlc-game-thumb__desc {
+            transform: ef.get-value($animations, 'hoverModZoomTransform');
+            opacity: ef.get-value($animations, 'hoverModZoomOpacity');
+            border-radius: ef.get-value($animations, 'hoverModZoomBorderRadius');
+        }
+    }
+}
+
+@mixin commonStyleDescBefore($origin: top, $hover: null) {
+    @if $hover {
+
+        &__img {
+
+            &:before {
+                transform: ef.get-value($animations, 'hoverModZoomTransform');
+                opacity: ef.get-value($animations, 'hoverModZoomOpacity');
+                border-radius: ef.get-value($animations, 'hoverModZoomBorderRadius');
+            }
+        }
+    } @else {
+
+        &__img {
+            display: block;
+
+            &:before {
+                content: '';
+                position: absolute;
+                top: 0;
+                display: block;
+                width: 100%;
+                height: 100%;
+                background: ef.get-value($animations, 'modZoomBg');
+                transform: ef.get-value($animations, 'modZoomTransform');
+                transform-origin: $origin;
+                opacity: 0;
+                transition: ef.get-value($animations, 'modZoomTransition');
+                border-radius: ef.get-value($animations, 'modZoomBorderRadius');
+            }
+        }
+
+        &__desc {
+            transform: unset;
+            border-radius: 0;
+        }
+    }
+}
+
+@mixin animationZoom {
+
+    .wlc-game-thumb {
+
+        &__desc {
+            background: ef.get-value($animations, 'modZoomBg');
+            transform: ef.get-value($animations, 'modZoomTransform');
+            transform-origin: ef.get-value($animations, 'modZoomTransformOrigin');
+            opacity: ef.get-value($animations, 'modZoomOpacity');
+            transition: ef.get-value($animations, 'modZoomTransition');
+            border-radius: ef.get-value($animations, 'modZoomBorderRadius');
+
+            &:before {
+                display: none;
+            }
+        }
+
+        &__icon {
+            @include bm.transition();
+            transform: ef.get-value($animations, 'modZoomTransform');
+            transform-origin: center;
+            opacity: 0;
+            transition: ef.get-value($animations, 'modZoomTransition');
+        }
+    }
+
+    &.wlc-game-thumb--theme-mod-default {
+        @include animationCommonZoom;
+    }
+
+    &.wlc-game-thumb--theme-mod-vertical {
+        @include animationCommonZoom;
+    }
+
+    &.wlc-game-thumb--theme-mod-circle {
+
+        .wlc-game-thumb {
+            @include commonStyleDescBefore(center);
+
+            &__buttons {
+                transform: ef.get-value($animations, 'modZoomTransform');
+                transform-origin: center;
+                transition: ef.get-value($animations, 'modZoomTransition');
+                border-radius: ef.get-value($animations, 'modZoomBorderRadius');
+            }
+        }
+
+        @include bm.hover {
+
+            .wlc-game-thumb {
+                @include commonStyleDescBefore($hover: true);
+
+                &__title {
+                    opacity: 0;
+                }
+
+                &__buttons {
+                    transform: scale(0.99);
+                    opacity: ef.get-value($animations, 'hoverModZoomOpacity');
+                    border-radius: ef.get-value($animations, 'hoverModZoomBorderRadius');
+                }
+            }
+        }
+    }
+
+    &.wlc-game-thumb--theme-mod-bottom-buttons {
+
+        .wlc-game-thumb {
+            @include commonStyleDescBefore;
+        }
+
+        @include bm.hover {
+
+            .wlc-game-thumb {
+                @include commonStyleDescBefore($hover: true);
+
+                &__title {
+                    opacity: 1;
+                }
+            }
+        }
+    }
+
+    &.wlc-game-thumb--theme-mod-bottom-all {
+
+        .wlc-game-thumb {
+
+            &__title {
+                opacity: 1;
+            }
+
+            &__desc {
+                transform: unset;
+                border-radius: 0;
+            }
+        }
+    }
+
+    &.wlc-game-thumb--theme-mod-bottom-title {
+
+        .wlc-game-thumb {
+            @include commonStyleDescBefore;
+        }
+
+        @include bm.hover {
+
+            .wlc-game-thumb {
+
+                @include commonStyleDescBefore($hover: true);
+
+                &__buttons {
+                    opacity: 1;
+                }
+
+                &__title {
+                    opacity: 1;
+                }
+            }
+        }
+    }
+
+    @include bm.hover {
+
+        .wlc-game-thumb {
+
+            &__icon {
+                transform: scale(0.99);
+                opacity: ef.get-value($animations, 'hoverModZoomOpacity');
+            }
+        }
+
+        .wlc-game-thumb__ppl,
+        .wlc-game-thumb__ppl-limits {
+            opacity: 0;
+            pointer-events: none;
+        }
+    }
+}

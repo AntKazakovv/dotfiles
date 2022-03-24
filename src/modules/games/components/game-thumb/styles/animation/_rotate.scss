@@ -1,0 +1,95 @@
+@use 'engine-scss/functions' as ef;
+@use 'engine-scss/mixins/base.mixins' as bm;
+
+@mixin animationRotate {
+
+    &.wlc-game-thumb--theme-mod-circle {
+
+        @include bm.hover {
+
+            .wlc-game-thumb {
+
+                &__desc:before,
+                &__buttons,
+                &__icon {
+                    opacity: ef.get-value($themeDefaultModCircle, 'btnsAndIconOpacityHover');
+                }
+
+                &__title {
+                    opacity: ef.get-value($themeDefaultModCircle, 'titleOpacityHover');
+                }
+            }
+        }
+    }
+
+    &.wlc-game-thumb--theme-mod-bottom-buttons {
+
+        @include bm.hover {
+
+            .wlc-game-thumb {
+
+                &__title {
+                    opacity: ef.get-value($bottomButtons, 'titleOpacityHover');
+                }
+
+                &__icon {
+                    opacity: ef.get-value($themeDefaultBottom, 'iconOpacityHover');
+                }
+
+                &__desc {
+
+                    &:before {
+                        opacity: ef.get-value($themeDefaultBottom, 'descBeforeOpacityHover');
+                    }
+                }
+            }
+        }
+    }
+
+    &.wlc-game-thumb--theme-mod-bottom-all {
+
+        @include bm.hover {
+
+            .wlc-game-thumb {
+
+                &__img {
+
+                    &:before {
+                        opacity: ef.get-value($bottomAll, 'imgBeforeOpacityHover');
+                    }
+                }
+            }
+        }
+    }
+
+    &.wlc-game-thumb--theme-mod-bottom-title {
+
+        @include bm.hover {
+
+            .wlc-game-thumb {
+
+                &__buttons {
+                    opacity: ef.get-value($bottomTitle, 'btnsOpacityHover');
+                }
+            }
+        }
+    }
+
+    @include bm.hover {
+
+        .wlc-game-thumb__desc {
+            opacity: 1;
+
+            &:before {
+                transform: translateX(0) skewX(0);
+            }
+        }
+
+        .wlc-game-thumb__ppl,
+        .wlc-game-thumb__ppl-limits {
+            transform: translateX(100%) skewX(35deg);
+            opacity: 0;
+            pointer-events: none;
+        }
+    }
+}

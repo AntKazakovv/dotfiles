@@ -1,129 +1,34 @@
-@mixin animeSmoothWave {
+@use 'engine-scss/engine.variables' as ev;
+@use 'engine-scss/functions' as ef;
+@use 'engine-scss/mixins/base.mixins' as bm;
 
-    @if (getAnimationsMapValue('smoothWave', 'themeModDefault')) {
+@import '../animation/default';
+@import '../animation/smooth';
+@import '../animation/smooth-simple';
+@import '../animation/zoom';
+@import '../animation/flip';
+@import '../animation/scale';
+@import '../animation/rotate';
+@import '../animation/bounce';
 
-        &.wlc-game-thumb--theme-mod-default {
-            @include smoothWaveCommonStyles;
-            @include smoothWaveDefaultAndVerticalMods;
-        }
-    }
+.wlc-game-thumb--theme-default:host {
+    $effect: map-get(ev.$thumbAnimation, 'thumbAnimationEffects');
 
-    @if (getAnimationsMapValue('smoothWave', 'themeModVertical')) {
-
-        &.wlc-game-thumb--theme-mod-vertical {
-            @include smoothWaveCommonStyles;
-            @include smoothWaveDefaultAndVerticalMods;
-        }
-    }
-
-    @if (getAnimationsMapValue('smoothWave', 'themeModCircle')) {
-
-        &.wlc-game-thumb--theme-mod-circle {
-            @include smoothWaveCommonStyles;
-
-            .wlc-game-thumb {
-
-                &__title {
-                    @include bm.transition();
-                    opacity: 1;
-                }
-
-                &__buttons {
-                    @include bm.transition(all, ef.get('time', 'less'));
-                    transform: translate3d(0, ef.size(2), 0);
-                    opacity: 0;
-                    transition-delay: 0s;
-                }
-            }
-
-            @include bm.hover {
-
-                .wlc-game-thumb {
-
-                    &__buttons {
-                        transform: translate3d(0, 0, 0);
-                        opacity: 1;
-                        transition-delay: ef.get('time', 'main');
-                    }
-
-                    &__title {
-                        transform: translate3d(0, ef.size(3), 0);
-                        opacity: 0;
-                    }
-                }
-            }
-        }
-    }
-
-    @if (getAnimationsMapValue('smoothWave', 'themeModButtomButtons')) {
-
-        &.wlc-game-thumb--theme-mod-bottom-buttons {
-            @include smoothWaveCommonStyles;
-
-            .wlc-game-thumb {
-
-                &__title {
-                    @include bm.transition();
-                    transform: ef.get-value($bottomButtons, 'titleTransform') translate3d(0, ef.size(3), 0);
-                    opacity: 0;
-                }
-
-                &__buttons {
-                    opacity: 1;
-                }
-            }
-
-            @include bm.hover {
-
-                .wlc-game-thumb {
-
-                    &__title {
-                        transform: ef.get-value($bottomButtons, 'titleTransform') translate3d(0, 0, 0);
-                        opacity: 1;
-                    }
-                }
-            }
-        }
-    }
-
-    @if (getAnimationsMapValue('smoothWave', 'themeModButtomTitle')) {
-
-        &.wlc-game-thumb--theme-mod-bottom-title {
-            @include smoothWaveCommonStyles;
-
-            .wlc-game-thumb {
-
-                &__title {
-                    opacity: 1;
-                }
-
-                &__buttons {
-                    @include bm.transition(all, ef.get('time', 'less'));
-                    transform: ef.get-value($bottomTitle, 'btnsTranslate') translate3d(0, ef.size(2), 0);
-                    opacity: 0;
-                    transition-delay: 0s;
-
-                    &.no-demo {
-                        transform: ef.get-value($bottomTitle, 'btnsNoDemoTranslate') translate3d(0, ef.size(2), 0);
-                    }
-                }
-            }
-
-            @include bm.hover {
-
-                .wlc-game-thumb {
-
-                    &__buttons {
-                        transform: ef.get-value($bottomTitle, 'btnsTranslate');
-                        opacity: 1;
-                        transition-delay: ef.get('time', 'main');
-
-                        &.no-demo {
-                            transform: ef.get-value($bottomTitle, 'btnsNoDemoTranslate');
-                        }
-                    }
-                }
-            }
-        }
+    @if $effect == 'default' {
+        @include animationDefault;
+    } @else if ($effect == 'smooth') {
+        @include animationSmoothWave;
+    } @else if ($effect == 'smoothSimple') {
+        @include animationSmoothSimple;
+    } @else if ($effect == 'zoom') {
+        @include animationZoom;
+    } @else if ($effect == 'flip') {
+        @include animationFlip;
+    } @else if ($effect == 'scale') {
+        @include animationScale;
+    } @else if ($effect == 'rotate') {
+        @include animationRotate;
+    } @else if ($effect == 'bounce') {
+        @include animationBounce;
     }
 }

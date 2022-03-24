@@ -314,30 +314,4 @@
             opacity: 1;
         }
     }
-
-    @include bm.hover {
-
-        .wlc-game-thumb__desc {
-            opacity: 1;
-
-            &:before {
-                transform: translateX(0) skewX(0);
-            }
-        }
-
-        .wlc-game-thumb__ppl,
-        .wlc-game-thumb__ppl-limits {
-            transform: translateX(100%) skewX(35deg);
-            opacity: 0;
-            pointer-events: none;
-        }
-    }
-
-    // Custom hover animations
-    @if (getAnimationsMapValue('smoothWave', 'use')) {
-
-        &.wlc-game-thumb--anime-smooth-wave {
-            @include animeSmoothWave();
-        }
-    }
 }

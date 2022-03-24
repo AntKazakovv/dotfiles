@@ -45,75 +45,13 @@
         align-items: ef.get-value($btnsLayout, 'btnsAlignItemsCirc');
         justify-items: ef.get-value($btnsLayout, 'btnsJustifyItemsCirc');
 
+        &.no-demo {
+            grid-template-rows: ef.get-value($btnsLayout, 'btnsNoDemoGridRowsCircle');
+            align-items: ef.get-value($btnsLayout, 'btnsNoDemoAlignItemsCirc');
+        }
+
         .wlc-btn {
             min-width: auto;
-        }
-    }
-}
-
-@mixin smoothWaveCommonStyles {
-
-    .wlc-game-thumb {
-
-        &__desc:before {
-            transform: none;
-            opacity: 0;
-        }
-
-        &__img img {
-            transform: translate3d(0, 0, 0);
-
-            @media (pointer: fine) {
-                @include bm.transition(transform);
-            }
-        }
-    }
-
-    @include bm.hover {
-
-        .wlc-game-thumb {
-
-            &__desc:before {
-                opacity: 1;
-            }
-
-            &__img img {
-                transform: scale(1.1);
-            }
-        }
-    }
-}
-
-@mixin smoothWaveDefaultAndVerticalMods {
-
-    .wlc-game-thumb {
-
-        &__title {
-            @include bm.transition();
-            z-index: 2;
-
-            transform: translate3d(0, ef.size(3), 0);
-            opacity: 0;
-        }
-
-        &__buttons {
-            @include bm.transition(all, ef.get('time', 'less'));
-
-            transform: translate3d(0, ef.size(2), 0);
-            opacity: 0;
-            transition-delay: ef.get('time', 'main');
-        }
-    }
-
-    @include bm.hover {
-
-        .wlc-game-thumb {
-
-            &__title,
-            &__buttons {
-                transform: translate3d(0, 0, 0);
-                opacity: 1;
-            }
         }
     }
 }
@@ -126,6 +64,7 @@
         .wlc-game-thumb {
 
             &__img {
+                position: relative;
 
                 @supports (aspect-ratio: 1/1) {
                     aspect-ratio: #{ef.get-value($themeDefault, 'thumbAspectRatio')};
@@ -142,8 +81,7 @@
 
             &__desc {
                 @include bm.get-mq-map('display', $themeDefaultBottom, 'descDisplay');
-                position: static;
-                margin-top: ef.get-value($themeDefaultBottom, 'descMarginTop');
+                position: initial;
                 background: ef.get-value($themeDefaultBottom, 'descBg');
                 overflow: hidden;
                 opacity: 1;
@@ -206,16 +144,6 @@
                     opacity: ef.get-value($bottomButtons, 'titleOpacity');
                 }
             }
-
-            &:hover {
-
-                .wlc-game-thumb {
-
-                    &__title {
-                        opacity: ef.get-value($bottomButtons, 'titleOpacityHover');
-                    }
-                }
-            }
         }
 
         @if ($opt == all) {
@@ -259,19 +187,7 @@
 
                     &.active {
                         color: ef.get-value($bottomAll, 'favouriteActiveColor');
-                    }
-                }
-            }
-
-            &:hover {
-
-                .wlc-game-thumb {
-
-                    &__img {
-
-                        &:before {
-                            opacity: ef.get-value($bottomAll, 'imgBeforeOpacityHover');
-                        }
+                        background-color: ef.get-value($bottomAll, 'favouriteBg');
                     }
                 }
             }
@@ -295,16 +211,6 @@
 
                     &.no-demo {
                         transform: ef.get-value($bottomTitle, 'btnsNoDemoTranslate');
-                    }
-                }
-            }
-
-            &:hover {
-
-                .wlc-game-thumb {
-
-                    &__buttons {
-                        opacity: ef.get-value($bottomTitle, 'btnsOpacityHover');
                     }
                 }
             }
