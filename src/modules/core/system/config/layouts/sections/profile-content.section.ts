@@ -1312,7 +1312,7 @@ export namespace profileContent {
                 params: {
                     class: 'wlc-profile-content__top',
                     components: [
-                        componentLib.wlcTournamentsHistory.filter,
+                        componentLib.wlcTournamentsHistory.filterTypeDefault,
                     ],
                 },
             },
@@ -1332,7 +1332,7 @@ export namespace profileContent {
                     class: 'wlc-profile-content__header',
                     components: [
                         componentLib.wlcTitle.tournaments,
-                        componentLib.wlcBonusesHistory.filterOnlyV1,
+                        componentLib.wlcTournamentsHistory.filterTypeFirst,
                     ],
                 },
                 display: {

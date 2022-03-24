@@ -4,9 +4,9 @@ import {
     ChangeDetectorRef,
     Inject,
 } from '@angular/core';
-import {FormControl} from '@angular/forms';
 import {BehaviorSubject} from 'rxjs';
 import {
+    distinctUntilChanged,
     filter,
     takeUntil,
 } from 'rxjs/operators';
@@ -32,6 +32,9 @@ import {
     TournamentHistory,
     TournamentsService,
 } from 'wlc-engine/modules/tournaments';
+import {
+    formConfig as historyFilterForm,
+} from 'wlc-engine/modules/finances/components/history-filter/history-filter.params';
 
 import * as Params from './tournaments-history.params';
 
@@ -44,44 +47,7 @@ export class TournamentsHistoryComponent extends AbstractComponent implements On
     public ready = false;
 
     public $params: Params.ITournamentsHistoryCParams;
-
-    public filterSelect: ISelectCParams = {
-        name: 'status',
-        value: 'all',
-        common: {
-            placeholder: gettext('Status'),
-        },
-        theme: 'vertical',
-        labelText: gettext('Status'),
-        control: new FormControl('all'),
-        items: [
-            {
-                value: 'all',
-                title: gettext('All'),
-            },
-            {
-                value: '0',
-                title: gettext('Selected'),
-            },
-            {
-                value: '1',
-                title: gettext('Qualified'),
-            },
-            {
-                value: '-99',
-                title: gettext('Canceled'),
-            },
-            {
-                value: '99',
-                title: gettext('Ending'),
-            },
-            {
-                value: '100',
-                title: gettext('Ended'),
-            },
-        ],
-    };
-
+    public filterSelect: ISelectCParams = historyFilterForm.tournamentHistoryFilter.params;
     public tableData: ITableCParams;
 
     protected tournaments: BehaviorSubject<TournamentHistory[]> = new BehaviorSubject([]);
@@ -132,10 +98,16 @@ export class TournamentsHistoryComponent extends AbstractComponent implements On
 
         this.tournaments.next(this.filterTransaction());
 
-        this.filterSelect.control.valueChanges.pipe(takeUntil(this.$destroy)).subscribe((value) => {
-            this.filterType = value;
-            this.tournaments.next(this.filterTransaction());
-        });
+        this.filterSelect.control.valueChanges
+            .pipe(
+                distinctUntilChanged(),
+                takeUntil(this.$destroy),
+            )
+            .subscribe((value) => {
+                this.filterType = value;
+                this.filterSelect.value = value;
+                this.tournaments.next(this.filterTransaction());
+            });
 
         this.historyFilter();
         this.ready = true;
@@ -165,9 +137,17 @@ export class TournamentsHistoryComponent extends AbstractComponent implements On
                 filter((data) => !!data),
                 takeUntil(this.$destroy),
             )
-            .subscribe((data) => {
-                this.filterType = data.filterType;
+            .subscribe(({filterType}) => {
+                this.filterType = filterType;
+
+                this.synchronizeSelectValue(filterType);
+
                 this.tournaments.next(this.filterTransaction());
             });
+    }
+
+    private synchronizeSelectValue(value: string): void {
+        this.filterSelect.value = value;
+        this.filterSelect.control.setValue(value);
     }
 }

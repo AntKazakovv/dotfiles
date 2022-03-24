@@ -1,3 +1,5 @@
+import {FormControl} from '@angular/forms';
+
 import {
     IComponentParams,
     CustomType,
@@ -146,6 +148,47 @@ export namespace formConfig {
         ],
     };
 
+    export const tournamentHistoryFilter = {
+        name: 'core.wlc-select',
+        alwaysNew: {saveValue: true},
+        params: <ISelectCParams>{
+            value: 'all',
+            name: 'filterType',
+            common: {
+                placeholder: gettext('Sort by'),
+            },
+            theme: 'vertical',
+            labelText: gettext('Sort by'),
+            control: new FormControl('all'),
+            items: [
+                {
+                    value: 'all',
+                    title: gettext('All'),
+                },
+                {
+                    value: '0',
+                    title: gettext('Selected'),
+                },
+                {
+                    value: '1',
+                    title: gettext('Qualified'),
+                },
+                {
+                    value: '-99',
+                    title: gettext('Canceled'),
+                },
+                {
+                    value: '99',
+                    title: gettext('Ending'),
+                },
+                {
+                    value: '100',
+                    title: gettext('Ended'),
+                },
+            ],
+        },
+    };
+
     export const tournaments: IFormWrapperCParams = {
         class: 'wlc-tournaments-filters',
         components: [
@@ -157,43 +200,7 @@ export namespace formConfig {
                     },
                 },
             },
-            {
-                name: 'core.wlc-select',
-                params: <ISelectCParams>{
-                    name: 'filterType',
-                    common: {
-                        placeholder: gettext('Sort by'),
-                    },
-                    theme: 'vertical',
-                    labelText: gettext('Sort by'),
-                    items: [
-                        {
-                            value: 'all',
-                            title: gettext('All'),
-                        },
-                        {
-                            value: '0',
-                            title: gettext('Selected'),
-                        },
-                        {
-                            value: '1',
-                            title: gettext('Qualified'),
-                        },
-                        {
-                            value: '-99',
-                            title: gettext('Canceled'),
-                        },
-                        {
-                            value: '99',
-                            title: gettext('Ending'),
-                        },
-                        {
-                            value: '100',
-                            title: gettext('Ended'),
-                        },
-                    ],
-                },
-            },
+            tournamentHistoryFilter,
             {
                 name: 'core.wlc-button',
                 params: <IButtonCParams>{

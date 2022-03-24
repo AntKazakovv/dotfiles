@@ -162,5 +162,4 @@ export class HistoryFilterComponent extends AbstractComponent implements OnInit 
 
         return formConfig;
     }
-
 }
