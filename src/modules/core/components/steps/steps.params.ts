@@ -349,6 +349,7 @@ export const defaultParams: IStepsParams = {
                                     },
                                     itemsParams: {
                                         common: {
+                                            imageByType: true,
                                             type: 'reg',
                                         },
                                     },

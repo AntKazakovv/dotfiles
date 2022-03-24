@@ -27,6 +27,7 @@ export interface ISelectCParams extends IComponentParams<ComponentTheme, Compone
         tooltipMod?: TooltipThemeMod;
         tooltipModalParams?: IIndexing<string>;
     },
+    autocomplete?: string;
     validators?: ValidatorType[];
     control?: FormControl;
     disabled?: boolean;
@@ -49,4 +50,5 @@ export interface ISelectOptions {
 export const defaultParams: Partial<ISelectCParams> = {
     class: 'wlc-select',
     noResultText: gettext('No results available'),
+    autocomplete: 'off',
 };

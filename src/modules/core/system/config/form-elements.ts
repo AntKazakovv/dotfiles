@@ -184,6 +184,7 @@ export namespace FormElements {
             common: {
                 placeholder: gettext('Country'),
             },
+            autocomplete: 'new-password',
             locked: true,
             name: 'countryCode',
             validators: ['required'],
@@ -557,7 +558,7 @@ export namespace FormElements {
         params: <IInputCParams>{
             theme: 'vertical',
             common: {
-                placeholder: gettext('ID number'),
+                placeholder: gettext('IDNumber'),
             },
             name: 'idNumber',
             customMod: ['id-number'],

@@ -10,7 +10,7 @@ import {
  * @returns {ValidationErrors | null} True if control contains only latin letters
  */
 export function onlyLettersValidator(control: FormControl): ValidationErrors | null {
-    return /^[A-zА-я]+$/.test(control.value) ? null : {
+    return !control.value || /^[A-zА-я]+$/.test(control.value) ? null : {
         'onlyLetters': true,
     };
 }

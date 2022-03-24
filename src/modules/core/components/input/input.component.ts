@@ -145,7 +145,7 @@ export class InputComponent extends AbstractComponent implements OnInit, OnChang
         this.eventService.emit({
             name: NotificationEvents.PushMessage,
             data: <IPushMessageParams>{
-                type: 'info',
+                type: 'success',
                 title: gettext('Info'),
                 message: gettext('Copied to clipboard!'),
                 wlcElement: 'notification_input-info',

@@ -178,7 +178,7 @@ export class SignUpFormComponent extends UserActionsAbstract<Params.ISignUpFormC
         try {
             const result = await this.validationService.checkPromocode(
                 promocodeControl.value,
-                form.get('currency').value,
+                currencyControl.value,
                 form.get('countryCode')?.value || '',
             );
 
