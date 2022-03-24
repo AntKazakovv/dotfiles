@@ -1,3 +1,110 @@
+@use 'engine-scss/mixins/mediaqueries' as mq;
+@use 'engine-scss/mixins/base.mixins' as bm;
+@use 'engine-scss/mixins/text' as text;
+@use 'engine-scss/functions' as ef;
+@use 'engine-scss/engine.variables' as ev;
+
 @import './utils/vars';
+@import './utils/vars-swiper';
 
 @import './themes/default';
+@import './themes/swiper';
+
+.wlc-games-grid:host {
+
+    .wlc-games-grid {
+
+        &__title {
+
+            ::ng-deep {
+
+                .wlc-title__main {
+                    @include text.get-text-style(ef.get-value($commonStyles, 'headerFontStyle'), ef.get-value($commonStyles, 'headerColor'));
+                    line-height: 1;
+                }
+            }
+        }
+
+        &__more {
+            @include bm.get-mq-map('margin', $commonStyles, 'moreButtonMargin');
+            display: flex;
+            align-items: ef.get-value($commonStyles, 'moreButtonAlignItems');
+            justify-content: ef.get-value($commonStyles, 'moreButtonJustifyContent');
+        }
+
+        &__link {
+            @include text.get-text-style('PlaceholderTextBold', ef.get-value($commonStyles, 'allLinkColor'));
+            @include bm.transition(color);
+            @include bm.arrowIconAnimation;
+            @include bm.get-mq-map('display', $commonStyles, 'allLinkDisplay');
+            @include bm.get-mq-map('align-items', $commonStyles, 'allLinkAlign');
+            @include bm.get-mq-map('text-decoration', $commonStyles, 'allLinkDecoration');
+
+            ::ng-deep {
+
+                .wlc-icon {
+                    @include bm.transition(transform, 0.3s);
+                    margin-left: ef.get-value($commonStyles, 'allLinkIconMargin');
+
+                    &-content {
+                        display: flex;
+                    }
+
+                    svg {
+                        transform: ef.get-value($commonStyles, 'allLinkTransform');
+
+                        fill: ef.get-value($commonStyles, 'allLinkColor');
+                    }
+                }
+            }
+
+            .counter {
+                margin-left: ef.size(1);
+            }
+
+            @include bm.hover {
+                color: ef.get-value($commonStyles, 'allLinkColorHover');
+
+                ::ng-deep {
+
+                    .wlc-icon {
+
+                        svg {
+                            fill: ef.get-value($commonStyles, 'allLinkColorHover');
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    &.wlc-games-grid--title-icon {
+
+        .wlc-games-grid {
+
+            &__title {
+                margin: ef.get-value($commonStyles, 'titleWithIconMargin');
+            }
+
+            &__title-icon {
+                margin: ef.get-value($commonStyles, 'titleIconMargin');
+
+                ::ng-deep {
+
+                    .wlc-icon-content {
+                        display: flex;
+                        width: ef.get-value($commonStyles, 'titleIconSize');
+                        height: ef.get-value($commonStyles, 'titleIconSize');
+
+                        svg {
+                            width: ef.get-value($commonStyles, 'titleIconSizeStretch');
+                            height: ef.get-value($commonStyles, 'titleIconSizeStretch');
+                            fill: ef.get-value($commonStyles, 'titleIconFill');
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+

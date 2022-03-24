@@ -109,6 +109,10 @@ export interface IGameThumbCParams extends IComponentParams<Theme, Type, ThemeMo
      * settings vertical transform thumb
     */
     transformThumb?: ITransformThumb;
+    /**
+     * Use dumpy thumb
+    */
+    dumpy?: boolean;
 }
 
 export const defaultParams: IGameThumbCParams = {

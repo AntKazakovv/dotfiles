@@ -116,6 +116,10 @@ export class GameThumbComponent extends AbstractComponent implements OnInit {
     public ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
 
+        if (!this.dumpy && this.$params.dumpy) {
+            this.dumpy = true;
+        }
+
         if (this.dumpy) {
             this.inited = true;
             return;

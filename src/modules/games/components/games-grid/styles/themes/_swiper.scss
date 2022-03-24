@@ -1,0 +1,50 @@
+.wlc-games-grid--theme-swiper:host {
+
+    .wlc-games-grid {
+
+        &__content {
+            display: ef.get-value($themeSwiper, 'swiperDisplay');
+            grid-template-areas: ef.get-value($themeSwiper, 'swiperGridAreas');
+            grid-template-columns: ef.get-value($themeSwiper, 'swiperGridColumns');
+            row-gap: ef.get-value($themeSwiper, 'swiperGridRowGap');
+        }
+
+        &__title-icon {
+            grid-area: title-icon;
+        }
+
+        &__title {
+            grid-area: title;
+            align-self: ef.get-value($themeSwiper, 'titleAlignSelf');
+        }
+
+        &__swiper-buttons-container {
+            @include bm.get-mq-map('margin', $themeSwiper, 'swiperButtonsContainerMargin');
+            grid-area: swiper-buttons;
+        }
+
+        &__swiper-buttons {
+            display: ef.get-value($themeSwiper, 'swiperButtonsDisplay');
+            grid-template-columns: ef.get-value($themeSwiper, 'swiperButtonsColumns');
+        }
+
+        &__show-all-btn,
+        &__link {
+            grid-area: show-all;
+        }
+
+        &__games-slider {
+            grid-area: games-grid;
+        }
+
+        &__nocontent {
+            grid-row: ef.get-value($themeSwiper, 'swiperNoContentGridRow');
+            grid-column: ef.get-value($themeSwiper, 'swiperNoContentGridColumn');
+
+            // If we add a condition to *ngIf in the template, the swiper navigation buttons will lose their binding
+            & + .wlc-games-grid__swiper-buttons-container {
+                display: none;
+            }
+        }
+    }
+}

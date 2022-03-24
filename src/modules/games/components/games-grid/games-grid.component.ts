@@ -11,6 +11,8 @@ import {
     ViewChild,
 } from '@angular/core';
 import {UIRouter} from '@uirouter/core';
+import {ResizedEvent} from 'angular-resize-event';
+
 import {
     fromEvent,
     merge,
@@ -22,34 +24,6 @@ import {
     tap,
     throttleTime,
 } from 'rxjs/operators';
-import {ResizedEvent} from 'angular-resize-event';
-import {
-    AbstractComponent,
-    ConfigService,
-    DeviceType,
-    ActionService,
-    EventService,
-    ItemAppearanceAnimation,
-    CardLoadingAnimation,
-    GlobalHelper,
-} from 'wlc-engine/modules/core';
-import {
-    Game,
-    IGamesFilterData,
-    gamesEvents,
-    GamesFilterServiceEvents,
-    GameThumbComponent,
-} from 'wlc-engine/modules/games';
-import {
-    GamesCatalogService,
-} from 'wlc-engine/modules/games/system/services/games-catalog/games-catalog.service';
-import {
-    ISlide,
-} from 'wlc-engine/modules/promo';
-import {WINDOW} from 'wlc-engine/modules/app/system';
-
-import * as Params from './games-grid.params';
-
 import _reduce from 'lodash-es/reduce';
 import _keys from 'lodash-es/keys';
 import _isUndefined from 'lodash-es/isUndefined';
@@ -66,6 +40,35 @@ import _floor from 'lodash-es/floor';
 import _filter from 'lodash-es/filter';
 import _findLastIndex from 'lodash-es/findLastIndex';
 import _every from 'lodash-es/every';
+import _each from 'lodash-es/each';
+import _round from 'lodash-es/round';
+import _isInteger from 'lodash-es/isInteger';
+import _ceil from 'lodash-es/ceil';
+import _random from 'lodash-es/random';
+import {SwiperOptions} from 'swiper';
+
+import {
+    AbstractComponent,
+    ConfigService,
+    DeviceType,
+    ActionService,
+    EventService,
+    ItemAppearanceAnimation,
+    CardLoadingAnimation,
+    GlobalHelper,
+} from 'wlc-engine/modules/core';
+import {ISlide} from 'wlc-engine/modules/promo';
+import {WINDOW} from 'wlc-engine/modules/app/system';
+import {Game} from 'wlc-engine/modules/games/system/models/game.model';
+import {IGamesFilterData} from 'wlc-engine/modules/games/system/interfaces/filters.interfaces';
+import {gamesEvents} from 'wlc-engine/modules/games/system/interfaces/games.interfaces';
+import {GamesFilterServiceEvents} from 'wlc-engine/modules/games/system/services/games-filter.service';
+import {GameThumbComponent} from 'wlc-engine/modules/games/components/game-thumb/game-thumb.component';
+import {
+    GamesCatalogService,
+} from 'wlc-engine/modules/games/system/services/games-catalog/games-catalog.service';
+
+import * as Params from './games-grid.params';
 
 @Component({
     selector: '[wlc-games-grid]',
@@ -90,6 +93,7 @@ export class GamesGridComponent extends AbstractComponent implements OnInit, OnD
     public isReady: boolean = false;
     public games: Game[] = [];
     public gamesCount: number = 1;
+
     public title: string;
     public placeHolders: number[] = _times(6, Number);
     public hideShowMoreBtn: boolean = false;
@@ -99,7 +103,11 @@ export class GamesGridComponent extends AbstractComponent implements OnInit, OnD
     public lazyLoading: boolean = false;
     public moreBtnCardView: boolean;
     public gameSlides: ISlide[] = [];
+    public placeHoldersSlides: ISlide[] = [];
     public noContentText: string = gettext('No games available');
+    // We have to calculate the ID here, because if we calculate it in the prepareGrid,
+    // the swiper navigation buttons will lose their binding
+    public navigationId: string = _random(10000000).toString(16);
 
     protected gamesRows: number = 1;
     protected gamesRowsLoaded: number = 0;
@@ -140,7 +148,10 @@ export class GamesGridComponent extends AbstractComponent implements OnInit, OnD
 
         this.setWlcElementOnHost();
         this.initTitleIcon();
-        this.applyMoreBtnSettings();
+
+        if (this.$params.type !== 'swiper') {
+            this.applyMoreBtnSettings();
+        }
 
         this.filterName = this.$params.searchFilterName;
 
@@ -258,7 +269,17 @@ export class GamesGridComponent extends AbstractComponent implements OnInit, OnD
         this.gamesRowsLoaded = 0;
         this.games = await this.getGames();
         this.title = this.$params.title || this.gamesCatalogService.getGamesTitleByState() || this.categoryTitle;
-        if (this.$params.showAsSwiper) {
+
+        if (this.$params.type === 'swiper') {
+            // if we use a class field to this.$params.showAsSwiper.sliderParams.swiper.navigation,
+            // the swiper navigation buttons will lose their binding
+            if (this.$params.showAsSwiper?.useNavigation) {
+                this.$params.showAsSwiper.sliderParams.swiper.navigation = {
+                    prevEl: '.wlc-swiper-button-prev-' + this.navigationId,
+                    nextEl: '.wlc-swiper-button-next-' + this.navigationId,
+                };
+            }
+
             this.gameSlides = this.games.map((game: Game) => {
                 return {
                     component: GameThumbComponent,
@@ -269,6 +290,21 @@ export class GamesGridComponent extends AbstractComponent implements OnInit, OnD
                     },
                 };
             });
+
+            // without that code we have problems with margins if the number of games is less than or
+            // equal to the number that fits in the swiper. Screenshot: 
+            // https://tracker.egamings.com/attachments/827987
+            _each(
+                this.$params.showAsSwiper?.sliderParams?.swiper?.breakpoints,
+                (breakpoint: SwiperOptions) => {
+                    if (
+                        breakpoint.grid?.rows > 1
+                        && !_isInteger(+breakpoint.slidesPerView)
+                        && this.games.length < +breakpoint.slidesPerView * breakpoint.grid?.rows
+                    ) {
+                        breakpoint.slidesPerView = _round(+breakpoint.slidesPerView);
+                    }
+                });
         }
         this.isReady = true;
 
@@ -279,11 +315,13 @@ export class GamesGridComponent extends AbstractComponent implements OnInit, OnD
     }
 
     protected initEventListeners(): void {
-        this.actionService.deviceType()
-            .pipe(takeUntil(this.$destroy))
-            .subscribe((type: DeviceType) => {
-                this.handleDeviceTypeChange(type);
-            });
+        if (this.$params.type !== 'swiper') {
+            this.actionService.deviceType()
+                .pipe(takeUntil(this.$destroy))
+                .subscribe((type: DeviceType) => {
+                    this.handleDeviceTypeChange(type);
+                });
+        }
 
         this.eventService.subscribe([
             {name: gamesEvents.FETCH_GAME_CATALOG_SUCCEEDED},
@@ -360,33 +398,50 @@ export class GamesGridComponent extends AbstractComponent implements OnInit, OnD
      * Set grid params
      */
     protected setGridParams(): void {
-        this.moreButtonChangeState(false);
-        this.resetGamesRows();
-        const itemWidth = this.gameItem?.nativeElement.getBoundingClientRect().width;
-        const itemHeight = this.gameItem?.nativeElement.getBoundingClientRect().height;
-        const bannerWidth = this.gameBanner?.nativeElement.getBoundingClientRect().width || 0;
-        const bannerHeight = this.gameBanner?.nativeElement.getBoundingClientRect().height || 0;
-        const listWidth = this.gameListElement?.nativeElement.getBoundingClientRect().width;
+        if (this.$params.type === 'swiper') {
+            const breakpoints = _orderBy(
+                _map(
+                    _keys(this.$params.showAsSwiper?.sliderParams?.swiper?.breakpoints),
+                    (val: string) => _isNaN(+val) ? val : +val),
+            );
+            const mqList: MediaQueryList[] = _map(
+                breakpoints,
+                (value: number) => this.window.matchMedia(`(min-width: ${value}px)`),
+            );
+            const active = breakpoints[_findLastIndex(mqList, (item) => item.matches)];
+            const breakpoint = this.$params.showAsSwiper?.sliderParams?.swiper?.breakpoints[active];
 
-        const prevPlaceHoldersCount = _floor(listWidth / itemWidth) || 1;
-        this.gamesRows += this.gamesRowsLoaded;
-        this.paginate = prevPlaceHoldersCount * this.gamesRows;
-
-        this.gamesCount = this.paginate;
-
-        if (this.moreBtnCardView && this.games.length > this.gamesCount) {
-            this.gamesCount--;
+            this.gamesCount = _ceil(+breakpoint.slidesPerView) * (breakpoint.grid?.rows || 1);
+        } else {
+            this.moreButtonChangeState(false);
+            this.resetGamesRows();
+            const itemWidth = this.gameItem?.nativeElement.getBoundingClientRect().width;
+            const itemHeight = this.gameItem?.nativeElement.getBoundingClientRect().height;
+            const bannerWidth = this.gameBanner?.nativeElement.getBoundingClientRect().width || 0;
+            const bannerHeight = this.gameBanner?.nativeElement.getBoundingClientRect().height || 0;
+            const listWidth = this.gameListElement?.nativeElement.getBoundingClientRect().width;
+    
+            const prevPlaceHoldersCount = _floor(listWidth / itemWidth) || 1;
+            this.gamesRows += this.gamesRowsLoaded;
+            this.paginate = prevPlaceHoldersCount * this.gamesRows;
+    
+            this.gamesCount = this.paginate;
+    
+            if (this.moreBtnCardView && this.games.length > this.gamesCount) {
+                this.gamesCount--;
+            }
+    
+            if (this.$params.themeMod === 'header-inline') {
+                this.gamesCount--;
+            }
+    
+            if (this.$params.bannerSettings && (bannerWidth < listWidth)) {
+                this.gamesCount -= (_floor(bannerWidth / itemWidth) + _floor(bannerHeight / itemHeight));
+            }
+    
+            this.checkGamesLength();
         }
 
-        if (this.$params.themeMod === 'header-inline') {
-            this.gamesCount--;
-        }
-
-        if (this.$params.bannerSettings && (bannerWidth < listWidth)) {
-            this.gamesCount -= (_floor(bannerWidth / itemWidth) + _floor(bannerHeight / itemHeight));
-        }
-
-        this.checkGamesLength();
         this.setPlaceHolders();
         this.cdr.markForCheck();
     }
@@ -400,7 +455,20 @@ export class GamesGridComponent extends AbstractComponent implements OnInit, OnD
 
     protected setPlaceHolders(): void {
         if (this.$params.usePlaceholders) {
-            this.placeHolders = _times(this.gamesCount, Number);
+            if (this.$params.type === 'swiper') {
+                this.placeHoldersSlides = _times(this.gamesCount, Number).map(() => {
+                    return {
+                        component: GameThumbComponent,
+                        componentParams: {
+                            common: {
+                                dumpy: true,
+                            },
+                        },
+                    };
+                });
+            } else {
+                this.placeHolders = _times(this.gamesCount, Number);
+            }
         }
     }
 

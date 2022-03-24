@@ -1,10 +1,13 @@
-<div class="{{$class}}__content"
-     [@cardLoading]="isLoadingAnimation"
-     [hidden]="hideEmptyComponent">
+<ng-container [ngSwitch]="$params.theme">
+    <ng-container *ngSwitchCase="'swiper'" [ngTemplateOutlet]="swiper"></ng-container>
+    <ng-container *ngSwitchDefault [ngTemplateOutlet]="default"></ng-container>
+</ng-container>
 
-    <ng-template *ngIf="$params.showAsSwiper; else default" [ngTemplateOutlet]="swiper"></ng-template>
+<ng-template #default>
+    <div class="{{$class}}__content"
+         [@cardLoading]="isLoadingAnimation"
+         [hidden]="hideEmptyComponent">
 
-    <ng-template #default>
         <div *ngIf="showDefaultHeader" class="{{$class}}__header">
 
             <span *ngIf="$params.titleIcon?.name"
@@ -14,20 +17,12 @@
                   [fallback]="$params.titleIcon.fallback">
             </span>
             <div *ngIf="$params.showTitle"
-                 wlc-title
-                 [mainText]="title">
+                wlc-title
+                class="{{$class}}__title"
+                [mainText]="title">
             </div>
 
-            <a *ngIf="$params.showAllLink?.use && isDesktop"
-               class="{{$class}}__link"
-               [uiSref]="$params.showAllLink.sref || $params.showAllLink.link"
-               [uiParams]="$params.showAllLink?.params || {}">
-                    <span>{{$params.showAllLink?.text | translate}}</span>
-                <ng-container *ngIf="$params.showAllLink.useCounter && games.length">
-                    <span class="counter">({{games.length}})</span>
-                </ng-container>
-                <span wlc-icon iconPath="/wlc/icons/arrow.svg"></span>
-            </a>
+            <ng-container *ngIf="$params.showAllLink?.use && isDesktop; then showAllLink"></ng-container>
         </div>
 
         <ng-container *ngIf="$params.usePlaceholders || isReady; else: preloader">
@@ -43,7 +38,7 @@
                      #gameBanner
                      class="{{$class}}__banner wlc-games-banner">
                     <div wlc-banners-slider
-                         [inlineParams]="$params.bannerSettings">
+                        [inlineParams]="$params.bannerSettings">
                     </div>
                 </div>
 
@@ -70,13 +65,9 @@
                             <button *ngIf="loadMoreDisplayCondition"
                                     wlc-button
                                     [inlineParams]="$params.btnLoadMore"
-                                    (click)="loadMore()"></button>
-                            <button *ngIf="$params.showAllLink?.use && !isDesktop"
-                                    wlc-button
-                                    [text]="$params.showAllLink?.text || 'Show all'"
-                                    uiSref="{{$params.showAllLink.sref || $params.showAllLink?.link}}"
-                                    [uiParams]="$params.showAllLink?.params || {}">
+                                    (click)="loadMore()">
                             </button>
+                            <ng-container *ngIf="$params.showAllLink?.use && isDesktop; then showAllBtn"></ng-container>
                         </div>
                     </div>
                 </ng-container>
@@ -86,118 +77,167 @@
 
             <ng-container *ngIf="moreBlockDisplayCondition; then more"></ng-container>
         </ng-container>
-    </ng-template>
+    </div>
+</ng-template>
 
-    <ng-template #headerInline>
-        <div *ngIf="isDesktop"
-             class="{{$class}}__header">
+<ng-template #swiper>
+    <div class="{{$class}}__content" [hidden]="hideEmptyComponent">
+        <span *ngIf="$params.titleIcon?.name"
+              wlc-icon
+              class="{{$class}}__title-icon"
+              [iconPath]="$params.titleIcon?.name"
+              [fallback]="$params.titleIcon.fallback">
+        </span>
+        <div wlc-title
+             class="{{$class}}__title"
+             [mainText]="title"></div>
+
+        <ng-container *ngIf="$params.showAllLink?.use && $params.showAllLink?.position === 'top'">
+            <ng-container
+                *ngIf="this.$params.showAllLink.showAsBtn;
+                then showAllBtn;
+                else showAllLink">
+            </ng-container>
+        </ng-container>
+
+        <ng-container *ngIf="$params.usePlaceholders || isReady; else: preloader">
+            <ng-container *ngIf="games.length || ($params.usePlaceholders && !isReady); else: noGames">
+                <ng-container *ngIf="games.length && isReady; else sliderPlaceholders">
+                    <div wlc-slider
+                         class="{{$class}}__games-slider"
+                         [slides]="gameSlides"
+                         [inlineParams]="$params.showAsSwiper.sliderParams"
+                         (resized)="onResize($event)">
+                    </div>
+                </ng-container>
+            </ng-container>
+        </ng-container>
+
+        <!-- The button block should be located after the swiper block to hide the button block
+            if the number of games is less than or equal to the number of slots in the grid  -->
+        <div *ngIf="$params.showAsSwiper?.useNavigation"
+             class="{{$class}}__swiper-buttons-container"
+             slot-container-end>
+            <div class="{{$class}}__swiper-buttons">
+                <button wlc-icon
+                        class="wlc-swiper-button-prev"
+                        iconPath="/wlc/icons/arrow.svg"
+                        [class]="'wlc-swiper-button-prev-' + navigationId"></button>
+                <button wlc-icon
+                        class="wlc-swiper-button-next"
+                        iconPath="/wlc/icons/arrow.svg"
+                        [class]="'wlc-swiper-button-next-' + navigationId"></button>
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="games.length && $params.showAllLink?.use && $params.showAllLink?.position === 'bottom'"
+         class="{{$class}}__more">
+        <ng-template [ngTemplateOutlet]="showAllBtn"></ng-template>
+    </div>
+</ng-template>
+
+<ng-template #headerInline>
+    <div *ngIf="isDesktop"
+         class="{{$class}}__header">
 
         <span *ngIf="$params.titleIcon?.name"
               wlc-icon
               [iconPath]="$params.titleIcon.name">
         </span>
 
-            <div *ngIf="$params.showTitle"
-                 wlc-title
-                 [mainText]="title">
-            </div>
-
-            <a *ngIf="$params.showAllLink?.use"
-               class="{{$class}}__link"
-               [uiSref]="$params.showAllLink.sref || $params.showAllLink.link"
-               [uiParams]="$params.showAllLink.params || {}">
-                {{$params.showAllLink.text | translate}}
-                <ng-container *ngIf="$params.showAllLink.useCounter && games.length">
-                    ({{games.length}})
-                </ng-container>
-                <span wlc-icon iconPath="/wlc/icons/arrow.svg"></span>
-            </a>
+        <div *ngIf="$params.showTitle"
+             wlc-title
+             class="{{$class}}__title"
+             [mainText]="title">
         </div>
 
-        <a *ngIf="!isDesktop && $params.showAllLink?.use"
-           class="{{$class}}__header"
-           uiSref="{{$params.showAllLink.sref || $params.showAllLink.link}}"
-           [uiParams]="$params.showAllLink.params || {}">
+        <ng-container *ngIf="$params.showAllLink?.use && isDesktop; then showAllLink"></ng-container>
+    </div>
 
-        <span *ngIf="$params.titleIcon?.name"
-              wlc-icon
-              [iconPath]="$params.titleIcon.name"></span>
-            <span *ngIf="$params.showTitle"
-                  wlc-title
-                  [mainText]="title"></span>
-        </a>
-    </ng-template>
+    <a *ngIf="!isDesktop && $params.showAllLink?.use"
+       class="{{$class}}__header"
+       uiSref="{{$params.showAllLink.sref || $params.showAllLink.link}}"
+       [uiParams]="$params.showAllLink.params || {}">
 
-    <ng-template #more>
-        <div *ngIf="$params.showProgressBar"
-             wlc-progress-bar
-             class="{{$class}}__progressbar"
-             [maxValue]="games.length"
-             [currentValue]="gamesCount">
+    <span *ngIf="$params.titleIcon?.name"
+          wlc-icon
+          [iconPath]="$params.titleIcon.name"></span>
+        <span *ngIf="$params.showTitle"
+              wlc-title
+              class="{{$class}}__title"
+              [mainText]="title"></span>
+    </a>
+</ng-template>
+
+<ng-template #more>
+    <div *ngIf="$params.showProgressBar"
+         wlc-progress-bar
+         class="{{$class}}__progressbar"
+         [maxValue]="games.length"
+         [currentValue]="gamesCount">
+    </div>
+
+    <div *ngIf="(!hideShowMoreBtn && !$params.showAllLink?.use) || ($params.showAllLink?.use && !isDesktop)"
+         class="{{$class}}__more">
+
+        <button *ngIf="!hideShowMoreBtn && !$params.showAllLink?.use"
+                wlc-button
+                [wlcElement]="'button_load-more-games'"
+                [text]="'Load more games'"
+                (click)="loadMore()">
+        </button>
+
+        <ng-container *ngIf="$params.showAllLink?.use && !isDesktop; then showAllBtn"></ng-container>
+    </div>
+</ng-template>
+
+<ng-template #noGames>
+    <div class="{{$class}}__nocontent" [@appearance]="'useAnim'">{{this.noContentText | translate}}</div>
+</ng-template>
+
+<ng-template #placeholders>
+    <div *ngFor="let item of placeHolders"
+         #gameItem
+         class="{{$class}}__item">
+        <div wlc-game-thumb
+             [@appearance]="'useAnim'"
+             [dumpy]="true"
+             [inlineParams]="$params.thumbParams">
         </div>
+    </div>
+</ng-template>
 
-        <div *ngIf="(!hideShowMoreBtn && !$params.showAllLink?.use) || ($params.showAllLink?.use && !isDesktop)"
-             class="{{$class}}__more">
+<ng-template #sliderPlaceholders>
+    <div wlc-slider
+         class="{{$class}}__games-slider"
+         [slides]="placeHoldersSlides"
+         [inlineParams]="$params.showAsSwiper.sliderParams"
+         (resized)="onResize($event)">
+    </div>
+</ng-template>
 
-            <button *ngIf="!hideShowMoreBtn && !$params.showAllLink?.use"
-                    wlc-button
-                    [wlcElement]="'button_load-more-games'"
-                    [text]="'Load more games'"
-                    (click)="loadMore()">
-            </button>
+<ng-template #showAllBtn>
+    <button wlc-button
+            class="{{$class}}__show-all-btn"
+            [text]="$params.showAllLink.text"
+            [uiSref]="$params.showAllLink.sref || $params.showAllLink.link"
+            [uiParams]="$params.showAllLink.params || {}">
+    </button>
+</ng-template>
 
-            <button *ngIf="$params.showAllLink?.use && !isDesktop"
-                    wlc-button
-                    [text]="$params.showAllLink.text"
-                    [uiSref]="$params.showAllLink.sref || $params.showAllLink.link"
-                    [uiParams]="$params.showAllLink.params || {}">
-            </button>
-        </div>
-    </ng-template>
-
-    <ng-template #swiper>
-        <div class="{{$class}}__header" *ngIf="$params.showTitle">
-            <span *ngIf="$params.titleIcon?.name"
-                  wlc-icon
-                  class="{{$class}}__title-icon"
-                  [iconPath]="$params.titleIcon?.name"
-                  [fallback]="$params.titleIcon.fallback">
-            </span>
-            <div wlc-title [mainText]="title"></div>
-            <div slot-container-end>
-                <div class="{{$class}}__swiper-buttons">
-                    <button class="wlc-swiper-button-prev" wlc-icon iconPath="/wlc/icons/arrow.svg"></button>
-                    <button class="wlc-swiper-button-next" wlc-icon iconPath="/wlc/icons/arrow.svg"></button>
-                </div>
-            </div>
-        </div>
-        <ng-container *ngIf="isReady; else : preloader">
-            <div class="{{$class}}__games-slider"
-                 wlc-slider
-                 [slides]="gameSlides"
-                 [inlineParams]="$params.showAsSwiper.sliderParams">
-            </div>
+<ng-template #showAllLink>
+    <a class="{{$class}}__link"
+       [uiSref]="$params.showAllLink.sref || $params.showAllLink.link"
+       [uiParams]="$params.showAllLink?.params || {}">
+        <span>{{$params.showAllLink?.text | translate}}</span>
+        <ng-container *ngIf="$params.showAllLink.useCounter && games.length">
+            <span class="counter">({{games.length}})</span>
         </ng-container>
-    </ng-template>
+        <span wlc-icon iconPath="/wlc/icons/arrow.svg"></span>
+    </a>
+</ng-template>
 
-    <ng-template #noGames>
-        <div class="{{$class}}__nocontent" [@appearance]="'useAnim'">{{this.noContentText | translate}}</div>
-    </ng-template>
-
-    <ng-template #placeholders>
-        <div *ngFor="let item of placeHolders"
-             #gameItem
-             class="{{$class}}__item">
-            <div wlc-game-thumb
-                 [@appearance]="'useAnim'"
-                 [dumpy]="true"
-                 [inlineParams]="$params.thumbParams">
-            </div>
-        </div>
-    </ng-template>
-
-    <ng-template #preloader>
-        <div wlc-loader class="{{$class}}__preloader"></div>
-    </ng-template>
-
-</div>
+<ng-template #preloader>
+    <div wlc-loader class="{{$class}}__preloader"></div>
+</ng-template>

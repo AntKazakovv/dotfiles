@@ -1,42 +1,4 @@
-@use 'engine-scss/mixins/mediaqueries' as mq;
-@use 'engine-scss/mixins/base.mixins' as bm;
-@use 'engine-scss/mixins/text' as text;
-@use 'engine-scss/functions' as ef;
-@use 'engine-scss/engine.variables' as ev;
-
 .wlc-games-grid--theme-default:host {
-
-    &.wlc-games-grid--title-icon {
-
-        .wlc-games-grid__header {
-
-            ::ng-deep {
-
-                .wlc-title {
-                    margin: ef.get-value($themeDefault, 'titleWithIconMargin');
-                }
-            }
-        }
-
-        .wlc-games-grid__title-icon {
-            margin: ef.get-value($themeDefault, 'titleIconMargin');
-
-            ::ng-deep {
-
-                .wlc-icon-content {
-                    display: flex;
-                    width: ef.get-value($themeDefault, 'titleIconSize');
-                    height: ef.get-value($themeDefault, 'titleIconSize');
-
-                    svg {
-                        width: ef.get-value($themeDefault, 'titleIconSizeStretch');
-                        height: ef.get-value($themeDefault, 'titleIconSizeStretch');
-                        fill: ef.get-value($themeDefault, 'titleIconFill');
-                    }
-                }
-            }
-        }
-    }
 
     .wlc-games-catalog--theme-default & {
 
@@ -59,22 +21,6 @@
             justify-content: ef.get-value($themeDefault, 'headerJustifyContent');
             width: ef.get-value($themeDefault, 'headerWidth');
             margin: ef.get-value($themeDefault, 'headerMargin');
-
-            ::ng-deep {
-
-                .wlc-title {
-
-                    &__main {
-                        @include text.get-text-style(ef.get-value($themeDefault, 'headerFontStyle'), ef.get-value($themeDefault, 'headerColor'));
-                        line-height: 1;
-                    }
-                }
-            }
-        }
-
-        &__swiper-buttons {
-            display: grid;
-            grid-template-columns: ef.get-value($themeDefault, 'swiperButtonsColumns');
         }
 
         &__banner {
@@ -125,51 +71,6 @@
             }
         }
 
-        &__link {
-            @include text.get-text-style('PlaceholderTextBold', ef.get-value($themeDefault, 'allLinkColor'));
-            @include bm.transition(color);
-            @include bm.arrowIconAnimation;
-            @include bm.get-mq-map('display', $themeDefault, 'allLinkDisplay');
-            @include bm.get-mq-map('align-items', $themeDefault, 'allLinkAlign');
-            @include bm.get-mq-map('text-decoration', $themeDefault, 'allLinkDecoration');
-
-            ::ng-deep {
-
-                .wlc-icon {
-                    @include bm.transition(transform, 0.3s);
-                    margin-left: ef.get-value($themeDefault, 'allLinkIconMargin');
-
-                    &-content {
-                        display: flex;
-                    }
-
-                    svg {
-                        transform: ef.get-value($themeDefault, 'allLinkTransform');
-
-                        fill: ef.get-value($themeDefault, 'allLinkColor');
-                    }
-                }
-            }
-
-            .counter {
-                margin-left: ef.size(1);
-            }
-
-            @include bm.hover {
-                color: ef.get-value($themeDefault, 'allLinkColorHover');
-
-                ::ng-deep {
-
-                    .wlc-icon {
-
-                        svg {
-                            fill: ef.get-value($themeDefault, 'allLinkColorHover');
-                        }
-                    }
-                }
-            }
-        }
-
         &__list {
             @include bm.get-mq-map('grid-gap', $themeDefault, 'gridGap');
             @include bm.get-mq-map('grid-template-columns', $themeDefault, 'gridColumns');
@@ -180,13 +81,6 @@
 
         &__progressbar {
             @include bm.get-mq-map('margin', $themeDefault, 'progressBarMargin');
-        }
-
-        &__more {
-            @include bm.get-mq-map('margin', $themeDefault, 'moreButtonMargin');
-            display: flex;
-            align-items: ef.get-value($themeDefault, 'moreButtonAlignItems');
-            justify-content: ef.get-value($themeDefault, 'moreButtonJustifyContent');
         }
 
         &__card-progressbar {

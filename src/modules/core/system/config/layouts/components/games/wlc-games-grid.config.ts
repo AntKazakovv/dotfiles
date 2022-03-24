@@ -171,4 +171,341 @@ export namespace wlcGamesGrid {
         },
     };
 
+    export const popularGamesSwiper: ILayoutComponent = {
+        name: 'games.wlc-games-grid',
+        params: <IGamesGridCParams>{
+            type: 'swiper',
+            theme: 'swiper',
+            title: gettext('Popular games'),
+            filter: {
+                categories: ['popular'],
+            },
+            showAllLink: {
+                use: true,
+                position: 'bottom',
+                showAsBtn: true,
+                sref: 'app.catalog',
+                params: {
+                    category: 'popular',
+                },
+            },
+            breakpoints: {
+                1024: {
+                    showAllLink: {
+                        position: 'top',
+                    },
+                },
+            },
+            showAsSwiper: {
+                useNavigation: true,
+                sliderParams: {
+                    swiper: {
+                        slidesPerView: 1,
+                        slidesPerGroup: 1,
+                        grid: null,
+                        spaceBetween: 10,
+                        breakpoints: {
+                            375: {
+                                slidesPerView: 2,
+                                slidesPerGroup: 2,
+                                grid: {
+                                    rows: 2,
+                                    fill: 'row',
+                                },
+                                spaceBetween: 10,
+                            },
+                            560: {
+                                slidesPerView: 3,
+                                slidesPerGroup: 2,
+                                grid: {
+                                    rows: 2,
+                                    fill: 'row',
+                                },
+                                spaceBetween: 10,
+                            },
+                            720: {
+                                slidesPerView: 4,
+                                slidesPerGroup: 3,
+                                grid: null,
+                                spaceBetween: 10,
+                            },
+                            900: {
+                                slidesPerView: 3,
+                                slidesPerGroup: 2,
+                                grid: null,
+                                spaceBetween: 10,
+                            },
+                            1024: {
+                                slidesPerView: 4,
+                                slidesPerGroup: 3,
+                                grid: null,
+                                spaceBetween: 15,
+                            },
+                            1200: {
+                                slidesPerView: 5,
+                                slidesPerGroup: 4,
+                                grid: null,
+                                spaceBetween: 15,
+                            },
+                            1630: {
+                                slidesPerView: 6,
+                                slidesPerGroup: 5,
+                                grid: null,
+                                spaceBetween: 20,
+                            },
+                        },
+                    },
+                },
+            },
+        },
+    };
+
+    export const popularGamesSwiperWithEars: ILayoutComponent = {
+        name: 'games.wlc-games-grid',
+        params: <IGamesGridCParams>{
+            type: 'swiper',
+            theme: 'swiper',
+            title: gettext('Popular games'),
+            filter: {
+                categories: ['popular'],
+            },
+            showAllLink: {
+                use: true,
+                position: 'bottom',
+                showAsBtn: true,
+                sref: 'app.catalog',
+                params: {
+                    category: 'popular',
+                },
+            },
+            breakpoints: {
+                1024: {
+                    showAllLink: {
+                        position: 'top',
+                        showAsBtn: false,
+                    },
+                },
+            },
+            showAsSwiper: {
+                sliderParams: {
+                    swiper: {
+                        slidesPerView: 1.1,
+                        grid: null,
+                        spaceBetween: 10,
+                        breakpoints: {
+                            375: {
+                                slidesPerView: 2.1,
+                                grid: {
+                                    rows: 2,
+                                    fill: 'row',
+                                },
+                                spaceBetween: 10,
+                            },
+                            560: {
+                                slidesPerView: 3.1,
+                                grid: {
+                                    rows: 2,
+                                    fill: 'row',
+                                },
+                                spaceBetween: 10,
+                            },
+                            720: {
+                                slidesPerView: 4.1,
+                                grid: null,
+                                spaceBetween: 10,
+                            },
+                            900: {
+                                slidesPerView: 3.1,
+                                grid: null,
+                                spaceBetween: 10,
+                            },
+                            1024: {
+                                slidesPerView: 4.1,
+                                grid: null,
+                                spaceBetween: 15,
+                            },
+                            1200: {
+                                slidesPerView: 5.1,
+                                grid: null,
+                                spaceBetween: 15,
+                            },
+                            1630: {
+                                slidesPerView: 6.1,
+                                grid: null,
+                                spaceBetween: 20,
+                            },
+                        },
+                    },
+                },
+            },
+        },
+    };
+
+    export const newGamesSwiper: ILayoutComponent = {
+        name: 'games.wlc-games-grid',
+        params: <IGamesGridCParams>{
+            type: 'swiper',
+            theme: 'swiper',
+            title: gettext('New games'),
+            filter: {
+                categories: ['new'],
+            },
+            showAllLink: {
+                use: true,
+                position: 'bottom',
+                sref: 'app.catalog',
+                showAsBtn: true,
+                params: {
+                    category: 'new',
+                },
+            },
+            breakpoints: {
+                1024: {
+                    showAllLink: {
+                        position: 'top',
+                    },
+                },
+            },
+            showAsSwiper: {
+                useNavigation: true,
+                sliderParams: {
+                    swiper: {
+                        slidesPerView: 1,
+                        grid: null,
+                        spaceBetween: 10,
+                        breakpoints: {
+                            375: {
+                                slidesPerView: 2,
+                                grid: {
+                                    rows: 2,
+                                    fill: 'row',
+                                },
+                                spaceBetween: 10,
+                            },
+                            560: {
+                                slidesPerView: 3,
+                                slidesPerGroup: 3,
+                                grid: {
+                                    rows: 2,
+                                    fill: 'row',
+                                },
+                                spaceBetween: 10,
+                            },
+                            720: {
+                                slidesPerView: 4,
+                                slidesPerGroup: 3,
+                                grid: null,
+                                spaceBetween: 10,
+                            },
+                            900: {
+                                slidesPerView: 3,
+                                slidesPerGroup: 2,
+                                grid: null,
+                                spaceBetween: 10,
+                            },
+                            1024: {
+                                slidesPerView: 4,
+                                slidesPerGroup: 3,
+                                grid: null,
+                                spaceBetween: 15,
+                            },
+                            1200: {
+                                slidesPerView: 5,
+                                slidesPerGroup: 4,
+                                grid: null,
+                                spaceBetween: 15,
+                            },
+                            1630: {
+                                slidesPerView: 6,
+                                slidesPerGroup: 5,
+                                grid: null,
+                                spaceBetween: 20,
+                            },
+                        },
+                    },
+                },
+            },
+        },
+    };
+
+    export const newGamesSwiperWithEars: ILayoutComponent = {
+        name: 'games.wlc-games-grid',
+        params: <IGamesGridCParams>{
+            type: 'swiper',
+            theme: 'swiper',
+            title: gettext('New games'),
+            filter: {
+                categories: ['new'],
+            },
+            showAllLink: {
+                use: true,
+                position: 'bottom',
+                showAsBtn: true,
+                sref: 'app.catalog',
+                params: {
+                    category: 'new',
+                },
+            },
+            breakpoints: {
+                1024: {
+                    showAllLink: {
+                        position: 'top',
+                        showAsBtn: false,
+                    },
+                },
+            },
+            showAsSwiper: {
+                sliderParams: {
+                    swiper: {
+                        slidesPerView: 1.1,
+                        grid: null,
+                        spaceBetween: 10,
+                        breakpoints: {
+                            375: {
+                                slidesPerView: 2.1,
+                                grid: {
+                                    rows: 2,
+                                    fill: 'row',
+                                },
+                                spaceBetween: 10,
+                            },
+                            560: {
+                                slidesPerView: 3.1,
+                                grid: {
+                                    rows: 2,
+                                    fill: 'row',
+                                },
+                                spaceBetween: 10,
+                            },
+                            720: {
+                                slidesPerView: 4.1,
+                                grid: null,
+                                spaceBetween: 10,
+                            },
+                            900: {
+                                slidesPerView: 3.1,
+                                grid: null,
+                                spaceBetween: 10,
+                            },
+                            1024: {
+                                slidesPerView: 4.1,
+                                grid: null,
+                                spaceBetween: 15,
+                            },
+                            1200: {
+                                slidesPerView: 5.1,
+                                grid: null,
+                                spaceBetween: 15,
+                            },
+                            1630: {
+                                slidesPerView: 6.1,
+                                grid: null,
+                                spaceBetween: 20,
+                            },
+                        },
+                    },
+                },
+            },
+        },
+    };
 }

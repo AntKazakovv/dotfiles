@@ -9,6 +9,20 @@ export namespace contentGames {
         ],
     };
 
+    export const homeTopSwiper: ILayoutSectionConfig = {
+        container: true,
+        components: [
+            componentLib.wlcGamesGrid.popularGamesSwiper,
+        ],
+    };
+
+    export const homeTopSwiperWithEars: ILayoutSectionConfig = {
+        container: true,
+        components: [
+            componentLib.wlcGamesGrid.popularGamesSwiperWithEars,
+        ],
+    };
+
     export const homeWins: ILayoutSectionConfig = {
         container: true,
         components: [
@@ -61,6 +75,20 @@ export namespace contentGames {
         container: true,
         components: [
             componentLib.wlcGamesGrid.roullete1row,
+        ],
+    };
+
+    export const homeBottomSwiper: ILayoutSectionConfig = {
+        container: true,
+        components: [
+            componentLib.wlcGamesGrid.newGamesSwiper,
+        ],
+    };
+
+    export const homeBottomSwiperWithEars: ILayoutSectionConfig = {
+        container: true,
+        components: [
+            componentLib.wlcGamesGrid.newGamesSwiperWithEars,
         ],
     };
 

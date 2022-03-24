@@ -20,8 +20,8 @@ import {
     ISliderCParams,
 } from 'wlc-engine/modules/promo';
 
-export type ComponentTheme = 'default' | CustomType;
-export type ComponentType = 'default' | 'search';
+export type ComponentTheme = 'default' | 'swiper' | CustomType;
+export type ComponentType = 'default' | 'search' | 'swiper';
 
 /**
  * TODO remove this interface after fix in GamesGrid configuration in project layouts
@@ -40,6 +40,14 @@ export interface IGamesGridTitleIcon {
 
 export interface IGamesGridShowAllLink {
     use?: boolean;
+    /**
+     * Show all link as button on swiper theme in header
+     */
+    showAsBtn?: boolean;
+    /**
+     * Position of showAllLink/showAllButton on swiper theme
+     */
+    position?: 'top' | 'bottom';
     useCounter?: boolean;
     /** @deprecated use `sref` instead */
     link?: string;
@@ -81,6 +89,10 @@ export interface IGamesGridBreakpoints {
 }
 
 export interface IShowAsSwiper {
+    /**
+     * Use navigation buttons
+     */
+    useNavigation?: boolean;
     sliderParams: ISliderCParams;
 }
 
