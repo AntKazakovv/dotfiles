@@ -5,6 +5,7 @@ import {
     Input,
     ChangeDetectorRef,
 } from '@angular/core';
+import {ConfigService} from 'wlc-engine/modules/core';
 import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
 import {ModalService} from 'wlc-engine/modules/core/system/services/modal/modal.service';
 import {UserService} from 'wlc-engine/modules/user/system/services/user/user.service';
@@ -25,8 +26,12 @@ export class LogoutComponent extends AbstractComponent implements OnInit {
         protected cdr: ChangeDetectorRef,
         protected modalService: ModalService,
         protected userService: UserService,
+        protected configService: ConfigService,
     ) {
-        super({injectParams: params, defaultParams: Params.defaultParams});
+        super({
+            injectParams: params,
+            defaultParams: Params.defaultParams,
+        }, configService);
     }
 
     public ngOnInit(): void {
@@ -40,7 +45,7 @@ export class LogoutComponent extends AbstractComponent implements OnInit {
             modalTitle: gettext('Confirmation'),
             modifier: 'confirmation',
             wlcElement: 'modal_logout',
-            modalMessage: gettext('Are you sure?'),
+            modalMessage: this.$params.textMessage,
             showConfirmBtn: true,
             closeBtnParams: {
                 themeMod: 'secondary',
