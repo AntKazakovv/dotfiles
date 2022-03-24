@@ -514,6 +514,15 @@ export class BonusesService {
         }
     }
 
+    /**
+     * Unchooses all bonuses
+     * @returns {void}
+     */
+    public unchooseAllBonuses(): void {
+        _each(this.bonuses, (bonus: Bonus): void => {
+            bonus.isChoose = false;
+        });
+    }
 
     /**
      * Sorts bonuses according to sort order

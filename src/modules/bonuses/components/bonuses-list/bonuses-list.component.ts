@@ -242,12 +242,9 @@ export class BonusesListComponent extends AbstractComponent implements OnInit, O
         this.eventService.subscribe([
             {name: BonusItemComponentEvents.reg},
             {name: BonusItemComponentEvents.deposit},
-        ], (bonus: Bonus) => {
-            _each(this.bonuses, (item: Bonus) => {
-                if (item.id !== bonus.id) {
-                    item.isChoose = false;
-                }
-            });
+        ], (bonus: Bonus): void => {
+            this.bonusesService.unchooseAllBonuses();
+            bonus.isChoose = true;
 
             if (this.slider) {
                 this.bonusesToSlides(this.bonuses, false);

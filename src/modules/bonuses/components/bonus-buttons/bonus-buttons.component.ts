@@ -164,7 +164,10 @@ export class BonusButtonsComponent extends AbstractComponent implements OnInit {
         switch (type) {
             case 'register':
                 await this.modalService.showModal('signup');
-                this.chooseBonus(this.bonus, 'reg');
+
+                if (this.bonusesService.filterBonuses([this.bonus], 'reg').length) {
+                    this.chooseBonus(this.bonus, 'reg');
+                }
                 break;
             case 'deposit':
                 this.router.stateService.go(
