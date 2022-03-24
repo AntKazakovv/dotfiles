@@ -21,7 +21,7 @@ $themeRegFirst: map-merge((
         1630: (minmax(auto, 220px) 145px),
     ),
     'contentRadius': ef.get-value($themeDefault, 'radius'),
-    'chosenNoBorder': 2px solid transparent,
+    'chosenNoBorder': 2px solid var(--mc-bg500) ,
     'chosenBorder': 2px solid var(--mc-success),
     'imageHeight': 100%,
     'imageOtherWidth': 100%,

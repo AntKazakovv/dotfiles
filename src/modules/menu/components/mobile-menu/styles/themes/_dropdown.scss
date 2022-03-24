@@ -115,6 +115,7 @@
                 }
 
                 .wlc-menu__submenu {
+                    overflow: hidden;
                     margin-top: ef.get-value($themeDropdownDefault, 'menuGag');
                     border-radius: ef.get-value($themeDropdownDefault, 'linkBorderRadius');
                     background: ef.get-value($themeDropdownDefault, 'submenuBg');
