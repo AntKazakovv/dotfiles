@@ -1,6 +1,9 @@
 'use strict';
 
-import {Ng2StateDeclaration} from '@uirouter/angular';
+import {
+    Ng2StateDeclaration,
+    Transition,
+} from '@uirouter/angular';
 import {
     IIndexing,
     InjectionService,
@@ -67,24 +70,25 @@ export const sportsbookState: Ng2StateDeclaration = {
             inherit: false,
         },
     },
-    onEnter: async (trans) => {
+    onEnter: async (trans: Transition): Promise<void> => {
         const injectionService: InjectionService = trans.injector().get(InjectionService);
-        const sportsbookService: SportsbookService = await injectionService.getService('sportsbook.sportsbook-service');
-        await sportsbookService.ready;
+        injectionService.getService('sportsbook.sportsbook-service').then((sportsbookService: SportsbookService): void => {
+            sportsbookService.ready.then(() => {
+                const sportsbookId: string = sportsbookIdByState[trans.to().name];
+                if (sportsbookId) {
+                    const settings: ISportsbookSettings = sportsbookService.getSportsbookSettings({
+                        id: sportsbookId,
+                    });
 
-        const sportsbookId: string = sportsbookIdByState[trans.to().name];
-        if (sportsbookId) {
-            const settings: ISportsbookSettings = sportsbookService.getSportsbookSettings({
-                id: sportsbookId,
+                    if (!settings) {
+                        trans.abort();
+                        trans.router.stateService.go('app.error', {
+                            locale: trans.params().locale,
+                        });
+                    }
+                }
             });
-
-            if (!settings) {
-                trans.abort();
-                trans.router.stateService.go('app.error', {
-                    locale: trans.params().locale,
-                });
-            }
-        }
+        });
     },
 };
 
@@ -101,5 +105,3 @@ export const tglabState: Ng2StateDeclaration = getCustomState('tglab');
 export const btiState: Ng2StateDeclaration = getCustomState('bti');
 
 export const esportState: Ng2StateDeclaration = getCustomState('esport');
-
-
