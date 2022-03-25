@@ -1,0 +1,25 @@
+@use 'engine-scss/functions' as ef;
+
+.wlc-btn--theme-icon:host {
+
+    &.wlc-btn {
+
+        &--theme-mod-settings {
+
+            ::ng-deep {
+
+                svg {
+                    display: ef.get-value($themeIcon, 'display');
+                    width: ef.get-value($themeIcon, 'size');
+                    height: ef.get-value($themeIcon, 'size');
+                    fill: ef.get-value($themeIcon, 'fill');
+
+                    path,
+                    rect {
+                        fill: ef.get-value($themeIcon, 'fill');
+                    }
+                }
+            }
+        }
+    }
+}

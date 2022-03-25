@@ -30,6 +30,7 @@ import {LoyaltyProgressComponent} from './components/loyalty-progress/loyalty-pr
 import {NewPasswordFormComponent} from './components/new-password-form/new-password-form.component';
 import {PhoneFieldComponent} from './components/phone-field/phone-field.component';
 import {ProfileFormComponent} from './components/profile-form/profile-form.component';
+import {ProfileBlocksComponent} from './components/profile-blocks/profile-blocks.component';
 import {
     RealityCheckInfoComponent,
 } from 'wlc-engine/modules/user/components/reality-check-info/reality-check-info.component';
@@ -63,6 +64,7 @@ export const components = {
     'wlc-new-password-form': NewPasswordFormComponent,
     'wlc-profile-form': ProfileFormComponent,
     'wlc-phone-field': PhoneFieldComponent,
+    'wlc-profile-blocks': ProfileBlocksComponent,
     'wlc-reality-check-info': RealityCheckInfoComponent,
     'wlc-restore-link': RestoreLinkComponent,
     'wlc-restore-password-form': RestorePasswordFormComponent,
@@ -91,6 +93,7 @@ export const components = {
         NewPasswordFormComponent,
         ProfileFormComponent,
         PhoneFieldComponent,
+        ProfileBlocksComponent,
         RealityCheckInfoComponent,
         RestoreLinkComponent,
         RestorePasswordFormComponent,
@@ -127,6 +130,7 @@ export const components = {
         LoyaltyProgressComponent,
         ProfileFormComponent,
         PhoneFieldComponent,
+        ProfileBlocksComponent,
         RealityCheckInfoComponent,
         RestorePasswordFormComponent,
         SignInFormComponent,

@@ -88,14 +88,29 @@ export namespace profileContent {
             {
                 name: 'core.wlc-wrapper',
                 params: {
-                    class: 'wlc-profile-content__top',
+                    class: 'wlc-profile-content__top wlc-profile-content__top--buttons',
                     components: [
                         componentLib.wlcTitle.profileV2,
+                        componentLib.wlcButton.profileBlocks,
                     ],
                 },
             },
             componentLib.wlcProfileMenu.submenu,
-            componentLib.wlcProfileForm.def,
+            {
+                name: 'core.wlc-wrapper',
+                params: {
+                    class: 'wlc-profile-content__body',
+                    components: [
+                        componentLib.wlcProfileForm.def,
+                        {
+                            name: 'user.wlc-profile-blocks',
+                            display: {
+                                after: 1023,
+                            },
+                        },
+                    ],
+                },
+            },
         ],
     };
 

@@ -12,8 +12,7 @@ export namespace wlcProfileForm {
         return {
             name: 'user.wlc-profile-form',
             params: <IProfileFormCParams>{
-                additionalBlocks: null,
-                common: null,
+                useProfileBlocks: false,
                 config: <IFormWrapperCParams>{
                     class: 'wlc-form-wrapper',
                     components: [
@@ -194,14 +193,12 @@ export namespace wlcProfileForm {
     export const kiosk: ILayoutComponent = {
         name: 'user.wlc-profile-form',
         params: <IProfileFormCParams>{
-            additionalBlocks: null,
-            common: null,
             config: <IFormWrapperCParams>{
                 class: 'wlc-form-wrapper',
                 components: [
                     {
                         name: 'core.wlc-wrapper',
-                        params: <IWrapperCParams> {
+                        params: <IWrapperCParams>{
                             class: 'wlc-profile-form__block wlc-profile-form__block--password',
                             components: [
                                 {
@@ -214,7 +211,7 @@ export namespace wlcProfileForm {
                                 FormElements.password,
                                 {
                                     name: 'core.wlc-wrapper',
-                                    params: <IWrapperCParams> {
+                                    params: <IWrapperCParams>{
                                         class: 'wlc-profile-form__block',
                                         components: [
                                             FormElements.passwordNew,

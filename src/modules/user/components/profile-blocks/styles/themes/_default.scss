@@ -1,0 +1,138 @@
+@use 'engine-scss/functions' as ef;
+@use 'engine-scss/mixins/text' as text;
+@use 'engine-scss/mixins/mediaqueries' as mq;
+@use 'engine-scss/mixins/base.mixins' as bm;
+
+.wlc-profile-blocks--theme-default:host {
+    display: ef.get-value($themeDefault, 'hostDisplay');
+    grid-row-gap: ef.get-value($themeDefault, 'hostGap');
+    grid-template-columns: ef.get-value($themeDefault, 'hostColumns');
+    height: ef.get-value($themeDefault, 'hostHeight');
+
+    .wlc-profile-blocks {
+
+        &__block {
+            display: ef.get-value($themeDefault, 'blockDisplay');
+            grid-row-gap: ef.get-value($themeDefault, 'blockGap');
+            grid-template-columns: ef.get-value($themeDefault, 'blockColumns');
+        }
+
+        &__title {
+            @include text.get-text-style(
+                ef.get-value($themeDefault, 'titleTextStyle'),
+                ef.get-value($themeDefault, 'titleTextColor'),
+            );
+        }
+
+        &__item {
+            display: ef.get-value($themeDefault, 'itemDisplay');
+            grid-row-gap: ef.get-value($themeDefault, 'itemGap');
+            grid-template-areas: ef.get-value($themeDefault, 'itemAreas');
+            grid-template-columns: ef.get-value($themeDefault, 'itemColumns');
+
+            &--notification {
+                grid-row-gap: ef.get-value($themeDefault, 'notifGap');
+                grid-template-columns: ef.get-value($themeDefault, 'notifColumns');
+
+                .wlc-profile-blocks {
+
+                    &__item {
+
+                        &-title-main {
+                            margin: ef.get-value($themeDefault, 'notifTitleMargin');
+                        }
+                    }
+                }
+            }
+
+            &-title {
+                grid-area: ef.get-value($themeDefault, 'titleArea');
+
+                &-main {
+                    @include text.get-text-style(
+                        ef.get-value($themeDefault, 'titleMainTextStyle'),
+                        ef.get-value($themeDefault, 'titleMainColor')
+                    );
+                    margin: ef.get-value($themeDefault, 'titleMainMargin');
+                }
+
+                &-description {
+                    @include text.get-text-style(
+                        ef.get-value($themeDefault, 'descTextStyle', 375),
+                        ef.get-value($themeDefault, 'descColor')
+                    );
+
+                    @include mq.min(1420) {
+                        @include text.get-text-style(ef.get-value($themeDefault, 'descTextStyle', 1420), null);
+                    }
+                }
+            }
+
+            &-switcher {
+                display: flex;
+                grid-area: ef.get-value($themeDefault, 'switcherArea');
+
+                ::ng-deep {
+
+                    .wlc-checkbox[wlc-checkbox] {
+
+                        .wlc-checkbox__label {
+                            flex-direction: ef.get-value($themeDefault, 'labelDirection');
+                            padding: ef.get-value($themeDefault, 'switcherPadding');
+                        }
+                    }
+                }
+            }
+
+            ::ng-deep {
+
+                .wlc-btn[wlc-button] {
+                    grid-area: ef.get-value($themeDefault, 'btnArea');
+                    width: ef.get-value($themeDefault, 'btnWidth');
+                    overflow: ef.get-value($themeDefault, 'btnOverflow');
+
+                    .wlc-btn__text {
+                        @include bm.transition(color);
+                        @include text.get-text-style(
+                            ef.get-value($themeDefault, 'btnTextStyle'),
+                            ef.get-value($themeDefault, 'btnColor', 375)
+                        );
+                        display: ef.get-value($themeDefault, 'btnTextDisplay');
+
+                        @include mq.min(1024) {
+                            color: ef.get-value($themeDefault, 'btnColor', 1024);
+                        }
+                    }
+
+                    .wlc-icon {
+                        @include bm.get-mq-map('display', $themeDefault, 'btnIconDisplay');
+                        margin: ef.get-value($themeDefault, 'btnIconMargin');
+                        transform: ef.get-value($themeDefault, 'btnIconTransform');
+
+                        svg {
+                            fill: currentColor;
+                        }
+                    }
+
+                    @include bm.hover {
+
+                        .wlc-btn__text {
+                            color: ef.get-value($themeDefault, 'btnColorHover');
+                        }
+                    }
+
+                    @include mq.min(1024) {
+                        display: ef.get-value($themeDefault, 'btnDeskDisplay');
+                        min-width: ef.get-value($themeDefault, 'btnDeskMinWidth');
+                        height: ef.get-value($themeDefault, 'btnDeskHeight');
+                        padding: ef.get-value($themeDefault, 'btnDeskPadding');
+                        background: ef.get-value($themeDefault, 'btnDeskBackground');
+                        border: ef.get-value($themeDefault, 'btnDeskBorder');
+                        border-radius: ef.get-value($themeDefault, 'btnDeskBorderRadius');
+                        box-shadow: ef.get-value($themeDefault, 'btnDeskBoxShadow');
+                    }
+                }
+            }
+        }
+    }
+}

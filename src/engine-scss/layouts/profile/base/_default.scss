@@ -8,15 +8,30 @@
             @include bm.get-mq-map('border-radius', $profileSettings, 'profileBorderRadius');
         }
 
-        .wlc-profile-content__top {
-            @include bm.get-mq-map('margin', $profileSettings, 'topMargin');
+        .wlc-profile-content {
 
-            .wlc-title {
-                display: inline-block;
+            &__top {
+                @include bm.get-mq-map('margin', $profileSettings, 'topMargin');
+                display: flex;
 
-                + .wlc-counter {
-                    display: inline-block;
+                &--buttons {
+                    align-items: ef.get-value($profileSettings, 'topBtnsAlignItems');
+                    justify-content: ef.get-value($profileSettings, 'topBtnsJustifyContent');
                 }
+
+                .wlc-title {
+                    display: inline-block;
+
+                    + .wlc-counter {
+                        display: inline-block;
+                    }
+                }
+            }
+
+            &__body {
+                @include bm.get-mq-map('grid-template-columns', $profileSettings, 'contentCenterFormColumns');
+                @include bm.get-mq-map('grid-gap', $profileSettings, 'contentCenterColGap');
+                display: grid;
             }
         }
 
@@ -28,10 +43,10 @@
         }
 
         .profile-history-filter {
-            @include bm.get-mq-map('display', $profileSettings, 'historyFilterDisplay');
-
+            display: ef.get-value($profileSettings, 'historyFilterDisplay');
             align-items: ef.get-value($profileSettings, 'historyFilterAlign');
             justify-content: ef.get-value($profileSettings, 'historyFilterJustify');
+            width: 100%;
         }
     }
 }

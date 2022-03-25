@@ -1,69 +1,8 @@
-<div class="{{$class}}__form"
-     wlc-form-wrapper
+<div wlc-form-wrapper
+     class="{{$class}}__form"
      [config]="$params.config"
      [formData]="userProfile"
      [ngSubmit]="ngSubmit.bind(this)"
      [errors]="errors$.asObservable()"
      [beforeSubmit]="beforeSubmit.bind(this)"
 ></div>
-
-<div class="{{$class}}__add" *ngIf="$params.additionalBlocks">
-    <div class="{{$class}}__block {{$class}}__block-notification">
-        <div
-            class="{{$class}}__title"
-            wlc-title [mainText]="$params.additionalBlocks.subscriptions.title"
-            [mainTag]="'span'"
-        ></div>
-        <div class="{{$class}}__item" data-wlc-element="block_subscriptions">
-            <div class="{{$class}}__item-title">
-                <div class="{{$class}}__item-title-main">{{'Notifications via e-mail' | translate}}</div>
-            </div>
-            <div class="{{$class}}__item-switcher">
-                <div wlc-checkbox [inlineParams]="toggleBtn"></div>
-            </div>
-        </div>
-    </div>
-
-    <div class="{{$class}}__block" *ngIf="$params.additionalBlocks">
-        <div
-            class="{{$class}}__title"
-            wlc-title [mainText]="$params.additionalBlocks.security.title"
-            [mainTag]="'span'"
-        ></div>
-        <div class="{{$class}}__item" data-wlc-element="block_edit-password">
-            <div class="{{$class}}__item-title">
-                <div class="{{$class}}__item-title-main">
-                    {{'Password' | translate}}
-                </div>
-                <div class="{{$class}}__item-title-description">
-                    {{'You can change your password here.' | translate}}
-                </div>
-            </div>
-            <button wlc-button
-                    text="Change"
-                    wlcElement="button_change-password"
-                    iconPath="/wlc/icons/arrow.svg"
-                    (click)="changePasswordModal()">
-            </button>
-        </div>
-    </div>
-
-    <div *ngIf="$params.additionalBlocks?.banking.use" class="{{$class}}__block">
-        <div class="{{$class}}__item" data-wlc-element="block_banking-info">
-            <div class="{{$class}}__item-title">
-                <div class="{{$class}}__item-title-main">
-                    {{$params.additionalBlocks.banking.title | translate}}
-                </div>
-                <div class="{{$class}}__item-title-description">
-                    {{'You can add your banking information here.' | translate}}
-                </div>
-            </div>
-            <button wlc-button
-                    text="Add info"
-                    wlcElement="button_add-banking-info"
-                    iconPath="/wlc/icons/arrow.svg"
-                    (click)="addBankingInformation()">
-            </button>
-        </div>
-    </div>
-</div>

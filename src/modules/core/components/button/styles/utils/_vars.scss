@@ -24,3 +24,9 @@ $themeSkew: map-merge(map-merge(ev.$buttonSettings, (
     'transform': ef.get('buttonSettings', 'transformSkew'),
     'transformText': ef.get('buttonSettings', 'transformSkewText'),
 )), $customThemeSkew);
+$customThemeIcon: () !default;
+$themeIcon: map-merge(map-merge(ev.$buttonSettings, (
+    'display': block,
+    'size': 23px,
+    'fill': var(--mc-baseMain),
+)), $customThemeIcon);

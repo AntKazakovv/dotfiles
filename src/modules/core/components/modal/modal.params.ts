@@ -268,6 +268,15 @@ export const MODALS_LIST: IModalList = {
             showFooter: false,
         },
     },
+    profileBlocks: {
+        config: {
+            id: 'profile-blocks',
+            componentName: 'user.wlc-profile-blocks',
+            modalTitle: gettext('User Settings'),
+            showFooter: false,
+            size: 'md',
+        },
+    },
 };
 
 export const RESTRICT_MODAL: IIndexing<IRestrictModalOption> = {

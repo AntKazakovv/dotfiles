@@ -2,15 +2,6 @@
 
 $customMainInfoThemeDefault: () !default;
 $mainInfoThemeDefault: map-merge((
-    'sectionColGap': (
-        375: ef.size(8),
-        1366: ef.size(16)
-    ),
-    'sectionFormColumns': (
-        375: 1fr,
-        1024: minmax(0, 1fr) 30%,
-        1200: minmax(675px, max-content) 270px,
-    ),
     'sectionFormGap': (
         375: ef.size(4),
     ),
@@ -91,34 +82,10 @@ $mainInfoThemeDefault: map-merge((
     'birthSelectColumns': minmax(0, 1fr),
     'birthInnerGap': 160px,
     'addBlockGap': ef.size(4),
-    'addBlockHeight': max-content,
-    'addBlockColumns': 1fr auto,
-    'addBlockAreas':  'title switcher' 'link .',
-    'addBlockProfileColumns': (
-        375:  1fr,
-        640: 1fr 1fr,
-        1024: 1fr,
-    ),
     'addTitleFontSize': ef.get('font', 'smaller'),
     'addTitleFontWeight': 300,
-    'addTitleColor': (
-        375: var(--mc-baseOpacity),
-        768: var(--mc-baseMain)
-    ),
-    'addItemGap': ef.size(4),
-    'addItemWidth': max-content,
-    'addItemBtnIconDisplay': (
-        375: none,
-        1024: flex,
-    ),
-    'addItemBtnIconMargin': 0 0 0 3px,
     'addItemTitleMainFontSize': ef.get('font', 'main'),
-    'addItemTitleMainColor': var(--mc-baseMain),
     'addItemTitleSecondFontSize': ef.get('font', 'smaller'),
-    'addItemTitleSecondColor': (
-        375: var(--mc-baseOpacity),
-        768: var(--mc-baseMain)
-    ),
     'addItemLinkFontSize': (
         375: ef.get('font', 'less'),
         1024: ef.get('font', 'smaller')
@@ -126,21 +93,11 @@ $mainInfoThemeDefault: map-merge((
     'addItemLinkFontWeight': (
         375: ef.get-value($profileSettings, 'profileBtnWeight'),
     ),
-    'addItemLinkColor': (
-        375: ef.get('mainColors', 'baseMain'),
-        1024: var(--mc-main)
-    ),
-    'addItemLinkColorHover': var(--mc-baseMain),
-    'addItemTitleMainMargin': (
-        375: 0 0 5px 0,
-    ),
-    'switcherPadding': 0,
     'labelAlignItems': center,
     'labelMargin': 0 0 0 ef.size(2),
     'labelFont': 'PrimaryText',
     'labelFontColor': var(--mc-baseMain),
 ), $customMainInfoThemeDefault);
-
 
 $customMainInfoThemeV1: () !default;
 $mainInfoThemeV1: map-merge((

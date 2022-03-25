@@ -1,0 +1,56 @@
+<div class="{{$class}}__block">
+    <div wlc-title
+        class="{{$class}}__title"
+        mainText="{{'Subscriptions' | translate}}"
+        mainTag="span"
+    ></div>
+    <div class="{{$class}}__item {{$class}}__item--notification" data-wlc-element="block_subscriptions">
+        <div class="{{$class}}__item-title">
+            <div class="{{$class}}__item-title-main">{{'Notifications via e-mail' | translate}}</div>
+        </div>
+        <div class="{{$class}}__item-switcher">
+            <div wlc-checkbox [inlineParams]="toggleBtn"></div>
+        </div>
+    </div>
+</div>
+
+<div class="{{$class}}__block">
+    <div wlc-title
+        class="{{$class}}__title"
+        mainText="{{'Security' | translate}}"
+        mainTag="span"
+    ></div>
+    <div class="{{$class}}__item" data-wlc-element="block_edit-password">
+        <div class="{{$class}}__item-title">
+            <div class="{{$class}}__item-title-main">
+                {{'Password' | translate}}
+            </div>
+            <div class="{{$class}}__item-title-description">
+                {{'You can change your password here.' | translate}}
+            </div>
+        </div>
+        <button wlc-button
+                text="{{'Change' | translate}}"
+                wlcElement="button_change-password"
+                iconPath="/wlc/icons/arrow.svg"
+                (click)="openModal('change-password')">
+        </button>
+    </div>
+
+    <div class="{{$class}}__item" data-wlc-element="block_banking-info">
+        <div class="{{$class}}__item-title">
+            <div class="{{$class}}__item-title-main">
+                {{'Banking information' | translate}}
+            </div>
+            <div class="{{$class}}__item-title-description">
+                {{'You can add your banking information here.' | translate}}
+            </div>
+        </div>
+        <button wlc-button
+                text="{{'Add info' | translate}}"
+                wlcElement="button_add-banking-info"
+                iconPath="/wlc/icons/arrow.svg"
+                (click)="openModal('add-profile-info')">
+        </button>
+    </div>
+</div>

@@ -493,10 +493,7 @@ $profileSettings: map-merge((
     'profileBorderRadiusV1': map-get($radius, 'biger'),
     'profileBtnWeight': 700,
     'rangeMarginBottom': map-get($size, 'smally'),
-    'historyFilterDisplay': (
-        375: flex,
-        1024: block,
-    ),
+    'historyFilterDisplay': flex,
     'historyFilterAlign': center,
     'historyFilterJustify': space-between,
     'historyFilterMargin': 0 0 map-get($size, 'smallest'),
@@ -505,6 +502,15 @@ $profileSettings: map-merge((
     ),
     'profileGridTemplateColumnsV1': (
         1200: 285px auto,
+    ),
+    'contentCenterColGap': (
+        375: 40px,
+        1366: 80px,
+    ),
+    'contentCenterFormColumns': (
+        375: 1fr,
+        1024: minmax(0, 1fr) 30%,
+        1200: minmax(675px, max-content) 330px,
     ),
     'contentPaddingV1': (
         375: map-get($size, 'smaller') 0 0,
@@ -542,6 +548,8 @@ $profileSettings: map-merge((
         375: 0 0 map-get($size, 'smally'),
         1200: 0 0 map-get($size, 'smaller'),
     ),
+    'topBtnsAlignItems': center,
+    'topBtnsJustifyContent': space-between,
 
     // Locked colors
     'profileTabAngleBg': map-get($mainColors, 'bg700'),

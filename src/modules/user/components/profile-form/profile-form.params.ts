@@ -3,7 +3,6 @@ import {
     IFormWrapperCParams,
     ISelectCParams,
     IInputCParams,
-    IIndexing,
 } from 'wlc-engine/modules/core';
 import {FormElements} from 'wlc-engine/modules/core/system/config/form-elements';
 import {IFormComponent} from 'wlc-engine/modules/core/components/form-wrapper/form-wrapper.component';
@@ -12,21 +11,9 @@ export type ComponentTheme = 'default' | CustomType;
 export type ComponentType = 'default' | CustomType;
 export type AdditionalBlockItemsType = 'emailNotification' | 'passwordRestore' | 'bankingInfo';
 
-export interface IFieldComponentParams {
-    params: IInputCParams | ISelectCParams;
-}
-
-export interface IAdditionalBlock {
-    title: string;
-    use: boolean;
-}
-
 export interface IProfileFormCParams extends IComponentParams<ComponentTheme, ComponentType, string> {
-    common?: {
-        additionalBlockItems?: AdditionalBlockItemsType[],
-    },
     config: IFormWrapperCParams,
-    additionalBlocks: IIndexing<IAdditionalBlock>,
+    useProfileBlocks: boolean;
 }
 
 export const insertLogin = (useLogin: boolean): IFormComponent => {
@@ -42,7 +29,7 @@ export const generateConfig = (useLogin: boolean = false): IProfileFormCParams =
         class: 'wlc-profile-form',
         componentName: 'wlc-profile-form',
         moduleName: 'user',
-        common: {},
+        useProfileBlocks: false,
         config: {
             class: 'wlc-form-wrapper',
             components: [
@@ -216,20 +203,6 @@ export const generateConfig = (useLogin: boolean = false): IProfileFormCParams =
                     },
                 },
             ],
-        },
-        additionalBlocks: {
-            subscriptions: {
-                title: gettext('Subscriptions'),
-                use: true,
-            },
-            security: {
-                title: gettext('Security'),
-                use: true,
-            },
-            banking: {
-                title: gettext('Banking information'),
-                use: true,
-            },
         },
     };
 };

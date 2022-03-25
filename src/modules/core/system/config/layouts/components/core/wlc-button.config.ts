@@ -382,4 +382,23 @@ export namespace wlcButton {
             wlcElement: 'button-play',
         },
     };
+
+    export const profileBlocks: ILayoutComponent = {
+        name: 'core.wlc-button',
+        display: {
+            before: 1023,
+            auth: true,
+        },
+        params: {
+            theme: 'icon',
+            themeMod: 'settings',
+            common: {
+                iconPath: '/wlc/icons/settings.svg',
+                event: {
+                    name: 'SHOW_MODAL',
+                    data: 'profileBlocks',
+                },
+            },
+        },
+    };
 }

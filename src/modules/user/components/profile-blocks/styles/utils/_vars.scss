@@ -1,0 +1,60 @@
+@use 'engine-scss/functions' as ef;
+
+$customThemeDefault: () !default;
+$themeDefault: map-merge((
+    'hostDisplay': grid,
+    'hostGap': ef.size(8),
+    'hostColumns': 1fr,
+    'hostHeight': max-content,
+    'blockDisplay': grid,
+    'blockColumns': 1fr,
+    'blockGap': ef.size(4),
+    'notifGap': unset,
+    'notifColumns': auto 1fr,
+    'notifTitleMargin': 0 ef.size(8) 0 0,
+    'titleTextStyle': 'PrimaryText',
+    'titleTextColor': var(--mc-baseMain),
+    'itemDisplay': grid,
+    'itemGap': ef.size(4),
+    'itemAreas':  'title switcher' 'link .',
+    'itemColumns': 1fr auto,
+    'titleArea': title,
+    'titleMainTextStyle': 'ThirdTitleBold',
+    'titleMainColor': var(--mc-baseMain),
+    'titleMainMargin': (
+        375: 0 0 ef.size(1) 0,
+    ),
+    'descTextStyle': (
+        375: 'PrimaryText',
+        1420: 'ThirdTitle',
+    ),
+    'descColor': var(--mc-baseMain),
+    'switcherArea': switcher,
+    'switcherPadding': 0,
+    'labelDirection': row,
+    'btnArea': link,
+    'btnWidth': max-content,
+    'btnOverflow': initial,
+    'btnTextStyle': 'ButtonText',
+    'btnColor': (
+        375: ef.get('mainColors', 'baseMain'),
+        1024: var(--mc-main)
+    ),
+    'btnColorHover': var(--mc-baseMain),
+    'btnTextDisplay': flex,
+    'btnIconDisplay': (
+        375: none,
+        1024: flex,
+    ),
+    'btnIconMargin': 0 0 0 3px,
+    'btnIconTransform': rotate(-90deg),
+    'btnDeskDisplay': block,
+    'btnDeskMinWidth': auto,
+    'btnDeskHeight': auto,
+    'btnDeskPadding': 0,
+    'btnDeskBackground': none,
+    'btnDeskBorder': none,
+    'btnDeskBorderRadius': 0,
+    'btnDeskBoxShadow': none,
+), $customThemeDefault);
+
