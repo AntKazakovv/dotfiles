@@ -160,7 +160,7 @@ export class BonusesListComponent extends AbstractComponent implements OnInit, O
             }
 
             this.isReady = isReady;
-            this.cdr.markForCheck();
+            this.cdr.detectChanges();
         });
 
         this.ready$.next(false);
@@ -207,7 +207,7 @@ export class BonusesListComponent extends AbstractComponent implements OnInit, O
                 }
             });
             this.checkBoxParams.control.setValue(true);
-            this.cdr.markForCheck();
+            this.cdr.detectChanges();
         }, 0);
 
         if (this.slider && upSlider) {
@@ -256,7 +256,7 @@ export class BonusesListComponent extends AbstractComponent implements OnInit, O
     public paginationOnChange(value: IPaginateOutput): void {
         this.paginatedBonuses = value.paginatedItems as Bonus[];
         this.itemsPerPage = value.event.itemsPerPage;
-        this.cdr.markForCheck();
+        this.cdr.detectChanges();
     }
 
     public get isAuthAndBonusesLength(): boolean {
@@ -300,7 +300,7 @@ export class BonusesListComponent extends AbstractComponent implements OnInit, O
                 name: ChosenBonusSetParams.ChosenBonus,
                 value: bonus,
             });
-            this.cdr.markForCheck();
+            this.cdr.detectChanges();
         }, this.$destroy);
 
         this.eventService.subscribe({name: 'hidden.bs.modal'}, (name: string) => {
@@ -322,7 +322,7 @@ export class BonusesListComponent extends AbstractComponent implements OnInit, O
                 this.bonusesToSlides(this.bonuses, false);
             }
 
-            this.cdr.markForCheck();
+            this.cdr.detectChanges();
         }, this.$destroy);
 
         if (this.$params.type === 'swiper') {
@@ -378,7 +378,7 @@ export class BonusesListComponent extends AbstractComponent implements OnInit, O
         if (this.slider?.swiper && scroll) {
             this.slider.swiper.swiperRef.slideTo(0);
         }
-        this.cdr.markForCheck();
+        this.cdr.detectChanges();
     }
 
     protected sortBonuses(): Bonus[] {
@@ -401,7 +401,7 @@ export class BonusesListComponent extends AbstractComponent implements OnInit, O
                 data: this.bonuses.length,
             });
         }
-        this.cdr.markForCheck();
+        this.cdr.detectChanges();
 
         if (this.$params.common?.filterByGroup) {
             if (this.$params.common.useRecommendedBonuses) {
@@ -428,7 +428,7 @@ export class BonusesListComponent extends AbstractComponent implements OnInit, O
                 name: ChosenBonusSetParams.ChosenBonus,
                 value: this.bonuses[pos],
             });
-            this.cdr.markForCheck();
+            this.cdr.detectChanges();
         }
     }
 
@@ -437,7 +437,7 @@ export class BonusesListComponent extends AbstractComponent implements OnInit, O
             bonus.isChoose = false;
         });
 
-        this.cdr.markForCheck();
+        this.cdr.detectChanges();
     }
 
     protected prepareRecommendedBonuses(): void {
