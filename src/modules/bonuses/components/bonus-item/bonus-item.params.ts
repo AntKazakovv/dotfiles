@@ -2,30 +2,15 @@ import {
     IComponentParams,
     CustomType,
 } from 'wlc-engine/modules/core';
-import {
-    Bonus,
-    IBonusType,
-} from 'wlc-engine/modules/bonuses';
+import {Bonus} from 'wlc-engine/modules/bonuses/system/models/bonus';
 
-export type Type = 'active'
-    | 'all'
-    | 'default'
-    | 'deposit'
-    | 'inventory'
-    | 'main'
-    | 'promo'
-    | 'promocode'
-    | 'reg'
-    | 'store'
-    | CustomType;
+export type Type = 'default' | CustomType;
 export type Theme = 'active'
     | 'default'
-    | 'grid'
     | 'long'
     | 'partial'
     | 'preview'
     | 'promo'
-    | 'promocode'
     | 'promo-home'
     | 'reg-first'
     | 'modal'
@@ -38,22 +23,20 @@ export type Modifiers = AutoModifiers | CustomMod | null;
 export interface IBonusItemCParams extends IComponentParams<Theme, Type, ThemeMod> {
     modifiers?: Modifiers[];
     bonus?: Bonus,
-    theme?: Theme,
-    themeMod?: ThemeMod;
+    dummy?: boolean;
+    /** Make the bonus logic independent of the profile */
+    noDependsOnProfile?: boolean;
     common?: {
         customModifiers?: CustomMod;
-        type?: IBonusType;
-        imageByType?: boolean;
         showAdditionalImage?: boolean;
         showBonusTag?: boolean;
         hideDescription?: boolean;
         hideChooseBtn?: boolean;
         iconMoreBtn?: boolean;
         iconsPath?: string;
-        bonus?: Bonus;
         nameClamp?: number;
         usePreviewBonus?: boolean;
-        descriptionClamp?: number,
+        descriptionClamp?: number;
     };
 }
 
@@ -62,7 +45,6 @@ export const defaultParams: IBonusItemCParams = {
     componentName: 'wlc-bonus-item',
     class: 'wlc-bonus-item',
     common: {
-        imageByType: false,
         showAdditionalImage: false,
         showBonusTag: true,
         hideDescription: false,

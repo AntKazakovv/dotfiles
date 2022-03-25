@@ -2,7 +2,7 @@
     <div class="{{$class}}__info-wrapper">
         <div class="{{$class}}__image-block"
             data-wlc-element="bonus_image"
-            [ngStyle]="{'backgroundImage': 'url('+getBonusBg+')'}">
+            [style.backgroundImage]="bonusBgUrl">
             <div wlc-bonus-item [inlineParams]="{bonus, theme: 'modal'}"></div>
         </div>
         <div class="{{$class}}__info-block">
@@ -26,23 +26,3 @@
         [bonus]="bonus"
         [bonusItemTheme]="$params.bonusItemTheme"></div>
 </div>
-
-<ng-template #bonusIcon>
-    <div *ngIf="useIconBonusImage" class="{{$class}}__icon">
-        <img *ngIf="$params.iconsPath && bonus.viewTarget"
-            [wlc-fallback]="fallbackIconPath"
-            class="{{$class}}__icon-sign"
-            draggable="false"
-            loading="lazy"
-            alt="bonus icon"
-            [src]="iconPath"
-            (imageError)="iconError()">
-        <span *ngIf="bonus.value"
-            class="{{$class}}__icon-text"
-            [wlc-value-length]="bonus.value"
-            minLength="4"
-            maxLength="6">
-            {{bonus.value}}
-        </span>
-    </div>
-</ng-template>

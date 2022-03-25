@@ -193,11 +193,25 @@
     }
 
     &.wlc-bonus-item--type-active,
-    .active {
+    &.wlc-bonus-item--is-active {
 
         .wlc-bonus-item__tag {
             color: ef.get-value($themeDefault, 'tagFontColorActive');
             background: ef.get-value($themeDefault, 'tagBgActive');
+        }
+    }
+
+    &__content {
+
+        &.disabled {
+            cursor: not-allowed;
+            opacity: 0.5;
+            filter: grayscale(100%);
+
+            .wlc-bonus-item__wrapper,
+            .wlc-bonus-item__more-icon {
+                pointer-events: none;
+            }
         }
     }
 }
@@ -223,17 +237,6 @@
             @include contentCommonStyles;
 
             background: ef.get-value($themeDefault, 'contentBgPos');
-
-            &.disabled {
-                cursor: not-allowed;
-                opacity: 0.5;
-                filter: grayscale(100%);
-
-                .wlc-bonus-item__wrapper,
-                .wlc-bonus-item__more-icon {
-                    pointer-events: none;
-                }
-            }
 
             .wlc-bonuses-list--type-swiper & {
                 @include em.get-mq-map('height', $themeDefault, 'swiperHeight');
@@ -409,7 +412,7 @@
     }
 
     &.wlc-bonus-item--type-active,
-    .active {
+    &.wlc-bonus-item--is-active {
 
         .wlc-bonus-item {
 

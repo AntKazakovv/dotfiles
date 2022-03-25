@@ -64,8 +64,12 @@ $themePreview: map-merge((
 
     'bonusIconValueFontSizeSmaller': 1.4rem,
 
-    'blankBg': #{url('/gstatic/wlc/bonuses/blank-bonus-decor.png') no-repeat center top/contain, linear-gradient(180deg, #8dacc9 0%, #003d5f 100%)},
-    'contentOverlayOpacity': 0.9,
+    'blankBackdrop': linear-gradient(180deg, #8dacc9 0%, #003d5f 100%),
+    'blankBgRepeat': no-repeat,
+    'blankBgPosition': center top,
+    'blankBgSize': contain,
     'blankTextColor': ef.get('mainColors', 'baseMain'),
+
+    'contentOverlayOpacity': 0.9,
     'contentOverlayBg': linear-gradient(0deg, var(--mc-bgModal) 0%, var(--mc-bgModal-o0) 85%),
 ), $customThemePreview);

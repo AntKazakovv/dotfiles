@@ -22,11 +22,9 @@ import {
     trigger,
 } from '@angular/animations';
 import {FormControl} from '@angular/forms';
-import {fromEvent} from 'rxjs';
-import {
-    takeUntil,
-} from 'rxjs/operators';
 
+import {fromEvent} from 'rxjs';
+import {takeUntil} from 'rxjs/operators';
 import _get from 'lodash-es/get';
 import _filter from 'lodash-es/filter';
 import _find from 'lodash-es/find';

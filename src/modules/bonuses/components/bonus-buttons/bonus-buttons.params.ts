@@ -3,7 +3,6 @@ import {
     CustomType,
     IIndexing,
 } from 'wlc-engine/modules/core';
-import {IBonusType} from 'wlc-engine/modules/bonuses';
 
 export type Type = 'default' | CustomType;
 export type Theme = 'default' | CustomType;
@@ -15,8 +14,6 @@ export interface ILinkParams {
 }
 
 export interface IBonusButtonsCParams extends IComponentParams<Theme, Type, ThemeMod> {
-    /** Bonus type */
-    bonusType?: IBonusType;
     /** Use action buttons */
     useActionButtons?: boolean;
     /** Promo links settings*/

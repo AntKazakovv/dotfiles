@@ -9,6 +9,8 @@ import {
     ViewChild,
     ElementRef,
 } from '@angular/core';
+import {takeUntil} from 'rxjs/operators';
+
 import {
     AbstractComponent,
     IMixedParams,
@@ -17,16 +19,18 @@ import {
     DeviceType,
     DeviceOrientation,
     ActionService,
+    IResizeEvent,
 } from 'wlc-engine/modules/core';
-import {takeUntil} from 'rxjs/operators';
-import {Bonus} from 'wlc-engine/modules/bonuses/system/models/bonus';
-import {BonusesService} from 'wlc-engine/modules/bonuses/system/services';
-import {BonusesFilterType} from 'wlc-engine/modules/bonuses/system/interfaces/bonuses.interface';
-import {ISlide} from 'wlc-engine/modules/promo/components/slider/slider.params';
-import {SliderComponent} from 'wlc-engine/modules/promo/components/slider/slider.component';
-import {IResizeEvent} from 'wlc-engine/modules/core/system/services/action/action.service';
+import {
+    ISlide,
+    SliderComponent,
+} from 'wlc-engine/modules/promo';
+import * as DashboardParams from 'wlc-engine/modules/games';
 import {IChangedTabEvent} from 'wlc-engine/modules/games/components/game-dashboard/game-dashboard.params';
-import * as DashboardParams from 'wlc-engine/modules/games/components/game-dashboard/game-dashboard.params';
+import {Bonus} from 'wlc-engine/modules/bonuses/system/models/bonus';
+import {BonusesService} from 'wlc-engine/modules/bonuses/system/services/bonuses/bonuses.service';
+import {BonusesFilterType} from 'wlc-engine/modules/bonuses/system/interfaces/bonuses.interface';
+
 import * as Params from './game-dashboard-bonuses.params';
 
 @Component({
@@ -116,24 +120,16 @@ export class GameDashboardBonusesComponent extends AbstractComponent implements 
      */
     protected bonusesToSlides(): void {
         this.slides = this.bonuses?.map((bonus: Bonus) => {
-            const bonusItemParams = {
-                theme: 'long',
-                type: 'all',
-                common: {
-                    bonus: bonus,
-                },
-            };
-
-            const templateParams = {
-                item: {
-                    bonus: bonus,
-                    bonusItemParams: bonusItemParams,
-                },
-            };
-
             return {
                 templateRef: this.tplBonus,
-                templateParams: templateParams,
+                templateParams: {
+                    item: {
+                        bonusItemParams: {
+                            theme: 'long',
+                            bonus: bonus,
+                        },
+                    },
+                },
             };
         });
     }

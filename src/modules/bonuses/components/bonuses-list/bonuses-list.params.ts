@@ -51,7 +51,6 @@ export interface IBonusesListCParams extends IComponentParams<Theme, Type, Theme
 
 export interface IBlankBonusParams {
     id?: number;
-    type?: string;
     name?: string;
     description?: string;
     isChoose?: boolean;
@@ -73,7 +72,6 @@ export const defaultParams: IBonusesListCParams = {
         useNoDataText: false,
         blankBonus: {
             id: null,
-            type: 'blank',
             name: gettext('Without bonus'),
         },
     },

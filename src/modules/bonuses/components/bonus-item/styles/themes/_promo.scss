@@ -18,15 +18,6 @@
             @include bm.get-mq-map('height', $themePromo, 'height');
 
             position: relative;
-
-            &.subscribed,
-            &.active,
-            &.inventoried {
-
-                .wlc-bonus-item__tag {
-                    color: ef.get-value($themePromo, 'tagFontColor2');
-                }
-            }
         }
 
         &__wrapper {

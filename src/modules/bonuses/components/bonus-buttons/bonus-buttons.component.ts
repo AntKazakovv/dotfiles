@@ -7,6 +7,7 @@ import {
     Input,
 } from '@angular/core';
 import {UIRouter} from '@uirouter/core';
+
 import {
     AbstractComponent,
     IMixedParams,
@@ -14,12 +15,11 @@ import {
     ModalService,
     EventService,
 } from 'wlc-engine/modules/core';
-import {
-    Bonus,
-    BonusesService,
-    BonusItemComponentEvents,
-    IBonusType,
-} from 'wlc-engine/modules/bonuses';
+import {Bonus} from 'wlc-engine/modules/bonuses/system/models/bonus';
+import {BonusesService} from 'wlc-engine/modules/bonuses/system/services/bonuses/bonuses.service';
+import {BonusItemComponentEvents} from 'wlc-engine/modules/bonuses/system/interfaces/bonuses.interface';
+import {Theme as BonusItemTheme} from 'wlc-engine/modules/bonuses/components/bonus-item/bonus-item.params';
+
 import * as Params from './bonus-buttons.params';
 
 @Component({
@@ -29,11 +29,10 @@ import * as Params from './bonus-buttons.params';
 })
 export class BonusButtonsComponent extends AbstractComponent implements OnInit {
     @Input() public bonus: Bonus;
-    @Input() public bonusItemTheme: string;
+    @Input() public bonusItemTheme: BonusItemTheme;
     @Input() public isChooseBtn: boolean;
     public $params: Params.IBonusButtonsCParams;
     public isAuth: boolean;
-    public isTypeRegDeposit: boolean;
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IBonusButtonsCParams,
@@ -54,7 +53,6 @@ export class BonusButtonsComponent extends AbstractComponent implements OnInit {
     public ngOnInit(): void {
         super.ngOnInit();
         this.isAuth = this.ConfigService.get<boolean>('$user.isAuthenticated');
-        this.isTypeRegDeposit = this.$params.bonusType === 'reg' || this.$params.bonusType === 'deposit';
 
         this.eventService.subscribe([
             {name: 'LOGIN'},
@@ -142,15 +140,12 @@ export class BonusButtonsComponent extends AbstractComponent implements OnInit {
 
     /**
      * Selects the specified bonus
-     *
-     * @param bonus {Bonus} choose bonus
-     * @param type {IBonusType} bonus type
      */
-    public chooseBonus(bonus: Bonus, type: IBonusType): void {
-        bonus.isChoose = true;
+    public chooseBonus(): void {
+        this.bonus.isChoose = true;
         this.eventService.emit({
-            name: BonusItemComponentEvents[type] || BonusItemComponentEvents['other'],
-            data: bonus,
+            name: BonusItemComponentEvents['reg'],
+            data: this.bonus,
         });
         this.cdr.markForCheck();
     }
@@ -166,7 +161,7 @@ export class BonusButtonsComponent extends AbstractComponent implements OnInit {
                 await this.modalService.showModal('signup');
 
                 if (this.bonusesService.filterBonuses([this.bonus], 'reg').length) {
-                    this.chooseBonus(this.bonus, 'reg');
+                    this.chooseBonus();
                 }
                 break;
             case 'deposit':

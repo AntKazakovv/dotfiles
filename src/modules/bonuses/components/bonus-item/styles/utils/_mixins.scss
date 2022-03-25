@@ -110,3 +110,10 @@
         }
     }
 }
+
+@mixin dummyBg {
+    background-color: ef.get-value($themeDefault, 'dummyBgColor');
+    background-repeat: ef.get-value($themeDefault, 'dummyBgRepeat');
+    background-position: ef.get-value($themeDefault, 'dummyBgPosition');
+    background-size: ef.get-value($themeDefault, 'dummyBgSize');
+}

@@ -1,19 +1,4 @@
-import {
-    IIndexing,
-    AbstractModel,
-    ConfigService,
-    CachingService,
-    IFromLog,
-} from 'wlc-engine/modules/core';
-import {
-    IBonus,
-    IBonusConditions,
-    IBonusType,
-    ActionType,
-    TBonusEvent,
-} from '../interfaces/bonuses.interface';
 import {DateTime} from 'luxon';
-
 import _assign from 'lodash-es/assign';
 import _map from 'lodash-es/map';
 import _keys from 'lodash-es/keys';
@@ -30,6 +15,20 @@ import _isString from 'lodash-es/isString';
 import _isNumber from 'lodash-es/isNumber';
 import _toNumber from 'lodash-es/toNumber';
 
+import {
+    IIndexing,
+    AbstractModel,
+    ConfigService,
+    CachingService,
+    IFromLog,
+} from 'wlc-engine/modules/core';
+import {
+    IBonus,
+    IBonusConditions,
+    ActionType,
+    TBonusEvent,
+} from 'wlc-engine/modules/bonuses/system/interfaces/bonuses.interface';
+
 export class Bonus extends AbstractModel<IBonus> {
     public isReady: boolean = true;
     public isChoose: boolean = false;
@@ -40,8 +39,6 @@ export class Bonus extends AbstractModel<IBonus> {
     private $isReg: boolean;
     private $isDep: boolean;
     private readonly _tag: string;
-    private readonly _imageUrl: string;
-    private readonly _imageOtherUrl: string;
     protected $descriptionClean: string;
 
     constructor(
@@ -54,8 +51,6 @@ export class Bonus extends AbstractModel<IBonus> {
         this.data = this.modifyData(data);
         this.userCurrency = this.configService.get<string>('appConfig.user.currency')
             || this.configService.get<string>('$base.defaultCurrency');
-        this._imageUrl = this.image.length ? `url(${this.image})` : '';
-        this._imageOtherUrl = this.imageOther ? `url(${this.imageOther})` : '';
         this._tag = this.getTag();
         this.$descriptionClean = this.data.Description.replace(/<[^>]*>/g, '');
     }
@@ -233,34 +228,37 @@ export class Bonus extends AbstractModel<IBonus> {
     }
 
     public get image(): string {
-        return this.data.Image;
+        return this.data.Image
+            || this.configService.get('$bonuses.defaultImages.image');
     }
 
-    public get imageUrl(): string {
-        return this._imageUrl;
+    public get imageProfileFirst(): string {
+        return this.data.Image
+            || this.configService.get('$bonuses.defaultImages.imageProfileFirst');
     }
 
     public get imageOther(): string {
-        return this.data.Image_other;
-    }
-
-    /**
-     * Return image other url
-     */
-    public get imageOtherUrl(): string {
-        return this._imageOtherUrl;
+        return this.data.Image_other
+            || this.configService.get('$bonuses.defaultImages.imageOther');
     }
 
     public get imagePromo(): string {
-        return this.data.Image_promo.length ? this.data.Image_promo : this.data.Image;
+        return this.data.Image_promo
+            || this.configService.get('$bonuses.defaultImages.imagePromo')
+            || this.image;
     }
 
     public get imageReg(): string {
-        return this.data.Image_reg || this.data.Image;
+        return this.data.Image_reg
+            || this.configService.get('$bonuses.defaultImages.imageReg')
+            || this.image;
     }
 
+    // TODO: add image path to config and logic to BonusItemComponent.bonusBg, when imageStore be ready
     public get imageStore(): string {
-        return this.data.Image_store;
+        return this.data.Image_store
+            || this.configService.get('$bonuses.defaultImages.imageStore')
+            || this.image;
     }
 
     public get inventoried(): boolean {
@@ -630,26 +628,6 @@ export class Bonus extends AbstractModel<IBonus> {
      */
     public get tag(): string {
         return this._tag;
-    }
-
-    /**
-     * Get bonus image url by type
-     *
-     * @param type image type ('default' | 'reg' | 'deposit' | 'promo' | 'store' | 'other')
-     * @returns {string} bonus image url
-     */
-    public getImageByType(type: IBonusType = 'default'): string {
-        switch (type) {
-            case 'reg':
-                return this.imageReg;
-            case 'store':
-                return this.imageStore;
-            case 'promo':
-                return this.imagePromo;
-            case 'other':
-                return this.imageOther;
-        }
-        return this.image;
     }
 
     /**

@@ -31,7 +31,7 @@
 <ng-template #long>
     <ng-container *ngIf="isAuth">
         <ng-container [ngTemplateOutlet]="chooseBonusBtn"></ng-container>
-        <ng-container *ngIf="!isTypeRegDeposit && !bonus.isActive">
+        <ng-container *ngIf="!bonus.isActive">
             <ng-container [ngTemplateOutlet]="joinBtn"></ng-container>
             <ng-container [ngTemplateOutlet]="inventoriedBtn"></ng-container>
             <ng-container [ngTemplateOutlet]="unsubscribeBtn"></ng-container>
@@ -91,7 +91,7 @@
             text="Choose"
             typeAttr="button"
             wlcElement="button_choose"
-            (click)="chooseBonus(bonus, $params.bonusType)">
+            (click)="chooseBonus()">
     </button>
 </ng-template>
 

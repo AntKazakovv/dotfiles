@@ -6,12 +6,8 @@
                  data-wlc-element="block_bonus">
                 <div *ngFor="let bonus of paginatedBonuses"
                      wlc-bonus-item
-                     [bonus]="bonus"
-                     [chosen]="bonus.isChoose"
-                     [type]="$params.common.filter"
-                     [theme]="$params.theme"
-                     [inlineParams]="$params.itemsParams"
-                     [themeMod]="$params.themeMod"></div>
+                     [inlineParams]="calcBonusItemParams(bonus)">
+                </div>
             </div>
             <div *ngIf="paginatedBonuses?.length"
                  wlc-pagination
@@ -76,11 +72,8 @@
                  data-wlc-element="block_bonus">
                 <div *ngFor="let bonus of bonuses"
                      wlc-bonus-item
-                     [bonus]="bonus"
-                     [chosen]="bonus.isChoose"
-                     [inlineParams]="$params.itemsParams"
-                     [type]="$params.common.filter"
-                     [theme]="$params.theme"></div>
+                     [inlineParams]="calcBonusItemParams(bonus)">
+                </div>
             </div>
         </div>
         <div *ngIf="$params.type === 'swiper'" class="{{$class}}__list-wrapper">
@@ -120,12 +113,8 @@
                  data-wlc-element="block_bonus">
                 <div *ngFor="let bonus of bonuses"
                      wlc-bonus-item
-                     [bonus]="bonus"
-                     [chosen]="bonus.isChoose"
-                     [type]="$params.common.filter"
-                     [theme]="$params.theme"
-                     [inlineParams]="$params.itemsParams"
-                     [themeMod]="$params.themeMod"></div>
+                     [inlineParams]="calcBonusItemParams(bonus)">
+                </div>
             </div>
         </div>
         <div *ngIf="$params.type === 'swiper'" class="{{$class}}__list-wrapper">
@@ -167,12 +156,7 @@
     <ng-container [ngSwitch]="$params.theme">
 
         <ng-container *ngSwitchCase="'reg-first'">
-            <div wlc-bonus-item
-                [theme]="$params.theme"
-                [inlineParams]="$params.itemsParams"
-                [dummy]="true"
-                [themeMod]="$params.themeMod">
-            </div>
+            <div wlc-bonus-item [inlineParams]="calcBonusItemParams()"></div>
             <div class="{{$class}}__checkbox-wrapper">
                 <div wlc-checkbox
                     class="{{$class}}__checkbox"
@@ -180,12 +164,7 @@
             </div>
         </ng-container>
         <ng-container *ngSwitchCase="'partial'">
-            <div wlc-bonus-item
-                [theme]="$params.theme"
-                [inlineParams]="$params.itemsParams"
-                [bonus]="$any(blankBonus)"
-                [themeMod]="$params.themeMod">
-            </div>
+            <div wlc-bonus-item [inlineParams]="calcBonusItemParams($any(blankBonus))"></div>
         </ng-container>
 
         <ng-container *ngSwitchDefault>

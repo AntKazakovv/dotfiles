@@ -10,11 +10,34 @@ import {BonusesListNoContentByThemeType} from 'wlc-engine/modules/bonuses/compon
 
 export interface IBonusesModule {
     useIconBonusImage?: boolean;
+    defaultImages?: {
+        /** Bonus image for bonus in profile dashboard, profile bonuses, bonus block in main page  in default profile */
+        image?: string;
+        /** 
+         * Bonus image for bonus in profile dashboard, profile bonuses,
+         * bonus block in main page, sign-up modal in first profile
+        */
+        imageProfileFirst?: string;
+        /** Bonus image in promotions */
+        imagePromo?: string;
+        /** Bonus image in sign-up modal in default profile */
+        imageReg?: string;
+        /** Bonus image in header of bonus-modal */
+        imageOther?: string;
+        /** Not used yet */
+        imageStore?: string;
+        /** Bonus image in promo-home */
+        imagePromoHome?: string;
+        /** Bonus image in blank bonus in sign-up modal in profile default */
+        imageBlank?: string;
+        /** Dummy bonus image */
+        imageDummy?: string;
+    };
     components?: {
         'wlc-bonuses-list': {
             noContent: BonusesListNoContentByThemeType,
         },
-    },
+    };
 }
 
 export type TBonusEvent =
@@ -159,7 +182,6 @@ export interface IGetSubscribeParams {
 }
 
 export type TBonusSortOrder = 'active' | 'promocode' | 'subscribe' | 'inventory' | number;
-export type IBonusType = 'default' | 'reg' | 'deposit' | 'promo' | 'store' | 'other' | 'blank';
 export type BonusesFilterType = 'all' | 'reg' | 'deposit' | 'promocode' | 'inventory' | 'main' | 'active' | 'default';
 export type RestType = 'active' | 'history' | 'store' | 'any';
 export type ActionType = 'inventory' | 'cancel' | 'expired' | 'subscribe' | 'unsubscribe';

@@ -97,43 +97,53 @@
             @include em.lineClamp(3);
             @include text.get-text-style(ef.get-value($themePreview, 'bonusDescriptionStyle'), ef.get-value($themePreview, 'bonusDescriptionColor'));
         }
+    }
 
-        &__blank {
-            @include em.get-mq-map('padding', $themePreview, 'bonusPadding');
+    &.wlc-bonus-item--dummy {
 
-            display: flex;
-            flex-direction: column;
-            height: ef.get-value($themePreview, 'bonusHeight');
-            text-align: center;
-            background: ef.get-value($themePreview, 'blankBg');
+        .wlc-bonus-item__content {
+            @include dummyBg;
 
-            &-title {
-                @include text.get-text-style(ef.get-value($themePreview, 'bonusTitleStyle'), ef.get-value($themePreview, 'blankTextColor'));
-                margin: ef.get-value($themeDefault, 'bonusTitleMargin');
-
-                &:last-child {
-                    margin-bottom: 0;
-                }
-            }
-
-            &-subtitle {
-                @include text.get-text-style(ef.get-value($themePreview, 'bonusSubtitleStyle'), ef.get-value($themePreview, 'blankTextColor'));
-                margin: ef.get-value($themePreview, 'bonusSubtitleMargin');
-            }
-
-            &-text {
-                @include text.get-text-style(ef.get-value($themePreview, 'bonusTextStyle'), ef.get-value($themePreview, 'blankTextColor'));
+            &:before {
+                display: none;
             }
         }
     }
 
-    &.wlc-bonus-item--dummy {
-        background: ef.get-value($themeDefault, 'dummyBg');
+    &.wlc-bonus-item--blank {
+        background: ef.get-value($themePreview, 'blankBackdrop');
 
-        .wlc-bonus-item__content {
+        .wlc-bonus-item {
 
-            &:before {
-                display: none;
+            &__blank {
+                @include em.get-mq-map('padding', $themePreview, 'bonusPadding');
+
+                display: flex;
+                flex-direction: column;
+                height: ef.get-value($themePreview, 'bonusHeight');
+                text-align: center;
+                background-repeat: ef.get-value($themePreview, 'blankBgRepeat');
+                background-position: ef.get-value($themePreview, 'blankBgPosition');
+                background-size: ef.get-value($themePreview, 'blankBgSize');
+
+
+                &-title {
+                    @include text.get-text-style(ef.get-value($themePreview, 'bonusTitleStyle'), ef.get-value($themePreview, 'blankTextColor'));
+                    margin: ef.get-value($themeDefault, 'bonusTitleMargin');
+
+                    &:last-child {
+                        margin-bottom: 0;
+                    }
+                }
+
+                &-subtitle {
+                    @include text.get-text-style(ef.get-value($themePreview, 'bonusSubtitleStyle'), ef.get-value($themePreview, 'blankTextColor'));
+                    margin: ef.get-value($themePreview, 'bonusSubtitleMargin');
+                }
+
+                &-text {
+                    @include text.get-text-style(ef.get-value($themePreview, 'bonusTextStyle'), ef.get-value($themePreview, 'blankTextColor'));
+                }
             }
         }
     }

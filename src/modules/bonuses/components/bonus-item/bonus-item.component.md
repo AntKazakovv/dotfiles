@@ -9,7 +9,6 @@ export const defaultParams: IBonusItemCParams = {
     componentName: 'wlc-bonus-item',
     class: 'wlc-bonus-item',
     common: {
-        imageByType: false,
         showAdditionalImage: false,
         showBonusTag: true,
         hideDescription: false,
@@ -17,20 +16,8 @@ export const defaultParams: IBonusItemCParams = {
         hideChooseBtn: true,
         iconsPath: '/gstatic/bonuses/icons/',
         nameClamp: 1,
-        descriptionClamp: 2,
+        descriptionClamp: 3,
         usePreviewBonus: false,
-        useActionButtons: true,
-        promoLinks: {
-            deposit: {
-                state: 'app.profile.cash.deposit',
-            },
-            play: {
-                state: 'app.catalog',
-                params: {
-                    category: 'casino',
-                },
-            },
-        },
     },
 }
 ```

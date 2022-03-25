@@ -1,5 +1,6 @@
 import {IComponentParams, CustomType} from 'wlc-engine/modules/core';
-import {Bonus} from 'wlc-engine/modules/bonuses';
+import {Bonus} from 'wlc-engine/modules/bonuses/system/models/bonus';
+import {Theme as BonusItemTheme} from 'wlc-engine/modules/bonuses/components/bonus-item/bonus-item.params';
 
 export type Type = 'default' | CustomType;
 export type Theme = 'default' | CustomType;
@@ -9,7 +10,7 @@ export interface IBonusModalCParams extends IComponentParams<Theme, Type, ThemeM
     /** Object "Bonus" */
     bonus?: Bonus;
     /** Bonus item theme */
-    bonusItemTheme?: string;
+    bonusItemTheme?: BonusItemTheme;
     /** Extension icon */
     iconType?: string;
     /** Path to icon folder */

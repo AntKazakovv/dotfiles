@@ -4,13 +4,13 @@ import {
     Component,
     Inject,
     Input,
-    OnChanges,
-    OnDestroy,
     OnInit,
     ViewEncapsulation,
 } from '@angular/core';
+
 import {BehaviorSubject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
+import _union from 'lodash-es/union';
 
 import {
     AbstractComponent,
@@ -18,22 +18,16 @@ import {
     ConfigService,
     ModalService,
     EventService,
-    GlobalHelper,
 } from 'wlc-engine/modules/core';
+import {UserProfile} from 'wlc-engine/modules/user';
+import {Bonus} from 'wlc-engine/modules/bonuses/system/models/bonus';
 import {
-    Bonus,
     BonusItemComponentEvents,
     ChosenBonusSetParams,
     ChosenBonusType,
-    IBonusType,
-} from 'wlc-engine/modules/bonuses';
-import {UserProfile} from 'wlc-engine/modules/user';
+} from 'wlc-engine/modules/bonuses/system/interfaces/bonuses.interface';
 
 import * as Params from './bonus-item.params';
-
-import _union from 'lodash-es/union';
-import _merge from 'lodash-es/merge';
-import _isEmpty from 'lodash-es/isEmpty';
 
 @Component({
     selector: '[wlc-bonus-item]',
@@ -43,25 +37,16 @@ import _isEmpty from 'lodash-es/isEmpty';
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
 })
-export class BonusItemComponent extends AbstractComponent implements OnInit, OnDestroy, OnChanges {
+export class BonusItemComponent extends AbstractComponent implements OnInit {
     @Input() public inlineParams: Params.IBonusItemCParams;
-    @Input() public type: Params.Type;
-    @Input() public theme: Params.Theme;
-    @Input() public themeMod: Params.ThemeMod;
-    @Input() public customMod: Params.CustomMod;
-    @Input() public view: string;
-    @Input() public chosen: boolean;
-    @Input() public bonus: Bonus;
-    @Input() public dummy: boolean;
 
     public $params: Params.IBonusItemCParams;
     public isAuth: boolean;
     public currency: string;
-    public isNoChooseBtn: boolean;
     public isChooseBtn: boolean;
-    public isTypeRegDeposit: boolean;
     public useIconBonusImage: boolean;
-    public profileTypeFirst: boolean;
+    public asProfileTypeFirst: boolean;
+    public bonus: Bonus;
 
     constructor(
         @Inject('injectParams') protected params: Params.IBonusItemCParams,
@@ -82,99 +67,86 @@ export class BonusItemComponent extends AbstractComponent implements OnInit, OnD
     }
 
     public get selectedTag(): string {
-        if (this.$params.theme === 'reg-first' && this.$params.common.bonus.isChoose) {
+        if (this.$params.theme === 'reg-first' && this.bonus.isChoose) {
             return gettext('Selected');
         }
     }
 
     public get bonusBg(): string {
-        const {bonus, imageByType, type} = this.$params.common;
+        let imageUrl: string;
 
-        if (imageByType) {
-            return `url(${bonus.getImageByType(type)})`;
-        } else if (bonus.image) {
-            return `url(${bonus.image})`;
+        if (!this.bonus) {
+            imageUrl = this.$params.dummy
+                ? this.configService.get<string>('$bonuses.defaultImages.imageDummy')
+                : this.configService.get<string>('$bonuses.defaultImages.imageBlank');
+
+        } else if (this.$params.theme === 'promo-home') {
+            imageUrl = this.configService.get<string>('$bonuses.defaultImages.imagePromoHome');
+
+        } else if (this.$params.theme === 'preview') {
+            imageUrl = this.bonus.imageReg;
+
+        } else if (this.asProfileTypeFirst) {
+            imageUrl = this.bonus.imageProfileFirst;
+
+        } else {
+            imageUrl = this.bonus.image;
         }
+
+        return imageUrl ? `url(${imageUrl})` : '';
     }
 
     public ngOnInit(): void {
+        super.ngOnInit(this.inlineParams);
 
-        const inlineParams = _merge(
-            this.inlineParams || {},
-            GlobalHelper.prepareParams(this,
-                ['bonus', 'type', 'theme', 'themeMod', 'customMod', 'view', 'chosen']) || {},
-        );
-
-        super.ngOnInit(_isEmpty(inlineParams) ? null : inlineParams);
-
-        if (this.dummy) {
+        if (this.$params.dummy) {
             this.addModifiers('dummy');
             return;
         }
 
-        if (this.$params.bonus) {
-            this.$params.common.bonus = this.$params.bonus;
-        }
-        this.bonus = this.$params.bonus || this.$params.common.bonus;
-
-        if (!this.view) {
-            this.view = this.$params.common.bonus?.viewTarget || 'default';
-        }
+        this.bonus = this.$params.bonus;
 
         if (this.isPreviewTheme) {
             this.eventService.subscribe([
                 {name: BonusItemComponentEvents.reg},
                 {name: BonusItemComponentEvents.blank},
             ], (bonus: Bonus) => {
-                this.$params.common.bonus = bonus;
+                this.bonus = bonus;
                 if (this.configService.get<boolean>('EMPTY_REGISTER_BONUSES')) {
-                    this.dummy = true;
+                    this.$params.dummy = true;
                     this.addModifiers('dummy');
-                } else if (this.dummy === true && this.hasModifier('dummy')) {
-                    this.dummy = false;
+                } else if (this.$params.dummy && this.hasModifier('dummy')) {
+                    this.$params.dummy = false;
                     this.removeModifiers('dummy');
+                } else if (!this.bonus) {
+                    this.addModifiers('blank');
+                } else if (this.hasModifier('blank')) {
+                    this.removeModifiers('blank');
                 }
                 this.cdr.markForCheck();
             }, this.$destroy);
         }
 
-        if (this.isPreviewTheme && !this.$params.common.bonus) {
+        if (this.isPreviewTheme && !this.bonus) {
             const chosenBonus = this.configService.get<ChosenBonusType>(ChosenBonusSetParams.ChosenBonus);
             if (chosenBonus?.id) {
-                this.$params.common.bonus = chosenBonus as Bonus;
+                this.bonus = chosenBonus as Bonus;
             } else if (this.configService.get<boolean>('EMPTY_REGISTER_BONUSES')) {
-                this.dummy = true;
+                this.$params.dummy = true;
                 this.addModifiers('dummy');
+            } else if (!this.bonus) {
+                this.addModifiers('blank');
             }
             this.cdr.markForCheck();
         }
 
-        this.prepareModifiers();
         this.isAuth = this.configService.get<boolean>('$user.isAuthenticated');
-        this.isTypeRegDeposit = this.$params.common?.type === 'reg' || this.$params.common?.type === 'deposit';
-        this.isNoChooseBtn = this.$params.common?.hideChooseBtn && this.isTypeRegDeposit;
-        this.isChooseBtn = !this.$params.common?.hideChooseBtn && this.isTypeRegDeposit;
+        this.isChooseBtn = !this.$params.common?.hideChooseBtn;
         this.useIconBonusImage = this.configService.get<boolean>('$bonuses.useIconBonusImage');
-        this.profileTypeFirst = this.configService.get<string>('$base.profile.type') === 'first';
+        this.asProfileTypeFirst =
+            this.configService.get<string>('$base.profile.type') === 'first' && !this.$params.noDependsOnProfile;
 
-        if (this.profileTypeFirst) {
-            this.useIconBonusImage = false;
-            this.addModifiers('theme-mod-with-image');
-        } else if (this.$params.theme === 'partial') {
-            this.useIconBonusImage = true;
-        }
-
-        if (!this.$params.common.bonus?.description) {
-            this.addModifiers('no-description');
-        }
-
-        if (this.$params.common.bonus?.isActive) {
-            this.addModifiers('is-active');
-        }
-
-        if (!this.$params.common.bonus?.tag && !this.selectedTag) {
-            this.addModifiers('no-tag');
-        }
+        this.prepareModifiers();
 
         this.configService.get<BehaviorSubject<UserProfile>>('$user.userProfile$')
             .pipe(takeUntil(this.$destroy))
@@ -192,31 +164,44 @@ export class BonusItemComponent extends AbstractComponent implements OnInit, OnD
             });
     }
 
+    /**
+     * Get promo bonus background image url
+     *
+     * @param {'promo' | 'default'} imageType
+     * @returns {string} image url
+     */
     public getPromoBg(imageType: 'promo' | 'default'): string {
-        const {bonus} = this.$params.common;
-
-        if (this.profileTypeFirst && (imageType === 'default')) {
-            return bonus.image;
+        if (imageType === 'default') {
+            return this.bonus.imageProfileFirst;
         }
 
-        return bonus.imagePromo;
+        return this.bonus.imagePromo;
     }
 
-    public openDescription(bonus: Bonus): void {
-        this.modalService.showModal('bonusModal', {bonus, 'bonusItemTheme': this.$params.theme});
+    /**
+     * Open bonus modal
+     */
+    public openDescription(): void {
+        this.modalService.showModal('bonusModal', {bonus: this.bonus, 'bonusItemTheme': this.$params.theme});
     }
 
-    public chooseBonusNoBtn(bonus: Bonus, type: IBonusType): void {
-        if (!this.isChooseBtn || this.$params.theme === 'reg-first') {
-            bonus.isChoose = this.$params.common.bonus.isChoose = true;
+    /**
+     * choose this bonus on click (theme partial or reg-first)
+     */
+    public chooseBonusNoBtn(): void {
+        if (this.$params.theme === 'partial' || this.$params.theme === 'reg-first') {
+            this.bonus.isChoose = true;
             this.eventService.emit({
-                name: BonusItemComponentEvents[type] || BonusItemComponentEvents['other'],
-                data: bonus,
+                name: BonusItemComponentEvents['reg'],
+                data: this.bonus,
             });
             this.cdr.markForCheck();
         }
     }
 
+    /**
+     * Emit choose blank bonus event
+     */
     public chooseBlankBonus(): void {
         this.eventService.emit({name: 'CHOOSE_BLANK_BONUS'});
     }
@@ -237,11 +222,30 @@ export class BonusItemComponent extends AbstractComponent implements OnInit, OnD
 
     protected prepareModifiers(): void {
         let modifiers: Params.Modifiers[] = [];
-        modifiers.push(`view-${this.view}`);
+        modifiers.push(`view-${this.bonus?.viewTarget || 'default'}`);
 
         if (this.$params.common?.customModifiers) {
-            modifiers = _union(modifiers, this.$params.common.customModifiers.split(' '));
+            modifiers = _union(modifiers, this.$params.common?.customModifiers.split(' '));
         }
         this.addModifiers(modifiers);
+
+        if (this.asProfileTypeFirst) {
+            this.useIconBonusImage = false;
+            this.addModifiers('theme-mod-with-image');
+        } else if (this.$params.theme === 'partial') {
+            this.useIconBonusImage = true;
+        }
+
+        if (!this.bonus?.description) {
+            this.addModifiers('no-description');
+        }
+
+        if (this.bonus?.isActive) {
+            this.addModifiers('is-active');
+        }
+
+        if (!this.bonus?.tag && !this.selectedTag) {
+            this.addModifiers('no-tag');
+        }
     }
 }

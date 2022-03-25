@@ -13,8 +13,11 @@ import {TranslateService} from '@ngx-translate/core';
 import {FormControl} from '@angular/forms';
 import {takeUntil} from 'rxjs/operators';
 import {Subject} from 'rxjs';
-import {Swiper, SwiperOptions} from 'swiper';
 
+import {
+    Swiper,
+    SwiperOptions,
+} from 'swiper';
 import _find from 'lodash-es/find';
 import _findIndex from 'lodash-es/findIndex';
 import _merge from 'lodash-es/merge';
@@ -35,21 +38,24 @@ import {
     IPaginateOutput,
     GlobalHelper,
 } from 'wlc-engine/modules/core';
+import {INoContentCParams} from 'wlc-engine/modules/core/components/no-content/no-content.params';
 import {
     ISliderCParams,
     ISlide,
     SliderComponent,
 } from 'wlc-engine/modules/promo';
+import {Bonus} from 'wlc-engine/modules/bonuses/system/models/bonus';
+import {BonusesService} from 'wlc-engine/modules/bonuses/system/services/bonuses/bonuses.service';
+import {IBonusItemCParams} from 'wlc-engine/modules/bonuses/components/bonus-item/bonus-item.params';
+import {BonusItemComponent} from 'wlc-engine/modules/bonuses/components/bonus-item/bonus-item.component';
 import {
-    Bonus,
-    BonusesService,
+    RecommendedListEvents,
+} from 'wlc-engine/modules/bonuses/components/recommended-bonuses/recommended-bonuses.params';
+import {
     BonusItemComponentEvents,
     ChosenBonusSetParams,
     ChosenBonusType,
-    RecommendedListEvents,
-} from 'wlc-engine/modules/bonuses';
-import {INoContentCParams} from 'wlc-engine/modules/core/components/no-content/no-content.params';
-import {BonusItemComponent} from '../bonus-item/bonus-item.component';
+} from 'wlc-engine/modules/bonuses/system/interfaces/bonuses.interface';
 
 import * as Params from './bonuses-list.params';
 @Component({
@@ -196,7 +202,7 @@ export class BonusesListComponent extends AbstractComponent implements OnInit, O
             const isChosenBonus = _find(this.bonuses, ({isChoose}) => isChoose);
 
             _each(this.bonuses, bonus => {
-                if (!isChosenBonus && bonus.type === 'blank') {
+                if (!isChosenBonus && !bonus.id) {
                     bonus.isChoose = true;
                 }
             });
@@ -214,6 +220,25 @@ export class BonusesListComponent extends AbstractComponent implements OnInit, O
         });
 
         this.eventService.emit({name: BonusItemComponentEvents.blank});
+    }
+
+    /**
+     * Calculate inline params to bonus-item component
+     *
+     * @method calcBonusItemParams
+     * @param {Bonus} bonus
+     * @returns {IBonusItemCParams} inline params to bonus-item component
+     */
+    public calcBonusItemParams(bonus?: Bonus): IBonusItemCParams {
+        return _merge(
+            {
+                bonus: bonus,
+                theme: this.$params.theme,
+                themeMod: this.$params.themeMod,
+                dummy: !bonus,
+            },
+            this.$params.itemsParams || {},
+        );
     }
 
     public onSlideChangeTransitionEnd(swiper: Swiper): void {
@@ -336,10 +361,11 @@ export class BonusesListComponent extends AbstractComponent implements OnInit, O
             return {
                 component: BonusItemComponent,
                 componentParams: _merge(
-                    {theme: this.$params.theme},
-                    {type: this.$params.common.filter},
-                    {bonus: item},
-                    {wlcElement: 'block_bonus'},
+                    {
+                        bonus: item,
+                        theme: this.$params.theme,
+                        themeMod: this.$params.themeMod,
+                    },
                     this.$params.itemsParams || {},
                 ),
             };

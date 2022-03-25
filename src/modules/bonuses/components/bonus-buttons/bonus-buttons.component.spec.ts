@@ -17,9 +17,8 @@ describe('BonusButtonsComponent', () => {
     }
 
     beforeEach(() => {
-        bonusSpy = jasmine.createSpyObj<Bonus>('bonus', ['getImageByType'], {
+        bonusSpy = jasmine.createSpyObj<Bonus>('bonus', [], {
             'viewTarget': 'relative',
-            'imageOtherUrl': '',
             'value': 100,
             'name': 'Super bonus',
             'description': 'Super bonus for you',

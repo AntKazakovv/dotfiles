@@ -31,7 +31,7 @@
 <ng-template #bonus let-item="item">
     <div wlc-scrollbar
          class="{{$class}}__bonus-wrp"
-         [ngClass]="{'active-bonus': item.bonus.isActive}">
+         [ngClass]="{'active-bonus': item.bonusItemParams.bonus.isActive}">
         <div wlc-bonus-item
              class="{{$class}}__bonus"
              [inlineParams]="item.bonusItemParams">

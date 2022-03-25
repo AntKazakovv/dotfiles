@@ -6,10 +6,12 @@ import {
     IIndexing,
     IWrapperCParams,
 } from 'wlc-engine/modules/core';
-import {Type} from 'wlc-engine/modules/bonuses/components/bonus-item/bonus-item.params';
-import {ChosenBonusSetParams} from 'wlc-engine/modules/bonuses/system/interfaces/bonuses.interface';
-import {IBonusesListCParams} from 'wlc-engine/modules/bonuses/components';
+import {
+    ChosenBonusSetParams,
+    IBonusesListCParams,
+} from 'wlc-engine/modules/bonuses';
 
+export type Type = 'default' | CustomType;
 export type ComponentTheme = 'default' | CustomType;
 export type ComponentType = 'default' | CustomType;
 export type Theme = 'default' | 'signInUp' | CustomType;
@@ -346,12 +348,6 @@ export const defaultParams: IStepsParams = {
                                         selectFirstBonus: true,
                                         useBlankBonus: false,
                                         swiper: bonusesSwiperParams,
-                                    },
-                                    itemsParams: {
-                                        common: {
-                                            imageByType: true,
-                                            type: 'reg',
-                                        },
                                     },
                                     useBtnNoBonuses: false,
                                 },

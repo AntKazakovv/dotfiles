@@ -5,12 +5,14 @@ import {
     Inject,
     OnInit,
 } from '@angular/core';
+
 import {
     AbstractComponent,
     IMixedParams,
     ConfigService,
 } from 'wlc-engine/modules/core';
-import {Bonus} from 'wlc-engine/modules/bonuses';
+import {Bonus} from 'wlc-engine/modules/bonuses/system/models/bonus';
+
 import * as Params from './bonus-modal.params';
 
 @Component({
@@ -24,8 +26,7 @@ export class BonusModalComponent extends AbstractComponent implements OnInit {
     public $params: Params.IBonusModalCParams;
     public iconPath: string;
     public fallbackIconPath: string;
-    public getBonusBg: string;
-    public useIconBonusImage: boolean;
+    public bonusBgUrl: string;
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IBonusModalCParams,
@@ -42,16 +43,11 @@ export class BonusModalComponent extends AbstractComponent implements OnInit {
     public ngOnInit(): void {
         super.ngOnInit();
 
-        if (this.configService.get<string>('$base.profile.type') === 'first') {
-            this.useIconBonusImage = false;
-        }
-
         this.bonus = this.$params.bonus;
         this.iconPath = `${this.$params.iconsPath}${this.bonus.viewTarget}.${this.$params.iconType}`;
         this.fallbackIconPath = `${this.$params.fallback?.IconsPath +
             this.bonus.viewTarget}.${this.$params.fallback?.iconType}`;
-        this.getBonusBg = this.bonus.imageOther ? this.bonus.imageOther : this.$params.bgImage;
-        this.useIconBonusImage = this.configService.get<boolean>('$bonuses.useIconBonusImage');
+        this.bonusBgUrl = this.bonus.imageOther ? `url(${this.bonus.imageOther})` : `url(${this.$params.bgImage})`;
     }
 
     /**
