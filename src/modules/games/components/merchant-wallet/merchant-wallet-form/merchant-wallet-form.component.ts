@@ -235,7 +235,7 @@ export class MerchantWalletFormComponent extends AbstractComponent implements On
             },
         });
 
-        if (this.merchantWalletService.userCurrency !== 'USD') {
+        if (config.currency && this.merchantWalletService.userCurrency !== config.currency) {
             components.push({
                 name: 'games.wlc-merchant-wallet-exrate',
                 params: {

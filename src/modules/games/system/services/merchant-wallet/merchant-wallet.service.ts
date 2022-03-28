@@ -94,6 +94,7 @@ export interface IPostBalanceResponse extends IData {
 const defMerchantConfig: IMerchantWalletSystemConfig = {
     minDeposit: 0.01,
     minWithdraw: 0.01,
+    currency: 'USD',
 };
 
 @Injectable({providedIn: 'root'})

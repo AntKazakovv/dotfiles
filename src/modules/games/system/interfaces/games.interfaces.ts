@@ -445,4 +445,5 @@ export interface IMerchantWalletSystemConfig {
     maxDeposit?: number;
     minWithdraw?: number;
     maxWithdraw?: number;
+    currency?: string;
 }

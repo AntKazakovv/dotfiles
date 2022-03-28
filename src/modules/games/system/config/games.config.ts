@@ -111,5 +111,10 @@ export const gamesConfig: IGamesConfig = {
     merchantWallet: {
         availableMerchants: [937, 964, 982, 883, 890],
         balanceRequestTimeout: 30000,
+        systemOptions: {
+            883: {
+                currency: null,
+            },
+        },
     },
 };
