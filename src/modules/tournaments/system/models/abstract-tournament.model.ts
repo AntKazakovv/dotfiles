@@ -4,6 +4,7 @@ import _toString from 'lodash-es/toString';
 import _toNumber from 'lodash-es/toNumber';
 import {takeUntil} from 'rxjs/operators';
 import {
+    BehaviorSubject,
     Observable,
     PartialObserver,
     pipe,
@@ -15,6 +16,7 @@ import {
     ConfigService,
     IAbstractModelParams,
 } from 'wlc-engine/modules/core';
+import {UserProfile} from 'wlc-engine/modules/user';
 import {ITournamentAbstract} from 'wlc-engine/modules/tournaments/system/interfaces/tournaments.interface';
 import {ITopTournamentUsers} from 'wlc-engine/modules/tournaments/system/interfaces/tournaments.interface';
 import {TournamentsService} from 'wlc-engine/modules/tournaments/system/services/tournaments/tournaments.service';
@@ -35,7 +37,8 @@ export abstract class AbstractTournamentModel<T extends ITournamentAbstract> ext
 
         this.data = data;
         this.$descriptionClean = this.data.Description.replace(/<[^>]*>/g, '');
-        this.userCurrency = this.configService.get<string>('appConfig.user.currency')
+        this.userCurrency = this.configService.
+            get<BehaviorSubject<UserProfile>>('$user.userProfile$').getValue()?.currency
             || this.configService.get<string>('$base.defaultCurrency');
         this.useUsersCurrency = this.configService.get<boolean>('$base.tournaments.useUsersCurrency');
     }
