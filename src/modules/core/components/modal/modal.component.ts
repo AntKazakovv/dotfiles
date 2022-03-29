@@ -194,6 +194,7 @@ export class WlcModalComponent extends AbstractComponent
     public closeModalByIcon(modal: string): void {
         this.closeReason = 'closeIcon';
         this.closeModal(modal);
+        this.eventService.emit({name: 'CLOSE_MODAL', data: modal});
     }
 
     protected applyConfig(): void {

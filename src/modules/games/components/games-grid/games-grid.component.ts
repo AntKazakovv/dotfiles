@@ -64,7 +64,12 @@ import {IGamesFilterData} from 'wlc-engine/modules/games/system/interfaces/filte
 import {gamesEvents} from 'wlc-engine/modules/games/system/interfaces/games.interfaces';
 import {GamesFilterServiceEvents} from 'wlc-engine/modules/games/system/services/games-filter.service';
 import {GameThumbComponent} from 'wlc-engine/modules/games/components/game-thumb/game-thumb.component';
-import {GamesCatalogService} from 'wlc-engine/modules/games/system/services/games-catalog/games-catalog.service';
+import {GamesFilterService} from 'wlc-engine/modules/games/system/services/games-filter.service';
+
+import {
+    GamesCatalogService,
+} from 'wlc-engine/modules/games/system/services/games-catalog/games-catalog.service';
+
 import * as Params from './games-grid.params';
 
 @Component({
@@ -133,6 +138,7 @@ export class GamesGridComponent extends AbstractComponent implements OnInit, OnD
         protected renderer: Renderer2,
         protected elementRef: ElementRef,
         @Inject(WINDOW) protected window: Window,
+        protected gamesFilterService: GamesFilterService,
     ) {
         super({injectParams, defaultParams: Params.defaultParams}, configService);
         this.trackGames = this.trackGames.bind(this);
@@ -289,7 +295,7 @@ export class GamesGridComponent extends AbstractComponent implements OnInit, OnD
             });
 
             // without that code we have problems with margins if the number of games is less than or
-            // equal to the number that fits in the swiper. Screenshot: 
+            // equal to the number that fits in the swiper. Screenshot:
             // https://tracker.egamings.com/attachments/827987
             _each(
                 this.$params.showAsSwiper?.sliderParams?.swiper?.breakpoints,
@@ -362,6 +368,7 @@ export class GamesGridComponent extends AbstractComponent implements OnInit, OnD
             ], (filter: IGamesFilterData) => {
                 this.onFilterChanged(filter);
             }, this.$destroy);
+            this.gamesFilterService.$gamesFilterSubsIsReady.next();
         }
 
         this.initLazyLoading();
@@ -417,25 +424,25 @@ export class GamesGridComponent extends AbstractComponent implements OnInit, OnD
             const bannerWidth = this.gameBanner?.nativeElement.getBoundingClientRect().width || 0;
             const bannerHeight = this.gameBanner?.nativeElement.getBoundingClientRect().height || 0;
             const listWidth = this.gameListElement?.nativeElement.getBoundingClientRect().width;
-    
+
             const prevPlaceHoldersCount = _floor(listWidth / itemWidth) || 1;
             this.gamesRows += this.gamesRowsLoaded;
             this.paginate = prevPlaceHoldersCount * this.gamesRows;
-    
+
             this.gamesCount = this.paginate;
-    
+
             if (this.moreBtnCardView && this.games.length > this.gamesCount) {
                 this.gamesCount--;
             }
-    
+
             if (this.$params.themeMod === 'header-inline') {
                 this.gamesCount--;
             }
-    
+
             if (this.$params.bannerSettings && (bannerWidth < listWidth)) {
                 this.gamesCount -= (_floor(bannerWidth / itemWidth) + _floor(bannerHeight / itemHeight));
             }
-    
+
             this.checkGamesLength();
         }
 

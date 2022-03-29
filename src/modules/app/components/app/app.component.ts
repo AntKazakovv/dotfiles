@@ -372,7 +372,7 @@ export class AppComponent extends AbstractComponent implements OnInit, OnDestroy
         });
 
         this.transition.onStart({}, () => {
-            this.modalService.closeAllModals();
+            this.modalService.closeAllModals('any');
         });
     }
 }

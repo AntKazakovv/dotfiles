@@ -11,6 +11,8 @@ import {
     ElementRef,
     ViewChild,
 } from '@angular/core';
+import {Subject} from 'rxjs';
+import {debounceTime, map, takeUntil} from 'rxjs/operators';
 import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
 import {
     ConfigService,
@@ -38,6 +40,7 @@ export class SearchFieldComponent extends AbstractComponent implements OnInit, A
     @Output() public searchQueryEmit = new EventEmitter();
 
     public searchQuery: string;
+    public searchQuery$: Subject<Event> = new Subject();
     public $params: ISearchFieldCParams;
 
     protected disabledSymbols: RegExp = /[$%*;<=>?@\^{|}~№]/gi;
@@ -57,6 +60,27 @@ export class SearchFieldComponent extends AbstractComponent implements OnInit, A
 
     public ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
+        this.searchQuery$
+            .pipe(
+                takeUntil(this.$destroy),
+                debounceTime(500),
+                map((event: Event) => {
+                    return (event.target as HTMLInputElement).value
+                        .trim()
+                        .replace(/\s+/gi, ' ')
+                        .replace(this.disabledSymbols, '');
+                }),
+            )
+            .subscribe((query: string) => {
+                this.emitSearch(query);
+            });
+
+        if (!this.inlineParams.searchQueryFromCache) {
+            return;
+        }
+
+        this.searchQuery = this.inlineParams.searchQueryFromCache;
+        this.emitSearch(this.searchQuery);
     }
 
     public ngAfterViewInit(): void {
@@ -67,25 +91,16 @@ export class SearchFieldComponent extends AbstractComponent implements OnInit, A
         }
     }
 
-    public changeSearch(): void {
-        this.searchQuery = this.searchQuery
-            .trim()
-            .replace(/\s+/gi, ' ')
-            .replace(this.disabledSymbols, '');
-
-        this.emitSearch();
-    }
-
     public clearSearch(): void {
+        this.emitSearch('');
         this.searchQuery = '';
-        this.emitSearch();
     }
 
-    public emitSearch(): void {
+    public emitSearch(query: string): void {
         this.gamesFilterService.search(
             this.$params.searchFrom,
-            this.searchQuery,
+            query,
         );
-        this.searchQueryEmit.emit(this.searchQuery);
+        this.searchQueryEmit.emit(query);
     }
 }

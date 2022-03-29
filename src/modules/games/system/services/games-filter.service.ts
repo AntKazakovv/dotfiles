@@ -1,5 +1,7 @@
 import {Injectable} from '@angular/core';
+import {Subject} from 'rxjs';
 import {EventService} from 'wlc-engine/modules/core/system/services/event/event.service';
+import {ConfigService} from 'wlc-engine/modules/core';
 
 import {
     IGamesFilterData,
@@ -22,7 +24,18 @@ export const GamesFilterServiceEvents: IGamesFilterServiceEvents = {
 })
 export class GamesFilterService {
 
-    protected filterCache: any;
+    /**
+     * Allows you to know when all the filters of this service will be ready
+     */
+    public $gamesFilterSubsIsReady: Subject<void> = new Subject<void>();
+    /**
+     * property that stores cached filters
+     */
+    public filterCache: IGamesFilterData;
+    /**
+     * Clear filterCache or not
+     */
+    public toClearCache$: Subject<boolean> = new Subject<boolean>();
     protected filters: IIndexingFilter = {};
     protected filterInitValues: IGamesFilterData = {
         categories: [],
@@ -31,7 +44,10 @@ export class GamesFilterService {
         excludeMerchants: [],
     };
 
-    constructor(protected eventService: EventService) {
+    constructor(
+        protected eventService: EventService,
+        protected configService: ConfigService,
+    ) {
         this.init();
     }
 
@@ -59,20 +75,27 @@ export class GamesFilterService {
 
     /**
      *
-     * @param {string} filterName
-     * @param {IGamesFilterData} filterValues
+     * Applies the passed filter. Can also cache this filter
+     * 
+     * @param {string} filterName filter name
+     * @param {IGamesFilterData} filterValues filter values
+     * @param {boolean} save caches passed filters
      * @returns {IGamesFilterData}
      */
 
-    public set(filterName: string, filterValues: IGamesFilterData): IGamesFilterData {
+    public set(filterName: string, filterValues: IGamesFilterData, save?: boolean): IGamesFilterData {
         const resultFilter: IGamesFilterData = this.filters[filterName] = _merge(
             {}, this.filterInitValues, filterValues,
         );
 
+        if (save) {
+            this.filterCache = filterValues;
+        }
+
         this.eventService.emit({
             name: GamesFilterServiceEvents.FILTER_CHANGED,
             from: filterName,
-            data: resultFilter,
+            data: this.filterCache,
         });
 
         return resultFilter;
@@ -101,8 +124,7 @@ export class GamesFilterService {
     public delete(filterName: string, save?: boolean): boolean {
         delete this.filters[filterName];
         if (save) {
-            // TODO
-            // this.filterCache.remove(filterName);
+            this.filterCache = null;
         }
         return true;
     }

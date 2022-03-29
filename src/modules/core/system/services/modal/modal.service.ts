@@ -56,7 +56,6 @@ import _get from 'lodash-es/get';
 export type IModalParams = IModalConfig | IModalName;
 
 const CLOSE_ALL_REASON = 'closeAll';
-
 @Injectable({providedIn: 'root'})
 export class ModalService {
 
@@ -206,10 +205,10 @@ export class ModalService {
      * Close modal by Id
      *
      * @param id modal identifier
-     * @param reason modal close reason
+     * @param from defines where the method was called from
      * @returns void
      */
-    public hideModal(id: string, reason?: string): void {
+    public hideModal(id: string, from?: string, reason?: string): void {
         const modals: IActiveModal[] = _filter(this.activeModals, (item: IActiveModal) => item.id === id);
 
         if (!modals.length) {
@@ -223,8 +222,12 @@ export class ModalService {
         this.closeQueue.push(..._map(modals, ({id}) => id));
         this.$closeObserver.next(this.closeQueue.length);
         _forEach(modals, async (modal) => {
+            if (modal.id === 'search' && from === 'any') {
+                return;
+            }
             const modalInstance = modal.ref.instance;
             await modalInstance.ready;
+
             if (!modalInstance.modalDirect.dismissReason && !modalInstance.closeReason && reason) {
                 modalInstance.closeReason = reason;
             }
@@ -234,10 +237,11 @@ export class ModalService {
 
     /**
      * Close all active modals
+     * @param from defines where the method was called from
      */
-    public closeAllModals(): void {
+    public closeAllModals(from?: string): void {
         _forEach(this.activeModals, (item: IActiveModal) => {
-            this.hideModal(item.id, CLOSE_ALL_REASON);
+            this.hideModal(item.id, from, CLOSE_ALL_REASON);
         });
     }
 
@@ -259,12 +263,6 @@ export class ModalService {
             },
         );
 
-        this.eventService.subscribe(
-            {name: 'CLOSE_MODAL'},
-            (modalId: string) => {
-                this.hideModal(modalId);
-            },
-        );
 
         this.$closeObserver.subscribe((val: number) => {
             // fix nested modals

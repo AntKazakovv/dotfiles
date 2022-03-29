@@ -338,8 +338,8 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
     }
 
     public closeGame(): void {
-        // TODO: this.LocalCacheService.remove('lastGameParams');
-        this.returnToPrevState();
+        // TODO: this.returnToPrevState() after migrating to a native angular routing system;
+        this.eventService.emit({name: 'CLOSE_GAME'});
     }
 
     public ngOnDestroy(): void {
@@ -861,7 +861,7 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
             modalMessage: error.msg || gettext('Something wrong. Please try later.'),
             onModalHide: () => {
                 setTimeout(() => {
-                    this.router.stateService.go(error.state || 'app.home', error.stateParams || {});
+                    this.closeGame();
                 });
             },
         });

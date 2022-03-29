@@ -6,11 +6,11 @@ import {
     Transition,
     RawParams,
     ResolveTypes,
+    StateObject,
 } from '@uirouter/core';
-
-import {
-    first,
-} from 'rxjs/operators';
+import {Inject} from '@angular/core';
+import {Subscription} from 'rxjs';
+import {first} from 'rxjs/operators';
 import _find from 'lodash-es/find';
 import _clone from 'lodash-es/clone';
 import _reduce from 'lodash-es/reduce';
@@ -18,6 +18,7 @@ import _includes from 'lodash-es/includes';
 import _union from 'lodash-es/union';
 import _toNumber from 'lodash-es/toNumber';
 import _uniq from 'lodash-es/uniq';
+import _isEmpty from 'lodash-es/isEmpty';
 
 import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
 import {EventService} from 'wlc-engine/modules/core/system/services/event/event.service';
@@ -35,7 +36,9 @@ import {
 } from 'wlc-engine/modules/bonuses';
 import {
     Game,
+    GamesFilterService,
     IDisablePlayRealByCountry,
+    IGamesFilterData,
     IPlayGameForRealCParams,
     MerchantFieldsService,
 } from 'wlc-engine/modules/games';
@@ -50,6 +53,7 @@ import {
 import {AddProfileInfoComponent} from 'wlc-engine/modules/user/components/add-profile-info';
 import {FormElements} from 'wlc-engine/modules/core/system/config/form-elements';
 import {IFormComponent} from 'wlc-engine/modules/core/components/form-wrapper/form-wrapper.component';
+import {WINDOW} from 'wlc-engine/modules/app/system/tokens/window';
 
 export enum RejectReason {
     RealPlayDisabled,
@@ -66,6 +70,7 @@ export enum RejectReason {
 export const startGameResolver: ResolveTypes = {
     token: 'startGame',
     deps: [
+        WINDOW,
         ConfigService,
         LogService,
         StateService,
@@ -74,8 +79,10 @@ export const startGameResolver: ResolveTypes = {
         Transition,
         EventService,
         InjectionService,
+        GamesFilterService,
     ],
     resolveFn: (
+        window: Window,
         configService: ConfigService,
         logService: LogService,
         stateService: StateService,
@@ -84,8 +91,10 @@ export const startGameResolver: ResolveTypes = {
         transition: Transition,
         eventService: EventService,
         injectionService: InjectionService,
+        gamesFilterService: GamesFilterService,
     ) => {
         return new StartGameHandler(
+            window,
             configService,
             logService,
             stateService,
@@ -94,6 +103,7 @@ export const startGameResolver: ResolveTypes = {
             transition,
             eventService,
             injectionService,
+            gamesFilterService,
         ).result.promise;
     },
 };
@@ -108,11 +118,13 @@ class StartGameHandler {
     private checkProfileRequiredFields: boolean = false;
     private merchantId: number;
     private game: Game;
+    private filterCacheCleared$ = new Deferred();
 
     private gamesCatalogService: GamesCatalogService;
     private merchantFieldsService: MerchantFieldsService;
 
     constructor(
+        @Inject(WINDOW) private window: Window,
         private configService: ConfigService,
         private logService: LogService,
         private stateService: StateService,
@@ -121,6 +133,7 @@ class StartGameHandler {
         private transition: Transition,
         private eventService: EventService,
         private injectionService: InjectionService,
+        private gamesFilterService: GamesFilterService,
     ) {
         this.init();
     }
@@ -198,6 +211,25 @@ class StartGameHandler {
                     locale: this.configService.get('currentLanguage'),
                 });
             }
+        });
+
+        this.result.promise.then(() => {
+            const gameStartHandler: Function = this.router.transitionService.onSuccess({}, () => {
+                gameStartHandler();
+                const closeSubscription: Subscription = this.closeGameHandler();
+                const gameClosedHandler: Function = this.router.transitionService.onStart({}, () => {
+                    this.gamesFilterService.toClearCache$.subscribe((value: boolean) => {
+                        if (value) {
+                            this.gamesFilterService.filterCache = null;
+                        }
+
+                        gameClosedHandler();
+                        closeSubscription.unsubscribe();
+                        this.filterCacheCleared$.resolve();
+                    });
+                });
+            });
+
         });
 
         const stateChangeHandler = this.router.transitionService.onStart({}, () => {
@@ -500,5 +532,34 @@ class StartGameHandler {
                 wlcElement: 'notification_game-launch-error',
             },
         });
+    }
+
+    private closeGameHandler(): Subscription {
+        const filterCache: null | IGamesFilterData =
+            _isEmpty(this.gamesFilterService.filterCache) ? null : {...this.gamesFilterService.filterCache};
+        const previousState: StateObject = this.transition.$from();
+
+        const closeGameSubscription$: Subscription = this.eventService.subscribe(
+            {name: 'CLOSE_GAME'},
+            () => {
+                if (!previousState.name) {
+                    this.router.stateService.go('app.home');
+                    return;
+                }
+                this.window.history.go(previousState.name === 'app.gameplay' ? -2 : -1);
+
+                if (filterCache) {
+                    this.filterCacheCleared$.promise.then(() => {
+                        this.gamesFilterService.filterCache = filterCache;
+                        this.eventService.emit({
+                            name: 'SHOW_MODAL',
+                            data: 'search',
+                        });
+                    });
+                }
+            },
+        );
+
+        return closeGameSubscription$;
     }
 }

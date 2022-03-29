@@ -47,7 +47,7 @@ describe('ModalService', () => {
         );
 
         TestBed.configureTestingModule({
-            imports:[
+            imports: [
                 ModalModule.forRoot(),
             ],
             providers: [
@@ -184,7 +184,7 @@ describe('ModalService', () => {
         modalService.closeAllModals();
 
         modalService['activeModals'].forEach(({id}) => {
-            expect(modalServiceHideModalSpy).toHaveBeenCalledWith(id, jasmine.any(String));
+            expect(modalServiceHideModalSpy).toHaveBeenCalledWith(id, undefined, jasmine.any(String));
         });
     });
 
