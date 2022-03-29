@@ -17,6 +17,7 @@ export interface ICategoryMenuCParams extends IComponentParams<Theme, Type, Them
     theme?: Theme;
     themeMod?: ThemeMod;
     common?: {
+        useSwiperNavigation?: boolean;
         icons?: {
             folder?: string;
             use?: boolean,
@@ -31,16 +32,15 @@ export const defaultParams: ICategoryMenuCParams = {
     moduleName: 'menu',
     componentName: 'wlc-category-menu',
     class: 'wlc-category-menu',
+    common: {
+        useSwiperNavigation: false,
+    },
     menuParams: {
         type: 'category-menu',
         items: [],
         sliderParams: {
             swiper: {
                 spaceBetween: 0,
-                navigation: {
-                    nextEl: '.wlc-category-menu__control--next',
-                    prevEl: '.wlc-category-menu__control--prev',
-                },
             },
         },
         common: {

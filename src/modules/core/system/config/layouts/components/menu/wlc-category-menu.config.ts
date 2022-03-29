@@ -8,6 +8,9 @@ export namespace wlcCategoryMenu {
         },
         params: {
             type: 'categories-menu',
+            common: {
+                useSwiperNavigation: true,
+            },
         },
     };
     export const categoriesWithIcons: ILayoutComponent = {
@@ -19,6 +22,7 @@ export namespace wlcCategoryMenu {
             theme: 'with-icons',
             type: 'categories-menu',
             common: {
+                useSwiperNavigation: true,
                 icons: {
                     use: true,
                     folder: '/wlc/icons/color/v1/',
@@ -36,6 +40,7 @@ export namespace wlcCategoryMenu {
             themeMod: 'big-icons',
             type: 'categories-menu',
             common: {
+                useSwiperNavigation: true,
                 icons: {
                     use: true,
                     folder: '/wlc/icons/color/v2/',
@@ -51,6 +56,7 @@ export namespace wlcCategoryMenu {
         params: {
             theme: 'icons-compact',
             common: {
+                useSwiperNavigation: true,
                 icons: {
                     use: true,
                     folder: '/wlc/icons/european/v2/',
@@ -67,6 +73,7 @@ export namespace wlcCategoryMenu {
             theme: 'icons-compact',
             themeMod: 'underlined',
             common: {
+                useSwiperNavigation: true,
                 icons: {
                     use: true,
                     folder: '/wlc/icons/european/v2/',
