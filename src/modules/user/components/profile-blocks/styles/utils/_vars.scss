@@ -42,6 +42,7 @@ $themeDefault: map-merge((
     ),
     'btnColorHover': var(--mc-baseMain),
     'btnTextDisplay': flex,
+    'btnTextJustify': center,
     'btnIconDisplay': (
         375: none,
         1024: flex,

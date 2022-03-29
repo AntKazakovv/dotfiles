@@ -98,6 +98,7 @@
                             ef.get-value($themeDefault, 'btnColor', 375)
                         );
                         display: ef.get-value($themeDefault, 'btnTextDisplay');
+                        justify-content: ef.get-value($themeDefault, 'btnTextJustify');
 
                         @include mq.min(1024) {
                             color: ef.get-value($themeDefault, 'btnColor', 1024);
