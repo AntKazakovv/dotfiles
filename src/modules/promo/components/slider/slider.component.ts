@@ -206,7 +206,7 @@ export class SliderComponent extends AbstractComponent
     }
 
     public scrollToStart(): void {
-        this.swiper.setIndex(0, 0, true);
+        this.swiper.swiperRef.slideTo(0, 0, false);
     }
 
     public onResize(): void {
@@ -361,7 +361,7 @@ export class SliderComponent extends AbstractComponent
             });
 
         this.swiper.s_progress.subscribe((swiper) => {
-            this.updateProgressModifiers(swiper);
+            this.updateProgressModifiers(swiper[0]);
         });
 
         this.swiper.s_slideChangeTransitionEnd.pipe(takeUntil(this.$destroy))
