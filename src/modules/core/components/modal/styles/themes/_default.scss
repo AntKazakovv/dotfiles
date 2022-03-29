@@ -266,6 +266,7 @@
 }
 
 body.modal-open {
+    overflow: hidden;
 
     @include mq.min(560) {
         background-color: ev.$body-bg;
