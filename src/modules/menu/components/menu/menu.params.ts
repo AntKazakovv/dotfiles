@@ -107,7 +107,13 @@ export interface IMenuItem {
     wlcElement?: string;
     params?: IMenuItemParams;
     device?: TMenuItemDevice;
-    auth?: boolean;
+    /**
+     * Visibility by authentication:
+     * true - for authorized user only,
+     * false - for unauthorized user only,
+     * undefined - always.
+     */
+    auth?: boolean | undefined;
     sort?: number,
 }
 
