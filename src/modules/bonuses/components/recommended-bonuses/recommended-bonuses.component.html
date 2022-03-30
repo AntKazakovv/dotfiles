@@ -3,7 +3,7 @@
         <div class="{{$class}}__item">
             <div wlc-bonuses-list [inlineParams]="activeBonusesParams"></div>
         </div>
-        <div *ngIf="numberOfActiveBonuses <= 1" class="{{$class}}__item">
+        <div  class="{{$class}}__item">
             <h3 class="{{$class}}__title">{{'Recommended bonus' | translate}}</h3>
             <div wlc-bonuses-list [inlineParams]="$params.recommendParams"></div>
         </div>

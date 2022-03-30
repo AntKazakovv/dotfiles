@@ -6,13 +6,7 @@ import {
     OnInit,
 } from '@angular/core';
 
-import {takeUntil} from 'rxjs/operators';
-
-import {
-    AbstractComponent,
-    EventService,
-    IEvent,
-} from 'wlc-engine/modules/core';
+import {AbstractComponent} from 'wlc-engine/modules/core';
 
 import {IBonusesListCParams} from 'wlc-engine/modules/bonuses';
 
@@ -30,12 +24,10 @@ export class RecommendedBonusesComponent
 
     public $params: Params.ICRecommendedBonusesParams;
     public activeBonusesParams: IBonusesListCParams = null;
-    public numberOfActiveBonuses: number;
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.ICRecommendedBonusesParams,
         protected cdr: ChangeDetectorRef,
-        protected eventService: EventService,
     ) {
         super({
             injectParams,
@@ -57,14 +49,5 @@ export class RecommendedBonusesComponent
             },
             itemsParams: this.$params.itemsParams,
         };
-
-        this.eventService.filter([{
-            name: Params.RecommendedListEvents.RecommendedListVisibility,
-        }])
-            .pipe(takeUntil(this.$destroy))
-            .subscribe(({data}: IEvent<number>) => {
-                this.numberOfActiveBonuses = data;
-                this.cdr.markForCheck();
-            });
     }
 }
