@@ -37,6 +37,7 @@ import {
     InjectionService,
     IFromLog,
     Deferred,
+    ILogObj,
 } from 'wlc-engine/modules/core';
 import {UserProfile} from 'wlc-engine/modules/user/system/models/profile.model';
 import {ICategorySettings} from 'wlc-engine/modules/core/system/interfaces/categories.interface';
@@ -150,7 +151,15 @@ export class GamesCatalog extends AbstractModel<IGames> {
         super({from: _assign({model: 'GamesCatalog'}, from)});
 
         this.data = _data;
-        this.init();
+        this.init().catch((error): void => {
+            const logObj: ILogObj = {
+                code: '7.0.3',
+                flog: {
+                    error: error.message ? error.message : error,
+                },
+            };
+            this.sendLog(logObj);
+        });
     }
 
     /**

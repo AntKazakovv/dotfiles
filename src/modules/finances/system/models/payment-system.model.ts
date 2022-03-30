@@ -1,12 +1,3 @@
-import {AbstractModel} from 'wlc-engine/modules/core/system/models/abstract.model';
-import {UserService} from 'wlc-engine/modules/user/system/services';
-import {IIndexing} from 'wlc-engine/modules/core/system/interfaces';
-import {GlobalHelper} from 'wlc-engine/modules/core/system/helpers/global.helper';
-import {FinancesHelper} from '../helpers/finances.helper';
-import {IPaymentMessage} from 'wlc-engine/modules/finances/system/interfaces/finances.interface';
-import {IFromLog} from 'wlc-engine/modules/core';
-import {TPaymentsMethods} from '../interfaces';
-
 import _assign from 'lodash-es/assign';
 import _get from 'lodash-es/get';
 import _includes from 'lodash-es/includes';
@@ -19,6 +10,18 @@ import _uniq from 'lodash-es/uniq';
 import _isString from 'lodash-es/isString';
 import _isEmpty from 'lodash-es/isEmpty';
 import _toNumber from 'lodash-es/toNumber';
+
+import {AbstractModel} from 'wlc-engine/modules/core/system/models/abstract.model';
+import {UserService} from 'wlc-engine/modules/user/system/services';
+import {IIndexing} from 'wlc-engine/modules/core/system/interfaces';
+import {GlobalHelper} from 'wlc-engine/modules/core/system/helpers/global.helper';
+import {FinancesHelper} from '../helpers/finances.helper';
+import {IPaymentMessage} from 'wlc-engine/modules/finances/system/interfaces/finances.interface';
+import {
+    IFromLog,
+    ILogObj,
+} from 'wlc-engine/modules/core';
+import {TPaymentsMethods} from '../interfaces';
 
 export type FilterType = TPaymentsMethods | 'Deposits' | 'Withdraws' | 'all' | 'All';
 
@@ -455,10 +458,23 @@ export class PaymentSystem extends AbstractModel<IPaymentSystem> {
     }
 
     private async importPackage(): Promise<void> {
-        await import('hosted-fields-sdk').then((m: any) => {
-            this.hostedFieldService = m['HostedFields'];
-            this.hostedField = m['Field'];
-        });
+        await import('hosted-fields-sdk')
+            .then((m: any) => {
+                this.hostedFieldService = m['HostedFields'];
+                this.hostedField = m['Field'];
+            })
+            .catch((error) => {
+                const logObj: ILogObj = {
+                    code: '7.0.3',
+                    flog: {
+                        error: error.message ? error.message : error,
+                    },
+                };
+                if (this.id) {
+                    logObj.flog.id = this.id;
+                }
+                this.sendLog(logObj);
+            });
     }
 
     private prepareAdditionalFields(): void {

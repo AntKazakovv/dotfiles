@@ -33,7 +33,10 @@ import {TranslateService} from '@ngx-translate/core';
 
 import {CachingService} from 'wlc-engine/modules/core/system/services/caching/caching.service';
 import {EventService} from 'wlc-engine/modules/core/system/services/event/event.service';
-import {LogService} from 'wlc-engine/modules/core/system/services/log/log.service';
+import {
+    ILogObj,
+    LogService,
+} from 'wlc-engine/modules/core/system/services/log/log.service';
 import {ISocketsData} from 'wlc-engine/modules/core/system/interfaces';
 import {WINDOW} from 'wlc-engine/modules/app/system';
 
@@ -344,9 +347,7 @@ export class DataService {
         const cacheUrl = requestParams.lang ? `${url}|${requestParams.lang}` : url;
 
         const preloadData$: Observable<unknown> =
-            (method.type === 'GET'
-                && _has(this.window.wlcPreload, method.preload)
-                && _get(this.window.wlcPreload, `${method.preload}['fulfilled']`, true))
+            (this.isRequestPreloaded(method))
                 ? from(this.window.wlcPreload[method.preload])
                 : of(undefined);
         if (!method.retries?.count) {
@@ -370,7 +371,7 @@ export class DataService {
             }),
             switchMap((result: IData) => {
                 return result
-                    ? this.restoreCachedData(method, result)
+                    ? this.restorePreloadedData(method, result)
                     : this.httpRequest(method, url, requestParams, requestBody).pipe(
                         retryWhen((err: Observable<HttpErrorResponse>) => err.pipe(
                             mergeMap((error: HttpErrorResponse): Observable<HttpErrorResponse | never> => {
@@ -386,23 +387,23 @@ export class DataService {
 
                         if (method.retries?.fallbackUrl) {
                             notCacheStaticData = false;
-                            this.logService.sendLog({
-                                code: '0.8.0',
-                                from: {
-                                    service: 'DataService',
-                                    method: 'request$',
-                                },
-                            });
+                            this.sendLog('0.0.14', method, error.message || error.status);
 
                             return this.httpRequest(
                                 method,
                                 method.retries.fallbackUrl,
                                 requestParams,
                                 requestBody,
+                            ).pipe(
+                                catchError((e: HttpErrorResponse): Observable<never> => {
+                                    this.sendLog('0.0.15', method, error.message || error.status);
+                                    return throwError(e.error || error);
+                                }),
                             );
                         }
 
-                        this.logService.sendLog(error.error || error);
+                        this.sendLog('0.0.15', method, error.message || error.status);
+
                         if (method.events?.fail) {
                             this.eventService.emit({
                                 name: method.events.fail,
@@ -444,12 +445,7 @@ export class DataService {
                 }
 
                 if (responseData.errors) {
-                    this.logService.sendLog({
-                        code: '0.0.12',
-                        data: {
-                            errors: responseData.errors,
-                        },
-                    });
+                    this.sendLog('0.0.12', method, responseData.errors);
                     if (method.events?.fail) {
                         this.eventService.emit({
                             name: method.events.fail,
@@ -494,6 +490,28 @@ export class DataService {
                 }) as Promise<IData>);
             }),
         );
+    }
+
+    protected sendLog(code: string, method: IRegisteredMethod, error: unknown): void {
+        const logObj: ILogObj = {
+            code,
+            flog: {
+                request: `${method.system}.${method.name}`,
+                errors: (typeof error === 'string') ? error : JSON.stringify(error),
+            },
+            from: {
+                service: 'DataService',
+                method: 'request$',
+            },
+        };
+
+        this.logService.sendLog(logObj);
+    }
+
+    private isRequestPreloaded(method: IRegisteredMethod): boolean {
+        return method.type === 'GET'
+            && _has(this.window.wlcPreload, method.preload)
+            && _get(this.window.wlcPreload, `${method.preload}['fulfilled']`, true);
     }
 
     private socketConnect(): void {
@@ -556,7 +574,7 @@ export class DataService {
         });
     }
 
-    private restoreCachedData<T>(method: IRegisteredMethod, data: T): Observable<IData> {
+    private restorePreloadedData<T>(method: IRegisteredMethod, data: T): Observable<IData> {
         return of({
             status: 'success',
             name: method.name,
@@ -575,7 +593,8 @@ export class DataService {
 
     private httpRequest(
         method: IRegisteredMethod,
-        url: string, requestParams: {lang: string} & RequestParamsType,
+        url: string,
+        requestParams: {lang: string} & RequestParamsType,
         requestBody: string | FormData,
     ): Observable<IData> {
         return this.http.request<IData>(method.type, url, {
