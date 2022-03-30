@@ -75,6 +75,7 @@ export class UserService {
         }
     }
 
+    public updateForm$: BehaviorSubject<boolean> = new BehaviorSubject(true);
     public userProfile$: BehaviorSubject<UserProfile> = new BehaviorSubject(null);
     public userInfo$: BehaviorSubject<UserInfo> = new BehaviorSubject(null);
     private configUserProfile$: BehaviorSubject<UserProfile> = this.configService.get({name: '$user.userProfile$'});

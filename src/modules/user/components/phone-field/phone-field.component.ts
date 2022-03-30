@@ -106,7 +106,9 @@ export class PhoneFieldComponent extends AbstractComponent implements OnInit {
                         });
                 }
 
-                this.$params.phoneNumber.control.setValue(profile.phoneNumber || tempPhoneNumber);
+                if (profile.phoneNumber || tempPhoneNumber) {
+                    this.$params.phoneNumber.control.setValue(profile.phoneNumber || tempPhoneNumber);
+                }
                 this.$params.phoneNumber.control.updateValueAndValidity({onlySelf: true});
             }));
 
@@ -185,4 +187,3 @@ export class PhoneFieldComponent extends AbstractComponent implements OnInit {
         this.$params.phoneNumber['theme'] = this.$params.theme;
     }
 }
-

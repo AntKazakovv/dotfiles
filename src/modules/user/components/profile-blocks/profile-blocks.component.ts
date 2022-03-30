@@ -78,7 +78,7 @@ export class ProfileBlocksComponent extends AbstractComponent implements OnInit 
 
     /**
      * Open modal by name
-     * 
+     *
      * @param name modal name
      */
     public openModal(name: string): void {
@@ -95,7 +95,7 @@ export class ProfileBlocksComponent extends AbstractComponent implements OnInit 
                     showFooter: false,
                 });
                 break;
-        
+
             case 'add-profile-info':
                 this.modalService.showModal({
                     id: 'add-profile-info',
@@ -129,6 +129,7 @@ export class ProfileBlocksComponent extends AbstractComponent implements OnInit 
      * @param checked {boolean}
      */
     protected async notificationToggle(checked: boolean): Promise<void> {
+        this.userService.updateForm$.next(false);
         try {
             await this.userService.updateProfile({
                 // for wlc_core old versions
@@ -153,9 +154,9 @@ export class ProfileBlocksComponent extends AbstractComponent implements OnInit 
 
     /**
      * Set validator for component
-     * 
+     *
      * @param componentParams form element params
-     * @param newValidators validators 
+     * @param newValidators validators
      * @returns {Params.IFieldComponentParams}
      */
     protected changeValidators(
