@@ -1,0 +1,30 @@
+@use 'sass:string';
+@use 'sass:selector';
+
+/// Modifies selectors chain
+///
+/// @name betweenClass
+///
+/// @param {selector} $class
+///
+/// @example
+/// // Input
+/// .block {
+///
+///     &__elem {
+///         @include betweenClass('.middle-class') { ... }
+///     }
+/// }
+///
+/// // Output
+/// .block .middle-class .block__elem { ... }
+
+@mixin betweenClass($class: '') {
+    $stringSelector: string.unquote('#{&}');
+    $index: string.index($stringSelector, ' ');
+    $newSelector: string.insert($stringSelector, ' #{$class}', $index);
+
+    @at-root #{selector.parse($newSelector)} {
+        @content;
+    }
+}

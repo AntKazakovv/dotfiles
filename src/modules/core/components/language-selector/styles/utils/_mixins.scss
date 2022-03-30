@@ -96,9 +96,3 @@
     grid-gap: 10px;
     align-items: center;
 }
-
-@mixin mod($theme, $mod) {
-    @include bm.themeMod('wlc-language-selector', $theme, $mod) {
-        @content;
-    }
-}

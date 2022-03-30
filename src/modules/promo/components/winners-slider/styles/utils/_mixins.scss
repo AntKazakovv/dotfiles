@@ -1,0 +1,36 @@
+@use 'sass:selector';
+
+/// Creates a selector which consists of theme modifier and modifier which was added manually by `addMidifiers` method.
+///
+/// @name manualMod
+///
+/// @param {string} $class - base class name of component
+/// @param {string} $theme - name of component theme
+/// @param {string} $mod - component modifier
+///
+/// @example
+/// // Input
+/// .block--theme-default {
+///
+///     .block {
+///
+///         &__elem {
+///             max-width: 1600px;
+///
+///             @include bm.manualMod('block', 'default', 'new') {
+///                 max-width: 100%;
+///             }
+///         }
+///     }
+/// }
+///
+/// // Output
+/// .block--theme-default .block__elem { max-width: 1600px; }
+/// .block--theme-default.block--new .block__elem { max-width: 100%; }
+
+@mixin manualMod($class, $theme, $mod) {
+
+    @at-root #{selector.replace(&, '.#{$class}--theme-#{$theme}', '.#{$class}--theme-#{$theme}.#{$class}--#{$mod}')} {
+        @content;
+    }
+}

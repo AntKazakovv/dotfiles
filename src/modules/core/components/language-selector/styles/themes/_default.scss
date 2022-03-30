@@ -78,20 +78,6 @@
         }
 
         &__dropdown {
-
-            @include mod('default', 'bottom-left') {
-                top: 100%;
-                right: 0;
-
-                padding-top: ef.get-value($themeDefault, 'dropdownArrowSize');
-            }
-
-            @include mod('default', 'top-left') {
-                right: 0;
-                bottom: 100%;
-
-                padding-bottom: ef.get-value($themeDefault, 'dropdownArrowSize');
-            }
             position: absolute;
             z-index: 3;
         }
@@ -99,13 +85,6 @@
         &__list {
             @include list(repeat(3, 1fr), ef.get-value($themeDefault, 'listGap'), ef.get-value($themeDefault, 'listPadding'), ef.get-value($themeDefault, 'dropdownBackgroundColor'));
 
-            @include mod('default', 'bottom-left') {
-                transform: translateY(ef.get-value($themeDefault, 'dropdownArrowSize'));
-            }
-
-            @include mod('default', 'top-left') {
-                transform: translateY(-#{ef.get-value($themeDefault, 'dropdownArrowSize')});
-            }
             filter: drop-shadow(ef.get-value($themeDefault, 'listShadow'));
 
             // iOS, MacOS fix
@@ -117,23 +96,6 @@
             /* stylelint-enable */
 
             &:before {
-
-                @include mod('default', 'bottom-left') {
-                    top: -#{ef.get-value($themeDefault, 'dropdownArrowSize')};
-                    right: ef.get-value($themeDefault, 'dropdownArrowSize');
-
-                    border-top: 0;
-                    border-bottom: ef.get-value($themeDefault, 'dropdownArrowSize') solid ef.get-value($themeDefault, 'dropdownBackgroundColor');
-                }
-
-                @include mod('default', 'top-left') {
-                    right: ef.get-value($themeDefault, 'dropdownArrowSize');
-                    bottom: -#{ef.get-value($themeDefault, 'dropdownArrowSize')};
-
-                    border-top: ef.get-value($themeDefault, 'dropdownArrowSize') solid ef.get-value($themeDefault, 'dropdownBackgroundColor');
-                    border-bottom: 0;
-                }
-
                 content: '';
                 position: absolute;
 
@@ -166,6 +128,54 @@
 
             &-flag {
                 @include flag(ef.get-value($themeDefault, 'dropdownFlagSize'), ef.get-value($themeDefault, 'dropdownFlagSize'), 50%, ef.get-value($themeDefault, 'flagBoxShadow'), ef.get-value($themeDefault, 'flagBoxShadowHover'));
+            }
+        }
+    }
+
+    &.wlc-language-selector--theme-mod-top-left {
+
+        .wlc-language-selector {
+
+            &__list {
+                transform: translateY(ef.get-value($themeDefault, 'dropdownArrowSize') * -1);
+
+                &:before {
+                    right: ef.get-value($themeDefault, 'dropdownArrowSize');
+                    bottom: -#{ef.get-value($themeDefault, 'dropdownArrowSize')};
+
+                    border-top: ef.get-value($themeDefault, 'dropdownArrowSize') solid ef.get-value($themeDefault, 'dropdownBackgroundColor');
+                    border-bottom: 0;
+                }
+            }
+
+            &__dropdown {
+                right: 0;
+                bottom: 100%;
+                padding-bottom: ef.get-value($themeDefault, 'dropdownArrowSize');
+            }
+        }
+    }
+
+    &.wlc-language-selector--theme-mod-bottom-left {
+
+        .wlc-language-selector {
+
+            &__list {
+                transform: translateY(ef.get-value($themeDefault, 'dropdownArrowSize'));
+
+                &:before {
+                    top: -#{ef.get-value($themeDefault, 'dropdownArrowSize')};
+                    right: ef.get-value($themeDefault, 'dropdownArrowSize');
+
+                    border-top: 0;
+                    border-bottom: ef.get-value($themeDefault, 'dropdownArrowSize') solid ef.get-value($themeDefault, 'dropdownBackgroundColor');
+                }
+            }
+
+            &__dropdown {
+                top: 100%;
+                right: 0;
+                padding-top: ef.get-value($themeDefault, 'dropdownArrowSize');
             }
         }
     }

@@ -1,0 +1,19 @@
+/// Helper for fix layout shift problem for inline elements
+///
+/// @name inlineLayoutShiftFix
+///
+/// @param {string} $pseudoName [after] - which pseudo element will be used (before or after)
+
+@mixin inlineLayoutShiftFix($pseudoName: 'after') {
+
+    &:#{$pseudoName} {
+        content: '-';
+
+        display: inline-block;
+        width: 0;
+
+        opacity: 0;
+        overflow: hidden;
+        pointer-events: none;
+    }
+}

@@ -3,138 +3,9 @@
 /// It will apply annotations to all items from file.
 /// @group global
 ////
-@use 'sass:selector';
-@use 'sass:string';
 @use './../functions' as ef;
 @use './mediaqueries' as mq;
 @use '../engine.variables' as ev;
-
-/// Sets base container styles (moved from bootstrap)
-///
-/// @name make-container
-///
-/// @param {size} $gutter [ev.$container-padding-x]
-
-@mixin make-container($gutter: ev.$container-padding-x) {
-    width: 100%;
-    margin-right: auto;
-    margin-left: auto;
-    padding-right: $gutter;
-    padding-left: $gutter;
-}
-
-/// Creates selector with component modifier and doesn't add extra nesting
-///
-/// @name themeMod
-///
-/// @param {string} $class - base class name of component
-/// @param {string} $theme - name of component theme
-/// @param {string} $mod - component modifier
-///
-/// @example
-/// // Input
-/// .block--theme-default {
-///
-///     .block {
-///
-///         &__elem {
-///             max-width: 1600px;
-///
-///             @include bm.themeMod('block', 'default', 'new') {
-///                 max-width: 100%;
-///             }
-///         }
-///     }
-/// }
-///
-/// // Output
-/// .block--theme-default .block__elem { max-width: 1600px; }
-/// .block--theme-mod-new .block__elem { max-width: 100%; }
-
-@mixin themeMod($class, $theme, $mod) {
-
-    @at-root #{selector.replace(&, '.#{$class}--theme-#{$theme}', '.#{$class}--theme-mod-#{$mod}')} {
-        @content;
-    }
-}
-
-/// Creates a selector which consists of theme modifier and modifier which was added manually by `addMidifiers` method.
-///
-/// @name manualMod
-///
-/// @param {string} $class - base class name of component
-/// @param {string} $theme - name of component theme
-/// @param {string} $mod - component modifier
-///
-/// @example
-/// // Input
-/// .block--theme-default {
-///
-///     .block {
-///
-///         &__elem {
-///             max-width: 1600px;
-///
-///             @include bm.manualMod('block', 'default', 'new') {
-///                 max-width: 100%;
-///             }
-///         }
-///     }
-/// }
-///
-/// // Output
-/// .block--theme-default .block__elem { max-width: 1600px; }
-/// .block--theme-default.block--new .block__elem { max-width: 100%; }
-
-@mixin manualMod($class, $theme, $mod) {
-
-    @at-root #{selector.replace(&, '.#{$class}--theme-#{$theme}', '.#{$class}--theme-#{$theme}.#{$class}--#{$mod}')} {
-        @content;
-    }
-}
-
-/// Modifies selectors chain
-///
-/// @name betweenClass
-///
-/// @param {selector} $class
-///
-/// @example
-/// // Input
-/// .block {
-///
-///     &__elem {
-///         @include betweenClass('.middle-class') { ... }
-///     }
-/// }
-///
-/// // Output
-/// .block .middle-class .block__elem { ... }
-
-@mixin betweenClass($class: '') {
-    $stringSelector: string.unquote('#{&}');
-    $index: string.index($stringSelector, ' ');
-    $newSelector: string.insert($stringSelector, ' #{$class}', $index);
-
-    @at-root #{selector.parse($newSelector)} {
-        @content;
-    }
-}
-
-/// TODO: delete
-/// Left because it can be used on projects
-/// @deprecated This mixin is deprecated. Use mixin hover.
-
-@mixin desktopHover {
-    @warn 'This mixin is deprecated. Use mixin hover.';
-
-    @media (hover: hover) {
-
-        &:hover {
-            @content;
-        }
-    }
-}
 
 /// Сhecking for hover on the device.
 /// Mixin was written due to a problem with "@media (hover: hover)" on android.
@@ -229,71 +100,6 @@
     }
 }
 
-/// Creates indent on section
-///
-/// @name init-indent
-///
-/// @param {list} $classes - classes list to apply indents
-
-@mixin init-indent($classes) {
-    $key: '';
-
-    @each $class in $classes {
-
-        @if (type-of($class) == 'list') {
-
-            #{nth($class, 1)} {
-                @include get-mq-map('margin-bottom', ev.$size, nth($class, 2));
-            }
-        } @else {
-            $key: if($key != '', $key + ', ' + $class, $class);
-        }
-    }
-
-    @if ($key != '') {
-        #{$key} {
-            @include get-mq-map('margin-bottom', ev.$baseVariables, 'sectionsGap');
-        }
-    }
-}
-
-/// Creates indents between sections
-///
-/// @name init-layout-gap
-///
-/// @param {map} $map
-
-@mixin init-layout-gap($map) {
-
-    @each $page, $classes in $map {
-        @if ($page == 'all') {
-            @include init-indent($classes);
-        } @else {
-
-            #{$page} {
-                @include init-indent($classes);
-            }
-        }
-    }
-}
-
-/// Creates hover effect on wlc-icon
-///
-/// @name arrowIconAnimation
-
-@mixin arrowIconAnimation() {
-
-    @media (hover: hover) {
-
-        &:hover {
-
-            .wlc-icon {
-                @include transition(transform, 0.3s);
-                transform: rotateX(360deg) translateX(10px);
-            }
-        }
-    }
-}
 
 /// Property allows to limit the content of the string
 ///
@@ -350,26 +156,6 @@
     transform: translate(-50%, -50%);
 }
 
-/// Helper for fix layout shift problem for inline elements
-///
-/// @name inlineLayoutShiftFix
-///
-/// @param {string} $pseudoName [after] - which pseudo element will be used (before or after)
-
-@mixin inlineLayoutShiftFix($pseudoName: 'after') {
-
-    &:#{$pseudoName} {
-        content: '-';
-
-        display: inline-block;
-        width: 0;
-
-        opacity: 0;
-        overflow: hidden;
-        pointer-events: none;
-    }
-}
-
 /// Adding styles for alternate color theme
 ///
 /// @name colorThemeAlt
@@ -380,34 +166,6 @@
     .wlc-body--theme-#{$suffix} & {
         @content;
     }
-}
-
-/// Generate string array from variable value
-/// Write for transition mixin
-///
-/// @name strToList
-///
-/// @param {string} $string - Source string
-/// @param {string} $separator - Separator for source string
-/// @return {string} splited string
-///
-/// @example
-/// var: 'selectDropdownItemTransition': map-get($time, 'main') ease-in-out background
-/// component: @include bm.transition(bm.split(#{ef.get-value($themeDefault, 'selectDropdownItemTransition')},' ')...);
-
-@function strToList($string, $separator) {
-    $split-arr: ();
-    $index : str-index($string, $separator);
-
-    @while $index != null {
-        $item: str-slice($string, 1, $index - 1);
-        $split-arr: append($split-arr, $item);
-        $string: str-slice($string, $index + 1);
-        $index : str-index($string, $separator);
-    }
-    $split-arr: append($split-arr, $string);
-
-    @return $split-arr;
 }
 
 /// Generate custom scrollbar

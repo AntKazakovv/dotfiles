@@ -77,6 +77,7 @@ $commonStyles: map-merge((
     'allLinkIconMargin': ef.size(1),
     'allLinkTransform': rotate(-90deg),
     'allLinkColorHover': var(--mc-main-l20),
+    'allLinkIconTransformHover': rotateX(360deg) translateX(10px),
 
     'titleIconMargin': 0 ef.size(2) 0 0,
     'titleWithIconMargin': 0 auto 0 0,

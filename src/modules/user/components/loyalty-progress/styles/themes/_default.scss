@@ -37,7 +37,7 @@
 
         &__title {
             @include lib.get-text-style(ef.get-value($themeDefault, 'levelProgressFontSize'));
-            @include bm.inlineLayoutShiftFix();
+            @include inlineLayoutShiftFix();
             color: ef.get-value($themeDefault, 'levelNameColor');
         }
 
@@ -48,7 +48,7 @@
 
             &-start,
             &-end {
-                @include bm.inlineLayoutShiftFix();
+                @include inlineLayoutShiftFix();
             }
         }
 

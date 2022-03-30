@@ -35,7 +35,6 @@
         &__link {
             @include text.get-text-style('PlaceholderTextBold', ef.get-value($commonStyles, 'allLinkColor'));
             @include bm.transition(color);
-            @include bm.arrowIconAnimation;
             @include bm.get-mq-map('display', $commonStyles, 'allLinkDisplay');
             @include bm.get-mq-map('align-items', $commonStyles, 'allLinkAlign');
             @include bm.get-mq-map('text-decoration', $commonStyles, 'allLinkDecoration');
@@ -68,6 +67,7 @@
                 ::ng-deep {
 
                     .wlc-icon {
+                        transform: ef.get-value($commonStyles, 'allLinkIconTransformHover');
 
                         svg {
                             fill: ef.get-value($commonStyles, 'allLinkColorHover');

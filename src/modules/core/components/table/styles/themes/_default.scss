@@ -94,7 +94,7 @@ $selector: '.wlc-table';
                 }
 
                 &--first {
-                    @include em.betweenClass('.wlc-show') {
+                    @include betweenClass('.wlc-show') {
                         border: none;
                     }
 
@@ -110,7 +110,7 @@ $selector: '.wlc-table';
                 }
 
                 &-content {
-                    @include em.betweenClass('.wlc-table__cell--first') {
+                    @include betweenClass('.wlc-table__cell--first') {
                         justify-self: ef.get-value($themeDefault, 'textAlignDesktop');
                         text-align: ef.get-value($themeDefault, 'textAlignDesktop');
                     }
@@ -216,7 +216,7 @@ $selector: '.wlc-table';
             }
 
             &--first {
-                @include em.betweenClass('.wlc-show') {
+                @include betweenClass('.wlc-show') {
                     border-bottom: ef.get-value($themeDefault, 'rowTitleBorderBottomOpenedMobile');
                 }
 
@@ -236,14 +236,14 @@ $selector: '.wlc-table';
                 justify-self: end;
 
                 ::ng-deep svg {
-                    @include em.betweenClass('.wlc-show') {
+                    @include betweenClass('.wlc-show') {
                         transform: rotateZ(180deg);
                     }
 
                     transition: all ef.get-value($themeDefault, 'animationTime');
 
                     path {
-                        @include em.betweenClass('.wlc-show') {
+                        @include betweenClass('.wlc-show') {
                             fill: ef.get-value($themeDefault, 'openIconColorOpened');
                         }
 
@@ -271,7 +271,7 @@ $selector: '.wlc-table';
             }
 
             &-content {
-                @include em.betweenClass('.wlc-table__cell--first') {
+                @include betweenClass('.wlc-table__cell--first') {
                     justify-self: start;
                     width: 100%;
                     text-align: start;

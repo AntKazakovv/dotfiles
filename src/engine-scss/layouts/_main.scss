@@ -1,5 +1,5 @@
-@use 'engine-scss/mixins/base.mixins' as em;
 @use 'engine-scss/engine.variables' as ev;
+@use 'engine-scss/mixins/layout.mixins' as lm;
 
 @import './header/header';
 @import './footer/footer';
@@ -20,7 +20,7 @@
 @import './sign-in-page/sign-in-page';
 @import './home/four-elements/four-elements';
 
-@include em.init-layout-gap(ev.$layoutGap);
+@include lm.init-layout-gap(ev.$layoutGap);
 
 [class*='wlc-sections__']:empty {
     display: none;

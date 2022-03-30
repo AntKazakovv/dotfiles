@@ -5,7 +5,7 @@
     .wlc-winners-slider {
 
         &__wrapper {
-            @include em.manualMod('wlc-winners-slider', 'vertical' ,'headless') {
+            @include manualMod('wlc-winners-slider', 'vertical' ,'headless') {
                 padding-top: ef.get-value($themeVertical, 'wrapperPaddingTopHeadless', ef.get-value($themeVertical, 'breakpoint'));
             }
 
@@ -29,7 +29,7 @@
         &__title {
             @include em.get-mq-map('padding', $themeVertical, 'titlePadding');
             @include text.get-text-style('ThirdTitleBold', ef.get-value($themeVertical, 'titleColor'));
-            @include em.manualMod('wlc-winners-slider', 'vertical' ,'headless') {
+            @include manualMod('wlc-winners-slider', 'vertical' ,'headless') {
                 display: none;
             }
 

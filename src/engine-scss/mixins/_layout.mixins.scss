@@ -1,0 +1,50 @@
+@use '../engine.variables' as ev;
+@use '../mixins/base.mixins' as bm;
+
+/// Creates indent on section
+///
+/// @name init-indent
+///
+/// @param {list} $classes - classes list to apply indents
+
+@mixin init-indent($classes) {
+    $key: '';
+
+    @each $class in $classes {
+
+        @if (type-of($class) == 'list') {
+
+            #{nth($class, 1)} {
+                @include bm.get-mq-map('margin-bottom', ev.$size, nth($class, 2));
+            }
+        } @else {
+            $key: if($key != '', $key + ', ' + $class, $class);
+        }
+    }
+
+    @if ($key != '') {
+        #{$key} {
+            @include bm.get-mq-map('margin-bottom', ev.$size, 'sectionsGap');
+        }
+    }
+}
+
+/// Creates indents between sections
+///
+/// @name init-layout-gap
+///
+/// @param {map} $map
+
+@mixin init-layout-gap($map) {
+
+    @each $page, $classes in $map {
+        @if ($page == 'all') {
+            @include init-indent($classes);
+        } @else {
+
+            #{$page} {
+                @include init-indent($classes);
+            }
+        }
+    }
+}
