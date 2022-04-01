@@ -25,7 +25,6 @@ export namespace wlcCategoryMenu {
                 useSwiperNavigation: true,
                 icons: {
                     use: true,
-                    folder: '/wlc/icons/color/v1/',
                 },
             },
         },
@@ -43,7 +42,6 @@ export namespace wlcCategoryMenu {
                 useSwiperNavigation: true,
                 icons: {
                     use: true,
-                    folder: '/wlc/icons/color/v2/',
                 },
             },
         },
@@ -59,7 +57,6 @@ export namespace wlcCategoryMenu {
                 useSwiperNavigation: true,
                 icons: {
                     use: true,
-                    folder: '/wlc/icons/european/v2/',
                 },
             },
         },
@@ -76,7 +73,6 @@ export namespace wlcCategoryMenu {
                 useSwiperNavigation: true,
                 icons: {
                     use: true,
-                    folder: '/wlc/icons/european/v2/',
                 },
             },
         },

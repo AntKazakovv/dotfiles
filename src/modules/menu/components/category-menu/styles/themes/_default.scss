@@ -37,43 +37,10 @@
                     padding: ef.get-value($themeDefault, 'linkTextPadding');
 
                     &:before {
-                        @include bm.transition();
-                        height: ef.get-value($themeDefault, 'underlineHeight');
-                        opacity: 100%;
-                    }
-                }
-            }
-
-            &__icon {
-
-                svg {
-                    fill: currentColor;
-
-                    path {
-                        fill: currentColor;
-                    }
-                }
-            }
-        }
-    }
-
-    &.wlc-category-menu--theme-mod-default {
-
-        ::ng-deep {
-
-            .wlc-menu {
-
-                &__icon {
-                    display: inline-flex;
-                    flex-direction: ef.get-value($themeDefault, 'iconFlexDirection');
-                    align-items: ef.get-value($themeDefault, 'iconAlignItems');
-                    justify-content: ef.get-value($themeDefault, 'iconJustifyContent');
-
-                    width: ef.get-value($themeDefault, 'iconOuterWidth');
-                    height: ef.get-value($themeDefault, 'iconOuterHeight');
-                    margin: ef.get-value($themeDefault, 'iconMargin');
-
-                    img {
+                        content: '';
+                        position: absolute;
+                        bottom: ef.get-value($themeDefault, 'underlineOffset');
+                        left: 0;
                         display: block;
                         width: 100%;
                         height: ef.get-value($themeDefault, 'underlineHeight');
