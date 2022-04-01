@@ -10,7 +10,11 @@ import {AbstractComponent, IMixedParams} from 'wlc-engine/modules/core/system/cl
 import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
 import {NOTIFICATION_METADATA} from 'wlc-engine/modules/core/system/services/notification/notification.service';
 import {INotificationMetadata} from 'wlc-engine/modules/core/system/services/notification/notification.interface';
-import {IImage, IMessageData} from './message.interface';
+import {
+    IImage,
+    IMessageData,
+} from './message.interface';
+import {IIndexing} from 'wlc-engine/modules/core/system/interfaces/global.interface';
 import * as Params from './message.params';
 
 import _assign from 'lodash-es/assign';
@@ -44,6 +48,7 @@ export class MessageComponent
     public image: IImage;
     public icon: string;
     public isHTML: boolean;
+    public messageContext: IIndexing<string | number>;
 
     constructor(
         @Inject(NOTIFICATION_METADATA)
@@ -67,6 +72,9 @@ export class MessageComponent
 
     public ngOnInit(): void {
         this.params.wlcElement = `${(this.params.wlcElement || 'notification_status-' + this.params.type)}`;
+        if (this.params.messageContext) {
+            this.messageContext = this.params.messageContext;
+        }
         super.ngOnInit(this.params);
 
         const {title, message, action, image, displayAsHTML} = this.params;
@@ -78,7 +86,6 @@ export class MessageComponent
             image,
             icon: this.$params.typeIcons[this.$params.type],
         });
-        
 
         if (action) {
             this.action = {

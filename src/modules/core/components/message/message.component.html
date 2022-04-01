@@ -1,7 +1,7 @@
 <div class="wlc-notification-message__inner">
     <span *ngIf="icon && !image"
           wlc-icon
-          class="wlc-notification-message__icon"          
+          class="wlc-notification-message__icon"
           [iconPath]="icon">
     </span>
 
@@ -18,8 +18,8 @@
             class="wlc-notification-message__heading"
             [attr.data-wlc-element]="'notification-title'"
         >{{title | translate}}</h4>
-        <div *ngIf="messages.length" 
-             class="wlc-notification-message__message-container" 
+        <div *ngIf="messages.length"
+             class="wlc-notification-message__message-container"
              [attr.data-wlc-element]="'notification-text'"
         >
             <div class="wlc-notification-message__message">
@@ -31,7 +31,7 @@
                         ></div>
                     </ng-container>
                     <ng-template #plainText>
-                        {{(message | translate) + '\n'}}
+                        {{(message | translate:messageContext) + '\n'}}
                     </ng-template>
                 </ng-container>
 
