@@ -18,6 +18,8 @@ export interface IFloatPanelsComponentEvents {
 }
 
 export const defaultParams: IFloatPanelsCParams = {
+    moduleName: 'core',
+    componentName: 'wlc-float-panels',
     class: 'wlc-float-panels',
     panels: {
         'left-v2': {
