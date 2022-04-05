@@ -3,7 +3,7 @@
 $customThemeDefault: () !default;
 $themeDefault: map-merge((
     // wrapper
-    'wrapperMargin': 0 auto ef.get('size', 'smaller'),
+    'wrapperMargin': 0 auto ef.size(4),
     'wrapperMaxWidth': (
         375: 370px,
         640: none,
@@ -15,8 +15,8 @@ $themeDefault: map-merge((
         640: auto 1fr,
     ),
     'wrapperGridGap': (
-        640: ef.get('size', 'smaller'),
-        768: ef.get('size', 'biger'),
+        640: ef.size(4),
+        768: ef.size(10),
     ),
 
     'wrapperModalDisplay': block,
@@ -39,7 +39,7 @@ $themeDefault: map-merge((
     'textModalAlignment': center,
 
     // clipboard
-    'clipboardMargin': 0 0 ef.get('size', 'smaller'),
+    'clipboardMargin': 0 0 ef.size(4),
 
     // qr
     'qrGridColumns': 1fr,

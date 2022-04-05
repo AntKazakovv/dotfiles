@@ -2,7 +2,7 @@
 
 $customThemeDefault: () !default;
 $themeDefault: map-merge((
-    'fontSize': ef.get('size', 'less'),
+    'fontSize': ef.size(6),
     'fontWeight': bold,
     'loadingAnimation': pulse 2s infinite,
 ), $customThemeDefault);

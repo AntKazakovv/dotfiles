@@ -10,7 +10,7 @@ $bonusesThemeDefault: map-merge((
 $customBonusesThemeFirst: () !default;
 $bonusesThemeFirst: map-merge((
     'promocodeMarginBottom': (
-        320: ef.get('size', 'smaller'),
+        320: ef.size(4),
         560: 0,
     )
 ), $customBonusesThemeFirst);

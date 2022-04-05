@@ -6,10 +6,10 @@ $themeDefault: map-merge((
     'baseHeight': 100%,
     'baseWidth': 100%,
     'containerPadding': (
-        375: ef.get('size', 'smaller') ef.get('size', 'small'),
-        768: ef.get('size', 'smaller') ef.get('size', 'smaller'),
-        1024: 25px ef.get('size', 'main'),
-        1630: ef.get('size', 'less') ef.get('size', 'main'),
+        375: ef.size(4) ef.size(2),
+        768: ef.size(4) ef.size(4),
+        1024: ef.size(5) ef.size(8),
+        1630: ef.size(6) ef.size(8),
     ),
     'containerBackground': var(--mc-bg300),
     'containerShadow': 0 4px 9px 0 var(--mc-bg-o1),
@@ -23,16 +23,16 @@ $themeDefault: map-merge((
     'titleFontStyle': 'ThirdTitleBold',
     'titleColor': var(--mc-baseMain),
     'titleMargin': (
-        375: 0 0 ef.get('size', 'smaller'),
-        560: 0 0 ef.get('size', 'less'),
-        720: 0 0 ef.get('size', 'smaller'),
-        900: 0 0 ef.get('size', 'smally'),
-        1630: 0 0 ef.get('size', 'smaller'),
+        375: 0 0 ef.size(4),
+        560: 0 0 ef.size(6),
+        720: 0 0 ef.size(4),
+        900: 0 0 ef.size(3),
+        1630: 0 0 ef.size(4),
     ),
 
     'subtitleFontStyle': 'PlaceholderText',
     'subtitleColor': var(--mc-baseMain),
-    'subtitleMargin': 0 0 ef.get('size', 'small') 0,
+    'subtitleMargin': 0 0 ef.size(2) 0,
 
     'linkFontStyle': 'ButtonText',
     'linkColor': var(--mc-main),
@@ -40,5 +40,5 @@ $themeDefault: map-merge((
 
     'iconFill': var(--mc-main),
     'iconFillHover': var(--mc-baseMain),
-    'iconMargin': 0 0 0 ef.get('size', 'smallest'),
+    'iconMargin': 0 0 0 ef.size(1),
 ), $customThemeDefault);

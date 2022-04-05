@@ -24,6 +24,23 @@ $customFieldColors: () !default;
 $customMainColorsAlt: () !default;
 $customFieldColorsAlt: () !default;
 $customCssVarsConfig: () !default;
+$customBaseVariables: () !default;
+
+$baseVariables: map-merge((
+    // Possible to add image background to body:
+    //imageBackground: url('xxx'),
+    //baseSize used in @function size
+    'baseSize': 5,
+    'sectionsGap': (
+        375: 30px,
+        900: 20px,
+        1630: 40px,
+    ),
+), $customBaseVariables);
+
+@function size-func($value: 1, $units: 1px) {
+    @return map-get($baseVariables, 'baseSize') * $value * $units;
+}
 
 /// Основные цвета проекта из дизайна.
 ///
@@ -179,6 +196,7 @@ $cssVarsConfig: map-merge((
 /// @prop {Size} main [40px] - main
 /// @prop {Size} biger [50px] - biger
 /// @prop {Size} big [60px] - big
+/// @deprecated This map is deprecated and will be deleted soon. Use ef.size(n)
 $dummy: map-merge((), $customSize);
 $size: map-merge((
     'smallest': 5px,
@@ -357,7 +375,7 @@ $form: map-merge((
     ),
     'labelMinHeight': 20px,
     'labelAlignItems': center,
-    'labelMargin': 0 0 0 map-get($size, 'small'),
+    'labelMargin': 0 0 0 size-func(2),
     'labelColor': var(--fc-labelColor),
 
     'inputColor': var(--fc-textColor),
@@ -367,8 +385,8 @@ $form: map-merge((
     'inputBorder': 2px solid var(--fc-borderColor),
     'inputBorderFocusColor': var(--fc-borderColor),
     'inputBorderRadius': map-get($radius, 'biger'),
-    'inputPadding': map-get($size, 'small') map-get($size, 'main') map-get($size, 'small') map-get($size, 'small'),
-    'selectDropdownPadding': map-get($size, 'small'),
+    'inputPadding': size-func(2) size-func(8) size-func(2) size-func(2),
+    'selectDropdownPadding': size-func(2),
     'inputTextAlign': left,
     'selectDropdownHeight': 300px,
     'selectDropdownItemTransition': (map-get($time, 'main') ease-in-out background),
@@ -387,10 +405,10 @@ $form: map-merge((
     'errorsBorderRadius': map-get($radius, 'biger'),
     'errorsBorderColor': var(--fc-errorBorder),
     'errorsFontSize': map-get($font, 'smaller'),
-    'errorsPadding': map-get($size, 'small'),
+    'errorsPadding': size-func(2),
     'placeholderFontSize': map-get($font, 'smaller'),
-    'placeholderPadding': 0 map-get($size, 'smaller'),
-    'placeholderShift': map-get($size, 'less') * -1,
+    'placeholderPadding': 0 size-func(4),
+    'placeholderShift': size-func(-6),
     'textareaMinHeight': 115px,
 ), $customForm);
 
@@ -476,12 +494,12 @@ $profileSettings: map-merge((
     ),
     'titleColor': var(--mc-baseMain),
     'profilePadding': (
-        375: map-get($size, 'smally') map-get($size, 'smally') map-get($size, 'less'),
-        1024: map-get($size, 'smaller') map-get($size, 'main') map-get($size, 'less'),
-        1630: map-get($size, 'less') map-get($size, 'main'),
+        375: size-func(3) size-func(3) size-func(6),
+        1024: size-func(4) size-func(8) size-func(6),
+        1630: size-func(6) size-func(8),
     ),
     'profilePaddingV1': (
-        375: map-get($size, 'smaller') map-get($size, 'smaller') map-get($size, 'main'),
+        375: size-func(4) size-func(4) size-func(8),
         1200: 0,
     ),
     'profileBg': (
@@ -490,16 +508,16 @@ $profileSettings: map-merge((
     ),
     'profileBgV1': var(--mc-bg700),
     'profileBorderRadius': (
-        375: map-get($size, 'small'),
-        1024: map-get($size, 'small')
+        375: size-func(2),
+        1024: size-func(2)
     ),
     'profileBorderRadiusV1': map-get($radius, 'biger'),
     'profileBtnWeight': 700,
-    'rangeMarginBottom': map-get($size, 'smally'),
+    'rangeMarginBottom': size-func(3),
     'historyFilterDisplay': flex,
     'historyFilterAlign': center,
     'historyFilterJustify': space-between,
-    'historyFilterMargin': 0 0 map-get($size, 'smallest'),
+    'historyFilterMargin': 0 0 size-func(1),
     'profileDisplayV1': (
         320: grid,
     ),
@@ -516,12 +534,12 @@ $profileSettings: map-merge((
         1200: minmax(675px, max-content) 330px,
     ),
     'contentPaddingV1': (
-        375: map-get($size, 'smaller') 0 0,
-        1200: map-get($size, 'smally') map-get($size, 'less') map-get($size, 'smaller'),
-        1630: map-get($size, 'smaller') map-get($size, 'main') map-get($size, 'less'),
+        375: size-func(4) 0 0,
+        1200: size-func(3) size-func(6) size-func(4),
+        1630: size-func(4) size-func(8) size-func(6),
     ),
     'contentHeaderInsideMarginTopV1': (
-        375: -#{map-get($size, 'smaller')},
+        375: -#{size-func(4)},
         1024: 0,
     ),
     'contentHeaderDisplayV1': flex,
@@ -530,8 +548,8 @@ $profileSettings: map-merge((
     'contentHeaderBorderBottomV1': (
         1024: 2px solid var(--mc-baseOpacity),
     ),
-    'contentHeaderMarginV1': 0 0 map-get($size, 'smaller') 0,
-    'contentHeaderUnderlinedMarginV1': 0 0 map-get($size, 'smaller') 0,
+    'contentHeaderMarginV1': 0 0 size-func(4) 0,
+    'contentHeaderUnderlinedMarginV1': 0 0 size-func(4) 0,
     'contentHeaderPaddingV1': (
         375: 0,
     ),
@@ -548,8 +566,8 @@ $profileSettings: map-merge((
     'secondTitleStyle': 'PrimaryText',
 
     'topMargin': (
-        375: 0 0 map-get($size, 'smally'),
-        1200: 0 0 map-get($size, 'smaller'),
+        375: 0 0 size-func(3),
+        1200: 0 0 size-func(4),
     ),
     'topBtnsAlignItems': center,
     'topBtnsJustifyContent': space-between,
@@ -621,8 +639,8 @@ $buttonSettings: map-merge((
     'borderSecondaryActiveHover': 2px solid var(--mc-buttonColor),
     'borderColorRead': var(--mc-baseOpacity),
     //Padding
-    'padding': map-get($size, 'smallest') map-get($size, 'smaller'),
-    'gap': map-get($size, 'smallest'),
+    'padding': size-func(1) size-func(4),
+    'gap': size-func(1),
     // Animation
     'time': map-get($time, 'main'),
     'radiusRoundingTheme': 100px,
@@ -630,14 +648,6 @@ $buttonSettings: map-merge((
     'transformSkew': skew(-20deg, 0),
     'transformSkewText': skew(20deg, 0),
 ), $customButtonSettings);
-
-$customBaseVariables: () !default;
-$baseVariables: map-merge((
-    // Possible to add image background to body:
-    //imageBackground: url('xxx'),
-    //baseSize used in @function size
-    'baseSize': 5,
-), $customBaseVariables);
 
 $customStickyHeader: () !default;
 $stickyHeader: map-merge((
@@ -838,12 +848,12 @@ $tableBtnBlock: map-merge((
         1200: 0,
     ),
     'btnBottom': (
-        375: map-get($size, 'small'),
+        375: size-func(2),
         1024: auto,
     ),
     'btnBottomFirst': (
-        375: map-get($size, 'small'),
-        1024: map-get($size, 'small'),
+        375: size-func(2),
+        1024: size-func(2),
         1200: auto,
     ),
     'btnActionDisplayFirst': (

@@ -11,7 +11,7 @@ $themeDefault: map-merge((
     'gap': ef.size(2),
     'loyaltyMargin': (
         375: 12px 0 0,
-        1630: ef.get('size', 'smally') 0 0,
+        1630: ef.size(3) 0 0,
     ),
 
     'allLinkTextStyle': 'ButtonText',
@@ -25,7 +25,7 @@ $themeDefault: map-merge((
     'userGridColumns': 1fr auto,
     'userGridAlignItems': center,
     'userIconWidth': 17px,
-    'userIconMargin': 0 0 0 ef.get('size', 'smallest'),
+    'userIconMargin': 0 0 0 ef.size(1),
     'userIconVertAlign': sub,
 
     'logoutDisplay': (

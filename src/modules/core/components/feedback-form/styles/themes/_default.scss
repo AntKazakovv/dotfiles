@@ -19,16 +19,16 @@
         flex-direction: row;
         flex-wrap: wrap;
 
-        margin: 0 calc(#{ef.get-value($themeDefault, 'contactsGap')} * -1.5);
+        margin: 0 (ef.get-value($themeDefault, 'contactsGap') * -1.5);
 
         @include mq.min(1024) {
-            margin: 0 calc(#{ef.get-value($themeDefault, 'contactsGap')} * -3);
+            margin: 0 (ef.get-value($themeDefault, 'contactsGap') * -3);
         }
     }
 
     .wlc-feedback-form-details__item {
         margin-bottom: ef.get-value($themeDefault, 'contactsGap');
-        padding: 0 calc(#{ef.get-value($themeDefault, 'contactsGap')} * 1.5);
+        padding: 0 (ef.get-value($themeDefault, 'contactsGap') * 1.5);
 
         &:first-child {
             @include mq.min(900) {
@@ -66,7 +66,7 @@
 
         @include mq.min(1024) {
             max-width: 50%;
-            padding: 0 calc(#{ef.get-value($themeDefault, 'contactsGap')} * 3);
+            padding: 0 (ef.get-value($themeDefault, 'contactsGap') * 3);
         }
     }
 

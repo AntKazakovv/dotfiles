@@ -5,11 +5,11 @@
 $customTheme1Header: () !default;
 $theme1Header: map-merge((
     'headerMargin': (
-        320: 0 0 ef.get-value($size, 'small'),
-        560: 0 0 ef.get-value($size, 'smaller'),
+        320: 0 0 ef.size(2),
+        560: 0 0 ef.size(4),
     ),
     'headerBurgerBtnMargin': 0 auto 0 0,
-    'headerBurgerBtnWidth': ef.get('size', 'less'),
+    'headerBurgerBtnWidth': ef.size(6),
     'headerBurgerBtnTextAlign': (
         1024: center
     ),
@@ -23,7 +23,7 @@ $theme1Header: map-merge((
     'headerContainerDesktopMargin': (
         1200: 0 auto
     ),
-    'headerGapColumns': ef.get('size', 'main'),
+    'headerGapColumns': ef.size(8),
     'headerGridColumns': (
         375: auto minmax(0, 1fr) auto,
         1200: auto auto minmax(0, 1fr) auto auto,
@@ -38,11 +38,11 @@ $theme1Header: map-merge((
     ),
     'headerPadding': (
         375: 0,
-        1200: 0 ef.get('size', 'smaller'),
-        1630: 0 ef.get('size', 'main')
+        1200: 0 ef.size(4),
+        1630: 0 ef.size(8)
     ),
     'headerBackground': transparent,
-    'headerGlobalPadding': ef.get('size', 'smally'),
+    'headerGlobalPadding': ef.size(3),
     'headerLogoMargin': 0 auto,
     'headerLogoMaxWidth': (
         375: 144px,
@@ -54,8 +54,8 @@ $theme1Header: map-merge((
     'headerSvgLogoMaxHeight': 50%,
     'headerSvgLogoMargin': 0 auto,
     'headerSvgBtn': var(--mc-baseOpacity),
-    'headerSvgBtnSize': ef.get('size', 'main'),
-    'headerDepositBtnMargin': 0 ef.get('size', 'small') 0 0,
+    'headerSvgBtnSize': ef.size(8),
+    'headerDepositBtnMargin': 0 ef.size(2) 0 0,
     'headerDepositBtnFill': var(--mc-main),
     'headerDepositBtnFillColor': ef.get('mainColors', 'baseMain'),
     'headerLoginBtnFillColor': var(--mc-baseOpacity),
@@ -63,8 +63,8 @@ $theme1Header: map-merge((
     'headerSvgBtnHover': var(--mc-baseMain),
     'headerUserBtnInnerFillColor': ef.get('mainColors', 'baseMain'),
     'headerLoginBtnTabletPadding': (
-        1200: ef.get('size', 'smallest') ef.get('size', 'small'),
-        1366: ef.get('size', 'smallest') ef.get('size', 'smaller')
+        1200: ef.size(1) ef.size(2),
+        1366: ef.size(1) ef.size(4)
     ),
     'headerLoginJustifyContent': flex-end,
     'headerUserInfoJustifyContent': flex-end,
@@ -90,11 +90,11 @@ $theme1Header: map-merge((
 $customTheme2Header: () !default;
 $theme2Header: map-merge((
     'headerMargin': (
-        320: 0 0 ef.get-value($size, 'small'),
-        560: 0 0 ef.get-value($size, 'smaller'),
+        320: 0 0 ef.size(2),
+        560: 0 0 ef.size(4),
     ),
     'headerBurgerBtnMargin': 0 auto 0 0,
-    'headerBurgerBtnWidth': ef.get('size', 'less'),
+    'headerBurgerBtnWidth': ef.size(6),
     'headerBurgerBtnTextAlign': (
         1024: center
     ),
@@ -109,7 +109,7 @@ $theme2Header: map-merge((
         1200: 0 auto
     ),
     'containerJustifyContent': space-between,
-    'headerGapColumns': ef.get('size', 'main'),
+    'headerGapColumns': ef.size(8),
     'headerGridColumns': (
         375: auto minmax(0, 1fr) auto,
         1200: auto auto minmax(0, 1fr) auto auto auto,
@@ -125,8 +125,8 @@ $theme2Header: map-merge((
     'headerBackground': transparent,
     'headerPadding': (
         375: 0,
-        1200: 0 ef.get('size', 'smaller'),
-        1630: 0 ef.get('size', 'main')
+        1200: 0 ef.size(4),
+        1630: 0 ef.size(8)
     ),
 
     'logoImgHeight': null,
@@ -144,16 +144,16 @@ $theme2Header: map-merge((
     'headerSvgLogoMaxHeight': 100%,
     'headerSvgLogoMargin': 0 auto,
     'headerSvgBtn': var(--mc-baseOpacity),
-    'headerSvgBtnSize': ef.get('size', 'main'),
-    'headerDepositBtnMargin': 0 ef.get('size', 'small') 0 0,
+    'headerSvgBtnSize': ef.size(8),
+    'headerDepositBtnMargin': 0 ef.size(2) 0 0,
     'headerDepositBtnFill': var(--mc-main),
     'headerDepositBtnInnerFillColor': ef.get('mainColors', 'baseMain'),
     'headerUserBtnInnerFillColor': ef.get('mainColors', 'baseMain'),
     'headerUserBtnFill': var(--mc-secondary),
     'headerSvgBtnHover': var(--mc-baseOpacity-d20),
     'headerLoginBtnTabletPadding': (
-        1200: ef.get('size', 'smallest') ef.get('size', 'small'),
-        1366: ef.get('size', 'smallest') ef.get('size', 'smaller')
+        1200: ef.size(1) ef.size(2),
+        1366: ef.size(1) ef.size(4)
     ),
     'loginBtnPadding': (
         375: ef.size(1) ef.size(2),

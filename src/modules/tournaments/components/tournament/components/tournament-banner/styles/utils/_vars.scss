@@ -36,7 +36,7 @@ $themeDefault: map-merge((
         768: 'PromoTitle',
     ),
     'bodyColor': var(--mc-baseMain),
-    'bodyMargin': 0 0 ef.get('size', 'smally'),
+    'bodyMargin': 0 0 ef.size(3),
     'bodyBgSize': (
         320: contain,
     ),

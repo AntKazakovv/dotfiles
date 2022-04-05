@@ -29,7 +29,7 @@ $themeFirst: map-merge((
     ),
     'moreIconSize': 24px,
     'topImgMargin': 65px,
-    'bottomImgMargin': ef.get('size', 'smaller'),
+    'bottomImgMargin': ef.size(4),
     // // Font
     'nameFontColor': var(--mc-baseMain),
     'nameFontSize': ef.get('font', 'big'),
@@ -37,7 +37,7 @@ $themeFirst: map-merge((
     'priceFontSize': ef.get('font', 'PrimaryText'),
     'moreIconColor': var(--mc-baseOpacity),
     'moreIconColorHover': var(--mc-baseMain),
-    'moreIconPadding': ef.get('size', 'smallest'),
+    'moreIconPadding': ef.size(1),
     // // Backgrounds
     'background': var(--mc-bg300),
     'backgroundHover': null,
@@ -46,9 +46,9 @@ $themeFirst: map-merge((
     // // Radius
     'radius': ef.get('radius', 'biger'),
     //Padding
-    'infoPadding': 0 ef.get('size', 'small'),
-    'btnMargin': 0 ef.get('size', 'smallest'),
-    'btnMarginMobile': 0 ef.get('size', 'smallest') ef.get('size', 'smaller') ef.get('size', 'smallest'),
+    'infoPadding': 0 ef.size(2),
+    'btnMargin': 0 ef.size(1),
+    'btnMarginMobile': 0 ef.size(1) ef.size(4) ef.size(1),
     'imagePadding': (
         320: 70% 0 0 0,
         1630: 70% 0 0 0,
@@ -58,10 +58,10 @@ $themeFirst: map-merge((
         1630: 2px 0,
     ),
     //Position
-    'tagPositionTop': ef.get('size', 'smaller'),
+    'tagPositionTop': ef.size(4),
     'moreIconPosLeft': auto,
-    'moreIconPosRight': ef.get('size', 'smally'),
-    'moreIconPosTop': ef.get('size', 'smally'),
+    'moreIconPosRight': ef.size(3),
+    'moreIconPosTop': ef.size(3),
     'moreIconPosBottom': auto,
     // Animation
     'time': ef.get('time', 'main'),

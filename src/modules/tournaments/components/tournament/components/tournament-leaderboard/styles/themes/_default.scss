@@ -86,7 +86,7 @@
             }
 
             &--top {
-                margin-bottom: -1 * ef.get-value($themeDefault, 'gridGap');
+                margin-bottom: -#{ef.get-value($themeDefault, 'gridGap')};
 
                 font-weight: ef.get-value($themeDefault, 'fontWeight');
                 border-radius: ef.get-value($themeDefault, 'itemTopRadius');

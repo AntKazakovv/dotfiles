@@ -11,7 +11,7 @@ $themeDefault: map-merge((
     'wrapperAlignItems': center,
 
     'containerPadding': (
-        1200: ef.get('size', 'main') 0,
+        1200: ef.size(8) 0,
     ),
     'containerBackground': (
         320: transparent,
@@ -54,7 +54,7 @@ $themeDefault: map-merge((
     'titleFont': 'QoteTextBold',
     'titleFontColor': var(--mc-baseMain),
     'titleMargin': (
-        320: 0 auto ef.get('size', 'smaller') auto,
+        320: 0 auto ef.size(4) auto,
     ),
 
     'itemsWrapperPosition': relative,
@@ -66,8 +66,8 @@ $themeDefault: map-merge((
         1024: repeat(4, 1fr),
     ),
     'itemsWrapperGap': (
-        320: ef.get('size', 'small'),
-        1200: ef.get('size', 'main'),
+        320: ef.size(2),
+        1200: ef.size(8),
     ),
     'itemsWrapperWidth': (
         1200: 1170px,
@@ -80,7 +80,7 @@ $themeDefault: map-merge((
     'itemDirection': column,
     'itemAlign': center,
     'itemPadding': (
-        320: ef.get('size', 'less') 0,
+        320: ef.size(6) 0,
         1200: 0,
     ),
     'itemRadius': ef.get('radius', 'biger'),
@@ -134,7 +134,7 @@ $themeDefault: map-merge((
     'btnWrappDisplay': flex,
     'btnWrappJustify': center,
     'btnWrappMargin': (
-        320: ef.get('size', 'smaller') 0 0 0,
+        320: ef.size(4) 0 0 0,
     ),
 
     'nodataTextAlign': center,

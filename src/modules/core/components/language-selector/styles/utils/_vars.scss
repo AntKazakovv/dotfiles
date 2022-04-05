@@ -2,24 +2,24 @@
 // Current
 $customThemeDefault: () !default;
 $themeDefault: map-merge((
-    'currentGap': ef.get('size', 'smallest'),
-    'currentPadding': ef.get('size', 'smallest'),
-    'currentBorderRadius': ef.get('size', 'smaller'),
+    'currentGap': ef.size(1),
+    'currentPadding': ef.size(1),
+    'currentBorderRadius': ef.size(4),
     'currentBackground': var(--mc-bg700),
     'currentArrowColor': var(--fc-arrowColor),
     'currentArrowColorOpened': var(--mc-baseMain),
     'currentColor': var(--mc-baseOpacity),
-    'currentFlagSize': ef.get('size', 'less'),
+    'currentFlagSize': ef.size(6),
     'currentFlagBorder': null,
-    'currentHeight': ef.get('size', 'less'),
-    'dropdownGap': ef.get('size', 'small'),
-    'dropdownPadding': ef.get('size', 'small'),
+    'currentHeight': ef.size(6),
+    'dropdownGap': ef.size(2),
+    'dropdownPadding': ef.size(2),
     'dropdownBackgroundColor': var(--mc-bg),
     'dropdownBorderRadius': ef.get('radius', 'less'),
-    'dropdownFlagSize': ef.get('size', 'less'),
+    'dropdownFlagSize': ef.size(6),
     'listShadow': 0 0 5px ef.get('mainColors', 'baseContrast'),
 
-    'dropdownArrowSize': ef.get('size', 'small'),
+    'dropdownArrowSize': ef.size(2),
 
     'flagBoxShadow': 0 0 0 4px var(--mc-bg300),
     'flagBoxShadowHover': 0 0 0 4px var(--mc-main),
@@ -29,14 +29,14 @@ $themeDefault: map-merge((
     'langBg': var(--mc-baseMain),
     'langFontStyle': 'SignText',
     'langFontColor': var(--mc-baseContrast),
-    'langPadding': 0 ef.get('size', 'small'),
+    'langPadding': 0 ef.size(2),
     'langHeight': 20px,
     'langRadius': 20px,
     'langFontStyleCurrent': 'PrimaryText',
     'langFontColorCurrent': var(--mc-baseMain),
 
-    'listGap': ef.get('size', 'smaller'),
-    'listPadding': ef.get('size', 'smaller'),
+    'listGap': ef.size(4),
+    'listPadding': ef.size(4),
 ), $customThemeDefault);
 
 $customThemeModal: () !default;
@@ -44,8 +44,8 @@ $themeModal: map-merge((
     'dropdownFlagSize': 55px,
     'flagBoxShadow': 0 0 0 4px var(--mc-bg300),
     'flagBoxShadowHover': (0 0 0 4px var(--mc-main), 0 0 7px 7px rgba(0, 0, 0, 0.6)),
-    'listGap': ef.get('size', 'smaller'),
-    'listPadding': ef.get('size', 'smally'),
+    'listGap': ef.size(4),
+    'listPadding': ef.size(3),
 ), $customThemeModal);
 
 $customThemeBorderAround: () !default;
@@ -58,7 +58,7 @@ $themeBorderAround: map-merge((
     'currentArrowFill': var(--fc-arrowColor),
     'currentArrowFillHover': var(--mc-bg100),
     'currentArrowFillOpened': var(--mc-main),
-    'currentPadding': ef.get('size', 'smallest'),
+    'currentPadding': ef.size(1),
     'currentRadius': ef.get('radius', 'biger'),
     'currentFlagSize': 27px,
     'flagBoxShadowHover': none,
@@ -85,12 +85,12 @@ $themeDefaultModLog: map-merge((
     'currentColorModLangOpened': ef.get('mainColors', 'baseMain'),
     'dropdownBgModLong': var(--mc-bg),
     'dropdownMarginOpened': ef.size(1) 0 0,
-    'dropdownBorderRadius': ef.get('size', 'small'),
+    'dropdownBorderRadius': ef.size(2),
     'listShadow': none,
-    'currentFlagSize': ef.get('size', 'smaller'),
+    'currentFlagSize': ef.size(4),
     'currentFlagMargin': 5px,
-    'dropdownFlagSize': ef.get('size', 'smaller'),
-    'dropdownPaddingLong': ef.get('size', 'smaller') ef.get('size', 'smally'),
+    'dropdownFlagSize': ef.size(4),
+    'dropdownPaddingLong': ef.size(4) ef.size(3),
     'langFontStyleActive': 'PrimaryText',
     'langFontStyle': 'PrimaryText',
     'burgerPanelMaxWidthModLong': 240px,

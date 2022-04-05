@@ -5,7 +5,7 @@ $themeDefault: map-merge((
     'sectionMargin': ef.size(4) 0 0,
     'sectionLoaderMinHeight': 400px,
     'filterMargin': 0 0 ef.size(4),
-    'filterGap': ef.get('size', 'smally'),
+    'filterGap': ef.size(3),
     'filterMinWidth': 140px,
     'sectionDisplayTypeFirst': (
         375: none,

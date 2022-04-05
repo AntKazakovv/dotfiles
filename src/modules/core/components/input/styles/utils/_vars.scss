@@ -38,7 +38,7 @@ $themeDefault: map-merge((
 $customThemePlaceholderShown: () !default;
 $themePlaceholderShown: map-merge((
     'transition': ef.get('time', 'main'),
-    'margin': ef.get('size', 'smaller') 0 0 0,
+    'margin': ef.size(4) 0 0 0,
 
     'inputFontSize': ef.get('form', 'inputFontSize'),
     'inputBorder': ef.get('form', 'inputBorder'),
@@ -71,11 +71,11 @@ $themeVertical: map-merge((
     'iconTextStyle': 'PrimaryText',
     'iconTextColor': var(--fc-iconColor),
     'iconEyeTop': 50%,
-    'iconEyeRight': ef.get('size', 'small'),
+    'iconEyeRight': ef.size(2),
     'iconEyeTransform': translateY(-50%),
 
-    'controlIconRight': ef.get('size', 'less'),
-    'controlErrorRight': ef.get('size', 'less'),
+    'controlIconRight': ef.size(6),
+    'controlErrorRight': ef.size(6),
 
     'fieldIconSize': 30px,
     'fieldIconLineHeight': 0,

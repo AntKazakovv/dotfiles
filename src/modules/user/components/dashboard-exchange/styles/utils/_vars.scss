@@ -21,18 +21,18 @@ $themeDefault: map-merge((
     'contentInfoAlignSelf': center,
     'contentRadius': ef.get('radius', 'biger'),
     'contentGap': (
-        375: ef.get('size', 'small'),
+        375: ef.size(2),
         640: 0,
     ),
     'contentPadding': (
-        375: 0 0 ef.get('size', 'smaller'),
-        640: 0 ef.get('size', 'smaller'),
-        1420: 0 ef.get('size', 'main'),
+        375: 0 0 ef.size(4),
+        640: 0 ef.size(4),
+        1420: 0 ef.size(8),
     ),
     'contentInfoPadding': (
         375: 0,
-        640: 0 ef.get('size', 'smaller'),
-        1420: 0 ef.get('size', 'main'),
+        640: 0 ef.size(4),
+        1420: 0 ef.size(8),
     ),
 
     'separatorPosLeft': (
@@ -63,9 +63,9 @@ $themeDefault: map-merge((
     'pointsValueSize': 24px,
     'pointsValueWeight': bold,
     'pointsValueMargin': 0,
-    'pointsValuePadding': ef.get('size', 'smallest') ef.get('size', 'smaller') 0,
+    'pointsValuePadding': ef.size(1) ef.size(4) 0,
     'pointsValueCurrencySize': 12px,
-    'pointsDescMargin': 5px 0 0,
+    'pointsDescMargin': ef.size(1) 0 0,
     'pointsDescSize': 12px,
     'pointsDisplay': flex,
     'pointsPosition': relative,
@@ -87,8 +87,8 @@ $themeDefault: map-merge((
     'exchangeAlignItems': center,
     'exchangeJustifyContent': center,
     'exchangeBtnMargin': (
-        375: ef.get('size', 'smaller') 0 0,
-        900: ef.get('size', 'smally') 0 0,
+        375: ef.size(4) 0 0,
+        900: ef.size(3) 0 0,
     ),
     'exchangeDisplay': flex,
     'exchangeValuePosition': (

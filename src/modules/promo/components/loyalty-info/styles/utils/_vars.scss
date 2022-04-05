@@ -14,19 +14,19 @@ $themeDefault: map-merge((
 
     'infoTitleFont': 'ThirdTitleBold',
     'infoTitleFontColor': var(--mc-baseMain),
-    'infoTitlePadding': 0 0 ef.get('size', 'smaller') 0,
+    'infoTitlePadding': 0 0 ef.size(4) 0,
     'infoTitleTextAlign': center,
 
     'infoTextFont': 'PrimaryText',
     'infoTextFontColor': var(--mc-baseMain),
-    'infoTextPadding': 0 0 ef.get('size', 'smaller') 0,
+    'infoTextPadding': 0 0 ef.size(4) 0,
     'infoTextAlign': center,
 
-    'titlePadding': 0 0 ef.get('size', 'smaller') 0,
-    'descriptionPadding': 0 0 ef.get('size', 'smaller') 0,
-    'paddingContent': ef.get('size', 'smaller') ef.get('size', 'less'),
+    'titlePadding': 0 0 ef.size(4) 0,
+    'descriptionPadding': 0 0 ef.size(4) 0,
+    'paddingContent': ef.size(4) ef.size(6),
 
     'wlcTableMinHeight': auto,
-    'wlcTablePadding':0 0 ef.get('size', 'main') 0,
+    'wlcTablePadding':0 0 ef.size(8) 0,
 
 ), $customThemeDefault);

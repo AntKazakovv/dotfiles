@@ -2,7 +2,7 @@
 
 $customThemeDefault: () !default;
 $themeDefault: map-merge((
-    'userStatsEmailValueMargin': 0 ef.get('size', 'small'),
+    'userStatsEmailValueMargin': 0 ef.size(2),
     'userStatsEmailValueColor': var(--mc-baseMain),
     'userStatsIconSize': (
         375: 25px,

@@ -11,7 +11,7 @@ $themeDefault: map-merge((
         375: block,
     ),
     'timeMargin': (
-        375: 0 ef.get('size', 'small')
+        375: 0 ef.size(2)
     ),
 
     'amountDisplay': (
@@ -19,7 +19,7 @@ $themeDefault: map-merge((
         1024: none,
     ),
     'amountMargin': (
-        375: 0 ef.get('size', 'smallest') 0 auto,
+        375: 0 ef.size(1) 0 auto,
     ),
 
     'timeDisplayTypeFirst': (

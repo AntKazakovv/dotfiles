@@ -5,8 +5,8 @@ $themeDefault: map-merge((
     'menuJustify': center,
 
     'itemPadding': (
-        375: ef.get('size', 'small'),
-        1200: ef.get('size', 'small') ef.get('size', 'less'),
+        375: ef.size(2),
+        1200: ef.size(2) ef.size(6),
     ),
     'itemTextTransform': uppercase,
     'itemFontWeight': bold,

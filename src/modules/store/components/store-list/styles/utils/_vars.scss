@@ -2,7 +2,7 @@
 
 $customThemeDefault: () !default;
 $themeDefault: map-merge((
-    'gridGap': ef.get('size', 'smaller'),
+    'gridGap': ef.size(4),
     'minItemWidth': 280px,
     'minItemWidthFirst': 250px,
     'minItemWidthDesktop': 320px,

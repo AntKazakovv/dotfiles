@@ -12,7 +12,7 @@ $themeDefault: map-merge((
     ),
     'iconFill': var(--mc-baseOpacity),
     'iconColorOnHover': var(--mc-baseMain),
-    'contentPadding': ef.get('size', 'small') ef.get('size', 'smaller'),
+    'contentPadding': ef.size(2) ef.size(4),
     'contentBg': var(--mc-bg100),
     'contentBorderRadius': ef.get('radius', 'biger'),
     'textStyle': 'PrimaryText',

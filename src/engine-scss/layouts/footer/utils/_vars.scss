@@ -108,7 +108,7 @@ $customTheme2Footer: () !default;
 $theme2Footer: map-merge((
     //base
     'basePaddingBottom': (
-        375: ef.get('size', 'smally'),
+        375: ef.size(3),
         900: 0,
     ),
     'baseBackground': map-get($footerCommon, 'baseBackground'),
@@ -124,8 +124,8 @@ $theme2Footer: map-merge((
         900: -1,
     ),
     'footerMenuPadding': (
-        375: ef.get('size', 'smally'),
-        900: ef.get('size', 'smally') 25px,
+        375: ef.size(3),
+        900: ef.size(3) ef.size(5),
     ),
     'footerMenuMargin': (
         375: map-get($footerCommon, 'gapTablet') auto,
@@ -149,7 +149,7 @@ $theme2Footer: map-merge((
         900: auto,
     ),
     'footerPostMenuFirstChildMarginBottom': (
-        375: ef.get('size', 'smaller'),
+        375: ef.size(4),
         900: 0,
     ),
 
@@ -163,10 +163,10 @@ $theme2Footer: map-merge((
 
     //footer post menu grid
     'footerPostMenuGridGap': (
-        375: ef.get('size', 'small'),
-        900: ef.get('size', 'smally'),
-        1200: ef.get('size', 'less'),
-        1630: ef.get('size', 'big'),
+        375: ef.size(2),
+        900: ef.size(3),
+        1200: ef.size(6),
+        1630: ef.size(12),
     ),
     'footerPostMenuGridColumns': (
         375: 1fr,
@@ -202,7 +202,7 @@ $theme2Footer: map-merge((
         900: auto auto,
     ),
     'footerBottomGap': (
-        900: ef.get('size', 'smaller'),
+        900: ef.size(4),
     ),
     'footerBottomFlexDirection': column,
     'footerBottomAlignItems': (
@@ -211,8 +211,8 @@ $theme2Footer: map-merge((
     ),
     'footerBottomJustifyContent': center,
     'footerBottomMargin': (
-        375: ef.get('size', 'smaller') 0 ef.get('size', 'main'),
-        900: ef.get('size', 'smaller') 0,
+        375: ef.size(4) 0 ef.size(8),
+        900: ef.size(4) 0,
         1200: map-get($footerCommon, 'gapDesktop') auto,
     ),
     'footerBottomOrder': (
@@ -226,7 +226,7 @@ $theme2Footer: map-merge((
     // license
     'licenseMaxWidth': map-get($footerCommon, 'elementMaxWidth'),
     'licenseMargin': (
-        375: ef.get('size', 'smaller') 0 0,
+        375: ef.size(4) 0 0,
         900: 0,
     ),
 

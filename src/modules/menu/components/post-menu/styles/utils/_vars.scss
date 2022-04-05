@@ -7,7 +7,7 @@ $themeDefault: map-merge((
     'titleTextStyle': 'ThirdTitleBold',
     'titleColor': var(--mc-main),
     'titleWeight': bold,
-    'titlePadding': 0 0 ef.get('size', 'smaller') 0,
+    'titlePadding': 0 0 ef.size(4) 0,
 
     'linkTextStyle': (
         375: 'PrimaryText',

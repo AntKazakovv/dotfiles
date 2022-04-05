@@ -6,7 +6,7 @@
 
     .swiper-button-container {
         position: absolute;
-        top: calc(#{ef.get-value($themePartial, 'bonusBodyHeight')} / 2 - #{ef.get-value($themePartial, 'sliderButtonHeight')} / 2);
+        top: ef.get-value($themePartial, 'bonusBodyHeight') / 2 - ef.get-value($themePartial, 'sliderButtonHeight') / 2;
         right: ef.get-value($themePartial, 'sliderPosRight');
         left: ef.get-value($themePartial, 'sliderPosLeft');
         z-index: ef.get-value($themePartial, 'sliderZIndex');

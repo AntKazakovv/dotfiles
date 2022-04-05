@@ -4,7 +4,7 @@ $customThemeDefault: () !default;
 $themeDefault: map-merge((
     'zIndex': 30,
 
-    'scrollbarSize': ef.get('size', 'smallest'),
+    'scrollbarSize': ef.size(1),
     'scrollbarStretchSize': 98%,
     'scrollbarPadding': 3px,
     'scrollbarBackground': var(--mc-bg700),

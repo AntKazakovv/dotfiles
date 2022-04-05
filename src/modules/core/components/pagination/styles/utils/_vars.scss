@@ -5,15 +5,15 @@ $customThemeDefault: () !default;
 
 $themeDefault: map-merge((
     'paginationMargin': (
-        375: ef.get('size', 'smaller') auto,
-        1366: ef.get('size', 'main') auto ef.get('size', 'smaller'),
+        375: ef.size(4) auto,
+        1366: ef.size(8) auto ef.size(4),
     ),
     'paginationPadding': 0,
     'activePaginationArrowColor': var(--mc-main),
     'activePaginationArrowColorHover': var(--mc-main-l20),
-    'pageItemMargin': 0 ef.get('size', 'smaller') 0 0,
-    'pageItemHeight': ef.get('size', 'main'),
-    'pageItemWidth': ef.get('size', 'main'),
+    'pageItemMargin': 0 ef.size(4) 0 0,
+    'pageItemHeight': ef.size(8),
+    'pageItemWidth': ef.size(8),
     'pageItemRadius': ef.get('radius', 'biger'),
     'pageItemInnerFill': ef.get('mainColors', 'baseMain'),
     'pageItemDisabled': var(--mc-baseOpacity),

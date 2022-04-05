@@ -74,16 +74,16 @@ $hostModal: map-merge((
     'modalBodyColor': var(--mc-baseMain),
     'modalBg': var(--mc-bgModal),
     'modalOffset': 0 auto 50px auto,
-    'modalOffsetMobile': -#{ef.get('size', 'less')} auto 0 auto,
-    'modalOffsetIosMobile': -#{ef.get('size', 'less')} auto ef.get('size', 'biger') auto,
+    'modalOffsetMobile': ef.size(-6) auto 0 auto,
+    'modalOffsetIosMobile': ef.size(-6) auto ef.size(10) auto,
     'modalBorder': 1px solid var(--mc-bg-o2),
     'modalBorderRadius': ef.get('radius', 'small'),
-    'modalFooterBtnsMargin': 0 ef.get('size', 'small'),
+    'modalFooterBtnsMargin': 0 ef.size(2),
     'modalHeaderPadding': (
         320: ef.size(6) ef.size(3) 0,
         768: ef.size(6) ef.size(6) 0,
     ),
-    'modalHeaderLangPadding': ef.get('size', 'less'),
+    'modalHeaderLangPadding': ef.size(6),
     'modalBodyPadding': (
         320: ef.size(6) ef.size(3) ef.size(8),
         768: ef.size(6),
@@ -92,8 +92,8 @@ $hostModal: map-merge((
         320: 0 ef.size(3) ef.size(6),
         768: 0 ef.size(6) ef.size(6),
     ),
-    'modalBodyPaddingConfirm': ef.get('size', 'small') ef.get('size', 'less'),
-    'modalFooterPaddingConfirm': ef.get('size', 'less') ef.get('size', 'less') ef.get('size', 'main') ef.get('size', 'less'),
+    'modalBodyPaddingConfirm': ef.size(2) ef.size(6),
+    'modalFooterPaddingConfirm': ef.size(6) ef.size(6) ef.size(8) ef.size(6),
     //'modalHeaderBorderBottom': 1px solid var(--mc-baseOpacity),
     'modalHeaderBorderBottom': unset,
     'modalFooterBorderTop': 1px solid transparent,
@@ -128,7 +128,7 @@ $hostModal: map-merge((
     'titleMaxWidth': 100%,
     'titlePadding': 0 ef.size(5),
     'titlePaddingLeft': (
-        320:  ef.get('size', 'smally'),
+        320:  ef.size(3),
     ),
     'titlePaddingRight': (
         320: 45px,
@@ -161,13 +161,13 @@ $hostModal: map-merge((
         900: 8px,
     ),
     'backBtnIconLineHeight': 0,
-    'backBtnIconMargin': 1px ef.get('size', 'smallest') 0 0,
+    'backBtnIconMargin': 1px ef.size(1) 0 0,
 
     'messageColor': var(--mc-baseMain),
     'messageFontSizeConfirm': ef.get('font', 'PrimaryText'),
 
     'iconSize': 120px,
-    'iconMargin': 0 0 ef.get('size', 'main') 0,
+    'iconMargin': 0 0 ef.size(8) 0,
     'iconColorConfirm': var(--mc-bg500),
 
     'paddingDefault': 3rem 4rem,
@@ -249,7 +249,7 @@ $hostModal: map-merge((
 
 $customLanguageModal: () !default;
 $languageModal: map-merge((
-    'paddingBody': 0 ef.get('size', 'less'),
+    'paddingBody': 0 ef.size(6),
 ), $customLanguageModal);
 
 $customThemeDefault: () !default;
@@ -366,8 +366,8 @@ $themeDefault: map-merge((
     'restoreTitleColor': var(--mc-baseMain),
 
     'restoreBodyPadding': (
-        320: ef.get('size', 'big') ef.get('size', 'less') ef.get('size', 'less'),
-        560: ef.get('size', 'small') ef.get('size', 'less') ef.get('size', 'less'),
+        320: ef.size(12) ef.size(6) ef.size(6),
+        560: ef.size(2) ef.size(6) ef.size(6),
     ),
     // restore password modal modifier
 
@@ -384,10 +384,10 @@ $themeDefault: map-merge((
         320: 0,
     ),
     'tournamentDetailFooterPadding': (
-        320: ef.get('size', 'smaller') 0,
+        320: ef.size(4) 0,
     ),
     'tournamentDetailIconCloseTop': (
-        320: ef.get('size', 'smally'),
+        320: ef.size(3),
         768: 17px,
     ),
     //tournament-details

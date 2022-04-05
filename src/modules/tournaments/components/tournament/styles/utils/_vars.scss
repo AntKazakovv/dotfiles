@@ -13,7 +13,7 @@ $themeDashboard: map-merge((
     'moreIconSelectedTop': -38px,
     'moreIconSelectedRight': 0,
     'moreIconContent': 100%,
-    'gap': ef.get('size', 'small'),
+    'gap': ef.size(2),
     'gapNoSelect': ef.size(4),
     'buttonWrapperMargin': ef.size(8) 0 0 0,
     'timerFontSize': ef.get('font', 'PrimaryText'),

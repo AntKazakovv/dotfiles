@@ -14,15 +14,15 @@ $themeDefault: map-merge((
 
     'wrapperTemplateColumns': repeat(auto-fit, minmax(150px, 1fr)),
     'wrapperGap': (
-        375: ef.get('size', 'small'),
-        768: ef.get('size', 'smally'),
+        375: ef.size(2),
+        768: ef.size(3),
     ),
-    'wrapperMargin': ef.get('size', 'main') 0 0,
+    'wrapperMargin': ef.size(8) 0 0,
 
     'titleAlignment': left,
     'titleAlignmentInsideModal': center,
 
-    'sliderMargin': ef.get('size', 'small') 0 0,
+    'sliderMargin': ef.size(2) 0 0,
     'sliderContainerMargin': (
         375: -10px -15px -10px -10px,
         768: -12px,
@@ -36,7 +36,7 @@ $themeDefault: map-merge((
         375: block,
         768: none,
     ),
-    'sliderPseudoWidth': ef.get('size', 'less'),
+    'sliderPseudoWidth': ef.size(6),
     'sliderPseudoBackground': linear-gradient(to left, var(--mc-bg), transparent),
     'sliderPseudoTop': 0,
     'sliderPseudoRight': 0,
@@ -50,7 +50,7 @@ $themeDefault: map-merge((
     ),
 
     'sliderButtonGridArea': button,
-    'sliderButtonMargin': 0 0 0 ef.get('size', 'smaller'),
+    'sliderButtonMargin': 0 0 0 ef.size(4),
 
     'iconBackground': var(--mc-bg700),
     'iconBorderRadius': ef.get('radius', 'biger'),

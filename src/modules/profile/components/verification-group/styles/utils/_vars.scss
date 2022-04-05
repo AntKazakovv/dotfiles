@@ -23,15 +23,15 @@ $themeDefault: map-merge((
     'docTypeMinHeight': 130px,
 
     'iconsWrpPosition': relative,
-    'iconsWrpMargin': 0 0 ef.get('size', 'smally') 0,
+    'iconsWrpMargin': 0 0 ef.size(3) 0,
     'iconsWrpContentDisplay': inline-block,
 
     'backgroundItem': var(--mc-bg300),
     'borderRadius': ef.get('radius', 'biger'),
     'paddingItem': (
-        320: ef.get('size', 'smaller'),
-        1200: ef.get('size', 'main'),
-        1630: ef.get('size', 'main') ef.get('size', 'big'),
+        320: ef.size(4),
+        1200: ef.size(8),
+        1630: ef.size(8) ef.size(12),
     ),
 
     'tileIconColor': var(--mc-main),
@@ -41,7 +41,7 @@ $themeDefault: map-merge((
 
     'iconCheckPosition': absolute,
     'iconCheckDemensions': 22px,
-    'iconCheckOffset': ef.get('size', 'smallest'),
+    'iconCheckOffset': ef.size(1),
     'iconCheckZIndex': 9,
     'iconCheckPosBottom': -10px,
     'iconCheckPosRight': -4px,
@@ -53,18 +53,18 @@ $themeDefault: map-merge((
     'titleFont': 'ThirdTitleBold',
     'subTitleFont': 'PrimaryText',
     'textFont': 'PrimaryText',
-    'titlePadding': 0 0 ef.get('size', 'smallest') 0,
+    'titlePadding': 0 0 ef.size(1) 0,
     'requiredPadding': 0,
-    'descriptionPadding':  0 0 ef.get('size', 'smaller') 0,
-    'docsListPadding': ef.get('size', 'smaller') 0,
+    'descriptionPadding':  0 0 ef.size(4) 0,
+    'docsListPadding': ef.size(4) 0,
     'docsListWidth': 100%,
     'docsListMargin': 0,
 
     'docsItemPosition': relative,
     'docsItemDisplay': grid,
     'docsItemGridTempCol': 3fr minmax(25px, max-content),
-    'docsItemColGap': ef.get('size', 'smallest'),
-    'docsItemMargin': 0 0 ef.get('size', 'smallest'),
+    'docsItemColGap': ef.size(1),
+    'docsItemMargin': 0 0 ef.size(1),
     'docsItemMarginLast': 0 0 0,
 
     'docsTextMinHeight': 25px,
@@ -75,7 +75,7 @@ $themeDefault: map-merge((
 
     'docsPreloadMargin': 0 0 0 auto,
 
-    'gapItem': ef.get('size', 'smaller'),
+    'gapItem': ef.size(4),
     'gridColums': (
         375: 1fr,
         768: repeat(2, 1fr),
@@ -100,9 +100,9 @@ $themeDefault: map-merge((
     'docsStatusAwaiting': var(--mc-warning),
     'docsStatusValidated': var(--mc-success),
     'docsStatusFailed': var(--mc-error),
-    'docOffset': ef.get('size', 'smallest'),
-    'docTextOffset': ef.get('size', 'smaller'),
-    'removeIconDocsDemensitons': ef.get('size', 'smally'),
+    'docOffset': ef.size(1),
+    'docTextOffset': ef.size(4),
+    'removeIconDocsDemensitons': ef.size(3),
     'removeIconDocsHoverColor': var(--mc-main),
 
     'preloaderSize': 20px,
@@ -115,7 +115,7 @@ $themeDefault: map-merge((
         320: none,
         768: flex
     ),
-    'dropzonePadding': ef.get('size', 'smaller'),
+    'dropzonePadding': ef.size(4),
     'dropzoneMinHeight': 175px,
     'dropzoneMargin': 0 auto,
     'dropzoneWidth': 100%,
@@ -126,7 +126,7 @@ $themeDefault: map-merge((
     'dropzoneInputPos': 0,
     'dropzoneInputOpacity': 0,
 
-    'infoIcon': 0 0 0 ef.get('size', 'smallest'),
+    'infoIcon': 0 0 0 ef.size(1),
     'iconStatusSize': 20px,
 
     'groupTitleAlign': center,
@@ -145,7 +145,7 @@ $themeDefault: map-merge((
     'uploadDirection': column,
     'uploadAlignItems': center,
     'uploadJustifyContent': center,
-    'uploadMargin': 0 0 ef.get('size', 'smaller') 0,
+    'uploadMargin': 0 0 ef.size(4) 0,
 
     'docsListItemAlignItems': center,
 

@@ -8,7 +8,7 @@ $themeDefault: map-merge((
     'borderRadius': ef.get('radius', 'biger'),
     'headerTextStyle': 'ThirdTitleBold',
     'headerTextColor': var(--mc-baseMain),
-    'headerPadding': ef.get('size', 'smaller'),
+    'headerPadding': ef.size(4),
     'imageShadowLayout': (
         linear-gradient(360deg, var(--mc-baseContrast-o8) 4%, var(--mc-baseContrast-o0) 30%),
 
@@ -21,16 +21,16 @@ $themeDefault: map-merge((
     'titleBackground': var(--mc-bg700),
     'titleTextStyle': 'ThirdTitleBold',
     'titleTextColor': var(--mc-baseMain),
-    'delimiterMargin': 0 ef.get('size', 'smallest'),
+    'delimiterMargin': 0 ef.size(1),
 
     'footerMaxHeight': 80px,
     'footerBackground': var(--mc-bg700),
 
-    'betsPadding': 0 ef.get('size', 'small'),
+    'betsPadding': 0 ef.size(2),
     'betItemBackground': var(--mc-bg500),
     'betMaxWidth': 153px,
     'betPadding': 8px 16px,
-    'betMargin': 0 ef.get('size', 'smallest'),
+    'betMargin': 0 ef.size(1),
     'betRadius': ef.get('radius', 'biger'),
     'betItemHoverBackground': var(--mc-buttonColor),
     'betDataStyle': 'ThirdTitleBold',

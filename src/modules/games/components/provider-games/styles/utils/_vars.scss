@@ -1,15 +1,15 @@
 $customThemeDefault: () !default;
 
 $themeDefault: map-merge((
-    'containerPadding': ef.get('size', 'main') 0 0,
+    'containerPadding': ef.size(8) 0 0,
 
-    'headerMargin': 0 0 ef.get('size', 'main'),
+    'headerMargin': 0 0 ef.size(8),
 
     'subtitleColor': var(--mc-main),
     'subtitleFontWeight': 400,
     'subtitleFontStyle': normal,
     'subtitleFontSize': inherit,
-    'subtitleMargin': 0 0 ef.get('size', 'smallest'),
+    'subtitleMargin': 0 0 ef.size(1),
 
     'titleFontWeight': 700,
     'titleFontSize': ef.get('font', 'QoteTextBold'),
@@ -17,20 +17,20 @@ $themeDefault: map-merge((
     'titleColor': inherit,
     'titleMargin': 0,
 
-    'gamesGridMarginBottom': ef.get('size', 'sectionsGap'),
+    'gamesGridMarginBottom': ef.get('baseVariables', 'sectionsGap'),
 
     'emptyAlignment': center,
-    'emptyPadding': 0 0 ef.get('size', 'main'),
+    'emptyPadding': 0 0 ef.size(8),
     'emptyFontSize': ef.get('font', 'PromoTitle'),
     'emptyFontWeight': 700,
     'emptyFontStyle': normal,
     'emptyFontColor': inherit,
 
     'logoWidth': 140px,
-    'logoMargin': 0 0 ef.get('size', 'main'),
+    'logoMargin': 0 0 ef.size(8),
     'logoBorderRadius': 50%,
     'logoPseudoPaddingTop': 100%,
-    'logoWrapPadding': ef.get('size', 'smaller'),
+    'logoWrapPadding': ef.size(4),
     'logoBackground': var(--mc-bg700),
     'logoIconColor': var(--mc-bg100),
     'logoIconWidth': 100%,

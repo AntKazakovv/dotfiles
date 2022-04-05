@@ -46,8 +46,8 @@ $themeMerchants: map-merge((
         375: 105px,
     ),
     'iconMaxHeight': (
-        375: ef.get('size', 'less'),
-        900: ef.get('size', 'less') * 1.2,
+        375: ef.size(6),
+        900: ef.size(7),
     ),
     'iconFill': var(--mc-bg100),
 ), $customThemeMerchants);
@@ -77,8 +77,8 @@ $themePayments: map-merge((
     ),
     'wrapperMargin': (
         375: 0,
-        900: 0 -#{ef.get('size', 'smaller')} -#{ef.get('size', 'small')},
-        1630: 0 -#{ef.get('size', 'smaller')} -#{ef.get('size', 'smaller')},
+        900: 0 ef.size(-4) ef.size(-2),
+        1630: 0 ef.size(-4) ef.size(-4),
     ),
     'wrapperPadding': (
         375: 0 0 ef.size(4) 0,
@@ -94,8 +94,8 @@ $themePayments: map-merge((
         375: 105px,
     ),
     'iconMaxHeight': (
-        375: ef.get('size', 'less'),
-        900: ef.get('size', 'less') * 1.2,
+        375: ef.size(6),
+        900: ef.size(7),
     ),
     'iconPadding': (
         375: 0 ef.size(3),
@@ -166,8 +166,8 @@ $themeSafety: map-merge((
         375: 105px,
     ),
     'iconMaxHeight': (
-        375: ef.get('size', 'less'),
-        900: ef.get('size', 'less') * 1.2,
+        375: ef.size(6),
+        900: ef.size(7),
     ),
     'iconFill': var(--mc-bg100),
 ), $customThemeSafety);

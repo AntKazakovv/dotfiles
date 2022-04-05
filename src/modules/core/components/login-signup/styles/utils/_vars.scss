@@ -2,7 +2,7 @@
 
 $customThemeDefault: () !default;
 $themeDefault: map-merge((
-    'gap': ef.get('size', 'smaller'),
+    'gap': ef.size(4),
     'loginTemplateAreas': 'login sign',
     'loginTemplateAreasMobile': 'sign' 'login',
 ), $customThemeDefault);

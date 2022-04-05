@@ -104,7 +104,7 @@
             }
 
             @include mod('default', 'top-left') {
-                transform: translateY(ef.get-value($themeDefault, 'dropdownArrowSize') * -1);
+                transform: translateY(-#{ef.get-value($themeDefault, 'dropdownArrowSize')});
             }
             filter: drop-shadow(ef.get-value($themeDefault, 'listShadow'));
 

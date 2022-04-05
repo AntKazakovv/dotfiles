@@ -42,7 +42,7 @@ $themeDefault: map-merge((
     'toggleElemWidth': 50px,
     'toggleElemBorder': none,
     'toggleElemBorderActive': none,
-    'togglePadding': 0 ef.get('size', 'smaller'),
+    'togglePadding': 0 ef.size(4),
     'toggleRadius': ef.get('radius', 'large'),
     'toggleCircleSize': 20px,
     'toggleCircleOffset': 2px,
@@ -51,6 +51,6 @@ $themeDefault: map-merge((
     'toggleCircleBorder': none,
     'toggleCircleBorderActive': none,
     'togglePaddingLeftText': 0,
-    'togglePaddingRightText': ef.get('size', 'smally'),
+    'togglePaddingRightText': ef.size(3),
     'toggleFontStyle': 'ThirdTitleBold'
 ), $customThemeDefault);

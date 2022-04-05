@@ -170,7 +170,7 @@
         .container & {
 
             &:not(:first-child) {
-                @include bm.get-mq-map('margin-top', ev.$size, 'sectionsGap');
+                @include bm.get-mq-map('margin-top', ev.$baseVariables, 'sectionsGap');
             }
         }
     }

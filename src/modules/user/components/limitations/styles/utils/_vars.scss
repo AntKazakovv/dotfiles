@@ -2,7 +2,7 @@
 
 $customThemeDefault: () !default;
 $themeDefault: map-merge((
-    'marginTop': ef.get('size', 'main'),
+    'marginTop': ef.size(8),
 
     'formTemplateColumns': (
         375: minmax(auto, 1fr),
@@ -11,20 +11,20 @@ $themeDefault: map-merge((
         1630: repeat(4, minmax(auto, 240px)),
     ),
 
-    'formColumnGap': 15px,
-    'formRowGap': 20px,
+    'formColumnGap': ef.size(3),
+    'formRowGap': ef.size(4),
     'formAlignItems': end,
     'formJustifyContent': start,
 
     'btnWidth': auto,
-    'btnHeight': 40px,
+    'btnHeight': ef.size(8),
     'btnMargin': (
         375: 0 auto,
         560: 0 auto 0 0,
     ),
 
     'actionPaddingCell': (
-        375: 1px ef.get('size', 'smally'),
-        1024: 5px ef.get('size', 'small'),
+        375: 1px ef.size(3),
+        1024: ef.size(1) ef.size(2),
     ),
 ), $customThemeDefault);

@@ -1,9 +1,9 @@
 $customThemeDefault: () !default;
 $themeDefault: map-merge((
     'color': var(--mc-baseMain),
-    'margin': ef.get('size', 'smallest') 0,
+    'margin': ef.size(1) 0,
     'maxWidth': 275px,
-    'padding': ef.get('size', 'small') 12px,
+    'padding': ef.size(2) 12px,
     'background': var(--mc-bg700),
     'border': none,
     'display': flex,
@@ -16,7 +16,7 @@ $themeDefault: map-merge((
 
     'iconColor': var(--mc-baseMain),
     'iconColorHover': var(--mc-baseMain),
-    'iconMargin': 0 ef.get('size', 'smallest') 0 0,
+    'iconMargin': 0 ef.size(1) 0 0,
     'iconWidth': 27px,
     'iconHeight': 19px,
 ), $customThemeDefault);

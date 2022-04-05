@@ -5,19 +5,19 @@ $customThemeDefault: () !default;
 $themeDefault: map-merge((
     'backgroundItem': var(--mc-bg300),
     'borderRadius': ef.get('radius', 'biger'),
-    'paddingItem': ef.get('size', 'main') ef.get('size', 'big'),
+    'paddingItem': ef.size(8) ef.size(12),
     'color': var(--mc-baseMain),
     'titleFont': 'ThirdTitleBold',
     'subTitleFont': 'PrimaryText',
     'textFont': 'PrimaryText',
-    'titlePadding': ef.get('size', 'smallest'),
+    'titlePadding': ef.size(1),
     'offset':(
         375: ef.size(4) 0 0 0,
         1024: 0 0 0 ef.size(6),
     ) ,
-    'btnOffset': 0 0 ef.get('size', 'smaller'),
+    'btnOffset': 0 0 ef.size(4),
     'btnSelectedOffset': 0,
-    'gapItem': ef.get('size', 'smaller'),
+    'gapItem': ef.size(4),
     'gridColums': (
         375: repeat(1, 1fr),
         768: repeat(2, 1fr),
@@ -31,19 +31,19 @@ $themeDefault: map-merge((
     'borderColorDrag': var(--mc-main),
     'successText': var(--mc-success),
 
-    'dragInnerMargin': ef.get('size', 'less') 0 0,
+    'dragInnerMargin': ef.size(6) 0 0,
 
-    'dragGap': ef.get('size', 'less'),
+    'dragGap': ef.size(6),
     'dropzoneBg': var(--mc-bg-o4),
     'borderTopUploadDocs': var(--mc-baseOpacity),
     'dropzoneBgRepeat': no-repeat,
     'dropzoneBgPosition': center,
     'dropzoneBgSize': contain,
     'titleFontUploadDocs': 'ThirdTitle',
-    'gapDocList': ef.get('size', 'smally'),
+    'gapDocList': ef.size(3),
     'docIconBg': var(--mc-bg500),
     'docIconRadius': ef.get('radius', 'less'),
-    'docIconOffset': ef.get('size', 'smallest'),
+    'docIconOffset': ef.size(1),
     'gridAreas': (
         375: 'select' 'dropzone' 'req-list' 'docs-list',
         1024: 'select docs-list' 'dropzone docs-list' 'req-list docs-list',
@@ -53,16 +53,16 @@ $themeDefault: map-merge((
     'docsStatusFailed': var(--mc-error),
     'infoIconBg': var(--mc-baseOpacity),
     'infoIconBgHover': var(--mc-baseMain),
-    'smallIconDocsDemensitons': ef.get('size', 'smaller'),
-    'removeIconDocsDemensitons': ef.get('size', 'smally'),
+    'smallIconDocsDemensitons': ef.size(4),
+    'removeIconDocsDemensitons': ef.size(3),
     'removeIconDocsHoverColor': var(--mc-main),
-    'bigIconDocsDemensitons': ef.get('size', 'less'),
-    'docOffset': ef.get('size', 'smallest'),
+    'bigIconDocsDemensitons': ef.size(6),
+    'docOffset': ef.size(1),
     'clearDropzoneColor': var(--mc-main),
     'clearDropzoneColorHoover': var(--mc-error),
     'selectTextColor': var(--fc-textColor),
-    'docTextOffset': ef.get('size', 'smaller'),
-    'preloaderDementions': ef.get('size', 'smally'),
+    'docTextOffset': ef.size(4),
+    'preloaderDementions': ef.size(3),
     'preloaderColor': 1px solid var(--mc-main),
     'preloaderBg': 1px solid var(--mc-bg),
 
@@ -73,7 +73,7 @@ $themeDefault: map-merge((
 
     'clearPosition': 10px,
 
-    'docsMargin': ef.get('size', 'smally') 0 0 0,
+    'docsMargin': ef.size(3) 0 0 0,
     'docsPadding': 0,
 
     'docIconSvgSize': 100%,
@@ -85,7 +85,7 @@ $themeDefault: map-merge((
     'docStatusWidth': 100%,
 
     'docTitleZIndex': 5,
-    'docTitlePadding': 0 ef.get('size', 'smaller') 0 0,
+    'docTitlePadding': 0 ef.size(4) 0 0,
     'docTitleMaxWidth': 100%,
 
     'docRemoveMargin': ef.size(-5) 0 0 auto,

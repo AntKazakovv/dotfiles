@@ -252,7 +252,7 @@
 
     @if ($key != '') {
         #{$key} {
-            @include get-mq-map('margin-bottom', ev.$size, 'sectionsGap');
+            @include get-mq-map('margin-bottom', ev.$baseVariables, 'sectionsGap');
         }
     }
 }

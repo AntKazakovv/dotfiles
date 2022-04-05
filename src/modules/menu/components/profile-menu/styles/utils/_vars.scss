@@ -4,8 +4,8 @@
 $customThemeDefault: () !default;
 $themeDefault: map-merge((
     'profileMenuGap': (
-        375: ef.get('size', 'small'),
-        900: ef.get('size', 'smallest')
+        375: ef.size(2),
+        900: ef.size(1)
     ),
     'profileMenuWidth': (
         900: max-content,
@@ -16,11 +16,11 @@ $themeDefault: map-merge((
     'profileMenuTextStyle': 'PrimaryText',
     'profileMenuTextColor': var(--mc-base-main),
     'profileMenuActiveColor': var(--mc-baseMain),
-    'profileMenuBgBeforeHeight': ef.get('size', 'smaller'),
+    'profileMenuBgBeforeHeight': ef.size(4),
     'profileMenuLinkPadding': (
-        375: ef.get('size', 'small') ef.get('size', 'small'),
-        1024: ef.get('size', 'small') ef.get('size', 'smally'),
-        1200: ef.get('size', 'small') ef.get('size', 'smaller')
+        375: ef.size(2) ef.size(2),
+        1024: ef.size(2) ef.size(3),
+        1200: ef.size(2) ef.size(4)
     ),
     'profileMenuLinkBorderRadius': ef.get('radius', 'big') ef.get('radius', 'big') 0 0,
     'iconSize': 16px,
@@ -77,11 +77,11 @@ $submenuProfileDefault: map-merge((
 $customFullProfileFirstDefault: () !default;
 $fullProfileFirstDefault: map-merge((
     'menuBg': var(--mc-bg300),
-    'menuPadding': ef.get('size', 'smallest') 0,
+    'menuPadding': ef.size(1) 0,
     'menuRadius': ef.get('radius', 'biger') 0 0 ef.get('radius', 'biger'),
     'menuItemDropdownPadding': (
-        320: ef.get('size', 'small') ef.get('size', 'less'),
-        1630: ef.get('size', 'smally') ef.get('size', 'less'),
+        320: ef.size(2) ef.size(6),
+        1630: ef.size(3) ef.size(6),
     ),
     'menuItemDropdownBorder': 2px solid var(--mc-baseOpacity),
     'menuTitleFontStyle': 'QoteTextBold',
@@ -92,14 +92,14 @@ $fullProfileFirstDefault: map-merge((
     ),
     'menuTitleTextDecoration': none,
     'menuTitleMargin': (
-        320: 0 0 ef.get('size', 'small') 0,
+        320: 0 0 ef.size(2) 0,
     ),
     'menuLinkFontStyle': 'ThirdTitle',
     'menuLinkFontColor': var(--mc-baseMain),
     'menuLinkTextDecoration': none,
     'menuLinkMargin': (
-        320: 0 0 ef.get('size', 'smallest') 0,
-        1630: 0 0 ef.get('size', 'small') 0,
+        320: 0 0 ef.size(1) 0,
+        1630: 0 0 ef.size(2) 0,
     ),
     'menuLinkActiveFontStyle': 'ThirdTitleBold',
     'menuLinkActiveFontColor': var(--mc-baseMain),

@@ -15,6 +15,6 @@ $loyaltyThemeV1: map-merge((
     ),
 
     'progressBodyWidth': 100%,
-    'progressBodyMargin': 0 0 ef.get('size', 'smaller') 0,
+    'progressBodyMargin': 0 0 ef.size(4) 0,
 
 ), $customLoyaltyThemeV1);

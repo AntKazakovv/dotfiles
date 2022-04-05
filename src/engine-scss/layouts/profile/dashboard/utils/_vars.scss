@@ -30,9 +30,9 @@ $dashboardThemeDefault: map-merge((
         'bonuses bonuses bonuses bonuses see-all-bonuses see-all-bonuses',
     ),
     'gridGap': (
-        320: ef.get('size', 'small'),
-        1200: ef.get('size', 'smally'),
-        1630: ef.get('size', 'main'),
+        320: ef.size(2),
+        1200: ef.size(3),
+        1630: ef.size(8),
     ),
 
     'gridTemplateAreasWithoutStore': (

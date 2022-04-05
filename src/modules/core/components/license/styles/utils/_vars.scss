@@ -2,7 +2,7 @@
 
 $customThemeDefault: () !default;
 $themeDefault: map-merge((
-    'gap': ef.get('size', 'smally'),
+    'gap': ef.size(3),
     'iconColor': ef.get('mainColors', main),
     'apgSealWidth': 45px,
     'ageRestrictionsWidth': 45px,

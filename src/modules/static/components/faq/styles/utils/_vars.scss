@@ -9,7 +9,7 @@ $themeDefault: map-merge((
     'headerFontSize': ef.get('font', 'biger'),
     'headerFontWeight': bold,
     'headerFontColor': var(--mc-baseMain),
-    'headerPadding': 0 0 ef.get('size', 'smaller') 0,
+    'headerPadding': 0 0 ef.size(4) 0,
 
     'titleTextStyle': (
         375: 'PrimaryText',
@@ -21,30 +21,30 @@ $themeDefault: map-merge((
     'titleColorActive': var(--mc-baseMain),
     'titleIconColor': var(--mc-baseMain),
     'titleIconColorActive': var(--mc-baseMain),
-    'titleMinHeight': ef.get('size', 'biger'),
+    'titleMinHeight': ef.size(10),
     'titleFontWeightActive': bold,
     'titleIconSize': (
-        375: ef.get('size', 'smally'),
-        768: ef.get('size', 'smaller'),
+        375: ef.size(3),
+        768: ef.size(4),
     ),
 
     'contentTextStyle': (
         375: 'PrimaryText',
         768: 'ThirdTitle',
     ),
-    'contentMinHeight': ef.get('size', 'big'),
+    'contentMinHeight': ef.size(12),
     'contentFontSize': ef.get('font', 'main'),
     'contentFontColor': var(--mc-baseMain),
     'contentFontWeight': normal,
-    'contentPadding': ef.get('size', 'small'),
+    'contentPadding': ef.size(2),
     'contentTopBorder': 2px solid var(--mc-baseMain),
 
-    'itemsGapSize': ef.get('size', 'small'),
+    'itemsGapSize': ef.size(2),
     'itemBackground': var(--mc-bg300),
     'itemBackgroundActive': var(--mc-main),
     'itemBorderRadius': ef.get('radius', 'biger'),
 
-    'paddingSize': ef.get('size', 'smally'),
+    'paddingSize': ef.size(3),
     'time': ef.get('time', 'main'),
 ), $customThemeDefault);
 

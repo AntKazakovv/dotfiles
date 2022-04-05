@@ -2,7 +2,7 @@
 
 $customThemeDefault: () !default;
 $themeDefault: map-merge((
-    'headMargin': 0 0 ef.get('size', 'smaller') 0,
+    'headMargin': 0 0 ef.size(4) 0,
     'headPadding': (
         320: 0 ef.size(5),
         480: 0,
@@ -13,13 +13,13 @@ $themeDefault: map-merge((
         768: 'QoteTextBold',
     ),
     'titleColor': var(--mc-baseMain),
-    'titleMargin': 0 0 ef.get('size', 'small') 0,
+    'titleMargin': 0 0 ef.size(2) 0,
 
     'subtitleFontSize': 'PrimaryText',
     'subtitleColor': var(--mc-baseMain),
-    'subtitleMargin': 0 0 ef.get('size', 'small') 0,
+    'subtitleMargin': 0 0 ef.size(2) 0,
 
     'dynamicFontSize': 'PrimaryText',
     'dynamicColor': var(--mc-baseMain),
-    'dynamicMargin': 0 0 ef.get('size', 'small') 0,
+    'dynamicMargin': 0 0 ef.size(2) 0,
 ), $customThemeDefault);

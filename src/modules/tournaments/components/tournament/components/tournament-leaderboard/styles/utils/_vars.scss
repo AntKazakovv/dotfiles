@@ -2,7 +2,7 @@
 
 $customThemeDefault: () !default;
 $themeDefault: map-merge((
-    'gridGap': ef.get('size', 'small'),
+    'gridGap': ef.size(2),
     'gridTemplateColumns': 1fr,
 
     'rowHeight': 26px,

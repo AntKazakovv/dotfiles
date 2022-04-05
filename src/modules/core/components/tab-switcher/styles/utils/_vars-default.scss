@@ -4,7 +4,7 @@ $customThemeDefault: () !default;
 $themeDefault: map-merge((
     'height': 100%,
     'containerPadding': (
-        320: 0 ef.get('size', 'smally') ef.get('size', 'smaller'),
+        320: 0 ef.size(3) ef.size(4),
         560: 0,
     ),
     'containerRadius': ef.get('radius', 'biger'),
@@ -16,7 +16,7 @@ $themeDefault: map-merge((
     'navMinHeight': 55px,
     'navItemFlex': 1 1 100%,
     'navItemBackground': var(--mc-bg500),
-    'navItemPadding': ef.get('size', 'smally'),
+    'navItemPadding': ef.size(3),
     'navItemActiveBackground': var(--mc-bg700),
     'navItemColor': var(--mc-baseMain),
     'navItemActiveColor': var(--mc-baseMain),
@@ -37,8 +37,8 @@ $themeDefault: map-merge((
 
     // modifiers
     'bodyItemLoginMargin': auto,
-    'bodyItemLoginPadding': ef.get('size', 'smaller') ef.get('size', 'smally') ef.get('size', 'main'),
-    'bodyItemLoginWithBannerPadding': 0 0 ef.get('size', 'main'),
+    'bodyItemLoginPadding': ef.size(4) ef.size(3) ef.size(8),
+    'bodyItemLoginWithBannerPadding': 0 0 ef.size(8),
     // modifiers
 
     'loginBodyWidth': (

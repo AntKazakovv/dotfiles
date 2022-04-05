@@ -18,20 +18,20 @@ $themeDefault: map-merge((
     'itemWidth': 250px,
     'imgMargin': 0 0 15px 0,
 
-    'titleMarginBottom': ef.get('size', 'smally'),
+    'titleMarginBottom': ef.size(3),
     'titleColor': var(--mc-baseMain),
 
     'desktopUserInfoDisplay': flex,
     'desktopUserAlignItems': center,
     'desktopUserInfoJustifyContent': space-between,
     'desktopUserInfoWidth': 100%,
-    'desktopUserInfoMargin': 0 0 ef.get('size', 'smaller') 0,
+    'desktopUserInfoMargin': 0 0 ef.size(4) 0,
 
     'tutorialArrowTop': 135px,
     'tutorialArrowRight': unset,
     'tutorialArrowLeft': 20px,
     'tutorialColor': var(--mc-baseMain),
-    'tutorialMargin': 0 0 ef.get('size', 'big') 0,
+    'tutorialMargin': 0 0 ef.size(12) 0,
     'tutorialArrowTextMargin': 8px 0 0 20px,
     'tutorialDontShowColor': var(--mc-baseMain),
     'tutorialDontShowMargin': 0 0 0 0,
@@ -65,11 +65,11 @@ $themeDefault: map-merge((
     'tabHeight': 44px,
     'tabRadius': 50%,
 
-    'contentPadding': ef.get('size', 'smaller'),
+    'contentPadding': ef.size(4),
 
     'fontStylePoints': 'SignText',
 
-    'paddingBonuses': ef.get('size', 'smaller'),
+    'paddingBonuses': ef.size(4),
     'scrollbarPadding': 0 15px 0 0,
 
     'merchantBalanceMargin': ef.size(6) 0 0,

@@ -5,30 +5,30 @@ $affSectionsDefault: map-merge((
     'anchorsBg': (
         375:  var(--mc-bg100),
     ),
-    'anchorsPadding': ef.get('size', 'small') 0,
+    'anchorsPadding': ef.size(2) 0,
 
     'benefitsBg': null, //single color or map value
-    'benefitsPadding': ef.get('size', 'main') 0,
+    'benefitsPadding': ef.size(8) 0,
 
     'comissionBg': null, //single color or map value
-    'comissionPadding': 0 0 ef.get('size', 'main'),
+    'comissionPadding': 0 0 ef.size(8),
 
     'descrBg': (
         375: var(--mc-bg300),
     ),
-    'descrPadding': ef.get('size', 'main') 0,
+    'descrPadding': ef.size(8) 0,
 
     'faqBg': null, //single color or map value
-    'faqPadding': ef.get('size', 'main') 0,
+    'faqPadding': ef.size(8) 0,
     'faqContainerMaxWidth': 1050px,
-    'faqContainerPadding': 0 ef.get('size', 'smally'),
+    'faqContainerPadding': 0 ef.size(3),
 ), $customAffSectionsDefault);
 
 
 $customAffContentDefault: () !default;
 $affContentDefault: map-merge((
     'contentTextAlign': center,
-    'contentMargin': ef.get('size', 'main') auto,
+    'contentMargin': ef.size(8) auto,
     'btnMinWidth': 180px,
 ), $customAffContentDefault);
 
@@ -40,7 +40,7 @@ $themeDefaultBenefits: map-merge((
         1024: repeat(6, 1fr),
     ),
     'wrapperGridGap': (
-        375: ef.get('size', 'smaller'),
+        375: ef.size(4),
         1024: 0,
     ),
 
@@ -52,8 +52,8 @@ $themeDefaultBenefits: map-merge((
     ),
     'itemPadding': (
         375: 0,
-        1024: 0 ef.get('size', 'small'),
-        1630: 0 ef.get('size', 'smaller'),
+        1024: 0 ef.size(2),
+        1630: 0 ef.size(4),
     ),
 
     'iconSize': (
@@ -87,21 +87,21 @@ $themeDefaultDigits: map-merge((
         1630: repeat(4, 315px),
     ),
     'wrapperGridGap': (
-        375: ef.get('size', 'smaller'),
+        375: ef.size(4),
     ),
 
     'itemGridGap': (
-        375: ef.get('size', 'small'),
-        1200: ef.get('size', 'smally'),
+        375: ef.size(2),
+        1200: ef.size(3),
     ),
     'itemBg': var(--mc-bg300),
     'itemRadius': ef.get('radius', 'biger'),
     'itemTextAlign': center,
     'itemPadding': (
-        375: ef.get('size', 'small'),
-        768: ef.get('size', 'smaller'),
-        1200: ef.get('size', 'smaller') ef.get('size', 'less'),
-        1420: ef.get('size', 'less'),
+        375: ef.size(2),
+        768: ef.size(4),
+        1200: ef.size(4) ef.size(6),
+        1420: ef.size(6),
     ),
 
     'separatorWidth': 100%,

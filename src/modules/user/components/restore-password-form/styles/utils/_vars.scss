@@ -11,8 +11,8 @@ $themeDefault: map-merge((
     'formFlexDirection': column,
 
     'textBlockHeadMargin': (
-        320: 0 0 ef.get('size', 'less') 0,
-        560: 0 0 ef.get('size', 'main') 0,
+        320: 0 0 ef.size(6) 0,
+        560: 0 0 ef.size(8) 0,
     ),
 
     'subtitleSideMargin': (
@@ -21,15 +21,15 @@ $themeDefault: map-merge((
     ),
 
     'restoreLineHeight': 0,
-    'restoreMargin': auto 0 ef.get('size', 'less'),
+    'restoreMargin': auto 0 ef.size(6),
 
-    'fieldMargin': 0 0 ef.get('size', 'smaller'),
+    'fieldMargin': 0 0 ef.size(4),
     'inputBackground': var(--fc-inputBg),
     'inputColor': var(--fc-textColor),
     'inputOpacity': 1,
 
     'btnMargin': (
-        320: ef.get('size', 'less') auto ef.get('size', 'main'),
-        560: ef.get('size', 'smaller') auto ef.get('size', 'main'),
+        320: ef.size(6) auto ef.size(8),
+        560: ef.size(4) auto ef.size(8),
     ),
 ), $customThemeDefault);

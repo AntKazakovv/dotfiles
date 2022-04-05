@@ -2,9 +2,9 @@ $customThemeDefault: () !default;
 $customThemeVertical: () !default;
 
 $themeDefault: map-merge((
-    'margin': ef.get('size', 'main') auto 0,
+    'margin': ef.size(8) auto 0,
 
-    'textMargin': 0 0 ef.get('size', 'small'),
+    'textMargin': 0 0 ef.size(2),
     'textFontStyle': 'PrimaryText',
     'textFontColor': inherit,
 
@@ -21,5 +21,5 @@ $themeDefault: map-merge((
 $themeVertical: map-merge((
     'textFontStyle': 'ThirdTitle',
     'textFontColor': var(--mc-baseMain),
-    'textMargin': 0 0 ef.get('size', 'smally'),
+    'textMargin': 0 0 ef.size(3),
 ), $customThemeVertical);

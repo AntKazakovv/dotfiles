@@ -22,7 +22,7 @@
             &:nth-child(3) {
 
                 .wlc-table__cell {
-                    padding: ef.get-value($themeTournaments, 'cellPadding') 0 (ef.get-value($themeTournaments, 'cellPadding') * 2);
+                    padding: ef.get-value($themeTournaments, 'cellPadding') 0 ef.get-value($themeTournaments, 'cellPadding') * 2;
                 }
             }
         }

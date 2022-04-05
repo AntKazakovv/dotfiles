@@ -4,31 +4,31 @@ $customThemeDefault: () !default;
 $themeDefault: map-merge(
     (
         'titleAlign': center,
-        'titleMargin': 0 0 ef.get('size', 'main') 0,
+        'titleMargin': 0 0 ef.size(8) 0,
 
-        'timeMargin': 0 0 ef.get('size', 'small') 0,
+        'timeMargin': 0 0 ef.size(2) 0,
 
-        'resultMargin': 0 0 ef.get('size', 'main') 0,
-        'resultHeadPadding': ef.get('size', 'small'),
-        'resultValueBorderRadius': 10px,
+        'resultMargin': 0 0 ef.size(8) 0,
+        'resultHeadPadding': ef.size(2),
+        'resultValueBorderRadius': ef.size(2),
         'resultValueBackground': var(--mc-bg500),
-        'resultValuePadding': ef.get('size', 'smallest'),
+        'resultValuePadding': ef.size(1),
         'resultItemTextAlign': center,
 
         'footerFlexDirection': column,
         'footerJustifyContent': center,
         'footerAlignItems': center,
-        'footerCheckboxMargin': 0 0 ef.get('size', 'main') 0,
+        'footerCheckboxMargin': 0 0 ef.size(8) 0,
 
-        'formColumnGap': 15px,
-        'formRowGap': 20px,
+        'formColumnGap': ef.size(3),
+        'formRowGap': ef.size(4),
         'formAlignItems': center,
         'formJustifyContent': center,
         'btnWidth': auto,
         'btnMargin': 0 auto,
         'actionPaddingCell': (
-            375: 1px ef.get('size', 'smally'),
-            1024: 5px ef.get('size', 'small'),
+            375: 1px ef.size(3),
+            1024: ef.size(1) ef.size(2),
         ),
     ), $customThemeDefault
 );

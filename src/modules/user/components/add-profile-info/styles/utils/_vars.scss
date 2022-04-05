@@ -28,7 +28,7 @@ $themeDefault: map-merge((
     'dividerPosTop': 0,
     'dividerPosLeft': 50%,
 
-    'phoneLabelMargin': 0 0 0 ef.get('size', 'small'),
+    'phoneLabelMargin': 0 0 0 ef.size(2),
     'phoneLabelColor': var(--fc-labelColor),
     'phoneLabelLineHeight': 1.9,
     'phoneFieldPadding': 0,
@@ -39,7 +39,7 @@ $themeDefault: map-merge((
 
 $customThemeModOverflow: () !default;
 $themeModOverflow: map-merge((
-    'btnMargin': ef.get('size', 'small') auto 0,
+    'btnMargin': ef.size(2) auto 0,
     'btnFlexGrow': 0,
     'btnFlexBasis': auto,
 
