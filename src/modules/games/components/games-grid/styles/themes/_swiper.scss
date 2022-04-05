@@ -35,6 +35,7 @@
 
         &__games-slider {
             grid-area: games-grid;
+            min-width: 0;
         }
 
         &__nocontent {
