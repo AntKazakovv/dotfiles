@@ -269,6 +269,7 @@ export class BonusesListComponent extends AbstractComponent implements OnInit, O
             {name: BonusItemComponentEvents.deposit},
         ], (bonus: Bonus): void => {
             this.bonusesService.unchooseAllBonuses();
+            this.blankBonus.isChoose = false;
             bonus.isChoose = true;
 
             if (this.slider) {
