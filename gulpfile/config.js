@@ -49,6 +49,7 @@ module.exports = function config(root, bundleType) {
         },
         locales: {
             'au': {'code': 'au', 'label': 'Australian', 'locale': 'au_AU'},
+            'az': {'code': 'az', 'label': 'Azerbaijan', 'locale': 'az_AZ'},
             'ca': {'code': 'ca', 'label': 'Canadian', 'locale': 'ca_CA'},
             'ar': {'code': 'ar', 'label': 'Arabic ', 'locale': 'ar_KW'},
             'bg': {'code': 'bg', 'label': 'Bulgarian', 'locale': 'bg_BG'},
