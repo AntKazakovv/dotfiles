@@ -1,21 +1,16 @@
-@use 'engine-scss/mixins/mediaqueries' as mq;
-@use 'engine-scss/mixins/base.mixins' as em;
-@use 'engine-scss/mixins/text' as text;
-@use 'engine-scss/functions' as ef;
-
 .wlc-tooltip--theme-default {
 
     &:host {
-        @include em.get-mq-map('width', $themeDefault, 'iconWidth');
-        @include em.get-mq-map('height', $themeDefault, 'iconHeight');
+        @include bm.get-mq-map('width', $themeDefault, 'iconWidth');
+        @include bm.get-mq-map('height', $themeDefault, 'iconHeight');
         position: relative;
         display: flex;
         align-items: center;
         justify-content: center;
 
         .wlc-tooltip__icon {
-            @include em.get-mq-map('width', $themeDefault, 'iconWidth');
-            @include em.get-mq-map('height', $themeDefault, 'iconHeight');
+            @include bm.get-mq-map('width', $themeDefault, 'iconWidth');
+            @include bm.get-mq-map('height', $themeDefault, 'iconHeight');
             display: flex;
             align-items: center;
             justify-content: center;
@@ -32,10 +27,10 @@
                     }
 
                     svg {
-                        @include em.get-mq-map('width', $themeDefault, 'iconWidth');
-                        @include em.get-mq-map('height', $themeDefault, 'iconHeight');
+                        @include bm.get-mq-map('width', $themeDefault, 'iconWidth');
+                        @include bm.get-mq-map('height', $themeDefault, 'iconHeight');
 
-                        @include em.hover {
+                        @include bm.hover {
 
                             path {
                                 fill: ef.get-value($themeDefault, 'iconColorOnHover');
@@ -44,7 +39,7 @@
                     }
 
                     path {
-                        @include em.transition(fill);
+                        @include bm.transition(fill);
                         fill: ef.get-value($themeDefault, 'iconFill');
                     }
                 }
@@ -52,22 +47,22 @@
         }
 
         &.wlc-tooltip--theme-mod-resolve {
-            @include em.get-mq-map('width', $modResolve, 'iconWidth');
-            @include em.get-mq-map('height', $modResolve, 'iconHeight');
+            @include bm.get-mq-map('width', $modResolve, 'iconWidth');
+            @include bm.get-mq-map('height', $modResolve, 'iconHeight');
 
             .wlc-tooltip__icon {
-                @include em.get-mq-map('width', $modResolve, 'iconWidth');
-                @include em.get-mq-map('height', $modResolve, 'iconHeight');
+                @include bm.get-mq-map('width', $modResolve, 'iconWidth');
+                @include bm.get-mq-map('height', $modResolve, 'iconHeight');
 
                 &.wlc-icon {
 
                     ::ng-deep {
 
                         svg {
-                            @include em.get-mq-map('width', $modResolve, 'iconWidth');
-                            @include em.get-mq-map('height', $modResolve, 'iconHeight');
+                            @include bm.get-mq-map('width', $modResolve, 'iconWidth');
+                            @include bm.get-mq-map('height', $modResolve, 'iconHeight');
 
-                            @include em.hover {
+                            @include bm.hover {
 
                                 path {
                                     fill: ef.get-value($modResolve, 'iconColorOnHover');
@@ -76,7 +71,7 @@
                         }
 
                         path {
-                            @include em.transition(fill);
+                            @include bm.transition(fill);
                             fill: ef.get-value($modResolve, 'iconFill');
                         }
                     }

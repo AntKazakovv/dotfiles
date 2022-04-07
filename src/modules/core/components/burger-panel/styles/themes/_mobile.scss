@@ -1,8 +1,3 @@
-@use 'engine-scss/mixins/base.mixins' as bm;
-@use 'engine-scss/functions' as ef;
-
-@import '../utils/vars';
-
 .wlc-burger-panel--theme-mobile:host {
     width: map-get($themeMobile, 'panelWidth');
     max-width: map-get($themeMobile, 'panelWidth');

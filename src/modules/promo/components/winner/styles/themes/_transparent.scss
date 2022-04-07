@@ -28,7 +28,7 @@
                 color: ef.get-value($themeTransparent, 'gameArrowColor');
             }
 
-            @include em.hover() {
+            @include bm.hover() {
 
                 .wlc-winner__game-arrow {
                     color: ef.get-value($themeTransparent, 'gameHoverArrowColor');

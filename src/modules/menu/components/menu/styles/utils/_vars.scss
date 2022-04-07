@@ -1,5 +1,3 @@
-@use 'engine-scss/functions' as ef;
-
 $customMenuThemeContacts: () !default;
 $menuThemeContacts: map-merge((
     'textTransform': inherit,

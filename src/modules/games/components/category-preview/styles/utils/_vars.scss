@@ -1,6 +1,4 @@
-@use 'engine-scss/functions' as ef;
 $customThemeDefault: () !default;
-
 $themeDefault: map-merge((
     'categoryBgPopularGames': (
         radial-gradient(100% 100% at 50% 50%, lighten(ef.get('mainColors', 'main'), 5%) 50%, transparent 50%) -5px 108px/74px 74px,

@@ -1,8 +1,3 @@
-@use 'engine-scss/functions' as ef;
-@use 'engine-scss/mixins/mediaqueries' as mq;
-@use 'engine-scss/mixins/base.mixins' as bm;
-@use 'engine-scss/mixins/text' as text;
-
 .wlc-table--theme-tournaments:host {
     @include bm.get-mq-map('gap', $themeTournaments, 'btnShowMoreGap');
     @include bm.get-mq-map('min-height', $themeTournaments, 'sectionLoaderHeight');

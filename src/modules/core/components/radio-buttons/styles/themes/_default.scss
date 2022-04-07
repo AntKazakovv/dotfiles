@@ -1,13 +1,9 @@
-@use 'engine-scss/functions' as ef;
-@use 'engine-scss/mixins/base.mixins' as bm;
-@use 'engine-scss/mixins/text' as lib;
-
 .wlc-radio-buttons--theme-default:host {
 
     .wlc-radio-buttons {
 
         &__title {
-            @include lib.get-text-style('SignText', ef.get-value($themeButton, 'titleColor'));
+            @include text.get-text-style('SignText', ef.get-value($themeButton, 'titleColor'));
             width: ef.get-value($themeButton, 'titleWidth');
             padding: ef.get-value($themeButton, 'titlePadding');
         }

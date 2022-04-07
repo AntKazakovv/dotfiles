@@ -1,5 +1,3 @@
-@use 'engine-scss/functions' as ef;
-
 $customThemeLong: () !default;
 $themeLong: map-merge((
     'globalGap': (

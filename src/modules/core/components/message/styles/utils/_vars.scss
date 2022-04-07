@@ -1,8 +1,4 @@
-@use 'engine-scss/functions' as ef;
-@use 'engine-scss/engine.variables' as ev;
-
 $customThemeDefault: () !default;
-
 $themeDefault: map-merge((
     closeIconSize:          42px,
     closeIconColor:         var(--mc-baseMain),

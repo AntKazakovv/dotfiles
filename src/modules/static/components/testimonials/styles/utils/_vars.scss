@@ -9,7 +9,7 @@ $themeDefault: map-merge((
     'headerFontSize': ef.get('font', 'biger'),
     'headerFontWeight': bold,
     'headerFontColor': var(--mc-baseMain),
-    'headerPadding': 0 0 ef.get('size', 'smaller') 0,
+    'headerPadding': 0 0 ef.size(4) 0,
     'headerTextTransform': uppercase,
     'itemMargin': (
         375: 0 0 ef.size(8) 0,

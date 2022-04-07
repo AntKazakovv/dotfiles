@@ -1,9 +1,3 @@
-@use 'engine-scss/functions' as ef;
-@use 'engine-scss/mixins/text' as lib;
-@use 'engine-scss/mixins/mediaqueries' as mq;
-@use 'engine-scss/mixins/base.mixins' as bm;
-@use 'engine-scss/mixins/text' as text;
-
 .wlc-user-stats--theme-default:host {
 
     .wlc-user-stats {
@@ -60,12 +54,12 @@
             }
 
             .name {
-                @include lib.get-text-style('PlaceholderText');
+                @include text.get-text-style('PlaceholderText');
                 color: ef.get-value($themeDefault, 'colorName');
             }
 
             .value {
-                @include lib.get-text-style('PlaceholderTextBold');
+                @include text.get-text-style('PlaceholderTextBold');
                 padding-left: 5px;
                 color: ef.get-value($themeDefault, 'colorValue');
 

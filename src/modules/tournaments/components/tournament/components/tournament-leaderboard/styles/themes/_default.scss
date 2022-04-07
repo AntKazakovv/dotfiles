@@ -1,9 +1,3 @@
-@use 'engine-scss/mixins/mediaqueries' as mq;
-@use 'engine-scss/mixins/text' as text;
-@use 'engine-scss/mixins/base.mixins' as em;
-@use 'engine-scss/functions' as ef;
-@import '../utils/vars';
-
 .wlc-tournament-leaderboard--theme-default:host {
 
     .wlc-tournament-leaderboard {
@@ -80,7 +74,7 @@
             }
 
             .user-login {
-                @include em.lineClamp(1);
+                @include bm.lineClamp(1);
                 overflow: hidden;
                 max-width: ef.get-value($themeDefault, 'loginMaxWidth');
             }
@@ -129,7 +123,7 @@
             ::ng-deep {
 
                 .wlc-btn__text {
-                    @include em.transition(color);
+                    @include bm.transition(color);
 
                     color: ef.get-value($themeDefault, 'btnTextColor');
 
@@ -143,7 +137,7 @@
                         width: ef.get-value($themeDefault, 'btnIconHeight');
 
                         svg {
-                            @include em.transition(fill);
+                            @include bm.transition(fill);
 
                             width: ef.get-value($themeDefault, 'btnIconWidth');
                             transform: rotate(-90deg);
@@ -154,7 +148,7 @@
                 }
             }
 
-            @include em.hover {
+            @include bm.hover {
 
                 ::ng-deep {
 
@@ -196,47 +190,47 @@
     &.wlc-tournament-leaderboard--theme-mod-tournament-detail {
 
         .delimetr {
-            @include em.get-mq-map('width', $themeDefaultModTournamentDetail, 'delimetrwidth');
-            @include em.get-mq-map('height', $themeDefaultModTournamentDetail, 'delimetrheight');
-            @include em.get-mq-map('background', $themeDefaultModTournamentDetail, 'delimetrBg');
+            @include bm.get-mq-map('width', $themeDefaultModTournamentDetail, 'delimetrwidth');
+            @include bm.get-mq-map('height', $themeDefaultModTournamentDetail, 'delimetrheight');
+            @include bm.get-mq-map('background', $themeDefaultModTournamentDetail, 'delimetrBg');
         }
 
         .wlc-tournament-leaderboard {
 
             &__list {
-                @include em.get-mq-map('grid-gap', $themeDefaultModTournamentDetail, 'listGap');
-                @include em.get-mq-map('padding', $themeDefaultModTournamentDetail, 'listPadding');
-                @include em.get-mq-map('background', $themeDefaultModTournamentDetail, 'listBg');
-                @include em.get-mq-map('border-radius', $themeDefaultModTournamentDetail, 'listRadius');
+                @include bm.get-mq-map('grid-gap', $themeDefaultModTournamentDetail, 'listGap');
+                @include bm.get-mq-map('padding', $themeDefaultModTournamentDetail, 'listPadding');
+                @include bm.get-mq-map('background', $themeDefaultModTournamentDetail, 'listBg');
+                @include bm.get-mq-map('border-radius', $themeDefaultModTournamentDetail, 'listRadius');
             }
 
             &__item {
-                @include em.get-mq-map('grid-template-columns', $themeDefaultModTournamentDetail, 'itemGridTemplate');
-                @include em.get-mq-map('margin', $themeDefaultModTournamentDetail, 'itemMargin');
+                @include bm.get-mq-map('grid-template-columns', $themeDefaultModTournamentDetail, 'itemGridTemplate');
+                @include bm.get-mq-map('margin', $themeDefaultModTournamentDetail, 'itemMargin');
 
                 .wlc-icon::ng-deep {
                     display: none;
                 }
 
                 .item-user {
-                    @include em.get-mq-map('padding', $themeDefaultModTournamentDetail, 'itemPaddingUser');
+                    @include bm.get-mq-map('padding', $themeDefaultModTournamentDetail, 'itemPaddingUser');
                 }
 
                 &:not(.user) {
-                    @include em.get-mq-map('background', $themeDefaultModTournamentDetail, 'itemBg');
-                    @include em.get-mq-map('border-radius', $themeDefaultModTournamentDetail, 'itemRadius');
+                    @include bm.get-mq-map('background', $themeDefaultModTournamentDetail, 'itemBg');
+                    @include bm.get-mq-map('border-radius', $themeDefaultModTournamentDetail, 'itemRadius');
                 }
 
                 &.user {
-                    @include em.get-mq-map('margin-bottom', $themeDefaultModTournamentDetail, 'itemUserMarginBottom');
-                    @include em.get-mq-map('border-radius', $themeDefaultModTournamentDetail, 'itemUserRadius');
+                    @include bm.get-mq-map('margin-bottom', $themeDefaultModTournamentDetail, 'itemUserMarginBottom');
+                    @include bm.get-mq-map('border-radius', $themeDefaultModTournamentDetail, 'itemUserRadius');
 
                     .item-place {
-                        @include em.get-mq-map('border-radius', $themeDefaultModTournamentDetail, 'itemUserRadiusPlace');
+                        @include bm.get-mq-map('border-radius', $themeDefaultModTournamentDetail, 'itemUserRadiusPlace');
                     }
 
                     .item-points {
-                        @include em.get-mq-map('border-radius', $themeDefaultModTournamentDetail, 'itemUserRadiusPoints');
+                        @include bm.get-mq-map('border-radius', $themeDefaultModTournamentDetail, 'itemUserRadiusPoints');
                     }
 
                     .wlc-tournament-leaderboard__cell {
@@ -248,19 +242,19 @@
                 }
 
                 &.wlc-tournament-leaderboard__item--head {
-                    @include em.get-mq-map('padding', $themeDefaultModTournamentDetail, 'headPadding');
-                    @include em.get-mq-map('background', $themeDefaultModTournamentDetail, 'headBg');
+                    @include bm.get-mq-map('padding', $themeDefaultModTournamentDetail, 'headPadding');
+                    @include bm.get-mq-map('background', $themeDefaultModTournamentDetail, 'headBg');
                 }
 
                 &--top {
 
                     .wlc-tournament-leaderboard__cell {
-                        @include em.get-mq-map('height', $themeDefaultModTournamentDetail, 'topCellHeight');
+                        @include bm.get-mq-map('height', $themeDefaultModTournamentDetail, 'topCellHeight');
                     }
 
                     .wlc-icon::ng-deep {
-                        @include em.get-mq-map('width', $themeDefaultModTournamentDetail, 'topIconWidth');
-                        @include em.get-mq-map('margin', $themeDefaultModTournamentDetail, 'topIconMargin');
+                        @include bm.get-mq-map('width', $themeDefaultModTournamentDetail, 'topIconWidth');
+                        @include bm.get-mq-map('margin', $themeDefaultModTournamentDetail, 'topIconMargin');
 
                         display: block;
 
@@ -268,13 +262,13 @@
                             width: 100%;
 
                             path {
-                                @include em.get-mq-map('fill', $themeDefaultModTournamentDetail, 'topIconColor');
+                                @include bm.get-mq-map('fill', $themeDefaultModTournamentDetail, 'topIconColor');
                             }
                         }
                     }
 
                     .item-user {
-                        @include em.get-mq-map('padding', $themeDefaultModTournamentDetail, 'topCellUserPadding');
+                        @include bm.get-mq-map('padding', $themeDefaultModTournamentDetail, 'topCellUserPadding');
                     }
 
                     &.first,
@@ -292,7 +286,7 @@
                             svg {
 
                                 path {
-                                    @include em.get-mq-map('fill', $themeDefaultModTournamentDetail, 'topIconUserColor');
+                                    @include bm.get-mq-map('fill', $themeDefaultModTournamentDetail, 'topIconUserColor');
                                 }
                             }
                         }
@@ -342,7 +336,7 @@
             }
 
             &__item {
-                @include em.get-mq-map('grid-template-columns', $themeDefaultModHistory, 'rowGrid');
+                @include bm.get-mq-map('grid-template-columns', $themeDefaultModHistory, 'rowGrid');
                 background-color: ef.get-value($themeDefaultModHistory, 'rowPrimaryBg');
 
                 &:nth-child(even) {

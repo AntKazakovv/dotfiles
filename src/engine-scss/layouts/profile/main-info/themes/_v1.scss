@@ -1,22 +1,3 @@
-@import '../utils/vars';
-
-@mixin blocksDivider($width: #{ef.get-value($mainInfoThemeV1, 'dividerWidth')}) {
-    position: relative;
-    border-bottom: ef.get-value($mainInfoThemeV1, 'dividerHeight') solid transparent;
-
-    &:after {
-        content: '';
-        position: absolute;
-        right: ef.get-value($mainInfoThemeV1, 'dividerRight');
-        bottom: ef.get-value($mainInfoThemeV1, 'dividerBottom');
-        left: ef.get-value($mainInfoThemeV1, 'dividerLeft');
-        width: $width;
-        height: ef.get-value($mainInfoThemeV1, 'dividerHeight');
-        margin: ef.get-value($mainInfoThemeV1, 'dividerMargin');
-        background: ef.get-value($mainInfoThemeV1, 'dividerBackground');
-    }
-}
-
 .app-profile-main-info-state {
 
     .wlc-sections__profile-content--theme-first {

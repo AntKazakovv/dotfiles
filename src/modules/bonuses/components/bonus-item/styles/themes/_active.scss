@@ -1,10 +1,5 @@
-@use 'engine-scss/mixins/mediaqueries' as mq;
-@use 'engine-scss/mixins/text' as text;
-@use 'engine-scss/mixins/base.mixins' as em;
-@use 'engine-scss/functions' as ef;
-
 .wlc-bonus-item--theme-active {
-    @include em.get-mq-map('max-width', $themeActive, 'itemMaxWidth');
+    @include bm.get-mq-map('max-width', $themeActive, 'itemMaxWidth');
     width: 100%;
     margin: ef.get-value($themeActive, 'itemMargin');
     background: ef.get-value($themeActive, 'background');
@@ -21,17 +16,17 @@
         }
 
         &__wrapper {
-            @include em.get-mq-map('grid-template-areas', $themeActive, 'wrapperTplAreas');
-            @include em.get-mq-map('grid-template-columns', $themeActive, 'wrapperGridColumns');
-            @include em.get-mq-map('gap', $themeActive, 'wrapperGap');
-            @include em.get-mq-map('height', $themeActive, 'wrapperHeight');
+            @include bm.get-mq-map('grid-template-areas', $themeActive, 'wrapperTplAreas');
+            @include bm.get-mq-map('grid-template-columns', $themeActive, 'wrapperGridColumns');
+            @include bm.get-mq-map('gap', $themeActive, 'wrapperGap');
+            @include bm.get-mq-map('height', $themeActive, 'wrapperHeight');
 
             position: relative;
             display: grid;
         }
 
         &__image-block {
-            @include em.get-mq-map('height', $themeActive, 'imgBlockHeight');
+            @include bm.get-mq-map('height', $themeActive, 'imgBlockHeight');
 
             position: relative;
             grid-area: image;
@@ -47,9 +42,9 @@
         }
 
         &__tag {
-            @include em.get-mq-map('top', $themeActive, 'tagPositionTop');
-            @include em.get-mq-map('left', $themeActive, 'tagPositionLeft');
-            @include em.get-mq-map('transform', $themeActive, 'tagPositionTransform');
+            @include bm.get-mq-map('top', $themeActive, 'tagPositionTop');
+            @include bm.get-mq-map('left', $themeActive, 'tagPositionLeft');
+            @include bm.get-mq-map('transform', $themeActive, 'tagPositionTransform');
 
             position: absolute;
         }
@@ -61,45 +56,45 @@
         }
 
         &__info-block {
-            @include em.get-mq-map('grid-area', $themeActive, 'infoBlockArea');
-            @include em.get-mq-map('align-self', $themeActive, 'infoBlockAlignSelf');
-            @include em.get-mq-map('text-align', $themeActive, 'infoBlockTextAlign');
-            @include em.get-mq-map('padding', $themeActive, 'infoBlockPadding');
+            @include bm.get-mq-map('grid-area', $themeActive, 'infoBlockArea');
+            @include bm.get-mq-map('align-self', $themeActive, 'infoBlockAlignSelf');
+            @include bm.get-mq-map('text-align', $themeActive, 'infoBlockTextAlign');
+            @include bm.get-mq-map('padding', $themeActive, 'infoBlockPadding');
             justify-content: center;
             width: 100%;
         }
 
         &__active-block {
-            @include em.get-mq-map('display', $themeActive, 'activeBlockDisplay');
-            @include em.get-mq-map('grid-area', $themeActive, 'activeBlockArea');
-            @include em.get-mq-map('padding', $themeActive, 'activeBlockPadding');
-            @include em.get-mq-map('grid-template-rows', $themeActive, 'activeBlockTemplateRows');
-            @include em.get-mq-map('grid-template-columns', $themeActive, 'activeBlockTemplateColumn');
-            @include em.get-mq-map('gap', $themeActive, 'activeBlockGap');
-            @include em.get-mq-map('align-self', $themeActive, 'activeBlockAlign');
-            @include em.get-mq-map('justify-self', $themeActive, 'activeBlockJustify');
-            @include em.get-mq-map('max-width', $themeActive, 'activeBlockWidth');
+            @include bm.get-mq-map('display', $themeActive, 'activeBlockDisplay');
+            @include bm.get-mq-map('grid-area', $themeActive, 'activeBlockArea');
+            @include bm.get-mq-map('padding', $themeActive, 'activeBlockPadding');
+            @include bm.get-mq-map('grid-template-rows', $themeActive, 'activeBlockTemplateRows');
+            @include bm.get-mq-map('grid-template-columns', $themeActive, 'activeBlockTemplateColumn');
+            @include bm.get-mq-map('gap', $themeActive, 'activeBlockGap');
+            @include bm.get-mq-map('align-self', $themeActive, 'activeBlockAlign');
+            @include bm.get-mq-map('justify-self', $themeActive, 'activeBlockJustify');
+            @include bm.get-mq-map('max-width', $themeActive, 'activeBlockWidth');
 
             min-height: auto;
         }
 
         &__btns {
-            @include em.get-mq-map('justify-content', $themeActive, 'btnsBlockJustifyContent');
-            @include em.get-mq-map('margin', $themeActive, 'btnsBlockMargin');
-            @include em.get-mq-map('padding', $themeActive, 'btnsBlockPadding');
+            @include bm.get-mq-map('justify-content', $themeActive, 'btnsBlockJustifyContent');
+            @include bm.get-mq-map('margin', $themeActive, 'btnsBlockMargin');
+            @include bm.get-mq-map('padding', $themeActive, 'btnsBlockPadding');
 
             grid-area: btns;
         }
 
         &__name {
             @include text.get-text-style(ef.get-value($themeActive, 'nameTextStyle', 375), ef.get-value($themeActive, 'nameColor'));
-            @include em.get-mq-map('line-height', $themeActive, 'nameLine');
+            @include bm.get-mq-map('line-height', $themeActive, 'nameLine');
 
             &:after {
-                @include em.get-mq-map('display', $themeActive, 'headlineDisplay');
-                @include em.get-mq-map('width', $themeActive, 'headlineWidth');
-                @include em.get-mq-map('height', $themeActive, 'headlineHeight');
-                @include em.get-mq-map('margin', $themeActive, 'headlineMargin');
+                @include bm.get-mq-map('display', $themeActive, 'headlineDisplay');
+                @include bm.get-mq-map('width', $themeActive, 'headlineWidth');
+                @include bm.get-mq-map('height', $themeActive, 'headlineHeight');
+                @include bm.get-mq-map('margin', $themeActive, 'headlineMargin');
 
                 content: '';
                 background: ef.get-value($themeActive, 'headlineBg');
@@ -112,9 +107,9 @@
 
         &__description {
             @include text.get-text-style('PrimaryText', ef.get-value($themeActive, 'descriptionColor'));
-            @include em.get-mq-map('max-width', $themeActive, 'descrMaxWidth');
-            @include em.lineClamp(3);
-            @include em.get-mq-map('display', $themeActive, 'infoBlockDscrDisplay');
+            @include bm.get-mq-map('max-width', $themeActive, 'descrMaxWidth');
+            @include bm.lineClamp(3);
+            @include bm.get-mq-map('display', $themeActive, 'infoBlockDscrDisplay');
 
             @include mq.min(560) {
                 -webkit-line-clamp: 5;
@@ -122,7 +117,7 @@
         }
 
         &__progress {
-            @include em.get-mq-map('background', $themeActive, 'progressBg');
+            @include bm.get-mq-map('background', $themeActive, 'progressBg');
 
             margin: ef.get-value($themeActive, 'progressMargin');
             padding: ef.get-value($themeActive, 'progressPadding');
@@ -133,7 +128,7 @@
         }
     }
 
-    @include em.hover() {
+    @include bm.hover() {
         background: ef.get-value($themeActive, 'backgroundHover');
     }
 }

@@ -1,10 +1,8 @@
-
-
 .wlc-category-menu--theme-icons-compact:host {
     width: 100%;
 
     ::ng-deep {
-        @include mx.menuControls($themeIconsCompact);
+        @include menuControls($themeIconsCompact);
 
         .wlc-category-menu {
 

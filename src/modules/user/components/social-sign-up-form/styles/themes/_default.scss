@@ -11,7 +11,7 @@
             @include inherit.formStyles($themeDefault);
 
             > .wlc-btn {
-                @include em.get-mq-map('margin', $themeDefault, 'btnMargin');
+                @include bm.get-mq-map('margin', $themeDefault, 'btnMargin');
             }
         }
 

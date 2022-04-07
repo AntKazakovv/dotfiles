@@ -1,8 +1,3 @@
-@use 'engine-scss/functions' as ef;
-@use 'engine-scss/mixins/mediaqueries' as mq;
-@use 'engine-scss/mixins/base.mixins' as em;
-@use 'engine-scss/mixins/text' as text;
-
 .wlc-payment-list--theme-default {
 
     &:host::ng-deep,
@@ -11,8 +6,8 @@
         .wlc-payment-list {
 
             &__ul {
-                @include em.get-mq-map('grid-template-columns', $themeDefault, 'listGridTemplateColumns');
-                @include em.get-mq-map('gap', $themeDefault, 'listGridGap');
+                @include bm.get-mq-map('grid-template-columns', $themeDefault, 'listGridTemplateColumns');
+                @include bm.get-mq-map('gap', $themeDefault, 'listGridGap');
                 display: grid;
                 margin: ef.get-value($themeDefault, 'listMargin');
                 padding: ef.get-value($themeDefault, 'listPadding');
@@ -47,7 +42,7 @@
                     box-shadow: ef.get-value($themeDefault, 'itemBoxShadowActive');
                 }
 
-                @include em.hover() {
+                @include bm.hover() {
                     color: ef.get-value($themeDefault, 'itemSvgColorHover');
                     box-shadow: ef.get-value($themeDefault, 'itemBoxShadowHover');
                 }
@@ -215,13 +210,13 @@
 
         .payments-description {
             @include text.get-text-style(ef.get-value($themeDefault, 'descriptionFont'), ef.get-value($themeDefault, 'descriptionColor'));
-            @include em.get-mq-map('text-align', $themeDefault, 'descriptionTextAlign');
+            @include bm.get-mq-map('text-align', $themeDefault, 'descriptionTextAlign');
 
             padding: ef.get-value($themeDefault, 'descriptionPadding');
             white-space: ef.get-value($themeDefault, 'descriptionWhiteSpace');
 
             &--desktop {
-                @include em.get-mq-map('display', $themeDefault, 'descriptionDesktopDisplay');
+                @include bm.get-mq-map('display', $themeDefault, 'descriptionDesktopDisplay');
             }
 
             @include mq.min(1200) {

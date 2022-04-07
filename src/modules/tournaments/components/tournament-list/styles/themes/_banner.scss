@@ -1,9 +1,3 @@
-@use 'engine-scss/functions' as ef;
-@use 'engine-scss/mixins/text' as text;
-@use 'engine-scss/mixins/base.mixins' as em;
-
-@import '../utils/vars';
-
 .wlc-tournament-list--theme-banner:host {
     position: relative;
     overflow: hidden;
@@ -12,8 +6,8 @@
     border-radius: ef.get-value($themeBanner, 'listRadius');
 
     .swiper-button-container {
-        @include em.get-mq-map('right', $themeBanner, 'tournamentRightPosition');
-        @include em.get-mq-map('bottom', $themeBanner, 'tournamentBottomPosition');
+        @include bm.get-mq-map('right', $themeBanner, 'tournamentRightPosition');
+        @include bm.get-mq-map('bottom', $themeBanner, 'tournamentBottomPosition');
 
         position: absolute;
         z-index: 22;
@@ -26,7 +20,7 @@
 
         &-nocontent__tag {
             @include text.get-text-style('ThirdTitleBold', ef.get-value($themeBanner, 'tagColor'));
-            @include em.get-mq-map('padding', $themeBanner, 'tagPadding');
+            @include bm.get-mq-map('padding', $themeBanner, 'tagPadding');
 
             position: absolute;
             top: ef.get-value($themeBanner, 'tagTopPosition');

@@ -1,7 +1,3 @@
-@use 'sass:math';
-
-@use 'engine-scss/functions' as ef;
-
 $customThemeDefaultNavigation: () !default;
 // Navigation
 $themeDefaultNavigation: map-merge((

@@ -1,5 +1,3 @@
-@use 'engine-scss/functions' as ef;
-
 $customBonusesThemeDefault: () !default;
 $bonusesThemeDefault: map-merge((
     'counterTextStyle': 'ThirdTitleBold',

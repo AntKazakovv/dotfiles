@@ -1,22 +1,10 @@
-@use 'engine-scss/engine.variables' as ev;
-@use 'engine-scss/mixins/layout.mixins' as lm;
-
-@import './header/header';
-@import './footer/footer';
-@import './promotions/promotions';
-@import './profile/profile';
 @import './categories/categories';
-@import './home/home-wins/home-wins';
-@import './home/home-promo/home-promo';
-@import './home/total-jackpot/total-jackpot';
-@import './home/promo-categories/promo-categories';
-@import './home/promo-bonuses/promo-bonuses';
-@import './home/winners/winners';
-@import './home/game-widgets/game-widgets';
-@import './home/banner-section/banner-section';
-@import './home/promo-steps/promo-steps';
 @import './categories-with-side-menu/categories-with-side-menu';
-@import './home/promo-about-us/promo-about-us';
+@import './footer/footer';
+@import './header/header';
+@import './home/home';
+@import './profile/profile';
+@import './promotions/promotions';
 @import './sign-in-page/sign-in-page';
 @import './home/four-elements/four-elements';
 

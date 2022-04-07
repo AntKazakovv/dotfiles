@@ -1,11 +1,6 @@
-@use 'engine-scss/mixins/mediaqueries' as mq;
-@use 'engine-scss/mixins/text' as text;
-@use 'engine-scss/mixins/base.mixins' as em;
-@use 'engine-scss/functions' as ef;
-
 .wlc-bonus-item--theme-reg-first {
     @include viewsBackgrounds;
-    @include em.get-mq-map('max-width', $themeRegFirst, 'maxWidth');
+    @include bm.get-mq-map('max-width', $themeRegFirst, 'maxWidth');
 
     min-width: ef.get-value($themeRegFirst, 'minWidth');
     margin: ef.get-value($themeRegFirst, 'itemMargin');
@@ -40,7 +35,7 @@
 
         &__wrapper {
             @include wrapperCommonStyles;
-            @include em.get-mq-map('grid-template-rows', $themeRegFirst, 'infoHeight');
+            @include bm.get-mq-map('grid-template-rows', $themeRegFirst, 'infoHeight');
         }
 
         &__image {
@@ -59,7 +54,7 @@
         }
 
         &__bottom {
-            @include em.get-mq-map('padding', $themeDefault, 'infoBtmPaddingWithImg');
+            @include bm.get-mq-map('padding', $themeDefault, 'infoBtmPaddingWithImg');
         }
 
         &__info-block {
@@ -68,17 +63,17 @@
 
         &__name {
             @include nameCommonStyles;
-            @include em.get-mq-map('width', $themeRegFirst, 'infoWidth');
+            @include bm.get-mq-map('width', $themeRegFirst, 'infoWidth');
         }
 
         &__description {
             @include descriptionCommonStyles;
-            @include em.get-mq-map('width', $themeRegFirst, 'infoWidth');
+            @include bm.get-mq-map('width', $themeRegFirst, 'infoWidth');
         }
     }
 
     &:not(.wlc-bonus-item--dummy) {
-        @include em.hover() {
+        @include bm.hover() {
             background: ef.get-value($themeRegFirst, 'backgroundHover');
         }
     }

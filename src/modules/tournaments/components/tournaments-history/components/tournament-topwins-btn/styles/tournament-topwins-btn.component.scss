@@ -1,2 +1,8 @@
+@use 'engine-scss/mixins/base.mixins' as bm;
+@use 'engine-scss/mixins/common.mixins' as cm;
+@use 'engine-scss/engine.variables' as ev;
+@use 'engine-scss/functions' as ef;
+
 @import './utils/vars';
+
 @import './themes/default';

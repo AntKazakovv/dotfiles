@@ -1,17 +1,10 @@
-@use 'engine-scss/functions' as ef;
-@use 'engine-scss/mixins/text' as text;
-@use 'engine-scss/mixins/base.mixins' as em;
-@use 'engine-scss/mixins/mediaqueries' as mq;
-
-@import '../utils/vars';
-
 .wlc-tournament-list--theme-default:host {
-    @include em.get-mq-map('margin', $themeDefault, 'containerMargin');
+    @include bm.get-mq-map('margin', $themeDefault, 'containerMargin');
 
     .wlc-tournament-list {
 
         &__container {
-            @include em.get-mq-map('grid-template-columns', $themeDefault, 'containerGridTemplateColumns');
+            @include bm.get-mq-map('grid-template-columns', $themeDefault, 'containerGridTemplateColumns');
             display: grid;
             grid-gap: ef.get-value($themeDefault, 'containerGap');
         }

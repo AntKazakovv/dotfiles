@@ -1,7 +1,6 @@
 @use 'engine-scss/functions' as ef;
 @use 'engine-scss/mixins/text' as text;
-@use 'engine-scss/mixins/base.mixins' as em;
-@use 'engine-scss/mixins/mediaqueries' as mq;
+@use 'engine-scss/mixins/base.mixins' as bm;
 
 @import './utils/vars';
 @import './utils/mixins';
@@ -119,14 +118,14 @@
             }
 
             &-name {
-                @include em.transition(border-color);
+                @include bm.transition(border-color);
                 @include ellipsis();
 
                 border-bottom: ef.get-value($winnerBase, 'gameBorder');
             }
 
             &-arrow {
-                @include em.transition(color);
+                @include bm.transition(color);
 
                 width: ef.get-value($winnerBase, 'gameArrowWidth');
                 min-width: 0;
@@ -135,7 +134,7 @@
                 color: ef.get-value($winnerBase, 'gameArrowColor');
             }
 
-            @include em.hover() {
+            @include bm.hover() {
                 color: ef.get-value($winnerBase, 'gameHoverColor');
 
                 .wlc-winner__game-name {

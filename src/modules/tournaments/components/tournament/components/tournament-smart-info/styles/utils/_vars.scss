@@ -1,7 +1,4 @@
-@use 'engine-scss/functions' as ef;
-
 $customThemeDefault: () !default;
-
 $themeDefault: map-merge((
     'contentFlexWrap': (
         320: wrap,

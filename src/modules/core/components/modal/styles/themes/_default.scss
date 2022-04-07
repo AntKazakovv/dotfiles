@@ -1,12 +1,3 @@
-@use 'engine-scss/mixins/base.mixins' as bm;
-@use 'engine-scss/functions' as ef;
-@use 'engine-scss/mixins/mediaqueries' as mq;
-@use 'engine-scss/mixins/base.mixins' as em;
-@use 'engine-scss/mixins/text' as text;
-@use 'engine-scss/engine.variables' as ev;
-@import '../utils/vars';
-
-
 .wlc-modal--theme-default {
 
     .wlc-modal {
@@ -52,21 +43,21 @@
         .wlc-modal {
 
             &__wrapper {
-                @include em.get-mq-map('padding', $themeDefault, 'loginSignUpModalWrapperPadding');
+                @include bm.get-mq-map('padding', $themeDefault, 'loginSignUpModalWrapperPadding');
             }
 
             &__close {
-                @include em.get-mq-map('right', $themeDefault, 'loginSignUpClosePosRight');
-                @include em.get-mq-map('top', $themeDefault, 'loginSignUpClosePosTop');
+                @include bm.get-mq-map('right', $themeDefault, 'loginSignUpClosePosRight');
+                @include bm.get-mq-map('top', $themeDefault, 'loginSignUpClosePosTop');
             }
 
             &__header {
-                @include em.get-mq-map('padding', $themeDefault, 'loginSignUpHeaderPadding');
+                @include bm.get-mq-map('padding', $themeDefault, 'loginSignUpHeaderPadding');
                 border-bottom: none;
             }
 
             &__title {
-                @include em.get-mq-map('display', $themeDefault, 'loginSignUpTitleDisplay');
+                @include bm.get-mq-map('display', $themeDefault, 'loginSignUpTitleDisplay');
                 @include text.get-text-style(ef.get-value($themeDefault, 'loginSignUpTitleStyle'), ef.get-value($themeDefault, 'loginSignUpTitleColor'));
                 text-align: ef.get-value($themeDefault, 'loginSignUpTitleAlign');
             }
@@ -84,21 +75,21 @@
             }
 
             &__dialog {
-                @include em.get-mq-map('height', $themeDefault, 'loginSignUpDialogHeight');
-                @include em.get-mq-map('margin', $themeDefault, 'loginSignUpDialogMarign');
-                @include em.get-mq-map('border', $themeDefault, 'loginSignUpDialogBorder');
+                @include bm.get-mq-map('height', $themeDefault, 'loginSignUpDialogHeight');
+                @include bm.get-mq-map('margin', $themeDefault, 'loginSignUpDialogMarign');
+                @include bm.get-mq-map('border', $themeDefault, 'loginSignUpDialogBorder');
                 overflow: hidden;
             }
         }
     }
 
     &.wlc-modal--restore {
-        @include em.get-mq-map('background', $themeDefault, 'restoreModalBackground');
+        @include bm.get-mq-map('background', $themeDefault, 'restoreModalBackground');
 
         .wlc-modal {
 
             &__wrapper {
-                @include em.get-mq-map('padding', $themeDefault, 'restoreModalWrapperPadding');
+                @include bm.get-mq-map('padding', $themeDefault, 'restoreModalWrapperPadding');
             }
 
             &__header {
@@ -106,11 +97,11 @@
             }
 
             &__body {
-                @include em.get-mq-map('padding', $themeDefault, 'restoreModalBodyPadding');
+                @include bm.get-mq-map('padding', $themeDefault, 'restoreModalBodyPadding');
             }
 
             &__title {
-                @include em.get-mq-map('display', $themeDefault, 'restoreTitleDisplay');
+                @include bm.get-mq-map('display', $themeDefault, 'restoreTitleDisplay');
             }
 
             &__back-btn {
@@ -125,13 +116,13 @@
             }
 
             &__back-btn-text {
-                @include em.get-mq-map('display', $themeDefault, 'restoreBtnTextDisplay');
+                @include bm.get-mq-map('display', $themeDefault, 'restoreBtnTextDisplay');
             }
 
             &__dialog {
-                @include em.get-mq-map('height', $themeDefault, 'restoreDialogHeight');
-                @include em.get-mq-map('border', $themeDefault, 'restoreDialogBorder');
-                @include em.get-mq-map('margin', $themeDefault, 'restoreDialogMarign');
+                @include bm.get-mq-map('height', $themeDefault, 'restoreDialogHeight');
+                @include bm.get-mq-map('border', $themeDefault, 'restoreDialogBorder');
+                @include bm.get-mq-map('margin', $themeDefault, 'restoreDialogMarign');
             }
         }
     }
@@ -139,17 +130,17 @@
     &.wlc-modal--tournament-detail {
 
         .wlc-modal__body {
-            @include em.get-mq-map('padding', $themeDefault, 'tournamentDetailPadding');
+            @include bm.get-mq-map('padding', $themeDefault, 'tournamentDetailPadding');
         }
 
         .wlc-modal__footer {
-            @include em.get-mq-map('padding', $themeDefault, 'tournamentDetailFooterPadding');
+            @include bm.get-mq-map('padding', $themeDefault, 'tournamentDetailFooterPadding');
         }
 
         .wlc-modal__header--headless {
 
             .wlc-modal__close {
-                @include em.get-mq-map('top', $themeDefault, 'tournamentDetailIconCloseTop');
+                @include bm.get-mq-map('top', $themeDefault, 'tournamentDetailIconCloseTop');
             }
         }
 
@@ -226,7 +217,7 @@
         .wlc-modal {
 
             &__body {
-                @include em.get-mq-map('padding', $themeDefault, 'paymentListBodyPadding');
+                @include bm.get-mq-map('padding', $themeDefault, 'paymentListBodyPadding');
             }
         }
     }

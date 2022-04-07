@@ -1,14 +1,19 @@
-@use './functions' as ef;
-@use './mixins/mediaqueries' as mq;
-@use './mixins/text' as text;
+@use 'sass:list';
+@use 'engine-scss/functions' as ef;
+@use 'engine-scss/mixins/mediaqueries' as mq;
+@use 'engine-scss/mixins/text' as text;
+@use 'engine-scss/mixins/base.mixins' as bm;
+@use 'engine-scss/mixins/section.mixins' as sm;
+@use 'engine-scss/mixins/layout.mixins' as lm;
+@use 'engine-scss/engine.variables' as ev;
 
 @import './engine.variables';
 @import './mixins/animations';
 @import './mixins/breakpoints';
 @import './css.variables';
+
 @import './base/fonts';
 @import './base/hl-substr';
-
 @import './base/reboot';
 @import './base/containers';
 @import './base/wp-styles';

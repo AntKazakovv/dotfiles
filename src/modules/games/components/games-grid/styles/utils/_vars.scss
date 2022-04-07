@@ -1,7 +1,4 @@
-@use 'engine-scss/functions' as ef;
-
 $customThemeDefault: () !default;
-
 $themeDefault: map-merge((
     'headerMargin': 0 0 ef.size(4),
     'headerJustifyContent': space-between,

@@ -23,7 +23,7 @@
                 background: ef.get-value($theme1, 'wrapperPseudoBorderBg');
             }
 
-            @include em.hover {
+            @include bm.hover {
 
                 .wlc-winner__game {
                     color: ef.get-value($theme1, 'gameHoverColor');
@@ -46,7 +46,7 @@
         }
 
         &__game {
-            @include em.transition();
+            @include bm.transition();
 
             display: inline-block;
             justify-self: start;

@@ -1,10 +1,6 @@
-@use 'engine-scss/functions' as ef;
-@use 'engine-scss/mixins/mediaqueries' as mq;
-@use 'engine-scss/mixins/base.mixins' as em;
-
 .wlc-icon-list--theme-payments {
-    @include em.get-mq-map('max-width', $themePayments, 'paymentsMaxWidth');
-    @include em.get-mq-map('padding', $themePayments, 'paymentsPadding');
+    @include bm.get-mq-map('max-width', $themePayments, 'paymentsMaxWidth');
+    @include bm.get-mq-map('padding', $themePayments, 'paymentsPadding');
 
     width: ef.get-value($themePayments, 'paymentsWidth');
 
@@ -26,7 +22,7 @@
 
             &:before,
             &:after {
-                @include em.transition();
+                @include bm.transition();
 
                 content: '';
                 position: absolute;
@@ -69,12 +65,12 @@
     .wlc-icon-list {
 
         &__wrapper {
-            @include em.scrollbar($themePayments, 'horizontal');
+            @include bm.scrollbar($themePayments, 'horizontal');
 
-            @include em.get-mq-map('flex-wrap', $themePayments, 'wrapperFlexWrap');
-            @include em.get-mq-map('margin', $themePayments, 'wrapperMargin');
-            @include em.get-mq-map('padding', $themePayments, 'wrapperPadding');
-            @include em.get-mq-map('justify-content', $themePayments, 'wrapperFlexJustify');
+            @include bm.get-mq-map('flex-wrap', $themePayments, 'wrapperFlexWrap');
+            @include bm.get-mq-map('margin', $themePayments, 'wrapperMargin');
+            @include bm.get-mq-map('padding', $themePayments, 'wrapperPadding');
+            @include bm.get-mq-map('justify-content', $themePayments, 'wrapperFlexJustify');
 
             position: relative;
             z-index: ef.get-value($themePayments, 'wrapperZIndex');
@@ -89,15 +85,15 @@
 
         &__item,
         &-item {
-            @include em.get-mq-map('padding', $themePayments, 'iconPadding');
+            @include bm.get-mq-map('padding', $themePayments, 'iconPadding');
 
             img,
             .wlc-icon img,
             .wlc-icon svg {
-                @include em.get-mq-map('width', $themePayments, 'iconWidth');
-                @include em.get-mq-map('max-width', $themePayments, 'iconMaxWidth');
-                @include em.get-mq-map('max-height', $themePayments, 'iconMaxHeight');
-                @include em.get-mq-map('fill', $themePayments, 'iconFill');
+                @include bm.get-mq-map('width', $themePayments, 'iconWidth');
+                @include bm.get-mq-map('max-width', $themePayments, 'iconMaxWidth');
+                @include bm.get-mq-map('max-height', $themePayments, 'iconMaxHeight');
+                @include bm.get-mq-map('fill', $themePayments, 'iconFill');
 
                 g {
                     clip-path: none;

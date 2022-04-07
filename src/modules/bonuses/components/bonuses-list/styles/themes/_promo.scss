@@ -1,9 +1,3 @@
-@use 'engine-scss/mixins/mediaqueries' as mq;
-@use 'engine-scss/mixins/base.mixins' as bm;
-@use 'engine-scss/functions' as ef;
-@use 'engine-scss/mixins/base.mixins' as em;
-@import '../utils/vars';
-
 .wlc-bonuses-list--theme-promo {
 
     &:host {
@@ -30,7 +24,7 @@
         }
 
         .wlc-bonuses-list__to-profile {
-            @include em.get-mq-map('margin', $themePromo, 'marginBtnGoToProfile');
+            @include bm.get-mq-map('margin', $themePromo, 'marginBtnGoToProfile');
         }
     }
 }

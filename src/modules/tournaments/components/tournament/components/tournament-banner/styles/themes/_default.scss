@@ -1,8 +1,3 @@
-@use 'engine-scss/mixins/text' as text;
-@use 'engine-scss/mixins/mediaqueries' as mq;
-@use 'engine-scss/mixins/base.mixins' as em;
-@use 'engine-scss/functions' as ef;
-
 .wlc-tournament-banner--theme-default:host {
     position: relative;
     height: ef.get-value($themeDefault, 'baseHeight');
@@ -23,7 +18,7 @@
     overflow: hidden;
 
     &:before {
-        @include em.get-mq-map('background', $themeDefault, 'tournamentGradient');
+        @include bm.get-mq-map('background', $themeDefault, 'tournamentGradient');
 
         content: '';
 
@@ -37,7 +32,7 @@
 
     &__tag {
         @include text.get-text-style('ThirdTitleBold', ef.get-value($themeDefault, 'tagColor'));
-        @include em.get-mq-map('padding', $themeDefault, 'tagPadding');
+        @include bm.get-mq-map('padding', $themeDefault, 'tagPadding');
 
         position: absolute;
         top: ef.get-value($themeDefault, 'tagTopPosition');
@@ -51,9 +46,9 @@
     }
 
     &__more-icon {
-        @include em.get-mq-map('display', $themeDefault, 'moreIconDisplay');
-        @include em.get-mq-map('top', $themeDefault, 'moreIconPosTop');
-        @include em.get-mq-map('right', $themeDefault, 'moreIconPosRight');
+        @include bm.get-mq-map('display', $themeDefault, 'moreIconDisplay');
+        @include bm.get-mq-map('top', $themeDefault, 'moreIconPosTop');
+        @include bm.get-mq-map('right', $themeDefault, 'moreIconPosRight');
 
         position: absolute;
         z-index: 3;
@@ -74,13 +69,13 @@
             }
         }
 
-        @include em.hover {
+        @include bm.hover {
             color: ef.get-value($themeDefault, 'moreIconColorHover');
         }
     }
 
     &__body {
-        @include em.get-mq-map('padding', $themeDefault, 'bodyPadding');
+        @include bm.get-mq-map('padding', $themeDefault, 'bodyPadding');
 
         position: relative;
         z-index: ef.get-value($themeDefault, 'bodyZIndex');
@@ -96,9 +91,9 @@
         }
 
         &-decor {
-            @include em.get-mq-map('display', $themeDefault, 'bodyDecorDisplay');
-            @include em.get-mq-map('background-position', $themeDefault, 'bodyBgPosition');
-            @include em.get-mq-map('background-size', $themeDefault, 'bodyBgSize');
+            @include bm.get-mq-map('display', $themeDefault, 'bodyDecorDisplay');
+            @include bm.get-mq-map('background-position', $themeDefault, 'bodyBgPosition');
+            @include bm.get-mq-map('background-size', $themeDefault, 'bodyBgSize');
 
             position: absolute;
             top: ef.get-value($themeDefault, 'bodyDecorPositionTop');
@@ -113,7 +108,7 @@
 
     &__body-title {
         @include text.get-text-style(ef.get-value($themeDefault, 'bodyFont', 320), ef.get-value($themeDefault, 'bodyColor'));
-        @include em.lineClamp(1);
+        @include bm.lineClamp(1);
 
         margin: ef.get-value($themeDefault, 'bodyMargin');
 
@@ -128,9 +123,9 @@
 
     &__description {
         @include text.get-text-style(ef.get-value($themeDefault, 'descriptionFont'), ef.get-value($themeDefault, 'descriptionColor'));
-        @include em.get-mq-map('max-width', $themeDefault, 'descriptionWidth');
-        @include em.get-mq-map('margin', $themeDefault, 'descriptionMargin');
-        @include em.lineClamp(3);
+        @include bm.get-mq-map('max-width', $themeDefault, 'descriptionWidth');
+        @include bm.get-mq-map('margin', $themeDefault, 'descriptionMargin');
+        @include bm.lineClamp(3);
     }
 
     ::ng-deep {
@@ -145,7 +140,7 @@
     }
 
     .buttons-wrap {
-        @include em.get-mq-map('padding', $themeDefault, 'btnsWrapPadding');
+        @include bm.get-mq-map('padding', $themeDefault, 'btnsWrapPadding');
 
         display: flex;
         justify-content: ef.get-value($themeDefault, 'btnsWrapAlign');
@@ -166,7 +161,7 @@
             }
 
             &--theme-mod-read {
-                @include em.get-mq-map('display', $themeDefault, 'btnsDisplay');
+                @include bm.get-mq-map('display', $themeDefault, 'btnsDisplay');
             }
         }
     }

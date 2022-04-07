@@ -1,7 +1,3 @@
-@use 'engine-scss/functions' as ef;
-@use 'engine-scss/mixins/base.mixins' as em;
-@import '../utils/vars';
-
 .wlc-limitations--theme-default:host {
 
     .wlc-limitations-list {
@@ -11,7 +7,7 @@
     ::ng-deep {
 
         .wlc-form {
-            @include em.get-mq-map('grid-template-columns', $themeDefault, 'formTemplateColumns');
+            @include bm.get-mq-map('grid-template-columns', $themeDefault, 'formTemplateColumns');
             display: grid;
             align-items: ef.get-value($themeDefault, 'formAlignItems');
             justify-content: ef.get-value($themeDefault, 'formJustifyContent');
@@ -22,12 +18,12 @@
         .wlc-table--theme-default[class] {
 
             .wlc-table__cell--type {
-                @include em.get-mq-map('padding', $themeDefault, 'actionPaddingCell');
+                @include bm.get-mq-map('padding', $themeDefault, 'actionPaddingCell');
             }
         }
 
         .wlc-btn {
-            @include em.get-mq-map('margin', $themeDefault, 'btnMargin');
+            @include bm.get-mq-map('margin', $themeDefault, 'btnMargin');
             width: ef.get-value($themeDefault, 'btnWidth');
             height: ef.get-value($themeDefault, 'btnHeight');
         }

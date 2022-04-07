@@ -1,10 +1,3 @@
-@use 'engine-scss/mixins/mediaqueries' as mq;
-@use 'engine-scss/mixins/text' as text;
-@use 'engine-scss/mixins/base.mixins' as em;
-@use 'engine-scss/functions' as ef;
-@import '../utils/vars';
-
-
 .wlc-tournament--theme-dashboard:host {
     height: 100%;
 
@@ -33,13 +26,13 @@
                     }
 
                     svg {
-                        @include em.transition(fill);
+                        @include bm.transition(fill);
                         width: 100%;
                         fill: ef.get-value($themeDashboard, 'moreIconColor');
                     }
                 }
 
-                @include em.hover {
+                @include bm.hover {
 
                     ::ng-deep {
 
@@ -136,12 +129,12 @@
         }
 
         &__description {
-            @include em.lineClamp(2);
+            @include bm.lineClamp(2);
             @include text.get-text-style(ef.get-value($themeDashboard, 'descrTextStyle'), ef.get-value($themeDashboard, 'descrColor'));
         }
 
         &__description-block {
-            @include em.transition(opacity);
+            @include bm.transition(opacity);
 
             width: 100%;
             min-width: 0;

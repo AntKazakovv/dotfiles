@@ -1,5 +1,3 @@
-@use 'engine-scss/functions' as ef;
-
 @mixin list-grid($array) {
     @each $size, $columns in $array {
 

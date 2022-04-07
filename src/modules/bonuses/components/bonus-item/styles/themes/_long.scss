@@ -1,8 +1,3 @@
-@use 'engine-scss/mixins/mediaqueries' as mq;
-@use 'engine-scss/mixins/text' as text;
-@use 'engine-scss/mixins/base.mixins' as em;
-@use 'engine-scss/functions' as ef;
-
 .wlc-bonus-item--theme-long {
 
     .wlc-bonus-item {
@@ -13,7 +8,7 @@
 
         &__wrapper,
         &__info-block {
-            @include em.get-mq-map('grid-gap', $themeLong, 'globalGap');
+            @include bm.get-mq-map('grid-gap', $themeLong, 'globalGap');
 
             display: grid;
             width: 100%;
@@ -37,7 +32,7 @@
         }
 
         &__btns {
-            @include em.get-mq-map('padding', $themeLong, 'btnsPadding');
+            @include bm.get-mq-map('padding', $themeLong, 'btnsPadding');
         }
 
         &__tag {
@@ -45,7 +40,7 @@
         }
 
         &__image-block {
-            @include em.get-mq-map('padding', $themeLong, 'imageBlockPadding');
+            @include bm.get-mq-map('padding', $themeLong, 'imageBlockPadding');
 
             display: grid;
             grid-gap: ef.get-value($themeLong, 'imageBlockGap');
@@ -64,7 +59,7 @@
         }
 
         &__image {
-            @include em.absoluteCentering();
+            @include bm.absoluteCentering();
 
             z-index: 0;
             width: 100%;
@@ -73,7 +68,7 @@
             background-size: cover;
 
             &:before {
-                @include em.absoluteCentering();
+                @include bm.absoluteCentering();
                 content: '';
 
                 width: 100%;
@@ -83,8 +78,8 @@
         }
 
         &__icon {
-            @include em.get-mq-map('width', $themeLong, 'bonusIconSize');
-            @include em.get-mq-map('height', $themeLong, 'bonusIconSize');
+            @include bm.get-mq-map('width', $themeLong, 'bonusIconSize');
+            @include bm.get-mq-map('height', $themeLong, 'bonusIconSize');
 
             grid-area: icon;
         }
@@ -100,7 +95,7 @@
         }
 
         &__description-block {
-            @include em.transition(opacity);
+            @include bm.transition(opacity);
 
             width: 100%;
             min-width: 0;
@@ -111,7 +106,7 @@
 
         &__description {
             @include text.get-text-style(ef.get-value($themeLong, 'descrTextStyle'), ef.get-value($themeDefault, 'descrColor'));
-            @include em.lineClamp(2);
+            @include bm.lineClamp(2);
         }
     }
 }

@@ -1,5 +1,3 @@
-@use 'engine-scss/functions' as ef;
-
 .swiper-pagination {
     position: absolute;
     z-index: ef.get-value($themeDefaultPagination, 'swiperPagiZindex');

@@ -1,9 +1,3 @@
-@use 'engine-scss/mixins/mediaqueries' as mq;
-@use 'engine-scss/functions' as ef;
-@use 'engine-scss/mixins/base.mixins' as bm;
-@use 'engine-scss/mixins/text' as lib;
-@use 'engine-scss/mixins/common.mixins' as cm;
-
 @keyframes spin {
 
     100% {
@@ -40,7 +34,7 @@
         max-width: ef.get-value($themeDefault, '$textareaMaxWidth');
 
         textarea {
-            @include lib.get-text-style('PrimaryText', ef.get-value($themeDefault, 'textareaColor'));
+            @include text.get-text-style('PrimaryText', ef.get-value($themeDefault, 'textareaColor'));
             @include bm.get-mq-map('min-height', $themeDefault, 'textareaMinHeight');
 
             width: 100%;

@@ -3,12 +3,12 @@
     .wlc-winners-slider {
 
         &__wrapper {
-            @include em.get-mq-map('padding', $themeDefault, 'wrapperPadding');
+            @include bm.get-mq-map('padding', $themeDefault, 'wrapperPadding');
             height: ef.get-value($themeDefault, 'sliderWrapperHeight');
         }
 
         &__container {
-            @include em.get-mq-map('padding', $themeDefault, 'containerPadding');
+            @include bm.get-mq-map('padding', $themeDefault, 'containerPadding');
             min-height: ef.get-value($themeDefault, 'containerMinHeigth');
 
             @include mq.min(ef.get-value($themeDefault, 'breakpoint')) {
@@ -23,7 +23,7 @@
         }
 
         &__loader {
-            @include em.get-mq-map('height', $themeDefault, 'loaderHeight');
+            @include bm.get-mq-map('height', $themeDefault, 'loaderHeight');
 
             @include mq.min(ef.get-value($themeDefault, 'breakpoint')) {
                 flex: 1 1 auto;
@@ -33,10 +33,10 @@
 
         &__title {
             @include text.get-text-style('QoteTextBold', ef.get-value($themeDefault, 'titleColor'));
-            @include em.get-mq-map('margin-bottom', $themeDefault, 'titleMarginBottom');
-            @include em.get-mq-map('padding-right', $themeDefault, 'titlePaddingRight');
-            @include em.get-mq-map('flex', $themeDefault, 'titleFlex');
-            @include em.get-mq-map('text-align', $themeDefault, 'titleAlignment');
+            @include bm.get-mq-map('margin-bottom', $themeDefault, 'titleMarginBottom');
+            @include bm.get-mq-map('padding-right', $themeDefault, 'titlePaddingRight');
+            @include bm.get-mq-map('flex', $themeDefault, 'titleFlex');
+            @include bm.get-mq-map('text-align', $themeDefault, 'titleAlignment');
 
             display: none;
 

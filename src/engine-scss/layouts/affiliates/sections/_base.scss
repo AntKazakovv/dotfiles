@@ -1,7 +1,7 @@
-@use 'engine-scss/functions' as ef;
-@use 'engine-scss/mixins/text' as text;
-@use 'engine-scss/mixins/base.mixins' as bm;
+// we need @use here, otherwise we get errors in project build
 @use 'modules/core/components/button/styles/utils/mixins' as button;
+@use 'engine-scss/mixins/base.mixins' as bm;
+@use 'engine-scss/functions' as ef;
 
 .wlc-sections {
 

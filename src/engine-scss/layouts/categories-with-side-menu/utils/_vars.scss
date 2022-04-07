@@ -1,5 +1,3 @@
-@use 'engine-scss/functions' as ef;
-
 $customGamesWithSideMenu: () !default;
 $gamesWithSideMenu: map-merge((
     'sectionGrid': (

@@ -1,6 +1,3 @@
-@use 'engine-scss/functions' as ef;
-@use 'engine-scss/mixins/mediaqueries' as mq;
-
 .wlc-game-wrapper--theme-fullscreen-game-frame {
     margin: ef.get-value($themeFullscreenGameFrame, 'margin');
     overflow: hidden;

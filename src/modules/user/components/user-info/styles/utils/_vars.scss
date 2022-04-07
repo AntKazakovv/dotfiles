@@ -1,5 +1,3 @@
-@use 'engine-scss/functions' as ef;
-
 $customThemeDefault: () !default;
 $themeDefault: map-merge((
     'userInfoShortMargin': 0 ef.size(4),

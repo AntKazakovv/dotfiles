@@ -1,12 +1,7 @@
-@use 'engine-scss/functions' as ef;
-@use 'engine-scss/mixins/text' as lib;
-@use 'engine-scss/mixins/base.mixins' as em;
-@use 'engine-scss/mixins/mediaqueries' as mq;
-
 .wlc-plug--theme-tournaments:host {
-    @include em.get-mq-map('background', $themeTournaments, 'background');
-    @include em.get-mq-map('padding', $themeTournaments, 'padding');
-    @include em.get-mq-map('min-height', $themeTournaments, 'minHeight');
+    @include bm.get-mq-map('background', $themeTournaments, 'background');
+    @include bm.get-mq-map('padding', $themeTournaments, 'padding');
+    @include bm.get-mq-map('min-height', $themeTournaments, 'minHeight');
 
     border-radius: ef.get-value($themeTournaments, 'borderRadius');
     position: relative;
@@ -14,13 +9,13 @@
 
 
     .wrapper {
-        @include em.get-mq-map('margin', $themeTournaments, 'wrapperMargin');
+        @include bm.get-mq-map('margin', $themeTournaments, 'wrapperMargin');
         height: 100%;
     }
 
     .wlc-plug__label {
-        @include lib.get-text-style('ThirdTitleBold', ef.get-value($themeTournaments, 'labelColor'));
-        @include em.get-mq-map('padding', $themeTournaments, 'labelPadding');
+        @include text.get-text-style('ThirdTitleBold', ef.get-value($themeTournaments, 'labelColor'));
+        @include bm.get-mq-map('padding', $themeTournaments, 'labelPadding');
 
         position: absolute;
         top: ef.get-value($themeTournaments, 'labelPositionTop');
@@ -32,14 +27,14 @@
     }
 
     .wlc-plug__title {
-        @include lib.get-text-style('QoteTextBold', ef.get-value($themeTournaments, 'color'));
+        @include text.get-text-style('QoteTextBold', ef.get-value($themeTournaments, 'color'));
 
         @include mq.min(640) {
-            @include lib.get-text-style('PromoTitle', ef.get-value($themeTournaments, 'color'));
+            @include text.get-text-style('PromoTitle', ef.get-value($themeTournaments, 'color'));
         }
     }
 
     .wlc-plug__description {
-        @include lib.get-text-style('PrimaryText', ef.get-value($themeTournaments, 'color'));
+        @include text.get-text-style('PrimaryText', ef.get-value($themeTournaments, 'color'));
     }
 }

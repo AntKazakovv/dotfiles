@@ -1,7 +1,3 @@
-@use 'sass:list';
-@use 'engine-scss/functions' as ef;
-@use 'engine-scss/engine.variables' as ev;
-
 $customTheme1Header: () !default;
 $theme1Header: map-merge((
     'headerMargin': (

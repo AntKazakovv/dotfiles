@@ -1,5 +1,3 @@
-@import './vars';
-
 @mixin verticalBtn {
 
     @if ($thumbBtnPosition == vertical) {

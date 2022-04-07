@@ -2,7 +2,7 @@
     width: 100%;
 
     ::ng-deep {
-        @include mx.menuControls($themeDefault);
+        @include menuControls($themeDefault);
 
         .wlc-category-menu {
 

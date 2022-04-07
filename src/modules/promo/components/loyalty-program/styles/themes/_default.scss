@@ -1,12 +1,7 @@
-@use 'engine-scss/functions' as ef;
-@use 'engine-scss/mixins/text' as text;
-@use 'engine-scss/mixins/mediaqueries' as mq;
-@use 'engine-scss/mixins/base.mixins' as em;
-
 .wlc-loyalty-program--theme-default:host {
 
     .wlc-loyalty-program__wrapper {
-        @include em.get-mq-map('margin', $themeDefault, 'wrapperMargin');
+        @include bm.get-mq-map('margin', $themeDefault, 'wrapperMargin');
 
         display: ef.get-value($themeDefault, 'wrapperDisplay');
         flex-direction: ef.get-value($themeDefault, 'wrapperDirection');
@@ -16,13 +11,13 @@
     .wlc-loyalty-program {
 
         &__title {
-            @include em.get-mq-map('margin', $themeDefault, 'titleMargin');
+            @include bm.get-mq-map('margin', $themeDefault, 'titleMargin');
             @include text.get-text-style(ef.get-value($themeDefault, 'titleFont'), ef.get-value($themeDefault, 'titleFontColor'));
         }
 
         &__container {
-            @include em.get-mq-map('padding', $themeDefault, 'containerPadding');
-            @include em.get-mq-map('background', $themeDefault, 'containerBackground');
+            @include bm.get-mq-map('padding', $themeDefault, 'containerPadding');
+            @include bm.get-mq-map('background', $themeDefault, 'containerBackground');
 
             position: ef.get-value($themeDefault, 'containerPosition');
 
@@ -32,7 +27,7 @@
         }
 
         &__container-decor {
-            @include em.get-mq-map('display', $themeDefault, 'containerDecorDisplay');
+            @include bm.get-mq-map('display', $themeDefault, 'containerDecorDisplay');
 
             position: ef.get-value($themeDefault, 'containerDecorPosition');
             top: ef.get-value($themeDefault, 'containerDecorTop');
@@ -72,11 +67,11 @@
         }
 
         &__items-wrapper {
-            @include em.get-mq-map('grid-template-columns', $themeDefault, 'itemsWrapperTemplateColumns');
-            @include em.get-mq-map('gap', $themeDefault, 'itemsWrapperGap');
+            @include bm.get-mq-map('grid-template-columns', $themeDefault, 'itemsWrapperTemplateColumns');
+            @include bm.get-mq-map('gap', $themeDefault, 'itemsWrapperGap');
 
-            @include em.get-mq-map('width', $themeDefault, 'itemsWrapperWidth');
-            @include em.get-mq-map('margin', $themeDefault, 'itemsWrapperMargin');
+            @include bm.get-mq-map('width', $themeDefault, 'itemsWrapperWidth');
+            @include bm.get-mq-map('margin', $themeDefault, 'itemsWrapperMargin');
 
             position: ef.get-value($themeDefault, 'itemsWrapperPosition');
             z-index: ef.get-value($themeDefault, 'itemsWrapperZindex');
@@ -85,8 +80,8 @@
         }
 
         &__item {
-            @include em.get-mq-map('padding', $themeDefault, 'itemPadding');
-            @include em.get-mq-map('background', $themeDefault, 'itemBackground');
+            @include bm.get-mq-map('padding', $themeDefault, 'itemPadding');
+            @include bm.get-mq-map('background', $themeDefault, 'itemBackground');
 
             display: ef.get-value($themeDefault, 'itemDisplay');
             flex-direction: ef.get-value($themeDefault, 'itemDirection');
@@ -96,7 +91,7 @@
         }
 
         &__item-image {
-            @include em.get-mq-map('padding', $themeDefault, 'itemImagePadding');
+            @include bm.get-mq-map('padding', $themeDefault, 'itemImagePadding');
 
             position: ef.get-value($themeDefault, 'itemImagePosition');
             display: ef.get-value($themeDefault, 'itemImageDisplay');
@@ -115,15 +110,15 @@
         }
 
         &__item-title {
-            @include em.get-mq-map('padding', $themeDefault, 'itemTitlePadding');
+            @include bm.get-mq-map('padding', $themeDefault, 'itemTitlePadding');
             @include text.get-text-style(ef.get-value($themeDefault, 'itemTitleFont'), ef.get-value($themeDefault, 'itemTitleFontColor'));
         }
 
         &__item-description {
-            @include em.get-mq-map('padding', $themeDefault, 'itemDescriptionPadding');
-            @include em.get-mq-map('margin', $themeDefault, 'itemDescriptionMargin');
+            @include bm.get-mq-map('padding', $themeDefault, 'itemDescriptionPadding');
+            @include bm.get-mq-map('margin', $themeDefault, 'itemDescriptionMargin');
             @include text.get-text-style(ef.get-value($themeDefault, 'itemDescriptionFont'), ef.get-value($themeDefault, 'itemDescriptionFontColor'));
-            @include em.lineClamp(3);
+            @include bm.lineClamp(3);
 
             text-align: ef.get-value($themeDefault, 'itemDescriptionTextAlign');
         }
@@ -136,7 +131,7 @@
         }
 
         &__btn-wrapper {
-            @include em.get-mq-map('margin', $themeDefault, 'btnWrappMargin');
+            @include bm.get-mq-map('margin', $themeDefault, 'btnWrappMargin');
 
             position: ef.get-value($themeDefault, 'btnWrappPosition');
             z-index: ef.get-value($themeDefault, 'btnWrappZindex');

@@ -1,8 +1,3 @@
-@use 'engine-scss/functions' as ef;
-@use 'engine-scss/mixins/text' as text;
-@use 'engine-scss/mixins/mediaqueries' as mq;
-@use 'engine-scss/mixins/base.mixins' as em;
-
 .wlc-game-wrapper--theme-default {
 
     &.wlc-game-wrapper--type-default {
@@ -103,17 +98,17 @@
 
 
                 &.icon-btn:not(.active) {
-                    @include em.transition(all);
+                    @include bm.transition(all);
                     opacity: ef.get-value($themeDefault, 'buttonOpacity');
 
-                    @include em.hover {
+                    @include bm.hover {
                         opacity: ef.get-value($themeDefault, 'buttonOpacityHover');
                     }
                 }
 
                 svg {
 
-                    @include em.transition(all);
+                    @include bm.transition(all);
                     width: ef.get-value($themeDefault, 'iconsWidth');
                     height: ef.get-value($themeDefault, 'iconsHeight');
                     fill: none;
@@ -139,7 +134,7 @@
                     }
                 }
 
-                @include em.hover {
+                @include bm.hover {
 
                     svg {
                         stroke: ef.get-value($themeDefault, 'iconsColorHover');

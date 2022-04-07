@@ -1,8 +1,4 @@
-@use 'engine-scss/functions' as ef;
-@use 'sass:list';
-
 $customThemeDefault: () !default;
-
 $themeDefault: map-merge((
     'gridTemplateColumns': 1fr auto auto,
     'gridTemplateAreas': 'title navigation button' 'icons icons icons',

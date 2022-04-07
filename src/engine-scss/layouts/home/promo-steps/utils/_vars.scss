@@ -1,5 +1,3 @@
-@use 'engine-scss/functions' as ef;
-
 $customThemePromoSteps: () !default;
 $themePromoSteps: map-merge((
     'promoStepsMargin': (

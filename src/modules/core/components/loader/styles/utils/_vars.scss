@@ -1,5 +1,3 @@
-@use 'engine-scss/functions' as ef;
-
 $customThemeRingDefault: () !default;
 $themeRingDefault: map-merge((
     'color': ef.get('mainColors', main),

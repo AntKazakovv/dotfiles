@@ -1,5 +1,3 @@
-@use 'engine-scss/functions' as ef;
-
 $customThemeDefault: () !default;
 $themeDefault: map-merge((
     'transition': ef.get('time', 'main') linear,

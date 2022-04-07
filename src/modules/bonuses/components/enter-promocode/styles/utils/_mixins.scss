@@ -18,7 +18,7 @@
     $btnTextBorder: ef.get-value($themePromocodeBtn, 'btnTextBorder'),
     $btnTextRadius: ef.get-value($themePromocodeBtn, 'btnTextRadius')
 ) {
-    @include em.transition(background);
+    @include bm.transition(background);
 
     position: $position;
 
@@ -85,7 +85,7 @@
         }
     }
 
-    @include em.hover {
+    @include bm.hover {
         background: $btnBackgroundHover;
     }
 }

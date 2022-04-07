@@ -1,6 +1,3 @@
-@use 'engine-scss/mixins/base.mixins' as bm;
-@use 'engine-scss/mixins/mediaqueries' as mq;
-
 .wlc-no-content--wlc-tournament-list:host {
     @include baseNoContent();
 

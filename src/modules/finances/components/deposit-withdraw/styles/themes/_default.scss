@@ -1,10 +1,3 @@
-@use 'engine-scss/functions' as ef;
-@use 'engine-scss/mixins/mediaqueries' as mq;
-@use 'engine-scss/mixins/base.mixins' as em;
-@use 'engine-scss/mixins/text' as text;
-
-@import '../utils/vars';
-
 .wlc-cash--theme-default:host {
     display: grid;
     grid-template-columns: ef.get-value($themeDefault, 'gridTemplateColumns');
@@ -23,7 +16,7 @@
         }
 
         &__divider {
-            @include em.get-mq-map('display', $themeDefault, 'dividerDisplay');
+            @include bm.get-mq-map('display', $themeDefault, 'dividerDisplay');
 
             width: ef.get-value($themeDefault, 'dividerWidth');
             height: ef.get-value($themeDefault, 'dividerHeight');
@@ -35,12 +28,12 @@
         &__step {
 
             .wlc-hosted-fields {
-                @include em.get-mq-map('justify-items', $themeDefault, 'hostedFieldsJustifyItems');
+                @include bm.get-mq-map('justify-items', $themeDefault, 'hostedFieldsJustifyItems');
 
                 display: grid;
 
                 &__container {
-                    @include em.get-mq-map('max-width', $themeDefault, 'fieldContaninerMaxWidth');
+                    @include bm.get-mq-map('max-width', $themeDefault, 'fieldContaninerMaxWidth');
 
                     width: 100%;
 
@@ -59,15 +52,15 @@
             }
 
             &--1 {
-                @include em.get-mq-map('background', $themeDefault, 'step1Bg');
-                @include em.get-mq-map('padding', $themeDefault, 'step1Padding');
-                @include em.get-mq-map('border-radius', $themeDefault, 'step1BorderRadius');
-                @include em.get-mq-map('margin', $themeDefault, 'step1Margin');
+                @include bm.get-mq-map('background', $themeDefault, 'step1Bg');
+                @include bm.get-mq-map('padding', $themeDefault, 'step1Padding');
+                @include bm.get-mq-map('border-radius', $themeDefault, 'step1BorderRadius');
+                @include bm.get-mq-map('margin', $themeDefault, 'step1Margin');
             }
         }
 
         &__subtitle {
-            @include em.get-mq-map('text-align', $themeDefault, 'subtitleAlignment');
+            @include bm.get-mq-map('text-align', $themeDefault, 'subtitleAlignment');
             @include text.get-text-style(ef.get-value($themeDefault, 'subtitleFontStyle'), ef.get-value($themeDefault, 'subtitleColor'));
             margin: ef.get-value($themeDefault, 'subtitleMargin');
         }
@@ -84,9 +77,9 @@
         }
 
         &__withdraw {
-            @include em.get-mq-map('max-width', $themeDefault, 'withdrawMaxWidth');
-            @include em.get-mq-map('margin', $themeDefault, 'withdrawMargin');
-            @include em.get-mq-map(' grid-gap', $themeDefault, 'withdrawGridGap');
+            @include bm.get-mq-map('max-width', $themeDefault, 'withdrawMaxWidth');
+            @include bm.get-mq-map('margin', $themeDefault, 'withdrawMargin');
+            @include bm.get-mq-map(' grid-gap', $themeDefault, 'withdrawGridGap');
             display: grid;
 
             &-item {
@@ -109,7 +102,7 @@
 
         &__fields-error {
             @include text.get-text-style(ThirdTitle, ef.get-value($themeDefault, 'errorsColor'));
-            @include em.get-mq-map('text-align', $themeDefault, 'errorsTextAlign');
+            @include bm.get-mq-map('text-align', $themeDefault, 'errorsTextAlign');
             margin: ef.get-value($themeDefault, 'errorsMargin');
 
             .wlc-btn {
@@ -152,8 +145,8 @@
             ::ng-deep {
 
                 .wlc-form {
-                    @include em.get-mq-map('grid-template-columns', $themeDefault, 'formAdditionalGridTemplateColumns');
-                    @include em.get-mq-map('justify-items', $themeDefault, 'formJustifyItems');
+                    @include bm.get-mq-map('grid-template-columns', $themeDefault, 'formAdditionalGridTemplateColumns');
+                    @include bm.get-mq-map('justify-items', $themeDefault, 'formJustifyItems');
 
                     display: grid;
                     gap: ef.get-value($themeDefault, 'formGap');
@@ -161,7 +154,7 @@
                 }
 
                 .wlc-field-container {
-                    @include em.get-mq-map('max-width', $themeDefault, 'fieldContaninerMaxWidth');
+                    @include bm.get-mq-map('max-width', $themeDefault, 'fieldContaninerMaxWidth');
                     display: grid;
                     grid-template-columns: 1fr;
                     gap: ef.get-value($themeDefault, 'fieldContaninerGap');
@@ -170,7 +163,7 @@
                 .wlc-input,
                 .wlc-select,
                 .wlc-checkbox {
-                    @include em.get-mq-map('max-width', $themeDefault, 'formInputMaxWidth');
+                    @include bm.get-mq-map('max-width', $themeDefault, 'formInputMaxWidth');
                 }
 
                 .wlc-select__dropdown {
@@ -180,17 +173,17 @@
                 .wlc-checkbox--rules,
                 .wlc-btn--submit,
                 .wlc-field-container {
-                    @include em.get-mq-map('grid-column-start', $themeDefault, 'formInputOneLineGridColumnStart');
-                    @include em.get-mq-map('grid-column-end', $themeDefault, 'formInputOneLineGridColumnEnd');
+                    @include bm.get-mq-map('grid-column-start', $themeDefault, 'formInputOneLineGridColumnStart');
+                    @include bm.get-mq-map('grid-column-end', $themeDefault, 'formInputOneLineGridColumnEnd');
                 }
 
                 .wlc-btn {
-                    @include em.get-mq-map('justify-self', $themeDefault, 'formSubmitJustifySelf');
+                    @include bm.get-mq-map('justify-self', $themeDefault, 'formSubmitJustifySelf');
                     margin: ef.get-value($themeDefault, 'formSubmitMargin');
                 }
 
                 .wlc-additional-fields {
-                    @include em.get-mq-map('grid-template-columns', $themeDefault, 'additionalFieldsTemplateColumns');
+                    @include bm.get-mq-map('grid-template-columns', $themeDefault, 'additionalFieldsTemplateColumns');
                     display: grid;
                     gap: ef.get-value($themeDefault, 'additionalFieldsGap');
                 }

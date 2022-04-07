@@ -1,5 +1,3 @@
-@use 'engine-scss/functions' as ef;
-
 $customThemeTournaments: () !default;
 $themeTournaments: map-merge((
     'background': (

@@ -1,7 +1,3 @@
-@use 'engine-scss/functions' as ef;
-@use 'engine-scss/mixins/text' as text;
-@use 'engine-scss/mixins/base.mixins' as em;
-
 .wlc-logout--theme-default:host {
 
     .wlc-btn {
@@ -24,19 +20,19 @@
             }
         }
 
-        @include em.hover {
+        @include bm.hover {
 
             ::ng-deep {
 
                 .wlc-btn__text {
-                    @include em.transition(color);
+                    @include bm.transition(color);
                     color: ef.get-value($themeDefault, 'textColorHover');
                 }
 
                 ::ng-deep {
 
                     path {
-                        @include em.transition(all);
+                        @include bm.transition(all);
                         fill: ef.get-value($themeDefault, 'textColorHover');
                         stroke: ef.get-value($themeDefault, 'textColorHover');
                     }

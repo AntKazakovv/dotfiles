@@ -1,8 +1,6 @@
-@use 'engine-scss/functions' as ef;
 //media queries variables
 
 $customThemeDefault: () !default;
-
 $themeDefault: map-merge((
     'modalPadding': (
         375: ef.size(6) ef.size(2),
