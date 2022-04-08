@@ -21,9 +21,9 @@ export interface ISignUpFormCParams extends IComponentParams<ComponentTheme, Com
     formConfig?: IFormWrapperCParams;
     formData?: IIndexing<unknown>;
     /**
-     * Uses only for MGA license
+     * Uses only for two steps
      */
-    formType?: 'mga' | null;
+    formType?: 'secondStep' | null;
 }
 
 export const defaultParams: ISignUpFormCParams = {
@@ -90,7 +90,7 @@ export const signUpWithLoginFormConfig: IFormWrapperCParams = {
     ],
 };
 
-export const magLicenseFormConfig = {
+export const twoStepsFormConfig = {
     components: [
         FormElements.lastName,
         FormElements.firstName,

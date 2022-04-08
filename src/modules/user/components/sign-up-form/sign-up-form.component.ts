@@ -59,9 +59,8 @@ export class SignUpFormComponent extends UserActionsAbstract<Params.ISignUpFormC
     public config: IFormWrapperCParams;
     public $params: Params.ISignUpFormCParams;
     public formData: BehaviorSubject<IIndexing<unknown>>;
-    public isMGALicense: boolean = !!this.configService.get<IMGAConfig>('$modules.core.components["wlc-license"].mga');
     public errors$: BehaviorSubject<IIndexing<string>> = new BehaviorSubject(null);
-    @HostBinding('class.mga-license') useMGAClass: boolean = this.isMGALicense;
+    @HostBinding('class.two-steps') useTwoStepsClass: boolean = this.getTwoSteps();
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.ISignUpFormCParams,
@@ -87,9 +86,9 @@ export class SignUpFormComponent extends UserActionsAbstract<Params.ISignUpFormC
             this.config = Params.signUpWithLoginFormConfig;
         }
 
-        if (this.isMGALicense) {
-            if (this.isMGAFormStep()) {
-                this.config = Params.magLicenseFormConfig;
+        if (this.getTwoSteps()) {
+            if (this.isSecondStep()) {
+                this.config = Params.twoStepsFormConfig;
             } else {
                 this.config.components = _filter(this.config.components, (el) => {
                     return !['ageConfirmed', 'agreedWithTermsAndConditions'].includes(el.params.name);
@@ -98,7 +97,7 @@ export class SignUpFormComponent extends UserActionsAbstract<Params.ISignUpFormC
         }
 
         if (this.configService.get<boolean>('$base.profile.smsVerification.use')
-            || (this.isMGALicense && !this.isMGAFormStep())) {
+            || (this.getTwoSteps() && !this.isSecondStep())) {
             const formValues = this.configService.get<IRegFormDataForConfig>('regFormData');
             _each(this.config.components, (item) => {
                 if (item.name === 'core.wlc-button' && item.params?.common?.text) {
@@ -128,6 +127,11 @@ export class SignUpFormComponent extends UserActionsAbstract<Params.ISignUpFormC
         }
     }
 
+    public getTwoSteps(): boolean {
+        return this.configService.get<boolean>('$modules.user.params.twoSteps')
+            || !!this.configService.get<IMGAConfig>('$modules.core.components["wlc-license"].mga');
+    }
+
     /**
      * method runs before sending and checks if the form is correct
      * @param form
@@ -138,7 +142,7 @@ export class SignUpFormComponent extends UserActionsAbstract<Params.ISignUpFormC
     }
 
     public async ngSubmit(form: FormGroup): Promise<void> {
-        if ((this.isMGALicense && !this.isMGAFormStep())
+        if ((this.getTwoSteps() && !this.isSecondStep())
             || this.configService.get<boolean>('$base.profile.smsVerification.use')) {
             this.nextStepSubmit(form);
             return;
@@ -150,7 +154,7 @@ export class SignUpFormComponent extends UserActionsAbstract<Params.ISignUpFormC
                 return;
             }
             let regData = this.formDataPreparation(form);
-            if (this.isMGALicense && this.isMGAFormStep()) {
+            if (this.getTwoSteps() && this.isSecondStep()) {
                 regData = _merge(this.configService.get<IRegFormDataForConfig>('regFormData')?.form, regData);
             }
             await this.userService.validateRegistration(regData);
@@ -205,7 +209,7 @@ export class SignUpFormComponent extends UserActionsAbstract<Params.ISignUpFormC
     }
 
     protected nextStepSubmit(form: FormGroup) {
-        if ((!this.isMGALicense || this.isMGAFormStep()) && !this.checkConfirmation(form)) {
+        if ((!this.getTwoSteps() || this.isSecondStep()) && !this.checkConfirmation(form)) {
             return;
         }
 
@@ -221,7 +225,7 @@ export class SignUpFormComponent extends UserActionsAbstract<Params.ISignUpFormC
         this.eventService.emit({name: StepsEvents.Next});
     }
 
-    protected isMGAFormStep(): boolean {
-        return this.$params.formType === 'mga';
+    protected isSecondStep(): boolean {
+        return this.$params.formType === 'secondStep';
     }
 }

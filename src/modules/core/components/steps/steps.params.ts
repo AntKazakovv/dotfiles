@@ -138,7 +138,7 @@ const backLinkBlock = {
     },
 };
 
-const regFormStepTopComponents = {
+export const regFormStepTopComponents = {
     name: 'core.wlc-wrapper',
     params: {
         class: 'wlc-steps__head',
@@ -161,7 +161,7 @@ const regFormStepTopComponents = {
     },
 };
 
-const getMagLicenseForm = (isSecondProfile: boolean) => {
+const getTwoStepsForm = (isSecondProfile: boolean) => {
     const form: IStepConfig = {
         name: 'core.wlc-wrapper',
         class: 'wlc-steps__container wlc-steps__container--sign-up',
@@ -175,8 +175,8 @@ const getMagLicenseForm = (isSecondProfile: boolean) => {
                         {
                             name: 'user.wlc-sign-up-form',
                             params: {
-                                customMod: ['mga'],
-                                formType: 'mga',
+                                customMod: ['secondStep'],
+                                formType: 'secondStep',
                             },
                         },
                     ],
@@ -315,7 +315,7 @@ export const defaultParams: IStepsParams = {
                 bonusPrewiew,
             ],
         },
-        'signUpFormMagLicense': getMagLicenseForm(true),
+        'signUpFormTwoSteps': getTwoStepsForm(true),
         'signUpSmsVerify': {
             name: 'core.wlc-wrapper',
             class: 'wlc-steps__container wlc-steps__container--sign-up',
@@ -375,7 +375,7 @@ export const defaultParams: IStepsParams = {
                 },
             ],
         },
-        'signUpFormMagLicense': getMagLicenseForm(false),
+        'signUpFormTwoSteps': getTwoStepsForm(false),
         'signUpSmsVerify': {
             name: 'core.wlc-wrapper',
             class: 'wlc-steps__container wlc-steps__container--sign-up',
@@ -409,7 +409,7 @@ export const defaultParams: IStepsParams = {
                 },
             ],
         },
-        'signUpFormMagLicense': getMagLicenseForm(false),
+        'signUpFormTwoSteps': getTwoStepsForm(false),
         'signUpSmsVerify': {
             name: 'core.wlc-wrapper',
             class: 'wlc-steps__container wlc-steps__container--sign-up',

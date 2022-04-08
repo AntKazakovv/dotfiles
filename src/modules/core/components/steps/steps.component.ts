@@ -58,7 +58,7 @@ export class StepsComponent extends AbstractComponent implements OnInit {
         this.setThemeMod();
         super.ngOnInit();
         if (this.configService.get<IMGAConfig>('$modules.core.components["wlc-license"].mga')) {
-            this.$params.stepsNames.push('signUpFormMagLicense');
+            this.$params.stepsNames.push('signUpFormTwoSteps');
         }
 
         if (this.configService.get<boolean>('$base.profile.smsVerification.use')) {
