@@ -12,6 +12,13 @@ export class LocalStorageCache extends AbstractCache {
         super();
     }
 
+    /**
+     * Get the data using the key
+     *
+     * @param {string} key
+     *
+     * @returns data value, if there is any data
+     */
     public async get<T>(key: string): Promise<T> {
         const data = this.storage.retrieve(this.getKey(key));
         if (!data) {
@@ -24,6 +31,15 @@ export class LocalStorageCache extends AbstractCache {
         return data.value;
     }
 
+    /**
+     * Set the data, its key and expiration date to the storage
+     *
+     * @param {string} key
+     * @param {T} value
+     * @param {number} keepTime
+     *
+     * @returns promise to set the data
+     */
     public set<T>(key: string, value: T, keepTime: number): Promise<T> {
         this.addKey(key);
         return this.storage.store(this.getKey(key), {
@@ -32,11 +48,23 @@ export class LocalStorageCache extends AbstractCache {
         });
     }
 
+    /**
+     * Delete the key from the storage
+     *
+     * @param {string} key
+     *
+     * @returns {Promise<void>}
+     */
     public async delete(key: string): Promise<void> {
         this.removeKey(key);
         this.storage.clear(this.getKey(key));
     }
 
+    /**
+     * Clear the storage
+     *
+     * @returns {Promise<void>}
+     */
     public async clear(): Promise<void> {
         const keys: string[] = this.getKeys();
         keys.forEach((item) => {

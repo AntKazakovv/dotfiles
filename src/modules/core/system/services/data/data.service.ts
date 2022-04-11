@@ -235,6 +235,11 @@ export class DataService {
             } : observer);
     }
 
+    /**
+     * Reset API method
+     *
+     * @param requestName {string} name of registered method (system/name)
+     */
     public reset(requestName: string): void {
         if (!_get(this.apiList, requestName)) {
             return;
@@ -282,6 +287,14 @@ export class DataService {
         }
     }
 
+    /**
+     * Request to the socket
+     *
+     * @param {string} method
+     * @param {unknown} params
+     *
+     * @returns {number} requestId
+     */
     public socketRequest(method: string, params?: unknown): number {
         const requestId = ++this.requestId;
         if (this.socketOpen) {
@@ -292,6 +305,9 @@ export class DataService {
         return requestId;
     }
 
+    /**
+     * Close the socket
+     */
     public closeSocket(): void {
         this.socket?.close();
         this.socketUrl = null;

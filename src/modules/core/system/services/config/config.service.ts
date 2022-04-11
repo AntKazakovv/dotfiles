@@ -149,6 +149,11 @@ export class ConfigService {
         return _get(this.global, getParams as string);
     }
 
+    /**
+     * Setter, accepts as arg setParams
+     *
+     * @param {ISetParams<T>} set params
+     */
     public set<T>(setParams: ISetParams<T>): void {
         if (setParams.storageType || setParams.storageClear) {
             if (storageType[setParams.storageClear]) {
@@ -172,6 +177,11 @@ export class ConfigService {
         }
     }
 
+    /**
+     * Gets global config
+     *
+     * @return {Partial<IGlobalConfig>}
+     */
     public get globalConfig(): Partial<IGlobalConfig> {
         return _cloneDeep(this.global);
     }

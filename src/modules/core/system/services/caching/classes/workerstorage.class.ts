@@ -61,6 +61,13 @@ export class WorkerStorageCache extends AbstractCache {
         }
     }
 
+    /**
+     * Gets the key
+     *
+     * @param {string} key
+     *
+     * @returns request to get the key
+     */
     public async get<T>(key: string): Promise<T> {
         try {
             return await this.workerRequest({
@@ -72,6 +79,15 @@ export class WorkerStorageCache extends AbstractCache {
         }
     }
 
+    /**
+     * Sets the data
+     *
+     * @param {string} key
+     * @param {T} value
+     * @param {number} keepTime
+     *
+     * @returns request to set the data
+     */
     public async set<T>(key: string, value: T, keepTime: number): Promise<T> {
         try {
             return await this.workerRequest({
@@ -85,6 +101,13 @@ export class WorkerStorageCache extends AbstractCache {
         }
     }
 
+    /**
+     * Delete the key from the storage
+     *
+     * @param {string} key
+     *
+     * @returns {Promise<void>}
+     */
     public async delete(key: string): Promise<void> {
         try {
             await this.workerRequest({
@@ -96,6 +119,11 @@ export class WorkerStorageCache extends AbstractCache {
         }
     }
 
+    /**
+     * Clear the storage
+     *
+     * @returns {Promise<void>}
+     */
     public async clear(): Promise<void> {
         try {
             await this.workerRequest({

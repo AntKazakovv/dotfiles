@@ -55,6 +55,13 @@ export class FilesService {
         this.init();
     }
 
+    /**
+     * Gets files by path
+     *
+     * @param {string} file path
+     *
+     * @returns {Promise<IFile>}
+     */
     public async getFile(filePath: string): Promise<IFile> {
         if (!filePath) {
             return {key: filePath};
@@ -68,6 +75,13 @@ export class FilesService {
         return await findFilePromise;
     }
 
+    /**
+     * Gets files by url
+     *
+     * @param {string} url
+     *
+     * @returns {Promise<IFile>}
+     */
     public async getFileByUrl(url: string): Promise<IFile> {
         let file: IFile;
         let fileUrl: string;
@@ -106,6 +120,13 @@ export class FilesService {
         return file;
     }
 
+    /**
+     * Gets svg by name
+     *
+     * @param {string} key
+     *
+     * @returns {IFile} svg
+     */
     public getSvgByName(key: string): IFile {
         const fileMeta: IFileMeta = _find(this.rowFileList, (item) => item.name === key);
 

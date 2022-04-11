@@ -32,6 +32,11 @@ export class CachingService {
         this.init();
     }
 
+    /**
+     * Initialize a storage and set its type
+     *
+     * @returns {Promise<void>}
+     */
     public async init(): Promise<void> {
         let storage = new WorkerStorageCache(this.window);
         if (await storage.isAvailable) {
@@ -44,6 +49,13 @@ export class CachingService {
         this.$resolve();
     }
 
+    /**
+     * Get the key from the storage
+     *
+     * @param {string} key
+     *
+     * @returns the key
+     */
     public async get<T>(key: string): Promise<T> {
         try {
             await this.ready;
@@ -53,6 +65,17 @@ export class CachingService {
         }
     }
 
+    /**
+     * Set the data to the storage
+     *
+     * @param {string} key
+     * @param {T} items
+     * @param {false} rewriting
+     * @param {number} [keepTime="this.keepTimeDefault"] - An optional param with a default value
+     * @param {boolean} [saveKey="false"] - An optional param with a default value
+     *
+     * @returns {Promise<void>}
+     */
     public async set<T>(
         key: string,
         items: T | T[],
@@ -93,6 +116,13 @@ export class CachingService {
         }
     }
 
+    /**
+     * Delete the key from the storage
+     *
+     * @param {string} key
+     *
+     * @returns {Promise<void>}
+     */
     public async clear(key: string): Promise<void> {
         try {
             await this.ready;

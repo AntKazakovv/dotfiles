@@ -24,6 +24,11 @@ export interface IEvent<T> extends IFilterParams {
 @Injectable()
 export class EventService {
 
+    /**
+     * Observable flow of all the events
+     *
+     * @return {Observable<IEvent<unknown>>}
+     */
     public get flow(): Observable<IEvent<unknown>> {
         return this.flow$.asObservable();
     }
@@ -33,12 +38,25 @@ export class EventService {
     constructor() {
     }
 
+    /**
+     * Emits the events
+     *
+     * @param {IEvent<unknown>} event
+     */
     public emit(event: IEvent<unknown>): void {
         this.flow$.next(
             _assign({type: 'event'}, event),
         );
     }
 
+    /**
+     * Filter the events
+     *
+     * @param {FilterType} type of event filter
+     * @param {Observable<any>} until
+     *
+     * @returns {Observable<IEvent<T>>}
+     */
     public filter<T>(params: FilterType, until?: Observable<any>): Observable<IEvent<T>> {
         return this.flow.pipe(
             this.filterEvents<T>(
@@ -48,6 +66,15 @@ export class EventService {
         );
     }
 
+    /**
+     * Subscribe to the events
+     *
+     * @param {FilterType} type of event filter
+     * @param {(data: T) => void | PartialObserver<T>} subscriber
+     * @param {Observable<any>} until
+     *
+     * @returns Subscription
+     */
     public subscribe<T>(
         eventFilter: FilterType,
         subscriber: (data: T) => void | PartialObserver<T>,

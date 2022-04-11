@@ -124,6 +124,9 @@ export class ActionService {
         this.init();
     }
 
+    /**
+     * Locks the body
+     */
     public lockBody(): void {
         if (this.window.pageYOffset) {
             this.scrollTop = this.window.pageYOffset;
@@ -136,6 +139,9 @@ export class ActionService {
         });
     }
 
+    /**
+     * Unlocks the body
+     */
     public unlockBody(): void {
         const elems = [this.document.documentElement, this.document.body];
         _forEach(elems, (elem) => {
@@ -149,6 +155,13 @@ export class ActionService {
         }
     }
 
+    /**
+     * Shows process messages
+     *
+     * @param {IIndexing<string>} initialPath
+     *
+     * @returns {Promise<void>}
+     */
     public async processMessages(initialPath: IIndexing<string>): Promise<void> {
         switch (initialPath.message) {
             case 'GET_CONFIG':
@@ -197,6 +210,12 @@ export class ActionService {
         }
     }
 
+    /**
+     * Scrolls to the element
+     *
+     * @param {string | HTMLElement} name of the element
+     * @param {IScrollOptions} scroll options
+     */
     public scrollTo(elem?: string | HTMLElement, options?: IScrollOptions): void {
         setTimeout((): void => {
             if(!elem) {
@@ -238,10 +257,20 @@ export class ActionService {
         return this.device.orientation;
     }
 
+    /**
+     * Subscribe to the change of device type
+     *
+     * @returns {Observable<DeviceType>}
+     */
     public deviceType(): Observable<DeviceType> {
         return this.deviceTypeSubject.asObservable();
     }
 
+    /**
+     * Subscribe to the change of width or height of the window
+     *
+     *@returns {Observable<IResizeEvent>}
+     */
     public windowResize(): Observable<IResizeEvent> {
         return this.windowResizeSubject.asObservable();
     }
