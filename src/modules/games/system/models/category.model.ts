@@ -15,6 +15,8 @@ import {
     ICategory,
     IGameBlock,
     IGamesSortSetting,
+    TGameSortFeature,
+    TSortDirection,
 } from 'wlc-engine/modules/games/system/interfaces/games.interfaces';
 import {
     IFromLog,
@@ -51,6 +53,7 @@ export class CategoryModel extends AbstractModel<ICategory> {
     public isHidden: boolean;
 
     private static currentLanguage: string;
+    private static _country: string;
 
     private ready = new Deferred<void>();
     private gamesList: Game[] = [];
@@ -243,6 +246,14 @@ export class CategoryModel extends AbstractModel<ICategory> {
     }
 
     /**
+     * Sets static field _country.
+     * @param {string} value - The country code
+     */
+    public static set country(value: string) {
+        CategoryModel._country = value;
+    }
+
+    /**
      * Mark category as parent category
      */
     public setAsParent(): void {
@@ -302,35 +313,41 @@ export class CategoryModel extends AbstractModel<ICategory> {
     public sortGames(): void {
         if (this.gamesList.length) {
 
+            const perCountryDirection = this.sortSetting.direction?.sortPerCountry || 'asc';
             const perLangDirection = this.sortSetting.direction?.sortPerLanguage || 'asc';
             const perCatDirection = this.sortSetting.direction?.sortPerCategory || 'asc';
             const baseDirection = this.sortSetting.direction?.baseSort || 'desc';
 
-            const lang = CategoryModel.currentLanguage;
-
             this.gamesList
                 .sort((a, b) => {
-                    const perLangA = _isNil(a.sortPerLanguage[lang] || null);
-                    const perLangB = _isNil(b.sortPerLanguage[lang] || null);
+                    const byCountry = this.compareGamesByFeature(
+                        a,
+                        b,
+                        'sortPerCountry',
+                        CategoryModel._country,
+                        perCountryDirection,
+                    );
 
-                    if (perLangA && !perLangB) {
-                        return 1;
-                    } else if (!perLangA && perLangB) {
-                        return -1;
-                    } else if (!perLangA && !perLangB && b.sortPerLanguage[lang] !== a.sortPerLanguage[lang]) {
-                        return directions[perLangDirection] * (b.sortPerLanguage[lang] - a.sortPerLanguage[lang]);
+                    if (!_isNil(byCountry)) {
+                        return byCountry;
                     }
 
-                    const perCatA = _isNil(a.sortPerCategory[this.id] || null);
-                    const perCatB = _isNil(b.sortPerCategory[this.id] || null);
+                    const byLang = this.compareGamesByFeature(
+                        a,
+                        b,
+                        'sortPerLanguage',
+                        CategoryModel.currentLanguage,
+                        perLangDirection,
+                    );
 
-                    if (perCatA && !perCatB) {
-                        return 1;
-                    } else if (!perCatA && perCatB) {
-                        return -1;
-                    } else if (!perCatA && !perCatB && a.sortPerCategory[this.id] !== b.sortPerCategory[this.id]) {
-                        return directions[perCatDirection]
-                            * (b.sortPerCategory[this.id] - a.sortPerCategory[this.id]);
+                    if (!_isNil(byLang)) {
+                        return byLang;
+                    }
+
+                    const perCat = this.compareGamesByFeature(a, b, 'sortPerCategory', this.id, perCatDirection);
+
+                    if (!_isNil(perCat)) {
+                        return perCat;
                     }
 
                     return directions[baseDirection] * ((b.sort || 0) - (a.sort || 0));
@@ -370,4 +387,32 @@ export class CategoryModel extends AbstractModel<ICategory> {
             }
         });
     }
+
+    /**
+     * Sorting method that compares two games by a specific feature.
+     * @param {Game} a - game a
+     * @param {Game} b - game b
+     * @param {TGameSortFeature} feature - sorting feature
+     * @param {string | number} suffix - specified field in feature
+     * @param {TSortDirection} direction - sort direction
+     * @returns {number | null} - sorting results
+     */
+    protected compareGamesByFeature(
+        a: Game,
+        b: Game,
+        feature: TGameSortFeature,
+        suffix: string | number,
+        direction: TSortDirection,
+    ): number | null {
+        const perA = _isNil(a[feature]?.[suffix] || null);
+        const perB = _isNil(b[feature]?.[suffix] || null);
+        if (perA && !perB) {
+            return 1;
+        } else if (!perA && perB) {
+            return -1;
+        } else if (!perA && !perB && b[feature][suffix] !== a[feature][suffix]) {
+            return directions[direction] * (b[feature][suffix] - a[feature][suffix]);
+        }
+        return null;
+    };
 }

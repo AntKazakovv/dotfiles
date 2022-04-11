@@ -11,6 +11,9 @@ export type TSortDirection = 'asc' | 'desc';
 */
 export type TDisableDemoFor = 'all' | 'auth';
 
+/** Games sorting feature  */
+export type TGameSortFeature = 'sortPerCountry' | 'sortPerLanguage' | 'sortPerCategory';
+
 export interface IGamesConfig {
     fundist?: IFundist;
     sportsbookMerchants?: number[];
@@ -85,6 +88,8 @@ export interface IDashboardMobileUsageInstruction {
 
 export interface IGamesSortSetting {
     direction?: {
+       /** direction of sorting by sortPerCountry, 'asc' by default */
+        sortPerCountry?: TSortDirection,
         /** direction of sorting by sortPerLanguage, 'asc' by default */
         sortPerLanguage?: TSortDirection,
         /** direction of sorting by sortPerCategory, 'asc' by default */
@@ -390,6 +395,7 @@ export interface IGame {
 
 export interface ICustomSort {
     Lang?: IIndexing<number>;
+    Country?: IIndexing<number>;
 }
 
 export type TGameImageSize = 196 | 208 | 232 | 250 | 315 | 640;

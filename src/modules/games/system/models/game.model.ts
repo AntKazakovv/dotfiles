@@ -32,6 +32,7 @@ export class Game extends AbstractModel<IGame> {
     public name: IIndexing<string>;
     public categoryID: number[];
     public sortPerLanguage: IIndexing<number>;
+    public sortPerCountry: IIndexing<number>;
     public launchCode: string;
     public merchantID: number;
     public subMerchantID: number;
@@ -90,6 +91,7 @@ export class Game extends AbstractModel<IGame> {
         this.merchantID = _toNumber(data.MerchantID);
         this.subMerchantID = _toNumber(data.SubMerchantID);
         this.sortPerLanguage = !_isArray(data.CustomSort) ? data.CustomSort.Lang : {};
+        this.sortPerCountry = !_isArray(data.CustomSort) ? data.CustomSort.Country : {};
         this.sort = _toNumber(data.Sort);
         this.url = data.Url;
         this.image = data.Image;

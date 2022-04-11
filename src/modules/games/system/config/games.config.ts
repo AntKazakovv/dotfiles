@@ -73,6 +73,7 @@ export const gamesConfig: IGamesConfig = {
         ],
         gamesSortSetting: {
             direction: {
+                sortPerCountry: 'asc',
                 sortPerLanguage: 'asc',
                 sortPerCategory: 'asc',
                 baseSort: 'desc',

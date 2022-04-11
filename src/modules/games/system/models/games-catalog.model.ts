@@ -660,6 +660,7 @@ export class GamesCatalog extends AbstractModel<IGames> {
         }
         response.categories = _concat(this.specialCategories, response.categories);
         CategoryModel.language = this.translateService.currentLang || 'en';
+        CategoryModel.country = this.configService.get('appConfig.country');
 
         const categories = GamesHelper.mapCategories(response.categories, this.categorySettings, this.sortSetting);
         this.categories = this.sortCategories(categories);
