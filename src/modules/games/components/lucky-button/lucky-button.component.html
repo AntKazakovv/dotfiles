@@ -1,0 +1,18 @@
+<div class="{{$class}}__body four-elements__body">
+    <div class="{{$class}}__image">
+        <div class="{{$class}}__sprite"
+            wlc-animate-sprite
+            [parentElementRef]="elementRef.nativeElement"
+            [inlineParams]="$params.animateSprite"
+        ></div>
+    </div>
+    <div class="{{$class}}__content">
+        <h5 class="{{$class}}__top">{{$params.text | translate}}</h5>
+        <p class="{{$class}}__text">
+            {{$params.actionText | translate}}
+            <span wlc-icon
+                [iconPath]="$params.actionTextIcon"
+            ></span>
+        </p>
+    </div>
+</div>

@@ -1,0 +1,16 @@
+<div class="{{$class}}__body four-elements__body">
+    <div class="{{$class}}__image">
+        <div class="{{$class}}__sprite"
+            wlc-animate-sprite
+            [parentElementRef]="elementRef.nativeElement"
+            [inlineParams]="$params.animateSprite"
+        ></div>
+    </div>
+    <div class="{{$class}}__content">
+        <div class="{{$class}}__top"
+            wlc-rating
+            [inlineParams]="$params.rating"
+        ></div>
+        <p class="{{$class}}__text">{{$params.text | translate}}</p>
+    </div>
+</div>

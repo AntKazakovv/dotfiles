@@ -40,6 +40,7 @@ import {RecaptchaService} from './system/services/recaptcha/recaptcha.service';
 // -- SERVICES IMPORTS END  --;
 
 // -- COMPONENTS IMPORTS  --;
+import {AnimateSpriteComponent} from './components/animate-sprite/animate-sprite.component';
 import {AmountLimitComponent} from './components/amount-limit/amount-limit.component';
 import {BirthdayFieldComponent} from './components/birthday-field/birthday-field.component';
 import {BurgerPanelComponent} from './components/burger-panel/burger-panel.component';
@@ -73,6 +74,7 @@ import {LogoComponent} from './components/logo/logo.component';
 import {MessageComponent} from 'wlc-engine/modules/core/components';
 import {NotificationThreadComponent} from 'wlc-engine/modules/core/components';
 import {RadioButtonsComponent} from './components/radio-buttons/radio-buttons.component';
+import {RatingComponent} from './components/rating/rating.component';
 import {ScrollbarComponent} from './components/scrollbar/scrollbar.component';
 import {ScrollUpComponent} from 'wlc-engine/modules/core/components/scroll-up/scroll-up.component';
 import {SelectComponent} from './components/select/select.component';
@@ -129,6 +131,7 @@ export const moduleConfig =
     GlobalHelper.mergeConfig<ICoreConfig>(coreConfig, _get($config, '$core', {}));
 
 export const components = {
+    'wlc-animate-sprite': AnimateSpriteComponent,
     'wlc-amount-limit': AmountLimitComponent,
     'wlc-birth-field': BirthdayFieldComponent,
     'wlc-button': ButtonComponent,
@@ -163,6 +166,7 @@ export const components = {
     'wlc-plug': PlugComponent,
     'wlc-radio-buttons': RadioButtonsComponent,
     'wlc-scroll-up': ScrollUpComponent,
+    'wlc-rating': RatingComponent,
     'wlc-select': SelectComponent,
     'wlc-social-icons': SocialIconsComponent,
     'wlc-steps': StepsComponent,
@@ -223,6 +227,7 @@ export const components = {
         },
     ],
     declarations: [
+        AnimateSpriteComponent,
         AmountLimitComponent,
         AuthDirective,
         BirthdayFieldComponent,
@@ -267,6 +272,7 @@ export const components = {
         ParallaxMovementDirective,
         PlugComponent,
         RadioButtonsComponent,
+        RatingComponent,
         ScrollbarComponent,
         ScrollUpComponent,
         SelectComponent,
@@ -289,6 +295,7 @@ export const components = {
         WrapperComponent,
     ],
     exports: [
+        AnimateSpriteComponent,
         AmountLimitComponent,
         AuthDirective,
         BirthdayFieldComponent,
@@ -331,6 +338,7 @@ export const components = {
         ParallaxMovementDirective,
         PlugComponent,
         RadioButtonsComponent,
+        RatingComponent,
         ScrollbarComponent,
         ScrollUpComponent,
         SelectComponent,

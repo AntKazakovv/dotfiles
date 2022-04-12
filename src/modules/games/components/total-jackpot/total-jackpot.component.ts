@@ -4,9 +4,14 @@ import {
     OnInit,
     Input,
     ChangeDetectorRef,
+    ElementRef,
 } from '@angular/core';
 import {TranslateService} from '@ngx-translate/core';
-import {filter, takeUntil} from 'rxjs/operators';
+
+import {
+    filter,
+    takeUntil,
+} from 'rxjs/operators';
 
 import {GlobalHelper} from 'wlc-engine/modules/core';
 import {JackpotModel} from 'wlc-engine/modules/games/system/models/jackpot.model';
@@ -53,6 +58,7 @@ export class TotalJackpotComponent extends AbstractComponent implements OnInit {
     public noContentParams: INoContentCParams;
 
     constructor(
+        public elementRef: ElementRef,
         @Inject('injectParams') protected params: Params.ITotalJackpotCParams,
         protected configService: ConfigService,
         protected cdr: ChangeDetectorRef,

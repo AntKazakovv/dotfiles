@@ -1,0 +1,27 @@
+.wlc-rating--theme-default:host {
+
+    .wlc-rating {
+
+        &__body {
+            display: ef.get-value($themeDefault, 'bodyDisplay');
+            grid-template-columns: repeat(var(--stars-count), auto);
+            gap: ef.get-value($themeDefault, 'bodyGap');
+        }
+
+        &__icon {
+            color: ef.get-value($themeDefault, 'starColor');
+
+            ::ng-deep {
+
+                svg {
+                    width: ef.get-value($themeDefault, 'iconSize');
+                    height: ef.get-value($themeDefault, 'iconSize');
+
+                    .fill {
+                        fill: ef.get-value($themeDefault, 'starColorActive');
+                    }
+                }
+            }
+        }
+    }
+}

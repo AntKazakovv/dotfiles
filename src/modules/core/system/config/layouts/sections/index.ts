@@ -22,3 +22,4 @@ export * from './home-promo.section';
 export * from './categories-with-side-menu.section';
 export * from './promo-about-us.section';
 export * from './sign-in-page.section';
+export * from './four-elements.section';

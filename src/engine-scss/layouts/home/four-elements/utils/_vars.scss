@@ -1,0 +1,25 @@
+$customFourElThemeDefault: () !default;
+$fourElThemeDefault: map-merge((
+    'sectionMargin': (
+        375: 0 0 ef.size(6),
+        900: 0 0 ef.size(4),
+    ),
+    'sectionPadding': null,
+    'wrapperDisplay': grid,
+    'wrapperGridTemplateColumns': (
+        1024: repeat(2, 1fr),
+        1630: repeat(3, 1fr) 1.2fr,
+    ),
+    'wrapperGridAreas': (
+        1024: 'cash-out-time lucky-button' 'top-rated total-jackpot',
+        1630: 'cash-out-time total-jackpot top-rated lucky-button',
+    ),
+    'wrapperGridRows': (
+        1024: repeat(2, 1fr),
+        1630: unset,
+    ),
+    'wrapperGap': ef.size(4),
+    'elementBorderRadius': ef.get('radius', 'biger'),
+    'elementPadding': ef.size(3) ef.size(4),
+    'elementAlignItems': center,
+), $customFourElThemeDefault);

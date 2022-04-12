@@ -1,0 +1,19 @@
+<div class="{{$class}}__body four-elements__body">
+    <div class="{{$class}}__image">
+        <div class="{{$class}}__sprite"
+            wlc-animate-sprite
+            [parentElementRef]="elementRef.nativeElement"
+            [inlineParams]="$params.animateSprite"
+        ></div>
+    </div>
+    <div class="{{$class}}__content">
+        <h5 class="{{$class}}__top">
+            <ng-container *ngIf="$params.approximatelyTime; else time">
+                ~{{minutes}} {{$params.minutesText | translate}}
+            </ng-container>
+        </h5>
+        <p class="{{$class}}__text">{{$params.text | translate}}</p>
+    </div>
+</div>
+
+<ng-template #time>{{minutes}}{{'m' | translate}} {{seconds}}{{'s' | translate}}</ng-template>

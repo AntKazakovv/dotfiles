@@ -1,0 +1,28 @@
+$customThemeDefault: () !default;
+$themeDefault: map-merge((
+    'textColor': var(--mc-baseMain-o8),
+    'descrTextStyle': 'PlaceholderText',
+    'textMargin': ef.size(1) 0 0,
+    'imageFlex': (
+        375: 0 0 30%,
+    ),
+    'canvasTranslate': null,
+    'contentMargin': (
+        375: 0 0 0 ef.size(6),
+    ),
+    'spriteHeight': (
+        375: 100%,
+    ),
+    'background': linear-gradient(-300deg, var(--mc-bg700) 20%, var(--mc-bg700-l20) 100%),
+    'backgroundHover': null,
+    'backgroundSize': 180%,
+    'backgroundSizeHover': 100%,
+    'spriteBottom': (
+        1630: 0,
+    ),
+    'spriteLeft': (
+        1630: 0,
+    ),
+    'spriteOverflow': null,
+    'topHeight': ef.size(7),
+), $customThemeDefault);

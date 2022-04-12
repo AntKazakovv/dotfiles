@@ -1,4 +1,42 @@
-<div *ngIf="amount; else noContent" class="{{$class}}-body">
+<ng-container [ngSwitch]="$params.theme">
+    <ng-container *ngSwitchCase="'info'" [ngTemplateOutlet]="info"></ng-container>
+    <ng-container *ngSwitchDefault [ngTemplateOutlet]="default"></ng-container>
+</ng-container>
+
+<ng-template #default>
+    <div *ngIf="amount; else noContent" class="{{$class}}-body">
+        <ng-container [ngTemplateOutlet]="svg"></ng-container>
+    </div>
+</ng-template>
+
+<ng-template #info>
+    <div class="{{$class}}__body four-elements__body">
+        <div class="{{$class}}__image">
+            <div class="{{$class}}__sprite"
+                wlc-animate-sprite
+                [parentElementRef]="elementRef.nativeElement"
+                [inlineParams]="$params.animateSprite"
+            ></div>
+        </div>
+        <div class="{{$class}}__content">
+            <p class="{{$class}}__top">
+                <ng-container *ngIf="amount && currency.currency; else noData">
+                    <span class="{{$class}}__currency">{{currency.currency}}</span>
+                    <span class="{{$class}}__counter"
+                        [countUp]="amount"
+                        [options]="$params.countUpOptions"
+                        [reanimateOnClick]="$params.animateOnClick"
+                        data-wlc-element="total-jackpot_counter"
+                        [ngClass]="{'loading': !amount}"
+                    ></span>
+                </ng-container>
+            </p>
+            <p class="{{$class}}__text">{{$params.text | translate}}</p>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #svg>
     <svg width="100%">
         <defs>
             <linearGradient id="jackpot-linear-gradient" gradientTransform="rotate(90)">
@@ -19,7 +57,7 @@
             <tspan class="{{$class}}__counter"
                    [countUp]="amount"
                    [options]="$params.countUpOptions"
-                   [reanimateOnClick]="false"
+                   [reanimateOnClick]="$params.animateOnClick"
                    data-wlc-element="total-jackpot_counter"
                    [ngClass]="{'loading': !amount}">
                 --- --- ---
@@ -30,8 +68,12 @@
             </tspan>
         </text>
     </svg>
-</div>
+</ng-template>
 
 <ng-template #noContent>
      <div wlc-no-content [inlineParams]="noContentParams"></div>
+</ng-template>
+
+<ng-template #noData>
+    {{'No data' | translate}}
 </ng-template>

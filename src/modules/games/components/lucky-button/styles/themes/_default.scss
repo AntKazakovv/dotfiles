@@ -1,0 +1,34 @@
+.wlc-lucky-button--theme-default:host {
+    grid-area: lucky-button;
+    height: 100%;
+
+    .wlc-lucky-button {
+        @include cm.fourElementsComponent($themeDefault);
+
+        &__body {
+            cursor: pointer;
+
+            @include bm.hover() {
+
+                .wlc-lucky-button__text {
+                    color: ef.get-value($themeDefault, 'colorTextHover');
+                }
+            }
+        }
+
+        &__text {
+            @include bm.transition();
+            position: relative;
+            font-weight: ef.get-value($themeDefault, 'fontWeightText');
+            overflow: visible;
+
+            ::ng-deep {
+
+                .wlc-icon {
+                    position: absolute;
+                    padding: ef.get-value($themeDefault, 'iconPadding');
+                }
+            }
+        }
+    }
+}

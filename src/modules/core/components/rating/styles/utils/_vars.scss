@@ -1,0 +1,8 @@
+$customThemeDefault: () !default;
+$themeDefault: map-merge((
+    'starColorActive': var(--mc-baseMain),
+    'starColor': var(--mc-baseMain-o4),
+    'bodyDisplay': inline-grid,
+    'bodyGap': ef.size(1),
+    'iconSize': 28px,
+), $customThemeDefault);

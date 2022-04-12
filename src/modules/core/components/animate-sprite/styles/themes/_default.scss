@@ -1,0 +1,9 @@
+.wlc-animate-sprite:host {
+
+    .wlc-animate-sprite {
+
+        &__image {
+            @include em.visuallyHidden();
+        }
+    }
+}

@@ -58,3 +58,67 @@
         @include text.get-text-style(ef.get-value(ev.$form, 'labelFont', 1630), ef.get-value(ev.$form, 'labelColor'));
     }
 }
+
+
+// Base styles for components in four-elements section
+@mixin fourElementsComponent($config) {
+
+    &__body {
+        @include bm.transition();
+        @include bm.get-mq-map('flex-direction', $config, 'bodyDirection');
+        display: flex;
+        height: 100%;
+        background: ef.get-value($config, 'background');
+        background-size: ef.get-value($config, 'backgroundSize');
+
+        @include bm.hover() {
+            background: ef.get-value($config, 'backgroundHover');
+            background-size: ef.get-value($config, 'backgroundSizeHover');
+        }
+    }
+
+    &__image {
+        @include bm.get-mq-map('flex', $config, 'imageFlex');
+        position: relative;
+        display: flex;
+        align-items: center;
+        height: 100%;
+    }
+
+    &__sprite {
+        @include bm.get-mq-map('height', $config, 'spriteHeight');
+        @include bm.get-mq-map('bottom', $config, 'spriteBottom');
+        @include bm.get-mq-map('left', $config, 'spriteLeft');
+        position: absolute;
+        width: 100%;
+        pointer-events: none;
+        overflow: ef.get-value($config, 'spriteOverflow');
+
+        ::ng-deep {
+
+            .wlc-animate-sprite__canvas {
+                display: block;
+                margin: auto;
+            }
+
+            canvas {
+                @include bm.get-mq-map('transform', $config, 'canvasTranslate');
+            }
+        }
+    }
+
+    &__content {
+        @include bm.get-mq-map('margin', $config, 'contentMargin');
+        flex: 1 1 auto;
+    }
+
+    &__top {
+        @include text.get-text-style(ef.get-value($config, 'titleTextStyle'), ef.get-value($config, 'titleColor'));
+        min-height: ef.get-value($config, 'topHeight');
+    }
+
+    &__text {
+        @include text.get-text-style(ef.get-value($config, 'descrTextStyle'), ef.get-value($config, 'textColor'));
+        margin: ef.get-value($config, 'textMargin');
+    }
+}

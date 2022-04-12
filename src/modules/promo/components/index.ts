@@ -14,3 +14,5 @@ export {LevelNameComponent} from './loyalty-levels/level-name/level-name.compone
 export {LoyaltyInfoComponent} from './loyalty-info/loyalty-info.component';
 export {BannersSliderComponent} from './banners-slider/banners-slider.component';
 export {BannerComponent} from './banner/banner.component';
+export {CashOutTimeComponent} from './cash-out-time/cash-out-time.component';
+export {TopRatedComponent} from './top-rated/top-rated.component';

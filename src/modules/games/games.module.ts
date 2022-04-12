@@ -45,6 +45,7 @@ import {
     MerchantWalletFormComponent,
     MerchantWalletExrateComponent,
 } from './components/merchant-wallet';
+import {LuckyButtonComponent} from './components/lucky-button/lucky-button.component';
 
 import * as $config from 'wlc-config/index';
 
@@ -69,6 +70,7 @@ export const components = {
     'wlc-total-jackpot': TotalJackpotComponent,
     'wlc-provider-links': ProviderLinksComponent,
     'wlc-provider-games': ProviderGamesComponent,
+    'wlc-lucky-button': LuckyButtonComponent,
 };
 
 export const services = {
@@ -97,6 +99,7 @@ export const services = {
         MerchantWalletFormComponent,
         MerchantWalletInfoComponent,
         MerchantWalletPreviewComponent,
+        LuckyButtonComponent,
     ],
     id: 'GamesModule',
     imports: [
@@ -133,6 +136,7 @@ export const services = {
         MerchantWalletFormComponent,
         MerchantWalletInfoComponent,
         MerchantWalletPreviewComponent,
+        LuckyButtonComponent,
     ],
 })
 export class GamesModule {
