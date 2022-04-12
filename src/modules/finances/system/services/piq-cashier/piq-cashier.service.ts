@@ -178,6 +178,7 @@ export class PIQCashierService {
             attributes: {
                 paySystem: currentSystem.id,
             },
+            locale: this.configService.get<string>('appConfig.locale') || null,
         };
 
         this.subscribeToIFrameMessages();

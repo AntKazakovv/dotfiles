@@ -21,6 +21,7 @@ export interface IBootstrap {
     hideEmailExistence: boolean;
     ignoreProvidersForGameCatalog?: boolean;
     language: string;
+    locale: string;
     languages: ILanguage[];
     loggedIn: string;
     menu: IBootstrapMenuItem[];

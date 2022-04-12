@@ -122,6 +122,13 @@ export class AppConfigModel extends AbstractModel<IBootstrap> {
     }
 
     /**
+     * @returns {string} user locale ISO ('en_GB', 'en_US'...)
+     */
+    public get locale(): string {
+        return this.data.locale;
+    }
+
+    /**
      * Languages aviable on this site
      *
      * @returns {ILanguage} code and label for each language
