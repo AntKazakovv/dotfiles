@@ -122,6 +122,7 @@ class StartGameHandler {
 
     private gamesCatalogService: GamesCatalogService;
     private merchantFieldsService: MerchantFieldsService;
+    private merchantsWithOwnWallet: number[];
 
     constructor(
         @Inject(WINDOW) private window: Window,
@@ -255,7 +256,7 @@ class StartGameHandler {
             || this.configService.get<boolean>('appConfig.siteconfig.RestrictMoneyGames'));
         this.checkProfileRequiredFields = this.configService.get<boolean>('$games.run.checkProfileRequiredFields');
         this.merchantId = _toNumber(this.transition.params().merchantId);
-
+        this.merchantsWithOwnWallet = this.configService.get<number[]>('$games.merchantWallet.availableMerchants');
         this.setRealPlayDisabledByCountry();
     }
 
@@ -433,7 +434,7 @@ class StartGameHandler {
                 && freeRound.Games.includes(this.game.launchCode);
         });
 
-        if (merchantFreeRound) {
+        if (merchantFreeRound || _includes(this.merchantsWithOwnWallet, this.merchantId)) {
             deferred.resolve();
             return deferred.promise;
         }
