@@ -10,6 +10,8 @@ import {BonusesListNoContentByThemeType} from 'wlc-engine/modules/bonuses/compon
 
 export interface IBonusesModule {
     useIconBonusImage?: boolean;
+    /** Default bonus icon path */
+    defaultIconPath?: string;
     defaultImages?: {
         /** Bonus image for bonus in profile dashboard, profile bonuses, bonus block in main page  in default profile */
         image?: string;
@@ -22,8 +24,6 @@ export interface IBonusesModule {
         imagePromo?: string;
         /** Bonus image in sign-up modal in default profile */
         imageReg?: string;
-        /** Bonus image in header of bonus-modal */
-        imageOther?: string;
         /** Not used yet */
         imageStore?: string;
         /** Bonus image in promo-home */
@@ -32,6 +32,8 @@ export interface IBonusesModule {
         imageBlank?: string;
         /** Dummy bonus image */
         imageDummy?: string;
+        /** Bonus image in header of bonus-modal */
+        imageDescription?: string;
     };
     components?: {
         'wlc-bonuses-list': {
@@ -103,6 +105,8 @@ export interface IBonus {
     Image_promo: string;
     Image_reg: string;
     Image_store: string;
+    Image_main: string;
+    Image_description: string;
     Inventoried: number;
     IsInventory: string;
     Weight: string;

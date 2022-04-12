@@ -33,7 +33,6 @@ export interface IBonusItemCParams extends IComponentParams<Theme, Type, ThemeMo
         hideDescription?: boolean;
         hideChooseBtn?: boolean;
         iconMoreBtn?: boolean;
-        iconsPath?: string;
         nameClamp?: number;
         usePreviewBonus?: boolean;
         descriptionClamp?: number;
@@ -50,7 +49,6 @@ export const defaultParams: IBonusItemCParams = {
         hideDescription: false,
         iconMoreBtn: true,
         hideChooseBtn: true,
-        iconsPath: '/gstatic/bonuses/icons/',
         nameClamp: 1,
         descriptionClamp: 3,
         usePreviewBonus: false,

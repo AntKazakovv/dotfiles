@@ -30,8 +30,6 @@ describe('BonusModalComponent', () => {
             themeMod: 'default',
             wlcElement: 'wlc-bonus-modal',
             bonus: bonusSpy,
-            iconType: 'svg',
-            bgImage: '/gstatic/wlc/bonuses/modal-bonus-default.png',
         };
         TestBed.configureTestingModule({
             imports: [AppModule],

@@ -2,6 +2,7 @@ import {IBonusesModule} from 'wlc-engine/modules/bonuses/system/interfaces/bonus
 
 export const bonusesConfig: IBonusesModule = {
     useIconBonusImage: true,
+    defaultIconPath: '/gstatic/bonuses/icons/',
     components: {
         'wlc-bonuses-list': {
             noContent: {

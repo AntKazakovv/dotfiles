@@ -81,7 +81,7 @@ export class BonusItemComponent extends AbstractComponent implements OnInit {
                 : this.configService.get<string>('$bonuses.defaultImages.imageBlank');
 
         } else if (this.$params.theme === 'promo-home') {
-            imageUrl = this.configService.get<string>('$bonuses.defaultImages.imagePromoHome');
+            imageUrl = this.bonus.imagePromoHome;
 
         } else if (this.$params.theme === 'preview') {
             imageUrl = this.bonus.imageReg;

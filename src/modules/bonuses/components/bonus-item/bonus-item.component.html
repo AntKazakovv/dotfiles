@@ -338,10 +338,10 @@
                 iconPath="/wlc/icons/check.svg">
             </i>
         </span>
-        <img *ngIf="$params.common?.iconsPath && bonus.viewTarget; else without"
+        <img *ngIf="bonus.icon; else without"
                 class="{{$class}}__icon-sign"
                 draggable="false"
-                [src]="$params.common?.iconsPath + bonus.viewTarget + '.svg'"
+                [src]="bonus.icon"
                 loading="lazy"
                 alt="bonus icon"
                 (click)="chooseBonusNoBtn()">

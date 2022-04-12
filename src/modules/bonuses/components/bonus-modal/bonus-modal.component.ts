@@ -24,8 +24,6 @@ import * as Params from './bonus-modal.params';
 export class BonusModalComponent extends AbstractComponent implements OnInit {
     public bonus: Bonus;
     public $params: Params.IBonusModalCParams;
-    public iconPath: string;
-    public fallbackIconPath: string;
     public bonusBgUrl: string;
 
     constructor(
@@ -44,10 +42,7 @@ export class BonusModalComponent extends AbstractComponent implements OnInit {
         super.ngOnInit();
 
         this.bonus = this.$params.bonus;
-        this.iconPath = `${this.$params.iconsPath}${this.bonus.viewTarget}.${this.$params.iconType}`;
-        this.fallbackIconPath = `${this.$params.fallback?.IconsPath +
-            this.bonus.viewTarget}.${this.$params.fallback?.iconType}`;
-        this.bonusBgUrl = this.bonus.imageOther ? `url(${this.bonus.imageOther})` : `url(${this.$params.bgImage})`;
+        this.bonusBgUrl = `url(${this.bonus.imageDescription})`;
     }
 
     /**

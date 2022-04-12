@@ -240,6 +240,11 @@ export class Bonus extends AbstractModel<IBonus> {
         return this.data.IDPiFilter;
     }
 
+    public get icon(): string {
+        return this.data.Image_other
+            || this.configService.get<string>('$bonuses.defaultIconPath') + this.viewTarget + '.svg';
+    }
+
     public get image(): string {
         return this.data.Image
             || this.configService.get('$bonuses.defaultImages.image');
@@ -248,11 +253,6 @@ export class Bonus extends AbstractModel<IBonus> {
     public get imageProfileFirst(): string {
         return this.data.Image
             || this.configService.get('$bonuses.defaultImages.imageProfileFirst');
-    }
-
-    public get imageOther(): string {
-        return this.data.Image_other
-            || this.configService.get('$bonuses.defaultImages.imageOther');
     }
 
     public get imagePromo(): string {
@@ -272,6 +272,16 @@ export class Bonus extends AbstractModel<IBonus> {
         return this.data.Image_store
             || this.configService.get('$bonuses.defaultImages.imageStore')
             || this.image;
+    }
+
+    public get imagePromoHome(): string {
+        return this.data.Image_main
+            || this.configService.get<string>('$bonuses.defaultImages.imagePromoHome');
+    }
+
+    public get imageDescription(): string {
+        return this.data.Image_description
+            || this.configService.get('$bonuses.defaultImages.imageDescription');
     }
 
     public get inventoried(): boolean {

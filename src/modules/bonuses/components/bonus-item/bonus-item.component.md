@@ -14,7 +14,6 @@ export const defaultParams: IBonusItemCParams = {
         hideDescription: false,
         iconMoreBtn: true,
         hideChooseBtn: true,
-        iconsPath: '/gstatic/bonuses/icons/',
         nameClamp: 1,
         descriptionClamp: 3,
         usePreviewBonus: false,
