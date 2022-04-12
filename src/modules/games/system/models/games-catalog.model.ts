@@ -91,6 +91,7 @@ export class GamesCatalog extends AbstractModel<IGames> {
     protected userCountry: string;
     protected searchByCyrillicLetters: boolean;
     protected existMenuSettings: boolean;
+    protected sortSetting: IGamesSortSetting;
     protected specialCategories: ICategory[] = [
         {
             ID: '-1',
@@ -484,7 +485,9 @@ export class GamesCatalog extends AbstractModel<IGames> {
         this.overrideJackpots = !this.configService.get<boolean>('$games.categories.useFundistJackpots');
         this.searchByCyrillicLetters = this.configService.get<boolean>('$games.search.byCyrillicLetters');
 
+        this.sortSetting = this.configService.get<IGamesSortSetting>('$games.categories.gamesSortSetting');
         this.categorySettings = this.configService.get('appConfig.categories');
+
         if (!this.categorySettings && this.configService.get('$games.fundist.defaultCategorySettings.use')) {
             this.categorySettings = defaultCategorySettings;
         }
@@ -550,6 +553,10 @@ export class GamesCatalog extends AbstractModel<IGames> {
             }
             return false;
         });
+
+        const direction = this.sortSetting?.direction?.baseSort || 'desc';
+
+        this.availableGames = _orderBy(this.availableGames, ['sort'], [direction]);
 
         this.availableMerchants = _filter(this.merchants, (merchant: MerchantModel) => {
             return merchantIds.has(merchant.id);
@@ -648,15 +655,13 @@ export class GamesCatalog extends AbstractModel<IGames> {
          **********************************************************************************************************/
         if (this.configService.get<AppType>('$base.app.type') === 'kiosk') {
             this.specialCategories = _filter(this.specialCategories, (category: ICategory) => {
-                return category.Slug !== 'lastplayed' && category.Slug !== 'favourites'; 
+                return category.Slug !== 'lastplayed' && category.Slug !== 'favourites';
             });
         }
         response.categories = _concat(this.specialCategories, response.categories);
         CategoryModel.language = this.translateService.currentLang || 'en';
 
-        const sortSetting = this.configService.get<IGamesSortSetting>('$games.categories.gamesSortSetting');
-
-        const categories = GamesHelper.mapCategories(response.categories, this.categorySettings, sortSetting);
+        const categories = GamesHelper.mapCategories(response.categories, this.categorySettings, this.sortSetting);
         this.categories = this.sortCategories(categories);
 
         /***********************************************************************************************************
