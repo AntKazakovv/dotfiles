@@ -386,6 +386,10 @@ export class FormWrapperComponent extends WrapperComponent implements OnInit, On
                 } else {
                     validators.push(validationRule.validator);
                 }
+
+                if (validator === 'required' && _isUndefined(component.params.locked)) {
+                    component.params.locked = true;
+                }
             });
 
             if (_isArray(component.params.name)) {
