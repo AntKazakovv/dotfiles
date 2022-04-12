@@ -2,5 +2,6 @@ import {IStickyHeaderConfig} from 'wlc-engine/modules/core/system/interfaces/bas
 
 export const stickyHeaderConfig: IStickyHeaderConfig = {
     use: false,
+    useCustomUserInfo: false,
     scrollingGap: 35,
 };

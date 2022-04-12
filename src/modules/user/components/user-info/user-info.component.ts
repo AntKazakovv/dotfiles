@@ -63,7 +63,8 @@ export class UserInfoComponent extends AbstractComponent implements OnInit {
 
     public ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
-        if (this.configService.get<boolean>('$base.stickyHeader.use')) {
+        if (this.configService.get<boolean>('$base.stickyHeader.use') &&
+            !this.configService.get<boolean>('$base.stickyHeader.useCustomUserInfo')) {
             this.$params = Params.stickyThemeParams;
         } else if (this.configService.get<AppType>('$base.app.type') === 'kiosk') {
             this.$params = Params.kioskParams;
