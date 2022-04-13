@@ -21,10 +21,10 @@
                       [iconPath]="getIcon(item)"
                       [fallback]="getIconFallback(item)"></span>
                 {{item.name | translate}}
-                <span *ngIf="item?.counter"
+                <span *ngIf="item.counterParams"
                       wlc-counter
-                      [counterType]="item?.counter">
-                </span>
+                      [inlineParams]="item.counterParams"
+                ></span>
             </a>
 
             <a *ngIf="!item.params?.state?.activeEq"
@@ -46,10 +46,10 @@
                       [fallback]="getIconFallback(item)"></span>
                 <span class="{{$class}}__link-text">
                     <span>{{item.name | translate}}</span>
-                    <span *ngIf="item?.counter"
+                    <span *ngIf="item.counterParams"
                           wlc-counter
-                          [counterType]="item?.counter">
-                    </span>
+                          [inlineParams]="item.counterParams"
+                    ></span>
                 </span>
             </a>
         </div>
@@ -74,7 +74,10 @@
                       wlc-icon
                       class="{{$class}}__icon-active"
                       [iconUrl]="'/wlc/icons/menu-active.svg'"></span>
-                <span *ngIf="item?.counter" wlc-counter [counterType]="item?.counter"></span>
+                <span *ngIf="item.counterParams"
+                      wlc-counter
+                      [inlineParams]="item.counterParams"
+                ></span>
             </a>
         </div>
     </ng-container>

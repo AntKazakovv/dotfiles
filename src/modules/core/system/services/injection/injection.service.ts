@@ -233,6 +233,14 @@ export class InjectionService {
                     this.afterModuleLoad('monitoring', m);
                     return m.MonitoringModule;
                 });
+            case 'internal-mails':
+                if (this.loadedModules.InternalMailsModule) {
+                    return this.loadedModules.InternalMailsModule;
+                }
+                return import('wlc-engine/modules/internal-mails/internal-mails.module').then(m => {
+                    this.afterModuleLoad('internal-mails', m);
+                    return m.InternalMailsModule;
+                });
         }
     }
 

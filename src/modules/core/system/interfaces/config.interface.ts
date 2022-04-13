@@ -17,5 +17,3 @@ export interface IComponentParams<T, R, M> {
     themeMod?: 'default' | M;
     customMod?: string | string[];
 }
-
-export type ICounterType = 'bonuses-main' | 'bonuses-all' | 'store' | 'tournaments';

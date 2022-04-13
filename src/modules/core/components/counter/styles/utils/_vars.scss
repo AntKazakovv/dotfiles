@@ -1,0 +1,15 @@
+$customThemeCircle: () !default;
+$themeCircle: map-merge((
+    'size': ef.size(3),
+    'borderRadius': ef.get('radius', 'large'),
+    'internalMailsTextStyle': 'SignText',
+    'internalMailsTextColor': var(--mc-baseMain),
+    'internalMailsBg': var(--mc-error),
+), $customThemeCircle);
+
+$customThemeDot: () !default;
+$themeDot: map-merge((
+    'size': ef.size(1),
+    'borderRadius': ef.get('radius', 'large'),
+    'internalMailsBg': var(--mc-error),
+), $customThemeDot);

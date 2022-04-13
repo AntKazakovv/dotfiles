@@ -17,6 +17,7 @@ export * from './core/wlc-scroll-up.config';
 
 export * from './user/wlc-user-info.config';
 export * from './user/wlc-profile-form.config';
+export * from './user/wlc-internal-mails.config';
 export * from './user/wlc-user-stats.config';
 export * from './user/wlc-user-name.config';
 export * from './user/wlc-dashboard-exchange.config';

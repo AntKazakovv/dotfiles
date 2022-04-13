@@ -1,0 +1,12 @@
+<button wlc-button
+    sref="app.profile.messages"
+    theme="cleared"
+    iconPath="/wlc/icons/notifier/notifier.svg"
+    [ngClass]="{'has-unread': hasUnread}"
+></button>
+
+<span *ngIf="hasUnread"
+      wlc-counter
+      class="{{$class}}__counter"
+      [inlineParams]="counterInlineParams"
+></span>

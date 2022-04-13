@@ -138,7 +138,7 @@ export const $profileLayouts: IPanelsConfig = {
     'app.profile.messages': {
         extends: 'app.profile',
         sections: {
-            'profile-content': sectionsLib.profileContent.empty,
+            'profile-content': sectionsLib.profileContent.profileMessages,
         },
     },
     'app.profile.verification': {

@@ -3,3 +3,21 @@
 
 @import './themes/default';
 @import './themes/contacts';
+@import './themes/dropdown';
+
+.wlc-menu:host {
+
+    .wlc-menu__link-text {
+
+        .wlc-counter {
+            margin-left: ef.get-value($menuThemeItems, 'btnCounterMarginLeft');
+        }
+
+        .wlc-sections__profile-content & {
+
+            .wlc-counter--theme-mod-internal-mails {
+                display: none;
+            }
+        }
+    }
+}

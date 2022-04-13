@@ -1000,6 +1000,72 @@ export namespace profileContent {
     export const profileLoyaltyLevelsTypeFirst: ILayoutSectionConfig = profileFirstLoyaltyType(false);
     export const profileLoyaltyLevelsTypeFirstSingle: ILayoutSectionConfig = profileFirstLoyaltyType(true);
 
+    export const profileMessages: ILayoutSectionConfig = {
+        container: true,
+        components: [
+            {
+                name: 'core.wlc-wrapper',
+                params: {
+                    class: 'wlc-profile-content__top',
+                    components: [
+                        componentLib.wlcTitle.profileV2,
+                    ],
+                },
+            },
+            componentLib.wlcProfileMenu.submenu,
+            componentLib.wlcInternalMails.mails,
+        ],
+    };
+
+    export const profileMessagesTypeFirst: ILayoutSectionConfig = {
+        container: true,
+        theme: 'first',
+        components: [
+            componentLib.wlcProfileMenu.defTypeFirst,
+            {
+                name: 'core.wlc-wrapper',
+                params: {
+                    class: 'wlc-profile-content__header',
+                    components: [
+                        componentLib.wlcTitle.myAccountV1,
+                    ],
+                },
+                display: {
+                    before: 1199,
+                },
+            },
+            componentLib.wlcProfileMenu.subMenuV1,
+            {
+                name: 'core.wlc-wrapper',
+                params: {
+                    class: 'wlc-profile-content',
+                    components: [
+                        {
+                            name: 'core.wlc-wrapper',
+                            params: {
+                                class: 'wlc-profile-content__header underlined',
+                                components: [
+                                    componentLib.wlcTitle.messages,
+                                ],
+                            },
+                            display: {
+                                after: 1200,
+                            },
+                        },
+                        {
+                            name: 'core.wlc-wrapper',
+                            params: {
+                                class: 'wlc-profile-content__body',
+                                components: [
+                                    componentLib.wlcInternalMails.mails,
+                                ],
+                            },
+                        },
+                    ],
+                },
+            },
+        ],
+    };
 
     export const profileBetHistory: ILayoutSectionConfig = {
         container: true,

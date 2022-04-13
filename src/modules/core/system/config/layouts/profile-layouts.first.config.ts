@@ -137,7 +137,7 @@ export const $profileFirstLayouts: ILayoutsConfig = {
     'app.profile.messages': {
         extends: 'app.profile',
         sections: {
-            'profile-content': sectionsLib.profileContent.empty,
+            'profile-content': sectionsLib.profileContent.profileMessagesTypeFirst,
         },
     },
     'app.profile.verification': {

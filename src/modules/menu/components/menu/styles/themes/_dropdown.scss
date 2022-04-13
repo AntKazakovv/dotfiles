@@ -1,0 +1,12 @@
+.wlc-menu--theme-dropdown:host {
+
+    .wlc-menu__item--messages {
+
+        .wlc-menu__link-text {
+            display: flex;
+            align-items: ef.get-value($themeDropdown, 'linkTextAlignItems');
+            justify-content: ef.get-value($themeDropdown, 'linkTextJustifyContent');
+            width: 100%;
+        }
+    }
+}

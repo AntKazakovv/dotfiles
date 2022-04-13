@@ -1,0 +1,36 @@
+.wlc-internal-mails-notifier--theme-default:host {
+
+    position: relative;
+
+    .wlc-internal-mails-notifier {
+
+        &__counter {
+            position: absolute;
+            right: ef.get-value($themeDefault, 'counterRight');
+        }
+    }
+
+    ::ng-deep {
+
+        .wlc-btn {
+            color: ef.get-value($themeDefault, 'iconFill');
+
+            &.has-unread {
+                color: ef.get-value($themeDefault, 'iconFillHasUnread');
+
+                @include bm.hover {
+                    color: ef.get-value($themeDefault, 'iconFillHasUnreadHover');
+                }
+            }
+
+            svg {
+                @include bm.transition(fill);
+                fill: currentColor;
+            }
+
+            @include bm.hover {
+                color: ef.get-value($themeDefault, 'iconFillHover');
+            }
+        }
+    }
+}

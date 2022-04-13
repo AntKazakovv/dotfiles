@@ -54,6 +54,7 @@ export const wlcProfileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
                 parent: [
                     'app.profile.main',
                     'app.profile.verification',
+                    'app.profile.messages',
                     'app.profile.limitations',
                     'app.profile.social',
                 ],
@@ -74,6 +75,7 @@ export const wlcProfileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
                 parent: [
                     'app.profile.main',
                     'app.profile.verification',
+                    'app.profile.messages',
                     'app.profile.limitations',
                     'app.profile.social',
                 ],
@@ -195,7 +197,9 @@ export const wlcProfileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
 
     'profile-menu:bonuses-as-offers': {
         name: gettext('Bonuses'),
-        counter: 'bonuses-main',
+        counterParams: {
+            type: 'bonuses-main',
+        },
         type: 'sref',
         class: 'bonuses',
         icon: 'bonuses',
@@ -820,6 +824,12 @@ export const wlcProfileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
 
     'profile-menu:messages': {
         name: gettext('Messages'),
+        counterParams: {
+            type: 'internal-mails',
+            theme: 'circle',
+            themeMod: 'internal-mails',
+            hideIfZero: true,
+        },
         type: 'sref',
         icon: 'messages',
         class: 'messages',
@@ -832,6 +842,12 @@ export const wlcProfileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
     },
     'profile-first-menu:messages': {
         name: gettext('Messages'),
+        counterParams: {
+            type: 'internal-mails',
+            theme: 'circle',
+            themeMod: 'internal-mails',
+            hideIfZero: true,
+        },
         type: 'sref',
         icon: 'messages',
         class: 'messages',

@@ -1,0 +1,71 @@
+.wlc-internal-mails--theme-default:host {
+
+    .wlc-table::ng-deep {
+
+        .wlc-table {
+
+            &__cell {
+
+                &--first {
+
+                    &.wlc-table__cell--preview {
+                        grid-template-columns: ef.get-value($themeDefault, 'firstCellColumns');
+
+                        .wlc-table__cell-label {
+                            display: none;
+                        }
+                    }
+                }
+
+                &--subject {
+                    grid-template-columns: ef.get-value($themeDefault, 'subjectGridColumns');
+
+                    .wlc-table__cell-content {
+                        white-space: nowrap;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                    }
+
+                    .wlc-sections__profile-content--theme-default & {
+                        @include bm.get-mq-map('max-width', $themeDefault, 'subjectMaxWidthThemeDef');
+
+                        .wlc-table__cell-content {
+                            @include bm.get-mq-map('max-width', $themeDefault, 'subjectContentMaxWidthThemeDef');
+                        }
+                    }
+
+                    .wlc-sections__profile-content--theme-first & {
+                        @include bm.get-mq-map('max-width', $themeDefault, 'subjectMaxWidthThemeFirst');
+
+                        .wlc-table__cell-content {
+                            @include bm.get-mq-map('max-width', $themeDefault, 'subjectContentMaxWidthThemeFirst');
+                        }
+                    }
+                }
+
+                &--date {
+                    position: relative;
+                }
+            }
+
+            &__row:not(.wlc-table__row--head) {
+
+                .action-btn {
+                    display: block;
+                }
+
+                .wlc-sections__profile-content--theme-default & {
+                    @include mq.min(1024) {
+                        @include showOrHideActiveBtn;
+                    }
+                }
+
+                .wlc-sections__profile-content--theme-first & {
+                    @include mq.min(1200) {
+                        @include showOrHideActiveBtn;
+                    }
+                }
+            }
+        }
+    }
+}

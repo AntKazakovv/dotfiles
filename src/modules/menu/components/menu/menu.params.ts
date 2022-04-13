@@ -1,10 +1,12 @@
-import {IComponentParams, ICounterType} from 'wlc-engine/modules/core/system/interfaces/config.interface';
+import {IComponentParams} from 'wlc-engine/modules/core/system/interfaces/config.interface';
 import {CategoryModel} from 'wlc-engine/modules/games/system/models/category.model';
 import {ISliderCParams} from 'wlc-engine/modules/promo';
 import {TIconExtension} from 'wlc-engine/modules/menu/system/interfaces/menu.interface';
 import {ICategoryMenuCParams} from 'wlc-engine/modules/menu/components/category-menu/category-menu.params';
-import {IMenuOptions} from 'wlc-engine/modules/core/system/interfaces/menu.interface';
-
+import {
+    IMenuOptions,
+    ICounterCParams,
+} from 'wlc-engine/modules/core';
 
 export interface MenuConfigItemsGroup {
     parent: MenuItemsGroupParent;
@@ -98,7 +100,10 @@ export interface IMenuItemParams {
 export interface IMenuItem {
     name: string;
     type: ItemType;
-    counter?: ICounterType;
+    /**
+     * Params to counter component
+     */
+    counterParams?: ICounterCParams;
     icon?: string;
     iconPath?: string;
     iconUrl?: string;
@@ -121,7 +126,10 @@ export interface IMenuItemsGroup {
     parent: IMenuItem,
     items: MenuItemObjectType[],
     type?: ItemType,
-    counter?: ICounterType;
+    /**
+     * Params to counter component
+     */
+    counterParams?: ICounterCParams;
     expand?: boolean;
 }
 

@@ -424,4 +424,9 @@ $themeDefault: map-merge((
     //wp-promo-content
 
     'selectMaxHeight': 200px,
+
+    // internal-mails-content
+    'internalMailContentStyle': 'PrimaryText',
+    'internalMailContentColor': var(--mc-baseMain),
+    // internal-mails-content
 ), $customThemeDefault);

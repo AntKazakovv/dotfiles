@@ -16,11 +16,21 @@
             }
         }
     }
-}
 
-.wlc-menu__link-text {
+    &.wlc-menu--type-burger-panel-header-menu {
 
-    .wlc-counter {
-        margin-left: ef.get-value($menuThemeItems, 'btnCounterMarginLeft');
+        .wlc-menu__item--notifier {
+
+            .wlc-menu__link-text {
+                position: absolute;
+                top: ef.get-value($themeDefault, 'notifierConterTop');
+                right: ef.get-value($themeDefault, 'notifierConterRight');
+                display: flex;
+                align-items: ef.get-value($themeDefault, 'notifierAlignItems');
+                justify-content: ef.get-value($themeDefault, 'notifierJustifyContent');
+            }
+        }
     }
 }
+
+

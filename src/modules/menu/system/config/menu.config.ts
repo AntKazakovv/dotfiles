@@ -258,5 +258,23 @@ export const menuConfig: IMenuConfig = {
                 ],
             },
         },
+        right: {
+            headerMenu: {
+                use: 'auto',
+                menuParams: {
+                    type: 'burger-panel-header-menu',
+                    items: [],
+                    common: {
+                        useSwiper: false,
+                    },
+                },
+                icons: {
+                    folder: 'wlc/icons/notifier',
+                },
+                items: [
+                    'burger-panel-header-menu:profile-messages',
+                ],
+            },
+        },
     },
 };

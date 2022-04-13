@@ -2,22 +2,28 @@ import {
     Component,
     OnInit,
     Input,
-    ViewEncapsulation,
     ChangeDetectorRef,
     Inject,
+    HostBinding,
 } from '@angular/core';
+
 import {
-    AbstractComponent,
+    filter,
+    takeUntil,
+} from 'rxjs/operators';
+
+import {
     IMixedParams,
     EventService,
     InjectionService,
     ConfigService,
 } from 'wlc-engine/modules/core';
+import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
 import {
     Bonus,
     BonusesService,
 } from 'wlc-engine/modules/bonuses';
-import {ICounterType} from '../../system/interfaces';
+import {InternalMailsService} from 'wlc-engine/modules/internal-mails';
 
 import * as Params from './counter.params';
 
@@ -25,14 +31,14 @@ import * as Params from './counter.params';
     selector: '[wlc-counter]',
     templateUrl: './counter.component.html',
     styleUrls: ['./styles/counter.component.scss'],
-    encapsulation: ViewEncapsulation.None,
 })
 export class CounterComponent extends AbstractComponent implements OnInit {
+    @HostBinding('hidden') public hidden: boolean;
     public $params: Params.ICounterCParams;
-    public count: number = 0;
+    public count: number | '9+';
 
     @Input() public wlcElement: string;
-    @Input() protected counterType: ICounterType;
+    @Input() protected inlineParams: Params.ICounterCParams;
 
     constructor(
         @Inject('injectParams') protected params: Params.ICounterCParams,
@@ -49,14 +55,12 @@ export class CounterComponent extends AbstractComponent implements OnInit {
     }
 
     public async ngOnInit(): Promise<void> {
-        super.ngOnInit();
-        if (this.$params?.counter) {
-            this.counterType = this.$params.counter;
-        }
-        switch (this.counterType) {
-            case ('bonuses-main' || 'bonuses-all'):
-                await this.configService.ready;
+        super.ngOnInit(this.inlineParams);
 
+        await this.configService.ready;
+
+        switch (this.$params.type) {
+            case ('bonuses-main' || 'bonuses-all'):
                 const bonusesService = await this.injectionService
                     .getService<BonusesService>('bonuses.bonuses-service');
 
@@ -65,9 +69,10 @@ export class CounterComponent extends AbstractComponent implements OnInit {
                     observer: {
                         next: (bonuses: Bonus[]) => {
                             if (bonuses) {
-                                bonuses = this.counterType === 'bonuses-main' ?
+                                bonuses = this.$params.type === 'bonuses-main' ?
                                     bonusesService.filterBonuses(bonuses, 'main'):
                                     bonuses;
+                                this.hidden = !bonuses.length && this.$params.hideIfZero;
                                 this.count = bonuses.length;
                             }
                             this.cdr.markForCheck();
@@ -80,6 +85,29 @@ export class CounterComponent extends AbstractComponent implements OnInit {
             case 'store':
                 break;
             case 'tournaments':
+                break;
+            case 'internal-mails':
+                const internalMailsService = await this.injectionService
+                    .getService<InternalMailsService>('internal-mails.internal-mails-service');
+
+                internalMailsService.unreadMailsCount$
+                    .pipe(
+                        takeUntil(this.$destroy),
+                        filter((value) => {
+                            const count = value < 10 ? value : '9+';
+                            return this.count !== count;
+                        }),
+                    )
+                    .subscribe((unreadMailsCount: number): void => {
+                        if (unreadMailsCount < 10) {
+                            this.count = unreadMailsCount;
+                            this.hidden = !unreadMailsCount && this.$params.hideIfZero;
+                        } else {
+                            this.count = '9+';
+                            this.hidden = false;
+                        }
+                        this.cdr.markForCheck();
+                    });
                 break;
         }
     }

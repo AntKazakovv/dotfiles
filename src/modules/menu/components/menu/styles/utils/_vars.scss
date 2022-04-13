@@ -21,3 +21,18 @@ $customMenuThemeDefault: () !default;
 $menuThemeItems: map-merge((
     'btnCounterMarginLeft': ef.size(1),
 ), $customMenuThemeDefault);
+
+$customThemeDropdown: () !default;
+$themeDropdown: map-merge((
+    'linkTextAlignItems': center,
+    'linkTextJustifyContent': space-between,
+), $customThemeDropdown);
+
+$customThemeDefault: () !default;
+$themeDefault: map-merge((
+    'notifierConterTop': 6px,
+    'notifierConterRight': 8px,
+    'notifierAlignItems': center,
+    'notifierJustifyContent': space-between,
+), $customThemeDefault);
+

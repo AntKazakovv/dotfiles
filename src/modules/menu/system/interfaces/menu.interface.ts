@@ -42,7 +42,7 @@ export interface IAffiliatesMenuSettings {
 }
 
 export interface IBurgerPanelHeaderMenu {
-    use?: boolean,
+    use?: boolean | 'auto',
     enableByFundistMenuSettings?: boolean,
     menuParams?: MenuParams.IMenuCParams;
     icons?: {
@@ -64,8 +64,11 @@ export interface IMenuConfig {
     burgerPanel?: {
         left?: {
             headerMenu?: IBurgerPanelHeaderMenu;
+        },
+        right?: {
+            headerMenu?: IBurgerPanelHeaderMenu;
         }
-    }
+    },
 }
 
 export interface IFundist {

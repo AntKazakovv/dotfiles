@@ -1,0 +1,8 @@
+.wlc-open-mail-btn--theme-default:host {
+    @include bm.get-mq-map('padding', ev.$tableBtnBlock, 'btnBlockPadding');
+    @include cm.tableBtnBlockStyles;
+
+    &.profile-first {
+        @include bm.get-mq-map('padding', ev.$tableBtnBlock, 'btnBlockPaddingFirst');
+    }
+}

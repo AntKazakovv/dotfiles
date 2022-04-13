@@ -1,0 +1,34 @@
+$customThemeDefault: () !default;
+$themeDefault: map-merge((
+    'justify': (
+        375: flex-start,
+        1024: center
+    ),
+    'alignItems': center,
+
+    'fromDisplay': (
+        375: block,
+        1024: none,
+    ),
+    'fromMargin': (
+        375: 0 ef.size(2),
+    ),
+
+    'dateDisplay': (
+        375: block,
+        1024: none,
+    ),
+    'dateMargin': (
+        375: 0 ef.size(1) 0 auto
+    ),
+    'dateDisplayThemeFirst': (
+        1024: block,
+        1200: none
+    ),
+    'fromDisplayThemeFirst': (
+        1024: block,
+        1200: none
+    ),
+
+    'mailIconSize': ef.size(5),
+), $customThemeDefault);

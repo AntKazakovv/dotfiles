@@ -1,0 +1,10 @@
+.wlc-counter--theme-dot:host {
+    width: ef.get-value($themeDot, 'size');
+    height: ef.get-value($themeDot, 'size');
+    border-radius: ef.get-value($themeDot, 'borderRadius');
+    pointer-events: none;
+
+    &.wlc-counter--theme-mod-internal-mails {
+        background-color: ef.get-value($themeDot, 'internalMailsBg');
+    }
+}

@@ -1,0 +1,11 @@
+<span class="action-text">{{$params.internalMail.date}}</span>
+<button wlc-button
+        class="action-btn"
+        themeMod="secondary"
+        [inlineParams]="$params.buttonParams"
+        (click)="openMessage()">
+</button>
+
+<ng-template #message>
+    <div class="internal-mail__content" [innerHtml]="$params.internalMail.content"></div>
+</ng-template>

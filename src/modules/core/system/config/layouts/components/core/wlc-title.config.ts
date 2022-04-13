@@ -94,6 +94,15 @@ export namespace wlcTitle {
         },
     };
 
+    export const messages: ILayoutComponent = {
+        name: 'core.wlc-title',
+        params: <ITitleCParams>{
+            customMod: ['profile'],
+            mainText: gettext('Messages'),
+            wlcElement: 'header_messages',
+        },
+    };
+
     export const socials: ILayoutComponent = {
         name: 'core.wlc-title',
         params: <ITitleCParams>{

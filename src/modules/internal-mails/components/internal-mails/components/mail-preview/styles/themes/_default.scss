@@ -1,0 +1,39 @@
+.wlc-mail-preview--theme-default:host {
+    @include bm.get-mq-map('justify-content', $themeDefault, 'justify');
+
+    display: flex;
+    align-items: ef.get-value($themeDefault, 'alignItems');
+    width: 100%;
+
+    > span {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .wlc-mail-preview {
+
+        &__mail-icon {
+            width: ef.get-value($themeDefault, 'mailIconSize');
+            height: ef.get-value($themeDefault, 'mailIconSize');
+        }
+
+        &__from {
+            @include bm.get-mq-map('display', $themeDefault, 'fromDisplay');
+            @include bm.get-mq-map('margin', $themeDefault, 'fromMargin');
+
+            .wlc-sections__profile-content--theme-first & {
+                @include bm.get-mq-map('display', $themeDefault, 'fromDisplayThemeFirst');
+            }
+        }
+
+        &__date {
+            @include bm.get-mq-map('display', $themeDefault, 'dateDisplay');
+            @include bm.get-mq-map('margin', $themeDefault, 'dateMargin');
+
+            .wlc-sections__profile-content--theme-first & {
+                @include bm.get-mq-map('display', $themeDefault, 'dateDisplayThemeFirst');
+            }
+        }
+    }
+}

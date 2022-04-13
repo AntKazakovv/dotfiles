@@ -1,0 +1,16 @@
+.wlc-counter--theme-circle:host {
+    width: ef.get-value($themeCircle, 'size');
+    height: ef.get-value($themeCircle, 'size');
+    text-align: center;
+    vertical-align: middle;
+    border-radius: ef.get-value($themeCircle, 'borderRadius');
+    pointer-events: none;
+
+    &.wlc-counter--theme-mod-internal-mails {
+        @include text.get-text-style(
+            ef.get-value($themeCircle, 'internalMailsTextStyle'),
+            ef.get-value($themeCircle, 'internalMailsTextColor')
+        );
+        background-color: ef.get-value($themeCircle, 'internalMailsBg');
+    }
+}

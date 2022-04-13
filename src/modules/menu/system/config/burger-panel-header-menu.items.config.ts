@@ -14,4 +14,22 @@ export const wlcBurgerPanelHeaderMenuItemsGlobal: MenuParams.IMenuItemsGlobal = 
         ...commonMenuItems.lastplayed,
         name: '',
     },
+    'burger-panel-header-menu:profile-messages': {
+        name: '',
+        type: 'sref',
+        icon: 'notifier',
+        class: 'notifier',
+        params: {
+            state: {
+                name: 'app.profile.messages',
+                params: {},
+            },
+        },
+        counterParams: {
+            type: 'internal-mails',
+            theme: 'dot',
+            themeMod: 'internal-mails',
+            hideIfZero: true,
+        },
+    },
 };

@@ -60,6 +60,10 @@ export class BurgerPanelHeaderMenuComponent extends AbstractComponent implements
         this.headerMenu = this.configService
             .get<IBurgerPanelHeaderMenu>(`$menu.burgerPanel.${this.$params.common.panelType}.headerMenu`);
 
+        if ((this.$params.common.panelType === 'right') && (this.headerMenu.use === 'auto')) {
+            this.headerMenu.use = this.configService.get('$base.profile.messages.use');
+        }
+
         if (this.headerMenu?.use) {
             if (this.headerMenu.enableByFundistMenuSettings && !await this.menuService.existFundistMenuSettings()) {
                 return;

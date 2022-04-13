@@ -1,0 +1,28 @@
+@mixin showOrHideActiveBtn {
+
+    .action-btn {
+        display: none;
+    }
+
+    @include bm.hover {
+
+        .action-btn {
+            display: block;
+        }
+
+        .action-text {
+            opacity: 0;
+        }
+    }
+
+    @include bm.hover(false) {
+
+        .action-btn {
+            display: block;
+        }
+
+        .action-text {
+            opacity: 0;
+        }
+    }
+}

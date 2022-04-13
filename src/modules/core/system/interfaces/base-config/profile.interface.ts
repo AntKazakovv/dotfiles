@@ -1,5 +1,11 @@
 export interface IProfileConfig {
+    /**
+     * Internal mails
+     */
     messages?: {
+        /**
+         * Activate internal mails
+         */
         use: boolean;
     },
     smsVerification?: {
