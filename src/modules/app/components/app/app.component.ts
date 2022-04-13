@@ -209,9 +209,11 @@ export class AppComponent extends AbstractComponent implements OnInit, OnDestroy
     }
 
     private launchMonitoring(): void {
+        const processConfigsRemote = this.configService.get<TProcessConfigs>('appConfig.siteconfig.monitoring');
         const processConfigsLocal = this.configService.get<TProcessConfigs>('$base.monitoring.processConfigs');
         if (_some(processConfigsCommon, ['use', true])
             || _some(processConfigsLocal, ['use', true])
+            || _some(processConfigsRemote, ['use', true])
         ) {
             this.injectionService.getService<ProcessService>('monitoring.process-service');
         }
