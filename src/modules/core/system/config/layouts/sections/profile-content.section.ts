@@ -800,6 +800,7 @@ export namespace profileContent {
 
     export const profileVerification: ILayoutSectionConfig = {
         container: true,
+        usePreloader: true,
         components: [
             {
                 name: 'core.wlc-wrapper',
@@ -934,6 +935,7 @@ export namespace profileContent {
 
     export const profileStore: ILayoutSectionConfig = {
         container: true,
+        usePreloader: true,
         components: [
             componentLib.wlcTitle.profileStore,
             componentLib.wlcUserStats.storeWithDescriptionIcon,

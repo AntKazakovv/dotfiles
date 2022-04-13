@@ -6,6 +6,9 @@
             @include bm.get-mq-map('padding', $profileSettings, 'profilePadding');
             @include bm.get-mq-map('background', $profileSettings, 'profileBg');
             @include bm.get-mq-map('border-radius', $profileSettings, 'profileBorderRadius');
+            @include bm.get-mq-map('min-height', $profileSettings, 'profileMinHeight');
+
+            position: relative;
         }
 
         .wlc-profile-content {

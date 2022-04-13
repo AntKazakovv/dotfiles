@@ -33,6 +33,8 @@ export interface IPanelsSectionsConfig {
 export interface ILayoutSectionConfig {
     replaceConfig?: boolean;
     container?: string | boolean;
+    /** shows preloader before components are set */
+    usePreloader?: boolean;
     components?: (ILayoutComponent | string)[];
     modify?: ILayoutModifyItem[];
     modifiers?: string[];

@@ -467,6 +467,9 @@ $profileSettings: map-merge((
     'profileWidth': (
         1366: 1275px
     ),
+    'profileMinHeight': (
+        375: 120px,
+    ),
     'profileWidthV1': (
         1366: 1200px,
         1630: 1370px,

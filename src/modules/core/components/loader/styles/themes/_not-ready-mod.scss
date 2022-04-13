@@ -1,0 +1,6 @@
+@use 'engine-scss/mixins/base.mixins' as bm;
+
+.wlc-loader--theme-mod-not-ready:host {
+    @include bm.absoluteCentering;
+}
+

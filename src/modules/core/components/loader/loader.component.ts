@@ -4,6 +4,7 @@ import {
     Inject,
     Self,
     Optional,
+    Input,
 } from '@angular/core';
 
 import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
@@ -16,6 +17,7 @@ import * as Params from './loader.params';
     styleUrls: ['./styles/loader.component.scss'],
 })
 export class LoaderComponent extends AbstractComponent implements OnInit {
+    @Input() public inlineParams: Params.ILoaderCParams;
     public $params: Params.ILoaderCParams;
 
     constructor(
@@ -29,6 +31,6 @@ export class LoaderComponent extends AbstractComponent implements OnInit {
     }
 
     public ngOnInit(): void {
-        super.ngOnInit();
+        super.ngOnInit(this.inlineParams);
     }
 }

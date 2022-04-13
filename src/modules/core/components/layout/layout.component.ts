@@ -52,6 +52,7 @@ export class LayoutComponent implements OnInit, OnDestroy {
 
     public components: ILayoutComponent[] = [];
     public section: ILayoutSectionConfig;
+    public ready: boolean = true;
     protected allComponents$: ILayoutComponent[] = [];
     protected $destroy: Subject<void> = new Subject();
     private currentConfig: ILayoutStateConfig;
@@ -106,6 +107,12 @@ export class LayoutComponent implements OnInit, OnDestroy {
     }
 
     protected async setComponents(state: string, params?: IIndexing<any>): Promise<void> {
+        this.currentConfig = this.layoutService.getLayoutConfig(this.layouts, state, params);
+
+        if (this.currentConfig.sections[this.sectionName]?.usePreloader) {
+            this.ready = false;
+        };
+
         this.currentConfig = await this.layoutService.getLayout(this.layouts, state, params);
         this.eventService.emit({
             name: 'SECTION_READY',
@@ -181,6 +188,7 @@ export class LayoutComponent implements OnInit, OnDestroy {
         this.components.push(
             ...this.layoutService.filterDisplayElements(this.allComponents$),
         );
+        this.ready = true;
         this.cdr.markForCheck();
     }
 }
