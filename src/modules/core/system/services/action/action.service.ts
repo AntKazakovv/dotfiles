@@ -207,18 +207,15 @@ export class ActionService {
                 return;
             }
 
-            let element: HTMLElement;
-            if (_isString(elem)) {
-                element = this.document.querySelector(elem);
-            } else {
-                element = elem;
-            }
+            const element: HTMLElement = _isString(elem) ? this.document.querySelector(elem) : elem;
 
             if (options?.offsetY) {
                 element.style.paddingBottom = this.getStyleNumValue(element, 'paddingBottom') + options.offsetY + 'px';
             }
 
             setTimeout((): void => {
+                this.setScrollingOffset(element);
+
                 element.scrollIntoView({
                     behavior: 'smooth',
                     block: options?.position || 'start',
@@ -619,5 +616,12 @@ export class ActionService {
                 storageClear: 'localStorage',
             });
         });
+    }
+
+    private setScrollingOffset(element: HTMLElement): void {
+        if (this.configService.get<boolean>('$base.stickyHeader.use')) {
+            const scrollingGap = this.configService.get<number>('$base.stickyHeader.scrollingGap');
+            element.style['scrollMarginTop'] = `${scrollingGap}px`;
+        }
     }
 }
