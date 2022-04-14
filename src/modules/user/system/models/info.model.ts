@@ -3,6 +3,7 @@ import {
     ILoyalty,
     IUserInfo,
     ISocketsData,
+    TUserValidationLevel,
 } from 'wlc-engine/modules/core/system/interfaces';
 import {TranslateService} from '@ngx-translate/core';
 import {AbstractModel} from 'wlc-engine/modules/core/system/models/abstract.model';
@@ -137,6 +138,14 @@ export class UserInfo extends AbstractModel<IUserInfo> {
 
     public get nextLevelPoints(): number {
         return +this.data?.loyalty?.NextLevelPoints || 0;
+    }
+
+    /**
+     * It returns the validation level property of user.
+     * @returns {TUserValidationLevel} The validationLevel property.
+     */
+    public get validationLevel(): TUserValidationLevel {
+        return this.data.validationLevel;
     }
 
     public set data(data: IUserInfo) {

@@ -147,6 +147,12 @@ export const $profileLayouts: IPanelsConfig = {
             'profile-content': sectionsLib.profileContent.profileVerification,
         },
     },
+    'app.profile.kycaml': {
+        extends: 'app.profile',
+        sections: {
+            'profile-content': sectionsLib.profileContent.profileVerificationShuftiProKycaml,
+        },
+    },
     'app.profile.limitations': {
         extends: 'app.profile',
         sections: {

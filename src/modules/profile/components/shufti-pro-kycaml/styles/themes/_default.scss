@@ -1,0 +1,83 @@
+@use 'engine-scss/functions' as ef;
+@use 'engine-scss/mixins/text' as text;
+@use 'engine-scss/mixins/mediaqueries' as mq;
+@use 'engine-scss/mixins/base.mixins' as bm;
+
+.wlc-shufti-pro-kycaml--theme-default:host {
+
+    .wlc-shufti-pro-kycaml {
+
+        &__status {
+
+            @include text.get-text-style('PrimaryText');
+            @include bm.get-mq-map('flex-direction', $themeDefault, 'statusFlexDirection');
+            display: flex;
+            gap: ef.get-value($themeDefault, 'statusGap');
+            align-items: ef.get-value($themeDefault, 'statusAlignItems');
+            justify-content: ef.get-value($themeDefault, 'statusJustifyContent');
+            max-width: ef.get-value($themeDefault, 'statusMaxWidth');
+            padding: ef.get-value($themeDefault, 'statusPadding');
+
+            ::ng-deep {
+
+                svg {
+                    width: ef.get-value($themeDefault, 'iconWidth');
+                    height: ef.get-value($themeDefault, 'iconHeight');
+                }
+            }
+
+            &-not-secure {
+
+                ::ng-deep {
+
+                    svg {
+                        fill: ef.get-value($themeDefault, 'notSecureColor');
+                    }
+                }
+            }
+
+            &-secure {
+
+                ::ng-deep {
+
+                    svg {
+                        fill: ef.get-value($themeDefault, 'secureColor');
+                    }
+                }
+            }
+        }
+
+        &__error,
+        &__iframe {
+            @include bm.get-mq-map('min-height', $themeDefault, 'iframeMinHeight');
+
+            width: 100%;
+            min-height: ef.get-value($themeDefault, 'iframeMinHeight');
+            margin-top: ef.get-value($themeDefault, 'iframeMarginTop');
+            border-radius: ef.get-value($themeDefault, 'iframeBorderRadius');
+        }
+
+        &__error {
+            @include text.get-text-style('PrimaryText');
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: ef.get-value($themeDefault, 'errorColor');
+            background-color: ef.get-value($themeDefault, 'errorBg');
+
+            .wlc-icon {
+                margin: ef.get-value($themeDefault, 'errorIconMargin');
+            }
+
+            ::ng-deep {
+
+                svg {
+                    width: ef.get-value($themeDefault, 'errorIconWidth');
+                    height: ef.get-value($themeDefault, 'errorIconHeight');
+                    fill: ef.get-value($themeDefault, 'errorColor');
+                }
+            }
+        }
+    }
+}

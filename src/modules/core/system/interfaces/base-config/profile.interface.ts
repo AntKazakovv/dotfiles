@@ -63,10 +63,16 @@ export interface IProfileConfig {
 }
 
 export interface IVerification {
+    /* A flag to enable/disable verification feature. */
     use: boolean;
-    selectModeFrom: number;
-    maxDocsCount: number;
-    maxSize: number;
+    /* A flag to enable/disable Shufti Pro KYC/AML verification feature. */
+    useShuftiProKycaml?: boolean;
+    /* The maximum number of document types to load, after which the template with the selector will be displayed */
+    selectModeFrom?: number;
+    /* The maximum number of documents available for download. */
+    maxDocsCount?: number;
+    /* The maximum size of the uploaded file. There is also a check on the backing side */
+    maxSize?: number;
 }
 
 export interface IPasswordValidation {

@@ -1,4 +1,7 @@
-import {ILayoutSectionConfig} from 'wlc-engine/modules/core';
+import {
+    ILayoutSectionConfig,
+    ITitleCParams,
+} from 'wlc-engine/modules/core';
 import * as componentLib from '../components';
 
 const profileDefaultLoyaltyType = (isSingleLevels: boolean) => {
@@ -792,6 +795,84 @@ export namespace profileContent {
                         componentLib.wlcBonusesList.dashboard,
                         componentLib.wlcEnterPromocode.def,
                         componentLib.wlcSeeAllBonuses.def,
+                    ],
+                },
+            },
+        ],
+    };
+
+    export const profileVerificationShuftiProKycaml: ILayoutSectionConfig = {
+        container: true,
+        usePreloader: true,
+        components: [
+            {
+                name: 'core.wlc-wrapper',
+                params: {
+                    class: 'wlc-profile-content__top',
+                    components: [
+                        componentLib.wlcTitle.profileV2,
+                    ],
+                },
+            },
+            componentLib.wlcProfileMenu.submenu,
+            componentLib.wlcVerification.shuftiProKycaml,
+        ],
+    };
+
+    export const profileVerificationShuftiProKycamlTypeFirst: ILayoutSectionConfig = {
+        container: true,
+        theme: 'first',
+        components: [
+            componentLib.wlcProfileMenu.defTypeFirst,
+            {
+                name: 'core.wlc-wrapper',
+                params: {
+                    class: 'wlc-profile-content__header',
+                    components: [
+                        componentLib.wlcTitle.myAccountV1,
+                    ],
+                },
+                display: {
+                    before: 1199,
+                },
+            },
+            componentLib.wlcProfileMenu.subMenuV1,
+            {
+                name: 'core.wlc-wrapper',
+                params: {
+                    class: 'wlc-profile-content',
+                    components: [
+                        {
+                            name: 'core.wlc-wrapper',
+                            params: {
+                                class: 'wlc-profile-content__header underlined',
+                                components: [
+                                    {
+                                        name: 'core.wlc-title',
+                                        display: {
+                                            after: 1024,
+                                        },
+                                        params: <ITitleCParams>{
+                                            customMod: ['profile'],
+                                            mainText: gettext('KYC'),
+                                            wlcElement: 'header_shufti-pro-kycaml',
+                                        },
+                                    },
+                                ],
+                            },
+                            display: {
+                                after: 1200,
+                            },
+                        },
+                        {
+                            name: 'core.wlc-wrapper',
+                            params: {
+                                class: 'wlc-profile-content__body',
+                                components: [
+                                    componentLib.wlcVerification.shuftiProKycaml,
+                                ],
+                            },
+                        },
                     ],
                 },
             },

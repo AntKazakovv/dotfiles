@@ -54,6 +54,7 @@ export const wlcProfileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
                 parent: [
                     'app.profile.main',
                     'app.profile.verification',
+                    'app.profile.kycaml',
                     'app.profile.messages',
                     'app.profile.limitations',
                     'app.profile.social',
@@ -75,6 +76,7 @@ export const wlcProfileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
                 parent: [
                     'app.profile.main',
                     'app.profile.verification',
+                    'app.profile.kycaml',
                     'app.profile.messages',
                     'app.profile.limitations',
                     'app.profile.social',
@@ -909,6 +911,33 @@ export const wlcProfileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
         },
     },
 
+    'profile-menu:kycaml': {
+        name: gettext('KYC'),
+        type: 'sref',
+        icon: 'kycaml',
+        class: 'kycaml',
+        wlcElement: 'link_kycaml',
+        params: {
+            state: {
+                name: 'app.profile.kycaml',
+                params: {},
+            },
+        },
+    },
+    'profile-first-menu:kycaml': {
+        name: gettext('KYC'),
+        type: 'sref',
+        icon: 'kycaml',
+        class: 'kycaml',
+        wlcElement: 'link_kycaml',
+        params: {
+            state: {
+                name: 'app.profile.kycaml',
+                params: {},
+            },
+        },
+    },
+
     'profile-menu:limitations': {
         name: gettext('Responsible gaming'),
         type: 'sref',
@@ -1149,6 +1178,14 @@ export const profileMenuFilter: ProfileMenuParams.IProfileMenuFilter[] = [
     {
         config: '$base.profile.verification.use',
         item: 'profile-first-menu:verification',
+    },
+    {
+        config: '$base.profile.verification.useShuftiProKycaml',
+        item: 'profile-menu:kycaml',
+    },
+    {
+        config: '$base.profile.verification.useShuftiProKycaml',
+        item: 'profile-first-menu:kycaml',
     },
     {
         config: '$base.profile.limitations.use',

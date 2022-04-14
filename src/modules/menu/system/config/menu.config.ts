@@ -103,6 +103,7 @@ export const menuConfig: IMenuConfig = {
                 items: [
                     'profile-menu:edit-profile',
                     'profile-menu:verification',
+                    'profile-menu:kycaml',
                     'profile-menu:limitations',
                     'profile-menu:messages',
                     'profile-menu:socials',
@@ -130,6 +131,7 @@ export const menuConfig: IMenuConfig = {
                 items: [
                     'profile-first-menu:edit-profile',
                     'profile-first-menu:verification',
+                    'profile-first-menu:kycaml',
                     'profile-first-menu:socials',
                     'profile-first-menu:limitations',
                     'profile-first-menu:messages',

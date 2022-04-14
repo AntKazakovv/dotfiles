@@ -5,6 +5,8 @@ import {
     ISocketsData,
 } from './index';
 
+export type TUserValidationLevel = 'not-secure' | 'secure';
+
 export interface IUserInfo {
     LockExpiresAt?: string;
     affiliateID?: string;
@@ -21,6 +23,7 @@ export interface IUserInfo {
     status: number;
     socketsData?: ISocketsData | '',
     freerounds: IFreeRound[];
+    validationLevel?: TUserValidationLevel;
 }
 
 export interface IUserProfile {

@@ -146,6 +146,12 @@ export const $profileFirstLayouts: ILayoutsConfig = {
             'profile-content': sectionsLib.profileContent.profileVerificationTypeFirst,
         },
     },
+    'app.profile.kycaml': {
+        extends: 'app.profile',
+        sections: {
+            'profile-content': sectionsLib.profileContent.profileVerificationShuftiProKycamlTypeFirst,
+        },
+    },
     'app.profile.limitations': {
         extends: 'app.profile',
         sections: {

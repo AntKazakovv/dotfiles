@@ -1,0 +1,30 @@
+@use 'engine-scss/functions' as ef;
+
+$customThemeDefault: () !default;
+
+$themeDefault: map-merge((
+    'notSecureColor': var(--mc-warning),
+    'secureColor': var(--mc-success),
+    'iconWidth': ef.size(4),
+    'iconHeight': ef.size(4),
+    'statusMaxWidth': 350px,
+    'statusPadding': ef.size(2),
+    'statusGap': ef.size(4),
+    'statusAlignItems': 'center',
+    'statusJustifyContent': 'justify-content',
+    'statusFlexDirection': (
+        375: column,
+        560: row,
+    ),
+    'iframeMinHeight': (
+        375: 600px,
+        560: 510px,
+    ),
+    'iframeMarginTop': ef.size(4),
+    'iframeBorderRadius': ef.get('radius', 'biger'),
+    'errorColor': var(--mc-baseOpacity),
+    'errorBg': var(--mc-bg500),
+    'errorIconMargin': 0 0 20px 0,
+    'errorIconWidth': 80px,
+    'errorIconHeight': 80px,
+), $customThemeDefault);

@@ -1,0 +1,53 @@
+<ng-container
+    *ngIf="ready || error; else preloader"
+    [ngSwitch]="validationLevel">
+    <ng-container *ngSwitchCase="'not-secure'">
+        <div class="{{$class}}__status {{$class}}__status-not-secure"
+            data-wlc-element="shufti-pro-kycaml-not-secure">
+            <div wlc-icon
+                class="icon-btn"
+                iconPath="/wlc/icons/status/not-secure.svg"
+                wlcElement="not-secure-icon">
+            </div>
+
+            {{'Verification is not passed yet.' | translate}}
+        </div>
+    </ng-container>
+
+    <div *ngSwitchCase="'secure'"
+        class="{{$class}}__status {{$class}}__status-secure"
+        data-wlc-element="shufti-pro-kycaml-secure">
+
+        <div wlc-icon
+            class="icon-btn"
+            iconPath="/wlc/icons/status/secure.svg"
+            wlcElement="not-secure-icon">
+        </div>
+
+        {{'Verification is passed successfully.' | translate}}
+    </div>
+
+    <div *ngIf="error"
+        class="{{$class}}__error" data-wlc-element="shufti-pro-kycaml-error">
+
+        <div wlc-icon
+            class="icon-btn"
+            iconPath="/wlc/icons/stop.svg"
+            wlcElement="error-icon">
+        </div>
+
+        <span>{{'Sorry the service didn\'t load.' | translate}}</span>
+        <span>{{'Try again.' | translate}}</span>
+    </div>
+</ng-container>
+
+<iframe
+    *ngIf="url"
+    class="{{$class}}__iframe"
+    data-wlc-element="shufti-pro-kycaml-iframe"
+    [src]="url">
+</iframe>
+
+<ng-template #preloader>
+    <div wlc-loader></div>
+</ng-template>
