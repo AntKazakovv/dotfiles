@@ -76,3 +76,5 @@ gettext('Savings');
 gettext('Joint checkings');
 gettext('Joint savings');
 gettext('Bank branch');
+gettext('Add info');
+gettext('Change');
