@@ -28,7 +28,10 @@ import {
     ModalService,
     NotificationEvents,
 } from 'wlc-engine/modules/core';
-import {UserProfile} from 'wlc-engine/modules/user';
+import {
+    UserInfo,
+    UserProfile,
+} from 'wlc-engine/modules/user';
 import {Game} from 'wlc-engine/modules/games/system/models/game.model';
 import {MerchantModel} from 'wlc-engine/modules/games/system/models/merchant.model';
 import {GamesCatalogService} from 'wlc-engine/modules/games/system/services/games-catalog/games-catalog.service';
@@ -293,21 +296,47 @@ export class MerchantWalletService {
                     ],
                 },
             });
-            return;
+        } else if (method === 'deposit'
+                && !this.configService.get<BehaviorSubject<UserInfo>>({name: '$user.userInfo$'})
+                    .getValue()?.realBalance) {
+            this.modalService.showModal({
+                id: 'mw-deposit-error',
+                modifier: 'confirmation',
+                hideIcon: true,
+                wlcElement: 'mw-deposit-error',
+                dismissAll: true,
+                modalTitle: gettext('Insufficient balance!'),
+                modalMessage: gettext('Deposit more money to play this game.'),
+                textAlign: 'center',
+                closeBtnParams: {
+                    themeMod: 'secondary',
+                    common: {
+                        text: gettext('Close'),
+                    },
+                },
+                showConfirmBtn: true,
+                confirmBtnParams: {
+                    common: {
+                        text: gettext('Deposit'),
+                        sref: 'app.profile.cash.deposit',
+                    },
+                },
+            });
+        } else {
+            this.modalService.showModal({
+                id: 'mw-balance-transfer',
+                modifier: 'info',
+                wlcElement: 'mw-balance-transfer',
+                showFooter: false,
+                backdrop: 'static',
+                modalTitle: method === 'deposit' ? gettext('Adding funds') : gettext('Funds withdrawal'),
+                componentName: 'games.wlc-merchant-wallet-form',
+                componentParams: <IMerchantWalletFormCParams>{
+                    method: method,
+                },
+            });
         }
 
-        this.modalService.showModal({
-            id: 'ew-balance-transfer',
-            modifier: 'info',
-            wlcElement: 'ew-balance-transfer',
-            showFooter: false,
-            backdrop: 'static',
-            modalTitle: method === 'deposit' ? gettext('Adding funds') : gettext('Funds withdrawal'),
-            componentName: 'games.wlc-merchant-wallet-form',
-            componentParams: <IMerchantWalletFormCParams>{
-                method: method,
-            },
-        });
     }
 
     /**
