@@ -2,7 +2,8 @@
 
 $customThemeDefault: () !default;
 $themeDefault: map-merge((
-    'userInfoShortMargin': 0 20px,
+    'userInfoShortMargin': 0 ef.size(4),
+    'notifierMargin': 0 0 0 ef.size(4),
     'userInfoDropdownBtnPadding': 5px 12px 5px 5px,
     'userInfoDropdownBtnBorder': 2px solid var(--mc-baseOpacity),
     'userInfoDropdownBtnBorderHover': 2px solid var(--mc-bg100),
@@ -12,7 +13,7 @@ $themeDefault: map-merge((
     'userInfoDropdownArrowFill': var(--fc-arrowColor),
     'userInfoDropdownArrowFillHover': var(--mc-bg100),
     'userInfoDropdownArrowFillActive': var(--mc-main),
-    'userInfoDropdownBtnIconSize': 25px,
+    'userInfoDropdownBtnIconSize': ef.size(5),
     'userInfoDropdownTop': calc(100% + 10px),
     'userInfoDropdownRight': 0,
     'userInfoDropdownMinWidth': 270px,

@@ -13,6 +13,10 @@ $themeDefault: map-merge((
     'fromMargin': (
         375: 0 ef.size(2),
     ),
+    'fromMaxWidth': (
+        375: 95px,
+        480: unset,
+    ),
 
     'dateDisplay': (
         375: block,
@@ -31,4 +35,5 @@ $themeDefault: map-merge((
     ),
 
     'mailIconSize': ef.size(5),
+    'mailIconAlign': left,
 ), $customThemeDefault);

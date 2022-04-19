@@ -28,7 +28,7 @@
                   wlcElement="icon_user">
             </span>
             <span wlc-icon
-                  class="arrow"                
+                  class="arrow"
                   iconPath="/wlc/icons/arrow.svg"
                   wlcElement="icon_arrow">
             </span>
@@ -38,5 +38,10 @@
              wlc-wrapper [inlineParams]="$params.dropdown"
              [@toggle]="isOpened ? 'opened' : 'closed'">
         </div>
+    </div>
+
+    <div *ngIf="hasNotifier"
+         wlc-internal-mails-notifier
+         class="{{$class}}-mails-notifier">
     </div>
 </div>

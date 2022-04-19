@@ -36,73 +36,9 @@ export const $base: IBaseConfig = {
 };
 ```
 
-### 2. Adding a reminder bell to the header
+### 2. If you need to remove the 'notifier' icon from the header of the right burger menu.
 
-#### 2.1. Adding a component to the header grid
-
-File ***'config/frontend/02.layouts.config.ts'***:
-
-```
-import * as componentLib from 'wlc-engine/modules/core/system/config/layouts/components';
-
-export const $layouts: ILayoutsConfig = {
-    'app': {
-        replaceConfig: false,
-        sections: {
-            header: {
-                modify: [
-                    {
-                        type: 'insert',
-                        position: 6,
-                        component: {
-                            ...componentLib.wlcInternalMails.notifier,
-                        },
-                    },
-                ],
-            },
-        },
-    },
-};
-```
-
-#### 2.2. We describe the header grid for an authorized user to add a bell component to the grid:
-
-##### 2.2.1. Creating a variable in the header map in the file ***'src/app-styles/_app.variables.scs'***:
-
-```
-$customTheme1Header: (
-    'headerGridColumnsAuth': (
-        375: auto minmax(0, 1fr) auto,
-        1200: auto auto minmax(0, 1fr) auto auto auto,
-    ),
-);
-```
-
-##### 2.2.2. Creating the file ***'src/app-styles/layouts/_header.css'***:
-
-```
-@use 'engine-scss/mixins/base.mixins' as bm;
-
-.wlc-sections__header--theme-1 {
-
-    .container {
-
-        .wlc-body--auth-1 & {
-            @include bm.get-mq-map('grid-template-columns', $theme1Header, 'headerGridColumnsAuth');
-        }
-    }
-}
-```
-
-##### 2.2.3. Добавляем созданный файл в ***'src/app-styles/_app.styles.scss'***:
-
-```
-@import 'layouts/header';
-```
-
-###3. If you need to remove the 'notifier' icon from the header of the right burger menu.
-
-#### 3.1. Creating the file ***'config/frontend/05.menu.config.ts'***:
+#### 2.1. Creating the file ***'config/frontend/05.menu.config.ts'***:
 
 ```
 import {IMenuConfig} from 'wlc-engine/modules/menu';
@@ -118,7 +54,7 @@ export const $menu: IMenuConfig = {
 };
 ```
 
-#### 3.2. Adding the created file to ***'config/frontend/index.ts'***:
+#### 2.2. Adding the created file to ***'config/frontend/index.ts'***:
 
 ```
 ...
@@ -155,73 +91,9 @@ export const $base: IBaseConfig = {
 };
 ```
 
-### 2. Добавление колокольчика-напоминания в хедер
+### 2. Если нужно удалить иконку 'notifier' из хедера правого бургер меню.
 
-#### 2.1. Добавляем компонент в сетку хедера
-
-Файл ***'config/frontend/02.layouts.config.ts'***:
-
-```
-import * as componentLib from 'wlc-engine/modules/core/system/config/layouts/components';
-
-export const $layouts: ILayoutsConfig = {
-    'app': {
-        replaceConfig: false,
-        sections: {
-            header: {
-                modify: [
-                    {
-                        type: 'insert',
-                        position: 6,
-                        component: {
-                            ...componentLib.wlcInternalMails.notifier,
-                        },
-                    },
-                ],
-            },
-        },
-    },
-};
-```
-
-#### 2.2. Описываем сетку хедера для авторизованного пользователя, чтобы добавить компонент колокольчика в сетку:
-
-##### 2.2.1. Создаем переменную в мапе хедера в файле ***'src/app-styles/_app.variables.scss'***:
-
-```
-$customTheme1Header: (
-    'headerGridColumnsAuth': (
-        375: auto minmax(0, 1fr) auto,
-        1200: auto auto minmax(0, 1fr) auto auto auto,
-    ),
-);
-```
-
-##### 2.2.2. Создаем файл ***'src/app-styles/layouts/_header.scss'***:
-
-```
-@use 'engine-scss/mixins/base.mixins' as bm;
-
-.wlc-sections__header--theme-1 {
-
-    .container {
-
-        .wlc-body--auth-1 & {
-            @include bm.get-mq-map('grid-template-columns', $theme1Header, 'headerGridColumnsAuth');
-        }
-    }
-}
-```
-
-##### 2.2.3. Добавляем созданный файл в ***'src/app-styles/_app.styles.scss'***:
-
-```
-@import 'layouts/header';
-```
-
-### 3. Если нужно удалить иконку 'notifier' из хедера правого бургер меню.
-
-#### 3.1. Создаем файл ***'config/frontend/05.menu.config.ts'***:
+#### 2.1. Создаем файл ***'config/frontend/05.menu.config.ts'***:
 
 ```
 import {IMenuConfig} from 'wlc-engine/modules/menu';
@@ -237,7 +109,7 @@ export const $menu: IMenuConfig = {
 };
 ```
 
-#### 3.2. Добавляем созданный файл в ***'config/frontend/index.ts'***:
+#### 2.2. Добавляем созданный файл в ***'config/frontend/index.ts'***:
 
 ```
 ...

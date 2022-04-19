@@ -39,6 +39,9 @@ export const services = {
         CoreModule,
         TranslateModule,
     ],
+    exports: [
+        InternalMailsNotifierComponent,
+    ],
 })
 export class InternalMailsModule {
 }

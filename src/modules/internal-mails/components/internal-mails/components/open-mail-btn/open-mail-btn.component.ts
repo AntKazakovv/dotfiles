@@ -28,7 +28,7 @@ import * as Params from './open-mail-btn.params';
 export class OpenMailBtnComponent extends AbstractComponent implements OnInit {
     @HostBinding('class.profile-first') protected profileFirst: boolean;
     /**
-     * A template to send to a modal as a message from an mail 
+     * A template to send to a modal as a message from an mail
      */
     @ViewChild('message') protected message: TemplateRef<ElementRef>;
     public $params: Params.IOpenMailMessageBtn;
@@ -53,20 +53,22 @@ export class OpenMailBtnComponent extends AbstractComponent implements OnInit {
 
     /**
      * Show mail in modal and mark as read
+     *
+     * @returns {void}
      */
     public openMessage(): void {
         this.modalService.showModal({
             id: 'internal-mail',
             modalTitle: this.$params.internalMail.subject,
             templateRef: this.message,
-            closeBtnParams: {
+            closeBtnText: gettext('Close'),
+            showConfirmBtn: true,
+            confirmBtnParams: {
                 themeMod: 'secondary',
                 common: {
-                    text: gettext('Close'),
+                    text: gettext('Delete'),
                 },
             },
-            showConfirmBtn: true,
-            confirmBtnText: gettext('Delete'),
             onConfirm: () => {
                 this.internalMailsService.deleteMail(this.$params.internalMail);
             },

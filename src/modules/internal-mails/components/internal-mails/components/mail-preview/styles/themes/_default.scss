@@ -16,11 +16,13 @@
         &__mail-icon {
             width: ef.get-value($themeDefault, 'mailIconSize');
             height: ef.get-value($themeDefault, 'mailIconSize');
+            text-align: ef.get-value($themeDefault, 'mailIconAlign');
         }
 
         &__from {
             @include bm.get-mq-map('display', $themeDefault, 'fromDisplay');
             @include bm.get-mq-map('margin', $themeDefault, 'fromMargin');
+            @include bm.get-mq-map('max-width', $themeDefault, 'fromMaxWidth');
 
             .wlc-sections__profile-content--theme-first & {
                 @include bm.get-mq-map('display', $themeDefault, 'fromDisplayThemeFirst');

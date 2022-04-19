@@ -79,6 +79,7 @@ $selector: '.wlc-table';
                 padding: ef.get-value($themeDefault, 'paddingCellTable');
                 border: ef.get-value($themeDefault, 'cellBorderDesktop');
                 text-align: ef.get-value($themeDefault, 'textAlignDesktop');
+                vertical-align: ef.get-value($themeDefault, 'verticalAlignDesktop');
 
                 &:first-child {
                     border-radius: ef.get-value($themeDefault, 'rowBorderRadiusSizeDesktop') 0 0 ef.get-value($themeDefault, 'rowBorderRadiusSizeDesktop');

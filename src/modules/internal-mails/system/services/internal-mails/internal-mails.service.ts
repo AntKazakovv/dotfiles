@@ -17,6 +17,7 @@ import {
     ConfigService,
     DataService,
     EventService,
+    IData,
     LogService,
 } from 'wlc-engine/modules/core';
 import {IInternalMail} from 'wlc-engine/modules/internal-mails/system/interfaces';
@@ -152,11 +153,22 @@ export class InternalMailsService {
     }
 
     /**
+     * Make a mails request
+     *
+     * @returns {Promise<void>}
+     */
+    public async getMails(): Promise<void> {
+        this.mailsResponseHandler(await this.dataService.request<IData>('messages/getMails'), 'getMails');
+    }
+
+    /**
      * Start fetching mails
+     *
+     * @returns {Promise<void>}
      */
     private async fetchMails(): Promise<void> {
         try {
-            await this.dataService.request('messages/getMails', {});
+            await this.dataService.request('messages/fetchMails', {});
         } catch (error) {
             this.fetchErrorHandler(error, 'fetchMails');
         }
@@ -164,36 +176,56 @@ export class InternalMailsService {
 
     /**
      * Start mails fetch handler
+     *
+     * @returns {void}
      */
     private startMailsFetcher(): void {
-        this.mailsFetchHandler = this.dataService.subscribe('messages/getMails', (mails) => {
-            try {
-                let unreadMails: number = 0;
-
-                this.mails$.next(this.modifyMails(mails.data));
-
-                unreadMails = _filter(
-                    this.mails$.getValue(),
-                    (mail: InternalMailModel) => mail.status === 'new',
-                ).length;
-
-                if (this.unreadMailsCount$.getValue() !== unreadMails) {
-                    this.unreadMailsCount$.next(unreadMails);
-                }
-            } catch (error) {
-                this.fetchErrorHandler(error, 'startMailsFetcher');
-            } finally {
-                this.mailsReady$.next(true);
-            }
-        });
+        this.mailsFetchHandler = this.dataService.subscribe(
+            'messages/fetchMails',
+            (mailsResponse: IData): void => this.mailsResponseHandler(mailsResponse, 'startMailsFetcher'),
+        );
     }
 
     /**
      * Stop mails fetch handler
+     *
+     * @returns {void}
      */
     private stopMailsFetcher(): void {
         this.mailsFetchHandler?.unsubscribe();
-        this.dataService.reset('messages/getMails');
+        this.dataService.reset('messages/fetchMails');
+    }
+
+    /**
+     * Mails request response handler
+     *
+     * @param {IData} mailsResponse request response
+     * @param {string} fromMethod the method that calls the handler
+     *
+     * @returns {void}
+     */
+    private mailsResponseHandler(mailsResponse: IData<IInternalMail[]>, fromMethod: string): void {
+        if (!mailsResponse) {
+            return;
+        }
+        try {
+            let unreadMails: number = 0;
+
+            this.mails$.next(this.modifyMails(mailsResponse.data));
+
+            unreadMails = _filter(
+                this.mails$.getValue(),
+                (mail: InternalMailModel): boolean => mail.status === 'new',
+            ).length;
+
+            if (this.unreadMailsCount$.getValue() !== unreadMails) {
+                this.unreadMailsCount$.next(unreadMails);
+            }
+        } catch (error) {
+            this.fetchErrorHandler(error, 'mailsResponseHandler -> ' + fromMethod);
+        } finally {
+            this.mailsReady$.next(true);
+        }
     }
 
     private fetchErrorHandler(error: Error, method: string): void {
@@ -233,11 +265,17 @@ export class InternalMailsService {
 
     private registerMethods(): void {
         this.dataService.registerMethod({
-            name: 'getMails',
+            name: 'fetchMails',
             system: 'messages',
             url: '/messages',
             type: 'GET',
             period: 60000,
+        });
+        this.dataService.registerMethod({
+            name: 'getMails',
+            system: 'messages',
+            url: '/messages',
+            type: 'GET',
         });
     }
 }

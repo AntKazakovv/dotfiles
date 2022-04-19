@@ -3,6 +3,6 @@ $themeDefault: map-merge((
     'counterRight': ef.size(-1),
     'iconFill': var(--mc-baseOpacity),
     'iconFillHover': var(--mc-baseMain),
-    'iconFillHasUnread': var(--mc-warning),
-    'iconFillHasUnreadHover': var(--mc-warning-d10),
+    'iconFillHasUnread': var(--mc-baseMain),
+    'iconFillHasUnreadHover': var(--mc-warning),
 ), $customThemeDefault);

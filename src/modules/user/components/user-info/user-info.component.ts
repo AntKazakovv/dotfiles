@@ -49,6 +49,7 @@ export class UserInfoComponent extends AbstractComponent implements OnInit {
     public $params: Params.IUserInfoCParams;
     public isOpened: boolean;
     public dropdownBtnActive: boolean;
+    public hasNotifier: boolean;
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IUserInfoCParams,
@@ -63,6 +64,9 @@ export class UserInfoComponent extends AbstractComponent implements OnInit {
 
     public ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
+
+        this.hasNotifier = this.configService.get<boolean>('$base.profile.messages.use');
+
         if (this.configService.get<boolean>('$base.stickyHeader.use') &&
             !this.configService.get<boolean>('$base.stickyHeader.useCustomUserInfo')) {
             this.$params = Params.stickyThemeParams;

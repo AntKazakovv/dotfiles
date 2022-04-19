@@ -1,5 +1,6 @@
 import {
     AbstractModel,
+    GlobalHelper,
     IFromLog,
     IIndexing,
 } from 'wlc-engine/modules/core';
@@ -8,7 +9,6 @@ import {
     TInternaiMailStatus,
 } from 'wlc-engine/modules/internal-mails/system/interfaces/internal-mails.interface';
 
-import {DateTime} from 'luxon';
 import _assign from 'lodash-es/assign';
 import _isString from 'lodash-es/isString';
 
@@ -52,7 +52,7 @@ export class InternalMailModel extends AbstractModel<IInternalMail> {
      * @returns {string} day of creation of the mail
      */
     public get date(): string {
-        return DateTime.fromSQL(this.data.Created).toFormat('dd-MM-yyyy');
+        return GlobalHelper.toLocalTime(this.data.Created, 'SQL', 'dd-MM-yyyy HH:mm');
     }
 
     /**

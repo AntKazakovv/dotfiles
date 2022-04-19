@@ -6,6 +6,7 @@ import {
     DataService,
 } from 'wlc-engine/modules/core';
 import {CoreModule} from 'wlc-engine/modules/core/core.module';
+import {InternalMailsModule} from 'wlc-engine/modules/internal-mails/internal-mails.module';
 import {
     UserService,
     LimitationService,
@@ -109,6 +110,7 @@ export const components = {
     imports: [
         CommonModule,
         CoreModule,
+        InternalMailsModule,
         TranslateModule,
         UIRouterModule,
     ],

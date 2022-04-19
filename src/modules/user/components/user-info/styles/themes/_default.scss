@@ -17,6 +17,10 @@
             margin: ef.get-value($themeDefault, 'userInfoShortMargin');
         }
 
+        &-mails-notifier {
+            margin: ef.get-value($themeDefault, 'notifierMargin');
+        }
+
         &-dropdown {
             position: relative;
 
