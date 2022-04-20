@@ -82,7 +82,7 @@
                      class="{{$class}}__slider"
                      [slides]="slides"
                      [inlineParams]="sliderParams"
-                     (slideChangeTransitionEnd$)="onSlideChangeTransitionEnd($event)">
+                     (slideChangeTransitionEnd$)="onSlideChange($event)">
                     <div *ngIf="bonuses.length && !isSingleBonus" slot-container-end>
                         <div class="container swiper-button-container">
                             <button wlc-icon
@@ -164,7 +164,7 @@
             </div>
         </ng-container>
         <ng-container *ngSwitchCase="'partial'">
-            <div wlc-bonus-item [inlineParams]="calcBonusItemParams($any(blankBonus))"></div>
+            <div wlc-bonus-item [inlineParams]="calcBonusItemParams(blankBonus)"></div>
         </ng-container>
 
         <ng-container *ngSwitchDefault>

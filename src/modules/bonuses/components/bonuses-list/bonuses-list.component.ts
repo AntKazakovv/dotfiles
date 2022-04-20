@@ -55,6 +55,7 @@ import {
     BonusItemComponentEvents,
     ChosenBonusSetParams,
     ChosenBonusType,
+    IBonus,
 } from 'wlc-engine/modules/bonuses/system/interfaces/bonuses.interface';
 
 import * as Params from './bonuses-list.params';
@@ -72,6 +73,7 @@ export class BonusesListComponent extends AbstractComponent implements OnInit, O
     @Input() protected themeMod: Params.ThemeMod;
     @Input() protected customMod: Params.CustomMod;
     @Input() protected inlineParams: Params.IBonusesListCParams;
+
     @ViewChild(SliderComponent) public slider: SliderComponent;
     @HostBinding('class.single-bonus-swiper') isSingleBonus: boolean = false;
 
@@ -89,11 +91,11 @@ export class BonusesListComponent extends AbstractComponent implements OnInit, O
         textSide: 'right',
         control: new FormControl(),
         onChange: (checked: boolean) => {
-            checked ? this.chooseBlankBonus(true) : this.chooseBonusByPosition(this.chosenBonusIndex);
+            checked ? this.chooseBlankBonus() : this.chooseBonusByPosition(this.chosenBonusIndex);
         },
     };
     public noContentParams: INoContentCParams;
-    public blankBonus: Params.IBlankBonusParams;
+    public blankBonus: Bonus;
 
     protected promocode: string = '';
     protected itemsPerPage: number = 0;
@@ -131,12 +133,19 @@ export class BonusesListComponent extends AbstractComponent implements OnInit, O
         );
         this.cdr.detectChanges();
 
-        if (this.$params.common?.useBlankBonus) {
-            this.blankBonus = _cloneDeep(this.$params.common.blankBonus);
+        if (this.$params.common?.useBlankBonus && this.$params.common?.blankBonus) {
+            this.blankBonus = new Bonus(
+                {service: 'BonusesListComponent', method: 'ngOnInit'},
+                {
+                    ID: this.$params.common.blankBonus.id,
+                    Name: this.$params.common.blankBonus.name,
+                    Description: this.$params.common.blankBonus.description || '',
+                } as IBonus,
+                this.configService,
+                this.cachingService,
+            );
+
             this.blankBonus.isChoose = true;
-            if (this.blankBonus.description) {
-                this.blankBonus.description = this.translate.instant(this.blankBonus.description);
-            }
         }
 
         this.ready$.pipe(takeUntil(this.$destroy)).subscribe((isReady: boolean) => {
@@ -196,7 +205,7 @@ export class BonusesListComponent extends AbstractComponent implements OnInit, O
         this.unchooseBonuses();
     }
 
-    public chooseBlankBonus(upSlider?: boolean): void {
+    public chooseBlankBonus(): void {
         this.unchooseBonuses();
         setTimeout(() => {
             const isChosenBonus = _find(this.bonuses, ({isChoose}) => isChoose);
@@ -209,10 +218,6 @@ export class BonusesListComponent extends AbstractComponent implements OnInit, O
             this.checkBoxParams.control.setValue(true);
             this.cdr.detectChanges();
         }, 0);
-
-        if (this.slider && upSlider) {
-            this.bonusesToSlides(this.bonuses, false);
-        }
 
         this.configService.set<ChosenBonusType>({
             name: ChosenBonusSetParams.ChosenBonus,
@@ -241,9 +246,9 @@ export class BonusesListComponent extends AbstractComponent implements OnInit, O
         );
     }
 
-    public onSlideChangeTransitionEnd(swiper: Swiper): void {
+    public onSlideChange(swiper: Swiper): void {
         if (swiper.params.slidesPerView === 1 || swiper.params.slidesPerView === 'auto') {
-            this.chooseBonusByPosition(swiper.activeIndex);
+            this.chooseBonusByPosition(swiper.realIndex);
         }
     }
 
@@ -268,15 +273,12 @@ export class BonusesListComponent extends AbstractComponent implements OnInit, O
             {name: BonusItemComponentEvents.reg},
             {name: BonusItemComponentEvents.deposit},
         ], (bonus: Bonus): void => {
+
             this.bonusesService.unchooseAllBonuses();
             bonus.isChoose = true;
 
-            if (this.blankBonus) {
+            if (this.blankBonus && this.blankBonus.id !== bonus.id) {
                 this.blankBonus.isChoose = false;
-            }
-
-            if (this.slider) {
-                this.bonusesToSlides(this.bonuses, false);
             }
 
             this.chosenBonusIndex = _findIndex(this.bonuses,
@@ -420,6 +422,7 @@ export class BonusesListComponent extends AbstractComponent implements OnInit, O
     protected chooseBonusByPosition(pos: number): void {
         if (this.bonuses.length) {
             this.bonuses[pos].isChoose = true;
+
             this.eventService.emit({
                 name: BonusItemComponentEvents.reg,
                 data: this.bonuses[pos],
@@ -490,7 +493,7 @@ export class BonusesListComponent extends AbstractComponent implements OnInit, O
 
         if (this.blankBonus) {
             this.blankBonus.isChoose = !this.chosenBonus;
-            this.bonuses.push(this.blankBonus as Bonus);
+            this.bonuses.push(this.blankBonus);
         }
 
         this.prepareBonuses();

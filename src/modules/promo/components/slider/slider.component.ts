@@ -85,6 +85,7 @@ export class SliderComponent extends AbstractComponent
 
     @Output() protected handleBeforeResize: EventEmitter<SwiperCore> = new EventEmitter();
     @Output() public slideChangeTransitionEnd$ = new EventEmitter<Swiper>();
+    @Output() public slideChangeTransitionStart$ = new EventEmitter<Swiper>();
 
     public sliderWrap: Element;
     public $params: Params.ISliderCParams;
@@ -141,6 +142,7 @@ export class SliderComponent extends AbstractComponent
         setTimeout(() => {
             this.updateView();
             this.initObserver();
+            this.initNavigation();
         }, 0);
         this.initEventHandlers();
         this.ready = true;
@@ -222,6 +224,11 @@ export class SliderComponent extends AbstractComponent
         if (this.observer) {
             this.observer.disconnect();
         }
+    }
+
+    protected initNavigation(): void {
+        this.swiper.swiperRef.navigation.init();
+        this.swiper.swiperRef.navigation.update();
     }
 
     protected initObserver(): void {
@@ -367,6 +374,11 @@ export class SliderComponent extends AbstractComponent
         this.swiper.s_slideChangeTransitionEnd.pipe(takeUntil(this.$destroy))
             .subscribe(() => {
                 this.slideChangeTransitionEnd$.emit(this.swiper.swiperRef);
+            });
+
+        this.swiper.s_slideChangeTransitionStart.pipe(takeUntil(this.$destroy))
+            .subscribe(() => {
+                this.slideChangeTransitionStart$.emit(this.swiper.swiperRef);
             });
     }
 

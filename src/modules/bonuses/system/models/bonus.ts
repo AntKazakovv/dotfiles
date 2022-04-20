@@ -1,4 +1,5 @@
 import {DateTime} from 'luxon';
+import {Subject} from 'rxjs';
 import _assign from 'lodash-es/assign';
 import _map from 'lodash-es/map';
 import _keys from 'lodash-es/keys';
@@ -31,15 +32,18 @@ import {
 
 export class Bonus extends AbstractModel<IBonus> {
     public isReady: boolean = true;
-    public isChoose: boolean = false;
+    public onChooseChange: Subject<boolean> = new Subject<boolean>();
+
     protected _userCurrency: string;
+    protected _isChoose: boolean = false;
+    protected $descriptionClean: string;
+
     private regEvents = ['deposit first', 'registration', 'verification'];
     private depEvents = ['deposit', 'deposit first', 'deposit repeated', 'deposit sum'];
     private welcomeEvents = ['registration', 'deposit first'];
     private $isReg: boolean;
     private $isDep: boolean;
     private readonly _tag: string;
-    protected $descriptionClean: string;
 
     constructor(
         from: IFromLog,
@@ -63,6 +67,15 @@ export class Bonus extends AbstractModel<IBonus> {
 
     public get data(): IBonus {
         return super.data;
+    }
+
+    public set isChoose(value: boolean) {
+        this._isChoose = value;
+        this.onChooseChange.next(value);
+    }
+
+    public get isChoose(): boolean {
+        return this._isChoose;
     }
 
     public set userCurrency(value: string) {
@@ -289,14 +302,14 @@ export class Bonus extends AbstractModel<IBonus> {
     }
 
     public get maxBet(): number {
-        return _toNumber(this.data.MaxBet[this._userCurrency]) ||
+        return _toNumber(this.data.MaxBet?.[this._userCurrency]) ||
             _toNumber(this.data.MaxBet?.EUR) ||
             _toNumber(this.data.Conditions?.MaxBet?.Currency) ||
             _toNumber(this.data.Conditions?.MaxBet?.EUR) || 0;
     }
 
     public get minBet(): number {
-        return _toNumber(this.data.MinBet[this._userCurrency]) ||
+        return _toNumber(this.data.MinBet?.[this._userCurrency]) ||
             _toNumber(this.data.MinBet?.EUR) ||
             _toNumber(this.data.Conditions?.MinBet?.Currency) ||
             _toNumber(this.data.Conditions?.MinBet?.EUR) || 0;
@@ -447,7 +460,7 @@ export class Bonus extends AbstractModel<IBonus> {
      * @returns {number} bonus min deposit
      */
     public get minDeposit(): number {
-        return _toNumber(this.amountMin[this._userCurrency]) ||
+        return _toNumber(this.amountMin?.[this._userCurrency]) ||
             _toNumber(this.amountMin?.EUR) ||
             _toNumber(this.conditions?.AmountMin?.Currency) ||
             _toNumber(this.conditions?.AmountMin?.EUR) || 0;
@@ -457,7 +470,7 @@ export class Bonus extends AbstractModel<IBonus> {
      * @returns {number} bonus max deposit
      */
     public get maxDeposit(): number {
-        return _toNumber(this.amountMax[this._userCurrency]) ||
+        return _toNumber(this.amountMax?.[this._userCurrency]) ||
             _toNumber(this.amountMax?.EUR) ||
             _toNumber(this.conditions?.AmountMax?.Currency) ||
             _toNumber(this.conditions?.AmountMax?.EUR) || 0;
@@ -467,7 +480,7 @@ export class Bonus extends AbstractModel<IBonus> {
      * @returns {number} multiplier for relative bonus
      */
     public get multiplier(): number {
-        if (this.results[this.target]?.Type === 'relative') {
+        if (this.results?.[this.target]?.Type === 'relative') {
             return _toNumber(this.results[this.target]?.Value) / 100;
         }
     }
@@ -492,7 +505,7 @@ export class Bonus extends AbstractModel<IBonus> {
      * @returns {number} bonus limit value
      */
     public get limitAmount(): number {
-        if (this.results[this.target].Type === 'relative') {
+        if (this.results?.[this.target].Type === 'relative') {
             return _toNumber(this.results?.bonus?.LimitValue[this._userCurrency]) ||
                 _toNumber(this.results[this.target].LimitValue?.EUR) || 0;
         }
@@ -509,7 +522,7 @@ export class Bonus extends AbstractModel<IBonus> {
      * @returns {number} bonus wager value
      */
     public get wager(): number {
-        const resultsTarget = this.results[this.target];
+        const resultsTarget = this.results?.[this.target];
         if (this.target === 'balance') {
             return _toNumber(this.results?.balance?.ReleaseWagering) || 0;
         } else {
@@ -524,14 +537,14 @@ export class Bonus extends AbstractModel<IBonus> {
      * @returns {boolean} bonus wagering type is absolute
      */
     public get isWagerAbsolute(): boolean {
-        return this.target !== 'balance' && this.results[this.target]?.WageringType === 'absolute';
+        return this.target !== 'balance' && this.results?.[this.target]?.WageringType === 'absolute';
     }
 
     /**
      * @returns {boolean} is bonus wager in EUR (need for experience and loyalty bonuses)
      */
     public get isWagerEUR(): boolean {
-        const resultsTarget = this.results[this.target];
+        const resultsTarget = this.results?.[this.target];
         if (this.isWagerAbsolute) {
             return !resultsTarget?.AwardWagering[this._userCurrency] && !!resultsTarget?.AwardWagering?.EUR;
         }
@@ -541,7 +554,7 @@ export class Bonus extends AbstractModel<IBonus> {
      * @returns {number} bonus value
      */
     public get value(): number {
-        const resultsTarget = this.results[this.target];
+        const resultsTarget = this.results?.[this.target];
         if (!resultsTarget) {
             return 0;
         }
@@ -603,7 +616,11 @@ export class Bonus extends AbstractModel<IBonus> {
      * @returns {string} bonus target name
      */
     public get viewTarget(): string {
-        const resultsTarget = this.results[this.target];
+        if (!this.id) {
+            return;
+        }
+
+        const resultsTarget = this.results?.[this.target];
         if (!resultsTarget) {
             return 'default';
         }
@@ -666,7 +683,7 @@ export class Bonus extends AbstractModel<IBonus> {
      * @param type action type ('inventory' | 'cancel' | 'expired' | 'subscribe' | 'unsubscribe')
      */
     public async addToCache(type: ActionType): Promise<void> {
-        const target = this.results[this.target];
+        const target = this.results?.[this.target];
         if (this.event === 'sign up'
             && type === 'subscribe'
             && ((this.target === 'balance' && _toString(target?.ReleaseWagering) === '0')

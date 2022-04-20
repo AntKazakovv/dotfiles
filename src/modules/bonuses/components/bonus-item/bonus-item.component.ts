@@ -123,7 +123,7 @@ export class BonusItemComponent extends AbstractComponent implements OnInit {
                 } else if (this.hasModifier('blank')) {
                     this.removeModifiers('blank');
                 }
-                this.cdr.markForCheck();
+                this.cdr.detectChanges();
             }, this.$destroy);
         }
 
@@ -162,6 +162,13 @@ export class BonusItemComponent extends AbstractComponent implements OnInit {
                     this.cdr.markForCheck();
                 }
             });
+
+        if (this.bonus) {
+            this.bonus.onChooseChange.pipe(takeUntil(this.$destroy))
+                .subscribe((): void => {
+                    this.cdr.detectChanges();
+                });
+        }
     }
 
     /**
@@ -195,7 +202,7 @@ export class BonusItemComponent extends AbstractComponent implements OnInit {
                 name: BonusItemComponentEvents['reg'],
                 data: this.bonus,
             });
-            this.cdr.markForCheck();
+            this.cdr.detectChanges();
         }
     }
 
@@ -203,7 +210,9 @@ export class BonusItemComponent extends AbstractComponent implements OnInit {
      * Emit choose blank bonus event
      */
     public chooseBlankBonus(): void {
+        this.bonus.isChoose = true;
         this.eventService.emit({name: 'CHOOSE_BLANK_BONUS'});
+        this.cdr.detectChanges();
     }
 
     /**
