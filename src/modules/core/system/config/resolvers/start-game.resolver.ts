@@ -8,7 +8,7 @@ import {
     ResolveTypes,
     StateObject,
 } from '@uirouter/core';
-import {Inject} from '@angular/core';
+
 import {Subscription} from 'rxjs';
 import {first} from 'rxjs/operators';
 import _find from 'lodash-es/find';
@@ -34,6 +34,7 @@ import {
     Bonus,
     BonusesService,
 } from 'wlc-engine/modules/bonuses';
+import {IPrevState} from 'wlc-engine/modules/core/system/services/state-history/state-history.service';
 import {
     Game,
     GamesFilterService,
@@ -53,7 +54,7 @@ import {
 import {AddProfileInfoComponent} from 'wlc-engine/modules/user/components/add-profile-info';
 import {FormElements} from 'wlc-engine/modules/core/system/config/form-elements';
 import {IFormComponent} from 'wlc-engine/modules/core/components/form-wrapper/form-wrapper.component';
-import {WINDOW} from 'wlc-engine/modules/app/system/tokens/window';
+import {StateHistoryService} from 'wlc-engine/modules/core';
 
 export enum RejectReason {
     RealPlayDisabled,
@@ -70,7 +71,6 @@ export enum RejectReason {
 export const startGameResolver: ResolveTypes = {
     token: 'startGame',
     deps: [
-        WINDOW,
         ConfigService,
         LogService,
         StateService,
@@ -80,9 +80,9 @@ export const startGameResolver: ResolveTypes = {
         EventService,
         InjectionService,
         GamesFilterService,
+        StateHistoryService,
     ],
     resolveFn: (
-        window: Window,
         configService: ConfigService,
         logService: LogService,
         stateService: StateService,
@@ -92,9 +92,9 @@ export const startGameResolver: ResolveTypes = {
         eventService: EventService,
         injectionService: InjectionService,
         gamesFilterService: GamesFilterService,
+        stateHistoryService: StateHistoryService,
     ) => {
         return new StartGameHandler(
-            window,
             configService,
             logService,
             stateService,
@@ -104,13 +104,13 @@ export const startGameResolver: ResolveTypes = {
             eventService,
             injectionService,
             gamesFilterService,
+            stateHistoryService,
         ).result.promise;
     },
 };
 
 class StartGameHandler {
     public result = new Deferred();
-
     private isDemo: boolean = false;
     private authenticated: boolean = false;
     private realPlayDisabled: boolean = false;
@@ -119,13 +119,12 @@ class StartGameHandler {
     private merchantId: number;
     private game: Game;
     private filterCacheCleared$ = new Deferred();
-
     private gamesCatalogService: GamesCatalogService;
     private merchantFieldsService: MerchantFieldsService;
     private merchantsWithOwnWallet: number[];
+    private previousState: StateObject;
 
     constructor(
-        @Inject(WINDOW) private window: Window,
         private configService: ConfigService,
         private logService: LogService,
         private stateService: StateService,
@@ -135,6 +134,7 @@ class StartGameHandler {
         private eventService: EventService,
         private injectionService: InjectionService,
         private gamesFilterService: GamesFilterService,
+        private stateHistoryService: StateHistoryService,
     ) {
         this.init();
     }
@@ -167,10 +167,20 @@ class StartGameHandler {
 
         this.prepare();
 
+        this.previousState = this.transition.$from();
+
+        if (this.previousState.name !== 'app.gameplay') {
+
+            const prevStateToSave: IPrevState = {
+                state: this.previousState,
+                params: this.transition.params('from'),
+            };
+            this.stateHistoryService.lastNotGamePlayState = prevStateToSave;
+        }
+
         if (!this.checksForPlayReal() || !await this.checkGame()) {
             return;
         }
-
         if (this.authenticated) {
             this.checksForAuthenticated();
         } else {
@@ -538,16 +548,22 @@ class StartGameHandler {
     private closeGameHandler(): Subscription {
         const filterCache: null | IGamesFilterData =
             _isEmpty(this.gamesFilterService.filterCache) ? null : {...this.gamesFilterService.filterCache};
-        const previousState: StateObject = this.transition.$from();
 
         const closeGameSubscription$: Subscription = this.eventService.subscribe(
             {name: 'CLOSE_GAME'},
             () => {
-                if (!previousState.name) {
+                if (!this.previousState.name) {
                     this.router.stateService.go('app.home');
                     return;
                 }
-                this.window.history.go(previousState.name === 'app.gameplay' ? -2 : -1);
+
+                if (this.previousState.name !== 'app.gameplay') {
+                    this.router.stateService.go(this.previousState, this.transition.params('from'));
+                } else {
+                    const lastStateNotGamePlay = this.stateHistoryService.lastNotGamePlayState;
+                    this.router.stateService.go(lastStateNotGamePlay.state, lastStateNotGamePlay.params);
+                    this.stateHistoryService.lastNotGamePlayState = null;
+                }
 
                 if (filterCache) {
                     this.filterCacheCleared$.promise.then(() => {
@@ -560,7 +576,6 @@ class StartGameHandler {
                 }
             },
         );
-
         return closeGameSubscription$;
     }
 }
