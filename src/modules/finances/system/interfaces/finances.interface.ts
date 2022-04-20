@@ -33,5 +33,10 @@ export interface IBet {
 
 export interface IAutoSelect {
     autoSelect: boolean;
-    alias?: string;
+    alias?: string | number | IAliasByDevice;
+}
+
+export interface IAliasByDevice {
+    mobile?: string | number;
+    desktop?: string | number;
 }

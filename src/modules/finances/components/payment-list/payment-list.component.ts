@@ -28,7 +28,10 @@ import {
     ConfigService,
 } from 'wlc-engine/modules/core';
 import {FinancesService} from 'wlc-engine/modules/finances/system/services/finances/finances.service';
-import {TPaymentsMethods} from 'wlc-engine/modules/finances/system/interfaces';
+import {
+    IAliasByDevice,
+    TPaymentsMethods,
+} from 'wlc-engine/modules/finances/system/interfaces';
 import {PaymentSystem} from 'wlc-engine/modules/finances/system/models/payment-system.model';
 import {
     IconListAbstract,
@@ -77,6 +80,7 @@ export class PaymentListComponent extends IconListAbstract<Params.IPaymentListCP
     public activeIcon: IconModel;
     public activeName: string = '';
     public paymentDescription: string = '';
+    public isMobile: boolean;
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IPaymentListCParams,
@@ -90,6 +94,7 @@ export class PaymentListComponent extends IconListAbstract<Params.IPaymentListCP
         @Inject(WINDOW) private window: Window,
     ) {
         super({injectParams, defaultParams: Params.defaultParams}, configService, eventService);
+        this.isMobile = this.actionService.getDeviceType() === 'mobile';
     }
 
     public ngOnInit(): void {
@@ -172,12 +177,12 @@ export class PaymentListComponent extends IconListAbstract<Params.IPaymentListCP
                 this.selectPayment(this.systems[0]);
             }
 
-            if (this.configService.get<boolean>('$finances.payment.autoSelect')) {
-                const alias: string = this.configService.get<string>('$finances.payment.alias');
-                this.currentSystem = alias ? this.systems.find((system) => system.alias === alias) : systems[0];
-                if (this.currentSystem) {
-                    this.selectPayment(this.currentSystem);
-                }
+            if (this.systems.length > 1 && this.configService.get<boolean>('$finances.payment.autoSelect')) {
+                this.currentSystem = this.getAutoSelected();
+            }
+
+            if (this.currentSystem) {
+                this.selectPayment(this.currentSystem);
             }
 
             if (this.currentSystem && !this.systems.some((s) => s.id === this.currentSystem.id)) {
@@ -188,6 +193,31 @@ export class PaymentListComponent extends IconListAbstract<Params.IPaymentListCP
             }
             this.cdr.markForCheck();
         });
+    }
+
+    /**
+     * Метод проверяет в конфиге название алиаса, его номер в списке (в том числе обратный) или объект
+     * Если в объекте указан только один девайс, то для второго автоматический выбор не сработает
+     * @returns PaymentSystem | null
+     */
+
+    protected getAutoSelected(): PaymentSystem | null {
+        let alias: string | number | IAliasByDevice = this.configService.get('$finances.payment.alias');
+
+        if (typeof(alias) === 'object') {
+            alias = this.isMobile ? alias.mobile : alias.desktop;
+        }
+
+        if (typeof(alias) === 'number') {
+            const index: number = (alias > 0) ? alias - 1 : this.systems.length + alias;
+            return this.systems[index] || this.systems[0];
+        }
+
+        if (typeof(alias) === 'string')  {
+            return this.systems.find((system: PaymentSystem) => system.alias === alias) || this.systems[0];
+        }
+
+        return null;
     }
 
     protected setPaymentsIconsList(): void {
