@@ -64,7 +64,7 @@
 
                 .wlc-slider--type-default[data-wlc-element]:not(.wlc-slider--overflow) + .ng-star-inserted .swiper-button-disabled,
                 .wlc-slider--type-default:not(.wlc-slider--overflow) .swiper-button-disabled {
-                    display: block;
+                    display: none;
                 }
             }
         }
