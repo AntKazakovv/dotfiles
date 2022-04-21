@@ -12,7 +12,9 @@ describe('/api/v1/games', () => {
             .then((res: any) => res.json())
             .then((response: unknown) => {
                 (expect(interfaceName) as any).toBeImplemented(response);
-            }).finally(() => {
+            })
+            .catch((err: unknown) => fail(err))
+            .finally(() => {
                 done();
             });
     });

@@ -14,7 +14,9 @@ describe('/api/v1/paymentSystems', () => {
             .then((res: any) => res.json())
             .then((response: {data: unknown}) => {
                 (expect(interfaceName) as any).toBeImplemented(response.data);
-            }).finally(() => {
+            })
+            .catch((err: unknown) => fail(err))
+            .finally(() => {
                 done();
             });
     });
@@ -25,7 +27,9 @@ describe('/api/v1/paymentSystems', () => {
             .then((res: any) => res.json())
             .then((response: {data: unknown}) => {
                 (expect(interfaceName) as any).toBeImplemented(response.data);
-            }).finally(() => {
+            })
+            .catch((err: unknown) => fail(err))
+            .finally(() => {
                 logout().then(done);
             });
     });
