@@ -1,9 +1,9 @@
 <div *ngIf="steps.length && ready" class="container {{$class}}--{{deviceType}}">
     <div *ngIf="deviceType !== 'desktop'" class="{{$class}}__tabs-head">
         <div *ngFor="let step of availableSteps; index as $index"
-            class="{{$class}}__tab"
-            [class.active]="isActiveStep($index)"
-            (click)="selectTab($index)">
+             class="{{$class}}__tab"
+             [class.active]="isActiveStep($index)"
+             (click)="selectTab($index)">
             <span class="{{$class}}__tab-number">{{$index+1}}</span>
         </div>
     </div>
@@ -28,24 +28,24 @@
         </ng-container>
 
         <ng-template #sref let-step="step" let-index="index">
-            <a class="{{$class}}__step {{$class}}__step--link"
-                uiSref="{{step.sref}}" 
-                [uiParams]="getSrefParams(step.srefparams)"
-                [class.active]="isActiveStep(index)">
+            <a class="{{$class}}__step {{$class}}__step--{{getStepClassByType(step)}}"
+               uiSref="{{step.sref}}"
+               [uiParams]="getSrefParams(step.srefparams)"
+               [class.active]="isActiveStep(index)">
                 <ng-container [ngTemplateOutlet]="stepContent" [ngTemplateOutletContext]="{step: step}"></ng-container>
             </a>
         </ng-template>
 
         <ng-template #href let-step="step" let-index="index">
-            <a href="{{step.href}}" 
-                class="{{$class}}__step {{$class}}__step--link"
-                [class.active]="isActiveStep(index)">
+            <a class="{{$class}}__step {{$class}}__step--{{getStepClassByType(step)}}"
+               href="{{step.href}}"
+               [class.active]="isActiveStep(index)">
                 <ng-container [ngTemplateOutlet]="stepContent" [ngTemplateOutletContext]="{step: step}"></ng-container>
             </a>
         </ng-template>
 
         <ng-template #modal let-step="step" let-index="index">
-            <button class="{{$class}}__step {{$class}}__step--modal"
+            <button class="{{$class}}__step {{$class}}__step--{{getStepClassByType(step)}}"
                     [class.active]="isActiveStep(index)"
                     (click)="showModal(step.modal)">
                     <ng-container [ngTemplateOutlet]="stepContent" [ngTemplateOutletContext]="{step: step}"></ng-container>
@@ -65,7 +65,10 @@
             <span class="{{$class}}__step-desc-wrap">
                 <span class="{{$class}}__step-desc">
                     {{step.desc}}
-                    <span *ngIf="getStepType(step) === 'modal'" wlc-icon iconPath="/wlc/icons/arrow.svg"></span>
+                    <span *ngIf="getStepClassByType(step) === 'action'"
+                          wlc-icon
+                          iconPath="/wlc/icons/arrow.svg">
+                    </span>
                 </span>
             </span>
         </ng-template>

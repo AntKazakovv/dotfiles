@@ -38,7 +38,6 @@ $themeDefault: map-merge((
     ),
     'desktopStepDisplay': grid,
     'desktopStepColumns': 1fr,
-    'desktopStepTextDecoration': none,
 
     'mobileStepsDisplay': grid,
     'mobileStepsColumns': 1fr,
@@ -56,10 +55,10 @@ $themeDefault: map-merge((
     'stepActiveJustifyContent': center,
     'stepActiveTextAlign': center,
     'stepActiveDescJustifyContent': center,
+    'stepTextAlign': left,
 
     'titleTextStyle': 'QoteTextBold',
     'titleColor': var(--mc-baseMain),
-    'titleTextAlign': left,
     'titleMargin': (
         375: 0 0 ef.size(1) 0,
     ),
@@ -72,15 +71,9 @@ $themeDefault: map-merge((
     'linkDescBorderBottom': 1px solid var(--mc-main),
     'linkDescHoverBorderBottom': 1px solid var(--mc-main-l20),
 
-    'modalBtnWrapDisplay': flex,
-    'modalBtnWrapJustifyContent': (
-        375: center,
-        1024: flex-start
-    ),
     'modalBtnPadding': 0,
     'modalBtnBackground': transparent,
     'modalBtnBorder': none,
-    'modalBtnDescDisplay': inline-flex,
     'modalBtnIconMarginLeft': 5px,
     'modalBtnIconTransform': rotateZ(-90deg),
     'modalBtnTextStyle': 'ButtonText',

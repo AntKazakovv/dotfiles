@@ -34,6 +34,7 @@ export interface IStep {
     modal?: string;
     visibility?: 'all' | 'auth' | 'not-auth';
     order?: string | number;
+    descriptionType?: Params.DescriptionType;
 }
 
 @Component({
@@ -151,6 +152,15 @@ export class PromoStepsComponent extends AbstractComponent implements OnInit {
         } else {
             return 'default';
         }
+    }
+
+    /**
+     * Get class for styles link and visible arrow
+     * @param step {IStep} - promo step
+     * @returns {Params.DescriptionType} - class 'link' or 'action'
+     */
+    public getStepClassByType(step: IStep): Params.DescriptionType {
+        return step.descriptionType || (this.getStepType(step) === 'modal' ? 'action' : 'link');
     }
 
     /**

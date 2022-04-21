@@ -20,7 +20,6 @@
                     @include bm.get-mq-map('max-width', $themeDefault, 'desktopStepsMaxWidth');
                     display: ef.get-value($themeDefault, 'desktopStepDisplay');
                     grid-template-columns: ef.get-value($themeDefault, 'desktopStepColumns');
-                    text-decoration: ef.get-value($themeDefault, 'desktopStepTextDecoration');
                 }
             }
         }
@@ -94,9 +93,12 @@
         }
 
         &__step {
+            text-align: ef.get-value($themeDefault, 'stepTextAlign');
+            text-decoration: none;
 
             &--link {
-                text-decoration: none;
+                background: unset;
+                border: unset;
 
                 .wlc-promo-steps__step-desc {
                     @include bm.transition;
@@ -113,25 +115,20 @@
                 }
             }
 
-            &--modal {
+            &--action {
                 padding: ef.get-value($themeDefault, 'modalBtnPadding');
                 background: ef.get-value($themeDefault, 'modalBtnBackground');
                 border: ef.get-value($themeDefault, 'modalBtnBorder');
 
-                .wlc-promo-steps__step-desc-wrap {
-                    @include bm.get-mq-map('display', $themeDefault, 'modalBtnWrapDisplay');
-                    @include bm.get-mq-map('justify-content', $themeDefault, 'modalBtnWrapJustifyContent');
-                }
-
                 .wlc-promo-steps__step-desc {
                     @include text.get-text-style(ef.get-value($themeDefault, 'modalBtnTextStyle'), ef.get-value($themeDefault, 'modalBtnColor'));
                     @include bm.transition(color);
-                    display: ef.get-value($themeDefault, 'modalBtnDescDisplay');
                     font-size: ef.get-value($themeDefault, 'modalBtnTextSize');
 
                     ::ng-deep {
 
                         .wlc-icon {
+                            position: absolute;
                             margin-left: ef.get-value($themeDefault, 'modalBtnIconMarginLeft');
 
                             svg {
@@ -162,7 +159,6 @@
         &__step-title {
             @include bm.get-mq-map('margin', $themeDefault, 'titleMargin');
             @include text.get-text-style(ef.get-value($themeDefault, 'titleTextStyle'), ef.get-value($themeDefault, 'titleColor'));
-            text-align: ef.get-value($themeDefault, 'titleTextAlign');
         }
 
         &__step-desc {
