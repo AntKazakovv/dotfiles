@@ -34,6 +34,7 @@ import _map from 'lodash-es/map';
 import _keys from 'lodash-es/keys';
 import _concat from 'lodash-es/concat';
 import _find from 'lodash-es/find';
+import _isEqual from 'lodash-es/isEqual';
 
 import {
     IIndexing,
@@ -182,7 +183,7 @@ export class DepositWithdrawComponent extends AbstractDepositWithdrawComponent<P
             this.userService.userInfo$
                 .pipe(takeUntil(this.$destroy))
                 .subscribe((userInfo: UserInfo): void => {
-                    if(!userInfo) {
+                    if (!userInfo) {
                         return;
                     }
                     this.userTotalBonus = userInfo.balance;
@@ -377,6 +378,11 @@ export class DepositWithdrawComponent extends AbstractDepositWithdrawComponent<P
 
     private async depositAction(amount: number, params: IIndexing<string>, saveProfile: boolean = true): Promise<void> {
         this.isShowIframe = this.depositInIframe && this.currentSystem.appearance === 'iframe';
+
+        const isChangedParams = !_isEqual(
+            this.userProfile?.extProfile?.paymentSystems[this.currentSystem.alias].additionalParams, params,
+        );
+
         try {
             const response = await this.financesService.deposit(
                 this.currentSystem.id,
@@ -384,7 +390,7 @@ export class DepositWithdrawComponent extends AbstractDepositWithdrawComponent<P
                 params,
             );
 
-            if (saveProfile) {
+            if (saveProfile && isChangedParams) {
                 await this.saveProfile();
             }
 
