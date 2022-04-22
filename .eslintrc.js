@@ -36,7 +36,7 @@ module.exports = {
         'comma-dangle': ['error', 'always-multiline'],
         'indent': ['error', 4, {'SwitchCase': 1}],
         'quotes': ['error', 'single'],
-        'max-len': ['warn', {code: 120}],
+        'max-len': ['error', {code: 120}],
         '@typescript-eslint/no-unused-vars': 'error',
         '@typescript-eslint/object-curly-spacing': ['error', 'never'],
         'import/no-cycle': 'error',

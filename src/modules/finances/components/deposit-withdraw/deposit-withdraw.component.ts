@@ -99,7 +99,9 @@ type TFormData = IIndexing<string | number | boolean>;
     styleUrls: ['./styles/deposit-withdraw.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class DepositWithdrawComponent extends AbstractDepositWithdrawComponent<Params.IDepositWithdrawCParams> implements OnInit {
+export class DepositWithdrawComponent
+    extends AbstractDepositWithdrawComponent<Params.IDepositWithdrawCParams>
+    implements OnInit {
 
     public showModalCryptoPayment: boolean = true;
     public $params: Params.IDepositWithdrawCParams;

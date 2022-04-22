@@ -27,7 +27,9 @@ import * as Params from './piq-cashier.params';
     styleUrls: ['./styles/piq-cashier.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class PIQCashierComponent extends AbstractDepositWithdrawComponent<Params.IPIQCashierCParams> implements OnInit, OnDestroy {
+export class PIQCashierComponent
+    extends AbstractDepositWithdrawComponent<Params.IPIQCashierCParams>
+    implements OnInit, OnDestroy {
 
     public ready = false;
     public $params: Params.IPIQCashierCParams;
