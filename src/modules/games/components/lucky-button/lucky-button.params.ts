@@ -11,6 +11,7 @@ export interface IFeelingLuckyButtonCParams
         actionText?: string;
         actionTextIcon?: string;
         animateSprite?: IAnimateSpriteCParams;
+        actionType?: 'random-game' | 'carousel';
 };
 
 export const defaultParams: IFeelingLuckyButtonCParams = {
@@ -24,4 +25,5 @@ export const defaultParams: IFeelingLuckyButtonCParams = {
     animateSprite: {
         imageUrl: '/gstatic/sprites/dice-sprite.png',
     },
+    actionType: 'random-game',
 };

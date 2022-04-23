@@ -19,6 +19,7 @@ import {
     debounce,
     filter,
     takeUntil,
+    tap,
 } from 'rxjs/operators';
 
 import _min from 'lodash-es/min';
@@ -30,8 +31,9 @@ import {
     IMixedParams,
 } from 'wlc-engine/modules/core/system/classes/abstract.component';
 import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
-import {ActionService} from 'wlc-engine/modules/core/system/services';
+import {ActionService} from 'wlc-engine/modules/core/system/services/action/action.service';
 import {WINDOW} from 'wlc-engine/modules/app/system';
+import {Deferred} from 'wlc-engine/modules/core/system/classes/deferred.class';
 
 import * as Params from './animate-sprite.params';
 
@@ -57,14 +59,17 @@ export class AnimateSpriteComponent extends AbstractComponent implements OnInit,
 
     protected playUntilMouseLeave: boolean = false;
     protected isPlaying: boolean = false;
-    protected inited: boolean = false;
     protected shouldAnimationPlayFromOut: boolean = false;
     protected activeFrame: number = 0;
     protected rafID: ReturnType<typeof requestAnimationFrame>;
     protected currentCycleCount: number = 0;
+    protected ready: Deferred<void> = new Deferred();
+    protected isSpriteVisible: boolean = false;
 
     protected animationStop$: Subject<void> = new Subject();
     protected animationStart$: Subject<void> = new Subject();
+    protected visible$: Subject<void> = new Subject();
+    protected unVisible$: Subject<void> = new Subject();
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IAnimateSpriteCParams,
@@ -93,18 +98,50 @@ export class AnimateSpriteComponent extends AbstractComponent implements OnInit,
         this.window.cancelAnimationFrame(this.rafID);
     }
 
-    protected setSubscribes(): void {
+    protected async setSubscribes(): Promise<void> {
         this.subscribeImageLoaded();
+        await this.ready.promise;
+        this.subscribeVisibility();
+        this.subscribeResize();
+        this.subscribeIntersection();
         this.subscribeAnimationStart();
         this.subscribeAnimationStop();
+
         this.subscribeOnEvent();
         this.subscribeOnEventFromOut();
         this.setAutoAnimating();
-        this.subscribeResize();
+    }
+
+    protected subscribeVisibility(): void {
+        if (this.$params.intersection.use) {
+            this.visible$
+                .pipe(takeUntil(this.$destroy))
+                .subscribe(() => {
+                    this.isSpriteVisible = true;
+
+                    if (
+                        this.activeFrame > 0
+                        && this.activeFrame <= this.$params.framesCount
+                        && this.$params.fullAnimatingCycle
+                    ) {
+                        this.runAnimate();
+                    }
+
+                    this.setAutoAnimating();
+                });
+
+            this.unVisible$
+                .pipe(takeUntil(this.$destroy))
+                .subscribe(() => {
+                    this.isSpriteVisible = false;
+                    this.animationStop$.next();
+                    this.window.cancelAnimationFrame(this.rafID);
+                });
+        }
     }
 
     protected runAnimate(): void {
-        if (this.isPlaying || !this.inited) {
+        if (this.isPlaying) {
             return;
         }
 
@@ -189,7 +226,7 @@ export class AnimateSpriteComponent extends AbstractComponent implements OnInit,
             .pipe(takeUntil(this.$destroy))
             .subscribe(() => {
                 this.calc();
-                this.inited = true;
+                this.ready.resolve();
             });
     }
 
@@ -213,21 +250,22 @@ export class AnimateSpriteComponent extends AbstractComponent implements OnInit,
         if (use) {
             timer(_random(intervalFrom, intervalTo))
                 .pipe(
+                    takeUntil(this.unVisible$),
                     takeUntil(this.animationStart$),
                     takeUntil(this.$destroy),
                 )
-                .subscribe(() => {
-                    this.runAnimate();
-                });
+                .subscribe(() => this.runAnimate());
         }
     }
 
     protected subscribeAnimationStop(): void {
         this.animationStop$
-            .pipe(takeUntil(this.$destroy))
+            .pipe(
+                tap(() => this.isPlaying = false),
+                filter(() => this.isSpriteVisible || !this.$params.intersection.use),
+                takeUntil(this.$destroy),
+            )
             .subscribe(() => {
-                this.isPlaying = false;
-
                 if (this.playUntilMouseLeave) {
                     this.runAnimate();
                     return;
@@ -297,5 +335,21 @@ export class AnimateSpriteComponent extends AbstractComponent implements OnInit,
         canvas.height = this.imageSizes.height;
         this.context = canvas.getContext('2d');
         this.drawImage();
+    }
+
+    protected subscribeIntersection(): void {
+        const {use, intersectionSettings} = this.$params.intersection;
+
+        if (use) {
+            const observer = new IntersectionObserver(
+                (entries) => {
+                    entries[entries.length - 1].isIntersecting ? this.visible$.next() : this.unVisible$.next();
+                },
+                intersectionSettings,
+            );
+
+            observer.observe(this.elementRef.nativeElement);
+            this.$destroy.subscribe(() => observer.disconnect());
+        }
     }
 }

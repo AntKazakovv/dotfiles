@@ -4,15 +4,15 @@ import {
     ElementRef,
     HostListener,
     Inject,
-    OnInit,
 } from '@angular/core';
 
 import {
-    AbstractComponent,
     ConfigService,
-    IMixedParams,
+    EventService,
     ModalService,
 } from 'wlc-engine/modules/core';
+import {GamesCatalogService} from 'wlc-engine/modules/games/system/services/games-catalog/games-catalog.service';
+import {RandomGameAbstract} from 'wlc-engine/modules/games/system/classes/random-game.abstract';
 
 import * as Params from './lucky-button.params';
 
@@ -22,27 +22,39 @@ import * as Params from './lucky-button.params';
     styleUrls: ['./styles/lucky-button.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class LuckyButtonComponent extends AbstractComponent implements OnInit {
-    public $params: Params.IFeelingLuckyButtonCParams;
+export class LuckyButtonComponent extends RandomGameAbstract<Params.IFeelingLuckyButtonCParams> {
 
     constructor(
         public elementRef: ElementRef,
         @Inject('injectParams') protected injectParams: Params.IFeelingLuckyButtonCParams,
         protected configService: ConfigService,
-        protected modalSerice: ModalService,
+        protected gamesCatalogService: GamesCatalogService,
+        protected eventService: EventService,
+        protected modalService: ModalService,
     ) {
         super(
-            <IMixedParams<Params.IFeelingLuckyButtonCParams>>{
+            {
                 injectParams,
                 defaultParams: Params.defaultParams,
             },
             configService,
+            modalService,
+            eventService,
+            gamesCatalogService,
         );
     }
 
-    // TODO https://tracker.egamings.com/issues/352977 сделать открытие модалки после данного тикета
     @HostListener('click')
-    protected showModal(): void {
-        console.error('https://tracker.egamings.com/issues/352977 сделать открытие модалки после данного тикета');
+    protected playRandomGame(): void {
+        switch (this.$params.actionType) {
+            case 'carousel':
+                // TODO https://tracker.egamings.com/issues/352977 сделать открытие модалки после данного тикета
+                console.error('https://tracker.egamings.com/issues/352977');
+                break;
+            case 'random-game':
+            default:
+                this.toRandomGame();
+                break;
+        }
     }
 }

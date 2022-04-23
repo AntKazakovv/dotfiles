@@ -1,6 +1,6 @@
 $customThemeDefault: () !default;
 $themeDefault: map-merge((
-    'starColorActive': var(--mc-baseMain),
+    'starColorActive': #ffd700,
     'starColor': var(--mc-baseMain-o4),
     'bodyDisplay': inline-grid,
     'bodyGap': ef.size(1),

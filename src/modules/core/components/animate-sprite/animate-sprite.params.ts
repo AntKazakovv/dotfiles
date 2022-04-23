@@ -66,13 +66,35 @@ export interface IAnimateSpriteCParams extends IComponentParams<ComponentTheme, 
         intervalTo?: number;
     }
     /**
-     * @param number[]
-     * @description on window resize the image size will be recalculated
+     * @description resize settings
      */
     resize?: {
+        /**
+         * @param boolean
+         * @description use or not
+         */
         use?: boolean;
+        /**
+         * @param number
+         * @description debounce time
+         */
         debounce?: number;
     };
+    /**
+     * @description not animate when sprite is not in viewport
+     */
+    intersection?: {
+        /**
+         * @param boolean
+         * @description use or not
+         */
+        use?: boolean;
+        /**
+         * @param IntersectionObserverInit
+         * @description animate sprite when item in viewport
+         */
+        intersectionSettings?: IntersectionObserverInit;
+    }
 }
 
 export const defaultParams: Partial<IAnimateSpriteCParams> = {
@@ -93,5 +115,11 @@ export const defaultParams: Partial<IAnimateSpriteCParams> = {
     resize: {
         use: true,
         debounce: 100,
+    },
+    intersection: {
+        use: true,
+        intersectionSettings: {
+            threshold: 0.2,
+        },
     },
 };
