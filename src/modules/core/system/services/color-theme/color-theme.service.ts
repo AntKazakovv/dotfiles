@@ -1,9 +1,6 @@
 import {Injectable} from '@angular/core';
 import {Meta} from '@angular/platform-browser';
-import {
-    first,
-    filter,
-} from 'rxjs/operators';
+import {first} from 'rxjs/operators';
 import {BehaviorSubject} from 'rxjs';
 
 import {
@@ -106,7 +103,7 @@ export class ColorThemeService {
     private loginHandler(): void {
         this.configService
             .get<BehaviorSubject<UserProfile>>({name: '$user.userProfile$'})
-            .pipe(filter(v => !!v && !!v.email), first())
+            .pipe(first(v => !!v && !!v.email))
             .subscribe((profile) => {
                 this.getProfileHandler(profile);
             });

@@ -20,7 +20,6 @@ import {
     Observable,
 } from 'rxjs';
 import {
-    filter,
     first,
     takeWhile,
 } from 'rxjs/operators';
@@ -320,18 +319,23 @@ export class ActionService {
     }
 
     private onPaymentFail(): void {
-        this.eventService.emit({
-            name: NotificationEvents.PushMessage,
-            data: <IPushMessageParams>{
-                type: 'error',
-                title: gettext('Payment failed'),
-                message: [
-                    gettext('Unfortunately your payment didn\'t go through.'
-                        + ' An e-mail with detailed information has been sent to your e-mail address.'
-                        + ' If you have any questions, please don\'t hesitate to contact us.'),
-                ],
-                wlcElement: 'notification_deposit-error',
-            },
+        const userProfile$ = this.configService.get<BehaviorSubject<UserProfile>>(
+            {name: '$user.userProfile$'},
+        );
+        userProfile$.pipe(first((profile) => !!profile)).subscribe(() => {
+            this.eventService.emit({
+                name: NotificationEvents.PushMessage,
+                data: <IPushMessageParams>{
+                    type: 'error',
+                    title: gettext('Payment failed'),
+                    message: [
+                        gettext('Unfortunately your payment didn\'t go through.'
+                            + ' An e-mail with detailed information has been sent to your e-mail address.'
+                            + ' If you have any questions, please don\'t hesitate to contact us.'),
+                    ],
+                    wlcElement: 'notification_deposit-error',
+                },
+            });
         });
     }
 
@@ -355,7 +359,7 @@ export class ActionService {
             {name: '$user.userProfile$'},
         );
 
-        userProfile$.pipe(filter((profile) => !!profile), first()).subscribe((profile) => {
+        userProfile$.pipe(first((profile) => !!profile)).subscribe((profile) => {
 
             this.configService.get<Deferred<null>>({name: 'firstLanguageReady'})
                 .promise
