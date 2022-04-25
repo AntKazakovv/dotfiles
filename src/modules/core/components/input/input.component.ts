@@ -91,6 +91,10 @@ export class InputComponent extends AbstractComponent implements OnInit, OnChang
                             clearValue = value.replace(this.$params.prohibitedPattern, '');
                         }
 
+                        if (this.$params.trimStartZeroes && value.length > 1) {
+                            clearValue = +clearValue + '';
+                        }
+
                         if (clearValue !== value) {
                             this.control.setValue(clearValue);
                         }

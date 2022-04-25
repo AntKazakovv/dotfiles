@@ -26,6 +26,7 @@ export namespace FormElements {
             name: 'amount',
             showCurrency: true,
             prohibitedPattern: ProhibitedPatterns.notAmountSymbols,
+            trimStartZeroes: true,
             customMod: ['amount'],
             validators: [
                 'required',

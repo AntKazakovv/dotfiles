@@ -45,6 +45,8 @@ export interface IInputCParams extends IComponentParams<ComponentTheme, Componen
     clipboard?: boolean;
     showCurrency?: boolean;
     prohibitedPattern?: RegExp;
+    /** Do not allow type more than one 0 in a row at the start of the field */
+    trimStartZeroes?: boolean;
     /** @deprecated Use the global validator. Method left for backward compatibility */
     maskOptions?: IMask.AnyMaskedOptions | string;
 }
