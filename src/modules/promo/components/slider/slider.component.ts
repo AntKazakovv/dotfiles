@@ -227,6 +227,7 @@ export class SliderComponent extends AbstractComponent
     }
 
     protected initNavigation(): void {
+        this.swiper.swiperRef.navigation.destroy();
         this.swiper.swiperRef.navigation.init();
         this.swiper.swiperRef.navigation.update();
     }
