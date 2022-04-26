@@ -377,8 +377,13 @@ export class CategoryModel extends AbstractModel<ICategory> {
         this.merchantsList = [];
 
         let merchantIds: IIndexing<boolean> = {};
-        _forEach(this.gamesList, (game) => {
+
+        _forEach(this.gamesList, (game: Game): void => {
             merchantIds[game.merchantID] = true;
+
+            if (game.subMerchantID) {
+                merchantIds[game.subMerchantID] = true;
+            }
         });
 
         _forEach(GamesHelper.availableMerchants, (merchant: MerchantModel) => {
