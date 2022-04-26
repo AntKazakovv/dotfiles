@@ -30,7 +30,7 @@
             }
         }
 
-        &__tag {
+        &__tag-header {
             @include text.get-text-style(ef.get-value($themePromoHome, 'tagTextStyle'), ef.get-value($themePromoHome, 'tagColor'));
             @include bm.get-mq-map('padding', $themePromoHome, 'tagPadding');
 
@@ -43,6 +43,16 @@
             text-align: ef.get-value($themePromoHome, 'tagTextAlign');
             background: ef.get-value($themePromoHome, 'tagBg');
             border-radius: ef.get-value($themePromoHome, 'tagBorderRadius');
+        }
+
+        &__tag {
+            position: absolute;
+            top: ef.get-value($themePromoHome, 'tagStatusTopPos');
+            right: ef.get-value($themePromoHome, 'tagStatusRightPos');
+        }
+
+        &__more-icon {
+            top: ef.get-value($themePromoHome, 'iconTopPos');
         }
 
         &__wrapper {
