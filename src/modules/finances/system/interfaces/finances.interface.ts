@@ -8,8 +8,11 @@ export interface IFastDeposit {
     use: boolean;
 }
 
+export type TTranslate = 'pay_to_address' | 'pay_to_bank' | 'html';
+
 export interface IPaymentMessage {
-    translate?: string;
+    amount?: string;
+    translate?: TTranslate;
     address?: string;
     qrlink?: string;
     wallet_currency?: string;
@@ -18,6 +21,8 @@ export interface IPaymentMessage {
     x_address?: string;
     html?: string;
     scripts?: string[];
+    rate?: string;
+    memo?: string;
 }
 
 export type TBets = IBet[];
