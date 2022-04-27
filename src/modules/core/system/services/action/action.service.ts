@@ -512,26 +512,12 @@ export class ActionService {
             return;
         }
 
-
-        const showModal = () => {
-            this.modalService.showModal('newPassword', {
-                wlcElement: 'form_forgot-password',
-                common: {
-                    code: initialPath.code,
-                },
-            });
-        };
-
-        const stateRedirect = this.configService.get<string>('$base.redirects.states["app.home"].state');
-        if (stateRedirect) {
-            const finishedTransition = this.transition.onBefore({to: stateRedirect}, () => {
-                showModal();
-                finishedTransition();
-                return false;
-            });
-        } else {
-            showModal();
-        }
+        this.modalService.showModal('newPassword', {
+            wlcElement: 'form_forgot-password',
+            common: {
+                code: initialPath.code,
+            },
+        });
     }
 
     private async completeRegistration(initialPath: IIndexing<string>): Promise<void> {
