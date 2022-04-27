@@ -641,6 +641,7 @@ $baseVariables: map-merge((
 
 $customStickyHeader: () !default;
 $stickyHeader: map-merge((
+    'headerBackground': var(--mc-bg),
     'headerMinHeight': (
         375: 60px,
         1024: 70px,

@@ -188,6 +188,7 @@
         position: sticky;
         top: -1px;
         width: 100%;
+        background: ef.get-value($stickyHeader, 'headerBackground');
         transform: translateY(0%);
 
         .container {
