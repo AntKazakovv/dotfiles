@@ -213,6 +213,7 @@ export namespace wlcGamesGrid {
                                     fill: 'row',
                                 },
                                 spaceBetween: 10,
+                                followFinger: false,
                             },
                             560: {
                                 slidesPerView: 3,
@@ -222,24 +223,28 @@ export namespace wlcGamesGrid {
                                     fill: 'row',
                                 },
                                 spaceBetween: 10,
+                                followFinger: false,
                             },
                             720: {
                                 slidesPerView: 4,
                                 slidesPerGroup: 3,
                                 grid: null,
                                 spaceBetween: 10,
+                                followFinger: false,
                             },
                             900: {
                                 slidesPerView: 3,
                                 slidesPerGroup: 2,
                                 grid: null,
                                 spaceBetween: 10,
+                                followFinger: false,
                             },
                             1024: {
                                 slidesPerView: 4,
                                 slidesPerGroup: 3,
                                 grid: null,
                                 spaceBetween: 15,
+                                followFinger: true,
                             },
                             1200: {
                                 slidesPerView: 5,
@@ -300,6 +305,7 @@ export namespace wlcGamesGrid {
                                     fill: 'row',
                                 },
                                 spaceBetween: 10,
+                                followFinger: false,
                             },
                             560: {
                                 slidesPerView: 3.1,
@@ -308,21 +314,25 @@ export namespace wlcGamesGrid {
                                     fill: 'row',
                                 },
                                 spaceBetween: 10,
+                                followFinger: false,
                             },
                             720: {
                                 slidesPerView: 4.1,
                                 grid: null,
                                 spaceBetween: 10,
+                                followFinger: false,
                             },
                             900: {
                                 slidesPerView: 3.1,
                                 grid: null,
                                 spaceBetween: 10,
+                                followFinger: false,
                             },
                             1024: {
                                 slidesPerView: 4.1,
                                 grid: null,
                                 spaceBetween: 15,
+                                followFinger: true,
                             },
                             1200: {
                                 slidesPerView: 5.1,
@@ -376,11 +386,13 @@ export namespace wlcGamesGrid {
                         breakpoints: {
                             375: {
                                 slidesPerView: 2,
+                                slidesPerGroup: 2,
                                 grid: {
                                     rows: 2,
                                     fill: 'row',
                                 },
                                 spaceBetween: 10,
+                                followFinger: false,
                             },
                             560: {
                                 slidesPerView: 3,
@@ -390,24 +402,28 @@ export namespace wlcGamesGrid {
                                     fill: 'row',
                                 },
                                 spaceBetween: 10,
+                                followFinger: false,
                             },
                             720: {
                                 slidesPerView: 4,
                                 slidesPerGroup: 3,
                                 grid: null,
                                 spaceBetween: 10,
+                                followFinger: false,
                             },
                             900: {
                                 slidesPerView: 3,
                                 slidesPerGroup: 2,
                                 grid: null,
                                 spaceBetween: 10,
+                                followFinger: false,
                             },
                             1024: {
                                 slidesPerView: 4,
                                 slidesPerGroup: 3,
                                 grid: null,
                                 spaceBetween: 15,
+                                followFinger: true,
                             },
                             1200: {
                                 slidesPerView: 5,
@@ -468,6 +484,7 @@ export namespace wlcGamesGrid {
                                     fill: 'row',
                                 },
                                 spaceBetween: 10,
+                                followFinger: false,
                             },
                             560: {
                                 slidesPerView: 3.1,
@@ -476,21 +493,25 @@ export namespace wlcGamesGrid {
                                     fill: 'row',
                                 },
                                 spaceBetween: 10,
+                                followFinger: false,
                             },
                             720: {
                                 slidesPerView: 4.1,
                                 grid: null,
                                 spaceBetween: 10,
+                                followFinger: false,
                             },
                             900: {
                                 slidesPerView: 3.1,
                                 grid: null,
                                 spaceBetween: 10,
+                                followFinger: false,
                             },
                             1024: {
                                 slidesPerView: 4.1,
                                 grid: null,
                                 spaceBetween: 15,
+                                followFinger: true,
                             },
                             1200: {
                                 slidesPerView: 5.1,
