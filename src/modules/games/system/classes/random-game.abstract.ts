@@ -1,3 +1,4 @@
+import {Directive} from '@angular/core';
 import _filter from 'lodash-es/filter';
 
 import {
@@ -14,6 +15,7 @@ import {
 import {Game} from 'wlc-engine/modules/games/system/models';
 import {GamesCatalogService} from 'wlc-engine/modules/games/system/services';
 
+@Directive()
 export abstract class RandomGameAbstract<T extends IComponentParams<unknown, unknown, unknown>>
     extends AbstractComponent {
 
