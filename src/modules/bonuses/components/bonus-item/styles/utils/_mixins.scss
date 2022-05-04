@@ -85,6 +85,13 @@
             background: ef.get-value($themeDefault, 'backgroundRelative');
         }
     }
+
+    &.wlc-bonus-item--view-freebets {
+
+        .wlc-bonus-item__wrapper {
+            background: ef.get-value($themeDefault, 'backgroundFreebets');
+        }
+    }
 }
 
 @mixin showBtnWithImg {

@@ -55,6 +55,7 @@
 
         &__bottom {
             @include bm.get-mq-map('padding', $themeDefault, 'infoBtmPaddingWithImg');
+            background: ef.get-value($themeRegFirst, 'bottomBackground');
         }
 
         &__info-block {
