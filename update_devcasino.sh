@@ -16,6 +16,9 @@ branches[1]="develop test";
 projects[2]="git@wlcgitlab.egamings.com:tkcatcasino/web.git";
 branches[2]="+scr0-pretest";
 
+projects[3]="git@wlcgitlab.egamings.com:wlcdevcasinokiosk/web.git";
+branches[3]="develop master scr1-var1 scr1-var2";
+
 clean_temp() {
     cd $current_dir
     rm -rf "./$temp_dir"
