@@ -49,6 +49,8 @@ export interface IBaseConfig {
         siteUrl: string;
         useTestimonials?: boolean;
     };
+    /* Used to allow starting in iframe from special domains, eg metrika.yandex.ru */
+    allowedIframeReferrers?: string[];
     profile?: IProfileConfig;
     tournaments?: ITournamentsConfig;
     games?: IGamesConfig;

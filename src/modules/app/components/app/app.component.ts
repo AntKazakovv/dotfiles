@@ -6,6 +6,7 @@ import {
     OnDestroy,
     OnInit,
 } from '@angular/core';
+import {DOCUMENT} from '@angular/common';
 import {TranslateService} from '@ngx-translate/core';
 import {
     StateService,
@@ -106,6 +107,7 @@ export class AppComponent extends AbstractComponent implements OnInit, OnDestroy
         private logService: LogService,
         titleService: Title,
         @Inject(WINDOW) private window: Window,
+        @Inject(DOCUMENT) private document: Document,
     ) {
         super({injectParams: {}, defaultParams}, configService);
         this.configService.set({name: 'firstLanguageReady', value: new Deferred()});
@@ -124,7 +126,7 @@ export class AppComponent extends AbstractComponent implements OnInit, OnDestroy
     public async ngOnInit(): Promise<void> {
         const depositInIframe = this.configService.get<boolean>('$base.finances.depositInIframe');
 
-        if (depositInIframe && GlobalHelper.isIframe(this.window)) {
+        if (depositInIframe && GlobalHelper.isIframe(this.window) && this.checkAllowedReferrers()) {
             return;
         }
 
@@ -383,5 +385,14 @@ export class AppComponent extends AbstractComponent implements OnInit, OnDestroy
         this.transition.onStart({}, () => {
             this.modalService.closeAllModals('any');
         });
+    }
+
+    private checkAllowedReferrers(): boolean {
+        if (this.document.referrer) {
+            const referrer = new URL(this.document.referrer);
+            const allowedDomains = this.configService.get<string[]>('$base.allowedIframeReferrers') || [];
+            return !allowedDomains.includes(referrer.hostname);
+        }
+        return true;
     }
 }
