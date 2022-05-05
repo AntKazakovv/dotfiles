@@ -1,3 +1,5 @@
+import {Directive} from '@angular/core';
+
 import _isEqual from 'lodash-es/isEqual';
 import _transform from 'lodash-es/transform';
 import _keys from 'lodash-es/keys';
@@ -23,6 +25,7 @@ import {
 } from 'wlc-engine/modules/user/components/add-profile-info';
 import {TPaymentsMethods} from '../interfaces';
 
+@Directive()
 export abstract class AbstractDepositWithdrawComponent<T extends {mode: TPaymentsMethods}> extends AbstractComponent {
 
     public $params: T & IComponentParams<unknown, unknown, unknown>;

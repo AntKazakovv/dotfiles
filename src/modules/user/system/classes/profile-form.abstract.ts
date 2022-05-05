@@ -1,3 +1,4 @@
+import {Directive} from '@angular/core';
 import {FormGroup} from '@angular/forms';
 
 import _some from 'lodash-es/some';
@@ -13,6 +14,7 @@ import {
     NotificationEvents,
 } from 'wlc-engine/modules/core';
 
+@Directive()
 export abstract class ProfileFormAbstract extends AbstractComponent {
 
     constructor(

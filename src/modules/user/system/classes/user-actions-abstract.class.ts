@@ -1,3 +1,4 @@
+import {Directive} from '@angular/core';
 import {FormGroup} from '@angular/forms';
 
 import _keys from 'lodash-es/keys';
@@ -31,6 +32,7 @@ export interface IValidateData {
     fields: string[];
 }
 
+@Directive()
 export abstract class UserActionsAbstract<T> extends AbstractComponent {
 
     constructor(

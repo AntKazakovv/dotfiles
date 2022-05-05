@@ -1,3 +1,5 @@
+import {Directive} from '@angular/core';
+
 import {BehaviorSubject} from 'rxjs';
 
 import {EventService} from 'wlc-engine/modules/core';
@@ -11,6 +13,7 @@ export enum ChatState {
     ended,
 }
 
+@Directive()
 export abstract class LivechatAbstract {
     public chatId: string;
     public chatIsOpen: boolean = false;

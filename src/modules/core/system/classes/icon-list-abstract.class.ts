@@ -1,3 +1,4 @@
+import {Directive} from '@angular/core';
 import {RawParams} from '@uirouter/core';
 
 import {
@@ -44,24 +45,25 @@ export interface IAbstractIconsListParams<T, R, M> extends IComponentParams<T, R
      * Apply colored icons(they will be parsed as img), and black icons will be shown as svg
      */
     iconsType?: TIconsType,
-     /**
-     * Array for custom icons
-     *
-     * @example
-     * items: [
-     *      {
-     *          showAs: 'img',
-     *          iconUrl: '/static/images/payments/MCSecureCode.svg',
-     *      },
-     *      {
-     *          showAs: 'img',
-     *          iconUrl: '/static/images/payments/VerifiedByVisa .svg',
-     *      },
-     * ]
-     */
+    /**
+    * Array for custom icons
+    *
+    * @example
+    * items: [
+    *      {
+    *          showAs: 'img',
+    *          iconUrl: '/static/images/payments/MCSecureCode.svg',
+    *      },
+    *      {
+    *          showAs: 'img',
+    *          iconUrl: '/static/images/payments/VerifiedByVisa .svg',
+    *      },
+    * ]
+    */
     items?: IIconParams[],
 }
 
+@Directive()
 export abstract class IconListAbstract<T> extends AbstractComponent {
     abstract items: IconModel[];
 

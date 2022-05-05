@@ -1,3 +1,4 @@
+import {Directive} from '@angular/core';
 import {FormGroup} from '@angular/forms';
 import {StateService} from '@uirouter/core';
 
@@ -59,6 +60,7 @@ export const defaultSignInFormParams: IDefaultAbstractSignInCParams = {
     },
 };
 
+@Directive()
 export abstract class SignInFormAbstract<T extends IAbstractSignInFormCParams<unknown, unknown, unknown>>
     extends AbstractComponent {
 
