@@ -1,0 +1,20 @@
+@use 'engine-scss/functions' as ef;
+@import '../utils/vars';
+
+.wlc-fundist-user-id--theme-default:host {
+    max-width: ef.get-value($themeDefault, 'inputMaxWidth');
+    margin: ef.get-value($themeDefault, 'inputMargin');
+
+    .wlc-fundist-user-id {
+
+        ::ng-deep {
+
+            & .wlc-input__input {
+
+                input:disabled {
+                    font-weight: bold;
+                }
+            }
+        }
+    }
+}

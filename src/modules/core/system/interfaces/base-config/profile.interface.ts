@@ -60,6 +60,14 @@ export interface IProfileConfig {
      * Need to change also back config $cfg['PasswordSecureLevel'] value show to wiki
      */
     passwordValidation?: IPasswordValidation,
+    /**
+     * Specifies should be shown user id from Fundist or not
+     */
+    fundistUserId?: IFundistUserId;
+}
+
+export interface IFundistUserId {
+    use: boolean;
 }
 
 export interface IVerification {

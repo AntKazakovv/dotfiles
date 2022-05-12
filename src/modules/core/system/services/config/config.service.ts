@@ -265,6 +265,8 @@ export class ConfigService {
                 sectionsLib.profileContent.profileMainTypeFirstWithLogin;
         }
 
+        this.attachFundistUserIdComponent();
+
         if (!wlcConfig.$base.profile.store.use) {
             $layouts['app.profile.dashboard'].sections['profile-content']
                 = sectionsLib.profileContent.profileDashboardWithoutStore;
@@ -290,6 +292,18 @@ export class ConfigService {
                     $layouts: mergedLayouts,
                     $panelsLayouts,
                 };
+        }
+    }
+
+    private attachFundistUserIdComponent(): void {
+        const {profile} = appConfig.$base;
+
+        if (profile?.fundistUserId?.use) {
+            const section = profile?.type === 'first'
+                ? sectionsLib.profileContent.profileFirstWithFundistUserId
+                : sectionsLib.profileContent.profileMainWithFundistUserId;
+
+            $layouts['app.profile.main.info'].sections['profile-content'] = section;
         }
     }
 

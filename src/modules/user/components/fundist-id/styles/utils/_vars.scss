@@ -1,0 +1,8 @@
+@use 'engine-scss/functions' as ef;
+
+$customThemeDefault: () !default;
+$themeDefault: map-merge((
+    'inputMargin': ef.size(1) 0 ef.size(4) 0,
+    'inputMaxWidth': 200px,
+    'idFontWeight': ef.get('fontWeight', 'PrimaryTextBold'),
+), $customThemeDefault);
