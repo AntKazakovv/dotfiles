@@ -528,6 +528,7 @@ export namespace FormElements {
             common: {
                 placeholder: gettext('IDNumber'),
             },
+            locked: true,
             name: 'idNumber',
             customMod: ['id-number'],
             validators: ['required'],

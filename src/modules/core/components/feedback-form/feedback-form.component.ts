@@ -74,7 +74,7 @@ export class FeedbackFormComponent extends AbstractComponent implements OnInit, 
     }
 
     public ngSubmit(form: FormGroup): void {
-        const {senderEmail, senderName, message, subject} = form.value;
+        const {senderEmail, senderName, message, subject} = form.getRawValue();
 
         this.contactsService.send({
             senderName,
