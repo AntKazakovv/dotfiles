@@ -694,7 +694,7 @@ export namespace profileContent {
                             params: {
                                 class: 'wlc-profile-content__header underlined',
                                 components: [
-                                    componentLib.wlcTitle.history,
+                                    componentLib.wlcTitle.transactionsHistory,
                                     componentLib.wlcTransactionHistory.filterOnly,
                                 ],
                             },

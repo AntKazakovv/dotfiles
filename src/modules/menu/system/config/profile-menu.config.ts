@@ -425,7 +425,7 @@ export const wlcProfileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
         wlcElement: 'link_current-tournaments',
     },
     'profile-first-menu:tournaments-current': {
-        name: gettext('Available'),
+        name: gettext('Available tournaments'),
         type: 'sref',
         icon: 'current-tournaments',
         class: 'tournaments-current',
@@ -453,7 +453,7 @@ export const wlcProfileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
         wlcElement: 'link_active-tournaments',
     },
     'profile-first-menu:tournaments-active': {
-        name: gettext('Active'),
+        name: gettext('Active tournaments'),
         type: 'sref',
         icon: 'active-tournaments',
         class: 'tournaments-active',
@@ -480,7 +480,7 @@ export const wlcProfileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
         wlcElement: 'link_tournaments-history',
     },
     'profile-first-menu:tournaments-history': {
-        name: gettext('History'),
+        name: gettext('Tournaments history'),
         type: 'sref',
         icon: 'tournaments-history',
         class: 'tournaments-history',
@@ -763,7 +763,7 @@ export const wlcProfileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
     },
 
     'profile-menu:transaction-history': {
-        name: gettext('Transaction history'),
+        name: gettext('Transactions history'),
         type: 'sref',
         icon: 'transaction-history',
         class: 'transaction-history',
@@ -776,7 +776,7 @@ export const wlcProfileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
         },
     },
     'profile-first-menu:transaction-history': {
-        name: gettext('Transaction history'),
+        name: gettext('Transactions history'),
         type: 'sref',
         icon: 'transaction-history',
         class: 'transaction-history',
