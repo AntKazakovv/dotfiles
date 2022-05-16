@@ -45,16 +45,6 @@ interface IFrameMessage {
     message: string;
     error?: string;
 }
-
-// TODO Delete after updating paymentiq-cashier-bootstrapper package #241360
-interface IIPiqCashierConfig extends IPiqCashierConfig {
-    attributes: {
-        hostUri?: string,
-        didToken?: string,
-        [key: string]: string | number | boolean;
-    };
-}
-
 @Injectable({
     providedIn: 'root',
 })
@@ -161,7 +151,7 @@ export class PIQCashierService {
                 };
             });
 
-        const cashierConfig: IIPiqCashierConfig = {
+        const cashierConfig: IPiqCashierConfig = {
             environment: this.configService.get<string>('appConfig.env') === 'prod' ? 'production' : 'test',
             method: this.method,
             merchantId: currentSystem.customParams?.merchant_id,

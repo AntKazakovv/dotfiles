@@ -9,7 +9,6 @@ import {
 import {TranslateService} from '@ngx-translate/core';
 
 import {
-    filter,
     takeUntil,
 } from 'rxjs/operators';
 
@@ -118,7 +117,6 @@ export class TotalJackpotComponent extends AbstractComponent implements OnInit {
     private getLastJackpots(): void {
         this.gamesCatalogService.subscribeJackpots
             .pipe(
-                filter((data) => !!data.length), //TODO Delete after #246227
                 takeUntil(this.$destroy),
             )
             .subscribe((data: JackpotModel[]) => {
