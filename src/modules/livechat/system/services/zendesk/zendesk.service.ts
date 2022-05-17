@@ -165,6 +165,9 @@ export class ZendeskService extends LivechatAbstract {
                     'setLocale',
                     this.translateService.currentLang || 'en',
                 );
+                if (this.options?.hidden) {
+                    this.hideWidget();
+                }
             });
 
             this.window.zE('webWidget:on', 'chat:start', () => {
