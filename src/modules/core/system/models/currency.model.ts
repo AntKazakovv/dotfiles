@@ -117,7 +117,9 @@ export class CurrencyModel extends AbstractModel<ICurrencyOptions>{
         const parts = Intl.NumberFormat(this.language, {
             style: 'currency',
             // pass USD if this is cryptocurrency, otherwise Intl inserts literal
-            currency: (this.isCryptocurrency || this.currencyFormat?.svg) ? 'USD' : _toUpper(this.currency).trim(),
+            currency: (this.isCryptocurrency || this.currencyFormat?.svg)
+                ? this.currencyFormat?.literalAs || 'USD'
+                : _toUpper(this.currency).trim(),
             currencyDisplay: CurrenciesInfo.containingCountrySymbol.has(this.currency)
                 ? 'symbol'
                 : 'narrowSymbol',

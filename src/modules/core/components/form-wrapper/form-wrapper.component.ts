@@ -365,7 +365,10 @@ export class FormWrapperComponent extends WrapperComponent implements OnInit, On
 
             switch (component.name) {
                 case 'core.wlc-input':
-                    component.params.validators.push(tagReg, maxLength, emojiReg);
+                    component.params.validators.push(tagReg, emojiReg);
+                    if (!_find(component.params.validators, {name: 'maxLength'})) {
+                        component.params.validators.push(maxLength);
+                    }
                     break;
                 case 'core.wlc-textarea':
                     component.params.validators.push(tagReg, emojiReg);

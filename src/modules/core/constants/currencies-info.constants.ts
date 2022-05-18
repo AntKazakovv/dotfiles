@@ -9,6 +9,11 @@ export namespace CurrenciesInfo {
         readonly svg?: string;
         readonly name?: string;
         readonly precision?: number;
+        /**
+         * Use for custom or non-standard (not iso 4217) currencies
+         * If USD (default) - Intl doesn't insert literal, if BTC - Intl inserts literal
+         */
+        readonly literalAs?: 'USD' | 'BTC';
     }
 
     export interface ICurrencies {
@@ -52,6 +57,7 @@ export namespace CurrenciesInfo {
         'BC1',
         'BC2',
         'DOGE',
+        'EGLD',
     ]);
 
     export const formats: ICurrencies = {
@@ -164,6 +170,11 @@ export namespace CurrenciesInfo {
         },
         DOGE: {
             symbol: [208],
+        },
+        // PayCryptos Elrond
+        EGLD: {
+            icon: '',
+            literalAs: 'BTC',
         },
     };
 }

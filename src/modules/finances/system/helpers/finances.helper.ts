@@ -27,6 +27,11 @@ export class FinancesHelper {
                 name: 'minLength',
                 options: 8,
             },
+            {
+                name: 'maxLength',
+                text: gettext('The field must be no more than 255 characters long'),
+                options: 255,
+            },
         ],
     };
 
