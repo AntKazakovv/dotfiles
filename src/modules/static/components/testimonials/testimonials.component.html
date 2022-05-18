@@ -1,0 +1,34 @@
+<ng-container *ngIf="ready; else preloader">
+    <div class="{{$class}}__header" *ngIf="$params.common.title">{{$params.common.title | translate}}</div>
+    <div *ngIf="slides.length; else noData"
+        class="{{$class}}__content"
+        wlc-wrapper
+        [inlineParams]="sliderConfig"></div>
+</ng-container>
+
+<ng-template #preloader>
+    <div wlc-loader></div>
+</ng-template>
+
+<ng-template #noData>
+    <div *ngIf="$params.common.title">{{'No data' | translate}}</div>
+</ng-template>
+
+<ng-template #tesimonial let-item="item">
+    <div class="{{$class}}__item">
+        <div class="{{$class}}__logo">
+            <img [src]="item.logo">
+        </div>
+        <div class="{{$class}}__content">
+            <p class="{{$class}}__text">
+                {{item.content}}
+            </p>
+            <a
+                [href]="item.linkHref"
+                class="{{$class}}__link"
+                target="_blank">
+                {{item.linkTitle}}
+            </a>
+        </div>
+    </div>
+</ng-template>

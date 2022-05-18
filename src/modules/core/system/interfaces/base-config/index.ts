@@ -46,6 +46,7 @@ export interface IBaseConfig {
     affiliate?: {
         affiliateUrl: string;
         siteUrl: string;
+        useTestimonials?: boolean;
     };
     profile?: IProfileConfig;
     tournaments?: ITournamentsConfig;

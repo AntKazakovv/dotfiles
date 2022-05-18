@@ -272,6 +272,10 @@ export class ConfigService {
 
         switch (params.appType) {
             case 'aff':
+                if (!appConfig.$base.affiliate?.useTestimonials) {
+                    $layoutsAff['app.home'].sections['testimonials-section'] = null;
+                }
+
                 return {
                     $layouts: $layoutsAff,
                     $panelsLayouts,

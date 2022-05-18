@@ -1,0 +1,46 @@
+@use 'engine-scss/functions' as ef;
+
+$customThemeDefault: () !default;
+$themeDefault: map-merge((
+    'headerTextStyle': (
+        375: 'ThirdTitleBold',
+        768: 'QoteTextBold',
+    ),
+    'headerFontSize': ef.get('font', 'biger'),
+    'headerFontWeight': bold,
+    'headerFontColor': var(--mc-baseMain),
+    'headerPadding': 0 0 ef.get('size', 'smaller') 0,
+    'headerTextTransform': uppercase,
+    'itemMargin': (
+        375: 0 0 ef.size(8) 0,
+        768: 0 0 ef.size(10) 0,
+    ),
+    'itemColumns': (
+        375: auto,
+        768: 200px auto,
+    ),
+    'itemGridGap': (
+        375: ef.size(4),
+        768: ef.size(6),
+    ),
+    'logoWidth': 200px,
+    'logoMargin': (
+        375: 0 auto,
+        768: 0,
+    ),
+    'contentAlign': (
+        375: center,
+        768: left,
+    ),
+    'contentTextStyle': (
+        375: 'PrimaryText',
+        768: 'ThirdTitle',
+    ),
+    'contentFontColor': var(--mc-baseMain),
+    'contentPadding': (
+        375: 0 0 ef.size(2) 0,
+        768: 0 0 ef.size(4) 0,
+    ),
+    'contentFontStyle': italic,
+), $customThemeDefault);
+

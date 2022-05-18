@@ -34,6 +34,16 @@
             padding: ef.get-value($affSectionsDefault, 'faqContainerPadding');
         }
     }
+
+    &__testimonials-section {
+        @include bm.get-mq-map('background', $affSectionsDefault, 'testimonialsBg');
+        padding: ef.get-value($affSectionsDefault, 'testimonialsPadding');
+
+        .container {
+            max-width: ef.get-value($affSectionsDefault, 'testimonialsContainerMaxWidth');
+            padding: ef.get-value($affSectionsDefault, 'testimonialsContainerPadding');
+        }
+    }
 }
 
 .wlc-aff-content {

@@ -25,6 +25,14 @@ export const wlcAffiliatesMenuItemsGlobal: Params.IMenuItemsGlobal = {
             scroll: '.wlc-sections__faq-section',
         },
     },
+    'affiliates-menu:testimonials': {
+        name: gettext('Testimonials'),
+        type: 'scroll',
+        class: 'testimonials',
+        params: {
+            scroll: '.wlc-sections__testimonials-section',
+        },
+    },
     'affiliates-menu:tc': {
         name: gettext('T&C'),
         type: 'modal',

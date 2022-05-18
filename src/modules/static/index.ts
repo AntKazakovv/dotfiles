@@ -3,5 +3,6 @@ export * from 'wlc-engine/modules/static/system/interfaces/static.interface';
 export * from 'wlc-engine/modules/static/system/models';
 
 export * from 'wlc-engine/modules/static/components/faq/faq.component';
+export * from 'wlc-engine/modules/static/components/testimonials/testimonials.component';
 export * from 'wlc-engine/modules/static/components/post/post.component';
 export * from 'wlc-engine/modules/static/components/promo-steps/promo-steps.component';

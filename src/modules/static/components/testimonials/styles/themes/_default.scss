@@ -1,0 +1,63 @@
+@use 'engine-scss/mixins/text' as text;
+@use 'engine-scss/functions' as ef;
+@use 'engine-scss/mixins/base.mixins' as bm;
+@use 'engine-scss/mixins/mediaqueries' as mq;
+
+.wlc-testimonials--theme-default:host {
+
+    .wlc-testimonials {
+
+        &__header {
+            @include text.get-text-style('QoteTextBold', ef.get-value($themeDefault, 'headerFontColor'));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: ef.get-value($themeDefault, 'headerPadding');
+            text-transform: ef.get-value($themeDefault, 'headerTextTransform');
+
+            @include mq.min(375) {
+                @include text.get-text-style(ef.get-value($themeDefault, 'headerTextStyle', 375), ef.get-value($themeDefault, 'headerFontColor'));
+            }
+
+            @include mq.min(768) {
+                @include text.get-text-style(ef.get-value($themeDefault, 'headerTextStyle', 768), ef.get-value($themeDefault, 'headerFontColor'));
+            }
+        }
+
+        &__item {
+            @include bm.get-mq-map('margin', $themeDefault, 'itemMargin');
+            @include bm.get-mq-map('grid-template-columns', $themeDefault, 'itemColumns');
+            @include bm.get-mq-map('grid-gap', $themeDefault, 'itemGridGap');
+
+            display: grid;
+        }
+
+        &__logo {
+            @include bm.get-mq-map('margin', $themeDefault, 'logoMargin');
+            max-width: ef.get-value($themeDefault, 'logoWidth');
+
+            img {
+                width: 100%;
+            }
+        }
+
+        &__content {
+            @include bm.get-mq-map('text-align', $themeDefault, 'contentAlign');
+            text-align: center;
+        }
+
+        &__text {
+            @include bm.get-mq-map('padding', $themeDefault, 'contentPadding');
+
+            @include mq.min(375) {
+                @include text.get-text-style(ef.get-value($themeDefault, 'contentTextStyle', 375), ef.get-value($themeDefault, 'contentFontColor'));
+                font-style: ef.get-value($themeDefault, 'contentFontStyle');
+            }
+
+            @include mq.min(768) {
+                @include text.get-text-style(ef.get-value($themeDefault, 'contentTextStyle', 768), ef.get-value($themeDefault, 'contentFontColor'));
+                font-style: ef.get-value($themeDefault, 'contentFontStyle');
+            }
+        }
+    }
+}

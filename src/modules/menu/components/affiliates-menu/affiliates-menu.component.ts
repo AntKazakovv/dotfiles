@@ -19,6 +19,7 @@ import {
 import * as Params from './affiliates-menu.params';
 
 import _clone from 'lodash-es/clone';
+import _filter from 'lodash-es/filter';
 
 @Component({
     selector: '[wlc-affiliates-menu]',
@@ -51,6 +52,13 @@ export class AffiliatesMenuComponent extends AbstractComponent implements OnInit
             this.configService.get<MenuParams.MenuConfigItem[]>('$menu.affiliatesMenu.items'),
             MenuConfig.wlcAffiliatesMenuItemsGlobal,
         );
+
+        if (!this.configService.get<boolean>('$base.affiliate.useTestimonials')) {
+            this.$params.menuParams.items = _filter(
+                this.$params.menuParams.items, (item: MenuParams.IMenuItem): boolean => {
+                    return item.class !== 'testimonials';
+                });
+        }
 
         this.$params.menuParams = _clone(this.$params.menuParams);
     }

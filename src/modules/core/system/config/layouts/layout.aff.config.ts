@@ -73,6 +73,19 @@ export const $layoutsAff: ILayoutsConfig = {
                     },
                 ],
             },
+            'testimonials-section': {
+                container: true,
+                components: [
+                    {
+                        name: 'static.wlc-testimonials',
+                        params: {
+                            common: {
+                                title: 'Testimonials',
+                            },
+                        },
+                    },
+                ],
+            },
         },
     },
 };

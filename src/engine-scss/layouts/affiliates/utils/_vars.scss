@@ -22,6 +22,12 @@ $affSectionsDefault: map-merge((
     'faqPadding': ef.size(8) 0,
     'faqContainerMaxWidth': 1050px,
     'faqContainerPadding': 0 ef.size(3),
+
+    'testimonialsBg': null, //single color or map value
+    'testimonialsPadding': ef.size(8) 0,
+    'testimonialsContainerMaxWidth': 1050px,
+    'testimonialsContainerPadding': 0 ef.size(3),
+
 ), $customAffSectionsDefault);
 
 

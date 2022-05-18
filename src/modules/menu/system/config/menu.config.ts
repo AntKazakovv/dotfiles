@@ -235,6 +235,7 @@ export const menuConfig: IMenuConfig = {
             'affiliates-menu:commission',
             'affiliates-menu:why-us',
             'affiliates-menu:faq',
+            'affiliates-menu:testimonials',
             'affiliates-menu:tc',
         ],
     },
