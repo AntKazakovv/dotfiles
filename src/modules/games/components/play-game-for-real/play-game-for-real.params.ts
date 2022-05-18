@@ -60,6 +60,21 @@ interface IPlayForRealParams {
     useLogin?: boolean;
 }
 
+export const templateSignUp = {
+    name: 'core.wlc-link-block',
+    params: {
+        common: {
+            subtitle: gettext('Don\'t have an account?'),
+            link: gettext('Sign up now'),
+            actionParams: {
+                event: {
+                    name: Events.SIGN_UP,
+                },
+            },
+        },
+    },
+};
+
 export const playGameForRealConfig = (params: IPlayForRealParams): IFormWrapperCParams => {
     let demoBtn = [],
         orDemoBtn = [];
@@ -156,20 +171,7 @@ export const playGameForRealConfig = (params: IPlayForRealParams): IFormWrapperC
                 },
             },
             ...orDemoBtn,
-            {
-                name: 'core.wlc-link-block',
-                params: {
-                    common: {
-                        subtitle: gettext('Don\'t have an account?'),
-                        link: gettext('Sign up now'),
-                        actionParams: {
-                            event: {
-                                name: Events.SIGN_UP,
-                            },
-                        },
-                    },
-                },
-            },
+            templateSignUp,
         ];
     };
 
