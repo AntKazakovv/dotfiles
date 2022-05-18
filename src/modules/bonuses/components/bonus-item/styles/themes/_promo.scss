@@ -5,7 +5,6 @@
 
 .wlc-bonus-item--theme-promo {
     @include bm.get-mq-map('max-width', $themePromo, 'maxWidth');
-    @include bm.transition(background);
 
     width: 100%;
     background: ef.get-value($themePromo, 'background');

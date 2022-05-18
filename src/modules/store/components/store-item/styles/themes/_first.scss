@@ -124,7 +124,7 @@
             background: ef.get-value($themeFirst, 'background');
             transform: translateY(0);
 
-            transition: all ef.get-value($themeFirst, 'time') ease-in-out;
+            transition: transform ef.get-value($themeFirst, 'time') ease-in-out;
         }
 
         &__info-block {

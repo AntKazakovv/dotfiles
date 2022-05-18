@@ -4,8 +4,6 @@
 @use 'engine-scss/functions' as ef;
 
 .wlc-bonus-item {
-    @include em.transition(background, 0.3s);
-
     border-radius: ef.get-value($themeDefault, 'radius');
     overflow: hidden;
     transform: translateZ(0);
@@ -376,7 +374,6 @@
             }
 
             &__btns {
-                @include em.transition(all, 0.3s, ease-in-out);
                 @include em.get-mq-map('transform', $themeDefault, 'btnBottomTransform');
                 position: static;
                 margin: ef.get-value($themeDefault, 'btnsMarginWithImg');
