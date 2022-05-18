@@ -1,4 +1,5 @@
 <ng-container [ngSwitch]="$params.theme">
+    <ng-container *ngSwitchCase="'games-inside'" [ngTemplateOutlet]="gamesInside"></ng-container>
     <ng-container *ngSwitchCase="'info'" [ngTemplateOutlet]="info"></ng-container>
     <ng-container *ngSwitchDefault [ngTemplateOutlet]="default"></ng-container>
 </ng-container>
@@ -76,4 +77,34 @@
 
 <ng-template #noData>
     {{'No data' | translate}}
+</ng-template>
+
+<ng-template #gamesInside>
+    <div class="{{$class}}__bg"></div>
+    <div class="{{$class}}__decor {{$class}}__decor--1"></div>
+    <div class="{{$class}}__decor {{$class}}__decor--2"></div>
+
+    <div class="{{$class}}__content">
+        <div class="{{$class}}__title"
+            wlc-title
+            [mainText]="$params.title"></div>
+        <div class="{{$class}}__amount">
+            <ng-container [ngTemplateOutlet]="default"></ng-container>
+        </div>
+        <div *ngIf="$params.gamesGridParams.gamesList.length; else noJackpotBtn"
+            class="{{$class}}__games"
+            wlc-games-grid
+            [inlineParams]="$params.gamesGridParams">
+        </div>
+
+    </div>
+</ng-template>
+
+<ng-template #noJackpotBtn>
+    <button wlc-button
+            class="{{$class}}__btn-no-jackpot"
+            [text]="$params.noJackpotBtn.text"
+            [uiSref]="$params.noJackpotBtn.sref"
+            [uiParams]="$params.noJackpotBtn.params || {}">
+    </button>
 </ng-template>

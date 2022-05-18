@@ -463,3 +463,13 @@ export interface IMerchantWalletSystemConfig {
     maxWithdraw?: number;
     currency?: string;
 }
+
+/**
+ * Params from /api/v1/jackpots request
+ * @param amount
+ * @param currency
+*/
+export interface IGameJackpotAmount {
+    amount: number;
+    currency: string;
+}

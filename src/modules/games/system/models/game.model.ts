@@ -16,6 +16,7 @@ import {
     IGame,
     IRestrictions,
     IStartGameOptions,
+    IGameJackpotAmount,
     TGameImageSize,
 } from 'wlc-engine/modules/games';
 import {GamesHelper} from 'wlc-engine/modules/games/system/helpers/games.helpers';
@@ -53,6 +54,8 @@ export class Game extends AbstractModel<IGame> {
     protected CategoryTitle?: IIndexing<string>[];
     protected disableDemoBtnsFor: TDisableDemoFor;
     protected _withFreeRounds: boolean;
+
+    private _jackpotAmount: IGameJackpotAmount;
 
     // что-то не нужное
     // protected MobileUrl: string;
@@ -113,6 +116,14 @@ export class Game extends AbstractModel<IGame> {
             default:
                 return !!this.data.hasDemo;
         }
+    }
+
+    public set jackpotAmount(amount: IGameJackpotAmount) {
+        this._jackpotAmount = amount;
+    }
+
+    public get jackpotAmount(): IGameJackpotAmount {
+        return this._jackpotAmount;
     }
 
     /**

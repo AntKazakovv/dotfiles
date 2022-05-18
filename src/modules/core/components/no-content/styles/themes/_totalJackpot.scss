@@ -17,4 +17,21 @@
             }
         }
     }
+
+    &.wlc-no-content--theme-games-inside {
+
+        .wlc-no-content {
+
+            &__wrapper {
+                padding: ef.get-value($totalJackpot, 'giWrapperPadding');
+                background: ef.get-value($totalJackpot, 'giWrapperBg');
+            }
+
+            &__body {
+                max-width: ef.get-value($totalJackpot, 'giBodyMaxWidth');
+                margin: ef.get-value($totalJackpot, 'giBodyMargin');
+                text-align: ef.get-value($totalJackpot, 'giTextAlign');
+            }
+        }
+    }
 }

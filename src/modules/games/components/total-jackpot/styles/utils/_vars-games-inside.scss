@@ -1,0 +1,130 @@
+$customThemeGamesInside: () !default;
+$themeGamesInside: map-merge((
+    'maxWidth': (
+        375: 100%,
+        1200: ef.get('container', 1200),
+        1630: ef.get('container', 1630),
+    ),
+    'margin': (
+        375: 0 auto,
+    ),
+    'radius': (
+        1200: ef.get('radius', 'biger'),
+    ),
+    'bg': url('/gstatic/wlc/total-jackpot/bg.png') center/contain repeat-x,
+    'contentPadding': (
+        375: ef.size(6) ef.size(2),
+        768: ef.size(6) ef.size(4),
+        1024: ef.size(6),
+        1200: ef.size(6) ef.size(15) ef.size(8),
+    ),
+    'swiperOverflow': (
+        375: visible,
+        1200: hidden,
+    ),
+
+    'titleMargin': (
+        375: 0 0 ef.size(4),
+    ),
+    'titlePadding': (
+        375: 0 ef.size(8),
+    ),
+    'titleTextStyle': (
+        375: 'ThirdTitleBold',
+        768: 'QoteTextBold',
+        1630: 'PromoTitle',
+    ),
+
+    'titleColor': ef.get('mainColors', 'baseMain'),
+    'titleJustifyContent': center,
+
+    'amountMargin': (
+        375: ef.size(4) 0 ef.size(3),
+        768: ef.size(5) 0 ef.size(1),
+    ),
+    'amountColor': ef.get('mainColors', 'baseMain'),
+    'amountLetterSpacing': (
+        375: 3px,
+        768: 5px,
+        1024: 7px,
+        1200: 10px,
+    ),
+    'amountFontSize': (
+        375: 3rem,
+        768: 4.4rem,
+        1024: 5.8rem,
+        1200: 7.5rem,
+    ),
+    'amountFontPath': '/gstatic/wlc/fonts/rowdies/rowdies-v15-latin-regular',
+    'amountFill': currentColor,
+    'amountSvgHeight': (
+        375: 40px,
+        768: 54px,
+        1024: 70px,
+        1200: 95px,
+    ),
+
+    'decor1': (
+        'width': (
+            375: 40px,
+            560: 64px,
+            900: 85px,
+            1630: 124px,
+        ),
+        'height': (
+            375: 40px,
+            560: 64px,
+            900: 85px,
+            1630: 124px,
+        ),
+        'top': (
+            375: ef.size(4),
+        ),
+        'left': (
+            375: 7%,
+        ),
+        'bg': url('/gstatic/wlc/total-jackpot/decor-1.png') center/contain no-repeat,
+        'animation': rotateRight 60s linear infinite,
+    ),
+    'decor2': (
+        'width': (
+            375: 40px,
+            560: 64px,
+            900: 85px,
+            1630: 124px,
+        ),
+        'height': (
+            375: 40px,
+            560: 64px,
+            900: 85px,
+            1630: 124px,
+        ),
+        'top': (
+            375: ef.size(4),
+        ),
+        'right': (
+            375: 7%,
+        ),
+        'bg': url('/gstatic/wlc/total-jackpot/decor-2.png') center/contain no-repeat,
+        'animation': rotateLeft 60s linear infinite,
+    ),
+
+    'noJackpotBtnMarign': (
+        375: ef.size(4) auto 0,
+        768: ef.size(5) auto 0,
+        1200: ef.size(6) auto 0,
+    ),
+
+    // theme-mod-label
+    'titleMinHeight': (
+        375: 40px,
+        1200: 60px,
+    ),
+    'titleMarginModLabel': (
+        375: ef.size(-6) 0 0,
+    ),
+    'titleBg': (
+        375: var(--mc-secondary),
+    ),
+    'titleRadius': 0 0 ef.get('radius', 'biger') ef.get('radius', 'biger'),
+), $customThemeGamesInside);

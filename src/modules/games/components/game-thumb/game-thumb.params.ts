@@ -112,6 +112,10 @@ export interface IGameThumbCParams extends IComponentParams<Theme, Type, ThemeMo
      * Use dumpy thumb
     */
     dumpy?: boolean;
+    /**
+     * Enable/disable display jackpot amount if available
+     */
+    showJackpotAmount?: boolean;
 }
 
 export const defaultParams: IGameThumbCParams = {
@@ -125,4 +129,5 @@ export const defaultParams: IGameThumbCParams = {
             gameCategory: 'new',
         },
     },
+    showJackpotAmount: false,
 };

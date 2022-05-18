@@ -442,6 +442,8 @@ export class GamesCatalog extends AbstractModel<IGames> {
             return;
         }
         const categoryId = GamesHelper.getCategoryIdByName('jackpots');
+        const useRealJackpots: boolean = this.configService.get<boolean>('$base.games.jackpots.useRealJackpots');
+
 
         _forEach(jackpots, jackpot => {
             const game: Game = this.getGame(_toNumber(jackpot.MerchantID), jackpot.LaunchCode);
@@ -459,7 +461,7 @@ export class GamesCatalog extends AbstractModel<IGames> {
         });
 
         if (category) {
-            if (this.categorySettings) {
+            if (this.categorySettings && !useRealJackpots) {
                 const gameBlocks: IGameBlock[] = category.gameBlocks;
 
                 _forEach(gameBlocks, (gameBlock: IGameBlock) => {

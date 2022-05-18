@@ -33,6 +33,7 @@ import _size from 'lodash-es/size';
 import _union from 'lodash-es/union';
 import _forEach from 'lodash-es/forEach';
 import _intersectionBy from 'lodash-es/intersectionBy';
+import _uniqBy from 'lodash-es/uniqBy';
 
 import {ICategorySettings} from 'wlc-engine/modules/core/system/interfaces/categories.interface';
 import {InjectionService} from 'wlc-engine/modules/core/system/services/injection/injection.service';
@@ -117,6 +118,7 @@ export class GamesCatalogService {
     private verticalThumbsConfig: IVerticalThumbsConfig;
     private lastPlayed: Game[] = [];
     private pragmaticPlayLiveService: PragmaticPlayLiveService;
+    private useRealJackpots: boolean;
 
     constructor(
         public configService: ConfigService,
@@ -143,6 +145,8 @@ export class GamesCatalogService {
         this.registerMethods();
 
         this.loadGames();
+
+        this.useRealJackpots = this.configService.get<boolean>('$base.games.jackpots.useRealJackpots');
 
         this.eventService.subscribe({
             name: gamesEvents.FETCH_GAME_CATALOG_SUCCEEDED,
@@ -182,7 +186,11 @@ export class GamesCatalogService {
                 }
 
                 this.$resolve();
-                this.loadJackpots();
+                this.loadJackpots().then((): void => {
+                    if (this.useRealJackpots) {
+                        this.getJackpotGames();
+                    }
+                });
                 this.getFavouriteGames();
             });
         });
@@ -318,6 +326,32 @@ export class GamesCatalogService {
     }
 
     /**
+     * Get Jackpot games
+     *
+     * @returns {Promice<Game[]>}
+     */
+    public async getJackpotGames(): Promise<Game[]> {
+
+        return await this.subscribeJackpots
+            .pipe(
+                first(),
+                map<IData, Game[]>((response: IData): Game[] => {
+                    let result: Game[] = [];
+                    _forEach(response, ({launchCode, merchantID, amount, currency}: JackpotModel): void => {
+                        const game: Game = this.getGame(merchantID, launchCode);
+                        if (game) {
+                            game.jackpotAmount = {amount, currency};
+                            result.push(game);
+                        }
+                    });
+
+                    return _uniqBy(result, (game: Game): number => game.ID);
+                }),
+            )
+            .toPromise();
+    }
+
+    /**
      * Remove or add game to favorites
      *
      * @param {string} ID
@@ -386,6 +420,8 @@ export class GamesCatalogService {
             games = await this.getLastGames();
         } else if (parentCategory?.slug == 'favourites') {
             games = await this.getFavouriteGames();
+        } else if (this.useRealJackpots && parentCategory?.slug == 'jackpots') {
+            games = await this.getJackpotGames();
         } else {
             if (childCategory) {
                 await childCategory.isReady;

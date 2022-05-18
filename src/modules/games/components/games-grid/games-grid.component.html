@@ -87,7 +87,8 @@
               [iconPath]="$params.titleIcon?.name"
               [fallback]="$params.titleIcon.fallback">
         </span>
-        <div wlc-title
+        <div *ngIf="$params.title"
+             wlc-title
              class="{{$class}}__title"
              [mainText]="title"></div>
 

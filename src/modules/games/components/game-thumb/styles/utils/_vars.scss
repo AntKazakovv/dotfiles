@@ -122,6 +122,18 @@ $themeDefault: map-merge((
         375: 35px,
         900: 45px,
     ),
+
+    'jackpotTextStyle': 'PrimaryTextBold',
+    'jackpotColor': null,
+    'jackpotTransition': (all, 0.2s),
+    'jackpotPosLeft': 0,
+    'jackpotPosBottom': 0,
+    'jackpotAlignItems': center,
+    'jackpotJustifyContent': center,
+    'jackpotWidth': 100%,
+    'jackpotHeight': 30px,
+    'jackpotPadding': 0,
+    'jackpotBg': var(--mc-baseContrast-o6),
 ), $customThemeDefault);
 
 $customThemeDefaultCircle: () !default;
@@ -159,6 +171,14 @@ $themeDefaultModCircle: map-merge((
     'btnDemoBorder': none,
     'btnDemoHoverDecoration': underline,
     'btnDemoHoverBoxShadow': none,
+
+    'jackpotPosTop': (
+        1024: 0,
+    ),
+    'jackpotPosBottom': (
+        375: 0,
+        1024: initial,
+    ),
 ), $customThemeDefaultCircle);
 
 $customThemeDefaultBottom: () !default;
@@ -189,6 +209,11 @@ $bottomButtons: map-merge((
     'titleTransform': translate(-50%, -40px),
     'titleOpacity': 0,
     'titleOpacityHover': 1,
+
+    'jackpotPosBottom': (
+        375: 0,
+        1024: ef.size(12),
+    ),
 ), $customBottomButtons);
 
 $customBottomAll: () !default;
@@ -207,7 +232,12 @@ $bottomAll: map-merge((
 
     'favouriteBg': var(--mc-bg700-o4),
     'favouriteBoxShadow': 0 0 ef.size(2) var(--mc-bg700),
-    'favouriteActiveColor': var(--mc-secondary)
+    'favouriteActiveColor': var(--mc-secondary),
+
+    'jackpotPosBottom': (
+        375: 0,
+        1024: ef.size(22),
+    ),
 ), $customBottomAll);
 
 $customBottomTitle: () !default;
@@ -218,6 +248,11 @@ $bottomTitle: map-merge((
     'btnsNoDemoTranslate': translate(-50%, -50px),
     'btnsOpacity': 0,
     'btnsOpacityHover': 1,
+
+    'jackpotPosBottom': (
+        375: 0,
+        1024: ef.size(12),
+    ),
 ), $customBottomTitle);
 
 $customThemePromoWidget: () !default;

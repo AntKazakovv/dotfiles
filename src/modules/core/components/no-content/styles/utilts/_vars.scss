@@ -100,6 +100,13 @@ $totalJackpot: map-merge((
         375: 650px,
     ),
     'nodataBodyMargin': 0 auto,
+
+    // Games inside
+    'giWrapperPadding': 0,
+    'giWrapperBg': none,
+    'giBodyMaxWidth': 640px,
+    'giBodyMargin': 0 auto,
+    'giTextAlign': center,
 ), $customTotalJackpot);
 
 $customBonusesList: () !default;

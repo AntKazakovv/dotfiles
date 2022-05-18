@@ -16,4 +16,20 @@ $themeSwiper: map-merge((
 
     'swiperNoContentGridRow': #{'2/3'},
     'swiperNoContentGridColumn': #{'1/-1'},
+
+    // theme-mod-centered-controls
+    'ccSliderPadding': (
+        1200: 0 ef.size(12),
+    ),
+    'ccSwiperRadius': (
+        1200: ef.get('radius', 'biger'),
+    ),
+    'ccSwiperOverflow': (
+        1200: hidden,
+    ),
+    'ccButtonsContainerDisplay': (
+        375: none,
+        1200: block,
+    ),
+    'ccButtonContainerAlignSelf': center,
 ), $customThemeSwiper);

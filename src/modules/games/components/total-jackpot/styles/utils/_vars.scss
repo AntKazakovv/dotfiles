@@ -1,3 +1,5 @@
+@import './vars-games-inside';
+
 $customThemeDefault: () !default;
 $themeDefault: map-merge((
     'fontSize': ef.size(6),
@@ -44,3 +46,4 @@ $nodata: map-merge((
     'nodataMaxWidth': 600px,
     'nodataMargin': 0 auto,
 ), $customNoData);
+

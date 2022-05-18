@@ -11,9 +11,11 @@ import {TranslateService} from '@ngx-translate/core';
 import {
     takeUntil,
 } from 'rxjs/operators';
+import _clone from 'lodash-es/clone';
 
 import {GlobalHelper} from 'wlc-engine/modules/core';
 import {JackpotModel} from 'wlc-engine/modules/games/system/models/jackpot.model';
+import {Game} from 'wlc-engine/modules/games/system/models/game.model';
 import {AbstractComponent} from 'wlc-engine/modules/core/system/classes';
 import {
     CachingService,
@@ -55,6 +57,7 @@ export class TotalJackpotComponent extends AbstractComponent implements OnInit {
     public amount: number;
     public currency: ITotalJackpotCurrency;
     public noContentParams: INoContentCParams;
+    public gamesList: Game[] = [];
 
     constructor(
         public elementRef: ElementRef,
@@ -122,6 +125,10 @@ export class TotalJackpotComponent extends AbstractComponent implements OnInit {
             .subscribe((data: JackpotModel[]) => {
                 this.calcAmount(data);
                 this.getCurrency(data[0].currency);
+
+                if (this.$params.theme === 'games-inside') {
+                    this.updateGameList();
+                }
             });
     }
 
@@ -131,5 +138,10 @@ export class TotalJackpotComponent extends AbstractComponent implements OnInit {
         ), 0);
         this.cdr.markForCheck();
         this.cachingService.set('total-jackpot-amount', this.amount, true);
+    }
+
+    private async updateGameList(): Promise<void> {
+        this.$params.gamesGridParams.gamesList = await this.gamesCatalogService.getJackpotGames();
+        this.$params.gamesGridParams = _clone(this.$params.gamesGridParams);
     }
 }

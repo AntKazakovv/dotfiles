@@ -62,7 +62,7 @@ $customCommonStyles: () !default;
 $commonStyles: map-merge((
     'moreButtonMargin': (
         375: ef.size(6) 0 0,
-        1024: ef.size(8) 0 0,
+        1200: ef.size(8) 0 0,
     ),
     'moreButtonAlignItems': center,
     'moreButtonJustifyContent': center,

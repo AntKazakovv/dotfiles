@@ -1,14 +1,19 @@
-@keyframes pulse {
+@mixin decorStyles($conf) {
+    @include bm.get-mq-map('width', $conf, 'width');
+    @include bm.get-mq-map('height', $conf, 'height');
 
-    0% {
-        opacity: 0.3;
+    @if (ef.get-value($conf, 'left')) {
+        @include bm.get-mq-map('left', $conf, 'left');
+    } @else if (ef.get-value($conf, 'right')) {
+        @include bm.get-mq-map('right', $conf, 'right');
     }
 
-    50% {
-        opacity: 0.1;
+    @if (ef.get-value($conf, 'top')) {
+        @include bm.get-mq-map('top', $conf, 'top');
+    } @else if (ef.get-value($conf, 'bottom')) {
+        @include bm.get-mq-map('bottom', $conf, 'bottom');
     }
 
-    100% {
-        opacity: 0.3;
-    }
+    background: ef.get-value($conf, 'bg');
+    animation: ef.get-value($conf, 'animation');
 }

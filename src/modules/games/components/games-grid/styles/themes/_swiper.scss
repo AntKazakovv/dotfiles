@@ -21,6 +21,11 @@
         &__swiper-buttons-container {
             @include bm.get-mq-map('margin', $themeSwiper, 'swiperButtonsContainerMargin');
             grid-area: swiper-buttons;
+            pointer-events: none;
+
+            [class*='wlc-swiper-button'] {
+                pointer-events: initial;
+            }
         }
 
         &__swiper-buttons {
@@ -45,6 +50,32 @@
             // If we add a condition to *ngIf in the template, the swiper navigation buttons will lose their binding
             & + .wlc-games-grid__swiper-buttons-container {
                 display: none;
+            }
+        }
+    }
+
+
+    &.wlc-games-grid--theme-mod-centered-controls {
+
+        .wlc-games-grid {
+
+            &__games-slider {
+                @include bm.get-mq-map('margin', $themeSwiper, 'ccSliderPadding');
+                @include bm.get-mq-map('border-radius', $themeSwiper, 'ccSwiperRadius');
+                @include bm.get-mq-map('overflow', $themeSwiper, 'ccSwiperOverflow');
+            }
+
+            &__swiper-buttons-container {
+                @include bm.get-mq-map('display', $themeSwiper, 'ccButtonsContainerDisplay');
+                z-index: 1;
+                grid-area: games-grid;
+                align-self: ef.get-value($themeSwiper, 'ccButtonContainerAlignSelf');
+                width: 100%;
+            }
+
+            &__swiper-buttons {
+                display: flex;
+                justify-content: space-between;
             }
         }
     }

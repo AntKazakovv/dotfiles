@@ -46,6 +46,7 @@ import _round from 'lodash-es/round';
 import _isInteger from 'lodash-es/isInteger';
 import _ceil from 'lodash-es/ceil';
 import _random from 'lodash-es/random';
+import _set from 'lodash-es/set';
 import {SwiperOptions} from 'swiper';
 
 import {
@@ -181,6 +182,7 @@ export class GamesGridComponent extends AbstractComponent implements OnInit, OnD
             this.followBreakpoints();
         }
 
+        this.prepareThumbParams();
         this.prepareGrid().finally();
         this.setNoContentText();
     }
@@ -292,9 +294,17 @@ export class GamesGridComponent extends AbstractComponent implements OnInit, OnD
     /**
     * Set no content text by suffix
     */
-    private setNoContentText(): void {
+    protected setNoContentText(): void {
         this.noContentText = this.$params.noContentText?.[this.getWlcSuffix()]
             || this.$params.noContentText?.default || gettext('No games available');
+    }
+
+    protected prepareThumbParams(): void {
+
+        if (this.configService.get<boolean>('$base.games.jackpots.useRealJackpots')) {
+            _set(this.$params, 'thumbParams.showJackpotAmount', true);
+        }
+        this.$params.thumbParams = _cloneDeep(this.$params.thumbParams);
     }
 
     protected async prepareGrid(): Promise<void> {
@@ -320,6 +330,7 @@ export class GamesGridComponent extends AbstractComponent implements OnInit, OnD
                         common: {
                             game: game,
                         },
+                        ...this.$params.thumbParams,
                     },
                 };
             });

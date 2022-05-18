@@ -26,6 +26,12 @@ import {
 
 export type ComponentTheme = 'default' | 'swiper' | CustomType;
 export type ComponentType = 'default' | 'search' | 'swiper';
+export type ComponentThemeMod = 'default'
+    | 'tournament-detail'
+    | 'banner-right'
+    | 'header-inline'
+    | 'centered-controls'
+    | string;
 
 /**
  * TODO remove this interface after fix in GamesGrid configuration in project layouts
@@ -104,7 +110,7 @@ export interface INoContentTexts extends IIndexing<string> {
     default?: string;
 }
 
-export interface IGamesGridCParams extends IComponentParams<ComponentTheme, ComponentType, string> {
+export interface IGamesGridCParams extends IComponentParams<ComponentTheme, ComponentType, ComponentThemeMod> {
     /**
      * Amount of rows in a grid. `4` by default.
      */

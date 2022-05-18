@@ -10,4 +10,18 @@ export namespace totalJackpotSection {
             componentLib.wlcButton.totalJackpot,
         ],
     };
+
+    export const gamesInside: ILayoutSectionConfig = {
+        container: false,
+        components: [
+            componentLib.wlcTotalJackpot.gamesInside,
+        ],
+    };
+
+    export const gamesInsideModLabel: ILayoutSectionConfig = {
+        container: false,
+        components: [
+            componentLib.wlcTotalJackpot.gamesInsideModLabel,
+        ],
+    };
 }

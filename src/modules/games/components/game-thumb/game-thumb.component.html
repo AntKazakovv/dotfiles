@@ -135,6 +135,14 @@
         *ngIf="hasPragmaticDGA"
         [ngTemplateOutlet]="pragmaticPlayLive">
     </ng-container>
+    <div
+        *ngIf="$params.showJackpotAmount && game.jackpotAmount"
+        wlc-currency
+        class="{{$class}}__jackpot"
+        [value]="game.jackpotAmount.amount"
+        [currency]="game.jackpotAmount.currency"
+    >
+    </div>
 </ng-template>
 
 <ng-template #thumbImg>

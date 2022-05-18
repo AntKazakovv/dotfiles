@@ -1,0 +1,156 @@
+
+@font-face {
+    font-weight: 400;
+    font-family: TotalJackpot;
+    font-style: normal;
+    src:
+        local(''),
+        url(#{ef.get-value($themeGamesInside, 'amountFontPath')}#{'.woff2'}) format('woff2'),
+        url(#{ef.get-value($themeGamesInside, 'amountFontPath')}#{'.woff'}) format('woff');
+}
+
+
+.wlc-total-jackpot--theme-games-inside:host {
+    @include bm.get-mq-map('max-width', $themeGamesInside, 'maxWidth');
+    @include bm.get-mq-map('margin', $themeGamesInside, 'margin');
+
+    position: relative;
+    width: 100%;
+
+    .wlc-total-jackpot {
+
+        &__bg {
+            @include bm.get-mq-map('border-radius', $themeGamesInside, 'radius');
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: ef.get-value($themeGamesInside, 'bg');
+        }
+
+        &__content {
+            @include bm.get-mq-map('padding', $themeGamesInside, 'contentPadding');
+            overflow: hidden;
+        }
+
+        &__title {
+            @include bm.get-mq-map('margin', $themeGamesInside, 'titleMargin');
+            @include text.get-text-style(
+                ef.get-value($themeGamesInside, 'titleTextStyle', 375),
+                ef.get-value($themeGamesInside, 'titleColor')
+            );
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: ef.get-value($themeGamesInside, 'titleJustifyContent');
+
+            @include mq.min(768) {
+                @include text.get-text-style(ef.get-value($themeGamesInside, 'titleTextStyle', 768), null);
+            }
+
+            @include mq.min(1630) {
+                @include text.get-text-style(ef.get-value($themeGamesInside, 'titleTextStyle', 1630), null);
+            }
+        }
+
+        &__amount {
+            @include bm.get-mq-map('margin', $themeGamesInside, 'amountMargin');
+            position: relative;
+            color: ef.get-value($themeGamesInside, 'amountColor');
+
+            ::ng-deep {
+
+                .wlc-total-jackpot {
+
+                    &__currency,
+                    &__counter {
+                        @include bm.get-mq-map('font-size', $themeGamesInside, 'amountFontSize');
+                        @include bm.get-mq-map('letter-spacing', $themeGamesInside, 'amountLetterSpacing');
+
+                        font-family: TotalJackpot, Roboto, sans-serif;
+                        line-height: 1;
+                        fill: ef.get-value($themeGamesInside, 'amountFill');
+                    }
+
+                    &-body {
+
+                        svg {
+                            @include bm.get-mq-map('height', $themeGamesInside, 'amountSvgHeight');
+                        }
+                    }
+                }
+            }
+        }
+
+        &__games {
+            position: relative;
+            z-index: 5;
+
+            ::ng-deep {
+
+                .wlc-games-grid {
+
+                    &__header {
+                        display: none;
+                    }
+
+                    &__content {
+                        grid-template-areas: 'games-grid';
+                        grid-template-columns: 1fr;
+                    }
+
+                    &__games-slider {
+                        grid-area: 'games-grid';
+                    }
+                }
+
+                .swiper {
+                    @include bm.get-mq-map('overflow', $themeGamesInside, 'swiperOverflow');
+                }
+            }
+        }
+
+        &__decor {
+            position: absolute;
+            z-index: 1;
+
+            &--1 {
+                @include decorStyles(ef.get-value($themeGamesInside, 'decor1'));
+            }
+
+            &--2 {
+                @include decorStyles(ef.get-value($themeGamesInside, 'decor2'));
+            }
+        }
+
+        &__btn-no-jackpot {
+            @include bm.get-mq-map('margin', $themeGamesInside, 'noJackpotBtnMarign');
+
+            position: relative;
+        }
+    }
+}
+
+.wlc-total-jackpot--theme-mod-label:host {
+
+    .wlc-total-jackpot {
+
+        &__title {
+            @include bm.get-mq-map('margin', $themeGamesInside, 'titleMarginModLabel');
+
+            ::ng-deep {
+
+                .wlc-title__main {
+                    @include bm.get-mq-map('min-height', $themeGamesInside, 'titleMinHeight');
+                    @include bm.get-mq-map('padding', $themeGamesInside, 'titlePadding');
+                    @include bm.get-mq-map('background', $themeGamesInside, 'titleBg');
+                    border-radius: ef.get-value($themeGamesInside, 'titleRadius');
+
+                    display: flex;
+                    align-items: center;
+                }
+            }
+        }
+    }
+}
