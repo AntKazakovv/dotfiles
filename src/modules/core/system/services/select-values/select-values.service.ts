@@ -238,7 +238,7 @@ export class SelectValuesService {
         const merchants$ = new BehaviorSubject<Params.ISelectOptions[]>([
             {
                 title: gettext('All'),
-                value: '',
+                value: 'all',
             },
         ]);
 
@@ -251,7 +251,7 @@ export class SelectValuesService {
             merchants$.next([
                 {
                     title: gettext('All'),
-                    value: '',
+                    value: 'all',
                 },
             ].concat(_sortBy(this.gamesCatalogService?.getAvailableMerchants(), 'name')?.map(el => {
                 return {

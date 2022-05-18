@@ -1,72 +1,92 @@
 import {
     Injectable,
 } from '@angular/core';
-import {BehaviorSubject} from 'rxjs';
 
-import {EventService} from 'wlc-engine/modules/core';
-import {IIndexing} from 'wlc-engine/modules/core/system/interfaces';
+import {BehaviorSubject} from 'rxjs';
 
 import _assign from 'lodash-es/assign';
 
-export interface IHistoryData {
-    transaction: BehaviorSubject<IIndexing<any>>;
-    bonus: BehaviorSubject<IIndexing<any>>;
-    bet: BehaviorSubject<IIndexing<any>>;
-    tournaments: BehaviorSubject<IIndexing<any>>;
-};
-
-export type HistoryType = 'transaction' | 'bonus' | 'bet' | 'tournaments';
+import {EventService} from 'wlc-engine/modules/core';
+import {
+    TTransactionFilter,
+    TTournamentsFilter,
+    TBonusFilter,
+    IHistoryData,
+    IFilterValue,
+    IHistoryDefault,
+    IFinancesFilter,
+} from 'wlc-engine/modules/finances/system/interfaces/history-filter.interface';
 
 @Injectable({
     providedIn: 'root',
 })
 export class HistoryFilterService {
 
-    public dateChanges$ = new BehaviorSubject(null);
-
+    public dateChanges$ = new BehaviorSubject<IFinancesFilter<TTransactionFilter | string>>(null);
     protected history: IHistoryData = {
-        transaction: new BehaviorSubject(null),
-        bonus: new BehaviorSubject(null),
-        bet: new BehaviorSubject(null),
-        tournaments: new BehaviorSubject(null),
+        transaction: new BehaviorSubject<IFinancesFilter<TTransactionFilter>>(null),
+        bet: new BehaviorSubject<IFinancesFilter>(null),
+        tournaments: new BehaviorSubject<IFilterValue<TTournamentsFilter>>(null),
+        bonus: new BehaviorSubject<IFilterValue<TBonusFilter>>(null),
     };
-
-    protected historyDefault: IIndexing<IIndexing<any>> = {
+    protected historyDefault: IHistoryDefault = {
         transaction: {
-            filterType: 'all',
-            endDate: undefined,
-            startDate: undefined,
+            filterValue: 'all',
+            startDate: null,
+            endDate: null,
         },
         bet: {
-            filterType: 'all',
-            endDate: undefined,
-            startDate: undefined,
+            filterValue: 'all',
+            startDate: null,
+            endDate: null,
         },
         tournaments: {
-            filterType: 'all',
+            filterValue: 'all',
         },
         bonus: {
-            filterType: 'all',
+            filterValue: 'all',
         },
     };
 
-    constructor(
-        protected eventService: EventService,
-    ) {}
+    constructor(protected eventService: EventService) {}
 
-    public getFilter(type: HistoryType): BehaviorSubject<IIndexing<any>> {
-        return this.history[type];
+    /**
+     * Get filter value
+     * 
+     * @param type {T extends keyof IHistoryDefault}
+     * @returns {BehaviorSubject<IHistoryDefault[T]>} - filter value
+     */
+    public getFilter<T extends keyof IHistoryDefault>(type: T): BehaviorSubject<IHistoryDefault[T]> {
+        return this.history[type] as BehaviorSubject<IHistoryDefault[T]>;
     }
 
-    public setFilter(type: HistoryType, data: IIndexing<any>): void {
-        this.history[type].next(data);
+    /**
+     * Set filter value
+     * 
+     * @param type {T extends keyof IHistoryDefault}
+     * @param data {D extends IHistoryDefault[T]}
+     */
+    public setFilter<T extends keyof IHistoryDefault, D extends IHistoryDefault[T]>(type: T, data: D): void {
+        (this.history[type] as BehaviorSubject<D>).next(_assign(this.history[type].value, data));
     }
 
-    public getDefaultFilter(type: HistoryType): IIndexing<any> {
+    /**
+     * Gets the filter's default values
+     * 
+     * @param type {T extends keyof IHistoryDefault}
+     * @returns {IHistoryDefault[T]} - filter default value
+     */
+    public getDefaultFilter<T extends keyof IHistoryDefault>(type: T): IHistoryDefault[T] {
         return this.historyDefault[type];
     }
 
-    public setDefaultFilter(type: HistoryType, data: IIndexing<any>) {
+    /**
+     * Set default filter values
+     * 
+     * @param type {T extends keyof IHistoryDefault}
+     * @param data {IHistoryDefault[T]}
+     */
+    public setDefaultFilter<T extends keyof IHistoryDefault>(type: T, data: IHistoryDefault[T]): void {
         _assign(this.historyDefault[type], data);
     }
 }

@@ -2,15 +2,7 @@
 
 $customThemeDefault: () !default;
 $themeDefault: map-merge((
-    'sectionDisplay': (
-        375: none,
-        1024: grid,
-    ),
-
-    'sectionDisplayTypeFirst': (
-        375: none,
-        1200: grid,
-    ),
+    'sectionDisplay': grid,
 
     'sectionMargin': (
         1024: ef.size(4) 0 0,
@@ -36,6 +28,7 @@ $themeDefault: map-merge((
         1024: 0 ef.size(3)
     ),
     'filterMinWidth': 140px,
+    'filterBtnMinWidth': 110px,
 
     'btnMinHeight': 40px,
     'labelAreas': 'label label label' '. . .',

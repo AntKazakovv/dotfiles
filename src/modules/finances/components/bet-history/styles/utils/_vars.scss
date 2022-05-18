@@ -7,9 +7,6 @@ $themeDefault: map-merge((
     'filterMargin': 0 0 ef.size(4),
     'filterGap': ef.size(3),
     'filterMinWidth': 140px,
-    'sectionDisplayTypeFirst': (
-        375: none,
-        1024: grid,
-    ),
+    'sectionDisplayTypeFirst': grid,
     'firstCellColumns': 1fr auto,
 ), $customThemeDefault);

@@ -1,10 +1,10 @@
 import {
     Component,
     OnInit,
-    ChangeDetectionStrategy,
     Inject,
     Input,
     ChangeDetectorRef,
+    ChangeDetectionStrategy,
 } from '@angular/core';
 import {FormControl} from '@angular/forms';
 

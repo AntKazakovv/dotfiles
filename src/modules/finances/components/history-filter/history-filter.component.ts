@@ -5,10 +5,18 @@ import {
     Inject,
     Input,
     ChangeDetectorRef,
+    OnDestroy,
 } from '@angular/core';
 import {FormGroup} from '@angular/forms';
+
 import {BehaviorSubject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
+import {DateTime} from 'luxon';
+
+import _isEqual from 'lodash-es/isEqual';
+import _keys from 'lodash-es/keys';
+import _merge from 'lodash-es/merge';
+import _has from 'lodash-es/has';
 
 import {
     AbstractComponent,
@@ -25,15 +33,15 @@ import {
     HistoryFilterService,
 } from 'wlc-engine/modules/finances/system/services/history-filter/history-filter.service';
 import {
+    IFilterValue,
+    IFinancesFilter,
+} from 'wlc-engine/modules/finances/system/interfaces/history-filter.interface';
+import {
     IFormWrapperCParams,
     IFormComponent,
 } from 'wlc-engine/modules/core/components/form-wrapper/form-wrapper.component';
 
 import * as Params from './history-filter.params';
-
-import _isEqual from 'lodash-es/isEqual';
-import _keys from 'lodash-es/keys';
-import _merge from 'lodash-es/merge';
 
 @Component({
     selector: '[wlc-history-filter]',
@@ -41,13 +49,13 @@ import _merge from 'lodash-es/merge';
     styleUrls: ['./styles/history-filter.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class HistoryFilterComponent extends AbstractComponent implements OnInit {
+export class HistoryFilterComponent extends AbstractComponent implements OnInit, OnDestroy {
     @Input() protected inlineParams: Params.IHistoryFilterCParams;
 
     public $params: Params.IHistoryFilterCParams;
     public isFiltered: boolean = false;
-
-    protected formData: BehaviorSubject<IIndexing<any>> = new BehaviorSubject(null);
+    protected formData: BehaviorSubject<IFinancesFilter | IFilterValue> = new BehaviorSubject(null);
+    protected defaultFormData: IFinancesFilter | IFilterValue;
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IHistoryFilterCParams,
@@ -63,6 +71,12 @@ export class HistoryFilterComponent extends AbstractComponent implements OnInit 
     public ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
         this.subscriber();
+    }
+
+    public ngOnDestroy(): void {
+        if (this.modalService.getActiveModal('history-filter')) {
+            this.modalService.hideModal('history-filter');
+        }
     }
 
     public ngSubmit(form: FormGroup): void {
@@ -102,26 +116,36 @@ export class HistoryFilterComponent extends AbstractComponent implements OnInit 
         if (!data) {
             return;
         }
-        const defaultData = this.historyFilterService.getDefaultFilter(this.$params.config);
-        this.isFiltered = !_keys(defaultData).every((key: string) => _isEqual(defaultData[key], data[key]));
+        this.defaultFormData = this.historyFilterService.getDefaultFilter(this.$params.config);
+        this.isFiltered = !_keys(this.defaultFormData)
+            .every((key: string): boolean => {
+                if (this.defaultFormData[key] instanceof DateTime) {
+                    return this.defaultFormData[key].toFormat('y-LL-dd') ===  data[key].toFormat('y-LL-dd');
+                }
+                return _isEqual(this.defaultFormData[key], data[key]);
+            });
         this.cdr.markForCheck();
     }
 
     protected createFormConfig(): IFormWrapperCParams {
+        const isIFinancesFilter = (formData: IFinancesFilter | IFilterValue): formData is IFinancesFilter => {
+            return _has(formData, 'startDate') || _has(formData, 'endDate');
+        };
+        const formData: IFinancesFilter | IFilterValue = this.formData.getValue() || this.defaultFormData;
         let formConfig = Params.formConfig[this.$params.config];
-        const defaultFormData = this.historyFilterService.getDefaultFilter(this.$params.config);
-
+        
         if (!this.formData.getValue()) {
-            this.formData.next(defaultFormData);
+            this.formData.next(this.defaultFormData);
         }
 
-        if (defaultFormData.endDate || defaultFormData.startDate) {
+        if (isIFinancesFilter(formData) && (formData.endDate || formData.startDate)) {
             const startIndex = formConfig.components
                 .findIndex((input: IFormComponent) => input.params.name === 'startDate');
             const endIndex = formConfig.components
                 .findIndex((input: IFormComponent) => input.params.name === 'endDate');
 
-            if (defaultFormData.startDate && startIndex + 1) {
+            if (formData.startDate && startIndex + 1) {
+                const {day, month, year} = formData.endDate.plus({day: 1}).toObject();
                 formConfig = _merge({}, formConfig, {
                     components: formConfig.components
                         .map((el: IFormComponent, i: number) => i === startIndex
@@ -129,9 +153,10 @@ export class HistoryFilterComponent extends AbstractComponent implements OnInit 
                                 params: {
                                     datepickerOptions: {
                                         markDates: [{
-                                            dates: [defaultFormData.startDate.c],
+                                            dates: [formData.startDate.toObject()],
                                             styleClass: 'defaultDate',
                                         }],
+                                        disableSince: {day, month, year},
                                     },
                                 },
                             })
@@ -140,7 +165,8 @@ export class HistoryFilterComponent extends AbstractComponent implements OnInit 
                 });
             }
 
-            if (defaultFormData.endDate && endIndex + 1) {
+            if (formData.endDate && endIndex + 1) {
+                const {day, month, year} = formData.startDate.minus({day: 1}).toObject();
                 formConfig = _merge({}, formConfig, {
                     components: formConfig.components
                         .map((el: IFormComponent, i: number) => i === endIndex
@@ -148,9 +174,10 @@ export class HistoryFilterComponent extends AbstractComponent implements OnInit 
                                 params: {
                                     datepickerOptions: {
                                         markDates: [{
-                                            dates: [defaultFormData.endDate.c],
+                                            dates: [formData.endDate.toObject()],
                                             styleClass: 'defaultDate',
                                         }],
+                                        disableUntil: {day, month, year},
                                     },
                                 },
                             })

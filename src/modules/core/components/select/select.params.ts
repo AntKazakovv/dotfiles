@@ -15,9 +15,9 @@ export type CustomMod = string;
 export type Modifiers = AutoModifiers | CustomMod | null;
 export type TComponentsWithIcon = 'phoneCode' | 'countryCode';
 
-export interface ISelectCParams extends IComponentParams<ComponentTheme, ComponentType, string> {
+export interface ISelectCParams<V = unknown> extends IComponentParams<ComponentTheme, ComponentType, string> {
     name: string;
-    value?: string;
+    value?: V;
     id?: string;
     common?: {
         placeholder?: string | number;
@@ -35,7 +35,7 @@ export interface ISelectCParams extends IComponentParams<ComponentTheme, Compone
     locked?: boolean;
     labelText?: string;
     options?: string;
-    items?: ISelectOptions[];
+    items?: ISelectOptions<V>[];
     modifiers?: Modifiers[];
     useSearch?: boolean;
     insensitiveSearch?: boolean;
@@ -44,8 +44,8 @@ export interface ISelectCParams extends IComponentParams<ComponentTheme, Compone
     useIcon?: boolean;
 }
 
-export interface ISelectOptions {
-    value: unknown;
+export interface ISelectOptions<V = unknown> {
+    value: V;
     title: string | number;
     /**
      * Path by country flag. For show country flags.

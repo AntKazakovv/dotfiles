@@ -4,16 +4,15 @@ import {
     ChangeDetectorRef,
     Inject,
 } from '@angular/core';
-import {FormControl} from '@angular/forms';
+
 import {BehaviorSubject} from 'rxjs';
 import {
-    takeUntil,
     filter,
+    takeUntil,
 } from 'rxjs/operators';
-
 import {DateTime} from 'luxon';
+
 import _orderBy from 'lodash-es/orderBy';
-import _map from 'lodash-es/map';
 import _filter from 'lodash-es/filter';
 
 import {
@@ -23,17 +22,20 @@ import {
     ITableCParams,
     ISelectCParams,
     ConfigService,
-    InjectionService,
+    ActionService,
+    DeviceType,
 } from 'wlc-engine/modules/core';
-import {
-    HistoryFilterService,
-} from 'wlc-engine/modules/finances/system/services';
+import {HistoryFilterService} from 'wlc-engine/modules/finances/system/services';
 import {BonusesService} from 'wlc-engine/modules/bonuses/system/services';
-import {Transaction} from 'wlc-engine/modules/finances/system/models/transaction-history.model';
 import {HistoryItemModel} from 'wlc-engine/modules/bonuses/system/models/bonus-history-item.model';
-import {IBonus} from 'wlc-engine/modules/bonuses';
+import {
+    TBonusFilter,
+    IFilterValue,
+} from 'wlc-engine/modules/finances/system/interfaces/history-filter.interface';
+import {bonusesConfig} from 'wlc-engine/modules/finances/system/config/history.config';
 
 import * as Params from './bonuses-history.params';
+
 @Component({
     selector: '[wlc-bonuses-history]',
     templateUrl: './bonuses-history.component.html',
@@ -41,59 +43,23 @@ import * as Params from './bonuses-history.params';
 })
 export class BonusesHistoryComponent extends AbstractComponent implements OnInit {
 
-    public ready = false;
-
+    public ready: boolean = false;
+    public showFilter: boolean = false;
     public $params: Params.IBonusesHistoryCParams;
-
-    public filterSelect: ISelectCParams = {
-        name: 'bonuses',
-        value: 'all',
-        common: {
-            placeholder: gettext('Status'),
-        },
-        theme: 'vertical',
-        labelText: gettext('Status'),
-        control: new FormControl('all'),
-        items: [
-            {
-                value: 'all',
-                title: 'All',
-            },
-            {
-                value: '-100',
-                title: 'Expired',
-            },
-            {
-                value: '-99',
-                title: 'Canceled',
-            },
-            {
-                value: '100',
-                title: 'Wagered',
-            },
-        ],
-    };
-
-    protected bets: any = new BehaviorSubject([]);
-    protected filterType: 'all' | '-100' | '-99' | '100' = 'all';
-
-    public tableData: ITableCParams = {
-        noItemsText: gettext('No bonuses history'),
-        head: Params.bonusHistoryTableHeadConfig,
-        rows: this.bets,
-        switchWidth: (this.configService.get('$base.profile.type') === 'first') ? 1200 : 1024,
-    };
-
-    protected allBets: any[] = [];
-    protected historyFilterService: HistoryFilterService;
+    public tableData: ITableCParams;
+    public filterSelect: ISelectCParams<TBonusFilter> = bonusesConfig.filterSelect;
+    protected filterValue: TBonusFilter = 'all';
+    protected bonuses$: BehaviorSubject<HistoryItemModel[]> = new BehaviorSubject([]);
+    protected allBonuses: HistoryItemModel[] = [];
 
     constructor(
         @Inject('injectParams') protected params: Params.IBonusesHistoryCParams,
         protected cdr: ChangeDetectorRef,
-        protected eventService: EventService,
-        protected injectionService: InjectionService,
         protected bonusesService: BonusesService,
+        protected eventService: EventService,
+        protected historyFilterService: HistoryFilterService,
         protected configService: ConfigService,
+        protected actionService: ActionService,
     ) {
         super(
             <IMixedParams<Params.IBonusesHistoryCParams>>{
@@ -104,54 +70,75 @@ export class BonusesHistoryComponent extends AbstractComponent implements OnInit
 
     public async ngOnInit(): Promise<void> {
         super.ngOnInit();
-        this.historyFilterService = await this.injectionService
-            .getService<HistoryFilterService>('finances.history-filter');
         await this.bonusesService.queryBonuses(true, 'history');
-        this.bonusesService.getObserver<IBonus>('history').subscribe((value) => {
-            this.allBets = _map(value, (item) => {
-                return new HistoryItemModel({component: 'BonusesHistoryComponent', method: 'ngOnInit'}, item);
-            });
+        this.showFilter = this.actionService.getDeviceType() === DeviceType.Desktop;
+        this.setSubscription();
+
+        this.historyFilterService.setDefaultFilter('bonus', {
+            filterValue: this.filterValue,
         });
-
-        this.bets.next(this.filterTransaction());
-
-
-        this.filterSelect.control.valueChanges.pipe(takeUntil(this.$destroy)).subscribe((value) => {
-            this.filterType = value;
-            this.bets.next(this.filterTransaction());
+        this.historyFilterService.setFilter('bonus', {
+            filterValue: this.filterValue,
         });
+        this.tableData = {
+            noItemsText: gettext('No bonuses history'),
+            head: Params.bonusHistoryTableHeadConfig,
+            rows: this.bonuses$,
+            switchWidth: (this.configService.get('$base.profile.type') === 'first') ? 1200 : 1024,
+        };
 
-        this.historyFilter();
+        this.bonuses$.next(this.bonusesFilter());
+
         this.ready = true;
         this.cdr.markForCheck();
     }
 
-    protected filterTransaction(): Transaction[] {
+    protected bonusesFilter(): HistoryItemModel[] {
+        let result: HistoryItemModel[] = this.allBonuses || [];
 
-        let result: any[] = this.allBets || [];
-
-        if (this.filterType !== 'all') {
-            result = _filter(result, item => {
-                return item.Status === this.filterType;
+        if (this.filterValue !== 'all') {
+            result = _filter(result, (item: HistoryItemModel): boolean => {
+                return item.Status === this.filterValue;
             });
         }
 
-        return result = _orderBy(result, (item: IBonus) => (DateTime.fromSQL(item.End).toSeconds()), 'desc');
+        return _orderBy(result, (item: HistoryItemModel): number => DateTime.fromSQL(item.End).toSeconds(), 'desc');
     }
 
-    protected historyFilter(): void {
-        this.historyFilterService.setDefaultFilter('bonus', {
-            filterType: this.filterSelect.value,
-        });
-
+    protected setSubscription(): void {
         this.historyFilterService.getFilter('bonus')
             .pipe(
-                filter((data) => !!data),
                 takeUntil(this.$destroy),
+                filter((data: IFilterValue<TBonusFilter>): boolean => !!data && this.filterValue != data.filterValue),
             )
-            .subscribe((data) => {
-                this.filterType = data.filterType;
-                this.bets.next(this.filterTransaction());
+            .subscribe((data: IFilterValue<TBonusFilter>): void => {
+                this.filterSelect.control.setValue(this.filterValue = data.filterValue);
+                this.bonuses$.next(this.bonusesFilter());
+            });
+
+        this.bonusesService.getObserver<HistoryItemModel>('history')
+            .pipe(takeUntil(this.$destroy))
+            .subscribe((bonuses: HistoryItemModel[]): void => {
+                this.allBonuses = bonuses;
+            });
+
+        this.filterSelect.control.valueChanges
+            .pipe(
+                takeUntil(this.$destroy),
+                filter((filterValue: TBonusFilter): boolean => this.filterValue != filterValue),
+            )
+            .subscribe((filterValue: TBonusFilter): void => {
+                this.historyFilterService.setFilter('bonus', {
+                    filterValue: this.filterValue = filterValue,
+                });
+                this.bonuses$.next(this.bonusesFilter());
+            });
+
+        this.actionService.deviceType()
+            .pipe(takeUntil(this.$destroy))
+            .subscribe((type: DeviceType): void => {
+                this.showFilter = type === DeviceType.Desktop;
+                this.cdr.detectChanges();
             });
     }
 }

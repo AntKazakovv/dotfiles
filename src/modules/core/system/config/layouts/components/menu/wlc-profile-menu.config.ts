@@ -97,6 +97,27 @@ export namespace wlcProfileMenu {
         },
     };
 
+    export const submenuTransactionsHistory: ILayoutComponent = {
+        name: 'core.wlc-wrapper',
+        params: {
+            class: 'wlc-submenu-history',
+            components: [
+                {
+                    name: 'menu.wlc-profile-menu',
+                    params: {
+                        type: 'submenu',
+                    },
+                },
+                {
+                    name: 'finances.wlc-history-range',
+                    params: {
+                        type: 'submenu',
+                    },
+                },
+            ],
+        },
+    };
+
     export const vertical: ILayoutComponent = {
         name: 'menu.wlc-profile-menu',
         params: {

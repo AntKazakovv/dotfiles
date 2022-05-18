@@ -21,6 +21,7 @@ export {IActionParams} from './link-block/link-block.params';
 export {ILoaderCParams} from './loader/loader.params';
 export {ILoginSignupCParams} from './login-signup/login-signup.params';
 export {ILogoCParams} from './logo/logo.params';
+export {IRadioButtonsCParams} from './radio-buttons/radio-buttons.params';
 export {IScrollbarCParams} from './scrollbar/scrollbar.params';
 export {ISelectCParams} from './select/select.params';
 export {ITableCParams, ITableCol} from './table/table.params';

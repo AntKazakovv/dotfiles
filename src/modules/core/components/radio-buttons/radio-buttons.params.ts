@@ -9,22 +9,22 @@ export type Theme = 'default' | 'button' | CustomType;
 export type Type = 'default' | CustomType;
 export type ThemeMod = 'default' | CustomType;
 
-export interface IRadioButtonsCParams extends IComponentParams<Theme, Type, ThemeMod> {
+export interface IRadioButtonsCParams<V = unknown> extends IComponentParams<Theme, Type, ThemeMod> {
     name: string;
-    value?: string;
+    value?: V;
     common?: {
         placeholder?: string;
     },
     control?: FormControl;
     disabled?: boolean;
     locked?: boolean;
-    items?: IRadioButtonOption[];
+    items?: IRadioButtonOption<V>[];
     /** index of item */
     defaultValue?: number;
 };
 
-export interface IRadioButtonOption {
-    value: unknown;
+export interface IRadioButtonOption<V = unknown> {
+    value: V;
     title: string;
 };
 

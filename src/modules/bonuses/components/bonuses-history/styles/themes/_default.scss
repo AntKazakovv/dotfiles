@@ -10,9 +10,8 @@
             min-height: ef.get-value($themeDefault, 'sectionLoaderMinHeight');
         }
 
-        .wlc-bonuses-history-filter {
-            @include bm.get-mq-map('display', $themeDefault, 'filterDisplay');
-
+        .wlc-bonuses-history__filter {
+            display: ef.get-value($themeDefault, 'filterDisplay');
             grid-auto-columns: max-content;
             grid-auto-flow: column;
             gap: ef.get-value($themeDefault, 'filterGap');
@@ -24,7 +23,7 @@
             }
 
             .wlc-sections__profile-content--theme-first & {
-                @include bm.get-mq-map('display', $themeDefault, 'filterDisplayV1');
+                display: ef.get-value($themeDefault, 'filterDisplayV1');
             }
         }
 

@@ -1,41 +1,22 @@
-<div class="{{$class}}-filter">
-    <div wlc-datepicker [inlineParams]='startDateInput'></div>
-    <div wlc-datepicker #datepickerEndComponent [inlineParams]='endDateInput' ></div>
-
-    <div *ngIf="$params.filterType==='select'; else buttons"
-         wlc-select
-         [inlineParams]='filterSelect'></div>
-</div>
-
-<div *ngIf="ready; else preloader" class="{{$class}}">
-    <div wlc-table [inlineParams]='tableData'></div>
-</div>
+<ng-container *ngIf="ready; else preloader">
+    <div *ngIf="showFilter" class="{{$class}}__filter">
+        <div wlc-datepicker [inlineParams]="startDateInput"></div>
+        <div wlc-datepicker [inlineParams]="endDateInput"></div>
+    
+        <div *ngIf="$params.filterType === 'select'; else buttons"
+             wlc-select
+             [inlineParams]="filterSelect"></div>
+    </div>
+    
+    <div class="{{$class}}__table">
+        <div wlc-table [inlineParams]="tableData"></div>
+    </div>
+</ng-container>
 
 <ng-template #buttons>
-    <div class="{{$class}}-filter__buttons">
-        <label class="wlc-label">{{filterSelect.labelText | translate}}</label>
-        <button wlc-button
-                [class.active]="filterSelect.control.value === 'all'"
-                wlcElement="button_all"
-                themeMod="secondary"
-                text="All"
-                (click)="setFilter('all')"
-        ></button>
-        <button wlc-button
-                [class.active]="filterSelect.control.value === 'deposit'"
-                wlcElement="button_deposit"
-                themeMod="secondary"
-                text="Deposit"
-                (click)="setFilter('deposit')"
-        ></button>
-        <button wlc-button
-                [class.active]="filterSelect.control.value === 'withdraw'"
-                wlcElement="button_withdraw"
-                themeMod="secondary"
-                text="Withdraw"
-                (click)="setFilter('withdraw')"
-        ></button>
-    </div>
+    <div wlc-radio-buttons
+        class="{{$class}}__buttons"
+        [inlineParams]="filterSelect"></div>
 </ng-template>
 
 <ng-template #preloader>

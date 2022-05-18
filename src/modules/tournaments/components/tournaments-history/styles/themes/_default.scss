@@ -10,7 +10,7 @@
             min-height: ef.get-value($themeDefault, 'sectionLoaderMinHeight');
         }
 
-        .wlc-tournaments-history-filter {
+        .wlc-tournaments-history__filter {
             display: none;
 
             .wlc-select[wlc-select] {

@@ -655,7 +655,7 @@ export namespace profileContent {
                     ],
                 },
             },
-            componentLib.wlcProfileMenu.submenuHistory,
+            componentLib.wlcProfileMenu.submenuTransactionsHistory,
             componentLib.wlcTransactionHistory.def,
         ],
     };

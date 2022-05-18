@@ -4,9 +4,9 @@ import {
     ChangeDetectorRef,
     Inject,
 } from '@angular/core';
+
 import {BehaviorSubject} from 'rxjs';
 import {
-    distinctUntilChanged,
     filter,
     takeUntil,
 } from 'rxjs/operators';
@@ -22,19 +22,22 @@ import {
     ITableCParams,
     ISelectCParams,
     ConfigService,
-    InjectionService,
+    ActionService,
+    DeviceType,
 } from 'wlc-engine/modules/core';
 import {ProfileType} from 'wlc-engine/modules/core/system/interfaces/base-config/profile.interface';
 import {
     HistoryFilterService,
 } from 'wlc-engine/modules/finances/system/services/history-filter/history-filter.service';
 import {
+    TTournamentsFilter,
+    IFilterValue,
+} from 'wlc-engine/modules/finances/system/interfaces/history-filter.interface';
+import {
     TournamentHistory,
     TournamentsService,
 } from 'wlc-engine/modules/tournaments';
-import {
-    formConfig as historyFilterForm,
-} from 'wlc-engine/modules/finances/components/history-filter/history-filter.params';
+import {tournamentConfig} from 'wlc-engine/modules/finances/system/config/history.config';
 
 import * as Params from './tournaments-history.params';
 
@@ -44,110 +47,107 @@ import * as Params from './tournaments-history.params';
     styleUrls: ['./styles/tournaments-history.component.scss'],
 })
 export class TournamentsHistoryComponent extends AbstractComponent implements OnInit {
-    public ready = false;
 
+    public ready: boolean = false;
+    public showFilter: boolean = false;
     public $params: Params.ITournamentsHistoryCParams;
-    public filterSelect: ISelectCParams = historyFilterForm.tournamentHistoryFilter.params;
     public tableData: ITableCParams;
-
-    protected tournaments: BehaviorSubject<TournamentHistory[]> = new BehaviorSubject([]);
-    protected filterType: 'all' | '-99' | '99' | '100' | '0' | '1' = 'all';
-
+    public filterSelect: ISelectCParams<TTournamentsFilter> = tournamentConfig.filterSelect;
+    protected filterValue: TTournamentsFilter = 'all';
+    protected tournaments$: BehaviorSubject<TournamentHistory[]> = new BehaviorSubject([]);
     protected allTournaments: TournamentHistory[] = [];
-    protected historyFilterService: HistoryFilterService;
 
     constructor(
         @Inject('injectParams') protected params: Params.ITournamentsHistoryCParams,
         protected cdr: ChangeDetectorRef,
-        protected eventService: EventService,
-        protected injectionService: InjectionService,
         protected tournamentsService: TournamentsService,
+        protected eventService: EventService,
+        protected historyFilterService: HistoryFilterService,
         protected configService: ConfigService,
+        protected actionService: ActionService,
     ) {
         super(
             <IMixedParams<Params.ITournamentsHistoryCParams>>{
                 injectParams: params,
                 defaultParams: Params.defaultParams,
             });
-        this.init();
-    }
-
-    public init(): void {
-
-        const profileType = this.configService.get<ProfileType>('$base.profile.type') || 'default';
-
-        this.tableData = {
-            themeMod: profileType,
-            noItemsText: gettext('No tournaments history'),
-            head: Params.tournamentsHistoryTableHeadConfig,
-            rows: this.tournaments,
-            switchWidth: profileType === 'first' ? 1200 : 1024,
-        };
     }
 
     public async ngOnInit(): Promise<void> {
         super.ngOnInit();
-
+        const profileType: ProfileType = this.configService.get<ProfileType>('$base.profile.type') || 'default';
         await this.tournamentsService.queryTournaments(true, 'history');
-        this.historyFilterService = await this.injectionService
-            .getService<HistoryFilterService>('finances.history-filter');
-        this.tournamentsService.getObserver<TournamentHistory[]>('history')
-            .subscribe((value) => {
-                this.allTournaments = value;
-            });
+        this.showFilter = this.actionService.getDeviceType() === DeviceType.Desktop;
+        this.setSubscription();
 
-        this.tournaments.next(this.filterTransaction());
+        this.historyFilterService.setDefaultFilter('tournaments', {
+            filterValue: this.filterValue,
+        });
+        this.historyFilterService.setFilter('tournaments', {
+            filterValue: this.filterValue,
+        });
+        this.tableData = {
+            themeMod: profileType,
+            noItemsText: gettext('No tournaments history'),
+            head: Params.tournamentsHistoryTableHeadConfig,
+            rows: this.tournaments$,
+            switchWidth: profileType === 'first' ? 1200 : 1024,
+        };
 
-        this.filterSelect.control.valueChanges
-            .pipe(
-                distinctUntilChanged(),
-                takeUntil(this.$destroy),
-            )
-            .subscribe((value) => {
-                this.filterType = value;
-                this.filterSelect.value = value;
-                this.tournaments.next(this.filterTransaction());
-            });
+        this.tournaments$.next(this.tournamentsFilter());
 
-        this.historyFilter();
         this.ready = true;
         this.cdr.markForCheck();
     }
 
-    protected filterTransaction(): TournamentHistory[] {
-
+    protected tournamentsFilter(): TournamentHistory[] {
         let result: TournamentHistory[] = this.allTournaments || [];
 
-        if (this.filterType !== 'all') {
-            result = _filter(result, item => {
-                return item.status.toString() == this.filterType;
+        if (this.filterValue !== 'all') {
+            result = _filter(result, (item: TournamentHistory): boolean => {
+                return item.status.toString() === this.filterValue;
             });
         }
 
         return _orderBy(result, (item: TournamentHistory): number => DateTime.fromSQL(item.end).toSeconds(), 'desc');
     }
 
-    protected historyFilter(): void {
-        this.historyFilterService.setDefaultFilter('tournaments', {
-            filterType: this.filterSelect.value,
-        });
-
+    protected setSubscription(): void {
         this.historyFilterService.getFilter('tournaments')
             .pipe(
-                filter((data) => !!data),
                 takeUntil(this.$destroy),
+                filter(
+                    (data: IFilterValue<TTournamentsFilter>): boolean => !!data && this.filterValue != data.filterValue,
+                ),
             )
-            .subscribe(({filterType}) => {
-                this.filterType = filterType;
-
-                this.synchronizeSelectValue(filterType);
-
-                this.tournaments.next(this.filterTransaction());
+            .subscribe((data: IFilterValue<TTournamentsFilter>): void => {
+                this.filterSelect.control.setValue(this.filterValue = data.filterValue);
+                this.tournaments$.next(this.tournamentsFilter());
             });
-    }
 
-    private synchronizeSelectValue(value: string): void {
-        this.filterSelect.value = value;
-        this.filterSelect.control.setValue(value);
+        this.tournamentsService.getObserver<TournamentHistory[]>('history')
+            .pipe(takeUntil(this.$destroy))
+            .subscribe((value: TournamentHistory[]): void => {
+                this.allTournaments = value;
+            });
+
+        this.filterSelect.control.valueChanges
+            .pipe(
+                takeUntil(this.$destroy),
+                filter((filterValue: TTournamentsFilter): boolean => this.filterValue != filterValue),
+            )
+            .subscribe((filterValue: TTournamentsFilter): void => {
+                this.historyFilterService.setFilter('tournaments', {
+                    filterValue: this.filterValue = filterValue,
+                });
+                this.tournaments$.next(this.tournamentsFilter());
+            });
+
+        this.actionService.deviceType()
+            .pipe(takeUntil(this.$destroy))
+            .subscribe((type: DeviceType): void => {
+                this.showFilter = type === DeviceType.Desktop;
+                this.cdr.detectChanges();
+            });
     }
 }

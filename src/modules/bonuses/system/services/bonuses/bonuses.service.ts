@@ -29,6 +29,7 @@ import _unionBy from 'lodash-es/unionBy';
 import _isNumber from 'lodash-es/isNumber';
 import _find from 'lodash-es/find';
 
+import {HistoryItemModel} from 'wlc-engine/modules/bonuses/system/models/bonus-history-item.model';
 import {Bonus} from 'wlc-engine/modules/bonuses/system/models/bonus';
 import {
     ActionType,
@@ -66,7 +67,7 @@ interface ISubjects {
     bonuses$: BehaviorSubject<Bonus[]>;
     active$: BehaviorSubject<Bonus[]>;
     store$: BehaviorSubject<Bonus[]>;
-    history$: BehaviorSubject<IBonus[]>;
+    history$: BehaviorSubject<HistoryItemModel[]>;
 }
 
 @Injectable({
@@ -79,7 +80,7 @@ export class BonusesService {
     public bonuses: Bonus[] = [];
 
     protected activeBonuses: Bonus[] = [];
-    protected historyBonuses: IBonus[] = [];
+    protected historyBonuses: HistoryItemModel[] = [];
 
     private subjects: ISubjects = {
         bonuses$: new BehaviorSubject(null),
@@ -184,8 +185,8 @@ export class BonusesService {
      * @param {RestType} type bonuses rest type ('active' | 'history' | 'store' | 'any')
      * @returns {Observable<Bonus[]>} Observable
      */
-    public getObserver<T extends IBonus | Bonus>(type?: RestType): Observable<T[]> {
-        let flow$: BehaviorSubject<(IBonus | Bonus)[]>;
+    public getObserver<T extends HistoryItemModel | Bonus>(type?: RestType): Observable<T[]> {
+        let flow$: BehaviorSubject<(HistoryItemModel | Bonus)[]>;
 
         switch (type) {
             case 'active':
@@ -429,7 +430,7 @@ export class BonusesService {
      * @param {string} promoCode bonus promocode (no required)
      * @returns {Bonus[]} bonuses array
      */
-    public async queryBonuses<T extends Bonus | IBonus>(
+    public async queryBonuses<T extends Bonus | HistoryItemModel>(
         publicSubject: boolean,
         type: RestType = 'any',
         promoCode?: string,
@@ -453,11 +454,15 @@ export class BonusesService {
             const res: IBonusesData = await this.dataService.request('bonuses/bonuses', queryParams);
 
             if (type === 'history') {
+                this.historyBonuses = _map(res.data, (bonus: IBonus): HistoryItemModel => {
+                    return new HistoryItemModel({service: 'BonusesService', method: 'queryBonuses'}, bonus);
+                });
+
                 if (publicSubject) {
-                    this.subjects.history$.next(res.data);
+                    this.subjects.history$.next(this.historyBonuses);
                 }
-                this.historyBonuses = res.data;
-                return res.data as T[];
+
+                return this.historyBonuses as T[];
             }
 
             const bonuses: Bonus[] = _orderBy(
@@ -703,7 +708,7 @@ export class BonusesService {
         });
 
         this.subjects.history$.subscribe({
-            next: (bonuses: IBonus[]) => {
+            next: (bonuses: HistoryItemModel[]) => {
                 this.eventService.emit({
                     name: 'BONUSES_FETCH_HISTORY_SUCCESS',
                     data: bonuses,

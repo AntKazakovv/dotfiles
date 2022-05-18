@@ -3,9 +3,8 @@ import {
     OnInit,
     ChangeDetectorRef,
     Inject,
-    ViewChild,
 } from '@angular/core';
-import {FormControl} from '@angular/forms';
+
 import {BehaviorSubject} from 'rxjs';
 import {
     filter,
@@ -14,7 +13,6 @@ import {
 import {DateTime} from 'luxon';
 
 import _filter from 'lodash-es/filter';
-import _clone from 'lodash-es/clone';
 import _last from 'lodash-es/last';
 import _first from 'lodash-es/first';
 
@@ -22,20 +20,28 @@ import {
     AbstractComponent,
     IMixedParams,
     EventService,
-    ISelectCParams,
     ITableCParams,
     IDatepickerCParams,
-    DatepickerComponent,
     ConfigService,
-    GlobalHelper,
+    ActionService,
+    DeviceType,
+    ProfileType,
 } from 'wlc-engine/modules/core';
 import {
     FinancesService,
     HistoryFilterService,
 } from 'wlc-engine/modules/finances/system/services';
+import {Transaction} from 'wlc-engine/modules/finances/system/models';
 import {
-    Transaction,
-} from 'wlc-engine/modules/finances/system/models';
+    TTransactionFilter,
+    IFinancesFilter,
+    TTransactionFilterType,
+} from 'wlc-engine/modules/finances/system/interfaces/history-filter.interface';
+import {
+    transactionConfig as config,
+    startDate,
+    endDate,
+} from 'wlc-engine/modules/finances/system/config/history.config';
 
 import * as Params from './transaction-history.params';
 
@@ -46,59 +52,17 @@ import * as Params from './transaction-history.params';
 })
 export class TransactionHistoryComponent extends AbstractComponent implements OnInit {
 
-    @ViewChild('datepickerEndComponent') public datepickerEndComponent: DatepickerComponent;
-    public ready = false;
-    public filterSelect: ISelectCParams = {
-        name: 'type',
-        value: 'all',
-        labelText: 'Sort by',
-        common: {
-            placeholder: 'Type',
-        },
-        control: new FormControl('all'),
-        items: [
-            {
-                value: 'all',
-                title: 'All',
-            },
-            {
-                value: 'deposit',
-                title: 'Deposit',
-            },
-            {
-                value: 'withdraw',
-                title: 'Withdrawal',
-            },
-        ],
-    };
-
+    public ready: boolean = false;
+    public showFilter: boolean = false;
     public $params: Params.ITransactionHistoryCParams;
-
-    public startDateInput: IDatepickerCParams = {
-        name: 'startDate',
-        label: 'Start date',
-        control: new FormControl(''),
-    };
-
-    public endDateInput: IDatepickerCParams = {
-        name: 'endDate',
-        label: 'End date',
-        control: new FormControl(''),
-    };
-
-    protected transaction: BehaviorSubject<Transaction[]> = new BehaviorSubject([]);
-    protected filterType: 'all' | 'deposit' | 'withdraw' = 'all';
-    protected startDate: DateTime;
-    protected endDate: DateTime;
-
-    public tableData: ITableCParams = {
-        themeMod: this.configService.get('$base.profile.type') || 'default',
-        noItemsText: gettext('No transactions history'),
-        head: Params.transactionTableHeadConfig,
-        rows: this.transaction,
-        switchWidth: (this.configService.get('$base.profile.type') === 'first') ? 1200 : 1024,
-    };
-
+    public tableData: ITableCParams;
+    public filterSelect: TTransactionFilterType = config.filterSelect;
+    public startDateInput: IDatepickerCParams = startDate;
+    public endDateInput: IDatepickerCParams = endDate;
+    protected filterValue: TTransactionFilter = 'all';
+    protected startDate: DateTime = DateTime.local();
+    protected endDate: DateTime = DateTime.local();
+    protected transaction$: BehaviorSubject<Transaction[]> = new BehaviorSubject([]);
     protected allTransactions: Transaction[] = [];
 
     constructor(
@@ -108,6 +72,7 @@ export class TransactionHistoryComponent extends AbstractComponent implements On
         protected eventService: EventService,
         protected historyFilterService: HistoryFilterService,
         protected configService: ConfigService,
+        protected actionService: ActionService,
     ) {
         super(
             <IMixedParams<Params.ITransactionHistoryCParams>>{
@@ -118,126 +83,147 @@ export class TransactionHistoryComponent extends AbstractComponent implements On
 
     public async ngOnInit(): Promise<void> {
         super.ngOnInit();
+        const profileType: ProfileType = this.configService.get<ProfileType>('$base.profile.type') || 'default';
+        this.filterSelect = this.$params.filterType === 'select' ? config.filterSelect : config.filterRadioBtn;
         this.allTransactions = await this.financesService.getTransactionList();
+
+        if (this.allTransactions.length) {
+            this.startDate = DateTime.fromISO(_last(this.allTransactions).dateISO, {zone: 'utc'}).toLocal();
+            this.endDate = DateTime.fromISO(_first(this.allTransactions).dateISO, {zone: 'utc'}).toLocal();
+        }
+
+        this.showFilter = this.actionService.getDeviceType() === DeviceType.Desktop;
         this.setMinMaxDate();
-        this.historyFilter();
+        this.setSubscription();
 
-        this.transaction.next(this.filterTransaction());
-
-        this.filterSelect.control.valueChanges.pipe(takeUntil(this.$destroy)).subscribe((value) => {
-            this.filterType = value;
-            this.transaction.next(this.filterTransaction());
+        this.historyFilterService.setDefaultFilter('transaction', {
+            filterValue: this.filterValue,
+            startDate: this.startDate,
+            endDate: this.endDate,
         });
-
-        this.startDateInput.control.valueChanges.pipe(takeUntil(this.$destroy)).subscribe((value) => {
-            this.startDate = value.set({hour: 0, minute: 0, second: 0});
-            this.setDisableDate();
-            this.transaction.next(this.filterTransaction());
+        this.historyFilterService.setFilter('transaction', {
+            filterValue: this.filterValue,
+            startDate: this.startDate,
+            endDate: this.endDate,
         });
+        this.tableData = {
+            themeMod: profileType,
+            noItemsText: gettext('No transactions history'),
+            head: Params.transactionTableHeadConfig,
+            rows: this.transaction$,
+            switchWidth: profileType === 'first' ? 1200 : 1024,
+        };
 
-        this.endDateInput.control.valueChanges.pipe(takeUntil(this.$destroy)).subscribe((value) => {
-            this.endDate = value.set({hour: 23, minute: 59, second: 59});
-            this.transaction.next(this.filterTransaction());
-        });
-
-        this.eventService.filter(
-            {name: 'TRANSACTION_CANCEL'},
-            this.$destroy)
-            .subscribe({
-                next: async () => {
-                    this.allTransactions = await this.financesService.getTransactionList();
-                    this.transaction.next(this.filterTransaction());
-                },
-            });
-
-
+        this.transaction$.next(this.transactionFilter());
         this.ready = true;
         this.cdr.markForCheck();
     }
 
-    public setFilter(value: string): void {
-        this.filterSelect.control.setValue(value);
+    protected transactionFilter(): Transaction[] {
+        let result: Transaction[] = this.allTransactions || [];
+
+        if (this.filterValue !== 'all') {
+            result = _filter(result, (item: Transaction): boolean => {
+                return (this.filterValue === 'deposit') ? item.amount > 0 : item.amount < 0;
+            });
+        }
+
+        return _filter(result, (item: Transaction): boolean => {
+            return DateTime.fromISO(item.dateISO, {zone: 'utc'}).toLocal() >= this.startDate
+                && DateTime.fromISO(item.dateISO, {zone: 'utc'}).toLocal() <= this.endDate;
+        });
     }
 
-    protected filterTransaction(): Transaction[] {
+    protected setMinMaxDate(): void {
+        const disableSince = this.endDate.plus({day: 1}).toObject();
+        const disableUntil = this.startDate.minus({day: 1}).toObject();
 
-        let result: Transaction[] = [];
-
-        if (this.filterType === 'all') {
-            result = this.allTransactions;
-        } else {
-            result = _filter(this.allTransactions,
-                (item) => {
-                    return (this.filterType === 'deposit') ? item.amount > 0 : item.amount < 0;
-                });
-        }
-
-        result = _filter(result, (item) => {
-            return item.date >= this.startDate && item.date <= this.endDate;
-        });
-
-        this.historyFilterService.dateChanges$.next({
-            startDate: this.startDate,
-            endDate: this.endDate,
-        });
-
-        return result;
+        this.startDateInput.control.setValue(this.startDate);
+        this.endDateInput.control.setValue(this.endDate);
+        this.startDateInput.datepickerOptions = {
+            disableSince: {
+                year: disableSince.year,
+                month: disableSince.month,
+                day: disableSince.day,
+            },
+        };
+        this.endDateInput.datepickerOptions = {
+            disableUntil: {
+                year: disableUntil.year,
+                month: disableUntil.month,
+                day: disableUntil.day,
+            },
+        };
     }
 
-    protected setMinMaxDate(min: boolean = true, max: boolean = true): void {
-        const dates = this.allTransactions.map((transaction) => {
-            return {
-                dateISO: transaction.dateISO,
-                date: transaction.date,
-            };
-        });
-
-        if (!dates.length) {
-            return;
-        }
-
-        if (min) {
-            this.startDate = _last(dates).date.startOf('day');
-            this.startDateInput.control.setValue(GlobalHelper.toLocalTime(_last(dates).dateISO, 'ISO', 'dd.LL.yyyy'));
-            this.startDateInput = _clone(this.startDateInput);
-        }
-
-        if (max) {
-            this.endDate = _first(dates).date.endOf('day');
-            this.endDateInput.control.setValue(GlobalHelper.toLocalTime(_first(dates).dateISO, 'ISO', 'dd.LL.yyyy'));
-            this.endDateInput = _clone(this.endDateInput);
-        }
-
-        this.setDisableDate();
-        this.cdr.detectChanges();
-    }
-
-    protected historyFilter(): void {
-        this.historyFilterService.setDefaultFilter('transaction', {
-            endDate: this.endDate,
-            startDate: this.startDate,
-        });
-
+    protected setSubscription(): void {
         this.historyFilterService.getFilter('transaction')
             .pipe(
-                filter((data) => !!data),
                 takeUntil(this.$destroy),
+                filter((data: IFinancesFilter<TTransactionFilter>): boolean => !!data),
             )
-            .subscribe((data) => {
-                this.filterType = data.filterType;
-                this.endDate = data.endDate;
-                this.startDate = data.startDate;
-                this.transaction.next(this.filterTransaction());
+            .subscribe((data: IFinancesFilter<TTransactionFilter>): void => {
+                this.filterSelect.control.setValue(this.filterValue = data.filterValue);
+                this.startDateInput.control.setValue(this.startDate = data.startDate);
+                this.endDateInput.control.setValue(this.endDate = data.endDate);
+                this.setMinMaxDate();
+                this.historyFilterService.dateChanges$.next({
+                    startDate: this.startDate,
+                    endDate: this.endDate,
+                });
+                this.transaction$.next(this.transactionFilter());
             });
-    }
 
-    protected setDisableDate(): void {
-        this.datepickerEndComponent.dp.options.disableUntil = {
-            day: this.startDate.day,
-            month: this.startDate.month,
-            year: this.startDate.year,
-        };
-        this.datepickerEndComponent.dp.parseOptions(this.datepickerEndComponent.dp.options);
-        this.cdr.markForCheck();
+        this.filterSelect.control.valueChanges
+            .pipe(
+                takeUntil(this.$destroy),
+                filter((filterValue: string): boolean => this.filterValue != filterValue),
+            )
+            .subscribe((filterValue: TTransactionFilter): void => {
+                this.historyFilterService.setFilter('transaction', {filterValue: this.filterValue = filterValue});
+                this.transaction$.next(this.transactionFilter());
+            });
+
+        this.startDateInput.control.valueChanges
+            .pipe(
+                takeUntil(this.$destroy),
+                filter((startDate: DateTime): boolean => this.startDate != startDate),
+            )
+            .subscribe((startDate: DateTime): void => {
+                this.historyFilterService.setFilter('transaction', {startDate: this.startDate = startDate});
+                this.transaction$.next(this.transactionFilter());
+            });
+
+        this.endDateInput.control.valueChanges
+            .pipe(
+                takeUntil(this.$destroy),
+                filter((endDate: DateTime): boolean => this.endDate != endDate),
+            )
+            .subscribe((endDate: DateTime): void => {
+                this.historyFilterService.setFilter('transaction', {endDate: this.endDate = endDate});
+                this.transaction$.next(this.transactionFilter());
+            });
+
+        this.eventService.filter(
+            {name: 'TRANSACTION_CANCEL'},
+            this.$destroy,
+        ).subscribe({
+            next: async (): Promise<void> => {
+                this.allTransactions = await this.financesService.getTransactionList();
+                if (this.allTransactions.length) {
+                    this.startDate = DateTime.fromISO(_last(this.allTransactions).dateISO, {zone: 'utc'}).toLocal();
+                    this.endDate = DateTime.fromISO(_first(this.allTransactions).dateISO, {zone: 'utc'}).toLocal();
+                }
+                this.setMinMaxDate();
+                this.transaction$.next(this.transactionFilter());
+            },
+        });
+
+        this.actionService.deviceType()
+            .pipe(takeUntil(this.$destroy))
+            .subscribe((type: DeviceType): void => {
+                this.showFilter = type === DeviceType.Desktop;
+                this.cdr.detectChanges();
+            });
     }
 }

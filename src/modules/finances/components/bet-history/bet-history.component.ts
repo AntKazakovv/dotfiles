@@ -3,9 +3,8 @@ import {
     OnInit,
     ChangeDetectorRef,
     Inject,
-    ViewChild,
 } from '@angular/core';
-import {FormControl} from '@angular/forms';
+
 import {BehaviorSubject} from 'rxjs';
 import {
     filter,
@@ -13,10 +12,7 @@ import {
 } from 'rxjs/operators';
 import {DateTime} from 'luxon';
 
-import _clone from 'lodash-es/clone';
 import _filter from 'lodash-es/filter';
-import _last from 'lodash-es/last';
-import _first from 'lodash-es/first';
 
 import {
     AbstractComponent,
@@ -24,15 +20,22 @@ import {
     EventService,
     ITableCParams,
     IDatepickerCParams,
-    DatepickerComponent,
     ISelectCParams,
     ConfigService,
+    ActionService,
+    DeviceType,
 } from 'wlc-engine/modules/core';
 import {
     FinancesService,
     HistoryFilterService,
 } from 'wlc-engine/modules/finances/system/services';
-import {IBet} from 'wlc-engine/modules/finances/system/interfaces';
+import {IBet} from 'wlc-engine/modules/finances/system/interfaces/finances.interface';
+import {IFinancesFilter} from 'wlc-engine/modules/finances/system/interfaces/history-filter.interface';
+import {
+    betConfig,
+    startDate,
+    endDate,
+} from 'wlc-engine/modules/finances/system/config/history.config';
 
 import * as Params from './bet-history.params';
 
@@ -43,44 +46,17 @@ import * as Params from './bet-history.params';
 })
 export class BetHistoryComponent extends AbstractComponent implements OnInit {
 
-    @ViewChild('datepickerEndComponent') public datepickerEndComponent: DatepickerComponent;
-    public ready = false;
+    public ready: boolean = false;
+    public showFilter: boolean = false;
     public $params: Params.IBetHistoryCParams;
-    public startDateInput: IDatepickerCParams = {
-        name: 'startDate',
-        label: 'Start date',
-        control: new FormControl(''),
-    };
-
-    public endDateInput: IDatepickerCParams = {
-        name: 'endDate',
-        label: 'End date',
-        control: new FormControl(''),
-    };
-
-    public filterSelect: ISelectCParams ={
-        name: 'type',
-        value: 'all',
-        theme: 'vertical',
-        common: {
-            placeholder: gettext('Merchants'),
-        },
-        labelText: 'Merchants',
-        control: new FormControl(''),
-        options: 'merchants',
-    };
-
-    protected bets: BehaviorSubject<IBet[]> = new BehaviorSubject([]);
-    protected startDate: DateTime = DateTime.utc().minus({month: 1}).startOf('day');
-    protected endDate: DateTime = DateTime.utc().endOf('day');
-
-    public tableData: ITableCParams = {
-        noItemsText: gettext('No bets history'),
-        head: Params.betHistoryTableHeadConfig,
-        rows: this.bets,
-        switchWidth: (this.configService.get('$base.profile.type') === 'first') ? 1200 : 1024,
-    };
-
+    public tableData: ITableCParams;
+    public filterSelect: ISelectCParams = betConfig.filterSelect;
+    public startDateInput: IDatepickerCParams = startDate;
+    public endDateInput: IDatepickerCParams = endDate;
+    protected filterValue: 'all' | string = 'all';
+    protected startDate: DateTime = DateTime.local().minus({month: 1});
+    protected endDate: DateTime = DateTime.local();
+    protected bets$: BehaviorSubject<IBet[]> = new BehaviorSubject([]);
     protected allBets: IBet[] = [];
 
     constructor(
@@ -90,6 +66,7 @@ export class BetHistoryComponent extends AbstractComponent implements OnInit {
         protected eventService: EventService,
         protected historyFilterService: HistoryFilterService,
         protected configService: ConfigService,
+        protected actionService: ActionService,
     ) {
         super(
             <IMixedParams<Params.IBetHistoryCParams>>{
@@ -100,110 +77,129 @@ export class BetHistoryComponent extends AbstractComponent implements OnInit {
 
     public async ngOnInit(): Promise<void> {
         super.ngOnInit();
-
-        this.allBets = await this.financesService.getBetsList({
-            startDate: this.startDate.toFormat('y-LL-dd\'\T\'HH:mm:ss'),
-            endDate: this.endDate.toFormat('y-LL-dd\'\T\'HH:mm:ss'),
+        await this.getBets();
+        this.showFilter = this.actionService.getDeviceType() === DeviceType.Desktop;
+        this.setSubscription();
+        
+        this.historyFilterService.setDefaultFilter('bet', {
+            filterValue: this.filterValue,
+            startDate: this.startDate,
+            endDate: this.endDate,
         });
-
-        this.historyFilter();
-        this.setMinMaxDate();
-
-        this.filterSelect = _clone(this.filterSelect);
-
-        this.bets.next(this.filterTransaction());
-
-        this.filterSelect.control.valueChanges.pipe(takeUntil(this.$destroy)).subscribe(() => {
-            this.bets.next(this.filterTransaction());
+        this.historyFilterService.setFilter('bet', {
+            filterValue: this.filterValue,
+            startDate: this.startDate,
+            endDate: this.endDate,
         });
+        this.tableData = {
+            noItemsText: gettext('No bets history'),
+            head: Params.betHistoryTableHeadConfig,
+            rows: this.bets$,
+            switchWidth: (this.configService.get('$base.profile.type') === 'first') ? 1200 : 1024,
+        };
 
-        this.startDateInput.control.valueChanges.pipe(takeUntil(this.$destroy)).subscribe((value) => {
-            this.startDate = value.set({hour: 0, minute: 0, second: 0});
-            this.setDisableDate();
-            this.bets.next(this.filterTransaction());
-        });
-
-        this.endDateInput.control.valueChanges.pipe(takeUntil(this.$destroy)).subscribe((value) => {
-            this.endDate = value.set({hour: 23, minute: 59, second: 59});
-            this.bets.next(this.filterTransaction());
-        });
-
-        this.bets.subscribe(() => {
-            this.historyFilterService.dateChanges$.next({
-                startDate: this.startDate,
-                endDate: this.endDate,
-            });
-        });
-
+        this.bets$.next(this.betsFilter());
         this.ready = true;
         this.cdr.detectChanges();
     }
 
-    protected filterTransaction(): IBet[] {
-
+    protected betsFilter(): IBet[] {
         let result: IBet[] = this.allBets || [];
-
-        if (this.filterSelect.control.value && this.filterSelect.control.value !== 'all') {
-            result = _filter(result, el => {
-                return el.Merchant === this.filterSelect.control.value;
-            });
+        
+        if (this.filterValue !== 'all') {
+            result = _filter(result, (item: IBet): boolean => item.Merchant === this.filterValue);
         }
 
-        result = _filter(result, (item) => {
-            return DateTime.fromSQL(item.DateISO) >= this.startDate && DateTime.fromSQL(item.DateISO) <= this.endDate;
+        return _filter(result, (item: IBet): boolean => {
+            return DateTime.fromSQL(item.DateISO, {zone: 'utc'}) >= this.startDate
+                && DateTime.fromSQL(item.DateISO, {zone: 'utc'}) <= this.endDate;
         });
-
-        return result;
     }
 
     protected setMinMaxDate(): void {
-        const dates = this.allBets.sort((bet, nextBet) => {
-            return DateTime.fromSQL(nextBet.DateISO).toSeconds() - DateTime.fromSQL(bet.DateISO).toSeconds();
-        });
-
-        if (!dates.length) {
-            return;
-        }
-
-        this.startDate = DateTime.fromSQL(_last(dates).DateISO);
-        this.endDate = DateTime.fromSQL(_first(dates).DateISO);
-        this.startDateInput.control.setValue(
-            this.startDate.plus({minutes: this.startDate.offset}).startOf('day').toFormat('dd.LL.yyyy'));
-        this.endDateInput.control.setValue(
-            this.endDate.plus({minutes: this.startDate.offset}).endOf('day').toFormat('dd.LL.yyyy'));
-        this.startDateInput = _clone(this.startDateInput);
-        this.endDateInput = _clone(this.endDateInput);
-
-        this.setDisableDate();
-        this.cdr.detectChanges();
+        const disableSince = this.endDate.plus({day: 1}).toObject();
+        const disableUntil = this.startDate.minus({day: 1}).toObject();
+            
+        this.startDateInput.control.setValue(this.startDate);
+        this.endDateInput.control.setValue(this.endDate);
+        this.startDateInput.datepickerOptions = {
+            disableSince: {
+                year: disableSince.year,
+                month: disableSince.month,
+                day: disableSince.day,
+            },
+        };
+        this.endDateInput.datepickerOptions = {
+            disableUntil: {
+                year: disableUntil.year,
+                month: disableUntil.month,
+                day: disableUntil.day,
+            },
+        };
     }
 
-    protected historyFilter(): void {
-        this.historyFilterService.setDefaultFilter('bet', {
-            endDate: this.endDate,
-            startDate: this.startDate,
+    protected async getBets(): Promise<void> {
+        this.allBets = await this.financesService.getBetsList({
+            startDate: this.startDate.startOf('day').toFormat('y-LL-dd\'\T\'HH:mm:ss'),
+            endDate: this.endDate.endOf('day').toFormat('y-LL-dd\'\T\'HH:mm:ss'),
         });
+    }
 
+    protected setSubscription(): void {
         this.historyFilterService.getFilter('bet')
             .pipe(
-                filter((data) => !!data),
                 takeUntil(this.$destroy),
+                filter((data: IFinancesFilter): boolean => !!data),
             )
-            .subscribe((data) => {
-                this.endDate = data.endDate;
-                this.startDate = data.startDate;
-                this.filterSelect.control.setValue(data.filterType);
-                this.bets.next(this.filterTransaction());
+            .subscribe(async (data: IFinancesFilter): Promise<void> => {
+                this.filterSelect.control.setValue(this.filterValue = data.filterValue);
+                this.startDateInput.control.setValue(this.startDate = data.startDate);
+                this.endDateInput.control.setValue( this.endDate = data.endDate);
+                this.setMinMaxDate();
+                this.historyFilterService.dateChanges$.next({
+                    startDate: this.startDate,
+                    endDate: this.endDate,
+                });
+                this.bets$.next(this.betsFilter());
             });
-    }
 
-    protected setDisableDate(): void {
-        this.datepickerEndComponent.dp.options.disableUntil = {
-            day: this.startDate.day,
-            month: this.startDate.month,
-            year: this.startDate.year,
-        };
-        this.datepickerEndComponent.dp.parseOptions(this.datepickerEndComponent.dp.options);
-        this.cdr.markForCheck();
+        this.filterSelect.control.valueChanges
+            .pipe(
+                takeUntil(this.$destroy),
+                filter((filterValue: string): boolean => this.filterValue != filterValue),
+            )
+            .subscribe((filterType: string): void => {        
+                this.historyFilterService.setFilter('bet', {filterValue: this.filterValue = filterType});
+                this.bets$.next(this.betsFilter());
+            });
+        
+        this.startDateInput.control.valueChanges
+            .pipe(
+                takeUntil(this.$destroy),
+                filter((startDate: DateTime): boolean => this.startDate != startDate),
+            )
+            .subscribe(async (startDate: DateTime): Promise<void> => {
+                this.historyFilterService.setFilter('bet', {startDate: this.startDate = startDate});
+                await this.getBets();
+                this.bets$.next(this.betsFilter());
+            });
+
+        this.endDateInput.control.valueChanges
+            .pipe(
+                takeUntil(this.$destroy),
+                filter((endDate: DateTime): boolean => this.endDate != endDate),
+            )
+            .subscribe(async (endDate: DateTime): Promise<void> => {
+                this.historyFilterService.setFilter('bet', {endDate: this.endDate = endDate});
+                await this.getBets();
+                this.bets$.next(this.betsFilter());
+            });
+
+        this.actionService.deviceType()
+            .pipe(takeUntil(this.$destroy))
+            .subscribe((type: DeviceType): void => {
+                this.showFilter = type === DeviceType.Desktop;
+                this.cdr.detectChanges();
+            });
     }
 }

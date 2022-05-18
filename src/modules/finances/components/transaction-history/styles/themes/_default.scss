@@ -2,8 +2,6 @@
 @use 'engine-scss/functions' as ef;
 @use 'engine-scss/mixins/base.mixins' as bm;
 @use 'engine-scss/mixins/text' as text;
-@use 'modules/core/components/button/styles/utils/mixins' as button;
-@use 'engine-scss/mixins/common.mixins' as cm;
 
 .wlc-transaction-history--theme-default {
 
@@ -14,27 +12,32 @@
             min-height: ef.get-value($themeDefault, 'sectionLoaderMinHeight');
         }
 
-        .wlc-transaction-history-filter {
-            @include bm.get-mq-map('display', $themeDefault, 'sectionDisplay');
+        .wlc-transaction-history__filter {
             @include bm.get-mq-map('align-items', $themeDefault, 'filterAlignItems');
             @include bm.get-mq-map('margin', $themeDefault, 'filterMargin');
             @include bm.get-mq-map('grid-auto-flow', $themeDefault, 'filterGridAutoFlow');
             @include bm.get-mq-map('grid-auto-columns', $themeDefault, 'filterGridAutoColumns');
             @include bm.get-mq-map('gap', $themeDefault, 'filterGap');
+            display: ef.get-value($themeDefault, 'sectionDisplay');
 
             .wlc-select[wlc-select] {
                 min-width: ef.get-value($themeDefault, 'filterMinWidth');
             }
         }
 
-        .wlc-transaction-history-filter__buttons {
-            @include bm.get-mq-map('display', $themeDefault, 'sectionDisplay');
-            @include bm.get-mq-map('gap', $themeDefault, 'filterBtnGap');
+        .wlc-transaction-history__buttons {
+            display: ef.get-value($themeDefault, 'sectionDisplay');
             grid-template-areas: ef.get-value($themeDefault, 'labelAreas');
 
-            .wlc-label {
-                @include cm.labelStyle;
-                grid-area: label;
+            ::ng-deep {
+
+                .wlc-radio-buttons__group {
+                    min-width: ef.get-value($themeDefault, 'filterBtnMinWidth');
+                }
+
+                .wlc-radio-buttons__elems {
+                    @include bm.get-mq-map('gap', $themeDefault, 'filterBtnGap');
+                }
             }
         }
 

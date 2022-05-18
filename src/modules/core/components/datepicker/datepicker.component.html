@@ -9,10 +9,10 @@
                [options]="$params.datepickerOptions"
                [wlc-input-mask]="$any($params.maskOptions)"
                (dateChanged)="onDateChanged($event)"
-               (change)="onDateChanged()"
                [locale]="locale"
                [defaultMonth]="defaultMonth"
                inputmode="numeric"
+               [(ngModel)]="dpModel"
         />
         <span wlc-icon
               class="{{$class}}__icon"

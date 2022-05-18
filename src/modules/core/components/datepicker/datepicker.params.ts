@@ -6,6 +6,7 @@ import {CustomType, IComponentParams} from 'wlc-engine/modules/core/system/class
 
 export type ComponentTheme = 'default' | CustomType;
 export type ComponentType = 'default' | CustomType;
+export type TDatepickerEvent = 'CHANGE_START_DATE' | 'CHANGE_END_DATE';
 
 export interface IDatepickerCParams extends IComponentParams<ComponentTheme, ComponentType, string> {
     name: string;
@@ -16,6 +17,10 @@ export interface IDatepickerCParams extends IComponentParams<ComponentTheme, Com
     label?: string;
     control?: FormControl;
     defaultMonth?: IMyDefaultMonth;
+    event?: {
+        emit?: TDatepickerEvent,
+        subscribe?: TDatepickerEvent,
+    }
 }
 
 const tomorrow = DateTime.local().plus({days: 1});

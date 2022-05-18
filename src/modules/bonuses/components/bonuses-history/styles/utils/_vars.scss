@@ -9,14 +9,8 @@ $themeDefault: map-merge((
     'filterMinWidth': 140px,
     'firstCellColumns':  1fr auto,
     'historyNameGap': ef.size(2),
-    'filterDisplay': (
-        375: none,
-        1024: grid,
-    ),
-    'filterDisplayV1': (
-        375: none,
-        1024: grid,
-    ),
+    'filterDisplay': grid,
+    'filterDisplayV1': grid,
     'historyNamePadding': (
         1024: 0 0 0 ef.size(2),
     ),

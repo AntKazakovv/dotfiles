@@ -10,26 +10,22 @@
             min-height: ef.get-value($themeDefault, 'sectionLoaderMinHeight');
         }
 
-        .wlc-bet-history-filter {
-            display: none;
+        .wlc-bet-history__filter {
+            display: grid;
+            align-items: flex-end;
+            margin: ef.get-value($themeDefault, 'filterMargin');
+            grid: {
+                auto-flow: column;
+                auto-columns: max-content;
+                gap: ef.get-value($themeDefault, 'filterGap');
+            };
 
             .wlc-select[wlc-select] {
                 min-width: ef.get-value($themeDefault, 'filterMinWidth');
             }
 
             .wlc-sections__profile-content--theme-first & {
-                @include bm.get-mq-map('display', $themeDefault, 'sectionDisplayTypeFirst');
-            }
-
-            @include mq.min(1024) {
-                display: grid;
-                align-items: flex-end;
-                margin: ef.get-value($themeDefault, 'filterMargin');
-                grid: {
-                    auto-flow: column;
-                    auto-columns: max-content;
-                    gap: ef.get-value($themeDefault, 'filterGap');
-                };
+                display: ef.get-value($themeDefault, 'sectionDisplayTypeFirst');
             }
         }
 

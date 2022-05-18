@@ -206,7 +206,7 @@ describe('SelectValuesService', () => {
         const resultMerchants: ISelectOptions[] = [
             {
                 title: 'All',
-                value: '',
+                value: 'all',
             },
             {
                 title: 'AirDice',
@@ -231,7 +231,7 @@ describe('SelectValuesService', () => {
                 expect(el).toEqual([
                     {
                         title: 'All',
-                        value: '',
+                        value: 'all',
                     },
                 ]);
             } else {
