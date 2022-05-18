@@ -105,19 +105,22 @@ export class LanguageSelectorComponent
         if (this.$params.currentLang?.hideLang === false) {
             this.addModifiers('border-around');
         }
-        this.availableLanguages = this.translate
-            .getLangs()
-            .filter(
+
+        let availableLanguageNames: string[] = this.translate.getLangs();
+
+        if (availableLanguageNames.length <= 6) {
+            availableLanguageNames = availableLanguageNames.filter(
                 (lang: string): boolean => {
                     if (this.$params.themeMod === 'long') {
                         return lang !== this.translate.currentLang;
                     }
                     return true;
                 },
-            )
-            .map(this.findLanguage.bind(this));
+            );
+        }
+
         this.availableLanguages = GlobalHelper.sortByOrder<ILanguage, string>(
-            this.availableLanguages,
+            availableLanguageNames.map(this.findLanguage.bind(this)),
             this.$params.order,
             'code',
         );
@@ -166,7 +169,7 @@ export class LanguageSelectorComponent
     public toggle(): void {
         if (this.hasSingleLang) {
             return;
-        } else if (this.availableLanguages.length <= 6 || this.$params.themeMod === 'long') {
+        } else if (this.availableLanguages.length <= 6) {
             this.isOpened = !this.isOpened;
         } else {
             this.modalService.showModal({
