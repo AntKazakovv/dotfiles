@@ -5,7 +5,7 @@
     
         <div *ngIf="$params.filterType === 'select'; else buttons"
              wlc-select
-             [inlineParams]="filterSelect"></div>
+             [inlineParams]="selectConfig"></div>
     </div>
     
     <div class="{{$class}}__table">
@@ -16,7 +16,7 @@
 <ng-template #buttons>
     <div wlc-radio-buttons
         class="{{$class}}__buttons"
-        [inlineParams]="filterSelect"></div>
+        [inlineParams]="radioBtnConfig"></div>
 </ng-template>
 
 <ng-template #preloader>
