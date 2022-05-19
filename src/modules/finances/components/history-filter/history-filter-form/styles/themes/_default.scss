@@ -1,7 +1,3 @@
-@use 'engine-scss/mixins/base.mixins' as bm;
-@use 'engine-scss/functions' as ef;
-@import '../utils/vars';
-
 .wlc-history-filter-form--theme-default:host {
     @include bm.get-mq-map('max-width', $themeDefault, 'formMaxWidth');
     margin: ef.get-value($themeDefault, 'formMargin');

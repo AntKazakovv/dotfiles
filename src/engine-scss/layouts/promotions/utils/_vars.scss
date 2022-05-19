@@ -1,5 +1,3 @@
-@use 'engine-scss/functions' as ef;
-
 $customPromotionsThemeDefault: () !default;
 $promotionsThemeDefault: map-merge((
     'titleFontSize': ef.get('font', 'QoteTextBold'),

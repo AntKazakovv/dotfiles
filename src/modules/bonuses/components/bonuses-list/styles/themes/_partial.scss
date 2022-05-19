@@ -1,12 +1,8 @@
-@use 'engine-scss/functions' as ef;
-@use 'engine-scss/mixins/base.mixins' as em;
-@import '../utils/vars';
-
 .wlc-bonuses-list--theme-partial:host {
 
     .swiper-button-container {
         position: absolute;
-        top: ef.get-value($themePartial, 'bonusBodyHeight') / 2 - ef.get-value($themePartial, 'sliderButtonHeight') / 2;
+        top: math.div(ef.get-value($themePartial, 'bonusBodyHeight'), 2) - math.div(ef.get-value($themePartial, 'sliderButtonHeight'), 2);
         right: ef.get-value($themePartial, 'sliderPosRight');
         left: ef.get-value($themePartial, 'sliderPosLeft');
         z-index: ef.get-value($themePartial, 'sliderZIndex');

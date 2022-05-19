@@ -5,7 +5,7 @@
     .wlc-no-content {
 
         &__wrapper {
-            @include em.get-mq-map('padding', $themeDefault, 'nodataPadding');
+            @include bm.get-mq-map('padding', $themeDefault, 'nodataPadding');
             position: relative;
             height: ef.get-value($themeDefault, 'nodataHeight');
             background: ef.get-value($themeDefault, 'nodataBackground');
@@ -13,7 +13,7 @@
         }
 
         &__body {
-            @include em.get-mq-map('max-width', $themeDefault, 'nodataBodyMaxWidth');
+            @include bm.get-mq-map('max-width', $themeDefault, 'nodataBodyMaxWidth');
             position: relative;
             z-index: ef.get-value($themeDefault, 'nodataBodyZIndex');
             display: ef.get-value($themeDefault, 'nodataBodyDisplay');
@@ -24,8 +24,8 @@
         }
 
         &-decor {
-            @include em.get-mq-map('display', $themeDefault, 'nodataDecorDisplay');
-            @include em.get-mq-map('width', $themeDefault, 'nodataDecorWidth');
+            @include bm.get-mq-map('display', $themeDefault, 'nodataDecorDisplay');
+            @include bm.get-mq-map('width', $themeDefault, 'nodataDecorWidth');
             position: absolute;
             right: ef.get-value($themeDefault, 'nodataDecorPositionRight');
             bottom: ef.get-value($themeDefault, 'nodataDecorPositionBottom');
@@ -38,7 +38,7 @@
         }
 
         &__text {
-            @include em.get-mq-map('margin', $themeDefault, 'nodataBodyTextMargin');
+            @include bm.get-mq-map('margin', $themeDefault, 'nodataBodyTextMargin');
             @include text.get-text-style(ef.get-value($themeDefault, 'nodataBodyText'));
         }
 
@@ -49,7 +49,7 @@
 }
 
 @mixin linearGradient {
-    @include em.get-mq-map('background', $themeDefault, 'beforeGradiend');
+    @include bm.get-mq-map('background', $themeDefault, 'beforeGradiend');
     content: '';
     position: absolute;
     top: ef.get-value($themeDefault, 'beforePosition');

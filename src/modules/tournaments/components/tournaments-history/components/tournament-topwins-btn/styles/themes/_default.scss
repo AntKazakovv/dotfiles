@@ -1,9 +1,3 @@
-@use 'engine-scss/mixins/base.mixins' as bm;
-@use 'engine-scss/mixins/common.mixins' as cm;
-@use 'engine-scss/engine.variables' as ev;
-@use 'engine-scss/mixins/base.mixins' as em;
-@use 'engine-scss/functions' as ef;
-
 .wlc-tournament-topwins-btn--theme-default:host {
 
     @include bm.get-mq-map('padding', $themeDefault, 'btnBlockPadding');
@@ -47,7 +41,7 @@
             ::ng-deep {
 
                 .wlc-icon {
-                    @include em.transition(color);
+                    @include bm.transition(color);
                     color: ef.get-value($themeDefault, 'moreIconColor');
 
                     svg {
@@ -55,7 +49,7 @@
                         fill: currentColor;
                     }
 
-                    @include em.hover {
+                    @include bm.hover {
                         color: ef.get-value($themeDefault, 'moreIconColorHover');
                     }
                 }

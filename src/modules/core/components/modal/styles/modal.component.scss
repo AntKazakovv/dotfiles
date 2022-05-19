@@ -83,7 +83,7 @@
     .modal-open & {
         visibility: visible;
         overflow-x: hidden;
-        overflow-y: auto;
+        overflow-y: scroll;
     }
 
     &__title {

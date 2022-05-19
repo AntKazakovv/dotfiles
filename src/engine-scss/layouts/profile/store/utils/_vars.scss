@@ -1,5 +1,3 @@
-@use 'engine-scss/functions' as ef;
-
 $customStoreThemeDefault: () !default;
 $storeThemeDefault: map-merge((
     'sectionGap': (

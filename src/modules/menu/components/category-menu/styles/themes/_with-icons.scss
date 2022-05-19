@@ -2,7 +2,7 @@
     position: relative;
 
     ::ng-deep {
-        @include mx.menuControls($withIcons);
+        @include menuControls($withIcons);
 
         .wlc-category-menu {
 

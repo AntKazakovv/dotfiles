@@ -1,8 +1,3 @@
-@use 'engine-scss/mixins/text' as text;
-@use 'engine-scss/mixins/mediaqueries' as mq;
-@use 'engine-scss/functions' as ef;
-@use 'engine-scss/mixins/base.mixins' as em;
-
 ::ng-deep {
 
     .wlc-modal--type-default.wlc-modal--payment-message {
@@ -14,27 +9,27 @@
 }
 
 .wlc-payment-message--theme-default:host {
-    @include em.get-mq-map('margin', $themeDefault, 'wrapperMargin');
-    @include em.get-mq-map('max-width', $themeDefault, 'wrapperMaxWidth');
-    @include em.get-mq-map('display', $themeDefault, 'wrapperDisplay');
-    @include em.get-mq-map('gap', $themeDefault, 'wrapperGridGap');
-    @include em.get-mq-map('grid-template-columns', $themeDefault, 'wrapperGridTemplateColumn');
+    @include bm.get-mq-map('margin', $themeDefault, 'wrapperMargin');
+    @include bm.get-mq-map('max-width', $themeDefault, 'wrapperMaxWidth');
+    @include bm.get-mq-map('display', $themeDefault, 'wrapperDisplay');
+    @include bm.get-mq-map('gap', $themeDefault, 'wrapperGridGap');
+    @include bm.get-mq-map('grid-template-columns', $themeDefault, 'wrapperGridTemplateColumn');
 
     .wlc-payment-message {
 
         &__text {
-            @include em.get-mq-map('max-width', $themeDefault, 'textMaxWidth');
-            @include em.get-mq-map('text-align', $themeDefault, 'textAlignment');
+            @include bm.get-mq-map('max-width', $themeDefault, 'textMaxWidth');
+            @include bm.get-mq-map('text-align', $themeDefault, 'textAlignment');
         }
 
         &__text-row {
             @include text.get-text-style('PrimaryText', ef.get-value($themeDefault, 'textColor'));
-            @include em.get-mq-map('margin', $themeDefault, 'textRowMargin');
+            @include bm.get-mq-map('margin', $themeDefault, 'textRowMargin');
         }
 
         &__clipboard,
         &__clipboard-x {
-            @include em.get-mq-map('margin', $themeDefault, 'clipboardMargin');
+            @include bm.get-mq-map('margin', $themeDefault, 'clipboardMargin');
 
             .wlc-payment-message__text-row {
                 @include text.get-text-style(ef.get-value($themeDefault, 'textAdditionalFont'), ef.get-value($themeDefault, 'textColorAdditional'));
@@ -43,8 +38,8 @@
         }
 
         &__qr {
-            @include em.get-mq-map('grid-gap', $themeDefault, 'qrGridGap');
-            @include em.get-mq-map('justify-items', $themeDefault, 'qrJustifyContent');
+            @include bm.get-mq-map('grid-gap', $themeDefault, 'qrGridGap');
+            @include bm.get-mq-map('justify-items', $themeDefault, 'qrJustifyContent');
             display: grid;
             grid-template-rows: ef.get-value($themeDefault, 'qrGridRows');
             grid-template-columns: ef.get-value($themeDefault, 'qrGridColumns');
@@ -54,17 +49,17 @@
 
         &__qr-text {
             @include text.get-text-style(ef.get-value($themeDefault, 'textAdditionalFont'), ef.get-value($themeDefault, 'textColorAdditional'));
-            @include em.get-mq-map('display', $themeDefault, 'qrTextDisplay');
+            @include bm.get-mq-map('display', $themeDefault, 'qrTextDisplay');
         }
 
         &__qr-wrapper {
-            @include em.get-mq-map('width', $themeDefault, 'qrWrapperWidth');
+            @include bm.get-mq-map('width', $themeDefault, 'qrWrapperWidth');
             position: relative;
         }
 
         &__qr-image {
-            @include em.get-mq-map('position', $themeDefault, 'qrImgPos');
-            @include em.get-mq-map('max-width', $themeDefault, 'qrImgMaxWidth');
+            @include bm.get-mq-map('position', $themeDefault, 'qrImgPos');
+            @include bm.get-mq-map('max-width', $themeDefault, 'qrImgMaxWidth');
 
             top: ef.get-value($themeDefault, 'qrImgPosTop');
             left: ef.get-value($themeDefault, 'qrImgPosLeft');
@@ -82,8 +77,8 @@
 
         &__warning {
             @include text.get-text-style('PlaceholderText', ef.get-value($themeDefault, 'textColor'));
-            @include em.get-mq-map('margin', $themeDefault, 'warningMargin');
-            @include em.get-mq-map('text-align', $themeDefault, 'warningAlignment');
+            @include bm.get-mq-map('margin', $themeDefault, 'warningMargin');
+            @include bm.get-mq-map('text-align', $themeDefault, 'warningAlignment');
 
             .stress {
                 color: ef.get-value($themeDefault, 'warningStressColor');

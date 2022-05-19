@@ -1,9 +1,6 @@
-@use 'engine-scss/mixins/mediaqueries' as mq;
-@use 'engine-scss/mixins/text' as text;
-@use 'engine-scss/mixins/base.mixins' as em;
-@use 'engine-scss/functions' as ef;
-
 .wlc-bonus-item {
+    @include bm.transition(background, 0.3s);
+
     border-radius: ef.get-value($themeDefault, 'radius');
     overflow: hidden;
     transform: translateZ(0);
@@ -23,8 +20,8 @@
     }
 
     &__icon {
-        @include em.get-mq-map('width', $themeDefault, 'bonusIconSize');
-        @include em.get-mq-map('height', $themeDefault, 'bonusIconSize');
+        @include bm.get-mq-map('width', $themeDefault, 'bonusIconSize');
+        @include bm.get-mq-map('height', $themeDefault, 'bonusIconSize');
 
         position: relative;
 
@@ -72,9 +69,9 @@
     }
 
     &__more-icon {
-        @include em.get-mq-map('display', $themeDefault, 'moreIconDisplay');
-        @include em.get-mq-map('top', $themeDefault, 'moreIconPosTop');
-        @include em.get-mq-map('right', $themeDefault, 'moreIconPosRight');
+        @include bm.get-mq-map('display', $themeDefault, 'moreIconDisplay');
+        @include bm.get-mq-map('top', $themeDefault, 'moreIconPosTop');
+        @include bm.get-mq-map('right', $themeDefault, 'moreIconPosRight');
 
         position: absolute;
         z-index: 1;
@@ -87,14 +84,14 @@
             cursor: pointer;
 
             svg {
-                @include em.transition(fill);
+                @include bm.transition(fill);
 
                 width: 100%;
                 fill: ef.get-value($themeDefault, 'moreIconColor');
             }
         }
 
-        @include em.hover {
+        @include bm.hover {
 
             .icon-btn {
 
@@ -114,8 +111,8 @@
     }
 
     &__active-block {
-        @include em.get-mq-map('padding', $themeDefault, 'activeBlockPadding');
-        @include em.get-mq-map('min-height', $themeDefault, 'activeBlockMinHeight');
+        @include bm.get-mq-map('padding', $themeDefault, 'activeBlockPadding');
+        @include bm.get-mq-map('min-height', $themeDefault, 'activeBlockMinHeight');
 
         display: flex;
         flex-direction: column;
@@ -154,7 +151,7 @@
     }
 
     &__progressbar {
-        @include em.get-mq-map('margin', $themeDefault, 'progressBarMargin');
+        @include bm.get-mq-map('margin', $themeDefault, 'progressBarMargin');
 
         position: relative;
         width: 100%;
@@ -216,7 +213,7 @@
 
 .wlc-bonus-item--theme-default {
     @include viewsBackgrounds;
-    @include em.get-mq-map('max-width', $themeDefault, 'maxWidth');
+    @include bm.get-mq-map('max-width', $themeDefault, 'maxWidth');
 
     width: 100%;
     background: ef.get-value($themeDefault, 'backgroundDefault');
@@ -237,7 +234,7 @@
             background: ef.get-value($themeDefault, 'contentBgPos');
 
             .wlc-bonuses-list--type-swiper & {
-                @include em.get-mq-map('height', $themeDefault, 'swiperHeight');
+                @include bm.get-mq-map('height', $themeDefault, 'swiperHeight');
             }
 
             .wlc-sections__profile-content--theme-first & {
@@ -248,11 +245,11 @@
 
         &__wrapper {
             @include wrapperCommonStyles;
-            @include em.get-mq-map('grid-template-rows', $themeDefault, 'infoHeight');
+            @include bm.get-mq-map('grid-template-rows', $themeDefault, 'infoHeight');
 
             &:before {
-                @include em.absoluteCentering();
-                @include em.transition(opacity, ef.get('time', 'less'));
+                @include bm.absoluteCentering();
+                @include bm.transition(opacity, ef.get('time', 'less'));
 
                 content: '';
                 z-index: 0;
@@ -269,7 +266,7 @@
         }
 
         &__image-block {
-            @include em.get-mq-map('padding', $themeDefault, 'imageBlockPadding');
+            @include bm.get-mq-map('padding', $themeDefault, 'imageBlockPadding');
 
             display: grid;
             align-items: end;
@@ -286,7 +283,7 @@
         }
 
         &__bottom {
-            @include em.get-mq-map('padding', $themeDefault, 'btmPadding');
+            @include bm.get-mq-map('padding', $themeDefault, 'btmPadding');
             position: relative;
             z-index: 10;
 
@@ -318,11 +315,11 @@
         }
 
         &__btns {
-            @include em.get-mq-map('bottom', $themeDefault, 'btnBottomPosition');
-            @include em.get-mq-map('opacity', $themeDefault, 'btnsOpacity');
-            @include em.get-mq-map('transform', $themeDefault, 'btnsTransform');
-            @include em.get-mq-map('margin', $themeDefault, 'btnsMargin');
-            @include em.transition(transform);
+            @include bm.get-mq-map('bottom', $themeDefault, 'btnBottomPosition');
+            @include bm.get-mq-map('opacity', $themeDefault, 'btnsOpacity');
+            @include bm.get-mq-map('transform', $themeDefault, 'btnsTransform');
+            @include bm.get-mq-map('margin', $themeDefault, 'btnsMargin');
+            @include bm.transition(transform);
 
             position: absolute;
             display: flex;
@@ -349,8 +346,8 @@
             }
 
             &__image-block {
-                @include em.transition(height, 0.3s, ease-in-out);
-                @include em.get-mq-map('height', $themeDefault, 'imgHeightWithImg');
+                @include bm.transition(height, 0.3s, ease-in-out);
+                @include bm.get-mq-map('height', $themeDefault, 'imgHeightWithImg');
                 display: block;
             }
 
@@ -368,25 +365,26 @@
             }
 
             &__bottom {
-                @include em.transition(height, 0.3s, ease-in-out);
-                @include em.get-mq-map('padding', $themeDefault, 'infoBtmPaddingWithImg');
-                @include em.get-mq-map('height', $themeDefault, 'infoHeightWithImg');
+                @include bm.transition(height, 0.3s, ease-in-out);
+                @include bm.get-mq-map('padding', $themeDefault, 'infoBtmPaddingWithImg');
+                @include bm.get-mq-map('height', $themeDefault, 'infoHeightWithImg');
             }
 
             &__btns {
-                @include em.get-mq-map('transform', $themeDefault, 'btnBottomTransform');
+                @include bm.transition(all, 0.3s, ease-in-out);
+                @include bm.get-mq-map('transform', $themeDefault, 'btnBottomTransform');
                 position: static;
                 margin: ef.get-value($themeDefault, 'btnsMarginWithImg');
             }
         }
 
-        @include em.hover {
+        @include bm.hover {
             @include showBtnWithImg;
 
             .wlc-bonus-item {
 
                 &__image-block {
-                    @include em.get-mq-map('height', $themeDefault, 'imgHeightWithImgHover');
+                    @include bm.get-mq-map('height', $themeDefault, 'imgHeightWithImgHover');
                 }
 
                 &__description {
@@ -395,7 +393,7 @@
             }
         }
 
-        @include em.hover(false) {
+        @include bm.hover(false) {
             @include showBtnWithImg;
 
             .wlc-bonus-item {
@@ -419,18 +417,18 @@
             }
 
             &__wrapper {
-                @include em.get-mq-map('grid-template-rows', $themeDefault, 'infoHeightActive');
+                @include bm.get-mq-map('grid-template-rows', $themeDefault, 'infoHeightActive');
             }
         }
 
-        @include em.hover(false) {
+        @include bm.hover(false) {
 
             .wlc-bonus-item__wrapper {
-                @include em.get-mq-map('grid-template-rows', $themeDefault, 'infoHeightActive');
+                @include bm.get-mq-map('grid-template-rows', $themeDefault, 'infoHeightActive');
             }
 
             .wlc-bonus-item__description {
-                @include em.get-mq-map('height', $themeDefault, 'descriptionHeightMobile');
+                @include bm.get-mq-map('height', $themeDefault, 'descriptionHeightMobile');
             }
 
             .wlc-bonus-item__btns {
@@ -439,7 +437,7 @@
         }
     }
 
-    @include em.hover() {
+    @include bm.hover() {
 
         .wlc-bonus-item__wrapper {
 
@@ -458,16 +456,16 @@
         }
     }
 
-    @include em.hover(false) {
+    @include bm.hover(false) {
 
         .wlc-bonus-item {
 
             &__content {
-                @include em.get-mq-map('height', $themeDefault, 'heightMobile');
+                @include bm.get-mq-map('height', $themeDefault, 'heightMobile');
             }
 
             &__wrapper {
-                @include em.get-mq-map('grid-template-rows', $themeDefault, 'infoHeightMobile');
+                @include bm.get-mq-map('grid-template-rows', $themeDefault, 'infoHeightMobile');
             }
 
             &__bottom {
@@ -483,7 +481,7 @@
             }
 
             &__btns {
-                @include em.get-mq-map('transform', $themeDefault, 'btnsTransformMobile');
+                @include bm.get-mq-map('transform', $themeDefault, 'btnsTransformMobile');
 
                 position: static;
                 margin: ef.get-value($themeDefault, 'btnsMarginMobile');

@@ -7,7 +7,7 @@
         .wlc-no-content {
 
             &__wrapper {
-                @include em.get-mq-map('padding', $slidersWinnersTheme1, 'wrapperPadding');
+                @include bm.get-mq-map('padding', $slidersWinnersTheme1, 'wrapperPadding');
             }
 
             &__button-wrap {
@@ -22,7 +22,7 @@
         .wlc-no-content {
 
             &__wrapper {
-                @include em.get-mq-map('padding', $slidersWinnersThemeDefault, 'wrapperPadding');
+                @include bm.get-mq-map('padding', $slidersWinnersThemeDefault, 'wrapperPadding');
                 display: ef.get-value($slidersWinnersThemeDefault, 'wrapperDisplay');
                 align-items: ef.get-value($slidersWinnersThemeDefault, 'wrapperAlignItems');
                 justify-content: ef.get-value($slidersWinnersThemeDefault, 'wrapperJustifyContent');
@@ -35,7 +35,7 @@
             &__text {
 
                 &-link {
-                    @include em.transition();
+                    @include bm.transition();
                 }
             }
         }
@@ -47,7 +47,7 @@
         .wlc-no-content {
 
             &__wrapper {
-                @include em.get-mq-map('padding', $slidersWinnersModDef, 'wrapperPadding');
+                @include bm.get-mq-map('padding', $slidersWinnersModDef, 'wrapperPadding');
 
                 &:before {
                     @include linearGradient();

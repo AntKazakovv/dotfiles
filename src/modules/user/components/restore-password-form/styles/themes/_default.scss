@@ -1,8 +1,3 @@
-@use 'engine-scss/mixins/base.mixins' as bm;
-@use 'engine-scss/functions' as ef;
-@use 'engine-scss/mixins/base.mixins' as em;
-@import '../utils/vars';
-
 .wlc-restore-password-form--theme-default:host {
     @include bm.get-mq-map('max-width', $themeDefault, 'formMaxWidth');
     margin: ef.get-value($themeDefault, 'formMargin');
@@ -15,12 +10,12 @@
         }
 
         .wlc-text-block__head {
-            @include em.get-mq-map('margin', $themeDefault, 'textBlockHeadMargin');
+            @include bm.get-mq-map('margin', $themeDefault, 'textBlockHeadMargin');
         }
 
         .wlc-text-block__subtitle {
-            @include em.get-mq-map('margin-left', $themeDefault, 'subtitleSideMargin');
-            @include em.get-mq-map('margin-right', $themeDefault, 'subtitleSideMargin');
+            @include bm.get-mq-map('margin-left', $themeDefault, 'subtitleSideMargin');
+            @include bm.get-mq-map('margin-right', $themeDefault, 'subtitleSideMargin');
         }
 
         .wlc-input {
@@ -49,7 +44,7 @@
         .wlc-btn {
 
             &--restore {
-                @include em.get-mq-map('margin', $themeDefault, 'btnMargin');
+                @include bm.get-mq-map('margin', $themeDefault, 'btnMargin');
             }
         }
     }

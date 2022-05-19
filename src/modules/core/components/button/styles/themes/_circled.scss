@@ -1,8 +1,3 @@
-@use 'engine-scss/functions' as ef;
-@use 'engine-scss/mixins/base.mixins' as em;
-@import '../utils/vars';
-@import '../utils/mixins';
-
 .wlc-btn--theme-circled {
 
     &:host {
@@ -16,12 +11,12 @@
         &.wlc-btn--theme-mod-secondary {
             @include buttonTransparency;
 
-            @include em.hover {
+            @include bm.hover {
                 background: ef.get-value($themeCircled, 'backgroundHover');
             }
         }
 
-        @include em.hover {
+        @include bm.hover {
             background: ef.get-value($themeDefault, 'backgroundHover');
         }
     }

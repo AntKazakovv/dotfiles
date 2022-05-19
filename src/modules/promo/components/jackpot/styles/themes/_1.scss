@@ -1,8 +1,3 @@
-@use 'engine-scss/mixins/base.mixins' as bm;
-@use 'engine-scss/mixins/mediaqueries' as mq;
-@use 'engine-scss/mixins/text' as lib;
-@use 'engine-scss/functions' as ef;
-
 .wlc-jackpot--theme-1:host {
 
     .wlc-jackpot__wrapper {
@@ -64,7 +59,7 @@
     }
 
     .wlc-jackpot__game {
-        @include lib.get-text-style('ThirdTitleBold', ef.get-value($theme1, 'gameColor'));
+        @include text.get-text-style('ThirdTitleBold', ef.get-value($theme1, 'gameColor'));
 
         span {
             @include bm.transition();
@@ -73,7 +68,7 @@
     }
 
     .wlc-jackpot__amount {
-        @include lib.get-text-style('ThirdTitleBold', ef.get-value($theme1, 'amountColor'));
+        @include text.get-text-style('ThirdTitleBold', ef.get-value($theme1, 'amountColor'));
         margin-top: auto;
     }
 }

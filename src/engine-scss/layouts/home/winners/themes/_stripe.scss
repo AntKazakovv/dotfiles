@@ -1,5 +1,3 @@
-@use 'engine-scss/functions' as ef;
-
 .wlc-sections__winners-section--theme-stripe {
     background: ef.get-value($themeWinnersSectionStripe, 'background');
 

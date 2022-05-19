@@ -1,11 +1,5 @@
-@use 'engine-scss/functions' as ef;
-@use 'engine-scss/mixins/mediaqueries' as mq;
-@use 'engine-scss/mixins/base.mixins' as em;
-@use 'engine-scss/mixins/text' as text;
-@import './vars';
-
 @mixin contentCommonStyles($theme: $themeDefault) {
-    @include em.get-mq-map('height', $theme, 'height');
+    @include bm.get-mq-map('height', $theme, 'height');
     position: relative;
     margin-right: auto;
     margin-left: auto;
@@ -44,12 +38,12 @@
 
 @mixin descriptionCommonStyles {
     @include text.get-text-style(ef.get-value($themeDefault, 'descriptionTextStyle', 375), ef.get-value($themeDefault, 'descriptionFontColor'));
-    @include em.transition(opacity);
-    @include em.lineClamp(2);
+    @include bm.transition(opacity);
+    @include bm.lineClamp(2);
 
     max-width: 100%;
 
-    @include em.hover(false) {
+    @include bm.hover(false) {
 
         display: none;
     }
@@ -102,11 +96,11 @@
         }
 
         &__bottom {
-            @include em.get-mq-map('height', $themeDefault, 'infoHeightWithHover');
+            @include bm.get-mq-map('height', $themeDefault, 'infoHeightWithHover');
         }
 
         &__btns {
-            @include em.get-mq-map('transform', $themeDefault, 'btnBottomTransformHover');
+            @include bm.get-mq-map('transform', $themeDefault, 'btnBottomTransformHover');
         }
     }
 }

@@ -1,12 +1,8 @@
-@use 'engine-scss/mixins/base.mixins' as em;
-@use 'engine-scss/functions' as ef;
-@use 'engine-scss/mixins/section.mixins' as sm;
-
 .wlc-sections__content-wins--theme-default {
 
     .wlc-home-wins {
-        @include em.get-mq-map('grid-template-columns', $themeHomeWins, 'homeWinsGridTemplateColumns');
-        @include em.get-mq-map('gap', $themeHomeWins, 'homeWinsGap');
+        @include bm.get-mq-map('grid-template-columns', $themeHomeWins, 'homeWinsGridTemplateColumns');
+        @include bm.get-mq-map('gap', $themeHomeWins, 'homeWinsGap');
         display: grid;
 
         .wlc-winners-slider.wlc-winners-slider--theme-vertical {
@@ -18,8 +14,8 @@
     }
 
     .wlc-home-wins.wlc-home-wins--tournament {
-        @include em.get-mq-map('grid-template-columns', $themeHomeWins, 'tournamentGridTemplateColumns');
-        @include em.get-mq-map('gap', $themeHomeWins, 'tournamentGap');
+        @include bm.get-mq-map('grid-template-columns', $themeHomeWins, 'tournamentGridTemplateColumns');
+        @include bm.get-mq-map('gap', $themeHomeWins, 'tournamentGap');
         @include sm.homePromoWins($themeHomeWins);
         @include sm.homePromoTournaments($themeHomeWins);
         display: grid;

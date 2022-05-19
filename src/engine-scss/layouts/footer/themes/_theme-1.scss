@@ -1,11 +1,7 @@
-@use 'engine-scss/functions' as ef;
-@use 'engine-scss/mixins/mediaqueries' as mq;
-@use 'engine-scss/mixins/base.mixins' as em;
-
 .wlc-sections__footer--theme-1 {
-    @include em.get-mq-map('padding-top', $theme1Footer, 'basePaddingTopBottom');
-    @include em.get-mq-map('padding-bottom', $theme1Footer, 'basePaddingTopBottom');
-    @include em.get-mq-map('margin-top', $theme1Footer, 'baseMarginTop');
+    @include bm.get-mq-map('padding-top', $theme1Footer, 'basePaddingTopBottom');
+    @include bm.get-mq-map('padding-bottom', $theme1Footer, 'basePaddingTopBottom');
+    @include bm.get-mq-map('margin-top', $theme1Footer, 'baseMarginTop');
 
     background: ef.get-value($theme1Footer, 'baseBackground');
 
@@ -18,7 +14,7 @@
     }
 
     .wlc-license {
-        @include em.get-mq-map('grid-template-columns', $theme1Footer, 'licenseColumns');
+        @include bm.get-mq-map('grid-template-columns', $theme1Footer, 'licenseColumns');
 
         grid-area: license;
         align-self: ef.get-value($theme1Footer, 'licenceAlignSelf');
@@ -40,17 +36,17 @@
     }
 
     .container {
-        @include em.get-mq-map('display', $theme1Footer, 'footerContainerDisplay');
+        @include bm.get-mq-map('display', $theme1Footer, 'footerContainerDisplay');
 
-        @include em.get-mq-map('grid-template-columns', $theme1Footer, 'footerContainerGridColumns');
-        @include em.get-mq-map('column-gap', $theme1Footer, 'footerContainerColumnGap');
-        @include em.get-mq-map('row-gap', $theme1Footer, 'footerContainerRowGap');
-        @include em.get-mq-map('justify-items', $theme1Footer, 'footerContainerJustifyItems');
+        @include bm.get-mq-map('grid-template-columns', $theme1Footer, 'footerContainerGridColumns');
+        @include bm.get-mq-map('column-gap', $theme1Footer, 'footerContainerColumnGap');
+        @include bm.get-mq-map('row-gap', $theme1Footer, 'footerContainerRowGap');
+        @include bm.get-mq-map('justify-items', $theme1Footer, 'footerContainerJustifyItems');
 
         @if ef.get-value($theme1Footer, 'useSafetyIcons') {
-            @include em.get-mq-map('grid-template-areas', $theme1Footer, 'containerGridAreasWithSafety');
+            @include bm.get-mq-map('grid-template-areas', $theme1Footer, 'containerGridAreasWithSafety');
         } @else {
-            @include em.get-mq-map('grid-template-areas', $theme1Footer, 'footerContainerGridAreas');
+            @include bm.get-mq-map('grid-template-areas', $theme1Footer, 'footerContainerGridAreas');
         }
 
         .wlc-icon-list,
@@ -59,7 +55,7 @@
         .wlc-footer-lang,
         .wlc-license,
         .wlc-logo {
-            @include em.get-mq-map('margin', $theme1Footer, 'footerMobileOffset');
+            @include bm.get-mq-map('margin', $theme1Footer, 'footerMobileOffset');
         }
     }
 
@@ -89,29 +85,29 @@
     .wlc-icon-list {
 
         &--theme-merchants {
-            @include em.get-mq-map('max-width', $theme1Footer, 'iconListMerchantsMaxWidth');
+            @include bm.get-mq-map('max-width', $theme1Footer, 'iconListMerchantsMaxWidth');
         }
 
         &--theme-payments {
-            @include em.get-mq-map('max-width', $theme1Footer, 'iconListPaymentsMaxWidth');
+            @include bm.get-mq-map('max-width', $theme1Footer, 'iconListPaymentsMaxWidth');
 
             .wlc-icon-list__wrapper {
-                @include em.get-mq-map('background', $theme1Footer, 'iconListPaymentsWrapperBg');
-                @include em.get-mq-map('border-radius', $theme1Footer, 'iconListPaymentsWrapperRadius');
+                @include bm.get-mq-map('background', $theme1Footer, 'iconListPaymentsWrapperBg');
+                @include bm.get-mq-map('border-radius', $theme1Footer, 'iconListPaymentsWrapperRadius');
             }
         }
 
         &--theme-safety {
-            @include em.get-mq-map('max-width', $theme1Footer, 'iconListPaymentsMaxWidth');
+            @include bm.get-mq-map('max-width', $theme1Footer, 'iconListPaymentsMaxWidth');
 
             .wlc-icon-list__wrapper {
-                @include em.get-mq-map('background', $theme1Footer, 'iconListPaymentsWrapperBg');
-                @include em.get-mq-map('border-radius', $theme1Footer, 'iconListPaymentsWrapperRadius');
+                @include bm.get-mq-map('background', $theme1Footer, 'iconListPaymentsWrapperBg');
+                @include bm.get-mq-map('border-radius', $theme1Footer, 'iconListPaymentsWrapperRadius');
             }
         }
     }
 
     .wlc-copyright {
-        @include em.get-mq-map('margin', $theme1Footer, 'copyrightMargin');
+        @include bm.get-mq-map('margin', $theme1Footer, 'copyrightMargin');
     }
 }

@@ -1,18 +1,12 @@
-@use 'engine-scss/mixins/mediaqueries' as mq;
-@use 'engine-scss/mixins/text' as text;
-@use 'engine-scss/mixins/base.mixins' as em;
-@use 'engine-scss/functions' as ef;
-@import '../utils/vars-default';
-
 .wlc-store-item--theme-default {
 
     .wlc-store-item {
 
         &__content {
 
-            @include em.get-mq-map('height', $themeDefault, 'height');
-            @include em.get-mq-map('min-width', $themeDefault, 'minWidth');
-            @include em.get-mq-map('max-width', $themeDefault, 'maxWidth');
+            @include bm.get-mq-map('height', $themeDefault, 'height');
+            @include bm.get-mq-map('min-width', $themeDefault, 'minWidth');
+            @include bm.get-mq-map('max-width', $themeDefault, 'maxWidth');
             position: relative;
             margin-right: auto;
             margin-left: auto;
@@ -24,7 +18,7 @@
 
                 .wlc-store-item__wrapper {
 
-                    @include em.hover {
+                    @include bm.hover {
 
                         .wlc-store-item__price {
                             transform: translateY(0);
@@ -47,11 +41,11 @@
                 }
             }
 
-            @include em.hover(false) {
-                @include em.get-mq-map('height', $themeDefault, 'heightMobile');
+            @include bm.hover(false) {
+                @include bm.get-mq-map('height', $themeDefault, 'heightMobile');
 
                 .wlc-store-item__wrapper {
-                    @include em.get-mq-map('grid-template-rows', $themeDefault, 'wrapperGridMobile');
+                    @include bm.get-mq-map('grid-template-rows', $themeDefault, 'wrapperGridMobile');
                 }
 
                 .wlc-store-item__btns {
@@ -63,17 +57,17 @@
                 }
 
                 &.noauth {
-                    @include em.get-mq-map('height', $themeDefault, 'height');
+                    @include bm.get-mq-map('height', $themeDefault, 'height');
 
                     .wlc-store-item__wrapper {
-                        @include em.get-mq-map('grid-template-rows', $themeDefault, 'wrapperGrid');
+                        @include bm.get-mq-map('grid-template-rows', $themeDefault, 'wrapperGrid');
                     }
                 }
             }
         }
 
         &__wrapper {
-            @include em.get-mq-map('grid-template-rows', $themeDefault, 'wrapperGrid');
+            @include bm.get-mq-map('grid-template-rows', $themeDefault, 'wrapperGrid');
             position: relative;
 
             display: grid;
@@ -83,7 +77,9 @@
 
             background: ef.get-value($themeDefault, 'background');
 
-            @include em.hover {
+            transition: background ef.get-value($themeDefault, 'time') ease-in-out;
+
+            @include bm.hover {
                 background: ef.get-value($themeDefault, 'backgroundHover');
 
                 .wlc-store-item__btns {
@@ -116,7 +112,7 @@
         }
 
         &__image {
-            @include em.get-mq-map('padding', $themeDefault, 'imagePadding');
+            @include bm.get-mq-map('padding', $themeDefault, 'imagePadding');
             position: relative;
 
             display: flex;
@@ -132,8 +128,8 @@
             }
 
             img {
-                @include em.get-mq-map('max-height', $themeDefault, 'maxImageHeight');
-                @include em.get-mq-map('max-width', $themeDefault, 'maxImageWidth');
+                @include bm.get-mq-map('max-height', $themeDefault, 'maxImageHeight');
+                @include bm.get-mq-map('max-width', $themeDefault, 'maxImageWidth');
                 display: block;
 
                 height: auto;
@@ -143,9 +139,9 @@
 
         &__bonus-icon {
 
-            @include em.get-mq-map('width', $themeDefault, 'bonusIconSize');
-            @include em.get-mq-map('height', $themeDefault, 'bonusIconSize');
-            @include em.get-mq-map('margin', $themeDefault, 'bonusIconMargin');
+            @include bm.get-mq-map('width', $themeDefault, 'bonusIconSize');
+            @include bm.get-mq-map('height', $themeDefault, 'bonusIconSize');
+            @include bm.get-mq-map('margin', $themeDefault, 'bonusIconMargin');
             position: relative;
 
             background-repeat: no-repeat;
@@ -161,9 +157,9 @@
             }
 
             .icon-text {
-                @include em.get-mq-map('height', $themeDefault, 'bonusIconValueBlockHeight');
+                @include bm.get-mq-map('height', $themeDefault, 'bonusIconValueBlockHeight');
 
-                @include em.get-mq-map('font-size', $themeDefault, 'bonusIconValueFontSize');
+                @include bm.get-mq-map('font-size', $themeDefault, 'bonusIconValueFontSize');
                 position: absolute;
                 bottom: ef.get-value($themeDefault, 'bonusIconValueBlockPosB');
                 left: ef.get-value($themeDefault, 'bonusIconValueBlockPosL');
@@ -216,7 +212,7 @@
         }
 
         &__name {
-            @include em.get-mq-map('width', $themeDefault, 'infoWidth');
+            @include bm.get-mq-map('width', $themeDefault, 'infoWidth');
             font-weight: bold;
 
             font-size: ef.get-value($themeDefault, 'nameFontSize');
@@ -232,8 +228,8 @@
 
         &__price {
 
-            @include em.get-mq-map('width', $themeDefault, 'infoWidth');
-            @include em.get-mq-map('min-height', $themeDefault, 'priceMinHeight');
+            @include bm.get-mq-map('width', $themeDefault, 'infoWidth');
+            @include bm.get-mq-map('min-height', $themeDefault, 'priceMinHeight');
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -268,14 +264,14 @@
 
                 svg {
 
-                    @include em.transition(fill);
+                    @include bm.transition(fill);
                     width: 100%;
 
                     fill: ef.get-value($themeDefault, 'moreIconColor');
                 }
             }
 
-            @include em.hover {
+            @include bm.hover {
 
                 .icon-btn {
 

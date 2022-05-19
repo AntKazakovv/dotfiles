@@ -1,8 +1,3 @@
-@use 'engine-scss/mixins/base.mixins' as bm;
-@use 'engine-scss/mixins/text' as text;
-@use 'engine-scss/functions' as ef;
-@import 'vars';
-
 @mixin flag($width, $height, $borderRadius, $boxShadow:null, $boxShadowHover:null) {
     width: $height;
     height: $height;

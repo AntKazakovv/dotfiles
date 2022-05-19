@@ -1,27 +1,9 @@
-@use 'engine-scss/functions' as ef;
-@use 'engine-scss/mixins/mediaqueries' as mq;
-@use 'engine-scss/mixins/base.mixins' as bm;
-@use 'engine-scss/mixins/text' as text;
-
-@import './base/default';
-@import './base/v1';
-
-@import './submenu/default';
-
-@import './main-info/themes/default';
-@import './main-info/themes/v1';
-
-@import './dashboard/themes/default';
-
-@import './cash/themes/default';
-@import './cash/themes/v1';
-
-@import './store/themes/default';
-@import './store/themes/v1';
-
-@import './bonuses/themes/default';
-@import './bonuses/themes/v1';
-
-@import './loyalty/themes/v1';
-
-@import './tournaments/themes/v1';
+@import './base/base';
+@import './bonuses/bonuses';
+@import './cash/cash';
+@import './dashboard/dashboard';
+@import './loyalty/loyalty';
+@import './main-info/main-info';
+@import './store/store';
+@import './submenu/submenu';
+@import './tournaments/tournaments';

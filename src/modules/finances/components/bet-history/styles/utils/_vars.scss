@@ -1,5 +1,3 @@
-@use 'engine-scss/functions' as ef;
-
 $customThemeDefault: () !default;
 $themeDefault: map-merge((
     'sectionMargin': ef.size(4) 0 0,

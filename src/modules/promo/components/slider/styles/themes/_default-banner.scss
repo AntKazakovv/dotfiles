@@ -1,8 +1,3 @@
-@use 'engine-scss/mixins/text' as lib;
-@use 'engine-scss/mixins/base.mixins' as em;
-@use 'engine-scss/mixins/mediaqueries' as mq;
-@use 'engine-scss/functions' as ef;
-
 .wlc-slider--theme-default-banner {
     position: relative;
 
@@ -16,7 +11,7 @@
     }
 
     .swiper-button-container {
-        @include em.get-mq-map('bottom', $themeDefaultBanner, 'bottomGap');
+        @include bm.get-mq-map('bottom', $themeDefaultBanner, 'bottomGap');
 
         display: none;
 
@@ -38,7 +33,7 @@
     &.wlc-slider--theme-mod-ears {
 
         .swiper-button-container {
-            @include em.get-mq-map('max-width', $themeDefaultBanner, 'containerMaxWidth');
+            @include bm.get-mq-map('max-width', $themeDefaultBanner, 'containerMaxWidth');
 
             @include mq.min(768) {
                 position: absolute;
@@ -53,7 +48,7 @@
 
         .banner,
         .swiper-button-container {
-            @include em.get-mq-map('padding', $themeDefaultPagination, 'paddingPagiContainer');
+            @include bm.get-mq-map('padding', $themeDefaultPagination, 'paddingPagiContainer');
         }
     }
 }
@@ -78,7 +73,7 @@
 
         .banner,
         .swiper-button-container {
-            @include em.get-mq-map('padding', $themeDefaultPagination, 'paddingPagiContainer');
+            @include bm.get-mq-map('padding', $themeDefaultPagination, 'paddingPagiContainer');
         }
     }
 }

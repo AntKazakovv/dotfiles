@@ -1,5 +1,3 @@
-@use 'engine-scss/functions' as ef;
-
 $customThemeActive: () !default;
 $themeActive: map-merge((
     'background': ef.get-value($themeDefault, 'backgroundDefault'),

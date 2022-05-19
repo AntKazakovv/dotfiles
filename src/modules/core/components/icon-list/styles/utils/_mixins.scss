@@ -1,10 +1,7 @@
-@use 'engine-scss/functions' as ef;
-@use 'engine-scss/mixins/base.mixins' as em;
-
 @mixin SafetyAndMerchants($map) {
 
-    @include em.get-mq-map('max-width', $map, 'paymentsMaxWidth');
-    @include em.get-mq-map('padding', $map, 'paymentsPadding');
+    @include bm.get-mq-map('max-width', $map, 'paymentsMaxWidth');
+    @include bm.get-mq-map('padding', $map, 'paymentsPadding');
 
     width: ef.get-value($map, 'paymentsWidth');
 
@@ -16,7 +13,7 @@
     .wlc-icon-list {
 
         &__wrapper {
-            @include em.get-mq-map('margin', $map, 'wrapperMargin');
+            @include bm.get-mq-map('margin', $map, 'wrapperMargin');
 
             position: relative;
             z-index: ef.get-value($map, 'wrapperZIndex');
@@ -32,18 +29,18 @@
 
         &__item,
         &-item {
-            @include em.get-mq-map('flex', $map, 'itemFlex');
-            @include em.get-mq-map('padding', $map, 'itemPadding');
+            @include bm.get-mq-map('flex', $map, 'itemFlex');
+            @include bm.get-mq-map('padding', $map, 'itemPadding');
 
             text-align: ef.get-value($map, 'itemTextAlign');
 
             img,
             .wlc-icon img,
             .wlc-icon svg {
-                @include em.get-mq-map('width', $map, 'iconWidth');
-                @include em.get-mq-map('max-width', $map, 'iconMaxWidth');
-                @include em.get-mq-map('max-height', $map, 'iconMaxHeight');
-                @include em.get-mq-map('fill', $map, 'iconFill');
+                @include bm.get-mq-map('width', $map, 'iconWidth');
+                @include bm.get-mq-map('max-width', $map, 'iconMaxWidth');
+                @include bm.get-mq-map('max-height', $map, 'iconMaxHeight');
+                @include bm.get-mq-map('fill', $map, 'iconFill');
 
                 g {
                     clip-path: none;

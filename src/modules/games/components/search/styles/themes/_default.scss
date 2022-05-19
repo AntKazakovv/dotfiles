@@ -1,9 +1,3 @@
-@use 'engine-scss/mixins/mediaqueries' as mq;
-@use 'engine-scss/mixins/base.mixins' as bm;
-@use 'engine-scss/mixins/text' as text;
-@use 'engine-scss/functions' as ef;
-@use '../utils/mixins' as m;
-
 ::ng-deep {
 
     .wlc-modal--search.wlc-modal--theme-default {
@@ -325,7 +319,7 @@
                 }
             }
             @if ef.get-value($themeDefault, 'listGrid') {
-                @include m.list-grid(ef.get-value($themeDefault, 'listGrid'));
+                @include list-grid(ef.get-value($themeDefault, 'listGrid'));
             } @else {
                 grid-template-columns: repeat(2, minmax(0, 1fr));
             }

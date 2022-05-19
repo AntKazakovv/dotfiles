@@ -2,23 +2,22 @@ import {
     LangChangeEvent,
     TranslateService,
 } from '@ngx-translate/core';
-import {DOCUMENT} from '@angular/common';
 import {
     Inject,
     Injectable,
 } from '@angular/core';
+import {DOCUMENT} from '@angular/common';
+
+import {fromEvent} from 'rxjs';
+import {
+    map,
+    pairwise,
+    throttleTime,
+} from 'rxjs/operators';
 
 import _forEach from 'lodash-es/forEach';
 import _split from 'lodash-es/split';
 import _startsWith from 'lodash-es/startsWith';
-import {
-    fromEvent,
-} from 'rxjs';
-import {
-    throttleTime,
-    map,
-    pairwise,
-} from 'rxjs/operators';
 
 import {EventService} from 'wlc-engine/modules/core/system/services/event/event.service';
 import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
@@ -51,13 +50,14 @@ export enum ScrollingDirection {
     OnTop = 'OnTop',
 };
 
-
 @Injectable({providedIn: 'root'})
 export class BodyClassService {
 
     private metaThemeColor: HTMLMetaElement = this.document.querySelector('meta[name="theme-color"]');
     private scrollStopPosition: number = 0;
     private scrollingGap: number;
+    private observer: MutationObserver;
+    private paddingTrottle: ReturnType<typeof setTimeout>;
 
     constructor(
         @Inject(DOCUMENT) private document: Document,
@@ -125,6 +125,31 @@ export class BodyClassService {
         }
     }
 
+    private addBodyPadding(): void {
+        if (this.paddingTrottle || this.document.body.classList.contains('modal-open')) {
+            return;
+        }
+
+        this.paddingTrottle = setTimeout(() => {
+            this.paddingTrottle = null;
+        }, 100);
+
+        this.document.body.style.paddingRight = this.window.innerWidth
+            - this.document.documentElement.clientWidth + 'px';
+    }
+
+    protected initBodyObserver(): void {
+
+        this.observer = new MutationObserver(() => {
+            this.addBodyPadding();
+        });
+        this.observer.observe(this.document.body, {
+            childList: true,
+            subtree: true,
+        });
+    }
+
+
     private addStaticClasses(): void {
         const country = this.configService.get<string>('appConfig.country');
         if (country) {
@@ -163,6 +188,8 @@ export class BodyClassService {
         this.actionService.deviceType().subscribe((deviceType: DeviceType) => {
             this.replaceModifier('device', deviceType);
         });
+
+        this.initBodyObserver();
 
         this.setMetaThemeColor();
 

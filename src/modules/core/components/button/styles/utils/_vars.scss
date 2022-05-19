@@ -1,5 +1,7 @@
+// we need @use here, otherwise we get errors in project build
 @use 'engine-scss/engine.variables' as ev;
 @use 'engine-scss/functions' as ef;
+@use 'engine-scss/mixins/base.mixins' as bm;
 
 $customThemeDefault: () !default;
 $themeDefault: map-merge(map-merge(ev.$buttonSettings, (

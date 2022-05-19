@@ -1,8 +1,3 @@
-@use 'engine-scss/mixins/text' as lib;
-@use 'engine-scss/mixins/base.mixins' as bm;
-@use 'engine-scss/mixins/mediaqueries' as mq;
-@use 'engine-scss/functions' as ef;
-
 .wlc-banner--theme-default-banner:host {
 
     ::ng-deep {
@@ -339,32 +334,32 @@
             }
 
             &__title {
-                @include lib.get-text-style('QoteTextBold', ef.get-value($themeDefaultBanner, 'colorTitle'));
+                @include text.get-text-style('QoteTextBold', ef.get-value($themeDefaultBanner, 'colorTitle'));
                 @include bm.get-mq-map('text-align', $themeDefaultBanner, 'textAlign');
 
                 text-shadow: ef.get-value($themeDefaultBanner, 'textContentShadow');
 
                 @include mq.min(768) {
-                    @include lib.get-text-style('PromoTitle', ef.get-value($themeDefaultBanner, 'colorTitle'));
+                    @include text.get-text-style('PromoTitle', ef.get-value($themeDefaultBanner, 'colorTitle'));
                 }
 
                 @include mq.min(1200) {
-                    @include lib.get-text-style('ScreamTitle', ef.get-value($themeDefaultBanner, 'colorTitle'));
+                    @include text.get-text-style('ScreamTitle', ef.get-value($themeDefaultBanner, 'colorTitle'));
                 }
             }
 
             &__description {
-                @include lib.get-text-style('PrimaryText', ef.get-value($themeDefaultBanner, 'colorDescription'));
+                @include text.get-text-style('PrimaryText', ef.get-value($themeDefaultBanner, 'colorDescription'));
                 @include bm.get-mq-map('text-align', $themeDefaultBanner, 'textAlign');
 
                 text-shadow: ef.get-value($themeDefaultBanner, 'textContentShadow');
 
                 @include mq.min(768) {
-                    @include lib.get-text-style('ThirdTitleBold', ef.get-value($themeDefaultBanner, 'colorDescription'));
+                    @include text.get-text-style('ThirdTitleBold', ef.get-value($themeDefaultBanner, 'colorDescription'));
                 }
 
                 @include mq.min(1200) {
-                    @include lib.get-text-style('QoteTextBold', ef.get-value($themeDefaultBanner, 'colorDescription'));
+                    @include text.get-text-style('QoteTextBold', ef.get-value($themeDefaultBanner, 'colorDescription'));
                 }
             }
 

@@ -1,14 +1,8 @@
-@use 'engine-scss/functions' as ef;
-@use 'engine-scss/mixins/mediaqueries' as mq;
-@use 'engine-scss/mixins/base.mixins' as em;
-@use 'engine-scss/mixins/text' as text;
-@import '../utils/vars';
-
 .wlc-copyright--theme-default:host {
 
     .wlc-copyright__text {
         @include text.get-text-style('SignText', ef.get-value($themeDefault, 'textColor'));
-        @include em.get-mq-map('text-align', $themeDefault, 'textAlign');
+        @include bm.get-mq-map('text-align', $themeDefault, 'textAlign');
 
         span {
             display: block;
@@ -16,14 +10,14 @@
 
         a {
             @include text.get-text-style('SignText', ef.get-value($themeDefault, 'linkColor'));
-            @include em.transition(color);
+            @include bm.transition(color);
             text-decoration: ef.get-value($themeDefault, 'textDecoration');
 
             &:focus-visible {
                 color: ef.get-value($themeDefault, 'linkHoverColor');
             }
 
-            @include em.hover {
+            @include bm.hover {
                 color: ef.get-value($themeDefault, 'linkHoverColor');
             }
 
@@ -33,7 +27,7 @@
         }
 
         .wlc-sections__footer--theme-1 & {
-            @include em.get-mq-map('text-align', $themeDefault, 'footerFirstTextAlign');
+            @include bm.get-mq-map('text-align', $themeDefault, 'footerFirstTextAlign');
         }
 
         @include mq.min(900) {

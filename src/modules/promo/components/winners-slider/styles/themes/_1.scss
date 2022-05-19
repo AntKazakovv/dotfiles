@@ -30,8 +30,8 @@
     }
 
     .wlc-winners-slider__slider {
-        @include em.get-mq-map('margin', $theme1, 'sliderMargin');
-        @include em.get-mq-map('height', $theme1, 'sliderHeight');
+        @include bm.get-mq-map('margin', $theme1, 'sliderMargin');
+        @include bm.get-mq-map('height', $theme1, 'sliderHeight');
         position: relative;
 
         &:before {

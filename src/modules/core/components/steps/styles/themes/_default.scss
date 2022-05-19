@@ -1,9 +1,3 @@
-@use 'engine-scss/functions' as ef;
-@use 'engine-scss/mixins/text' as text;
-@use 'engine-scss/mixins/base.mixins' as em;
-@use 'engine-scss/mixins/mediaqueries' as mq;
-@import '../utils/vars';
-
 .wlc-steps--theme-mod-skip-bonus:host,
 .wlc-steps--theme-mod-default:host,
 .wlc-steps--theme-mod-first:host {
@@ -17,7 +11,7 @@
         }
 
         .wlc-bonuses-list {
-            @include em.get-mq-map('margin', $themeDefault, 'bonusListMargin');
+            @include bm.get-mq-map('margin', $themeDefault, 'bonusListMargin');
 
             &--type-swiper {
 
@@ -44,7 +38,7 @@
             }
 
             &__aside {
-                @include em.get-mq-map('display', $themeDefault, 'asideDisplay');
+                @include bm.get-mq-map('display', $themeDefault, 'asideDisplay');
             }
 
             &__container {
@@ -58,12 +52,12 @@
                         padding: ef.get-value($themeDefault, 'singupHeadPadding');
 
                         .wlc-link-block {
-                            @include em.get-mq-map('display', $themeDefault, 'singupLinkBlockDisplay');
-                            @include em.get-mq-map('top', $themeDefault, 'singupLinkBlockTopPos');
-                            @include em.get-mq-map('margin', $themeDefault, 'singupLinkBlockMarign');
-                            @include em.get-mq-map('width', $themeDefault, 'singupLinkBlockSize');
-                            @include em.get-mq-map('height', $themeDefault, 'singupLinkBlockSize');
-                            @include em.get-mq-map('max-width', $themeDefault, 'singupLinkBlockMaxWidth');
+                            @include bm.get-mq-map('display', $themeDefault, 'singupLinkBlockDisplay');
+                            @include bm.get-mq-map('top', $themeDefault, 'singupLinkBlockTopPos');
+                            @include bm.get-mq-map('margin', $themeDefault, 'singupLinkBlockMarign');
+                            @include bm.get-mq-map('width', $themeDefault, 'singupLinkBlockSize');
+                            @include bm.get-mq-map('height', $themeDefault, 'singupLinkBlockSize');
+                            @include bm.get-mq-map('max-width', $themeDefault, 'singupLinkBlockMaxWidth');
                             position: absolute;
                             right: ef.get-value($themeDefault, 'singupLinkBlockRightPos');
                             left: initial;
@@ -88,8 +82,8 @@
                                 line-height: 0;
 
                                 svg {
-                                    @include em.get-mq-map('width', $themeDefault, 'singupIconSvgWidth');
-                                    @include em.get-mq-map('height', $themeDefault, 'singupIconSvgHeight');
+                                    @include bm.get-mq-map('width', $themeDefault, 'singupIconSvgWidth');
+                                    @include bm.get-mq-map('height', $themeDefault, 'singupIconSvgHeight');
                                     transform: ef.get-value($themeDefault, 'singupIconSvgTransform');
                                 }
                             }
@@ -100,10 +94,10 @@
                             .wlc-btn {
 
                                 .wlc-btn__text {
-                                    @include em.transition(color);
+                                    @include bm.transition(color);
                                 }
 
-                                @include em.hover {
+                                @include bm.hover {
                                     text-decoration: none;
 
                                     .wlc-btn__text {
@@ -117,7 +111,7 @@
                             text-align: ef.get-value($themeDefault, 'singupTextBlockAlign');
 
                             &__dynamic {
-                                @include em.lineClamp(2);
+                                @include bm.lineClamp(2);
                             }
                         }
                     }
@@ -135,7 +129,7 @@
             }
 
             &__main {
-                @include em.get-mq-map('padding', $themeDefault, 'mainPadding');
+                @include bm.get-mq-map('padding', $themeDefault, 'mainPadding');
 
                 position: relative;
                 display: flex;
@@ -143,7 +137,7 @@
                 align-items: ef.get-value($themeDefault, 'mainAlignItems');
 
                 .wlc-link-block {
-                    @include em.get-mq-map('bottom', $themeDefault, 'singupLinkBlockBottomPos');
+                    @include bm.get-mq-map('bottom', $themeDefault, 'singupLinkBlockBottomPos');
 
                     position: absolute;
                     left: ef.get-value($themeDefault, 'singupLinkBlockLeftPos');
@@ -159,18 +153,18 @@
     &::ng-deep {
 
         .wlc-btn--next-step {
-            @include em.get-mq-map('margin', $themeDefault, 'nextStepBtnMargin');
+            @include bm.get-mq-map('margin', $themeDefault, 'nextStepBtnMargin');
         }
 
         .wlc-bonuses-list {
-            @include em.get-mq-map('width', $themeDefault, 'bonusListWidth');
+            @include bm.get-mq-map('width', $themeDefault, 'bonusListWidth');
         }
 
         .wlc-steps {
 
             &__container {
-                @include em.get-mq-map('grid-template-columns', $themeDefault, 'containerTemplateCol');
-                @include em.get-mq-map('min-height', $themeDefault, 'containerMinHeight');
+                @include bm.get-mq-map('grid-template-columns', $themeDefault, 'containerTemplateCol');
+                @include bm.get-mq-map('min-height', $themeDefault, 'containerMinHeight');
 
                 display: grid;
                 height: ef.get-value($themeDefault, 'stepsHeight');
@@ -182,7 +176,7 @@
                         .wlc-text-block {
 
                             &__dynamic {
-                                @include em.get-mq-map('display', $themeDefault, 'dynamicTextDisplay');
+                                @include bm.get-mq-map('display', $themeDefault, 'dynamicTextDisplay');
                             }
                         }
                     }
@@ -190,7 +184,7 @@
             }
 
             &__main {
-                @include em.get-mq-map('justify-content', $themeDefault, 'mainJustifyContent');
+                @include bm.get-mq-map('justify-content', $themeDefault, 'mainJustifyContent');
             }
         }
     }
@@ -208,13 +202,13 @@
         }
 
         .wlc-bonuses-list {
-            @include em.get-mq-map('width', $themeDefault, 'bonusListWidthFirst');
+            @include bm.get-mq-map('width', $themeDefault, 'bonusListWidthFirst');
         }
 
         .wlc-steps {
 
             &__container {
-                @include em.get-mq-map('min-height', $themeDefault, 'containerFirstMinHeight');
+                @include bm.get-mq-map('min-height', $themeDefault, 'containerFirstMinHeight');
                 display: block;
 
                 &--sign-up {
@@ -230,8 +224,8 @@
             }
 
             &__main {
-                @include em.get-mq-map('justify-content', $themeDefault, 'mainFirstJustifyContent');
-                @include em.get-mq-map('min-height', $themeDefault, 'containerFirstMinHeight');
+                @include bm.get-mq-map('justify-content', $themeDefault, 'mainFirstJustifyContent');
+                @include bm.get-mq-map('min-height', $themeDefault, 'containerFirstMinHeight');
             }
         }
     }

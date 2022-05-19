@@ -1,19 +1,14 @@
-@use 'engine-scss/functions' as ef;
-@use 'engine-scss/mixins/text' as text;
-@use 'engine-scss/mixins/base.mixins' as em;
-@use 'engine-scss/mixins/mediaqueries' as mq;
-
 .wlc-tournament-promo--theme-default:host {
 
     .wlc-tournament-promo {
 
         &__container {
-            @include em.get-mq-map('grid-template-columns', $themeDefault, 'containerGridTemplateColumns');
-            @include em.get-mq-map('grid-template-areas', $themeDefault, 'containerGridTemplateAreas');
+            @include bm.get-mq-map('grid-template-columns', $themeDefault, 'containerGridTemplateColumns');
+            @include bm.get-mq-map('grid-template-areas', $themeDefault, 'containerGridTemplateAreas');
 
-            @include em.get-mq-map('height', $themeDefault, 'containerHeight');
+            @include bm.get-mq-map('height', $themeDefault, 'containerHeight');
 
-            @include em.get-mq-map('background', $themeDefault, 'containerBackground');
+            @include bm.get-mq-map('background', $themeDefault, 'containerBackground');
 
             position: relative;
             display: grid;
@@ -23,18 +18,18 @@
         }
 
         &__info {
-            @include em.get-mq-map('padding', $themeDefault, 'infoPadding');
+            @include bm.get-mq-map('padding', $themeDefault, 'infoPadding');
 
             position: relative;
             grid-area: info;
 
             &:before {
-                @include em.get-mq-map('display', $themeDefault, 'infoPElementDisplay');
+                @include bm.get-mq-map('display', $themeDefault, 'infoPElementDisplay');
             }
         }
 
         &__board {
-            @include em.get-mq-map('padding', $themeDefault, 'boardPadding');
+            @include bm.get-mq-map('padding', $themeDefault, 'boardPadding');
             position: relative;
 
             display: flex;
@@ -43,7 +38,7 @@
             justify-content: center;
 
             &:before {
-                @include em.get-mq-map('display', $themeDefault, 'boardPElementDisplay');
+                @include bm.get-mq-map('display', $themeDefault, 'boardPElementDisplay');
             }
 
             &-title {
@@ -70,7 +65,7 @@
                     .wlc-btn[class] {
                         color: ef.get-value($themeDefault, 'linkBlockColor');
 
-                        @include em.hover {
+                        @include bm.hover {
 
                             &,
                             .wlc-icon {
@@ -124,7 +119,7 @@
 
         &__title {
             @include text.get-text-style(ef.get-value($themeDefault, 'titleFontStyle'), ef.get-value($themeDefault, 'titleColor', 320));
-            @include em.lineClamp(2);
+            @include bm.lineClamp(2);
             margin: ef.get-value($themeDefault, 'titleMargin');
             text-transform: uppercase;
 
@@ -145,7 +140,7 @@
         &__tag,
         &__title,
         &__description {
-            @include em.get-mq-map('text-align', $themeDefault, 'textAlign');
+            @include bm.get-mq-map('text-align', $themeDefault, 'textAlign');
 
             &:last-child {
                 margin-bottom: 0;
@@ -165,11 +160,11 @@
             object-position: ef.get-value($themeDefault, 'imageObjectPosition');
 
             &--desk {
-                @include em.get-mq-map('display', $themeDefault, 'imageDisplayDesk');
+                @include bm.get-mq-map('display', $themeDefault, 'imageDisplayDesk');
             }
 
             &--mobile {
-                @include em.get-mq-map('display', $themeDefault, 'imageDisplay');
+                @include bm.get-mq-map('display', $themeDefault, 'imageDisplay');
             }
         }
 
@@ -231,9 +226,9 @@
         }
 
         .buttons-wrap {
-            @include em.get-mq-map('justify-content', $themeDefault, 'btnsWrapAlign');
-            @include em.get-mq-map('padding', $themeDefault, 'btnsWrapPadding');
-            @include em.get-mq-map('flex-direction', $themeDefault, 'btnsWrapperFlexDirection');
+            @include bm.get-mq-map('justify-content', $themeDefault, 'btnsWrapAlign');
+            @include bm.get-mq-map('padding', $themeDefault, 'btnsWrapPadding');
+            @include bm.get-mq-map('flex-direction', $themeDefault, 'btnsWrapperFlexDirection');
 
             display: flex;
             grid-area: btns;
@@ -241,8 +236,8 @@
             margin: ef.get-value($themeDefault, 'btnsWrapMargin');
 
             & > .wlc-btn {
-                @include em.get-mq-map('min-width', $themeDefault, 'btnsMinWidthColumn');
-                @include em.get-mq-map('margin', $themeDefault, 'firstBtnColumnMargin');
+                @include bm.get-mq-map('min-width', $themeDefault, 'btnsMinWidthColumn');
+                @include bm.get-mq-map('margin', $themeDefault, 'firstBtnColumnMargin');
 
                 grid-column-gap: ef.get-value($themeDefault, 'btnsGridColumnGap');
                 padding: ef.get-value($themeDefault, 'btnsPadding');
@@ -259,24 +254,24 @@
         .wlc-tournament-promo {
 
             &__container {
-                @include em.get-mq-map('grid-template-columns', $modAvailable, 'containerGridTemplateColumns');
-                @include em.get-mq-map('height', $modAvailable, 'containerHeight');
-                @include em.get-mq-map('background', $modAvailable, 'containerBackground');
+                @include bm.get-mq-map('grid-template-columns', $modAvailable, 'containerGridTemplateColumns');
+                @include bm.get-mq-map('height', $modAvailable, 'containerHeight');
+                @include bm.get-mq-map('background', $modAvailable, 'containerBackground');
             }
 
             &__info {
-                @include em.get-mq-map('padding', $modAvailable, 'infoPadding');
+                @include bm.get-mq-map('padding', $modAvailable, 'infoPadding');
             }
 
             &__board {
-                @include em.get-mq-map('padding', $modAvailable, 'boardPadding');
+                @include bm.get-mq-map('padding', $modAvailable, 'boardPadding');
             }
         }
 
         ::ng-deep {
 
             .buttons-wrap {
-                @include em.get-mq-map('padding', $modAvailable, 'btnsWrapPadding');
+                @include bm.get-mq-map('padding', $modAvailable, 'btnsWrapPadding');
             }
         }
     }

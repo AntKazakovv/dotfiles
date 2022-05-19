@@ -1,7 +1,3 @@
-@use 'engine-scss/functions' as ef;
-@use 'engine-scss/mixins/text' as text;
-@use 'engine-scss/mixins/base.mixins' as em;
-
 .wlc-restore-link {
 
     &:host {
@@ -10,10 +6,10 @@
 
         .wlc-btn {
             @include text.get-text-style(ef.get-value($themeDefault, 'linkFontSize'), ef.get-value($themeDefault, 'linkColor'));
-            @include em.transition(color);
+            @include bm.transition(color);
             text-decoration: underline;
 
-            @include em.hover {
+            @include bm.hover {
                 color: ef.get-value($themeDefault, 'linkColorHover');
             }
         }

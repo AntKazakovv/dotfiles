@@ -1,22 +1,17 @@
-@use 'engine-scss/functions' as ef;
-@use 'engine-scss/mixins/text' as text;
-@use 'engine-scss/mixins/base.mixins' as em;
-@import '../utils/vars-default';
-
 .wlc-tab-switcher--theme-default:host {
     height: ef.get-value($themeDefault, 'height');
 
     .wlc-tab-switcher {
 
         &__container {
-            @include em.get-mq-map('padding', $themeDefault, 'containerPadding');
+            @include bm.get-mq-map('padding', $themeDefault, 'containerPadding');
             height: ef.get-value($themeDefault, 'height');
             border-radius: ef.get-value($themeDefault, 'containerRadius');
             overflow: visible;
         }
 
         &-nav {
-            @include em.get-mq-map('display', $themeDefault, 'navDisplay');
+            @include bm.get-mq-map('display', $themeDefault, 'navDisplay');
             min-height: ef.get-value($themeDefault, 'navMinHeight');
 
             &__item {
@@ -47,7 +42,7 @@
         }
 
         &-body {
-            @include em.get-mq-map('background', $themeDefault, 'bodyBackground');
+            @include bm.get-mq-map('background', $themeDefault, 'bodyBackground');
             height: calc(#{ef.get-value($themeDefault, 'bodyHeight')} - #{ef.get-value($themeDefault, 'navMinHeight')});
             border-radius: ef.get-value($themeDefault, 'bodyRadius');
 
@@ -60,13 +55,13 @@
                 }
 
                 &--login {
-                    @include em.get-mq-map('width', $themeDefault, 'loginBodyWidth');
+                    @include bm.get-mq-map('width', $themeDefault, 'loginBodyWidth');
                     margin: ef.get-value($themeDefault, 'bodyItemLoginMargin');
                     padding: ef.get-value($themeDefault, 'bodyItemLoginPadding');
                 }
 
                 &--signup {
-                    @include em.get-mq-map('width', $themeDefault, 'signupBodyWidth');
+                    @include bm.get-mq-map('width', $themeDefault, 'signupBodyWidth');
                 }
             }
         }
@@ -82,7 +77,7 @@
                 &__item {
 
                     &--signup {
-                        @include em.get-mq-map('width', $themeDefault, 'signupBodyWidthFirst');
+                        @include bm.get-mq-map('width', $themeDefault, 'signupBodyWidthFirst');
                     }
                 }
             }
@@ -98,7 +93,7 @@
                 &__item {
 
                     &--login {
-                        @include em.get-mq-map('padding', $themeDefault, 'bodyItemLoginWithBannerPadding');
+                        @include bm.get-mq-map('padding', $themeDefault, 'bodyItemLoginWithBannerPadding');
                     }
                 }
             }

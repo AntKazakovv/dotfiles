@@ -1,9 +1,3 @@
-@use 'engine-scss/functions' as ef;
-@use 'engine-scss/mixins/base.mixins' as em;
-@use 'engine-scss/mixins/text' as text;
-@import '../utils/vars';
-@import '../utils/mixins';
-
 .wlc-enter-promocode--theme-default:host {
     border-radius: ef.get-value($themeDefault, 'wrapperRadius');
     overflow: hidden;
@@ -13,8 +7,8 @@
         height: ef.get-value($themeDefault, 'baseHeight');
 
         &__container {
-            @include em.get-mq-map('padding', $themeDefault, 'containerPadding');
-            @include em.get-mq-map('min-height', $themeDefault, 'containerMinHeight');
+            @include bm.get-mq-map('padding', $themeDefault, 'containerPadding');
+            @include bm.get-mq-map('min-height', $themeDefault, 'containerMinHeight');
 
             display: flex;
             flex-direction: ef.get-value($themeDefault, 'containerFlexDirection');
@@ -28,12 +22,12 @@
         }
 
         &__title {
-            @include em.get-mq-map('margin', $themeDefault, 'titleMargin');
+            @include bm.get-mq-map('margin', $themeDefault, 'titleMargin');
             @include text.get-text-style(ef.get-value($themeDefault, 'titleFontStyle'), ef.get-value($themeDefault, 'titleColor'));
         }
 
         &__control {
-            @include em.get-mq-map('max-width', $themeDefault, 'controlMaxWidth');
+            @include bm.get-mq-map('max-width', $themeDefault, 'controlMaxWidth');
 
             position: relative;
             width: ef.get-value($themeDefault, 'controlWidth');

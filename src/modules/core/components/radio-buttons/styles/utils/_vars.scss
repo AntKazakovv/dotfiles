@@ -1,6 +1,3 @@
-@use 'engine-scss/functions' as ef;
-@use 'modules/core/components/button/styles/utils/_vars' as btnSkew;
-
 $customThemeDefault: () !default;
 $themeDefault: map-merge((
     'spaceBetweenButtons': 10px,

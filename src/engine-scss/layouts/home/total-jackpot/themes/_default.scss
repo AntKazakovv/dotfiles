@@ -1,8 +1,3 @@
-@use 'engine-scss/mixins/text' as lib;
-@use 'engine-scss/mixins/base.mixins' as bm;
-@use 'engine-scss/functions' as ef;
-@use 'engine-scss/mixins/mediaqueries' as mq;
-
 .wlc-sections__total-jackpot {
 
     .container {
@@ -98,7 +93,7 @@
     .wlc-title[class] {
 
         .wlc-title__main[class] {
-            @include lib.get-text-style(ef.get-value($themeTotalJackpot, 'titleTextStyle'), ef.get-value($themeTotalJackpot, 'titleColor'));
+            @include text.get-text-style(ef.get-value($themeTotalJackpot, 'titleTextStyle'), ef.get-value($themeTotalJackpot, 'titleColor'));
         }
     }
 }

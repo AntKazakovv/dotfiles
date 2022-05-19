@@ -23,11 +23,11 @@
         }
 
         &__loader {
-            @include em.get-mq-map('height', $themeVertical, 'loaderHeight');
+            @include bm.get-mq-map('height', $themeVertical, 'loaderHeight');
         }
 
         &__title {
-            @include em.get-mq-map('padding', $themeVertical, 'titlePadding');
+            @include bm.get-mq-map('padding', $themeVertical, 'titlePadding');
             @include text.get-text-style('ThirdTitleBold', ef.get-value($themeVertical, 'titleColor'));
             @include manualMod('wlc-winners-slider', 'vertical' ,'headless') {
                 display: none;
@@ -42,8 +42,8 @@
         }
 
         &__slider {
-            @include em.get-mq-map('height', $themeVertical, 'sliderHeight');
-            @include em.get-mq-map('margin', $themeVertical, 'wrapperMargin');
+            @include bm.get-mq-map('height', $themeVertical, 'sliderHeight');
+            @include bm.get-mq-map('margin', $themeVertical, 'wrapperMargin');
 
             ::ng-deep {
 

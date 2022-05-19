@@ -1,6 +1,4 @@
-@use 'engine-scss/functions' as ef;
 $customThemeDefault: () !default;
-
 $themeDefault: map-merge((
     'formMaxWidth': (
         320: 100%,

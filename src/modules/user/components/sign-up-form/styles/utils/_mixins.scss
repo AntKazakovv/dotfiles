@@ -68,7 +68,7 @@
     text-decoration: underline;
     transition: ef.get-value($map, 'checkboxLinkTransition');
 
-    @include em.hover {
+    @include bm.hover {
         color: ef.get-value($map, 'checkboxLinkColorHover');
     }
 }

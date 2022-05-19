@@ -1,10 +1,5 @@
-@use 'engine-scss/mixins/mediaqueries' as mq;
-@use 'engine-scss/mixins/base.mixins' as em;
-@use 'engine-scss/functions' as ef;
-@use 'engine-scss/mixins/text' as lib;
-
 .wlc-bonus-item--theme-promo-home {
-    @include em.get-mq-map('min-height', $themePromoHome, 'minHeight');
+    @include bm.get-mq-map('min-height', $themePromoHome, 'minHeight');
 
     position: relative;
 
@@ -24,8 +19,8 @@
             background-size: ef.get-value($themePromoHome, 'contentBgSize');
 
             &:before {
-                @include em.absoluteCentering();
-                @include em.get-mq-map('background', $themePromoHome, 'contentBackdrop');
+                @include bm.absoluteCentering();
+                @include bm.get-mq-map('background', $themePromoHome, 'contentBackdrop');
 
                 content: '';
                 z-index: 0;
@@ -36,8 +31,8 @@
         }
 
         &__tag {
-            @include lib.get-text-style(ef.get-value($themePromoHome, 'tagTextStyle'), ef.get-value($themePromoHome, 'tagColor'));
-            @include em.get-mq-map('padding', $themePromoHome, 'tagPadding');
+            @include text.get-text-style(ef.get-value($themePromoHome, 'tagTextStyle'), ef.get-value($themePromoHome, 'tagColor'));
+            @include bm.get-mq-map('padding', $themePromoHome, 'tagPadding');
 
             position: absolute;
             top: ef.get-value($themePromoHome, 'tagTopPosition');
@@ -51,8 +46,8 @@
         }
 
         &__wrapper {
-            @include em.get-mq-map('padding', $themePromoHome, 'padding');
-            @include em.get-mq-map('gap', $themePromoHome, 'wrapperGap');
+            @include bm.get-mq-map('padding', $themePromoHome, 'padding');
+            @include bm.get-mq-map('gap', $themePromoHome, 'wrapperGap');
 
             display: grid;
             grid-template-areas: ef.get-value($themePromoHome, 'wrapperGridAreas');
@@ -72,9 +67,9 @@
         }
 
         &__info-wrapper {
-            @include em.get-mq-map('flex-direction', $themePromoHome, 'infoWrapperFlexDir');
-            @include em.get-mq-map('justify-content', $themePromoHome, 'infoWrapperJustifyContent');
-            @include em.get-mq-map('align-items', $themePromoHome, 'infoWrapperAlignItems');
+            @include bm.get-mq-map('flex-direction', $themePromoHome, 'infoWrapperFlexDir');
+            @include bm.get-mq-map('justify-content', $themePromoHome, 'infoWrapperJustifyContent');
+            @include bm.get-mq-map('align-items', $themePromoHome, 'infoWrapperAlignItems');
 
             display: flex;
             grid-area: content;
@@ -84,17 +79,17 @@
         }
 
         &__info-block {
-            @include em.get-mq-map('padding', $themePromoHome, 'infoBlockPadding');
+            @include bm.get-mq-map('padding', $themePromoHome, 'infoBlockPadding');
 
             width: 100%;
             min-width: 0;
             max-width: 100%;
 
             h4 {
-                @include lib.get-text-style('QoteTextBold', ef.get-value($themePromoHome, 'color'));
+                @include text.get-text-style('QoteTextBold', ef.get-value($themePromoHome, 'color'));
 
                 @include mq.min(640) {
-                    @include lib.get-text-style('PromoTitle', ef.get-value($themePromoHome, 'color'));
+                    @include text.get-text-style('PromoTitle', ef.get-value($themePromoHome, 'color'));
                 }
             }
         }
@@ -104,13 +99,13 @@
         }
 
         &__description {
-            @include lib.get-text-style('PrimaryText', ef.get-value($themePromoHome, 'color'));
-            @include em.get-mq-map('margin', $themePromoHome, 'descriptionMargin');
-            @include em.lineClamp(3);
+            @include text.get-text-style('PrimaryText', ef.get-value($themePromoHome, 'color'));
+            @include bm.get-mq-map('margin', $themePromoHome, 'descriptionMargin');
+            @include bm.lineClamp(3);
         }
 
         &__btns {
-            @include em.get-mq-map('min-height', $themePromoHome, 'btnsMinHeight');
+            @include bm.get-mq-map('min-height', $themePromoHome, 'btnsMinHeight');
 
             grid-area: buttons;
             justify-content: ef.get-value($themePromoHome, 'btnsJustifyContent');

@@ -1,9 +1,3 @@
-@use 'engine-scss/functions' as ef;
-@use 'engine-scss/engine.variables' as ev;
-@use 'engine-scss/mixins/base.mixins' as bm;
-
-@import './vars';
-
 // animation @keyframes and backdrop
 @mixin animationMx(
     $from: translate(0, -50px),

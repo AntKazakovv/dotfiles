@@ -1,7 +1,4 @@
-@use 'engine-scss/functions' as ef;
-
 $customThemeDefault: () !default;
-
 $themeDefault: map-merge((
     'backgroundItem': var(--mc-bg300),
     'borderRadius': ef.get('radius', 'biger'),

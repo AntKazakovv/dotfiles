@@ -3,7 +3,7 @@
     .wlc-winner {
 
         &__wrapper {
-            @include em.get-mq-map('gap', $themeDefault, 'gap');
+            @include bm.get-mq-map('gap', $themeDefault, 'gap');
 
             padding-left: ef.get-value($themeDefault, 'borderLinePadding');
 

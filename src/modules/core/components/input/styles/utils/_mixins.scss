@@ -1,6 +1,3 @@
-@use 'engine-scss/functions' as ef;
-@import './vars';
-
 @mixin inputBase($theme) {
     display: grid;
     grid-template-columns: 1fr;

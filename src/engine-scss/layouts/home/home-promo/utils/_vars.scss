@@ -1,5 +1,3 @@
-@use 'engine-scss/functions' as ef;
-
 $customHomePromo: () !default;
 $homePromo: map-merge((
     'columns': (

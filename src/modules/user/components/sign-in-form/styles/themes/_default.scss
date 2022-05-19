@@ -1,9 +1,3 @@
-@use 'engine-scss/mixins/base.mixins' as bm;
-@use 'engine-scss/functions' as ef;
-@use 'engine-scss/mixins/text' as text;
-@use 'engine-scss/mixins/base.mixins' as em;
-@import '../utils/vars';
-
 .wlc-sign-in-form--theme-default:host {
     @include bm.get-mq-map('max-width', $themeDefault, 'formMaxWidth');
     height: ef.get-value($themeDefault, 'formHeight');
@@ -66,7 +60,7 @@
         .wlc-btn {
 
             &--submit {
-                @include em.get-mq-map('margin', $themeDefault, 'btnMargin');
+                @include bm.get-mq-map('margin', $themeDefault, 'btnMargin');
             }
         }
     }
@@ -77,20 +71,20 @@
         ::ng-deep {
 
             .banner {
-                @include em.get-mq-map('padding', $themeDefaultModWithBanner, 'bannerPadding');
-                @include em.get-mq-map('max-height', $themeDefaultModWithBanner, 'bannerHeight');
+                @include bm.get-mq-map('padding', $themeDefaultModWithBanner, 'bannerPadding');
+                @include bm.get-mq-map('max-height', $themeDefaultModWithBanner, 'bannerHeight');
                 min-height: unset;
 
                 img {
-                    @include em.get-mq-map('width', $themeDefaultModWithBanner, 'bannerImgWidth');
+                    @include bm.get-mq-map('width', $themeDefaultModWithBanner, 'bannerImgWidth');
                 }
             }
         }
 
         .wlc-form-wrapper {
-            @include em.get-mq-map('max-width', $themeDefaultModWithBanner, 'formMaxWidth');
-            @include em.get-mq-map('margin', $themeDefaultModWithBanner, 'formMargin');
-            @include em.get-mq-map('height', $themeDefaultModWithBanner, 'formHeight');
+            @include bm.get-mq-map('max-width', $themeDefaultModWithBanner, 'formMaxWidth');
+            @include bm.get-mq-map('margin', $themeDefaultModWithBanner, 'formMargin');
+            @include bm.get-mq-map('height', $themeDefaultModWithBanner, 'formHeight');
         }
     }
 

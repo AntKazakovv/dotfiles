@@ -1,8 +1,3 @@
-@use 'engine-scss/functions' as ef;
-@use 'engine-scss/mixins/text' as text;
-@use 'engine-scss/mixins/base.mixins' as em;
-@import '../utils/vars';
-
 .wlc-bonus-item--theme-preview {
     height: ef.get-value($themePreview, 'hostHeight');
     background: ef.get-value($themePreview, 'bonusBackground');
@@ -11,8 +6,8 @@
     .wlc-bonus-item {
 
         &__content {
-            @include em.get-mq-map('grid-row-gap', $themePreview, 'hostRowOffset');
-            @include em.get-mq-map('grid-column-gap', $themePreview, 'hostColOffset');
+            @include bm.get-mq-map('grid-row-gap', $themePreview, 'hostRowOffset');
+            @include bm.get-mq-map('grid-column-gap', $themePreview, 'hostColOffset');
 
             display: grid;
             align-content: ef.get-value($themePreview, 'hostAlignContent');
@@ -24,7 +19,7 @@
             background: ef.get-value($themePreview, 'contentBg');
 
             &:before {
-                @include em.absoluteCentering();
+                @include bm.absoluteCentering();
 
                 content: '';
                 z-index: 0;
@@ -62,8 +57,8 @@
         }
 
         &__icon {
-            @include em.get-mq-map('width', $themePreview, 'iconSignSize');
-            @include em.get-mq-map('height', $themePreview, 'iconSignSize');
+            @include bm.get-mq-map('width', $themePreview, 'iconSignSize');
+            @include bm.get-mq-map('height', $themePreview, 'iconSignSize');
 
             &-text {
                 @include text.get-text-style(ef.get-value($themePreview, 'iconTextStyle'), ef.get-value($themePreview, 'iconTextColor'));
@@ -75,26 +70,26 @@
                 }
 
                 &.wlc-smaller {
-                    @include em.get-mq-map('font-size', $themePreview, 'bonusIconValueFontSizeSmaller');
+                    @include bm.get-mq-map('font-size', $themePreview, 'bonusIconValueFontSizeSmaller');
                 }
             }
         }
 
         &__more-icon {
-            @include em.get-mq-map('top', $themePreview, 'moreIconPosTop');
-            @include em.get-mq-map('right', $themePreview, 'moreIconPosRight');
+            @include bm.get-mq-map('top', $themePreview, 'moreIconPosTop');
+            @include bm.get-mq-map('right', $themePreview, 'moreIconPosRight');
         }
 
         &__name {
             @include text.get-text-style(ef.get-value($themePreview, 'bonusNameStyle'), ef.get-value($themePreview, 'bonusNameColor'));
-            @include em.lineClamp(2);
+            @include bm.lineClamp(2);
             max-width: 100%;
             margin: ef.get-value($themePreview, 'bonusNameMargin');
             cursor: pointer;
         }
 
         &__description {
-            @include em.lineClamp(3);
+            @include bm.lineClamp(3);
             @include text.get-text-style(ef.get-value($themePreview, 'bonusDescriptionStyle'), ef.get-value($themePreview, 'bonusDescriptionColor'));
         }
     }
@@ -116,7 +111,7 @@
         .wlc-bonus-item {
 
             &__blank {
-                @include em.get-mq-map('padding', $themePreview, 'bonusPadding');
+                @include bm.get-mq-map('padding', $themePreview, 'bonusPadding');
 
                 display: flex;
                 flex-direction: column;
