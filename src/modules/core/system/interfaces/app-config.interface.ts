@@ -97,6 +97,24 @@ export interface ISiteConfig {
     fastRegistration: number;
     force_exclude_countries: string; //TODO Should be number
     languages: IIndexing<ISiteconfigLanguage>;
+    /**
+     * @deprecated use $games.merchantNameAliasesMap
+     *
+     * Used to rename merchant.
+     * Add file to project /../../config/frontend/*.config.json
+     *
+     * @example
+     * {
+     *     "siteconfig": {
+     *        "merchantNameAliasesMap": {
+     *           "bgaming": "Any new name"
+     *          }
+     *     }
+     * }
+     *
+     * where KEY is merchant.menuId
+    **/
+    merchantNameAliasesMap?: IIndexing<string>;
     paymentText: IIndexing<string>;
     payment_systems: IPaysystem[];
     registerGeneratePassword: boolean;

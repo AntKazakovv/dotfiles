@@ -46,6 +46,16 @@ export interface IGamesConfig {
      */
     disableDemoBtnsFor?: TDisableDemoFor;
     merchantWallet?: IMerchantWalletConfig;
+    /**
+     * Rename merchant
+     *
+     * @example
+     * merchantNameAliasesMap: {
+     *     bgaming: "Any new name",
+     * },
+     * where KEY is merchant.menuId
+    **/
+    merchantNameAliasesMap?: IIndexing<string>;
 }
 
 export interface IGamesSearchSettings {

@@ -654,9 +654,12 @@ export class GamesCatalog extends AbstractModel<IGames> {
         /***********************************************************************************************************
          * MERCHANTS
          **********************************************************************************************************/
-        const merchantMap: IIndexing<string> = this.configService
-            .get<IIndexing<string>>('appConfig.siteconfig.merchantNameAliasesMap') || {};
-        const mapMerchants = GamesHelper.mapMerchants(response.merchants, merchantMap);
+        const mapMerchants = GamesHelper.mapMerchants(
+            response.merchants,
+            _assign({},
+                this.configService.get<IIndexing<string>>('appConfig.siteconfig.merchantNameAliasesMap') || {},
+                this.configService.get<IIndexing<string>>('$games.merchantNameAliasesMap') || {},
+            ));
         this.merchants = mapMerchants.merchantsArray;
 
         /***********************************************************************************************************
