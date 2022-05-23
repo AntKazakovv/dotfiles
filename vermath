@@ -23,9 +23,16 @@ def minor_increase(v):
     return v[0:3]
 
 def hotfix_increase(v):
-    if len(v) < 4:
-        v.append(0)
-    v[3] = v[3]+1
+    # if len(v) < 4:
+    #     v.append(0)
+    # v[3] = v[3]+1
+
+    hotfix = 1
+    if len(v) > 4 and v[3] == 'hotfix':
+        hotfix = v[4] + 1
+    v = v[0:3]
+    v[2] = str(v[2]) + '-hotfix'
+    v.append(hotfix)
     return v
 
 def preid_increase(v):
@@ -33,7 +40,7 @@ def preid_increase(v):
     if len(v) > 4 and v[3] == 'rc':
         rc = v[4] + 1
     else:
-        v = normal_increase(v)
+        v = minor_increase(v)
 
     v = v[0:3]
     v[2] = str(v[2]) + '-rc'
@@ -46,6 +53,9 @@ def parse_version():
         if k.find('-rc') != -1:
             v.append(int(k.replace('-rc', '')))
             v.append('rc')
+        elif  k.find('-hotfix') != -1:
+            v.append(int(k.replace('-hotfix', '')))
+            v.append('hotfix')
         else:
             v.append(int(k))
     while len(v) < 3:
