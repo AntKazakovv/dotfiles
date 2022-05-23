@@ -209,23 +209,28 @@ export class SeoService {
         });
         this.meta.updateTag({
             name: 'description',
-            content: _get(seoState, `opengraph_desc.${currentLang}`,  _get(seoState, 'opengraph_desc.en', '')),
+            content: _get(seoState, `opengraph_desc.${currentLang}`,
+                _get(seoState, 'opengraph_desc.en', '')),
         });
         this.meta.updateTag({
             name: 'og:description',
-            content: _get(seoState, `opengraph_desc.${currentLang}`,  _get(seoState, 'opengraph_desc.en', '')),
+            content: _get(seoState, `opengraph_desc.${currentLang}`,
+                _get(seoState, 'opengraph_desc.en', '')),
         });
         this.meta.updateTag({
             name: 'og:image',
-            content: _get(seoState, `opengraph_image.${currentLang}`,  _get(seoState, 'opengraph_desc.en', '')),
+            content: _get(seoState, `opengraph_image.${currentLang}`,
+                _get(seoState, 'opengraph_image.en', '')),
         });
         this.meta.updateTag({
             name: 'keywords',
-            content: _get(seoState, `opengraph_keywords.${currentLang}`, _get(seoState, 'opengraph_desc.en', '')),
+            content: _get(seoState, `opengraph_keywords.${currentLang}`,
+                _get(seoState, 'opengraph_keywords.en', '')),
         });
         this.meta.updateTag({
             name: 'og:keywords',
-            content: _get(seoState, `opengraph_keywords.${currentLang}`, _get(seoState, 'opengraph_desc.en', '')),
+            content: _get(seoState, `opengraph_keywords.${currentLang}`,
+                _get(seoState, 'opengraph_keywords.en', '')),
         });
     }
 
@@ -274,23 +279,28 @@ export class SeoService {
             });
             this.meta.updateTag({
                 name: 'description',
-                content: _get(gameSeo, `opengraph_desc.${currentLang}`,  _get(gameSeo, 'opengraph_desc.en', '')),
+                content: _get(gameSeo, `opengraph_desc.${currentLang}`,
+                    _get(gameSeo, 'opengraph_desc.en', '')),
             });
             this.meta.updateTag({
                 name: 'og:description',
-                content: _get(gameSeo, `opengraph_desc.${currentLang}`,  _get(gameSeo, 'opengraph_desc.en', '')),
+                content: _get(gameSeo, `opengraph_desc.${currentLang}`,
+                    _get(gameSeo, 'opengraph_desc.en', '')),
             });
             this.meta.updateTag({
                 name: 'og:image',
-                content: _get(gameSeo, `opengraph_image.${currentLang}`,  _get(gameSeo, 'opengraph_desc.en', '')),
+                content: _get(gameSeo, `opengraph_image.${currentLang}`,
+                    _get(gameSeo, 'opengraph_image.en', '')),
             });
             this.meta.updateTag({
                 name: 'keywords',
-                content: _get(gameSeo, `opengraph_keywords.${currentLang}`,  _get(gameSeo, 'opengraph_desc.en', '')),
+                content: _get(gameSeo, `opengraph_keywords.${currentLang}`,
+                    _get(gameSeo, 'opengraph_keywords.en', '')),
             });
             this.meta.updateTag({
                 name: 'og:keywords',
-                content: _get(gameSeo, `opengraph_keywords.${currentLang}`,  _get(gameSeo, 'opengraph_desc.en', '')),
+                content: _get(gameSeo, `opengraph_keywords.${currentLang}`,
+                    _get(gameSeo, 'opengraph_keywords.en', '')),
             });
         }
     }
