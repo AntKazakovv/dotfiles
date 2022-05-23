@@ -77,8 +77,6 @@
 
             background: ef.get-value($themeDefault, 'background');
 
-            transition: background ef.get-value($themeDefault, 'time') ease-in-out;
-
             @include bm.hover {
                 background: ef.get-value($themeDefault, 'backgroundHover');
 
