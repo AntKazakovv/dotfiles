@@ -1,0 +1,5 @@
+$customRandomGamesThemeDefault: () !default;
+$randomGamesThemeDefault: map-merge((
+    'sectionBg': null,
+    'sectionPadding': null,
+), $customRandomGamesThemeDefault);

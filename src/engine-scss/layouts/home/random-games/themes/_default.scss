@@ -1,0 +1,4 @@
+.wlc-sections__random-games {
+    @include bm.get-mq-map('padding', $randomGamesThemeDefault, 'sectionPadding');
+    @include bm.get-mq-map('background', $randomGamesThemeDefault, 'sectionBg');
+}

@@ -181,6 +181,19 @@ export const MODALS_LIST: IModalList = {
             showFooter: false,
         },
     },
+    gamesSlider: {
+        config: {
+            id: 'games-slider',
+            modifier: 'games-slider',
+            componentName: 'games.wlc-games-slider',
+            componentParams: {
+                isModal: true,
+            },
+            rejectBtnVisibility: false,
+            size: 'xl',
+            showFooter: false,
+        },
+    },
     staticText: {
         config: {
             id: 'static-text',

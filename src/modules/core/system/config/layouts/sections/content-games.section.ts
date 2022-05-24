@@ -71,6 +71,13 @@ export namespace contentGames {
         ],
     };
 
+    export const randomGames: ILayoutSectionConfig = {
+        container: true,
+        components: [
+            componentLib.wlcGamesSlider.def,
+        ],
+    };
+
     export const homeBottom: ILayoutSectionConfig = {
         container: true,
         components: [

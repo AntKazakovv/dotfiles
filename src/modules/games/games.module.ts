@@ -49,6 +49,8 @@ import {LuckyButtonComponent} from './components/lucky-button/lucky-button.compo
 
 import * as $config from 'wlc-config/index';
 
+import {GamesSliderComponent} from './components/games-slider/games-slider.component';
+
 export const moduleConfig =
     GlobalHelper.mergeConfig<IGamesConfig>(gamesConfig, _get($config, '$games', {}));
 
@@ -63,6 +65,7 @@ export const components = {
     'wlc-merchant-wallet-form': MerchantWalletFormComponent,
     'wlc-merchant-wallet-info': MerchantWalletInfoComponent,
     'wlc-merchant-wallet-preview': MerchantWalletPreviewComponent,
+    'wlc-games-slider': GamesSliderComponent,
     'wlc-play-game-for-real': PlayGameForRealComponent,
     'wlc-random-game': RandomGameComponent,
     'wlc-search': SearchComponent,
@@ -87,6 +90,7 @@ export const services = {
         GameWrapperComponent,
         GamesCatalogComponent,
         GamesGridComponent,
+        GamesSliderComponent,
         PlayGameForRealComponent,
         RandomGameComponent,
         SearchFieldComponent,
@@ -126,6 +130,7 @@ export const services = {
         SearchFieldComponent,
         SearchComponent,
         TotalJackpotComponent,
+        GamesSliderComponent,
         PlayGameForRealComponent,
         GameDashboardComponent,
         RandomGameComponent,
