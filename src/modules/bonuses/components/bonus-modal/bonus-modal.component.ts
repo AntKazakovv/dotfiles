@@ -42,7 +42,12 @@ export class BonusModalComponent extends AbstractComponent implements OnInit {
         super.ngOnInit();
 
         this.bonus = this.$params.bonus;
-        this.bonusBgUrl = `url(${this.bonus.imageDescription})`;
+
+        if (this.configService.get<boolean>('$bonuses.useNewImageSources')) {
+            this.bonusBgUrl = `url(${this.bonus.imageDescription})`;
+        } else {
+            this.bonusBgUrl = `url(${this.bonus.imageOther})`;
+        }
     }
 
     /**
