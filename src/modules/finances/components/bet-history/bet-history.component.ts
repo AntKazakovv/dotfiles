@@ -79,8 +79,13 @@ export class BetHistoryComponent extends AbstractComponent implements OnInit {
         super.ngOnInit();
         await this.getBets();
         this.showFilter = this.actionService.getDeviceType() === DeviceType.Desktop;
+        this.setMinMaxDate();
         this.setSubscription();
         
+        this.historyFilterService.dateChanges$.next({
+            startDate: this.startDate,
+            endDate: this.endDate,
+        });
         this.historyFilterService.setDefaultFilter('bet', {
             filterValue: this.filterValue,
             startDate: this.startDate,
@@ -153,13 +158,19 @@ export class BetHistoryComponent extends AbstractComponent implements OnInit {
             )
             .subscribe(async (data: IFinancesFilter): Promise<void> => {
                 this.filterSelect.control.setValue(this.filterValue = data.filterValue);
-                this.startDateInput.control.setValue(this.startDate = data.startDate);
-                this.endDateInput.control.setValue( this.endDate = data.endDate);
-                this.setMinMaxDate();
-                this.historyFilterService.dateChanges$.next({
-                    startDate: this.startDate,
-                    endDate: this.endDate,
-                });
+                
+                if (this.startDate.toMillis() !== data.startDate.toMillis() ||
+                    this.endDate.toMillis() !== data.endDate.toMillis()) {
+                    this.startDateInput.control.setValue(this.startDate = data.startDate);
+                    this.endDateInput.control.setValue(this.endDate = data.endDate);
+                    this.setMinMaxDate();
+                    await this.getBets();
+                    this.historyFilterService.dateChanges$.next({
+                        startDate: this.startDate,
+                        endDate: this.endDate,
+                    });
+                }
+
                 this.bets$.next(this.betsFilter());
             });
 
@@ -176,10 +187,13 @@ export class BetHistoryComponent extends AbstractComponent implements OnInit {
         this.startDateInput.control.valueChanges
             .pipe(
                 takeUntil(this.$destroy),
-                filter((startDate: DateTime): boolean => this.startDate != startDate),
+                filter((startDate: DateTime): boolean => this.startDate.toMillis() !== startDate.toMillis()),
             )
             .subscribe(async (startDate: DateTime): Promise<void> => {
                 this.historyFilterService.setFilter('bet', {startDate: this.startDate = startDate});
+                this.historyFilterService.dateChanges$.next({
+                    startDate: this.startDate,
+                });
                 await this.getBets();
                 this.bets$.next(this.betsFilter());
             });
@@ -187,10 +201,13 @@ export class BetHistoryComponent extends AbstractComponent implements OnInit {
         this.endDateInput.control.valueChanges
             .pipe(
                 takeUntil(this.$destroy),
-                filter((endDate: DateTime): boolean => this.endDate != endDate),
+                filter((endDate: DateTime): boolean => this.endDate.toMillis() !== endDate.toMillis()),
             )
             .subscribe(async (endDate: DateTime): Promise<void> => {
                 this.historyFilterService.setFilter('bet', {endDate: this.endDate = endDate});
+                this.historyFilterService.dateChanges$.next({
+                    endDate: this.endDate,
+                });
                 await this.getBets();
                 this.bets$.next(this.betsFilter());
             });
