@@ -418,7 +418,7 @@ export class GamesCatalogService {
      *
      * @returns {CategoryModel[]}
      */
-    public getCategoriesByState(): CategoryModel[] {
+    public getCategoriesByState(auth?: boolean): CategoryModel[] {
         if (this.catalogOpened()) {
             const parentCategory = this.getParentCategoryByState();
             const categoryList = this.getCategoriesByParentId(parentCategory.id);
@@ -430,7 +430,7 @@ export class GamesCatalogService {
             if (popularCategory) {
                 categoryList.push(popularCategory);
             }
-            if (this.configService.get<boolean>('$user.isAuthenticated')) {
+            if (auth || this.configService.get<boolean>('$user.isAuthenticated')) {
                 const favouritesCategory = this.getCategoryBySlug('favourites');
                 const lastplayedCategory = this.getCategoryBySlug('lastplayed');
                 if (favouritesCategory) {
