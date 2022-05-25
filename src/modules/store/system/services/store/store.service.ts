@@ -33,6 +33,7 @@ import {
     NotificationEvents,
     IIndexing,
     IForbidBanned,
+    InjectionService,
 } from 'wlc-engine/modules/core';
 import {UserProfile} from 'wlc-engine/modules/user/system/models/profile.model';
 import {BonusesService} from 'wlc-engine/modules/bonuses/system/services';
@@ -71,8 +72,8 @@ export class StoreService {
         private eventService: EventService,
         private configService: ConfigService,
         private logService: LogService,
-        private bonusesService: BonusesService,
         private uiRouter: UIRouter,
+        private injectionService: InjectionService,
     ) {
         this.registerMethods();
         this.setSubscribers();
@@ -223,9 +224,11 @@ export class StoreService {
         };
 
         if (data?.Items?.length) {
-            const storeBonuses = this.bonusesService.storeBonuses.length ?
-                this.bonusesService.storeBonuses :
-                await this.bonusesService.queryBonuses<Bonus>(false, 'store');
+            const bonusesService: BonusesService = await this.injectionService
+                .getService<BonusesService>('bonuses.bonuses-service');
+            const storeBonuses: Bonus[] = bonusesService.storeBonuses.length ?
+                bonusesService.storeBonuses : 
+                await bonusesService.queryBonuses<Bonus>(false, 'store');
 
             for (const itemData of data.Items) {
                 const item: StoreItem = new StoreItem(
