@@ -649,8 +649,12 @@ export class ActionService {
 
     private setScrollingOffset(element: HTMLElement): void {
         if (this.configService.get<boolean>('$base.stickyHeader.use')) {
-            const scrollingGap = this.configService.get<number>('$base.stickyHeader.scrollingGap');
-            element.style['scrollMarginTop'] = `${scrollingGap}px`;
+            const headerElement = this.document.querySelector('.wlc-sections__header') as HTMLElement;
+
+            if (headerElement) {
+                const scrollingGap = headerElement.offsetHeight;
+                element.style['scrollMarginTop'] = `${scrollingGap}px`;
+            }
         }
     }
 }
