@@ -381,15 +381,9 @@ export class DepositWithdrawComponent
     private async depositAction(amount: number, params: IIndexing<string>, saveProfile: boolean = true): Promise<void> {
         this.isShowIframe = this.depositInIframe && this.currentSystem.appearance === 'iframe';
 
-        let isChangedParams: boolean;
-        if (_has(this.userProfile?.extProfile?.paymentSystems, this.currentSystem.alias)) {
-            isChangedParams = (!_isEqual(
-                this.userProfile.extProfile.paymentSystems[this.currentSystem.alias].additionalParams,
-                params,
-            ) && !_isEmpty(params));
-        } else {
-            isChangedParams = !_isEmpty(params);
-        }
+        const isChangedParams = !_isEqual(
+            this.userProfile?.extProfile?.paymentSystems[this.currentSystem.alias].additionalParams, params,
+        );
 
         try {
             const response = await this.financesService.deposit(
