@@ -10,6 +10,8 @@ import {BonusesListNoContentByThemeType} from 'wlc-engine/modules/bonuses/compon
 
 export interface IBonusesModule {
     useIconBonusImage?: boolean;
+    /** Enable on new image sources */
+    useNewImageSources?: boolean;
     /** Default bonus icon path */
     defaultIconPath?: string;
     defaultImages?: {
@@ -24,6 +26,8 @@ export interface IBonusesModule {
         imagePromo?: string;
         /** Bonus image in sign-up modal in default profile */
         imageReg?: string;
+        /** Bonus image in header of bonus-modal when useNewImageSources: false*/
+        imageOther?: string;
         /** Not used yet */
         imageStore?: string;
         /** Bonus image in promo-home */
@@ -32,7 +36,7 @@ export interface IBonusesModule {
         imageBlank?: string;
         /** Dummy bonus image */
         imageDummy?: string;
-        /** Bonus image in header of bonus-modal */
+        /** Bonus image in header of bonus-modal when useNewImageSources: true*/
         imageDescription?: string;
     };
     components?: {

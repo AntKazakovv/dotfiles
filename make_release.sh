@@ -17,8 +17,9 @@ help() {
     echo
     echo -e "usage to publish:"
     echo -e "\t$0 major   - increase major version (1.x.y, only from master branch)"
-    echo -e "\t$0 minor   - increase minor version (x.y.0, only from master branch)"
-    echo -e "\t$0 release - increased patch version (x.y.z from master branch, x.y.z.n from hotfix branch)"
+    echo -e "\t$0 release - increase minor version (x.y.0, only from master branch)"
+    echo -e "\t$0 patch   - increased patch version (x.y.z from master branch, x.y.z.n from hotfix branch)"
+    echo -e "\t$0 hotfix  - increased hotfix version (x.y.z.n from hotfix branch)"
     echo -e "\t$0 rc      - create release candidate version x.y.z-rc.n"
     echo -e "\t$0 x.y.z   - set version to x.y.z (only from master branch)"
     echo -e "\t$0         - show this help message"
@@ -81,22 +82,27 @@ xmajor)
     fi
     nextver=$(./vermath "$prevver" --major)
     ;;
-xminor)
+xrelease)
     if [ "$branch" != "master" ]; then
         die "ERROR: Cannot release new minor version from '$branch'"
     fi
     nextver=$(./vermath "$prevver" --minor)
     ;;
-xrelease)
-    if [ "$branch" == "master" ]; then
-        nextver=$(./vermath "$prevver" --normal)
-    else
-        nextver=$(./vermath "$prevver" --hotfix)
-        while [ $(git tag -l $nextver) ]; do
-            nextver=$(./vermath "$nextver" --hotfix)
-        done
+xpatch)
+    if [ "$branch" != "master" ]; then
+        die "ERROR: Cannot release new patch version from '$branch'"
     fi
+    nextver=$(./vermath "$prevver" --normal)
+    ;;
 
+xhotfix)
+    if [ "$branch" != "hotfix" ]; then
+        die "ERROR: Cannot create hotfix release from '$branch'"
+    fi
+    nextver=$(./vermath "$prevver" --hotfix)
+    while [ $(git tag -l $nextver) ]; do
+        nextver=$(./vermath "$nextver" --hotfix)
+    done
     ;;
 xrc)
     if [ "$branch" != "master" ]; then

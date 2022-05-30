@@ -28,12 +28,15 @@ import {
     IBonusConditions,
     ActionType,
     TBonusEvent,
+    IBonusesModule,
 } from 'wlc-engine/modules/bonuses/system/interfaces/bonuses.interface';
 
 export class Bonus extends AbstractModel<IBonus> {
     public isReady: boolean = true;
     public onChooseChange: Subject<boolean> = new Subject<boolean>();
+    public icon: string;
 
+    protected static $bonuses: IBonusesModule;
     protected _userCurrency: string;
     protected _isChoose: boolean = false;
     protected $descriptionClean: string;
@@ -53,10 +56,21 @@ export class Bonus extends AbstractModel<IBonus> {
     ) {
         super({from: _assign({model: 'Bonus'}, from)});
         this.data = this.modifyData(data);
+
+        if (!Bonus.$bonuses) {
+            Bonus.$bonuses = this.configService.get<IBonusesModule>('$bonuses');
+        }
+
         this.userCurrency = this.configService.get<string>('appConfig.user.currency')
             || this.configService.get<string>('$base.defaultCurrency');
         this._tag = this.getTag();
         this.$descriptionClean = this.data.Description.replace(/<[^>]*>/g, '');
+
+        if (Bonus.$bonuses.useNewImageSources && this.data.Image_other) {
+            this.icon = this.data.Image_other;
+        } else if (this.viewTarget) {
+            this.icon = Bonus.$bonuses.defaultIconPath + this.viewTarget + '.svg';
+        }
     }
 
     public set data(data: IBonus) {
@@ -240,48 +254,41 @@ export class Bonus extends AbstractModel<IBonus> {
         return this.data.IDPiFilter;
     }
 
-    public get icon(): string {
-        return this.data.Image_other
-            || this.configService.get<string>('$bonuses.defaultIconPath') + this.viewTarget + '.svg';
-    }
-
     public get image(): string {
-        return this.data.Image
-            || this.configService.get('$bonuses.defaultImages.image');
+        return this.data.Image || Bonus.$bonuses.defaultImages?.image;
     }
 
     public get imageProfileFirst(): string {
-        return this.data.Image
-            || this.configService.get('$bonuses.defaultImages.imageProfileFirst');
+        return this.data.Image || Bonus.$bonuses.defaultImages?.imageProfileFirst;
+    }
+
+    public get imageOther(): string {
+        return this.data.Image_other || Bonus.$bonuses.defaultImages?.imageOther;
     }
 
     public get imagePromo(): string {
-        return this.data.Image_promo
-            || this.configService.get('$bonuses.defaultImages.imagePromo')
-            || this.image;
+        return this.data.Image_promo || Bonus.$bonuses.defaultImages?.imagePromo || this.image;
     }
 
     public get imageReg(): string {
-        return this.data.Image_reg
-            || this.configService.get('$bonuses.defaultImages.imageReg')
-            || this.image;
+        return this.data.Image_reg || Bonus.$bonuses.defaultImages?.imageReg || this.image;
     }
 
     // TODO: add image path to config and logic to BonusItemComponent.bonusBg, when imageStore be ready
     public get imageStore(): string {
-        return this.data.Image_store
-            || this.configService.get('$bonuses.defaultImages.imageStore')
-            || this.image;
+        return this.data.Image_store || Bonus.$bonuses.defaultImages?.imageStore || this.image;
     }
 
     public get imagePromoHome(): string {
-        return this.data.Image_main
-            || this.configService.get<string>('$bonuses.defaultImages.imagePromoHome');
+        if (Bonus.$bonuses.useNewImageSources) {
+            return this.data.Image_main || Bonus.$bonuses.defaultImages?.imagePromoHome;
+        } else {
+            return Bonus.$bonuses.defaultImages?.imagePromoHome;
+        }
     }
 
     public get imageDescription(): string {
-        return this.data.Image_description
-            || this.configService.get('$bonuses.defaultImages.imageDescription');
+        return this.data.Image_description || Bonus.$bonuses.defaultImages?.imageDescription;
     }
 
     public get inventoried(): boolean {

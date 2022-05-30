@@ -191,7 +191,7 @@ export class TransactionHistoryComponent extends AbstractComponent implements On
         this.startDateInput.control.valueChanges
             .pipe(
                 takeUntil(this.$destroy),
-                filter((startDate: DateTime): boolean => this.startDate != startDate),
+                filter((startDate: DateTime): boolean => this.startDate.toMillis() !== startDate.toMillis()),
             )
             .subscribe((startDate: DateTime): void => {
                 this.historyFilterService.setFilter('transaction', {startDate: this.startDate = startDate});
@@ -201,7 +201,7 @@ export class TransactionHistoryComponent extends AbstractComponent implements On
         this.endDateInput.control.valueChanges
             .pipe(
                 takeUntil(this.$destroy),
-                filter((endDate: DateTime): boolean => this.endDate != endDate),
+                filter((endDate: DateTime): boolean => this.endDate.toMillis() !== endDate.toMillis()),
             )
             .subscribe((endDate: DateTime): void => {
                 this.historyFilterService.setFilter('transaction', {endDate: this.endDate = endDate});

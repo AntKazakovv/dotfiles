@@ -1,6 +1,4 @@
 .wlc-bonus-item {
-    @include bm.transition(background, 0.3s);
-
     border-radius: ef.get-value($themeDefault, 'radius');
     overflow: hidden;
     transform: translateZ(0);
@@ -371,7 +369,7 @@
             }
 
             &__btns {
-                @include bm.transition(all, 0.3s, ease-in-out);
+                @include bm.transition(transform, 0.3s, ease-in-out);
                 @include bm.get-mq-map('transform', $themeDefault, 'btnBottomTransform');
                 position: static;
                 margin: ef.get-value($themeDefault, 'btnsMarginWithImg');
