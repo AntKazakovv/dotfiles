@@ -129,11 +129,14 @@ module.exports = function changeLogsTask() {
             };
 
             //get branch & ticket
-            const branch = item.match(/Merge branch \'(.*?)\'/);
+            const branch = item.match(/Merge branch \'scr(.*?)\'/);
             if (branch) {
                 res.branch = branch[1];
 
                 const ticketMatch = res.branch.match(/scr(\d*)/);
+                if (!ticketMatch) {
+                    continue;
+                }
                 res.ticket = ticketMatch[1];
             } else {
                 const ticketMatch = item.match(/SCR #(\d*)/);
