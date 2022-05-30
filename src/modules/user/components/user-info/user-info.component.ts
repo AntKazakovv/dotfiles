@@ -58,6 +58,8 @@ export class UserInfoComponent extends AbstractComponent implements OnInit {
     public hasNotifier: boolean;
     public notifierConfig: IWrapperCParams;
 
+    public internalMailsNotifierConfig: IWrapperCParams = Params.internalMailsNotifierConfig;
+
     constructor(
         @Inject('injectParams') protected injectParams: Params.IUserInfoCParams,
         protected configService: ConfigService,
