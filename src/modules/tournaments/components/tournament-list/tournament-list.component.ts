@@ -18,6 +18,7 @@ import {
     IPaginateOutput,
     EventService,
     GlobalHelper,
+    IWrapperCParams,
 } from 'wlc-engine/modules/core';
 import {SliderComponent} from 'wlc-engine/modules/promo/components/slider/slider.component';
 import {
@@ -68,6 +69,9 @@ export class TournamentListComponent
     public isAuth: boolean;
     public noContentParams: INoContentCParams;
 
+    public dashboardSliderConfig: IWrapperCParams = {components: []};
+    public bannerSliderConfig: IWrapperCParams = {components: []};
+
     protected indexOfSelectedTournament: number;
     protected itemsPerPage: number = 0;
 
@@ -94,6 +98,9 @@ export class TournamentListComponent
         if (this.$params.type === 'swiper') {
             this.sliderParams.swiper = this.$params.common?.swiper;
         }
+
+        this.loadSliderComponents();
+
         this.subscribeOnTournamentLeave();
         this.subscribeOnErrorGettingTournaments();
         this.noContentParams = GlobalHelper.getNoContentParams(this.$params, this.$class, this.configService);
@@ -234,5 +241,33 @@ export class TournamentListComponent
         if (this.inlineParams) {
             return this.inlineParams;
         }
+    }
+
+    protected loadSliderComponents(): void {
+        this.bannerSliderConfig = {
+            components: [
+                {
+                    name: 'promo.wlc-slider',
+                    params: <ISliderCParams>{
+                        type: 'banner',
+                        slides: this.slides,
+                        ...this.sliderParams,
+                    },
+                },
+            ],
+        };
+
+        this.dashboardSliderConfig = {
+            components: [
+                {
+                    name: 'promo.wlc-slider',
+                    params: <ISliderCParams>{
+                        type: 'dashboard',
+                        slides: this.slides,
+                        ...this.sliderParams,
+                    },
+                },
+            ],
+        };
     }
 }

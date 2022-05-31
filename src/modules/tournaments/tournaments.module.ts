@@ -7,12 +7,10 @@ import {
     TournamentsService,
     ITournamentsModule,
 } from 'wlc-engine/modules/tournaments';
-import {MenuModule} from 'wlc-engine/modules/menu/menu.module';
 
 import {
     TournamentDetailComponent,
 } from './components/tournament/components/tournament-detail/tournament-detail.component';
-import {PromoModule} from '../promo/promo.module';
 import {TournamentListComponent} from './components/tournament-list/tournament-list.component';
 import {
     TournamentComponent,
@@ -73,9 +71,7 @@ export const components = {
     imports: [
         CommonModule,
         CoreModule,
-        PromoModule,
         TranslateModule,
-        MenuModule,
         CompilerModule,
     ],
     providers: [

@@ -12,6 +12,7 @@ import {
 import {UIRouter} from '@uirouter/core';
 
 import {takeUntil} from 'rxjs/operators';
+
 import _each from 'lodash-es/each';
 import _set from 'lodash-es/set';
 
@@ -23,6 +24,7 @@ import {
     ITableCParams,
     IIndexing,
     GlobalHelper,
+    IWrapperCParams,
 } from 'wlc-engine/modules/core';
 import {Tournament} from 'wlc-engine/modules/tournaments/system/models/tournament.model';
 import {TournamentsService} from 'wlc-engine/modules/tournaments/system/services/tournaments/tournaments.service';
@@ -49,8 +51,9 @@ export class TournamentDetailComponent extends AbstractComponent implements OnIn
     public tournamentProcessing: boolean = false;
     public isTournamentSelected: boolean = false;
     public tablePrizeboard: ITableCParams = {};
-    public menuParams: MenuParams.IMenuCParams = {};
+    public menuParams: MenuParams.IMenuCParams;
     public gamesGridConfig = Params.gamesGridConfig;
+    public menuConfig: IWrapperCParams = {components: []};
 
     constructor(
         @Inject('injectParams')
@@ -190,5 +193,18 @@ export class TournamentDetailComponent extends AbstractComponent implements OnIn
                 },
             });
         }
+
+        this.loadMenuComponent();
+    }
+
+    private loadMenuComponent(): void {
+        this.menuConfig = {
+            components: [
+                {
+                    name: 'menu.wlc-menu',
+                    params: this.menuParams,
+                },
+            ],
+        };
     }
 }
