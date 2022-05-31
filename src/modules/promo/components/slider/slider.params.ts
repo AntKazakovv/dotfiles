@@ -3,6 +3,7 @@ import {
     TemplateRef,
     Injector,
 } from '@angular/core';
+
 import {Subject} from 'rxjs';
 import {SwiperOptions} from 'swiper';
 import {NavigationOptions} from 'swiper/types';
@@ -47,6 +48,14 @@ export interface ISliderCParams extends IComponentParams<ComponentTheme, Compone
      */
     class?: string;
     events?: Subject<TSwiperEvent>;
+    /**
+     * Allows to fire `scrollSliderToStart` method by passed `Subject` instance
+     */
+    scrollToStart$?: Subject<void>;
+    /**
+     * Allows to fire `update` method by passed `Subject` instance
+     */
+    update$?: Subject<void>;
 };
 
 export const defaultParams: ISliderCParams = {

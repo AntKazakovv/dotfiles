@@ -138,6 +138,7 @@ export class SliderComponent extends AbstractComponent
         this.initEmptySlidesCount();
         // for fix loop
         this.fixSlidesSequence();
+        this.initSubscriptions();
     }
 
     public initEmptySlidesCount(): void {
@@ -436,5 +437,10 @@ export class SliderComponent extends AbstractComponent
             this.swiper.swiperRef.navigation.update();
             this.cdr.markForCheck();
         });
+    }
+
+    protected initSubscriptions(): void {
+        this.$params.scrollToStart$?.subscribe(() => this.scrollToStart());
+        this.$params.update$?.subscribe(() => this.update());
     }
 }
