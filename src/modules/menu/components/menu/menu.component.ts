@@ -27,9 +27,9 @@ import {
     UIRouter,
     StateService,
 } from '@uirouter/core';
-import {
-    takeUntil,
-} from 'rxjs/operators';
+
+import {Subject} from 'rxjs';
+import {takeUntil} from 'rxjs/operators';
 
 import _isString from 'lodash-es/isString';
 import _isObject from 'lodash-es/isObject';
@@ -56,9 +56,12 @@ import {
     EventService,
     InjectionService,
     GlobalHelper,
+    IWrapperCParams,
 } from 'wlc-engine/modules/core';
-import {ISlide} from 'wlc-engine/modules/promo/components/slider/slider.params';
-import {SliderComponent} from 'wlc-engine/modules/promo/components/slider/slider.component';
+import {
+    ISlide,
+    ISliderCParams,
+} from 'wlc-engine/modules/promo/components/slider/slider.params';
 import {TIconExtension} from 'wlc-engine/modules/menu/system/interfaces/menu.interface';
 import {MenuHelper} from 'wlc-engine/modules/menu/system/helpers/menu.helper';
 import {TextDataModel} from 'wlc-engine/modules/static/system/models/textdata.model';
@@ -105,7 +108,6 @@ export class MenuComponent extends AbstractComponent implements OnInit, OnChange
     public override $params: Params.IMenuCParams;
     public inited: boolean = false;
 
-    @ViewChild('slider') slider: SliderComponent;
     @ViewChild('anchor') tplAnchor: TemplateRef<ElementRef>;
     @ViewChild('sref') tplSref: TemplateRef<ElementRef>;
     @ViewChild('title') tplTitle: TemplateRef<ElementRef>;
@@ -122,6 +124,7 @@ export class MenuComponent extends AbstractComponent implements OnInit, OnChange
     public useArrows: boolean = false;
     public innerLinkArrow: string = '';
     public outerLinkArrow: string = '';
+    public sliderConfig!: IWrapperCParams;
 
     protected staticService: StaticService;
     protected iconsExtension: TIconExtension = 'svg';
@@ -130,7 +133,7 @@ export class MenuComponent extends AbstractComponent implements OnInit, OnChange
     protected lang: string = '';
     protected isAffiliate: boolean = false;
     protected isMobile: boolean = false;
-    protected isAuth: boolean;
+    protected sliderParams!: ISliderCParams;
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IMenuCParams,
@@ -152,6 +155,10 @@ export class MenuComponent extends AbstractComponent implements OnInit, OnChange
             configService,
             cdr,
         );
+    }
+
+    protected get isAuth(): boolean {
+        return this.configService.get('$user.isAuthenticated');
     }
 
     /**
@@ -193,7 +200,8 @@ export class MenuComponent extends AbstractComponent implements OnInit, OnChange
     public override ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
 
-        this.isAuth = this.configService.get<boolean>('$user.isAuthenticated');
+        this.initSliderConfig();
+
         this.isMobile = this.configService.get<boolean>('appConfig.mobile');
         this.iconsExtension = this.$params.common.icons.extension;
         this.iconsFallback = this.setExtension(this.$params.common.icons.fallback);
@@ -449,13 +457,16 @@ export class MenuComponent extends AbstractComponent implements OnInit, OnChange
                 });
             });
 
-            if (this.slider && this.$params?.common?.swiper?.scrollToStart) {
-                this.slider.scrollToStart();
-                this.slider.update();
+            if (this.$params?.common?.swiper?.scrollToStart) {
+                this.sliderParams.events.next({name: 'scrollToStart'});
+                this.sliderParams.events.next({name: 'update'});
             }
+
+            this.sliderParams.slides = this.slides;
         }
 
         this.expandByCurrentState();
+
         this.cdr.detectChanges();
     }
 
@@ -532,19 +543,7 @@ export class MenuComponent extends AbstractComponent implements OnInit, OnChange
      * Init event handlers
      */
     protected initEventHandlers(): void {
-        this.eventService.subscribe({
-            name: 'LOGOUT',
-        }, () => {
-            this.isAuth = false;
-            this.initItems();
-        }, this.$destroy);
-
-        this.eventService.subscribe({
-            name: 'LOGIN',
-        }, () => {
-            this.isAuth = true;
-            this.initItems();
-        }, this.$destroy);
+        this.listenAuthEvents();
 
         this.actionService.deviceType()
             .pipe(takeUntil(this.$destroy))
@@ -564,6 +563,15 @@ export class MenuComponent extends AbstractComponent implements OnInit, OnChange
             }
             this.expandItems();
         }, this.$destroy);
+    }
+
+    protected listenAuthEvents(): void {
+        this.eventService
+            .filter([{name: 'LOGIN'}, {name: 'LOGOUT'}], this.$destroy)
+            .subscribe(async () => {
+                await this.initItems();
+                this.initSliderConfig();
+            });
     }
 
     /**
@@ -658,5 +666,22 @@ export class MenuComponent extends AbstractComponent implements OnInit, OnChange
         if (useExpand) {
             this.expandItems();
         }
+    }
+
+    protected initSliderConfig(): void {
+        this.sliderParams = {
+            ...this.$params.sliderParams,
+            slides: this.slides,
+            events: new Subject(),
+        };
+
+        this.sliderConfig = {
+            components: [
+                {
+                    name: 'promo.wlc-slider',
+                    params: this.sliderParams,
+                },
+            ],
+        };
     }
 }

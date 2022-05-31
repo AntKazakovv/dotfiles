@@ -19,7 +19,10 @@ import {
     map,
 } from 'rxjs/operators';
 
-import {IIdleConfig} from 'wlc-engine/modules/core';
+import {
+    IIdleConfig,
+    TUnknownFunction,
+} from 'wlc-engine/modules/core';
 import {WINDOW} from 'wlc-engine/modules/app/system';
 import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
 import {EventService} from 'wlc-engine/modules/core/system/services/event/event.service';
@@ -33,8 +36,8 @@ export class IdleService {
 
     protected timer: ReturnType<typeof setTimeout>;
     protected timerSubscription: Subscription;
-    protected transitionEnter: Function;
-    protected transitionLeft: Function;
+    protected transitionEnter?: TUnknownFunction;
+    protected transitionLeft?: TUnknownFunction;
     protected config: IIdleConfig;
 
     constructor(
@@ -107,8 +110,8 @@ export class IdleService {
         }
         this.timerSubscription?.unsubscribe();
         this.timerSubscription = null;
-        this.transitionEnter();
-        this.transitionLeft();
+        this.transitionEnter?.();
+        this.transitionLeft?.();
     }
 
     private showModal(): void {

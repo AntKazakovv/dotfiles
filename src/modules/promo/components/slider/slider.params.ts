@@ -7,7 +7,10 @@ import {RawParams} from '@uirouter/core';
 
 import {Subject} from 'rxjs';
 import {SwiperOptions} from 'swiper';
-import {NavigationOptions} from 'swiper/types';
+import {
+    NavigationOptions,
+    Swiper,
+} from 'swiper/types';
 
 import {
     CustomType,
@@ -17,7 +20,22 @@ import {
 export type ComponentTheme = 'default' | CustomType;
 export type ComponentType = 'default' | CustomType;
 export type ComponentThemeMod = 'default' | 'ears' | CustomType;
-export type TSwiperEvent = 'start' | 'stop';
+
+export type SwiperEventName = 'start'
+    | 'stop'
+    | 'enable'
+    | 'disable'
+    | 'slideTo'
+    | 'update'
+    | 'scrollToStart';
+
+export interface ISwiperEvent<Data = unknown> {
+    name: SwiperEventName;
+    data?: Data;
+}
+
+
+export type OnSlideChangeTransitionEnd = (v: Swiper) => void;
 
 export interface ISlide {
     /** Allow to past Component */
@@ -49,7 +67,7 @@ export interface ISliderCParams extends IComponentParams<ComponentTheme, Compone
      * Component class. The default is "wlc-slider".
      */
     class?: string;
-    events?: Subject<TSwiperEvent>;
+    events?: Subject<ISwiperEvent>;
     slideShowAll?: {
         use: boolean;
         sref: string;

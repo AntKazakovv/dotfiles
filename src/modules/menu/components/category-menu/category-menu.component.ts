@@ -270,7 +270,8 @@ export class CategoryMenuComponent extends AbstractComponent implements OnInit, 
         }
         this.$params.menuParams = _clone(this.$params.menuParams);
         this.inited = true;
-        this.cdr.detectChanges();
+
+        this.cdr.markForCheck();
     }
 
     protected initMenuParams(): void {

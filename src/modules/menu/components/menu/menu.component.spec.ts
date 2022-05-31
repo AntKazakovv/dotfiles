@@ -59,7 +59,8 @@ describe('MenuComponent', () => {
         );
         actionServiceSpy.deviceType.and.returnValue(new Observable<DeviceType>(() => {}));
         configServiceSpy = jasmine.createSpyObj('ConfigService', ['get']);
-        eventServiceSpy = jasmine.createSpyObj('EventService', ['subscribe']);
+        eventServiceSpy = jasmine.createSpyObj('EventService', ['subscribe', 'filter']);
+        eventServiceSpy.filter.and.returnValue(new Observable(() => {}));
 
         TestBed.configureTestingModule({
             declarations: [MenuComponent],
@@ -75,10 +76,6 @@ describe('MenuComponent', () => {
                 {
                     provide: ModalService,
                     useValue: modalServiceSpy,
-                },
-                {
-                    provide: EventService,
-                    useValue: eventServiceSpy,
                 },
                 {
                     provide: EventService,

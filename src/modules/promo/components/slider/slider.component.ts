@@ -42,6 +42,7 @@ import {
     AbstractComponent,
     ConfigService,
     ActionService,
+    TUnknownFunction,
 } from 'wlc-engine/modules/core';
 import {WinnersService} from 'wlc-engine/modules/promo/system/services/winners/winners.service';
 
@@ -76,6 +77,8 @@ SwiperCore.use([
     Virtual,
 ]);
 
+export type TSwiperSlideToEvent = (args: Parameters<Swiper['slideTo']>) => void;
+
 @Component({
     selector: '[wlc-slider]',
     templateUrl: './slider.component.html',
@@ -104,6 +107,15 @@ export class SliderComponent extends AbstractComponent
     public slideMaxWidth: number = 0;
 
     protected observer: MutationObserver;
+    protected readonly eventHandlers: Record<Params.SwiperEventName, TUnknownFunction> = {
+        start: () => this.swiper.swiperRef?.autoplay.start(),
+        stop: () => this.swiper.swiperRef?.autoplay.stop(),
+        enable: () => this.swiper.swiperRef?.enable(),
+        disable: () => this.swiper.swiperRef?.disable(),
+        update: this.update.bind(this),
+        scrollToStart: this.scrollToStart.bind(this),
+        slideTo: ((args) => this.swiper.swiperRef?.slideTo(...args)) as TSwiperSlideToEvent,
+    };
 
     private frozenSwiperParams: SwiperOptions;
 
@@ -127,16 +139,11 @@ export class SliderComponent extends AbstractComponent
         }
 
         if (this.$params.events) {
-            this.$params.events.pipe(takeUntil(this.$destroy)).subscribe((event) => {
-                switch (event) {
-                    case 'start':
-                        this.swiper.swiperRef?.autoplay.start();
-                        break;
-                    case 'stop':
-                        this.swiper.swiperRef?.autoplay.stop();
-                        break;
-                }
-            });
+            this.$params.events
+                .pipe(takeUntil(this.$destroy))
+                .subscribe(({name, data}) => {
+                    this.eventHandlers[name]?.(data);
+                });
         }
 
         this.frozenSwiperParams = _cloneDeep(this.$params.swiper);

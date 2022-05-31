@@ -323,12 +323,10 @@
     </ng-container>
 </ng-template>
 
-<ng-container *ngIf="$params.common?.useSwiper && slides.length">
-    <div wlc-slider #slider
-         [slides]="slides"
-         [inlineParams]="$params.sliderParams">
-    </div>
-</ng-container>
+<div *ngIf="$params.common?.useSwiper && slides.length"
+     wlc-wrapper
+     [inlineParams]="sliderConfig">
+</div>
 
 <ng-container *ngIf="!$params.common?.useSwiper">
     <ng-container *ngFor="let item of items">

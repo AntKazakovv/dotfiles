@@ -35,7 +35,7 @@ import {Game} from 'wlc-engine/modules/games/system/models/game.model';
 import {GameThumbComponent} from 'wlc-engine/modules/games/components/game-thumb/game-thumb.component';
 import {IGameThumbCParams} from 'wlc-engine/modules/games/components/game-thumb/game-thumb.params';
 import {GamesCatalogService} from 'wlc-engine/modules/games/system/services/games-catalog/games-catalog.service';
-import {TSwiperEvent} from 'wlc-engine/modules/promo/components/slider/slider.params';
+import {ISwiperEvent} from 'wlc-engine/modules/promo/components/slider/slider.params';
 
 import * as Params from './games-slider.params';
 
@@ -57,7 +57,7 @@ export class GamesSliderComponent extends AbstractComponent implements OnInit {
     public gamesList: Game[] = [];
     public sliderConfig: IWrapperCParams;
 
-    protected sliderEvents: Subject<TSwiperEvent> = new Subject<TSwiperEvent>();
+    protected readonly sliderEvents$ = new Subject<ISwiperEvent>();
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IGamesSliderCParams,
@@ -98,12 +98,12 @@ export class GamesSliderComponent extends AbstractComponent implements OnInit {
      */
     public startScrollingSwiper(): void {
         this.isActive = true;
-        this.sliderEvents.next('start');
+        this.sliderEvents$.next({name: 'start'});
 
         timer(_random(this.$params.minTimer, this.$params.maxTimer))
             .pipe(takeUntil(this.$destroy))
             .subscribe((): void => {
-                this.sliderEvents.next('stop');
+                this.sliderEvents$.next({name: 'stop'});
                 this.isActive = false;
                 this.cdr.markForCheck();
             });
@@ -145,7 +145,7 @@ export class GamesSliderComponent extends AbstractComponent implements OnInit {
                         ...this.$params.sliderParams,
                         class: `${this.$class}__slider`,
                         slides: this.slides,
-                        events: this.sliderEvents,
+                        events: this.sliderEvents$,
                     },
                 },
             ],
