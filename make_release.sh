@@ -1,4 +1,4 @@
-#!/bin/bash -e
+#!/usr/local/bin/bash
 
 project=$(jq .name < ./package.json)
 branch=$(git rev-parse --abbrev-ref HEAD | awk '/master|hotfix/')
@@ -139,4 +139,3 @@ if [ "x$y" == "xy" ]; then
 
     release "$nextver"
 fi
-
