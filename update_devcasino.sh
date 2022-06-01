@@ -1,4 +1,4 @@
-#!/usr/local/bin/bash
+#!/bin/bash
 
 engine_ver=$(jq .version < ./package.json | sed -e 's/"//g');
 current_dir=$(pwd);
