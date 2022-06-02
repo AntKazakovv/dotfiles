@@ -39,6 +39,7 @@ import {
     IGetSubscribeParams,
     IQueryParams,
     RestType,
+    IBonusHistory,
 } from 'wlc-engine/modules/bonuses/system/interfaces/bonuses.interface';
 import {UserProfile} from 'wlc-engine/modules/user/system/models/profile.model';
 import {
@@ -54,13 +55,14 @@ import {
     LogService,
     NotificationEvents,
 } from 'wlc-engine/modules/core';
+import {TBonusesHistory} from 'wlc-engine/modules/bonuses/system/interfaces/bonuses.interface';
 
 interface IBonusData extends IData {
     data?: IBonus;
 }
 
 interface IBonusesData extends IData {
-    data?: IBonus[];
+    data?: IBonus[] | TBonusesHistory;
 }
 
 interface ISubjects {
@@ -454,9 +456,10 @@ export class BonusesService {
             const res: IBonusesData = await this.dataService.request('bonuses/bonuses', queryParams);
 
             if (type === 'history') {
-                this.historyBonuses = _map(res.data, (bonus: IBonus): HistoryItemModel => {
-                    return new HistoryItemModel({service: 'BonusesService', method: 'queryBonuses'}, bonus);
-                });
+                this.historyBonuses = _map((res as IData<TBonusesHistory>).data,
+                    (bonus: IBonusHistory): HistoryItemModel => {
+                        return new HistoryItemModel({service: 'BonusesService', method: 'queryBonuses'}, bonus);
+                    });
 
                 if (publicSubject) {
                     this.subjects.history$.next(this.historyBonuses);
@@ -466,7 +469,7 @@ export class BonusesService {
             }
 
             const bonuses: Bonus[] = _orderBy(
-                this.checkForbid(await this.modifyBonuses(res.data), queryParams),
+                this.checkForbid(await this.modifyBonuses((res as IData<IBonus[]>).data), queryParams),
                 'weight',
                 'desc',
             );
