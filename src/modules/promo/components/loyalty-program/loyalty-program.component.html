@@ -8,27 +8,7 @@
                  [ngStyle]="{backgroundImage: 'url(' + $params.decorRightPath + ')'}"></div>
         </div>
         <ng-container *ngIf="levels.length; else noData">
-            <div class="{{$class}}__items-wrapper container">
-                <div *ngFor="let level of levels; index as $index;"
-                     class="{{$class}}__item">
-                    <div class="{{$class}}__item-image" [ngClass]="{'custom-image': level.image}">
-                        <img class="{{$class}}--icon {{$class}}--icon--{{level.level}}"
-                             loading="lazy"
-                             [src]="level.image || imageLevel(level.level)">
-                    </div>
-                    <div class="{{$class}}__item-title">
-                        {{level.level}} {{'Level' | translate}}
-                    </div>
-                    <div class="{{$class}}__item-description" [innerHTML]="level.description"></div>
-                    <div class="{{$class}}__item-points">
-                        <span>{{setLoyaltyPoints($index)}}</span>
-                        <span wlc-currency
-                              class="value"
-                              currency="LP"
-                              [showIconOnly]="true"></span>
-                    </div>
-                </div>
-            </div>
+            <ng-container *ngIf="isMobile then mobileLoyaltyLevels else desktopLoyaltyLevels"></ng-container>
             <div class="{{$class}}__btn-wrapper">
                 <button wlc-button
                         [text]="'Read more'"
@@ -45,4 +25,19 @@
 
 <ng-template #preloader>
     <div wlc-loader></div>
+</ng-template>
+
+<ng-template #desktopLoyaltyLevels>
+    <div class="{{$class}}__items-wrapper container">
+        <div wlc-loyalty-level
+             *ngFor="let level of levels; index as $index;"
+             [inlineParams]="getLoyaltyLevelParams(level, $index)"></div>
+    </div>
+</ng-template>
+
+<ng-template #mobileLoyaltyLevels>
+    <div wlc-slider
+         class="{{$class}}__slider"
+         [slides]="slides"
+         [inlineParams]="$params.sliderParams"></div>
 </ng-template>

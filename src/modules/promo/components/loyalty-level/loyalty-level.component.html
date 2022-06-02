@@ -1,0 +1,32 @@
+<div class="{{$class}}__image"
+     [ngClass]="{'custom-image': $params.image}">
+    <img class="{{$class}}__icon {{$class}}__icon--{{$params.level}}"
+         loading="lazy"
+         [src]="$params.image || $params.fallbackImage">
+</div>
+<div *ngTemplateOutlet="title"></div>
+<div class="{{$class}}__description"
+     [innerHTML]="$params.description"></div>
+<div class="{{$class}}__points">
+     <span>{{$params.points}}</span>
+     <span wlc-currency
+           class="value"
+           currency="LP"
+           [showIconOnly]="true"></span>
+</div>
+
+<ng-template #title [ngSwitch]="$params.titleAs">
+     <div class="{{$class}}__title">
+          <ng-container *ngSwitchCase="'ordinal'" [ngTemplateOutlet]="titleAsOrdinal"></ng-container>
+          <ng-container *ngSwitchCase="'name'" [ngTemplateOutlet]="titleAsName"></ng-container>
+          <ng-container *ngSwitchDefault [ngTemplateOutlet]="titleAsOrdinal"></ng-container>
+     </div>
+</ng-template>
+
+<ng-template #titleAsOrdinal>
+     {{$params.level}} {{'Level' | translate}}
+</ng-template>
+
+<ng-template #titleAsName>
+     {{$params.name}}
+</ng-template>
