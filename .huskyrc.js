@@ -12,6 +12,7 @@ module.exports = {
         ]),
         'commit-msg': [
             'gulp githook:commit-msg --params "$HUSKY_GIT_PARAMS"',
+            'gulp githook:checking-changes --params "$HUSKY_GIT_PARAMS"',
         ]
     },
 };

@@ -14,6 +14,7 @@
         "eslint": "ng lint",
         "stylelint": "stylelint \"./**/*.scss\" --config='./stylelint.config.js'",
         "e2e": "ng e2e",
+        "checking-changes": "gulp checking-changes",
         "update-locale": "ngx-translate-extract -i ./src/**/*.{ts,tsx,html} -o src/system/languages/messages.pot --sort --format pot && node ./utils/pot2po.js",
         "gulp": "gulp",
         "update": "ng update @angular/cli @angular/core --force",
