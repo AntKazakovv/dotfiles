@@ -31,7 +31,9 @@ import {Subject} from 'rxjs';
 import {
     takeUntil,
 } from 'rxjs/operators';
+
 import _isString from 'lodash-es/isString';
+import _isObject from 'lodash-es/isObject';
 import _has from 'lodash-es/has';
 import _set from 'lodash-es/set';
 import _reduce from 'lodash-es/reduce';
@@ -210,7 +212,16 @@ export class MenuComponent extends AbstractComponent implements OnInit, OnChange
      * @returns {string} Translated item name
      */
     public menuItemName(item: IMenuItem): string {
+        if (_isObject(item.name)) {
+            const translatedName: string = item.name[this.translateService.currentLang];
+            if (!translatedName) {
+                return item.noTranslate ? item.name['en'] : this.translateService.instant(item.name['en']);
+            }
+            return translatedName;
+        }
+
         const itemName: string = item.name || '';
+
         if (itemName) {
             return item.noTranslate ? itemName : this.translateService.instant(itemName);
         }

@@ -7,6 +7,7 @@ import {
     OnInit,
     ViewEncapsulation,
 } from '@angular/core';
+import {TranslateService} from '@ngx-translate/core';
 import {UIRouter} from '@uirouter/core';
 
 import {
@@ -39,6 +40,7 @@ export class StoreTitleComponent extends AbstractComponent implements OnInit, On
         protected modalService: ModalService,
         protected eventService: EventService,
         protected storeService: StoreService,
+        protected translateService: TranslateService,
         protected uiRouter: UIRouter,
     ) {
         super(
@@ -74,7 +76,7 @@ export class StoreTitleComponent extends AbstractComponent implements OnInit, On
     protected async setTitleByCategory(): Promise<void> {
         const category: StoreCategory = await this.storeService.getCategoryByState();
         if (category) {
-            this.title = category.name;
+            this.title = category.name(this.translateService.currentLang);
         } else {
             this.title = this.$params.common?.text;
         }

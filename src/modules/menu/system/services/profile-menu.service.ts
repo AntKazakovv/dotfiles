@@ -34,7 +34,6 @@ import {
 } from 'wlc-engine/modules/menu/system/config/profile-menu.config';
 import {IIndexing} from 'wlc-engine/modules/core/system/interfaces';
 import {
-    IStore,
     StoreService,
 } from 'wlc-engine/modules/store';
 import {Deferred} from 'wlc-engine/modules/core/system/classes/deferred.class';
@@ -61,6 +60,7 @@ export class ProfileMenuService {
     protected tabsMenu: IMenuItem[];
     protected subMenu: IIndexing<IMenuItem[]> = {};
     protected dropdownMenu: MenuItemObjectType[] = [];
+    protected useStore: boolean;
 
     constructor(
         protected configService: ConfigService,
@@ -152,6 +152,7 @@ export class ProfileMenuService {
             });
             this.subMenu[state] = items;
         }
+
         return items;
     }
 
@@ -171,55 +172,34 @@ export class ProfileMenuService {
     }
 
     /**
-     * Init profile menu
-     *
-     * @returns {Promise<void>}
-     */
-    protected async init(): Promise<void> {
-        this.initConfig();
-
-        if (this.configService.get<boolean>('$base.profile.store.use')) {
-            await this.prepareMarket();
-        }
-        this.readyStatus.resolve();
-    }
-
-    /**
      * Prepare profile market
      */
     protected async prepareMarket(): Promise<void> {
-
         let marketItemIndex: number = _findIndex(this.profileMenuConfig, (item: MenuParams.MenuConfigItem): boolean => {
             if (_isString(item)) {
                 const menuItem = Config.wlcProfileMenuItemsGlobal[item];
                 return menuItem.type === 'market';
             } else {
+                if (_has(item, 'parent')) {
+                    return (item as MenuParams.MenuConfigItemsGroup).parent == 'profile-menu:market';
+                }
                 return item?.type === 'market';
             }
         });
 
         if (marketItemIndex !== -1) {
             const storeService: StoreService = await this.injectionService.getService('store.store-service');
-
-            let store: IStore = storeService.getCurrentStore();
-
-            if (!store) {
-                store = await storeService.getStore(true);
-            }
-
-            if (!store) {
-                return;
-            }
+            const categories: StoreCategory[] = await storeService.getCategories();
 
             let storeCategories: StoreCategory[] = _filter(
-                store.categories, (category: StoreCategory): boolean => {
+                categories, (category: StoreCategory): boolean => {
                     return category.isEnabled;
                 });
 
             const menuItems: MenuParams.IMenuItem[] = _map(
                 storeCategories, (category: StoreCategory): IMenuItem => {
                     return {
-                        name: category.name,
+                        name: category.nameTranslations(),
                         noTranslate: !category.isAllGoods,
                         type: 'sref',
                         icon: 'store-category',
@@ -241,8 +221,22 @@ export class ProfileMenuService {
                 type: 'group',
                 items: menuItems,
             };
-
         }
+    }
+
+    /**
+     * Init profile menu
+     *
+     * @returns {Promise<void>}
+     */
+    protected async init(): Promise<void> {
+        this.initConfig();
+        this.useStore = this.configService.get<boolean>('$base.profile.store.use');
+
+        if (this.useStore) {
+            await this.prepareMarket();
+        }
+        this.readyStatus.resolve();
     }
 
     /**

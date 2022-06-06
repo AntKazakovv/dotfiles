@@ -131,8 +131,6 @@ export class StoreService {
                 this.store$.next(result);
             }
             this.storeItems = result.items;
-            this.storeCategories = result.categories;
-
             return result;
         } catch (error) {
             this.logService.sendLog({code: '11.0.0', data: error});
@@ -168,6 +166,46 @@ export class StoreService {
             this.logService.sendLog({code: '11.0.1', data: error});
             this.eventService.emit({
                 name: 'STORE_ORDERS_FETCH_FAILED',
+                data: error,
+            });
+        }
+    }
+
+    /**
+     * Get all store categories with names on all languages
+     *
+     * @returns {Promise<StoreCategory[]>} Store categories
+     */
+    public async getCategories(): Promise<StoreCategory[]> {
+        try {
+            const response: IData = await this.dataService.request('store/storeCategories');
+            const categories: StoreCategory[] = [];
+
+            for (const categoryData of response.data) {
+                categories.push(new StoreCategory(
+                    {service: 'StoresService', method: 'getCategories'},
+                    categoryData,
+                ));
+            }
+
+            categories.push(new StoreCategory(
+                {service: 'StoresService', method: 'getCategories'},
+                {
+                    ID: '0',
+                    Name: {
+                        en: gettext('All goods'),
+                    },
+                    Order: '999999',
+                    Status: '1',
+                }));
+
+            this.storeCategories = _orderBy(categories, 'order', 'desc');
+
+            return this.storeCategories;
+        } catch (error) {
+            this.logService.sendLog({code: '11.0.2', data: error});
+            this.eventService.emit({
+                name: 'STORE_CATEGORIES_FETCH_FAILED',
                 data: error,
             });
         }
@@ -247,25 +285,7 @@ export class StoreService {
             });
         }
 
-        if (data?.Categories?.length) {
-            for (const categoryData of data.Categories) {
-                queryStore.categories.push(new StoreCategory(
-                    {service: 'StoresService', method: 'modifyStoreResponse'},
-                    categoryData,
-                ));
-            }
-        }
-
-        queryStore.categories.push(new StoreCategory(
-            {service: 'StoresService', method: 'modifyStoreResponse'},
-            {
-                ID: '0',
-                Name: gettext('All goods'),
-                Order: '999999',
-                Status: '1',
-            }));
-
-        queryStore.categories = _orderBy(queryStore.categories, 'order', 'desc');
+        queryStore.categories = this.storeCategories || await this.getCategories();
 
         return queryStore;
     }
@@ -293,6 +313,16 @@ export class StoreService {
             system: 'store',
             url: '/store',
             type: 'GET',
+        });
+
+        this.dataService.registerMethod({
+            name: 'storeCategories',
+            system: 'store',
+            url: '/store',
+            type: 'GET',
+            params: {
+                type: 'categories',
+            },
         });
     }
 

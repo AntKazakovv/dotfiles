@@ -107,7 +107,7 @@ export interface IMenuItemParams {
 }
 
 export interface IMenuItem {
-    name: string;
+    name: string | IIndexing<string>;
     type: ItemType;
     /**
      * Params to counter component

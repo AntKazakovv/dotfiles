@@ -67,7 +67,7 @@ export interface IStoreBonusInfo {
 
 export interface IStoreCategory {
     ID: string;
-    Name: string;
+    Name: string | IIndexing<string>;
     Order: string;
     Status: string;
 }
