@@ -96,7 +96,7 @@ xpatch)
     ;;
 
 xhotfix)
-    if [ "$branch" != "hotfix" ]; then
+    if [ "$(echo "$branch" | awk '/^hotfix-/')" != $branch ]; then
         die "ERROR: Cannot create hotfix release from '$branch'"
     fi
     nextver=$(./vermath "$prevver" --hotfix)
