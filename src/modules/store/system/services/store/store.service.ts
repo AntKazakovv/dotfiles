@@ -254,18 +254,18 @@ export class StoreService {
                     categoryData,
                 ));
             }
-
-            queryStore.categories.push(new StoreCategory(
-                {service: 'StoresService', method: 'modifyStoreResponse'},
-                {
-                    ID: '0',
-                    Name: gettext('All goods'),
-                    Order: '999999',
-                    Status: '1',
-                }));
-
-            queryStore.categories = _orderBy(queryStore.categories, 'order', 'desc');
         }
+
+        queryStore.categories.push(new StoreCategory(
+            {service: 'StoresService', method: 'modifyStoreResponse'},
+            {
+                ID: '0',
+                Name: gettext('All goods'),
+                Order: '999999',
+                Status: '1',
+            }));
+
+        queryStore.categories = _orderBy(queryStore.categories, 'order', 'desc');
 
         return queryStore;
     }
