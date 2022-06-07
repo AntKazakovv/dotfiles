@@ -1,0 +1,32 @@
+@use 'engine-scss/functions' as ef;
+@use 'engine-scss/mixins/base.mixins' as bm;
+
+.wlc-notification-message--theme-default:host {
+
+    &.wlc-notification-message--theme-mod-with-games {
+        @include bm.get-mq-map('right', $themeWithGames, 'righWrapperIndent');
+        @include bm.get-mq-map('width', $themeWithGames, 'widthWrapper');
+        @include bm.get-mq-map('padding', $themeWithGames, 'padding');
+
+        .wlc-notification-message {
+
+            &__image {
+                border-radius: ef.get-value($themeWithGames, 'imageBorderRadius');
+                padding: ef.get-value($themeWithGames, 'imagePadding');
+
+                &-container {
+                    @include bm.get-mq-map('max-width', $themeWithGames, 'widthImageContainer');
+                }
+            }
+
+            &__inner {
+                @include bm.get-mq-map('flex-direction', $themeWithGames, 'directionInner');
+                @include bm.get-mq-map('padding', $themeWithGames, 'paddingInner');
+            }
+        }
+
+        .wlc-btn--theme-mod-default {
+            margin: ef.get-value($themeWithGames, 'btnMargin');
+        }
+    }
+}

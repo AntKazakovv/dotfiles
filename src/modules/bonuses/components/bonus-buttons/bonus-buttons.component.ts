@@ -86,6 +86,14 @@ export class BonusButtonsComponent extends AbstractComponent implements OnInit {
             this.bonusesService.clearPromoBonus();
             this.hideActiveModal('bonus-modal');
             this.cdr.markForCheck();
+
+            if (bonus.event === 'deposit' &&
+                this.configService.get<boolean>('$base.finances.redirectAfterDepositBonus')) {
+                this.router.stateService.go(
+                    this.$params.promoLinks?.deposit?.state || 'app.profile.cash.deposit',
+                    this.$params.promoLinks?.deposit?.params || {},
+                );
+            }
         }
     }
 

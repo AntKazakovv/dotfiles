@@ -3,6 +3,7 @@ import {IIndexing} from 'wlc-engine/modules/core/system/interfaces/global.interf
 
 export type TObjectFit = 'contain' | 'cover' | 'scale-down' | 'fill' | 'none';
 export type TOnActionClick = 'dismiss' | (() => void);
+export type ThemeModMessage = 'default' | 'with-games';
 
 export interface IImage {
     src: string;
@@ -25,4 +26,5 @@ export interface IMessageData {
     action?: IAction;
     image?: IImage;
     wlcElement?: string;
+    themeMod?: ThemeModMessage;
 }

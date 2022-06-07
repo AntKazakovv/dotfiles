@@ -1,5 +1,6 @@
 import {Injectable} from '@angular/core';
 import {TranslateService} from '@ngx-translate/core';
+import {StateService} from '@uirouter/core';
 import {
     BehaviorSubject,
     Observable,
@@ -10,6 +11,7 @@ import {
     takeUntil,
     filter,
     takeWhile,
+    distinctUntilChanged,
 } from 'rxjs/operators';
 
 import _each from 'lodash-es/each';
@@ -28,8 +30,13 @@ import _union from 'lodash-es/union';
 import _unionBy from 'lodash-es/unionBy';
 import _isNumber from 'lodash-es/isNumber';
 import _find from 'lodash-es/find';
+import _toNumber from 'lodash-es/toNumber';
+import _isEqual from 'lodash-es/isEqual';
+import _isUndefined from 'lodash-es/isUndefined';
+import _keys from 'lodash-es/keys';
 
 import {HistoryItemModel} from 'wlc-engine/modules/bonuses/system/models/bonus-history-item.model';
+import {GamesCatalogService} from 'wlc-engine/modules/games/system/services/games-catalog/games-catalog.service';
 import {Bonus} from 'wlc-engine/modules/bonuses/system/models/bonus';
 import {
     ActionType,
@@ -42,6 +49,7 @@ import {
     IBonusHistory,
 } from 'wlc-engine/modules/bonuses/system/interfaces/bonuses.interface';
 import {UserProfile} from 'wlc-engine/modules/user/system/models/profile.model';
+import {UserInfo} from 'wlc-engine/modules/user/system/models/info.model';
 import {
     CachingService,
     ConfigService,
@@ -50,7 +58,9 @@ import {
     IData,
     IEvent,
     IForbidBanned,
+    IFreeRound,
     IIndexing,
+    InjectionService,
     IPushMessageParams,
     LogService,
     NotificationEvents,
@@ -83,6 +93,7 @@ export class BonusesService {
 
     protected activeBonuses: Bonus[] = [];
     protected historyBonuses: HistoryItemModel[] = [];
+    protected gamesCatalogService: GamesCatalogService;
 
     private subjects: ISubjects = {
         bonuses$: new BehaviorSubject(null),
@@ -112,6 +123,8 @@ export class BonusesService {
         private configService: ConfigService,
         private logService: LogService,
         private translate: TranslateService,
+        private stateService: StateService,
+        private injectionService: InjectionService,
     ) {
         this.registerMethods();
         this.setSubscribers();
@@ -121,6 +134,24 @@ export class BonusesService {
             .subscribe((UserProfile) => {
                 this.profile = UserProfile;
             });
+
+        if (this.configService.get<boolean>('$base.finances.redirectAfterDepositBonus')) {
+            this.configService
+                .get<BehaviorSubject<UserInfo>>('$user.userInfo$')
+                .pipe(
+                    filter((userInfo: UserInfo): boolean => !!userInfo && this.hasBonuses),
+                    distinctUntilChanged(
+                        (userInfo: UserInfo, newUserInfo: UserInfo): boolean => {
+                            return (
+                                _isEqual(userInfo.bonusBalance, newUserInfo.bonusBalance)
+                                && _isEqual(userInfo.freeRounds, newUserInfo.freeRounds)
+                            );
+                        },
+                    ))
+                .subscribe((userInfo: UserInfo) => {
+                    this.checkNewActiveBonuses(userInfo);
+                });
+        }
     }
 
     public get hasBonuses(): boolean {
@@ -821,6 +852,111 @@ export class BonusesService {
         }
         if (this.subjects.history$.observers.length > 1) {
             this.queryBonuses(true, 'history');
+        }
+    }
+
+    /**
+     * Receives active bonuses and writes them to cache. Switches active bonuses, compares their differences
+     * with what we received before the data update, if any, then updates them and shows a message with the bonus
+     * balance. It also sorts through free spins and notifies you of their availability.
+     *
+     * @param {UserInfo} data - get actual data from UserInfo.
+     *
+     * @return {void}
+     */
+    private async checkNewActiveBonuses(data: UserInfo): Promise<void> {
+        const cacheDataBonusesLBID: string[] = await this.cachingService.get<string[]>('active-loyalty-bonuses') || [];
+        const cacheDataFreeRounds: string[] = await this.cachingService.get<string[]>('freeround-games') || [];
+        const activeBonusesLBID: string[] = _map(data?.loyalty?.BonusesBalance, 'IDLoyaltyBonuses');
+
+        if (!_isEqual(activeBonusesLBID, cacheDataBonusesLBID) && activeBonusesLBID.length) {
+            _each(_keys(data.loyalty.BonusesBalance), (bonusID: string): void => {
+                const dataBonus = data.loyalty.BonusesBalance[bonusID];
+                if (!_isUndefined(dataBonus.IDLoyaltyBonuses)
+                    && !_includes(cacheDataBonusesLBID, dataBonus.IDLoyaltyBonuses)
+                    && _find(this.bonuses, {id: +bonusID, isDeposit: true})) {
+                    this.showMessageBonusBalance(dataBonus.Balance);
+                }
+            });
+            await this.cachingService.set('active-loyalty-bonuses', activeBonusesLBID, true, Number.MAX_SAFE_INTEGER);
+        }
+
+        if (data?.freeRounds) {
+            const activeFreeRoundGames: string[] = [];
+            _each(data.freeRounds, (freeRound: IFreeRound): void => {
+                if (_toNumber(freeRound?.Count) > 0 && freeRound?.Games) {
+                    activeFreeRoundGames.push(freeRound.Games[0]);
+                    if (!_includes(cacheDataFreeRounds, freeRound.Games[0])) {
+                        this.showMessageBonusFreeRound(freeRound);
+                    }
+                }
+            });
+            await this.cachingService.set('freeround-games', activeFreeRoundGames, true, Number.MAX_SAFE_INTEGER);
+        }
+    }
+
+    /**
+     * It accepts a bonus balance and displays a corresponding message.
+     *
+     * @param {number} bonusBalance - accepts a bonus balance.
+     *
+     * @return {void}
+     */
+    private showMessageBonusBalance(bonusBalance: number): void {
+        const currencyElement = `<span wlc-currency [value]="${bonusBalance}" `
+            + `[currency]="'${this.profile.currency}'"></span>`;
+        this.eventService.emit({
+            name: NotificationEvents.PushMessage,
+            data: <IPushMessageParams>{
+                type: 'success',
+                title: gettext('Bonus take success'),
+                wlcElement: 'notification_bonus-activated',
+                displayAsHTML: true,
+                message: this.translate.instant(gettext('Bonus balance is full on')) + ` ${currencyElement}`,
+            },
+        });
+    }
+
+    /**
+     * It accepts the object of freerounds, finds their balance and displays the corresponding message.
+     *
+     * @param {IFreeRound} freeRound - accepts a freeRound object.
+     *
+     * @return {void}
+     */
+    private async showMessageBonusFreeRound(freeRound: IFreeRound): Promise<void> {
+        if (!this.gamesCatalogService) {
+            this.gamesCatalogService = await this.injectionService.getService('games.games-catalog-service');
+        }
+        await this.gamesCatalogService.ready;
+        const game = this.gamesCatalogService.getGame(+freeRound.IDMerchant, freeRound.Games[0]);
+
+        if (game) {
+            this.eventService.emit({
+                name: NotificationEvents.PushMessage,
+                data: <IPushMessageParams>{
+                    type: 'success',
+                    title: gettext('Bonus take success'),
+                    wlcElement: 'notification_bonus-freespins-game',
+                    themeMod: 'with-games',
+                    message: gettext('Free spins available: {{count}}'),
+                    messageContext: {
+                        count: freeRound.Count,
+                    },
+                    image: {
+                        src: game.image,
+                    },
+                    action: {
+                        label: gettext('Play'),
+                        onClick: (): void => {
+                            this.stateService.go('app.gameplay', {
+                                merchantId: freeRound.IDMerchant,
+                                launchCode: freeRound.Games[0],
+                            });
+                        },
+                    },
+                },
+            });
         }
     }
 }
