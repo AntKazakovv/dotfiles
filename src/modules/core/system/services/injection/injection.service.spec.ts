@@ -41,6 +41,7 @@ describe('InjectionService', () => {
         injectionService = TestBed.inject(InjectionService);
 
         await injectionService.importModules([loadedModuleName]);
+        return configServiceSpy.load;
     });
 
     it('-> should be created', () => {
