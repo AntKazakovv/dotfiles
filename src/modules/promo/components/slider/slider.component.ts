@@ -242,9 +242,11 @@ export class SliderComponent extends AbstractComponent
     }
 
     protected initNavigation(): void {
-        this.swiper.swiperRef.navigation.destroy();
-        this.swiper.swiperRef.navigation.init();
-        this.swiper.swiperRef.navigation.update();
+        if (this.swiper.swiperRef.navigation) {
+            this.swiper.swiperRef.navigation.destroy();
+            this.swiper.swiperRef.navigation.init();
+            this.swiper.swiperRef.navigation.update();
+        }
     }
 
     protected initObserver(): void {
@@ -320,7 +322,7 @@ export class SliderComponent extends AbstractComponent
                 if (_get(this.swiper.swiperRef, 'virtualSize', 0) > _get(this.swiper.swiperRef, 'size', 0)) {
                     this.addModifiers('overflow');
                     _set(this.swiper, 'swiperRef.allowTouchMove', true);
-                } else  {
+                } else {
                     if (this.hasModifier('overflow')) {
                         this.removeModifiers('overflow');
                     }
