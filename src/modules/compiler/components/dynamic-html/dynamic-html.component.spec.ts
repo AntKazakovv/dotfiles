@@ -1,7 +1,6 @@
 import {
     ComponentFixture,
     TestBed,
-    waitForAsync,
 } from '@angular/core/testing';
 import {AppModule} from 'wlc-engine/modules/app/app.module';
 import {Component} from '@angular/core';
@@ -26,7 +25,6 @@ export class TestComponent {
 
 describe('DynamicHtml', () => {
     const injectParams = {};
-    const done = () => {};
     let component: TestComponent;
     let fixture: ComponentFixture<TestComponent>;
     let nativeElement: HTMLElement;
@@ -52,7 +50,7 @@ describe('DynamicHtml', () => {
         expect(nativeElement).toBeTruthy();
     });
 
-    it('-> should compile angular component', waitForAsync(() => {
+    it('-> should compile angular component', () => {
         component.html = '<button wlc-button text="test"></button>';
         fixture.detectChanges();
         fixture.whenStable().then(() => {
@@ -61,9 +59,7 @@ describe('DynamicHtml', () => {
             const innerButton = button.querySelector('span');
             expect(innerButton.innerHTML).toContain('test');
         });
-
-        return done;
-    }));
+    });
 
     it('-> should compile html without compilation', () => {
         component.html = '<button wlc-button text="test"></button>';
@@ -82,14 +78,12 @@ describe('DynamicHtml', () => {
         expect(button.getAttribute('style')).toBeNull();
     });
 
-    it('-> should enable manual script tag add to component', waitForAsync(() => {
+    it('-> should enable manual script tag add to component', () => {
         component.canUseScriptTag = true;
         component.html = '<button wlc-button text="test"></button><script>window["test"] = true</script>';
         fixture.detectChanges();
         fixture.whenStable().then(() => {
             expect(window['test']).toBeTrue();
         });
-
-        return done;
-    }));
+    });
 });
