@@ -58,7 +58,7 @@
 </ng-template>
 
 <ng-template #promo>
-    <div class="{{$class}}__content" 
+    <div class="{{$class}}__content"
          data-wlc-element="block_bonus"
          [class.disabled]="bonus.isDisabled">
 
@@ -312,7 +312,7 @@
 </ng-template>
 
 <ng-template #moreIcon>
-    <div *ngIf="$params.common?.iconMoreBtn" class="{{$class}}__more-icon" >
+    <div *ngIf="$params.common?.iconMoreBtn && bonus.id" class="{{$class}}__more-icon" >
         <div wlc-icon
              class="icon-btn"
              iconPath="/wlc/icons/info.svg"
