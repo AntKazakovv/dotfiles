@@ -119,14 +119,6 @@ export class SportsbookComponent extends AbstractComponent implements OnInit, On
             if (this.settings.id === 'betradar') {
                 this.betradarService.setBetradarParams();
                 this.betradarService.initNavigation(this.$destroy, this.cdr);
-
-                this.eventService.subscribe([
-                    {name: 'LOGIN'},
-                    {name: 'LOGOUT'},
-                ], () => {
-                    this.gameConfig = _cloneDeep(this.gameConfig);
-                    this.cdr.detectChanges();
-                }, this.$destroy);
             } else if (this.settings.id === 'digitain') {
                 gameWrapperParams.gameParams.disableIframeSelfResize = true;
             } else if (this.settings.id === 'tglab') {
@@ -141,6 +133,14 @@ export class SportsbookComponent extends AbstractComponent implements OnInit, On
                     },
                 ],
             };
+
+            this.eventService.subscribe([
+                {name: 'LOGIN'},
+                {name: 'LOGOUT'},
+            ], () => {
+                this.gameConfig = _cloneDeep(this.gameConfig);
+                this.cdr.detectChanges();
+            }, this.$destroy);
         }
         this.cdr.detectChanges();
     }
