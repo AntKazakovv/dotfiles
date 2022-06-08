@@ -16,7 +16,8 @@
         <div *ngIf="promoWidgetTitle" class="{{$class}}__title">
             {{promoWidgetTitle | translate}}
         </div>
-        <div class="{{$class}}__buttons">
+        <div class="{{$class}}__buttons"
+             [ngClass]="{'no-demo': !game.hasDemo}">
             <button wlc-button
                     class="wlc-btn wlc-btn--play"
                     wlcElement="button_game-play"
@@ -58,8 +59,8 @@
                         <source [srcset]="image.src" [type]="image.type">
                     </ng-container>
 
-                    <img wlc-fallback 
-                        [src]="getVerticalContent('background', ['jpg'])" 
+                    <img wlc-fallback
+                        [src]="getVerticalContent('background', ['jpg'])"
                         loading="lazy">
                 </picture>
 
@@ -71,7 +72,7 @@
 
                     <img wlc-fallback
                         #layersOne
-                        [src]="getVerticalContent('foreground', ['png'])" 
+                        [src]="getVerticalContent('foreground', ['png'])"
                         loading="lazy">
                 </picture>
 

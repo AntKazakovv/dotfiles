@@ -77,6 +77,10 @@
             bottom: ef.get-value($themePromoWidget, 'buttonsBottom');
             display: ef.get-value($btnsLayout, 'btnsDisplay', 1024);
 
+            &.no-demo {
+                grid-template-columns: 1fr;
+            }
+
             .wlc-btn {
                 min-width: 110px;
             }
