@@ -7,8 +7,13 @@ const _includes = require('lodash/includes');
 const customPath = '/src/custom/';
 
 class WlcTemplateReplacePlugins {
-    static styles = new webpack.NormalModuleReplacementPlugin(/\.scss$/i, (resource) => {
-        const originStylePath = path.resolve(resource.context, resource.request);
+    static styles = new webpack.NormalModuleReplacementPlugin(/\.scss?.+$/i, (resource) => {
+
+        const originStylePath = path.resolve(
+            resource.context,
+            resource.request.replace(/\?.+$/, ''),
+        );
+
         if (!originStylePath || !_includes(originStylePath, '/wlc-engine/modules/') || /^_/.test(originStylePath)) {
             return;
         }
@@ -22,16 +27,19 @@ class WlcTemplateReplacePlugins {
         } else {
             createDir.sync(customStyleDir);
             const fileData =
-                '// Set custom variables before @import \n\n' + `@import '${originStylePath.replace(/^.*wlc-engine\//i, 'wlc-engine/')}'; \n\n` +
-                '// Component\'s custom styles';
+                '// Set custom variables before @import \n\n'
+                + `@import '${originStylePath.replace(/^.*wlc-engine\//i, 'wlc-engine/')}'; \n\n`
+                + '// Component\'s custom styles';
 
             fs.writeFileSync(customStyleDir + '/~' + styleName, fileData);
         }
     });
 
-    static templates = new webpack.NormalModuleReplacementPlugin(/\.html$/i, (resource) => {
-        const rawLoaderStr = '!raw-loader!';
-        const originTplPath = path.resolve(resource.context, resource.request.replace(rawLoaderStr, ''));
+    static templates = new webpack.NormalModuleReplacementPlugin(/\.html?.+$/i, (resource) => {
+        const originTplPath = path.resolve(
+            resource.context,
+            resource.request.replace(/\?.+$/, ''),
+        );
 
         if (!originTplPath || !_includes(originTplPath, '/wlc-engine/modules/')) {
             return;
@@ -44,7 +52,7 @@ class WlcTemplateReplacePlugins {
         const originTsPath = originTplPath.replace('.html', '.ts');
 
         if (fs.existsSync(customTplPath)) {
-            resource.request = rawLoaderStr + customTplPath;
+            resource.request = resource.request.replace(/.+\?/, customTplPath + '?');
         } else {
             createDir.sync(customComponentDir);
             fs.copyFileSync(originTplPath, customComponentDir + '/~' + tplName);
@@ -56,7 +64,7 @@ class WlcTemplateReplacePlugins {
         } catch (e) {
             console.error('Cannot create readonly ts file for ' + tplName);
         }
-    })
+    });
 }
 
 module.exports = WlcTemplateReplacePlugins;
