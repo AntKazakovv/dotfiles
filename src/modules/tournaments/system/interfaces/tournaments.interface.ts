@@ -39,9 +39,9 @@ export interface ITournamentAbstract {
     Description: string;
     FeeAmount: IIndexing<string | number> | string;
     FeeType: 'balance' | 'loyalty';
-    FreeroundGames: TFreeRoundGames;
-    Games: ITournamentGames;
-    ID: number;
+    FreeroundGames?: TFreeRoundGames;
+    Games?: ITournamentGames;
+    ID: string | number;
     Image: string;
     Image_dashboard?: string;
     Image_description?: string;
@@ -62,10 +62,10 @@ export interface ITournamentAbstract {
 export interface ITournamentHistory extends ITournamentAbstract {
     BetsAmount: string;
     BetsCount: string;
-    End: string;
-    Place: string;
+    End: string | null;
+    Place: string | null;
     Start: string;
-    Win: string;
+    Win: string | null;
     WinningSpreadCount: number;
     WinsAmount: string;
     WinsCount: string;
@@ -90,9 +90,9 @@ export interface ITournament extends ITournamentAbstract {
 
 export interface ITopTournamentUsers {
     limit: number;
-    results: ITournamentPlace[];
+    results?: ITournamentPlace[];
     start: number;
-    user: ITournamentUser;
+    user?: ITournamentUser;
 }
 
 export interface ITournamentsModule {
@@ -137,7 +137,7 @@ export interface ITournamentUser {
     IDLoyalty: string;
     IDTournament: string;
     IDUser: string;
-    LastBet: string;
+    LastBet?: string;
     ManualPoints: string;
     Place: string;
     Points: number;

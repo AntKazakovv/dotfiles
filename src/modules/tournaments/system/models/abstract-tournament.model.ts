@@ -128,7 +128,7 @@ export abstract class AbstractTournamentModel<T extends ITournamentAbstract> ext
     }
 
     public get id(): number {
-        return this.data.ID;
+        return +this.data.ID;
     }
 
     public get image(): string {
