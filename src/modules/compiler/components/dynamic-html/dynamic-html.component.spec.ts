@@ -25,7 +25,6 @@ export class TestComponent {
 
 describe('DynamicHtml', () => {
     const injectParams = {};
-    const done = () => {};
     let component: TestComponent;
     let fixture: ComponentFixture<TestComponent>;
     let nativeElement: HTMLElement;
@@ -60,8 +59,6 @@ describe('DynamicHtml', () => {
             const innerButton = button.querySelector('span');
             expect(innerButton.innerHTML).toContain('test');
         });
-
-        return done;
     });
 
     it('-> should compile html without compilation', () => {
@@ -88,7 +85,5 @@ describe('DynamicHtml', () => {
         fixture.whenStable().then(() => {
             expect(window['test']).toBeTrue();
         });
-
-        return done;
     });
 });
