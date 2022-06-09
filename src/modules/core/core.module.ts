@@ -62,6 +62,7 @@ import {FloatPanelsComponent} from './components/float-panels/float-panels.compo
 import {ForbiddenCountryComponent} from './components/forbidden-country/forbidden-country.component';
 import {FormControlComponent} from './components/form-control/form-control.component';
 import {FormWrapperComponent} from './components/form-wrapper/form-wrapper.component';
+import {HistoryNameComponent} from './components/table/components/history-name/history-name.component';
 import {IconComponent} from './components/icon/icon.component';
 import {IconListComponent} from './components/icon-list/icon-list.component';
 import {IconMerchantsListComponent} from './components/icon-merchants-list/icon-merchants-list.component';
@@ -159,6 +160,7 @@ export const components = {
     'wlc-forbidden-country': ForbiddenCountryComponent,
     'wlc-form-control': FormControlComponent,
     'wlc-form-wrapper': FormWrapperComponent,
+    'wlc-history-name': HistoryNameComponent,
     'wlc-icon': IconComponent,
     'wlc-icon-list': IconListComponent,
     'wlc-icon-payments-list': IconPaymentsListComponent,
@@ -273,6 +275,7 @@ export const services = {
         ForbiddenCountryComponent,
         FormControlComponent,
         FormWrapperComponent,
+        HistoryNameComponent,
         IconComponent,
         IconListComponent,
         IconMerchantsListComponent,
@@ -347,6 +350,7 @@ export const services = {
         ForbiddenCountryComponent,
         FormControlComponent,
         FormWrapperComponent,
+        HistoryNameComponent,
         IconComponent,
         IconListComponent,
         IconMerchantsListComponent,
