@@ -1,0 +1,30 @@
+
+<div class="{{$class}}">
+    <header class="{{$class}}__header">
+        <div wlc-logo class="{{$class}}__logo"></div>
+    </header>
+    <main class="{{$class}}__main">
+        <p class="{{$class}}__title">
+            {{('Sorry, casino is not available in your region' | translate:$params) + '. '}}
+        </p>
+        <p class="{{$class}}__info">
+            <span>
+                {{
+                    ('Our gambling license does not allow us ' +
+                    'to serve players from' | translate) +
+                    ' ' + ($params.countryName | translate) + '. '
+                }}
+            </span>
+            <span>
+                {{'Contact us email' | translate}}
+            </span>
+            <a href="mailto:{{$params.supportEmail}}" class="{{$class}}__supportEmail">
+                {{$params.supportEmail}}
+            </a>
+            <span>{{', ' + ('if you need additional assistance' | translate) + '. '}}</span>
+        </p>
+    </main>
+    <footer class="{{$class}}__socials">
+        <div wlc-social-icons></div>
+    </footer>
+</div>

@@ -19,6 +19,7 @@ import {IStickyHeaderConfig} from './sticky-header.interface';
 import {IMocksConfig} from './mocks.interface';
 import {IMonitoringConfig} from './monitoring.interface';
 import {IIdleConfig} from './idle.interface';
+import {IRestrictionsConfig} from './restrictions.interface';
 
 export * from './games.interface';
 export * from './tournaments.interface';
@@ -99,4 +100,8 @@ export interface IBaseConfig {
      * Change currency name. It will be shown in select
      */
     rewritingCurrencyName?: IIndexing<string>,
+    /**
+     * Settings for any constraints
+     */
+    restrictions?: IRestrictionsConfig,
 }

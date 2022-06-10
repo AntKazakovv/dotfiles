@@ -11,6 +11,7 @@ import {
     EventService,
     StateHistoryService,
     IStateModalOption,
+    ForbiddenCountryService,
 } from 'wlc-engine/modules/core';
 import {AppType} from 'wlc-engine/modules/core/system/interfaces/base-config/app.interface';
 
@@ -59,6 +60,8 @@ export function routerConfigFn(router: UIRouter, injector: Injector) {
             });
         }
 
+        useCountryRestriction(injector, configService);
+
         router.transitionService.onBefore({to: criteria}, (trans: Transition) => {
             if (profileType !== profileRedirectsMap?.[trans.to().name]) {
                 return router.stateService.target('app.error', trans.params());
@@ -106,4 +109,19 @@ export function routerConfigFn(router: UIRouter, injector: Injector) {
             });
         });
     });
+}
+
+async function useCountryRestriction(injector: Injector, configService: ConfigService): Promise<void> {
+    if (isCountryRestrictionSettingEnabled(configService)) {
+        const forbiddenCountryService = injector.get(ForbiddenCountryService);
+
+        if (forbiddenCountryService.isForbidden()) {
+            forbiddenCountryService.blockUrlChanging();
+            await forbiddenCountryService.showModal();
+        }
+    }
+}
+
+function isCountryRestrictionSettingEnabled(configService: ConfigService): boolean {
+    return configService.get<boolean>('$base.restrictions.country.use');
 }

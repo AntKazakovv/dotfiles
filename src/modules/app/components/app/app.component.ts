@@ -15,7 +15,10 @@ import {
     UIRouterGlobals,
 } from '@uirouter/core';
 import {Title, Meta} from '@angular/platform-browser';
-import {Subscription, fromEvent} from 'rxjs';
+import {
+    Subscription,
+    fromEvent,
+} from 'rxjs';
 import {
     takeUntil,
     filter,
