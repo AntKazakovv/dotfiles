@@ -34,6 +34,10 @@
                         margin: 0;
                         padding: 0;
                     }
+
+                    .wlc-btn {
+                        @include bm.get-mq-map('margin', $mainInfoThemeV1, 'profileFormBlockPasswordBtnMargin');
+                    }
                 }
 
                 .wlc-title {

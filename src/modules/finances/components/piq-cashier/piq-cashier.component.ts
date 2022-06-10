@@ -12,6 +12,7 @@ import {
     ModalService,
     EventService,
     ConfigService,
+    InjectionService,
 } from 'wlc-engine/modules/core';
 import {PIQCashierService} from 'wlc-engine/modules/finances/system/services/piq-cashier/piq-cashier.service';
 import {FinancesService} from 'wlc-engine/modules/finances/system/services/finances/finances.service';
@@ -44,9 +45,10 @@ export class PIQCashierComponent
         protected piqCashierService: PIQCashierService,
         protected logService: LogService,
         protected modalService: ModalService,
+        protected injectionService: InjectionService,
     ) {
         super({injectParams, defaultParams: Params.defaultParams},
-            logService, modalService, configService);
+            logService, modalService, configService, injectionService);
     }
 
     public async ngOnInit(): Promise<void> {

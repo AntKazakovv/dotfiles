@@ -8,9 +8,11 @@ import {
 import {FormGroup} from '@angular/forms';
 
 import {BehaviorSubject} from 'rxjs';
-
 import _assign from 'lodash-es/assign';
 import _isObject from 'lodash-es/isObject';
+import _forEach from 'lodash-es/forEach';
+import _remove from 'lodash-es/remove';
+import _cloneDeep from 'lodash-es/cloneDeep';
 
 import {
     ConfigService,
@@ -18,6 +20,10 @@ import {
     IIndexing,
     IPushMessageParams,
     NotificationEvents,
+    ProfileType,
+    IFormComponent,
+    IFormWrapperCParams,
+    ValidatorType,
 } from 'wlc-engine/modules/core';
 import {UserService} from 'wlc-engine/modules/user/system/services';
 import {ProfileFormAbstract} from 'wlc-engine/modules/user/system/classes/profile-form.abstract';
@@ -44,6 +50,7 @@ export class ProfileFormComponent extends ProfileFormAbstract implements OnInit 
     public $params: Params.IProfileFormCParams;
     public userProfile = this.userService.userProfile$;
     public errors$: BehaviorSubject<IIndexing<string>> = new BehaviorSubject(null);
+    public ready: boolean = false;
 
     constructor(
         @Inject('injectParams') protected params: Params.IProfileFormCParams,
@@ -55,9 +62,10 @@ export class ProfileFormComponent extends ProfileFormAbstract implements OnInit 
         super(
             {
                 injectParams: params,
-                defaultParams: configService.get<boolean>('$base.site.useLogin')
-                    ? Params.generateConfig(true)
-                    : Params.generateConfig(),
+                defaultParams: Params.generateDefaultParams(
+                    configService.get<ProfileType>('$base.profile.type'),
+                    configService.get<boolean>('$base.site.useLogin'),
+                ),
             },
             eventService,
             configService,
@@ -67,6 +75,13 @@ export class ProfileFormComponent extends ProfileFormAbstract implements OnInit 
     public async ngOnInit(): Promise<void> {
         super.ngOnInit(this.inlineParams);
         await this.configService.ready;
+
+        if (await this.configService.get<boolean>('$user.skipPasswordOnFirstUserSession')) {
+            this.$params.config = this.changePassBlock();
+        }
+
+        this.ready = true;
+        this.cdr.detectChanges();
     }
 
     /**
@@ -116,5 +131,53 @@ export class ProfileFormComponent extends ProfileFormAbstract implements OnInit 
 
             return false;
         }
+    }
+
+    protected changePassBlock(): IFormWrapperCParams {
+        const configClone = _cloneDeep(this.$params.config);
+        this.findAndDeletePassBlock(configClone.components);
+        if (this.configService.get<ProfileType>('$base.profile.type') === 'first') {
+            _remove(configClone.validators, (validator: ValidatorType): boolean => {
+                return (typeof validator !== 'string') && (validator.name === 'matchingFields');
+            });
+        }
+
+        return configClone;
+    }
+
+    protected findAndDeletePassBlock(components: IFormComponent[], parent?: IFormComponent): void {
+        _forEach(components, (component: IFormComponent): void | false => {
+            if (!component) return;
+
+            if (component.name === 'core.wlc-wrapper') {
+                this.findAndDeletePassBlock(component.params.components, component);
+                return;
+            }
+
+            if (component.params.name === 'currentPassword') {
+                if (this.configService.get<ProfileType>('$base.profile.type') === 'first') {
+                    parent.params.components = [
+                        {
+                            name: 'core.wlc-button',
+                            params: {
+                                class: 'wlc-btn',
+                                common: {
+                                    text: gettext('Change password'),
+                                    typeAttr: 'button',
+                                    event: {
+                                        name: 'SHOW_MODAL',
+                                        data: 'changePassword',
+                                    },
+                                },
+                            },
+                        },
+                    ];
+                } else {
+                    _remove(components, (comp: IFormComponent): boolean => comp?.params.name === 'currentPassword');
+                }
+
+                return false;
+            }
+        });
     }
 }

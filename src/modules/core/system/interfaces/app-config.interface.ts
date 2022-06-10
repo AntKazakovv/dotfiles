@@ -117,7 +117,14 @@ export interface ISiteConfig {
     merchantNameAliasesMap?: IIndexing<string>;
     paymentText: IIndexing<string>;
     payment_systems: IPaysystem[];
-    registerGeneratePassword: boolean;
+    /**
+     * Generate user password and send on email after registration
+     */
+    registerGeneratePassword: number;
+    /**
+     * Dont check password on edit profile on first session
+     */
+    skipPassCheckOnFirstSession?: number;
     systemsGamePlayInfo: IIndexing<IGamePlayInfo>;
     LastWins?: string;
     RestrictMoneyGames?: number;

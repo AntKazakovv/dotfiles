@@ -9,7 +9,10 @@ export {IDisclaimerCParams} from './disclaimer/disclaimer.params';
 export {IErrorPageCParams} from './error-page/error-page.params';
 export {IFeedbackFormCParams} from './feedback-form/feedback-form.params';
 export {IFloatPanelsCParams} from './float-panels/float-panels.params';
-export {IFormWrapperCParams} from './form-wrapper/form-wrapper.component';
+export {
+    IFormWrapperCParams,
+    IFormComponent,
+} from './form-wrapper/form-wrapper.component';
 export {IIconCParams} from './icon/icon.params';
 export {IIconListCParams} from './icon-list/icon-list.params';
 export {IInfoPageCParams} from './info-page/info-page.params';

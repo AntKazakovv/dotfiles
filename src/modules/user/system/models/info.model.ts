@@ -61,6 +61,10 @@ export class UserInfo extends AbstractModel<IUserInfo> {
         return this.data?.firstName;
     }
 
+    public get firstSession(): boolean {
+        return this.data?.firstSession;
+    }
+
     public get freeRounds(): IFreeRound[] {
         return this.data?.freerounds;
     }

@@ -137,6 +137,7 @@ export class DepositWithdrawComponent
 
     protected formObject: FormGroup;
     protected inProgress: boolean = false;
+    protected userService: UserService;
 
     private isLoadingHostedFields: boolean = false;
     private hostedFieldsStyles: Record<THostedStyles, string> = {
@@ -152,7 +153,6 @@ export class DepositWithdrawComponent
     private depositInIframe: boolean;
     private isShowIframe: boolean;
     private userProfile: UserProfile;
-    private userService: UserService;
     private cssVariables: string;
 
     constructor(
@@ -175,7 +175,7 @@ export class DepositWithdrawComponent
             <IMixedParams<Params.IDepositWithdrawCParams>>{
                 injectParams,
                 defaultParams: Params.defaultParams,
-            }, logService, modalService, configService);
+            }, logService, modalService, configService, injectionService);
     }
 
     public async ngOnInit(): Promise<void> {

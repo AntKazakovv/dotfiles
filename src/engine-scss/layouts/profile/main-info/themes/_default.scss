@@ -12,7 +12,12 @@
         .wlc-profile-form {
             @include bm.get-mq-map('grid-template-columns', $mainInfoThemeDefault, 'sectionFormColumns');
             @include bm.get-mq-map('grid-gap', $mainInfoThemeDefault, 'sectionColGap');
+            position: relative;
             display: grid;
+
+            .wlc-loader {
+                @include bm.absoluteCentering;
+            }
         }
 
         // Main info form

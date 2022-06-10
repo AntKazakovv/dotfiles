@@ -20,6 +20,10 @@ export interface IUserInfo {
     lastName: string;
     loyalty: ILoyalty;
     pincode: string;
+    /**
+     * Is user session first
+     */
+    firstSession: boolean;
     status: number;
     socketsData?: ISocketsData | '',
     freerounds: IFreeRound[];
