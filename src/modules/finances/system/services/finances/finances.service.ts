@@ -88,23 +88,27 @@ export class FinancesService {
         return _find(this.systems, {alias});
     }
 
-    public async deposit(systemId: number, amount: number, additionalFields: object): Promise<any> {
+    public async deposit(systemId: number, amount: number, additionalFields: object, cssVariables: string):
+        Promise<any> {
         return await this.balanceAction(
             systemId,
             amount,
             additionalFields,
             'deposit',
             'finances/deposits',
+            cssVariables,
         );
     }
 
-    public async withdraw(systemId: number, amount: number, additionalFields: object): Promise<any> {
+    public async withdraw(systemId: number, amount: number, additionalFields: object, cssVariables: string):
+        Promise<any> {
         return await this.balanceAction(
             systemId,
             amount,
             additionalFields,
             'withdraw',
             'finances/postWithdrawal',
+            cssVariables,
         );
     }
 
@@ -197,12 +201,13 @@ export class FinancesService {
         additionalFields: object,
         method: TPaymentsMethods,
         requestName: string,
+        cssVariables: string,
     ): Promise<any> {
         try {
             const currentSystem = this.getSystemById(systemId);
 
             if (currentSystem.isCashier) {
-                await this.injector.get(PIQCashierService).openPIQCashier(method, currentSystem, amount);
+                await this.injector.get(PIQCashierService).openPIQCashier(method, currentSystem, amount, cssVariables);
                 return [PIQCashierResponse];
             }
 

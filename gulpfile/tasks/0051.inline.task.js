@@ -49,6 +49,13 @@ module.exports = function inlineTask() {
             .pipe(dest(`${this.params.paths.static}/css/`));
     });
 
+    task('build:piq-cashier-css', () => {
+        this.addToGitIgnore('/roots/static', 'css', 'piq.cashier*.css');
+        return src(`${this.params.paths.src}/app-styles/piq.cashier*.scss`)
+            .pipe(sass({outputStyle: 'compressed', sync: true}).on('error', sass.logError))
+            .pipe(dest(`${this.params.paths.static}/css/`));
+    });
+
     task('build:inline', (cb) => {
         this.addToGitIgnore('/roots', 'template', 'inline.js');
         return src(`${this.params.paths.inline}/index.ts`)

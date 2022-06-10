@@ -100,6 +100,21 @@ module.exports = function preBuildTask() {
         });
     };
 
+    // Create Piq fields scss
+    const createPiqFields = () => {
+        fs.access(`${this.params.paths.src}/app-styles/piq.cashier.scss`, (err) => {
+            if (err) {
+                fs.writeFileSync(`${this.params.paths.src}/app-styles/piq.cashier.scss`,
+                    '//For create alternate color theme styles for hosted fields:\n'+
+                    '// 1. Copy this file and set name piq.cashier.alt.scss\n' +
+                    '// 2. Generate new css vars using mixin makeCssColorVars ' +
+                    'and maps $mainColorsAlt and $fieldColorsAlt\n\n' +
+                    '// 3. Add file name with css extension to config $base.colorThemeSwitching.altHostedFieldsStyles \n' +
+                    '@import \'wlc-engine/engine-scss/_piq.cashier.scss\';\n\n');
+            }
+        });
+    };
+
     const makeCustomModule = () => {
 
         const modulePath = 'custom/custom.module.ts';
@@ -143,6 +158,7 @@ module.exports = function preBuildTask() {
         createSitePreloader();
         createHostedFields();
         makeApiTestSymlink();
+        createPiqFields();
 
         cb();
     });

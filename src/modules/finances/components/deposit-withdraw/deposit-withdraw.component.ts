@@ -115,7 +115,6 @@ export class DepositWithdrawComponent
     public formData$: BehaviorSubject<TFormData> = new BehaviorSubject(null);
     public userTotalBonus: number;
     public userAvailableWithdraw: number;
-
     public listConfig: IPaymentListCParams = {
         paymentType: 'deposit',
         wlcElement: 'block_payment-list',
@@ -133,10 +132,16 @@ export class DepositWithdrawComponent
         def: '/static/css/hosted.fields.css',
         alt: null,
     };
+    private piqFieldsStyles: Record<THostedStyles, string> = {
+        current: '/static/css/piq.cashier.css',
+        def: '/static/css/piq.cashier.css',
+        alt: null,
+    };
     private depositInIframe: boolean;
     private isShowIframe: boolean;
     private userProfile: UserProfile;
     private userService: UserService;
+    private cssVariables: string;
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IDepositWithdrawCParams,
@@ -173,8 +178,8 @@ export class DepositWithdrawComponent
             });
 
         this.initSubscribers();
-        this.initThemeToggleListener();
         this.updateFormConfig();
+        this.initThemeToggleListener();
 
         if (this.$params.mode === 'withdraw') {
             this.title = gettext('Withdrawal');
@@ -303,6 +308,7 @@ export class DepositWithdrawComponent
                 this.currentSystem.id,
                 form.value.amount,
                 this.getAdditionalParams() || {},
+                this.cssVariables,
             );
 
             if (saveProfile) {
@@ -384,6 +390,7 @@ export class DepositWithdrawComponent
                 this.currentSystem.id,
                 this.currentSystem.disableAmount ? this.currentSystem.depositMin : amount,
                 params,
+                this.cssVariables,
             );
 
             if (saveProfile) {
@@ -607,30 +614,51 @@ export class DepositWithdrawComponent
     }
 
     protected initThemeToggleListener(): void {
+
         if (!this.configService.get<boolean>('$base.colorThemeSwitching.use')) {
             return;
         }
 
         const altHostedFieldsStyles = this.configService.get<string>('$base.colorThemeSwitching.altHostedFieldsStyles');
+        const altPiqCashierStyles = this.configService.get<string>('$base.colorThemeSwitching.altPiqCashierStyles');
 
-        if (altHostedFieldsStyles) {
-            this.hostedFieldsStyles.alt = '/static/css/' + altHostedFieldsStyles;
-        } else {
+        if (!altHostedFieldsStyles && !altPiqCashierStyles) {
             return;
         }
 
+        if (altHostedFieldsStyles) {
+            this.hostedFieldsStyles.alt = '/static/css/' + altHostedFieldsStyles;
+        }
+
+        if (altPiqCashierStyles) {
+            this.piqFieldsStyles.alt = '/static/css/' + altPiqCashierStyles;
+        }
+
+
         if (!!this.configService.get<string>(ColorThemeValues.configName)) {
-            this.hostedFieldsStyles.current = this.hostedFieldsStyles.alt;
+            if (altHostedFieldsStyles) {
+                this.hostedFieldsStyles.current = this.hostedFieldsStyles.alt;
+            }
+            if (altPiqCashierStyles) {
+                this.piqFieldsStyles.current = this.piqFieldsStyles.alt;
+            }
         }
 
         this.eventService.subscribe(
             {name: ColorThemeValues.changeEvent},
             (status: boolean) => {
-                if (this.currentSystem?.isHosted) {
+                if (this.currentSystem?.isHosted && altHostedFieldsStyles) {
                     this.hostedFieldsStyles.current = status
                         ? this.hostedFieldsStyles.alt
                         : this.hostedFieldsStyles.def;
+                }
+                if (this.currentSystem?.isCashier && altPiqCashierStyles) {
+                    this.piqFieldsStyles.current = status
+                        ? this.piqFieldsStyles.alt
+                        : this.piqFieldsStyles.def;
+                }
 
+                if (this.currentSystem?.isHosted || this.currentSystem?.isCashier) {
                     this.onPaymentSystemChange(this.currentSystem);
                 }
             }, this.$destroy);
@@ -685,6 +713,21 @@ export class DepositWithdrawComponent
             && _isEmpty(this.requiredFields)) {
             this.loadHostedFields();
         }
+
+        if (this.currentSystem.isCashier) {
+            this.loadPiqFields();
+        }
+    }
+
+    protected requestStyles(filePath: string, errorCallback: () => Observable<string>) {
+        return this.httpClient.get(filePath, {responseType: 'text'})
+            .pipe(
+                catchError((error: string): Observable<string> => {
+                    this.logService.sendLog({code: '1.4.35', data: error});
+                    return errorCallback();
+                }),
+                takeUntil(this.$destroy),
+            );
     }
 
     protected loadHostedFields(): void {
@@ -709,21 +752,10 @@ export class DepositWithdrawComponent
             this.cdr.markForCheck();
         };
 
-        const requestStyles = (filePath: string, errorCallback: () => Observable<string>): Observable<string> => {
-            return this.httpClient.get(filePath, {responseType: 'text'})
-                .pipe(
-                    catchError((error) => {
-                        this.logService.sendLog({code: '1.4.35', data: error});
-                        return errorCallback();
-                    }),
-                    takeUntil(this.$destroy),
-                );
-        };
-
-        requestStyles(
+        this.requestStyles(
             this.hostedFieldsStyles.current,
             () => this.hostedFieldsStyles.current === this.hostedFieldsStyles.alt
-                ? requestStyles(this.hostedFieldsStyles.def, () => of(''))
+                ? this.requestStyles(this.hostedFieldsStyles.def, () => of(''))
                 : of(''),
         ).subscribe((styles: string) => {
             this.currentSystem.setupHostedFields(
@@ -731,6 +763,18 @@ export class DepositWithdrawComponent
                 formCallbackHandler,
                 styles,
             );
+        });
+    }
+
+    protected loadPiqFields(): void {
+
+        this.requestStyles(
+            this.piqFieldsStyles.current,
+            () => this.piqFieldsStyles.current === this.piqFieldsStyles.alt
+                ? this.requestStyles(this.piqFieldsStyles.def, () => of(''))
+                : of(''),
+        ).subscribe((styles: string): void  => {
+            this.cssVariables = styles;
         });
     }
 
