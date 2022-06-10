@@ -93,7 +93,7 @@ export class DocGroupModel extends AbstractDocModel<IDocType> {
      * @returns {string} path to the document verification status icon
      */
     public get statusIconName(): string {
-        const {Validated, Awaiting, Failed} = ValidationStatus;
+        const {Validated, Awaiting, Failed, Expired} = ValidationStatus;
 
         if (!this.docs.length) {
             return `${this.iconPath}${_kebabCase(Awaiting).trim()}.svg`;
@@ -106,6 +106,9 @@ export class DocGroupModel extends AbstractDocModel<IDocType> {
         }
         if (_some(this.docs, (doc) => doc.status === Awaiting)) {
             return `${this.iconPath}${_kebabCase(Awaiting).trim()}.svg`;
+        }
+        if (_some(this.docs, (doc) => doc.status === Expired)) {
+            return `${this.iconPath}${_kebabCase(Failed).trim()}.svg`;
         }
 
         return `${this.iconPath}${_kebabCase(Awaiting).trim()}.svg`;

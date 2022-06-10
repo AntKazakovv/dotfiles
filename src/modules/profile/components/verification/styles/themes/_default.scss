@@ -273,6 +273,24 @@
                         }
                     }
 
+                    &.expired {
+
+                        ::ng-deep .wlc-icon-content {
+
+                            svg {
+
+                                rect,
+                                path {
+                                    fill: ef.get-value($themeDefault, 'docsStatusFailed');
+                                }
+                            }
+                        }
+
+                        .wlc-verification-docs__doc-status {
+                            color: ef.get-value($themeDefault, 'docsStatusFailed');
+                        }
+                    }
+
                     @include bm.hover {
 
                         .wlc-verification-docs__remove {

@@ -256,6 +256,19 @@
                         }
                     }
                 }
+
+                &.expired {
+
+                    ::ng-deep .wlc-icon-content {
+
+                        svg {
+
+                            rect {
+                                fill: ef.get-value($themeDefault, 'docsStatusFailed');
+                            }
+                        }
+                    }
+                }
             }
 
             &__text {

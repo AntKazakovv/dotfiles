@@ -9,6 +9,7 @@ export enum ValidationStatus {
     Awaiting = 'AwaitingValidation',
     Validated = 'Validated',
     Failed = 'FailedValidation',
+    Expired = 'Expired',
 }
 
 export interface IUserDoc {

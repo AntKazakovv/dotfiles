@@ -50,6 +50,8 @@ export class DocModel extends AbstractDocModel<IUserDoc> {
                 return gettext('Pending');
             case ValidationStatus.Failed:
                 return gettext('Not correct');
+            case ValidationStatus.Expired:
+                return gettext('Expired');
             default:
                 return gettext('Loaded');
         }
