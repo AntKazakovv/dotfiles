@@ -78,16 +78,6 @@
 
             transform: ef.get-value($themeDefault, 'qrImgTransform');
         }
-
-        &__warning {
-            @include text.get-text-style('PlaceholderText', ef.get-value($themeDefault, 'textColor'));
-            @include bm.get-mq-map('margin', $themeDefault, 'warningMargin');
-            @include bm.get-mq-map('text-align', $themeDefault, 'warningAlignment');
-
-            .stress {
-                color: ef.get-value($themeDefault, 'warningStressColor');
-            }
-        }
     }
 
     &.wlc-payment-message--theme-mod-modal {
@@ -116,10 +106,6 @@
                 position: static;
                 max-width: ef.get-value($themeDefault, 'qrImgMaxWidth', 375);
                 margin: ef.get-value($themeDefault, 'qrModalImgMargin');
-            }
-
-            &__warning {
-                text-align: ef.get-value($themeDefault, 'warningModalAlignment');
             }
         }
     }

@@ -81,18 +81,6 @@ $themeDefault: map-merge((
     'qrTextModalDisplay': none,
     'qrModalImgMargin': 0 auto,
 
-    // warning
-    'warningMargin': (
-        375: ef.size(4) 0,
-        640: ef.size(4) 0 0,
-    ),
-    'warningAlignment': (
-        375: center,
-        640: left,
-    ),
-    'warningStressColor': var(--mc-error),
     'rateColor': var(--fc-labelColor),
-
-    'warningModalAlignment': center,
 
 ), $customThemeDefault);
