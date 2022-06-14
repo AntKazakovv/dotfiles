@@ -67,6 +67,7 @@ export class WlcFlog {
         }
         await this.isReady;
         data.level = data.level || 'log';
+        this.setVersion(data);
         const dataString = this.getDataString(data),
             abortController = window.AbortController && new window.AbortController();
 
@@ -131,6 +132,19 @@ export class WlcFlog {
         } catch (e) {
             throw new Error('Error Flog data');
         }
+    }
+
+    /**
+     * 
+     * Set type of project base ('theme' | 'engine')
+     * 
+     * @param {IFlogData} data Log data
+     */
+    private setVersion(data: IFlogData): void {
+        if (!data.from) {
+            data.from = {};
+        }
+        data.from.version = 'engine';
     }
 }
 

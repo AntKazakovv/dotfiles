@@ -331,7 +331,7 @@ export class ConfigService {
             system: 'user',
             type: 'GET',
             retries: {
-                count: [2000, 4000],
+                count: [1000, 3000],
                 fallbackUrl: '/static/dist/api/v1/countries.json',
             },
         }).then(async (data: IData) => {

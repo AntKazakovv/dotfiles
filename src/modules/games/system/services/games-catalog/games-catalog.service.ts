@@ -160,7 +160,7 @@ export class GamesCatalogService {
             this.gamesCatalog.ready.then(() => {
                 if (!this.gamesCatalog.getGameList().length) {
                     this.logService.sendLog({
-                        code: '3.0.25',
+                        code: '3.0.24',
                         from: {
                             service: 'GamesCatalogService',
                             method: 'init',
@@ -873,7 +873,7 @@ export class GamesCatalogService {
             preload: 'games',
             system: 'games',
             retries: {
-                count: [1000, 5000, 10000],
+                count: [1000, 3000],
                 fallbackUrl: '/static/dist/api/v1/games.json',
             },
             events: {
@@ -911,7 +911,7 @@ export class GamesCatalogService {
                 currency: 'EUR',
             },
             retries: {
-                count: [3000, 5000],
+                count: [1000, 3000],
                 fallbackUrl: '/static/dist/api/v1/jackpots.json',
             },
             events: {

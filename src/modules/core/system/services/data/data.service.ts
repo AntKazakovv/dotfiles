@@ -201,7 +201,7 @@ export class DataService {
                     system: 'data',
                     name: request,
                     status: 'error',
-                    code: '0.1.3',
+                    code: '0.0.16',
                     errors: [
                         `Non configured request method ${request}`,
                     ],
@@ -367,7 +367,7 @@ export class DataService {
                 ? from(this.window.wlcPreload[method.preload])
                 : of(undefined);
         if (!method.retries?.count) {
-            _set(method, 'retries.count', [2000]);
+            _set(method, 'retries.count', [3000, 1000]);
         } else {
             method.retries.count = _reverse(method.retries.count);
         }
@@ -412,20 +412,13 @@ export class DataService {
                                 requestBody,
                             ).pipe(
                                 catchError((e: HttpErrorResponse): Observable<never> => {
-                                    this.sendLog('0.0.15', method, error.message || error.status);
+                                    this.emitRequestFail('0.0.15', method, error?.message || error?.status || error);
                                     return throwError(e.error || error);
                                 }),
                             );
                         }
 
-                        this.sendLog('0.0.15', method, error.message || error.status);
-
-                        if (method.events?.fail) {
-                            this.eventService.emit({
-                                name: method.events.fail,
-                                data: error.error || error,
-                            });
-                        }
+                        this.emitRequestFail('0.0.15', method, error?.message || error?.status || error);
                         const errData: IData = {
                             name: method.name,
                             system: method.system,
@@ -461,13 +454,7 @@ export class DataService {
                 }
 
                 if (responseData.errors) {
-                    this.sendLog('0.0.12', method, responseData.errors);
-                    if (method.events?.fail) {
-                        this.eventService.emit({
-                            name: method.events.fail,
-                            data: responseData.errors,
-                        });
-                    }
+                    this.emitRequestFail('0.0.12', method, responseData.errors);
                     this.flow$.next(responseData);
                     method.subject.next(responseData);
                     throwError(responseData.errors);
@@ -506,6 +493,16 @@ export class DataService {
                 }) as Promise<IData>);
             }),
         );
+    }
+
+    protected emitRequestFail(code: string, method: IRegisteredMethod, error: unknown): void {
+        this.sendLog(code, method, error);
+        if (method.events?.fail) {
+            this.eventService.emit({
+                name: method.events.fail,
+                data: error,
+            });
+        }
     }
 
     protected sendLog(code: string, method: IRegisteredMethod, error: unknown): void {
