@@ -1,0 +1,43 @@
+@use 'engine-scss/functions' as ef;
+
+$customThemeLootbox: () !default;
+$themeLootbox: map-merge((
+    'backgroundDefault': var(--mc-bg300),
+    'relativeImageHeight': 70%,
+    'bottomPadding': (
+        320: 0 0 ef.size(3),
+        560: 0 0 ef.size(6),
+    ),
+    'bottomPaddingFp': (
+        320: ef.size(3) 0  ef.size(3),
+        480: ef.size(5) 0  ef.size(6),
+    ),
+    'nameTextStyle': (
+        320: 'SignTextBold',
+        560: 'PrimaryTextBold',
+    ),
+    'nameFontColor': var(--mc-baseMain),
+    'withImgWrapperBg': none,
+    'iconSize': (
+        320: ef.size(8),
+        480: ef.size(14),
+        640: ef.size(16),
+    ),
+    'imageBlockPadding': (
+        320: ef.size(4) 0 ef.size(2),
+        560: ef.size(7) 0 ef.size(2),
+    ),
+    'imageBlockHeightFp': (
+        320: ef.size(16),
+        480: ef.size(18),
+        560: ef.size(20),
+    ),
+    'infoBlockHeight': (
+        320: ef.size(7),
+        640: ef.size(9),
+    ),
+    'infoBlockHeightFp': (
+        320: ef.size(6),
+        560: ef.size(9),
+    ),
+), $customThemeLootbox);

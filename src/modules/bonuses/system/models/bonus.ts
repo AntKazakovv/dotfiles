@@ -161,8 +161,11 @@ export class Bonus extends AbstractModel<IBonus> {
         return _toNumber(this.data.Block);
     }
 
-    public get bonus(): number {
-        return _toNumber(this.data.Bonus);
+    /**
+     * @returns {number | IBonus} is bonus id or object IBonus
+     */
+    public get bonus(): number | IBonus {
+        return _isObject(this.data.Bonus) ? this.data.Bonus : _toNumber(this.data.Bonus);
     }
 
     public get bonusAwarded(): number {
@@ -507,6 +510,13 @@ export class Bonus extends AbstractModel<IBonus> {
     }
 
     /**
+     * @returns {boolean} is bonus lootbox
+     */
+    public get isLootbox(): boolean {
+        return this.bonusType === 'lootbox';
+    }
+
+    /**
      * @returns {number} bonus min deposit
      */
     public get minDeposit(): number {
@@ -601,20 +611,27 @@ export class Bonus extends AbstractModel<IBonus> {
     }
 
     /**
-     * @returns {number} bonus value
+     * @returns {number | number[]} bonus value
      */
-    public get value(): number {
+    public get value(): number | number[] {
         const resultsTarget = this.results?.[this.target];
+        
         if (!resultsTarget) {
             return 0;
         }
-        if (this.target === 'loyalty' || this.target === 'experience') {
-            return resultsTarget?.Type === 'relative'
-                ? _toNumber(resultsTarget?.Value)
-                : _toNumber(resultsTarget?.Value?.EUR);
-        } else {
-            return _toNumber(resultsTarget?.Value[this._userCurrency]) || _toNumber(resultsTarget?.Value?.Currency) ||
-                _toNumber(resultsTarget?.Value?.EUR) || _toNumber(resultsTarget?.Value);
+
+        switch (this.target) {
+            case 'loyalty' || 'experience':
+                return resultsTarget.Type === 'relative'
+                    ? _toNumber(resultsTarget.Value)
+                    : _toNumber(resultsTarget.Value?.EUR);
+            case 'lootbox':
+                return resultsTarget.Value;
+            default:
+                return _toNumber(resultsTarget.Value[this._userCurrency])
+                    || _toNumber(resultsTarget.Value?.Currency)
+                    || _toNumber(resultsTarget.Value?.EUR)
+                    || _toNumber(resultsTarget.Value);
         }
     }
 
@@ -932,6 +949,10 @@ export class Bonus extends AbstractModel<IBonus> {
 
         if (this.isSubscribed) {
             return gettext('Subscribed');
+        }
+
+        if (this.isLootbox) {
+            return gettext('Lootbox');
         }
 
         if (this.inventoried) {

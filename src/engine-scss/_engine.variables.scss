@@ -276,6 +276,7 @@ $font: map-merge((
     'ThirdTitle': 1.6rem,
     'PromoTitle': 3.6rem,
     'ScreamTitle': 4.8rem,
+    'SignTextBold': 1rem,
     'PrimaryTextBold': 1.4rem,
     'ThirdTitleBold': 1.6rem,
     'QoteTextBold': 2.4rem,
@@ -297,6 +298,7 @@ $fontWeight: map-merge((
     'ThirdTitle': normal,
     'PromoTitle': bold,
     'ScreamTitle': bold,
+    'SignTextBold': bold,
     'PrimaryTextBold': bold,
     'ThirdTitleBold': bold,
     'QoteTextBold': bold,
@@ -647,6 +649,8 @@ $buttonSettings: map-merge((
     // Transform
     'transformSkew': skew(-20deg, 0),
     'transformSkewText': skew(20deg, 0),
+    // Disabled
+    'disabledOpacity': 0.5,
 ), $customButtonSettings);
 
 $customStickyHeader: () !default;

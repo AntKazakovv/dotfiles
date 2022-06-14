@@ -8,7 +8,7 @@ export namespace wlcBonusesList {
             common: {
                 filter: 'main',
                 useQuery: true,
-                sortOrder: ['active', 'promocode', 'subscribe', 'inventory'],
+                sortOrder: ['active', 'inventory', 'promocode', 'subscribe'],
                 pagination: {
                     use: true,
                     breakpoints: {
@@ -39,7 +39,7 @@ export namespace wlcBonusesList {
             common: {
                 filter: 'main',
                 useQuery: true,
-                sortOrder: ['active', 'promocode', 'subscribe', 'inventory'],
+                sortOrder: ['active', 'inventory', 'promocode', 'subscribe'],
                 pagination: {
                     use: true,
                     breakpoints: {
@@ -128,12 +128,11 @@ export namespace wlcBonusesList {
             wlcElement: 'block_bonuses-main',
             common: {
                 useQuery: true,
-                sortOrder: ['active', 'promocode', 'subscribe', 'inventory'],
+                sortOrder: ['active', 'inventory', 'promocode', 'subscribe'],
                 swiper: {
                     nested: true,
                     slidesPerView: 2,
                     spaceBetween: 20,
-                    loop: false,
                     navigation: {
                         nextEl: '.wlc-swiper-button-next',
                         prevEl: '.wlc-swiper-button-prev',
@@ -182,7 +181,7 @@ export namespace wlcBonusesList {
             title: gettext('Bonus'),
             wlcElement: 'block_bonuses-main',
             common: {
-                sortOrder: ['active', 'promocode', 'subscribe', 'inventory'],
+                sortOrder: ['active', 'inventory', 'promocode', 'subscribe'],
                 swiper: {
                     slidesPerView: 1,
                     navigation: {
@@ -221,7 +220,7 @@ export namespace wlcBonusesList {
             title: gettext('Bonus'),
             wlcElement: 'block_bonuses-main',
             common: {
-                sortOrder: ['active', 'promocode', 'subscribe', 'inventory'],
+                sortOrder: ['active', 'inventory', 'promocode', 'subscribe'],
                 swiper: {
                     slidesPerView: 1,
                     navigation: {

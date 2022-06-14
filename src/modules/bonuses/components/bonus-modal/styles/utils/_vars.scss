@@ -32,7 +32,10 @@ $themeDefault: map-merge((
     'infoBlockGap': ef.size(6),
     'infoBlockPadding': ef.size(8) ef.size(12),
 
-    'btnMargin': 0 auto ef.size(8),
+    'btnsDisplay': flex,
+    'btnsJustifyContent': center,
+    'btnsMargin': 0 0 ef.size(8) 0,
+    'btnMarginRight': ef.size(4),
 
     'descBlockDisplay': grid,
     'descBlockGap': ef.size(4),
@@ -66,4 +69,13 @@ $themeDefault: map-merge((
         320: 120px,
         1630: 144px,
     ),
+
+    'rewardsHeaderStyle': 'ThirdTitleBold',
+    'rewardsHeaderColor': var(--mc-baseMain),
+    'rewardsTitleStyle': 'PrimaryTextBold',
+    'rewardsTitleColor': var(--mc-baseMain),
+    'rewardsContentStyle': 'PrimaryText',
+    'rewardsContentColor': var(--mc-baseMain),
+    'rewardsTitleIconWidth': 13px,
+    'rewardsTitleIconHeight': ef.size(2),
 ), $customThemeDefault);

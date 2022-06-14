@@ -66,7 +66,7 @@ export interface IBonusBase {
     AwardWageringTotal: number;
     Balance: number | string;
     Block: string;
-    Bonus: string;
+    Bonus: string | IBonus;
     BonusAwarded: string;
     BonusType: string;
     Currency: string;

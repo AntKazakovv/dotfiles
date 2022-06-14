@@ -3,21 +3,29 @@
     <ng-container [ngTemplateOutlet]="promo" *ngSwitchCase="'promo'"></ng-container>
     <ng-container [ngTemplateOutlet]="promo" *ngSwitchCase="'promo-home'"></ng-container>
     <ng-container [ngTemplateOutlet]="long" *ngSwitchCase="'long'"></ng-container>
+    <ng-container [ngTemplateOutlet]="lootbox" *ngSwitchCase="'lootbox'"></ng-container>
 </ng-container>
+
+<ng-template #lootbox>
+    <ng-container [ngTemplateOutlet]="subscribeBtn"></ng-container>
+    <ng-container [ngTemplateOutlet]="unsubscribeBtn"></ng-container>
+    <ng-container [ngTemplateOutlet]="openLootbox"></ng-container>
+</ng-template>
 
 <ng-template #default>
     <ng-container *ngIf="isAuth">
-        <ng-container [ngTemplateOutlet]="joinBtn"></ng-container>
+        <ng-container [ngTemplateOutlet]="subscribeBtn"></ng-container>
         <ng-container [ngTemplateOutlet]="inventoriedBtn"></ng-container>
         <ng-container [ngTemplateOutlet]="unsubscribeBtn"></ng-container>
         <ng-container [ngTemplateOutlet]="leaveBtn"></ng-container>
         <ng-container [ngTemplateOutlet]="chooseBonusBtn"></ng-container>
+        <ng-container [ngTemplateOutlet]="openLootbox"></ng-container>
     </ng-container>
 </ng-template>
 
 <ng-template #promo>
     <ng-container *ngIf="isAuth">
-        <ng-container [ngTemplateOutlet]="joinBtn"></ng-container>
+        <ng-container [ngTemplateOutlet]="subscribeBtn"></ng-container>
         <ng-container *ngIf="$params.useActionButtons">
             <ng-container [ngTemplateOutlet]="actionDepositBtn"></ng-container>
             <ng-container [ngTemplateOutlet]="actionPlayBtn"></ng-container>
@@ -32,7 +40,7 @@
     <ng-container *ngIf="isAuth">
         <ng-container [ngTemplateOutlet]="chooseBonusBtn"></ng-container>
         <ng-container *ngIf="!bonus.isActive">
-            <ng-container [ngTemplateOutlet]="joinBtn"></ng-container>
+            <ng-container [ngTemplateOutlet]="subscribeBtn"></ng-container>
             <ng-container [ngTemplateOutlet]="inventoriedBtn"></ng-container>
             <ng-container [ngTemplateOutlet]="unsubscribeBtn"></ng-container>
             <ng-container [ngTemplateOutlet]="leaveBtn"></ng-container>
@@ -43,7 +51,7 @@
     </ng-container>
 </ng-template>
 
-<ng-template #joinBtn>
+<ng-template #subscribeBtn>
     <button *ngIf="bonus.canSubscribe"
             wlc-button
             text="Subscribe"
@@ -54,7 +62,7 @@
 </ng-template>
 
 <ng-template #inventoriedBtn>
-    <button *ngIf="bonus.inventoried"
+    <button *ngIf="bonus.inventoried && !bonus.isLootbox"
             wlc-button
             text="Take"
             typeAttr="button"
@@ -66,6 +74,7 @@
 <ng-template #unsubscribeBtn>
     <button *ngIf="bonus.canUnsubscribe"
             wlc-button
+            themeMod="secondary"
             text="Unsubscribe"
             typeAttr="button"
             wlcElement="button_unsubscribe"
@@ -132,3 +141,14 @@
             (click)="registration()">
     </button>
 </ng-template>
+
+<ng-template #openLootbox>
+    <button *ngIf="bonus.isLootbox && bonus.canUnsubscribe"
+            wlc-button
+            text="{{'Open' | translate}}"
+            typeAttr="button"
+            wlcElement="button_open-lootbox"
+            (click)="action('openLootbox')">
+    </button>
+</ng-template>
+

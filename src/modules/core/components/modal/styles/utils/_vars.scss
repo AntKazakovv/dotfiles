@@ -432,4 +432,13 @@ $themeDefault: map-merge((
     'internalMailContentStyle': 'PrimaryText',
     'internalMailContentColor': var(--mc-baseMain),
     // internal-mails-content
+
+    // lootbox-modal
+    'lootboxModalMaxWidth': (
+        320: 100%,
+        640: 650px,
+    ),
+    'lootboxModalBodyPadding': ef.size(6) 0 0,
+    'lootboxModalBodyBg': url('/gstatic/wlc/bonuses/lootbox/lootbox-modal-bg.jpg') no-repeat center,
+    'lootboxModalBodyBgSize': cover,
 ), $customThemeDefault);

@@ -8,6 +8,7 @@
     <ng-container [ngTemplateOutlet]="active" *ngSwitchCase="'active'"></ng-container>
     <ng-container [ngTemplateOutlet]="modal" *ngSwitchCase="'modal'"></ng-container>
     <ng-container [ngTemplateOutlet]="mini" *ngSwitchCase="'mini'"></ng-container>
+    <ng-container [ngTemplateOutlet]="lootbox" *ngSwitchCase="'lootbox'"></ng-container>
     <ng-container [ngTemplateOutlet]="default" *ngSwitchDefault></ng-container>
 </ng-container>
 
@@ -85,7 +86,8 @@
                             (click)="openDescription($event)">
                     </button>
                 </div>
-                <div *ngIf="!bonus.isExpired" wlc-bonus-buttons
+                <div *ngIf="!bonus.isExpired"
+                    wlc-bonus-buttons
                     class="{{$class}}__btns"
                     [bonus]="bonus"
                     [bonusItemTheme]="$params.theme"
@@ -358,6 +360,25 @@
     </div>
 </ng-template>
 
+<ng-template #lootbox>
+    <div class="{{$class}}__content"
+         [ngStyle]="{backgroundImage: bonusBg}"
+         data-wlc-element="block_bonus">
+        <div class="{{$class}}__wrapper">
+            <div class="{{$class}}__image-block" data-wlc-element="bonus_image">
+                <ng-container *ngIf="!useIconBonusImage" [ngTemplateOutlet]="bonusImage"></ng-container>
+                <ng-container *ngIf="!asProfileTypeFirst" [ngTemplateOutlet]="bonusIcon"></ng-container>
+                <ng-container [ngTemplateOutlet]="moreIcon"></ng-container>
+            </div>
+            <div class="{{$class}}__bottom" data-wlc-element="bonus_info">
+                <div class="{{$class}}__info-block">
+                    <h4 class="{{$class}}__name" data-wlc-element="bonus_title-name">{{$params.bonus.name}}</h4>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-template>
+
 <ng-template #moreIcon>
     <div *ngIf="$params.common?.iconMoreBtn && bonus.id" class="{{$class}}__more-icon" >
         <div wlc-icon
@@ -410,7 +431,7 @@
                 </span>
             </div>
         </ng-template>
-        <span *ngIf="bonus.value"
+        <span *ngIf="bonus.value && $params.showValue"
             class="{{$class}}__icon-text"
             [wlc-value-length]="bonus.value"
             minLength="4"

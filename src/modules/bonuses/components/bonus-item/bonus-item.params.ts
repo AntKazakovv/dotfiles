@@ -16,12 +16,14 @@ export type Theme = 'active'
     | 'reg-first'
     | 'modal'
     | 'mini' // deposit mini items
+    | 'lootbox'
     | CustomType;
 export type ThemeMod = 'default'
     | 'active'
     | 'chip-v2'
     | 'with-image'
     | 'simple' // simple preview on button, use with theme `mini`.
+    | 'lootbox'
     | CustomType;
 export type AutoModifiers = Theme | ThemeMod;
 export type CustomMod = string;
@@ -33,6 +35,8 @@ export interface IBonusItemCParams extends IComponentParams<Theme, Type, ThemeMo
     dummy?: boolean;
     /** Make the bonus logic independent of the profile */
     noDependsOnProfile?: boolean;
+    /** Showing value bonus */
+    showValue?: boolean;
     common?: {
         customModifiers?: CustomMod;
         showAdditionalImage?: boolean;

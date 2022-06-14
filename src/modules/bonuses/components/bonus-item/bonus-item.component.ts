@@ -14,6 +14,8 @@ import {takeUntil} from 'rxjs/operators';
 import _union from 'lodash-es/union';
 import _merge from 'lodash-es/merge';
 import _get from 'lodash-es/get';
+import _each from 'lodash-es/each';
+import _includes from 'lodash-es/includes';
 
 import {
     AbstractComponent,
@@ -24,12 +26,14 @@ import {
     ITooltipCParams,
 } from 'wlc-engine/modules/core';
 import {UserProfile} from 'wlc-engine/modules/user';
+import {BonusesService} from 'wlc-engine/modules/bonuses/system/services/bonuses/bonuses.service';
 import {Bonus} from 'wlc-engine/modules/bonuses/system/models/bonus';
 import {
     BonusItemComponentEvents,
     ChosenBonusSetParams,
     ChosenBonusType,
 } from 'wlc-engine/modules/bonuses/system/interfaces/bonuses.interface';
+import {IBonusModalCParams} from 'wlc-engine/modules/bonuses/components/bonus-modal/bonus-modal.params';
 
 import * as Params from './bonus-item.params';
 
@@ -58,6 +62,7 @@ export class BonusItemComponent extends AbstractComponent implements OnInit, OnC
         protected configService: ConfigService,
         protected modalService: ModalService,
         protected eventService: EventService,
+        protected bonusesService: BonusesService,
     ) {
         super(
             <IMixedParams<Params.IBonusItemCParams>>{
@@ -202,10 +207,36 @@ export class BonusItemComponent extends AbstractComponent implements OnInit, OnC
     public openDescription($event: MouseEvent): void {
         $event.stopPropagation();
 
-        this.modalService.showModal('bonusModal', _merge({
+        // this.modalService.showModal('bonusModal', _merge({
+        //     bonus: this.bonus,
+        //     bonusItemTheme: this.$params.theme,
+        // }, this.$params.bonusModalParams || {}));
+    
+        const modalParams: IBonusModalCParams = _merge({
             bonus: this.bonus,
             bonusItemTheme: this.$params.theme,
-        }, this.$params.bonusModalParams || {}));
+        }, this.$params.bonusModalParams || {});
+
+        if (this.bonus.isLootbox) {
+            modalParams.bonusItemTheme = 'lootbox';
+            modalParams.accordionParams = {
+                title: gettext('Possible rewards'),
+                titleIconPath: '/wlc/icons/arrow.svg',
+                collapseAll: true,
+                items: [],
+            };
+
+            _each(this.bonusesService.bonuses, (bonus: Bonus): void => {
+                if (_includes(<number[]>this.bonus.value, bonus.id)) {
+                    modalParams.accordionParams.items.push({
+                        title: bonus.name,
+                        content: bonus.descriptionClean,
+                    });
+                }
+            });
+        }
+
+        this.modalService.showModal('bonusModal', modalParams);
     }
 
     /**

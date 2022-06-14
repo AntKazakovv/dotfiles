@@ -1,0 +1,31 @@
+<ng-container *ngIf="ready; else preloader">
+    <div *ngIf="$params.title" class="{{$class}}__header-title">{{$params.title | translate}}</div>
+    <ng-container *ngIf="items.length; else noData">
+        <div *ngFor="let item of items"
+            class="{{$class}}__item"
+            [class.expanded]="item.expand">
+            <div class="{{$class}}__title"
+                (click)="expandToggle(item)">
+                <div class="{{$class}}__title-text">{{item.title}}</div>
+                <div wlc-icon
+                     class="{{$class}}__title-icon"
+                     [iconPath]="$params.titleIconPath">
+                </div>
+            </div>
+            <div class="{{$class}}__content"
+                [@toggle]="item.expand ? 'opened' : 'closed'">
+                <div class="{{$class}}__content-wrp">
+                    {{item.content}}
+                </div>
+            </div>
+        </div>
+    </ng-container>
+</ng-container>
+
+<ng-template #preloader>
+    <div wlc-loader></div>
+</ng-template>
+
+<ng-template #noData>
+    <div class="{{$class}}__no-data">{{'No data' | translate}}</div>
+</ng-template>

@@ -65,11 +65,6 @@ export const $layoutsAff: ILayoutsConfig = {
                 components: [
                     {
                         name: 'static.wlc-faq',
-                        params: {
-                            common: {
-                                title: 'FAQ',
-                            },
-                        },
                     },
                 ],
             },

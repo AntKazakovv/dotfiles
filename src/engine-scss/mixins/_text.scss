@@ -26,6 +26,8 @@
         @include PromoTitle;
     } @else if ($style == 'ScreamTitle') {
         @include ScreamTitle;
+    } @else if ($style == 'SignTextBold') {
+        @include SignTextBold;
     } @else if ($style == 'PrimaryTextBold') {
         @include PrimaryTextBold;
     } @else if ($style == 'ThirdTitleBold') {
@@ -86,6 +88,12 @@
 }
 
 // Bold weight styles
+
+@mixin SignTextBold {
+    font-weight: ef.get('fontWeight', 'SignTextBold');
+    font-size: ef.get('font', 'SignTextBold');
+    line-height: 1.45;
+}
 
 @mixin PrimaryTextBold {
     font-weight: ef.get('fontWeight', 'PrimaryTextBold');

@@ -1,0 +1,78 @@
+.wlc-bonus-item--theme-lootbox {
+    @include viewsBackgrounds;
+    background: ef.get-value($themeLootbox, 'backgroundDefault');
+
+    .wlc-bonus-item {
+
+        &__image-block {
+            @include bm.get-mq-map('padding', $themeLootbox, 'imageBlockPadding');
+            display: grid;
+            justify-content: center;
+
+            .wlc-bonus-item__icon {
+                @include bm.get-mq-map('width', $themeLootbox, 'iconSize');
+                @include bm.get-mq-map('height', $themeLootbox, 'iconSize');
+            }
+        }
+
+        &__image {
+            @include imageCommonStyles;
+            padding-bottom: ef.get-value($themeLootbox, 'relativeImageHeight');
+        }
+
+        &__bottom {
+            @include bm.get-mq-map('padding', $themeLootbox, 'bottomPadding');
+        }
+
+        &__info-block {
+            @include infoBlockCommonStyles;
+            @include bm.get-mq-map('height', $themeLootbox, 'infoBlockHeight');
+        }
+
+        &__name {
+            @include bm.lineClamp(2);
+            @include text.get-text-style(
+                ef.get-value($themeLootbox, 'nameTextStyle', 320),
+                ef.get-value($themeLootbox, 'nameFontColor'),
+            );
+            max-width: 100%;
+
+            @include mq.min(560) {
+                @include text.get-text-style(ef.get-value($themeLootbox, 'nameTextStyle', 560), null);
+            }
+        }
+    }
+
+    &.wlc-bonus-item--theme-mod-first {
+
+        .wlc-bonus-item {
+
+            &__content {
+                background-image: none !important;
+            }
+
+            &__wrapper {
+                display: block;
+                background: ef.get-value($themeLootbox, 'withImgWrapperBg');
+            }
+
+            &__image-block {
+                @include bm.get-mq-map('height', $themeLootbox, 'imageBlockHeightFp');
+            }
+
+            &__image {
+                position: absolute;
+                height: 100%;
+                padding-bottom: 0;
+            }
+
+            &__info-block {
+                @include bm.get-mq-map('height', $themeLootbox, 'infoBlockHeightFp');
+            }
+
+            &__bottom {
+                @include bm.get-mq-map('padding', $themeLootbox, 'bottomPaddingFp');
+            }
+        }
+    }
+}

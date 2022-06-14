@@ -290,6 +290,15 @@ export const MODALS_LIST: IModalList = {
             size: 'md',
         },
     },
+    lootbox: {
+        config: {
+            id: 'lootbox',
+            componentName: 'bonuses.wlc-lootbox-modal',
+            showFooter: false,
+            size: 'md',
+            dismissAll: true,
+        },
+    },
 };
 
 export const RESTRICT_MODAL: IIndexing<IRestrictModalOption> = {

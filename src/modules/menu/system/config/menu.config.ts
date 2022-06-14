@@ -143,6 +143,7 @@ export const menuConfig: IMenuConfig = {
                 items: [
                     'profile-first-menu:bonuses-as-offers',
                     'profile-first-menu:bonuses-active',
+                    'profile-first-menu:bonuses-inventory',
                     'profile-first-menu:bonuses-history',
                 ],
             },

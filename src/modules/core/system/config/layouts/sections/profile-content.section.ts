@@ -468,7 +468,20 @@ export namespace profileContent {
             {
                 name: 'core.wlc-wrapper',
                 params: {
-                    class: 'wlc-profile-content header-inside',
+                    class: 'wlc-profile-content__header',
+                    components: [
+                        componentLib.wlcTitle.inventory,
+                    ],
+                },
+                display: {
+                    before: 1199,
+                },
+            },
+            componentLib.wlcProfileMenu.subMenuV1,
+            {
+                name: 'core.wlc-wrapper',
+                params: {
+                    class: 'wlc-profile-content',
                     components: [
                         {
                             name: 'core.wlc-wrapper',
@@ -477,6 +490,9 @@ export namespace profileContent {
                                 components: [
                                     componentLib.wlcTitle.inventory,
                                 ],
+                            },
+                            display: {
+                                after: 1200,
                             },
                         },
                         {

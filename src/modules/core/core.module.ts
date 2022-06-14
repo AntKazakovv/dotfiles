@@ -42,6 +42,7 @@ import {RecaptchaService} from './system/services/recaptcha/recaptcha.service';
 
 // -- COMPONENTS IMPORTS  --;
 import {AnimateSpriteComponent} from './components/animate-sprite/animate-sprite.component';
+import {AccordionComponent} from 'wlc-engine/modules/core/components/accordion/accordion.component';
 import {AmountLimitComponent} from './components/amount-limit/amount-limit.component';
 import {BirthdayFieldComponent} from './components/birthday-field/birthday-field.component';
 import {BurgerPanelComponent} from './components/burger-panel/burger-panel.component';
@@ -137,6 +138,7 @@ export const moduleConfig =
 export const components = {
     'wlc-alert': AlertComponent,
     'wlc-animate-sprite': AnimateSpriteComponent,
+    'wlc-accordion': AccordionComponent,
     'wlc-amount-limit': AmountLimitComponent,
     'wlc-birth-field': BirthdayFieldComponent,
     'wlc-button': ButtonComponent,
@@ -237,6 +239,7 @@ export const components = {
     declarations: [
         AlertComponent,
         AnimateSpriteComponent,
+        AccordionComponent,
         AmountLimitComponent,
         AuthDirective,
         BirthdayFieldComponent,
@@ -308,6 +311,7 @@ export const components = {
     exports: [
         AlertComponent,
         AnimateSpriteComponent,
+        AccordionComponent,
         AmountLimitComponent,
         AuthDirective,
         BirthdayFieldComponent,
