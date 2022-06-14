@@ -1,8 +1,15 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import {
+    ComponentFixture,
+    TestBed,
+} from '@angular/core/testing';
+
 import {AppModule} from 'wlc-engine/modules/app/app.module';
 import {IconPaymentsListComponent} from './icon-payments-list.component';
-import {defaultParams, IIconPaymentsListCParams} from './icon-payments-list.params';
-import {ConfigService, IPaysystem} from 'wlc-engine/modules/core';
+import {IIconPaymentsListCParams} from './icon-payments-list.params';
+import {
+    ConfigService,
+    IPaysystem,
+} from 'wlc-engine/modules/core';
 
 describe('IconPaymentsListComponent', () => {
     let component: IconPaymentsListComponent;
@@ -12,45 +19,18 @@ describe('IconPaymentsListComponent', () => {
 
     const payments: IPaysystem[] = [
         {
-            'Name': 'AccentPay 2 Cards',
-            'Init': 'AccentPay2',
-            'Alias': {
-                'en':'',
-                'ru':'',
-                'fr':'',
-                'de':'',
-                'ar':'',
-                'it':'',
-                'ja':'',
-            },
+            Name: 'AccentPay 2 Cards',
+            Init: 'AccentPay2',
         },
         {
-            'Name': 'Inpay Withdraw',
-            'Init': 'Inpay',
-            'Alias': {
-                'en':'',
-                'ru':'',
-                'fr':'',
-                'de':'',
-                'ar':'',
-                'it':'',
-                'ja':'',
-            },
+            Name: 'Inpay Withdraw',
+            Init: 'Inpay',
         },
         {
-            'Name': 'PayCryptos Bitcoin',
-            'Init': 'Cryptspay',
-            'Alias': {
-                'en':'',
-                'ru':'',
-                'fr':'',
-                'de':'',
-                'ar':'',
-                'it':'',
-                'ja':'',
-            },
+            Name: 'PayCryptos Bitcoin',
+            Init: 'Cryptspay',
         },
-    ];
+    ].map((v) => createPaymentMock(v));
 
     const injectParams: IIconPaymentsListCParams = {
         wlcElement: 'wlc-icon-payments-list',
@@ -65,12 +45,12 @@ describe('IconPaymentsListComponent', () => {
         },
     };
 
-    beforeEach(() => {
+    beforeEach(async () => {
         ConfigServiceSpy = jasmine.createSpyObj('ConfigService', ['load', 'get', 'set'], {
             'ready': Promise.resolve(),
         });
         ConfigServiceSpy.get.and.returnValues();
-        ConfigServiceSpy.get.withArgs('appConfig.siteconfig.payment_systems').and.returnValues({payments});
+        ConfigServiceSpy.get.withArgs('appConfig.siteconfig.payment_systems').and.returnValues([...payments]);
 
         TestBed.configureTestingModule({
             imports: [AppModule],
@@ -90,30 +70,89 @@ describe('IconPaymentsListComponent', () => {
                     },
                 ],
             },
-        }).compileComponents();
+        }).compileComponents().then(() => {
+            fixture = TestBed.createComponent(IconPaymentsListComponent);
+            component = fixture.componentInstance;
+            nativeElement = fixture.nativeElement;
 
-        fixture = TestBed.createComponent(IconPaymentsListComponent);
-        component = fixture.componentInstance;
-        nativeElement = fixture.nativeElement;
+            fixture.detectChanges();
+        });
+    });
 
+    const uniquePaySystems = ['NonExisting', 'Unique'];
+
+    it('-> empty `include` list should not depend to payments systems list length', () => {
+        component.$params.include = [];
         fixture.detectChanges();
+
+        fixture.whenStable().then(() => {
+            expect(component.items.length).toBe(payments.length);
+        });
     });
 
-    it('-> should be created', () => {
-        expect(component).toBeTruthy();
+    it('-> length should be increased by unique systems', () => {
+        component.$params.include = [...uniquePaySystems];
+        fixture.detectChanges();
+
+        fixture.whenStable().then(() => {
+            const expectedLength = payments.length + uniquePaySystems.length;
+            expect(component.items.length).toBe(expectedLength);
+        });
     });
 
-    it('-> checking for the presence of an attribute', () => {
-        expect(nativeElement.getAttribute('data-wlc-element')).toEqual(injectParams.wlcElement);
+    it('-> should not constraint if there are no exclusions', () => {
+        component.$params.exclude = [];
+        fixture.detectChanges();
+
+        fixture.whenStable().then(() => {
+            expect(component.items.length).toBe(payments.length);
+        });
     });
 
-    it('-> checking for the presence of an class', () => {
-        const classes = nativeElement.classList;
+    it('-> should keep the icons list empty if `exclude` equals "all"', () => {
+        component.$params.exclude = ['all'];
+        fixture.detectChanges();
 
-        expect(classes.contains(`${defaultParams.class}--theme-${injectParams.theme}`)).toBeTrue();
-        expect(classes.contains(`${defaultParams.class}--theme-mod-${injectParams.themeMod}`)).toBeTrue();
-        expect(classes.contains(`${defaultParams.class}--type-default`)).toBeTrue();
+        fixture.whenStable().then(() => {
+            expect(component.items.length).toBe(0);
+        });
     });
 
-    // TODO ticket #262281
+    it('-> length should be less according to the exclusions', () => {
+        component.$params.exclude = [payments[0].Name.toLocaleLowerCase()];
+        fixture.detectChanges();
+
+        fixture.whenStable().then(() => {
+            const lengthAfterExclusion = payments.length - component.$params.exclude.length;
+            expect(component.items.length).toBe(lengthAfterExclusion);
+        });
+    });
+
+    it('-> if there are no items nothing will be shown', () => {
+        component.items = [];
+        expect(nativeElement.nodeValue).toBe(null);
+    });
+
+    it('-> `[wlc-icon-list]` component should be mounted', () => {
+        const iconListEl = nativeElement.querySelector('wlc-icon-list');
+        expect(iconListEl).toBeDefined();
+    });
 });
+
+type PayMockFrom = Pick<IPaysystem, 'Name' | 'Init'>;
+
+function createPaymentMock({Name, Init}: PayMockFrom): IPaysystem {
+    return {
+        Name,
+        Init,
+        Alias: {
+            en:'',
+            ru:'',
+            fr:'',
+            de:'',
+            ar:'',
+            it:'',
+            ja:'',
+        },
+    };
+}

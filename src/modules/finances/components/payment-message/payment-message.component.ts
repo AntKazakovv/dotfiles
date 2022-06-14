@@ -43,12 +43,16 @@ export class PaymentMessageComponent extends AbstractComponent implements OnInit
 
     public $params: Params.IPaymentMessageCParams;
     public isError: boolean = false;
-    public type: 'pay_to_address' | 'pay_to_bank' | 'html';
+    public type: string;
 
     public inputParams: IInputCParams;
     public inputParamsXaddress: IInputCParams;
+    public inputParamsTag: IInputCParams;
+    public inputParamsMemo: IInputCParams;
     public imageLoaded: boolean = false;
     public html: string;
+    public parseAmount: string;
+    public parseRate: string;
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IPaymentMessageCParams,
@@ -87,14 +91,8 @@ export class PaymentMessageComponent extends AbstractComponent implements OnInit
                 this.type = 'html';
                 this.loadHtml();
             } else {
-                this.type = this.system.message['translate'];
+                this.prepareMessage();
             }
-        }
-
-        this.inputParams = this.getInputParams();
-
-        if (this.message.x_address) {
-            this.inputParamsXaddress = this.getInputParams(true);
         }
     }
 
@@ -108,18 +106,68 @@ export class PaymentMessageComponent extends AbstractComponent implements OnInit
         }
     }
 
-    protected getInputParams(isXaddress?: boolean): IInputCParams {
-        return {
+    protected prepareMessage(): void {
+
+        if (this.message.translate === 'pay_to_bank') {
+            this.type = 'pay_to_bank';
+            return;
+        }
+
+        this.inputParams = this.getInputParams();
+
+        if (this.message.tag) {
+            this.inputParamsTag = this.getInputParams('tag');
+        }
+
+        if (this.message.memo) {
+            this.inputParamsMemo = this.getInputParams('memo');
+        }
+
+        if (this.message.x_address) {
+            this.type = 'pay_to_xaddress';
+            this.inputParamsXaddress = this.getInputParams('xadress');
+        } else if (this.message.amount) {
+            this.type = 'pay_to_address_with_amount';
+
+            const parsItems: string[] =  this.message.amount.split('~');
+            this.parseAmount = parsItems[0].trim();
+            this.parseRate = parsItems[1].trim();
+        }
+    }
+
+    protected getInputParams(type?: string): IInputCParams {
+        const inputParams: IInputCParams = {
             name: 'address',
             theme: 'vertical',
             common: {
                 readonly: true,
-                placeholder: isXaddress ? gettext('X-addresses') : gettext('Wallet casino'),
+                placeholder: '',
                 customModifiers: 'right-shift',
             },
             clipboard: true,
-            control: isXaddress ? new FormControl(this.message.x_address) : new FormControl(this.message.address),
+            control: null,
         };
+
+        switch(type) {
+            case 'tag':
+                inputParams.common.placeholder = gettext('Tag');
+                inputParams.control = new FormControl(this.message.tag);
+                break;
+            case 'memo':
+                inputParams.common.placeholder = gettext('Memo');
+                inputParams.control = new FormControl(this.message.memo);
+                break;
+            case 'xadress':
+                inputParams.common.placeholder = gettext('X-addresses');
+                inputParams.control = new FormControl(this.message.x_address);
+                break;
+            default :
+                inputParams.common.placeholder = gettext('Wallet casino');
+                inputParams.control = new FormControl(this.message.address);
+                break;
+        }
+
+        return inputParams;
     }
 
     protected async loadHtml(): Promise<void> {

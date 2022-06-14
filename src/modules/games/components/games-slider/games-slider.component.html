@@ -1,0 +1,63 @@
+<ng-container *ngIf="ready; else preloader">
+    <ng-container *ngIf="gamesList.length; else error">
+        <ng-container *ngIf="isMobile && !$params.isModal; else default" [ngTemplateOutlet]="mobile"></ng-container>
+    </ng-container>
+</ng-container>
+
+<ng-template #default>
+        <div class="{{$class}}__heading">
+            <p class="{{$class}}__title">{{$params.title | translate}}</p>
+            <p class="{{$class}}__subtitle">{{$params.subtitle | translate}}</p>
+        </div>
+
+        <div class="{{$class}}__wrapper">
+            <div wlc-slider
+                class="{{$class}}__slider"
+                [slides]="slides"
+                [inlineParams]="$params.sliderParams"
+                [ngClass]="isActive ? $class + '__slider--active' : ''">
+            </div>
+        </div>
+
+        <button wlc-button
+            [disabled]="isActive"
+            text="{{$params.buttonText | translate}}"
+            (click)="startScrollingSwiper()">
+        </button>
+</ng-template>
+
+<ng-template #mobile>
+    <div class="{{$class}}__mobile" (click)="showModal()">
+        <div class="{{$class}}__heading">
+            <p class="{{$class}}__title">{{$params.titleMobile | translate}}</p>
+            <p class="{{$class}}__subtitle">{{$params.subtitle | translate}}</p>
+        </div>
+
+        <div class="{{$class}}__preview-block">
+            <div *ngFor="let game of mockGamesList; index as i"
+                class="{{$class}}__preview-img"
+                style="--i: {{setIndex(i, false)}}; --absIndex: {{setIndex(i, true)}}">
+                <picture class="{{$class}}__img" data-wlc-element="block_game-thumb-img">
+                    <source [srcset]="game.getImage(196, 'webp')" type="image/webp">
+                    <img [wlc-fallback]="game.getImage(196)"
+                        [src]="game.getImage(640)"
+                        loading="lazy">
+                </picture>
+            </div>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #preloader>
+    <div class="{{$class}}__loader">
+        <div wlc-loader></div>
+    </div>
+</ng-template>
+
+<ng-template #error>
+    <div class="{{$class}}__heading">
+        <p class="{{$class}}__title">{{$params.title | translate}}</p>
+        <p class="{{$class}}__subtitle">{{$params.subtitle | translate}}</p>
+    </div>
+    <span class="{{$class}}__error">{{'No games available' | translate}}</span>
+</ng-template>

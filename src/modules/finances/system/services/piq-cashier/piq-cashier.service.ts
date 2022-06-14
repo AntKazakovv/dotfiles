@@ -45,16 +45,6 @@ interface IFrameMessage {
     message: string;
     error?: string;
 }
-
-// TODO Delete after updating paymentiq-cashier-bootstrapper package #241360
-interface IIPiqCashierConfig extends IPiqCashierConfig {
-    attributes: {
-        hostUri?: string,
-        didToken?: string,
-        [key: string]: string | number | boolean;
-    };
-}
-
 @Injectable({
     providedIn: 'root',
 })
@@ -77,6 +67,7 @@ export class PIQCashierService {
      * @param {TPIQCashierMethod} method - payment method type
      * @param {PaymentSystem} currentSystem Current payment system
      * @param {number} amount deposit/withdraw amount
+     * @param {string} cssVariables style
      *
      * @returns {Promise<void>} Promise<void>
      */
@@ -84,6 +75,7 @@ export class PIQCashierService {
         method: TPaymentsMethods,
         currentSystem: PaymentSystem,
         amount: number,
+        cssVariables: string,
     ): Promise<void> {
         return new Promise((resolve: () => void): void => {
             this.method = PIQCashierConvertedMethod[method];
@@ -92,7 +84,7 @@ export class PIQCashierService {
                 modalTitle: method === 'deposit' ? gettext('Deposit') : gettext('Withdraw'),
                 component: PIQCashierComponent,
                 onModalShown: () => {
-                    this.loadPIQCashier(currentSystem, amount);
+                    this.loadPIQCashier(currentSystem, amount, cssVariables);
                 },
                 onModalHidden: () => resolve(),
                 size: 'lg',
@@ -111,10 +103,12 @@ export class PIQCashierService {
      * @param currentSystem - Current payment system
      * @param amount - value for deposit/withdraw
      * @param method - payment method type
+     * @param cssVariables - payment method type
      */
     public async loadPIQCashier(
         currentSystem: PaymentSystem,
         amount: number,
+        cssVariables: string,
         method?: TPaymentsMethods): Promise<void> {
         await import('paymentiq-cashier-bootstrapper');
 
@@ -157,7 +151,7 @@ export class PIQCashierService {
                 };
             });
 
-        const cashierConfig: IIPiqCashierConfig = {
+        const cashierConfig: IPiqCashierConfig = {
             environment: this.configService.get<string>('appConfig.env') === 'prod' ? 'production' : 'test',
             method: this.method,
             merchantId: currentSystem.customParams?.merchant_id,
@@ -200,11 +194,7 @@ export class PIQCashierService {
                             );
                         },
                     });
-                    api.css(`
-                    .container {
-                        width: 100%;
-                    }
-                    `);
+                    api.css(cssVariables);
                 });
         } catch (error) {
             if (this.modalService.getActiveModal('piq-cashier')) {

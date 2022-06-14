@@ -1,8 +1,15 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import {
+    ComponentFixture,
+    TestBed,
+} from '@angular/core/testing';
+
 import {AppModule} from 'wlc-engine/modules/app/app.module';
 import {IconMerchantsListComponent} from './icon-merchants-list.component';
-import {defaultParams, IIconMerchantsListCParams} from './icon-merchants-list.params';
-import {ConfigService, InjectionService} from 'wlc-engine/modules/core';
+import {IIconMerchantsListCParams} from './icon-merchants-list.params';
+import {
+    ConfigService,
+    InjectionService,
+} from 'wlc-engine/modules/core';
 import {GamesCatalogService} from 'wlc-engine/modules/games/system/services';
 import {MerchantModel} from 'wlc-engine/modules/games';
 
@@ -12,7 +19,7 @@ describe('IconMerchantsListComponent', () => {
     let ConfigServiceSpy: jasmine.SpyObj<ConfigService>;
     let InjectionServiceSpy: jasmine.SpyObj<InjectionService>;
     let GamesCatalogServiceSpy: jasmine.SpyObj<GamesCatalogService>;
-    let nativeElement: HTMLElement;
+    let availableMerchants: MerchantModel[];
 
     const injectParams: IIconMerchantsListCParams = {
         wlcElement: 'wlc-icon-merchants-list',
@@ -43,19 +50,57 @@ describe('IconMerchantsListComponent', () => {
             'Image': '/gstatic/merchants/pariplay.jpg',
             'menuId': 'pariplay',
         }),
+        new MerchantModel({}, {
+            'ID': '979',
+            'Name': 'Amatic',
+            'IDParent': null,
+            'Alias': 'Amatic',
+            'Image': '/gstatic/merchants/amatic.jpg',
+            'menuId': 'amatic',
+        }),
+        new MerchantModel({}, {
+            'ID': '980',
+            'Name': 'Ezugi',
+            'IDParent': null,
+            'Alias': 'Ezugi',
+            'Image': '/gstatic/merchants/ezugi.jpg',
+            'menuId': 'ezugi',
+        }),
+        new MerchantModel({}, {
+            'ID': '981',
+            'Name': 'BetSoft',
+            'IDParent': null,
+            'Alias': 'BetSoft',
+            'Image': '/gstatic/merchants/betsoft.jpg',
+            'menuId': 'betsoft',
+        }),
     ];
 
-    beforeEach(() => {
+    beforeEach(async () => {
         ConfigServiceSpy = jasmine.createSpyObj('ConfigService', ['load', 'get', 'set'], {
             'ready': Promise.resolve(),
         });
+
         GamesCatalogServiceSpy = jasmine.createSpyObj('GamesCatalogService', [], {
             'ready': Promise.resolve(),
             'getAvailableMerchants': () => merchantsConfig,
+            'getMerchantByName': (name: string): MerchantModel => new MerchantModel({}, {
+                'ID': `id-${name}`,
+                'Name': name,
+                'IDParent': null,
+                'Alias': name,
+                'Image': `/gstatic/merchants/${name.toLocaleLowerCase()}.jpg`,
+                'menuId': name.toLocaleLowerCase(),
+            }),
         });
+
         InjectionServiceSpy = jasmine.createSpyObj(
             'InjectionService',
-            ['getComponent', 'loadComponent', 'importModules'],
+            [
+                'getComponent',
+                'loadComponent',
+                'importModules',
+            ],
             {
                 'getService': async () => GamesCatalogServiceSpy,
             },
@@ -83,30 +128,104 @@ describe('IconMerchantsListComponent', () => {
                     },
                 ],
             },
-        }).compileComponents();
+        }).compileComponents().then(() => {
+            fixture = TestBed.createComponent(IconMerchantsListComponent);
+            component = fixture.componentInstance;
+            availableMerchants = GamesCatalogServiceSpy.getAvailableMerchants();
 
-        fixture = TestBed.createComponent(IconMerchantsListComponent);
-        component = fixture.componentInstance;
-        nativeElement = fixture.nativeElement;
+            component.ngOnInit();
+
+            fixture.detectChanges();
+        });
+    });
+
+    it('-> empty `include` list should not depend to merchants list length', () => {
+        component.$params.include = [];
+        fixture.detectChanges();
+
+        fixture.whenStable().then(() => {
+            expect(component.items.length).toBe(availableMerchants.length);
+        });
+    });
+
+    it('-> length should be increased by unique merchants', () => {
+        const existingIcons = ['tomhorn', 'pariplay'];
+        const uniqueIcons = ['NonExisting', 'Unique'];
+
+        component.$params.include = [...existingIcons, ...uniqueIcons];
+        fixture.detectChanges();
+
+        fixture.whenStable().then(() => {
+            const totalIconsCount = availableMerchants.length + uniqueIcons.length;
+            expect(component.items.length).toBe(totalIconsCount);
+        });
+    });
+
+    it('-> should not constraint if there are no exclusions', () => {
+        component.$params.exclude = [];
+        fixture.detectChanges();
+
+        fixture.whenStable().then(() => {
+            expect(component.items.length).toBe(availableMerchants.length);
+        });
+    });
+
+    it('-> should keep the icons list empty if `exclude` equals "all"', () => {
+        component.$params.exclude = ['all'];
+        fixture.detectChanges();
+
+        fixture.whenStable().then(() => {
+            expect(component.items.length).toBe(0);
+        });
+    });
+
+    it('-> showing icons as svg', () => {
+        component.$params.iconsType = 'black';
 
         fixture.detectChanges();
+
+        fixture.whenStable().then(() => {
+            const isShowAsSvg = component.items.every((comp) => comp.showAs === 'svg');
+            expect(isShowAsSvg).toBe(true);
+        });
     });
 
-    it('-> should be created', () => {
-        expect(component).toBeTruthy();
+    it('-> showing icons as image', () => {
+        component.$params.iconsType = 'color';
+
+        fixture.detectChanges();
+
+        fixture.whenStable().then(() => {
+            const isShowAsImage = component.items.every((comp) => comp.showAs === 'img');
+            expect(isShowAsImage).toBe(true);
+        });
     });
 
-    it('-> checking for the presence of an attribute', () => {
-        expect(nativeElement.getAttribute('data-wlc-element')).toEqual(injectParams.wlcElement);
+    it('-> setting `alt` property from merchant ', () => {
+        component['merchants'] = [...merchantsConfig];
+
+        fixture.detectChanges();
+
+        fixture.whenStable().then(() => {
+            const isAltFromMerchant = component.items.every((comp, idx) => {
+                return comp.alt === component['merchants'][idx].alias;
+            });
+
+            expect(isAltFromMerchant).toEqual(true);
+        });
     });
 
-    it('-> checking for the presence of an class', () => {
-        const classes = nativeElement.classList;
+    it('-> setting `wlcElement` property from merchant ', () => {
+        component['merchants'] = [...merchantsConfig];
 
-        expect(classes.contains(`${defaultParams.class}--theme-${injectParams.theme}`)).toBeTrue();
-        expect(classes.contains(`${defaultParams.class}--theme-mod-${injectParams.themeMod}`)).toBeTrue();
-        expect(classes.contains(`${defaultParams.class}--type-default`)).toBeTrue();
+        fixture.detectChanges();
+
+        fixture.whenStable().then(() => {
+            const isWlcElementFromMerchant = component.items.every((comp, idx) => {
+                return comp.wlcElement === component['merchants'][idx].wlcElement;
+            });
+
+            expect(isWlcElementFromMerchant).toEqual(true);
+        });
     });
-
-    // TODO ticket #262281
 });

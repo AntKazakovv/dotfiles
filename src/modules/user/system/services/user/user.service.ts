@@ -527,13 +527,6 @@ export class UserService {
             textAlign: 'center',
             dismissAll: true,
         });
-        this.eventService.emit({
-            name: ProcessEvents.failTrigger,
-            data: <IProcessEventData>{
-                eventId: 'signup',
-                description: ProcessEventsDescriptions.failTrigger + '401 (/profiles GET)',
-            },
-        });
     }
 
     private async fetchUserInfo(): Promise<void> {

@@ -53,3 +53,34 @@ $themeDefault: map-merge((
 @function get($key) {
     @return map-get($themeDefault, $key);
 }
+
+$customThemeWithGames: () !default;
+$themeWithGames: map-merge((
+    'imageBorderRadius': ef.get('radius', 'big'),
+    'imagePadding':ef.size(2),
+    'btnMargin': ef.size(3) 0 0 0,
+    'righWrapperIndent': (
+        375: 0,
+        900: 250px,
+        1200: 150px,
+    ),
+    'widthWrapper': (
+        375: 100%,
+        900: 620px,
+    ),
+    'paddingInner': (
+        375: 0 0 0 ef.size(5),
+        480: unset,
+    ),
+    'directionInner': (
+        375: column,
+        480: unset,
+    ),
+    'widthImageContainer': (
+        375: 180px,
+    ),
+    'padding': (
+        375: ef.size(2) ef.size(4) ef.size(2) ef.size(2),
+        900:  ef.size(2),
+    ),
+), $customThemeWithGames);

@@ -97,6 +97,11 @@ export class SportsbookService {
             merchantId: 903,
             launchCode: 'sports',
         },
+        {
+            id: 'nova',
+            merchantId: 893,
+            launchCode: 'sportsbook',
+        },
     ];
 
     constructor(

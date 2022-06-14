@@ -1,0 +1,57 @@
+@use 'engine-scss/functions' as ef;
+
+$baseClass: 'wlc-forbidden-country';
+
+.#{$baseClass}--theme-default {
+
+    &:host {
+
+        .#{$baseClass} {
+            font-size: ef.get-value($themeDefault, 'fontSize');
+
+            &__header {
+                display: ef.get-value($themeDefault, 'headerDisplay');
+                align-items: ef.get-value($themeDefault, 'headerAlignItems');
+                justify-content: ef.get-value($themeDefault, 'headerJustifyContent');
+
+                margin-bottom: ef.get-value($themeDefault, 'headerMarginBottom');
+            }
+
+            &__main {
+
+                .#{$baseClass} {
+
+                    &__title {
+                        margin-bottom: ef.get-value($themeDefault, 'mainTitleMarginBottom');
+                        font-weight: ef.get-value($themeDefault, 'mainTitleFontWeight');
+                        text-align: ef.get-value($themeDefault, 'mainTitleTextAlign');
+                    }
+
+                    &__info {
+                        text-align: ef.get-value($themeDefault, 'mainInfoTextAlign');
+                    }
+                }
+            }
+
+            &__socials {
+                display: ef.get-value($themeDefault, 'socialsDisplay');
+                justify-content: ef.get-value($themeDefault, 'socialsJustifyContent');
+
+                margin-top: ef.get-value($themeDefault, 'socialsMarginTop');
+                pointer-events: all;
+
+                ::ng-deep {
+
+                    .wlc-social-icons {
+                        max-width: ef.get-value($themeDefault, 'iconsMaxWidth');
+
+                        &__list {
+                            display: ef.get-value($themeDefault, 'iconsListDisplay');
+                            grid-template-columns: ef.get-value($themeDefault, 'iconsListTemplateColumns');
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

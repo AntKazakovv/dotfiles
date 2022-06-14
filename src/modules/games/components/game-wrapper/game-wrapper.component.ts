@@ -79,6 +79,8 @@ import {
     IGameWrapperCParams,
 } from './game-wrapper.params';
 import {WINDOW} from 'wlc-engine/modules/app/system';
+import {IMerchantWalletPreviewCParams}
+    from 'wlc-engine/modules/games/components/merchant-wallet/merchant-wallet-preview/merchant-wallet-preview.params';
 
 interface IError {
     msg?: string;
@@ -151,6 +153,14 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
     public isMobile: boolean = false;
     public enableGameHeader: boolean;
     public isMerchantWallet: boolean;
+    public headerMerchantWalletPreview: IMerchantWalletPreviewCParams = {
+        theme: 'fullscreen-game-frame',
+        common: {
+            buttons: {
+                type: 'resizable',
+            },
+        },
+    };
 
     protected realMobile: boolean = false;
     protected aspectRatio: string;
@@ -934,6 +944,7 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
             name: 'LOGIN',
         }, () => {
             this.isAuth = true;
+            this.checkAndInitMerchantWallet();
             this.cdr.markForCheck();
         }, this.$destroy);
 
@@ -968,7 +979,7 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
     }
 
     protected async checkAndInitMerchantWallet(): Promise<void> {
-        if (_includes(
+        if (this.isAuth && _includes(
             this.configService.get<number[]>('$games.merchantWallet.availableMerchants'),
             this.gameParams.merchantId,
         )) {
@@ -976,6 +987,8 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
             this.merchantWalletService = await this.injectionService
                 .getService<MerchantWalletService>('games.merchant-wallet-service');
             this.merchantWalletService.startMerchantWalletGame(this.game);
+        } else {
+            this.isMerchantWallet = false;
         }
     }
 }

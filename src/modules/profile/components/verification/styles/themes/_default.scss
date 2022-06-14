@@ -82,6 +82,7 @@
 
                     &.selected {
                         margin-bottom: ef.get-value($themeDefault, 'btnSelectedOffset');
+                        white-space: nowrap;
 
                         @include mq.min(1024) {
                             display: grid;

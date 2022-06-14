@@ -1,0 +1,76 @@
+@mixin previewBase($theme) {
+    @include text.get-text-style(ef.get-value($theme, 'textStyle'), ef.get-value($theme, 'textColor'));
+    display: ef.get-value($theme, 'display');
+    text-align: ef.get-value($theme, 'textAlign');
+
+    .wlc-merchant-wallet-preview {
+
+        &__text {
+            margin: ef.get-value($theme, 'infoMargin');
+        }
+
+        &__balance {
+            @include text.get-text-style(ef.get-value($theme, 'balanceTextStyle'), ef.get-value($theme, 'balanceTextColor'));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: ef.get-value($theme, 'balanceMargin');
+        }
+
+        &__amount {
+            margin: ef.get-value($theme, 'amountMargin');
+        }
+
+        &__update {
+            position: relative;
+            width: ef.get-value($theme, 'updateBtnWidth');
+            height: ef.get-value($theme, 'updateBtnHeight');
+            color: ef.get-value($theme, 'updateBtnColor');
+            border-radius: ef.get-value($theme, 'updateBtnRadius');
+            background: ef.get-value($theme, 'updateBtnBg');
+
+            ::ng-deep {
+
+                .wlc-icon-content {
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    width: 100%;
+                    height: 100%;
+                }
+            }
+
+            &.pending {
+                animation: ef.get-value($theme, 'updateBtnAnimation');
+            }
+
+            @include bm.hover {
+                color: ef.get-value($theme, 'updateBtnColorHover');
+                background: ef.get-value($theme, 'updateBtnBgHover');
+            }
+        }
+
+        &__buttons [wlc-wrapper] {
+            display: ef.get-value($theme, 'buttonsDisplay');
+            grid-template-columns: ef.get-value($theme, 'buttonsColumns');
+            gap: ef.get-value($theme, 'buttonsGap');
+            justify-content: ef.get-value($theme, 'buttonsJustifyContent');
+
+            ::ng-deep {
+
+                .wlc-btn--mini {
+
+                    ::ng-deep {
+
+                        svg {
+                            fill: ef.get-value($theme, 'miniButtonsColor');
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

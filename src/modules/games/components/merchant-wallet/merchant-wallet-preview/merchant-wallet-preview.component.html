@@ -14,12 +14,11 @@
             [ngClass]="{'pending': isPending}"
             wlc-button
             iconPath="/wlc/icons/loader.svg"
-            [theme]="'custom'"
+            theme="custom"
             title="{{'Update' | translate}}"
             (click)="handleUpdate()"
         ></button>
     </div>
-
 
     <ng-container *ngIf="isError, else buttons">
         <p class="{{$class}}__error">{{'Error getting merchant wallet balance.' | translate}}</p>
@@ -28,17 +27,6 @@
 
 <ng-template #buttons>
     <div class="{{$class}}__buttons">
-        <button class="{{$class}}__btn {{$class}}__btn--add"
-            wlc-button
-            text="{{'Add' | translate}}"
-            [themeMod]="'default'"
-            (click)="buttonHandler('deposit')"
-        ></button>
-        <button class="{{$class}}__btn {{$class}}__btn--withdraw"
-            wlc-button
-            text="{{'Withdraw' | translate}}"
-            [themeMod]="'secondary'"
-            (click)="buttonHandler('withdraw')"
-        ></button>
+        <div wlc-wrapper [inlineParams]="buttonsConfig"></div>
     </div>
 </ng-template>

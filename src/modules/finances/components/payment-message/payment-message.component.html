@@ -1,65 +1,146 @@
 <ng-container *ngIf="!isError; else error" [ngSwitch]="type">
-    <ng-container *ngSwitchCase="'pay_to_address'">
-        <div class="{{$class}}__text">
-            <div *ngIf="inputParamsXaddress" class="{{$class}}__clipboard-x">
-                <div wlc-input [inlineParams]="inputParamsXaddress"></div>
-                <div class="{{$class}}__text-row">
-                    {{'If your wallet doesn\'t support X-addresses, you can make a deposit via casino wallet.' | translate}}
-                </div>
-            </div>
-            <div class="{{$class}}__clipboard">
-                <div wlc-input [inlineParams]="inputParams"></div>
-                <div *ngIf="inputParamsXaddress" class="{{$class}}__text-row">
-                    {{'With the Destination Tag set to ' | translate}}{{message.tag}}
-                </div>
-            </div>
+    <ng-container [ngTemplateOutlet]="default" *ngSwitchDefault></ng-container>
+    <ng-container [ngTemplateOutlet]="payToXAddress" *ngSwitchCase="'pay_to_xaddress'"></ng-container>
+    <ng-container [ngTemplateOutlet]="payToAddressWithAmount" *ngSwitchCase="'pay_to_address_with_amount'"></ng-container>
+    <ng-container [ngTemplateOutlet]="payToBank" *ngSwitchCase="'pay_to_bank'"></ng-container>
+    <ng-container [ngTemplateOutlet]="htmlForm" *ngSwitchCase="'html'"></ng-container>
+</ng-container>
 
-            <div *ngIf="!inputParamsXaddress" class="{{$class}}__text-row">
-                {{'This is your private depositing address.' | translate}}
-            </div>
-            <div class="{{$class}}__text-row">
-                {{'Please note, that minimum deposit amount for this method is' | translate}}
-                <span wlc-currency [value]="system.depositMin"></span>,
-                {{'maximum one is' | translate}}
-                <span wlc-currency [value]="system.depositMax"></span>.
-            </div>
-            <div class="{{$class}}__text-row">
-                {{'To make a deposit you need to replenish a wallet for a specified amount.' | translate}}
-            </div>
-            <div class="{{$class}}__warning" *ngIf="!this.$params.themeMod?.includes('modal')">
-                <span class="stress">{{'Attention!' | translate}}</span> {{'Payments through contracts are not supported.' | translate}}
-            </div>
+<ng-template #default>
+    <div class="{{$class}}__text">
+        <div class="{{$class}}__clipboard">
+            <div wlc-input [inlineParams]="inputParams"></div>
         </div>
-
-        <div class="{{$class}}__qr">
-            <div class="{{$class}}__qr-text">{{'QR code' | translate}}</div>
-            <div class="{{$class}}__qr-wrapper">
-                <img class="{{$class}}__qr-image"
-                    [alt]="system.name"
-                    [src]="imgUrl">
-            </div>
+        <ng-container [ngTemplateOutlet]="tagMemo"></ng-container>
+        <div class="{{$class}}__text-row">
+            {{'This is your private depositing address.' | translate}}
         </div>
-
-        <div class="{{$class}}__warning" *ngIf="this.$params.themeMod?.includes('modal')">
+        <div class="{{$class}}__text-row">
+            {{'Please note, that minimum deposit amount for this method is' | translate}}
+            <span wlc-currency [value]="system.depositMin"></span>,
+            {{'maximum one is' | translate}}
+            <span wlc-currency [value]="system.depositMax"></span>.
+        </div>
+        <div class="{{$class}}__text-row">
+            {{'To make a deposit you need to replenish a wallet for a specified amount.' | translate}}
+        </div>
+        <div class="{{$class}}__warning" *ngIf="!this.$params.themeMod?.includes('modal')">
             <span class="stress">{{'Attention!' | translate}}</span> {{'Payments through contracts are not supported.' | translate}}
         </div>
-    </ng-container>
+    </div>
+    <div class="{{$class}}__qr">
+        <div class="{{$class}}__qr-text">{{'QR code' | translate}}</div>
+        <div class="{{$class}}__qr-wrapper">
+            <img class="{{$class}}__qr-image"
+                [alt]="system.name"
+                [src]="imgUrl">
+        </div>
+    </div>
+    <div class="{{$class}}__warning" *ngIf="this.$params.themeMod?.includes('modal')">
+        <span class="stress">{{'Attention!' | translate}}</span> {{'Payments through contracts are not supported.' | translate}}
+    </div>
+</ng-template>
 
-    <div *ngSwitchCase="'pay_to_bank'" class="{{$class}}__text">
+<ng-template #payToXAddress>
+    <div class="{{$class}}__text">
+        <div class="{{$class}}__clipboard-x">
+            <div wlc-input [inlineParams]="inputParamsXaddress"></div>
+            <div class="{{$class}}__text-row">
+                {{'If your wallet doesn\'t support X-addresses, you can make a deposit via casino wallet.' | translate}}
+            </div>
+        </div>
+        <div class="{{$class}}__clipboard">
+            <div wlc-input [inlineParams]="inputParams"></div>
+            <div class="{{$class}}__text-row">
+                {{'With the Destination Tag set to ' | translate}}{{message.tag}}
+            </div>
+        </div>
+        <div class="{{$class}}__text-row">
+            {{'Please note, that minimum deposit amount for this method is' | translate}}
+            <span wlc-currency [value]="system.depositMin"></span>,
+            {{'maximum one is' | translate}}
+            <span wlc-currency [value]="system.depositMax"></span>.
+        </div>
+        <div class="{{$class}}__text-row">
+            {{'To make a deposit you need to replenish a wallet for a specified amount.' | translate}}
+        </div>
+        <div class="{{$class}}__warning" *ngIf="!this.$params.themeMod?.includes('modal')">
+            <span class="stress">{{'Attention!' | translate}}</span> {{'Payments through contracts are not supported.' | translate}}
+        </div>
+    </div>
+    <div class="{{$class}}__qr">
+        <div class="{{$class}}__qr-text">{{'QR code' | translate}}</div>
+        <div class="{{$class}}__qr-wrapper">
+            <img class="{{$class}}__qr-image"
+                [alt]="system.name"
+                [src]="imgUrl">
+        </div>
+    </div>
+    <div class="{{$class}}__warning" *ngIf="this.$params.themeMod?.includes('modal')">
+        <span class="stress">{{'Attention!' | translate}}</span> {{'Payments through contracts are not supported.' | translate}}
+    </div>
+</ng-template>
+
+<ng-template #payToAddressWithAmount>
+    <div class="{{$class}}__text">
+        <div class="{{$class}}__text-row">
+            <span class="rate">{{message.amount}}</span>
+        </div>
+        <div class="{{$class}}__text-row">
+            <span class="rate">{{message.rate}}</span>
+        </div>
+        <div class="{{$class}}__text-row">
+            {{'To replenish the casino balance by' | translate}} {{parseAmount}} {{', replenish the specified wallet with' | translate}} {{parseRate}}
+        </div>
+        <div class="{{$class}}__text-row">
+            <div class="{{$class}}__qr">
+                <div class="{{$class}}__qr-text">{{'QR code' | translate}}</div>
+                <div class="{{$class}}__qr-wrapper">
+                    <img class="{{$class}}__qr-image"
+                        [alt]="system.name"
+                        [src]="imgUrl">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="{{$class}}__text">
+        <ng-container [ngTemplateOutlet]="tagMemo"></ng-container>
+        <div class="{{$class}}__text-row">
+            <div wlc-input [inlineParams]="inputParams"></div>
+        </div>
+        <div class="{{$class}}__text-row">
+            {{'This is the deposit address generated for you. Any deposit that is made to this address will appear on the balance after several transaction confirmations.' | translate}}
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #payToBank>
+    <div class="{{$class}}__text">
         {{details | translate}}
     </div>
+</ng-template>
 
-    <div *ngSwitchCase="'html'" class="{{$class}}__markup">
+<ng-template #htmlForm>
+    <div class="{{$class}}__markup">
         <div *ngIf="html"
             wlc-dynamic-html
             [html]="html"
             [canUseScriptTag]="true">
         </div>
     </div>
-</ng-container>
+</ng-template>
 
 <ng-template #error>
     <div class="{{$class}}__error">
         {{'Error receiving payment system.' | translate}}
+    </div>
+</ng-template>
+
+<ng-template #tagMemo>
+    <div class="{{$class}}__text-row" *ngIf="inputParamsMemo">
+        <div wlc-input [inlineParams]="inputParamsMemo"></div>
+    </div>
+    <div class="{{$class}}__text-row" *ngIf="inputParamsTag">
+        <div wlc-input [inlineParams]="inputParamsTag"></div>
     </div>
 </ng-template>

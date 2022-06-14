@@ -98,6 +98,14 @@ export namespace content {
         ],
     };
 
+    export const sportsbookNova: ILayoutSectionConfig = {
+        order: 2,
+        container: false,
+        components: [
+            componentLib.wlcSportsbook.nova,
+        ],
+    };
+
     export const error: ILayoutSectionConfig = {
         container: true,
         components: [

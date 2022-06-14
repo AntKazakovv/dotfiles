@@ -2,6 +2,9 @@ import {
     ILayoutSectionConfig,
     ITitleCParams,
 } from 'wlc-engine/modules/core';
+import {IWrapperCParams} from 'wlc-engine/modules/core/components';
+import {IFormComponent} from 'wlc-engine/modules/core/components/form-wrapper/form-wrapper.component';
+
 import * as componentLib from '../components';
 
 const profileDefaultLoyaltyType = (isSingleLevels: boolean) => {
@@ -80,6 +83,114 @@ const profileFirstLoyaltyType = (isSingleLevels: boolean) => {
     };
 };
 
+const fundistIdComponent: IFormComponent = {
+    name: 'core.wlc-wrapper',
+    params: <IWrapperCParams>{
+        components: [
+            {name: 'user.wlc-fundist-user-id'},
+        ],
+    },
+};
+
+const generateProfileMain = (useFundistUserId: boolean): ILayoutSectionConfig => ({
+    container: true,
+    components: [
+        {
+            name: 'core.wlc-wrapper',
+            params: {
+                class: 'wlc-profile-content__top wlc-profile-content__top--buttons',
+                components: [
+                    componentLib.wlcTitle.profileV2,
+                    componentLib.wlcButton.profileBlocks,
+                ],
+            },
+        },
+        ...(useFundistUserId ? [fundistIdComponent] : []),
+        componentLib.wlcProfileMenu.submenu,
+        {
+            name: 'core.wlc-wrapper',
+            params: {
+                class: 'wlc-profile-content__body',
+                components: [
+                    componentLib.wlcProfileForm.def,
+                    {
+                        name: 'user.wlc-profile-blocks',
+                        display: {
+                            after: 1023,
+                        },
+                    },
+                ],
+            },
+        },
+    ],
+});
+
+const generateProfileFirst = (useFundistUserId: boolean): ILayoutSectionConfig => ({
+    container: true,
+    theme: 'first',
+    components: [
+        componentLib.wlcProfileMenu.defTypeFirst,
+        {
+            name: 'core.wlc-wrapper',
+            params: {
+                class: 'wlc-profile-content__header',
+                components: [
+                    {
+                        name: 'core.wlc-wrapper',
+                        params: {
+                            components: [
+                                componentLib.wlcTitle.myAccountV1,
+                                ...(useFundistUserId ? [fundistIdComponent] : []),
+                            ],
+                        },
+                    },
+                ],
+            },
+            display: {
+                before: 1199,
+            },
+        },
+        componentLib.wlcProfileMenu.subMenuV1,
+        {
+            name: 'core.wlc-wrapper',
+            params: {
+                class: 'wlc-profile-content',
+                components: [
+                    {
+                        name: 'core.wlc-wrapper',
+                        params: {
+                            class: 'wlc-profile-content__header underlined',
+                            components: [
+                                {
+                                    name: 'core.wlc-wrapper',
+                                    params: {
+                                        components: [
+                                            componentLib.wlcTitle.profileV1,
+                                            ...(useFundistUserId ? [fundistIdComponent] : []),
+                                        ],
+                                    },
+                                },
+                            ],
+                        },
+                        display: {
+                            after: 1200,
+                        },
+                    },
+                    {
+                        name: 'core.wlc-wrapper',
+                        params: {
+                            class: 'wlc-profile-content__body',
+                            components: [
+                                componentLib.wlcProfileForm.generateConfig(),
+                            ],
+                        },
+                    },
+                ],
+            },
+        },
+    ],
+});
+
 export namespace profileContent {
     export const empty: ILayoutSectionConfig = {
         container: true,
@@ -87,37 +198,9 @@ export namespace profileContent {
         ],
     };
 
-    export const profileMain: ILayoutSectionConfig = {
-        container: true,
-        components: [
-            {
-                name: 'core.wlc-wrapper',
-                params: {
-                    class: 'wlc-profile-content__top wlc-profile-content__top--buttons',
-                    components: [
-                        componentLib.wlcTitle.profileV2,
-                        componentLib.wlcButton.profileBlocks,
-                    ],
-                },
-            },
-            componentLib.wlcProfileMenu.submenu,
-            {
-                name: 'core.wlc-wrapper',
-                params: {
-                    class: 'wlc-profile-content__body',
-                    components: [
-                        componentLib.wlcProfileForm.def,
-                        {
-                            name: 'user.wlc-profile-blocks',
-                            display: {
-                                after: 1023,
-                            },
-                        },
-                    ],
-                },
-            },
-        ],
-    };
+    export const profileMain: ILayoutSectionConfig = generateProfileMain(false);
+
+    export const profileMainWithFundistUserId: ILayoutSectionConfig = generateProfileMain(true);
 
     export const profileTypeFirstTabletMenu: ILayoutSectionConfig = {
         container: true,
@@ -132,55 +215,9 @@ export namespace profileContent {
         ],
     };
 
-    export const profileMainTypeFirst: ILayoutSectionConfig = {
-        container: true,
-        theme: 'first',
-        components: [
-            componentLib.wlcProfileMenu.defTypeFirst,
-            {
-                name: 'core.wlc-wrapper',
-                params: {
-                    class: 'wlc-profile-content__header',
-                    components: [
-                        componentLib.wlcTitle.myAccountV1,
-                    ],
-                },
-                display: {
-                    before: 1199,
-                },
-            },
-            componentLib.wlcProfileMenu.subMenuV1,
-            {
-                name: 'core.wlc-wrapper',
-                params: {
-                    class: 'wlc-profile-content',
-                    components: [
-                        {
-                            name: 'core.wlc-wrapper',
-                            params: {
-                                class: 'wlc-profile-content__header underlined',
-                                components: [
-                                    componentLib.wlcTitle.profileV1,
-                                ],
-                            },
-                            display: {
-                                after: 1200,
-                            },
-                        },
-                        {
-                            name: 'core.wlc-wrapper',
-                            params: {
-                                class: 'wlc-profile-content__body',
-                                components: [
-                                    componentLib.wlcProfileForm.generateConfig(),
-                                ],
-                            },
-                        },
-                    ],
-                },
-            },
-        ],
-    };
+    export const profileMainTypeFirst: ILayoutSectionConfig = generateProfileFirst(false);
+
+    export const profileFirstWithFundistUserId = generateProfileFirst(true);
 
     export const profileMainTypeFirstWithLogin: ILayoutSectionConfig = {
         container: true,

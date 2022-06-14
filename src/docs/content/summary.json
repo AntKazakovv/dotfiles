@@ -227,6 +227,18 @@
         "file": "./900.change-logs/900.change-logs.md",
         "children": [
             {
+                "title": "1.7.0RC1 (14-06-2022)",
+                "file": "./900.change-logs/releases/1.7.0-rc.1_14-06-2022.md"
+            },
+            {
+                "title": "1.6.2 (10-06-2022)",
+                "file": "./900.change-logs/releases/1.6.2_10-06-2022.md"
+            },
+            {
+                "title": "1.6.1 (09-06-2022)",
+                "file": "./900.change-logs/releases/1.6.1_09-06-2022.md"
+            },
+            {
                 "title": "1.6.0 (08-06-2022)",
                 "file": "./900.change-logs/releases/1.6.0_08-06-2022.md"
             },
@@ -499,5 +511,20 @@
     {
         "title": "10. Releases",
         "file": "../../../RELEASES.md"
+    },
+    {
+        "_id": "translations",
+        "title": "11. Translations",
+        "file": "./1000.translations/1000.translations.md",
+        "children": [
+            {
+                "title": "24-03-2022",
+                "file": "./1000.translations/history/24-03-2022.md"
+            },
+            {
+                "title": "14-06-2022",
+                "file": "./1000.translations/history/14-06-2022.md"
+            }
+        ]
     }
 ]

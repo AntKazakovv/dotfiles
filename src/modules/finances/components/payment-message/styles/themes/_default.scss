@@ -25,6 +25,10 @@
         &__text-row {
             @include text.get-text-style('PrimaryText', ef.get-value($themeDefault, 'textColor'));
             @include bm.get-mq-map('margin', $themeDefault, 'textRowMargin');
+
+            .rate {
+                color: ef.get-value($themeDefault, 'rateColor');
+            }
         }
 
         &__clipboard,

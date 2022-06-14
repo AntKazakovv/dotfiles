@@ -6,8 +6,14 @@ import {
     ChangeDetectorRef,
 } from '@angular/core';
 import {FormGroup} from '@angular/forms';
+
 import {BehaviorSubject} from 'rxjs';
 import {first} from 'rxjs/operators';
+import _each from 'lodash-es/each';
+import _set from 'lodash-es/set';
+import _get from 'lodash-es/get';
+import _size from 'lodash-es/size';
+
 import {
     AbstractComponent,
     IFormWrapperCParams,
@@ -15,15 +21,15 @@ import {
     ISelectOptions,
     EventService,
     ModalService,
+    ConfigService,
 } from 'wlc-engine/modules/core';
 import {
     UserService,
     LimitationService,
 } from 'wlc-engine/modules/user/system/services';
+import {ILimitationTypeItem} from 'wlc-engine/modules/core/system/interfaces/base-config/profile.interface';
 
 import * as Params from './limitations.params';
-
-import _each from 'lodash-es/each';
 
 @Component({
     selector: '[wlc-limitations]',
@@ -65,12 +71,14 @@ export class LimitationsComponent extends AbstractComponent implements OnInit {
         protected eventService: EventService,
         protected modalService: ModalService,
         protected cdr: ChangeDetectorRef,
+        protected configService: ConfigService,
     ) {
-        super({injectParams: params, defaultParams: Params.defaultParams});
+        super({injectParams: params, defaultParams: Params.defaultParams}, configService);
     }
 
     public async ngOnInit(): Promise<void> {
         super.ngOnInit(this.inlineParams);
+        this.patchLimitTypeItems();
         await this.getLimits();
         this.eventService.subscribe({name: 'remove_exclusion'}, () => {
             this.getLimits();
@@ -129,9 +137,10 @@ export class LimitationsComponent extends AbstractComponent implements OnInit {
             case 'MaxBetSum':
             case 'MaxLossSum':
                 try {
-                    const params = {};
-                    params[`${form.value.limitType}${form.value.limitPeriod}`] = form.value.limitAmount;
-                    await this.limitationService.setUserSelfExclusion(params);
+                    await this.limitationService.setUserSelfExclusion({
+                        type: `${form.value.limitType}${form.value.limitPeriod}`,
+                        value: form.value.limitAmount,
+                    });
                 } catch (error) {
                     //
                 }
@@ -183,6 +192,19 @@ export class LimitationsComponent extends AbstractComponent implements OnInit {
 
         await this.getLimits();
         this.pending = false;
+    }
+
+    /**
+     * Includes the specified limits
+     */
+    private async patchLimitTypeItems(): Promise<void> {
+        const types: ILimitationTypeItem[] = this.configService
+            .get<ILimitationTypeItem[]>('$base.profile.limitations.include')
+            || _get(Params, 'limitType.params.items');
+
+        if (_size(types)) {
+            _set(Params, 'limitType.params.items', types);
+        }
     }
 
     private async getLimits(): Promise<void> {

@@ -210,7 +210,7 @@ export class CategoryMenuComponent extends AbstractComponent implements OnInit, 
         } else {
 
             if (this.gamesCatalogService.catalogOpened()) {
-                this.categories = this.gamesCatalogService.getCategoriesByState();
+                this.categories = this.gamesCatalogService.getCategoriesByState(this.isAuth);
             } else {
                 const parentCategory = this.gamesCatalogService
                     .getCategoryBySlug(['casino', 'livecasino', 'tablegames']);

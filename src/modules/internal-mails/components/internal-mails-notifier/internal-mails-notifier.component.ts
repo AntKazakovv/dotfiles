@@ -60,6 +60,7 @@ export class InternalMailsNotifierComponent extends AbstractComponent implements
             )
             .subscribe((unreadMailsCount: number): void => {
                 this.hasUnread = !!unreadMailsCount;
+                this.cdr.detectChanges();
             });
     }
 }

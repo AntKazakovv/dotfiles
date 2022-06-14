@@ -3,6 +3,7 @@ import {BehaviorSubject} from 'rxjs';
 import {DateTime} from 'luxon';
 import {
     ConfigService,
+    EventService,
     ICountry,
     IIndexing,
     InjectionService,
@@ -22,6 +23,7 @@ describe('SelectValuesService', () => {
 
     let selectValuesService: SelectValuesService;
     let configServiceSpy: jasmine.SpyObj<ConfigService>;
+    let eventServiceSpy: jasmine.SpyObj<EventService>;
     let InjectionServiceSpy: jasmine.SpyObj<InjectionService>;
     let gameCatalogServiceSpy: jasmine.SpyObj<GamesCatalogService>;
 
@@ -124,6 +126,10 @@ describe('SelectValuesService', () => {
                 {
                     provide: InjectionService,
                     useValue: InjectionServiceSpy,
+                },
+                {
+                    provide: EventService,
+                    useValue: eventServiceSpy,
                 },
             ],
         });

@@ -1,0 +1,29 @@
+@use 'engine-scss/functions' as ef;
+
+$customThemeDefault: () !default;
+
+$fontSize: ef.get('font', 'PrimaryText');
+
+$themeDefault: map-merge((
+    'fontSize': $fontSize,
+
+    'headerDisplay': flex,
+    'headerAlignItems': center,
+    'headerJustifyContent': center,
+    'headerMarginBottom': ef.size(6),
+
+    'mainTitleMarginBottom': ef.size(4),
+    'mainTitleFontWeight': bold,
+    'mainTitleTextAlign': center,
+
+    'mainInfoTextAlign': center,
+
+    'socialsDisplay': flex,
+    'socialsJustifyContent': center,
+    'socialsMarginTop': ef.size(6),
+
+    'iconsMaxWidth': 90%,
+    'iconsListDisplay': flex,
+    'iconsListTemplateColumns': repeat(5, 1fr),
+
+), $customThemeDefault);

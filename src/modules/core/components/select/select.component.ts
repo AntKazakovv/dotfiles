@@ -111,10 +111,12 @@ export class SelectComponent extends AbstractComponent implements OnInit, OnChan
     public ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
         this.prepareModifiers();
-        this.prepareConstantValues();
 
         this.foundItems = _cloneDeep(this.$params.items);
         this.control = this.$params.control;
+        this.constantValues =
+            this.selectValues.prepareConstantValues(this.$params.options, this.control, this.$destroy);
+
         this.fieldWlcElement = 'select_' + _kebabCase(this.$params.name);
 
         if (this.$params.options) {
@@ -299,6 +301,7 @@ export class SelectComponent extends AbstractComponent implements OnInit, OnChan
         if (!this.isOpened || this.control.disabled) {
             return;
         }
+        this.selectOption(this.foundItems[this.activeItemIndex]);
         this.control.markAsTouched();
         this.control.updateValueAndValidity();
         this.isOpened = false;
@@ -387,7 +390,7 @@ export class SelectComponent extends AbstractComponent implements OnInit, OnChan
                 if (this.activeItemIndex < 1) {
                     break;
                 }
-                this.selectOption(this.foundItems[--this.activeItemIndex]);
+                this.choiceOption(this.foundItems[--this.activeItemIndex]);
                 this.scrollSelectList();
                 event.preventDefault();
                 break;
@@ -395,11 +398,12 @@ export class SelectComponent extends AbstractComponent implements OnInit, OnChan
                 if (this.activeItemIndex === this.foundItems.length - 1) {
                     break;
                 }
-                this.selectOption(this.foundItems[++this.activeItemIndex]);
+                this.choiceOption(this.foundItems[++this.activeItemIndex]);
                 this.scrollSelectList();
                 event.preventDefault();
                 break;
             case 'Enter':
+                this.selectOption(this.foundItems[this.activeItemIndex]);
                 this.toggleDropdown();
                 event.preventDefault();
                 break;
@@ -417,6 +421,10 @@ export class SelectComponent extends AbstractComponent implements OnInit, OnChan
         }
     }
 
+    protected choiceOption(item: Params.ISelectOptions): void {
+        this.searchText = item.title as string;
+    }
+
     /**
      * The method select option in select list
      *
@@ -425,7 +433,7 @@ export class SelectComponent extends AbstractComponent implements OnInit, OnChan
      * @returns {void} void
      */
     protected selectOption(item: Params.ISelectOptions): void {
-        this.control.setValue(item.value);
+        this.control.setValue(item?.value);
 
         this.EventService.emit({
             name: `SELECT_CHOSEN_${this.$params?.name?.toUpperCase()}`,
@@ -446,39 +454,6 @@ export class SelectComponent extends AbstractComponent implements OnInit, OnChan
     protected clearSearchField(): void {
         this.searchText = '';
         this.searchItems();
-    }
-
-    /**
-     * The method get constant values from configService and selectValues by select fields names
-     *
-     * @method prepareConstantValues
-     * @returns {void} void
-     */
-    protected prepareConstantValues(): void {
-        this.constantValues = {
-            currencies: this.selectValues.prepareCurrency(),
-            countries: this.configService.get('countries'),
-            phoneCodes: this.selectValues.getPhoneCodes(),
-            genders: new BehaviorSubject([
-                {
-                    value: '',
-                    title: gettext('Not selected'),
-                },
-                {
-                    value: 'f',
-                    title: gettext('Female'),
-                },
-                {
-                    value: 'm',
-                    title: gettext('Male'),
-                },
-            ]),
-            birthMonth: this.selectValues.getDateList('months'),
-            birthDay: this.selectValues.dayList,
-            birthYear: this.selectValues.getDateList('years'),
-            pep: this.selectValues.getPepList(),
-            merchants: this.selectValues.getMerchantsList(),
-        };
     }
 
     /**

@@ -30,6 +30,7 @@ let states = {
     'app.tglab': States.tglabState,
     'app.bti': States.btiState,
     'app.esport': States.esportState,
+    'app.nova': States.novaState,
     'app.profile': States.profileState,
     'app.profile.main': States.profileMainState,
     'app.profile.main.info': States.profileMainInfoState,

@@ -27,6 +27,7 @@ import {
     DataService,
     EventService,
     FilesService,
+    ForbiddenCountryService,
     LogService,
     ModalService,
     NotificationService,
@@ -46,6 +47,7 @@ import {BirthdayFieldComponent} from './components/birthday-field/birthday-field
 import {BurgerPanelComponent} from './components/burger-panel/burger-panel.component';
 import {ButtonComponent} from './components/button/button.component';
 import {CaptchaComponent} from './components/captcha/captcha.component';
+import {CountryAndStateComponent} from './components/country-and-state/country-and-state.component';
 import {CheckboxComponent} from './components/checkbox/checkbox.component';
 import {CopyrightComponent} from './components/copyright/copyright.component';
 import {CounterComponent} from './components/counter/counter.component';
@@ -55,6 +57,7 @@ import {DisclaimerComponent} from './components/disclaimer/disclaimer.component'
 import {ErrorPageComponent} from './components/error-page/error-page.component';
 import {FeedbackFormComponent} from './components/feedback-form/feedback-form.component';
 import {FloatPanelsComponent} from './components/float-panels/float-panels.component';
+import {ForbiddenCountryComponent} from './components/forbidden-country/forbidden-country.component';
 import {FormControlComponent} from './components/form-control/form-control.component';
 import {FormWrapperComponent} from './components/form-wrapper/form-wrapper.component';
 import {IconComponent} from './components/icon/icon.component';
@@ -137,6 +140,7 @@ export const components = {
     'wlc-button': ButtonComponent,
     'wlc-burger-panel': BurgerPanelComponent,
     'wlc-captcha': CaptchaComponent,
+    'wlc-country-and-state': CountryAndStateComponent,
     'wlc-checkbox': CheckboxComponent,
     'wlc-copyright': CopyrightComponent,
     'wlc-counter': CounterComponent,
@@ -145,6 +149,7 @@ export const components = {
     'wlc-disclaimer': DisclaimerComponent,
     'wlc-error-page': ErrorPageComponent,
     'wlc-feedback-form': FeedbackFormComponent,
+    'wlc-forbidden-country': ForbiddenCountryComponent,
     'wlc-form-control': FormControlComponent,
     'wlc-form-wrapper': FormWrapperComponent,
     'wlc-icon': IconComponent,
@@ -205,6 +210,7 @@ export const components = {
         CaptchaService,
         ConfigService,
         FilesService,
+        ForbiddenCountryService,
         LogService,
         ActionService,
         ModalService,
@@ -234,6 +240,7 @@ export const components = {
         BurgerPanelComponent,
         ButtonComponent,
         CaptchaComponent,
+        CountryAndStateComponent,
         CheckboxComponent,
         ClampDirective,
         ClickOutsideDirective,
@@ -248,6 +255,7 @@ export const components = {
         FallbackImgDirective,
         FeedbackFormComponent,
         FloatPanelsComponent,
+        ForbiddenCountryComponent,
         FormControlComponent,
         FormWrapperComponent,
         IconComponent,
@@ -303,6 +311,7 @@ export const components = {
         BurgerPanelComponent,
         ButtonComponent,
         CaptchaComponent,
+        CountryAndStateComponent,
         CheckboxComponent,
         ClampDirective,
         ClickOutsideDirective,
@@ -316,6 +325,7 @@ export const components = {
         ErrorPageComponent,
         FallbackImgDirective,
         FloatPanelsComponent,
+        ForbiddenCountryComponent,
         FormControlComponent,
         FormWrapperComponent,
         IconComponent,

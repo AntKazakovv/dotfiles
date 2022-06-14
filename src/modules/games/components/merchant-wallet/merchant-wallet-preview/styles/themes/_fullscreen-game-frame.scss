@@ -1,0 +1,13 @@
+.wlc-merchant-wallet-preview--theme-fullscreen-game-frame:host {
+    @include previewBase($themeFullscreenGameFrame);
+
+    display: flex;
+    align-items: center;
+
+    .wlc-merchant-wallet-preview {
+
+        &__buttons {
+            gap: ef.get-value($themeFullscreenGameFrame, 'buttonsGap');
+        }
+    }
+}

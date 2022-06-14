@@ -1,3 +1,35 @@
+import {IIndexing} from 'wlc-engine/modules/core';
+
+export type TLimitationType =
+    | 'MaxDepositSum'
+    | 'MaxBetSum'
+    | 'MaxLossSum'
+    | 'realityChecker'
+    | 'timeOut';
+
+export interface ILimitationTypeItem {
+    title: string;
+    value: TLimitationType;
+}
+
+export interface ILimitationExclusion {
+    type: string;
+    value: number;
+}
+
+export type TIndexingLimitTypeItems = IIndexing<ILimitationTypeItem>;
+
+export interface ILimitationsConfig {
+    /**
+    * Enable/disable limitations
+    */
+    use: boolean;
+    /**
+    * Allows you to include some types of limits
+    */
+    include?: ILimitationTypeItem[];
+}
+
 export interface IProfileConfig {
     /**
      * Internal mails
@@ -19,9 +51,7 @@ export interface IProfileConfig {
         useInProfile?: boolean;
     },
     verification?: IVerification,
-    limitations?: {
-        use: boolean;
-    },
+    limitations?: ILimitationsConfig,
     store?: {
         use: boolean;
         /**
@@ -60,6 +90,14 @@ export interface IProfileConfig {
      * Need to change also back config $cfg['PasswordSecureLevel'] value show to wiki
      */
     passwordValidation?: IPasswordValidation,
+    /**
+     * Specifies should be shown user id from Fundist or not
+     */
+    fundistUserId?: IFundistUserId;
+}
+
+export interface IFundistUserId {
+    use: boolean;
 }
 
 export interface IVerification {

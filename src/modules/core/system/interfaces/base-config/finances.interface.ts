@@ -21,4 +21,8 @@ export interface IFinancesConfig {
      * Config for cashier payments
      */
     piqCashier?: IPIQCashier;
+    /**
+     * Enable redirects and notifications after deposit bonus activation
+     */
+    redirectAfterDepositBonus?: boolean;
 }

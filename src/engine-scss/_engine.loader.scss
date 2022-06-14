@@ -11,6 +11,7 @@
     width: 100%;
     height: 100%;
     overflow: hidden;
+    text-align: map-get($appLoader, 'contentTextAlign');
 
     background-image: map-get($appLoader, 'background');
 
@@ -24,6 +25,7 @@
 
     &-img {
         width: map-get($appLoader, 'imgBlockWidth');
+        margin: map-get($appLoader, 'imgBlockMargin');
         padding-bottom: map-get($appLoader, 'imgBlockPadding');
 
         background-image: map-get($appLoader, 'imgBgUrl');
@@ -39,11 +41,69 @@
         }
     }
 
+    &-image_error {
+        width: map-get($appLoader, 'imgBlockWidth');
+        margin: map-get($appLoader, 'imgBlockMargin');
+        padding-bottom: map-get($appLoader, 'imgBlockPadding');
+
+        background-image: map-get($appLoader, 'errorImgBgUrl');
+        background-repeat: map-get($appLoader, 'imgBgRepeat');
+        background-position: map-get($appLoader, 'imgBgPosition');
+        background-size: map-get($appLoader, 'imgBgSize');
+    }
+
     &-loader {
         position: relative;
 
         height: map-get($appLoader, 'loaderHeight');
         margin: map-get($appLoader, 'loaderBlockMargin');
+    }
+
+    &-text_block {
+        margin: map-get($appLoader, 'textsBlock');
+    }
+
+    &-title {
+        color: map-get($appLoader, 'textsColor');
+        font-weight: map-get($fontWeight, 'QoteTextBold');
+        font-size: map-get($font, 'QoteTextBold');
+        line-height: 1.45;
+    }
+
+    &-text {
+        color: map-get($appLoader, 'textsColor');
+        font-weight: map-get($fontWeight, 'PrimaryText');
+        font-size: map-get($font, 'PrimaryText');
+        line-height: 1.45;
+    }
+
+    &-button {
+        display: map-get($appLoader, 'buttinDisplay');
+        align-items: map-get($appLoader, 'buttonAlignItems');
+        justify-content: map-get($appLoader, 'buttonJustifyContent');
+        min-width: map-get($buttonSettings, 'minWidth');
+
+        height: map-get($appLoader, 'butonHeigth');
+        margin: map-get($appLoader, 'buttonMargin');
+        padding: map-get($buttonSettings, 'padding');
+
+        color: map-get($buttonSettings, 'fontColor');
+        font-weight: map-get($fontWeight, 'ButtonText');
+        font-size: map-get($font, 'ButtonText');
+        line-height: 1.45;
+
+        text-transform: map-get($buttonSettings, 'textTransform');
+        background: map-get($buttonSettings, 'background');
+        box-shadow: map-get($buttonSettings, 'shadow');
+        transition: all 0.3s linear;
+        border: map-get($buttonSettings, 'borderDefault');
+        border-radius: map-get($buttonSettings, 'borderRadiusDefault');
+
+        @media (hover: hover) and (pointer: fine) {
+            background: map-get($buttonSettings, 'backgroundHover');
+            box-shadow: map-get($buttonSettings, 'shadowHover');
+            border: map-get($buttonSettings, 'borderDefaultHover');
+        }
     }
 
     //For animatedGradient

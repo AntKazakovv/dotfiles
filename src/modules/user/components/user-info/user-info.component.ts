@@ -16,8 +16,14 @@ import {
 } from '@angular/animations';
 import {StateService} from '@uirouter/core';
 import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
-import {ConfigService, EventService} from 'wlc-engine/modules/core/system/services';
-import {AppType} from 'wlc-engine/modules/core';
+import {
+    ConfigService,
+    EventService,
+} from 'wlc-engine/modules/core/system/services';
+import {
+    AppType,
+    IWrapperCParams,
+} from 'wlc-engine/modules/core';
 import * as Params from './user-info.params';
 
 @Component({
@@ -50,6 +56,7 @@ export class UserInfoComponent extends AbstractComponent implements OnInit {
     public isOpened: boolean;
     public dropdownBtnActive: boolean;
     public hasNotifier: boolean;
+    public notifierConfig: IWrapperCParams;
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IUserInfoCParams,
@@ -66,6 +73,14 @@ export class UserInfoComponent extends AbstractComponent implements OnInit {
         super.ngOnInit(this.inlineParams);
 
         this.hasNotifier = this.configService.get<boolean>('$base.profile.messages.use');
+
+        this.notifierConfig = {
+            components: [
+                {
+                    name: 'internal-mails.wlc-internal-mails-notifier',
+                },
+            ],
+        };
 
         if (this.configService.get<boolean>('$base.stickyHeader.use') &&
             !this.configService.get<boolean>('$base.stickyHeader.useCustomUserInfo')) {

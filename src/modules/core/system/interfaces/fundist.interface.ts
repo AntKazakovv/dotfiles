@@ -1,4 +1,4 @@
-import {IIndexing} from './global.interface';
+import {IIndexing} from 'wlc-engine/modules/core/system/interfaces/global.interface';
 
 export interface ICountry {
     phoneCode: string;
@@ -26,3 +26,10 @@ export type TGamesWithFreeRounds = 'All' | number[];
  * Freerounds settings by merchants (key is merchant name)
  */
 export type TFreeRoundGames = '' | IIndexing<TGamesWithFreeRounds>;
+
+export interface IState {
+    value: string;
+    title: string;
+}
+
+export type TStates  = IIndexing<IState[]>;

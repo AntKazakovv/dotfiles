@@ -25,4 +25,13 @@ export interface IColorThemeSwitchingConfig {
      * Recommended file name is`hosted.fields.alt.css`
      */
     altHostedFieldsStyles?: string;
+
+    /**
+     * If project uses payment system PiqCashier, fill this parameter with alt css file name.
+     *
+     * Instruction how to add styles for alternative theme in `project_directory/src/app-styles/piq.cashier.scss`
+     *
+     * Recommended file name is`piq.cashier.alt.scss`
+     */
+    altPiqCashierStyles?: string;
 };

@@ -53,6 +53,13 @@
 </div>
 
 <div *ngIf="$params.theme == 'fullscreen-game-frame'" class="{{$class}}__content" (resized)="onResize($event)">
+    <div class="{{$class}}__header" #header data-wlc-element="block_game-play-title">
+        <div class="container">
+            <div class="{{$class}}__merchant-balance" *ngIf="isReady && isAuth">
+                <div wlc-merchant-wallet-preview [inlineParams]="headerMerchantWalletPreview"></div>
+            </div>
+        </div>
+    </div>
     <div class="{{$class}}__game-area" #wrp>
         <div *ngIf="!isReady" wlc-loader class="{{$class}}__preloader" >
         </div>

@@ -22,6 +22,7 @@ import {
     DashboardLoyaltyBlockComponent,
 } from 'wlc-engine/modules/user/components/dashboard-loyalty-block/dashboard-loyalty-block.component';
 import {ExchangeComponent} from './components/dashboard-exchange/exchange.component';
+import {FundistUserIdComponent} from './components/fundist-id/fundist-user-id.component';
 import {IconExpLpDescriptionComponent} from './components/icon-exp-lp-description/icon-exp-lp-description.component';
 import {LimitationsComponent} from './components/limitations/limitations.component';
 import {LimitCancelComponent} from './components/limitations/limit-cancel/limit-cancel.component';
@@ -58,6 +59,7 @@ export const components = {
     'wlc-change-password-form': ChangePasswordFormComponent,
     'wlc-exchange': ExchangeComponent,
     'wlc-icon-exp-lp': IconExpLpDescriptionComponent,
+    'wlc-fundist-user-id': FundistUserIdComponent,
     'wlc-limitations': LimitationsComponent,
     'wlc-logout': LogoutComponent,
     'wlc-loyalty-block': DashboardLoyaltyBlockComponent,
@@ -86,6 +88,7 @@ export const components = {
         DashboardLoyaltyBlockComponent,
         ExchangeComponent,
         IconExpLpDescriptionComponent,
+        FundistUserIdComponent,
         LimitationsComponent,
         LimitCancelComponent,
         LimitValueComponent,
@@ -127,6 +130,7 @@ export const components = {
         DashboardLoyaltyBlockComponent,
         ExchangeComponent,
         IconExpLpDescriptionComponent,
+        FundistUserIdComponent,
         LimitationsComponent,
         LogoutComponent,
         LoyaltyProgressComponent,

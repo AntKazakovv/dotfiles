@@ -21,6 +21,9 @@ import {
     LogService,
     NotificationEvents,
     IPushMessageParams,
+    DeviceType,
+    ActionService,
+    IWrapperCParams,
 } from 'wlc-engine/modules/core';
 import {
     TBalanceTransferMethod,
@@ -38,13 +41,17 @@ import * as Params from './merchant-wallet-preview.params';
 })
 
 export class MerchantWalletPreviewComponent extends AbstractComponent implements OnInit {
+    @Input() public theme: Params.Theme;
     @Input() protected inlineParams: Params.IMerchantWalletPreviewCParams;
+
+    public buttonsConfig: IWrapperCParams = Params.buttonsDefault;
 
     public $params: Params.IMerchantWalletPreviewCParams;
     public userBalance: IMerchantWalletBalance;
     public isError: boolean;
     public isReady: boolean;
     public isPending: boolean;
+    public isMobile: boolean = false;
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IMerchantWalletPreviewCParams,
@@ -52,6 +59,7 @@ export class MerchantWalletPreviewComponent extends AbstractComponent implements
         protected eventService: EventService,
         protected logService: LogService,
         protected merchantWalletService: MerchantWalletService,
+        protected actionService: ActionService,
         protected cdr: ChangeDetectorRef,
     ) {
         super({injectParams, defaultParams: Params.defaultParams}, configService);
@@ -60,13 +68,20 @@ export class MerchantWalletPreviewComponent extends AbstractComponent implements
     public ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
 
+        if (this.$params.common?.buttons.type === 'resizable') {
+            this.buttonsConfig = Params.buttonsResizable;
+        }
+
+        if (this.configService.get<boolean>('appConfig.mobile')) {
+            this.isMobile = true;
+        }
+
         if (this.merchantWalletService.game) {
             this.isReady = true;
         } else {
             return;
         }
 
-        this.cdr.markForCheck();
         this.initListeners();
     }
 
@@ -128,6 +143,23 @@ export class MerchantWalletPreviewComponent extends AbstractComponent implements
                 this.userBalance = value;
                 this.cdr.markForCheck();
             });
-    }
 
+        this.actionService.deviceType()
+            .pipe(takeUntil(this.$destroy))
+            .subscribe((type: DeviceType): void => {
+                if (!type) {
+                    return;
+                }
+
+                this.isMobile = type !== DeviceType.Desktop;
+
+                if (this.isMobile) {
+                    this.addModifiers('mobile');
+                } else {
+                    this.removeModifiers('mobile');
+                }
+
+                this.cdr.detectChanges();
+            });
+    }
 }

@@ -3,6 +3,7 @@
         <ng-container [ngTemplateOutlet]="typeVertical" *ngSwitchCase="'vertical'"></ng-container>
         <ng-container [ngTemplateOutlet]="typeModal" *ngSwitchCase="'modal'"></ng-container>
         <ng-container [ngTemplateOutlet]="typePromoWidget" *ngSwitchCase="'promo-widget'"></ng-container>
+        <ng-container [ngTemplateOutlet]="thumbImg" *ngSwitchCase="'games-slider'"></ng-container>
         <ng-container [ngTemplateOutlet]="typeDefault" *ngSwitchDefault></ng-container>
     </ng-container>
 </ng-container>
@@ -16,7 +17,8 @@
         <div *ngIf="promoWidgetTitle" class="{{$class}}__title">
             {{promoWidgetTitle | translate}}
         </div>
-        <div class="{{$class}}__buttons">
+        <div class="{{$class}}__buttons"
+             [ngClass]="{'no-demo': !game.hasDemo}">
             <button wlc-button
                     class="wlc-btn wlc-btn--play"
                     wlcElement="button_game-play"
@@ -58,8 +60,8 @@
                         <source [srcset]="image.src" [type]="image.type">
                     </ng-container>
 
-                    <img wlc-fallback 
-                        [src]="getVerticalContent('background', ['jpg'])" 
+                    <img wlc-fallback
+                        [src]="getVerticalContent('background', ['jpg'])"
                         loading="lazy">
                 </picture>
 
@@ -71,7 +73,7 @@
 
                     <img wlc-fallback
                         #layersOne
-                        [src]="getVerticalContent('foreground', ['png'])" 
+                        [src]="getVerticalContent('foreground', ['png'])"
                         loading="lazy">
                 </picture>
 

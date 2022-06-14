@@ -17,7 +17,7 @@ export interface IBonusesModule {
     defaultImages?: {
         /** Bonus image for bonus in profile dashboard, profile bonuses, bonus block in main page  in default profile */
         image?: string;
-        /** 
+        /**
          * Bonus image for bonus in profile dashboard, profile bonuses,
          * bonus block in main page, sign-up modal in first profile
         */
@@ -62,48 +62,23 @@ export type TBonusEvent =
     | 'store'
     | 'promotion';
 
-export interface IBonus {
-    Active: number;
-    AffiliateSystem: string;
-    AffiliateUrl: string;
-    AllowCatalog: string;
-    AllowStack: string;
+export interface IBonusBase {
     AwardWageringTotal: number;
-    AmountMax: IIndexing<string>;
-    AmountMin: IIndexing<string>;
     Balance: number | string;
     Block: string;
     Bonus: string;
     BonusAwarded: string;
-    BonusBalance: string;
     BonusType: string;
-    BonusWinning: string;
-    CategoriesRestrictType?: string;
     Currency: string;
     Description: string;
-    DisableCancel: string;
-    Date: string;
     Event: TBonusEvent;
-    EventAmount: string;
-    ExperienceAction: string;
     ExperiencePoints: string;
-    Expire: string;
-    ExpireDate: string;
-    ExpireDays: string;
-    ExpireAction: string;
     End: string;
-    Ends: string;
-    FreeroundComplete: string;
     FreeroundCount: string;
-    FreeRoundWagering: string;
     FreeroundWinning: string;
-    GamesRestrictType?: string;
     Group: string;
     ID: number | string;
     IDActivator: string;
-    IDCategories: string[];
-    IDGames: string[];
-    IDPiFilter: string;
     Image: string;
     Image_other: string;
     Image_promo: string;
@@ -111,35 +86,78 @@ export interface IBonus {
     Image_store: string;
     Image_main: string;
     Image_description: string;
-    Inventoried: number;
-    IsInventory: string;
-    Weight: string;
     LBID: string;
-    Limitation: string;
     LoyaltyPoints: string;
-    MaxBet: IIndexing<string>;
-    MinBet: IIndexing<string>;
     Name: string;
-    PromoCode: string | number;
     PromoCodeUsed: string;
-    RealWinning: string;
     ReleaseWageringTotal: number;
-    Results: any;
-    Selected: number;
-    SportSettings: string;
     Status: string | number;
-    Starts: string;
     Target: string;
-    Terms: string;
-    TotalWinning: string;
     Type: string;
     Wagering: number;
     WageringLeft: string;
     WageringTo: string;
     WageringTotal: string;
+}
+
+export interface IBonus extends IBonusBase {
+    Active: number;
+    AffiliateSystem: string;
+    AffiliateUrl: string;
+    AllowCatalog: string;
+    AllowStack: string;
+    AmountMax: IIndexing<string>;
+    AmountMin: IIndexing<string>;
+    BonusBalance: string;
+    BonusWinning: string;
+    CategoriesRestrictType?: string;
+    DisableCancel: string;
+    Date: string;
+    EventAmount: string;
+    ExperienceAction: string;
+    Expire: string;
+    ExpireDate: string;
+    ExpireDays: string;
+    ExpireAction: string;
+    Ends: string;
+    FreeroundComplete: string;
+    FreeRoundWagering: string;
+    GamesRestrictType?: string;
+    IDCategories: string[];
+    IDGames: string[];
+    IDPiFilter: string;
+    Inventoried: number;
+    IsInventory: string;
+    Weight: string;
+    Limitation: string;
+    MaxBet: IIndexing<string>;
+    MinBet: IIndexing<string>;
+    PromoCode: string | number;
+    RealWinning: string;
+    Results: any;
+    Selected: number;
+    SportSettings: string;
+    Starts: string;
+    Terms: string;
+    TotalWinning: string;
     WageringType: string;
     Conditions?: IBonusConditions;
 }
+
+export interface IBonusHistory extends IBonusBase {
+    BonusWagering: string;
+    BonusWageringDiff: string;
+    CancelInfo: IIndexing<string> | IIndexing<string>[];
+    Ended: number;
+    FreebetsValue: string;
+    FreebetsWinning: string;
+    FreeroundWagering: string;
+    PaySystems: null;
+    Start: string;
+    SubscribeDate: string;
+}
+
+export type TBonusesHistory = IBonusHistory[];
 
 export interface IBonusConditions {
     Levels?: IIndexing<string>;

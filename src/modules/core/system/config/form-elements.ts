@@ -199,6 +199,22 @@ export namespace FormElements {
 
     export const countryCode = country;
 
+    export const state: IFormComponent = {
+        name: 'core.wlc-select',
+        params: <ISelectCParams>{
+            theme: 'vertical',
+            labelText: gettext('State'),
+            common: {
+                placeholder: gettext('State'),
+            },
+            name: 'stateCode',
+            validators: ['required'],
+            options: 'states',
+            wlcElement: 'block_state',
+            customMod: ['state'],
+        },
+    };
+
     export const city: IFormComponent = {
         name: 'core.wlc-input',
         params: <IInputCParams>{

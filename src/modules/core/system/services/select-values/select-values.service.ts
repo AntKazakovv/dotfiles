@@ -1,6 +1,18 @@
 import {Injectable} from '@angular/core';
-import {map} from 'rxjs/operators';
-import {BehaviorSubject} from 'rxjs';
+import {
+    AbstractControl,
+    FormControl,
+} from '@angular/forms';
+
+import {
+    map,
+    distinctUntilChanged,
+    takeUntil,
+} from 'rxjs/operators';
+import {
+    Subject,
+    BehaviorSubject,
+} from 'rxjs';
 import {
     DateTime,
     Info,
@@ -15,11 +27,18 @@ import _values from 'lodash-es/values';
 import _merge from 'lodash-es/merge';
 import _get from 'lodash-es/get';
 import _cloneDeep from 'lodash-es/cloneDeep';
+import _has from 'lodash-es/has';
 
+import {UserProfile} from 'wlc-engine/modules/user';
 import {GlobalHelper} from 'wlc-engine/modules/core/system/helpers/global.helper';
 import {InjectionService} from 'wlc-engine/modules/core/system/services/injection/injection.service';
 import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
-import {ICountry} from 'wlc-engine/modules/core/system/interfaces/fundist.interface';
+import {EventService} from 'wlc-engine/modules/core/system/services/event/event.service';
+import {
+    ICountry,
+    TStates,
+    IState,
+} from 'wlc-engine/modules/core/system/interfaces/fundist.interface';
 import {IIndexing} from 'wlc-engine/modules/core/system/interfaces/global.interface';
 import {ICurrency} from 'wlc-engine/modules/finances/system/interfaces/currencies.interface';
 import {
@@ -43,12 +62,17 @@ export interface IPhoneLimits {
 export class SelectValuesService {
     public daysInMonth: BehaviorSubject<number> = new BehaviorSubject(31);
     public dayList: BehaviorSubject<Params.ISelectOptions[]> = this.getDateList('days');
+    public countryStates$: BehaviorSubject<IState[]> =
+        new BehaviorSubject<IState[]>([{value: '', title: 'Please select country'}]);
 
     protected configSelectWithIcon: Params.ISelectOptionsWithIcon;
     protected gamesCatalogService: GamesCatalogService;
 
+    private constantValues: IIndexing<BehaviorSubject<Params.ISelectOptions[]>> = {};
+
     constructor(
         protected configService: ConfigService,
+        private eventService: EventService,
         protected injectionService: InjectionService,
     ) {
         this.daysInMonth.subscribe(() => {
@@ -320,5 +344,119 @@ export class SelectValuesService {
                 this.configSelectWithIcon.isoByPhoneCode,
             );
         }
+    }
+
+    /**
+     * A method that subscribes to changing the country field and returns the states of the corresponding country
+     *
+     * @method getCountryStates
+     * @param {FormControl} control
+     * @param {Subject<void>} $destroy
+     * @returns {BehaviorSubject<Params.ISelectOptions[]>}
+     * BehaviorSubject<Params.ISelectOptions[]>
+     */
+    public getCountryStates(
+        stateControl: FormControl,
+        destroy: Subject<void>,
+    ): BehaviorSubject<Params.ISelectOptions[]> {
+
+        (async () => {
+            await this.configService.ready;
+            const countriesStates: TStates =
+                this.configService.get<BehaviorSubject<TStates>>('states')?.getValue();
+            const countryCodeControl: AbstractControl = stateControl.root?.get('countryCode');
+
+            if(countryCodeControl) {
+                countryCodeControl.valueChanges
+                    .pipe(
+                        distinctUntilChanged(),
+                        takeUntil(destroy),
+                    )
+                    .subscribe((countryCode: string) => {
+                        this.eventService.emit({
+                            name: 'COUNTRY_STATES',
+                        });
+                        if(_has(countriesStates, countryCode)) {
+                            this.countryStates$.next(countriesStates[countryCode]);
+                            stateControl.enable();
+                            return;
+                        }
+                        this.countryStates$.next([{value: '', title: 'Country without states'}]);
+                        stateControl.disable();
+                    });
+            } else {
+                const country: string = this.configService
+                    .get<BehaviorSubject<UserProfile>>('$user.userProfile$').getValue()['countryCode'];
+                this.countryStates$.next(countriesStates[country]);
+            }
+        })();
+        return this.countryStates$;
+    }
+
+    /**
+     * The method get constant values from configService and selectValues by select fields names
+     *
+     * @method prepareConstantValues
+     * @param {string} option - selector options
+     * @param {FormControl} control
+     * @returns {IIndexing<BehaviorSubject<Params.ISelectOptions[]>>}
+     * IIndexing<BehaviorSubject<Params.ISelectOptions[]>>
+     */
+    public prepareConstantValues(
+        option: string,
+        control: FormControl,
+        destroy: Subject<void>,
+    ): IIndexing<BehaviorSubject<Params.ISelectOptions[]>> {
+
+        switch (option) {
+            case 'currencies':
+                this.constantValues[option] = this.prepareCurrency();
+                break;
+            case 'countries':
+                this.constantValues[option] = this.configService.get('countries');
+                break;
+            case 'states':
+                this.constantValues[option] = this.getCountryStates(control, destroy);
+                break;
+            case 'countryStates':
+                this.constantValues[option] = this.configService.get('countryStates');
+                break;
+            case 'phoneCodes':
+                this.constantValues[option] = this.getPhoneCodes();
+                break;
+            case 'genders':
+                this.constantValues[option] = new BehaviorSubject([
+                    {
+                        value: '',
+                        title: gettext('Not selected'),
+                    },
+                    {
+                        value: 'f',
+                        title: gettext('Female'),
+                    },
+                    {
+                        value: 'm',
+                        title: gettext('Male'),
+                    },
+                ]);
+                break;
+            case 'birthDay':
+                this.constantValues[option] = this.dayList;
+                break;
+            case 'birthMonth':
+                this.constantValues[option] = this.getDateList('months');
+                break;
+            case 'birthYear':
+                this.constantValues[option] = this.getDateList('years');
+                break;
+            case 'pep':
+                this.constantValues[option] = this.getPepList();
+                break;
+            case 'merchants':
+                this.constantValues[option] = this.getMerchantsList();
+                break;
+        }
+
+        return this.constantValues;
     }
 }

@@ -78,6 +78,7 @@ module.exports = function buildTask() {
             'build:copyHeadFile',
             'build:modifyIndexFile',
             'build:loader-css',
+            'build:piq-cashier-css',
             'build:hosted-fields-css',
         ),
     ));

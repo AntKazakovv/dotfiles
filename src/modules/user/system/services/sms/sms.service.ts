@@ -90,7 +90,7 @@ export class SmsService {
      */
     public async state(token: string): Promise<ISmsStateResponse> {
         try {
-            const response: IData = await this.dataService.request('sms/state', {token: token});
+            const response: IData = await this.dataService.request('sms/state', {token});
             return response.data;
         } catch(error) {
             this.logService.sendLog({code: '15.0.2', data: error});
@@ -108,8 +108,10 @@ export class SmsService {
     public async checkState(token: string, timeout: number = 5000): Promise<boolean> {
         try {
             const response = await this.state(token);
-            if (['Unknown', 'Sent', 'Failed', 'Delivered', 'Canceled'].indexOf(response.state) === -1) {
-                this.checkStateCounter ++;
+            const statuses: string[] = ['Unknown', 'Sent', 'Failed', 'Delivered', 'Canceled'];
+
+            if (statuses.indexOf(response.state) === -1) {
+                this.checkStateCounter++;
                 if (this.checkStateCounter > 2) {
                     this.checkStateCounter = 0;
                     return false;

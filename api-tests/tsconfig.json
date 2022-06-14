@@ -1,8 +1,15 @@
 {
+    "ts-node": {
+        "files": true
+    },
+    "files": [
+        "matcher-types.d.ts"
+    ],
     "compilerOptions": {
         "target": "esnext",
         "lib": [
             "es2018",
+            "dom",
         ],
         "module": "commonjs",
         "types": [
@@ -10,6 +17,11 @@
             "node",
             "global.d.ts"
         ],
+        "paths": {
+            "wlc-engine/*": [
+                "../src/*"
+            ]
+        },
         "esModuleInterop": true,
         "forceConsistentCasingInFileNames": true,
         "strict": true,

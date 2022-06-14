@@ -421,6 +421,11 @@ $themeDefault: map-merge((
     ),
     //wp-promo-content
 
+    //games-slider
+    'sliderModalBodyPadding': ef.size(16) ef.size(6),
+    'sliderModalBg': null,
+    //games-slider
+
     'selectMaxHeight': 200px,
 
     // internal-mails-content

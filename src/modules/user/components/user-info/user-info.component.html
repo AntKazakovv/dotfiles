@@ -41,7 +41,8 @@
     </div>
 
     <div *ngIf="hasNotifier"
-         wlc-internal-mails-notifier
-         class="{{$class}}-mails-notifier">
-    </div>
+         wlc-wrapper
+         class="{{$class}}-mails-notifier"
+         [inlineParams]="notifierConfig"
+    ></div>
 </div>

@@ -50,6 +50,7 @@ export class FinancesService {
 
     protected userService: UserService;
     private systems: PaymentSystem[] = [];
+    private isPaymentsFetch: boolean = false;
 
     constructor(
         protected dataService: DataService,
@@ -59,7 +60,6 @@ export class FinancesService {
         protected translateService: TranslateService,
     ) {
         this.registerMethods();
-        this.fetchPaymentSystems();
 
         this.translateService.onLangChange.subscribe(() => {
             this.paymentSystems$.next(undefined);
@@ -88,23 +88,27 @@ export class FinancesService {
         return _find(this.systems, {alias});
     }
 
-    public async deposit(systemId: number, amount: number, additionalFields: object): Promise<any> {
+    public async deposit(systemId: number, amount: number, additionalFields: object, cssVariables: string):
+        Promise<any> {
         return await this.balanceAction(
             systemId,
             amount,
             additionalFields,
             'deposit',
             'finances/deposits',
+            cssVariables,
         );
     }
 
-    public async withdraw(systemId: number, amount: number, additionalFields: object): Promise<any> {
+    public async withdraw(systemId: number, amount: number, additionalFields: object, cssVariables: string):
+        Promise<any> {
         return await this.balanceAction(
             systemId,
             amount,
             additionalFields,
             'withdraw',
             'finances/postWithdrawal',
+            cssVariables,
         );
     }
 
@@ -151,13 +155,24 @@ export class FinancesService {
     }
 
     public async fetchPaymentSystems(): Promise<PaymentSystem[]> {
+
+        if (this.isPaymentsFetch) {
+            return;
+        }
+
+        this.isPaymentsFetch = true;
+
         if (!this.userService) {
             this.userService = await this.injectionService.getService<UserService>('user.user-service');
         }
-        this.systems = (await this.dataService.request<IData>('finances/paymentSystems')).data as PaymentSystem[];
+        this.systems =
+            this.createPaymentSystems((await this.dataService.request<IData>('finances/paymentSystems'))
+                .data as IPaymentSystem[]);
 
         // TODO delete when will be completed #247624
         this.systems = this.systems.filter(system => !system.alias.includes('helper'));
+
+        this.isPaymentsFetch = false;
 
         this.paymentSystems$.next(this.paymentSystems);
         return this.paymentSystems;
@@ -197,12 +212,13 @@ export class FinancesService {
         additionalFields: object,
         method: TPaymentsMethods,
         requestName: string,
+        cssVariables: string,
     ): Promise<any> {
         try {
             const currentSystem = this.getSystemById(systemId);
 
             if (currentSystem.isCashier) {
-                await this.injector.get(PIQCashierService).openPIQCashier(method, currentSystem, amount);
+                await this.injector.get(PIQCashierService).openPIQCashier(method, currentSystem, amount, cssVariables);
                 return [PIQCashierResponse];
             }
 
@@ -252,7 +268,6 @@ export class FinancesService {
                 success: 'PAYMENT_SYSTEMS',
                 fail: 'PAYMENT_SYSTEMS_ERROR',
             },
-            mapFunc: this.createPaymentSystems.bind(this),
         });
         this.dataService.registerMethod({
             name: 'bets',

@@ -3,6 +3,7 @@ import {
     ISelectCParams,
     IInputCParams,
     IButtonCParams,
+    TIndexingLimitTypeItems,
 } from 'wlc-engine/modules/core';
 
 import {ITableCol} from 'wlc-engine/modules/core/components/table/table.params';
@@ -21,6 +22,8 @@ export interface ILimitationsCParams extends IComponentParams<ComponentTheme, Co
 }
 
 export const defaultParams: ILimitationsCParams = {
+    moduleName: 'user',
+    componentName: 'wlc-limitations',
     class: 'wlc-limitations',
 };
 
@@ -50,6 +53,29 @@ export const tableConfig: ITableCol[] = [
     },
 ];
 
+export const limitTypeItems: TIndexingLimitTypeItems = {
+    MaxDepositSum: {
+        title: gettext('Deposit Limit'),
+        value: 'MaxDepositSum',
+    },
+    MaxBetSum: {
+        title: gettext('Wager Limit'),
+        value: 'MaxBetSum',
+    },
+    MaxLossSum: {
+        title: gettext('Loss Limit'),
+        value: 'MaxLossSum',
+    },
+    realityChecker: {
+        title: gettext('Reality checker'),
+        value: 'realityChecker',
+    },
+    timeOut: {
+        title: gettext('Time out'),
+        value: 'timeOut',
+    },
+};
+
 export const limitType = {
     name: 'core.wlc-select',
     params: <ISelectCParams>{
@@ -65,27 +91,13 @@ export const limitType = {
             },
         },
         validators: ['required'],
+        locked: false,
         items: [
-            {
-                title: gettext('Deposit Limit'),
-                value: 'MaxDepositSum',
-            },
-            {
-                title: gettext('Wager Limit'),
-                value: 'MaxBetSum',
-            },
-            {
-                title: gettext('Loss Limit'),
-                value: 'MaxLossSum',
-            },
-            {
-                title: gettext('Reality checker'),
-                value: 'realityChecker',
-            },
-            {
-                title: gettext('Time out'),
-                value: 'timeOut',
-            },
+            limitTypeItems.MaxDepositSum,
+            limitTypeItems.MaxBetSum,
+            limitTypeItems.MaxLossSum,
+            limitTypeItems.realityChecker,
+            limitTypeItems.timeOut,
         ],
     },
 };
@@ -106,6 +118,7 @@ export const limitAmount = {
             'required',
             'numberDecimal',
         ],
+        locked: false,
         prohibitedPattern: /[^\d,.]/,
     },
 };
@@ -120,6 +133,7 @@ export const limitPeriod = {
             placeholder: gettext('Period'),
         },
         validators: ['required'],
+        locked: false,
         items: [
             {
                 title: gettext('Each day'),
@@ -151,12 +165,13 @@ export const realityCheckerPeriod = {
     name: 'core.wlc-select',
     params: <ISelectCParams>{
         name: 'limitTime',
-        labelText: gettext('Limit Time'),
+        labelText: gettext('Limit Time (Reality Checker)'),
         wlcElement: 'limit-time',
         common: {
-            placeholder: gettext('Limit Time'),
+            placeholder: gettext('Limit Time (Reality Checker)'),
         },
         validators: ['required'],
+        locked: false,
         items: [
             {
                 title: gettext('30 Minutes'),
@@ -178,12 +193,13 @@ export const timeOutPeriod = {
     name: 'core.wlc-select',
     params: <ISelectCParams>{
         name: 'limitTime',
-        labelText: gettext('Limit Time'),
+        labelText: gettext('Limit Time (Time Out)'),
         wlcElement: 'limit-time',
         common: {
-            placeholder: gettext('Limit Time'),
+            placeholder: gettext('Limit Time (Time Out)'),
         },
         validators: ['required'],
+        locked: false,
         items: [
             {
                 title: gettext('1 Day'),

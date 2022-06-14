@@ -32,7 +32,7 @@ export enum ProcessEventsDescriptions {
     noReason = 'no reason',
 }
 
-// Comparator function used for 'SHOW_MODAL' event (open modal based on passed id)
+// Comparator function used for 'SHOW_MODAL' event (open modal with passed id)
 // for checking that trigger eventId match opened modal id
 const comparatorShowModal: TComparatorFn = (triggerData: IProcessEventData, modalId: string): boolean => {
     return triggerData.eventId === modalId;
@@ -45,200 +45,56 @@ const comparatorModalClosed: TComparatorFn =
             eventData.description !== ProcessEventsDescriptions.modalClosed + 'submit';
     };
 
+// Comparator function used for checking that login error is NOT wrong password and NOT captcha error
+const comparatorLoginFail: TComparatorFn = (triggerData: IProcessEventData, eventData: IProcessEventData): boolean => {
+    return triggerData.eventId === eventData.eventId &&
+        (
+            eventData.description !== ProcessEventsDescriptions.failTrigger + '403 (/auth PUT)'
+            && eventData.description !== ProcessEventsDescriptions.failTrigger + '429 (/auth PUT)'
+        );
+};
+
+// Comparator function used for checking that login error is wrong password or captcha error
+const comparatorLoginRestart: TComparatorFn = (
+    triggerData: IProcessEventData,
+    eventData: IProcessEventData,
+): boolean => {
+    return triggerData.eventId === eventData.eventId &&
+        (
+            eventData.description === ProcessEventsDescriptions.failTrigger + '403 (/auth PUT)'
+            || eventData.description === ProcessEventsDescriptions.failTrigger + '429 (/auth PUT)'
+        );
+};
+
+// Comparator function used for checking that signup error is NOT 'email exist'
+const comparatorSignupFail: TComparatorFn = (triggerData: IProcessEventData, eventData: IProcessEventData): boolean => {
+    return triggerData.eventId === eventData.eventId &&
+        eventData.description !== ProcessEventsDescriptions.failTrigger + 'http 400';
+};
+
+// Comparator function used for checking that signup error is 'email exist'
+const comparatorSignupRestart: TComparatorFn = (
+    triggerData: IProcessEventData, eventData: IProcessEventData,
+): boolean => {
+    return triggerData.eventId === eventData.eventId &&
+        eventData.description === ProcessEventsDescriptions.failTrigger + 'http 400';
+};
+/**
+ * Map of comparator functions for remote config
+ */
+export const comparatorMap = {
+    'comparatorShowModal': comparatorShowModal,
+    'comparatorModalClosed': comparatorModalClosed,
+    'comparatorLoginFail': comparatorLoginFail,
+    'comparatorLoginRestart': comparatorLoginRestart,
+    'comparatorSignupFail': comparatorSignupFail,
+    'comparatorSignupRestart': comparatorSignupRestart,
+};
+
 /**
  * Common configurations for ProcessService
  */
 export const processConfigsCommon: TProcessConfigs = {
-    loginProcess: {
-        use: true,
-        launchOnAppStart: true,
-        launch: {
-            triggers: [{name: 'LOGOUT'}],
-        },
-        start: {
-            triggers: [
-                {name: ProcessEvents.buttonPressed, data: {eventId: 'login'}},
-                {name: ProcessEvents.modalOpened, data: {eventId: 'login'}},
-                {name: ProcessEvents.modalOpened, data: {eventId: 'play-game-for-real'}},
-                {
-                    name: 'SHOW_MODAL',
-                    data: {
-                        eventId: 'login',
-                        comparator: comparatorShowModal,
-                        description: ProcessEventsDescriptions.modalOpened + 'login',
-                    },
-                },
-            ],
-            exceptionsForGroup: {
-                configParams: [{param: '$user.isAuthenticated'}],
-            },
-        },
-        fail: {
-            triggers: [
-                {
-                    name: ProcessEvents.failTrigger,
-                    data: {
-                        eventId: 'login',
-                        comparator: (triggerData: IProcessEventData, eventData: IProcessEventData) => {
-                            return triggerData.eventId === eventData.eventId &&
-                                eventData.description !== ProcessEventsDescriptions.failTrigger + '403 (/auth PUT)';
-                        },
-                    },
-                },
-                {
-                    name: 'USER_INFO_ERROR',
-                    data: {
-                        description: ProcessEventsDescriptions.failTrigger + '/userInfo GET',
-                    },
-                },
-                {name: ProcessEvents.beforeunload},
-            ],
-        },
-        relaunchAfterFail: true,
-        success: {
-            triggers: [
-                {
-                    name: 'USER_INFO',
-                    data: {
-                        description: ProcessEventsDescriptions.successTrigger + '/userInfo GET',
-                    },
-                },
-            ],
-        },
-        stop: {
-            triggers: [
-                {
-                    name: ProcessEvents.modalClosed, data: {
-                        eventId: 'login',
-                        comparator: comparatorModalClosed,
-                    },
-                },
-                {
-                    name: ProcessEvents.modalClosed, data: {
-                        eventId: 'play-game-for-real',
-                        comparator: comparatorModalClosed,
-                    },
-                },
-                {name: ProcessEvents.buttonPressed, data: {eventId: 'signup'}},
-                {name: ProcessEvents.modalOpened, data: {eventId: 'signup'}},
-                {name: ProcessEvents.modalOpened, data: {eventId: 'restore-password'}},
-                {
-                    name: 'SHOW_MODAL',
-                    data: {
-                        eventId: 'signup',
-                        comparator: comparatorShowModal,
-                        description: ProcessEventsDescriptions.modalOpened + 'signup',
-                    },
-                },
-                {
-                    name: 'SHOW_MODAL',
-                    data: {
-                        eventId: 'restore-password',
-                        comparator: comparatorShowModal,
-                        description: ProcessEventsDescriptions.modalOpened + 'restore-password',
-                    },
-                },
-            ],
-        },
-        relaunchAfterStop: true,
-        restart: {
-            triggers: [
-                {
-                    name: ProcessEvents.failTrigger,
-                    data: {
-                        eventId: 'login',
-                        // Wrong password error
-                        comparator: (triggerData: IProcessEventData, eventData: IProcessEventData) => {
-                            return triggerData.eventId === eventData.eventId &&
-                                eventData.description === ProcessEventsDescriptions.failTrigger + '403 (/auth PUT)';
-                        },
-                    },
-                },
-            ],
-        },
-    },
-    signupProcess: {
-        use: true,
-        launchOnAppStart: true,
-        launch: {
-            triggers: [{name: 'LOGOUT'}],
-        },
-        start: {
-            triggers: [
-                {name: ProcessEvents.buttonPressed, data: {eventId: 'signup'}},
-                {name: ProcessEvents.modalOpened, data: {eventId: 'signup'}},
-                {
-                    name: 'SHOW_MODAL',
-                    data: {
-                        eventId: 'signup',
-                        comparator: comparatorShowModal,
-                        description: ProcessEventsDescriptions.modalOpened + 'signup',
-                    },
-                },
-            ],
-            exceptionsForGroup: {
-                configParams: [{param: '$user.isAuthenticated'}],
-            },
-        },
-        fail: {
-            triggers: [
-                {name: ProcessEvents.modalOpened, data: {eventId: 'registration-errors'}},
-                {
-                    name: ProcessEvents.failTrigger,
-                    data: {
-                        eventId: 'signup',
-                        comparator: (triggerData: IProcessEventData, eventData: IProcessEventData) => {
-                            return triggerData.eventId === eventData.eventId &&
-                                eventData.description !== ProcessEventsDescriptions.failTrigger + 'http 400';
-                        },
-                    },
-                },
-                {name: ProcessEvents.beforeunload},
-            ],
-        },
-        relaunchAfterFail: true,
-        success: {
-            triggers: [
-                {name: ProcessEvents.successTrigger, data: {eventId: 'signup'}},
-            ],
-        },
-        stop: {
-            triggers: [
-                {
-                    name: ProcessEvents.modalClosed, data: {
-                        eventId: 'signup',
-                        comparator: comparatorModalClosed,
-                    },
-                },
-                {name: ProcessEvents.buttonPressed, data: {eventId: 'login'}},
-                {name: ProcessEvents.modalOpened, data: {eventId: 'login'}},
-                {
-                    name: 'SHOW_MODAL',
-                    data: {
-                        eventId: 'login',
-                        comparator: comparatorShowModal,
-                        description: ProcessEventsDescriptions.modalOpened + 'login',
-                    },
-                },
-            ],
-        },
-        relaunchAfterStop: true,
-        restart: {
-            triggers: [
-                {
-                    name: ProcessEvents.failTrigger,
-                    data: {
-                        eventId: 'signup',
-                        // Email exists error
-                        comparator: (triggerData: IProcessEventData, eventData: IProcessEventData) => {
-                            return triggerData.eventId === eventData.eventId &&
-                                eventData.description === ProcessEventsDescriptions.failTrigger + 'http 400';
-                        },
-                    },
-                },
-            ],
-        },
-    },
 };
 
 export const emptyLaunchedProcess: ILaunchedProcess = {

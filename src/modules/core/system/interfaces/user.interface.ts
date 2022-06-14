@@ -37,6 +37,7 @@ export interface IUserProfile {
     city?: string;
     countryCode?: string;
     currency?: string;
+    stateCode?: string;
     currentPassword?: string;
     email?: string;
     emailVerified?: string;

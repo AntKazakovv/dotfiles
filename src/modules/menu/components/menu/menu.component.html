@@ -20,11 +20,13 @@
                       class="{{$class}}__icon"
                       [iconPath]="getIcon(item)"
                       [fallback]="getIconFallback(item)"></span>
-                {{menuItemName(item)}}
-                <span *ngIf="item.counterParams"
-                      wlc-counter
-                      [inlineParams]="item.counterParams"
-                ></span>
+                <span class="{{$class}}__link-text">
+                    <span>{{menuItemName(item)}}</span>
+                    <span *ngIf="item.counterParams"
+                          wlc-counter
+                          [inlineParams]="item.counterParams"
+                    ></span>
+                </span>
             </a>
 
             <a *ngIf="!item.params?.state?.activeEq"

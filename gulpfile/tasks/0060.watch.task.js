@@ -45,6 +45,12 @@ module.exports = function watchTask() {
         });
     };
 
+    const watchForPiqCashier = () => {
+        watch(`${this.params.paths.src}/app-styles/piq.cashier*.scss`).on('change',  () => {
+            series('build:piq-cashier-css', 'liveReload:reload')();
+        });
+    };
+
     task('liveReload:reload', (cb) => {
         liveReload.reload();
         cb();
@@ -54,10 +60,11 @@ module.exports = function watchTask() {
         if (this.params.isEngineBundle) {
             return;
         }
-        parallel(['build:hosted-fields-css', 'build:loader-css'])();
+        parallel(['build:hosted-fields-css', 'build:loader-css', 'build:piq-cashier-css'])();
 
         watchForPreloader();
         watchForHostedFields();
+        watchForPiqCashier();
 
         const liveReloadCommand = process.platform === 'darwin' ?
             'lsof -P | grep \':35729\' | awk \'{print $2}\' | xargs kill -9' :

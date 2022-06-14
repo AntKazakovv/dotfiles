@@ -81,7 +81,6 @@ export class BannersSliderComponent extends AbstractComponent implements OnInit 
 
         if (this.slides.length <= 1) {
             this.$params.sliderParams.swiper.loop = false;
-            this.$params.sliderParams.swiper.loopedSlides = null;
         }
     }
 

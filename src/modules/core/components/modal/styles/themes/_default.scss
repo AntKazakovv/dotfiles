@@ -254,6 +254,18 @@
         );
         word-wrap: break-word;
     }
+
+    &.wlc-modal--games-slider {
+
+        .wlc-modal__dialog {
+            overflow: hidden;
+        }
+
+        .wlc-modal__body {
+            padding: ef.get-value($themeDefault, 'sliderModalBodyPadding');
+            background: ef.get-value($themeDefault, 'sliderModalBg');
+        }
+    }
 }
 
 body.modal-open {

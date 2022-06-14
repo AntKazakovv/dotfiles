@@ -32,7 +32,7 @@ export interface ISelectCParams<V = unknown> extends IComponentParams<ComponentT
     validators?: ValidatorType[];
     control?: FormControl;
     disabled?: boolean;
-    locked?: boolean;
+    locked?: boolean | string[];
     labelText?: string;
     options?: string;
     items?: ISelectOptions<V>[];

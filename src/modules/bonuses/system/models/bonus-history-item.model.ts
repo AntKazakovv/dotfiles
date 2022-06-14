@@ -1,15 +1,13 @@
+import _assign from 'lodash-es/assign';
+
 import {
     AbstractModel,
     IFromLog,
     GlobalHelper,
 } from 'wlc-engine/modules/core';
-import {
-    IBonus,
-} from '../interfaces/bonuses.interface';
+import {IBonusHistory} from 'wlc-engine/modules/bonuses/system/interfaces/bonuses.interface';
 
-import _assign from 'lodash-es/assign';
-
-export class HistoryItemModel extends AbstractModel<IBonus> {
+export class HistoryItemModel extends AbstractModel<IBonusHistory> {
 
     constructor(
         from: IFromLog,

@@ -31,4 +31,6 @@ $themeRegFirst: map-merge((
     'tagPosLeft': 50%,
     'tagPosTop': ef.size(4),
     'tagTransform': translateX(-50%),
+
+    'bottomBackground': var(--mc-bg500),
 ), $customThemeRegFirst);

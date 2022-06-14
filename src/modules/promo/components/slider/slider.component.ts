@@ -18,6 +18,7 @@ import {
 import {takeUntil} from 'rxjs/operators';
 
 import SwiperCore, {
+    EffectCoverflow,
     EffectFade,
     EffectCube,
     EffectFlip,
@@ -58,6 +59,7 @@ import _times from 'lodash-es/times';
 import _toNumber from 'lodash-es/toNumber';
 
 SwiperCore.use([
+    EffectCoverflow,
     EffectFade,
     EffectCube,
     EffectFlip,

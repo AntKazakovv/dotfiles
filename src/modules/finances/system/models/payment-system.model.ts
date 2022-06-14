@@ -157,6 +157,11 @@ const fieldTemplatesNames: IIndexing<IFieldTemplate> = {
         dbName: 'IDCountry',
         label: 'Country',
     },
+    stateCode: {
+        template: 'state',
+        dbName: 'IDState',
+        label: 'State',
+    },
     postalCode: {
         template: 'postalCode',
         dbName: 'PostalCode',
@@ -363,6 +368,11 @@ export class PaymentSystem extends AbstractModel<IPaymentSystem> {
 
     public checkRequiredFields(type: TPaymentsMethods = 'deposit'): IIndexing<IFieldTemplate> {
         const fields = type === 'deposit' ? this.required : this.requiredWithdraw;
+
+        if(_includes(this.required, 'IDState') &&
+            !_includes(this.required, 'IDCountry')) {
+            this.required.push('IDCountry');
+        }
 
         return _pickBy(fieldTemplatesNames, (value: IFieldTemplate, key: string) => {
             return _includes(fields, value.dbName) &&

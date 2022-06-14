@@ -15,6 +15,7 @@ import {
 
 import _assign from 'lodash-es/assign';
 import _each from 'lodash-es/each';
+import _keys from 'lodash-es/keys';
 import _map from 'lodash-es/map';
 import _cloneDeep from 'lodash-es/cloneDeep';
 
@@ -28,6 +29,7 @@ import {
     TLogObjFlog,
 } from 'wlc-engine/modules/core';
 import {
+    comparatorMap,
     emptyLaunchedProcess,
     processConfigsCommon,
     ProcessEvents,
@@ -96,14 +98,46 @@ export class ProcessService {
 
     protected getConfig(): TProcessConfigs {
         const processConfigLocal = this.configService.get<TProcessConfigs>('$base.monitoring.processConfigs');
-        return _cloneDeep(
-            _assign({}, processConfigsCommon, processConfigLocal),
+        const remoteConfig: TProcessConfigs = this.getRemoteConfig();
+        return _cloneDeep<TProcessConfigs>(
+            _assign({}, processConfigsCommon, remoteConfig, processConfigLocal),
         );
+    }
+
+    protected getRemoteConfig(): TProcessConfigs {
+        const remoteConfig: TProcessConfigs = _cloneDeep(
+            this.configService.get<TProcessConfigs>('appConfig.siteconfig.monitoring'),
+        );
+        if (!remoteConfig) {
+            return null;
+        }
+
+        const replaceComparatorIdWithFunc = (obj: Object): void => {
+            const keys: string[] = _keys(obj);
+            if (!keys.length) {
+                return;
+            }
+            _each(keys, (key: string): boolean => {
+                if (key === 'use' && !obj[key]) {
+                    return false;
+                }
+                if (key === 'comparator' && obj[key].id) {
+                    obj[key] = comparatorMap[obj[key].id];
+                    return false;
+                }
+                if (typeof obj[key] === 'object') {
+                    replaceComparatorIdWithFunc(obj[key]);
+                }
+            });
+            
+        };
+        replaceComparatorIdWithFunc(remoteConfig);
+        return remoteConfig;
     }
 
     protected launchProcessesMonitoring(): void {
         _each(this.processConfigs, (config: IProcessConfig, processName: string): void => {
-            if (!config.use) { return; }
+            if (!config?.use) { return; }
 
             if (
                 !config.launch &&
