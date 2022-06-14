@@ -365,7 +365,7 @@ export class CategoryModel extends AbstractModel<ICategory> {
         this.data = data;
         this._slug = (this.data.Slug.toLowerCase() || this.data.menuId.toLowerCase())
             .replace(/\./g, '-');
-        this.defaultSort = _toNumber(this.data.CSubSort) || 0;
+        this.defaultSort = +this.data.CSubSort || +this.data.CSort || 0;
         try {
             this.tagsData = JSON.parse(this.data.Tags.join(','));
             this.usedMenu = this.tagsData.menu || '';
