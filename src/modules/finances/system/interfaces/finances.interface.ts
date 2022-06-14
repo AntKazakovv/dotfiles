@@ -20,8 +20,9 @@ export interface IPaymentMessage {
     scripts?: string[];
 }
 
+export type TBets = IBet[];
+
 export interface IBet {
-    Action: string;
     Amount: string;
     Currency: string;
     Date: string;
