@@ -1,3 +1,35 @@
+import {IIndexing} from 'wlc-engine/modules/core';
+
+export type TLimitationType =
+    | 'MaxDepositSum'
+    | 'MaxBetSum'
+    | 'MaxLossSum'
+    | 'realityChecker'
+    | 'timeOut';
+
+export interface ILimitationTypeItem {
+    title: string;
+    value: TLimitationType;
+}
+
+export interface ILimitationExclusion {
+    type: string;
+    value: number;
+}
+
+export type TIndexingLimitTypeItems = IIndexing<ILimitationTypeItem>;
+
+export interface ILimitationsConfig {
+    /**
+    * Enable/disable limitations
+    */
+    use: boolean;
+    /**
+    * Allows you to include some types of limits
+    */
+    include?: ILimitationTypeItem[];
+}
+
 export interface IProfileConfig {
     /**
      * Internal mails
@@ -19,9 +51,7 @@ export interface IProfileConfig {
         useInProfile?: boolean;
     },
     verification?: IVerification,
-    limitations?: {
-        use: boolean;
-    },
+    limitations?: ILimitationsConfig,
     store?: {
         use: boolean;
         /**

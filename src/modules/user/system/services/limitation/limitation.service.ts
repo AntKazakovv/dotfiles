@@ -4,8 +4,8 @@ import {BehaviorSubject, timer, Subscription} from 'rxjs';
 import {filter} from 'rxjs/operators';
 import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
 import {EventService} from 'wlc-engine/modules/core/system/services/event/event.service';
-import {IIndexing} from 'wlc-engine/modules/core/system/interfaces/global.interface';
 import {ModalService} from 'wlc-engine/modules/core/system/services/modal/modal.service';
+import {ILimitationExclusion} from 'wlc-engine/modules/core/system/interfaces';
 import {IPushMessageParams} from 'wlc-engine/modules/core/system/services/notification/notification.interface';
 import {NotificationEvents} from 'wlc-engine/modules/core/system/services/notification/notification.service';
 import {DataService} from 'wlc-engine/modules/core/system/services/data/data.service';
@@ -37,6 +37,34 @@ export interface IRealityCheckerResult {
     Deposits?: number;
     Losses?: number;
     Wins?: number;
+}
+
+export type TResponseType = 'already' | 'queue' | 'immediately';
+
+/**
+ * Self exclusion's data to sending with "single" query parameter.
+ * This parameter is allowed to get additional information about self exlusions.
+ */
+export interface ISelfExclusionSingleData {
+    /**
+     * Type of response when setting a limit.
+     * 'already' - if the value of the set limit has not changed.
+     * 'queue' - if the limit is queued.
+     * 'immediately' - if the limit installed successfully.
+     */
+    type?: TResponseType;
+    /**
+     * Number of response status.
+     */
+    status: number;
+    /**
+     * Message of response.
+     */
+    message: string;
+    /**
+     * Date when the limit will be applied.
+     */
+    date: string;
 }
 
 @Injectable({
@@ -168,9 +196,27 @@ export class LimitationService {
      *
      * @return {Promise}
      */
-    public async setUserSelfExclusion(exclusion: IIndexing<number>): Promise<void> {
+    public async setUserSelfExclusion(exclusion: ILimitationExclusion): Promise<void> {
+        const params = {[`${exclusion.type}`]: exclusion.value};
         try {
-            await this.dataService.request('limit/setExclusion', exclusion);
+            const result: IData<ISelfExclusionSingleData> = await this.dataService
+                .request('limit/setExclusion', params);
+            if (result.data?.type === 'queue') {
+                this.eventService.emit({
+                    name: NotificationEvents.PushMessage,
+                    data: <IPushMessageParams>{
+                        type: 'success',
+                        title: gettext('User Limits'),
+                        message: (exclusion.value
+                            ? gettext('The limit was successfully added and will be applied on')
+                            : gettext('The limit will be removed on')),
+                        messageContext: {
+                            time: DateTime.local().plus({days: 1}).toFormat('LL.dd.yyyy'),
+                        },
+                        wlcElement: 'notification_set-self-exclusion-info',
+                    },
+                });
+            }
         } catch (error) {
             this.eventService.emit({
                 name: NotificationEvents.PushMessage,
@@ -194,9 +240,10 @@ export class LimitationService {
     public async removeUserSelfExclusion(type?: string): Promise<void> {
         try {
             if (type) {
-                const params = {};
-                params[type] = 0;
-                await this.setUserSelfExclusion(params);
+                await this.setUserSelfExclusion({
+                    type: type,
+                    value: 0,
+                });
             } else {
                 await this.dataService.request('limit/removeExclusion');
             }
@@ -296,9 +343,12 @@ export class LimitationService {
         });
         this.dataService.registerMethod({
             name: 'setExclusion',
-            url: '/userSelfExclusion',
+            params: {
+                single: 1,
+            },
             type: 'POST',
             system: 'limit',
+            url: '/userSelfExclusion',
         });
 
         this.dataService.registerMethod({
