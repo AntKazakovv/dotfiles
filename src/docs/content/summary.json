@@ -227,6 +227,10 @@
         "file": "./900.change-logs/900.change-logs.md",
         "children": [
             {
+                "title": "1.7.0RC2 (14-06-2022)",
+                "file": "./900.change-logs/releases/1.7.0-rc.2_14-06-2022.md"
+            },
+            {
                 "title": "1.7.0RC1 (14-06-2022)",
                 "file": "./900.change-logs/releases/1.7.0-rc.1_14-06-2022.md"
             },
