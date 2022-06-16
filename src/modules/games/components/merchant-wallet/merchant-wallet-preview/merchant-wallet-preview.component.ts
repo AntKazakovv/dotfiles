@@ -26,7 +26,6 @@ import {
     IWrapperCParams,
 } from 'wlc-engine/modules/core';
 import {
-    TBalanceTransferMethod,
     IMerchantWalletBalance,
     MerchantWalletService,
 } from 'wlc-engine/modules/games/system/services/merchant-wallet/merchant-wallet.service';
@@ -87,14 +86,6 @@ export class MerchantWalletPreviewComponent extends AbstractComponent implements
 
     public get merchantName(): string {
         return this.merchantWalletService.merchant.alias;
-    }
-
-    /**
-     * Transfer button handler
-     * @param method transfer method `'deposit' | 'withdraw'`
-     */
-    public buttonHandler(method: TBalanceTransferMethod): void {
-        this.merchantWalletService.openTransferModal(method);
     }
 
     /**
@@ -161,5 +152,17 @@ export class MerchantWalletPreviewComponent extends AbstractComponent implements
 
                 this.cdr.detectChanges();
             });
+
+        this.eventService.subscribe({
+            name: Params.MerchantWalletEvents.Deposit,
+        }, () => {
+            this.merchantWalletService.openTransferModal('deposit');
+        }, this.$destroy);
+
+        this.eventService.subscribe({
+            name: Params.MerchantWalletEvents.Withdraw,
+        }, () => {
+            this.merchantWalletService.openTransferModal('withdraw');
+        }, this.$destroy);
     }
 }

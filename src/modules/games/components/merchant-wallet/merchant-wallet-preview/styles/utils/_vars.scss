@@ -31,7 +31,7 @@ $themeDefault: map-merge((
     'buttonsDisplay': grid,
     'buttonsGap': ef.size(4),
     'buttonsJustifyContent': center,
-    'buttonsColumns': 1fr,
+    'buttonsColumns': none,
 
     // mini buttons
     'miniButtonsColor': var(--mc-main),

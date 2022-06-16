@@ -10,8 +10,12 @@ export type ThemeMod = 'default' | CustomType;
 export type AutoModifiers = Theme | ThemeMod;
 export type CustomMod = string;
 export type Modifiers = AutoModifiers | CustomMod | null;
-
 export type TButtonsType = 'default' | 'resizable';
+
+export enum MerchantWalletEvents {
+    Deposit = 'MERCHANT_WALLET_DEPOSIT',
+    Withdraw = 'MERCHANT_WALLET_WITHDRAW',
+}
 
 export interface IMerchantWalletPreviewCParams extends
     IComponentParams<Theme, Type, ThemeMod> {
@@ -20,7 +24,7 @@ export interface IMerchantWalletPreviewCParams extends
             type?: TButtonsType;
         },
     },
-};
+}
 
 export const defaultParams: IMerchantWalletPreviewCParams = {
     class: 'wlc-merchant-wallet-preview',
@@ -40,6 +44,9 @@ export const buttonsDefault: IWrapperCParams = {
             params: {
                 common: {
                     text: 'Add',
+                    event: {
+                        name: MerchantWalletEvents.Deposit,
+                    },
                 },
                 theme: 'default',
                 themeMod: 'default',
@@ -50,6 +57,9 @@ export const buttonsDefault: IWrapperCParams = {
             params: {
                 common: {
                     text: 'Withdraw',
+                    event: {
+                        name: MerchantWalletEvents.Withdraw,
+                    },
                 },
                 theme: 'default',
                 themeMod: 'secondary',
@@ -66,6 +76,9 @@ export const buttonsResizable: IWrapperCParams = {
                 common: {
                     text: 'Add',
                     iconPath: '',
+                    event: {
+                        name: MerchantWalletEvents.Deposit,
+                    },
                 },
                 theme: 'default',
                 themeMod: 'default',
@@ -79,6 +92,9 @@ export const buttonsResizable: IWrapperCParams = {
             params: {
                 common: {
                     text: 'Withdraw',
+                    event: {
+                        name: MerchantWalletEvents.Withdraw,
+                    },
                 },
                 theme: 'default',
                 themeMod: 'secondary',
@@ -93,6 +109,9 @@ export const buttonsResizable: IWrapperCParams = {
                 common: {
                     iconPath: '/wlc/icons/deposit-icon.svg',
                     text: '',
+                    event: {
+                        name: MerchantWalletEvents.Deposit,
+                    },
                 },
                 theme: 'cleared',
                 customMod: 'mini',
@@ -106,6 +125,9 @@ export const buttonsResizable: IWrapperCParams = {
             params: {
                 common: {
                     iconPath: '/wlc/icons/withdraw-icon.svg',
+                    event: {
+                        name: MerchantWalletEvents.Withdraw,
+                    },
                 },
                 theme: 'cleared',
                 customMod: 'mini',
