@@ -24,6 +24,6 @@ $themeDashboard: map-merge((
     'titlePadding': ef.size(4) ef.size(5),
     'descrFontSize': 1.2rem,
     'descrPadding': ef.size(3) ef.size(2),
-    'descrTextStyle': 'PlaceholderText',
+    'descrTextStyle': 'CaptionText',
     'descrColor': var(--mc-baseMain),
 ), $customThemeDashboard);

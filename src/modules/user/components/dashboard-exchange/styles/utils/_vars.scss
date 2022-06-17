@@ -54,6 +54,7 @@ $themeDefault: map-merge((
     'separatorMaxWidth': 215px,
 
     'pointsValueColor': var(--mc-baseMain),
+    'pointsCurrencyTextStyle': 'CaptionText',
     'pointsCurrencyColor': var(--mc-baseMain),
     'pointsCurrencySvgSize': 16px,
     'pointsCurrencyIconPosTop': 2px,
@@ -63,6 +64,7 @@ $themeDefault: map-merge((
     'pointsValueMargin': 0,
     'pointsValuePadding': ef.size(1) ef.size(4) 0,
     'pointsValueCurrencySize': 12px,
+    'pointsDescTextStyle': 'CaptionText',
     'pointsDescMargin': ef.size(1) 0 0,
     'pointsDescSize': 12px,
     'pointsDisplay': flex,

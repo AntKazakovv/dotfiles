@@ -44,8 +44,7 @@
             }
 
             &__currency {
-                @include text.get-text-style('PlaceholderText');
-                color: ef.get-value($themeDefault, 'pointsCurrencyColor');
+                @include text.get-text-style(ef.get-value($themeDefault, 'pointsCurrencyTextStyle'), ef.get-value($themeDefault, 'pointsCurrencyColor'));
                 line-height: 1;
 
                 ::ng-deep {
@@ -63,7 +62,7 @@
             }
 
             &__desc {
-                @include text.get-text-style('PlaceholderText');
+                @include text.get-text-style(ef.get-value($themeDefault, 'pointsDescTextStyle'), ef.get-value($themeDefault, 'pointsDescColor'));
                 width: 100%;
                 margin: ef.get-value($themeDefault, 'pointsDescMargin');
                 text-align: ef.get-value($themeDefault, 'descTextAlign');

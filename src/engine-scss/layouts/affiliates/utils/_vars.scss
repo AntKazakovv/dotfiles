@@ -65,10 +65,10 @@ $themeDefaultBenefits: map-merge((
         1630: 64px,
     ),
 
-    'captionTextStyleMobile': 'PlaceholderText',
+    'captionTextStyleMobile': 'CaptionText',
     'captionTextStyle': (
         375: 'SignText',
-        768: 'PlaceholderText',
+        768: 'CaptionText',
         1200: 'PrimaryTextBold',
     ),
     'captionMaxWidth': 21ch,

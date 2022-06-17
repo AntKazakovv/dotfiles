@@ -1,16 +1,15 @@
 .wlc-disclaimer--theme-default:host {
 
     .wlc-disclaimer__text {
-        @include text.get-text-style('SignText', map-get($themeDefault, 'textColor'));
-        text-align: ef.get-value($themeDefault, 'textAlign');
+        @include bm.get-mq-map('text-align', $themeDefault, 'textAlign');
+        @include text.get-text-style(ef.get-value($themeDefault, 'textStyle', 375), ef.get-value($themeDefault, 'textColor'));
 
         .wlc-sections__footer--theme-1 & {
             @include bm.get-mq-map('text-align', $themeDefault, 'footerFirstTextAlign');
         }
 
         @include mq.min(900) {
-            @include text.get-text-style('PlaceholderText', map-get($themeDefault, 'textColor'));
-            text-align: ef.get-value($themeDefault, 'textAlign', 900);
+            @include text.get-text-style(ef.get-value($themeDefault, 'textStyle', 900), null);
         }
     }
 }

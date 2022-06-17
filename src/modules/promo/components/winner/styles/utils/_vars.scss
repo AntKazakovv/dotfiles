@@ -18,7 +18,7 @@ $winnerBase: map-merge((
     'rightGridTemplateAreas': 'user amount' 'game game',
     'rightColumnGap': ef.size(2),
 
-    'userTextStyle': 'PlaceholderText',
+    'userTextStyle': 'CaptionText',
     'userColor': var(--mc-baseMain),
     'userTextTransform': none,
 

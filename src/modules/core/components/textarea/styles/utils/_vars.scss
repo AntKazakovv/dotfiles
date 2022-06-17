@@ -1,6 +1,7 @@
 $customThemeDefault: () !default;
 $themeDefault: map-merge((
     'labelGap': 0,
+    'textareaTextStyle': ef.get('form', 'inputTextStyle'),
     'textareaColor': var(--fc-textColor),
     'textareaBg': var(--fc-inputBg),
     'textareaPlaceholderColor': var(--fc-placeholderColor),

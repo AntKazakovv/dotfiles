@@ -2,8 +2,11 @@ $customThemeDefault: () !default;
 $themeDefault: map-merge((
     'maxWidth': 270px,
 
-    'colorName': var(--mc-baseMain),
-    'colorValue': var(--mc-baseMain),
+    'nameTextStyle': 'CaptionText',
+    'nameTextColor': var(--mc-baseMain),
+
+    'valueTextStyle': 'CaptionTextBold',
+    'valueTextColor': var(--mc-baseMain),
 
     'balancePadding': ef.size(1) ef.size(3),
     'balanceBorderRadius': ef.get('radius', 'biger'),

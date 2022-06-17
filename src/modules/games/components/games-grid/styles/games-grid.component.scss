@@ -32,7 +32,7 @@
         }
 
         &__link {
-            @include text.get-text-style('PlaceholderTextBold', ef.get-value($commonStyles, 'allLinkColor'));
+            @include text.get-text-style(ef.get-value($commonStyles, 'allLinkTextStyle'), ef.get-value($commonStyles, 'allLinkColor'));
             @include bm.transition(color);
             @include bm.get-mq-map('display', $commonStyles, 'allLinkDisplay');
             @include bm.get-mq-map('align-items', $commonStyles, 'allLinkAlign');

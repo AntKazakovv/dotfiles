@@ -18,7 +18,7 @@
 
         input {
             @include resetAppearance();
-            @include text.get-text-style('PrimaryText', ef.get-value($themeVertical, 'inputColor'));
+            @include text.get-text-style(ef.get-value($themeDefault, 'inputTextStyle'), ef.get-value($themeDefault, 'inputColor'));
 
             width: 100%;
             height: ef.get-value($themeDefault, 'inputHeight');
@@ -59,7 +59,7 @@
     }
 
     .wlc-input__limits {
-        @include text.get-text-style('PlaceholderText', ef.get-value($themeDefault, 'limitsColor'));
+        @include text.get-text-style(ef.get-value($themeDefault, 'inputTextStyle'), ef.get-value($themeDefault, 'limitsColor'));
         display: block;
     }
 

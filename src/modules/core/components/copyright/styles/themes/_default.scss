@@ -1,7 +1,7 @@
 .wlc-copyright--theme-default:host {
 
     .wlc-copyright__text {
-        @include text.get-text-style('SignText', ef.get-value($themeDefault, 'textColor'));
+        @include text.get-text-style(ef.get-value($themeDefault, 'textStyle', 375), ef.get-value($themeDefault, 'textColor'));
         @include bm.get-mq-map('text-align', $themeDefault, 'textAlign');
 
         span {
@@ -9,8 +9,8 @@
         }
 
         a {
-            @include text.get-text-style('SignText', ef.get-value($themeDefault, 'linkColor'));
             @include bm.transition(color);
+            color: ef.get-value($themeDefault, 'linkColor');
             text-decoration: ef.get-value($themeDefault, 'textDecoration');
 
             &:focus-visible {
@@ -20,10 +20,6 @@
             @include bm.hover {
                 color: ef.get-value($themeDefault, 'linkHoverColor');
             }
-
-            @include mq.min(900) {
-                @include text.get-text-style('PlaceholderText', ef.get-value($themeDefault, 'linkColor'));
-            }
         }
 
         .wlc-sections__footer--theme-1 & {
@@ -31,7 +27,7 @@
         }
 
         @include mq.min(900) {
-            @include text.get-text-style('PlaceholderText', ef.get-value($themeDefault, 'textColor'));
+            @include text.get-text-style(ef.get-value($themeDefault, 'textStyle', 900), null);
         }
     }
 }

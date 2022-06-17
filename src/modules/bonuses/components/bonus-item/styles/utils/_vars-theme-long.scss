@@ -33,7 +33,7 @@ $themeLong: map-merge((
     'imagePseudoBg': linear-gradient(180deg, var(--mc-bg-o0) 40%, var(--mc-bg) 75%),
 
     'nameFontColor': var(--mc-baseMain),
-    'descrTextStyle': 'PlaceholderText',
+    'descrTextStyle': 'CaptionText',
     'descrColor': var(--mc-baseMain),
     'descrBg': var(--mc-bg),
     'descrPadding': ef.size(3) ef.size(2),

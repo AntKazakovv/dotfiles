@@ -14,6 +14,8 @@
 
     @if ($style == 'SignText') {
         @include SignText;
+    } @else if ($style == 'CaptionText') {
+        @include CaptionText;
     } @else if ($style == 'PlaceholderText') {
         @include PlaceholderText;
     } @else if ($style == 'PrimaryText') {
@@ -28,6 +30,8 @@
         @include ScreamTitle;
     } @else if ($style == 'SignTextBold') {
         @include SignTextBold;
+    } @else if ($style == 'CaptionTextBold') {
+        @include CaptionTextBold;
     } @else if ($style == 'PrimaryTextBold') {
         @include PrimaryTextBold;
     } @else if ($style == 'ThirdTitleBold') {
@@ -48,6 +52,12 @@
 @mixin SignText {
     font-weight: ef.get('fontWeight', 'SignText');
     font-size: ef.get('font', 'SignText');
+    line-height: 1.45;
+}
+
+@mixin CaptionText {
+    font-weight: ef.get('fontWeight', 'CaptionText');
+    font-size: ef.get('font', 'CaptionText');
     line-height: 1.45;
 }
 
@@ -92,6 +102,12 @@
 @mixin SignTextBold {
     font-weight: ef.get('fontWeight', 'SignTextBold');
     font-size: ef.get('font', 'SignTextBold');
+    line-height: 1.45;
+}
+
+@mixin CaptionTextBold {
+    font-weight: ef.get('fontWeight', 'CaptionTextBold');
+    font-size: ef.get('font', 'CaptionTextBold');
     line-height: 1.45;
 }
 

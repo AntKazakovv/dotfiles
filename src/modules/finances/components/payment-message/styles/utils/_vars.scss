@@ -27,6 +27,7 @@ $themeDefault: map-merge((
         375: center,
         640: left,
     ),
+    'textStyle': 'CaptionText',
     'textColor': var(--mc-baseMain),
     'textColorAdditional': var(--fc-labelColor),
     'textAdditionalFont': 'SignText',

@@ -2,6 +2,8 @@ $customThemeDefault: () !default;
 $themeDefault: map-merge((
     'maxWidth': ef.get('form', 'maxWidth'),
 
+    'inputTextStyle': ef.get('form', 'inputTextStyle'),
+    'inputColor': ef.get('form', 'inputColor'),
     'inputHeight': ef.get('form', 'inputHeight'),
     'inputMaxWidth': ef.get('form', 'inputMaxWidth'),
     'inputPlaceholderColor': ef.get('fieldColors', 'placeholderColor'),
@@ -52,6 +54,8 @@ $themePlaceholderShown: map-merge((
 
 $customThemeVertical: () !default;
 $themeVertical: map-merge((
+    'inputTextStyle': ef.get('form', 'inputTextStyle'),
+    'inputColor': ef.get('form', 'inputColor'),
     'inputWidth': 100%,
     'inputHeight': 40px,
     'inputPadding': ef.get('form', 'inputPadding'),
@@ -60,7 +64,6 @@ $themeVertical: map-merge((
     'inputFontWeight': 400,
     'inputLineHeight': 1,
     'inputBackground': var(--fc-inputBg),
-    'inputColor': var(--fc-textColor),
     'inputPlaceholderColor': var(--fc-placeholderColor),
     'inputBorder': ef.get('form', 'inputBorder'),
     'inputBorderRadius': ef.get('form', 'inputBorderRadius'),

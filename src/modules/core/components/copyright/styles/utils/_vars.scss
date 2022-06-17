@@ -8,6 +8,10 @@ $themeDefault: map-merge((
         375: center,
         1024: start,
     ),
+    'textStyle': (
+        375: 'SignText',
+        900: 'CaptionText',
+    ),
     'textColor': var(--mc-baseMain),
     'linkColor': var(--mc-main),
     'linkHoverColor': var(--mc-baseMain),

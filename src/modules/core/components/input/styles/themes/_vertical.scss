@@ -23,7 +23,7 @@
 
     .wlc-input__input {
         @include resetAppearance();
-        @include text.get-text-style('PrimaryText', ef.get-value($themeVertical, 'inputColor'));
+        @include text.get-text-style(ef.get-value($themeVertical, 'inputTextStyle'), ef.get-value($themeVertical, 'inputColor'));
 
         position: relative;
         display: block;

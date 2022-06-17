@@ -19,7 +19,7 @@
 
         &__name,
         &__value {
-            @include text.get-text-style('PlaceholderText', ef.get-value($themeDefault, 'betHistoryColor'));
+            @include text.get-text-style(ef.get-value($themeDefault, 'historyRangeTextStyle'), ef.get-value($themeDefault, 'historyRangeColor'));
             white-space: nowrap;
         }
     }

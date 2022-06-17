@@ -34,7 +34,7 @@
         max-width: ef.get-value($themeDefault, '$textareaMaxWidth');
 
         textarea {
-            @include text.get-text-style('PrimaryText', ef.get-value($themeDefault, 'textareaColor'));
+            @include text.get-text-style(ef.get-value($themeDefault, 'textareaTextStyle'), ef.get-value($themeDefault, 'textareaColor'));
             @include bm.get-mq-map('min-height', $themeDefault, 'textareaMinHeight');
 
             width: 100%;

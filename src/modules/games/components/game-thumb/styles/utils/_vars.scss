@@ -67,7 +67,7 @@ $themeDefault: map-merge((
     'pplPosition': 0,
     'pplWidth': 100%,
     'pplBg': var(--mc-bg-o8),
-    'pplLimitsText': 'PlaceholderText',
+    'pplLimitsText': 'CaptionText',
     'pplLimitsPadding': ef.size(1) ef.size(2),
     'pplLimitsPosition': 5px,
     'pplLimitsRadius': ef.get('radius', 'small'),

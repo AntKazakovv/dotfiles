@@ -12,7 +12,7 @@ $themeInfo: map-merge((
     'titleColor': var(--mc-baseMain),
     'textColor': var(--mc-baseMain-o8),
     'titleTextStyle': 'QoteTextBold',
-    'descrTextStyle': 'PlaceholderText',
+    'descrTextStyle': 'CaptionText',
     'textMargin': ef.size(1) 0 0,
     'contentMargin': (
         375: 0 0 0 ef.size(6),

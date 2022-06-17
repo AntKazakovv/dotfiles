@@ -54,14 +54,12 @@
             }
 
             .name {
-                @include text.get-text-style('PlaceholderText');
-                color: ef.get-value($themeDefault, 'colorName');
+                @include text.get-text-style(ef.get-value($themeDefault, 'nameTextStyle'), ef.get-value($themeDefault, 'nameTextColor'));
             }
 
             .value {
-                @include text.get-text-style('PlaceholderTextBold');
+                @include text.get-text-style(ef.get-value($themeDefault, 'valueTextStyle'), ef.get-value($themeDefault, 'valueTextColor'));
                 padding-left: 5px;
-                color: ef.get-value($themeDefault, 'colorValue');
 
                 ::ng-deep {
 

@@ -3,6 +3,7 @@ $themeDefault: map-merge((
     'maxWidth': 140px,
     'transition': 0.5s ease-in,
 
+    'inputTextStyle': ef.get('form', 'inputTextStyle'),
     'inputColor': var(--fc-textColor),
     'inputBg': var(--fc-inputBg),
     'inputPlaceholderColor': var(--fc-placeholderColor),

@@ -1,5 +1,6 @@
 $customThemeDefault: () !default;
 $themeDefault: map-merge((
-    'betHistoryColor': var(--mc-baseOpacity),
+    'historyRangeTextStyle': 'CaptionText',
+    'historyRangeColor': var(--mc-baseOpacity),
     'margin': 0 5px 0 0,
 ), $customThemeDefault);

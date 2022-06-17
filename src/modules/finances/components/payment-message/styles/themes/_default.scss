@@ -78,6 +78,16 @@
 
             transform: ef.get-value($themeDefault, 'qrImgTransform');
         }
+
+        &__warning {
+            @include text.get-text-style(ef.get-value($themeDefault, 'textStyle'), ef.get-value($themeDefault, 'textColor'));
+            @include bm.get-mq-map('margin', $themeDefault, 'warningMargin');
+            @include bm.get-mq-map('text-align', $themeDefault, 'warningAlignment');
+
+            .stress {
+                color: ef.get-value($themeDefault, 'warningStressColor');
+            }
+        }
     }
 
     &.wlc-payment-message--theme-mod-modal {

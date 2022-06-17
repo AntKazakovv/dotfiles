@@ -1,7 +1,7 @@
 $customThemeDefault: () !default;
 $themeDefault: map-merge((
     'textColor': var(--mc-baseMain-o8),
-    'descrTextStyle': 'PlaceholderText',
+    'descrTextStyle': 'CaptionText',
     'textMargin': ef.size(1) 0 0,
     'imageFlex': (
         375: 0 0 30%,

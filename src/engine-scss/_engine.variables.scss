@@ -270,19 +270,21 @@ $font: map-merge((
     'huge': 3.2rem,
     'monster': 4rem,
     'SignText': 1rem,
-    'PlaceholderText': 1.2rem,
+    'CaptionText': 1.2rem,
     'PrimaryText': 1.4rem,
     'ButtonText': 1.4rem,
+    'PlaceholderText': 1.6rem,
     'ThirdTitle': 1.6rem,
     'PromoTitle': 3.6rem,
     'ScreamTitle': 4.8rem,
     'SignTextBold': 1rem,
+    'CaptionTextBold': 1.2rem,
     'PrimaryTextBold': 1.4rem,
     'ThirdTitleBold': 1.6rem,
     'QoteTextBold': 2.4rem,
     'QoteTextBoldSmaller': 2rem,
     'QoteTextBoldTight': 2.4rem,
-    'PlaceholderTextBold': 1.2rem,
+    'PlaceholderTextBold': 1.6rem,
 ), $customFont);
 
 /// Font weight for text mixins.
@@ -294,6 +296,8 @@ $fontWeight: map-merge((
     'SignText': normal,
     'PlaceholderText': normal,
     'PrimaryText': normal,
+    'CaptionText': normal,
+    'CaptionTextBold': bold,
     'ButtonText': bold,
     'ThirdTitle': normal,
     'PromoTitle': bold,
@@ -373,7 +377,7 @@ $form: map-merge((
 
     'labelFont': (
         375: 'SignText',
-        1630: 'PlaceholderText',
+        1630: 'CaptionText',
     ),
     'labelMinHeight': 20px,
     'labelAlignItems': center,
@@ -381,6 +385,7 @@ $form: map-merge((
     'labelColor': var(--fc-labelColor),
 
     'inputColor': var(--fc-textColor),
+    'inputTextStyle': 'PlaceholderText',
     'inputFontSize': map-get($font, 'main'),
     'inputHeight': 40px,
     'inputBackground': var(--fc-inputBg),

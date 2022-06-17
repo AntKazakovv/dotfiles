@@ -20,7 +20,7 @@ $themeDefault: map-merge((
     'noContentPadding': ef.size(4),
 
     'fontSize': ef.get('font', 'PrimaryText'),
-    'btnFontSize': ef.get('font', 'PlaceholderText'),
+    'btnFontSize': ef.get('font', 'CaptionText'),
     'rowBg': var(--mc-bg),
     'rowUserBg': var(--mc-main),
     'rowUserColor': null,

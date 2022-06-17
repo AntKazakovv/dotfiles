@@ -34,7 +34,7 @@
         }
 
         &__field {
-            @include text.get-text-style('PrimaryText', ef.get-value($baseSettings, 'selectColor'));
+            @include text.get-text-style(ef.get-value($baseSettings, 'selectTextStyle'), ef.get-value($baseSettings, 'selectColor'));
 
             width: ef.get-value($baseSettings, 'fieldWidth');
             height: ef.get-value($baseSettings, 'selectHeight');
