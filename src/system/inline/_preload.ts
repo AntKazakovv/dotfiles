@@ -67,17 +67,8 @@ config.forEach((request) => {
             result.system = request.system;
             result.name = request.flag;
             result.source = 'inline';
-
-            if (request.flag === 'bootstrap') {
-                window.WlcPreloaderLogo.setSuccess();
-            }
-
             return result;
         }).catch(() => {
-            if (request.flag === 'bootstrap') {
-                window.WlcPreloaderLogo.error = true;
-            }
-
             wlcPreload[request.flag]['fulfilled'] = false;
         });
 });
