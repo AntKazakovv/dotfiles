@@ -8,6 +8,7 @@ import {
 } from 'wlc-engine/modules/core';
 import {IProfileFormCParams} from 'wlc-engine/modules/user';
 import {FormElements} from 'wlc-engine/modules/core/system/config/form-elements';
+import {ProhibitedPatterns} from 'wlc-engine/modules/core/constants/regexp.constants';
 
 const insertLogin = (useLogin: boolean): IFormComponent | null => {
     if (useLogin) {
@@ -88,7 +89,7 @@ export namespace wlcProfileForm {
                                 params: {
                                     ...FormElements.city.params,
                                     validators: null,
-                                    maskOptions: 'textField',
+                                    prohibitedPattern: ProhibitedPatterns.notNamesSymbols,
                                 },
                             },
                             {
@@ -146,7 +147,7 @@ export namespace wlcProfileForm {
                 },
                 {
                     name: 'core.wlc-wrapper',
-                    params: <IWrapperCParams> {
+                    params: <IWrapperCParams>{
                         class: 'wlc-profile-form__block wlc-profile-form__block--password',
                         components: [
                             {
@@ -159,7 +160,7 @@ export namespace wlcProfileForm {
                             FormElements.password,
                             {
                                 name: 'core.wlc-wrapper',
-                                params: <IWrapperCParams> {
+                                params: <IWrapperCParams>{
                                     class: 'wlc-profile-form__block',
                                     components: [
                                         FormElements.passwordNew,
@@ -215,7 +216,7 @@ export namespace wlcProfileForm {
                         wlcElement: 'block_Name',
                         name: 'firstName',
                         locked: true,
-                        prohibitedPattern: /[\d!"#$%&()*+,./:;<=>?@[\\\]^_{|}~¡¿÷ˆ№]/g,
+                        prohibitedPattern: ProhibitedPatterns.notNamesSymbols,
                         validators: ['required'],
                         exampleValue: gettext('Enter your name'),
                     },
@@ -229,7 +230,7 @@ export namespace wlcProfileForm {
                         wlcElement: 'block_last-name',
                         name: 'lastName',
                         locked: true,
-                        prohibitedPattern: /[\d!"#$%&()*+,./:;<=>?@[\\\]^_{|}~¡¿÷ˆ№]/g,
+                        prohibitedPattern: ProhibitedPatterns.notNamesSymbols,
                         validators: ['required'],
                         exampleValue: gettext('Enter your last name'),
                     },
@@ -259,7 +260,7 @@ export namespace wlcProfileForm {
                 {
                     name: 'core.wlc-country-and-state',
                     params: {
-                        name:  ['countryCode', 'stateCode'],
+                        name: ['countryCode', 'stateCode'],
                         locked: ['countryCode'],
                         validatorsField: [{
                             name: 'countryCode',
@@ -276,7 +277,7 @@ export namespace wlcProfileForm {
                         wlcElement: 'block_city',
                         name: 'city',
                         validators: [],
-                        maskOptions: 'textField',
+                        prohibitedPattern: ProhibitedPatterns.notNamesSymbols,
                     },
                 },
                 {

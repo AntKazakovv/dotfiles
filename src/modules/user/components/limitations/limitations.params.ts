@@ -5,6 +5,7 @@ import {
     IButtonCParams,
     TIndexingLimitTypeItems,
 } from 'wlc-engine/modules/core';
+import {ProhibitedPatterns} from 'wlc-engine/modules/core/constants';
 
 import {ITableCol} from 'wlc-engine/modules/core/components/table/table.params';
 import {LimitCancelComponent} from './limit-cancel/limit-cancel.component';
@@ -119,7 +120,7 @@ export const limitAmount = {
             'numberDecimal',
         ],
         locked: false,
-        prohibitedPattern: /[^\d,.]/,
+        prohibitedPattern: ProhibitedPatterns.notAmountSymbols,
     },
 };
 

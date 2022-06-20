@@ -6,6 +6,7 @@ import {
     ISelectCParams,
     ICaptchaCParams,
 } from 'wlc-engine/modules/core';
+import {ProhibitedPatterns} from 'wlc-engine/modules/core/constants';
 
 export namespace FormElements {
     export const amount: IFormComponent = {
@@ -24,7 +25,7 @@ export namespace FormElements {
             locked: true,
             name: 'amount',
             showCurrency: true,
-            prohibitedPattern: /[^\d,.]/,
+            prohibitedPattern: ProhibitedPatterns.notAmountSymbols,
             customMod: ['amount'],
             validators: [
                 'required',
@@ -101,7 +102,7 @@ export namespace FormElements {
             common: {
                 placeholder: gettext('First name'),
             },
-            prohibitedPattern: /[\d!"#$%&'()*+,.\/:;<=>?@[\\\]^_`{|}~¡¿÷ˆ№]/g,
+            prohibitedPattern: ProhibitedPatterns.notNamesSymbols,
             name: 'firstName',
             validators: [
                 'required',
@@ -124,7 +125,7 @@ export namespace FormElements {
             common: {
                 placeholder: gettext('Last name'),
             },
-            prohibitedPattern: /[\d!"#$%&'()*+,.\/:;<=>?@[\\\]^_`{|}~¡¿÷ˆ№]/g,
+            prohibitedPattern: ProhibitedPatterns.notNamesSymbols,
             name: 'lastName',
             validators: [
                 'required',
@@ -224,6 +225,7 @@ export namespace FormElements {
             },
             name: 'city',
             validators: ['required', 'onlyLetters'],
+            prohibitedPattern: ProhibitedPatterns.notNamesSymbols,
             wlcElement: 'block_city',
             customMod: ['city'],
         },
@@ -390,7 +392,7 @@ export namespace FormElements {
     export const birthDate: IFormComponent = {
         name: 'core.wlc-birth-field',
         params: {
-            theme:'vertical',
+            theme: 'vertical',
             name: ['birthDay', 'birthMonth', 'birthYear'],
             validators: ['required'],
             locked: true,
