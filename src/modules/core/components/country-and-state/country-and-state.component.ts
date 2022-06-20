@@ -19,6 +19,7 @@ import {
     IState,
 } from 'wlc-engine/modules/core';
 
+import {UserProfile} from 'wlc-engine/modules/user';
 import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
 import * as Params from './country-and-state.params';
 
@@ -47,12 +48,27 @@ export class CountryAndStateComponent extends AbstractComponent implements OnIni
     public ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
         this.provideParams();
+        this.checkUserData();
         this.setListeners();
     }
 
     protected provideParams(): void {
         this.$params.countryCode['theme'] = this.$params.theme;
         this.$params.stateCode['theme'] = this.$params.theme;
+    }
+
+    protected checkUserData(): void {
+
+        const userProfile: UserProfile =
+            this.configService.get<BehaviorSubject<UserProfile>>('$user.userProfile$').getValue();
+
+        if (userProfile?.countryCode) {
+            this.updateStates(
+                this.configService.get<BehaviorSubject<IIndexing<IState[]>>>('states')
+                    ?.getValue()[userProfile.countryCode],
+            );
+        }
+
     }
 
     protected setListeners(): void {
@@ -66,6 +82,15 @@ export class CountryAndStateComponent extends AbstractComponent implements OnIni
                 const selectedCountryStates: IState[] =
                     this.configService.get<BehaviorSubject<IIndexing<IState[]>>>('states')?.getValue()[countryCode];
                 this.updateStates(selectedCountryStates);
+            });
+
+        this.$params.countryCode.control.statusChanges
+            .pipe(
+                distinctUntilChanged(),
+                takeUntil(this.$destroy),
+            )
+            .subscribe((): void => {
+                this.cdr.markForCheck();
             });
     }
 
