@@ -16,11 +16,9 @@
                 }}
             </span>
             <span>
-                {{'Contact us email' | translate}}
+                {{'Contact us by email' | translate}}
             </span>
-            <a href="mailto:{{$params.supportEmail}}" class="{{$class}}__supportEmail">
-                {{$params.supportEmail}}
-            </a>
+            <a href="mailto:{{$params.supportEmail}}" class="{{$class}}__supportEmail">{{$params.supportEmail}}</a>
             <span>{{', ' + ('if you need additional assistance' | translate) + '. '}}</span>
         </p>
     </main>
