@@ -18,6 +18,7 @@ import {
     ProcessEvents,
     ProcessEventsDescriptions,
 } from 'wlc-engine/modules/monitoring';
+import {TButtonAnimation} from 'wlc-engine/modules/core/components/button/button.params';
 import {WINDOW} from 'wlc-engine/modules/app/system';
 
 import * as Params from './login-signup.params';
@@ -57,6 +58,14 @@ export class LoginSignupComponent extends AbstractComponent implements OnInit {
 
     public get signupText(): string {
         return _get(this.$params, 'signup.title');
+    }
+
+    public get loginAnimate(): TButtonAnimation {
+        return _get(this.$params, 'login.animate');
+    }
+
+    public get signupAnimate(): TButtonAnimation {
+        return _get(this.$params, 'signup.animate');
     }
 
     public get changePasswordText(): string {

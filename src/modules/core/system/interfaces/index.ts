@@ -17,3 +17,4 @@ export {AppType} from './base-config/app.interface';
 export * from './modals.interface';
 export {IInteractiveText} from './base-config/interactiveText.interface';
 export * from './app-config.interface';
+export * from './animate-buttons.interface';

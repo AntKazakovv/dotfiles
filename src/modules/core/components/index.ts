@@ -1,6 +1,9 @@
 export {IAccordionCParams} from './accordion/accordion.params';
 export {IBurgerPanelCParams} from './burger-panel/burger-panel.params';
-export {IButtonCParams} from './button/button.params';
+export {
+    IButtonCParams,
+    TButtonAnimation,
+} from './button/button.params';
 export {ICaptchaCParams} from './captcha/captcha.params';
 export {ICheckboxCParams} from './checkbox/checkbox.params';
 export {ICopyrightCParams} from './copyright/copyright.params';

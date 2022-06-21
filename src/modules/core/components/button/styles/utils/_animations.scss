@@ -1,0 +1,39 @@
+@keyframes buttonPulse {
+
+    0%,
+    10%,
+    20%,
+    30%,
+    40%,
+    50% {
+        box-shadow: ef.get-value($themeDefault, 'mainBoxShadowAnimationStart');
+    }
+
+    9.99%,
+    19.99%,
+    29.99%,
+    39.99%,
+    49.99% {
+        box-shadow: ef.get-value($themeDefault, 'mainBoxShadowAnimationEnd');
+    }
+}
+
+@keyframes buttonPulseSecondary {
+
+    0%,
+    10%,
+    20%,
+    30%,
+    40%,
+    50% {
+        box-shadow: ef.get-value($themeDefault, 'secondaryBoxShadowAnimationStart');
+    }
+
+    9.99%,
+    19.99%,
+    29.99%,
+    39.99%,
+    49.99% {
+        box-shadow: ef.get-value($themeDefault, 'secondaryBoxShadowAnimationEnd');
+    }
+}

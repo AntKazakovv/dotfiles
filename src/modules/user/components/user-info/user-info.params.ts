@@ -1,5 +1,9 @@
-import {CustomType, IComponentParams} from 'wlc-engine/modules/core/system/classes/abstract.component';
-import {ILayoutComponent} from 'wlc-engine/modules/core/system/interfaces';
+import {
+    CustomType,
+    IComponentParams,
+    TButtonAnimation,
+    ILayoutComponent,
+} from 'wlc-engine/modules/core';
 
 export type ComponentTheme = 'default' | 'sticky' | CustomType;
 export type ComponentType = 'default' | CustomType;
@@ -8,6 +12,7 @@ export interface IUserInfoButton {
     use?: boolean;
     sref?: string;
     text?: string;
+    animate?: TButtonAnimation;
 }
 
 export interface IUserInfoCParams extends IComponentParams<ComponentTheme, ComponentType, string> {

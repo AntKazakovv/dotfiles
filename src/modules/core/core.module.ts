@@ -20,6 +20,7 @@ import {MonitoringModule} from 'wlc-engine/modules/monitoring/monitoring.module'
 // -- SERVICES IMPORTS START --;
 import {
     ActionService,
+    AnimateButtonsService,
     CaptchaService,
     CachingService,
     ConfigService,
@@ -190,6 +191,10 @@ export const components = {
     'wlc-wrapper': WrapperComponent,
 };
 
+export const services = {
+    'animate-buttons-service': AnimateButtonsService,
+};
+
 @NgModule({
     imports: [
         CommonModule,
@@ -217,6 +222,7 @@ export const components = {
         ForbiddenCountryService,
         LogService,
         ActionService,
+        AnimateButtonsService,
         ModalService,
         ContactsService,
         LayoutService,

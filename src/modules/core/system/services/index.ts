@@ -43,3 +43,4 @@ export {
 export {ColorThemeService} from './color-theme/color-theme.service';
 export {CaptchaService} from './captcha/captcha.service';
 export {ForbiddenCountryService} from './forbidden-country/forbidden-country.service';
+export {AnimateButtonsService} from './animate-buttons/animate-buttons.service';

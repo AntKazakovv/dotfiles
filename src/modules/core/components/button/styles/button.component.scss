@@ -3,6 +3,7 @@
 
 @import './utils/vars';
 @import './utils/mixins';
+@import './utils/animations';
 
 .wlc-btn {
 
@@ -16,6 +17,23 @@
         appearance: none;
         border: none;
         overflow: hidden;
+
+        &.wlc-btn--animate {
+
+            &-pulse {
+                animation: ef.get-value($themeDefault, 'mainAnimation');
+            }
+        }
+
+        &.wlc-btn--theme-mod-secondary {
+
+            &.wlc-btn--animate {
+
+                &-pulse {
+                    animation: ef.get-value($themeDefault, 'secondaryAnimation');
+                }
+            }
+        }
     }
 }
 

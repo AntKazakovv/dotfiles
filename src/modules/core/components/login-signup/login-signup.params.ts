@@ -1,4 +1,8 @@
-import {IComponentParams, CustomType} from 'wlc-engine/modules/core/system/classes/abstract.component';
+import {TButtonAnimation} from 'wlc-engine/modules/core/components/button/button.params';
+import {
+    IComponentParams,
+    CustomType,
+} from 'wlc-engine/modules/core/system/classes/abstract.component';
 
 export type ComponentType = 'default' | CustomType;
 export type ThemeType = 'default' | CustomType;
@@ -12,6 +16,7 @@ export type IButtonCParams = {
     title?: string;
     url?: string;
     target?: ITargetType;
+    animate?: TButtonAnimation;
 };
 
 export interface ILoginSignupCParams extends IComponentParams<ThemeType, ComponentType, ThemeModType> {

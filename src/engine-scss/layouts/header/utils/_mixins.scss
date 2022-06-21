@@ -144,6 +144,7 @@
 
         &--deposit {
             margin: ef.get-value($theme, 'headerDepositBtnMargin');
+            border-radius: ef.get-value($theme, 'headerDepositBtnRadius');
 
             svg {
                 fill: ef.get-value($theme, 'headerDepositBtnFill');
@@ -156,6 +157,7 @@
         }
 
         &--user {
+            border-radius: ef.get-value($theme, 'headerUserBtnRadius');
 
             svg {
                 fill: ef.get-value($theme, 'headerUserBtnFill');

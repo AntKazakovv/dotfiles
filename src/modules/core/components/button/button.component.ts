@@ -21,18 +21,10 @@ import {
     Subject,
     fromEvent,
 } from 'rxjs';
-import {takeUntil} from 'rxjs/operators';
-
 import {
-    AbstractComponent,
-    IMixedParams,
-    ConfigService,
-    EventService,
-    IconComponent,
-} from 'wlc-engine/modules/core';
-
-import * as Params from './button.params';
-
+    first,
+    takeUntil,
+} from 'rxjs/operators';
 import _get from 'lodash-es/get';
 import _forEach from 'lodash-es/forEach';
 import _union from 'lodash-es/union';
@@ -41,6 +33,19 @@ import _isUndefined from 'lodash-es/isUndefined';
 import _merge from 'lodash-es/merge';
 import _isArray from 'lodash-es/isArray';
 import _has from 'lodash-es/has';
+
+import {
+    AbstractComponent,
+    IMixedParams,
+} from 'wlc-engine/modules/core/system/classes/abstract.component';
+import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
+import {EventService} from 'wlc-engine/modules/core/system/services/event/event.service';
+import {IconComponent} from 'wlc-engine/modules/core/components/icon/icon.component';
+import {AnimateButtonsService} from 'wlc-engine/modules/core/system/services/animate-buttons/animate-buttons.service';
+import {TAnimateButtonHandlerOnService} from 'wlc-engine/modules/core/system/interfaces/animate-buttons.interface';
+import {InjectionService} from 'wlc-engine/modules/core/system/services/injection/injection.service';
+
+import * as Params from './button.params';
 
 export {IButtonCParams} from './button.params';
 
@@ -56,6 +61,8 @@ export class ButtonComponent extends AbstractComponent implements OnInit,
     OnDestroy,
     OnChanges,
     AfterViewInit {
+
+    public static animateButtonsService: AnimateButtonsService;
 
     @ContentChild(IconComponent, {read: ElementRef}) IconComponentElement!: ElementRef;
     @Input() public text: string;
@@ -73,6 +80,7 @@ export class ButtonComponent extends AbstractComponent implements OnInit,
     @Input() protected iconPath: string;
     @Input() protected index: Params.Index;
     @Input() protected wlcElement: string;
+    @Input() protected animation: Params.TButtonAnimation;
     @Input() protected inlineParams: Params.IButtonCParams;
 
     public ready: boolean = false;
@@ -85,20 +93,24 @@ export class ButtonComponent extends AbstractComponent implements OnInit,
         protected params: Params.IButtonCParams,
         protected elementRef: ElementRef,
         protected cdr: ChangeDetectorRef,
-        protected ConfigService: ConfigService,
+        protected configService: ConfigService,
         protected stateService: StateService,
         protected eventService: EventService,
+        protected injectionService: InjectionService,
     ) {
         super(
             <IMixedParams<Params.IButtonCParams>>{
                 injectParams: params,
                 defaultParams: Params.defaultParams,
-            }, ConfigService);
+            }, configService);
     }
 
     public ngOnInit(): void {
         super.ngOnInit(this.prepareParams());
         this.prepareModifiers();
+        if (this.$params.common.animation) {
+            this.animationHandlers();
+        }
         this.ready = true;
     }
 
@@ -156,6 +168,7 @@ export class ButtonComponent extends AbstractComponent implements OnInit,
             'sref',
             'srefParams',
             'typeAttr',
+            'animation',
         ];
         const inlineParams: Params.IButtonCParams = {
             common: {},
@@ -175,12 +188,64 @@ export class ButtonComponent extends AbstractComponent implements OnInit,
 
     protected prepareModifiers(): void {
         let modifiers: Params.Modifiers[] = [];
-        if (this.$params?.common?.size) {
+        if (this.$params.common.size) {
             modifiers.push(`size-${this.$params.common.size}`);
         }
-        if (this.$params?.common?.customModifiers) {
+        if (this.$params.common.customModifiers) {
             modifiers = _union(modifiers, this.$params.common.customModifiers.split(' '));
         }
+        if (this.$params.common.animation) {
+            modifiers.push(`animate-${this.$params.common.animation.type}`);
+        }
         this.addModifiers(modifiers);
+    }
+
+    protected async animationHandlers(): Promise<void> {
+        if (!ButtonComponent.animateButtonsService) {
+            ButtonComponent.animateButtonsService
+                = await this.injectionService.getService<AnimateButtonsService>('core.animate-buttons-service');
+        }
+
+        switch (this.$params.common.animation.handlerType) {
+            case 'deposit':
+                this.removeModifiers(`animate-${this.$params.common.animation.type}`);
+
+                if (ButtonComponent.animateButtonsService.isFirstButtonAnimateEvent.deposit) {
+                    this.eventService.emit({
+                        name: 'ANIMATE_BUTTON',
+                        data: <TAnimateButtonHandlerOnService>'deposit',
+                    });
+                }
+
+                this.animationsSubscribe();
+                break;
+
+            case 'click':
+                this.subscribeStopAnimationOnClick();
+                break;
+        }
+    }
+
+    protected subscribeStopAnimationOnClick(): void {
+        fromEvent(this.elementRef.nativeElement, 'click')
+            .pipe(
+                first(),
+                takeUntil(this.$destroy),
+            )
+            .subscribe((): void  => {
+                this.removeModifiers(`animate-${this.$params.common.animation.type}`);
+            });
+    }
+
+    protected animationsSubscribe(): void {
+        this.eventService.subscribe({name: 'START_ANIMATE_BUTTON'}, (data: TAnimateButtonHandlerOnService) => {
+            if (this.$params.common.animation.handlerType === 'deposit' && data === 'deposit') {
+                this.addModifiers(`animate-${this.$params.common.animation.type}`);
+
+                this.eventService.subscribe({name: 'STOP_ANIMATE_BUTTON'}, () => {
+                    this.removeModifiers(`animate-${this.$params.common.animation.type}`);
+                }, this.$destroy);
+            }
+        }, this.$destroy);
     }
 }

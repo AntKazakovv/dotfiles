@@ -5,11 +5,12 @@
     </div>
 
     <button
-        *ngIf="this.$params.button.use"
+        *ngIf="$params.button?.use"
         wlc-button
         class="wlc-btn-deposit"
         [wlcElement]="'button_deposit'"
-        [text]="this.$params.button.text"
+        [text]="$params.button.text"
+        [animation]="$params.button.animate"
         (click)="depositAction()"
     ></button>
 
@@ -17,11 +18,11 @@
          data-wlc-element="block_user-stat-dropdown"
          wlc-click-outside
          [isOpened]="isOpened"
-         (clickOutside)="this.isOpened = false; this.dropdownBtnActive = false;"
+         (clickOutside)="isOpened = false; dropdownBtnActive = false;"
     >
         <div class="{{$class}}-dropdown__btn"
              (click)="toggle()"
-             [ngClass]="{active: this.dropdownBtnActive}">
+             [ngClass]="{active: dropdownBtnActive}">
             <span wlc-icon
                   class="user"
                   iconPath="/wlc/icons/user-icon.svg"

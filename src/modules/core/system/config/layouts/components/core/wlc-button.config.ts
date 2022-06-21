@@ -206,8 +206,8 @@ export namespace wlcButton {
                 {
                     name: 'core.wlc-button',
                     params: {
-                        class: 'wlc-btn wlc-btn--deposit',
                         theme: 'cleared',
+                        customMod: 'deposit',
                         common: {
                             iconPath: '/wlc/icons/deposit-icon.svg',
                             sref: 'app.profile.cash.deposit',
@@ -216,10 +216,10 @@ export namespace wlcButton {
                 },
                 {
                     name: 'core.wlc-button',
-                    class: 'wlc-btn ',
                     params: {
-                        class: 'wlc-btn wlc-btn--user',
                         theme: 'cleared',
+                        themeMod: 'secondary',
+                        customMod: 'user',
                         common: {
                             iconPath: '/wlc/icons/user-icon.svg',
                             event: {
@@ -359,7 +359,6 @@ export namespace wlcButton {
     export const toProfileV2: ILayoutComponent = {
         name: 'core.wlc-button',
         params: {
-            class: 'wlc-btn',
             themeMod: 'secondary',
             common: {
                 text: gettext('Profile'),
