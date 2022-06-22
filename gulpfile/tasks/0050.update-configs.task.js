@@ -2,7 +2,8 @@ const {task, src, dest} = require('gulp'),
     jeditor = require('gulp-json-editor'),
     _ = require('lodash'),
     glob = require('glob'),
-    path = require('path');
+    path = require('path'),
+    fs = require('fs');
 
 const beautifyConfig = {
     'end_with_newline': true,
@@ -27,6 +28,13 @@ module.exports = function updateConfigs() {
 
     task('update:configs', async () => {
         this.addToGitIgnore('/', '', '.angular');
+
+        try {
+            fs.unlinkSync('roots/sw.js');
+            fs.symlinkSync('wlc-engine/mockServiceWorker.js', 'roots/sw.js');
+        } catch (_) {
+            console.warn('Oops, well, we managed to update the worker ');
+        }
 
         const configs = glob.sync(`${__dirname}/../global-configs/*.global.json`);
 

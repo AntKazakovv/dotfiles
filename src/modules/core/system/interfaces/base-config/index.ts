@@ -7,6 +7,7 @@ import {INotificationsConfig} from './notifications.interface';
 import {IContactsConfig} from './contacts.interface';
 import {IInteractiveText} from './interactiveText.interface';
 import {ILivechatConfig} from 'wlc-engine/modules/livechat';
+import {IAutoMockConfig} from 'wlc-engine/mocks/browser';
 import {
     IIndexing,
     IRedirectConfig,
@@ -86,6 +87,12 @@ export interface IBaseConfig {
      * Use mocks in project, makes sense for development mode only
      */
     mocks?: IMocksConfig;
+
+    /**
+     * Auto generated mocks
+     */
+    autoMocks?: IAutoMockConfig;
+
     /**
      * Config for monitoring system
      */
@@ -93,17 +100,17 @@ export interface IBaseConfig {
     /**
      * Settings for logout when idle
      */
-    idle?: IIdleConfig,
+    idle?: IIdleConfig;
     /**
      * Config default currency
      */
-    defaultCurrency?: string,
+    defaultCurrency?: string;
     /**
      * Change currency name. It will be shown in select
      */
-    rewritingCurrencyName?: IIndexing<string>,
+    rewritingCurrencyName?: IIndexing<string>;
     /**
      * Settings for any constraints
      */
-    restrictions?: IRestrictionsConfig,
+    restrictions?: IRestrictionsConfig;
 }
