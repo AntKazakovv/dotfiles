@@ -294,6 +294,12 @@ export namespace profileContent {
                                 class: 'wlc-profile-content__header underlined',
                                 components: [
                                     componentLib.wlcTitle.history,
+                                    {
+                                        name: 'finances.wlc-history-range',
+                                        params: {
+                                            type: 'submenu',
+                                        },
+                                    },
                                     componentLib.wlcTransactionHistory.filterOnly,
                                 ],
                             },
@@ -707,6 +713,15 @@ export namespace profileContent {
                             params: {
                                 class: 'wlc-profile-content__body',
                                 components: [
+                                    {
+                                        name: 'finances.wlc-history-range',
+                                        params: {
+                                            type: 'submenu',
+                                        },
+                                        display: {
+                                            before: 1199,
+                                        },
+                                    },
                                     componentLib.wlcTransactionHistory.def,
                                 ],
                             },
@@ -1202,6 +1217,12 @@ export namespace profileContent {
                                 class: 'wlc-profile-content__header underlined',
                                 components: [
                                     componentLib.wlcTitle.betHistory,
+                                    {
+                                        name: 'finances.wlc-history-range',
+                                        params: {
+                                            type: 'submenu',
+                                        },
+                                    },
                                 ],
                             },
                             display: {
@@ -1213,6 +1234,15 @@ export namespace profileContent {
                             params: {
                                 class: 'wlc-profile-content__body',
                                 components: [
+                                    {
+                                        name: 'finances.wlc-history-range',
+                                        params: {
+                                            type: 'submenu',
+                                        },
+                                        display: {
+                                            before: 1199,
+                                        },
+                                    },
                                     componentLib.wlcBetHistory.def,
                                 ],
                             },

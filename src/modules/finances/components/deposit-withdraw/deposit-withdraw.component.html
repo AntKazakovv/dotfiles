@@ -38,12 +38,12 @@
 <ng-template #paymentInfo>
     <div *ngIf="$params.mode === 'withdraw'" class="{{$class}}__withdraw">
         <div class="{{$class}}__withdraw-item">
-            <span class="name">{{'Available for withdrawal' | translate}}</span>
-            <span wlc-currency class="value" [value]="userAvailableWithdraw"></span>
-        </div>
-        <div class="{{$class}}__withdraw-item">
             <span class="name">{{'Total balance' | translate}}</span>
             <span wlc-currency class="value" [value]="userTotalBonus"></span>
+        </div>
+        <div class="{{$class}}__withdraw-item">
+            <span class="name">{{'Available for withdrawal' | translate}}</span>
+            <span wlc-currency class="value" [value]="userAvailableWithdraw"></span>
         </div>
     </div>
 
