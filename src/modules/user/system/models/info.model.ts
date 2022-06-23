@@ -125,6 +125,10 @@ export class UserInfo extends AbstractModel<IUserInfo> {
         return +this.data?.loyalty?.Level || 0;
     }
 
+    public get depositsCount(): number {
+        return +this.data?.loyalty?.DepositsCount || 0;
+    }
+
     public get levelName(): string {
         const defaultLanguage = 'en'; //TODO default lang
         const currentLanguage = this.translate.currentLang;
