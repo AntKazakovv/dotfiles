@@ -474,10 +474,13 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
         }
 
         if (this.hostElement?.nativeElement) {
-            const elem = this.hostElement.nativeElement;
             const iframe = this.wrp?.element?.nativeElement.querySelector('iframe');
 
-            let height: string = (this.window.innerHeight - elem.offsetTop) + 'px';
+            if (!iframe) {
+                return;
+            }
+
+            let height: string = (this.window.innerHeight - iframe.offsetTop) + 'px';
 
             const iframeHeightAttr: string = iframe?.getAttribute('height');
             if (_includes(iframeHeightAttr, 'px') && height && !this.$params.gameParams?.disableIframeSelfResize) {
@@ -487,10 +490,7 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
                     height = null;
                 }
             }
-            this.renderer.setStyle(elem, 'height', height);
-            if (iframe) {
-                this.renderer.setStyle(iframe, 'height', height);
-            }
+            this.renderer.setStyle(iframe, 'height', height);
         }
     }
 
