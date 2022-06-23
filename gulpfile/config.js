@@ -103,7 +103,7 @@ module.exports = function config(root, bundleType) {
             'th': {'code': 'th', 'label': 'Thai', 'locale': 'th_TH'},
             'tr': {'code': 'tr', 'label': 'Turkish', 'locale': 'tr_TR'},
             'uk': {'code': 'uk', 'label': 'Ukrainian', 'locale': 'uk_UA'},
-            'uz': {'code': 'uz', 'label': 'Uzbekistan', 'locale': 'uz_UZ'},
+            'uz': {'code': 'uz', 'label': 'Uzbek', 'locale': 'uz_UZ'},
             'vi': {'code': 'vi', 'label': 'Vietnamese', 'locale': 'vi_VN'},
             'zh': {'code': 'zh', 'label': 'Chinese', 'locale': 'zh_ZH'},
             'zh-cn': {'code': 'zh-cn', 'label': 'China', 'locale': 'zh_CN'},
