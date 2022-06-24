@@ -3,10 +3,12 @@ import {
     OnInit,
     ChangeDetectorRef,
     Inject,
+    ChangeDetectionStrategy,
 } from '@angular/core';
 
 import {BehaviorSubject} from 'rxjs';
 import {
+    distinctUntilChanged,
     filter,
     takeUntil,
 } from 'rxjs/operators';
@@ -43,6 +45,7 @@ import * as Params from './bet-history.params';
     selector: '[wlc-bet-history]',
     templateUrl: './bet-history.component.html',
     styleUrls: ['./styles/bet-history.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BetHistoryComponent extends AbstractComponent implements OnInit {
 
@@ -81,7 +84,7 @@ export class BetHistoryComponent extends AbstractComponent implements OnInit {
         this.showFilter = this.actionService.getDeviceType() === DeviceType.Desktop;
         this.setMinMaxDate();
         this.setSubscription();
-        
+
         this.historyFilterService.dateChanges$.next({
             startDate: this.startDate,
             endDate: this.endDate,
@@ -110,7 +113,7 @@ export class BetHistoryComponent extends AbstractComponent implements OnInit {
 
     protected betsFilter(): IBet[] {
         let result: IBet[] = this.allBets || [];
-        
+
         if (this.filterValue !== 'all') {
             result = _filter(result, (item: IBet): boolean => item.Merchant === this.filterValue);
         }
@@ -124,7 +127,7 @@ export class BetHistoryComponent extends AbstractComponent implements OnInit {
     protected setMinMaxDate(): void {
         const disableSince = this.endDate.plus({day: 1}).toObject();
         const disableUntil = this.startDate.minus({day: 1}).toObject();
-            
+
         this.startDateInput.control.setValue(this.startDate);
         this.endDateInput.control.setValue(this.endDate);
         this.startDateInput.datepickerOptions = {
@@ -153,12 +156,15 @@ export class BetHistoryComponent extends AbstractComponent implements OnInit {
     protected setSubscription(): void {
         this.historyFilterService.getFilter('bet')
             .pipe(
+                filter((filter: IFinancesFilter) => !!filter),
+                distinctUntilChanged((_: IFinancesFilter, curr: IFinancesFilter) => (
+                    this.filterValue === curr.filterValue &&
+                    this.startDate.equals(curr.startDate) &&
+                    this.endDate.equals(curr.endDate)
+                )),
                 takeUntil(this.$destroy),
-                filter((data: IFinancesFilter): boolean => !!data),
             )
             .subscribe(async (data: IFinancesFilter): Promise<void> => {
-                this.filterSelect.control.setValue(this.filterValue = data.filterValue);
-                
                 if (this.startDate.toMillis() !== data.startDate.toMillis() ||
                     this.endDate.toMillis() !== data.endDate.toMillis()) {
                     this.startDateInput.control.setValue(this.startDate = data.startDate);
@@ -171,7 +177,14 @@ export class BetHistoryComponent extends AbstractComponent implements OnInit {
                     });
                 }
 
+                this.filterValue = data.filterValue;
+
                 this.bets$.next(this.betsFilter());
+
+                setTimeout(() => {
+                    this.filterSelect.control.setValue(this.filterValue);
+                    this.cdr.markForCheck();
+                });
             });
 
         this.filterSelect.control.valueChanges
@@ -179,11 +192,11 @@ export class BetHistoryComponent extends AbstractComponent implements OnInit {
                 takeUntil(this.$destroy),
                 filter((filterValue: string): boolean => this.filterValue != filterValue),
             )
-            .subscribe((filterType: string): void => {        
+            .subscribe((filterType: string): void => {
                 this.historyFilterService.setFilter('bet', {filterValue: this.filterValue = filterType});
                 this.bets$.next(this.betsFilter());
             });
-        
+
         this.startDateInput.control.valueChanges
             .pipe(
                 takeUntil(this.$destroy),

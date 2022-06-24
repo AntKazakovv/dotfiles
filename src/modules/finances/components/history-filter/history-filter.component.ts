@@ -10,7 +10,10 @@ import {
 import {FormGroup} from '@angular/forms';
 
 import {BehaviorSubject} from 'rxjs';
-import {takeUntil} from 'rxjs/operators';
+import {
+    filter,
+    takeUntil,
+} from 'rxjs/operators';
 import {DateTime} from 'luxon';
 
 import _isEqual from 'lodash-es/isEqual';
@@ -102,20 +105,17 @@ export class HistoryFilterComponent extends AbstractComponent implements OnInit,
 
     protected subscriber(): void {
         this.historyFilterService.getFilter(this.$params.config)
-            .pipe(takeUntil(this.$destroy))
+            .pipe(
+                filter((data: IIndexing<unknown>) => !!data),
+                takeUntil(this.$destroy),
+            )
             .subscribe((data: IIndexing<any>) => {
                 this.checkFilter(data);
-
-                if (data) {
-                    this.formData.next(data);
-                }
+                this.formData.next(data);
             });
     }
 
     protected checkFilter(data: IIndexing<any>): void {
-        if (!data) {
-            return;
-        }
         this.defaultFormData = this.historyFilterService.getDefaultFilter(this.$params.config);
         this.isFiltered = !_keys(this.defaultFormData)
             .every((key: string): boolean => {
@@ -133,7 +133,7 @@ export class HistoryFilterComponent extends AbstractComponent implements OnInit,
         };
         const formData: IFinancesFilter | IFilterValue = this.formData.getValue() || this.defaultFormData;
         let formConfig = Params.formConfig[this.$params.config];
-        
+
         if (!this.formData.getValue()) {
             this.formData.next(this.defaultFormData);
         }

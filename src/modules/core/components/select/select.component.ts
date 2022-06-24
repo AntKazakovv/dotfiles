@@ -108,14 +108,17 @@ export class SelectComponent extends AbstractComponent implements OnInit, OnChan
         super({injectParams, defaultParams: Params.defaultParams});
     }
 
-    public ngOnInit(): void {
+    public async ngOnInit(): Promise<void> {
         super.ngOnInit(this.inlineParams);
         this.prepareModifiers();
 
         this.foundItems = _cloneDeep(this.$params.items);
         this.control = this.$params.control;
-        this.constantValues =
-            this.selectValues.prepareConstantValues(this.$params.options, this.control, this.$destroy);
+
+        this.constantValues = await this.selectValues.prepareConstantValues(
+            this.$params.options,
+            this.control,
+            this.$destroy);
 
         this.fieldWlcElement = 'select_' + _kebabCase(this.$params.name);
 
@@ -129,10 +132,6 @@ export class SelectComponent extends AbstractComponent implements OnInit, OnChan
 
         if (this.$params.value && _find(this.foundItems, item => item.value === this.$params.value)) {
             this.control.setValue(this.$params.value);
-        }
-
-        if (this.control.value  && !_find(this.foundItems, item => item.value === this.control.value)) {
-            this.control.setValue(this.foundItems[0]?.value || '');
         }
 
         if (this.foundItems.length && _has(this.foundItems[0], 'icon')) {
@@ -471,6 +470,10 @@ export class SelectComponent extends AbstractComponent implements OnInit, OnChan
                     value: '',
                 }];
                 this.foundItems = _cloneDeep(this.$params.items);
+
+                if (this.control.value && !_find(this.foundItems, item => item.value === this.control.value)) {
+                    this.control.setValue(this.foundItems[0]?.value || '');
+                }
             });
     }
 

@@ -206,9 +206,9 @@ describe('SelectValuesService', () => {
         });
     });
 
-    it('-> should get merchants list', () => {
+    it('-> should get merchants list', async () => {
         gameCatalogServiceSpy.getAvailableMerchants = jasmine.createSpy().and.returnValues(testMerchants);
-        const merchants: BehaviorSubject<ISelectOptions[]> = selectValuesService.getMerchantsList();
+        const merchants = await selectValuesService.getMerchantsList();
         const resultMerchants: ISelectOptions[] = [
             {
                 title: 'All',
