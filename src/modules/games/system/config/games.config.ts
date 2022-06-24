@@ -110,7 +110,15 @@ export const gamesConfig: IGamesConfig = {
         byCyrillicLetters: true,
     },
     merchantWallet: {
-        availableMerchants: [937, 964, 982, 883, 890, 893],
+        availableMerchants: [
+            883, // BetFair
+            890, // MiniGame
+            891, // Mega888
+            893, // Nova
+            937, // Pinnacle
+            964, // OrientalGame
+            982, // GGNetwork
+        ],
         balanceRequestTimeout: 30000,
         systemOptions: {
             883: {
