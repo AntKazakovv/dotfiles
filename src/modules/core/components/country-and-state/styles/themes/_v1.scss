@@ -1,0 +1,18 @@
+.wlc-country-and-state--theme-vertical {
+
+    &:host {
+        @include bm.get-mq-map('margin', $themeV1, 'profileFormFieldsMargin');
+        @include bm.get-mq-map('display', $themeV1, 'profileFormFieldsDisplay');
+        @include bm.get-mq-map('row-gap', $themeV1, 'profileFormFieldsGap');
+        flex: 0 1 100%;
+
+        ::ng-deep {
+
+            .wlc-select--state,
+            .wlc-select--country {
+                @include bm.get-mq-map('padding', $themeV1, 'profileFormFieldsPadding');
+                @include bm.get-mq-map('flex', $themeV1, 'profileFormFieldsBaseFlex');
+            }
+        }
+    }
+}

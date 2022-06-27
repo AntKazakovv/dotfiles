@@ -76,7 +76,18 @@ export namespace wlcProfileForm {
                                     wlcElement: 'header_edit-location',
                                 },
                             },
-                            FormElements.country,
+                            {
+                                name: 'core.wlc-country-and-state',
+                                params: {
+                                    name:  ['countryCode', 'stateCode'],
+                                    theme: 'vertical',
+                                    locked: ['countryCode'],
+                                    validatorsField: [{
+                                        name: 'countryCode',
+                                        validators: 'required',
+                                    }],
+                                },
+                            },
                             {
                                 name: FormElements.postalCode.name,
                                 params: {

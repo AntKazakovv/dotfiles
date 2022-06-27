@@ -6,3 +6,25 @@ $themeDefault: map-merge((
     ),
     'formSignUpwGap': ef.size(4),
 ), $customThemeDefault);
+
+
+$customThemeV1: () !default;
+$themeV1: map-merge((
+    'profileFormFieldsDisplay': (
+        375: grid,
+        900: flex,
+    ),
+    'profileFormFieldsGap': (
+        375: ef.size(2),
+        900: initial,
+    ),
+    'profileFormFieldsBaseFlex': (
+        375: 0 1 100%,
+        900: 0 1 25%,
+    ),
+    'profileFormFieldsMargin': (
+        375: 0 0 ef.size(2),
+        1630: 0 0 ef.size(4),
+    ),
+    'profileFormFieldsPadding': 0 ef.size(2),
+), $customThemeV1);

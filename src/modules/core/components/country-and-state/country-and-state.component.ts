@@ -78,7 +78,6 @@ export class CountryAndStateComponent extends AbstractComponent implements OnIni
                 takeUntil(this.$destroy),
             )
             .subscribe((countryCode: string) => {
-                this.$params.stateCode.control.setValue('');
                 const selectedCountryStates: IState[] =
                     this.configService.get<BehaviorSubject<IIndexing<IState[]>>>('states')?.getValue()[countryCode];
                 this.updateStates(selectedCountryStates);
