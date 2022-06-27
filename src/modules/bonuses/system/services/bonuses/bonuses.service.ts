@@ -912,7 +912,8 @@ export class BonusesService {
                 title: gettext('Bonus take success'),
                 wlcElement: 'notification_bonus-activated',
                 displayAsHTML: true,
-                message: this.translate.instant(gettext('Bonus balance is full on')) + ` ${currencyElement}`,
+                message: this.translate.instant(gettext('The bonus balance has been increased by'))
+                    + ` ${currencyElement}`,
             },
         });
     }
