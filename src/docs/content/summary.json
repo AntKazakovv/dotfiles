@@ -227,6 +227,10 @@
         "file": "./900.change-logs/900.change-logs.md",
         "children": [
             {
+                "title": "1.7.0RC7 (27-06-2022)",
+                "file": "./900.change-logs/releases/1.7.0-rc.7_27-06-2022.md"
+            },
+            {
                 "title": "1.7.0RC6 (22-06-2022)",
                 "file": "./900.change-logs/releases/1.7.0-rc.6_22-06-2022.md"
             },
@@ -537,6 +541,10 @@
         "title": "11. Translations",
         "file": "./1000.translations/1000.translations.md",
         "children": [
+            {
+                "title": "27-06-2022",
+                "file": "./1000.translations/history/27-06-2022.md"
+            },
             {
                 "title": "24-03-2022",
                 "file": "./1000.translations/history/24-03-2022.md"
