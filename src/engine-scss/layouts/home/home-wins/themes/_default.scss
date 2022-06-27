@@ -1,23 +1,31 @@
 .wlc-sections__content-wins--theme-default {
 
     .wlc-home-wins {
-        @include bm.get-mq-map('grid-template-columns', $themeHomeWins, 'homeWinsGridTemplateColumns');
-        @include bm.get-mq-map('gap', $themeHomeWins, 'homeWinsGap');
-        display: grid;
-
-        .wlc-winners-slider.wlc-winners-slider--theme-vertical {
-
-            .wlc-winners-slider__wrapper {
-                max-width: ef.get-value($themeHomeWins, 'homeWinsSliderWrapMaxWidth');
-            }
-        }
+        @include sm.homePromoWins($themeHomeWins, 'homeWins');
     }
 
     .wlc-home-wins.wlc-home-wins--tournament {
-        @include bm.get-mq-map('grid-template-columns', $themeHomeWins, 'tournamentGridTemplateColumns');
-        @include bm.get-mq-map('gap', $themeHomeWins, 'tournamentGap');
-        @include sm.homePromoWins($themeHomeWins);
+        @include sm.homePromoWins($themeHomeWins, 'tournament');
         @include sm.homePromoTournaments($themeHomeWins);
-        display: grid;
+    }
+
+    .wlc-home-wins-bonuses {
+        @include sm.homePromoWins($themeHomeWins, 'bonuses');
+        @include bm.get-mq-map('grid-template-areas', $themeHomeWins, 'bonusesGridAreas');
+
+        .wlc-winners-slider {
+
+            &--type-latest {
+                grid-area: recent-wins;
+            }
+
+            &--type-biggest {
+                grid-area: biggest-wins;
+            }
+        }
+
+        .wlc-bonuses-list {
+            grid-area: bonus;
+        }
     }
 }
