@@ -165,14 +165,28 @@ export class ActionService {
         switch (initialPath.message) {
             case 'GET_CONFIG':
                 if (initialPath.token === 'kjdnfhjgernghiwnin39u548dfkjnvk') {
-                    const a = this.document.createElement('a');
                     const config = await this.layoutService
                         .generateFullConfigWithLayouts(initialPath.slim !== 'true');
 
-                    delete config.$user?.userProfile$;
-                    delete config.device?.window;
-
-                    var file = new Blob([JSON.stringify(config)], {type: 'application/json'});
+                    const stringify = (obj: unknown, window: Window) => {
+                        const stack = new WeakSet();
+                        const replacer = function (this: unknown, key: string, value: unknown): unknown {
+                            try {
+                                if (value && typeof value === 'object') {
+                                    if (stack.has(value)) {
+                                        return '[Circular]';
+                                    }
+                                    stack.add(value);
+                                }
+                            } catch (error) {
+                                return '[Error]';
+                            }
+                            return value === window ? '[WINDOW]' : value;
+                        };
+                        return JSON.stringify(obj, replacer);
+                    };
+                    const file = new Blob([stringify(config, this.window)], {type: 'application/json'});
+                    const a = this.document.createElement('a');
                     a.href = URL.createObjectURL(file);
                     a.download = initialPath.configname || 'config.json';
                     a.click();
