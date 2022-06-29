@@ -60,8 +60,7 @@ module.exports = function inlineTask() {
         this.addToGitIgnore('/roots', 'template', 'inline.js');
         return src(`${this.params.paths.inline}/index.ts`)
             .pipe(webpack(config, wp))
-            .pipe(dest(this.params.paths.dist))
-            .on('end', () => {createInlineSymLink(); cb();});
+            .pipe(dest(`${this.params.paths.root}/roots/template/`));
     });
 
     task('watch:inline', (cb) => {
@@ -72,20 +71,6 @@ module.exports = function inlineTask() {
         });
         return src(`${this.params.paths.inline}/index.ts`)
             .pipe(webpack(Object.assign({}, config, {mode: 'development', watch: true}), wp))
-            .pipe(dest(this.params.paths.dist))
-            .on('end', () => {createInlineSymLink(); cb();});
+            .pipe(dest(`${this.params.paths.root}/roots/template/`));
     });
-
-    const createInlineSymLink = () => {
-        try {
-            fs.lstatSync(`${this.params.paths.root}/roots/template/inline.js`);
-        } catch {
-            if (!fs.existsSync(`${this.params.paths.dist}/inline.js`)) {
-                fs.symlinkSync(
-                    '../static/dist/inline.js',
-                    `${this.params.paths.root}/roots/template/inline.js`
-                );
-            }
-        }
-    }
 };
