@@ -106,6 +106,7 @@ export class FormWrapperComponent extends WrapperComponent implements OnInit, On
     @Input() private config: IFormWrapperCParams;
     @Input() private formData: BehaviorSubject<IIndexing<any>>;
     @Input() private errors: Observable<IIndexing<string>>;
+    @Input() private submitButtonPending$: BehaviorSubject<boolean>;
 
     @Output() public form$ = new EventEmitter<FormGroup>();
 
@@ -190,6 +191,10 @@ export class FormWrapperComponent extends WrapperComponent implements OnInit, On
                 _set(component.params, `${field}.control`, this.form?.controls[field]);
             });
         } else {
+            if (component.params.common?.typeAttr === 'submit') {
+                _set(component.params, 'pending$', this.submitButtonPending$);
+            }
+
             _assign(component.params, {
                 control: this.form?.controls[component.params.name] || new FormControl(''),
             });
@@ -199,7 +204,9 @@ export class FormWrapperComponent extends WrapperComponent implements OnInit, On
     }
 
     public async submit(): Promise<void> {
+        this.submitButtonPending$?.next(true);
         if (this.beforeSubmit && !await this.beforeSubmit(this.form, this.initialFormValues)) {
+            this.submitButtonPending$?.next(false);
             return;
         }
 
@@ -259,6 +266,7 @@ export class FormWrapperComponent extends WrapperComponent implements OnInit, On
                 });
             }
         }
+        this.submitButtonPending$?.next(false);
         this.cdr.detectChanges();
     }
 

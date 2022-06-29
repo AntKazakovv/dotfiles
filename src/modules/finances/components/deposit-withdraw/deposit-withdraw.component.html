@@ -148,6 +148,7 @@
         <div wlc-form-wrapper
             class="{{$class}}__form"
             [config]="formConfig"
+            [submitButtonPending$]="submitButtonPending$"
             [formData]="formData$"
             [beforeSubmit]="formBeforeSubmit.bind(this)"
             [ngSubmit]="sendForm.bind(this)">

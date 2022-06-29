@@ -1,4 +1,7 @@
 import {RawParams} from '@uirouter/core';
+
+import {BehaviorSubject} from 'rxjs';
+
 import {
     IComponentParams,
     CustomType,
@@ -30,6 +33,10 @@ export type EventType = {
 
 export interface IButtonCParams extends IComponentParams<Theme, Type, ThemeMod> {
     modifiers?: Modifiers[];
+    /** BehaviorSubject to pending status */
+    pending$?: BehaviorSubject<boolean>,
+    /** Pending status icon path */
+    pendingIconPath?: string;
     common?: {
         size?: Size;
         icon?: string;
@@ -52,6 +59,7 @@ export const defaultParams: IButtonCParams = {
     moduleName: 'core',
     componentName: 'wlc-button',
     class: 'wlc-btn',
+    pendingIconPath: 'wlc/icons/button-pending.svg',
     common: {
         size: 'default',
     },

@@ -323,6 +323,7 @@ export namespace wlcProfileForm {
                         wlcElement: 'button_submit',
                         common: {
                             text: gettext('Save changes'),
+                            typeAttr: 'submit',
                         },
                     },
                 },

@@ -59,6 +59,7 @@ export const restorePasswordFormConfig: IFormWrapperCParams = {
                 common: {
                     text: gettext('Restore'),
                     type: 'submit',
+                    typeAttr: 'submit',
                     customModifiers: 'centered restore',
                 },
                 wlcElement: 'button_restore',

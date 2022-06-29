@@ -80,6 +80,7 @@ export const smsVerificationFormConfig: IFormWrapperCParams = {
                 common: {
                     text: gettext('Get code'),
                     type: 'submit',
+                    typeAttr: 'submit',
                     customModifiers: 'centered',
                 },
                 wlcElement: 'button_submit',
@@ -121,6 +122,7 @@ export const smsVerificationFormCodeConfig: IFormWrapperCParams = {
                 common: {
                     text: gettext('Confirm'),
                     type: 'submit',
+                    typeAttr: 'submit',
                     customModifiers: 'centered',
                 },
                 wlcElement: 'button_submit',

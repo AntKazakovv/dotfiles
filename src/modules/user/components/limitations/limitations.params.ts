@@ -133,8 +133,8 @@ export const limitPeriod = {
 export const submitBtn = {
     name: 'core.wlc-button',
     params: <IButtonCParams>{
-        name: 'submit',
         common: {
+            typeAttr: 'submit',
             text: gettext('Save'),
         },
     },

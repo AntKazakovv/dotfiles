@@ -94,6 +94,7 @@ export const defaultParams: IChangePasswordFormCParams = {
                     common: {
                         text: gettext('Save'),
                         type: 'submit',
+                        typeAttr: 'submit',
                         customModifiers: 'centered',
                     },
                 },

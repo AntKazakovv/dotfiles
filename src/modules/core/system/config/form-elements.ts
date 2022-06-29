@@ -72,9 +72,9 @@ export namespace FormElements {
     export const depositButton: IFormComponent = {
         name: 'core.wlc-button',
         params: <IButtonCParams>{
-            name: 'submit',
             wlcElement: 'button_deposit',
             common: {
+                typeAttr: 'submit',
                 text: gettext('Deposit'),
             },
             customMod: ['submit', 'deposit'],
@@ -84,9 +84,9 @@ export namespace FormElements {
     export const withdrawButton: IFormComponent = {
         name: 'core.wlc-button',
         params: <IButtonCParams>{
-            name: 'submit',
             wlcElement: 'button_withdraw',
             common: {
+                typeAttr: 'submit',
                 text: gettext('Withdraw'),
             },
             customMod: ['submit', 'withdraw'],
@@ -408,9 +408,9 @@ export namespace FormElements {
     export const submit: IFormComponent = {
         name: 'core.wlc-button',
         params: <IButtonCParams>{
-            name: 'submit',
             modifiers: ['submit'],
             common: {
+                typeAttr: 'submit',
                 text: gettext('Save'),
                 customModifiers: 'submit',
             },
@@ -563,6 +563,7 @@ export namespace FormElements {
             common: {
                 text: gettext('Sign up'),
                 type: 'submit',
+                typeAttr: 'submit',
             },
         },
     };

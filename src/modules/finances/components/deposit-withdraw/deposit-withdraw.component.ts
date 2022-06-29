@@ -140,6 +140,7 @@ export class DepositWithdrawComponent
 
     public formConfig: IFormWrapperCParams;
     public isShowHostedBlock: boolean = false;
+    public submitButtonPending$: BehaviorSubject<boolean>;
     public steps: Set<Params.IPaymentStep> = new Set();
 
     public useBonuses: boolean = false;
@@ -250,6 +251,10 @@ export class DepositWithdrawComponent
         }
 
         await this.financesService.fetchPaymentSystems();
+
+        if (this.configService.get<boolean>('$base.forms.useSubmitButtonPending')) {
+            this.submitButtonPending$ = new BehaviorSubject(false);
+        }
     }
 
     public ngOnDestroy(): void {
@@ -363,16 +368,16 @@ export class DepositWithdrawComponent
         });
     }
 
-    public sendForm(form: FormGroup): void {
+    public async sendForm(form: FormGroup): Promise<boolean> {
         if (this.inProgress) {
-            return;
+            return false;
         }
         this.formObject = form;
 
         if (this.isDeposit) {
-            this.deposit();
+            return await this.deposit();
         } else {
-            this.withdraw(this.formObject);
+            return await this.withdraw(this.formObject);
         }
 
         this.eventService.emit({
@@ -383,18 +388,19 @@ export class DepositWithdrawComponent
         });
     }
 
-    public deposit(saveProfile: boolean = true): void {
+    public async deposit(saveProfile: boolean = true): Promise<boolean> {
         this.inProgress = true;
         this.modalService.showModal('data-is-processing');
 
         if (this.currentSystem.isHosted) {
             this.currentSystem.getHostedValue();
+            return true;
         } else {
-            this.depositAction(this.formObject.value.amount, this.getAdditionalParams(), saveProfile);
+            return await this.depositAction(this.formObject.value.amount, this.getAdditionalParams(), saveProfile);
         }
     }
 
-    public async withdraw(form: FormGroup, saveProfile: boolean = false): Promise<void> {
+    public async withdraw(form: FormGroup, saveProfile: boolean = false): Promise<boolean> {
         this.modalService.showModal('data-is-processing');
         this.inProgress = true;
 
@@ -437,12 +443,15 @@ export class DepositWithdrawComponent
                 displayAsHTML: true,
             });
 
+            return true;
         } catch (error) {
             this.pushNotification({
                 type: 'error',
                 title: gettext('Error'),
                 message: FinancesHelper.errorToMessage(error),
             });
+
+            return false;
         } finally {
             if (this.modalService.getActiveModal('data-is-processing')) {
                 this.modalService.hideModal('data-is-processing');
@@ -537,7 +546,11 @@ export class DepositWithdrawComponent
         return DateTime.fromISO((this.currentSystem?.message as IPaymentMessage)?.dateEnd);
     }
 
-    private async depositAction(amount: number, params: TAdditionalParams, saveProfile: boolean = true): Promise<void> {
+    private async depositAction(
+        amount: number,
+        params: TAdditionalParams,
+        saveProfile: boolean = true,
+    ): Promise<boolean> {
         this.isShowIframe = this.depositInIframe && this.currentSystem.appearance === 'iframe';
         try {
             const response = await this.financesService.deposit(
@@ -584,12 +597,15 @@ export class DepositWithdrawComponent
             }
 
             this.addFormToBodyAndSubmit(response);
+            return true;
         } catch (error) {
             this.pushNotification({
                 type: 'error',
                 title: gettext('Deposit'),
                 message: FinancesHelper.errorToMessage(error),
             });
+
+            return false;
         } finally {
 
             if (this.modalService.getActiveModal('data-is-processing')) {

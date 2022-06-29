@@ -42,6 +42,7 @@ export class FeedbackFormComponent extends AbstractComponent implements OnInit, 
     public config = Params.feedbackConfig;
     public contactsConfig: IContactsConfig;
     public formData$: BehaviorSubject<IIndexing<any>> = new BehaviorSubject(null);
+    public submitButtonPending$: BehaviorSubject<boolean>;
     protected userProfile$: BehaviorSubject<UserProfile>;
     protected form: FormGroup;
 
@@ -57,6 +58,10 @@ export class FeedbackFormComponent extends AbstractComponent implements OnInit, 
     public ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
         this.contactsConfig = this.configService.get<IContactsConfig>('$base.contacts');
+
+        if (this.configService.get<boolean>('$base.forms.useSubmitButtonPending')) {
+            this.submitButtonPending$ = new BehaviorSubject(false);
+        }
     }
 
     public ngAfterViewInit(): void {
@@ -72,44 +77,48 @@ export class FeedbackFormComponent extends AbstractComponent implements OnInit, 
             });
     }
 
-    public ngSubmit(form: FormGroup): void {
+    public async ngSubmit(form: FormGroup): Promise<boolean> {
         const {senderEmail, senderName, message, subject} = form.getRawValue();
 
-        this.contactsService.send({
-            senderName,
-            senderEmail,
-            subject,
-            message,
-        })
-            .then(() => {
-                this.eventService.emit({
-                    name: NotificationEvents.PushMessage,
-                    data: <IPushMessageParams>{
-                        type: 'success',
-                        title: gettext('Form submitted successfully'),
-                        message: gettext('Your message has been successfully sent'),
-                        wlcElement: 'notification_feedback-send-success',
-                    },
-                });
-
-                this.form.reset();
-
-                if (this.configService.get<BehaviorSubject<UserProfile>>('$user.isAuthenticated')) {
-                    this.setUser(this.configService.get<BehaviorSubject<UserProfile>>('$user.userProfile$').getValue());
-                }
-
-            })
-            .catch(() => {
-                this.eventService.emit({
-                    name: NotificationEvents.PushMessage,
-                    data: <IPushMessageParams>{
-                        type: 'error',
-                        title: gettext('Form submitting error'),
-                        message: gettext('Check the correctness of filling in the data'),
-                        wlcElement: 'notification_feedback-send-error',
-                    },
-                });
+        try {
+            await this.contactsService.send({
+                senderName,
+                senderEmail,
+                subject,
+                message,
             });
+
+            this.eventService.emit({
+                name: NotificationEvents.PushMessage,
+                data: <IPushMessageParams>{
+                    type: 'success',
+                    title: gettext('Form submitted successfully'),
+                    message: gettext('Your message has been successfully sent'),
+                    wlcElement: 'notification_feedback-send-success',
+                },
+            });
+
+            this.form.reset();
+
+            if (this.configService.get<BehaviorSubject<UserProfile>>('$user.isAuthenticated')) {
+                this.setUser(this.configService.get<BehaviorSubject<UserProfile>>('$user.userProfile$').getValue());
+            }
+
+            return true;
+
+        } catch (error) {
+            this.eventService.emit({
+                name: NotificationEvents.PushMessage,
+                data: <IPushMessageParams>{
+                    type: 'error',
+                    title: gettext('Form submitting error'),
+                    message: gettext('Check the correctness of filling in the data'),
+                    wlcElement: 'notification_feedback-send-error',
+                },
+            });
+
+            return false;
+        }
     }
 
     public getForm(form: FormGroup): void {

@@ -118,9 +118,9 @@ export const feedbackConfig: IFormWrapperCParams = {
         {
             name: 'core.wlc-button',
             params: {
-                name: 'submit',
                 wlcElement: 'button_submit',
                 common: {
+                    typeAttr: 'submit',
                     text: gettext('Send message'),
                 },
             },

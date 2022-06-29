@@ -63,6 +63,7 @@ export const newPasswordFormConfig: IFormWrapperCParams = {
                 common: {
                     text: gettext('Save'),
                     type: 'submit',
+                    typeAttr: 'submit',
                     customModifiers: 'centered',
                 },
                 wlcElement: 'button_submit',

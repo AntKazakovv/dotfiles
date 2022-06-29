@@ -252,9 +252,9 @@ export class MerchantWalletFormComponent extends AbstractComponent implements On
                 {
                     name: 'core.wlc-button',
                     params: {
-                        name: 'submit',
                         wlcElement: `button_${method}`,
                         common: {
+                            typeAttr: 'submit',
                             text: method === 'deposit' ? gettext('Add') : gettext('Withdraw'),
                         },
                         customMod: ['submit', method],

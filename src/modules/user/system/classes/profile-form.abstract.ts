@@ -1,4 +1,7 @@
-import {Directive} from '@angular/core';
+import {
+    Directive,
+    OnInit,
+} from '@angular/core';
 import {FormGroup} from '@angular/forms';
 
 import {
@@ -16,6 +19,7 @@ import {
     ConfigService,
     EventService,
     IFormWrapperCParams,
+    IComponentParams,
     IIndexing,
     IMixedParams,
     IPushMessageParams,
@@ -26,7 +30,8 @@ import {IFormComponent} from 'wlc-engine/modules/core/components/form-wrapper/fo
 import {UserProfile} from 'wlc-engine/modules/user/system/models/profile.model';
 
 @Directive()
-export abstract class ProfileFormAbstract extends AbstractComponent {
+export abstract class ProfileFormAbstract extends AbstractComponent  implements OnInit {
+    public submitButtonPending$: BehaviorSubject<boolean>;
     public abstract formConfig: IFormWrapperCParams;
 
     constructor(
@@ -35,6 +40,14 @@ export abstract class ProfileFormAbstract extends AbstractComponent {
         protected configService?: ConfigService,
     ) {
         super(mixedParams, configService);
+    }
+
+    public ngOnInit(inlineParams?: IComponentParams<unknown, unknown, unknown>): void {
+        super.ngOnInit(inlineParams);
+
+        if (this.configService.get<boolean>('$base.forms.useSubmitButtonPending')) {
+            this.submitButtonPending$ = new BehaviorSubject(false);
+        }
     }
 
     /**

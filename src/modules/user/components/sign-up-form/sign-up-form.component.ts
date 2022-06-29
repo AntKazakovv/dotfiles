@@ -64,6 +64,7 @@ export class SignUpFormComponent extends UserActionsAbstract<Params.ISignUpFormC
     public $params: Params.ISignUpFormCParams;
     public formData: BehaviorSubject<IIndexing<unknown>>;
     public errors$: BehaviorSubject<IIndexing<string>> = new BehaviorSubject(null);
+    public submitButtonPending$: BehaviorSubject<boolean>;
     @HostBinding('class.two-steps') useTwoStepsClass: boolean = this.getTwoSteps();
 
     constructor(
@@ -135,6 +136,10 @@ export class SignUpFormComponent extends UserActionsAbstract<Params.ISignUpFormC
         if (this.$params.formData) {
             this.formData = new BehaviorSubject(this.$params.formData);
         }
+
+        if (this.configService.get<boolean>('$base.forms.useSubmitButtonPending')) {
+            this.submitButtonPending$ = new BehaviorSubject(false);
+        }
     }
 
     public getTwoSteps(): boolean {
@@ -151,7 +156,7 @@ export class SignUpFormComponent extends UserActionsAbstract<Params.ISignUpFormC
         return this.checkRegisterPromocode(form);
     }
 
-    public async ngSubmit(form: FormGroup): Promise<void> {
+    public async ngSubmit(form: FormGroup): Promise<boolean> {
         if ((this.getTwoSteps() && !this.isSecondStep())
             || this.configService.get<boolean>('$base.profile.smsVerification.use')) {
             this.nextStepSubmit(form);
@@ -161,7 +166,7 @@ export class SignUpFormComponent extends UserActionsAbstract<Params.ISignUpFormC
         try {
             form.disable();
             if (!this.checkConfirmation(form)) {
-                return;
+                return false;
             }
             let regData = this.formDataPreparation(form);
             if (this.getTwoSteps() && this.isSecondStep()) {
@@ -175,6 +180,8 @@ export class SignUpFormComponent extends UserActionsAbstract<Params.ISignUpFormC
 
             await this.userService.validateRegistration(regData);
             await this.finishUserReg(regData.data);
+
+            return true;
         } catch (error) {
 
             if (this.configService.get<boolean>('$base.site.useXNonce')) {
@@ -185,6 +192,8 @@ export class SignUpFormComponent extends UserActionsAbstract<Params.ISignUpFormC
             if (_isObject(error.errors)) {
                 this.errors$.next(error.errors);
             }
+
+            return false;
         } finally {
             form.enable();
         }

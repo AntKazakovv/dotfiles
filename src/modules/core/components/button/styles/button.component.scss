@@ -18,6 +18,37 @@
         border: none;
         overflow: hidden;
 
+        .wlc-btn {
+
+            &__pending {
+                display: none;
+            }
+        }
+
+        &.wlc-btn--pending {
+            position: relative;
+            pointer-events: none;
+
+            .wlc-btn {
+
+                &__text {
+                    opacity: 0;
+                }
+
+                &__pending {
+                    @include bm.absoluteCentering();
+                    display: block;
+
+                    ::ng-deep {
+
+                        svg {
+                            animation: ef.get-value($themeDefault, 'pendingAnimation');
+                        }
+                    }
+                }
+            }
+        }
+
         &.wlc-btn--animate {
 
             &-pulse {

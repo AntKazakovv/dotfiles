@@ -164,11 +164,11 @@ export const playGameForRealConfig = (params: IPlayForRealParams): IFormWrapperC
             {
                 name: 'core.wlc-button',
                 params: <IButtonCParams>{
-                    name: 'submit',
                     themeMod: 'secondary',
                     common: {
                         text: gettext('Login'),
                         type: 'submit',
+                        typeAttr: 'submit',
                     },
                 },
             },

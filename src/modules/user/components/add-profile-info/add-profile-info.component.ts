@@ -44,6 +44,7 @@ export class AddProfileInfoComponent extends ProfileFormAbstract implements OnIn
     public $params: Params.IAddProfileInfoCParams;
     public errors$: BehaviorSubject<IIndexing<string>> = new BehaviorSubject(null);
     public formConfig: IFormWrapperCParams;
+    public submitButtonPending$: BehaviorSubject<boolean>;
     protected isPending: boolean = false;
 
     constructor(
@@ -74,11 +75,11 @@ export class AddProfileInfoComponent extends ProfileFormAbstract implements OnIn
         });
     }
 
-    public async onSubmit(form: FormGroup): Promise<void> {
+    public async onSubmit(form: FormGroup): Promise<boolean> {
         if (this.isPending) {
-            return;
+            return false;
         }
-
+        let submited: boolean;
         this.isPending = true;
         this.modalService.showModal('data-is-processing');
 
@@ -100,6 +101,8 @@ export class AddProfileInfoComponent extends ProfileFormAbstract implements OnIn
                     wlcElement: 'notification_profile-update-success',
                 },
             });
+
+            submited = true;
         } else {
 
             const messages = [gettext('Profile save failed')];
@@ -125,10 +128,13 @@ export class AddProfileInfoComponent extends ProfileFormAbstract implements OnIn
                     wlcElement: 'notification_profile-update-error',
                 },
             });
+
+            submited = false;
         }
 
         this.isPending = false;
         this.cdr.markForCheck();
+        return submited;
     }
 
     protected disableStatesControl(): void {

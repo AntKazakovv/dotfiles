@@ -1,4 +1,7 @@
-import {Directive} from '@angular/core';
+import {
+    Directive,
+    OnInit,
+} from '@angular/core';
 import {FormGroup} from '@angular/forms';
 import {StateService} from '@uirouter/core';
 
@@ -62,11 +65,13 @@ export const defaultSignInFormParams: IDefaultAbstractSignInCParams = {
 
 @Directive()
 export abstract class SignInFormAbstract<T extends IAbstractSignInFormCParams<unknown, unknown, unknown>>
-    extends AbstractComponent {
+    extends AbstractComponent
+    implements OnInit {
 
     public $params: T;
     public config: IFormWrapperCParams;
     public errors$: BehaviorSubject<IIndexing<string>> = new BehaviorSubject(null);
+    public submitButtonPending$: BehaviorSubject<boolean>;
 
     private captchaError: boolean = false;
 
@@ -80,6 +85,14 @@ export abstract class SignInFormAbstract<T extends IAbstractSignInFormCParams<un
         protected configService?: ConfigService,
     ) {
         super(mixedParams, configService);
+    }
+
+    public ngOnInit(inlineParams?: IComponentParams<unknown, unknown, unknown>): void {
+        super.ngOnInit(inlineParams);
+
+        if (this.configService.get<boolean>('$base.forms.useSubmitButtonPending')) {
+            this.submitButtonPending$ = new BehaviorSubject(false);
+        }
     }
 
     public beforeSubmit(form: FormGroup): boolean {
@@ -97,7 +110,7 @@ export abstract class SignInFormAbstract<T extends IAbstractSignInFormCParams<un
         return true;
     }
 
-    public async ngSubmit(form: FormGroup): Promise<void> {
+    public async ngSubmit(form: FormGroup): Promise<boolean> {
         const {email, login, password, captcha} = form.value;
 
         if (captcha) {
@@ -113,6 +126,8 @@ export abstract class SignInFormAbstract<T extends IAbstractSignInFormCParams<un
             } else if (this.modalService.getActiveModal('login')) {
                 this.modalService.hideModal('login', 'submit');
             }
+
+            return true;
         } catch (error) {
             const errors: IIndexing<string> = error.errors;
             let errorMessage: string | IIndexing<string>;
@@ -129,6 +144,8 @@ export abstract class SignInFormAbstract<T extends IAbstractSignInFormCParams<un
             if (_isObject(errors)) {
                 this.errors$.next(errors.captcha ? {captcha: this.$params.captchaErrorText} : errors);
             }
+
+            return false;
         } finally {
             form.enable();
         }

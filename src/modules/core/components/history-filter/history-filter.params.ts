@@ -57,8 +57,8 @@ export namespace formConfig {
             {
                 name: 'core.wlc-button',
                 params: <IButtonCParams>{
-                    name: 'submit',
                     common: {
+                        typeAttr: 'submit',
                         text: gettext('Save'),
                     },
                 },
@@ -92,8 +92,8 @@ export namespace formConfig {
             {
                 name: 'core.wlc-button',
                 params: <IButtonCParams>{
-                    name: 'submit',
                     common: {
+                        typeAttr: 'submit',
                         text: gettext('Save'),
                     },
                 },
@@ -119,8 +119,8 @@ export namespace formConfig {
             {
                 name: 'core.wlc-button',
                 params: <IButtonCParams>{
-                    name: 'submit',
                     common: {
+                        typeAttr: 'submit',
                         text: gettext('Save'),
                     },
                 },
@@ -146,8 +146,8 @@ export namespace formConfig {
             {
                 name: 'core.wlc-button',
                 params: <IButtonCParams>{
-                    name: 'submit',
                     common: {
+                        typeAttr: 'submit',
                         text: gettext('Save'),
                     },
                 },

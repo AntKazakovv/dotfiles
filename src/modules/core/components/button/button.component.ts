@@ -112,6 +112,18 @@ export class ButtonComponent extends AbstractComponent implements OnInit,
             this.animationHandlers();
         }
         this.ready = true;
+
+        if (this.$params.pending$) {
+            this.$params.pending$
+                .pipe(takeUntil(this.$destroy))
+                .subscribe((pending: boolean): void => {
+                    if (pending) {
+                        this.addModifiers('pending');
+                    } else {
+                        this.removeModifiers('pending');
+                    }
+                });
+        }
     }
 
     public ngOnChanges(changes) {

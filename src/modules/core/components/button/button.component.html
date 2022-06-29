@@ -6,3 +6,9 @@
           [iconPath]="$params.common.iconPath"
     ></span>
 </span>
+
+<span *ngIf="$params.pending$"
+      wlc-icon
+      class="{{$class}}__pending"
+      [iconPath]="$params.pendingIconPath"
+></span>

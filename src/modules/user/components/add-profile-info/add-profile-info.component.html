@@ -7,6 +7,7 @@
      [ngSubmit]="onSubmit.bind(this)"
      [formData]="$params.formData"
      [config]="formConfig"
+     [submitButtonPending$]="submitButtonPending$"
      [errors]="errors$.asObservable()"
      [beforeSubmit]="beforeSubmit.bind(this)">
 </div>
