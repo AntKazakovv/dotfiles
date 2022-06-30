@@ -1,6 +1,6 @@
 #!/bin/bash
 
-engine_ver=$(jq .version < ./package.json | sed 's/"//g');
+engine_ver=$(jq .version < ./package.json | sed -e 's/"//g');
 current_dir=$(pwd);
 temp_dir="temp/repo";
 
@@ -42,11 +42,11 @@ for key in ${!projects[*]}; do
     git checkout develop
 
     #get current engine version
-    current_ver=$(jq '.dependencies["@egamings/wlc-engine"]' < package.json | sed 's/"//g')
+    current_ver=$(jq '.dependencies["@egamings/wlc-engine"]' < package.json | sed -e 's/"//g')
 
     #make devcasino branch if previous engine release was stable
-    if [ $(echo $current_ver | awk '/^[0-9]+\.[0-9]+\.[0-9]+$/') ]  && [ $(echo ${projects[$key]} | awk '/wlcdevcasino/') ]; then
-        stable_branch="scr"$(echo $current_ver | sed 's/\./-/g')
+    if [ $(echo $current_ver | awk -e '/^[0-9]+\.[0-9]+\.[0-9]+$/') ]  && [ $(echo ${projects[$key]} | awk '/wlcdevcasino/') ]; then
+        stable_branch="scr"$(echo $current_ver | sed -e 's/\./-/g')
         for branch in ${branches[$key]}; do
             if [[ $branch == "master" ]]; then
                 continue;
@@ -58,7 +58,7 @@ for key in ${!projects[*]}; do
                 git checkout -b $stable_branch
                 git push origin $stable_branch -f
             else
-                target=$(echo $branch | sed 's/\+//g')
+                target=$(echo $branch | sed -e 's/\+//g')
                 if [[ $target == $branch ]]; then
                     git branch -D $branch
                     git checkout $branch
@@ -91,7 +91,7 @@ for key in ${!projects[*]}; do
     cd -
 
     # check updated wlc-engine version
-    lock_ver=$(jq '.dependencies["@egamings/wlc-engine"].version' < package-lock.json | sed 's/"//g');
+    lock_ver=$(jq '.dependencies["@egamings/wlc-engine"].version' < package-lock.json | sed -e 's/"//g');
     if [[ $lock_ver != $engine_ver ]]; then
         clean_temp
         echo -e "\e[5m\e[1m\e[91mEngine version don't match, something went wrong ($lock_ver vs $engine_ver)\e[25m\e[0m"
@@ -130,7 +130,7 @@ for key in ${!projects[*]}; do
                 git push origin develop
                 echo y |  ./make-test-release
             else
-                target=$(echo $branch | sed 's/\+//g')
+                target=$(echo $branch | sed -e 's/\+//g')
                 if [[ $target == $branch ]]; then
                     echo "make update $branch";
                     git checkout $branch
