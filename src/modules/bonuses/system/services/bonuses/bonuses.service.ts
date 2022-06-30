@@ -14,6 +14,7 @@ import {
     distinctUntilChanged,
 } from 'rxjs/operators';
 
+import {DateTime} from 'luxon';
 import _each from 'lodash-es/each';
 import _extend from 'lodash-es/extend';
 import _filter from 'lodash-es/filter';
@@ -30,7 +31,6 @@ import _union from 'lodash-es/union';
 import _unionBy from 'lodash-es/unionBy';
 import _isNumber from 'lodash-es/isNumber';
 import _find from 'lodash-es/find';
-import _toNumber from 'lodash-es/toNumber';
 import _isEqual from 'lodash-es/isEqual';
 import _isUndefined from 'lodash-es/isUndefined';
 import _keys from 'lodash-es/keys';
@@ -66,6 +66,7 @@ import {
     NotificationEvents,
 } from 'wlc-engine/modules/core';
 import {TBonusesHistory} from 'wlc-engine/modules/bonuses/system/interfaces/bonuses.interface';
+import {Game} from 'wlc-engine/modules/games';
 
 interface IBonusData extends IData {
     data?: IBonus;
@@ -80,6 +81,13 @@ interface ISubjects {
     active$: BehaviorSubject<Bonus[]>;
     store$: BehaviorSubject<Bonus[]>;
     history$: BehaviorSubject<HistoryItemModel[]>;
+}
+
+interface IFreeRoundData {
+    merch: string,
+    games: string[],
+    count: string,
+    date: string,
 }
 
 @Injectable({
@@ -862,11 +870,12 @@ export class BonusesService {
      *
      * @param {UserInfo} data - get actual data from UserInfo.
      *
-     * @return {void}
+     * @return {Promise<void>}
      */
     private async checkNewActiveBonuses(data: UserInfo): Promise<void> {
         const cacheDataBonusesLBID: string[] = await this.cachingService.get<string[]>('active-loyalty-bonuses') || [];
-        const cacheDataFreeRounds: string[] = await this.cachingService.get<string[]>('freeround-games') || [];
+        const cacheDataFreeRounds: IFreeRoundData[] =
+            await this.cachingService.get<IFreeRoundData[]>('freeround-games') || [];
         const activeBonusesLBID: string[] = _map(data?.loyalty?.BonusesBalance, 'IDLoyaltyBonuses');
 
         if (!_isEqual(activeBonusesLBID, cacheDataBonusesLBID) && activeBonusesLBID.length) {
@@ -882,13 +891,30 @@ export class BonusesService {
         }
 
         if (data?.freeRounds) {
-            const activeFreeRoundGames: string[] = [];
-            _each(data.freeRounds, (freeRound: IFreeRound): void => {
-                if (_toNumber(freeRound?.Count) > 0 && freeRound?.Games) {
-                    activeFreeRoundGames.push(freeRound.Games[0]);
-                    if (!_includes(cacheDataFreeRounds, freeRound.Games[0])) {
-                        this.showMessageBonusFreeRound(freeRound);
-                    }
+            const activeFreeRoundGames: IFreeRoundData[] =
+                _map(data.freeRounds, (freeRound: IFreeRound): IFreeRoundData => {
+                    return ({
+                        merch: freeRound.IDMerchant,
+                        games: freeRound.Games,
+                        count: freeRound.Count,
+                        date: freeRound.ExpireDate,
+                    });
+                });
+
+            if (!this.gamesCatalogService) {
+                this.gamesCatalogService = await this.injectionService.getService('games.games-catalog-service');
+                await this.gamesCatalogService.ready;
+            }
+
+            _each(activeFreeRoundGames, (freeroundData: IFreeRoundData): void => {
+                if (!_find(cacheDataFreeRounds, freeroundData) && +freeroundData.count) {
+                    _each(freeroundData.games, (gameLaunchCode: string): boolean => {
+                        const game: Game = this.gamesCatalogService.getGame(+freeroundData.merch, gameLaunchCode);
+                        if (game) {
+                            this.showMessageBonusFreeRound(freeroundData, game);
+                            return false;
+                        }
+                    });
                 }
             });
             await this.cachingService.set('freeround-games', activeFreeRoundGames, true, Number.MAX_SAFE_INTEGER);
@@ -921,43 +947,40 @@ export class BonusesService {
     /**
      * It accepts the object of freerounds, finds their balance and displays the corresponding message.
      *
-     * @param {IFreeRound} freeRound - accepts a freeRound object.
+     * @param {IFreeRoundData} freeRound - freeRound data object.
+     * @param {Game} game - game object.
      *
      * @return {void}
      */
-    private async showMessageBonusFreeRound(freeRound: IFreeRound): Promise<void> {
-        if (!this.gamesCatalogService) {
-            this.gamesCatalogService = await this.injectionService.getService('games.games-catalog-service');
-        }
-        await this.gamesCatalogService.ready;
-        const game = this.gamesCatalogService.getGame(+freeRound.IDMerchant, freeRound.Games[0]);
+    private showMessageBonusFreeRound(freeRound: IFreeRoundData, game: Game): void {
+        const defaultTime = DateTime.fromSQL(freeRound.date);
+        const offsetTime = defaultTime.plus({minutes: defaultTime.offset});
 
-        if (game) {
-            this.eventService.emit({
-                name: NotificationEvents.PushMessage,
-                data: <IPushMessageParams>{
-                    type: 'success',
-                    title: gettext('Bonus take success'),
-                    wlcElement: 'notification_bonus-freespins-game',
-                    themeMod: 'with-games',
-                    message: gettext('Free spins available: {{count}}'),
-                    messageContext: {
-                        count: freeRound.Count,
-                    },
-                    image: {
-                        src: game.image,
-                    },
-                    action: {
-                        label: gettext('Play'),
-                        onClick: (): void => {
-                            this.stateService.go('app.gameplay', {
-                                merchantId: freeRound.IDMerchant,
-                                launchCode: freeRound.Games[0],
-                            });
-                        },
+        this.eventService.emit({
+            name: NotificationEvents.PushMessage,
+            data: <IPushMessageParams>{
+                type: 'success',
+                title: gettext('Bonus is available'),
+                wlcElement: 'notification_bonus-freespins-game',
+                themeMod: 'with-games',
+                message: gettext('Free spins available: {{count}}\n Play until: {{date}}'),
+                messageContext: {
+                    count: freeRound.count,
+                    date: offsetTime.setLocale(defaultTime.locale).toFormat('MM/dd/yyyy hh:mm:ss'),
+                },
+                image: {
+                    src: game.image,
+                },
+                action: {
+                    label: gettext('Play'),
+                    onClick: (): void => {
+                        this.stateService.go('app.gameplay', {
+                            merchantId: game.merchantID,
+                            launchCode: game.launchCode,
+                        });
                     },
                 },
-            });
-        }
+            },
+        });
     }
 }
