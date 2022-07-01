@@ -738,7 +738,6 @@ export class DepositWithdrawComponent
         }
 
         this.isShowHostedBlock = false;
-
         if (!system) {
             this.currentSystem = undefined;
             this.requiredFields = {};
@@ -771,7 +770,7 @@ export class DepositWithdrawComponent
         this.checkUserProfileForPayment();
         this.updateFormConfig();
         this.formData$.next({
-            resetForm: true,
+            resetForm: this.$params.resetAmountForm,
         });
 
         if (this.currentSystem.isHosted
