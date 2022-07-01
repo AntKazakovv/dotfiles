@@ -227,36 +227,8 @@
         "file": "./900.change-logs/900.change-logs.md",
         "children": [
             {
-                "title": "1.7.0RC8 (30-06-2022)",
-                "file": "./900.change-logs/releases/1.7.0-rc.8_30-06-2022.md"
-            },
-            {
-                "title": "1.7.0RC7 (27-06-2022)",
-                "file": "./900.change-logs/releases/1.7.0-rc.7_27-06-2022.md"
-            },
-            {
-                "title": "1.7.0RC6 (22-06-2022)",
-                "file": "./900.change-logs/releases/1.7.0-rc.6_22-06-2022.md"
-            },
-            {
-                "title": "1.7.0RC5 (22-06-2022)",
-                "file": "./900.change-logs/releases/1.7.0-rc.5_22-06-2022.md"
-            },
-            {
-                "title": "1.7.0RC4 (22-06-2022)",
-                "file": "./900.change-logs/releases/1.7.0-rc.4_22-06-2022.md"
-            },
-            {
-                "title": "1.7.0RC3 (21-06-2022)",
-                "file": "./900.change-logs/releases/1.7.0-rc.3_21-06-2022.md"
-            },
-            {
-                "title": "1.7.0RC2 (14-06-2022)",
-                "file": "./900.change-logs/releases/1.7.0-rc.2_14-06-2022.md"
-            },
-            {
-                "title": "1.7.0RC1 (14-06-2022)",
-                "file": "./900.change-logs/releases/1.7.0-rc.1_14-06-2022.md"
+                "title": "1.8.0 (01-07-2022)",
+                "file": "./900.change-logs/releases/1.8.0_01-07-2022.md"
             },
             {
                 "title": "1.6.2 (10-06-2022)",
