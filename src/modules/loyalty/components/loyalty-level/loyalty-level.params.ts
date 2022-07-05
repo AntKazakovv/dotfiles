@@ -41,7 +41,7 @@ export interface ILoyaltyLevelCParams extends IComponentParams<ComponentTheme, C
 };
 
 export const defaultParams: Partial<ILoyaltyLevelCParams> = {
-    moduleName: 'promo',
+    moduleName: 'loyalty',
     componentName: 'wlc-loyalty-level',
     class: 'wlc-loyalty-level',
     titleAs: 'ordinal',

@@ -6,7 +6,6 @@ import {TranslateModule} from '@ngx-translate/core';
 
 import {
     BannersService,
-    LoyaltyLevelsService,
     WinnersService,
 } from './system/services';
 import {CoreModule} from 'wlc-engine/modules/core/core.module';
@@ -15,15 +14,10 @@ import {
     WinnersSliderComponent,
     WinnerComponent,
     SliderComponent,
-    LoyaltyProgramComponent,
-    LoyaltyLevelComponent,
-    LoyaltyLevelsComponent,
-    LoyaltyInfoComponent,
     JackpotsSliderComponent,
     JackpotComponent,
     BannersSliderComponent,
     BannerComponent,
-    LevelNameComponent,
     IPromoConfig,
     CashOutTimeComponent,
     TopRatedComponent,
@@ -44,13 +38,8 @@ export const components = {
     'wlc-cash-out-time': CashOutTimeComponent,
     'wlc-jackpot': JackpotComponent,
     'wlc-jackpots-slider': JackpotsSliderComponent,
-    'wlc-loyalty-info': LoyaltyInfoComponent,
-    'wlc-loyalty-level': LoyaltyLevelComponent,
-    'wlc-loyalty-levels': LoyaltyLevelsComponent,
-    'wlc-loyalty-program': LoyaltyProgramComponent,
     'wlc-slider': SliderComponent,
     'wlc-winners-slider': WinnersSliderComponent,
-    'wlc-level-name': LevelNameComponent,
     'wlc-top-rated': TopRatedComponent,
 };
 
@@ -61,14 +50,9 @@ export const components = {
         CashOutTimeComponent,
         JackpotComponent,
         JackpotsSliderComponent,
-        LoyaltyInfoComponent,
-        LoyaltyLevelComponent,
-        LoyaltyLevelsComponent,
-        LoyaltyProgramComponent,
         SliderComponent,
         WinnerComponent,
         WinnersSliderComponent,
-        LevelNameComponent,
         TopRatedComponent,
     ],
     imports: [
@@ -82,7 +66,6 @@ export const components = {
     ],
     providers: [
         BannersService,
-        LoyaltyLevelsService,
         WinnersService,
     ],
     exports: [
@@ -91,14 +74,9 @@ export const components = {
         CashOutTimeComponent,
         JackpotsSliderComponent,
         JackpotComponent,
-        LoyaltyInfoComponent,
-        LoyaltyLevelComponent,
-        LoyaltyLevelsComponent,
-        LoyaltyProgramComponent,
         SliderComponent,
         WinnerComponent,
         WinnersSliderComponent,
-        LevelNameComponent,
         TopRatedComponent,
     ],
 })

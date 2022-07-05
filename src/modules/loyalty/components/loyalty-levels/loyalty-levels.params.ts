@@ -4,9 +4,9 @@ import {
 } from 'wlc-engine/modules/core/system/classes/abstract.component';
 
 import {ITableCol} from 'wlc-engine/modules/core/components/table/table.params';
-import {LevelNameComponent} from 'wlc-engine/modules/promo/components/loyalty-levels/level-name/level-name.component';
-import {LoyaltyLevelModel} from 'wlc-engine/modules/promo/system/models/loyalty-level.model';
-import {ILevelNameParams} from 'wlc-engine/modules/promo/components/loyalty-levels/level-name/level-name.params';
+import {LoyaltyLevelModel} from 'wlc-engine/modules/loyalty/system/models';
+import {ILevelNameParams} from 'wlc-engine/modules/loyalty/components/loyalty-levels/level-name/level-name.params';
+import {LevelNameComponent} from 'wlc-engine/modules/loyalty/components/loyalty-levels/level-name/level-name.component';
 
 export type Theme = 'default' | CustomType;
 export type Type = 'default' | CustomType;

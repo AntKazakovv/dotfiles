@@ -1,9 +1,6 @@
 import {IPromoConfig} from './../interfaces/promo.interfaces';
 
 export const promoConfig: IPromoConfig = {
-    loyalty: {
-        programTitle: gettext('Loyalty Program'),
-    },
     components: {
         'wlc-winners-slider': {
             noContent: {

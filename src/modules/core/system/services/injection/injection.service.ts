@@ -241,6 +241,14 @@ export class InjectionService {
                     this.afterModuleLoad('internal-mails', m);
                     return m.InternalMailsModule;
                 });
+            case 'loyalty':
+                if (this.loadedModules.LoyaltyModule) {
+                    return this.loadedModules.LoyaltyModule;
+                }
+                return import('wlc-engine/modules/loyalty/loyalty.module').then(m => {
+                    this.afterModuleLoad('loyalty', m);
+                    return m.LoyaltyModule;
+                });
         }
     }
 

@@ -1,9 +1,11 @@
-import {AbstractModel} from 'wlc-engine/modules/core/system/models/abstract.model';
-import {ILevel} from 'wlc-engine/modules/promo/';
-import {IFromLog} from 'wlc-engine/modules/core';
-
-import _assign from 'lodash-es/assign';
 import _toNumber from 'lodash-es/toNumber';
+import _assign from 'lodash-es/assign';
+
+import {
+    AbstractModel,
+    IFromLog,
+} from 'wlc-engine/modules/core';
+import {ILevel} from 'wlc-engine/modules/loyalty/system/interfaces';
 
 export class LoyaltyLevelModel extends AbstractModel<ILevel> {
 

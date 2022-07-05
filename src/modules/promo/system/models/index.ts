@@ -1,1 +1,2 @@
-export {LoyaltyLevelModel} from './loyalty-level.model';
+export {BannerModel} from './banner.model';
+export {WinnerModel} from './winner.model';

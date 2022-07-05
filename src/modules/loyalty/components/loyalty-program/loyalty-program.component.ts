@@ -21,11 +21,11 @@ import {
     DeviceType,
     ModalService,
 } from 'wlc-engine/modules/core';
-import {LoyaltyLevelsService} from 'wlc-engine/modules/promo/system/services/loyalty-levels/loyalty-levels.service';
-import {LoyaltyLevelModel} from 'wlc-engine/modules/promo/system/models/loyalty-level.model';
-import {ILoyaltyLevelCParams} from 'wlc-engine/modules/promo/components/loyalty-level/loyalty-level.params';
-import {ISlide} from 'wlc-engine/modules/promo/components/slider/slider.params';
-import {LoyaltyLevelComponent} from 'wlc-engine/modules/promo/components/loyalty-level/loyalty-level.component';
+import {ISlide} from 'wlc-engine/modules/promo';
+import {LoyaltyLevelComponent} from 'wlc-engine/modules/loyalty/components/loyalty-level/loyalty-level.component';
+import {ILoyaltyLevelCParams} from 'wlc-engine/modules/loyalty/components/loyalty-level/loyalty-level.params';
+import {LoyaltyLevelsService} from 'wlc-engine/modules/loyalty/system/services/loyalty-levels/loyalty-levels.service';
+import {LoyaltyLevelModel} from 'wlc-engine/modules/loyalty/system/models/loyalty-level.model';
 
 import * as Params from './loyalty-program.params';
 
@@ -60,7 +60,7 @@ export class LoyaltyProgramComponent extends AbstractComponent implements OnInit
 
         await this.configService.ready;
         this.isAuth = this.configService.get('$user.isAuthenticated');
-        this.$params.title ??= this.configService.get<string>('$promo.loyalty.programTitle');
+        this.$params.title ??= this.configService.get<string>('$loyalty.loyalty.programTitle');
         this.levels = (await this.loyaltyLevelsService.getLoyaltyLevelsSafely()).splice(0, this.$params.levelsLimit);
         this.initSlides();
         this.watchForOrientation();

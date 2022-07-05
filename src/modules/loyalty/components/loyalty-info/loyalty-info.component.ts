@@ -4,8 +4,10 @@ import {
     OnInit,
     ChangeDetectionStrategy,
 } from '@angular/core';
+
 import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
 import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
+
 import * as Params from './loyalty-info.params';
 
 @Component({
@@ -28,6 +30,6 @@ export class LoyaltyInfoComponent extends AbstractComponent implements OnInit {
     public async ngOnInit(): Promise<void> {
         super.ngOnInit();
 
-        this.$params.title ??= this.configService.get<string>('$promo.loyalty.programTitle');
+        this.$params.title ??= this.configService.get<string>('$loyalty.loyalty.programTitle');
     }
 }

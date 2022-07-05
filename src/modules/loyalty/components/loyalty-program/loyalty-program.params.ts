@@ -42,7 +42,7 @@ export const sliderDefaultParams: ISliderCParams = {
 };
 
 export const defaultParams: ILoyaltyProgramCParams = {
-    moduleName: 'promo',
+    moduleName: 'loyalty',
     componentName: 'wlc-loyalty-program',
     class: 'wlc-loyalty-program',
     imagePath: '/gstatic/loyalty-program/',

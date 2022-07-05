@@ -1,5 +1,8 @@
-import {IComponentParams, CustomType} from 'wlc-engine/modules/core';
-import {LoyaltyLevelModel} from 'wlc-engine/modules/promo/system/models/loyalty-level.model';
+import {
+    IComponentParams,
+    CustomType,
+} from 'wlc-engine/modules/core';
+import {LoyaltyLevelModel} from 'wlc-engine/modules/loyalty/system/models/loyalty-level.model';
 
 export type Theme = 'default' | CustomType;
 export type Type = 'default' | CustomType;
@@ -13,5 +16,7 @@ export interface ILevelNameParams extends IComponentParams<Theme, Type, ThemeMod
 }
 
 export const defaultParams: ILevelNameParams = {
+    moduleName: 'loyalty',
     class: 'wlc-level-name',
+    componentName: 'wlc-level-name',
 };

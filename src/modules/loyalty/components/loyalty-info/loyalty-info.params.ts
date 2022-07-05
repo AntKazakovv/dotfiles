@@ -12,7 +12,7 @@ export interface ILoyaltyInfoCParams extends IComponentParams<ComponentTheme, Co
 };
 
 export const defaultParams: ILoyaltyInfoCParams = {
-    moduleName: 'promo',
+    moduleName: 'loyalty',
     componentName: 'wlc-loyalty-info',
     class: 'wlc-loyalty-info',
     imagePath: '/gstatic/loyalty-info/loyalty-info-bg.jpg',

@@ -1,11 +1,15 @@
 import {Injectable} from '@angular/core';
-import {DataService, IData} from 'wlc-engine/modules/core/system/services/data/data.service';
-import {IIndexing} from 'wlc-engine/modules/core/system/interfaces/global.interface';
-import {ILevel} from 'wlc-engine/modules/promo/system/interfaces/level.interface';
-import {LoyaltyLevelModel} from 'wlc-engine/modules/promo/system/models/loyalty-level.model';
-import {LogService} from 'wlc-engine/modules/core';
 
 import _map from 'lodash-es/map';
+
+import {
+    DataService,
+    LogService,
+    IData,
+    IIndexing,
+} from 'wlc-engine/modules/core';
+import {ILevel} from 'wlc-engine/modules/loyalty/system/interfaces';
+import {LoyaltyLevelModel} from 'wlc-engine/modules/loyalty/system/models';
 
 @Injectable({
     providedIn: 'root',

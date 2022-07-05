@@ -2,13 +2,14 @@ import {
     ComponentFixture,
     TestBed,
 } from '@angular/core/testing';
+
 import {AppModule} from 'wlc-engine/modules/app/app.module';
-import {LoyaltyLevelModel} from 'wlc-engine/modules/promo/system/models/loyalty-level.model';
-import {LevelNameComponent} from 'wlc-engine/modules/promo/components/loyalty-levels/level-name/level-name.component';
+import {LoyaltyLevelModel} from 'wlc-engine/modules/loyalty/system/models';
+import {LevelNameComponent} from './level-name.component';
 import {
-    ILevelNameParams,
     defaultParams,
-} from 'wlc-engine/modules/promo/components/loyalty-levels/level-name/level-name.params';
+    ILevelNameParams,
+} from './level-name.params';
 
 describe('LevelNameComponent', () => {
     let component: LevelNameComponent;

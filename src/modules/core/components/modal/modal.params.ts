@@ -252,7 +252,7 @@ export const MODALS_LIST: IModalList = {
         config: {
             id: 'loyalty-info',
             modifier: 'loyalty-info-modal',
-            componentName: 'promo.wlc-loyalty-info',
+            componentName: 'loyalty.wlc-loyalty-info',
             size: 'lg',
             backdrop: true,
             dismissAll: true,

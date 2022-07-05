@@ -7,12 +7,6 @@ export interface IPromoConfig {
         latestWins?: IWinnersParams;
         biggestWins?: IWinnersParams;
     };
-    loyalty?: {
-        /**
-         * Change loyalty-program & loyalty-info title
-         */
-        programTitle?: string;
-    },
     components?: {
         'wlc-winners-slider'?: {
             noContent: WinnersSliderNoContentByThemeType,
