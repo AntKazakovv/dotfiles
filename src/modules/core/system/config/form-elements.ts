@@ -25,7 +25,7 @@ export namespace FormElements {
             common: {
                 placeholder: gettext('Amount'),
                 customModifiers: 'right-shift',
-                type: 'number',
+                maxLength: 55,
             },
             exampleValue: gettext('Enter amount'),
             theme: 'vertical',
@@ -34,6 +34,12 @@ export namespace FormElements {
             prohibitedPattern: ProhibitedPatterns.notAmountSymbols,
             trimStartZeroes: true,
             customMod: ['amount'],
+            numeric: {
+                use: true,
+                scale: 2,
+                unsignedOnly: true,
+                prohibitRadixAsFirst: true,
+            },
             validators: [
                 'required',
                 'numberDecimal',

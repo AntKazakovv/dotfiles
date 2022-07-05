@@ -15,6 +15,29 @@ export type AutoModifiers = Theme | 'default';
 export type CustomMod = string;
 export type Modifiers = AutoModifiers | CustomMod | null;
 
+/**
+ * Settings for handling input value as a number.
+ */
+export interface INumericInputOptions {
+    /**
+     * Will the settings be enabled or not.
+     * No other setting will work without defining it as `true`
+     */
+    use: boolean;
+    /**
+     * Restricts using minus sign ('-') and therefore negative numbers.
+     */
+    unsignedOnly?: boolean;
+    /**
+     * Max count of digits after radix.
+     */
+    scale?: number;
+    /**
+     * Resctricts using radix before any digit.
+     */
+    prohibitRadixAsFirst?: boolean;
+}
+
 export interface IInputCParams extends IComponentParams<ComponentTheme, ComponentType, string> {
     name: string;
     value?: string;
@@ -34,6 +57,7 @@ export interface IInputCParams extends IComponentParams<ComponentTheme, Componen
         tooltipModalParams?: IIndexing<string>;
         autocomplete?: string;
         fixAutoCompleteForm?: boolean;
+        maxLength?: number;
     }
     validators?: ValidatorType[];
     control?: FormControl;
@@ -45,10 +69,9 @@ export interface IInputCParams extends IComponentParams<ComponentTheme, Componen
     clipboard?: boolean;
     showCurrency?: boolean;
     prohibitedPattern?: RegExp;
-    /** Do not allow type more than one 0 in a row at the start of the field */
-    trimStartZeroes?: boolean;
     /** @deprecated Use the global validator. Method left for backward compatibility */
     maskOptions?: IMask.AnyMaskedOptions | string;
+    numeric?: INumericInputOptions,
 }
 
 export const defaultParams: Partial<IInputCParams> = {

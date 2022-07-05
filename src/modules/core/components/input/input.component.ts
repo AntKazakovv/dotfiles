@@ -11,8 +11,10 @@ import {
     AfterViewInit,
 } from '@angular/core';
 import {FormControl} from '@angular/forms';
+
 import {
     distinctUntilChanged,
+    filter,
     takeUntil,
 } from 'rxjs/operators';
 
@@ -31,6 +33,9 @@ import _kebabCase from 'lodash-es/kebabCase';
 import _clone from 'lodash-es/clone';
 import _union from 'lodash-es/union';
 import _isString from 'lodash-es/isString';
+import _flow from 'lodash-es/flow';
+
+type TValueTransformer = (value: string) => string;
 
 /**
  * Component input
@@ -57,6 +62,23 @@ export class InputComponent extends AbstractComponent implements OnInit, OnChang
     public useTooltip: boolean;
     public useAutoCompleteFix: boolean = true;
 
+    protected readonly commonTransformers: TValueTransformer[] = [
+        this.trimSpaces.bind(this),
+        this.normalizeProhibitedPattern.bind(this),
+        this.trimByMaxLength.bind(this),
+    ];
+    protected readonly numericTransformers: TValueTransformer[] = [
+        this.normalizeLeadingZeroes.bind(this),
+        this.normalizeNotNumericSymbols.bind(this),
+        this.normalizeRadixOnceOnly.bind(this),
+        this.normalizeSigns.bind(this),
+        this.normalizeScale.bind(this),
+        this.normalizeRadixAsFirst.bind(this),
+    ];
+
+    private _leadingZeroesRegEx: RegExp = /^0+(?=[^,\.])/;
+    private _radixOnceOnlyRegEx: RegExp = /[,\.]/g;
+
     constructor(
         @Inject('injectParams') protected injectParams: Params.IInputCParams,
         protected configService: ConfigService,
@@ -77,29 +99,14 @@ export class InputComponent extends AbstractComponent implements OnInit, OnChang
     }
 
     public ngAfterViewInit(): void {
-        if (this.control
-            && !this.$params.disabled
-            && !this.$params.common.readonly
-            && !this.$params.clipboard) {
+        if (this.shouldValueChangesBeTracked) {
             this.control.valueChanges
-                .pipe(takeUntil(this.$destroy), distinctUntilChanged())
-                .subscribe((value: unknown): void => {
-                    if (_isString(value)) {
-                        let clearValue: string = value.trimStart().replace(/\s\s+/g, ' ');
-
-                        if (this.$params.prohibitedPattern && this.$params.prohibitedPattern.test(value)) {
-                            clearValue = value.replace(this.$params.prohibitedPattern, '');
-                        }
-
-                        if (this.$params.trimStartZeroes && value.length > 1) {
-                            clearValue = +clearValue + '';
-                        }
-
-                        if (clearValue !== value) {
-                            this.control.setValue(clearValue);
-                        }
-                    }
-                });
+                .pipe(
+                    filter((v: unknown) => _isString(v)),
+                    distinctUntilChanged(),
+                    takeUntil(this.$destroy),
+                )
+                .subscribe((v: string) => this.transformControlValue(v));
         }
     }
 
@@ -141,6 +148,19 @@ export class InputComponent extends AbstractComponent implements OnInit, OnChang
         };
     }
 
+    protected get useNumeric(): boolean {
+        return this.$params.numeric?.use;
+    }
+
+    protected get shouldValueChangesBeTracked(): boolean {
+        return (
+            this.control
+            && !this.$params.disabled
+            && !this.$params.common.readonly
+            && !this.$params.clipboard
+        );
+    }
+
     public toggleType(type: string): void {
         this.$params.common.type = type;
     }
@@ -167,7 +187,8 @@ export class InputComponent extends AbstractComponent implements OnInit, OnChang
     }
 
     public onBlur(): void {
-        this.control.patchValue(this.control.value, {emitEvent: false, emitModelToViewChange: true});
+        this.syncValueWithModel();
+        this.setInvalidOnEmptyRequired();
 
         if (!this.control.touched || !this.control.valid) {
             this.control.updateValueAndValidity();
@@ -193,5 +214,135 @@ export class InputComponent extends AbstractComponent implements OnInit, OnChang
     protected setUseAutoCompleteFix(): void {
         this.useAutoCompleteFix = this.$params.common.fixAutoCompleteForm
             && this.$params.common.type === 'password';
+    }
+
+    protected syncValueWithModel(): void {
+        if (!this.useNumeric) {
+            this.control.patchValue(this.control.value, {
+                emitEvent: false,
+                emitModelToViewChange: true,
+            });
+        }
+    }
+
+    protected setInvalidOnEmptyRequired(): void {
+        if (!this.control.value && this.isFieldRequired()) {
+            this.control.setErrors({'empty-required-field': true});
+        }
+    }
+
+    protected transformControlValue(value: string): void {
+        const transformed = this.applyTransformers(value);
+
+        if (transformed !== value) {
+            this.control.setValue(transformed);
+        }
+
+        if (this.useNumeric) {
+            this.fixVisibleRadix(transformed);
+        }
+    }
+
+    protected fixVisibleRadix(value: string): void {
+        if (value.includes(',')) {
+            this.control.setValue(value.replace(',', '.'), {
+                emitEvent: false,
+                onlySelf: true,
+                emitViewToModelChange: false,
+                emitModelToViewChange: false,
+            });
+        }
+    }
+
+    protected applyTransformers(value: string): string {
+        const transformed = this.applyCommonTransformers(value);
+
+        if (this.useNumeric) {
+            return this.applyNumericTransformers(transformed);
+        }
+
+        return transformed;
+    }
+
+    protected applyCommonTransformers(value: string): string {
+        return _flow(this.commonTransformers)(value);
+    }
+
+    protected applyNumericTransformers(value: string): string {
+        return _flow(this.numericTransformers)(value);
+    }
+
+    protected normalizeNotNumericSymbols(value: string): string {
+        return value.replace(/[^\d,\.]/g, '');
+    }
+
+    protected normalizeScale(value: string): string {
+        const scale = this.$params.numeric.scale;
+
+        if (scale) {
+            const radix = value.match(/[,\.]/g)?.[0];
+
+            if (radix) {
+                const [whole, fractional] = value.split(radix);
+
+                if (fractional?.length > scale) {
+                    return whole + radix + fractional.slice(0, scale);
+                }
+            }
+        }
+
+        return value;
+    }
+
+    protected normalizeSigns(value: string): string {
+        if (this.$params.numeric.unsignedOnly) {
+            return value.replace(/[\+-]/g, '');
+        }
+
+        return value;
+    }
+
+    protected normalizeRadixAsFirst(value: string): string {
+        if (this.$params.numeric.prohibitRadixAsFirst) {
+            return value.replace(/^[,\.]/, '');
+        }
+
+        return value;
+    }
+
+    protected normalizeRadixOnceOnly(value: string): string {
+        const match = this._radixOnceOnlyRegEx.exec(value);
+        const radix = match?.[0];
+
+        if (!radix) {
+            return value;
+        }
+
+        const radixAt = match.index;
+        const clearedOfRadixRepeats = value.slice(radixAt).replace(this._radixOnceOnlyRegEx, '');
+
+        return value.slice(0, radixAt) + radix + clearedOfRadixRepeats;
+    }
+
+    protected normalizeProhibitedPattern(value: string): string {
+        if (this.$params.prohibitedPattern?.test(value)) {
+            return value.replace(this.$params.prohibitedPattern, '');
+        }
+
+        return value;
+    }
+
+    protected normalizeLeadingZeroes(value: string): string {
+        return value.replace(this._leadingZeroesRegEx, '');
+    }
+
+    protected trimSpaces(value: string): string {
+        return value.trimStart().replace(/\s\s+/g, ' ');
+    }
+
+    protected trimByMaxLength(value: string): string {
+        const maxLength = this.$params.common.maxLength;
+
+        return maxLength ? value.slice(0, maxLength) : value;
     }
 }
