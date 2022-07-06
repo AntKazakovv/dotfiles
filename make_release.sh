@@ -1,7 +1,7 @@
 #!/bin/bash -e
 
 project=$(jq .name < ./package.json)
-branch=$(git rev-parse --abbrev-ref HEAD | awk '/master|hotfix/')
+branch=$(git rev-parse --abbrev-ref HEAD | awk '/master|develop|hotfix/')
 remote=$(git remote | head -n 1)
 
 declare prevver
@@ -105,7 +105,7 @@ xhotfix)
     done
     ;;
 xrc)
-    if [ "$branch" != "master" ]; then
+    if [ "$branch" != "develop" ]; then
         die "ERROR: Cannot create release candidate from '$branch'"
     fi
     nextver=$(./vermath "$prevver" --preid)
@@ -131,7 +131,7 @@ echo
 read -p "Create new release tag (y/N): " y
 if [ "x$y" == "xy" ]; then
 
-    if [ "$branch" == "master" ]; then
+    if [ "$branch" == "master|develop" ]; then
         if ! npm run gulp change-logs -- --tag=$nextver; then
             die "ERROR: changelog generation failed"
         fi
@@ -143,4 +143,3 @@ if [ "x$y" == "xy" ]; then
 
     release "$nextver"
 fi
-

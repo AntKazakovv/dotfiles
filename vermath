@@ -18,8 +18,9 @@ def normal_increase(v):
     return v[0:3]
 
 def minor_increase(v):
-    v[1] = v[1]+1
-    v[2] = 0
+    if not (v[3] == 'rc'):
+        v[1] = v[1]+1
+        v[2] = 0
     return v[0:3]
 
 def hotfix_increase(v):
@@ -74,4 +75,3 @@ args = ap.parse_args()
 
 v = args.action(parse_version())
 print('.'.join([str(k) for k in v]))
-
