@@ -95,16 +95,11 @@
 <ng-template #profile>
     <ng-container *ngIf="isAuth && (!isMobile || !landscapeOrientation)">
         <div class="{{$class}}__profile-user">
-            <div class="{{$class}}__user-info">
-                <div wlc-user-name>
-                </div>
-                <div wlc-logout>
-                </div>
-            </div>
+            <ng-container *ngTemplateOutlet="userInfo"></ng-container>
         </div>
-        <div wlc-user-stats>
+        <div wlc-wrapper [inlineParams]="userStatsConfig">
         </div>
-        <div *ngIf="!isKiosk" wlc-loyalty-progress>
+        <div *ngIf="!isKiosk" wlc-wrapper [inlineParams]="loyaltyProgressConfig">
         </div>
         <div *ngIf="isMerchantWallet"
             class="{{$class}}__merchant-balance"
@@ -113,20 +108,15 @@
     </ng-container>
     <ng-container *ngIf="isAuth && isMobile && landscapeOrientation">
         <div class="{{$class}}__profile-user">
-            <div class="{{$class}}__user-info">
-                <div wlc-user-name>
-                </div>
-                <div wlc-logout>
-                </div>
-            </div>
-            <div wlc-loyalty-progress>
+            <ng-container *ngTemplateOutlet="userInfo"></ng-container>
+            <div wlc-wrapper [inlineParams]="loyaltyProgressConfig">
             </div>
             <div class="{{$class}}__deposit-btn">
                 <button wlc-button [inlineParams]="depositBtnParams"></button>
             </div>
         </div>
         <div class="{{$class}}__profile-user-stats">
-            <div wlc-user-stats [useDepositBtn]="false">
+            <div wlc-wrapper [inlineParams]="userStatsWithoutDepositConfig">
             </div>
         </div>
     </ng-container>
@@ -143,13 +133,10 @@
 <ng-template #lastplayed>
     <ng-container *ngIf="lastPlayedGamesReady; else preloader">
         <ng-container *ngIf="lastPlayedGamesSlides.length > 0">
-
             <div *ngIf="isMobile && landscapeOrientation"
-                 wlc-slider
+                 wlc-wrapper
                  class="{{$class}}__games-slider"
-                 [slides]="lastPlayedGamesSlides"
-                 [inlineParams]="lastPlayedSwiper">
-            </div>
+                 [inlineParams]="sliderConfig"></div>
 
             <div *ngIf="!isMobile || !landscapeOrientation" wlc-scrollbar>
                 <div *ngFor="let game of lastPlayedGames | slice: 0:lastPlayedGamesShowLimit" class="{{$class}}__game">
@@ -166,5 +153,12 @@
 
 <ng-template #preloader>
     <div wlc-loader class="{{$class}}__preloader">
+    </div>
+</ng-template>
+
+<ng-template #userInfo>
+    <div class="{{$class}}__user-info">
+        <div wlc-wrapper [inlineParams]="userNameConfig"></div>
+        <div wlc-wrapper [inlineParams]="logOutConfig"></div>
     </div>
 </ng-template>

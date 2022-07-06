@@ -10,9 +10,7 @@ import _get from 'lodash-es/get';
 
 // Modules
 import {CoreModule} from 'wlc-engine/modules/core/core.module';
-import {UserModule} from 'wlc-engine/modules/user/user.module';
 import {CompilerModule} from 'wlc-engine/modules/compiler';
-import {PromoModule} from 'wlc-engine/modules/promo/promo.module';
 import {GlobalHelper} from 'wlc-engine/modules/core';
 
 // System
@@ -114,8 +112,6 @@ export const services = {
         FormsModule,
         CountUpModule,
         CoreModule,
-        UserModule,
-        PromoModule,
         CompilerModule,
     ],
     providers: [

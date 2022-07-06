@@ -23,8 +23,14 @@ import {
 } from '@angular/animations';
 import {FormControl} from '@angular/forms';
 
-import {fromEvent} from 'rxjs';
-import {takeUntil} from 'rxjs/operators';
+import {
+    BehaviorSubject,
+    fromEvent,
+} from 'rxjs';
+import {
+    first,
+    takeUntil,
+} from 'rxjs/operators';
 import _get from 'lodash-es/get';
 import _filter from 'lodash-es/filter';
 import _find from 'lodash-es/find';
@@ -49,6 +55,10 @@ import {
     ISlide,
     ISliderCParams,
 } from 'wlc-engine/modules/promo';
+import {
+    IUserStatsCParams,
+    UserProfile,
+} from 'wlc-engine/modules/user';
 import * as componentLib from 'wlc-engine/modules/core/system/config/layouts/components';
 import {DashboardSide} from 'wlc-engine/modules/games/components/game-dashboard/game-dashboard.params';
 import {GamesCatalogService} from 'wlc-engine/modules/games/system/services/games-catalog/games-catalog.service';
@@ -146,6 +156,13 @@ export class GameDashboardComponent extends AbstractComponent implements OnInit,
             this.cachingService.set<boolean>(this.dontShowInstructionKey, checked, true);
         },
     };
+    public depositBtnParams = componentLib.wlcButton.deposit.params;
+    public lastPlayedSwiper: ISliderCParams;
+    public landscapeOrientation: boolean = false;
+    public desktopSide: DashboardSide = 'right';
+    public side: DashboardSide = 'left';
+    public viewInited: boolean = false;
+
     public bonusesConfig: IWrapperCParams = {
         class: 'wlc-dashboard-bonuses-wrapper',
         components: [
@@ -155,12 +172,12 @@ export class GameDashboardComponent extends AbstractComponent implements OnInit,
         ],
     };
     public tournamentsConfig: IWrapperCParams = {};
-    public depositBtnParams = componentLib.wlcButton.deposit.params;
-    public lastPlayedSwiper: ISliderCParams;
-    public landscapeOrientation: boolean = false;
-    public desktopSide: DashboardSide = 'right';
-    public side: DashboardSide = 'left';
-    public viewInited: boolean = false;
+    public logOutConfig: IWrapperCParams = {components: []};
+    public userNameConfig: IWrapperCParams = {components: []};
+    public userStatsConfig: IWrapperCParams = {components: []};
+    public userStatsWithoutDepositConfig: IWrapperCParams = {components: []};
+    public loyaltyProgressConfig: IWrapperCParams = {components: []};
+    public sliderConfig: IWrapperCParams = {components: []};
 
     protected breakpoints: IIndexing<number> = {
         backdropLabel: 680,
@@ -213,8 +230,9 @@ export class GameDashboardComponent extends AbstractComponent implements OnInit,
         }
 
         this.backdropLabelVisibility();
-        this.loadLastPlayedGames();
+        await this.loadLastPlayedGames();
         this.initLastPlayedSwiper();
+        this.loadSliderComponentOnMobileLandscaped();
 
         if (this.$params.common?.desktopSide) {
             this.desktopSide = this.$params.common.desktopSide;
@@ -222,10 +240,13 @@ export class GameDashboardComponent extends AbstractComponent implements OnInit,
 
         await this.configService.ready;
         this.isMobile = this.configService.get<boolean>('appConfig.mobile');
+
         this.isAuth = this.configService.get('$user.isAuthenticated');
         if (!this.isAuth) {
             this.addModifiers('not-auth');
         }
+
+        this.loadProfileComponentsOnAuth();
 
         this.activeTab = _find(this.tabs, (tab) => {
             if (tab.auth) {
@@ -727,5 +748,74 @@ export class GameDashboardComponent extends AbstractComponent implements OnInit,
         fromEvent(hammer$, 'panend').pipe(
             takeUntil(this.$destroy),
         ).subscribe(() => this.panendHandler());
+    }
+
+    /**
+     * Plugs slider in if mobile device is landscape orientated
+     */
+    protected loadSliderComponentOnMobileLandscaped(): void {
+        const hasSlides = this.lastPlayedGamesReady && this.lastPlayedGamesSlides.length > 0;
+
+        if (hasSlides && this.isMobile && this.landscapeOrientation) {
+            this.loadSliderComponent();
+        }
+    }
+
+    /**
+     * Watches for user signing in.
+     * When user is signed up, profile components will be lazy loaded.
+     * It allows to load optional using components on demand
+     */
+    protected loadProfileComponentsOnAuth(): void {
+        this.configService.get<BehaviorSubject<UserProfile>>('$user.userProfile$')
+            .pipe(
+                first((profile) => !!profile),
+                takeUntil(this.$destroy),
+            )
+            .subscribe(() => {
+                this.loadProfileComponents();
+            });
+    }
+
+    /**
+     * Loads components from profile dashboard section
+     */
+    protected loadProfileComponents(): void {
+        this.loyaltyProgressConfig = {
+            components: [{name: 'user.wlc-loyalty-progress'}],
+        };
+        this.userStatsConfig = {
+            components: [{name: 'user.wlc-user-stats'}],
+        };
+        this.userStatsWithoutDepositConfig = {
+            components: [{
+                name: 'user.wlc-user-stats',
+                params: <IUserStatsCParams>{
+                    useDepositBtn: false,
+                },
+            }],
+        };
+
+        this.userNameConfig = {
+            components: [{name: 'user.wlc-user-name'}],
+        };
+        this.logOutConfig = {
+            components: [{name: 'user.wlc-logout'}],
+        };
+    }
+
+    /**
+     * Loads slider component using for landscaped mobiles in "last played" section
+     */
+    protected loadSliderComponent(): void {
+        this.sliderConfig = {
+            components: [{
+                name: 'promo.wlc-slider',
+                params: <ISliderCParams>{
+                    slides: this.lastPlayedGamesSlides,
+                    ...this.lastPlayedSwiper,
+                },
+            }],
+        };
     }
 }

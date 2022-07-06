@@ -25,8 +25,8 @@
             <ng-container *ngIf="$params.showAllLink?.use && isDesktop; then showAllLink"></ng-container>
         </div>
 
-        <ng-container *ngIf="$params.usePlaceholders || isReady; else: preloader">
-            <div *ngIf="games.length || ($params.usePlaceholders && !isReady); else: noGames"
+        <ng-container *ngIf="isReadyOrUsePlaceholder; else: preloader">
+            <div *ngIf="hasGames; else: noGames"
                  #gameList
                  class="{{$class}}__list"
                  (resized)="onResize($event)">
@@ -37,9 +37,8 @@
                      [@appearance]
                      #gameBanner
                      class="{{$class}}__banner wlc-games-banner">
-                    <div wlc-banners-slider
-                        [inlineParams]="$params.bannerSettings">
-                    </div>
+                    <div wlc-wrapper
+                         [inlineParams]="bannerSliderConfig"></div>
                 </div>
 
                 <ng-container *ngIf="games.length && isReady; else: placeholders">
@@ -100,13 +99,12 @@
             </ng-container>
         </ng-container>
 
-        <ng-container *ngIf="$params.usePlaceholders || isReady; else: preloader">
-            <ng-container *ngIf="games.length || ($params.usePlaceholders && !isReady); else: noGames">
-                <ng-container *ngIf="games.length && isReady; else sliderPlaceholders">
-                    <div wlc-slider
+        <ng-container *ngIf="isReadyOrUsePlaceholder else: preloader">
+            <ng-container *ngIf="hasGames; else: noGames">
+                <ng-container *ngIf="showGameSlides; else sliderPlaceholders">
+                    <div wlc-wrapper
                          class="{{$class}}__games-slider"
-                         [slides]="gameSlides"
-                         [inlineParams]="$params.showAsSwiper.sliderParams"
+                         [inlineParams]="gamesSliderConfig"
                          (resized)="onResize($event)">
                     </div>
                 </ng-container>
@@ -209,10 +207,9 @@
 </ng-template>
 
 <ng-template #sliderPlaceholders>
-    <div wlc-slider
+    <div wlc-form-wrapper
          class="{{$class}}__games-slider"
-         [slides]="placeHoldersSlides"
-         [inlineParams]="$params.showAsSwiper.sliderParams"
+         [inlineParams]="gamePlaceholdersSliderConfig"
          (resized)="onResize($event)">
     </div>
 </ng-template>
