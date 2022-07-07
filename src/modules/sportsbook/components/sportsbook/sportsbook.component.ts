@@ -8,6 +8,9 @@ import {
 } from '@angular/core';
 import {UIRouter} from '@uirouter/core';
 import {TranslateService} from '@ngx-translate/core';
+
+import _cloneDeep from 'lodash-es/cloneDeep';
+
 import {
     AbstractComponent,
     IMixedParams,
@@ -31,8 +34,6 @@ import {WINDOW} from 'wlc-engine/modules/app/system';
 
 import * as Params from './sportsbook.params';
 
-import _cloneDeep from 'lodash-es/cloneDeep';
-
 @Component({
     selector: '[wlc-sportsbook]',
     templateUrl: './sportsbook.component.html',
@@ -51,20 +52,23 @@ export class SportsbookComponent extends AbstractComponent implements OnInit, On
                 hooksService: this.hooksService,
                 disableHooks: this.$destroy,
                 router: this.router,
+                window: this.window,
             });
         },
         'pinnacleSW': () => {
             new PinnacleHooks({
                 hooksService: this.hooksService,
                 disableHooks: this.$destroy,
-            }, this.window);
+                window: this.window,
+            });
         },
         'tglab': () => {
             new TglabHooks({
                 hooksService: this.hooksService,
                 disableHooks: this.$destroy,
                 router: this.router,
-            }, this.window);
+                window: this.window,
+            });
         },
     };
 

@@ -3,23 +3,19 @@ import {
     UIRouter,
 } from '@uirouter/core';
 
-import {
-    Subject,
-} from 'rxjs';
 import {first} from 'rxjs/operators';
 import _includes from 'lodash-es/includes';
 
 import {AbstractHook} from 'wlc-engine/modules/core/system/classes/abstract.hook';
-import {HooksService} from 'wlc-engine/modules/core/system/services/hooks/hooks.service';
 import {
     gameWrapperHooks,
     IGameWrapperHookLaunchInfo,
 } from 'wlc-engine/modules/games';
+import {ISportsbookHook} from 'wlc-engine/modules/sportsbook/system/interfaces/sportsbook.interface';
 
-export interface ITglabHooksParams {
-    hooksService: HooksService;
-    disableHooks: Subject<void>;
+export interface ITglabHooksParams extends ISportsbookHook {
     router: UIRouter;
+    window: Window;
 }
 
 export class TglabHooks extends AbstractHook {
@@ -28,7 +24,6 @@ export class TglabHooks extends AbstractHook {
 
     constructor(
         protected params: ITglabHooksParams,
-        protected window: Window,
     ) {
         super({
             hooksService: params.hooksService,
@@ -53,16 +48,16 @@ export class TglabHooks extends AbstractHook {
     protected navigationHandler(): void {
         const transitionUnsubscribe: Function = this.params.router.transitionService
             .onSuccess({}, (transition: Transition): void => {
-                if (!this.window.externalSBPageSwitch) {
+                if (!this.params.window.externalSBPageSwitch) {
                     return;
                 }
 
                 if (_includes(['inplay', 'in-play'], transition.params().page) && !this.inplayOpened) {
                     this.inplayOpened = true;
-                    this.window.externalSBPageSwitch(2);
+                    this.params.window.externalSBPageSwitch(2);
                 } else if (this.inplayOpened) {
                     this.inplayOpened = false;
-                    this.window.externalSBPageSwitch(1);
+                    this.params.window.externalSBPageSwitch(1);
                 }
 
             });
