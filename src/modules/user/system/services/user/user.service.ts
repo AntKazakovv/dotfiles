@@ -515,6 +515,7 @@ export class UserService {
                 description: ProcessEventsDescriptions.successTrigger + 'user registered',
             },
         });
+        this.eventService.emit({name: 'REGISTRATION_COMPLETE'});
     }
 
     private failedRegistration(): void {
