@@ -7,6 +7,7 @@ import {
     OnChanges,
     OnDestroy,
     OnInit,
+    AfterViewInit,
     ViewEncapsulation,
 } from '@angular/core';
 import {UIRouter} from '@uirouter/core';
@@ -30,6 +31,8 @@ import {Tournament} from 'wlc-engine/modules/tournaments/system/models/tournamen
 import {TournamentsService} from 'wlc-engine/modules/tournaments/system/services/tournaments/tournaments.service';
 import {TournamentComponent} from 'wlc-engine/modules/tournaments/components/tournament/tournament.component';
 import {MenuParams} from 'wlc-engine/modules/menu';
+import {InjectionService} from 'wlc-engine/modules/core/system/services/injection/injection.service';
+import {GamesCatalogService} from 'wlc-engine/modules/games/system/services/games-catalog/games-catalog.service';
 
 import * as Params from './tournament-detail.params';
 
@@ -41,7 +44,8 @@ import * as Params from './tournament-detail.params';
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
 })
-export class TournamentDetailComponent extends AbstractComponent implements OnInit, OnDestroy, OnChanges {
+export class TournamentDetailComponent extends AbstractComponent implements
+    OnInit, AfterViewInit, OnDestroy, OnChanges {
     @Input() public tournament: Tournament;
     @Input() public inlineParams: Params.ITournamentDetailCParams;
     @Input() public parentInstance: TournamentComponent;
@@ -54,6 +58,7 @@ export class TournamentDetailComponent extends AbstractComponent implements OnIn
     public menuParams: MenuParams.IMenuCParams;
     public gamesGridConfig = Params.gamesGridConfig;
     public menuConfig: IWrapperCParams = {components: []};
+    protected gamesCatalogService: GamesCatalogService;
 
     constructor(
         @Inject('injectParams')
@@ -61,6 +66,7 @@ export class TournamentDetailComponent extends AbstractComponent implements OnIn
         protected configService: ConfigService,
         protected tournamentsService: TournamentsService,
         protected modalService: ModalService,
+        protected injectionService: InjectionService,
         protected router: UIRouter,
         protected cdr: ChangeDetectorRef,
     ) {
@@ -76,6 +82,13 @@ export class TournamentDetailComponent extends AbstractComponent implements OnIn
     public ngOnInit(): void {
         super.ngOnInit(GlobalHelper.prepareParams(this,
             ['tournament', 'type', 'theme', 'themeMod', 'customMod']));
+    }
+
+    public async ngAfterViewInit(): Promise<void> {
+        this.gamesCatalogService = await this.injectionService
+            .getService<GamesCatalogService>('games.games-catalog-service');
+
+        await this.gamesCatalogService.ready;
 
         if (this.parentInstance) {
             this.$params.parentInstance = this.parentInstance;
@@ -119,11 +132,12 @@ export class TournamentDetailComponent extends AbstractComponent implements OnIn
     }
 
     private prepareTournament(): void {
+
         if (this.tournament) {
             this.preparePrizeboard();
-            this.prepareMenu();
             _set(this.gamesGridConfig, 'components[0].params.tournamentGamesFilter', this.tournament.gamesFilterData);
             _set(this.gamesGridConfig, 'components[0].params.tournamentFreeRoundGames', this.tournament.freeRoundGames);
+            this.prepareMenu();
         }
         this.isReady = true;
         this.cdr.markForCheck();
@@ -155,6 +169,7 @@ export class TournamentDetailComponent extends AbstractComponent implements OnIn
                 },
                 scrollToSelector: this.$params.common.scrollToSelector,
             },
+            scrollDuration: 500,
             type: 'main-menu',
             items: [
                 {

@@ -52,7 +52,7 @@ import {LogService} from 'wlc-engine/modules/core/system/services/log/log.servic
 import {WINDOW} from 'wlc-engine/modules/app/system';
 import {UserInfo} from 'wlc-engine/modules/user/system/models/info.model';
 
-export type ScrollPositionType = 'start' | 'end';
+export type ScrollPositionType = 'start' | 'end' | 'center' | 'nearest';
 
 type TPaymentStatus = 'PAYMENT_SUCCESS' | 'PAYMENT_PENDING';
 type TPaymentStatusAll = TPaymentStatus | 'PAYMENT_FAIL';
@@ -60,6 +60,7 @@ type TPaymentStatusAll = TPaymentStatus | 'PAYMENT_FAIL';
 export interface IScrollOptions {
     position: ScrollPositionType;
     offsetY?: number;
+    inline?: ScrollPositionType;
 }
 
 export interface IScrollSmoothlyOptions {
@@ -253,6 +254,7 @@ export class ActionService {
                 element.scrollIntoView({
                     behavior: 'smooth',
                     block: options?.position || 'start',
+                    inline: options?.inline || 'nearest',
                 });
 
                 if (options?.offsetY) {

@@ -26,6 +26,7 @@ import {
 import * as Params from './tournament-promo.params';
 
 import _set from 'lodash-es/set';
+import _cloneDeep from 'lodash-es/cloneDeep';
 
 @Component({
     selector: '[wlc-tournament-promo]',
@@ -92,10 +93,12 @@ export class TournamentPromoComponent extends AbstractComponent implements OnIni
     }
 
     public readMore(useSelector: boolean = false): void {
+        const params = _cloneDeep(this.$params.common.actionParams);
+
         if (!useSelector) {
-            _set(this.$params, 'common.actionParams.selector', '');
+            _set(params, 'selector', '');
         }
-        this.parentInstance?.readMore(this.$params.common.actionParams);
+        this.parentInstance?.readMore(params);
     }
 
     /**

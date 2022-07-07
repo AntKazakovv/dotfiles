@@ -809,6 +809,7 @@ $appLoader: map-merge((
 $customModalAnimation: () !default;
 $modalAnimation: map-merge((
     'modalAnimationEffects': 'fadeLeft',
+    'modalAnimationTournamentEffects': 'fadeTop',
     'modalMobileAnimation': true,
     'modalClosingAnimation': false,
 ), $customModalAnimation);
