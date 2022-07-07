@@ -1,4 +1,6 @@
 import {
+    ChangeDetectionStrategy,
+    ChangeDetectorRef,
     Component,
     HostBinding,
     Inject,
@@ -33,6 +35,7 @@ import _filter from 'lodash-es/filter';
 import _merge from 'lodash-es/merge';
 import _cloneDeep from 'lodash-es/cloneDeep';
 import _isObject from 'lodash-es/isObject';
+import _set from 'lodash-es/set';
 
 export interface IRegFormDataForConfig {
     form: IValidateData;
@@ -53,6 +56,7 @@ export interface IRegFormDataForConfig {
     selector: '[wlc-sign-up-form]',
     templateUrl: './sign-up-form.component.html',
     styleUrls: ['./styles/sign-up-form.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SignUpFormComponent extends UserActionsAbstract<Params.ISignUpFormCParams> implements OnInit {
 
@@ -60,6 +64,8 @@ export class SignUpFormComponent extends UserActionsAbstract<Params.ISignUpFormC
     public $params: Params.ISignUpFormCParams;
     public formData: BehaviorSubject<IIndexing<unknown>>;
     public errors$: BehaviorSubject<IIndexing<string>> = new BehaviorSubject(null);
+    private _submitButton?: IFormComponent;
+
     @HostBinding('class.two-steps') useTwoStepsClass: boolean = this.getTwoSteps();
 
     constructor(
@@ -70,6 +76,7 @@ export class SignUpFormComponent extends UserActionsAbstract<Params.ISignUpFormC
         protected configService: ConfigService,
         protected eventService: EventService,
         protected socialService: SocialService,
+        protected cdr: ChangeDetectorRef,
     ) {
         super({
             injectParams,
@@ -125,6 +132,8 @@ export class SignUpFormComponent extends UserActionsAbstract<Params.ISignUpFormC
         if (this.$params.formData) {
             this.formData = new BehaviorSubject(this.$params.formData);
         }
+
+        this._submitButton = this.getSubmitButton();
     }
 
     public getTwoSteps(): boolean {
@@ -150,6 +159,8 @@ export class SignUpFormComponent extends UserActionsAbstract<Params.ISignUpFormC
 
         try {
             form.disable();
+            this.setSignUpButtonStatus(true);
+
             if (!this.checkConfirmation(form)) {
                 return;
             }
@@ -166,6 +177,7 @@ export class SignUpFormComponent extends UserActionsAbstract<Params.ISignUpFormC
             }
         } finally {
             form.enable();
+            setTimeout(() => this.setSignUpButtonStatus(false), 1000);
         }
     }
 
@@ -227,5 +239,16 @@ export class SignUpFormComponent extends UserActionsAbstract<Params.ISignUpFormC
 
     protected isSecondStep(): boolean {
         return this.$params.formType === 'secondStep';
+    }
+
+    private setSignUpButtonStatus(disabled: boolean): void {
+        if (this._submitButton) {
+            _set(this._submitButton, 'params.common.disabled', disabled);
+            this.cdr.markForCheck();
+        }
+    }
+
+    private getSubmitButton(): IFormComponent {
+        return this.config.components.find((c) => c.params.common.type === 'submit');
     }
 }

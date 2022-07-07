@@ -21,6 +21,11 @@ export type EventType = {
 export interface IButtonCParams extends IComponentParams<Theme, Type, ThemeMod> {
     modifiers?: Modifiers[];
     common?: {
+        /**
+         * Makes a button inactive to interaction.
+         * Just passes native `disabled` button attribute
+         */
+        disabled?: boolean;
         size?: Size;
         icon?: string;
         iconPath?: string;

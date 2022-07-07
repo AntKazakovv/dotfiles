@@ -24,6 +24,13 @@ export interface ISignUpFormCParams extends IComponentParams<ComponentTheme, Com
      * Uses only for two steps
      */
     formType?: 'secondStep' | null;
+    /**
+     * Enables disabled submit button in your delay value
+     * Uses for unlocking the button after requesting to server
+     * and disabling button to avoid excess requests
+     * Value defines in milliseconds `ms`
+     */
+    unlockSubmitButtonDelay?: number;
 }
 
 export const defaultParams: ISignUpFormCParams = {
@@ -31,6 +38,7 @@ export const defaultParams: ISignUpFormCParams = {
     wlcElement: 'modal_signup',
     componentName: 'wlc-sign-up-form',
     moduleName: 'user',
+    unlockSubmitButtonDelay: 1000,
 };
 
 export const signUpFormConfig: IFormWrapperCParams = {

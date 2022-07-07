@@ -528,7 +528,8 @@ export namespace FormElements {
 
     export const signUp: IFormComponent = {
         name: 'core.wlc-button',
-        params: {
+        params: <IButtonCParams>{
+            name: 'submit',
             wlcElement: 'button_register-submit',
             common: {
                 text: gettext('Sign up'),
