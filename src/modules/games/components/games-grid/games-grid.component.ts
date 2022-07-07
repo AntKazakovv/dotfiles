@@ -524,9 +524,9 @@ export class GamesGridComponent extends AbstractComponent implements OnInit, OnD
      */
     protected async getFilteredGames(): Promise<Game[]> {
         if (this.$params.gamesList) {
-            return this.$params.gamesList;
+            return this.gamesCatalogService.filterAvailableGames(this.$params.gamesList);
         } else if (this.gamesList) {
-            return this.games;
+            return this.gamesCatalogService.filterAvailableGames(this.games);
         } else if (this.$params.tournamentGamesFilter || this.$params.tournamentFreeRoundGames) {
             return this.getTournamentGames();
         } else if (this.$params.byState) {

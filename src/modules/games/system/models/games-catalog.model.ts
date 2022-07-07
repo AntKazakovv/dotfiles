@@ -571,6 +571,10 @@ export class GamesCatalog extends AbstractModel<IGames> {
             return merchantIds.has(merchant.id);
         });
 
+        _forEach(this.projectCategories, (category: CategoryModel): void => {
+            category.updateAvailableGames(this.availableGames);
+        });
+
         this.eventService.emit({
             name: gamesEvents.UPDATED_AVAILABLE_GAMES,
             data: this.availableGames,
@@ -715,9 +719,10 @@ export class GamesCatalog extends AbstractModel<IGames> {
         }
 
         this.games = _orderBy(resultGames, (game: Game) => _toNumber(game.sort), 'desc');
+        this.availableGames = this.games;
 
-        this.updateAvailableGamesAndMerchants(this.userCountry);
         this.prepareCategories();
+        this.updateAvailableGamesAndMerchants(this.userCountry);
     }
 
     protected isExcludeMerchant(excludeMerchants: number[], id: number, subID: number): boolean {

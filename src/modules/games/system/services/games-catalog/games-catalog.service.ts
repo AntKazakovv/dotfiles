@@ -32,6 +32,7 @@ import _toNumber from 'lodash-es/toNumber';
 import _size from 'lodash-es/size';
 import _union from 'lodash-es/union';
 import _forEach from 'lodash-es/forEach';
+import _intersectionBy from 'lodash-es/intersectionBy';
 
 import {ICategorySettings} from 'wlc-engine/modules/core/system/interfaces/categories.interface';
 import {InjectionService} from 'wlc-engine/modules/core/system/services/injection/injection.service';
@@ -712,6 +713,16 @@ export class GamesCatalogService {
      */
     public getGamesByCategories(categories: CategoryModel[]): Game[] {
         return this.gamesCatalog.getGamesByCategories(categories);
+    }
+
+    /**
+     * Filter available games
+     *
+     * @param {Game[]} gamesList Some game list
+     * @returns {Game[]} List with only available games
+     */
+    public filterAvailableGames(gamesList: Game[]): Game[] {
+        return _intersectionBy(gamesList, this.getGameList(), 'ID');
     }
 
     public async getGamesByCategorySlug(slug: string): Promise<Game[]> {
