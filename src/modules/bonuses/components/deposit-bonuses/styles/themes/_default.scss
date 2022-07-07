@@ -1,0 +1,164 @@
+.wlc-deposit-bonuses {
+
+    &__list {
+        @include bm.get-mq-map('grid-template-columns', $themeDefault, 'listTemplateColumns');
+        @include bm.get-mq-map('gap', $themeDefault, 'listGap');
+        display: grid;
+
+        &.empty {
+
+            @include mq.max(ef.get-value($themeDefault, 'listEmptyBreakpoint')) {
+                display: ef.get-value($themeDefault, 'listEmptyDisplay');
+                justify-content: ef.get-value($themeDefault, 'listEmptyJustify');
+
+                .wlc-deposit-bonuses__bonus {
+                    width: ef.get-value($themeDefault, 'listEmptyBonusWidth');
+                }
+            }
+        }
+    }
+
+    &__bonus {
+
+        &.disabled {
+            order: ef.get-value($themeDefault, 'bonusDisabledOrder');
+        }
+
+        &--blank {
+            order: ef.get-value($themeDefault, 'bonusBlankOrder');
+
+            &.last {
+                order: ef.get-value($themeDefault, 'bonusBlankLastOrder');
+            }
+        }
+    }
+}
+
+.wlc-deposit-bonuses--theme-default:host {
+
+    .wlc-deposit-bonuses {
+
+        &__btn {
+            display: flex;
+            align-items: center;
+            justify-content: ef.get-value($themeDefault, 'btnJustifyContent');
+            width: ef.get-value($themeDefault, 'btnWidth');
+            max-width: ef.get-value($themeDefault, 'btnMaxWidth');
+            height: auto;
+            min-height: ef.get-value($themeDefault, 'btnMinHeight');
+            margin: ef.get-value($themeDefault, 'btnMargin');
+            padding: ef.get-value($themeDefault, 'btnPadding');
+            border: ef.get-value($themeDefault, 'btnBorder');
+            border-radius: ef.get-value($themeDefault, 'btnBorderRadius');
+            background: ef.get-value($themeDefault, 'btnBg');
+
+            &.use-icon {
+
+                .wlc-deposit-bonuses__btn-image {
+                    display: flex;
+                    align-items: center;
+                    align-self: stretch;
+                    justify-content: center;
+                    width: ef.get-value($themeDefault, 'btnIconWidth');
+                    color: ef.get-value($themeDefault, 'btnIconColor');
+                }
+
+                .wlc-deposit-bonuses__btn-wrap {
+                    flex-direction: column;
+                    align-items: flex-start;
+                    text-align: left;
+                }
+
+                .wlc-deposit-bonuses__btn-text {
+                    @include text.get-text-style(ef.get-value($themeDefault, 'btnTextFontStyle'), ef.get-value($themeDefault, 'btnTextFontColor'));
+
+                    &:nth-child(1) {
+                        @include text.get-text-style(ef.get-value($themeDefault, 'btnTextTitleFontStyle'), ef.get-value($themeDefault, 'btnTextTitleFontColor'));
+                    }
+                }
+            }
+
+            &.selected {
+
+                .wlc-deposit-bonuses__btn-image {
+                    padding: ef.get-value($themeDefault, 'btnImageSelectedPadding');
+                }
+            }
+
+            &-image {
+                position: relative;
+                flex: 0 0 auto;
+                width: ef.get-value($themeDefault, 'btnImageWidth');
+                height: auto;
+                min-height: 100px;
+                padding: ef.get-value($themeDefault, 'btnImagePadding');
+                color: ef.get-value($themeDefault, 'btnImageSvgColor');
+                background: ef.get-value($themeDefault, 'btnImageBg');
+                border-right: ef.get-value($themeDefault, 'btnImageBorderRight');
+            }
+
+            &-text {
+                @include text.get-text-style(ef.get-value($themeDefault, 'btnTextSelectedFontStyle'), ef.get-value($themeDefault, 'btnTextSelectedFontColor'));
+                display: block;
+                line-height: 1.2;
+            }
+
+            &-wrap {
+                display: flex;
+                flex: 1 1 100%;
+                align-items: center;
+                justify-content: center;
+                padding: ef.get-value($themeDefault, 'btnWrapPadding');
+            }
+
+            &-arrow {
+                margin: ef.get-value($themeDefault, 'btnArrowMargin');
+                color: ef.get-value($themeDefault, 'btnArrowColor');
+
+                ::ng-deep {
+
+                    .wlc-icon-content {
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                    }
+                }
+            }
+        }
+
+        &__empty {
+            margin: ef.get-value($themeDefault, 'emptyBlockMargin');
+        }
+
+        &__short-bonus {
+            @include text.get-text-style(ef.get-value($themeDefault, 'shortBonusFontStyle'), ef.get-value($themeDefault, 'shortBonusFontColor'));
+            margin: ef.get-value($themeDefault, 'shortBonusMargin');
+            text-align: ef.get-value($themeDefault, 'shortBonusTextAlign');
+        }
+
+        &__short-bonus-info {
+            padding: ef.get-value($themeDefault, 'shortBonusInfoPadding');
+            color: ef.get-value($themeDefault, 'shortBonusInfoColor');
+            vertical-align: ef.get-value($themeDefault, 'shortBonusInfoVerticalAlign');
+
+            ::ng-deep {
+
+                .wlc-icon-content {
+                    display: flex;
+                    width: ef.get-value($themeDefault, 'shortBonusIconWidth');
+                    height: ef.get-value($themeDefault, 'shortBonusIconHeight');
+                }
+
+                svg {
+                    width: ef.get-value($themeDefault, 'shortBonusIconWidth');
+                    height: ef.get-value($themeDefault, 'shortBonusIconHeight');
+                    fill: currentColor;
+                }
+            }
+
+            @include bm.hover() {
+                color: ef.get-value($themeDefault, 'shortBonusInfoColorHover');
+            }
+        }
+    }
+}

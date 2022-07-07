@@ -1,0 +1,46 @@
+$customThemeMini: () !default;
+$themeMini: map-merge((
+    'contentCursor': pointer,
+    'contentDisabledCursor': not-allowed,
+
+    // wrapper
+    'wrapperPosition': relative,
+    'wrapperBgColor': var(--mc-bg500),
+    'wrapperBgRepeat': no-repeat,
+    'wrapperBgPos': center,
+    'wrapperBgSize': cover,
+    'wrapperBgOrigin': border-box,
+    'wrapperRadius': ef.get-value($themeDefault, 'radius'),
+    'wrapperBorder': 2px solid transparent,
+    'wrapperPaddingTop': 68%,
+    'wrapperShadowHover': 0 0 5px var(--mc-main),
+    'wrapperShadowActive': 0 0 14px var(--mc-main),
+    'wrapperBorderColorActive': var(--mc-main),
+    'wrapperBgBlank': var(--mc-bg),
+
+    //image block
+    'imageFontStyle': 'ThirdTitleBold',
+    'imageFontColor': var(--mc-baseMain),
+    'imageTextAlign': center,
+
+    // image icon
+    'imageIconWidth': 70px,
+    'imageIconHeight': 70px,
+    'imageIconFontStyle': 'SignText',
+    'imageIconColor': null,
+    'imageIconMinHeight': 14px,
+
+    // bottom block
+    'bottomPadding': ef.size(2) 0 0,
+
+    // name
+    'nameFontStyle': 'PrimaryText',
+    'nameFontColor': null,
+    'nameTextAlign': center,
+
+    // more icon
+    'moreIconPadding': 6px,
+    'moreIconBorderRadius': ef.get-value($themeDefault, 'radius'),
+    'moreIconWidth': 20px,
+    'moreIconHeight': 20px,
+), $customThemeMini);

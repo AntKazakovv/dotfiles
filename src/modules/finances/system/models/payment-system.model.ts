@@ -204,6 +204,12 @@ const fieldTemplatesNames: IIndexing<IFieldTemplate> = {
     },
 };
 
+const disabledReasons = {
+    // Apply to payment system if chosen bonus paySystems array doesn't empty
+    // and doesn't contain the method id
+    1: gettext('The method is not available for the selected bonus.'),
+};
+
 export class PaymentSystem extends AbstractModel<IPaymentSystem> {
 
     public cardFields: boolean;
@@ -213,6 +219,7 @@ export class PaymentSystem extends AbstractModel<IPaymentSystem> {
     public isHosted: boolean = false;
     public cryptoCheck: boolean;
     public isCashier: boolean = false;
+    public disabledBy: null | keyof typeof disabledReasons = null;
 
     private hostedFieldService: IHostedFieldService;
     private hostedField: any;
@@ -288,6 +295,12 @@ export class PaymentSystem extends AbstractModel<IPaymentSystem> {
 
     public get disableAmount(): boolean {
         return this.data.disable_amount;
+    }
+
+    public get disabledReason(): string {
+        if (this.disabledBy) {
+            return disabledReasons[this.disabledBy];
+        }
     }
 
     public get id(): number {

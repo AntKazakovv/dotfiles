@@ -13,7 +13,7 @@ $themeDefault: map-merge((
     'titleColor': var(--mc-baseMain),
 
     // Divider
-    'dividerMargin': 0,
+    'dividerMargin': ef.size(4) 0 0,
     'dividerBg': var(--mc-baseOpacity),
     'dividerHeight': 2px,
     'dividerWidth': 100%,

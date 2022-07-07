@@ -52,6 +52,7 @@ export class PIQCashierService {
 
     public closedIframe$: Subject<void>;
     protected method: PIQCashierConvertedMethod;
+    protected bonusId: string | null = null;
 
     constructor(
         @Inject(DOCUMENT) protected document: Document,
@@ -75,8 +76,11 @@ export class PIQCashierService {
         method: TPaymentsMethods,
         currentSystem: PaymentSystem,
         amount: number,
+        bonusId: string | null,
         cssVariables: string,
     ): Promise<void> {
+        this.bonusId = bonusId;
+
         return new Promise((resolve: () => void): void => {
             this.method = PIQCashierConvertedMethod[method];
             this.modalService.showModal<IPIQCashierCParams>({
@@ -109,7 +113,8 @@ export class PIQCashierService {
         currentSystem: PaymentSystem,
         amount: number,
         cssVariables: string,
-        method?: TPaymentsMethods): Promise<void> {
+        method?: TPaymentsMethods,
+    ): Promise<void> {
         await import('paymentiq-cashier-bootstrapper');
 
         const cashierThemeSource = this.window.getComputedStyle(
@@ -162,8 +167,7 @@ export class PIQCashierService {
             user: {
                 email: userEmail,
             },
-            // bonusCode: somewhere.bonusId ?? null,
-            // TODO Add bonusId if selected while deposit after implement in engine
+            bonusCode: this.bonusId,
             showHeader: !currentSystem.customParams?.provider,
             showFooter: !currentSystem.customParams?.provider,
             theme: _merge(cashierTheme, this.configService.get<IPiqCashierTheme>('$base.finances.piqCashier.theme')),

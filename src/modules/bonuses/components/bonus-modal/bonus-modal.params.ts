@@ -11,6 +11,8 @@ export interface IBonusModalCParams extends IComponentParams<Theme, Type, ThemeM
     bonus?: Bonus;
     /** Bonus item theme */
     bonusItemTheme?: BonusItemTheme;
+    /** If `true` - hides bonus buttons component */
+    hideBonusButtons?: boolean;
 }
 
 export const defaultParams: IBonusModalCParams = {

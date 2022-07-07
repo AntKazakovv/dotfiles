@@ -132,6 +132,8 @@ export interface IBonus extends IBonusBase {
     Limitation: string;
     MaxBet: IIndexing<string>;
     MinBet: IIndexing<string>;
+    Name: string;
+    PaySystems: string[];
     PromoCode: string | number;
     RealWinning: string;
     Results: any;

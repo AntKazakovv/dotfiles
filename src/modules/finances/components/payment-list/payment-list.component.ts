@@ -26,10 +26,11 @@ import {
     ListAppearanceAnimation,
     HeightToggleAnimation,
     ConfigService,
+    ITooltipCParams,
 } from 'wlc-engine/modules/core';
 import {FinancesService} from 'wlc-engine/modules/finances/system/services/finances/finances.service';
 import {
-    IAliasByDevice,
+    IAutoSelectByDevice,
     TPaymentsMethods,
 } from 'wlc-engine/modules/finances/system/interfaces';
 import {PaymentSystem} from 'wlc-engine/modules/finances/system/models/payment-system.model';
@@ -46,6 +47,10 @@ import * as Params from './payment-list.params';
 import _isUndefined from 'lodash-es/isUndefined';
 import _isString from 'lodash-es/isString';
 import _findIndex from 'lodash-es/findIndex';
+import _forEach from 'lodash-es/forEach';
+import _includes from 'lodash-es/includes';
+import _filter from 'lodash-es/filter';
+import _find from 'lodash-es/find';
 
 interface IPaymentsIterator extends IMerchantsPaymentsIterator {
     imgPath: string;
@@ -67,6 +72,7 @@ export class PaymentListComponent extends IconListAbstract<Params.IPaymentListCP
     implements OnInit, AfterViewInit, OnChanges {
 
     @Input() public currentSystem: PaymentSystem;
+    @Input() public availableSystems: number[];
     @Input() protected inlineParams: Params.IPaymentListCParams;
     @ViewChild('list') protected list: TemplateRef<any>;
 
@@ -80,7 +86,9 @@ export class PaymentListComponent extends IconListAbstract<Params.IPaymentListCP
     public activeIcon: IconModel;
     public activeName: string = '';
     public paymentDescription: string = '';
-    public isMobile: boolean;
+    public useBonuses: boolean = false;
+
+    protected isMobile: boolean;
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IPaymentListCParams,
@@ -100,6 +108,8 @@ export class PaymentListComponent extends IconListAbstract<Params.IPaymentListCP
     public ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
 
+        this.useBonuses = this.configService.get<boolean>('$finances.bonusesInDeposit.use');
+
         if (this.configService.get<boolean>('$base.colorThemeSwitching.use')
         && this.$params.colorIconBg && this.$params.iconsType === 'color') {
             this.subscribeOnToggleSiteTheme(() => this.setPaymentsIconsList());
@@ -118,19 +128,31 @@ export class PaymentListComponent extends IconListAbstract<Params.IPaymentListCP
     }
 
     public ngOnChanges(changes: SimpleChanges): void {
+        if (changes['availableSystems'] && this.$params) {
+            this.updatePaySystemsStatus();
+        }
+
         if (changes['currentSystem']) {
             this.setActivePayment();
         }
     }
 
-    public selectPayment(system: PaymentSystem): void {
+    public selectPayment(system: PaymentSystem, clearSame: boolean = this.useBonuses): void {
+        if (system.disabledBy) {
+            return;
+        }
+
+        const chosenSystem: PaymentSystem = system.id === this.currentSystem?.id && clearSame ? null : system;
+
         this.eventService.emit({
             name: 'select_system',
             from: 'finances',
-            data: system,
+            data: chosenSystem,
         });
 
-        if (this.$params.hideModalOnSelect && this.modalService.getActiveModal('payment-list')) {
+        if (this.$params.hideModalOnSelect
+            && system.id !== this.currentSystem?.id
+            && this.modalService.getActiveModal('payment-list')) {
             this.modalService.hideModal('payment-list');
         }
 
@@ -150,8 +172,17 @@ export class PaymentListComponent extends IconListAbstract<Params.IPaymentListCP
         });
     }
 
+    public getErrTooltipParams(systemIndex: number): ITooltipCParams {
+        return {
+            inlineText: this.systems[systemIndex].disabledReason,
+            themeMod: 'error',
+            bsTooltipMod: 'error',
+            iconName: 'blocked',
+        };
+    }
+
     protected setActivePayment(): void {
-        const index = _findIndex(this.systems, (item) => item.id === this.currentSystem.id);
+        const index = _findIndex(this.systems, (item) => item.id === this.currentSystem?.id);
 
         if (index !== -1) {
             this.activeIcon = this.items[index];
@@ -168,31 +199,41 @@ export class PaymentListComponent extends IconListAbstract<Params.IPaymentListCP
                         (system) => this.financesService.filterSystemsPipe(system, this.$params.paymentType),
                     ),
             ),
-        ).subscribe((systems) => {
+        ).subscribe((systems: PaymentSystem[]): void => {
             this.ready = true;
-            this.systems = systems;
-            this.setPaymentsIconsList();
+            this.processSystemsResponse(systems);
+        });
+    }
 
-            if (this.systems.length === 1) {
-                this.selectPayment(this.systems[0]);
-            }
+    protected processSystemsResponse(systems: PaymentSystem[]): void {
+        this.systems = systems;
+        this.setPaymentsIconsList();
 
-            if (this.systems.length > 1 && this.configService.get<boolean>('$finances.payment.autoSelect')) {
-                this.currentSystem = this.getAutoSelected();
-            }
+        if (this.useBonuses) {
+            this.updatePaySystemsStatus();
+        }
 
-            if (this.currentSystem) {
-                this.selectPayment(this.currentSystem);
-            }
+        if (this.currentSystem) {
+            const system: PaymentSystem = _find(systems, (system: PaymentSystem): boolean => {
+                return system.id === this.currentSystem.id;
+            });
 
-            if (this.currentSystem && !this.systems.some((s) => s.id === this.currentSystem.id)) {
+            if (system) {
+                this.selectPayment(system, false);
+            } else {
                 this.eventService.emit({
                     name: 'select_system',
                     from: 'finances',
+                    data: null,
                 });
             }
-            this.cdr.markForCheck();
-        });
+        } else if (this.systems.length === 1 && !this.systems[0].disabledBy) {
+            this.selectPayment(this.systems[0], false);
+        } else if (this.systems.length > 1 && this.configService.get<boolean>('$finances.payment.autoSelect')) {
+            this.selectPayment(this.getAutoSelected(), false);
+        }
+
+        this.cdr.markForCheck();
     }
 
     /**
@@ -202,19 +243,22 @@ export class PaymentListComponent extends IconListAbstract<Params.IPaymentListCP
      */
 
     protected getAutoSelected(): PaymentSystem | null {
-        let alias: string | number | IAliasByDevice = this.configService.get('$finances.payment.alias');
+        let alias: string | number | IAutoSelectByDevice<number | string> =
+            this.configService.get('$finances.payment.alias');
 
         if (typeof(alias) === 'object') {
             alias = this.isMobile ? alias.mobile : alias.desktop;
         }
 
+        const enabled: PaymentSystem[] = _filter(this.systems, (s: PaymentSystem) => !s.disabledBy);
+
         if (typeof(alias) === 'number') {
             const index: number = (alias > 0) ? alias - 1 : this.systems.length + alias;
-            return this.systems[index] || this.systems[0];
+            return enabled[index] || enabled[0];
         }
 
         if (typeof(alias) === 'string')  {
-            return this.systems.find((system: PaymentSystem) => system.alias === alias) || this.systems[0];
+            return enabled.find((system: PaymentSystem) => system.alias === alias) || enabled[0];
         }
 
         return null;
@@ -307,5 +351,12 @@ export class PaymentListComponent extends IconListAbstract<Params.IPaymentListCP
                     });
             }
         }
+    }
+
+    protected updatePaySystemsStatus(): void {
+        _forEach(this.systems, (system: PaymentSystem): void => {
+            system.disabledBy = !this.availableSystems.length || _includes(this.availableSystems, system.id)
+                ? null : 1;
+        });
     }
 }

@@ -9,8 +9,7 @@
         justify-content: center;
 
         .wlc-tooltip__icon {
-            @include bm.get-mq-map('width', $themeDefault, 'iconWidth');
-            @include bm.get-mq-map('height', $themeDefault, 'iconHeight');
+            @include tooltipIcon($themeDefault);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -25,57 +24,21 @@
                         display: flex;
                         align-items: center;
                     }
-
-                    svg {
-                        @include bm.get-mq-map('width', $themeDefault, 'iconWidth');
-                        @include bm.get-mq-map('height', $themeDefault, 'iconHeight');
-
-                        @include bm.hover {
-
-                            path {
-                                fill: ef.get-value($themeDefault, 'iconColorOnHover');
-                            }
-                        }
-                    }
-
-                    path {
-                        @include bm.transition(fill);
-                        fill: ef.get-value($themeDefault, 'iconFill');
-                    }
                 }
             }
         }
 
         &.wlc-tooltip--theme-mod-resolve {
-            @include bm.get-mq-map('width', $modResolve, 'iconWidth');
-            @include bm.get-mq-map('height', $modResolve, 'iconHeight');
 
             .wlc-tooltip__icon {
-                @include bm.get-mq-map('width', $modResolve, 'iconWidth');
-                @include bm.get-mq-map('height', $modResolve, 'iconHeight');
+                @include tooltipIcon($modResolve);
+            }
+        }
 
-                &.wlc-icon {
+        &.wlc-tooltip--theme-mod-error {
 
-                    ::ng-deep {
-
-                        svg {
-                            @include bm.get-mq-map('width', $modResolve, 'iconWidth');
-                            @include bm.get-mq-map('height', $modResolve, 'iconHeight');
-
-                            @include bm.hover {
-
-                                path {
-                                    fill: ef.get-value($modResolve, 'iconColorOnHover');
-                                }
-                            }
-                        }
-
-                        path {
-                            @include bm.transition(fill);
-                            fill: ef.get-value($modResolve, 'iconFill');
-                        }
-                    }
-                }
+            .wlc-tooltip__icon {
+                @include tooltipIcon($modError);
             }
         }
     }
@@ -84,6 +47,13 @@
 ::ng-deep body {
 
     .wlc-tooltip__bs-tooltip {
+        --bs-tooltip-bg: #{ef.get-value($themeDefault, 'contentBg')};
+        --bs-tooltip-color: #{ef.get-value($themeDefault, 'contentColor')};
+
+        &.wlc-tooltip__bs-tooltip--error {
+            --bs-tooltip-bg: #{ef.get-value($themeDefault, 'contentBgError')};
+            --bs-tooltip-color: #{ef.get-value($themeDefault, 'contentColorError')};
+        }
 
         &.show {
             opacity: 1;
@@ -94,7 +64,7 @@
             .tooltip-arrow {
 
                 &:before {
-                    border-top-color: ef.get-value($themeDefault, 'contentBg');
+                    border-top-color: var(--bs-tooltip-bg);
                 }
             }
         }
@@ -104,15 +74,15 @@
             .tooltip-arrow {
 
                 &:before {
-                    border-bottom-color: ef.get-value($themeDefault, 'contentBg');
+                    border-bottom-color: var(--bs-tooltip-bg);
                 }
             }
         }
 
         .tooltip-inner {
-            @include text.get-text-style(ef.get-value($themeDefault, 'textStyle'), ef.get-value($themeDefault, 'contentColor'));
+            @include text.get-text-style(ef.get-value($themeDefault, 'textStyle'), var(--bs-tooltip-color));
             padding: ef.get-value($themeDefault, 'contentPadding');
-            background-color: ef.get-value($themeDefault, 'contentBg');
+            background-color: var(--bs-tooltip-bg);
             border-radius: ef.get-value($themeDefault, 'contentBorderRadius');
             box-shadow: ef.get-value($themeDefault, 'contentBoxShadow');
         }

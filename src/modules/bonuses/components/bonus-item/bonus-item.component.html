@@ -7,8 +7,54 @@
     <ng-container [ngTemplateOutlet]="long" *ngSwitchCase="'long'"></ng-container>
     <ng-container [ngTemplateOutlet]="active" *ngSwitchCase="'active'"></ng-container>
     <ng-container [ngTemplateOutlet]="modal" *ngSwitchCase="'modal'"></ng-container>
+    <ng-container [ngTemplateOutlet]="mini" *ngSwitchCase="'mini'"></ng-container>
     <ng-container [ngTemplateOutlet]="default" *ngSwitchDefault></ng-container>
 </ng-container>
+
+<ng-template #mini>
+    <div class="{{$class}}__content"
+        data-wlc-element="block_bonus"
+        [class.disabled]="bonus.disabledBy"
+        [class.chosen]="bonus.isChoose && $params.themeMod !== 'simple'"
+        [class.blank]="!bonus.id">
+        <div class="{{$class}}__wrapper"
+            [style]="{backgroundImage: bonus.id && bonusBg}">
+            <div class="{{$class}}__image-block" data-wlc-element="bonus_image">
+                <ng-container *ngIf="!bonus.id">
+                    {{'Without bonus' | translate}}
+                </ng-container>
+
+                <ng-container *ngIf="!useIconBonusImage && bonus.id"
+                    [ngTemplateOutlet]="bonusImage">
+                </ng-container>
+
+                <ng-container *ngIf="bonus.id"
+                    [ngTemplateOutlet]="bonusIcon">
+                </ng-container>
+
+            </div>
+        </div>
+        <div *ngIf="!$params.hideBonusBottom" class="{{$class}}__bottom">
+            <h4 *ngIf="bonus.id"
+                class="{{$class}}__name"
+                [wlc-clamp]="$params.common?.nameClamp"
+                data-wlc-element="bonus_title-name">
+                {{bonus.name}}
+            </h4>
+            <h4 *ngIf="!bonus.id"
+                class="{{$class}}__name"
+                [wlc-clamp]="$params.common?.nameClamp"
+                data-wlc-element="bonus_title-name">
+                {{bonus.name | translate}}
+            </h4>
+        </div>
+    </div>
+    <ng-container *ngIf="!bonus.disabledBy && bonus.id"
+        [ngTemplateOutlet]="moreIcon">
+    </ng-container>
+
+    <ng-container *ngIf="bonus.id && bonus.disabledBy" [ngTemplateOutlet]="disabledIcon"></ng-container>
+</ng-template>
 
 <ng-template #default>
     <div class="{{$class}}__content"
@@ -36,7 +82,7 @@
                             wlc-button
                             typeAttr="button"
                             text="{{'More info' | translate}}"
-                            (click)="openDescription()">
+                            (click)="openDescription($event)">
                     </button>
                 </div>
                 <div *ngIf="!bonus.isExpired" wlc-bonus-buttons
@@ -183,7 +229,7 @@
                     class="{{$class}}__more-info"
                     typeAttr="button"
                     text="{{'More info' | translate}}"
-                    (click)="openDescription()"
+                    (click)="openDescription($event)"
             ></button>
 
             <div class="{{$class}}__info-wrapper">
@@ -253,7 +299,7 @@
                         wlc-button
                         typeAttr="button"
                         text="{{'More info' | translate}}"
-                        (click)="openDescription()">
+                        (click)="openDescription($event)">
                 </button>
             </div>
 
@@ -296,7 +342,7 @@
                         wlc-button
                         typeAttr="button"
                         text="{{'More info' | translate}}"
-                        (click)="openDescription()">
+                        (click)="openDescription($event)">
                 </button>
             </div>
 
@@ -318,7 +364,16 @@
              class="icon-btn"
              iconPath="/wlc/icons/info.svg"
              wlcElement="button_terms"
-             (click)="openDescription()">
+             (click)="openDescription($event)">
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #disabledIcon>
+    <div class="{{$class}}__more-icon" >
+        <div wlc-tooltip
+            class="icon-btn error"
+            [inlineParams]="getErrTooltipParams()">
         </div>
     </div>
 </ng-template>

@@ -37,3 +37,26 @@ export interface IAdditionalFields {
 export type FieldType = IInputCParams | IButtonCParams | ICheckboxCParams;
 
 export {depositForm, depositFormCrypto, withdrawForm} from 'wlc-engine/modules/finances/system/config';
+
+export interface IPaymentStep {
+    template: string;
+    title: string;
+}
+
+export namespace PaymentSteps {
+
+    export const bonus: IPaymentStep = {
+        template: 'bonuses',
+        title: gettext('Choose bonus'),
+    };
+
+    export const paymentSystem: IPaymentStep = {
+        template: 'systems',
+        title: gettext('Choose payment method'),
+    };
+
+    export const paymentInfo: IPaymentStep = {
+        template: 'paymentInfo',
+        title: gettext('Payment information'),
+    };
+}

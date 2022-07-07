@@ -40,6 +40,8 @@ import * as Params from './payment-message.params';
 export class PaymentMessageComponent extends AbstractComponent implements OnInit, OnChanges {
 
     @Input() public system: PaymentSystem;
+    @Input() public minAmount: number;
+    @Input() public maxAmount: number;
 
     public $params: Params.IPaymentMessageCParams;
     public isError: boolean = false;

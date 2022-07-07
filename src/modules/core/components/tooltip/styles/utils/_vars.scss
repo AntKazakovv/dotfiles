@@ -16,6 +16,9 @@ $themeDefault: map-merge((
     'textStyle': 'PrimaryText',
     'contentColor': var(--mc-baseMain),
     'contentBoxShadow': 0 4px 4px rgba(0, 0, 0, 0.25),
+
+    'contentBgError': var(--mc-error),
+    'contentColorError': var(--mc-baseMain),
 ), $customThemeDefault);
 
 $customModResolve: () !default;
@@ -31,3 +34,11 @@ $modResolve: map-merge((
     'iconFill': var(--mc-success),
     'iconColorOnHover': var(--mc-success-d20),
 ), $customModResolve);
+
+$customModError: () !default;
+$modError: map-merge((
+    'iconWidth': 18px,
+    'iconHeight': 18px,
+    'iconFill': var(--mc-error),
+    'iconColorOnHover': var(--mc-error),
+), $customModError);

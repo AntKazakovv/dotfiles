@@ -17,9 +17,9 @@
         </div>
         <div class="{{$class}}__text-row">
             {{'Please note, that minimum deposit amount for this method is' | translate}}
-            <span wlc-currency [value]="system.depositMin"></span>,
+            <span wlc-currency [value]="minAmount"></span>,
             {{'maximum one is' | translate}}
-            <span wlc-currency [value]="system.depositMax"></span>.
+            <span wlc-currency [value]="maxAmount"></span>.
         </div>
         <div class="{{$class}}__text-row">
             {{'To make a deposit you need to replenish a wallet for a specified amount.' | translate}}
@@ -57,9 +57,9 @@
         </div>
         <div class="{{$class}}__text-row">
             {{'Please note, that minimum deposit amount for this method is' | translate}}
-            <span wlc-currency [value]="system.depositMin"></span>,
+            <span wlc-currency [value]="minAmount"></span>,
             {{'maximum one is' | translate}}
-            <span wlc-currency [value]="system.depositMax"></span>.
+            <span wlc-currency [value]="maxAmount"></span>.
         </div>
         <div class="{{$class}}__text-row">
             {{'To make a deposit you need to replenish a wallet for a specified amount.' | translate}}

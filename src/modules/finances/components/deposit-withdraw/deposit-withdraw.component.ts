@@ -4,6 +4,7 @@ import {
     Inject,
     ChangeDetectionStrategy,
     ChangeDetectorRef,
+    OnDestroy,
 } from '@angular/core';
 import {
     FormControl,
@@ -34,6 +35,9 @@ import _map from 'lodash-es/map';
 import _keys from 'lodash-es/keys';
 import _concat from 'lodash-es/concat';
 import _find from 'lodash-es/find';
+import _includes from 'lodash-es/includes';
+import _max from 'lodash-es/max';
+import _min from 'lodash-es/min';
 
 import {
     IIndexing,
@@ -60,10 +64,7 @@ import {
     IPaymentAdditionalParam,
     PaymentSystem,
 } from 'wlc-engine/modules/finances/system/models/payment-system.model';
-import {
-    FinancesService,
-    PIQCashierService,
-} from 'wlc-engine/modules/finances/system/services';
+import {FinancesService} from 'wlc-engine/modules/finances/system/services';
 import {IPaymentListCParams} from 'wlc-engine/modules/finances/components/payment-list/payment-list.params';
 import {FormElements} from 'wlc-engine/modules/core/system/config/form-elements';
 import {UserService} from 'wlc-engine/modules/user/system/services';
@@ -73,6 +74,7 @@ import {PaymentMessageComponent} from '../payment-message/payment-message.compon
 import {
     IPaymentMessage,
     PIQCashierResponse,
+    TAdditionalParams,
 } from 'wlc-engine/modules/finances/system/interfaces/';
 import {FinancesHelper} from '../../system/helpers/finances.helper';
 import {IFormComponent} from 'wlc-engine/modules/core/components/form-wrapper/form-wrapper.component';
@@ -85,6 +87,10 @@ import {
     AbstractDepositWithdrawComponent,
 } from 'wlc-engine/modules/finances/system/classes/abstract.deposit-withdraw.component';
 import {WINDOW} from 'wlc-engine/modules/app/system';
+import {
+    Bonus,
+    BonusItemComponentEvents,
+} from 'wlc-engine/modules/bonuses';
 
 import * as Params from './deposit-withdraw.params';
 
@@ -100,7 +106,7 @@ type TFormData = IIndexing<string | number | boolean>;
 })
 export class DepositWithdrawComponent
     extends AbstractDepositWithdrawComponent<Params.IDepositWithdrawCParams>
-    implements OnInit {
+    implements OnInit, OnDestroy {
 
     public showModalCryptoPayment: boolean = true;
     public $params: Params.IDepositWithdrawCParams;
@@ -122,6 +128,12 @@ export class DepositWithdrawComponent
 
     public formConfig: IFormWrapperCParams;
     public isShowHostedBlock: boolean = false;
+    public steps: Params.IPaymentStep[] = [];
+
+    public useBonuses: boolean = false;
+    public bonusesListParams: IFormWrapperCParams;
+    public availableSystems: number[] = [];
+    public currentBonus: Bonus;
 
     protected formObject: FormGroup;
     protected inProgress: boolean = false;
@@ -155,7 +167,6 @@ export class DepositWithdrawComponent
         protected translateService: TranslateService,
         protected httpClient: HttpClient,
         protected injectionService: InjectionService,
-        protected piqCashierService: PIQCashierService,
         protected logService: LogService,
         @Inject(DOCUMENT) protected document: Document,
         @Inject(WINDOW) private window: Window,
@@ -170,6 +181,25 @@ export class DepositWithdrawComponent
     public async ngOnInit(): Promise<void> {
         super.ngOnInit();
         this.depositInIframe = this.configService.get<boolean>('$base.finances.depositInIframe');
+        this.useBonuses = this.configService.get<boolean>('$finances.bonusesInDeposit.use');
+
+        if (this.useBonuses && this.$params.mode === 'deposit') {
+            this.steps.push(Params.PaymentSteps.bonus);
+            this.bonusesListParams = {
+                components: [
+                    {
+                        name: 'bonuses.wlc-deposit-bonuses',
+                        params: {},
+                    },
+                ],
+            };
+        }
+
+        this.steps.push(
+            Params.PaymentSteps.paymentSystem,
+            Params.PaymentSteps.paymentInfo,
+        );
+
         this.configService
             .get<BehaviorSubject<UserProfile>>({name: '$user.userProfile$'})
             .pipe(takeUntil(this.$destroy))
@@ -198,6 +228,13 @@ export class DepositWithdrawComponent
                 });
         }
         await this.financesService.fetchPaymentSystems();
+    }
+
+    public ngOnDestroy(): void {
+        super.ngOnDestroy();
+        if (this.useBonuses) {
+            this.configService.set({name: 'chosenPaySystem', value: null});
+        }
     }
 
     /**
@@ -343,8 +380,6 @@ export class DepositWithdrawComponent
                 displayAsHTML: true,
             });
 
-            this.resetPaymentSystem();
-
         } catch (error) {
             this.pushNotification({
                 type: 'error',
@@ -384,13 +419,35 @@ export class DepositWithdrawComponent
         }
     }
 
-    private async depositAction(amount: number, params: IIndexing<string>, saveProfile: boolean = true): Promise<void> {
+    public get minAmount(): number {
+        if (this.$params.mode === 'withdraw') {
+            return this.currentSystem.withdrawMin;
+        } else {
+            return _max([
+                +this.currentSystem.depositMin,
+                this.currentBonus?.minDeposit,
+            ]);
+        }
+    }
+
+    public get maxAmount(): number {
+        if (this.$params.mode === 'withdraw') {
+            return this.currentSystem.withdrawMax;
+        } else {
+            return _min([
+                +this.currentSystem.depositMax,
+                this.currentBonus?.maxDeposit || null,
+            ]);
+        }
+    }
+
+    private async depositAction(amount: number, params: TAdditionalParams, saveProfile: boolean = true): Promise<void> {
         this.isShowIframe = this.depositInIframe && this.currentSystem.appearance === 'iframe';
         try {
             const response = await this.financesService.deposit(
                 this.currentSystem.id,
                 this.currentSystem.disableAmount ? this.currentSystem.depositMin : amount,
-                params,
+                {...params, bonusId: this.currentBonus?.id || null},
                 this.cssVariables,
             );
 
@@ -464,13 +521,6 @@ export class DepositWithdrawComponent
             }
             return acc;
         }, {});
-    }
-
-    protected resetPaymentSystem(): void {
-        this.eventService.emit({
-            name: 'select_system',
-            from: 'finances',
-        });
     }
 
     protected setAdditionalValues(): void {
@@ -552,14 +602,11 @@ export class DepositWithdrawComponent
             this.modalService.showModal(messageData);
         }
 
-        if (type === 'message') {
-            if ((typeof (params) !== 'string')
-                && (!this.showModalCryptoPayment && params.translate === 'pay_to_address' && params.address)) {
-                this.currentSystem.additionalParams = undefined;
-                this.cdr.markForCheck();
-            } else {
-                this.resetPaymentSystem();
-            }
+        if (type === 'message'
+            && (typeof (params) !== 'string')
+            && (!this.showModalCryptoPayment && params.translate === 'pay_to_address' && params.address)) {
+            this.currentSystem.additionalParams = undefined;
+            this.cdr.markForCheck();
         }
     }
 
@@ -612,6 +659,22 @@ export class DepositWithdrawComponent
             () => this.onProfileUpdate(),
             this.$destroy,
         );
+
+        if (this.useBonuses) {
+            this.eventService.subscribe([
+                {name: BonusItemComponentEvents.deposit},
+                {name: BonusItemComponentEvents.blank},
+            ], (bonus?: Bonus): void => {
+                this.currentBonus = bonus;
+                this.availableSystems = bonus?.paySystems || [];
+                if (this.availableSystems.length && !_includes(this.availableSystems, this.currentSystem?.id)) {
+                    this.onPaymentSystemChange(null);
+                }
+
+                this.updateFormConfig();
+
+            }, this.$destroy);
+        }
     }
 
     protected initThemeToggleListener(): void {
@@ -666,12 +729,14 @@ export class DepositWithdrawComponent
     }
 
     protected onProfileUpdate(): void {
-        this.financesService.fetchPaymentSystems().then(() => {
-            this.onPaymentSystemChange(this.currentSystem);
-        });
+        this.financesService.fetchPaymentSystems();
     }
 
     protected onPaymentSystemChange(system: PaymentSystem): void {
+        if (this.useBonuses) {
+            this.configService.set({name: 'chosenPaySystem', value: system});
+        }
+
         this.isShowHostedBlock = false;
 
         if (!system) {
@@ -787,7 +852,6 @@ export class DepositWithdrawComponent
     }
 
     protected updateFormConfig(): void {
-
         const {mode} = this.$params;
         const formComponents: IFormComponent[] = [];
         let lastAccount: IFormComponent;
@@ -798,13 +862,12 @@ export class DepositWithdrawComponent
             let showLimits = false;
 
             if (this.currentSystem) {
-                const {depositMin, depositMax, withdrawMin, withdrawMax} = this.currentSystem;
 
                 _forEach(amount.params.validators, (val: IValidatorSettings | string) => {
                     if (_isObject(val) && val.name === 'min') {
-                        val.options = mode === 'deposit' ? depositMin : withdrawMin;
+                        val.options = this.minAmount;
                     } else if (_isObject(val) && val.name === 'max') {
-                        val.options = mode === 'deposit' ? depositMax : withdrawMax;
+                        val.options = this.maxAmount;
                     }
                 });
 

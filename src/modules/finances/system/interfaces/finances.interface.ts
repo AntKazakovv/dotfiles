@@ -1,7 +1,15 @@
+import {IIndexing} from 'wlc-engine/modules/core';
 
 export interface IFinancesConfig {
     fastDeposit: IFastDeposit;
-    payment?: IAutoSelect;
+    payment?: IPaySystemAutoSelect;
+    bonusesInDeposit?: {
+        use?: boolean;
+        autoSelect?: {
+            use?: boolean,
+            index?: number | IAutoSelectByDevice<number>;
+        };
+    };
 }
 
 export interface IFastDeposit {
@@ -37,12 +45,21 @@ export interface IBet {
     Merchant: string;
 }
 
-export interface IAutoSelect {
+export interface IPaySystemAutoSelect {
     autoSelect: boolean;
-    alias?: string | number | IAliasByDevice;
+    alias?: number | string | IAutoSelectByDevice<number | string>;
 }
 
-export interface IAliasByDevice {
-    mobile?: string | number;
-    desktop?: string | number;
+export interface IDepositBonusAutoSelect {
+    autoSelect: boolean;
+    index?: number | IAutoSelectByDevice<number>;
 }
+
+export interface IAutoSelectByDevice<T> {
+    mobile?: T;
+    desktop?: T;
+}
+
+export type TAdditionalParams = IIndexing<string | number> & {
+    bonusId?: number | null;
+};

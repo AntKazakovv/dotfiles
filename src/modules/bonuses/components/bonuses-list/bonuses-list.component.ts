@@ -271,7 +271,6 @@ export class BonusesListComponent extends AbstractComponent implements OnInit, O
     protected setSubscription(): void {
         this.eventService.subscribe([
             {name: BonusItemComponentEvents.reg},
-            {name: BonusItemComponentEvents.deposit},
         ], (bonus: Bonus): void => {
 
             this.bonusesService.unchooseAllBonuses();

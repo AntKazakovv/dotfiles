@@ -97,6 +97,7 @@ import {PlugComponent} from './components/plug/plug.component';
 import {IconListItemComponent} from './components/icon-list-item/icon-list-item.component';
 import {WrapperComponent} from 'wlc-engine/modules/core/components';
 import {ThemeTogglerComponent} from './components/theme-toggler/theme-toggler.component';
+import {AlertComponent} from './components/alert/alert.component';
 // -- COMPONENTS IMPORTS END  --;
 
 //  -- DIRECTIVES IMPORTS STARTS--;
@@ -134,6 +135,7 @@ export const moduleConfig =
     GlobalHelper.mergeConfig<ICoreConfig>(coreConfig, _get($config, '$core', {}));
 
 export const components = {
+    'wlc-alert': AlertComponent,
     'wlc-animate-sprite': AnimateSpriteComponent,
     'wlc-amount-limit': AmountLimitComponent,
     'wlc-birth-field': BirthdayFieldComponent,
@@ -233,6 +235,7 @@ export const components = {
         },
     ],
     declarations: [
+        AlertComponent,
         AnimateSpriteComponent,
         AmountLimitComponent,
         AuthDirective,
@@ -303,6 +306,7 @@ export const components = {
         WrapperComponent,
     ],
     exports: [
+        AlertComponent,
         AnimateSpriteComponent,
         AmountLimitComponent,
         AuthDirective,

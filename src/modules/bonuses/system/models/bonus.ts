@@ -31,10 +31,29 @@ import {
     IBonusesModule,
 } from 'wlc-engine/modules/bonuses/system/interfaces/bonuses.interface';
 
+const disabledReasons = {
+    // Apply to deposit bonuses which paySystems array isn't empty and
+    // don't contains current payment system
+    1: gettext('This bonus is not available for '
+        + 'the selected payment method.'),
+    // Apply to all deposit bonuses in case if
+    // user already has active bonus with `allowStack = false`
+    2: gettext('You currently have an active bonus. '
+        + 'The bonus does not allow stacking. '
+        + 'You have to wager active bonus first or '
+        + 'cancel it to claim new bonus.'),
+    // Apply to deposit bonuses with `allowStack = false` in case if
+    // user already has active bonus with `allowStack = true`
+    3: gettext('Blocked by an active bonus. '
+        + 'You have to wager active bonus first '
+        + 'or cancel it to claim new bonus.'),
+};
+
 export class Bonus extends AbstractModel<IBonus> {
     public isReady: boolean = true;
     public onChooseChange: Subject<boolean> = new Subject<boolean>();
     public icon: string;
+    public disabledBy: null | keyof typeof disabledReasons = null;
 
     protected static $bonuses: IBonusesModule;
     protected _userCurrency: string;
@@ -81,6 +100,12 @@ export class Bonus extends AbstractModel<IBonus> {
 
     public get data(): IBonus {
         return super.data;
+    }
+
+    public get disabledReason(): string {
+        if (this.disabledBy) {
+            return disabledReasons[this.disabledBy];
+        }
     }
 
     public set isChoose(value: boolean) {
@@ -342,6 +367,14 @@ export class Bonus extends AbstractModel<IBonus> {
 
     public get hasPromoCode(): boolean {
         return _isNumber(this.data.PromoCode) ? !!this.data.PromoCode : !!this.data.PromoCode?.length;
+    }
+
+    public get paySystems(): number[] {
+        let result: number[] = [];
+        if (this.data.PaySystems?.[0] !== 'all') {
+            result = _map(this.data.PaySystems, Number);
+        }
+        return result;
     }
 
     public get promoCodeUsed(): string {

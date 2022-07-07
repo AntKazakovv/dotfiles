@@ -21,7 +21,8 @@
             </div>
         </div>
     </div>
-    <div wlc-bonus-buttons
+    <div *ngIf="!$params.hideBonusButtons"
+        wlc-bonus-buttons
         class="{{$class}}__btns"
         [bonus]="bonus"
         [bonusItemTheme]="$params.bonusItemTheme"></div>
