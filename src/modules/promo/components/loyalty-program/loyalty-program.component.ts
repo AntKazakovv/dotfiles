@@ -109,7 +109,7 @@ export class LoyaltyProgramComponent extends AbstractComponent implements OnInit
      * @param {number} idx - ordinal number of level
      * @returns {ILoyaltyLevelCParams} `inlineParams` for `[wlc-loyalty-level]` component
      */
-    protected getLoyaltyLevelParams(level: LoyaltyLevelModel, idx: number): ILoyaltyLevelCParams {
+    public getLoyaltyLevelParams(level: LoyaltyLevelModel, idx: number): ILoyaltyLevelCParams {
         return {
             name: level.name,
             level: String(level.level),

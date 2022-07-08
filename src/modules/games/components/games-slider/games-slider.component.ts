@@ -23,9 +23,11 @@ import {
     DeviceType,
     ModalService,
     AbstractComponent,
+    IWrapperCParams,
 } from 'wlc-engine/modules/core';
 import {
     ISlide,
+    ISliderCParams,
     SliderComponent,
 } from 'wlc-engine/modules/promo';
 import {Game} from 'wlc-engine/modules/games/system/models/game.model';
@@ -53,6 +55,7 @@ export class GamesSliderComponent extends AbstractComponent implements OnInit {
     public isActive: boolean = false;
     public mockGamesList: Game[] = [];
     public gamesList: Game[] = [];
+    public sliderConfig: IWrapperCParams;
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IGamesSliderCParams,
@@ -135,7 +138,27 @@ export class GamesSliderComponent extends AbstractComponent implements OnInit {
                     },
                 };
             });
+
+            this.setSliderConfig();
         }
+    }
+
+    protected setSliderConfig(): void {
+        this.sliderConfig = {
+            class: `${this.$class}__wrapper`,
+            components: [
+                {
+                    name: 'promo.wlc-slider',
+                    params: <ISliderCParams>{
+                        ...this.$params.sliderParams,
+                        class: `${this.$class}__slider`,
+                        slides: this.slides,
+                    },
+                },
+            ],
+        };
+
+        this.cdr.markForCheck();
     }
 
     protected fillGamesList(): void {
