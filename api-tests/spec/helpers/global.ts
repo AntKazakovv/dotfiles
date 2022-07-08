@@ -2,7 +2,7 @@ import {IData} from 'wlc-engine/modules/core';
 
 const projectUrl = process.env.PROJECT_URL || 'https://test-devcasino.egamings.com';
 
-export type TLoginResponse = Record<'cookie', string>
+export type TLoginResponse = Record<'cookie', string>;
 
 export const fetch = require('node-fetch');
 

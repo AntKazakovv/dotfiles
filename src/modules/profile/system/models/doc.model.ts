@@ -109,7 +109,7 @@ export class DocModel extends AbstractDocModel<IUserDoc> {
      * @returns {string}
      */
     public get statusDescription(): string {
-        return this.data.StatusDescription;
+        return String(this.data.StatusDescription);
     }
 
     /**
@@ -172,7 +172,7 @@ export class DocModel extends AbstractDocModel<IUserDoc> {
      * @returns {string}
      */
     public get description(): string {
-        return this.data.Description;
+        return String(this.data.Description);
     }
 
     /**

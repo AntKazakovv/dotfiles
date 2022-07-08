@@ -17,13 +17,13 @@ export interface IUserDoc {
     IDUser: number;
     IDVerifier: number;
     Status: ValidationStatus;
-    StatusDescription: string;
+    StatusDescription: string | number;
     AddDate: string;
-    UpdateDate: string;
+    UpdateDate: string | null;
     FileName: string;
     FileType: string;
     DocType: string;
-    Description: string;
+    Description: string | number;
     Link: string;
     DownloadLink: string;
 }
