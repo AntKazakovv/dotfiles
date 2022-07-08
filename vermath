@@ -18,7 +18,7 @@ def normal_increase(v):
     return v[0:3]
 
 def minor_increase(v):
-    if not (v[3] == 'rc'):
+    if not (len(v) > 3 and v[3] == 'rc'):
         v[1] = v[1]+1
         v[2] = 0
     return v[0:3]
