@@ -23,11 +23,11 @@
 
     &:disabled {
         background: ef.get-value($themeDefault, 'backgroundDisabled');
+        opacity: ef.get-value($themeDefault, 'disabledOpacity');
+        pointer-events: none;
     }
 
     &:enabled {
-        opacity: ef.get-value($themeDefault, 'disabledOpacity');
-        pointer-events: none;
         @include bm.hover {
             background: ef.get-value($themeDefault, 'backgroundHover');
             box-shadow: ef.get-value($themeDefault, 'shadowHover');
