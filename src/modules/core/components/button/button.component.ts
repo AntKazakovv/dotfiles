@@ -11,7 +11,6 @@ import {
     OnDestroy,
     OnInit,
     HostBinding,
-    SimpleChanges,
 } from '@angular/core';
 import {
     RawParams,
@@ -64,7 +63,6 @@ export class ButtonComponent extends AbstractComponent implements OnInit,
     @Input() public sref: string;
     @Input() public srefParams: RawParams;
 
-    @Input() protected disabled: boolean;
     @Input() protected type: Params.Type;
     @Input() protected typeAttr: string;
     @Input() protected theme: Params.Theme;
@@ -81,10 +79,6 @@ export class ButtonComponent extends AbstractComponent implements OnInit,
     public $params: Params.IButtonCParams;
     protected $loading = new Subject<boolean>();
     @HostBinding('attr.type') get typeAttrValue() {return this.params?.common?.typeAttr || this.typeAttr;}
-
-    @HostBinding('attr.disabled') get disabledAttrValue(): boolean {
-        return this.params?.common?.disabled;
-    }
 
     constructor(
         @Inject('injectParams')
@@ -108,13 +102,13 @@ export class ButtonComponent extends AbstractComponent implements OnInit,
         this.ready = true;
     }
 
-    public ngOnChanges(changes: SimpleChanges) {
+    public ngOnChanges(changes) {
         if (!this.ready) {
             return;
         }
-        
+
         super.ngOnChanges(changes);
-        if (_has(changes, 'text') && _has(this, '$params.common.text')) {
+        if (_get(changes, 'text') && _get(this, '$params.common.text')) {
             this.$params.common.text = this.text;
         }
 
@@ -151,7 +145,6 @@ export class ButtonComponent extends AbstractComponent implements OnInit,
         }
 
         const inputProperties: string[] = [
-            'disabled',
             'text',
             'size',
             'icon',

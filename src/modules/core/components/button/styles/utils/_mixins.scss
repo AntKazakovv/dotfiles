@@ -7,7 +7,6 @@
 
 @mixin buttonBase {
     @include bm.get-mq-map('height', $themeDefault, 'heightDefault');
-
     display: grid;
     grid-column-gap: ef.get-value($themeDefault, 'gap');
     grid-template-columns: auto 1fr auto;
@@ -21,24 +20,16 @@
     border: ef.get-value($themeDefault, 'borderDefault');
     border-radius: ef.get-value($themeDefault, 'borderRadiusDefault');
 
-    &:disabled {
-        background: ef.get-value($themeDefault, 'backgroundDisabled');
-        opacity: ef.get-value($themeDefault, 'disabledOpacity');
-        pointer-events: none;
-    }
-
-    &:enabled {
-        @include bm.hover {
-            background: ef.get-value($themeDefault, 'backgroundHover');
-            box-shadow: ef.get-value($themeDefault, 'shadowHover');
-            border: ef.get-value($themeDefault, 'borderDefaultHover');
-        }
-    }
-
     .wlc-btn__text {
         @include text.get-text-style('ButtonText', ef.get-value($themeDefault, 'fontColor'));
         grid-column: 2;
         text-transform: ef.get-value($themeDefault, 'textTransform');
+    }
+
+    @include bm.hover {
+        background: ef.get-value($themeDefault, 'backgroundHover');
+        box-shadow: ef.get-value($themeDefault, 'shadowHover');
+        border: ef.get-value($themeDefault, 'borderDefaultHover');
     }
 }
 
