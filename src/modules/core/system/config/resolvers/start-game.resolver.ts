@@ -435,11 +435,12 @@ class StartGameHandler {
         }
 
         await this.configService.ready;
+        await this.injectionService.getService<BonusesService>('user.user-service');
 
         const userInfo: UserInfo = await firstValueFrom(
             this.configService.get<BehaviorSubject<UserInfo>>({name: '$user.userInfo$'})
                 .pipe(
-                    first((userInfo: UserInfo): boolean => !!userInfo.idUser),
+                    first((userInfo: UserInfo): boolean => !!userInfo?.idUser),
                 ),
         );
 
