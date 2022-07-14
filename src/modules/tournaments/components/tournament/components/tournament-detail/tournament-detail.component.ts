@@ -209,10 +209,10 @@ export class TournamentDetailComponent extends AbstractComponent implements
             });
         }
 
-        this.loadMenuComponent();
+        this.initMenuComponent();
     }
 
-    private loadMenuComponent(): void {
+    private initMenuComponent(): void {
         this.menuConfig = {
             components: [
                 {

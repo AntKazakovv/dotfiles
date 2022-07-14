@@ -130,7 +130,7 @@ $selector: '.wlc-tournament-detail';
             @include bm.get-mq-map('border-bottom', $themeDefault, 'headerBorderBottom');
             @include bm.get-mq-map('background', $themeDefault, 'anchorsBg');
 
-            &.wlc-menu {
+            .wlc-menu {
                 @include bm.get-mq-map('padding', $themeDefault, 'anchorsMenuPadding');
                 @include bm.get-mq-map('align-items', $themeDefault, 'anchorsMenuAlignItems');
                 @include bm.get-mq-map('justify-content', $themeDefault, 'anchorsMenuJustifyContent');

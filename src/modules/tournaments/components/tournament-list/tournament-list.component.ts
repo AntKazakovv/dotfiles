@@ -99,7 +99,7 @@ export class TournamentListComponent
             this.sliderParams.swiper = this.$params.common?.swiper;
         }
 
-        this.loadSliderComponents();
+        this.initSliderComponents();
 
         this.subscribeOnTournamentLeave();
         this.subscribeOnErrorGettingTournaments();
@@ -175,6 +175,8 @@ export class TournamentListComponent
                         this.tournamentsToSlides(true);
                     }
 
+                    this.initSliderComponents();
+
                     this.isReady = true;
                     this.cdr.markForCheck();
                 },
@@ -243,7 +245,7 @@ export class TournamentListComponent
         }
     }
 
-    protected loadSliderComponents(): void {
+    protected initSliderComponents(): void {
         this.bannerSliderConfig = {
             components: [
                 {
