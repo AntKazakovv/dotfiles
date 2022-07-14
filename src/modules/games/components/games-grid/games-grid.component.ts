@@ -774,23 +774,20 @@ export class GamesGridComponent extends AbstractComponent implements OnInit, OnD
 
     protected loadSlidersComponentsOnReady(): void {
         if (this.isReadyOrUsePlaceholder && this.hasGames) {
-            this.loadGameSliders();
+            this.initGameSliders();
 
             if (this.$params.bannerSettings) {
-                this.loadBannersSlider();
+                this.initBannersSlider();
             }
         }
     }
 
-    protected loadGameSliders(): void {
+    protected initGameSliders(): void {
         const createConfig = (slides: ISlide[]): IFormWrapperCParams => ({
             components: [
                 {
                     name: 'promo.wlc-slider',
-                    params: <ISliderCParams>{
-                        slides,
-                        ...this.$params.showAsSwiper.sliderParams,
-                    },
+                    params: <ISliderCParams>_merge({slides}, this.$params.showAsSwiper?.sliderParams),
                 },
             ],
         });
@@ -802,7 +799,7 @@ export class GamesGridComponent extends AbstractComponent implements OnInit, OnD
         }
     }
 
-    protected loadBannersSlider(): void {
+    protected initBannersSlider(): void {
         this.bannerSliderConfig = {
             components: [
                 {

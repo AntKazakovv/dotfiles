@@ -11,16 +11,12 @@ import {
 } from '@angular/core';
 
 import {BehaviorSubject} from 'rxjs';
-import {
-    first,
-    takeUntil,
-} from 'rxjs/operators';
 
 import {IconListAbstract} from 'wlc-engine/modules/core/system/classes/icon-list-abstract.class';
 import {
     ConfigService,
     EventService,
-    IFormWrapperCParams,
+    IWrapperCParams,
     ModalService,
 } from 'wlc-engine/modules/core';
 import {
@@ -59,9 +55,9 @@ export class ProviderLinksComponent extends IconListAbstract<Params.IProviderLin
     public sliderParams: ISliderCParams = {
         swiper: {},
     };
-    public sliderConfig: IFormWrapperCParams = {components: []};
 
     protected $itemsChanges = new BehaviorSubject<IconModel[]>([]);
+    protected sliderConfig: IWrapperCParams;
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IProviderLinksCParams,
@@ -76,7 +72,6 @@ export class ProviderLinksComponent extends IconListAbstract<Params.IProviderLin
 
     public ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
-        this.loadSliderComponentOnSliderType();
     }
 
     public async ngAfterViewInit(): Promise<void> {
@@ -88,6 +83,8 @@ export class ProviderLinksComponent extends IconListAbstract<Params.IProviderLin
         }
         this.setMerchantsList();
         this.setSliderParams();
+        this.initSliderComponent();
+
         this.ready = true;
     }
 
@@ -141,6 +138,8 @@ export class ProviderLinksComponent extends IconListAbstract<Params.IProviderLin
         );
         this.$itemsChanges.next(this.items);
 
+        this.initSliderComponent();
+
         this.cdr.markForCheck();
     }
 
@@ -157,28 +156,14 @@ export class ProviderLinksComponent extends IconListAbstract<Params.IProviderLin
         this.cdr.markForCheck();
     }
 
-    protected loadSliderComponentOnSliderType(): void {
-        this.$itemsChanges
-            .pipe(
-                first((items: IconModel[]) => {
-                    const hasItems = this.ready && items.length;
-                    const isTypeSlider = this.$params.type === 'slider';
-
-                    return hasItems && isTypeSlider;
-                }),
-                takeUntil(this.$destroy),
-            )
-            .subscribe(() => this.loadSliderComponent());
-    }
-
-    protected loadSliderComponent(): void {
+    protected initSliderComponent(): void {
         this.sliderConfig = {
             components: [
                 {
                     name: 'promo.wlc-slider',
                     params: <ISliderCParams>{
                         slides: this.slides,
-                        swiper: this.sliderParams,
+                        ...this.sliderParams,
                     },
                 },
             ],
