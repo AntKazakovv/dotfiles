@@ -47,6 +47,7 @@ import _get from 'lodash-es/get';
 import _has from 'lodash-es/has';
 import _set from 'lodash-es/set';
 import _reverse from 'lodash-es/reverse';
+import _isArray from 'lodash-es/isArray';
 
 export interface IData<T = any> {
     status: 'success' | 'error';
@@ -412,13 +413,13 @@ export class DataService {
                                 requestBody,
                             ).pipe(
                                 catchError((e: HttpErrorResponse): Observable<never> => {
-                                    this.emitRequestFail('0.0.15', method, error?.message || error?.status || error);
-                                    return throwError(e.error || error);
+                                    this.emitRequestFail('0.0.15', method, e);
+                                    return throwError(e.error || e);
                                 }),
                             );
                         }
 
-                        this.emitRequestFail('0.0.15', method, error?.message || error?.status || error);
+                        this.emitRequestFail('0.0.15', method, error);
                         const errData: IData = {
                             name: method.name,
                             system: method.system,
@@ -495,12 +496,12 @@ export class DataService {
         );
     }
 
-    protected emitRequestFail(code: string, method: IRegisteredMethod, error: unknown): void {
-        this.sendLog(code, method, error);
+    protected emitRequestFail(code: string, method: IRegisteredMethod, error: HttpErrorResponse | string[]): void {
+        this.sendLog(code, method, _isArray(error) ? error : error.message);
         if (method.events?.fail) {
             this.eventService.emit({
                 name: method.events.fail,
-                data: error,
+                data: _isArray(error) ? error : (error.error || error),
             });
         }
     }
