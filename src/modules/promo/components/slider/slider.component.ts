@@ -229,9 +229,13 @@ export class SliderComponent extends AbstractComponent
     }
 
     protected initNavigation(): void {
-        this.swiper.swiperRef.navigation.destroy();
-        this.swiper.swiperRef.navigation.init();
-        this.swiper.swiperRef.navigation.update();
+        const navigation = this.swiper.swiperRef?.navigation;
+
+        if (navigation) {
+            navigation?.destroy();
+            navigation?.init();
+            navigation?.update();
+        }
     }
 
     protected initObserver(): void {
