@@ -103,14 +103,12 @@ export class GamesSliderComponent extends AbstractComponent implements OnInit {
      */
     public startScrollingSwiper(): void {
         this.isActive = true;
-
-        const swiperAutoplay = this.slider.swiper?.swiperRef?.autoplay;
-        swiperAutoplay?.start();
+        this.slider.swiper.swiperRef.autoplay.start();
 
         timer(_random(this.$params.minTimer, this.$params.maxTimer))
             .pipe(takeUntil(this.$destroy))
             .subscribe((): void => {
-                swiperAutoplay?.stop();
+                this.slider.swiper.swiperRef.autoplay.stop();
                 this.isActive = false;
                 this.cdr.markForCheck();
             });
