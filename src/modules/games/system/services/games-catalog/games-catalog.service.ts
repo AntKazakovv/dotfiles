@@ -330,7 +330,7 @@ export class GamesCatalogService {
     public async getFavouriteGames(): Promise<Game[]> {
         return this.favourites = await this.loadSpecialCategoryGames<IFavourite>(
             'favorites',
-            (item: IFavourite) => item.game_id,
+            (item: IFavourite) => String(item.game_id),
         );
     }
 

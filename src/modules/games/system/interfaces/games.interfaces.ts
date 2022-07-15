@@ -297,8 +297,8 @@ export type IJackpot = {
 }
 
 export type IFavourite = {
-    game_id: string;
-    favorite?: boolean;
+    game_id: string | number;
+    favorite?: boolean | number;
 }
 
 export interface ILastPlayedGame {

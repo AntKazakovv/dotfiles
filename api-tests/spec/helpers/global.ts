@@ -2,13 +2,15 @@ import {IData} from 'wlc-engine/modules/core';
 
 const projectUrl = process.env.PROJECT_URL || 'https://test-devcasino.egamings.com';
 
+export type TLoginResponse = Record<'cookie', string>
+
 export const fetch = require('node-fetch');
 
 export const getRequestUrl = (request: string): string => {
     return projectUrl + request;
 };
 
-export const login = async () => {
+export const login = async (): Promise<TLoginResponse> => {
     const login = await fetch(getRequestUrl('/api/v1/auth'), {
         method: 'PUT',
         body: JSON.stringify({
