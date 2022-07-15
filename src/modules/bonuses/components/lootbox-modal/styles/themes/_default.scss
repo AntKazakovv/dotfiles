@@ -24,6 +24,16 @@
                     }
                 }
             }
+
+            .wlc-bonus-item__more-icon {
+                @include bm.get-mq-map('top', $themeDefault, 'bonusMoreIconTop');
+                @include bm.get-mq-map('right', $themeDefault, 'bonusMoreIconRight');
+
+                .icon-btn {
+                    @include bm.get-mq-map('width', $themeDefault, 'bonusMoreIconSize');
+                    @include bm.get-mq-map('height', $themeDefault, 'bonusMoreIconSize');
+                }
+            }
         }
     }
 
@@ -166,6 +176,10 @@
     }
 
     ::ng-deep {
+
+        .swiper-slide {
+            @include bm.get-mq-map('width', $themeDefault, 'slideWidth');
+        }
 
         .swiper {
             @include bm.get-mq-map('padding', $themeDefault, 'swiperPadding');

@@ -106,6 +106,12 @@ $themeDefault: map-merge((
         320: 50px,
         560: 60px,
     ),
+    'slideWidth': (
+        375: 108px,
+        480: 140px,
+        560: 165px,
+        640: 190px,
+    ),
 
     'bonusItemFilter': brightness(0.8),
     'bonusItemShadow': 0 0 8px 0 var(--mc-main),
@@ -119,4 +125,19 @@ $themeDefault: map-merge((
         560: ef.size(10) ef.size(6),
     ),
     'swiperScrollFunction': cubic-bezier(0.27, 0.9, 0.55, 0.98),
+    'bonusMoreIconTop': (
+        375: 5px,
+        480: 10px,
+        560: 20px,
+    ),
+    'bonusMoreIconRight': (
+        375: 5px,
+        480: 10px,
+        560: 20px,
+    ),
+    'bonusMoreIconSize': (
+        375: 18px,
+        480: 20px,
+        560: 24px,
+    )
 ), $customThemeDefault);

@@ -143,7 +143,7 @@
 </ng-template>
 
 <ng-template #openLootbox>
-    <button *ngIf="bonus.isLootbox && bonus.canUnsubscribe"
+    <button *ngIf="bonus.isLootbox && bonus.inventoried"
             wlc-button
             text="{{'Open' | translate}}"
             typeAttr="button"

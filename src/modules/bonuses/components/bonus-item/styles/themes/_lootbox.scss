@@ -4,6 +4,13 @@
 
     .wlc-bonus-item {
 
+        &__icon-text {
+            @include text.get-text-style(ef.get-value($themeLootbox, 'imageIconFontStyle'),
+            ef.get-value($themeLootbox, 'imageIconColor'));
+            @include bm.get-mq-map('bottom', $themeLootbox, 'imageIconBottom');
+            min-height: ef.get-value($themeLootbox, 'imageIconMinHeight');
+        }
+
         &__image-block {
             @include bm.get-mq-map('padding', $themeLootbox, 'imageBlockPadding');
             display: grid;
@@ -35,10 +42,15 @@
                 ef.get-value($themeLootbox, 'nameTextStyle', 320),
                 ef.get-value($themeLootbox, 'nameFontColor'),
             );
+            @include bm.get-mq-map('font-size', $themeLootbox, 'nameFontSize');
             max-width: 100%;
 
-            @include mq.min(560) {
-                @include text.get-text-style(ef.get-value($themeLootbox, 'nameTextStyle', 560), null);
+            @include mq.min(480) {
+                @include text.get-text-style(ef.get-value($themeLootbox, 'nameTextStyle', 480), null);
+            }
+
+            @include mq.min(640) {
+                @include text.get-text-style(ef.get-value($themeLootbox, 'nameTextStyle', 640), null);
             }
         }
     }
@@ -72,6 +84,17 @@
 
             &__bottom {
                 @include bm.get-mq-map('padding', $themeLootbox, 'bottomPaddingFp');
+            }
+
+            &__name {
+                @include text.get-text-style(
+                    ef.get-value($themeLootbox, 'nameTextStyleFp', 320),
+                    ef.get-value($themeLootbox, 'nameFontColor'),
+                );
+
+                @include mq.min(560) {
+                    @include text.get-text-style(ef.get-value($themeLootbox, 'nameTextStyleFp', 560), null);
+                }
             }
         }
     }

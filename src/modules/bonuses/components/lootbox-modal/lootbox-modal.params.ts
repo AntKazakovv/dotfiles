@@ -28,7 +28,7 @@ export const defaultParams: Partial<ILootboxModalCParams> = {
     initialSlides: 5,
     sliderParams: {
         swiper: {
-            slidesPerView: 3,
+            slidesPerView: 'auto',
             initialSlide: 2,
             spaceBetween: 10,
             speed: 3500,

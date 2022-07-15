@@ -35,8 +35,6 @@ export interface IBonusItemCParams extends IComponentParams<Theme, Type, ThemeMo
     dummy?: boolean;
     /** Make the bonus logic independent of the profile */
     noDependsOnProfile?: boolean;
-    /** Showing value bonus */
-    showValue?: boolean;
     common?: {
         customModifiers?: CustomMod;
         showAdditionalImage?: boolean;

@@ -371,7 +371,6 @@ export class BonusesListComponent extends AbstractComponent implements OnInit, O
                         themeMod: this.$params.themeMod,
                         type: this.$params.common.filter,
                         bonus: item,
-                        showValue: !item.isLootbox,
                     },
                     this.$params.itemsParams || {},
                 ),

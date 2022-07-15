@@ -431,7 +431,7 @@
                 </span>
             </div>
         </ng-template>
-        <span *ngIf="bonus.value && $params.showValue"
+        <span *ngIf="bonus.value && !bonus.isLootbox"
             class="{{$class}}__icon-text"
             [wlc-value-length]="bonus.value"
             minLength="4"
