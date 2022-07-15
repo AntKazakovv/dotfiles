@@ -55,9 +55,9 @@ export class ProviderLinksComponent extends IconListAbstract<Params.IProviderLin
     public sliderParams: ISliderCParams = {
         swiper: {},
     };
+    public sliderConfig: IWrapperCParams;
 
     protected $itemsChanges = new BehaviorSubject<IconModel[]>([]);
-    protected sliderConfig: IWrapperCParams;
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IProviderLinksCParams,
