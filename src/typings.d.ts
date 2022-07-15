@@ -100,3 +100,5 @@ declare interface Window extends TAnalyticMethod {
     // digitain iframe navigation handler
     digitainOnNavigate?: TDigitainOnNavigate;
 }
+
+declare const WLC_VERSION: number;

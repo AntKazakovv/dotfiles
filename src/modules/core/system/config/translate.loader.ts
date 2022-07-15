@@ -6,7 +6,7 @@ import {HttpClient} from '@angular/common/http';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 
 export function HttpLoaderFactory(http: HttpClient) {
-    return new TranslateHttpLoader(http, './static/languages/', '.json');
+    return new TranslateHttpLoader(http, './static/languages/', `.json?v=${WLC_VERSION}`);
 }
 
 export class MissingTranslationService implements MissingTranslationHandler {

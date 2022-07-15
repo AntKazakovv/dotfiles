@@ -9,6 +9,10 @@ import {
 import {APP_BASE_HREF} from '@angular/common';
 import {NgModule} from '@angular/core';
 
+declare namespace globalThis {
+    let WLC_VERSION: number;
+}
+
 declare const require: {
     context(path: string, deep?: boolean, filter?: RegExp): {
         keys(): string[];
@@ -25,6 +29,9 @@ declare const require: {
     ],
 })
 export class CustomTestModule {}
+
+// Init uniq value
+globalThis.WLC_VERSION = new Date().getTime();
 
 // First, initialize the Angular testing environment.
 getTestBed().initTestEnvironment(
