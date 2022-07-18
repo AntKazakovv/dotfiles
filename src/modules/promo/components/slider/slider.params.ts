@@ -3,6 +3,7 @@ import {
     TemplateRef,
     Injector,
 } from '@angular/core';
+import {Subject} from 'rxjs';
 import {SwiperOptions} from 'swiper';
 import {NavigationOptions} from 'swiper/types';
 
@@ -14,6 +15,7 @@ import {
 export type ComponentTheme = 'default' | CustomType;
 export type ComponentType = 'default' | CustomType;
 export type ComponentThemeMod = 'default' | 'ears' | CustomType;
+export type TSwiperEvent = 'start' | 'stop';
 
 export interface ISlide {
     /** Allow to past Component */
@@ -44,6 +46,7 @@ export interface ISliderCParams extends IComponentParams<ComponentTheme, Compone
      * Component class. The default is "wlc-slider".
      */
     class?: string;
+    events?: Subject<TSwiperEvent>;
 };
 
 export const defaultParams: ISliderCParams = {
