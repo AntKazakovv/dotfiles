@@ -1,6 +1,4 @@
 /* eslint-disable no-restricted-globals */
-import {Fingerprint2} from './_fingerprint2';
-
 export interface IFlogData {
     code: string;
     level?: string;
@@ -12,7 +10,6 @@ export class WlcFlog {
     public readonly enabled: boolean = false;
     public readonly startTime: Date = new Date();
 
-    private _fingerprint: string;
     private isReadyResolve: () => void;
     private isReady: Promise<void> = new Promise((resolve: () => void) => {
         this.isReadyResolve = resolve;
@@ -28,19 +25,7 @@ export class WlcFlog {
         }
         this.addListeners();
         this.sendInitLog().finally();
-        (Fingerprint2 as any).getHash().finally(() => {
-            this._fingerprint = window['fingerprintHash'] || '';
-            this.isReadyResolve();
-        });
-    }
-
-    /**
-     * Fingerprint hash
-     *
-     * @returns {string}
-     */
-    public get fingerprint(): string {
-        return this._fingerprint;
+        this.isReadyResolve();
     }
 
     /**
@@ -124,9 +109,6 @@ export class WlcFlog {
         if (!data || !data.code || !data.level) {
             return '';
         }
-        if (this.fingerprint) {
-            data.hash = this.fingerprint;
-        }
         try {
             return JSON.stringify(data);
         } catch (e) {
@@ -135,9 +117,9 @@ export class WlcFlog {
     }
 
     /**
-     * 
+     *
      * Set type of project base ('theme' | 'engine')
-     * 
+     *
      * @param {IFlogData} data Log data
      */
     private setVersion(data: IFlogData): void {

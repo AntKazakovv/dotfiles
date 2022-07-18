@@ -5,6 +5,7 @@ import {MocksInterceptor} from 'wlc-engine/modules/core/system/interceptors/mock
 import {UrlInterceptor} from 'wlc-engine/modules/core/system/interceptors/url.interceptor';
 import {GlobalHelper} from 'wlc-engine/modules/core/system/helpers/global.helper';
 import {NonceInterceptor} from 'wlc-engine/modules/core/system/interceptors/nonce.interceptor';
+import {FingerprintInterceptor} from 'wlc-engine/modules/core/system/interceptors/fingerprint.interceptor';
 
 function initInterceptors(): Provider[] {
     const interceptors: Provider[] = [
@@ -21,6 +22,11 @@ function initInterceptors(): Provider[] {
         {
             provide: HTTP_INTERCEPTORS,
             useClass: MocksInterceptor,
+            multi: true,
+        },
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: FingerprintInterceptor,
             multi: true,
         },
     ];

@@ -44,6 +44,7 @@ import {
     ColorThemeService,
     AppConfigModel,
     HistoryFilterService,
+    FingerprintService,
 } from './system/services';
 import {RecaptchaService} from './system/services/recaptcha/recaptcha.service';
 // -- SERVICES IMPORTS END  --;
@@ -261,6 +262,7 @@ export const services = {
         GlobalHelper.bootstrapProviders(NotificationService),
         BodyClassService,
         RecaptchaService,
+        FingerprintService,
         ColorThemeService,
         HistoryFilterService,
         ...interceptors,

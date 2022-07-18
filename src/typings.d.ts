@@ -132,8 +132,6 @@ declare interface Window extends TAnalyticMethod {
     wlcSentryConfig?: ISentryConfig;
     testSessionHash?: string;
     wlcPreload: any;
-    Fingerprint2?: any;
-    fingerprintHash?: string;
     requestIdleCallback?: any;
     Chatra?: any;
     ChatraSetup?: any;

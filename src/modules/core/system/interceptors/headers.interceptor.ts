@@ -80,10 +80,6 @@ export class HeadersInterceptor implements HttpInterceptor {
         }
 
         if (req.url.includes('/api/v1/')) {
-            req = req.clone({
-                headers: req.headers.set('X-UA-Fingerprint', this.window['fingerprintHash'] || ''),
-            });
-
             const jwtAuthToken: string = this.configService.get({
                 name: 'jwtAuthToken',
                 storageType: 'localStorage',

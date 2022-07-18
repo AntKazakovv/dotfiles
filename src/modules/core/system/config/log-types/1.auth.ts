@@ -295,4 +295,8 @@ export const errorTypes: ILogTypes = {
         // New device verification failure
         level: 'error',
     },
+    '1.9.1': {
+        // Error generation fingerprint hash
+        level: 'error',
+    },
 };
