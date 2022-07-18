@@ -185,14 +185,20 @@
     }
 
     .wlc-body--sticky-header & {
+        $class: &;
+
         position: sticky;
-        top: -1px;
+        top: 0;
         width: 100%;
         background: ef.get-value($stickyHeader, 'headerBackground');
         transform: translateY(0%);
 
         .container {
             @include bm.get-mq-map('min-height', $stickyHeader, 'headerMinHeight');
+        }
+
+        @at-root .wlc-body--os-ios#{$class} {
+            top: -1px;
         }
     }
 

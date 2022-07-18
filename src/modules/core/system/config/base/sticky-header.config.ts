@@ -4,4 +4,5 @@ export const stickyHeaderConfig: IStickyHeaderConfig = {
     use: false,
     useCustomUserInfo: false,
     scrollingGap: 35,
+    stickyMobile: false,
 };

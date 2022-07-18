@@ -8,7 +8,10 @@ import {
 } from '@angular/core';
 import {DOCUMENT} from '@angular/common';
 
-import {fromEvent} from 'rxjs';
+import {
+    fromEvent,
+    asyncScheduler,
+} from 'rxjs';
 import {
     map,
     pairwise,
@@ -58,6 +61,7 @@ export class BodyClassService {
     private scrollingGap: number;
     private observer: MutationObserver;
     private paddingTrottle: ReturnType<typeof setTimeout>;
+    private stickyHeaderMobile: boolean;
 
     constructor(
         @Inject(DOCUMENT) private document: Document,
@@ -245,9 +249,10 @@ export class BodyClassService {
     private useStickyHeader(): void {
         this.addModifier('wlc-body--sticky-header');
         this.scrollingGap = this.configService.get('$base.stickyHeader.scrollingGap');
+        this.stickyHeaderMobile = this.configService.get<boolean>('$base.stickyHeader.stickyMobile');
 
         fromEvent(this.window, 'scroll').pipe(
-            throttleTime(10),
+            throttleTime(10, asyncScheduler,{leading: false, trailing: true}),
             map((): number => this.window.pageYOffset),
             pairwise(),
             map(([y1, y2]: number[]): ScrollingDirection => {
@@ -272,7 +277,9 @@ export class BodyClassService {
                     break;
                 case ScrollingDirection.Down:
                     if ((this.window.pageYOffset - this.scrollStopPosition) > this.scrollingGap) {
-                        this.addModifier('wlc-body--sticky-header-down');
+                        if (!this.stickyHeaderMobile) {
+                            this.addModifier('wlc-body--sticky-header-down');
+                        }
                         this.scrollStopPosition = this.window.pageYOffset;
                     }
                     break;
