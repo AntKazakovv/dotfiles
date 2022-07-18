@@ -10,7 +10,6 @@ import {
 } from '@angular/core';
 
 import _union from 'lodash-es/union';
-
 import {
     AbstractComponent,
     IMixedParams,
@@ -66,8 +65,8 @@ export class StoreItemComponent extends AbstractComponent implements OnInit, OnD
         this.isProfileFirst = this.configService.get<string>('$base.profile.type') === 'first';
         this.isAuth = this.configService.get<boolean>('$user.isAuthenticated');
         this.storeImage = this.storeItem.image;
-        this.useIconBonusImage = this.storeItem.isBonus && !this.storeImage && 
-            this.configService.get<boolean>('$bonuses.useIconBonusImage');
+        this.useIconBonusImage = this.storeItem.isBonus && !this.storeImage
+            && this.configService.get<boolean>('$bonuses.useIconBonusImage');
         if (!this.storeImage) {
             if (this.isProfileFirst) {
                 this.storeImage = this.$params.common?.defaultPicPathFirst;

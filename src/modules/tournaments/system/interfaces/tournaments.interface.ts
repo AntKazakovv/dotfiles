@@ -164,6 +164,7 @@ export interface IGetSubscribeParams {
 
 export interface IQueryParams {
     type?: string;
+    currency?: string;
 }
 
 export type RestType = 'active' | 'history' | 'any';

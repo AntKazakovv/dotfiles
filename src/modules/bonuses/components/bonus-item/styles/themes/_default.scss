@@ -3,207 +3,210 @@
     overflow: hidden;
     transform: translateZ(0);
 
-    &__tag {
-        @include text.get-text-style(ef.get-value($themeDefault, 'tagTextStyle'), ef.get-value($themeDefault, 'tagFontColor'));
+    .wlc-bonus-item {
 
-        z-index: 5;
-        padding: ef.get-value($themeDefault, 'tagPadding');
-        border-radius: ef.get-value($themeDefault, 'tagRadius');
-        white-space: nowrap;
-        background: ef.get-value($themeDefault, 'tagBg');
-    }
+        &__tag {
+            @include text.get-text-style(ef.get-value($themeDefault, 'tagTextStyle'), ef.get-value($themeDefault, 'tagFontColor'));
 
-    &__name {
-        z-index: 1;
-    }
-
-    &__icon {
-        @include bm.get-mq-map('width', $themeDefault, 'bonusIconSize');
-        @include bm.get-mq-map('height', $themeDefault, 'bonusIconSize');
-
-        position: relative;
-
-        display: flex;
-        align-items: center;
-        justify-content: center;
-
-        &-sign {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border-radius: ef.get-value($themeDefault, 'bonusIconRadius');
-            box-shadow: ef.get-value($themeDefault, 'bonusIconShadow');
+            z-index: 5;
+            padding: ef.get-value($themeDefault, 'tagPadding');
+            border-radius: ef.get-value($themeDefault, 'tagRadius');
+            white-space: nowrap;
+            background: ef.get-value($themeDefault, 'tagBg');
         }
 
-        &-text {
-            @include text.get-text-style(ef.get-value($themeDefault, 'bonusIconTextStyle'), ef.get-value($themeDefault, 'bonusIconValueFontColor'));
+        &__name {
+            z-index: 1;
+        }
 
-            position: absolute;
-            bottom: ef.get-value($themeDefault, 'bonusIconValPosB');
-            left: ef.get-value($themeDefault, 'bonusIconValPosL');
+        &__icon {
+            @include bm.get-mq-map('width', $themeDefault, 'bonusIconSize');
+            @include bm.get-mq-map('height', $themeDefault, 'bonusIconSize');
+
+            position: relative;
 
             display: flex;
             align-items: center;
             justify-content: center;
-            min-width: 45%;
-            min-height: 26px;
-            padding: ef.get-value($themeDefault, 'bonusIconValPadding');
 
-            line-height: 1;
-            background-color: ef.get-value($themeDefault, 'bonusIconValueBg');
-            border-radius: ef.get-value($themeDefault, 'bonusIconValRadius');
-            transform: ef.get-value($themeDefault, 'bonusIconValTransform');
-
-            &.wlc-small {
-                @include text.get-text-style(ef.get-value($themeDefault, 'bonusIconTextStyleSmall'), ef.get-value($themeDefault, 'bonusIconValueFontColor'));
-            }
-
-            &.wlc-smaller {
-                @include text.get-text-style(ef.get-value($themeDefault, 'bonusIconTextStyleSmaller'), ef.get-value($themeDefault, 'bonusIconValueFontColor'));
-            }
-        }
-    }
-
-    &__more-icon {
-        @include bm.get-mq-map('display', $themeDefault, 'moreIconDisplay');
-        @include bm.get-mq-map('top', $themeDefault, 'moreIconPosTop');
-        @include bm.get-mq-map('right', $themeDefault, 'moreIconPosRight');
-
-        position: absolute;
-        z-index: 1;
-        line-height: 1;
-
-        .icon-btn {
-            width: ef.get-value($themeDefault, 'moreIconSize');
-            height: ef.get-value($themeDefault, 'moreIconSize');
-
-            cursor: pointer;
-
-            svg {
-                @include bm.transition(fill);
-
+            &-sign {
+                position: absolute;
+                top: 0;
+                left: 0;
                 width: 100%;
-                fill: ef.get-value($themeDefault, 'moreIconColor');
+                height: 100%;
+                border-radius: ef.get-value($themeDefault, 'bonusIconRadius');
+                box-shadow: ef.get-value($themeDefault, 'bonusIconShadow');
             }
-        }
 
-        @include bm.hover {
+            & .wlc-bonus-item__icon-text {
+                @include text.get-text-style(ef.get-value($themeDefault, 'bonusIconTextStyle'), ef.get-value($themeDefault, 'bonusIconValueFontColor'));
 
-            .icon-btn {
+                position: absolute;
+                bottom: ef.get-value($themeDefault, 'bonusIconValPosB');
+                left: ef.get-value($themeDefault, 'bonusIconValPosL');
 
-                svg {
-                    fill: ef.get-value($themeDefault, 'moreIconColorHover');
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                min-width: 45%;
+                min-height: 26px;
+                padding: ef.get-value($themeDefault, 'bonusIconValPadding');
+
+                line-height: 1;
+                background-color: ef.get-value($themeDefault, 'bonusIconValueBg');
+                border-radius: ef.get-value($themeDefault, 'bonusIconValRadius');
+                transform: ef.get-value($themeDefault, 'bonusIconValTransform');
+
+                &.wlc-small {
+                    @include text.get-text-style(ef.get-value($themeDefault, 'bonusIconTextStyleSmall'), ef.get-value($themeDefault, 'bonusIconValueFontColor'));
+                }
+
+                &.wlc-smaller {
+                    @include text.get-text-style(ef.get-value($themeDefault, 'bonusIconTextStyleSmaller'), ef.get-value($themeDefault, 'bonusIconValueFontColor'));
                 }
             }
         }
-    }
 
-    &__image-block {
-        position: relative;
-    }
+        &__more-icon {
+            @include bm.get-mq-map('display', $themeDefault, 'moreIconDisplay');
+            @include bm.get-mq-map('top', $themeDefault, 'moreIconPosTop');
+            @include bm.get-mq-map('right', $themeDefault, 'moreIconPosRight');
 
-    &__image {
-        background: ef.get-value($themeDefault, 'imageBg');
-    }
-
-    &__active-block {
-        @include bm.get-mq-map('padding', $themeDefault, 'activeBlockPadding');
-        @include bm.get-mq-map('min-height', $themeDefault, 'activeBlockMinHeight');
-
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        width: 100%;
-
-        max-width: ef.get-value($themeDefault, 'activeBlockMaxWidth');
-        margin: ef.get-value($themeDefault, 'activeBlockMargin');
-
-        text-align: ef.get-value($themeDefault, 'activeBlockTextAlign');
-        border-radius: ef.get-value($themeDefault, 'activeBlockRadius');
-    }
-
-    &__timer {
-        margin: ef.get-value($themeDefault, 'activeBlockTimerMargin');
-        border-radius: ef.get-value($themeDefault, 'activeBlockTimerRadius');
-        background: ef.get-value($themeDefault, 'activeBlockTimerBg');
-    }
-
-    &__progress {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        margin: ef.get-value($themeDefault, 'activeBlockProgressMargin');
-        padding: ef.get-value($themeDefault, 'activeBlockProgressPadding');
-
-        background: ef.get-value($themeDefault, 'activeBlockProgressBg');
-        border-radius: ef.get-value($themeDefault, 'activeBlockProgressRadius');
-        transition: all ef.get-value($themeDefault, 'time') ease-in-out;
-    }
-
-    &__remaning {
-        @include text.get-text-style(ef.get-value($themeDefault, 'remaningText'), ef.get-value($themeDefault, 'remaningTextColor'));
-        text-align: center;
-    }
-
-    &__progressbar {
-        @include bm.get-mq-map('margin', $themeDefault, 'progressBarMargin');
-
-        position: relative;
-        width: 100%;
-        height: ef.get-value($themeDefault, 'progressBarSize');
-        background: ef.get-value($themeDefault, 'progressBarBg');
-        border-radius: ef.get-value($themeDefault, 'progressBarRadius');
-        box-shadow: ef.get-value($themeDefault, 'progressBarBoxShadow');
-        overflow: hidden;
-
-        &-inner {
             position: absolute;
-            top: 0;
-            left: 0;
+            z-index: 1;
+            line-height: 1;
 
+            .icon-btn {
+                width: ef.get-value($themeDefault, 'moreIconSize');
+                height: ef.get-value($themeDefault, 'moreIconSize');
+
+                cursor: pointer;
+
+                svg {
+                    @include bm.transition(fill);
+
+                    width: 100%;
+                    fill: ef.get-value($themeDefault, 'moreIconColor');
+                }
+            }
+
+            @include bm.hover {
+
+                .icon-btn {
+
+                    svg {
+                        fill: ef.get-value($themeDefault, 'moreIconColorHover');
+                    }
+                }
+            }
+        }
+
+        &__image-block {
+            position: relative;
+        }
+
+        &__image {
+            background: ef.get-value($themeDefault, 'imageBg');
+        }
+
+        &__active-block {
+            @include bm.get-mq-map('padding', $themeDefault, 'activeBlockPadding');
+            @include bm.get-mq-map('min-height', $themeDefault, 'activeBlockMinHeight');
+
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
             width: 100%;
-            height: 100%;
-            background: ef.get-value($themeDefault, 'progressBarColor');
-            border-radius: inherit;
+
+            max-width: ef.get-value($themeDefault, 'activeBlockMaxWidth');
+            margin: ef.get-value($themeDefault, 'activeBlockMargin');
+
+            text-align: ef.get-value($themeDefault, 'activeBlockTextAlign');
+            border-radius: ef.get-value($themeDefault, 'activeBlockRadius');
         }
-    }
 
-    &__secondary {
-        @include text.get-text-style(ef.get-value($themeDefault, 'progressBarText'), ef.get-value($themeDefault, 'progressBarSecondaryColor'));
-    }
-
-    &__btns {
-        display: flex;
-        justify-content: ef.get-value($themeDefault, 'btnsJustifyContent');
-        margin: ef.get-value($themeDefault, 'btnsOuterOffset');
-
-        .wlc-btn {
-            margin: ef.get-value($themeDefault, 'btnsInnerOffset');
+        &__timer {
+            margin: ef.get-value($themeDefault, 'activeBlockTimerMargin');
+            border-radius: ef.get-value($themeDefault, 'activeBlockTimerRadius');
+            background: ef.get-value($themeDefault, 'activeBlockTimerBg');
         }
-    }
 
-    &.wlc-bonus-item--type-active,
-    &.wlc-bonus-item--is-active {
+        &__progress {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin: ef.get-value($themeDefault, 'activeBlockProgressMargin');
+            padding: ef.get-value($themeDefault, 'activeBlockProgressPadding');
 
-        .wlc-bonus-item__tag {
-            color: ef.get-value($themeDefault, 'tagFontColorActive');
-            background: ef.get-value($themeDefault, 'tagBgActive');
+            background: ef.get-value($themeDefault, 'activeBlockProgressBg');
+            border-radius: ef.get-value($themeDefault, 'activeBlockProgressRadius');
+            transition: all ef.get-value($themeDefault, 'time') ease-in-out;
         }
-    }
 
-    &__content {
+        &__remaning {
+            @include text.get-text-style(ef.get-value($themeDefault, 'remaningText'), ef.get-value($themeDefault, 'remaningTextColor'));
+            text-align: center;
+        }
 
-        &.disabled {
-            cursor: not-allowed;
-            opacity: 0.5;
-            filter: grayscale(100%);
+        &__progressbar {
+            @include bm.get-mq-map('margin', $themeDefault, 'progressBarMargin');
 
-            .wlc-bonus-item__wrapper,
-            .wlc-bonus-item__more-icon {
-                pointer-events: none;
+            position: relative;
+            width: 100%;
+            height: ef.get-value($themeDefault, 'progressBarSize');
+            background: ef.get-value($themeDefault, 'progressBarBg');
+            border-radius: ef.get-value($themeDefault, 'progressBarRadius');
+            box-shadow: ef.get-value($themeDefault, 'progressBarBoxShadow');
+            overflow: hidden;
+
+            &-inner {
+                position: absolute;
+                top: 0;
+                left: 0;
+
+                width: 100%;
+                height: 100%;
+                background: ef.get-value($themeDefault, 'progressBarColor');
+                border-radius: inherit;
+            }
+        }
+
+        &__secondary {
+            @include text.get-text-style(ef.get-value($themeDefault, 'progressBarText'), ef.get-value($themeDefault, 'progressBarSecondaryColor'));
+        }
+
+        &__btns {
+            display: flex;
+            justify-content: ef.get-value($themeDefault, 'btnsJustifyContent');
+            margin: ef.get-value($themeDefault, 'btnsOuterOffset');
+
+            .wlc-btn {
+                margin: ef.get-value($themeDefault, 'btnsInnerOffset');
+            }
+        }
+
+        &.wlc-bonus-item--type-active,
+        &.wlc-bonus-item--is-active {
+
+            .wlc-bonus-item__tag {
+                color: ef.get-value($themeDefault, 'tagFontColorActive');
+                background: ef.get-value($themeDefault, 'tagBgActive');
+            }
+        }
+
+        &__content {
+
+            &.disabled {
+                cursor: not-allowed;
+                opacity: 0.5;
+                filter: grayscale(100%);
+
+                .wlc-bonus-item__wrapper,
+                .wlc-bonus-item__more-icon {
+                    pointer-events: none;
+                }
             }
         }
     }

@@ -64,14 +64,14 @@ $themeDefault: map-merge((
     'topImgMargin': 65px,
     'bottomImgMargin': ef.size(4),
     // // Font
-    'bonusIconValueFontSize': (
-        320: 1.6rem,
-        1630: 2rem,
-    ),
+    'bonusIconTextStyle': 'ThirdTitleBold',
+    'bonusIconTextStyleSmall': 'PrimaryTextBold',
+    'bonusIconTextStyleSmaller': 'PlaceholderText',
+    'bonusIconValueFontColor': ef.get('mainColors', 'black'),
+
     'bonusIconValueFontSizeSmall': 1.4rem,
     'bonusIconValueFontSizeSmaller': 1rem,
     'bonusIconValueFontW': 700,
-    'bonusIconValueFontColor': ef.get('mainColors', 'baseContrast'),
 
     'nameFontColor': var(--mc-baseMain),
     'nameFontSize': ef.get('font', 'big'),
