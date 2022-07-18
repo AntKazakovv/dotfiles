@@ -16,6 +16,26 @@
         }
     }
 
+    &.wlc-provider-links--theme-mod-adaptive {
+        grid-gap: ef.get-value($themeDefault, 'gridGapAdaptive');
+        grid-template-areas: ef.get-value($themeDefault, 'gridTemplateAreasAdaptive');
+        grid-template-columns: ef.get-value($themeDefault, 'gridTemplateColumnsAdaptive');
+
+        .wlc-provider-links {
+
+            &__wrapper {
+                @include bm.get-mq-map('max-width', $themeDefault, 'wrapperMaxWidthAdaptive');
+                grid-template-columns: ef.get-value($themeDefault, 'wrapperTemplateAdaptive');
+                width: 100%;
+                margin: ef.get-value($themeDefault, 'wrapperMarginAdaptive');
+            }
+
+            &__btn {
+                margin: ef.get-value($themeDefault, 'buttonMarginAdaptive');
+            }
+        }
+    }
+
     .wlc-provider-links {
 
         &__loader {

@@ -4,6 +4,7 @@
 
 <ng-container [ngSwitch]="$params.type">
     <ng-container *ngSwitchCase="'slider'" [ngTemplateOutlet]="slider"></ng-container>
+    <ng-container *ngSwitchCase="'mobile'" [ngTemplateOutlet]="mobileList"></ng-container>
     <ng-container *ngSwitchDefault  [ngTemplateOutlet]="providersList"></ng-container>
 </ng-container>
 
@@ -43,6 +44,21 @@
             [ngTemplateOutletContext]="{item: item}"
         ></ng-container>
     </div>
+</ng-template>
+
+<ng-template #mobileList>
+    <div class="{{$class}}__wrapper">
+        <ng-container *ngFor="let item of items | slice:0:4"
+                      [ngTemplateOutlet]="iconItem"
+                      [ngTemplateOutletContext]="{item: item}"
+        ></ng-container>
+    </div>
+    <button class="{{$class}}__btn"
+            wlc-button
+            [attr.type]="'button'"
+            text="See all"
+            (click)="showModal()">
+    </button>
 </ng-template>
 
 <ng-template #iconItem let-item="item">

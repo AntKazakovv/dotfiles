@@ -34,6 +34,34 @@ export namespace providers {
         ],
     };
 
+    export const adaptiveProviders: ILayoutSectionConfig = {
+        container: true,
+        components: [
+            {
+                name: 'games.wlc-provider-links',
+                display: {
+                    after: 720,
+                },
+                params: <IProviderLinksCParams>{
+                    iconsType: 'color',
+                    colorIconBg: 'dark',
+                },
+            },
+            {
+                name: 'games.wlc-provider-links',
+                display: {
+                    before: 720,
+                },
+                params: <IProviderLinksCParams>{
+                    iconsType: 'color',
+                    colorIconBg: 'dark',
+                    themeMod: 'adaptive',
+                    type: 'mobile',
+                },
+            },
+        ],
+    };
+
     export const gamesColorDark: ILayoutSectionConfig = {
         container: true,
         components: [

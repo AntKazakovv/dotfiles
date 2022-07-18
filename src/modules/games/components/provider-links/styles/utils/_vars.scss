@@ -67,4 +67,17 @@ $themeDefault: map-merge((
     // TODO remove after come up with color icons
     'iconColorBackground': #777,
     'iconColorFilter': contrast(1.5),
+
+    'gridTemplateAreasAdaptive': 'title' 'icons' 'button',
+    'gridTemplateColumnsAdaptive': 1fr,
+    'gridGapAdaptive': ef.size(4),
+
+    'wrapperMaxWidthAdaptive': (
+        375: 320px,
+        560: 520px,
+    ),
+    'wrapperMarginAdaptive': 0 auto,
+    'wrapperTemplateAdaptive': repeat(2, minmax(150px, 1fr)),
+
+    'buttonMarginAdaptive': ef.size(2) auto 0,
 ), $customThemeDefault);

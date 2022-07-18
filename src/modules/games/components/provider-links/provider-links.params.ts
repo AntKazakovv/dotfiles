@@ -4,8 +4,8 @@ import {CustomType} from 'wlc-engine/modules/core';
 import {IAbstractIconsListParams} from 'wlc-engine/modules/core/system/classes/icon-list-abstract.class';
 
 export type ComponentTheme = 'default' | CustomType;
-export type ComponentType = 'default' | 'slider' | CustomType;
-export type ComponentThemeMod = 'default' | 'inside-modal' | CustomType;
+export type ComponentType = 'default' | 'slider' | 'mobile' | CustomType;
+export type ComponentThemeMod = 'default' | 'inside-modal' | 'adaptive' | CustomType;
 
 /**
  * Globally set preferences in modules config
