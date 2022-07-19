@@ -34,6 +34,7 @@ import {LimitationService} from 'wlc-engine/modules/user/system/services/limitat
 import {InjectionService} from 'wlc-engine/modules/core/system/services/injection/injection.service';
 import {IValidateData} from 'wlc-engine/modules/user/system/classes/user-actions-abstract.class';
 import {IdleService} from 'wlc-engine/modules/user/system/services/idle/idle.service';
+import {BonusesService} from 'wlc-engine/modules/bonuses/system/services/bonuses/bonuses.service';
 import {IMGAConfig} from 'wlc-engine/modules/core/components/license/license.params';
 import {
     IProcessEventData,
@@ -86,6 +87,7 @@ export class UserService {
 
     private limitationService: LimitationService;
     private idleService: IdleService;
+    private bonusService: BonusesService;
 
     constructor(
         public translate: TranslateService,
@@ -100,7 +102,8 @@ export class UserService {
         this.init();
     }
 
-    public init(): void {
+    public async init(): Promise<void> {
+        await this.configService.ready;
         this.isAuthenticated = this.configService.get('$user.isAuthenticated');
         this.isFastRegistration = !!this.configService.get<number>('appConfig.siteconfig.fastRegistration');
 
@@ -247,6 +250,11 @@ export class UserService {
                 this.startUserInfoFetcher();
                 this.idleHandler();
             });
+
+            if (this.configService.get<boolean>('$base.finances.redirectAfterDepositBonus') && !this.bonusService) {
+                this.bonusService = await this.injectionService.getService<BonusesService>('bonuses.bonuses-service');
+                this.bonusService.queryBonuses(true, 'any');
+            }
         }
     }
 

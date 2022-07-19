@@ -12,6 +12,7 @@ import {
     filter,
     takeWhile,
     distinctUntilChanged,
+    map,
 } from 'rxjs/operators';
 
 import {DateTime} from 'luxon';
@@ -55,6 +56,7 @@ import {
     ConfigService,
     DataService,
     EventService,
+    IBonusesBalance,
     IData,
     IEvent,
     IForbidBanned,
@@ -67,6 +69,8 @@ import {
 } from 'wlc-engine/modules/core';
 import {TBonusesHistory} from 'wlc-engine/modules/bonuses/system/interfaces/bonuses.interface';
 import {Game} from 'wlc-engine/modules/games';
+
+type TUserLoyaltyInfo = Pick<UserInfo, 'bonusesBalance' | 'freeRounds'>;
 
 interface IBonusData extends IData {
     data?: IBonus;
@@ -148,16 +152,25 @@ export class BonusesService {
                 .get<BehaviorSubject<UserInfo>>('$user.userInfo$')
                 .pipe(
                     filter((userInfo: UserInfo): boolean => !!userInfo && this.hasBonuses),
-                    distinctUntilChanged(
-                        (userInfo: UserInfo, newUserInfo: UserInfo): boolean => {
-                            return (
-                                _isEqual(userInfo.bonusBalance, newUserInfo.bonusBalance)
-                                && _isEqual(userInfo.freeRounds, newUserInfo.freeRounds)
-                            );
+                    map((userInfo: UserInfo): TUserLoyaltyInfo =>
+                        ({bonusesBalance: userInfo.bonusesBalance, freeRounds: userInfo.freeRounds})),
+                    distinctUntilChanged((
+                        prev: {
+                            bonusesBalance: UserInfo['bonusesBalance'],
+                            freeRounds: UserInfo['freeRounds'],
                         },
-                    ))
-                .subscribe((userInfo: UserInfo) => {
-                    this.checkNewActiveBonuses(userInfo);
+                        curr: {
+                            bonusesBalance: UserInfo['bonusesBalance'],
+                            freeRounds: UserInfo['freeRounds'],
+                        }): boolean => {
+                        return (
+                            _isEqual(curr.bonusesBalance, prev.bonusesBalance)
+                            && _isEqual(curr.freeRounds, prev.freeRounds)
+                        );
+                    }),
+                )
+                .subscribe((userLoyaltyInfo: TUserLoyaltyInfo): void => {
+                    this.checkNewActiveBonuses(userLoyaltyInfo.bonusesBalance, userLoyaltyInfo.freeRounds);
                 });
         }
     }
@@ -886,19 +899,23 @@ export class BonusesService {
      * with what we received before the data update, if any, then updates them and shows a message with the bonus
      * balance. It also sorts through free spins and notifies you of their availability.
      *
-     * @param {UserInfo} data - get actual data from UserInfo.
+     * @param {IIndexing<IBonusBalance>} bonusesBalance data about bonus balance from userInfo
+     * @param {IFreeRound[]} freeRounds data about free rounds from userInfo
      *
      * @return {Promise<void>}
      */
-    private async checkNewActiveBonuses(data: UserInfo): Promise<void> {
+    private async checkNewActiveBonuses(
+        bonusesBalance: IIndexing<IBonusesBalance>,
+        freeRounds: IFreeRound[],
+    ): Promise<void> {
         const cacheDataBonusesLBID: string[] = await this.cachingService.get<string[]>('active-loyalty-bonuses') || [];
         const cacheDataFreeRounds: IFreeRoundData[] =
             await this.cachingService.get<IFreeRoundData[]>('freeround-games') || [];
-        const activeBonusesLBID: string[] = _map(data?.loyalty?.BonusesBalance, 'IDLoyaltyBonuses');
+        const activeBonusesLBID: string[] = _map(bonusesBalance, 'IDLoyaltyBonuses');
 
         if (!_isEqual(activeBonusesLBID, cacheDataBonusesLBID) && activeBonusesLBID.length) {
-            _each(_keys(data.loyalty.BonusesBalance), (bonusID: string): void => {
-                const dataBonus = data.loyalty.BonusesBalance[bonusID];
+            _each(_keys(bonusesBalance), (bonusID: string): void => {
+                const dataBonus: IBonusesBalance = bonusesBalance[bonusID];
                 if (!_isUndefined(dataBonus.IDLoyaltyBonuses)
                     && !_includes(cacheDataBonusesLBID, dataBonus.IDLoyaltyBonuses)
                     && _find(this.bonuses, {id: +bonusID, isDeposit: true})) {
@@ -908,9 +925,9 @@ export class BonusesService {
             await this.cachingService.set('active-loyalty-bonuses', activeBonusesLBID, true, Number.MAX_SAFE_INTEGER);
         }
 
-        if (data?.freeRounds) {
+        if (freeRounds) {
             const activeFreeRoundGames: IFreeRoundData[] =
-                _map(data.freeRounds, (freeRound: IFreeRound): IFreeRoundData => {
+                _map(freeRounds, (freeRound: IFreeRound): IFreeRoundData => {
                     return ({
                         merch: freeRound.IDMerchant,
                         games: freeRound.Games,
@@ -942,12 +959,12 @@ export class BonusesService {
     /**
      * It accepts a bonus balance and displays a corresponding message.
      *
-     * @param {number} bonusBalance - accepts a bonus balance.
+     * @param {string} balance - accepts a bonus balance.
      *
      * @return {void}
      */
-    private showMessageBonusBalance(bonusBalance: number): void {
-        const currencyElement = `<span wlc-currency [value]="${bonusBalance}" `
+    private showMessageBonusBalance(balance: string): void {
+        const currencyElement = `<span wlc-currency [value]="${balance}" `
             + `[currency]="'${this.profile.currency}'"></span>`;
         this.eventService.emit({
             name: NotificationEvents.PushMessage,

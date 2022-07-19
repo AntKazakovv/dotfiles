@@ -1,8 +1,10 @@
+import {IIndexing} from 'wlc-engine/modules/core/system/interfaces';
+
 export interface ILoyalty {
     Balance?: string;
     Block?: number;
     BonusRestrictions?: any;
-    BonusesBalance: any;
+    BonusesBalance: IIndexing<IBonusesBalance>;
     CheckDate?: string;
     ConfirmPoints?: string;
     Country?: string;
@@ -34,4 +36,11 @@ export interface IFreeRound {
     Coins: any;
     AddDate: string;
     Additional: any;
+}
+
+export interface IBonusesBalance {
+    Balance?: string,
+    IDLoyaltyBonuses?: string,
+    Merchants?: string[],
+    RestrictSettings?: string[],
 }

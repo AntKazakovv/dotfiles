@@ -4,6 +4,8 @@ import {
     IUserInfo,
     ISocketsData,
     TUserValidationLevel,
+    IBonusesBalance,
+    IIndexing,
 } from 'wlc-engine/modules/core/system/interfaces';
 import {TranslateService} from '@ngx-translate/core';
 import {AbstractModel} from 'wlc-engine/modules/core/system/models/abstract.model';
@@ -113,12 +115,25 @@ export class UserInfo extends AbstractModel<IUserInfo> {
         return this.data?.status;
     }
 
+    /**
+     * Will return a significant amount of the bonus balance
+     * @returns {number}
+     */
     public get bonusBalance(): number {
-        return _isNil(this.data?.loyalty?.BonusesBalance)
-            ? null
-            : _reduce(this.data?.loyalty?.BonusesBalance, (accumulator: number, bonusBalance: number) => {
-                return accumulator + Number(_get(bonusBalance, 'Balance', 0));
-            }, 0);
+        return _isNil(this.bonusesBalance)
+            ? 0
+            : _reduce((this.bonusesBalance),
+                (accumulator: number, bonusBalance: IBonusesBalance): number => {
+                    return accumulator + Number(_get(bonusBalance, 'Balance', 0));
+                }, 0);
+    }
+
+    /**
+     * Will return data about the balance of each bonus
+     * @returns {IIndexing<IBonusesBalance>}
+     */
+    public get bonusesBalance(): IIndexing<IBonusesBalance> {
+        return this.data.loyalty.BonusesBalance;
     }
 
     public get realBalance(): number {

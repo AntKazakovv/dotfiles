@@ -19,14 +19,19 @@
                 }
             }
 
+            &__content {
+                @include bm.get-mq-map('text-align', $themeWithGames, 'alignTextContent');
+            }
+
             &__inner {
                 @include bm.get-mq-map('flex-direction', $themeWithGames, 'directionInner');
                 @include bm.get-mq-map('padding', $themeWithGames, 'paddingInner');
+                @include bm.get-mq-map('align-items', $themeWithGames, 'alignItems');
             }
         }
 
         .wlc-btn--theme-mod-default {
-            margin: ef.get-value($themeWithGames, 'btnMargin');
+            @include bm.get-mq-map('margin', $themeWithGames, 'btnMargin');
         }
     }
 }

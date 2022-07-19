@@ -58,7 +58,14 @@ $customThemeWithGames: () !default;
 $themeWithGames: map-merge((
     'imageBorderRadius': ef.get('radius', 'big'),
     'imagePadding':ef.size(2),
-    'btnMargin': ef.size(3) 0 0 0,
+    'btnMargin': (
+        375: ef.size(3) auto ef.size(1) auto,
+        560: ef.size(3) 0 0 0
+    ),
+    'alignTextContent': (
+        375: center,
+        560: unset,
+    ),
     'righWrapperIndent': (
         375: 0,
         900: 250px,
@@ -71,6 +78,10 @@ $themeWithGames: map-merge((
     'paddingInner': (
         375: 0 0 0 ef.size(5),
         480: unset,
+    ),
+    'alignItems': (
+        375: center,
+        560: stretch,
     ),
     'directionInner': (
         375: column,
