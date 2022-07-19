@@ -1,0 +1,143 @@
+@use 'engine-scss/functions' as ef;
+
+$customThemeDefault: () !default;
+$themeDefault: map-merge((
+    'textBlockHeight': (
+        320: 180px,
+        480: 155px,
+    ),
+    'textBlockPadding': 0 ef.size(3),
+    'textBlockTextAlign': center,
+
+    'titleTextStyle': (
+        320: 'ThirdTitleBold',
+        480: 'QoteTextBold',
+    ),
+    'titleTextColor': var(--mc-baseMain),
+
+    'descLineClamp': 3,
+    'descMaxWidth': 380px,
+    'descMargin': (
+        320: ef.size(5) auto 0 auto,
+        480: ef.size(3) auto 0 auto,
+    ),
+    'descTextStyle': (
+        320: 'PrimaryTextBold',
+        480: 'ThirdTitleBold',
+    ),
+    'descTextColor': var(--mc-baseMain),
+    'descTextBeforeTop': (
+        320: ef.size(2),
+    ),
+    'descTextBeforeLeft': (
+        320: 0,
+    ),
+    'descTextBeforeWidth': (
+        320: 130px,
+        480: 150px,
+        900: 185px,
+    ),
+    'descTextBeforeHeight': (
+        320: 65px,
+        480: 75px,
+        900: 90px,
+    ),
+    'descTextBeforeBg': url('/gstatic/wlc/bonuses/lootbox/decor-2.png') no-repeat center / contain,
+    'descTextAfterTop': (
+        320: ef.size(2),
+    ),
+    'descTextAfterRight': (
+        320: 0,
+    ),
+    'descTextAfterWidth': (
+        320: 130px,
+        480: 150px,
+        900: 180px,
+    ),
+    'descTextAfterHeight': (
+        320: 65px,
+        480: 75px,
+        900: 90px,
+    ),
+    'descTextAfterBg': url('/gstatic/wlc/bonuses/lootbox/decor-1.png') no-repeat center / contain,
+
+    'sliderBlockBeforeTop': 0,
+    'sliderBlockBeforeRight': null,
+    'sliderBlockBeforeLeft': null,
+    'sliderBlockBeforeTransform': null,
+    'sliderBlockBeforeWidth': 100%,
+    'sliderBlockBeforeHeight': (
+        320: 12px,
+        560: 20px,
+    ),
+    'sliderBlockBeforeBg': url('/gstatic/wlc/bonuses/lootbox/slider-border.png') center / contain,
+
+    'sliderBlockAfterBottom': 0,
+    'sliderBlockAfterRight': null,
+    'sliderBlockAfterLeft': null,
+    'sliderBlockAfterTransform': null,
+    'sliderBlockAfterWidth': 100%,
+    'sliderBlockAfterHeight': (
+        320: 12px,
+        560: 20px,
+    ),
+    'sliderBlockAfterBg': url('/gstatic/wlc/bonuses/lootbox/slider-border.png') center / contain,
+
+    'sliderBg': url('/gstatic/wlc/bonuses/lootbox/slider-bg.png') no-repeat center / cover,
+
+    'sliderBeforeTransform': rotate(180deg) translateY(15px),
+    'sliderBeforeBg': url('/gstatic/wlc/bonuses/lootbox/arrow.svg') no-repeat center / contain,
+    'sliderBeforeWidth': (
+        320: 40px,
+        560: 55px,
+    ),
+    'sliderBeforeHeight': (
+        320: 50px,
+        560: 60px,
+    ),
+
+    'sliderAfterTransform': translateY(15px),
+    'sliderAfterBg': url('/gstatic/wlc/bonuses/lootbox/arrow.svg') no-repeat center / contain,
+    'sliderAfterWidth': (
+        320: 40px,
+        560: 55px,
+    ),
+    'sliderAfterHeight': (
+        320: 50px,
+        560: 60px,
+    ),
+    'slideWidth': (
+        375: 108px,
+        480: 140px,
+        560: 165px,
+        640: 190px,
+    ),
+
+    'bonusItemFilter': brightness(0.8),
+    'bonusItemShadow': 0 0 8px 0 var(--mc-main),
+
+    'buttonMarginRight': ef.size(2),
+    'buttonsPadding': ef.size(9) 0,
+    'buttonsBg': url('/gstatic/wlc/bonuses/lootbox/decor-3.png') no-repeat bottom / contain,
+
+    'swiperPadding': (
+        320: ef.size(7) ef.size(6),
+        560: ef.size(10) ef.size(6),
+    ),
+    'swiperScrollFunction': cubic-bezier(0.27, 0.9, 0.55, 0.98),
+    'bonusMoreIconTop': (
+        375: 5px,
+        480: 10px,
+        560: 20px,
+    ),
+    'bonusMoreIconRight': (
+        375: 5px,
+        480: 10px,
+        560: 20px,
+    ),
+    'bonusMoreIconSize': (
+        375: 18px,
+        480: 20px,
+        560: 24px,
+    )
+), $customThemeDefault);

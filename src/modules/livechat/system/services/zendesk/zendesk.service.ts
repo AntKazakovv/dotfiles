@@ -7,7 +7,12 @@ import {
     Inject,
     Injectable,
 } from '@angular/core';
-import {BehaviorSubject} from 'rxjs';
+import {
+    BehaviorSubject,
+    distinctUntilChanged,
+    filter,
+} from 'rxjs';
+import _set from 'lodash-es/set';
 
 import {
     EventService,
@@ -23,6 +28,7 @@ import {
     LivechatAbstract,
 } from 'wlc-engine/modules/livechat/system/classes/livechatAbstract.class';
 import {WINDOW} from 'wlc-engine/modules/app/system';
+import {UserInfo}  from 'wlc-engine/modules/user/system/models/info.model';
 
 interface IChatJwt {
     chat: {
@@ -152,7 +158,7 @@ export class ZendeskService extends LivechatAbstract {
         script.src = 'https://static.zdassets.com/ekr/snippet.js?key=' + this.options.code;
 
         if (this.configService.get<boolean>('$user.isAuthenticated')) {
-            this.options.zESettings.webWidget.authenticate = this.chatJwtFn;
+            _set(this.options.zESettings, 'webWidget.authenticate', this.chatJwtFn);
         }
 
         this.window.zESettings = this.options.zESettings || {};
@@ -223,6 +229,12 @@ export class ZendeskService extends LivechatAbstract {
                 event.lang,
             );
         });
+
+        this.watchForUserInfo();
+    }
+
+    protected addTags(tags: string[]): void {
+        this.window.zE('webWidget', 'chat:addTags', tags);
     }
 
     protected updateSettings(): void {
@@ -236,6 +248,38 @@ export class ZendeskService extends LivechatAbstract {
             },
         );
         this.window.zE('webWidget', 'chat:reauthenticate');
+    }
+
+    protected watchForUserInfo(): void {
+        const comparingKeys: (keyof UserInfo)[] = [
+            'idUser',
+            'firstName',
+            'lastName',
+            'email',
+            'balance',
+            'loyalty',
+        ];
+
+        this.configService
+            .get<BehaviorSubject<UserInfo>>('$user.userInfo$')
+            .pipe(
+                filter((user) => !!user),
+                distinctUntilChanged<UserInfo>((prev, curr) => comparingKeys.every((k) => prev[k] === curr[k])),
+            )
+            .subscribe((user: UserInfo) => this.addUserInfoTags(user));
+    }
+
+    protected addUserInfoTags(user: UserInfo): void {
+        const fullName = `${user.firstName} ${user.lastName}`;
+        const depositsCount = user.loyalty.DepositsCount || '0';
+
+        this.addTags([
+            user.idUser,
+            fullName,
+            user.email,
+            String(user.balance),
+            depositsCount,
+        ]);
     }
 
     protected async getToken(): Promise<string> {

@@ -31,10 +31,29 @@ import {
     IBonusesModule,
 } from 'wlc-engine/modules/bonuses/system/interfaces/bonuses.interface';
 
+const disabledReasons = {
+    // Apply to deposit bonuses which paySystems array isn't empty and
+    // don't contains current payment system
+    1: gettext('This bonus is not available for '
+        + 'the selected payment method.'),
+    // Apply to all deposit bonuses in case if
+    // user already has active bonus with `allowStack = false`
+    2: gettext('You currently have an active bonus. '
+        + 'The bonus does not allow stacking. '
+        + 'You have to wager active bonus first or '
+        + 'cancel it to claim new bonus.'),
+    // Apply to deposit bonuses with `allowStack = false` in case if
+    // user already has active bonus with `allowStack = true`
+    3: gettext('Blocked by an active bonus. '
+        + 'You have to wager active bonus first '
+        + 'or cancel it to claim new bonus.'),
+};
+
 export class Bonus extends AbstractModel<IBonus> {
     public isReady: boolean = true;
     public onChooseChange: Subject<boolean> = new Subject<boolean>();
     public icon: string;
+    public disabledBy: null | keyof typeof disabledReasons = null;
 
     protected static $bonuses: IBonusesModule;
     protected _userCurrency: string;
@@ -81,6 +100,12 @@ export class Bonus extends AbstractModel<IBonus> {
 
     public get data(): IBonus {
         return super.data;
+    }
+
+    public get disabledReason(): string {
+        if (this.disabledBy) {
+            return disabledReasons[this.disabledBy];
+        }
     }
 
     public set isChoose(value: boolean) {
@@ -136,8 +161,11 @@ export class Bonus extends AbstractModel<IBonus> {
         return _toNumber(this.data.Block);
     }
 
-    public get bonus(): number {
-        return _toNumber(this.data.Bonus);
+    /**
+     * @returns {number | IBonus} is bonus id or object IBonus
+     */
+    public get bonus(): number | IBonus {
+        return _isObject(this.data.Bonus) ? this.data.Bonus : _toNumber(this.data.Bonus);
     }
 
     public get bonusAwarded(): number {
@@ -344,6 +372,14 @@ export class Bonus extends AbstractModel<IBonus> {
         return _isNumber(this.data.PromoCode) ? !!this.data.PromoCode : !!this.data.PromoCode?.length;
     }
 
+    public get paySystems(): number[] {
+        let result: number[] = [];
+        if (this.data.PaySystems?.[0] !== 'all') {
+            result = _map(this.data.PaySystems, Number);
+        }
+        return result;
+    }
+
     public get promoCodeUsed(): string {
         return this.data.PromoCodeUsed;
     }
@@ -474,6 +510,13 @@ export class Bonus extends AbstractModel<IBonus> {
     }
 
     /**
+     * @returns {boolean} is bonus lootbox
+     */
+    public get isLootbox(): boolean {
+        return this.bonusType === 'lootbox';
+    }
+
+    /**
      * @returns {number} bonus min deposit
      */
     public get minDeposit(): number {
@@ -568,20 +611,27 @@ export class Bonus extends AbstractModel<IBonus> {
     }
 
     /**
-     * @returns {number} bonus value
+     * @returns {number | number[]} bonus value
      */
-    public get value(): number {
+    public get value(): number | number[] {
         const resultsTarget = this.results?.[this.target];
+        
         if (!resultsTarget) {
             return 0;
         }
-        if (this.target === 'loyalty' || this.target === 'experience') {
-            return resultsTarget?.Type === 'relative'
-                ? _toNumber(resultsTarget?.Value)
-                : _toNumber(resultsTarget?.Value?.EUR);
-        } else {
-            return _toNumber(resultsTarget?.Value[this._userCurrency]) || _toNumber(resultsTarget?.Value?.Currency) ||
-                _toNumber(resultsTarget?.Value?.EUR) || _toNumber(resultsTarget?.Value);
+
+        switch (this.target) {
+            case 'loyalty' || 'experience':
+                return resultsTarget.Type === 'relative'
+                    ? _toNumber(resultsTarget.Value)
+                    : _toNumber(resultsTarget.Value?.EUR);
+            case 'lootbox':
+                return resultsTarget.Value;
+            default:
+                return _toNumber(resultsTarget.Value[this._userCurrency])
+                    || _toNumber(resultsTarget.Value?.Currency)
+                    || _toNumber(resultsTarget.Value?.EUR)
+                    || _toNumber(resultsTarget.Value);
         }
     }
 
@@ -899,6 +949,10 @@ export class Bonus extends AbstractModel<IBonus> {
 
         if (this.isSubscribed) {
             return gettext('Subscribed');
+        }
+
+        if (this.isLootbox) {
+            return gettext('Lootbox');
         }
 
         if (this.inventoried) {

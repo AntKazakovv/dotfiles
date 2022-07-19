@@ -1,0 +1,201 @@
+.wlc-lootbox-modal--theme-default:host {
+
+    &.wlc-lootbox-modal--dropped {
+
+        ::ng-deep {
+
+            .swiper-slide {
+
+                &:not(.swiper-slide-active) .wlc-bonus-item {
+                    @include bm.transition(filter);
+                    filter: ef.get-value($themeDefault, 'bonusItemFilter');
+                }
+
+                &.swiper-slide-active {
+
+                    .wlc-bonus-item {
+                        @include bm.transition(box-shadow);
+                        box-shadow: ef.get-value($themeDefault, 'bonusItemShadow');
+
+                        .wlc-icon-content {
+                            visibility: visible;
+                            opacity: 1;
+                        }
+                    }
+                }
+            }
+
+            .wlc-bonus-item__more-icon {
+                @include bm.get-mq-map('top', $themeDefault, 'bonusMoreIconTop');
+                @include bm.get-mq-map('right', $themeDefault, 'bonusMoreIconRight');
+
+                .icon-btn {
+                    @include bm.get-mq-map('width', $themeDefault, 'bonusMoreIconSize');
+                    @include bm.get-mq-map('height', $themeDefault, 'bonusMoreIconSize');
+                }
+            }
+        }
+    }
+
+    .wlc-lootbox-modal {
+
+        &__text-block {
+            @include bm.get-mq-map('height', $themeDefault, 'textBlockHeight');
+            position: relative;
+            padding: ef.get-value($themeDefault, 'textBlockPadding');
+            text-align: ef.get-value($themeDefault, 'textBlockTextAlign');
+
+            &:before {
+                @include bm.get-mq-map('bottom', $themeDefault, 'descTextBeforeTop');
+                @include bm.get-mq-map('left', $themeDefault, 'descTextBeforeLeft');
+                @include bm.get-mq-map('width', $themeDefault, 'descTextBeforeWidth');
+                @include bm.get-mq-map('height', $themeDefault, 'descTextBeforeHeight');
+                background: ef.get-value($themeDefault, 'descTextBeforeBg');
+            }
+
+            &:after {
+                @include bm.get-mq-map('bottom', $themeDefault, 'descTextAfterTop');
+                @include bm.get-mq-map('right', $themeDefault, 'descTextAfterRight');
+                @include bm.get-mq-map('width', $themeDefault, 'descTextAfterWidth');
+                @include bm.get-mq-map('height', $themeDefault, 'descTextAfterHeight');
+                background: ef.get-value($themeDefault, 'descTextAfterBg');
+            }
+
+            &:before,
+            &:after {
+                content: '';
+                position: absolute;
+            }
+        }
+
+        &__title {
+            @include text.get-text-style(
+                ef.get-value($themeDefault, 'titleTextStyle', 320),
+                ef.get-value($themeDefault, 'titleTextColor'),
+            );
+            position: relative;
+            z-index: 5;
+
+            @include mq.min(480) {
+                @include text.get-text-style(ef.get-value($themeDefault, 'titleTextStyle', 480), null);
+            }
+        }
+
+        &__desc {
+            @include bm.lineClamp(ef.get-value($themeDefault, 'descLineClamp'));
+            @include bm.get-mq-map('margin', $themeDefault, 'descMargin');
+            @include text.get-text-style(
+                ef.get-value($themeDefault, 'descTextStyle', 320),
+                ef.get-value($themeDefault, 'descTextColor'),
+            );
+            position: relative;
+            z-index: 5;
+            max-width: ef.get-value($themeDefault, 'descMaxWidth');
+
+            @include mq.min(480) {
+                @include text.get-text-style(ef.get-value($themeDefault, 'descTextStyle', 480), null);
+            }
+        }
+
+        &__slider-block {
+            position: relative;
+
+            &:before {
+                @include bm.get-mq-map('height', $themeDefault, 'sliderBlockBeforeHeight');
+                top: ef.get-value($themeDefault, 'sliderBlockBeforeTop');
+                right: ef.get-value($themeDefault, 'sliderBlockBeforeRight');
+                left: ef.get-value($themeDefault, 'sliderBlockBeforeLeft');
+                width: ef.get-value($themeDefault, 'sliderBlockBeforeWidth');
+                background: ef.get-value($themeDefault, 'sliderBlockBeforeBg');
+                transform: ef.get-value($themeDefault, 'sliderBlockBeforeTransform');
+            }
+
+            &:after {
+                @include bm.get-mq-map('height', $themeDefault, 'sliderBlockAfterHeight');
+                right: ef.get-value($themeDefault, 'sliderBlockAfterRight');
+                bottom: ef.get-value($themeDefault, 'sliderBlockAfterBottom');
+                left: ef.get-value($themeDefault, 'sliderBlockAfterLeft');
+                width: ef.get-value($themeDefault, 'sliderBlockAfterWidth');
+                background: ef.get-value($themeDefault, 'sliderBlockAfterBg');
+                transform: ef.get-value($themeDefault, 'sliderBlockAfterTransform');
+            }
+
+            &:before,
+            &:after {
+                content: '';
+                position: absolute;
+                z-index: 5;
+            }
+        }
+
+        &__slider {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            background: ef.get-value($themeDefault, 'sliderBg');
+
+            &:before,
+            &:after {
+                content: '';
+                position: absolute;
+                z-index: 10;
+                display: block;
+            }
+
+            &:before {
+                @include bm.get-mq-map('width', $themeDefault, 'sliderBeforeWidth');
+                @include bm.get-mq-map('height', $themeDefault, 'sliderBeforeHeight');
+                background: ef.get-value($themeDefault, 'sliderBeforeBg');
+                transform: ef.get-value($themeDefault, 'sliderBeforeTransform');
+            }
+
+            &:after {
+                @include bm.get-mq-map('width', $themeDefault, 'sliderAfterWidth');
+                @include bm.get-mq-map('height', $themeDefault, 'sliderAfterHeight');
+                bottom: 0;
+                background: ef.get-value($themeDefault, 'sliderAfterBg');
+                transform: ef.get-value($themeDefault, 'sliderAfterTransform');
+            }
+        }
+
+        &__buttons {
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            padding: ef.get-value($themeDefault, 'buttonsPadding');
+            background: ef.get-value($themeDefault, 'buttonsBg');
+
+            button {
+                margin-right: ef.get-value($themeDefault, 'buttonMarginRight');
+
+                &:last-child {
+                    margin-right: 0;
+                }
+            }
+        }
+    }
+
+    ::ng-deep {
+
+        .swiper-slide {
+            @include bm.get-mq-map('width', $themeDefault, 'slideWidth');
+        }
+
+        .swiper {
+            @include bm.get-mq-map('padding', $themeDefault, 'swiperPadding');
+        }
+
+        .swiper-wrapper {
+            transition-timing-function: ef.get-value($themeDefault, 'swiperScrollFunction');
+        }
+
+        .wlc-bonus-item {
+
+            .wlc-icon-content {
+                @include bm.transition(opacity);
+                visibility: hidden;
+                opacity: 0;
+            }
+        }
+    }
+}

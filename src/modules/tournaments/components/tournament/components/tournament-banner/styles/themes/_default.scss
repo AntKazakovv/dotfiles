@@ -45,6 +45,23 @@
         border-radius: ef.get-value($themeDefault, 'tagBorderRadius');
     }
 
+    &__status {
+        @include text.get-text-style(ef.get-value($themeDefault, 'statusTagFontStyle'), ef.get-value($themeDefault, 'statusTagColor'));
+        @include bm.get-mq-map('right', $themeDefault, 'statusTagRightPos');
+        position: absolute;
+        top: ef.get-value($themeDefault, 'statusTagTopPos');
+        z-index: 10;
+
+        padding: ef.get-value($themeDefault, 'statusTagTextPadding');
+        background: ef.get-value($themeDefault, 'statusTagTextBackground');
+        border-radius: ef.get-value($themeDefault, 'statusTagTextBorderRadius');
+
+        &.active {
+            color: ef.get-value($themeDefault, 'statusTagColorActive');
+            background: ef.get-value($themeDefault, 'statusTagActiveBackground');
+        }
+    }
+
     &__more-icon {
         @include bm.get-mq-map('display', $themeDefault, 'moreIconDisplay');
         @include bm.get-mq-map('top', $themeDefault, 'moreIconPosTop');

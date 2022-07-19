@@ -22,10 +22,8 @@
             <ng-container
                 *ngIf="!isTournamentSelected && $params.type === 'swiper'">
                 <div class="{{$class}}__slider"
-                     wlc-slider
-                     type="dashboard"
-                     [slides]="slides"
-                     [inlineParams]="sliderParams">
+                     wlc-wrapper
+                     [inlineParams]="dashboardSliderConfig">
                 </div>
                 <div slot-container-end *ngIf="slides.length > 1" class="{{$class}}__nav">
                     <div class="container swiper-button-container">
@@ -59,10 +57,8 @@
     <ng-container *ngIf="tournaments?.length && slides.length; else noDataBanner">
         <ng-container *ngIf="$params.type === 'swiper'">
             <div class="{{$class}}__slider"
-                wlc-slider
-                type="banner"
-                [slides]="slides"
-                [inlineParams]="sliderParams"
+                wlc-wrapper
+                [inlineParams]="bannerSliderConfig"
             ></div>
         </ng-container>
     </ng-container>

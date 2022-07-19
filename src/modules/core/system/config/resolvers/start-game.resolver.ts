@@ -9,7 +9,11 @@ import {
     StateObject,
 } from '@uirouter/core';
 
-import {Subscription} from 'rxjs';
+import {
+    BehaviorSubject,
+    firstValueFrom,
+    Subscription,
+} from 'rxjs';
 import {first} from 'rxjs/operators';
 import _find from 'lodash-es/find';
 import _clone from 'lodash-es/clone';
@@ -50,7 +54,6 @@ import {
     GamesCatalogService,
 } from 'wlc-engine/modules/games/system/services/games-catalog/games-catalog.service';
 import {
-    UserService,
     UserInfo,
     IAddProfileInfoCParams,
 } from 'wlc-engine/modules/user';
@@ -432,16 +435,20 @@ class StartGameHandler {
         }
 
         await this.configService.ready;
+        await this.injectionService.getService<BonusesService>('user.user-service');
 
-        const userService = await this.injectionService.getService<UserService>('user.user-service');
+        const userInfo: UserInfo = await firstValueFrom(
+            this.configService.get<BehaviorSubject<UserInfo>>({name: '$user.userInfo$'})
+                .pipe(
+                    first((userInfo: UserInfo): boolean => !!userInfo?.idUser),
+                ),
+        );
 
-        await userService.userInfo$.pipe(first((v: UserInfo) => v?.dataReady)).toPromise();
-
-        if (userService.userInfo?.balance > 0) {
+        if (userInfo.balance > 0) {
             deferred.resolve();
             return deferred.promise;
         }
-        const merchantFreeRound = _find(userService.userInfo.freeRounds, (freeRound: IFreeRound): boolean => {
+        const merchantFreeRound = _find(userInfo.freeRounds, (freeRound: IFreeRound): boolean => {
             return this.merchantId === +freeRound.IDMerchant
                 && +freeRound.Count
                 && freeRound.Games.includes(this.game.launchCode);
@@ -499,8 +506,12 @@ class StartGameHandler {
 
         this.merchantFieldsService.checkRequiredFields(this.merchantId).then((): void => {
             defered.resolve();
-        }, (emptyFields: string[]): void => {
-            emptyFields.push('password', 'submit');
+        }, async (emptyFields: string[]): Promise<void> => {
+            if (!await this.configService.get<boolean>('$user.skipPasswordOnFirstUserSession')) {
+                emptyFields.push( 'password');
+            }
+
+            emptyFields.push('submit');
 
             const emptyFieldsAlias = {
                 birthDay: 'birthDate',

@@ -443,7 +443,7 @@ export class BonusesService {
      * @param {Bonus} bonus bonus object
      * @returns {Bonus} bonus object
      */
-    public async takeInventory(bonus: Bonus): Promise<Bonus> {
+    public async takeInventory(bonus: Bonus, emitDelay?: number): Promise<Bonus> {
         const params = {id: bonus.id, type: 'take'};
         try {
             const response: IData<Bonus> = await this.dataService.request<IData<Bonus>>({
@@ -452,14 +452,21 @@ export class BonusesService {
                 url: `/bonuses/${bonus.id}`,
                 type: 'PUT',
                 mapFunc: async (res) => await this.prepareBonusActionData(res, bonus, 'inventory'),
-                events: {
-                    success: 'BONUS_TAKE_SUCCEEDED',
-                    fail: 'BONUS_TAKE_FAILED',
-                },
             }, params);
-            this.showSuccess(gettext('Bonus success'), gettext('Bonus take success'));
+
+            if (emitDelay) {
+                setTimeout((): void => {
+                    this.eventService.emit({name: 'BONUS_TAKE_SUCCEEDED'});
+                    this.showSuccess(gettext('Bonus success'), gettext('Bonus take success'));
+                }, emitDelay);
+            } else {
+                this.eventService.emit({name: 'BONUS_TAKE_SUCCEEDED'});
+                this.showSuccess(gettext('Bonus success'), gettext('Bonus take success'));
+            }
+
             return response.data;
         } catch (error) {
+            this.eventService.emit({name: 'BONUS_TAKE_FAILED'});
             this.showError(gettext('Bonus error'), error?.errors);
         }
     }
@@ -586,6 +593,8 @@ export class BonusesService {
             switch (element) {
                 case 'active':
                     return _unionBy(res, _filter(bonuses, (bonus: Bonus): boolean => bonus.isActive), 'id');
+                case 'inventory':
+                    return _unionBy(res, _filter(bonuses, (bonus: Bonus): boolean => bonus.inventoried), 'id');
                 case 'subscribe':
                     return _unionBy(res, _filter(
                         bonuses,
@@ -594,8 +603,6 @@ export class BonusesService {
                 case 'promocode':
                     return _unionBy(res, _filter(bonuses, (bonus: Bonus): boolean => bonus.id === this.promoBonus?.id),
                         'id');
-                case 'inventory':
-                    return _unionBy(res, _filter(bonuses, (bonus: Bonus): boolean => bonus.inventoried), 'id');
                 default:
                     return _unionBy(res, bonuses, 'id');
             }

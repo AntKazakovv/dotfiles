@@ -66,7 +66,7 @@ export interface IBonusBase {
     AwardWageringTotal: number;
     Balance: number | string;
     Block: string;
-    Bonus: string;
+    Bonus: string | IBonus;
     BonusAwarded: string;
     BonusType: string;
     Currency: string;
@@ -132,6 +132,8 @@ export interface IBonus extends IBonusBase {
     Limitation: string;
     MaxBet: IIndexing<string>;
     MinBet: IIndexing<string>;
+    Name: string;
+    PaySystems: string[];
     PromoCode: string | number;
     RealWinning: string;
     Results: any;

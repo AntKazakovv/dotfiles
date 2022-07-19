@@ -271,7 +271,6 @@ export class BonusesListComponent extends AbstractComponent implements OnInit, O
     protected setSubscription(): void {
         this.eventService.subscribe([
             {name: BonusItemComponentEvents.reg},
-            {name: BonusItemComponentEvents.deposit},
         ], (bonus: Bonus): void => {
 
             this.bonusesService.unchooseAllBonuses();
@@ -368,9 +367,10 @@ export class BonusesListComponent extends AbstractComponent implements OnInit, O
                 component: BonusItemComponent,
                 componentParams: _merge(
                     {
-                        bonus: item,
                         theme: this.$params.theme,
                         themeMod: this.$params.themeMod,
+                        type: this.$params.common.filter,
+                        bonus: item,
                     },
                     this.$params.itemsParams || {},
                 ),
@@ -449,13 +449,13 @@ export class BonusesListComponent extends AbstractComponent implements OnInit, O
             && bonus.status > 0
             && !bonus.isActive
             && !bonus.isSubscribed
-            && !bonus.isInventory);
-
+            && (!bonus.isInventory || (bonus.isLootbox && bonus.canSubscribe)));
+        
         if (!bonuses.length) {
             bonuses = _filter(this.bonuses, (bonus) => bonus.status > 0
                 && !bonus.isActive
                 && !bonus.isSubscribed
-                && !bonus.isInventory);
+                && (!bonus.isInventory || (bonus.isLootbox && bonus.canSubscribe)));
         }
 
         this.bonuses = bonuses;

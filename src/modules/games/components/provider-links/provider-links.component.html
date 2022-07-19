@@ -28,10 +28,9 @@
                 </button>
             </div>
 
-            <div class="{{$class}}__slider"
-                wlc-slider
-                [slides]="slides"
-                [inlineParams]="sliderParams">
+            <div wlc-wrapper
+                class="{{$class}}__slider"
+                [inlineParams]="sliderConfig">
             </div>
         </ng-container>
     </ng-container>

@@ -22,6 +22,7 @@ import {
     EventService,
     NotificationEvents,
     IPushMessageParams,
+    IFormComponent,
 } from 'wlc-engine/modules/core';
 import {FormElements} from 'wlc-engine/modules/core/system/config/form-elements';
 import {UserProfile} from 'wlc-engine/modules/user/system/models/profile.model';
@@ -81,22 +82,26 @@ export class ProfileBlocksComponent extends AbstractComponent implements OnInit 
      *
      * @param name modal name
      */
-    public openModal(name: string): void {
+    public async openModal(name: string): Promise<void> {
         switch (name) {
             case 'change-password':
-                this.modalService.showModal({
-                    id: 'change-password',
-                    modifier: 'change-password',
-                    componentName: 'user.wlc-change-password-form',
-                    componentParams: {
-                        wlcElement: 'wlc-profile-edit__password',
-                    },
-                    size: 'md',
-                    showFooter: false,
-                });
+                this.modalService.showModal('changePassword');
                 break;
 
             case 'add-profile-info':
+                const components: (IFormComponent | Params.IFieldComponentParams)[] = [
+                    this.changeValidators(FormElements.bankNameText, []),
+                    this.changeValidators(FormElements.branchCode, []),
+                    this.changeValidators(FormElements.swift, []),
+                    this.changeValidators(FormElements.ibanNumber, []),
+                ];
+
+                if (!await this.configService.get<boolean>('$user.skipPasswordOnFirstUserSession')) {
+                    components.push(FormElements.password);
+                }
+
+                components.push(FormElements.submit);
+
                 this.modalService.showModal({
                     id: 'add-profile-info',
                     modifier: 'add-profile-info',
@@ -105,14 +110,7 @@ export class ProfileBlocksComponent extends AbstractComponent implements OnInit 
                         title: gettext('Banking information'),
                         formConfig: {
                             class: 'wlc-form-wrapper',
-                            components: [
-                                this.changeValidators(FormElements.bankNameText, []),
-                                this.changeValidators(FormElements.branchCode, []),
-                                this.changeValidators(FormElements.swift, []),
-                                this.changeValidators(FormElements.ibanNumber, []),
-                                FormElements.password,
-                                FormElements.submit,
-                            ],
+                            components,
                         },
                         formData: this.userService.userProfile$,
                     },

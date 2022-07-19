@@ -1,32 +1,4 @@
-<ng-container *ngIf="ready; else preloader">
-    <div class="{{$class}}__header" *ngIf="$params.common.title">{{$params.common.title | translate}}</div>
-    <ng-container *ngIf="faqData; else noData">
-        <div class="{{$class}}__item"
-            *ngFor="let item of faqData"
-            [ngClass]="{expanded: item.expand}"
-        >
-            <div class="{{$class}}__title"
-                (click)="expandToggle(item)">
-                <div class="{{$class}}__title-text">{{item.title}}</div>
-                <div wlc-icon 
-                     class="{{$class}}__title-icon"
-                     iconPath="/wlc/icons/thin-arrow.svg">
-                </div>
-            </div>
-            <div class="{{$class}}__content"
-                [@toggle]="item.expand ? 'opened' : 'closed'">
-                <div class="{{$class}}__content-wrp">
-                    {{item.content}}
-                </div>
-            </div>
-        </div>
-    </ng-container>
-</ng-container>
-
-<ng-template #preloader>
-    <div wlc-loader></div>
-</ng-template>
-
-<ng-template #noData>
-    <div *ngIf="$params.common.title">{{'No data' | translate}}</div>
-</ng-template>
+<div *ngIf="ready"
+    wlc-accordion
+    [inlineParams]="accordionParams"
+></div>

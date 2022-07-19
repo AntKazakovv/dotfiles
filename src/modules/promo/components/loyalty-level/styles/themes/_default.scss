@@ -1,0 +1,63 @@
+.wlc-loyalty-level--theme-default:host {
+    @include bm.get-mq-map('padding', $themeDefault, 'rootPadding');
+    @include bm.get-mq-map('background', $themeDefault, 'rootBackground');
+
+    display: ef.get-value($themeDefault, 'rootDisplay');
+    flex-direction: ef.get-value($themeDefault, 'rootFlexDirection');
+    align-items: ef.get-value($themeDefault, 'rootAlignItems');
+
+    border-radius: ef.get-value($themeDefault, 'rootBorderRadius');
+
+    .wlc-loyalty-level {
+
+        &__image {
+            position: ef.get-value($themeDefault, 'imagePosition');
+            display: ef.get-value($themeDefault, 'imageDisplay');
+            align-items: ef.get-value($themeDefault, 'imageAlignItems');
+            justify-content: ef.get-value($themeDefault, 'imageJustifyContent');
+            width: ef.get-value($themeDefault, 'imageWidth');
+            height: ef.get-value($themeDefault, 'imageHeight');
+        }
+
+        &__icon {
+            width: ef.get-value($themeDefault, 'iconWidth');
+            max-width: ef.get-value($themeDefault, 'iconMaxWidth');
+            height: ef.get-value($themeDefault, 'iconHeight');
+            max-height: ef.get-value($themeDefault, 'iconMaxHeight');
+            object-fit: ef.get-value($themeDefault, 'iconObjectFit');
+        }
+
+        &__title {
+            @include bm.get-mq-map('padding', $themeDefault, 'titlePadding');
+            @include text.get-text-style(
+                ef.get-value($themeDefault, 'titleFont'),
+                ef.get-value($themeDefault, 'titleFontColor'),
+            );
+        }
+
+        &__description {
+            @include bm.get-mq-map('margin', $themeDefault, 'descriptionMargin');
+            @include bm.lineClamp(3);
+            @include text.get-text-style(
+                ef.get-value($themeDefault, 'descriptionFont'),
+                ef.get-value($themeDefault, 'descriptionFontColor'),
+            );
+
+            text-align: ef.get-value($themeDefault, 'descriptionTextAlign');
+
+            &:empty {
+                display: none;
+            }
+        }
+
+        &__points {
+            $font: ef.get-value($themeDefault, 'pointsFont');
+            $fontColor: ef.get-value($themeDefault, 'pointsFontColor');
+
+            @include text.get-text-style($font, $fontColor);
+
+            display: ef.get-value($themeDefault, 'pointsDisplay');
+            align-items: ef.get-value($themeDefault, 'pointsAlignItems');
+        }
+    }
+}

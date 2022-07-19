@@ -18,6 +18,13 @@ export type IconsType = 'color' | 'black';
  */
 export type ShowType = string | DeviceType;
 
+export interface INoSelectedButton {
+    use?: boolean;
+    icon?: string;
+    title?: string;
+    subtitle?: string;
+}
+
 export interface IPaymentListCParams extends IAbstractIconsListParams<Theme, Type, ThemeMod> {
     paymentType?: TPaymentsMethods;
     /**
@@ -45,6 +52,7 @@ export interface IPaymentListCParams extends IAbstractIconsListParams<Theme, Typ
     modalTitle?: string;
     hideModalOnSelect?: boolean;
     chosenMethodText?: string;
+    noSelectedButton?: INoSelectedButton;
 }
 
 export const defaultParams: IPaymentListCParams = {
@@ -55,7 +63,7 @@ export const defaultParams: IPaymentListCParams = {
     iconsType: 'color',
     colorIconBg: 'dark',
     buttonText: gettext('Show all methods'),
-    arrowIcon: 'wlc/icons/arrow.svg',
+    arrowIcon: 'wlc/icons/arrow-left.svg',
     asModal: '(max-width: 479px)',
     showTable: undefined,
     modalSize: 'md',
@@ -63,4 +71,10 @@ export const defaultParams: IPaymentListCParams = {
     hideModalOnSelect: true,
     showSelectedInButton: true,
     chosenMethodText: gettext('The chosen payment method:'),
+    noSelectedButton: {
+        use: true,
+        icon: 'wlc/icons/empty-paysystem.svg',
+        title: gettext('Choose payment method.'),
+        subtitle: gettext('Show all methods'),
+    },
 };

@@ -6,30 +6,51 @@
 <ng-template #button>
     <button type="button"
             class="{{$class}}__btn-modal"
-            [ngClass]="{'selected': !!currentSystem}"
+            [class.selected]="!!currentSystem"
+            [class.use-icon]="$params.noSelectedButton?.use && !currentSystem"
             [attr.title]="$params.buttonText | translate"
             [attr.aria-label]="$params.buttonText | translate"
             (click)="openModal()">
-        <ng-container *ngIf="currentSystem && $params.showSelectedInButton">
-            <span wlc-icon-list-item
-                  class="{{$class}}__btn-modal-image"
-                  [icon]="activeIcon"
-                  [inlineParams]="{class: $class + '-item'}">
-            </span>
-        </ng-container>
-        <span class="{{$class}}__btn-modal-wrap">
-            <span wlc-icon
-                  class="{{$class}}__btn-modal-arrow"
-                  [iconPath]="$params.arrowIcon"></span>
-            <span class="{{$class}}__btn-modal-text">{{$params.buttonText | translate}}</span>
-        </span>
+        <ng-container [ngTemplateOutlet]="btnModalImage"></ng-container>
+        <ng-container [ngTemplateOutlet]="btnModalWrap"></ng-container>
     </button>
     <div *ngIf="paymentDescription" class="payments-description">{{paymentDescription}}</div>
     <div *ngIf="currentSystem && $params.showSelectedInButton" class="payments-chosen-method">
         <span class="payments-chosen-method__text">{{$params.chosenMethodText | translate}}</span>
         <span class="payments-chosen-method__name">{{activeName}}</span>
     </div>
+</ng-template>
 
+<ng-template #btnModalWrap>
+    <span class="{{$class}}__btn-modal-wrap">
+        <ng-container *ngIf="!$params.noSelectedButton?.use || currentSystem">
+            <span wlc-icon
+                class="{{$class}}__btn-modal-arrow"
+                [iconPath]="$params.arrowIcon">
+            </span>
+        </ng-container>
+        <span *ngIf="$params.noSelectedButton?.use && !currentSystem"
+            class="{{$class}}__btn-modal-text">
+            {{$params.noSelectedButton.title| translate}}
+        </span>
+        <span class="{{$class}}__btn-modal-text">
+            {{($params.noSelectedButton?.use ? $params.noSelectedButton.subtitle : $params.buttonText) | translate}}
+        </span>
+    </span>
+</ng-template>
+
+<ng-template #btnModalImage>
+    <span *ngIf="currentSystem && $params.showSelectedInButton"
+        wlc-icon-list-item
+        class="{{$class}}__btn-modal-image"
+        [icon]="activeIcon"
+        [inlineParams]="{class: $class + '-item'}">
+    </span>
+    <span *ngIf="!currentSystem && $params.noSelectedButton?.use"
+        wlc-icon
+        class="{{$class}}__btn-modal-image"
+        [iconPath]="$params.noSelectedButton.icon">
+    </span>
 </ng-template>
 
 <ng-template #table>
@@ -67,11 +88,12 @@
         <ul class="{{$class}}__ul" [@appearance]="ready && systems.length">
             <li *ngFor="let item of items; index as $index"
                 class="{{$class}}__item"
+                [class.disabled]="systems[$index].disabledBy"
                 [attr.data-wlc-element]="'block_payment-item-' + systems[$index].id">
-
                 <button wlc-icon-list-item
                         class="{{$class}}__button"
-                        [ngClass]="{'active': systems[$index].id === currentSystem?.id}"
+                        [class.active]="systems[$index].id === currentSystem?.id"
+                        [class.disabled]="systems[$index].disabledBy"
                         type="button"
                         [attr.aria-label]="systems[$index].name"
                         [attr.data-wlc-element]="'block_payment-item-name'"
@@ -79,6 +101,11 @@
                         [inlineParams]='{icon: item, class: $class + "-item"}'
                         (click)='selectPayment(systems[$index])'>
                 </button>
+                <div *ngIf="systems[$index].disabledBy"
+                    wlc-tooltip
+                    class="{{$class}}__tooltip"
+                    [inlineParams]="getErrTooltipParams($index)"
+                ></div>
             </li>
         </ul>
         <div [@toggle]="paymentDescription ? 'opened' : 'closed'"

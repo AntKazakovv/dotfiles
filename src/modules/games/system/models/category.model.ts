@@ -5,6 +5,7 @@ import _has from 'lodash-es/has';
 import _forEach from 'lodash-es/forEach';
 import _find from 'lodash-es/find';
 import _isNil from 'lodash-es/isNil';
+import _intersectionBy from 'lodash-es/intersectionBy';
 
 import {
     ICategorySettings,
@@ -57,6 +58,7 @@ export class CategoryModel extends AbstractModel<ICategory> {
 
     private ready = new Deferred<void>();
     private gamesList: Game[] = [];
+    private availableGames: Game[] = [];
     private parent: CategoryModel;
     private childs: CategoryModel[] = [];
 
@@ -202,8 +204,13 @@ export class CategoryModel extends AbstractModel<ICategory> {
         return this.slug.toLowerCase();
     }
 
+    /**
+     * Get games list of current category
+     *
+     * @returns {Game[]}
+     */
     public get games(): Game[] {
-        return this.gamesList;
+        return this.availableGames;
     }
 
     public get gameBlocks(): IGameBlock[] {
@@ -225,16 +232,28 @@ export class CategoryModel extends AbstractModel<ICategory> {
 
     public setGames(games: Game[]): void {
         this.gamesList = games || [];
+        this.availableGames = this.gamesList;
         this.sortGames();
         this.updateMerchants = true;
     }
 
     public addGame(game: Game, sortGames: boolean = false): void {
         this.gamesList.push(game);
+        this.availableGames = this.gamesList;
         if (sortGames) {
             this.sortGames();
         }
         this.updateMerchants = true;
+    }
+
+    /**
+     * Update available games for current category
+     *
+     * @param {Game[]} projectAvailableGames Project available for show games
+     */
+    public updateAvailableGames(projectAvailableGames: Game[]): void {
+        this.availableGames = _intersectionBy(this.gamesList, projectAvailableGames, 'ID');
+        this.sortGames();
     }
 
     public static get language(): string {
@@ -311,14 +330,14 @@ export class CategoryModel extends AbstractModel<ICategory> {
     }
 
     public sortGames(): void {
-        if (this.gamesList.length) {
+        if (this.availableGames.length) {
 
             const perCountryDirection = this.sortSetting.direction?.sortPerCountry || 'asc';
             const perLangDirection = this.sortSetting.direction?.sortPerLanguage || 'asc';
             const perCatDirection = this.sortSetting.direction?.sortPerCategory || 'asc';
             const baseDirection = this.sortSetting.direction?.baseSort || 'desc';
 
-            this.gamesList
+            this.availableGames
                 .sort((a, b) => {
                     const byCountry = this.compareGamesByFeature(
                         a,

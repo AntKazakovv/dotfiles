@@ -9,7 +9,8 @@
             <input class="{{$class}}__radio"
                 [attr.name]="$params.name"
                 (change)="changeHandler(item)"
-                type="radio">
+                type="radio"
+                [attr.data-wlc-element]="'wlc-radio-buttons__' + item.value">
 
             <span class="{{$class}}__text">{{item.title | translate}}</span>
         </label>

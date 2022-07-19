@@ -7,13 +7,16 @@ import {TranslateService} from '@ngx-translate/core';
 import {BehaviorSubject} from 'rxjs';
 
 import {
+    IIndexing,
     InjectionService,
 } from 'wlc-engine/modules/core';
 import {IData} from 'wlc-engine/modules/core/system/services/data/data.service';
 import {DataService} from 'wlc-engine/modules/core/system/services/data/data.service';
 import {EventService} from 'wlc-engine/modules/core/system/services/event/event.service';
-
-import {IBet} from 'wlc-engine/modules/finances/system/interfaces/finances.interface';
+import {
+    IBet,
+    TAdditionalParams,
+} from 'wlc-engine/modules/finances/system/interfaces/finances.interface';
 import {PIQCashierService} from 'wlc-engine/modules/finances/system/services/piq-cashier/piq-cashier.service';
 import {
     PaymentSystem,
@@ -88,8 +91,12 @@ export class FinancesService {
         return _find(this.systems, {alias});
     }
 
-    public async deposit(systemId: number, amount: number, additionalFields: object, cssVariables: string):
-        Promise<any> {
+    public async deposit(
+        systemId: number,
+        amount: number,
+        additionalFields: TAdditionalParams,
+        cssVariables: string,
+    ): Promise<any> {
         return await this.balanceAction(
             systemId,
             amount,
@@ -100,8 +107,12 @@ export class FinancesService {
         );
     }
 
-    public async withdraw(systemId: number, amount: number, additionalFields: object, cssVariables: string):
-        Promise<any> {
+    public async withdraw(
+        systemId: number,
+        amount: number,
+        additionalFields: IIndexing<string | number>,
+        cssVariables: string,
+    ): Promise<any> {
         return await this.balanceAction(
             systemId,
             amount,
@@ -218,7 +229,13 @@ export class FinancesService {
             const currentSystem = this.getSystemById(systemId);
 
             if (currentSystem.isCashier) {
-                await this.injector.get(PIQCashierService).openPIQCashier(method, currentSystem, amount, cssVariables);
+                await this.injector.get(PIQCashierService).openPIQCashier(
+                    method,
+                    currentSystem,
+                    amount,
+                    (additionalFields['bonusId'] ? String(additionalFields['bonusId']) : null),
+                    cssVariables,
+                );
                 return [PIQCashierResponse];
             }
 

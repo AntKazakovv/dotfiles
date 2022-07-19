@@ -1,0 +1,66 @@
+
+.wlc-alert--theme-default:host {
+    --wlc-alert-text-color: #{ef.get-value($themeDefault, 'mainColor')};
+    --wlc-alert-bg: #{ef.get-value($themeDefault, 'mainBg')};
+    max-width: ef.get-value($themeDefault, 'maxWidth');
+
+    &.wlc-alert--info {
+        --wlc-alert-text-color: #{ef.get-value($themeDefault, 'mainColorInfo')};
+        --wlc-alert-bg: #{ef.get-value($themeDefault, 'mainBgInfo')};
+    }
+
+    &.wlc-alert--warning {
+        --wlc-alert-text-color: #{ef.get-value($themeDefault, 'mainColorWarning')};
+        --wlc-alert-bg: #{ef.get-value($themeDefault, 'mainBgWarning')};
+    }
+
+    .wlc-alert {
+
+        &__main {
+            display: grid;
+            grid-template-columns: ef.get-value($themeDefault, 'mainGridTemplateColumns');
+            width: 100%;
+            color: var(--wlc-alert-text-color);
+            background: var(--wlc-alert-bg);
+            border-radius: ef.get-value($themeDefault, 'mainRadius');
+
+            &.with-text {
+                border-radius: ef.get-value($themeDefault, 'mainRadiusWithText');
+            }
+        }
+
+        &__title {
+            @include text.get-text-style(ef.get-value($themeDefault, 'titleFontStyle'), ef.get-value($themeDefault, 'titleTextColor'));
+            align-self: ef.get-value($themeDefault, 'titleAlignSelf');
+            padding: ef.get-value($themeDefault, 'titlePadding');
+        }
+
+        &__text {
+            @include text.get-text-style(ef.get-value($themeDefault, 'textFontStyle'), ef.get-value($themeDefault, 'textColor'));
+            padding: ef.get-value($themeDefault, 'textPadding');
+            background: ef.get-value($themeDefault, 'textBg');
+            border-radius: ef.get-value($themeDefault, 'textRadius');
+        }
+
+        &__icon {
+            align-self: ef.get-value($themeDefault, 'iconAlignSelf');
+            padding: ef.get-value($themeDefault, 'iconPadding');
+
+            ::ng-deep {
+
+                .wlc-icon-content {
+                    display: flex;
+                    width: ef.get-value($themeDefault, 'iconWidth');
+                    height: ef.get-value($themeDefault, 'iconHeight');
+                    color: ef.get-value($themeDefault, 'iconColor');
+                }
+
+                svg {
+                    width: ef.get-value($themeDefault, 'iconWidth');
+                    height: ef.get-value($themeDefault, 'iconHeight');
+                    fill: currentColor;
+                }
+            }
+        }
+    }
+}

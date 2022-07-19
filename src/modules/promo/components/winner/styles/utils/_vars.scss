@@ -68,6 +68,7 @@ $themeDefault: map-merge((
 $customThemeVertical: () !default;
 $themeVertical: map-merge((
     'imageSize': var(--wlc-winner-slider-slide-height, 60px),
+    'wrapperGap': ef.size(2),
 
     // winner right block
     'rightBackground': var(--mc-bg),

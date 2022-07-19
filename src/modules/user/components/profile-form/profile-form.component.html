@@ -1,8 +1,14 @@
-<div wlc-form-wrapper
-     class="{{$class}}__form"
-     [config]="$params.config"
-     [formData]="userProfile"
-     [ngSubmit]="ngSubmit.bind(this)"
-     [errors]="errors$.asObservable()"
-     [beforeSubmit]="beforeSubmit.bind(this)"
-></div>
+<ng-container *ngIf="ready; else preloader">
+     <div wlc-form-wrapper
+          class="{{$class}}__form"
+          [config]="$params.config"
+          [formData]="userProfile"
+          [ngSubmit]="ngSubmit.bind(this)"
+          [errors]="errors$.asObservable()"
+          [beforeSubmit]="beforeSubmit.bind(this)"
+     ></div>
+</ng-container>
+
+<ng-template #preloader>
+     <div wlc-loader></div>
+</ng-template>

@@ -20,6 +20,7 @@ import {
 } from 'rxjs';
 import {
     filter,
+    first,
     takeUntil,
     tap,
     throttleTime,
@@ -56,8 +57,13 @@ import {
     ItemAppearanceAnimation,
     CardLoadingAnimation,
     GlobalHelper,
+    IWrapperCParams,
+    IFormWrapperCParams,
 } from 'wlc-engine/modules/core';
-import {ISlide} from 'wlc-engine/modules/promo';
+import {
+    ISlide,
+    ISliderCParams,
+} from 'wlc-engine/modules/promo';
 import {WINDOW} from 'wlc-engine/modules/app/system';
 import {Game} from 'wlc-engine/modules/games/system/models/game.model';
 import {IGamesFilterData} from 'wlc-engine/modules/games/system/interfaces/filters.interfaces';
@@ -111,6 +117,10 @@ export class GamesGridComponent extends AbstractComponent implements OnInit, OnD
     // the swiper navigation buttons will lose their binding
     public navigationId: string = _random(10000000).toString(16);
 
+    public gamesSliderConfig: IWrapperCParams = {components: []};
+    public gamePlaceholdersSliderConfig: IWrapperCParams = {components: []};
+    public bannerSliderConfig: IWrapperCParams = {components: []};
+
     protected gamesRows: number = 1;
     protected gamesRowsLoaded: number = 0;
     protected paginate: number;
@@ -124,6 +134,7 @@ export class GamesGridComponent extends AbstractComponent implements OnInit, OnD
     protected jackpotsLoaded: boolean = false;
     protected isClickedLoadMoreBtn: boolean = false;
     protected useLazyAfterClick: boolean = false;
+    protected $isReady: Subject<void> = new Subject<void>();
 
     private $untilBreakpointOrDestroy: Subject<void> = new Subject();
 
@@ -158,6 +169,12 @@ export class GamesGridComponent extends AbstractComponent implements OnInit, OnD
 
         this.filterName = this.$params.searchFilterName;
 
+        this.$isReady
+            .pipe(
+                first(() => this.isReadyOrUsePlaceholder),
+                takeUntil(this.$destroy),
+            )
+            .subscribe(() => this.loadSlidersComponentsOnReady());
         this.initEventListeners();
 
         if (_size(this.$params.breakpoints)) {
@@ -205,6 +222,19 @@ export class GamesGridComponent extends AbstractComponent implements OnInit, OnD
      */
     public get isLoadingAnimation(): number | string {
         return this.$params.useLoadingAnimation ? this.filterChangedCounter + this.gamesRowsLoaded : '';
+    }
+
+    public get isReadyOrUsePlaceholder(): boolean {
+        return this.$params.usePlaceholders || this.isReady;
+    }
+
+    public get showGameSlides(): boolean {
+        return this.games.length && this.isReady;
+    }
+
+    public get hasGames(): boolean {
+        const shouldUsePlaceholder = this.$params.usePlaceholders && !this.isReady;
+        return !!this.games.length || shouldUsePlaceholder;
     }
 
     public trackGames(index: number, item: Game): string {
@@ -310,6 +340,7 @@ export class GamesGridComponent extends AbstractComponent implements OnInit, OnD
                 });
         }
         this.isReady = true;
+        this.$isReady.next();
 
         if (!this.games.length && this.$params.hideEmpty) {
             this.hideEmptyComponent = true;
@@ -493,9 +524,9 @@ export class GamesGridComponent extends AbstractComponent implements OnInit, OnD
      */
     protected async getFilteredGames(): Promise<Game[]> {
         if (this.$params.gamesList) {
-            return this.$params.gamesList;
+            return this.gamesCatalogService.filterAvailableGames(this.$params.gamesList);
         } else if (this.gamesList) {
-            return this.games;
+            return this.gamesCatalogService.filterAvailableGames(this.games);
         } else if (this.$params.tournamentGamesFilter || this.$params.tournamentFreeRoundGames) {
             return this.getTournamentGames();
         } else if (this.$params.byState) {
@@ -594,6 +625,8 @@ export class GamesGridComponent extends AbstractComponent implements OnInit, OnD
         this.moreButtonChangeState();
 
         this.isReady = true;
+        this.$isReady.next();
+
         this.cdr.markForCheck();
     }
 
@@ -737,6 +770,44 @@ export class GamesGridComponent extends AbstractComponent implements OnInit, OnD
         this.initLazyLoading();
 
         this.cdr.markForCheck();
+    }
+
+    protected loadSlidersComponentsOnReady(): void {
+        if (this.isReadyOrUsePlaceholder && this.hasGames) {
+            this.initGameSliders();
+
+            if (this.$params.bannerSettings) {
+                this.initBannersSlider();
+            }
+        }
+    }
+
+    protected initGameSliders(): void {
+        const createConfig = (slides: ISlide[]): IFormWrapperCParams => ({
+            components: [
+                {
+                    name: 'promo.wlc-slider',
+                    params: <ISliderCParams>_merge({slides}, this.$params.showAsSwiper?.sliderParams),
+                },
+            ],
+        });
+
+        if (this.showGameSlides) {
+            this.gamesSliderConfig = createConfig(this.gameSlides);
+        } else {
+            this.gamePlaceholdersSliderConfig = createConfig(this.placeHoldersSlides);
+        }
+    }
+
+    protected initBannersSlider(): void {
+        this.bannerSliderConfig = {
+            components: [
+                {
+                    name: 'promo.wlc-banners-slider',
+                    params: this.$params.bannerSettings,
+                },
+            ],
+        };
     }
 
     private applyMoreBtnSettings(): void {

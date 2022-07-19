@@ -13,6 +13,7 @@ import {
     IFormWrapperCParams,
     LogService,
     IComponentParams,
+    InjectionService,
 } from 'wlc-engine/modules/core';
 import {
     IFieldTemplate,
@@ -39,6 +40,7 @@ export abstract class AbstractDepositWithdrawComponent<T extends {mode: TPayment
         protected logService: LogService,
         protected modalService: ModalService,
         protected configService: ConfigService,
+        protected injectionService: InjectionService,
     ) {
         super(params, configService);
     }
@@ -61,7 +63,7 @@ export abstract class AbstractDepositWithdrawComponent<T extends {mode: TPayment
         });
     }
 
-    protected checkUserProfileForPayment(): void {
+    protected async checkUserProfileForPayment(): Promise<void> {
         if (!this.currentSystem) {
             return;
         }
@@ -85,7 +87,11 @@ export abstract class AbstractDepositWithdrawComponent<T extends {mode: TPayment
                         this.logService.sendLog({code: '1.4.41', data: `Field '${item.template}' does not exist!`});
                     }
                 }, []);
-            fields.push(FormElements.password);
+
+            if (!await this.configService.get<boolean>('$user.skipPasswordOnFirstUserSession')) {
+                fields.push(FormElements.password);
+            }
+
             fields.push(FormElements.submit);
 
             this.profileForm = {

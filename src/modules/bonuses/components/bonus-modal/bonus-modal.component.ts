@@ -49,11 +49,4 @@ export class BonusModalComponent extends AbstractComponent implements OnInit {
             this.bonusBgUrl = `url(${this.bonus.imageOther})`;
         }
     }
-
-    /**
-     * Updating the icon to replace it
-     */
-    public iconError(): void {
-        this.cdr.detectChanges();
-    }
 }

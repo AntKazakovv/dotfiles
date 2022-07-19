@@ -1,4 +1,9 @@
-import {IIndexing} from 'wlc-engine/modules/core';
+import {Subject} from 'rxjs';
+
+import {
+    HooksService,
+    IIndexing,
+} from 'wlc-engine/modules/core';
 
 export interface ISportsbookConfig {
     betradar?: IBetradar;
@@ -13,6 +18,11 @@ export interface ISportsbookSettings {
 export interface ISportsbookSettingsFilter {
     id?: string,
     merchantId?: number,
+}
+
+export interface ISportsbookHook {
+    hooksService: HooksService,
+    disableHooks: Subject<void>,
 }
 
 export interface IBetradar {

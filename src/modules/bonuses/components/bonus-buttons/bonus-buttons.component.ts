@@ -163,7 +163,7 @@ export class BonusButtonsComponent extends AbstractComponent implements OnInit {
      *
      * @param type {string} action type
      */
-    public async action(type: string) {
+    public async action(type: string): Promise<void> {
         switch (type) {
             case 'register':
                 await this.modalService.showModal('signup');
@@ -183,6 +183,9 @@ export class BonusButtonsComponent extends AbstractComponent implements OnInit {
                     this.$params.promoLinks?.play?.state || 'app.catalog',
                     this.$params.promoLinks?.play?.params || {category: 'casino'},
                 );
+                break;
+            case 'openLootbox':
+                this.modalService.showModal('lootbox', {bonus: this.bonus});
                 break;
         }
     }

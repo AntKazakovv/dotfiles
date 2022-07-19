@@ -10,7 +10,7 @@
              (error)="imageError(currentLanguage.code)">
     </div>
     <div *ngIf="!$params.currentLang?.hideLang" class="{{$class}}__current-lang">
-        {{$params.themeMod !== 'long' ? this.currentLanguage.code : this.currentLanguage.label | translate}}
+        {{$params.themeMod !== 'long' ? this.currentLanguage?.code : this.currentLanguage?.label | translate}}
     </div>
     <div *ngIf="!$params.currentLang?.hideArrow"
          wlc-icon

@@ -40,6 +40,7 @@ import _keys from 'lodash-es/keys';
 import _isUndefined from 'lodash-es/isUndefined';
 import _merge from 'lodash-es/merge';
 import _isArray from 'lodash-es/isArray';
+import _has from 'lodash-es/has';
 
 export {IButtonCParams} from './button.params';
 
@@ -110,6 +111,11 @@ export class ButtonComponent extends AbstractComponent implements OnInit,
         if (_get(changes, 'text') && _get(this, '$params.common.text')) {
             this.$params.common.text = this.text;
         }
+
+        if (_has(changes, 'themeMod') && _has(this, '$params')) {
+            this.$params.themeMod = this.themeMod;
+            this.prepareHostClass();
+        }
         this.cdr.detectChanges();
     }
 
@@ -178,4 +184,3 @@ export class ButtonComponent extends AbstractComponent implements OnInit,
         this.addModifiers(modifiers);
     }
 }
-

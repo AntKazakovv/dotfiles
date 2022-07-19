@@ -1,0 +1,36 @@
+$customThemeDefault: () !default;
+$themeDefault: map-merge((
+    'maxWidth': 330px,
+
+    // main
+    'mainGridTemplateColumns': 1fr auto,
+    'mainRadius': ef.get('radius', 'less'),
+    'mainRadiusWithText': ef.get('radius', 'less') ef.get('radius', 'less') 0 0,
+
+    'mainColor': var(--mc-baseMain),
+    'mainBg': var(--mc-bg100-o1),
+    'mainColorInfo': var(--mc-main),
+    'mainBgInfo': var(--mc-main-o1),
+    'mainColorWarning': var(--mc-warning),
+    'mainBgWarning': var(--mc-warning-o1),
+
+    // title
+    'titleAlignSelf': center,
+    'titlePadding': ef.size(2),
+    'titleFontStyle': 'PrimaryTextBold',
+    'titleTextColor': inherit,
+
+    //text
+    'textPadding': ef.size(4) ef.size(2),
+    'textBg': var(--mc-bg-o2),
+    'textFontStyle': 'PrimaryText',
+    'textColor': var(--mc-baseMain),
+    'textRadius': 0 0 ef.get('radius', 'less') ef.get('radius', 'less'),
+
+    //icon
+    'iconAlignSelf': flex-start,
+    'iconPadding': 13px ef.size(2) ef.size(2),
+    'iconWidth': 15px,
+    'iconHeight': 15px,
+    'iconColor': inherit,
+), $customThemeDefault);

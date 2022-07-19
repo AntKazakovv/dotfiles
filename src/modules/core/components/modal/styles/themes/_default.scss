@@ -266,6 +266,60 @@
             background: ef.get-value($themeDefault, 'sliderModalBg');
         }
     }
+
+    &.wlc-modal--lootbox {
+
+        .wlc-modal {
+
+            &__wrapper {
+                @include mq.max(560) {
+                    height: 100%;
+                    padding: 0;
+                }
+            }
+
+            &__dialog {
+                @include bm.get-mq-map('max-width', $themeDefault, 'lootboxModalMaxWidth');
+                overflow: hidden;
+
+                @include mq.max(560) {
+                    height: 100%;
+                    margin: 0;
+                }
+            }
+
+            &__body {
+                padding: ef.get-value($themeDefault, 'lootboxModalBodyPadding');
+                background: ef.get-value($themeDefault, 'lootboxModalBodyBg');
+                background-size: ef.get-value($themeDefault, 'lootboxModalBodyBgSize');
+
+                @include mq.max(560) {
+                    height: 100%;
+                }
+            }
+        }
+
+        @include mq.max(560) {
+
+            .wlc-lootbox-modal {
+                height: 100%;
+
+                &__wrapper {
+                    display: flex;
+                    flex-direction: column;
+                    height: 100%;
+                }
+
+                &__text-block {
+                    flex-shrink: 0;
+                }
+
+                &__buttons {
+                    flex-basis: 100%;
+                }
+            }
+        }
+    }
 }
 
 body.modal-open {

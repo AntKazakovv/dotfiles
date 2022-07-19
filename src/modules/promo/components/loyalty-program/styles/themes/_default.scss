@@ -66,6 +66,16 @@
             background-position: ef.get-value($themeDefault, 'decorRightBgPosition');
         }
 
+        &__slider {
+
+            ::ng-deep {
+
+                .swiper-slide {
+                    width: ef.get-value($themeDefault, 'slideWidth');
+                }
+            }
+        }
+
         &__items-wrapper {
             @include bm.get-mq-map('grid-template-columns', $themeDefault, 'itemsWrapperTemplateColumns');
             @include bm.get-mq-map('gap', $themeDefault, 'itemsWrapperGap');
@@ -77,57 +87,6 @@
             z-index: ef.get-value($themeDefault, 'itemsWrapperZindex');
 
             display: ef.get-value($themeDefault, 'itemsWrapperDisplay');
-        }
-
-        &__item {
-            @include bm.get-mq-map('padding', $themeDefault, 'itemPadding');
-            @include bm.get-mq-map('background', $themeDefault, 'itemBackground');
-
-            display: ef.get-value($themeDefault, 'itemDisplay');
-            flex-direction: ef.get-value($themeDefault, 'itemDirection');
-            align-items: ef.get-value($themeDefault, 'itemAlign');
-
-            border-radius: ef.get-value($themeDefault, 'itemRadius');
-        }
-
-        &__item-image {
-            @include bm.get-mq-map('padding', $themeDefault, 'itemImagePadding');
-
-            position: ef.get-value($themeDefault, 'itemImagePosition');
-            display: ef.get-value($themeDefault, 'itemImageDisplay');
-            align-items: ef.get-value($themeDefault, 'itemImageAlign');
-            justify-content: ef.get-value($themeDefault, 'itemImageJustify');
-            width: ef.get-value($themeDefault, 'itemImageWidth');
-            height: ef.get-value($themeDefault, 'itemImageHeight');
-        }
-
-        &--icon {
-            width: ef.get-value($themeDefault, 'iconWidth');
-            max-width: ef.get-value($themeDefault, 'iconMaxWidth');
-            height: ef.get-value($themeDefault, 'iconHeight');
-            max-height: ef.get-value($themeDefault, 'iconMaxHeight');
-            object-fit: ef.get-value($themeDefault, 'iconObjectfit');
-        }
-
-        &__item-title {
-            @include bm.get-mq-map('padding', $themeDefault, 'itemTitlePadding');
-            @include text.get-text-style(ef.get-value($themeDefault, 'itemTitleFont'), ef.get-value($themeDefault, 'itemTitleFontColor'));
-        }
-
-        &__item-description {
-            @include bm.get-mq-map('padding', $themeDefault, 'itemDescriptionPadding');
-            @include bm.get-mq-map('margin', $themeDefault, 'itemDescriptionMargin');
-            @include text.get-text-style(ef.get-value($themeDefault, 'itemDescriptionFont'), ef.get-value($themeDefault, 'itemDescriptionFontColor'));
-            @include bm.lineClamp(3);
-
-            text-align: ef.get-value($themeDefault, 'itemDescriptionTextAlign');
-        }
-
-        &__item-points {
-            @include text.get-text-style(ef.get-value($themeDefault, 'itemPointsFont'), ef.get-value($themeDefault, 'itemPointsFontColor'));
-
-            display: ef.get-value($themeDefault, 'itemPointsDisplay');
-            align-items: ef.get-value($themeDefault, 'itemPointsAlign');
         }
 
         &__btn-wrapper {

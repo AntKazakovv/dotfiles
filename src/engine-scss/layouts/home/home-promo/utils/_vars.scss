@@ -1,13 +1,15 @@
 $customHomePromo: () !default;
 $homePromo: map-merge((
-    'columns': (
+    'promoColumns': (
         320: minmax(250px, 1fr),
         1200: calc((100% - 80px) / 5 * 2 + 20px) minmax(250px, 1fr),
         1630: calc((100% - 100px) / 6 * 2 + 20px) minmax(250px, 1fr),
     ),
-    'gap': (
+    'promoGap': (
         375: ef.size(4),
     ),
+    'promoSliderMaxWidth': 100%,
+
     'tournamentSliderWrapMaxWidth': 100%,
     'tournamentSliderButtonDisplay': (
         320: flex,

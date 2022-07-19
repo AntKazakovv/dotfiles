@@ -9,15 +9,16 @@ import _isUndefined from 'lodash-es/isUndefined';
 import _find from 'lodash-es/find';
 
 export interface ITransaction {
-    Amount: number;
+    Amount: number | string;
+    AmountEur: number | string;
     Date: string;
     DateISO: string;
     ID: string;
     Note: string;
     Status: number | string;
     System: string;
-    Canceled: boolean;
-    AllowCancelation: string;
+    Canceled?: boolean;
+    AllowCancelation?: string;
 }
 
 export interface ITransactionEx extends ITransaction {
@@ -82,7 +83,7 @@ export class Transaction extends AbstractModel<ITransactionEx> {
     }
 
     public get amount(): number {
-        return this.data.Amount;
+        return +this.data.Amount;
     }
 
     public get date(): DateTime {
@@ -91,7 +92,7 @@ export class Transaction extends AbstractModel<ITransactionEx> {
 
     /**
      * Returns the date of the transaction in ISO format
-     * 
+     *
      * @return {string} the date in ISO format
      */
     public get dateISO(): string {

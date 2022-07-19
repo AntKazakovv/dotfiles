@@ -4,6 +4,7 @@ import {
     Component,
     Inject,
     Input,
+    OnChanges,
     OnInit,
     ViewEncapsulation,
 } from '@angular/core';
@@ -11,6 +12,10 @@ import {
 import {BehaviorSubject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 import _union from 'lodash-es/union';
+import _merge from 'lodash-es/merge';
+import _get from 'lodash-es/get';
+import _each from 'lodash-es/each';
+import _includes from 'lodash-es/includes';
 
 import {
     AbstractComponent,
@@ -18,14 +23,17 @@ import {
     ConfigService,
     ModalService,
     EventService,
+    ITooltipCParams,
 } from 'wlc-engine/modules/core';
 import {UserProfile} from 'wlc-engine/modules/user';
+import {BonusesService} from 'wlc-engine/modules/bonuses/system/services/bonuses/bonuses.service';
 import {Bonus} from 'wlc-engine/modules/bonuses/system/models/bonus';
 import {
     BonusItemComponentEvents,
     ChosenBonusSetParams,
     ChosenBonusType,
 } from 'wlc-engine/modules/bonuses/system/interfaces/bonuses.interface';
+import {IBonusModalCParams} from 'wlc-engine/modules/bonuses/components/bonus-modal/bonus-modal.params';
 
 import * as Params from './bonus-item.params';
 
@@ -37,7 +45,7 @@ import * as Params from './bonus-item.params';
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
 })
-export class BonusItemComponent extends AbstractComponent implements OnInit {
+export class BonusItemComponent extends AbstractComponent implements OnInit, OnChanges {
     @Input() public inlineParams: Params.IBonusItemCParams;
 
     public $params: Params.IBonusItemCParams;
@@ -54,6 +62,7 @@ export class BonusItemComponent extends AbstractComponent implements OnInit {
         protected configService: ConfigService,
         protected modalService: ModalService,
         protected eventService: EventService,
+        protected bonusesService: BonusesService,
     ) {
         super(
             <IMixedParams<Params.IBonusItemCParams>>{
@@ -88,7 +97,6 @@ export class BonusItemComponent extends AbstractComponent implements OnInit {
 
         } else if (this.asProfileTypeFirst) {
             imageUrl = this.bonus.imageProfileFirst;
-
         } else {
             imageUrl = this.bonus.image;
         }
@@ -164,10 +172,18 @@ export class BonusItemComponent extends AbstractComponent implements OnInit {
             });
 
         if (this.bonus) {
-            this.bonus.onChooseChange.pipe(takeUntil(this.$destroy))
+            this.bonus.onChooseChange?.pipe(takeUntil(this.$destroy))
                 .subscribe((): void => {
                     this.cdr.detectChanges();
                 });
+        }
+    }
+
+    public ngOnChanges(): void {
+        if (_get(this.$params, 'theme') === 'mini'
+            && (_get(this.inlineParams, 'bonus.id') !== _get(this, 'bonus.id')
+                || _get(this.inlineParams, 'bonus.isChoose') !== _get(this, 'bonus.isChoose'))) {
+            this.ngOnInit();
         }
     }
 
@@ -188,8 +204,39 @@ export class BonusItemComponent extends AbstractComponent implements OnInit {
     /**
      * Open bonus modal
      */
-    public openDescription(): void {
-        this.modalService.showModal('bonusModal', {bonus: this.bonus, 'bonusItemTheme': this.$params.theme});
+    public openDescription($event: MouseEvent): void {
+        $event.stopPropagation();
+
+        // this.modalService.showModal('bonusModal', _merge({
+        //     bonus: this.bonus,
+        //     bonusItemTheme: this.$params.theme,
+        // }, this.$params.bonusModalParams || {}));
+    
+        const modalParams: IBonusModalCParams = _merge({
+            bonus: this.bonus,
+            bonusItemTheme: this.$params.theme,
+        }, this.$params.bonusModalParams || {});
+
+        if (this.bonus.isLootbox) {
+            modalParams.bonusItemTheme = 'lootbox';
+            modalParams.accordionParams = {
+                title: gettext('Possible rewards'),
+                titleIconPath: '/wlc/icons/arrow.svg',
+                collapseAll: true,
+                items: [],
+            };
+
+            _each(this.bonusesService.bonuses, (bonus: Bonus): void => {
+                if (_includes(<number[]>this.bonus.value, bonus.id)) {
+                    modalParams.accordionParams.items.push({
+                        title: bonus.name,
+                        content: bonus.descriptionClean,
+                    });
+                }
+            });
+        }
+
+        this.modalService.showModal('bonusModal', modalParams);
     }
 
     /**
@@ -227,6 +274,15 @@ export class BonusItemComponent extends AbstractComponent implements OnInit {
                 this.eventService.emit({name: 'BONUS_REFRESH'});
             }, 310000);
         }
+    }
+
+    public getErrTooltipParams(): ITooltipCParams {
+        return {
+            inlineText: this.bonus.disabledReason,
+            themeMod: 'error',
+            bsTooltipMod: 'error',
+            iconName: 'blocked',
+        };
     }
 
     protected prepareModifiers(): void {

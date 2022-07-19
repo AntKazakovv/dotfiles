@@ -47,11 +47,18 @@
         }
 
         &__btns {
+            display: ef.get-value($themeDefault, 'btnsDisplay');
+            justify-content: ef.get-value($themeDefault, 'btnsJustifyContent');
+            margin: ef.get-value($themeDefault, 'btnsMargin');
 
             ::ng-deep {
 
-                .wlc-btn {
-                    margin: ef.get-value($themeDefault, 'btnMargin');
+                button {
+                    margin-right: ef.get-value($themeDefault, 'btnMarginRight');
+
+                    &:last-child {
+                        margin-right: 0;
+                    }
                 }
             }
         }
@@ -93,6 +100,49 @@
 
                 &.wlc-smaller {
                     @include text.get-text-style(ef.get-value($themeDefault, 'iconTextStyleSmaller'), ef.get-value($themeDefault, 'iconValFontColor'));
+                }
+            }
+        }
+
+        &__possible-rewards {
+            display: flex;
+            flex-direction: column;
+
+            ::ng-deep {
+
+                .wlc-accordion {
+
+                    &__header-title {
+                        @include text.get-text-style(
+                            ef.get-value($themeDefault, 'rewardsHeaderStyle'),
+                            ef.get-value($themeDefault, 'rewardsHeaderColor'),
+                        );
+                    }
+
+                    &__title-text {
+                        @include text.get-text-style(
+                            ef.get-value($themeDefault, 'rewardsTitleStyle'),
+                            ef.get-value($themeDefault, 'rewardsTitleColor'),
+                        );
+                    }
+
+                    &__content-wrp {
+                        @include text.get-text-style(
+                            ef.get-value($themeDefault, 'rewardsContentStyle'),
+                            ef.get-value($themeDefault, 'rewardsContentColor'),
+                        );
+                    }
+
+                    &__title-icon {
+
+                        ::ng-deep {
+
+                            .wlc-icon-content {
+                                width: ef.get-value($themeDefault, 'rewardsTitleIconWidth');
+                                height: ef.get-value($themeDefault, 'rewardsTitleIconHeight');
+                            }
+                        }
+                    }
                 }
             }
         }

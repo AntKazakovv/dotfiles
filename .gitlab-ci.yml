@@ -24,5 +24,5 @@ before_script:
 run_checks:
     stage: checks
     script:
-        - npx concurrently --names "eslint,stylelint,test,compodoc,sassdoc" "npm run eslint" "npm run stylelint" "npm run test" "npm run build:docs" "npm run build:sassdocs"
+        - npx concurrently --names "changes,eslint,stylelint,test,compodoc,sassdoc" "npm run checking-changes" "npm run eslint" "npm run stylelint" "npm run test" "npm run build:docs" "npm run build:sassdocs"
         - echo "Job end at $(date +%H:%M:%S)"

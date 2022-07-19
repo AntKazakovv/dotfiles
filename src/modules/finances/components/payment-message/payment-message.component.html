@@ -17,15 +17,12 @@
         </div>
         <div class="{{$class}}__text-row">
             {{'Please note, that minimum deposit amount for this method is' | translate}}
-            <span wlc-currency [value]="system.depositMin"></span>,
+            <span wlc-currency [value]="minAmount"></span>,
             {{'maximum one is' | translate}}
-            <span wlc-currency [value]="system.depositMax"></span>.
+            <span wlc-currency [value]="maxAmount"></span>.
         </div>
         <div class="{{$class}}__text-row">
             {{'To make a deposit you need to replenish a wallet for a specified amount.' | translate}}
-        </div>
-        <div class="{{$class}}__warning" *ngIf="!this.$params.themeMod?.includes('modal')">
-            <span class="stress">{{'Attention!' | translate}}</span> {{'Payments through contracts are not supported.' | translate}}
         </div>
     </div>
     <div class="{{$class}}__qr">
@@ -35,9 +32,6 @@
                 [alt]="system.name"
                 [src]="imgUrl">
         </div>
-    </div>
-    <div class="{{$class}}__warning" *ngIf="this.$params.themeMod?.includes('modal')">
-        <span class="stress">{{'Attention!' | translate}}</span> {{'Payments through contracts are not supported.' | translate}}
     </div>
 </ng-template>
 
@@ -57,15 +51,12 @@
         </div>
         <div class="{{$class}}__text-row">
             {{'Please note, that minimum deposit amount for this method is' | translate}}
-            <span wlc-currency [value]="system.depositMin"></span>,
+            <span wlc-currency [value]="minAmount"></span>,
             {{'maximum one is' | translate}}
-            <span wlc-currency [value]="system.depositMax"></span>.
+            <span wlc-currency [value]="maxAmount"></span>.
         </div>
         <div class="{{$class}}__text-row">
             {{'To make a deposit you need to replenish a wallet for a specified amount.' | translate}}
-        </div>
-        <div class="{{$class}}__warning" *ngIf="!this.$params.themeMod?.includes('modal')">
-            <span class="stress">{{'Attention!' | translate}}</span> {{'Payments through contracts are not supported.' | translate}}
         </div>
     </div>
     <div class="{{$class}}__qr">
@@ -75,9 +66,6 @@
                 [alt]="system.name"
                 [src]="imgUrl">
         </div>
-    </div>
-    <div class="{{$class}}__warning" *ngIf="this.$params.themeMod?.includes('modal')">
-        <span class="stress">{{'Attention!' | translate}}</span> {{'Payments through contracts are not supported.' | translate}}
     </div>
 </ng-template>
 

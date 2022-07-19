@@ -17,8 +17,8 @@ export const sportsbookConfig: ISportsbookConfig = {
                     serverUrl: 'https://test-brserver.egamings.com:1443',
                 },
                 prod: {
-                    url: 'https://api.sportsbet.softgamings.com/static/widgets/v1/init.js',
-                    serverUrl: 'https://api.sportsbet.softgamings.com',
+                    url: 'https://api-sportsbet.softgamings.com/static/widgets/v1/init.js',
+                    serverUrl: 'https://api-sportsbet.softgamings.com',
                 },
             },
             popularEvents: {

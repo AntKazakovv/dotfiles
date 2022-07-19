@@ -7,14 +7,25 @@ import {
 } from '@angular/core';
 
 import {UIRouter} from '@uirouter/core';
+import {
+    distinctUntilChanged,
+    filter,
+    takeUntil,
+} from 'rxjs/operators';
+import _map from 'lodash-es/map';
 
 import {
     AbstractComponent,
+    ActionService,
     ConfigService,
+    DeviceType,
     ModalService,
 } from 'wlc-engine/modules/core';
 import {LoyaltyLevelsService} from 'wlc-engine/modules/promo/system/services/loyalty-levels/loyalty-levels.service';
 import {LoyaltyLevelModel} from 'wlc-engine/modules/promo/system/models/loyalty-level.model';
+import {ILoyaltyLevelCParams} from 'wlc-engine/modules/promo/components/loyalty-level/loyalty-level.params';
+import {ISlide} from 'wlc-engine/modules/promo/components/slider/slider.params';
+import {LoyaltyLevelComponent} from 'wlc-engine/modules/promo/components/loyalty-level/loyalty-level.component';
 
 import * as Params from './loyalty-program.params';
 
@@ -29,6 +40,8 @@ export class LoyaltyProgramComponent extends AbstractComponent implements OnInit
     public levels: LoyaltyLevelModel[] = [];
     public ready = false;
     public isAuth: boolean;
+    public slides: ISlide[] = [];
+    public isMobile: boolean = false;
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.ILoyaltyProgramCParams,
@@ -36,6 +49,7 @@ export class LoyaltyProgramComponent extends AbstractComponent implements OnInit
         protected configService: ConfigService,
         protected loyaltyLevelsService: LoyaltyLevelsService,
         protected modalService: ModalService,
+        protected actionService: ActionService,
         protected router: UIRouter,
     ) {
         super({injectParams, defaultParams: Params.defaultParams}, configService);
@@ -48,6 +62,9 @@ export class LoyaltyProgramComponent extends AbstractComponent implements OnInit
         this.isAuth = this.configService.get('$user.isAuthenticated');
         this.$params.title ??= this.configService.get<string>('$promo.loyalty.programTitle');
         this.levels = (await this.loyaltyLevelsService.getLoyaltyLevelsSafely()).splice(0, this.$params.levelsLimit);
+        this.initSlides();
+        this.watchForOrientation();
+
         this.ready = true;
         this.cdr.detectChanges();
     }
@@ -73,5 +90,49 @@ export class LoyaltyProgramComponent extends AbstractComponent implements OnInit
      */
     public setLoyaltyPoints(index: number): string {
         return `${index ? this.levels[index - 1].nextLevelPoints : 0} - ${this.levels[index].nextLevelPoints}`;
+    }
+
+    /**
+     * Creates slide list for slider from level models
+     */
+    protected initSlides(): void {
+        this.slides = _map(this.levels, (level: LoyaltyLevelModel, idx) => ({
+            component: LoyaltyLevelComponent,
+            componentParams: this.getLoyaltyLevelParams(level, idx),
+        }));
+    }
+
+    /**
+     * Aggregating inline params for loyalty levels list item
+     *
+     * @param {LoyaltyLevelModel} level - model representing info about the level
+     * @param {number} idx - ordinal number of level
+     * @returns {ILoyaltyLevelCParams} `inlineParams` for `[wlc-loyalty-level]` component
+     */
+    public getLoyaltyLevelParams(level: LoyaltyLevelModel, idx: number): ILoyaltyLevelCParams {
+        return {
+            name: level.name,
+            level: String(level.level),
+            points: this.setLoyaltyPoints(idx),
+            description: level.description,
+            image: level.image,
+            fallbackImage: this.imageLevel(level.level),
+        };
+    }
+
+    /**
+     * Watches for device orientation changes
+     */
+    protected watchForOrientation(): void {
+        this.actionService.deviceType()
+            .pipe(
+                filter((type) => !!type),
+                distinctUntilChanged(),
+                takeUntil(this.$destroy),
+            )
+            .subscribe((type) => {
+                this.isMobile = type !== DeviceType.Desktop;
+                this.cdr.markForCheck();
+            });
     }
 }

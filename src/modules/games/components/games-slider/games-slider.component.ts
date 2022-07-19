@@ -5,10 +5,12 @@ import {
     Inject,
     Input,
     OnInit,
-    ViewChild,
 } from '@angular/core';
 
-import {timer} from 'rxjs';
+import {
+    Subject,
+    timer,
+} from 'rxjs';
 import {
     takeUntil,
     filter,
@@ -23,15 +25,17 @@ import {
     DeviceType,
     ModalService,
     AbstractComponent,
+    IWrapperCParams,
 } from 'wlc-engine/modules/core';
 import {
     ISlide,
-    SliderComponent,
+    ISliderCParams,
 } from 'wlc-engine/modules/promo';
 import {Game} from 'wlc-engine/modules/games/system/models/game.model';
 import {GameThumbComponent} from 'wlc-engine/modules/games/components/game-thumb/game-thumb.component';
 import {IGameThumbCParams} from 'wlc-engine/modules/games/components/game-thumb/game-thumb.params';
 import {GamesCatalogService} from 'wlc-engine/modules/games/system/services/games-catalog/games-catalog.service';
+import {TSwiperEvent} from 'wlc-engine/modules/promo/components/slider/slider.params';
 
 import * as Params from './games-slider.params';
 
@@ -44,8 +48,6 @@ import * as Params from './games-slider.params';
 export class GamesSliderComponent extends AbstractComponent implements OnInit {
 
     @Input() protected inlineParams: Params.IGamesSliderCParams;
-    @ViewChild(SliderComponent) protected slider: SliderComponent;
-
     public $params: Params.IGamesSliderCParams;
     public slides: ISlide[] = [];
     public ready: boolean = false;
@@ -53,6 +55,9 @@ export class GamesSliderComponent extends AbstractComponent implements OnInit {
     public isActive: boolean = false;
     public mockGamesList: Game[] = [];
     public gamesList: Game[] = [];
+    public sliderConfig: IWrapperCParams;
+
+    protected sliderEvents: Subject<TSwiperEvent> = new Subject<TSwiperEvent>();
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IGamesSliderCParams,
@@ -103,12 +108,12 @@ export class GamesSliderComponent extends AbstractComponent implements OnInit {
      */
     public startScrollingSwiper(): void {
         this.isActive = true;
-        this.slider.swiper.swiperRef.autoplay.start();
+        this.sliderEvents.next('start');
 
         timer(_random(this.$params.minTimer, this.$params.maxTimer))
             .pipe(takeUntil(this.$destroy))
             .subscribe((): void => {
-                this.slider.swiper.swiperRef.autoplay.stop();
+                this.sliderEvents.next('stop');
                 this.isActive = false;
                 this.cdr.markForCheck();
             });
@@ -135,7 +140,28 @@ export class GamesSliderComponent extends AbstractComponent implements OnInit {
                     },
                 };
             });
+
+            this.setSliderConfig();
         }
+    }
+
+    protected setSliderConfig(): void {
+        this.sliderConfig = {
+            class: `${this.$class}__wrapper`,
+            components: [
+                {
+                    name: 'promo.wlc-slider',
+                    params: <ISliderCParams>{
+                        ...this.$params.sliderParams,
+                        class: `${this.$class}__slider`,
+                        slides: this.slides,
+                        events: this.sliderEvents,
+                    },
+                },
+            ],
+        };
+
+        this.cdr.markForCheck();
     }
 
     protected fillGamesList(): void {

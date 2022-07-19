@@ -135,7 +135,6 @@ module.exports = function preBuildTask() {
 
         fs.access(`${this.params.paths.src}/${statesConfigPath}`, (err) => {
             if (err) {
-
                 const path = statesConfigPath.split('/').slice(0, -1).join('/');
                 fs.mkdirSync(`${this.params.paths.src}/${path}/`, {recursive: true});
 
@@ -145,6 +144,21 @@ module.exports = function preBuildTask() {
                 );
             }
         });
+    };
+
+    const addMockServiceWorker = () => {
+        if (['qa', 'test', 'scr'].includes(process.env.ENV)) {
+            const data = fs.readFileSync(
+                `${this.params.paths.engine}/src/system/environments/environment.prod.ts`,
+            );
+
+            if (!data.includes('worker')) {
+                fs.writeFileSync(
+                    `${this.params.paths.engine}/src/system/environments/environment.prod.ts`,
+                    'import \'./environment.mocks\';\n\n' + data,
+                );
+            }
+        }
     };
 
     task('prepare:build', (cb) => {
@@ -159,6 +173,7 @@ module.exports = function preBuildTask() {
         createHostedFields();
         makeApiTestSymlink();
         createPiqFields();
+        addMockServiceWorker();
 
         cb();
     });

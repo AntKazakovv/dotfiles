@@ -415,22 +415,30 @@
             }
 
             &__wrapper {
-                @include bm.get-mq-map('grid-template-rows', $themeDefault, 'infoHeightActive');
-            }
-        }
-
-        @include bm.hover(false) {
-
-            .wlc-bonus-item__wrapper {
-                @include bm.get-mq-map('grid-template-rows', $themeDefault, 'infoHeightActive');
+                @include bm.get-mq-map('grid-template-rows', $themeDefault, 'infoWrapGridRowsActive');
             }
 
-            .wlc-bonus-item__description {
-                @include bm.get-mq-map('height', $themeDefault, 'descriptionHeightMobile');
+            &__bottom {
+                @include bm.get-mq-map('grid-template-rows', $themeDefault, 'infoGridRowsActive');
+                display: grid;
+                grid-template-columns: 100%;
+                padding: 0;
             }
 
-            .wlc-bonus-item__btns {
-                margin-top: auto;
+            @include bm.hover(false) {
+
+                &__description {
+                    @include bm.get-mq-map('height', $themeDefault, 'descriptionHeightMobile');
+                }
+
+                &__btns {
+                    margin-top: auto;
+                }
+
+                &__bottom {
+                    grid-template-rows: ef.get-value($themeDefault, 'btmMobileGridRows');
+                    padding: ef.get-value($themeDefault, 'btnMobilePadding');
+                }
             }
         }
     }
@@ -468,7 +476,7 @@
 
             &__bottom {
                 display: grid;
-                grid-template-rows: ef.get-value($themeDefault, 'btmTemplateMobile');
+                grid-template-rows: ef.get-value($themeDefault, 'btmMobileGridRows');
                 width: 100%;
             }
 

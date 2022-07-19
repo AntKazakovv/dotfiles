@@ -93,46 +93,18 @@
             margin: ef.get-value($themeDefault, 'errorMargin');
             text-align: ef.get-value($themeDefault, 'textAlign');
         }
+    }
 
-        &__slider {
+    ::ng-deep {
 
-            ::ng-deep {
+        .wlc-games-slider__slider {
 
-                .wlc-game-thumb {
-                    background: ef.get-value($themeDefault, 'thumbBg');
-                    transform: translateZ(0);
+            .wlc-game-thumb {
+                background: ef.get-value($themeDefault, 'thumbBg');
+                transform: translateZ(0);
 
-                    &__img {
-                        opacity: ef.get-value($themeDefault, 'thumbOpacity');
-                    }
-                }
-
-                .swiper {
-                    padding: ef.get-value($themeDefault, 'swiperPadding');
-
-                    &-slide {
-                        pointer-events: none;
-                    }
-
-                    &-slide-active {
-                        box-shadow: ef.get-value($themeDefault, 'slideShadow');
-                        border-radius: ef.get-value($themeDefault, 'slideRadius');
-                        cursor: pointer;
-                        transition-duration: ef.get-value($themeDefault, 'transDuration');
-                        pointer-events: initial;
-
-                        .wlc-game-thumb__img {
-                            opacity: 1;
-                        }
-
-                        @include bm.hover {
-                            transform: scale(1.05);
-                        }
-                    }
-
-                    &-wrapper {
-                        transition: transform 0.4s linear;
-                    }
+                &__img {
+                    opacity: ef.get-value($themeDefault, 'thumbOpacity');
                 }
             }
 
@@ -150,6 +122,34 @@
                     .wlc-game-thumb__img {
                         opacity: 1;
                     }
+                }
+            }
+
+            .swiper {
+                padding: ef.get-value($themeDefault, 'swiperPadding');
+
+                &-slide {
+                    pointer-events: none;
+                }
+
+                &-slide-active {
+                    box-shadow: ef.get-value($themeDefault, 'slideShadow');
+                    border-radius: ef.get-value($themeDefault, 'slideRadius');
+                    cursor: pointer;
+                    transition-duration: ef.get-value($themeDefault, 'transDuration');
+                    pointer-events: initial;
+
+                    .wlc-game-thumb__img {
+                        opacity: 1;
+                    }
+
+                    @include bm.hover {
+                        transform: scale(1.05);
+                    }
+                }
+
+                &-wrapper {
+                    transition: transform 0.4s linear;
                 }
             }
         }

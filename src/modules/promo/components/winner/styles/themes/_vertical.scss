@@ -3,6 +3,7 @@
     .wlc-winner {
 
         &__wrapper {
+            gap: ef.get-value($themeVertical, 'wrapperGap');
             height: ef.get-value($themeVertical, 'imageSize');
         }
 

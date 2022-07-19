@@ -117,8 +117,14 @@ $themeDefault: map-merge((
         720: auto 100px,
         1630: auto 130px,
     ),
-    'infoHeightActive': (
+    'infoWrapGridRowsActive': (
         320: ef.size(8) auto,
+    ),
+    'infoGridRowsActive': (
+        320: null,
+        640: auto 92px,
+        720: auto 100px,
+        1630: auto 130px,
     ),
     'infoHeightMobile': (
         320: auto 92px,
@@ -242,8 +248,8 @@ $themeDefault: map-merge((
         375: 0 0 ef.size(3),
         1200: 0 0 ef.size(4),
     ),
-    'btmTemplateMobile': 1fr auto auto,
-
+    'btmMobileGridRows': 1fr auto auto,
+    'btnMobilePadding': 0 0 ef.size(3),
     // More icon
     'moreIconSize': 24px,
     'moreIconColor': var(--mc-baseOpacity),
@@ -285,9 +291,11 @@ $themeDefault: map-merge((
 // Other themes vars
 @import './vars-theme-active';
 @import './vars-theme-long';
+@import './vars-theme-lootbox';
 @import './vars-theme-partial';
 @import './vars-theme-preview';
 @import './vars-theme-promo';
 @import './vars-theme-promo-home';
 @import './vars-theme-mod-chip-v2';
 @import './vars-reg-first';
+@import './vars-theme-mini';

@@ -1,12 +1,84 @@
 // animation @keyframes and backdrop
+@mixin animationEffect($effect) {
+    @if $effect == 'fadeTop' {
+        @include animationMx($effect);
+    } @else if ($effect == 'fadeBottom') {
+        @include animationMx(
+            $effect,
+            $from: translate(ef.get-value($hostModal, 'fadeBottomFromHorizontal'), ef.get-value($hostModal, 'fadeBottomFromVertical')),
+            $to: translate(ef.get-value($hostModal, 'fadeBottomToHorizontal'), ef.get-value($hostModal, 'fadeBottomToVertical'))
+        );
+    } @else if ($effect == 'fadeLeft') {
+        @include animationMx(
+            $effect,
+            $from: translate(ef.get-value($hostModal, 'fadeLeftFromHorizontal'), ef.get-value($hostModal, 'fadeLeftFromVertical')),
+            $to: translate(ef.get-value($hostModal, 'fadeLeftToHorizontal'), ef.get-value($hostModal, 'fadeLeftToVertical')),
+        );
+    } @else if ($effect == 'fadeRight') {
+        @include animationMx(
+            $effect,
+            $from: translate(ef.get-value($hostModal, 'fadeRightFromHorizontal'), ef.get-value($hostModal, 'fadeRightFromVertical')),
+            $to: translate(ef.get-value($hostModal, 'fadeRightToHorizontal'), ef.get-value($hostModal, 'fadeRightToVertical')),
+        );
+    } @else if ($effect == 'scale') {
+        @include animationMx(
+            $effect,
+            $from: ef.get-value($hostModal, 'scaleFrom'),
+            $to: ef.get-value($hostModal, 'scaleTo'),
+        );
+    } @else if ($effect == 'fall') {
+        @include animationMx(
+            $effect,
+            $from: ef.get-value($hostModal, 'fallFrom'),
+            $to: ef.get-value($hostModal, 'fallTo'),
+        );
+
+        transform-style: preserve-3d;
+    } @else if ($effect == 'sideFall') {
+        @include animationMx(
+            $effect,
+            $from: ef.get-value($hostModal, 'sideFallFrom'),
+            $to: ef.get-value($hostModal, 'sideFallTo'),
+        );
+
+        transform-style: preserve-3d;
+    } @else if ($effect == 'flip') {
+        @include animationMx(
+            $effect,
+            $from: ef.get-value($hostModal, 'flipFrom'),
+            $to: ef.get-value($hostModal, 'flipTo'),
+        );
+
+        transform-style: preserve-3d;
+    } @else if ($effect == 'superScaled') {
+        @include animationMx(
+            $effect,
+            $from: ef.get-value($hostModal, 'superScaledFrom'),
+            $to: ef.get-value($hostModal, 'superScaledTo'),
+        );
+
+        transform-style: preserve-3d;
+    } @else if ($effect == 'slit') {
+        @include animationMx(
+            $effect,
+            $from: ef.get-value($hostModal, 'slitFrom'),
+            $between: ef.get-value($hostModal, 'slitBetween'),
+            $to: ef.get-value($hostModal, 'slitTo'),
+        );
+
+        transform-style: preserve-3d;
+    }
+}
+
 @mixin animationMx(
+    $animationName,
     $from: translate(0, -50px),
     $between: null,
     $to: translate(0, 0),
     $closeFrom : $to,
     $closeTo: $from) {
 
-    @keyframes animationModal {
+    @keyframes animationModal#{$animationName} {
 
         0% {
             transform: $from;

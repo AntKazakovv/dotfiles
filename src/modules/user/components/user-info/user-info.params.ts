@@ -141,3 +141,8 @@ export const kioskParams: IUserInfoCParams = {
     },
 };
 
+export const internalMailsNotifierConfig = {
+    components: [
+        {name: 'internal-mails.wlc-internal-mails-notifier'},
+    ],
+};

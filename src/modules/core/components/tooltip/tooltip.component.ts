@@ -65,4 +65,10 @@ export class TooltipComponent extends AbstractComponent implements OnInit {
         $event.preventDefault();
         this.modalService.showModal(this.$params.modal, this.$params.modalParams);
     }
+
+    public get containerClassMod(): string {
+        return this.$params.bsTooltipMod
+            ? `${this.$class}__bs-tooltip--${this.$params.bsTooltipMod}`
+            : '';
+    }
 }

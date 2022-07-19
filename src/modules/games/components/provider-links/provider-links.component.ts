@@ -10,10 +10,13 @@ import {
     AfterViewInit,
 } from '@angular/core';
 
+import {BehaviorSubject} from 'rxjs';
+
 import {IconListAbstract} from 'wlc-engine/modules/core/system/classes/icon-list-abstract.class';
 import {
     ConfigService,
     EventService,
+    IWrapperCParams,
     ModalService,
 } from 'wlc-engine/modules/core';
 import {
@@ -52,6 +55,9 @@ export class ProviderLinksComponent extends IconListAbstract<Params.IProviderLin
     public sliderParams: ISliderCParams = {
         swiper: {},
     };
+    public sliderConfig: IWrapperCParams;
+
+    protected $itemsChanges = new BehaviorSubject<IconModel[]>([]);
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IProviderLinksCParams,
@@ -77,6 +83,8 @@ export class ProviderLinksComponent extends IconListAbstract<Params.IProviderLin
         }
         this.setMerchantsList();
         this.setSliderParams();
+        this.initSliderComponent();
+
         this.ready = true;
     }
 
@@ -128,6 +136,9 @@ export class ProviderLinksComponent extends IconListAbstract<Params.IProviderLin
                 };
             },
         );
+        this.$itemsChanges.next(this.items);
+
+        this.initSliderComponent();
 
         this.cdr.markForCheck();
     }
@@ -145,4 +156,17 @@ export class ProviderLinksComponent extends IconListAbstract<Params.IProviderLin
         this.cdr.markForCheck();
     }
 
+    protected initSliderComponent(): void {
+        this.sliderConfig = {
+            components: [
+                {
+                    name: 'promo.wlc-slider',
+                    params: <ISliderCParams>{
+                        slides: this.slides,
+                        ...this.sliderParams,
+                    },
+                },
+            ],
+        };
+    }
 }

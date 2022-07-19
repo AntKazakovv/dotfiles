@@ -61,6 +61,10 @@ export class UserInfo extends AbstractModel<IUserInfo> {
         return this.data?.firstName;
     }
 
+    public get firstSession(): boolean {
+        return this.data?.firstSession;
+    }
+
     public get freeRounds(): IFreeRound[] {
         return this.data?.freerounds;
     }
@@ -123,6 +127,10 @@ export class UserInfo extends AbstractModel<IUserInfo> {
 
     public get level(): number {
         return +this.data?.loyalty?.Level || 0;
+    }
+
+    public get depositsCount(): number {
+        return +this.data?.loyalty?.DepositsCount || 0;
     }
 
     public get levelName(): string {

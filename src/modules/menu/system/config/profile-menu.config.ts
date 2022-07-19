@@ -108,7 +108,7 @@ export const wlcProfileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
         name: gettext('General'),
         type: 'sref',
         icon: 'edit-profile',
-        wlcElement: 'link_profileMain',
+        wlcElement: 'link_edit-profile',
         class: 'edit-profile',
         params: {
             state: {
@@ -121,7 +121,7 @@ export const wlcProfileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
         name: gettext('General'),
         type: 'sref',
         icon: 'edit-profile',
-        wlcElement: 'link_profileMain',
+        wlcElement: 'link_edit-profile',
         class: 'edit-profile',
         params: {
             state: {
@@ -134,7 +134,7 @@ export const wlcProfileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
         name: gettext('Profile'),
         type: 'sref',
         icon: 'edit-profile',
-        wlcElement: 'link_profileMain',
+        wlcElement: 'link_edit-profile',
         class: 'edit-profile',
         params: {
             state: {
@@ -211,7 +211,7 @@ export const wlcProfileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
                 params: {},
             },
         },
-        wlcElement: 'link_cc-profile-menu_loyalty-bonuses',
+        wlcElement: 'link_offers',
     },
     'profile-first-menu:bonuses-as-offers': {
         name: gettext('Offers'),
@@ -224,7 +224,7 @@ export const wlcProfileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
                 params: {},
             },
         },
-        wlcElement: 'link_cc-profile-menu_loyalty-bonuses',
+        wlcElement: 'link_offers',
     },
 
     'profile-menu:bonuses-offers': {
@@ -263,6 +263,7 @@ export const wlcProfileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
                 params: {},
             },
         },
+        wlcElement: 'link_active',
     },
     'profile-first-menu:bonuses-active': {
         name: gettext('Active bonuses'),
@@ -275,6 +276,7 @@ export const wlcProfileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
                 params: {},
             },
         },
+        wlcElement: 'link_active',
     },
 
     'profile-menu:bonuses-inventory': {
@@ -420,6 +422,7 @@ export const wlcProfileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
                 params: {},
             },
         },
+        wlcElement: 'link_current-tournaments',
     },
     'profile-first-menu:tournaments-current': {
         name: gettext('Available'),
@@ -433,6 +436,7 @@ export const wlcProfileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
                 params: {},
             },
         },
+        wlcElement: 'link_current-tournaments',
     },
 
     'profile-menu:tournaments-active': {
@@ -446,7 +450,7 @@ export const wlcProfileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
                 params: {},
             },
         },
-        wlcElement: 'block_profile-menu-tournaments-active"',
+        wlcElement: 'link_active-tournaments',
     },
     'profile-first-menu:tournaments-active': {
         name: gettext('Active'),
@@ -459,7 +463,7 @@ export const wlcProfileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
                 params: {},
             },
         },
-        wlcElement: 'block_profile-menu-tournaments-active"',
+        wlcElement: 'link_active-tournaments',
     },
 
     'profile-menu:tournaments-history': {
@@ -473,6 +477,7 @@ export const wlcProfileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
                 params: {},
             },
         },
+        wlcElement: 'link_tournaments-history',
     },
     'profile-first-menu:tournaments-history': {
         name: gettext('History'),
@@ -485,6 +490,7 @@ export const wlcProfileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
                 params: {},
             },
         },
+        wlcElement: 'link_tournaments-history',
     },
 
     'profile-menu:market': {
@@ -682,7 +688,7 @@ export const wlcProfileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
         type: 'sref',
         icon: 'deposit',
         class: 'deposit',
-        wlcElement: 'link_cc-profile-menu_deposit',
+        wlcElement: 'link_deposit',
         params: {
             state: {
                 name: 'app.profile.cash.deposit',
@@ -695,7 +701,7 @@ export const wlcProfileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
         type: 'sref',
         icon: 'deposit',
         class: 'deposit',
-        wlcElement: 'link_cc-profile-menu_deposit',
+        wlcElement: 'link_deposit',
         params: {
             state: {
                 name: 'app.profile.cash.deposit',
@@ -709,7 +715,7 @@ export const wlcProfileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
         type: 'sref',
         icon: 'withdrawal',
         class: 'withdrawal',
-        wlcElement: 'link_cc-profile-menu_withdraw',
+        wlcElement: 'link_withdrawal',
         params: {
             state: {
                 name: 'app.profile.cash.withdraw',
@@ -722,7 +728,7 @@ export const wlcProfileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
         type: 'sref',
         icon: 'withdrawal',
         class: 'withdrawal',
-        wlcElement: 'link_cc-profile-menu_withdraw',
+        wlcElement: 'link_withdrawal',
         params: {
             state: {
                 name: 'app.profile.cash.withdraw',

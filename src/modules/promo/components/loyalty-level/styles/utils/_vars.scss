@@ -1,0 +1,47 @@
+$customThemeDefault: () !default;
+$themeDefault: map-merge((
+    'rootDisplay': flex,
+    'rootFlexDirection': column,
+    'rootAlignItems': center,
+    'rootPadding': (
+        320: ef.size(6) ef.size(3),
+        1200: 0,
+    ),
+    'rootBorderRadius': ef.get('radius', 'biger'),
+    'rootBackground': (
+        320: var(--mc-bg700),
+        1200: transparent,
+    ),
+
+    'imageWidth': auto,
+    'imageHeight': 190px,
+    'imagePosition': relative,
+    'imageDisplay': flex,
+    'imageAlignItems': center,
+    'imageJustifyContent': center,
+
+    'iconWidth': unset,
+    'iconMaxWidth': 100%,
+    'iconHeight': unset,
+    'iconMaxHeight': 100%,
+    'iconObjectFit': contain,
+
+    'titlePadding': (
+        320: ef.size(3) 0,
+    ),
+    'titleFont': 'QoteTextBold',
+    'titleFontColor': var(--mc-baseMain),
+
+    'descriptionMargin': (
+        320: 0 0 ef.size(3),
+    ),
+    'descriptionFont': 'PrimaryText',
+    'descriptionFontColor': var(--mc-baseMain),
+    'descriptionTextAlign': center,
+
+    'pointsFont': 'PrimaryText',
+    'pointsFontColor': var(--mc-baseMain),
+
+    'pointsDisplay': flex,
+    'pointsAlignItems': center,
+), $customThemeDefault);

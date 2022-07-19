@@ -66,4 +66,9 @@ $themePromoHome: map-merge((
     ),
     'wrapperGridAreas': 'content' 'buttons',
     'wrapperRows': 1fr auto,
+
+    'iconTopPos': ef.size(2),
+
+    'tagStatusTopPos': ef.size(2),
+    'tagStatusRightPos': ef.size(10),
 ), $customThemePromoHome);

@@ -78,6 +78,23 @@ export namespace contentGames {
         ],
     };
 
+    export const homeWinsBonuses: ILayoutSectionConfig = {
+        container: true,
+        components: [
+            {
+                name: 'core.wlc-wrapper',
+                params: {
+                    class: 'wlc-home-wins-bonuses',
+                    components: [
+                        componentLib.wlcLastWinsSlider.def,
+                        componentLib.wlcBonusesList.promoHome,
+                        componentLib.wlcBiggestWinsSlider.def,
+                    ],
+                },
+            },
+        ],
+    };
+
     export const homeBottom: ILayoutSectionConfig = {
         container: true,
         components: [

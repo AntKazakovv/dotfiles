@@ -1,13 +1,7 @@
 .wlc-sections__home-promo {
 
     .wlc-home-promo {
-        @include bm.get-mq-map('grid-template-columns', $homePromo, 'columns');
-        @include bm.get-mq-map('gap', $homePromo, 'gap');
+        @include sm.homePromoWins($homePromo, 'promo');
         @include sm.homePromoTournaments($homePromo);
-        display: grid;
-    }
-
-    &--theme-wins {
-        @include sm.homePromoWins($homePromo);
     }
 }

@@ -4,7 +4,8 @@
 Interface [IBonusModalCParams](/docs/compodoc/interfaces/IBonusModalCParams.html#info)
 
 - **bonus** - object "Bonus"
-- **bonusItemTheme** - bonus item theme
+- **useIconBonusImage** - show/hide bonus icon
+- **accordionParams** - object accordion params
 
 ```typescript
 export const defaultParams: IBonusModalCParams = {

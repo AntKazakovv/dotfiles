@@ -1,29 +1,19 @@
 .wlc-modal__dialog {
-    $effect: map-get(ev.$modalAnimation, 'modalAnimationEffects');
 
     .fade & {
-        animation: animationModal ef.get-value($hostModal, 'modalAnimationSettings');
 
-        @if $effect == 'fadeTop' {
-            @include fadeTop;
-        } @else if ($effect == 'fadeBottom') {
-            @include fadeBottom;
-        } @else if ($effect == 'fadeLeft') {
-            @include fadeLeft;
-        } @else if ($effect == 'fadeRight') {
-            @include fadeRight;
-        } @else if ($effect == 'scale') {
-            @include scale;
-        } @else if ($effect == 'fall') {
-            @include fall;
-        } @else if ($effect == 'sideFall') {
-            @include sideFall;
-        } @else if ($effect == 'flip') {
-            @include flip;
-        } @else if ($effect == 'superScaled') {
-            @include superScaled;
-        } @else if ($effect == 'slit') {
-            @include slit;
+        .wlc-modal:not(.wlc-modal--tournament-detail) & {
+            $effect: map-get(ev.$modalAnimation, 'modalAnimationEffects');
+
+            @include animationEffect($effect);
+            animation: animationModal + $effect ef.get-value($hostModal, 'modalAnimationSettings');
+        }
+
+        .wlc-modal.wlc-modal--tournament-detail & {
+            $effect: map-get(ev.$modalAnimation, 'modalAnimationTournamentEffects');
+
+            @include animationEffect($effect);
+            animation: animationModal + $effect ef.get-value($hostModal, 'modalAnimationSettings');
         }
     }
 

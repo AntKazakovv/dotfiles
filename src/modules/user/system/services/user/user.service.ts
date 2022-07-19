@@ -8,11 +8,13 @@ import {
 import {
     Subscription,
     BehaviorSubject,
+    firstValueFrom,
 } from 'rxjs';
 
 import {
     filter,
     first,
+    map,
 } from 'rxjs/operators';
 
 import {LogService} from 'wlc-engine/modules/core/system/services/log/log.service';
@@ -188,6 +190,19 @@ export class UserService {
                 this.fetchUserInfo();
                 this.startUserInfoFetcher();
                 this.idleHandler();
+
+                if (this.configService.get<boolean>('$user.skipPasswordOnEditProfile')) {
+                    this.configService.set<Promise<boolean>>({
+                        name: '$user.skipPasswordOnFirstUserSession',
+                        value: firstValueFrom(
+                            this.configUserInfo$
+                                .pipe(
+                                    first((userInfo: UserInfo): boolean => !!userInfo?.idUser),
+                                    map((userInfo: UserInfo): boolean => !!userInfo.firstSession),
+                                ),
+                        ),
+                    });
+                }
             });
         });
 
@@ -515,6 +530,7 @@ export class UserService {
                 description: ProcessEventsDescriptions.successTrigger + 'user registered',
             },
         });
+        this.eventService.emit({name: 'REGISTRATION_COMPLETE'});
     }
 
     private failedRegistration(): void {

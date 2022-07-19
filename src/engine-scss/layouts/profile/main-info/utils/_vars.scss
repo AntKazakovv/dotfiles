@@ -121,6 +121,10 @@ $mainInfoThemeV1: map-merge((
 
     'profileFormBlockSubmitDisplay': flex,
     'profileFormBlockSubmitJustify': center,
+    'profileFormBlockPasswordBtnMargin': (
+        375: 0 auto ef.size(-2) auto,
+        1630: 0 auto ef.size(4) auto,
+    ),
     'profileFormBlockSubmitPadding': (
         375: ef.size(4) 0 0,
         1630: 0,

@@ -16,8 +16,10 @@ import {BonusModalComponent} from './components/bonus-modal/bonus-modal.componen
 import {BonusButtonsComponent} from './components/bonus-buttons/bonus-buttons.component';
 import {EnterPromocodeComponent} from './components/enter-promocode/enter-promocode.component';
 import {GameDashboardBonusesComponent} from './components/game-dashboard-bonuses/game-dashboard-bonuses.component';
+import {LootboxModalComponent} from './components/lootbox-modal/lootbox-modal.component';
 import {PromoSuccessComponent} from './components/promo-success/promo-success.component';
 import {RecommendedBonusesComponent} from './components/recommended-bonuses/recommended-bonuses.component';
+import {DepositBonusesComponent} from './components/deposit-bonuses/deposit-bonuses.component';
 import {BonusesService} from './system/services/bonuses/bonuses.service';
 import {GlobalHelper} from 'wlc-engine/modules/core';
 import {IBonusesModule} from './system/interfaces/bonuses.interface';
@@ -36,8 +38,10 @@ export const components = {
     'wlc-bonus-buttons': BonusButtonsComponent,
     'wlc-enter-promocode': EnterPromocodeComponent,
     'wlc-game-dashboard-bonuses': GameDashboardBonusesComponent,
+    'wlc-lootbox-modal': LootboxModalComponent,
     'wlc-promo-success': PromoSuccessComponent,
     'wlc-recommended-bonuses': RecommendedBonusesComponent,
+    'wlc-deposit-bonuses': DepositBonusesComponent,
 };
 
 export const services = {
@@ -52,9 +56,11 @@ export const services = {
         BonusModalComponent,
         BonusButtonsComponent,
         EnterPromocodeComponent,
-        PromoSuccessComponent,
         GameDashboardBonusesComponent,
+        LootboxModalComponent,
+        PromoSuccessComponent,
         RecommendedBonusesComponent,
+        DepositBonusesComponent,
     ],
     imports: [
         CommonModule,
@@ -74,8 +80,9 @@ export const services = {
         BonusModalComponent,
         BonusButtonsComponent,
         EnterPromocodeComponent,
-        PromoSuccessComponent,
         GameDashboardBonusesComponent,
+        LootboxModalComponent,
+        PromoSuccessComponent,
         RecommendedBonusesComponent,
     ],
 })

@@ -1,22 +1,41 @@
-<div class="{{$class}}__step {{$class}}__step--1">
-    <div class="{{$class}}__subtitle">
-        <div class="{{$class}}__subtitle-name"><span>1.</span> {{'Choose payment method' | translate}}</div>
-    </div>
+<ng-container *ngFor="let step of steps; index as $index">
+    <ng-container [ngTemplateOutlet]="stepTpl" [ngTemplateOutletContext]="{$implicit: step, index: $index}"></ng-container>
+</ng-container>
 
+<ng-template #stepTpl let-step let-index="index">
+    <div class="{{$class}}__step {{$class}}__step--{{index + 1}}">
+        <div class="{{$class}}__subtitle">
+            <div class="{{$class}}__subtitle-name"><span>{{index + 1}}.</span> {{step.title | translate}}</div>
+        </div>
+
+        <ng-container [ngSwitch]="step.template">
+            <ng-container *ngSwitchCase="'systems'" [ngTemplateOutlet]="systems"></ng-container>
+            <ng-container *ngSwitchCase="'paymentInfo'" [ngTemplateOutlet]="paymentInfo"></ng-container>
+            <ng-container *ngSwitchCase="'bonuses'" [ngTemplateOutlet]="bonuses"></ng-container>
+            <ng-container *ngSwitchDefault [ngTemplateOutlet]="empty"></ng-container>
+        </ng-container>
+
+    </div>
+</ng-template>
+
+<ng-template #systems>
     <div wlc-payment-list
         data-wlc-element="block_payment-list"
         [inlineParams]='listConfig'
+        [availableSystems]='availableSystems'
         [currentSystem]='currentSystem'>
     </div>
-</div>
+    <div class="{{$class}}__divider"></div>
+</ng-template>
 
-<div class="{{$class}}__divider"></div>
-
-<div class="{{$class}}__step {{$class}}__step--2">
-    <div class="{{$class}}__subtitle">
-        <div class="{{$class}}__subtitle-name"><span>2.</span> {{'Payment information' | translate}}</div>
+<ng-template #bonuses>
+    <div wlc-wrapper
+        [inlineParams]="bonusesListParams">
     </div>
+    <div class="{{$class}}__divider"></div>
+</ng-template>
 
+<ng-template #paymentInfo>
     <div *ngIf="$params.mode === 'withdraw'" class="{{$class}}__withdraw">
         <div class="{{$class}}__withdraw-item">
             <span class="name">{{'Available for withdrawal' | translate}}</span>
@@ -48,7 +67,10 @@
     <ng-container *ngIf="currentSystem && cryptoCheck && $params.mode === 'deposit'">
         <div wlc-payment-message
             class="{{$class}}__crypto-block"
-            [system]="currentSystem"></div>
+            [system]="currentSystem"
+            [minAmount]="minAmount"
+            [maxAmount]="maxAmount">
+        </div>
 
         <div class="{{$class}}__divider"></div>
     </ng-container>
@@ -85,6 +107,5 @@
             [ngSubmit]="sendForm.bind(this)">
         </div>
     </ng-container>
-
-
-</div>
+</ng-template>
+<ng-template #empty>The step not implemented</ng-template>

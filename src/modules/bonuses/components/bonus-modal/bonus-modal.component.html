@@ -19,9 +19,15 @@
                     <div wlc-dynamic-html [html]="bonus.terms"></div>
                 </div>
             </div>
+            <div *ngIf="$params.accordionParams?.items?.length"
+                wlc-accordion
+                class="{{$class}}__possible-rewards"
+                [inlineParams]="$params.accordionParams">
+            </div>
         </div>
     </div>
-    <div wlc-bonus-buttons
+    <div *ngIf="!$params.hideBonusButtons"
+        wlc-bonus-buttons
         class="{{$class}}__btns"
         [bonus]="bonus"
         [bonusItemTheme]="$params.bonusItemTheme"></div>

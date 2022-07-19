@@ -1,25 +1,22 @@
 import {
-    Subject,
     fromEvent,
 } from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
-import {
-    AbstractHook,
-    HooksService,
-} from 'wlc-engine/modules/core';
-
 import _get from 'lodash-es/get';
 
-export interface IPinnacleHooksParams {
-    hooksService: HooksService,
-    disableHooks: Subject<void>,
+import {
+    AbstractHook,
+} from 'wlc-engine/modules/core';
+import {ISportsbookHook} from 'wlc-engine/modules/sportsbook/system/interfaces/sportsbook.interface';
+
+export interface IPinnacleHooksParams extends ISportsbookHook {
+    window: Window,
 }
 
 export class PinnacleHooks extends AbstractHook {
 
     constructor(
         protected params: IPinnacleHooksParams,
-        protected window: Window,
     ) {
         super({
             hooksService: params.hooksService,
@@ -33,13 +30,13 @@ export class PinnacleHooks extends AbstractHook {
     }
 
     protected iframeMessages(): void {
-        fromEvent(this.window, 'message').pipe(
+        fromEvent(this.params.window, 'message').pipe(
             takeUntil(this.params.disableHooks),
         ).subscribe((event) => {
             if (_get(event, 'data.action') === 'OPEN_WINDOW') {
                 const url: string = _get(event, 'data.url');
                 if (url) {
-                    this.window.open(url);
+                    this.params.window.open(url);
                 }
             }
         });

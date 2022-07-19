@@ -1,12 +1,15 @@
 @use 'engine-scss/functions' as ef;
-@use 'engine-scss/mixins/base.mixins' as em;
+@use 'engine-scss/mixins/base.mixins' as bm;
 
-@mixin homePromoWins($map) {
+@mixin homePromoWins($map, $name) {
+    @include bm.get-mq-map('grid-template-columns', $map, $name + 'Columns');
+    @include bm.get-mq-map('gap', $map, $name + 'Gap');
+    display: grid;
 
-    .wlc-winners-slider.wlc-winners-slider--theme-vertical {
+    .wlc-winners-slider--theme-vertical[class] {
 
         .wlc-winners-slider__wrapper {
-            max-width: ef.get-value($map, 'tournamentSliderWrapMaxWidth');
+            max-width: ef.get-value($map, $name + 'SliderMaxWidth');
         }
     }
 }
@@ -16,16 +19,16 @@
     .wlc-tournament-list.wlc-tournament-list--theme-banner {
 
         .swiper-button-container {
-            @include em.get-mq-map('display', $map, 'tournamentSliderButtonDisplay');
+            @include bm.get-mq-map('display', $map, 'tournamentSliderButtonDisplay');
         }
     }
 
     .wlc-tournament-smart-info--theme-default .wlc-tournament-smart-info__content {
-        @include em.get-mq-map('justify-content', $map, 'tournamentSmartJustifyContent');
+        @include bm.get-mq-map('justify-content', $map, 'tournamentSmartJustifyContent');
     }
 
     .wlc-tournament-banner {
-        @include em.get-mq-map('height', $map, 'tournamentBannerHeight');
-        @include em.get-mq-map('min-height', $map, 'tournamentBannerMinHeight');
+        @include bm.get-mq-map('height', $map, 'tournamentBannerHeight');
+        @include bm.get-mq-map('min-height', $map, 'tournamentBannerMinHeight');
     }
 }

@@ -225,7 +225,7 @@ export class FormWrapperComponent extends WrapperComponent implements OnInit, On
 
         if (this.form.valid) {
             if (await this.ngSubmit(this.form)) {
-                this.form.controls.currentPassword.setValue('');
+                this.form.controls.currentPassword?.setValue('');
                 this.form.markAsPristine();
                 this.form.markAsUntouched();
             }

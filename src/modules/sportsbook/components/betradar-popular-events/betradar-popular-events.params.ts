@@ -26,10 +26,7 @@ export const defaultParams: IBetradarPopularEventsCParams = {
         title: gettext('Popular events'),
         swiper: {
             allowTouchMove: true,
-            autoplay: {
-                delay: 3000,
-                disableOnInteraction: false,
-            },
+            slidesPerView: 1,
         },
     },
 };

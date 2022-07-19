@@ -48,6 +48,8 @@ $themeDefault: map-merge((
     'decorRightWidth': 887px,
     'decorRightHeight': 400px,
 
+    'slideWidth': 320px,
+
     'titleFont': 'QoteTextBold',
     'titleFontColor': var(--mc-baseMain),
     'titleMargin': (
@@ -72,59 +74,6 @@ $themeDefault: map-merge((
     'itemsWrapperMargin': (
         320: 0 auto,
     ),
-
-    'itemDisplay': flex,
-    'itemDirection': column,
-    'itemAlign': center,
-    'itemPadding': (
-        320: ef.size(6) 0,
-        1200: 0,
-    ),
-    'itemRadius': ef.get('radius', 'biger'),
-    'itemBackground': (
-        320: var(--mc-bg700),
-        1200: transparent,
-    ),
-
-    'itemImageWidth': auto,
-    'itemImageHeight': 190px,
-    'itemImagePadding': (
-        320: 0 ef.size(3),
-        1200: 0,
-    ),
-
-    'itemImagePosition': relative,
-    'itemImageDisplay': flex,
-    'itemImageAlign': center,
-    'itemImageJustify': center,
-
-    'iconWidth': unset,
-    'iconMaxWidth': 100%,
-    'iconHeight': unset,
-    'iconMaxHeight': 100%,
-    'iconObjectfit': contain,
-
-    'itemTitlePadding': (
-        320: ef.size(3) 0,
-    ),
-    'itemTitleFont': 'QoteTextBold',
-    'itemTitleFontColor': var(--mc-baseMain),
-
-    'itemDescriptionPadding': (
-        320: 0 ef.size(3),
-    ),
-    'itemDescriptionMargin': (
-        320: 0 0 ef.size(3) 0,
-    ),
-    'itemDescriptionFont': 'PrimaryText',
-    'itemDescriptionFontColor': var(--mc-baseMain),
-    'itemDescriptionTextAlign': center,
-
-    'itemPointsFont': 'PrimaryText',
-    'itemPointsFontColor': var(--mc-baseMain),
-
-    'itemPointsDisplay': flex,
-    'itemPointsAlign': center,
 
     'btnWrappPosition': relative,
     'btnWrappZindex': 1,

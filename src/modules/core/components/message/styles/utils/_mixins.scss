@@ -54,6 +54,8 @@
 
     .wlc-notification-message__icon {
         display: flex;
+        flex: 1 0 auto;
+        max-width: 50px;
     }
 
     .wlc-notification-message__image-container {

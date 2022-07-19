@@ -93,14 +93,6 @@ export const swiperParamsDefault: IIndexing<SwiperOptions> = {
         observer: true,
         observeParents: true,
         preventClicks: false,
-        breakpoints: {
-            320: {
-                slidesPerView: 3,
-            },
-            1630: {
-                slidesPerView: 4,
-            },
-        },
     },
     transparent: {
         direction: 'vertical',

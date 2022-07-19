@@ -1,0 +1,50 @@
+<div class="{{$class}}__wrapper">
+    <div class="{{$class}}__text-block">
+        <span class="{{$class}}__title">{{title | translate}}</span>
+        <div class="{{$class}}__desc">
+            <ng-container [ngSwitch]="lootboxStatus">
+                <ng-container [ngTemplateOutlet]="open" *ngSwitchCase="'open'"></ng-container>
+                <ng-container [ngTemplateOutlet]="spin" *ngSwitchCase="'spin'"></ng-container>
+                <ng-container [ngTemplateOutlet]="dropped" *ngSwitchCase="'dropped'"></ng-container>
+                <ng-container [ngTemplateOutlet]="error" *ngSwitchCase="'error'"></ng-container>
+            </ng-container>
+        </div>
+    </div>
+    <div class="{{$class}}__slider-block">
+        <div wlc-slider
+            class="{{$class}}__slider"
+            [slides]="slides"
+            [inlineParams]="$params.sliderParams"
+            (slideChangeTransitionEnd$)="onSlideChangeTransitionEnd()">
+        </div>
+    </div>
+    <div class="{{$class}}__buttons">
+        <button wlc-button
+            [disabled]="btnDisabled"
+            [themeMod]="btnThemeMod"
+            [text]="btnText"
+            (click)="btnClick()">
+        </button>
+        <button *ngIf="this.lootboxStatus === 'error'"
+            wlc-button
+            themeMod="secondary"
+            text="{{'Close' | translate}}"
+            (click)="close()">
+        </button>
+    </div>
+</div>
+
+<ng-template #open>
+    {{'Press the "Spin" button to randomly select one of the bonuses' | translate}}
+</ng-template>
+<ng-template #spin>
+    {{'Wait a moment!' | translate}}<br>
+    {{'We\'re choosing an award...' | translate}}
+</ng-template>
+<ng-template #dropped>
+    {{'Bonus' | translate}} "{{droppedBonus.name}}"
+    {{'has been successfully activated and added to your bonus list' | translate}}
+</ng-template>
+<ng-template #error>
+    {{'Failed to claim, please try again later' | translate}}
+</ng-template>

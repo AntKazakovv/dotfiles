@@ -1,23 +1,22 @@
-.wlc-faq--theme-default:host {
+.wlc-accordion--theme-default:host {
     display: grid;
     grid-gap: ef.get-value($themeDefault, 'itemsGapSize');
     grid-template-columns: 1fr;
 
-    .wlc-faq {
+    .wlc-accordion {
 
-        &__header {
-            @include text.get-text-style('QoteTextBold', ef.get-value($themeDefault, 'headerFontColor'));
+        &__header-title {
+            @include text.get-text-style(
+                ef.get-value($themeDefault, 'headerTextStyle', 320),
+                ef.get-value($themeDefault, 'headerFontColor'),
+            );
             display: flex;
             align-items: center;
             justify-content: center;
             padding: ef.get-value($themeDefault, 'headerPadding');
 
-            @include mq.min(375) {
-                @include text.get-text-style(ef.get-value($themeDefault, 'headerTextStyle', 375), ef.get-value($themeDefault, 'headerFontColor'));
-            }
-
             @include mq.min(768) {
-                @include text.get-text-style(ef.get-value($themeDefault, 'headerTextStyle', 768), ef.get-value($themeDefault, 'headerFontColor'));
+                @include text.get-text-style(ef.get-value($themeDefault, 'headerTextStyle', 768), null);
             }
         }
 
@@ -30,28 +29,27 @@
             &.expanded {
                 background: ef.get-value($themeDefault, 'itemBackgroundActive');
 
-                .wlc-faq__title-text {
+                .wlc-accordion__title-text {
                     color: ef.get-value($themeDefault, 'titleIconColorActive');
-                    font-weight: ef.get-value($themeDefault, 'titleFontWeightActive');
                 }
 
-                .wlc-faq__title-icon ::ng-deep svg path {
+                .wlc-accordion__title-icon ::ng-deep svg path {
                     fill: ef.get-value($themeDefault, 'titleIconColorActive');
                 }
 
-                .wlc-faq__title-icon {
-                    transform: rotateZ(180deg);
+                .wlc-accordion__title-icon {
+                    transform: ef.get-value($themeDefault, 'titleIconTransform');
                 }
             }
 
             @include bm.hover {
                 background: ef.get-value($themeDefault, 'itemBackgroundActive');
 
-                .wlc-faq__title-text {
+                .wlc-accordion__title-text {
                     color: ef.get-value($themeDefault, 'titleIconColorActive');
                 }
 
-                .wlc-faq__title-icon ::ng-deep svg path {
+                .wlc-accordion__title-icon ::ng-deep svg path {
                     fill: ef.get-value($themeDefault, 'titleIconColorActive');
                 }
             }
@@ -66,27 +64,30 @@
             cursor: pointer;
 
             &-text {
+                @include text.get-text-style(
+                    ef.get-value($themeDefault, 'titleTextStyle', 320),
+                    ef.get-value($themeDefault, 'titleColor'),
+                );
                 flex-grow: 1;
                 padding-right: ef.get-value($themeDefault, 'paddingSize');
                 transition: all ef.get-value($themeDefault, 'time');
 
-                @include mq.min(375) {
-                    @include text.get-text-style(ef.get-value($themeDefault, 'titleTextStyle', 375), ef.get-value($themeDefault, 'titleColor'));
-                }
-
                 @include mq.min(768) {
-                    @include text.get-text-style(ef.get-value($themeDefault, 'titleTextStyle', 768), ef.get-value($themeDefault, 'titleColor'));
+                    @include text.get-text-style(ef.get-value($themeDefault, 'titleTextStyle', 768), null);
                 }
             }
 
             &-icon {
-                @include bm.get-mq-map('width', $themeDefault, 'titleIconSize');
-                @include bm.get-mq-map('height', $themeDefault, 'titleIconSize');
                 flex-grow: 0;
-                min-width: ef.get-value($themeDefault, 'titleIconSize');
                 transition: all ef.get-value($themeDefault, 'time');
 
                 ::ng-deep {
+
+                    .wlc-icon-content {
+                        @include bm.get-mq-map('width', $themeDefault, 'titleIconSize');
+                        @include bm.get-mq-map('height', $themeDefault, 'titleIconSize');
+                        display: flex;
+                    }
 
                     svg {
                         width: 100%;
@@ -108,19 +109,18 @@
             };
 
             &-wrp {
-                color: ef.get-value($themeDefault, 'contentFontColor');
+                @include text.get-text-style(
+                    ef.get-value($themeDefault, 'contentTextStyle', 320),
+                    ef.get-value($themeDefault, 'contentFontColor'),
+                );
                 border-top: ef.get-value($themeDefault, 'contentTopBorder');
                 padding: {
                     top: ef.get-value($themeDefault, 'paddingSize');
                     bottom: ef.get-value($themeDefault, 'paddingSize');
                 };
 
-                @include mq.min(375) {
-                    @include text.get-text-style(ef.get-value($themeDefault, 'contentTextStyle', 375), ef.get-value($themeDefault, 'contentFontColor'));
-                }
-
                 @include mq.min(768) {
-                    @include text.get-text-style(ef.get-value($themeDefault, 'contentTextStyle', 768), ef.get-value($themeDefault, 'contentFontColor'));
+                    @include text.get-text-style(ef.get-value($themeDefault, 'contentTextStyle', 768), null);
                 }
             }
         }

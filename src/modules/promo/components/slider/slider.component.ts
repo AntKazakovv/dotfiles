@@ -120,6 +120,19 @@ export class SliderComponent extends AbstractComponent
             this.slides = this.$params.slides;
         }
 
+        if (this.$params.events) {
+            this.$params.events.pipe(takeUntil(this.$destroy)).subscribe((event) => {
+                switch(event) {
+                    case 'start':
+                        this.swiper.swiperRef?.autoplay.start();
+                        break;
+                    case 'stop':
+                        this.swiper.swiperRef?.autoplay.stop();
+                        break;
+                }
+            });
+        }
+
         this.frozenSwiperParams = _cloneDeep(this.$params.swiper);
 
         this.initEmptySlidesCount();

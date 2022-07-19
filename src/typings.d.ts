@@ -13,6 +13,15 @@ declare interface ISentryConfig {
     project?: string;
 }
 
+declare interface IDigitainNavigateEvent {
+    /** id of selected match game */
+    targetId: number;
+    /** name of selected tournament */
+    targetName: string;
+    /** name of selected page inside sportsbook */
+    pageName: string;
+}
+
 declare interface IVerboxSetup {
     domain?: string;
     language?: string;
@@ -33,6 +42,8 @@ declare interface IScreenfull {
     onchange(handler: (event: Event) => void): void;
     onerror(handler: (event: Event) => void): void;
 }
+
+declare type TDigitainOnNavigate = (event: IDigitainNavigateEvent) => void;
 
 declare type ScreenfullEventName = 'change' | 'error';
 
@@ -86,4 +97,6 @@ declare interface Window extends TAnalyticMethod {
     grecaptcha?: ReCaptchaV2.ReCaptcha;
     // change page of tglab sportsbook
     externalSBPageSwitch?: TExternalSBPageSwitch;
+    // digitain iframe navigation handler
+    digitainOnNavigate?: TDigitainOnNavigate;
 }

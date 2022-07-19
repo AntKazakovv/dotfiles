@@ -117,15 +117,26 @@ $themeDefault: map-merge((
     'moreIconColor': var(--mc-baseOpacity),
     'moreIconColorHover': var(--mc-baseMain),
     'moreIconPosTop': (
-        375: ef.size(4),
+        375: ef.size(2),
     ),
     'moreIconPosRight': (
         375: ef.size(4),
     ),
-
     'moreIconDisplay': (
         375: block,
         480: none,
     ),
+
+    'statusTagTopPos': ef.size(2),
+    'statusTagRightPos': (
+        375: ef.size(10),
+        480: ef.size(4)
+    ),
+    'statusTagFontStyle': ef.get('tagConfig', 'textStyle'),
+    'statusTagTextPadding': ef.get('tagConfig', 'padding'),
+    'statusTagTextBorderRadius': ef.get('tagConfig', 'radius'),
+    'statusTagTextBackground': ef.get('tagConfig', 'bg'),
+    'statusTagActiveBackground': ef.get('tagConfig', 'bgActive'),
+    'statusTagColor': ef.get('mainColors', 'baseMain'),
 ), $customThemeDefault);
 

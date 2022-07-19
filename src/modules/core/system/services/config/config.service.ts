@@ -12,8 +12,13 @@ import {
 } from 'ngx-webstorage';
 import {
     BehaviorSubject,
+    firstValueFrom,
 } from 'rxjs';
-import {distinctUntilChanged} from 'rxjs/operators';
+import {
+    distinctUntilChanged,
+    map,
+    first,
+} from 'rxjs/operators';
 
 import _mergeWith from 'lodash-es/mergeWith';
 import _get from 'lodash-es/get';
@@ -195,6 +200,7 @@ export class ConfigService {
     private setGlobals(): void {
         this.set<BehaviorSubject<UserProfile>>({name: '$user.userProfile$', value: new BehaviorSubject(null)});
         this.set<BehaviorSubject<UserInfo>>({name: '$user.userInfo$', value: new BehaviorSubject(null)});
+        this.set<boolean>({name: '$user.skipPasswordOnEditProfile', value: false});
     }
 
     private prepareData(data: IBootstrap): void {
@@ -202,6 +208,23 @@ export class ConfigService {
         this.global.appConfig.data = data;
 
         this.set<boolean>({name: '$user.isAuthenticated', value: this.global.appConfig.loggedIn});
+        if (
+            this.get<number>('appConfig.siteconfig.fastRegistration')
+            && this.get<number>('appConfig.siteconfig.registerGeneratePassword')
+            && this.get<number>('appConfig.siteconfig.skipPassCheckOnFirstSession')
+        ) {
+            this.set<boolean>({name: '$user.skipPasswordOnEditProfile', value: true});
+            this.set<Promise<boolean>>({
+                name: '$user.skipPasswordOnFirstUserSession',
+                value: firstValueFrom(
+                    this.get<BehaviorSubject<UserInfo>>({name: '$user.userInfo$'})
+                        .pipe(
+                            first((userInfo: UserInfo): boolean => !!userInfo?.idUser),
+                            map((userInfo: UserInfo): boolean => !!userInfo.firstSession),
+                        ),
+                )},
+            );
+        }
         this.addSiteConfig();
 
         this.set<BehaviorSubject<ICountry[]>>({
@@ -274,11 +297,6 @@ export class ConfigService {
             $layouts['app.profile.loyalty-level'].sections['profile-content'] = params.profile.type === 'default' ?
                 sectionsLib.profileContent.profileLoyaltyLevelsSingle :
                 sectionsLib.profileContent.profileLoyaltyLevelsTypeFirstSingle;
-        }
-
-        if (appConfig.$base.site.useLogin && params.profile.type === 'first') {
-            $layouts['app.profile.main.info'].sections['profile-content'] =
-                sectionsLib.profileContent.profileMainTypeFirstWithLogin;
         }
 
         this.attachFundistUserIdComponent();
