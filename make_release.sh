@@ -131,7 +131,7 @@ echo
 read -p "Create new release tag (y/N): " y
 if [ "x$y" == "xy" ]; then
 
-    if [ "$branch" == "master|develop" ]; then
+    if [ "$branch" == "master" ]; then
         if ! npm run gulp change-logs -- --tag=$nextver; then
             die "ERROR: changelog generation failed"
         fi
