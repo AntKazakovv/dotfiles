@@ -227,6 +227,10 @@
         "file": "./900.change-logs/900.change-logs.md",
         "children": [
             {
+                "title": "1.9.0RC12 (20-07-2022)",
+                "file": "./900.change-logs/releases/1.9.0-rc.12_20-07-2022.md"
+            },
+            {
                 "title": "1.8.0 (01-07-2022)",
                 "file": "./900.change-logs/releases/1.8.0_01-07-2022.md"
             },
@@ -532,6 +536,10 @@
             {
                 "title": "22-06-2022",
                 "file": "./1000.translations/history/22-06-2022.md"
+            },
+            {
+                "title": "20-07-2022",
+                "file": "./1000.translations/history/20-07-2022.md"
             },
             {
                 "title": "14-06-2022",
