@@ -42,12 +42,17 @@ $themeDefault: map-merge((
 
     'mainDirection': column,
     'mainAlignItems': center,
-
     'headTextAlign': center,
+    'welcomeBannerMaxHeight': 100%,
+    'welcomeBannerMaxWidth': 430px,
+    'welcomeBannerPosition': left,
+    'welcomeBannerFit': cover,
 
     'nextStepBtnMargin': (
         320: auto auto 0,
     ),
+
+    'signUpFormDirection': initial,
 
     'bonusListWidth': (
         320: 280px,
@@ -122,13 +127,20 @@ $themeDefault: map-merge((
     'singupIconSvgTransform': rotateZ(90deg),
 
     'singupTextBlockAlign': center,
-
+    'signUpWithPromoWidth': (
+        320: 100%,
+        900: auto,
+        1024: 708px,
+    ),
     'titleStyle': 'QoteTextBold',
     'titleMargin': 0 0 ef.size(2) 0,
-
     'subtitleStyle': 'PrimaryText',
 
     'asideDisplay': (
+        320: none,
+        900: block
+    ),
+    'welcomeBannerDisplay':(
         320: none,
         900: block
     ),
@@ -141,7 +153,6 @@ $themeDefault: map-merge((
     'asideBonusSubtitleStyle': 'PrimaryText',
     'asideBonusSubtitleMargin': 0  auto auto,
     'asideBonusTextStyle': 'ThirdTitle',
-
     'stepsSubtitleMarign': 0 auto ef.size(12),
     'btnMargin': 0 auto ef.size(8),
 

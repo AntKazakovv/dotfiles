@@ -230,3 +230,54 @@
         }
     }
 }
+
+.wlc-steps--theme-mod-with-promo:host {
+
+    &::ng-deep {
+
+        .wlc-steps {
+
+            &__main {
+                @include bm.get-mq-map('width', $themeDefault, 'signUpWithPromoWidth');
+                @include bm.get-mq-map('padding', $themeDefault, 'mainPadding');
+                position: relative;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+
+                .wlc-link-block {
+                    position: absolute;
+                    bottom: 30px;
+                    left: 0;
+                    width: 100%;
+                }
+            }
+
+            &__container {
+
+                &--sign-up {
+                    display: flex;
+                    flex-direction: ef.get-value($themeDefault, 'signUpFormDirection');
+                }
+
+                .wlc-banner {
+                    @include bm.get-mq-map('display', $themeDefault, 'welcomeBannerDisplay');
+                    position: relative;
+                    flex: 0 0 auto;
+                    width: ef.get-value($themeDefault, 'welcomeBannerMaxWidth');
+                    overflow: hidden;
+
+                    img {
+                        position: absolute;
+                        top: 0;
+                        width: 100%;
+                        height: 100%;
+                        object-fit: ef.get-value($themeDefault, 'welcomeBannerFit');
+                        object-position: ef.get-value($themeDefault, 'welcomeBannerPosition');
+                        max-height: ef.get-value($themeDefault, 'welcomeBannerMaxHeight');
+                    }
+                }
+            }
+        }
+    }
+}

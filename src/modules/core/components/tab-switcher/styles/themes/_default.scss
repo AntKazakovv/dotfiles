@@ -84,6 +84,22 @@
         }
     }
 
+    &.wlc-tab-switcher--theme-mod-with-promo {
+
+        .wlc-tab-switcher {
+
+            &-body {
+
+                &__item {
+
+                    &--signup {
+                        @include bm.get-mq-map('width', $themeDefault, 'signupBodyWidthPromo');
+                    }
+                }
+            }
+        }
+    }
+
     &.wlc-tab-switcher--theme-mod-with-banner {
 
         .wlc-tab-switcher {

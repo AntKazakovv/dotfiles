@@ -40,6 +40,7 @@ export class StepsComponent extends AbstractComponent implements OnInit {
     public stepList: Params.IStep[];
     public noBackLink: boolean;
     protected isSkipBonus: boolean;
+    protected usePromoBanner: boolean;
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IStepsParams,
@@ -52,6 +53,7 @@ export class StepsComponent extends AbstractComponent implements OnInit {
             defaultParams: Params.defaultParams,
         }, configService);
         this.isSkipBonus = this.configService.get<boolean>('$base.registration.skipBonusStep');
+        this.usePromoBanner = this.configService.get<boolean>('$base.registration.usePromoBanner');
     }
 
     public ngOnInit(): void {
@@ -64,6 +66,11 @@ export class StepsComponent extends AbstractComponent implements OnInit {
         if (this.configService.get<boolean>('$base.profile.smsVerification.use')) {
             this.$params.stepsNames.push('signUpSmsVerify');
         }
+
+        if (this.configService.get<boolean>('$base.registration.usePromoBanner')) {
+            this.$params.stepsNames.push('signUpWithPromoBanner');
+        }
+
         if (this.isSkipBonus) {
             this.skipBonus();
         }
@@ -158,12 +165,14 @@ export class StepsComponent extends AbstractComponent implements OnInit {
 
     protected skipBonus(): void {
         const signUpBonusesIndex = this.$params.stepsNames.indexOf('signUpBonuses');
-        this.$params.stepsNames.splice(signUpBonusesIndex, 1);
+        this.usePromoBanner ? this.$params.stepsNames.splice(signUpBonusesIndex, 2)
+            : this.$params.stepsNames.splice(signUpBonusesIndex, 1);
     }
 
     protected setThemeMod(): void {
+
         if (this.isSkipBonus) {
-            this.themeMod = 'skip-bonus';
+            this.themeMod = this.usePromoBanner ? 'with-promo' : 'skip-bonus';
         } else {
             this.themeMod = this.configService.get<string>('$base.profile.type') === 'first' ?
                 'first' : this.themeMod;

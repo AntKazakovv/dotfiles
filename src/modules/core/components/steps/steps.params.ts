@@ -15,7 +15,7 @@ export type Type = 'default' | CustomType;
 export type ComponentTheme = 'default' | CustomType;
 export type ComponentType = 'default' | CustomType;
 export type Theme = 'default' | 'signInUp' | CustomType;
-export type ThemeMod = 'default' | 'first' | 'skip-bonus' | CustomType;
+export type ThemeMod = 'default' | 'first' | 'skip-bonus' | 'with-promo' | CustomType;
 export type AutoModifiers = Theme | ThemeMod;
 export type CustomMod = string;
 export type Modifiers = AutoModifiers | CustomMod | null;
@@ -192,6 +192,15 @@ const getTwoStepsForm = (isSecondProfile: boolean) => {
 
 const regFormComponent = {
     name: 'user.wlc-sign-up-form',
+};
+
+const regBanner = {
+    name: 'promo.wlc-banner',
+    params: {
+        filter: {
+            position: ['reg-banner'],
+        },
+    },
 };
 
 const bonusPrewiew = {
@@ -421,6 +430,32 @@ export const defaultParams: IStepsParams = {
             class: 'wlc-steps__container wlc-steps__container--sign-up',
             components: [
                 smsVerification,
+            ],
+        },
+
+        'signUpWithPromoBanner': {
+            name: 'core.wlc-wrapper',
+            class: 'wlc-steps__container wlc-steps__container--sign-up',
+            components: [
+                regBanner,
+                {
+                    name: 'core.wlc-wrapper',
+                    params: {
+                        class: 'wlc-steps__main',
+                        components: [
+                            {
+                                name: 'core.wlc-wrapper',
+                                params: {
+                                    class: 'wlc-steps__head',
+                                    components: [
+                                        textBlockHeaderReg,
+                                    ],
+                                },
+                            },
+                            regFormComponent,
+                        ],
+                    },
+                },
             ],
         },
     },

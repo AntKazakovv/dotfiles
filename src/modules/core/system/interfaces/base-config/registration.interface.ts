@@ -16,4 +16,13 @@ export interface IRegistrationConfig {
      */
     currencySort?: string[],
     skipBonusStep?: boolean;
+    /**
+     * Use welcome-banner from fundist in signUp form
+     *
+     *  @example:
+     *  registration: {
+     *     usePromoBanner: true,
+     *  }
+     */
+    usePromoBanner?: boolean;
 }

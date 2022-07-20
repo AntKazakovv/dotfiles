@@ -99,7 +99,8 @@ export class TabSwitcherComponent
 
     protected setThemeMod(): void {
         if (this.configService.get<boolean>('$base.registration.skipBonusStep')) {
-            this.themeMod = 'skip-bonus';
+            this.themeMod = this.configService.get<boolean>('$base.registration.usePromoBanner')
+                ? 'with-promo' : 'skip-bonus';
         } else {
             this.themeMod = this.configService.get<string>('$base.profile.type') === 'first' ? 'first' : this.themeMod;
         }
