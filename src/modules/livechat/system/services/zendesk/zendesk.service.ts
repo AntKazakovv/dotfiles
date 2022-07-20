@@ -3,6 +3,7 @@ import {
     TranslateService,
 } from '@ngx-translate/core';
 import {DOCUMENT} from '@angular/common';
+import {UIRouter} from '@uirouter/core';
 import {
     Inject,
     Injectable,
@@ -22,7 +23,6 @@ import {
     IData,
     IEvent,
 } from 'wlc-engine/modules/core';
-import {ILivechatConfig} from 'wlc-engine/modules/livechat/system/interfaces/livechat.interface';
 import {
     ChatState,
     LivechatAbstract,
@@ -39,8 +39,6 @@ interface IChatJwt {
 @Injectable({providedIn: 'root'})
 export class ZendeskService extends LivechatAbstract {
     public canChatDestroy = false;
-
-    protected options: ILivechatConfig = this.configService.get<ILivechatConfig>('$base.livechat');
     protected chatJwtFn: IChatJwt = {
         chat: {
             jwtFn: async (callback: (token: string) => void): Promise<void> => {
@@ -48,17 +46,19 @@ export class ZendeskService extends LivechatAbstract {
             },
         },
     };
+    private isHide: boolean = false;
 
     constructor(
         @Inject(DOCUMENT) protected document: Document,
         @Inject(WINDOW) protected window: Window,
         protected eventService: EventService,
-        private configService: ConfigService,
+        protected router: UIRouter,
+        protected configService: ConfigService,
         private logService: LogService,
         private translateService: TranslateService,
         private dataService: DataService,
     ) {
-        super(document, eventService);
+        super(document, eventService, router, configService);
     }
 
     /**
@@ -67,7 +67,7 @@ export class ZendeskService extends LivechatAbstract {
      * @returns {boolean} true or false
      */
     public chatIsLoaded(): boolean {
-        return !!this.window.zE && this.window.zEACLoaded;
+        return !!this.window.zE && this.window.zEACLoaded && !this.isHide;
     }
 
     /**
@@ -77,6 +77,7 @@ export class ZendeskService extends LivechatAbstract {
         try {
             this.window.zE('webWidget', 'show');
             this.window.zE('webWidget', 'open');
+            this.isHide = false;
         } catch (error) {
             this.logService.sendLog({code: '14.0.0', data: error});
         }
@@ -88,6 +89,7 @@ export class ZendeskService extends LivechatAbstract {
     public showWidget(): void {
         try {
             this.window.zE('webWidget', 'show');
+            this.isHide = false;
         } catch (error) {
             this.logService.sendLog({code: '14.0.0', data: error});
         }
@@ -99,6 +101,7 @@ export class ZendeskService extends LivechatAbstract {
     public hideChat(): void {
         try {
             this.window.zE('webWidget', 'close');
+            this.isHide = true;
         } catch (error) {
             this.logService.sendLog({code: '14.0.0', data: error});
         }
@@ -110,6 +113,7 @@ export class ZendeskService extends LivechatAbstract {
     public hideWidget(): void {
         try {
             this.window.zE('webWidget', 'hide');
+            this.isHide = true;
         } catch (error) {
             this.logService.sendLog({code: '14.0.0', data: error});
         }
@@ -141,6 +145,7 @@ export class ZendeskService extends LivechatAbstract {
     }
 
     protected initChat(): void {
+
         this.chatState$ = new BehaviorSubject(null);
 
         if (this.options.type !== 'zendesk' || !this.options.code) {

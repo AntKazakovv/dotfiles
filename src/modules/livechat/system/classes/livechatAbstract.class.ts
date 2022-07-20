@@ -4,6 +4,15 @@ import {BehaviorSubject} from 'rxjs';
 
 import {EventService} from 'wlc-engine/modules/core';
 
+import {
+    Transition,
+    UIRouter,
+} from '@uirouter/core';
+import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
+import {ILivechatConfig} from 'wlc-engine/modules/livechat/system/interfaces/livechat.interface';
+
+import _includes from 'lodash-es/includes';
+
 export enum ChatState {
     loaded,
     opened,
@@ -34,9 +43,13 @@ export abstract class LivechatAbstract {
      */
     public abstract canChatDestroy: boolean;
 
+    protected options: ILivechatConfig = this.configService.get<ILivechatConfig>('$base.livechat');
+
     constructor(
         protected document: HTMLDocument,
         protected eventService: EventService,
+        protected router: UIRouter,
+        protected configService: ConfigService,
     ) {}
 
     /**
@@ -45,6 +58,7 @@ export abstract class LivechatAbstract {
     public init(): void {
         this.initChat();
         this.initEvents();
+        this.checkExcludeStates();
     }
 
     /**
@@ -78,6 +92,8 @@ export abstract class LivechatAbstract {
      */
     public showWidget(): void {};
 
+    public  abstract chatIsLoaded(): boolean;
+
     /**
      * Toggle chat method
      */
@@ -107,5 +123,26 @@ export abstract class LivechatAbstract {
         this.eventService.filter({name: 'LIVECHAT_TOGGLE'}).subscribe(() => this.toggleChat());
         this.eventService.filter({name: 'LIVECHAT_OPEN'}).subscribe(() => this.openChat());
         this.eventService.filter({name: 'LIVECHAT_CLOSE'}).subscribe(() => this.hideChat());
+    }
+    /**
+     * Check target transition state and close chat, if it's excludeStates in config
+     */
+    protected checkExcludeStates(): void {
+        this.router.transitionService.onSuccess({}, (transition: Transition) => {
+            const stateName: string = transition.targetState().name();
+
+            if (_includes(this.options.excludeStates, stateName)) {
+                this.destroyWidget();
+                return;
+            }
+            if (!this.chatIsLoaded()) {
+                this.initChat();
+                this.showWidget();
+                return;
+            }
+            if (this.options.type === 'verbox') {
+                this.rerunWidget();
+            }
+        });
     }
 }

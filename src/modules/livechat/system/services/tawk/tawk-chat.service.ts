@@ -2,6 +2,7 @@ import {
     Injectable,
     Inject,
 } from '@angular/core';
+import {UIRouter} from '@uirouter/core';
 import {DOCUMENT} from '@angular/common';
 import {BehaviorSubject} from 'rxjs';
 
@@ -12,7 +13,6 @@ import {
     LivechatAbstract,
     ChatState,
 } from 'wlc-engine/modules/livechat/system/classes/livechatAbstract.class';
-import {ILivechatConfig} from 'wlc-engine/modules/livechat/system/interfaces/livechat.interface';
 import {WINDOW} from 'wlc-engine/modules/app/system';
 
 import _get from 'lodash-es/get';
@@ -23,7 +23,6 @@ import _get from 'lodash-es/get';
 export class TawkChatService extends LivechatAbstract {
     public chatIsLoad: boolean = false;
     public canChatDestroy = false;
-    protected options: ILivechatConfig = this.configService.get<ILivechatConfig>('$base.livechat');
 
     constructor(
         @Inject(DOCUMENT) protected document: Document,
@@ -31,8 +30,9 @@ export class TawkChatService extends LivechatAbstract {
         protected eventService: EventService,
         protected configService: ConfigService,
         protected logService: LogService,
+        protected router: UIRouter,
     ) {
-        super(document, eventService);
+        super(document, eventService, router, configService);
     }
 
     /**
@@ -41,7 +41,7 @@ export class TawkChatService extends LivechatAbstract {
      * @returns {boolean} true or false
      */
     public chatIsLoaded(): boolean {
-        return this.window.Tawk_API && this.chatIsLoad;
+        return this.window.Tawk_API && this.chatIsLoad && !this.window.Tawk_API.isChatHidden();
     }
 
     /**
@@ -94,6 +94,7 @@ export class TawkChatService extends LivechatAbstract {
      * Destroy chat widget
      */
     public destroyWidget():void {
+        this.window.Tawk_API.minimize();
         this.hideWidget();
     }
 

@@ -2,6 +2,7 @@ import {
     Injectable,
     Inject,
 } from '@angular/core';
+import {UIRouter} from '@uirouter/core';
 import {DOCUMENT} from '@angular/common';
 import {skipWhile} from 'rxjs/operators';
 import {BehaviorSubject} from 'rxjs';
@@ -10,7 +11,6 @@ import {EventService} from 'wlc-engine/modules/core/system/services/event/event.
 import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
 import {LogService} from 'wlc-engine/modules/core/system/services/log/log.service';
 import {UserProfile} from 'wlc-engine/modules/user/system/models/profile.model';
-import {ILivechatConfig} from 'wlc-engine/modules/livechat/system/interfaces/livechat.interface';
 import {
     LivechatAbstract,
     ChatState,
@@ -25,8 +25,6 @@ import _assign from 'lodash-es/assign';
 export class LivechatincService extends LivechatAbstract {
     public chatId = 'chat-widget-container';
     public canChatDestroy = true;
-
-    protected options: ILivechatConfig = this.configService.get<ILivechatConfig>('$base.livechat');
     protected profile: UserProfile;
     protected firstInit: boolean = true;
 
@@ -36,8 +34,9 @@ export class LivechatincService extends LivechatAbstract {
         protected eventService: EventService,
         protected configService: ConfigService,
         protected logService: LogService,
+        protected router: UIRouter,
     ) {
-        super(document, eventService);
+        super(document, eventService, router, configService);
     }
 
     /**

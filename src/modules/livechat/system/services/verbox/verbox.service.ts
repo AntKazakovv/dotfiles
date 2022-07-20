@@ -8,7 +8,6 @@ import {
     TranslateService,
 } from '@ngx-translate/core';
 import {
-    Transition,
     UIRouter,
     UIRouterGlobals,
 } from '@uirouter/core';
@@ -19,7 +18,6 @@ import {EventService} from 'wlc-engine/modules/core/system/services/event/event.
 import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
 import {LogService} from 'wlc-engine/modules/core/system/services/log/log.service';
 import {LivechatAbstract} from 'wlc-engine/modules/livechat/system/classes/livechatAbstract.class';
-import {ILivechatConfig} from 'wlc-engine/modules/livechat/system/interfaces/livechat.interface';
 import {UserProfile} from 'wlc-engine/modules/user/system/models/profile.model';
 import {WINDOW} from 'wlc-engine/modules/app/system';
 
@@ -33,7 +31,6 @@ export class VerboxService extends LivechatAbstract {
     public chatId = 'verbox';
     public forceHideStyles = '#supportTrigger {display: none !important;}';
     public canChatDestroy = true;
-    protected options: ILivechatConfig = this.configService.get<ILivechatConfig>('$base.livechat');
     private currentEmail: string = null;
 
     constructor(
@@ -46,7 +43,7 @@ export class VerboxService extends LivechatAbstract {
         protected router: UIRouter,
         protected routerGlobals: UIRouterGlobals,
     ) {
-        super(document, eventService);
+        super(document, eventService, router, configService);
     }
 
     /**
@@ -58,31 +55,14 @@ export class VerboxService extends LivechatAbstract {
         let current = this.translateService.currentLang;
         this.translateService.onLangChange.subscribe(({lang}: LangChangeEvent) => {
             if (lang !== current) {
-                this.reloadChat();
+                this.rerunWidget();
                 current = lang;
             }
-        });
-
-        this.router.transitionService.onSuccess({}, (transition: Transition) => {
-            const stateName = transition.targetState().name();
-            if (_includes(this.options.excludeStates, stateName)) {
-                this.destroyWidget();
-                return;
-            }
-            this.reloadChat();
         });
 
         if (this.chatIsLoaded() && this.options.autocomplete) {
             this.setUserSettings();
         }
-    }
-
-    /**
-     * Reload chat (re-init)
-     */
-    public reloadChat(): void {
-        this.destroyWidget();
-        this.initChat();
     }
 
     /**
@@ -122,6 +102,7 @@ export class VerboxService extends LivechatAbstract {
      * when we have showOnlyAuth in livechatConfig, init chat widget in login
      */
     public rerunWidget(): void {
+        this.destroyWidget();
         this.initChat();
     }
 
@@ -189,7 +170,7 @@ export class VerboxService extends LivechatAbstract {
                 }
 
                 if (!this.options.showOnlyAuth && !_isNull(this.currentEmail)) {
-                    this.reloadChat();
+                    this.rerunWidget();
                 }
 
                 this.currentEmail = userProfile.email;
