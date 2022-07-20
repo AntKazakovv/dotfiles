@@ -227,8 +227,8 @@
         "file": "./900.change-logs/900.change-logs.md",
         "children": [
             {
-                "title": "1.9.0RC12 (20-07-2022)",
-                "file": "./900.change-logs/releases/1.9.0-rc.12_20-07-2022.md"
+                "title": "1.9.0 (20-07-2022)",
+                "file": "./900.change-logs/releases/1.9.0_20-07-2022.md"
             },
             {
                 "title": "1.8.0 (01-07-2022)",
