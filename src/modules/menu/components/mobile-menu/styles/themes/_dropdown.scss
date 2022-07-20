@@ -58,7 +58,7 @@
 
                     svg path,
                     svg {
-                        fill: currentColor;
+                        fill: ef.get-value($themeDropdownDefault, 'iconFill');
                     }
                 }
 

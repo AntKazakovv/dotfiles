@@ -18,4 +18,5 @@ $themeDropdownDefault: map-merge((
     'iconWidth': 20px,
     'iconHeight': 20px,
     'iconColor': var(--mc-main),
+    'iconFill': currentColor,
 ), $customDropdownThemeDefault);
