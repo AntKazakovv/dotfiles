@@ -95,14 +95,7 @@ export namespace wlcProfileForm {
                                     validators: null,
                                 },
                             },
-                            {
-                                name: FormElements.city.name,
-                                params: {
-                                    ...FormElements.city.params,
-                                    validators: null,
-                                    prohibitedPattern: ProhibitedPatterns.notNamesSymbols,
-                                },
-                            },
+                            FormElements.city,
                             {
                                 name: FormElements.address.name,
                                 params: {
@@ -282,13 +275,9 @@ export namespace wlcProfileForm {
                 {
                     name: 'core.wlc-input',
                     params: <IInputCParams>{
-                        common: {
-                            placeholder: gettext('City'),
-                        },
-                        wlcElement: 'block_city',
-                        name: 'city',
-                        validators: [],
-                        prohibitedPattern: ProhibitedPatterns.notNamesSymbols,
+                        ...FormElements.city.params,
+                        theme: 'default',
+                        customMod: [],
                     },
                 },
                 {

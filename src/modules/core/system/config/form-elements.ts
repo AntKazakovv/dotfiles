@@ -5,8 +5,15 @@ import {
     IButtonCParams,
     ISelectCParams,
     ICaptchaCParams,
+    IValidatorSettings,
 } from 'wlc-engine/modules/core';
 import {ProhibitedPatterns} from 'wlc-engine/modules/core/constants';
+
+const cityMinLengthValidator: IValidatorSettings = {
+    name: 'minLength',
+    text: gettext('Field length must be more than 2 characters'),
+    options: 2,
+};
 
 export namespace FormElements {
     export const amount: IFormComponent = {
@@ -225,7 +232,7 @@ export namespace FormElements {
                 placeholder: gettext('City'),
             },
             name: 'city',
-            validators: ['required', 'onlyLetters'],
+            validators: [cityMinLengthValidator],
             prohibitedPattern: ProhibitedPatterns.notNamesSymbols,
             wlcElement: 'block_city',
             customMod: ['city'],
