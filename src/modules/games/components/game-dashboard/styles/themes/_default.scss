@@ -232,6 +232,13 @@
                 .wlc-user-stats-email {
                     display: none;
                 }
+
+                .wlc-user-stats__content {
+
+                    .wlc-btn-deposit {
+                        margin: ef.get-value($themeDefault, 'userStatsBtnMargin');
+                    }
+                }
             }
         }
 
@@ -357,7 +364,7 @@
     }
 
     .wlc-loyalty-progress {
-        margin-top: 30px;
+        margin: ef.get-value($themeDefault, 'loyaltyProgressMargin');
     }
 
     &.wlc-game-dashboard--not-auth {

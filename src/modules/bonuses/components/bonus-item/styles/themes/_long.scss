@@ -17,11 +17,14 @@
 
         &__wrapper {
             position: relative;
+            gap: ef.get-value($themeLong, 'wrapperGap');
             justify-items: center;
             height: 100%;
         }
 
         &__info-block {
+            @include bm.get-mq-map('gap', $themeLong, 'infoBlockGap');
+
             justify-items: center;
         }
 
@@ -32,7 +35,7 @@
         }
 
         &__btns {
-            @include bm.get-mq-map('padding', $themeLong, 'btnsPadding');
+            margin: ef.get-value($themeLong, 'btnsMargin');
         }
 
         &__tag {
