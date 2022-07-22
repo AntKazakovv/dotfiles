@@ -67,6 +67,8 @@ export class PhoneFieldComponent extends AbstractComponent implements OnInit {
         const tempPhoneCode = this.configService.get('phoneCode');
         const tempPhoneNumber = this.configService.get('phoneNumber');
 
+        this.setValidators('default');
+
         this.userService.userProfile$
             .pipe(takeUntil(this.$destroy))
             .pipe(filter((profile: UserProfile): boolean => !!profile))
@@ -117,6 +119,7 @@ export class PhoneFieldComponent extends AbstractComponent implements OnInit {
             .subscribe(val => {
                 if (val) {
                     this.setValidators(val);
+
                     this.configService.set({
                         name: 'phoneCode',
                         value: val,
@@ -134,7 +137,18 @@ export class PhoneFieldComponent extends AbstractComponent implements OnInit {
                     name: 'phoneNumber',
                     value: val,
                 });
-                this.$params.phoneNumber.control.updateValueAndValidity({onlySelf: true});
+
+                if (this.$params.notRequiredPhone) {
+                    if (val) {
+                        this.$params.phoneCode.validators = [];
+                        this.$params.phoneCode.control.setValidators(
+                            this.validationService.getValidator('required').validator);
+                    } else {
+                        this.$params.phoneCode.control.clearValidators();
+                    }
+                }
+
+                this.$params.phoneCode.control.updateValueAndValidity({onlySelf: true});
             });
     }
 
@@ -168,6 +182,7 @@ export class PhoneFieldComponent extends AbstractComponent implements OnInit {
         ]);
 
         if (this.$params.notRequiredPhone) {
+            this.$params.phoneCode.validators = [];
             this.$params.phoneNumber.control
                 .removeValidators(this.validationService.getValidator('required').validator);
         }
