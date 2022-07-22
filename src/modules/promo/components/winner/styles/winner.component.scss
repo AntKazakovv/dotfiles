@@ -128,7 +128,6 @@
                 @include bm.transition(color);
 
                 width: ef.get-value($winnerBase, 'gameArrowWidth');
-                min-width: 0;
                 margin: ef.get-value($winnerBase, 'gameArrowMargin');
 
                 color: ef.get-value($winnerBase, 'gameArrowColor');
