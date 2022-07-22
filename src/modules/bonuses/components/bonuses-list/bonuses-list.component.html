@@ -25,7 +25,7 @@
                      [inlineParams]="sliderParams">
                 </div>
 
-                <div *ngIf="bonuses.length && !isSingleBonus" slot-container-end>
+                <div *ngIf="showNavigation" slot-container-end>
                     <button wlc-icon
                             class="wlc-swiper-button-prev swiper-button-prev"
                             iconPath="/wlc/icons/arrow.svg"></button>
@@ -52,7 +52,7 @@
         ></div>
     </ng-container>
 
-    <div *ngIf="bonuses.length && !isSingleBonus" slot-container-end>
+    <div *ngIf="showNavigation" slot-container-end>
         <div class="{{$class}}__slider-pagination">
             <button wlc-icon
                     class="wlc-swiper-button-prev"
@@ -83,7 +83,7 @@
                      [slides]="slides"
                      [inlineParams]="sliderParams"
                      (slideChangeTransitionEnd$)="onSlideChange($event)">
-                    <div *ngIf="bonuses.length && !isSingleBonus" slot-container-end>
+                    <div *ngIf="showNavigation" slot-container-end>
                         <div class="container swiper-button-container">
                             <button wlc-icon
                                     class="wlc-swiper-button-prev"
@@ -126,7 +126,7 @@
                      [inlineParams]="sliderParams">
                 </div>
 
-                <div *ngIf="bonuses.length && !isSingleBonus" slot-container-end>
+                <div *ngIf="showNavigation" slot-container-end>
                     <button wlc-icon
                             class="wlc-swiper-button-prev swiper-button-prev"
                             iconPath="/wlc/icons/arrow.svg"></button>
@@ -137,10 +137,10 @@
             </ng-container>
         </div>
     </div>
-    <button *ngIf="isAuthAndBonusesLength && $params.useRedirectBtnToProfile"
+    <button *ngIf="isAuthAndBonusesLength && $params.redirectBtnToProfile?.use"
             wlc-button
             class="{{$class}}__to-profile"
-            [inlineParams]="$params.redirectBtnToProfile">
+            [inlineParams]="$params.redirectBtnToProfile.params">
     </button>
 </ng-template>
 
@@ -178,10 +178,10 @@
             <div *ngIf="!$params.common.useNoDataText"
                 class="{{$class}}__nocontent">
                 {{ 'No bonuses available' | translate}}
-                <button *ngIf="$params.useBtnNoBonuses"
+                <button *ngIf="$params.btnNoBonuses?.use"
                         wlc-button
                         class="{{$class}}__nocontent-btn"
-                        [inlineParams]="$params.btnNoBonuses">
+                        [inlineParams]="$params.btnNoBonuses.params">
                 </button>
             </div>
         </ng-container>

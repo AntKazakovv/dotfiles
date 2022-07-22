@@ -35,6 +35,19 @@
                     }
                 }
 
+                &.wlc-bonuses-list--theme-mod-with-ears {
+                    max-width: unset;
+
+                    .wlc-bonuses-list__content .wlc-bonuses-list__list-wrapper
+                    .swiper-container.swiper-container-initialized {
+                        margin: 0;
+                    }
+
+                    &:not(.single-bonus-swiper) {
+                        margin: 0;
+                    }
+                }
+
                 &:not(.single-bonus-swiper) {
                     @include bm.get-mq-map('margin', $themeDefault, 'sliderMargin');
                 }

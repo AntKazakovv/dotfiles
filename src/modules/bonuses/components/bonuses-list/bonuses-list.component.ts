@@ -268,6 +268,10 @@ export class BonusesListComponent extends AbstractComponent implements OnInit, O
         return this.configService.get<boolean>('$user.isAuthenticated') && !!this.bonuses.length;
     }
 
+    public get showNavigation(): boolean {
+        return this.bonuses.length && !this.isSingleBonus && !this.$params.hideNavigation;
+    }
+
     protected setSubscription(): void {
         this.eventService.subscribe([
             {name: BonusItemComponentEvents.reg},
@@ -525,7 +529,7 @@ export class BonusesListComponent extends AbstractComponent implements OnInit, O
                     this.isSingleBonus = true;
                 } else {
                     this.sliderParams.swiper = _merge({
-                        navigation: true,
+                        navigation: !this.$params.hideNavigation,
                         slidesPerView: 1,
                         spaceBetween: 0,
                         allowTouchMove: true,

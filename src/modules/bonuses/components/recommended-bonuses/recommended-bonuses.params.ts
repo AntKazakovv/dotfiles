@@ -33,6 +33,10 @@ export interface ICommonParams {
      * the value containing pagination usage and breakpoints
      */
     pagination?: IPagination;
+    /**
+     * Set 'true' to hide navigation buttons in wlc-bonuses-list
+     */
+    hideNavigation?: boolean;
 }
 
 export enum RecommendedListEvents {

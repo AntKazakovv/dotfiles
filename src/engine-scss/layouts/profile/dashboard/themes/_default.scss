@@ -72,6 +72,13 @@
                 }
             }
 
+            &.wlc-bonuses-list--theme-mod-with-ears {
+
+                .wlc-bonuses-list__list-wrapper {
+                    padding: ef.get-value($dashboardThemeDefault, 'swiperContainerPaddingWithEars');
+                }
+            }
+
             &.single-bonus-swiper {
 
                 .wlc-bonuses-list__list-wrapper {

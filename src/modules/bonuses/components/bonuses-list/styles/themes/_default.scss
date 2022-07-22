@@ -86,6 +86,13 @@
                 }
             }
         }
+
+        &.wlc-bonuses-list--theme-mod-with-ears {
+
+            .wlc-bonuses-list__list-wrapper {
+                max-width: unset;
+            }
+        }
     }
 }
 

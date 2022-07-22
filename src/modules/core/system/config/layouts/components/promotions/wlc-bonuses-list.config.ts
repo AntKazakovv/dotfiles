@@ -11,8 +11,12 @@ export namespace wlcPromotionsBonusesList {
                 filterByGroup: 'Promo',
                 sortOrder: ['active', 'promocode', 'subscribe', 'inventory'],
             },
-            useRedirectBtnToProfile: true,
-            useBtnNoBonuses: true,
+            redirectBtnToProfile: {
+                use: true,
+            },
+            btnNoBonuses: {
+                use: true,
+            },
         },
     };
 }

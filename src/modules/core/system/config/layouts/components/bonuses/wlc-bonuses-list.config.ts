@@ -173,6 +173,64 @@ export namespace wlcBonusesList {
             },
         },
     };
+    export const dashboardWithEars: ILayoutComponent = {
+        name: 'bonuses.wlc-bonuses-list',
+        params: <IBonusesListCParams>{
+            type: 'swiper',
+            wlcElement: 'block_bonuses-main',
+            themeMod: 'with-ears',
+            hideNavigation: true,
+            common: {
+                useQuery: true,
+                sortOrder: ['active', 'subscribe', 'inventory'],
+                swiper: {
+                    slidesPerView: 2,
+                    spaceBetween: 20,
+                    loop: false,
+                    observer: true,
+                    observeSlideChildren: true,
+                    breakpoints: {
+                        320: {
+                            slidesPerView: 1.1,
+                            spaceBetween: 10,
+                        },
+                        480: {
+                            slidesPerView: 1.4,
+                            spaceBetween: 10,
+                        },
+                        560: {
+                            slidesPerView: 1.6,
+                            spaceBetween: 10,
+                        },
+                        640: {
+                            slidesPerView: 2.1,
+                            spaceBetween: 10,
+                        },
+                        768: {
+                            slidesPerView: 2.3,
+                            spaceBetween: 10,
+                        },
+                        900: {
+                            slidesPerView: 2.7,
+                            spaceBetween: 10,
+                        },
+                        1024: {
+                            slidesPerView: 2.9,
+                            spaceBetween: 15,
+                        },
+                        1366: {
+                            slidesPerView: 2.1,
+                            spaceBetween: 15,
+                        },
+                        1630: {
+                            slidesPerView: 1.9,
+                            spaceBetween: 20,
+                        },
+                    },
+                },
+            },
+        },
+    };
     export const promoHome: ILayoutComponent = {
         name: 'bonuses.wlc-bonuses-list',
         params: <IBonusesListCParams>{

@@ -270,7 +270,9 @@ export const defaultParams: IStepsParams = {
                                         useBlankBonus: true,
                                         swiper: bonusesSwiperParams,
                                     },
-                                    useBtnNoBonuses: false,
+                                    btnNoBonuses: {
+                                        use: false,
+                                    },
                                 },
                             },
                             {
@@ -287,7 +289,9 @@ export const defaultParams: IStepsParams = {
                                         selectFirstBonus: true,
                                         useBlankBonus: true,
                                     },
-                                    useBtnNoBonuses: false,
+                                    btnNoBonuses: {
+                                        use: false,
+                                    },
                                 },
                             },
                             bonusesStepButton,
@@ -349,7 +353,9 @@ export const defaultParams: IStepsParams = {
                                         useBlankBonus: false,
                                         swiper: bonusesSwiperParams,
                                     },
-                                    useBtnNoBonuses: false,
+                                    btnNoBonuses: {
+                                        use: false,
+                                    },
                                 },
                             },
                             bonusesStepButton,

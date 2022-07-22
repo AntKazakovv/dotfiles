@@ -16,7 +16,7 @@ import {TBonusSortOrder} from 'wlc-engine/modules/bonuses/system/interfaces/bonu
 
 export type Type = 'default' | 'swiper' | CustomType;
 export type Theme = 'active' | 'default' | 'partial' | 'promo' | 'promo-home' | 'reg-first' | CustomType;
-export type ThemeMod = 'default' | 'with-image' | CustomType;
+export type ThemeMod = 'default' | 'with-image' | 'with-ears' | CustomType;
 export type AutoModifiers = Theme | ThemeMod;
 export type CustomMod = string;
 export type Modifiers = AutoModifiers | CustomMod | null;
@@ -39,14 +39,22 @@ export interface IBonusesListCParams extends IComponentParams<Theme, Type, Theme
         useRecommendedBonuses?: boolean;
         useNoDataText?: boolean;
         useQuery?: boolean;
-        blankBonus?: IBlankBonusParams,
+        blankBonus?: IBlankBonusParams;
     };
-    itemsParams?: IBonusItemCParams,
-    useRedirectBtnToProfile?: boolean,
-    redirectBtnToProfile?: IButtonCParams,
-    useBtnNoBonuses?: boolean,
-    btnNoBonuses?: IButtonCParams,
-    noContent?: BonusesListNoContentByThemeType,
+    itemsParams?: IBonusItemCParams;
+    redirectBtnToProfile?: {
+        use?: boolean;
+        params?: IButtonCParams;
+    },
+    btnNoBonuses?: {
+        use?: boolean;
+        params?: IButtonCParams;
+    },
+    noContent?: BonusesListNoContentByThemeType;
+    /**
+     * Set 'true' to hide navigation buttons
+     */
+    hideNavigation?: boolean;
 }
 
 export interface IBlankBonusParams {
@@ -75,19 +83,23 @@ export const defaultParams: IBonusesListCParams = {
             name: gettext('Without bonus'),
         },
     },
-    useBtnNoBonuses: false,
     btnNoBonuses: {
-        common: {
-            text: gettext('Go home'),
-            sref: 'app',
+        use: false,
+        params: {
+            common: {
+                text: gettext('Go home'),
+                sref: 'app',
+            },
         },
     },
-    useRedirectBtnToProfile: false,
     redirectBtnToProfile: {
-        wlcElement: 'button_go-to-profile',
-        common: {
-            text: gettext('Go to Profile'),
-            sref: 'app.profile.loyalty-bonuses.main',
+        use: false,
+        params: {
+            wlcElement: 'button_go-to-profile',
+            common: {
+                text: gettext('Go to Profile'),
+                sref: 'app.profile.loyalty-bonuses.main',
+            },
         },
     },
 };
