@@ -30,7 +30,7 @@ export interface ITotalJackpotCParams extends IComponentParams<ComponentTheme, C
     /**
      * Section title
      */
-    title?: String;
+    title?: string;
     /**
      * Params of wlc-games-grid component who shows jackpot games
      */
