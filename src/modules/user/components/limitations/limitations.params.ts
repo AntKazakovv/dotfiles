@@ -31,14 +31,14 @@ export const defaultParams: ILimitationsCParams = {
 export const tableConfig: ITableCol[] = [
     {
         key: 'typeText',
-        title: gettext('Limit Type'),
+        title: gettext('Limit type'),
         type: 'text',
         order: 10,
         wlcElement: 'wlc-profile-table__cell_type',
     },
     {
         key: 'amountValue',
-        title: gettext('Value'),
+        title: gettext('Period'),
         type: 'component',
         order: 20,
         componentClass: LimitValueComponent,
@@ -46,7 +46,7 @@ export const tableConfig: ITableCol[] = [
     },
     {
         key: 'type',
-        title: gettext('Action'),
+        title: gettext('Actions'),
         type: 'component',
         order: 30,
         componentClass: LimitCancelComponent,
@@ -56,15 +56,15 @@ export const tableConfig: ITableCol[] = [
 
 export const limitTypeItems: TIndexingLimitTypeItems = {
     MaxDepositSum: {
-        title: gettext('Deposit Limit'),
+        title: gettext('Deposit limit'),
         value: 'MaxDepositSum',
     },
     MaxBetSum: {
-        title: gettext('Wager Limit'),
+        title: gettext('Wager limit'),
         value: 'MaxBetSum',
     },
     MaxLossSum: {
-        title: gettext('Loss Limit'),
+        title: gettext('Loss limit'),
         value: 'MaxLossSum',
     },
     realityChecker: {
@@ -81,15 +81,10 @@ export const limitType = {
     name: 'core.wlc-select',
     params: <ISelectCParams>{
         name: 'limitType',
-        labelText: gettext('Limit Type'),
+        labelText: gettext('Limit type'),
         wlcElement: 'limit-type',
         common: {
-            placeholder: gettext('Limit Type'),
-            // tooltipText: 'info',
-            tooltipModal: 'staticText',
-            tooltipModalParams: {
-                slug: 'responsible-game',
-            },
+            placeholder: gettext('Limit type'),
         },
         validators: ['required'],
         locked: false,
@@ -108,6 +103,7 @@ export const limitAmount = {
     params: <IInputCParams>{
         name: 'limitAmount',
         customMod: ['amount'],
+        theme: 'vertical',
         showCurrency: true,
         common: {
             placeholder: gettext('Amount'),
@@ -141,11 +137,11 @@ export const limitPeriod = {
                 value: 'Day',
             },
             {
-                title: gettext('Each Week'),
+                title: gettext('Each week'),
                 value: 'Week',
             },
             {
-                title: gettext('Each Month'),
+                title: gettext('Each month'),
                 value: 'Month',
             },
         ],
@@ -166,24 +162,24 @@ export const realityCheckerPeriod = {
     name: 'core.wlc-select',
     params: <ISelectCParams>{
         name: 'limitTime',
-        labelText: gettext('Limit Time (Reality Checker)'),
+        labelText: gettext('Limit time (Reality checker)'),
         wlcElement: 'limit-time',
         common: {
-            placeholder: gettext('Limit Time (Reality Checker)'),
+            placeholder: gettext('Limit time (Reality checker)'),
         },
         validators: ['required'],
         locked: false,
         items: [
             {
-                title: gettext('30 Minutes'),
+                title: gettext('30 minutes'),
                 value: '30',
             },
             {
-                title: gettext('1 Hour'),
+                title: gettext('1 hour'),
                 value: '60',
             },
             {
-                title: gettext('5 Hours'),
+                title: gettext('5 hours'),
                 value: '300',
             },
         ],
@@ -194,28 +190,28 @@ export const timeOutPeriod = {
     name: 'core.wlc-select',
     params: <ISelectCParams>{
         name: 'limitTime',
-        labelText: gettext('Limit Time (Time Out)'),
+        labelText: gettext('Limit time (Time out)'),
         wlcElement: 'limit-time',
         common: {
-            placeholder: gettext('Limit Time (Time Out)'),
+            placeholder: gettext('Limit time (Time out)'),
         },
         validators: ['required'],
         locked: false,
         items: [
             {
-                title: gettext('1 Day'),
+                title: gettext('1 day'),
                 value: '1',
             },
             {
-                title: gettext('1 Week'),
+                title: gettext('1 week'),
                 value: '7',
             },
             {
-                title: gettext('1 Month'),
+                title: gettext('1 month'),
                 value: '30',
             },
             {
-                title: gettext('Indefinite'),
+                title: gettext('Permanently'),
                 value: '36525',
             },
         ],

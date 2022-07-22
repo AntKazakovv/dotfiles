@@ -222,8 +222,8 @@ export class LimitationService {
                 name: NotificationEvents.PushMessage,
                 data: <IPushMessageParams>{
                     type: 'error',
-                    title: gettext('Error'),
-                    message: gettext('Error setting user self exclusion'),
+                    title: gettext('Profile update failed'),
+                    message: gettext('Mismatch with previously selected limitations'),
                     wlcElement: 'notification_set-self-exclusion-error',
                 },
             });

@@ -4,6 +4,7 @@
     .wlc-reality-check-info {
 
         &-title {
+            @include text.get-text-style(ef.get-value($themeDefault, 'infoTextFont'), ef.get-value($themeDefault, 'infoTextFontColor'));
             margin: ef.get-value($themeDefault, 'titleMargin');
             text-align: ef.get-value($themeDefault, 'titleAlign');
         }
@@ -13,6 +14,7 @@
         }
 
         &-result {
+            @include text.get-text-style(ef.get-value($themeDefault, 'resultTextFont'), ef.get-value($themeDefault, 'resultTextFontColor'));
             margin: ef.get-value($themeDefault, 'resultMargin');
 
             &-head,
@@ -22,6 +24,7 @@
             }
 
             &-head {
+                @include text.get-text-style(ef.get-value($themeDefault, 'resultHeadTextFont'), ef.get-value($themeDefault, 'resultHeadTextFontColor'));
                 padding: ef.get-value($themeDefault, 'resultHeadPadding');
             }
 

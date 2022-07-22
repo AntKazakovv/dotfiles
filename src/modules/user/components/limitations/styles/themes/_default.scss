@@ -1,5 +1,53 @@
 .wlc-limitations--theme-default:host {
 
+    .wlc-limitations-info {
+        @include bm.get-mq-map('padding', $themeDefault, 'infoPadding');
+
+        display: flex;
+        align-items: ef.get-value($themeDefault, 'infoAlignItems');
+        width: ef.get-value($themeDefault, 'infoWidth');
+        margin: ef.get-value($themeDefault, 'infoMargin');
+        background: ef.get-value($themeDefault, 'infoBackground');
+        border-radius: ef.get-value($themeDefault, 'infoBorderRadius');
+
+        &__message {
+            @include text.get-text-style(ef.get-value($themeDefault, 'infoTextFont'), ef.get-value($themeDefault, 'infoTextFontColor'));
+
+            &-link {
+                @include bm.transition(color);
+
+                color: ef.get-value($themeDefault, 'infoLinkColor');
+                text-decoration: none;
+                cursor: pointer;
+
+                @include bm.hover {
+                    color: ef.get-value($themeDefault, 'infoLinkHoverColor');
+                }
+            }
+        }
+
+        &__icon {
+            flex: ef.get-value($themeDefault, 'infoIconFlex');
+            width: ef.get-value($themeDefault, 'infoIconSize');
+            height: ef.get-value($themeDefault, 'infoIconSize');
+            margin: ef.get-value($themeDefault, 'infoIconMargin');
+
+            ::ng-deep {
+
+                .wlc-icon-content {
+                    display: flex;
+                    align-items: ef.get-value($themeDefault, 'infoIconAlignItems');
+                    color: ef.get-value($themeDefault, 'infoIconColor');
+
+                    svg {
+                        width: ef.get-value($themeDefault, 'infoIconSvgWidth');
+                        fill: currentColor;
+                    }
+                }
+            }
+        }
+    }
+
     .wlc-limitations-list {
         margin-top: ef.get-value($themeDefault, 'marginTop');
     }
@@ -13,12 +61,32 @@
             justify-content: ef.get-value($themeDefault, 'formJustifyContent');
             column-gap: ef.get-value($themeDefault, 'formColumnGap');
             row-gap: ef.get-value($themeDefault, 'formRowGap');
+
+            .wlc-select,
+            .wlc-input {
+                row-gap: ef.get-value($themeDefault, 'formElementLabelGap');
+            }
         }
 
         .wlc-table--theme-default[class] {
 
+            .wlc-table__cell {
+                align-items: ef.get-value($themeDefault, 'tableCellAlignItems');
+            }
+
+            .wlc-table__content {
+                table-layout: fixed;
+            }
+
             .wlc-table__cell--type {
                 @include bm.get-mq-map('padding', $themeDefault, 'actionPaddingCell');
+            }
+
+            .wlc-table__cell-content {
+                @include bm.get-mq-map('min-height', $themeDefault, 'tableCellContentMinHeight');
+                @include bm.get-mq-map('justify-content', $themeDefault, 'tableCellJustifyContent');
+                display: flex;
+                align-items: ef.get-value($themeDefault, 'tableCellContentAlignItems');
             }
         }
 

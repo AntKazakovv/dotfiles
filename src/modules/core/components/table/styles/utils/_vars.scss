@@ -52,6 +52,14 @@ $themeDefault: map-merge((
     'cellFontWeightFirst': initial,
     'cellBorderRadiusFirst': initial,
     'cellContentFontWeight': normal,
+    'cellContentPadding': (
+        375: 0 ef.size(2) 0 0,
+        1024: 0,
+    ),
+    'cellContentTextAlign': (
+        375: end,
+        1024: start,
+    ),
     'cellJustifyContent': space-between,
     'cellAutoColumns': auto,
     'cellAutoFlow': column,

@@ -266,9 +266,10 @@ $selector: '.wlc-table';
 
             &-content {
                 @include betweenClass('.wlc-table__cell--first') {
+                    @include bm.get-mq-map('padding', $themeDefault, 'cellContentPadding');
+                    @include bm.get-mq-map('text-align', $themeDefault, 'cellContentTextAlign');
                     justify-self: start;
                     width: 100%;
-                    text-align: start;
                 }
 
                 justify-self: end;

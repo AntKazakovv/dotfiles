@@ -1,3 +1,15 @@
+<div class="{{$class}}-info"> <!-- TODO replace this block by component from ticket #385121-->
+    <span wlc-icon
+        class="{{$class}}-info__icon"
+        iconPath="/wlc/icons/info.svg">
+    </span>
+    <span class="{{$class}}-info__message">
+        {{'You can read more about the Responsible Game functionality' | translate}}
+        <a class="{{$class}}-info__message-link"
+            (click)="showModal('staticText', 'responsible-game')">
+            {{'here' | translate}}</a>.
+    </span>
+</div>
 
 <div class="{{$class}}__wrap"
     wlc-form-wrapper

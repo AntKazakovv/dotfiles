@@ -3,16 +3,17 @@ $themeDefault: map-merge((
     'marginTop': ef.size(8),
 
     'formTemplateColumns': (
-        375: minmax(auto, 1fr),
-        560: minmax(auto, 400px),
-        1024: repeat(3, minmax(auto, 240px)),
-        1630: repeat(4, minmax(auto, 240px)),
+        375: minmax(0, 1fr),
+        560: minmax(0, 1fr),
+        1024: repeat(3, minmax(0, 240px)),
+        1630: repeat(4, minmax(0, 240px)),
     ),
 
     'formColumnGap': ef.size(3),
     'formRowGap': ef.size(4),
     'formAlignItems': end,
     'formJustifyContent': start,
+    'formElementLabelGap': 3px,
 
     'btnWidth': auto,
     'btnHeight': ef.size(8),
@@ -23,6 +24,38 @@ $themeDefault: map-merge((
 
     'actionPaddingCell': (
         375: 1px ef.size(3),
-        1024: ef.size(1) ef.size(2),
+        1024: ef.size(5) ef.size(2),
     ),
+
+    'tableCellAlignItems': center,
+    'tableCellContentAlignItems': center,
+    'tableCellJustifyContent': (
+        375: right,
+        1024: center,
+    ),
+    'tableCellContentMinHeight': (
+        375: 0,
+        1024: ef.size(8),
+    ),
+
+    'infoAlignItems': center,
+    'infoWidth': fit-content,
+    'infoLinkColor': var(--mc-main),
+    'infoLinkHoverColor': var(--mc-baseMain),
+    'infoTextFont': 'PrimaryText',
+    'infoTextFontColor': var(--mc-baseMain),
+    'infoPadding':  (
+        375: ef.size(3) ef.size(2),
+        1024: ef.size(3) ef.size(8) ef.size(3) ef.size(2),
+    ),
+    'infoBackground': var(--mc-bg-o4),
+    'infoBorderRadius': ef.get('radius', 'biger'),
+    'infoMargin': 0 0 ef.size(4) 0,
+
+    'infoIconColor': var(--mc-baseOpacity),
+    'infoIconSize': 20px,
+    'infoIconFlex': 0 0 20px,
+    'infoIconMargin': 0 ef.size(2) 0 0,
+    'infoIconAlignItems': center,
+    'infoIconSvgWidth': 100%,
 ), $customThemeDefault);

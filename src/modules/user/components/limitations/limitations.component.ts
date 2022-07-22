@@ -22,6 +22,8 @@ import {
     EventService,
     ModalService,
     ConfigService,
+    NotificationEvents,
+    IPushMessageParams,
 } from 'wlc-engine/modules/core';
 import {
     UserService,
@@ -125,6 +127,10 @@ export class LimitationsComponent extends AbstractComponent implements OnInit {
         this.form = form;
     }
 
+    public showModal(name: string, slug: string): void {
+        this.modalService.showModal(name, {slug, parseAsPlainHTML: true, shouldClearStyles: true});
+    }
+
     public async onSubmit(form: FormGroup): Promise<void> {
         if (this.pending) {
             return;
@@ -136,6 +142,19 @@ export class LimitationsComponent extends AbstractComponent implements OnInit {
             case 'MaxDepositSum':
             case 'MaxBetSum':
             case 'MaxLossSum':
+                if (!+form.value.limitAmount) {
+                    this.eventService.emit({
+                        name: NotificationEvents.PushMessage,
+                        data: <IPushMessageParams>{
+                            type: 'error',
+                            title: gettext('Profile update failed'),
+                            message: gettext('The entered amount is less than the minimum'),
+                            wlcElement: 'notification_profile-update-error',
+                        },
+                    });
+                    this.pending = false;
+                    return;
+                }
                 try {
                     await this.limitationService.setUserSelfExclusion({
                         type: `${form.value.limitType}${form.value.limitPeriod}`,
@@ -148,13 +167,33 @@ export class LimitationsComponent extends AbstractComponent implements OnInit {
 
             case 'realityChecker':
                 try {
-                    await this.userService.updateProfile({
+                    const result = await this.userService.updateProfile({
                         extProfile: {
                             realityCheckTime: form.value.limitTime,
                         },
                     }, true);
+
+                    if (result) {
+                        this.eventService.emit({
+                            name: NotificationEvents.PushMessage,
+                            data: <IPushMessageParams>{
+                                type: 'success',
+                                title: gettext('Profile updated successfully'),
+                                message: gettext('Your profile has been updated successfully'),
+                                wlcElement: 'notification_profile-update-success',
+                            },
+                        });
+                    }
                 } catch (error) {
-                    //
+                    this.eventService.emit({
+                        name: NotificationEvents.PushMessage,
+                        data: <IPushMessageParams>{
+                            type: 'error',
+                            title: gettext('Profile update failed'),
+                            message: error,
+                            wlcElement: 'notification_profile-update-error',
+                        },
+                    });
                 }
                 break;
 

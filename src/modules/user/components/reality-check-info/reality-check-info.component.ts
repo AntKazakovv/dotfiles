@@ -1,6 +1,7 @@
 import {
     Component,
     OnInit,
+    OnDestroy,
     Input,
     Inject,
 } from '@angular/core';
@@ -20,7 +21,7 @@ import * as Params from './reality-check-info.params';
     templateUrl: './reality-check-info.component.html',
     styleUrls: ['./styles/reality-check-info.component.scss'],
 })
-export class RealityCheckInfoComponent extends AbstractComponent implements OnInit {
+export class RealityCheckInfoComponent extends AbstractComponent implements OnInit, OnDestroy {
     @Input() public inlineParams: Params.IRealityCheckInfoCParams;
     public $params: Params.IRealityCheckInfoCParams;
     public playTime: string;
@@ -46,6 +47,13 @@ export class RealityCheckInfoComponent extends AbstractComponent implements OnIn
     public async ngOnInit(): Promise<void> {
         super.ngOnInit(this.inlineParams);
         this.playTime = DateTime.fromJSDate(new Date(this.$params.FromTime + ' UTC')).toFormat('yyyy-LL-dd HH:mm:ss');
+    }
+
+    public ngOnDestroy(): void {
+        super.ngOnDestroy();
+        if (!this.showClose) {
+            this.logout();
+        }
     }
 
     public close(): void {
