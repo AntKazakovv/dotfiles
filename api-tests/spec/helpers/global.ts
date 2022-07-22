@@ -1,3 +1,5 @@
+import {IData} from 'wlc-engine/modules/core';
+
 const projectUrl = process.env.PROJECT_URL || 'https://test-devcasino.egamings.com';
 
 export const fetch = require('node-fetch');
@@ -29,4 +31,23 @@ export const logout = () => {
     return fetch(getRequestUrl('/api/v1/auth'), {
         method: 'DELETE',
     });
+};
+
+export const checkIfSuccess = (response: IData): void => {
+    if (response.code !== 200) {
+        throw response.errors;
+    };
+};
+
+export const printWarn = (text: string): void => {
+    console.warn('\x1b[31m%s\x1b[0m', `\n  WARN: ${text}`);
+};
+
+export const checkIfObject = (response: IData): void => {
+    if (typeof response.data !== 'object'
+        || Array.isArray(response.data)
+        || response.data === null)
+    {
+        throw Error('response.data is not an object');
+    };
 };

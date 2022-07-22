@@ -6,7 +6,7 @@ export interface ILevel {
     /*
     * Level name
     * */
-    Name: string,
+    Name: string | null,
     /*
     *  Points next level
     * */
@@ -22,9 +22,9 @@ export interface ILevel {
     /*
     * Level points
     * */
-    Image: string,
+    Image: string | null,
     /*
     * Level description
     * */
-    Description: string,
+    Description: string | null,
 }
