@@ -19,9 +19,13 @@ import {
     ActionService,
     ConfigService,
     DeviceType,
+    IWrapperCParams,
     ModalService,
 } from 'wlc-engine/modules/core';
-import {ISlide} from 'wlc-engine/modules/promo';
+import {
+    ISlide,
+    ISliderCParams,
+} from 'wlc-engine/modules/promo';
 import {LoyaltyLevelComponent} from 'wlc-engine/modules/loyalty/components/loyalty-level/loyalty-level.component';
 import {ILoyaltyLevelCParams} from 'wlc-engine/modules/loyalty/components/loyalty-level/loyalty-level.params';
 import {LoyaltyLevelsService} from 'wlc-engine/modules/loyalty/system/services/loyalty-levels/loyalty-levels.service';
@@ -42,6 +46,7 @@ export class LoyaltyProgramComponent extends AbstractComponent implements OnInit
     public isAuth: boolean;
     public slides: ISlide[] = [];
     public isMobile: boolean = false;
+    public sliderConfig: IWrapperCParams;
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.ILoyaltyProgramCParams,
@@ -64,6 +69,7 @@ export class LoyaltyProgramComponent extends AbstractComponent implements OnInit
         this.levels = (await this.loyaltyLevelsService.getLoyaltyLevelsSafely()).splice(0, this.$params.levelsLimit);
         this.initSlides();
         this.watchForOrientation();
+        this.initSliderComponent();
 
         this.ready = true;
         this.cdr.detectChanges();
@@ -134,5 +140,19 @@ export class LoyaltyProgramComponent extends AbstractComponent implements OnInit
                 this.isMobile = type !== DeviceType.Desktop;
                 this.cdr.markForCheck();
             });
+    }
+
+    protected initSliderComponent(): void {
+        this.sliderConfig = {
+            components: [
+                {
+                    name: 'promo.wlc-slider',
+                    params: <ISliderCParams>{
+                        slides: this.slides,
+                        ...this.$params.sliderParams,
+                    },
+                },
+            ],
+        };
     }
 }
