@@ -418,9 +418,11 @@
         <img *ngIf="bonus.icon; else without"
                 class="{{$class}}__icon-sign"
                 draggable="false"
-                [src]="bonus.icon"
                 loading="lazy"
                 alt="bonus icon"
+                [src]="bonus.icon"
+                [wlc-fallback]="bonus.fallBackIconPath"
+                (imageError)="imageErrorLoad()"
                 (click)="chooseBonusNoBtn()">
         <ng-template #without>
             <div class="{{$class}}__icon-sign {{$class}}__icon-sign--empty" (click)="chooseBlankBonus()">

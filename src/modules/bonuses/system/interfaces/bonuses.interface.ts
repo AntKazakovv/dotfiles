@@ -16,6 +16,8 @@ export interface IBonusesModule {
     useNewImageSources?: boolean;
     /** Default bonus icon path */
     defaultIconPath?: string;
+    /** Default bonus fallback icon path */
+    fallBackIconPath?: string;
     defaultImages?: {
         /** Bonus image for bonus in profile dashboard, profile bonuses, bonus block in main page  in default profile */
         image?: string;

@@ -66,6 +66,7 @@ export class Bonus extends AbstractModel<IBonus> {
     private $isReg: boolean;
     private $isDep: boolean;
     private readonly _tag: string;
+    private _fallBackIconPath: string = '';
 
     constructor(
         from: IFromLog,
@@ -90,6 +91,8 @@ export class Bonus extends AbstractModel<IBonus> {
         } else if (this.viewTarget) {
             this.icon = Bonus.$bonuses.defaultIconPath + this.viewTarget + '.svg';
         }
+
+        this._fallBackIconPath = this.configService.get<string>('$bonuses.fallBackIconPath');
     }
 
     public set data(data: IBonus) {
@@ -633,6 +636,14 @@ export class Bonus extends AbstractModel<IBonus> {
                     || _toNumber(resultsTarget.Value?.EUR)
                     || _toNumber(resultsTarget.Value);
         }
+    }
+
+
+    /**
+     * @returns {string} fallback bonus icon path
+     */
+    public get fallBackIconPath(): string {
+        return this._fallBackIconPath;
     }
 
     /**

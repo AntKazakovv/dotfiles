@@ -6,16 +6,14 @@ import {
     Output,
     EventEmitter,
     Input,
-    OnDestroy,
     ChangeDetectorRef,
+    Renderer2,
+    OnDestroy,
 } from '@angular/core';
-import {
-    Subscription,
-    fromEvent,
-} from 'rxjs';
-import {IMediaContent} from 'wlc-engine/modules/games';
 
 import _forEach from 'lodash-es/forEach';
+
+import {IMediaContent} from 'wlc-engine/modules/games';
 
 /**
  * @example
@@ -32,28 +30,31 @@ export class FallbackImgDirective implements AfterViewInit, OnDestroy {
     @Input('wlc-fallback') protected wlcFallback: string;
     @Output() imageError = new EventEmitter<void>();
 
-    protected errors$: Subscription;
+    private listener: () => void;
 
     constructor(
+        protected renderer: Renderer2,
         protected element: ElementRef,
         protected cdr: ChangeDetectorRef,
     ) {}
 
     public ngAfterViewInit(): void {
-        this.errors$ = fromEvent(this.element.nativeElement, 'error').subscribe(() => {
-            this.errors$.unsubscribe();
+        this.listener = this.renderer.listen(this.element.nativeElement, 'error', (event: Event): void => {
+            const eventTarget: HTMLElement = event.target as HTMLElement;
 
-            if (this.element.nativeElement.parentElement.tagName === 'PICTURE') {
-                const sourceElement = this.element.nativeElement.parentElement.querySelectorAll('source');
-                _forEach(sourceElement, (elem) => {
-                    elem.remove();
+            if (eventTarget.tagName === 'PICTURE') {
+                const sourceElement: HTMLSourceElement[] =
+                    this.renderer.parentNode(eventTarget)?.querySelectorAll('source');
+
+                _forEach(sourceElement, (elem: HTMLSourceElement): void => {
+                    this.renderer.removeChild(this.renderer.parentNode(eventTarget), elem);
                 });
             }
 
             if (this.wlcFallback) {
                 this.src = this.wlcFallback;
             } else {
-                this.element.nativeElement.style.display = 'none';
+                this.renderer.setStyle(this.element.nativeElement, 'display', 'none');
             }
 
             this.imageError.emit();
@@ -62,6 +63,8 @@ export class FallbackImgDirective implements AfterViewInit, OnDestroy {
     }
 
     public ngOnDestroy(): void {
-        this.errors$.unsubscribe();
+        if (this.listener) {
+            this.listener();
+        }
     }
 }

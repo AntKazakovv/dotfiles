@@ -195,6 +195,14 @@ export class BonusItemComponent extends AbstractComponent implements OnInit, OnC
     }
 
     /**
+     * detectChanges after image loading error
+     * @returns {void}
+     */
+    public imageErrorLoad(): void {
+        this.cdr.detectChanges();
+    };
+
+    /**
      * Get promo bonus background image url
      *
      * @param {'promo' | 'default'} imageType
@@ -272,7 +280,7 @@ export class BonusItemComponent extends AbstractComponent implements OnInit, OnC
         if (this.bonus.isActive && !this.bonus.isExpired) {
             this.bonus.addToCache('expired');
             this.eventService.emit({name: 'BONUS_REFRESH'});
-            setTimeout (() => {
+            setTimeout((): void => {
                 this.eventService.emit({name: 'BONUS_REFRESH'});
             }, 310000);
         }
