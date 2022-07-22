@@ -21,7 +21,7 @@ const getCustomState = (sportsbookId: string): Ng2StateDeclaration => {
     });
 };
 
-const sportsbookIdByState: IIndexing<string> = {
+export const sportsbookIdByState: IIndexing<string> = {
     'app.betradar': 'betradar',
     'app.esport': 'esport',
     'app.digitain': 'digitain',

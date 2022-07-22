@@ -26,4 +26,5 @@ export const sportsbookConfig: ISportsbookConfig = {
             },
         },
     },
+    merchantIdsForBonus: [958],
 };

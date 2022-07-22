@@ -19,6 +19,8 @@ import {
     Deferred,
     InjectionService,
 } from 'wlc-engine/modules/core';
+
+import {sportsbookIdByState} from 'wlc-engine/modules/core/system/config/states';
 import {
     GamesCatalogService,
 } from 'wlc-engine/modules/games/system/services/games-catalog/games-catalog.service';
@@ -26,10 +28,12 @@ import {
     ISportsbookSettings,
     ISportsbookSettingsFilter,
 } from 'wlc-engine/modules/sportsbook';
+import {Game} from 'wlc-engine/modules/games';
 import {WINDOW} from 'wlc-engine/modules/app/system';
 
 import _get from 'lodash-es/get';
 import _find from 'lodash-es/find';
+import _findKey from 'lodash-es/findKey';
 import _set from 'lodash-es/set';
 import _isString from 'lodash-es/isString';
 import _isEmpty from 'lodash-es/isEmpty';
@@ -61,6 +65,8 @@ export class SportsbookService {
 
     private $readyStatus = new Deferred<void>();
     private eventSubject: Subject<IMessage> = new Subject<IMessage>();
+    private _targetSportsbookEnabled: boolean;
+    private _availableSportsbooks: string[] = [];
     private settings: ISportsbookSettings[] = [
         {
             id: 'betradar',
@@ -112,6 +118,26 @@ export class SportsbookService {
         @Inject(WINDOW) protected window: Window,
     ) {
         this.init();
+    }
+
+    public get targetSportsbookEnabled(): boolean {
+        return this._targetSportsbookEnabled;
+    }
+
+    /**
+     * Get sportsbook state for redirect from sport bonus
+     * @returns {string}
+     */
+    public getBonusSportsbookState(): string {
+        let state: string = 'app.sportsbook';
+
+        if (this._availableSportsbooks.length > 1) {
+            state =
+                _findKey(sportsbookIdByState, (id: string): boolean => id === this._availableSportsbooks[0])
+                || 'app.sportsbook';
+        }
+
+        return state;
     }
 
     /**
@@ -232,6 +258,7 @@ export class SportsbookService {
         await this.gamesCatalogService.ready;
         this.$readyStatus.resolve();
         this.enableMessageEventListener();
+        this.prepareSportsbookInfo();
     }
 
     /**
@@ -239,5 +266,21 @@ export class SportsbookService {
      */
     private iframe(): HTMLIFrameElement {
         return this.document.querySelector('#egamings_container iframe') as HTMLIFrameElement;
+    }
+
+    /**
+     * Prepare service data about enabled sportsbooks.
+     * Used with sport bonuses
+     */
+    private prepareSportsbookInfo(): void {
+        const merchantIds = this.configService.get<number[]>('$sportsbook.merchantIdsForBonus');
+        this.gamesCatalogService.getSportsbooks().forEach((sb: Game) => {
+            if (merchantIds.includes(sb.merchantID)) {
+                this._availableSportsbooks.push(
+                    _find(this.settings, {launchCode: sb.launchCode, merchantId: sb.merchantID})?.id,
+                );
+                this._targetSportsbookEnabled = true;
+            }
+        });
     }
 }

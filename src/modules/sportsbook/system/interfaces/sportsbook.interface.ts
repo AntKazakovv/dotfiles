@@ -7,6 +7,11 @@ import {
 
 export interface ISportsbookConfig {
     betradar?: IBetradar;
+    /**
+     * Sportsbook merchant identifiers for redirect from sport bonus
+     * Attention: sport bonuses currently works only with Betradar
+     */
+     merchantIdsForBonus: number[];
 }
 
 export interface ISportsbookSettings {

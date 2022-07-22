@@ -14,9 +14,11 @@ import {
     ConfigService,
     ModalService,
     EventService,
+    InjectionService,
 } from 'wlc-engine/modules/core';
 import {Bonus} from 'wlc-engine/modules/bonuses/system/models/bonus';
 import {BonusesService} from 'wlc-engine/modules/bonuses/system/services/bonuses/bonuses.service';
+import {SportsbookService} from 'wlc-engine/modules/sportsbook';
 import {BonusItemComponentEvents} from 'wlc-engine/modules/bonuses/system/interfaces/bonuses.interface';
 import {Theme as BonusItemTheme} from 'wlc-engine/modules/bonuses/components/bonus-item/bonus-item.params';
 
@@ -34,6 +36,8 @@ export class BonusButtonsComponent extends AbstractComponent implements OnInit {
     public $params: Params.IBonusButtonsCParams;
     public isAuth: boolean;
 
+    private static sportsbookService: SportsbookService;
+
     constructor(
         @Inject('injectParams') protected injectParams: Params.IBonusButtonsCParams,
         protected cdr: ChangeDetectorRef,
@@ -42,6 +46,7 @@ export class BonusButtonsComponent extends AbstractComponent implements OnInit {
         protected bonusesService: BonusesService,
         protected eventService: EventService,
         protected router: UIRouter,
+        protected injectionService: InjectionService,
     ) {
         super(
             <IMixedParams<Params.IBonusButtonsCParams>>{
@@ -179,10 +184,7 @@ export class BonusButtonsComponent extends AbstractComponent implements OnInit {
                 );
                 break;
             case 'play':
-                this.router.stateService.go(
-                    this.$params.promoLinks?.play?.state || 'app.catalog',
-                    this.$params.promoLinks?.play?.params || {category: 'casino'},
-                );
+                this.playActionHandler();
                 break;
             case 'openLootbox':
                 this.modalService.showModal('lootbox', {bonus: this.bonus});
@@ -198,6 +200,28 @@ export class BonusButtonsComponent extends AbstractComponent implements OnInit {
     protected hideActiveModal(id: string): void {
         if (this.modalService.getActiveModal(id)) {
             this.modalService.hideModal(id);
+        }
+    }
+
+    private async playActionHandler(): Promise<void> {
+        switch (this.bonus.bonusType) {
+            case 'sport':
+                if (!BonusButtonsComponent.sportsbookService) {
+                    BonusButtonsComponent.sportsbookService
+                        = await this.injectionService.getService('sportsbook.sportsbook-service');
+                    await BonusButtonsComponent.sportsbookService.ready;
+                }
+
+                if (BonusButtonsComponent.sportsbookService.targetSportsbookEnabled) {
+                    this.router.stateService.go(BonusButtonsComponent.sportsbookService.getBonusSportsbookState());
+                }
+                break;
+            default:
+                this.router.stateService.go(
+                    this.$params.promoLinks?.play?.state || 'app.catalog',
+                    this.$params.promoLinks?.play?.params || {category: 'casino'},
+                );
+                break;
         }
     }
 }

@@ -265,6 +265,15 @@ export class GamesCatalog extends AbstractModel<IGames> {
     }
 
     /**
+     * Get all enabled sportsbooks
+     *
+     * @returns {Game[]} sportsbooks list
+     */
+    public getSportsbooks(): Game[] {
+        return this.sportsbooks;
+    }
+
+    /**
      * Get categories by slugs
      *
      * @param {string[]} slugs Category slugs

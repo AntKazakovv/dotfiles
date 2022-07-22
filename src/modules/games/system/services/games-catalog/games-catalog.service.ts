@@ -241,6 +241,15 @@ export class GamesCatalogService {
     }
 
     /**
+     * Get all enabled sportsbooks
+     *
+     * @returns {Game[]} sportsbooks list
+     */
+    public getSportsbooks(): Game[] {
+        return this.gamesCatalog.getSportsbooks();
+    }
+
+    /**
      * Return Subscription to pragmatic play live
      *
      * @param game {Game} - game model
