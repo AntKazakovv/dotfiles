@@ -8,7 +8,7 @@ import {UIRouter} from '@uirouter/core';
 import {GlobalHelper} from 'wlc-engine/modules/core/system/helpers/global.helper';
 import {ModalService} from 'wlc-engine/modules/core/system/services/modal/modal.service';
 import {
-    AbstractComponent, 
+    AbstractComponent,
     IMixedParams,
 } from 'wlc-engine/modules/core/system/classes/abstract.component';
 import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
@@ -53,9 +53,11 @@ export class PromoSuccessComponent
         super.ngOnInit(GlobalHelper.prepareParams(this, inputProperties));
     }
 
-    public goTo(path: string): void {
+    public goTo(): void {
         this.modalService.hideModal('promo-success');
-        this.router.stateService.go(path);
+        if (this.$params.common.redirectPath) {
+            this.router.stateService.go(this.$params.common.redirectPath);
+        }
     }
 
 }

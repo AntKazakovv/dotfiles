@@ -358,9 +358,10 @@ export class BonusesService {
      * Subscribe bonus
      *
      * @param {Bonus} bonus bonus object
+     * @param {boolean} showPush show success push message or not
      * @returns {Bonus} bonus object
      */
-    public async subscribeBonus(bonus: Bonus): Promise<Bonus> {
+    public async subscribeBonus(bonus: Bonus, showPush: boolean = true): Promise<Bonus> {
         bonus.data.PromoCode = (bonus.id === this.promoBonus?.id) ? this.promoBonus.promoCode : '';
         const params = {ID: bonus.id, PromoCode: bonus.promoCode, Selected: 1};
 
@@ -376,7 +377,11 @@ export class BonusesService {
                     fail: 'BONUS_SUBSCRIBE_FAILED',
                 },
             }, params);
-            this.showSuccess(gettext('Bonus success'), gettext('Bonus subscribe success'));
+
+            if (showPush) {
+                this.showSuccess(gettext('Bonus success'), gettext('Bonus subscribe success'));
+            }
+
             return response.data;
         } catch (error) {
             this.showError(gettext('Bonus error'), error?.errors);
@@ -612,6 +617,21 @@ export class BonusesService {
             ? result : _unionBy(result, bonuses, 'id');
     }
 
+    /**
+     * Saves bonus with promo if promo exists in cache
+     * @returns {Promise<void>}
+     */
+    public async checkPromoBonus(): Promise<void> {
+        const promocode: string = await this.cachingService.get<string>(this.dbPromoUrl);
+
+        if (!promocode) return;
+        const bonuses: Bonus[] = await this.getBonusesByCode(promocode);
+
+        if (bonuses.length) {
+            this.promoBonus = bonuses[0];
+        }
+    }
+
     private async modifyBonuses(data: IBonus[]): Promise<Bonus[]> {
         const queryBonuses: Bonus[] = [];
 
@@ -721,15 +741,6 @@ export class BonusesService {
 
         if (expBonuses.expired && _size(expBonuses) === 0) {
             this.cachingService.clear('expired-bonuses');
-        }
-    }
-
-    private async checkPromoBonus(): Promise<void> {
-        const promocode: string = await this.cachingService.get<string>(this.dbPromoUrl);
-        if (!promocode) return;
-        const bonuses: Bonus[] = await this.getBonusesByCode(promocode);
-        if (bonuses.length) {
-            this.promoBonus = bonuses[0];
         }
     }
 

@@ -13,7 +13,9 @@ export interface IPromoSuccessCParams extends IComponentParams<ComponentTheme, C
         iconPath?: string,
         text?: string,
         btnText?: string,
-        actionParams?: IActionParams
+        actionParams?: IActionParams,
+        /** Path to redirect after closing modal */
+        redirectPath?: string,
     };
 }
 
@@ -39,5 +41,6 @@ export const defaultParams: IPromoSuccessCParams = {
         text: gettext('Congratulations your promo code is activated! Bonus added ' +
             'to the Bonuses page and waiting for subscription'),
         btnText: gettext('Got it'),
+        redirectPath: 'app.profile.loyalty-bonuses.main',
     },
 };

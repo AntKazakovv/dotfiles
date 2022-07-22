@@ -18,6 +18,7 @@ import {
     Subject,
     fromEvent,
     Observable,
+    Subscription,
 } from 'rxjs';
 import {
     first,
@@ -45,12 +46,17 @@ import {IPushMessageParams} from 'wlc-engine/modules/core/system/services/notifi
 import {NotificationEvents} from 'wlc-engine/modules/core/system/services/notification/notification.service';
 import {AppType} from 'wlc-engine/modules/core/system/interfaces/base-config/app.interface';
 import {IRedirect} from 'wlc-engine/modules/core/system/interfaces/core.interface';
+import {CachingService} from 'wlc-engine/modules/core/system/services/caching/caching.service';
 import {ColorThemeService} from 'wlc-engine/modules/core/system/services/color-theme/color-theme.service';
 import {UserProfile} from 'wlc-engine/modules/user/system/models/profile.model';
 import {UserService} from 'wlc-engine/modules/user/system/services/user/user.service';
 import {LogService} from 'wlc-engine/modules/core/system/services/log/log.service';
 import {WINDOW} from 'wlc-engine/modules/app/system';
 import {UserInfo} from 'wlc-engine/modules/user/system/models/info.model';
+import {
+    Bonus,
+    BonusesService,
+} from 'wlc-engine/modules/bonuses';
 
 export type ScrollPositionType = 'start' | 'end' | 'center' | 'nearest';
 
@@ -117,6 +123,7 @@ export class ActionService {
         private rendererFactory: RendererFactory2,
         private router: UIRouter,
         private stateService: StateService,
+        private cachingService: CachingService,
         private injectionService: InjectionService,
         private transition: TransitionService,
         private logService: LogService,
@@ -223,6 +230,92 @@ export class ActionService {
             case 'SOCIAL_LOGIN_FAILED':
                 this.onSocialConnect(true);
                 break;
+        }
+
+        this.processPromocode(initialPath);
+    }
+
+    /**
+     * Subscribes bonus with promocode from URL
+     *
+     * @param {IIndexing<string>} initialPath
+     * @returns {Promise<void>}
+     */
+    public async processPromocode(initialPath: IIndexing<string>): Promise<void> {
+        const bonusesService: BonusesService = await this.injectionService
+            .getService<BonusesService>('bonuses.bonuses-service');
+        const promocodeCacheKey: string = bonusesService.dbPromoUrl;
+
+        await this.configService.ready;
+
+        if (initialPath.promocode) {
+            await this.cachingService.set<string>(
+                promocodeCacheKey,
+                initialPath.promocode,
+                true,
+                7 * 24 * 60 * 60 * 1000, // 7 days
+            );
+        }
+        await bonusesService.checkPromoBonus();
+
+        if (bonusesService.promoBonus) {
+            if (this.configService.get<boolean>('$user.isAuthenticated')) {
+                const bonus: Bonus = await bonusesService.subscribeBonus(bonusesService.promoBonus, false);
+                if (bonus) {
+
+                    switch (bonus.event) {
+                        case 'sign up':
+                        case 'registration':
+                        case 'verification':
+                            this.modalService.showModal('promoSuccess', {
+                                common: {
+                                    title: gettext('Bonus success'),
+                                    text: this.translateService.instant(
+                                        gettext('Congratulations! You activated bonus'))
+                                            + ` ${bonus.name}! `
+                                            + this.translateService.instant(
+                                                gettext('Bonus successfully added to the Bonuses page.')),
+                                    redirectPath: '',
+                                },
+                            });
+                            break;
+                        default:
+                            this.modalService.showModal('promoSuccess', {
+                                common: {
+                                    title: gettext('Bonus success'),
+                                    text: this.translateService.instant(
+                                        gettext('Congratulations! You have got bonus'))
+                                            + ` ${bonus.name}! `
+                                            + this.translateService.instant(
+                                                gettext('Bonus successfully added to the Bonuses page.')),
+                                    redirectPath: '',
+                                },
+                            });
+                            break;
+                    }
+                    this.cachingService.clear(promocodeCacheKey);
+                }
+            } else {
+                const subscription: Subscription = this.eventService.subscribe([
+                    {name: 'LOGIN'},
+                ], (): void => {
+                    this.processPromocode(initialPath).then((): void => {
+                        subscription.unsubscribe();
+                    });
+                });
+                this.modalService.showModal('login');
+            }
+        } else {
+            this.eventService.emit({
+                name: NotificationEvents.PushMessage,
+                data: <IPushMessageParams>{
+                    type: 'error',
+                    title: gettext('Promocode error'),
+                    message: gettext('No voucher found'),
+                    wlcElement: 'notification_promocode-error',
+                },
+            });
+            this.cachingService.clear(promocodeCacheKey);
         }
     }
 
