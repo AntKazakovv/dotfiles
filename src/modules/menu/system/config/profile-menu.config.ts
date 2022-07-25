@@ -686,7 +686,6 @@ export const wlcProfileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
     'profile-menu:cash-deposit': {
         name: gettext('Deposit'),
         type: 'sref',
-        icon: 'deposit',
         class: 'deposit',
         wlcElement: 'link_deposit',
         params: {
@@ -699,7 +698,6 @@ export const wlcProfileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
     'profile-first-menu:cash-deposit': {
         name: gettext('Deposit'),
         type: 'sref',
-        icon: 'deposit',
         class: 'deposit',
         wlcElement: 'link_deposit',
         params: {
@@ -713,7 +711,6 @@ export const wlcProfileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
     'profile-menu:cash-withdrawal': {
         name: gettext('Withdrawal'),
         type: 'sref',
-        icon: 'withdrawal',
         class: 'withdrawal',
         wlcElement: 'link_withdrawal',
         params: {
@@ -726,7 +723,6 @@ export const wlcProfileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
     'profile-first-menu:cash-withdrawal': {
         name: gettext('Withdrawal'),
         type: 'sref',
-        icon: 'withdrawal',
         class: 'withdrawal',
         wlcElement: 'link_withdrawal',
         params: {
