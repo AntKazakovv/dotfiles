@@ -701,6 +701,12 @@ export namespace profileContent {
                                 class: 'wlc-profile-content__header underlined',
                                 components: [
                                     componentLib.wlcTitle.transactionsHistory,
+                                    {
+                                        name: 'finances.wlc-history-range',
+                                        params: {
+                                            type: 'submenu',
+                                        },
+                                    },
                                     componentLib.wlcTransactionHistory.filterOnly,
                                 ],
                             },
