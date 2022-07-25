@@ -50,12 +50,11 @@ export class FaqComponent extends AbstractComponent implements OnInit {
         super.ngOnInit();
 
         this.accordionParams = {
-            title: this.$params.title || this.$params.common.title,
+            title: (this.$params.title ?? this.$params.common?.title) || '',
             titleIconPath: this.$params.titleIconPath,
-            collapseAll: this.$params.collapseAll || this.$params.common.collapseAll,
+            collapseAll: !!(this.$params.collapseAll ?? this.$params.common?.collapseAll),
             items: [],
         };
-
         try {
             const data: TextDataModel = await this.getRawData();
             this.accordionParams.items = this.parseTableData(data?.html);
