@@ -1,5 +1,5 @@
 declare namespace jasmine {
     interface Matchers {
-        toBeImplemented(data: unknown): boolean;
+        toBeImplemented<T = unknown>(data: T): boolean;
     }
 }

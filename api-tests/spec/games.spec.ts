@@ -11,7 +11,7 @@ describe('/api/v1/games', () => {
         fetch(url)
             .then((res: any) => res.json())
             .then((response: unknown) => {
-                (expect(interfaceName) as any).toBeImplemented(response);
+                expect(interfaceName).toBeImplemented(response);
             })
             .catch((err: unknown) => fail(err))
             .finally(() => {

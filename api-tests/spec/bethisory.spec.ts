@@ -22,7 +22,7 @@ describe('/api/v1/bets', () => {
                 if (response.code !== 200) {
                     throw new Error(response.errors);
                 }
-                (expect(interfaceName) as any).toBeImplemented(response.data);
+                expect(interfaceName).toBeImplemented(response.data);
             })
             .catch((err: unknown) => fail(err))
             .finally(() => {
@@ -30,5 +30,3 @@ describe('/api/v1/bets', () => {
             });
     });
 });
-
-

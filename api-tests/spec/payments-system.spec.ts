@@ -13,7 +13,7 @@ describe('/api/v1/paymentSystems', () => {
         fetch(url)
             .then((res: any) => res.json())
             .then((response: {data: unknown}) => {
-                (expect(interfaceName) as any).toBeImplemented(response.data);
+                expect(interfaceName).toBeImplemented(response.data);
             })
             .catch((err: unknown) => fail(err))
             .finally(() => {
@@ -26,7 +26,7 @@ describe('/api/v1/paymentSystems', () => {
         fetch(url, {headers})
             .then((res: any) => res.json())
             .then((response: {data: unknown}) => {
-                (expect(interfaceName) as any).toBeImplemented(response.data);
+                expect(interfaceName).toBeImplemented(response.data);
             })
             .catch((err: unknown) => fail(err))
             .finally(() => {
