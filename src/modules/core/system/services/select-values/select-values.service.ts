@@ -65,10 +65,11 @@ type TConstantValues = IIndexing<TConstantValue>;
     providedIn: 'root',
 })
 export class SelectValuesService {
-    public daysInMonth: BehaviorSubject<number> = new BehaviorSubject(31);
-    public dayList: TConstantValue = this.getDateList('days');
-    public countryStates$: BehaviorSubject<IState[]> =
-        new BehaviorSubject<IState[]>([{value: '', title: 'Please select country'}]);
+    public dayList: BehaviorSubject<Params.ISelectOptions[]> = new BehaviorSubject([]);
+    public countryStates$: BehaviorSubject<IState[]> = new BehaviorSubject([{
+        value: '',
+        title: 'Please select country',
+    }]);
 
     protected configSelectWithIcon: Params.ISelectOptionsWithIcon;
     protected gamesCatalogService: GamesCatalogService;
@@ -86,19 +87,24 @@ export class SelectValuesService {
         ['pep', () => this.getPepList()],
         ['merchants', () => this.getMerchantsList()],
     ]);
+    private _daysInMonth: BehaviorSubject<number> = new BehaviorSubject(31);
 
     constructor(
         protected configService: ConfigService,
         private eventService: EventService,
         protected injectionService: InjectionService,
     ) {
-        this.daysInMonth.subscribe(() => {
+        this._daysInMonth.subscribe(() => {
             this.dayList.next(this.getDateList('days').value);
         });
 
         if (this.configService.get('$modules.user.formElements.showIcon.use')) {
             this.prepareSelectWithIcon();
         }
+    }
+
+    public get daysInMonth(): number {
+        return this._daysInMonth.getValue();
     }
 
     /**
@@ -134,7 +140,7 @@ export class SelectValuesService {
         let list: Params.ISelectOptions[] = [];
         switch (value) {
             case 'days': {
-                for (let day = 1; day <= this.daysInMonth.value; day++) {
+                for (let day = 1; day <= this._daysInMonth.value; day++) {
                     list.push({title: day, value: `${day}`});
                 }
                 break;
@@ -461,5 +467,12 @@ export class SelectValuesService {
         }
 
         return this.constantValues;
+    }
+
+    /**
+     * Sets days in month to default 31
+     */
+    public setDaysInMonth(data: number): void {
+        this._daysInMonth.next(data);
     }
 }

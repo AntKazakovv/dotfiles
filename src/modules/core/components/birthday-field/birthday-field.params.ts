@@ -8,10 +8,23 @@ export type AutoModifiers = Theme | 'default';
 export type CustomMod = string;
 export type Modifiers = AutoModifiers | CustomMod | null;
 
-export interface IBirthFieldCParams extends IComponentParams<ComponentTheme, ComponentType, string> {
+export interface IBirthFields {
     birthDay: ISelectCParams;
     birthMonth: ISelectCParams;
     birthYear: ISelectCParams;
+}
+
+export interface IBirthFieldCParams extends IComponentParams<ComponentTheme, ComponentType, string>, IBirthFields {}
+
+export interface IFieldsValue {
+    /**
+     * names of controls
+     */
+    field: keyof IBirthFields;
+    /**
+     * controls value type
+     */
+    value: string;
 }
 
 export const defaultParams: Partial<IBirthFieldCParams> = {
