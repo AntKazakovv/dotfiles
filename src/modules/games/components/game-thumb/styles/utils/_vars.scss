@@ -214,6 +214,7 @@ $bottomButtons: map-merge((
         375: 0,
         1024: ef.size(12),
     ),
+    'jackpotPosBottomMobile': 0,
 ), $customBottomButtons);
 
 $customBottomAll: () !default;
@@ -238,6 +239,7 @@ $bottomAll: map-merge((
         375: 0,
         1024: ef.size(22),
     ),
+    'jackpotPosBottomMobile': 0,
 ), $customBottomAll);
 
 $customBottomTitle: () !default;
@@ -253,6 +255,7 @@ $bottomTitle: map-merge((
         375: 0,
         1024: ef.size(12),
     ),
+    'jackpotPosBottomMobile': 0,
 ), $customBottomTitle);
 
 $customThemePromoWidget: () !default;

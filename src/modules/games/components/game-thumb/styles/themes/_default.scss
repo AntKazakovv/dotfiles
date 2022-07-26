@@ -280,6 +280,7 @@
 
     &.wlc-game-thumb--theme-mod-circle {
         @include circleButton;
+        @include thumbJackpotModifiers($themeDefaultModCircle);
 
         .wlc-game-thumb {
 
@@ -304,11 +305,6 @@
                 align-items: ef.get-value($themeDefaultModCircle, 'titleAlignItems');
                 opacity: ef.get-value($themeDefaultModCircle, 'titleOpacity');
             }
-
-            &__jackpot {
-                @include bm.get-mq-map('top', $themeDefaultModCircle, 'jackpotPosTop');
-                @include bm.get-mq-map('bottom', $themeDefaultModCircle, 'jackpotPosBottom');
-            }
         }
 
         .wlc-btn {
@@ -328,18 +324,13 @@
 
     &.wlc-game-thumb--theme-mod-bottom-buttons {
         @include thumbsBottom(buttons);
-
-        .wlc-game-thumb__jackpot {
-            @include bm.get-mq-map('bottom', $bottomButtons, 'jackpotPosBottom');
-        }
+        @include thumbJackpotModifiers($bottomButtons);
     }
 
     &.wlc-game-thumb--theme-mod-bottom-all {
         @include thumbsBottom(all);
+        @include thumbJackpotModifiers($bottomAll);
 
-        .wlc-game-thumb__jackpot {
-            @include bm.get-mq-map('bottom', $bottomAll, 'jackpotPosBottom');
-        }
 
         @include bm.hover() {
 
@@ -351,10 +342,7 @@
 
     &.wlc-game-thumb--theme-mod-bottom-title {
         @include thumbsBottom(title);
-
-        .wlc-game-thumb__jackpot {
-            @include bm.get-mq-map('bottom', $bottomTitle, 'jackpotPosBottom');
-        }
+        @include thumbJackpotModifiers($bottomTitle);
     }
 
     &.wlc-game-thumb--type-modal {

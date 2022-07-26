@@ -306,3 +306,15 @@
         }
     }
 }
+
+@mixin thumbJackpotModifiers($config) {
+
+    .wlc-game-thumb__jackpot {
+        @include bm.get-mq-map('top', $config, 'jackpotPosTop');
+        @include bm.get-mq-map('bottom', $config, 'jackpotPosBottom');
+
+        @include bm.hover(false) {
+            bottom: ef.get-value($config, 'jackpotPosBottomMobile');
+        }
+    }
+}
