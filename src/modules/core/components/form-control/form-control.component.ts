@@ -19,6 +19,7 @@ import _isObject from 'lodash-es/isObject';
 import _find from 'lodash-es/find';
 import _keys from 'lodash-es/keys';
 import _map from 'lodash-es/map';
+import _toString from 'lodash-es/toString';
 
 @Component({
     selector: '[wlc-form-control]',
@@ -48,6 +49,7 @@ export class FormControlComponent implements OnInit, OnDestroy {
         if (!this.control) {
             return;
         }
+
         this.errors = this.getErrors();
         this.control.statusChanges.pipe(
             takeUntil(this.ngUnsubscribe),
@@ -60,6 +62,10 @@ export class FormControlComponent implements OnInit, OnDestroy {
     public ngOnDestroy(): void {
         this.ngUnsubscribe.next(null);
         this.ngUnsubscribe.complete();
+    }
+
+    public get isValueEmpty(): boolean {
+        return !_toString(this.control.value).length;
     }
 
     protected getErrors(): string[] {
