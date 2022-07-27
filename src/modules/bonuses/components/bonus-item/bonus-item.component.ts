@@ -214,11 +214,6 @@ export class BonusItemComponent extends AbstractComponent implements OnInit, OnC
     public openDescription($event: MouseEvent): void {
         $event.stopPropagation();
 
-        // this.modalService.showModal('bonusModal', _merge({
-        //     bonus: this.bonus,
-        //     bonusItemTheme: this.$params.theme,
-        // }, this.$params.bonusModalParams || {}));
-    
         const modalParams: IBonusModalCParams = _merge({
             bonus: this.bonus,
             bonusItemTheme: this.$params.theme,
