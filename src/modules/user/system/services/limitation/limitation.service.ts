@@ -216,6 +216,16 @@ export class LimitationService {
                         wlcElement: 'notification_set-self-exclusion-info',
                     },
                 });
+            } else if (result.status === 'success')  {
+                this.eventService.emit({
+                    name: NotificationEvents.PushMessage,
+                    data: <IPushMessageParams>{
+                        type: 'success',
+                        title: gettext('Profile updated successfully'),
+                        message: gettext('Your profile has been updated successfully'),
+                        wlcElement: 'notification_profile-update-success',
+                    },
+                });
             }
         } catch (error) {
             this.eventService.emit({
