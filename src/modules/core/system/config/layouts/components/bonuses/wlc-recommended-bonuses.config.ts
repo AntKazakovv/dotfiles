@@ -1,7 +1,8 @@
-import {ILayoutComponent} from 'wlc-engine/modules/core';
+import {ILayoutComponent} from 'wlc-engine/modules/core/system/interfaces/layouts.interface';
 import {
     ICRecommendedBonusesParams,
-} from 'wlc-engine/modules/bonuses/components/recommended-bonuses/recommended-bonuses.params';
+    IBonusesListCParams,
+} from 'wlc-engine/modules/bonuses';
 
 export namespace wlcRecommendedBonuses {
     export const def: ILayoutComponent = {
@@ -29,9 +30,10 @@ export namespace wlcRecommendedBonuses {
                 },
             },
             useNoDataText: true,
-            recommendParams: <ICRecommendedBonusesParams>{
+            recommendParams: <IBonusesListCParams>{
                 type: 'swiper',
                 theme: 'default',
+                inProfile: true,
                 wlcElement: 'block_bonuses-main',
                 itemsParams: {
                     themeMod: 'with-image',

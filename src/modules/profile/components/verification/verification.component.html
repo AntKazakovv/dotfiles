@@ -99,6 +99,10 @@
 </ng-container>
 
 <ng-template #preloader>
-    <div *ngIf="loaded">{{'Verification not available' | translate}}</div>
+    <div *ngIf="loaded; else loader">
+        <div wlc-wrapper [inlineParams]="$params.emptyConfig"></div></div>
+</ng-template>
+
+<ng-template #loader>
     <div wlc-loader *ngIf="!loaded"></div>
 </ng-template>

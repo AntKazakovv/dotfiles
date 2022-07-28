@@ -5,6 +5,7 @@ export namespace wlcBonusesList {
     export const main: ILayoutComponent = {
         name: 'bonuses.wlc-bonuses-list',
         params: <IBonusesListCParams>{
+            inProfile: true,
             common: {
                 filter: 'main',
                 useQuery: true,
@@ -34,8 +35,9 @@ export namespace wlcBonusesList {
     };
     export const mainFirst: ILayoutComponent = {
         name: 'bonuses.wlc-bonuses-list',
-        params: {
+        params: <IBonusesListCParams>{
             themeMod: 'with-image',
+            inProfile: true,
             common: {
                 filter: 'main',
                 useQuery: true,
@@ -97,7 +99,7 @@ export namespace wlcBonusesList {
     };
     export const active: ILayoutComponent = {
         name: 'bonuses.wlc-bonuses-list',
-        params: {
+        params: <IBonusesListCParams>{
             common: {
                 restType: 'active',
                 useQuery: true,
@@ -107,7 +109,7 @@ export namespace wlcBonusesList {
     };
     export const activeFirst: ILayoutComponent = {
         name: 'bonuses.wlc-bonuses-list',
-        params: {
+        params: <IBonusesListCParams>{
             theme: 'active',
             common: {
                 restType: 'active',
@@ -157,6 +159,7 @@ export namespace wlcBonusesList {
     export const inventory: ILayoutComponent = {
         name: 'bonuses.wlc-bonuses-list',
         params: <IBonusesListCParams>{
+            inProfile: true,
             common: {
                 useQuery: true,
                 filter: 'inventory',

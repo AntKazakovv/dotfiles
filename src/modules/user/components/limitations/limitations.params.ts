@@ -4,12 +4,13 @@ import {
     IInputCParams,
     IButtonCParams,
     TIndexingLimitTypeItems,
+    IWrapperCParams,
+    ITableCol,
+    ProhibitedPatterns,
 } from 'wlc-engine/modules/core';
-import {ProhibitedPatterns} from 'wlc-engine/modules/core/constants';
 
-import {ITableCol} from 'wlc-engine/modules/core/components/table/table.params';
-import {LimitCancelComponent} from './limit-cancel/limit-cancel.component';
-import {LimitValueComponent} from './limit-value/limit-value.component';
+import {LimitCancelComponent} from 'wlc-engine/modules/user/components/limitations/limit-cancel/limit-cancel.component';
+import {LimitValueComponent} from 'wlc-engine/modules/user/components/limitations/limit-value/limit-value.component';
 export {limitTypeTexts} from './limitations.shared';
 
 export type ComponentTheme = 'default' | CustomType;
@@ -20,12 +21,24 @@ export type CustomMod = string;
 export type Modifiers = AutoModifiers | CustomMod | null;
 
 export interface ILimitationsCParams extends IComponentParams<ComponentTheme, ComponentType, string> {
+    /** wlc-profile-no-content params */
+    emptyConfig?: IWrapperCParams;
 }
 
 export const defaultParams: ILimitationsCParams = {
     moduleName: 'user',
     componentName: 'wlc-limitations',
     class: 'wlc-limitations',
+    emptyConfig: {
+        components: [
+            {
+                name: 'profile.wlc-profile-no-content',
+                params: {
+                    text: gettext('No limitations set'),
+                },
+            },
+        ],
+    },
 };
 
 export const tableConfig: ITableCol[] = [

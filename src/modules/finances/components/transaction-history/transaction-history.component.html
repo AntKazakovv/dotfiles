@@ -2,21 +2,25 @@
     <div *ngIf="showFilter" class="{{$class}}__filter">
         <div wlc-datepicker [inlineParams]="startDateInput"></div>
         <div wlc-datepicker [inlineParams]="endDateInput"></div>
-    
+
         <div *ngIf="$params.filterType === 'select'; else buttons"
              wlc-select
              [inlineParams]="selectConfig"></div>
     </div>
-    
-    <div class="{{$class}}__table">
-        <div wlc-table [inlineParams]="tableData"></div>
-    </div>
+
+    <div *ngIf="transaction$.value.length; else empty"
+         wlc-table
+         [inlineParams]="tableData"></div>
 </ng-container>
 
 <ng-template #buttons>
     <div wlc-radio-buttons
         class="{{$class}}__buttons"
         [inlineParams]="radioBtnConfig"></div>
+</ng-template>
+
+<ng-template #empty>
+    <div wlc-wrapper [inlineParams]="$params.emptyConfig"></div>
 </ng-template>
 
 <ng-template #preloader>

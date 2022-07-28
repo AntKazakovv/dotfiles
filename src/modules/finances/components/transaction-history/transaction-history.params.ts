@@ -1,5 +1,9 @@
-import {IComponentParams, CustomType} from 'wlc-engine/modules/core/system/classes/abstract.component';
-import {ITableCol} from 'wlc-engine/modules/core/components/table/table.params';
+import {
+    IComponentParams,
+    CustomType,
+    IWrapperCParams,
+    ITableCol,
+} from 'wlc-engine/modules/core';
 import {
     TransactionStatusComponent,
 } from 'wlc-engine/modules/finances/components/transaction-history/transaction-status/transaction-status.component';
@@ -16,7 +20,9 @@ export type Type = 'default' | CustomType;
 export type ThemeMod = 'default' | CustomType;
 
 export interface ITransactionHistoryCParams extends IComponentParams<Theme, Type, ThemeMod> {
-    filterType?: 'select' | 'button',
+    filterType?: 'select' | 'button';
+    /** wlc-profile-no-content params */
+    emptyConfig?: IWrapperCParams;
 }
 
 export const defaultParams: ITransactionHistoryCParams = {
@@ -24,6 +30,16 @@ export const defaultParams: ITransactionHistoryCParams = {
     componentName: 'wlc-transaction-history',
     class: 'wlc-transaction-history',
     filterType: 'button',
+    emptyConfig: {
+        components: [
+            {
+                name: 'profile.wlc-profile-no-content',
+                params: {
+                    text: gettext('No transactions history'),
+                },
+            },
+        ],
+    },
 };
 
 export const transactionTableHeadConfig: ITableCol[] = [

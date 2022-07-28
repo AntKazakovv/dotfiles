@@ -6,6 +6,9 @@ import {
     OnInit,
 } from '@angular/core';
 
+import {BehaviorSubject} from 'rxjs';
+import {takeUntil} from 'rxjs/operators';
+
 import {
     ITableCParams,
     ConfigService,
@@ -15,6 +18,7 @@ import {
 import {
     InternalMailsService,
 } from 'wlc-engine/modules/internal-mails/system/services/internal-mails/internal-mails.service';
+import {InternalMailModel} from 'wlc-engine/modules/internal-mails/system/models/internal-mail.model';
 
 import * as Params from './internal-mails.params';
 
@@ -26,9 +30,10 @@ import * as Params from './internal-mails.params';
 })
 export class InternalMailsComponent extends AbstractComponent implements OnInit {
     public ready: boolean = false;
+    public $params: Params.IInternalMailsCParams;
+    public internalMailsCount$: BehaviorSubject<number> = new BehaviorSubject(0);
 
     public tableData: ITableCParams = {
-        noItemsText: gettext('No messages'),
         head: Params.internalMailsTableHeadConfig,
         rows: this.internalMailsService.mails$,
         switchWidth: (this.configService.get('$base.profile.type') === 'first') ? 1200 : 1024,
@@ -51,8 +56,19 @@ export class InternalMailsComponent extends AbstractComponent implements OnInit 
         super.ngOnInit();
 
         this.internalMailsService.mailsReady.promise.then(() => {
-            this.ready = true;
-            this.cdr.detectChanges();
+            this.mailsChangesSubscribe();
         });
+    }
+
+    protected mailsChangesSubscribe(): void {
+        this.internalMailsService.mails$
+            .pipe(takeUntil(this.$destroy))
+            .subscribe((mails: InternalMailModel[]): void => {
+                // A temporary solution. Will be changed in #369731
+                this.internalMailsCount$.next(mails.length);
+            });
+
+        this.ready = true;
+        this.cdr.detectChanges();
     }
 }

@@ -1,5 +1,9 @@
-import {IComponentParams, CustomType} from 'wlc-engine/modules/core/system/classes/abstract.component';
-import {ITableCol} from 'wlc-engine/modules/core/components/table/table.params';
+import {
+    IComponentParams,
+    CustomType,
+    ITableCol,
+    IWrapperCParams,
+} from 'wlc-engine/modules/core';
 import {Bet} from 'wlc-engine/modules/profile/system/models/bet-history.model';
 import {
     BetPreviewComponent,
@@ -10,11 +14,24 @@ export type Type = 'default' | CustomType;
 export type ThemeMod = 'default' | CustomType;
 
 export interface IBetHistoryCParams extends IComponentParams<Theme, Type, ThemeMod> {
-
+    /** wlc-profile-no-content params */
+    emptyConfig?: IWrapperCParams;
 }
 
 export const defaultParams: IBetHistoryCParams = {
+    moduleName: 'core',
+    componentName: 'wlc-bet-history',
     class: 'wlc-bet-history',
+    emptyConfig: {
+        components: [
+            {
+                name: 'profile.wlc-profile-no-content',
+                params: {
+                    text: gettext('No bets history'),
+                },
+            },
+        ],
+    },
 };
 
 export const betHistoryTableHeadConfig: ITableCol[] = [

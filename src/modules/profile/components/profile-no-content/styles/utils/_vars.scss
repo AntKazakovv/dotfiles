@@ -1,0 +1,26 @@
+$customThemeDefault: () !default;
+$themeDefault: map-merge((
+    // Host
+    'textStyle': 'PrimaryText',
+    'textColor': var(--mc-baseMain),
+    'display': flex,
+    'direction': column,
+    'alignItems': center,
+    'margin': 45px auto 20px,
+
+    // Img
+    'imgDisplayProfileDef': (
+        375: none,
+        1024: block,
+    ),
+    'imgDisplayProfileFirst': (
+        375: none,
+        1200: block,
+    ),
+    'imgAlignSelf': flex-end,
+    'imgWidth': 20vw,
+    'imgMaxWidth': 330px,
+    'imgHeight': 20vw,
+    'imgMaxHeight': 330px,
+    'imgColor': var(--mc-bg500),
+), $customThemeDefault);

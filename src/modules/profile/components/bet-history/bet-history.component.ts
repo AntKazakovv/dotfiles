@@ -99,7 +99,6 @@ export class BetHistoryComponent extends AbstractComponent implements OnInit {
             endDate: this.endDate,
         });
         this.tableData = {
-            noItemsText: gettext('No bets history'),
             head: Params.betHistoryTableHeadConfig,
             rows: this.bets$,
             switchWidth: (this.configService.get('$base.profile.type') === 'first') ? 1200 : 1024,

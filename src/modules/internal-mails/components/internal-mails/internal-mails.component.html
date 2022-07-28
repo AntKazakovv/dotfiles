@@ -1,6 +1,13 @@
 <div *ngIf="ready; else preloader" class="{{$class}}">
-    <div wlc-table [inlineParams]='tableData'></div>
+    <div *ngIf="internalMailsCount$.value; else empty" wlc-table [inlineParams]='tableData'></div>
 </div>
+
+<ng-template #empty>
+    <div wlc-wrapper
+         class="{{$class}}__empty"
+         [inlineParams]="$params.emptyConfig">
+    </div>
+</ng-template>
 
 <ng-template #preloader>
     <div wlc-loader></div>

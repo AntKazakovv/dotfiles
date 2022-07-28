@@ -144,14 +144,27 @@
 </ng-template>
 
 <ng-template #noData>
-    <div *ngIf="isReady"
-         class="{{$class}}__nocontent">{{ 'No tournaments available' | translate}}
-        <button *ngIf="$params.useNoTournamentsBtn"
-                wlc-button
-                class="{{$class}}__nocontent-btn"
-                [inlineParams]="$params.noTournamentsBtn">
-        </button>
-    </div>
+    <ng-container *ngIf="isReady; esle loader">
+
+        <ng-container *ngIf="!$params.inProfile; else noDataInProfile">
+
+            <div class="{{$class}}__nocontent">
+                {{ 'No tournaments available' | translate}}
+                <button *ngIf="$params.useNoTournamentsBtn"
+                        wlc-button
+                        class="{{$class}}__nocontent-btn"
+                        [inlineParams]="$params.noTournamentsBtn">
+                </button>
+            </div>
+        </ng-container>
+    </ng-container>
+</ng-template>
+
+<ng-template #noDataInProfile>
+    <div wlc-wrapper [inlineParams]="$params.emptyInProfileConfig"></div>
+</ng-template>
+
+<ng-template #loader>
     <div class="{{$class}}__nocontent" *ngIf="!isReady">
         <div wlc-loader></div>
     </div>

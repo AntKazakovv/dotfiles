@@ -3,6 +3,7 @@ import {
     IButtonCParams,
     IComponentParams,
     IPagination,
+    IWrapperCParams,
 } from 'wlc-engine/modules/core';
 import {RestType, ThumbType} from 'wlc-engine/modules/tournaments';
 import {SwiperOptions} from 'swiper';
@@ -27,9 +28,13 @@ export interface ITournamentListCParams extends IComponentParams<ComponentTheme,
         pagination?: IPagination;
     },
     useNoTournamentsBtn?: boolean;
-    noTournamentsBtn?: IButtonCParams,
-    noContent?: TournamentsListNoContentByThemeType,
-    isAlternative?: boolean,
+    noTournamentsBtn?: IButtonCParams;
+    noContent?: TournamentsListNoContentByThemeType;
+    /** is bonuses list in profile */
+    inProfile?: boolean;
+    /** wlc-profile-no-content params */
+    emptyInProfileConfig?: IWrapperCParams;
+    isAlternative?: boolean;
 }
 
 export const defaultParams: ITournamentListCParams = {
@@ -44,4 +49,14 @@ export const defaultParams: ITournamentListCParams = {
         },
     },
     isAlternative: false,
+    emptyInProfileConfig: {
+        components: [
+            {
+                name: 'profile.wlc-profile-no-content',
+                params: {
+                    text: gettext('No tournaments available'),
+                },
+            },
+        ],
+    },
 };

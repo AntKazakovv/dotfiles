@@ -42,13 +42,6 @@
                 </div>
             </div>
         </div>
-
-        <div *ngIf="!rows.length" class="{{$class}}__empty">
-            <div class="{{$class}}__empty-text">{{$params.noItemsText | translate}}</div>
-            <div wlc-icon
-                 class="{{$class}}__img"
-                 [iconPath]="$params.iconPath"></div>
-        </div>
     </div>
     <div
          wlc-pagination
@@ -95,13 +88,6 @@
                     </div>
                 </ng-container>
             </div>
-        </div>
-
-        <div *ngIf="!rows.length" class="{{$class}}__empty">
-            <div class="{{$class}}__empty-text">{{$params.noItemsText | translate}}</div>
-            <div wlc-icon
-                 class="{{$class}}__img"
-                 [iconPath]="$params.iconPath"></div>
         </div>
     </div>
 

@@ -85,7 +85,11 @@
             </div>
         </div>
         <div *ngIf="tablePrizeboard" class="{{$class}}__prizeboard">
-            <div wlc-table [inlineParams]="tablePrizeboard"></div>
+            <div *ngIf="tablePrizeboard.rows.length; else empty" wlc-table [inlineParams]="tablePrizeboard"></div>
+
+            <ng-template #empty>
+                <div wlc-wrapper [inlineParams]="$params.emptyConfig"></div>
+            </ng-template>
         </div>
     </div>
     <div class="{{$class}}__games">

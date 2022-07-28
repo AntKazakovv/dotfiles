@@ -21,12 +21,13 @@ import {
     takeUntil,
 } from 'rxjs/operators';
 
+import {UserProfile} from 'wlc-engine/modules/user';
+import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
+import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
 import {
-    ConfigService,
-    AbstractComponent,
-} from 'wlc-engine/modules/core';
-import {CurrencyModel, ICurrencyIcon} from 'wlc-engine/modules/core/system/models/currency.model';
-import {UserProfile} from 'wlc-engine/modules/user/system/models/profile.model';
+    CurrencyModel,
+    ICurrencyIcon,
+} from 'wlc-engine/modules/core/system/models/currency.model';
 
 import * as Params from './currency.params';
 

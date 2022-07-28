@@ -6,6 +6,7 @@ import {
     IPagination,
     IButtonCParams,
     INoContentCParams,
+    IWrapperCParams,
 } from 'wlc-engine/modules/core';
 import {
     IBonusItemCParams,
@@ -45,7 +46,6 @@ export interface IBonusesListCParams extends IComponentParams<Theme, Type, Theme
         noActiveImgPath?:string,
         noOffersImgPath?:string,
     };
-    itemsParams?: IBonusItemCParams;
     redirectBtnToProfile?: {
         use?: boolean;
         params?: IButtonCParams;
@@ -61,6 +61,11 @@ export interface IBonusesListCParams extends IComponentParams<Theme, Type, Theme
     hideNavigation?: boolean;
     useBtnScroll?: boolean,
     btnScroll?: IButtonCParams,
+    itemsParams?: IBonusItemCParams,
+    /** is bonuses list in profile */
+    inProfile?: boolean,
+    /** wlc-profile-no-content params */
+    emptyInProfileConfig?: IWrapperCParams,
 }
 
 export interface IBlankBonusParams {
@@ -114,5 +119,15 @@ export const defaultParams: IBonusesListCParams = {
                 sref: 'app.profile.loyalty-bonuses.main',
             },
         },
+    },
+    emptyInProfileConfig: {
+        components: [
+            {
+                name: 'profile.wlc-profile-no-content',
+                params: {
+                    text: gettext('No bonuses available'),
+                },
+            },
+        ],
     },
 };

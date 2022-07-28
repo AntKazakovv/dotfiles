@@ -13,8 +13,7 @@
          (paginationOnChange)="paginationOnChange($event)">
     </div>
     <ng-template #noItems>
-        <div *ngIf="isReady; else loading"
-             class="{{$class}}__nocontent">{{'No store items available' | translate}}</div>
+        <div *ngIf="isReady; else loading" wlc-wrapper [inlineParams]="$params.emptyConfig"></div>
     </ng-template>
 </div>
 

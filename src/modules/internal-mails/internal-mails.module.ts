@@ -4,7 +4,9 @@ import {TranslateModule} from '@ngx-translate/core';
 import {CoreModule} from 'wlc-engine/modules/core/core.module';
 
 // components
-import {InternalMailsComponent} from './components/internal-mails/internal-mails.component';
+import {
+    InternalMailsComponent,
+} from 'wlc-engine/modules/internal-mails/components/internal-mails/internal-mails.component';
 import {
     ProfileMessagePreviewComponent,
 } from 'wlc-engine/modules/internal-mails/components/internal-mails/components/mail-preview/mail-preview.component';

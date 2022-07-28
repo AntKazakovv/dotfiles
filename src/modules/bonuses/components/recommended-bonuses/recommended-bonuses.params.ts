@@ -11,6 +11,7 @@ import {
 } from 'wlc-engine/modules/bonuses/system/interfaces/bonuses/bonuses.interface';
 import {TBonusSortOrder} from 'wlc-engine/modules/bonuses/system/interfaces/bonuses/bonuses.interface';
 import {IBonusItemCParams} from 'wlc-engine/modules/bonuses/components/bonus-item/bonus-item.params';
+import {IBonusesListCParams} from 'wlc-engine/modules/bonuses/components/bonuses-list/bonuses-list.params';
 
 export type Type = 'default' | 'swiper' | CustomType;
 export type Theme = 'default' | 'active' | CustomType;
@@ -47,7 +48,8 @@ export interface ICRecommendedBonusesParams extends IComponentParams<Theme, Type
     modifiers?: Modifiers[];
     common?: ICommonParams;
     itemsParams?: IBonusItemCParams;
-    recommendParams?: ICommonParams;
+    /** wlc-bonuses-list params */
+    recommendParams?: IBonusesListCParams;
     useNoDataText?: boolean;
 }
 

@@ -20,8 +20,14 @@
 </div>
 
 <div class="{{$class}}-list" *ngIf="!loading; else loader">
-    <div wlc-table [inlineParams]='tableData'></div>
+    <div *ngIf="limits.value.length; else empty"
+         wlc-table
+         [inlineParams]='tableData'></div>
 </div>
+
+<ng-template #empty>
+    <div wlc-wrapper [inlineParams]="$params.emptyConfig"></div>
+</ng-template>
 
 <ng-template #loader>
     <div wlc-loader></div>

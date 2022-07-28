@@ -1,14 +1,12 @@
 import {
     IComponentParams,
     CustomType,
-} from 'wlc-engine/modules/core/system/classes/abstract.component';
-import {
     ITableCParams,
     IWrapperCParams,
 } from 'wlc-engine/modules/core';
-import {TournamentComponent} from 'wlc-engine/modules/tournaments/components/tournament/tournament.component';
 import {IGamesGridCParams} from 'wlc-engine/modules/games';
-import {Tournament} from 'wlc-engine/modules/tournaments';
+import {TournamentComponent} from 'wlc-engine/modules/tournaments/components/tournament/tournament.component';
+import {Tournament} from 'wlc-engine/modules/tournaments/system/models/tournament.model';
 
 export type Type = 'default' | CustomType;
 export type Theme = 'default' | CustomType;
@@ -20,6 +18,8 @@ export type Modifiers = AutoModifiers | CustomMod | null;
 export interface ITournamentDetailCParams extends IComponentParams<Theme, Type, ThemeMod> {
     modifiers?: Modifiers[];
     parentInstance?: TournamentComponent;
+    /** wlc-profile-no-content params */
+    emptyConfig?: IWrapperCParams;
     common?: {
         tournament?: Tournament,
         noTournamentText?: string;
@@ -35,11 +35,14 @@ export interface ITournamentDetailCParams extends IComponentParams<Theme, Type, 
         statusAvaliableText?: string;
         statusActiveText?: string;
         prizePoolText?: string;
-        tablePrizeboard?: ITableCParams;
+        tablePrizeboard?: ITournamentDetailTableParams;
         scrollToSelector?: string;
     };
 }
 
+export interface ITournamentDetailTableParams extends ITableCParams {
+    rows?: ITournamentPrizeRows[]
+}
 export interface ITournamentPrizeRows {
     Place: number,
     Prize: {
@@ -52,6 +55,16 @@ export const defaultParams: ITournamentDetailCParams = {
     moduleName: 'tournaments',
     componentName: 'wlc-tournament-detail',
     class: 'wlc-tournament-detail',
+    emptyConfig: {
+        components: [
+            {
+                name: 'profile.wlc-profile-no-content',
+                params: {
+                    text: gettext('No leaderboard'),
+                },
+            },
+        ],
+    },
     common: {
         noTournamentText: gettext('No tournament'),
         rulesSectionTitle: gettext('Rules'),
@@ -77,7 +90,6 @@ export const defaultParams: ITournamentDetailCParams = {
                     },
                 },
             },
-            noItemsText: gettext('No leaderboard'),
             head: [
                 {
                     key: 'Place',

@@ -2,6 +2,7 @@ import {
     IComponentParams,
     CustomType,
     ITableCol,
+    IWrapperCParams,
 } from 'wlc-engine/modules/core';
 import {InternalMailModel} from 'wlc-engine/modules/internal-mails/system/models/internal-mail.model';
 import {
@@ -15,10 +16,25 @@ export type Theme = 'default' | CustomType;
 export type Type = 'default' | CustomType;
 export type ThemeMod = 'default' | CustomType;
 
-export interface IInternalMailsCParams extends IComponentParams<Theme, Type, ThemeMod> {}
+export interface IInternalMailsCParams extends IComponentParams<Theme, Type, ThemeMod> {
+    /** wlc-profile-no-content params */
+    emptyConfig?: IWrapperCParams;
+}
 
 export const defaultParams: IInternalMailsCParams = {
+    moduleName: 'internal-mails',
+    componentName: 'wlc-internal-mails',
     class: 'wlc-internal-mails',
+    emptyConfig: {
+        components: [
+            {
+                name: 'profile.wlc-profile-no-content',
+                params: {
+                    text: gettext('No messages'),
+                },
+            },
+        ],
+    },
 };
 
 export const internalMailsTableHeadConfig: ITableCol[] = [

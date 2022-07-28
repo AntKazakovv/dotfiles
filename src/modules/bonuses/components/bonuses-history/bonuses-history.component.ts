@@ -82,7 +82,6 @@ export class BonusesHistoryComponent extends AbstractComponent implements OnInit
             filterValue: this.filterValue,
         });
         this.tableData = {
-            noItemsText: gettext('No bonuses history'),
             head: Params.bonusHistoryTableHeadConfig,
             rows: this.bonuses$,
             switchWidth: (this.configService.get('$base.profile.type') === 'first') ? 1200 : 1024,

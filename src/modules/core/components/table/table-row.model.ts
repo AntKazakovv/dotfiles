@@ -1,5 +1,5 @@
 import {Injector} from '@angular/core';
-import {IIndexing} from 'wlc-engine/modules/core/system/interfaces';
+import {IIndexing} from 'wlc-engine/modules/core/system/interfaces/global.interface';
 import * as Params from './table.params';
 
 import _get from 'lodash-es/get';
@@ -12,7 +12,7 @@ export class TableRowModel {
 
     constructor(
         private data: unknown,
-        private params: Params.ITableCommonParams,
+        private params: Params.ITableCParams,
     ) {
     }
 

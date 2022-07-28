@@ -19,11 +19,11 @@ import {
     takeUntil,
 } from 'rxjs/operators';
 
-import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
 import {
     ConfigService,
     EventService,
-} from 'wlc-engine/modules/core/system/services';
+    AbstractComponent,
+} from 'wlc-engine/modules/core';
 import {GamesFilterService} from 'wlc-engine/modules/games/system/services/games-filter.service';
 import {
     ISearchFieldCParams,

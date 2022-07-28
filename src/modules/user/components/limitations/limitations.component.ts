@@ -24,12 +24,10 @@ import {
     ConfigService,
     NotificationEvents,
     IPushMessageParams,
+    ILimitationTypeItem,
 } from 'wlc-engine/modules/core';
-import {
-    UserService,
-    LimitationService,
-} from 'wlc-engine/modules/user/system/services';
-import {ILimitationTypeItem} from 'wlc-engine/modules/core/system/interfaces/base-config/profile.interface';
+import {UserService} from 'wlc-engine/modules/user/system/services/user/user.service';
+import {LimitationService} from 'wlc-engine/modules/user/system/services/limitation/limitation.service';
 
 import * as Params from './limitations.params';
 
@@ -55,13 +53,12 @@ export class LimitationsComponent extends AbstractComponent implements OnInit {
     };
 
     public formData = new BehaviorSubject({});
+    public limits: BehaviorSubject<any[]> = new BehaviorSubject([]);
 
-    protected limits: BehaviorSubject<any[]> = new BehaviorSubject([]);
     protected pending: boolean = false;
     protected form: FormGroup;
 
     public tableData: ITableCParams = {
-        noItemsText: gettext('No limitations set'),
         head: Params.tableConfig,
         rows: this.limits,
     };

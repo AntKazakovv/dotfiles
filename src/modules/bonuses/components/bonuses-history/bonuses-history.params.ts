@@ -2,6 +2,7 @@ import {
     IComponentParams,
     CustomType,
     ITableCol,
+    IWrapperCParams,
     IHistoryNameItem,
     HistoryNameComponent,
 } from 'wlc-engine/modules/core';
@@ -12,11 +13,24 @@ export type Type = 'default' | CustomType;
 export type ThemeMod = 'default' | CustomType;
 
 export interface IBonusesHistoryCParams extends IComponentParams<Theme, Type, ThemeMod> {
-
+    /** wlc-profile-no-content params */
+    emptyConfig?: IWrapperCParams;
 }
 
 export const defaultParams: IBonusesHistoryCParams = {
+    moduleName: 'bonuses',
+    componentName: 'wlc-bonuses-history',
     class: 'wlc-bonuses-history',
+    emptyConfig: {
+        components: [
+            {
+                name: 'profile.wlc-profile-no-content',
+                params: {
+                    text: gettext('No bonuses history'),
+                },
+            },
+        ],
+    },
 };
 
 export const bonusHistoryTableHeadConfig: ITableCol[] = [

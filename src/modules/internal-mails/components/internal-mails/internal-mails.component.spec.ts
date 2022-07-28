@@ -9,6 +9,8 @@ import {
     TestBed,
 } from '@angular/core/testing';
 
+import {BehaviorSubject} from 'rxjs';
+
 import {
     ConfigService,
     Deferred,
@@ -23,13 +25,18 @@ interface IConfigServiceStub extends Partial<Omit<ConfigService, 'get'>> {
     get(): {};
 }
 
+interface IInternalMailsServiceStub extends Partial<Omit<InternalMailsService, 'mails$'>> {
+    mails$: BehaviorSubject<string[]>;
+}
+
 describe('OpenMailBtnComponent', (): void => {
     let component: InternalMailsComponent;
     let fixture: ComponentFixture<InternalMailsComponent>;
     let nativeElement: HTMLElement;
     let injectParams: Params.IInternalMailsCParams;
+    let defaultParams: Params.IInternalMailsCParams = Params.defaultParams;
 
-    let internalMailsServiceStub: Partial<InternalMailsService>;
+    let internalMailsServiceStub: IInternalMailsServiceStub;
     let configServiceStub: IConfigServiceStub;
 
     let configGetSpy: jasmine.Spy;
@@ -44,6 +51,7 @@ describe('OpenMailBtnComponent', (): void => {
 
         internalMailsServiceStub = {
             mailsReady: new Deferred(),
+            mails$: new BehaviorSubject([]),
         };
         configServiceStub = {
             get() {
@@ -55,6 +63,7 @@ describe('OpenMailBtnComponent', (): void => {
             declarations: [
                 InternalMailsComponent,
                 TableComponent,
+                WrapperComponent,
             ],
             providers: [
                 {provide: InternalMailsService, useValue: internalMailsServiceStub},
@@ -91,20 +100,38 @@ describe('OpenMailBtnComponent', (): void => {
     it('-> check loader at start', (): void => {
         setup();
         expect(nativeElement.querySelector('[wlc-loader]')).toEqual(jasmine.anything());
+        expect(nativeElement.querySelector(`${defaultParams.class}__empty`)).not.toEqual(jasmine.anything());
         expect(nativeElement.querySelector('[wlc-table]')).not.toEqual(jasmine.anything());
     });
 
-    it('-> check wlc-table at after mailsReady', fakeAsync((): void => {
+    it('-> check empty block after mailsReady with mails$.langth === 0', fakeAsync((): void => {
         setup();
         internalMailsServiceStub.mailsReady.resolve();
         flushMicrotasks();
 
         expect(nativeElement.querySelector('[wlc-loader]')).not.toEqual(jasmine.anything());
+        expect(nativeElement.querySelector(`.${defaultParams.class}__empty`)).toEqual(jasmine.anything());
+        expect(nativeElement.querySelector('[wlc-table]')).not.toEqual(jasmine.anything());
+    }));
+
+    it('-> check wlc-table after mailsReady with mails$.langth !== 0', fakeAsync((): void => {
+        setup();
+        internalMailsServiceStub.mailsReady.resolve();
+        internalMailsServiceStub.mails$.next(['mail-1', 'mail-2']);
+        flushMicrotasks();
+
+        expect(nativeElement.querySelector('[wlc-loader]')).not.toEqual(jasmine.anything());
+        expect(nativeElement.querySelector(`${defaultParams.class}__empty`)).not.toEqual(jasmine.anything());
         expect(nativeElement.querySelector('[wlc-table]')).toEqual(jasmine.anything());
     }));
 });
 
 @Component({selector: '[wlc-table]'})
 class TableComponent {
+    @Input() inlineParams;
+}
+
+@Component({selector: '[wlc-wrapper]'})
+class WrapperComponent {
     @Input() inlineParams;
 }

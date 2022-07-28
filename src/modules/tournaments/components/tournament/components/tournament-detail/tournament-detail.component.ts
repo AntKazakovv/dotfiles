@@ -13,7 +13,6 @@ import {
 import {UIRouter} from '@uirouter/core';
 
 import {takeUntil} from 'rxjs/operators';
-
 import _each from 'lodash-es/each';
 import _set from 'lodash-es/set';
 
@@ -22,17 +21,17 @@ import {
     IMixedParams,
     ConfigService,
     ModalService,
-    ITableCParams,
     IIndexing,
     GlobalHelper,
     IWrapperCParams,
+    InjectionService,
 } from 'wlc-engine/modules/core';
+import {MenuParams} from 'wlc-engine/modules/menu';
+import {GamesCatalogService} from 'wlc-engine/modules/games';
 import {Tournament} from 'wlc-engine/modules/tournaments/system/models/tournament.model';
 import {TournamentsService} from 'wlc-engine/modules/tournaments/system/services/tournaments/tournaments.service';
 import {TournamentComponent} from 'wlc-engine/modules/tournaments/components/tournament/tournament.component';
-import {MenuParams} from 'wlc-engine/modules/menu';
-import {InjectionService} from 'wlc-engine/modules/core/system/services/injection/injection.service';
-import {GamesCatalogService} from 'wlc-engine/modules/games/system/services/games-catalog/games-catalog.service';
+
 
 import * as Params from './tournament-detail.params';
 
@@ -54,7 +53,7 @@ export class TournamentDetailComponent extends AbstractComponent implements
     public isReady: boolean = false;
     public tournamentProcessing: boolean = false;
     public isTournamentSelected: boolean = false;
-    public tablePrizeboard: ITableCParams = {};
+    public tablePrizeboard: Params.ITournamentDetailTableParams = {};
     public menuParams: MenuParams.IMenuCParams;
     public gamesGridConfig = Params.gamesGridConfig;
     public menuConfig: IWrapperCParams = {components: []};

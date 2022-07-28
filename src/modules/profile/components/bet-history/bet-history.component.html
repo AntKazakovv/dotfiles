@@ -4,11 +4,15 @@
         <div wlc-datepicker [inlineParams]="endDateInput"></div>
         <div wlc-select [inlineParams]="filterSelect"></div>
     </div>
-    
-    <div class="{{$class}}__table">
-        <div wlc-table [inlineParams]="tableData"></div>
-    </div>
+
+    <div *ngIf="bets$.value.length; else empty"
+         wlc-table
+         [inlineParams]="tableData"></div>
 </ng-container>
+
+<ng-template #empty>
+    <div wlc-wrapper [inlineParams]="$params.emptyConfig"></div>
+</ng-template>
 
 <ng-template #preloader>
     <div wlc-loader></div>

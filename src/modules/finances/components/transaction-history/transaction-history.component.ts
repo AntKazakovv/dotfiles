@@ -29,10 +29,8 @@ import {
     ISelectCParams,
     IRadioButtonsCParams,
 } from 'wlc-engine/modules/core';
-import {
-    FinancesService,
-} from 'wlc-engine/modules/finances/system/services';
-import {Transaction} from 'wlc-engine/modules/finances/system/models';
+import {FinancesService} from 'wlc-engine/modules/finances/system/services/finances/finances.service';
+import {Transaction} from 'wlc-engine/modules/finances/system/models/transaction-history.model';
 import {
     TTransactionFilter,
     IFinancesFilter,
@@ -112,7 +110,6 @@ export class TransactionHistoryComponent extends AbstractComponent implements On
         });
         this.tableData = {
             themeMod: profileType,
-            noItemsText: gettext('No transactions history'),
             head: Params.transactionTableHeadConfig,
             rows: this.transaction$,
             switchWidth: profileType === 'first' ? 1200 : 1024,

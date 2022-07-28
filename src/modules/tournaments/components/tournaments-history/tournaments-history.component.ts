@@ -24,8 +24,8 @@ import {
     ConfigService,
     ActionService,
     DeviceType,
+    ProfileType,
 } from 'wlc-engine/modules/core';
-import {ProfileType} from 'wlc-engine/modules/core/system/interfaces/base-config/profile.interface';
 import {
     HistoryFilterService,
 } from 'wlc-engine/modules/core/system/services/history-filter/history-filter.service';
@@ -88,7 +88,6 @@ export class TournamentsHistoryComponent extends AbstractComponent implements On
         });
         this.tableData = {
             themeMod: profileType,
-            noItemsText: gettext('No tournaments history'),
             head: Params.tournamentsHistoryTableHeadConfig,
             rows: this.tournaments$,
             switchWidth: profileType === 'first' ? 1200 : 1024,

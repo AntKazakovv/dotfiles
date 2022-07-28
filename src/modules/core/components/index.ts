@@ -8,6 +8,7 @@ export {ICaptchaCParams} from './captcha/captcha.params';
 export {ICheckboxCParams} from './checkbox/checkbox.params';
 export {ICopyrightCParams} from './copyright/copyright.params';
 export {ICurrencyCParams} from './currency/currency.params';
+export {CurrencyComponent} from './currency/currency.component';
 export {IDatepickerCParams} from './datepicker/datepicker.params';
 export {IDisclaimerCParams} from './disclaimer/disclaimer.params';
 export {IErrorPageCParams} from './error-page/error-page.params';
@@ -32,7 +33,10 @@ export {ILogoCParams} from './logo/logo.params';
 export {IRadioButtonsCParams} from './radio-buttons/radio-buttons.params';
 export {IScrollbarCParams} from './scrollbar/scrollbar.params';
 export {ISelectCParams} from './select/select.params';
-export {ITableCParams, ITableCol} from './table/table.params';
+export {
+    ITableCParams,
+    ITableCol,
+} from './table/table.params';
 export {IThemeTogglerCParams} from './theme-toggler/theme-toggler.params';
 export {ITooltipCParams} from './tooltip/tooltip.params';
 export {StepsEvents} from './steps/steps.params';

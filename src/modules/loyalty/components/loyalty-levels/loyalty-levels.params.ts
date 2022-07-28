@@ -1,10 +1,11 @@
 import {
     IComponentParams,
     CustomType,
-} from 'wlc-engine/modules/core/system/classes/abstract.component';
+    IWrapperCParams,
+    ITableCol,
+} from 'wlc-engine/modules/core';
 
-import {ITableCol} from 'wlc-engine/modules/core/components/table/table.params';
-import {LoyaltyLevelModel} from 'wlc-engine/modules/loyalty/system/models';
+import {LoyaltyLevelModel} from 'wlc-engine/modules/loyalty/system/models/loyalty-level.model';
 import {ILevelNameParams} from 'wlc-engine/modules/loyalty/components/loyalty-levels/level-name/level-name.params';
 import {LevelNameComponent} from 'wlc-engine/modules/loyalty/components/loyalty-levels/level-name/level-name.component';
 
@@ -14,10 +15,24 @@ export type ThemeMod = 'default' | CustomType;
 
 export interface ILoyaltyLevelTableCParams extends IComponentParams<Theme, Type, ThemeMod> {
     filterType?: 'select' | 'button',
+    /** wlc-profile-no-content params */
+    emptyConfig?: IWrapperCParams;
 }
 
 export const defaultParams: ILoyaltyLevelTableCParams = {
+    moduleName: 'loyalty',
+    componentName: 'wlc-loyalty-table',
     class: 'wlc-loyalty-table',
+    emptyConfig: {
+        components: [
+            {
+                name: 'profile.wlc-profile-no-content',
+                params: {
+                    text: gettext('An error occurred while loading data. Please try again later.'),
+                },
+            },
+        ],
+    },
 };
 
 export const loyaltyTableHeadConfig: ITableCol[] = [

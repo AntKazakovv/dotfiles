@@ -25,6 +25,7 @@ export namespace wlcTournamentList {
         name: 'tournaments.wlc-tournament-list',
         params: {
             theme: 'available',
+            inProfile: true,
             common: {
                 thumbType: 'available',
                 customMod: 'available',
@@ -44,6 +45,7 @@ export namespace wlcTournamentList {
         name: 'tournaments.wlc-tournament-list',
         params: {
             theme: 'active',
+            inProfile: true,
             common: {
                 thumbType: 'active',
                 customMod: 'active',
