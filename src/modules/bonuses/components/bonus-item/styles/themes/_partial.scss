@@ -23,6 +23,16 @@
 
             border-radius: ef.get-value($themePartial, 'bodyRadius');
             text-align: ef.get-value($themePartial, 'bodyTextAlign');
+            background-size: ef.get-value($themePartial, 'bodyBackgroundSize');
+
+            &.with-image:before {
+                content: '';
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                background-image: ef.get-value($themePartial, 'bodyWithImageBeforeGradient');
+                border-radius: ef.get-value($themePartial, 'bodyRadius');
+            }
         }
 
         &__footer {

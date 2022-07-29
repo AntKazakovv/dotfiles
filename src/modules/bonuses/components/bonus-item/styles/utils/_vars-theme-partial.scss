@@ -35,6 +35,8 @@ $themePartial: map-merge((
         320: var(--mc-bg300),
         900: transparent,
     ),
+    'bodyBackgroundSize': cover,
+    'bodyWithImageBeforeGradient': linear-gradient(180deg, var(--mc-baseContrast-o0) 0%, #0a2d62 100%),
 
     'footerDisplay': (
         320: block,
