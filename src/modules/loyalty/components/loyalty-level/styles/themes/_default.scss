@@ -1,10 +1,10 @@
 .wlc-loyalty-level--theme-default:host {
     @include bm.get-mq-map('padding', $themeDefault, 'rootPadding');
     @include bm.get-mq-map('background', $themeDefault, 'rootBackground');
-
     display: ef.get-value($themeDefault, 'rootDisplay');
     flex-direction: ef.get-value($themeDefault, 'rootFlexDirection');
     align-items: ef.get-value($themeDefault, 'rootAlignItems');
+    height: ef.get-value($themeDefault, 'rootHeight');
 
     border-radius: ef.get-value($themeDefault, 'rootBorderRadius');
 

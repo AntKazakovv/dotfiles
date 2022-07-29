@@ -69,6 +69,7 @@
         &__slider {
 
             ::ng-deep {
+                margin: ef.get-value($themeDefault, 'sliderMargin');
 
                 .swiper-slide {
                     width: ef.get-value($themeDefault, 'slideWidth');

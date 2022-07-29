@@ -30,7 +30,13 @@ export const sliderDefaultParams: ISliderCParams = {
         slidesPerView: 'auto',
         spaceBetween: 10,
         allowSlideNext: true,
+        followFinger: true,
+        slidesOffsetBefore: 80,
+        slidesOffsetAfter: 80,
         breakpoints: {
+            375: {
+                followFinger: true,
+            },
             768: {
                 spaceBetween: 10,
             },

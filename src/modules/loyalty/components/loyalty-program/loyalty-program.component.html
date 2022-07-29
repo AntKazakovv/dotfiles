@@ -28,15 +28,20 @@
 </ng-template>
 
 <ng-template #desktopLoyaltyLevels>
-    <div class="{{$class}}__items-wrapper container">
-        <div wlc-loyalty-level
-             *ngFor="let level of levels; index as $index;"
-             [inlineParams]="getLoyaltyLevelParams(level, $index)"></div>
+    <div class="container">
+        <div class="{{$class}}__items-wrapper">
+            <div wlc-loyalty-level
+                *ngFor="let level of levels; index as $index;"
+                [inlineParams]="getLoyaltyLevelParams(level, $index)"></div>
+        </div>
     </div>
 </ng-template>
 
 <ng-template #mobileLoyaltyLevels>
-    <div wlc-wrapper
-         class="{{$class}}__slider"
-         [inlineParams]="sliderConfig"></div>
+    <div class="container">
+        <div wlc-slider
+            class="{{$class}}__slider"
+            [slides]="slides"
+            [inlineParams]="$params.sliderParams"></div>
+    </div>
 </ng-template>

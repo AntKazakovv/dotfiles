@@ -3,6 +3,7 @@ $themeDefault: map-merge((
     'rootDisplay': flex,
     'rootFlexDirection': column,
     'rootAlignItems': center,
+    'rootHeight': 100%,
     'rootPadding': (
         320: ef.size(6) ef.size(3),
         1200: 0,
