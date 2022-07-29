@@ -97,6 +97,13 @@ export class BonusItemComponent extends AbstractComponent implements OnInit, OnC
 
         } else if (this.asProfileTypeFirst) {
             imageUrl = this.bonus.imageProfileFirst;
+
+        } else if (this.$params.theme === 'partial') {
+
+            if (this.$params.themeMod === 'with-image' && this.$params.usePartialMobileImage) {
+                imageUrl = this.bonus.image;
+            }
+
         } else {
             imageUrl = this.bonus.image;
         }
