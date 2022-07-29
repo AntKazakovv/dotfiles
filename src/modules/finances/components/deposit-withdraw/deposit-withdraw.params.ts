@@ -16,8 +16,6 @@ export interface IDepositWithdrawCParams extends IComponentParams<Theme, Type, T
     mode: TPaymentsMethods;
     /** show/hide payment rules checkbox */
     showPaymentRules?: boolean;
-    /** reset amount in form when Payment changed */
-    resetAmountForm?: boolean;
     common?: {
         themeMod?: ThemeMod;
     };
@@ -29,7 +27,6 @@ export const defaultParams: IDepositWithdrawCParams = {
     mode: 'deposit',
     class: 'wlc-cash',
     showPaymentRules: true,
-    resetAmountForm: true,
 };
 
 export interface IAdditionalFields {
