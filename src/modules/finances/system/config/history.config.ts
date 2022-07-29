@@ -85,7 +85,7 @@ export namespace betConfig {
         common: {
             placeholder: gettext('All'),
         },
-        labelText: gettext('Merchants'),
+        labelText: gettext('Providers'),
         control: new FormControl('All'),
         options: 'merchants',
     };

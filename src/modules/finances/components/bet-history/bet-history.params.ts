@@ -36,7 +36,7 @@ export const betHistoryTableHeadConfig: ITableCol[] = [
     },
     {
         key: 'Merchant',
-        title: gettext('Merchant'),
+        title: gettext('Provider'),
         type: 'text',
         order: 30,
         wlcElement: 'wlc-profile-table__cell_merchant',
