@@ -12,6 +12,16 @@
     &.wlc-alert--info {
         --wlc-alert-text-color: #{ef.get-value($themeDefault, 'mainColorInfo')};
         --wlc-alert-bg: #{ef.get-value($themeDefault, 'mainBgInfo')};
+
+        .wlc-alert__icon {
+
+            ::ng-deep {
+
+                .wlc-icon-content {
+                    color: ef.get-value($themeDefault, 'iconColorInfo');
+                }
+            }
+        }
     }
 
     &.wlc-alert--warning {
@@ -19,11 +29,22 @@
         --wlc-alert-bg: #{ef.get-value($themeDefault, 'mainBgWarning')};
     }
 
+    &.wlc-alert--error {
+        --wlc-alert-text-color: #{ef.get-value($themeDefault, 'mainColorError')};
+        --wlc-alert-bg: #{ef.get-value($themeDefault, 'mainBgError')};
+    }
+
+    &.wlc-alert--success {
+        --wlc-alert-text-color: #{ef.get-value($themeDefault, 'mainColorSuccess')};
+        --wlc-alert-bg: #{ef.get-value($themeDefault, 'mainBgSuccess')};
+    }
+
     .wlc-alert {
 
         &__main {
-            display: grid;
-            grid-template-columns: ef.get-value($themeDefault, 'mainGridTemplateColumns');
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
             width: 100%;
             color: var(--wlc-alert-text-color);
             background: var(--wlc-alert-bg);
@@ -36,6 +57,7 @@
 
         &__title {
             @include text.get-text-style(ef.get-value($themeDefault, 'titleFontStyle'), ef.get-value($themeDefault, 'titleTextColor'));
+
             align-self: ef.get-value($themeDefault, 'titleAlignSelf');
             padding: ef.get-value($themeDefault, 'titlePadding');
         }

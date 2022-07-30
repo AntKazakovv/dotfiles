@@ -1,6 +1,6 @@
 $customThemeDefault: () !default;
 $themeDefault: map-merge((
-    'maxWidth': 330px,
+    'maxWidth': 488px,
 
     // main
     'mainGridTemplateColumns': 1fr auto,
@@ -8,13 +8,17 @@ $themeDefault: map-merge((
     'mainRadiusWithText': ef.get('radius', 'less') ef.get('radius', 'less') 0 0,
 
     'mainColor': var(--mc-baseMain),
-    'mainBg': var(--mc-bg100-o1),
+    'mainBg': var(--mc-bg500),
     'mainColorDefault': var(--mc-baseMain),
     'mainBgDefault': var(--mc-bg500),
-    'mainColorInfo': var(--mc-main),
-    'mainBgInfo': var(--mc-main-o1),
+    'mainColorInfo': var(--mc-baseMain),
+    'mainBgInfo': var(--mc-bg500),
     'mainColorWarning': var(--mc-warning),
     'mainBgWarning': var(--mc-warning-o1),
+    'mainColorError': var(--mc-error),
+    'mainBgError': var(--mc-error-o1),
+    'mainColorSuccess': var(--mc-success),
+    'mainBgSuccess': var(--mc-success-o1),
 
     // title
     'titleAlignSelf': center,
@@ -23,8 +27,8 @@ $themeDefault: map-merge((
     'titleTextColor': inherit,
 
     //text
-    'textPadding': ef.size(4) ef.size(2),
-    'textBg': var(--mc-bg-o2),
+    'textPadding': ef.size(2) ef.size(2),
+    'textBg': var(--mc-bg-o4),
     'textFontStyle': 'PrimaryText',
     'textColor': var(--mc-baseMain),
     'textRadius': 0 0 ef.get('radius', 'less') ef.get('radius', 'less'),
@@ -35,4 +39,5 @@ $themeDefault: map-merge((
     'iconWidth': 15px,
     'iconHeight': 15px,
     'iconColor': var(--mc-baseOpacity),
+    'iconColorInfo': var(--mc-baseOpacity),
 ), $customThemeDefault);

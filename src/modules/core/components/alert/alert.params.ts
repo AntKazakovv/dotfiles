@@ -4,15 +4,16 @@ import {
 } from 'wlc-engine/modules/core/system/classes/abstract.component';
 import {IIndexing} from 'wlc-engine/modules/core/system/interfaces/global.interface';
 
-export type ComponentTheme = 'default' | CustomType;
+export type ComponentTheme = 'default' | 'success' | 'warning' | 'error' | CustomType;
 export type ComponentType = 'default' | CustomType;
 export type ComponentThemeMod = 'default' | CustomType;
 
 
 export const alertIcons: IIndexing<string> = {
-    info: 'wlc/icons/info.svg',
+    info: 'wlc/icons/warning.svg',
     warning: 'wlc/icons/warning.svg',
-    default: 'wlc/icons/info.svg',
+    success: 'wlc/icons/success.svg',
+    error: 'wlc/icons/error.svg',
 };
 
 export type TLevel = keyof typeof alertIcons;

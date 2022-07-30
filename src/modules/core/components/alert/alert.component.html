@@ -1,10 +1,12 @@
 <div class="{{$class}}__main" [class.with-text]="!!text">
-    <div class="{{$class}}__title">{{title | translate}}</div>
-    <div class="{{$class}}__icon"
-        wlc-icon
+    <div class="{{$class}}__title">
+        <div wlc-dynamic-html [html]="title"></div>
+    </div>
+    <div wlc-icon
+        class="{{$class}}__icon"
         [iconPath]="levelIcon"
     ></div>
 </div>
 <div *ngIf="text" class="{{$class}}__text">
-    {{text | translate}}
+    <div wlc-dynamic-html [html]="text"></div>
 </div>
