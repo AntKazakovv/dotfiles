@@ -772,9 +772,6 @@ export class DepositWithdrawComponent
         this.setAdditionalValues();
         this.checkUserProfileForPayment();
         this.updateFormConfig();
-        this.formData$.next({
-            resetForm: true,
-        });
 
         if (this.currentSystem.isHosted
             && (!this.isLoadingHostedFields || !this.currentSystem.hostedFields.loaded)
@@ -925,7 +922,7 @@ export class DepositWithdrawComponent
                 if (field.type === 'input') {
                     return {
                         name: 'core.wlc-input',
-                        alwaysNew: {saveValue: true},
+                        alwaysNew: {saveValue: false},
                         params: <IInputCParams>{
                             name: key,
                             value: field.value || '',
