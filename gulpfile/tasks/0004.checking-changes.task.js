@@ -6,7 +6,7 @@ module.exports = function checkingChanges() {
         const diff =
             this.execNativeShellSync(`git diff origin/${targetBranch} HEAD package-lock.json | wc -c | xargs`);
 
-        if (+diff) {
+        if (!+diff) {
             console.error(
                 '-'.repeat(55) +
                 '\n\nPackage-lock does not match, please rebase the branch.\n\n' +
