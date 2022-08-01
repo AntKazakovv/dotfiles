@@ -45,7 +45,7 @@ for key in ${!projects[*]}; do
     current_ver=$(jq '.dependencies["@egamings/wlc-engine"]' < package.json | sed -e 's/"//g')
 
     #make devcasino branch if previous engine release was stable
-    if [ $(echo $current_ver | awk -e '/^[0-9]+\.[0-9]+\.[0-9]+$/') ]  && [ $(echo ${projects[$key]} | awk '/wlcdevcasino/') ]; then
+    if [ $(echo $current_ver | awk '/^[0-9]+\.[0-9]+\.[0-9]+$/') ]  && [ $(echo ${projects[$key]} | awk '/wlcdevcasino/') ]; then
         stable_branch="scr"$(echo $current_ver | sed -e 's/\./-/g')
         for branch in ${branches[$key]}; do
             if [[ $branch == "master" ]]; then
