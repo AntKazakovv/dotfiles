@@ -31,19 +31,19 @@ import {
 } from 'wlc-engine/modules/core';
 import {
     FinancesService,
-    HistoryFilterService,
 } from 'wlc-engine/modules/finances/system/services';
 import {Transaction} from 'wlc-engine/modules/finances/system/models';
 import {
     TTransactionFilter,
     IFinancesFilter,
     TTransactionFilterType,
-} from 'wlc-engine/modules/finances/system/interfaces/history-filter.interface';
+} from 'wlc-engine/modules/core/system/interfaces/history-filter.interface';
 import {
     transactionConfig as config,
     startDate,
     endDate,
-} from 'wlc-engine/modules/finances/system/config/history.config';
+} from 'wlc-engine/modules/core/system/config/history.config';
+import {HistoryFilterService} from 'wlc-engine/modules/core/system/services';
 
 import * as Params from './transaction-history.params';
 

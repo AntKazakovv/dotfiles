@@ -5,7 +5,7 @@ import {
     IComponentParams,
     CustomType,
 } from 'wlc-engine/modules/core';
-import {IHistoryDefault} from 'wlc-engine/modules/finances/system/interfaces/history-filter.interface';
+import {IHistoryDefault} from 'wlc-engine/modules/core/system/interfaces/history-filter.interface';
 import {
     transactionConfig,
     betConfig,
@@ -13,7 +13,7 @@ import {
     bonusesConfig,
     startDate,
     endDate,
-} from 'wlc-engine/modules/finances/system/config/history.config';
+} from 'wlc-engine/modules/core/system/config/history.config';
 
 export type Theme = 'default' | CustomType;
 export type Type = 'default' | CustomType;

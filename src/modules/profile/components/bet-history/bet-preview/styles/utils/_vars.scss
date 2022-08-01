@@ -1,0 +1,30 @@
+$customThemeDefault: () !default;
+$themeDefault: map-merge((
+    'justify': (
+        375: flex-start,
+        1024: center
+    ),
+
+    'timeDisplay': (
+        375: block,
+    ),
+    'timeMargin': (
+        375: 0 ef.size(2)
+    ),
+
+    'amountDisplay': (
+        375: inline-flex,
+        1024: none,
+    ),
+    'amountMargin': (
+        375: 0 ef.size(1) 0 auto,
+    ),
+
+    'timeDisplayTypeFirst': (
+        1024: block,
+    ),
+    'amountDisplayTypeFirst': (
+        1024: block,
+        1200: none
+    )
+), $customThemeDefault);

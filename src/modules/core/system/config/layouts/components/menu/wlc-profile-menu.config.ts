@@ -88,7 +88,7 @@ export namespace wlcProfileMenu {
                     },
                 },
                 {
-                    name: 'finances.wlc-history-range',
+                    name: 'profile.wlc-history-range',
                     params: {
                         type: 'submenu',
                     },
@@ -109,7 +109,7 @@ export namespace wlcProfileMenu {
                     },
                 },
                 {
-                    name: 'finances.wlc-history-range',
+                    name: 'profile.wlc-history-range',
                     params: {
                         type: 'submenu',
                     },

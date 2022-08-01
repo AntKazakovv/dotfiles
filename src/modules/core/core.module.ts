@@ -38,6 +38,7 @@ import {
     BodyClassService,
     ColorThemeService,
     AppConfigModel,
+    HistoryFilterService,
 } from './system/services';
 import {RecaptchaService} from './system/services/recaptcha/recaptcha.service';
 // -- SERVICES IMPORTS END  --;
@@ -69,6 +70,10 @@ import {ForbiddenCountryComponent} from './components/forbidden-country/forbidde
 import {FormControlComponent} from './components/form-control/form-control.component';
 import {FormWrapperComponent} from './components/form-wrapper/form-wrapper.component';
 import {HistoryNameComponent} from './components/table/components/history-name/history-name.component';
+import {HistoryFilterComponent} from './components/history-filter/history-filter.component';
+import {
+    HistoryFilterFormComponent,
+} from './components/history-filter/history-filter-form/history-filter-form.component';
 import {IconComponent} from './components/icon/icon.component';
 import {IconListComponent} from './components/icon-list/icon-list.component';
 import {IconMerchantsListComponent} from './components/icon-merchants-list/icon-merchants-list.component';
@@ -167,6 +172,7 @@ export const components = {
     'wlc-form-control': FormControlComponent,
     'wlc-form-wrapper': FormWrapperComponent,
     'wlc-history-name': HistoryNameComponent,
+    'wlc-history-filter': HistoryFilterComponent,
     'wlc-icon': IconComponent,
     'wlc-icon-list': IconListComponent,
     'wlc-icon-payments-list': IconPaymentsListComponent,
@@ -245,6 +251,7 @@ export const services = {
         BodyClassService,
         RecaptchaService,
         ColorThemeService,
+        HistoryFilterService,
         ...interceptors,
         {
             provide: MODAL_CONFIG_DEFAULT_OVERRIDE,
@@ -292,6 +299,8 @@ export const services = {
         FormControlComponent,
         FormWrapperComponent,
         HistoryNameComponent,
+        HistoryFilterComponent,
+        HistoryFilterFormComponent,
         IconComponent,
         IconListComponent,
         IconMerchantsListComponent,

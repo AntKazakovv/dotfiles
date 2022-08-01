@@ -27,17 +27,15 @@ import {
     ActionService,
     DeviceType,
 } from 'wlc-engine/modules/core';
-import {
-    FinancesService,
-    HistoryFilterService,
-} from 'wlc-engine/modules/finances/system/services';
-import {IBet} from 'wlc-engine/modules/finances/system/interfaces/finances.interface';
-import {IFinancesFilter} from 'wlc-engine/modules/finances/system/interfaces/history-filter.interface';
+import {IBet} from 'wlc-engine/modules/profile/system/interfaces/bet.interfaces';
+import {IFinancesFilter} from 'wlc-engine/modules/core/system/interfaces/history-filter.interface';
 import {
     betConfig,
     startDate,
     endDate,
-} from 'wlc-engine/modules/finances/system/config/history.config';
+} from 'wlc-engine/modules/core/system/config/history.config';
+import {BetService} from 'wlc-engine/modules/profile/system/services';
+import {HistoryFilterService} from 'wlc-engine/modules/core/system/services';
 
 import * as Params from './bet-history.params';
 
@@ -65,7 +63,7 @@ export class BetHistoryComponent extends AbstractComponent implements OnInit {
     constructor(
         @Inject('injectParams') protected params: Params.IBetHistoryCParams,
         protected cdr: ChangeDetectorRef,
-        protected financesService: FinancesService,
+        protected betService: BetService,
         protected eventService: EventService,
         protected historyFilterService: HistoryFilterService,
         protected configService: ConfigService,
@@ -147,7 +145,7 @@ export class BetHistoryComponent extends AbstractComponent implements OnInit {
     }
 
     protected async getBets(): Promise<void> {
-        this.allBets = await this.financesService.getBetsList({
+        this.allBets = await this.betService.getBetsList({
             startDate: this.startDate.startOf('day').toFormat('y-LL-dd\'\T\'HH:mm:ss'),
             endDate: this.endDate.endOf('day').toFormat('y-LL-dd\'\T\'HH:mm:ss'),
         });
@@ -165,6 +163,8 @@ export class BetHistoryComponent extends AbstractComponent implements OnInit {
                 takeUntil(this.$destroy),
             )
             .subscribe(async (data: IFinancesFilter): Promise<void> => {
+                this.filterSelect.control.setValue(this.filterValue = data.filterValue);
+
                 if (this.startDate.toMillis() !== data.startDate.toMillis() ||
                     this.endDate.toMillis() !== data.endDate.toMillis()) {
                     this.startDateInput.control.setValue(this.startDate = data.startDate);

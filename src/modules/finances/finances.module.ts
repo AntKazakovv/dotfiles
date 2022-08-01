@@ -6,13 +6,11 @@ import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {
     FinancesService,
-    HistoryFilterService,
     PIQCashierService,
 } from './system/services';
 import {CoreModule} from 'wlc-engine/modules/core/core.module';
 import {CompilerModule} from 'wlc-engine/modules/compiler';
 import {TranslateModule} from '@ngx-translate/core';
-import {BetHistoryComponent} from './components/bet-history/bet-history.component';
 import {DepositWithdrawComponent} from './components/deposit-withdraw/deposit-withdraw.component';
 import {TransactionHistoryComponent} from './components/transaction-history/transaction-history.component';
 import {
@@ -24,11 +22,6 @@ import {
 import {
     TransactionPreviewComponent,
 } from './components/transaction-history/transaction-preview/transaction-preview.component';
-import {HistoryFilterComponent} from './components/history-filter/history-filter.component';
-import {
-    HistoryFilterFormComponent,
-} from './components/history-filter/history-filter-form/history-filter-form.component';
-import {HistoryRangeComponent} from './components/transaction-range/history-range.component';
 import {PaymentListComponent} from './components/payment-list/payment-list.component';
 import {PaymentMessageComponent} from './components/payment-message/payment-message.component';
 import {PIQCashierComponent} from './components/piq-cashier/piq-cashier.component';
@@ -45,18 +38,11 @@ export const moduleConfig =
     GlobalHelper.mergeConfig<IFinancesConfig>(financesConfig, _get($config, '$finances', {}));
 
 export const components = {
-    'wlc-bet-history': BetHistoryComponent,
     'wlc-deposit-withdraw': DepositWithdrawComponent,
-    'wlc-history-filter': HistoryFilterComponent,
-    'wlc-history-range': HistoryRangeComponent,
     'wlc-payment-list': PaymentListComponent,
     'wlc-transaction-history': TransactionHistoryComponent,
     'wlc-iframe-deposit': IframeDepositComponent,
     'wlc-piq-cashier': PIQCashierComponent,
-};
-
-export const services = {
-    'history-filter': HistoryFilterService,
 };
 
 @NgModule({
@@ -69,7 +55,6 @@ export const services = {
         TranslateModule,
     ],
     declarations: [
-        BetHistoryComponent,
         PaymentMessageComponent,
         DepositWithdrawComponent,
         PaymentListComponent,
@@ -78,22 +63,16 @@ export const services = {
         TransactionStatusComponent,
         TransactionCancelComponent,
         TransactionPreviewComponent,
-        HistoryFilterComponent,
-        HistoryFilterFormComponent,
-        HistoryRangeComponent,
         IframeDepositComponent,
     ],
     providers: [
         FinancesService,
-        HistoryFilterService,
         PIQCashierService,
     ],
     exports: [
-        BetHistoryComponent,
         DepositWithdrawComponent,
         PaymentListComponent,
         TransactionHistoryComponent,
-        HistoryRangeComponent,
         TranslateModule,
     ],
 })

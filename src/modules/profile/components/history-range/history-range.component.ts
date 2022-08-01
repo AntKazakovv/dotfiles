@@ -16,7 +16,7 @@ import {
 } from 'wlc-engine/modules/core';
 import {
     HistoryFilterService,
-} from 'wlc-engine/modules/finances/system/services/history-filter/history-filter.service';
+} from 'wlc-engine/modules/core/system/services/history-filter/history-filter.service';
 
 import * as Params from './history-range.params';
 
@@ -40,8 +40,7 @@ export class HistoryRangeComponent extends AbstractComponent implements OnInit {
         protected historyFilterService: HistoryFilterService,
         protected cdr: ChangeDetectorRef,
         protected transition: TransitionService,
-    )
-    {
+    ) {
         super({injectParams, defaultParams: Params.defaultParams}, configService);
     }
 

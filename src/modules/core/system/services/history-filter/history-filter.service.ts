@@ -15,7 +15,7 @@ import {
     IFilterValue,
     IHistoryDefault,
     IFinancesFilter,
-} from 'wlc-engine/modules/finances/system/interfaces/history-filter.interface';
+} from 'wlc-engine/modules/core/system/interfaces/history-filter.interface';
 
 @Injectable({
     providedIn: 'root',

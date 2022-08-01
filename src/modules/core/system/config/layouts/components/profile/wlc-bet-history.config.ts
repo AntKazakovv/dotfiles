@@ -3,7 +3,7 @@ import {wlcTitle} from 'wlc-engine/modules/core/system/config/layouts/components
 
 export namespace wlcBetHistory {
     export const def: ILayoutComponent = {
-        name: 'finances.wlc-bet-history',
+        name: 'profile.wlc-bet-history',
     };
 
     export const filter: ILayoutComponent = {
@@ -13,7 +13,7 @@ export namespace wlcBetHistory {
             components: [
                 wlcTitle.history,
                 {
-                    name: 'finances.wlc-history-filter',
+                    name: 'core.wlc-history-filter',
                     params: {
                         config: 'bet',
                     },
@@ -26,7 +26,7 @@ export namespace wlcBetHistory {
     };
 
     export const filterOnly: ILayoutComponent = {
-        name: 'finances.wlc-history-filter',
+        name: 'core.wlc-history-filter',
         params: {
             config: 'bet',
         },

@@ -2,7 +2,7 @@ import {ILayoutComponent} from 'wlc-engine/modules/core/system/interfaces/layout
 import {wlcTitle} from 'wlc-engine/modules/core/system/config/layouts/components/core/wlc-title.config';
 import {
     wlcHistoryFilter,
-} from 'wlc-engine/modules/core/system/config/layouts/components/finances/wlc-history-filter.config';
+} from 'wlc-engine/modules/core/system/config/layouts/components/core/wlc-history-filter.config';
 
 export namespace wlcTournamentsHistory {
     export const filterTypeFirst: ILayoutComponent = {

@@ -10,7 +10,6 @@ import {
 } from 'wlc-engine/modules/core';
 import {AbstractComponent, IMixedParams} from 'wlc-engine/modules/core/system/classes/abstract.component';
 import {FinancesService} from 'wlc-engine/modules/finances/system/services/finances/finances.service';
-import {Transaction} from 'wlc-engine/modules/finances/system/models/transaction-history.model';
 import {WINDOW} from 'wlc-engine/modules/app/system';
 
 import * as Params from './transaction-preview.params';
@@ -42,16 +41,7 @@ export class TransactionPreviewComponent extends AbstractComponent implements On
 
     public async ngOnInit(): Promise<void> {
         super.ngOnInit();
-        if (this.$params.transaction instanceof Transaction) {
-            this.date = GlobalHelper.toLocalTime(this.$params.transaction.dateISO, 'ISO', 'HH:mm:ss dd-MM-yyyy');
-            this.amount = this.$params.transaction.amount;
-        } else {
-            this.date = GlobalHelper.toLocalTime(
-                this.$params.transaction.DateISO,
-                'SQL',
-                (this.window.innerWidth < 480) ? 'HH:mm dd-MM' : 'dd-MM-yyyy HH:mm:ss',
-            );
-            this.amount = +this.$params.transaction.Amount;
-        }
+        this.date = GlobalHelper.toLocalTime(this.$params.transaction.dateISO, 'ISO', 'HH:mm:ss dd-MM-yyyy');
+        this.amount = this.$params.transaction.amount;
     }
 }

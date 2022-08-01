@@ -10,8 +10,3 @@ export type ThemeMod = 'default' | CustomType;
 export const defaultParams: IComponentParams<any, any, any> = {
     class: 'wlc-history-range',
 };
-
-
-
-
-

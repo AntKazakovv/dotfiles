@@ -13,7 +13,7 @@ export namespace wlcTransactionHistory {
             components: [
                 wlcTitle.history,
                 {
-                    name: 'finances.wlc-history-filter',
+                    name: 'core.wlc-history-filter',
                     params: {
                         config: 'transaction',
                     },
@@ -38,7 +38,7 @@ export namespace wlcTransactionHistory {
                     },
                 },
                 {
-                    name: 'finances.wlc-history-filter',
+                    name: 'core.wlc-history-filter',
                     params: {
                         config: 'transaction',
                     },
@@ -51,7 +51,7 @@ export namespace wlcTransactionHistory {
     };
 
     export const filterOnly: ILayoutComponent = {
-        name: 'finances.wlc-history-filter',
+        name: 'core.wlc-history-filter',
         params: {
             config: 'transaction',
         },

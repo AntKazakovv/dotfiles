@@ -24,10 +24,7 @@ import {
     LanguageChangeEvents,
     UserProfile,
 } from 'wlc-engine/modules/user';
-import {
-    IBet,
-    TAdditionalParams,
-} from 'wlc-engine/modules/finances/system/interfaces/finances.interface';
+import {TAdditionalParams} from 'wlc-engine/modules/finances/system/interfaces/finances.interface';
 import {PIQCashierService} from 'wlc-engine/modules/finances/system/services/piq-cashier/piq-cashier.service';
 import {
     PaymentSystem,
@@ -165,10 +162,6 @@ export class FinancesService {
 
     public async getTransactionList(params: ITransactionRequestParams = {}): Promise<Transaction[]> {
         return (await this.dataService.request<IData>('finances/transactions', params)).data as Transaction[];
-    }
-
-    public async getBetsList(params: any = {}): Promise<IBet[]> {
-        return (await this.dataService.request<IData>('finances/bets', params)).data;
     }
 
     public async fetchPaymentSystems(): Promise<PaymentSystem[]> {
@@ -373,16 +366,6 @@ export class FinancesService {
             events: {
                 success: 'PAYMENT_SYSTEMS',
                 fail: 'PAYMENT_SYSTEMS_ERROR',
-            },
-        });
-        this.dataService.registerMethod({
-            name: 'bets',
-            system: 'finances',
-            url: '/bets',
-            type: 'GET',
-            events: {
-                success: 'BETS',
-                fail: 'BETS_ERROR',
             },
         });
         this.dataService.registerMethod({

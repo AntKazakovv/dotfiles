@@ -25,14 +25,14 @@ import {
     ActionService,
     DeviceType,
 } from 'wlc-engine/modules/core';
-import {HistoryFilterService} from 'wlc-engine/modules/finances/system/services';
+import {HistoryFilterService} from 'wlc-engine/modules/core/system/services';
 import {BonusesService} from 'wlc-engine/modules/bonuses/system/services';
 import {HistoryItemModel} from 'wlc-engine/modules/bonuses/system/models/bonus-history-item.model';
 import {
     TBonusFilter,
     IFilterValue,
-} from 'wlc-engine/modules/finances/system/interfaces/history-filter.interface';
-import {bonusesConfig} from 'wlc-engine/modules/finances/system/config/history.config';
+} from 'wlc-engine/modules/core/system/interfaces/history-filter.interface';
+import {bonusesConfig} from 'wlc-engine/modules/core/system/config/history.config';
 
 import * as Params from './bonuses-history.params';
 

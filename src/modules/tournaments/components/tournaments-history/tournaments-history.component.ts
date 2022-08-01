@@ -28,16 +28,16 @@ import {
 import {ProfileType} from 'wlc-engine/modules/core/system/interfaces/base-config/profile.interface';
 import {
     HistoryFilterService,
-} from 'wlc-engine/modules/finances/system/services/history-filter/history-filter.service';
+} from 'wlc-engine/modules/core/system/services/history-filter/history-filter.service';
 import {
     TTournamentsFilter,
     IFilterValue,
-} from 'wlc-engine/modules/finances/system/interfaces/history-filter.interface';
+} from 'wlc-engine/modules/core/system/interfaces/history-filter.interface';
 import {
     TournamentHistory,
     TournamentsService,
 } from 'wlc-engine/modules/tournaments';
-import {tournamentConfig} from 'wlc-engine/modules/finances/system/config/history.config';
+import {tournamentConfig} from 'wlc-engine/modules/core/system/config/history.config';
 
 import * as Params from './tournaments-history.params';
 

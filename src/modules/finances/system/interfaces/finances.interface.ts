@@ -44,18 +44,6 @@ export interface IPaymentMessage {
     metamask_account?: string;
 }
 
-export type TBets = IBet[];
-
-export interface IBet {
-    Amount: string;
-    Currency: string;
-    Date: string;
-    DateISO: string;
-    GameID: string;
-    GameName: string;
-    Merchant: string;
-}
-
 export interface IPaySystemAutoSelect {
     autoSelect: boolean;
     alias?: number | string | IAutoSelectByDevice<number | string>;

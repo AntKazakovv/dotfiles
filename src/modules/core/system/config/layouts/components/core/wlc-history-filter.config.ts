@@ -2,8 +2,8 @@ import {ILayoutComponent} from 'wlc-engine/modules/core/system/interfaces/layout
 
 export namespace wlcHistoryFilter {
     export const tournaments: ILayoutComponent = {
-        name: 'finances.wlc-history-filter',
-        params:{
+        name: 'core.wlc-history-filter',
+        params: {
             config: 'tournaments',
         },
         display: {

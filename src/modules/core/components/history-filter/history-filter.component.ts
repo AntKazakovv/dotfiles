@@ -34,11 +34,11 @@ import {
 } from './history-filter-form/history-filter-form.component';
 import {
     HistoryFilterService,
-} from 'wlc-engine/modules/finances/system/services/history-filter/history-filter.service';
+} from 'wlc-engine/modules/core/system/services/history-filter/history-filter.service';
 import {
     IFilterValue,
     IFinancesFilter,
-} from 'wlc-engine/modules/finances/system/interfaces/history-filter.interface';
+} from 'wlc-engine/modules/core/system/interfaces/history-filter.interface';
 import {
     IFormWrapperCParams,
     IFormComponent,
@@ -120,7 +120,7 @@ export class HistoryFilterComponent extends AbstractComponent implements OnInit,
         this.isFiltered = !_keys(this.defaultFormData)
             .every((key: string): boolean => {
                 if (this.defaultFormData[key] instanceof DateTime) {
-                    return this.defaultFormData[key].toFormat('y-LL-dd') ===  data[key].toFormat('y-LL-dd');
+                    return this.defaultFormData[key].toFormat('y-LL-dd') === data[key].toFormat('y-LL-dd');
                 }
                 return _isEqual(this.defaultFormData[key], data[key]);
             });

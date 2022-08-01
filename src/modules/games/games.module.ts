@@ -29,7 +29,7 @@ import {SearchComponent} from './components/search/search.component';
 import {TotalJackpotComponent} from './components/total-jackpot/total-jackpot.component';
 import {PlayGameForRealComponent} from './components/play-game-for-real/play-game-for-real.component';
 import {GameDashboardComponent} from './components/game-dashboard/game-dashboard.component';
-import {RandomGameComponent} from  './components/random-game/random-game.component';
+import {RandomGameComponent} from './components/random-game/random-game.component';
 import {
     CategoryPreviewComponent,
 } from './components/category-preview/category-preview.component';
