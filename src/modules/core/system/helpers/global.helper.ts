@@ -182,9 +182,9 @@ export class GlobalHelper {
      * prepare component params
      */
     public static prepareParams<T>(instance: unknown, inputProperties: string[] = []): T {
-        const inlineParams: any = {
+        const inlineParams: any = _mergeWith({
             common: {},
-        };
+        }, instance['inlineParams'] || {});
 
         _each(inputProperties, property => {
             if (!_isUndefined(_get(instance, property))) {

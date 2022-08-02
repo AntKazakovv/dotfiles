@@ -1,3 +1,4 @@
+export {emailRegex} from './validation/validators/email.validator';
 export {DataService, IData} from './data/data.service';
 export {EventService, IEvent} from './event/event.service';
 export {

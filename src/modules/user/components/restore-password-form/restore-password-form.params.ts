@@ -5,6 +5,7 @@ import {
 
 import {IFormWrapperCParams} from 'wlc-engine/modules/core/components/form-wrapper/form-wrapper.component';
 import {$base} from 'wlc-config/01.base.config';
+import {IInputCParams} from 'wlc-engine/modules/core';
 
 export type ComponentTheme = 'default' | CustomType;
 export type ComponentType = 'default' | CustomType;
@@ -49,6 +50,69 @@ export const restorePasswordFormConfig: IFormWrapperCParams = {
                 },
                 name: 'email',
                 validators: ['required', 'email'],
+                wlcElement: 'input_restore-userlogin',
+            },
+        },
+        {
+            name: 'core.wlc-button',
+            params: {
+                common: {
+                    text: gettext('Restore'),
+                    type: 'submit',
+                    customModifiers: 'centered restore',
+                },
+                wlcElement: 'button_restore',
+            },
+        },
+        {
+            name: 'core.wlc-link-block',
+            params: {
+                common: {
+                    subtitle: gettext('Don\'t have an account?'),
+                    link: gettext('Sign up now'),
+                    actionParams: {
+                        modal: {
+                            name: 'signup',
+                        },
+                    },
+                },
+                wlcElement: 'register_block',
+            },
+        },
+    ],
+};
+
+export const restorePasswordWithPhoneFormConfig: IFormWrapperCParams = {
+    class: 'wlc-form-wrapper',
+    components: [
+        {
+            name: 'core.wlc-text-block',
+            params: {
+                common: {
+                    textBlockSubtitle: [
+                        gettext('Please enter the e-mail or phone number (without country code) '
+                        + 'that is linked to your account on'),
+                        $base.site.url || $base.site.name + '. ',
+                        gettext('We will send you a link or a reset code.'),
+                    ],
+                },
+            },
+        },
+        {
+            name: 'core.wlc-input',
+            params: <IInputCParams>{
+                name: 'emailOrPhone',
+                common: {
+                    placeholder: gettext('E-mail or phone (without country code)'),
+                    type: 'text',
+                    autocomplete: 'email',
+                },
+                exampleValue: gettext('E-mail or phone'),
+                validators: [
+                    'required',
+                    'emailOrPhone',
+                ],
+                theme: 'vertical',
                 wlcElement: 'input_restore-userlogin',
             },
         },
