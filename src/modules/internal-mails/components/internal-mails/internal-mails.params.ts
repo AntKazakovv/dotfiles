@@ -39,7 +39,7 @@ export const internalMailsTableHeadConfig: ITableCol[] = [
         wlcElement: 'wlc-profile-table__cell_from',
     },
     {
-        key: 'subject',
+        key: 'title',
         title: gettext('Subject'),
         type: 'text',
         order: 30,

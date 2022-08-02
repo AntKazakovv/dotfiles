@@ -6,6 +6,7 @@ import {
     ViewChild,
     TemplateRef,
     ElementRef,
+    ChangeDetectionStrategy,
 } from '@angular/core';
 
 import {
@@ -24,6 +25,7 @@ import * as Params from './open-mail-btn.params';
     selector: '[wlc-open-mail-btn]',
     templateUrl: './open-mail-btn.component.html',
     styleUrls: ['./styles/open-mail-btn.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class OpenMailBtnComponent extends AbstractComponent implements OnInit {
     @HostBinding('class.profile-first') protected profileFirst: boolean;
@@ -59,7 +61,7 @@ export class OpenMailBtnComponent extends AbstractComponent implements OnInit {
     public openMessage(): void {
         this.modalService.showModal({
             id: 'internal-mail',
-            modalTitle: this.$params.internalMail.subject,
+            modalTitle: this.$params.internalMail.title,
             templateRef: this.message,
             closeBtnText: gettext('Close'),
             showConfirmBtn: true,

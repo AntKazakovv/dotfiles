@@ -13,7 +13,7 @@ import _assign from 'lodash-es/assign';
 import _isString from 'lodash-es/isString';
 
 export class InternalMailModel extends AbstractModel<IInternalMail> {
-    private static currentLanguage: string;
+    public static currentLanguage: string;
     private _nameLangValue: string;
     private _contentLangValue: string;
 
@@ -44,8 +44,8 @@ export class InternalMailModel extends AbstractModel<IInternalMail> {
     /**
      * @returns {string} mail title
      */
-    public get subject(): string {
-        return this.nameLangValue;
+    public get title(): string {
+        return this._nameLangValue;
     }
 
     /**
@@ -59,7 +59,7 @@ export class InternalMailModel extends AbstractModel<IInternalMail> {
      * @returns {string} mail's message
      */
     public get content(): string {
-        return this.contentLangValue;
+        return this._contentLangValue;
     }
 
     /**
@@ -78,37 +78,6 @@ export class InternalMailModel extends AbstractModel<IInternalMail> {
     }
 
     /**
-     * @returns {string} current language
-     */
-    public static get language(): string {
-        return InternalMailModel.currentLanguage;
-    }
-
-    /**
-     * Set language to static field
-     * @param {string} language
-     */
-    public static set language(language: string) {
-        InternalMailModel.currentLanguage = language;
-    }
-
-    /**
-     * Get a name value in the current language
-     * @param {string}
-     */
-    private get nameLangValue(): string {
-        return this._nameLangValue;
-    }
-
-    /**
-     * Get a content value in the current language
-     * @param {string}
-     */
-    private get contentLangValue(): string {
-        return this._contentLangValue;
-    }
-
-    /**
      * Parse the value to the current language
      *
      * @param {string | IIndexing<string>} value value for parsing to the current language
@@ -121,7 +90,7 @@ export class InternalMailModel extends AbstractModel<IInternalMail> {
                 const regExp = /{".+"}/;
                 if (regExp.test(value)) {
                     const data = JSON.parse(value.match(regExp).toString());
-                    return data[InternalMailModel.language] || data['en'];
+                    return data[InternalMailModel.currentLanguage] || data['en'];
                 } else {
                     throw new Error();
                 }
@@ -129,6 +98,6 @@ export class InternalMailModel extends AbstractModel<IInternalMail> {
                 return value;
             }
         }
-        return value[InternalMailModel.language] || value['en'];
+        return value[InternalMailModel.currentLanguage] || value['en'];
     }
 }

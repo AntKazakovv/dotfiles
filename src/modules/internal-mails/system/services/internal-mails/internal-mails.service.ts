@@ -31,7 +31,6 @@ export class InternalMailsService {
     public mailsReady$: Subject<boolean> = new BehaviorSubject(false);
     public unreadMailsCount$: BehaviorSubject<number> = new BehaviorSubject(0);
     public readedMailID$: Subject<string> = new Subject();
-    public currentLang: string;
     private mailsFetchHandler: Subscription;
 
     constructor(
@@ -130,7 +129,7 @@ export class InternalMailsService {
             this.startMailsFetcher();
         }
 
-        InternalMailModel.language = this.translateService.currentLang || 'en';
+        InternalMailModel.currentLanguage = this.translateService.currentLang || 'en';
         this.setHandlers();
     }
 
@@ -257,8 +256,8 @@ export class InternalMailsService {
         });
 
         this.translateService.onLangChange.subscribe(({lang}: LangChangeEvent) => {
-            if (InternalMailModel.language !== lang) {
-                InternalMailModel.language = lang;
+            if (InternalMailModel.currentLanguage !== lang) {
+                InternalMailModel.currentLanguage = lang;
             }
         });
     }

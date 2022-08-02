@@ -3,6 +3,7 @@ import {
     ChangeDetectorRef,
     Inject,
     OnInit,
+    ChangeDetectionStrategy,
 } from '@angular/core';
 import {
     filter,
@@ -23,6 +24,7 @@ import * as Params from './mail-preview.params';
     selector: '[wlc-mail-preview]',
     templateUrl: './mail-preview.component.html',
     styleUrls: ['./styles/mail-preview.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProfileMessagePreviewComponent extends AbstractComponent implements OnInit {
     public $params: Params.IMailPreviewCParams;

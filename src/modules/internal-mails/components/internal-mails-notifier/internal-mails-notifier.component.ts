@@ -1,4 +1,5 @@
 import {
+    ChangeDetectionStrategy,
     ChangeDetectorRef,
     Component,
     Inject,
@@ -27,6 +28,7 @@ import * as Params from './internal-mails-notifier.params';
     selector: '[wlc-internal-mails-notifier]',
     templateUrl: './internal-mails-notifier.component.html',
     styleUrls: ['./styles/internal-mails-notifier.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class InternalMailsNotifierComponent extends AbstractComponent implements OnInit {
     public hasUnread: boolean;
