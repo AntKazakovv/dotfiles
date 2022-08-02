@@ -84,7 +84,7 @@ export class BetHistoryComponent extends AbstractComponent implements OnInit {
         this.showFilter = this.actionService.getDeviceType() === DeviceType.Desktop;
         this.setMinMaxDate();
         this.setSubscription();
-
+        
         this.historyFilterService.dateChanges$.next({
             startDate: this.startDate,
             endDate: this.endDate,
@@ -113,7 +113,7 @@ export class BetHistoryComponent extends AbstractComponent implements OnInit {
 
     protected betsFilter(): IBet[] {
         let result: IBet[] = this.allBets || [];
-
+        
         if (this.filterValue !== 'all') {
             result = _filter(result, (item: IBet): boolean => item.Merchant === this.filterValue);
         }
@@ -127,7 +127,7 @@ export class BetHistoryComponent extends AbstractComponent implements OnInit {
     protected setMinMaxDate(): void {
         const disableSince = this.endDate.plus({day: 1}).toObject();
         const disableUntil = this.startDate.minus({day: 1}).toObject();
-
+            
         this.startDateInput.control.setValue(this.startDate);
         this.endDateInput.control.setValue(this.endDate);
         this.startDateInput.datepickerOptions = {
@@ -165,6 +165,8 @@ export class BetHistoryComponent extends AbstractComponent implements OnInit {
                 takeUntil(this.$destroy),
             )
             .subscribe(async (data: IFinancesFilter): Promise<void> => {
+                this.filterSelect.control.setValue(this.filterValue = data.filterValue);
+                
                 if (this.startDate.toMillis() !== data.startDate.toMillis() ||
                     this.endDate.toMillis() !== data.endDate.toMillis()) {
                     this.startDateInput.control.setValue(this.startDate = data.startDate);
@@ -192,11 +194,11 @@ export class BetHistoryComponent extends AbstractComponent implements OnInit {
                 takeUntil(this.$destroy),
                 filter((filterValue: string): boolean => this.filterValue != filterValue),
             )
-            .subscribe((filterType: string): void => {
+            .subscribe((filterType: string): void => {        
                 this.historyFilterService.setFilter('bet', {filterValue: this.filterValue = filterType});
                 this.bets$.next(this.betsFilter());
             });
-
+        
         this.startDateInput.control.valueChanges
             .pipe(
                 takeUntil(this.$destroy),

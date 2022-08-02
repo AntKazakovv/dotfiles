@@ -73,6 +73,7 @@ import {
 import {MerchantWalletService} from 'wlc-engine/modules/games/system/services/merchant-wallet/merchant-wallet.service';
 import {
     BetGamesHooks,
+    EvoGamesHooks,
 } from './hooks';
 import {
     defaultParams,
@@ -183,7 +184,10 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
                 disableHooks: this.$destroy,
             });
         },
+        '999': this.createEvoHooks.bind(this),
+        '998': this.createEvoHooks.bind(this),
     };
+
     protected merchantWalletService: MerchantWalletService;
 
     constructor(
@@ -441,7 +445,6 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
         if (this.$params.gameParams?.disableIframeDefaultResize) {
             return;
         }
-
         if (this.$params.theme === 'fullscreen-game-frame' && this.hostElement) {
             this.containerObserver = new MutationObserver(() => {
                 const iframe = this.document.querySelector('#egamings_container iframe');
@@ -990,5 +993,14 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
         } else {
             this.isMerchantWallet = false;
         }
+    }
+
+    protected createEvoHooks(): void {
+        new EvoGamesHooks(
+            {
+                hooksService: this.hooksService,
+                disableHooks: this.$destroy,
+            },
+        );
     }
 }
