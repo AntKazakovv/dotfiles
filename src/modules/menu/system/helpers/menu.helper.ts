@@ -226,7 +226,6 @@ export class MenuHelper {
                 name: wpItem.title,
                 type: type,
                 class: wpItem.slug,
-                icon: wpItem.slug,
                 params: params,
                 wlcElement: wlcElement,
             };
