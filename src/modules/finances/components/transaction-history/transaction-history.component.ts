@@ -168,8 +168,8 @@ export class TransactionHistoryComponent extends AbstractComponent implements On
             )
             .subscribe((data: IFinancesFilter<TTransactionFilter>): void => {
                 this.filterSelect.control.setValue(this.filterValue = data.filterValue);
-                this.startDateInput.control.setValue(this.startDate);
-                this.endDateInput.control.setValue(this.endDate);
+                this.startDateInput.control.setValue(this.startDate = data.startDate);
+                this.endDateInput.control.setValue(this.endDate = data.endDate);
                 this.setMinMaxDate();
                 this.historyFilterService.dateChanges$.next({
                     startDate: this.startDate,

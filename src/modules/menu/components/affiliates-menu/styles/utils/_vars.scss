@@ -13,7 +13,7 @@ $themeDefault: map-merge((
         1630: ef.get('font', 'ThirdTitle'),
     ),
 
-    'linkColor': var(--mc-baseMain),
+    'linkColor': var(--mc-bg),
     'linkColorHover': var(--mc-main),
     'linkDecoration': none,
     'linkDecorationHover': underline,
