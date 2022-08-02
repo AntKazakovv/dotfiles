@@ -24,14 +24,14 @@ export namespace wlcLastWinsSlider {
 
     export const one: ILayoutComponent = {
         name: 'promo.wlc-winners-slider',
-        display: {
-            after: 900,
-        },
         params: <IWinnersSliderCParams>{
             type: 'latest',
             theme: '1',
             title: gettext('Recent wins'),
             wlcElement: 'section_last-winners',
+            swiper: {
+                slidesPerView: 4,
+            },
         },
     };
 

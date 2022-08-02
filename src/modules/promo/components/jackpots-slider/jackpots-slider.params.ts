@@ -28,7 +28,7 @@ export const defaultParams: Partial<IJackpotsSliderCParams> = {
     sliderParams: {
         swiper: {
             direction: 'vertical',
-            slidesPerView: 4,
+            slidesPerView: 3,
             spaceBetween: 15,
             loop: true,
             autoplay: {
@@ -39,9 +39,6 @@ export const defaultParams: Partial<IJackpotsSliderCParams> = {
             observeParents: true,
             preventClicks: false,
             breakpoints: {
-                320: {
-                    slidesPerView: 3,
-                },
                 1630: {
                     slidesPerView: 4,
                 },

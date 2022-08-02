@@ -53,7 +53,7 @@
             </div>
         </div>
     </div>
-    <div class="{{$class}}__container {{$class}}__container--{{activeTab?.id || 'default'}}" >
+    <div class="{{$class}}__container {{$class}}__container--{{activeTab?.id || 'default'}}">
         <div class="{{$class}}__header">
             <ng-container *ngFor="let tab of tabs">
                 <div *ngIf="checkShowTab(tab)"
@@ -93,33 +93,35 @@
 </div>
 
 <ng-template #profile>
-    <ng-container *ngIf="isAuth && (!isMobile || !landscapeOrientation)">
-        <div class="{{$class}}__profile-user">
-            <ng-container *ngTemplateOutlet="userInfo"></ng-container>
-        </div>
-        <div wlc-wrapper [inlineParams]="userStatsConfig">
-        </div>
-        <div *ngIf="!isKiosk" wlc-wrapper [inlineParams]="loyaltyProgressConfig">
-        </div>
-        <div *ngIf="isMerchantWallet"
-            class="{{$class}}__merchant-balance"
-            wlc-merchant-wallet-preview
-        ></div>
-    </ng-container>
-    <ng-container *ngIf="isAuth && isMobile && landscapeOrientation">
-        <div class="{{$class}}__profile-user">
-            <ng-container *ngTemplateOutlet="userInfo"></ng-container>
-            <div wlc-wrapper [inlineParams]="loyaltyProgressConfig">
+    <div wlc-scrollbar>
+        <ng-container *ngIf="isAuth && (!isMobile || !landscapeOrientation)">
+            <div class="{{$class}}__profile-user">
+                <ng-container *ngTemplateOutlet="userInfo"></ng-container>
             </div>
-            <div class="{{$class}}__deposit-btn">
-                <button wlc-button [inlineParams]="depositBtnParams"></button>
+            <div wlc-wrapper [inlineParams]="userStatsConfig">
             </div>
-        </div>
-        <div class="{{$class}}__profile-user-stats">
-            <div wlc-wrapper [inlineParams]="userStatsWithoutDepositConfig">
+            <div *ngIf="!isKiosk" wlc-wrapper [inlineParams]="loyaltyProgressConfig">
             </div>
-        </div>
-    </ng-container>
+            <div *ngIf="isMerchantWallet"
+                 class="{{$class}}__merchant-balance"
+                 wlc-merchant-wallet-preview
+            ></div>
+        </ng-container>
+        <ng-container *ngIf="isAuth && isMobile && landscapeOrientation">
+            <div class="{{$class}}__profile-user">
+                <ng-container *ngTemplateOutlet="userInfo"></ng-container>
+                <div wlc-wrapper [inlineParams]="loyaltyProgressConfig">
+                </div>
+                <div class="{{$class}}__deposit-btn">
+                    <button wlc-button [inlineParams]="depositBtnParams"></button>
+                </div>
+            </div>
+            <div class="{{$class}}__profile-user-stats">
+                <div wlc-wrapper [inlineParams]="userStatsWithoutDepositConfig">
+                </div>
+            </div>
+        </ng-container>
+    </div>
 </ng-template>
 
 <ng-template #bonuses>
@@ -145,7 +147,7 @@
             </div>
         </ng-container>
         <div *ngIf="!lastPlayedGamesSlides.length"
-            class="{{$class}}__not-found">
+             class="{{$class}}__not-found">
             {{'Games not found' | translate}}
         </div>
     </ng-container>

@@ -215,6 +215,18 @@
                 padding: ef.get-value($themeDefault, 'paddingBonuses');
             }
 
+            &--profile {
+                height: ef.get-value($themeDefault, 'profileHeight');
+                padding: ef.get-value($themeDefault, 'profilePadding');
+
+                &::ng-deep {
+
+                    .wlc-scrollbar {
+                        height: 100%;
+                    }
+                }
+            }
+
             &::ng-deep {
 
                 .wlc-user-stats-email {

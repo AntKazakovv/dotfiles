@@ -9,6 +9,7 @@
     }
 
     .winners-wrapper {
+        @include bm.get-mq-map('flex-wrap', $themeWinnersSection, 'wrapItems');
         display: flex;
         align-items: ef.get-value($themeWinnersSection, 'alignItems');
         justify-content: ef.get-value($themeWinnersSection, 'justifyContent');
@@ -18,7 +19,7 @@
 
             &:first-child,
             &:last-child {
-                transform: translateY(ef.get-value($themeWinnersSection, 'translateItems'));
+                @include bm.get-mq-map('transform', $themeWinnersSection, 'translateItems');
             }
         }
     }

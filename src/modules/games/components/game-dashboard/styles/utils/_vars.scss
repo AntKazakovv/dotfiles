@@ -72,4 +72,7 @@ $themeDefault: map-merge((
 
     'merchantBalanceMargin': ef.size(6) 0 0,
 
+    'profileHeight': calc(100% - 64px),
+    'profilePadding': ef.size(4) ef.size(1) ef.size(4) ef.size(4),
+
 ), $customThemeDefault);

@@ -4,9 +4,15 @@ $themeWinnersSection: map-merge((
     'titleTextAlign': center,
     'justifyContent': center,
     'alignItems': stretch,
+    'wrapItems': (
+        365: wrap,
+        1024: nowrap,
+    ),
     'itemsMargin': 0 ef.size(2) ef.size(5) ef.size(2),
     // from first and last elements
-    'translateItems': ef.size(5),
+    'translateItems': (
+        1200: translateY(ef.size(5)),
+    ),
 ), $customThemeWinnersSection);
 
 $customThemeWinnersSectionStripe: () !default;

@@ -109,7 +109,7 @@ export const swiperParamsDefault: IIndexing<SwiperOptions> = {
     },
     1: {
         direction: 'vertical',
-        slidesPerView: 4,
+        slidesPerView: 3,
         spaceBetween: 15,
         loop: true,
         autoplay: {
@@ -120,9 +120,6 @@ export const swiperParamsDefault: IIndexing<SwiperOptions> = {
         observeParents: true,
         preventClicks: false,
         breakpoints: {
-            320: {
-                slidesPerView: 3,
-            },
             1630: {
                 slidesPerView: 4,
             },
