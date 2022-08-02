@@ -255,7 +255,7 @@ export class StaticService {
         const requestUrls: IRequestUrlStaticText = {
             category: '/content//wp-json/wp/v2/categories',
             tag: '/content//wp-json/wp/v2/tags',
-            post: apiUrl + (this.useWpPlugin ? 'post' : 'posts'),
+            post: apiUrl + (this.useWpPlugin ? 'post' : 'posts?per_page=100'),
             page: apiUrl + (this.useWpPlugin ? 'page' : 'pages'),
         };
 
