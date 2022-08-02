@@ -11,12 +11,18 @@
                 <div *ngIf="bonus.description"
                     class="{{$class}}__description"
                     data-wlc-element="bonus_description-name">
-                    <div wlc-dynamic-html [html]="bonus.description"></div>
+                    <div wlc-dynamic-html
+                         [html]="bonus.description"
+                         [parseAsPlainHTML]="true">
+                    </div>
                 </div>
                 <div *ngIf="bonus.terms"
                     class="{{$class}}__terms"
                     data-wlc-element="bonus_terms-name">
-                    <div wlc-dynamic-html [html]="bonus.terms"></div>
+                    <div wlc-dynamic-html
+                         [html]="bonus.terms"
+                         [parseAsPlainHTML]="true">
+                    </div>
                 </div>
             </div>
             <div *ngIf="$params.accordionParams?.items?.length"
