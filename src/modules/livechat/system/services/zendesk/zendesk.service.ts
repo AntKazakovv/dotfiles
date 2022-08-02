@@ -157,7 +157,7 @@ export class ZendeskService extends LivechatAbstract {
         script.id = 'ze-snippet';
         script.src = 'https://static.zdassets.com/ekr/snippet.js?key=' + this.options.code;
 
-        if (this.configService.get<boolean>('$user.isAuthenticated')) {
+        if (this.configService.get<boolean>('$user.isAuthenticated') && this.options.zESettings?.webWidget) {
             _set(this.options.zESettings, 'webWidget.authenticate', this.chatJwtFn);
         }
 
