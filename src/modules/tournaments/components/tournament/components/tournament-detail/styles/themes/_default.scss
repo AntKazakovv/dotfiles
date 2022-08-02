@@ -93,6 +93,8 @@ $selector: '.wlc-tournament-detail';
                 @include bm.get-mq-map('text-align', $themeDefault, 'headerDescriptionTextAlign');
                 @include bm.lineClamp(2);
                 @include text.get-text-style(ef.get-value($themeDefault, 'headerDescriptionTextStyle'), ef.get-value($themeDefault, 'headerDescriptionTextColor'));
+
+                white-space: pre-line;
             }
 
             &--timer {

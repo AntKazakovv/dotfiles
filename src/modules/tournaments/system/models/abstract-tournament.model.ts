@@ -37,7 +37,10 @@ export abstract class AbstractTournamentModel<T extends ITournamentAbstract> ext
         super(params);
 
         this.data = data;
-        this.$descriptionClean = this.data.Description.replace(/<[^>]*>/g, '');
+        this.$descriptionClean = this.data.Description
+            .replace(/<style([\S\s]*?)>([\S\s]*?)<\/style>/g, '')
+            .replace('<br>', '\n')
+            .replace(/<[^>]*>/g, '');
         this.userCurrency = this.configService.
             get<BehaviorSubject<UserProfile>>('$user.userProfile$').getValue()?.currency
             && this.configService.get('$user.isAuthenticated')
@@ -56,6 +59,10 @@ export abstract class AbstractTournamentModel<T extends ITournamentAbstract> ext
 
     public get descriptionClean(): string {
         return this.$descriptionClean;
+    }
+
+    public get descriptionSafeHTML(): string {
+        return this.prepareHtml(this.data.Description);
     }
 
     public get pointsTotal(): number {
@@ -80,6 +87,10 @@ export abstract class AbstractTournamentModel<T extends ITournamentAbstract> ext
 
     public get terms(): string {
         return this.data.Terms;
+    }
+
+    public get termsSafeHTML(): string {
+        return this.prepareHtml(this.data.Terms);
     }
 
     public get winnerBy(): string {
@@ -250,5 +261,43 @@ export abstract class AbstractTournamentModel<T extends ITournamentAbstract> ext
         }
 
         return useDefaultCurrency ? 'EUR' : this.userCurrency;
+    }
+
+    /**
+     * @param {string} with or without HTML
+     * @returns {string} sanitized HTML code
+     */
+    protected prepareHtml(html: string): string {
+        if (!/<[a-z][\S\s]*>/i.test(html)) {
+            return this.setBrLinesWrap(html);
+        }
+        const formattedHtml = this.formatHtmlLinesWrap(html);
+        return formattedHtml.replace(/<\/?(script|meta|link|html|iframe|form|head)\b[^<>]*>/g, '');
+    }
+
+    /**
+     * @param {string} html with or without <style> tag
+     * @returns {string} html with styles in the end
+     */
+    protected formatHtmlLinesWrap(html: string): string {
+        const closeStyleTag = '</style>';
+
+        if (html.indexOf(closeStyleTag) === -1) {
+            return this.setBrLinesWrap(html);
+        } else {
+            const stylesSubString = html.slice(
+                html.indexOf('<style'),
+                html.indexOf(closeStyleTag) + closeStyleTag.length,
+            );
+            return this.setBrLinesWrap(html.replace(stylesSubString, '')) + stylesSubString;
+        }
+    }
+
+    /**
+     * @param {string} string with new lines as \r \n
+     * @returns {string} new lines replaced by <br>
+     */
+    protected setBrLinesWrap(text: string): string {
+        return text.replace(/(\r\n|\r|\n)/g, '<br>');
     }
 }

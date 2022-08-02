@@ -10,9 +10,9 @@
                       [class.active]="$params.common.tournament?.isSelected"
                 >{{$params.common.tournament.tag | translate}}</span>
             </div>
-            <h3 class="{{$class}}__title">{{$params.common.tournament.name}}</h3>
-            <div class="{{$class}}__description" [wlc-clamp]="$params.descriptionClamp">
-                {{$params.common.tournament.descriptionClean}}
+            <h3 class="{{$class}}__title">{{$params.common.tournament?.name}}</h3>
+            <div class="{{$class}}__description">
+                <div [innerHtml]="$params.common.tournament?.descriptionSafeHTML | safeHtml"></div>
             </div>
         </div>
     </div>
@@ -27,8 +27,8 @@
                 <span wlc-currency
                       class="{{$class}}__board-price"
                       digitsInfo="1-0-0"
-                      [value]="$params.common.tournament?.totalFounds"
-                      [currency]="$params.common.tournament?.targetDefaultCurrency"
+                      [value]="$params.common.tournament.totalFounds"
+                      [currency]="$params.common.tournament.targetDefaultCurrency"
                 ></span>
             </h4>
             <div wlc-timer

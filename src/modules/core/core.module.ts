@@ -121,8 +121,9 @@ import {interceptors} from 'wlc-engine/modules/core/system/interceptors/intercep
 // -- INTERCEPTOR IMPORTS END
 
 //  -- PIPES IMPORTS STARTS--;
-import {TruncatePipe} from './pipes/truncate.pipe';
 import {HlSubstrPipe} from './pipes/hlsubstr.pipe';
+import {SafeHtmlPipe} from './pipes/safeHTML.pipe';
+import {TruncatePipe} from './pipes/truncate.pipe';
 //  -- PIPES IMPORTS END  --;
 
 //  -- CONFIGS IMPORTS STARTS--;
@@ -309,8 +310,9 @@ export const services = {
         TimerComponent,
         TitleComponent,
         TooltipComponent,
-        TruncatePipe,
         HlSubstrPipe,
+        SafeHtmlPipe,
+        TruncatePipe,
         ValueLengthDirective,
         WlcModalComponent,
         WlcNoContentComponent,
@@ -383,6 +385,7 @@ export const services = {
         TooltipModule,
         TruncatePipe,
         HlSubstrPipe,
+        SafeHtmlPipe,
         ValueLengthDirective,
         WlcModalComponent,
         WlcNoContentComponent,

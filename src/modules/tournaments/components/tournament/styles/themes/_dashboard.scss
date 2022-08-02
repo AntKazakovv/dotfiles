@@ -131,6 +131,8 @@
         &__description {
             @include bm.lineClamp(2);
             @include text.get-text-style(ef.get-value($themeDashboard, 'descrTextStyle'), ef.get-value($themeDashboard, 'descrColor'));
+
+            white-space: pre-line;
         }
 
         &__description-block {
