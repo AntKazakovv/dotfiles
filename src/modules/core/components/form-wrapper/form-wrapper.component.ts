@@ -47,7 +47,6 @@ import _keys from 'lodash-es/keys';
 import _filter from 'lodash-es/filter';
 import _isUndefined from 'lodash-es/isUndefined';
 
-import {UserService} from 'wlc-engine/modules/user';
 import {InjectionService} from 'wlc-engine/modules/core/system/services/injection/injection.service';
 import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
 import {LayoutService} from 'wlc-engine/modules/core/system/services/layout/layout.service';
@@ -63,7 +62,6 @@ import {
     IPushMessageParams,
 } from 'wlc-engine/modules/core/system/services/notification';
 import {IIndexing} from 'wlc-engine/modules/core/system/interfaces/global.interface';
-import {IUserProfile} from 'wlc-engine/modules/core/system/interfaces/user.interface';
 import {IButtonCParams} from 'wlc-engine/modules/core/components/button/button.params';
 import {ISelectCParams} from 'wlc-engine/modules/core/components/select/select.params';
 import {ITextareaCParams} from 'wlc-engine/modules/core/components/textarea/textarea.params';
@@ -118,20 +116,18 @@ export class FormWrapperComponent extends WrapperComponent implements OnInit, On
     private formDataStorage: IIndexing<any> = {};
     private listErrors: IIndexing<IIndexing<string>> = {};
     private initialFormValues: IIndexing<any> = {};
-    private updateForm: boolean = true;
 
     private locked: string[] = [];
     private initiated: boolean;
 
     constructor(
         @Inject('injectParams') protected params: IFormWrapperCParams,
-        ConfigService: ConfigService,
+        configService: ConfigService,
         layoutService: LayoutService,
         transition: TransitionService,
         injector: Injector,
         uiRouter: UIRouterGlobals,
         eventService: EventService,
-        protected userService: UserService,
         protected validationService: ValidationService,
         protected elRef: ElementRef,
         protected cdr: ChangeDetectorRef,
@@ -140,7 +136,7 @@ export class FormWrapperComponent extends WrapperComponent implements OnInit, On
     ) {
         super(
             params,
-            ConfigService,
+            configService,
             layoutService,
             cdr,
             transition,
@@ -153,10 +149,10 @@ export class FormWrapperComponent extends WrapperComponent implements OnInit, On
     }
 
     public async ngOnInit() {
+        super.ngOnInit();
         this.prepareParams();
         this.initForm();
         this.collectionErrors(this.config.components);
-        super.ngOnInit();
 
         if (!this.initiated) {
             this.initiated = true;
@@ -167,11 +163,6 @@ export class FormWrapperComponent extends WrapperComponent implements OnInit, On
                 this.setErrors(data);
             });
         }
-        this.userService.updateForm$
-            .pipe(takeUntil(this.$destroy))
-            .subscribe((updateForm: boolean): void => {
-                this.updateForm = updateForm;
-            });
     }
 
     public ngOnChanges(changes: SimpleChanges): void {
@@ -390,7 +381,7 @@ export class FormWrapperComponent extends WrapperComponent implements OnInit, On
                     const fieldValidator: ValidatorFn[] = [];
                     const fieldAsyncValidators: AsyncValidatorFn[] = [];
 
-                    if(_find(component.params.validatorsField, {name: field})) {
+                    if (_find(component.params.validatorsField, {name: field})) {
                         const validator = _find(component.params.validatorsField, {name: field})['validators'];
                         this.getValidator(validator, fieldAsyncValidators, fieldValidator);
                     }
@@ -414,7 +405,7 @@ export class FormWrapperComponent extends WrapperComponent implements OnInit, On
                     controls[field] = this.allControls[field];
 
                     if (component.params.locked) {
-                        if(_isArray(component.params.locked)) {
+                        if (_isArray(component.params.locked)) {
                             this.locked.push(...component.params.locked);
                             return;
                         }
@@ -461,27 +452,28 @@ export class FormWrapperComponent extends WrapperComponent implements OnInit, On
     }
 
     private dataSubscription(): void {
-        this.formData?.pipe(filter((): boolean => this.updateForm))
-            .subscribe((data: IIndexing<IUserProfile>): void => {
-                if (data?.resetForm) {
-                    this.form.reset();
-                    return;
+        this.formData?.subscribe((data: IIndexing<any>): void => {
+
+            if (data?.resetForm) {
+                this.form.reset();
+                return;
+            }
+
+            _each(this.form.controls, (control, key): void => {
+                const value = _get(data, key);
+
+                if (!!value) {
+                    control.setValue(value);
                 }
 
-                _each(this.form.controls, (control, key) => {
-                    const value = _get(data, key);
-                    if (!!value) {
-                        control.setValue(value);
-                    }
-
-                    if (_includes(this.locked, key) && value) {
-                        control.disable();
-                    }
-                });
-
-                this.initialFormValues = this.form.getRawValue();
-                this.cdr.markForCheck();
+                if (_includes(this.locked, key) && value) {
+                    control.disable();
+                }
             });
+
+            this.initialFormValues = this.form.getRawValue();
+            this.cdr.markForCheck();
+        });
     }
 
     private getValidator(
@@ -499,7 +491,7 @@ export class FormWrapperComponent extends WrapperComponent implements OnInit, On
             validationRule = this.validationService.getValidator(validatorSettings);
         }
 
-        if(!validationRule) {
+        if (!validationRule) {
             console.error('Validator not found: ', validatorSettings);
             return;
         }

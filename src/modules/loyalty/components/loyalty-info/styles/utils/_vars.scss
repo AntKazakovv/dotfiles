@@ -7,7 +7,10 @@ $themeDefault: map-merge((
     'descFontColor': var(--mc-baseMain),
 
     'infoImageWidth': 100%,
-    'infoImageRadius': ef.get('radius', 'big') ef.get('radius', 'big') 0 0,
+    'infoImageRadius': (
+        320: 0,
+        560: ef.get('radius', 'big') ef.get('radius', 'big') 0 0,
+    ),
 
     'infoTitleFont': 'ThirdTitleBold',
     'infoTitleFontColor': var(--mc-baseMain),

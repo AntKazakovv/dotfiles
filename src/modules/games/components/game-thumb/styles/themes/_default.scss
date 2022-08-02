@@ -91,10 +91,9 @@
         }
 
         &__name {
+            @include bm.lineClamp(2);
             @include text.get-text-style(ef.get-value($themeDefault, 'nameTextStyle'), ef.get-value($themeDefault, 'nameColor'));
             z-index: ef.get-value($themeDefault, 'nameZIndex');
-
-            display: ef.get-value($themeDefault, 'nameDisplay');
 
             @include mq.min(1630) {
                 @include text.get-text-style(ef.get-value($themeDefault, 'nameTextStyle', 1630), ef.get-value($themeDefault, 'nameColor'));

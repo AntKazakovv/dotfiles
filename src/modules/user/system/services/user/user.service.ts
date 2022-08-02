@@ -45,6 +45,7 @@ import _assign from 'lodash-es/assign';
 import _each from 'lodash-es/each';
 import _keys from 'lodash-es/keys';
 import _set from 'lodash-es/set';
+import _merge from 'lodash-es/merge';
 
 export enum LanguageChangeEvents {
     ChangeLanguage = 'CHANGE_LANGUAGE'
@@ -76,7 +77,6 @@ export class UserService {
         }
     }
 
-    public updateForm$: BehaviorSubject<boolean> = new BehaviorSubject(true);
     public userProfile$: BehaviorSubject<UserProfile> = new BehaviorSubject(null);
     public userInfo$: BehaviorSubject<UserInfo> = new BehaviorSubject(null);
     private configUserProfile$: BehaviorSubject<UserProfile> = this.configService.get({name: '$user.userProfile$'});
@@ -354,7 +354,7 @@ export class UserService {
             }, params);
 
             if (response.data?.result) {
-                _assign(this.profile.data, profile);
+                _merge(this.profile.data, profile);
                 this.userProfile$.next(this.userProfile);
                 return true;
             } else {

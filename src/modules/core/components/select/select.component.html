@@ -15,7 +15,7 @@
      [isOpened]="isOpened"
      [ngClass] = "{'field-disabled': control.disabled}"
      (clickOutside)="closeDropdown()">
-    <ng-container *ngIf="$params.useSearch; else button">
+    <ng-container *ngIf="$params.useSearch && !control.disabled; else button">
         <input #searchInput
                id="{{$params.id || $params.name}}"
                class="{{$class}}__field"

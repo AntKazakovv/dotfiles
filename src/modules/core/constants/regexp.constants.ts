@@ -8,4 +8,9 @@ export namespace ProhibitedPatterns {
      * RegExp for amount payment
      */
     export const notAmountSymbols: RegExp = /[^\d,.]/;
+
+    /**
+    * RegExp for number
+    */
+    export const notNumberSymbols: RegExp = /\D/g;
 }

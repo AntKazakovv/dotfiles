@@ -25,6 +25,7 @@ export const defaultParams: ICountryAndStateCParams = {
         useSearch: true,
         insensitiveSearch: true,
         noResultText: gettext('No results available'),
+        autocomplete: 'new-password',
     },
     stateCode: {
         labelText: gettext('State'),

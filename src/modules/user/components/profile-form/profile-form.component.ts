@@ -91,7 +91,6 @@ export class ProfileFormComponent extends ProfileFormAbstract implements OnInit 
      * @returns save status
      */
     public async ngSubmit(form: FormGroup): Promise<boolean> {
-        this.userService.updateForm$.next(true);
         const {pep} = form.value;
         delete form.value['pep'];
         if (pep) {

@@ -4,6 +4,7 @@ import {
     IComponentParams,
     IFormWrapperCParams,
     ISelectCParams,
+    ProhibitedPatterns,
 } from 'wlc-engine/modules/core';
 
 export type ComponentTheme = 'default' | CustomType;
@@ -69,9 +70,7 @@ export const smsVerificationFormConfig: IFormWrapperCParams = {
                     validators: [
                         'required',
                     ],
-                    maskOptions: {
-                        mask: new RegExp(/^\d{0,13}$/),
-                    },
+                    prohibitedPattern: ProhibitedPatterns.notNumberSymbols,
                 },
             },
         },

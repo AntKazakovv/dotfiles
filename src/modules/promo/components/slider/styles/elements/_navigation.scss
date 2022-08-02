@@ -81,7 +81,7 @@
 
 .wlc-swiper-button-prev,
 .wlc-swiper-button-next {
-    @include bm.transition(all);
+    @include bm.transition(background);
 
     display: flex;
     align-items: center;

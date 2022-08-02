@@ -9,8 +9,8 @@
         &__image {
 
             img {
+                @include bm.get-mq-map('border-radius', $themeDefault, 'infoImageRadius');
                 width: ef.get-value($themeDefault, 'infoImageWidth');
-                border-radius: ef.get-value($themeDefault, 'infoImageRadius');
             }
         }
 

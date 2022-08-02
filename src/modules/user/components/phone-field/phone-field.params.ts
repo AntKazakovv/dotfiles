@@ -2,6 +2,7 @@ import {CustomType, IComponentParams} from 'wlc-engine/modules/core/system/class
 import {
     IInputCParams,
     ISelectCParams,
+    ProhibitedPatterns,
 } from 'wlc-engine/modules/core';
 
 export type ComponentTheme = 'default' | CustomType;
@@ -52,11 +53,6 @@ export let defaultParams: Partial<IPhoneFieldCParams> = {
         wlcElement: 'block_phoneNumber',
         name: 'phoneNumber',
         locked: true,
-        validators: [
-            'required',
-        ],
-        maskOptions: {
-            mask: new RegExp(/^\d{0,13}$/),
-        },
+        prohibitedPattern: ProhibitedPatterns.notNumberSymbols,
     },
 };

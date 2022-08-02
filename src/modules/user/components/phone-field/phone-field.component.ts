@@ -159,19 +159,19 @@ export class PhoneFieldComponent extends AbstractComponent implements OnInit {
         const min = lengths?.minLength || 6;
         const max = lengths?.maxLength || 13;
 
-        this.$params.phoneNumber.maskOptions = {
-            mask: new RegExp(`^\\d{0,${max}}$`),
-        };
         this.$params.phoneNumber.control.clearValidators();
-        this.$params.phoneNumber.control.setValidators(
-            this.validationService.getValidator('minLength').validator(min));
 
-        if (!this.$params.notRequiredPhone) {
-            this.$params.phoneNumber.control.setValidators(this.validationService.getValidator('required').validator);
+        this.$params.phoneNumber.control.setValidators([
+            this.validationService.getValidator('minLength').validator(min),
+            this.validationService.getValidator('maxLength').validator(max),
+            this.validationService.getValidator('required').validator,
+        ]);
+
+        if (this.$params.notRequiredPhone) {
+            this.$params.phoneNumber.control
+                .removeValidators(this.validationService.getValidator('required').validator);
         }
-        else {
-            this.$params.phoneCode.validators = [];
-        }
+
         this.$params.phoneNumber.control.updateValueAndValidity({
             onlySelf: true,
         });

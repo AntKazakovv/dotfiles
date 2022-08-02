@@ -127,7 +127,6 @@ export class ProfileBlocksComponent extends AbstractComponent implements OnInit 
      * @param checked {boolean}
      */
     protected async notificationToggle(checked: boolean): Promise<void> {
-        this.userService.updateForm$.next(false);
         try {
             await this.userService.updateProfile({
                 // for wlc_core old versions
