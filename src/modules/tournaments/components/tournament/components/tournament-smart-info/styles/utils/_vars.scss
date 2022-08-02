@@ -5,7 +5,7 @@ $themeDefault: map-merge((
         480: nowrap,
     ),
     'contentAlignItems': center,
-    'contentJustifyContent': center,
+    'contentJustifyContent': left,
 
     'background': var(--mc-bg),
     'radius': ef.get('radius', 'biger'),

@@ -23,10 +23,6 @@
         }
     }
 
-    .wlc-tournament-smart-info--theme-default .wlc-tournament-smart-info__content {
-        @include bm.get-mq-map('justify-content', $map, 'tournamentSmartJustifyContent');
-    }
-
     .wlc-tournament-banner {
         @include bm.get-mq-map('height', $map, 'tournamentBannerHeight');
         @include bm.get-mq-map('min-height', $map, 'tournamentBannerMinHeight');
