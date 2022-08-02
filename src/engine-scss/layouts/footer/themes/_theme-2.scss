@@ -91,6 +91,12 @@
             }
         }
 
+        .wlc-recaptcha-policy[wlc-recaptcha-policy] {
+            @include bm.get-mq-map('margin', $theme2Footer, 'copyrightMargin');
+
+            grid-area: recaptcha;
+        }
+
         .wlc-copyright[wlc-copyright] {
             @include bm.get-mq-map('margin', $theme2Footer, 'copyrightMargin');
 

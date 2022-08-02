@@ -21,6 +21,7 @@ export namespace footer {
                     class: 'wlc-footer-disclaimer',
                     components: [
                         componentLib.wlcDisclaimer.def,
+                        componentLib.wlcRecaptchaPolicy.def,
                         componentLib.wlcCopyright.def,
                     ],
                 },
@@ -58,6 +59,7 @@ export namespace footer {
                     class: 'wlc-footer-disclaimer',
                     components: [
                         componentLib.wlcDisclaimer.def,
+                        componentLib.wlcRecaptchaPolicy.def,
                         componentLib.wlcCopyright.def,
                     ],
                 },
@@ -141,6 +143,7 @@ export namespace footer {
                                 class: 'footer-bottom__right',
                                 components: [
                                     componentLib.wlcDisclaimer.def,
+                                    componentLib.wlcRecaptchaPolicy.def,
                                     componentLib.wlcCopyright.def,
                                 ],
                             },
@@ -221,6 +224,7 @@ export namespace footer {
                                 class: 'footer-bottom__right',
                                 components: [
                                     componentLib.wlcDisclaimer.def,
+                                    componentLib.wlcRecaptchaPolicy.def,
                                     componentLib.wlcCopyright.def,
                                 ],
                             },

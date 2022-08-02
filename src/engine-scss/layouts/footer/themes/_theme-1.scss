@@ -107,7 +107,8 @@
         }
     }
 
-    .wlc-copyright {
+    .wlc-copyright,
+    .wlc-recaptcha-policy {
         @include bm.get-mq-map('margin', $theme1Footer, 'copyrightMargin');
     }
 }

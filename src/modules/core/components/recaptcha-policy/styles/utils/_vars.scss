@@ -1,0 +1,21 @@
+$customThemeDefault: () !default;
+$themeDefault: map-merge((
+    'textAlign': (
+        375: center,
+        900: start,
+    ),
+    'footerFirstTextAlign': (
+        375: center,
+        1024: start,
+    ),
+    'textColor': var(--mc-baseMain),
+    'linkColor': var(--mc-main),
+    'linkHoverColor': var(--mc-baseMain),
+    'linkTextDecoration': none,
+    'textDecoration': underline,
+    'textStyle': (
+        375: 'SignText',
+        900: 'PlaceholderText'
+    )
+
+), $customThemeDefault);

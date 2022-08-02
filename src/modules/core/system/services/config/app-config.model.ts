@@ -202,6 +202,13 @@ export class AppConfigModel extends AbstractModel<IBootstrap> {
         return this.data.socialNetworks;
     }
 
+    /**
+     * @returns {boolean} Recaptcha using
+     */
+    public get useRecaptcha(): boolean {
+        return this.data.useRecaptcha;
+    }
+
     public get user(): IUser | boolean { // TODO remove after backend delete it
         return this.data.user;
     }

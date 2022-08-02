@@ -5,6 +5,7 @@ export * from './core/wlc-language-selector.config';
 export * from './core/wlc-logo.config';
 export * from './core/wlc-disclaimer.config';
 export * from './core/wlc-copyright.config';
+export * from './core/wlc-recaptcha-policy.config';
 export * from './core/wlc-license.config';
 export * from './core/wlc-info-page.config';
 export * from './core/wlc-title.config';

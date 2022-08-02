@@ -80,6 +80,7 @@ import {MessageComponent} from 'wlc-engine/modules/core/components';
 import {NotificationThreadComponent} from 'wlc-engine/modules/core/components';
 import {RadioButtonsComponent} from './components/radio-buttons/radio-buttons.component';
 import {RatingComponent} from './components/rating/rating.component';
+import {RecaptchaPolicyComponent} from './components/recaptcha-policy/recaptcha-policy.component';
 import {ScrollbarComponent} from './components/scrollbar/scrollbar.component';
 import {ScrollUpComponent} from 'wlc-engine/modules/core/components/scroll-up/scroll-up.component';
 import {SelectComponent} from './components/select/select.component';
@@ -177,6 +178,7 @@ export const components = {
     'wlc-radio-buttons': RadioButtonsComponent,
     'wlc-scroll-up': ScrollUpComponent,
     'wlc-rating': RatingComponent,
+    'wlc-recaptcha-policy': RecaptchaPolicyComponent,
     'wlc-select': SelectComponent,
     'wlc-social-icons': SocialIconsComponent,
     'wlc-steps': StepsComponent,
@@ -293,6 +295,7 @@ export const services = {
         PlugComponent,
         RadioButtonsComponent,
         RatingComponent,
+        RecaptchaPolicyComponent,
         ScrollbarComponent,
         ScrollUpComponent,
         SelectComponent,
@@ -363,6 +366,7 @@ export const services = {
         PlugComponent,
         RadioButtonsComponent,
         RatingComponent,
+        RecaptchaPolicyComponent,
         ScrollbarComponent,
         ScrollUpComponent,
         SelectComponent,

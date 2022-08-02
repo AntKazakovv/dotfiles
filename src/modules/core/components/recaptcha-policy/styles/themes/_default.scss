@@ -1,0 +1,33 @@
+.wlc-recaptcha-policy--theme-default:host {
+
+    .wlc-recaptcha-policy__text {
+        @include text.get-text-style(ef.get-value($themeDefault, 'textStyle'), ef.get-value($themeDefault, 'textColor'));
+        @include bm.get-mq-map('text-align', $themeDefault, 'textAlign');
+
+        span {
+            display: block;
+        }
+
+        a {
+            @include bm.transition(color);
+            color: ef.get-value($themeDefault, 'linkColor');
+            text-decoration: ef.get-value($themeDefault, 'textDecoration');
+
+            &:focus-visible {
+                color: ef.get-value($themeDefault, 'linkHoverColor');
+            }
+
+            @include bm.hover {
+                color: ef.get-value($themeDefault, 'linkHoverColor');
+            }
+        }
+
+        .wlc-sections__footer--theme-1 & {
+            @include bm.get-mq-map('text-align', $themeDefault, 'footerFirstTextAlign');
+        }
+
+        @include mq.min(900) {
+            @include text.get-text-style(ef.get-value($themeDefault, 'textStyle', 900), null);
+        }
+    }
+}

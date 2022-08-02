@@ -31,6 +31,7 @@ export interface IBootstrap {
     site: string;
     siteconfig: ISiteConfig;
     socialNetworks: ISocialNetwork[];
+    useRecaptcha: boolean;
     user: IUser | boolean; // TODO remove after backend delete it
     version: string;
     contacts?: IContacts;
