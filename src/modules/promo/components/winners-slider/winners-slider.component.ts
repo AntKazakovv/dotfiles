@@ -11,10 +11,13 @@ import {
     Renderer2,
     AfterViewInit,
 } from '@angular/core';
-import {takeUntil} from 'rxjs/operators';
-
+import {
+    takeUntil,
+    debounceTime,
+} from 'rxjs/operators';
 import {SwiperOptions} from 'swiper';
 import SwiperCore from 'swiper';
+
 import _merge from 'lodash-es/merge';
 import _clone from 'lodash-es/clone';
 import _assign from 'lodash-es/assign';
@@ -23,6 +26,7 @@ import {
     ConfigService,
     AbstractComponent,
     GlobalHelper,
+    ActionService,
 } from 'wlc-engine/modules/core';
 import {INoContentCParams} from 'wlc-engine/modules/core/components/no-content/no-content.params';
 import {
@@ -71,6 +75,7 @@ export class WinnersSliderComponent extends AbstractComponent implements OnInit,
         protected winnersService: WinnersService,
         protected cdr: ChangeDetectorRef,
         protected renderer: Renderer2,
+        protected actionService: ActionService,
         @Inject(WINDOW) protected window: Window,
         private element: ElementRef,
     ) {
@@ -124,7 +129,6 @@ export class WinnersSliderComponent extends AbstractComponent implements OnInit,
     }
 
     protected initSubscribers(): void {
-
         if (this.$params.type === 'biggest') {
             this.winnersService.biggestWinsObserver
                 .pipe(takeUntil(this.$destroy))
@@ -138,6 +142,16 @@ export class WinnersSliderComponent extends AbstractComponent implements OnInit,
                     this.responseToSlides(winners);
                 });
         }
+
+        // TODO это костыль, решение ищется в тикете https://tracker.egamings.com/issues/344548
+        this.actionService.windowResize()
+            .pipe(
+                debounceTime(500),
+                takeUntil(this.$destroy),
+            )
+            .subscribe(() => {
+                this.initBreakpoints();
+            });
     }
 
     protected responseToSlides(response: WinnerModel[]): void {
