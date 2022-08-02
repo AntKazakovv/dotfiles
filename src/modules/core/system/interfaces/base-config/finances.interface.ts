@@ -13,6 +13,10 @@ export interface IPIQCashier {
      * Fetch cashier config from PaymentIQ Backoffice
      */
     fetchConfig?: boolean;
+     /**
+     * Height for iframe (default value is 'auto')
+     */
+    containerHeight?: string;
 }
 
 export interface IFinancesConfig {

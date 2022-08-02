@@ -177,6 +177,7 @@ export class PIQCashierService {
                 paySystem: currentSystem.id,
             },
             locale: this.configService.get<string>('appConfig.locale') || null,
+            containerHeight: this.configService.get('$base.finances.piqCashier.containerHeight') || 'auto',
         };
 
         this.subscribeToIFrameMessages();
