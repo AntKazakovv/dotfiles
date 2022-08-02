@@ -97,8 +97,7 @@ $themeDefault: map-merge((
     'descriptionPadding': ef.size(4) 0 0,
     'descriptionWhiteSpace': pre-line,
     'descriptionDesktopDisplay': (
-        320: none,
-        480: block,
+        320: block,
     ),
 
     // ChosenMethod
