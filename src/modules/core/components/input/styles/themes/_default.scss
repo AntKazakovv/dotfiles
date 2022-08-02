@@ -99,7 +99,7 @@
                 right: ef.get-value($themeVertical, 'controlIconRight');
             }
 
-            .form-control__errors {
+            .wlc-tooltip {
                 right: ef.get-value($themeVertical, 'controlErrorRight');
             }
         }

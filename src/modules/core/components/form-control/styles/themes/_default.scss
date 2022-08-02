@@ -1,159 +1,29 @@
 .form-control {
-    $selector: &;
-    $touch: '.ng-touched';
 
-    #{$touch}.ng-valid:not(.wlc-select__field) ~ & {
-
-        #{$selector}__icon {
-
-            .icon {
-                background: ef.get-value($themeDefault, 'successColor');
-
-                &:before {
-                    top: calc(50% - 1px);
-                    left: 50%;
-                    width: 4px;
-                    height: 6px;
-                    transform: translate(-50%, -50%) rotate(45deg);
-                    border-bottom: 1px solid ef.get-value($themeDefault, 'successIconColor');
-                    border-right: 1px solid ef.get-value($themeDefault, 'successIconColor');
-                }
-            }
-        }
-    }
-
-    #{$touch}.ng-pending ~ & {
-
-        #{$selector}__icon {
-
-            .icon {
-
-                &:before {
-                    top: 50%;
-                    left: 50%;
-                    width: ef.get-value($themeDefault, 'iconWidth');
-                    height: ef.get-value($themeDefault, 'iconHeight');
-                    margin-top: -#{ef.get-value($themeDefault, 'iconHeight') * 0.5};
-                    margin-left: -#{ef.get-value($themeDefault, 'iconWidth') * 0.5};
-                    animation: spin 1s infinite linear;
-                    border: 2px solid ef.get-value($themeDefault, 'pendingIconColor');
-                    border-left-color: transparent;
-                    border-radius: 50%;
-                }
-            }
-        }
-    }
-
-    #{$touch}.ng-invalid ~ & {
-        border-color: ef.get-value($themeDefault, 'errorColor');
-
-        #{$selector}__icon {
-
-            .icon {
-                background: ef.get-value($themeDefault, 'errorColor');
-                transform: rotate(45deg);
-
-                &:before {
-                    top: 50%;
-                    left: 50%;
-                    width: 2px;
-                    height: 7px;
-                    background: ef.get-value($themeDefault, 'errorIconColor');
-                    transform: translate(-50%, -50%);
-                }
-
-                &:after {
-                    content: '';
-                    position: absolute;
-                    top: 50%;
-                    left: 50%;
-                    width: 7px;
-                    height: 2px;
-                    background: ef.get-value($themeDefault, 'errorIconColor');
-                    transform: translate(-50%, -50%);
-                }
-            }
-        }
-    }
-
-    &__icon {
+    &__icon,
+    .wlc-tooltip[class] {
         position: absolute;
-        top: 50%;
-        right: 0;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 40px;
-        height: 100%;
-        transform: translateY(-50%);
-
-        .icon {
-            position: relative;
-            width: ef.get-value($themeDefault, 'iconWidth');
-            height: ef.get-value($themeDefault, 'iconHeight');
-            border-radius: 50%;
-
-            &:before {
-                content: '';
-                position: absolute;
-            }
-        }
+        top: ef.get-value($themeDefault, 'iconPosTop');
+        right: ef.get-value($themeDefault, 'iconPosRight');
+        transform: translateY(-55%);
 
         .wlc-textarea & {
-            position: absolute;
-            top: 20px;
-            right: 15px;
-            width: ef.get-value($themeDefault, 'iconWidth');
-            height: ef.get-value($themeDefault, 'iconHeight');
-            transform: translateY(-50%);
-            border-radius: 50%;
-
-            &:before {
-                content: '';
-                position: absolute;
-            }
+            top: ef.get-value($themeDefault, 'textareaIconPosTop');
         }
     }
 
-    &__errors {
-        margin: 0;
-        padding: 0;
-        list-style: none;
-
-        li {
-            margin: ef.get-value($themeDefault, 'marginBetweenErrorsItem');
-
-            &:first-child {
-                margin: 0;
-            }
-        }
+    .wlc-icon {
+        display: none;
     }
 
-    &-tooltip {
-        min-width: ef.get-value($themeDefault, 'errorsMinWidth');
+    .ng-valid.ng-touched ~ & {
 
-        .tooltip-inner {
-            @include text.get-text-style('PrimaryText', ef.get-value($themeDefault, 'errorsColor'));
-            background: ef.get-value($themeDefault, 'errorsBgColor');
-        }
+        .wlc-icon {
+            display: block;
+            color: ef.get-value($themeDefault, 'successColor');
 
-        &.bottom {
-
-            .tooltip-arrow {
-
-                &:before {
-                    border-bottom-color: ef.get-value($themeDefault, 'errorsBgColor');
-                }
-            }
-        }
-
-        &.top {
-
-            .tooltip-arrow {
-
-                &:before {
-                    border-top-color: ef.get-value($themeDefault, 'errorsBgColor');
-                }
+            svg {
+                fill: currentColor;
             }
         }
     }

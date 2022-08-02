@@ -1,17 +1,7 @@
 $customThemeDefault: () !default;
 $themeDefault: map-merge((
-    'errorColor': var(--mc-error),
     'successColor': var(--mc-success),
-    'iconWidth': 12px,
-    'iconHeight': 12px,
-    'successIconColor': ef.get('mainColors', 'baseMain'),
-    'errorIconColor': ef.get('mainColors', 'baseMain'),
-    'pendingIconColor': var(--mc-baseContrast),
-    'errorsBgColor': var(--mc-error),
-    'errorsColor': ef.get('mainColors', 'baseContrast'),
-    'errorsMinWidth': 200px,
-    'errorsMaxWidth': 100%,
-    'errorsBorderRadius': 10px,
-    'errorsPadding': 10px,
-    'marginBetweenErrorsItem': 3px 0 0 0,
+    'iconPosTop': 50%,
+    'iconPosRight': ef.size(3),
+    'textareaIconPosTop': ef.size(4),
 ), $customThemeDefault);

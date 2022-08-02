@@ -34,7 +34,7 @@ $themeDefault: map-merge((
     'tileIconColor': var(--mc-main),
     'tileIconWidth': 100%,
     'tileIconHeigth': 100%,
-    'tileIconSize': 30px,
+    'tileIconSize': ef.size(6),
 
     'iconCheckPosition': absolute,
     'iconCheckDemensions': 22px,
@@ -64,11 +64,11 @@ $themeDefault: map-merge((
     'docsItemMargin': 0 0 ef.size(1),
     'docsItemMarginLast': 0 0 0,
 
-    'docsTextMinHeight': 25px,
+    'docsTextMinHeight': ef.size(5),
 
     'docsLinkMaxWidth': 100%,
 
-    'docsRemoveSize': 20px,
+    'docsRemoveSize': ef.size(4),
 
     'docsPreloadMargin': 0 0 0 auto,
 
@@ -100,9 +100,10 @@ $themeDefault: map-merge((
     'docOffset': ef.size(1),
     'docTextOffset': ef.size(4),
     'removeIconDocsDemensitons': ef.size(3),
-    'removeIconDocsHoverColor': var(--mc-main),
+    'removeIconColor': var(--mc-baseMain),
+    'removeIconHoverColor': var(--mc-main),
 
-    'preloaderSize': 20px,
+    'preloaderSize': ef.size(4),
     'preloaderColor': 1px solid var(--mc-main),
     'preloaderBg': 1px solid var(--mc-bg),
     'preloaderRadius': 100%,
@@ -123,8 +124,7 @@ $themeDefault: map-merge((
     'dropzoneInputPos': 0,
     'dropzoneInputOpacity': 0,
 
-    'infoIcon': 0 0 0 ef.size(1),
-    'iconStatusSize': 20px,
+    'iconStatusSize': ef.size(4),
 
     'groupTitleAlign': center,
 

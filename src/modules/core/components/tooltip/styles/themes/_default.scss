@@ -3,13 +3,11 @@
     &:host {
         @include bm.get-mq-map('width', $themeDefault, 'iconWidth');
         @include bm.get-mq-map('height', $themeDefault, 'iconHeight');
-        position: relative;
         display: flex;
         align-items: center;
         justify-content: center;
 
         .wlc-tooltip__icon {
-            @include tooltipIcon($themeDefault);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -23,6 +21,18 @@
                     .wlc-icon-content {
                         display: flex;
                         align-items: center;
+                        color: ef.get-value($themeDefault, 'iconFill');
+
+                        @include bm.hover {
+                            color: ef.get-value($themeDefault, 'iconColorOnHover');
+                        }
+                    }
+
+                    svg {
+                        @include bm.get-mq-map('width', $themeDefault, 'iconWidth');
+                        @include bm.get-mq-map('height', $themeDefault, 'iconHeight');
+                        @include bm.transition(fill);
+                        fill: currentColor;
                     }
                 }
             }
@@ -31,29 +41,58 @@
         &.wlc-tooltip--theme-mod-resolve {
 
             .wlc-tooltip__icon {
-                @include tooltipIcon($modResolve);
+                @include bm.get-mq-map('width', $modResolve, 'iconWidth');
+                @include bm.get-mq-map('height', $modResolve, 'iconHeight');
+
+                &.wlc-icon {
+                    color: ef.get-value($modResolve, 'iconFill');
+
+                    ::ng-deep {
+
+                        svg {
+                            @include bm.get-mq-map('width', $modResolve, 'iconWidth');
+                            @include bm.get-mq-map('height', $modResolve, 'iconHeight');
+                            @include bm.transition(fill);
+                        }
+                    }
+
+                    @include bm.hover {
+                        color: ef.get-value($modResolve, 'iconColorOnHover');
+                    }
+                }
             }
         }
 
         &.wlc-tooltip--theme-mod-error {
+            width: ef.get-value($modError, 'iconWidth');
+            height: ef.get-value($modError, 'iconHeight');
 
             .wlc-tooltip__icon {
-                @include tooltipIcon($modError);
+                width: ef.get-value($modError, 'iconWidth');
+                height: ef.get-value($modError, 'iconHeight');
+                color: ef.get-value($modError, 'iconFill');
+
+                ::ng-deep {
+
+                    svg {
+                        width: ef.get-value($modError, 'iconWidth');
+                        height: ef.get-value($modError, 'iconHeight');
+                    }
+                }
+
+                @include bm.hover {
+                    color: ef.get-value($modError, 'iconColorOnHover');
+                }
             }
         }
     }
 }
 
-::ng-deep body {
+::ng-deep {
 
-    .wlc-tooltip__bs-tooltip {
+    .wlc-tooltip__bs-tooltip-theme-default {
         --bs-tooltip-bg: #{ef.get-value($themeDefault, 'contentBg')};
         --bs-tooltip-color: #{ef.get-value($themeDefault, 'contentColor')};
-
-        &.wlc-tooltip__bs-tooltip--error {
-            --bs-tooltip-bg: #{ef.get-value($themeDefault, 'contentBgError')};
-            --bs-tooltip-color: #{ef.get-value($themeDefault, 'contentColorError')};
-        }
 
         &.show {
             opacity: 1;
@@ -80,11 +119,27 @@
         }
 
         .tooltip-inner {
-            @include text.get-text-style(ef.get-value($themeDefault, 'textStyle'), var(--bs-tooltip-color));
-            padding: ef.get-value($themeDefault, 'contentPadding');
-            background-color: var(--bs-tooltip-bg);
-            border-radius: ef.get-value($themeDefault, 'contentBorderRadius');
-            box-shadow: ef.get-value($themeDefault, 'contentBoxShadow');
+            background-color: ef.get-value($themeDefault, 'contentBg');
+        }
+
+        &.wlc-tooltip__bs-tooltip-theme-mod-error {
+            --bs-tooltip-bg: #{ef.get-value($themeDefault, 'contentBgError')};
+            --bs-tooltip-color: #{ef.get-value($themeDefault, 'contentColorError')};
+
+            &.bottom {
+
+                .tooltip-arrow {
+
+                    &:before {
+                        border-bottom-color: var(--bs-tooltip-bg);
+                    }
+                }
+            }
+
+            .tooltip-inner {
+                color: var(--mc-black);
+                background-color: var(--bs-tooltip-bg);
+            }
         }
     }
 }

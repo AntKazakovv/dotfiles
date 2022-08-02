@@ -8,6 +8,8 @@ import {
     HostListener,
 } from '@angular/core';
 
+import _map from 'lodash-es/map';
+
 import {
     AbstractComponent,
     IMixedParams,
@@ -32,6 +34,7 @@ export class TooltipComponent extends AbstractComponent implements OnInit {
     public $params: Params.ITooltipCParams;
     public isShow: boolean;
     public iconPath: string;
+    public containerClass: string;
 
     protected positionChanged: boolean = false;
     protected resized: boolean = false;
@@ -53,6 +56,7 @@ export class TooltipComponent extends AbstractComponent implements OnInit {
     public ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
         this.iconPath = `/wlc/icons/${this.$params.iconName}.svg`;
+        this.setTooltipContainerClasses();
     }
 
     @HostListener('click', ['$event']) stopPropagation(event) {
@@ -66,9 +70,12 @@ export class TooltipComponent extends AbstractComponent implements OnInit {
         this.modalService.showModal(this.$params.modal, this.$params.modalParams);
     }
 
-    public get containerClassMod(): string {
-        return this.$params.bsTooltipMod
-            ? `${this.$class}__bs-tooltip--${this.$params.bsTooltipMod}`
-            : '';
+    public setTooltipContainerClasses(): void {
+        const classes: string[] = _map(this.modifiers, (modifier: string): string => {
+            return `${this.$class}__bs-tooltip-${modifier}`;
+        });
+        classes.push(`${this.$class}__bs-tooltip`);
+        this.containerClass = classes.join(' ');
+        this.cdr.markForCheck();
     }
 }

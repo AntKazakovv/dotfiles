@@ -105,12 +105,9 @@
 
         .wlc-input-status::ng-deep {
 
-            .form-control__icon::ng-deep {
+            .form-control__icon,
+            .wlc-tooltip::ng-deep {
                 right: ef.get-value($themeVertical, 'controlIconRight');
-            }
-
-            .form-control__errors {
-                right: ef.get-value($themeVertical, 'controlErrorRight');
             }
         }
     }

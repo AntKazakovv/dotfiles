@@ -30,6 +30,30 @@
                     margin-right: ef.get-value($themeDefault, 'checkWrpSpanMargin');
                 }
             }
+
+            ::ng-deep {
+
+                .wlc-tooltip[class] {
+
+                    .wlc-tooltip__icon,
+                    svg {
+                        width: ef.get-value($themeDefault, 'iconStatusSize');
+                        height: ef.get-value($themeDefault, 'iconStatusSize');
+                    }
+
+                    .wlc-icon-content {
+                        color: ef.get-value($themeDefault, 'infoIconBg');
+
+                        svg {
+                            fill: currentColor;
+                        }
+
+                        @include bm.hover {
+                            color: ef.get-value($themeDefault, 'infoIconBgHover');
+                        }
+                    }
+                }
+            }
         }
 
         &__doc-type-wrp {
@@ -214,6 +238,13 @@
 
                 margin: ef.get-value($themeDefault, 'docsItemMargin');
 
+                ::ng-deep {
+
+                    svg {
+                        fill: currentColor;
+                    }
+                }
+
                 &:last-child {
                     margin: ef.get-value($themeDefault, 'docsItemMarginLast');
                 }
@@ -221,39 +252,21 @@
                 &.awaiting-validation {
 
                     ::ng-deep .wlc-icon-content {
-
-                        svg {
-
-                            path {
-                                fill: ef.get-value($themeDefault, 'docsStatusAwaiting');
-                            }
-                        }
+                        color: ef.get-value($themeDefault, 'docsStatusAwaiting');
                     }
                 }
 
                 &.validated {
 
                     ::ng-deep .wlc-icon-content {
-
-                        svg {
-
-                            rect {
-                                fill: ef.get-value($themeDefault, 'docsStatusValidated');
-                            }
-                        }
+                        color: ef.get-value($themeDefault, 'docsStatusValidated');
                     }
                 }
 
                 &.failed-validation {
 
                     ::ng-deep .wlc-icon-content {
-
-                        svg {
-
-                            rect {
-                                fill: ef.get-value($themeDefault, 'docsStatusFailed');
-                            }
-                        }
+                        color: ef.get-value($themeDefault, 'docsStatusFailed');
                     }
                 }
 
@@ -331,31 +344,23 @@
 
                 cursor: pointer;
 
-                ::ng-deep .wlc-icon-content {
+                ::ng-deep .wlc-icon-content[class] {
                     display: ef.get-value($themeDefault, 'removeIconDisplay');
-
+                    color: ef.get-value($themeDefault, 'removeIconColor');
                     line-height: ef.get-value($themeDefault, 'removeIconLineHeight');
 
                     svg {
+                        @include bm.transition(stroke);
+
                         width: ef.get-value($themeDefault, 'removeIconDocsDemensitons');
                         height: ef.get-value($themeDefault, 'removeIconDocsDemensitons');
-
-                        line {
-                            @include bm.transition(stroke);
-                        }
                     }
                 }
 
                 @include bm.hover {
 
                     &::ng-deep .wlc-icon-content {
-
-                        svg {
-
-                            line {
-                                stroke: ef.get-value($themeDefault, 'removeIconDocsHoverColor');
-                            }
-                        }
+                        color: ef.get-value($themeDefault, 'removeIconHoverColor');
                     }
                 }
 
@@ -378,38 +383,6 @@
                 border-radius: ef.get-value($themeDefault, 'preloaderRadius');
 
                 animation: spin 1s infinite linear;
-            }
-
-            &__info {
-                cursor: pointer;
-
-                &.info-icon {
-                    margin: ef.get-value($themeDefault, 'infoIcon');
-
-                    ::ng-deep .wlc-icon-content {
-
-                        svg {
-
-                            path {
-                                fill: ef.get-value($themeDefault, 'infoIconBg');
-                            }
-                        }
-                    }
-
-                    @include bm.hover {
-
-                        ::ng-deep .wlc-icon-content {
-
-                            svg {
-
-                                path {
-                                    @include bm.transition(fill);
-                                    fill: ef.get-value($themeDefault, 'infoIconBgHover');
-                                }
-                            }
-                        }
-                    }
-                }
             }
         }
     }

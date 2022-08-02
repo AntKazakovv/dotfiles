@@ -220,16 +220,17 @@
                         border-bottom: none;
                     }
 
+                    ::ng-deep {
+
+                        svg {
+                            fill: currentColor;
+                        }
+                    }
+
                     &.awaiting-validation {
 
                         ::ng-deep .wlc-icon-content {
-
-                            svg {
-
-                                path {
-                                    fill: ef.get-value($themeDefault, 'docsStatusAwaiting');
-                                }
-                            }
+                            color: ef.get-value($themeDefault, 'docsStatusAwaiting');
                         }
 
                         .wlc-verification-docs__doc-status {
@@ -240,14 +241,7 @@
                     &.validated {
 
                         ::ng-deep .wlc-icon-content {
-
-                            svg {
-
-                                rect,
-                                path {
-                                    fill: ef.get-value($themeDefault, 'docsStatusValidated');
-                                }
-                            }
+                            color: ef.get-value($themeDefault, 'docsStatusValidated');
                         }
 
                         .wlc-verification-docs__doc-status {
@@ -258,14 +252,7 @@
                     &.failed-validation {
 
                         ::ng-deep .wlc-icon-content {
-
-                            svg {
-
-                                rect,
-                                path {
-                                    fill: ef.get-value($themeDefault, 'docsStatusFailed');
-                                }
-                            }
+                            color: ef.get-value($themeDefault, 'docsStatusFailed');
                         }
 
                         .wlc-verification-docs__doc-status {
@@ -380,39 +367,13 @@
 
                 &__check-icon {
                     margin-right: ef.get-value($themeDefault, 'docOffset');
-                }
+                    font-size: 0;
 
-                &__info {
-                    margin-right: ef.get-value($themeDefault, 'docOffset');
+                    ::ng-deep .wlc-icon-content {
 
-                    cursor: pointer;
-
-                    &.info-icon {
-
-                        ::ng-deep .wlc-icon-content {
-
-                            svg {
-
-                                path {
-                                    fill: ef.get-value($themeDefault, 'infoIconBg');
-                                }
-                            }
-                        }
-                    }
-
-                    @include bm.hover {
-
-                        &.info-icon {
-
-                            ::ng-deep .wlc-icon-content {
-
-                                svg {
-
-                                    path {
-                                        fill: ef.get-value($themeDefault, 'infoIconBgHover');
-                                    }
-                                }
-                            }
+                        svg {
+                            width: ef.get-value($themeDefault, 'smallIconDocsDemensitons');
+                            height: ef.get-value($themeDefault, 'smallIconDocsDemensitons');
                         }
                     }
                 }
@@ -428,28 +389,22 @@
 
                     opacity: 1;
 
-                    ::ng-deep .wlc-icon-content {
+                    ::ng-deep .wlc-icon-content[class] {
+                        color: ef.get-value($themeDefault, 'removeIconColor');
 
                         svg {
+                            @include bm.transition(stroke);
+
                             width: ef.get-value($themeDefault, 'removeIconDocsDemensitons');
                             height: ef.get-value($themeDefault, 'removeIconDocsDemensitons');
-
-                            line {
-                                @include bm.transition(stroke);
-                            }
+                            stroke: currentColor;
                         }
                     }
 
                     @include bm.hover {
 
                         &::ng-deep .wlc-icon-content {
-
-                            svg {
-
-                                line {
-                                    stroke: ef.get-value($themeDefault, 'removeIconDocsHoverColor');
-                                }
-                            }
+                            color: ef.get-value($themeDefault, 'removeIconHoverColor');
                         }
                     }
 
@@ -482,17 +437,27 @@
                         transform: rotate(360deg);
                     }
                 }
+            }
+        }
 
-                &__info,
-                &__check-icon {
-                    font-size: 0;
+        .wlc-tooltip {
+            width: ef.get-value($themeDefault, 'smallIconDocsDemensitons');
+            height: ef.get-value($themeDefault, 'smallIconDocsDemensitons');
+            margin-right: ef.get-value($themeDefault, 'docOffset');
 
-                    ::ng-deep .wlc-icon-content {
+            ::ng-deep {
 
-                        svg {
-                            width: ef.get-value($themeDefault, 'smallIconDocsDemensitons');
-                            height: ef.get-value($themeDefault, 'smallIconDocsDemensitons');
-                        }
+                .wlc-icon-content[class] {
+                    color: ef.get-value($themeDefault, 'infoIconBg');
+
+                    svg {
+                        width: ef.get-value($themeDefault, 'smallIconDocsDemensitons');
+                        height: ef.get-value($themeDefault, 'smallIconDocsDemensitons');
+                        fill: currentColor;
+                    }
+
+                    @include bm.hover {
+                        color: ef.get-value($themeDefault, 'infoIconBgHover');
                     }
                 }
             }

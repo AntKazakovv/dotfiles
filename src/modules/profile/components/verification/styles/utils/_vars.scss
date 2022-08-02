@@ -52,7 +52,8 @@ $themeDefault: map-merge((
     'infoIconBgHover': var(--mc-baseMain),
     'smallIconDocsDemensitons': ef.size(4),
     'removeIconDocsDemensitons': ef.size(3),
-    'removeIconDocsHoverColor': var(--mc-main),
+    'removeIconColor': var(--mc-baseMain),
+    'removeIconHoverColor': var(--mc-main),
     'bigIconDocsDemensitons': ef.size(6),
     'docOffset': ef.size(1),
     'clearDropzoneColor': var(--mc-main),
@@ -68,7 +69,7 @@ $themeDefault: map-merge((
     'dropzoneMinHeight': 200px,
     'dropzoneWidth': 100%,
 
-    'clearPosition': 10px,
+    'clearPosition': ef.size(2),
 
     'docsMargin': ef.size(3) 0 0 0,
     'docsPadding': 0,

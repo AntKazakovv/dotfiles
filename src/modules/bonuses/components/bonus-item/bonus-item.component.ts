@@ -263,7 +263,6 @@ export class BonusItemComponent extends AbstractComponent implements OnInit, OnC
         return {
             inlineText: this.bonus.disabledReason,
             themeMod: 'error',
-            bsTooltipMod: 'error',
             iconName: 'blocked',
         };
     }
