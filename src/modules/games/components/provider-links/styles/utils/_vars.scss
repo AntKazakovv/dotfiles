@@ -50,7 +50,7 @@ $themeDefault: map-merge((
 
     'iconBackground': var(--mc-bg700),
     'iconBorderRadius': ef.get('radius', 'biger'),
-    'iconColor': var(--mc-bg100),
+    'iconColor': var(--mc-baseMain),
     'iconTransition': #{transform 0.2s, box-shadow 2s},
     'iconWidth': 100%,
     'iconMaxWidth': 80%,

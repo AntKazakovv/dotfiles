@@ -529,4 +529,47 @@ export namespace wlcGamesGrid {
             },
         },
     };
+
+    export const popularGamesPreview: ILayoutComponent = {
+        name: 'games.wlc-games-grid',
+        params: <IGamesGridCParams>{
+            theme: 'preview',
+            gamesRows: 2,
+            filter: {
+                categories: ['popular'],
+            },
+            thumbParams: {
+                theme: 'default',
+            },
+            showAllLink: {
+                use: true,
+                sref: 'app.catalog',
+                params: {
+                    category: 'popular',
+                },
+            },
+        },
+    };
+
+    export const newGamesPreview: ILayoutComponent = {
+        name: 'games.wlc-games-grid',
+        params: <IGamesGridCParams>{
+            theme: 'preview',
+            gamesRows: 2,
+            filter: {
+                categories: ['new'],
+            },
+            thumbParams: {
+                theme: 'default',
+            },
+            showAllLink: {
+                use: true,
+                sref: 'app.catalog',
+                params: {
+                    category: 'new',
+                },
+            },
+        },
+    };
+
 }

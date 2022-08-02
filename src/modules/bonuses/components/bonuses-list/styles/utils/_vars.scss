@@ -57,6 +57,10 @@ $themePromo: map-merge((
         375: ef.size(2),
         560: ef.size(4),
     ),
+    'listColumns': (
+        375: 1fr,
+        1200: repeat(2, 1fr),
+    ),
     'minItemWidth': 280px,
     'minItemWidth900': 600px,
     'minItemWidth1200': 400px,

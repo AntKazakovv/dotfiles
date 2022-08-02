@@ -34,6 +34,14 @@ export namespace content {
         ],
     };
 
+    export const homePromotions: ILayoutSectionConfig = {
+        order: 2,
+        container: true,
+        components: [
+            componentLib.wlcWpPromo.defUntitled,
+        ],
+    };
+
     export const sportsbook: ILayoutSectionConfig = {
         order: 2,
         container: false,

@@ -1,0 +1,86 @@
+.wlc-games-grid--theme-preview.wlc-games-grid:host {
+
+    .wlc-games-grid {
+
+        &__content {
+            @include bm.get-mq-map('grid-template-columns', $themePreview, 'contentColumns');
+            @include bm.get-mq-map('grid-gap', $themePreview, 'contentGap');
+
+            display: grid;
+        }
+
+        &__bg {
+            @include bm.get-mq-map('display', $themePreview, 'bgDisplay');
+            @include bm.get-mq-map('border-radius', $themePreview, 'previewRadius');
+
+            position: absolute;
+            top: 0;
+            left: 0;
+
+            z-index: -1;
+            width: 100%;
+            height: 100%;
+
+            background-repeat: ef.get-value($themePreview, 'bgRepeat');
+            background-position: ef.get-value($themePreview, 'bgPosition');
+            background-size: ef.get-value($themePreview, 'bgSize');
+        }
+
+        &__header {
+            @include bm.get-mq-map('flex-direction', $themePreview, 'headerDirection');
+            @include bm.get-mq-map('padding', $themePreview, 'headerPadding');
+
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            &:before {
+                @include bm.get-mq-map('background', $themePreview, 'headerBg');
+                @include bm.get-mq-map('border-radius', $themePreview, 'previewRadius');
+
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                z-index: -1;
+
+                width: 100%;
+                height: 100%;
+            }
+        }
+
+        &__link {
+            @include bm.get-mq-map('display', $themePreview, 'linkShowDisplay');
+        }
+
+        &__show-all-btn {
+            @include bm.get-mq-map('display', $themePreview, 'btnShowDisplay');
+        }
+
+        &__title {
+
+            ::ng-deep {
+
+                .wlc-title__main {
+
+                    @include mq.min(1200) {
+                        @include text.get-text-style(ef.get-value($themePreview, 'headerFontStyle'), ef.get-value($themePreview, 'headerColor'));
+                    }
+                }
+            }
+        }
+
+        &__item {
+            @include item();
+        }
+
+        &__list {
+            @include list();
+            @include bm.get-mq-map('grid-column', $themePreview, 'listColumn');
+            @include bm.get-mq-map('grid-template-columns', $themePreview, 'listTemplateColumn');
+
+            grid-template-rows: ef.get-value($themePreview, 'listTemplateRows');
+        }
+    }
+}

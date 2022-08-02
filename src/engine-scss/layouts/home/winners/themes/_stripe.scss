@@ -4,10 +4,18 @@
     &.wlc-sections__winners-section--in-container {
         background: none;
 
+        @if (ef.get('baseVariables', 'useWide') == true) {
+            @include bm.get-mq-map('padding', $themeWinnersSectionStripe, 'paddingWideContainer');
+        }
+
         .container {
             border-radius: ef.get-value($themeWinnersSectionStripe, 'containerRadius');
             background: ef.get-value($themeWinnersSectionStripe, 'background');
             overflow: hidden;
+
+            @if (ef.get('baseVariables', 'useWide') == true) {
+                max-width: ef.get-value($themeWinnersSectionStripe, 'maxWidthWideContainer');
+            }
         }
     }
 }

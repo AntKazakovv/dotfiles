@@ -3,6 +3,7 @@
     ::ng-deep {
 
         .banner {
+
             @include bm.get-mq-map('min-height', $themeDefaultBanner, 'height');
 
             position: relative;
@@ -385,6 +386,11 @@
                 .wlc-btn[wlc-button] {
                     @include bm.get-mq-map('margin', $themeDefaultBanner, 'rightButtonMargin');
                 }
+            }
+
+            .wlc-slider--theme-mod-wide & {
+
+                @include bm.get-mq-map('min-height', $modWide, 'height');
             }
         }
     }

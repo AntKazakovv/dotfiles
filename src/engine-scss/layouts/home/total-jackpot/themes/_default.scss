@@ -1,6 +1,6 @@
 .wlc-sections__total-jackpot {
 
-    .container {
+    .jackpot-container {
         @include bm.get-mq-map('padding', $themeTotalJackpot, 'sectionPadding');
         @include bm.get-mq-map('min-height', $themeTotalJackpot, 'sectionHeight');
         @include bm.get-mq-map('background', $themeTotalJackpot, 'sectionBackground', true);

@@ -36,6 +36,9 @@ $baseVariables: map-merge((
         900: 20px,
         1630: 40px,
     ),
+    /// Глобальные настройки ширины контейнера.
+    ///  Если true то ширина контейнера равняется ширине экрана.
+    'useWide': false,
 ), $customBaseVariables);
 
 @function size-func($value: 1, $units: 1px) {
@@ -484,6 +487,12 @@ $container-max-widths: (
     1630: 1600px
 );
 
+$dummy: ();
+$container-max-widths-wide: (
+    320: 100%,
+    1630: 1920px,
+);
+
 /// Глобальные настройки профиля:
 ///
 /// @name customProfileSettings
@@ -596,7 +605,15 @@ $profileSettingsThemeFirst: map-merge((
     'historyRangeMargin': 0 0 size-func(4),
 ), $customProfileSettingsThemeFirst);
 
-$container-padding-x: 0;
+$customContainerPadding: () !default;
+$containerPadding: map-merge((
+    'paddingDef': 0,
+    'paddingWide': (
+        375: 0 size-func(2),
+        560: 0 size-func(3),
+        768: 0 size-func(5),
+    )
+), $customContainerPadding);
 
 $dummy: ();
 $buttonSettings: map-merge((
@@ -701,6 +718,7 @@ $layoutGap: map-merge((
         '.wlc-sections__content-games-vertical',
         '.wlc-sections__content-wins-transparent',
         '.wlc-sections__random-games',
+        '.wlc-sections__banner-promotion',
     ),
     '.app-contacts-state': (
         '.wlc-sections__info-page'

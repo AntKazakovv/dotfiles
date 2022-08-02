@@ -1,0 +1,58 @@
+$customThemePreview: () !default;
+
+$themePreview: map-merge((
+    'previewRadius': (
+        1200: ef.get('radius', 'biger'),
+    ),
+
+    'contentColumns': (
+        375: 1fr,
+        1200: repeat(5, 1fr),
+        1630: repeat(6, 1fr),
+    ),
+    'contentGap': (
+        1200: ef.size(3),
+        1630: ef.size(4),
+    ),
+
+    'headerFontStyle': 'ThirdTitleBold',
+    'headerColor': ef.get('mainColors', 'baseMain'),
+    'headerPadding': (
+        375: 0 0 ef.size(4),
+        1200: ef.size(4) 0 ef.size(8),
+    ),
+    'headerDirection': (
+        375: row,
+        1200: column,
+    ),
+    'headerBg': (
+        1200: linear-gradient(180deg, #7f7cff 0%, #404253 100%),
+    ),
+
+    'bgDisplay': (
+        375: none,
+        1200: block,
+    ),
+    'bgRepeat': no-repeat,
+    'bgPosition': center,
+    'bgSize': cover,
+
+    'btnShowDisplay': (
+        1024: none,
+        1200: grid,
+    ),
+
+    'linkShowDisplay': (
+        1024: flex,
+        1200: none,
+    ),
+    'listColumn': (
+        375: list.slash(1, -1),
+        1200: list.slash(2, -1),
+    ),
+    'listTemplateColumn': (
+        1200: repeat(4, 1fr),
+        1630: repeat(5, 1fr),
+    ),
+    'listTemplateRows': repeat(2, 1fr),
+), $customThemePreview);

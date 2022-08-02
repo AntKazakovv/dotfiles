@@ -55,4 +55,11 @@ export namespace bannerSection {
             },
         ],
     };
+
+    export const wide: ILayoutSectionConfig = {
+        container: false,
+        components: [
+            componentLib.wlcBannersSlider.wide,
+        ],
+    };
 }

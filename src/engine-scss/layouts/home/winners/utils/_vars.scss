@@ -13,4 +13,10 @@ $customThemeWinnersSectionStripe: () !default;
 $themeWinnersSectionStripe: map-merge((
     'background': var(--mc-bg700),
     'containerRadius':  ef.get('radius', 'biger'),
+    'maxWidthWideContainer': 1870px,
+    'paddingWideContainer': (
+        375: 0 ef.size(2),
+        560: 0 ef.size(3),
+        768: 0 ef.size(5),
+    ),
 ), $customThemeWinnersSectionStripe);

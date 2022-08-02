@@ -24,7 +24,7 @@ import {
     ISliderCParams,
 } from 'wlc-engine/modules/promo';
 
-export type ComponentTheme = 'default' | 'swiper' | CustomType;
+export type ComponentTheme = 'default' | 'swiper' | 'preview' | CustomType;
 export type ComponentType = 'default' | 'search' | 'swiper';
 export type ComponentThemeMod = 'default'
     | 'tournament-detail'
@@ -262,6 +262,8 @@ export interface IGamesGridCParams extends IComponentParams<ComponentTheme, Comp
      * Also you can add parameter with category name to set it noContent text.
      */
     noContentText?: INoContentTexts;
+
+    urlPreviewCategoryBg?: string;
 }
 
 export const defaultParams: IGamesGridCParams = {

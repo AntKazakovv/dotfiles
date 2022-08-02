@@ -14,9 +14,11 @@
         @include bm.get-mq-map('grid-template-columns', $theme, 'headerGridColumns');
         @include bm.get-mq-map('gap', $theme, 'headerGridGap');
         @include bm.get-mq-map('margin', $theme, 'headerContainerDesktopMargin');
-        @include bm.get-mq-map('padding', $theme, 'headerPadding');
         @include bm.transition;
 
+        @if (ef.get('baseVariables', 'useWide') == false) {
+            @include bm.get-mq-map('padding', $theme, 'headerPadding');
+        }
         display: grid;
         align-items: center;
     }

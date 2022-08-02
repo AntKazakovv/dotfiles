@@ -71,12 +71,6 @@ export namespace wlcLastWinsSlider {
                     900: {
                         slidesPerView: 4,
                     },
-                    1024: {
-                        slidesPerView: 5,
-                    },
-                    1630: {
-                        slidesPerView: 4,
-                    },
                 },
             },
         },

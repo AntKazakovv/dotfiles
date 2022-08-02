@@ -16,7 +16,7 @@ import {CategoryModel} from 'wlc-engine/modules/games/system/models/category.mod
 import {Game} from 'wlc-engine/modules/games/system/models/game.model';
 import * as Params from './category-preview.params';
 
-import _includes from 'lodash-es/includes';
+import _each from 'lodash-es/each';
 
 interface ICategory {
     state: string;
@@ -61,29 +61,30 @@ export class CategoryPreviewComponent extends AbstractComponent implements OnIni
         this.lang = this.translateService.currentLang;
         this.availableCategories = this.gamesCatalogService.getAvailableCategories();
 
-        for (const category of this.availableCategories) {
-
-            if (this.categories.length >= this.$params.categoriesCount) {
-                break;
+        _each(this.$params.categories, (item: string): boolean => {
+            if (this.categories.length === this.$params.categoriesCount) {
+                return false;
             }
 
-            if (_includes(this.$params.categories, category.data.Slug)) {
-                const gameNumber = GlobalHelper.randomNumber(0, category.games.length - 1);
+            const searchCategory = this.gamesCatalogService.getCategoryBySlug(item);
+
+            if (searchCategory) {
+                const gameNumber = GlobalHelper.randomNumber(0, searchCategory.games.length - 1);
 
                 this.categories.push({
-                    name: category.data.Name,
-                    game: category.games[gameNumber],
-                    slug: category.slug,
-                    state: category.parentCategory ? 'app.catalog.child' : 'app.catalog',
-                    stateParams: category.parentCategory
+                    name: searchCategory.data.Name,
+                    game: searchCategory.games[gameNumber],
+                    slug: searchCategory.slug,
+                    state: searchCategory.parentCategory ? 'app.catalog.child' : 'app.catalog',
+                    stateParams: searchCategory.parentCategory
                         ? {
-                            category: category.parentCategory.slug,
-                            childCategory: category.slug,
+                            category: searchCategory.parentCategory.slug,
+                            childCategory: searchCategory.slug,
                         } : {
-                            category: category.slug,
+                            category: searchCategory.slug,
                         },
                 });
             }
-        }
+        });
     }
 }

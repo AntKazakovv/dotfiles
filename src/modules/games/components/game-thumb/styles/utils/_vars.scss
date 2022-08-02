@@ -160,6 +160,9 @@ $themeDefaultModCircle: map-merge((
     'btnPlayRadius': 50%,
     'btnPlayTransform': none,
 
+    'btnsAlignContentWide': center,
+    'btnsMarginWide': ef.size(6) 0 0 0,
+
     'btnPlayTextIndent': -9999px,
     'btnPlayIconLeft': calc(50% - 10px),
     'btnPlayIconWidth': 26px,

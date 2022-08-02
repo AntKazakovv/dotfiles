@@ -1,13 +1,18 @@
 @use 'engine-scss/mixins/base.mixins' as bm;
 @use 'engine-scss/mixins/text' as text;
+@use 'engine-scss/mixins/mediaqueries' as mq;
 @use 'engine-scss/functions' as ef;
 @use 'engine-scss/engine.variables' as ev;
+@use 'sass:list';
 
+@import './utils/mixins';
 @import './utils/vars';
 @import './utils/vars-swiper';
+@import './utils/vars-preview';
 
 @import './themes/default';
 @import './themes/swiper';
+@import './themes/preview';
 
 .wlc-games-grid:host {
 

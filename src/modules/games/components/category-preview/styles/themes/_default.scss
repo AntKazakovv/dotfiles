@@ -7,39 +7,103 @@
         grid-template-columns: ef.get-value($themeDefault, 'wraperGridColumns');
     }
 
-    .wlc-category-preview-item__category {
-        @include bm.get-mq-map('margin-bottom', $themeDefault, 'gap');
-        position: relative;
-        height: 0;
-        padding-top: 75%;
-        border-radius: ef.get-value($themeDefault, 'categoryBorderRadius');
+    .wlc-category-preview-item {
 
-        .wrapper {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+        &:nth-child(1) {
+
+            .category-card {
+                background: ef.get-value($themeDefault, 'categoryBgCountOne');
+                background-repeat: no-repeat;
+            }
+        }
+
+        &:nth-child(2) {
+
+            .category-card {
+                background: ef.get-value($themeDefault, 'categoryBgCountTwo');
+                background-repeat: no-repeat;
+            }
+        }
+
+        &:nth-child(3) {
+
+            .category-card {
+                background: ef.get-value($themeDefault, 'categoryBgCountThree');
+                background-repeat: no-repeat;
+            }
+        }
+
+        &__category {
+            @include bm.get-mq-map('margin-bottom', $themeDefault, 'gap');
+            position: relative;
+            border-radius: ef.get-value($themeDefault, 'categoryBorderRadius');
+
+            @supports (aspect-ratio: 1/1) {
+                aspect-ratio: #{ef.get-value($themeDefault, 'categoryAspectRatio')};
+            }
+
+            @supports not (aspect-ratio: 1/1) {
+                @include bm.aspect-ratio-padding(ef.get-value($themeDefault, 'thumbAspectRatio'));
+                height: 0;
+            }
+
+            .wrapper {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+            }
+        }
+
+        .category-card {
+
+            &.category-card--popular {
+                background: ef.get-value($themeDefault, 'categoryBgPopularGames');
+            }
+
+            &.category-card--blackjacks {
+                background: ef.get-value($themeDefault, 'categoryBgBlackjacksGames');
+            }
+
+            &.category-card--livecasino {
+                background: ef.get-value($themeDefault, 'categoryBgLivecasino');
+            }
+
+            &.category-card--slots {
+                background: ef.get-value($themeDefault, 'categoryBgSlots');
+            }
+
+            .wrapper {
+
+                @include bm.get-mq-map('padding', $themeDefault, 'categoryPadding');
+                display: flex;
+                flex-direction: ef.get-value($themeDefault, 'categoryFlexDirection');
+                justify-content: ef.get-value($themeDefault, 'categoryJustifyContent');
+                text-decoration: none;
+
+                @include bm.hover {
+                    text-decoration: none;
+
+                    .category-card__link {
+
+                        ::ng-deep {
+
+                            .wlc-icon {
+
+                                svg {
+                                    transform: rotate(270deg);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 
     .category-card {
         position: relative;
-
-        &--popular {
-            background: ef.get-value($themeDefault, 'categoryBgPopularGames');
-            background-repeat: no-repeat;
-        }
-
-        &--blackjacks {
-            background: ef.get-value($themeDefault, 'categoryBgBlackjacksGames');
-            background-repeat: no-repeat;
-        }
-
-        &--livecasino {
-            background: ef.get-value($themeDefault, 'categoryBgLivecasino');
-            background-repeat: no-repeat;
-        }
 
         .wrapper {
 

@@ -1,5 +1,19 @@
 .wlc-sections__categories--theme-2 {
 
+    &[class] {
+
+        @if (ef.get('baseVariables', 'useWide') == true) {
+            @include bm.get-mq-map('padding', $withIcons, 'sectionWidePadding');
+        }
+    }
+
+    > .container {
+
+        @if (ef.get('baseVariables', 'useWide') == true) {
+            max-width: ef.get-value($withIcons, 'sectionWideMaxWidth');
+        }
+    }
+
     .games-categories {
         @include bm.get-mq-map('grid-template-columns', $withIcons, 'gridColumns');
         @include bm.get-mq-map('grid-template-rows', $withIcons, 'gridRows');

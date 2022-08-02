@@ -1,0 +1,26 @@
+@mixin list() {
+    @include bm.get-mq-map('grid-gap', $themeDefault, 'gridGap');
+
+    @if (ef.get('baseVariables', 'useWide') == true) {
+        @include bm.get-mq-map('grid-template-columns', $themeDefault, 'gridColumnsWide');
+    } @else {
+        @include bm.get-mq-map('grid-template-columns', $themeDefault, 'gridColumns');
+    }
+    display: grid;
+    flex-grow: 1;
+    grid-auto-rows: 1fr;
+}
+
+@mixin item() {
+    perspective: 1000px;
+    perspective-origin: 50% 50%;
+
+    &--load-more {
+        display: flex;
+        flex-direction: ef.get-value($themeDefault, 'loadMoreDirecrion');
+        align-items: ef.get-value($themeDefault, 'loadMoreAlign');
+        justify-content: ef.get-value($themeDefault, 'loadMoreJustify');
+        border-radius: ef.get-value($themeDefault, 'loadMoreBorderRadius');
+        background: ef.get-value($themeDefault, 'loadMoreBG');
+    }
+}

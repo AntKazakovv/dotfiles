@@ -2,12 +2,20 @@
 
     &[class] {
         @include bm.get-mq-map('margin', $gamesCategoriesDefault, 'sectionMargin');
+
+        @if (ef.get('baseVariables', 'useWide') == true) {
+            @include bm.get-mq-map('padding', $gamesCategoriesDefault, 'sectionWidePadding');
+        }
     }
 
     > .container {
         @include bm.get-mq-map('padding', $gamesCategoriesDefault, 'sectionPadding');
         @include bm.get-mq-map('border-radius', $gamesCategoriesDefault, 'sectionRadius');
         @include bm.get-mq-map('background', $gamesCategoriesDefault, 'sectionBg');
+
+        @if (ef.get('baseVariables', 'useWide') == true) {
+            max-width: ef.get-value($gamesCategoriesDefault, 'sectionWideMaxWidth');
+        }
     }
 
     .games-categories {

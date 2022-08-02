@@ -104,6 +104,16 @@
             max-height: ef.get-value($themeDefault, 'decorMaxHeight');
         }
     }
+
+    &.wlc-wp-promo--theme-mod-banner {
+
+        .wlc-wp-promo {
+
+            &__wrapper-list {
+                margin: 0;
+            }
+        }
+    }
 }
 
 .linear-gradient {

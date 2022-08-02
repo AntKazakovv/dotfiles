@@ -305,6 +305,13 @@
                 align-items: ef.get-value($themeDefaultModCircle, 'titleAlignItems');
                 opacity: ef.get-value($themeDefaultModCircle, 'titleOpacity');
             }
+
+            &__buttons {
+                @if (ef.get('baseVariables', 'useWide') == true) {
+                    align-content: ef.get-value($themeDefaultModCircle, 'btnsAlignContentWide');
+                    margin: ef.get-value($themeDefaultModCircle, 'btnsMarginWide');
+                }
+            }
         }
 
         .wlc-btn {

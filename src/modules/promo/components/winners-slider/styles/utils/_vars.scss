@@ -50,6 +50,7 @@ $themeVertical: map-merge((
     ),
     'wrapperBackground': var(--mc-bg700),
     'wrapperMaxWidth': 520px,
+    'wrapperWideMaxWidth': 620px,
     'wrapperPaddingTopHeadless': (
         1200: 38px,
     ),

@@ -8,9 +8,10 @@ import {
 
 export type Type = 'default' | CustomType;
 export type Theme = 'default' | CustomType;
-export type ThemeMod = 'default' | CustomType;
+export type ThemeMod = 'default' | 'banner' | CustomType;
 
 export interface IWpPromoCParams extends IComponentParams<Theme, Type, ThemeMod> {
+    themeMod?: ThemeMod;
     /**
      * by this value from wp by category will come the values
      */
@@ -38,6 +39,7 @@ export interface IWpPromoCParams extends IComponentParams<Theme, Type, ThemeMod>
 }
 
 export const defaultParams: IWpPromoCParams = {
+    themeMod: 'default',
     moduleName: 'static',
     componentName: 'wlc-wp-promo',
     class: 'wlc-wp-promo',

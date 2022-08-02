@@ -1,6 +1,7 @@
 $customThemeDefault: () !default;
 $themeDefault: map-merge((
-    'categoryBgPopularGames': (
+    'categoryAspectRatio': '4/3',
+    'categoryBgCountOne': (
         radial-gradient(100% 100% at 50% 50%, lighten(ef.get('mainColors', 'main'), 5%) 50%, transparent 50%) -5px 108px/74px 74px,
 
         radial-gradient(100% 100% at 50% 50%, lighten(ef.get('mainColors', 'main'), 2%) 50%, transparent 50%) -50px 60px/170px 170px,
@@ -9,7 +10,7 @@ $themeDefault: map-merge((
 
         linear-gradient(ef.get('mainColors', 'main'), ef.get('mainColors', 'main')) 0 0/100% 100%,
     ),
-    'categoryBgBlackjacksGames': (
+    'categoryBgCountTwo': (
         radial-gradient(100% 100% at 50% 50%, lighten(ef.get('mainColors', 'secondary'), 5%) 50%, transparent 50%) 180px 108px/74px 74px,
 
         radial-gradient(100% 100% at 50% 50%, lighten(ef.get('mainColors', 'secondary'), 2%) 50%, transparent 50%) 130px 60px/170px 170px,
@@ -18,7 +19,7 @@ $themeDefault: map-merge((
 
         linear-gradient(ef.get('mainColors', 'secondary'), ef.get('mainColors', 'secondary')) 0 0/100% 100%,
     ),
-    'categoryBgLivecasino': (
+    'categoryBgCountThree': (
         radial-gradient(100% 100% at 50% 50%, lighten(ef.get('mainColors', 'warning'), 11%) 50%, transparent 50%) 180px 5px/74px 74px,
 
         radial-gradient(100% 100% at 50% 50%, lighten(ef.get('mainColors', 'warning'), 6%) 50%, transparent 50%) 130px -40px/170px 170px,
@@ -27,10 +28,15 @@ $themeDefault: map-merge((
 
         linear-gradient(ef.get('mainColors', 'warning'), ef.get('mainColors', 'warning')) 0 0/100% 100%,
     ),
+    'categoryBgPopularGames': null,
+    'categoryBgBlackjacksGames': null,
+    'categoryBgLivecasino': null,
+    'categoryBgSlots': null,
     'categoryBorderRadius': ef.size(2),
     'gap': (
         375: ef.size(2),
-        1200: ef.size(4),
+        1024: ef.size(3),
+        1630: ef.size(4),
     ),
     'categoryLinkDisplay': (
         375: none,

@@ -113,4 +113,31 @@ export namespace wlcBannersSlider {
             },
         },
     };
+
+    export const wide: ILayoutComponent = {
+        name: 'promo.wlc-banners-slider',
+        params: {
+            class: 'wlc-slider',
+            theme: 'default-banner',
+            filter: {
+                position: ['home'],
+            },
+            sliderParams: {
+                theme: 'default-banner',
+                themeMod: 'wide',
+                swiper: {
+                    slidesPerView: 1,
+                    navigation: {
+                        nextEl: '.wlc-slider--theme-default-banner .wlc-swiper-button-next',
+                        prevEl: '.wlc-slider--theme-default-banner .wlc-swiper-button-prev',
+                    },
+                    pagination: false,
+                    autoplay: {
+                        delay: 10000,
+                    },
+                    lazy: true,
+                },
+            },
+        },
+    };
 }

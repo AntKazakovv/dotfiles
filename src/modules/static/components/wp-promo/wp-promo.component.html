@@ -35,7 +35,8 @@
                         [sref]="item.buttonSref"
                         [srefParams]="item.buttonSrefParams"
                 ></button>
-                <button class="{{$class}}__button"
+                <button *ngIf="item.html"
+                        class="{{$class}}__button"
                         wlc-button
                         [inlineParams]="$params.modalButton"
                         (click)="openDescription(item)"

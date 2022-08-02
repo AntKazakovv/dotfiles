@@ -12,6 +12,15 @@ $themeDefault: map-merge((
         1024: repeat(auto-fill, minmax(200px, 1fr)),
         1630: repeat(auto-fill, minmax(220px, 1fr)),
     ),
+    'gridColumnsWide': (
+        375: repeat(2, 1fr),
+        560: repeat(3, 1fr),
+        720: repeat(4, 1fr),
+        900: repeat(3, 1fr),
+        1024: repeat(4, 1fr),
+        1200: repeat(5, 1fr),
+        1630: repeat(6, 1fr),
+    ),
     'placeholderBackground': var(--mc-bg),
     'gridGap': (
         375: ef.size(2),
@@ -86,8 +95,6 @@ $commonStyles: map-merge((
     'headerColor': var(--mc-baseMain),
     'headerFontStyle': 'QoteTextBold',
 ), $customCommonStyles);
-
-
 
 $customModHeaderInline: () !default;
 

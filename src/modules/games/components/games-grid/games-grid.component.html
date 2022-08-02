@@ -1,7 +1,73 @@
 <ng-container [ngSwitch]="$params.theme">
     <ng-container *ngSwitchCase="'swiper'" [ngTemplateOutlet]="swiper"></ng-container>
+    <ng-container *ngSwitchCase="'preview'" [ngTemplateOutlet]="preview"></ng-container>
     <ng-container *ngSwitchDefault [ngTemplateOutlet]="default"></ng-container>
 </ng-container>
+
+<ng-template #preview>
+    <div class="{{$class}}__content"
+         [@cardLoading]="isLoadingAnimation"
+         [hidden]="hideEmptyComponent">
+
+        <div *ngIf="showDefaultHeader" class="{{$class}}__header">
+            <div *ngIf="$params.urlPreviewCategoryBg"
+                 class="{{$class}}__bg"
+                 [style.background-image]="'url(' + $params.urlPreviewCategoryBg + ')'">
+            </div>
+            <div *ngIf="$params.showTitle"
+                wlc-title
+                class="{{$class}}__title"
+                [mainText]="title">
+            </div>
+
+            <ng-container *ngIf="$params.showAllLink?.use && isDesktop">
+                <ng-container [ngTemplateOutlet]="showAllBtn"></ng-container>
+                <ng-container [ngTemplateOutlet]="showAllLink"></ng-container>
+            </ng-container>
+        </div>
+
+        <ng-container *ngIf="$params.usePlaceholders || isReady; else: preloader">
+            <div *ngIf="games.length || ($params.usePlaceholders && !isReady); else: noGames"
+                 #gameList
+                 class="{{$class}}__list"
+                 (resized)="onResize($event)">
+
+                <ng-container *ngIf="games.length && isReady; else: placeholders">
+                    <div *ngFor="let game of games | slice: 0:gamesCount; trackBy: trackGames"
+                         #gameItem
+                         class="{{$class}}__item">
+                        <div wlc-game-thumb
+                             [@appearance]="$params.usePlaceholders ? '' : 'useAnim'"
+                             [game]="game"
+                             [inlineParams]="$params.thumbParams">
+                        </div>
+                    </div>
+
+                    <div *ngIf="moreBtnCardView && gamesCount < games?.length"
+                         class="{{$class}}__item {{$class}}__item--load-more">
+                        <div wlc-progress-bar
+                             class="{{$class}}__card-progressbar"
+                             [inlineParams]="$params.progressBar"
+                             [maxValue]="games?.length"
+                             [currentValue]="gamesCount">
+                        </div>
+                        <div class="{{$class}}__card-more">
+                            <button *ngIf="loadMoreDisplayCondition"
+                                    wlc-button
+                                    [inlineParams]="$params.btnLoadMore"
+                                    (click)="loadMore()">
+                            </button>
+                            <ng-container *ngIf="$params.showAllLink?.use && isDesktop; then showAllBtn"></ng-container>
+                        </div>
+                    </div>
+                </ng-container>
+            </div>
+
+            <ng-container *ngIf="$params.moreBtn.lazy && lazyLoading" [ngTemplateOutlet]="preloader"></ng-container>
+            <ng-container *ngIf="moreBlockDisplayCondition" [ngTemplateOutlet]="more"></ng-container>
+        </ng-container>
+    </div>
+</ng-template>
 
 <ng-template #default>
     <div class="{{$class}}__content"
@@ -17,9 +83,9 @@
                   [fallback]="$params.titleIcon.fallback">
             </span>
             <div *ngIf="$params.showTitle"
-                wlc-title
-                class="{{$class}}__title"
-                [mainText]="title">
+                 wlc-title
+                 class="{{$class}}__title"
+                 [mainText]="title">
             </div>
 
             <ng-container *ngIf="$params.showAllLink?.use && isDesktop; then showAllLink"></ng-container>

@@ -207,8 +207,6 @@ $themeDefault3Banner: map-merge((
     ),
 ), $customThemeDefault3Banner);
 
-
-
 $customThemeDefault4Banner: () !default;
 $themeDefault4Banner: map-merge((
     'bgShadowDisplay': none,
@@ -298,3 +296,11 @@ $themeDefault4Banner: map-merge((
         375: 33%,
     ),
 ), $customThemeDefault4Banner);
+
+$customModWide: () !default;
+$modWide: map-merge((
+    'height': (
+        375: 350px,
+        1630: 500px,
+    ),
+), $customModWide);

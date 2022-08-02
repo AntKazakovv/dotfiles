@@ -1,36 +1,32 @@
 // stylelint-disable order/order
-
 .container,
 .container-fluid {
     width: 100%;
     margin-right: auto;
     margin-left: auto;
-    padding-right: $container-padding-x;
-    padding-left: $container-padding-x;
+
+    @if (ef.get('baseVariables', 'useWide') == true) {
+        @include bm.get-mq-map('padding', $containerPadding, 'paddingWide');
+    } @else {
+        @include bm.get-mq-map('padding', $containerPadding, 'paddingDef');
+    }
+}
+
+@if (ef.get('baseVariables', 'useWide') == true) {
+    $container-max-widths: $container-max-widths-wide;
 }
 
 @each $breakpoint, $container-max-width in $container-max-widths {
-
-    .container-#{$breakpoint} {
-        @extend .container-fluid;
-    }
 
     @include media-breakpoint-up($breakpoint, $grid-breakpoints) {
         %responsive-container-#{$breakpoint} {
             max-width: $container-max-width;
         }
 
-        $extend-breakpoint: true;
-
         @each $name, $width in $grid-breakpoints {
-            @if ($extend-breakpoint) {
-                .container#{breakpoint-infix($name, $grid-breakpoints)} {
-                    @extend %responsive-container-#{$breakpoint};
-                }
 
-                @if ($breakpoint==$name) {
-                    $extend-breakpoint: false;
-                }
+            .container {
+                @extend %responsive-container-#{$breakpoint};
             }
         }
     }

@@ -4,19 +4,11 @@
 
         .wlc-bonuses-list__list {
             @include bm.get-mq-map('grid-gap', $themePromo, 'gridGap');
+            @include bm.get-mq-map('grid-template-columns', $themePromo, 'listColumns');
 
             display: grid;
             grid-template-columns: 1fr;
             justify-items: center;
-
-
-            @include mq.min(1200) {
-                grid-template-columns: repeat(auto-fill, minmax(ef.get-value($themePromo, 'minItemWidth1200'), 1fr));
-            }
-
-            @include mq.min(1630) {
-                grid-template-columns: repeat(auto-fill, minmax(ef.get-value($themePromo, 'minItemWidthDesktop'), 1fr));
-            }
         }
 
         .wlc-bonuses-list__nocontent {

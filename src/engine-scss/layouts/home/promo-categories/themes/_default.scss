@@ -36,22 +36,27 @@
     }
 
     .wlc-category-preview[class] {
+        @include bm.get-mq-map('grid-column', $themePromoCategories, 'categoryGridColumn');
 
         .wlc-category-preview-item[class] {
 
-            @include mq.max(1630) {
-
-                &:nth-child(n+3) {
-                    display: none;
-                }
+            &:nth-child(2) {
+                @include bm.get-mq-map('display', $themePromoCategories, 'categoryItem2Display');
             }
 
-            @include mq.max(1200) {
-
-                &:nth-child(n+2) {
-                    display: none;
-                }
+            &:nth-child(3) {
+                @include bm.get-mq-map('display', $themePromoCategories, 'categoryItem3Display');
             }
         }
+    }
+}
+
+.wlc-sections__promo-categories-games[class] {
+
+    .container {
+        @include bm.get-mq-map('grid-template-columns', $themePromoCategoriesGames, 'sectionGridColumns');
+        @include bm.get-mq-map('gap', $themePromoCategoriesGames, 'sectionGap');
+
+        display: grid;
     }
 }

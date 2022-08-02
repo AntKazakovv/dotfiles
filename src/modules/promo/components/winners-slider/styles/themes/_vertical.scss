@@ -14,6 +14,12 @@
             background: ef.get-value($themeVertical, 'wrapperBackground');
             border-radius: ef.get-value($themeVertical, 'wrapperBorderRadius');
             overflow: hidden;
+
+            @if (ef.get('baseVariables', 'useWide') == true) {
+                max-width: ef.get-value($themeVertical, 'wrapperWideMaxWidth');
+            } @else {
+                max-width: ef.get-value($themeVertical, 'wrapperMaxWidth');
+            }
         }
 
         &__container {

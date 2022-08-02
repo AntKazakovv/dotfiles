@@ -5,9 +5,17 @@ export namespace totalJackpotSection {
     export const home: ILayoutSectionConfig = {
         container: true,
         components: [
-            componentLib.wlcTitle.totalJackpot,
-            componentLib.wlcTotalJackpot.home,
-            componentLib.wlcButton.totalJackpot,
+            {
+                name: 'core.wlc-wrapper',
+                params: {
+                    class: 'jackpot-container',
+                    components: [
+                        componentLib.wlcTitle.totalJackpot,
+                        componentLib.wlcTotalJackpot.home,
+                        componentLib.wlcButton.totalJackpot,
+                    ],
+                },
+            },
         ],
     };
 

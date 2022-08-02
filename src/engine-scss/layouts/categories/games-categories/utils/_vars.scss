@@ -15,6 +15,13 @@ $gamesCategoriesDefault: map-merge((
         768: 0 ef.size(2),
         1630: 0 ef.size(3),
     ),
+    'sectionWidePadding': (
+        375: 0 ef.size(2),
+        560: 0 ef.size(3),
+        768: 0 ef.size(5),
+    ),
+
+    'sectionWideMaxWidth': 1870px,
     'gamesTemplateColumns': (
         375: minmax(0, 1fr),
         768: minmax(0, 1fr) auto,
@@ -80,6 +87,12 @@ $withIcons: map-merge((
     'merchButtonIconFill': var(--mc-main),
     'sectionGap': (
         768: ef.size(4),
+    ),
+    'sectionWideMaxWidth': 1870px,
+    'sectionWidePadding': (
+        375: 0 ef.size(2),
+        560: 0 ef.size(3),
+        768: 0 ef.size(5),
     ),
     'buttonHeight': 40px,
     'buttonPadding': (
