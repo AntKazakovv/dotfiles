@@ -171,7 +171,7 @@ export class MenuHelper {
                 icon: categoryIcon,
                 sort: category.sort || null,
                 class: category.slug,
-                wlcElement: (`${params.wlcElementPrefix}-` || 'link_game-categories-') + category.slug,
+                wlcElement: (params.wlcElementPrefix || 'link_game-categories-') + category.slug,
                 params: itemParams,
             };
         });
