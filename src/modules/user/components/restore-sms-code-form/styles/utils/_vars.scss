@@ -1,0 +1,51 @@
+$customThemeDefault: () !default;
+$themeDefault: map-merge((
+    // common
+    'commonMaxWidth': 290px,
+    'commonWidth': 100%,
+    'commonMargin': 0 auto,
+
+    // title
+    'titleTextStyle': 'PrimaryText',
+    'titleColor': var(--mc-baseMain),
+    'titleAlignment': center,
+    'titleMargin': 0 0 ef.size(4),
+    'titlePhoneStyle': 'PrimaryTextBold',
+    'titlePhoneColor': var(--mc-baseMain),
+
+    //form
+    'formDisplay': grid,
+    'formGap': ef.size(4),
+    'formAlignContent': center,
+
+    //resend
+    'resendDisplay': grid,
+    'resendGap': ef.size(4),
+    'resendAlignContent': center,
+    'resendMargin': ef.size(8) 0,
+
+    //resend text
+    'resendTextAlignment': center,
+    'resendTextStyle': 'PrimaryText',
+    'resendTextColor': var(--mc-baseMain),
+
+    //timer text
+    'timerTextAlignment': center,
+    'timerTextStyle': 'SignText',
+    'timerTextColor': var(--mc-baseOpacity),
+    'timerMargin': 0 0 ef.size(1),
+
+    //timer
+    'timerDisplay': flex,
+    'timerJustify': center,
+
+    //btn
+    'btnDisabledCursor': not-allowed,
+    'btnDisabledOpacity': 0.5,
+
+    'btnJustifySelf': center,
+), $customThemeDefault);
+
+$customThemeButton: () !default;
+$themeButton: map-merge(map-merge(ev.$buttonSettings, (
+)), $customThemeButton);

@@ -1,0 +1,40 @@
+<div *ngIf="$params.phone" class="{{$class}}__title">
+    <span class="{{$class}}__title-text">{{'We sent a message to' | translate}}</span>
+    {{' '}}
+    <span class="{{$class}}__title-phone">{{$params.phone}}</span>
+</div>
+
+<div wlc-form-wrapper
+    class="{{$class}}__form"
+    [config]="formConfig"
+    [ngSubmit]="sendCode.bind(this)">
+</div>
+
+<div class="{{$class}}__resend" *ngIf="$params.phone" >
+    <div class="{{$class}}__resend-text">{{'Didn\'t receive a code?' | translate}}</div>
+    <button
+        wlc-button
+        class="{{$class}}__btn"
+        [text]="$params.resendButton?.text"
+        typeAttr="button"
+        [disabled]="lockResend"
+        (click)="resendCode()"
+        [wlcElement]="'buttom_resend-sms'"
+    ></button>
+
+    <div class="{{$class}}__timer">
+        <div class="{{$class}}__timer-text">{{'Will be available in' | translate}}</div>
+        <div wlc-timer
+            [value]="timeValue"
+            [noDays]="true"
+            [noHours]="true"
+            [themeMod]="'light'"
+            (timerEnds)="timerCompletedHandler()">
+        </div>
+    </div>
+</div>
+
+<div wlc-link-block
+    class="{{$class}}__footer"
+    [inlineParams]="$params.linkBlockParams"
+></div>

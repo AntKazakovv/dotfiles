@@ -2,8 +2,9 @@ import {
     FormControl,
     ValidationErrors,
 } from '@angular/forms';
+
 // eslint-disable-next-line max-len
-const mailReg: RegExp = /^[\w!#$%&\'*+/=?\\^`{|}~-]+(?:\.[\w!#$%&\'*+/=?\\^`{|}~-]+)*@(?:[\dA-Za-z](?:[\dA-Za-z-]*[\dA-Za-z])?\.)+[\dA-Za-z](?:[\dA-Za-z-]*[\dA-Za-z])?$/;
+export const emailRegex: RegExp = /^[\w!#$%&\'*+/=?\\^`{|}~-]+(?:\.[\w!#$%&\'*+/=?\\^`{|}~-]+)*@(?:[\dA-Za-z](?:[\dA-Za-z-]*[\dA-Za-z])?\.)+[\dA-Za-z](?:[\dA-Za-z-]*[\dA-Za-z])?$/;
 
 /**
  * Checks that form control value is email
@@ -12,7 +13,7 @@ const mailReg: RegExp = /^[\w!#$%&\'*+/=?\\^`{|}~-]+(?:\.[\w!#$%&\'*+/=?\\^`{|}~
  * @returns {ValidationErrors | null} True if form control value contains valid email
  */
 export function emailValidator(control: FormControl): ValidationErrors | null {
-    return !control.value || mailReg.test(control.value) ? null : {
+    return !control.value || emailRegex.test(control.value) ? null : {
         'email': true,
     };
 }

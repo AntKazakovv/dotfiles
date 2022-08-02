@@ -14,3 +14,4 @@ gettext('validator-promocode');
 gettext('validator-login');
 gettext('validator-passwordMaxlength');
 gettext('validator-configPassword');
+gettext('validator-emailOrPhone');
