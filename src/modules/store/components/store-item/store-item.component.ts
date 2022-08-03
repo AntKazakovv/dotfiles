@@ -10,6 +10,7 @@ import {
 } from '@angular/core';
 
 import _union from 'lodash-es/union';
+import _isArray from 'lodash-es/isArray';
 import {
     AbstractComponent,
     IMixedParams,
@@ -98,6 +99,10 @@ export class StoreItemComponent extends AbstractComponent implements OnInit, OnD
         return `${this.$params.common?.bonusIconsPath}`
             + `${this.storeItem.bonus.viewTarget}`
             + `.${this.$params.common?.iconFormat}`;
+    }
+
+    public get valueStore(): number {
+        return _isArray(this.storeItem.bonus.value) ? 0 : this.storeItem.bonus.value;
     }
 
     protected prepareModifiers(): void {
