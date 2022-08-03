@@ -17,6 +17,7 @@ before_script:
     - chmod 700 ~/.ssh
     - ssh-keyscan -t rsa wlcgitlab.egamings.com >> ~/.ssh/known_hosts
     - git submodule update --init
+    - git fetch
     - PACKAGE_HASH=($(md5sum package-lock.json))
     - DEPS_CACHE=/builds/deps_${PACKAGE_HASH}.tgz
     - if [ -f ${DEPS_CACHE} ]; then tar -xf ${DEPS_CACHE}; else npm ci; tar -czf ${DEPS_CACHE} ./node_modules; fi
