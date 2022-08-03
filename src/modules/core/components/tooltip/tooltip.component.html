@@ -9,7 +9,7 @@
 <ng-template #tooltip>
     <div wlc-icon
          class="{{$class}}__icon"
-         [containerClass]="containerClass"
+         containerClass="{{$class}}__bs-tooltip {{containerClassMod}}"
          placement="bottom"
          container="body"
          [iconPath]="iconPath"

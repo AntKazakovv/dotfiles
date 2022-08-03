@@ -27,8 +27,13 @@
             <div class="{{$class}}__check-wrp">
                 <span wlc-icon class="{{$class}}-docs-list__icon" [iconPath]="doc.iconName"></span>
                 <span *ngIf="doc.statusDescription"
-                      wlc-tooltip
-                      [inlineParams]="{inlineText: doc.statusDescription}"
+                      wlc-icon
+                      class="{{$class}}-docs-list__info info-icon"
+                      containerClass="{{$class}}__tooltip"
+                      placement="bottom"
+                      iconPath="/wlc/icons/info.svg"
+                      container="body"
+                      [tooltip]="doc.statusDescription"
                 ></span>
             </div>
         </li>

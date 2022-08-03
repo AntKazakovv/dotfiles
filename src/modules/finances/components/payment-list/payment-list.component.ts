@@ -176,6 +176,7 @@ export class PaymentListComponent extends IconListAbstract<Params.IPaymentListCP
         return {
             inlineText: this.systems[systemIndex].disabledReason,
             themeMod: 'error',
+            bsTooltipMod: 'error',
             iconName: 'blocked',
         };
     }

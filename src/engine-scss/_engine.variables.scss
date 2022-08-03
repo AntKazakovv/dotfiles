@@ -978,6 +978,18 @@ $table-cell-vertical-align: top !default;
 $table-th-font-weight: null !default;
 $table-caption-color: var(--mc-elementsColor) !default;
 
+$tooltip-font-size: $font-size-base * 0.875 !default;
+$tooltip-opacity: 1 !default;
+$tooltip-padding-y: 10px !default;
+$tooltip-padding-x: 10px !default;
+$tooltip-arrow-width: 0.8rem !default;
+$tooltip-arrow-height: 0.8rem !default;
+$tooltip-arrow-color: var(--mc-bg100) !default;
+$tooltip-max-width: 200px !default;
+$tooltip-bg: var(--mc-bg100) !default;
+$tooltip-color: var(--mc-baseMain) !default;
+$tooltip-border-radius: map-get($radius, 'biger') !default;
+
 
 /// Globar settings scrollbar
 /// @name scrollbarConfig
