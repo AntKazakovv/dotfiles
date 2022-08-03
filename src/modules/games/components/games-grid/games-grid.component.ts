@@ -47,6 +47,7 @@ import _isInteger from 'lodash-es/isInteger';
 import _ceil from 'lodash-es/ceil';
 import _random from 'lodash-es/random';
 import _set from 'lodash-es/set';
+import _differenceBy from 'lodash/differenceBy';
 import {SwiperOptions} from 'swiper';
 
 import {
@@ -633,13 +634,18 @@ export class GamesGridComponent extends AbstractComponent implements OnInit, OnD
     protected async onFilterChanged(filter: IGamesFilterData): Promise<void> {
         this.isReady = false;
         this.cdr.markForCheck();
-
+        const oldGames = this.games;
         await this.preloadSpecialGames(filter);
         this.games = this.gamesCatalogService.getGameList(filter);
-        this.filterChangedCounter++;
+
+        if (oldGames.length !== this.games.length || _differenceBy(oldGames, this.games, 'ID').length) {
+            this.filterChangedCounter++;
+        }
+
         if (this.paginate) {
             this.gamesCount = this.paginate;
         }
+
         this.moreButtonChangeState();
 
         this.isReady = true;
