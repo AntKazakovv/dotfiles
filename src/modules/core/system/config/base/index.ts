@@ -46,4 +46,9 @@ export const $base: IBaseConfig = {
         'LT1': 'LTC',
         'LT2': 'LTC',
     },
+    rememberSignUpData: {
+        use: false,
+        useIndexedDB: false,
+        saveTime: 1000 * 60 * 60 * 24 * 7,
+    },
 };

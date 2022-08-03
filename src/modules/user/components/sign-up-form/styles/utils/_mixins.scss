@@ -1,6 +1,7 @@
 @mixin hostStyles($map) {
     display: flex;
     flex-direction: ef.get-value($map, 'formFlexDirection');
+    width: ef.get-value($map, 'formWidth');
     max-width: ef.get-value($map, 'formMaxWidth');
     height: ef.get-value($map, 'formHeight');
     margin: ef.get-value($map, 'formMargin');
