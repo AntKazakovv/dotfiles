@@ -1,8 +1,9 @@
 .wlc-counter--theme-circle:host {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     width: ef.get-value($themeCircle, 'size');
     height: ef.get-value($themeCircle, 'size');
-    text-align: center;
-    vertical-align: middle;
     border-radius: ef.get-value($themeCircle, 'borderRadius');
     pointer-events: none;
 

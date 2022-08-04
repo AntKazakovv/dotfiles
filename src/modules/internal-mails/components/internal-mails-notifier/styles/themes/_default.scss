@@ -6,6 +6,7 @@
 
         &__counter {
             position: absolute;
+            top: ef.get-value($themeDefault, 'counterTop');
             right: ef.get-value($themeDefault, 'counterRight');
         }
     }

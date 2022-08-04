@@ -1,6 +1,7 @@
 $customThemeDefault: () !default;
 $themeDefault: map-merge((
     'counterRight': ef.size(-1),
+    'counterTop': 0,
     'iconFill': var(--mc-baseOpacity),
     'iconFillHover': var(--mc-baseMain),
     'iconFillHasUnread': var(--mc-baseMain),
