@@ -7,12 +7,22 @@ import {
     ChangeDetectionStrategy,
 } from '@angular/core';
 import {DOCUMENT} from '@angular/common';
+import {HttpClient} from '@angular/common/http';
+import {
+    catchError,
+    takeUntil,
+} from 'rxjs/operators';
+import {
+    Observable,
+    of,
+} from 'rxjs';
 import {
     LogService,
     ModalService,
     EventService,
     ConfigService,
     InjectionService,
+    ColorThemeValues,
 } from 'wlc-engine/modules/core';
 import {PIQCashierService} from 'wlc-engine/modules/finances/system/services/piq-cashier/piq-cashier.service';
 import {FinancesService} from 'wlc-engine/modules/finances/system/services/finances/finances.service';
@@ -22,6 +32,7 @@ import {
 } from 'wlc-engine/modules/finances/system/classes/abstract.deposit-withdraw.component';
 import * as Params from './piq-cashier.params';
 
+type THostedStyles = 'current' | 'def' | 'alt';
 @Component({
     selector: '[wlc-piq-cashier]',
     templateUrl: './piq-cashier.component.html',
@@ -35,6 +46,13 @@ export class PIQCashierComponent
     public ready = false;
     public $params: Params.IPIQCashierCParams;
 
+    private piqFieldsStyles: Record<THostedStyles, string> = {
+        current: '/static/css/piq.cashier.css',
+        def: '/static/css/piq.cashier.css',
+        alt: null,
+    };
+    private cssVariables: string;
+
     constructor(
         @Inject(DOCUMENT) protected document: Document,
         @Inject('injectParams') protected injectParams: Params.IPIQCashierCParams,
@@ -46,6 +64,7 @@ export class PIQCashierComponent
         protected logService: LogService,
         protected modalService: ModalService,
         protected injectionService: InjectionService,
+        protected httpClient: HttpClient,
     ) {
         super({injectParams, defaultParams: Params.defaultParams},
             logService, modalService, configService, injectionService);
@@ -68,6 +87,7 @@ export class PIQCashierComponent
             );
             return;
         }
+        this.loadPiqFields();
 
         await this.onPaymentSystemChange();
         this.setHandlers();
@@ -105,13 +125,46 @@ export class PIQCashierComponent
 
         this.checkUserProfileForPayment();
         if (!this.requiredFieldsKeys.length) {
-            await this.piqCashierService.loadPIQCashier(this.currentSystem, null, this.$params.mode);
+            await this.piqCashierService.loadPIQCashier(this.currentSystem, null, this.cssVariables, this.$params.mode);
         } else {
             this.ready = true;
         }
 
         this.cdr.markForCheck();
     }
+
+    protected requestStyles(filePath: string, errorCallback: () => Observable<string>) {
+        return this.httpClient.get(filePath, {responseType: 'text'})
+            .pipe(
+                catchError((error: string): Observable<string> => {
+                    this.logService.sendLog({code: '1.4.35', data: error});
+                    return errorCallback();
+                }),
+                takeUntil(this.$destroy),
+            );
+    }
+
+    protected loadPiqFields(): void {
+        const altPiqCashierStyles = this.configService.get<string>('$base.colorThemeSwitching.altPiqCashierStyles');
+        if (altPiqCashierStyles) {
+            this.piqFieldsStyles.alt = '/static/css/' + altPiqCashierStyles;
+        }
+
+
+        if (!!this.configService.get<string>(ColorThemeValues.configName) && altPiqCashierStyles) {
+            this.piqFieldsStyles.current = this.piqFieldsStyles.alt;
+        }
+
+        this.requestStyles(
+            this.piqFieldsStyles.current,
+            () => this.piqFieldsStyles.current === this.piqFieldsStyles.alt
+                ? this.requestStyles(this.piqFieldsStyles.def, () => of(''))
+                : of(''),
+        ).subscribe((styles: string): void  => {
+            this.cssVariables = styles;
+        });
+    }
+
 
     protected setHandlers(): void {
         this.eventService.subscribe(
