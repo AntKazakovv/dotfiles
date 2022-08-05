@@ -141,7 +141,6 @@
     &__description {
         @include text.get-text-style(ef.get-value($themeDefault, 'descriptionFont'), ef.get-value($themeDefault, 'descriptionColor'));
         @include bm.get-mq-map('max-width', $themeDefault, 'descriptionWidth');
-        @include bm.get-mq-map('margin', $themeDefault, 'descriptionMargin');
         @include bm.lineClamp(3);
     }
 
@@ -241,4 +240,3 @@
         transform: rotate(360deg);
     }
 }
-
