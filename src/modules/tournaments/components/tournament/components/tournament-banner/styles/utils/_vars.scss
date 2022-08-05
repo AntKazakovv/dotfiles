@@ -61,10 +61,6 @@ $themeDefault: map-merge((
     'timerBlockMargin': 0 0 ef.size(3),
     'descriptionFont': 'PrimaryText',
     'descriptionColor': var(--mc-baseMain),
-    'descriptionMargin': (
-        320: 0 0 ef.size(4) 0,
-        768: 0 0 ef.size(10) 0,
-    ),
     'descriptionWidth': (
         375: 100%,
         768: 50%,
@@ -139,4 +135,3 @@ $themeDefault: map-merge((
     'statusTagActiveBackground': ef.get('tagConfig', 'bgActive'),
     'statusTagColor': ef.get('mainColors', 'baseMain'),
 ), $customThemeDefault);
-
