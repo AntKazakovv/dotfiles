@@ -258,64 +258,66 @@ export class ActionService {
         }
         await bonusesService.checkPromoBonus();
 
-        if (bonusesService.promoBonus) {
-            if (this.configService.get<boolean>('$user.isAuthenticated')) {
-                const bonus: Bonus = await bonusesService.subscribeBonus(bonusesService.promoBonus, false);
-                if (bonus) {
+        if (await this.cachingService.get(promocodeCacheKey)) {
+            if (bonusesService.promoBonus) {
+                if (this.configService.get<boolean>('$user.isAuthenticated')) {
+                    const bonus: Bonus = await bonusesService.subscribeBonus(bonusesService.promoBonus, false);
+                    if (bonus) {
 
-                    switch (bonus.event) {
-                        case 'sign up':
-                        case 'registration':
-                        case 'verification':
-                            this.modalService.showModal('promoSuccess', {
-                                common: {
-                                    title: gettext('Bonus success'),
-                                    text: this.translateService.instant(
-                                        gettext('Congratulations! You activated bonus'))
-                                            + ` ${bonus.name}! `
-                                            + this.translateService.instant(
-                                                gettext('Bonus successfully added to the Bonuses page.')),
-                                    redirectPath: '',
-                                },
-                            });
-                            break;
-                        default:
-                            this.modalService.showModal('promoSuccess', {
-                                common: {
-                                    title: gettext('Bonus success'),
-                                    text: this.translateService.instant(
-                                        gettext('Congratulations! You have got bonus'))
-                                            + ` ${bonus.name}! `
-                                            + this.translateService.instant(
-                                                gettext('Bonus successfully added to the Bonuses page.')),
-                                    redirectPath: '',
-                                },
-                            });
-                            break;
+                        switch (bonus.event) {
+                            case 'sign up':
+                            case 'registration':
+                            case 'verification':
+                                this.modalService.showModal('promoSuccess', {
+                                    common: {
+                                        title: gettext('Bonus success'),
+                                        text: this.translateService.instant(
+                                            gettext('Congratulations! You activated bonus'))
+                                                + ` ${bonus.name}! `
+                                                + this.translateService.instant(
+                                                    gettext('Bonus successfully added to the Bonuses page.')),
+                                        redirectPath: '',
+                                    },
+                                });
+                                break;
+                            default:
+                                this.modalService.showModal('promoSuccess', {
+                                    common: {
+                                        title: gettext('Bonus success'),
+                                        text: this.translateService.instant(
+                                            gettext('Congratulations! You have got bonus'))
+                                                + ` ${bonus.name}! `
+                                                + this.translateService.instant(
+                                                    gettext('Bonus successfully added to the Bonuses page.')),
+                                        redirectPath: '',
+                                    },
+                                });
+                                break;
+                        }
+                        this.cachingService.clear(promocodeCacheKey);
                     }
-                    this.cachingService.clear(promocodeCacheKey);
+                } else {
+                    const subscription: Subscription = this.eventService.subscribe([
+                        {name: 'LOGIN'},
+                    ], (): void => {
+                        this.processPromocode(initialPath).then((): void => {
+                            subscription.unsubscribe();
+                        });
+                    });
+                    this.modalService.showModal('login');
                 }
             } else {
-                const subscription: Subscription = this.eventService.subscribe([
-                    {name: 'LOGIN'},
-                ], (): void => {
-                    this.processPromocode(initialPath).then((): void => {
-                        subscription.unsubscribe();
-                    });
+                this.eventService.emit({
+                    name: NotificationEvents.PushMessage,
+                    data: <IPushMessageParams>{
+                        type: 'error',
+                        title: gettext('Promocode error'),
+                        message: gettext('No voucher found'),
+                        wlcElement: 'notification_promocode-error',
+                    },
                 });
-                this.modalService.showModal('login');
+                this.cachingService.clear(promocodeCacheKey);
             }
-        } else {
-            this.eventService.emit({
-                name: NotificationEvents.PushMessage,
-                data: <IPushMessageParams>{
-                    type: 'error',
-                    title: gettext('Promocode error'),
-                    message: gettext('No voucher found'),
-                    wlcElement: 'notification_promocode-error',
-                },
-            });
-            this.cachingService.clear(promocodeCacheKey);
         }
     }
 
