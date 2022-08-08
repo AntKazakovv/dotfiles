@@ -52,7 +52,7 @@
 
                 &.disabled {
                     cursor: not-allowed;
-                    opacity: 0.5;
+                    opacity: ef.get-value($themeDefault, 'itemOpacityDisabled');
                     pointer-events: none;
                 }
 
@@ -252,10 +252,20 @@
 
             &__tooltip {
                 position: absolute;
-                top: 10px;
-                right: 10px;
-                bottom: auto;
-                left: auto;
+                top: ef.get-value($themeDefault, 'tooltipTop');
+                right: ef.get-value($themeDefault, 'tooltipRight');
+                bottom: ef.get-value($themeDefault, 'tooltipBottom');
+                left: ef.get-value($themeDefault, 'tooltipLeft');
+            }
+
+            &__method {
+                @include text.get-text-style(ef.get-value($themeDefault, 'methodTextStyle'), ef.get-value($themeDefault, 'methodTextColor'));
+                padding: ef.get-value($themeDefault, 'methodPadding');
+                text-align: ef.get-value($themeDefault, 'methodAlignment');
+            }
+
+            &__method-text {
+                display: inline;
             }
         }
 
@@ -272,17 +282,6 @@
 
             @include mq.min(1200) {
                 @include text.get-text-style(ef.get-value($themeDefault, 'descriptionFont', 1200), ef.get-value($themeDefault, 'descriptionColor'));
-            }
-        }
-
-        .payments-chosen-method {
-            @include text.get-text-style(ef.get-value($themeDefault, 'сhosenMethodFont'), ef.get-value($themeDefault, 'сhosenMethodColor'));
-            padding: ef.get-value($themeDefault, 'сhosenMethodPadding');
-
-            text-align: ef.get-value($themeDefault, 'сhosenMethodTextAlign');
-
-            &__name {
-                margin-left: ef.get-value($themeDefault, 'сhosenMethodNameMarginLeft');
             }
         }
     }

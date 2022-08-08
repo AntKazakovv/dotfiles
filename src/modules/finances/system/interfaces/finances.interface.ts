@@ -1,3 +1,4 @@
+import {IPaymentSystem} from 'wlc-engine/modules/finances/system/models/payment-system.model';
 import {IIndexing} from 'wlc-engine/modules/core';
 
 export interface IFinancesConfig {
@@ -10,6 +11,7 @@ export interface IFinancesConfig {
             index?: number | IAutoSelectByDevice<number>;
         };
     };
+    cryptoInvoices?: ICryptoInvoicesParams;
 }
 
 export interface IFastDeposit {
@@ -31,6 +33,14 @@ export interface IPaymentMessage {
     scripts?: string[];
     rate?: string;
     memo?: string;
+    /** Deposit amount in crypto currency (deposit via invoices) */
+    cryptoAmount?: string;
+    /** Deposit amount in user currency (deposit via invoices) */
+    userAmount?: string;
+    /** Crypto currency rate to user currency (deposit via invoices) */
+    cryptoRate?: string;
+    /** Date when invoice expires (deposit via invoices) */
+    dateEnd?: string;
 }
 
 export type TBets = IBet[];
@@ -63,3 +73,9 @@ export interface IAutoSelectByDevice<T> {
 export type TAdditionalParams = IIndexing<string | number> & {
     bonusId?: number | null;
 };
+
+export interface ICryptoInvoicesParams {
+    paySystemParams?: TPaySystemParams;
+};
+
+export type TPaySystemParams = Partial<Pick<IPaymentSystem, 'image' | 'description' | 'name'>>;

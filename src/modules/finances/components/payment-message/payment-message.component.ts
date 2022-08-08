@@ -11,8 +11,12 @@ import {
 import {FormControl} from '@angular/forms';
 import {DOCUMENT} from '@angular/common';
 
+import {TranslateService} from '@ngx-translate/core';
+import {DateTime} from 'luxon';
+import _cloneDeep from 'lodash-es/cloneDeep';
 import _some from 'lodash-es/some';
 import _map from 'lodash-es/map';
+import _merge from 'lodash-es/merge';
 
 import {
     IPaymentMessage,
@@ -20,16 +24,25 @@ import {
 import {
     PaymentSystem,
 } from 'wlc-engine/modules/finances/system/models';
-
+import {FormElements} from 'wlc-engine/modules/core/system/config/form-elements';
+import {FinancesService} from 'wlc-engine/modules/finances/system/services/finances/finances.service';
 import {
     AbstractComponent,
     ConfigService,
     IInputCParams,
     IMixedParams,
+    ITimerCParams,
     LogService,
+    ModalService,
 } from 'wlc-engine/modules/core';
 
 import * as Params from './payment-message.params';
+
+export type TMessageType = 'html'
+    | 'pay_to_bank'
+    | 'pay_to_xaddress'
+    | 'pay_to_address_with_amount'
+    | 'pay_via_invoice';
 
 @Component({
     selector: '[wlc-payment-message]',
@@ -56,6 +69,10 @@ export class PaymentMessageComponent extends AbstractComponent implements OnInit
     public parseAmount: string;
     public parseRate: string;
 
+    public timerParams: ITimerCParams;
+    public inputParamsLockedAmount: IInputCParams;
+    public inputParamsCryptoAmount: IInputCParams;
+
     constructor(
         @Inject('injectParams') protected injectParams: Params.IPaymentMessageCParams,
         @Inject(DOCUMENT) protected document: Document,
@@ -63,6 +80,9 @@ export class PaymentMessageComponent extends AbstractComponent implements OnInit
         protected configService: ConfigService,
         protected logService: LogService,
         protected cdr: ChangeDetectorRef,
+        protected translateService: TranslateService,
+        protected modalService: ModalService,
+        protected financesService: FinancesService,
     ) {
         super(
             <IMixedParams<Params.IPaymentMessageCParams>>{
@@ -83,9 +103,17 @@ export class PaymentMessageComponent extends AbstractComponent implements OnInit
         return this.message.details || '';
     }
 
+    public get invoiceRate(): string {
+        return `1 ${this.system.cryptoTicker} = ${this.message.cryptoRate} ${this.system.userCurrency}`;
+    }
+
+    public get timerValue(): DateTime {
+        return DateTime.fromISO(this.message.dateEnd);
+    }
+
     public ngOnInit(): void {
         super.ngOnInit();
-        this.system = this.$params?.system ? this.$params.system : this.system;
+        this.system = this.$params?.system || this.system;
         this.minAmount ??= this.$params?.minAmount;
         this.maxAmount ??= this.$params?.maxAmount;
         this.isError = !this.system;
@@ -108,6 +136,22 @@ export class PaymentMessageComponent extends AbstractComponent implements OnInit
                 emitViewToModelChange: true,
             });
         }
+    }
+
+    /**
+     * Close payment message nodal via button inside component
+     */
+    public closePaymentMessageModal(): void {
+        if (this.modalService.getActiveModal('payment-message')) {
+            this.modalService.hideModal('payment-message');
+        }
+    }
+
+    /**
+     * Cancel invoice
+     */
+    public cancelInvoiceHandler(): void {
+        this.financesService.cancelInvoiceHandler(this.system.id);
     }
 
     protected prepareMessage(): void {
@@ -137,6 +181,22 @@ export class PaymentMessageComponent extends AbstractComponent implements OnInit
             this.parseAmount = parsItems[0].trim();
             this.parseRate = parsItems[1].trim();
         }
+
+        if (this.message.dateEnd) {
+            this.type = 'pay_via_invoice';
+
+            const amount: IInputCParams = _merge(
+                _cloneDeep(FormElements.amount.params),
+                {
+                    control: new FormControl(this.message.userAmount),
+                    validators: null,
+                },
+            );
+            amount.control.disable();
+            this.inputParamsLockedAmount = amount;
+            this.timerParams = _cloneDeep(Params.timerParams);
+            this.inputParamsCryptoAmount = this.getInputParams('invoice');
+        }
     }
 
     protected getInputParams(type?: string): IInputCParams {
@@ -164,6 +224,12 @@ export class PaymentMessageComponent extends AbstractComponent implements OnInit
             case 'xadress':
                 inputParams.common.placeholder = gettext('X-addresses');
                 inputParams.control = new FormControl(this.message.x_address);
+                break;
+            case 'invoice':
+                inputParams.common.placeholder =
+                    this.translateService.instant(gettext('Amount in'))
+                    + ' ' + this.system.cryptoTicker;
+                inputParams.control = new FormControl(this.message.cryptoAmount);
                 break;
             default :
                 inputParams.common.placeholder = gettext('Wallet casino');

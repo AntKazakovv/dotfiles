@@ -285,6 +285,10 @@ export class DepositBonusesComponent extends AbstractComponent implements OnInit
     }
 
     protected processPaySystemChange(paySystem?: PaymentSystem): void {
+        if (paySystem?.id < 0) {
+            return;
+        }
+
         this.currentPaySystemId = paySystem?.id || 0;
         this.updateBonusesStatus();
         this.cdr.markForCheck();

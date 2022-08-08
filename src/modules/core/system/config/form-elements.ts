@@ -29,7 +29,6 @@ export namespace FormElements {
             },
             exampleValue: gettext('Enter amount'),
             theme: 'vertical',
-            locked: true,
             name: 'amount',
             showCurrency: true,
             prohibitedPattern: ProhibitedPatterns.notAmountSymbols,

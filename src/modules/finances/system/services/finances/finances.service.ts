@@ -2,17 +2,28 @@ import {
     Injectable,
     Injector,
 } from '@angular/core';
-import {TranslateService} from '@ngx-translate/core';
 
+import {TranslateService} from '@ngx-translate/core';
 import {BehaviorSubject} from 'rxjs';
+import _find from 'lodash-es/find';
+import _forEach from 'lodash-es/forEach';
+import _merge from 'lodash-es/merge';
 
 import {
+    ConfigService,
     IIndexing,
     InjectionService,
+    IData,
+    DataService,
+    EventService,
+    ModalService,
+    IPushMessageParams,
+    NotificationEvents,
 } from 'wlc-engine/modules/core';
-import {IData} from 'wlc-engine/modules/core/system/services/data/data.service';
-import {DataService} from 'wlc-engine/modules/core/system/services/data/data.service';
-import {EventService} from 'wlc-engine/modules/core/system/services/event/event.service';
+import {
+    LanguageChangeEvents,
+    UserProfile,
+} from 'wlc-engine/modules/user';
 import {
     IBet,
     TAdditionalParams,
@@ -32,14 +43,8 @@ import {
     PIQCashierResponse,
     TPaymentsMethods,
 } from 'wlc-engine/modules/finances/system/interfaces/piq-cashier.interface';
-import {
-    LanguageChangeEvents,
-    UserService,
-} from 'wlc-engine/modules/user/system/services/user/user.service';
-
-import {FinancesHelper} from '../../helpers/finances.helper';
-
-import _find from 'lodash-es/find';
+import {cryptoInvoiceSystem} from 'wlc-engine/modules/finances/system/constants/crypto-invoices.constants';
+import {FinancesHelper} from 'wlc-engine/modules/finances/system/helpers/finances.helper';
 
 interface IQueries {
     amount: number;
@@ -51,7 +56,6 @@ export class FinancesService {
 
     public paymentSystems$: BehaviorSubject<PaymentSystem[]> = new BehaviorSubject(undefined);
 
-    protected userService: UserService;
     private systems: PaymentSystem[] = [];
     private isPaymentsFetch: boolean = false;
 
@@ -61,6 +65,8 @@ export class FinancesService {
         protected injectionService: InjectionService,
         protected injector: Injector,
         protected translateService: TranslateService,
+        protected configService: ConfigService,
+        protected modalService: ModalService,
     ) {
         this.registerMethods();
 
@@ -173,9 +179,6 @@ export class FinancesService {
 
         this.isPaymentsFetch = true;
 
-        if (!this.userService) {
-            this.userService = await this.injectionService.getService<UserService>('user.user-service');
-        }
         this.systems =
             this.createPaymentSystems((await this.dataService.request<IData>('finances/paymentSystems'))
                 .data as IPaymentSystem[]);
@@ -187,6 +190,38 @@ export class FinancesService {
 
         this.paymentSystems$.next(this.paymentSystems);
         return this.paymentSystems;
+    }
+
+    /**
+     * Update payment system list for deposit via invoice.
+     * Adds virtual payment system, which collects all invoice systems
+     * @param systems payment system list to be updated
+     * @returns modified payment list
+     */
+    public updateForCryptoInvoices(systems: PaymentSystem[]): PaymentSystem[] {
+        const invoicesSystems: PaymentSystem[] = [];
+        const otherSystems: PaymentSystem[] = [];
+
+        _forEach(systems, (system: PaymentSystem): void => {
+            if (system.cryptoInvoices) {
+                invoicesSystems.push(system);
+            } else {
+                otherSystems.push(system);
+            }
+        });
+
+        const parentSystem: PaymentSystem = new PaymentSystem(
+            {helper: 'FinancesService', method: 'updateForCryptoInvoices'},
+            _merge({}, cryptoInvoiceSystem, this.configService.get('$finances.cryptoInvoices.paySystemParams')),
+            this.configService.get<BehaviorSubject<UserProfile>>({name: '$user.userProfile$'}),
+        );
+
+        parentSystem.isParent = true;
+        parentSystem.children = invoicesSystems;
+
+        otherSystems.unshift(parentSystem);
+
+        return otherSystems;
     }
 
     /* public getPaymentSystemInfo(): Promise<IPaymentSystemInfo[]> {
@@ -215,6 +250,53 @@ export class FinancesService {
 
     public filterSystemsPipe(system: PaymentSystem, filterType: FilterType = 'all'): boolean {
         return FinancesHelper.checkSystemType(system, filterType);
+    }
+
+    public cancelInvoiceHandler(systemId: number): void {
+        this.modalService.showModal({
+            id: 'cancel-invoice-confirm',
+            modalTitle: gettext('Confirmation'),
+            modalMessage: gettext('Are you sure?'),
+            modifier: 'confirmation',
+            showConfirmBtn: true,
+            closeBtnParams: {
+                themeMod: 'secondary',
+                common: {
+                    text: gettext('No'),
+                },
+            },
+            confirmBtnText: gettext('Yes'),
+            textAlign: 'center',
+            onConfirm: () => {
+                this.cancelInvoice(systemId);
+            },
+        });
+    }
+
+    private async cancelInvoice(systemId: number): Promise<void> {
+        try {
+            await this.dataService.request('finances/cancelInvoiceHandler', {systemId});
+
+            this.fetchPaymentSystems();
+
+            this.pushNotification({
+                type: 'success',
+                title: gettext('Deposit'),
+                message: gettext('Invoice has been successfully canceled.'),
+                wlcElement: 'notification_deposit-cancel-invoice-success',
+            });
+
+            if (this.modalService.getActiveModal('payment-message')) {
+                this.modalService.hideModal('payment-message');
+            }
+        } catch (error) {
+            this.pushNotification({
+                type: 'error',
+                title: gettext('Deposit'),
+                message: gettext('Invoice cancellation failed. Please, try again later or contact support.'),
+                wlcElement: 'notification_deposit-cancel-invoice-error',
+            });
+        }
     }
 
     private async balanceAction(
@@ -258,7 +340,7 @@ export class FinancesService {
                 const system: PaymentSystem = new PaymentSystem(
                     {service: 'FinancesService', method: 'createPaymentSystems'},
                     paymentData,
-                    this.userService,
+                    this.configService.get<BehaviorSubject<UserProfile>>({name: '$user.userProfile$'}),
                 );
                 paymentSystems.push(system);
             }
@@ -273,6 +355,13 @@ export class FinancesService {
             {service: 'FinancesService', method: 'createTransaction'},
             item,
         ));
+    }
+
+    private pushNotification(params: IPushMessageParams): void {
+        this.eventService.emit({
+            name: NotificationEvents.PushMessage,
+            data: params,
+        });
     }
 
     private registerMethods(): void {
@@ -315,6 +404,16 @@ export class FinancesService {
             events: {
                 success: 'DEPOSIT',
                 fail: 'DEPOSIT_ERROR',
+            },
+        });
+        this.dataService.registerMethod({
+            name: 'cancelInvoiceHandler',
+            system: 'finances',
+            url: '/deposits',
+            type: 'DELETE',
+            events: {
+                success: 'CANCEL_INVOICE',
+                fail: 'CANCEL_INVOICE_ERROR',
             },
         });
         this.dataService.registerMethod({

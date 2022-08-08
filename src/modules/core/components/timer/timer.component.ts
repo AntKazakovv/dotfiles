@@ -8,18 +8,25 @@ import {
     OnChanges,
     Output,
     EventEmitter,
+    SimpleChanges,
 } from '@angular/core';
+
 import {DateTime} from 'luxon';
-import {interval, Subscription} from 'rxjs';
+import {
+    interval,
+    Subscription,
+} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
+import _isString from 'lodash-es/isString';
+import _merge from 'lodash-es/merge';
+
 import {
     GlobalHelper,
     ConfigService,
 } from 'wlc-engine/modules/core';
 import {AbstractComponent} from 'wlc-engine/modules/core/system/classes';
-import * as Params from './timer.params';
 
-import _isString from 'lodash-es/isString';
+import * as Params from './timer.params';
 
 /**
  * timer value format 'yyyy-MM-dd HH:mm:ss' or luxon format
@@ -81,8 +88,11 @@ export class TimerComponent extends AbstractComponent implements OnInit, OnChang
 
     public ngOnInit(): void {
         const inputProperties: string[] = ['value', 'text', 'noCountDown', 'countUp', 'noDays', 'noHours'];
-        super.ngOnInit(GlobalHelper.prepareParams(this, inputProperties));
-
+        super.ngOnInit(_merge(
+            {},
+            this.inlineParams,
+            GlobalHelper.prepareParams(this, inputProperties),
+        ));
         if (this.checkValueFormat()) {
             this.getTimeDifference();
             this.intervalSub = interval(this.milliSecondsInASecond).pipe(takeUntil(this.$destroy))
@@ -94,14 +104,14 @@ export class TimerComponent extends AbstractComponent implements OnInit, OnChang
         this.isInited = true;
     }
 
-    public ngOnChanges(): void {
-        if (this.isInited && !this.intervalSub) {
+    public ngOnChanges(changes: SimpleChanges): void {
+        if (this.isInited && (!this.intervalSub || changes['value'])) {
             this.ngOnInit();
         }
     }
 
     public showDays(): boolean {
-        return !(this.noDays && this.daysToDday === 0);
+        return !(this.$params.common.noDays && this.daysToDday === 0);
     }
 
     public checkValueFormat(): boolean {

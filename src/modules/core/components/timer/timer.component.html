@@ -1,31 +1,63 @@
-<div class="{{$class}}__content" data-wlc-element="block_timer">
-    <div wlc-icon
-         class="{{$class}}__clock-icon"
-         iconPath="/wlc/icons/clock.svg">
-    </div>
-    <div class="{{$class}}__timer-text">
-        <div *ngIf="$params.common?.noCountDown" class="time-text">{{$params.common.value}}</div>
-        <div *ngIf="!$params.common?.noCountDown" class="time-text time-text--countdown">
-            <ng-container *ngIf="showDays()">
-                <div class="time-text__item time-text__item--days">
-                    <span class="value">{{days}}</span><span class="text text-days">{{'d' | translate}}</span>
-                </div>
-                <div class="time-text__divider">:</div>
-            </ng-container>
-            <ng-container *ngIf="!noHours">
-                <div class="time-text__item time-text__item--hours">
-                    <span class="value">{{hours}}</span><span class="text">{{'h' | translate}}</span>
-                </div>
-                <div class="time-text__divider">:</div>
-            </ng-container>
-            <div class="time-text__item time-text__item--minutes">
-                <span class="value">{{minutes}}</span><span class="text">{{'m' | translate}}</span>
-            </div>
-            <div class="time-text__divider">:</div>
+<ng-container [ngSwitch]="$params.theme">
+    <ng-container *ngSwitchCase="'one-line'" [ngTemplateOutlet]="themeOneLine"></ng-container>
+    <ng-container *ngSwitchDefault [ngTemplateOutlet]="themeDefault"></ng-container>
+</ng-container>
+
+<ng-template #countdown>
+    <div class="time-text time-text--countdown">
+        <ng-container *ngIf="showDays()">
             <div class="time-text__item time-text__item--days">
-                <span class="value">{{seconds}}</span><span class="text">{{'s' | translate}}</span>
+                <span class="value">{{days}}</span>
+                <ng-container *ngIf="$params.dividers.text">{{$params.dividers.text}}</ng-container>
+                <span class="text text-days">{{$params.acronyms.days | translate}}</span>
             </div>
+            <div class="time-text__divider">{{$params.dividers.units}}</div>
+        </ng-container>
+        <ng-container *ngIf="!$params.common.noHours">
+            <div class="time-text__item time-text__item--hours">
+                <span class="value">{{hours}}</span>
+                <ng-container *ngIf="$params.dividers.text">{{$params.dividers.text}}</ng-container>
+                <span class="text">{{$params.acronyms.hours | translate}}</span>
+            </div>
+            <div class="time-text__divider">{{$params.dividers.units}}</div>
+        </ng-container>
+        <div class="time-text__item time-text__item--minutes">
+            <span class="value">{{minutes}}</span>
+            <ng-container *ngIf="$params.dividers.text">{{$params.dividers.text}}</ng-container>
+            <span class="text">{{$params.acronyms.minutes | translate}}</span>
         </div>
-        <div class="secondary-text">{{$params.common?.text | translate}}</div>
+        <div class="time-text__divider">{{$params.dividers.units}}</div>
+        <div class="time-text__item time-text__item--days">
+            <span class="value">{{seconds}}</span>
+            <ng-container *ngIf="$params.dividers.text">{{$params.dividers.text}}</ng-container>
+            <span class="text">{{$params.acronyms.seconds | translate}}</span>
+        </div>
     </div>
-</div>
+</ng-template>
+
+<ng-template #themeDefault>
+    <div class="{{$class}}__content" data-wlc-element="block_timer">
+        <div wlc-icon
+            class="{{$class}}__clock-icon"
+            [iconPath]="$params.iconPath">
+        </div>
+        <div class="{{$class}}__timer-text">
+            <div *ngIf="$params.common.noCountDown" class="time-text">{{$params.common.value}}</div>
+            <ng-container *ngIf="!$params.common.noCountDown" [ngTemplateOutlet]="countdown"></ng-container>
+            <div class="secondary-text">{{$params.common?.text | translate}}</div>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #themeOneLine>
+    <div class="{{$class}}__content" data-wlc-element="block_timer">
+        <div wlc-icon
+            class="{{$class}}__icon"
+            [iconPath]="$params.iconPath">
+        </div>
+        <div class="{{$class}}__main">
+            <span *ngIf="$params.common.text" class="{{$class}}__text">{{$params.common.text | translate}}</span>
+            <ng-container [ngTemplateOutlet]="countdown"></ng-container>
+        </div>
+    </div>
+</ng-template>

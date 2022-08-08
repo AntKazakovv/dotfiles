@@ -1,0 +1,43 @@
+.wlc-timer--theme-one-line:host {
+
+    .wlc-timer {
+
+        &__content {
+            @include text.get-text-style(ef.get-value($themeOneLine, 'textStyle'), ef.get-value($themeOneLine, 'textColor'));
+            display: flex;
+            align-items: flex-start;
+        }
+
+        &__main {
+
+            .time-text__divider,
+            .time-text__item,
+            .time-text {
+                display: inline;
+            }
+        }
+
+        &__text {
+            display: inline-block;
+            margin: ef.get-value($themeOneLine, 'prefixMargin');
+        }
+
+        &__icon {
+            color: ef.get-value($themeOneLine, 'iconColor');
+
+            ::ng-deep {
+
+                .wlc-icon-content {
+                    display: flex;
+                    width: ef.get-value($themeOneLine, 'iconWidth');
+                    height: ef.get-value($themeOneLine, 'iconHeight');
+
+                    svg {
+                        width: ef.get-value($themeOneLine, 'iconWidth');
+                        height: ef.get-value($themeOneLine, 'iconHeight');
+                    }
+                }
+            }
+        }
+    }
+}

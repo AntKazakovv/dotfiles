@@ -129,6 +129,22 @@
             }
         }
 
+        &__message {
+            @include text.get-text-style(ef.get-value($themeDefault, 'messageTextStyle'), ef.get-value($themeDefault, 'messageTextColor'));
+            max-width: ef.get-value($themeDefault, 'messageMaxWidth');
+            margin: ef.get-value($themeDefault, 'messageMargin');
+        }
+
+        &__alert {
+            @include bm.get-mq-map('margin', $themeDefault, 'alertMargin');
+        }
+
+        &__timer {
+            @include bm.get-mq-map('margin', $themeDefault, 'timerMargin');
+            @include bm.get-mq-map('justify-content', $themeDefault, 'timerJustify');
+            display: flex;
+        }
+
         &__crypto-block {
 
             & + .wlc-cash__divider {
@@ -138,6 +154,18 @@
                     display: block;
                 }
             }
+        }
+
+        &__invoice-btns {
+            @include bm.get-mq-map('flex-direction', $themeDefault, 'btnsDirection');
+            @include bm.get-mq-map('align-items', $themeDefault, 'btnsAlignment');
+            display: flex;
+            flex-wrap: wrap;
+            margin: ef.get-value($themeDefault, 'btnsMargin');
+        }
+
+        &__invoice-btn {
+            margin: ef.get-value($themeDefault, 'btnMargin');
         }
 
         &__form {

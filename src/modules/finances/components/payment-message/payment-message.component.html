@@ -4,69 +4,31 @@
     <ng-container [ngTemplateOutlet]="payToAddressWithAmount" *ngSwitchCase="'pay_to_address_with_amount'"></ng-container>
     <ng-container [ngTemplateOutlet]="payToBank" *ngSwitchCase="'pay_to_bank'"></ng-container>
     <ng-container [ngTemplateOutlet]="htmlForm" *ngSwitchCase="'html'"></ng-container>
+    <ng-container [ngTemplateOutlet]="payViaInvoice" *ngSwitchCase="'pay_via_invoice'"></ng-container>
 </ng-container>
 
 <ng-template #default>
     <div class="{{$class}}__text">
-        <div class="{{$class}}__clipboard">
-            <div wlc-input [inlineParams]="inputParams"></div>
-        </div>
+        <ng-container [ngTemplateOutlet]="clipboardDef"></ng-container>
         <ng-container [ngTemplateOutlet]="tagMemo"></ng-container>
         <div class="{{$class}}__text-row">
             {{'This is your private depositing address.' | translate}}
         </div>
-        <div class="{{$class}}__text-row">
-            {{'Please note, that minimum deposit amount for this method is' | translate}}
-            <span wlc-currency [value]="minAmount"></span>,
-            {{'maximum one is' | translate}}
-            <span wlc-currency [value]="maxAmount"></span>.
-        </div>
-        <div class="{{$class}}__text-row">
-            {{'To make a deposit you need to replenish a wallet for a specified amount.' | translate}}
-        </div>
+        <ng-container [ngTemplateOutlet]="limits"></ng-container>
+        <ng-container [ngTemplateOutlet]="instruction"></ng-container>
     </div>
-    <div class="{{$class}}__qr">
-        <div class="{{$class}}__qr-text">{{'QR code' | translate}}</div>
-        <div class="{{$class}}__qr-wrapper">
-            <img class="{{$class}}__qr-image"
-                [alt]="system.name"
-                [src]="imgUrl">
-        </div>
-    </div>
+    <ng-container [ngTemplateOutlet]="qrCode"></ng-container>
 </ng-template>
 
 <ng-template #payToXAddress>
     <div class="{{$class}}__text">
-        <div class="{{$class}}__clipboard-x">
-            <div wlc-input [inlineParams]="inputParamsXaddress"></div>
-            <div class="{{$class}}__text-row">
-                {{'If your wallet doesn\'t support X-addresses, you can make a deposit via casino wallet.' | translate}}
-            </div>
-        </div>
-        <div class="{{$class}}__clipboard">
-            <div wlc-input [inlineParams]="inputParams"></div>
-            <div class="{{$class}}__text-row">
-                {{'With the Destination Tag set to ' | translate}}{{message.tag}}
-            </div>
-        </div>
-        <div class="{{$class}}__text-row">
-            {{'Please note, that minimum deposit amount for this method is' | translate}}
-            <span wlc-currency [value]="minAmount"></span>,
-            {{'maximum one is' | translate}}
-            <span wlc-currency [value]="maxAmount"></span>.
-        </div>
-        <div class="{{$class}}__text-row">
-            {{'To make a deposit you need to replenish a wallet for a specified amount.' | translate}}
-        </div>
+        <ng-container [ngTemplateOutlet]="clipboardX"></ng-container>
+        <ng-container [ngTemplateOutlet]="clipboardTag"></ng-container>
+        <ng-container [ngTemplateOutlet]="limits"></ng-container>
+        <ng-container [ngTemplateOutlet]="instruction"></ng-container>
     </div>
-    <div class="{{$class}}__qr">
-        <div class="{{$class}}__qr-text">{{'QR code' | translate}}</div>
-        <div class="{{$class}}__qr-wrapper">
-            <img class="{{$class}}__qr-image"
-                [alt]="system.name"
-                [src]="imgUrl">
-        </div>
-    </div>
+
+    <ng-container [ngTemplateOutlet]="qrCode"></ng-container>
 </ng-template>
 
 <ng-template #payToAddressWithAmount>
@@ -81,14 +43,7 @@
             {{'To replenish the casino balance by' | translate}} {{parseAmount}} {{', replenish the specified wallet with' | translate}} {{parseRate}}
         </div>
         <div class="{{$class}}__text-row">
-            <div class="{{$class}}__qr">
-                <div class="{{$class}}__qr-text">{{'QR code' | translate}}</div>
-                <div class="{{$class}}__qr-wrapper">
-                    <img class="{{$class}}__qr-image"
-                        [alt]="system.name"
-                        [src]="imgUrl">
-                </div>
-            </div>
+            <ng-container [ngTemplateOutlet]="qrCode"></ng-container>
         </div>
     </div>
     <div class="{{$class}}__text">
@@ -96,9 +51,7 @@
         <div class="{{$class}}__text-row">
             <div wlc-input [inlineParams]="inputParams"></div>
         </div>
-        <div class="{{$class}}__text-row">
-            {{'This is the deposit address generated for you. Any deposit that is made to this address will appear on the balance after several transaction confirmations.' | translate}}
-        </div>
+        <ng-container [ngTemplateOutlet]="personal"></ng-container>
     </div>
 </ng-template>
 
@@ -130,5 +83,117 @@
     </div>
     <div class="{{$class}}__text-row" *ngIf="inputParamsTag">
         <div wlc-input [inlineParams]="inputParamsTag"></div>
+    </div>
+</ng-template>
+
+<ng-template #payViaInvoice>
+    <div class="{{$class}}__text">
+        <div class="{{$class}}__text-row">
+            <div class="{{$class}}__amount" wlc-input [inlineParams]="inputParamsLockedAmount"></div>
+        </div>
+
+        <div class="{{$class}}__text-row">
+            <div class="{{$class}}__timer"
+                wlc-timer
+                [value]="timerValue"
+                [inlineParams]="timerParams"
+            ></div>
+        </div>
+
+        <div class="{{$class}}__text-row">
+            <span class="rate">{{invoiceRate}}</span>
+        </div>
+
+        <div class="{{$class}}__text-row">
+            {{'To top up the casino balance by'| translate}}
+            <span>{{message.userAmount}} {{system.userCurrency}}</span>
+            {{', deposit' | translate}}
+            <span>{{message.cryptoAmount}} {{system.cryptoTicker}}</span>
+            {{'to the wallet specified below' | translate}}
+        </div>
+
+        <div class="{{$class}}__text-row">
+            <ng-container [ngTemplateOutlet]="qrCode"></ng-container>
+        </div>
+
+        <ng-container [ngTemplateOutlet]="clipboardAmount"></ng-container>
+        <ng-container [ngTemplateOutlet]="clipboardDef"></ng-container>
+        <ng-container [ngTemplateOutlet]="personal"></ng-container>
+    </div>
+
+    <div class="{{$class}}__bottom">
+        <button class="{{$class}}__btn"
+            wlc-button
+            [text]="'Close'"
+            (click)="closePaymentMessageModal()"
+        ></button>
+        <button class="{{$class}}__btn"
+            wlc-button
+            [text]="'Cancel'"
+            [themeMod]="'secondary'"
+            (click)="cancelInvoiceHandler()"
+        ></button>
+    </div>
+</ng-template>
+
+<ng-template #qrCode>
+    <div class="{{$class}}__qr">
+        <div class="{{$class}}__qr-text">{{'QR code' | translate}}</div>
+        <div class="{{$class}}__qr-wrapper">
+            <img class="{{$class}}__qr-image"
+                [alt]="system.name"
+                [src]="imgUrl">
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #clipboardDef>
+    <div class="{{$class}}__clipboard">
+        <div wlc-input [inlineParams]="inputParams"></div>
+    </div>
+</ng-template>
+
+<ng-template #clipboardTag>
+    <div class="{{$class}}__clipboard">
+        <div wlc-input [inlineParams]="inputParams"></div>
+        <div class="{{$class}}__text-row">
+            {{'With the Destination Tag set to ' | translate}}{{message.tag}}
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #clipboardX>
+    <div class="{{$class}}__clipboard-x">
+        <div wlc-input [inlineParams]="inputParamsXaddress"></div>
+        <div class="{{$class}}__text-row">
+            {{'If your wallet doesn\'t support X-addresses, you can make a deposit via casino wallet.' | translate}}
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #clipboardAmount>
+    <div class="{{$class}}__clipboard">
+        <div wlc-input [inlineParams]="inputParamsCryptoAmount"></div>
+    </div>
+</ng-template>
+
+<ng-template #limits>
+    <div class="{{$class}}__text-row">
+        {{'Please note, that minimum deposit amount for this method is' | translate}}
+        <span wlc-currency [value]="minAmount"></span>,
+        {{'maximum one is' | translate}}
+        <span wlc-currency [value]="maxAmount"></span>.
+    </div>
+</ng-template>
+
+<ng-template #instruction>
+    <div class="{{$class}}__text-row">
+        {{'To make a deposit you need to replenish a wallet for a specified amount.' | translate}}
+    </div>
+</ng-template>
+
+<ng-template #personal>
+    <div class="{{$class}}__text-row">
+        {{'This is the deposit address generated for you. Any deposit made to this address will appear on the balance after several transaction confirmations.' | translate}}
     </div>
 </ng-template>

@@ -126,4 +126,38 @@ $themeDefault: map-merge((
     'hostedFieldsIframeWidth': 100%,
     'hostedFieldsIframeHeight': 65px,
 
+    // message
+    'messageTextStyle': 'PrimaryText',
+    'messageTextColor': var(--mc-baseMain),
+    'messageMaxWidth': 630px,
+    'messageMargin': 0 0 ef.size(4),
+
+    // alert
+    'alertMargin': (
+        375: 0 auto ef.size(4),
+        900: 0 0 ef.size(4),
+    ),
+
+    // timer
+    'timerMargin': (
+        375: 0 auto ef.size(4),
+        900: 0 0 ef.size(4),
+    ),
+    'timerJustify': (
+        375: center,
+        900: flex-start,
+    ),
+
+    // invoice buttons
+    'btnsDirection': (
+        375: column,
+        900: row,
+    ),
+    'btnsAlignment': (
+        375: center,
+        900: flex-start,
+    ),
+    'btnsMargin': ef.size(2) ef.size(-2) ef.size(-2),
+    'btnMargin': ef.size(2),
+
 ), $customThemeDefault);

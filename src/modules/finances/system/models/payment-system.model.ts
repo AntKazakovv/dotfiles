@@ -1,3 +1,6 @@
+import {aliasTickerMap} from './../constants/crypto-invoices.constants';
+import {BehaviorSubject} from 'rxjs';
+import {UserProfile} from './../../../user/system/models/profile.model';
 import _assign from 'lodash-es/assign';
 import _get from 'lodash-es/get';
 import _includes from 'lodash-es/includes';
@@ -12,7 +15,6 @@ import _isEmpty from 'lodash-es/isEmpty';
 import _toNumber from 'lodash-es/toNumber';
 
 import {AbstractModel} from 'wlc-engine/modules/core/system/models/abstract.model';
-import {UserService} from 'wlc-engine/modules/user/system/services';
 import {IIndexing} from 'wlc-engine/modules/core/system/interfaces';
 import {GlobalHelper} from 'wlc-engine/modules/core/system/helpers/global.helper';
 import {FinancesHelper} from '../helpers/finances.helper';
@@ -36,7 +38,7 @@ export interface IPaymentSystem {
     customParams?: IPaymentSystemCustomParams | [];
     description: string;
     description_withdraw?: string;
-    disable_amount: boolean;
+    disable_amount?: boolean;
     depositMax?: number;
     depositMin?: number;
     hostedFields: IHostedFields | [];
@@ -58,6 +60,7 @@ export interface IPaymentSystem {
     paymentSuccess?: boolean;
     tokenRequired?: boolean;
     visible?: boolean;
+    cryptoInvoice?: boolean;
 }
 
 export interface IPaymentAdditionalParam {
@@ -71,7 +74,6 @@ export interface IPaymentAdditionalParam {
     params?: IIndexing<string>;
     value?: string;
 }
-
 export interface IPaymentAdditionalParamEx extends Omit<IPaymentAdditionalParam, 'skipsaving' | 'optional'> {
     skipsaving?: number;
     optional?: number;
@@ -209,7 +211,7 @@ const disabledReasons = {
     // Apply to payment system if chosen bonus paySystems array doesn't empty
     // and doesn't contain the method id
     1: gettext('The method is not available for the selected bonus.'),
-};
+} as const;
 
 export class PaymentSystem extends AbstractModel<IPaymentSystem> {
 
@@ -222,17 +224,28 @@ export class PaymentSystem extends AbstractModel<IPaymentSystem> {
     public readonly isCashier: boolean = false;
     public disabledBy: null | keyof typeof disabledReasons = null;
 
+    public isParent: boolean = false;
+    public children: PaymentSystem[] = [];
+
     private hostedFieldService: IHostedFieldService;
     private hostedField: any;
 
     constructor(
         from: IFromLog,
         data: IPaymentSystem,
-        protected UserService: UserService,
+        protected userProfile$: BehaviorSubject<UserProfile>,
     ) {
         super({from: _assign({model: 'PaymentSystem'}, from)});
         this.init(data);
         this.isCashier = !!this.data.isPIQCashier;
+    }
+
+    public get cryptoTicker(): string {
+        return aliasTickerMap[this.alias] || (this.message as IPaymentMessage)?.wallet_currency;
+    }
+
+    public get userCurrency(): string {
+        return this.userProfile$.getValue()?.currency;
     }
 
     public get appearance(): string {
@@ -381,6 +394,10 @@ export class PaymentSystem extends AbstractModel<IPaymentSystem> {
         return this.cardFields;
     }
 
+    public get cryptoInvoices(): boolean {
+        return this.data.cryptoInvoice || false;
+    }
+
     public checkRequiredFields(type: TPaymentsMethods = 'deposit'): IIndexing<IFieldTemplate> {
         const fields = type === 'deposit' ? this.required : this.requiredWithdraw;
 
@@ -391,8 +408,8 @@ export class PaymentSystem extends AbstractModel<IPaymentSystem> {
 
         return _pickBy(fieldTemplatesNames, (value: IFieldTemplate, key: string) => {
             return _includes(fields, value.dbName) &&
-                GlobalHelper.getOwnProperty(this.UserService.userProfile as any, key) &&
-                !_get(this.UserService.userProfile, [key, 'length'], false);
+                GlobalHelper.getOwnProperty(this.userProfile$.getValue() as any, key) &&
+                !_get(this.userProfile$.getValue(), [key, 'length'], false);
         });
     }
 
@@ -578,10 +595,10 @@ export class PaymentSystem extends AbstractModel<IPaymentSystem> {
     private setFieldValue(key: string, field: IPaymentAdditionalParam) {
         if (!field.skipsaving) {
             if (['firstName', 'lastName'].includes(key)) {
-                field.value = _get(this.UserService, `userProfile.${key}`, '');
+                field.value = _get(this.userProfile$.getValue(), key, '');
             } else {
-                field.value = _get(this.UserService,
-                    `userProfile.extProfile.paymentSystems.${this.alias}.additionalParams.${key}`, '');
+                field.value = _get(this.userProfile$.getValue(),
+                    `extProfile.paymentSystems.${this.alias}.additionalParams.${key}`, '');
             }
         }
     }

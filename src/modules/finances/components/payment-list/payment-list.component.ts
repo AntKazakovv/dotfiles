@@ -51,6 +51,7 @@ import _forEach from 'lodash-es/forEach';
 import _includes from 'lodash-es/includes';
 import _filter from 'lodash-es/filter';
 import _find from 'lodash-es/find';
+import _some from 'lodash-es/some';
 
 interface IPaymentsIterator extends IMerchantsPaymentsIterator {
     imgPath: string;
@@ -88,7 +89,9 @@ export class PaymentListComponent extends IconListAbstract<Params.IPaymentListCP
     public paymentDescription: string = '';
     public useBonuses: boolean = false;
 
+    public isCryptoInvoices: boolean;
     protected isMobile: boolean;
+    protected isDeposit: boolean;
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IPaymentListCParams,
@@ -109,6 +112,8 @@ export class PaymentListComponent extends IconListAbstract<Params.IPaymentListCP
         super.ngOnInit(this.inlineParams);
 
         this.useBonuses = this.configService.get<boolean>('$finances.bonusesInDeposit.use');
+        this.isDeposit = this.$params.paymentType === 'deposit';
+        this.isCryptoInvoices = this.$params.theme === 'crypto-list';
 
         if (this.configService.get<boolean>('$base.colorThemeSwitching.use')
         && this.$params.colorIconBg && this.$params.iconsType === 'color') {
@@ -137,6 +142,10 @@ export class PaymentListComponent extends IconListAbstract<Params.IPaymentListCP
         }
     }
 
+    public systemTrackBy(index: number, system: PaymentSystem): string {
+        return String(index) + String(system.id) + system.name;
+    }
+
     public selectPayment(system: PaymentSystem, clearSame: boolean = this.useBonuses): void {
         if (system.disabledBy) {
             return;
@@ -156,7 +165,7 @@ export class PaymentListComponent extends IconListAbstract<Params.IPaymentListCP
             this.modalService.hideModal('payment-list');
         }
 
-        this.paymentDescription = this.$params.paymentType === 'deposit'
+        this.paymentDescription = this.isDeposit
             ? system.description
             : system.descriptionWithdraw;
 
@@ -199,7 +208,14 @@ export class PaymentListComponent extends IconListAbstract<Params.IPaymentListCP
                         (system) => this.financesService.filterSystemsPipe(system, this.$params.paymentType),
                     ),
             ),
+            takeUntil(this.$destroy),
         ).subscribe((systems: PaymentSystem[]): void => {
+            if (this.isDeposit && this.isCryptoInvoices) {
+                systems = systems.filter((system: PaymentSystem) => system.cryptoInvoices);
+            } else if (this.isDeposit && _some(systems, {cryptoInvoices: true})) {
+                systems = this.financesService.updateForCryptoInvoices(systems);
+            }
+
             this.ready = true;
             this.processSystemsResponse(systems);
         });
@@ -270,37 +286,45 @@ export class PaymentListComponent extends IconListAbstract<Params.IPaymentListCP
 
         this.items = this.convertItemsToIconModel<PaymentSystem>(
             this.systems,
-            (item) => {
+            (item: PaymentSystem) => {
                 return {
                     from: {
                         component: 'PaymentListComponent',
                         method: 'setPaymentsIconsList',
                     },
-                    icon: this.merchantsPaymentsIterator('payments', {
-                        showAs: showAs,
-                        wlcElement: 'block_payment-' + this.wlcElementTail(item.alias),
-                        nameForPath: item.alias,
-                        alt: item.name,
-                        colorIconBg: colorIconBg,
-                        imgPath: this.$params.paymentType === 'deposit'
-                            ? item.image
-                            : (item.imageWithdraw || item.image),
-                        defaultImages: item.defaultImages,
-                        paymentType: this.$params.paymentType,
-                    }),
+                    icon: this.isCryptoInvoices
+                        ? this.cryptoIterator(item)
+                        : this.merchantsPaymentsIterator('payments', {
+                            showAs: showAs,
+                            wlcElement: 'block_payment-' + this.wlcElementTail(item.alias),
+                            nameForPath: item.alias,
+                            alt: item.name,
+                            colorIconBg: colorIconBg,
+                            imgPath: this.isDeposit
+                                ? item.image
+                                : (item.imageWithdraw || item.image),
+                            defaultImages: item.defaultImages,
+                            paymentType: this.$params.paymentType,
+                        }),
                 };
             },
         );
-
         this.cdr.markForCheck();
+    }
+
+    protected cryptoIterator(system: PaymentSystem): IIconParams {
+        return {
+            showAs: 'img',
+            iconUrl: `gstatic/wlc/icons/currencies/${system.cryptoTicker?.toLowerCase() || 'def'}.svg`,
+            alt: system.cryptoTicker || system.name,
+        };
     }
 
     protected merchantsPaymentsIterator(pathDirectory: keyof typeof ThemeToDirectory,
         params: IPaymentsIterator,
     ): IIconParams {
-
         const res = super.merchantsPaymentsIterator(pathDirectory, params);
-        const imageType = params.paymentType === 'deposit' ? 'image' : 'image_withdraw';
+        const imageType = this.isDeposit ? 'image' : 'image_withdraw';
 
         if (!params.defaultImages.includes(imageType)) {
             res.iconUrl = params.imgPath;
@@ -355,7 +379,9 @@ export class PaymentListComponent extends IconListAbstract<Params.IPaymentListCP
 
     protected updatePaySystemsStatus(): void {
         _forEach(this.systems, (system: PaymentSystem): void => {
-            system.disabledBy = !this.availableSystems.length || _includes(this.availableSystems, system.id)
+            system.disabledBy = !this.availableSystems.length
+                || _includes(this.availableSystems, system.id)
+                || system.id < 0
                 ? null : 1;
         });
     }

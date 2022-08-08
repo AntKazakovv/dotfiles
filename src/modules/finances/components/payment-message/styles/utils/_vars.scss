@@ -84,4 +84,7 @@ $themeDefault: map-merge((
 
     'rateColor': var(--fc-labelColor),
 
+    'bottomMargin': ef.size(2) ef.size(-2) ef.size(-2),
+    'bottomBtnMargin': ef.size(2),
+
 ), $customThemeDefault);

@@ -4,6 +4,7 @@ import {
     IInputCParams,
     ISelectCParams,
     ICheckboxCParams,
+    ITimerCParams,
 } from 'wlc-engine/modules/core';
 import {IButtonCParams} from 'wlc-engine/modules/core/components/button/button.component';
 import {TPaymentsMethods} from 'wlc-engine/modules/finances/system/interfaces';
@@ -19,6 +20,8 @@ export interface IDepositWithdrawCParams extends IComponentParams<Theme, Type, T
     common?: {
         themeMod?: ThemeMod;
     };
+    /** Params for timer element */
+    timerParams?: ITimerCParams;
 }
 
 export const defaultParams: IDepositWithdrawCParams = {
@@ -59,4 +62,27 @@ export namespace PaymentSteps {
         template: 'paymentInfo',
         title: gettext('Payment information'),
     };
+
+    export const cryptoInvoices: IPaymentStep = {
+        template: 'cryptoInvoiceSystems',
+        title: gettext('Select a cryptocurrency'),
+    };
 }
+
+export const timerParams: ITimerCParams = {
+    theme: 'one-line',
+    common: {
+        noDays: true,
+        noHours: true,
+        text: gettext('Time remaining for deposit:'),
+    },
+    acronyms: {
+        minutes: gettext('min'),
+        seconds: gettext('sec'),
+    },
+    dividers: {
+        units: ' ',
+        text: ' ',
+    },
+    iconPath: '/wlc/icons/spinner-1.svg',
+};

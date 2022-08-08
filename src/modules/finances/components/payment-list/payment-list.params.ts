@@ -5,8 +5,8 @@ import {
 import {IAbstractIconsListParams} from 'wlc-engine/modules/core/system/classes/icon-list-abstract.class';
 import {TPaymentsMethods} from 'wlc-engine/modules/finances/system/interfaces';
 
-export type Theme = 'default' | CustomType;
-export type Type = 'default' | CustomType;
+export type Theme = 'default' | 'crypto-list' | CustomType;
+export type Type = 'default' | 'children' | CustomType;
 export type ThemeMod = 'default' | CustomType;
 
 export type IconsType = 'color' | 'black';

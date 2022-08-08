@@ -28,3 +28,14 @@ $themeDefault: map-merge((
     'secondaryTextColor': var(--mc-baseMain),
 ), $customThemeDefault);
 
+$customThemeOneLine: () !default;
+$themeOneLine: map-merge((
+    'textStyle': 'PrimaryTextBold',
+    'textColor': var(--mc-warning),
+
+    'prefixMargin': 0 ef.size(1) 0 0,
+
+    'iconColor': inherit,
+    'iconWidth': 20px,
+    'iconHeight': 20px,
+), $customThemeOneLine);

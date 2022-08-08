@@ -1,0 +1,175 @@
+::ng-deep .wlc-payment-list--theme-crypto-list,
+.wlc-payment-list--theme-crypto-list:host {
+
+    .wlc-payment-list {
+
+        &__ul {
+            @include bm.get-mq-map('grid-template-columns', $themeCryptoList, 'listGridTemplateColumns');
+            @include bm.get-mq-map('gap', $themeCryptoList, 'listGridGap');
+            display: grid;
+            margin: 0;
+            padding: 0;
+            list-style-type: none;
+        }
+
+        &__item {
+            position: relative;
+
+            &.disabled {
+                order: 1000;
+            }
+        }
+
+        &__button {
+            display: grid;
+            grid-template-columns: ef.get-value($themeCryptoList, 'itemGridTemplateColumn');
+            gap: ef.get-value($themeCryptoList, 'itemGridGap');
+            align-items: center;
+            width: 100%;
+            height: 100%;
+            padding: ef.get-value($themeCryptoList, 'itemPadding');
+            color: ef.get-value($themeCryptoList, 'itemSvgColor');
+            text-align: left;
+            border: ef.get-value($themeCryptoList, 'itemBorder');
+            background: ef.get-value($themeCryptoList, 'itemBg');
+            border-radius: ef.get-value($themeCryptoList, 'itemBorderRadius');
+            cursor: pointer;
+            transition: ef.get-value($themeCryptoList, 'itemTransition');
+
+            &:focus {
+                outline: none;
+            }
+
+            &.active {
+                border-color: ef.get-value($themeCryptoList, 'itemBorderColorActive');
+                color: ef.get-value($themeCryptoList, 'itemSvgColorActive');
+                box-shadow: ef.get-value($themeCryptoList, 'itemBoxShadowActive');
+            }
+
+            &.disabled {
+                cursor: not-allowed;
+                opacity: ef.get-value($themeCryptoList, 'itemOpacityDisabled');
+                pointer-events: none;
+            }
+
+            @include bm.hover() {
+                color: ef.get-value($themeCryptoList, 'itemSvgColorHover');
+                box-shadow: ef.get-value($themeCryptoList, 'itemBoxShadowHover');
+            }
+        }
+
+        &__icon {
+
+            ::ng-deep {
+
+                img,
+                svg {
+                    width: ef.get-value($themeCryptoList, 'itemIconWidth');
+                    height: ef.get-value($themeCryptoList, 'itemIconHeight');
+                }
+            }
+        }
+
+        &__name {
+            @include text.get-text-style(ef.get-value($themeCryptoList, 'itemNameTextStyle'), ef.get-value($themeCryptoList, 'itemNameTextColor'));
+        }
+
+        &__ticker {
+            @include text.get-text-style(ef.get-value($themeCryptoList, 'itemTickerTextStyle'), ef.get-value($themeCryptoList, 'itemTickerTextColor'));
+        }
+
+        &__btn-modal {
+            display: flex;
+            align-items: center;
+            justify-content: ef.get-value($themeCryptoList, 'btnJustifyContent');
+            width: ef.get-value($themeCryptoList, 'btnWidth');
+            max-width: ef.get-value($themeCryptoList, 'btnMaxWidth');
+            height: ef.get-value($themeCryptoList, 'btnHeight');
+            margin: ef.get-value($themeCryptoList, 'btnMargin');
+            padding: ef.get-value($themeCryptoList, 'btnPadding');
+            border: ef.get-value($themeCryptoList, 'btnBorder');
+            color: ef.get-value($themeCryptoList, 'btnColor');
+            border-radius: ef.get-value($themeCryptoList, 'btnBorderRadius');
+            background: ef.get-value($themeCryptoList, 'btnBg');
+        }
+
+        &__btn-modal-wrap {
+            display: flex;
+            flex: 1 1 100%;
+            align-items: center;
+            justify-content: center;
+            padding: ef.get-value($themeCryptoList, 'btnWrapPadding');
+        }
+
+        &__btn-modal-arrow {
+            margin: ef.get-value($themeCryptoList, 'btnArrowMargin');
+            color: ef.get-value($themeCryptoList, 'btnArrowColor');
+
+            .wlc-icon-content {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+        }
+
+        &__btn-modal-text {
+            display: block;
+            font-size: ef.get-value($themeCryptoList, 'btnTextFontSize');
+            line-height: 1.2;
+        }
+
+        &__btn-modal-image {
+            position: relative;
+            flex: 0 0 auto;
+            width: auto;
+            height: auto;
+            padding: ef.get-value($themeCryptoList, 'btnImagePadding');
+            color: ef.get-value($themeCryptoList, 'btnImageSvgColor');
+            background: ef.get-value($themeCryptoList, 'btnImageBg');
+            border-right: ef.get-value($themeCryptoList, 'btnImageBorderRight');
+
+            ::ng-deep {
+
+                img,
+                svg {
+                    width: ef.get-value($themeCryptoList, 'btnImageWidth');
+                    height: ef.get-value($themeCryptoList, 'btnImageHeight');
+                }
+            }
+        }
+
+        &__method {
+            @include text.get-text-style(ef.get-value($themeCryptoList, 'methodTextStyle'), ef.get-value($themeCryptoList, 'methodTextColor'));
+            padding: ef.get-value($themeCryptoList, 'methodPadding');
+            text-align: ef.get-value($themeCryptoList, 'methodAlignment');
+        }
+
+        &__method-text {
+            display: inline;
+        }
+
+        &__tooltip[class] {
+            position: absolute;
+            top: ef.get-value($themeCryptoList, 'tooltipTop');
+            right: ef.get-value($themeCryptoList, 'tooltipRight');
+            bottom: ef.get-value($themeCryptoList, 'tooltipBottom');
+            left: ef.get-value($themeCryptoList, 'tooltipLeft');
+        }
+    }
+
+    .payments-description {
+        @include text.get-text-style(ef.get-value($themeDefault, 'descriptionFont'), ef.get-value($themeDefault, 'descriptionColor'));
+        @include bm.get-mq-map('text-align', $themeDefault, 'descriptionTextAlign');
+
+        padding: ef.get-value($themeDefault, 'descriptionPadding');
+        white-space: ef.get-value($themeDefault, 'descriptionWhiteSpace');
+
+        &--desktop {
+            @include bm.get-mq-map('display', $themeDefault, 'descriptionDesktopDisplay');
+        }
+
+        @include mq.min(1200) {
+            @include text.get-text-style(ef.get-value($themeDefault, 'descriptionFont', 1200), null);
+        }
+    }
+}

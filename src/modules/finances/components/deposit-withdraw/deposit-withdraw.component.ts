@@ -10,11 +10,11 @@ import {
     FormControl,
     FormGroup,
 } from '@angular/forms';
-import {TranslateService} from '@ngx-translate/core';
-import {StateService} from '@uirouter/core';
-import {DOCUMENT} from '@angular/common';
 import {HttpClient} from '@angular/common/http';
+import {DOCUMENT} from '@angular/common';
 
+import {DateTime} from 'luxon';
+import {TranslateService} from '@ngx-translate/core';
 import {
     BehaviorSubject,
     of,
@@ -35,9 +35,9 @@ import _map from 'lodash-es/map';
 import _keys from 'lodash-es/keys';
 import _concat from 'lodash-es/concat';
 import _find from 'lodash-es/find';
-import _includes from 'lodash-es/includes';
 import _max from 'lodash-es/max';
 import _min from 'lodash-es/min';
+import _merge from 'lodash-es/merge';
 
 import {
     IIndexing,
@@ -45,7 +45,6 @@ import {
     ConfigService,
     EventService,
     ModalService,
-    ValidationService,
     ISelectCParams,
     IInputCParams,
     IFormWrapperCParams,
@@ -58,18 +57,19 @@ import {
     LogService,
     InjectionService,
     ColorThemeValues,
+    ITimerCParams,
+    IModalConfig,
+    IModalParams,
+    IFormComponent,
 } from 'wlc-engine/modules/core';
+import {FormElements} from 'wlc-engine/modules/core/system/config/form-elements';
 import {
     IHostedFormData,
     IPaymentAdditionalParam,
     PaymentSystem,
 } from 'wlc-engine/modules/finances/system/models/payment-system.model';
-import {FinancesService} from 'wlc-engine/modules/finances/system/services';
+import {FinancesService} from 'wlc-engine/modules/finances/system/services/finances/finances.service';
 import {IPaymentListCParams} from 'wlc-engine/modules/finances/components/payment-list/payment-list.params';
-import {FormElements} from 'wlc-engine/modules/core/system/config/form-elements';
-import {UserService} from 'wlc-engine/modules/user/system/services';
-import {IModalConfig} from 'wlc-engine/modules/core/components/modal';
-import {IModalParams} from 'wlc-engine/modules/core/system/services/modal/modal.service';
 import {PaymentMessageComponent} from '../payment-message/payment-message.component';
 import {
     IPaymentMessage,
@@ -77,12 +77,12 @@ import {
     TAdditionalParams,
 } from 'wlc-engine/modules/finances/system/interfaces/';
 import {FinancesHelper} from '../../system/helpers/finances.helper';
-import {IFormComponent} from 'wlc-engine/modules/core/components/form-wrapper/form-wrapper.component';
 import {ISelectOptions} from 'wlc-engine/modules/profile';
 import {
     UserInfo,
     UserProfile,
-} from 'wlc-engine/modules/user/system/models';
+    UserService,
+} from 'wlc-engine/modules/user';
 import {
     AbstractDepositWithdrawComponent,
 } from 'wlc-engine/modules/finances/system/classes/abstract.deposit-withdraw.component';
@@ -94,9 +94,10 @@ import {
 
 import * as Params from './deposit-withdraw.params';
 
-type cryptoInfo = 'msg1' | 'msg2';
+type TCryptoInfo = 'msg1' | 'msg2' | 'msg3';
 type THostedStyles = 'current' | 'def' | 'alt';
 type TFormData = IIndexing<string | number | boolean>;
+type TModalType = 'markup' | 'info';
 
 @Component({
     selector: '[wlc-deposit-withdraw]',
@@ -112,10 +113,6 @@ export class DepositWithdrawComponent
     public $params: Params.IDepositWithdrawCParams;
     public cryptoCheck: boolean = false;
     public disableAmount: boolean = false;
-    public formType: string = '';
-    public depositForm = Params.depositForm;
-    public depositFormCrypto = Params.depositFormCrypto;
-    public withdrawForm = Params.withdrawForm;
     public title: string = gettext('Deposit');
     public additionalParams: IIndexing<IPaymentAdditionalParam> = {};
     public formData$: BehaviorSubject<TFormData> = new BehaviorSubject(null);
@@ -125,10 +122,24 @@ export class DepositWithdrawComponent
         paymentType: 'deposit',
         wlcElement: 'block_payment-list',
     };
+    public cryptoListConfig: IPaymentListCParams = {
+        paymentType: 'deposit',
+        wlcElement: 'block_payment-list',
+        theme: 'crypto-list',
+        chosenMethodText: gettext('The chosen cryptocurrency:'),
+        noSelectedButton: null,
+        buttonText: gettext('Show all cryptocurrencies'),
+    };
+
+    public invoiceSystems: PaymentSystem[] = [];
+    public parentSystem: PaymentSystem = null;
+    /** Defines if crypto invoice payment chosen */
+    public isCryptoInvoices: boolean = false;
+    public timerParams: ITimerCParams;
 
     public formConfig: IFormWrapperCParams;
     public isShowHostedBlock: boolean = false;
-    public steps: Params.IPaymentStep[] = [];
+    public steps: Set<Params.IPaymentStep> = new Set();
 
     public useBonuses: boolean = false;
     public bonusesListParams: IFormWrapperCParams;
@@ -154,6 +165,7 @@ export class DepositWithdrawComponent
     private isShowIframe: boolean;
     private userProfile: UserProfile;
     private cssVariables: string;
+    private isDeposit: boolean;
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IDepositWithdrawCParams,
@@ -161,8 +173,6 @@ export class DepositWithdrawComponent
         protected financesService: FinancesService,
         protected eventService: EventService,
         protected modalService: ModalService,
-        protected validationService: ValidationService,
-        protected stateService: StateService,
         protected cdr: ChangeDetectorRef,
         protected translateService: TranslateService,
         protected httpClient: HttpClient,
@@ -182,9 +192,10 @@ export class DepositWithdrawComponent
         super.ngOnInit();
         this.depositInIframe = this.configService.get<boolean>('$base.finances.depositInIframe');
         this.useBonuses = this.configService.get<boolean>('$finances.bonusesInDeposit.use');
+        this.isDeposit = this.$params.mode === 'deposit';
 
-        if (this.useBonuses && this.$params.mode === 'deposit') {
-            this.steps.push(Params.PaymentSteps.bonus);
+        if (this.useBonuses && this.isDeposit) {
+            this.steps.add(Params.PaymentSteps.bonus);
             this.bonusesListParams = {
                 components: [
                     {
@@ -195,10 +206,8 @@ export class DepositWithdrawComponent
             };
         }
 
-        this.steps.push(
-            Params.PaymentSteps.paymentSystem,
-            Params.PaymentSteps.paymentInfo,
-        );
+        this.steps.add(Params.PaymentSteps.paymentSystem);
+        this.steps.add(Params.PaymentSteps.paymentInfo);
 
         this.configService
             .get<BehaviorSubject<UserProfile>>({name: '$user.userProfile$'})
@@ -227,6 +236,12 @@ export class DepositWithdrawComponent
                     this.cdr.markForCheck();
                 });
         }
+
+        this.timerParams = _merge(
+            _cloneDeep(Params.timerParams),
+            this.$params.timerParams,
+        );
+
         await this.financesService.fetchPaymentSystems();
     }
 
@@ -237,29 +252,52 @@ export class DepositWithdrawComponent
         }
     }
 
+    public onCryptoInvoiceExpires(): void {
+        this.financesService.fetchPaymentSystems();
+
+        if (this.modalService.getActiveModal('payment-message')) {
+            this.modalService.hideModal('payment-message');
+        }
+
+        this.pushNotification({
+            type: 'success',
+            title: gettext('Deposit'),
+            message: [
+                gettext('The deposit period for the issued invoice has expired.'),
+                gettext('If you have sent a payment, check the status of '
+                    + 'the transaction on the transaction history page.'),
+            ],
+            wlcElement: 'notification_deposit-invoice-expired',
+        });
+    }
+
     /**
      * The function checks which notification for crypto v2 to show.
      *
      * @returns {boolean}
      */
-    public showCryptoInfo(msg: cryptoInfo): boolean {
+    public showCryptoInfo(msg: TCryptoInfo): boolean {
 
-        if (this.$params.mode !== 'deposit' || !this.currentSystem?.isPayCryptosV2) {
-            return false;
-        }
-
-        if (this.cryptoCheck) {
+        if (!this.isDeposit || !this.currentSystem) {
             return false;
         }
 
         switch (msg) {
-            case 'msg1': return this.$params.showPaymentRules;
-            case 'msg2': return !this.$params.showPaymentRules;
+            case 'msg1': return !this.isCryptoInvoices
+                && !this.cryptoCheck
+                && this.currentSystem?.isPayCryptosV2
+                && this.$params.showPaymentRules;
+            case 'msg2': return !this.isCryptoInvoices
+                && !this.cryptoCheck
+                && this.currentSystem?.isPayCryptosV2
+                && !this.$params.showPaymentRules;
+            case 'msg3': return this.isCryptoInvoices
+                && !(this.currentSystem?.message as IPaymentMessage)?.dateEnd;
         }
     }
 
     public formBeforeSubmit(form: FormGroup): boolean {
-        const notificationTitle = this.$params.mode === 'deposit' ? gettext('Deposit') : gettext('Withdraw');
+        const notificationTitle = this.isDeposit ? gettext('Deposit') : gettext('Withdraw');
         if (!this.currentSystem) {
             this.pushNotification({
                 type: 'error',
@@ -276,7 +314,7 @@ export class DepositWithdrawComponent
                 wlcElement: 'notification_deposit-fields-error',
             });
             return false;
-        } else if (this.$params.mode === 'deposit'
+        } else if (this.isDeposit
             && this.$params.showPaymentRules
             && this.emptyOnlyField(form, 'paymentRules')
         ) {
@@ -319,9 +357,9 @@ export class DepositWithdrawComponent
         }
         this.formObject = form;
 
-        if (this.$params.mode === 'deposit') {
+        if (this.isDeposit) {
             this.deposit();
-        } else if (this.$params.mode === 'withdraw') {
+        } else {
             this.withdraw(this.formObject);
         }
     }
@@ -412,7 +450,7 @@ export class DepositWithdrawComponent
                 name: NotificationEvents.PushMessage,
                 data: <IPushMessageParams>{
                     type: 'error',
-                    title: this.$params.mode === 'deposit' ? gettext('Deposit error') : gettext('Withdraw error'),
+                    title: this.isDeposit ? gettext('Deposit error') : gettext('Withdraw error'),
                     message: FinancesHelper.errorToMessage(error),
                 },
             });
@@ -441,12 +479,48 @@ export class DepositWithdrawComponent
         }
     }
 
+    public openInvoicePaymentMessage(): void {
+        if (this.isInvoicePending) {
+            this.modalService.showModal(this.getPaymentMessageModalConfig('info', true));
+        } else {
+            this.pushNotification({
+                type: 'error',
+                title: gettext('Deposit'),
+                message: [
+                    gettext('The deposit period for the issued invoice has expired.'),
+                    gettext('If you have sent a payment, check the status of the '
+                        + 'transaction on the transaction history page'),
+                ],
+                wlcElement: 'notification_deposit-open-invoice-msg-error',
+            });
+        }
+    }
+
+    public cancelInvoiceHandler(): void {
+        this.financesService.cancelInvoiceHandler(this.currentSystem?.id);
+    }
+
+    public get isInvoicePending(): boolean {
+        return this.cryptoCheck
+            && this.isCryptoInvoices
+            && !!(this.currentSystem?.message as IPaymentMessage)?.dateEnd
+            && this.dateExpire >= DateTime.now();
+    }
+
+    public get showPaymentMessage(): boolean {
+        return this.currentSystem && this.cryptoCheck && !this.isCryptoInvoices;
+    }
+
+    public get dateExpire(): DateTime {
+        return DateTime.fromISO((this.currentSystem?.message as IPaymentMessage)?.dateEnd);
+    }
+
     private async depositAction(amount: number, params: TAdditionalParams, saveProfile: boolean = true): Promise<void> {
         this.isShowIframe = this.depositInIframe && this.currentSystem.appearance === 'iframe';
         try {
             const response = await this.financesService.deposit(
                 this.currentSystem.id,
-                this.currentSystem.disableAmount ? this.currentSystem.depositMin : amount,
+                amount || this.currentSystem.depositMin,
                 {...params, bonusId: this.currentBonus?.id || null},
                 this.cssVariables,
             );
@@ -490,10 +564,17 @@ export class DepositWithdrawComponent
                 message: FinancesHelper.errorToMessage(error),
             });
         } finally {
+
             if (this.modalService.getActiveModal('data-is-processing')) {
                 this.modalService.hideModal('data-is-processing');
             }
+
             this.inProgress = false;
+
+            if (this.isInvoicePending) {
+                this.updateFormConfig();
+            };
+
             this.financesService.fetchPaymentSystems();
         }
     }
@@ -585,23 +666,12 @@ export class DepositWithdrawComponent
 
     protected showDepositResponse(params: IPaymentMessage, type: string): void {
         this.currentSystem.message = params;
+        this.cdr.detectChanges();
 
         if (this.showModalCryptoPayment) {
-            const messageData: IModalConfig = {
-                id: 'payment-message',
-                modalTitle: gettext('Payment'),
-                modifier: type === 'markup' ? 'markup' : 'info',
-                component: PaymentMessageComponent,
-                componentParams: {
-                    themeMod: 'modal',
-                    system: this.currentSystem,
-                    maxAmount: this.maxAmount,
-                    minAmount: this.minAmount,
-                },
-                dismissAll: true,
-                backdrop: 'static',
-            };
-            this.modalService.showModal(messageData);
+            this.modalService.showModal(
+                this.getPaymentMessageModalConfig(type === 'markup' ? 'markup' : 'info', !!params.dateEnd),
+            );
         }
 
         if (type === 'message'
@@ -610,6 +680,24 @@ export class DepositWithdrawComponent
             this.currentSystem.additionalParams = undefined;
             this.cdr.markForCheck();
         }
+    }
+
+    protected getPaymentMessageModalConfig(type: TModalType, isInvoice?: boolean): IModalConfig {
+        return {
+            id: 'payment-message',
+            modalTitle: gettext('Payment'),
+            modifier: type,
+            component: PaymentMessageComponent,
+            componentParams: {
+                themeMod: 'modal',
+                system: this.currentSystem,
+                minAmount: this.minAmount,
+                maxAmount: this.maxAmount,
+            },
+            dismissAll: true,
+            backdrop: 'static',
+            showFooter: !isInvoice,
+        };
     }
 
     protected createForm(response: any): HTMLFormElement {
@@ -669,10 +757,6 @@ export class DepositWithdrawComponent
             ], (bonus?: Bonus): void => {
                 this.currentBonus = bonus;
                 this.availableSystems = bonus?.paySystems || [];
-                if (this.availableSystems.length && !_includes(this.availableSystems, this.currentSystem?.id)) {
-                    this.onPaymentSystemChange(null);
-                }
-
                 this.updateFormConfig();
 
             }, this.$destroy);
@@ -742,6 +826,14 @@ export class DepositWithdrawComponent
         this.isShowHostedBlock = false;
 
         if (!system) {
+            if (this.parentSystem && !this.currentSystem) {
+                this.parentSystem = null;
+                this.steps.delete(Params.PaymentSteps.cryptoInvoices);
+                this.steps.add(Params.PaymentSteps.paymentInfo);
+            } else if (this.parentSystem && this.currentSystem?.cryptoInvoices) {
+                this.steps.delete(Params.PaymentSteps.paymentInfo);
+            }
+
             this.currentSystem = undefined;
             this.requiredFields = {};
             this.requiredFieldsKeys.length = 0;
@@ -764,7 +856,7 @@ export class DepositWithdrawComponent
         }
 
         this.currentSystem = system;
-        this.cryptoCheck = this.currentSystem.cryptoCheck && this.$params.mode === 'deposit';
+        this.cryptoCheck = this.currentSystem.cryptoCheck && this.isDeposit;
         this.disableAmount = this.currentSystem.disableAmount;
         this.additionalParams = this.listConfig.paymentType === 'deposit' ?
             system.additionalParamsDeposit : system.additionalParamsWithdraw;
@@ -772,6 +864,35 @@ export class DepositWithdrawComponent
         this.setAdditionalValues();
         this.checkUserProfileForPayment();
         this.updateFormConfig();
+
+        this.isCryptoInvoices = this.isDeposit
+            && (this.currentSystem.cryptoInvoices || this.currentSystem.isParent);
+
+        if (this.isCryptoInvoices) {
+
+            if (this.currentSystem.isParent) {
+                this.parentSystem = this.currentSystem;
+                this.invoiceSystems = this.currentSystem.children;
+                this.steps.delete(Params.PaymentSteps.paymentInfo);
+                this.steps.add(Params.PaymentSteps.cryptoInvoices);
+            } else {
+                this.steps.add(Params.PaymentSteps.paymentInfo);
+            }
+
+            const message: IPaymentMessage = this.currentSystem.message as IPaymentMessage;
+
+            if (this.isCryptoInvoices && this.currentSystem.cryptoInvoices && message?.dateEnd) {
+                this.formData$.next({
+                    amount: message.userAmount,
+                });
+            }
+        } else {
+            this.steps.delete(Params.PaymentSteps.cryptoInvoices);
+            this.steps.add(Params.PaymentSteps.paymentInfo);
+            this.parentSystem = null;
+            this.invoiceSystems = [];
+        }
+
 
         if (this.currentSystem.isHosted
             && (!this.isLoadingHostedFields || !this.currentSystem.hostedFields.loaded)
@@ -851,16 +972,17 @@ export class DepositWithdrawComponent
     }
 
     protected updateFormConfig(): void {
-        const {mode} = this.$params;
         const formComponents: IFormComponent[] = [];
         let lastAccount: IFormComponent;
 
         // amount
-        if (!(mode === 'deposit' && this.disableAmount)) {
+        const hideAmount: boolean = this.isDeposit && this.disableAmount && !this.currentSystem.cryptoInvoices;
+
+        if (!hideAmount) {
             let amount = _cloneDeep(FormElements.amount);
             let showLimits = false;
 
-            if (this.currentSystem) {
+            if (this.currentSystem && !this.isInvoicePending) {
 
                 _forEach(amount.params.validators, (val: IValidatorSettings | string) => {
                     if (_isObject(val) && val.name === 'min') {
@@ -880,6 +1002,8 @@ export class DepositWithdrawComponent
                     }
                 }
             }
+
+            amount.params.locked = this.isInvoicePending;
 
             const fieldWrap = {
                 name: 'core.wlc-wrapper',
@@ -908,7 +1032,6 @@ export class DepositWithdrawComponent
                     ],
                 },
             };
-
             formComponents.push(fieldWrap);
         }
 
@@ -976,16 +1099,18 @@ export class DepositWithdrawComponent
         }
 
         // rules
-        if (mode === 'deposit' && this.$params.showPaymentRules) {
+        if (this.isDeposit && this.$params.showPaymentRules && !this.isInvoicePending) {
             formComponents.push(FormElements.rules);
         }
 
         // button
-        const button = mode === 'deposit' ? FormElements.depositButton : FormElements.withdrawButton;
-        formComponents.push(button);
+        if (!this.isInvoicePending) {
+            const button = this.isDeposit ? FormElements.depositButton : FormElements.withdrawButton;
+            formComponents.push(button);
+        }
 
         this.formConfig = {
-            class: `${mode}-form`,
+            class: `${this.$params.mode}-form`,
             components: formComponents,
         };
 

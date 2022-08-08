@@ -169,6 +169,7 @@ export class FormWrapperComponent extends WrapperComponent implements OnInit, On
         if (this.form && changes.config) {
             this.formDataStorage = _assign({}, this.formDataStorage, this.form.value);
             this.controls = {};
+            this.locked = [];
             this.ngOnInit();
         }
     }
