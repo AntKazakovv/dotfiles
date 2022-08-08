@@ -672,8 +672,8 @@ $buttonSettings: map-merge((
     'radiusRoundingTheme': 100px,
     // Animation Main
     'mainAnimation': buttonPulse 12.5s infinite cubic-bezier(0.7, 0, 0, 1),
-    'mainBoxShadowAnimationStart': 0 0 0 0 var(--mc-main),
-    'mainBoxShadowAnimationEnd': 0 0 0 10px var(--mc-main-o0),
+    'mainBoxShadowAnimationStart': 0 0 0 0 var(--mc-buttonColor),
+    'mainBoxShadowAnimationEnd': 0 0 0 10px var(--mc-buttonColor-o0),
     // Animation Secondary
     'secondaryAnimation': buttonPulseSecondary 12.5s infinite cubic-bezier(0.7, 0, 0, 1),
     'secondaryBoxShadowAnimationStart': 0 0 0 0 var(--mc-secondary),
