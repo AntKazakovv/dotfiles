@@ -1,5 +1,6 @@
 import {CustomType, IComponentParams} from 'wlc-engine/modules/core/system/classes/abstract.component';
 import {IFormWrapperCParams} from 'wlc-engine/modules/core/components/form-wrapper/form-wrapper.component';
+import {ProhibitedPatterns} from 'wlc-engine/modules/core/constants';
 
 export type ComponentTheme = 'default' | CustomType;
 export type ComponentType = 'default' | CustomType;
@@ -22,8 +23,10 @@ export const feedbackConfig: IFormWrapperCParams = {
                 theme: 'vertical',
                 wlcElement: 'block_sender-name',
                 name: 'senderName',
+                prohibitedPattern: ProhibitedPatterns.notNamesSymbols,
                 validators: [
                     'required',
+                    'allowLettersOnly',
                     {
                         name: 'minLength',
                         text: gettext('Field length must be more than 2 characters'),
@@ -33,11 +36,6 @@ export const feedbackConfig: IFormWrapperCParams = {
                         name: 'maxLength',
                         text: gettext('The field must be no more than 50 characters long'),
                         options: 50,
-                    },
-                    {
-                        name: 'regExp',
-                        text: gettext('Enter a valid username'),
-                        options: /[\d!"#$%&'()*\/<>@\\^№]+/,
                     },
                 ],
                 exampleValue: gettext('Enter your name'),
