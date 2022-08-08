@@ -40,6 +40,11 @@ export interface IBaseConfig {
          * Use field username/login
          */
         useLogin?: boolean;
+        /**
+        * Link to the main landing page of the affiliate program.
+        * Uses for action 'AFFILIATE_REDIRECT'.
+        */
+        landingUrl?: string,
     };
     /**
     * Sticky header enabling and settings;

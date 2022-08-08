@@ -146,4 +146,26 @@
     .wlc-icon-safety-list--theme-default {
         @include bm.get-mq-map('order', $theme2Footer, 'iconListSafetyOrder');
     }
+
+    &.wlc-sections__footer--theme-with-aff {
+
+        .footer-bottom {
+
+            &__left {
+                @include bm.get-mq-map('margin', $theme2Footer, 'btnsLeftMargin');
+
+                .wlc-language-selector {
+                    margin: 0 auto;
+                }
+            }
+
+            .wlc-btn {
+
+                &--aff {
+                    @include bm.get-mq-map('margin', $theme2Footer, 'btnAffMargin');
+                    grid-area: affiliate,;
+                }
+            }
+        }
+    }
 }

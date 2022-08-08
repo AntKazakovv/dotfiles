@@ -59,6 +59,35 @@
         }
     }
 
+    &.wlc-sections__footer--theme-with-aff {
+
+        .container {
+            @include bm.get-mq-map('grid-template-areas', $theme1Footer, 'footerContainerGridAreasWithAffBtn');
+
+            .wlc-btn {
+
+                &--aff {
+                    @include bm.get-mq-map('margin', $theme1Footer, 'affBtnMargin');
+                    grid-area: affiliate;
+                }
+            }
+
+            .wlc-social-icons {
+
+                &.wlc-social-icons--theme-mod-compact {
+
+                    .wlc-social-icons {
+
+                        &__list {
+                            @include bm.get-mq-map('margin', $theme1Footer, 'compactListMarginWithAff');
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+
     .wlc-icon {
 
         &-safety-list,

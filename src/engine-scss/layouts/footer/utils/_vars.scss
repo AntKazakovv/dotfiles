@@ -42,18 +42,95 @@ $theme1Footer: map-merge((
         1630: auto 1fr auto 2fr auto,
     ),
     'footerContainerGridAreas': (
-        375: 'merchants' 'payments' 'menu' 'language' 'social' 'disclaimer' 'license',
-        768: 'merchants merchants merchants' 'payments payments payments' 'logo menu language' 'social social social' 'disclaimer disclaimer disclaimer' 'license license license',
-        1024: 'merchants merchants merchants' 'payments payments payments' 'logo menu social' 'license disclaimer language',
-        1200: 'merchants merchants merchants merchants merchants' 'payments payments payments payments payments' 'logo menu license disclaimer language' 'social menu license disclaimer language',
+        375:
+        'merchants'
+        'payments'
+        'menu'
+        'language'
+        'social'
+        'disclaimer'
+        'license',
+        768:
+        'merchants merchants merchants'
+        'payments payments payments'
+        'logo menu language'
+        'social social social'
+        'disclaimer disclaimer disclaimer'
+        'license license license',
+        1024:
+        'merchants merchants merchants'
+        'payments payments payments'
+        'logo menu social'
+        'license disclaimer language',
+        1200:
+        'merchants merchants merchants merchants merchants'
+        'payments payments payments payments payments'
+        'logo menu license disclaimer language'
+        'social menu license disclaimer language',
+    ),
+
+    'footerContainerGridAreasWithAffBtn': (
+        375:
+        'merchants'
+        'payments'
+        'menu'
+        'affiliate'
+        'language'
+        'social'
+        'disclaimer'
+        'license',
+        768:
+        'merchants merchants merchants'
+        'payments payments payments'
+        'logo menu language' 'social social social'
+        'affiliate affiliate affiliate'
+        'disclaimer disclaimer disclaimer'
+        'license license license',
+        1024:
+        'merchants merchants merchants'
+        'payments payments payments'
+        'logo menu affiliate'
+        'logo menu social'
+        'license disclaimer language',
+        1200:
+        'merchants merchants merchants merchants merchants'
+        'payments payments payments payments payments'
+        'logo menu license disclaimer language'
+        'social menu license disclaimer language'
+        'affiliate menu license disclaimer language',
     ),
 
     'useSafetyIcons': false,
     'containerGridAreasWithSafety': (
-        375: 'merchants' 'payments' 'safety' 'menu' 'language' 'social' 'disclaimer' 'license',
-        768: 'merchants merchants merchants' 'payments payments payments' 'safety safety safety' 'logo menu language' 'social social social' 'disclaimer disclaimer disclaimer' 'license license license',
-        1024: 'merchants merchants merchants' 'payments payments payments' 'safety safety safety' 'logo menu social' 'license disclaimer language',
-        1200: 'merchants merchants merchants merchants merchants' 'payments payments payments payments payments' 'safety safety safety safety safety' 'logo menu license disclaimer language' 'social menu license disclaimer language',
+        375:
+        'merchants'
+        'payments'
+        'safety'
+        'menu'
+        'language'
+        'social'
+        'disclaimer'
+        'license',
+        768:
+        'merchants merchants merchants'
+        'payments payments payments'
+        'safety safety safety'
+        'logo menu language'
+        'social social social'
+        'disclaimer disclaimer disclaimer'
+        'license license license',
+        1024:
+        'merchants merchants merchants'
+        'payments payments payments'
+        'safety safety safety'
+        'logo menu social'
+        'license disclaimer language',
+        1200:
+        'merchants merchants merchants merchants merchants'
+        'payments payments payments payments payments'
+        'safety safety safety safety safety'
+        'logo menu license disclaimer language'
+        'social menu license disclaimer language',
     ),
 
     'footerContainerColumnGap': (
@@ -100,6 +177,21 @@ $theme1Footer: map-merge((
 
     'langGap': ef.size(2),
     'langAlignSelf': baseline,
+
+    //margin for affiliate button
+    'affBtnMargin': (
+        375: ef.size(4) 0 ef.size(4) 0,
+        1024: 0,
+        1200: ef.size(-7) 0,
+    ),
+
+    //margin for social icon in footer with affiliate button
+    'compactListMarginWithAff': (
+        375: ef.size(4) 0 0,
+        900: 0,
+        1200: ef.size(-6) 0 0,
+    ),
+
 ), $customTheme1Footer);
 
 $customTheme2Footer: () !default;
@@ -292,5 +384,17 @@ $theme2Footer: map-merge((
         375: 0 0 0 ef.size(3),
         1200: 0 0 0 ef.size(6),
         1630: 0 0 0 ef.size(8),
+    ),
+
+    //affiliate redirect button
+    'btnAffMargin': (
+        375: 0 0 ef.size(8) 0,
+        900: 0 0 ef.size(4) 0,
+    ),
+
+    //container for left buttons in footer
+    'btnsLeftMargin': (
+        375: 0 0 ef.size(4) 0,
+        900: 0,
     ),
 ), $customTheme2Footer);

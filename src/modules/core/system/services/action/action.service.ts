@@ -329,7 +329,7 @@ export class ActionService {
      */
     public scrollTo(elem?: string | HTMLElement, options?: IScrollOptions): void {
         setTimeout((): void => {
-            if(!elem) {
+            if (!elem) {
                 this.window.scrollTo({
                     top: 0,
                     behavior: 'smooth',
@@ -607,6 +607,16 @@ export class ActionService {
                         }
                     }
                 }
+            });
+        }
+
+        const landingAdress: string = this.configService.get<string>('$base.site.landingUrl');
+
+        if (landingAdress) {
+            this.eventService.subscribe({
+                name: 'AFFILIATE_REDIRECT',
+            }, (): void => {
+                this.window.open(`${landingAdress}/${this.lang}`);
             });
         }
     }

@@ -39,6 +39,44 @@ export namespace footer {
         ],
     };
 
+    export const themeFirstWithAffLink: ILayoutSectionConfig = {
+        replaceConfig: true,
+        order: 1000,
+        container: true,
+        theme: '1',
+        modifiers: ['theme-with-aff'],
+        wlcElement: 'section_footer',
+        components: [
+            componentLib.wlcIconList.merchants,
+            componentLib.wlcIconList.payments,
+            componentLib.wlcPostMenu.footerFirst,
+            componentLib.wlcLogo.footerFirst,
+            componentLib.wlcSocialIcons.compact,
+            componentLib.wlcButton.affRedirectLink,
+            componentLib.wlcLicense.def,
+            {
+                name: 'core.wlc-wrapper',
+                params: {
+                    class: 'wlc-footer-disclaimer',
+                    components: [
+                        componentLib.wlcDisclaimer.def,
+                        componentLib.wlcCopyright.def,
+                    ],
+                },
+            },
+            {
+                name: 'core.wlc-wrapper',
+                params: {
+                    class: 'wlc-footer-lang',
+                    components: [
+                        componentLib.wlcLanguageSelector.footerThemeFirst,
+                    ],
+                },
+            },
+            componentLib.wlcScrollUp.def,
+        ],
+    };
+
     export const themeFirstThemeToggler: ILayoutSectionConfig = {
         replaceConfig: true,
         order: 1000,
@@ -144,6 +182,74 @@ export namespace footer {
                                 components: [
                                     componentLib.wlcDisclaimer.def,
                                     componentLib.wlcRecaptchaPolicy.def,
+                                    componentLib.wlcCopyright.def,
+                                ],
+                            },
+                        },
+                        componentLib.wlcLicense.onlyMobile,
+                    ],
+                },
+            },
+            componentLib.wlcScrollUp.def,
+        ],
+    };
+
+    export const themeSecondWithAffLink: ILayoutSectionConfig = {
+        replaceConfig: true,
+        order: 1000,
+        container: true,
+        theme: '2',
+        modifiers: ['theme-with-aff'],
+        wlcElement: 'section_footer',
+        components: [
+            componentLib.wlcIconList.merchants,
+            componentLib.wlcIconList.payments,
+            {
+                name: 'core.wlc-wrapper',
+                params: {
+                    class: 'footer-menu',
+                    wlcElement: 'block_footer-info',
+                    components: [
+                        componentLib.wlcPostMenu.footerInfo,
+                        componentLib.wlcLanguageSelector.topLeftTheme2,
+                    ],
+                },
+            },
+            {
+                name: 'core.wlc-wrapper',
+                params: {
+                    class: 'footer-bottom',
+                    id: 1,
+                    components: [
+                        {
+                            name: 'core.wlc-wrapper',
+                            params: {
+                                class: 'footer-bottom__left',
+                                components: [
+                                    componentLib.wlcButton.affRedirectLink,
+                                    componentLib.wlcSocialIcons.def,
+                                    {
+                                        name: 'core.wlc-wrapper',
+                                        display: {
+                                            before: 899,
+                                        },
+                                        params: {
+                                            class: 'footer-language-selector',
+                                            components: [
+                                                componentLib.wlcLanguageSelector.footerThemeFirst,
+                                            ],
+                                        },
+                                    },
+                                    componentLib.wlcLicense.onlyDesktop,
+                                ],
+                            },
+                        },
+                        {
+                            name: 'core.wlc-wrapper',
+                            params: {
+                                class: 'footer-bottom__right',
+                                components: [
+                                    componentLib.wlcDisclaimer.def,
                                     componentLib.wlcCopyright.def,
                                 ],
                             },

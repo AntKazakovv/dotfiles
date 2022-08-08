@@ -289,6 +289,20 @@ export namespace wlcButton {
         },
     };
 
+    export const affRedirectLink: ILayoutComponent = {
+        name: 'core.wlc-button',
+        params: {
+            customMod: 'aff',
+            themeMod: 'secondary',
+            common: {
+                text: gettext('Affiliate program'),
+                event: {
+                    name: 'AFFILIATE_REDIRECT',
+                },
+            },
+        },
+    };
+
     export const affLogin: ILayoutComponent = {
         name: 'core.wlc-button',
         display: {
