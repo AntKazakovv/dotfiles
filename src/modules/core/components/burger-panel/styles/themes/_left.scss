@@ -146,6 +146,7 @@
                 &__icon {
                     margin: ef.get-value($themeLeft, 'menuLinksIconMargin');
 
+                    img,
                     svg {
                         display: block;
                         width: ef.get-value($themeLeft, 'menuLinksIconWidth');
