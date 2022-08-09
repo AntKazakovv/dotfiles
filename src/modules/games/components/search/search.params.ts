@@ -262,6 +262,8 @@ export const defaultGamesGridParams: IGamesGridCParams = {
     showTitle: false,
     usePlaceholders: false,
     byState: true,
+    hideEmpty: true,
+    showProgressBar: true,
     moreBtn: {
         hide: false,
         lazy: false,
