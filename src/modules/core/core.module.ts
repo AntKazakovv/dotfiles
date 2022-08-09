@@ -43,6 +43,7 @@ import {RecaptchaService} from './system/services/recaptcha/recaptcha.service';
 // -- SERVICES IMPORTS END  --;
 
 // -- PROVIDERS IMPORTS START --;
+import {CheckBoxTexts} from 'wlc-engine/modules/core/system/classes/checkbox-text.class';
 import {CuracaoRequirement} from 'wlc-engine/modules/app/system';
 // -- PROVIDERS IMPORTS END -
 
@@ -260,6 +261,7 @@ export const services = {
             },
             deps: [ConfigService],
         },
+        CheckBoxTexts,
     ],
     declarations: [
         AlertComponent,

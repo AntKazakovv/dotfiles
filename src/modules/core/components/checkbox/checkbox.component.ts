@@ -7,19 +7,17 @@ import {
 } from '@angular/core';
 import {FormControl} from '@angular/forms';
 
+import _union from 'lodash-es/union';
+import _kebabCase from 'lodash-es/kebabCase';
+import _assign from 'lodash-es/assign';
 
 import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
 import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
 import {ModalService} from 'wlc-engine/modules/core/system/services/modal/modal.service';
+import {CheckBoxTexts} from 'wlc-engine/modules/core/system/classes/checkbox-text.class';
+import {IBaseConfig} from 'wlc-engine/modules/core/system/interfaces';
 
 import * as Params from './checkbox.params';
-
-import _union from 'lodash-es/union';
-import _kebabCase from 'lodash-es/kebabCase';
-
-export interface ILegalAge {
-    age: number;
-}
 
 @Component({
     selector: '[wlc-checkbox]',
@@ -31,13 +29,21 @@ export class CheckboxComponent extends AbstractComponent implements OnInit {
     public $params: Params.ICheckboxCParams;
     public control: FormControl;
     public fieldWlcElement: string;
-    public legalAge: ILegalAge;
+    public textContext: Params.ICheckboxCParams['textContext'];
+    public textWithLink: Params.ILegalCheckboxWithLink = {
+        prefix: '',
+        suffix: '',
+        linkText: '',
+        slug: '',
+    };
+    public checkboxType: 'default' | 'legal-modal' | 'legal-link' = 'default';
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.ICheckboxCParams,
         protected configService: ConfigService,
         protected cdr: ChangeDetectorRef,
         protected modalService: ModalService,
+        protected checkBoxTexts: CheckBoxTexts,
     ) {
         super({injectParams, defaultParams: Params.defaultParams}, configService);
     }
@@ -50,9 +56,27 @@ export class CheckboxComponent extends AbstractComponent implements OnInit {
         this.control = this.$params.control;
         this.prepareModifiers();
         this.fieldWlcElement = 'checkbox_' + _kebabCase(this.$params.name);
-        this.legalAge = {
-            age: this.configService.get('$base.profile.legalAge') || 18,
-        };
+        this.textContext = this.$params.textContext;
+
+        switch (this.$params.checkboxType) {
+            case 'age':
+                this.textContext = {
+                    age: this.configService.get('$base.profile.legalAge') || 18,
+                };
+                this.$params.text ??= this.checkBoxTexts.get('ageCheckboxText') as string;
+                break;
+
+            case 'terms':
+            case 'privacy-policy':
+            case 'payment-rules':
+                this.setLegalCheckboxParams(this.$params.checkboxType);
+                break;
+
+            case 'legal-link':
+            case 'legal-modal':
+                this.checkboxType = this.$params.checkboxType;
+                break;
+        }
     }
 
     public showModal(name: string, slug: string): void {
@@ -67,8 +91,39 @@ export class CheckboxComponent extends AbstractComponent implements OnInit {
         }
     }
 
+    protected setLegalCheckboxParams(type: Exclude<Params.CheckboxType, 'age'>): void {
+        let configKey: keyof IBaseConfig['legal'];
+
+        switch (type) {
+            case 'terms':
+                configKey = 'termsCheckboxText';
+                this.checkboxType = 'legal-modal';
+                break;
+
+            case 'payment-rules':
+                configKey = 'paymentRulesText';
+                this.checkboxType = 'legal-link';
+                break;
+
+            case 'privacy-policy':
+                configKey = 'privacyPolicyText';
+                this.checkboxType = 'legal-modal';
+                break;
+        }
+
+        if (!configKey) {
+            return;
+        }
+
+        this.textWithLink = _assign(
+            {},
+            this.checkBoxTexts.get(configKey) as Params.ILegalCheckboxWithLink,
+            this.$params.textWithLink,
+        );
+    }
+
     // TODO move to abstract class
-    private prepareModifiers(): void {
+    protected prepareModifiers(): void {
 
         let modifiers: Params.Modifiers[] = [];
         if (this.$params.textSide) {

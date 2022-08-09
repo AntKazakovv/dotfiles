@@ -48,6 +48,10 @@
             @include checkboxTermsStyles($themeDefault);
         }
 
+        .wlc-checkbox--self-exclude {
+            @include checkboxSelfExcludedStyles($themeDefault);
+        }
+
         .wlc-checkbox--privacy {
             @include checkboxPrivacyStyles($themeDefault);
         }

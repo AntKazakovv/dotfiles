@@ -21,6 +21,7 @@ import {IMocksConfig} from './mocks.interface';
 import {IMonitoringConfig} from './monitoring.interface';
 import {IIdleConfig} from './idle.interface';
 import {IRestrictionsConfig} from './restrictions.interface';
+import {ILegalCheckboxWithLink} from 'wlc-engine/modules/core/components/checkbox/checkbox.params';
 
 export * from './games.interface';
 export * from './tournaments.interface';
@@ -120,4 +121,14 @@ export interface IBaseConfig {
      * Settings for any constraints
      */
     restrictions?: IRestrictionsConfig;
+
+    legal?: {
+        termsCheckboxText?: ILegalCheckboxWithLink;
+        termsWlcCuracaoCheckboxText?: ILegalCheckboxWithLink;
+        ageCheckboxText?: string;
+        ageWlcCuracaoCheckboxText?: string;
+        selfExcludedCheckboxText?: string;
+        paymentRulesText?: ILegalCheckboxWithLink,
+        privacyPolicyText?: ILegalCheckboxWithLink,
+    }
 }

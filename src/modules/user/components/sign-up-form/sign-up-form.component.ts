@@ -5,7 +5,15 @@ import {
     OnInit,
 } from '@angular/core';
 import {FormGroup} from '@angular/forms';
+
 import {BehaviorSubject} from 'rxjs';
+import _each from 'lodash-es/each';
+import _some from 'lodash-es/some';
+import _filter from 'lodash-es/filter';
+import _merge from 'lodash-es/merge';
+import _cloneDeep from 'lodash-es/cloneDeep';
+import _isObject from 'lodash-es/isObject';
+import _findLastIndex from 'lodash-es/findLastIndex';
 
 import {
     ConfigService,
@@ -24,15 +32,10 @@ import {SocialService} from 'wlc-engine/modules/user/system/services/social/soci
 import {ValidationService} from 'wlc-engine/modules/core/system/services/validation/validation.service';
 import {IFormComponent} from 'wlc-engine/modules/core/components/form-wrapper/form-wrapper.component';
 import {IMGAConfig} from 'wlc-engine/modules/core/components/license/license.params';
+import {FormElements} from 'wlc-engine/modules/core/system/config/form-elements';
+import {CuracaoRequirement} from 'wlc-engine/modules/app/system';
 
 import * as Params from './sign-up-form.params';
-
-import _each from 'lodash-es/each';
-import _some from 'lodash-es/some';
-import _filter from 'lodash-es/filter';
-import _merge from 'lodash-es/merge';
-import _cloneDeep from 'lodash-es/cloneDeep';
-import _isObject from 'lodash-es/isObject';
 
 export interface IRegFormDataForConfig {
     form: IValidateData;
@@ -70,6 +73,7 @@ export class SignUpFormComponent extends UserActionsAbstract<Params.ISignUpFormC
         protected configService: ConfigService,
         protected eventService: EventService,
         protected socialService: SocialService,
+        @Inject(CuracaoRequirement) private enableRequirement: boolean,
     ) {
         super({
             injectParams,
@@ -89,11 +93,14 @@ export class SignUpFormComponent extends UserActionsAbstract<Params.ISignUpFormC
         if (this.getTwoSteps()) {
             if (this.isSecondStep()) {
                 this.config = Params.twoStepsFormConfig;
+                this.modifyFormByLicense(1);
             } else {
                 this.config.components = _filter(this.config.components, (el) => {
                     return !['ageConfirmed', 'agreedWithTermsAndConditions'].includes(el.params.name);
                 });
             }
+        } else {
+            this.modifyFormByLicense(0);
         }
 
         if (this.configService.get<boolean>('$base.profile.smsVerification.use')
@@ -192,7 +199,7 @@ export class SignUpFormComponent extends UserActionsAbstract<Params.ISignUpFormC
                 promocodeControl.setErrors({promocode: true});
                 return false;
             }
-        } catch(error) {
+        } catch (error) {
             promocodeControl.setErrors({promocode: true});
 
             this.logService.sendLog({
@@ -227,5 +234,52 @@ export class SignUpFormComponent extends UserActionsAbstract<Params.ISignUpFormC
 
     protected isSecondStep(): boolean {
         return this.$params.formType === 'secondStep';
+    }
+
+    protected modifyFormByLicense(shift: number = 0): void {
+        if (this.enableRequirement) {
+
+            const components = this.config.components.slice();
+
+            const getInsertIndex = (): number => {
+                const lastCheckbox = _findLastIndex(
+                    this.config.components,
+                    (item) => item.name === 'core.wlc-checkbox',
+                );
+                return lastCheckbox === -1
+                    ? this.config.components.length
+                    : lastCheckbox + shift;
+            };
+
+            if (_findLastIndex(components, (item) => item.params.name === 'agreeWithSelfExcluded') === -1) {
+                components.splice(
+                    getInsertIndex(),
+                    0,
+                    {
+                        name: 'core.wlc-checkbox',
+                        params: {
+                            name: 'agreeWithSelfExcluded',
+                            text: this.configService.get<string>('$base.legal.selfExcludedCheckboxText')
+                                || gettext('I have not self-excluded from any gambling website in the past 12 months'),
+                            wlcElement: 'block_self_excluded',
+                            common: {
+                                customModifiers: 'self-exclude',
+                            },
+                            validators: ['requiredTrue'],
+                        },
+                    },
+                );
+            }
+
+            if (_findLastIndex(components, (item) => item.params.name === 'agreedWithTermsAndConditions') === -1) {
+                components.splice(getInsertIndex(), 0, FormElements.terms);
+            }
+
+            if (_findLastIndex(components, (item) => item.params.name === 'ageConfirmed') === -1) {
+                components.splice(getInsertIndex(), 0, FormElements.age);
+            }
+
+            this.config.components = components;
+        }
     }
 }

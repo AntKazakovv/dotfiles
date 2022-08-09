@@ -32,6 +32,8 @@ $themeDefault: map-merge((
     'checkboxLinkBorderColorHover': var(--mc-main-l20),
 
     'checkboxPadding': ef.size(4) ef.size(2) 0 ef.size(2),
+    'checkboxSelfExcludedPadding': 0 ef.size(2),
+    'checkboxSelfExcludedMargin': -17px 0 0,
     'checkboxPrivacyPadding': 0 ef.size(2),
     'checkboxPrivacyMargin': -17px 0 0,
     'checkboxAgeMargin': -17px 0 0,
