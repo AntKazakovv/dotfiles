@@ -86,6 +86,8 @@ export class PaymentMessageComponent extends AbstractComponent implements OnInit
     public ngOnInit(): void {
         super.ngOnInit();
         this.system = this.$params?.system ? this.$params.system : this.system;
+        this.minAmount ??= this.$params?.minAmount;
+        this.maxAmount ??= this.$params?.maxAmount;
         this.isError = !this.system;
 
         if (this.system) {

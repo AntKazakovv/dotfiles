@@ -595,6 +595,8 @@ export class DepositWithdrawComponent
                 componentParams: {
                     themeMod: 'modal',
                     system: this.currentSystem,
+                    maxAmount: this.maxAmount,
+                    minAmount: this.minAmount,
                 },
                 dismissAll: true,
                 backdrop: 'static',
