@@ -224,6 +224,20 @@ export namespace FormElements {
         },
     };
 
+    export const countryAndState: IFormComponent = {
+        name: 'core.wlc-country-and-state',
+        params: {
+            name: ['countryCode', 'stateCode'],
+            locked: ['countryCode'],
+            validatorsField: [
+                {
+                    name: 'countryCode',
+                    validators: 'required',
+                },
+            ],
+        },
+    };
+
     export const city: IFormComponent = {
         name: 'core.wlc-input',
         params: <IInputCParams>{

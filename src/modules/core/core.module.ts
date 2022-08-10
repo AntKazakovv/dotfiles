@@ -37,9 +37,14 @@ import {
     StateHistoryService,
     BodyClassService,
     ColorThemeService,
+    AppConfigModel,
 } from './system/services';
 import {RecaptchaService} from './system/services/recaptcha/recaptcha.service';
 // -- SERVICES IMPORTS END  --;
+
+// -- PROVIDERS IMPORTS START --;
+import {CuracaoRequirement} from 'wlc-engine/modules/app/system';
+// -- PROVIDERS IMPORTS END -
 
 // -- COMPONENTS IMPORTS  --;
 import {AnimateSpriteComponent} from './components/animate-sprite/animate-sprite.component';
@@ -245,6 +250,15 @@ export const services = {
             useValue: {
                 animated: true,
             },
+        },
+        {
+            provide: CuracaoRequirement,
+            useFactory: (config: ConfigService) => {
+                const {projectType, license} = config.get<AppConfigModel>('appConfig');
+                return config.get<boolean>('$base.site.forceCuracaoRequirement')
+                    || (projectType === 'wlc' && license === 'curacao');
+            },
+            deps: [ConfigService],
         },
     ],
     declarations: [

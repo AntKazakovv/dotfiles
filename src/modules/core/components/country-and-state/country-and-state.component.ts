@@ -6,6 +6,7 @@ import {
     Input,
     OnInit,
 } from '@angular/core';
+import {ValidatorFn} from '@angular/forms';
 
 import {
     BehaviorSubject,
@@ -21,17 +22,26 @@ import {
     ConfigService,
     IIndexing,
     IState,
+    ValidationService,
 } from 'wlc-engine/modules/core';
 import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
 
 import * as Params from './country-and-state.params';
-
 
 @Component({
     selector: '[wlc-country-and-state]',
     templateUrl: './country-and-state.component.html',
     styleUrls: ['./styles/country-and-state.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
+    providers: [
+        {
+            provide: 'requiredValidator',
+            useFactory: (validationService: ValidationService): ValidatorFn => {
+                return validationService.getValidator('required').validator;
+            },
+            deps: [ValidationService],
+        },
+    ],
 })
 export class CountryAndStateComponent extends AbstractComponent implements OnInit {
     @Input() protected inlineParams: Params.ICountryAndStateCParams;
@@ -39,11 +49,13 @@ export class CountryAndStateComponent extends AbstractComponent implements OnIni
 
     public showState: boolean = false;
     protected states: IIndexing<IState[]> = {};
+    protected stateStartRequired: boolean = false;
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.ICountryAndStateCParams,
         protected configService: ConfigService,
         protected cdr: ChangeDetectorRef,
+        @Inject('requiredValidator') protected requiredValidator: ValidatorFn,
     ) {
         super({injectParams, defaultParams: Params.defaultParams});
     }
@@ -55,9 +67,14 @@ export class CountryAndStateComponent extends AbstractComponent implements OnIni
         this.checkUserData();
     }
 
+    protected get stateHasRequired(): boolean {
+        return this.$params.stateCode.control.hasValidator(this.requiredValidator);
+    }
+
     protected provideParams(): void {
         this.$params.countryCode['theme'] = this.$params.theme;
         this.$params.stateCode['theme'] = this.$params.theme;
+        this.stateStartRequired = this.stateHasRequired;
     }
 
     protected checkUserData(): void {
@@ -107,6 +124,20 @@ export class CountryAndStateComponent extends AbstractComponent implements OnIni
         } else {
             this.showState = false;
         }
+        this.toggleStateRequired();
         this.cdr.detectChanges();
+    }
+
+    protected toggleStateRequired(): void {
+        if (!this.stateStartRequired) {
+            return;
+        }
+        const hasRequired = this.stateHasRequired;
+
+        if (this.showState && !hasRequired) {
+            this.$params.stateCode.control.addValidators(this.requiredValidator);
+        } else if (!this.showState && hasRequired) {
+            this.$params.stateCode.control.removeValidators(this.requiredValidator);
+        }
     }
 }

@@ -220,6 +220,22 @@ export class AppConfigModel extends AbstractModel<IBootstrap> {
         return this.data.version;
     }
 
+    /**
+     * Returns the Type of project (wlc, tk, etc)
+     * @returns The project type.
+     */
+    public get projectType(): string {
+        return this.siteconfig.Type;
+    }
+
+    /**
+     * It returns the license of the site (curacao, etc).
+     * @returns The license property is being returned.
+     */
+    public get license(): string {
+        return this.siteconfig.License;
+    }
+
     protected checkData(): void {
         super.checkData();
 

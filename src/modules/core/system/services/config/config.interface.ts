@@ -28,6 +28,8 @@ export interface IGlobalConfig {
 export interface IUserConfig {
     isAuthenticated?: boolean;
     userProfile$: BehaviorSubject<UserProfile>;
+    /* required by curacao fields list */
+    requiredByCuracaoFields?: string[];
 }
 
 export interface IGetParams {

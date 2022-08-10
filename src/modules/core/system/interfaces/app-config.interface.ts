@@ -130,7 +130,10 @@ export interface ISiteConfig {
     LastWins?: string;
     RestrictMoneyGames?: number;
     RestrictRegistration?: number;
-    Type?: string;
+    // Project type from fundist
+    Type: string;
+    // Project license from fundist
+    License: string;
 }
 
 export interface ISiteconfigLanguage {

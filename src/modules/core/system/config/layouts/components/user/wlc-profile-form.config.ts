@@ -1,4 +1,7 @@
-import {ILayoutComponent} from 'wlc-engine/modules/core';
+import {
+    GlobalHelper,
+    ILayoutComponent,
+} from 'wlc-engine/modules/core';
 import {
     IFormWrapperCParams,
     IInputCParams,
@@ -76,18 +79,14 @@ export namespace wlcProfileForm {
                                     wlcElement: 'header_edit-location',
                                 },
                             },
-                            {
-                                name: 'core.wlc-country-and-state',
-                                params: {
-                                    name:  ['countryCode', 'stateCode'],
-                                    theme: 'vertical',
-                                    locked: ['countryCode'],
-                                    validatorsField: [{
-                                        name: 'countryCode',
-                                        validators: 'required',
-                                    }],
+                            GlobalHelper.mergeConfig(
+                                FormElements.countryAndState,
+                                {
+                                    params: {
+                                        theme: 'vertical',
+                                    },
                                 },
-                            },
+                            ),
                             {
                                 name: FormElements.postalCode.name,
                                 params: {
@@ -261,17 +260,7 @@ export namespace wlcProfileForm {
                         locked: true,
                     },
                 },
-                {
-                    name: 'core.wlc-country-and-state',
-                    params: {
-                        name: ['countryCode', 'stateCode'],
-                        locked: ['countryCode'],
-                        validatorsField: [{
-                            name: 'countryCode',
-                            validators: 'required',
-                        }],
-                    },
-                },
+                FormElements.countryAndState,
                 {
                     name: 'core.wlc-input',
                     params: <IInputCParams>{

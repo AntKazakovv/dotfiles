@@ -12,7 +12,10 @@ import _assign from 'lodash-es/assign';
 import _isObject from 'lodash-es/isObject';
 import _forEach from 'lodash-es/forEach';
 import _remove from 'lodash-es/remove';
+import _get from 'lodash-es/get';
+import _set from 'lodash-es/set';
 import _cloneDeep from 'lodash-es/cloneDeep';
+import _find from 'lodash-es/find';
 
 import {
     ConfigService,
@@ -24,11 +27,19 @@ import {
     IFormComponent,
     IFormWrapperCParams,
     ValidatorType,
+    GlobalHelper,
 } from 'wlc-engine/modules/core';
 import {UserService} from 'wlc-engine/modules/user/system/services';
 import {ProfileFormAbstract} from 'wlc-engine/modules/user/system/classes/profile-form.abstract';
+import {FormElements} from 'wlc-engine/modules/core/system/config/form-elements';
+import {CuracaoRequirement} from 'wlc-engine/modules/app/system';
 
 import * as Params from './profile-form.params';
+
+interface IFindBlockResult {
+    parent: IFormComponent[];
+    index: number;
+}
 
 /**
  * Profile form component.
@@ -44,6 +55,32 @@ import * as Params from './profile-form.params';
     selector: '[wlc-profile-form]',
     templateUrl: './profile-form.component.html',
     styleUrls: ['./styles/profile-form.component.scss'],
+    providers: [
+        {
+            provide: 'requiredFields',
+            deps: [CuracaoRequirement, ConfigService],
+            useFactory: (enabled: boolean, config: ConfigService): string[] => {
+                if (enabled) {
+                    const defaultFieldList = [
+                        'email',
+                        'firstName',
+                        'lastName',
+                        'birthDate',
+                        'countryAndState',
+                        'city',
+                        'address',
+                        'postalCode',
+                    ];
+                    const fieldList = config.get<string[]>('$user.requiredByCuracaoFields');
+                    if (fieldList) {
+                        return GlobalHelper.sortByOrder(fieldList, defaultFieldList);
+                    }
+                    return defaultFieldList;
+                }
+                return [];
+            },
+        },
+    ],
 })
 export class ProfileFormComponent extends ProfileFormAbstract implements OnInit {
     @Input() protected inlineParams: Params.IProfileFormCParams;
@@ -58,6 +95,7 @@ export class ProfileFormComponent extends ProfileFormAbstract implements OnInit 
         protected cdr: ChangeDetectorRef,
         protected eventService: EventService,
         protected configService: ConfigService,
+        @Inject('requiredFields') protected requiredFields: string[],
     ) {
         super(
             {
@@ -76,7 +114,9 @@ export class ProfileFormComponent extends ProfileFormAbstract implements OnInit 
         super.ngOnInit(this.inlineParams);
         await this.configService.ready;
 
-        if (await this.configService.get<boolean>('$user.skipPasswordOnFirstUserSession')) {
+        this.mixinRequiredFields();
+
+        if (await this.configService.get<Promise<boolean>>('$user.skipPasswordOnFirstUserSession')) {
             this.$params.config = this.changePassBlock();
         }
 
@@ -129,6 +169,173 @@ export class ProfileFormComponent extends ProfileFormAbstract implements OnInit 
             }
 
             return false;
+        }
+    }
+
+    protected mixinRequiredFields(): void {
+        let prev = {
+            parent: this.$params.config.components,
+            index: 0,
+        };
+
+        this.findFirstRealIndex(prev);
+
+        const getField = (fieldParams: IFindBlockResult, name: string): IFormComponent => {
+            let item: IFormComponent;
+            if (fieldParams) {
+                item = fieldParams.parent[fieldParams.index];
+                prev = fieldParams;
+            } else {
+                if (this.configService.get<ProfileType>('$base.profile.type') === 'first') {
+                    item = GlobalHelper.mergeConfig(
+                        FormElements[name],
+                        {
+                            params: {
+                                theme: 'vertical',
+                            },
+                        },
+                    );
+                } else {
+                    item = FormElements[name];
+                }
+
+                if (name === 'countryAndState') {
+                    const locationBlock = this.findBlock(
+                        this.$params.config.components,
+                        'block',
+                        'core.wlc-wrapper',
+                        'location',
+                    );
+                    if (locationBlock) {
+                        prev = locationBlock;
+                    }
+                }
+                prev.parent.splice(prev.index, 0, item);
+                prev.index++;
+            }
+
+            return item;
+        };
+
+        for (let i = 0; i < this.requiredFields.length; i++) {
+
+            if (i && !prev.index) {
+                prev.index = prev.parent.length;
+            }
+
+            let fieldParams: IFindBlockResult;
+
+            if (this.requiredFields[i] === 'countryAndState' || this.requiredFields[i] === 'birthDate') {
+                fieldParams = this.findBlock(
+                    this.$params.config.components,
+                    'block',
+                    FormElements[this.requiredFields[i]].name,
+                );
+            } else {
+                const fieldName = _get(FormElements, `${this.requiredFields[i]}.params.name`);
+
+                if (!fieldName) {
+                    break;
+                }
+
+                fieldParams = this.findBlock(
+                    this.$params.config.components,
+                    'field',
+                    fieldName,
+                );
+            }
+            const item: IFormComponent = getField(fieldParams, this.requiredFields[i]);
+
+            switch (this.requiredFields[i]) {
+                case 'countryAndState': {
+                    if (!item.params?.validatorsField) {
+                        _set(item, 'params.validatorsField', []);
+                    }
+                    if (!_find(item.params.validatorsField, {name: 'countryCode', validators: 'required'})) {
+                        item.params.validatorsField.push({name: 'countryCode', validators: 'required'});
+                    }
+                    if (!_find(item.params.validatorsField, {name: 'stateCode', validators: 'required'})) {
+                        item.params.validatorsField.push({name: 'stateCode', validators: 'required'});
+                    }
+
+                    item.params = GlobalHelper.mergeConfig(item.params, {
+                        countryCode: {
+                            validators: ['required'],
+                        },
+                        stateCode: {
+                            validators: ['required'],
+                        },
+                    });
+                    break;
+                }
+
+                default: {
+                    if (this.requiredFields[i] !== 'postalCode') {
+                        if (!item.params.validators) {
+                            item.params.validators = [];
+                        }
+                        if (!item.params.validators.includes('required')) {
+                            item.params.validators.push('required');
+                        }
+                    }
+                    break;
+                }
+            }
+        }
+    }
+
+    protected findBlock(
+        components: IFormComponent[],
+        type: 'block' | 'field',
+        name: string,
+        withClassModifier?: string,
+    ): IFindBlockResult | null {
+        const path = type === 'block' ? 'name' : 'params.name';
+        let res = null;
+        const dfs = (parent: IFormComponent[]): void => {
+            for (let i = 0; i < parent.length; i++) {
+                if (res) {
+                    return;
+                }
+                if (_get(parent[i], path) === name) {
+                    if (withClassModifier) {
+                        if (_get(parent[i], 'params.class', '').includes(withClassModifier)) {
+                            res = {
+                                parent: parent[i].params.components,
+                                index: 0,
+                            };
+                            this.findFirstRealIndex(res);
+                            return;
+                        }
+                    } else {
+                        res = {
+                            parent,
+                            index: i,
+                        };
+                        return;
+                    }
+                }
+                if (parent[i]?.name.endsWith('wlc-wrapper')) {
+                    dfs(parent[i].params.components);
+                }
+            }
+        };
+        dfs(components);
+        return res;
+    }
+
+    protected findFirstRealIndex(blockResult: IFindBlockResult): void {
+        while (!blockResult.parent[blockResult.index]
+            || blockResult.parent[blockResult.index].name.endsWith('wlc-title')
+        ) {
+            blockResult.index++;
+        }
+
+        if (blockResult.parent[blockResult.index].name.endsWith('wlc-wrapper')) {
+            blockResult.parent = blockResult.parent[blockResult.index].params.components;
+            if (blockResult.parent[blockResult.index].name.endsWith('wlc-title')) {
+                blockResult.index++;
+            }
         }
     }
 

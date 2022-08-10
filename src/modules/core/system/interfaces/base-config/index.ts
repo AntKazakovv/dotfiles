@@ -45,6 +45,8 @@ export interface IBaseConfig {
         * Uses for action 'AFFILIATE_REDIRECT'.
         */
         landingUrl?: string,
+        /** Force use Curacao requirements as for WLC */
+        forceCuracaoRequirement?: boolean;
     };
     /**
     * Sticky header enabling and settings;
