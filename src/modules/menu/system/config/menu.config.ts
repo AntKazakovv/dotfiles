@@ -293,6 +293,7 @@ export const menuConfig: IMenuConfig = {
                 type: 'group',
                 items: [
                     'profile-first-menu:bets-history',
+                    'profile-first-menu:transaction-history',
                 ],
             },
         ],
