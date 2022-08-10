@@ -21,7 +21,6 @@ import {IMocksConfig} from './mocks.interface';
 import {IMonitoringConfig} from './monitoring.interface';
 import {IIdleConfig} from './idle.interface';
 import {IRestrictionsConfig} from './restrictions.interface';
-import {ISaveSignUpForm} from './save-sign-up-form.interface';
 
 export * from './games.interface';
 export * from './tournaments.interface';
@@ -29,7 +28,6 @@ export * from './finances.interface';
 export * from './contacts.interface';
 export * from './profile.interface';
 export * from './idle.interface';
-export * from './save-sign-up-form.interface';
 
 export interface IBaseConfig {
     app?: IAppConfig;
@@ -114,9 +112,5 @@ export interface IBaseConfig {
     /**
      * Settings for any constraints
      */
-    restrictions?: IRestrictionsConfig,
-    /**
-     * Save sign up form data in indexed data base
-     */
-    rememberSignUpData?: ISaveSignUpForm,
+    restrictions?: IRestrictionsConfig;
 }

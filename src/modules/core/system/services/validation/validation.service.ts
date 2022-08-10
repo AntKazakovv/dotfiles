@@ -140,7 +140,7 @@ export class ValidationService {
     }
 
     public loginUnique(ctrl: AbstractControl): Promise<IIndexing<boolean>> {
-        return this.checkLogin(ctrl)
+        return this.dataService.request<IIndexing<string>>('user/loginUnique', {login: ctrl.value})
             .then(value => {
                 return value.data.result ? null : {
                     'login-not-unique': true,
@@ -195,37 +195,9 @@ export class ValidationService {
     }
 
     /**
-     * Validate uniq email
-     * @param {AbstractControl} ctrl Form control
-     * @returns {ValidationErrors | null}
-     */
-    public checkEmail(ctrl): Promise<IData | Partial<IData>> {
-        if (this.configService.get<boolean>('appConfig.hideEmailExistence')) {
-            return new Promise(resolve => {
-                resolve({
-                    data: {
-                        result: true,
-                    },
-                });
-            });
-        }
-        return this.dataService.request<IData>('user/emailUnique',
-            {email: ctrl.value});
-    }
-
-    /**
-     * Validate uniq login
-     * @param {AbstractControl} ctrl Form control
-     * @returns {ValidationErrors | null}
-     */
-    public checkLogin(ctrl: AbstractControl): Promise<IData> {
-        return this.dataService.request<IData>('user/loginUnique', {login: ctrl.value});
-    }
-
-    /**
      * Validate length password
      * @param {AbstractControl} ctrl Form control
-     * @returns {ValidationErrors | null} True if length right, else false
+     * @returns {{ValidationErrors | null} True if length right, else false
      */
     private passwordLength(ctrl: AbstractControl): ValidationErrors | null {
         let minLength = 6;
@@ -259,5 +231,19 @@ export class ValidationService {
             validator: rule.bind(this),
             async,
         };
+    }
+
+    private checkEmail(ctrl): Promise<IData | Partial<IData>> {
+        if (this.configService.get<boolean>('appConfig.hideEmailExistence')) {
+            return new Promise(resolve => {
+                resolve({
+                    data: {
+                        result: true,
+                    },
+                });
+            });
+        }
+        return this.dataService.request<IIndexing<string>>('user/emailUnique',
+            {email: ctrl.value});
     }
 }

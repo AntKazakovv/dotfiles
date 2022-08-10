@@ -197,6 +197,10 @@ export class FormWrapperComponent extends WrapperComponent implements OnInit, On
     }
 
     public async submit(): Promise<void> {
+        if (this.beforeSubmit && !await this.beforeSubmit(this.form, this.initialFormValues)) {
+            return;
+        }
+
         _each(this.form.controls, (control: FormControl) => {
             if (!control.touched || !control.valid) {
                 control.markAsTouched();
@@ -210,10 +214,12 @@ export class FormWrapperComponent extends WrapperComponent implements OnInit, On
                 .toPromise();
         }
 
-        if (this.form.valid && await this.checkBeforeSubmit() && await this.ngSubmit(this.form)) {
-            this.form.controls.currentPassword.setValue('');
-            this.form.markAsPristine();
-            this.form.markAsUntouched();
+        if (this.form.valid) {
+            if (await this.ngSubmit(this.form)) {
+                this.form.controls.currentPassword?.setValue('');
+                this.form.markAsPristine();
+                this.form.markAsUntouched();
+            }
         } else {
             const formErrors = this.formErrors();
             let errorFound = false;
@@ -251,16 +257,7 @@ export class FormWrapperComponent extends WrapperComponent implements OnInit, On
                 });
             }
         }
-
         this.cdr.detectChanges();
-    }
-
-    protected async checkBeforeSubmit(): Promise<boolean> {
-        if (this.beforeSubmit) {
-            return await this.beforeSubmit(this.form, this.initialFormValues);
-        }
-
-        return true;
     }
 
     protected collectionErrors(components: IFormComponent[]): void {
@@ -519,7 +516,6 @@ export class FormWrapperComponent extends WrapperComponent implements OnInit, On
                 control.setErrors({
                     incomingError: errors[key],
                 });
-                control.markAsTouched();
             }
         });
     }

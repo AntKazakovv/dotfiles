@@ -9,16 +9,8 @@ import {
     ViewEncapsulation,
 } from '@angular/core';
 import {FormControl} from '@angular/forms';
-import {
-    pairwise,
-    skipWhile,
-    takeUntil,
-} from 'rxjs/operators';
-import {
-    EMPTY,
-    merge,
-    Subject,
-} from 'rxjs';
+import {takeUntil} from 'rxjs/operators';
+import {Subject} from 'rxjs';
 import {TranslateService} from '@ngx-translate/core';
 
 import {ValidatorType} from 'wlc-engine/modules/core/system/services/validation/validation.service';
@@ -56,22 +48,13 @@ export class FormControlComponent implements OnInit, OnDestroy {
         if (!this.control) {
             return;
         }
-
         this.errors = this.getErrors();
-
-        merge(
-            (this.control.parent ? this.control.parent.statusChanges : EMPTY)
-                .pipe(
-                    pairwise<'VALID' | 'INVALID' | 'PENDING' | 'DISABLED'>(),
-                    skipWhile(([previous, current]) => previous === 'PENDING' && current !== 'PENDING'),
-                ),
-            this.control.statusChanges,
-        )
-            .pipe(takeUntil(this.ngUnsubscribe))
-            .subscribe(() => {
-                this.errors = this.getErrors();
-                this.cdr.markForCheck();
-            });
+        this.control.statusChanges.pipe(
+            takeUntil(this.ngUnsubscribe),
+        ).subscribe(() => {
+            this.errors = this.getErrors();
+            this.cdr.markForCheck();
+        });
     }
 
     public ngOnDestroy(): void {
