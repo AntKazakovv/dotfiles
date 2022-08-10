@@ -42,6 +42,7 @@ export interface IPaymentSystem {
     hostedFields: IHostedFields | [];
     id: string;
     image: string;
+    isPIQCashier?: boolean;
     image_withdraw?: string;
     default_images?: string[];
     lastAccounts: string[];
@@ -218,7 +219,7 @@ export class PaymentSystem extends AbstractModel<IPaymentSystem> {
     public isLastAccountsObj: boolean;
     public isHosted: boolean = false;
     public cryptoCheck: boolean;
-    public isCashier: boolean = false;
+    public readonly isCashier: boolean = false;
     public disabledBy: null | keyof typeof disabledReasons = null;
 
     private hostedFieldService: IHostedFieldService;
@@ -231,6 +232,7 @@ export class PaymentSystem extends AbstractModel<IPaymentSystem> {
     ) {
         super({from: _assign({model: 'PaymentSystem'}, from)});
         this.init(data);
+        this.isCashier = !!this.data.isPIQCashier;
     }
 
     public get appearance(): string {
@@ -468,10 +470,7 @@ export class PaymentSystem extends AbstractModel<IPaymentSystem> {
             if (this.alias.includes('v2')) {
                 this.isPayCryptosV2 = true;
             }
-        } else if (this.alias.includes('paymentiq_cashier')) {
-            this.isCashier = true;
         }
-
 
         this.cryptoCheck = !_isString(this.message)
             && (this.message.translate === 'pay_to_address' && this.message.address) ? true : false;
