@@ -42,15 +42,19 @@ export class DisclaimerComponent extends AbstractComponent implements OnInit {
 
     public ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
-        this.getDisclaimer();
+        this.createDisclaimer();
 
         this.translate.onLangChange.pipe(takeUntil(this.$destroy)).subscribe(() => {
-            this.getDisclaimer();
+            this.createDisclaimer();
         });
     }
 
-    public getDisclaimer() {
-        this.disclaimer = this.configService.get<string>(`appConfig.footerText[${this.translate.currentLang}]`) ||
-            this.configService.get<string>('appConfig.footerText[en]');
+    protected createDisclaimer(): void {
+        this.disclaimer = this.getTextFromConfig('appConfig.footerText');
+    }
+
+    protected getTextFromConfig(key: string): string {
+        return this.configService.get<string>(`${key}.${this.translate.currentLang}`)
+            || this.configService.get<string>(`${key}.en`);
     }
 }
