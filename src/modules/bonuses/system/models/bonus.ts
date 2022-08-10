@@ -50,16 +50,13 @@ const disabledReasons = {
 };
 
 export class Bonus extends AbstractModel<IBonus> {
-    /**
-     * @returns {string} currency
-     */
-    public static currency: string;
     public isReady: boolean = true;
     public onChooseChange: Subject<boolean> = new Subject<boolean>();
     public icon: string;
     public disabledBy: null | keyof typeof disabledReasons = null;
 
     protected static $bonuses: IBonusesModule;
+    protected _userCurrency: string;
     protected _isChoose: boolean = false;
     protected $descriptionClean: string;
 
@@ -83,6 +80,8 @@ export class Bonus extends AbstractModel<IBonus> {
             Bonus.$bonuses = this.configService.get<IBonusesModule>('$bonuses');
         }
 
+        this.userCurrency = this.configService.get<string>('appConfig.user.currency')
+            || this.configService.get<string>('$base.defaultCurrency');
         this._tag = this.getTag();
         this.$descriptionClean = this.data.Description.replace(/<[^>]*>/g, '');
 
@@ -116,6 +115,10 @@ export class Bonus extends AbstractModel<IBonus> {
 
     public get isChoose(): boolean {
         return this._isChoose;
+    }
+
+    public set userCurrency(value: string) {
+        this._userCurrency = value;
     }
 
     public get active(): boolean {
@@ -344,14 +347,14 @@ export class Bonus extends AbstractModel<IBonus> {
     }
 
     public get maxBet(): number {
-        return _toNumber(this.data.MaxBet?.[Bonus.currency]) ||
+        return _toNumber(this.data.MaxBet?.[this._userCurrency]) ||
             _toNumber(this.data.MaxBet?.EUR) ||
             _toNumber(this.data.Conditions?.MaxBet?.Currency) ||
             _toNumber(this.data.Conditions?.MaxBet?.EUR) || 0;
     }
 
     public get minBet(): number {
-        return _toNumber(this.data.MinBet?.[Bonus.currency]) ||
+        return _toNumber(this.data.MinBet?.[this._userCurrency]) ||
             _toNumber(this.data.MinBet?.EUR) ||
             _toNumber(this.data.Conditions?.MinBet?.Currency) ||
             _toNumber(this.data.Conditions?.MinBet?.EUR) || 0;
@@ -391,28 +394,6 @@ export class Bonus extends AbstractModel<IBonus> {
 
     public get results(): any {
         return this.data.Results;
-    }
-
-    /**
-     * @returns {string} Type balance
-     */
-    public get typeBalance(): string {
-        return this.data.Results?.balance?.Type;
-    }
-
-    /**
-     * @returns {string} Type freebets
-     */
-    public get typeFreebets(): string {
-        return this.data.Results?.freebets?.Type;
-    }
-
-    /**
-     * @returns {boolean} condition for displaying the currency icon
-     */
-    public get currencyIcon(): boolean {
-        return ((this.target === 'balance' && this.typeBalance === 'absolute')
-            || (this.bonusType === 'sport' && this.typeFreebets === 'absolute'));
     }
 
     public get selected(): boolean {
@@ -539,7 +520,7 @@ export class Bonus extends AbstractModel<IBonus> {
      * @returns {number} bonus min deposit
      */
     public get minDeposit(): number {
-        return _toNumber(this.amountMin?.[Bonus.currency]) ||
+        return _toNumber(this.amountMin?.[this._userCurrency]) ||
             _toNumber(this.amountMin?.EUR) ||
             _toNumber(this.conditions?.AmountMin?.Currency) ||
             _toNumber(this.conditions?.AmountMin?.EUR) || 0;
@@ -549,7 +530,7 @@ export class Bonus extends AbstractModel<IBonus> {
      * @returns {number} bonus max deposit
      */
     public get maxDeposit(): number {
-        return _toNumber(this.amountMax?.[Bonus.currency]) ||
+        return _toNumber(this.amountMax?.[this._userCurrency]) ||
             _toNumber(this.amountMax?.EUR) ||
             _toNumber(this.conditions?.AmountMax?.Currency) ||
             _toNumber(this.conditions?.AmountMax?.EUR) || 0;
@@ -585,7 +566,7 @@ export class Bonus extends AbstractModel<IBonus> {
      */
     public get limitAmount(): number {
         if (this.results?.[this.target].Type === 'relative') {
-            return _toNumber(this.results?.bonus?.LimitValue[Bonus.currency]) ||
+            return _toNumber(this.results?.bonus?.LimitValue[this._userCurrency]) ||
                 _toNumber(this.results[this.target].LimitValue?.EUR) || 0;
         }
     }
@@ -594,7 +575,7 @@ export class Bonus extends AbstractModel<IBonus> {
      * @returns {boolean} is bonus limit in EUR (need for experience and loyalty bonuses)
      */
     public get isLimitAmountEUR(): boolean {
-        return !this.results?.balance?.LimitValue[Bonus.currency] && !!this.results?.balance?.LimitValue?.EUR;
+        return !this.results?.balance?.LimitValue[this._userCurrency] && !!this.results?.balance?.LimitValue?.EUR;
     }
 
     /**
@@ -606,7 +587,7 @@ export class Bonus extends AbstractModel<IBonus> {
             return _toNumber(this.results?.balance?.ReleaseWagering) || 0;
         } else {
             return _toNumber(resultsTarget?.AwardWagering?.COEF)
-                || _toNumber(resultsTarget?.AwardWagering[Bonus.currency])
+                || _toNumber(resultsTarget?.AwardWagering[this._userCurrency])
                 || _toNumber(resultsTarget?.AwardWagering?.EUR)
                 || 0;
         }
@@ -625,7 +606,7 @@ export class Bonus extends AbstractModel<IBonus> {
     public get isWagerEUR(): boolean {
         const resultsTarget = this.results?.[this.target];
         if (this.isWagerAbsolute) {
-            return !resultsTarget?.AwardWagering[Bonus.currency] && !!resultsTarget?.AwardWagering?.EUR;
+            return !resultsTarget?.AwardWagering[this._userCurrency] && !!resultsTarget?.AwardWagering?.EUR;
         }
     }
 
@@ -634,7 +615,7 @@ export class Bonus extends AbstractModel<IBonus> {
      */
     public get value(): number | number[] {
         const resultsTarget = this.results?.[this.target];
-
+        
         if (!resultsTarget) {
             return 0;
         }
@@ -647,18 +628,11 @@ export class Bonus extends AbstractModel<IBonus> {
             case 'lootbox':
                 return resultsTarget.Value;
             default:
-                return _toNumber(resultsTarget.Value[Bonus.currency])
+                return _toNumber(resultsTarget.Value[this._userCurrency])
                     || _toNumber(resultsTarget.Value?.Currency)
                     || _toNumber(resultsTarget.Value?.EUR)
                     || _toNumber(resultsTarget.Value);
         }
-    }
-
-    /**
-     * @returns {string} currency value
-     */
-    public get currencyValue(): string {
-        return Bonus.currency;
     }
 
     /**

@@ -156,7 +156,8 @@
 
             .icon-text {
                 @include bm.get-mq-map('height', $themeDefault, 'bonusIconValueBlockHeight');
-                @include text.get-text-style(ef.get-value($themeDefault, 'bonusIconTextStyle'), ef.get-value($themeDefault, 'bonusIconValueFontColor'));
+
+                @include bm.get-mq-map('font-size', $themeDefault, 'bonusIconValueFontSize');
                 position: absolute;
                 bottom: ef.get-value($themeDefault, 'bonusIconValueBlockPosB');
                 left: ef.get-value($themeDefault, 'bonusIconValueBlockPosL');
@@ -176,11 +177,11 @@
                 border-radius: ef.get-value($themeDefault, 'bonusIconValueBlockBorderRds');
 
                 &.wlc-small {
-                    @include text.get-text-style(ef.get-value($themeDefault, 'bonusIconTextStyleSmall'), ef.get-value($themeDefault, 'bonusIconValueFontColor'));
+                    font-size: ef.get-value($themeDefault, 'bonusIconValueFontSizeSmall');
                 }
 
                 &.wlc-smaller {
-                    @include text.get-text-style(ef.get-value($themeDefault, 'bonusIconTextStyleSmaller'), ef.get-value($themeDefault, 'bonusIconValueFontColor'));
+                    font-size: ef.get-value($themeDefault, 'bonusIconValueFontSizeSmaller');
                 }
             }
         }

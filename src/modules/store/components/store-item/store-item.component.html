@@ -11,7 +11,13 @@
             <img class="icon-sign"
                  loading="lazy"
                  [src]="bonusIconPath">
-            <ng-container *ngIf="storeItem.bonus.currencyIcon then valueBalance else valueFreerounds"></ng-container>
+            <div
+                class="icon-text"
+                minLength="4"
+                maxLength="7"
+                [wlc-value-length]="storeItem.bonus.value">
+                {{storeItem.bonus.value}}
+            </div>
         </div>
     </div>
 </ng-template>
@@ -23,29 +29,6 @@
             data-wlc-element="store_item-image"
             [style]="{backgroundImage: 'url(' + storeImage + ')'}">
         </div>
-    </div>
-</ng-template>
-
-<ng-template #valueBalance>
-    <div *ngIf="storeItem.bonus.value && storeItem.bonus.bonusType != 'lootbox'"
-          wlc-currency
-          class="icon-text"
-          digitsInfo="1-0-0"
-          minLength="4"
-          maxLength="7"
-          [wlc-value-length]="storeItem.bonus.value"
-          [value]="storeItem.bonus.value"
-          [currency]="storeItem.bonus.currencyValue">
-    </div>
-</ng-template>
-
-<ng-template #valueFreerounds>
-    <div *ngIf="storeItem.bonus.value && storeItem.bonus.bonusType != 'lootbox'"
-         class="icon-text"
-         minLength="4"
-         maxLength="6"
-         [wlc-value-length]="storeItem.bonus.value">
-        {{storeItem.bonus.value}}
     </div>
 </ng-template>
 <div class="{{$class}}__content" [class.noauth]="!isAuth">

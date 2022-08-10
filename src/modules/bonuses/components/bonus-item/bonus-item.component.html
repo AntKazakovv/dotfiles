@@ -431,7 +431,14 @@
                 </span>
             </div>
         </ng-template>
-        <ng-container *ngIf="bonus.currencyIcon then valueBalance; else valueFreerounds"></ng-container>
+        <span *ngIf="bonus.value && !bonus.isLootbox"
+            class="{{$class}}__icon-text"
+            [wlc-value-length]="bonus.value"
+            minLength="4"
+            maxLength="6"
+            (click)="chooseBonusNoBtn()">
+            {{bonus.value}}
+        </span>
     </div>
 </ng-template>
 
@@ -483,29 +490,4 @@
          [style]="{backgroundImage: bonusBg}">
         <div class="{{$class}}__wrapper"></div>
     </div>
-</ng-template>
-
-<ng-template #valueBalance>
-    <span *ngIf="bonus.value && bonus.bonusType != 'lootbox'"
-          wlc-currency
-          class="{{$class}}__icon-text"
-          digitsInfo="1-0-0"
-          minLength="4"
-          maxLength="7"
-          [wlc-value-length]="bonus.value"
-          [value]="bonus.value"
-          [currency]="bonus.currencyValue"
-          (click)="chooseBonusNoBtn()">
-    </span>
-</ng-template>
-
-<ng-template #valueFreerounds>
-    <span *ngIf="bonus.value && bonus.bonusType != 'lootbox'"
-          class="{{$class}}__icon-text"
-          minLength="4"
-          maxLength="6"
-          [wlc-value-length]="bonus.value"
-          (click)="chooseBonusNoBtn()">
-        {{bonus.value}}
-    </span>
 </ng-template>

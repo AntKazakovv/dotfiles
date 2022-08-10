@@ -223,7 +223,6 @@ export class UserService {
             );
             this.userInfo$.next(this.info);
             this.profile = new UserProfile({service: 'UserService', method: 'constructor'});
-            this.profile.data = {currency: this.configService.get<string>('$base.defaultCurrency')};
             this.userProfile$.next(this.profile);
         });
 

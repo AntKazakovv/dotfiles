@@ -749,10 +749,6 @@ export class BonusesService {
     }
 
     private setSubscribers(): void {
-        this.configService.get<BehaviorSubject<UserProfile>>('$user.userProfile$')
-            .subscribe((profile) => {
-                Bonus.currency = profile?.currency || this.configService.get<string>('$base.defaultCurrency');
-            });
 
         this.subjects.bonuses$.subscribe({
             next: (bonuses: Bonus[]) => {
@@ -871,7 +867,6 @@ export class BonusesService {
     }
 
     private updateSubscribers(): void {
-
         if (this.subjects.active$.observers.length > 1) {
             this.queryBonuses(true, 'active');
         }

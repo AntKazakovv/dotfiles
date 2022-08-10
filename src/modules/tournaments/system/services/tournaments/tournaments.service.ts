@@ -318,11 +318,6 @@ export class TournamentsService {
             queryParams.type = type;
         }
 
-        if (this.configService.get<string>('$base.defaultCurrency') != 'EUR'
-            && !this.configService.get('$user.isAuthenticated')) {
-            queryParams.currency = this.configService.get<string>('$base.defaultCurrency');
-        }
-
         try {
             const res: IData<ITournament[] | ITournamentHistory[]> = await this.dataService.request(
                 'tournaments/tournaments', queryParams,
