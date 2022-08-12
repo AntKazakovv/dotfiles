@@ -1,13 +1,16 @@
-<div *ngIf="!errors.length; else controlWithErrors" class="{{className}}__icon form-control__icon">
-    <div wlc-icon
-         iconPath="/wlc/icons/valid.svg">
-    </div>
+<div *ngIf="control.valid || control.pending; else controlWithErrors"
+    class="{{className}}__icon form-control__icon">
+    <div class="icon"></div>
 </div>
 
 <ng-template #controlWithErrors>
-    <div *ngFor="let error of errors"
-         wlc-tooltip
-         [inlineParams]="{inlineText: error | translate, iconName: 'invalid', themeMod: 'error'}">
+    <div *ngIf="control.invalid && control.touched && errors.length"
+         class="{{className}}__icon form-control__icon"
+         containerClass="form-control-tooltip"
+         placement="bottom"
+         [isDisabled]="!errors.length"
+         [tooltip]="errorsRef">
+        <div class="icon"></div>
     </div>
 </ng-template>
 
