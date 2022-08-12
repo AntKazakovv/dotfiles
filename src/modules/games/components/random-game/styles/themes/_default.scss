@@ -29,7 +29,9 @@
         .wlc-random-game__icon {
 
             svg {
-                margin: ef.get-value($themeDefault, 'iconMargin');
+                @include bm.get-mq-map('max-height', $themeDefault, 'iconMaxHeight');
+
+                max-width: 100%;
                 fill: ef.get-value($themeDefault, 'iconFill');
             }
         }

@@ -62,7 +62,7 @@ $themeDefault: map-merge((
 
     'infoMaxWidth': (
         320: none,
-        640: 60%,
+        1200: 60%,
     ),
     'infoZIndex': 2,
 
@@ -70,7 +70,7 @@ $themeDefault: map-merge((
 
     'decorDisplay': (
         320: none,
-        640: block,
+        1200: block,
     ),
     'decorMaxWidth': 50%,
     'decorMaxHeight': 100%,
