@@ -111,9 +111,9 @@ describe('SelectValuesService', () => {
             'InjectionService',
             ['getService'],
         );
-        InjectionServiceSpy.getService.and.callFake((name: string): any => {
+        InjectionServiceSpy.getService.and.callFake((name: string): Promise<any> => {
             if (name === 'games.games-catalog-service') {
-                return gameCatalogServiceSpy;
+                return Promise.resolve(gameCatalogServiceSpy);
             }
         });
 

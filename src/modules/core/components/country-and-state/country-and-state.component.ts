@@ -1,9 +1,3 @@
-import {BehaviorSubject} from 'rxjs';
-import {
-    distinctUntilChanged,
-    takeUntil,
-} from 'rxjs/operators';
-
 import {
     ChangeDetectionStrategy,
     ChangeDetectorRef,
@@ -14,13 +8,22 @@ import {
 } from '@angular/core';
 
 import {
+    BehaviorSubject,
+} from 'rxjs';
+import {
+    distinctUntilChanged,
+    filter,
+    takeUntil,
+} from 'rxjs/operators';
+import _isEmpty from 'lodash-es/isEmpty';
+
+import {
     ConfigService,
     IIndexing,
     IState,
 } from 'wlc-engine/modules/core';
-
-import {UserProfile} from 'wlc-engine/modules/user';
 import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
+
 import * as Params from './country-and-state.params';
 
 
@@ -35,7 +38,7 @@ export class CountryAndStateComponent extends AbstractComponent implements OnIni
     public $params: Params.ICountryAndStateCParams;
 
     public showState: boolean = false;
-    protected states: IIndexing<IState[]>;
+    protected states: IIndexing<IState[]> = {};
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.ICountryAndStateCParams,
@@ -48,8 +51,8 @@ export class CountryAndStateComponent extends AbstractComponent implements OnIni
     public ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
         this.provideParams();
-        this.checkUserData();
         this.setListeners();
+        this.checkUserData();
     }
 
     protected provideParams(): void {
@@ -58,29 +61,30 @@ export class CountryAndStateComponent extends AbstractComponent implements OnIni
     }
 
     protected checkUserData(): void {
-
-        const userProfile: UserProfile =
-            this.configService.get<BehaviorSubject<UserProfile>>('$user.userProfile$').getValue();
-
-        if (userProfile?.countryCode) {
-            this.updateStates(
-                this.configService.get<BehaviorSubject<IIndexing<IState[]>>>('states')
-                    ?.getValue()[userProfile.countryCode],
-            );
+        if (this.$params.countryCode.control?.value) {
+            this.updateStates(this.$params.countryCode.control.value);
         }
-
     }
 
     protected setListeners(): void {
+
+        this.configService.get<BehaviorSubject<IIndexing<IState[]>>>('states')
+            .pipe(
+                filter((states) => !_isEmpty(states)),
+                takeUntil(this.$destroy),
+            )
+            .subscribe((states) => {
+                this.states = states;
+                this.updateStates(this.$params.countryCode.control.value);
+            });
+
         this.$params.countryCode.control.valueChanges
             .pipe(
                 distinctUntilChanged(),
                 takeUntil(this.$destroy),
             )
             .subscribe((countryCode: string) => {
-                const selectedCountryStates: IState[] =
-                    this.configService.get<BehaviorSubject<IIndexing<IState[]>>>('states')?.getValue()[countryCode];
-                this.updateStates(selectedCountryStates);
+                this.updateStates(countryCode);
             });
 
         this.$params.countryCode.control.statusChanges
@@ -93,14 +97,16 @@ export class CountryAndStateComponent extends AbstractComponent implements OnIni
             });
     }
 
-    protected updateStates(states: IState[]): void {
+    protected updateStates(countryCode: string): void {
+        const states = this.states[countryCode];
         if (states?.length) {
-            this.configService.get<BehaviorSubject<IState[]>>('countryStates')
+            this.configService
+                .get<BehaviorSubject<IState[]>>('countryStates')
                 .next(states);
             this.showState = true;
         } else {
             this.showState = false;
         }
-        this.cdr.markForCheck();
+        this.cdr.detectChanges();
     }
 }

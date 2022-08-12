@@ -8,10 +8,12 @@ import {
     map,
     distinctUntilChanged,
     takeUntil,
+    switchMap,
 } from 'rxjs/operators';
 import {
     Subject,
     BehaviorSubject,
+    from,
 } from 'rxjs';
 import {
     DateTime,
@@ -56,21 +58,34 @@ export interface IPhoneLimits {
     };
 }
 
-type ConstantValues = IIndexing<BehaviorSubject<Params.ISelectOptions[]>>;
+type TConstantValue = BehaviorSubject<Params.ISelectOptions[]>;
+type TConstantValues = IIndexing<TConstantValue>;
 
 @Injectable({
     providedIn: 'root',
 })
 export class SelectValuesService {
     public daysInMonth: BehaviorSubject<number> = new BehaviorSubject(31);
-    public dayList: BehaviorSubject<Params.ISelectOptions[]> = this.getDateList('days');
+    public dayList: TConstantValue = this.getDateList('days');
     public countryStates$: BehaviorSubject<IState[]> =
         new BehaviorSubject<IState[]>([{value: '', title: 'Please select country'}]);
 
     protected configSelectWithIcon: Params.ISelectOptionsWithIcon;
     protected gamesCatalogService: GamesCatalogService;
 
-    private constantValues: IIndexing<BehaviorSubject<Params.ISelectOptions[]>> = {};
+    private constantValues: TConstantValues = {};
+    private optionFunctions = new Map<string, () => TConstantValue>([
+        ['currencies', () => this.prepareCurrency()],
+        ['countries', () => this.configService.get<TConstantValue>('countries')],
+        ['countryStates', () => this.configService.get<TConstantValue>('countryStates')],
+        ['phoneCodes', () => this.getPhoneCodes()],
+        ['genders', () => this.getGendersList()],
+        ['birthDay', () => this.dayList],
+        ['birthMonth', () => this.getDateList('months')],
+        ['birthYear', () => this.getDateList('years')],
+        ['pep', () => this.getPepList()],
+        ['merchants', () => this.getMerchantsList()],
+    ]);
 
     constructor(
         protected configService: ConfigService,
@@ -89,10 +104,10 @@ export class SelectValuesService {
     /**
      * Prepares and returns currency objects
      *
-     * @returns {BehaviorSubject<Params.ISelectOptions[]>} BehaviorSubject<Params.ISelectOptions[]>
+     * @returns {TConstantValue} TConstantValue
      *
      */
-    public prepareCurrency(): BehaviorSubject<Params.ISelectOptions[]> {
+    public prepareCurrency(): TConstantValue {
         const currencies = this.configService.get<IIndexing<string>>('$base.rewritingCurrencyName');
         const sortConfig = this.configService.get<string[]>('$base.registration.currencySort');
         let modifyCurrencies = _values(this.configService.get<IIndexing<ICurrency>>('appConfig.siteconfig.currencies'));
@@ -115,7 +130,7 @@ export class SelectValuesService {
      * @param {TDateList} value days or months or years
      * @returns {BehaviorSubject<Params.ISelectOptions[]}
      */
-    public getDateList(value: TDateList): BehaviorSubject<Params.ISelectOptions[]> {
+    public getDateList(value: TDateList): TConstantValue {
         let list: Params.ISelectOptions[] = [];
         switch (value) {
             case 'days': {
@@ -145,9 +160,9 @@ export class SelectValuesService {
     /**
      * Returns a list of phone codes
      *
-     * @returns {BehaviorSubject<Params.ISelectOptions[]>}
+     * @returns {TConstantValue}
      */
-    public getPhoneCodes(): BehaviorSubject<Params.ISelectOptions[]> {
+    public getPhoneCodes(): TConstantValue {
         const phoneCodes = new BehaviorSubject<Params.ISelectOptions[]>([]);
         this.configService.get<BehaviorSubject<ICountry[]>>('countries')
             .pipe(map(data => {
@@ -177,9 +192,9 @@ export class SelectValuesService {
     /**
      * Returns a list of pep
      *
-     * @returns {BehaviorSubject<Params.ISelectOptions[]>}
+     * @returns {TConstantValue}
      */
-    public getPepList(): BehaviorSubject<Params.ISelectOptions[]> {
+    public getPepList(): TConstantValue {
         return new BehaviorSubject<Params.ISelectOptions[]>([
             {
                 value: 'true',
@@ -258,9 +273,10 @@ export class SelectValuesService {
     /**
      * Returns a merchants list
      *
-     * @returns {BehaviorSubject<Params.ISelectOptions[]}
+     * @returns {TConstantValue}
      */
-    public async getMerchantsList(): Promise<BehaviorSubject<Params.ISelectOptions[]>> {
+    public getMerchantsList(): TConstantValue {
+
         const merchants$ = new BehaviorSubject<Params.ISelectOptions[]>([
             {
                 title: gettext('All'),
@@ -268,24 +284,27 @@ export class SelectValuesService {
             },
         ]);
 
-        await this.configService.ready;
+        from(this.configService.ready)
+            .pipe(
+                switchMap(() =>
+                    from(this.injectionService.getService<GamesCatalogService>('games.games-catalog-service')),
+                ),
+            )
+            .subscribe((gamesCatalogService) => {
+                gamesCatalogService.ready.then(() => {
+                    const merchantsList = _sortBy(gamesCatalogService.getAvailableMerchants(), 'name')
+                        .map((item): Params.ISelectOptions<string> => ({
+                            title: item.name,
+                            value: item.name,
+                        }));
+                    merchantsList.unshift({
+                        title: gettext('All'),
+                        value: 'all',
+                    });
 
-        this.gamesCatalogService = await this.injectionService
-            .getService<GamesCatalogService>('games.games-catalog-service');
-
-        await this.gamesCatalogService.ready;
-
-        merchants$.next([
-            {
-                title: gettext('All'),
-                value: 'all',
-            },
-        ].concat(_sortBy(this.gamesCatalogService?.getAvailableMerchants(), 'name')?.map(el => {
-            return {
-                title: el.name,
-                value: el.name,
-            };
-        })));
+                    merchants$.next(merchantsList);
+                });
+            });
 
         return merchants$;
     }
@@ -354,13 +373,12 @@ export class SelectValuesService {
      * @method getCountryStates
      * @param {FormControl} control
      * @param {Subject<void>} $destroy
-     * @returns {BehaviorSubject<Params.ISelectOptions[]>}
-     * BehaviorSubject<Params.ISelectOptions[]>
+     * @returns {TConstantValue}
      */
     public getCountryStates(
         stateControl: FormControl,
         destroy: Subject<void>,
-    ): BehaviorSubject<Params.ISelectOptions[]> {
+    ): TConstantValue {
 
         (async () => {
             await this.configService.ready;
@@ -368,7 +386,7 @@ export class SelectValuesService {
                 this.configService.get<BehaviorSubject<TStates>>('states')?.getValue();
             const countryCodeControl: AbstractControl = stateControl.root?.get('countryCode');
 
-            if(countryCodeControl) {
+            if (countryCodeControl) {
                 countryCodeControl.valueChanges
                     .pipe(
                         distinctUntilChanged(),
@@ -378,7 +396,7 @@ export class SelectValuesService {
                         this.eventService.emit({
                             name: 'COUNTRY_STATES',
                         });
-                        if(_has(countriesStates, countryCode)) {
+                        if (_has(countriesStates, countryCode)) {
                             this.countryStates$.next(countriesStates[countryCode]);
                             stateControl.enable();
                             return;
@@ -398,9 +416,9 @@ export class SelectValuesService {
     /**
      * Gives gender variants
      *
-     * @returns {BehaviorSubject<Params.ISelectOptions[]>} Observable list of gender options
+     * @returns {TConstantValue} Observable list of gender options
      */
-    public getGendersList(): BehaviorSubject<Params.ISelectOptions[]> {
+    public getGendersList(): TConstantValue {
         return new BehaviorSubject([
             {
                 value: '',
@@ -422,31 +440,21 @@ export class SelectValuesService {
      *
      * @method prepareConstantValues
      * @param {string} option - selector options
-     * @param {FormControl} control
-     * @returns {IIndexing<BehaviorSubject<Params.ISelectOptions[]>>}
-     * IIndexing<BehaviorSubject<Params.ISelectOptions[]>>
+     * @param {FormControl} control - select formControl
+     * @returns {TConstantValues} - Map of constant values
      */
-    public async prepareConstantValues(
+    public prepareConstantValues(
         option: string,
         control: FormControl,
         destroy: Subject<void>,
-    ): Promise<ConstantValues> {
-        const optionFunctions = new Map<string, () => any>([
-            ['currencies', () => this.prepareCurrency()],
-            ['countries', () => this.configService.get('countries')],
-            ['states', () => this.getCountryStates(control, destroy)],
-            ['countryStates', () => this.configService.get('countryStates')],
-            ['phoneCodes', () => this.getPhoneCodes()],
-            ['genders', () => this.getGendersList()],
-            ['birthDay', () => this.dayList],
-            ['birthMonth', () => this.getDateList('months')],
-            ['birthYear', () => this.getDateList('years')],
-            ['pep', () => this.getPepList()],
-            ['merchants', () => this.getMerchantsList()],
-        ]);
+    ): TConstantValues {
 
-        if (optionFunctions.has(option)) {
-            this.constantValues[option] = await optionFunctions.get(option)();
+        if (option === 'states') {
+            this.optionFunctions.set('states', () => this.getCountryStates(control, destroy));
+        }
+
+        if (this.optionFunctions.has(option)) {
+            this.constantValues[option] = this.optionFunctions.get(option)();
         }
 
         return this.constantValues;

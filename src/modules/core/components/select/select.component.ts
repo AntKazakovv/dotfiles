@@ -95,7 +95,7 @@ export class SelectComponent extends AbstractComponent implements OnInit, OnChan
     public foundItems: Params.ISelectOptions[];
 
     protected constantValues: IIndexing<BehaviorSubject<Params.ISelectOptions[]>> = {};
-    protected dayList = this.selectValues.getDateList('days');
+    protected clearedValue: unknown;
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.ISelectCParams,
@@ -108,14 +108,14 @@ export class SelectComponent extends AbstractComponent implements OnInit, OnChan
         super({injectParams, defaultParams: Params.defaultParams});
     }
 
-    public async ngOnInit(): Promise<void> {
+    public ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
         this.prepareModifiers();
 
         this.foundItems = _cloneDeep(this.$params.items);
         this.control = this.$params.control;
 
-        this.constantValues = await this.selectValues.prepareConstantValues(
+        this.constantValues = this.selectValues.prepareConstantValues(
             this.$params.options,
             this.control,
             this.$destroy);
@@ -132,6 +132,10 @@ export class SelectComponent extends AbstractComponent implements OnInit, OnChan
 
         if (this.$params.value && _find(this.foundItems, item => item.value === this.$params.value)) {
             this.control.setValue(this.$params.value);
+        }
+
+        if (this.control.value && !_find(this.foundItems, item => item.value === this.control.value)) {
+            this.control.setValue(this.foundItems[0]?.value || '');
         }
 
         if (this.foundItems.length && _has(this.foundItems[0], 'icon')) {
@@ -224,7 +228,7 @@ export class SelectComponent extends AbstractComponent implements OnInit, OnChan
      * @method  translateItems
      * @returns {void} void
      */
-    protected translateItems() {
+    protected translateItems(): void {
         this.$params.items = _map(this.$params.items, (item) => {
             item.title = this.translate.instant(item.title.toString());
             return item;
@@ -462,7 +466,7 @@ export class SelectComponent extends AbstractComponent implements OnInit, OnChan
      * @returns {void} void
      */
     protected setOptions(): void {
-        this.constantValues[this.$params.options]
+        this.constantValues?.[this.$params.options]
             .pipe(takeUntil(this.$destroy))
             .subscribe((value) => {
                 this.$params.items = value || [{
@@ -472,8 +476,19 @@ export class SelectComponent extends AbstractComponent implements OnInit, OnChan
                 this.foundItems = _cloneDeep(this.$params.items);
 
                 if (this.control.value && !_find(this.foundItems, item => item.value === this.control.value)) {
+                    this.clearedValue = this.control.value;
                     this.control.setValue(this.foundItems[0]?.value || '');
                 }
+
+                if (!this.control.value
+                    && this.clearedValue
+                    && _find(this.foundItems, item => item.value === this.clearedValue)
+                ) {
+                    this.control.setValue(this.clearedValue);
+                    this.clearedValue = null;
+                }
+
+                this.cdr.detectChanges();
             });
     }
 
