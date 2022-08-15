@@ -401,7 +401,6 @@ export class MenuHelper {
         const specialCategories: string[] = ['favourites', 'lastplayed'];
 
         return _reduce(_orderBy(items, 'order', 'asc'), (items: MenuConfigItem[], item: IMenuItem) => {
-            const auth: boolean | undefined = _includes(specialCategories, item.id) ? true : undefined;
 
             if (item.type === 'dropdown') {
                 const dropdownItems: MenuConfigItem[] =
@@ -425,7 +424,6 @@ export class MenuHelper {
                         const parentItem = _cloneDeep(_get(wlcMenuItemsGlobal, _get(menuItem, 'parent')));
                         parentItem.iconUrl = item.iconUrl;
                         _set(parentItem, 'device', item.device || 'all');
-                        _set(parentItem, 'auth', auth);
                         _set(menuItem, 'parent', parentItem);
                     } else {
                         if (item.iconUrl) {
@@ -435,12 +433,12 @@ export class MenuHelper {
                             _set(menuItem, 'iconUrl', item.iconUrl);
                         }
                         _set(menuItem, 'device', item.device || 'all');
-                        _set(menuItem, 'auth', auth);
                     }
                     items.push(menuItem);
                 }
 
             } else if (item.type === 'category') {
+                const auth: boolean | undefined = _includes(specialCategories, item.id) ? true : undefined;
                 const wlcElement: string = (options?.wlcElementPrefix || `link_${type}-nav-`) + item.id;
                 const menuItem: Params.IMenuItem = {
                     name: item.name[lang] || item.name['en'],

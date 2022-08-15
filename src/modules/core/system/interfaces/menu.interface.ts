@@ -8,6 +8,7 @@ export interface IMenu {
     categoryMenu?: IMenuOptions,
     mobileMenu?: IMenuOptions,
     burgerMenu?: IMenuOptions,
+    stickyFooter?: IMenuOptions,
 }
 
 export interface IMenuOptions {

@@ -1,0 +1,12 @@
+$customBase: () !default;
+$base: map-merge((
+    'menuDisplay': grid,
+    'menuAutoColumns': minmax(0, 1fr),
+    'menuAutoFlow': column,
+    'menuJustifyItems': center,
+    'menuMinHeight': 60px,
+), $customBase);
+
+@import './vars-theme-default';
+@import './vars-theme-circled';
+@import './vars-theme-static-circle';

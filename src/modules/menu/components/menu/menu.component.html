@@ -142,6 +142,23 @@
     </div>
 </ng-template>
 
+<ng-template #event let-item="item">
+    <div class="{{$class}}__item {{$class}}__item--event {{$class}}__item--{{item.class}}">
+        <a class="{{$class}}__link"
+        (click)="eventEmit(item.params?.event)">
+
+            <span *ngIf="item.icon"
+                  wlc-icon
+                  class="{{$class}}__icon"
+                  [iconPath]="getIcon(item)"
+                  [fallback]="getIconFallback(item)"></span>
+            <span class="{{$class}}__link-text">
+                <span>{{menuItemName(item)}}</span>
+            </span>
+        </a>
+    </div>
+</ng-template>
+
 <ng-template #categories let-item="item">
     <div wlc-category-menu [inlineParams]="item.params?.categories?.componentParams"></div>
 </ng-template>
@@ -225,6 +242,10 @@
         </ng-container>
         <ng-container *ngSwitchCase="'modal'"
                       [ngTemplateOutlet]="modal"
+                      [ngTemplateOutletContext]="{item: item}">
+        </ng-container>
+        <ng-container *ngSwitchCase="'event'"
+                      [ngTemplateOutlet]="event"
                       [ngTemplateOutletContext]="{item: item}">
         </ng-container>
         <ng-container *ngSwitchCase="'href'"

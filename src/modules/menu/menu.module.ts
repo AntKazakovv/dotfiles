@@ -12,6 +12,7 @@ import {ProfileMenuComponent} from './components/profile-menu/profile-menu.compo
 import {BurgerPanelHeaderMenuComponent} from './components/burger-panel-header-menu/burger-panel-header-menu.component';
 import {ProfileMenuService} from './system/services';
 import {PostMenuComponent} from './components/post-menu/post-menu.component';
+import {StickyFooterComponent} from './components/sticky-footer/sticky-footer.component';
 import {MenuService} from './system/services';
 import {PromoModule} from 'wlc-engine/modules/promo/promo.module';
 
@@ -34,6 +35,7 @@ export const components = {
     'wlc-profile-menu': ProfileMenuComponent,
     'wlc-burger-panel-header-menu': BurgerPanelHeaderMenuComponent,
     'wlc-post-menu': PostMenuComponent,
+    'wlc-sticky-footer': StickyFooterComponent,
 };
 
 export const services = {
@@ -52,6 +54,7 @@ export const services = {
         ProfileMenuComponent,
         BurgerPanelHeaderMenuComponent,
         PostMenuComponent,
+        StickyFooterComponent,
     ],
     providers: [
         ProfileMenuService,
