@@ -103,6 +103,7 @@ export class MenuComponent extends AbstractComponent implements OnInit, OnChange
     @ViewChild('title') tplTitle: TemplateRef<ElementRef>;
     @ViewChild('modal') tplModal: TemplateRef<ElementRef>;
     @ViewChild('href') tplHref: TemplateRef<ElementRef>;
+    @ViewChild('event') tplEvent: TemplateRef<ElementRef>;
     @ViewChild('scroll') tplScroll: TemplateRef<ElementRef>;
     @ViewChild('srefWithParent') srefWithParent: ViewContainerRef;
 
@@ -295,6 +296,15 @@ export class MenuComponent extends AbstractComponent implements OnInit, OnChange
     }
 
     /**
+     * Emits event
+     *
+     * @param {IMenuItemParamsEvent} event event options
+     */
+    public eventEmit(event: Params.IMenuItemParamsEvent): void {
+        this.eventService.emit(event);
+    }
+
+    /**
      * Set or change icon extension
      *
      * @param {string} iconPath Icon path with or without icon extension
@@ -354,6 +364,9 @@ export class MenuComponent extends AbstractComponent implements OnInit, OnChange
                         break;
                     case 'scroll':
                         template = this.tplScroll;
+                        break;
+                    case 'event':
+                        template = this.tplEvent;
                         break;
                 }
                 this.slides.push({

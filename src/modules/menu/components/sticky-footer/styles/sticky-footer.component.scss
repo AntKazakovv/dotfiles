@@ -1,0 +1,30 @@
+@use 'engine-scss/mixins/text' as text;
+@use 'engine-scss/functions' as ef;
+@use 'engine-scss/mixins/base.mixins' as bm;
+
+@import './utils/vars';
+@import './themes/default';
+@import './themes/circled';
+@import './themes/static-circle';
+
+.wlc-sticky-footer:host {
+
+    .wlc-menu {
+        display: ef.get-value($base, 'menuDisplay');
+        grid-auto-columns: ef.get-value($base, 'menuAutoColumns');
+        grid-auto-flow: ef.get-value($base, 'menuAutoFlow');
+        justify-items: ef.get-value($base, 'menuJustifyItems');
+        min-height: ef.get-value($base, 'menuMinHeight');
+
+        ::ng-deep {
+
+            svg {
+                fill: currentColor;
+
+                path {
+                    fill: currentColor;
+                }
+            }
+        }
+    }
+}

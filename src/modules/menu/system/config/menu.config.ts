@@ -281,4 +281,21 @@ export const menuConfig: IMenuConfig = {
             },
         },
     },
+    stickyFooter: {
+        items: [
+            'sticky-footer:menu',
+            'sticky-footer:sports',
+            'sticky-footer:casino',
+            'sticky-footer:livecasino',
+            'sticky-footer:login',
+            'sticky-footer:signup',
+            'sticky-footer:deposit',
+            'sticky-footer:profile',
+        ],
+        icons: {
+            folder: 'wlc/icons',
+            use: false,
+        },
+    },
 };
+

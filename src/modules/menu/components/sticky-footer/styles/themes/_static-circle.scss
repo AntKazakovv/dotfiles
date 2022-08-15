@@ -1,0 +1,75 @@
+.wlc-sticky-footer--theme-static-circle:host {
+
+    ::ng-deep {
+
+        .wlc-menu {
+            position: relative;
+            background: ef.get-value($themeStaticCircle, 'background');
+
+            &:before {
+                content: '';
+                position: absolute;
+                bottom: ef.get-value($themeStaticCircle, 'circleBottom');
+                left: ef.get-value($themeStaticCircle, 'circleLeft');
+                z-index: -1;
+                width: ef.get-value($themeStaticCircle, 'circleSize');
+                height: ef.get-value($themeStaticCircle, 'circleSize');
+                background: ef.get-value($themeStaticCircle, 'circleColor');
+                border-radius: ef.get-value($themeStaticCircle, 'circleRadius');
+                transform: ef.get-value($themeStaticCircle, 'circleTransform');
+            }
+
+            &__item {
+
+                &:nth-child(#{ef.get-value($themeStaticCircle, 'centerItemCount')}) {
+
+                    .wlc-menu__link {
+                        padding: ef.get-value($themeStaticCircle, 'centerItemPadding');
+                    }
+
+                    .wlc-icon {
+                        position: absolute;
+                        top: ef.get-value($themeStaticCircle, 'centerIconTop');
+                        display: ef.get-value($themeStaticCircle, 'centerIconDisplay');
+                        align-items: ef.get-value($themeStaticCircle, 'centerIconAlignItems');
+                        justify-content: ef.get-value($themeStaticCircle, 'centerIconJustifyContent');
+                        width: ef.get-value($themeStaticCircle, 'centerIconWidth');
+                        height: ef.get-value($themeStaticCircle, 'centerIconHeight');
+                        background: ef.get-value($themeStaticCircle, 'centerIconBg');
+                        border-radius: ef.get-value($themeStaticCircle, 'centerIconRadius');
+                    }
+                }
+            }
+
+            &__link {
+                display: ef.get-value($themeStaticCircle, 'itemDisplay');
+                flex-direction: ef.get-value($themeStaticCircle, 'itemFlexDir');
+                align-items: ef.get-value($themeStaticCircle, 'itemAlignItems');
+                padding: ef.get-value($themeStaticCircle, 'itemPadding');
+                text-decoration: none;
+
+                &-text {
+                    @include text.get-text-style(ef.get-value($themeStaticCircle, 'menuTextStyle'), ef.get-value($themeCircled, 'menuTextColor'));
+                    margin: ef.get-value($themeStaticCircle, 'itemTextMargin');
+                }
+
+                &.active {
+
+                    .wlc-menu__link-text {
+                        color: ef.get-value($themeStaticCircle, 'activeTextColor');
+                        font-weight: ef.get-value($themeStaticCircle, 'activeTextWeight');
+                    }
+                }
+            }
+
+            .wlc-icon {
+                color: ef.get-value($themeStaticCircle, 'menuIconColor');
+
+                svg {
+                    width: ef.get-value($themeStaticCircle, 'svgWidth');
+                    height: ef.get-value($themeStaticCircle, 'svgHeight');
+                }
+            }
+        }
+    }
+}

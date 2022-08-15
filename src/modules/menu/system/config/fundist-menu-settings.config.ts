@@ -232,4 +232,71 @@ export const fundistSettings: IMenu = {
             },
         ],
     },
+    stickyFooter: {
+        items: [
+            {
+                type: 'page',
+                id: 'menu',
+                name: {
+                    en: 'Menu',
+                },
+                order: 10,
+                device: 'mobile',
+            },
+            {
+                type: 'category',
+                id: 'casino',
+                name: {
+                    en: 'Casino',
+                },
+                order: 20,
+                device: 'mobile',
+            },
+            {
+                type: 'category',
+                id: 'livecasino',
+                name: {
+                    en: 'Live Casino',
+                },
+                order: 30,
+                device: 'mobile',
+            },
+            {
+                type: 'page',
+                id: 'deposit',
+                name: {
+                    en: 'Deposit',
+                },
+                order: 40,
+                device: 'mobile',
+            },
+            {
+                type: 'page',
+                id: 'login',
+                name: {
+                    en: 'Login',
+                },
+                order: 50,
+                device: 'mobile',
+            },
+            {
+                type: 'page',
+                id: 'signup',
+                name: {
+                    en: 'Sign up',
+                },
+                order: 60,
+                device: 'mobile',
+            },
+            {
+                type: 'page',
+                id: 'profile',
+                name: {
+                    en: 'Profile',
+                },
+                order: 70,
+                device: 'mobile',
+            },
+        ],
+    },
 };
