@@ -16,6 +16,7 @@ import {ConfigService} from 'wlc-engine/modules/core/system/services/config/conf
 import {ModalService} from 'wlc-engine/modules/core/system/services/modal/modal.service';
 import {CheckBoxTexts} from 'wlc-engine/modules/core/system/classes/checkbox-text.class';
 import {IBaseConfig} from 'wlc-engine/modules/core/system/interfaces';
+import {IPostCParams} from 'wlc-engine/modules/static/components';
 
 import * as Params from './checkbox.params';
 
@@ -80,7 +81,12 @@ export class CheckboxComponent extends AbstractComponent implements OnInit {
     }
 
     public showModal(name: string, slug: string): void {
-        this.modalService.showModal(name, {slug, parseAsPlainHTML: true});
+        this.modalService.showModal<IPostCParams>(name, {
+            slug,
+            parseAsPlainHTML: true,
+            useDownloadButton: this.configService.get<string[]>('$base.postWithDownloadPDF')
+                ?.includes(slug),
+        });
     }
 
     public onChange(event: Event): void {

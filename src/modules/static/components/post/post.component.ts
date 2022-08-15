@@ -60,6 +60,8 @@ export class PostComponent extends AbstractComponent implements OnInit, AfterVie
     public isReady: boolean = false;
     public $params: Params.IPostCParams;
 
+    public downloadPdfLink: string;
+
     constructor(
         @Inject('injectParams') protected params: Params.IPostCParams,
         protected staticService: StaticService,
@@ -114,6 +116,7 @@ export class PostComponent extends AbstractComponent implements OnInit, AfterVie
                 });
             }
         } finally {
+            this.downloadPdfLink = this.staticService.getLinkToPdf(this.$params.slug);
             this.isReady = true;
             this.cdr.markForCheck();
             if (_get(this.uiRouter.params, '#')) {

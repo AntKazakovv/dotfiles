@@ -49,4 +49,7 @@ export const $base: IBaseConfig = {
         'LT1': 'LTC',
         'LT2': 'LTC',
     },
+    postWithDownloadPDF: [
+        'terms-and-conditions',
+    ],
 };

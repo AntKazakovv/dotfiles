@@ -1,3 +1,25 @@
+.wlc-post {
+
+    &__download {
+        @include text.get-text-style(ef.get-value($themeDefault, 'downloadBtnStyle'), ef.get-value($themeDefault, 'downloadBtnColor'));
+
+        display: flex;
+        align-items: center;
+        margin-bottom: ef.size(2);
+        text-decoration: none;
+        cursor: pointer;
+
+        &:hover {
+            color: ef.get-value($themeDefault, 'downloadBtnColorHover');
+        }
+
+        &-text {
+            margin-top: ef.size(1);
+            margin-right: ef.size(3);
+        }
+    }
+}
+
 .wlc-post--theme-default:host {
     @include text.get-text-style(ef.get-value($themeDefault, 'contentTextStyle'), ef.get-value($themeDefault, 'contentColor'));
 
