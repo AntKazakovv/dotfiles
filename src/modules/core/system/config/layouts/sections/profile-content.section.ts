@@ -408,7 +408,7 @@ export namespace profileContent {
         ],
     };
 
-    export const profileBonusesActiveTypeFirst: ILayoutSectionConfig = {
+    export const profileBonusesActiveTypeFirst = (recommendedWithEars: boolean): ILayoutSectionConfig => ({
         container: true,
         theme: 'first',
         components: [
@@ -448,7 +448,7 @@ export namespace profileContent {
                             params: {
                                 class: 'wlc-profile-content__body',
                                 components: [
-                                    componentLib.wlcRecommendedBonuses.def,
+                                    componentLib.wlcRecommendedBonuses.generateConfig(recommendedWithEars),
                                 ],
                             },
                         },
@@ -456,7 +456,7 @@ export namespace profileContent {
                 },
             },
         ],
-    };
+    });
 
     export const profileBonusesAllTypeFirst: ILayoutSectionConfig = {
         container: true,
@@ -826,7 +826,7 @@ export namespace profileContent {
         ],
     };
 
-    export const profileDashboard: ILayoutSectionConfig = {
+    export const profileDashboard = (bonusesListSwiperWithEars: boolean): ILayoutSectionConfig => ({
         container: true,
         components: [
             {
@@ -847,14 +847,14 @@ export namespace profileContent {
                         componentLib.wlcDashboardLoyaltyBlock.def,
                         componentLib.wlcDashboardExchange.def,
                         componentLib.wlcTitle.profileDashboardBonuses,
-                        componentLib.wlcBonusesList.dashboard,
+                        componentLib.wlcBonusesList.generateDashboardConfig(bonusesListSwiperWithEars),
                         componentLib.wlcEnterPromocode.def,
                         componentLib.wlcSeeAllBonuses.def,
                     ],
                 },
             },
         ],
-    };
+    });
 
     export const profileDashboardWithoutStore: ILayoutSectionConfig = {
         container: true,

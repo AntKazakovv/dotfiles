@@ -293,6 +293,11 @@ export namespace wlcBonusesList {
             },
         },
     };
+
+    export const generateDashboardConfig = (bonusesListSwiperWithEars: boolean): ILayoutComponent => {
+        return bonusesListSwiperWithEars ? dashboardWithEars : dashboard;
+    };
+
     export const promoHome: ILayoutComponent = {
         name: 'bonuses.wlc-bonuses-list',
         params: <IBonusesListCParams>{

@@ -35,7 +35,7 @@ export const $profileFirstLayouts: ILayoutsConfig = {
     'app.profile.loyalty-bonuses.active': {
         extends: 'app.profile',
         sections: {
-            'profile-content': sectionsLib.profileContent.profileBonusesActiveTypeFirst,
+            'profile-content': sectionsLib.profileContent.profileBonusesActiveTypeFirst(false),
         },
     },
     'app.profile.loyalty-bonuses.all': {

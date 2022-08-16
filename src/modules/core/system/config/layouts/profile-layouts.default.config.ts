@@ -192,7 +192,7 @@ export const $profileLayouts: IPanelsConfig = {
     'app.profile.dashboard': {
         extends: 'app.profile',
         sections: {
-            'profile-content': sectionsLib.profileContent.profileDashboard,
+            'profile-content': sectionsLib.profileContent.profileDashboard(false),
         },
     },
 };

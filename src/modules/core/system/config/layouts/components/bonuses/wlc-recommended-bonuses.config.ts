@@ -75,6 +75,7 @@ export namespace wlcRecommendedBonuses {
             },
         },
     };
+
     export const withEars: ILayoutComponent = {
         name: 'bonuses.wlc-recommended-bonuses',
         params: <ICRecommendedBonusesParams>{
@@ -151,5 +152,9 @@ export namespace wlcRecommendedBonuses {
                 },
             },
         },
+    };
+
+    export const generateConfig = (recommendedWithEars: boolean): ILayoutComponent => {
+        return recommendedWithEars ? withEars : def;
     };
 }
