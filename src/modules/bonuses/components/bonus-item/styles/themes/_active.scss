@@ -35,6 +35,7 @@
         }
 
         &__image {
+            @include bm.get-mq-map('display', $themeActive, 'imgDisplay');
             position: absolute;
 
             width: ef.get-value($themeActive, 'imgSize');
@@ -67,6 +68,7 @@
         &__active-block {
             @include bm.get-mq-map('display', $themeActive, 'activeBlockDisplay');
             @include bm.get-mq-map('grid-area', $themeActive, 'activeBlockArea');
+            @include bm.get-mq-map('margin', $themeActive, 'activeBlockMargin');
             @include bm.get-mq-map('padding', $themeActive, 'activeBlockPadding');
             @include bm.get-mq-map('grid-template-rows', $themeActive, 'activeBlockTemplateRows');
             @include bm.get-mq-map('grid-template-columns', $themeActive, 'activeBlockTemplateColumn');
@@ -89,16 +91,7 @@
         &__name {
             @include text.get-text-style(ef.get-value($themeActive, 'nameTextStyle', 375), ef.get-value($themeActive, 'nameColor'));
             @include bm.get-mq-map('line-height', $themeActive, 'nameLine');
-
-            &:after {
-                @include bm.get-mq-map('display', $themeActive, 'headlineDisplay');
-                @include bm.get-mq-map('width', $themeActive, 'headlineWidth');
-                @include bm.get-mq-map('height', $themeActive, 'headlineHeight');
-                @include bm.get-mq-map('margin', $themeActive, 'headlineMargin');
-
-                content: '';
-                background: ef.get-value($themeActive, 'headlineBg');
-            }
+            margin: ef.get-value($themeActive, 'nameMargin');
 
             @include mq.min(560) {
                 @include text.get-text-style(ef.get-value($themeActive, 'nameTextStyle', 560), null);
@@ -107,7 +100,6 @@
 
         &__description {
             @include text.get-text-style('PrimaryText', ef.get-value($themeActive, 'descriptionColor'));
-            @include bm.get-mq-map('max-width', $themeActive, 'descrMaxWidth');
             @include bm.lineClamp(3);
             @include bm.get-mq-map('display', $themeActive, 'infoBlockDscrDisplay');
 
