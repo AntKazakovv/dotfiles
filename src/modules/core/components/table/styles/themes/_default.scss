@@ -279,7 +279,6 @@ $selector: '.wlc-table';
         }
 
         #{$selector}__empty {
-            @include text.get-text-style('PrimaryText', ef.get-value($themeDefault, 'textColor'));
             position: relative;
             display: flex;
             flex-direction: column;

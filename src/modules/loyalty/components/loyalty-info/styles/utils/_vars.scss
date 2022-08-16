@@ -8,8 +8,7 @@ $themeDefault: map-merge((
 
     'infoImageWidth': 100%,
     'infoImageRadius': (
-        320: 0,
-        560: ef.get('radius', 'big') ef.get('radius', 'big') 0 0,
+        560: ef.get('radius', 'big') ef.get('radius', 'big') 0 0
     ),
 
     'infoTitleFont': 'ThirdTitleBold',
