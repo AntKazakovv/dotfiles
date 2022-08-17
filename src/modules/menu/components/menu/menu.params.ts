@@ -26,14 +26,12 @@ export type MenuType = 'main-menu'
     | 'footer:tc'
     | 'footer:about'
     | 'affiliates-menu'
-    | 'sticky-footer'
     | 'burger-panel-header-menu';
 export type ItemType =
     | 'sref'
     | 'anchor'
     | 'modal'
     | 'href'
-    | 'event'
     | 'scroll'
     | 'title'
     | 'dropdown'
@@ -46,7 +44,6 @@ export type WpItemType = 'sref' | 'href';
 export type IMenuTarget = '_blank' | '_self' | '_parent' | '_top';
 export type MenuTheme = string;
 export type TMenuItemDevice = 'mobile' | 'desktop' | 'all';
-export type PanelType = 'left' | 'right';
 
 /**
  * Settings for generate menu items by wordpress data
@@ -86,11 +83,6 @@ export interface IMenuItemParamsHref {
     baseSiteUrl?: boolean;
 }
 
-export interface IMenuItemParamsEvent {
-    name: string,
-    data?: unknown;
-}
-
 export interface IMenuItemParams {
     state?: IMenuItemParamsState;
     anchor?: IMenuItemParamsAnchor;
@@ -103,7 +95,6 @@ export interface IMenuItemParams {
     }
     blockExpand?: boolean;
     wp?: IMenuItemParamsWp;
-    event?: IMenuItemParamsEvent;
 }
 
 export interface IMenuItem {

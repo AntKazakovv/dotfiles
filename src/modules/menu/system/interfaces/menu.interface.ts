@@ -61,7 +61,6 @@ export interface IMenuConfig {
     profileFirstMenu?: IProfileMenuSettings;
     profileKioskMenu?: IProfileMenuSettings;
     affiliatesMenu?: IAffiliatesMenuSettings;
-    stickyFooter?: IMenuSettings;
     burgerPanel?: {
         left?: {
             headerMenu?: IBurgerPanelHeaderMenu;

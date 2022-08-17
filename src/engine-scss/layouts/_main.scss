@@ -8,7 +8,6 @@
 @import './sign-in-page/sign-in-page';
 @import './home/four-elements/four-elements';
 @import './home/random-games/random-games.section.scss';
-@import './sticky-footer/sticky-footer';
 
 @include lm.init-layout-gap(ev.$layoutGap);
 

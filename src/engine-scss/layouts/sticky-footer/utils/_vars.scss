@@ -1,5 +1,0 @@
-$customStickyFooterBase: () !default;
-$stickyFooterBase: map-merge((
-    'bodyPaddingBottom': 60px,
-), $customStickyFooterBase);
-
