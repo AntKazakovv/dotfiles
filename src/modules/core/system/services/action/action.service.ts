@@ -269,27 +269,27 @@ export class ActionService {
                             case 'registration':
                             case 'verification':
                                 this.modalService.showModal('promoSuccess', {
-                                    common: {
-                                        title: gettext('Bonus success'),
-                                        text: this.translateService.instant(
+                                    title: gettext('Bonus success'),
+                                    status: 'fromLink',
+                                    texts: {
+                                        fromLink: this.translateService.instant(
                                             gettext('Congratulations! You activated bonus'))
                                                 + ` ${bonus.name}! `
                                                 + this.translateService.instant(
                                                     gettext('Bonus successfully added to the Bonuses page.')),
-                                        redirectPath: '',
                                     },
                                 });
                                 break;
                             default:
                                 this.modalService.showModal('promoSuccess', {
-                                    common: {
-                                        title: gettext('Bonus success'),
-                                        text: this.translateService.instant(
+                                    title: gettext('Bonus success'),
+                                    status: 'fromLink',
+                                    texts: {
+                                        fromLink: this.translateService.instant(
                                             gettext('Congratulations! You have got bonus'))
                                                 + ` ${bonus.name}! `
                                                 + this.translateService.instant(
                                                     gettext('Bonus successfully added to the Bonuses page.')),
-                                        redirectPath: '',
                                     },
                                 });
                                 break;

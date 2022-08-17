@@ -321,7 +321,7 @@ export class BonusesService {
             let bonusResult: Bonus[] = [];
             const bonuses: Bonus[] = await this.queryBonuses(false, undefined, code);
             bonusResult = bonuses.filter((bonus: Bonus) => {
-                return bonus.status == 1 && !bonus.selected;
+                return bonus.status == 1;
             });
 
             _each(bonusResult, (bonus: Bonus) => {
@@ -392,12 +392,12 @@ export class BonusesService {
             }, params);
 
             if (showPush) {
-                this.showSuccess(gettext('Bonus success'), gettext('Bonus subscribe success'));
+                this.showSuccess(gettext('Bonus subscribe success'));
             }
 
             return response.data;
         } catch (error) {
-            this.showError(gettext('Bonus error'), error?.errors);
+            this.showError(error?.errors);
         }
     }
 
@@ -422,10 +422,10 @@ export class BonusesService {
                     fail: 'BONUS_UNSUBSCRIBE_FAILED',
                 },
             }, params);
-            this.showSuccess(gettext('Bonus success'), gettext('Bonus unsubscribe success'));
+            this.showSuccess(gettext('Bonus unsubscribe success'));
             return response.data;
         } catch (error) {
-            this.showError(gettext('Bonus error'), error?.errors);
+            this.showError(error?.errors);
         }
     }
 
@@ -448,10 +448,10 @@ export class BonusesService {
                     fail: 'BONUS_CANCEL_FAILED',
                 },
             });
-            this.showSuccess(gettext('Bonus success'), gettext('Bonus cancel success'));
+            this.showSuccess(gettext('Bonus cancel success'));
             return response.data;
         } catch (error) {
-            this.showError(gettext('Bonus error'), error?.errors);
+            this.showError(error?.errors);
         }
     }
 
@@ -475,17 +475,17 @@ export class BonusesService {
             if (emitDelay) {
                 setTimeout((): void => {
                     this.eventService.emit({name: 'BONUS_TAKE_SUCCEEDED'});
-                    this.showSuccess(gettext('Bonus success'), gettext('Bonus take success'));
+                    this.showSuccess(gettext('Bonus take success'));
                 }, emitDelay);
             } else {
                 this.eventService.emit({name: 'BONUS_TAKE_SUCCEEDED'});
-                this.showSuccess(gettext('Bonus success'), gettext('Bonus take success'));
+                this.showSuccess(gettext('Bonus take success'));
             }
 
             return response.data;
         } catch (error) {
             this.eventService.emit({name: 'BONUS_TAKE_FAILED'});
-            this.showError(gettext('Bonus error'), error?.errors);
+            this.showError(error?.errors);
         }
     }
 
@@ -839,7 +839,7 @@ export class BonusesService {
         });
     }
 
-    private showError(title: string, errors: string[]): void {
+    private showError(errors: string[], title: string = gettext('Bonus error')): void {
         this.eventService.emit({
             name: NotificationEvents.PushMessage,
             data: <IPushMessageParams>{
@@ -851,7 +851,7 @@ export class BonusesService {
         });
     }
 
-    private showSuccess(title: string, message: string | string[]): void {
+    private showSuccess(message: string | string[], title: string = gettext('Bonus success')): void {
         this.eventService.emit({
             name: NotificationEvents.PushMessage,
             data: <IPushMessageParams>{

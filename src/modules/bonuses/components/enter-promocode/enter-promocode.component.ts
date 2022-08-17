@@ -21,6 +21,7 @@ import {
 
 import {BonusesService} from 'wlc-engine/modules/bonuses/system/services';
 import {Bonus} from 'wlc-engine/modules/bonuses/system/models/bonus';
+import {TPromoSuccessStatus} from 'wlc-engine/modules/bonuses/components/promo-success/promo-success.params';
 import {IPushMessageParams, NotificationEvents} from 'wlc-engine/modules/core/system/services/notification';
 
 import * as Params from 'wlc-engine/modules/bonuses/components/enter-promocode/enter-promocode.params';
@@ -88,6 +89,7 @@ export class EnterPromocodeComponent
             this.pending$.next(true);
 
             const bonuses: Bonus[] = await this.bonusesService.getBonusesByCode(promocode);
+            let promoSuccessStatus: TPromoSuccessStatus;
 
             // TODO временно, нужно другое решение
             if (this.$destroy.isStopped) {
@@ -99,7 +101,13 @@ export class EnterPromocodeComponent
                 return;
             }
 
-            this.modalService.showModal('promoSuccess');
+            if (bonuses[0].selected) {
+                promoSuccessStatus = bonuses[0].active ? 'active' : 'selected';
+            } else {
+                promoSuccessStatus = 'notSelected';
+            }
+
+            this.modalService.showModal('promoSuccess', {status: promoSuccessStatus});
 
             this.eventService.emit({
                 name: 'PROMO_SUCCESS',

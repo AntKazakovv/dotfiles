@@ -5,7 +5,6 @@ import {
     Input,
 } from '@angular/core';
 import {UIRouter} from '@uirouter/core';
-import {GlobalHelper} from 'wlc-engine/modules/core/system/helpers/global.helper';
 import {ModalService} from 'wlc-engine/modules/core/system/services/modal/modal.service';
 import {
     AbstractComponent,
@@ -27,12 +26,6 @@ export class PromoSuccessComponent
     public $params: Params.IPromoSuccessCParams;
 
     @Input() public inlineParams: Params.IPromoSuccessCParams;
-    @Input() public actionParams: Params.IActionParams;
-    @Input() public btnText: string;
-    @Input() public iconPath: string;
-    @Input() public subtitle: string;
-    @Input() public text: string;
-    @Input() public title: string;
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IPromoSuccessCParams,
@@ -49,17 +42,20 @@ export class PromoSuccessComponent
     }
 
     public ngOnInit(): void {
-        const inputProperties: string[] = ['actionParams', 'btnText', 'iconName', 'subtitle', 'text', 'title'];
-        super.ngOnInit(GlobalHelper.prepareParams(this, inputProperties));
+        super.ngOnInit();
     }
 
-    public goTo(): void {
+    public btnClickHandler(): void {
         this.modalService.hideModal('promo-success');
-        if (this.configService.get<boolean>('$bonuses.unitedPageBonuses')) {
-            this.router.stateService.go('app.profile.loyalty-bonuses.all');
-        } else {
-            if (this.$params.common.redirectPath) {
-                this.router.stateService.go(this.$params.common.redirectPath);
+
+        if (this.$params.status === 'notSelected') {
+
+            if (this.configService.get<boolean>('$bonuses.unitedPageBonuses')) {
+                this.router.stateService.go('app.profile.loyalty-bonuses.all');
+            } else {
+                if (this.$params.redirectPath) {
+                    this.router.stateService.go(this.$params.redirectPath);
+                }
             }
         }
     }

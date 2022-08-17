@@ -1,18 +1,18 @@
 <div class="{{$class}}__container">
-    <div class="{{$class}}__title">{{$params.common.title | translate}}</div>
+    <div class="{{$class}}__title">{{$params.title | translate}}</div>
 
     <span wlc-icon
           class="{{$class}}__icon"
-          [iconPath]="$params.common.iconPath"
+          [iconPath]="$params.iconPath"
     >
     </span>
 
-    <div class="{{$class}}__text">{{$params.common.text | translate}}</div>
+    <div class="{{$class}}__text">{{$params.texts[$params.status] | translate}}</div>
 
     <button
         wlc-button
         class="{{$class}}__btn"
-        [text]="$params.common.btnText"
-        (click)="goTo()"
+        [text]="$params.btnTexts[$params.status]"
+        (click)="btnClickHandler()"
     ></button>
 </div>
