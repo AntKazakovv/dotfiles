@@ -34,7 +34,6 @@ import {
     requiredFieldValidator,
     loginEmailFieldValidator,
     loginFieldValidator,
-    emailOrPhoneValidator,
 } from './validators';
 import {IValidationPasswordRules} from 'wlc-engine/modules/core/system/interfaces/base-config/profile.interface';
 
@@ -118,7 +117,6 @@ export class ValidationService {
         this.setRule('required', requiredFieldValidator);
         this.setRule('loginEmail', loginEmailFieldValidator);
         this.setRule('login', loginFieldValidator);
-        this.setRule('emailOrPhone', emailOrPhoneValidator);
     }
 
     public emailUnique(ctrl: AbstractControl): Observable<IIndexing<boolean>> {

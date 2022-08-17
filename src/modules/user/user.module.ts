@@ -45,7 +45,6 @@ import {UserStatsComponent} from './components/user-stats/user-stats.component';
 import {UserNameComponent} from './components/user-name/user-name.component';
 import {SocialNetworksComponent} from './components/social-networks/social-networks.component';
 import {SocialSignUpFormComponent} from './components/social-sign-up-form/social-sign-up-form.component';
-import {RestoreSmsCodeFormComponent} from './components/restore-sms-code-form/restore-sms-code-form.component';
 
 export const services = {
     'user-service': UserService,
@@ -79,7 +78,6 @@ export const components = {
     'wlc-user-info': UserInfoComponent,
     'wlc-user-stats': UserStatsComponent,
     'wlc-user-name': UserNameComponent,
-    'wlc-restore-sms-code-form': RestoreSmsCodeFormComponent,
 };
 
 @NgModule({
@@ -102,7 +100,6 @@ export const components = {
         RealityCheckInfoComponent,
         RestoreLinkComponent,
         RestorePasswordFormComponent,
-        RestoreSmsCodeFormComponent,
         SignInFormComponent,
         SignUpFormComponent,
         SmsVerificationComponent,
@@ -140,7 +137,6 @@ export const components = {
         ProfileBlocksComponent,
         RealityCheckInfoComponent,
         RestorePasswordFormComponent,
-        RestoreSmsCodeFormComponent,
         SignInFormComponent,
         SignUpFormComponent,
         SmsVerificationComponent,

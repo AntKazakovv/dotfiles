@@ -67,10 +67,6 @@ export interface IModalConfig extends IModalBsOptions {
      */
     backButtonText?: string;
     /**
-     * Name of modal which open by back button
-     */
-    backButtonModal?: string;
-    /**
      * Remove padding from modal-body
      */
     withoutPadding?: boolean;

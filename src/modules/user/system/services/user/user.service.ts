@@ -40,7 +40,6 @@ import {
     ProcessEvents,
     ProcessEventsDescriptions,
 } from 'wlc-engine/modules/monitoring';
-import {IUserPasswordPost} from 'wlc-engine/modules/user/system/interfaces/user.interface';
 
 import _assign from 'lodash-es/assign';
 import _each from 'lodash-es/each';
@@ -368,12 +367,14 @@ export class UserService {
         }
     }
 
-    public sendPasswordRestore(email?: string, phone?: string, reCaptchaToken?: string): Promise<IIndexing<any>> {
-        const params: IUserPasswordPost = _merge({},
-            email ? {email} : {},
-            phone ? {phone, sendSmsCode: 1} : {},
-            reCaptchaToken ? {reCaptchaToken} : {},
-        );
+    public sendPasswordRestore(email: string, reCaptchaToken?: string): Promise<IIndexing<any>> {
+        const params: {email: string, reCaptchaToken?: string} = {
+            email: email,
+        };
+
+        if (reCaptchaToken) {
+            params.reCaptchaToken = reCaptchaToken;
+        }
 
         return this.dataService.request('user/passwordRestore', params);
     }
@@ -417,7 +418,7 @@ export class UserService {
         this.dataService.request('user/updateEmail', params);
     }
 
-    public emailUnique(email: string): Promise<IData> {
+    public emailUnique(email: string): Promise<any> {
         return this.dataService.request('user/emailUnique', {email});
     }
 

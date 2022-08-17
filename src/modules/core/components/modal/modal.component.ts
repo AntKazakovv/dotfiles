@@ -180,10 +180,11 @@ export class WlcModalComponent extends AbstractComponent
 
     /**
      * The method of returning (opening) the previous modal window, if several of them were subsequently opened
+     * @param name
      */
-    public goBack(): void {
+    public goBack(name): void {
         this.closeReason = 'goBack';
-        this.modalService.showModal(this.$params.config.backButtonModal);
+        this.modalService.showModal(name);
     }
 
     /**

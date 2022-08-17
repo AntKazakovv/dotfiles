@@ -153,24 +153,6 @@ export const MODALS_LIST: IModalList = {
             dismissAll: true,
             useBackButton: true,
             backButtonText: gettext('Back'),
-            backButtonModal: 'login',
-        },
-    },
-    'restore-sms-code': {
-        config: {
-            id: 'restore-sms-code',
-            modifier: 'restore',
-            componentName: 'user.wlc-restore-sms-code-form',
-            componentParams: {
-                wlcElement: 'form_password-recovery',
-            },
-            modalTitle: gettext('Password restore'),
-            size: 'md',
-            showFooter: false,
-            dismissAll: true,
-            useBackButton: true,
-            backButtonText: gettext('Back'),
-            backButtonModal: 'restorePassword',
         },
     },
     logout: {

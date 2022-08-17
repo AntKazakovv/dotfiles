@@ -12,7 +12,7 @@
              [class.wlc-modal__header--headless]="!$params.config.modalTitle">
             <div *ngIf="$params.config.useBackButton"
                  class="wlc-modal__back-btn"
-                 (click)="goBack()"
+                 (click)="goBack('login')"
                  data-wlc-element="button_back"
             >
                 <span wlc-icon
