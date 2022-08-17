@@ -60,7 +60,6 @@ export class UserService {
     protected info: UserInfo;
     protected profile: UserProfile;
     protected userInfoHandler: Subscription;
-    protected isFastRegistration: boolean;
 
     public get userInfo(): UserInfo {
         if (this.info.dataReady) {
@@ -101,8 +100,6 @@ export class UserService {
 
     public init(): void {
         this.isAuthenticated = this.configService.get('$user.isAuthenticated');
-        this.isFastRegistration = !!this.configService.get<number>('appConfig.siteconfig.fastRegistration');
-
         this.userProfile$.subscribe((profile) => {
             this.configUserProfile$.next(profile);
         });
@@ -444,12 +441,13 @@ export class UserService {
 
     public finishRegistration(): void {
 
+        const isFastRegistration = this.configService.get<number>('appConfig.siteconfig.fastRegistration');
         const hideEmailExistence = this.configService.get<boolean>('appConfig.hideEmailExistence');
         const message = [
             gettext('Your account has been registered.'),
         ];
 
-        if (this.isFastRegistration) {
+        if (isFastRegistration) {
             this.eventService.emit({name: 'LOGIN'});
 
             if (!hideEmailExistence) {
@@ -469,7 +467,7 @@ export class UserService {
             }
         }
 
-        if (hideEmailExistence && this.isFastRegistration) {
+        if (hideEmailExistence && !!isFastRegistration) {
             this.eventService.filter([
                 {name: 'USER_PROFILE'},
                 {name: 'USER_PROFILE_ERROR'},
@@ -532,9 +530,6 @@ export class UserService {
             },
         });
         this.eventService.emit({name: 'REGISTRATION_COMPLETE'});
-        if (this.isFastRegistration) {
-            this.eventService.emit({name: 'REGISTER'});
-        }
     }
 
     private failedRegistration(): void {
