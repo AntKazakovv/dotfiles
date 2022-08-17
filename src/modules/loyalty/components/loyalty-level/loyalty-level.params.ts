@@ -7,8 +7,6 @@ export type ComponentTheme = 'default' | CustomType;
 
 export type ComponentType = 'default' | CustomType;
 
-export type TitleAs = 'ordinal' | 'name';
-
 export interface ILoyaltyLevelCParams extends IComponentParams<ComponentTheme, ComponentType, string> {
     /**
      * Ordinal number of the level
@@ -37,12 +35,12 @@ export interface ILoyaltyLevelCParams extends IComponentParams<ComponentTheme, C
     /**
      * Defines what should be shown as a title
      */
-    titleAs?: TitleAs,
+    titleAs?: boolean,
 };
 
 export const defaultParams: Partial<ILoyaltyLevelCParams> = {
     moduleName: 'loyalty',
     componentName: 'wlc-loyalty-level',
     class: 'wlc-loyalty-level',
-    titleAs: 'ordinal',
+    titleAs: false,
 };

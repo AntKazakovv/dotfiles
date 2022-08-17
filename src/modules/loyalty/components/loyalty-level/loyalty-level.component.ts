@@ -22,6 +22,7 @@ export class LoyaltyLevelComponent extends AbstractComponent implements OnInit {
     @Input() public inlineParams: Params.ILoyaltyLevelCParams;
 
     public $params: Params.ILoyaltyLevelCParams;
+    public levelTitle: string;
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.ILoyaltyLevelCParams,
@@ -36,5 +37,9 @@ export class LoyaltyLevelComponent extends AbstractComponent implements OnInit {
 
     public ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
+
+        if (this.$params.titleAs) {
+            this.levelTitle = this.$params.name;
+        }
     }
 }
