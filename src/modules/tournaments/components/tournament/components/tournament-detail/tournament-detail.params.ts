@@ -70,8 +70,12 @@ export const defaultParams: ITournamentDetailCParams = {
             theme: 'tournaments',
             pageCount: 10,
             pagination: {
-                use: false,
-                breakpoints: null,
+                use: true,
+                breakpoints: {
+                    0: {
+                        itemPerPage: 10,
+                    },
+                },
             },
             noItemsText: gettext('No leaderboard'),
             head: [

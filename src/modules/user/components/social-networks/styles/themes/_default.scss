@@ -14,8 +14,6 @@
             } @else {
                 @include buttonStyle($themeDefault);
             }
-
-            padding: ef.get-value($themeDefault, 'buttonPadding');
         }
 
         &__icon {

@@ -400,4 +400,23 @@ $theme2Footer: map-merge((
 
     //language selector margin with affiliate button
     'languageMarginWithAffBtn': ef.size(8) auto,
+
+    'footerPostMenuLoaderPosition': (
+        320: relative,
+        900: absolute,
+    ),
+    'footerPostMenuLoaderPosTop': (
+        320: 0,
+        900: ef.size(-5),
+    ),
+    'footerPostMenuLoaderPosLeft': (
+        320: 0,
+        900: ef.size(-10),
+    ),
+    'footerPostMenuLoaderWidth': (
+        320: ef.size(10),
+    ),
+    'footerPostMenuLoaderHeight': (
+        320: ef.size(10),
+    ),
 ), $customTheme2Footer);
