@@ -39,6 +39,7 @@ let states = {
     'app.profile.loyalty-bonuses': States.profileBonusesState,
     'app.profile.loyalty-bonuses.main': States.profileBonusesMainState,
     'app.profile.loyalty-bonuses.active': States.profileBonusesActiveState,
+    'app.profile.loyalty-bonuses.all': States.profileBonusesAllState,
     'app.profile.loyalty-bonuses.inventory': States.profileBonusesInventoryState,
     'app.profile.loyalty-bonuses.history': States.profileBonusesHistoryState,
     'app.profile.loyalty-bonuses.promo': States.profileBonusesPromoState,

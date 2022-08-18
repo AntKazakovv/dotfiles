@@ -15,6 +15,10 @@ export const profileBonusesActiveState: Ng2StateDeclaration = {
     url: '/active',
 };
 
+export const profileBonusesAllState: Ng2StateDeclaration = {
+    url: '/all',
+};
+
 export const profileBonusesInventoryState: Ng2StateDeclaration = {
     url: '/inventory',
 };

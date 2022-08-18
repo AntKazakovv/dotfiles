@@ -201,6 +201,84 @@ export const menuConfig: IMenuConfig = {
             use: false,
         },
     },
+
+    profileFirstMenuUnitedBonuses: {
+        items: [
+            {
+                parent: 'profile-first-menu:account-settings',
+                type: 'group',
+                items: [
+                    'profile-first-menu:edit-profile',
+                    'profile-first-menu:verification',
+                    'profile-first-menu:kycaml',
+                    'profile-first-menu:socials',
+                    'profile-first-menu:limitations',
+                    'profile-first-menu:messages',
+                ],
+            },
+            {
+                parent: 'profile-first-menu:bonuses',
+                type: 'group',
+                items: [
+                    'profile-first-menu:bonuses-all',
+                    'profile-first-menu:bonuses-history',
+                ],
+            },
+            {
+                parent: 'profile-first-menu:tournaments',
+                type: 'group',
+                items: [
+                    'profile-first-menu:tournaments-current',
+                    'profile-first-menu:tournaments-active',
+                    'profile-first-menu:tournaments-history',
+                ],
+            },
+            {
+                parent: 'profile-first-menu:cash',
+                type: 'group',
+                items: [
+                    'profile-first-menu:cash-deposit',
+                    'profile-first-menu:cash-withdrawal',
+                    'profile-first-menu:transaction-history',
+                ],
+            },
+            {
+                parent: 'profile-first-menu:gamblings',
+                type: 'group',
+                items: [
+                    'profile-first-menu:bets-history',
+                ],
+            },
+            {
+                parent: 'profile-menu:loyalty',
+                type: 'group',
+                items: [
+                    'profile-menu:loyalty-level-single',
+                ],
+            },
+            'profile-menu:market-with-categories',
+            {
+                parent: 'profile-menu:loyalty-section',
+                type: 'group',
+                items: [
+                    'profile-menu:loyalty-level-single',
+                ],
+            },
+        ],
+        icons: {
+            folder: 'wlc/icons/european/v1',
+            use: false,
+        },
+        subMenuIcons: {
+            folder: 'wlc/icons/european/v1',
+            use: false,
+        },
+        dropdownMenuIcons: {
+            folder: 'wlc/icons/european/v1',
+            use: false,
+        },
+    },
+
     profileKioskMenu: {
         items: [
             {

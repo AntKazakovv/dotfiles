@@ -140,7 +140,8 @@
     <button *ngIf="isAuthAndBonusesLength && $params.redirectBtnToProfile?.use"
             wlc-button
             class="{{$class}}__to-profile"
-            [inlineParams]="$params.redirectBtnToProfile.params">
+            [inlineParams]="$params.redirectBtnToProfile.params"
+            (click)="goTo($params.redirectBtnToProfile.common.sref); $event.preventDefault();">
     </button>
 </ng-template>
 
@@ -175,7 +176,8 @@
                     [uiSref]="'app.profile.loyalty-bonuses.main'">
                     {{'Offers' | translate}}</a>.
             </div>
-            <div *ngIf="!$params.common.useNoDataText"
+            <div *ngIf="!$params.common.useNoDataText && !$params.common.useNoActiveItem &&
+                        !$params.common.useNoOffersItem"
                 class="{{$class}}__nocontent">
                 {{ 'No bonuses available' | translate}}
                 <button *ngIf="$params.btnNoBonuses?.use"
@@ -184,14 +186,59 @@
                         [inlineParams]="$params.btnNoBonuses.params">
                 </button>
             </div>
+            <ng-container *ngIf="$params.common.useNoActiveItem">
+                <div
+                    *ngTemplateOutlet="noItem; context:
+                                        {img: 'noActive', text:'No active bonuses', description: description, button: $params.useBtnScroll} ">
+                </div>
+            </ng-container>
+            <ng-container *ngIf="$params.common.useNoOffersItem">
+                <div
+                    *ngTemplateOutlet="noItem; context:
+                            {img: 'noOffers', text:'Bonuses Coming Soon', description: descriptionNoOffers, button: false} ">
+                </div>
+            </ng-container>
         </ng-container>
-
     </ng-container>
 </ng-template>
 
 <ng-template #loader>
     <div class="{{$class}}__nocontent">
         <div wlc-loader></div>
+    </div>
+</ng-template>
+
+<ng-template #noItem let-img="img" let-text="text" let-description="description" let-button="button">
+    <div class="{{$class}}__nocontent-item">
+        <div class="nobonus__wrapper">
+            <div class="nobonus__image-block">
+                <div class="nobonus__image" [style]="{backgroundImage: bonusBg(img)}"></div>
+            </div>
+            <div class="nobonus__info-block" data-wlc-element="bonus_info">
+                <h4 class="nobonus__name">
+                    {{ text | translate}}
+                </h4>
+                <ng-container *ngTemplateOutlet="description"></ng-container>
+            </div>
+            <div *ngIf=button class="nobonus__nocontent-btn">
+                <button wlc-button
+                (click)="scrollTo($params.btnScroll.common.selectorScroll)"
+                [inlineParams]="$params.btnScroll">
+                </button>
+            </div>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #description>
+    <div class="nobonus__description" data-wlc-element="bonus_description-name">
+        {{ 'Select from the available bonuses' | translate}}
+    </div>
+</ng-template>
+
+<ng-template #descriptionNoOffers>
+    <div class="nobonus__description" data-wlc-element="bonus_description-name">
+        {{ 'Bonuses will be back soon. Come back!' | translate}}
     </div>
 </ng-template>
 

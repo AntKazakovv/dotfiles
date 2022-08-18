@@ -253,7 +253,10 @@ export class ProfileMenuService {
             this.profileMenuConfig =
                 this.configService.get<MenuParams.MenuConfigItem[]>('$menu.profileKioskMenu.items');
         } else if (this.configService.get<string>('$base.profile.type') === 'first') {
-            this.profileMenuConfig =
+            this.configService.get<boolean>('$bonuses.unitedPageBonuses') ?
+                this.profileMenuConfig =
+                this.configService.get<MenuParams.MenuConfigItem[]>('$menu.profileFirstMenuUnitedBonuses.items') :
+                this.profileMenuConfig =
                 this.configService.get<MenuParams.MenuConfigItem[]>('$menu.profileFirstMenu.items');
         } else {
             this.profileMenuConfig = this.configService.get<MenuParams.MenuConfigItem[]>('$menu.profileMenu.items');

@@ -63,6 +63,38 @@ export namespace wlcBonusesList {
             },
         },
     };
+    export const mainFirstWithNoOffersImage: ILayoutComponent = {
+        name: 'bonuses.wlc-bonuses-list',
+        params: {
+            themeMod: 'with-image',
+            common: {
+                filter: 'main',
+                useQuery: true,
+                sortOrder: ['active', 'promocode', 'subscribe', 'inventory'],
+                pagination: {
+                    use: true,
+                    breakpoints: {
+                        0: {
+                            itemPerPage: 3,
+                        },
+                        640: {
+                            itemPerPage: 4,
+                        },
+                        1200: {
+                            itemPerPage: 6,
+                        },
+                    },
+                },
+                useNoOffersItem: true,
+            },
+            itemsParams: {
+                common: {
+                    useIconBonusImage: false,
+                    showAdditionalImage: true,
+                },
+            },
+        },
+    };
     export const active: ILayoutComponent = {
         name: 'bonuses.wlc-bonuses-list',
         params: {
@@ -92,6 +124,36 @@ export namespace wlcBonusesList {
             },
         },
     };
+    export const activeFirstWithNoBonusItem: ILayoutComponent = {
+        name: 'bonuses.wlc-bonuses-list',
+        params: {
+            theme: 'active',
+            common: {
+                restType: 'active',
+                useQuery: true,
+                filter: 'active',
+                useNoActiveItem: true,
+                pagination: {
+                    use: true,
+                    breakpoints: {
+                        0: {
+                            itemPerPage: 10,
+                        },
+                    },
+                },
+            },
+            itemsParams: {
+                common: {
+                    themeMod: 'active',
+                    useIconBonusImage: false,
+                    showAdditionalImage: true,
+                    descriptionClamp: 3,
+                },
+            },
+            useBtnScroll: true,
+        },
+    };
+
     export const inventory: ILayoutComponent = {
         name: 'bonuses.wlc-bonuses-list',
         params: <IBonusesListCParams>{
@@ -272,7 +334,7 @@ export namespace wlcBonusesList {
             auth: true,
             after: 1200,
         },
-        params: <IBonusesListCParams>{
+        params: <IBonusesListCParams> {
             type: 'swiper',
             theme: 'promo-home',
             title: gettext('Bonus'),

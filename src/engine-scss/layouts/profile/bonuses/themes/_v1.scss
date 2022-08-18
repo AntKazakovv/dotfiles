@@ -10,3 +10,7 @@
         }
     }
 }
+
+.wlc-profile-content__header--second {
+    margin: ef.get-value($bonusesThemeFirst, 'secondHeaderMargin');
+}

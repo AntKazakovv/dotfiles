@@ -105,4 +105,104 @@
     &-btn {
         margin: ef.get-value($noContent, 'noContentMarginBtn');
     }
+
+    &-item {
+        @include bm.get-mq-map('max-width', $noBonusItem, 'itemMaxWidth');
+
+        width: 100%;
+        margin: ef.get-value($noBonusItem, 'itemMargin');
+        background: ef.get-value($noBonusItem, 'background');
+        border-radius: ef.get-value($noBonusItem, 'noBonusRadius');
+
+        .nobonus {
+
+            &__wrapper {
+                @include bm.get-mq-map('grid-template-areas', $noBonusItem, 'wrapperTplAreas');
+                @include bm.get-mq-map('grid-template-columns', $noBonusItem, 'wrapperGridColumns');
+                @include bm.get-mq-map('gap', $noBonusItem, 'wrapperGap');
+                @include bm.get-mq-map('height', $noBonusItem, 'wrapperHeight');
+
+                position: relative;
+                display: grid;
+            }
+
+            &__image-block {
+                @include bm.get-mq-map('height', $noBonusItem, 'imgBlockHeight');
+
+                position: relative;
+                grid-area: image;
+                overflow: hidden;
+                background: ef.get-value($noBonusItem, 'imgBlockBg');
+                border-radius: ef.get-value($noBonusItem, 'noBonusImageRadius');
+
+                @include mq.max(560) {
+                    border-radius: ef.get-value($noBonusItem, 'noBonusImageRadiusVertical');
+                }
+            }
+
+            &__image {
+                position: absolute;
+                width: ef.get-value($noBonusItem, 'imgSize');
+                height: ef.get-value($noBonusItem, 'imgSize');
+                background-repeat: no-repeat;
+                background-position: center;
+            }
+
+            &__info-block {
+                @include bm.get-mq-map('grid-area', $noBonusItem, 'infoBlockArea');
+                @include bm.get-mq-map('align-self', $noBonusItem, 'infoBlockAlignSelf');
+                @include bm.get-mq-map('text-align', $noBonusItem, 'infoBlockTextAlign');
+                @include bm.get-mq-map('padding', $noBonusItem, 'infoBlockPadding');
+
+                z-index: 10;
+                justify-content: center;
+                width: 100%;
+            }
+
+            &__nocontent-btn {
+                @include bm.get-mq-map('justify-content', $noBonusItem, 'btnsBlockJustifyContent');
+                @include bm.get-mq-map('margin', $noBonusItem, 'btnsBlockMargin');
+                @include bm.get-mq-map('padding', $noBonusItem, 'btnsBlockPadding');
+
+                grid-area: btns;
+
+                button {
+
+                    @include mq.max(560) {
+                        margin: auto;
+                    }
+                }
+            }
+
+            &__name {
+                @include text.get-text-style(ef.get-value($noBonusItem, 'nameTextStyle', 375), ef.get-value($themeActive, 'nameColor'));
+                @include bm.get-mq-map('line-height', $noBonusItem, 'nameLine');
+
+                &:after {
+                    @include bm.get-mq-map('display', $noBonusItem, 'headlineDisplay');
+                    @include bm.get-mq-map('width', $noBonusItem, 'headlineWidth');
+                    @include bm.get-mq-map('height', $noBonusItem, 'headlineHeight');
+                    @include bm.get-mq-map('margin', $noBonusItem, 'headlineMargin');
+
+                    content: '';
+                    background: ef.get-value($noBonusItem, 'headlineBg');
+                }
+
+                @include mq.min(560) {
+                    @include text.get-text-style(ef.get-value($noBonusItem, 'nameTextStyle', 560), null);
+                }
+            }
+
+            &__description {
+                @include text.get-text-style('nameFontStyle', ef.get-value($noBonusItem, 'descriptionColor'));
+                @include bm.get-mq-map('max-width', $noBonusItem, 'descrMaxWidth');
+                @include bm.lineClamp(3);
+                @include bm.get-mq-map('display', $noBonusItem, 'infoBlockDscrDisplay');
+
+                @include mq.min(560) {
+                    -webkit-line-clamp: 5;
+                }
+            }
+        }
+    }
 }

@@ -44,6 +44,7 @@ export interface IButtonCParams extends IComponentParams<Theme, Type, ThemeMod> 
         wlcElement?: string;
         /** Set animation to button */
         animation?: TButtonAnimation;
+        selectorScroll?: string;
     };
 }
 

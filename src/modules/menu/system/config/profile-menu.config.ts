@@ -278,6 +278,18 @@ export const wlcProfileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
         },
         wlcElement: 'link_active',
     },
+    'profile-first-menu:bonuses-all': {
+        name: gettext('My bonuses'),
+        type: 'sref',
+        icon: 'active-bonuses',
+        class: 'active-bonus',
+        params: {
+            state: {
+                name: 'app.profile.loyalty-bonuses.all',
+                params: {},
+            },
+        },
+    },
 
     'profile-menu:bonuses-inventory': {
         name: gettext('Inventory'),

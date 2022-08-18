@@ -56,7 +56,7 @@ export class ProfileMenuComponent extends AbstractComponent implements OnInit, O
             },
             configService,
         );
-        
+
     }
 
     public ngOnInit(): void {
@@ -75,11 +75,12 @@ export class ProfileMenuComponent extends AbstractComponent implements OnInit, O
                 configKey = 'dropdownMenuIcons';
                 break;
         }
-
         if (this.configService.get<AppType>('$base.app.type') === 'kiosk') {
             this.profileConfig = 'profileKioskMenu';
         } else if (this.configService.get<ProfileType>('$base.profile.type') === 'first') {
-            this.profileConfig = 'profileFirstMenu';
+            this.configService.get<boolean>('$bonuses.unitedPageBonuses') ?
+                this.profileConfig = 'profileFirstMenuUnitedBonuses' :
+                this.profileConfig = 'profileFirstMenu';
         } else {
             this.profileConfig = 'profileMenu';
         }

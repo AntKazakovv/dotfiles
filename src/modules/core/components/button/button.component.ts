@@ -169,6 +169,7 @@ export class ButtonComponent extends AbstractComponent implements OnInit,
             'srefParams',
             'typeAttr',
             'animation',
+            'selectorScroll',
         ];
         const inlineParams: Params.IButtonCParams = {
             common: {},

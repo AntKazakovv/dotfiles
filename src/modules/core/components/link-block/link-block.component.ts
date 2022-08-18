@@ -18,6 +18,7 @@ import {
     InteractiveTextService,
     ModalService,
 } from 'wlc-engine/modules/core';
+import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
 
 import * as Params from './link-block.params';
 
@@ -49,11 +50,12 @@ export class LinkBlockComponent
         protected router: UIRouter,
         protected cdr: ChangeDetectorRef,
         protected interactiveTextService: InteractiveTextService,
+        protected configService: ConfigService,
     ) {
         super({
             injectParams,
             defaultParams: Params.defaultParams,
-        });
+        }, configService);
     }
 
     public ngOnInit(): void {
@@ -74,7 +76,14 @@ export class LinkBlockComponent
         if (data.modal) {
             this.modalService.showModal(data.modal.name);
         } else if (data.url) {
-            this.router.stateService.go(data.url.path, data.url.params);
+
+            if (data.url.path === 'app.profile.loyalty-bonuses.main' &&
+                this.configService.get<boolean>('$bonuses.unitedPageBonuses')) {
+                this.router.stateService.go('app.profile.loyalty-bonuses.all');
+            } else {
+                this.router.stateService.go(data.url.path, data.url.params);
+            }
+
         } else if (data.event) {
             this.eventService.emit({
                 name: data.event.name,

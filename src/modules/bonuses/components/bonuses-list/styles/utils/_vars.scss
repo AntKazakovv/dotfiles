@@ -123,7 +123,7 @@ $themeActive: map-merge((
     'noContentRadius': ef.size(2),
     'display': grid,
     'gridColumns': 1fr,
-    'gridGap': ef.size(4) 0,
+    'gridGap': ef.size(4),
 ), $customThemeActive);
 
 $customNoContent: () !default;
@@ -134,3 +134,119 @@ $noContent: map-merge((
     'noContentFDirection': column,
     'noContentAlignItems': center,
 ), $customNoContent);
+
+$customNoBonusItem: () !default;
+$noBonusItem: map-merge((
+    'background': ef.get-value($themeActive, 'noContentBg'),
+    'noBonusRadius': ef.get-value($themeActive, 'noContentRadius'),
+    'radius': ef.size(2),
+    'noBonusImageRadius': 10px 0 0 10px,
+    'noBonusImageRadiusVertical': 10px 10px 0 0,
+    'itemMaxWidth': (
+        375: 320px,
+        560: unset,
+    ),
+
+    'nameFontStyle': 'PrimaryText',
+
+    'itemMargin': ef.size(4) auto ef.size(8),
+    'wrapperMargin': ef.size(8),
+
+    'wrapperGap': (
+        375: ef.size(4) 0,
+        560: 0,
+    ),
+
+    'wrapperGridColumns': (
+        375: 1fr,
+        560: 250px minmax(0, 1fr),
+        640: 300px minmax(0, 1fr),
+        768: 330px minmax(0, 1fr),
+        900: 395px minmax(0, 1fr),
+        1024: 305px minmax(0, 1fr),
+        1200: 270px minmax(0, 1fr) 250px,
+        1630: 320px minmax(0, 1fr) 250px,
+    ),
+    'wrapperHeight': (
+        560: 260px,
+    ),
+    'wrapperTplAreas': (
+        375: 'image' 'info' 'active' 'btns',
+        560: 'image info' 'image btns',
+        1200: 'image info active' 'image info active' 'image btns active',
+    ),
+
+    'imgBlockBg': var(--mc-bg300),
+    'imgSize': 100%,
+    'imgBlockHeight': (
+        375: 200px,
+        560: auto
+    ),
+
+    'nameColor': var(--mc-baseMain),
+
+    'nameLine': (
+        375: 1,
+        560: 1.45,
+    ),
+    'nameTextStyle': (
+        375: 'ThirdTitleBold',
+        560: 'QoteTextBold',
+    ),
+
+    'descriptionColor': var(--mc-baseMain),
+    'descrMaxWidth': (
+        1630: 34ch
+    ),
+
+    'infoBlockPadding': (
+        375: 0 ef.size(3),
+        560: ef.size(3),
+        720: ef.size(3) ef.size(6),
+        1200: ef.size(3),
+    ),
+    'infoBlockArea': (
+        375: info,
+    ),
+    'infoBlockAlignSelf': (
+        375: center,
+        560: start,
+    ),
+    'infoBlockDscrDisplay': (
+        375: none,
+        560: -webkit-box,
+    ),
+    'infoBlockTextAlign': (
+        375: center,
+        560: left,
+    ),
+
+    'btnsBlockMargin': (
+        560: auto ef.size(-1) 0,
+    ),
+    'btnsBlockJustifyContent': (
+        560: start,
+    ),
+    'btnsBlockPadding': (
+        375: 0 ef.size(3) ef.size(4),
+        560: 0 ef.size(3) ef.size(3),
+        720: 0 ef.size(6) ef.size(3),
+        1200: 0 ef.size(3) ef.size(3),
+    ),
+
+    'headlineBg': var(--mc-baseOpacity),
+    'headlineDisplay': (
+        375: none,
+        560: block,
+    ),
+    'headlineWidth': (
+        375: 95px,
+    ),
+    'headlineHeight': (
+        375: 1px,
+    ),
+    'headlineMargin': (
+        560: ef.size(2) 0 ef.size(3),
+        375: 0 0 ef.size(3),
+    ),
+), $customNoBonusItem);

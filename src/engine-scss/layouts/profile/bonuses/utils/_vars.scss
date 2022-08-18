@@ -10,5 +10,6 @@ $bonusesThemeFirst: map-merge((
     'promocodeMarginBottom': (
         320: ef.size(4),
         560: 0,
-    )
+    ),
+    'secondHeaderMargin': 0 0 ef.size(4) 0,
 ), $customBonusesThemeFirst);

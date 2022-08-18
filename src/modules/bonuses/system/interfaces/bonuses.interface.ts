@@ -9,6 +9,8 @@ import {Bonus} from '../models/bonus';
 import {BonusesListNoContentByThemeType} from 'wlc-engine/modules/bonuses/components/bonuses-list/bonuses-list.params';
 
 export interface IBonusesModule {
+    /** combining Active bonuses and Offers into My bonuses **/
+    unitedPageBonuses?: boolean;
     useIconBonusImage?: boolean;
     /** Enable on new image sources */
     useNewImageSources?: boolean;

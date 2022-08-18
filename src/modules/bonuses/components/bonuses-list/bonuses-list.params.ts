@@ -39,7 +39,11 @@ export interface IBonusesListCParams extends IComponentParams<Theme, Type, Theme
         useRecommendedBonuses?: boolean;
         useNoDataText?: boolean;
         useQuery?: boolean;
-        blankBonus?: IBlankBonusParams;
+        blankBonus?: IBlankBonusParams,
+        useNoActiveItem?:boolean,
+        useNoOffersItem?:boolean,
+        noActiveImgPath?:string,
+        noOffersImgPath?:string,
     };
     itemsParams?: IBonusItemCParams;
     redirectBtnToProfile?: {
@@ -55,6 +59,8 @@ export interface IBonusesListCParams extends IComponentParams<Theme, Type, Theme
      * Set 'true' to hide navigation buttons
      */
     hideNavigation?: boolean;
+    useBtnScroll?: boolean,
+    btnScroll?: IButtonCParams,
 }
 
 export interface IBlankBonusParams {
@@ -90,6 +96,13 @@ export const defaultParams: IBonusesListCParams = {
                 text: gettext('Go home'),
                 sref: 'app',
             },
+        },
+    },
+    useBtnScroll: false,
+    btnScroll: {
+        common: {
+            text: gettext('Select a bonus'),
+            selectorScroll: '.wlc-profile-content__header--second',
         },
     },
     redirectBtnToProfile: {

@@ -12,6 +12,7 @@ export const redirectsConfig: IRedirectConfig = {
     profileRedirects: {
         'app.profile.loyalty-tournaments.active': 'first',
         'app.profile.loyalty-bonuses.active': 'first',
+        'app.profile.loyalty-bonuses.all': 'first',
     },
     states: {
         'app.profile.dashboard': {

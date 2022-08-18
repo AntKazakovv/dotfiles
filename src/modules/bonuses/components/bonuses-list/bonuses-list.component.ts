@@ -13,6 +13,7 @@ import {TranslateService} from '@ngx-translate/core';
 import {FormControl} from '@angular/forms';
 import {takeUntil} from 'rxjs/operators';
 import {Subject} from 'rxjs';
+import {UIRouter} from '@uirouter/core';
 
 import {
     Swiper,
@@ -37,6 +38,7 @@ import {
     ICheckboxCParams,
     IPaginateOutput,
     GlobalHelper,
+    ActionService,
 } from 'wlc-engine/modules/core';
 import {INoContentCParams} from 'wlc-engine/modules/core/components/no-content/no-content.params';
 import {
@@ -110,6 +112,8 @@ export class BonusesListComponent extends AbstractComponent implements OnInit, O
         protected cdr: ChangeDetectorRef,
         protected eventService: EventService,
         protected translate: TranslateService,
+        protected actionService: ActionService,
+        protected router: UIRouter,
     ) {
         super(
             <IMixedParams<Params.IBonusesListCParams>>{
@@ -198,6 +202,7 @@ export class BonusesListComponent extends AbstractComponent implements OnInit, O
         });
 
         this.setSubscription();
+        this.bonusBg;
     }
 
     public ngOnDestroy(): void {
@@ -554,6 +559,32 @@ export class BonusesListComponent extends AbstractComponent implements OnInit, O
             } else if (value) {
                 this.checkBoxParams.control.disable();
             }
+        }
+    }
+
+    public scrollTo(selector: string): void {
+        const elem: HTMLElement = document.querySelector(selector);
+        this.actionService.scrollTo(elem);
+    }
+
+    public bonusBg(block: string): string {
+        let imageUrl : string;
+        const defaultImg = this.configService.get<string>('$bonuses.defaultImages.imageProfileFirst');
+
+        if (block === 'noActive') {
+            imageUrl = this.$params.common.noActiveImgPath || defaultImg;
+        } else if (block === 'noOffers') {
+            imageUrl = this.$params.common.noOffersImgPath || defaultImg;
+        }
+        return imageUrl ? `url(${imageUrl})` : '';
+    }
+
+    public goTo(path: string): void {
+        if (path === 'app.profile.loyalty-bonuses.main' &&
+            this.configService.get<boolean>('$bonuses.unitedPageBonuses')) {
+            this.router.stateService.go('app.profile.loyalty-bonuses.all');
+        } else {
+            this.router.stateService.go(path);
         }
     }
 }

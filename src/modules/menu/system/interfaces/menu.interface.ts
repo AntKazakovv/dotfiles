@@ -59,6 +59,7 @@ export interface IMenuConfig {
     mobileMenu?: IMobileMenuSettings;
     profileMenu?: IProfileMenuSettings;
     profileFirstMenu?: IProfileMenuSettings;
+    profileFirstMenuUnitedBonuses?: IProfileMenuSettings;
     profileKioskMenu?: IProfileMenuSettings;
     affiliatesMenu?: IAffiliatesMenuSettings;
     stickyFooter?: IMenuSettings;
