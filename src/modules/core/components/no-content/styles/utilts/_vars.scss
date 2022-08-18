@@ -114,7 +114,7 @@ $bonusesList: map-merge((
     'nodataWrapperMinHeight': (
         320: 388px,
         768: 380px,
-        1024: 386px,
+        1024: 385px,
     )
 ), $customBonusesList);
 
@@ -123,6 +123,6 @@ $tournamentList: map-merge((
     'nodataWrapperMinHeight': (
         320: 325px,
         768: 370px,
-        1024: 386px,
+        1024: 385px,
     )
 ), $customTournamentList);

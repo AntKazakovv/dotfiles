@@ -22,6 +22,11 @@
             &--type-biggest {
                 grid-area: biggest-wins;
             }
+
+            .wlc-winners-slider__wrapper {
+                @include bm.get-mq-map('min-height', $themeHomeWins, 'homeWinsSliderWrapMinHeight');
+                max-width: ef.get-value($themeHomeWins, 'homeWinsSliderWrapMaxWidth');
+            }
         }
 
         .wlc-bonuses-list {

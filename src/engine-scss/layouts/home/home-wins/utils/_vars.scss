@@ -7,7 +7,12 @@ $themeHomeWins: map-merge((
     'homeWinsGap': (
         320: ef.size(4),
     ),
-    'homeWinsSliderMaxWidth': 100%,
+    'homeWinsSliderWrapMaxWidth': 100%,
+    'homeWinsSliderWrapMinHeight': (
+        320: 305px,
+        1024: 350px,
+        1200: 385px,
+    ),
 
     'tournamentColumns': (
         320: minmax(250px, 1fr),
