@@ -173,7 +173,7 @@ export class BonusesListComponent extends AbstractComponent implements OnInit, O
             }
 
             this.isReady = isReady;
-            this.cdr.detectChanges();
+            this.cdr.markForCheck();
         });
 
         this.ready$.next(false);
