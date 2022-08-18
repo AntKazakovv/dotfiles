@@ -272,7 +272,6 @@ export const defaultParams: IStepsParams = {
                                     wlcElement: 'block_bonuses',
                                     type: 'swiper',
                                     theme: 'partial',
-                                    themeMod: 'with-image',
                                     common: {
                                         restType: 'any',
                                         filter: 'reg',

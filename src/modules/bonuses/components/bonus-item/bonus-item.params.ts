@@ -54,8 +54,6 @@ export interface IBonusItemCParams extends IComponentParams<Theme, Type, ThemeMo
      * If `true` - hides `wlc-bonus-item__bottom` block
      */
     hideBonusBottom?: boolean;
-    /** Use bg image on mobile partial theme */
-    usePartialMobileImage?: boolean;
 }
 
 export const defaultParams: IBonusItemCParams = {
