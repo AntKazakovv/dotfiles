@@ -7,6 +7,8 @@ import {
     HttpParams,
     HttpErrorResponse,
 } from '@angular/common/http';
+import {TranslateService} from '@ngx-translate/core';
+
 import {
     Observable,
     Subject,
@@ -17,6 +19,7 @@ import {
     Subscription,
     PartialObserver,
     throwError,
+    firstValueFrom,
 } from 'rxjs';
 import {
     map,
@@ -28,18 +31,6 @@ import {
     mergeMap,
     delay,
 } from 'rxjs/operators';
-import {TranslateService} from '@ngx-translate/core';
-
-import {CachingService} from 'wlc-engine/modules/core/system/services/caching/caching.service';
-import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
-import {EventService} from 'wlc-engine/modules/core/system/services/event/event.service';
-import {
-    ILogObj,
-    LogService,
-} from 'wlc-engine/modules/core/system/services/log/log.service';
-import {ISocketsData} from 'wlc-engine/modules/core/system/interfaces';
-import {WINDOW} from 'wlc-engine/modules/app/system';
-
 import _assign from 'lodash-es/assign';
 import _isString from 'lodash-es/isString';
 import _isFunction from 'lodash-es/isFunction';
@@ -48,6 +39,17 @@ import _has from 'lodash-es/has';
 import _set from 'lodash-es/set';
 import _reverse from 'lodash-es/reverse';
 import _isArray from 'lodash-es/isArray';
+
+import {CachingService} from 'wlc-engine/modules/core/system/services/caching/caching.service';
+import {HooksService} from 'wlc-engine/modules/core/system/services/hooks/hooks.service';
+import {EventService} from 'wlc-engine/modules/core/system/services/event/event.service';
+import {
+    ILogObj,
+    LogService,
+} from 'wlc-engine/modules/core/system/services/log/log.service';
+import {ISocketsData} from 'wlc-engine/modules/core/system/interfaces';
+import {WINDOW} from 'wlc-engine/modules/app/system';
+import {ConfigService} from 'wlc-engine/modules/core/system/services';
 
 export interface IData<T = any> {
     status: 'success' | 'error';
@@ -101,6 +103,11 @@ export interface IRequestMethod {
     };
 }
 
+export interface IHookRequestData {
+    request: IRequestMethod,
+    params?: RequestParamsType,
+}
+
 interface IRegisteredMethod extends IRequestMethod {
     flow?: Observable<IData>;
     subject?: BehaviorSubject<IData>;
@@ -140,6 +147,7 @@ export class DataService {
         private cachingService: CachingService,
         private logService: LogService,
         private configService: ConfigService,
+        private hooksService: HooksService,
         @Inject(WINDOW) private window: Window,
     ) {
         this.init();
@@ -193,10 +201,11 @@ export class DataService {
      *
      * @return {Promise} result of api request
      */
-    public request<T>(request: string | IRequestMethod, params?: RequestParamsType): Promise<IData | T> {
+    public async request<T>(request: string | IRequestMethod, params?: RequestParamsType): Promise<IData | T> {
+        let requestMethod: IRequestMethod;
         if (_isString(request)) {
             if (this.apiList[request]) {
-                return this.request$<T>(this.apiList[request], params).toPromise();
+                requestMethod = this.apiList[request];
             } else {
                 return Promise.reject({
                     system: 'data',
@@ -209,8 +218,18 @@ export class DataService {
                 });
             }
         } else {
-            return this.request$<T>(request, params).toPromise();
+            requestMethod = request;
         }
+
+        const method = await this.hooksService.run<IHookRequestData>(
+            'dataService:requestMethod',
+            {
+                request: requestMethod,
+                params,
+            },
+        );
+
+        return firstValueFrom(this.request$<T>(method.request, method.params));
     }
 
     /**

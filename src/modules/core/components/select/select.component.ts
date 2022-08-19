@@ -218,7 +218,7 @@ export class SelectComponent extends AbstractComponent implements OnInit, OnChan
         if (res) {
             return res.title.toString();
         } else {
-            return this.$params.common?.placeholder.toString() || '';
+            return this.$params.common?.placeholder?.toString() || '';
         }
     }
 

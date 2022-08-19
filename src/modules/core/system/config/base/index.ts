@@ -49,4 +49,17 @@ export const $base: IBaseConfig = {
         'LT1': 'LTC',
         'LT2': 'LTC',
     },
+    termsAvailableStates: [
+        'app.home',
+        'app.error',
+        'app.catalog',
+        'app.catalog.child',
+        'app.contacts',
+        'app.profile.cash.withdraw',
+        'app.profile.main.info',
+        'app.profile.verification',
+        'app.profile.kycaml',
+        'app.providers',
+        'app.gameplay?demo=true',
+    ],
 };

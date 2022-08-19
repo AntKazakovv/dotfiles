@@ -257,7 +257,7 @@ export class TournamentsService {
                 system: 'tournaments',
                 url: `/tournaments/${tournament.id}`,
                 type: 'POST',
-                mapFunc: async (res) => await this.prepareTournamentActionData(res, tournament),
+                mapFunc: (res) => this.prepareTournamentActionData(res, tournament),
                 events: {
                     success: 'TOURNAMENT_JOIN_SUCCEEDED',
                     fail: 'TOURNAMENT_JOIN_FAILED',
@@ -287,7 +287,7 @@ export class TournamentsService {
                 system: 'tournaments',
                 url: `/tournaments/${tournament.id}`,
                 type: 'POST',
-                mapFunc: async (res) => await this.prepareTournamentActionData(res, tournament),
+                mapFunc: (res) => this.prepareTournamentActionData(res, tournament),
                 events: {
                     success: 'TOURNAMENT_LEAVE_SUCCEEDED',
                     fail: 'TOURNAMENT_LEAVE_FAILED',
@@ -548,7 +548,7 @@ export class TournamentsService {
         }
     }
 
-    private async prepareTournamentActionData(res: unknown, tournament: Tournament): Promise<Tournament> {
+    private prepareTournamentActionData(res: unknown, tournament: Tournament): Tournament {
         _extend(tournament.data, res);
         return tournament;
     }

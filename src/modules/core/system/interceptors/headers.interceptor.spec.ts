@@ -54,6 +54,7 @@ describe('HeadersInterceptor', () => {
             url: '/test',
         });
         dataService.request('test/test');
+        tick();
 
         const mockReq1 = httpTestingController.expectOne('/api/v1/test?lang=en');
         expect(mockReq1.request.headers.get('X-RECAPTCHA')).toBeFalsy();
@@ -62,12 +63,12 @@ describe('HeadersInterceptor', () => {
             'X-RECAPTCHA': '1',
         }});
 
-        tick(1000);
+        tick();
 
         const mockReq2 = httpTestingController.expectOne('/api/v1/test?lang=en');
         expect(mockReq2.request.headers.get('X-RECAPTCHA')).toEqual('test-token');
 
-        tick(1000);
+        tick();
         httpTestingController.expectNone('/api/v1/test?lang=en');
     }));
 });

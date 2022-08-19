@@ -116,3 +116,17 @@ export interface ISplitTexts {
     /** `slugs` add lang postfix to special pages */
     slugs?: string[],
 }
+
+/** Request params to convert to PDF endpoint */
+export interface IPDFParams {
+    /** language of post */
+    lang?: string;
+    /** set to 1 when prepath mode in WP enabled */
+    prepath: 0 | 1;
+    /** set to 1 when wlc-api plugin enabled */
+    wpPlugin: 0 | 1;
+    /** type of content */
+    page: 'pages' | 'posts';
+    /** page/post slug in WP */
+    slug: string;
+}

@@ -10,11 +10,13 @@ import {WorkerStorageCache} from './classes/workerstorage.class';
 import {LocalStorageCache} from './classes/localstorage.class';
 import {WINDOW} from 'wlc-engine/modules/app/system';
 
+type TMilliSeconds = number;
+
 @Injectable({
     providedIn: 'root',
 })
 export class CachingService {
-    private readonly keepTimeDefault = 10 * 60 * 1000;
+    private readonly keepTimeDefault: TMilliSeconds = 10 * 60 * 1000;
     private storage: AbstractCache;
     private storageType: 'indexeddb' | 'localstorage';
 
@@ -68,19 +70,19 @@ export class CachingService {
     /**
      * Set the data to the storage
      *
-     * @param {string} key
-     * @param {T} items
-     * @param {false} rewriting
-     * @param {number} [keepTime="this.keepTimeDefault"] - An optional param with a default value
-     * @param {boolean} [saveKey="false"] - An optional param with a default value
+     * @param {string} key - caching key
+     * @param {T | T[]} items - caching value
+     * @param {boolean} rewriting - rewrite when set to cache
+     * @param {TMilliSeconds} [keepTime="this.keepTimeDefault"] - time to cache in milliseconds
+     * @param {boolean} [saveKey="false"] - save caching key to localstorage to external use
      *
      * @returns {Promise<void>}
      */
     public async set<T>(
         key: string,
         items: T | T[],
-        rewriting = false,
-        keepTime = this.keepTimeDefault,
+        rewriting: boolean = false,
+        keepTime: TMilliSeconds = this.keepTimeDefault,
         saveKey: boolean = false,
     ): Promise<void> {
         await this.ready;

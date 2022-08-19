@@ -127,7 +127,7 @@ describe('DataService', () => {
         expect(_values(dataService['apiList']).length).toEqual(3);
     });
 
-    it('-> checking the execution of requests', () => {
+    it('-> checking the execution of requests', fakeAsync(() => {
         for (let i = 0; i <= 30; i++) {
             const request: IRequestMethod = {
                 name: random.word(),
@@ -143,6 +143,7 @@ describe('DataService', () => {
             }
 
             dataService.request(request);
+            tick();
             const mockReq = httpTestingController.expectOne((request.url
                 ? `/api/v1${request.url}`
                 : `${request.fullUrl}`)
@@ -152,7 +153,7 @@ describe('DataService', () => {
             expect(mockReq.request.method).toEqual(request.type);
             expect(mockReq.request.responseType).toEqual('json');
         }
-    });
+    }));
 
     it('-> checking the execution of recurring queries', fakeAsync(() => {
         registerTestMethod({
@@ -213,6 +214,7 @@ describe('DataService', () => {
                 fallbackUrl,
             },
         });
+        tick();
 
         for (let i = 0; i <= 5; i++) {
             if (i === 3) {
@@ -229,7 +231,7 @@ describe('DataService', () => {
         }
     }));
 
-    it('-> checking sending success and fail events', () => {
+    it('-> checking sending success and fail events', fakeAsync(() => {
         let successEvent = 0;
         let failEvent = 0;
 
@@ -255,19 +257,22 @@ describe('DataService', () => {
         });
 
         dataService.request('test123/test123');
+        tick();
         httpTestingController.expectOne('http://test.test/').flush({});
 
         dataService.request('test123/test123');
+        tick();
         httpTestingController.expectOne('http://test.test/').flush({});
 
         dataService.request('test123/test123').catch(() => null);
+        tick();
         httpTestingController
             .expectOne('http://test.test/')
             .error(new ErrorEvent('error!'), {status: 404});
 
         expect(successEvent).toEqual(2);
         expect(failEvent).toEqual(1);
-    });
+    }));
 
     it('-> getMethodSubscribe: checking the receipt of a subscription',  () => {
         registerTestMethod({
@@ -296,6 +301,7 @@ describe('DataService', () => {
         });
 
         dataService.request('test/test');
+        tick();
         httpTestingController.expectOne('http://test.test/').flush({});
         dataService.reset('test/test');
         tick();

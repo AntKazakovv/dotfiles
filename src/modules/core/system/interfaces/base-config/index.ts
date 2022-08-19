@@ -123,7 +123,8 @@ export interface IBaseConfig {
      * Settings for any constraints
      */
     restrictions?: IRestrictionsConfig;
-
+    /** States available with no accepted terms */
+    termsAvailableStates?: string[];
     legal?: {
         termsCheckboxText?: ILegalCheckboxWithLink;
         termsWlcCuracaoCheckboxText?: ILegalCheckboxWithLink;

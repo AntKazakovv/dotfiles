@@ -1,0 +1,43 @@
+@use 'engine-scss/functions' as ef;
+@use 'engine-scss/mixins/text' as text;
+@use 'engine-scss/mixins/base.mixins' as bm;
+@import '../utils/vars';
+
+.wlc-accept-terms {
+
+    &:host {
+        padding-bottom: ef.get-value($themeDefault, 'paddingBottom');
+    }
+
+    &__text {
+        @include text.get-text-style(ef.get-value($themeDefault, 'textStyle'));
+        margin: ef.get-value($themeDefault, 'textMargin');
+        text-align: center;
+    }
+
+    &__link {
+        color: ef.get-value($themeDefault, 'linkColor');
+        text-decoration: underline;
+        cursor: pointer;
+
+        @include bm.hover {
+            color: ef.get-value($themeDefault, 'linkHoverColor');
+        }
+    }
+
+    &__form {
+        display: flex;
+        flex-direction: column;
+        gap: ef.get-value($themeDefault, 'formGap');
+        align-items: center;
+        justify-content: center;
+        margin-top: ef.get-value($themeDefault, 'formMarginTop');
+
+        &::ng-deep {
+
+            .wlc-checkbox__link {
+                text-decoration: underline;
+            }
+        }
+    }
+}

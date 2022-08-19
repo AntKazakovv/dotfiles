@@ -44,6 +44,7 @@ import {InjectionService} from 'wlc-engine/modules/core/system/services/injectio
 import {IValidateData} from 'wlc-engine/modules/user/system/classes/user-actions-abstract.class';
 import {IdleService} from 'wlc-engine/modules/user/system/services/idle/idle.service';
 import {BonusesService} from 'wlc-engine/modules/bonuses/system/services/bonuses/bonuses.service';
+import {TermsAcceptService} from 'wlc-engine/modules/user/system/services/terms/terms-accept.service';
 import {IMGAConfig} from 'wlc-engine/modules/core/components/license/license.params';
 import {
     IProcessEventData,
@@ -123,6 +124,7 @@ export class UserService {
         private modalService: ModalService,
         private injectionService: InjectionService,
         private stateService: StateService,
+        private termsAccept: TermsAcceptService,
     ) {
         this.init();
     }
@@ -191,6 +193,13 @@ export class UserService {
                 this.info.separateLoyalty = true;
                 this.dataService.setSocketUrl(this.info.socketsData);
             }
+        });
+
+        this.eventService.subscribe({
+            name: 'UPDATE_ACCEPTED_TERMS',
+        }, (value: IUserInfo['toSVersion']) => {
+            this.info.toSVersion = value;
+            this.userInfo$.next(this.info);
         });
 
         this.eventService.subscribe([

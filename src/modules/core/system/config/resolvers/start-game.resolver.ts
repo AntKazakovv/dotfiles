@@ -60,7 +60,16 @@ import {
 import {AddProfileInfoComponent} from 'wlc-engine/modules/user/components/add-profile-info';
 import {FormElements} from 'wlc-engine/modules/core/system/config/form-elements';
 import {IFormComponent} from 'wlc-engine/modules/core/components/form-wrapper/form-wrapper.component';
-import {StateHistoryService} from 'wlc-engine/modules/core';
+import {
+    HooksService,
+    StateHistoryService,
+} from 'wlc-engine/modules/core';
+
+export interface IHookGameStartData {
+    game: Game;
+    demo: boolean;
+    result: Deferred<unknown>;
+}
 
 export enum RejectReason {
     RealPlayDisabled,
@@ -87,6 +96,7 @@ export const startGameResolver: ResolveTypes = {
         InjectionService,
         GamesFilterService,
         StateHistoryService,
+        HooksService,
     ],
     resolveFn: (
         configService: ConfigService,
@@ -99,6 +109,7 @@ export const startGameResolver: ResolveTypes = {
         injectionService: InjectionService,
         gamesFilterService: GamesFilterService,
         stateHistoryService: StateHistoryService,
+        hooksService: HooksService,
     ) => {
         return new StartGameHandler(
             configService,
@@ -111,6 +122,7 @@ export const startGameResolver: ResolveTypes = {
             injectionService,
             gamesFilterService,
             stateHistoryService,
+            hooksService,
         ).result.promise;
     },
 };
@@ -141,6 +153,7 @@ class StartGameHandler {
         private injectionService: InjectionService,
         private gamesFilterService: GamesFilterService,
         private stateHistoryService: StateHistoryService,
+        private hooksService: HooksService,
     ) {
         this.init();
     }
@@ -187,6 +200,17 @@ class StartGameHandler {
         if (!this.checksForPlayReal() || !await this.checkGame()) {
             return;
         }
+
+        const res = await this.hooksService.run<IHookGameStartData>('beforeStartGame', {
+            game: this.game,
+            result: this.result,
+            demo: this.isDemo,
+        });
+
+        if (res.result.status !== 'pending') {
+            return;
+        }
+
         if (this.authenticated) {
             this.checksForAuthenticated();
         } else {

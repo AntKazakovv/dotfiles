@@ -4,7 +4,7 @@ import {IIndexing} from 'wlc-engine/modules/core';
 import _bind from 'lodash-es/bind';
 import _forEach from 'lodash-es/forEach';
 
-export type HookHandler<T> = (data: T) => T;
+export type HookHandler<T> = (data: T) => T | Promise<T>;
 
 export interface IHookHandlerDescriptor {
     handlerIndex: number;
@@ -58,10 +58,10 @@ export class HooksService {
      * @returns {any} Handled data
      */
     public async run<T>(name: string, data: T): Promise<T> {
-        const handlers = this.hooks[name] || [];
-        await handlers.forEach(async (handler: HookHandler<T>) => {
-            data = await handler(data);
-        });
+        const handlers = (this.hooks[name] || []) as HookHandler<T>[];
+        for (let i = 0; i < handlers.length; i++) {
+            data = await handlers[i](data);
+        }
         return data;
     }
 

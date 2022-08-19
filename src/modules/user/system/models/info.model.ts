@@ -1,3 +1,11 @@
+import {DateTime} from 'luxon';
+import _reduce from 'lodash-es/reduce';
+import _get from 'lodash-es/get';
+import _assign from 'lodash-es/assign';
+import _isString from 'lodash-es/isString';
+import _cloneDeep from 'lodash-es/cloneDeep';
+import _isNil from 'lodash-es/isNil';
+
 import {
     IFreeRound,
     ILoyalty,
@@ -9,14 +17,10 @@ import {
 } from 'wlc-engine/modules/core/system/interfaces';
 import {TranslateService} from '@ngx-translate/core';
 import {AbstractModel} from 'wlc-engine/modules/core/system/models/abstract.model';
-import {EventService, IFromLog} from 'wlc-engine/modules/core/system/services';
-
-import _reduce from 'lodash-es/reduce';
-import _get from 'lodash-es/get';
-import _assign from 'lodash-es/assign';
-import _isString from 'lodash-es/isString';
-import _cloneDeep from 'lodash-es/cloneDeep';
-import _isNil from 'lodash-es/isNil';
+import {
+    EventService,
+    IFromLog,
+} from 'wlc-engine/modules/core/system/services';
 
 export class UserInfo extends AbstractModel<IUserInfo> {
 
@@ -161,6 +165,46 @@ export class UserInfo extends AbstractModel<IUserInfo> {
 
     public get nextLevelPoints(): number {
         return +this.data?.loyalty?.NextLevelPoints || 0;
+    }
+
+    /** Get date of next terms & conditions */
+    public get nextTermsVersion(): string | DateTime {
+        const date = DateTime.fromSQL(this.data?.toSWlcVersion, {zone: 'utc'});
+        if (date.invalidReason) {
+            return this.data.toSWlcVersion || '';
+        } else {
+            return date;
+        }
+    }
+
+    /** Get date of current accepted terms & conditions */
+    public get currentTermsVersion(): string | DateTime {
+        if (this.data?.toSVersion?.ToSVersion) {
+            const date = DateTime.fromSQL(this.data.toSVersion.ToSVersion, {zone: 'utc'});
+            if (date.invalidReason) {
+                return this.data.toSVersion.ToSVersion;
+            } else {
+                return date;
+            }
+        }
+        return '';
+    }
+
+    /** Get true when last terms & conditions accepted */
+    public get isTermsActual(): boolean {
+        if (this.nextTermsVersion instanceof DateTime) {
+            if (this.nextTermsVersion > DateTime.now()) {
+                return true;
+            } else if (this.currentTermsVersion instanceof DateTime) {
+                return this.currentTermsVersion >= this.nextTermsVersion;
+            }
+        }
+        return this.data?.toSVersion?.ToSVersion === this.data?.toSWlcVersion;
+    }
+
+    /** update toSVersion */
+    public set toSVersion(value: IUserInfo['toSVersion']) {
+        this.data.toSVersion = value;
     }
 
     /**

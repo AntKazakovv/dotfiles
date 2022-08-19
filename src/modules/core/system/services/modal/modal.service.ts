@@ -43,6 +43,7 @@ import {
     ProcessEvents,
     ProcessEventsDescriptions,
 } from 'wlc-engine/modules/monitoring';
+import {Deferred} from 'wlc-engine/modules/core/system/classes';
 
 import _assignIn from 'lodash-es/assignIn';
 import _isString from 'lodash-es/isString';
@@ -173,14 +174,15 @@ export class ModalService {
 
         if (this.closeQueue.length) {
             const $watcher = new Subject();
+            const res = new Deferred<WlcModalComponent>();
             this.$closeObserver.pipe(takeUntil($watcher)).subscribe((val: number) => {
                 if (!val) {
                     $watcher.next(null);
                     $watcher.complete();
-                    this.openModal(modalConfig);
+                    res.resolve(this.openModal(modalConfig));
                 }
             });
-            return;
+            return res.promise;
         }
 
         return this.openModal(modalConfig);

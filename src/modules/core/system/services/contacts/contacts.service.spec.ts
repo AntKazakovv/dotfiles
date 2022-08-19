@@ -1,4 +1,8 @@
-import {TestBed} from '@angular/core/testing';
+import {
+    fakeAsync,
+    TestBed,
+    tick,
+} from '@angular/core/testing';
 import {
     HttpClientTestingModule,
     HttpTestingController,
@@ -25,7 +29,7 @@ describe('ContactsService', () => {
         expect(contactsService).toBeTruthy();
     });
 
-    it('-> send: send e-mail', () => {
+    it('-> send: send e-mail', fakeAsync(() => {
         const testData = {
             senderName: 'Test Sender',
             senderEmail: 'test@sender.com',
@@ -33,6 +37,7 @@ describe('ContactsService', () => {
             message: 'This is email message',
         };
         contactsService.send(testData);
+        tick();
 
         const req: TestRequest = httpTestingController.expectOne(
             '/api/v1/supportEmail?lang=en',
@@ -42,5 +47,5 @@ describe('ContactsService', () => {
         expect(JSON.parse(req.request.body)).toEqual(testData);
         expect(req.request.method).toEqual('POST');
         expect(req.request.url).toEqual('/api/v1/supportEmail');
-    });
+    }));
 });

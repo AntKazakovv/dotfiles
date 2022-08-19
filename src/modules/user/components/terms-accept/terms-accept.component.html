@@ -1,0 +1,16 @@
+<div class="{{$class}}__text">
+    {{'To continue using the site, you must agree with the updated' | translate}}
+    <span class="{{$class}}__link" (click)="showModal()">{{'Terms and Conditions|nominative' | translate}}</span>.
+    {{'If you are not ready to accept the Terms and Conditions, you can request a' | translate}}
+    <a uiSref="app.profile.cash.withdraw">{{'withdrawal' | translate}}</a>
+    {{'or' | translate}}
+    <a uiSref="app.contacts" [uiParams]="{slug: 'feedback'}">{{'contact us' | translate}}</a>.
+</div>
+
+<div class="{{$class}}__form">
+    <div wlc-checkbox [inlineParams]="checkBoxParams"></div>
+    <button wlc-button
+        [text]="buttonText"
+        (click)="accept()">
+    </button>
+</div>

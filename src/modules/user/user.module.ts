@@ -11,10 +11,12 @@ import {
     LimitationService,
     SmsService,
     SocialService,
+    TermsAcceptService,
 } from './system/services';
 import {IdleService} from 'wlc-engine/modules/user/system/services/idle/idle.service';
 
 // Components
+import {AcceptTermsComponent} from 'wlc-engine/modules/user/components/terms-accept/terms-accept.component';
 import {AddProfileInfoComponent} from './components/add-profile-info/add-profile-info.component';
 import {ChangePasswordFormComponent} from './components/change-password-form/change-password-form.component';
 import {
@@ -52,9 +54,11 @@ export const services = {
     'social-service': SocialService,
     'limitation-service': LimitationService,
     'idle-service': IdleService,
+    'terms-accept-service': TermsAcceptService,
 };
 
 export const components = {
+    'wlc-accept-terms': AcceptTermsComponent,
     'wlc-add-profile-info': AddProfileInfoComponent,
     'wlc-change-password-form': ChangePasswordFormComponent,
     'wlc-exchange': ExchangeComponent,
@@ -84,6 +88,7 @@ export const components = {
 
 @NgModule({
     declarations: [
+        AcceptTermsComponent,
         AddProfileInfoComponent,
         ChangePasswordFormComponent,
         DashboardLoyaltyBlockComponent,
@@ -124,8 +129,10 @@ export const components = {
         LimitationService,
         SocialService,
         SmsService,
+        TermsAcceptService,
     ],
     exports: [
+        AcceptTermsComponent,
         AddProfileInfoComponent,
         ChangePasswordFormComponent,
         DashboardLoyaltyBlockComponent,

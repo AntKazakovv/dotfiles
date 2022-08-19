@@ -29,6 +29,7 @@ import {
     EventService,
     FilesService,
     ForbiddenCountryService,
+    HooksService,
     LogService,
     ModalService,
     NotificationService,
@@ -237,6 +238,7 @@ export const services = {
         ConfigService,
         FilesService,
         ForbiddenCountryService,
+        HooksService,
         LogService,
         ActionService,
         AnimateButtonsService,
@@ -262,7 +264,7 @@ export const services = {
         {
             provide: CuracaoRequirement,
             useFactory: (config: ConfigService) => {
-                const {projectType, license} = config.get<AppConfigModel>('appConfig');
+                const {projectType, license} = config.get<AppConfigModel>('appConfig') || {};
                 return config.get<boolean>('$base.site.forceCuracaoRequirement')
                     || (projectType === 'wlc' && license === 'curacao');
             },

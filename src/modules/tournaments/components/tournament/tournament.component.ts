@@ -275,11 +275,11 @@ export class TournamentComponent
             const tournament = await this.tournamentsService.joinTournament(this.tournament);
 
             if (tournament) {
+                this.isTournamentSelected = true;
                 this.tournament = tournament;
                 this.cdr.markForCheck();
             }
         } finally {
-            this.isTournamentSelected = true;
             this.pending$.next(false);
             this.cdr.markForCheck();
         }
@@ -288,16 +288,13 @@ export class TournamentComponent
     protected async leaveTournament(): Promise<void> {
         try {
             this.pending$.next(true);
-
             const tournament = await this.tournamentsService.leaveTournament(this.tournament);
-
             if (tournament) {
+                this.isTournamentSelected = false;
                 this.tournament = tournament;
                 this.cdr.markForCheck();
-                this.cdr.detectChanges();
             }
         } finally {
-            this.isTournamentSelected = false;
             this.pending$.next(false);
             this.cdr.markForCheck();
         }

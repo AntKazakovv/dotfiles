@@ -74,6 +74,7 @@ export class CheckboxComponent extends AbstractComponent implements OnInit {
 
             case 'legal-link':
             case 'legal-modal':
+                this.textWithLink = this.$params.textWithLink;
                 this.checkboxType = this.$params.checkboxType;
                 break;
         }

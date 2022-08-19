@@ -334,6 +334,16 @@ export const MODALS_LIST: IModalList = {
             dismissAll: true,
         },
     },
+    'accept-terms': {
+        config: {
+            id: 'accept-terms',
+            componentName: 'user.wlc-accept-terms',
+            modalTitle: gettext('Acceptance of new Terms & Conditions'),
+            showFooter: false,
+            size: 'md',
+            dismissAll: true,
+        },
+    },
 };
 
 export const RESTRICT_MODAL: IIndexing<IRestrictModalOption> = {

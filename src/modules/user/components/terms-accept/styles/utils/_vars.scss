@@ -1,0 +1,12 @@
+@use 'engine-scss/functions' as ef;
+
+$customThemeDefault: () !default;
+$themeDefault: map-merge((
+    'paddingBottom': ef.size(2),
+    'textStyle': 'PrimaryText',
+    'textMargin': -1*ef.size(2) 0 0,
+    'linkColor': var(--mc-main),
+    'linkHoverColor': var(--mc-baseMain),
+    'formGap': ef.size(8),
+    'formMarginTop': ef.size(8),
+), $customThemeDefault);

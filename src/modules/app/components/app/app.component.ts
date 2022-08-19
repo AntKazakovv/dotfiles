@@ -125,7 +125,6 @@ export class AppComponent extends AbstractComponent implements OnInit, OnDestroy
 
     public async ngOnInit(): Promise<void> {
         const depositInIframe = this.configService.get<boolean>('$base.finances.depositInIframe');
-
         if (depositInIframe && GlobalHelper.isIframe(this.window) && this.checkAllowedReferrers()) {
             return;
         }

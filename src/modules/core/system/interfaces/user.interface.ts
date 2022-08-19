@@ -7,6 +7,8 @@ import {
 
 export type TUserValidationLevel = 'not-secure' | 'secure';
 
+export type TSQLDate = string;
+
 export interface IUserInfo {
     LockExpiresAt?: string;
     affiliateID?: string;
@@ -28,6 +30,15 @@ export interface IUserInfo {
     socketsData?: ISocketsData | '',
     freerounds: IFreeRound[];
     validationLevel?: TUserValidationLevel;
+    /** Info about last accepted T&C */
+    toSVersion: {
+        /** Accepting T&C date */
+        AcceptDateTime: TSQLDate;
+        /** Version of last accepted T&C */
+        ToSVersion: TSQLDate | null;
+    };
+    /** Need to accept version of T&C */
+    toSWlcVersion: TSQLDate;
 }
 
 export interface IUserProfile {
