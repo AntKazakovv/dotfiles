@@ -26,7 +26,10 @@ export const signin: Ng2StateDeclaration = {
 
                 await configService.ready;
 
-                if (!configService.get('$user.isAuthenticated')) {
+                if (
+                    !configService.get('$user.isAuthenticated')
+                    && !configService.get('$base.kiosk.hideSigninState')
+                ) {
                     result.resolve();
                 } else {
                     result.reject();

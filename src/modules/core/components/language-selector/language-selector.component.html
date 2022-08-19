@@ -18,7 +18,8 @@
          iconPath="/wlc/icons/arrow.svg">
     </div>
 </div>
-<div class="{{$class}}__dropdown"
+<div *ngIf="availableLanguages.length <= 6"
+     class="{{$class}}__dropdown"
      [@toggle]="$params.themeMod !== 'long' ? (isOpened ? 'opened' : 'closed') : (isOpened ? 'openedHeight' : 'closedHeight')"
 >
     <ng-container [ngTemplateOutlet]="langList"

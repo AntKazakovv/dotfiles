@@ -83,6 +83,15 @@ export const MODALS_LIST: IModalList = {
             },
         },
     },
+    kioskLogin: {
+        config: {
+            id: 'login',
+            componentName: 'user.wlc-sign-in-form',
+            size: 'md',
+            showFooter: false,
+            dismissAll: true,
+        },
+    },
     signup: {
         config: {
             id: 'signup',

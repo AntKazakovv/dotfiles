@@ -58,6 +58,8 @@ interface IPlayForRealParams {
      * Use field username/login
      */
     useLogin?: boolean;
+    /** Hide items that are unnecessary for the kiosk */
+    isKiosk?: boolean;
 }
 
 export const templateSignUp = {
@@ -147,14 +149,14 @@ export const playGameForRealConfig = (params: IPlayForRealParams): IFormWrapperC
                     validators: ['required', 'password', 'passwordLength'],
                 },
             },
-            {
+            !params.isKiosk ? {
                 name: 'user.wlc-restore-link',
                 params: {
                     common: {
                         typeAttr: 'button',
                     },
                 },
-            },
+            } : null,
             {
                 name: 'user.wlc-pseudo-link',
                 params: {},
@@ -171,7 +173,7 @@ export const playGameForRealConfig = (params: IPlayForRealParams): IFormWrapperC
                 },
             },
             ...orDemoBtn,
-            templateSignUp,
+            !params.isKiosk ? templateSignUp : null,
         ];
     };
 

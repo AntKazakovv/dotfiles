@@ -1,3 +1,10 @@
 .wlc-sections__header--theme-1 {
     @include headerBase($theme1Header);
+
+    &.wlc-sections__header--kiosk {
+
+        .wlc-btn--login {
+            margin-left: auto;
+        }
+    }
 }

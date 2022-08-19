@@ -9,7 +9,7 @@
         </div>
         <div class="{{$class}}__btn-right">
             <div class="icon-btn">
-                <div *ngIf="showDashboardBtn"
+                <div *ngIf="showDashboardBtn && (!isKiosk || isAuth)"
                      wlc-checkbox
                      [inlineParams]="dashboardBtn">
                 </div>

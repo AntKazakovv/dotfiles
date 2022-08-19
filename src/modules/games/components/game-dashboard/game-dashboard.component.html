@@ -1,4 +1,4 @@
-<div *ngIf="showMobileInstruction && !landscapeOrientation" class="{{$class}}__tutorial">
+<div *ngIf="showMobileInstruction && !landscapeOrientation && !(isKiosk && !isAuth)" class="{{$class}}__tutorial">
     <div class="{{$class}}__tutorial-left-decor" [@leftShift]="decorAnimationState"></div>
     <div class="{{$class}}__tutorial-item" [@fadeIn]="decorAnimationState">
         <div class="{{$class}}__tutorial-arrow">
@@ -40,7 +40,7 @@
      #container>
     <div class="{{$class}}__panch"
          #dragBtn
-         [hidden]="!isMobile">
+         [hidden]="!isMobile || (isKiosk && !isAuth)">
         <div class="{{$class}}__panch-content">
             <div *ngIf="this.showMobileInstruction && showPanchBtn"
                  class="{{$class}}__panch-btn"

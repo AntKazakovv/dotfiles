@@ -32,6 +32,7 @@ export function routerConfigFn(router: UIRouter, injector: Injector) {
         const profileRedirectsMap =
             configService.get<IIndexing<profileRedirectType>>('$base.redirects.profileRedirects');
         const isKiosk: boolean = configService.get<AppType>('$base.app.type') === 'kiosk';
+        const kioskHideSigninState: boolean = configService.get<boolean>('$base.kiosk.hideSigninState');
         const criteria = ({name}): boolean => {
             return _includes(_keys(profileRedirectsMap), name);
         };
@@ -53,7 +54,7 @@ export function routerConfigFn(router: UIRouter, injector: Injector) {
             });
         }
 
-        if (isKiosk) {
+        if (isKiosk && !kioskHideSigninState) {
             router.transitionService.onBefore({to: kioskAuthUserOnlyCriteria}, (trans: Transition) => {
                 trans.abort();
                 router.stateService.go('app.signin', trans.params());

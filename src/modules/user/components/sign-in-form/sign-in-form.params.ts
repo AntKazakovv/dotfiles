@@ -31,7 +31,7 @@ export interface ISignInFormCParams extends IAbstractSignInFormCParams<Component
     formConfig?: IFormWrapperCParams;
 }
 
-export const generateConfig = (useLogin: boolean = false): IFormWrapperCParams => {
+export const generateConfig = (useLogin: boolean, isKiosk: boolean): IFormWrapperCParams => {
     return {
         class: 'wlc-form-wrapper',
         components: [
@@ -39,7 +39,7 @@ export const generateConfig = (useLogin: boolean = false): IFormWrapperCParams =
                 name: 'core.wlc-text-block',
                 params: <ITextBlockCParams>{
                     common: {
-                        textBlockTitle: gettext('Login'),
+                        textBlockTitle: isKiosk ? gettext('Sign in') : gettext('Login'),
                         textBlockSubtitle: gettext('Welcome back!'),
                     },
                 },
@@ -73,7 +73,7 @@ export const generateConfig = (useLogin: boolean = false): IFormWrapperCParams =
                     validators: ['required'],
                 },
             },
-            {
+            !isKiosk ? {
                 name: 'user.wlc-restore-link',
                 params: {
                     wlcElement: 'button_forgot-password',
@@ -81,7 +81,7 @@ export const generateConfig = (useLogin: boolean = false): IFormWrapperCParams =
                         typeAttr: 'button',
                     },
                 },
-            },
+            } : null,
             {
                 name: 'core.wlc-button',
                 params: <IButtonCParams>{
@@ -94,7 +94,7 @@ export const generateConfig = (useLogin: boolean = false): IFormWrapperCParams =
                     themeMod: 'secondary',
                 },
             },
-            {
+            !isKiosk ? {
                 name: 'core.wlc-link-block',
                 params: {
                     wlcElement: 'button_register',
@@ -108,7 +108,7 @@ export const generateConfig = (useLogin: boolean = false): IFormWrapperCParams =
                         },
                     },
                 },
-            },
+            } : null,
         ],
     };
 };
@@ -121,6 +121,5 @@ export const defaultParams: ISignInFormCParams = _assign(
         moduleName: 'user',
         componentName: 'wlc-sign-in-form',
         wlcElement: 'modal_login',
-        formConfig: generateConfig(),
     },
 );

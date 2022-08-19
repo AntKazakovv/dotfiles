@@ -132,4 +132,11 @@ export interface IBaseConfig {
     }
     /* Post with link to download pdf files */
     postWithDownloadPDF?: string[];
+    /**
+     * Kiosk settings
+     */
+    kiosk?: {
+        /** dont use signin state */
+        hideSigninState?: boolean;
+    },
 }

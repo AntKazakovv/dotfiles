@@ -16,6 +16,7 @@ import {ModalService} from 'wlc-engine/modules/core/system/services/modal/modal.
 import {InjectionService} from 'wlc-engine/modules/core/system/services';
 import {IMixedParams} from 'wlc-engine/modules/core/system/classes/abstract.component';
 import {
+    AppType,
     CaptchaService,
     SignInFormAbstract,
 } from 'wlc-engine/modules/core';
@@ -74,6 +75,7 @@ export class PlayGameForRealComponent extends SignInFormAbstract<Params.IPlayGam
             lang: translateService.currentLang || 'en',
             authenticated: this.configService.get<boolean>('$user.isAuthenticated'),
             useLogin: this.configService.get<boolean>('$base.site.useLogin'),
+            isKiosk: this.configService.get<AppType>('$base.app.type') === 'kiosk',
         });
     }
 

@@ -152,15 +152,18 @@ export namespace header {
         replaceConfig: true,
         order: 0,
         theme: '1',
+        modifiers: ['kiosk'],
         container: true,
         components: [
             componentLib.wlcButton.burgerMobile,
             componentLib.wlcLogo.header,
             componentLib.wlcMainMenu.header,
+            componentLib.wlcButton.kioskLogin,
             componentLib.wlcUserInfo.header,
             componentLib.wlcButton.userIconKiosk,
             componentLib.wlcLanguageSelector.bottomLeft2,
             componentLib.wlcButton.searchV2,
+            componentLib.wlcButton.mobileKioskLogin,
         ],
     };
 }

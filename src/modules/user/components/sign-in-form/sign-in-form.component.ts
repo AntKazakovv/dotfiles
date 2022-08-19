@@ -17,6 +17,7 @@ import {
     CaptchaService,
     SignInFormAbstract,
     IMixedParams,
+    AppType,
 } from 'wlc-engine/modules/core';
 import {UserService} from 'wlc-engine/modules/user/system/services';
 import {IFormComponent} from 'wlc-engine/modules/core/components/form-wrapper/form-wrapper.component';
@@ -68,11 +69,10 @@ export class SignInFormComponent extends SignInFormAbstract<Params.ISignInFormCP
 
     public ngOnInit(): void {
         super.ngOnInit();
-        this.config = this.$params.formConfig || Params.generateConfig();
-
-        if (this.configService.get<boolean>('$base.site.useLogin')) {
-            this.config = Params.generateConfig(true);
-        }
+        this.config = this.$params.formConfig || Params.generateConfig(
+            this.configService.get<boolean>('$base.site.useLogin'),
+            this.configService.get<AppType>('$base.app.type') === 'kiosk',
+        );
 
         if (this.configService.get<boolean>('$base.profile.socials.use')
             || this.configService.get<boolean>('$base.profile.metamaskAuth.use')) {

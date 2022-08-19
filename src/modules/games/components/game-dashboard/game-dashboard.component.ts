@@ -687,9 +687,14 @@ export class GameDashboardComponent extends AbstractComponent implements OnInit,
             name: 'LOGIN',
         }, () => {
             this.isAuth = true;
+
             this.removeModifiers('not-auth');
             this.loadLastPlayedGames();
             this.initLastPlayedSwiper();
+
+            if (this.isKiosk) {
+                this.openTab(this.tabs[0]);
+            }
             this.cdr.markForCheck();
         });
     }

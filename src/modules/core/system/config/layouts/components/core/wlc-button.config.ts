@@ -270,6 +270,43 @@ export namespace wlcButton {
         },
     };
 
+    export const kioskLogin: ILayoutComponent = {
+        name: 'core.wlc-button',
+        display: {
+            auth: false,
+            after: 1200,
+        },
+        params: {
+            themeMod: 'secondary',
+            customMod: 'login',
+            common: {
+                text: gettext('Login'),
+                event: {
+                    name: 'SHOW_MODAL',
+                    data: 'kioskLogin',
+                },
+            },
+        },
+    };
+
+    export const mobileKioskLogin: ILayoutComponent = {
+        name: 'core.wlc-button',
+        display: {
+            before: 1199,
+            auth: false,
+        },
+        params: {
+            class: 'wlc-btn wlc-btn-signup',
+            common: {
+                iconPath: '/wlc/icons/login.svg',
+                event: {
+                    name: 'SHOW_MODAL',
+                    data: 'kioskLogin',
+                },
+            },
+        },
+    };
+
     export const mobileLoginBtn: ILayoutComponent = {
         name: 'core.wlc-button',
         display: {
