@@ -10,8 +10,8 @@ describe('/api/v1/jackpots', () => {
     const url = getRequestUrl('/api/v1/jackpots');
     const interfaceName = 'IJackpot';
 
-    it('-> IJackpot', async (done: DoneFn): Promise<void> => {
-        fetch(url)
+    it('-> IJackpot', async (): Promise<void> => {
+        await fetch(url)
             .then((res: Response) => res.json())
             .then((response: IData<IJackpot[]>) => {
                 if (response.code !== 200) {
@@ -27,8 +27,6 @@ describe('/api/v1/jackpots', () => {
                 }
             })
             .catch((err: unknown) => fail(err))
-            .finally(() => {
-                done();
-            });
+            .finally().then();
     });
 });

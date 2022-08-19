@@ -5,8 +5,6 @@ import {
 import {resolve} from 'path';
 import {SchemaGenerator} from 'ts-json-schema-generator';
 
-import '../../matcher-types';
-
 const tsconfig = (process.env.PROJECT_PATH)
     ? resolve(`${process.env.PROJECT_PATH}/../tsconfig.app.json`)
     : resolve('../tsconfig.engine.json');

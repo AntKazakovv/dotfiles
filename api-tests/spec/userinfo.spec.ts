@@ -9,7 +9,7 @@ describe('/api/v1/userInfo', () => {
     const url = getRequestUrl('/api/v1/userInfo');
     const interfaceName = 'IUserInfo';
 
-    it('-> IUserInfo', async (done: DoneFn): Promise<void> => {
+    it('-> IUserInfo', async (): Promise<void> => {
         const headers = await login();
         fetch(url, {headers})
             .then((res: any) => res.json())
@@ -18,7 +18,7 @@ describe('/api/v1/userInfo', () => {
             })
             .catch((err: unknown) => fail(err))
             .finally(() => {
-                logout().then(done);
+                logout().then();
             });
     });
 });

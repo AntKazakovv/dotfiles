@@ -7,14 +7,12 @@ describe('/api/v1/bootstrap', () => {
     const url = getRequestUrl('/api/v1/bootstrap');
     const interfaceName = 'IBootstrap';
 
-    it('-> IBootstrap', (done: DoneFn): void => {
-        fetch(url).then((res: any) => res.json())
+    it('-> IBootstrap', async (): Promise<void> => {
+        await fetch(url).then((res: any) => res.json())
             .then((response: unknown) => {
                 expect(interfaceName).toBeImplemented(response);
             })
             .catch((err: unknown) => fail(err))
-            .finally(() => {
-                done();
-            });
+            .finally().then();
     });
 });

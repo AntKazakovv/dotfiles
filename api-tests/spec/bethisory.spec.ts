@@ -14,9 +14,9 @@ describe('/api/v1/bets', () => {
     const url = getRequestUrl(`/api/v1/bets?/&startDate=${startDate}&endDate=${endDate}`);
     const interfaceName = 'TBets';
 
-    it('-> IBet', async (done: DoneFn): Promise<void> => {
+    it('-> IBet', async (): Promise<void> => {
         const headers = await login();
-        fetch(url, {headers})
+        await fetch(url, {headers})
             .then((res: any) => res.json())
             .then((response: any) => {
                 if (response.code !== 200) {
@@ -26,7 +26,8 @@ describe('/api/v1/bets', () => {
             })
             .catch((err: unknown) => fail(err))
             .finally(() => {
-                logout().then(done);
+                logout().then();
             });
     });
 });
+

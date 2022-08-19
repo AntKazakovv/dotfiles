@@ -12,9 +12,9 @@ describe('/api/v1/transactions', () => {
     const url = getRequestUrl('/api/v1/transactions?');
     const interfaceName = 'ITransaction';
 
-    it('-> ITransaction', async (done: DoneFn): Promise<void> => {
+    it('-> ITransaction', async (): Promise<void> => {
         const headers = await login();
-        fetch(url, {headers})
+        await fetch(url, {headers})
             .then((res: Response) => res.json())
             .then((response: IData<ITransaction[]>) => {
                 if (response.code !== 200) {
@@ -29,7 +29,7 @@ describe('/api/v1/transactions', () => {
             })
             .catch((err: unknown) => fail(err))
             .finally(() => {
-                logout().then(done);
+                logout().then();
             });
     });
 });

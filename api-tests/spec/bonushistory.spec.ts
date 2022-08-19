@@ -12,9 +12,9 @@ describe('/api/v1/bonuses', () => {
     const url = getRequestUrl('/api/v1/bonuses?&type=history');
     const interfaceName = 'TBonusesHistory';
 
-    it('-> TBonusesHistory', async (done: DoneFn): Promise<void> => {
+    it('-> TBonusesHistory', async (): Promise<void> => {
         const headers = await login();
-        fetch(url, {headers})
+        await fetch(url, {headers})
             .then((res: Response) => res.json())
             .then((response: IData<TBonusesHistory>) => {
                 if (response.code !== 200) {
@@ -27,7 +27,7 @@ describe('/api/v1/bonuses', () => {
             })
             .catch((err: Error) => fail(err))
             .finally(() => {
-                logout().then(done);
+                logout().then();
             });
     });
 });

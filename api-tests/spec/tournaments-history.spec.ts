@@ -19,7 +19,7 @@ describe('/api/v1/tournaments?type=history', () => {
     const statUrlEnd = '/top?lang=en&start=0';
     const tournamentsID: ITournamentHistory['ID'][] = [];
 
-    it('-> ITournamentHistory', async (done: DoneFn): Promise<void> => {
+    it('-> ITournamentHistory', async (): Promise<void> => {
         const headers = await login();
         fetch(historyUrl, {headers})
             .then((res: Response) => res.json())
@@ -38,13 +38,13 @@ describe('/api/v1/tournaments?type=history', () => {
             })
             .catch((err: unknown) => fail(err))
             .finally(() => {
-                logout().then(done);
+                logout().then();
             });
     });
 
-    it('-> ITournamentHistoryStat', async (done: DoneFn): Promise<void> => {
+    it('-> ITournamentHistoryStat', async (): Promise<void> => {
         if (!tournamentsID.length) {
-            done();
+            return;
         }
         const headers = await login();
         tournamentsID.forEach(element => {
@@ -59,7 +59,7 @@ describe('/api/v1/tournaments?type=history', () => {
                 })
                 .catch((err: unknown) => fail(err))
                 .finally(() => {
-                    logout().then(done);
+                    logout().then();
                 });
         });
     });
