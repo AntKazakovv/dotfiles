@@ -22,12 +22,6 @@ export namespace wlcBonusesList {
                         720: {
                             itemPerPage: 6,
                         },
-                        1366: {
-                            itemPerPage: 8,
-                        },
-                        1630: {
-                            itemPerPage: 6,
-                        },
                     },
                 },
             },
