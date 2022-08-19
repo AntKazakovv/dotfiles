@@ -1,3 +1,6 @@
+[submodule "src/system/languages"]
+	path = src/system/languages
+	url = git@wlcgitlab.egamings.com:wlc/wlc-engine-translate.git
 [submodule "src/shared-lib"]
 	path = src/shared-lib
 	url = git@wlcgitlab.egamings.com:wlc/wlc-shared-lib.git
