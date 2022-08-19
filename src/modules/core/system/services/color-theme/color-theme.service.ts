@@ -103,7 +103,7 @@ export class ColorThemeService {
     private loginHandler(): void {
         this.configService
             .get<BehaviorSubject<UserProfile>>({name: '$user.userProfile$'})
-            .pipe(first(v => !!v && !!v.email))
+            .pipe(first(v => !!v?.idUser))
             .subscribe((profile) => {
                 this.getProfileHandler(profile);
             });

@@ -19,6 +19,11 @@ export interface IPIQCashier {
     containerHeight?: string;
 }
 
+export interface IMetamaskConfig {
+    /** `true` by default. Close payment message modal on success deposit via metamask */
+    hidePayMessageModalOnSuccess?: boolean;
+}
+
 export interface IFinancesConfig {
     depositInIframe?: boolean;
     /**
@@ -29,4 +34,8 @@ export interface IFinancesConfig {
      * Enable redirects and notifications after deposit bonus activation
      */
     redirectAfterDepositBonus?: boolean;
+    /**
+     * Metamask payment options
+     */
+    metamask?: IMetamaskConfig;
 }

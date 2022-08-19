@@ -42,16 +42,37 @@ import {
     ProcessEventsDescriptions,
 } from 'wlc-engine/modules/monitoring';
 import {IUserPasswordPost} from 'wlc-engine/modules/user/system/interfaces/user.interface';
+import {
+    MetamaskService,
+    TMetamaskDataReg,
+    TMetamaskData,
+} from 'wlc-engine/modules/metamask';
+import {
+    ChosenBonusSetParams,
+    ChosenBonusType,
+} from 'wlc-engine/modules/bonuses';
 
 import _assign from 'lodash-es/assign';
 import _each from 'lodash-es/each';
 import _keys from 'lodash-es/keys';
 import _set from 'lodash-es/set';
+import _isString from 'lodash-es/isString';
 import _merge from 'lodash-es/merge';
 
 export enum LanguageChangeEvents {
     ChangeLanguage = 'CHANGE_LANGUAGE'
 }
+
+interface ILoginUniqResponse {
+    result: boolean;
+}
+
+interface ILoginPasswordData {
+    login: string;
+    password: string;
+}
+
+type TLoginData = TMetamaskData | ILoginPasswordData;
 
 @Injectable({
     providedIn: 'root',
@@ -88,6 +109,9 @@ export class UserService {
     private limitationService: LimitationService;
     private idleService: IdleService;
     private bonusService: BonusesService;
+    private metamaskService: MetamaskService;
+    private isMetaMaskPending: boolean = false;
+    private _isMetamaskUser: boolean = false;
 
     constructor(
         public translate: TranslateService,
@@ -188,6 +212,7 @@ export class UserService {
             this.isAuthenticated = true;
             this.configService.set({name: '$user.isAuthenticated', value: true});
             this.fetchUserProfile().then(async () => {
+                this._isMetamaskUser = this.userProfile.type === 'metamask';
                 if (!this.limitationService) {
                     this.limitationService = await this.injectionService
                         .getService<LimitationService>('user.limitation-service');
@@ -241,6 +266,7 @@ export class UserService {
 
         if (this.isAuthenticated) {
             this.fetchUserProfile().then(async () => {
+                this._isMetamaskUser = this.userProfile.type === 'metamask';
                 if (!this.limitationService) {
                     this.limitationService = await this.injectionService
                         .getService<LimitationService>('user.limitation-service');
@@ -266,12 +292,44 @@ export class UserService {
         this.userProfile$.next(this.profile);
     }
 
+    public prepareRegData(data: Partial<IUserProfile>): IValidateData {
+        const formData: IValidateData = {
+            'TYPE': 'user-register',
+            data,
+            fields: _keys(data),
+        };
+
+        const chosenBonus = this.configService.get<ChosenBonusType>(ChosenBonusSetParams.ChosenBonus);
+
+        if (chosenBonus?.id) {
+            formData.data.registrationBonus = String(chosenBonus.id);
+            formData.fields.push('registrationBonus');
+        }
+
+        return formData;
+    }
+
     public validateRegistration(regData: IValidateData): Promise<IIndexing<any>> {
         return this.dataService.request('user/userRegistration', regData);
     }
 
-    public login(login: string, password: string): Promise<IIndexing<any>> {
-        const response = this.dataService.request<IIndexing<any>>('user/userLogin', {login, password});
+    /**
+     * Classic login via login (email) and password
+     * @param {string} login email or login string
+     * @param {string} password string
+     */
+    public login(login: string, password: string): Promise<IIndexing<any>>;
+
+    /**
+     * Login via Metamask
+     * @param {TMetamaskData} login object with metamask login data
+     */
+    public login(login: TMetamaskData): Promise<IIndexing<any>>;
+
+    public login(login: string | TMetamaskData, password?: string): Promise<IIndexing<any>> {
+        const loginData: TLoginData = _isString(login) ? {login, password} : login;
+
+        const response = this.dataService.request<IIndexing<any>>('user/userLogin', loginData);
         this.logService.sendLog({code: '1.2.5'});
         response.catch((error) => {
             this.logService.sendRequestLog({
@@ -353,6 +411,21 @@ export class UserService {
         }
 
         try {
+            if (this._isMetamaskUser) {
+                if (!this.metamaskService) {
+                    this.metamaskService = await this.injectionService
+                        .getService<MetamaskService>('metamask.metamask-service');
+                }
+
+                const metamaskData: TMetamaskData = await this.metamaskService.requestAuthData('profile');
+
+                _assign<Partial<IUserProfile>, TMetamaskData, Pick<IUserProfile, 'type'>>(
+                    params,
+                    metamaskData,
+                    {type: 'metamask'},
+                );
+            }
+
             const response: IData = await this.dataService.request({
                 name: 'updateProfile',
                 system: 'user',
@@ -429,8 +502,8 @@ export class UserService {
         return this.dataService.request('user/emailUnique', {email});
     }
 
-    public loginUnique(login: string): void {
-        this.dataService.request('user/loginUnique', {login});
+    public loginUnique(login: string): Promise<IData<ILoginUniqResponse>> {
+        return this.dataService.request('user/loginUnique', {login});
     }
 
     public updateLogin(login: string): void {
@@ -497,6 +570,66 @@ export class UserService {
 
         if (this.modalService.getActiveModal('signup')) {
             this.modalService.hideModal('signup');
+        } else if (this.modalService.getActiveModal('login')) {
+            this.modalService.hideModal('login');
+        }
+    }
+
+    public async metamaskAuth(): Promise<void> {
+        if (this.isMetaMaskPending) {
+            this.eventService.emit({
+                name: NotificationEvents.PushMessage,
+                data: <IPushMessageParams>{
+                    type: 'error',
+                    title: gettext('Authorization via MetaMask'),
+                    message: gettext('Your request is already being processed'),
+                    wlcElement: 'notification_registration-error',
+                },
+            });
+            return;
+        }
+
+        try {
+            this.isMetaMaskPending = true;
+
+            if (!this.metamaskService) {
+                this.metamaskService = await this.injectionService
+                    .getService<MetamaskService>('metamask.metamask-service');
+            }
+
+            const account: string = await this.metamaskService.getAccount();
+            const {data}: IData<ILoginUniqResponse> = await this.loginUnique(account);
+
+            if (data.result) {
+                const authData: TMetamaskDataReg = await this.metamaskService.requestAuthData('reg');
+                await this.validateRegistration(this.prepareRegData(authData));
+                this.setProfileData(authData);
+                await this.createUserProfile(this.userProfile.data);
+                this.finishRegistration();
+            } else {
+                const authData: TMetamaskData = await this.metamaskService.requestAuthData('login');
+                await this.login(authData);
+                if (this.stateService.is('app.signin') || this.stateService.is('app.login')) {
+                    this.stateService.go('app.home');
+                } else if (this.modalService.getActiveModal('login')) {
+                    this.modalService.hideModal('login');
+                } else if (this.modalService.getActiveModal('signup')) {
+                    this.modalService.hideModal('signup');
+                }
+            }
+        } catch (error) {
+            this.eventService.emit({
+                name: NotificationEvents.PushMessage,
+                data: <IPushMessageParams>{
+                    type: 'error',
+                    title: gettext('Authorization via MetaMask'),
+                    message: error.errors,
+                    wlcElement: 'notification_registration-error',
+                },
+            });
+            this.logService.sendLog({code: '1.7.0', data: error});
+        } finally {
+            this.isMetaMaskPending = false;
         }
     }
 
@@ -807,4 +940,5 @@ export class UserService {
         }
         this.idleService.init();
     }
+
 }

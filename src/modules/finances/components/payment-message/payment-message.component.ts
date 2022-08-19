@@ -32,6 +32,7 @@ import {
     IInputCParams,
     IMixedParams,
     ITimerCParams,
+    IWrapperCParams,
     LogService,
     ModalService,
 } from 'wlc-engine/modules/core';
@@ -68,6 +69,7 @@ export class PaymentMessageComponent extends AbstractComponent implements OnInit
     public html: string;
     public parseAmount: string;
     public parseRate: string;
+    public metamaskButtonConfig: IWrapperCParams;
 
     public timerParams: ITimerCParams;
     public inputParamsLockedAmount: IInputCParams;
@@ -126,6 +128,19 @@ export class PaymentMessageComponent extends AbstractComponent implements OnInit
                 this.prepareMessage();
             }
         }
+
+        if (this.message.metamask_account) {
+            this.metamaskButtonConfig = {
+                components: [{
+                    name: 'metamask.wlc-metamask-button',
+                    params: {
+                        paymentMessage: this.message,
+                    },
+                }],
+            };
+        }
+
+        this.cdr.markForCheck();
     }
 
     public ngOnChanges(): void {

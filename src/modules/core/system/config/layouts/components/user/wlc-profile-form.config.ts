@@ -150,6 +150,7 @@ export namespace wlcProfileForm {
                 },
                 {
                     name: 'core.wlc-wrapper',
+                    blockName: 'password-block',
                     params: <IWrapperCParams>{
                         class: 'wlc-profile-form__block wlc-profile-form__block--password',
                         components: [

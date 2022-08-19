@@ -7,20 +7,23 @@ import {
     ChangeDetectorRef,
 } from '@angular/core';
 
+import _map from 'lodash-es/map';
+import _includes from 'lodash-es/includes';
+import _get from 'lodash-es/get';
+import _merge from 'lodash-es/merge';
+
 import {
     AbstractComponent,
     ConfigService,
     ISocialNetwork,
     EventService,
+    InjectionService,
 } from 'wlc-engine/modules/core';
 import {SocialService} from 'wlc-engine/modules/user/system/services/social/social.service';
+import {UserService} from 'wlc-engine/modules/user/system/services/user/user.service';
 import {WINDOW} from 'wlc-engine/modules/app/system';
 
 import * as Params from './social-networks.params';
-
-import _map from 'lodash-es/map';
-import _includes from 'lodash-es/includes';
-import _get from 'lodash-es/get';
 
 @Component({
     selector: '[wlc-social-networks]',
@@ -34,14 +37,23 @@ export class SocialNetworksComponent extends AbstractComponent implements OnInit
 
     public $params: Params.ISocialNetworksCParams;
     public networks: Params.INetwork[] = [];
+    public metamask: Params.INetwork;
     public connected: string[] = [];
+
+    public isMetamask: boolean = this.configService.get<boolean>('$base.profile.metamaskAuth.use');
+    public isSocials: boolean = this.configService.get<boolean>('$base.profile.socials.use');
+    public isAuth: boolean = this.configService.get<boolean>('$user.isAuthenticated');
+
     protected _pending: boolean = false;
+
+    private socialService: SocialService;
+    private userService: UserService;
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.ISocialNetworksCParams,
         protected configService: ConfigService,
-        protected socialService: SocialService,
         protected eventService: EventService,
+        protected injectionService: InjectionService,
         protected cdr: ChangeDetectorRef,
         @Inject(WINDOW) protected window: Window,
     ) {
@@ -50,10 +62,18 @@ export class SocialNetworksComponent extends AbstractComponent implements OnInit
 
     public async ngOnInit(): Promise<void> {
         super.ngOnInit(this.inlineParams);
-        this.getSocialNetworks();
+        if (this.isSocials) {
+            this.getSocialNetworks();
+            this.socialService = await this.injectionService.getService<SocialService>('user.social-service');
+        }
 
-        if (this.configService.get<boolean>('$user.isAuthenticated')) {
+        if (this.isSocials && this.isAuth) {
             this.getUserSocialNetwork();
+        }
+
+        if (this.isMetamask) {
+            this.setMetamaskButton();
+            this.userService = await this.injectionService.getService<UserService>('user.user-service');
         }
     }
 
@@ -86,7 +106,7 @@ export class SocialNetworksComponent extends AbstractComponent implements OnInit
 
         this._pending = true;
 
-        if (this.configService.get<boolean>('$user.isAuthenticated')) {
+        if (this.isAuth) {
             await this.toggleProvider(provider);
         } else {
             await this.socialLogin(provider);
@@ -98,6 +118,10 @@ export class SocialNetworksComponent extends AbstractComponent implements OnInit
     public onImageError(network: Params.INetwork): void {
         network.imgError = true;
         this.cdr.markForCheck();
+    }
+
+    public async handleMetamaskClick(): Promise<void> {
+        await this.userService.metamaskAuth();
     }
 
     protected async socialLogin(provider: string): Promise<void> {
@@ -137,10 +161,17 @@ export class SocialNetworksComponent extends AbstractComponent implements OnInit
 
                 return <Params.INetwork>{
                     id: item.id,
-                    name: _get(replaceConfig, item.id + '.name', item.name),
-                    iconPath: _get(replaceConfig, item.id + '.iconPath', iconPath + item.id + '.svg'),
+                    name: _get(replaceConfig, `${item.id}.name`, item.name),
+                    iconPath: _get(replaceConfig, `${item.id}.iconPath'`, `${iconPath}${item.id}.svg`),
                 };
             },
+        );
+    }
+
+    protected setMetamaskButton(): void {
+        this.metamask = _merge(
+            Params.metamaskDefConfig,
+            _get(this.$params.replaceConfig, Params.metamaskDefConfig.id, {}),
         );
     }
 }

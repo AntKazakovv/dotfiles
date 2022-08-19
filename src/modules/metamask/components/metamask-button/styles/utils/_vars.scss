@@ -1,0 +1,34 @@
+$customThemeCommon: () !default;
+$themeCommon: map-merge((
+    'wrapperDisplay': inline-grid,
+    'wrapperGridTemplateCol': auto 1fr,
+    'wrapperGap': ef.size(1),
+    'wrapperAlignItems': center,
+    'wrapperColor': var(--mc-baseMain),
+
+    'iconWidth': 60px,
+    'iconHeight': 60px,
+
+    'textAlign': left,
+
+    'textLogoWeight': 700,
+    'textLogoBeforeContent': ' ',
+), $customThemeCommon);
+
+$customThemeDefault: () !default;
+$themeDefault: map-merge($themeCommon, (
+    'wrapperPadding': ef.size(1) ef.size(2) ef.size(1) ef.size(1),
+    'wrapperBg': var(--mc-bg),
+    'wrapperBorder': 2px solid transparent,
+    'wrapperBorderRadius': ef.get('radius', 'biger'),
+
+    'wrapperBorderColorActive': var(--mc-main),
+    'wrapperBoxShadowActive': 0 0 14px var(--mc-main),
+
+    'wrapperBoxShadowHover': 0 0 5px var(--mc-main),
+
+), $customThemeDefault);
+
+$customThemeBlock: () !default;
+$themeBlock: map-merge($themeCommon, (
+), $customThemeBlock);

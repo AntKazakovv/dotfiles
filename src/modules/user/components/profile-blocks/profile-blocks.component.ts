@@ -47,6 +47,7 @@ export class ProfileBlocksComponent extends AbstractComponent implements OnInit 
             this.notificationToggle(checked);
         },
     };
+    public isDefaultUser: boolean = false;
 
     constructor(
         @Inject('injectParams') protected params: Params.IProfileBlocksCParams,
@@ -68,6 +69,7 @@ export class ProfileBlocksComponent extends AbstractComponent implements OnInit 
         await this.userService.userProfile$.pipe(
             first((profile: UserProfile): boolean => !!profile),
         ).toPromise();
+        this.isDefaultUser = this.userService.userProfile.type === 'default';
 
         this.userService.userProfile$.pipe(
             takeUntil(this.$destroy),

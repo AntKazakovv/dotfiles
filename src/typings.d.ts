@@ -99,6 +99,10 @@ declare interface Window extends TAnalyticMethod {
     externalSBPageSwitch?: TExternalSBPageSwitch;
     // digitain iframe navigation handler
     digitainOnNavigate?: TDigitainOnNavigate;
+    ethereum?: {
+        request: (prams: {method: string, params?: any[]}) => any;
+        [key: string]: any;
+    };
 }
 
 declare const WLC_VERSION: number;

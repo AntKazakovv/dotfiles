@@ -14,7 +14,7 @@ $themeDefault: map-merge((
     ),
     'wrapperGridGap': (
         640: ef.size(4),
-        768: ef.size(10),
+        768: ef.size(4) ef.size(10),
     ),
 
     'wrapperModalDisplay': block,
@@ -86,5 +86,18 @@ $themeDefault: map-merge((
 
     'bottomMargin': ef.size(2) ef.size(-2) ef.size(-2),
     'bottomBtnMargin': ef.size(2),
+    'warningModalAlignment': center,
+
+    //metamask
+    'metamaskMargin': (
+        375: ef.size(4) 0 0,
+        640: 0,
+    ),
+    'metamaskAlignment': (
+        375: center,
+        640: inherit,
+    ),
+    'metamaskMarginModal': ef.size(4) 0 0,
+    'metamaskAlignmentModal': center,
 
 ), $customThemeDefault);

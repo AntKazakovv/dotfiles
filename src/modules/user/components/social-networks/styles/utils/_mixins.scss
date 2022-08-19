@@ -17,6 +17,17 @@
     color: ef.get-value($map, 'buttonColor');
     background: ef.get-value($map, 'buttonBg');
 
+    &.wlc-social-networks__button--metamask {
+
+        ::ng-deep {
+
+            span.wlc-icon-content svg {
+                max-width: ef.get-value($map, 'metamaskSvgMaxWidth');
+                max-height: ef.get-value($map, 'metamaskSvgMaxHeight');
+            }
+        }
+    }
+
     @include bm.hover {
 
         .wlc-social-networks__icon {

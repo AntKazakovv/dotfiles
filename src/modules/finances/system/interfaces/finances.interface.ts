@@ -41,6 +41,7 @@ export interface IPaymentMessage {
     cryptoRate?: string;
     /** Date when invoice expires (deposit via invoices) */
     dateEnd?: string;
+    metamask_account?: string;
 }
 
 export type TBets = IBet[];

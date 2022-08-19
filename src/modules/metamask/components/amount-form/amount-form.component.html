@@ -1,0 +1,10 @@
+<div *ngIf="$params.showMetamaskBlock"
+    class="{{$class}}__metamask-block"
+    wlc-metamask-button
+    [inlineParams]="{theme: 'block'}"></div>
+
+<div wlc-form-wrapper
+    class="{{$class}}__form"
+    [ngSubmit]="formSubmit.bind(this)"
+    [config]="formConfig">
+</div>

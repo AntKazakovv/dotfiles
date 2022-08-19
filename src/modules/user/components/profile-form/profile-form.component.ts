@@ -20,12 +20,12 @@ import _find from 'lodash-es/find';
 import {
     ConfigService,
     EventService,
+    IFormWrapperCParams,
     IIndexing,
     IPushMessageParams,
     NotificationEvents,
     ProfileType,
     IFormComponent,
-    IFormWrapperCParams,
     ValidatorType,
     GlobalHelper,
 } from 'wlc-engine/modules/core';
@@ -88,6 +88,7 @@ export class ProfileFormComponent extends ProfileFormAbstract implements OnInit 
     public userProfile = this.userService.userProfile$;
     public errors$: BehaviorSubject<IIndexing<string>> = new BehaviorSubject(null);
     public ready: boolean = false;
+    public formConfig: IFormWrapperCParams;
 
     constructor(
         @Inject('injectParams') protected params: Params.IProfileFormCParams,
@@ -114,11 +115,13 @@ export class ProfileFormComponent extends ProfileFormAbstract implements OnInit 
         super.ngOnInit(this.inlineParams);
         await this.configService.ready;
 
-        this.mixinRequiredFields();
+        this.formConfig = _cloneDeep(this.$params.config);
 
         if (await this.configService.get<Promise<boolean>>('$user.skipPasswordOnFirstUserSession')) {
-            this.$params.config = this.changePassBlock();
+            this.formConfig = this.changePassBlock();
         }
+
+        await this.updateFormForMetamask();
 
         this.ready = true;
         this.cdr.detectChanges();

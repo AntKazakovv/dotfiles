@@ -3,7 +3,6 @@ import {ValidatorType, IIndexing} from 'wlc-engine/modules/core';
 
 import _isString from 'lodash-es/isString';
 
-
 type FilterType = 'deposit' | 'Deposits' | 'withdraw' | 'Withdraws' | 'all' | 'All';
 
 export class FinancesHelper {
@@ -49,7 +48,7 @@ export class FinancesHelper {
     }
 
     public static errorToMessage(error: {errors?: any}): string | string[] {
-        return error.errors?.length
+        return  error.errors?.length
             ? error.errors.filter((i: unknown) => _isString(i))
             : gettext('Something went wrong. Please try again later.');
     }

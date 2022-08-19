@@ -1,0 +1,8 @@
+$customThemeDefault: () !default;
+$themeDefault: map-merge((
+    'metamaskMargin': 0 0 ef.size(3),
+    'metamaskTextAlign': center,
+
+    'formAmountMargin': 0 0 ef.size(4),
+    'formSubmitMargin': 0 auto,
+), $customThemeDefault);

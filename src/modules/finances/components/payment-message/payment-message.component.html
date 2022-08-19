@@ -18,6 +18,12 @@
         <ng-container [ngTemplateOutlet]="instruction"></ng-container>
     </div>
     <ng-container [ngTemplateOutlet]="qrCode"></ng-container>
+
+    <div *ngIf="metamaskButtonConfig"
+        class="{{$class}}__metamask"
+        wlc-wrapper
+        [inlineParams]="metamaskButtonConfig">
+    </div>
 </ng-template>
 
 <ng-template #payToXAddress>

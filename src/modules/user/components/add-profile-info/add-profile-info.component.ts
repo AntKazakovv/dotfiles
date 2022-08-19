@@ -12,6 +12,8 @@ import {StateService} from '@uirouter/core';
 
 import _each from 'lodash-es/each';
 import _assign from 'lodash-es/assign';
+import _cloneDeep from 'lodash-es/cloneDeep';
+import _isString from 'lodash-es/isString';
 
 import {
     ConfigService,
@@ -21,6 +23,7 @@ import {
     IPushMessageParams,
     NotificationEvents,
     IIndexing,
+    IFormWrapperCParams,
 } from 'wlc-engine/modules/core';
 import {UserService} from 'wlc-engine/modules/user/system/services';
 
@@ -40,6 +43,7 @@ export class AddProfileInfoComponent extends ProfileFormAbstract implements OnIn
 
     public $params: Params.IAddProfileInfoCParams;
     public errors$: BehaviorSubject<IIndexing<string>> = new BehaviorSubject(null);
+    public formConfig: IFormWrapperCParams;
     protected isPending: boolean = false;
 
     constructor(
@@ -61,6 +65,13 @@ export class AddProfileInfoComponent extends ProfileFormAbstract implements OnIn
     public ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
         this.disableStatesControl();
+        this.formConfig = _cloneDeep(this.$params.formConfig);
+
+        this.updateFormForMetamask().then((isChanged: boolean): void => {
+            if (isChanged) {
+                this.cdr.markForCheck();
+            }
+        });
     }
 
     public async onSubmit(form: FormGroup): Promise<void> {
@@ -91,12 +102,16 @@ export class AddProfileInfoComponent extends ProfileFormAbstract implements OnIn
             });
         } else {
 
-            const messages = ['Profile save failed'];
+            const messages = [gettext('Profile save failed')];
             if (result.errors) {
-                _each(result.errors, (error) => {
-                    messages.push(error);
-                });
-                this.errors$.next(result.errors as IIndexing<string>);
+                if (_isString(result.errors)) {
+                    messages.push(result.errors);
+                } else {
+                    _each(result.errors, (error: any): void => {
+                        messages.push(String(error));
+                    });
+                }
+                this.errors$.next(result.errors);
             }
 
             this.modalService.hideModal('data-is-processing');

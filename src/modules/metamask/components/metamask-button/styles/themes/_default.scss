@@ -1,0 +1,55 @@
+// Common styles
+.wlc-metamask-button:host {
+
+    .wlc-metamask-button {
+
+        &__wrapper {
+            display: ef.get-value($themeCommon, 'wrapperDisplay');
+            grid-template-columns: ef.get-value($themeCommon, 'wrapperGridTemplateCol');
+            gap: ef.get-value($themeCommon, 'wrapperGap');
+            align-items: ef.get-value($themeCommon, 'wrapperAlignItems');
+            color: ef.get-value($themeCommon, 'wrapperColor');
+        }
+
+        &__icon {
+            width: ef.get-value($themeCommon, 'iconWidth');
+            height: ef.get-value($themeCommon, 'iconHeight');
+        }
+
+        &__text {
+            text-align: ef.get-value($themeCommon, 'textAlign');
+        }
+
+        &__text-logo {
+            font-weight: ef.get-value($themeCommon, 'textLogoWeight');
+
+            &:before {
+                content: ef.get-value($themeCommon, 'textLogoBeforeContent');
+            }
+        }
+    }
+}
+
+// Theme styles
+.wlc-metamask-button--theme-default:host {
+
+    .wlc-metamask-button {
+
+        &__wrapper {
+            @include bm.transition();
+            padding: ef.get-value($themeDefault, 'wrapperPadding');
+            background: ef.get-value($themeDefault, 'wrapperBg');
+            border: ef.get-value($themeDefault, 'wrapperBorder');
+            border-radius: ef.get-value($themeDefault, 'wrapperBorderRadius');
+
+            &:active {
+                border-color: ef.get-value($themeDefault, 'wrapperBorderColorActive');
+                box-shadow: ef.get-value($themeDefault, 'wrapperBoxShadowActive');
+            }
+
+            @include bm.hover() {
+                box-shadow: ef.get-value($themeDefault, 'wrapperBoxShadowHover');
+            }
+        }
+    }
+}

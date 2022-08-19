@@ -1,0 +1,27 @@
+.wlc-amount-form--theme-default:host {
+
+    .wlc-amount-form {
+
+        &__metamask-block {
+            margin: ef.get-value($themeDefault, 'metamaskMargin');
+            text-align: ef.get-value($themeDefault, 'metamaskTextAlign');
+        }
+
+        &__form {
+
+            ::ng-deep {
+
+                .wlc-form {
+
+                    .wlc-input--amount {
+                        margin: ef.get-value($themeDefault, 'formAmountMargin');
+                    }
+
+                    .wlc-btn--submit {
+                        margin: ef.get-value($themeDefault, 'formSubmitMargin');
+                    }
+                }
+            }
+        }
+    }
+}

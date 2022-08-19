@@ -17,7 +17,7 @@ export interface INetwork {
     id: string;
     name: string;
     iconPath: string;
-    imgError: boolean;
+    imgError?: boolean;
 }
 
 export interface ISocialNetworksCParams extends IComponentParams<ComponentTheme, ComponentType, ComponentThemeMod> {
@@ -55,4 +55,13 @@ export const defaultParams: ISocialNetworksCParams = {
             name: 'Google',
         },
     },
+};
+
+/**
+ * Metamask icon default config. Can be configured with `replaceConfig` of `ISocialNetworksCParams`
+ */
+export const metamaskDefConfig: INetwork = {
+    id: 'metamask',
+    name: 'MetaMask',
+    iconPath: 'wlc/icons/metamask.svg',
 };

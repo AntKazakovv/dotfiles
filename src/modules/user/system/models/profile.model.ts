@@ -1,3 +1,4 @@
+import {TUserType} from 'wlc-engine/modules/core/system/interfaces/user.interface';
 import {IExtProfile, ISocketsData, IUserProfile} from 'wlc-engine/modules/core/system/interfaces';
 import {AbstractModel} from 'wlc-engine/modules/core/system/models/abstract.model';
 import {IFromLog} from 'wlc-engine/modules/core';
@@ -166,6 +167,10 @@ export class UserProfile extends AbstractModel<IUserProfile> {
 
     public get pep(): string {
         return this.data.extProfile.pep;
+    }
+
+    public get type(): TUserType {
+        return this.data.type;
     }
 
     public hasField(field: string): boolean {

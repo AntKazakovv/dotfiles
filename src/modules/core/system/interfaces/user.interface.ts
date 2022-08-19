@@ -73,7 +73,19 @@ export interface IUserProfile {
     password?: string;
     oddsStyle?: string;
     socketsData?: ISocketsData | '';
+    /**
+     * User type
+     */
+    type?: TUserType;
+    /** Metamask wallet address */
+    walletAddress?: string;
+    /** Signature message */
+    message?: string;
+    /** Metamask signature */
+    signature?: string;
 }
+
+export type TUserType = 'metamask' | 'default';
 
 export interface IExtProfile {
     /** @deprecated use IUserProfile.emailAgree */

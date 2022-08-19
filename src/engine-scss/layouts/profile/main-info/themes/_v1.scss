@@ -7,6 +7,7 @@
             &__block {
                 @include bm.get-mq-map('margin', $mainInfoThemeV1, 'profileFormBlockMargin');
                 @include bm.get-mq-map('padding', $mainInfoThemeV1, 'profileFormBlockPadding');
+                @include blocksDivider(#{ef.get-value($mainInfoThemeV1, 'profileFormBlockDividerWidth')});
                 display: ef.get-value($mainInfoThemeV1, 'profileFormBlockDisplay');
                 flex-wrap: ef.get-value($mainInfoThemeV1, 'profileFormBlockFlexWrap');
                 align-items: ef.get-value($mainInfoThemeV1, 'profileFormBlockAlignItems');
@@ -15,10 +16,11 @@
                     padding-top: 0;
                 }
 
-                &--main,
-                &--banking,
-                &--location {
-                    @include blocksDivider(#{ef.get-value($mainInfoThemeV1, 'profileFormBlockDividerWidth')});
+                &:nth-last-child(-n+2) {
+
+                    &:after {
+                        display: none;
+                    }
                 }
 
                 &--submit {

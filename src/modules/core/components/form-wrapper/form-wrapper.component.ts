@@ -86,6 +86,7 @@ export interface IFormComponent {
     alwaysNew?: {
         saveValue?: boolean;
     };
+    blockName?: string;
 }
 
 export interface IFormWrapperCParams extends IWrapperCParams {
@@ -152,7 +153,8 @@ export class FormWrapperComponent extends WrapperComponent implements OnInit, On
         super.ngOnInit();
         this.prepareParams();
         this.initForm();
-        this.collectionErrors(this.config.components);
+        this.collectionErrors(this.config?.components);
+        super.ngOnInit();
 
         if (!this.initiated) {
             this.initiated = true;
@@ -522,6 +524,8 @@ export class FormWrapperComponent extends WrapperComponent implements OnInit, On
     }
 
     private filterNullComponents(components: IFormComponent[]): IFormComponent[] {
-        return _filter(components, (component: IFormComponent): boolean => _isObject(component) && !!component.name);
+        return _filter(components, (component: IFormComponent): boolean => {
+            return _isObject(component) && !!component.name;
+        });
     }
 }

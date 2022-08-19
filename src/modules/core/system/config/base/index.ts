@@ -30,6 +30,9 @@ export const $base: IBaseConfig = {
             blockBrowserNavigation: true,
             fetchConfig: false,
         },
+        metamask: {
+            hidePayMessageModalOnSuccess: true,
+        },
     },
     rewritingWpLanguages: {
         'pt-br': 'pb',

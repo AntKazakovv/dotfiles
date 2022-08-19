@@ -1,4 +1,19 @@
 <div class="{{$class}}__list">
+    <button *ngIf="isMetamask && !isAuth"
+        class="{{$class}}__button {{$class}}__button--metamask"
+        type="button"
+        title="{{$params.titlePrefix | translate}} {{metamask.name}}"
+        (click)="handleMetamaskClick()">
+        <span wlc-icon
+            class="{{$class}}__icon"
+            (imageError)="onImageError(metamask)"
+            iconPath="{{metamask.iconPath}}">
+        </span>
+        <span *ngIf="metamask.imgError" class="{{$class}}__icon">
+            <span class="wlc-icon-content">{{metamask.id}}</span>
+        </span>
+    </button>
+
     <ng-container *ngFor="let network of networks">
         <button class="{{$class}}__button {{$class}}__button--{{network.id}}"
             [ngClass]="{'active': isProviderConnected(network.id)}"

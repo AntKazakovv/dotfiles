@@ -186,7 +186,7 @@ export class MerchantWalletService {
 
         if (!this._currency) {
             this.configService.get<BehaviorSubject<UserProfile>>('$user.userProfile$')
-                .pipe(first((v: UserProfile): boolean => !!v && !!v.email))
+                .pipe(first((v: UserProfile): boolean => !!v?.idUser))
                 .subscribe((profile: UserProfile): void => {
                     this._currency = profile.currency;
                 });

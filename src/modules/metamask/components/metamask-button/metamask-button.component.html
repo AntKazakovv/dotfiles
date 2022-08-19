@@ -1,0 +1,23 @@
+<ng-container [ngSwitch]="$params.theme">
+    <div *ngSwitchCase="'block'"
+        class="{{$class}}__wrapper">
+        <ng-container [ngTemplateOutlet]="content"></ng-container>
+    </div>
+
+    <button *ngSwitchDefault
+        class="{{$class}}__wrapper"
+        (click)="clickHandler()">
+        <ng-container [ngTemplateOutlet]="content"></ng-container>
+    </button>
+</ng-container>
+
+<ng-template #content>
+    <span class="{{$class}}__icon"
+        wlc-icon
+        [iconPath]="$params.iconPath"
+    ></span>
+    <span class="{{$class}}__text">
+        <span class="{{$class}}__text-main">{{$params.prefix | translate}}</span>
+        <span class="{{$class}}__text-logo">MetaMask</span>
+    </span>
+</ng-template>

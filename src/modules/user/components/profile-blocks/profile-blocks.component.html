@@ -20,7 +20,9 @@
         mainText="{{'Security' | translate}}"
         mainTag="span"
     ></div>
-    <div class="{{$class}}__item" data-wlc-element="block_edit-password">
+    <div *ngIf="isDefaultUser"
+        class="{{$class}}__item"
+        data-wlc-element="block_edit-password">
         <div class="{{$class}}__item-title">
             <div class="{{$class}}__item-title-main">
                 {{'Password' | translate}}

@@ -1,0 +1,18 @@
+.wlc-currency-form--theme-default:host {
+
+    ::ng-deep {
+
+        .wlc-form {
+            display: ef.get-value($themeDefault, 'formDisplay');
+            flex-direction: ef.get-value($themeDefault, 'formFlexDirection');
+            align-items: ef.get-value($themeDefault, 'formAlignItems');
+            width: ef.get-value($themeDefault, 'formWidth');
+            max-width: ef.get-value($themeDefault, 'formMaxWidth');
+            margin: ef.get-value($themeDefault, 'formMargin');
+        }
+
+        .wlc-btn {
+            margin: ef.get-value($themeDefault, 'formSubmitMargin');
+        }
+    }
+}

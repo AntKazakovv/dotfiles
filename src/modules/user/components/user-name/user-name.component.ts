@@ -55,8 +55,10 @@ export class UserNameComponent extends AbstractComponent implements OnInit, OnDe
             .subscribe((userInfo) => {
                 if (userInfo.firstName || userInfo.lastName) {
                     this.displayedName = `${userInfo.firstName} ${userInfo.lastName}`.trim();
-                } else {
+                } else if (userInfo.email) {
                     this.displayedName = userInfo.email;
+                } else {
+                    this.displayedName = gettext('User');
                 }
                 this.cdr.markForCheck();
             });

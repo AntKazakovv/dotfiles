@@ -95,6 +95,12 @@ export interface IProfileConfig {
      */
     passwordValidation?: IPasswordValidation,
     /**
+     * Enable authorization via MetaMask
+     */
+    metamaskAuth?: {
+        use: boolean;
+    };
+    /**
      * Specifies should be shown user id from Fundist or not
      */
     fundistUserId?: IFundistUserId;

@@ -249,6 +249,14 @@ export class InjectionService {
                     this.afterModuleLoad('loyalty', m);
                     return m.LoyaltyModule;
                 });
+            case 'metamask':
+                if (this.loadedModules.MetamaskModule) {
+                    return this.loadedModules.MetamaskModule;
+                }
+                return import('wlc-engine/modules/metamask/metamask.module').then(m => {
+                    this.afterModuleLoad('metamask', m);
+                    return m.MetamaskModule;
+                });
         }
     }
 

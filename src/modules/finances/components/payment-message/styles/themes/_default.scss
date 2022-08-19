@@ -98,6 +98,11 @@
         &__btn {
             margin: ef.get-value($themeDefault, 'bottomBtnMargin');
         }
+
+        &__metamask {
+            @include bm.get-mq-map('margin', $themeDefault, 'metamaskMargin');
+            @include bm.get-mq-map('text-align', $themeDefault, 'metamaskAlignment');
+        }
     }
 
     &.wlc-payment-message--theme-mod-modal {
@@ -130,6 +135,15 @@
 
             &__bottom {
                 justify-content: center;
+            }
+
+            &__warning {
+                text-align: ef.get-value($themeDefault, 'warningModalAlignment');
+            }
+
+            &__metamask {
+                margin: ef.get-value($themeDefault, 'metamaskMarginModal');
+                text-align: ef.get-value($themeDefault, 'metamaskAlignmentModal');
             }
         }
     }

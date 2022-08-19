@@ -1,7 +1,7 @@
 <ng-container *ngIf="ready; else preloader">
      <div wlc-form-wrapper
           class="{{$class}}__form"
-          [config]="$params.config"
+          [config]="formConfig"
           [formData]="userProfile"
           [ngSubmit]="ngSubmit.bind(this)"
           [errors]="errors$.asObservable()"
