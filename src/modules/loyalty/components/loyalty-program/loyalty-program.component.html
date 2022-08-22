@@ -39,9 +39,8 @@
 
 <ng-template #mobileLoyaltyLevels>
     <div class="container">
-        <div wlc-slider
-            class="{{$class}}__slider"
-            [slides]="slides"
-            [inlineParams]="$params.sliderParams"></div>
+        <div wlc-wrapper
+        class="{{$class}}__slider"
+        [inlineParams]="sliderConfig"></div>
     </div>
 </ng-template>
