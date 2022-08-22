@@ -20,7 +20,7 @@ import {
     TGameImageSize,
 } from 'wlc-engine/modules/games';
 import {GamesHelper} from 'wlc-engine/modules/games/system/helpers/games.helpers';
-import {Bonus} from 'wlc-engine/modules/bonuses/system/models/bonus';
+import {Bonus} from 'wlc-engine/modules/bonuses/system/models/bonus/bonus';
 import {CategoryModel} from 'wlc-engine/modules/games/system/models/category.model';
 import {TDisableDemoFor} from 'wlc-engine/modules/games/system/interfaces/games.interfaces';
 import {

@@ -1,6 +1,6 @@
 import {IComponentParams, CustomType} from 'wlc-engine/modules/core';
 import {ISliderCParams} from 'wlc-engine/modules/promo';
-import {TBonusSortOrder} from 'wlc-engine/modules/bonuses/system/interfaces/bonuses.interface';
+import {TBonusSortOrder} from 'wlc-engine/modules/bonuses/system/interfaces/bonuses/bonuses.interface';
 
 export type Type = 'default' | CustomType;
 export type Theme = 'default' | CustomType;

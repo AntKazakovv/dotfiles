@@ -16,10 +16,10 @@ import {
     EventService,
     InjectionService,
 } from 'wlc-engine/modules/core';
-import {Bonus} from 'wlc-engine/modules/bonuses/system/models/bonus';
+import {Bonus} from 'wlc-engine/modules/bonuses/system/models/bonus/bonus';
 import {BonusesService} from 'wlc-engine/modules/bonuses/system/services/bonuses/bonuses.service';
 import {SportsbookService} from 'wlc-engine/modules/sportsbook';
-import {BonusItemComponentEvents} from 'wlc-engine/modules/bonuses/system/interfaces/bonuses.interface';
+import {BonusItemComponentEvents} from 'wlc-engine/modules/bonuses/system/interfaces/bonuses/bonuses.interface';
 import {Theme as BonusItemTheme} from 'wlc-engine/modules/bonuses/components/bonus-item/bonus-item.params';
 
 import * as Params from './bonus-buttons.params';
@@ -166,7 +166,7 @@ export class BonusButtonsComponent extends AbstractComponent implements OnInit {
     /**
      * Execution select action
      *
-     * @param type {string} action type
+     * @param {string} type action type
      */
     public async action(type: string): Promise<void> {
         switch (type) {
@@ -195,7 +195,7 @@ export class BonusButtonsComponent extends AbstractComponent implements OnInit {
     /**
      * Closed bonus modal
      *
-     * @param id {string}
+     * @param {string} id
      */
     protected hideActiveModal(id: string): void {
         if (this.modalService.getActiveModal(id)) {

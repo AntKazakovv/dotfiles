@@ -1,7 +1,9 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
+
 import {AppModule} from 'wlc-engine/modules/app/app.module';
+import {Bonus} from 'wlc-engine/modules/bonuses/system/models/bonus/bonus';
+
 import {BonusButtonsComponent} from './bonus-buttons.component';
-import {Bonus} from 'wlc-engine/modules/bonuses';
 import * as Params from './bonus-buttons.params';
 
 describe('BonusButtonsComponent', () => {

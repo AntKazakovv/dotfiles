@@ -30,8 +30,8 @@ import {
     ISlide,
     SliderComponent,
 } from 'wlc-engine/modules/promo';
-import {ThemeMod} from 'wlc-engine/modules/core/components/button/button.params';
-import {Bonus} from 'wlc-engine/modules/bonuses/system/models/bonus';
+import {ThemeMod as BtnThemeMod} from 'wlc-engine/modules/core/components/button/button.params';
+import {Bonus} from 'wlc-engine/modules/bonuses/system/models/bonus/bonus';
 import {BonusesService} from 'wlc-engine/modules/bonuses/system/services/bonuses/bonuses.service';
 import {BonusItemComponent} from 'wlc-engine/modules/bonuses/components/bonus-item/bonus-item.component';
 
@@ -54,7 +54,7 @@ export class LootboxModalComponent extends AbstractComponent implements OnInit, 
     public lootboxStatus: TLootboxStatus = 'open';
     public btnDisabled: boolean = false;
     public btnText: string = gettext('Spin');
-    public btnThemeMod: ThemeMod = 'default';
+    public btnThemeMod: BtnThemeMod = 'default';
     public droppedBonus: Bonus;
     protected bonuses: Bonus[] = [];
     protected themeMod: ProfileType = 'default';
@@ -126,7 +126,7 @@ export class LootboxModalComponent extends AbstractComponent implements OnInit, 
 
     /**
      * Fires after clicking on the button at the bottom of the modal
-     * 
+     *
      * @returns {Promise<void>}
      */
     public async btnClick(): Promise<void> {
@@ -170,7 +170,7 @@ export class LootboxModalComponent extends AbstractComponent implements OnInit, 
 
     /**
      * Close modal
-     * 
+     *
      * @returns {void}
      */
     public close(): void {
@@ -179,7 +179,7 @@ export class LootboxModalComponent extends AbstractComponent implements OnInit, 
 
     /**
      * Fires when the transition to the active slide ends
-     * 
+     *
      * @returns {void}
      */
     public onSlideChangeTransitionEnd(): void {

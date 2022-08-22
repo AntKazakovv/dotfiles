@@ -5,14 +5,14 @@ import {
     CustomType,
     IPagination,
     IButtonCParams,
+    INoContentCParams,
 } from 'wlc-engine/modules/core';
 import {
     IBonusItemCParams,
     RestType,
     BonusesFilterType,
 } from 'wlc-engine/modules/bonuses';
-import {INoContentCParams} from 'wlc-engine/modules/core/components/no-content/no-content.params';
-import {TBonusSortOrder} from 'wlc-engine/modules/bonuses/system/interfaces/bonuses.interface';
+import {TBonusSortOrder} from 'wlc-engine/modules/bonuses/system/interfaces/bonuses/bonuses.interface';
 
 export type Type = 'default' | 'swiper' | CustomType;
 export type Theme = 'active' | 'default' | 'partial' | 'promo' | 'promo-home' | 'reg-first' | CustomType;

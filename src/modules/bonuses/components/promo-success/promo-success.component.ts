@@ -5,12 +5,12 @@ import {
     Input,
 } from '@angular/core';
 import {UIRouter} from '@uirouter/core';
-import {ModalService} from 'wlc-engine/modules/core/system/services/modal/modal.service';
 import {
+    ModalService,
     AbstractComponent,
     IMixedParams,
-} from 'wlc-engine/modules/core/system/classes/abstract.component';
-import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
+    ConfigService,
+} from 'wlc-engine/modules/core';
 
 import * as Params from './promo-success.params';
 

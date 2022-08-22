@@ -1,11 +1,11 @@
-import {IComponentParams, CustomType} from 'wlc-engine/modules/core/system/classes/abstract.component';
-import {ITableCol} from 'wlc-engine/modules/core/components/table/table.params';
-
-import {IHistoryNameItem} from 'wlc-engine/modules/core/components/table/components/history-name/history-name.params';
 import {
+    IComponentParams,
+    CustomType,
+    ITableCol,
+    IHistoryNameItem,
     HistoryNameComponent,
-} from 'wlc-engine/modules/core/components/table/components/history-name/history-name.component';
-import {HistoryItemModel} from '../../system/models/bonus-history-item.model';
+} from 'wlc-engine/modules/core';
+import {HistoryItemModel} from 'wlc-engine/modules/bonuses/system/models/bonus-history-item/bonus-history-item.model';
 
 export type Theme = 'default' | CustomType;
 export type Type = 'default' | CustomType;

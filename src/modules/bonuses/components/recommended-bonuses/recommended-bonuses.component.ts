@@ -8,7 +8,7 @@ import {
 
 import {AbstractComponent} from 'wlc-engine/modules/core';
 
-import {IBonusesListCParams} from 'wlc-engine/modules/bonuses';
+import {IBonusesListCParams} from 'wlc-engine/modules/bonuses/components/bonuses-list/bonuses-list.params';
 
 import * as Params from './recommended-bonuses.params';
 

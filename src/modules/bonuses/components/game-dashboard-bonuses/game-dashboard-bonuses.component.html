@@ -1,22 +1,22 @@
 <ng-container *ngIf="isReady && bonuses?.length && slides?.length; else: noBonuses">
-    <div class="{{$class}}__slider" *ngIf="!landscapeOrientation || !isMobile"
-         wlc-slider
+    <div wlc-slider
+         class="{{$class}}__slider" *ngIf="!landscapeOrientation || !isMobile"
          [slides]="slides"
          [inlineParams]="$params.common?.sliderParams">
     </div>
-    <div class="{{$class}}__slider" *ngIf="isMobile && landscapeOrientation"
-         wlc-slider
+    <div wlc-slider
+         class="{{$class}}__slider" *ngIf="isMobile && landscapeOrientation"
          [slides]="slides"
          [inlineParams]="$params.common?.landscapeSliderParams">
     </div>
     <div *ngIf="isDesktopAndSlidesLength" slot-container-end>
         <button wlc-icon
-             class="swiper-button-prev wlc-swiper-button-prev"
-             iconPath="/wlc/icons/arrow.svg">
+                class="swiper-button-prev wlc-swiper-button-prev"
+                iconPath="/wlc/icons/arrow.svg">
         </button>
         <button wlc-icon
-             class="swiper-button-next wlc-swiper-button-next"
-             iconPath="/wlc/icons/arrow.svg">
+                class="swiper-button-next wlc-swiper-button-next"
+                iconPath="/wlc/icons/arrow.svg">
         </button>
     </div>
 </ng-container>

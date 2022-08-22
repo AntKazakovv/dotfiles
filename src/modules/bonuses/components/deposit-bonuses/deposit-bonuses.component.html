@@ -6,8 +6,8 @@
 
 <ng-template #modalButton>
     <ng-container *ngIf="bonuses.length; else bonusesList">
-        <button type="button"
-            class="{{$class}}__btn"
+        <button class="{{$class}}__btn"
+            type="button"
             [class.selected]="!!currentBonus"
             [class.use-icon]="!currentBonus"
             [attr.title]="$params.modalBtnParams.title | translate"

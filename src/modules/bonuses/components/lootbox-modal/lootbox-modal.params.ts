@@ -2,8 +2,8 @@ import {
     IComponentParams,
     CustomType,
 } from 'wlc-engine/modules/core';
-import {Bonus} from 'wlc-engine/modules/bonuses/system/models/bonus';
 import {ISliderCParams} from 'wlc-engine/modules/promo';
+import {Bonus} from 'wlc-engine/modules/bonuses/system/models/bonus/bonus';
 
 export type Type = 'default' | CustomType;
 export type Theme = 'default' | CustomType;

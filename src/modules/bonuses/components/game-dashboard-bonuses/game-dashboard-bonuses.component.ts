@@ -9,6 +9,7 @@ import {
     ViewChild,
     ElementRef,
 } from '@angular/core';
+
 import {takeUntil} from 'rxjs/operators';
 
 import {
@@ -25,11 +26,13 @@ import {
     ISlide,
     SliderComponent,
 } from 'wlc-engine/modules/promo';
-import * as DashboardParams from 'wlc-engine/modules/games';
-import {IChangedTabEvent} from 'wlc-engine/modules/games/components/game-dashboard/game-dashboard.params';
-import {Bonus} from 'wlc-engine/modules/bonuses/system/models/bonus';
+import {
+    GameDashboardEvents,
+    IChangedTabEvent,
+} from 'wlc-engine/modules/games';
+import {Bonus} from 'wlc-engine/modules/bonuses/system/models/bonus/bonus';
 import {BonusesService} from 'wlc-engine/modules/bonuses/system/services/bonuses/bonuses.service';
-import {BonusesFilterType} from 'wlc-engine/modules/bonuses/system/interfaces/bonuses.interface';
+import {BonusesFilterType} from 'wlc-engine/modules/bonuses/system/interfaces/bonuses/bonuses.interface';
 
 import * as Params from './game-dashboard-bonuses.params';
 
@@ -180,7 +183,7 @@ export class GameDashboardBonusesComponent extends AbstractComponent implements 
         });
 
         this.eventService.subscribe({
-            name: DashboardParams.GameDashboardEvents.CHANED_TAB,
+            name: GameDashboardEvents.CHANED_TAB,
         }, (data: IChangedTabEvent) => {
             if (data.tab.id === 'bonuses') {
                 setTimeout(() => {

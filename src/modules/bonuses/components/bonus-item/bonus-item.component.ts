@@ -27,12 +27,12 @@ import {
 } from 'wlc-engine/modules/core';
 import {UserProfile} from 'wlc-engine/modules/user';
 import {BonusesService} from 'wlc-engine/modules/bonuses/system/services/bonuses/bonuses.service';
-import {Bonus} from 'wlc-engine/modules/bonuses/system/models/bonus';
+import {Bonus} from 'wlc-engine/modules/bonuses/system/models/bonus/bonus';
 import {
     BonusItemComponentEvents,
     ChosenBonusSetParams,
     ChosenBonusType,
-} from 'wlc-engine/modules/bonuses/system/interfaces/bonuses.interface';
+} from 'wlc-engine/modules/bonuses/system/interfaces/bonuses/bonuses.interface';
 import {IBonusModalCParams} from 'wlc-engine/modules/bonuses/components/bonus-modal/bonus-modal.params';
 
 import * as Params from './bonus-item.params';
@@ -69,46 +69,6 @@ export class BonusItemComponent extends AbstractComponent implements OnInit, OnC
                 injectParams: params,
                 defaultParams: Params.defaultParams,
             }, configService);
-    }
-
-    public get isPreviewTheme(): boolean {
-        return this.$params.theme === 'preview';
-    }
-
-    public get selectedTag(): string {
-        if (this.$params.theme === 'reg-first' && this.bonus.isChoose) {
-            return gettext('Selected');
-        }
-    }
-
-    public get bonusBg(): string {
-        let imageUrl: string;
-
-        if (!this.bonus) {
-            imageUrl = this.$params.dummy
-                ? this.configService.get<string>('$bonuses.defaultImages.imageDummy') || this.$params.dummyBonusImage
-                : this.configService.get<string>('$bonuses.defaultImages.imageBlank') || this.$params.blankBonusImage;
-
-        } else if (this.$params.theme === 'promo-home') {
-            imageUrl = this.bonus.imagePromoHome;
-
-        } else if (this.$params.theme === 'preview') {
-            imageUrl = this.bonus.imageReg;
-
-        } else if (this.asProfileTypeFirst) {
-            imageUrl = this.bonus.imageProfileFirst;
-
-        } else if (this.$params.theme === 'partial') {
-
-            if (this.$params.themeMod === 'with-image' && this.$params.usePartialMobileImage) {
-                imageUrl = this.bonus.image;
-            }
-
-        } else {
-            imageUrl = this.bonus.image;
-        }
-
-        return imageUrl ? `url(${imageUrl})` : '';
     }
 
     public ngOnInit(): void {
@@ -194,6 +154,46 @@ export class BonusItemComponent extends AbstractComponent implements OnInit, OnC
         }
     }
 
+    public get isPreviewTheme(): boolean {
+        return this.$params.theme === 'preview';
+    }
+
+    public get selectedTag(): string {
+        if (this.$params.theme === 'reg-first' && this.bonus.isChoose) {
+            return gettext('Selected');
+        }
+    }
+
+    public get bonusBg(): string {
+        let imageUrl: string;
+
+        if (!this.bonus) {
+            imageUrl = this.$params.dummy
+                ? this.configService.get<string>('$bonuses.defaultImages.imageDummy')
+                : this.configService.get<string>('$bonuses.defaultImages.imageBlank');
+
+        } else if (this.$params.theme === 'promo-home') {
+            imageUrl = this.bonus.imagePromoHome;
+
+        } else if (this.$params.theme === 'preview') {
+            imageUrl = this.bonus.imageReg;
+
+        } else if (this.asProfileTypeFirst) {
+            imageUrl = this.bonus.imageProfileFirst;
+
+        } else if (this.$params.theme === 'partial') {
+
+            if (this.$params.themeMod === 'with-image' && this.$params.usePartialMobileImage) {
+                imageUrl = this.bonus.image;
+            }
+
+        } else {
+            imageUrl = this.bonus.image;
+        }
+
+        return imageUrl ? `url(${imageUrl})` : '';
+    }
+
     /**
      * detectChanges after image loading error
      * @returns {void}
@@ -218,6 +218,8 @@ export class BonusItemComponent extends AbstractComponent implements OnInit, OnC
 
     /**
      * Open bonus modal
+     *
+     * @param {MouseEvent} $event
      */
     public openDescription($event: MouseEvent): void {
         $event.stopPropagation();

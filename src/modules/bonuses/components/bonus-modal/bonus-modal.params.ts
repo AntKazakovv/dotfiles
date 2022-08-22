@@ -3,7 +3,7 @@ import {
     IComponentParams,
     CustomType,
 } from 'wlc-engine/modules/core';
-import {Bonus} from 'wlc-engine/modules/bonuses/system/models/bonus';
+import {Bonus} from 'wlc-engine/modules/bonuses/system/models/bonus/bonus';
 import {Theme as BonusItemTheme} from 'wlc-engine/modules/bonuses/components/bonus-item/bonus-item.params';
 
 export type Type = 'default' | CustomType;

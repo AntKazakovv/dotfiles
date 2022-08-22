@@ -1,32 +1,34 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
-
 import {TranslateModule} from '@ngx-translate/core';
-
 import {UIRouterModule} from '@uirouter/angular';
 
-import {CoreModule} from '../core/core.module';
-import {PromoModule} from '../promo/promo.module';
-import {CompilerModule} from '../compiler/compiler.module';
-
-import {BonusItemComponent} from './components/bonus-item/bonus-item.component';
-import {BonusesListComponent} from './components/bonuses-list/bonuses-list.component';
-import {BonusesHistoryComponent} from './components/bonuses-history/bonuses-history.component';
-import {BonusModalComponent} from './components/bonus-modal/bonus-modal.component';
-import {BonusButtonsComponent} from './components/bonus-buttons/bonus-buttons.component';
-import {EnterPromocodeComponent} from './components/enter-promocode/enter-promocode.component';
-import {GameDashboardBonusesComponent} from './components/game-dashboard-bonuses/game-dashboard-bonuses.component';
-import {LootboxModalComponent} from './components/lootbox-modal/lootbox-modal.component';
-import {PromoSuccessComponent} from './components/promo-success/promo-success.component';
-import {RecommendedBonusesComponent} from './components/recommended-bonuses/recommended-bonuses.component';
-import {DepositBonusesComponent} from './components/deposit-bonuses/deposit-bonuses.component';
-import {BonusesService} from './system/services/bonuses/bonuses.service';
-import {GlobalHelper} from 'wlc-engine/modules/core';
-import {IBonusesModule} from './system/interfaces/bonuses.interface';
-import {bonusesConfig} from './system/config/bonuses.config';
-import * as $config from 'wlc-config/index';
-
 import _get from 'lodash-es/get';
+
+import {CoreModule} from 'wlc-engine/modules/core/core.module';
+import {PromoModule} from 'wlc-engine/modules/promo/promo.module';
+import {CompilerModule} from 'wlc-engine/modules/compiler/compiler.module';
+
+import {BonusItemComponent} from 'wlc-engine/modules/bonuses/components/bonus-item/bonus-item.component';
+import {BonusesListComponent} from 'wlc-engine/modules/bonuses/components/bonuses-list/bonuses-list.component';
+import {BonusesHistoryComponent} from 'wlc-engine/modules/bonuses/components/bonuses-history/bonuses-history.component';
+import {BonusModalComponent} from 'wlc-engine/modules/bonuses/components/bonus-modal/bonus-modal.component';
+import {BonusButtonsComponent} from 'wlc-engine/modules/bonuses/components/bonus-buttons/bonus-buttons.component';
+import {EnterPromocodeComponent} from 'wlc-engine/modules/bonuses/components/enter-promocode/enter-promocode.component';
+import {
+    GameDashboardBonusesComponent,
+} from 'wlc-engine/modules/bonuses/components/game-dashboard-bonuses/game-dashboard-bonuses.component';
+import {LootboxModalComponent} from 'wlc-engine/modules/bonuses/components/lootbox-modal/lootbox-modal.component';
+import {PromoSuccessComponent} from 'wlc-engine/modules/bonuses/components/promo-success/promo-success.component';
+import {
+    RecommendedBonusesComponent,
+} from 'wlc-engine/modules/bonuses/components/recommended-bonuses/recommended-bonuses.component';
+import {DepositBonusesComponent} from 'wlc-engine/modules/bonuses/components/deposit-bonuses/deposit-bonuses.component';
+import {BonusesService} from 'wlc-engine/modules/bonuses/system/services/bonuses/bonuses.service';
+import {GlobalHelper} from 'wlc-engine/modules/core';
+import {IBonusesModule} from 'wlc-engine/modules/bonuses/system/interfaces/bonuses/bonuses.interface';
+import {bonusesConfig} from 'wlc-engine/modules/bonuses/system/config/bonuses/bonuses.config';
+import * as $config from 'wlc-config/index';
 
 export const moduleConfig = GlobalHelper.mergeConfig<IBonusesModule>(bonusesConfig, _get($config, '$bonuses', {}));
 

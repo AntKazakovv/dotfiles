@@ -29,9 +29,9 @@ import {
     IAutoSelectByDevice,
     PaymentSystem,
 } from 'wlc-engine/modules/finances';
-import {Bonus} from 'wlc-engine/modules/bonuses/system/models/bonus';
+import {Bonus} from 'wlc-engine/modules/bonuses/system/models/bonus/bonus';
 import {BonusesService} from 'wlc-engine/modules/bonuses/system/services';
-import {BonusItemComponentEvents} from 'wlc-engine/modules/bonuses/system/interfaces/bonuses.interface';
+import {BonusItemComponentEvents} from 'wlc-engine/modules/bonuses/system/interfaces/bonuses/bonuses.interface';
 import {IBlankBonusParams} from 'wlc-engine/modules/bonuses/components/bonuses-list/bonuses-list.params';
 import {IBonusItemCParams} from 'wlc-engine/modules/bonuses/components/bonus-item/bonus-item.params';
 import {WINDOW} from 'wlc-engine/modules/app/system';
@@ -314,5 +314,4 @@ export class DepositBonusesComponent extends AbstractComponent implements OnInit
             this.bonusClickEvent(this.getAutoSelectedBonus(), false);
         }
     }
-
 }

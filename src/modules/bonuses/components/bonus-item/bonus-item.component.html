@@ -176,8 +176,8 @@
          <div class="{{$class}}__wrapper" (click)="chooseBonusNoBtn()">
                 <div class="{{$class}}__image-block" data-wlc-element="bonus_image">
                     <div *ngIf="$params.common?.showBonusTag && !!bonus.tag"
-                    class="{{$class}}__tag"
-                    data-wlc-element="bonus_type-title">
+                         class="{{$class}}__tag"
+                         data-wlc-element="bonus_type-title">
                     {{'Selected' | translate}}
                 </div>
                 <ng-container [ngTemplateOutlet]="bonusImage"></ng-container>
@@ -458,8 +458,8 @@
              class="{{$class}}__timer"
              wlc-timer
              text="{{'Time remaining' | translate}}"
-             (timerEnds)="updateBonuses()"
-             [value]="bonus.expirationTimeLuxon"></div>
+             [value]="bonus.expirationTimeLuxon"
+             (timerEnds)="updateBonuses()"></div>
         <div *ngIf="bonus.wageringTotal && !bonus.isExpired" class="{{$class}}__progress">
             <div class="{{$class}}__remaning">
                 <span wlc-currency [value]="bonus.wageringLeft"></span>

@@ -29,7 +29,7 @@ import {
     ActionType,
     TBonusEvent,
     IBonusesModule,
-} from 'wlc-engine/modules/bonuses/system/interfaces/bonuses.interface';
+} from 'wlc-engine/modules/bonuses/system/interfaces/bonuses/bonuses.interface';
 
 const disabledReasons = {
     // Apply to deposit bonuses which paySystems array isn't empty and
@@ -618,7 +618,7 @@ export class Bonus extends AbstractModel<IBonus> {
      */
     public get value(): number | number[] {
         const resultsTarget = this.results?.[this.target];
-        
+
         if (!resultsTarget) {
             return 0;
         }

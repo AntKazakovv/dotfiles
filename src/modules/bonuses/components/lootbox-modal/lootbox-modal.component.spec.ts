@@ -10,9 +10,10 @@ import _assign from 'lodash-es/assign';
 
 import {SliderComponent} from 'wlc-engine/modules/promo';
 import {AppModule} from 'wlc-engine/modules/app/app.module';
-import {IBonus} from 'wlc-engine/modules/bonuses/system/interfaces/bonuses.interface';
-import {Bonus} from 'wlc-engine/modules/bonuses/system/models/bonus';
+import {IBonus} from 'wlc-engine/modules/bonuses/system/interfaces/bonuses/bonuses.interface';
+import {Bonus} from 'wlc-engine/modules/bonuses/system/models/bonus/bonus';
 import {BonusesService} from 'wlc-engine/modules/bonuses/system/services/bonuses/bonuses.service';
+
 import {LootboxModalComponent} from './lootbox-modal.component';
 import {
     ILootboxModalCParams,

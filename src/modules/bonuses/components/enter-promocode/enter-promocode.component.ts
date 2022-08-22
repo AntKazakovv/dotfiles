@@ -6,6 +6,7 @@ import {
     OnInit,
 } from '@angular/core';
 import {FormControl} from '@angular/forms';
+
 import {
     BehaviorSubject,
     Subscription,
@@ -17,12 +18,12 @@ import {
     GlobalHelper,
     IInputCParams,
     ModalService,
+    IPushMessageParams,
+    NotificationEvents,
 } from 'wlc-engine/modules/core';
-
-import {BonusesService} from 'wlc-engine/modules/bonuses/system/services';
-import {Bonus} from 'wlc-engine/modules/bonuses/system/models/bonus';
+import {BonusesService} from 'wlc-engine/modules/bonuses/system/services/bonuses/bonuses.service';
+import {Bonus} from 'wlc-engine/modules/bonuses/system/models/bonus/bonus';
 import {TPromoSuccessStatus} from 'wlc-engine/modules/bonuses/components/promo-success/promo-success.params';
-import {IPushMessageParams, NotificationEvents} from 'wlc-engine/modules/core/system/services/notification';
 
 import * as Params from 'wlc-engine/modules/bonuses/components/enter-promocode/enter-promocode.params';
 

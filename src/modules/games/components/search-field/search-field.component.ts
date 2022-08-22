@@ -24,7 +24,7 @@ import {
     ConfigService,
     EventService,
 } from 'wlc-engine/modules/core/system/services';
-import {GamesFilterService} from 'wlc-engine/modules/games';
+import {GamesFilterService} from 'wlc-engine/modules/games/system/services/games-filter.service';
 import {
     ISearchFieldCParams,
     defaultParams,

@@ -1,4 +1,4 @@
-import {IBonusesModule} from 'wlc-engine/modules/bonuses/system/interfaces/bonuses.interface';
+import {IBonusesModule} from 'wlc-engine/modules/bonuses/system/interfaces/bonuses/bonuses.interface';
 
 export const bonusesConfig: IBonusesModule = {
     useIconBonusImage: true,

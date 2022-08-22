@@ -8,8 +8,8 @@ import {
 import {
     BonusesFilterType,
     RestType,
-} from 'wlc-engine/modules/bonuses/system/interfaces/bonuses.interface';
-import {TBonusSortOrder} from 'wlc-engine/modules/bonuses/system/interfaces/bonuses.interface';
+} from 'wlc-engine/modules/bonuses/system/interfaces/bonuses/bonuses.interface';
+import {TBonusSortOrder} from 'wlc-engine/modules/bonuses/system/interfaces/bonuses/bonuses.interface';
 import {IBonusItemCParams} from 'wlc-engine/modules/bonuses/components/bonus-item/bonus-item.params';
 
 export type Type = 'default' | 'swiper' | CustomType;

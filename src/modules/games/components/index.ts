@@ -1,6 +1,10 @@
 export * from './game-thumb/game-thumb.params';
 export * from './game-thumb/game-thumb.component';
-export {IGameDashboardCParams, GameDashboardEvents} from './game-dashboard/game-dashboard.params';
+export {
+    IGameDashboardCParams,
+    GameDashboardEvents,
+    IChangedTabEvent,
+} from './game-dashboard/game-dashboard.params';
 export {IGameWrapperCParams} from './game-wrapper/game-wrapper.params';
 export * from './game-wrapper/game-wrapper.component';
 export {IGamesGridCParams} from './games-grid/games-grid.params';

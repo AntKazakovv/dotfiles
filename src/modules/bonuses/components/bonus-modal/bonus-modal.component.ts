@@ -11,7 +11,7 @@ import {
     IMixedParams,
     ConfigService,
 } from 'wlc-engine/modules/core';
-import {Bonus} from 'wlc-engine/modules/bonuses/system/models/bonus';
+import {Bonus} from 'wlc-engine/modules/bonuses/system/models/bonus/bonus';
 
 import * as Params from './bonus-modal.params';
 

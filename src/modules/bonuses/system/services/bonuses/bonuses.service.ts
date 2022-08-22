@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 import {TranslateService} from '@ngx-translate/core';
 import {StateService} from '@uirouter/core';
+
 import {
     BehaviorSubject,
     Observable,
@@ -14,7 +15,6 @@ import {
     distinctUntilChanged,
     map,
 } from 'rxjs/operators';
-
 import {DateTime} from 'luxon';
 import _each from 'lodash-es/each';
 import _extend from 'lodash-es/extend';
@@ -36,21 +36,10 @@ import _isEqual from 'lodash-es/isEqual';
 import _isUndefined from 'lodash-es/isUndefined';
 import _keys from 'lodash-es/keys';
 
-import {HistoryItemModel} from 'wlc-engine/modules/bonuses/system/models/bonus-history-item.model';
-import {GamesCatalogService} from 'wlc-engine/modules/games/system/services/games-catalog/games-catalog.service';
-import {Bonus} from 'wlc-engine/modules/bonuses/system/models/bonus';
 import {
-    ActionType,
-    BonusesFilterType,
-    TBonusSortOrder,
-    IBonus,
-    IGetSubscribeParams,
-    IQueryParams,
-    RestType,
-    IBonusHistory,
-} from 'wlc-engine/modules/bonuses/system/interfaces/bonuses.interface';
-import {UserProfile} from 'wlc-engine/modules/user/system/models/profile.model';
-import {UserInfo} from 'wlc-engine/modules/user/system/models/info.model';
+    UserProfile,
+    UserInfo,
+} from 'wlc-engine/modules/user';
 import {
     CachingService,
     ConfigService,
@@ -67,8 +56,23 @@ import {
     LogService,
     NotificationEvents,
 } from 'wlc-engine/modules/core';
-import {TBonusesHistory} from 'wlc-engine/modules/bonuses/system/interfaces/bonuses.interface';
-import {Game} from 'wlc-engine/modules/games';
+import {
+    Game,
+    GamesCatalogService,
+} from 'wlc-engine/modules/games';
+import {HistoryItemModel} from 'wlc-engine/modules/bonuses/system/models/bonus-history-item/bonus-history-item.model';
+import {Bonus} from 'wlc-engine/modules/bonuses/system/models/bonus/bonus';
+import {
+    ActionType,
+    BonusesFilterType,
+    TBonusSortOrder,
+    IBonus,
+    IGetSubscribeParams,
+    IQueryParams,
+    RestType,
+    IBonusHistory,
+    TBonusesHistory,
+} from 'wlc-engine/modules/bonuses/system/interfaces/bonuses/bonuses.interface';
 
 type TUserLoyaltyInfo = Pick<UserInfo, 'bonusesBalance' | 'freeRounds'>;
 

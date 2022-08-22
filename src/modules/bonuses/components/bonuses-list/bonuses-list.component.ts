@@ -39,14 +39,14 @@ import {
     IPaginateOutput,
     GlobalHelper,
     ActionService,
+    INoContentCParams,
 } from 'wlc-engine/modules/core';
-import {INoContentCParams} from 'wlc-engine/modules/core/components/no-content/no-content.params';
 import {
     ISliderCParams,
     ISlide,
     SliderComponent,
 } from 'wlc-engine/modules/promo';
-import {Bonus} from 'wlc-engine/modules/bonuses/system/models/bonus';
+import {Bonus} from 'wlc-engine/modules/bonuses/system/models/bonus/bonus';
 import {BonusesService} from 'wlc-engine/modules/bonuses/system/services/bonuses/bonuses.service';
 import {IBonusItemCParams} from 'wlc-engine/modules/bonuses/components/bonus-item/bonus-item.params';
 import {BonusItemComponent} from 'wlc-engine/modules/bonuses/components/bonus-item/bonus-item.component';
@@ -58,7 +58,7 @@ import {
     ChosenBonusSetParams,
     ChosenBonusType,
     IBonus,
-} from 'wlc-engine/modules/bonuses/system/interfaces/bonuses.interface';
+} from 'wlc-engine/modules/bonuses/system/interfaces/bonuses/bonuses.interface';
 
 import * as Params from './bonuses-list.params';
 @Component({
@@ -120,10 +120,6 @@ export class BonusesListComponent extends AbstractComponent implements OnInit, O
                 injectParams: params,
                 defaultParams: Params.defaultParams,
             }, configService);
-    }
-
-    public get chosenBonus(): Bonus {
-        return _find(this.bonuses, ({isChoose}) => isChoose);
     }
 
     public async ngOnInit(): Promise<void> {
@@ -210,6 +206,22 @@ export class BonusesListComponent extends AbstractComponent implements OnInit, O
         this.unchooseBonuses();
     }
 
+    public get isAuthAndBonusesLength(): boolean {
+        return this.configService.get<boolean>('$user.isAuthenticated') && !!this.bonuses.length;
+    }
+
+    public get showNavigation(): boolean {
+        return this.bonuses.length && !this.isSingleBonus && !this.$params.hideNavigation;
+    }
+
+    public get chosenBonus(): Bonus {
+        return _find(this.bonuses, ({isChoose}) => isChoose);
+    }
+
+    protected get selectFirstBonus(): boolean {
+        return this.$params?.common.selectFirstBonus;
+    }
+
     public chooseBlankBonus(): void {
         this.unchooseBonuses();
         setTimeout(() => {
@@ -267,14 +279,6 @@ export class BonusesListComponent extends AbstractComponent implements OnInit, O
         this.paginatedBonuses = value.paginatedItems as Bonus[];
         this.itemsPerPage = value.event.itemsPerPage;
         this.cdr.detectChanges();
-    }
-
-    public get isAuthAndBonusesLength(): boolean {
-        return this.configService.get<boolean>('$user.isAuthenticated') && !!this.bonuses.length;
-    }
-
-    public get showNavigation(): boolean {
-        return this.bonuses.length && !this.isSingleBonus && !this.$params.hideNavigation;
     }
 
     protected setSubscription(): void {
@@ -356,10 +360,6 @@ export class BonusesListComponent extends AbstractComponent implements OnInit, O
                 }
             }, this.$destroy);
         }
-    }
-
-    protected get selectFirstBonus(): boolean {
-        return this.$params?.common.selectFirstBonus;
     }
 
     protected prepareModifiers(): void {
@@ -459,7 +459,7 @@ export class BonusesListComponent extends AbstractComponent implements OnInit, O
             && !bonus.isActive
             && !bonus.isSubscribed
             && (!bonus.isInventory || (bonus.isLootbox && bonus.canSubscribe)));
-        
+
         if (!bonuses.length) {
             bonuses = _filter(this.bonuses, (bonus) => bonus.status > 0
                 && !bonus.isActive

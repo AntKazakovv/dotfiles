@@ -4,8 +4,7 @@ import {
     Observable,
     Subject,
 } from 'rxjs';
-import {Bonus} from '../models/bonus';
-
+import {Bonus} from 'wlc-engine/modules/bonuses/system/models/bonus/bonus';
 import {BonusesListNoContentByThemeType} from 'wlc-engine/modules/bonuses/components/bonuses-list/bonuses-list.params';
 
 export interface IBonusesModule {

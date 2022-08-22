@@ -37,7 +37,7 @@ import {
 } from 'wlc-engine/modules/core';
 import {UserProfile} from 'wlc-engine/modules/user/system/models/profile.model';
 import {BonusesService} from 'wlc-engine/modules/bonuses/system/services';
-import {Bonus} from 'wlc-engine/modules/bonuses/system/models/bonus';
+import {Bonus} from 'wlc-engine/modules/bonuses/system/models/bonus/bonus';
 import {
     IStoreResponse,
     IStore,

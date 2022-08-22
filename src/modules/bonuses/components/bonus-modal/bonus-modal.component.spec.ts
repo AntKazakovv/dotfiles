@@ -1,8 +1,10 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 import {NO_ERRORS_SCHEMA} from '@angular/core';
+
 import {AppModule} from 'wlc-engine/modules/app/app.module';
+import {Bonus} from 'wlc-engine/modules/bonuses/system/models/bonus/bonus';
+
 import {BonusModalComponent} from './bonus-modal.component';
-import {Bonus} from 'wlc-engine/modules/bonuses';
 import * as Params from './bonus-modal.params';
 
 describe('BonusModalComponent', () => {

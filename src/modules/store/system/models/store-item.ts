@@ -13,7 +13,7 @@ import {
     IStoreItem,
 } from '../interfaces/store.interface';
 import {StoreService} from '../services';
-import {Bonus} from 'wlc-engine/modules/bonuses/system/models/bonus';
+import {Bonus} from 'wlc-engine/modules/bonuses';
 
 export class StoreItem extends AbstractModel<IStoreItem> {
     public bonus: Bonus;
