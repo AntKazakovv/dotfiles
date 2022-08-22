@@ -154,7 +154,6 @@ export class FormWrapperComponent extends WrapperComponent implements OnInit, On
         this.prepareParams();
         this.initForm();
         this.collectionErrors(this.config?.components);
-        super.ngOnInit();
 
         if (!this.initiated) {
             this.initiated = true;
