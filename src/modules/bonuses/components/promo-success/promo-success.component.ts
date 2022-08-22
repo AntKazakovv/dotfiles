@@ -53,13 +53,14 @@ export class PromoSuccessComponent
         super.ngOnInit(GlobalHelper.prepareParams(this, inputProperties));
     }
 
-    public goTo(path: string): void {
+    public goTo(): void {
         this.modalService.hideModal('promo-success');
-
         if (this.configService.get<boolean>('$bonuses.unitedPageBonuses')) {
             this.router.stateService.go('app.profile.loyalty-bonuses.all');
         } else {
-            this.router.stateService.go(path);
+            if (this.$params.common.redirectPath) {
+                this.router.stateService.go(this.$params.common.redirectPath);
+            }
         }
     }
 }

@@ -141,7 +141,7 @@
             wlc-button
             class="{{$class}}__to-profile"
             [inlineParams]="$params.redirectBtnToProfile.params"
-            (click)="goTo($params.redirectBtnToProfile.common.sref); $event.preventDefault();">
+            (click)="goTo($params.redirectBtnToProfile.params.common.sref); $event.preventDefault();">
     </button>
 </ng-template>
 
