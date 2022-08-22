@@ -20,7 +20,7 @@
         "update": "ng update @angular/cli @angular/core --force",
         "test:api": "cd api-tests && PROJECT_URL=\"https://qa-devcasino.egamings.com\" npx jasmine-ts --config=jasmine.json",
         "fullup": "git submodule update --init && rm -rf node_modules package-lock.json && npm install",
-        "postinstall": "node  ./utils/fix-jasmine-package.js"
+        "prepare": "npx gulp fix-jasmine"
     },
     "lint-staged": {
         "src/**/*.ts": "eslint",
