@@ -7,6 +7,9 @@ import {
     ViewChild,
     ElementRef,
 } from '@angular/core';
+
+import _trim from 'lodash-es/trim';
+
 import {AbstractComponent} from 'wlc-engine/modules/core/system/classes';
 import {
     ConfigService,
@@ -21,11 +24,8 @@ import {
     BetradarService,
     SportsbookService,
 } from 'wlc-engine/modules/sportsbook';
-import * as Params from './betradar-popular-events.params';
 
-import _get from 'lodash-es/get';
-import _set from 'lodash-es/set';
-import _trim from 'lodash-es/trim';
+import * as Params from './betradar-popular-events.params';
 
 @Component({
     selector: '[wlc-betradar-popular-events]',
@@ -43,7 +43,8 @@ export class BetradarPopularEventsComponent extends AbstractComponent implements
     public initFailed: boolean = false;
 
     protected imagesDir: string;
-    protected fallbackImagesDir: string;
+    // alternating pictures for one category
+    protected maxCountImgByCategory: number;
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IBetradarPopularEventsCParams,
@@ -64,10 +65,20 @@ export class BetradarPopularEventsComponent extends AbstractComponent implements
         this.init();
     }
 
-    public async init(): Promise<void> {
+    /**
+     * Open game in sportsbook
+     *
+     * @param {BetradarGameModel} game
+     */
+    public openGame(game: BetradarGameModel): void {
+        this.sportsbookService.goToPageByLink(game.link);
+    }
+
+    protected async init(): Promise<void> {
         try {
             const games: BetradarGameModel[] = await this.betradarService.getPopularEvents();
             if (games) {
+                this.maxCountImgByCategory = this.$params.maxCountImgByCategory || 2;
                 this.initImagesDir();
                 await this.gamesToSlides(games);
                 this.sliderConfig = {
@@ -75,7 +86,7 @@ export class BetradarPopularEventsComponent extends AbstractComponent implements
                         {
                             name: 'promo.wlc-slider',
                             params: {
-                                swiper: this.$params.common?.swiper || {},
+                                swiper: this.$params.swiper || {},
                                 slides: this.slides,
                             },
                         },
@@ -93,28 +104,19 @@ export class BetradarPopularEventsComponent extends AbstractComponent implements
     }
 
     /**
-     * Open game in sportsbook
-     *
-     * @param {BetradarGameModel} game
-     */
-    public openGame(game: BetradarGameModel): void {
-        this.sportsbookService.goToPageByLink(game.link);
-    }
-
-    /**
      * Get image path (from gstatic or project directory)
      *
      * @param {BetradarGameModel} game
      * @param {number} slideIndex
      * @returns {Promise<string>}
      */
-    public async getImage(game: BetradarGameModel, slideIndex: number): Promise<string> {
+    protected async getImage(game: BetradarGameModel, slideIndex: number): Promise<string> {
         if (!game) {
             return '';
         }
 
+        const fileName: string = `${game.sportAlias}_${slideIndex}.jpg`;
         if (this.imagesDir) {
-            const fileName: string = `${game.sportAlias}_${slideIndex}.jpg`;
             const filePath: string = this.imagesDir + fileName;
             const file = await this.fileService.getFile(filePath);
 
@@ -123,8 +125,7 @@ export class BetradarPopularEventsComponent extends AbstractComponent implements
             }
         }
 
-        const fileName: string = `${game.sportAlias}${slideIndex}.jpg`;
-        return this.fallbackImagesDir + fileName;
+        return this.$params.fallbackImagesDir + fileName;
     }
 
     /**
@@ -136,9 +137,6 @@ export class BetradarPopularEventsComponent extends AbstractComponent implements
         if (imagesDir) {
             this.imagesDir = _trim(imagesDir, '/') + '/';
         }
-        const env: string = this.configService.get('appConfig.env');
-        const domain: string = this.configService.get(`$sportsbook.betradar.widgets.env.${env}.serverUrl`) || '';
-        this.fallbackImagesDir =  `${domain}/static/widgets/images/popular-events/`;
     }
 
     /**
@@ -151,10 +149,14 @@ export class BetradarPopularEventsComponent extends AbstractComponent implements
         const imageIndex: IIndexing<number> = {};
         const slides: ISlide[] = [];
         for (const game of games) {
-            const index: number = _get(imageIndex, game.sportAlias, 0) + 1;
+            if (!imageIndex[game.sportAlias] || (imageIndex[game.sportAlias] > this.maxCountImgByCategory)) {
+                imageIndex[game.sportAlias] = 1;
+            }
+            const index: number = imageIndex[game.sportAlias];
+            imageIndex[game.sportAlias]++;
+
             const imagePath: string = await this.getImage(game, index);
 
-            _set(imageIndex, game.sportAlias, index);
             slides.push({
                 templateRef: this.tplPopularEventsSlide,
                 templateParams: {
@@ -163,6 +165,7 @@ export class BetradarPopularEventsComponent extends AbstractComponent implements
                 },
             });
         }
+
         this.slides = slides;
     }
 

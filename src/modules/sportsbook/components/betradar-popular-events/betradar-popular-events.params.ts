@@ -10,10 +10,10 @@ export type Modifiers = AutoModifiers | CustomMod | null;
 
 export interface IBetradarPopularEventsCParams extends IComponentParams<Theme, Type, ThemeMod> {
     modifiers?: Modifiers[];
-    common?: {
-        title?: string;
-        swiper?: SwiperOptions;
-    },
+    title?: string;
+    swiper?: SwiperOptions;
+    fallbackImagesDir?: string;
+    maxCountImgByCategory?: number;
 }
 
 export const defaultParams: IBetradarPopularEventsCParams = {
@@ -22,11 +22,11 @@ export const defaultParams: IBetradarPopularEventsCParams = {
     class: 'wlc-betradar-popular-events',
     theme: 'default',
     themeMod: 'default',
-    common: {
-        title: gettext('Popular events'),
-        swiper: {
-            allowTouchMove: true,
-            slidesPerView: 1,
-        },
+    title: gettext('Popular events'),
+    swiper: {
+        allowTouchMove: true,
+        slidesPerView: 1,
     },
+    fallbackImagesDir: '/static/images/popular-events/',
+    maxCountImgByCategory: 2,
 };

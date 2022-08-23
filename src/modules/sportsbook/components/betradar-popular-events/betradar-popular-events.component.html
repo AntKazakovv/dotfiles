@@ -8,7 +8,7 @@
 
 <ng-template #popularEventsSlide let-game="game" let-image="imagePath">
     <div class="{{$class}}__slide">
-        <div class="{{$class}}__header">{{$params.common?.title | translate}}</div>
+        <div class="{{$class}}__header">{{$params.title | translate}}</div>
         <div [ngStyle]="{'background-image':'url('+image+')'}" class="{{$class}}__image"></div>
         <div class="{{$class}}__title-event">
             <span class="{{$class}}__title-team">{{game.teamHomeName}}</span>
@@ -29,4 +29,3 @@
 <ng-template #preloader>
     <div wlc-loader></div>
 </ng-template>
-
