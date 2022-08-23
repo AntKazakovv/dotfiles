@@ -53,7 +53,7 @@ export class UserStatsComponent extends AbstractComponent implements OnInit, OnD
     constructor(
         @Inject('injectParams') protected injectParams: Params.IUserStatsCParams,
         protected configService: ConfigService,
-        protected UserService: UserService,
+        protected userService: UserService,
         protected cdr: ChangeDetectorRef,
         protected modalService: ModalService,
         private stateService: StateService,
@@ -89,8 +89,7 @@ export class UserStatsComponent extends AbstractComponent implements OnInit, OnD
             this.$params.useDepositBtn = false;
         }
 
-        this.userStats = this.UserService.userInfo;
-        this.UserService.userInfo$
+        this.userService.userInfo$
             .pipe(takeUntil(this.$destroy))
             .subscribe((userInfo) => {
                 this.userStats = userInfo;

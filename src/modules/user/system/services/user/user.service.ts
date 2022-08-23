@@ -86,7 +86,7 @@ export class UserService {
     protected isFastRegistration: boolean;
 
     public get userInfo(): UserInfo {
-        if (this.info.dataReady) {
+        if (this.info?.dataReady) {
             return this.info;
         } else {
             return null;

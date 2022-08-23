@@ -115,6 +115,8 @@ export class ProfileFormComponent extends ProfileFormAbstract implements OnInit 
         super.ngOnInit(this.inlineParams);
         await this.configService.ready;
 
+        this.mixinRequiredFields();
+
         this.formConfig = _cloneDeep(this.$params.config);
 
         if (await this.configService.get<Promise<boolean>>('$user.skipPasswordOnFirstUserSession')) {
