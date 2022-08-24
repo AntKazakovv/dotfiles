@@ -23,6 +23,7 @@
         }
 
         &__icon {
+            margin: ef.get-value($themeOneLine, 'iconMargin');
             color: ef.get-value($themeOneLine, 'iconColor');
 
             ::ng-deep {

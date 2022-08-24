@@ -38,4 +38,5 @@ $themeOneLine: map-merge((
     'iconColor': inherit,
     'iconWidth': 20px,
     'iconHeight': 20px,
+    'iconMargin': 0 ef.size(1) 0 0,
 ), $customThemeOneLine);

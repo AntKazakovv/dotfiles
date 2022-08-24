@@ -86,7 +86,7 @@
         <div class="{{$class}}__divider"></div>
     </ng-container>
 
-    <div *ngIf="isInvoicePending">
+    <ng-container *ngIf="isInvoicePending">
         <div class="{{$class}}__alert"
             wlc-alert
             [title]="'The deposit application is already open' | translate"
@@ -100,7 +100,13 @@
             [inlineParams]="timerParams"
             (timerEnds)="onCryptoInvoiceExpires()"
         ></div>
-    </div>
+    </ng-container>
+
+    <div *ngIf="isInvoiceExpired" class="{{$class}}__alert"
+        wlc-alert
+        [title]="'The deposit period for the issued invoice has expired.' | translate"
+        [level]="'warning'"
+    ></div>
 
     <div *ngIf="showCryptoInfo('msg1')"
         class="{{$class}}__fields-error">
@@ -152,6 +158,15 @@
                 [text]="'Cancel'"
                 [themeMod]="'secondary'"
                 (click)="cancelInvoiceHandler()"
+            ></button>
+        </div>
+
+        <div *ngIf="isInvoiceExpired" class="{{$class}}__invoice-btns">
+            <button class="{{$class}}__invoice-btn"
+                wlc-button
+                [text]="'Create new invoice' | translate"
+                [themeMod]="'secondary'"
+                (click)="createNewInvoice()"
             ></button>
         </div>
     </ng-container>

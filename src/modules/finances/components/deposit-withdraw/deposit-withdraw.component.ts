@@ -253,7 +253,7 @@ export class DepositWithdrawComponent
     }
 
     public onCryptoInvoiceExpires(): void {
-        this.financesService.fetchPaymentSystems();
+        this.cdr.detectChanges();
 
         if (this.modalService.getActiveModal('payment-message')) {
             this.modalService.hideModal('payment-message');
@@ -269,6 +269,11 @@ export class DepositWithdrawComponent
             ],
             wlcElement: 'notification_deposit-invoice-expired',
         });
+    }
+
+    public createNewInvoice(): void {
+        this.currentSystem.message = {};
+        this.onPaymentSystemChange(this.currentSystem);
     }
 
     /**
@@ -501,10 +506,13 @@ export class DepositWithdrawComponent
     }
 
     public get isInvoicePending(): boolean {
-        return this.cryptoCheck
-            && this.isCryptoInvoices
-            && !!(this.currentSystem?.message as IPaymentMessage)?.dateEnd
-            && this.dateExpire >= DateTime.now();
+        return !!(this.currentSystem?.message as IPaymentMessage)?.dateEnd
+            && this.dateExpire > DateTime.now();
+    }
+
+    public get isInvoiceExpired(): boolean {
+        return !!(this.currentSystem?.message as IPaymentMessage)?.dateEnd
+            && this.dateExpire <= DateTime.now();
     }
 
     public get showPaymentMessage(): boolean {
@@ -881,7 +889,7 @@ export class DepositWithdrawComponent
 
             const message: IPaymentMessage = this.currentSystem.message as IPaymentMessage;
 
-            if (this.isCryptoInvoices && this.currentSystem.cryptoInvoices && message?.dateEnd) {
+            if (this.currentSystem.cryptoInvoices && message?.dateEnd) {
                 this.formData$.next({
                     amount: message.userAmount,
                 });
@@ -975,6 +983,8 @@ export class DepositWithdrawComponent
         const formComponents: IFormComponent[] = [];
         let lastAccount: IFormComponent;
 
+        const isDepInvoice: boolean = this.isDeposit && !!(this.currentSystem?.message as IPaymentMessage)?.dateEnd;
+
         // amount
         const hideAmount: boolean = this.isDeposit && this.disableAmount && !this.currentSystem.cryptoInvoices;
 
@@ -1003,7 +1013,7 @@ export class DepositWithdrawComponent
                 }
             }
 
-            amount.params.locked = this.isInvoicePending;
+            amount.params.locked = isDepInvoice;
 
             const fieldWrap = {
                 name: 'core.wlc-wrapper',
@@ -1035,76 +1045,76 @@ export class DepositWithdrawComponent
             formComponents.push(fieldWrap);
         }
 
-        // additional
-        if (!_isEmpty(this.additionalParams)) {
-            const additionalFields = _map(_keys(this.additionalParams), (key) => {
-                const field = this.additionalParams[key];
+        if (!isDepInvoice) {
+            // additional
+            if (!_isEmpty(this.additionalParams)) {
+                const additionalFields = _map(_keys(this.additionalParams), (key) => {
+                    const field = this.additionalParams[key];
 
-                const validators = field.optional ? [] : ['required'];
+                    const validators = field.optional ? [] : ['required'];
 
-                if (field.type === 'input') {
-                    return {
-                        name: 'core.wlc-input',
-                        alwaysNew: {saveValue: false},
-                        params: <IInputCParams>{
-                            name: key,
-                            value: field.value || '',
-                            theme: 'vertical',
-                            common: {
-                                placeholder: field.name,
+                    if (field.type === 'input') {
+                        return {
+                            name: 'core.wlc-input',
+                            alwaysNew: {saveValue: false},
+                            params: <IInputCParams>{
+                                name: key,
+                                value: field.value || '',
+                                theme: 'vertical',
+                                common: {
+                                    placeholder: field.name,
+                                },
+                                control: new FormControl(''),
+                                validators: _concat(validators,
+                                    ...FinancesHelper.getSpecialValidators(key)),
+                                customMod: ['additional'],
                             },
-                            control: new FormControl(''),
-                            validators: _concat(validators,
-                                ...FinancesHelper.getSpecialValidators(key)),
-                            customMod: ['additional'],
-                        },
-                    };
-                } else if (field.type === 'select') {
-                    return {
-                        name: 'core.wlc-select',
-                        params: <ISelectCParams>{
-                            labelText: field.name,
-                            name: key,
-                            theme: 'vertical',
-                            common: {
-                                placeholder: field.name,
+                        };
+                    } else if (field.type === 'select') {
+                        return {
+                            name: 'core.wlc-select',
+                            params: <ISelectCParams>{
+                                labelText: field.name,
+                                name: key,
+                                theme: 'vertical',
+                                common: {
+                                    placeholder: field.name,
+                                },
+                                items: _map(_keys(field.params || {}), (item) => {
+                                    return {
+                                        value: item,
+                                        title: field.params[item],
+                                    };
+                                }),
+                                control: new FormControl(''),
+                                validators: validators,
+                                customMod: ['additional'],
                             },
-                            items: _map(_keys(field.params || {}), (item) => {
-                                return {
-                                    value: item,
-                                    title: field.params[item],
-                                };
-                            }),
-                            control: new FormControl(''),
-                            validators: validators,
-                            customMod: ['additional'],
-                        },
-                    };
-                }
-            });
+                        };
+                    }
+                });
 
-            const additionalFieldsWrap = {
-                name: 'core.wlc-wrapper',
-                params: {
-                    class: 'wlc-additional-fields',
-                    components: [...additionalFields],
-                },
-            };
+                const additionalFieldsWrap = {
+                    name: 'core.wlc-wrapper',
+                    params: {
+                        class: 'wlc-additional-fields',
+                        components: [...additionalFields],
+                    },
+                };
 
-            formComponents.push(additionalFieldsWrap);
-        }
+                formComponents.push(additionalFieldsWrap);
+            }
 
-        if (lastAccount) {
-            formComponents.push(lastAccount);
-        }
+            if (lastAccount) {
+                formComponents.push(lastAccount);
+            }
 
-        // rules
-        if (this.isDeposit && this.$params.showPaymentRules && !this.isInvoicePending) {
-            formComponents.push(FormElements.rules);
-        }
+            // rules
+            if (this.isDeposit && this.$params.showPaymentRules) {
+                formComponents.push(FormElements.rules);
+            }
 
-        // button
-        if (!this.isInvoicePending) {
+            // button
             const button = this.isDeposit ? FormElements.depositButton : FormElements.withdrawButton;
             formComponents.push(button);
         }
