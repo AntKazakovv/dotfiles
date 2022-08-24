@@ -227,7 +227,6 @@ export namespace footer {
                                 class: 'footer-bottom__left',
                                 components: [
                                     componentLib.wlcButton.affRedirectLink,
-                                    componentLib.wlcSocialIcons.def,
                                     {
                                         name: 'core.wlc-wrapper',
                                         display: {
@@ -240,6 +239,7 @@ export namespace footer {
                                             ],
                                         },
                                     },
+                                    componentLib.wlcSocialIcons.def,
                                     componentLib.wlcLicense.onlyDesktop,
                                 ],
                             },
