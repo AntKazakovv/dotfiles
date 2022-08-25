@@ -52,6 +52,7 @@ export let defaultParams: Partial<IPhoneFieldCParams> = {
         },
         wlcElement: 'block_phoneNumber',
         name: 'phoneNumber',
+        validators: ['required'],
         locked: true,
         prohibitedPattern: ProhibitedPatterns.notNumberSymbols,
     },
