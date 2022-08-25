@@ -82,7 +82,7 @@ export class AddProfileInfoComponent extends ProfileFormAbstract implements OnIn
         this.isPending = true;
         this.modalService.showModal('data-is-processing');
 
-        const result = await this.userService.updateProfile(form.value, true);
+        const result = await this.userService.updateProfile(form.value, true, false, true);
 
         if (result === true) {
             this.modalService.closeAllModals();

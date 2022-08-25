@@ -392,7 +392,10 @@ export class UserService {
     }
 
     public async updateProfile(
-        profile: IUserProfile, updatePartial: boolean = false, isAfterDepositWithdraw?: boolean,
+        profile: IUserProfile,
+        updatePartial: boolean = false,
+        isAfterDepositWithdraw?: boolean,
+        requestConfirmation?: boolean,
     ): Promise<true | IIndexing<any>> {
         const params = updatePartial
             ? _assign({}, profile, isAfterDepositWithdraw ? {isAfterDepositWithdraw} : {})
@@ -411,7 +414,7 @@ export class UserService {
         }
 
         try {
-            if (this._isMetamaskUser) {
+            if (this._isMetamaskUser && (!updatePartial || requestConfirmation)) {
                 if (!this.metamaskService) {
                     this.metamaskService = await this.injectionService
                         .getService<MetamaskService>('metamask.metamask-service');

@@ -16,7 +16,7 @@ $themeCommon: map-merge((
 ), $customThemeCommon);
 
 $customThemeDefault: () !default;
-$themeDefault: map-merge($themeCommon, (
+$themeDefault: map-merge($themeCommon, map-merge((
     'wrapperPadding': ef.size(1) ef.size(2) ef.size(1) ef.size(1),
     'wrapperBg': var(--mc-bg),
     'wrapperBorder': 2px solid transparent,
@@ -26,8 +26,7 @@ $themeDefault: map-merge($themeCommon, (
     'wrapperBoxShadowActive': 0 0 14px var(--mc-main),
 
     'wrapperBoxShadowHover': 0 0 5px var(--mc-main),
-
-), $customThemeDefault);
+), $customThemeDefault));
 
 $customThemeBlock: () !default;
 $themeBlock: map-merge($themeCommon, (
