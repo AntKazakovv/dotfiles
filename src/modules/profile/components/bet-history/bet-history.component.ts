@@ -15,6 +15,7 @@ import {
 import {DateTime} from 'luxon';
 
 import _filter from 'lodash-es/filter';
+import _orderBy from 'lodash-es/orderBy';
 
 import {
     AbstractComponent,
@@ -109,17 +110,18 @@ export class BetHistoryComponent extends AbstractComponent implements OnInit {
         this.cdr.detectChanges();
     }
 
+    /**
+     * The method filters all bets.
+     *
+     * @method betsFilter
+     * @returns {IBet[]} Returns the new array.
+     */
     protected betsFilter(): IBet[] {
-        let result: IBet[] = this.allBets || [];
-
-        if (this.filterValue !== 'all') {
-            result = _filter(result, (item: IBet): boolean => item.Merchant === this.filterValue);
+        if (this.filterValue === 'all') {
+            return this.allBets.slice();
         }
 
-        return _filter(result, (item: IBet): boolean => {
-            return DateTime.fromSQL(item.DateISO, {zone: 'utc'}) >= this.startDate
-                && DateTime.fromSQL(item.DateISO, {zone: 'utc'}) <= this.endDate;
-        });
+        return _filter(this.allBets, (item: IBet): boolean => item.Merchant === this.filterValue);
     }
 
     protected setMinMaxDate(): void {
@@ -145,10 +147,20 @@ export class BetHistoryComponent extends AbstractComponent implements OnInit {
     }
 
     protected async getBets(): Promise<void> {
+        const startDateUTC: DateTime = this.startDate.startOf('day').toUTC(),
+            endDateUTC: DateTime = this.endDate.endOf('day').toUTC();
+
         this.allBets = await this.betService.getBetsList({
-            startDate: this.startDate.startOf('day').toFormat('y-LL-dd\'\T\'HH:mm:ss'),
-            endDate: this.endDate.endOf('day').toFormat('y-LL-dd\'\T\'HH:mm:ss'),
+            startDate: startDateUTC.toFormat('y-LL-dd\'\T\'HH:mm:ss'),
+            endDate: endDateUTC.toFormat('y-LL-dd\'\T\'HH:mm:ss'),
         });
+
+        this.allBets = _filter(this.allBets, (item: IBet): boolean => {
+            const itemDateUTC: DateTime = DateTime.fromSQL(item.DateISO, {zone: 'utc'});
+            return itemDateUTC >= startDateUTC && itemDateUTC <= endDateUTC;
+        });
+
+        this.allBets = _orderBy(this.allBets, ['DateISO'], 'desc');
     }
 
     protected setSubscription(): void {
@@ -165,8 +177,9 @@ export class BetHistoryComponent extends AbstractComponent implements OnInit {
             .subscribe(async (data: IFinancesFilter): Promise<void> => {
                 this.filterSelect.control.setValue(this.filterValue = data.filterValue);
 
-                if (this.startDate.toMillis() !== data.startDate.toMillis() ||
-                    this.endDate.toMillis() !== data.endDate.toMillis()) {
+                if (this.startDate.toMillis() !== data.startDate.toMillis()
+                    || this.endDate.toMillis() !== data.endDate.toMillis()
+                ) {
                     this.startDateInput.control.setValue(this.startDate = data.startDate);
                     this.endDateInput.control.setValue(this.endDate = data.endDate);
                     this.setMinMaxDate();
