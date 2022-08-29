@@ -34,7 +34,7 @@
     &--type-dashboard {
 
         .swiper {
-            padding: 0 (map-get($themeDefaultNavigation, 'swiperNaviButtonSize') *0.5 - 1);
+            padding: ef.get-value($themeDefaultBanner, 'dashboardContainerPadding');
         }
     }
 }

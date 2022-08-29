@@ -4,7 +4,7 @@ $themeLong: map-merge((
         375: ef.size(2),
         1630: ef.size(4),
     ),
-    'wrapperGap': ef.size(4),
+    'wrapperGap': ef.size(5),
 
     'activeBlockPadding': 0,
     'activeBlockMaxWidth': 100%,
@@ -12,7 +12,7 @@ $themeLong: map-merge((
     'btnsPadding': (
         1630: ef.size(4) 0 0,
     ),
-    'btnsMargin': ef.size(4) ef.size(-1),
+    'btnsMargin': 0 ef.size(-1),
 
     'bonusIconSize': (
         375: 110px,

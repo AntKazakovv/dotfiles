@@ -75,8 +75,6 @@ $themeDefault: map-merge((
     'profileHeight': calc(100% - 64px),
     'profilePadding': ef.size(4) ef.size(1) ef.size(4) ef.size(4),
 
-    'loyaltyProgressMargin': ef.size(8) 0 0,
-
-    'userStatsBtnMargin': ef.size(4) auto,
+    'userStatsBtnMargin': ef.size(4) auto ef.size(8),
 
 ), $customThemeDefault);

@@ -223,6 +223,13 @@
 
                     .wlc-scrollbar {
                         height: 100%;
+
+                        .wlc-user-stats__content {
+
+                            .wlc-btn-deposit {
+                                margin: ef.get-value($themeDefault, 'userStatsBtnMargin');
+                            }
+                        }
                     }
                 }
             }
@@ -231,13 +238,6 @@
 
                 .wlc-user-stats-email {
                     display: none;
-                }
-
-                .wlc-user-stats__content {
-
-                    .wlc-btn-deposit {
-                        margin: ef.get-value($themeDefault, 'userStatsBtnMargin');
-                    }
                 }
             }
         }
@@ -361,10 +361,6 @@
                 padding: ef.get-value($themeDefault, 'scrollbarPadding');
             }
         }
-    }
-
-    .wlc-loyalty-progress {
-        margin: ef.get-value($themeDefault, 'loyaltyProgressMargin');
     }
 
     &.wlc-game-dashboard--not-auth {

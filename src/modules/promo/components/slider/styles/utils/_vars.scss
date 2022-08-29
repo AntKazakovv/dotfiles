@@ -78,4 +78,5 @@ $themeDefaultBanner: map-merge((
         450: 0 ef.size(2) ,
         768: 0 ef.size(8),
     ),
+    'dashboardContainerPadding': 0 ef.size(2),
 ), $customThemeDefaultBanner);
