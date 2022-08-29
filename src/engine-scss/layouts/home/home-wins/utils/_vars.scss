@@ -7,6 +7,8 @@ $themeHomeWins: map-merge((
     'homeWinsGap': (
         320: ef.size(4),
     ),
+
+    'homeWinsSliderMaxWidth': 100%,
     'homeWinsSliderWrapMaxWidth': 100%,
     'homeWinsSliderWrapMinHeight': (
         320: 305px,
