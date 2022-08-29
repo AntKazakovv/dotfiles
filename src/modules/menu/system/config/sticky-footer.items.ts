@@ -29,10 +29,12 @@ export const wlcStickyFooterItemsGlobal: MenuParams.IMenuItemsGlobal = {
         params: {
             state: {
                 name: 'app.catalog',
-                params: {},
+                params: {
+                    category: 'casino',
+                },
             },
             href: {
-                url: '/',
+                url: '/catalog/casino/',
                 baseSiteUrl: true,
             },
         },
@@ -52,7 +54,7 @@ export const wlcStickyFooterItemsGlobal: MenuParams.IMenuItemsGlobal = {
                 },
             },
             href: {
-                url: '/',
+                url: '/catalog/livecasino',
                 baseSiteUrl: true,
             },
         },

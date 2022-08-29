@@ -25,7 +25,7 @@ $themeCircled: map-merge((
     'activeMenuIconTransform': translate3d(0, ef.size(-10), 0),
     'activeDecorTransform': translate3d(0, 0, 0),
 
-    'decorBottom': 0,
+    'decorBottom': ef.size(1),
     'decorWidth': 84px,
     'decorHeight': 84px,
     'decorRadius': 50%,

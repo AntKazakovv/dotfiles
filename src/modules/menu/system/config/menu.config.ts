@@ -362,7 +362,6 @@ export const menuConfig: IMenuConfig = {
     stickyFooter: {
         items: [
             'sticky-footer:menu',
-            'sticky-footer:sports',
             'sticky-footer:casino',
             'sticky-footer:livecasino',
             'sticky-footer:login',

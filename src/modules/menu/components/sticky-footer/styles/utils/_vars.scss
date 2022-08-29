@@ -5,6 +5,8 @@ $base: map-merge((
     'menuAutoFlow': column,
     'menuJustifyItems': center,
     'menuMinHeight': 60px,
+    'textWhiteSpace': nowrap,
+    'textOverflow': ellipsis,
 ), $customBase);
 
 @import './vars-theme-default';

@@ -9,14 +9,27 @@
 
 .wlc-sticky-footer:host {
 
-    .wlc-menu {
-        display: ef.get-value($base, 'menuDisplay');
-        grid-auto-columns: ef.get-value($base, 'menuAutoColumns');
-        grid-auto-flow: ef.get-value($base, 'menuAutoFlow');
-        justify-items: ef.get-value($base, 'menuJustifyItems');
-        min-height: ef.get-value($base, 'menuMinHeight');
+    ::ng-deep {
 
-        ::ng-deep {
+        .wlc-menu {
+            display: ef.get-value($base, 'menuDisplay');
+            grid-auto-columns: ef.get-value($base, 'menuAutoColumns');
+            grid-auto-flow: ef.get-value($base, 'menuAutoFlow');
+            justify-items: ef.get-value($base, 'menuJustifyItems');
+            min-height: ef.get-value($base, 'menuMinHeight');
+
+            &__item {
+                max-width: 100%;
+            }
+
+            &__link-text {
+                display: block;
+                max-width: 100%;
+                white-space: ef.get-value($base, 'textWhiteSpace');
+                text-align: center;
+                overflow: hidden;
+                text-overflow: ef.get-value($base, 'textOverflow');
+            }
 
             svg {
                 fill: currentColor;

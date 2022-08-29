@@ -16,7 +16,7 @@ $themeStaticCircle: map-merge((
     'svgWidth': auto,
     'menuIconColor': var(--mc-main),
 
-    'circleBottom': 0,
+    'circleBottom': ef.size(1),
     'circleLeft': 50%,
     'circleSize': 84px,
     'circleTransform': translateX(-50%),
