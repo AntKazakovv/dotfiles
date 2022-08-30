@@ -11,38 +11,34 @@ export type Modifiers = AutoModifiers | CustomMod | null;
 
 export interface IGameDashboardBonusesCParams extends IComponentParams<Theme, Type, ThemeMod> {
     modifiers?: Modifiers[];
-    common?: {
-        themeMod?: ThemeMod;
-        sliderParams?: ISliderCParams,
-        landscapeSliderParams?: ISliderCParams,
-        sortOrder?: TBonusSortOrder[];
-    }
+    themeMod?: ThemeMod;
+    defaultSliderParams?: ISliderCParams,
+    landscapeSliderParams?: ISliderCParams,
+    sortOrder?: TBonusSortOrder[];
+    numberOfBonuses?: number;
 }
 
 export const defaultParams: IGameDashboardBonusesCParams = {
     moduleName: 'games',
     componentName: 'game-dashboard-bonuses',
     class: 'wlc-game-dashboard-bonuses',
-    common: {
-        sliderParams: {
-            swiper: {
-                navigation: {
-                    nextEl: '.swiper-button-next',
-                    prevEl: '.swiper-button-prev',
-                },
-                slidesPerView: 1,
-                spaceBetween: 10,
+    defaultSliderParams: {
+        swiper: {
+            navigation: {
+                nextEl: '.wlc-game-dashboard-bonuses-nav.swiper-button-next',
+                prevEl: '.wlc-game-dashboard-bonuses-nav.swiper-button-prev',
             },
+            slidesPerView: 1,
         },
-        landscapeSliderParams: {
-            swiper: {
-                pagination: {
-                    clickable: true,
-                },
-                slidesPerView: 1,
-                spaceBetween: 10,
-            },
-        },
-        sortOrder: ['active', 'promocode', 'subscribe', 'inventory'],
     },
+    landscapeSliderParams: {
+        swiper: {
+            pagination: {
+                clickable: true,
+            },
+            slidesPerView: 1,
+        },
+    },
+    sortOrder: ['active', 'promocode', 'subscribe', 'inventory'],
+    numberOfBonuses: 10,
 };

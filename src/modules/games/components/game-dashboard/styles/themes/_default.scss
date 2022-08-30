@@ -211,10 +211,6 @@
                 }
             }
 
-            &--bonuses {
-                padding: ef.get-value($themeDefault, 'paddingBonuses');
-            }
-
             &--profile {
                 height: ef.get-value($themeDefault, 'profileHeight');
                 padding: ef.get-value($themeDefault, 'profilePadding');
@@ -278,11 +274,6 @@
             }
         }
 
-        &__games-slider {
-            width: 100%;
-            height: 100%;
-        }
-
         &__game {
             margin-bottom: 15px;
 
@@ -308,6 +299,12 @@
         }
 
         .wlc-game-dashboard__games-slider {
+            width: 100%;
+            height: 100%;
+
+            .wlc-scrollbar {
+                height: 90%;
+            }
 
             .swiper {
                 height: 100%;
@@ -355,7 +352,6 @@
         }
 
         .wlc-scrollbar {
-            height: 90%;
 
             &__container {
                 padding: ef.get-value($themeDefault, 'scrollbarPadding');
@@ -516,11 +512,21 @@
         }
     }
 
-    .wlc-dashboard-tournaments-wrapper::ng-deep {
-        height: 100%;
-    }
+    .wlc-dashboard-tournaments-wrapper,
+    .wlc-dashboard-bonuses-wrapper {
 
-    .wlc-dashboard-bonuses-wrapper::ng-deep {
-        height: 100%;
+        ::ng-deep {
+            height: 100%;
+
+            .wlc-scrollbar__container {
+                width: auto;
+                margin: ef.get-value($themeDefault, 'bonusesTournamentsScrollbarContainerMargin');
+                padding: ef.get-value($themeDefault, 'bonusesTournamentsScrollbarContainerPadding');
+
+                .swiper-scrollbar {
+                    right: ef.get-value($themeDefault, 'bonusesTournamentsScrollbarRight');
+                }
+            }
+        }
     }
 }

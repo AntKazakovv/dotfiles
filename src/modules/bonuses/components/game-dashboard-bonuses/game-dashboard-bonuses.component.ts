@@ -11,6 +11,9 @@ import {
 } from '@angular/core';
 
 import {takeUntil} from 'rxjs/operators';
+import _map from 'lodash-es/map';
+import _slice from 'lodash-es/slice';
+import _merge from 'lodash-es/merge';
 
 import {
     AbstractComponent,
@@ -21,18 +24,18 @@ import {
     DeviceOrientation,
     ActionService,
     IResizeEvent,
+    IWrapperCParams,
 } from 'wlc-engine/modules/core';
 import {
     ISlide,
+    ISliderCParams,
     SliderComponent,
 } from 'wlc-engine/modules/promo';
-import {
-    GameDashboardEvents,
-    IChangedTabEvent,
-} from 'wlc-engine/modules/games';
 import {Bonus} from 'wlc-engine/modules/bonuses/system/models/bonus/bonus';
 import {BonusesService} from 'wlc-engine/modules/bonuses/system/services/bonuses/bonuses.service';
 import {BonusesFilterType} from 'wlc-engine/modules/bonuses/system/interfaces/bonuses/bonuses.interface';
+import {BonusItemComponent} from 'wlc-engine/modules/bonuses/components/bonus-item/bonus-item.component';
+import {IBonusItemCParams} from 'wlc-engine/modules/bonuses/components/bonus-item/bonus-item.params';
 
 import * as Params from './game-dashboard-bonuses.params';
 
@@ -54,6 +57,9 @@ export class GameDashboardBonusesComponent extends AbstractComponent implements 
     public isReady: boolean = false;
     public slides: ISlide[] = [];
     public $params: Params.IGameDashboardBonusesCParams;
+
+    public defaultSliderConfig: IWrapperCParams = {components: []};
+    public landscapeSliderConfig: IWrapperCParams = {components: []};
 
     protected filter: BonusesFilterType = 'all';
 
@@ -103,9 +109,11 @@ export class GameDashboardBonusesComponent extends AbstractComponent implements 
                     if (bonuses) {
                         this.bonuses = this.bonusesService.sortBonuses(
                             this.bonusesService.filterBonuses(bonuses, this.filter),
-                            this.$params.common?.sortOrder,
-                        ).slice(0, 9);
+                            this.$params.sortOrder,
+                        );
+                        this.bonuses = _slice(this.bonuses, 0, this.$params.numberOfBonuses - 1);
                         this.bonusesToSlides(this.bonuses, true);
+                        this.initSliderComponents();
                         this.isReady = true;
                         this.cdr.markForCheck();
                     }
@@ -120,25 +128,44 @@ export class GameDashboardBonusesComponent extends AbstractComponent implements 
      * Transform bonuses to slides
      *
      */
-
     protected bonusesToSlides(bonuses: Bonus[], scroll: boolean = false): void {
-        this.slides = bonuses?.map((bonus: Bonus) => {
-            return {
-                templateRef: this.tplBonus,
-                templateParams: {
-                    item: {
-                        bonusItemParams: {
-                            theme: 'long',
-                            bonus: bonus,
-                        },
-                    },
-                },
-            };
-        });
+        this.slides = _map(bonuses, (bonus: Bonus): ISlide => ({
+            component: BonusItemComponent,
+            componentParams: <IBonusItemCParams> {
+                bonus,
+                theme: 'long',
+            },
+        }));
         if (this.slider?.swiper && scroll) {
             this.slider.swiper.swiperRef.slideTo(0);
         }
         this.cdr.detectChanges();
+    }
+
+    protected initSliderComponents(): void {
+        this.defaultSliderConfig = {
+            components: [
+                {
+                    name: 'promo.wlc-slider',
+                    params: _merge<ISliderCParams, ISliderCParams>(
+                        this.$params.defaultSliderParams,
+                        {slides: this.slides},
+                    ),
+                },
+            ],
+        };
+
+        this.landscapeSliderConfig = {
+            components: [
+                {
+                    name: 'promo.wlc-slider',
+                    params: _merge<ISliderCParams, ISliderCParams>(
+                        this.$params.landscapeSliderParams,
+                        {slides: this.slides},
+                    ),
+                },
+            ],
+        };
     }
 
     /**
@@ -184,17 +211,6 @@ export class GameDashboardBonusesComponent extends AbstractComponent implements 
             this.isAuth = true;
             this.removeModifiers('not-auth');
             this.cdr.markForCheck();
-        });
-
-        this.eventService.subscribe({
-            name: GameDashboardEvents.CHANED_TAB,
-        }, (data: IChangedTabEvent) => {
-            if (data.tab.id === 'bonuses') {
-                setTimeout(() => {
-                    this.slider.swiper.updateSwiper({});
-                    this.cdr.markForCheck();
-                });
-            }
         });
     }
 

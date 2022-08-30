@@ -287,7 +287,6 @@ export class TournamentListComponent
                 {
                     name: 'promo.wlc-slider',
                     params: <ISliderCParams>{
-                        type: 'dashboard',
                         slides: this.slides,
                         ...this.sliderParams,
                     },

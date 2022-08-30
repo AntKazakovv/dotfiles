@@ -14,13 +14,11 @@ $themeDefault: map-merge((
 
 $customThemeDashboard: () !default;
 $themeDashboard: map-merge((
-    'containerHeight': calc(100% - 60px),
-    'containerPadding': 0 ef.size(4),
-    'containerMargin': 0 ef.size(-4),
+    'containerHeight': calc(100% - 100px),
     'titleTextStyle': 'ThirdTitleBold',
     'titleColor': var(--mc-baseMain),
     'headerMargin': 0 0 ef.size(3) 0,
-    'swiperNavTop': 138px,
+    'swiperNavTop': 100px,
     'swiperNavLeft': 0,
     'fillColor': var(--mc-baseMain),
 ), $customThemeDashboard);

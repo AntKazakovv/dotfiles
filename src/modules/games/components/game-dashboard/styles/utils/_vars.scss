@@ -67,7 +67,6 @@ $themeDefault: map-merge((
 
     'fontStylePoints': 'SignText',
 
-    'paddingBonuses': ef.size(4),
     'scrollbarPadding': 0 15px 0 0,
 
     'merchantBalanceMargin': ef.size(6) 0 0,
@@ -77,4 +76,7 @@ $themeDefault: map-merge((
 
     'userStatsBtnMargin': ef.size(4) auto ef.size(8),
 
+    'bonusesTournamentsScrollbarContainerMargin': 0 ef.size(-4),
+    'bonusesTournamentsScrollbarContainerPadding': 0 ef.size(4),
+    'bonusesTournamentsScrollbarRight': ef.size(2),
 ), $customThemeDefault);

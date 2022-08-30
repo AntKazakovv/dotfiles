@@ -1,11 +1,9 @@
 $customThemeDefault: () !default;
 $themeDefault: map-merge((
     'buttonTop': 120px,
-    'buttonPosition': ef.size(4),
+    'buttonPosition': 0,
     'swiperSlideHeight': 90%,
 
-    'dashboardMargin':  0 ef.size(-4),
-    'itemPadding': 0 ef.size(4),
     'bonusWrpHeight': calc(100% - 100px),
     'totalHeightBonus': 100%,
 

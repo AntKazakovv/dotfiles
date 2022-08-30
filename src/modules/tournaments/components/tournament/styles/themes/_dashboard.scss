@@ -49,10 +49,10 @@
             position: relative;
             display: flex;
             flex-direction: column;
+            align-items: center;
             height: 100%;
 
             &.selected {
-                display: block;
 
                 .wlc-tournament__more-icon {
                     top: ef.get-value($themeDashboard, 'moreIconSelectedTop');
@@ -73,10 +73,9 @@
         &__img-container {
             position: relative;
             z-index: 1;
-            width: ef.get-value($themeDashboard, 'imgWidth');
-            height: ef.get-value($themeDashboard, 'imgHeight');
-            min-height: ef.get-value($themeDashboard, 'imgHeight');
-            margin: 0 auto;
+            width: ef.get-value($themeDashboard, 'blocksSize');
+            height: ef.get-value($themeDashboard, 'blocksSize');
+            min-height: ef.get-value($themeDashboard, 'blocksSize');
             margin-bottom: ef.get-value($themeDashboard, 'gapNoSelect');
             overflow: hidden;
             border-radius: ef.get-value($themeDashboard, 'borderRadius');
@@ -119,7 +118,7 @@
         }
 
         &__timer {
-            width: ef.get-value($themeDashboard, 'imgWidth');
+            width: ef.get-value($themeDashboard, 'blocksSize');
             margin: 0 auto;
 
             &.wlc-timer::ng-deep {
@@ -139,8 +138,10 @@
 
         &__description-block {
             @include bm.transition(opacity);
-            width: ef.get-value($themeDashboard, 'imgWidth');
-            margin: ef.get-value($themeDashboard, 'gapNoSelect') auto 0;
+
+            width: ef.get-value($themeDashboard, 'blocksSize');
+            min-width: 0;
+            margin-top: ef.get-value($themeDashboard, 'gapNoSelect');
             padding: ef.get-value($themeDashboard, 'descrPadding');
             border-radius: ef.get-value($themeDashboard, 'borderRadius');
             background: ef.get-value($themeDashboard, 'rowBg');
@@ -154,6 +155,7 @@
         }
 
         &__board {
+            width: ef.get-value($themeDashboard, 'blocksSize');
             padding: ef.get-value($themeDashboard, 'gap') 0 ef.get-value($themeDashboard, 'gap') 0;
         }
 

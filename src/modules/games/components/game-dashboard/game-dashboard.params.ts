@@ -57,7 +57,6 @@ export const defaultParams: IGameDashboardCParams = {
                         prevEl: '.wlc-swiper-button-prev',
                     },
                     slidesPerView: 1,
-                    spaceBetween: 40,
                 },
             },
         },
@@ -90,7 +89,7 @@ export const dashboardTabs: IGameDashboardTab[] = [
     {
         id: 'tournaments',
         iconPath: '/wlc/game-dashboard/tournaments.svg',
-        hideLabel: true,
+        label: gettext('Tournaments'),
         updateOnOpen: true,
     },
     {

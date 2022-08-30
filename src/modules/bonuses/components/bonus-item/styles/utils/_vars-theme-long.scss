@@ -1,5 +1,7 @@
 $customThemeLong: () !default;
 $themeLong: map-merge((
+    'scrollbarHeight': calc(100% - 100px),
+
     'infoBlockGap': (
         375: ef.size(2),
         1630: ef.size(4),
@@ -30,7 +32,6 @@ $themeLong: map-merge((
         1024: ef.size(4) ef.size(4) ef.size(2),
         1630: ef.size(4),
     ),
-    'imageBlockSize': 235px,
     'imageBlockBg': var(--mc-bg300),
     'imagePseudoBg': linear-gradient(180deg, var(--mc-bg-o0) 40%, var(--mc-bg) 75%),
 
@@ -39,4 +40,6 @@ $themeLong: map-merge((
     'descrColor': var(--mc-baseMain),
     'descrBg': var(--mc-bg),
     'descrPadding': ef.size(3) ef.size(2),
+
+    'blocksSize': 235px,
 ), $customThemeLong);

@@ -2,6 +2,10 @@
 
     .wlc-bonus-item {
 
+        &__scrollbar {
+            height: ef.get-value($themeLong, 'scrollbarHeight');
+        }
+
         &__content {
             padding: ef.get-value($themeLong, 'contentPadding');
         }
@@ -26,6 +30,7 @@
             @include bm.get-mq-map('gap', $themeLong, 'infoBlockGap');
 
             justify-items: center;
+            width: ef.get-value($themeLong, 'blocksSize');
         }
 
         &__active-block {
@@ -53,8 +58,8 @@
             justify-items: center;
 
             width: 100%;
-            max-width: ef.get-value($themeLong, 'imageBlockSize');
-            min-height: ef.get-value($themeLong, 'imageBlockSize');
+            max-width: ef.get-value($themeLong, 'blocksSize');
+            min-height: ef.get-value($themeLong, 'blocksSize');
 
             background: ef.get-value($themeLong, 'imageBlockBg');
             border-radius: ef.get-value($themeLong, 'radius');

@@ -16,8 +16,7 @@
 </ng-template>
 
 <ng-template #dashboard>
-    <div class="{{$class}}__inner" wlc-scrollbar>
-        <div class="{{$class}}__header">{{'Tournaments' | translate}}</div>
+    <div wlc-scrollbar class="{{$class}}__inner">
         <ng-container *ngIf="readyTournamentsAndSlides; else: noData">
             <ng-container
                 *ngIf="!isTournamentSelected && $params.type === 'swiper'">

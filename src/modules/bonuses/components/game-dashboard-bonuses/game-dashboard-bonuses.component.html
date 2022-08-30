@@ -1,23 +1,26 @@
 <ng-container *ngIf="isReady && bonuses?.length && slides?.length; else: noBonuses">
-    <div wlc-slider
-         class="{{$class}}__slider" *ngIf="!landscapeOrientation || !isMobile"
-         [slides]="slides"
-         [inlineParams]="$params.common?.sliderParams">
-    </div>
-    <div wlc-slider
-         class="{{$class}}__slider" *ngIf="isMobile && landscapeOrientation"
-         [slides]="slides"
-         [inlineParams]="$params.common?.landscapeSliderParams">
-    </div>
-    <div *ngIf="isDesktopAndSlidesLength" slot-container-end>
-        <button wlc-icon
-                class="swiper-button-prev wlc-swiper-button-prev"
+    <div wlc-scrollbar
+         class="{{$class}}__bonus-wrp">
+        <div *ngIf="!landscapeOrientation || !isMobile"
+             wlc-wrapper
+             class="{{$class}}__slider"
+             [inlineParams]="defaultSliderConfig">
+        </div>
+        <div *ngIf="isMobile && landscapeOrientation"
+             class="{{$class}}__slider"
+             wlc-wrapper
+             [inlineParams]="landscapeSliderConfig">
+        </div>
+        <div *ngIf="isDesktopAndSlidesLength" slot-container-end>
+            <button wlc-icon
+                class="wlc-game-dashboard-bonuses-nav swiper-button-prev wlc-swiper-button-prev"
                 iconPath="/wlc/icons/arrow.svg">
-        </button>
-        <button wlc-icon
-                class="swiper-button-next wlc-swiper-button-next"
+            </button>
+            <button wlc-icon
+                class="wlc-game-dashboard-bonuses-nav swiper-button-next wlc-swiper-button-next"
                 iconPath="/wlc/icons/arrow.svg">
-        </button>
+            </button>
+        </div>
     </div>
 </ng-container>
 
@@ -25,16 +28,5 @@
     <div *ngIf="isReady" class="{{$class}}__not-found" >{{'No bonuses available' | translate}}</div>
     <div *ngIf="!isReady" class="{{$class}}__not-found">
         <div wlc-loader></div>
-    </div>
-</ng-template>
-
-<ng-template #bonus let-item="item">
-    <div wlc-scrollbar
-         class="{{$class}}__bonus-wrp"
-         [ngClass]="{'active-bonus': item.bonusItemParams.bonus.isActive}">
-        <div wlc-bonus-item
-             class="{{$class}}__bonus"
-             [inlineParams]="item.bonusItemParams">
-            </div>
     </div>
 </ng-template>

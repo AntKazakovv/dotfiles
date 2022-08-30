@@ -7,7 +7,7 @@ $themeDashboard: map-merge((
     'moreIconColor': var(--mc-baseOpacity),
     'moreIconColorHover': var(--mc-baseMain),
     'moreIconTop': 20px,
-    'moreIconRight': 20px,
+    'moreIconRight': 32px,
     'moreIconSelectedTop': -38px,
     'moreIconSelectedRight': 0,
     'moreIconContent': 100%,
@@ -17,8 +17,6 @@ $themeDashboard: map-merge((
     'timerFontSize': ef.get('font', 'PrimaryText'),
     'headerFontSize': ef.get('font', 'ThirdTitle'),
     'rowBg': var(--mc-bg),
-    'imgWidth': 235px,
-    'imgHeight': 235px,
     'borderRadius': ef.size(2),
     'titleBg': linear-gradient(180deg, var(--mc-bg-o0) 0%, var(--mc-bg) 67.3%),
     'titlePadding': ef.size(4) ef.size(5),
@@ -29,4 +27,5 @@ $themeDashboard: map-merge((
     'titleTextStyle': 'ThirdTitleBold',
     'titleColor': var(--mc-baseMain),
     'headerMargin': ef.size(3) 0 ef.size(1),
+    'blocksSize': 235px,
 ), $customThemeDashboard);

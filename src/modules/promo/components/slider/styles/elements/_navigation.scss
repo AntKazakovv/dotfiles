@@ -55,10 +55,6 @@
     &:after {
         content: 'prev';
     }
-
-    .wlc-slider--type-dashboard & {
-        left: 0;
-    }
 }
 
 .swiper-button-next,
@@ -68,10 +64,6 @@
 
     &:after {
         content: 'next';
-    }
-
-    .wlc-slider--type-dashboard & {
-        right: 0;
     }
 }
 
