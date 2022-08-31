@@ -77,21 +77,6 @@
     </div>
 </ng-template>
 
-<ng-template #error>
-    <div class="{{$class}}__error">
-        {{'Error receiving payment system.' | translate}}
-    </div>
-</ng-template>
-
-<ng-template #tagMemo>
-    <div class="{{$class}}__text-row" *ngIf="inputParamsMemo">
-        <div wlc-input [inlineParams]="inputParamsMemo"></div>
-    </div>
-    <div class="{{$class}}__text-row" *ngIf="inputParamsTag">
-        <div wlc-input [inlineParams]="inputParamsTag"></div>
-    </div>
-</ng-template>
-
 <ng-template #payViaInvoice>
     <div class="{{$class}}__text">
         <div class="{{$class}}__text-row">
@@ -122,7 +107,9 @@
             <ng-container [ngTemplateOutlet]="qrCode"></ng-container>
         </div>
 
+        <ng-container [ngTemplateOutlet]="tagMemo"></ng-container>
         <ng-container [ngTemplateOutlet]="clipboardAmount"></ng-container>
+        <ng-container *ngIf="inputParamsXaddress" [ngTemplateOutlet]="clipboardX"></ng-container>
         <ng-container [ngTemplateOutlet]="clipboardDef"></ng-container>
         <ng-container [ngTemplateOutlet]="personal"></ng-container>
     </div>
@@ -139,6 +126,21 @@
             [themeMod]="'secondary'"
             (click)="cancelInvoiceHandler()"
         ></button>
+    </div>
+</ng-template>
+
+<ng-template #error>
+    <div class="{{$class}}__error">
+        {{'Error receiving payment system.' | translate}}
+    </div>
+</ng-template>
+
+<ng-template #tagMemo>
+    <div class="{{$class}}__text-row" *ngIf="inputParamsMemo">
+        <div wlc-input [inlineParams]="inputParamsMemo"></div>
+    </div>
+    <div class="{{$class}}__text-row" *ngIf="inputParamsTag">
+        <div wlc-input [inlineParams]="inputParamsTag"></div>
     </div>
 </ng-template>
 
