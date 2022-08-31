@@ -148,8 +148,7 @@ $noBonusItem: map-merge((
     ),
 
     'nameFontStyle': 'PrimaryText',
-
-    'itemMargin': ef.size(4) auto ef.size(8),
+    'itemMargin': 0 auto,
     'wrapperMargin': ef.size(8),
 
     'wrapperGap': (

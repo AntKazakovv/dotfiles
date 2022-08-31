@@ -108,7 +108,6 @@
 
     &-item {
         @include bm.get-mq-map('max-width', $noBonusItem, 'itemMaxWidth');
-
         width: 100%;
         margin: ef.get-value($noBonusItem, 'itemMargin');
         background: ef.get-value($noBonusItem, 'background');

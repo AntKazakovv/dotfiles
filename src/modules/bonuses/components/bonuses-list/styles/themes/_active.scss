@@ -3,8 +3,8 @@
     &:host {
 
         .wlc-bonuses-list__nocontent-text {
-            @include text.get-text-style('nameFontStyle', ef.get-value($themeDefault, 'activeBlockFontColor'));
-
+            @include text.get-text-style(ef.get-value($noBonusItem,'nameFontStyle'),
+            ef.get-value($themeDefault, 'activeBlockFontColor'));
             padding: ef.get-value($themeActive, 'noContentPadding');
             background: ef.get-value($themeActive, 'noContentBg');
             border-radius: ef.get-value($themeActive, 'noContentRadius');
@@ -16,11 +16,6 @@
 
         .wlc-bonuses-list__list {
             display: ef.get-value($themeActive, 'display');
-
-            .wlc-sections__profile-content--theme-first & {
-                margin: 20px auto;
-            }
-
 
             @if (ef.get-value($themeActive, 'display')=='grid') {
                 grid-template-columns: ef.get-value($themeActive, 'gridColumn');
