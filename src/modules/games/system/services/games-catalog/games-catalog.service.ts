@@ -680,6 +680,7 @@ export class GamesCatalogService {
             }),
             merchants: data.Merchants,
             excludeMerchants: data.MerchantsBL,
+            includeSportsbooks: true,
         });
 
         return data.GamesBL.length ? _filter(games, ({ID}) => {
@@ -718,6 +719,7 @@ export class GamesCatalogService {
             const games: Game[] = this.getGameList({
                 merchants: merchants,
                 withFreeRounds: true,
+                includeSportsbooks: true,
             });
 
             if (games.length) {
@@ -729,6 +731,7 @@ export class GamesCatalogService {
             const games: Game[] = this.getGameList({
                 ids: gameIds,
                 withFreeRounds: true,
+                includeSportsbooks: true,
             });
             if (games.length) {
                 gamesList = _union(gamesList, games);
