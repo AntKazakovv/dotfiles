@@ -22,6 +22,7 @@ import {
     IFormWrapperCParams,
     StepsEvents,
     IIndexing,
+    DataService,
 } from 'wlc-engine/modules/core';
 import {UserService} from 'wlc-engine/modules/user';
 import {
@@ -73,6 +74,7 @@ export class SignUpFormComponent extends UserActionsAbstract<Params.ISignUpFormC
         protected configService: ConfigService,
         protected eventService: EventService,
         protected socialService: SocialService,
+        protected dataService: DataService,
         @Inject(CuracaoRequirement) private enableRequirement: boolean,
     ) {
         super({
@@ -165,9 +167,20 @@ export class SignUpFormComponent extends UserActionsAbstract<Params.ISignUpFormC
             if (this.getTwoSteps() && this.isSecondStep()) {
                 regData = _merge(this.configService.get<IRegFormDataForConfig>('regFormData')?.form, regData);
             }
+
+
+            if (this.configService.get<boolean>('$base.site.useXNonce')) {
+                this.dataService.setNonceAndEmailToLocalStorage(regData.data.email);
+            }
+
             await this.userService.validateRegistration(regData);
             await this.finishUserReg(regData.data);
         } catch (error) {
+
+            if (this.configService.get<boolean>('$base.site.useXNonce')) {
+                this.dataService.deleteNonceAndEmailFromLocalStorage();
+            }
+
             this.showRegError(error);
             if (_isObject(error.errors)) {
                 this.errors$.next(error.errors);

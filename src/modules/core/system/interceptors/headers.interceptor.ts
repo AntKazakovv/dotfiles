@@ -24,6 +24,7 @@ import {IData} from 'wlc-engine/modules/core/system/services/data/data.service';
 import {LogService} from 'wlc-engine/modules/core/system/services/log/log.service';
 import {WINDOW} from 'wlc-engine/modules/app/system';
 import {CaptchaService} from 'wlc-engine/modules/core/system/services/captcha/captcha.service';
+import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
 
 @Injectable()
 export class HeadersInterceptor implements HttpInterceptor {
@@ -33,6 +34,7 @@ export class HeadersInterceptor implements HttpInterceptor {
         private recaptchaService: RecaptchaService,
         private logService: LogService,
         private captchaService: CaptchaService,
+        private configService: ConfigService,
     ) {
     }
 
@@ -40,6 +42,16 @@ export class HeadersInterceptor implements HttpInterceptor {
         req: HttpRequest<IData>,
         next: HttpHandler,
     ): Observable<HttpEvent<IData>> {
+        if (this.configService.get<boolean>('$base.site.useXNonce')) {
+            const xNonce: string = this.configService.get<string>({name: 'X-Nonce', storageType: 'localStorage'});
+
+            if (xNonce) {
+                req = req.clone({
+                    headers: req.headers.set('X-Nonce', xNonce),
+                });
+            }
+        }
+
         if (req.url.includes('/api/v1/auth') && this.captchaService.captchaCode) {
             req = req.clone({
                 headers: req.headers.set('X-Captcha', this.captchaService.captchaCode),

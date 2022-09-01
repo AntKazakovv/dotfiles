@@ -21,6 +21,7 @@ import {
     IRequestMethod,
 } from 'wlc-engine/modules/core/system/services/data/data.service';
 import {EventService} from 'wlc-engine/modules/core/system/services/event/event.service';
+import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
 import {CachingService} from 'wlc-engine/modules/core/system/services/caching/caching.service';
 import {LogService} from 'wlc-engine/modules/core/system/services/log/log.service';
 import {WINDOW_PROVIDER} from 'wlc-engine/modules/app/system';
@@ -35,6 +36,7 @@ describe('DataService', () => {
     let httpTestingController: HttpTestingController;
     let logServiceSpy = jasmine.createSpyObj('LogService', ['sendLog']);
     let cachingServiceSpy = jasmine.createSpyObj('CachingService', ['get', 'set']);
+    let configServiceSpy = jasmine.createSpyObj('CachingService', ['get', 'set']);
     let translateServiceSpy = jasmine.createSpyObj('TranslateService', [], {
         currentLang: 'en',
     });
@@ -58,10 +60,15 @@ describe('DataService', () => {
                     provide: TranslateService,
                     useValue: translateServiceSpy,
                 },
+                {
+                    provide: ConfigService,
+                    useValue: configServiceSpy,
+                },
             ],
         });
         dataService = TestBed.inject(DataService);
         eventService = TestBed.inject(EventService);
+        configServiceSpy = TestBed.inject(ConfigService);
         httpTestingController = TestBed.inject(HttpTestingController);
     });
 

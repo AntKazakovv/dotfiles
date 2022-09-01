@@ -48,6 +48,8 @@ export interface IBaseConfig {
         landingUrl?: string,
         /** Force use Curacao requirements as for WLC */
         forceCuracaoRequirement?: boolean;
+        /** Use x-nonce on requests */
+        useXNonce?: boolean;
     };
     /**
     * Sticky header enabling and settings;

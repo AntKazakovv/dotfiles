@@ -15,6 +15,12 @@ import {
     first,
     map,
 } from 'rxjs/operators';
+import _assign from 'lodash-es/assign';
+import _each from 'lodash-es/each';
+import _keys from 'lodash-es/keys';
+import _set from 'lodash-es/set';
+import _merge from 'lodash-es/merge';
+import _isString from 'lodash-es/isString';
 
 import {LogService} from 'wlc-engine/modules/core/system/services/log/log.service';
 import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
@@ -24,7 +30,10 @@ import {ModalService} from 'wlc-engine/modules/core/system/services/modal/modal.
 import {IPushMessageParams} from 'wlc-engine/modules/core/system/services/notification/notification.interface';
 import {NotificationEvents} from 'wlc-engine/modules/core/system/services/notification/notification.service';
 import {DataService} from 'wlc-engine/modules/core/system/services/data/data.service';
-import {IUserProfile} from 'wlc-engine/modules/core/system/interfaces/user.interface';
+import {
+    IUserInfo,
+    IUserProfile,
+} from 'wlc-engine/modules/core/system/interfaces/user.interface';
 import {IRedirect} from 'wlc-engine/modules/core/system/interfaces/core.interface';
 
 import {IData} from 'wlc-engine/modules/core/system/services/data/data.service';
@@ -51,13 +60,6 @@ import {
     ChosenBonusSetParams,
     ChosenBonusType,
 } from 'wlc-engine/modules/bonuses';
-
-import _assign from 'lodash-es/assign';
-import _each from 'lodash-es/each';
-import _keys from 'lodash-es/keys';
-import _set from 'lodash-es/set';
-import _isString from 'lodash-es/isString';
-import _merge from 'lodash-es/merge';
 
 export enum LanguageChangeEvents {
     ChangeLanguage = 'CHANGE_LANGUAGE'
@@ -154,11 +156,34 @@ export class UserService {
 
         this.eventService.subscribe({
             name: 'USER_INFO',
-        }, (info: IData) => {
+        }, (info: IData<IUserInfo>) => {
             if (info?.code === 401) {
                 this.logout();
                 return;
             }
+
+            if (
+                this.configService.get<boolean>('$base.site.useXNonce')
+                && this.isXNonceUserInfoError(info)
+            ) {
+                this.modalService.showModal({
+                    id: 'login-error',
+                    modalTitle: gettext('Sorry, something went wrong!'),
+                    modalMessage: gettext(
+                        'Something went wrong during login process. '
+                        + 'Please check the correctness of the entered data and try again.',
+                    ),
+                    closeBtnParams: {
+                        common: {
+                            text: gettext('Close'),
+                        },
+                    },
+                    textAlign: 'center',
+                });
+                this.logout();
+                return;
+            }
+
             this.info.data = info?.data;
             this.userInfo$.next(this.info);
 
@@ -239,11 +264,28 @@ export class UserService {
         }, () => {
             this.isAuthenticated = false;
             this.configService.set({name: '$user.isAuthenticated', value: false});
-            this.stateService.go('app.home', {
-                locale: this.translate.currentLang,
-            });
+
+            if (this.modalService.getActiveModal('login-error')) {
+                firstValueFrom(
+                    this.eventService.filter([{name: ProcessEvents.modalClosed}])
+                        .pipe(
+                            first((eventData: IEvent<IProcessEventData>) => eventData.data.eventId === 'login-error'),
+                        ),
+                ).then(() => {
+                    this.stateService.go('app.home', {
+                        locale: this.translate.currentLang,
+                    });
+                });
+            } else {
+                this.stateService.go('app.home', {
+                    locale: this.translate.currentLang,
+                });
+            }
+
             this.dataService.closeSocket();
             this.stopUserInfoFetcher();
+
+            this.dataService.deleteNonceAndEmailFromLocalStorage();
 
             this.info = new UserInfo(
                 {service: 'UserService', method: 'constructor'},
@@ -324,11 +366,20 @@ export class UserService {
     public login(login: TMetamaskData): Promise<IIndexing<any>>;
 
     public login(login: string | TMetamaskData, password?: string): Promise<IIndexing<any>> {
+        if (_isString(login) && this.configService.get<boolean>('$base.site.useXNonce')) {
+            this.dataService.setNonceAndEmailToLocalStorage(login);
+        }
+
         const loginData: TLoginData = _isString(login) ? {login, password} : login;
 
         const response = this.dataService.request<IIndexing<any>>('user/userLogin', loginData);
         this.logService.sendLog({code: '1.2.5'});
         response.catch((error) => {
+
+            if (this.configService.get<boolean>('$base.site.useXNonce')) {
+                this.dataService.deleteNonceAndEmailFromLocalStorage();
+            }
+
             this.logService.sendRequestLog({
                 coreLog: {code: '1.2.3'},
                 networkLog: {code: '1.2.4'},
@@ -686,6 +737,14 @@ export class UserService {
             textAlign: 'center',
             dismissAll: true,
         });
+    }
+
+    private isXNonceUserInfoError(userInfo: IData<IUserInfo>): boolean {
+        return userInfo?.code === 403
+            || (
+                userInfo?.data?.email?.toLowerCase()
+                !== this.configService.get<string>({name: 'email', storageType: 'localStorage'})
+            );
     }
 
     private async fetchUserInfo(): Promise<void> {

@@ -20,6 +20,7 @@ import {
     IIndexing,
     IData,
     emailRegex,
+    DataService,
 } from 'wlc-engine/modules/core';
 import {UserService} from 'wlc-engine/modules/user/system/services/user/user.service';
 
@@ -53,6 +54,7 @@ export class RestorePasswordFormComponent extends AbstractComponent implements O
         protected modalService: ModalService,
         protected userService: UserService,
         protected configService: ConfigService,
+        protected dataService: DataService,
         protected cdr: ChangeDetectorRef,
     ) {
         super({
@@ -92,6 +94,10 @@ export class RestorePasswordFormComponent extends AbstractComponent implements O
                 return;
             }
 
+            if (this.configService.get<boolean>('$base.site.useXNonce')) {
+                this.dataService.setNonceAndEmailToLocalStorage(email);
+            }
+
             await this.userService.sendPasswordRestore(email, phone);
 
             this.modalService.hideModal('restore-password');
@@ -123,6 +129,10 @@ export class RestorePasswordFormComponent extends AbstractComponent implements O
                 this.modalService.showModal('restore-sms-code', {phone});
             }
         } catch (error) {
+            if (this.configService.get<boolean>('$base.site.useXNonce')) {
+                this.dataService.deleteNonceAndEmailFromLocalStorage();
+            }
+
             this.pushMessage({
                 type: 'error',
                 title: gettext('Password reset failed'),

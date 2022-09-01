@@ -1,7 +1,6 @@
 import {
     Inject,
     Injectable,
-    Injector,
 } from '@angular/core';
 import {
     HttpClient,
@@ -32,6 +31,7 @@ import {
 import {TranslateService} from '@ngx-translate/core';
 
 import {CachingService} from 'wlc-engine/modules/core/system/services/caching/caching.service';
+import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
 import {EventService} from 'wlc-engine/modules/core/system/services/event/event.service';
 import {
     ILogObj,
@@ -134,12 +134,12 @@ export class DataService {
     private socketOpen: boolean = false;
 
     constructor(
-        private injector: Injector,
         private http: HttpClient,
         private translate: TranslateService,
         private eventService: EventService,
         private cachingService: CachingService,
         private logService: LogService,
+        private configService: ConfigService,
         @Inject(WINDOW) private window: Window,
     ) {
         this.init();
@@ -312,6 +312,46 @@ export class DataService {
     public closeSocket(): void {
         this.socket?.close();
         this.socketUrl = null;
+    }
+
+    /**
+     * Add nonce and email to localstorage
+     *
+     * @param {string} email
+     *
+     * @returns {void}
+     */
+    public setNonceAndEmailToLocalStorage(email: string): void {
+        this.configService.set({
+            name: 'X-Nonce',
+            value: this.generateNonce(),
+            storageType: 'localStorage',
+        });
+
+        this.configService.set({
+            name: 'email',
+            value: email.toLowerCase(),
+            storageType: 'localStorage',
+        });
+    }
+
+    /**
+     * Delete nonce and email from localstorage
+     *
+     * @returns {void}
+     */
+    public deleteNonceAndEmailFromLocalStorage(): void {
+        this.configService.set({
+            name: 'X-Nonce',
+            value: null,
+            storageClear: 'localStorage',
+        });
+
+        this.configService.set({
+            name: 'email',
+            value: null,
+            storageClear: 'localStorage',
+        });
     }
 
     protected init(): void {
@@ -520,6 +560,22 @@ export class DataService {
         };
 
         this.logService.sendLog(logObj);
+    }
+
+    /**
+     * Generate nonce string to idificate session
+     *
+     * @returns {string} nonce string
+     */
+    private generateNonce(): string {
+        const inOptions: string = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+        let nonce: string = '';
+
+        for (let i = 0; i < 16; i++) {
+            nonce += inOptions.charAt(Math.floor(Math.random() * inOptions.length));
+        }
+
+        return nonce;
     }
 
     private isRequestPreloaded(method: IRegisteredMethod): boolean {
