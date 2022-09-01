@@ -14,6 +14,7 @@ import {ProfileMenuService} from './system/services';
 import {PostMenuComponent} from './components/post-menu/post-menu.component';
 import {StickyFooterComponent} from './components/sticky-footer/sticky-footer.component';
 import {MenuService} from './system/services';
+import {PromoModule} from 'wlc-engine/modules/promo/promo.module';
 
 import {GlobalHelper} from 'wlc-engine/modules/core';
 import {menuConfig} from './system/config/menu.config';
@@ -64,6 +65,7 @@ export const services = {
         TranslateModule,
         UIRouterModule,
         CoreModule,
+        PromoModule,
     ],
     exports: [
         ProfileMenuComponent,

@@ -21,13 +21,11 @@ import {
     transition,
     trigger,
 } from '@angular/animations';
-
 import {
     RawParams,
     UIRouter,
     StateService,
 } from '@uirouter/core';
-import {Subject} from 'rxjs';
 import {
     takeUntil,
 } from 'rxjs/operators';
@@ -52,12 +50,9 @@ import {
     DeviceType,
     EventService,
     InjectionService,
-    IWrapperCParams,
 } from 'wlc-engine/modules/core';
-import {
-    ISlide,
-    ISliderCParams,
-} from 'wlc-engine/modules/promo/components/slider/slider.params';
+import {ISlide} from 'wlc-engine/modules/promo/components/slider/slider.params';
+import {SliderComponent} from 'wlc-engine/modules/promo/components/slider/slider.component';
 import {TIconExtension} from 'wlc-engine/modules/menu/system/interfaces/menu.interface';
 import {MenuHelper} from 'wlc-engine/modules/menu/system/helpers/menu.helper';
 import {TextDataModel} from 'wlc-engine/modules/static/system/models/textdata.model';
@@ -100,6 +95,11 @@ import * as Params from './menu.params';
     ],
 })
 export class MenuComponent extends AbstractComponent implements OnInit, OnChanges, AfterViewInit {
+    public items: Params.MenuItemObjectType[];
+    public $params: Params.IMenuCParams;
+    public inited: boolean = false;
+
+    @ViewChild('slider') slider: SliderComponent;
     @ViewChild('anchor') tplAnchor: TemplateRef<ElementRef>;
     @ViewChild('sref') tplSref: TemplateRef<ElementRef>;
     @ViewChild('title') tplTitle: TemplateRef<ElementRef>;
@@ -111,10 +111,6 @@ export class MenuComponent extends AbstractComponent implements OnInit, OnChange
 
     @Input() protected inlineParams: Params.IMenuCParams;
 
-    public items: Params.MenuItemObjectType[];
-    public $params: Params.IMenuCParams;
-    public inited: boolean = false;
-    public sliderConfig?: IWrapperCParams;
     public slides: ISlide[] = [];
     public iconsFallback: string = '';
 
@@ -126,8 +122,6 @@ export class MenuComponent extends AbstractComponent implements OnInit, OnChange
     protected isAffiliate: boolean = false;
     protected isMobile: boolean = false;
     protected isAuth: boolean;
-    protected sliderScrollToStart$: Subject<void> = new Subject<void>();
-    protected sliderUpdate$: Subject<void> = new Subject<void>();
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IMenuCParams,
@@ -392,8 +386,10 @@ export class MenuComponent extends AbstractComponent implements OnInit, OnChange
                 });
             });
 
-            this.initSliderConfig();
-            this.scrollSliderToStart();
+            if (this.slider && this.$params?.common?.swiper?.scrollToStart) {
+                this.slider.scrollToStart();
+                this.slider.update();
+            }
         }
 
         this.expandByCurrentState();
@@ -570,26 +566,5 @@ export class MenuComponent extends AbstractComponent implements OnInit, OnChange
                 });
             }
         });
-    }
-
-    protected initSliderConfig(): void {
-        this.sliderConfig = {
-            components: [
-                {
-                    name: 'promo.wlc-slider',
-                    params: <ISliderCParams>{
-                        slides: this.slides,
-                        scrollToStart$: this.sliderScrollToStart$,
-                        update$: this.sliderUpdate$,
-                        ...this.$params.sliderParams,
-                    },
-                },
-            ],
-        };
-    }
-
-    protected scrollSliderToStart(): void {
-        this.sliderScrollToStart$.next();
-        this.sliderUpdate$.next();
     }
 }
