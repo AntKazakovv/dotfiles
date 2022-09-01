@@ -25,7 +25,7 @@ export class CheckBoxTexts {
         },
         termsWlcCuracaoCheckboxText: {
             prefix: gettext('I have read and accepted the'),
-            linkText: gettext('terms and conditions'),
+            linkText: gettext('Terms and Conditions'),
             slug: 'terms-and-conditions',
         },
         ageCheckboxText: gettext('I confirm that I\'m 18 years or older'),
