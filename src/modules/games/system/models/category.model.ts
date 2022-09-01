@@ -397,7 +397,7 @@ export class CategoryModel extends AbstractModel<ICategory> {
 
         let merchantIds: IIndexing<boolean> = {};
 
-        _forEach(this.gamesList, (game: Game): void => {
+        _forEach(this.availableGames, (game: Game): void => {
             merchantIds[game.merchantID] = true;
 
             if (game.subMerchantID) {
