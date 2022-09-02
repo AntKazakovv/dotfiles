@@ -11,7 +11,15 @@ import {
     animate,
     transition,
 } from '@angular/animations';
-import {Subscription} from 'rxjs';
+
+import {
+    Observable,
+    Subscription,
+} from 'rxjs';
+import {
+    takeUntil,
+    first,
+} from 'rxjs/operators';
 
 import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
 import {
@@ -27,6 +35,7 @@ import {TranslateService} from '@ngx-translate/core';
 import {IGamesGridCParams} from 'wlc-engine/modules/games/components/games-grid/games-grid.params';
 import {CategoryModel} from 'wlc-engine/modules/games/system/models/category.model';
 import {MerchantModel} from 'wlc-engine/modules/games/system/models/merchant.model';
+import {Game} from 'wlc-engine/modules/games/system/models';
 import {
     GamesFilterService,
     GamesFilterServiceEvents,
@@ -85,7 +94,10 @@ export class SearchComponent extends AbstractComponent implements OnInit {
     };
     public currentLanguage: string;
     public gamesGridParams: IGamesGridCParams;
-    public searchQuery: string;
+    public searchQuery: string = '';
+    public fieldWasClicked: boolean = false;
+    public lastQueries$: Observable<string[]>;
+    public visibleGames: Game[] = [];
 
     protected parentCategory: CategoryModel;
     protected childCategory: CategoryModel;
@@ -111,15 +123,25 @@ export class SearchComponent extends AbstractComponent implements OnInit {
 
     public async ngOnInit(): Promise<void> {
         super.ngOnInit();
-        this.initFromCache();
-        this.gamesGridParams = _assignIn(
-            {},
-            defaultGamesGridParams,
-            {
-                showTitle: false,
-            },
-            this.$params.common?.gamesGridParams,
-        );
+        if (this.$params.theme === 'easy') {
+            this.lastQueries$ = this.gamesFilterService.lastQueries$;
+            this.gamesGridParams = this.$params.easyThemeParams.searchGamesGrid;
+            const {hideOnFindGames, swiperOptionsOnHideSecondBlock} = this.$params.easyThemeParams.secondBlock;
+
+            if (hideOnFindGames) {
+                this.gamesGridParams.showAsSwiper = swiperOptionsOnHideSecondBlock;
+                this.$params.easyThemeParams.secondBlock.gamesGrid.showAsSwiper = swiperOptionsOnHideSecondBlock;
+            }
+        } else {
+            this.gamesGridParams = _assignIn(
+                {},
+                defaultGamesGridParams,
+                this.$params.common?.gamesGridParams,
+            );
+
+            this.initFromCache();
+        }
+
         if (this.$params.common?.openProvidersList) {
             this.togglePanel('merchants');
         }
@@ -127,9 +149,9 @@ export class SearchComponent extends AbstractComponent implements OnInit {
         await this.gamesCatalogService.ready;
         this.parentCategory = this.gamesCatalogService.getParentCategoryByState();
         this.childCategory = this.gamesCatalogService.getChildCategoryByState();
+
         this.getCategories();
         this.getMerchants();
-
         this.initSearchListener();
         this.initActiveFilters();
 
@@ -235,9 +257,86 @@ export class SearchComponent extends AbstractComponent implements OnInit {
         return _includes(this.filters[filter], id);
     }
 
-    public setSearchQuery(query): void {
+    /**
+     * Handle on input in search field component
+     * @param query string
+     */
+    public setSearchQuery(query: string): void {
         this.searchQuery = query;
-        this.setFilter();
+
+        if (this.$params.theme === 'easy') {
+            this.setFilteredGames(query);
+        } else {
+            this.setFilter();
+        }
+    }
+
+    /**
+     * Add query in history
+     * @param query string
+     * @param delay number
+     */
+    public addLastQueries(query: string, delay: number = 0): void {
+        setTimeout((): void => {
+            this.gamesFilterService.setLastQuery(query);
+        }, delay);
+    }
+
+    /**
+     * Remove query from history by index
+     * @param event MouseEvent
+     * @param index number
+     */
+    public deleteQuery(event: MouseEvent, index: number): void {
+        event.stopPropagation();
+        this.gamesFilterService.deleteQuery(index);
+    }
+
+    /**
+     * Choose query from history by index
+     * @param index number
+     */
+    public chooseQuery(index: number): void {
+        this.lastQueries$
+            .pipe(
+                first(),
+                takeUntil(this.$destroy),
+            )
+            .subscribe((data: string[]): void => {
+                const query = data[index];
+
+                if (!query || this.searchQuery === query) {
+                    return;
+                }
+
+                this.searchQuery = query;
+                this.handleClickSearchField();
+                this.addLastQueries(query);
+            });
+    }
+
+    /**
+     * Click handler in input search field
+     */
+    public handleClickSearchField(): void {
+        this.fieldWasClicked = true;
+    }
+
+    /**
+     * Show second block if hideOnFindGames falsy and there is no founded games
+     * Or show second block if hideOnFindGames truthy
+     */
+    public get showSecondBlock(): boolean {
+        return !this.$params.easyThemeParams.secondBlock.hideOnFindGames
+            || this.$params.easyThemeParams.secondBlock.hideOnFindGames
+            && !this.visibleGames.length;
+    }
+
+    protected setFilteredGames(query: string): void {
+        this.visibleGames = this.gamesCatalogService.searchByQuery(
+            query,
+            this.$params.easyThemeParams.showMerchantsFirst,
+        );
     }
 
     protected initActiveFilters(): void {
@@ -258,8 +357,7 @@ export class SearchComponent extends AbstractComponent implements OnInit {
             from: this.gamesGridParams.searchFilterName,
         }, (data: IGamesFilterData) => {
             this.filters.searchQuery = data.searchQuery;
-        },
-        this.$destroy);
+        }, this.$destroy);
     }
 
     protected getCategories(): void {

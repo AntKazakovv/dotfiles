@@ -14,8 +14,11 @@
         }
 
         &__title {
+            display: ef.get-value($themeSwiper, 'titleDisplay');
             grid-area: title;
+            align-items: ef.get-value($themeSwiper, 'titleAlignItems');
             align-self: ef.get-value($themeSwiper, 'titleAlignSelf');
+            min-height: ef.get-value($themeSwiper, 'titleMinHeight');
         }
 
         &__swiper-buttons-container {

@@ -123,14 +123,14 @@
         <ng-container [ngTemplateOutlet]="buttonFavourite"></ng-container>
         <ng-container [ngTemplateOutlet]="buttonsPlayDemo"></ng-container>
     </div>
-    <div class="{{$class}}__merchants-block"
-        *ngIf="merchantIconPath">
+    <div *ngIf="showMerchantIcon; else merchantName"
+         class="{{$class}}__merchants-block">
         <img class="{{$class}}__merchants-icon"
             loading="lazy"
             [src]="merchantIconPath"
             [wlc-fallback]
             (imageError)="merchantIconErrorHolder()">
-    </div>
+</div>
     <ng-container
         *ngIf="hasPragmaticDGA"
         [ngTemplateOutlet]="pragmaticPlayLive">
@@ -255,5 +255,12 @@
                 </div>
             </div>
         </div>
+    </div>
+</ng-template>
+
+<ng-template #merchantName>
+    <div *ngIf="$params.common?.merchantIcon?.showNameInsteadIcon"
+         class="{{$class}}__merchants-name-wrapper">
+        <span class="{{$class}}__merchants-name">{{game.merchantName}}</span>
     </div>
 </ng-template>

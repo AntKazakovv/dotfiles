@@ -11,8 +11,14 @@ import {
     ElementRef,
     ViewChild,
 } from '@angular/core';
+
 import {Subject} from 'rxjs';
-import {debounceTime, map, takeUntil} from 'rxjs/operators';
+import {
+    debounceTime,
+    distinctUntilChanged,
+    takeUntil,
+} from 'rxjs/operators';
+
 import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
 import {
     ConfigService,
@@ -24,7 +30,6 @@ import {
     defaultParams,
 } from './search-field.params';
 
-
 @Component({
     selector: '[wlc-search-field]',
     templateUrl: './search-field.component.html',
@@ -32,15 +37,22 @@ import {
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SearchFieldComponent extends AbstractComponent implements OnInit, AfterViewInit {
+    @Input() public set searchQueryInput(data: string) {
+        setTimeout((): void => {
+            this.processSearchString(data);
+        });
+    };
 
-    @ViewChild('searchField') searchField: ElementRef;
+    @Output() public searchQueryEmit: EventEmitter<string> = new EventEmitter();
+    @Output() public searchBlur: EventEmitter<string> = new EventEmitter();
+    @Output() public enterEmit: EventEmitter<string> = new EventEmitter();
+    @Output() public clickEmit: EventEmitter<Event> = new EventEmitter();
 
     @Input() protected inlineParams: ISearchFieldCParams;
+    @ViewChild('searchField') protected searchField: ElementRef<HTMLInputElement>;
 
-    @Output() public searchQueryEmit = new EventEmitter();
-
-    public searchQuery: string;
-    public searchQuery$: Subject<Event> = new Subject();
+    public searchQuery: string = '';
+    public searchQuery$: Subject<string> = new Subject();
     public $params: ISearchFieldCParams;
 
     protected disabledSymbols: RegExp = /[$%*;<=>?@\^{|}~№]/gi;
@@ -62,25 +74,19 @@ export class SearchFieldComponent extends AbstractComponent implements OnInit, A
         super.ngOnInit(this.inlineParams);
         this.searchQuery$
             .pipe(
+                distinctUntilChanged(),
+                debounceTime(this.$params.debounceTime),
                 takeUntil(this.$destroy),
-                debounceTime(500),
-                map((event: Event) => {
-                    return (event.target as HTMLInputElement).value
-                        .trim()
-                        .replace(/\s+/gi, ' ')
-                        .replace(this.disabledSymbols, '');
-                }),
             )
             .subscribe((query: string) => {
                 this.emitSearch(query);
             });
 
-        if (!this.inlineParams.searchQueryFromCache) {
-            return;
+        if (this.inlineParams.searchQueryFromCache) {
+            this.searchQuery = this.inlineParams.searchQueryFromCache;
+            this.emitSearch(this.searchQuery);
+            this.processSearchStringLength();
         }
-
-        this.searchQuery = this.inlineParams.searchQueryFromCache;
-        this.emitSearch(this.searchQuery);
     }
 
     public ngAfterViewInit(): void {
@@ -94,6 +100,7 @@ export class SearchFieldComponent extends AbstractComponent implements OnInit, A
     public clearSearch(): void {
         this.emitSearch('');
         this.searchQuery = '';
+        this.processSearchStringLength();
     }
 
     public emitSearch(query: string): void {
@@ -101,6 +108,39 @@ export class SearchFieldComponent extends AbstractComponent implements OnInit, A
             this.$params.searchFrom,
             query,
         );
+
         this.searchQueryEmit.emit(query);
+    }
+
+    /**
+     * Keyup handler
+     */
+    public onKeyUp(): void {
+        this.enterEmit.emit(this.searchQuery);
+        this.searchField.nativeElement.blur();
+    }
+
+    /**
+     * Input handler and process search string
+     * @param event Event
+     */
+    public inputHandler(event: Event): void {
+        if (event.target instanceof HTMLInputElement) {
+            this.processSearchString(event.target.value);
+        }
+    }
+
+    protected processSearchString(string: string): void {
+        this.searchQuery = string
+            .trim()
+            .replace(/\s+/gi, ' ')
+            .replace(this.disabledSymbols, '');
+
+        this.searchQuery$.next(this.searchQuery);
+        this.processSearchStringLength();
+    }
+
+    protected processSearchStringLength(): void {
+        this.searchQuery ? this.addModifiers('close-icon-showed') : this.removeModifiers('close-icon-showed');
     }
 }

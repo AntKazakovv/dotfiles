@@ -212,3 +212,68 @@ $themeDefault: map-merge((
         1200: 0 ef.size(10),
     ),
 ), $customThemeDefault);
+
+$customThemeEasy: () !default;
+$themeEasy: map-merge((
+    'searchModalHeaderPadding': (
+        375: ef.size(6) 0 ef.size(3),
+        560: ef.size(6) 0 ef.size(4),
+    ),
+    'searchModalHeaderPositionText': (
+        375: center,
+        1200: left,
+    ),
+    'searchModalHeaderFont': (
+        375: 'PrimaryTextBold' ,
+        1200: 'QoteTextBold',
+    ),
+    'searchModalHeaderMargin': 0,
+
+    'searchFieldMargin': 0 0 ef.size(4),
+
+    'resultMargin': (
+        375: 0 0 ef.size(4),
+        900: 0 0 ef.size(8),
+    ),
+    'resultSize': 'ThirdTitle',
+    'resultColor': var(--fc-placeholderColor),
+    'resultTextAlign': (
+        375: center,
+        900: left,
+    ),
+
+    'recentTitleMargin': 0 0 ef.size(2) 0,
+    'recentTitleColor': var(--mc-baseMain),
+    'recentTitleFontStyle': 'QoteTextBold',
+    'recentWrapperMargin': (
+        375: 0 0 ef.size(2),
+        900: 0 0 ef.size(6),
+    ),
+
+    'chipDisplay': inline-flex,
+    'chipMargin': 0 ef.size(4) ef.size(2) 0,
+    'chipPadding': 3px 0 3px ef.size(2),
+    'chipBorderRadius': ef.get('radius', 'large'),
+    'chipColor': var(--mc-baseOpacity),
+    'chipColorFontStyle': 'ThirdTitle',
+    'chipTextMargin': 0 ef.size(1) 0 0,
+    'chipRemoveIconSize': ef.size(2),
+    'chipRemoveIconColorHover': var(--mc-baseMain),
+    'chipRemoveWidth': ef.size(5),
+    'chipBg': var(--mc-bg700-d5),
+    'chipBgHover': var(--mc-bg700-l5),
+
+    'gamesMargin': (
+        375: 0 0 ef.size(4),
+        900: 0 0 ef.size(8),
+    ),
+
+    'emptyTextColor': var(--mc-baseMain),
+    'emptyTextFontStyle': 'ThirdTitle',
+    'emptyTextAlign': (
+        375: center,
+        900: left,
+    ),
+
+    'buttonsSliderMargin': 0 0 0 auto,
+), $customThemeEasy);

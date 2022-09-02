@@ -10,6 +10,7 @@ import {
     ViewChildren,
     QueryList,
     Renderer2,
+    ChangeDetectionStrategy,
 } from '@angular/core';
 import {
     fromEvent,
@@ -49,6 +50,7 @@ import {AppType} from 'wlc-engine/modules/core';
     selector: '[wlc-game-thumb]',
     templateUrl: './game-thumb.component.html',
     styleUrls: ['./styles/game-thumb.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class GameThumbComponent extends AbstractComponent implements OnInit {
 
@@ -136,6 +138,10 @@ export class GameThumbComponent extends AbstractComponent implements OnInit {
      */
     public get name(): string {
         return this.game.name[this.currentLanguage] || this.game.name.en;
+    }
+
+    public get showMerchantIcon(): boolean {
+        return this.merchantIconPath && !this.$params.common?.merchantIcon?.showNameInsteadIcon;
     }
 
     public async init(): Promise<void> {
@@ -229,15 +235,14 @@ export class GameThumbComponent extends AbstractComponent implements OnInit {
             _assign(this.gameThumbSettings, buttonParams);
         }
 
-        if (this.$params.common?.merchantIcon?.use) {
+        if (this.$params.common?.merchantIcon?.use && !this.$params.common?.merchantIcon?.showNameInsteadIcon) {
             this.merchantIconPath = IconHelper.getIconPath(
                 this.game.getMerchantName(),
                 'merchants',
                 this.$params.common.merchantIcon.showAs || 'img',
                 IconHelper.getColorThemeBgType(
                     this.$params.common.merchantIcon.colorIconBg || 'dark',
-                    this.configService
-                        .get<string>(ColorThemeValues.configName) === ColorThemeValues.altThemeName,
+                    this.configService.get<string>(ColorThemeValues.configName) === ColorThemeValues.altThemeName,
                 ),
             );
 

@@ -659,6 +659,16 @@ export class GamesCatalogService {
         return this.gamesCatalog?.getGameList(filter);
     }
 
+    /**
+     * Filter games by search string and can use this string to find providers
+     * @param query string
+     * @param showMerchantsFirst boolean
+     * @returns Game[]
+     */
+    public searchByQuery(query: string, showMerchantsFirst: boolean = false): Game[] {
+        return this.gamesCatalog.searchByQuery(query, showMerchantsFirst);
+    }
+
     public getTournamentGames(data: ITournamentGames): Game[] {
         const games = this.getGameList({
             ids: _size(data.Games) ? data.Games : null,
@@ -697,7 +707,7 @@ export class GamesCatalogService {
                 if (merchantId) {
                     merchants.push(merchantId);
                 }
-            } else if (_isArray(data)){
+            } else if (_isArray(data)) {
                 gameIds = _union(gameIds, data);
             }
         });

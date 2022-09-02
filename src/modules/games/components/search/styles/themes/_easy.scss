@@ -1,0 +1,126 @@
+.wlc-search--theme-easy:host {
+
+    .wlc-search {
+
+        &__title {
+            @include bm.get-mq-map('padding', $themeEasy, 'searchModalHeaderPadding');
+            @include bm.get-mq-map('text-align', $themeEasy, 'searchModalHeaderPositionText');
+            @include text.get-text-style(
+                ef.get-value($themeEasy, 'searchModalHeaderFont'),
+                ef.get-value($themeEasy, 'searchModalHeaderFontColor')
+            );
+
+            margin: ef.get-value($themeEasy, 'searchModalHeaderMargin');
+
+            @include mq.min(1200) {
+                @include text.get-text-style(ef.get-value($themeEasy, 'searchModalHeaderFont', 1200), null);
+            }
+        }
+
+        &__search-input {
+            margin: ef.get-value($themeEasy, 'searchFieldMargin');
+        }
+
+        &__recommended-text {
+            @include bm.get-mq-map('margin', $themeEasy, 'resultMargin');
+            @include bm.get-mq-map('text-align', $themeEasy, 'resultTextAlign');
+            @include text.get-text-style(
+                ef.get-value($themeEasy, 'resultSize'),
+                ef.get-value($themeEasy, 'resultColor')
+            );
+        }
+
+        &__recent-wrapper {
+            @include bm.get-mq-map('margin', $themeEasy, 'recentWrapperMargin');
+        }
+
+        &__recent-title {
+            margin: ef.get-value($themeEasy, 'recentTitleMargin');
+
+            ::ng-deep {
+
+                .wlc-title__main {
+                    @include text.get-text-style(
+                        ef.get-value($themeEasy, 'recentTitleFontStyle'),
+                        ef.get-value($themeEasy, 'recentTitleColor'),
+                    );
+                    line-height: 1;
+                }
+            }
+        }
+
+        &__chip {
+            @include bm.transition(background);
+            @include text.get-text-style(
+                ef.get-value($themeEasy, 'chipColorFontStyle'),
+                ef.get-value($themeEasy, 'chipColor'),
+            );
+            display: ef.get-value($themeEasy, 'chipDisplay');
+            flex-wrap: nowrap;
+            max-width: 100%;
+            margin: ef.get-value($themeEasy, 'chipMargin');
+            padding: ef.get-value($themeEasy, 'chipPadding');
+            background: ef.get-value($themeEasy, 'chipBg');
+            border-radius: ef.get-value($themeEasy, 'chipBorderRadius');
+            cursor: pointer;
+
+            @include bm.hover() {
+                background: ef.get-value($themeEasy, 'chipBgHover');
+            }
+        }
+
+        &__chip-remove {
+            flex: 0 0 auto;
+            width: ef.get-value($themeEasy, 'chipRemoveWidth');
+            color: inherit;
+
+            ::ng-deep {
+
+                .wlc-icon {
+
+                    .wlc-icon-content {
+                        display: flex;
+                        justify-content: center;
+                    }
+
+                    svg {
+                        width: ef.get-value($themeEasy, 'chipRemoveIconSize');
+                        height: ef.get-value($themeEasy, 'chipRemoveIconSize');
+                    }
+                }
+            }
+
+            @include bm.hover() {
+                color: ef.get-value($themeEasy, 'chipRemoveIconColorHover');
+            }
+        }
+
+        &__chip-text {
+            display: inline-block;
+            overflow: hidden;
+            margin: ef.get-value($themeEasy, 'chipTextMargin');
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+
+        &__games {
+            @include bm.get-mq-map('margin', $themeEasy, 'gamesMargin');
+
+            ::ng-deep {
+
+                .wlc-games-grid__swiper-buttons-container {
+                    margin: ef.get-value($themeEasy, 'buttonsSliderMargin');
+                }
+            }
+        }
+
+        &__empty {
+            @include text.get-text-style(
+                ef.get-value($themeEasy, 'emptyTextFontStyle'),
+                ef.get-value($themeEasy, 'emptyTextColor'),
+            );
+            @include bm.get-mq-map('margin', $themeEasy, 'gamesMargin');
+            @include bm.get-mq-map('text-align', $themeEasy, 'emptyTextAlign');
+        }
+    }
+}

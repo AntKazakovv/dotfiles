@@ -133,6 +133,16 @@ $themeDefault: map-merge((
     'jackpotHeight': 30px,
     'jackpotPadding': 0,
     'jackpotBg': var(--mc-baseContrast-o6),
+
+    'merchantNameHeight': 10%,
+    'merchantNameMinHeight': 50px,
+    'merchantNameBg': linear-gradient(180deg, var(--mc-bg-o8), var(--mc-bg-o6), var(--mc-bg-o0)),
+    'merchantNameFont': 'ButtonText',
+    'merchantNameFontColor': var(--mc-baseMain),
+    'merchantNameTransform': capitalize,
+    'merchantNamePadding': ef.size(1) ef.size(2),
+    'merchantNameAlign': start,
+    'merchantNameJustify': flex-end,
 ), $customThemeDefault);
 
 $customThemeDefaultCircle: () !default;

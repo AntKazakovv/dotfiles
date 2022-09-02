@@ -1,84 +1,83 @@
-<div class="{{$class}}__title">
-    {{'Search for games' | translate}}
-</div>
+<ng-container [ngSwitch]="$params.theme">
+    <ng-container *ngSwitchDefault [ngTemplateOutlet]="default"></ng-container>
+    <ng-container *ngSwitchCase="'easy'" [ngTemplateOutlet]="easy"></ng-container>
+</ng-container>
 
-<div class="{{$class}}__panel">
-
-    <div class="{{$class}}__col {{$class}}__col--search"
-         wlc-search-field
-         (searchQueryEmit)="setSearchQuery($event)"
-         [inlineParams]="{
-             searchQueryFromCache: searchQuery,
-             searchFrom: gamesGridParams.searchFilterName,
-             focus: true
-         }"
-    ></div>
-
-    <div class="{{$class}}__col {{$class}}__col--merchants">
-        <button class="{{$class}}__btn"
-                data-wlc-element="block_filter-merchants"
-                [class.active]="openPanel === 'merchants'"
-                (click)="togglePanel('merchants')"
-        >
-            <span wlc-icon
-                  class="icon"
-                  iconPath="/wlc/icons/filter-merchants.svg">
-            </span>
-
-            <span *ngIf="!!filters.merchants.length; else allProvider" class="title-wrap" >
-                <span class="title">{{'Providers' | translate}}</span>
-                <span class="counter">({{filters.merchants.length}})</span>
-            </span>
-
-            <ng-template #allProvider>
-                <span class="title">{{'All providers' | translate}}</span>
-            </ng-template>
-        </button>
-
+<ng-template #default>
+    <div class="{{$class}}__title">
+        {{'Search for games' | translate}}
     </div>
 
-    <div class="{{$class}}__col {{$class}}__col--categories">
-        <button class="{{$class}}__btn"
-                data-wlc-element="block_filter-categories"
-                [class.active]="openPanel === 'categories'"
-                (click)="togglePanel('categories')"
-        >
-            <span wlc-icon
-                  class="icon"
-                  iconPath="/wlc/icons/filter-categories.svg">
-            </span>
+    <div class="{{$class}}__panel">
 
-            <span *ngIf="!!filters.categories.length; else allCategories" class="title-wrap">
-                <span class="title">{{'Categories' | translate}}</span>
-                <span class="counter">({{filters.categories.length}})</span>
-            </span>
+        <div wlc-search-field
+             class="{{$class}}__col {{$class}}__col--search"
+             [inlineParams]="$params.searchInputParams"
+             (searchQueryEmit)="setSearchQuery($event)"
+        ></div>
 
-            <ng-template #allCategories>
-                <span class="title">{{'All categories' | translate}}</span>
-            </ng-template>
-        </button>
+        <div class="{{$class}}__col {{$class}}__col--merchants">
+            <button class="{{$class}}__btn"
+                    data-wlc-element="block_filter-merchants"
+                    [class.active]="openPanel === 'merchants'"
+                    (click)="togglePanel('merchants')">
+                <span wlc-icon
+                      class="icon"
+                      iconPath="/wlc/icons/filter-merchants.svg">
+                </span>
+
+                <span *ngIf="filters.merchants.length; else allProvider">
+                    <span class="title">{{'Providers' | translate}}</span>
+                    <span class="counter">({{filters.merchants.length}})</span>
+                </span>
+
+                <ng-template #allProvider>
+                    <span class="title">{{'All providers' | translate}}</span>
+                </ng-template>
+            </button>
+
+        </div>
+
+        <div class="{{$class}}__col {{$class}}__col--categories">
+            <button class="{{$class}}__btn"
+                    data-wlc-element="block_filter-categories"
+                    [class.active]="openPanel === 'categories'"
+                    (click)="togglePanel('categories')">
+                <span wlc-icon
+                      class="icon"
+                      iconPath="/wlc/icons/filter-categories.svg">
+                </span>
+
+                <span *ngIf="filters.categories.length; else allCategories">
+                    <span class="title">{{'Categories' | translate}}</span>
+                    <span class="counter">({{filters.categories.length}})</span>
+                </span>
+
+                <ng-template #allCategories>
+                    <span class="title">{{'All categories' | translate}}</span>
+                </ng-template>
+            </button>
+        </div>
+
+        <ng-container [ngSwitch]="openPanel">
+            <ng-template *ngSwitchCase="'merchants'" [ngTemplateOutlet]="merchantsList"></ng-template>
+            <ng-template *ngSwitchCase="'categories'" [ngTemplateOutlet]="categoriesList"></ng-template>
+        </ng-container>
     </div>
 
-    <ng-container [ngSwitch]="openPanel">
-        <ng-template *ngSwitchCase="'merchants'" [ngTemplateOutlet]="merchantsList"></ng-template>
-        <ng-template *ngSwitchCase="'categories'" [ngTemplateOutlet]="categoriesList"></ng-template>
-    </ng-container>
-</div>
+    <div class="{{$class}}__content">
 
-<div class="{{$class}}__content">
+        <div *ngIf="searchQuery"
+            class="{{$class}}__result">
+            {{'Search query:' | translate}} {{searchQuery}}
+        </div>
 
-    <div *ngIf="searchQuery?.length"
-         class="{{$class}}__result"
-         >
-        {{'Search query:' | translate}} {{searchQuery}}
+        <div wlc-games-grid
+             class="${{$class}}__games"
+             [inlineParams]="gamesGridParams"
+        ></div>
     </div>
-
-    <div wlc-games-grid
-         class="${{$class}}__games"
-         [inlineParams]="gamesGridParams"
-    ></div>
-</div>
-
+</ng-template>
 
 <ng-template #merchantsList>
     <ul class="{{$class}}__list" @openClose>
@@ -140,4 +139,66 @@
             </button>
         </li>
     </ul>
+</ng-template>
+
+<ng-template #easy>
+    <h6 wlc-title
+        class="{{$class}}__title"
+        [mainText]="$params.easyThemeParams.titleText"
+    ></h6>
+
+    <div wlc-search-field
+         class="{{$class}}__search-input"
+         [searchQueryInput]="searchQuery"
+         [inlineParams]="$params.searchInputParams"
+         (searchQueryEmit)="setSearchQuery($event)"
+         (searchBlur)="addLastQueries($event, 500)"
+         (enterEmit)="addLastQueries($event)"
+         (clickEmit)="handleClickSearchField()"
+    ></div>
+
+    <p *ngIf="$params.easyThemeParams.recommendedText" class="{{$class}}__recommended-text">
+        {{$params.easyThemeParams.recommendedText | translate}}
+    </p>
+
+    <div *ngIf="(lastQueries$ | async).length"
+        @openClose
+        class="{{$class}}__recent-wrapper">
+        <h5 class="{{$class}}__recent-title"
+            wlc-title
+            [mainText]="$params.easyThemeParams.recentSearchText"
+        ></h5>
+
+        <span *ngFor="let item of lastQueries$ | async; index as index;"
+            class="{{$class}}__chip"
+            (click)="chooseQuery(index)">
+            <span class="{{$class}}__chip-text">{{item}}</span>
+            <button wlc-button
+                class="{{$class}}__chip-remove"
+                (click)="deleteQuery($event, index)"
+                theme="cleared"
+                iconPath="/wlc/icons/close.svg">
+            </button>
+        </span>
+    </div>
+
+    <div *ngIf="visibleGames.length; else emptyGames"
+          wlc-games-grid
+          class="{{$class}}__games"
+          [inlineParams]="gamesGridParams"
+          [gamesList]="visibleGames"
+    ></div>
+
+    <div *ngIf="showSecondBlock"
+         wlc-games-grid
+         class="{{$class}}__games"
+         [inlineParams]="$params.easyThemeParams.secondBlock.gamesGrid"
+    ></div>
+</ng-template>
+
+<ng-template #emptyGames>
+    <p *ngIf="fieldWasClicked && searchQuery.length >= 3"
+       class="{{$class}}__empty"
+    >{{$params.easyThemeParams.emptyText | translate}}
+    </p>
 </ng-template>

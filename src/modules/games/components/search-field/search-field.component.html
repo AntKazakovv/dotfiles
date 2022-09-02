@@ -3,10 +3,13 @@
            placeholder="{{$params.placeholder || 'Search' | translate}}"
            #searchField
            data-wlc-element="input_search"
-           (input)="searchQuery$.next($event)"
+           (input)="inputHandler($event)"
+           (blur)="searchBlur.emit(searchQuery)"
+           (keyup.enter)="onKeyUp()"
+           (click)="clickEmit.emit($event)"
            [(ngModel)]="searchQuery"
     >
-    <button *ngIf="searchQuery?.length"
+    <button *ngIf="searchQuery"
             wlc-icon
             class="{{$class}}__clear"
             [attr.aria-label]="'Clear search' | translate"

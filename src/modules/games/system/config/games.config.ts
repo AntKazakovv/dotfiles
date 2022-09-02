@@ -126,4 +126,10 @@ export const gamesConfig: IGamesConfig = {
             },
         },
     },
+    cacheSettings: {
+        searchGames: {
+            saveTime: Number.MAX_SAFE_INTEGER,
+            chipsCount: 3,
+        },
+    },
 };

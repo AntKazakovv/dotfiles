@@ -1,17 +1,28 @@
 import {Injectable} from '@angular/core';
-import {Subject} from 'rxjs';
-import {EventService} from 'wlc-engine/modules/core/system/services/event/event.service';
-import {ConfigService} from 'wlc-engine/modules/core';
+
+import {
+    Subject,
+    BehaviorSubject,
+    Observable,
+    skip,
+} from 'rxjs';
+import _union from 'lodash-es/union';
+import _concat from 'lodash-es/concat';
+import _get from 'lodash-es/get';
+import _extend from 'lodash-es/extend';
+import _merge from 'lodash-es/merge';
+
+import {
+    CachingService,
+    ConfigService,
+    EventService,
+} from 'wlc-engine/modules/core';
 
 import {
     IGamesFilterData,
     IGamesFilterServiceEvents,
     IIndexingFilter,
 } from 'wlc-engine/modules/games/system/interfaces/filters.interfaces';
-
-import _extend from 'lodash-es/extend';
-import _get from 'lodash-es/get';
-import _merge from 'lodash-es/merge';
 
 export const GamesFilterServiceEvents: IGamesFilterServiceEvents = {
     FILTER_CHANGED: 'FILTER_CHANGED',
@@ -36,6 +47,7 @@ export class GamesFilterService {
      * Clear filterCache or not
      */
     public toClearCache$: Subject<boolean> = new Subject<boolean>();
+
     protected filters: IIndexingFilter = {};
     protected filterInitValues: IGamesFilterData = {
         categories: [],
@@ -44,11 +56,50 @@ export class GamesFilterService {
         excludeMerchants: [],
     };
 
+    private _lastQueries$: BehaviorSubject<string[]> = new BehaviorSubject([]);
+
     constructor(
         protected eventService: EventService,
         protected configService: ConfigService,
+        protected cachingService: CachingService,
     ) {
         this.init();
+    }
+
+    /**
+     * return list of search games history
+     * @returns Observable<string[]>
+     */
+    public get lastQueries$(): Observable<string[]> {
+        return this._lastQueries$.asObservable();
+    }
+
+    /**
+     * adds in search history list query
+     * @param query string
+     */
+    public setLastQuery(query: string): void {
+        if (!query || query.length < 3 || this._lastQueries$.getValue()[0] === query) {
+            return;
+        }
+
+        let newData: string[] = _union([query], this._lastQueries$.getValue());
+        const chipsCount: number = this.configService.get<number>('$games.cacheSettings.searchGames.chipsCount');
+
+        if (newData.length > chipsCount) {
+            newData = newData.slice(0, chipsCount);
+        }
+
+        this._lastQueries$.next(newData);
+    }
+
+    /**
+     * removes query from search history
+     * @param index number
+     */
+    public deleteQuery(index: number): void {
+        const data: string[] = this._lastQueries$.getValue();
+        this._lastQueries$.next(_concat(data.slice(0, index), data.slice(index + 1)));
     }
 
     /**
@@ -76,7 +127,7 @@ export class GamesFilterService {
     /**
      *
      * Applies the passed filter. Can also cache this filter
-     * 
+     *
      * @param {string} filterName filter name
      * @param {IGamesFilterData} filterValues filter values
      * @param {boolean} save caches passed filters
@@ -182,5 +233,22 @@ export class GamesFilterService {
         //         storageMode: 'sessionStorage'
         //     });
         // }
+        this.initLastQueries();
+    }
+
+    protected async initLastQueries(): Promise<void> {
+        const data: string[] = await this.cachingService.get<string[]>('games-filter-recent-queries') || [];
+        this._lastQueries$.next(data);
+
+        this._lastQueries$
+            .pipe(skip(1))
+            .subscribe((data: string[]): void => {
+                this.cachingService.set(
+                    'games-filter-recent-queries',
+                    data,
+                    true,
+                    this.configService.get('$games.cacheSettings.searchGames.saveTime'),
+                );
+            });
     }
 }

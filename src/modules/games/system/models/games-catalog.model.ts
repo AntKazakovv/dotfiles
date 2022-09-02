@@ -8,6 +8,7 @@ import {BehaviorSubject} from 'rxjs';
 import {
     skipWhile,
 } from 'rxjs/operators';
+import _values from 'lodash-es/values';
 import _assign from 'lodash-es/assign';
 import _cloneDeep from 'lodash-es/cloneDeep';
 import _concat from 'lodash-es/concat';
@@ -26,6 +27,7 @@ import _size from 'lodash-es/size';
 import _toNumber from 'lodash-es/toNumber';
 import _union from 'lodash-es/union';
 import _uniq from 'lodash-es/uniq';
+import _each from 'lodash-es/each';
 import _uniqBy from 'lodash-es/uniqBy';
 
 import {
@@ -68,6 +70,47 @@ import {MenuService} from 'wlc-engine/modules/menu/system/services/menu.service'
 import {
     categorySettings as defaultCategorySettings,
 } from 'wlc-engine/modules/games/system/config/fundist-category-settings.config';
+
+interface IFilterParameters {
+    /**
+     * full search word
+     */
+    searchString: string,
+    /**
+     * partial search word
+     */
+    queries: string[],
+}
+
+interface IFilterItemsParameters<T, L> extends IFilterParameters {
+    /**
+     * collection for sorting
+     */
+    collection: T[],
+    /**
+     * a function that returns in which word will be searched for matches
+     */
+    getItemName: (item: T) => string | string[],
+    /**
+     * function that returns which element will be in the sorted array
+     */
+    getPushItem: (item: T) => L,
+    /**
+     * callback function that returns the weight to sort the item
+     */
+    callback?: (item: T) => number,
+}
+
+interface IGenerateParameters extends IFilterParameters {
+    /**
+     * providers id's
+     */
+    merchantsIds: number[];
+    /**
+     * should providers be first in search result
+     */
+    showMerchantsFirst: boolean;
+}
 
 export class GamesCatalog extends AbstractModel<IGames> {
 
@@ -253,6 +296,53 @@ export class GamesCatalog extends AbstractModel<IGames> {
         }
 
         return gameList;
+    }
+
+    /**
+     * Filter games by search string and can use this string to find providers
+     *
+     * @param searchString string
+     * @param showMerchantsFirst boolean
+     * @returns Game[]
+     */
+    public searchByQuery(searchString: string, showMerchantsFirst: boolean = false): Game[] {
+        if (searchString.length < 3) {
+            return [];
+        };
+
+        searchString = searchString.toLowerCase().replace(/\s+/, ' ');
+        const queries: string[] = searchString.split(' ');
+        let result: Game[] = [];
+
+        const merchantsIds: number[] = this.filterItems<MerchantModel, number>({
+            collection: this.availableMerchants,
+            getItemName: (item: MerchantModel): string => item.alias,
+            searchString,
+            queries,
+            getPushItem: (item: MerchantModel): number => item.id,
+        });
+
+        result = this.filterItems<Game, Game>(this.generateParams({
+            searchString,
+            queries,
+            merchantsIds,
+            showMerchantsFirst,
+        }));
+
+        if (!result.length && this.searchByCyrillicLetters) {
+            const replacedString: string = this.replaceCyrillicChars(searchString);
+
+            if (replacedString !== searchString) {
+                result = this.filterItems<Game, Game>(this.generateParams({
+                    searchString: replacedString,
+                    queries,
+                    merchantsIds,
+                    showMerchantsFirst,
+                }));
+            }
+        }
+
+        return result;
     }
 
     /**
@@ -960,5 +1050,123 @@ export class GamesCatalog extends AbstractModel<IGames> {
         }
 
         return word;
+    }
+
+    /**
+     * Filters and sorts collections by weight. The weight is determined by the parameters passed in.
+     * The greater the weight, the more items will be first.
+     */
+    protected filterItems<T, L>({
+        collection,
+        getItemName,
+        searchString,
+        queries,
+        getPushItem,
+        callback,
+    }: IFilterItemsParameters<T, L>): L[] {
+        const searchList: L[][] = [];
+
+        _each(collection, (item: T): void => {
+            let weight: number = 0;
+            const itemNames: string | string[] = getItemName(item);
+
+            if (callback) {
+                weight += callback(item);
+            }
+
+            if (_isArray(itemNames)) {
+                _each(itemNames, (name: string): void => {
+                    weight += this.getWeightByMatching(name, searchString, queries);
+                });
+            } else {
+                weight += this.getWeightByMatching(itemNames, searchString, queries);
+            }
+
+            if (weight === 0) {
+                return;
+            }
+
+            if (!searchList[weight]) {
+                searchList[weight] = [];
+            }
+
+            searchList[weight].push(getPushItem(item));
+        });
+
+        return searchList.reduceRight((previous, current) => _concat(previous, current), []);
+    }
+
+    /**
+     * if the parameter showMerchantsFirst true, the weight will be large, so then use this value in the filter
+     * and place games with providers who have the same id as the games first
+     */
+    private filterGamesCallback(
+        merchantsIds: number[],
+        item: Game,
+        showMerchantsFirst: boolean,
+    ): number {
+        let weight: number = 0;
+
+        if (merchantsIds.length) {
+            _each(merchantsIds, (id: number): void => {
+                if (id === item.subMerchantID || id === item.merchantID) {
+                    weight += showMerchantsFirst ? 10 : 1;
+                }
+            });
+        }
+
+        return weight;
+    }
+
+    /**
+    * increases the weight by a full match, then by a partial match, then returns the weight
+     * @param name {string}
+     * @param searchString {string}
+     * @param queries {string[]}
+     * @returns {number} weight by match
+     */
+    private getWeightByMatching(name: string, searchString: string, queries: string[]): number {
+        const itemName = name.toLowerCase();
+        let weight: number = 0;
+
+        // exact match
+        if (_includes(itemName, searchString)) {
+            weight += 5;
+        }
+
+        // partial match
+        if (queries.length > 1) {
+            _each(queries, (query: string): void => {
+                if (query.length >= 2 && _includes(itemName, query)) {
+                    weight++;
+                }
+            });
+        }
+
+        return weight;
+    }
+
+    /**
+     * @param param {IGenerateParameters}
+     * @returns {IFilterItemsParameters} parameters for filterItems
+     */
+    private generateParams({
+        searchString,
+        queries,
+        merchantsIds,
+        showMerchantsFirst,
+    }: IGenerateParameters): IFilterItemsParameters<Game, Game> {
+        return {
+            collection: this.availableGames,
+            getItemName: (item: Game): string[] => _values(item.name),
+            searchString,
+            queries,
+            getPushItem: (item: Game): Game => item,
+            callback: (item: Game): number => this.filterGamesCallback(
+                merchantsIds,
+                item,
+                showMerchantsFirst,
+            ),
+        };
     }
 }

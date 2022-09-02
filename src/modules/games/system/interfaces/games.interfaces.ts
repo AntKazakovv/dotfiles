@@ -4,6 +4,7 @@ import {CategoryModel} from 'wlc-engine/modules/games/system/models/category.mod
 import {MerchantModel} from 'wlc-engine/modules/games/system/models/merchant.model';
 import {ICategoryBlock} from 'wlc-engine/modules/core/system/interfaces/categories.interface';
 import {TotalJackpotNoContentByThemeType} from 'wlc-engine/modules/games/components/total-jackpot/total-jackpot.params';
+import {ICacheSettings} from 'wlc-engine/modules/games/system/interfaces/cache.interface';
 
 export type TSortDirection = 'asc' | 'desc';
 /**
@@ -56,6 +57,10 @@ export interface IGamesConfig {
      * where KEY is merchant.menuId
     **/
     merchantNameAliasesMap?: IIndexing<string>;
+    /**
+     * Cache settings
+     */
+    cacheSettings?: ICacheSettings,
 }
 
 export interface IGamesSearchSettings {
@@ -98,7 +103,7 @@ export interface IDashboardMobileUsageInstruction {
 
 export interface IGamesSortSetting {
     direction?: {
-       /** direction of sorting by sortPerCountry, 'asc' by default */
+        /** direction of sorting by sortPerCountry, 'asc' by default */
         sortPerCountry?: TSortDirection,
         /** direction of sorting by sortPerLanguage, 'asc' by default */
         sortPerLanguage?: TSortDirection,

@@ -10,6 +10,10 @@ export interface ISearchFieldCParams extends IComponentParams<string, string, st
     searchFrom: SearchFieldFromType;
     placeholder?: string;
     focus?: boolean;
+    /**
+     * debounceTime before search input event will be pushed
+     */
+    debounceTime?: number;
 };
 
 export const defaultParams: ISearchFieldCParams = {
@@ -18,4 +22,5 @@ export const defaultParams: ISearchFieldCParams = {
     searchQueryFromCache: '',
     searchFrom: 'page',
     focus: false,
+    debounceTime: 500,
 };

@@ -130,6 +130,25 @@
                 @include bm.get-mq-map('max-width', $themeDefault, 'merchantsIconW');
                 @include bm.get-mq-map('max-height', $themeDefault, 'merchantsIconH');
             }
+
+            &-name-wrapper {
+                @include text.get-text-style(ef.get-value($themeDefault, 'merchantNameFont'), ef.get-value($themeDefault, 'merchantNameFontColor'));
+
+                position: relative;
+                top: 0;
+                left: 0;
+                z-index: 10;
+                display: flex;
+                align-items: ef.get-value($themeDefault, 'merchantNameAlign');
+                justify-content: ef.get-value($themeDefault, 'merchantNameJustify');
+                width: 100%;
+                height: ef.get-value($themeDefault, 'merchantNameHeight');
+                min-height: ef.get-value($themeDefault, 'merchantNameMinHeight');
+                padding: ef.get-value($themeDefault, 'merchantNamePadding');
+                text-transform: ef.get-value($themeDefault, 'merchantNameTransform');
+                background: ef.get-value($themeDefault, 'merchantNameBg');
+                pointer-events: none;
+            }
         }
 
         &__buttons {

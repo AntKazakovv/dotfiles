@@ -67,6 +67,7 @@ export interface PragmaticLiveData {
 }
 
 export class PragmaticLiveModel extends AbstractModel<PragmaticLiveData> {
+    private _lastResult: IPragmaticResult[] = [];
 
     constructor(
         from: IFromLog,
@@ -74,6 +75,7 @@ export class PragmaticLiveModel extends AbstractModel<PragmaticLiveData> {
     ) {
         super({from: _assign({model: 'PragmaticLiveModel'}, from)});
         this.data = data;
+        this._lastResult = this.getLastResult();
     }
 
     /**
@@ -186,6 +188,10 @@ export class PragmaticLiveModel extends AbstractModel<PragmaticLiveData> {
      * Table last result
      */
     public get lastResult(): IPragmaticResult[] {
+        return this._lastResult;
+    }
+
+    protected getLastResult(): IPragmaticResult[] {
         let res = [];
 
         switch (this.data.tableType) {

@@ -7,7 +7,7 @@
     &__input {
         @include bm.get-mq-map('background', $themeDefault, 'bgColor');
         @include text.get-text-style(ef.get-value($themeDefault, 'fontName'), ef.get-value($themeDefault, 'color'));
-        @include bm.transition;
+        @include bm.lineClamp();
 
         width: ef.get-value($themeDefault, 'inputWidth');
         height: ef.get-value($themeDefault, 'inputHeight');
@@ -96,6 +96,16 @@
                 height: ef.get-value($themeDefault, 'searchIconSize');
                 fill: ef.get-value($themeDefault, 'searchIconColor');
             }
+        }
+    }
+}
+
+.wlc-search-field--close-icon-showed:host {
+
+    .wlc-search-field {
+
+        &__input {
+            padding: ef.get-value($themeDefault, 'inputPaddingCloseShowed');
         }
     }
 }

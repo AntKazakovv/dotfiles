@@ -10,8 +10,8 @@ import * as ButtonParams from 'wlc-engine/modules/core/components/button/button.
 
 export type Type = 'default' | 'modal' | 'vertical' | 'promo-widget' | 'games-slider' | CustomType;
 export type Theme = 'default' | 'vertical' | 'promo-widget' | CustomType;
-export type ThemeMod = 'default' | 'vertical' | 'circle'  | 'bottom-buttons' |
-                       'bottom-all' | 'bottom-title' | 'transform' | CustomType;
+export type ThemeMod = 'default' | 'vertical' | 'circle' | 'bottom-buttons' |
+    'bottom-all' | 'bottom-title' | 'transform' | CustomType;
 export type AutoModifiers = Theme | ThemeMod;
 export type CustomMod = string;
 export type Modifiers = AutoModifiers | CustomMod | null;
@@ -80,7 +80,7 @@ export interface IGameThumbCParams extends IComponentParams<Theme, Type, ThemeMo
     common?: {
         themeMod?: ThemeMod;
         game?: Game,
-         /**
+        /**
          * game id or array of games id and choose first not undefined
          */
         gameId?: number | number[];
@@ -90,6 +90,10 @@ export interface IGameThumbCParams extends IComponentParams<Theme, Type, ThemeMo
          * merchant icon usage params
          */
         merchantIcon?: {
+            /**
+             * show name instead icon
+             */
+            showNameInsteadIcon?: boolean;
             /**
              * enable/disable usage merchant icon
              */
@@ -106,11 +110,11 @@ export interface IGameThumbCParams extends IComponentParams<Theme, Type, ThemeMo
     },
     /**
      * settings vertical transform thumb
-    */
+     */
     transformThumb?: ITransformThumb;
     /**
      * Use dumpy thumb
-    */
+     */
     dumpy?: boolean;
     /**
      * Enable/disable display jackpot amount if available

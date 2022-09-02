@@ -72,6 +72,7 @@ import {gamesEvents} from 'wlc-engine/modules/games/system/interfaces/games.inte
 import {GamesFilterServiceEvents} from 'wlc-engine/modules/games/system/services/games-filter.service';
 import {GameThumbComponent} from 'wlc-engine/modules/games/components/game-thumb/game-thumb.component';
 import {GamesFilterService} from 'wlc-engine/modules/games/system/services/games-filter.service';
+import {IGameThumbCParams} from 'wlc-engine/modules/games/components/game-thumb/game-thumb.params';
 
 import {
     GamesCatalogService,
@@ -90,9 +91,11 @@ import * as Params from './games-grid.params';
     ],
 })
 export class GamesGridComponent extends AbstractComponent implements OnInit, OnDestroy {
-
     @Input() protected inlineParams: Params.IGamesGridCParams;
-    @Input() protected gamesList: Game[];
+    @Input() protected set gamesList(games: Game[]) {
+        this._gamesList = games;
+        this.prepareGrid();
+    };
 
     @ViewChild('gameList') protected gameListElement: ElementRef;
     @ViewChild('gameItem') protected gameItem: ElementRef;
@@ -137,6 +140,7 @@ export class GamesGridComponent extends AbstractComponent implements OnInit, OnD
     protected useLazyAfterClick: boolean = false;
     protected $isReady: Subject<void> = new Subject<void>();
 
+    private _gamesList: Game[];
     private $untilBreakpointOrDestroy: Subject<void> = new Subject();
 
     constructor(
@@ -164,7 +168,7 @@ export class GamesGridComponent extends AbstractComponent implements OnInit, OnD
         this.setWlcElementOnHost();
         this.initTitleIcon();
 
-        if (this.$params.type !== 'swiper') {
+        if (this.$params.theme !== 'swiper') {
             this.applyMoreBtnSettings();
         }
 
@@ -247,7 +251,7 @@ export class GamesGridComponent extends AbstractComponent implements OnInit, OnD
      * Resize container handler
      */
     public onResize(event: ResizedEvent): void {
-        if (!event.oldRect?.width || Math.abs(event.oldRect.width  - event.newRect.width) > 20) {
+        if (!event.oldRect?.width || Math.abs(event.oldRect.width - event.newRect.width) > 20) {
             this.setGridParams();
         }
     }
@@ -313,7 +317,7 @@ export class GamesGridComponent extends AbstractComponent implements OnInit, OnD
         this.games = await this.getGames();
         this.title = this.$params.title || this.gamesCatalogService.getGamesTitleByState() || this.categoryTitle;
 
-        if (this.$params.type === 'swiper') {
+        if (this.$params.theme === 'swiper') {
             // if we use a class field to this.$params.showAsSwiper.sliderParams.swiper.navigation,
             // the swiper navigation buttons will lose their binding
             if (this.$params.showAsSwiper?.useNavigation) {
@@ -326,14 +330,18 @@ export class GamesGridComponent extends AbstractComponent implements OnInit, OnD
             this.gameSlides = this.games.map((game: Game) => {
                 return {
                     component: GameThumbComponent,
-                    componentParams: {
-                        common: {
-                            game: game,
+                    componentParams: _merge(
+                        <IGameThumbCParams>{
+                            common: {
+                                game,
+                            },
                         },
-                        ...this.$params.thumbParams,
-                    },
+                        this.$params.thumbParams,
+                    ),
                 };
             });
+
+            this.gamesSliderConfig = this.createConfigSliders(this.gameSlides);
 
             // without that code we have problems with margins if the number of games is less than or
             // equal to the number that fits in the swiper. Screenshot:
@@ -360,7 +368,7 @@ export class GamesGridComponent extends AbstractComponent implements OnInit, OnD
     }
 
     protected initEventListeners(): void {
-        if (this.$params.type !== 'swiper') {
+        if (this.$params.theme !== 'swiper') {
             this.actionService.deviceType()
                 .pipe(takeUntil(this.$destroy))
                 .subscribe((type: DeviceType) => {
@@ -371,8 +379,7 @@ export class GamesGridComponent extends AbstractComponent implements OnInit, OnD
         this.eventService.subscribe([
             {name: gamesEvents.FETCH_GAME_CATALOG_SUCCEEDED},
             {name: gamesEvents.UPDATED_AVAILABLE_GAMES},
-        ],
-        () => {
+        ], (): void => {
             this.prepareGrid().finally(() => {
                 this.setGridParams();
             });
@@ -444,7 +451,7 @@ export class GamesGridComponent extends AbstractComponent implements OnInit, OnD
      * Set grid params
      */
     protected setGridParams(): void {
-        if (this.$params.type === 'swiper') {
+        if (this.$params.theme === 'swiper') {
             const breakpoints = _orderBy(
                 _map(
                     _keys(this.$params.showAsSwiper?.sliderParams?.swiper?.breakpoints),
@@ -501,7 +508,7 @@ export class GamesGridComponent extends AbstractComponent implements OnInit, OnD
 
     protected setPlaceHolders(): void {
         if (this.$params.usePlaceholders) {
-            if (this.$params.type === 'swiper') {
+            if (this.$params.theme === 'swiper') {
                 this.placeHoldersSlides = _times(this.gamesCount, Number).map(() => {
                     return {
                         component: GameThumbComponent,
@@ -536,8 +543,8 @@ export class GamesGridComponent extends AbstractComponent implements OnInit, OnD
     protected async getFilteredGames(): Promise<Game[]> {
         if (this.$params.gamesList) {
             return this.gamesCatalogService.filterAvailableGames(this.$params.gamesList);
-        } else if (this.gamesList) {
-            return this.gamesCatalogService.filterAvailableGames(this.games);
+        } else if (this._gamesList) {
+            return this.gamesCatalogService.filterAvailableGames(this._gamesList);
         } else if (this.$params.tournamentGamesFilter || this.$params.tournamentFreeRoundGames) {
             return this.getTournamentGames();
         } else if (this.$params.byState) {
@@ -793,20 +800,22 @@ export class GamesGridComponent extends AbstractComponent implements OnInit, OnD
         }
     }
 
-    protected initGameSliders(): void {
-        const createConfig = (slides: ISlide[]): IFormWrapperCParams => ({
+    protected createConfigSliders(slides: ISlide[]): IFormWrapperCParams {
+        return {
             components: [
                 {
                     name: 'promo.wlc-slider',
                     params: <ISliderCParams>_merge({slides}, this.$params.showAsSwiper?.sliderParams),
                 },
             ],
-        });
+        };
+    }
 
+    protected initGameSliders(): void {
         if (this.showGameSlides) {
-            this.gamesSliderConfig = createConfig(this.gameSlides);
+            this.gamesSliderConfig = this.createConfigSliders(this.gameSlides);
         } else {
-            this.gamePlaceholdersSliderConfig = createConfig(this.placeHoldersSlides);
+            this.gamePlaceholdersSliderConfig = this.createConfigSliders(this.placeHoldersSlides);
         }
     }
 
