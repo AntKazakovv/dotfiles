@@ -161,7 +161,7 @@ module.exports = function translationsLogsTask() {
 
         const currentDate = new Date().toDateString();
         const historyPath = this.params.paths.translationLogsDocDist;
-        const stats = searchTranslations(languagesDir);
+        const stats = searchTranslations(languagesDir + '/');
         const oldTranslation = searchOldTranslations(`${historyPath}/1000.translations.md`);
 
         reportOnlyNew(stats.missing, oldTranslation, `${historyPath}/history`, currentDate);
