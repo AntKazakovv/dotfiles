@@ -42,6 +42,7 @@
 
         &__checkbox-wrapper {
             margin: ef.get-value($themeRegFirst, 'checkBoxMargin');
+            padding: ef.get-value($themeRegFirst, 'checkboxWrapperPadding');
             text-align: ef.get-value($themeRegFirst, 'checkBoxWrapperAlign');
         }
 

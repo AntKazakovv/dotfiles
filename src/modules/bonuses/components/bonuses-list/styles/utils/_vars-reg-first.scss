@@ -22,4 +22,5 @@ $themeRegFirst: map-merge((
     'checkBoxMargin': ef.size(8) 0 0 0,
     'checkBoxWrapperAlign': center,
     'checkBoxAlign': left,
+    'checkboxWrapperPadding': 0 ef.size(4),
 ), $customThemeRegFirst);

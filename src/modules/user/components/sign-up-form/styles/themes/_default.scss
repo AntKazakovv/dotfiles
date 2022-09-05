@@ -104,7 +104,7 @@
                 }
 
                 .wlc-checkbox {
-                    padding: ef.get-value($themeDefault, 'checkboxPaddingMga');
+                    @include bm.get-mq-map('padding', $themeDefault, 'checkboxPaddingMga');
                 }
             }
         }

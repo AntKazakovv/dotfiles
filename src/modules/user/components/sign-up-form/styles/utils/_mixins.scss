@@ -30,7 +30,7 @@
 }
 
 @mixin checkboxTermsStyles($map) {
-    padding: ef.get-value($map, 'checkboxPadding');
+    @include bm.get-mq-map('padding', $map, 'checkboxPadding');
 
     .wlc-checkbox__label {
         position: relative;
@@ -38,8 +38,8 @@
 }
 
 @mixin checkboxPrivacyStyles($map) {
+    @include bm.get-mq-map('padding', $map, 'checkboxPrivacyPadding');
     margin: ef.get-value($map, 'checkboxPrivacyMargin');
-    padding: ef.get-value($map, 'checkboxPrivacyPadding');
 
     .wlc-checkbox__label {
         position: relative;
@@ -47,8 +47,8 @@
 }
 
 @mixin checkboxSelfExcludedStyles($map) {
+    @include bm.get-mq-map('padding', $map, 'checkboxSelfExcludedPadding');
     margin: ef.get-value($map, 'checkboxSelfExcludedMargin');
-    padding: ef.get-value($map, 'checkboxSelfExcludedPadding');
 
     .wlc-checkbox__label {
         position: relative;
@@ -56,8 +56,8 @@
 }
 
 @mixin checkboxAgeStyles($map) {
+    @include bm.get-mq-map('padding', $map, 'checkboxAgePadding');
     margin: ef.get-value($map, 'checkboxAgeMargin');
-    padding: ef.get-value($map, 'checkboxAgePadding');
 
     .wlc-checkbox__label {
         position: relative;

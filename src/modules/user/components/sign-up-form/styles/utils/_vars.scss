@@ -31,14 +31,26 @@ $themeDefault: map-merge((
     'checkboxLinkColorHover': var(--mc-baseMain),
     'checkboxLinkBorderColorHover': var(--mc-main-l20),
 
-    'checkboxPadding': ef.size(4) ef.size(2) 0 ef.size(2),
-    'checkboxSelfExcludedPadding': 0 ef.size(2),
+    'checkboxPadding': (
+        375: ef.size(4) ef.size(2) 0 0,
+        900: ef.size(4) ef.size(2) 0 ef.size(2),
+    ),
+    'checkboxSelfExcludedPadding': (
+        900: 0 ef.size(2),
+    ),
     'checkboxSelfExcludedMargin': -17px 0 0,
-    'checkboxPrivacyPadding': 0 ef.size(2),
+    'checkboxPrivacyPadding': (
+        900: 0 ef.size(2),
+    ),
     'checkboxPrivacyMargin': -17px 0 0,
     'checkboxAgeMargin': -17px 0 0,
-    'checkboxAgePadding': 0 ef.size(2) ef.size(4) ef.size(2),
-    'checkboxPaddingMga': 0 ef.size(2),
+    'checkboxAgePadding': (
+        375: 0 ef.size(2) ef.size(4) 0,
+        900: 0 ef.size(2) ef.size(4) ef.size(2),
+    ),
+    'checkboxPaddingMga': (
+        900: 0 ef.size(2),
+    ),
 
     'birthFieldGridColumns': repeat(3, 1fr),
 ), $customThemeDefault);
