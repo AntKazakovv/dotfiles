@@ -45,6 +45,7 @@ import {UserProfile} from 'wlc-engine/modules/user/system/models/profile.model';
 import {ICategorySettings} from 'wlc-engine/modules/core/system/interfaces/categories.interface';
 import {
     gamesEvents,
+    IDisableGameMerchants,
     IGamesSortSetting,
 } from 'wlc-engine/modules/games/system/interfaces/games.interfaces';
 import {Game} from 'wlc-engine/modules/games/system/models/game.model';
@@ -121,6 +122,7 @@ export class GamesCatalog extends AbstractModel<IGames> {
     protected games: Game[];
     protected availableGames: Game[];
     protected availableMerchants: MerchantModel[];
+    protected disabledMerchants: IDisableGameMerchants;
     protected sportsbooks: Game[] = [];
     protected categories: CategoryModel[] = [];
     protected projectCategories: CategoryModel[] = [];
@@ -602,6 +604,8 @@ export class GamesCatalog extends AbstractModel<IGames> {
             this.categorySettings = defaultCategorySettings;
         }
 
+        this.disabledMerchants = this.configService.get('$games.merchants.disable');
+
         const menuService: MenuService = await this.injectionService.getService<MenuService>('menu.menu-service');
         this.existMenuSettings = await menuService.existFundistMenuSettings();
 
@@ -635,7 +639,7 @@ export class GamesCatalog extends AbstractModel<IGames> {
                 skipWhile(v => !v),
             )
             .subscribe((userProfile) => {
-                if (this.userCountry !== userProfile.countryCode) {
+                if (this.disabledMerchants || this.userCountry !== userProfile.countryCode) {
                     this.updateAvailableGamesAndMerchants(userProfile.countryCode);
                 }
             });
@@ -653,9 +657,24 @@ export class GamesCatalog extends AbstractModel<IGames> {
         const restrictCountries: string[] = [country, this.userCountry];
         const merchantIds = new Set([]);
 
+        let disabledMerchants: number[] = [];
+
+        if (this.disabledMerchants?.byDefault) {
+            disabledMerchants = this.disabledMerchants.byDefault;
+        }
+
+        if (!this.configService.get<boolean>('$user.isAuthenticated') && this.disabledMerchants?.forUnauthorisedUsers) {
+            disabledMerchants = _union(disabledMerchants, this.disabledMerchants.forUnauthorisedUsers);
+        }
+
         this.availableGames = _filter(this.games, (game: Game) => {
+            if (disabledMerchants && _includes(disabledMerchants, game.merchantID)) {
+                return false;
+            }
+
             if (!game.gameRestricted(this.restrictions, restrictCountries)) {
                 merchantIds.add(game.merchantID);
+
                 if (game.subMerchantID) {
                     merchantIds.add(game.subMerchantID);
                 }
@@ -669,6 +688,10 @@ export class GamesCatalog extends AbstractModel<IGames> {
         this.availableGames = _orderBy(this.availableGames, ['sort'], [direction]);
 
         this.availableMerchants = _filter(this.merchants, (merchant: MerchantModel) => {
+            if (disabledMerchants && _includes(disabledMerchants, merchant.id)) {
+                return false;
+            }
+
             return merchantIds.has(merchant.id);
         });
 

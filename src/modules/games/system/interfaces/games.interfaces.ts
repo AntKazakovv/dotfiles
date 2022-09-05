@@ -61,6 +61,7 @@ export interface IGamesConfig {
      * Cache settings
      */
     cacheSettings?: ICacheSettings,
+    merchants?: IGameMerchants;
 }
 
 export interface IGamesSearchSettings {
@@ -477,4 +478,13 @@ export interface IMerchantWalletSystemConfig {
 export interface IGameJackpotAmount {
     amount: number;
     currency: string;
+}
+
+export interface IGameMerchants {
+    disable?: IDisableGameMerchants;
+}
+
+export interface IDisableGameMerchants {
+    byDefault?: number[];
+    forUnauthorisedUsers?: number[];
 }
