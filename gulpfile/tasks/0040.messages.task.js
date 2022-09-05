@@ -10,9 +10,13 @@ const {task, src, dest, series} = require('gulp'),
 
 module.exports = function messagesTask() {
     task('message:temp_front_po', (cb) => {  // Done
+        const languagesDir = fs.existsSync(this.params.paths.languagesDev)
+            ? this.params.paths.languagesDev
+            : this.params.paths.languagesPack;
+
         const commands = _.keys(this.params.locales).map(locale => {
             const poFilePath = this.params.paths.src + `/languages/frontend/${locale}.po`,
-                enginePoFilePath = this.params.paths.engineLink + `/system/languages/${locale}.po`;
+                enginePoFilePath = `${languagesDir}/${locale}.po`;
 
             return `msgcat --force-po --lang=${locale} ` +
                 `${(fs.existsSync(poFilePath)) ? `--use-first ${poFilePath}` : ''} ` +
@@ -211,15 +215,20 @@ module.exports = function messagesTask() {
     });
 
     task('message:front_pot_to_po', async (cb) => {  // Done
+        const languagesDir = fs.existsSync(this.params.paths.languagesDev)
+            ? this.params.paths.languagesDev
+            : this.params.paths.languagesPack;
 
+        const poFilePath1 = (this.params.isEngineBundle
+            ? languagesDir
+            : this.params.paths.src + '/languages/frontend');
         let commands = _.keys(this.params.locales).map(locale => {
-            const poFilePath = this.params.paths.src
-                + `${this.params.isEngineBundle ? '/system' : ''}`
-                + `/languages/${this.params.isEngineBundle ? '' : 'frontend/'}${locale}.po`;
+            const poFilePath = `${poFilePath1}/${locale}.po`;
+
             if (fs.existsSync(poFilePath)) {
                 return `msgmerge --force-po --no-fuzzy-matching --update --backup=off --lang=${locale} ` +
-                    `${poFilePath} ${this.params.paths.temp}/front.pot \n` +
-                    `sed -i 's/#~ //g' ${poFilePath}\n`;
+                `${poFilePath} ${this.params.paths.temp}/front.pot \n` +
+                `sed -i 's/#~ //g' ${poFilePath}\n`;
             } else {
                 return `msgcat --force-po --lang=${locale} ` +
                     `${this.params.paths.temp}/front.pot > ${poFilePath}\n`;
@@ -232,10 +241,14 @@ module.exports = function messagesTask() {
     });
 
     task('message:merge_engine_pot', async (cb) => {
+        const languagesDir = fs.existsSync(this.params.paths.languagesDev)
+            ? this.params.paths.languagesDev
+            : this.params.paths.languagesPack;
+
         const commands = [
             `mv ${this.params.paths.temp}/front.pot ${this.params.paths.temp}/engine.pot \n`,
             `msgcat ${this.params.paths.temp}/engine.pot `
-                + `${this.params.paths.src}/system/languages/messages.pot > ${this.params.paths.temp}/front.pot\n`,
+                + `${languagesDir}/messages.pot > ${this.params.paths.temp}/front.pot\n`,
         ];
 
         await this.execShell(commands, true);

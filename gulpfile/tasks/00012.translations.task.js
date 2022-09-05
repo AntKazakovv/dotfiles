@@ -155,9 +155,13 @@ module.exports = function translationsLogsTask() {
     };
 
     task('translations-logs', async (done) => {
+        const languagesDir = fs.existsSync(this.params.paths.languagesDev)
+            ? this.params.paths.languagesDev
+            : this.params.paths.languagesPack;
+
         const currentDate = new Date().toDateString();
         const historyPath = this.params.paths.translationLogsDocDist;
-        const stats = searchTranslations(this.params.paths.src + '/system/languages/');
+        const stats = searchTranslations(languagesDir);
         const oldTranslation = searchOldTranslations(`${historyPath}/1000.translations.md`);
 
         reportOnlyNew(stats.missing, oldTranslation, `${historyPath}/history`, currentDate);

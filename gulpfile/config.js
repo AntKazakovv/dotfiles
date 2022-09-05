@@ -20,6 +20,8 @@ module.exports = function config(root, bundleType) {
             dist: root + (isEngineBundle ? '/dist' : '/roots/static/dist'),
             locale: root + '/roots/locale',
             localejs: root + '/roots/static/po',
+            languagesDev: '../wlc-engine-translate',
+            languagesPack: './node_modules/@egamings/wlc-engine-translate',
             languages: root + '/src/languages',
             languagesDist: root + '/roots/static/languages',
             localLanguagesDist: root + '/src/static',
