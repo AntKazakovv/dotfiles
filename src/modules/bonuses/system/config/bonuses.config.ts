@@ -12,7 +12,6 @@ export const bonusesConfig: IBonusesModule = {
                 'promo-home': {
                     title: gettext('New bonuses will appear very soon.'),
                     text: gettext('Cheer yourself up with our new and popular games.'),
-                    bgImage: '/gstatic/wlc/bonuses/no-bonuses/no-bonus-block-background.jpg',
                 },
             },
         },

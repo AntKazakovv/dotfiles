@@ -51,7 +51,6 @@ export const defaultParams: ILoyaltyProgramCParams = {
     moduleName: 'loyalty',
     componentName: 'wlc-loyalty-program',
     class: 'wlc-loyalty-program',
-    imagePath: '/gstatic/loyalty-program/',
     imageType: 'png',
     decorLeftPath: '/gstatic/loyalty-program/decor/left-decor.png',
     decorRightPath: '/gstatic/loyalty-program/decor/right-decor.png',

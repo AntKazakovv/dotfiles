@@ -44,9 +44,9 @@ export class BonusModalComponent extends AbstractComponent implements OnInit {
         this.bonus = this.$params.bonus;
 
         if (this.configService.get<boolean>('$bonuses.useNewImageSources')) {
-            this.bonusBgUrl = `url(${this.bonus.imageDescription})`;
+            this.bonusBgUrl = this.bonus.imageDescription ? `url(${this.bonus.imageDescription})`: '';
         } else {
-            this.bonusBgUrl = `url(${this.bonus.imageOther})`;
+            this.bonusBgUrl = this.bonus.imageOther ? `url(${this.bonus.imageOther})` : '';
         }
     }
 }

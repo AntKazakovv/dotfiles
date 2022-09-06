@@ -19,7 +19,7 @@ export interface IBonusesModule {
     /** Default bonus fallback icon path */
     fallBackIconPath?: string;
     defaultImages?: {
-        /** Bonus image for bonus in profile dashboard, profile bonuses, bonus block in main page  in default profile */
+        /** Bonus image for bonus in profile dashboard, profile bonuses, bonus block in main page in default profile */
         image?: string;
         /**
          * Bonus image for bonus in profile dashboard, profile bonuses,

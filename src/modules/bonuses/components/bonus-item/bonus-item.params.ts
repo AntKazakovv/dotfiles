@@ -35,6 +35,10 @@ export interface IBonusItemCParams extends IComponentParams<Theme, Type, ThemeMo
     dummy?: boolean;
     /** Make the bonus logic independent of the profile */
     noDependsOnProfile?: boolean;
+    /** Default blamk bonus image */
+    blankBonusImage?: string;
+    /** Default dummy bonus image */
+    dummyBonusImage?: string;
     common?: {
         customModifiers?: CustomMod;
         showAdditionalImage?: boolean;
@@ -62,6 +66,8 @@ export const defaultParams: IBonusItemCParams = {
     moduleName: 'bonuses',
     componentName: 'wlc-bonus-item',
     class: 'wlc-bonus-item',
+    blankBonusImage: '/gstatic/wlc/bonuses/blank-bonus-decor.png',
+    dummyBonusImage: '/gstatic/wlc/bonuses/bonus-dummy.svg',
     common: {
         showAdditionalImage: false,
         showBonusTag: true,

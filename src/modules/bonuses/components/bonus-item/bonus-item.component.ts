@@ -86,8 +86,8 @@ export class BonusItemComponent extends AbstractComponent implements OnInit, OnC
 
         if (!this.bonus) {
             imageUrl = this.$params.dummy
-                ? this.configService.get<string>('$bonuses.defaultImages.imageDummy')
-                : this.configService.get<string>('$bonuses.defaultImages.imageBlank');
+                ? this.configService.get<string>('$bonuses.defaultImages.imageDummy') || this.$params.dummyBonusImage
+                : this.configService.get<string>('$bonuses.defaultImages.imageBlank') || this.$params.blankBonusImage;
 
         } else if (this.$params.theme === 'promo-home') {
             imageUrl = this.bonus.imagePromoHome;

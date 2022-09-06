@@ -80,7 +80,7 @@ export class LoyaltyProgramComponent extends AbstractComponent implements OnInit
      * creates a path from configuration parameters and level values
      */
     public imageLevel(level: number): string {
-        return `${this.$params.imagePath}${level}.${this.$params.imageType}`;
+        return this.$params.imagePath ? `${this.$params.imagePath}${level}.${this.$params.imageType}` : '';
     }
 
     /**

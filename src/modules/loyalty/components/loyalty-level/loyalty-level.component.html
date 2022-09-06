@@ -1,4 +1,5 @@
-<div class="{{$class}}__image"
+<div *ngIf="$params.image || $params.fallbackImage"
+     class="{{$class}}__image"
      [ngClass]="{'custom-image': $params.image}">
     <img class="{{$class}}__icon {{$class}}__icon--{{$params.level}}"
          loading="lazy"
