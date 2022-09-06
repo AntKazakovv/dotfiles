@@ -66,9 +66,17 @@
             width: ef.get-value($themeMini, 'imageIconWidth');
             height: ef.get-value($themeMini, 'imageIconHeight');
 
-            &-text {
+            & .wlc-bonus-item__icon-text {
                 @include text.get-text-style(ef.get-value($themeMini, 'imageIconFontStyle'), ef.get-value($themeMini, 'imageIconColor'));
                 min-height: ef.get-value($themeMini, 'imageIconMinHeight');
+
+                &.wlc-small {
+                    font-size: ef.get-value($themeMini, 'bonusIconTextStyleSmall');
+                }
+
+                &.wlc-smaller {
+                    font-size: ef.get-value($themeMini, 'bonusIconTextStyleSmaller');
+                }
             }
         }
 

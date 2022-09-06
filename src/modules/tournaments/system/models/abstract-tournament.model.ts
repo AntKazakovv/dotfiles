@@ -43,7 +43,9 @@ export abstract class AbstractTournamentModel<T extends ITournamentAbstract> ext
             .replace(/<[^>]*>/g, '');
         this.userCurrency = this.configService.
             get<BehaviorSubject<UserProfile>>('$user.userProfile$').getValue()?.currency
-            || this.configService.get<string>('$base.defaultCurrency');
+            && this.configService.get('$user.isAuthenticated')
+            ? this.configService.get<BehaviorSubject<UserProfile>>('$user.userProfile$').getValue()?.currency
+            : this.configService.get<string>('$base.defaultCurrency');
         this.useUsersCurrency = this.configService.get<boolean>('$base.tournaments.useUsersCurrency');
     }
 

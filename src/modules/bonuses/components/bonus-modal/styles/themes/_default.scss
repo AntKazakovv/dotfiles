@@ -95,11 +95,11 @@
                 transform: ef.get-value($themeDefault, 'iconValTransform');
 
                 &.wlc-small {
-                    @include text.get-text-style(ef.get-value($themeDefault, 'iconTextStyleSmall'), ef.get-value($themeDefault, 'iconValFontColor'));
+                    font-size: ef.get-value($themeDefault, 'iconTextStyleSmall');
                 }
 
                 &.wlc-smaller {
-                    @include text.get-text-style(ef.get-value($themeDefault, 'iconTextStyleSmaller'), ef.get-value($themeDefault, 'iconValFontColor'));
+                    font-size: ef.get-value($themeDefault, 'iconTextStyleSmaller');
                 }
             }
         }

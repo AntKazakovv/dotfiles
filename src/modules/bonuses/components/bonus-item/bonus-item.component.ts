@@ -16,6 +16,7 @@ import _merge from 'lodash-es/merge';
 import _get from 'lodash-es/get';
 import _map from 'lodash-es/map';
 import _includes from 'lodash-es/includes';
+import _isArray from 'lodash-es/isArray';
 
 import {
     AbstractComponent,
@@ -157,6 +158,10 @@ export class BonusItemComponent extends AbstractComponent implements OnInit, OnC
      */
     public get isThemeModWithImage(): boolean {
         return this.$params.themeMod === 'with-image';
+    }
+
+    public get valueBonus(): number {
+        return _isArray(this.bonus.value) ? 0 : this.bonus.value;
     }
 
     public get bonusBg(): string {

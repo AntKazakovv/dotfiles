@@ -45,8 +45,8 @@ $themeDefault: map-merge((
     'bonusIconValTransform': translateX(-50%),
     'bonusIconValPadding': 0 ef.size(1),
     'bonusIconTextStyle': 'ThirdTitleBold',
-    'bonusIconTextStyleSmall': 'PrimaryTextBold',
-    'bonusIconTextStyleSmaller': 'CaptionText',
+    'bonusIconTextStyleSmall': 1.4rem,
+    'bonusIconTextStyleSmaller': 1.2rem,
     'bonusIconRadius': 50%,
     'bonusIconSize': (
         320: 120px,

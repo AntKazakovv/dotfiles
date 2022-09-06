@@ -15,6 +15,7 @@ import _toString from 'lodash-es/toString';
 import _isString from 'lodash-es/isString';
 import _isNumber from 'lodash-es/isNumber';
 import _toNumber from 'lodash-es/toNumber';
+import _round from 'lodash-es/round';
 
 import {
     IIndexing,
@@ -419,6 +420,28 @@ export class Bonus extends AbstractModel<IBonus> {
         return this.data.Results || {};
     }
 
+    /**
+     * @returns {string} Type balance
+     */
+    public get typeBalance(): string {
+        return this.results?.balance?.Type;
+    }
+
+    /**
+     * @returns {string} Type freebets
+     */
+    public get typeFreebets(): string {
+        return this.results?.freebets?.Type;
+    }
+
+    /**
+     * @returns {boolean} condition for displaying the currency icon
+     */
+    public get currencyIcon(): boolean {
+        return ((this.target === 'balance' && this.typeBalance === 'absolute')
+            || (this.bonusType === 'sport' && this.typeFreebets === 'absolute'));
+    }
+
     public get selected(): boolean {
         return !!this.data.Selected;
     }
@@ -588,9 +611,17 @@ export class Bonus extends AbstractModel<IBonus> {
      * @returns {number} bonus limit value
      */
     public get limitAmount(): number {
-        if (this.results[this.target].Type === 'relative') {
-            return _toNumber(this.results[this.target].LimitValue?.EUR) || 0;
+        if (this.results?.[this.target].Type === 'relative') {
+            return _toNumber(this.results[this.target].LimitValue[Bonus.userCurrency]) ||
+                _toNumber(this.results[this.target].LimitValue?.EUR) || 0;
         }
+    }
+
+    /**
+     * @returns {boolean} is bonus limit in EUR (need for experience and loyalty bonuses)
+     */
+    public get isLimitAmountEUR(): boolean {
+        return !this.results?.balance?.LimitValue[Bonus.userCurrency] && !!this.results?.balance?.LimitValue?.EUR;
     }
 
     /**
@@ -606,9 +637,9 @@ export class Bonus extends AbstractModel<IBonus> {
         if (this.target === 'balance') {
             return _toNumber(resultsTarget.ReleaseWagering) || 0;
         } else {
-            return _toNumber(resultsTarget.AwardWagering?.COEF)
-                || _toNumber(resultsTarget.AwardWagering[Bonus.userCurrency])
-                || _toNumber(resultsTarget.AwardWagering?.EUR)
+            return _toNumber(resultsTarget?.AwardWagering?.COEF)
+                || _toNumber(resultsTarget?.AwardWagering[Bonus.userCurrency])
+                || _toNumber(resultsTarget?.AwardWagering?.EUR)
                 || 0;
         }
     }
@@ -643,16 +674,23 @@ export class Bonus extends AbstractModel<IBonus> {
         switch (this.target) {
             case 'loyalty' || 'experience':
                 return resultsTarget.Type === 'relative'
-                    ? _toNumber(resultsTarget.Value)
-                    : _toNumber((resultsTarget as IBonusResultValueDefault).Value?.EUR);
+                    ? _round(_toNumber(resultsTarget.Value))
+                    : _round(_toNumber((resultsTarget as IBonusResultValueDefault).Value?.EUR));
             case 'lootbox':
                 return (resultsTarget as IBonusResultValueLootbox).Value;
             default:
-                return _toNumber(resultsTarget.Value?.[Bonus.userCurrency])
-                    || _toNumber((resultsTarget as IBonusResultValueDefault).Value?.Currency)
-                    || _toNumber((resultsTarget as IBonusResultValueDefault).Value?.EUR)
-                    || _toNumber(resultsTarget.Value);
+                return _round(_toNumber(resultsTarget.Value[Bonus.userCurrency]))
+                    || _round(_toNumber((resultsTarget as IBonusResultValueDefault).Value?.Currency))
+                    || _round(_toNumber((resultsTarget as IBonusResultValueDefault).Value?.EUR))
+                    || _round(_toNumber(resultsTarget.Value));
         }
+    }
+
+    /**
+     * @returns {string} currency value
+     */
+    public get currencyValue(): string {
+        return Bonus.userCurrency;
     }
 
 

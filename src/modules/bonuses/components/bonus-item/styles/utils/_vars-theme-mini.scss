@@ -43,4 +43,8 @@ $themeMini: map-merge((
     'moreIconBorderRadius': ef.get-value($themeDefault, 'radius'),
     'moreIconWidth': 20px,
     'moreIconHeight': 20px,
+
+    // bonus icon
+    'bonusIconTextStyleSmall': 0.9rem,
+    'bonusIconTextStyleSmaller': 0.8rem,
 ), $customThemeMini);

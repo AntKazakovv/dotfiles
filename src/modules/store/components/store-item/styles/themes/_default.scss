@@ -157,7 +157,8 @@
             .icon-text {
                 @include bm.get-mq-map('height', $themeDefault, 'bonusIconValueBlockHeight');
 
-                @include bm.get-mq-map('font-size', $themeDefault, 'bonusIconValueFontSize');
+                @include text.get-text-style(ef.get-value($themeDefault, 'bonusIconTextStyle'),
+                ef.get-value($themeDefault, 'bonusIconValueFontColor'));
                 position: absolute;
                 bottom: ef.get-value($themeDefault, 'bonusIconValueBlockPosB');
                 left: ef.get-value($themeDefault, 'bonusIconValueBlockPosL');
@@ -177,11 +178,11 @@
                 border-radius: ef.get-value($themeDefault, 'bonusIconValueBlockBorderRds');
 
                 &.wlc-small {
-                    font-size: ef.get-value($themeDefault, 'bonusIconValueFontSizeSmall');
+                    font-size: ef.get-value($themeDefault, 'bonusIconTextStyleSmall');
                 }
 
                 &.wlc-smaller {
-                    font-size: ef.get-value($themeDefault, 'bonusIconValueFontSizeSmaller');
+                    font-size: ef.get-value($themeDefault, 'bonusIconTextStyleSmaller');
                 }
             }
         }
