@@ -1,6 +1,6 @@
 {
     "name": "@egamings/wlc-engine",
-    "version": "1.12.0",
+    "version": "1.13.0-rc.1",
     "scripts": {
         "ng": "ng",
         "start": "ng serve",
@@ -15,7 +15,7 @@
         "stylelint": "stylelint \"./**/*.scss\" --config='./stylelint.config.js'",
         "e2e": "ng e2e",
         "checking-changes": "gulp checking-changes",
-        "update-locale": "ngx-translate-extract -i ./src/**/*.{ts,tsx,html} -o src/system/languages/messages.pot --sort --format pot && node ./utils/pot2po.js",
+        "update-locale": "ngx-translate-extract -i ./src/**/*.{ts,tsx,html} -o node_modules/@egamings/wlc-engine-translate/messages.pot --sort --format pot && node ./utils/pot2po.js",
         "gulp": "gulp",
         "update": "ng update @angular/cli @angular/core --force",
         "test:api": "cd api-tests && PROJECT_URL=\"https://qa-devcasino.egamings.com\" npx jasmine-ts --config=jasmine.json",
@@ -53,6 +53,7 @@
         "@angular/router": "~13.3.6",
         "@angular/service-worker": "~13.3.6",
         "@biesbjerg/ngx-translate-extract": "7.0.3",
+        "@egamings/wlc-engine-translate": "^1.0.0",
         "@egjs/hammerjs": "^2.0.17",
         "@formatjs/intl-locale": "^2.4.47",
         "@formatjs/intl-numberformat": "^7.4.3",
