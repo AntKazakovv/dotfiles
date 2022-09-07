@@ -36,6 +36,11 @@ $themePromoCategories: map-merge((
         1200: list.slash(4, 6),
         1630: list.slash(5, 7),
     ),
+    'winnersSliderMinHeight': (
+        375: auto,
+        1200: 350px,
+        1630: 395px,
+    ),
     'winnersSliderPadding': 0 ef.size(4),
     'winnersSliderMargin': 0 0 ef.size(4) 0,
     'winnersSliderMarginNoWinners': 0 0 ef.size(4) 0,

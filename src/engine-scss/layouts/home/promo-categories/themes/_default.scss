@@ -13,6 +13,7 @@
 
     .wlc-winners-slider[class] {
         @include bm.get-mq-map('grid-column', $themePromoCategories, 'winnersSliderGridColumn');
+        @include bm.get-mq-map('min-height', $themePromoCategories, 'winnersSliderMinHeight');
 
         .wlc-winners-slider__wrapper[class] {
             max-width: 100%;
