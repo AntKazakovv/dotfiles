@@ -19,6 +19,11 @@ export interface IRedirectConfig {
      */
     states?: IIndexing<IRedirect>;
     profileRedirects?: IIndexing<profileRedirectType>;
+
+    /**
+     * redirects after application start to a specific state
+     */
+    redirectAfterLoad?: IRedirectAfterLoad;
 }
 
 export interface IRedirect {
@@ -32,6 +37,18 @@ export interface ISocketsData {
     api: string;
     server: string;
     token: string;
+}
+
+export interface IRedirectAfterLoad {
+    /**
+     * state where will the redirect be made
+     * example: 'app.promotions', 'app.tournaments' etc
+     */
+    state: string;
+    /**
+     * if the parameter is enabled, then the redirect will occur every time the page is reloaded
+     */
+    repeatRedirect: boolean;
 }
 
 export type TIconColorBg = 'dark' | 'light';
