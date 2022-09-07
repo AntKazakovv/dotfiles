@@ -29,6 +29,10 @@
             .rate {
                 color: ef.get-value($themeDefault, 'rateColor');
             }
+
+            .wlc-currency--theme-default {
+                display: inline;
+            }
         }
 
         &__clipboard,
