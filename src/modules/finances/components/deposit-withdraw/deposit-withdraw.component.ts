@@ -228,7 +228,7 @@ export class DepositWithdrawComponent
             this.userService.userInfo$
                 .pipe(takeUntil(this.$destroy))
                 .subscribe((userInfo: UserInfo): void => {
-                    if(!userInfo) {
+                    if (!userInfo) {
                         return;
                     }
                     this.userTotalBonus = userInfo.balance;
@@ -416,7 +416,7 @@ export class DepositWithdrawComponent
                 type: 'success',
                 title: gettext('Withdraw'),
                 message: [
-                    gettext('Withdraw request has been successfully sent!'),
+                    this.translateService.instant(gettext('Withdraw request has been successfully sent!')),
                     this.translateService.instant(gettext('Withdraw sum')) + ` ${currencyIcon}`,
                 ],
                 wlcElement: 'notification_withdraw-request-success',
@@ -967,7 +967,7 @@ export class DepositWithdrawComponent
             () => this.piqFieldsStyles.current === this.piqFieldsStyles.alt
                 ? this.requestStyles(this.piqFieldsStyles.def, () => of(''))
                 : of(''),
-        ).subscribe((styles: string): void  => {
+        ).subscribe((styles: string): void => {
             this.cssVariables = styles;
         });
     }
