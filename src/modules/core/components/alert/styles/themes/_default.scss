@@ -4,6 +4,11 @@
     --wlc-alert-bg: #{ef.get-value($themeDefault, 'mainBg')};
     max-width: ef.get-value($themeDefault, 'maxWidth');
 
+    &.wlc-alert--default {
+        --wlc-alert-text-color: #{ef.get-value($themeDefault, 'mainColorDefault')};
+        --wlc-alert-bg: #{ef.get-value($themeDefault, 'mainBgDefault')};
+    }
+
     &.wlc-alert--info {
         --wlc-alert-text-color: #{ef.get-value($themeDefault, 'mainColorInfo')};
         --wlc-alert-bg: #{ef.get-value($themeDefault, 'mainBgInfo')};

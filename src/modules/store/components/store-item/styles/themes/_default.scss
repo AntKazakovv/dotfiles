@@ -302,4 +302,49 @@
             }
         }
     }
+
+    &.wlc-store-item--disabled {
+        filter: grayscale(1);
+
+        .wlc-store-item__content {
+            @include bm.get-mq-map('height', $themeDefault, 'heightDisabled');
+
+            @include bm.hover(false) {
+                @include bm.get-mq-map('height', $themeDefault, 'heightMobileDisabled');
+            }
+        }
+
+        .wlc-store-item__wrapper {
+
+            .wlc-store-item__btns {
+                display: none;
+            }
+
+            @include bm.hover {
+                background: ef.get-value($themeDefault, 'backgroundHoverDisabled');
+
+                .wlc-store-item__btns {
+                    display: none;
+                }
+
+                .wlc-store-item__price {
+                    transform: initial;
+                }
+
+                .wlc-store-item__info-block {
+
+                    .wlc-store-item__price {
+
+                        @include mq.min(1630) {
+                            transform: initial;
+                        }
+                    }
+                }
+
+                .wlc-store-item__name {
+                    opacity: 1;
+                }
+            }
+        }
+    }
 }

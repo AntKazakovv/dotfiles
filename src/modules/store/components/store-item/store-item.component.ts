@@ -78,13 +78,10 @@ export class StoreItemComponent extends AbstractComponent implements OnInit, OnD
     }
 
     public openDescription(storeItem: StoreItem): void {
-        this.modalService.showModal({
-            id: 'store-item-info',
-            modalTitle: storeItem.name,
-            wlcElement: 'store_modal-info',
-            modifier: 'info',
-            html: storeItem.description,
-            dismissAll: true,
+        this.modalService.showModal('storeItemInfo', {
+            title: storeItem.name,
+            description: storeItem.description,
+            isDisabled: this.storeItem.isAvailable ? false : true,
         });
     }
 
@@ -108,6 +105,11 @@ export class StoreItemComponent extends AbstractComponent implements OnInit, OnD
         if (this.$params.common?.customModifiers) {
             modifiers = _union(modifiers, this.$params.common.customModifiers.split(' '));
         }
+
+        if (!this.storeItem.isAvailable) {
+            modifiers.push('disabled');
+        }
+
         this.addModifiers(modifiers);
     }
 }

@@ -223,4 +223,35 @@
             }
         }
     }
+
+    &.wlc-store-item--disabled {
+        filter: grayscale(1);
+
+        .wlc-store-item__content {
+
+            .wlc-store-item__image {
+                transform: none;
+
+                &:before {
+                    transform: none;
+                }
+            }
+
+            .wlc-store-item__btns {
+                @include bm.get-mq-map('visibility', $themeFirst, 'visibilityBtnDisabled');
+                @include bm.get-mq-map('display', $themeFirst, 'displayBtnDisabled');
+            }
+
+            @include bm.hover {
+
+                .wlc-store-item__btns {
+                    opacity: 0;
+                }
+
+                .wlc-store-item__bottom {
+                    transform: initial;
+                }
+            }
+        }
+    }
 }

@@ -22,6 +22,16 @@ $themeDefault: map-merge((
         320: 340px,
         1630: 410px,
     ),
+    'heightDisabled': (
+        320: unset,
+        720: 290px,
+        1630: 370px,
+    ),
+    'heightMobileDisabled': (
+        320: unset,
+        720: 340px,
+        1630: 410px,
+    ),
     'infoHeight': (
         320: 90px,
         1630: 110px,
@@ -82,6 +92,7 @@ $themeDefault: map-merge((
     // // Backgrounds
     'background': var(--mc-bg300),
     'backgroundHover':  null,
+    'backgroundHoverDisabled': var(--mc-bg300),
     'imageBg': transparent,
     'bonusIconValueBg': ef.get('mainColors', 'baseMain'),
 

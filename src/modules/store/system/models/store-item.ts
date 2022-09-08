@@ -161,4 +161,11 @@ export class StoreItem extends AbstractModel<IStoreItem> {
 
         return gettext('Real gift');
     }
+
+    /**
+    * @returns {number} is available
+    */
+    public get isAvailable(): number {
+        return _toNumber(this.data.IsItemAvailable);
+    }
 }

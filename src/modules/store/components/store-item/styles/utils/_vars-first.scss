@@ -47,6 +47,13 @@ $themeFirst: map-merge((
     'infoPadding': 0 ef.size(2),
     'btnMargin': 0 ef.size(1),
     'btnMarginMobile': 0 ef.size(1) ef.size(4) ef.size(1),
+    'visibilityBtnDisabled': (
+        720: hidden,
+    ),
+    'displayBtnDisabled': (
+        320: none,
+        720: flex,
+    ),
     'imagePadding': (
         320: 70% 0 0 0,
         1630: 70% 0 0 0,

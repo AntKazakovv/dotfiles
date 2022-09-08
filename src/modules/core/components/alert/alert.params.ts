@@ -12,6 +12,7 @@ export type ComponentThemeMod = 'default' | CustomType;
 export const alertIcons: IIndexing<string> = {
     info: 'wlc/icons/info.svg',
     warning: 'wlc/icons/warning.svg',
+    default: 'wlc/icons/info.svg',
 };
 
 export type TLevel = keyof typeof alertIcons;
@@ -26,5 +27,5 @@ export const defaultParams: IAlertCParams = {
     class: 'wlc-alert',
     componentName: 'wlc-alert',
     moduleName: 'core',
-    level: 'info',
+    level: 'default',
 };

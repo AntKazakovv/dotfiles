@@ -1,0 +1,31 @@
+.wlc-store-item-info--theme-default:host {
+
+    .wlc-store-item-info {
+
+        &__title {
+            @include text.get-text-style(ef.get-value($themeDefault, 'titleFontSize', 320), ef.get-value($themeDefault, 'titleColor'));
+            margin: ef.get-value($themeDefault, 'titleMargin');
+            text-align: center;
+
+            @include mq.min(768) {
+                @include text.get-text-style(ef.get-value($themeDefault, 'titleFontSize', 768));
+            }
+        }
+
+        &__body {
+            padding: ef.get-value($themeDefault, 'paddingBody');
+        }
+
+        &__description {
+            padding: ef.get-value($themeDefault, 'paddingDescription');
+        }
+    }
+
+    ::ng-deep {
+
+        .wlc-alert {
+            max-width: ef.get-value($themeDefault, 'alertMaxWidth');
+            margin: ef.get-value($themeDefault, 'alertMargin');
+        }
+    }
+}

@@ -47,6 +47,7 @@ export interface IStoreItem {
     Quantity: string;
     RepeatBuyRestriction: string;
     Status: string;
+    IsItemAvailable: string;
     IDBonus?: string;
     BonusEventAmount?: string;
     BonusInfo?: IStoreBonusInfo;

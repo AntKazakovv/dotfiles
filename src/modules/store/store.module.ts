@@ -9,11 +9,13 @@ import {StoreService} from './system/services';
 import {StoreItemComponent} from './components/store-item/store-item.component';
 import {StoreListComponent} from './components/store-list/store-list.component';
 import {StoreTitleComponent} from './components/store-title/store-title.component';
+import {StoreItemInfoComponent} from './components/store-item-info/store-item-info.component';
 
 export const components = {
     'wlc-store-item': StoreItemComponent,
     'wlc-store-list': StoreListComponent,
     'wlc-store-title': StoreTitleComponent,
+    'wlc-store-item-info': StoreItemInfoComponent,
 };
 
 export const services = {
@@ -25,6 +27,7 @@ export const services = {
         StoreItemComponent,
         StoreListComponent,
         StoreTitleComponent,
+        StoreItemInfoComponent,
     ],
     imports: [
         CommonModule,
@@ -38,6 +41,7 @@ export const services = {
         StoreItemComponent,
         StoreListComponent,
         StoreTitleComponent,
+        StoreItemInfoComponent,
     ],
 })
 

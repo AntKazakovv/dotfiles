@@ -326,6 +326,14 @@ export const MODALS_LIST: IModalList = {
             dismissAll: true,
         },
     },
+    storeItemInfo: {
+        config: {
+            id: 'store-item-info',
+            componentName: 'store.wlc-store-item-info',
+            showFooter: true,
+            dismissAll: true,
+        },
+    },
 };
 
 export const RESTRICT_MODAL: IIndexing<IRestrictModalOption> = {
