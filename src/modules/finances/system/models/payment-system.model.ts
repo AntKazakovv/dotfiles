@@ -121,6 +121,7 @@ export interface IHostedFormData extends IIndexing<string | IIndexing<string>> {
 export interface IPaymentSystemCustomParams {
     provider?: string; // PaymentIQ Cashier provider
     merchant_id?: string; // PaymentIQ Cashier merchant ID
+    pregeneration_request?: boolean; // To pre-request payment information for Kauri
 }
 
 export interface IFieldTemplate {
@@ -222,6 +223,7 @@ export class PaymentSystem extends AbstractModel<IPaymentSystem> {
     public isHosted: boolean = false;
     public cryptoCheck: boolean;
     public readonly isCashier: boolean = false;
+    public readonly isPregeneration: boolean = false;
     public disabledBy: null | keyof typeof disabledReasons = null;
 
     public isParent: boolean = false;
@@ -238,6 +240,7 @@ export class PaymentSystem extends AbstractModel<IPaymentSystem> {
         super({from: _assign({model: 'PaymentSystem'}, from)});
         this.init(data);
         this.isCashier = !!this.data.isPIQCashier;
+        this.isPregeneration = !!this.customParams?.pregeneration_request;
     }
 
     public get cryptoTicker(): string {

@@ -146,6 +146,7 @@ export class DepositWithdrawComponent
     public bonusesListParams: IFormWrapperCParams;
     public availableSystems: number[] = [];
     public currentBonus: Bonus;
+    public isWaitingResponse: boolean = false;
 
     protected formObject: FormGroup;
     protected inProgress: boolean = false;
@@ -546,11 +547,16 @@ export class DepositWithdrawComponent
                 this.cssVariables,
             );
 
-            if (saveProfile) {
+            if (saveProfile && !this.currentSystem.isPregeneration) {
                 await this.saveProfile();
             }
 
             if (response.length) {
+
+                if (response[0] === 'message' && this.currentSystem.isPregeneration && this.isWaitingResponse) {
+                    this.currentSystem.message = response[1];
+                    return;
+                }
 
                 if (response[0] === 'message' || response[0] === 'markup') {
                     this.showDepositResponse(response[1], response[0]);
@@ -594,9 +600,11 @@ export class DepositWithdrawComponent
 
             if (this.isInvoicePending) {
                 this.updateFormConfig();
-            };
+            }
 
-            this.financesService.fetchPaymentSystems();
+            if (!this.currentSystem.isPregeneration) {
+                this.financesService.fetchPaymentSystems();
+            }
         }
     }
 
@@ -761,7 +769,7 @@ export class DepositWithdrawComponent
                 name: 'select_system',
                 from: 'finances',
             },
-            (system: PaymentSystem) => this.onPaymentSystemChange(system),
+            (system: PaymentSystem) => {this.onPaymentSystemChange(system);},
             this.$destroy,
         );
 
@@ -839,7 +847,7 @@ export class DepositWithdrawComponent
         this.financesService.fetchPaymentSystems();
     }
 
-    protected onPaymentSystemChange(system: PaymentSystem): void {
+    protected async onPaymentSystemChange(system: PaymentSystem): Promise<void> {
         if (this.useBonuses) {
             this.configService.set({name: 'chosenPaySystem', value: system});
         }
@@ -877,6 +885,16 @@ export class DepositWithdrawComponent
         }
 
         this.currentSystem = system;
+
+        if (this.currentSystem.isPregeneration && !this.currentSystem.message) {
+            this.isWaitingResponse = true;
+            await this.depositAction(0, {bonusId: null});
+
+            if (this.currentSystem.message) {
+                this.currentSystem.cryptoCheck = true;
+            }
+        }
+
         this.cryptoCheck = this.currentSystem.cryptoCheck && this.isDeposit;
         this.disableAmount = this.currentSystem.disableAmount;
         this.additionalParams = this.listConfig.paymentType === 'deposit' ?
@@ -924,6 +942,8 @@ export class DepositWithdrawComponent
         if (this.currentSystem.isCashier) {
             this.loadPiqFields();
         }
+
+        this.isWaitingResponse = false;
     }
 
     protected requestStyles(filePath: string, errorCallback: () => Observable<string>) {

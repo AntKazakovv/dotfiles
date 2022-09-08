@@ -127,7 +127,11 @@
         {{'A modal window with the address specified to send the full amount of cryptocurrency will be opened. The full amount will be credited to your balance.' | translate}}
     </div>
 
-    <ng-container *ngIf="!requiredFieldsKeys.length">
+    <ng-container *ngIf="isWaitingResponse">
+        <div wlc-loader></div>
+    </ng-container>
+
+    <ng-container *ngIf="!requiredFieldsKeys.length && !isWaitingResponse">
         <div *ngIf="isShowHostedBlock"
             class="wlc-hosted-fields">
             <div id="wlc-hosted-fields"
