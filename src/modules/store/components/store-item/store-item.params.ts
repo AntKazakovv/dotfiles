@@ -16,7 +16,6 @@ export interface IStoreItemCParams extends IComponentParams<Theme, Type, ThemeMo
     common?: {
         themeMod?: ThemeMod;
         customModifiers?: CustomMod;
-        bonusIconsPath?: string;
         defaultPicPath: string;
         defaultPicPathFirst: string;
         /** allows to use svg/png/jpg extension */
@@ -29,7 +28,6 @@ export const defaultParams: IStoreItemCParams = {
     componentName: 'wlc-store-item',
     class: 'wlc-store-item',
     common: {
-        bonusIconsPath: '/gstatic/bonuses/icons/',
         defaultPicPath: '/gstatic/store/default.png',
         defaultPicPathFirst: '/gstatic/store/default1.png',
         iconFormat: 'svg',

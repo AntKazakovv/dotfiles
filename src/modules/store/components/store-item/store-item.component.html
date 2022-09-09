@@ -10,7 +10,9 @@
         <div *ngIf="useIconBonusImage" class="{{$class}}__bonus-icon">
             <img class="icon-sign"
                  loading="lazy"
-                 [src]="bonusIconPath">
+                 [src]="storeItem.bonus.icon"
+                 [wlc-fallback]="storeItem.bonus.fallBackIconPath"
+                 (imageError)="imageErrorLoad()">
             <div
                 class="icon-text"
                 minLength="4"

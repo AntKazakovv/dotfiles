@@ -133,7 +133,7 @@ export class UserInfo extends AbstractModel<IUserInfo> {
      * @returns {IIndexing<IBonusesBalance>}
      */
     public get bonusesBalance(): IIndexing<IBonusesBalance> {
-        return this.data.loyalty.BonusesBalance;
+        return this.data.loyalty?.BonusesBalance;
     }
 
     public get realBalance(): number {
