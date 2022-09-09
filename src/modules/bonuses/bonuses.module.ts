@@ -18,6 +18,7 @@ import {EnterPromocodeComponent} from 'wlc-engine/modules/bonuses/components/ent
 import {
     GameDashboardBonusesComponent,
 } from 'wlc-engine/modules/bonuses/components/game-dashboard-bonuses/game-dashboard-bonuses.component';
+import {LootboxPrizeComponent} from 'wlc-engine/modules/bonuses/components/lootbox-prize/lootbox-prize.component';
 import {LootboxModalComponent} from 'wlc-engine/modules/bonuses/components/lootbox-modal/lootbox-modal.component';
 import {PromoSuccessComponent} from 'wlc-engine/modules/bonuses/components/promo-success/promo-success.component';
 import {
@@ -41,6 +42,7 @@ export const components = {
     'wlc-enter-promocode': EnterPromocodeComponent,
     'wlc-game-dashboard-bonuses': GameDashboardBonusesComponent,
     'wlc-lootbox-modal': LootboxModalComponent,
+    'wlc-lootbox-prize': LootboxPrizeComponent,
     'wlc-promo-success': PromoSuccessComponent,
     'wlc-recommended-bonuses': RecommendedBonusesComponent,
     'wlc-deposit-bonuses': DepositBonusesComponent,
@@ -60,6 +62,7 @@ export const services = {
         EnterPromocodeComponent,
         GameDashboardBonusesComponent,
         LootboxModalComponent,
+        LootboxPrizeComponent,
         PromoSuccessComponent,
         RecommendedBonusesComponent,
         DepositBonusesComponent,
@@ -84,6 +87,7 @@ export const services = {
         EnterPromocodeComponent,
         GameDashboardBonusesComponent,
         LootboxModalComponent,
+        LootboxPrizeComponent,
         PromoSuccessComponent,
         RecommendedBonusesComponent,
     ],

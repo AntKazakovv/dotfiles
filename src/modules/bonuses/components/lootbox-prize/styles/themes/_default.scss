@@ -1,0 +1,99 @@
+
+.wlc-lootbox-prize--theme-default:host {
+    border-radius: ef.get-value($themeDefault, 'hostRadius');
+    background: ef.get-value($themeDefault, 'hostBackgroung');
+    overflow: hidden;
+
+    .wlc-lootbox-prize {
+
+        &__image {
+            position: absolute;
+            border-radius: ef.get-value($themeDefault, 'hostRadius');
+            object-fit: ef.get-value($themeDefault, 'imageObjectFit');
+            width: 100%;
+            height: 100%;
+        }
+
+        &__shadow {
+            position: absolute;
+            border-radius: ef.get-value($themeDefault, 'hostRadius');
+            width: 100%;
+            height: 100%;
+            background: ef.get-value($themeDefault, 'shadowBg');
+        }
+
+        &__icon {
+            @include bm.get-mq-map('padding', $themeDefault, 'iconPadding');
+            position: relative;
+            display: grid;
+            justify-content: ef.get-value($themeDefault, 'iconJustifyContent');
+        }
+
+        &__name {
+            @include bm.get-mq-map('height', $themeDefault, 'nameHeight');
+            @include bm.get-mq-map('padding', $themeDefault, 'namePadding');
+
+            @include text.get-text-style(
+                ef.get-value($themeDefault, 'nameTextStyle', 320),
+                ef.get-value($themeDefault, 'nameFontColor'),
+            );
+            @include bm.get-mq-map('font-size', $themeDefault, 'nameFontSize');
+
+            position: relative;
+            display: flex;
+            flex-direction: ef.get-value($themeDefault, 'nameDirection');
+            align-items: ef.get-value($themeDefault, 'nameAlignItems');
+            margin: ef.get-value($themeDefault, 'nameMargin');
+            text-align: ef.get-value($themeDefault, 'nameTextAlign');
+
+            @include mq.min(480) {
+                @include text.get-text-style(ef.get-value($themeDefault, 'nameTextStyle', 480), null);
+            }
+
+            @include mq.min(640) {
+                @include text.get-text-style(ef.get-value($themeDefault, 'nameTextStyle', 640), null);
+            }
+        }
+    }
+
+    &.wlc-lootbox-prize--with-image {
+
+        .wlc-lootbox-prize {
+
+            &__image {
+                border-radius: ef.get-value($themeDefault, 'imageRadiusWithImage');
+
+                &-wrapper {
+                    @include bm.get-mq-map('height', $themeDefault, 'imageWrapperHeightWithImage');
+                    position: relative;
+                    background: ef.get-value($themeDefault, 'imageWrapperBgWithImage');
+                }
+            }
+
+            &__name {
+                @include bm.get-mq-map('padding', $themeDefault, 'namePaddingWithImage');
+                @include bm.get-mq-map('height', $themeDefault, 'nameHeightWithImage');
+                @include text.get-text-style(
+                    ef.get-value($themeDefault, 'nameTextStyleWithImage', 320),
+                    ef.get-value($themeDefault, 'nameFontColor'),
+                );
+
+                @include mq.min(560) {
+                    @include text.get-text-style(ef.get-value($themeDefault, 'nameTextStyleWithImage', 560), null);
+                }
+            }
+        }
+    }
+
+
+    ::ng-deep {
+
+        .wlc-lootbox-prize__icon {
+
+            svg {
+                @include bm.get-mq-map('width', $themeDefault, 'iconSize');
+                @include bm.get-mq-map('height', $themeDefault, 'iconSize');
+            }
+        }
+    }
+}

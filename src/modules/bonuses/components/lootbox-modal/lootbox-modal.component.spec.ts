@@ -13,7 +13,7 @@ import {AppModule} from 'wlc-engine/modules/app/app.module';
 import {IBonus} from 'wlc-engine/modules/bonuses/system/interfaces/bonuses/bonuses.interface';
 import {Bonus} from 'wlc-engine/modules/bonuses/system/models/bonus/bonus';
 import {BonusesService} from 'wlc-engine/modules/bonuses/system/services/bonuses/bonuses.service';
-
+import {LootboxPrizeModel} from 'wlc-engine/modules/bonuses/system/models/lootbox-prize/lootbox-prize.model';
 import {LootboxModalComponent} from './lootbox-modal.component';
 import {
     ILootboxModalCParams,
@@ -36,6 +36,16 @@ describe('LootboxModalComponent', (): void => {
             'isDeposit': false,
         }, fields));
     };
+
+    const getPrize = (fields?: Partial<LootboxPrizeModel>): jasmine.SpyObj<LootboxPrizeModel> => {
+        return jasmine.createSpyObj<LootboxPrizeModel>('prize', [], _assign({
+            id: 0,
+            name: 'Simple prize',
+            description: 'Simple prize description',
+            terms: 'Simple prize terms',
+        }, fields));
+    };
+
     const injectParams: Partial<ILootboxModalCParams> = {
         theme: 'default',
         themeMod: 'default',
@@ -51,14 +61,7 @@ describe('LootboxModalComponent', (): void => {
     beforeEach((): void => {
         BonusesServiceSpy = jasmine.createSpyObj(
             'BonusesService',
-            ['takeInventory'],
-            {
-                'bonuses': [
-                    getBonus({id: 1}),
-                    getBonus({id: 2}),
-                    getBonus({id: 3}),
-                ],
-            },
+            ['takeInventory', 'getLootboxPrizes'],
         );
         TestBed.configureTestingModule({
             imports: [AppModule],
@@ -99,9 +102,14 @@ describe('LootboxModalComponent', (): void => {
         expect(classes.includes(`${defaultParams.class}--type-${injectParams.type}`)).toBeTrue();
     });
 
-    it('-> Check component without bonuses', (): void => {
-        (Object.getOwnPropertyDescriptor(BonusesServiceSpy, 'bonuses')?.get as jasmine.Spy).and.returnValue([]);
-        component.ngOnInit();
+    it('-> Check component without bonuses', async (): Promise<void> => {
+        BonusesServiceSpy.getLootboxPrizes.withArgs(injectParams.bonus).
+            and.returnValues(Promise.resolve(
+                [],
+            ));
+
+        await component.ngOnInit();
+
         expect(component.lootboxStatus).toEqual('error');
         expect(_trim(nativeElement.querySelector(`.${defaultParams.class}__desc`).textContent))
             .toEqual('Failed to claim, please try again later');
@@ -111,7 +119,18 @@ describe('LootboxModalComponent', (): void => {
         expect(nativeElement.querySelectorAll(`.${defaultParams.class}__buttons button`).length).toBe(2);
     });
 
-    it('-> Check component with "open" status', (): void => {
+    it('-> Check component with "open" status', async (): Promise<void> => {
+        BonusesServiceSpy.getLootboxPrizes.withArgs(injectParams.bonus).
+            and.returnValues(Promise.resolve(
+                [
+                    getPrize({id: 100}),
+                    getPrize({id: 200}),
+                    getPrize({id: 300}),
+                ],
+            ));
+
+        await component.ngOnInit();
+
         expect(component.title).toEqual('Lootbox');
         expect(_trim(nativeElement.querySelector(`.${defaultParams.class}__desc`).textContent))
             .toEqual('Press the "Spin" button to randomly select one of the bonuses');
@@ -123,6 +142,15 @@ describe('LootboxModalComponent', (): void => {
     });
 
     it('-> Check method "btnClick" and "onSlideChangeTransitionEnd"', async (): Promise<void> => {
+        BonusesServiceSpy.getLootboxPrizes.withArgs(injectParams.bonus).
+            and.returnValues(Promise.resolve(
+                [
+                    getPrize({id: 100}),
+                    getPrize({id: 200}),
+                    getPrize({id: 300}),
+                ],
+            ));
+
         BonusesServiceSpy.takeInventory.withArgs(
             injectParams.bonus,
             defaultParams.sliderParams.swiper.speed,
@@ -130,17 +158,18 @@ describe('LootboxModalComponent', (): void => {
             getBonus({
                 id: 1,
                 bonus: <IBonus>{
-                    ID: '1',
+                    ID: '100',
                 },
             }),
         ));
 
+        await component.ngOnInit();
         await component.btnClick();
 
         expect(component.title).toEqual('Congratulations!');
         expect(component.lootboxStatus).toEqual('dropped');
         expect(_trim(nativeElement.querySelector(`.${defaultParams.class}__desc`).textContent))
-            .toEqual(`Bonus "${getBonus().name}" has been successfully activated and added to your bonus list`);
+            .toEqual(`Bonus "${getPrize().name}" has been successfully activated and added to your bonus list`);
         expect(component.slides.length).toBe(defaultParams.totalSlides + 3);
         expect(nativeElement.querySelectorAll(`.${defaultParams.class}__buttons button`).length).toBe(1);
         expect(component.btnDisabled).toBeFalse();

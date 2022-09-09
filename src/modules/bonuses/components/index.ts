@@ -12,3 +12,4 @@ export {
     RecommendedListEvents,
     ICRecommendedBonusesParams,
 } from './recommended-bonuses/recommended-bonuses.params';
+export {ILootboxPrizeCParams} from './lootbox-prize/lootbox-prize.params';

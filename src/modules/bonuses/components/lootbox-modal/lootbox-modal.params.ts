@@ -14,8 +14,6 @@ export interface ILootboxModalCParams extends IComponentParams<Theme, Type, Them
     bonus: Bonus;
     /** Total number of slides */
     totalSlides: number;
-    /** The number of slides that will be rendered immediately when the modal window is opened */
-    initialSlides: number;
     /** Object with params for slider */
     sliderParams: ISliderCParams;
 }
@@ -25,7 +23,6 @@ export const defaultParams: Partial<ILootboxModalCParams> = {
     componentName: 'wlc-lootbox-modal',
     class: 'wlc-lootbox-modal',
     totalSlides: 29,
-    initialSlides: 5,
     sliderParams: {
         swiper: {
             slidesPerView: 'auto',

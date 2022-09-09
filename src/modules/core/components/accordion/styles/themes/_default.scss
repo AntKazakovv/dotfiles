@@ -127,6 +127,10 @@
                     @include text.get-text-style(ef.get-value($themeDefault, 'contentTextStyle', 768), null);
                 }
             }
+
+            &-item:not(:first-child) {
+                margin: ef.get-value($themeDefault, 'contentItemMargin');
+            }
         }
     }
 }

@@ -1,0 +1,73 @@
+$customThemeDefault: () !default;
+$themeDefault: map-merge((
+    'hostRadius': ef.get('radius', 'biger'),
+    'hostBackgroung': var(--mc-bg300),
+
+    'imageObjectFit': cover,
+
+    'shadowBg': linear-gradient(0deg, var(--mc-bgModal) 0%, var(--mc-bgModal-o0) 95%),
+
+    'iconPadding': (
+        320: ef.size(1) 0 ef.size(1),
+        480: ef.size(2) 0 ef.size(2),
+        560: ef.size(4) 0 ef.size(2),
+        640: ef.size(5) 0 ef.size(2),
+    ),
+    'iconJustifyContent': center,
+    'iconSize': (
+        320: 70px,
+        640: 80px,
+    ),
+
+    'nameHeight': (
+        375: 35px,
+        480: 55px,
+        560: 60px,
+        640: 65px,
+    ),
+    'namePadding': (
+        320: 0 0 ef.size(1),
+        480: 0 0 ef.size(2),
+        560: 0 0 ef.size(4),
+    ),
+    'nameTextStyle': (
+        320: 'SignTextBold',
+        480: 'PlaceholderTextBold',
+        640: 'PrimaryTextBold',
+    ),
+    'nameFontColor': var(--mc-baseMain),
+    'nameFontSize': (
+        320: ef.get('font', 'smaller'),
+        480: ef.get('font', 'PrimaryTextBold'),
+    ),
+    'nameDirection': column,
+    'nameAlignItems': center,
+    'nameMargin': 0 ef.size(3),
+    'nameTextAlign': center,
+
+    'imageRadiusWithImage': 0,
+    'imageWrapperHeightWithImage': (
+        320: 65px,
+        480: 90px,
+        560: 110px,
+        640: 125px,
+    ),
+    'imageWrapperBgWithImage': rgba(0, 0, 0, 0.3),
+
+    'namePaddingWithImage': (
+        320: 13px 0 13px,
+        480: ef.size(4) 0 ef.size(4),
+        560: ef.size(3) 0 ef.size(4),
+        640: ef.size(4) 0 ef.size(5),
+    ),
+    'nameHeightWithImage': (
+        320: 56px,
+        480: 75px,
+        560: 80px,
+        640: 90px,
+    ),
+    'nameTextStyleWithImage': (
+        320: 'SignTextBold',
+        560: 'PrimaryTextBold',
+    ),
+), $customThemeDefault);

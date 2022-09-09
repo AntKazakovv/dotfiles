@@ -16,14 +16,12 @@ export type Theme = 'active'
     | 'reg-first'
     | 'modal'
     | 'mini' // deposit mini items
-    | 'lootbox'
     | CustomType;
 export type ThemeMod = 'default'
     | 'active'
     | 'chip-v2'
     | 'with-image'
     | 'simple' // simple preview on button, use with theme `mini`.
-    | 'lootbox'
     | CustomType;
 export type AutoModifiers = Theme | ThemeMod;
 export type CustomMod = string;

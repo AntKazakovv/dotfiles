@@ -11,16 +11,17 @@
         </div>
     </div>
     <div class="{{$class}}__slider-block">
-        <div wlc-slider
-            class="{{$class}}__slider"
-            [slides]="slides"
-            [inlineParams]="$params.sliderParams"
-            (slideChangeTransitionEnd$)="onSlideChangeTransitionEnd()">
+        <div *ngIf="slidesReady; else preloader"
+             wlc-slider
+             class="{{$class}}__slider"
+             [slides]="slides"
+             [inlineParams]="$params.sliderParams"
+             (slideChangeTransitionEnd$)="onSlideChangeTransitionEnd()">
         </div>
     </div>
     <div class="{{$class}}__buttons">
         <button wlc-button
-            [disabled]="btnDisabled"
+            [disabled]="btnDisabled || !slidesReady"
             [themeMod]="btnThemeMod"
             [text]="btnText"
             (click)="btnClick()">
@@ -42,9 +43,13 @@
     {{'We\'re choosing an award...' | translate}}
 </ng-template>
 <ng-template #dropped>
-    {{'Bonus' | translate}} "{{droppedBonus.name}}"
+    {{'Bonus' | translate}} "{{droppedPrize.name}}"
     {{'has been successfully activated and added to your bonus list' | translate}}
 </ng-template>
 <ng-template #error>
     {{'Failed to claim, please try again later' | translate}}
+</ng-template>
+
+<ng-template #preloader>
+    <div wlc-loader class="{{$class}}__loader"></div>
 </ng-template>

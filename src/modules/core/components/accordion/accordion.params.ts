@@ -4,7 +4,7 @@ export interface IAccordionData {
     /** Title item */
     title: string;
     /** Content item */
-    content: string;
+    content: string[];
     /** Expand item */
     expand?: boolean;
 }

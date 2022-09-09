@@ -5,13 +5,10 @@ import {
     Inject,
     OnInit,
     ViewChild,
-    AfterViewInit,
 } from '@angular/core';
 
 import _concat from 'lodash-es/concat';
 import _random from 'lodash-es/random';
-import _filter from 'lodash-es/filter';
-import _includes from 'lodash-es/includes';
 import _find from 'lodash-es/find';
 import _toNumber from 'lodash-es/toNumber';
 import _isObject from 'lodash-es/isObject';
@@ -24,7 +21,6 @@ import {
     EventService,
     IPushMessageParams,
     NotificationEvents,
-    ProfileType,
 } from 'wlc-engine/modules/core';
 import {
     ISlide,
@@ -33,7 +29,8 @@ import {
 import {ThemeMod as BtnThemeMod} from 'wlc-engine/modules/core/components/button/button.params';
 import {Bonus} from 'wlc-engine/modules/bonuses/system/models/bonus/bonus';
 import {BonusesService} from 'wlc-engine/modules/bonuses/system/services/bonuses/bonuses.service';
-import {BonusItemComponent} from 'wlc-engine/modules/bonuses/components/bonus-item/bonus-item.component';
+import {LootboxPrizeModel} from 'wlc-engine/modules/bonuses/system/models/lootbox-prize/lootbox-prize.model';
+import {LootboxPrizeComponent} from 'wlc-engine/modules/bonuses/components/lootbox-prize/lootbox-prize.component';
 
 import * as Params from './lootbox-modal.params';
 
@@ -45,9 +42,10 @@ type TLootboxStatus = 'open' | 'spin' | 'dropped' | 'error';
     styleUrls: ['./styles/lootbox-modal.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class LootboxModalComponent extends AbstractComponent implements OnInit, AfterViewInit {
+export class LootboxModalComponent extends AbstractComponent implements OnInit {
     @ViewChild(SliderComponent) protected slider: SliderComponent;
 
+    public slidesReady: boolean = false;
     public $params: Params.ILootboxModalCParams;
     public slides: ISlide[] = [];
     public title: string = gettext('Lootbox');
@@ -55,9 +53,8 @@ export class LootboxModalComponent extends AbstractComponent implements OnInit, 
     public btnDisabled: boolean = false;
     public btnText: string = gettext('Spin');
     public btnThemeMod: BtnThemeMod = 'default';
-    public droppedBonus: Bonus;
-    protected bonuses: Bonus[] = [];
-    protected themeMod: ProfileType = 'default';
+    public droppedPrize: LootboxPrizeModel;
+    protected prizes: LootboxPrizeModel[] = [];
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.ILootboxModalCParams,
@@ -74,13 +71,12 @@ export class LootboxModalComponent extends AbstractComponent implements OnInit, 
             }, configService);
     }
 
-    public ngOnInit(): void {
+    public async ngOnInit(): Promise<void> {
         super.ngOnInit();
 
-        this.bonuses = _filter(this.bonusesService.bonuses,
-            (bonus: Bonus): boolean => _includes(<number[]>this.$params.bonus.value, bonus.id));
+        this.prizes = await this.bonusesService.getLootboxPrizes(this.$params.bonus);
 
-        if (!this.bonuses.length) {
+        if (!this.prizes.length) {
             this.lootboxStatus = 'error';
             this.clearModifiers();
             this.addModifiers(this.lootboxStatus);
@@ -95,33 +91,21 @@ export class LootboxModalComponent extends AbstractComponent implements OnInit, 
                 },
             });
 
+            this.slidesReady = true;
             this.cdr.detectChanges();
             return;
         }
 
-        this.themeMod = this.configService.get<ProfileType>('$base.profile.type');
-        let lastBonus: Bonus;
-        for (let i = 0; i < this.$params.initialSlides; i++) {
+        let lastPrize: LootboxPrizeModel;
+        for (let i = 0; i < this.$params.totalSlides; i++) {
             this.slides.push(
-                this.getSlide(this.bonuses.length > 1 ?
-                    lastBonus = this.getRandomBonus(lastBonus?.id) : this.bonuses[0], false),
+                this.getSlide(this.prizes.length > 1 ?
+                    lastPrize = this.getRandomPrize(lastPrize?.id) : this.prizes[0]),
             );
         }
 
+        this.slidesReady = true;
         this.addModifiers(this.lootboxStatus);
-    }
-
-    public ngAfterViewInit(): void {
-        if (this.bonuses.length) {
-            const slides: ISlide[] = [];
-            for (let i = 0; i < this.$params.totalSlides - this.$params.initialSlides; i++) {
-                slides.push(
-                    this.getSlide(this.getRandomBonus(), false),
-                );
-            }
-            this.slides = _concat(this.slides, slides);
-            this.cdr.detectChanges();
-        }
     }
 
     /**
@@ -130,7 +114,7 @@ export class LootboxModalComponent extends AbstractComponent implements OnInit, 
      * @returns {Promise<void>}
      */
     public async btnClick(): Promise<void> {
-        if (this.droppedBonus) {
+        if (this.droppedPrize) {
             this.close();
             return;
         }
@@ -141,14 +125,14 @@ export class LootboxModalComponent extends AbstractComponent implements OnInit, 
         try {
             const {bonus}: Bonus = await this.getDroppedBonus();
 
-            this.droppedBonus = _find(
-                this.bonuses,
+            this.droppedPrize = _find(
+                this.prizes,
                 {id: _isObject(bonus) ? _toNumber(bonus.ID) : bonus},
             );
 
             this.slides = _concat(
                 this.slides,
-                this.getSlide(this.droppedBonus, true),
+                this.getSlide(this.droppedPrize),
                 this.slides[_random(this.$params.totalSlides - 1)],
                 this.slides[_random(this.$params.totalSlides - 1)],
             );
@@ -200,22 +184,17 @@ export class LootboxModalComponent extends AbstractComponent implements OnInit, 
         );
     }
 
-    protected getRandomBonus(lastBonusId?: number): Bonus {
-        const bonus: Bonus = this.bonuses[_random(this.bonuses.length - 1)];
-        return bonus.id === lastBonusId ? this.getRandomBonus(lastBonusId) : bonus;
+    protected getRandomPrize(lastPrizeId?: number): LootboxPrizeModel {
+        const prize: LootboxPrizeModel = this.prizes[_random(this.prizes.length - 1)];
+        return prize.id === lastPrizeId ? this.getRandomPrize(lastPrizeId) : prize;
     }
 
-    protected getSlide(bonus: Bonus, iconMoreBtn: boolean): ISlide {
+    protected getSlide(prize: LootboxPrizeModel): ISlide {
         return {
-            component: BonusItemComponent,
+            component: LootboxPrizeComponent,
             componentParams: {
-                theme: 'lootbox',
-                themeMod: this.configService.get<string>('$base.profile.type'),
-                bonus,
-                wlcElement: 'block_bonus',
-                common: {
-                    iconMoreBtn,
-                },
+                prize: prize,
+                wlcElement: 'block_lootbox-prize',
             },
         };
     }

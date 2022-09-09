@@ -99,6 +99,7 @@
 
         &__slider-block {
             position: relative;
+            background: ef.get-value($themeDefault, 'sliderBlockBg');
 
             &:before {
                 @include bm.get-mq-map('height', $themeDefault, 'sliderBlockBeforeHeight');
@@ -132,7 +133,6 @@
             position: relative;
             display: flex;
             justify-content: center;
-            background: ef.get-value($themeDefault, 'sliderBg');
 
             &:before,
             &:after {
@@ -172,6 +172,11 @@
                     margin-right: 0;
                 }
             }
+        }
+
+        &__loader {
+            width: ef.get-value($themeDefault, 'loaderSize');
+            height: ef.get-value($themeDefault, 'loaderSize');
         }
     }
 

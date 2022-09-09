@@ -1,0 +1,23 @@
+<div *ngIf="bgImage || isProfileFirst"
+     class="{{$class}}__image-wrapper">
+    <img *ngIf="bgImage"
+            class="{{$class}}__image"
+            [src]="bgImage"
+            loading="lazy">
+
+    <div *ngIf="!isProfileFirst && bgImage"
+         class="{{$class}}__shadow">
+    </div>
+</div>
+
+<span *ngIf="!isProfileFirst" 
+      wlc-icon
+      class="{{$class}}__icon"
+      [iconPath]="$params.iconPath">
+</span>
+
+<h4 class="{{$class}}__name"
+    data-wlc-element="lootbox-prize_name"
+    [wlc-clamp]="$params.nameClamp">
+    {{$params.prize.name}}
+</h4>

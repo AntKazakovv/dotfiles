@@ -25,11 +25,27 @@ describe('AccordionComponent', (): void => {
         wlcElement: 'wlc-accordion',
         title: 'Possible rewards',
         titleIconPath: '/wlc/icons/arrow.svg',
-        items: Array(3).fill({
-            title: 'Simple title',
-            content: 'Simple content',
-            expand: false,
-        }),
+        items: [
+            {
+                title: 'Simple title first',
+                content: ['Simple content item first'],
+                expand: false,
+            },
+            {
+                title: 'Simple title second',
+                content: ['Simple content second item', 'Second simple content second item'],
+                expand: false,
+            },
+            {
+                title: 'Simple title third',
+                content: [
+                    'Simple content third item',
+                    'Second simple content third item',
+                    'third simple content third item',
+                ],
+                expand: false,
+            },
+        ],
     };
 
     beforeEach((): void => {
@@ -83,8 +99,13 @@ describe('AccordionComponent', (): void => {
         _each(items, (item: Element, index: number): void => {
             expect(item.querySelector(`.${defaultParams.class}__title-text`).textContent)
                 .toEqual(injectParams.items[index].title);
-            expect(_trim(item.querySelector(`.${defaultParams.class}__content-wrp`).textContent))
-                .toEqual(injectParams.items[index].content);
+
+            const contentItems: NodeListOf<Element> = item.querySelectorAll(`.${defaultParams.class}__content-item`);
+
+            _each(contentItems, (contentItem: Element, contentItemIndex: number): void => {
+                expect(_trim(contentItem.textContent)).toEqual(injectParams.items[index].content[contentItemIndex]);
+            });
+
             expect(item.querySelector(`.${defaultParams.class}__title-icon`).getAttribute('ng-reflect-icon-path'))
                 .toEqual(injectParams.titleIconPath);
         });

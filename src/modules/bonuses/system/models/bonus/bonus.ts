@@ -55,11 +55,12 @@ export class Bonus extends AbstractModel<IBonus> {
     public onChooseChange: Subject<boolean> = new Subject<boolean>();
     public icon: string;
     public disabledBy: null | keyof typeof disabledReasons = null;
+    public readonly descriptionClean: string;
+    public readonly termsClean: string;
 
     protected static $bonuses: IBonusesModule;
     protected _userCurrency: string;
     protected _isChoose: boolean = false;
-    protected $descriptionClean: string;
 
     private regEvents = ['deposit first', 'registration', 'verification'];
     private depEvents = ['deposit', 'deposit first', 'deposit repeated', 'deposit sum'];
@@ -83,7 +84,9 @@ export class Bonus extends AbstractModel<IBonus> {
 
         this.userCurrency = this.configService.get<string>('appConfig.user.currency')
             || this.configService.get<string>('$base.defaultCurrency');
-        this.$descriptionClean = this.data.Description.replace(/<[^>]*>/g, '');
+
+        this.descriptionClean = this.data.Description.replace(/<[^>]*>/g, '');
+        this.termsClean = this.data.Terms.replace(/<[^>]*>/g, '');
 
         if (Bonus.$bonuses.useNewImageSources && this.data.Image_other) {
             this.icon = GlobalHelper.proxyUrl(this.data.Image_other);
@@ -192,10 +195,6 @@ export class Bonus extends AbstractModel<IBonus> {
 
     public get description(): string {
         return this.data.Description;
-    }
-
-    public get descriptionClean(): string {
-        return this.$descriptionClean;
     }
 
     public get disableCancel(): boolean {

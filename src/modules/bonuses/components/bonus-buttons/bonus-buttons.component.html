@@ -5,15 +5,14 @@
     <ng-container [ngTemplateOutlet]="long" *ngSwitchCase="'long'"></ng-container>
 </ng-container>
 
-
 <ng-template #default>
     <ng-container *ngIf="isAuth">
         <ng-container [ngTemplateOutlet]="subscribeBtn"></ng-container>
         <ng-container [ngTemplateOutlet]="inventoriedBtn"></ng-container>
+        <ng-container [ngTemplateOutlet]="openLootbox"></ng-container>
         <ng-container [ngTemplateOutlet]="unsubscribeBtn"></ng-container>
         <ng-container [ngTemplateOutlet]="leaveBtn"></ng-container>
         <ng-container [ngTemplateOutlet]="chooseBonusBtn"></ng-container>
-        <ng-container [ngTemplateOutlet]="openLootbox"></ng-container>
     </ng-container>
     <ng-container *ngIf="$params.useActionButtons" [ngTemplateOutlet]="actionRegisterBtn"></ng-container>
 </ng-template>

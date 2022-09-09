@@ -61,6 +61,8 @@ $themeDefault: map-merge((
     ),
     'descTextAfterBg': url('/gstatic/wlc/bonuses/lootbox/decor-1.png') no-repeat center / contain,
 
+    'sliderBlockBg': url('/gstatic/wlc/bonuses/lootbox/slider-bg.png') no-repeat center / cover,
+
     'sliderBlockBeforeTop': 0,
     'sliderBlockBeforeRight': null,
     'sliderBlockBeforeLeft': null,
@@ -82,8 +84,6 @@ $themeDefault: map-merge((
         560: 20px,
     ),
     'sliderBlockAfterBg': url('/gstatic/wlc/bonuses/lootbox/slider-border.png') center / contain,
-
-    'sliderBg': url('/gstatic/wlc/bonuses/lootbox/slider-bg.png') no-repeat center / cover,
 
     'sliderBeforeTransform': rotate(180deg) translateY(15px),
     'sliderBeforeBg': url('/gstatic/wlc/bonuses/lootbox/arrow.svg') no-repeat center / contain,
@@ -139,5 +139,7 @@ $themeDefault: map-merge((
         375: 18px,
         480: 20px,
         560: 24px,
-    )
+    ),
+
+    'loaderSize': 150px,
 ), $customThemeDefault);

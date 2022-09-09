@@ -19,7 +19,6 @@ Interface [ILootboxModalCParams](/docs/compodoc/interfaces/ILootboxModalCParams.
 
 - **bonus** - model "Bonus"
 - **totalSlides** - total number of slides
-- **initialSlides** - the number of slides that will be rendered immediately when the modal window is opened
 - **sliderParams** - object with params for slider
 
 ```typescript
@@ -28,7 +27,6 @@ export const defaultParams: ILootboxModalCParams = {
     componentName: 'wlc-lootbox-modal',
     class: 'wlc-lootbox-modal',
     totalSlides: 29,
-    initialSlides: 5,
     sliderParams: {
         swiper: {
             slidesPerView: 3,
@@ -55,7 +53,6 @@ export const defaultParams: ILootboxModalCParams = {
 
 - **bonus** - модель "Бонус"
 - **totalSlides** - общее количество слайдов
-- **initialSlides** - количество слайдов, которые будут отрисованы сразу при открытии модального окна
 - **sliderParams** - объект с параметрами для слайдера
 
 ```typescript
@@ -64,7 +61,6 @@ export const defaultParams: ILootboxModalCParams = {
     componentName: 'wlc-lootbox-modal',
     class: 'wlc-lootbox-modal',
     totalSlides: 29,
-    initialSlides: 5,
     sliderParams: {
         swiper: {
             slidesPerView: 3,

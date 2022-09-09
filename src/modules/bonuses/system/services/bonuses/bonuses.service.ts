@@ -72,16 +72,14 @@ import {
     RestType,
     IBonusHistory,
     TBonusesHistory,
+    ILootboxPrize,
 } from 'wlc-engine/modules/bonuses/system/interfaces/bonuses/bonuses.interface';
+import {LootboxPrizeModel} from 'wlc-engine/modules/bonuses/system/models/lootbox-prize/lootbox-prize.model';
 
 type TUserLoyaltyInfo = Pick<UserInfo, 'bonusesBalance' | 'freeRounds'>;
 
-interface IBonusData extends IData {
-    data?: IBonus;
-}
-
 interface IBonusesData extends IData {
-    data?: IBonus[] | TBonusesHistory;
+    data?: IBonus[] | TBonusesHistory | ILootboxPrize[];
 }
 
 interface ISubjects {
@@ -89,6 +87,7 @@ interface ISubjects {
     active$: BehaviorSubject<Bonus[]>;
     store$: BehaviorSubject<Bonus[]>;
     history$: BehaviorSubject<HistoryItemModel[]>;
+    lootboxPrizes$: BehaviorSubject<LootboxPrizeModel[]>;
 }
 
 interface IFreeRoundData {
@@ -109,12 +108,14 @@ export class BonusesService {
 
     protected activeBonuses: Bonus[] = [];
     protected historyBonuses: HistoryItemModel[] = [];
+    protected lootboxPrizes: LootboxPrizeModel[] = [];
     protected gamesCatalogService: GamesCatalogService;
 
     private subjects: ISubjects = {
         bonuses$: new BehaviorSubject(null),
         active$: new BehaviorSubject(null),
         history$: new BehaviorSubject(null),
+        lootboxPrizes$: new BehaviorSubject(null),
         store$: new BehaviorSubject(null),
     };
 
@@ -128,6 +129,7 @@ export class BonusesService {
     } = {
             active: new BehaviorSubject(false),
             history: new BehaviorSubject(false),
+            lootboxPrizes: new BehaviorSubject(false),
             store: new BehaviorSubject(false),
             any: new BehaviorSubject(false),
         };
@@ -195,6 +197,8 @@ export class BonusesService {
         switch (type) {
             case 'history':
                 return !!this.subjects.history$.getValue()?.length;
+            case 'lootboxPrizes':
+                return !!this.subjects.lootboxPrizes$.getValue()?.length;
             case 'active':
                 bonuses = this.subjects.active$.getValue();
                 break;
@@ -207,6 +211,21 @@ export class BonusesService {
         }
 
         return !!this.filterBonuses(bonuses, filter).length;
+    }
+
+    /**
+     * Get lootbox prizes
+     *
+     * @param {Bonus} bonus - lootbox bonus
+     * @returns {Promise<LootboxPrizeModel[]>}
+     */
+    public async getLootboxPrizes(bonus: Bonus): Promise<LootboxPrizeModel[]> {
+        const lootboxPrizes: LootboxPrizeModel[] = await this.queryBonuses(false, 'lootboxPrizes');
+
+        return _filter(lootboxPrizes, (prize: LootboxPrizeModel): boolean => {
+
+            return _includes(bonus.value as number[], prize.id);
+        });
     }
 
     /**
@@ -243,8 +262,8 @@ export class BonusesService {
      * @param {RestType} type bonuses rest type ('active' | 'history' | 'store' | 'any')
      * @returns {Observable<Bonus[]>} Observable
      */
-    public getObserver<T extends HistoryItemModel | Bonus>(type?: RestType): Observable<T[]> {
-        let flow$: BehaviorSubject<(HistoryItemModel | Bonus)[]>;
+    public getObserver<T extends HistoryItemModel | Bonus | LootboxPrizeModel>(type?: RestType): Observable<T[]> {
+        let flow$: BehaviorSubject<(HistoryItemModel | Bonus | LootboxPrizeModel)[]>;
 
         switch (type) {
             case 'active':
@@ -252,6 +271,9 @@ export class BonusesService {
                 break;
             case 'history':
                 flow$ = this.subjects.history$;
+                break;
+            case 'lootboxPrizes':
+                flow$ = this.subjects.lootboxPrizes$;
                 break;
             case 'store':
                 flow$ = this.subjects.store$;
@@ -346,7 +368,7 @@ export class BonusesService {
      */
     public async getBonus(id: number): Promise<Bonus> {
         try {
-            const data: IBonusData = await this.dataService.request({
+            const data: IData<IBonus> = await this.dataService.request({
                 name: 'bonusById',
                 system: 'bonuses',
                 url: `/bonuses/${id}`,
@@ -501,7 +523,7 @@ export class BonusesService {
      * @param {string} promoCode bonus promocode (no required)
      * @returns {Bonus[]} bonuses array
      */
-    public async queryBonuses<T extends Bonus | HistoryItemModel>(
+    public async queryBonuses<T extends Bonus | HistoryItemModel | LootboxPrizeModel>(
         publicSubject: boolean,
         type: RestType = 'any',
         promoCode?: string,
@@ -509,7 +531,7 @@ export class BonusesService {
         this.queryPromises[type].next(true);
         const queryParams: IQueryParams = {};
         if (type) {
-            if (type === 'active' || type === 'history') {
+            if (type === 'active' || type === 'history' || type === 'lootboxPrizes') {
                 queryParams.type = type;
             }
             if (type === 'store') {
@@ -535,6 +557,24 @@ export class BonusesService {
                 }
 
                 return this.historyBonuses as T[];
+            }
+
+            if (type === 'lootboxPrizes') {
+                this.lootboxPrizes = _map(
+                    (res as IData<ILootboxPrize[]>).data,
+                    (bonus: ILootboxPrize): LootboxPrizeModel => {
+                        return new LootboxPrizeModel(
+                            {service: 'BonusesService', method: 'queryBonuses'},
+                            bonus,
+                            this.configService,
+                        );
+                    });
+
+                if (publicSubject) {
+                    this.subjects.lootboxPrizes$.next(this.lootboxPrizes);
+                }
+
+                return this.lootboxPrizes as T[];
             }
 
             const bonuses: Bonus[] = _orderBy(
@@ -768,7 +808,7 @@ export class BonusesService {
     private setSubscribers(): void {
 
         this.subjects.bonuses$.subscribe({
-            next: (bonuses: Bonus[]) => {
+            next: (bonuses: Bonus[]): void => {
                 this.eventService.emit({
                     name: 'BONUSES_FETCH_SUCCESS',
                     data: bonuses,
@@ -777,7 +817,7 @@ export class BonusesService {
         });
 
         this.subjects.active$.subscribe({
-            next: (bonuses: Bonus[]) => {
+            next: (bonuses: Bonus[]): void => {
                 this.eventService.emit({
                     name: 'BONUSES_FETCH_ACTIVE_SUCCESS',
                     data: bonuses,
@@ -786,7 +826,7 @@ export class BonusesService {
         });
 
         this.subjects.history$.subscribe({
-            next: (bonuses: HistoryItemModel[]) => {
+            next: (bonuses: HistoryItemModel[]): void => {
                 this.eventService.emit({
                     name: 'BONUSES_FETCH_HISTORY_SUCCESS',
                     data: bonuses,
@@ -794,8 +834,17 @@ export class BonusesService {
             },
         });
 
+        this.subjects.lootboxPrizes$.subscribe({
+            next: (bonuses: LootboxPrizeModel[]): void => {
+                this.eventService.emit({
+                    name: 'LOOTBOX_PRIZES_FETCH_SUCCESS',
+                    data: bonuses,
+                });
+            },
+        });
+
         this.subjects.store$.subscribe({
-            next: (bonuses: Bonus[]) => {
+            next: (bonuses: Bonus[]): void => {
                 this.eventService.emit({
                     name: 'BONUSES_FETCH_STORE_SUCCESS',
                     data: bonuses,
@@ -814,7 +863,7 @@ export class BonusesService {
             {name: 'PROMO_SUCCESS'},
             {name: 'BONUS_REFRESH'},
         ]).subscribe({
-            next: (event: IEvent<unknown>) => {
+            next: (event: IEvent<unknown>): void => {
                 if (event.name === 'LOGIN' || event.name === 'LOGOUT') {
                     this.bonuses = [];
                     this.subjects.bonuses$.next([]);
@@ -825,20 +874,20 @@ export class BonusesService {
 
         this.eventService.subscribe([
             {name: 'LOGOUT'},
-        ], () => {
+        ], (): void => {
             this.clearPromoBonus();
         });
 
         this.eventService.subscribe([
             {name: 'PROMO_SUCCESS'},
-        ], (bonus: Bonus) => {
+        ], (bonus: Bonus): void => {
             if (bonus) {
                 this.promoBonus = bonus;
                 this.cachingService.set(this.dbPromoUrl, this.promoBonus.promoCode, true, 24 * 60 * 60 * 100);
             }
         });
 
-        this.translate.onLangChange.subscribe(() => {
+        this.translate.onLangChange.subscribe((): void => {
             this.updateSubscribers();
         });
     }
@@ -909,6 +958,9 @@ export class BonusesService {
         }
         if (this.subjects.history$.observers.length > 1) {
             this.queryBonuses(true, 'history');
+        }
+        if (this.subjects.lootboxPrizes$.observers.length > 1) {
+            this.queryBonuses(true, 'lootboxPrizes');
         }
     }
 

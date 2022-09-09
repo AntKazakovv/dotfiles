@@ -15,7 +15,11 @@
             <div class="{{$class}}__content"
                 [@toggle]="item.expand ? 'opened' : 'closed'">
                 <div class="{{$class}}__content-wrp">
-                    {{item.content}}
+                    <ng-container *ngFor="let contentItem of item.content">
+                        <div *ngIf="!!contentItem" class="{{$class}}__content-item">
+                            {{contentItem}}
+                        </div>
+                    </ng-container>
                 </div>
             </div>
         </div>

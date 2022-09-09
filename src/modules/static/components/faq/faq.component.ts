@@ -99,7 +99,7 @@ export class FaqComponent extends AbstractComponent implements OnInit {
             const tdElems: NodeList = tr.querySelectorAll('td');
             return {
                 title: _get(tdElems, '[0].innerHTML'),
-                content: _get(tdElems, '[1].innerHTML'),
+                content: [_get(tdElems, '[1].innerHTML')],
                 expand: false,
             };
         });

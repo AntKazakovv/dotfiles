@@ -36,6 +36,7 @@ $themeDefault: map-merge((
     'contentFontWeight': normal,
     'contentPadding': ef.size(2),
     'contentTopBorder': 2px solid var(--mc-baseMain),
+    'contentItemMargin': ef.size(3) 0 0,
 
     'itemsGapSize': ef.size(2),
     'itemBackground': var(--mc-bg300),

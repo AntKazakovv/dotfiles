@@ -149,6 +149,14 @@ export interface IBonus extends IBonusBase {
     Conditions?: IBonusConditions;
 }
 
+export interface ILootboxPrize {
+    ID: number;
+    Name: string;
+    Image: string;
+    Description: string;
+    Terms: string;
+}
+
 export interface IBonusHistory extends IBonusBase {
     BonusWagering: string;
     BonusWageringDiff: string;
@@ -214,7 +222,7 @@ export interface IGetSubscribeParams {
 
 export type TBonusSortOrder = 'active' | 'promocode' | 'subscribe' | 'inventory' | number;
 export type BonusesFilterType = 'all' | 'reg' | 'deposit' | 'promocode' | 'inventory' | 'main' | 'active' | 'default';
-export type RestType = 'active' | 'history' | 'store' | 'any';
+export type RestType = 'active' | 'history' | 'lootboxPrizes' | 'store' | 'any';
 export type ActionType = 'inventory' | 'cancel' | 'expired' | 'subscribe' | 'unsubscribe';
 
 interface IBlankBonus {

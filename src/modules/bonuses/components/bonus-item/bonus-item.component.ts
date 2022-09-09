@@ -14,7 +14,7 @@ import {takeUntil} from 'rxjs/operators';
 import _union from 'lodash-es/union';
 import _merge from 'lodash-es/merge';
 import _get from 'lodash-es/get';
-import _each from 'lodash-es/each';
+import _map from 'lodash-es/map';
 import _includes from 'lodash-es/includes';
 
 import {
@@ -33,6 +33,7 @@ import {
     ChosenBonusSetParams,
     ChosenBonusType,
 } from 'wlc-engine/modules/bonuses/system/interfaces/bonuses/bonuses.interface';
+import {LootboxPrizeModel} from 'wlc-engine/modules/bonuses/system/models/lootbox-prize/lootbox-prize.model';
 import {IBonusModalCParams} from 'wlc-engine/modules/bonuses/components/bonus-modal/bonus-modal.params';
 
 import * as Params from './bonus-item.params';
@@ -229,8 +230,10 @@ export class BonusItemComponent extends AbstractComponent implements OnInit, OnC
      * Open bonus modal
      *
      * @param {MouseEvent} $event
+     *
+     * @returns {Promise<void>}
      */
-    public openDescription($event: MouseEvent): void {
+    public async openDescription($event: MouseEvent): Promise<void> {
         $event.stopPropagation();
 
         const modalParams: IBonusModalCParams = _merge({
@@ -239,22 +242,19 @@ export class BonusItemComponent extends AbstractComponent implements OnInit, OnC
         }, this.$params.bonusModalParams || {});
 
         if (this.bonus.isLootbox) {
-            modalParams.bonusItemTheme = 'lootbox';
+            const lootboxPrizes: LootboxPrizeModel[] = await this.bonusesService.getLootboxPrizes(this.bonus);
+
             modalParams.accordionParams = {
                 title: gettext('Possible rewards'),
                 titleIconPath: '/wlc/icons/arrow.svg',
                 collapseAll: true,
-                items: [],
-            };
-
-            _each(this.bonusesService.bonuses, (bonus: Bonus): void => {
-                if (_includes(<number[]>this.bonus.value, bonus.id)) {
-                    modalParams.accordionParams.items.push({
+                items: _map(lootboxPrizes, ((bonus) => {
+                    return {
                         title: bonus.name,
-                        content: bonus.descriptionClean,
-                    });
-                }
-            });
+                        content: [bonus.descriptionClean, bonus.termsClean],
+                    };
+                })),
+            };
         }
 
         this.modalService.showModal('bonusModal', modalParams);
