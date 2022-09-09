@@ -116,11 +116,3 @@ export interface ISplitTexts {
     /** `slugs` add lang postfix to special pages */
     slugs?: string[],
 }
-
-export interface IPDFParams {
-    lang?: string;
-    prepath: 0 | 1;
-    wpPlugin: 0 | 1;
-    page: 'pages' | 'posts';
-    slug: string;
-}

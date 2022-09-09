@@ -42,19 +42,6 @@ export class InfoPageComponent extends AbstractComponent implements OnInit {
     public config: Params.IInfoPageConfig;
     public content: IWrapperCParams;
 
-    protected get postComponentParams(): IPostCParams {
-        return {
-            slug: this.uiRouter.params.slug,
-            parseAsPlainHTML: true,
-            withoutCompilation: true,
-            shouldClearStyles: true,
-            wlcElement: 'section_static-text_' + this.uiRouter.params.slug,
-            showTitle: true,
-            useDownloadButton: this.configService.get<string[]>('$base.postWithDownloadPDF')
-                ?.includes(this.uiRouter.params.slug),
-        };
-    };
-
     constructor(
         @Inject('injectParams') protected params: Params.IInfoPageCParams,
         private uiRouter: UIRouterGlobals,
@@ -91,7 +78,14 @@ export class InfoPageComponent extends AbstractComponent implements OnInit {
             default:
                 this.config.content.components = [{
                     name: 'static.wlc-post',
-                    params: this.postComponentParams,
+                    params: <IPostCParams>{
+                        slug: this.uiRouter.params.slug,
+                        parseAsPlainHTML: true,
+                        withoutCompilation: true,
+                        shouldClearStyles: true,
+                        wlcElement: 'section_static-text_' + this.uiRouter.params.slug,
+                        showTitle: true,
+                    },
                 }];
         }
         this.content = _cloneDeep(this.config.content);

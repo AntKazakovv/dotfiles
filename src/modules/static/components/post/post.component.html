@@ -3,21 +3,6 @@
          wlc-title
          [mainText]="data.title">
     </div>
-
-    <a *ngIf="$params.useDownloadButton"
-        class="{{$class}}__download"
-        target="_blank"
-        [href]="downloadPdfLink">
-        <span class="{{$class}}__download-text">
-            {{'Download PDF file' | translate}}
-        </span>
-        <span wlc-icon
-            class="icon-btn"
-            iconPath="/wlc/icons/download-pdf.svg"
-            wlcElement="button_terms">
-        </span>
-    </a>
-
     <div wlc-dynamic-html
          [html]="html"
          [parseAsPlainHTML]="parseAsPlainHTML"

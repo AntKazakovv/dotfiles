@@ -16,8 +16,6 @@ export interface IPostCParams extends IComponentParams<string, string, string> {
      * Remove inline styles from html string;
      */
     shouldClearStyles?: boolean;
-    /** Enable using download PDF button */
-    useDownloadButton?: boolean;
 }
 
 export const defaultParams: IPostCParams = {

@@ -121,6 +121,7 @@ export interface IBaseConfig {
      * Settings for any constraints
      */
     restrictions?: IRestrictionsConfig;
+
     legal?: {
         termsCheckboxText?: ILegalCheckboxWithLink;
         termsWlcCuracaoCheckboxText?: ILegalCheckboxWithLink;
@@ -130,8 +131,6 @@ export interface IBaseConfig {
         paymentRulesText?: ILegalCheckboxWithLink,
         privacyPolicyText?: ILegalCheckboxWithLink,
     }
-    /* Post with link to download pdf files */
-    postWithDownloadPDF?: string[];
     /**
      * Kiosk settings
      */

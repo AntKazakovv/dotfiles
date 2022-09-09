@@ -12,8 +12,6 @@ import {
     IRequestUrlStaticText,
     StaticTextType,
     TWpTranslateMode,
-    ISplitTexts,
-    IPDFParams,
 } from 'wlc-engine/modules/static/system/interfaces/static.interface';
 import {TextDataModel} from 'wlc-engine/modules/static/system/models/textdata.model';
 import {WlcTextData} from 'wlc-engine/modules/static/system/models/textdata.wlc.model';
@@ -29,7 +27,6 @@ import _extend from 'lodash-es/extend';
 import _merge from 'lodash-es/merge';
 import _find from 'lodash-es/find';
 import _map from 'lodash-es/map';
-import _get from 'lodash-es/get';
 import _includes from 'lodash-es/includes';
 import _replace from 'lodash-es/replace';
 import _join from 'lodash-es/join';
@@ -98,35 +95,6 @@ export class StaticService {
 
             return await this.getPostList([+currentCategoryId], params);
         }
-    }
-
-    /**
-     * Returns a link to the PDF file
-     * @param {string} slug - the slug of the page you want to convert to PDF
-     * @returns {string} - url
-     */
-    public getLinkToPdf(slug: string): string {
-        const params: IPDFParams = {
-            slug,
-            wpPlugin: this.useWpPlugin ? 1 : 0,
-            prepath: this.configService.get<TWpTranslateMode>('$static.wpPlugins.translateMode') === 'pre-path' ? 1 : 0,
-            page: 'posts',
-        };
-
-        if (this.configService.get<string[]>({name: '$static.pages'}).includes(slug)) {
-            const splitSettings = this.configService.get<ISplitTexts>({name: '$static.splitStaticTexts'});
-            if (splitSettings?.useByDefault || _get(splitSettings, 'slugs', []).includes(slug)) {
-                params.lang = this.translateService.currentLang;
-            }
-            params.page = 'pages';
-        }
-
-        const queryParams = Object.entries(params).reduce((res, [key, value]) => {
-            res.push(`${key}=${value}`);
-            return res;
-        }, []).join('&');
-
-        return '/api/v1/wptopdf?' + queryParams;
     }
 
     private cacheExpiry(type): number {
