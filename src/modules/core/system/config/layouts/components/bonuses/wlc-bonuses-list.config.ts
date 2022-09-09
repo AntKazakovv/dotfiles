@@ -237,6 +237,9 @@ export namespace wlcBonusesList {
     };
     export const dashboardWithEars: ILayoutComponent = {
         name: 'bonuses.wlc-bonuses-list',
+        display: {
+            before: 1023,
+        },
         params: <IBonusesListCParams>{
             type: 'swiper',
             wlcElement: 'block_bonuses-main',
@@ -291,6 +294,12 @@ export namespace wlcBonusesList {
                     },
                 },
             },
+        },
+    };
+    export const dashboardDefaultOnDesktop: ILayoutComponent = {
+        ...dashboard,
+        display: {
+            after: 1024,
         },
     };
 
