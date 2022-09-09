@@ -370,6 +370,7 @@ export class UserService {
 
         const response = this.dataService.request('user/createProfile', userProfile as any);
         this.logService.sendLog({code: '1.1.25'});
+        this.sendFlogAfterFastRegistration();
         response.catch((error: unknown) => {
             this.logService.sendRequestLog({
                 coreLog: {code: '1.1.23'},
@@ -717,6 +718,24 @@ export class UserService {
     private stopUserInfoFetcher(): void {
         this.userInfoHandler?.unsubscribe();
         this.dataService.reset('user/userInfo');
+    }
+
+    private sendFlogAfterFastRegistration(): void {
+        const isFastRegistration = this.configService.get<number>('appConfig.siteconfig.fastRegistration');
+
+        if (isFastRegistration) {
+            this.userInfoHandler = this.eventService.subscribe({
+                name: 'USER_INFO',
+            }, (info: IData) => {
+
+                if (info?.code === 200) {
+                    this.logService.sendLog({code: '1.1.28'});
+                } else {
+                    this.logService.sendLog({code: '1.1.27'});
+                }
+                this.userInfoHandler.unsubscribe();
+            });
+        }
     }
 
     private registerMethods(): void {
