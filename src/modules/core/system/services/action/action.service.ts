@@ -681,6 +681,7 @@ export class ActionService {
 
         await this.configService.ready;
         const userService = await this.injectionService.getService<UserService>('user.user-service');
+        const isFastRegistration = this.configService.get<number>('appConfig.siteconfig.fastRegistration');
 
         try {
             this.modalService.showModal('registration-success');
@@ -695,8 +696,14 @@ export class ActionService {
                 },
             });
             this.eventService.emit({name: 'LOGIN'});
+            if (!isFastRegistration) {
+                this.logService.sendLog({code: '1.1.29'});
+            }
         } catch (error) {
             this.showErrorNotification(error.errors, gettext('Registration error'), 'register');
+            if (!isFastRegistration && error.data?.code !== 200) {
+                this.logService.sendLog({code: '1.1.30'});
+            }
         } finally {
             this.modalService.hideModal('registration-success');
             const redirect = this.configService.get<IRedirect>('$base.redirects.registration');
