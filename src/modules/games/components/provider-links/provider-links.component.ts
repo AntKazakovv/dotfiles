@@ -11,6 +11,8 @@ import {
 } from '@angular/core';
 
 import {BehaviorSubject} from 'rxjs';
+import _times from 'lodash-es/times';
+import _sortedUniqBy from 'lodash-es/sortedUniqBy';
 
 import {IconListAbstract} from 'wlc-engine/modules/core/system/classes/icon-list-abstract.class';
 import {
@@ -27,12 +29,9 @@ import {
     GamesCatalogService,
 } from 'wlc-engine/modules/games/system/services/games-catalog/games-catalog.service';
 import {MerchantModel} from 'wlc-engine/modules/games/system/models/merchant.model';
+import {gamesEvents} from 'wlc-engine/modules/games/system/interfaces/games.interfaces';
 import {IconModel} from 'wlc-engine/modules/core/system/models/icon-list-item.model';
-
 import * as Params from './provider-links.params';
-
-import _times from 'lodash-es/times';
-import _sortedUniqBy from 'lodash-es/sortedUniqBy';
 
 @Component({
     selector: '[wlc-provider-links]',
@@ -77,14 +76,8 @@ export class ProviderLinksComponent extends IconListAbstract<Params.IProviderLin
     public async ngAfterViewInit(): Promise<void> {
         await this.gamesCatalogService.ready;
 
-        if (this.configService.get<boolean>('$base.colorThemeSwitching.use')
-        && this.$params.colorIconBg && this.$params.iconsType === 'color') {
-            this.subscribeOnToggleSiteTheme(() => {this.setMerchantsList(); this.setSliderParams();});
-        }
-        this.setMerchantsList();
-        this.setSliderParams();
-        this.initSliderComponent();
-
+        this.setEventHandlers();
+        this.initSlider();
         this.ready = true;
     }
 
@@ -102,6 +95,15 @@ export class ProviderLinksComponent extends IconListAbstract<Params.IProviderLin
                 themeMod: 'inside-modal',
             },
         });
+    }
+
+    /**
+     * Init slider view
+     */
+    protected initSlider(): void {
+        this.setMerchantsList();
+        this.setSliderParams();
+        this.initSliderConfig();
     }
 
     /**
@@ -138,8 +140,6 @@ export class ProviderLinksComponent extends IconListAbstract<Params.IProviderLin
         );
         this.$itemsChanges.next(this.items);
 
-        this.initSliderComponent();
-
         this.cdr.markForCheck();
     }
 
@@ -156,7 +156,22 @@ export class ProviderLinksComponent extends IconListAbstract<Params.IProviderLin
         this.cdr.markForCheck();
     }
 
-    protected initSliderComponent(): void {
+    protected setEventHandlers(): void {
+        if (this.configService.get<boolean>('$base.colorThemeSwitching.use')
+            && this.$params.colorIconBg && this.$params.iconsType === 'color') {
+            this.subscribeOnToggleSiteTheme(() => {
+                this.initSlider();
+            });
+        }
+
+        this.eventService.subscribe([
+            {name: gamesEvents.UPDATED_AVAILABLE_GAMES},
+        ], (): void => {
+            this.initSlider();
+        }, this.$destroy);
+    }
+
+    protected initSliderConfig(): void {
         this.sliderConfig = {
             components: [
                 {
