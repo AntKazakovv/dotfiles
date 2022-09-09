@@ -75,6 +75,7 @@ const defaultShowAsSwiper: IShowAsSwiper = {
     useNavigation: true,
     sliderParams: {
         swiper: {
+            virtual: true,
             slidesPerView: 1,
             slidesPerGroup: 1,
             grid: null,

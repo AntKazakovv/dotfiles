@@ -26,7 +26,7 @@
                       iconPath="/wlc/icons/filter-merchants.svg">
                 </span>
 
-                <span *ngIf="filters.merchants.length; else allProvider">
+                <span *ngIf="filters.merchants.length; else allProvider" class="title-wrap">
                     <span class="title">{{'Providers' | translate}}</span>
                     <span class="counter">({{filters.merchants.length}})</span>
                 </span>
@@ -48,7 +48,7 @@
                       iconPath="/wlc/icons/filter-categories.svg">
                 </span>
 
-                <span *ngIf="filters.categories.length; else allCategories">
+                <span *ngIf="filters.categories.length; else allCategories" class="title-wrap">
                     <span class="title">{{'Categories' | translate}}</span>
                     <span class="counter">({{filters.categories.length}})</span>
                 </span>

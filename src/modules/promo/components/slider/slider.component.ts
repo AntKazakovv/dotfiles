@@ -30,6 +30,7 @@ import SwiperCore, {
     Swiper,
     Grid,
     SwiperOptions,
+    Virtual,
 } from 'swiper';
 import {SwiperComponent} from 'swiper/angular';
 import {NavigationOptions} from 'swiper/types';
@@ -69,6 +70,7 @@ SwiperCore.use([
     Mousewheel,
     Scrollbar,
     Grid,
+    Virtual,
 ]);
 
 @Component({
@@ -122,7 +124,7 @@ export class SliderComponent extends AbstractComponent
 
         if (this.$params.events) {
             this.$params.events.pipe(takeUntil(this.$destroy)).subscribe((event) => {
-                switch(event) {
+                switch (event) {
                     case 'start':
                         this.swiper.swiperRef?.autoplay.start();
                         break;
