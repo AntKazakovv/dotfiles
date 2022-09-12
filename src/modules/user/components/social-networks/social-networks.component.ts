@@ -40,7 +40,7 @@ export class SocialNetworksComponent extends AbstractComponent implements OnInit
     public metamask: Params.INetwork;
     public connected: string[] = [];
 
-    public isMetamask: boolean = this.configService.get<boolean>('$base.profile.metamaskAuth.use');
+    public isMetamask: boolean = this.configService.get<boolean>('appConfig.siteconfig.useMetamask');
     public isSocials: boolean = this.configService.get<boolean>('$base.profile.socials.use');
     public isAuth: boolean = this.configService.get<boolean>('$user.isAuthenticated');
 

@@ -39,7 +39,4 @@ export const profileConfig: IProfileConfig = {
     },
     type: 'default',
     legalAge: 18,
-    metamaskAuth: {
-        use: false,
-    },
 };
