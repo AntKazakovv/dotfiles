@@ -54,4 +54,58 @@ export const $layoutsKiosk: ILayoutsConfig = {
             'sign-in-page': sectionsLib.signInPageSection.kiosk,
         },
     },
+    'app.sportsbook': {
+        extends: 'app',
+        sections: {
+            content: sectionsLib.content.sportsbook,
+        },
+    },
+    'app.betradar': {
+        extends: 'app',
+        sections: {
+            content: sectionsLib.content.sportsbookBetradar,
+        },
+    },
+    'app.digitain': {
+        extends: 'app',
+        sections: {
+            content: sectionsLib.content.sportsbookDigitain,
+        },
+    },
+    'app.pinnacle': {
+        extends: 'app',
+        sections: {
+            content: sectionsLib.content.sportsbookPinnacleSW,
+        },
+    },
+    'app.altenar': {
+        extends: 'app',
+        sections: {
+            content: sectionsLib.content.sportsbookAltenar,
+        },
+    },
+    'app.tglab': {
+        extends: 'app',
+        sections: {
+            content: sectionsLib.content.sportsbookTglab,
+        },
+    },
+    'app.bti': {
+        extends: 'app',
+        sections: {
+            content: sectionsLib.content.sportsbookBti,
+        },
+    },
+    'app.esport': {
+        extends: 'app',
+        sections: {
+            content: sectionsLib.content.sportsbookEsport,
+        },
+    },
+    'app.nova': {
+        extends: 'app',
+        sections: {
+            content: sectionsLib.content.sportsbookNova,
+        },
+    },
 };
