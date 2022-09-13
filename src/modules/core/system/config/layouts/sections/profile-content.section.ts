@@ -847,10 +847,7 @@ export namespace profileContent {
                         componentLib.wlcDashboardLoyaltyBlock.def,
                         componentLib.wlcDashboardExchange.def,
                         componentLib.wlcTitle.profileDashboardBonuses,
-                        componentLib.wlcBonusesList.generateDashboardConfig(bonusesListSwiperWithEars),
-                        bonusesListSwiperWithEars
-                            ? componentLib.wlcBonusesList.dashboardDefaultOnDesktop
-                            : null,
+                        ...componentLib.wlcBonusesList.generateDashboardConfig(bonusesListSwiperWithEars),
                         componentLib.wlcEnterPromocode.def,
                         componentLib.wlcSeeAllBonuses.def,
                     ],

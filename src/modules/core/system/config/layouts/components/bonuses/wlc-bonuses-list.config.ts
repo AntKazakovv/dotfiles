@@ -303,8 +303,8 @@ export namespace wlcBonusesList {
         },
     };
 
-    export const generateDashboardConfig = (bonusesListSwiperWithEars: boolean): ILayoutComponent => {
-        return bonusesListSwiperWithEars ? dashboardWithEars : dashboard;
+    export const generateDashboardConfig = (bonusesListSwiperWithEars: boolean): ILayoutComponent[] => {
+        return bonusesListSwiperWithEars ? [dashboardWithEars, dashboardDefaultOnDesktop] : [dashboard];
     };
 
     export const promoHome: ILayoutComponent = {
