@@ -288,18 +288,18 @@ export class BonusesService {
             switch (filter) {
                 case 'all':
                     return (allowCatalog || (!allowCatalog && (selected || active)))
-                        && (!hasPromoCode || (hasPromoCode && (selected || active || this.isPromocodeEntered(bonus))))
+                        && (!hasPromoCode || selected || active || inventoried || this.isPromocodeEntered(bonus))
                         && bonus.event !== 'store';
                 case 'deposit':
                     return (allowCatalog || (!allowCatalog && (selected || active)))
-                        && (!hasPromoCode || (hasPromoCode && (selected || active || this.isPromocodeEntered(bonus))))
+                        && (!hasPromoCode || selected || active || this.isPromocodeEntered(bonus))
                         && this.depEvents.indexOf(bonus.event) !== -1;
                 case 'reg':
                     return (allowCatalog || (!allowCatalog && (selected || active)))
-                        && (!hasPromoCode || (hasPromoCode && (selected || active || this.isPromocodeEntered(bonus))))
+                        && (!hasPromoCode || selected || active || this.isPromocodeEntered(bonus))
                         && this.regEvents.indexOf(bonus.event) !== -1;
                 case 'main':
-                    return !active && (!hasPromoCode || (hasPromoCode && selected || this.isPromocodeEntered(bonus)))
+                    return !active && (!hasPromoCode || selected || this.isPromocodeEntered(bonus))
                         && (allowCatalog || (!allowCatalog && selected))
                         && !inventoried;
                 case 'promocode':
