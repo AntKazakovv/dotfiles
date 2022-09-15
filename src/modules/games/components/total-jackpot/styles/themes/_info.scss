@@ -1,6 +1,4 @@
 .wlc-total-jackpot--theme-info:host {
-    grid-area: total-jackpot;
-    height: 100%;
 
     .wlc-total-jackpot {
         @include cm.fourElementsComponent($themeInfo);

@@ -1,6 +1,4 @@
 .wlc-top-rated--theme-default:host {
-    grid-area: top-rated;
-    height: 100%;
 
     .wlc-top-rated {
         @include cm.fourElementsComponent($themeDefault);

@@ -2,6 +2,7 @@
 @use 'engine-scss/mixins/common.mixins' as cm;
 @use 'engine-scss/mixins/text' as text;
 @use 'engine-scss/functions' as ef;
+@use 'engine-scss/engine.variables' as ev;
 
 @import './utils/vars';
 

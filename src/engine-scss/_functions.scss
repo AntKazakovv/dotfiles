@@ -39,6 +39,8 @@
         @return map-get(ev.$shadows, $name);
     } @else if ($map == 'container') {
         @return map-get(ev.$container-max-widths, $name);
+    } @else if ($map == 'baseFourElements') {
+        @return map-get(ev.$baseFourElements, $name);
     }
 }
 

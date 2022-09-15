@@ -10,6 +10,8 @@ export interface ITopRatedCParams extends IComponentParams<ComponentTheme, Compo
     text?: string;
     rating?: IRatingCParams;
     animateSprite?: IAnimateSpriteCParams;
+    useSprite?: boolean;
+    iconUrl?: string;
 };
 
 export const defaultParams: ITopRatedCParams = {
@@ -17,8 +19,17 @@ export const defaultParams: ITopRatedCParams = {
     moduleName: 'promo',
     componentName: 'wlc-top-rated',
     theme: 'default',
+    rating: {
+        mock: {
+            use: true,
+            from: 3.7,
+            to: 4.8,
+        },
+    },
     text: gettext('Top rated 24/7 live chat support'),
     animateSprite: {
         imageUrl: '/gstatic/sprites/support-sprite.png',
     },
+    useSprite: false,
+    iconUrl: '/gstatic/wlc/four-elements/support-icon.png',
 };

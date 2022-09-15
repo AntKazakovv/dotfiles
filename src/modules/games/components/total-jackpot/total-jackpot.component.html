@@ -13,11 +13,13 @@
 <ng-template #info>
     <div class="{{$class}}__body four-elements__body">
         <div class="{{$class}}__image">
-            <div class="{{$class}}__sprite"
-                wlc-animate-sprite
-                [parentElementRef]="elementRef.nativeElement"
-                [inlineParams]="$params.animateSprite"
-            ></div>
+            <ng-container *ngIf="$params.useSprite; else image">
+                <div class="{{$class}}__sprite"
+                    wlc-animate-sprite
+                    [parentElementRef]="elementRef.nativeElement"
+                    [inlineParams]="$params.animateSprite"
+                ></div>
+            </ng-container>
         </div>
         <div class="{{$class}}__content">
             <p class="{{$class}}__top">
@@ -69,6 +71,14 @@
             </tspan>
         </text>
     </svg>
+</ng-template>
+
+<ng-template #image>
+    <div class="{{$class}}__icon-wrap">
+        <img class="{{$class}}__icon"
+            loading="lazy"
+            [src]="$params.iconUrl">
+    </div>
 </ng-template>
 
 <ng-template #noContent>

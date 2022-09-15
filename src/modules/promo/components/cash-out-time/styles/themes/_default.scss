@@ -1,6 +1,4 @@
 .wlc-cash-out-time--theme-default:host {
-    grid-area: cash-out-time;
-    height: 100%;
 
     .wlc-cash-out-time {
         @include cm.fourElementsComponent($themeDefault);

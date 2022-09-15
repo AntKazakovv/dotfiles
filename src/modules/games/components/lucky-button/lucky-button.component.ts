@@ -48,8 +48,7 @@ export class LuckyButtonComponent extends RandomGameAbstract<Params.IFeelingLuck
     protected playRandomGame(): void {
         switch (this.$params.actionType) {
             case 'carousel':
-                // TODO https://tracker.egamings.com/issues/352977 сделать открытие модалки после данного тикета
-                console.error('https://tracker.egamings.com/issues/352977');
+                this.modalService.showModal('gamesSlider');
                 break;
             case 'random-game':
             default:

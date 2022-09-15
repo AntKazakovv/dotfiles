@@ -3,7 +3,7 @@
     .wlc-rating {
 
         &__body {
-            display: ef.get-value($themeDefault, 'bodyDisplay');
+            display: inline-grid;
             grid-template-columns: repeat(var(--stars-count), auto);
             gap: ef.get-value($themeDefault, 'bodyGap');
         }
@@ -14,8 +14,8 @@
             ::ng-deep {
 
                 svg {
-                    width: ef.get-value($themeDefault, 'iconSize');
-                    height: ef.get-value($themeDefault, 'iconSize');
+                    @include bm.get-mq-map('width', $themeDefault, 'iconSize');
+                    @include bm.get-mq-map('height', $themeDefault, 'iconSize');
 
                     .fill {
                         fill: ef.get-value($themeDefault, 'starColorActive');

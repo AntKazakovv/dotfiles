@@ -6,16 +6,6 @@ export namespace wlcTotalJackpot {
         name: 'games.wlc-total-jackpot',
     };
 
-    export const info: ILayoutComponent = {
-        name: 'games.wlc-total-jackpot',
-        params: <ITotalJackpotCParams>{
-            theme: 'info',
-            countUpOptions: {
-                separator: ',',
-            },
-        },
-    };
-
     export const gamesInside: ILayoutComponent = {
         name: 'games.wlc-total-jackpot',
         params: {
@@ -28,6 +18,27 @@ export namespace wlcTotalJackpot {
         params: {
             theme: 'games-inside',
             themeMod: 'label',
+        },
+    };
+
+    export const info: ILayoutComponent = {
+        name: 'games.wlc-total-jackpot',
+        params: <ITotalJackpotCParams>{
+            theme: 'info',
+            countUpOptions: {
+                separator: ',',
+            },
+        },
+    };
+
+    export const infoUseSprite: ILayoutComponent = {
+        name: 'games.wlc-total-jackpot',
+        params: <ITotalJackpotCParams>{
+            theme: 'info',
+            countUpOptions: {
+                separator: ',',
+            },
+            useSprite: true,
         },
     };
 }

@@ -15,6 +15,7 @@ $customForm: () !default;
 $customModalSize: () !default;
 $customProfileSettings: () !default;
 $customProfileSettingsThemeFirst: () !default;
+$customBaseFourElements: () !default;
 
 $customVars: () !default;
 $customButtonSettings: () !default;
@@ -727,6 +728,7 @@ $layoutGap: map-merge((
         '.wlc-sections__content-wins-transparent',
         '.wlc-sections__random-games',
         '.wlc-sections__banner-promotion',
+        '.wlc-sections__four-elements',
     ),
     '.app-contacts-state': (
         '.wlc-sections__info-page'
@@ -1002,3 +1004,81 @@ $scrollbarConfig: (
     'margin': 5px,
     'borderRadius': map-get($radius, 'less'),
 );
+
+
+
+/// Общие стили компонента four-elements
+$dummy: map-merge((), $customBaseFourElements);
+$baseFourElements: map-merge((
+    'titleColor': var(--mc-baseMain),
+    'titleTextStyle': (
+        375: 'ThirdTitleBold',
+        1630: 'QoteTextBold'
+    ),
+    'descTextStyle': (
+        375: 'CaptionText',
+        1630: 'PrimaryText'
+    ),
+    'descColor': var(--mc-baseMain),
+    'descMargin': (
+        375: none,
+    ),
+
+    'bodyGap': (
+        375: size-func(2),
+        1630: size-func(4),
+    ),
+    'bodyGridTemplateColumns': (
+        375: 1fr,
+        768: 72px auto,
+        1200: 85px auto,
+        1630: 100px auto,
+    ),
+    'bodyGridTemplateRows': (
+        375: 50px auto,
+        768: 1fr,
+    ),
+    'bodyBackground': var(--mc-bg700),
+    'bodyBackgroundHover': var(--mc-bg700-l10),
+
+    'contentTextAlign': (
+        375: center,
+        768: start,
+    ),
+    'imageHeight': (
+        375: 50px,
+        1200: 60px,
+        1630: 70px,
+    ),
+    'imageWidth': (
+        375: 72px,
+        1200: 85px,
+        1630: 100px,
+    ),
+
+    'wrapOverflow': null,
+    'wrapBottom': (
+        375: null,
+    ),
+    'wrapLeft': (
+        375: null,
+    ),
+    'wrapWidth': (
+        375: 100%,
+    ),
+    'wrapHeight': (
+        375: 100%,
+    ),
+    'iconTranslate': null,
+    'iconMargin': (
+        375: 0 auto,
+    ),
+    'iconWidth': (
+        375: 100%,
+    ),
+    'iconMaxHeight': (
+        375: 100%,
+    ),
+    'iconObjectFit': contain,
+), $customBaseFourElements);
+

@@ -1,6 +1,6 @@
 .wlc-lucky-button--theme-default:host {
-    grid-area: lucky-button;
-    height: 100%;
+    --lb-icon-transform: none;
+    --lb-text-color: #{ef.get-value($themeDefault, 'descColor')};
 
     .wlc-lucky-button {
         @include cm.fourElementsComponent($themeDefault);
@@ -9,24 +9,27 @@
             cursor: pointer;
 
             @include bm.hover() {
-
-                .wlc-lucky-button__text {
-                    color: ef.get-value($themeDefault, 'colorTextHover');
-                }
+                --lb-icon-transform: rotateX(360deg) translateX(10px);
+                --lb-text-color: #{ef.get-value($themeDefault, 'descColorHover')};
             }
         }
 
+        &__content {
+            @include bm.get-mq-map('align-items', $themeDefault, 'contentAlignItems');
+        }
+
         &__text {
-            @include bm.transition();
-            position: relative;
-            font-weight: ef.get-value($themeDefault, 'fontWeightText');
-            overflow: visible;
+            @include bm.transition(color);
+            display: flex;
+            align-items: center;
+            color: var(--lb-text-color);
 
             ::ng-deep {
 
                 .wlc-icon {
-                    position: absolute;
-                    padding: ef.get-value($themeDefault, 'iconPadding');
+                    @include bm.transition(transform, 0.3s);
+                    margin-left: ef.size(1);
+                    transform: var(--lb-icon-transform);
                 }
             }
         }

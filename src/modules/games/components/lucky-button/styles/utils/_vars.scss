@@ -1,32 +1,15 @@
 $customThemeDefault: () !default;
-$themeDefault: map-merge((
-    'titleColor': var(--mc-baseMain),
-    'textColor': var(--mc-baseMain-o8),
-    'colorTextHover': var(--mc-buttonColor),
-    'fontWeightText': 500,
-    'titleTextStyle': 'QoteTextBold',
-    'descrTextStyle': 'ThirdTitle',
-    'textMargin': ef.size(1) 0 0,
-    'iconPadding': 0 0 0 ef.size(1),
-    'contentMargin': (
-        375: 0 0 0 ef.size(6),
-        1630: 0,
+$themeDefault: map-merge(map-merge(ev.$baseFourElements, (
+    'descColor': var(--mc-main),
+    'descColorHover': var(--mc-main-l20),
+    'descTextStyle': (
+        375: 'CaptionTextBold',
+        1630: 'PrimaryTextBold'
     ),
-    'imageFlex': (
-        375: 0 0 30%,
+    'contentAlignItems': (
+        375: center,
+        768: start
     ),
-    'spriteBottom': null,
-    'spriteLeft': (
-        1630: 0,
-    ),
-    'spriteHeight': (
-        375: 100%,
-    ),
-    'spriteOverflow': null,
-    'canvasTranslate': null,
-    'background': linear-gradient(-300deg, var(--mc-bg700) 20%, var(--mc-bg700-l20) 100%),
-    'backgroundHover': null,
-    'backgroundSize': 180%,
-    'backgroundSizeHover': 100%,
-    'topHeight': ef.size(7),
-), $customThemeDefault);
+    'textIconPadding': 0 0 0 ef.size(1),
+)), $customThemeDefault);
+

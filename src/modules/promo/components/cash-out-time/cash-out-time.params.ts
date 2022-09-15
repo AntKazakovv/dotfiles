@@ -18,6 +18,8 @@ export interface ITimeStorage {
 export interface ICashOutTimeCParams
     extends IComponentParams<ComponentTheme, ComponentType, ComponentThemeMod> {
         text?: string;
+        useSprite?: boolean;
+        iconUrl?: string;
         intervalChangingValue?: number;
         animateSprite?: IAnimateSpriteCParams;
         approximatelyTime?: boolean;
@@ -42,6 +44,8 @@ export const defaultParams: ICashOutTimeCParams = {
         from: 0,
         to: 59,
     },
+    useSprite: false,
+    iconUrl: '/gstatic/wlc/four-elements/lightning-icon.png',
     animateSprite: {
         imageUrl: '/gstatic/sprites/lightning-sprite.png',
     },

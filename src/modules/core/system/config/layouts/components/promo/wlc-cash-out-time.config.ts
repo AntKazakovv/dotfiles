@@ -7,10 +7,11 @@ export namespace wlcCashOutTime {
         params: <ICashOutTimeCParams>{},
     };
 
-    export const jackpot: ILayoutComponent = {
+    export const useSprite: ILayoutComponent = {
         name: 'promo.wlc-cash-out-time',
         params: <ICashOutTimeCParams>{
-            type: 'jackpot',
+            useSprite: true,
         },
     };
 }
+

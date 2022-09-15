@@ -25,6 +25,8 @@ export interface ITotalJackpotCParams extends IComponentParams<ComponentTheme, C
     countUpOptions?: CountUpOptions;
     noContent?: TotalJackpotNoContentByThemeType;
     animateOnClick?: boolean;
+    useSprite?: boolean;
+    iconUrl?: string;
     text?: string;
     animateSprite?: IAnimateSpriteCParams;
     /**
@@ -53,6 +55,8 @@ export const defaultParams: ITotalJackpotCParams = {
         decimalPlaces: 0,
         decimal: ',',
     },
+    useSprite: false,
+    iconUrl: '/gstatic/wlc/four-elements/jackpot-icon.png',
     animateSprite: {
         imageUrl: '/gstatic/sprites/star-sprite.png',
     },

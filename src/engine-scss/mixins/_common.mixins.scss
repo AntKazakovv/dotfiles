@@ -65,60 +65,75 @@
 
     &__body {
         @include bm.transition();
-        @include bm.get-mq-map('flex-direction', $config, 'bodyDirection');
-        display: flex;
+        @include bm.get-mq-map('gap', $config, 'bodyGap');
+        @include bm.get-mq-map('grid-template-columns', $config, 'bodyGridTemplateColumns');
+        @include bm.get-mq-map('grid-template-rows', $config, 'bodyGridTemplateRows');
+        display: grid;
         height: 100%;
-        background: ef.get-value($config, 'background');
-        background-size: ef.get-value($config, 'backgroundSize');
+        background: ef.get-value($config, 'bodyBackground');
 
         @include bm.hover() {
-            background: ef.get-value($config, 'backgroundHover');
-            background-size: ef.get-value($config, 'backgroundSizeHover');
+            background: ef.get-value($config, 'bodyBackgroundHover');
         }
     }
 
     &__image {
-        @include bm.get-mq-map('flex', $config, 'imageFlex');
+        @include bm.get-mq-map('width', $config, 'imageWidth');
+        @include bm.get-mq-map('height', $config, 'imageHeight');
         position: relative;
         display: flex;
         align-items: center;
-        height: 100%;
     }
 
+    &__icon-wrap,
     &__sprite {
-        @include bm.get-mq-map('height', $config, 'spriteHeight');
-        @include bm.get-mq-map('bottom', $config, 'spriteBottom');
-        @include bm.get-mq-map('left', $config, 'spriteLeft');
+        @include bm.get-mq-map('width', $config, 'wrapWidth');
+        @include bm.get-mq-map('height', $config, 'wrapHeight');
+        @include bm.get-mq-map('bottom', $config, 'wrapBottom');
+        @include bm.get-mq-map('left', $config, 'wrapLeft');
         position: absolute;
-        width: 100%;
         pointer-events: none;
-        overflow: ef.get-value($config, 'spriteOverflow');
+        overflow: ef.get-value($config, 'wrapOverflow');
 
         ::ng-deep {
 
             .wlc-animate-sprite__canvas {
+                @include bm.get-mq-map('transform', $config, 'iconTranslate');
+                @include bm.get-mq-map('margin', $config, 'iconMargin');
                 display: block;
-                margin: auto;
-            }
-
-            canvas {
-                @include bm.get-mq-map('transform', $config, 'canvasTranslate');
             }
         }
     }
 
+    &__icon {
+        @include bm.get-mq-map('transform', $config, 'iconTranslate');
+        @include bm.get-mq-map('margin', $config, 'iconMargin');
+        @include bm.get-mq-map('width', $config, 'iconWidth');
+        @include bm.get-mq-map('max-height', $config, 'iconMaxHeight');
+        display: block;
+        object-fit: ef.get-value($config, 'iconObjectFit');
+    }
+
     &__content {
-        @include bm.get-mq-map('margin', $config, 'contentMargin');
-        flex: 1 1 auto;
+        @include bm.get-mq-map('text-align', $config, 'contentTextAlign');
+        display: flex;
+        flex-direction: column;
     }
 
     &__top {
-        @include text.get-text-style(ef.get-value($config, 'titleTextStyle'), ef.get-value($config, 'titleColor'));
-        min-height: ef.get-value($config, 'topHeight');
+        @include text.get-text-style(ef.get-value($config, 'titleTextStyle', 375), ef.get-value($config, 'titleColor'));
+
+        @include mq.min(1630) {
+            @include text.get-text-style(ef.get-value($config, 'titleTextStyle', 1630), null);
+        }
     }
 
     &__text {
-        @include text.get-text-style(ef.get-value($config, 'descrTextStyle'), ef.get-value($config, 'textColor'));
-        margin: ef.get-value($config, 'textMargin');
+        @include bm.get-mq-map('margin', $config, 'descMargin');
+        @include text.get-text-style(ef.get-value($config, 'descTextStyle', 375), ef.get-value($config, 'descColor'));
+
+        @include mq.min(1630) {
+            @include text.get-text-style(ef.get-value($config, 'descTextStyle', 1630), null);
+        }
     }
 }

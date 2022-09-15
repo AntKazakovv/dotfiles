@@ -12,6 +12,8 @@ export interface IFeelingLuckyButtonCParams
         actionTextIcon?: string;
         animateSprite?: IAnimateSpriteCParams;
         actionType?: 'random-game' | 'carousel';
+        useSprite?: boolean;
+        iconUrl?: string;
 };
 
 export const defaultParams: IFeelingLuckyButtonCParams = {
@@ -20,10 +22,12 @@ export const defaultParams: IFeelingLuckyButtonCParams = {
     componentName: 'wlc-lucky-button',
     theme: 'default',
     text: gettext('Feeling Lucky?'),
-    actionText: gettext('Try to play a random game'),
+    actionText: gettext('Random game'),
     actionTextIcon: '/wlc/icons/arrow-right.svg',
     animateSprite: {
         imageUrl: '/gstatic/sprites/dice-sprite.png',
     },
     actionType: 'random-game',
+    useSprite: false,
+    iconUrl: '/gstatic/wlc/four-elements/dice-icon.png',
 };

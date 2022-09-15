@@ -6,4 +6,11 @@ export namespace wlcLuckyButton {
         name: 'games.wlc-lucky-button',
         params: <IFeelingLuckyButtonCParams>{},
     };
+
+    export const useSprite: ILayoutComponent = {
+        name: 'games.wlc-lucky-button',
+        params: <IFeelingLuckyButtonCParams>{
+            useSprite: true,
+        },
+    };
 }

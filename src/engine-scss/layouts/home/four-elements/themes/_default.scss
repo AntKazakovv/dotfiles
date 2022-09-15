@@ -1,18 +1,13 @@
-.wlc-sections__four-elements--theme-default {
-    @include bm.get-mq-map('margin', $fourElThemeDefault, 'sectionMargin');
-    @include bm.get-mq-map('padding', $fourElThemeDefault, 'sectionPadding');
+.four-elements {
+    @include bm.get-mq-map('grid-template-columns', $fourElThemeDefault, 'wrapperGridTemplateColumns');
+    @include bm.get-mq-map('gap', $fourElThemeDefault, 'wrapperGap');
+    display: grid;
 
-    .four-elements {
-        @include bm.get-mq-map('grid-template-columns', $fourElThemeDefault, 'wrapperGridTemplateColumns');
-        @include bm.get-mq-map('grid-template-rows', $fourElThemeDefault, 'wrapperGridRows');
-        @include bm.get-mq-map('grid-template-areas', $fourElThemeDefault, 'wrapperGridAreas');
-        display: ef.get-value($fourElThemeDefault, 'wrapperDisplay');
-        gap: ef.get-value($fourElThemeDefault, 'wrapperGap');
-
-        &__body {
-            align-items: ef.get-value($fourElThemeDefault, 'elementAlignItems');
-            padding: ef.get-value($fourElThemeDefault, 'elementPadding');
-            border-radius: ef.get-value($fourElThemeDefault, 'elementBorderRadius');
-        }
+    &__body {
+        @include bm.get-mq-map('padding', $fourElThemeDefault, 'elementPadding');
+        @include bm.get-mq-map('min-height', $fourElThemeDefault, 'elementMinHeight');
+        @include bm.get-mq-map('align-items', $fourElThemeDefault, 'elementAlignItems');
+        @include bm.get-mq-map('justify-items', $fourElThemeDefault, 'elementJustifyItems');
+        border-radius: ef.get-value($fourElThemeDefault, 'elementBorderRadius');
     }
 }
