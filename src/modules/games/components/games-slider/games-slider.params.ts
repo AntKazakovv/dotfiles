@@ -67,6 +67,8 @@ export interface IGamesSliderCParams extends IComponentParams<ComponentTheme, Co
 
 export const defaultParams: IGamesSliderCParams = {
     class: 'wlc-games-slider',
+    moduleName: 'games',
+    componentName: 'wlc-games-slider',
     minTimer: 1500,
     maxTimer: 4000,
     minAmount: 11,

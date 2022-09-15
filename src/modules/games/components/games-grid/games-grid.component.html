@@ -249,7 +249,7 @@
         <button *ngIf="!hideShowMoreBtn && !$params.showAllLink?.use"
                 wlc-button
                 [wlcElement]="'button_load-more-games'"
-                [text]="'Load more games'"
+                [text]="$params.btnLoadMore.common.text"
                 (click)="loadMore()">
         </button>
 

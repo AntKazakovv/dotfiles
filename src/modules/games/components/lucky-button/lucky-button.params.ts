@@ -18,7 +18,7 @@ export interface IFeelingLuckyButtonCParams
 
 export const defaultParams: IFeelingLuckyButtonCParams = {
     class: 'wlc-lucky-button',
-    moduleName: 'promo',
+    moduleName: 'games',
     componentName: 'wlc-lucky-button',
     theme: 'default',
     text: gettext('Feeling Lucky?'),
