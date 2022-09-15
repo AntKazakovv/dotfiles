@@ -13,7 +13,7 @@ import {
 } from '@angular/platform-browser';
 import {DOCUMENT} from '@angular/common';
 import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
-import {ConfigService} from 'wlc-engine/modules/core';
+import {ConfigService, LogService} from 'wlc-engine/modules/core';
 
 import * as Params from './license.params';
 
@@ -37,6 +37,7 @@ export class LicenseComponent extends AbstractComponent implements OnInit {
         private sanitizer: DomSanitizer,
         private elRef: ElementRef,
         configService: ConfigService,
+        private logService: LogService,
     ) {
         super({
             injectParams,
@@ -84,6 +85,7 @@ export class LicenseComponent extends AbstractComponent implements OnInit {
         if (this.$params.apgSeal.sealDomain !== location.host) {
             script.onload = () => {
                 this.replaceHost();
+                this.checkLicenseIcon();
             };
         }
 
@@ -98,5 +100,18 @@ export class LicenseComponent extends AbstractComponent implements OnInit {
     protected replaceAttr(el: string, attr: string): void {
         const item = this.elRef.nativeElement.querySelector(`#apg-seal-container ${el}`);
         item.setAttribute(attr, item.getAttribute(attr).replace(location.host, this.$params.apgSeal.sealDomain));
+    }
+
+    protected checkLicenseIcon() {
+        const licenseTag = this.document.getElementById('apg-seal-container');
+        const licenseImgSrc = licenseTag.querySelector('img').src?.toString();
+
+        if (this.licenseType === 'apg' && !licenseTag.querySelector('img')) {
+            this.logService.sendLog({code: '4.0.4'});
+        }
+
+        if (this.licenseType === 'apg' && licenseImgSrc.indexOf('valid') === -1) {
+            this.logService.sendLog({code: '4.0.5'});
+        }
     }
 }
