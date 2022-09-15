@@ -45,7 +45,7 @@ export class AccordionComponent extends AbstractComponent implements OnInit {
 
     /**
      * Open and close item
-     * 
+     *
      * @param item {Params.IAccordionData}
      * @returns {void}
      */

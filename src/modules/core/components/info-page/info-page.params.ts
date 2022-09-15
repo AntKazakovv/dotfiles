@@ -14,12 +14,14 @@ export interface IInfoPageConfig {
 
 export interface IInfoPageCParams extends IComponentParams<ComponentTheme, ComponentType, string> {
     config?: IInfoPageConfig;
+    useFaqAccordion?: boolean;
 }
 
 export const defaultParams: IInfoPageCParams = {
     class: 'wlc-info-page',
     moduleName: 'core',
     componentName: 'wlc-info-page',
+    useFaqAccordion: false,
     config: {
         menu: {
             class: 'wlc-info-page__menu',

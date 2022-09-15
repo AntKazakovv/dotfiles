@@ -13,6 +13,8 @@ import {
     IWrapperCParams,
     AbstractComponent,
     ConfigService,
+    IAccordionCParams,
+    ILayoutComponent,
 } from 'wlc-engine/modules/core';
 import {IPostCParams} from 'wlc-engine/modules/static/components';
 
@@ -75,19 +77,38 @@ export class InfoPageComponent extends AbstractComponent implements OnInit {
                 }];
                 break;
 
+            case 'faq':
+                this.config.content.components = this.$params.useFaqAccordion
+                    ? this.getAccordionPost() : this.getStaticPost();
+                break;
+
             default:
-                this.config.content.components = [{
-                    name: 'static.wlc-post',
-                    params: <IPostCParams>{
-                        slug: this.uiRouter.params.slug,
-                        parseAsPlainHTML: true,
-                        withoutCompilation: true,
-                        shouldClearStyles: true,
-                        wlcElement: 'section_static-text_' + this.uiRouter.params.slug,
-                        showTitle: true,
-                    },
-                }];
+                this.config.content.components = this.getStaticPost();
         }
         this.content = _cloneDeep(this.config.content);
+    }
+
+    protected getStaticPost(): ILayoutComponent[] {
+        return [{
+            name: 'static.wlc-post',
+            params: <IPostCParams>{
+                slug: this.uiRouter.params.slug,
+                parseAsPlainHTML: true,
+                withoutCompilation: true,
+                shouldClearStyles: true,
+                wlcElement: 'section_static-text_' + this.uiRouter.params.slug,
+                showTitle: true,
+            },
+        }];
+    }
+
+    protected getAccordionPost(): ILayoutComponent[] {
+        return [{
+            name: 'static.wlc-faq',
+            params: <IAccordionCParams>{
+                class: 'wlc-faq',
+                slug: this.uiRouter.params.slug,
+            },
+        }];
     }
 }
