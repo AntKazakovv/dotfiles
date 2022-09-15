@@ -21,6 +21,8 @@ $themeDefault: map-merge((
 
     'captchaMargin': 0 0 ef.size(2),
     'captchaInputMargin': 0 0 ef.size(7),
+
+    'marginTopButton': ef.size(4),
 ), $customThemeDefault);
 
 $customThemeDefaultModWithBanner: () !default;

@@ -35,6 +35,10 @@
             &--captcha {
                 margin: ef.get-value($themeDefault, 'captchaInputMargin');
             }
+
+            & + .wlc-btn {
+                margin-top: ef.get-value($themeDefault, 'marginTopButton');
+            }
         }
 
         .wlc-btn {
