@@ -40,7 +40,7 @@ $themeDefault: map-merge((
     'boardTitleColor': ef.get('mainColors', 'baseMain'),
 
     'priceFontStyle': 'QoteTextBold',
-    'priceColor': var(--mc-main),
+    'priceColor': var(--mc-baseMain),
 
     'pseudoElementPosition': 0,
     'pseudoElementZIndex': 2,
