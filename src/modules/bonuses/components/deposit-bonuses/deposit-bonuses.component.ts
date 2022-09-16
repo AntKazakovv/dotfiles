@@ -59,6 +59,7 @@ export class DepositBonusesComponent extends AbstractComponent implements OnInit
     protected blankBonus: IBlankBonusParams;
     protected isMobile: boolean = this.configService.get<DeviceModel>('device').isMobile;
     protected firstInit: boolean = true;
+    protected paymentsAutoSelect: boolean = false;
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IDepositBonusesCParams,
@@ -77,6 +78,9 @@ export class DepositBonusesComponent extends AbstractComponent implements OnInit
 
         this.autoSelect = this.configService.get('$finances.bonusesInDeposit.autoSelect.use')
             && this.configService.get('$finances.bonusesInDeposit.autoSelect.index');
+
+        this.paymentsAutoSelect = this.configService.get<boolean>('$finances.payment.autoSelect')
+            || this.configService.get<boolean>('$finances.lastSucceedDepositMethod.use');
 
         this.blankBonus = {
             ...Params.defBlankBonusParams,
@@ -226,6 +230,11 @@ export class DepositBonusesComponent extends AbstractComponent implements OnInit
             observer: {
                 next: (bonuses: Bonus[]): void => {
                     this.processBonusesResponse(bonuses || []);
+
+                    if ((!this.paymentsAutoSelect || this.currentPaySystemId) && this.firstInit) {
+                        this.firstInit = false;
+                        this.setAutoSelect();
+                    }
                 },
             },
         });

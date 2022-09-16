@@ -118,6 +118,7 @@ export class DepositWithdrawComponent
     public formData$: BehaviorSubject<TFormData> = new BehaviorSubject(null);
     public userTotalBonus: number;
     public userAvailableWithdraw: number;
+    public lastSucceedDepositMethod: Promise<number | null>;
     public listConfig: IPaymentListCParams = {
         paymentType: 'deposit',
         wlcElement: 'block_payment-list',
@@ -241,6 +242,11 @@ export class DepositWithdrawComponent
             _cloneDeep(Params.timerParams),
             this.$params.timerParams,
         );
+
+        if (this.$params.mode === 'deposit'
+            && this.configService.get<boolean>('$finances.lastSucceedDepositMethod.use')) {
+            this.lastSucceedDepositMethod = this.financesService.getLastSucceedDepositMethod();
+        }
 
         await this.financesService.fetchPaymentSystems();
     }

@@ -19,6 +19,7 @@ import {
     ModalService,
     IPushMessageParams,
     NotificationEvents,
+    LogService,
 } from 'wlc-engine/modules/core';
 import {
     LanguageChangeEvents,
@@ -64,6 +65,7 @@ export class FinancesService {
         protected translateService: TranslateService,
         protected configService: ConfigService,
         protected modalService: ModalService,
+        protected logService: LogService,
     ) {
         this.registerMethods();
 
@@ -268,9 +270,33 @@ export class FinancesService {
         });
     }
 
+    /**
+     * Requests last success deposit method
+     *
+     * @returns {number} `number` - method id or null
+     */
+    public async getLastSucceedDepositMethod(): Promise<number | null> {
+
+        try {
+            const result: IData<string> = await this.dataService.request({
+                name: 'lastDepositSucceedMethod',
+                system: 'finances',
+                url: '/lastSuccessfulDeposit',
+                type: 'GET',
+            });
+            return Number(result.data) > 0 ? Number(result.data) : null;
+        } catch (error) {
+            this.logService.sendLog({
+                code: '17.3.0',
+                data: error,
+            });
+            return null;
+        }
+    }
+
     private async cancelInvoice(systemId: number): Promise<void> {
         try {
-            await this.dataService.request('finances/cancelInvoiceHandler', {systemId});
+            await this.dataService.request('finances/cancelDeposit', {systemId});
 
             this.fetchPaymentSystems();
 
@@ -391,7 +417,7 @@ export class FinancesService {
             },
         });
         this.dataService.registerMethod({
-            name: 'cancelInvoiceHandler',
+            name: 'cancelDeposit',
             system: 'finances',
             url: '/deposits',
             type: 'DELETE',

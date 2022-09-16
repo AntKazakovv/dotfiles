@@ -4,14 +4,15 @@ import {IIndexing} from 'wlc-engine/modules/core';
 export interface IFinancesConfig {
     fastDeposit: IFastDeposit;
     payment?: IPaySystemAutoSelect;
-    bonusesInDeposit?: {
-        use?: boolean;
-        autoSelect?: {
-            use?: boolean,
-            index?: number | IAutoSelectByDevice<number>;
-        };
-    };
+    bonusesInDeposit?: IDepositBonusAutoSelect;
     cryptoInvoices?: ICryptoInvoicesParams;
+    /**
+     * Enable selecting last succeed deposit method.
+     * Can be enabled regardless another autoSelect options and has highest priority.
+     */
+    lastSucceedDepositMethod?: {
+        use?: boolean;
+    };
 }
 
 export interface IFastDeposit {
@@ -45,13 +46,16 @@ export interface IPaymentMessage {
 }
 
 export interface IPaySystemAutoSelect {
-    autoSelect: boolean;
+    autoSelect?: boolean;
     alias?: number | string | IAutoSelectByDevice<number | string>;
 }
 
 export interface IDepositBonusAutoSelect {
-    autoSelect: boolean;
-    index?: number | IAutoSelectByDevice<number>;
+    use?: boolean;
+    autoSelect?: {
+        use?: boolean,
+        index?: number | IAutoSelectByDevice<number>;
+    };
 }
 
 export interface IAutoSelectByDevice<T> {

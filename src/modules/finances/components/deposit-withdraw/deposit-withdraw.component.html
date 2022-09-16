@@ -22,6 +22,7 @@
 <ng-template #systems>
     <div wlc-payment-list
         data-wlc-element="block_payment-list"
+        [lastSucceedMethod]="lastSucceedDepositMethod"
         [inlineParams]="listConfig"
         [availableSystems]="availableSystems"
         [currentSystem]="parentSystem || currentSystem">
@@ -39,6 +40,7 @@
 <ng-template #cryptoInvoiceSystems>
     <div class="{{$class}}__crypto-list"
         wlc-payment-list
+        [lastSucceedMethod]="lastSucceedDepositMethod"
         [currentSystem]="currentSystem"
         [inlineParams]="cryptoListConfig"
         [availableSystems]="availableSystems"
