@@ -385,7 +385,6 @@ export class FinancesService {
             url: '/deposits',
             type: 'POST',
             events: {
-                success: 'DEPOSIT',
                 fail: 'DEPOSIT_ERROR',
             },
         });

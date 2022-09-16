@@ -367,6 +367,13 @@ export class DepositWithdrawComponent
         } else {
             this.withdraw(this.formObject);
         }
+
+        this.eventService.emit({
+            name: 'DEPOSIT',
+            data: {
+                desc: 'deposit_start',
+            },
+        });
     }
 
     public deposit(saveProfile: boolean = true): void {
