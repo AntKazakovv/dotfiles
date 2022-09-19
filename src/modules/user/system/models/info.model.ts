@@ -199,7 +199,9 @@ export class UserInfo extends AbstractModel<IUserInfo> {
                 return this.currentTermsVersion >= this.nextTermsVersion;
             }
         }
-        return this.data?.toSVersion?.ToSVersion === this.data?.toSWlcVersion;
+        return this.data?.toSWlcVersion // allow skip null and empty string
+            ? this.data?.toSVersion?.ToSVersion === this.data?.toSWlcVersion
+            : true;
     }
 
     /** update toSVersion */
