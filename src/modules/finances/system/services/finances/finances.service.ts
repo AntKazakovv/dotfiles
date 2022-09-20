@@ -194,9 +194,11 @@ export class FinancesService {
     public updateForCryptoInvoices(systems: PaymentSystem[]): PaymentSystem[] {
         const invoicesSystems: PaymentSystem[] = [];
         const otherSystems: PaymentSystem[] = [];
+        let firstInvoiceIndex: number;
 
-        _forEach(systems, (system: PaymentSystem): void => {
+        _forEach(systems, (system: PaymentSystem, index: number): void => {
             if (system.cryptoInvoices) {
+                firstInvoiceIndex ??= index;
                 invoicesSystems.push(system);
             } else {
                 otherSystems.push(system);
@@ -212,7 +214,7 @@ export class FinancesService {
         parentSystem.isParent = true;
         parentSystem.children = invoicesSystems;
 
-        otherSystems.unshift(parentSystem);
+        otherSystems.splice(firstInvoiceIndex, 0, parentSystem);
 
         return otherSystems;
     }

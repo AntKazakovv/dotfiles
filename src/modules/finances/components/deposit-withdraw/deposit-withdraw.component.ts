@@ -513,12 +513,12 @@ export class DepositWithdrawComponent
     }
 
     public get isInvoicePending(): boolean {
-        return !!(this.currentSystem?.message as IPaymentMessage)?.dateEnd
+        return this.isDeposit && !!(this.currentSystem?.message as IPaymentMessage)?.dateEnd
             && this.dateExpire > DateTime.now();
     }
 
     public get isInvoiceExpired(): boolean {
-        return !!(this.currentSystem?.message as IPaymentMessage)?.dateEnd
+        return this.isDeposit && !!(this.currentSystem?.message as IPaymentMessage)?.dateEnd
             && this.dateExpire <= DateTime.now();
     }
 
