@@ -72,7 +72,7 @@ export class BonusesHistoryComponent extends AbstractComponent implements OnInit
         await this.bonusesService.queryBonuses(true, 'history');
         this.showFilter = this.actionService.getDeviceType() === DeviceType.Desktop;
         this.historyFilterService
-            = await this.injectionService.getService<HistoryFilterService>('finances.history-filter');
+            = await this.injectionService.getService<HistoryFilterService>('core.history-filter');
         this.setSubscription();
 
         this.historyFilterService.setDefaultFilter('bonus', {

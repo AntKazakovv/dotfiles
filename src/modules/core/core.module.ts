@@ -211,6 +211,7 @@ export const components = {
 
 export const services = {
     'animate-buttons-service': AnimateButtonsService,
+    'history-filter': HistoryFilterService,
 };
 
 @NgModule({
