@@ -1,6 +1,9 @@
 import _merge from 'lodash-es/merge';
 
-import {IComponentParams} from 'wlc-engine/modules/core/system/interfaces/config.interface';
+import {
+    CustomType,
+    IComponentParams,
+} from 'wlc-engine/modules/core/system/interfaces/config.interface';
 import {IGameThumbCParams} from 'wlc-engine/modules/games/components/game-thumb/game-thumb.params';
 import {
     IGamesGridCParams,
@@ -8,7 +11,7 @@ import {
 } from 'wlc-engine/modules/games/components/games-grid/games-grid.params';
 import {ISearchFieldCParams} from 'wlc-engine/modules/games/components/search-field/search-field.params';
 
-export type ComponentTheme = 'default' | 'easy';
+export type ComponentTheme = 'default' | 'easy' | CustomType;
 
 export interface IGamesGridCParamsPartial extends IGamesGridCParams {
     type: never,
@@ -23,7 +26,7 @@ export interface ISearchCParams extends IComponentParams<ComponentTheme, string,
         openProvidersList?: boolean,
     },
     searchInputParams?: ISearchFieldCParams;
-    easyThemeParams: {
+    easyThemeParams?: {
         /**
          * Text for title for easy theme
          */
