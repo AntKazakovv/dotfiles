@@ -38,6 +38,7 @@ import _union from 'lodash-es/union';
 import _merge from 'lodash-es/merge';
 import _each from 'lodash-es/each';
 import _filter from 'lodash-es/filter';
+import _random from 'lodash-es/random';
 
 @Component({
     selector: '[wlc-tournament-list]',
@@ -71,6 +72,7 @@ export class TournamentListComponent
 
     public dashboardSliderConfig: IWrapperCParams = {components: []};
     public bannerSliderConfig: IWrapperCParams = {components: []};
+    public navigationId: string = _random(10000000).toString(16);
 
     protected indexOfSelectedTournament: number;
     protected itemsPerPage: number = 0;
@@ -97,6 +99,10 @@ export class TournamentListComponent
         this.isReady = false;
         if (this.$params.type === 'swiper') {
             this.sliderParams.swiper = this.$params.common?.swiper;
+            this.sliderParams.swiper.navigation = {
+                nextEl: '.wlc-swiper-button-next-' + this.navigationId,
+                prevEl: '.wlc-swiper-button-prev-' + this.navigationId,
+            };
         }
 
         this.initSliderComponents();

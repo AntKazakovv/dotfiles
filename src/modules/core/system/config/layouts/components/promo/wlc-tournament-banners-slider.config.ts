@@ -17,10 +17,6 @@ export namespace wlcTournamentBannersSlider {
                             swiper: <SwiperOptions>{
                                 slidesPerView: 1,
                                 spaceBetween: 5,
-                                navigation: {
-                                    nextEl: '.wlc-tournament-list .wlc-swiper-button-next',
-                                    prevEl: '.wlc-tournament-list .wlc-swiper-button-prev',
-                                },
                                 pagination: false,
                                 lazy: true,
                             },
