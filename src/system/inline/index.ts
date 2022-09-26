@@ -1,3 +1,4 @@
+require('./_preloader-logo');
 require('./_helper');
 require('./_iframe');
 require('./_body-class');

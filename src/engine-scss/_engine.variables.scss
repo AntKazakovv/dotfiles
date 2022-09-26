@@ -744,6 +744,8 @@ $layoutGap: map-merge((
 
 $customAppLoader: () !default;
 $appLoader: map-merge((
+    'contentTextAlign': center,
+    'imgBlockMargin': 0 auto,
     'background': linear-gradient(315deg, var(--mc-bg700) 0%, var(--mc-bg) 75%),
     'imgBlockPadding': 80px,
     'imgBlockWidth': 300px,
@@ -756,6 +758,15 @@ $appLoader: map-merge((
     'loaderWidth': 50px,
     'loaderHeight': 50px,
     'loaderBorder': 2px solid var(--mc-main),
+
+    'errorImgBgUrl': url('/gstatic/wlc/decors/error-cat.svg'),
+    'textBlockMargin': 30px 0 0 0,
+    'textBlockColor': var(--mc-baseMain),
+    'buttonMargin': 40px auto 0 auto,
+    'buttonHeigth': 40px,
+    'buttonDisplay': flex,
+    'buttonJustifyContent': center,
+    'buttonAlignItems': center,
 
     'loaderAnime': default, //default, dots1, dots2, dots3, circle, circle2, flip, pulse, jelly
     'useBgAnime': false,
