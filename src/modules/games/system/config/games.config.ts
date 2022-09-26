@@ -51,7 +51,7 @@ export const gamesConfig: IGamesConfig = {
         disableByCountry: {
             default: [],
             forMerchant: {
-                '992': ['usa', 'fra', 'cuw', 'gbr', 'esp', 'ita'],
+                '992': ['usa'],
             },
         },
     },
