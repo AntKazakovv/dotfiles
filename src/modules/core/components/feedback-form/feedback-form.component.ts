@@ -1,9 +1,11 @@
 import {
+    AfterViewInit,
+    ChangeDetectionStrategy,
+    ChangeDetectorRef,
     Component,
     Inject,
-    OnInit,
     Input,
-    AfterViewInit,
+    OnInit,
 } from '@angular/core';
 import {FormGroup} from '@angular/forms';
 import {TranslateService} from '@ngx-translate/core';
@@ -22,6 +24,7 @@ import {
     ConfigService,
     ContactsService,
     EventService,
+    IFormWrapperCParams,
     IIndexing,
     IPushMessageParams,
     NotificationEvents,
@@ -48,17 +51,17 @@ import * as Params from './feedback-form.params';
     selector: '[wlc-feedback-form]',
     templateUrl: './feedback-form.component.html',
     styleUrls: ['./styles/feedback-form.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FeedbackFormComponent extends AbstractComponent implements OnInit, AfterViewInit {
     @Input() protected inlineParams: Params.IFeedbackFormCParams;
 
     public $params: Params.IFeedbackFormCParams;
-    public config = Params.feedbackConfig;
+    public config!: IFormWrapperCParams;
     public contactsConfig: IContactsConfig;
     public formData$: BehaviorSubject<IIndexing<any>> = new BehaviorSubject(null);
 
     protected userProfile$: BehaviorSubject<UserProfile>;
-    protected form: FormGroup;
 
     constructor(
         @Inject('injectParams') protected params: Params.IFeedbackFormCParams,
@@ -66,6 +69,7 @@ export class FeedbackFormComponent extends AbstractComponent implements OnInit, 
         protected configService: ConfigService,
         protected eventService: EventService,
         protected translateService: TranslateService,
+        protected cdr: ChangeDetectorRef,
     ) {
         super({injectParams: params, defaultParams: Params.defaultParams});
     }
@@ -74,6 +78,8 @@ export class FeedbackFormComponent extends AbstractComponent implements OnInit, 
         super.ngOnInit(this.inlineParams);
         this.contactsConfig = _clone(this.configService.get<IContactsConfig>('$base.contacts'));
         this.modifyConfigByLanguage();
+        this.setConfig();
+        this.contactsConfig = this.configService.get<IContactsConfig>('$base.contacts');
     }
 
     public ngAfterViewInit(): void {
@@ -85,6 +91,7 @@ export class FeedbackFormComponent extends AbstractComponent implements OnInit, 
                 takeUntil(this.$destroy),
             )
             .subscribe((userProfile) => {
+                this.setConfig();
                 this.setUser(userProfile);
             });
     }
@@ -110,7 +117,7 @@ export class FeedbackFormComponent extends AbstractComponent implements OnInit, 
                 },
             });
 
-            this.form.reset();
+            form.reset();
 
             if (this.configService.get<BehaviorSubject<UserProfile>>('$user.isAuthenticated')) {
                 this.setUser(this.configService.get<BehaviorSubject<UserProfile>>('$user.userProfile$').getValue());
@@ -133,8 +140,9 @@ export class FeedbackFormComponent extends AbstractComponent implements OnInit, 
         }
     }
 
-    public getForm(form: FormGroup): void {
-        this.form = form;
+    protected setConfig(): void {
+        this.config = Params.getFeedbackConfig(this.configService.get<boolean>('$user.isAuthenticated'));
+        this.cdr.markForCheck();
     }
 
     protected setUser(userProfile: UserProfile): void {

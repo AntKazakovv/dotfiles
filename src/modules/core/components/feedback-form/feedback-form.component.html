@@ -29,9 +29,9 @@
 
 <hr>
 
-<div wlc-form-wrapper
+<div *ngIf="config"
+    wlc-form-wrapper
     [config]="config"
     [ngSubmit]="ngSubmit.bind(this)"
     [formData]="formData$"
-    (form$)="getForm($event)"
 ></div>

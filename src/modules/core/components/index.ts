@@ -19,6 +19,7 @@ export {IOfflinePageCParams} from './offline-page/offline-page.params';
 export {IFeedbackFormCParams} from './feedback-form/feedback-form.params';
 export {IFloatPanelsCParams} from './float-panels/float-panels.params';
 export {
+    FormWrapperComponent,
     IFormWrapperCParams,
     IFormComponent,
 } from './form-wrapper/form-wrapper.component';

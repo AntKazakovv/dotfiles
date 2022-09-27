@@ -11,12 +11,13 @@ export const defaultParams: IFeedbackFormCParams = {
     class: 'wlc-feedback-form',
 };
 
-export const feedbackConfig: IFormWrapperCParams = {
+export const getFeedbackConfig = (isAuth: boolean): IFormWrapperCParams => ({
     class: 'wlc-form-wrapper',
     components: [
         {
             name: 'core.wlc-input',
             params: {
+                locked: isAuth,
                 common: {
                     placeholder: gettext('Your name'),
                 },
@@ -44,6 +45,7 @@ export const feedbackConfig: IFormWrapperCParams = {
         {
             name: 'core.wlc-input',
             params: {
+                locked: isAuth,
                 common: {
                     placeholder: gettext('E-mail'),
                     type: 'email',
@@ -124,4 +126,4 @@ export const feedbackConfig: IFormWrapperCParams = {
             },
         },
     ],
-};
+});
