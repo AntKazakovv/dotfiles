@@ -47,17 +47,6 @@
             width: 100%;
         }
 
-        svg {
-
-            .wlc-body--browser-safari & {
-                transform: translateX(3%);
-
-                @include mq.min(1366) {
-                    transform: unset;
-                }
-            }
-        }
-
         .wlc-total-jackpot__text[class] {
             @include bm.get-mq-map('font-size', $themeTotalJackpot, 'jackpotFontSize');
             @include textStroke(3, ef.get-value($themeTotalJackpot, 'textStrokeColor'));
