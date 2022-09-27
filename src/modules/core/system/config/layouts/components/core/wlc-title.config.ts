@@ -89,7 +89,6 @@ export namespace wlcTitle {
         params: <ITitleCParams>{
             customMod: ['profile'],
             mainText: gettext('Verification'),
-            secondText: gettext('Necessary documents to make your withdrawal as fast as possible:'),
             wlcElement: 'header_verification',
         },
     };

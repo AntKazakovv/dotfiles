@@ -75,7 +75,7 @@ export class SignInFormComponent extends SignInFormAbstract<Params.ISignInFormCP
         );
 
         if (this.configService.get<boolean>('$base.profile.socials.use')
-            || this.configService.get<boolean>('$base.profile.metamaskAuth.use')) {
+            || this.configService.get<boolean>('appConfig.siteconfig.useMetamask')) {
             this.addModifiers('socials');
 
             if (!_some(this.config.components, (el: IFormComponent) => el.name === 'user.wlc-social-networks')) {

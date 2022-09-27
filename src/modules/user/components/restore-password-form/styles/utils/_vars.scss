@@ -15,7 +15,7 @@ $themeDefault: map-merge((
 
     'subtitleSideMargin': (
         320: auto,
-        480: -45px,
+        768: ef.size(-9),
     ),
 
     'restoreLineHeight': 0,

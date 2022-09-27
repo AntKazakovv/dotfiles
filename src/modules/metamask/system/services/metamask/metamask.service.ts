@@ -50,20 +50,7 @@ import {ICurrencyFormCParams} from 'wlc-engine/modules/metamask/components/curre
  *
  * @example
  * `config/backend/0.site.config.php`:
- *  $cfg['registerGeneratePassword'] = true;
- *  $cfg['registerSkipLogin'] = false;
- *  $cfg['fastRegistration'] = true;
- *  $cfg['checkPassOnUpdate'] = 1;
- *  $cfg['allowPartialUpdate'] = 1;
- *
- * `config/frontend/01.base.config.ts`:
- *  export const $base: IBaseConfig = {
- *      profile: {
- *          metamaskAuth: {
- *              use: true,
- *          },
- *      }
- *  }
+ *  $cfg['useMetamask'] = true;
  */
 @Injectable({providedIn: 'root'})
 export class MetamaskService {

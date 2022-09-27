@@ -10,6 +10,11 @@ export type IGamesFilterData = {
     excludeCategories?: string[];
     excludeMerchants?: number[];
     withFreeRounds?: boolean;
+    /**
+     * Game search should include sportsbooks if true.
+     * Otherwise, the search will be performed on regular games
+     */
+    includeSportsbooks?: boolean;
 }
 
 export type IIndexingFilter = {

@@ -56,8 +56,8 @@ $themeDefaultBanner: map-merge((
     'buttonGap': (
         375: 10px,
     ),
-    'buttonBg': var(--mc-main),
-    'buttonBgHover': var(--mc-main-l20),
+    'buttonBg': var(--mc-buttonColor),
+    'buttonBgHover': var(--mc-buttonColor-l20),
     'buttonBgDisabled': var(--mc-baseOpacity),
     'buttonShadow': none,
     'buttonShadowHover': none,

@@ -43,7 +43,14 @@ declare interface IScreenfull {
     onerror(handler: (event: Event) => void): void;
 }
 
+declare interface IMobileDigitainApp {
+    navigateTo: (pageUrl: string) => void;
+    addEventListener: (eventName: string, handler: (event: unknown) => void) => void;
+}
+
 declare type TDigitainOnNavigate = (event: IDigitainNavigateEvent) => void;
+
+declare type TInitDigitainApp = (app: IMobileDigitainApp) => void;
 
 declare type ScreenfullEventName = 'change' | 'error';
 
@@ -97,12 +104,19 @@ declare interface Window extends TAnalyticMethod {
     grecaptcha?: ReCaptchaV2.ReCaptcha;
     // change page of tglab sportsbook
     externalSBPageSwitch?: TExternalSBPageSwitch;
-    // digitain iframe navigation handler
+    /*
+     * Digitain desktop iframe navigation handler.
+     * Use callback that was triggered after changing navigation inside sportsbook iframe
+     */
     digitainOnNavigate?: TDigitainOnNavigate;
     ethereum?: {
         request: (prams: {method: string, params?: any[]}) => any;
         [key: string]: any;
     };
+    /*
+     * Digitain mobile handlers inizializator
+     */
+    initDigitainApp?: TInitDigitainApp;
 }
 
 declare const WLC_VERSION: number;

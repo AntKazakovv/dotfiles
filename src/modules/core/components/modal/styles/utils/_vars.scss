@@ -71,8 +71,8 @@ $hostModal: map-merge((
     'modalHeaderColor': var(--mc-baseMain),
     'modalBodyColor': var(--mc-baseMain),
     'modalBg': var(--mc-bgModal),
-    'modalOffset': 0 auto 50px auto,
-    'modalOffsetMobile': ef.size(-6) auto 0 auto,
+    'modalOffset': 0 auto,
+    'modalOffsetMobile': 0 auto,
     'modalOffsetIosMobile': ef.size(-6) auto ef.size(10) auto,
     'modalBorder': 1px solid var(--mc-bg-o2),
     'modalBorderRadius': ef.get('radius', 'small'),
@@ -166,7 +166,7 @@ $hostModal: map-merge((
 
     'iconSize': 120px,
     'iconMargin': 0 0 ef.size(8) 0,
-    'iconColorConfirm': var(--mc-bg500),
+    'iconColorConfirm': var(--mc-bg100),
 
     'paddingDefault': 3rem 4rem,
     'paddingHeadless': 0,

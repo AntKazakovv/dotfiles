@@ -20,4 +20,10 @@ export const $profileKioskLayouts: ILayoutsConfig = {
             'profile-content': sectionsLib.profileContent.profileBetHistoryTypeKiosk,
         },
     },
+    'app.profile.cash.transactions': {
+        extends: 'app.profile',
+        sections: {
+            'profile-content': sectionsLib.profileContent.profileTransactionsTypeFirst,
+        },
+    },
 };

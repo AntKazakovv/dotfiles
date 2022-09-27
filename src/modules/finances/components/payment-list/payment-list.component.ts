@@ -74,6 +74,7 @@ export class PaymentListComponent extends IconListAbstract<Params.IPaymentListCP
 
     @Input() public currentSystem: PaymentSystem;
     @Input() public availableSystems: number[];
+    @Input() protected lastSucceedMethod: Promise<number | null>;
     @Input() protected inlineParams: Params.IPaymentListCParams;
     @ViewChild('list') protected list: TemplateRef<any>;
 
@@ -88,8 +89,8 @@ export class PaymentListComponent extends IconListAbstract<Params.IPaymentListCP
     public activeName: string = '';
     public paymentDescription: string = '';
     public useBonuses: boolean = false;
-
     public isCryptoInvoices: boolean;
+
     protected isMobile: boolean;
     protected isDeposit: boolean;
 
@@ -126,6 +127,7 @@ export class PaymentListComponent extends IconListAbstract<Params.IPaymentListCP
         if (this.currentSystem) {
             this.setActivePayment();
         }
+
     }
 
     public ngAfterViewInit(): void {
@@ -221,7 +223,7 @@ export class PaymentListComponent extends IconListAbstract<Params.IPaymentListCP
         });
     }
 
-    protected processSystemsResponse(systems: PaymentSystem[]): void {
+    protected async processSystemsResponse(systems: PaymentSystem[]): Promise<void> {
         this.systems = systems;
         this.setPaymentsIconsList();
 
@@ -229,9 +231,17 @@ export class PaymentListComponent extends IconListAbstract<Params.IPaymentListCP
             this.updatePaySystemsStatus();
         }
 
-        if (this.currentSystem) {
-            const system: PaymentSystem = _find(systems, (system: PaymentSystem): boolean => {
-                return system.id === this.currentSystem.id;
+        let last: number | null;
+        if (this.lastSucceedMethod) {
+            last = await this.lastSucceedMethod;
+            this.lastSucceedMethod = null;
+        }
+
+        if (this.currentSystem || last) {
+            const system: PaymentSystem = _find(this.systems, (system: PaymentSystem): boolean => {
+                return system.id === this.currentSystem?.id
+                    || system.id === last
+                    || (system.isParent && _some(system.children, {id: last}));
             });
 
             if (system) {

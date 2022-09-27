@@ -101,8 +101,8 @@
                 border: unset;
 
                 .wlc-promo-steps__step-desc {
+                    @include text.get-text-style(ef.get-value($themeDefault, 'linkBtnTextStyle'), ef.get-value($themeDefault, 'linkDescColor'));
                     @include bm.transition;
-                    color: ef.get-value($themeDefault, 'linkDescColor');
                     border-bottom: ef.get-value($themeDefault, 'linkDescBorderBottom');
                 }
 
@@ -123,7 +123,6 @@
                 .wlc-promo-steps__step-desc {
                     @include text.get-text-style(ef.get-value($themeDefault, 'modalBtnTextStyle'), ef.get-value($themeDefault, 'modalBtnColor'));
                     @include bm.transition(color);
-                    font-size: ef.get-value($themeDefault, 'modalBtnTextSize');
 
                     ::ng-deep {
 

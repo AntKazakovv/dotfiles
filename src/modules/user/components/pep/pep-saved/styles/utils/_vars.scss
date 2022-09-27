@@ -1,0 +1,6 @@
+$customThemeDefault: () !default;
+
+$themeDefault: map-merge((
+    'fontSize': ef.get('font', 'PrimaryText'),
+    'messageTextAlign': 'center',
+), $customThemeDefault);

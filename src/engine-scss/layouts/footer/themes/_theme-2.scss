@@ -29,6 +29,7 @@
             @include bm.get-mq-map('width', $theme2Footer, 'footerPostMenuWidth');
             @include bm.get-mq-map('margin', $theme2Footer, 'footerPostMenuMargin');
 
+            position: relative;
             display: flex;
 
             .wlc-post-menu {
@@ -64,6 +65,19 @@
                         @include bm.get-mq-map('white-space', $theme2Footer, 'footerPostMenuItemWhiteSpace');
                     }
                 }
+            }
+        }
+
+        .wlc-loader[wlc-loader] {
+            @include bm.get-mq-map('position', $theme2Footer, 'footerPostMenuLoaderPosition');
+            @include bm.get-mq-map('top', $theme2Footer, 'footerPostMenuLoaderPosTop');
+            @include bm.get-mq-map('left', $theme2Footer, 'footerPostMenuLoaderPosLeft');
+            @include bm.get-mq-map('width', $theme2Footer, 'footerPostMenuLoaderWidth');
+            @include bm.get-mq-map('height', $theme2Footer, 'footerPostMenuLoaderHeight');
+
+            .wlc-loader__element {
+                @include bm.get-mq-map('width', $theme2Footer, 'footerPostMenuLoaderWidth');
+                @include bm.get-mq-map('height', $theme2Footer, 'footerPostMenuLoaderHeight');
             }
         }
     }

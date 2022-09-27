@@ -5,8 +5,7 @@ $commonStyles: map-merge((
     'buttonJustify': center,
     'buttonBg': none,
     'buttonPadding': (
-        375: 0 ef.size(2) ef.size(2) ef.size(2),
-        480: 0 ef.size(2),
+        375: 0 ef.size(2) ef.size(2),
     ),
     'buttonBorder': none,
     'buttonColor': ef.get('mainColors', 'baseMain'),
@@ -53,7 +52,7 @@ $themeDefault: map-merge((
     'listJustify': center,
     'listAlign': center,
     'listFlexWrap': wrap,
-    'listMargin': ef.size(-1) ef.size(-2),
+    'listMargin': 0 ef.size(-2) ef.size(-2),
     'listPadding': 0,
 
     'buttonPadding': ef.size(1) ef.size(2),

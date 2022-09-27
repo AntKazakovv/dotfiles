@@ -8,6 +8,8 @@ import {
     IRestrictModalOption,
 } from './index';
 
+import {phrases as pepPhrases} from 'wlc-engine/modules/user/system/services/pep/pep.translations';
+
 export const defaultParams: IModalOptions = {
     moduleName: 'core',
     componentName: 'wlc-modal-window',
@@ -315,6 +317,56 @@ export const MODALS_LIST: IModalList = {
             modalTitle: gettext('User Settings'),
             showFooter: false,
             size: 'md',
+        },
+    },
+    pepInfo: {
+        config: {
+            id: 'pepInfo',
+            modifier: 'pepInfo',
+            centered: true,
+            size: 'md',
+            modalTitle: pepPhrases.modals.info.title,
+            showFooter: false,
+            componentName: 'user.wlc-pep-info',
+            ignoreBackdropClick: true,
+            backdrop: 'static',
+        },
+    },
+    pepConfirmation: {
+        config: {
+            id: 'pepConfirmation',
+            modifier: 'pepConfirmation',
+            size: 'md',
+            centered: true,
+            textAlign: 'center',
+            modalTitle: pepPhrases.modals.confirmation.title,
+            modalMessage: pepPhrases.modals.confirmation.message,
+            componentName: 'user.wlc-pep-confirm-password-form',
+            showFooter: false,
+            useBackButton: true,
+            backButtonText: pepPhrases.modals.confirmation.back,
+            dismissAll: true,
+            ignoreBackdropClick: true,
+            backdrop: 'static',
+        },
+    },
+    pepSaved: {
+        config: {
+            id: 'pepSaved',
+            modifier: 'pepSaved',
+            componentName: 'user.wlc-pep-saved',
+            size: 'md',
+            centered: true,
+            modalTitle: pepPhrases.modals.saved.title,
+            showConfirmBtn: false,
+            dismissAll: true,
+            closeBtnParams: {
+                themeMod: 'secondary',
+                common: {
+                    text: pepPhrases.modals.saved.close,
+                    customModifiers: 'centered',
+                },
+            },
         },
     },
     lootbox: {

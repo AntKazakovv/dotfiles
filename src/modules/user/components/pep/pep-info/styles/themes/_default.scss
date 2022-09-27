@@ -1,0 +1,70 @@
+.wlc-pep-info--theme-default:host {
+
+    padding: ef.get-value($themeDefault, 'formPadding');
+    font-size: ef.get-value($themeDefault, 'fontSize');
+
+    &::ng-deep {
+
+        .wlc-pep-info {
+
+            &__article {
+
+                display: inline;
+
+                & * {
+                    display: inline;
+                }
+            }
+
+            &__text {
+
+                &--highlighted {
+                    font-weight: ef.get-value($themeDefault, 'fontWeightHighlighted');
+                }
+            }
+
+            &__info-icon {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                margin: ef.get-value($themeDefault, 'iconMargin');
+
+                svg {
+
+                    $size: ef.get-value($themeDefault, 'iconSize');
+
+                    width: $size;
+                    height: $size;
+
+                    & path {
+                        fill: ef.get-value($themeDefault, 'iconColor');
+                    }
+                }
+            }
+
+            &__divider {
+                width: 100%;
+                height: ef.get-value($themeDefault, 'dividerHeight');
+                margin: ef.get-value($themeDefault, 'dividerMargin');
+                background-color: ef.get-value($themeDefault, 'dividerColor');
+            }
+
+            &__controls {
+                margin: ef.get-value($themeDefault, 'controlsMargin');
+                padding: ef.get-value($themeDefault, 'controlsPadding');
+            }
+
+            &__actions {
+                display: flex;
+                flex-direction: ef.get-value($themeDefault, 'actionsFlexDirection');
+                align-items: ef.get-value($themeDefault, 'actionsAlignItems');
+                justify-content: ef.get-value($themeDefault, 'actionsJustifyContent');
+                margin: ef.get-value($themeDefault, 'actionsMargin');
+
+                & .wlc-btn:not(.wlc-btn:last-of-type) {
+                    margin-right: ef.get-value($themeDefault, 'actionsButtonGap');
+                }
+            }
+        }
+    }
+}

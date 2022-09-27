@@ -2,7 +2,9 @@
 $customThemeDefault: () !default;
 $themeDefault: map-merge((
     'containerMargin': (
-        375: ef.size(6) 0 0,
+        375: ef.size(2) 0 0,
+        768: ef.size(4) 0 0,
+        1630: ef.size(8) 0 0,
     ),
     'containerRadius': ef.get('radius', 'biger'),
     'promoStepsBackground': var(--mc-bg300),
@@ -66,6 +68,7 @@ $themeDefault: map-merge((
     'descTextStyle': 'ThirdTitle',
     'descColor': var(--mc-baseMain),
 
+    'linkBtnTextStyle': 'ButtonText',
     'linkDescColor': var(--mc-main),
     'linkDescHoverColor': var(--mc-main-l20),
     'linkDescBorderBottom': 1px solid var(--mc-main),
@@ -77,7 +80,6 @@ $themeDefault: map-merge((
     'modalBtnIconMarginLeft': 5px,
     'modalBtnIconTransform': rotateZ(-90deg),
     'modalBtnTextStyle': 'ButtonText',
-    'modalBtnTextSize': ef.get('font', 'ThirdTitle'),
     'modalBtnColor': var(--mc-main),
     'modalBtnHoverColor': var(--mc-baseMain),
 

@@ -11,9 +11,9 @@
             }
 
             .wlc-tooltip {
+                @include bm.get-mq-map('transform', $themeVertical, 'tooltipTransform');
                 display: inline-block;
                 margin: ef.get-value($themeVertical, 'tooltipMargin');
-                transform: ef.get-value($themeVertical, 'tooltipTransform');
             }
         }
 

@@ -9,6 +9,7 @@ import {
     fromEvent,
     BehaviorSubject,
     Subscription,
+    firstValueFrom,
 } from 'rxjs';
 import {first} from 'rxjs/operators';
 
@@ -27,6 +28,7 @@ import {
 })
 export class ForbiddenCountryService {
     private forbiddenModalRemove$: Subscription;
+    private listenerForForbiddenModal: MutationObserver;
 
     constructor(
         private configService: ConfigService,
@@ -45,8 +47,8 @@ export class ForbiddenCountryService {
             ignoreBackdropClick: true,
             showFooter: false,
             backdrop: 'static',
+            keyboard: false,
         };
-
         await this.modalService.showModal(modal);
 
         this.setForbiddenModalEventListeners();
@@ -58,27 +60,30 @@ export class ForbiddenCountryService {
         });
     }
 
-    public isForbidden(): boolean {
-        const settingEnabled = this.configService.get<boolean>('$base.restrictions.country.use');
-        const restricted = this.configService.get<boolean>('appConfig.countryRestricted');
-
-        return settingEnabled && restricted;
-    }
-
     private setForbiddenModalEventListeners(): void {
-        setTimeout(() => {
+        this.listenerForForbiddenModal = new MutationObserver(() => {
             if (!this.forbiddenModalRemove$) {
                 const element = this.document.querySelector('.wlc-modal--forbidden-country');
 
                 if (element) {
                     this.forbiddenModalRemove$ = fromEvent(element, 'DOMNodeRemoved')
                         .subscribe(() => {
+                            this.forbiddenModalRemove$.unsubscribe();
+                            this.listenerForForbiddenModal.disconnect();
                             this.forbiddenModalRemove$ = null;
+                            this.modalService.closeAllModals();
                             return this.showModal();
                         });
                 }
             }
-        }, 500);
+        });
+
+        this.listenerForForbiddenModal.observe(
+            this.document.querySelector('body'),
+            {
+                childList: true,
+            },
+        );
     }
 
     private async getForbiddenCountryParams(): Promise<IForbiddenCountryParams> {
@@ -95,12 +100,13 @@ export class ForbiddenCountryService {
 
     private async getUserCountry(): Promise<string> {
         const code = this.configService.get<string>('appConfig.country');
-        const countries = await this.configService.get<BehaviorSubject<ICountry[]>>('countries')
-            .pipe(first((v) => !!v.length))
-            .toPromise();
+        const countries = await firstValueFrom(
+            this.configService.get<BehaviorSubject<ICountry[]>>('countries')
+                .pipe(first((v) => !!v.length)),
+        );
 
-        const found = countries.find((c) => c.iso3 === code);
+        const userCountry = countries.find((c) => c.iso3 === code);
 
-        return found?.title ?? gettext('your country');
+        return userCountry?.title ?? gettext('your country');
     }
 }

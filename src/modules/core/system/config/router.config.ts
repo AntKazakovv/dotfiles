@@ -160,14 +160,14 @@ export function routerConfigFn(router: UIRouter, injector: Injector) {
 async function useCountryRestriction(injector: Injector, configService: ConfigService): Promise<void> {
     if (isCountryRestrictionSettingEnabled(configService)) {
         const forbiddenCountryService = injector.get(ForbiddenCountryService);
-
-        if (forbiddenCountryService.isForbidden()) {
-            forbiddenCountryService.blockUrlChanging();
-            await forbiddenCountryService.showModal();
-        }
+        forbiddenCountryService.blockUrlChanging();
+        await forbiddenCountryService.showModal();
     }
 }
 
 function isCountryRestrictionSettingEnabled(configService: ConfigService): boolean {
-    return configService.get<boolean>('$base.restrictions.country.use');
+    const settingEnabled = configService.get<boolean>('$base.restrictions.country.use');
+    const restricted = configService.get<boolean>('appConfig.countryRestricted');
+
+    return settingEnabled && restricted;
 }

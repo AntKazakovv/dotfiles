@@ -229,9 +229,13 @@ export class GamesCatalog extends AbstractModel<IGames> {
         const excludeMerchants = filter?.excludeMerchants || [];
         const gameIds = filter?.ids;
         const withFreeRounds = filter?.withFreeRounds;
+        const includeSportsbooks = filter?.includeSportsbooks;
 
         let searchQuery = filter?.searchQuery || '';
-        let gameList: Game[] = _concat([], this.availableGames);
+        let gameList: Game[] = _concat(
+            includeSportsbooks ? this.sportsbooks : [],
+            this.availableGames,
+        );
 
         if (includeCategories.length) {
             const categories: CategoryModel[] = this.getCategoriesBySlugs(includeCategories);

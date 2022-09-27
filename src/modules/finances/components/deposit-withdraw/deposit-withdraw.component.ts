@@ -118,6 +118,7 @@ export class DepositWithdrawComponent
     public formData$: BehaviorSubject<TFormData> = new BehaviorSubject(null);
     public userTotalBonus: number;
     public userAvailableWithdraw: number;
+    public lastSucceedDepositMethod: Promise<number | null>;
     public listConfig: IPaymentListCParams = {
         paymentType: 'deposit',
         wlcElement: 'block_payment-list',
@@ -241,6 +242,11 @@ export class DepositWithdrawComponent
             _cloneDeep(Params.timerParams),
             this.$params.timerParams,
         );
+
+        if (this.$params.mode === 'deposit'
+            && this.configService.get<boolean>('$finances.lastSucceedDepositMethod.use')) {
+            this.lastSucceedDepositMethod = this.financesService.getLastSucceedDepositMethod();
+        }
 
         await this.financesService.fetchPaymentSystems();
     }
@@ -367,6 +373,13 @@ export class DepositWithdrawComponent
         } else {
             this.withdraw(this.formObject);
         }
+
+        this.eventService.emit({
+            name: 'DEPOSIT',
+            data: {
+                desc: 'deposit_start',
+            },
+        });
     }
 
     public deposit(saveProfile: boolean = true): void {
@@ -506,12 +519,12 @@ export class DepositWithdrawComponent
     }
 
     public get isInvoicePending(): boolean {
-        return !!(this.currentSystem?.message as IPaymentMessage)?.dateEnd
+        return this.isDeposit && !!(this.currentSystem?.message as IPaymentMessage)?.dateEnd
             && this.dateExpire > DateTime.now();
     }
 
     public get isInvoiceExpired(): boolean {
-        return !!(this.currentSystem?.message as IPaymentMessage)?.dateEnd
+        return this.isDeposit && !!(this.currentSystem?.message as IPaymentMessage)?.dateEnd
             && this.dateExpire <= DateTime.now();
     }
 

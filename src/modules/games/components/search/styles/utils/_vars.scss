@@ -58,7 +58,7 @@ $themeDefault: map-merge((
     ),
 
     'listMargin': (
-        375: -10px 0 ef.size(6),
+        375: -10px 0 ef.size(2),
         900: ef.size(4) 0 0,
     ),
     'listBtnTransition': ef.get('time', 'main'),

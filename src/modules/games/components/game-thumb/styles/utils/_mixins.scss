@@ -63,6 +63,7 @@
 
             &__img {
                 position: relative;
+                display: block;
 
                 @supports (aspect-ratio: 1/1) {
                     aspect-ratio: #{ef.get-value($themeDefault, 'thumbAspectRatio')};

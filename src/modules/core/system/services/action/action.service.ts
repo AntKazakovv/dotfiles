@@ -21,9 +21,11 @@ import {
     Subscription,
 } from 'rxjs';
 import {
+    distinctUntilChanged,
     first,
     map,
     takeWhile,
+    filter,
 } from 'rxjs/operators';
 import _isString from 'lodash-es/isString';
 import _toNumber from 'lodash-es/toNumber';
@@ -57,11 +59,16 @@ import {
     Bonus,
     BonusesService,
 } from 'wlc-engine/modules/bonuses';
+import {
+    DataService,
+    IData,
+} from 'wlc-engine/modules/core/system/services/data/data.service';
 
 export type ScrollPositionType = 'start' | 'end' | 'center' | 'nearest';
 
 type TPaymentStatus = 'PAYMENT_SUCCESS' | 'PAYMENT_PENDING';
 type TPaymentStatusAll = TPaymentStatus | 'PAYMENT_FAIL';
+type TUserDepositCountsInfo = Pick<UserInfo, 'depositsCount'>;
 
 export interface IScrollOptions {
     position: ScrollPositionType;
@@ -112,6 +119,7 @@ export class ActionService {
     private renderer: Renderer2;
     private scrollTop: number;
     private depositInIframe: boolean = false;
+    private emitDepositStatus$: Subscription;
 
     constructor(
         private injector: Injector,
@@ -127,6 +135,7 @@ export class ActionService {
         private injectionService: InjectionService,
         private transition: TransitionService,
         private logService: LogService,
+        private dataService: DataService,
         @Inject(DOCUMENT) private document: Document,
         @Inject(WINDOW) private window: Window,
     ) {
@@ -277,6 +286,7 @@ export class ActionService {
                                                 + ` ${bonus.name}! `
                                                 + this.translateService.instant(
                                                     gettext('Bonus successfully added to the Bonuses page.')),
+                                        redirectPath: '',
                                     },
                                 });
                                 break;
@@ -290,6 +300,7 @@ export class ActionService {
                                                 + ` ${bonus.name}! `
                                                 + this.translateService.instant(
                                                     gettext('Bonus successfully added to the Bonuses page.')),
+                                        redirectPath: '',
                                     },
                                 });
                                 break;
@@ -521,31 +532,43 @@ export class ActionService {
                                 message,
                             });
                     } else {
-                        this.configService.get<BehaviorSubject<UserInfo>>(
-                            {name: '$user.userInfo$'},
-                        ).pipe(
-                            first((v) => !!v),
-                            map((v) => v.depositsCount),
-                        ).subscribe((depositsCount) => {
-                            if (depositsCount === 1) {
-                                this.eventService.emit({
-                                    name: 'FIRST_DEPOSIT_COMPLETE',
-                                    data: {
-                                        amount: initialPath.amount,
-                                        currency: profile.currency,
-                                    },
-                                });
-                            };
+                        if (!this.emitDepositStatus$) {
+                            this.emitDepositStatus$ = this.dataService.flow
+                                .pipe(
+                                    filter(
+                                        (data: IData): boolean => {
+                                            return data.system === 'user'
+                                                && data.code === 200
+                                                && data.name === 'userInfo'
+                                                && data.data.loyalty.DepositsCount > 0;
+                                        }),
+                                    map((data: IData): TUserDepositCountsInfo =>
+                                        ({depositsCount: Number(data.data.loyalty.DepositsCount)})),
+                                    distinctUntilChanged(
+                                        (prev: TUserDepositCountsInfo, curr: TUserDepositCountsInfo): boolean => {
+                                            return prev.depositsCount === curr.depositsCount;
+                                        }))
+                                .subscribe((data: TUserDepositCountsInfo): void => {
+                                    if (data.depositsCount === 1) {                                       
+                                        this.eventService.emit({
+                                            name: 'FIRST_DEPOSIT_COMPLETE',
+                                            data: {
+                                                amount: initialPath.amount,
+                                                currency: profile.currency,
+                                            },
+                                        });
+                                    };
 
-                            this.eventService.emit({
-                                name: 'DEPOSIT_COMPLETE',
-                                data: {
-                                    depositsCount: depositsCount,
-                                    amount: initialPath.amount,
-                                    currency: profile.currency,
-                                },
-                            });
-                        });
+                                    this.eventService.emit({
+                                        name: 'DEPOSIT_COMPLETE',
+                                        data: {
+                                            depositsCount: data.depositsCount,
+                                            amount: initialPath.amount,
+                                            currency: profile.currency,
+                                        },
+                                    });
+                                });
+                        }
                     };
 
                     this.eventService.emit(paymentMessage);

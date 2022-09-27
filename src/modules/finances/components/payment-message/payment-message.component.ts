@@ -45,6 +45,15 @@ export type TMessageType = 'html'
     | 'pay_to_address_with_amount'
     | 'pay_via_invoice';
 
+type TInputName = 'address' | 'invoice' | 'xadress' | 'memo' | 'tag';
+
+interface IPatchOptions {
+    onlySelf?: boolean;
+    emitEvent?: boolean;
+    emitModelToViewChange?: boolean;
+    emitViewToModelChange?: boolean;
+}
+
 @Component({
     selector: '[wlc-payment-message]',
     templateUrl: './payment-message.component.html',
@@ -59,7 +68,7 @@ export class PaymentMessageComponent extends AbstractComponent implements OnInit
 
     public $params: Params.IPaymentMessageCParams;
     public isError: boolean = false;
-    public type: string;
+    public type: TMessageType | null;
 
     public inputParams: IInputCParams;
     public inputParamsXaddress: IInputCParams;
@@ -74,6 +83,12 @@ export class PaymentMessageComponent extends AbstractComponent implements OnInit
     public timerParams: ITimerCParams;
     public inputParamsLockedAmount: IInputCParams;
     public inputParamsCryptoAmount: IInputCParams;
+
+    private patchOptions: IPatchOptions = {
+        onlySelf: false,
+        emitModelToViewChange: true,
+        emitViewToModelChange: true,
+    };
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IPaymentMessageCParams,
@@ -144,13 +159,8 @@ export class PaymentMessageComponent extends AbstractComponent implements OnInit
     }
 
     public ngOnChanges(): void {
-        if (this.inputParams) {
-            this.inputParams.control.patchValue(this.message.address, {
-                onlySelf: true,
-                emitModelToViewChange: true,
-                emitViewToModelChange: true,
-            });
-        }
+        this.type = null;
+        this.prepareMessage();
     }
 
     /**
@@ -176,25 +186,48 @@ export class PaymentMessageComponent extends AbstractComponent implements OnInit
             return;
         }
 
-        this.inputParams = this.getInputParams();
+        if (this.inputParams) {
+            this.inputParams.control.patchValue(this.message.address, this.patchOptions);
+        } else {
+            this.inputParams = this.getInputParams();
+        }
 
         if (this.message.tag) {
-            this.inputParamsTag = this.getInputParams('tag');
+            if (this.inputParamsTag) {
+                this.inputParamsTag.control.patchValue(this.message.tag, this.patchOptions);
+            } else {
+                this.inputParamsTag = this.getInputParams('tag');
+            }
+        } else {
+            this.inputParamsTag = null;
         }
 
         if (this.message.memo) {
-            this.inputParamsMemo = this.getInputParams('memo');
+            if (this.inputParamsMemo) {
+                this.inputParamsMemo.control.patchValue(this.message.memo, this.patchOptions);
+            } else {
+                this.inputParamsMemo = this.getInputParams('memo');
+            }
+        } else {
+            this.inputParamsMemo = null;
         }
 
         if (this.message.x_address) {
+            if (this.inputParamsXaddress) {
+                this.inputParamsXaddress.control.patchValue(this.message.x_address, this.patchOptions);
+            } else {
+                this.inputParamsXaddress = this.getInputParams('xadress');
+            }
             this.type = 'pay_to_xaddress';
-            this.inputParamsXaddress = this.getInputParams('xadress');
-        } else if (this.message.amount) {
-            this.type = 'pay_to_address_with_amount';
+        } else {
+            this.inputParamsXaddress = null;
+            if (this.message.amount) {
+                this.type = 'pay_to_address_with_amount';
 
-            const parsItems: string[] =  this.message.amount.split('~');
-            this.parseAmount = parsItems[0].trim();
-            this.parseRate = parsItems[1].trim();
+                const parsItems: string[] =  this.message.amount.split('~');
+                this.parseAmount = parsItems[0].trim();
+                this.parseRate = parsItems[1].trim();
+            }
         }
 
         if (this.message.dateEnd) {
@@ -214,9 +247,9 @@ export class PaymentMessageComponent extends AbstractComponent implements OnInit
         }
     }
 
-    protected getInputParams(type?: string): IInputCParams {
+    protected getInputParams(type?: TInputName): IInputCParams {
         const inputParams: IInputCParams = {
-            name: 'address',
+            name: type || 'address',
             theme: 'vertical',
             common: {
                 readonly: true,

@@ -47,6 +47,12 @@ import {UserStatsComponent} from './components/user-stats/user-stats.component';
 import {UserNameComponent} from './components/user-name/user-name.component';
 import {SocialNetworksComponent} from './components/social-networks/social-networks.component';
 import {SocialSignUpFormComponent} from './components/social-sign-up-form/social-sign-up-form.component';
+import {
+    PepConfirmPasswordFormComponent,
+} from './components/pep/pep-confirm-password-form/pep-confirm-password-form.component';
+import {PepInfoComponent} from './components/pep/pep-info/pep-info.component';
+import {PepSelectComponent} from './components/pep/pep-select/pep-select.component';
+import {PepSavedComponent} from './components/pep/pep-saved/pep-saved.component';
 import {RestoreSmsCodeFormComponent} from './components/restore-sms-code-form/restore-sms-code-form.component';
 
 export const services = {
@@ -61,6 +67,10 @@ export const components = {
     'wlc-accept-terms': AcceptTermsComponent,
     'wlc-add-profile-info': AddProfileInfoComponent,
     'wlc-change-password-form': ChangePasswordFormComponent,
+    'wlc-pep-confirm-password-form': PepConfirmPasswordFormComponent,
+    'wlc-pep-info': PepInfoComponent,
+    'wlc-pep-saved': PepSavedComponent,
+    'wlc-pep-select': PepSelectComponent,
     'wlc-exchange': ExchangeComponent,
     'wlc-icon-exp-lp': IconExpLpDescriptionComponent,
     'wlc-fundist-user-id': FundistUserIdComponent,
@@ -101,6 +111,10 @@ export const components = {
         LogoutComponent,
         LoyaltyProgressComponent,
         NewPasswordFormComponent,
+        PepConfirmPasswordFormComponent,
+        PepInfoComponent,
+        PepSavedComponent,
+        PepSelectComponent,
         ProfileFormComponent,
         PhoneFieldComponent,
         ProfileBlocksComponent,
@@ -142,6 +156,10 @@ export const components = {
         LimitationsComponent,
         LogoutComponent,
         LoyaltyProgressComponent,
+        PepConfirmPasswordFormComponent,
+        PepInfoComponent,
+        PepSavedComponent,
+        PepSelectComponent,
         ProfileFormComponent,
         PhoneFieldComponent,
         ProfileBlocksComponent,

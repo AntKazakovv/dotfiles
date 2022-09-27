@@ -1,7 +1,8 @@
 $customThemePromoSteps: () !default;
 $themePromoSteps: map-merge((
     'promoStepsMargin': (
-        375: 0 0 ef.size(6),
-        900: 0 0 ef.size(4),
+        375: 0 0 ef.size(2),
+        768: 0 0 ef.size(4),
+        1630: 0 0 ef.size(8),
     ),
 ), $customThemePromoSteps);

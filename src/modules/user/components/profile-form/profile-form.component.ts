@@ -137,7 +137,9 @@ export class ProfileFormComponent extends ProfileFormAbstract implements OnInit 
      */
     public async ngSubmit(form: FormGroup): Promise<boolean> {
         const {pep} = form.value;
+
         delete form.value['pep'];
+
         if (pep) {
             form.value.extProfile = _assign({}, form.value.extProfile, {pep});
         }
@@ -157,6 +159,7 @@ export class ProfileFormComponent extends ProfileFormAbstract implements OnInit 
                 },
             });
             this.cdr.detectChanges();
+
             return true;
         } else {
             this.eventService.emit({

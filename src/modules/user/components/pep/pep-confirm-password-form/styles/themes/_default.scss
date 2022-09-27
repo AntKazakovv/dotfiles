@@ -1,0 +1,21 @@
+.wlc-pep-confirm-password-form--theme-default:host {
+
+    &::ng-deep {
+
+        .wlc-pep-confirm-password-form {
+
+            &__controls {
+                margin: ef.get-value($themeDefault, 'controlsMargin');
+                padding: ef.get-value($themeDefault, 'controlsPadding');
+            }
+
+            &__actions {
+                display: flex;
+                flex-direction: ef.get-value($themeDefault, 'actionsFlexDirection');
+                align-items: ef.get-value($themeDefault, 'actionsAlignItems');
+                justify-content: ef.get-value($themeDefault, 'actionsJustifyContent');
+                margin: ef.get-value($themeDefault, 'actionsMargin');
+            }
+        }
+    }
+}

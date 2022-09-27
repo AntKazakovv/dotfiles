@@ -57,13 +57,7 @@ export namespace wlcProfileForm {
                             },
                             FormElements.birthDate,
                             FormElements.gender,
-                            {
-                                name: FormElements.pep.name,
-                                params: {
-                                    ...FormElements.pep.params,
-                                    validators: null,
-                                },
-                            },
+                            FormElements.pep,
                         ],
                     },
                 },
@@ -292,21 +286,7 @@ export namespace wlcProfileForm {
                         validators: [],
                     },
                 },
-                {
-                    name: 'core.wlc-select',
-                    params: <ISelectCParams>{
-                        labelText: gettext('PEP'),
-                        wlcElement: 'block_pep',
-                        common: {
-                            placeholder: gettext('PEP'),
-                            tooltipText: gettext('Politically Exposed Person'),
-                        },
-                        locked: true,
-                        name: 'pep',
-                        validators: [],
-                        options: 'pep',
-                    },
-                },
+                FormElements.pep,
                 {
                     name: 'user.wlc-phone-field',
                     params: {
