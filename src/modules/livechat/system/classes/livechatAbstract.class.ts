@@ -137,7 +137,9 @@ export abstract class LivechatAbstract<T extends ILivechatConfig>  {
             }
             if (!this.chatIsLoaded()) {
                 this.initChat();
-                this.showWidget();
+                if (!this.options.hidden) {
+                    this.showWidget();
+                }
                 return;
             }
             if (this.options.type === 'verbox') {
