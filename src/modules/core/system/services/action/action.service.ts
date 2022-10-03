@@ -315,7 +315,9 @@ export class ActionService {
                             subscription.unsubscribe();
                         });
                     });
-                    this.modalService.showModal('login');
+                    if (!this.modalService.getActiveModal('signup')) {
+                        this.modalService.showModal('login');
+                    }
                 }
             } else {
                 this.eventService.emit({
