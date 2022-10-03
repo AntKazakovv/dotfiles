@@ -25,25 +25,64 @@ export interface ILivechatincCustomParams {
     value: string;
 }
 
-export interface ILivechatConfig {
-    type?: TLiveChat;
-    code?: string;
-    subCode?: string; // for Tawk chat
+export type TLiveChat = 'chatra' | 'livechatinc' | 'verbox' | 'tawkChat' | 'zendesk' | 'zoho';
+
+export type ILivechatConfig =
+    | ILivechatTawkConfig
+    | ILivechatChatraConfig
+    | ILivechatVerboxConfig
+    | ILivechatIncConfig
+    | ILivechatZendeskConfig
+    | ILivechatZohoConfig;
+
+
+export interface ILivechatDefaultConfig {
+    type: TLiveChat;
+    code: string;
     onlyProd?: boolean;
     hidden?: boolean;
-    setUserDetails?: boolean; // livechatinc set user email and name to chat
-    chatraSetup?: any;
-    verboxSetup?: IVerboxSetup;
-    /**
-     * Additional params for livechatinc.
-     * https://developers.livechat.com/docs/extending-chat-widget/javascript-api/v1.0/#tracking-code
-     */
-    livechatincSetup?: ILivechatincSetup;
-    group?: IIndexing<string>; // chatra language groups
-    autocomplete?: boolean;
-    zESettings?: IIndexing<any>; // https://developer.zendesk.com/api-reference/widget/settings/
     showOnlyAuth?: boolean;
-    excludeStates?: string[]; // only for verbox - exclude states - chat will not shown
+    excludeStates?: string[]; // exclude states - chat will not shown
 }
 
-export type TLiveChat = 'chatra' | 'livechatinc' | 'verbox' | 'tawkChat' | 'zendesk';
+export interface ILivechatTawkConfig
+    extends ILivechatDefaultConfig {
+        type: 'tawkChat';
+        subCode?: string;
+    }
+
+export interface ILivechatChatraConfig
+    extends ILivechatDefaultConfig {
+        type: 'chatra';
+        chatraSetup?: any;
+        group?: IIndexing<string>; // chatra language groups
+    }
+
+export interface ILivechatVerboxConfig
+    extends ILivechatDefaultConfig {
+        type: 'verbox';
+        autocomplete?: boolean; // true - if need complete user field (email)
+        verboxSetup?: IVerboxSetup;
+    }
+
+
+export interface ILivechatIncConfig
+    extends ILivechatDefaultConfig {
+        type: 'livechatinc';
+        setUserDetails?: boolean; // livechatinc set user email and name to chat
+        // https://developers.livechat.com/docs/extending-chat-widget/javascript-api/v1.0/#tracking-code
+        livechatincSetup?: ILivechatincSetup;
+    }
+
+export interface ILivechatZendeskConfig
+    extends ILivechatDefaultConfig {
+        type: 'zendesk';
+        zESettings?: IIndexing<any>; // https://developer.zendesk.com/api-reference/widget/settings/
+    }
+
+export interface ILivechatZohoConfig
+    extends ILivechatDefaultConfig {
+        type: 'zoho';
+        setUserDetails?: boolean; // if need complete user field (id)
+        fundistProdLink?: string; // prod fundist link for set user details (www2.fundist.org)
+    }

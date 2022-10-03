@@ -9,6 +9,7 @@ import {BehaviorSubject} from 'rxjs';
 import {EventService} from 'wlc-engine/modules/core/system/services/event/event.service';
 import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
 import {LogService} from 'wlc-engine/modules/core/system/services/log/log.service';
+import {ILivechatTawkConfig} from 'wlc-engine/modules/livechat/system/interfaces/livechat.interface';
 import {
     LivechatAbstract,
     ChatState,
@@ -20,7 +21,7 @@ import _get from 'lodash-es/get';
 @Injectable({
     providedIn: 'root',
 })
-export class TawkChatService extends LivechatAbstract {
+export class TawkChatService extends LivechatAbstract<ILivechatTawkConfig> {
     public chatIsLoad: boolean = false;
     public canChatDestroy = false;
 

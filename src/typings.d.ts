@@ -143,6 +143,7 @@ declare interface Window extends TAnalyticMethod {
     zESettings?: any;
     zE?: any;
     zEACLoaded?: boolean;
+    $zoho?: any;
     grecaptcha?: ReCaptchaV2.ReCaptcha;
     // change page of tglab sportsbook
     externalSBPageSwitch?: TExternalSBPageSwitch;

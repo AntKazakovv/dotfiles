@@ -23,7 +23,7 @@ export enum ChatState {
 }
 
 @Directive()
-export abstract class LivechatAbstract {
+export abstract class LivechatAbstract<T extends ILivechatConfig>  {
     public chatId: string;
     public chatIsOpen: boolean = false;
     /**
@@ -43,7 +43,7 @@ export abstract class LivechatAbstract {
      */
     public abstract canChatDestroy: boolean;
 
-    protected options: ILivechatConfig = this.configService.get<ILivechatConfig>('$base.livechat');
+    protected options: T = this.configService.get<T>('$base.livechat');
 
     constructor(
         protected document: HTMLDocument,

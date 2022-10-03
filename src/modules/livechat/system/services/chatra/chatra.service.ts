@@ -9,7 +9,7 @@ import {UIRouter} from '@uirouter/core';
 import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
 import {EventService} from 'wlc-engine/modules/core/system/services/event/event.service';
 import {LogService} from 'wlc-engine/modules/core/system/services/log/log.service';
-
+import {ILivechatChatraConfig} from 'wlc-engine/modules/livechat/system/interfaces/livechat.interface';
 import {LivechatAbstract} from 'wlc-engine/modules/livechat/system/classes/livechatAbstract.class';
 import {WINDOW} from 'wlc-engine/modules/app/system';
 
@@ -18,7 +18,7 @@ import _get from 'lodash-es/get';
 @Injectable({
     providedIn: 'root',
 })
-export class ChatraService extends LivechatAbstract {
+export class ChatraService extends LivechatAbstract<ILivechatChatraConfig> {
     public chatId = 'chatra';
     public forceHideStyles = '#chatra:not(.chatra--expanded) {display: none !important;}';
     public canChatDestroy: true;

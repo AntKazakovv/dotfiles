@@ -12,8 +12,15 @@ import {VerboxService} from 'wlc-engine/modules/livechat/system/services/verbox/
 import {TawkChatService} from 'wlc-engine/modules/livechat/system/services/tawk/tawk-chat.service';
 import {ZendeskService} from 'wlc-engine/modules/livechat/system/services/zendesk/zendesk.service';
 import {EventService} from 'wlc-engine/modules/core/system/services/event/event.service';
+import {ZohoChatService} from 'wlc-engine/modules/livechat/system/services/zoho/zoho.service';
 
-export type TChatService = LivechatincService | VerboxService | ChatraService | TawkChatService | ZendeskService;
+export type TChatService =
+    | LivechatincService
+    | VerboxService
+    | ChatraService
+    | TawkChatService
+    | ZendeskService
+    | ZohoChatService;
 
 @Injectable({
     providedIn: 'root',
@@ -50,6 +57,9 @@ export class CommonChatService {
                 break;
             case 'zendesk':
                 this.activeChatService = this.injector.get(ZendeskService);
+                break;
+            case 'zoho':
+                this.activeChatService = this.injector.get(ZohoChatService);
                 break;
             default: return;
         }

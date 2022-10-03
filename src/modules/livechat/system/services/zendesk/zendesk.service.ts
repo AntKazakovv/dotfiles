@@ -23,6 +23,7 @@ import {
     IData,
     IEvent,
 } from 'wlc-engine/modules/core';
+import {ILivechatZendeskConfig} from 'wlc-engine/modules/livechat/system/interfaces/livechat.interface';
 import {
     ChatState,
     LivechatAbstract,
@@ -37,7 +38,7 @@ interface IChatJwt {
 }
 
 @Injectable({providedIn: 'root'})
-export class ZendeskService extends LivechatAbstract {
+export class ZendeskService extends LivechatAbstract<ILivechatZendeskConfig> {
     public canChatDestroy = false;
     protected chatJwtFn: IChatJwt = {
         chat: {

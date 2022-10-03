@@ -11,23 +11,24 @@ import {
     UIRouter,
     UIRouterGlobals,
 } from '@uirouter/core';
+
 import {BehaviorSubject} from 'rxjs';
 import {filter} from 'rxjs/operators';
+import _isNull from 'lodash-es/isNull';
+import _includes from 'lodash-es/includes';
 
 import {EventService} from 'wlc-engine/modules/core/system/services/event/event.service';
 import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
 import {LogService} from 'wlc-engine/modules/core/system/services/log/log.service';
+import {ILivechatVerboxConfig} from 'wlc-engine/modules/livechat/system/interfaces/livechat.interface';
 import {LivechatAbstract} from 'wlc-engine/modules/livechat/system/classes/livechatAbstract.class';
 import {UserProfile} from 'wlc-engine/modules/user/system/models/profile.model';
 import {WINDOW} from 'wlc-engine/modules/app/system';
 
-import _isNull from 'lodash-es/isNull';
-import _includes from 'lodash-es/includes';
-
 @Injectable({
     providedIn: 'root',
 })
-export class VerboxService extends LivechatAbstract {
+export class VerboxService extends LivechatAbstract<ILivechatVerboxConfig> {
     public chatId = 'verbox';
     public forceHideStyles = '#supportTrigger {display: none !important;}';
     public canChatDestroy = true;
