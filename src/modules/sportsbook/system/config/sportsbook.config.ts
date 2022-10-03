@@ -13,8 +13,8 @@ export const sportsbookConfig: ISportsbookConfig = {
                     serverUrl: 'https://qa-brserver.egamings.com',
                 },
                 test: {
-                    url: 'https://test-brserver.egamings.com/static/widgets/v1/init.js',
-                    serverUrl: 'https://test-brserver.egamings.com',
+                    url: 'https://test-brserver.esportings.com/static/widgets/v1/init.js',
+                    serverUrl: 'https://test-brserver.esportings.com',
                 },
                 prod: {
                     url: 'https://api-sportsbet.softgamings.com/static/widgets/v1/init.js',
