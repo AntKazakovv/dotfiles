@@ -167,7 +167,7 @@ export class MainMenuComponent extends AbstractComponent implements OnInit {
         let menuItems: MenuParams.IMenuItem[] = MenuHelper.getItemsForCategories({
             categories: categories,
             lang: this.translate.currentLang,
-            wlcElementPrefix: 'link_main-nav',
+            wlcElementPrefix: 'link_main-nav-',
             icons: {
                 folder: this.iconsFolder,
                 disable: !this.useIcons,
