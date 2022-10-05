@@ -49,7 +49,7 @@ $hostModal: map-merge((
 
     'modalWrapperPadding': (
         320: 30px 0,
-        900: 50px 0,
+        900: 50px 0 0,
     ),
 
     'closePosRight': (
@@ -71,8 +71,8 @@ $hostModal: map-merge((
     'modalHeaderColor': var(--mc-baseMain),
     'modalBodyColor': var(--mc-baseMain),
     'modalBg': var(--mc-bgModal),
-    'modalOffset': 0 auto,
-    'modalOffsetMobile': 0 auto,
+    'modalOffset': 0 auto 50px auto,
+    'modalOffsetMobile': ef.size(-6) auto 0 auto,
     'modalOffsetIosMobile': ef.size(-6) auto ef.size(10) auto,
     'modalBorder': 1px solid var(--mc-bg-o2),
     'modalBorderRadius': ef.get('radius', 'small'),
