@@ -9,12 +9,14 @@
 <ng-template #banner>
     <div wlc-tournament-banner
          [actionParams]="{modal: {}, selector: '.wlc-tournament-detail__prizepool'}"
-         [parentInstance]="instance"></div>
+         [parentInstance]="instance"
+         [isAlternative]="$params.isAlternative"></div>
 </ng-template>
 
 <ng-template #available>
     <div wlc-tournament-promo
          [actionParams]="actionParams"
+         [theme]="isAlternative ? 'alternative' : 'default'"
          [customMod]="$params.common?.customMod"
          [parentInstance]="instance"></div>
 </ng-template>

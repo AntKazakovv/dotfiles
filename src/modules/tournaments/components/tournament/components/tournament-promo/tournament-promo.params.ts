@@ -9,7 +9,7 @@ import {
 import {TournamentComponent} from 'wlc-engine/modules/tournaments/components/tournament/tournament.component';
 import {IIndexing} from 'wlc-engine/modules/core';
 
-export type ComponentTheme = 'default' | CustomType;
+export type ComponentTheme = 'default' | 'alternative' | CustomType;
 export type ComponentType = ThumbType | CustomType;
 export type ThemeMod = 'default' | CustomType;
 export type AutoModifiers = ComponentTheme | ThemeMod;

@@ -39,12 +39,14 @@ export class TournamentBannerComponent
     @Input() public tournament: Tournament;
     @Input() public parentInstance: TournamentComponent;
     @Input() public actionParams: Params.IActionParams;
+    @Input() public isAlternative: boolean;
 
     public $params: Params.ITournamentBannerCParams;
     public isTournamentSelected: boolean;
     public isProcessed: boolean = false;
     public pending: boolean = false;
     public isAuth: boolean = false;
+    public backgroundImgUrl: string = '';
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.ITournamentBannerCParams,
@@ -74,6 +76,8 @@ export class TournamentBannerComponent
                 this.isTournamentSelected = this.tournamentsService.isTournamentSelected;
                 this.cdr.markForCheck();
             });
+
+        this.backgroundImgUrl = this.isAlternative ? this.$params.tournament.imageOther : this.$params.tournament.image;
     }
 
     /**

@@ -61,6 +61,7 @@ export class TournamentComponent
     @Input() public themeMod: Params.ThemeMod;
     @Input() public customMod: Params.CustomMod;
     @Input() public tournament: Tournament;
+    @Input() public isAlternative: boolean;
 
     public $params: Params.ITournamentCParams;
     public isAuth: boolean;

@@ -1,62 +1,61 @@
-$customThemeDefault: () !default;
-$themeDefault: map-merge((
+$customThemeAlternative: () !default;
+$themeAlternative: map-merge((
     'containerRadius': ef.get('radius', 'biger'),
-    'containerBackground': (
-        320: var(--mc-bg500),
-        900: var(--mc-bg700),
-    ),
+    'containerBackground': var(--mc-bg500),
     'containerGridTemplateColumns': (
         320: minmax(290px, 1fr),
-        900: minmax(320px, 1fr) 340px,
+        768: minmax(320px, 1fr) 290px,
+        1024: 300px minmax(320px, 1fr) 250px,
+        1200: 240px minmax(320px, 1fr) 250px,
+        1630: 350px minmax(320px, 1fr) 250px,
     ),
     'containerGridTemplateAreas': (
         320: 'info' 'board' 'btns',
-        900: 'info board' 'btns board',
+        768: 'info board' 'btns board',
+        1024: 'image info board' 'image btns board',
     ),
 
     'containerHeight': (
         320: auto,
-        900: 400px,
+        768: 260px,
     ),
 
     'infoPadding': (
         320: ef.size(4) ef.size(4) ef.size(6),
-        640: ef.size(6) ef.size(8) ef.size(8),
-    ),
-    'infoPElementDisplay': (
-        320: block,
-        900: none,
+        640: ef.size(3) ef.size(4) ef.size(4),
     ),
 
     'boardPadding': (
         320: ef.size(4) ef.size(6),
-        640: ef.size(4) ef.size(8),
-    ),
-    'boardPElementDisplay': (
-        320: none,
-        900: block,
+        640: ef.size(3) ef.size(4),
     ),
     'boardTitleFontStyle': 'ThirdTitleBold',
     'boardTitleColor': ef.get('mainColors', 'baseMain'),
+    'boardTitleMargin': 0 0 ef.size(2) 0,
+    'boardTitleDisplay': (
+        320: block,
+        768: none,
+    ),
 
     'priceFontStyle': 'QoteTextBold',
     'priceColor': var(--mc-main),
+    'priceDisplay': (
+        320: block,
+        768: none,
+    ),
 
-    'pseudoElementPosition': 0,
-    'pseudoElementZIndex': 2,
-    'pseudoElementGradient': linear-gradient(
-        0deg, rgba(ef.get('mainColors', 'baseContrast'), 0.8) 0%, rgba(ef.get('mainColors', 'baseContrast'), 0.2) 60%
-    ), // locked colors
-
-    'innerBlockZIndex': 3,
-
+    'imageBlockGridArea': (
+        320: image,
+        768: info,
+        1024: image,
+    ),
     'imageDisplayDesk': (
         320: none,
-        900: block,
+        1024: block,
     ),
     'imageDisplay': (
         320: block,
-        900: none,
+        768: none,
     ),
     'imageSize': 100%,
     'imagePosition': 0,
@@ -64,27 +63,45 @@ $themeDefault: map-merge((
     'imageObjectFit': cover,
     'imageObjectPosition': center,
 
+    'innerBlockZIndex': 3,
+
     'textAlign': (
         320: center,
-        900: left,
+        768: left,
     ),
 
     'tagFontStyle': ef.get('tagConfig', 'textStyle'),
     'tagColor': ef.get('tagConfig', 'color'),
     'tagColorActive': ef.get('tagConfig', 'colorActive'),
-    'tagMargin': 0 0 ef.size(4),
+    'tagMargin': (
+        320: 0 0 ef.size(4),
+        768: 0 0 ef.size(2),
+        1024: ef.size(4) auto 0,
+    ),
     'tagTextPadding': ef.get('tagConfig', 'padding'),
     'tagTextBorderRadius': ef.get('tagConfig', 'radius'),
     'tagTextBackground': ef.get('tagConfig', 'bg'),
     'tagActiveBackground': ef.get('tagConfig', 'bgActive'),
+    'tagZIndex': 2,
+    'tagDisplayDesk': (
+        320: none,
+        1024: block,
+    ),
+    'tagDisplay': (
+        320: block,
+        1024: none,
+    ),
 
     'titleFontStyle': 'ThirdTitleBold',
-    'titleFontStyleDesk': 'PromoTitle',
+    'titleFontStyleDesk': 'QoteTextBold',
     'titleColor': (
         320: ef.get('mainColors', 'baseMain'),
         900: var(--mc-baseMain),
     ),
-    'titleMargin': 0 0 ef.size(6),
+    'titleMargin': (
+        320: 0 0 ef.size(6),
+        768: 0 0 ef.size(3),
+    ),
 
     'descriptionFontStyle': 'PrimaryText',
     'descriptionFontStyleDesk': 'ThirdTitle',
@@ -97,11 +114,11 @@ $themeDefault: map-merge((
     'btnsWrapMargin': auto 0 0 0,
     'btnsWrapAlign': (
         320: center,
-        900: flex-start,
+        768: flex-start,
     ),
     'btnsWrapPadding': (
         320: 0 ef.size(6) ef.size(4),
-        640: 0 ef.size(8) ef.size(8),
+        640: 0 ef.size(4) ef.size(4),
     ),
     'btnsWrapperFlexDirection': (
         320: column,
@@ -118,6 +135,19 @@ $themeDefault: map-merge((
         480: 0 ef.size(4) 0 0,
     ),
     'prizesMargin': ef.size(2) auto,
+    'prizesPadding': 0 0 ef.size(3),
+    'prizesDisplay': (
+        320: none,
+        768: block,
+    ),
+    'prizesDisplayMobile': (
+        320: block,
+        768: none,
+    ),
+    'prizesHeadPadding': 0 ef.size(3),
+    'prizesBodyBackground': var(--mc-bg),
+    'prizesBodyRadius': ef.get('radius', 'biger'),
+    'prizesRowMargin': 0 0 ef.size(2),
 
     'loaderZIndex': 10,
     'loaderPosition': 0,
@@ -136,44 +166,4 @@ $themeDefault: map-merge((
 
     'linkBlockColor': var(--mc-main),
     'linkBlockColorHover': ef.get('mainColors', 'baseMain'), // Locked color
-
-    'boardTitleMargin': 0 0 ef.size(2) 0,
-), $customThemeDefault);
-
-$customModAvailable: () !default;
-$modAvailable: map-merge((
-    'containerGridTemplateColumns': (
-        320: minmax(290px, 1fr),
-        900: minmax(320px, 1fr) 290px,
-        1200: minmax(320px, 1fr) 340px,
-    ),
-    'containerBackground': (
-        320: var(--mc-bg500),
-    ),
-
-    'containerHeight': (
-        320: auto,
-        900: 380px,
-        1630: 400px,
-    ),
-
-    'infoPadding': (
-        320: ef.size(4),
-        640: ef.size(3),
-        1024: ef.size(4) ef.size(3),
-        1630: ef.size(6) ef.size(8) ef.size(8),
-    ),
-
-    'btnsWrapPadding': (
-        320: 0 ef.size(6) ef.size(4),
-        640: 0 ef.size(3) ef.size(3),
-        1024: 0 ef.size(3) ef.size(4),
-        1630: 0 ef.size(8) ef.size(8),
-    ),
-
-    'boardPadding': (
-        320:ef.size(2) ef.size(4) ef.size(4),
-        640: ef.size(3),
-        1630: ef.size(4) ef.size(8),
-    ),
-), $customModAvailable);
+), $customThemeAlternative);

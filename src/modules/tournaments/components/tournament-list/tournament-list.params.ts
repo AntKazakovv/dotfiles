@@ -29,6 +29,7 @@ export interface ITournamentListCParams extends IComponentParams<ComponentTheme,
     useNoTournamentsBtn?: boolean;
     noTournamentsBtn?: IButtonCParams,
     noContent?: TournamentsListNoContentByThemeType,
+    isAlternative?: boolean,
 }
 
 export const defaultParams: ITournamentListCParams = {
@@ -42,4 +43,5 @@ export const defaultParams: ITournamentListCParams = {
             sref: 'app',
         },
     },
+    isAlternative: false,
 };

@@ -1,5 +1,5 @@
 <div class="{{$class}}"
-     [style]="{backgroundImage: 'url(' + $params.tournament.image + ')'}">
+     [style]="{backgroundImage: 'url(' + backgroundImgUrl + ')'}">
     <div class="{{$class}}__tag">{{'Tournaments' | translate}}</div>
     <div class="{{$class}}__status"
          [class.active]="$params.tournament.isSelected">
@@ -45,7 +45,8 @@
                 (click)="readMore()">
             </button>
         </div>
-        <div class="{{$class}}__body-decor"
+        <div *ngIf="!isAlternative"
+             class="{{$class}}__body-decor"
              [style]="{backgroundImage: 'url(' + $params.tournament.imageOther + ')'}"
         ></div>
     </div>

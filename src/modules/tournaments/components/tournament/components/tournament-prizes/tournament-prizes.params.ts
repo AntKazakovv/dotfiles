@@ -9,7 +9,7 @@ import {
 
 export type ComponentTheme = 'default' | CustomType;
 export type ComponentType = ThumbType | CustomType;
-export type ThemeMod = 'default' | CustomType;
+export type ThemeMod = 'default' | 'compact' | CustomType;
 export type AutoModifiers = ComponentTheme | ThemeMod;
 export type CustomMod = string;
 export type Modifiers = AutoModifiers | CustomMod | null;

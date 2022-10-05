@@ -228,6 +228,7 @@ export class TournamentListComponent
                     {theme: this.$params.theme},
                     {type: this.$params.common?.thumbType},
                     {tournament},
+                    {isAlternative: this.$params.isAlternative},
                     {wlcElement: 'block_tournament'},
                 ),
             };

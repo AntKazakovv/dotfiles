@@ -26,6 +26,7 @@ export interface ITournamentCParams extends IComponentParams<ComponentTheme, Com
         tournament?: Tournament;
         descriptionClamp?: number,
     };
+    isAlternative?: boolean,
 }
 
 export const defaultParams: ITournamentCParams = {

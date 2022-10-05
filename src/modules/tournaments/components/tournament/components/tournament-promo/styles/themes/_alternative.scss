@@ -1,0 +1,267 @@
+.wlc-tournament-promo--theme-alternative:host {
+
+    .wlc-tournament-promo {
+
+        &__container {
+            @include bm.get-mq-map('grid-template-columns', $themeAlternative, 'containerGridTemplateColumns');
+            @include bm.get-mq-map('grid-template-areas', $themeAlternative, 'containerGridTemplateAreas');
+
+            @include bm.get-mq-map('height', $themeAlternative, 'containerHeight');
+
+            position: relative;
+            display: grid;
+            overflow: hidden;
+            background: ef.get-value($themeAlternative, 'containerBackground');
+
+            border-radius: ef.get-value($themeAlternative, 'containerRadius');
+        }
+
+        &__image-block {
+            @include bm.get-mq-map('grid-area', $themeAlternative, 'imageBlockGridArea');
+
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+        }
+
+        &__info {
+            @include bm.get-mq-map('padding', $themeAlternative, 'infoPadding');
+
+            position: relative;
+            grid-area: info;
+        }
+
+        &__board {
+            @include bm.get-mq-map('padding', $themeAlternative, 'boardPadding');
+            position: relative;
+
+            display: flex;
+            flex-direction: column;
+            grid-area: board;
+            justify-content: center;
+
+            &-title {
+                @include text.get-text-style(ef.get-value($themeAlternative, 'boardTitleFontStyle'), ef.get-value($themeAlternative, 'boardTitleColor'));
+                @include bm.get-mq-map('display', $themeAlternative, 'boardTitleDisplay');
+
+                margin: ef.get-value($themeAlternative, 'boardTitleMargin');
+                text-align: center;
+
+                &:last-child {
+                    margin-bottom: 0;
+                }
+            }
+
+            &-price {
+                @include text.get-text-style(ef.get-value($themeAlternative, 'priceFontStyle'), ef.get-value($themeAlternative, 'priceColor'));
+                @include bm.get-mq-map('display', $themeAlternative, 'priceDisplay');
+            }
+
+            ::ng-deep {
+
+                .wlc-link-block {
+
+                    .wlc-btn[class] {
+                        color: ef.get-value($themeAlternative, 'linkBlockColor');
+
+                        @include bm.hover {
+
+                            &,
+                            .wlc-icon {
+                                color: ef.get-value($themeAlternative, 'linkBlockColorHover');
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        &__inner {
+            position: relative;
+            z-index: ef.get-value($themeDefault, 'innerBlockZIndex');
+        }
+
+        &__tag {
+            @include bm.get-mq-map('margin', $themeAlternative, 'tagMargin');
+
+            z-index: ef.get-value($themeAlternative, 'tagZIndex');
+            line-height: 0;
+
+            &-text {
+                @include text.get-text-style(ef.get-value($themeAlternative, 'tagFontStyle'), ef.get-value($themeAlternative, 'tagColor'));
+
+                display: inline-block;
+                padding: ef.get-value($themeAlternative, 'tagTextPadding');
+
+                border-radius: ef.get-value($themeAlternative, 'tagTextBorderRadius');
+                background: ef.get-value($themeAlternative, 'tagTextBackground');
+
+                &.active {
+                    color: ef.get-value($themeAlternative, 'tagColorActive');
+                    background: ef.get-value($themeAlternative, 'tagActiveBackground');
+                }
+            }
+
+            &--desk {
+                @include bm.get-mq-map('display', $themeAlternative, 'tagDisplayDesk');
+            }
+
+            &--mobile {
+                @include bm.get-mq-map('display', $themeAlternative, 'tagDisplay');
+                @include bm.get-mq-map('margin', $themeAlternative, 'tagMargin');
+                grid-area: info;
+            }
+        }
+
+        &__title {
+            @include text.get-text-style(ef.get-value($themeAlternative, 'titleFontStyle'), ef.get-value($themeAlternative, 'titleColor', 320));
+            @include bm.lineClamp(2);
+            @include bm.get-mq-map('margin', $themeAlternative, 'titleMargin');
+            text-transform: uppercase;
+
+            @include mq.min(900) {
+                @include text.get-text-style(ef.get-value($themeAlternative, 'titleFontStyleDesk'), ef.get-value($themeAlternative, 'titleColor', 900));
+            }
+        }
+
+        &__description {
+            @include bm.lineClamp(3);
+            @include text.get-text-style(ef.get-value($themeAlternative, 'descriptionFontStyle'), ef.get-value($themeAlternative, 'descriptionColor', 320));
+            margin: ef.get-value($themeAlternative, 'descriptionMargin');
+
+            @include mq.min(900) {
+                @include text.get-text-style(ef.get-value($themeAlternative, 'descriptionFontStyleDesk'), ef.get-value($themeAlternative, 'descriptionColor', 900));
+            }
+        }
+
+        &__tag,
+        &__title,
+        &__description {
+            @include bm.get-mq-map('text-align', $themeAlternative, 'textAlign');
+
+            &:last-child {
+                margin-bottom: 0;
+            }
+        }
+
+        &__image {
+            position: absolute;
+            top: ef.get-value($themeAlternative, 'imagePosition');
+            left: ef.get-value($themeAlternative, 'imagePosition');
+            z-index: ef.get-value($themeAlternative, 'imageZIndex');
+
+            width: ef.get-value($themeAlternative, 'imageSize');
+            height: ef.get-value($themeAlternative, 'imageSize');
+
+            object-fit: ef.get-value($themeAlternative, 'imageObjectFit');
+            object-position: ef.get-value($themeAlternative, 'imageObjectPosition');
+
+            &--desk {
+                @include bm.get-mq-map('display', $themeAlternative, 'imageDisplayDesk');
+            }
+
+            &--mobile {
+                @include bm.get-mq-map('display', $themeAlternative, 'imageDisplay');
+            }
+        }
+
+        &__loader {
+            position: absolute;
+            top: ef.get-value($themeAlternative, 'loaderPosition');
+            right: ef.get-value($themeAlternative, 'loaderPosition');
+            bottom: ef.get-value($themeAlternative, 'loaderPosition');
+            left: ef.get-value($themeAlternative, 'loaderPosition');
+            z-index: ef.get-value($themeAlternative, 'loaderZIndex');
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            background: ef.get-value($themeAlternative, 'loaderBachround');
+            border-radius: ef.get-value($themeAlternative, 'loaderRadius');
+
+            &:before {
+                content: '';
+                position: absolute;
+                top: ef.get-value($themeAlternative, 'loaderBeforePosition');
+                right: ef.get-value($themeAlternative, 'loaderBeforePosition');
+                bottom: ef.get-value($themeAlternative, 'loaderBeforePosition');
+                left: ef.get-value($themeAlternative, 'loaderBeforePosition');
+
+                width: ef.get-value($themeAlternative, 'loaderBeforeSize');
+                height: ef.get-value($themeAlternative, 'loaderBeforeSize');
+
+                margin: auto;
+
+                background: ef.get-value($themeAlternative, 'loaderBeforeBackground');
+
+                border-radius: ef.get-value($themeAlternative, 'loaderBeforeRadius');
+            }
+
+            &:after {
+                content: '';
+                width: ef.get-value($themeAlternative, 'loaderAfterSize');
+                height: ef.get-value($themeAlternative, 'loaderAfterSize');
+
+                border: 4px solid ef.get-value($themeAlternative, 'loaderAfterBorderColor');
+                border-left-color: transparent;
+                border-radius: ef.get-value($themeAlternative, 'loaderAfterRadius');
+
+                animation: ef.get-value($themeAlternative, 'loaderAfterAnimation');
+            }
+        }
+    }
+
+    ::ng-deep {
+
+        .wlc-tournament-promo-prizes {
+            @include bm.get-mq-map('display', $themeAlternative, 'prizesDisplay');
+            margin: ef.get-value($themeAlternative, 'prizesMargin');
+
+            &:last-child {
+                margin-bottom: 0;
+            }
+
+            &-mobile {
+                @include bm.get-mq-map('display', $themeAlternative, 'prizesDisplayMobile');
+                margin: ef.get-value($themeAlternative, 'prizesMargin');
+            }
+        }
+
+        .buttons-wrap {
+            @include bm.get-mq-map('justify-content', $themeAlternative, 'btnsWrapAlign');
+            @include bm.get-mq-map('padding', $themeAlternative, 'btnsWrapPadding');
+            @include bm.get-mq-map('flex-direction', $themeAlternative, 'btnsWrapperFlexDirection');
+
+            display: flex;
+            grid-area: btns;
+            align-items: center;
+            margin: ef.get-value($themeAlternative, 'btnsWrapMargin');
+
+            & > .wlc-btn {
+                @include bm.get-mq-map('min-width', $themeAlternative, 'btnsMinWidthColumn');
+                @include bm.get-mq-map('margin', $themeAlternative, 'firstBtnColumnMargin');
+
+                grid-column-gap: ef.get-value($themeAlternative, 'btnsGridColumnGap');
+                padding: ef.get-value($themeAlternative, 'btnsPadding');
+
+                &:last-child {
+                    margin: 0;
+                }
+            }
+        }
+    }
+}
+
+@keyframes spin {
+
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}

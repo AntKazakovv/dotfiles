@@ -41,5 +41,14 @@ $themeDefault: map-merge((
     ),
 
     'textAlign': center,
-), $customThemeDefault);
 
+    'containerBackgroundCompact': var(--mc-bg500),
+    'paddingCompact': 0,
+    'headPaddingCompact': 0 ef.size(3),
+    'headMarginCompact': 0 0 ef.size(2),
+    'headTextFontStyleCompact': 'SignText',
+    'bodyBackgroundCompact': var(--mc-bg),
+    'bodyPaddingCompact': ef.size(2) ef.size(3),
+    'bodyRadiusCompact': ef.get('radius', 'biger'),
+    'bodyRowMarginCompact': 0 0 ef.size(2),
+), $customThemeDefault);

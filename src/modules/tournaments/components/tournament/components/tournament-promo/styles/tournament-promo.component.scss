@@ -4,5 +4,7 @@
 @use 'engine-scss/mixins/mediaqueries' as mq;
 
 @import './utils/vars';
+@import './utils/vars-theme-alternative';
 
 @import './themes/default';
+@import './themes/alternative';

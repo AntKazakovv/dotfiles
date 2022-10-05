@@ -100,4 +100,40 @@
             text-align: ef.get-value($themeDefault, 'textAlign');
         }
     }
+
+    &.wlc-tournament-prizes--theme-mod-compact {
+
+        .wlc-tournament-prizes {
+
+            &__container {
+                padding: ef.get-value($themeDefault, 'paddingCompact');
+                background: ef.get-value($themeDefault, 'containerBackgroundCompact');
+            }
+
+            &__head {
+                margin: ef.get-value($themeDefault, 'headMarginCompact');
+                padding: ef.get-value($themeDefault, 'headPaddingCompact');
+                background: ef.get-value($themeDefault, 'containerBackgroundCompact');
+                border-bottom: none;
+
+                &-text {
+                    @include text.get-text-style(ef.get-value($themeDefault, 'headTextFontStyleCompact'), ef.get-value($themeDefault, 'headTextColor'));
+                }
+            }
+
+            &__body {
+                padding: ef.get-value($themeDefault, 'bodyPaddingCompact');
+                background: ef.get-value($themeDefault, 'bodyBackgroundCompact');
+                border-radius: ef.get-value($themeDefault, 'bodyRadiusCompact');
+
+                .wlc-tournament-prizes__row {
+                    margin: ef.get-value($themeDefault, 'bodyRowMarginCompact');
+
+                    &:last-child {
+                        margin-bottom: 0;
+                    }
+                }
+            }
+        }
+    }
 }
