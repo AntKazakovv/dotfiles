@@ -340,7 +340,6 @@ export const MODALS_LIST: IModalList = {
             centered: true,
             textAlign: 'center',
             modalTitle: pepPhrases.modals.confirmation.title,
-            modalMessage: pepPhrases.modals.confirmation.message,
             componentName: 'user.wlc-pep-confirm-password-form',
             showFooter: false,
             useBackButton: true,

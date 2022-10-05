@@ -5,7 +5,7 @@
             [attr.data-wlc-element]='fieldWlcElement'
             ngDefaultControl
             [formControl]="control"
-            class="{{$class}}__checkbox"/>
+            [ngClass]="checkboxClassNames"/>
         <span wlc-icon
             class="{{$class}}__elem"
             [ngClass]="{checked: control?.value}"
@@ -26,7 +26,7 @@
         <input type="checkbox"
             name="{{$params.name}}"
             ngDefaultControl
-            class="{{$class}}__checkbox"
+            [ngClass]="checkboxClassNames"
             [formControl]="control"
             data-wlc-element="input_payment-checkbox"
             (change)="onChange($event)"/>
@@ -50,7 +50,7 @@
             ngDefaultControl
             [formControl]="control"
             (change)="onChange($event)"
-            class="{{$class}}__checkbox"/>
+            [ngClass]="checkboxClassNames"/>
         <span wlc-icon
             class="{{$class}}__elem"
             [ngClass]="{checked: control?.value}"

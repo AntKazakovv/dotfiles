@@ -4,6 +4,11 @@
 
         .wlc-pep-confirm-password-form {
 
+            &__message {
+                font-size: ef.get-value($themeDefault, 'messageFontSize');
+                text-align: ef.get-value($themeDefault, 'messageTextAlign');
+            }
+
             &__controls {
                 margin: ef.get-value($themeDefault, 'controlsMargin');
                 padding: ef.get-value($themeDefault, 'controlsPadding');

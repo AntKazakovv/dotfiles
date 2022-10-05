@@ -3,9 +3,9 @@
     &::ng-deep {
 
         .wlc-pep-saved {
-            font-size: ef.get-value($themeDefault, 'fontSize');
 
             &__message {
+                font-size: ef.get-value($themeDefault, 'fontSize');
                 text-align: ef.get-value($themeDefault, 'messageTextAlign');
             }
         }

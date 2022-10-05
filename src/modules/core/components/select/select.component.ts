@@ -215,6 +215,7 @@ export class SelectComponent extends AbstractComponent implements OnInit, OnChan
      */
     public get placeholderText(): string {
         const res = _find(this.$params.items, item => item.value === this.control.value);
+
         if (res) {
             return res.title.toString();
         } else {

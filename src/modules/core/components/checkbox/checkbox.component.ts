@@ -1,4 +1,5 @@
 import {
+    ChangeDetectionStrategy,
     ChangeDetectorRef,
     Component,
     Inject,
@@ -7,6 +8,7 @@ import {
 } from '@angular/core';
 import {FormControl} from '@angular/forms';
 
+import {takeUntil} from 'rxjs';
 import _union from 'lodash-es/union';
 import _kebabCase from 'lodash-es/kebabCase';
 import _assign from 'lodash-es/assign';
@@ -19,10 +21,13 @@ import {IBaseConfig} from 'wlc-engine/modules/core/system/interfaces';
 
 import * as Params from './checkbox.params';
 
+type ClassNames = Record<string, boolean>;
+
 @Component({
     selector: '[wlc-checkbox]',
     templateUrl: './checkbox.component.html',
     styleUrls: ['./styles/checkbox.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CheckboxComponent extends AbstractComponent implements OnInit {
     @Input() protected inlineParams: Params.ICheckboxCParams;
@@ -37,6 +42,7 @@ export class CheckboxComponent extends AbstractComponent implements OnInit {
         slug: '',
     };
     public checkboxType: 'default' | 'legal-modal' | 'legal-link' = 'default';
+    public checkboxClassNames!: ClassNames;
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.ICheckboxCParams,
@@ -54,6 +60,10 @@ export class CheckboxComponent extends AbstractComponent implements OnInit {
             this.$params.control?.setValue(true);
         }
         this.control = this.$params.control;
+
+        this.listenForCheckboxStatusChanges();
+        this.updateCheckboxClassNames();
+
         this.prepareModifiers();
         this.fieldWlcElement = 'checkbox_' + _kebabCase(this.$params.name);
         this.textContext = this.$params.textContext;
@@ -136,6 +146,20 @@ export class CheckboxComponent extends AbstractComponent implements OnInit {
         }
 
         this.addModifiers(modifiers);
+        this.cdr.markForCheck();
+    }
+
+    protected listenForCheckboxStatusChanges(): void {
+        this.control.statusChanges
+            .pipe(takeUntil(this.$destroy))
+            .subscribe(() => this.updateCheckboxClassNames());
+    }
+
+    protected updateCheckboxClassNames(): void {
+        this.checkboxClassNames = {
+            [`${this.$class}__checkbox`]: true,
+            [`${this.$class}__checkbox--invalid`]: this.control.invalid && this.control.touched,
+        };
         this.cdr.markForCheck();
     }
 }

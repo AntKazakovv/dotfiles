@@ -63,21 +63,23 @@ const changeStatus: NotificationPhrases = {
 const infoModal: InfoModalPhrases = {
     title: gettext('Politically Exposed Person'),
     explaining: gettext(
-        'means an individual who is or ' +
-        'has been entrusted with prominent public functions, as but not limited ' +
-        'to Heads of State / Government, Ministers, Parliamentary Secretaries, ' +
+        'means an individual who is or has been entrusted ' +
+        'with prominent public functions, such as but not limited ' +
+        'to Heads of State / Government, Ministers, Deputy ' +
+        'or Assistant Ministers, Parliamentary Secretaries, ' +
         'Members of Court, Ambassadors, Members of the administrative, ' +
-        'management or supervisory boards pf State-owned enterprises. ' +
-        'Relatives of Close Associates of a PEP should also tick this box.',
+        'management or supervisory boards of State-owned enterprises. ' +
+        'Relatives or Close Associates of a PEP should also tick this box.',
     ),
-    pleaseNote: gettext('Please note'),
+    pleaseNote: gettext('Please note,'),
     notice: gettext(
-        'that in terms of our regulatory ' +
-        'we shall require additional information and documents to verify the ' +
-        'identity and, in particular, to confirm the source of funds of individuals ' +
-        'with the PEP status. For this purpose You will be asked to complete our ' +
-        'KYC forms and provide us with sufficient supporting documents to ' +
-        'confirm Your source of funds.',
+        'that in terms of our regulatory obligations we shall ' +
+        'require additional information and documents ' +
+        'to verify the identity and, in particular, to confirm ' +
+        'the source of funds of individuals with the PEP status. ' +
+        'For this purpose You will be asked to complete our KYC forms ' +
+        'and provide us with sufficient supporting documents ' +
+        'to confirm Your source of funds.',
     ),
     confirm: gettext('I confirm that I have read and understood all of the above information'),
     close: gettext('Close'),
@@ -89,16 +91,16 @@ const confirmationModal: ConfirmationModalPhrases = {
     title: gettext('Confirmation'),
     password: gettext('Password'),
     confirm: gettext('Confirm'),
-    message: gettext('Please enter your password to confirm the action'),
+    message: gettext('Please enter your account password to confirm the action.'),
     back: gettext('Back'),
 };
 
 const savedModal: SavedModalPhrases = {
     title: gettext('Politically Exposed Person'),
     close: gettext('Close'),
-    success: gettext('Changes saved successfully'),
-    markedAsPep: gettext('Now you\'re marked as PEP'),
-    markedAsNotPep: gettext('Now you aren\'t marked as PEP'),
+    success: gettext('Changes saved successfully.'),
+    markedAsPep: gettext('Now you are marked as PEP.'),
+    markedAsNotPep: gettext('Now you are marked as no PEP.'),
 };
 
 export const phrases: PepPhrases = {

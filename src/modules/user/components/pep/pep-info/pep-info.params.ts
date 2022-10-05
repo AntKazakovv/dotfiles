@@ -76,7 +76,7 @@ export const defaultParams: Partial<IPepInfoCParams> = {
                             name: 'core.wlc-icon',
                             params: <IIconCParams>{
                                 showSvgAsImg: true,
-                                iconPath: '/wlc/icons/info.svg',
+                                iconPath: '/wlc/icons/info-2.svg',
                             },
                         },
                     ],

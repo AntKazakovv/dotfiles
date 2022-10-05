@@ -13,6 +13,7 @@ import {
 } from 'wlc-engine/modules/core/system/interfaces/user.interface';
 import {EventService} from 'wlc-engine/modules/core/system/services/event/event.service';
 import {IPushMessageParams} from 'wlc-engine/modules/core/system/services/notification/notification.interface';
+import {LogService} from 'wlc-engine/modules/core';
 import {NotificationEvents} from 'wlc-engine/modules/core/system/services/notification/notification.service';
 import {UserService} from 'wlc-engine/modules/user';
 import {phrases} from 'wlc-engine/modules/user/system/services/pep/pep.translations';
@@ -62,11 +63,12 @@ export class PepService {
     ]);
 
     constructor(
-        protected userService: UserService,
         protected eventService: EventService,
+        protected logService: LogService,
+        protected userService: UserService,
     ) {
-        this.setEventListeners();
-        this.watchForProfileChanges();
+        this.listenForPepEvents();
+        this.listenForProfileChanges();
     }
 
     /**
@@ -117,7 +119,7 @@ export class PepService {
         });
     }
 
-    protected setEventListeners(): void {
+    protected listenForPepEvents(): void {
         this.eventService.subscribe({name: 'PEP_STATUS_CANCEL'}, () => {
             this.cancelStatus()
                 .then(() => this.notify('PEP_STATUS_CANCEL'))
@@ -129,20 +131,28 @@ export class PepService {
         });
     }
 
-    protected async updateProfile(updates: Partial<IUserProfile>): Promise<void> {
-        const response = await this.userService.updateProfile(updates, true);
-
-        if (response !== true) {
-            throw new Error('Changing PEP status error');
-        }
-    }
-
-    protected watchForProfileChanges(): void {
+    protected listenForProfileChanges(): void {
         this.userService.userProfile$
             .pipe(
                 filter((profile) => !!profile?.extProfile),
                 map((profile) => profile.extProfile.pep),
             )
             .subscribe((status) => this.statusChanges$.next(status));
+    }
+
+    protected async updateProfile(updates: Partial<IUserProfile>): Promise<void> {
+        const response = await this.userService.updateProfile(updates, true);
+
+        if (response !== true) {
+            this.logService.sendLog({
+                code: '1.1.26',
+                from: {
+                    service: 'PepService',
+                    method: 'updateProfile',
+                },
+            });
+
+            throw new Error('Changing PEP status error');
+        }
     }
 }

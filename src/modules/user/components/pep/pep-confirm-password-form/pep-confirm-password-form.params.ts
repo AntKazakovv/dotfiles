@@ -5,6 +5,7 @@ import {
 import {IFormWrapperCParams} from 'wlc-engine/modules/core/components/form-wrapper/form-wrapper.component';
 import {
     IButtonCParams,
+    ITextBlockCParams,
     IWrapperCParams,
     PepStatusValuableOnly,
 } from 'wlc-engine/modules/core';
@@ -32,6 +33,22 @@ export const defaultParams: Partial<IPepConfirmPasswordFormCParams> = {
     class: 'wlc-pep-confirm-password-form',
     config: {
         components: [
+            {
+                name: 'core.wlc-wrapper',
+                params: <IWrapperCParams>{
+                    class: 'wlc-pep-confirm-password-form__message',
+                    components: [
+                        {
+                            name: 'core.wlc-text-block',
+                            params: <ITextBlockCParams>{
+                                common: {
+                                    textBlockText: pepPhrases.modals.confirmation.message,
+                                },
+                            },
+                        },
+                    ],
+                },
+            },
             {
                 name: 'core.wlc-wrapper',
                 params: <IWrapperCParams>{

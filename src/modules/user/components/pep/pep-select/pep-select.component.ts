@@ -1,6 +1,7 @@
 import {
     Component,
     ChangeDetectorRef,
+    ChangeDetectionStrategy,
     Inject,
     Input,
     OnInit,
@@ -13,20 +14,20 @@ import {
     takeUntil,
 } from 'rxjs/operators';
 
-import {
-    AbstractComponent,
-    ISelectCParams,
-    ModalService,
-} from 'wlc-engine/modules/core';
+import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
+import {ISelectCParams} from 'wlc-engine/modules/core/components/select/select.params';
+
+
+import {IPepInfoCParams} from 'wlc-engine/modules/user/components/pep/pep-info/pep-info.params';
 import {PepService} from 'wlc-engine/modules/user/system/services/pep/pep.service';
-import {IPepInfoCParams} from '../pep-info/pep-info.params';
-
+import {ModalService} from 'wlc-engine/modules/core/system/services/modal/modal.service';
+import {MODALS_LIST} from 'wlc-engine/modules/core/components/modal/modal.params';
 import {defaultParams} from './pep-select.params';
-
 
 @Component({
     selector: '[wlc-pep-select]',
     templateUrl: './pep-select.component.html',
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PepSelectComponent extends AbstractComponent implements OnInit {
     @Input() protected inlineParams!: ISelectCParams;
@@ -57,7 +58,17 @@ export class PepSelectComponent extends AbstractComponent implements OnInit {
     }
 
     protected async showInfoModal(): Promise<void> {
-        await this.modalService.showModal<IPepInfoCParams>('pepInfo', {
+        const {config} = MODALS_LIST['pepInfo'];
+
+        config.onModalHidden = async () => {
+            const shouldStatusBeCancelled = component.closeReason === '';
+
+            if (shouldStatusBeCancelled) {
+                await this.pepService.cancelStatus();
+            }
+        };
+
+        const component = await this.modalService.showModal<IPepInfoCParams>(config, {
             pep: this.$params.control.value,
         });
     }
@@ -77,6 +88,18 @@ export class PepSelectComponent extends AbstractComponent implements OnInit {
     }
 
     protected changeControlValueOnStatusChanges(): void {
+        this.pepService.statusChanges$
+            .pipe(
+                filter((status) => (
+                    this.$params.control.value !== status
+                )),
+                takeUntil(this.$destroy),
+            )
+            .subscribe((status) => {
+                this.$params.control.setValue(status, {emitEvent: false});
+                this.cdr.markForCheck();
+            });
+
         this.pepService.statusChanges$
             .pipe(
                 distinctUntilChanged(),

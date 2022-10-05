@@ -1,4 +1,5 @@
 import {
+    ChangeDetectionStrategy,
     Component,
     Inject,
     Input,
@@ -15,6 +16,8 @@ import * as Params from './pep-saved.params';
 @Component({
     selector: '[wlc-pep-saved]',
     templateUrl: './pep-saved.component.html',
+    styleUrls: ['./styles/pep-saved.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PepSavedComponent extends AbstractComponent {
     @Input() public inlineParams: Params.IPepSavedCParams;
@@ -29,7 +32,7 @@ export class PepSavedComponent extends AbstractComponent {
         });
     }
 
-    public get markedAsPep(): boolean {
+    public get isMarkedAsPep(): boolean {
         return this.$params.pep === 'true';
     }
 }

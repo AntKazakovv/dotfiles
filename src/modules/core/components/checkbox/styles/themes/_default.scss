@@ -103,7 +103,7 @@
     .wlc-checkbox__checkbox {
         display: none;
 
-        &.ng-invalid:not(.ng-untouched) + .wlc-checkbox__elem {
+        &--invalid + .wlc-checkbox__elem {
             background: ef.get-value($themeDefault, 'checkboxElemBackgroundError');
             border-color: ef.get-value($themeDefault, 'checkboxElemBorderColorError');
         }

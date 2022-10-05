@@ -1,6 +1,9 @@
 $customThemeDefault: () !default;
 
 $themeDefault: map-merge((
+    'messageFontSize': ef.get('font', 'PrimaryText'),
+    'messageTextAlign': center,
+
     'controlsMargin': ef.get('size', 'smaller') 0,
     'controlsPadding': 0 ef.get('size', 'main'),
 
