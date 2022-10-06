@@ -1,0 +1,9 @@
+@mixin buttonWidth($screenWidth) {
+
+    @include mq.min($screenWidth) {
+
+        .action-btn {
+            max-width: ef.get-value($themeDefault, 'buttonMaxWidth');
+        }
+    }
+}

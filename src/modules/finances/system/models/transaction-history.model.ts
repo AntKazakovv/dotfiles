@@ -52,6 +52,7 @@ export const transactionsStatuses: ITransactionStatus[] = [
     {value: 1, code: 'updated', title: gettext('Updated')},
     {value: 50, code: 'confirmed', title: gettext('Confirmed')},
     {value: 75, code: 'in-payment-queue', title: gettext('In payment queue')},
+    {value: 90, code: 'pending-user', title: gettext('User confirmation required')},
     {value: 95, code: 'pending', title: gettext('Pending')},
     {value: 99, code: 'finalize-failed', title: gettext('Finalize failed')},
     {value: 100, code: 'complete', title: gettext('Complete')},
@@ -61,8 +62,8 @@ export const transactionsStatuses: ITransactionStatus[] = [
 ];
 
 export class Transaction extends AbstractModel<ITransactionEx> {
-
-    private cancelProgress$: boolean = false;
+    public cancelProgress: boolean = false;
+    public confirmProgress: boolean = false;
 
     constructor(
         from: IFromLog,
@@ -72,14 +73,6 @@ export class Transaction extends AbstractModel<ITransactionEx> {
         this.data = data;
         this.setStatus(this.data.Status);
         this.data.type = this.amount < 0 ? 'Debit' : 'Credit';
-    }
-
-    public set cancelProgress(v: boolean) {
-        this.cancelProgress$ = v;
-    }
-
-    public get cancelProgress(): boolean {
-        return this.cancelProgress$;
     }
 
     public get amount(): number {
@@ -132,7 +125,11 @@ export class Transaction extends AbstractModel<ITransactionEx> {
     }
 
     public get allowCancelation(): boolean {
-        return this.data.AllowCancelation === '1' && this.amount < 0 && this.statusCode !== 95;
+        return this.data.AllowCancelation === '1' && this.amount < 0 && this.statusCode === 0;
+    }
+
+    public get requireConfirmation(): boolean {
+        return this.amount < 0 && this.statusCode === 90;
     }
 
     public setStatus(status?: number | string): void {

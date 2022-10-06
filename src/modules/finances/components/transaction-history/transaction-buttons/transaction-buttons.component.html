@@ -1,0 +1,19 @@
+<span class="action-text">{{$params.transaction.type | translate}}</span>
+
+<button *ngIf="showCancelButton"
+        wlc-button
+        class="action-btn"
+        typeAttr="button"
+        themeMod="secondary"
+        text="Cancel"
+        (click)="cancel()">
+</button>
+
+<button *ngIf="showConfirmButton"
+        wlc-button
+        class="action-btn"
+        typeAttr="button"
+        themeMod="secondary"
+        text="Confirm"
+        (click)="confirm()">
+</button>

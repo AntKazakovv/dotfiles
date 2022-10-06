@@ -1,4 +1,5 @@
 $customThemeDefault: () !default;
 $themeDefault: map-merge((
     'transformSkew': ef.get-value(ev.$buttonSettings, 'transformSkew'),
+    'buttonMaxWidth': 120px,
 ), $customThemeDefault);

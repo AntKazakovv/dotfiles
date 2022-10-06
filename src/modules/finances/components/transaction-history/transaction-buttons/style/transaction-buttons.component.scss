@@ -2,7 +2,9 @@
 @use 'engine-scss/mixins/base.mixins' as bm;
 @use 'engine-scss/mixins/common.mixins' as cm;
 @use 'engine-scss/engine.variables' as ev;
+@use 'engine-scss/mixins/mediaqueries' as mq;
 
 @import './utils/vars';
+@import './utils/mixins';
 
 @import './themes/default';

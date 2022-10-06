@@ -1,11 +1,24 @@
-.wlc-transaction-cancel--theme-default:host {
+.wlc-transaction-buttons--theme-default:host {
     @include cm.tableBtnBlockStyles;
 
     &.allow-cancelation {
         @include bm.get-mq-map('padding', ev.$tableBtnBlock, 'btnBlockPadding');
 
-        &.profile-first {
+        &.wlc-transaction-buttons--profile-first {
+            @include buttonWidth(1200);
             @include bm.get-mq-map('padding', ev.$tableBtnBlock, 'btnBlockPaddingFirst');
+        }
+
+        &:not(.wlc-transaction-buttons--profile-first) {
+            @include buttonWidth(1024);
+        }
+
+        ::ng-deep {
+
+            .wlc-btn__text {
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
         }
     }
 

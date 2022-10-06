@@ -17,8 +17,8 @@ import {
     TransactionStatusComponent,
 } from './components/transaction-history/transaction-status/transaction-status.component';
 import {
-    TransactionCancelComponent,
-} from './components/transaction-history/transaction-cancel/transaction-cancel.component';
+    TransactionButtonsComponent,
+} from './components/transaction-history/transaction-buttons/transaction-buttons.component';
 import {
     TransactionPreviewComponent,
 } from './components/transaction-history/transaction-preview/transaction-preview.component';
@@ -61,7 +61,7 @@ export const components = {
         PIQCashierComponent,
         TransactionHistoryComponent,
         TransactionStatusComponent,
-        TransactionCancelComponent,
+        TransactionButtonsComponent,
         TransactionPreviewComponent,
         IframeDepositComponent,
     ],

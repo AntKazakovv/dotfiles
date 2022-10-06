@@ -209,7 +209,11 @@ export class TransactionHistoryComponent extends AbstractComponent implements On
             });
 
         this.eventService.filter(
-            {name: 'TRANSACTION_CANCEL'},
+            [
+                {name: 'TRANSACTION_CANCEL'},
+                {name: 'TRANSACTION_CONFIRM'},
+                {name: 'TRANSACTION_CONFIRM_FAIL'},
+            ],
             this.$destroy,
         ).subscribe({
             next: async (): Promise<void> => {

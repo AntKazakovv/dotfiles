@@ -162,6 +162,27 @@ export class FinancesService {
         });
     }
 
+    /**
+     * Confirm withdraw by user
+     *
+     * @param {id} - transaction id
+     *
+     * @returns {Promise<IData>}
+     */
+    public async confirmWithdrawal(id: number): Promise<IData> {
+        return await this.dataService.request<IData>({
+            name: 'confirmWithdrawal',
+            system: 'finances',
+            url: '/withdrawals/complete',
+            type: 'PATCH',
+            params: {id},
+            events: {
+                success: 'TRANSACTION_CONFIRM',
+                fail: 'TRANSACTION_CONFIRM_FAIL',
+            },
+        });
+    }
+
     public async getTransactionList(params: ITransactionRequestParams = {}): Promise<Transaction[]> {
         return (await this.dataService.request<IData>('finances/transactions', params)).data as Transaction[];
     }

@@ -4,8 +4,8 @@ import {
     TransactionStatusComponent,
 } from 'wlc-engine/modules/finances/components/transaction-history/transaction-status/transaction-status.component';
 import {
-    TransactionCancelComponent,
-} from 'wlc-engine/modules/finances/components/transaction-history/transaction-cancel/transaction-cancel.component';
+    TransactionButtonsComponent,
+} from 'wlc-engine/modules/finances/components/transaction-history/transaction-buttons/transaction-buttons.component';
 import {
     TransactionPreviewComponent,
 } from 'wlc-engine/modules/finances/components/transaction-history/transaction-preview/transaction-preview.component';
@@ -64,7 +64,7 @@ export const transactionTableHeadConfig: ITableCol[] = [
         title: gettext('Type'),
         type: 'component',
         mapValue: (item: Transaction) => {return {transaction: item};},
-        componentClass: TransactionCancelComponent,
+        componentClass: TransactionButtonsComponent,
         order: 50,
         wlcElement: 'wlc-profile-table__cell_type',
     },
