@@ -1,11 +1,17 @@
 const {task} = require('gulp');
+const _ = require('lodash');
 const fs = require('fs');
 const gettextParser = require('gettext-parser');
 const glob = require('glob');
+const luxon = require('luxon');
 const path = require('path');
-const _ = require('lodash');
 
 module.exports = function translationsLogsTask() {
+
+    const sortDate = (data, transformData) => data.sort((a, b) => {
+        const formatData = (data) => luxon.DateTime.fromFormat(transformData(data), 'mm-dd-yyyy').valueOf();
+        return formatData(b) - formatData(a);
+    });
 
     const searchTranslations = (path) => {
         const files = fs.readdirSync(path);
@@ -122,25 +128,22 @@ module.exports = function translationsLogsTask() {
             return false;
         }
         const changeLogs = _.find(summary, (i) => i._id === 'translations');
-        changeLogs.children = _.sortBy(children, 'title').reverse();
+        changeLogs.children = sortDate(children, data => data.title);
         fs.writeFileSync(this.params.paths.docsSummary, JSON.stringify(summary, null, 4));
     };
 
-    const clearOld = (path) => {
-        const STORY_LENGTH = 5;
-        const files = fs.readdirSync(path);
+    const clearOld = (dir) => {
+        const STORY_LENGTH = 10;
+        const files = fs.readdirSync(dir);
 
         if (STORY_LENGTH < files.length) {
-            const sortFfles = files.sort((a, b) => {
-                return b.split('.')[0].split('-').reverse().join('')
-                    - a.split('.')[0].split('-').reverse().join('');
-            });
+            const sortFiles = sortDate(files, filename => path.basename(filename, '.md'));
 
-            sortFfles.slice(5 - sortFfles.length).forEach(el => {
-                fs.unlink(`${path}/history/${el}`, (err) => {
+            sortFiles.slice(STORY_LENGTH - sortFiles.length).forEach(file => {
+                fs.unlink(path.join(dir, file), (err) => {
                     if (err) {
                         // eslint-disable-next-line no-console
-                        console.log(`failed to delete file: ${el}`);
+                        console.log(`failed to delete file: ${file}`);
                     }
                 });
             });
