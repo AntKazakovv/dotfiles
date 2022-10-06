@@ -78,7 +78,7 @@ export class PaymentMessageComponent extends AbstractComponent implements OnInit
     public html: string;
     public parseAmount: string;
     public parseRate: string;
-    public metamaskButtonConfig: IWrapperCParams;
+    public metamaskButtonConfig: IWrapperCParams | null = null;
 
     public timerParams: ITimerCParams;
     public inputParamsLockedAmount: IInputCParams;
@@ -142,17 +142,6 @@ export class PaymentMessageComponent extends AbstractComponent implements OnInit
             } else {
                 this.prepareMessage();
             }
-        }
-
-        if (this.message.metamask_account) {
-            this.metamaskButtonConfig = {
-                components: [{
-                    name: 'metamask.wlc-metamask-button',
-                    params: {
-                        paymentMessage: this.message,
-                    },
-                }],
-            };
         }
 
         this.cdr.markForCheck();
@@ -244,6 +233,19 @@ export class PaymentMessageComponent extends AbstractComponent implements OnInit
             this.inputParamsLockedAmount = amount;
             this.timerParams = _cloneDeep(Params.timerParams);
             this.inputParamsCryptoAmount = this.getInputParams('invoice');
+        }
+
+        if (this.message.metamask_account) {
+            this.metamaskButtonConfig = {
+                components: [{
+                    name: 'metamask.wlc-metamask-button',
+                    params: {
+                        paymentMessage: this.message,
+                    },
+                }],
+            };
+        } else {
+            this.metamaskButtonConfig = null;
         }
     }
 
