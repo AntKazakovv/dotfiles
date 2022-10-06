@@ -1,8 +1,6 @@
 /* eslint-disable no-restricted-globals */
 import {Fingerprint2} from './_fingerprint2';
 
-'use strict';
-
 export interface IFlogData {
     code: string;
     level?: string;
@@ -65,6 +63,7 @@ export class WlcFlog {
         if (!this.enabled) {
             return Promise.reject('Flog disabled');
         }
+
         await this.isReady;
         data.level = data.level || 'log';
         this.setVersion(data);
@@ -76,7 +75,8 @@ export class WlcFlog {
         }
 
         try {
-            const response: Response = await fetch('/flog', {
+            const apiUrl: string = window.WlcHelper.mobileAppApiUrl || '';
+            const response: Response = await fetch(`${apiUrl}/flog`, {
                 method: 'POST',
                 body: dataString,
                 signal: abortController?.signal,

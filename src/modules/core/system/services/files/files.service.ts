@@ -7,6 +7,7 @@ import {ConfigService} from 'wlc-engine/modules/core/system/services/config/conf
 import {IIndexing} from 'wlc-engine/modules/core/system/interfaces/global.interface';
 import {HttpClient, HttpResponse} from '@angular/common/http';
 import {LogService} from 'wlc-engine/modules/core';
+import {GlobalHelper} from 'wlc-engine/modules/core/system/helpers/global.helper';
 
 import _find from 'lodash-es/find';
 import _findIndex from 'lodash-es/findIndex';
@@ -22,7 +23,8 @@ type LocationFileType =
     'local-wlc'
     | 'local-engine'
     | 'gstatic'
-    | 'static';
+    | 'static'
+    | 'app-static';
 
 type FileTypeType = 'svg' | 'bin';
 
@@ -98,8 +100,10 @@ export class FilesService {
                 return file;
             }
 
+            const staticLocation: LocationFileType = GlobalHelper.isMobileApp() ? 'app-static' : 'static';
+
             location = _includes(imagesList, fileUrl)
-                ? 'static'
+                ? staticLocation
                 : 'gstatic';
             fullUrl = this.getStaticFileUrl(location, fileUrl);
         }
@@ -226,6 +230,8 @@ export class FilesService {
     protected getStaticFileUrl(location: LocationFileType, fileName: string): string {
         if (location === 'gstatic') {
             return `/gstatic${fileName}`;
+        } else if (location === 'app-static') {
+            return `/app-static/images${fileName}`;
         } else {
             return `/static/images${fileName}`;
         }
@@ -250,13 +256,17 @@ export class FilesService {
         }
 
         try {
-            const res: HttpResponse<string> = await this.httpClient.request('GET', url, {
-                headers: {
-                    'Cache-Control': 'public, max-age=31536000',
+            const res: HttpResponse<string> = await this.httpClient.request(
+                'GET',
+                GlobalHelper.proxyUrl(url),
+                {
+                    headers: {
+                        'Cache-Control': 'public, max-age=31536000',
+                    },
+                    observe: 'response',
+                    responseType: 'text',
                 },
-                observe: 'response',
-                responseType: 'text',
-            }).toPromise();
+            ).toPromise();
 
             this.fetchedFiles[url] = res.body;
             return res.body;

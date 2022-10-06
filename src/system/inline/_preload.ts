@@ -56,12 +56,28 @@ if (window.WlcHelper.usedPcEmulation()) {
     window.WlcCookie.delete('PC_EMULATION');
 }
 
+let jwtAuthToken = window.localStorage.getItem('ngx-webstorage|jwtauthtoken');
+if (jwtAuthToken) {
+    jwtAuthToken = jwtAuthToken.replace(/"/g, '');
+}
+
 config.forEach((request) => {
     if (checkCache(request.url)) {
         return;
     }
 
-    wlcPreload[request.flag] = fetch(request.url)
+    const requestParams = {
+        headers: {},
+    };
+
+    if (jwtAuthToken) {
+        // @ts-ignore
+        requestParams.headers['Authorization'] = `Bearer ${jwtAuthToken}`;
+    }
+
+    const url: string = `${window.WlcHelper.mobileAppApiUrl || ''}${request.url}`;
+
+    wlcPreload[request.flag] = fetch(url, requestParams)
         .then((res) => res.json())
         .then((result) => {
             result.system = request.system;

@@ -1,11 +1,11 @@
 @use '../engine.variables'as ev;
 @use 'sass:math';
 
-@mixin loaderDefault {
+@mixin loaderDefault($loader: $appLoader) {
 
     &-loader {
-        --speed: #{map-get($appLoader, 'defAnimeSpeed')};
-        --easing: #{map-get($appLoader, 'defAnimeEasing')};
+        --speed: #{map-get($loader, 'defAnimeSpeed')};
+        --easing: #{map-get($loader, 'defAnimeEasing')};
 
         &:before,
         &:after {
@@ -17,11 +17,11 @@
             left: 0;
 
             display: block;
-            width: map-get($appLoader, 'loaderWidth');
-            height: map-get($appLoader, 'loaderHeight');
+            width: map-get($loader, 'loaderWidth');
+            height: map-get($loader, 'loaderHeight');
             margin: auto;
 
-            border: map-get($appLoader, 'loaderBorder');
+            border: map-get($loader, 'loaderBorder');
             border-radius: 50%;
             opacity: 0;
 
@@ -34,7 +34,7 @@
     }
 }
 
-@mixin kfLoaderDefault {
+@mixin kfLoaderDefault($loader: $appLoader) {
 
     @keyframes loader-6-1 {
 
@@ -73,7 +73,7 @@
 
 
 //Background animation
-@mixin bgAnime {
+@mixin bgAnime($loader: $appLoader) {
     overflow: hidden;
 
     &:before {
@@ -86,11 +86,11 @@
         width: 200%;
         height: 100%;
         background: inherit;
-        animation: loader_bg map-get($appLoader, 'bgAnimeSpeed') map-get($appLoader, 'bgAnimeEasing') infinite;
+        animation: loader_bg map-get($loader, 'bgAnimeSpeed') map-get($loader, 'bgAnimeEasing') infinite;
     }
 }
 
-@mixin kfBgAnime {
+@mixin kfBgAnime($loader: $appLoader) {
 
     @keyframes loader_bg {
 
@@ -101,10 +101,10 @@
 }
 
 // Logo animation
-@mixin logoPulse {
+@mixin logoPulse($loader: $appLoader) {
 
     &-img {
-        animation: logo_pulse map-get($appLoader, 'pulseAnimeSpeed') map-get($appLoader, 'pulseAnimeEasing') infinite;
+        animation: logo_pulse map-get($loader, 'pulseAnimeSpeed') map-get($loader, 'pulseAnimeEasing') infinite;
     }
 
     &-loader {
@@ -112,7 +112,7 @@
     }
 }
 
-@mixin kfLogoPulse {
+@mixin kfLogoPulse($loader: $appLoader) {
 
     @keyframes logo_pulse {
 
@@ -139,22 +139,22 @@
 }
 
 // Loader element mixins
-@mixin loaderCircle {
-    background: map-get($appLoader, 'circleWrapperBg');
+@mixin loaderCircle($loader: $appLoader) {
+    background: map-get($loader, 'circleWrapperBg');
 
     &-loader {
-        width: map-get($appLoader, 'circleLoaderSize');
-        height: map-get($appLoader, 'circleLoaderSize');
-        margin: map-get($appLoader, 'circleLoaderMargin');
-        background: map-get($appLoader, 'circleLoaderBg');
+        width: map-get($loader, 'circleLoaderSize');
+        height: map-get($loader, 'circleLoaderSize');
+        margin: map-get($loader, 'circleLoaderMargin');
+        background: map-get($loader, 'circleLoaderBg');
         border-radius: 100%;
-        box-shadow: map-get($appLoader, 'circleLoaderOuterShadow');
+        box-shadow: map-get($loader, 'circleLoaderOuterShadow');
         overflow: hidden;
 
         div {
 
             &:nth-child(1) {
-                $innerSize: map-get($appLoader, 'circleLoaderSize') * map-get($appLoader, 'circleLoaderWidthСoef');
+                $innerSize: map-get($loader, 'circleLoaderSize') * map-get($loader, 'circleLoaderWidthСoef');
 
                 position: absolute;
                 top: 50%;
@@ -162,8 +162,8 @@
                 z-index: 5;
                 width: $innerSize;
                 height: $innerSize;
-                background: map-get($appLoader, 'circleLoaderBg');
-                box-shadow: map-get($appLoader, 'circleLoaderInnerShadow');
+                background: map-get($loader, 'circleLoaderBg');
+                box-shadow: map-get($loader, 'circleLoaderInnerShadow');
                 transform: translate(-50%, -50%);
                 border-radius: inherit;
             }
@@ -174,17 +174,17 @@
                 left: 0;
                 z-index: 1;
                 width: 100%;
-                height: map-get($appLoader, 'circleLoaderSpinnerSize');
-                margin-top: math.div(map-get($appLoader, 'circleLoaderSpinnerSize'), -2);
-                background: map-get($appLoader, 'circleLoaderSpinnerBg');
-                animation: loader_circle map-get($appLoader, 'circleLoaderAnimeSpeed') map-get($appLoader, 'circleLoaderAnimeEasing') infinite;
-                border-radius: map-get($appLoader, 'circleLoaderSpinnerRadius');
+                height: map-get($loader, 'circleLoaderSpinnerSize');
+                margin-top: math.div(map-get($loader, 'circleLoaderSpinnerSize'), -2);
+                background: map-get($loader, 'circleLoaderSpinnerBg');
+                animation: loader_circle map-get($loader, 'circleLoaderAnimeSpeed') map-get($loader, 'circleLoaderAnimeEasing') infinite;
+                border-radius: map-get($loader, 'circleLoaderSpinnerRadius');
             }
         }
     }
 }
 
-@mixin kfLoaderCircle {
+@mixin kfLoaderCircle($loader: $appLoader) {
 
     @keyframes loader_circle {
 
@@ -198,24 +198,24 @@
     }
 }
 
-@mixin loaderCircle2 {
+@mixin loaderCircle2($loader: $appLoader) {
 
     &-loader {
-        height: map-get($appLoader, 'circle2Height');
-        margin: map-get($appLoader, 'circle2Margin');
+        height: map-get($loader, 'circle2Height');
+        margin: map-get($loader, 'circle2Margin');
 
         div:first-child {
             position: relative;
-            width: map-get($appLoader, 'circle2LoaderSize');
-            height: map-get($appLoader, 'circle2LoaderSize');
+            width: map-get($loader, 'circle2LoaderSize');
+            height: map-get($loader, 'circle2LoaderSize');
             margin: auto;
             background-clip: padding-box;
-            transform: map-get($appLoader, 'circle2LoaderTransform');
+            transform: map-get($loader, 'circle2LoaderTransform');
             /*stylelint-disable-next-line*/
             -webkit-mask: linear-gradient(rgba(0, 0, 0, 0.1), #000000 90%);
             transform-origin: 50% 60%;
             border-radius: 100%;
-            border: map-get($appLoader, 'circle2LoaderBorder');
+            border: map-get($loader, 'circle2LoaderBorder');
 
             &:before,
             &:after {
@@ -226,26 +226,26 @@
                 margin: -4px;
                 opacity: 0.05;
                 animation:
-                    circle2-spin map-get($appLoader, 'circle2AnimeSpeed') cubic-bezier(0.6, 0.2, 0, 0.8) infinite,
-                    circle2-fade map-get($appLoader, 'circle2AnimeSpeed') linear infinite;
+                    circle2-spin map-get($loader, 'circle2AnimeSpeed') cubic-bezier(0.6, 0.2, 0, 0.8) infinite,
+                    circle2-fade map-get($loader, 'circle2AnimeSpeed') linear infinite;
                 border-radius: inherit;
                 border: inherit;
                 border-color: transparent;
             }
 
             &:before {
-                border-top-color: map-get($appLoader, 'circle2mainColor');
+                border-top-color: map-get($loader, 'circle2mainColor');
             }
 
             &:after {
-                border-top-color: map-get($appLoader, 'circle2SecondaryColor');
+                border-top-color: map-get($loader, 'circle2SecondaryColor');
                 animation-delay: 0.3s;
             }
         }
     }
 }
 
-@mixin kfLoaderCircle2 {
+@mixin kfLoaderCircle2($loader: $appLoader) {
 
     @keyframes circle2-spin {
 
@@ -270,20 +270,20 @@
     }
 }
 
-@mixin loaderDots1 {
+@mixin loaderDots1($loader: $appLoader) {
 
     &-loader {
-        --speed: #{map-get($appLoader, 'dots1LoaderAnimeSpeed')};
+        --speed: #{map-get($loader, 'dots1LoaderAnimeSpeed')};
 
-        width: map-get($appLoader, 'dots1Width');
+        width: map-get($loader, 'dots1Width');
 
         div {
             position: absolute;
             top: 0;
-            width: map-get($appLoader, 'dots1LoaderDotSize');
-            height: map-get($appLoader, 'dots1LoaderDotSize');
-            border-radius: map-get($appLoader, 'dots1LoaderDotRadius');
-            background: map-get($appLoader, 'dots1LoaderDotBg');
+            width: map-get($loader, 'dots1LoaderDotSize');
+            height: map-get($loader, 'dots1LoaderDotSize');
+            border-radius: map-get($loader, 'dots1LoaderDotRadius');
+            background: map-get($loader, 'dots1LoaderDotBg');
 
             &:nth-child(1) {
                 left: 8px;
@@ -308,7 +308,7 @@
     }
 }
 
-@mixin kfLoaderDots1 {
+@mixin kfLoaderDots1($loader: $appLoader) {
 
     @keyframes loader_dots1-1 {
 
@@ -348,25 +348,25 @@
     }
 }
 
-@mixin loaderDots2 {
+@mixin loaderDots2($loader: $appLoader) {
 
     &-loader {
-        --speed: #{map-get($appLoader, 'dots2LoaderAnimeSpeed')};
-        --easing: #{map-get($appLoader, 'dots2LoaderAnimeEasing')};
-        --step: #{map-get($appLoader, 'dots2LoaderAnimeStep')};
+        --speed: #{map-get($loader, 'dots2LoaderAnimeSpeed')};
+        --easing: #{map-get($loader, 'dots2LoaderAnimeEasing')};
+        --step: #{map-get($loader, 'dots2LoaderAnimeStep')};
 
         display: grid;
         grid-auto-flow: column;
-        gap: map-get($appLoader, 'dots2gap');
+        gap: map-get($loader, 'dots2gap');
         justify-content: center;
 
         width: auto;
-        margin: map-get($appLoader, 'dots2Margin');
+        margin: map-get($loader, 'dots2Margin');
 
         div {
             position: relative;
-            width: map-get($appLoader, 'dots2LoaderWidth');
-            height: map-get($appLoader, 'dots2LoaderHeight');
+            width: map-get($loader, 'dots2LoaderWidth');
+            height: map-get($loader, 'dots2LoaderHeight');
 
             &:before,
             &:after {
@@ -380,7 +380,7 @@
                 width: 100%;
                 height: 100%;
 
-                border-radius: map-get($appLoader, 'dots2LoaderRadius');
+                border-radius: map-get($loader, 'dots2LoaderRadius');
             }
 
             &:before {
@@ -388,15 +388,15 @@
             }
 
             &:after {
-                background: map-get($appLoader, 'dots2LoaderBg');
-                box-shadow: map-get($appLoader, 'dots2LoaderInnerShadow');
+                background: map-get($loader, 'dots2LoaderBg');
+                box-shadow: map-get($loader, 'dots2LoaderInnerShadow');
                 animation: loader_dots2-2 var(--speed) var(--easing) calc(var(--n) * var(--step)) infinite;
             }
         }
     }
 }
 
-@mixin kfLoaderDots2 {
+@mixin kfLoaderDots2($loader: $appLoader) {
 
     @keyframes loader_dots2-1 {
 
@@ -406,7 +406,7 @@
         }
 
         50% {
-            box-shadow: map-get($appLoader, 'dots2LoaderShadow');
+            box-shadow: map-get($loader, 'dots2LoaderShadow');
             transform: translateY(-50%);
         }
     }
@@ -430,25 +430,25 @@
     }
 }
 
-@mixin loaderDots3 {
+@mixin loaderDots3($loader: $appLoader) {
 
     &-loader {
-        --speed: #{map-get($appLoader, 'dots3AnimeSpeed')};
+        --speed: #{map-get($loader, 'dots3AnimeSpeed')};
 
         display: grid;
         grid-auto-flow: column;
-        gap: map-get($appLoader, 'dots3Gap');
+        gap: map-get($loader, 'dots3Gap');
         justify-content: center;
 
         div {
-            background: map-get($appLoader, 'dots3DotBg');
+            background: map-get($loader, 'dots3DotBg');
 
             &,
             &:after {
                 display: inline-block;
-                width: map-get($appLoader, 'dots3DotSize');
-                height: map-get($appLoader, 'dots3DotSize');
-                border-radius: map-get($appLoader, 'dots2DotRadius');
+                width: map-get($loader, 'dots3DotSize');
+                height: map-get($loader, 'dots3DotSize');
+                border-radius: map-get($loader, 'dots2DotRadius');
                 animation: loader-dots3 var(--speed) calc(((var(--n) + var(--o, 0)) / 4 - 1) * var(--speed)) infinite;
             }
 
@@ -456,13 +456,13 @@
                 --o: 1;
 
                 content: '';
-                background: map-get($appLoader, 'dots3InnerBg');
+                background: map-get($loader, 'dots3InnerBg');
             }
         }
     }
 }
 
-@mixin kfLoaderDots3 {
+@mixin kfLoaderDots3($loader: $appLoader) {
 
     @keyframes loader-dots3 {
 
@@ -473,17 +473,17 @@
     }
 }
 
-@mixin loaderFlip {
+@mixin loaderFlip($loader: $appLoader) {
 
     &-loader {
-        --speed: #{map-get($appLoader, 'flipLoaderAnimeSpeed')};
-        --easing: #{map-get($appLoader, 'flipLoaderAnimeEasing')};
+        --speed: #{map-get($loader, 'flipLoaderAnimeSpeed')};
+        --easing: #{map-get($loader, 'flipLoaderAnimeEasing')};
 
         div:first-child {
             position: relative;
             display: block;
-            width: map-get($appLoader, 'flipLoaderWidth');
-            height: map-get($appLoader, 'flipLoaderHeight');
+            width: map-get($loader, 'flipLoaderWidth');
+            height: map-get($loader, 'flipLoaderHeight');
             margin: 0 auto;
 
             &:after {
@@ -494,20 +494,20 @@
                 display: block;
                 width: 100%;
                 height: 100%;
-                background: map-get($appLoader, 'flipLoaderBg');
+                background: map-get($loader, 'flipLoaderBg');
                 animation: loader_flip var(--speed) var(--easing) infinite;
-                border-radius: map-get($appLoader, 'flipLoaderRadius');
+                border-radius: map-get($loader, 'flipLoaderRadius');
             }
         }
     }
 }
 
-@mixin kfLoaderFlip {
+@mixin kfLoaderFlip($loader: $appLoader) {
 
     @keyframes loader_flip {
 
         50% {
-            background: map-get($appLoader, 'flipLoaderBgSecondary');
+            background: map-get($loader, 'flipLoaderBgSecondary');
             transform: perspective(80px) rotateX(180deg) rotateY(0deg);
         }
 
@@ -517,13 +517,13 @@
     }
 }
 
-@mixin loaderJelly {
+@mixin loaderJelly($loader: $appLoader) {
 
     &-loader {
-        --speed: #{map-get($appLoader, 'jellyAnimeSpeed')};
-        --easing: #{map-get($appLoader, 'jellyAnimeEasing')};
+        --speed: #{map-get($loader, 'jellyAnimeSpeed')};
+        --easing: #{map-get($loader, 'jellyAnimeEasing')};
 
-        width: map-get($appLoader, 'jellyLoaderSize');
+        width: map-get($loader, 'jellyLoaderSize');
 
         div {
             position: absolute;
@@ -531,19 +531,19 @@
 
             &:first-child {
                 top: 0;
-                width: map-get($appLoader, 'jellyLoaderSize');
-                height: map-get($appLoader, 'jellyLoaderSize');
-                background: map-get($appLoader, 'jellyLoaderBg');
+                width: map-get($loader, 'jellyLoaderSize');
+                height: map-get($loader, 'jellyLoaderSize');
+                background: map-get($loader, 'jellyLoaderBg');
                 animation: jelly-box var(--speed) var(--easing) infinite;
-                border-radius: map-get($appLoader, 'jellyLoaderRadius');
+                border-radius: map-get($loader, 'jellyLoaderRadius');
             }
 
             &:nth-child(2) {
-                top: map-get($appLoader, 'jellyShadowPosTop');
-                width: map-get($appLoader, 'jellyLoaderSize');
-                height: map-get($appLoader, 'jellyShadowSize');
-                background: map-get($appLoader, 'jellyShadowBg');
-                opacity: map-get($appLoader, 'jellyShadowOpacity');
+                top: map-get($loader, 'jellyShadowPosTop');
+                width: map-get($loader, 'jellyLoaderSize');
+                height: map-get($loader, 'jellyShadowSize');
+                background: map-get($loader, 'jellyShadowBg');
+                opacity: map-get($loader, 'jellyShadowOpacity');
                 animation: jelly-shadow var(--speed) var(--easing) infinite;
                 border-radius: 50%;
             }
@@ -551,7 +551,7 @@
     }
 }
 
-@mixin kfLoaderJelly {
+@mixin kfLoaderJelly($loader: $appLoader) {
 
     @keyframes jelly-box {
 

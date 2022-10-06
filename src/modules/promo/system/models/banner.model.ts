@@ -2,6 +2,7 @@ import {
     AbstractModel,
     IFromLog,
     IBanner,
+    GlobalHelper,
 } from 'wlc-engine/modules/core';
 
 import _filter from 'lodash-es/filter';
@@ -24,7 +25,7 @@ export class BannerModel extends AbstractModel<IBanner>{
     }
 
     public get html(): string {
-        return this.data.html;
+        return GlobalHelper.proxyLinks(this.data.html);
     }
 
     public get platform(): string[] {

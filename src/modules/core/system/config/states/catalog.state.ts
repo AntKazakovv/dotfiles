@@ -1,7 +1,9 @@
 'use strict';
 
 import {Ng2StateDeclaration} from '@uirouter/angular';
-import {Transition} from '@uirouter/core';
+import {
+    Transition,
+} from '@uirouter/core';
 
 import {CategoryModel} from 'wlc-engine/modules/games/system/models/category.model';
 import {GamesCatalogService} from 'wlc-engine/modules/games/system/services/games-catalog/games-catalog.service';

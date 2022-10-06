@@ -158,7 +158,8 @@ export interface INotRunInIframe {
 }
 
 export interface IShowGameHeader {
-    merchants: number[];
+    byDefault?: boolean;
+    merchants?: number[];
 }
 
 export interface IExcludeMerchantSettings {

@@ -48,7 +48,6 @@ import {
 import {HooksService} from 'wlc-engine/modules/core';
 import {CuracaoRequirement} from 'wlc-engine/modules/app/system';
 
-
 @Injectable({
     providedIn: 'root',
 })
@@ -326,7 +325,6 @@ export class StaticService {
         if (!httpParams.get('slug')) {
             httpParams = httpParams.delete('slug');
         }
-
         return new HttpRequest('GET', url, {
             params: httpParams,
         });

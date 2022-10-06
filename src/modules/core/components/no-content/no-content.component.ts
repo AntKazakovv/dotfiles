@@ -8,6 +8,7 @@ import {
 import {
     AbstractComponent,
     ConfigService,
+    GlobalHelper,
 } from 'wlc-engine/modules/core';
 
 import * as Params from './no-content.params';
@@ -22,6 +23,10 @@ export class WlcNoContentComponent extends AbstractComponent implements OnInit {
     @Input() public inlineParams: Params.INoContentCParams;
     @Input() public loading: boolean = false;
     public $params: Params.INoContentCParams;
+
+    public get bgImage(): string {
+        return this.$params.bgImage ? `url('${GlobalHelper.proxyUrl(this.$params.bgImage)}')` : '';
+    }
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.INoContentCParams,

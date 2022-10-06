@@ -1,11 +1,13 @@
 const gulpConfig = {};
 
 
-module.exports = function config(root, bundleType) {
+module.exports = function config(root, bundleType, pathsConfig = {}) {
     const isEngineBundle = bundleType === 'engine';
+    const isMobileAppBundle = bundleType === 'mobileApp';
 
     return {
         isEngineBundle,
+        isMobileAppBundle,
         paths: {
             root: root,
             nodeModules: `${root}/node_modules`,
@@ -15,9 +17,9 @@ module.exports = function config(root, bundleType) {
             engineDev: `${root}/../wlc-engine`,
             src: root + '/src',
             temp: root + '/temp',
-            static: root + '/roots/static',
+            static: root + (isMobileAppBundle ? '/static' : '/roots/static'),
             vendor: root + '/vendor',
-            dist: root + (isEngineBundle ? '/dist' : '/roots/static/dist'),
+            dist: isMobileAppBundle ? root + '/staticTmp' : root + (isEngineBundle ? '/dist' : '/roots/static/dist'),
             locale: root + '/roots/locale',
             localejs: root + '/roots/static/po',
             languagesDev: '../wlc-engine-translate',
@@ -25,8 +27,8 @@ module.exports = function config(root, bundleType) {
             languages: root + '/src/languages',
             languagesDist: root + '/roots/static/languages',
             localLanguagesDist: root + '/src/static',
-            indexFile: `${root}/roots/template/angular.html`,
-            indexHeadFile: `${root}/roots/template/head.tpl`,
+            indexFile: isMobileAppBundle ? `${root}/www/angular.html` : `${root}/roots/template/angular.html`,
+            indexHeadFile: isMobileAppBundle ? `${root}/www/head.tpl` : `${root}/roots/template/head.tpl`,
             srcIndexFile: `${root}/src/index.html`,
             srcIndexHeadFile: `${root}/node_modules/@egamings/wlc-engine/src/head.tpl`,
             polyfillsFile: `${root}/src/polyfills.ts`,
@@ -36,6 +38,7 @@ module.exports = function config(root, bundleType) {
             translationLogs: `${root}/src/docs/content/1000.translations/history`,
             translationLogsDocDist: `${root}/src/docs/content/1000.translations`,
             apiTest: `${root}/api-tests`,
+            ...pathsConfig,
         },
         tmpFileOptions: {
             tmpdir: root + '/temp',

@@ -159,7 +159,8 @@ export class LanguageSelectorComponent
 
     public getFlagUrl(lang: string): string {
         const replaceList = this.$params.common.flags.replace;
-        return `${this.$params.common.flags.path}${replaceList[lang] || lang}.${this.$params.common.flags.dim}`;
+        const path = `${this.$params.common.flags.path}${replaceList[lang] || lang}.${this.$params.common.flags.dim}`;
+        return GlobalHelper.proxyUrl(path);
     }
 
     public imageError(langCode: string): void {

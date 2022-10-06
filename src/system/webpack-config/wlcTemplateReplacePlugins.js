@@ -39,15 +39,15 @@ class WlcTemplateReplacePlugins {
         const originTplPath = path.resolve(
             resource.context,
             resource.request.replace(/\?.+$/, ''),
-        );
+        ).replace('!raw-loader!./', '');
 
         if (!originTplPath || !_includes(originTplPath, '/wlc-engine/modules/')) {
             return;
         }
 
         const customTplPath = originTplPath.replace('/wlc-engine/', customPath);
-        const customComponentDir = path.dirname(customTplPath);
-        const tplName = path.basename(customTplPath);
+        const customComponentDir = path.dirname(customTplPath).replace('!raw-loader!./', '');
+        const tplName = path.basename(customTplPath).replace('!raw-loader!./', '');
         const tsName = tplName.replace('.html', '.ts');
         const originTsPath = originTplPath.replace('.html', '.ts');
 

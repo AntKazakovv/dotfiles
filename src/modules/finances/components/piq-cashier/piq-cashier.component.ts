@@ -41,7 +41,8 @@ type THostedStyles = 'current' | 'def' | 'alt';
 })
 export class PIQCashierComponent
     extends AbstractDepositWithdrawComponent<Params.IPIQCashierCParams>
-    implements OnInit, OnDestroy {
+    implements OnInit, OnDestroy
+{
 
     public ready = false;
     public $params: Params.IPIQCashierCParams;

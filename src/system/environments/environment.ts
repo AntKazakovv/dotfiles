@@ -4,7 +4,7 @@
 
 import './environment.mocks';
 
-export const environment = {
+export const environment: IEnvironment = {
     production: false,
 };
 

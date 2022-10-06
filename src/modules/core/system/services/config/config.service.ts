@@ -1,15 +1,15 @@
-import {EventService} from 'wlc-engine/modules/core/system/services/event/event.service';
-import * as sectionsLib from 'wlc-engine/modules/core/system/config/layouts/sections';
 import {TranslateService} from '@ngx-translate/core';
 import {
     Inject,
     Injectable,
     Injector,
 } from '@angular/core';
+import {HttpErrorResponse} from '@angular/common/http';
 import {
     LocalStorageService,
     SessionStorageService,
 } from 'ngx-webstorage';
+
 import {
     BehaviorSubject,
     firstValueFrom,
@@ -26,6 +26,7 @@ import _set from 'lodash-es/set';
 import _isObject from 'lodash-es/isObject';
 import _cloneDeep from 'lodash-es/cloneDeep';
 import _find from 'lodash-es/find';
+import _includes from 'lodash-es/includes';
 
 import {
     DataService,
@@ -42,14 +43,17 @@ import {AppConfigModel} from './app-config.model';
 import * as appConfig from 'wlc-config/index';
 import * as wlcConfig from 'wlc-engine/modules/core/system/config/default.config';
 import {
-    $layoutsAff,
-    $panelsLayouts,
-    $profileLayouts,
-    $panelsLayoutsKiosk,
-    $profileFirstLayouts,
     $layouts,
+    $layoutsAff,
     $layoutsKiosk,
+    $layoutsMobileApp,
+    $panelsLayouts,
+    $panelsLayoutsKiosk,
+    $panelsLayoutsMobileApp,
+    $profileLayouts,
+    $profileFirstLayouts,
     $profileKioskLayouts,
+    $profileMobileAppLayouts,
 } from 'wlc-engine/modules/core/system/config/layouts';
 import {
     IParamsLayoutConfig,
@@ -69,6 +73,8 @@ import {
 } from './config.interface';
 import {UserInfo} from 'wlc-engine/modules/user/system/models/info.model';
 import {WINDOW} from 'wlc-engine/modules/app/system';
+import {EventService} from 'wlc-engine/modules/core/system/services/event/event.service';
+import * as sectionsLib from 'wlc-engine/modules/core/system/config/layouts/sections';
 
 export * from './app-config.model';
 export * from './config.interface';
@@ -100,6 +106,7 @@ export class ConfigService {
         // to not delete next two lines. You will be thanked.
         private localStorageService: LocalStorageService,
         private sessionStorageService: SessionStorageService,
+        private eventService: EventService,
         @Inject(WINDOW) private window: Window,
     ) {
         this.setGlobals();
@@ -115,10 +122,13 @@ export class ConfigService {
      * Load main appConfig on start app in AppModule;
      */
     public load(): Promise<IData> | Promise<unknown> {
+
+
+
         return this.injector.get<DataService>(DataService).request({
             name: 'bootstrap',
             system: 'config',
-            url: '/bootstrap',
+            url: 'bootstrap',
             type: 'GET',
             preload: 'bootstrap',
             noUseLang: true,
@@ -129,8 +139,20 @@ export class ConfigService {
                 count: [1000, 3000],
                 fallbackUrl: '/static/dist/api/v1/bootstrap.json',
             },
+            onError: (data: HttpErrorResponse) => {
+                if (data.status === 403) {
+                    this.showMobileAppForbiddenPage();
+                }
+            },
         })
             .then((data: IData) => {
+
+                const availableOnlyCountries: string[] = GlobalHelper.mobileAppConfig?.availableOnlyCountries;
+
+                if (availableOnlyCountries && !_includes(availableOnlyCountries, data.data.country)) {
+                    this.showMobileAppForbiddenPage();
+                }
+
                 this.prepareData(data.data);
                 this.injector.get(EventService).emit({name: 'LOAD_BOOTSTRAP_SUCCESS'});
             })
@@ -321,6 +343,11 @@ export class ConfigService {
                     $layouts: mergedLayoutsKiosk,
                     $panelsLayouts: $panelsLayoutsKiosk,
                 };
+            case 'mobile-app':
+                return {
+                    $layouts: _mergeWith($layoutsMobileApp, $profileMobileAppLayouts),
+                    $panelsLayouts: $panelsLayoutsMobileApp,
+                };
             default:
                 return {
                     $layouts: mergedLayouts,
@@ -399,5 +426,12 @@ export class ConfigService {
                 },
             });
         });
+    }
+
+    private showMobileAppForbiddenPage(): void {
+        // @ts-ignore
+        document.querySelector('#app').style.display = 'none';
+        // @ts-ignore
+        document.querySelector('#app-forbidden').style.display = 'block';
     }
 }

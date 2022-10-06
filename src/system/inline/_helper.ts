@@ -1,6 +1,8 @@
 /* eslint-disable no-restricted-globals */
 export class WlcHelper {
 
+    public static mobileAppApiUrl = window.mobileApp?.apiUrl;
+
     /**
      * Used mobile device or not. True if mobile
      *
@@ -35,7 +37,7 @@ export class WlcHelper {
      * @returns {boolean} True if app was run inside iframe
      */
     public static isIframe(): boolean {
-        return window !== window.top || window !== window.parent || document !== top?.document;
+        return window !== window.top || window !== window.parent || document !== window.top.document;
     }
 }
 

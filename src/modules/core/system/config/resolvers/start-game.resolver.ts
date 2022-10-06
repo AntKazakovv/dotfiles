@@ -60,10 +60,10 @@ import {
 import {AddProfileInfoComponent} from 'wlc-engine/modules/user/components/add-profile-info';
 import {FormElements} from 'wlc-engine/modules/core/system/config/form-elements';
 import {IFormComponent} from 'wlc-engine/modules/core/components/form-wrapper/form-wrapper.component';
-import {
-    HooksService,
-    StateHistoryService,
-} from 'wlc-engine/modules/core';
+import {HooksService} from 'wlc-engine/modules/core/system/services/hooks/hooks.service';
+import {StateHistoryService} from 'wlc-engine/modules/core/system/services/state-history/state-history.service';
+import {GlobalHelper} from 'wlc-engine/modules/core/system/helpers/global.helper';
+import {ActionService} from 'wlc-engine/modules/core/system/services/action/action.service';
 
 export interface IHookGameStartData {
     game: Game;
@@ -97,6 +97,7 @@ export const startGameResolver: ResolveTypes = {
         GamesFilterService,
         StateHistoryService,
         HooksService,
+        ActionService,
     ],
     resolveFn: (
         configService: ConfigService,
@@ -110,6 +111,7 @@ export const startGameResolver: ResolveTypes = {
         gamesFilterService: GamesFilterService,
         stateHistoryService: StateHistoryService,
         hooksService: HooksService,
+        actionService: ActionService,
     ) => {
         return new StartGameHandler(
             configService,
@@ -123,6 +125,7 @@ export const startGameResolver: ResolveTypes = {
             gamesFilterService,
             stateHistoryService,
             hooksService,
+            actionService,
         ).result.promise;
     },
 };
@@ -154,6 +157,7 @@ class StartGameHandler {
         private gamesFilterService: GamesFilterService,
         private stateHistoryService: StateHistoryService,
         private hooksService: HooksService,
+        private actionService: ActionService,
     ) {
         this.init();
     }
@@ -487,7 +491,29 @@ class StartGameHandler {
         const redirect: IRedirect = this.configService.get<IRedirect>('$base.redirects.zeroBalance');
 
         //WlcStateService.setRedirect('app.games.play', $stateParams);
-        if (redirect.modalInsteadRedirect) {
+
+        if (GlobalHelper.isMobileApp()) {
+            this.showErrorNotification(
+                gettext('You will be redirected to main site for deposit more money.'),
+                gettext('Insufficient balance!'),
+            );
+
+            const jwtAuthToken: string = this.configService.get({
+                name: 'jwtAuthToken',
+                storageType: 'localStorage',
+            });
+
+            if (jwtAuthToken) {
+
+                const lang: string = this.configService.get('currentLanguage');
+
+                setTimeout(() => {
+                    GlobalHelper.openBrowserLinkFromMobileApp(
+                        `${GlobalHelper.mobileAppConfig.apiUrl}/${lang}/profile/cash?token=${jwtAuthToken}`,
+                    );
+                }, 4000);
+            }
+        } else if (redirect.modalInsteadRedirect) {
             this.modalService.showModal(redirect.modalInsteadRedirect, {game: this.game});
         } else {
             this.showErrorNotification(

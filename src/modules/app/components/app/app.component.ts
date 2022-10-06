@@ -9,6 +9,7 @@ import {
 import {DOCUMENT} from '@angular/common';
 import {TranslateService} from '@ngx-translate/core';
 import {
+    StateParams,
     StateService,
     Transition,
     TransitionService,
@@ -124,6 +125,66 @@ export class AppComponent extends AbstractComponent implements OnInit, OnDestroy
     }
 
     public async ngOnInit(): Promise<void> {
+
+        this.setOfflineModeHandlers();
+
+        if (GlobalHelper.isMobileApp()) {
+
+            let mobileAppUrlPath: string;
+
+            // this.transition.onSuccess({}, (transition: Transition) => {
+            //
+            //     console.log('go by path 2', mobileAppUrlPath);
+            //
+            //     if (mobileAppUrlPath) {
+            //         this.router.urlService.url(mobileAppUrlPath);
+            //     }
+            // });
+
+            document.addEventListener('deviceready', () => {
+
+                GlobalHelper.appLockScreenOrientation('portrait');
+
+                this.window.universalLinks.subscribe(null, (eventData: universalLinks.IEventData): void => {
+
+                    mobileAppUrlPath = eventData.url.replace(`${eventData.scheme}://${eventData.host}`, '');
+                    if (mobileAppUrlPath) {
+                        this.router.urlService.url(mobileAppUrlPath);
+
+                        const intervalId = setInterval(() => {
+                            if (location.href.indexOf(mobileAppUrlPath) > 0) {
+                                clearInterval(intervalId);
+
+                                const messageInfo = GlobalHelper.parseUrlMessageOrError(eventData.url);
+
+                                if (messageInfo) {
+                                    const messageInfo = GlobalHelper.parseUrlMessageOrError(eventData.url);
+                                    this.actionService.processMessages(messageInfo);
+                                }
+                                return;
+                            }
+                            this.router.urlService.url(mobileAppUrlPath);
+                        }, 100);
+                    }
+                });
+
+            }, false);
+
+            // document.addEventListener('deviceready', () => {
+            //
+            //     window.universalLinks.subscribe(null, (eventData: universalLinks.IEventData): void => {
+            //         const path: string = eventData.url.replace(`${eventData.scheme}://${eventData.host}`, '');
+            //         if (path) {
+            //
+            //             this.router.urlService.url(path);
+            //
+            //             // window.location.replace(`/index.html?redirectTo=${path}`);
+            //         }
+            //     });
+            //
+            // }, false);
+        }
+
         const depositInIframe = this.configService.get<boolean>('$base.finances.depositInIframe');
         if (depositInIframe && GlobalHelper.isIframe(this.window) && this.checkAllowedReferrers()) {
             return;
@@ -386,6 +447,26 @@ export class AppComponent extends AbstractComponent implements OnInit, OnDestroy
         this.transition.onStart({}, () => {
             this.modalService.closeAllModals('any');
         });
+    }
+
+    private setOfflineModeHandlers(): void {
+        let lastState: string;
+        let lastStateParams: StateParams;
+
+        this.window.addEventListener('online', () => {
+            this.stateService.go(lastState, lastStateParams);
+        });
+
+        this.window.addEventListener('offline', () => {
+            lastState = this.uiRouter.current.name;
+            lastStateParams = _assign({}, this.uiRouter.params);
+
+            this.stateService.go('app.offline');
+        });
+
+        if (!this.window.navigator.onLine) {
+            this.stateService.go('app.offline');
+        }
     }
 
     private checkAllowedReferrers(): boolean {

@@ -1,0 +1,31 @@
+@import 'mobile-app.variables';
+
+.wlc-app__forbidden {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    max-width: map-get($mobileAppForbidden, 'maxWidth');
+    height: 100vh;
+    margin: map-get($mobileAppForbidden, 'margin');
+
+    &-image {
+        display: flex;
+        justify-content: center;
+
+        img {
+            width: 100%;
+            max-width: map-get($mobileAppForbidden, 'imgMaxHeight');
+            max-height: map-get($mobileAppForbidden, 'imgMaxWidth');
+            margin: map-get($mobileAppForbidden, 'imgMargin');
+        }
+    }
+
+    &-message {
+        text-align: center;
+    }
+
+    &-title {
+        margin: map-get($mobileAppForbidden, 'titleMargin');
+        font-size: map-get($mobileAppForbidden, 'titleFontSize');
+    }
+}

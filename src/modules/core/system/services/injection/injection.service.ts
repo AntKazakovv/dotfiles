@@ -257,6 +257,14 @@ export class InjectionService {
                     this.afterModuleLoad('metamask', m);
                     return m.MetamaskModule;
                 });
+            case 'mobile':
+                if (this.loadedModules.MobileModule) {
+                    return this.loadedModules.MobileModule;
+                }
+                return import('wlc-engine/modules/mobile/mobile.module').then(m => {
+                    this.afterModuleLoad('mobile', m);
+                    return m.MobileModule;
+                });
         }
     }
 

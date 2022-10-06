@@ -1,0 +1,9 @@
+@mixin blockDecoration($background) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: ef.get-value($themeDefault, 'padding');
+    background: ef.get-value($themeDefault, $background);
+    border-radius: ef.get-value($themeDefault, 'radius');
+    overflow: hidden;
+}

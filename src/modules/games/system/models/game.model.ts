@@ -239,6 +239,6 @@ export class Game extends AbstractModel<IGame> {
         if (extension) {
             image = GlobalHelper.setFileExtension(image, extension);
         }
-        return image;
+        return GlobalHelper.proxyUrl(image);
     }
 }

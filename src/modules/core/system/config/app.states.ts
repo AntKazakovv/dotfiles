@@ -71,6 +71,7 @@ let states = {
     'app.profile.referrals': States.profileReferralsState,
     'app.profile.dashboard': States.profileDashboardState,
     'app.error': States.errorPageState,
+    'app.offline': States.offlineState,
     'app.tournaments': States.tournamentsState,
     'app.providers': States.providersState,
     'app.user-social-register': States.userSocialRegister,

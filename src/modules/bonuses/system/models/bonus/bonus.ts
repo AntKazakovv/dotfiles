@@ -22,6 +22,7 @@ import {
     ConfigService,
     CachingService,
     IFromLog,
+    GlobalHelper,
 } from 'wlc-engine/modules/core';
 import {
     IBonus,
@@ -87,9 +88,9 @@ export class Bonus extends AbstractModel<IBonus> {
         this.$descriptionClean = this.data.Description.replace(/<[^>]*>/g, '');
 
         if (Bonus.$bonuses.useNewImageSources && this.data.Image_other) {
-            this.icon = this.data.Image_other;
+            this.icon = GlobalHelper.proxyUrl(this.data.Image_other);
         } else if (this.viewTarget) {
-            this.icon = Bonus.$bonuses.defaultIconPath + this.viewTarget + '.svg';
+            this.icon = GlobalHelper.proxyUrl(Bonus.$bonuses.defaultIconPath + this.viewTarget + '.svg');
         }
 
         this._fallBackIconPath = this.configService.get<string>('$bonuses.fallBackIconPath');
@@ -286,35 +287,41 @@ export class Bonus extends AbstractModel<IBonus> {
     }
 
     public get image(): string {
-        return this.data.Image || Bonus.$bonuses.defaultImages?.image;
+        return GlobalHelper.proxyUrl(this.data.Image || Bonus.$bonuses.defaultImages?.image);
     }
 
     public get imageProfileFirst(): string {
-        return this.data.Image || Bonus.$bonuses.defaultImages?.imageProfileFirst;
+        return GlobalHelper.proxyUrl(this.data.Image || Bonus.$bonuses.defaultImages?.imageProfileFirst);
     }
 
     public get imageOther(): string {
-        return this.data.Image_other || Bonus.$bonuses.defaultImages?.imageOther;
+        return GlobalHelper.proxyUrl(this.data.Image_other || Bonus.$bonuses.defaultImages?.imageOther);
     }
 
     public get imagePromo(): string {
-        return this.data.Image_promo || Bonus.$bonuses.defaultImages?.imagePromo || this.image;
+        return GlobalHelper.proxyUrl(this.data.Image_promo
+            || Bonus.$bonuses.defaultImages?.imagePromo
+            || this.image);
     }
 
     public get imageReg(): string {
-        return this.data.Image_reg || Bonus.$bonuses.defaultImages?.imageReg || this.image;
+        return GlobalHelper.proxyUrl(this.data.Image_reg
+            || Bonus.$bonuses.defaultImages?.imageReg
+            || this.image);
     }
 
     // TODO: add image path to config and logic to BonusItemComponent.bonusBg, when imageStore be ready
     public get imageStore(): string {
-        return this.data.Image_store || Bonus.$bonuses.defaultImages?.imageStore || this.image;
+        return GlobalHelper.proxyUrl(this.data.Image_store
+            || Bonus.$bonuses.defaultImages?.imageStore
+            || this.image);
     }
 
     public get imagePromoHome(): string {
         if (Bonus.$bonuses.useNewImageSources) {
-            return this.data.Image_main || Bonus.$bonuses.defaultImages?.imagePromoHome;
+            return GlobalHelper.proxyUrl(this.data.Image_main || Bonus.$bonuses.defaultImages?.imagePromoHome);
         } else {
-            return Bonus.$bonuses.defaultImages?.imagePromoHome;
+            return GlobalHelper.proxyUrl(Bonus.$bonuses.defaultImages?.imagePromoHome);
         }
     }
 

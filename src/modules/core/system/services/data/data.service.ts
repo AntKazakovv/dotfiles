@@ -94,6 +94,7 @@ export interface IRequestMethod {
     preload?: string;
     /** method that transform request data */
     mapFunc?: (data: unknown) => unknown;
+    onError?: (data: HttpErrorResponse) => void;
     /** don't use GET parameter lang for request */
     noUseLang?: boolean;
     /** event for data request*/
@@ -460,6 +461,10 @@ export class DataService {
                                 return throwError(error);
                             }),
                         ))).pipe(catchError((error: HttpErrorResponse): Observable<IData | never> => {
+
+                        if (_isFunction(method.onError)) {
+                            method.onError(error);
+                        }
 
                         if (method.retries?.fallbackUrl) {
                             notCacheStaticData = false;

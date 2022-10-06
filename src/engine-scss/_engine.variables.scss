@@ -841,6 +841,11 @@ $appLoader: map-merge((
     'jellyShadowOpacity': 1,
 ), $customAppLoader);
 
+$customAppOffline: () !default;
+$appOffline: map-merge((
+
+), $customAppOffline);
+
 /// Глобальная настройка анимации Pop up
 /// modalAnimationEffects может приниимать значения
 /// 'fadeTop' 'fadeBottom' 'fadeLeft' 'fadeRight'

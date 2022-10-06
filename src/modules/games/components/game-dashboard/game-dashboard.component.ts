@@ -49,6 +49,7 @@ import {
     AbstractComponent,
     CachingService,
     IResizeEvent,
+    GlobalHelper,
     AppType,
 } from 'wlc-engine/modules/core';
 import {
@@ -171,6 +172,7 @@ export class GameDashboardComponent extends AbstractComponent implements OnInit,
             },
         ],
     };
+    public tutorialImage: string;
     public tournamentsConfig: IWrapperCParams = {};
     public logOutConfig: IWrapperCParams = {components: []};
     public userNameConfig: IWrapperCParams = {components: []};
@@ -211,8 +213,9 @@ export class GameDashboardComponent extends AbstractComponent implements OnInit,
     public async ngOnInit(): Promise<void> {
         super.ngOnInit();
 
-        this.isKiosk = this.configService.get<AppType>('$base.app.type') === 'kiosk';
+        this.tutorialImage = GlobalHelper.proxyUrl('/gstatic/wlc/game-dashboard/crown.png');
 
+        this.isKiosk = this.configService.get<AppType>('$base.app.type') === 'kiosk';
         this.tabs = this.isKiosk ? Params.dashboardTabsKiosk : Params.dashboardTabs;
 
         if (this.configService.get<boolean>('$base.tournaments.use')) {

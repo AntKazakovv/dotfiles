@@ -1,0 +1,101 @@
+@import 'mobile-app.variables';
+@import './mixins/loader.mixins';
+
+.wlc-app__preload {
+    $animeName: map-get($mobileAppLoader, 'loaderAnime');
+
+    position: fixed;
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+
+    background-image: map-get($mobileAppLoader, 'background');
+
+    &-content {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+
+        transform: translate(-50%, -50%);
+    }
+
+    &-img {
+        width: map-get($mobileAppLoader, 'imgBlockWidth');
+        padding-bottom: map-get($mobileAppLoader, 'imgBlockPadding');
+
+        background-image: map-get($mobileAppLoader, 'imgBgUrl');
+        background-repeat: map-get($mobileAppLoader, 'imgBgRepeat');
+        background-position: map-get($mobileAppLoader, 'imgBgPosition');
+        background-size: map-get($mobileAppLoader, 'imgBgSize');
+
+        @if (map-get($mobileAppLoader, 'imgBgAltUrl')) {
+
+            .wlc-body--theme-alt & {
+                background-image: map-get($mobileAppLoader, 'imgBgAltUrl');
+            }
+        }
+    }
+
+    &-footer {
+        position: fixed;
+        bottom: 0;
+        display: flex;
+        justify-content: center;
+        width: 100%;
+        padding: map-get($mobileAppLoader, 'footerPadding');
+        overflow: hidden;
+    }
+
+    &-loader {
+        position: relative;
+
+        height: map-get($mobileAppLoader, 'loaderHeight');
+        margin: map-get($mobileAppLoader, 'loaderBlockMargin');
+    }
+
+    //For animatedGradient
+    @if (map-get($mobileAppLoader, 'useBgAnime')) {
+        @include bgAnime($mobileAppLoader);
+        @include kfBgAnime($mobileAppLoader);
+    }
+
+    @if ($animeName == 'pulse') {
+        @include logoPulse($mobileAppLoader);
+        @include kfLogoPulse($mobileAppLoader);
+    }
+    @else if ($animeName  == 'circle') {
+        @include loaderCircle($mobileAppLoader);
+        @include kfLoaderCircle($mobileAppLoader);
+    }
+    @else if ($animeName  == 'circle2') {
+        @include loaderCircle2($mobileAppLoader);
+        @include kfLoaderCircle2($mobileAppLoader);
+    }
+    @else if ($animeName == 'dots1') {
+        @include loaderDots1($mobileAppLoader);
+        @include kfLoaderDots1($mobileAppLoader);
+    }
+    @else if ($animeName == 'dots2') {
+        @include loaderDots2($mobileAppLoader);
+        @include kfLoaderDots2($mobileAppLoader);
+    }
+    @else if ($animeName == 'dots3') {
+        @include loaderDots3($mobileAppLoader);
+        @include kfLoaderDots3($mobileAppLoader);
+    }
+    @else if ($animeName == 'flip') {
+        @include loaderFlip($mobileAppLoader);
+        @include kfLoaderFlip($mobileAppLoader);
+    }
+    @else if ($animeName == 'jelly') {
+        @include loaderJelly($mobileAppLoader);
+        @include kfLoaderJelly($mobileAppLoader);
+    }
+    @else {
+        @include loaderDefault($mobileAppLoader);
+        @include kfLoaderDefault($mobileAppLoader);
+    }
+}

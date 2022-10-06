@@ -4,6 +4,11 @@ declare function require(path: string): {
 };
 declare function gettext<T>(str: T): T;
 
+declare interface IEnvironment {
+    production: boolean;
+    mobileApp?: TMobileApp;
+}
+
 declare interface IWlcPostMessage {
     event: string;
     eventData?: string;
@@ -69,6 +74,43 @@ declare type TMethodName = 'fbq' | 'gtag';
 
 declare type TAnalyticMethod = {
     [key in TMethodName]: Function;
+    }
+
+declare type TMobileApp = {
+    apiUrl: string;
+    translationsDomain?: string;
+    availableOnlyCountries?: string[];
+}
+
+declare namespace universalLinks {
+    type TSubscribe = (eventName: string | null, callback: (data: EventData) => void) => void;
+    type TUnsubscribe = (eventName: string | null) => void;
+
+    interface IEventData {
+        url: string;
+        scheme: string;
+        host: string;
+        path: string;
+        params: {
+            [key: string]: string;
+        };
+        hash: string;
+    }
+
+    interface IUniversalLinks {
+        bindEvents: () => void;
+        checkDeepLink: (milliseconds) => void;
+        didLaunchAppFromLink: (eventData: IEventData) => void;
+        dpLink: string;
+        eventName: string;
+        host: string;
+        initialize: () => void;
+        onDeviceReady: () => void;
+        regex: RegExp;
+        subscribe: TSubscribe;
+        unsubscribe: TUnsubscribe;
+        validateDeepLink: () => void;
+    }
 }
 
 declare interface Window extends TAnalyticMethod {
@@ -117,6 +159,9 @@ declare interface Window extends TAnalyticMethod {
      * Digitain mobile handlers inizializator
      */
     initDigitainApp?: TInitDigitainApp;
+    mobileApp?: TMobileApp;
+    cordova?: any;
+    universalLinks?: universalLinks.IUniversalLinks;
 }
 
 declare const WLC_VERSION: number;

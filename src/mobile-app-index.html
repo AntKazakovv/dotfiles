@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="{{lang}}">
+    <head>
+        <meta charset="utf-8">
+        <title>{{title}}</title>
+        <base href="/">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="/static/css/mobile-app.loader.css">
+        <link rel="stylesheet" href="/static/css/mobile-app.forbidden.css">
+        <link rel="stylesheet" href="/static/css/mobile-app.offline.css">
+        <script>
+            (function initApp() {
+                window.WLC_VERSION = '';
+                if (location.search) {
+                    var matches = location.search.match(/redirectTo=(.*)/);
+
+                    if (matches && matches[1]) {
+                        window.history.replaceState(null, null, matches[1]);
+                        return;
+                    }
+                }
+                window.history.replaceState(null, null, '/{{lang}}');
+            })();
+        </script>
+        {% include "head.html" %}
+    </head>
+    <body>
+
+        <div ui-view class="wlc-app" id="app">
+            {% include "preloader.html" %}
+            {% include "footer.html" %}
+        </div>
+
+        <div class="wlc-app" id="app-offline" style="display: none">
+            {% include "offline.html" %}
+        </div>
+
+        <div class="wlc-app" id="app-forbidden" style="display: none">
+            {% include "forbidden.html" %}
+        </div>
+
+        <script>
+            if (!window.navigator.onLine) {
+                document.querySelector('#app').style.display = 'none';
+                document.querySelector('#app-offline').style.display = 'block';
+
+                window.addEventListener('online', () => {
+                    window.location.replace(window.location.origin + '/index.html');
+                });
+            }
+        </script>
+
+        <noscript>Please enable JavaScript to continue using this application.</noscript>
+        <script src="cordova.js"></script>
+        <script src="static/inline.js" preload></script>
+
+    </body>
+</html>

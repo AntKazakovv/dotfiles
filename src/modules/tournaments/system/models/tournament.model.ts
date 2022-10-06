@@ -7,6 +7,7 @@ import _map from 'lodash-es/map';
 import {
     ConfigService,
     IFromLog,
+    GlobalHelper,
 } from 'wlc-engine/modules/core';
 import {TFreeRoundGames} from 'wlc-engine/modules/core/system/interfaces/fundist.interface';
 import {
@@ -18,6 +19,8 @@ import {AbstractTournamentModel} from 'wlc-engine/modules/tournaments/system/mod
 
 export class Tournament extends AbstractTournamentModel<ITournament> {
     public hasGames: boolean = false;
+
+    private _id: number;
 
     constructor(
         from: IFromLog,
@@ -51,12 +54,49 @@ export class Tournament extends AbstractTournamentModel<ITournament> {
         return this.data.Ends;
     }
 
+    public get feeType(): string {
+        return this.data.FeeType || null;
+    }
+
+    public get id(): number {
+        return this._id;
+    }
+
+    public get image(): string {
+        return GlobalHelper.proxyUrl(
+            this.data.Image || this.configService.get('$tournaments.defaultImages.image'));
+    }
+
+    public get imagePromo(): string {
+        return GlobalHelper.proxyUrl(
+            this.data.Image_promo || this.configService.get('$tournaments.defaultImages.imagePromo'));
+    }
+
+    public get imageDashboard(): string {
+        return GlobalHelper.proxyUrl(
+            this.data.Image_dashboard || this.configService.get('$tournaments.defaultImages.imageDashboard'));
+    }
+
+    public get imageDescription(): string {
+        return GlobalHelper.proxyUrl(
+            this.data.Image_description || this.configService.get('$tournaments.defaultImages.imageDescription'));
+    }
+
+    /** Tournament default imageOther shall be displayed only if neither background nor decor image is set in Fundist */
+    public get imageOther(): string {
+        if (this.data.Image || this.data.Image_other) {
+            return GlobalHelper.proxyUrl(this.data.Image_other);
+        } else {
+            return GlobalHelper.proxyUrl(this.configService.get('$tournaments.defaultImages.imageOther'));
+        }
+    }
+
     public get fallbackImagePromo(): string {
-        return this.configService.get('$tournaments.defaultImages.imagePromo');
+        return GlobalHelper.proxyUrl(this.configService.get('$tournaments.defaultImages.imagePromo'));
     }
 
     public get fallbackImageDashboard(): string {
-        return this.configService.get('$tournaments.defaultImages.imageDashboard');
+        return GlobalHelper.proxyUrl(this.configService.get('$tournaments.defaultImages.imageDashboard'));
     }
 
     public get pointsLimit(): number {
@@ -235,5 +275,6 @@ export class Tournament extends AbstractTournamentModel<ITournament> {
     protected setAvailabilityGames(): void {
         const {Games = [], Categories = [], Merchants = []} = this.data.Games ?? {};
         this.hasGames = !!(Games.length || Categories.length || Merchants.length);
+        this._id = _toNumber(this.data.ID);
     }
 }

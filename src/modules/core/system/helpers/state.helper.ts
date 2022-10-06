@@ -6,6 +6,7 @@ import {
 } from '@uirouter/core';
 import {first} from 'rxjs/operators';
 import {LazyLoadResult} from '@uirouter/core/lib/state/interface';
+import {Ng2StateDeclaration} from '@uirouter/angular';
 
 // If you try to import everything from 'wlc-engine/modules/core' then the project failed loading
 import {
@@ -20,6 +21,8 @@ import {IRedirect} from 'wlc-engine/modules/core/system/interfaces/core.interfac
 import {IIndexing} from 'wlc-engine/modules/core/system/interfaces/global.interface';
 
 import _merge from 'lodash-es/merge';
+
+export type TPageNameHandler = (transition: Transition) => string;
 
 export class StateHelper {
 
@@ -176,6 +179,7 @@ export class StateHelper {
             },
         };
     }
+
     public static goToErrorPage(trans: Transition): void {
         trans.abort();
         const {locale} = trans.params();
@@ -183,4 +187,30 @@ export class StateHelper {
             locale: locale || trans.injector().get('lang') || 'en',
         });
     }
+
+    public static pageNameResolver = (pageNameHandler: TPageNameHandler) => {
+        return {
+            token: 'pageName',
+            deps: [
+                StateService,
+                Transition,
+            ],
+            resolveFn: async (
+                stateService: StateService,
+                transition: Transition,
+            ) => {
+                const result = new Deferred();
+                result.resolve(transition.params()?.category);
+
+                const state: Ng2StateDeclaration = transition.targetState().state();
+                if (!state.data) {
+                    state.data = {};
+                }
+
+                state.data.pageName = pageNameHandler(transition);
+
+                return result.promise;
+            },
+        };
+    };
 }

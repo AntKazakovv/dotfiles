@@ -12,8 +12,9 @@ const
 
 class gulpTask {
 
-    constructor(rootDir, bundleType = 'project') {
-        this.params = config(rootDir, bundleType);
+    constructor(rootDir, bundleType = 'project', pathsConfig) {
+        this.params = config(rootDir, bundleType, pathsConfig);
+        this.mobileAppApiUrl = this.getMobileAppApiUrl();
         process.setMaxListeners(0);
         this.registerTasks();
     }
@@ -111,6 +112,47 @@ class gulpTask {
         fs.writeFileSync(this.params.paths.root + '/.gitignore', newIgnore.join('\n'));
     };
 
+    parseProcessParams(params) {
+        if (params && params.length > 2) {
+            params = params.slice(2);
+            return params.reduce((acc, item) => {
+                const parsed = item.match(/(?<=--).+?(?=\=)|(?<=\=).+?$/gi);
+                if (parsed && parsed.length === 2) {
+                    acc[parsed[0]] = parsed[1];
+                }
+                return acc;
+            }, {});
+        } else {
+            return {};
+        }
+    }
+
+    /**
+     * Get apiUrl for mobile application
+     */
+    getMobileAppApiUrl() {
+        let configuration = this.getConfiguration();
+        if (!configuration) return;
+
+        const code = `const window: any = {};
+            import {environment} from "${this.params.paths.src}/environments/environment.${configuration}";
+            console.log(environment.mobileApp.apiUrl)`;
+
+        const result = this.execNativeShellSync("npx ts-node -e '" + code + "' --skip-project --transpile-only").trim();
+
+        if (result.indexOf('http') === 0) {
+            return result;
+        }
+    }
+
+    /**
+     * Get configuration param value of build
+     *
+     * @returns {*}
+     */
+    getConfiguration() {
+        return this.parseProcessParams(process.argv)['configuration'];
+    }
 }
 
 module.exports = gulpTask;

@@ -12,7 +12,6 @@ import {
     ConfigService,
 } from 'wlc-engine/modules/core/system/services';
 
-
 export const homeState: Ng2StateDeclaration = {
     url: '',
     resolve: [
@@ -24,7 +23,6 @@ export const homeState: Ng2StateDeclaration = {
                 StateService,
                 CachingService,
             ],
-
             resolveFn: async (
                 configService: ConfigService,
                 transition: Transition,

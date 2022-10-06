@@ -65,6 +65,7 @@ import {CurrencyComponent} from 'wlc-engine/modules/core/components/currency/cur
 import {DatepickerComponent} from './components/datepicker/datepicker.component';
 import {DisclaimerComponent} from './components/disclaimer/disclaimer.component';
 import {ErrorPageComponent} from './components/error-page/error-page.component';
+import {OfflinePageComponent} from './components/offline-page/offline-page.component';
 import {FeedbackFormComponent} from './components/feedback-form/feedback-form.component';
 import {FloatPanelsComponent} from './components/float-panels/float-panels.component';
 import {ForbiddenCountryComponent} from './components/forbidden-country/forbidden-country.component';
@@ -168,6 +169,7 @@ export const components = {
     'wlc-datepicker': DatepickerComponent,
     'wlc-disclaimer': DisclaimerComponent,
     'wlc-error-page': ErrorPageComponent,
+    'wlc-offline-page': OfflinePageComponent,
     'wlc-feedback-form': FeedbackFormComponent,
     'wlc-forbidden-country': ForbiddenCountryComponent,
     'wlc-form-control': FormControlComponent,
@@ -295,6 +297,7 @@ export const services = {
         DisclaimerComponent,
         DragNDropDirective,
         ErrorPageComponent,
+        OfflinePageComponent,
         FallbackImgDirective,
         FeedbackFormComponent,
         FloatPanelsComponent,
@@ -373,6 +376,7 @@ export const services = {
         DisclaimerComponent,
         DragNDropDirective,
         ErrorPageComponent,
+        OfflinePageComponent,
         FallbackImgDirective,
         FloatPanelsComponent,
         ForbiddenCountryComponent,

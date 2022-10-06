@@ -20,6 +20,7 @@ import {
 } from 'wlc-engine/modules/core/system/interfaces';
 import {INoContentCParams} from 'wlc-engine/modules/core/components/no-content/no-content.params';
 import {ConfigService} from 'wlc-engine/modules/core';
+import {environment} from 'wlc-engine/system/environments/environment';
 
 import _size from 'lodash-es/size';
 import _each from 'lodash-es/each';
@@ -37,6 +38,18 @@ interface IParams extends IComponentParams<string, string, string> {
 }
 
 export class GlobalHelper {
+    public static mobileAppConfig: TMobileApp = environment.mobileApp;
+
+    public static mobileAppApiUrl: string = environment.mobileApp?.apiUrl;
+
+    // eslint-disable-next-line no-restricted-globals
+    public static mobileAppIosPlatform: boolean = window.cordova?.platformId === 'ios';
+
+    // eslint-disable-next-line no-restricted-globals
+    public static mobileAppAndroidPlatform: boolean = window.cordova?.platformId === 'android';
+
+    // eslint-disable-next-line no-restricted-globals
+    public static mobileAppBrowserPlatform: boolean = window.cordova?.platformId === 'browser';
 
     public static gettext<T>(content: T): T {
         return content;
@@ -333,6 +346,86 @@ export class GlobalHelper {
                 return DateTime.fromISO(date, options).toLocal().toFormat(toFormat);
             case 'SQL':
                 return DateTime.fromSQL(date, options).toLocal().toFormat(toFormat);
+        }
+    }
+
+    /**
+     * Change url if used mobileApp and url is relative
+     *
+     * @returns {string} Url for request
+     */
+    public static proxyUrl(url: string): string {
+        if (!url) {
+            return '';
+        }
+        if (!GlobalHelper.mobileAppApiUrl || url.indexOf('/') !== 0 || url.indexOf('app-static/') >= 0) {
+            return url;
+        }
+        return GlobalHelper.mobileAppApiUrl + url;
+    }
+
+    public static proxyLinks(content: string): string {
+        if (!GlobalHelper.mobileAppApiUrl) {
+            return content;
+        }
+        return content.replace(/\/(gstatic|static)/g, GlobalHelper.mobileAppApiUrl + '/' + '$1');
+    }
+
+    /**
+     * Used mobile app or not
+     *
+     * @returns {boolean} True if used mobile app
+     */
+    public static isMobileApp(): boolean {
+        return !!environment.mobileApp;
+    }
+
+    public static appLockScreenOrientation(lockType: OrientationLockType): void {
+        if (GlobalHelper.isMobileApp()) {
+            // @ts-ignore
+            screen.orientation.lock(lockType);
+        }
+    }
+
+    public static appUnlockScreenOrientation(): void {
+        if (GlobalHelper.isMobileApp()) {
+            // @ts-ignore
+            screen.orientation.unlock();
+        }
+    }
+
+    public static mobileAppPlatform(): string {
+        // @ts-ignore
+        return cordova.platformId;
+    }
+
+    public static openBrowserLinkFromMobileApp(url: string): void {
+        // @ts-ignore
+        cordova.InAppBrowser.open(
+            url,
+            '_system',
+            'location=no',
+        );
+    }
+
+    /**
+     * Get GET params of url path if url path have ?message or ?error
+     *
+     * @param {string} url Url path
+     * @returns {IIndexing<string>} GET params of url
+     */
+    public static parseUrlMessageOrError(url: string): IIndexing<string> {
+        if (url.includes('message') || url.includes('error')) {
+            const getParams = {};
+            const values: string[] = url.split('?')?.[1]?.split('&') || [];
+
+            if (values.length) {
+                for (const value of values) {
+                    const parts: string[] = value.split('=');
+                    getParams[parts[0]] = parts[1];
+                }
+                return getParams;
+            }
         }
     }
 }

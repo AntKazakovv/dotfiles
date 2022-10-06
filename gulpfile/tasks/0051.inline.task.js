@@ -35,6 +35,27 @@ const config = {
 
 module.exports = function inlineTask() {
 
+    task('mobile-app:build:offline-css', () => {
+        this.addToGitIgnore('/roots/static', 'css', 'mobile-app.offline.scss');
+        return src(`${this.params.paths.src}/app-styles/mobile-app.offline.scss`)
+            .pipe(sass({outputStyle: 'compressed', sync: true}).on('error', sass.logError))
+            .pipe(dest(`${this.params.paths.static}/css/`));
+    });
+
+    task('mobile-app:build:forbidden-css', () => {
+        this.addToGitIgnore('/roots/static', 'css', 'mobile-app.forbidden.scss');
+        return src(`${this.params.paths.src}/app-styles/mobile-app.forbidden.scss`)
+            .pipe(sass({outputStyle: 'compressed', sync: true}).on('error', sass.logError))
+            .pipe(dest(`${this.params.paths.static}/css/`));
+    });
+
+    task('mobile-app:build:loader-css', () => {
+        this.addToGitIgnore('/roots/static', 'css', 'mobile-app.loader.scss');
+        return src(`${this.params.paths.src}/app-styles/mobile-app.loader.scss`)
+            .pipe(sass({outputStyle: 'compressed', sync: true}).on('error', sass.logError))
+            .pipe(dest(`${this.params.paths.static}/css/`));
+    });
+
     task('build:loader-css', () => {
         this.addToGitIgnore('/roots/static', 'css', 'app.loader.scss');
         return src(`${this.params.paths.src}/app-styles/app.loader.scss`)
@@ -72,5 +93,30 @@ module.exports = function inlineTask() {
         return src(`${this.params.paths.inline}/index.ts`)
             .pipe(webpack(Object.assign({}, config, {mode: 'development', watch: true}), wp))
             .pipe(dest(`${this.params.paths.root}/roots/template/`));
+    });
+
+
+    /** :::::::::::::::::: CORDOVA :::::::::::::::::: */
+
+    task('cordova:build:inline', () => {
+        let configuration = this.getConfiguration() || 'dev';
+
+        return src([
+            `${this.params.paths.src}/environments/environment.${configuration}.ts`,
+            `${this.params.paths.inline}/index.ts`,
+        ])
+            .pipe(webpack(config, wp))
+            .pipe(dest(this.params.paths.static));
+    });
+
+    task('cordova:watch:inline', async (cb) => {
+        process.on('SIGINT', () => {
+            cb && cb();
+            process.exit();
+        });
+        await src(`${this.params.paths.inline}/index.ts`)
+            .pipe(webpack(Object.assign({}, config, {mode: 'development', watch: true}), wp))
+            .pipe(dest(this.params.paths.static));
+        cb();
     });
 };

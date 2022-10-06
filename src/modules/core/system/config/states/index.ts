@@ -5,6 +5,7 @@ export * from './pages.state';
 export * from './contacts.state';
 export * from './promotions.state';
 export * from './error-page.state';
+export * from './offline.state';
 export * from './sportsbook.state';
 export * from './tournaments.state';
 export * from './modal.state';

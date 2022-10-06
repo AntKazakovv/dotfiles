@@ -1,0 +1,65 @@
+$customThemeDefault: () !default;
+$themeDefault: map-merge((
+    'headerSize': ef.get('font', 'big'),
+    'headerColor': var(--mc-baseMain),
+    'headerStyle': 'QoteTextBold',
+    'headerAlign': center,
+    'headerMargin': 0 0 ef.size(3) 0,
+
+    'textSize': ef.get('font', 'main'),
+    'textColor': var(--mc-baseMain),
+    'textStyle': 'ThirdTitle',
+    'textAlign': center,
+
+    'backgroundImage': var(--mc-buttonColor),
+    'backgroundText': var(--mc-bg700),
+    'backgroundLink': var(--mc-bg700),
+
+    'radius': ef.get('radius', 'biger'),
+    'padding': ef.size(3),
+    'paddingImage': 0,
+    'boxShadow': none,
+
+    'pageMaxWidth': (
+        320: 350px,
+        768: 940px,
+    ),
+    'pageMargin':(
+        375: 0 auto,// ef.size(3) auto ef.size(6),
+        768: ef.size(30) auto,
+    ),
+    'pageHeight':(
+        375: 100vh,
+        768: auto,
+    ),
+    'pageColumns': (
+        320: repeat(2, 1fr),
+        768: repeat(4, 1fr),
+    ),
+    'pageRows': (
+        320: minmax(0, 250px) 250px,
+        768: repeat(2, 1fr),
+    ),
+    'pageGap': (
+        320: ef.size(3),
+    ),
+
+    'imageColunms': (
+        320: 1 / span 2,
+        768: 1 / span 2,
+    ),
+    'imageRows': (
+        320: 1,
+        768: 1 / span 2,
+    ),
+
+    'messageDirection': column,
+    'messageColunms': (
+        320: 1 / span 2,
+        768: 3 / span 2,
+    ),
+    'messageRows': (
+        320: 2,
+        768: 1 / span 2,
+    ),
+), $customThemeDefault);

@@ -6,6 +6,8 @@ import {RawParams} from '@uirouter/core';
 
 import _assign from 'lodash-es/assign';
 
+import {GlobalHelper} from 'wlc-engine/modules/core/system/helpers/global.helper';
+
 /** Input params for an icon in an icon list [IconListComponent]{@link IconListComponent}. */
 export interface IIconParams {
     /** Defines how to display image. If not defined, it will be defined automatically */
@@ -132,22 +134,22 @@ export class IconModel extends AbstractModel<IIconParams> {
     }
 
     public get image(): string {
-        return this.data.iconUrl;
+        return GlobalHelper.proxyUrl(this.data.iconUrl);
     }
 
     public get imageHover(): string {
-        return this.data.iconHoverUrl;
+        return GlobalHelper.proxyUrl(this.data.iconHoverUrl);
     }
 
     public get image2x(): string {
         if (this.data.postfix?.main && this.data.iconUrl) {
-            return this.addPostfix(this.data.iconUrl, this.data.postfix.main);
+            return this.addPostfix(GlobalHelper.proxyUrl(this.data.iconUrl), this.data.postfix.main);
         }
     }
 
     public get imageHover2x(): string {
         if (this.data.postfix?.hover && this.data.iconHoverUrl) {
-            return this.addPostfix(this.data.iconHoverUrl, this.data.postfix.hover);
+            return this.addPostfix(GlobalHelper.proxyUrl(this.data.iconHoverUrl), this.data.postfix.hover);
         }
     }
 

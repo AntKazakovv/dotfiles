@@ -1,0 +1,29 @@
+@import 'mobile-app.variables';
+
+.wlc-app__offline {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    max-width: map-get($mobileAppOffline, 'maxWidth');
+    height: 100vh;
+    margin: map-get($mobileAppOffline, 'margin');
+
+    &-image {
+        display: flex;
+        justify-content: center;
+
+        img {
+            width: 100%;
+            max-width: map-get($mobileAppOffline, 'imgMaxWidth');
+            max-height: map-get($mobileAppOffline, 'imgMaxHeight');
+        }
+    }
+
+    &-message {
+        text-align: center;
+    }
+
+    &-title {
+        margin: map-get($mobileAppOffline, 'titleMargin');
+    }
+}

@@ -11,6 +11,7 @@ export {ICurrencyCParams} from './currency/currency.params';
 export {IDatepickerCParams} from './datepicker/datepicker.params';
 export {IDisclaimerCParams} from './disclaimer/disclaimer.params';
 export {IErrorPageCParams} from './error-page/error-page.params';
+export {IOfflinePageCParams} from './offline-page/offline-page.params';
 export {IFeedbackFormCParams} from './feedback-form/feedback-form.params';
 export {IFloatPanelsCParams} from './float-panels/float-panels.params';
 export {

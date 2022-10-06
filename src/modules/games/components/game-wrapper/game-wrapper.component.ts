@@ -69,6 +69,7 @@ import {
     InjectionService,
     AppType,
     TWaiter,
+    GlobalHelper,
 } from 'wlc-engine/modules/core';
 import {MerchantWalletService} from 'wlc-engine/modules/games/system/services/merchant-wallet/merchant-wallet.service';
 import {
@@ -230,10 +231,11 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
         this.initEventHandlers();
         this.savedSiteName = this.titleService.getTitle();
 
-        this.enableGameHeader = _includes(
-            this.configService.get<number[]>('$games.mobile.showGameHeader.merchants'),
-            this.gameParams.merchantId,
-        );
+        this.enableGameHeader = this.configService.get<boolean>('$games.mobile.showGameHeader.byDefault')
+            || _includes(
+                this.configService.get<number[]>('$games.mobile.showGameHeader.merchants'),
+                this.gameParams.merchantId,
+            );
 
         this.game = this.getGame();
         this.gameTitle = this.game.name[this.locale] || this.game.name['en'] || '';
@@ -665,13 +667,18 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
      * @returns {IGameParams}
      */
     protected getGameParams(): IGameParams {
+        const returnUrl: string = GlobalHelper.isMobileApp()
+            ? `${location.origin}/index.html?redirectTo=/${this.locale}`
+            : `${location.origin}/${this.locale}`;
+
+
         return {
             merchantId: this.$params.gameParams?.merchantId || _toNumber(this.router.stateService.params?.merchantId),
             launchCode: this.$params.gameParams?.launchCode || this.router.stateService.params?.launchCode || '',
             lang: this.locale,
             demo: this.$params.gameParams?.demo || this.router.stateService.params?.demo === 'true',
             gameId: this.$params.gameParams?.gameId || this.router.stateService.params?.gameId || '',
-            returnUrl: `${location.origin}/${this.locale}`,
+            returnUrl: returnUrl,
         };
     }
 

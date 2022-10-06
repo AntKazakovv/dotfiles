@@ -1,5 +1,5 @@
 <div class="{{$class}}__wrapper"
-    [style.background-image]="$params.bgImage && 'url(' + $params.bgImage + ')'"
+    [style.background-image]="bgImage"
 >
 <ng-container *ngIf="!loading; else preloader">
     <div class="{{$class}}__body">

@@ -19,8 +19,14 @@ module.exports = function watchTask() {
 
     const distWatcher = (cb) => {
 
-        // eslint-disable-next-line no-console
-        console.log(series('watch:inline')());
+        if (this.params.isMobileAppBundle) {
+            /** :::::::::::::::::: CORDOVA :::::::::::::::::: */
+            // eslint-disable-next-line no-console
+            console.log(series('cordova:watch:inline')());
+        } else {
+            // eslint-disable-next-line no-console
+            console.log(series('watch:inline')());
+        }
 
         const watcher = watch(
             watchList,
@@ -31,6 +37,24 @@ module.exports = function watchTask() {
         );
 
         cb();
+    };
+
+    const watchForMobileAppLoader = () => {
+        watch(`${this.params.paths.src}/app-styles/mobile-app.loader.scss`).on('change',  () => {
+            series('mobile-app:build:loader-css', 'liveReload:reload')();
+        });
+    };
+
+    const watchForMobileAppForbidden = () => {
+        watch(`${this.params.paths.src}/app-styles/mobile-app.forbidden.scss`).on('change',  () => {
+            series('mobile-app:build:offline-css', 'liveReload:reload')();
+        });
+    };
+
+    const watchForMobileAppOffline = () => {
+        watch(`${this.params.paths.src}/app-styles/mobile-app.offline.scss`).on('change',  () => {
+            series('mobile-app:build:forbidden-css', 'liveReload:reload')();
+        });
     };
 
     const watchForPreloader = () => {
@@ -60,9 +84,31 @@ module.exports = function watchTask() {
         if (this.params.isEngineBundle) {
             return;
         }
-        parallel(['build:hosted-fields-css', 'build:loader-css', 'build:piq-cashier-css'])();
 
-        watchForPreloader();
+        const tasks = [
+            'build:hosted-fields-css',
+            'build:piq-cashier-css'
+        ];
+
+        if (this.params.isMobileAppBundle) {
+            tasks.push('mobile-app:build:loader-css');
+            tasks.push('mobile-app:build:forbidden-css');
+            tasks.push('mobile-app:build:offline-css');
+        } else {
+            tasks.push('build:loader-css');
+        }
+
+        parallel(tasks)();
+
+
+        if (this.params.isMobileAppBundle) {
+            watchForMobileAppLoader();
+            watchForMobileAppForbidden();
+            watchForMobileAppOffline();
+        } else {
+            watchForPreloader();
+        }
+
         watchForHostedFields();
         watchForPiqCashier();
 

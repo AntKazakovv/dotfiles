@@ -12,6 +12,7 @@ import {
 } from 'wlc-engine/modules/core/system/services';
 import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
 import {ColorThemeValues} from 'wlc-engine/modules/core/constants';
+import {GlobalHelper} from 'wlc-engine/modules/core/system/helpers/global.helper';
 
 import * as Params from './logo.params';
 
@@ -66,7 +67,7 @@ export class LogoComponent extends AbstractComponent implements OnInit {
 
         if (customLogoUrl) {
             this.logoName = false;
-            return customLogoUrl;
+            return GlobalHelper.proxyUrl(customLogoUrl);
         } else if (customLogoName) {
             return customLogoName;
         } else if (customMainConfigLogoName) {

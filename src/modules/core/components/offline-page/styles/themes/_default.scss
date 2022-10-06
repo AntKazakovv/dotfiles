@@ -1,0 +1,61 @@
+.wlc-offline-page--theme-default:host {
+    @include bm.get-mq-map('max-width', $themeDefault, 'pageMaxWidth');
+    @include bm.get-mq-map('grid-template-columns', $themeDefault, 'pageColumns');
+    @include bm.get-mq-map('grid-template-rows', $themeDefault, 'pageRows');
+    @include bm.get-mq-map('grid-gap', $themeDefault, 'pageGap');
+    @include bm.get-mq-map('margin', $themeDefault, 'pageMargin');
+    @include bm.get-mq-map('height', $themeDefault, 'pageHeight');
+    display: grid;
+    align-content: center;
+
+    .wlc-offline-page__image {
+        @include bm.get-mq-map('grid-column', $themeDefault, 'imageColunms');
+        @include bm.get-mq-map('grid-row', $themeDefault, 'imageRows');
+        @include blockDecoration('backgroundImage');
+        box-shadow: ef.get-value($themeDefault, 'boxShadow');
+
+        &.wlc-icon--img {
+            padding: ef.get-value($themeDefault, 'paddingImage');
+        }
+
+        &.wlc-icon::ng-deep {
+
+            .wlc-icon-content {
+                width: 100%;
+                height: 100%;
+                padding: ef.get-value($themeDefault, 'padding');
+
+                svg {
+                    width: 100%;
+                    height: 100%;
+                }
+            }
+        }
+
+        &.wlc-icon--img::ng-deep {
+
+            .wlc-icon-content {
+                padding: ef.get-value($themeDefault, 'paddingImage');
+            }
+        }
+    }
+
+    .wlc-offline-page__message {
+        @include bm.get-mq-map('grid-column', $themeDefault, 'messageColunms');
+        @include bm.get-mq-map('grid-row', $themeDefault, 'messageRows');
+        @include blockDecoration('backgroundText');
+        flex-direction: ef.get-value($themeDefault, 'messageDirection');
+        box-shadow: ef.get-value($themeDefault, 'boxShadow');
+
+        h2 {
+            @include text.get-text-style(ef.get-value($themeDefault, 'headerStyle'), ef.get-value($themeDefault, 'headerColor'));
+            margin: ef.get-value($themeDefault, 'headerMargin');
+            text-align: ef.get-value($themeDefault, 'headerAlign');
+        }
+
+        p {
+            @include text.get-text-style(ef.get-value($themeDefault, 'textStyle'), ef.get-value($themeDefault, 'textColor'));
+            text-align: ef.get-value($themeDefault, 'textAlign');
+        }
+    }
+}

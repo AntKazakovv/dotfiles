@@ -1,22 +1,32 @@
-const {task} = require('gulp'),
+const {task, src, dest} = require('gulp'),
+    data = require('gulp-data'),
+    rename = require('gulp-rename'),
+    nunjucksRender = require('gulp-nunjucks-render'),
     fs = require('fs');
 
 module.exports = function preBuildTask() {
-    // Create Dist directory
+
+    /**
+     * Create Dist directory
+     */
     const makeDistDirectory = () => {
         if (!fs.existsSync(this.params.paths.dist)) {
             fs.mkdirSync(this.params.paths.dist);
         }
     };
 
-    // Create Temp directory
+    /**
+     * Create Temp directory
+     */
     const makeTempDirectory = () => {
         if (!fs.existsSync(this.params.paths.temp)) {
             fs.mkdirSync(this.params.paths.temp);
         }
     };
 
-    // Create symlink to the index.html file in the dist directory
+    /**
+     * Create symlink to the index.html file in the dist directory
+     */
     const makeIndexHtmlSymlink = () => {
         try {
             fs.lstatSync(this.params.paths.indexFile);
@@ -27,7 +37,9 @@ module.exports = function preBuildTask() {
         }
     };
 
-    // Create symlink to the index.html file in the src directory
+    /**
+     * Create symlink to the index.html file in the src directory
+     */
     const makeSrcIndexHtmlSymlink = () => {
         if (fs.existsSync(this.params.paths.srcIndexFile)) {
             return;
@@ -35,11 +47,30 @@ module.exports = function preBuildTask() {
         try {
             fs.lstatSync(this.params.paths.srcIndexFile);
         } catch {
-            fs.symlinkSync('../wlc-engine/index.html', this.params.paths.srcIndexFile);
+            const fileName = this.params.isMobileAppBundle ? 'mobile-app-index' : 'index';
+            fs.symlinkSync(`../wlc-engine/${fileName}.html`, this.params.paths.srcIndexFile);
         }
     };
 
-    // Create symlink to the wlc-engine directory
+    /**
+     * Create index.html for mobile app
+     * @returns {*}
+     */
+    const makeMobileAppIndexHtml = () => {
+        return src(`${this.params.paths.engine}/src/mobile-app-index.html`)
+            .pipe(data(() => {
+                return require(`${this.params.paths.root}/template.config.json`)
+            }))
+            .pipe(nunjucksRender({
+                path: `${this.params.paths.src}/templates/`,
+            }))
+            .pipe(rename('index.html'))
+            .pipe(dest(this.params.paths.src));
+    };
+
+    /**
+     * Create symlink to the wlc-engine directory
+     */
     const makeWlcEngineSymlink = () => {
         try {
             fs.lstatSync(this.params.paths.engineLink);
@@ -50,7 +81,9 @@ module.exports = function preBuildTask() {
         fs.symlinkSync('./node_modules/@egamings/wlc-engine/src', this.params.paths.engineLink);
     };
 
-    // Create symlink to the polyfills.ts file in the src directory
+    /**
+     * Create symlink to the polyfills.ts file in the src directory
+     */
     const makePolyfillsSymlink = () => {
         try {
             fs.lstatSync(this.params.paths.polyfillsFile);
@@ -61,7 +94,9 @@ module.exports = function preBuildTask() {
         fs.symlinkSync('../wlc-engine/polyfills.ts', this.params.paths.polyfillsFile);
     };
 
-    // Create symlink to the api tests directory
+    /**
+     * Create symlink to the api tests directory
+     */
     const makeApiTestSymlink = () => {
         try {
             fs.lstatSync(this.params.paths.apiTest);
@@ -73,7 +108,9 @@ module.exports = function preBuildTask() {
         this.addToGitIgnore('/', '', 'api-tests');
     };
 
-    // Create site preloader scss
+    /**
+     * Create site preloader scss
+     */
     const createSitePreloader = () => {
         fs.access(`${this.params.paths.src}/app-styles/app.loader.scss`, (err) => {
             if (err) {
@@ -83,7 +120,45 @@ module.exports = function preBuildTask() {
         });
     };
 
-    // Create hosted fields scss
+    /**
+     * Create preloader scss for mobile application
+     */
+    const createMobileAppPreloader = () => {
+        fs.access(`${this.params.paths.src}/app-styles/mobile-app.loader.scss`, (err) => {
+            if (err) {
+                fs.writeFileSync(`${this.params.paths.src}/app-styles/mobile-app.loader.scss`,
+                    '@import \'wlc-engine/engine-scss/_mobile-app.loader.scss\';\n');
+            }
+        });
+    };
+
+    /**
+     * Create forbidden page scss for mobile application
+     */
+    const createMobileAppForbidden = () => {
+        fs.access(`${this.params.paths.src}/app-styles/mobile-app.forbidden.scss`, (err) => {
+            if (err) {
+                fs.writeFileSync(`${this.params.paths.src}/app-styles/mobile-app.forbidden.scss`,
+                    '@import \'wlc-engine/engine-scss/_mobile-app.forbidden.scss\';\n');
+            }
+        });
+    };
+
+    /**
+     * Create offline page scss for mobile application
+     */
+    const createMobileAppOffline = () => {
+        fs.access(`${this.params.paths.src}/app-styles/mobile-app.offline.scss`, (err) => {
+            if (err) {
+                fs.writeFileSync(`${this.params.paths.src}/app-styles/mobile-app.offline.scss`,
+                    '@import \'wlc-engine/engine-scss/_mobile-app.offline.scss\';\n');
+            }
+        });
+    };
+
+    /**
+     * Create hosted fields scss
+     */
     const createHostedFields = () => {
         fs.access(`${this.params.paths.src}/app-styles/hosted.fields.scss`, (err) => {
             if (err) {
@@ -100,7 +175,9 @@ module.exports = function preBuildTask() {
         });
     };
 
-    // Create Piq fields scss
+    /**
+     * Create Piq fields scss
+     */
     const createPiqFields = () => {
         fs.access(`${this.params.paths.src}/app-styles/piq.cashier.scss`, (err) => {
             if (err) {
@@ -182,6 +259,24 @@ module.exports = function preBuildTask() {
         makeDistDirectory();
         makeTempDirectory();
 
+        cb();
+    });
+
+    /** :::::::::::::::::: CORDOVA :::::::::::::::::: */
+
+    task('prepare:cordova:build', async (cb) => {
+        makeDistDirectory();
+        makeTempDirectory();
+        makeWlcEngineSymlink();
+        makePolyfillsSymlink();
+        makeCustomModule();
+
+        createMobileAppPreloader();
+        createMobileAppForbidden();
+        createMobileAppOffline();
+        createHostedFields();
+
+        await makeMobileAppIndexHtml();
         cb();
     });
 };
