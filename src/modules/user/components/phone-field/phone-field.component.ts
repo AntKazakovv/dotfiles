@@ -183,7 +183,6 @@ export class PhoneFieldComponent extends AbstractComponent implements OnInit {
 
         if (this.$params.notRequiredPhone) {
             this.$params.phoneCode.validators = [];
-            this.$params.phoneNumber.validators = [];
             this.$params.phoneNumber.control
                 .removeValidators(this.validationService.getValidator('required').validator);
         }
