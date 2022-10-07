@@ -3,14 +3,8 @@
     <ng-container [ngTemplateOutlet]="promo" *ngSwitchCase="'promo'"></ng-container>
     <ng-container [ngTemplateOutlet]="promo" *ngSwitchCase="'promo-home'"></ng-container>
     <ng-container [ngTemplateOutlet]="long" *ngSwitchCase="'long'"></ng-container>
-    <ng-container [ngTemplateOutlet]="lootbox" *ngSwitchCase="'lootbox'"></ng-container>
 </ng-container>
 
-<ng-template #lootbox>
-    <ng-container [ngTemplateOutlet]="subscribeBtn"></ng-container>
-    <ng-container [ngTemplateOutlet]="unsubscribeBtn"></ng-container>
-    <ng-container [ngTemplateOutlet]="openLootbox"></ng-container>
-</ng-template>
 
 <ng-template #default>
     <ng-container *ngIf="isAuth">
@@ -21,19 +15,20 @@
         <ng-container [ngTemplateOutlet]="chooseBonusBtn"></ng-container>
         <ng-container [ngTemplateOutlet]="openLootbox"></ng-container>
     </ng-container>
+    <ng-container *ngIf="$params.useActionButtons" [ngTemplateOutlet]="actionRegisterBtn"></ng-container>
 </ng-template>
 
 <ng-template #promo>
     <ng-container *ngIf="isAuth">
         <ng-container [ngTemplateOutlet]="subscribeBtn"></ng-container>
+        <ng-container [ngTemplateOutlet]="inventoriedBtn"></ng-container>
+        <ng-container [ngTemplateOutlet]="openLootbox"></ng-container>
         <ng-container *ngIf="$params.useActionButtons">
             <ng-container [ngTemplateOutlet]="actionDepositBtn"></ng-container>
             <ng-container [ngTemplateOutlet]="actionPlayBtn"></ng-container>
         </ng-container>
     </ng-container>
-    <ng-container *ngIf="!isAuth">
-        <ng-container [ngTemplateOutlet]="actionRegisterBtn"></ng-container>
-    </ng-container>
+    <ng-container *ngIf="$params.useActionButtons" [ngTemplateOutlet]="actionRegisterBtn"></ng-container>
 </ng-template>
 
 <ng-template #long>
@@ -46,9 +41,7 @@
             <ng-container [ngTemplateOutlet]="leaveBtn"></ng-container>
         </ng-container>
     </ng-container>
-    <ng-container *ngIf="!isAuth">
-        <ng-container [ngTemplateOutlet]="registrationBtn"></ng-container>
-    </ng-container>
+    <ng-container [ngTemplateOutlet]="registrationBtn"></ng-container>
 </ng-template>
 
 <ng-template #subscribeBtn>
@@ -115,7 +108,7 @@
 </ng-template>
 
 <ng-template #actionPlayBtn>
-    <button *ngIf="(bonus.canUnsubscribe && !bonus.isDeposit) || bonus.isActive"
+    <button *ngIf="isShowPlayBtn"
             wlc-button
             text="Play"
             typeAttr="button"
@@ -125,7 +118,8 @@
 </ng-template>
 
 <ng-template #actionRegisterBtn>
-    <button wlc-button
+    <button *ngIf="!isAuth"
+            wlc-button
             text="Sign up"
             typeAttr="button"
             wlcElement="button_register"
@@ -134,7 +128,8 @@
 </ng-template>
 
 <ng-template #registrationBtn>
-    <button wlc-button
+    <button *ngIf="!isAuth"
+            wlc-button
             text="Sign up"
             typeAttr="button"
             wlcElement="button_register"

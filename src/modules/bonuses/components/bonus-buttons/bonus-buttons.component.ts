@@ -69,6 +69,16 @@ export class BonusButtonsComponent extends AbstractComponent implements OnInit {
     }
 
     /**
+     * Determines show or not the play button in template
+     *
+     * @returns {boolean}
+     */
+    public get isShowPlayBtn(): boolean {
+        return ((this.bonus.isSubscribed && !this.bonus.isDeposit) || this.bonus.isActive)
+            && !this.bonus.isLootbox && !this.bonus.inventoried;
+    }
+
+    /**
      * Get inventory bonus
      */
     public async getInventory(): Promise<void> {
