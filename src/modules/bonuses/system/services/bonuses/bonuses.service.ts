@@ -876,10 +876,24 @@ export class BonusesService {
                 bonus.data.Inventoried = 0;
                 bonus.data.Active = 1;
                 break;
+
+            case 'subscribe':
+                if (bonus.isInventory) {
+                    bonus.data.Inventoried = 1;
+                }
+                break;
+
+            case 'unsubscribe':
+                if (bonus.isInventory) {
+                    bonus.data.Inventoried = 0;
+                }
+                break;
+    
             case 'cancel':
                 bonus.data.Status = 0;
                 break;
         }
+
         return bonus;
     }
 

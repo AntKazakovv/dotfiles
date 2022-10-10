@@ -66,7 +66,6 @@ export class Bonus extends AbstractModel<IBonus> {
     private welcomeEvents = ['registration', 'deposit first'];
     private $isReg: boolean;
     private $isDep: boolean;
-    private readonly _tag: string;
     private _fallBackIconPath: string = '';
 
     constructor(
@@ -84,7 +83,6 @@ export class Bonus extends AbstractModel<IBonus> {
 
         this.userCurrency = this.configService.get<string>('appConfig.user.currency')
             || this.configService.get<string>('$base.defaultCurrency');
-        this._tag = this.getTag();
         this.$descriptionClean = this.data.Description.replace(/<[^>]*>/g, '');
 
         if (Bonus.$bonuses.useNewImageSources && this.data.Image_other) {
@@ -729,7 +727,32 @@ export class Bonus extends AbstractModel<IBonus> {
      * @returns {string} bonus tag
      */
     public get tag(): string {
-        return this._tag;
+
+        if (this.isActive) {
+            return gettext('Active');
+        }
+
+        if (this.isLootbox) {
+            return gettext('Lootbox');
+        }
+
+        if (this.inventoried) {
+            return gettext('Inventoried');
+        }
+
+        if (this.isSubscribed) {
+            return gettext('Subscribed');
+        }
+
+        if (this.hasPromoCode) {
+            return gettext('Promo code');
+        }
+
+        if (this.isWelcomeBonus) {
+            return gettext('Welcome');
+        }
+
+        return '';
     }
 
     /**
@@ -952,39 +975,5 @@ export class Bonus extends AbstractModel<IBonus> {
 
         bonus.ExpireDays = bonus.ExpireDays || bonus.Expire;
         return bonus;
-    }
-
-    /**
-     * Compute bonus tag
-     *
-     * @returns {string} bonus tag
-     */
-    protected getTag(): string {
-
-        if (this.isActive) {
-            return gettext('Active');
-        }
-
-        if (this.isSubscribed) {
-            return gettext('Subscribed');
-        }
-
-        if (this.isLootbox) {
-            return gettext('Lootbox');
-        }
-
-        if (this.inventoried) {
-            return gettext('Inventoried');
-        }
-
-        if (this.hasPromoCode) {
-            return gettext('Promo code');
-        }
-
-        if (this.isWelcomeBonus) {
-            return gettext('Welcome');
-        }
-
-        return '';
     }
 }
