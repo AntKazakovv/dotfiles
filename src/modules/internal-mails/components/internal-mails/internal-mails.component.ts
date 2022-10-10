@@ -6,8 +6,6 @@ import {
     OnInit,
 } from '@angular/core';
 
-import {first} from 'rxjs/operators';
-
 import {
     ITableCParams,
     ConfigService,
@@ -52,7 +50,7 @@ export class InternalMailsComponent extends AbstractComponent implements OnInit 
     public ngOnInit(): void {
         super.ngOnInit();
 
-        this.internalMailsService.mailsReady$.pipe(first()).subscribe(() => {
+        this.internalMailsService.mailsReady.promise.then(() => {
             this.ready = true;
             this.cdr.detectChanges();
         });

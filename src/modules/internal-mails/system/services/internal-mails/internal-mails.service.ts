@@ -16,6 +16,7 @@ import _find from 'lodash-es/find';
 import {
     ConfigService,
     DataService,
+    Deferred,
     EventService,
     IData,
     LogService,
@@ -28,7 +29,7 @@ import {InternalMailModel} from 'wlc-engine/modules/internal-mails/system/models
 })
 export class InternalMailsService {
     public mails$: BehaviorSubject<InternalMailModel[]> = new BehaviorSubject([]);
-    public mailsReady$: Subject<boolean> = new BehaviorSubject(false);
+    public mailsReady: Deferred<void> = new Deferred();
     public unreadMailsCount$: BehaviorSubject<number> = new BehaviorSubject(0);
     public readedMailID$: Subject<string> = new Subject();
     private mailsFetchHandler: Subscription;
@@ -223,7 +224,7 @@ export class InternalMailsService {
         } catch (error) {
             this.fetchErrorHandler(error, 'mailsResponseHandler -> ' + fromMethod);
         } finally {
-            this.mailsReady$.next(true);
+            this.mailsReady.resolve();
         }
     }
 
