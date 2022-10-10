@@ -88,9 +88,10 @@ export namespace wlcProfileMenu {
                     },
                 },
                 {
-                    name: 'profile.wlc-history-range',
+                    name: 'core.wlc-history-range',
                     params: {
                         type: 'submenu',
+                        historyType: 'bet',
                     },
                 },
             ],
@@ -109,9 +110,32 @@ export namespace wlcProfileMenu {
                     },
                 },
                 {
-                    name: 'profile.wlc-history-range',
+                    name: 'core.wlc-history-range',
                     params: {
                         type: 'submenu',
+                        historyType: 'transaction',
+                    },
+                },
+            ],
+        },
+    };
+
+    export const submenuProfileMessages: ILayoutComponent = {
+        name: 'core.wlc-wrapper',
+        params: {
+            class: 'wlc-submenu-history',
+            components: [
+                {
+                    name: 'menu.wlc-profile-menu',
+                    params: {
+                        type: 'submenu',
+                    },
+                },
+                {
+                    name: 'core.wlc-history-range',
+                    params: {
+                        type: 'submenu',
+                        historyType: 'mails',
                     },
                 },
             ],

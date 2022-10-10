@@ -1,10 +1,6 @@
-import {
-    IFormWrapperCParams,
-    ITextBlockCParams,
-    IButtonCParams,
-    IComponentParams,
-    CustomType,
-} from 'wlc-engine/modules/core';
+import {IFormWrapperCParams} from 'wlc-engine/modules/core/components/form-wrapper/form-wrapper.component';
+import {ITextBlockCParams} from 'wlc-engine/modules/core/components/text-block/text-block.params';
+import {IButtonCParams} from 'wlc-engine/modules/core/components/button/button.params';
 import {IHistoryDefault} from 'wlc-engine/modules/core/system/interfaces/history-filter.interface';
 import {
     transactionConfig,
@@ -14,6 +10,10 @@ import {
     startDate,
     endDate,
 } from 'wlc-engine/modules/core/system/config/history.config';
+import {
+    IComponentParams,
+    CustomType,
+} from 'wlc-engine/modules/core/system/interfaces/config.interface';
 
 export type Theme = 'default' | CustomType;
 export type Type = 'default' | CustomType;
@@ -148,6 +148,37 @@ export namespace formConfig {
                 params: <IButtonCParams>{
                     common: {
                         typeAttr: 'submit',
+                        text: gettext('Save'),
+                    },
+                },
+            },
+        ],
+    };
+
+    export const mails: IFormWrapperCParams = {
+        class: 'wlc-mails-filters',
+        components: [
+            {
+                name: 'core.wlc-text-block',
+                params: <ITextBlockCParams>{
+                    common: {
+                        textBlockTitle: gettext('Filter'),
+                    },
+                },
+            },
+            {
+                name: 'core.wlc-datepicker',
+                params: startDate,
+            },
+            {
+                name: 'core.wlc-datepicker',
+                params: endDate,
+            },
+            {
+                name: 'core.wlc-button',
+                params: <IButtonCParams>{
+                    name: 'submit',
+                    common: {
                         text: gettext('Save'),
                     },
                 },

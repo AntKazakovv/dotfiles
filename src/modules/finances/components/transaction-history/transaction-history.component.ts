@@ -3,15 +3,17 @@ import {
     OnInit,
     ChangeDetectorRef,
     Inject,
+    ChangeDetectionStrategy,
 } from '@angular/core';
 
 import {BehaviorSubject} from 'rxjs';
 import {
     filter,
     takeUntil,
+    takeWhile,
 } from 'rxjs/operators';
 import {DateTime} from 'luxon';
-
+import _cloneDeep from 'lodash-es/cloneDeep';
 import _filter from 'lodash-es/filter';
 import _last from 'lodash-es/last';
 import _first from 'lodash-es/first';
@@ -28,20 +30,18 @@ import {
     ProfileType,
     ISelectCParams,
     IRadioButtonsCParams,
-} from 'wlc-engine/modules/core';
-import {FinancesService} from 'wlc-engine/modules/finances/system/services/finances/finances.service';
-import {Transaction} from 'wlc-engine/modules/finances/system/models/transaction-history.model';
-import {
+    HistoryFilterService,
     TTransactionFilter,
-    IFinancesFilter,
+    IHistoryFilter,
     TTransactionFilterType,
-} from 'wlc-engine/modules/core/system/interfaces/history-filter.interface';
-import {
     transactionConfig as config,
     startDate,
     endDate,
-} from 'wlc-engine/modules/core/system/config/history.config';
-import {HistoryFilterService} from 'wlc-engine/modules/core/system/services';
+} from 'wlc-engine/modules/core';
+import {
+    FinancesService,
+} from 'wlc-engine/modules/finances/system/services/finances/finances.service';
+import {Transaction} from 'wlc-engine/modules/finances/system/models/transaction-history.model';
 
 import * as Params from './transaction-history.params';
 
@@ -49,6 +49,7 @@ import * as Params from './transaction-history.params';
     selector: '[wlc-transaction-history]',
     templateUrl: './transaction-history.component.html',
     styleUrls: ['./styles/transaction-history.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TransactionHistoryComponent extends AbstractComponent implements OnInit {
 
@@ -58,9 +59,10 @@ export class TransactionHistoryComponent extends AbstractComponent implements On
     public tableData: ITableCParams;
     public selectConfig: ISelectCParams<TTransactionFilter> = config.filterSelect;
     public radioBtnConfig: IRadioButtonsCParams<TTransactionFilter> = config.filterRadioBtn;
-    public startDateInput: IDatepickerCParams = startDate;
-    public endDateInput: IDatepickerCParams = endDate;
+    public startDateInput: IDatepickerCParams = _cloneDeep(startDate);
+    public endDateInput: IDatepickerCParams = _cloneDeep(endDate);
     public transaction$: BehaviorSubject<Transaction[]> = new BehaviorSubject([]);
+
     protected filterSelect: TTransactionFilterType;
     protected filterValue: TTransactionFilter = 'all';
     protected startDate: DateTime = DateTime.local();
@@ -95,15 +97,14 @@ export class TransactionHistoryComponent extends AbstractComponent implements On
         }
 
         this.showFilter = this.actionService.getDeviceType() === DeviceType.Desktop;
+
+        if (this.showFilter) {
+            this.filterHandlers();
+        }
         this.setMinMaxDate();
         this.setSubscription();
 
-        this.historyFilterService.setDefaultFilter('transaction', {
-            filterValue: this.filterValue,
-            startDate: this.startDate,
-            endDate: this.endDate,
-        });
-        this.historyFilterService.setFilter('transaction', {
+        this.historyFilterService.setAllFilters('transaction', {
             filterValue: this.filterValue,
             startDate: this.startDate,
             endDate: this.endDate,
@@ -117,7 +118,7 @@ export class TransactionHistoryComponent extends AbstractComponent implements On
 
         this.transaction$.next(this.transactionFilter());
         this.ready = true;
-        this.cdr.markForCheck();
+        this.cdr.detectChanges();
     }
 
     protected transactionFilter(): Transaction[] {
@@ -160,25 +161,33 @@ export class TransactionHistoryComponent extends AbstractComponent implements On
     protected setSubscription(): void {
         this.historyFilterService.getFilter('transaction')
             .pipe(
+                filter((data: IHistoryFilter<TTransactionFilter>): boolean => !!data),
                 takeUntil(this.$destroy),
-                filter((data: IFinancesFilter<TTransactionFilter>): boolean => !!data),
             )
-            .subscribe((data: IFinancesFilter<TTransactionFilter>): void => {
+            .subscribe((data: IHistoryFilter<TTransactionFilter>): void => {
                 this.filterSelect.control.setValue(this.filterValue = data.filterValue);
                 this.startDateInput.control.setValue(this.startDate = data.startDate);
                 this.endDateInput.control.setValue(this.endDate = data.endDate);
                 this.setMinMaxDate();
-                this.historyFilterService.dateChanges$.next({
-                    startDate: this.startDate,
-                    endDate: this.endDate,
-                });
                 this.transaction$.next(this.transactionFilter());
             });
 
+        this.filterHandlers();
+
+        this.actionService.deviceType()
+            .pipe(takeUntil(this.$destroy))
+            .subscribe((type: DeviceType): void => {
+                this.showFilter = type === DeviceType.Desktop;
+                this.cdr.detectChanges();
+            });
+    }
+
+    protected filterHandlers(): void {
         this.filterSelect.control.valueChanges
             .pipe(
-                takeUntil(this.$destroy),
                 filter((filterValue: string): boolean => this.filterValue != filterValue),
+                takeWhile(() => this.showFilter),
+                takeUntil(this.$destroy),
             )
             .subscribe((filterValue: TTransactionFilter): void => {
                 this.historyFilterService.setFilter('transaction', {filterValue: this.filterValue = filterValue});
@@ -187,8 +196,9 @@ export class TransactionHistoryComponent extends AbstractComponent implements On
 
         this.startDateInput.control.valueChanges
             .pipe(
-                takeUntil(this.$destroy),
                 filter((startDate: DateTime): boolean => this.startDate.toMillis() !== startDate.toMillis()),
+                takeWhile(() => this.showFilter),
+                takeUntil(this.$destroy),
             )
             .subscribe((startDate: DateTime): void => {
                 this.historyFilterService.setFilter('transaction', {startDate: this.startDate = startDate});
@@ -197,8 +207,9 @@ export class TransactionHistoryComponent extends AbstractComponent implements On
 
         this.endDateInput.control.valueChanges
             .pipe(
-                takeUntil(this.$destroy),
                 filter((endDate: DateTime): boolean => this.endDate.toMillis() !== endDate.toMillis()),
+                takeWhile(() => this.showFilter),
+                takeUntil(this.$destroy),
             )
             .subscribe((endDate: DateTime): void => {
                 this.historyFilterService.setFilter('transaction', {endDate: this.endDate = endDate});

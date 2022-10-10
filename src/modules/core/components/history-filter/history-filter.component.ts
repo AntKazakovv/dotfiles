@@ -15,34 +15,31 @@ import {
     takeUntil,
 } from 'rxjs/operators';
 import {DateTime} from 'luxon';
-
 import _isEqual from 'lodash-es/isEqual';
 import _keys from 'lodash-es/keys';
 import _merge from 'lodash-es/merge';
 import _has from 'lodash-es/has';
 
-import {
-    AbstractComponent,
-    ConfigService,
-    EventService,
-    ModalService,
-    IIndexing,
-} from 'wlc-engine/modules/core';
-import {
-    HistoryFilterFormComponent,
-    IHistoryFilterFormCParams,
-} from './history-filter-form/history-filter-form.component';
+import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
+import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
+import {EventService} from 'wlc-engine/modules/core/system/services/event/event.service';
+import {ModalService} from 'wlc-engine/modules/core/system/services/modal/modal.service';
+import {IIndexing} from 'wlc-engine/modules/core/system/interfaces/global.interface';
 import {
     HistoryFilterService,
 } from 'wlc-engine/modules/core/system/services/history-filter/history-filter.service';
 import {
-    IFilterValue,
-    IFinancesFilter,
+    IHistoryFilterValue,
+    IHistoryFilter,
 } from 'wlc-engine/modules/core/system/interfaces/history-filter.interface';
 import {
     IFormWrapperCParams,
     IFormComponent,
 } from 'wlc-engine/modules/core/components/form-wrapper/form-wrapper.component';
+import {
+    HistoryFilterFormComponent,
+    IHistoryFilterFormCParams,
+} from './history-filter-form/history-filter-form.component';
 
 import * as Params from './history-filter.params';
 
@@ -57,8 +54,8 @@ export class HistoryFilterComponent extends AbstractComponent implements OnInit,
 
     public $params: Params.IHistoryFilterCParams;
     public isFiltered: boolean = false;
-    protected formData: BehaviorSubject<IFinancesFilter | IFilterValue> = new BehaviorSubject(null);
-    protected defaultFormData: IFinancesFilter | IFilterValue;
+    protected formData: BehaviorSubject<IHistoryFilter | IHistoryFilterValue> = new BehaviorSubject(null);
+    protected defaultFormData: IHistoryFilter | IHistoryFilterValue;
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IHistoryFilterCParams,
@@ -128,17 +125,17 @@ export class HistoryFilterComponent extends AbstractComponent implements OnInit,
     }
 
     protected createFormConfig(): IFormWrapperCParams {
-        const isIFinancesFilter = (formData: IFinancesFilter | IFilterValue): formData is IFinancesFilter => {
+        const isHistoryFilter = (formData: IHistoryFilter | IHistoryFilterValue): formData is IHistoryFilter => {
             return _has(formData, 'startDate') || _has(formData, 'endDate');
         };
-        const formData: IFinancesFilter | IFilterValue = this.formData.getValue() || this.defaultFormData;
+        const formData: IHistoryFilter | IHistoryFilterValue = this.formData.getValue() || this.defaultFormData;
         let formConfig = Params.formConfig[this.$params.config];
 
         if (!this.formData.getValue()) {
             this.formData.next(this.defaultFormData);
         }
 
-        if (isIFinancesFilter(formData) && (formData.endDate || formData.startDate)) {
+        if (isHistoryFilter(formData) && (formData.endDate || formData.startDate)) {
             const startIndex = formConfig.components
                 .findIndex((input: IFormComponent) => input.params.name === 'startDate');
             const endIndex = formConfig.components

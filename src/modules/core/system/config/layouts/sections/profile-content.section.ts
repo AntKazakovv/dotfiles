@@ -1208,11 +1208,11 @@ export namespace profileContent {
                 params: {
                     class: 'wlc-profile-content__top',
                     components: [
-                        componentLib.wlcTitle.profileV2,
+                        componentLib.wlcInternalMails.filter,
                     ],
                 },
             },
-            componentLib.wlcProfileMenu.submenu,
+            componentLib.wlcProfileMenu.submenuProfileMessages,
             componentLib.wlcInternalMails.mails,
         ],
     };
@@ -1228,6 +1228,7 @@ export namespace profileContent {
                     class: 'wlc-profile-content__header',
                     components: [
                         componentLib.wlcTitle.myAccountV1,
+                        componentLib.wlcInternalMails.filterOnly,
                     ],
                 },
                 display: {
@@ -1246,6 +1247,13 @@ export namespace profileContent {
                                 class: 'wlc-profile-content__header underlined',
                                 components: [
                                     componentLib.wlcTitle.messages,
+                                    {
+                                        name: 'core.wlc-history-range',
+                                        params: {
+                                            type: 'submenu',
+                                            historyType: 'mails',
+                                        },
+                                    },
                                 ],
                             },
                             display: {
@@ -1257,6 +1265,16 @@ export namespace profileContent {
                             params: {
                                 class: 'wlc-profile-content__body',
                                 components: [
+                                    {
+                                        name: 'core.wlc-history-range',
+                                        params: {
+                                            type: 'submenu',
+                                            historyType: 'mails',
+                                        },
+                                        display: {
+                                            before: 1199,
+                                        },
+                                    },
                                     componentLib.wlcInternalMails.mails,
                                 ],
                             },

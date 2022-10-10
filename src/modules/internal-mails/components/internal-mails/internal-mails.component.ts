@@ -7,13 +7,31 @@ import {
 } from '@angular/core';
 
 import {BehaviorSubject} from 'rxjs';
-import {takeUntil} from 'rxjs/operators';
+import {
+    filter,
+    takeUntil,
+    takeWhile,
+} from 'rxjs/operators';
+import _filter from 'lodash-es/filter';
+import _last from 'lodash-es/last';
+import _cloneDeep from 'lodash-es/cloneDeep';
+import {
+    DateTime,
+    ToObjectOutput,
+} from 'luxon';
 
 import {
     ITableCParams,
     ConfigService,
     IMixedParams,
     AbstractComponent,
+    IDatepickerCParams,
+    startDate,
+    endDate,
+    HistoryFilterService,
+    IHistoryFilter,
+    ActionService,
+    DeviceType,
 } from 'wlc-engine/modules/core';
 import {
     InternalMailsService,
@@ -31,19 +49,23 @@ import * as Params from './internal-mails.params';
 export class InternalMailsComponent extends AbstractComponent implements OnInit {
     public ready: boolean = false;
     public $params: Params.IInternalMailsCParams;
-    public internalMailsCount$: BehaviorSubject<number> = new BehaviorSubject(0);
-
-    public tableData: ITableCParams = {
-        head: Params.internalMailsTableHeadConfig,
-        rows: this.internalMailsService.mails$,
-        switchWidth: (this.configService.get('$base.profile.type') === 'first') ? 1200 : 1024,
-    };
+    public internalMailsCount: number = 0;
+    public showFilter: boolean = false;
+    public startDateInput: IDatepickerCParams = _cloneDeep(startDate);
+    public endDateInput: IDatepickerCParams = _cloneDeep(endDate);
+    public tableData: ITableCParams;
+    protected startDate: DateTime = DateTime.local();
+    protected endDate: DateTime = DateTime.local().endOf('day');
+    protected internalMails$: BehaviorSubject<InternalMailModel[]> = new BehaviorSubject([]);
+    protected allMails: InternalMailModel[] = [];
 
     constructor(
         @Inject('injectParams') protected params: Params.IInternalMailsCParams,
         protected internalMailsService: InternalMailsService,
         protected cdr: ChangeDetectorRef,
         protected configService: ConfigService,
+        protected historyFilterService: HistoryFilterService,
+        protected actionService: ActionService,
     ) {
         super(
             <IMixedParams<Params.IInternalMailsCParams>>{
@@ -52,23 +74,128 @@ export class InternalMailsComponent extends AbstractComponent implements OnInit 
             }, configService);
     }
 
-    public ngOnInit(): void {
+    public async ngOnInit(): Promise<void> {
         super.ngOnInit();
 
-        this.internalMailsService.mailsReady.promise.then(() => {
-            this.mailsChangesSubscribe();
+        await this.internalMailsService.mailsReady.promise;
+
+        this.showFilter = this.actionService.getDeviceType() === DeviceType.Desktop;
+
+        if (this.showFilter) {
+            this.filterHandlers();
+        }
+
+        this.setSubscription();
+    }
+
+    protected filterMails(): InternalMailModel[] {
+        return _filter(this.allMails, (item: InternalMailModel): boolean => {
+            return DateTime.fromSQL(item.dateISO, {zone: 'utc'}) >= this.startDate
+                && DateTime.fromSQL(item.dateISO, {zone: 'utc'}) <= this.endDate;
         });
     }
 
-    protected mailsChangesSubscribe(): void {
+    protected setMinMaxDate(): void {
+        const disableSince: ToObjectOutput = this.endDate.plus({day: 1}).toObject();
+        const disableUntil: ToObjectOutput = this.startDate.minus({day: 1}).toObject();
+
+        this.startDateInput.control.setValue(this.startDate);
+        this.endDateInput.control.setValue(this.endDate);
+        this.startDateInput.datepickerOptions = {
+            disableSince: {
+                year: disableSince.year,
+                month: disableSince.month,
+                day: disableSince.day,
+            },
+        };
+        this.endDateInput.datepickerOptions = {
+            disableUntil: {
+                year: disableUntil.year,
+                month: disableUntil.month,
+                day: disableUntil.day,
+            },
+        };
+    }
+
+    protected initFilters(): void {
+        if (this.allMails.length) {
+            this.startDate = DateTime.fromSQL(_last(this.allMails).dateISO, {zone: 'utc'}).toLocal();
+        }
+
+        this.setMinMaxDate();
+
+        this.historyFilterService.setAllFilters('mails', {
+            startDate: this.startDate,
+            endDate: this.endDate,
+        });
+        this.tableData = {
+            head: Params.internalMailsTableHeadConfig,
+            rows: this.internalMails$,
+            switchWidth: (this.configService.get('$base.profile.type') === 'first') ? 1200 : 1024,
+        };
+
+        this.ready = true;
+    }
+
+    protected setSubscription(): void {
         this.internalMailsService.mails$
             .pipe(takeUntil(this.$destroy))
             .subscribe((mails: InternalMailModel[]): void => {
-                // A temporary solution. Will be changed in #369731
-                this.internalMailsCount$.next(mails.length);
+                this.allMails = mails;
+                this.internalMailsCount = mails.length;
+
+                if (!this.ready) {
+                    this.initFilters();
+                } else {
+                    this.internalMails$.next(this.filterMails());
+                    this.cdr.detectChanges();
+                }
             });
 
-        this.ready = true;
-        this.cdr.detectChanges();
+        this.historyFilterService.getFilter('mails')
+            .pipe(
+                takeUntil(this.$destroy),
+                filter((data: IHistoryFilter): boolean => !!data),
+            )
+            .subscribe((data: IHistoryFilter): void => {
+                this.startDateInput.control.setValue(this.startDate = data.startDate);
+                this.endDateInput.control.setValue(this.endDate = data.endDate);
+                this.setMinMaxDate();
+
+                this.internalMails$.next(this.filterMails());
+            });
+
+        this.filterHandlers();
+
+        this.actionService.deviceType()
+            .pipe(takeUntil(this.$destroy))
+            .subscribe((type: DeviceType): void => {
+                this.showFilter = type === DeviceType.Desktop;
+                this.cdr.detectChanges();
+            });
+    }
+
+    protected filterHandlers(): void {
+        this.startDateInput.control.valueChanges
+            .pipe(
+                filter((startDate: DateTime): boolean => this.startDate.toMillis() !== startDate.toMillis()),
+                takeWhile(() => this.showFilter),
+                takeUntil(this.$destroy),
+            )
+            .subscribe((startDate: DateTime): void => {
+                this.historyFilterService.setFilter('mails', {startDate: this.startDate = startDate});
+                this.internalMails$.next(this.filterMails());
+            });
+
+        this.endDateInput.control.valueChanges
+            .pipe(
+                filter((endDate: DateTime): boolean => this.endDate.toMillis() !== endDate.toMillis()),
+                takeWhile(() => this.showFilter),
+                takeUntil(this.$destroy),
+            )
+            .subscribe((endDate: DateTime): void => {
+                this.historyFilterService.setFilter('mails', {endDate: this.endDate = endDate});
+                this.internalMails$.next(this.filterMails());
+            });
     }
 }

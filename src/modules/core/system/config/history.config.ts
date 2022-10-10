@@ -1,10 +1,8 @@
 import {FormControl} from '@angular/forms';
 
-import {
-    IDatepickerCParams,
-    IRadioButtonsCParams,
-    ISelectCParams,
-} from 'wlc-engine/modules/core';
+import {IDatepickerCParams} from 'wlc-engine/modules/core/components/datepicker/datepicker.params';
+import {IRadioButtonsCParams} from 'wlc-engine/modules/core/components/radio-buttons/radio-buttons.params';
+import {ISelectCParams} from 'wlc-engine/modules/core/components/select/select.params';
 import {
     TBonusFilter,
     TTournamentsFilter,

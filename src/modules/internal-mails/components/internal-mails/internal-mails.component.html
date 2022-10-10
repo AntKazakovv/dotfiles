@@ -1,5 +1,10 @@
 <div *ngIf="ready; else preloader" class="{{$class}}">
-    <div *ngIf="internalMailsCount$.value; else empty" wlc-table [inlineParams]='tableData'></div>
+    <div *ngIf="showFilter" class="{{$class}}__filter">
+        <div wlc-datepicker [inlineParams]="startDateInput"></div>
+        <div wlc-datepicker [inlineParams]="endDateInput"></div>
+    </div>
+
+    <div *ngIf="internalMailsCount; else empty" wlc-table [inlineParams]='tableData'></div>
 </div>
 
 <ng-template #empty>

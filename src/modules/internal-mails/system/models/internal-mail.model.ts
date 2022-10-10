@@ -49,10 +49,17 @@ export class InternalMailModel extends AbstractModel<IInternalMail> {
     }
 
     /**
-     * @returns {string} day of creation of the mail
+     * @returns {string} day of creation of the mail (format: dd-MM-yyyy HH:mm)
      */
     public get date(): string {
         return GlobalHelper.toLocalTime(this.data.Created, 'SQL', 'dd-MM-yyyy HH:mm');
+    }
+
+    /**
+     * @returns {string} day of creation of the mail in ISO
+    */
+    public get dateISO(): string {
+        return this.data.Created;
     }
 
     /**

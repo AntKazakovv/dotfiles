@@ -6,7 +6,9 @@ import {
     IHistoryNameItem,
     HistoryNameComponent,
 } from 'wlc-engine/modules/core';
-import {HistoryItemModel} from 'wlc-engine/modules/bonuses/system/models/bonus-history-item/bonus-history-item.model';
+import {
+    BonusHistoryItemModel,
+} from 'wlc-engine/modules/bonuses/system/models/bonus-history-item/bonus-history-item.model';
 
 export type Theme = 'default' | CustomType;
 export type Type = 'default' | CustomType;
@@ -40,7 +42,7 @@ export const bonusHistoryTableHeadConfig: ITableCol[] = [
         type: 'component',
         order: 20,
         wlcElement: 'wlc-profile-table__cell_name',
-        mapValue: (item: HistoryItemModel): {item: IHistoryNameItem} => {
+        mapValue: (item: BonusHistoryItemModel): {item: IHistoryNameItem} => {
             return {
                 item: {
                     name: item.Name,

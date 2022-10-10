@@ -61,7 +61,9 @@ import {
     Game,
     GamesCatalogService,
 } from 'wlc-engine/modules/games';
-import {HistoryItemModel} from 'wlc-engine/modules/bonuses/system/models/bonus-history-item/bonus-history-item.model';
+import {
+    BonusHistoryItemModel,
+} from 'wlc-engine/modules/bonuses/system/models/bonus-history-item/bonus-history-item.model';
 import {Bonus} from 'wlc-engine/modules/bonuses/system/models/bonus/bonus';
 import {
     ActionType,
@@ -87,7 +89,7 @@ interface ISubjects {
     bonuses$: BehaviorSubject<Bonus[]>;
     active$: BehaviorSubject<Bonus[]>;
     store$: BehaviorSubject<Bonus[]>;
-    history$: BehaviorSubject<HistoryItemModel[]>;
+    history$: BehaviorSubject<BonusHistoryItemModel[]>;
     lootboxPrizes$: BehaviorSubject<LootboxPrizeModel[]>;
 }
 
@@ -108,7 +110,7 @@ export class BonusesService {
     public bonuses: Bonus[] = [];
 
     protected activeBonuses: Bonus[] = [];
-    protected historyBonuses: HistoryItemModel[] = [];
+    protected historyBonuses: BonusHistoryItemModel[] = [];
     protected lootboxPrizes: LootboxPrizeModel[] = [];
     protected gamesCatalogService: GamesCatalogService;
     protected promocodeFetchSubscriber: Subscription = {} as Subscription;
@@ -265,8 +267,8 @@ export class BonusesService {
      * @param {RestType} type bonuses rest type ('active' | 'history' | 'store' | 'any')
      * @returns {Observable<Bonus[]>} Observable
      */
-    public getObserver<T extends HistoryItemModel | Bonus | LootboxPrizeModel>(type?: RestType): Observable<T[]> {
-        let flow$: BehaviorSubject<(HistoryItemModel | Bonus | LootboxPrizeModel)[]>;
+    public getObserver<T extends BonusHistoryItemModel | Bonus | LootboxPrizeModel>(type?: RestType): Observable<T[]> {
+        let flow$: BehaviorSubject<(BonusHistoryItemModel | Bonus | LootboxPrizeModel)[]>;
 
         switch (type) {
             case 'active':
@@ -539,7 +541,7 @@ export class BonusesService {
      * @param {string} promoCode bonus promocode (no required)
      * @returns {Bonus[]} bonuses array
      */
-    public async queryBonuses<T extends Bonus | HistoryItemModel | LootboxPrizeModel>(
+    public async queryBonuses<T extends Bonus | BonusHistoryItemModel | LootboxPrizeModel>(
         publicSubject: boolean,
         type: RestType = 'any',
         promoCode?: string,
@@ -564,8 +566,8 @@ export class BonusesService {
 
             if (type === 'history') {
                 this.historyBonuses = _map((res as IData<TBonusesHistory>).data,
-                    (bonus: IBonusHistory): HistoryItemModel => {
-                        return new HistoryItemModel({service: 'BonusesService', method: 'queryBonuses'}, bonus);
+                    (bonus: IBonusHistory): BonusHistoryItemModel => {
+                        return new BonusHistoryItemModel({service: 'BonusesService', method: 'queryBonuses'}, bonus);
                     });
 
                 if (publicSubject) {
@@ -860,7 +862,7 @@ export class BonusesService {
         });
 
         this.subjects.history$.subscribe({
-            next: (bonuses: HistoryItemModel[]): void => {
+            next: (bonuses: BonusHistoryItemModel[]) => {
                 this.eventService.emit({
                     name: 'BONUSES_FETCH_HISTORY_SUCCESS',
                     data: bonuses,

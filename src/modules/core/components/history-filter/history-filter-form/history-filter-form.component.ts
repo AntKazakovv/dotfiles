@@ -8,11 +8,9 @@ import {
 
 import {BehaviorSubject} from 'rxjs';
 
-import {
-    AbstractComponent,
-    ConfigService,
-} from 'wlc-engine/modules/core';
-import {IIndexing} from 'wlc-engine/modules/core/system/interfaces';
+import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
+import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
+import {IIndexing} from 'wlc-engine/modules/core/system/interfaces/global.interface';
 
 import * as Params from './history-filter-form.params';
 

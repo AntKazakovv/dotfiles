@@ -6,12 +6,15 @@ import {
 
 import {
     BehaviorSubject,
+    distinctUntilChanged,
+    Observable,
     Subject,
     Subscription,
 } from 'rxjs';
 import _map from 'lodash-es/map';
 import _filter from 'lodash-es/filter';
 import _find from 'lodash-es/find';
+import _isEqual from 'lodash-es/isEqual';
 
 import {
     ConfigService,
@@ -28,10 +31,11 @@ import {InternalMailModel} from 'wlc-engine/modules/internal-mails/system/models
     providedIn: 'root',
 })
 export class InternalMailsService {
-    public mails$: BehaviorSubject<InternalMailModel[]> = new BehaviorSubject([]);
     public mailsReady: Deferred<void> = new Deferred();
     public unreadMailsCount$: BehaviorSubject<number> = new BehaviorSubject(0);
     public readedMailID$: Subject<string> = new Subject();
+    public currentLang: string;
+    private _mails$: BehaviorSubject<InternalMailModel[]> = new BehaviorSubject([]);
     private mailsFetchHandler: Subscription;
 
     constructor(
@@ -42,6 +46,15 @@ export class InternalMailsService {
         private translateService: TranslateService,
     ) {
         this.init();
+    }
+
+    /**
+     * Get mails array Observable
+     *
+     * @returns {Observable<InternalMailModel[]>}
+     */
+    public get mails$(): Observable<InternalMailModel[]> {
+        return this._mails$.pipe(distinctUntilChanged( _isEqual));
     }
 
     /**
@@ -61,7 +74,7 @@ export class InternalMailsService {
                 type: 'POST',
             }, params);
 
-            const readedMail: InternalMailModel = _find(this.mails$.getValue(), (mail: InternalMailModel) => {
+            const readedMail: InternalMailModel = _find(this._mails$.getValue(), (mail: InternalMailModel) => {
                 return internalMail.id === mail.id;
             });
 
@@ -102,8 +115,8 @@ export class InternalMailsService {
                 url: `/messages/${internalMail.id}`,
                 type: 'DELETE',
             });
-            this.mails$.next(
-                _filter(this.mails$.getValue(), (mail: InternalMailModel) => internalMail.id !== mail.id),
+            this._mails$.next(
+                _filter(this._mails$.getValue(), (mail: InternalMailModel) => internalMail.id !== mail.id),
             );
         } catch (error) {
             this.logService.sendLog({
@@ -211,10 +224,10 @@ export class InternalMailsService {
         try {
             let unreadMails: number = 0;
 
-            this.mails$.next(this.modifyMails(mailsResponse.data));
+            this._mails$.next(this.modifyMails(mailsResponse.data));
 
             unreadMails = _filter(
-                this.mails$.getValue(),
+                this._mails$.getValue(),
                 (mail: InternalMailModel): boolean => mail.status === 'new',
             ).length;
 
@@ -252,7 +265,7 @@ export class InternalMailsService {
 
         this.eventService.subscribe({name: 'LOGOUT'}, () => {
             this.stopMailsFetcher();
-            this.mails$.next([]);
+            this._mails$.next([]);
             this.unreadMailsCount$.next(0);
         });
 

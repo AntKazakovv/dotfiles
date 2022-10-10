@@ -3,31 +3,30 @@ import {
 } from '@angular/core';
 
 import {BehaviorSubject} from 'rxjs';
-
 import _assign from 'lodash-es/assign';
 
-import {EventService} from 'wlc-engine/modules/core';
 import {
     TTransactionFilter,
     TTournamentsFilter,
     TBonusFilter,
     IHistoryData,
-    IFilterValue,
+    IHistoryFilterValue,
     IHistoryDefault,
-    IFinancesFilter,
+    IHistoryFilter,
 } from 'wlc-engine/modules/core/system/interfaces/history-filter.interface';
+import {EventService} from 'wlc-engine/modules/core/system/services/event/event.service';
 
 @Injectable({
     providedIn: 'root',
 })
 export class HistoryFilterService {
 
-    public dateChanges$ = new BehaviorSubject<IFinancesFilter<TTransactionFilter | string>>(null);
-    protected history: IHistoryData = {
-        transaction: new BehaviorSubject<IFinancesFilter<TTransactionFilter>>(null),
-        bet: new BehaviorSubject<IFinancesFilter>(null),
-        tournaments: new BehaviorSubject<IFilterValue<TTournamentsFilter>>(null),
-        bonus: new BehaviorSubject<IFilterValue<TBonusFilter>>(null),
+    public history: IHistoryData = {
+        transaction: new BehaviorSubject<IHistoryFilter<TTransactionFilter>>(null),
+        bet: new BehaviorSubject<IHistoryFilter>(null),
+        tournaments: new BehaviorSubject<IHistoryFilterValue<TTournamentsFilter>>(null),
+        bonus: new BehaviorSubject<IHistoryFilterValue<TBonusFilter>>(null),
+        mails: new BehaviorSubject<IHistoryFilter>(null),
     };
     protected historyDefault: IHistoryDefault = {
         transaction: {
@@ -46,13 +45,17 @@ export class HistoryFilterService {
         bonus: {
             filterValue: 'all',
         },
+        mails: {
+            startDate: null,
+            endDate: null,
+        },
     };
 
     constructor(protected eventService: EventService) {}
 
     /**
      * Get filter value
-     * 
+     *
      * @param type {T extends keyof IHistoryDefault}
      * @returns {BehaviorSubject<IHistoryDefault[T]>} - filter value
      */
@@ -62,7 +65,7 @@ export class HistoryFilterService {
 
     /**
      * Set filter value
-     * 
+     *
      * @param type {T extends keyof IHistoryDefault}
      * @param data {D extends IHistoryDefault[T]}
      */
@@ -72,7 +75,7 @@ export class HistoryFilterService {
 
     /**
      * Gets the filter's default values
-     * 
+     *
      * @param type {T extends keyof IHistoryDefault}
      * @returns {IHistoryDefault[T]} - filter default value
      */
@@ -82,11 +85,22 @@ export class HistoryFilterService {
 
     /**
      * Set default filter values
-     * 
+     *
      * @param type {T extends keyof IHistoryDefault}
      * @param data {IHistoryDefault[T]}
      */
     public setDefaultFilter<T extends keyof IHistoryDefault>(type: T, data: IHistoryDefault[T]): void {
         _assign(this.historyDefault[type], data);
+    }
+
+    /**
+     * Set default and current filters
+     *
+     * @param type {T extends keyof IHistoryDefault}
+     * @param data {IHistoryDefault[T]}
+     */
+    public setAllFilters<T extends keyof IHistoryDefault>(type: T, data: IHistoryDefault[T]): void {
+        this.setDefaultFilter(type, data);
+        this.setFilter(type, data);
     }
 }

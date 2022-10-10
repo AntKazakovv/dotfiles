@@ -7,13 +7,13 @@ import {
 } from 'wlc-engine/modules/core';
 import {IBonusHistory} from 'wlc-engine/modules/bonuses/system/interfaces/bonuses/bonuses.interface';
 
-export class HistoryItemModel extends AbstractModel<IBonusHistory> {
+export class BonusHistoryItemModel extends AbstractModel<IBonusHistory> {
 
     constructor(
         from: IFromLog,
         data: any,
     ) {
-        super({from: _assign({model: 'HistoryItemModel'}, from)});
+        super({from: _assign({model: 'BonusHistoryItemModel'}, from)});
         this.data = this.modifyData(data);
     }
 

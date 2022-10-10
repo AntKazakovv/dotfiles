@@ -1,5 +1,14 @@
 .wlc-internal-mails--theme-default:host {
 
+    .wlc-internal-mails__filter {
+        display: ef.get-value($themeDefault, 'filterDisplay');
+        grid-auto-columns: ef.get-value($themeDefault, 'filterGridAutoColumns');
+        grid-auto-flow: ef.get-value($themeDefault, 'filterGridAutoFlow');
+        gap: ef.get-value($themeDefault, 'filterGap');
+        align-items: ef.get-value($themeDefault, 'filterAlignItems');
+        margin: ef.get-value($themeDefault, 'filterMargin');
+    }
+
     .wlc-table::ng-deep {
 
         .wlc-table {

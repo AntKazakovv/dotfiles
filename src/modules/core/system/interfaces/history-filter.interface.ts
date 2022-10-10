@@ -11,23 +11,25 @@ export type TBonusFilter = 'all' | '-100' | '-99' | '100';
 export type TTransactionFilterType = ISelectCParams<TTransactionFilter> | IRadioButtonsCParams<TTransactionFilter>;
 
 export interface IHistoryData {
-    transaction: BehaviorSubject<IFinancesFilter>;
-    bet: BehaviorSubject<IFinancesFilter>;
-    tournaments: BehaviorSubject<IFilterValue<TTournamentsFilter>>;
-    bonus: BehaviorSubject<IFilterValue<TBonusFilter>>;
+    transaction: BehaviorSubject<IHistoryFilter>;
+    bet: BehaviorSubject<IHistoryFilter>;
+    tournaments: BehaviorSubject<IHistoryFilterValue<TTournamentsFilter>>;
+    bonus: BehaviorSubject<IHistoryFilterValue<TBonusFilter>>;
+    mails: BehaviorSubject<IHistoryFilter>;
 };
 
-export interface IFilterValue<T = string> {
+export interface IHistoryFilterValue<T = string> {
     filterValue: T;
 }
 
 export interface IHistoryDefault {
-    transaction: IFinancesFilter<TTransactionFilter>;
-    bet: IFinancesFilter;
-    tournaments: IFilterValue<TTournamentsFilter>;
-    bonus: IFilterValue<TBonusFilter>
+    transaction: IHistoryFilter<TTransactionFilter>;
+    bet: IHistoryFilter;
+    tournaments: IHistoryFilterValue<TTournamentsFilter>;
+    bonus: IHistoryFilterValue<TBonusFilter>;
+    mails: IHistoryFilter;
 }
-export interface IFinancesFilter<T = string> {
+export interface IHistoryFilter<T = string> {
     filterValue?: T;
     startDate?: DateTime;
     endDate?: DateTime;

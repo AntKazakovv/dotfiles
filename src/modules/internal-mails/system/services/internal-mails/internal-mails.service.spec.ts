@@ -8,6 +8,7 @@ import {TranslateService} from '@ngx-translate/core';
 
 import _assign from 'lodash-es/assign';
 import _find from 'lodash-es/find';
+import {first} from 'rxjs';
 
 import {
     ConfigService,
@@ -99,8 +100,13 @@ describe('InternalMailsService', (): void => {
         expect(internalMailsService).toBeTruthy();
     });
 
-    it('-> check mails number', (): void => {
-        expect(internalMailsService.mails$.getValue().length).toBe(5);
+    it('-> check mails number', (done): void => {
+        internalMailsService.mails$
+            .pipe(first())
+            .subscribe((mails: InternalMailModel[]): void => {
+                expect(mails.length).toBe(5);
+                done();
+            });
     });
 
     it('-> check unread count', (): void => {
@@ -114,34 +120,65 @@ describe('InternalMailsService', (): void => {
                 done();
             });
 
-        internalMailsService.markAsRead(internalMailsService.mails$.getValue()[0]);
+        internalMailsService.mails$
+            .pipe(first())
+            .subscribe((mails: InternalMailModel[]): void => {
+                internalMailsService.markAsRead(mails[0]);
+            });
     });
 
     it('-> check unreadMailsCount after markAsRead', fakeAsync((): void => {
-        internalMailsService.markAsRead(internalMailsService.mails$.getValue()[0]);
+        internalMailsService.mails$
+            .pipe(first())
+            .subscribe((mails: InternalMailModel[]): void => {
+                internalMailsService.markAsRead(mails[0]);
+            });
         flushMicrotasks();
 
         expect(internalMailsService.unreadMailsCount$.getValue()).toBe(3);
     }));
 
     it('-> check mails$.length after deleteMail', fakeAsync((): void => {
-        internalMailsService.deleteMail(internalMailsService.mails$.getValue()[0]);
+        internalMailsService.mails$
+            .pipe(first())
+            .subscribe((mails: InternalMailModel[]): void => {
+                internalMailsService.deleteMail(mails[0]);
+            });
         flushMicrotasks();
 
-        expect(internalMailsService.mails$.getValue().length).toBe(4);
+        internalMailsService.mails$
+            .pipe(first())
+            .subscribe((mails: InternalMailModel[]): void => {
+                expect(mails.length).toBe(4);
+            });
     }));
 
     it(
         '-> check that after deleteMail in emails$ there is no mail left with the corresponding id',
         fakeAsync((): void => {
-            const deletedMail: InternalMailModel = internalMailsService.mails$.getValue()[0];
+            let mailsList: InternalMailModel[];
+            let deletedMail: InternalMailModel;
+
+            internalMailsService.mails$
+                .pipe(first())
+                .subscribe((mails: InternalMailModel[]): void => {
+                    deletedMail = mails[0];
+                });
+            flushMicrotasks();
 
             internalMailsService.deleteMail(deletedMail);
             flushMicrotasks();
 
+            internalMailsService.mails$
+                .pipe(first())
+                .subscribe((mails: InternalMailModel[]): void => {
+                    mailsList = mails;
+                });
+            flushMicrotasks();
+
             expect(
                 _find(
-                    internalMailsService.mails$.getValue(),
+                    mailsList,
                     {id: deletedMail.id},
                 ),
             ).toBeUndefined();

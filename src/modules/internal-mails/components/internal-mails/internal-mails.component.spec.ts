@@ -9,11 +9,16 @@ import {
     TestBed,
 } from '@angular/core/testing';
 
+import {DateTime} from 'luxon';
 import {BehaviorSubject} from 'rxjs';
 
 import {
+    ActionService,
     ConfigService,
     Deferred,
+    DeviceType,
+    HistoryFilterService,
+    IHistoryFilter,
 } from 'wlc-engine/modules/core';
 import {
     InternalMailsService,
@@ -29,15 +34,27 @@ interface IInternalMailsServiceStub extends Partial<Omit<InternalMailsService, '
     mails$: BehaviorSubject<string[]>;
 }
 
-describe('OpenMailBtnComponent', (): void => {
+interface IHistoryFilterServiceStub 
+    extends Partial<Omit<HistoryFilterService, 'getFilter' | 'setAllFilters'>> {
+    setAllFilters(): void;
+    getFilter(): BehaviorSubject<IHistoryFilter<string>>;
+}
+
+interface IActionServiceStub extends Partial<ActionService> {
+    deviceTypeSubject: BehaviorSubject<DeviceType>;
+}
+
+describe('InternalMailsComponent', (): void => {
     let component: InternalMailsComponent;
     let fixture: ComponentFixture<InternalMailsComponent>;
     let nativeElement: HTMLElement;
     let injectParams: Params.IInternalMailsCParams;
     let defaultParams: Params.IInternalMailsCParams = Params.defaultParams;
 
-    let internalMailsServiceStub: IInternalMailsServiceStub;
     let configServiceStub: IConfigServiceStub;
+    let internalMailsServiceStub: IInternalMailsServiceStub;
+    let historyFilterServiceStub: IHistoryFilterServiceStub;
+    let actionServiceStub: IActionServiceStub;
 
     let configGetSpy: jasmine.Spy;
 
@@ -49,14 +66,32 @@ describe('OpenMailBtnComponent', (): void => {
             wlcElement: 'wlc-internal-mails',
         };
 
-        internalMailsServiceStub = {
-            mailsReady: new Deferred(),
-            mails$: new BehaviorSubject([]),
-        };
         configServiceStub = {
             get() {
                 return {};
             },
+        };
+        internalMailsServiceStub = {
+            mailsReady: new Deferred(),
+            mails$: new BehaviorSubject([]),
+        };
+        historyFilterServiceStub = {
+            setAllFilters() {},
+            getFilter() {
+                return new BehaviorSubject({
+                    startDate: DateTime.local(),
+                    endDate: DateTime.local().endOf('day'),
+                });
+            },
+        };
+        actionServiceStub = {
+            getDeviceType() {
+                return DeviceType.Desktop;
+            },
+            deviceType() {
+                return this.deviceTypeSubject.asObservable();
+            },
+            deviceTypeSubject: new BehaviorSubject(DeviceType.Desktop),
         };
 
         TestBed.configureTestingModule({
@@ -64,10 +99,14 @@ describe('OpenMailBtnComponent', (): void => {
                 InternalMailsComponent,
                 TableComponent,
                 WrapperComponent,
+                DatepickerComponent,
+                LoaderComponent,
             ],
             providers: [
                 {provide: InternalMailsService, useValue: internalMailsServiceStub},
                 {provide: ConfigService, useValue: configServiceStub},
+                {provide: ActionService, useValue: actionServiceStub},
+                {provide: HistoryFilterService, useValue: historyFilterServiceStub},
                 {provide: 'injectParams', useValue: injectParams},
             ],
         });
@@ -87,15 +126,21 @@ describe('OpenMailBtnComponent', (): void => {
         expect(component).toBeDefined();
     });
 
-    it('-> check tableData.switchWidth in first profile', (): void => {
+    it('-> check tableData.switchWidth in first profile', fakeAsync((): void => {
         setup(true);
-        expect(component.tableData.switchWidth).toBe(1200);
-    });
+        internalMailsServiceStub.mailsReady.resolve();
+        flushMicrotasks();
 
-    it('-> check tableData.switchWidth in default profile', (): void => {
+        expect(component.tableData.switchWidth).toBe(1200);
+    }));
+
+    it('-> check tableData.switchWidth in default profile', fakeAsync((): void => {
         setup();
+        internalMailsServiceStub.mailsReady.resolve();
+        flushMicrotasks();
+
         expect(component.tableData.switchWidth).toBe(1024);
-    });
+    }));
 
     it('-> check loader at start', (): void => {
         setup();
@@ -108,6 +153,8 @@ describe('OpenMailBtnComponent', (): void => {
         setup();
         internalMailsServiceStub.mailsReady.resolve();
         flushMicrotasks();
+        internalMailsServiceStub.mails$.next([]);
+        flushMicrotasks();
 
         expect(nativeElement.querySelector('[wlc-loader]')).not.toEqual(jasmine.anything());
         expect(nativeElement.querySelector(`.${defaultParams.class}__empty`)).toEqual(jasmine.anything());
@@ -117,12 +164,36 @@ describe('OpenMailBtnComponent', (): void => {
     it('-> check wlc-table after mailsReady with mails$.langth !== 0', fakeAsync((): void => {
         setup();
         internalMailsServiceStub.mailsReady.resolve();
+        flushMicrotasks();
         internalMailsServiceStub.mails$.next(['mail-1', 'mail-2']);
         flushMicrotasks();
 
         expect(nativeElement.querySelector('[wlc-loader]')).not.toEqual(jasmine.anything());
         expect(nativeElement.querySelector(`${defaultParams.class}__empty`)).not.toEqual(jasmine.anything());
         expect(nativeElement.querySelector('[wlc-table]')).toEqual(jasmine.anything());
+    }));
+
+    it('-> check 2 wlc-datepickers on desktop', fakeAsync((): void => {
+        setup();
+        internalMailsServiceStub.mailsReady.resolve();
+        flushMicrotasks();
+        internalMailsServiceStub.mails$.next([]);
+        flushMicrotasks();
+
+        expect(nativeElement.querySelectorAll('[wlc-datepicker]').length).toBe(2);
+    }));
+
+    it('-> make sure there is no wlc-datepickers after changing DeviceType', fakeAsync((): void => {
+        setup();
+        internalMailsServiceStub.mailsReady.resolve();
+        flushMicrotasks();
+        internalMailsServiceStub.mails$.next([]);
+        flushMicrotasks();
+
+        actionServiceStub.deviceTypeSubject.next(DeviceType.Mobile);
+        flushMicrotasks();
+
+        expect(nativeElement.querySelectorAll('[wlc-datepicker]').length).toBe(0);
     }));
 });
 
@@ -135,3 +206,10 @@ class TableComponent {
 class WrapperComponent {
     @Input() inlineParams;
 }
+
+@Component({selector: '[wlc-datepicker]'})
+class DatepickerComponent {
+    @Input() inlineParams;
+}
+@Component({selector: '[wlc-loader]'})
+class LoaderComponent {}

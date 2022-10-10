@@ -1,3 +1,4 @@
+import {IHistoryDefault} from 'wlc-engine/modules/core';
 import {
     IComponentParams,
     CustomType,
@@ -7,6 +8,10 @@ export type Theme = 'default' | CustomType;
 export type Type = 'default' | CustomType;
 export type ThemeMod = 'default' | CustomType;
 
-export const defaultParams: IComponentParams<any, any, any> = {
+export interface IHistoryRangeCParams extends IComponentParams<Theme, Type, ThemeMod> {
+    historyType: keyof IHistoryDefault;
+}
+
+export const defaultParams: Partial<IHistoryRangeCParams> = {
     class: 'wlc-history-range',
 };

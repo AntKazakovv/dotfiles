@@ -77,6 +77,7 @@ import {FormControlComponent} from './components/form-control/form-control.compo
 import {FormWrapperComponent} from './components/form-wrapper/form-wrapper.component';
 import {HistoryNameComponent} from './components/table/components/history-name/history-name.component';
 import {HistoryFilterComponent} from './components/history-filter/history-filter.component';
+import {HistoryRangeComponent} from './components/history-range/history-range.component';
 import {
     HistoryFilterFormComponent,
 } from './components/history-filter/history-filter-form/history-filter-form.component';
@@ -185,6 +186,7 @@ export const components = {
     'wlc-form-wrapper': FormWrapperComponent,
     'wlc-history-name': HistoryNameComponent,
     'wlc-history-filter': HistoryFilterComponent,
+    'wlc-history-range': HistoryRangeComponent,
     'wlc-icon': IconComponent,
     'wlc-icon-list': IconListComponent,
     'wlc-icon-payments-list': IconPaymentsListComponent,
@@ -253,6 +255,7 @@ export const services = {
         ConfigService,
         FilesService,
         ForbiddenCountryService,
+        HistoryFilterService,
         HooksService,
         LogService,
         ActionService,
@@ -319,6 +322,7 @@ export const services = {
         HistoryNameComponent,
         HistoryFilterComponent,
         HistoryFilterFormComponent,
+        HistoryRangeComponent,
         IconComponent,
         IconListComponent,
         IconMerchantsListComponent,
@@ -405,6 +409,7 @@ export const services = {
         InfoPageComponent,
         InputComponent,
         InputMaskDirective,
+        HistoryRangeComponent,
         LanguageSelectorComponent,
         LayoutComponent,
         LicenseComponent,

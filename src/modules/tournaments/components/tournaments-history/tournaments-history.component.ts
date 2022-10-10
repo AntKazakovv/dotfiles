@@ -3,6 +3,7 @@ import {
     OnInit,
     ChangeDetectorRef,
     Inject,
+    ChangeDetectionStrategy,
 } from '@angular/core';
 
 import {BehaviorSubject} from 'rxjs';
@@ -31,7 +32,7 @@ import {
 } from 'wlc-engine/modules/core/system/services/history-filter/history-filter.service';
 import {
     TTournamentsFilter,
-    IFilterValue,
+    IHistoryFilterValue,
 } from 'wlc-engine/modules/core/system/interfaces/history-filter.interface';
 import {
     TournamentHistory,
@@ -45,6 +46,7 @@ import * as Params from './tournaments-history.params';
     selector: '[wlc-tournaments-history]',
     templateUrl: './tournaments-history.component.html',
     styleUrls: ['./styles/tournaments-history.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TournamentsHistoryComponent extends AbstractComponent implements OnInit {
 
@@ -78,12 +80,13 @@ export class TournamentsHistoryComponent extends AbstractComponent implements On
         const profileType: ProfileType = this.configService.get<ProfileType>('$base.profile.type') || 'default';
         await this.tournamentsService.queryTournaments(true, 'history');
         this.showFilter = this.actionService.getDeviceType() === DeviceType.Desktop;
+
+        if (this.showFilter) {
+            this.filterHandlers();
+        }
         this.setSubscription();
 
-        this.historyFilterService.setDefaultFilter('tournaments', {
-            filterValue: this.filterValue,
-        });
-        this.historyFilterService.setFilter('tournaments', {
+        this.historyFilterService.setAllFilters('tournaments', {
             filterValue: this.filterValue,
         });
         this.tableData = {
@@ -96,7 +99,7 @@ export class TournamentsHistoryComponent extends AbstractComponent implements On
         this.tournaments$.next(this.tournamentsFilter());
 
         this.ready = true;
-        this.cdr.markForCheck();
+        this.cdr.detectChanges();
     }
 
     protected tournamentsFilter(): TournamentHistory[] {
@@ -116,10 +119,12 @@ export class TournamentsHistoryComponent extends AbstractComponent implements On
             .pipe(
                 takeUntil(this.$destroy),
                 filter(
-                    (data: IFilterValue<TTournamentsFilter>): boolean => !!data && this.filterValue != data.filterValue,
+                    (data: IHistoryFilterValue<TTournamentsFilter>): boolean => {
+                        return !!data && this.filterValue !== data.filterValue;
+                    },
                 ),
             )
-            .subscribe((data: IFilterValue<TTournamentsFilter>): void => {
+            .subscribe((data: IHistoryFilterValue<TTournamentsFilter>): void => {
                 this.filterSelect.control.setValue(this.filterValue = data.filterValue);
                 this.tournaments$.next(this.tournamentsFilter());
             });
@@ -130,6 +135,17 @@ export class TournamentsHistoryComponent extends AbstractComponent implements On
                 this.allTournaments = value;
             });
 
+        this.filterHandlers();
+
+        this.actionService.deviceType()
+            .pipe(takeUntil(this.$destroy))
+            .subscribe((type: DeviceType): void => {
+                this.showFilter = type === DeviceType.Desktop;
+                this.cdr.detectChanges();
+            });
+    }
+
+    protected filterHandlers(): void {
         this.filterSelect.control.valueChanges
             .pipe(
                 takeUntil(this.$destroy),
@@ -140,13 +156,6 @@ export class TournamentsHistoryComponent extends AbstractComponent implements On
                     filterValue: this.filterValue = filterValue,
                 });
                 this.tournaments$.next(this.tournamentsFilter());
-            });
-
-        this.actionService.deviceType()
-            .pipe(takeUntil(this.$destroy))
-            .subscribe((type: DeviceType): void => {
-                this.showFilter = type === DeviceType.Desktop;
-                this.cdr.detectChanges();
             });
     }
 }

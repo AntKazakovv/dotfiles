@@ -18,14 +18,12 @@ import {BetHistoryComponent} from 'wlc-engine/modules/profile/components/bet-his
 import {
     BetPreviewComponent,
 } from './components/bet-history/bet-preview/bet-preview.component';
-import {HistoryRangeComponent} from './components/history-range/history-range.component';
 
 export const components = {
     'wlc-profile-no-content': ProfileNoContentComponent,
     'wlc-verification': VerificationComponent,
     'wlc-shufti-pro-kycaml': ShuftiProKycamlComponent,
     'wlc-bet-history': BetHistoryComponent,
-    'wlc-history-range': HistoryRangeComponent,
 };
 
 @NgModule({
@@ -35,7 +33,6 @@ export const components = {
         VerificationGroupComponent,
         BetHistoryComponent,
         BetPreviewComponent,
-        HistoryRangeComponent,
         ProfileNoContentComponent,
     ],
     imports: [
@@ -48,7 +45,6 @@ export const components = {
         VerificationService,
     ],
     exports: [
-        HistoryRangeComponent,
         ProfileNoContentComponent,
     ],
 })

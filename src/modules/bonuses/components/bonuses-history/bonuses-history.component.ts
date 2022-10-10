@@ -3,12 +3,14 @@ import {
     OnInit,
     ChangeDetectorRef,
     Inject,
+    ChangeDetectionStrategy,
 } from '@angular/core';
 
 import {BehaviorSubject} from 'rxjs';
 import {
     filter,
     takeUntil,
+    takeWhile,
 } from 'rxjs/operators';
 import {DateTime} from 'luxon';
 import _orderBy from 'lodash-es/orderBy';
@@ -26,11 +28,13 @@ import {
     InjectionService,
     HistoryFilterService,
     TBonusFilter,
-    IFilterValue,
+    IHistoryFilterValue,
 } from 'wlc-engine/modules/core';
 import {bonusesConfig} from 'wlc-engine/modules/core/system/config/history.config';
 import {BonusesService} from 'wlc-engine/modules/bonuses/system/services/bonuses/bonuses.service';
-import {HistoryItemModel} from 'wlc-engine/modules/bonuses/system/models/bonus-history-item/bonus-history-item.model';
+import {
+    BonusHistoryItemModel,
+} from 'wlc-engine/modules/bonuses/system/models/bonus-history-item/bonus-history-item.model';
 
 import * as Params from './bonuses-history.params';
 
@@ -38,6 +42,7 @@ import * as Params from './bonuses-history.params';
     selector: '[wlc-bonuses-history]',
     templateUrl: './bonuses-history.component.html',
     styleUrls: ['./styles/bonuses-history.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BonusesHistoryComponent extends AbstractComponent implements OnInit {
 
@@ -46,9 +51,10 @@ export class BonusesHistoryComponent extends AbstractComponent implements OnInit
     public $params: Params.IBonusesHistoryCParams;
     public tableData: ITableCParams;
     public filterSelect: ISelectCParams<TBonusFilter> = bonusesConfig.filterSelect;
-    public bonuses$: BehaviorSubject<HistoryItemModel[]> = new BehaviorSubject([]);
+    public bonuses$: BehaviorSubject<BonusHistoryItemModel[]> = new BehaviorSubject([]);
+
     protected filterValue: TBonusFilter = 'all';
-    protected allBonuses: HistoryItemModel[] = [];
+    protected allBonuses: BonusHistoryItemModel[] = [];
     protected historyFilterService: HistoryFilterService;
 
     constructor(
@@ -73,14 +79,16 @@ export class BonusesHistoryComponent extends AbstractComponent implements OnInit
         this.showFilter = this.actionService.getDeviceType() === DeviceType.Desktop;
         this.historyFilterService
             = await this.injectionService.getService<HistoryFilterService>('core.history-filter');
+
+        if (this.showFilter) {
+            this.filterHandlers();
+        }
         this.setSubscription();
 
-        this.historyFilterService.setDefaultFilter('bonus', {
+        this.historyFilterService.setAllFilters('bonus', {
             filterValue: this.filterValue,
         });
-        this.historyFilterService.setFilter('bonus', {
-            filterValue: this.filterValue,
-        });
+
         this.tableData = {
             head: Params.bonusHistoryTableHeadConfig,
             rows: this.bonuses$,
@@ -90,55 +98,67 @@ export class BonusesHistoryComponent extends AbstractComponent implements OnInit
         this.bonuses$.next(this.bonusesFilter());
 
         this.ready = true;
-        this.cdr.markForCheck();
+        this.cdr.detectChanges();
     }
 
-    protected bonusesFilter(): HistoryItemModel[] {
-        let result: HistoryItemModel[] = this.allBonuses || [];
+    protected bonusesFilter(): BonusHistoryItemModel[] {
+        let result: BonusHistoryItemModel[] = this.allBonuses || [];
 
         if (this.filterValue !== 'all') {
-            result = _filter(result, (item: HistoryItemModel): boolean => {
+            result = _filter(result, (item: BonusHistoryItemModel): boolean => {
                 return item.Status === this.filterValue;
             });
         }
 
-        return _orderBy(result, (item: HistoryItemModel): number => DateTime.fromSQL(item.End).toSeconds(), 'desc');
+        return _orderBy(
+            result,
+            (item: BonusHistoryItemModel): number => DateTime.fromSQL(item.End).toSeconds(), 'desc',
+        );
     }
 
     protected setSubscription(): void {
         this.historyFilterService.getFilter('bonus')
             .pipe(
                 takeUntil(this.$destroy),
-                filter((data: IFilterValue<TBonusFilter>): boolean => !!data && this.filterValue != data.filterValue),
+                filter(
+                    (data: IHistoryFilterValue<TBonusFilter>): boolean => {
+                        return !!data && this.filterValue !== data.filterValue;
+                    },
+                ),
             )
-            .subscribe((data: IFilterValue<TBonusFilter>): void => {
+            .subscribe((data: IHistoryFilterValue<TBonusFilter>): void => {
                 this.filterSelect.control.setValue(this.filterValue = data.filterValue);
                 this.bonuses$.next(this.bonusesFilter());
             });
 
-        this.bonusesService.getObserver<HistoryItemModel>('history')
+        this.bonusesService.getObserver<BonusHistoryItemModel>('history')
             .pipe(takeUntil(this.$destroy))
-            .subscribe((bonuses: HistoryItemModel[]): void => {
+            .subscribe((bonuses: BonusHistoryItemModel[]): void => {
                 this.allBonuses = bonuses;
             });
 
-        this.filterSelect.control.valueChanges
-            .pipe(
-                takeUntil(this.$destroy),
-                filter((filterValue: TBonusFilter): boolean => this.filterValue != filterValue),
-            )
-            .subscribe((filterValue: TBonusFilter): void => {
-                this.historyFilterService.setFilter('bonus', {
-                    filterValue: this.filterValue = filterValue,
-                });
-                this.bonuses$.next(this.bonusesFilter());
-            });
+        this.filterHandlers();
 
         this.actionService.deviceType()
             .pipe(takeUntil(this.$destroy))
             .subscribe((type: DeviceType): void => {
                 this.showFilter = type === DeviceType.Desktop;
                 this.cdr.detectChanges();
+            });
+    }
+
+    protected filterHandlers(): void {
+        this.filterSelect.control.valueChanges
+            .pipe(
+                filter((filterValue: TBonusFilter): boolean => this.filterValue !== filterValue),
+                takeWhile(() => this.showFilter),
+                takeUntil(this.$destroy),
+            )
+            .subscribe((filterValue: TBonusFilter): void => {
+                this.historyFilterService.setFilter('bonus', {
+                    filterValue: this.filterValue = filterValue,
+                });
+                this.bonuses$.next(this.bonusesFilter());
             });
     }
 }

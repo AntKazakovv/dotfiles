@@ -1,5 +1,11 @@
 $customThemeDefault: () !default;
 $themeDefault: map-merge((
+    'filterDisplay': grid,
+    'filterGridAutoColumns': max-content,
+    'filterGridAutoFlow': column,
+    'filterGap': ef.size(3),
+    'filterAlignItems': flex-end,
+    'filterMargin': 0 0 ef.size(4),
     'subjectGridColumns': 2fr 3fr,
     'subjectMaxWidthThemeDef': (
         1024: 450px,
