@@ -65,6 +65,7 @@
 
                 &--aff {
                     @include bm.get-mq-map('margin', $theme1Footer, 'affBtnMargin');
+                    @include bm.get-mq-map('justify-self', $theme1Footer, 'affBtnJustifySelf');
                     grid-area: affiliate;
                 }
             }
@@ -72,6 +73,7 @@
             .wlc-social-icons {
 
                 &.wlc-social-icons--theme-mod-compact {
+                    @include bm.get-mq-map('justify-self', $theme1Footer, 'socialIconsCompactJustifySelfWithAff');
 
                     .wlc-social-icons {
 
@@ -80,6 +82,10 @@
                         }
                     }
                 }
+            }
+
+            .wlc-footer-lang {
+                @include bm.get-mq-map('justify-self', $theme1Footer, 'affFooterLangJustifySelf');
             }
         }
     }

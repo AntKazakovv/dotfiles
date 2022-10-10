@@ -86,8 +86,9 @@ $theme1Footer: map-merge((
         768:
         'merchants merchants merchants'
         'payments payments payments'
-        'logo menu language' 'social social social'
+        'logo menu language'
         'affiliate affiliate affiliate'
+        'social social social'
         'disclaimer disclaimer disclaimer'
         'license license license',
         1024:
@@ -192,18 +193,33 @@ $theme1Footer: map-merge((
     'langGap': ef.size(2),
     'langAlignSelf': baseline,
 
-    //margin for affiliate button
+    // affiliate button
     'affBtnMargin': (
         375: ef.size(4) 0 ef.size(4) 0,
         1024: 0,
         1200: ef.size(-7) 0,
     ),
+    'affBtnJustifySelf': (
+        375: center,
+        1024: right,
+    ),
 
-    //margin for social icon in footer with affiliate button
+    // social icons in footer with affiliate button
     'compactListMarginWithAff': (
         375: ef.size(4) 0 0,
         900: 0,
         1200: ef.size(-6) 0 0,
+    ),
+    'socialIconsCompactJustifySelfWithAff': (
+        375: center,
+        1024: right,
+        1200: left,
+    ),
+
+    // lang selector
+    'affFooterLangJustifySelf': (
+        375: center,
+        1024: right,
     ),
 
 ), $customTheme1Footer);
