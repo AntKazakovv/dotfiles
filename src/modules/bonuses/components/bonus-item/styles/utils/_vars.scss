@@ -271,7 +271,7 @@ $themeDefault: map-merge((
     'overlayOpacity': 0,
     'overlayOpacityHover': 0.5,
 
-    'withImgWrapperBg': none,
+    'withImgWrapperBg': linear-gradient(0deg, var(--mc-bgModal) 0%, var(--mc-bgModal-o0) 95%),
     'withImgOverlayOpacityHover': 1,
 
     // View-mode backgrounds

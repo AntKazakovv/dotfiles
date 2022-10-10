@@ -20,10 +20,10 @@
             align-content: ef.get-value($themePartial, 'bodyAlignContent');
             justify-items: ef.get-value($themePartial, 'bodyJustifyItems');
             margin: ef.get-value($themePartial, 'bodyMarign');
-
-            border-radius: ef.get-value($themePartial, 'bodyRadius');
             text-align: ef.get-value($themePartial, 'bodyTextAlign');
+            background-position: ef.get-value($themePartial, 'bodyBackgroundPosition');
             background-size: ef.get-value($themePartial, 'bodyBackgroundSize');
+            border-radius: ef.get-value($themePartial, 'bodyRadius');
 
             &.with-image:before {
                 content: '';
@@ -131,6 +131,13 @@
             @include bm.lineClamp(4);
 
             text-align: center;
+        }
+    }
+
+    &.wlc-bonus-item--without-bonus-icon {
+
+        .wlc-bonus-item__body {
+            align-content: ef.get-value($themePartial, 'bodyAlignContentWithoutIcon');
         }
     }
 

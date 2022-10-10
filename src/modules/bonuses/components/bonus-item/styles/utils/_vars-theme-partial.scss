@@ -23,6 +23,7 @@ $themePartial: map-merge((
     'bodyRowOffset': ef.size(3),
     'bodyColOffset': 0,
     'bodyAlignContent': baseline,
+    'bodyAlignContentWithoutIcon': end,
     'bodyJustifyItems': center,
     'bodyTextAlign': center,
     'bodyMarign': auto,
@@ -36,7 +37,8 @@ $themePartial: map-merge((
         900: transparent,
     ),
     'bodyBackgroundSize': cover,
-    'bodyWithImageBeforeGradient': linear-gradient(180deg, var(--mc-baseContrast-o0) 0%, #0a2d62 100%),
+    'bodyBackgroundPosition': center,
+    'bodyWithImageBeforeGradient': linear-gradient(180deg, var(--mc-baseContrast-o0) 0%, var(--mc-baseContrast) 100%),
 
     'footerDisplay': (
         320: block,

@@ -297,8 +297,18 @@ export class BonusItemComponent extends AbstractComponent implements OnInit, OnC
         };
     }
 
+    /**
+     * showing or not the bonus icon
+     *
+     * @returns {boolean}
+     */
+    public get isShowBonusIcon(): boolean {
+        return (!this.asProfileTypeFirst && this.useIconBonusImage)
+            || (this.$params.theme === 'partial' && !_includes(this.$params?.modifiers, 'mobile-reg'));
+    }
+
     protected prepareModifiers(): void {
-        let modifiers: Params.Modifiers[] = [];
+        let modifiers: Params.Modifiers[] = this.$params?.modifiers || [];
         modifiers.push(`view-${this.bonus?.viewTarget || 'default'}`);
 
         if (this.$params.common?.customModifiers) {
@@ -307,10 +317,7 @@ export class BonusItemComponent extends AbstractComponent implements OnInit, OnC
         this.addModifiers(modifiers);
 
         if (this.asProfileTypeFirst) {
-            this.useIconBonusImage = false;
             this.addModifiers('theme-mod-with-image');
-        } else if (this.$params.theme === 'partial') {
-            this.useIconBonusImage = true;
         }
 
         if (!this.bonus?.description) {
@@ -323,6 +330,10 @@ export class BonusItemComponent extends AbstractComponent implements OnInit, OnC
 
         if (!this.bonus?.tag && !this.selectedTag) {
             this.addModifiers('no-tag');
+        }
+
+        if (!this.useIconBonusImage) {
+            this.addModifiers('without-bonus-icon');
         }
     }
 }

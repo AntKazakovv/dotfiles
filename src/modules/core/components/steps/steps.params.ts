@@ -280,6 +280,9 @@ export const defaultParams: IStepsParams = {
                                         useBlankBonus: true,
                                         swiper: bonusesSwiperParams,
                                     },
+                                    itemsParams: {
+                                        modifiers: ['mobile-reg'],
+                                    },
                                     btnNoBonuses: {
                                         use: false,
                                     },

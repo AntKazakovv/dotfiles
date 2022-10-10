@@ -59,10 +59,6 @@
 
         .wlc-bonus-item {
 
-            &__content {
-                background-image: none !important;
-            }
-
             &__wrapper {
                 display: block;
                 background: ef.get-value($themeLootbox, 'withImgWrapperBg');

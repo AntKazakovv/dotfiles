@@ -334,13 +334,13 @@
 
         .wlc-bonus-item {
 
-            &__content {
-                background-image: none !important;
-            }
-
             &__wrapper {
                 display: block;
                 background: ef.get-value($themeDefault, 'withImgWrapperBg');
+
+                &:before {
+                    display: none;
+                }
             }
 
             &__image-block {

@@ -25,10 +25,6 @@
                     {{'Without bonus' | translate}}
                 </ng-container>
 
-                <ng-container *ngIf="!useIconBonusImage && bonus.id"
-                    [ngTemplateOutlet]="bonusImage">
-                </ng-container>
-
                 <ng-container *ngIf="bonus.id"
                     [ngTemplateOutlet]="bonusIcon">
                 </ng-container>
@@ -66,7 +62,6 @@
         <div class="{{$class}}__wrapper">
             <div class="{{$class}}__image-block" data-wlc-element="bonus_image">
                 <ng-container [ngTemplateOutlet]="bonusTag"></ng-container>
-                <ng-container *ngIf="!useIconBonusImage" [ngTemplateOutlet]="bonusImage"></ng-container>
                 <ng-container [ngTemplateOutlet]="bonusIcon"></ng-container>
                 <ng-container [ngTemplateOutlet]="moreIcon"></ng-container>
             </div>
@@ -279,7 +274,7 @@
         <div class="{{$class}}__wrapper">
             <div class="{{$class}}__image-block" data-wlc-element="bonus_image">
                 <ng-container [ngTemplateOutlet]="bonusTag"></ng-container>
-                <ng-container *ngIf="!useIconBonusImage" [ngTemplateOutlet]="bonusImage"></ng-container>
+                <ng-container [ngTemplateOutlet]="bonusImage"></ng-container>
                 <ng-container [ngTemplateOutlet]="bonusIcon"></ng-container>
                 <ng-container [ngTemplateOutlet]="moreIcon"></ng-container>
 
@@ -366,8 +361,7 @@
          data-wlc-element="block_bonus">
         <div class="{{$class}}__wrapper">
             <div class="{{$class}}__image-block" data-wlc-element="bonus_image">
-                <ng-container *ngIf="!useIconBonusImage" [ngTemplateOutlet]="bonusImage"></ng-container>
-                <ng-container *ngIf="!asProfileTypeFirst" [ngTemplateOutlet]="bonusIcon"></ng-container>
+                <ng-container [ngTemplateOutlet]="bonusIcon"></ng-container>
                 <ng-container [ngTemplateOutlet]="moreIcon"></ng-container>
             </div>
             <div class="{{$class}}__bottom" data-wlc-element="bonus_info">
@@ -406,7 +400,7 @@
 </ng-template>
 
 <ng-template #bonusIcon>
-    <div *ngIf="useIconBonusImage"
+    <div *ngIf="isShowBonusIcon"
         class="{{$class}}__icon">
         <span *ngIf="bonus.isChoose && $params.theme === 'partial'"
                 class="{{$class}}__check-icon">
