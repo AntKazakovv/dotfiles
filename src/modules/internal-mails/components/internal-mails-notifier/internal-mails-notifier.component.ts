@@ -15,7 +15,6 @@ import {
     ConfigService,
     IMixedParams,
     AbstractComponent,
-    DataService,
 } from 'wlc-engine/modules/core';
 import {ICounterCParams} from 'wlc-engine/modules/core/components/counter/counter.params';
 import {
@@ -43,7 +42,6 @@ export class InternalMailsNotifierComponent extends AbstractComponent implements
         protected internalMailsService: InternalMailsService,
         protected cdr: ChangeDetectorRef,
         protected configService: ConfigService,
-        protected dataService: DataService,
     ) {
         super(
             <IMixedParams<Params.IInternalMailsNotifierCParams>>{
