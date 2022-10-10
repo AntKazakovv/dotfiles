@@ -11,7 +11,6 @@ import {BehaviorSubject} from 'rxjs';
 import {first} from 'rxjs/operators';
 import _each from 'lodash-es/each';
 import _set from 'lodash-es/set';
-import _get from 'lodash-es/get';
 import _size from 'lodash-es/size';
 
 import {
@@ -235,8 +234,7 @@ export class LimitationsComponent extends AbstractComponent implements OnInit {
      */
     private async patchLimitTypeItems(): Promise<void> {
         const types: ILimitationTypeItem[] = this.configService
-            .get<ILimitationTypeItem[]>('$base.profile.limitations.include')
-            || _get(Params, 'limitType.params.items');
+            .get<ILimitationTypeItem[]>('$base.profile.limitations.limitTypes');
 
         if (_size(types)) {
             _set(Params, 'limitType.params.items', types);
@@ -247,7 +245,7 @@ export class LimitationsComponent extends AbstractComponent implements OnInit {
         this.loading = true;
         const limits = [];
         await this.userService.userProfile$.pipe(first((v) => !!v)).toPromise();
-        if (this.userService.userProfile.extProfile.realityCheckTime) {
+        if (this.userService.userProfile.extProfile.realityCheckTime && this.limitationService.realityCheckEnabled) {
             limits.push({
                 type: 'realityChecker',
                 typeText: gettext('Reality checker'),

@@ -56,7 +56,6 @@ export class FeedbackFormComponent extends AbstractComponent implements OnInit, 
 
     public ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
-
         this.contactsConfig = this.configService.get<IContactsConfig>('$base.contacts');
     }
 

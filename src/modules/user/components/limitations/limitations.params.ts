@@ -3,7 +3,6 @@ import {
     ISelectCParams,
     IInputCParams,
     IButtonCParams,
-    TIndexingLimitTypeItems,
     IWrapperCParams,
     ITableCol,
     ProhibitedPatterns,
@@ -67,29 +66,6 @@ export const tableConfig: ITableCol[] = [
     },
 ];
 
-export const limitTypeItems: TIndexingLimitTypeItems = {
-    MaxDepositSum: {
-        title: gettext('Deposit limit'),
-        value: 'MaxDepositSum',
-    },
-    MaxBetSum: {
-        title: gettext('Wager limit'),
-        value: 'MaxBetSum',
-    },
-    MaxLossSum: {
-        title: gettext('Loss limit'),
-        value: 'MaxLossSum',
-    },
-    realityChecker: {
-        title: gettext('Reality checker'),
-        value: 'realityChecker',
-    },
-    timeOut: {
-        title: gettext('Time out'),
-        value: 'timeOut',
-    },
-};
-
 export const limitType = {
     name: 'core.wlc-select',
     params: <ISelectCParams>{
@@ -101,13 +77,6 @@ export const limitType = {
         },
         validators: ['required'],
         locked: false,
-        items: [
-            limitTypeItems.MaxDepositSum,
-            limitTypeItems.MaxBetSum,
-            limitTypeItems.MaxLossSum,
-            limitTypeItems.realityChecker,
-            limitTypeItems.timeOut,
-        ],
     },
 };
 

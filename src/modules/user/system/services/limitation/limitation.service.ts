@@ -1,18 +1,27 @@
 import {Injectable} from '@angular/core';
-import {DateTime} from 'luxon';
-import {BehaviorSubject, timer, Subscription} from 'rxjs';
-import {filter} from 'rxjs/operators';
-import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
-import {EventService} from 'wlc-engine/modules/core/system/services/event/event.service';
-import {ModalService} from 'wlc-engine/modules/core/system/services/modal/modal.service';
-import {ILimitationExclusion} from 'wlc-engine/modules/core/system/interfaces';
-import {IPushMessageParams} from 'wlc-engine/modules/core/system/services/notification/notification.interface';
-import {NotificationEvents} from 'wlc-engine/modules/core/system/services/notification/notification.service';
-import {DataService} from 'wlc-engine/modules/core/system/services/data/data.service';
-import {IData} from 'wlc-engine/modules/core/system/services/data/data.service';
-import {UserProfile} from 'wlc-engine/modules/user/system/models/profile.model';
 
+import {
+    timer,
+    Subscription,
+    BehaviorSubject,
+} from 'rxjs';
+import {filter} from 'rxjs/operators';
+import {DateTime} from 'luxon';
 import _isArray from 'lodash-es/isArray';
+import _find from 'lodash-es/find';
+
+import {
+    ConfigService,
+    ModalService,
+    EventService,
+    DataService,
+    IData,
+    ILimitationExclusion,
+    IPushMessageParams,
+    NotificationEvents,
+} from 'wlc-engine/modules/core';
+
+import {UserProfile} from 'wlc-engine/modules/user/system/models/profile.model';
 
 export interface ISelfExclusion {
     Currency: string;
@@ -76,6 +85,7 @@ export class LimitationService {
     private loginTime: number;
     private lastCheck: number;
     private intervalChecker: Subscription;
+    private useRealityCheck: boolean = false;
 
     constructor(
         private dataService: DataService,
@@ -83,7 +93,22 @@ export class LimitationService {
         private eventService: EventService,
         private modalService: ModalService,
     ) {
+        if (this.configService.get('$base.profile.limitations.use')) {
+            this.useRealityCheck = !!_find(
+                this.configService.get('$base.profile.limitations.limitTypes'),
+                ['value', 'realityChecker'],
+            );
+        }
         this.registerMethod();
+    }
+
+    /**
+     * Get realityCheck status
+     *
+     * @return {boolean} True if reality check enabled
+     */
+    public get realityCheckEnabled(): boolean {
+        return this.useRealityCheck;
     }
 
     /**
@@ -95,7 +120,7 @@ export class LimitationService {
      * @return {Promise}
      */
     public async initRealityChecker(userProfile$: BehaviorSubject<UserProfile>, force?: boolean): Promise<void> {
-        if (this.configService.get<boolean>('$base.profile.limitations.use')) {
+        if (this.realityCheckEnabled) {
             userProfile$.pipe(filter((v) => !!v)).subscribe((userProfile) => {
                 this.checkPeriod = (parseInt(userProfile.extProfile.realityCheckTime) || 30) * 60 * 1000;
             });

@@ -27,7 +27,7 @@ export interface ILimitationsConfig {
     /**
     * Allows you to include some types of limits
     */
-    include?: ILimitationTypeItem[];
+    limitTypes?: ILimitationTypeItem[];
 }
 
 export interface IProfileConfig {
