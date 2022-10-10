@@ -1,3 +1,11 @@
+import _get from 'lodash-es/get';
+import _isArray from 'lodash-es/isArray';
+import _toNumber from 'lodash-es/toNumber';
+import _each from 'lodash-es/each';
+import _set from 'lodash-es/set';
+import _orderBy from 'lodash-es/orderBy';
+import _isNil from 'lodash-es/isNil';
+
 import {
     IIndexing,
     ICategorySettings,
@@ -17,14 +25,29 @@ import {
     IRestrictions,
     IByMerchantItemCategory,
     IGamesSortSetting,
+    TGameSortFeature,
+    TSortDirection,
 } from 'wlc-engine/modules/games/system/interfaces/games.interfaces';
 
-import _get from 'lodash-es/get';
-import _isArray from 'lodash-es/isArray';
-import _toNumber from 'lodash-es/toNumber';
-import _each from 'lodash-es/each';
-import _set from 'lodash-es/set';
-import _orderBy from 'lodash-es/orderBy';
+/**
+ * Games sort options
+ *
+ * @param sortSetting Sort settings
+ * @param country User country
+ * @param language Used language
+ * @param category Used games category.
+ */
+interface ISortGamesOptions {
+    sortSetting: IGamesSortSetting;
+    country: string;
+    language: string;
+    category?: CategoryModel;
+}
+
+const directions: Record<TSortDirection, number> = {
+    asc: -1,
+    desc: 1,
+};
 
 export class GamesHelper {
 
@@ -319,4 +342,74 @@ export class GamesHelper {
         return _orderBy(games, (game: Game) => game.sort || 0, 'desc');
     }
 
+    /**
+     * Sort games
+     *
+     * @param {ISortGamesOptions} options Sort options
+     */
+    public static sortGames(games: Game[], options: ISortGamesOptions): void {
+        const perCountryDirection = options.sortSetting.direction?.sortPerCountry || 'asc';
+        const perLangDirection = options.sortSetting.direction?.sortPerLanguage || 'asc';
+        const perCatDirection = options.sortSetting.direction?.sortPerCategory || 'asc';
+        const baseDirection = options.sortSetting.direction?.baseSort || 'desc';
+
+        games.sort((a: Game, b: Game): number => {
+
+            let sortValue: number | null = null;
+
+            _each([
+                ['sortPerCountry', options.country, perCountryDirection],
+                ['sortPerLanguage', options.language, perLangDirection],
+                ['sortPerCategory', options.category?.id, perCatDirection],
+            ], ([feature, suffix, direction]) => {
+
+                if (feature === 'sortPerCategory' && !options.category) {
+                    return;
+                }
+
+                sortValue = GamesHelper.compareGamesByFeature(
+                    a,
+                    b,
+                    feature as TGameSortFeature,
+                    suffix,
+                    direction as TSortDirection,
+                );
+
+                if (!_isNil(sortValue)) {
+                    return false;
+                }
+            });
+
+            return sortValue || directions[baseDirection] * ((b.sort || 0) - (a.sort || 0));
+        });
+    }
+
+    /**
+     * Sorting method that compares two games by a specific feature.
+     *
+     * @param {Game} a - game a
+     * @param {Game} b - game b
+     * @param {TGameSortFeature} feature - sorting feature
+     * @param {string | number} suffix - specified field in feature
+     * @param {TSortDirection} direction - sort direction
+     * @returns {number | null} - sorting results
+     */
+    protected static compareGamesByFeature(
+        a: Game,
+        b: Game,
+        feature: TGameSortFeature,
+        suffix: string | number,
+        direction: TSortDirection,
+    ): number | null {
+        const perA = _isNil(a[feature]?.[suffix] || null);
+        const perB = _isNil(b[feature]?.[suffix] || null);
+        if (perA && !perB) {
+            return 1;
+        } else if (!perA && perB) {
+            return -1;
+        } else if (!perA && !perB && b[feature][suffix] !== a[feature][suffix]) {
+            return directions[direction] * (b[feature][suffix] - a[feature][suffix]);
+        }
+        return null;
+    };
 }

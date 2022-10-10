@@ -208,6 +208,15 @@ export class GamesCatalog extends AbstractModel<IGames> {
     }
 
     /**
+     * Games sort settings
+     *
+     * @returns {IGamesSortSetting}
+     */
+    public get gamesSortSetting(): IGamesSortSetting {
+        return this.sortSetting;
+    }
+
+    /**
      * Get category settings
      *
      * @returns {IIndexing<ICategorySettings>}
@@ -242,7 +251,12 @@ export class GamesCatalog extends AbstractModel<IGames> {
             gameList = this.getGamesByCategories(categories);
 
             if (!searchQuery && categories.length > 1) {
-                gameList = GamesHelper.sortGamesByDefault(gameList);
+
+                GamesHelper.sortGames(gameList, {
+                    sortSetting: this.sortSetting,
+                    country: this.configService.get('appConfig.country'),
+                    language: this.translateService.currentLang || 'en',
+                });
             }
         }
 
@@ -687,9 +701,11 @@ export class GamesCatalog extends AbstractModel<IGames> {
             return false;
         });
 
-        const direction = this.sortSetting?.direction?.baseSort || 'desc';
-
-        this.availableGames = _orderBy(this.availableGames, ['sort'], [direction]);
+        GamesHelper.sortGames(this.availableGames, {
+            sortSetting: this.sortSetting,
+            country: this.configService.get('appConfig.country'),
+            language: this.translateService.currentLang || 'en',
+        });
 
         this.availableMerchants = _filter(this.merchants, (merchant: MerchantModel) => {
             if (disabledMerchants && _includes(disabledMerchants, merchant.id)) {
@@ -846,7 +862,14 @@ export class GamesCatalog extends AbstractModel<IGames> {
             }
         }
 
-        this.games = _orderBy(resultGames, (game: Game) => _toNumber(game.sort), 'desc');
+        this.games = resultGames;
+
+        GamesHelper.sortGames(this.games, {
+            sortSetting: this.sortSetting,
+            country: this.configService.get('appConfig.country'),
+            language: this.translateService.currentLang || 'en',
+        });
+
         this.availableGames = this.games;
 
         this.prepareCategories();
@@ -979,12 +1002,14 @@ export class GamesCatalog extends AbstractModel<IGames> {
 
                             if (!skipCategory && category.slug !== mainCategory.slug) {
 
-                                const filterByCategories: CategoryModel[] = [category];
-                                if (mainCategory.slug !== 'casino') {
-                                    filterByCategories.push(mainCategory);
+                                if (!category.games.length) {
+                                    category.setGames(this.filterGames([category]));
                                 }
 
-                                const games: Game[] = this.filterGames(filterByCategories);
+                                const games: Game[] = mainCategory.slug === 'casino'
+                                    ? category.games
+                                    : category.gamesWithCategory(mainCategory);
+
                                 if (games.length) {
                                     blocks.push({
                                         category: category,

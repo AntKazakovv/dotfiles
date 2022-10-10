@@ -670,7 +670,7 @@ export class GamesCatalogService {
     }
 
     public getTournamentGames(data: ITournamentGames): Game[] {
-        const games = this.getGameList({
+        let games = this.getGameList({
             ids: _size(data.Games) ? data.Games : null,
             categories: _map(data.Categories, (id) => {
                 return GamesHelper.getCategoryById(id)?.menuId;
@@ -683,9 +683,19 @@ export class GamesCatalogService {
             includeSportsbooks: true,
         });
 
-        return data.GamesBL.length ? _filter(games, ({ID}) => {
-            return !_includes(data.GamesBL, ID);
-        }) : games;
+        if (data.GamesBL.length) {
+            games = _filter(games, ({ID}) => {
+                return !_includes(data.GamesBL, ID);
+            });
+        }
+
+        GamesHelper.sortGames(games, {
+            sortSetting: this.gamesCatalog.gamesSortSetting,
+            country: this.configService.get('appConfig.country'),
+            language: this.translateService.currentLang || 'en',
+        });
+
+        return games;
     }
 
     /**
@@ -737,6 +747,12 @@ export class GamesCatalogService {
                 gamesList = _union(gamesList, games);
             }
         }
+
+        GamesHelper.sortGames(gamesList, {
+            sortSetting: this.gamesCatalog.gamesSortSetting,
+            country: this.configService.get('appConfig.country'),
+            language: this.translateService.currentLang || 'en',
+        });
 
         return gamesList;
     }

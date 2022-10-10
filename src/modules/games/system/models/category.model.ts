@@ -4,7 +4,7 @@ import _toNumber from 'lodash-es/toNumber';
 import _has from 'lodash-es/has';
 import _forEach from 'lodash-es/forEach';
 import _find from 'lodash-es/find';
-import _isNil from 'lodash-es/isNil';
+import _filter from 'lodash-es/filter';
 import _intersectionBy from 'lodash-es/intersectionBy';
 
 import {
@@ -16,8 +16,6 @@ import {
     ICategory,
     IGameBlock,
     IGamesSortSetting,
-    TGameSortFeature,
-    TSortDirection,
 } from 'wlc-engine/modules/games/system/interfaces/games.interfaces';
 import {
     IFromLog,
@@ -28,11 +26,6 @@ import {Deferred} from 'wlc-engine/modules/core/system/classes/deferred.class';
 import {Game} from 'wlc-engine/modules/games/system/models/game.model';
 import {MerchantModel} from 'wlc-engine/modules/games/system/models/merchant.model';
 import {GamesHelper} from 'wlc-engine/modules/games/system/helpers/games.helpers';
-
-const directions = {
-    asc: -1,
-    desc: 1,
-};
 
 const specialCategories = [
     'casino',
@@ -247,12 +240,30 @@ export class CategoryModel extends AbstractModel<ICategory> {
     }
 
     /**
+     * Get games list of current category with additional category
+     *
+     * @returns {Game[]}
+     */
+    public gamesWithCategory(additionalCategory: CategoryModel): Game[] {
+        return _filter(this.availableGames, (game: Game) => {
+            return game.hasCategory(additionalCategory);
+        });
+    }
+
+    /**
      * Update available games for current category
      *
      * @param {Game[]} projectAvailableGames Project available for show games
      */
     public updateAvailableGames(projectAvailableGames: Game[]): void {
-        this.availableGames = _intersectionBy(this.gamesList, projectAvailableGames, 'ID');
+        this.availableGames = _intersectionBy(this.gamesList, projectAvailableGames, (item: Game): string => {
+            return item.ID + item.name.en;
+        });
+
+        _forEach(this._gameBlocks, (gameBlock: IGameBlock): void => {
+            gameBlock.games = this.gamesWithCategory(gameBlock.category);
+        });
+
         this.sortGames();
     }
 
@@ -332,45 +343,25 @@ export class CategoryModel extends AbstractModel<ICategory> {
     public sortGames(): void {
         if (this.availableGames.length) {
 
-            const perCountryDirection = this.sortSetting.direction?.sortPerCountry || 'asc';
-            const perLangDirection = this.sortSetting.direction?.sortPerLanguage || 'asc';
-            const perCatDirection = this.sortSetting.direction?.sortPerCategory || 'asc';
-            const baseDirection = this.sortSetting.direction?.baseSort || 'desc';
+            GamesHelper.sortGames(this.availableGames, {
+                sortSetting: this.sortSetting,
+                country: CategoryModel._country,
+                language: CategoryModel.currentLanguage,
+                category: this,
+            });
 
-            this.availableGames
-                .sort((a, b) => {
-                    const byCountry = this.compareGamesByFeature(
-                        a,
-                        b,
-                        'sortPerCountry',
-                        CategoryModel._country,
-                        perCountryDirection,
-                    );
+            if (this._gameBlocks.length) {
 
-                    if (!_isNil(byCountry)) {
-                        return byCountry;
-                    }
+                _forEach(this._gameBlocks, (gameBlock: IGameBlock): void => {
 
-                    const byLang = this.compareGamesByFeature(
-                        a,
-                        b,
-                        'sortPerLanguage',
-                        CategoryModel.currentLanguage,
-                        perLangDirection,
-                    );
-
-                    if (!_isNil(byLang)) {
-                        return byLang;
-                    }
-
-                    const perCat = this.compareGamesByFeature(a, b, 'sortPerCategory', this.id, perCatDirection);
-
-                    if (!_isNil(perCat)) {
-                        return perCat;
-                    }
-
-                    return directions[baseDirection] * ((b.sort || 0) - (a.sort || 0));
+                    GamesHelper.sortGames(gameBlock.games, {
+                        sortSetting: this.sortSetting,
+                        country: CategoryModel._country,
+                        language: CategoryModel.currentLanguage,
+                        category: gameBlock.category,
+                    });
                 });
+            }
         }
     }
 
@@ -411,32 +402,4 @@ export class CategoryModel extends AbstractModel<ICategory> {
             }
         });
     }
-
-    /**
-     * Sorting method that compares two games by a specific feature.
-     * @param {Game} a - game a
-     * @param {Game} b - game b
-     * @param {TGameSortFeature} feature - sorting feature
-     * @param {string | number} suffix - specified field in feature
-     * @param {TSortDirection} direction - sort direction
-     * @returns {number | null} - sorting results
-     */
-    protected compareGamesByFeature(
-        a: Game,
-        b: Game,
-        feature: TGameSortFeature,
-        suffix: string | number,
-        direction: TSortDirection,
-    ): number | null {
-        const perA = _isNil(a[feature]?.[suffix] || null);
-        const perB = _isNil(b[feature]?.[suffix] || null);
-        if (perA && !perB) {
-            return 1;
-        } else if (!perA && perB) {
-            return -1;
-        } else if (!perA && !perB && b[feature][suffix] !== a[feature][suffix]) {
-            return directions[direction] * (b[feature][suffix] - a[feature][suffix]);
-        }
-        return null;
-    };
 }
