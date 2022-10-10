@@ -16,6 +16,7 @@ import {Subject} from 'rxjs';
 import _forEach from 'lodash-es/forEach';
 import _merge from 'lodash-es/merge';
 import _isObject from 'lodash-es/isObject';
+import _filter from 'lodash-es/filter';
 
 import {
     AbstractComponent,
@@ -114,7 +115,7 @@ export class DepositBonusesComponent extends AbstractComponent implements OnInit
     /**
      * Handle click on modal button. Opens modal with a list of bonuses
      */
-    public openModal():void {
+    public openModal(): void {
         this.modalService.showModal({
             id: 'deposit-bonuses',
             modalTitle: gettext('Choose bonus'),
@@ -259,7 +260,7 @@ export class DepositBonusesComponent extends AbstractComponent implements OnInit
 
     protected processBonusesResponse(bonuses: Bonus[]): void {
         if (bonuses.length) {
-            this.bonuses = this.bonusesService.filterBonuses(bonuses, this.$params.filter);
+            this.bonuses = _filter(this.bonusesService.filterBonuses(bonuses, this.$params.filter), {isActive: false});
             const activeBonuses: Bonus[] = this.bonusesService.filterBonuses(bonuses, 'active');
 
             if (activeBonuses.some((bonus: Bonus) => !bonus.allowStack)) {
