@@ -500,6 +500,7 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
     }
 
     protected checkIframe(): void {
+        const gameContainerTag = this.document.getElementById('egamings_container');
         this.containerObserver = new MutationObserver(() => {
             const iframe = this.wrp?.element?.nativeElement.querySelector('iframe');
             if (iframe) {
@@ -522,6 +523,16 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
             childList: true,
             subtree: true,
         });
+
+        if (gameContainerTag.querySelector('iframe') === null) {
+            this.logService.sendLog({
+                code: '3.0.6',
+                flog: {
+                    merchantID: this.gameParams?.merchantId,
+                    launchCode: this.gameParams?.launchCode,
+                },
+            });
+        }
     }
 
     protected setIframeObserver(): void {
