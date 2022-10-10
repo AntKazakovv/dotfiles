@@ -504,6 +504,8 @@ $profileSettings: map-merge((
     ),
     'profileMinHeight': (
         375: 120px,
+        1024: 580px,
+        1630: 680px,
     ),
     'profileWidthV1': (
         1366: 1200px,
@@ -1088,4 +1090,3 @@ $baseFourElements: map-merge((
     ),
     'iconObjectFit': contain,
 ), $customBaseFourElements);
-

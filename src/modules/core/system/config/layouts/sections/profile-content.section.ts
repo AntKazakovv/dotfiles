@@ -606,6 +606,7 @@ export namespace profileContent {
 
     export const profileDeposit: ILayoutSectionConfig = {
         container: true,
+        usePreloader: true,
         components: [
             {
                 name: 'core.wlc-wrapper',
@@ -675,6 +676,7 @@ export namespace profileContent {
 
     export const profileWithdraw: ILayoutSectionConfig = {
         container: true,
+        usePreloader: true,
         components: [
             {
                 name: 'core.wlc-wrapper',
@@ -744,6 +746,7 @@ export namespace profileContent {
 
     export const profileTransactions: ILayoutSectionConfig = {
         container: true,
+        usePreloader: true,
         components: [
             {
                 name: 'core.wlc-wrapper',
@@ -1266,6 +1269,7 @@ export namespace profileContent {
 
     export const profileBetHistory: ILayoutSectionConfig = {
         container: true,
+        usePreloader: true,
         components: [
             {
                 name: 'core.wlc-wrapper',
