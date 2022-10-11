@@ -53,8 +53,8 @@ export class TournamentsHistoryComponent extends AbstractComponent implements On
     public $params: Params.ITournamentsHistoryCParams;
     public tableData: ITableCParams;
     public filterSelect: ISelectCParams<TTournamentsFilter> = tournamentConfig.filterSelect;
+    public tournaments$: BehaviorSubject<TournamentHistory[]> = new BehaviorSubject([]);
     protected filterValue: TTournamentsFilter = 'all';
-    protected tournaments$: BehaviorSubject<TournamentHistory[]> = new BehaviorSubject([]);
     protected allTournaments: TournamentHistory[] = [];
 
     constructor(

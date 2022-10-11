@@ -46,8 +46,8 @@ export class BonusesHistoryComponent extends AbstractComponent implements OnInit
     public $params: Params.IBonusesHistoryCParams;
     public tableData: ITableCParams;
     public filterSelect: ISelectCParams<TBonusFilter> = bonusesConfig.filterSelect;
+    public bonuses$: BehaviorSubject<HistoryItemModel[]> = new BehaviorSubject([]);
     protected filterValue: TBonusFilter = 'all';
-    protected bonuses$: BehaviorSubject<HistoryItemModel[]> = new BehaviorSubject([]);
     protected allBonuses: HistoryItemModel[] = [];
     protected historyFilterService: HistoryFilterService;
 

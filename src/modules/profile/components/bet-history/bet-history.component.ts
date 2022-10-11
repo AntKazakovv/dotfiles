@@ -55,10 +55,10 @@ export class BetHistoryComponent extends AbstractComponent implements OnInit {
     public filterSelect: ISelectCParams = betConfig.filterSelect;
     public startDateInput: IDatepickerCParams = startDate;
     public endDateInput: IDatepickerCParams = endDate;
+    public bets$: BehaviorSubject<IBet[]> = new BehaviorSubject([]);
     protected filterValue: 'all' | string = 'all';
     protected startDate: DateTime = DateTime.local().minus({month: 1});
     protected endDate: DateTime = DateTime.local();
-    protected bets$: BehaviorSubject<IBet[]> = new BehaviorSubject([]);
     protected allBets: IBet[] = [];
 
     constructor(

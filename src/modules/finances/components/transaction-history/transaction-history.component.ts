@@ -60,11 +60,11 @@ export class TransactionHistoryComponent extends AbstractComponent implements On
     public radioBtnConfig: IRadioButtonsCParams<TTransactionFilter> = config.filterRadioBtn;
     public startDateInput: IDatepickerCParams = startDate;
     public endDateInput: IDatepickerCParams = endDate;
+    public transaction$: BehaviorSubject<Transaction[]> = new BehaviorSubject([]);
     protected filterSelect: TTransactionFilterType;
     protected filterValue: TTransactionFilter = 'all';
     protected startDate: DateTime = DateTime.local();
     protected endDate: DateTime = DateTime.local();
-    protected transaction$: BehaviorSubject<Transaction[]> = new BehaviorSubject([]);
     protected allTransactions: Transaction[] = [];
 
     constructor(
