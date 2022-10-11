@@ -142,15 +142,6 @@ export class SignUpFormComponent extends UserActionsAbstract<Params.ISignUpFormC
             || !!this.configService.get<IMGAConfig>('$modules.core.components["wlc-license"].mga');
     }
 
-    /**
-     * method runs before sending and checks if the form is correct
-     * @param form
-     * @returns {Promise}
-     */
-    public beforeSubmit(form: FormGroup): Promise<boolean> {
-        return this.checkRegisterPromocode(form);
-    }
-
     public async ngSubmit(form: FormGroup): Promise<void> {
         if ((this.getTwoSteps() && !this.isSecondStep())
             || this.configService.get<boolean>('$base.profile.smsVerification.use')) {
@@ -187,45 +178,6 @@ export class SignUpFormComponent extends UserActionsAbstract<Params.ISignUpFormC
             }
         } finally {
             form.enable();
-        }
-    }
-
-    protected async checkRegisterPromocode(form: FormGroup): Promise<boolean> {
-        const promocodeControl = form.get('registrationPromoCode');
-        const currencyControl = form.get('currency');
-
-        if (!promocodeControl?.value || !currencyControl) {
-            return true;
-        }
-
-        promocodeControl.markAsPending();
-
-        try {
-            const result = await this.validationService.checkPromocode(
-                promocodeControl.value,
-                currencyControl.value,
-                form.get('countryCode')?.value || '',
-            );
-
-            if (result) {
-                return true;
-            } else {
-                promocodeControl.setErrors({promocode: true});
-                return false;
-            }
-        } catch (error) {
-            promocodeControl.setErrors({promocode: true});
-
-            this.logService.sendLog({
-                code: '2.1.2',
-                data: error,
-                from: {
-                    component: 'SignUpFormComponent',
-                    method: 'checkRegisterPromocode',
-                },
-            });
-
-            return false;
         }
     }
 

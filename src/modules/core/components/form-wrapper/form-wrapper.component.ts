@@ -517,6 +517,11 @@ export class FormWrapperComponent extends WrapperComponent implements OnInit, On
         }
 
         _each(_keys(errors), (key: string): void => {
+
+            if (key === '0' && this.controls['registrationPromoCode']) {
+                this.controls['registrationPromoCode'].setErrors({promocode: true});
+            }
+
             const control: FormControl = this.controls[key];
             if (control) {
                 control.setErrors({
