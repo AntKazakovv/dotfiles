@@ -31,7 +31,6 @@
         }
 
         &__title {
-            @include bm.get-mq-map('padding', $themeTransparent, 'titlePadding');
             @include text.get-text-style(ef.get-value($themeTransparent, 'titleFont'), ef.get-value($themeTransparent, 'titleColor'));
             display: flex;
             flex: 0 1 100%;

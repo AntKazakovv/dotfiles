@@ -18,7 +18,7 @@ $winnerBase: map-merge((
     'rightGridTemplateAreas': 'user amount' 'game game',
     'rightColumnGap': ef.size(2),
 
-    'userTextStyle': 'CaptionText',
+    'userTextStyle': 'ThirdTitle',
     'userColor': var(--mc-baseMain),
     'userTextTransform': none,
 
@@ -89,7 +89,7 @@ $themeTransparent: map-merge((
     // winner right block
     'rightBackground': var(--mc-bg700),
     'rightBorderRadius': ef.get('radius', 'biger'),
-    'rightPadding': ef.size(1) ef.size(2),
+    'rightPadding': ef.size(5),
 
     // game
     'gameArrowColor': var(--mc-secondary),
