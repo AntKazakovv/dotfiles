@@ -156,6 +156,7 @@ export class Game extends AbstractModel<IGame> {
         let restricted: boolean = false;
 
         const restrictedCountries: IIndexing<boolean> = restrictions.restrictedByDefault[this.merchantID]
+            || restrictions.restrictedByDefault[this.subMerchantID]
             || restrictions.restrictedByID[this.countryRestrictionId];
 
         if (_isObject(restrictedCountries)) {
