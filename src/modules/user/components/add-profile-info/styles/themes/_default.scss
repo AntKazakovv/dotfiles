@@ -28,7 +28,8 @@
                     & > .wlc-input,
                     & > .wlc-select,
                     & > .wlc-birth-field,
-                    & > .wlc-phone-field {
+                    & > .wlc-phone-field,
+                    & > .wlc-country-and-state {
                         margin-bottom: ef.get-value($themeDefault, 'formFieldMarginBottom');
                     }
                 }

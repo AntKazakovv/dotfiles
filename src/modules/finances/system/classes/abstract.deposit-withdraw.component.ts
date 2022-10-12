@@ -88,7 +88,7 @@ export abstract class AbstractDepositWithdrawComponent<T extends {mode: TPayment
                     }
                 }, []);
 
-            if (!await this.configService.get<boolean>('$user.skipPasswordOnFirstUserSession')) {
+            if (!await this.configService.get<Promise<boolean>>('$user.skipPasswordOnFirstUserSession')) {
                 fields.push(FormElements.password);
             }
 
