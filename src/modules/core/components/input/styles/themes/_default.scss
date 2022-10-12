@@ -26,6 +26,7 @@
             border-radius: ef.get-value($themeDefault, 'inputBorderRadius');
             padding: ef.get-value($themeDefault, 'inputPadding');
             text-overflow: ellipsis;
+            background: ef.get-value($themeDefault, 'inputBackground');
             overflow: visible;
 
             &::placeholder {

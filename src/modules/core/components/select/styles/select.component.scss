@@ -219,7 +219,7 @@
         .wlc-select__field {
 
             &::placeholder {
-                color: ef.get-value($baseSettings, 'selectDisabledColor');
+                color: ef.get-value($baseSettings, 'inputPlaceholderColor');
             }
         }
     }

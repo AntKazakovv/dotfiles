@@ -50,7 +50,7 @@ $baseSettings: map-merge((
     'iconHeight': ef.get('form', 'iconHeight'),
     'inputPlaceholderColor': var(--fc-placeholderColor),
     'errorsBgColor': var(--fc-errorBackground),
-    'errorsBorderColor': var(--fc-errorBackground-d10),
+    'errorsBorderColor': var(--fc-errorBorder),
     'errorsColor': ef.get('form', 'errorsColor'),
     'errorsMinWidth': ef.get('form', 'errorsMinWidth'),
     'errorsMaxWidth': ef.get('form', 'errorsMaxWidth'),

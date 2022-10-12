@@ -137,7 +137,8 @@
         }
 
         .myDpMonthYearSelBar,
-        .myDpDisabled {
+        .myDpDisabled,
+        .myDpWeekDayTitle {
             background: ef.get-value($themeDefault, 'datepickerBg');
         }
 
