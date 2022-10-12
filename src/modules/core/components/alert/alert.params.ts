@@ -28,5 +28,5 @@ export const defaultParams: IAlertCParams = {
     class: 'wlc-alert',
     componentName: 'wlc-alert',
     moduleName: 'core',
-    level: 'default',
+    level: 'info',
 };

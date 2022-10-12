@@ -38,6 +38,6 @@ $themeDefault: map-merge((
     'iconPadding': 13px ef.size(2) ef.size(2),
     'iconWidth': 15px,
     'iconHeight': 15px,
-    'iconColor': var(--mc-baseOpacity),
+    'iconColor': inherit,
     'iconColorInfo': var(--mc-baseOpacity),
 ), $customThemeDefault);
