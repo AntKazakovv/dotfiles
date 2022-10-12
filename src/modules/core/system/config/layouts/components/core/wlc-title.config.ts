@@ -43,7 +43,7 @@ export namespace wlcTitle {
         name: 'core.wlc-title',
         params: {
             customMod: ['profile'],
-            mainText: gettext('My account'),
+            mainText: gettext('Profile'),
             wlcElement: 'header_my-account',
         },
     };
