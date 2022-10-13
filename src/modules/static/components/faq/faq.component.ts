@@ -59,6 +59,7 @@ export class FaqComponent extends AbstractComponent implements OnInit {
             const data: TextDataModel = await this.getRawData();
             this.accordionParams.items = this.parseTableData(data?.html);
         } catch (error) {
+            this.accordionParams = {};
             this.logService.sendLog({
                 code: '5.0.2',
                 data: error,
@@ -81,9 +82,19 @@ export class FaqComponent extends AbstractComponent implements OnInit {
     protected parseTableData(htmlRow: string): IAccordionData[] {
         const parser: DOMParser = new DOMParser();
         const doc: Document = parser.parseFromString(htmlRow, 'text/html');
+        const textBefore: Node = doc.querySelector('text-before');
+        const textAfter: Node = doc.querySelector('text-after');
         const items: NodeList = doc.querySelectorAll('tr');
 
-        if (!items.length) {
+        if (textBefore) {
+            this.accordionParams.textBefore = textBefore.textContent.split('\n');
+        }
+        if (textAfter) {
+            this.accordionParams.textAfter = textAfter.textContent.split('\n');
+        }
+
+        if (!items.length && !textBefore && !textAfter) {
+            this.accordionParams.isEmpty = true;
             this.logService.sendLog({
                 code: '7.0.2',
                 data: 'No valid or empty post',

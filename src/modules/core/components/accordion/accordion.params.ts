@@ -17,6 +17,12 @@ export interface IAccordionCParams extends IComponentParams<string, string, stri
     title?: string;
     /** Icon to the right of the title */
     titleIconPath?: string;
+    /** Text before accordion */
+    textBefore?: string[];
+    /** Text after accordion */
+    textAfter?: string[];
+    /** Is there any content */
+    isEmpty?: boolean;
 }
 
 export const defaultParams: IAccordionCParams = {
