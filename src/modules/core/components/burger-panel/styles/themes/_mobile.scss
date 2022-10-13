@@ -40,6 +40,12 @@
 
             .wlc-btn {
                 min-width: 100%;
+
+                //Ios:16 size bug
+                .wlc-body--os-ios &,
+                .wlc-body--os-macos & {
+                    min-width: initial;
+                }
             }
         }
 
