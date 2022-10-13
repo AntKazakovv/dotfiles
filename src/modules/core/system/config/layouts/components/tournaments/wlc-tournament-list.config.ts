@@ -33,7 +33,7 @@ export namespace wlcTournamentList {
                     use: true,
                     breakpoints: {
                         0: {
-                            itemPerPage: 2,
+                            itemPerPage: 3,
                         },
                     },
                 },
