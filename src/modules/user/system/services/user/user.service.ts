@@ -21,6 +21,7 @@ import _keys from 'lodash-es/keys';
 import _set from 'lodash-es/set';
 import _merge from 'lodash-es/merge';
 import _isString from 'lodash-es/isString';
+import _get from 'lodash-es/get';
 
 import {LogService} from 'wlc-engine/modules/core/system/services/log/log.service';
 import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
@@ -159,7 +160,7 @@ export class UserService {
         this.eventService.subscribe({
             name: 'USER_INFO',
         }, (info: IData<IUserInfo>) => {
-            if (info?.code === 401) {
+            if (info?.code === 401 || _get(info, 'data.status') === 0) {
                 this.logout();
                 return;
             }
