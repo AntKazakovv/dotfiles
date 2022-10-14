@@ -73,7 +73,7 @@ export class TournamentListComponent
     public dashboardSliderConfig: IWrapperCParams = {components: []};
     public bannerSliderConfig: IWrapperCParams = {components: []};
     public navigationId: string = _random(10000000).toString(16);
-
+    public emptyInProfileConfig: IWrapperCParams;
     protected indexOfSelectedTournament: number;
     protected itemsPerPage: number = 0;
 
@@ -110,6 +110,16 @@ export class TournamentListComponent
         this.subscribeOnTournamentLeave();
         this.subscribeOnErrorGettingTournaments();
         this.noContentParams = GlobalHelper.getNoContentParams(this.$params, this.$class, this.configService);
+        this.emptyInProfileConfig = {
+            components: [
+                {
+                    name: 'profile.wlc-profile-no-content',
+                    params: {
+                        text: gettext(this.noContentText),
+                    },
+                },
+            ],
+        };
         this.cdr.detectChanges();
     }
 
@@ -119,6 +129,12 @@ export class TournamentListComponent
 
     public get readyTournamentsAndSlides(): boolean {
         return !!(this.tournaments?.length && this.isReady && this.slides?.length);
+    }
+
+    public get noContentText(): string {
+        return this.$params.theme === 'active'
+            ? this.$params.noContent.active.text
+            : this.$params.noContent.default.text;
     }
 
     /**
