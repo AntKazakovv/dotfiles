@@ -44,6 +44,7 @@ npm-debug.log
 yarn-error.log
 testem.log
 /typings
+make_release.py
 
 # System Files
 .DS_Store
@@ -54,5 +55,3 @@ Thumbs.db
 /docs/sassdoc
 
 roots/siteconfig_local.php
-
-
