@@ -6,7 +6,7 @@ import {
 } from '@angular/core/testing';
 import {UIRouter} from '@uirouter/core';
 
-import * as logTypes from 'wlc-engine/shared-lib/log-types';
+import * as logTypes from 'wlc-engine/modules/core/system/config/log-types';
 import {
     IFlogData,
     WlcFlog,
@@ -72,7 +72,7 @@ class DocumentMock {
 
 const WlcFlogStub: Partial<WlcFlog> = {
     get enabled(): boolean {
-        return true; 
+        return true;
     },
     send: () => {
         return Promise.resolve('');
@@ -88,7 +88,7 @@ describe('LogService', () => {
     let wlcFlogSendSpy: jasmine.Spy<(data: IFlogData) => Promise<string>>;
     let sendLogSpy: jasmine.Spy<(logObj: ILogObj) => void>;
     let window: Window;
-    
+
     beforeEach(() => {
         spyOnProperty(logTypes, 'logTypes').and.returnValue(logTypesMock);
         wlcFlogSendSpy = spyOn(WlcFlogStub, 'send').and.returnValue(Promise.resolve(''));
@@ -97,7 +97,7 @@ describe('LogService', () => {
         documentMock = new DocumentMock();
 
         TestBed.configureTestingModule({
-            
+
             providers: [
                 LogService,
                 {provide: ConfigService, useValue: configServiceSpy},
@@ -157,7 +157,7 @@ describe('LogService', () => {
             expect(sendLogSpy).toHaveBeenCalledTimes(1);
         }));
     });
-    
+
     describe('-> waiter()', () => {
         const timeout = 1;
         const createW = (t = timeout): TWaiter => {
