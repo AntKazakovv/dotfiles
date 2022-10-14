@@ -72,35 +72,11 @@ export class HeadersInterceptor implements HttpInterceptor {
             });
         }
 
-        if (req.url.includes('/api/v1/auth')) {
-
-            if (this.captchaService.captchaCode) {
-                req = req.clone({
-                    headers: req.headers.set('X-Captcha', this.captchaService.captchaCode),
-                });
-                this.captchaService.captchaCode = null;
-            }
-
+        if (req.url.includes('/api/v1/auth') && this.captchaService.captchaCode) {
             req = req.clone({
-                params: req.params.set('useJwt', 1),
+                headers: req.headers.set('X-Captcha', this.captchaService.captchaCode),
             });
-
-            try {
-
-                // @ts-ignore
-                const reqBody = req.body as string;
-
-                const body = JSON.parse(reqBody);
-                body.useJwt = 1;
-
-                // @ts-ignore
-                req = req.clone({
-                    // @ts-ignore
-                    body: JSON.stringify(body),
-                });
-            } catch (err) {
-
-            }
+            this.captchaService.captchaCode = null;
         }
 
         if (req.url.includes('/api/v1/')) {
