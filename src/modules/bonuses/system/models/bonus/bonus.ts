@@ -30,6 +30,11 @@ import {
     ActionType,
     TBonusEvent,
     IBonusesModule,
+    IBonusResults,
+    TBonusTarget,
+    IBonusResultValueLootbox,
+    IBonusResultValueDefault,
+    IBonusResultValue,
 } from 'wlc-engine/modules/bonuses/system/interfaces/bonuses/bonuses.interface';
 
 const disabledReasons = {
@@ -51,22 +56,22 @@ const disabledReasons = {
 };
 
 export class Bonus extends AbstractModel<IBonus> {
-    public isReady: boolean = true;
     public onChooseChange: Subject<boolean> = new Subject<boolean>();
     public icon: string;
     public disabledBy: null | keyof typeof disabledReasons = null;
+    public static userCurrency: string;
     public readonly descriptionClean: string;
     public readonly termsClean: string;
 
-    protected static $bonuses: IBonusesModule;
-    protected _userCurrency: string;
-    protected _isChoose: boolean = false;
-
-    private regEvents = ['deposit first', 'registration', 'verification'];
-    private depEvents = ['deposit', 'deposit first', 'deposit repeated', 'deposit sum'];
-    private welcomeEvents = ['registration', 'deposit first'];
-    private $isReg: boolean;
-    private $isDep: boolean;
+    private static regEvents = ['deposit first', 'registration', 'verification'];
+    private static depEvents = ['deposit', 'deposit first', 'deposit repeated', 'deposit sum'];
+    private static welcomeEvents = ['registration', 'deposit first'];
+    // TODO: This is array orders of wagering from fundist, need automatically.
+    private static bonusTargetsOrder = ['balance', 'freerounds', 'loyalty', 'experience'];
+    private static bonusesConfig: IBonusesModule;
+    private _isChoose: boolean = false;
+    private _isReg: boolean;
+    private _isDep: boolean;
     private _fallBackIconPath: string = '';
 
     constructor(
@@ -78,20 +83,17 @@ export class Bonus extends AbstractModel<IBonus> {
         super({from: _assign({model: 'Bonus'}, from)});
         this.data = this.modifyData(data);
 
-        if (!Bonus.$bonuses) {
-            Bonus.$bonuses = this.configService.get<IBonusesModule>('$bonuses');
+        if (!Bonus.bonusesConfig) {
+            Bonus.bonusesConfig = this.configService.get<IBonusesModule>('$bonuses');
         }
-
-        this.userCurrency = this.configService.get<string>('appConfig.user.currency')
-            || this.configService.get<string>('$base.defaultCurrency');
 
         this.descriptionClean = GlobalHelper.deleteHTMLTags(this.data.Description);
         this.termsClean = GlobalHelper.deleteHTMLTags(this.data.Terms);
 
-        if (Bonus.$bonuses.useNewImageSources && this.data.Image_other) {
+        if (Bonus.bonusesConfig.useNewImageSources && this.data.Image_other) {
             this.icon = GlobalHelper.proxyUrl(this.data.Image_other);
         } else if (this.viewTarget) {
-            this.icon = GlobalHelper.proxyUrl(Bonus.$bonuses.defaultIconPath + this.viewTarget + '.svg');
+            this.icon = GlobalHelper.proxyUrl(Bonus.bonusesConfig.defaultIconPath + this.viewTarget + '.svg');
         }
 
         this._fallBackIconPath = this.configService.get<string>('$bonuses.fallBackIconPath');
@@ -99,8 +101,8 @@ export class Bonus extends AbstractModel<IBonus> {
 
     public set data(data: IBonus) {
         super.data = data;
-        this.$isDep = this.depEvents.indexOf(this.data.Event) !== -1;
-        this.$isReg = this.regEvents.indexOf(this.data.Event) !== -1;
+        this._isDep = Bonus.depEvents.indexOf(this.data.Event) !== -1;
+        this._isReg = Bonus.regEvents.indexOf(this.data.Event) !== -1;
     }
 
     public get data(): IBonus {
@@ -120,10 +122,6 @@ export class Bonus extends AbstractModel<IBonus> {
 
     public get isChoose(): boolean {
         return this._isChoose;
-    }
-
-    public set userCurrency(value: string) {
-        this._userCurrency = value;
     }
 
     public get active(): boolean {
@@ -265,7 +263,7 @@ export class Bonus extends AbstractModel<IBonus> {
         if (this.hasPromoCode) {
             return gettext('Promocode');
         }
-        if (this.$isReg) {
+        if (this._isReg) {
             return gettext('Welcome bonus');
         }
         return this.data.Group;
@@ -284,50 +282,62 @@ export class Bonus extends AbstractModel<IBonus> {
     }
 
     public get image(): string {
-        return GlobalHelper.proxyUrl(this.data.Image || Bonus.$bonuses.defaultImages?.image);
+        return GlobalHelper.proxyUrl(
+            this.data.Image
+            || Bonus.bonusesConfig.defaultImages?.image,
+        );
     }
 
     public get imageProfileFirst(): string {
-        return GlobalHelper.proxyUrl(this.data.Image || Bonus.$bonuses.defaultImages?.imageProfileFirst);
+        return GlobalHelper.proxyUrl(
+            this.data.Image
+            || Bonus.bonusesConfig.defaultImages?.imageProfileFirst,
+        );
     }
 
     public get imageOther(): string {
-        return GlobalHelper.proxyUrl(this.data.Image_other || Bonus.$bonuses.defaultImages?.imageOther);
+        return GlobalHelper.proxyUrl(
+            this.data.Image_other
+            || Bonus.bonusesConfig.defaultImages?.imageOther,
+        );
     }
 
     public get imagePromo(): string {
         return GlobalHelper.proxyUrl(this.data.Image_promo
-            || Bonus.$bonuses.defaultImages?.imagePromo
+            || Bonus.bonusesConfig.defaultImages?.imagePromo
             || this.image);
     }
 
     public get imageReg(): string {
         return GlobalHelper.proxyUrl(this.data.Image_reg
-            || Bonus.$bonuses.defaultImages?.imageReg
+            || Bonus.bonusesConfig.defaultImages?.imageReg
             || this.image);
     }
 
     // TODO: add image path to config and logic to BonusItemComponent.bonusBg, when imageStore be ready
     public get imageStore(): string {
         return GlobalHelper.proxyUrl(this.data.Image_store
-            || Bonus.$bonuses.defaultImages?.imageStore
+            || Bonus.bonusesConfig.defaultImages?.imageStore
             || this.image);
     }
 
     public get imagePromoHome(): string {
-        if (Bonus.$bonuses.useNewImageSources) {
-            return GlobalHelper.proxyUrl(this.data.Image_main || Bonus.$bonuses.defaultImages?.imagePromoHome);
+        if (Bonus.bonusesConfig.useNewImageSources) {
+            return GlobalHelper.proxyUrl(
+                this.data.Image_main
+                || Bonus.bonusesConfig.defaultImages?.imagePromoHome,
+            );
         } else {
-            return GlobalHelper.proxyUrl(Bonus.$bonuses.defaultImages?.imagePromoHome);
+            return GlobalHelper.proxyUrl(Bonus.bonusesConfig.defaultImages?.imagePromoHome);
         }
     }
 
     public get imageDescription(): string {
-        return this.data.Image_description || Bonus.$bonuses.defaultImages?.imageDescription;
+        return this.data.Image_description || Bonus.bonusesConfig.defaultImages?.imageDescription;
     }
 
     public get imageDeposit(): string {
-        return GlobalHelper.proxyUrl(this.data.Image_deposit || Bonus.$bonuses.defaultImages?.imageDeposit);
+        return GlobalHelper.proxyUrl(this.data.Image_deposit || Bonus.bonusesConfig.defaultImages?.imageDeposit);
     }
 
     public get inventoried(): boolean {
@@ -358,14 +368,14 @@ export class Bonus extends AbstractModel<IBonus> {
     }
 
     public get maxBet(): number {
-        return _toNumber(this.data.MaxBet?.[this._userCurrency]) ||
+        return _toNumber(this.data.MaxBet?.[Bonus.userCurrency]) ||
             _toNumber(this.data.MaxBet?.EUR) ||
             _toNumber(this.data.Conditions?.MaxBet?.Currency) ||
             _toNumber(this.data.Conditions?.MaxBet?.EUR) || 0;
     }
 
     public get minBet(): number {
-        return _toNumber(this.data.MinBet?.[this._userCurrency]) ||
+        return _toNumber(this.data.MinBet?.[Bonus.userCurrency]) ||
             _toNumber(this.data.MinBet?.EUR) ||
             _toNumber(this.data.Conditions?.MinBet?.Currency) ||
             _toNumber(this.data.Conditions?.MinBet?.EUR) || 0;
@@ -403,8 +413,8 @@ export class Bonus extends AbstractModel<IBonus> {
         return this.data.ReleaseWageringTotal;
     }
 
-    public get results(): any {
-        return this.data.Results;
+    public get results(): IBonusResults {
+        return this.data.Results || {};
     }
 
     public get selected(): boolean {
@@ -423,7 +433,7 @@ export class Bonus extends AbstractModel<IBonus> {
         return this.data.Starts;
     }
 
-    public get target(): string {
+    public get target(): TBonusTarget {
         return this.data.Target;
     }
 
@@ -482,14 +492,14 @@ export class Bonus extends AbstractModel<IBonus> {
      * @returns {boolean} is bonus deposit
      */
     public get isDeposit(): boolean {
-        return this.$isDep;
+        return this._isDep;
     }
 
     /**
      * @returns {boolean} whether bonus has welcome events
      */
     public get isWelcomeBonus(): boolean {
-        return _includes(this.welcomeEvents, this.data.Event);
+        return _includes(Bonus.welcomeEvents, this.data.Event);
     }
 
     /**
@@ -531,7 +541,7 @@ export class Bonus extends AbstractModel<IBonus> {
      * @returns {number} bonus min deposit
      */
     public get minDeposit(): number {
-        return _toNumber(this.amountMin?.[this._userCurrency]) ||
+        return _toNumber(this.amountMin?.[Bonus.userCurrency]) ||
             _toNumber(this.amountMin?.EUR) ||
             _toNumber(this.conditions?.AmountMin?.Currency) ||
             _toNumber(this.conditions?.AmountMin?.EUR) || 0;
@@ -541,7 +551,7 @@ export class Bonus extends AbstractModel<IBonus> {
      * @returns {number} bonus max deposit
      */
     public get maxDeposit(): number {
-        return _toNumber(this.amountMax?.[this._userCurrency]) ||
+        return _toNumber(this.amountMax?.[Bonus.userCurrency]) ||
             _toNumber(this.amountMax?.EUR) ||
             _toNumber(this.conditions?.AmountMax?.Currency) ||
             _toNumber(this.conditions?.AmountMax?.EUR) || 0;
@@ -551,7 +561,7 @@ export class Bonus extends AbstractModel<IBonus> {
      * @returns {number} multiplier for relative bonus
      */
     public get multiplier(): number {
-        if (this.results?.[this.target]?.Type === 'relative') {
+        if (this.results[this.target]?.Type === 'relative') {
             return _toNumber(this.results[this.target]?.Value) / 100;
         }
     }
@@ -569,37 +579,34 @@ export class Bonus extends AbstractModel<IBonus> {
      * @returns {boolean} is bonus max win relative
      */
     public get isMaxWinRelative(): boolean {
-        return !this.conditions?.MaxBonusWin?.EUR && !!this.conditions?.MaxBonusWinCoef;
+        return !this.conditions.MaxBonusWin?.EUR && !!this.conditions.MaxBonusWinCoef;
     }
 
     /**
      * @returns {number} bonus limit value
      */
     public get limitAmount(): number {
-        if (this.results?.[this.target].Type === 'relative') {
-            return _toNumber(this.results?.bonus?.LimitValue[this._userCurrency]) ||
-                _toNumber(this.results[this.target].LimitValue?.EUR) || 0;
+        if (this.results[this.target].Type === 'relative') {
+            return _toNumber(this.results[this.target].LimitValue?.EUR) || 0;
         }
-    }
-
-    /**
-     * @returns {boolean} is bonus limit in EUR (need for experience and loyalty bonuses)
-     */
-    public get isLimitAmountEUR(): boolean {
-        return !this.results?.balance?.LimitValue[this._userCurrency] && !!this.results?.balance?.LimitValue?.EUR;
     }
 
     /**
      * @returns {number} bonus wager value
      */
     public get wager(): number {
-        const resultsTarget = this.results?.[this.target];
+        const resultsTarget = this.results[this.target];
+
+        if (!resultsTarget) {
+            return 0;
+        }
+
         if (this.target === 'balance') {
-            return _toNumber(this.results?.balance?.ReleaseWagering) || 0;
+            return _toNumber(resultsTarget.ReleaseWagering) || 0;
         } else {
-            return _toNumber(resultsTarget?.AwardWagering?.COEF)
-                || _toNumber(resultsTarget?.AwardWagering[this._userCurrency])
-                || _toNumber(resultsTarget?.AwardWagering?.EUR)
+            return _toNumber(resultsTarget.AwardWagering?.COEF)
+                || _toNumber(resultsTarget.AwardWagering[Bonus.userCurrency])
+                || _toNumber(resultsTarget.AwardWagering?.EUR)
                 || 0;
         }
     }
@@ -608,16 +615,16 @@ export class Bonus extends AbstractModel<IBonus> {
      * @returns {boolean} bonus wagering type is absolute
      */
     public get isWagerAbsolute(): boolean {
-        return this.target !== 'balance' && this.results?.[this.target]?.WageringType === 'absolute';
+        return this.target !== 'balance' && this.results[this.target]?.WageringType === 'absolute';
     }
 
     /**
      * @returns {boolean} is bonus wager in EUR (need for experience and loyalty bonuses)
      */
     public get isWagerEUR(): boolean {
-        const resultsTarget = this.results?.[this.target];
+        const resultsTarget = this.results[this.target];
         if (this.isWagerAbsolute) {
-            return !resultsTarget?.AwardWagering[this._userCurrency] && !!resultsTarget?.AwardWagering?.EUR;
+            return !resultsTarget?.AwardWagering[Bonus.userCurrency] && !!resultsTarget?.AwardWagering?.EUR;
         }
     }
 
@@ -625,7 +632,7 @@ export class Bonus extends AbstractModel<IBonus> {
      * @returns {number | number[]} bonus value
      */
     public get value(): number | number[] {
-        const resultsTarget = this.results?.[this.target];
+        const resultsTarget = this.results[this.target];
 
         if (!resultsTarget) {
             return 0;
@@ -635,13 +642,13 @@ export class Bonus extends AbstractModel<IBonus> {
             case 'loyalty' || 'experience':
                 return resultsTarget.Type === 'relative'
                     ? _toNumber(resultsTarget.Value)
-                    : _toNumber(resultsTarget.Value?.EUR);
+                    : _toNumber((resultsTarget as IBonusResultValueDefault).Value?.EUR);
             case 'lootbox':
-                return resultsTarget.Value;
+                return (resultsTarget as IBonusResultValueLootbox).Value;
             default:
-                return _toNumber(resultsTarget.Value[this._userCurrency])
-                    || _toNumber(resultsTarget.Value?.Currency)
-                    || _toNumber(resultsTarget.Value?.EUR)
+                return _toNumber(resultsTarget.Value?.[Bonus.userCurrency])
+                    || _toNumber((resultsTarget as IBonusResultValueDefault).Value?.Currency)
+                    || _toNumber((resultsTarget as IBonusResultValueDefault).Value?.EUR)
                     || _toNumber(resultsTarget.Value);
         }
     }
@@ -681,7 +688,7 @@ export class Bonus extends AbstractModel<IBonus> {
      * @returns {string} bonus stacking text (Allowed or Restricted)
      */
     public get stackingText(): string {
-        return this.allowStack ? 'Allowed' : 'Restricted';
+        return this.allowStack ? gettext('Allowed') : gettext('Restricted');
     }
 
     /**
@@ -689,11 +696,11 @@ export class Bonus extends AbstractModel<IBonus> {
      */
     public get statusText(): string {
         if (this.isActive) {
-            return 'Active';
+            return gettext('Active');
         } else if (this.isSubscribed) {
-            return 'Subscribe';
+            return gettext('Subscribe');
         } else if (this.inventoried) {
-            return 'Inventory';
+            return gettext('Inventory');
         }
         return '';
     }
@@ -706,7 +713,7 @@ export class Bonus extends AbstractModel<IBonus> {
             return;
         }
 
-        const resultsTarget = this.results?.[this.target];
+        const resultsTarget = this.results[this.target];
         if (!resultsTarget) {
             return 'default';
         }
@@ -767,10 +774,10 @@ export class Bonus extends AbstractModel<IBonus> {
     public getProgress(rounded?: boolean): number {
         let progress: number;
 
-        if (!this.wageringTotal) {
-            progress = !this.wagering ? 100 : 0;
-        } else {
+        if (this.wageringTotal) {
             progress = this.wagering / this.wageringTotal * 100;
+        } else {
+            progress = this.wagering ? 0 : 100;
         }
 
         return rounded ? _floor(progress) : progress;
@@ -794,13 +801,14 @@ export class Bonus extends AbstractModel<IBonus> {
      * @param type action type ('inventory' | 'cancel' | 'expired' | 'subscribe' | 'unsubscribe')
      */
     public async addToCache(type: ActionType): Promise<void> {
-        const target = this.results?.[this.target];
+        const target: IBonusResultValue = this.results[this.target];
         if (this.event === 'sign up'
             && type === 'subscribe'
-            && ((this.target === 'balance' && _toString(target?.ReleaseWagering) === '0')
+            && target
+            && ((this.target === 'balance' && _toString(target.ReleaseWagering) === '0')
                 || (this.target !== 'balance'
-                    && ((_toString(target?.AwardWagering?.COEF) === '0')
-                        || (_toString(target?.AwardWagering?.EUR) === '0'))
+                    && ((_toString(target.AwardWagering?.COEF) === '0')
+                        || (_toString(target.AwardWagering?.EUR) === '0'))
                 )
             )) {
             return;
@@ -934,8 +942,7 @@ export class Bonus extends AbstractModel<IBonus> {
      * @returns {number[]}
      */
     public gamesList(whiteList: boolean): number[] {
-        const restrictType = whiteList ? '1' : '0';
-        return this.data.GamesRestrictType === restrictType
+        return Number(this.data.GamesRestrictType) === Number(whiteList)
             ? _map(_keys(this.data.IDGames), (id: string) => {
                 return _toNumber(id);
             })
@@ -958,8 +965,6 @@ export class Bonus extends AbstractModel<IBonus> {
     }
 
     protected modifyData(bonus: IBonus): IBonus {
-        // TODO: This is array orders of wagering from fundist, need automatically.
-        const bonusTargetsOrder = ['balance', 'freerounds', 'loyalty', 'experience'];
         if (!bonus.Target && _isObject(bonus.Results)) {
             bonus.Target = '';
             _each(bonus.Results, (value: any, key: any) => {
@@ -969,7 +974,7 @@ export class Bonus extends AbstractModel<IBonus> {
         }
 
         if (bonus.Target && _isString(bonus.Target)) {
-            _each(bonusTargetsOrder, (value: string) => {
+            _each(Bonus.bonusTargetsOrder, (value: TBonusTarget) => {
                 if (bonus.Target.indexOf(value) !== -1) {
                     bonus.Target = value;
                 }

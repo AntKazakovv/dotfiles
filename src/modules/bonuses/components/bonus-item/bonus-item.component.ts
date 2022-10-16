@@ -9,7 +9,6 @@ import {
     ViewEncapsulation,
 } from '@angular/core';
 
-import {BehaviorSubject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 import _union from 'lodash-es/union';
 import _merge from 'lodash-es/merge';
@@ -25,7 +24,6 @@ import {
     EventService,
     ITooltipCParams,
 } from 'wlc-engine/modules/core';
-import {UserProfile} from 'wlc-engine/modules/user';
 import {BonusesService} from 'wlc-engine/modules/bonuses/system/services/bonuses/bonuses.service';
 import {Bonus} from 'wlc-engine/modules/bonuses/system/models/bonus/bonus';
 import {
@@ -123,21 +121,6 @@ export class BonusItemComponent extends AbstractComponent implements OnInit, OnC
             this.configService.get<string>('$base.profile.type') === 'first' && !this.$params.noDependsOnProfile;
 
         this.prepareModifiers();
-
-        this.configService.get<BehaviorSubject<UserProfile>>('$user.userProfile$')
-            .pipe(takeUntil(this.$destroy))
-            .subscribe((profile) => {
-                this.isAuth = this.configService.get('$user.isAuthenticated');
-                if (this.bonus) {
-                    if (this.isAuth) {
-                        this.bonus.userCurrency = profile?.currency
-                            || this.configService.get<string>('$base.defaultCurrency');
-                    } else {
-                        this.bonus.userCurrency = 'EUR';
-                    }
-                    this.cdr.markForCheck();
-                }
-            });
 
         if (this.bonus) {
             this.bonus.onChooseChange?.pipe(takeUntil(this.$destroy))

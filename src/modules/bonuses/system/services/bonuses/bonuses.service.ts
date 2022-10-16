@@ -157,6 +157,10 @@ export class BonusesService {
             .get<BehaviorSubject<UserProfile>>({name: '$user.userProfile$'})
             .subscribe((UserProfile) => {
                 this.profile = UserProfile;
+
+                Bonus.userCurrency = UserProfile?.idUser 
+                    ? UserProfile.currency 
+                    : this.configService.get<string>('$base.defaultCurrency') || 'EUR';
             });
 
         if (this.configService.get<boolean>('$base.finances.redirectAfterDepositBonus')) {

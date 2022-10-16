@@ -67,6 +67,52 @@ export type TBonusEvent =
     | 'store'
     | 'promotion';
 
+export type TBonusTarget =
+    | 'balance'
+    | 'experience'
+    | 'freebets'
+    | 'freerounds'
+    | 'loyalty'
+    | 'lootbox'
+    | '';
+
+export type TBonusResultValueType = 'absolute' | 'relative';
+
+export interface IBonusResultValue {
+    Type?: TBonusResultValueType;
+    Value?: IIndexing<string> | number[] | string;
+    AwardWagering?: {
+        COEF?: string;
+        EUR?: number;
+    };
+    LimitValue?: IIndexing<string>;
+    BetLevel?: string;
+    Coins?: string;
+    ReleaseWagering?: string;
+    WageringType?: string;
+}
+
+export interface IBonusResultValueDefault extends IBonusResultValue {
+    Value?: IIndexing<string>;
+}
+
+export interface IBonusResultValueFreerounds extends IBonusResultValue {
+    Value?: string;
+}
+
+export interface IBonusResultValueLootbox extends IBonusResultValue {
+    Value?: number[];
+}
+
+export interface IBonusResults {
+    balance?: IBonusResultValueDefault;
+    experience?: IBonusResultValueDefault;
+    freebets?: IBonusResultValueDefault;
+    loyalty?: IBonusResultValueDefault;
+    freerounds?: IBonusResultValueFreerounds;
+    lootbox?: IBonusResultValueLootbox;
+};
+
 export interface IBonusBase {
     AwardWageringTotal: number;
     Balance: number | string;
@@ -98,8 +144,8 @@ export interface IBonusBase {
     PromoCodeUsed: string;
     ReleaseWageringTotal: number;
     Status: string | number;
-    Target: string;
-    Type: string;
+    Target: TBonusTarget;
+    Type: TBonusResultValueType;
     Wagering: number;
     WageringLeft: string;
     WageringTo: string;
@@ -142,7 +188,7 @@ export interface IBonus extends IBonusBase {
     PaySystems: string[];
     PromoCode: string | number;
     RealWinning: string;
-    Results: any;
+    Results: IBonusResults;
     Selected: number;
     SportSettings: string;
     Starts: string;
