@@ -21,6 +21,15 @@
         display: grid;
         align-items: ef.get-value($withIcons, 'gridAlignItems');
 
+        &--dropdown-search {
+            @include bm.get-mq-map('grid-template-columns', $withIcons, 'gridColumnsDropdownSearch');
+
+            .games-categories__wrapper {
+                @include bm.get-mq-map('grid-template-columns', $withIcons, 'gridColumnsDropdownSearchWrapper');
+                @include bm.get-mq-map('gap', $withIcons, 'sectionGapDropdownSearch');
+            }
+        }
+
         &__wrapper {
             @include bm.get-mq-map('gap', $withIcons, 'wrapperGridGap');
             @include bm.get-mq-map('padding', $withIcons, 'wrapperPadding');

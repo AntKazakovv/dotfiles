@@ -303,5 +303,7 @@
 </ng-template>
 
 <ng-template #preloader>
-    <div wlc-loader class="{{$class}}__preloader"></div>
+    <div *ngIf="isShowPreloader"
+        wlc-loader
+        class="{{$class}}__preloader"></div>
 </ng-template>

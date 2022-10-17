@@ -4,7 +4,7 @@ import {ICategory} from 'wlc-engine/modules/games/system/interfaces/games.interf
 
 export type IGamesFilterData = {
     ids?: number[] | null;
-    searchQuery?: string;
+    searchQuery?: string | null;
     categories?: string[];
     merchants?: number[];
     excludeCategories?: string[];

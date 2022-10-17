@@ -611,7 +611,8 @@ class StartGameHandler {
 
     private closeGameHandler(): Subscription {
         const filterCache: null | IGamesFilterData =
-            _isEmpty(this.gamesFilterService.filterCache) ? null : {...this.gamesFilterService.filterCache};
+            _isEmpty(this.gamesFilterService.filterCache['modal']) ? null
+                : {...this.gamesFilterService.filterCache['modal']};
 
         const closeGameSubscription$: Subscription = this.eventService.subscribe(
             {name: 'CLOSE_GAME'},
@@ -631,7 +632,7 @@ class StartGameHandler {
 
                 if (filterCache) {
                     this.filterCacheCleared$.promise.then(() => {
-                        this.gamesFilterService.filterCache = filterCache;
+                        this.gamesFilterService.filterCache['modal'] = filterCache;
                         this.eventService.emit({
                             name: 'SHOW_MODAL',
                             data: 'search',

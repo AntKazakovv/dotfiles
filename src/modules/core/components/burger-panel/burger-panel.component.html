@@ -9,7 +9,9 @@
 </div>
 
 <ng-container *ngIf="$params.useScroll; else noScrollBar">
-    <div wlc-scrollbar class="{{$class}}__content">
+    <div wlc-scrollbar 
+        class="{{$class}}__content"
+        [update]="updateScrollbar">
         <ng-container [ngTemplateOutlet]="innerContent"></ng-container>
     </div>
 </ng-container>

@@ -52,6 +52,24 @@ export namespace wlcButton {
         },
     };
 
+    export const searchV4: ILayoutComponent = {
+        name: 'core.wlc-button',
+        display: {
+            before: 899,
+        },
+        params: {
+            class: 'wlc-btn wlc-btn-search',
+            common: {
+                iconPath: '/wlc/icons/search.svg',
+                text: gettext('Search for games'),
+                event: {
+                    name: 'SHOW_MODAL',
+                    data: 'search',
+                },
+            },
+        },
+    };
+
     export const searchDef: ILayoutComponent = {
         name: 'core.wlc-button',
         display: {

@@ -264,6 +264,10 @@ export interface IGamesGridCParams extends IComponentParams<ComponentTheme, Comp
     noContentText?: INoContentTexts;
 
     urlPreviewCategoryBg?: string;
+    /**
+     * Updates the grid after changing the filter
+     */
+    updateGridAfterFiltering?: boolean;
 }
 
 export const defaultParams: IGamesGridCParams = {

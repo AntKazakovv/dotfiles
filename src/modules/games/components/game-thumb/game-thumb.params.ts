@@ -8,8 +8,8 @@ import {
 import {Game} from 'wlc-engine/modules/games';
 import * as ButtonParams from 'wlc-engine/modules/core/components/button/button.params';
 
-export type Type = 'default' | 'modal' | 'vertical' | 'promo-widget' | 'games-slider' | CustomType;
-export type Theme = 'default' | 'vertical' | 'promo-widget' | CustomType;
+export type Type = 'default' | 'modal' | 'vertical' | 'promo-widget' | 'games-slider' | 'horizontal' | CustomType;
+export type Theme = 'default' | 'vertical' | 'promo-widget' | 'horizontal' | CustomType;
 export type ThemeMod = 'default' | 'vertical' | 'circle' | 'bottom-buttons' |
     'bottom-all' | 'bottom-title' | 'transform' | CustomType;
 export type AutoModifiers = Theme | ThemeMod;

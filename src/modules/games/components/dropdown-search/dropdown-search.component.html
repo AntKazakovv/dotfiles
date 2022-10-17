@@ -1,0 +1,25 @@
+<div *ngIf="ready"
+    wlc-click-outside
+    #searchContainer
+    class="{{$class}}__container"
+    [ngClass]="{'open': isOpened}"
+    [isOpened]="isOpened"
+    (clickOutside)="clickOutside()">
+    <div wlc-search-field
+        class="{{$class}}__search-field"
+        [inlineParams]="searchFieldParams"
+        [showClearIcon]="isOpened"
+        (searchQueryEmit)="setSearchQuery($event)"
+        (click)="clickOnTheSearchField()">
+    </div>
+    <div wlc-scrollbar
+        [inlineParams]="$params.scrollbarParams"
+        (swiperProgress)="setSwiperProgress($event)">
+        <div wlc-games-grid 
+            class="{{$class}}__games-grid"
+            [hidden]="!filters.searchQuery || !isOpened"
+            [$swiperProgress]="$swiperProgress"
+            [inlineParams]="$params.gamesGridParams">
+        </div>
+    </div>
+</div>

@@ -41,6 +41,7 @@ import {
     GamesFilterServiceEvents,
 } from 'wlc-engine/modules/games/system/services/games-filter.service';
 import {IGamesFilterData} from 'wlc-engine/modules/games/system/interfaces/filters.interfaces';
+import {ISearchFieldCParams} from 'wlc-engine/modules/games/components/search-field/search-field.params';
 
 import _includes from 'lodash-es/includes';
 import _filter from 'lodash-es/filter';
@@ -94,10 +95,12 @@ export class SearchComponent extends AbstractComponent implements OnInit {
     };
     public currentLanguage: string;
     public gamesGridParams: IGamesGridCParams;
+    public searchFieldCParams: ISearchFieldCParams;
     public searchQuery: string = '';
     public fieldWasClicked: boolean = false;
     public lastQueries$: Observable<string[]>;
     public visibleGames: Game[] = [];
+    public ready: boolean = false;
 
     protected parentCategory: CategoryModel;
     protected childCategory: CategoryModel;
@@ -123,6 +126,7 @@ export class SearchComponent extends AbstractComponent implements OnInit {
 
     public async ngOnInit(): Promise<void> {
         super.ngOnInit();
+        await this.gamesCatalogService.ready;
         if (this.$params.theme === 'easy') {
             this.lastQueries$ = this.gamesFilterService.lastQueries$;
             this.gamesGridParams = this.$params.easyThemeParams.searchGamesGrid;
@@ -139,14 +143,17 @@ export class SearchComponent extends AbstractComponent implements OnInit {
                 this.$params.common?.gamesGridParams,
             );
 
+            this.searchFieldCParams = {
+                searchQueryFromCache: this.searchQuery,
+                searchFrom: this.gamesGridParams.searchFilterName,
+                focus: true,
+            };
             this.initFromCache();
         }
 
         if (this.$params.common?.openProvidersList) {
             this.togglePanel('merchants');
         }
-
-        await this.gamesCatalogService.ready;
         this.parentCategory = this.gamesCatalogService.getParentCategoryByState();
         this.childCategory = this.gamesCatalogService.getChildCategoryByState();
 
@@ -166,6 +173,9 @@ export class SearchComponent extends AbstractComponent implements OnInit {
             },
             this.$destroy,
         );
+
+        this.ready = true;
+        this.cdr.detectChanges();
     }
 
     public togglePanel(panel: PanelType): void {
@@ -383,7 +393,7 @@ export class SearchComponent extends AbstractComponent implements OnInit {
      */
     protected initFromCache(): void {
         const filterCache: IGamesFilterData = _isEmpty(this.gamesFilterService.filterCache)
-            ? null : this.gamesFilterService.filterCache;
+            ? null : this.gamesFilterService.filterCache[this.gamesGridParams.searchFilterName];
 
         const isReady: Subscription = this.gamesFilterService.$gamesFilterSubsIsReady.subscribe((): void => {
             setTimeout(() => {

@@ -24,6 +24,13 @@
         @include bm.get-mq-map('grid-template-columns', $gamesCategoriesDefault, 'gamesTemplateColumns');
         display: grid;
         align-items: ef.get-value($gamesCategoriesDefault, 'gamesCategoriesAlign');
+
+        &--dropdown-search {
+
+            .wlc-btn-merch.wlc-btn {
+                @include bm.get-mq-map('min-width', $gamesCategoriesDefault, 'buttonMerchWidthDS');
+            }
+        }
     }
 
     .wlc-btn-search.wlc-btn,

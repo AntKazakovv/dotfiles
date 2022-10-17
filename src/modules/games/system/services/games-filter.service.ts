@@ -16,6 +16,7 @@ import {
     CachingService,
     ConfigService,
     EventService,
+    IIndexing,
 } from 'wlc-engine/modules/core';
 
 import {
@@ -42,7 +43,7 @@ export class GamesFilterService {
     /**
      * property that stores cached filters
      */
-    public filterCache: IGamesFilterData;
+    public filterCache: IIndexing<IGamesFilterData> = {};
     /**
      * Clear filterCache or not
      */
@@ -140,13 +141,13 @@ export class GamesFilterService {
         );
 
         if (save) {
-            this.filterCache = filterValues;
+            this.filterCache[filterName] = filterValues;
         }
 
         this.eventService.emit({
             name: GamesFilterServiceEvents.FILTER_CHANGED,
             from: filterName,
-            data: this.filterCache,
+            data: this.filterCache[filterName],
         });
 
         return resultFilter;
@@ -175,7 +176,7 @@ export class GamesFilterService {
     public delete(filterName: string, save?: boolean): boolean {
         delete this.filters[filterName];
         if (save) {
-            this.filterCache = null;
+            this.filterCache[filterName] = null;
         }
         return true;
     }
@@ -183,9 +184,9 @@ export class GamesFilterService {
     /**
      *
      * @param {string} filterName
-     * @param {string} query
+     * @param {string | null} query
      */
-    public search(filterName: string, query: string): void {
+    public search(filterName: string, query: string | null): void {
         if (!this.filters[filterName]) {
             return;
         }

@@ -26,6 +26,7 @@ import {GameThumbComponent} from './components/game-thumb/game-thumb.component';
 import {GameWrapperComponent} from './components/game-wrapper/game-wrapper.component';
 import {SearchFieldComponent} from './components/search-field/search-field.component';
 import {SearchComponent} from './components/search/search.component';
+import {DropdownSearchComponent} from './components/dropdown-search/dropdown-search.component';
 import {TotalJackpotComponent} from './components/total-jackpot/total-jackpot.component';
 import {PlayGameForRealComponent} from './components/play-game-for-real/play-game-for-real.component';
 import {GameDashboardComponent} from './components/game-dashboard/game-dashboard.component';
@@ -68,6 +69,7 @@ export const components = {
     'wlc-random-game': RandomGameComponent,
     'wlc-search': SearchComponent,
     'wlc-search-field': SearchFieldComponent,
+    'wlc-dropdown-search': DropdownSearchComponent,
     'wlc-total-jackpot': TotalJackpotComponent,
     'wlc-provider-links': ProviderLinksComponent,
     'wlc-provider-games': ProviderGamesComponent,
@@ -93,6 +95,7 @@ export const services = {
         RandomGameComponent,
         SearchFieldComponent,
         SearchComponent,
+        DropdownSearchComponent,
         TotalJackpotComponent,
         ProviderLinksComponent,
         ProviderGamesComponent,
@@ -125,6 +128,7 @@ export const services = {
         GameThumbComponent,
         SearchFieldComponent,
         SearchComponent,
+        DropdownSearchComponent,
         TotalJackpotComponent,
         GamesSliderComponent,
         PlayGameForRealComponent,
