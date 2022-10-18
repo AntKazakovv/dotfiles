@@ -56,12 +56,13 @@
 <ng-template #default>
     <div class="{{$class}}__content"
          data-wlc-element="block_bonus"
-         [style]="{backgroundImage: bonusBg}"
+         [ngStyle]="{'background-image': isThemeModWithImage ? none : bonusBg}"
          [class.disabled]="bonus.isDisabled">
 
         <div class="{{$class}}__wrapper">
             <div class="{{$class}}__image-block" data-wlc-element="bonus_image">
                 <ng-container [ngTemplateOutlet]="bonusTag"></ng-container>
+                <ng-container *ngIf="isThemeModWithImage" [ngTemplateOutlet]="bonusImage"></ng-container>
                 <ng-container [ngTemplateOutlet]="bonusIcon"></ng-container>
                 <ng-container [ngTemplateOutlet]="moreIcon"></ng-container>
             </div>

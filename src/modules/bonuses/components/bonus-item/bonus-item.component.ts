@@ -164,6 +164,15 @@ export class BonusItemComponent extends AbstractComponent implements OnInit, OnC
         }
     }
 
+    /**
+     * Indicates is themeMod equal to 'with-image' or not
+     *
+     * @returns {boolean}
+     */
+    public get isThemeModWithImage(): boolean {
+        return this.$params.themeMod === 'with-image';
+    }
+
     public get bonusBg(): string {
         let imageUrl: string;
 
