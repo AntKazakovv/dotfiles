@@ -1,6 +1,6 @@
 {
     "name": "@egamings/wlc-engine",
-    "version": "1.16.0-rc.6",
+    "version": "1.16.0-rc.7",
     "scripts": {
         "ng": "ng",
         "start": "ng serve",
