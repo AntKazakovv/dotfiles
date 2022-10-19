@@ -32,14 +32,31 @@ import {CachingService} from 'wlc-engine/modules/core/system/services/caching/ca
 import {InjectionService} from 'wlc-engine/modules/core/system/services/injection/injection.service';
 import {
     IGameStateData,
+    IStateData,
     IStateDataWithChild,
 } from 'wlc-engine/modules/core/system/services/seo/seo.interfaces';
 import {EventService} from 'wlc-engine/modules/core';
+
+type MetaTagKey = string;
+
+type OpenGraphKey = string;
+
+type MetaTagInfo = [MetaTagKey, OpenGraphKey];
 
 @Injectable()
 export class SeoService {
     public seo: IIndexing<IStateDataWithChild> = {};
     public seoGames: IGameStateData[] = [];
+
+    protected metaTags: MetaTagInfo[] = [
+        ['title', 'opengraph_title'],
+        ['og:title', 'opengraph_title'],
+        ['og:image', 'opengraph_image'],
+        ['keywords', 'opengraph_keywords'],
+        ['og:keywords', 'opengraph_keywords'],
+        ['description', 'opengraph_desc'],
+    ];
+
     private siteName: string = '';
     private gamesCatalogService: GamesCatalogService;
     private rewritingLanguages: IIndexing<string>;
@@ -73,36 +90,11 @@ export class SeoService {
         this.rewritingLanguages = this.configService.get<IIndexing<string>>('$base.rewritingWpLanguages');
         await this.getSeoData();
         this.siteName = this.configService.get<string>('$base.site.name');
-        this.meta.addTags([
-            {
-                name: 'title',
-                content: '',
-            },
-            {
-                name: 'og:title',
-                content: '',
-            },
-            {
-                name: 'description',
-                content: '',
-            },
-            {
-                name: 'keywords',
-                content: '',
-            },
-            {
-                name: 'og:keywords',
-                content: '',
-            },
-            {
-                name: 'og:description',
-                content: '',
-            },
-            {
-                name: 'og:image',
-                content: '',
-            },
-        ]);
+        this.meta.addTags(this.metaTags.map(([name]) => ({
+            name,
+            content: '',
+        })));
+
         this.seoHandler();
 
         this.transition.onSuccess({}, () => {
@@ -199,39 +191,7 @@ export class SeoService {
             return;
         }
 
-        this.meta.updateTag({
-            name: 'title',
-            content: _get(seoState, `opengraph_title.${currentLang}`, this.siteName),
-        });
-        this.meta.updateTag({
-            name: 'og:title',
-            content: _get(seoState, `opengraph_title.${currentLang}`, this.siteName),
-        });
-        this.meta.updateTag({
-            name: 'description',
-            content: _get(seoState, `opengraph_desc.${currentLang}`,
-                _get(seoState, 'opengraph_desc.en', '')),
-        });
-        this.meta.updateTag({
-            name: 'og:description',
-            content: _get(seoState, `opengraph_desc.${currentLang}`,
-                _get(seoState, 'opengraph_desc.en', '')),
-        });
-        this.meta.updateTag({
-            name: 'og:image',
-            content: _get(seoState, `opengraph_image.${currentLang}`,
-                _get(seoState, 'opengraph_image.en', '')),
-        });
-        this.meta.updateTag({
-            name: 'keywords',
-            content: _get(seoState, `opengraph_keywords.${currentLang}`,
-                _get(seoState, 'opengraph_keywords.en', '')),
-        });
-        this.meta.updateTag({
-            name: 'og:keywords',
-            content: _get(seoState, `opengraph_keywords.${currentLang}`,
-                _get(seoState, 'opengraph_keywords.en', '')),
-        });
+        this.updateMetaTags(seoState, currentLang);
     }
 
     /**
@@ -269,39 +229,7 @@ export class SeoService {
                 return;
             }
 
-            this.meta.updateTag({
-                name: 'title',
-                content: _get(gameSeo, `opengraph_title.${currentLang}`, this.siteName),
-            });
-            this.meta.updateTag({
-                name: 'og:title',
-                content: _get(gameSeo, `opengraph_title.${currentLang}`, this.siteName),
-            });
-            this.meta.updateTag({
-                name: 'description',
-                content: _get(gameSeo, `opengraph_desc.${currentLang}`,
-                    _get(gameSeo, 'opengraph_desc.en', '')),
-            });
-            this.meta.updateTag({
-                name: 'og:description',
-                content: _get(gameSeo, `opengraph_desc.${currentLang}`,
-                    _get(gameSeo, 'opengraph_desc.en', '')),
-            });
-            this.meta.updateTag({
-                name: 'og:image',
-                content: _get(gameSeo, `opengraph_image.${currentLang}`,
-                    _get(gameSeo, 'opengraph_image.en', '')),
-            });
-            this.meta.updateTag({
-                name: 'keywords',
-                content: _get(gameSeo, `opengraph_keywords.${currentLang}`,
-                    _get(gameSeo, 'opengraph_keywords.en', '')),
-            });
-            this.meta.updateTag({
-                name: 'og:keywords',
-                content: _get(gameSeo, `opengraph_keywords.${currentLang}`,
-                    _get(gameSeo, 'opengraph_keywords.en', '')),
-            });
+            this.updateMetaTags(gameSeo, currentLang);
         }
     }
 
@@ -310,6 +238,15 @@ export class SeoService {
             this.setGamesMetaTag(onlyTitle);
         } else {
             this.setMetaTags(onlyTitle);
+        }
+    }
+
+    protected updateMetaTags(state: IStateData, currentLang: string): void {
+        for (const [name, key] of this.metaTags) {
+            this.meta.updateTag({
+                name,
+                content: state[key][currentLang] || state[key]['en'] || '',
+            });
         }
     }
 
