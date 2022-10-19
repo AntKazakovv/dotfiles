@@ -866,7 +866,7 @@ $modalAnimation: map-merge((
 /// 'default' 'smooth' 'smoothSimple' 'zoom' 'flip' 'scale' 'rotate'  'bounce'
 $customThumbAnimation: () !default;
 $thumbAnimation: map-merge((
-    'thumbAnimationEffects': 'rotate',
+    'thumbAnimationEffects': 'default',
 ), $customThumbAnimation);
 
 $customTableBtnBlock: () !default;
