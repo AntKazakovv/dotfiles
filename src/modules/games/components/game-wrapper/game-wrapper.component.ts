@@ -524,7 +524,7 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
             subtree: true,
         });
 
-        if (gameContainerTag.querySelector('iframe') === null) {
+        if (gameContainerTag?.querySelector('iframe') === null) {
             this.logService.sendLog({
                 code: '3.0.6',
                 flog: {
