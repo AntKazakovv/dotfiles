@@ -20,6 +20,7 @@ import {
 import {
     AbstractComponent,
     ActionService,
+    BodyClassService,
     ConfigService,
     EventService,
     IBurgerPanelCParams,
@@ -77,6 +78,7 @@ export class FloatPanelsComponent extends AbstractComponent implements OnInit {
         protected logService: LogService,
         protected actionService: ActionService,
         protected layoutService: LayoutService,
+        protected bodyClassService: BodyClassService,
         @Inject(WINDOW) protected window: Window,
     ) {
         super({
@@ -151,6 +153,7 @@ export class FloatPanelsComponent extends AbstractComponent implements OnInit {
         this.openedPanel = '';
         this.removeModifiers(['open', `opened-${panelName}`]);
         this.document.body.style.overflow = null;
+        this.bodyClassService.removeClassByPrefix('wlc-body--panels-open');
     }
 
     protected normalizeBreakpoints(): void {
@@ -234,5 +237,6 @@ export class FloatPanelsComponent extends AbstractComponent implements OnInit {
         this.openedPanel = panelName;
         this.addModifiers(['open', `opened-${panelName}`]);
         this.document.body.style.overflow = 'hidden';
+        this.bodyClassService.addModifier('wlc-body--panels-open');
     }
 }

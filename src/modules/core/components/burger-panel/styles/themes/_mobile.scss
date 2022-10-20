@@ -11,13 +11,16 @@
     }
 
     &.wlc-burger-panel--type-right {
-        right: 0;
-        transform: translateX(100%);
+        right: -#{map-get($themeMobile, 'panelWidth')};
     }
 
     &.wlc-burger-panel--open {
         transform: none;
         visibility: visible;
+
+        &.wlc-burger-panel--type-right {
+            right: 0;
+        }
     }
 
     ::ng-deep {

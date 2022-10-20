@@ -62,6 +62,7 @@ export class BodyClassService {
     private observer: MutationObserver;
     private paddingTrottle: ReturnType<typeof setTimeout>;
     private stickyHeaderMobile: boolean;
+    private bodyClassList: DOMTokenList = this.document.body.classList;
 
     constructor(
         @Inject(DOCUMENT) private document: Document,
@@ -83,7 +84,7 @@ export class BodyClassService {
     public addModifier(modifier: string, skipEvent: boolean = false): void {
         const modClass = this.replaceSpaces(modifier);
         try {
-            this.document.body.classList.add(modClass);
+            this.bodyClassList.add(modClass);
             if (!skipEvent) {
                 this.emitClassEvent(modClass, 'add');
             }
@@ -107,11 +108,10 @@ export class BodyClassService {
      * @param prefix - part of class which contains structure `wlc-body--{key}-`
      */
     public removeClassByPrefix(prefix: string): void {
-        const bodyClassList = this.document.body.classList;
-        _forEach(_split(bodyClassList.value, ' '), (value: string) => {
+        _forEach(_split(this.bodyClassList.value, ' '), (value: string) => {
             if (_startsWith(value, prefix)) {
                 try {
-                    bodyClassList.remove(value);
+                    this.bodyClassList.remove(value);
                     this.emitClassEvent(value, 'remove');
                 } catch (error) {
                     this.logService.sendLog({code: '0.8.1', data: error});
@@ -130,7 +130,9 @@ export class BodyClassService {
     }
 
     private addBodyPadding(): void {
-        if (this.paddingTrottle || this.document.body.classList.contains('modal-open')) {
+        if (this.paddingTrottle
+            || this.bodyClassList.contains('modal-open')
+            || this.bodyClassList.contains('wlc-body--panels-open')) {
             return;
         }
 
@@ -252,7 +254,7 @@ export class BodyClassService {
         this.stickyHeaderMobile = this.configService.get<boolean>('$base.stickyHeader.stickyMobile');
 
         fromEvent(this.window, 'scroll').pipe(
-            throttleTime(10, asyncScheduler,{leading: false, trailing: true}),
+            throttleTime(10, asyncScheduler, {leading: false, trailing: true}),
             map((): number => this.window.pageYOffset),
             pairwise(),
             map(([y1, y2]: number[]): ScrollingDirection => {
