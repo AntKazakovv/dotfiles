@@ -1,5 +1,7 @@
 import {
     ComponentFixture,
+    fakeAsync,
+    flushMicrotasks,
     TestBed,
 } from '@angular/core/testing';
 
@@ -119,7 +121,7 @@ describe('LootboxModalComponent', (): void => {
         expect(nativeElement.querySelectorAll(`.${defaultParams.class}__buttons button`).length).toBe(2);
     });
 
-    it('-> Check component with "open" status', async (): Promise<void> => {
+    it('-> Check component with "open" status', fakeAsync((): void => {
         BonusesServiceSpy.getLootboxPrizes.withArgs(injectParams.bonus).
             and.returnValues(Promise.resolve(
                 [
@@ -129,7 +131,8 @@ describe('LootboxModalComponent', (): void => {
                 ],
             ));
 
-        await component.ngOnInit();
+        component.ngOnInit();
+        flushMicrotasks();
 
         expect(component.title).toEqual('Lootbox');
         expect(_trim(nativeElement.querySelector(`.${defaultParams.class}__desc`).textContent))
@@ -139,7 +142,7 @@ describe('LootboxModalComponent', (): void => {
         expect(component.btnDisabled).toBeFalse();
         expect(component.btnThemeMod).toBe('default');
         expect(nativeElement.querySelectorAll(`.${defaultParams.class}__buttons button`).length).toBe(1);
-    });
+    }));
 
     it('-> Check method "btnClick" and "onSlideChangeTransitionEnd"', async (): Promise<void> => {
         BonusesServiceSpy.getLootboxPrizes.withArgs(injectParams.bonus).

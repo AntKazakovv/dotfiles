@@ -76,7 +76,7 @@ export class LootboxModalComponent extends AbstractComponent implements OnInit {
 
         this.prizes = await this.bonusesService.getLootboxPrizes(this.$params.bonus);
 
-        if (!this.prizes.length) {
+        if (!this.prizes?.length) {
             this.lootboxStatus = 'error';
             this.clearModifiers();
             this.addModifiers(this.lootboxStatus);
