@@ -72,9 +72,6 @@ class PolyfillsResolver {
             case 'sp':
                 await import('@formatjs/intl-numberformat/locale-data/es');
                 break;
-            case 'ua':
-                await import('@formatjs/intl-numberformat/locale-data/uk');
-                break;
             case 'zh-hans':
                 await import('@formatjs/intl-numberformat/locale-data/zh-Hans');
                 break;
