@@ -58,8 +58,8 @@ export class FallbackImgDirective implements AfterViewInit, OnDestroy {
             }
 
             this.imageError.emit();
+            this.cdr.markForCheck();
         });
-        this.cdr.markForCheck();
     }
 
     public ngOnDestroy(): void {
