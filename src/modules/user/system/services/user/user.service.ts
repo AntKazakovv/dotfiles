@@ -813,7 +813,7 @@ export class UserService {
             type: 'POST',
             system: 'user',
             events: {
-                success: 'REGISTRATION',
+                success: 'REGISTRATION_BEGIN',
                 fail: 'REGISTRATION_ERROR',
             },
         });
@@ -857,8 +857,8 @@ export class UserService {
             url: '/profiles',
             type: 'PATCH',
             events: {
-                success: 'REGISTER',
-                fail: 'REGISTER_ERROR',
+                success: 'REGISTRATION_CONFIRM',
+                fail: 'REGISTRATION_CONFIRM_ERROR',
             },
         });
 
