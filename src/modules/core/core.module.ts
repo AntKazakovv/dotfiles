@@ -10,6 +10,10 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {ModalModule, MODAL_CONFIG_DEFAULT_OVERRIDE} from 'ngx-bootstrap/modal';
 import {PaginationModule} from 'ngx-bootstrap/pagination';
 import {SwiperModule} from 'swiper/angular';
+import {
+    LottieModule,
+    LottieCacheModule,
+} from 'ngx-lottie';
 import {TooltipModule} from 'ngx-bootstrap/tooltip';
 import {TranslateModule} from '@ngx-translate/core';
 import {UIRouterModule} from '@uirouter/angular';
@@ -115,6 +119,7 @@ import {IconListItemComponent} from './components/icon-list-item/icon-list-item.
 import {WrapperComponent} from 'wlc-engine/modules/core/components';
 import {ThemeTogglerComponent} from './components/theme-toggler/theme-toggler.component';
 import {AlertComponent} from './components/alert/alert.component';
+import {LottieAnimationComponent} from './components/lottie-animation/lottie-animation.component';
 // -- COMPONENTS IMPORTS END  --;
 
 //  -- DIRECTIVES IMPORTS STARTS--;
@@ -148,6 +153,10 @@ import {ICoreConfig} from './system/interfaces/core.interface';
 import * as $config from 'wlc-config/index';
 
 import _get from 'lodash-es/get';
+
+export function playerFactory() {
+    return import('lottie-web/build/player/lottie_svg');
+}
 
 export const moduleConfig =
     GlobalHelper.mergeConfig<ICoreConfig>(coreConfig, _get($config, '$core', {}));
@@ -189,6 +198,7 @@ export const components = {
     'wlc-loader': LoaderComponent,
     'wlc-login-signup': LoginSignupComponent,
     'wlc-logo': LogoComponent,
+    'wlc-lottie-animation': LottieAnimationComponent,
     'wlc-modal': WlcModalComponent,
     'wlc-no-content': WlcNoContentComponent,
     'wlc-pagination': WlcPaginationComponent,
@@ -233,6 +243,8 @@ export const services = {
         AngularMyDatePickerModule,
         CompilerModule,
         MonitoringModule,
+        LottieModule.forRoot({player: playerFactory}),
+        LottieCacheModule.forRoot(),
     ],
     providers: [
         DataService,
@@ -323,6 +335,7 @@ export const services = {
         LoaderComponent,
         LoginSignupComponent,
         LogoComponent,
+        LottieAnimationComponent,
         MessageComponent,
         NgTemplateNameDirective,
         NotificationThreadComponent,
@@ -399,6 +412,7 @@ export const services = {
         LoaderComponent,
         LoginSignupComponent,
         LogoComponent,
+        LottieAnimationComponent,
         NgTemplateNameDirective,
         ParallaxMovementDirective,
         PlugComponent,

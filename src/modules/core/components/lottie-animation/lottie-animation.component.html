@@ -1,0 +1,11 @@
+<ng-container *ngIf="this.$params.jsonUrl">
+    <ng-lottie
+        class="{{$class}}__content"
+        width="100%"
+        height="auto"
+        [options]="lottieConfig"
+        (animationCreated)="animationCreatedHandler($event)"
+        (complete)="completeHandler()"
+    >
+    </ng-lottie>
+</ng-container>

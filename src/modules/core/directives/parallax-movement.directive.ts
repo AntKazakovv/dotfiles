@@ -81,7 +81,9 @@ export class ParallaxMovementDirective implements OnInit, AfterViewInit, OnDestr
     }
 
     protected mouseLeave(): void {
-        this.bg.style.transform = 'initial';
+        if (this.bg) {
+            this.bg.style.transform = 'initial';
+        }
     }
 
     protected mouseMovement(e: MouseEvent): void {
@@ -97,7 +99,9 @@ export class ParallaxMovementDirective implements OnInit, AfterViewInit, OnDestr
             }
         });
 
-        this.bg.style.transform = `translate(${depthBg}) scale(1.05)`;
+        if (this.bg) {
+            this.bg.style.transform = `translate(${depthBg}) scale(1.05)`;
+        }
         e.stopPropagation();
     }
 }

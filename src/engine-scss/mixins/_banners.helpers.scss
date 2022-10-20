@@ -1,0 +1,17 @@
+@use 'engine-scss/functions' as ef;
+@use 'engine-scss/mixins/base.mixins' as bm;
+
+@mixin decorStyles($config) {
+    @include bm.get-mq-map('position', $config, 'position');
+    @include bm.get-mq-map('top', $config, 'top');
+    @include bm.get-mq-map('right', $config, 'right');
+    @include bm.get-mq-map('bottom', $config, 'bottom');
+    @include bm.get-mq-map('left', $config, 'left');
+
+    @include bm.get-mq-map('display', $config, 'display');
+    @include bm.get-mq-map('max-width', $config, 'maxWidth');
+    @include bm.get-mq-map('max-height', $config, 'maxHeight');
+    @include bm.get-mq-map('transform', $config, 'transform');
+
+    z-index: ef.get-value($config, 'zindex');
+}
