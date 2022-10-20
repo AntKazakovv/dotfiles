@@ -41,6 +41,8 @@ export interface IBonusesModule {
         imageDummy?: string;
         /** Bonus image in header of bonus-modal when useNewImageSources: true*/
         imageDescription?: string;
+        /** Bonus image TODO*/
+        imageDeposit?: string;
     };
     components?: {
         'wlc-bonuses-list': {
@@ -89,6 +91,7 @@ export interface IBonusBase {
     Image_store: string;
     Image_main: string;
     Image_description: string;
+    Image_deposit: string;
     LBID: string;
     LoyaltyPoints: string;
     Name: string;

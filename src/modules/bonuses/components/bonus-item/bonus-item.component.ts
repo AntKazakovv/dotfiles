@@ -197,6 +197,8 @@ export class BonusItemComponent extends AbstractComponent implements OnInit, OnC
                 imageUrl = this.bonus.image;
             }
 
+        } else if (this.$params.theme === 'mini') {
+            imageUrl = this.bonus.imageDeposit;
         } else {
             imageUrl = this.bonus.image;
         }
