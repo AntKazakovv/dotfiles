@@ -21,6 +21,7 @@ import {IPostCParams} from 'wlc-engine/modules/static/components';
 import * as Params from './info-page.params';
 
 import _cloneDeep from 'lodash-es/cloneDeep';
+import _get from 'lodash-es/get';
 
 
 /**
@@ -83,7 +84,8 @@ export class InfoPageComponent extends AbstractComponent implements OnInit {
                 break;
 
             default:
-                this.config.content.components = this.getStaticPost();
+                this.config.content.components = _get(
+                    this.$params.customConfig, this.uiRouter.params.slug, this.getStaticPost());
         }
         this.content = _cloneDeep(this.config.content);
     }
