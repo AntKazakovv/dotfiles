@@ -64,7 +64,6 @@ export class SignUpFormComponent extends UserActionsAbstract<Params.ISignUpFormC
     public $params: Params.ISignUpFormCParams;
     public formData: BehaviorSubject<IIndexing<unknown>>;
     public errors$: BehaviorSubject<IIndexing<string>> = new BehaviorSubject(null);
-    public submitButtonPending$: BehaviorSubject<boolean>;
     @HostBinding('class.two-steps') useTwoStepsClass: boolean = this.getTwoSteps();
 
     constructor(
@@ -135,10 +134,6 @@ export class SignUpFormComponent extends UserActionsAbstract<Params.ISignUpFormC
 
         if (this.$params.formData) {
             this.formData = new BehaviorSubject(this.$params.formData);
-        }
-
-        if (this.configService.get<boolean>('$base.forms.useSubmitButtonPending')) {
-            this.submitButtonPending$ = new BehaviorSubject(false);
         }
     }
 

@@ -140,7 +140,6 @@ export class DepositWithdrawComponent
 
     public formConfig: IFormWrapperCParams;
     public isShowHostedBlock: boolean = false;
-    public submitButtonPending$: BehaviorSubject<boolean>;
     public steps: Set<Params.IPaymentStep> = new Set();
 
     public useBonuses: boolean = false;
@@ -251,10 +250,6 @@ export class DepositWithdrawComponent
         }
 
         await this.financesService.fetchPaymentSystems();
-
-        if (this.configService.get<boolean>('$base.forms.useSubmitButtonPending')) {
-            this.submitButtonPending$ = new BehaviorSubject(false);
-        }
     }
 
     public ngOnDestroy(): void {

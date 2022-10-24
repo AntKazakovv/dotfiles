@@ -44,7 +44,6 @@ export class AddProfileInfoComponent extends ProfileFormAbstract implements OnIn
     public $params: Params.IAddProfileInfoCParams;
     public errors$: BehaviorSubject<IIndexing<string>> = new BehaviorSubject(null);
     public formConfig: IFormWrapperCParams;
-    public submitButtonPending$: BehaviorSubject<boolean>;
     protected isPending: boolean = false;
 
     constructor(

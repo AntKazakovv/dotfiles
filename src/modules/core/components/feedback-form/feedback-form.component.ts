@@ -42,7 +42,6 @@ export class FeedbackFormComponent extends AbstractComponent implements OnInit, 
     public config = Params.feedbackConfig;
     public contactsConfig: IContactsConfig;
     public formData$: BehaviorSubject<IIndexing<any>> = new BehaviorSubject(null);
-    public submitButtonPending$: BehaviorSubject<boolean>;
     protected userProfile$: BehaviorSubject<UserProfile>;
     protected form: FormGroup;
 
@@ -58,10 +57,6 @@ export class FeedbackFormComponent extends AbstractComponent implements OnInit, 
     public ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
         this.contactsConfig = this.configService.get<IContactsConfig>('$base.contacts');
-
-        if (this.configService.get<boolean>('$base.forms.useSubmitButtonPending')) {
-            this.submitButtonPending$ = new BehaviorSubject(false);
-        }
     }
 
     public ngAfterViewInit(): void {

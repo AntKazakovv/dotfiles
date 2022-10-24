@@ -47,6 +47,13 @@
                     }
                 }
             }
+
+            &.wlc-btn--theme-skew {
+
+                .wlc-btn__pending {
+                    transform: ef.get-value($themeDefault, 'pendingSkewTransform');
+                }
+            }
         }
 
         &.wlc-btn--animate {

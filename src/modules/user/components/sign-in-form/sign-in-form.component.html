@@ -1,7 +1,6 @@
 <div *ngIf="$params.wrapperConfig" wlc-wrapper [inlineParams]="$params.wrapperConfig"></div>
 <div wlc-form-wrapper
     [config]="config"
-    [submitButtonPending$]="submitButtonPending$"
     [ngSubmit]="ngSubmit.bind(this)"
     [errors]="errors$.asObservable()"
     [beforeSubmit]="beforeSubmit.bind(this)"

@@ -89,7 +89,6 @@ export class ProfileFormComponent extends ProfileFormAbstract implements OnInit 
     public errors$: BehaviorSubject<IIndexing<string>> = new BehaviorSubject(null);
     public ready: boolean = false;
     public formConfig: IFormWrapperCParams;
-    public submitButtonPending$: BehaviorSubject<boolean>;
 
     constructor(
         @Inject('injectParams') protected params: Params.IProfileFormCParams,

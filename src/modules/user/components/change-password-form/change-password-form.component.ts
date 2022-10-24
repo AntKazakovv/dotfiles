@@ -2,7 +2,8 @@ import {
     Component,
     ElementRef,
     Inject,
-    Input, OnInit,
+    Input,
+    OnInit,
 } from '@angular/core';
 import {FormGroup} from '@angular/forms';
 

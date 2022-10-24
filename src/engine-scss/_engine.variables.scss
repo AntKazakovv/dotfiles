@@ -672,6 +672,7 @@ $buttonSettings: map-merge((
     'time': map-get($time, 'main'),
     'radiusRoundingTheme': 100px,
     'pendingAnimation': spin 1s infinite linear,
+    'pendingSkewTransform': translate(-50%, -50%) skew(20deg, 0),
     // Animation Main
     'mainAnimation': buttonPulse 12.5s infinite cubic-bezier(0.7, 0, 0, 1),
     'mainBoxShadowAnimationStart': 0 0 0 0 var(--mc-buttonColor),
