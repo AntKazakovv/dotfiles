@@ -877,7 +877,7 @@ $appOffline: map-merge((
 /// 'flip' 'superScaled' 'slit'
 $customModalAnimation: () !default;
 $modalAnimation: map-merge((
-    'modalAnimationEffects': 'fadeLeft',
+    'modalAnimationEffects': 'fadeTop',
     'modalAnimationTournamentEffects': 'fadeTop',
     'modalMobileAnimation': true,
     'modalClosingAnimation': false,
