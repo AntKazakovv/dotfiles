@@ -14,3 +14,5 @@ export namespace ProhibitedPatterns {
     */
     export const notNumberSymbols: RegExp = /\D/g;
 }
+
+export const sanitizeHTMLTags: RegExp = /<[^>]*>/g;

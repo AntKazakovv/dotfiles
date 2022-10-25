@@ -20,6 +20,7 @@ import {
 } from 'wlc-engine/modules/core/system/interfaces';
 import {INoContentCParams} from 'wlc-engine/modules/core/components/no-content/no-content.params';
 import {ConfigService} from 'wlc-engine/modules/core';
+import {sanitizeHTMLTags} from 'wlc-engine/modules/core/constants/regexp.constants';
 import {environment} from 'wlc-engine/system/environments/environment';
 
 import _size from 'lodash-es/size';
@@ -32,6 +33,7 @@ import _keys from 'lodash-es/keys';
 import _reduce from 'lodash-es/reduce';
 import _assign from 'lodash-es/assign';
 import _reverse from 'lodash-es/reverse';
+import _replace from 'lodash-es/replace';
 
 interface IParams extends IComponentParams<string, string, string> {
     noContent?: IIndexing<INoContentCParams> | IIndexing<IIndexing<INoContentCParams>>,
@@ -427,5 +429,16 @@ export class GlobalHelper {
                 return getParams;
             }
         }
+    }
+
+    /**
+     * Delete all html tags from string
+     *
+     * @param {string} text
+     *
+     * @returns {string}
+     */
+    public static deleteHTMLTags(text: string): string {
+        return _replace(text, sanitizeHTMLTags, '');
     }
 }

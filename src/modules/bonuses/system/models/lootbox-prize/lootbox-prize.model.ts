@@ -3,6 +3,7 @@ import _assign from 'lodash-es/assign';
 import {
     AbstractModel,
     ConfigService,
+    GlobalHelper,
     IFromLog,
 } from 'wlc-engine/modules/core';
 import {
@@ -28,8 +29,8 @@ export class LootboxPrizeModel extends AbstractModel<ILootboxPrize> {
             LootboxPrizeModel.$bonuses = this.configService.get<IBonusesModule>('$bonuses');
         }
 
-        this.descriptionClean = this.data.Description.replace(/<[^>]*>/g, '');
-        this.termsClean = this.data.Terms.replace(/<[^>]*>/g, '');
+        this.descriptionClean = GlobalHelper.deleteHTMLTags(this.data.Description);
+        this.termsClean = GlobalHelper.deleteHTMLTags(this.data.Terms);
     }
 
     /**

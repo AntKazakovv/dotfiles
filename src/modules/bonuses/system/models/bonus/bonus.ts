@@ -85,8 +85,8 @@ export class Bonus extends AbstractModel<IBonus> {
         this.userCurrency = this.configService.get<string>('appConfig.user.currency')
             || this.configService.get<string>('$base.defaultCurrency');
 
-        this.descriptionClean = this.data.Description.replace(/<[^>]*>/g, '');
-        this.termsClean = this.data.Terms.replace(/<[^>]*>/g, '');
+        this.descriptionClean = GlobalHelper.deleteHTMLTags(this.data.Description);
+        this.termsClean = GlobalHelper.deleteHTMLTags(this.data.Terms);
 
         if (Bonus.$bonuses.useNewImageSources && this.data.Image_other) {
             this.icon = GlobalHelper.proxyUrl(this.data.Image_other);

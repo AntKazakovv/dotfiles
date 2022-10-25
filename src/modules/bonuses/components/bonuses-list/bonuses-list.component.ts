@@ -140,6 +140,7 @@ export class BonusesListComponent extends AbstractComponent implements OnInit, O
                     ID: this.$params.common.blankBonus.id,
                     Name: this.$params.common.blankBonus.name,
                     Description: this.$params.common.blankBonus.description || '',
+                    Terms: '',
                 } as IBonus,
                 this.configService,
                 this.cachingService,
