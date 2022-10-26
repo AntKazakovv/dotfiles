@@ -7,6 +7,7 @@ import {DOCUMENT} from '@angular/common';
 
 import {
     skipWhile,
+    take,
     filter,
     first,
 } from 'rxjs/operators';
@@ -17,6 +18,7 @@ import {
     firstValueFrom,
 } from 'rxjs';
 import _assign from 'lodash-es/assign';
+import {TranslateService} from '@ngx-translate/core';
 
 import {
     GlobalHelper,
@@ -61,6 +63,7 @@ export class LivechatincService extends LivechatAbstract<ILivechatIncConfig> {
         protected configService: ConfigService,
         protected logService: LogService,
         protected router: UIRouter,
+        protected translateService: TranslateService,
     ) {
         super(document, eventService, router, configService);
     }
@@ -133,9 +136,9 @@ export class LivechatincService extends LivechatAbstract<ILivechatIncConfig> {
      */
     public destroyWidget(): void {
         this.window['LiveChatWidget']?.call('destroy');
-        this.document.head.querySelector('#LivechatincScript').remove();
-        this.document.head.querySelector('#LivechatincScriptSdk').remove();
-        this.document.head.querySelector('#incInnerScript').remove();
+        this.document.head.querySelector('#LivechatincScript')?.remove();
+        this.document.head.querySelector('#LivechatincScriptSdk')?.remove();
+        this.document.head.querySelector('script[src="https://cdn.livechatinc.com/tracking.js"]')?.remove();
     }
 
     /**
@@ -217,11 +220,11 @@ export class LivechatincService extends LivechatAbstract<ILivechatIncConfig> {
         // script from https://my.livechatinc.com/settings/code
         script.text = ';(function(n,t,c){function i(n){return e._h?e._h.apply(null,n):e._q.push(n)}var e={_q:[],' +
         '_h:null,_v:"2.0",on:function(){i(["on",c.call(arguments)])},once:function(){i(["once",c.call(arguments)])},' +
-        'off:function(){i(["off",c.call(arguments)])},get:function(){if(!e._h)throw new Error("[LiveChatWidget]' +
-        ' You can\'t use getters before load.");return i(["get",c.call(arguments)])},call:function(){i(["call",' +
+            'off:function(){i(["off",c.call(arguments)])},get:function(){if(!e._h)throw new Error("[LiveChatWidget]' +
+            ' You can\'t use getters before load.");return i(["get",c.call(arguments)])},call:function(){i(["call",' +
         'c.call(arguments)])},init:function(){var n=t.createElement("script");n.async=!0,n.type="text/javascript",' +
-        'n.src="https://cdn.livechatinc.com/tracking.js",n.id="incInnerScript",t.head.appendChild(n)}};' +
-        '!n.__lc.asyncInit&&e.init(),n.LiveChatWidget=n.LiveChatWidget||e}(window,document,[].slice))';
+            'n.src="https://cdn.livechatinc.com/tracking.js",t.head.appendChild(n)}};' +
+            '!n.__lc.asyncInit&&e.init(),n.LiveChatWidget=n.LiveChatWidget||e}(window,document,[].slice))';
 
         this.document.head.appendChild(script);
 
@@ -280,6 +283,13 @@ export class LivechatincService extends LivechatAbstract<ILivechatIncConfig> {
         if (this.options.hidden) {
             this.hiddenChatStart();
         }
+
+        this.translateService.onLangChange
+            .pipe(take(1))
+            .subscribe(() => {
+                this.destroyWidget();
+            });
+
     }
 
     protected setUserDetail(): void {
