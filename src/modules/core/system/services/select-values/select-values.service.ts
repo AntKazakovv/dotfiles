@@ -30,6 +30,7 @@ import _merge from 'lodash-es/merge';
 import _get from 'lodash-es/get';
 import _cloneDeep from 'lodash-es/cloneDeep';
 import _has from 'lodash-es/has';
+import _includes from 'lodash/includes';
 
 import {UserProfile} from 'wlc-engine/modules/user';
 import {GlobalHelper} from 'wlc-engine/modules/core/system/helpers/global.helper';
@@ -119,6 +120,17 @@ export class SelectValuesService {
         let modifyCurrencies = _values(this.configService.get<IIndexing<ICurrency>>('appConfig.siteconfig.currencies'));
 
         modifyCurrencies = GlobalHelper.sortByOrder(modifyCurrencies, sortConfig, 'Name');
+
+        if (this.configService.get<IIndexing<ICurrency>>('$base.registration.regCurrenciesByCountries')) {
+            const currenciesByCountry = this.configService.get<string>(
+                `$base.registration.regCurrenciesByCountries.${this.configService.get<string>('appConfig.country')}`,
+            );
+            if (currenciesByCountry) {
+                modifyCurrencies = _filter(modifyCurrencies, (el) => {
+                    return _includes(currenciesByCountry, el.Name);
+                });
+            }
+        }
 
         return new BehaviorSubject(
             _map(
