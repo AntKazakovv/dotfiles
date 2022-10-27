@@ -314,7 +314,7 @@ export class BonusesService {
                 case 'all':
                     return (allowCatalog || (!allowCatalog && (selected || active)))
                         && (!hasPromoCode || selected || active || inventoried || this.isPromocodeEntered(bonus))
-                        && bonus.event !== 'store';
+                        && (bonus.event !== 'store' || bonus.isActive);
                 case 'deposit':
                     return (allowCatalog || (!allowCatalog && (selected || active)))
                         && (!hasPromoCode || selected || active || this.isPromocodeEntered(bonus))
