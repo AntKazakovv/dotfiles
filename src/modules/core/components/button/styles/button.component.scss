@@ -18,6 +18,27 @@
         border: none;
         overflow: hidden;
 
+        &:disabled {
+            background: ef.get-value($themeDefault, 'disabledBg');
+            box-shadow: ef.get-value($themeDefault, 'disabledShadow');
+            cursor: ef.get-value($themeDefault, 'disabledCursor');
+            border: ef.get-value($themeDefault, 'disabledBorder');
+
+            .wlc-btn__text {
+                color: ef.get-value($themeDefault, 'disabledColorHover');
+            }
+
+            @include bm.hover {
+                background: ef.get-value($themeDefault, 'disabledBgHover');
+                box-shadow: ef.get-value($themeDefault, 'disabledShadowHover');
+                border: ef.get-value($themeDefault, 'disabledBorderHover');
+
+                .wlc-btn__text {
+                    color: ef.get-value($themeDefault, 'disabledSecondaryColor');
+                }
+            }
+        }
+
         .wlc-btn {
 
             &__pending {
@@ -64,6 +85,26 @@
         }
 
         &.wlc-btn--theme-mod-secondary {
+
+            &:disabled {
+                background: ef.get-value($themeDefault, 'disableSecondarydBg');
+                box-shadow: ef.get-value($themeDefault, 'disabledSecondaryShadow');
+                border: ef.get-value($themeDefault, 'disabledSecondaryBorder');
+
+                .wlc-btn__text {
+                    color: ef.get-value($themeDefault, 'disabledSecondaryColor');
+                }
+
+                @include bm.hover {
+                    background: ef.get-value($themeDefault, 'disabledSecondaryBgHover');
+                    box-shadow: ef.get-value($themeDefault, 'disabledSecondaryShadowHover');
+                    border: ef.get-value($themeDefault, 'disabledSecondaryBorderHover');
+
+                    .wlc-btn__text {
+                        color: ef.get-value($themeDefault, 'disabledSecondaryColorHover');
+                    }
+                }
+            }
 
             &.wlc-btn--animate {
 

@@ -40,9 +40,6 @@ $themeDefault: map-merge((
     'timerJustify': center,
 
     //btn
-    'btnDisabledCursor': not-allowed,
-    'btnDisabledOpacity': 0.5,
-
     'btnJustifySelf': center,
 ), $customThemeDefault);
 

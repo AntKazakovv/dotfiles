@@ -686,8 +686,25 @@ $buttonSettings: map-merge((
     // Transform
     'transformSkew': skew(-20deg, 0),
     'transformSkewText': skew(20deg, 0),
-    // Disabled
-    'disabledOpacity': 0.5,
+    // Disabled button
+    'disabledBg': var(--mc-buttonColor-o6),
+    'disabledBgHover': var(--mc-buttonColor-o6),
+    'disabledColor': var(--mc-baseMain-o6),
+    'disabledColorHover': var(--mc-baseMain-o6),
+    'disabledShadow': none,
+    'disabledShadowHover': none,
+    'disabledBorder': none,
+    'disabledBorderHover': none,
+    'disabledCursor': not-allowed,
+    // Disabled secondary button
+    'disableSecondarydBg': transparent,
+    'disabledSecondaryBgHover': transparent,
+    'disabledSecondaryColor': var(--mc-baseMain-o6),
+    'disabledSecondaryColorHover': var(--mc-baseMain-o6),
+    'disabledSecondaryShadow': none,
+    'disabledSecondaryShadowHover': none,
+    'disabledSecondaryBorder': 2px solid var(--mc-secondary-o6),
+    'disabledSecondaryBorderHover': 2px solid var(--mc-secondary-o6),
 ), $customButtonSettings);
 
 $customStickyHeader: () !default;

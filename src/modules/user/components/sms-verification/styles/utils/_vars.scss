@@ -35,6 +35,4 @@ $themeDefault: map-merge((
     'btnMargin': (
         320: ef.size(8) auto ef.size(2),
     ),
-    'btnDisabledCursor': not-allowed,
-    'btnDisabledOpacity': 0.5,
 ), $customThemeDefault);

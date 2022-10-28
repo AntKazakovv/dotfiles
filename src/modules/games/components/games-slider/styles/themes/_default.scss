@@ -9,8 +9,6 @@
 
         &:disabled {
             background: ef.get-value($themeDefault, 'buttonBgDisabled');
-            cursor: default;
-            border: none;
         }
     }
 
