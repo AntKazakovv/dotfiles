@@ -73,9 +73,9 @@ $gamesCategoriesDefault: map-merge((
 
     'withoutBackContainerPadding': 0,
     'withoutBackBtnBorder': 2px solid var(--mc-baseOpacity),
-    'withoutBackBtnBorderHover': null,
+    'withoutBackBtnBorderHover': 2px solid var(--mc-main),
     'withoutBackBg': none,
-    'withoutBackBgHover': var(--mc-bg300),
+    'withoutBackBgHover': var(--mc-main),
 ), $customGamesCategoriesDefault);
 
 $customWithIcons: () !default;
