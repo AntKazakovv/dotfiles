@@ -170,7 +170,7 @@ export class SignUpFormComponent extends UserActionsAbstract<Params.ISignUpFormC
 
 
             if (this.configService.get<boolean>('$base.site.useXNonce')) {
-                this.dataService.setNonceAndEmailToLocalStorage(regData.data.email);
+                this.dataService.setNonceToLocalStorage();
             }
 
             await this.userService.validateRegistration(regData);
@@ -180,7 +180,7 @@ export class SignUpFormComponent extends UserActionsAbstract<Params.ISignUpFormC
         } catch (error) {
 
             if (this.configService.get<boolean>('$base.site.useXNonce')) {
-                this.dataService.deleteNonceAndEmailFromLocalStorage();
+                this.dataService.deleteNonceFromLocalStorage();
             }
 
             this.showRegError(error);
