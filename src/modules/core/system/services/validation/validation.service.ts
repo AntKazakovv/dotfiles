@@ -12,7 +12,11 @@ import {
     of,
 } from 'rxjs';
 import {
+    debounceTime,
     delay,
+    distinctUntilChanged,
+    filter,
+    first,
     map,
     switchMap,
 } from 'rxjs/operators';
@@ -150,22 +154,23 @@ export class ValidationService {
             });
     }
 
-    public passwordRule(ctrl: AbstractControl): Promise<IIndexing<boolean>> {
-        if (!ctrl.value) {
-            return of(null).toPromise();
-        }
-
-        return this.dataService.request<IIndexing<string>>({
-            name: 'passwordValidation',
-            system: 'user',
-            url: '/validate/user-register',
-            type: 'POST',
-        } as IRequestMethod, {data: {password: ctrl.value}, fields: ['password']}).then(value => {
-            return value.data.result ? null :
-                this.configService.get<IValidationPasswordRules>('$base.profile.passwordValidation.rules') ?
-                    {'configPassword': true} : {'password': true};
-        });
-    };
+    /**
+     * Validate password
+     * @param ctrl AbstractControl
+     * @returns Observable<IIndexing<boolean> | null>
+     */
+    public passwordRule(ctrl: AbstractControl): Observable<IIndexing<boolean> | null> {
+        return ctrl.value
+            ? ctrl.valueChanges
+                .pipe(
+                    distinctUntilChanged(),
+                    filter(Boolean),
+                    debounceTime(this.delay),
+                    switchMap((password: string): Observable<IIndexing<boolean>> => from(this.checkPassword(password))),
+                    first(),
+                )
+            : of(null);
+    }
 
     public getValidator(validator: string): IValidatorListItem {
         return this.validatorList[validator];
@@ -247,5 +252,19 @@ export class ValidationService {
         }
         return this.dataService.request<IIndexing<string>>('user/emailUnique',
             {email: ctrl.value});
+    }
+
+    private async checkPassword(password: string): Promise<IIndexing<boolean>> {
+        return this.dataService.request<IIndexing<string>>({
+            name: 'passwordValidation',
+            system: 'user',
+            url: '/validate/user-register',
+            type: 'POST',
+        } as IRequestMethod, {data: {password: password}, fields: ['password']})
+            .then((value: IData<any> | IIndexing<string>): IIndexing<boolean> | null => {
+                return value.data.result ? null :
+                    this.configService.get<IValidationPasswordRules>('$base.profile.passwordValidation.rules') ?
+                        {'configPassword': true} : {'password': true};
+            });
     }
 }

@@ -18,6 +18,7 @@ import {
     onlyLettersValidator,
     requiredFieldValidator,
 } from 'wlc-engine/modules/core/system/services/validation/validators';
+import {IIndexing} from 'wlc-engine/modules/core/system/interfaces';
 
 describe('ValidationService', () => {
     let validationService: ValidationService;
@@ -161,25 +162,31 @@ describe('ValidationService', () => {
         dataServiceSpy.request.calls.reset();
     });
 
-    it('-> passwordRule should return null if value is empty/response is true and otherwise error', () => {
-        validationService.passwordRule(formControlEmpty).then((data) => {
-            expect(data).toBeNull();
-        });
+    it('-> passwordRule should return null if value is empty/response is true and otherwise error',
+        fakeAsync((): void => {
+            validationService.passwordRule(formControlEmpty)
+                .subscribe((val: IIndexing<boolean>): void => {
+                    expect(val).toBeNull();
+                });
+            tick(validationService['delay']);
 
-        dataServiceSpy.request.and.resolveTo({
-            data: {result: true},
-        });
-        validationService.passwordRule(formControlPassword).then((data) => {
-            expect(data).toBeNull();
-        });
+            dataServiceSpy.request.and.resolveTo({
+                data: {result: true},
+            });
+            validationService.passwordRule(formControlPassword)
+                .subscribe((val: IIndexing<boolean>): void => {
+                    expect(val).toBeNull();
+                });
+            tick(validationService['delay']);
 
-        dataServiceSpy.request.and.resolveTo({
-            data: {result: false},
-        });
-        validationService.passwordRule(formControlPassword).then((data) => {
-            expect(data).toEqual({'password': true});
-        });
-    });
+            dataServiceSpy.request.and.resolveTo({
+                data: {result: false},
+            });
+            validationService.passwordRule(formControlPassword)
+                .subscribe((val: IIndexing<boolean>): void => {
+                    expect(val).toEqual({'password': true});
+                });
+        }));
 
     it('-> emailValidator should return null if value is empty/correctEmail and otherwise error', () => {
         expect(emailValidator(formControlEmpty)).toBeNull();
