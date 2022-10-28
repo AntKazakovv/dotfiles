@@ -335,40 +335,27 @@ export class DataService {
     }
 
     /**
-     * Add nonce and email to localstorage
+     * Add nonce to localstorage
      *
-     * @param {string} email
      *
      * @returns {void}
      */
-    public setNonceAndEmailToLocalStorage(email: string): void {
+    public setNonceToLocalStorage(): void {
         this.configService.set({
             name: 'X-Nonce',
             value: this.generateNonce(),
             storageType: 'localStorage',
         });
-
-        this.configService.set({
-            name: 'email',
-            value: email.toLowerCase(),
-            storageType: 'localStorage',
-        });
     }
 
     /**
-     * Delete nonce and email from localstorage
+     * Delete nonce from localstorage
      *
      * @returns {void}
      */
-    public deleteNonceAndEmailFromLocalStorage(): void {
+    public deleteNonceFromLocalStorage(): void {
         this.configService.set({
             name: 'X-Nonce',
-            value: null,
-            storageClear: 'localStorage',
-        });
-
-        this.configService.set({
-            name: 'email',
             value: null,
             storageClear: 'localStorage',
         });

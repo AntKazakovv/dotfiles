@@ -19,6 +19,7 @@ import {IPushMessageParams} from 'wlc-engine/modules/core/system/services/notifi
 import {NotificationEvents} from 'wlc-engine/modules/core/system/services/notification/notification.service';
 import {IFormWrapperCParams} from 'wlc-engine/modules/core/components/form-wrapper/form-wrapper.component';
 import {ModalService} from 'wlc-engine/modules/core/system/services/modal/modal.service';
+import {DataService} from 'wlc-engine/modules/core';
 import {
     SmsService,
     UserService,
@@ -74,6 +75,7 @@ export class SmsVerificationComponent extends UserActionsAbstract<Params.ISmsVer
         protected cdr: ChangeDetectorRef,
         protected smsService: SmsService,
         protected modalService: ModalService,
+        protected dataService: DataService,
     ) {
         super({
             injectParams,
@@ -125,6 +127,11 @@ export class SmsVerificationComponent extends UserActionsAbstract<Params.ISmsVer
 
         try {
             form.disable();
+
+            if (this.configService.get<boolean>('$base.site.useXNonce')) {
+                this.dataService.setNonceToLocalStorage();
+            }
+
             const response = await this.smsService.validate(this.smsToken, smsCode, this.phoneCode, this.phoneNumber);
             if (response?.status) {
                 if (this.$params.functional === 'profile') {
@@ -160,6 +167,10 @@ export class SmsVerificationComponent extends UserActionsAbstract<Params.ISmsVer
                 setTimeout(() => form.controls.code.setErrors({'wrong-sms-code': true}));
             }
         } catch (error) {
+            if (this.configService.get<boolean>('$base.site.useXNonce')) {
+                this.dataService.deleteNonceFromLocalStorage();
+            }
+
             this.showRegError(error);
         } finally {
             form.enable();

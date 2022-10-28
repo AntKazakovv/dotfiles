@@ -164,10 +164,7 @@ export class UserService {
                 return;
             }
 
-            if (
-                this.configService.get<boolean>('$base.site.useXNonce')
-                && this.isXNonceUserInfoError(info)
-            ) {
+            if (this.configService.get<boolean>('$base.site.useXNonce') && info?.code === 403) {
                 this.modalService.showModal({
                     id: 'login-error',
                     modalTitle: gettext('Sorry, something went wrong!'),
@@ -294,7 +291,7 @@ export class UserService {
             this.dataService.closeSocket();
             this.stopUserInfoFetcher();
 
-            this.dataService.deleteNonceAndEmailFromLocalStorage();
+            this.dataService.deleteNonceFromLocalStorage();
 
             this.info = new UserInfo(
                 {service: 'UserService', method: 'constructor'},
@@ -375,8 +372,8 @@ export class UserService {
     public login(login: TMetamaskData): Promise<IIndexing<any>>;
 
     public login(login: string | TMetamaskData, password?: string): Promise<IIndexing<any>> {
-        if (_isString(login) && this.configService.get<boolean>('$base.site.useXNonce')) {
-            this.dataService.setNonceAndEmailToLocalStorage(login);
+        if (this.configService.get<boolean>('$base.site.useXNonce')) {
+            this.dataService.setNonceToLocalStorage();
         }
 
         const loginData: TLoginData = _isString(login) ? {login, password} : login;
@@ -386,7 +383,7 @@ export class UserService {
         response.catch((error) => {
 
             if (this.configService.get<boolean>('$base.site.useXNonce')) {
-                this.dataService.deleteNonceAndEmailFromLocalStorage();
+                this.dataService.deleteNonceFromLocalStorage();
             }
 
             this.logService.sendRequestLog({
@@ -746,14 +743,6 @@ export class UserService {
             textAlign: 'center',
             dismissAll: true,
         });
-    }
-
-    private isXNonceUserInfoError(userInfo: IData<IUserInfo>): boolean {
-        return userInfo?.code === 403
-            || (
-                userInfo?.data?.email?.toLowerCase()
-                !== this.configService.get<string>({name: 'email', storageType: 'localStorage'})
-            );
     }
 
     private async fetchUserInfo(): Promise<void> {
