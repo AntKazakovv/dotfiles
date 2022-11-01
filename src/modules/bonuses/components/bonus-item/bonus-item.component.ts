@@ -188,6 +188,9 @@ export class BonusItemComponent extends AbstractComponent implements OnInit, OnC
         } else if (this.$params.theme === 'preview') {
             imageUrl = this.bonus.imageReg;
 
+        } else if (this.$params.theme === 'mini') {
+            imageUrl = this.bonus.imageDeposit;
+
         } else if (this.asProfileTypeFirst) {
             imageUrl = this.bonus.imageProfileFirst;
 
@@ -197,8 +200,6 @@ export class BonusItemComponent extends AbstractComponent implements OnInit, OnC
                 imageUrl = this.bonus.image;
             }
 
-        } else if (this.$params.theme === 'mini') {
-            imageUrl = this.bonus.imageDeposit;
         } else {
             imageUrl = this.bonus.image;
         }
