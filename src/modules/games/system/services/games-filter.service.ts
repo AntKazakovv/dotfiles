@@ -16,13 +16,13 @@ import {
     CachingService,
     ConfigService,
     EventService,
-    IIndexing,
 } from 'wlc-engine/modules/core';
 
 import {
     IGamesFilterData,
     IGamesFilterServiceEvents,
     IIndexingFilter,
+    TFilterCacheKeys,
 } from 'wlc-engine/modules/games/system/interfaces/filters.interfaces';
 
 export const GamesFilterServiceEvents: IGamesFilterServiceEvents = {
@@ -43,7 +43,7 @@ export class GamesFilterService {
     /**
      * property that stores cached filters
      */
-    public filterCache: IIndexing<IGamesFilterData> = {};
+    public filterCache: Record<TFilterCacheKeys, IGamesFilterData> = {};
     /**
      * Clear filterCache or not
      */

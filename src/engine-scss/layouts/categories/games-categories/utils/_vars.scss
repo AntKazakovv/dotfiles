@@ -83,10 +83,14 @@ $withIcons: map-merge((
     'searchButtonBg': var(--mc-bg500),
     'searchButtonBgHover': var(--mc-bg300),
     'searchButtonIconFill': var(--mc-main),
+    'searchButtonIconFillHover': currentColor,
     'searchButtonTextStyle': 'ThirdTitle',
+
     'merchButtonBg': var(--mc-bg500),
     'merchButtonBgHover': var(--mc-bg300),
     'merchButtonIconFill': var(--mc-main),
+    'merchButtonIconFillHover': currentColor,
+
     'sectionGap': (
         768: ef.size(4),
     ),

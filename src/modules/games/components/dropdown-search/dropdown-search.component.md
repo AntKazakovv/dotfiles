@@ -23,7 +23,7 @@ export const defaultParams: IDropdownSearchCParams = {
             lazy: true,
         },
         noContentText: {
-            default: gettext('Sorry, but no games found. Check your spelling or try a different game title.'),
+            default: gettext('Sorry, but nothing was found. Check the spelling or try a different name.'),
         },
         updateGridAfterFiltering: true,
     },

@@ -59,6 +59,8 @@
             }
 
             .wlc-icon {
+                @include bm.transition(color);
+
                 display: block;
                 line-height: 1;
 
@@ -74,12 +76,20 @@
             margin: ef.get-value($withIcons, 'searchButtonMargin');
             background: ef.get-value($withIcons, 'searchButtonBg');
 
-            svg {
-                fill: map-get($withIcons, 'searchButtonIconFill');
+            .wlc-icon {
+                color: ef.get-value($withIcons, 'searchButtonIconFill');
+
+                svg {
+                    fill: currentColor;
+                }
             }
 
             @include bm.hover {
                 background: ef.get-value($withIcons, 'searchButtonBgHover');
+
+                .wlc-icon {
+                    color: ef.get-value($withIcons, 'searchButtonIconFillHover');
+                }
             }
         }
 
@@ -88,13 +98,20 @@
             margin: ef.get-value($withIcons, 'merchButtonMargin');
             background: ef.get-value($withIcons, 'merchButtonBg');
 
-            svg {
-                color: map-get($withIcons, 'merchButtonIconFill');
-                fill: map-get($withIcons, 'merchButtonIconFill');
+            .wlc-icon {
+                color: ef.get-value($withIcons, 'merchButtonIconFill');
+
+                svg {
+                    fill: currentColor;
+                }
             }
 
             @include bm.hover {
                 background: ef.get-value($withIcons, 'merchButtonBgHover');
+
+                .wlc-icon {
+                    color: ef.get-value($withIcons, 'merchButtonIconFillHover');
+                }
             }
         }
     }

@@ -17,6 +17,8 @@ export type IGamesFilterData = {
     includeSportsbooks?: boolean;
 }
 
+export type TFilterCacheKeys = 'modal' | string;
+
 export type IIndexingFilter = {
     [key: string]: IGamesFilterData;
 }
