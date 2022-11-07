@@ -440,7 +440,7 @@ $tooltip-box-shadow: map-get($shadows, 'sm') !default;
 /// @prop {Size} borderRadius [6px]
 $customScrollbarConfig: () !default;
 $scrollbarConfig: (
-    'size': 8px,
+    'size': 5px,
     'margin': 5px,
-    'borderRadius': map-get($radius, 'less'),
+    'borderRadius': map-get($radius, 'biger'),
 );

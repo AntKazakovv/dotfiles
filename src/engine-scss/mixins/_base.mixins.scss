@@ -194,7 +194,6 @@
         &-thumb {
             background: ef.get-value($map, 'scrollbarThumbBg');
             border-radius: ef.get-value($config, 'borderRadius');
-            border: ef.get-value($map, 'scrollbarBorder');
         }
     }
 }
