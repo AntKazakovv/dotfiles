@@ -163,6 +163,24 @@ export namespace wlcButton {
         },
     };
 
+    export const burgerMobileFixedPanel: ILayoutComponent = {
+        name: 'core.wlc-button',
+        display: {
+            before: 1023,
+        },
+        params: {
+            class: 'wlc-btn wlc-btn-burger',
+            wlcElement: 'wlc-btn-burger',
+            common: {
+                iconPath: '/wlc/icons/burger.svg',
+                event: {
+                    name: 'PANEL_OPEN',
+                    data: 'left',
+                },
+            },
+        },
+    };
+
     export const userIcon: ILayoutComponent = {
         name: 'core.wlc-button',
         display: {

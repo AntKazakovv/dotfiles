@@ -47,6 +47,22 @@ export namespace wlcMainMenu {
         },
     };
 
+    export const fixedBurger: ILayoutComponent = {
+        name: 'menu.wlc-main-menu',
+        params: {
+            theme: 'burger-panel',
+            themeMod: 'fixed-burger',
+            type: 'fixed-burger',
+            wlcElement: 'block_main-nav-panel',
+            common: {
+                icons: {
+                    folder: 'wlc/icons/european/v1',
+                    use: true,
+                },
+            },
+        },
+    };
+
     export const burgerPanelIconsOption3: ILayoutComponent = {
         name: 'menu.wlc-main-menu',
         params: {

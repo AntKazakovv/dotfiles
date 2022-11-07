@@ -19,6 +19,39 @@ export namespace header {
         ],
     };
 
+    export const defFixedPanel: ILayoutSectionConfig = {
+        replaceConfig: true,
+        order: 0,
+        theme: 'universal',
+        container: true,
+        components: [
+            {
+                name: 'core.wlc-wrapper',
+                params: {
+                    class: 'header__left',
+                    components: [
+                        componentLib.wlcButton.burgerMobileFixedPanel,
+                        componentLib.wlcLogo.header,
+                    ],
+                },
+            },
+            componentLib.wlcMainMenu.header,
+            {
+                name: 'core.wlc-wrapper',
+                params: {
+                    class: 'header__right',
+                    components: [
+                        componentLib.wlcLoginSignup.header,
+                        componentLib.wlcUserInfo.header,
+                        componentLib.wlcButton.userDepositIcon,
+                        componentLib.wlcButton.searchV2,
+                        componentLib.wlcButton.signup,
+                    ],
+                },
+            },
+        ],
+    };
+
     export const defThemeToggler: ILayoutSectionConfig = {
         replaceConfig: true,
         order: 0,

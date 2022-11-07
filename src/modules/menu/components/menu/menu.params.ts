@@ -182,6 +182,7 @@ export interface IMenuCParams extends IComponentParams<MenuTheme, MenuType, stri
     expandOnStart?: boolean;
     /** Menu dropdowns options */
     dropdowns?: IMenuDropdowns;
+    useTooltip?: boolean;
 }
 
 export interface IMenuItemsGlobal {

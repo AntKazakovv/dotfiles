@@ -42,7 +42,7 @@ import _assign from 'lodash-es/assign';
 import _filter from 'lodash-es/filter';
 import _find from 'lodash-es/find';
 
-export type PanelsType = 'left' | 'right';
+export type PanelsType = 'left' | 'right' | 'left-fixed' | 'right-fixed';
 
 @Component({
     selector: '[wlc-float-panels]',

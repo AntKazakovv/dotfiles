@@ -34,6 +34,12 @@ export const defaultParams: IFloatPanelsCParams = {
         'left-mobile': {
             type: 'left',
         },
+        'left-fixed': {
+            type: 'left-fixed',
+        },
+        'right-fixed': {
+            type: 'right-fixed',
+        },
         right: {
             type: 'right',
             title: gettext('Profile'),

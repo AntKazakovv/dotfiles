@@ -10,11 +10,13 @@ import {contactsConfig} from './contacts.config';
 import {interactiveTextConfig} from './interactiveText.config';
 import {redirectsConfig} from './redirect.config';
 import {idleConfig} from './idle.config';
+import {fixedPanelConfig} from './fixed-panel.config';
 
 export const $base: IBaseConfig = {
     app: appConfig,
     device: deviceConfig,
     stickyHeader: stickyHeaderConfig,
+    fixedPanel: fixedPanelConfig,
     profile: profileConfig,
     tournaments: tournamentsConfig,
     games: gamesConfig,

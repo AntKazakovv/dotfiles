@@ -1,0 +1,4 @@
+$customFixedPanelLayoutConfig: () !default;
+$fixedPanelLayoutConfig: map-merge((
+    'globalTransition': padding 0.2s ease-in-out,
+), $customFixedPanelLayoutConfig);

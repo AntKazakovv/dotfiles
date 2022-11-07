@@ -2,8 +2,7 @@ $customThemeDefault: () !default;
 $themeDefault: map-merge((
     'containerGridTemplateColumns': (
         320: 1fr,
-        900: repeat(auto-fit, minmax(790px, 1fr)),
-        1630: repeat(2, minmax(790px, 1fr)),
+        900: repeat(auto-fit, minmax(650px, 1fr)),
     ),
     'containerMargin': (
         375: 0 0 ef.size(6) 0,

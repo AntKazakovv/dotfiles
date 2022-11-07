@@ -9,6 +9,7 @@
 @import './home/four-elements/four-elements';
 @import './home/random-games/random-games.section.scss';
 @import './sticky-footer/sticky-footer';
+@import './fixed-panel/fixed-panel.layout';
 
 @include lm.init-layout-gap(ev.$layoutGap);
 

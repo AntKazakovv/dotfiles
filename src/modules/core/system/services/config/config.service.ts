@@ -74,6 +74,7 @@ import {
 import {UserInfo} from 'wlc-engine/modules/user/system/models/info.model';
 import {WINDOW} from 'wlc-engine/modules/app/system';
 import {EventService} from 'wlc-engine/modules/core/system/services/event/event.service';
+import {TFixedPanelState} from 'wlc-engine/modules/core/system/interfaces/base-config/fixed-panel.interface';
 import * as sectionsLib from 'wlc-engine/modules/core/system/config/layouts/sections';
 
 export * from './app-config.model';
@@ -269,7 +270,45 @@ export class ConfigService {
             value: new DeviceModel(this.get<IDeviceConfig>('$base.device'), this.window),
         });
 
+        if (appConfig.$base.fixedPanel?.use) {
+            this.initFixedPanel();
+        }
+
         this.$resolve();
+    }
+
+    private initFixedPanel(): void {
+        let panelState: TFixedPanelState;
+        let userState: TFixedPanelState = this.get<TFixedPanelState>({
+            name: 'fixedPanelUserState',
+            storageType: 'localStorage',
+        });
+
+        if (this.get<boolean>('$base.fixedPanel.compactModByDefault') && !userState) {
+            userState = 'compact';
+
+            this.set<TFixedPanelState>({
+                name: 'fixedPanelUserState',
+                value: userState,
+                storageType: 'localStorage',
+            });
+        }
+
+
+        if (userState) {
+            panelState = userState;
+        } else {
+            if (this.window.innerWidth < this.get<number>('$base.fixedPanel.breakpoints.expand')) {
+                panelState = 'compact';
+            } else {
+                panelState = 'expanded';
+            }
+        }
+
+        this.set<BehaviorSubject<TFixedPanelState>>({
+            name: 'fixedPanelState$',
+            value: new BehaviorSubject(panelState),
+        });
     }
 
     private addSiteConfig(): void {

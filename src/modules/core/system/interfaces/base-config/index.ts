@@ -17,6 +17,7 @@ import {IAnalytics} from 'wlc-engine/modules/analytics/system/interfaces/analyti
 import {IColorThemeSwitchingConfig} from './color-theme-switching.config';
 import {IFinancesConfig} from './finances.interface';
 import {IStickyHeaderConfig} from './sticky-header.interface';
+import {IFixedPanelConfig} from './fixed-panel.interface';
 import {IMocksConfig} from './mocks.interface';
 import {IMonitoringConfig} from './monitoring.interface';
 import {IIdleConfig} from './idle.interface';
@@ -55,6 +56,7 @@ export interface IBaseConfig {
     * Sticky header enabling and settings;
     */
     stickyHeader?: IStickyHeaderConfig;
+    fixedPanel?: IFixedPanelConfig;
     affiliate?: {
         affiliateUrl: string;
         siteUrl: string;

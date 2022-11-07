@@ -30,7 +30,7 @@
     border-radius: ef.get-value($themeDefault, 'dropdownBorderRadius');
 
     @if $background != null {
-        background: ef.get-value($themeDefault, 'dropdownBackgroundColor');
+        background: $background;
     }
 }
 
@@ -71,7 +71,7 @@
     grid-auto-flow: column;
     grid-gap: ef.get-value($themeDefault, 'dropdownGap');
     align-items: center;
-    justify-content: flex-start;
+    justify-content: var(--ls-link-justify);
     text-decoration: none;
 
     @include bm.hover {

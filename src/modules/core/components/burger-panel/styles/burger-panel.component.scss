@@ -11,6 +11,10 @@
 @import './themes/mobile';
 
 .wlc-burger-panel:host {
+    --bp-header-grid-cols: 1fr auto 1fr; // TODO: variables
+    --bp-header-padding: #{map-get($themeDefault, 'panelHeaderPadding')};
+    --bp-transition: #{map-get($themeDefault, 'transition')};
+
     position: absolute;
     top: 0;
     display: flex;
@@ -20,15 +24,15 @@
     outline-style: none;
     box-shadow: ef.get('shadow', 'lg');
     visibility: hidden;
-    transition: map-get($themeDefault, 'transition');
+    transition: var(--bp-transition);
 
     ::ng-deep {
 
         .wlc-burger-panel__header {
             display: grid;
-            grid-template-columns: 1fr auto 1fr;
+            grid-template-columns: var(--bp-header-grid-cols);
             align-items: center;
-            padding: map-get($themeDefault, 'panelHeaderPadding');
+            padding: var(--bp-header-padding);
             color: map-get($themeDefault, 'panelHeaderColor');
             background: map-get($themeDefault, 'panelHeaderBackground');
             font: {

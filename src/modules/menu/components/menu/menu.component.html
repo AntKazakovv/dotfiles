@@ -35,7 +35,7 @@
                [uiParams]="item.params?.state?.params"
                [uiOptions]="item.params?.state?.options"
                [attr.data-wlc-element]="item.wlcElement"
-               title="{{menuItemName(item)}}"
+               [attr.title]="!$params.useTooltip ? menuItemName(item) : null"
                uiSrefActive="active">
 
                 <span *ngIf="$params.theme === 'first'"
@@ -45,7 +45,11 @@
                 <span wlc-icon
                       class="{{$class}}__icon"
                       [iconPath]="getIcon(item)"
-                      [fallback]="getIconFallback(item)"></span>
+                      [fallback]="getIconFallback(item)"
+                      [tooltip]="$params.useTooltip && menuItemName(item)"
+                      container="body"
+                      containerClass="wlc-tooltip--compact"
+                      placement="right"></span>
                 <span class="{{$class}}__link-text">
                     <span>{{menuItemName(item)}}</span>
                     <span *ngIf="item.counterParams"
@@ -83,7 +87,6 @@
             </a>
         </div>
     </ng-container>
-
 </ng-template>
 
 <ng-template #href let-item="item">
@@ -100,8 +103,12 @@
             <span wlc-icon
                   class="{{$class}}__icon"
                   [iconPath]="getIcon(item)"
-                  [fallback]="getIconFallback(item)"></span>
-            <span>{{menuItemName(item)}}</span>
+                  [fallback]="getIconFallback(item)"
+                  [tooltip]="$params.useTooltip && menuItemName(item)"
+                  container="body"
+                  containerClass="wlc-tooltip--compact"
+                  placement="right"></span>
+            <span class="{{$class}}__link-text">{{menuItemName(item)}}</span>
         </a>
     </div>
 </ng-template>

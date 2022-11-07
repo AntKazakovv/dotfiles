@@ -1,12 +1,14 @@
-<div *ngIf="$params.showHeader; else close" class="{{$class}}__header" [class.no-menu]="!headerMenuConfig">
-    <div class="{{$class}}__title">
-        {{title | translate}}
+<ng-container *ngIf="$params.type === 'left-fixed' || $params.type === 'rigth-fixed'">
+    <div *ngIf="useBackdrop"
+        class="{{$class}}__backdrop"
+        (click)="toggleFixedPanel(1)">
     </div>
-    <div *ngIf="headerMenuConfig" class="{{$class}}__header-menu">
-        <div wlc-wrapper [inlineParams]="headerMenuConfig"></div>
-    </div>
-    <ng-container [ngTemplateOutlet]="close"></ng-container>
-</div>
+</ng-container>
+
+<ng-container [ngSwitch]="$params.type">
+    <ng-container [ngTemplateOutlet]="headerLeftTypeFixed" *ngSwitchCase="'left-fixed'"></ng-container>
+    <ng-container [ngTemplateOutlet]="headerDefault" *ngSwitchDefault></ng-container>
+</ng-container>
 
 <ng-container *ngIf="$params.useScroll; else noScrollBar">
     <div wlc-scrollbar 
@@ -38,4 +40,27 @@
             iconPath="/wlc/icons/close.svg"
             (click)="closePanel()"
     ></button>
+</ng-template>
+
+<ng-template #headerDefault>
+    <div *ngIf="$params.showHeader; else close" class="{{$class}}__header" [class.no-menu]="!headerMenuConfig">
+        <div class="{{$class}}__title">
+            {{title | translate}} {{$params.type}}
+        </div>
+        <div *ngIf="headerMenuConfig" class="{{$class}}__header-menu">
+            <div wlc-wrapper [inlineParams]="headerMenuConfig"></div>
+        </div>
+        <ng-container [ngTemplateOutlet]="close"></ng-container>
+    </div>
+</ng-template>
+
+<ng-template #headerLeftTypeFixed>
+    <div class="{{$class}}__header">
+        <button class="{{$class}}__btn-expand {{$class}}__btn-expand--{{fixedPanelState$ | async}}"
+            (click)="toggleFixedPanel(1)">
+            <span wlc-icon
+                iconPath="/wlc/icons/burger-expand.svg"
+            ></span>
+        </button>
+    </div>
 </ng-template>

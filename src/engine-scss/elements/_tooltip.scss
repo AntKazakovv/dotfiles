@@ -25,6 +25,13 @@
             border-style: solid;
         }
     }
+
+    &.wlc-tooltip--compact {
+
+        .tooltip-inner {
+            @include text.get-text-style(#{$tooltip-text-style-compact}, null);
+        }
+    }
 }
 
 .bs-tooltip-top {
@@ -115,4 +122,5 @@
     text-align: center;
     background-color: $tooltip-bg;
     border-radius: $tooltip-border-radius;
+    box-shadow: $tooltip-box-shadow;
 }

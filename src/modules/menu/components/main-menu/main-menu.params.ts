@@ -6,9 +6,9 @@ import {
     MenuParams,
 } from 'wlc-engine/modules/menu';
 
-export type Type = 'default' | 'burger-menu' | CustomType;
+export type Type = 'default' | 'burger-menu' | 'fixed-burger' | CustomType;
 export type Theme = 'default' | CustomType;
-export type ThemeMod = 'default' | CustomType;
+export type ThemeMod = 'default' | 'fixed-burger' | CustomType;
 export type AutoModifiers = Theme | ThemeMod;
 export type CustomMod = string;
 export type Modifiers = AutoModifiers | CustomMod | null;
