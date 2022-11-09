@@ -29,6 +29,7 @@ import _forEach from 'lodash-es/forEach';
 import _has from 'lodash-es/has';
 import _isEmpty from 'lodash-es/isEmpty';
 import _isObject from 'lodash-es/isObject';
+import _isArray from 'lodash-es/isArray';
 import _isArrayLikeObject from 'lodash-es/isArrayLikeObject';
 import _assign from 'lodash-es/assign';
 import _map from 'lodash-es/map';
@@ -750,7 +751,13 @@ export class DepositWithdrawComponent
                 continue;
             }
 
-            form.appendChild(this.addField(key, response[1][key]));
+            if (_isArray(response[1][key])) {
+                for (const value of response[1][key]) {
+                    form.appendChild(this.addField(key, value));
+                }
+            } else {
+                form.appendChild(this.addField(key, response[1][key]));
+            }
         }
 
         form.style.display = 'none';
