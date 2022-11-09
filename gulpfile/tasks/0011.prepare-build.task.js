@@ -238,6 +238,30 @@ module.exports = function preBuildTask() {
         }
     };
 
+    const makeEngineVersion = () => {
+        const rawPackageJsonData = fs.readFileSync(
+            `${this.params.paths.engine}/package.json`,
+        );
+        const packageJson = JSON.parse(rawPackageJsonData);
+
+        const engineInfoFileName = '/engine.json';
+        const engineInfoFile = `${this.params.paths.static}${engineInfoFileName}`;
+
+        if (fs.existsSync(engineInfoFile)) {
+            fs.unlinkSync(engineInfoFile);
+        }
+        fs.writeFileSync(
+            engineInfoFile,
+            `{"version": "${packageJson.version}"}`,
+        );
+
+        this.addToGitIgnore(
+            this.params.paths.static.replace(this.params.paths.root, ''),
+            '',
+            engineInfoFileName,
+        );
+    };
+
     task('prepare:build', (cb) => {
         makeDistDirectory();
         makeTempDirectory();
@@ -251,6 +275,7 @@ module.exports = function preBuildTask() {
         makeApiTestSymlink();
         createPiqFields();
         addMockServiceWorker();
+        makeEngineVersion();
 
         cb();
     });
