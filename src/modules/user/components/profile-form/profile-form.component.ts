@@ -13,9 +13,7 @@ import _isObject from 'lodash-es/isObject';
 import _forEach from 'lodash-es/forEach';
 import _remove from 'lodash-es/remove';
 import _get from 'lodash-es/get';
-import _set from 'lodash-es/set';
 import _cloneDeep from 'lodash-es/cloneDeep';
-import _find from 'lodash-es/find';
 
 import {
     ConfigService,
@@ -33,6 +31,7 @@ import {UserService} from 'wlc-engine/modules/user/system/services';
 import {ProfileFormAbstract} from 'wlc-engine/modules/user/system/classes/profile-form.abstract';
 import {FormElements} from 'wlc-engine/modules/core/system/config/form-elements';
 import {CuracaoRequirement} from 'wlc-engine/modules/app/system';
+import {UserHelper} from 'wlc-engine/modules/user/system/helpers/user.helper';
 
 import * as Params from './profile-form.params';
 
@@ -253,42 +252,7 @@ export class ProfileFormComponent extends ProfileFormAbstract implements OnInit 
                 );
             }
             const item: IFormComponent = getField(fieldParams, this.requiredFields[i]);
-
-            switch (this.requiredFields[i]) {
-                case 'countryAndState': {
-                    if (!item.params?.validatorsField) {
-                        _set(item, 'params.validatorsField', []);
-                    }
-                    if (!_find(item.params.validatorsField, {name: 'countryCode', validators: 'required'})) {
-                        item.params.validatorsField.push({name: 'countryCode', validators: 'required'});
-                    }
-                    if (!_find(item.params.validatorsField, {name: 'stateCode', validators: 'required'})) {
-                        item.params.validatorsField.push({name: 'stateCode', validators: 'required'});
-                    }
-
-                    item.params = GlobalHelper.mergeConfig(item.params, {
-                        countryCode: {
-                            validators: ['required'],
-                        },
-                        stateCode: {
-                            validators: ['required'],
-                        },
-                    });
-                    break;
-                }
-
-                default: {
-                    if (this.requiredFields[i] !== 'postalCode') {
-                        if (!item.params.validators) {
-                            item.params.validators = [];
-                        }
-                        if (!item.params.validators.includes('required')) {
-                            item.params.validators.push('required');
-                        }
-                    }
-                    break;
-                }
-            }
+            UserHelper.setValidatorsFormElementsForCuracaoWlc(this.requiredFields[i], item);
         }
     }
 

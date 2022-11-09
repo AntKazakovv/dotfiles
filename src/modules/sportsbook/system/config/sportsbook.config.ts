@@ -3,23 +3,8 @@ import {ISportsbookConfig} from '../interfaces/sportsbook.interface';
 export const sportsbookConfig: ISportsbookConfig = {
     betradar: {
         widgets: {
-            env: {
-                dev: {
-                    url: 'https://qa-brserver.egamings.com/static/widgets/v1/init.js',
-                    serverUrl: 'https://qa-brserver.egamings.com',
-                },
-                qa: {
-                    url: 'https://qa-brserver.egamings.com/static/widgets/v1/init.js',
-                    serverUrl: 'https://qa-brserver.egamings.com',
-                },
-                test: {
-                    url: 'https://test-brserver.esportings.com/static/widgets/v1/init.js',
-                    serverUrl: 'https://test-brserver.esportings.com',
-                },
-                prod: {
-                    url: 'https://api-sportsbet.softgamings.com/static/widgets/v1/init.js',
-                    serverUrl: 'https://api-sportsbet.softgamings.com',
-                },
+            dailyMatch: {
+                imagesDir: '/games/betradar/widgets/daily-match',
             },
             popularEvents: {
                 imagesDir: '/games/betradar/widgets/popular-events/v1',

@@ -98,7 +98,7 @@ export class ProfileBlocksComponent extends AbstractComponent implements OnInit 
                     this.changeValidators(FormElements.ibanNumber, []),
                 ];
 
-                if (!await this.configService.get<boolean>('$user.skipPasswordOnFirstUserSession')) {
+                if (!await this.configService.get<Promise<boolean>>('$user.skipPasswordOnFirstUserSession')) {
                     components.push(FormElements.password);
                 }
 

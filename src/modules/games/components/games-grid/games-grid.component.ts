@@ -97,6 +97,7 @@ export class GamesGridComponent extends AbstractComponent implements OnInit, OnD
         this._gamesList = games;
         this.prepareGrid();
     };
+    @Input() protected $swiperProgress: Subject<number>;
 
     @ViewChild('gameList') protected gameListElement: ElementRef;
     @ViewChild('gameItem') protected gameItem: ElementRef;
@@ -244,6 +245,14 @@ export class GamesGridComponent extends AbstractComponent implements OnInit, OnD
         return !!this.games.length || shouldUsePlaceholder;
     }
 
+    /**
+     * Whether to show the Preloader
+     * @return boolean
+    */
+    public get isShowPreloader(): boolean {
+        return this.games?.length > this.gamesCount;
+    }
+
     public trackGames(index: number, item: Game): string {
         return `${this.filterChangedCounter}.${item.ID}`;
     }
@@ -293,7 +302,7 @@ export class GamesGridComponent extends AbstractComponent implements OnInit, OnD
         }
 
         this.lazyLoading = false;
-        this.cdr.markForCheck();
+        this.cdr.detectChanges();
     }
 
     /**
@@ -581,7 +590,7 @@ export class GamesGridComponent extends AbstractComponent implements OnInit, OnD
             excludeCategories: this.$params.filter['excludeCategories'] || [],
             excludeMerchants: this.$params.filter['excludeMerchants'] || [],
             ids: this.$params.filter['ids'],
-            searchQuery: this.$params.filter['searchQuery'] || '',
+            searchQuery: this.$params.filter['searchQuery'],
         };
 
         const cat = this.$params.filter['categories']?.[0] || this.$params.filter['category'] || '';
@@ -642,7 +651,10 @@ export class GamesGridComponent extends AbstractComponent implements OnInit, OnD
             this.filterChangedCounter++;
         }
 
-        if (this.paginate) {
+        if (this.$params.updateGridAfterFiltering) {
+            this.gamesCount = this.$params.gamesRows;
+            this.gamesRowsLoaded = 0;
+        } else if (this.paginate) {
             this.gamesCount = this.paginate;
         }
 
@@ -849,16 +861,29 @@ export class GamesGridComponent extends AbstractComponent implements OnInit, OnD
 
     private initLazyLoading(): void {
         if (this.useLazy) {
-            fromEvent(this.window, 'scroll')
-                .pipe(
-                    filter((): boolean => this.lazyLoadPositionFilter()),
-                    tap((): void => this.setLazyLoadingTrue()),
-                    throttleTime(this.lazyTimeout),
-                    takeUntil(this.$untilBreakpointOrDestroy),
-                )
-                .subscribe((): void => {
-                    this.loadMoreGames();
-                });
+            if (this.$swiperProgress) {
+                this.$swiperProgress
+                    .pipe(
+                        takeUntil(this.$untilBreakpointOrDestroy),
+                        filter((value: number): boolean => value >= 0.98),
+                        tap((): void => this.setLazyLoadingTrue()),
+                        throttleTime(this.lazyTimeout),
+                    )
+                    .subscribe((): void => {
+                        this.loadMoreGames();
+                    });
+            } else {
+                fromEvent(this.window, 'scroll')
+                    .pipe(
+                        filter((): boolean => this.lazyLoadPositionFilter()),
+                        tap((): void => this.setLazyLoadingTrue()),
+                        throttleTime(this.lazyTimeout),
+                        takeUntil(this.$untilBreakpointOrDestroy),
+                    )
+                    .subscribe((): void => {
+                        this.loadMoreGames();
+                    });
+            }
         }
     }
 }

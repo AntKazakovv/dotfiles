@@ -9,7 +9,7 @@
            (click)="clickEmit.emit($event)"
            [(ngModel)]="searchQuery"
     >
-    <button *ngIf="searchQuery"
+    <button *ngIf="showClear"
             wlc-icon
             class="{{$class}}__clear"
             [attr.aria-label]="'Clear search' | translate"
@@ -17,7 +17,8 @@
             iconPath="/wlc/icons/close.svg"
             (click)="clearSearch()"
     ></button>
-    <span wlc-icon
+    <span *ngIf="showSearch"
+          wlc-icon
           class="{{$class}}__icon"
           iconPath="/wlc/icons/search.svg"
     ></span>

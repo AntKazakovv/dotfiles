@@ -34,7 +34,6 @@ export class BetradarDailyMatchComponent extends AbstractComponent implements On
     public dailyMatch: BetradarGameModel;
 
     protected imagesDir: string;
-    protected fallbackImagesDir: string;
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IBetradarDailyMatchCParams,
@@ -47,7 +46,7 @@ export class BetradarDailyMatchComponent extends AbstractComponent implements On
         super({
             injectParams,
             defaultParams: Params.defaultParams,
-        });
+        }, configService);
     }
 
     public ngOnInit(): void {
@@ -55,7 +54,7 @@ export class BetradarDailyMatchComponent extends AbstractComponent implements On
         this.init();
     }
 
-    public async init(): Promise<void> {
+    protected async init(): Promise<void> {
         try {
             this.dailyMatch = await this.betradarService.getDailyMatch();
             if (this.dailyMatch) {
@@ -89,14 +88,13 @@ export class BetradarDailyMatchComponent extends AbstractComponent implements On
      * @param {BetradarGameModel} game
      * @returns {string}
      */
-    public async getImage(game: BetradarGameModel): Promise<string> {
+    protected async getImage(game: BetradarGameModel): Promise<string> {
         if (!game) {
             return '';
         }
 
-        let fileName: string = `${game.sportAlias}1.jpg`;
+        const fileName: string = `${game.sportAlias}.jpg`;
         if (this.imagesDir) {
-            fileName = `${game.sportAlias}.jpg`;
             const filePath: string = this.imagesDir + fileName;
             const file = await this.fileService.getFile(filePath);
 
@@ -104,7 +102,7 @@ export class BetradarDailyMatchComponent extends AbstractComponent implements On
                 return file.url;
             }
         }
-        return this.fallbackImagesDir + fileName;
+        return this.$params.fallbackImagesDir + fileName;
     }
 
     /**
@@ -114,10 +112,6 @@ export class BetradarDailyMatchComponent extends AbstractComponent implements On
         const imagesDir: string = this.configService.get<string>('$sportsbook.betradar.widgets.dailyMatch.imagesDir');
         if (imagesDir) {
             this.imagesDir = _trim(imagesDir, '/') + '/';
-        } else {
-            const env: string = this.configService.get('appConfig.env');
-            const domain: string = this.configService.get(`$sportsbook.betradar.widgets.env.${env}.serverUrl`) || '';
-            this.fallbackImagesDir =  `${domain}/static/widgets/images/daily-match/`;
         }
     }
 }

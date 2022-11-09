@@ -28,6 +28,7 @@ export class AuthDirective implements OnInit, OnDestroy {
     }
     private readonly $destroy: Subject<void> = new Subject();
     private _auth: boolean;
+    private isAuthenticated: boolean = this.configService.get('$user.isAuthenticated');
 
     constructor(
         protected templateRef: TemplateRef<ElementRef>,
@@ -39,10 +40,17 @@ export class AuthDirective implements OnInit, OnDestroy {
     }
 
     public ngOnInit(): void {
-        this.eventService.subscribe([
-            {name: 'LOGIN'},
-            {name: 'LOGOUT'},
-        ], () => {
+        this.eventService.subscribe({
+            name: 'LOGOUT',
+        }, (): void => {
+            this.isAuthenticated = false;
+            this.isAuth();
+        }, this.$destroy);
+
+        this.eventService.subscribe({
+            name: 'LOGIN',
+        }, ():void => {
+            this.isAuthenticated = true;
             this.isAuth();
         }, this.$destroy);
     }
@@ -53,7 +61,7 @@ export class AuthDirective implements OnInit, OnDestroy {
     }
 
     protected isAuth(): void {
-        if (this._auth === this.configService.get<boolean>('$user.isAuthenticated')) {
+        if (this._auth === this.isAuthenticated) {
             this.viewContainer.createEmbeddedView(this.templateRef);
         } else {
             this.viewContainer.clear();

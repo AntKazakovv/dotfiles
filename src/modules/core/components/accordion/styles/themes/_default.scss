@@ -123,6 +123,11 @@
                     bottom: ef.get-value($themeDefault, 'paddingSize');
                 };
 
+                &_text {
+                    border-top: none;
+                    padding: 0;
+                }
+
                 @include mq.min(768) {
                     @include text.get-text-style(ef.get-value($themeDefault, 'contentTextStyle', 768), null);
                 }

@@ -232,7 +232,7 @@ export class LimitationsComponent extends AbstractComponent implements OnInit {
     /**
      * Includes the specified limits
      */
-    private async patchLimitTypeItems(): Promise<void> {
+    protected async patchLimitTypeItems(): Promise<void> {
         const types: ILimitationTypeItem[] = this.configService
             .get<ILimitationTypeItem[]>('$base.profile.limitations.limitTypes');
 
@@ -241,7 +241,7 @@ export class LimitationsComponent extends AbstractComponent implements OnInit {
         }
     }
 
-    private async getLimits(): Promise<void> {
+    protected async getLimits(): Promise<void> {
         this.loading = true;
         const limits = [];
         await this.userService.userProfile$.pipe(first((v) => !!v)).toPromise();

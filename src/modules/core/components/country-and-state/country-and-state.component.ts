@@ -10,6 +10,7 @@ import {ValidatorFn} from '@angular/forms';
 
 import {
     BehaviorSubject,
+    merge,
 } from 'rxjs';
 import {
     distinctUntilChanged,
@@ -104,7 +105,10 @@ export class CountryAndStateComponent extends AbstractComponent implements OnIni
                 this.updateStates(countryCode);
             });
 
-        this.$params.countryCode.control.statusChanges
+        merge(
+            this.$params.countryCode.control.statusChanges,
+            this.$params.stateCode.control.valueChanges,
+        )
             .pipe(
                 distinctUntilChanged(),
                 takeUntil(this.$destroy),

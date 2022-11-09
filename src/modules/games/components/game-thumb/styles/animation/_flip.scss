@@ -1,6 +1,5 @@
 @mixin animationCommonFlip {
     @include bm.transition(transform, 0.5s);
-    overflow: visible;
     outline: 1px solid transparent;
     transform: ef.get-value($animations, 'modCardTransform');
     transform-origin: ef.get-value($animations, 'modCardTransformOrigin');

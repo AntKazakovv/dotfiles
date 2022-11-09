@@ -376,6 +376,26 @@ $themeVertical: map-merge((
     'hoverControlPE': auto,
 ), $customThemeVertical);
 
+$customThemeHorizontal: () !default;
+$themeHorizontal: map-merge((
+    'containerHorizontalPadding': ef.size(2),
+    'containerHorizontalBg': var(--mc-bg),
+    'containerHorizontalBgHover': var(--mc-main),
+    'containerHorizontalRadius': ef.size(2),
+
+    'gameNameColor': var(--mc-baseMain),
+    'gameNameColorHover': currentColor,
+    'gameNameBorder': 1px solid transparent,
+
+    'rightBlockMarginLeft': ef.size(2),
+
+    'gameNameTextStyle': 'ThirdTitleBold',
+
+    'imgWidth': ef.size(12),
+    'imgHeight': ef.size(12),
+    'imgRadius': ef.size(2),
+), $customThemeHorizontal);
+
 $customBtnsLayout: () !default;
 $btnsLayout: map-merge((
     'btnsDisplay': (

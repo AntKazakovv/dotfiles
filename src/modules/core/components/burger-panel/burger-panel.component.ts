@@ -20,6 +20,7 @@ import {TransitionService} from '@uirouter/core';
 import {
     Observable,
     fromEvent,
+    Subject,
 } from 'rxjs';
 import {
     takeUntil,
@@ -32,6 +33,8 @@ import {
     LogService,
     InjectionService,
 } from 'wlc-engine/modules/core/system/services';
+import {DeviceType} from 'wlc-engine/modules/core/system/models/device.model';
+import {ActionService} from 'wlc-engine/modules/core/system/services/action/action.service';
 import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
 import {HammerConfig} from 'wlc-engine/modules/core/system/config/hammer.config';
 import {panelsEvents} from './../float-panels/float-panels.params';
@@ -66,6 +69,7 @@ export class BurgerPanelComponent extends AbstractComponent
     @Input() protected id: string;
     @Input() protected inlineParams: Params.IBurgerPanelCParams;
 
+    public updateScrollbar: Subject<void> = new Subject();
     public $params: Params.IBurgerPanelCParams;
     public title: string;
     public headerMenuConfig: IWrapperCParams;
@@ -86,6 +90,7 @@ export class BurgerPanelComponent extends AbstractComponent
         protected logService: LogService,
         protected transitionService: TransitionService,
         protected cdr: ChangeDetectorRef,
+        protected actionService: ActionService,
         @Inject(WINDOW) protected window: Window,
         private hostElement: ElementRef,
         private injectionService: InjectionService,
@@ -118,6 +123,12 @@ export class BurgerPanelComponent extends AbstractComponent
 
             this.initPanListeners();
         }
+    }
+
+    public ngOnDestroy(): void {
+        super.ngOnDestroy();
+        this.updateScrollbar.next();
+        this.updateScrollbar.complete();
     }
 
     public closePanel(): void {
@@ -219,6 +230,9 @@ export class BurgerPanelComponent extends AbstractComponent
     protected onToggleHandler(isOpened: SimpleChange): void {
         if (!isOpened.isFirstChange()) {
             if (isOpened.currentValue) {
+                if (this.actionService.getDeviceType() === DeviceType.Desktop) {
+                    this.updateScrollbar.next();
+                }
                 this.addModifiers('open');
             } else {
                 this.removeModifiers('open');

@@ -1,4 +1,7 @@
-import {Injectable} from '@angular/core';
+import {
+    Inject,
+    Injectable,
+} from '@angular/core';
 import {BehaviorSubject} from 'rxjs';
 
 import _get from 'lodash-es/get';
@@ -11,6 +14,9 @@ import _isArray from 'lodash-es/isArray';
 
 import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
 import {UserProfile} from 'wlc-engine/modules/user/system/models/profile.model';
+import {CuracaoRequirement} from 'wlc-engine/modules/app/system';
+import {IState} from 'wlc-engine/modules/core';
+import {UserHelper} from 'wlc-engine/modules/user';
 
 @Injectable({
     providedIn: 'root',
@@ -37,6 +43,7 @@ export class MerchantFieldsService {
     };
 
     constructor(
+        @Inject(CuracaoRequirement) protected enableRequirement: boolean,
         protected configService: ConfigService,
     ) {
         _concat(this.profileFields, this.DateOfBirth);
@@ -118,6 +125,10 @@ export class MerchantFieldsService {
      * @returns {string[]} Fields names
      */
     public getProfileRequiedFields(): string[] {
+        if (this.enableRequirement) {
+            return _concat(this.profileFields, UserHelper.requiredFieldsForCuracaoWlc);
+        }
+
         return this.profileFields;
     }
 
@@ -141,14 +152,35 @@ export class MerchantFieldsService {
 
         if (emptyFields.length) {
             const merchantFields: string[] = this.getMerchantRequiredFields(merchantId);
+            if (this.enableRequirement) {
+                return this.getEmptyFieldsWithCuracao(profile, emptyFields, merchantFields);
+            }
+
             const checkFields = _filter(emptyFields, (field: string) => {
                 return _includes(merchantFields, field);
             });
+
             if (!checkFields.length) {
                 return [];
             }
         }
         return emptyFields;
+    }
+
+    private getEmptyFieldsWithCuracao(profile: UserProfile, emptyFields: string[], merchantFields: string[]) {
+        let emptyFieldsWithCuracao: string[] = emptyFields;
+
+        if (_includes(emptyFields, 'stateCode') && (_includes(emptyFields, 'countryCode')
+            || (profile.countryCode
+                && !this.configService.get<BehaviorSubject<IState[]>>('states')
+                    .getValue()[profile.countryCode]))
+        ) {
+            emptyFieldsWithCuracao = _filter(emptyFieldsWithCuracao, (field) => field !== 'stateCode');
+        }
+
+        const merchantAndCuracaoField = _concat(UserHelper.requiredFieldsForCuracaoWlc, merchantFields);
+
+        return _filter(emptyFieldsWithCuracao, ((field: string) => _includes(merchantAndCuracaoField, field))) ;
     }
 
 }

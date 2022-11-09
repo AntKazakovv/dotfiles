@@ -21,7 +21,7 @@ import {
     ILogType,
     logTypes,
     TLogMethods,
-} from 'wlc-engine/shared-lib/log-types';
+} from 'wlc-engine/modules/core/system/config/log-types';
 import {
     IIndexing,
 } from 'wlc-engine/modules/core';

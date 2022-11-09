@@ -57,14 +57,13 @@ export class BonusButtonsComponent extends AbstractComponent implements OnInit {
 
     public ngOnInit(): void {
         super.ngOnInit();
-        this.isAuth = this.ConfigService.get<boolean>('$user.isAuthenticated');
+        this.isAuth = this.configService.get<boolean>('$user.isAuthenticated');
 
         this.eventService.subscribe([
             {name: 'LOGIN'},
             {name: 'LOGOUT'},
         ], () => {
             this.isAuth = this.configService.get('$user.isAuthenticated');
-            this.cdr.detectChanges();
         }, this.$destroy);
     }
 
@@ -86,7 +85,8 @@ export class BonusButtonsComponent extends AbstractComponent implements OnInit {
 
         if (bonus) {
             this.bonus = bonus;
-            this.cdr.markForCheck();
+            
+            this.redrawingThemeLong();
         }
     }
 
@@ -100,7 +100,8 @@ export class BonusButtonsComponent extends AbstractComponent implements OnInit {
             this.bonus = bonus;
             this.bonusesService.clearPromoBonus();
             this.hideActiveModal('bonus-modal');
-            this.cdr.markForCheck();
+
+            this.redrawingThemeLong();
 
             if (bonus.event === 'deposit' &&
                 this.configService.get<boolean>('$base.finances.redirectAfterDepositBonus')) {
@@ -134,7 +135,8 @@ export class BonusButtonsComponent extends AbstractComponent implements OnInit {
                 const bonus = await this.bonusesService.cancelBonus(this.bonus);
                 if (bonus) {
                     this.bonus = bonus;
-                    this.cdr.markForCheck();
+
+                    this.redrawingThemeLong();
                 }
             },
             dismissAll: true,
@@ -150,7 +152,8 @@ export class BonusButtonsComponent extends AbstractComponent implements OnInit {
         if (bonus) {
             this.bonus = bonus;
             this.hideActiveModal('bonus-modal');
-            this.cdr.markForCheck();
+
+            this.redrawingThemeLong();
         }
     }
 
@@ -170,7 +173,6 @@ export class BonusButtonsComponent extends AbstractComponent implements OnInit {
             name: BonusItemComponentEvents['reg'],
             data: this.bonus,
         });
-        this.cdr.markForCheck();
     }
 
     /**
@@ -210,6 +212,17 @@ export class BonusButtonsComponent extends AbstractComponent implements OnInit {
     protected hideActiveModal(id: string): void {
         if (this.modalService.getActiveModal(id)) {
             this.modalService.hideModal(id);
+        }
+    }
+
+    /**
+     * Redraw component, if theme long
+     *
+     * @param {void}
+     */
+    protected redrawingThemeLong(): void {
+        if (this.bonusItemTheme === 'long') {
+            this.cdr.markForCheck();
         }
     }
 

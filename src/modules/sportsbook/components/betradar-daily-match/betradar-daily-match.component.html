@@ -1,6 +1,6 @@
 <ng-container *ngIf="inited; else preloader">
     <div *ngIf="!initFailed" [ngStyle]="{'background-image':'url('+imagePath+')'}" class="{{$class}}__content">
-        <div class="{{$class}}__header">{{$params.common?.title | translate}}</div>
+        <div class="{{$class}}__header">{{$params.title | translate}}</div>
         <div class="{{$class}}__title-match">
             <span class="{{$class}}__title-team">{{dailyMatch.teamHomeName}}</span>
             <span class="{{$class}}__delimiter">vs</span>
@@ -38,7 +38,7 @@
         </div>
         <div class="{{$class}}__footer">
             <button wlc-button
-                    [text]="$params.common?.openMatchText"
+                    [text]="$params.openMatchText"
                     (click)="openGame(dailyMatch)"
                     class="wlc-btn">
             </button>

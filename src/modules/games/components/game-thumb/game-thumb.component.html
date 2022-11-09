@@ -4,6 +4,7 @@
         <ng-container [ngTemplateOutlet]="typeModal" *ngSwitchCase="'modal'"></ng-container>
         <ng-container [ngTemplateOutlet]="typePromoWidget" *ngSwitchCase="'promo-widget'"></ng-container>
         <ng-container [ngTemplateOutlet]="thumbImg" *ngSwitchCase="'games-slider'"></ng-container>
+        <ng-container [ngTemplateOutlet]="typeHorizontal" *ngSwitchCase="'horizontal'"></ng-container>
         <ng-container [ngTemplateOutlet]="typeDefault" *ngSwitchDefault></ng-container>
     </ng-container>
 </ng-container>
@@ -48,6 +49,17 @@
         <img [wlc-fallback]="game.getImage(315)" [src]="game.getImage(315)" loading="lazy">
     </picture>
     <ng-container [ngTemplateOutlet]="buttonFavourite"></ng-container>
+</ng-template>
+
+<ng-template #typeHorizontal>
+    <div class="{{$class}}" (click)="startGame(false, true, $event)">
+        <div class="{{$class}}__block {{$class}}__block--left">
+            <ng-container [ngTemplateOutlet]="thumbImg"></ng-container>
+        </div>
+        <div class="{{$class}}__block {{$class}}__block--right">
+            <ng-container [ngTemplateOutlet]="thumbName"></ng-container>
+        </div>
+    </div>
 </ng-template>
 
 <ng-template #typeVertical>

@@ -326,6 +326,10 @@ export class Bonus extends AbstractModel<IBonus> {
         return this.data.Image_description || Bonus.$bonuses.defaultImages?.imageDescription;
     }
 
+    public get imageDeposit(): string {
+        return GlobalHelper.proxyUrl(this.data.Image_deposit || Bonus.$bonuses.defaultImages?.imageDeposit);
+    }
+
     public get inventoried(): boolean {
         return !!this.data.Inventoried;
     }

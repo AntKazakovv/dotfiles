@@ -47,10 +47,9 @@ export class SearchFieldComponent extends AbstractComponent implements OnInit, A
     @Output() public searchBlur: EventEmitter<string> = new EventEmitter();
     @Output() public enterEmit: EventEmitter<string> = new EventEmitter();
     @Output() public clickEmit: EventEmitter<Event> = new EventEmitter();
-
+    @Input() protected showClearIcon: boolean = true;
     @Input() protected inlineParams: ISearchFieldCParams;
     @ViewChild('searchField') protected searchField: ElementRef<HTMLInputElement>;
-
     public searchQuery: string = '';
     public searchQuery$: Subject<string> = new Subject();
     public $params: ISearchFieldCParams;
@@ -97,6 +96,28 @@ export class SearchFieldComponent extends AbstractComponent implements OnInit, A
         }
     }
 
+    /**
+     * Show search icon
+     * 
+     * @return {boolean}
+     */
+    public get showSearch(): boolean {
+        if (this.$params.isDropdown) {
+            return (this.searchQuery?.length && !this.showClearIcon) || !this.searchQuery?.length;
+        } else {
+            return true;
+        }
+    }
+
+    /**
+     * Show clear icon
+     * 
+     * @return {boolean}
+     */
+    public get showClear(): boolean {
+        return this.searchQuery?.length && this.showClearIcon;
+    }
+
     public clearSearch(): void {
         this.emitSearch('');
         this.searchQuery = '';
@@ -104,9 +125,11 @@ export class SearchFieldComponent extends AbstractComponent implements OnInit, A
     }
 
     public emitSearch(query: string): void {
+        const emitQuery: string | null = this.$params.emitNullQuery ? query || null : query;
+
         this.gamesFilterService.search(
             this.$params.searchFrom,
-            query,
+            emitQuery,
         );
 
         this.searchQueryEmit.emit(query);

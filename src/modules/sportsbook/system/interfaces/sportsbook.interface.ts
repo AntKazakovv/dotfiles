@@ -1,9 +1,6 @@
 import {Subject} from 'rxjs';
 
-import {
-    HooksService,
-    IIndexing,
-} from 'wlc-engine/modules/core';
+import {HooksService} from 'wlc-engine/modules/core';
 
 export interface ISportsbookConfig {
     betradar?: IBetradar;
@@ -11,7 +8,7 @@ export interface ISportsbookConfig {
      * Sportsbook merchant identifiers for redirect from sport bonus
      * Attention: sport bonuses currently works only with Betradar
      */
-     merchantIdsForBonus: number[];
+    merchantIdsForBonus?: number[];
 }
 
 export interface ISportsbookSettings {
@@ -46,7 +43,6 @@ export interface IBetradar {
      */
     theme?: string;
     widgets?: {
-        env: IIndexing<IBetradarWidgetEnvironment>;
         dailyMatch?: IBetradarDailyMatch;
         popularEvents?: IBetradarPopularEvents;
     };
@@ -59,11 +55,6 @@ export interface IBetradarDailyMatch {
 
 export interface IBetradarPopularEvents {
     imagesDir?: string;
-}
-
-export interface IBetradarWidgetEnvironment {
-    url: string;
-    serverUrl: string;
 }
 
 interface ISportEvent {

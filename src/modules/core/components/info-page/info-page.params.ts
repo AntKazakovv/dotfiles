@@ -1,4 +1,9 @@
-import {IComponentParams, IWrapperCParams} from 'wlc-engine/modules/core';
+import {
+    IComponentParams,
+    IIndexing,
+    ILayoutComponent,
+    IWrapperCParams,
+} from 'wlc-engine/modules/core';
 
 export type ModeType = 'default';
 export type ComponentTheme = 'default';
@@ -15,6 +20,7 @@ export interface IInfoPageConfig {
 export interface IInfoPageCParams extends IComponentParams<ComponentTheme, ComponentType, string> {
     config?: IInfoPageConfig;
     useFaqAccordion?: boolean;
+    customConfig?: IIndexing<ILayoutComponent[]>;
 }
 
 export const defaultParams: IInfoPageCParams = {

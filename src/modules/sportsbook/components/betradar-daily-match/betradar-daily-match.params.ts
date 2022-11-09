@@ -9,10 +9,9 @@ export type Modifiers = AutoModifiers | CustomMod | null;
 
 export interface IBetradarDailyMatchCParams extends IComponentParams<Theme, Type, ThemeMod> {
     modifiers?: Modifiers[];
-    common?: {
-        title?: string;
-        openMatchText?: string;
-    },
+    title?: string;
+    openMatchText?: string;
+    fallbackImagesDir?: string;
 }
 
 export const defaultParams: IBetradarDailyMatchCParams = {
@@ -21,8 +20,7 @@ export const defaultParams: IBetradarDailyMatchCParams = {
     class: 'wlc-betradar-daily-match',
     theme: 'default',
     themeMod: 'default',
-    common: {
-        title: gettext('Match of the day'),
-        openMatchText: gettext('See match online'),
-    },
+    title: gettext('Match of the day'),
+    openMatchText: gettext('See match online'),
+    fallbackImagesDir: '/static/images/daily-match/',
 };

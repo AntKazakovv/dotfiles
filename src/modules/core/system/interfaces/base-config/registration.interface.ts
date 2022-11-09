@@ -3,6 +3,20 @@ import {IIndexing} from 'wlc-engine/modules/core/system/interfaces';
 export interface IRegistrationConfig {
     selectCurrencyByCountry?: IIndexing<string>;
     /**
+     * Сurrencies for the country at registration
+     * configuration
+     *
+     *  @example:
+     *  registration: {
+     *      regCurrenciesByCountries: {
+     *          rus: ['RUB'],
+     *          deu: ['EUR', 'RUB'],
+     *          blr: ['EUR'],
+     * },
+     *  }
+     */
+    regCurrenciesByCountries?: IIndexing<string[]>;
+    /**
      * Currency sorting configuration
      *
      *  @example:

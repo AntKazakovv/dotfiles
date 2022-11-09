@@ -102,10 +102,13 @@
 
 .wlc-search-field--close-icon-showed:host {
 
-    .wlc-search-field {
+    &:not(.wlc-dropdown-search__search-field) {
 
-        &__input {
-            padding: ef.get-value($themeDefault, 'inputPaddingCloseShowed');
+        .wlc-search-field {
+
+            &__input {
+                padding: ef.get-value($themeDefault, 'inputPaddingCloseShowed');
+            }
         }
     }
 }

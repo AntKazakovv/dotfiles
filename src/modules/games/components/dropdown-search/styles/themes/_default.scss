@@ -1,0 +1,219 @@
+.wlc-dropdown-search--theme-default:host {
+    position: relative;
+    display: flex;
+    width: ef.get-value($themeDefault, 'searchWidth');
+    height: ef.get-value($themeDefault, 'searchHeight');
+    margin-right: ef.get-value($themeDefault, 'searchMarginRight');
+
+    .wlc-dropdown-search {
+
+        &__container {
+            position: absolute;
+            z-index: ef.get-value($themeDefault, 'searchZIndex');
+            width: ef.get-value($themeDefault, 'searchContainerWidth');
+            overflow: hidden;
+            background: ef.get-value($themeDefault, 'searchContainerBG');
+            transition-timing-function: ef.get-value($themeDefault, 'searchContainerFunc');
+            transition-duration: ef.get-value($themeDefault, 'searchContainerDuration');
+            transition-property: ef.get-value($themeDefault, 'searchContainerProperty');
+            border-radius: ef.get-value($themeDefault, 'searchContainerBorderRadius');
+
+            &.open {
+                @include bm.get-mq-map('width', $themeDefault, 'searchOpenWidth');
+                box-shadow: ef.get-value($themeDefault, 'searchOpenBoxShadow');
+            }
+
+            ::ng-deep {
+
+                .wlc-scrollbar__container {
+                    max-height: ef.get-value($themeDefault, 'scrollbarContainerHeight');
+                }
+            }
+
+            &:not(.open) {
+
+                ::ng-deep {
+
+                    .wlc-search-field {
+
+                        &__input {
+                            @include bm.transition(background);
+                            @include bm.hover {
+                                background: ef.get-value($themeDefault, 'searchInputBackgroundHover');
+                            }
+                        }
+
+                        &__icon {
+                            @include bm.hover {
+                                color: ef.get-value($themeDefault, 'searchIconFillHover');
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        &__search-field {
+            @include bm.get-mq-map('padding', $themeDefault, 'searchFieldPadding');
+        }
+    }
+
+    ::ng-deep {
+
+        .wlc-scrollbar {
+            min-width: ef.get-value($themeDefault, 'scrollbarMinWidth');
+
+            .swiper-scrollbar {
+                top: unset;
+                right: 0;
+                width: ef.get-value($themeDefault, 'scrollbarWidth');
+                height: ef.get-value($themeDefault, 'scrollbarHeight');
+                background: ef.get-value($themeDefault, 'scrollbarBackground');
+
+                &-drag {
+                    background: ef.get-value($themeDefault, 'scrollbarBackgroundDrag');
+                }
+            }
+
+            .wlc-games-grid {
+                padding: ef.get-value($themeDefault, 'wlcGamesGridPadding');
+
+                &__list {
+                    grid-gap: ef.get-value($themeDefault, 'gameListGridGap');
+                    max-width: ef.get-value($themeDefault, 'gameListMaxWidth');
+                }
+
+                &__nocontent {
+                    @include text.get-text-style(
+                        ef.get-value($themeDefault, 'noContentFontStyle'),
+                        ef.get-value($themeDefault, 'noContentColor')
+                    );
+                }
+            }
+        }
+
+        .wlc-search-field {
+
+            &__icon,
+            &__clear {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: ef.get-value($themeDefault, 'searchIconSize');
+                height: ef.get-value($themeDefault, 'searchIconSize');
+            }
+
+            &__icon {
+                @include bm.transition(color);
+                left: 0;
+                color: ef.get-value($themeDefault, 'searchIconFill');
+
+                .wlc-icon-content {
+                    display: flex;
+                }
+
+                svg {
+                    fill: currentColor;
+                }
+            }
+
+            &__clear {
+                right: unset;
+                padding: 0;
+
+                svg {
+                    width: ef.get-value($themeDefault, 'clearIconSize');
+                    height: ef.get-value($themeDefault, 'clearIconSize');
+                }
+            }
+
+            &__input {
+                padding: ef.get-value($themeDefault, 'searchInputPadding');
+                color: ef.get-value($themeDefault, 'searchInputColor');
+                background: ef.get-value($themeDefault, 'searchInputBackground');
+
+                &::placeholder {
+                    color: ef.get-value($themeDefault, 'searchInputColor');
+                }
+            }
+        }
+    }
+
+    .wlc-sections__categories--theme-2 .games-categories--dropdown-search & {
+        top: ef.get-value($themeDefault, 'searchTopIconCat');
+        width: ef.get-value($themeDefault, 'searchWidthIconsCat');
+
+        .wlc-dropdown-search__container {
+            padding: 0;
+            background: unset;
+            overflow: unset;
+
+            ::ng-deep {
+
+                .wlc-scrollbar {
+                    background: ef.get-value($themeDefault, 'searchInputBGIC');
+                }
+
+                .wlc-games-grid {
+
+                    &__list {
+                        max-width: ef.get-value($themeDefault, 'gameListMaxWidthIC');
+                    }
+                }
+
+                .wlc-search-field {
+                    padding: unset;
+
+                    &__icon,
+                    &__clear {
+                        right: ef.get-value($themeDefault, 'iconRightIC');
+                        left: ef.get-value($themeDefault, 'iconLeftIC');
+                    }
+
+                    &__icon {
+                        @include bm.hover {
+                            color: ef.get-value($themeDefault, 'searchIconFillHover');
+                        }
+                    }
+
+                    &__input {
+                        padding: ef.get-value($themeDefault, 'searchInputPaddingIC');
+                        color: ef.get-value($themeDefault, 'searchInputColorIC');
+                        background: ef.get-value($themeDefault, 'searchInputBGIC');
+                    }
+                }
+            }
+
+            &.open {
+                width: ef.get-value($themeDefault, 'searchWidthIconsCat');
+                box-shadow: unset;
+
+                .wlc-search-field {
+                    margin-bottom: ef.get-value($themeDefault, 'searchFieldMarginBottomIC');
+                }
+
+                ::ng-deep {
+
+                    .wlc-scrollbar {
+                        width: ef.get-value($themeDefault, 'wlcScrollbarWidthIC');
+                        box-shadow: ef.get-value($themeDefault, 'searchOpenBoxShadow');
+                        border-radius: ef.get-value($themeDefault, 'wlcScrollbarBorderRadius');
+
+                        .wlc-games-grid {
+                            padding: ef.get-value($themeDefault, 'wlcGamesGridPaddingIC');
+                        }
+                    }
+
+                    .swiper-scrollbar {
+                        top: 10px;
+                        height: ef.get-value($themeDefault, 'scrollbarHeightIC');
+
+                        &:after {
+                            width: ef.get-value($themeDefault, 'openSwiperGradientWidthIC');
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

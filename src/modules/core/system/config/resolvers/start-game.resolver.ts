@@ -1,5 +1,6 @@
 'use strict';
 
+import {Inject} from '@angular/core';
 import {
     StateService,
     UIRouter,
@@ -21,8 +22,10 @@ import _reduce from 'lodash-es/reduce';
 import _includes from 'lodash-es/includes';
 import _union from 'lodash-es/union';
 import _toNumber from 'lodash-es/toNumber';
-import _uniq from 'lodash-es/uniq';
+import _uniqWith from 'lodash-es/uniqWith';
 import _isEmpty from 'lodash-es/isEmpty';
+import _cloneDeep from 'lodash-es/cloneDeep';
+import _isEqual from 'lodash-es/isEqual';
 
 import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
 import {EventService} from 'wlc-engine/modules/core/system/services/event/event.service';
@@ -56,6 +59,7 @@ import {
 import {
     UserInfo,
     IAddProfileInfoCParams,
+    UserHelper,
 } from 'wlc-engine/modules/user';
 import {AddProfileInfoComponent} from 'wlc-engine/modules/user/components/add-profile-info';
 import {FormElements} from 'wlc-engine/modules/core/system/config/form-elements';
@@ -64,6 +68,7 @@ import {HooksService} from 'wlc-engine/modules/core/system/services/hooks/hooks.
 import {StateHistoryService} from 'wlc-engine/modules/core/system/services/state-history/state-history.service';
 import {GlobalHelper} from 'wlc-engine/modules/core/system/helpers/global.helper';
 import {ActionService} from 'wlc-engine/modules/core/system/services/action/action.service';
+import {CuracaoRequirement} from 'wlc-engine/modules/app/system';
 
 export interface IHookGameStartData {
     game: Game;
@@ -86,6 +91,7 @@ export enum RejectReason {
 export const startGameResolver: ResolveTypes = {
     token: 'startGame',
     deps: [
+        CuracaoRequirement,
         ConfigService,
         LogService,
         StateService,
@@ -100,6 +106,7 @@ export const startGameResolver: ResolveTypes = {
         ActionService,
     ],
     resolveFn: (
+        enableRequirement: boolean,
         configService: ConfigService,
         logService: LogService,
         stateService: StateService,
@@ -114,6 +121,7 @@ export const startGameResolver: ResolveTypes = {
         actionService: ActionService,
     ) => {
         return new StartGameHandler(
+            enableRequirement,
             configService,
             logService,
             stateService,
@@ -146,6 +154,7 @@ class StartGameHandler {
     private previousState: StateObject;
 
     constructor(
+        @Inject(CuracaoRequirement) protected enableRequirement: boolean,
         private configService: ConfigService,
         private logService: LogService,
         private stateService: StateService,
@@ -265,7 +274,7 @@ class StartGameHandler {
                 const gameClosedHandler: Function = this.router.transitionService.onStart({}, () => {
                     this.gamesFilterService.toClearCache$.subscribe((value: boolean) => {
                         if (value) {
-                            this.gamesFilterService.filterCache = null;
+                            this.gamesFilterService.filterCache.modal = null;
                         }
 
                         gameClosedHandler();
@@ -557,17 +566,11 @@ class StartGameHandler {
         this.merchantFieldsService.checkRequiredFields(this.merchantId).then((): void => {
             defered.resolve();
         }, async (emptyFields: string[]): Promise<void> => {
-            if (!await this.configService.get<boolean>('$user.skipPasswordOnFirstUserSession')) {
-                emptyFields.push( 'password');
+            if (!await this.configService.get<Promise<boolean>>('$user.skipPasswordOnFirstUserSession')) {
+                emptyFields.push('password');
             }
 
             emptyFields.push('submit');
-
-            const emptyFieldsAlias = {
-                birthDay: 'birthDate',
-                birthMonth: 'birthDate',
-                birthYear: 'birthDate',
-            };
 
             this.modalService.showModal({
                 id: 'add-profile-info',
@@ -576,9 +579,18 @@ class StartGameHandler {
                 componentParams: <IAddProfileInfoCParams>{
                     formConfig: {
                         class: 'wlc-form-wrapper',
-                        components: _uniq(emptyFields.map((field: string): IFormComponent => {
-                            return FormElements[emptyFieldsAlias[field] || field];
-                        })),
+                        components: _uniqWith(emptyFields.map((field: string): IFormComponent => {
+                            const formElement = _cloneDeep(FormElements
+                                [UserHelper.emptyFieldsAlias[field] || field]);
+
+                            if (this.enableRequirement && field !== 'submit') {
+                                UserHelper.setValidatorsFormElementsForCuracaoWlc(
+                                    (UserHelper.emptyFieldsAlias[field] || field), formElement,
+                                );
+                            }
+
+                            return formElement;
+                        }), _isEqual),
                     },
                     redirect: {
                         success: {
@@ -611,7 +623,8 @@ class StartGameHandler {
 
     private closeGameHandler(): Subscription {
         const filterCache: null | IGamesFilterData =
-            _isEmpty(this.gamesFilterService.filterCache) ? null : {...this.gamesFilterService.filterCache};
+            _isEmpty(this.gamesFilterService.filterCache.modal) ? null
+                : {...this.gamesFilterService.filterCache.modal};
 
         const closeGameSubscription$: Subscription = this.eventService.subscribe(
             {name: 'CLOSE_GAME'},
@@ -631,7 +644,7 @@ class StartGameHandler {
 
                 if (filterCache) {
                     this.filterCacheCleared$.promise.then(() => {
-                        this.gamesFilterService.filterCache = filterCache;
+                        this.gamesFilterService.filterCache.modal = filterCache;
                         this.eventService.emit({
                             name: 'SHOW_MODAL',
                             data: 'search',

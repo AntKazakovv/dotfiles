@@ -18,16 +18,18 @@
     }
 
     .fade.close & {
-        animation: animationModalClose ef.get-value($hostModal, 'modalAnimationSettings');
-        animation-delay: 0s;
 
-        @if map-get(ev.$modalAnimation, 'modalDisableAnimationMobile') {
+        .wlc-modal & {
+            animation: animationModalClose ef.get-value($hostModal, 'modalAnimationSettings');
+            animation-delay: 0s;
 
-            @media (pointer: coarse) {
-                opacity: 1;
-                animation: unset;
+            @if map-get(ev.$modalAnimation, 'modalDisableAnimationMobile') {
+
+                @media (pointer: coarse) {
+                    opacity: 1;
+                    animation: unset;
+                }
             }
         }
     }
 }
-

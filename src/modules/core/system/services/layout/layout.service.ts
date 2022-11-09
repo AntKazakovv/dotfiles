@@ -309,7 +309,7 @@ export class LayoutService {
             return _cloneDeep(this.layouts[type][state]);
         };
         if (this.layouts[type].hasOwnProperty(state)) {
-            const paramsPath: string = params?.category || params?.slug;
+            const paramsPath: string = params?.childCategory || params?.category || params?.slug;
 
             if (paramsPath) {
                 const subCategoryPath = `${state}.${paramsPath}`;

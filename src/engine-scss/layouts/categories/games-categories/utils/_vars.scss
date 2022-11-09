@@ -12,7 +12,7 @@ $gamesCategoriesDefault: map-merge((
     'sectionPadding': (
         375: 0,
         768: 0 ef.size(2),
-        1630: 0 ef.size(3),
+        1200: 0 ef.size(4),
     ),
     'sectionWidePadding': (
         375: 0 ef.size(2),
@@ -63,6 +63,9 @@ $gamesCategoriesDefault: map-merge((
     'buttonSearchColorHover': ef.get('mainColors', 'baseMain'),
     'buttonSearchIconFillHover': ef.get('mainColors', 'baseMain'),
     'buttonSearchIconMargin': ef.size(2),
+    'buttonMerchWidthDS': (
+        1200: 210px,
+    ),
     'buttonMerchMargin': ef.size(3),
     'buttonSearchTextStyle': 'PrimaryText',
     'btnIconWidth': 20px,
@@ -70,9 +73,9 @@ $gamesCategoriesDefault: map-merge((
 
     'withoutBackContainerPadding': 0,
     'withoutBackBtnBorder': 2px solid var(--mc-baseOpacity),
-    'withoutBackBtnBorderHover': null,
+    'withoutBackBtnBorderHover': 2px solid var(--mc-main),
     'withoutBackBg': none,
-    'withoutBackBgHover': var(--mc-bg300),
+    'withoutBackBgHover': var(--mc-main),
 ), $customGamesCategoriesDefault);
 
 $customWithIcons: () !default;
@@ -80,12 +83,19 @@ $withIcons: map-merge((
     'searchButtonBg': var(--mc-bg500),
     'searchButtonBgHover': var(--mc-bg300),
     'searchButtonIconFill': var(--mc-main),
+    'searchButtonIconFillHover': currentColor,
     'searchButtonTextStyle': 'ThirdTitle',
+
     'merchButtonBg': var(--mc-bg500),
     'merchButtonBgHover': var(--mc-bg300),
     'merchButtonIconFill': var(--mc-main),
+    'merchButtonIconFillHover': currentColor,
+
     'sectionGap': (
         768: ef.size(4),
+    ),
+    'sectionGapDropdownSearch': (
+        1200: ef.size(2),
     ),
     'sectionWideMaxWidth': 1870px,
     'sectionWidePadding': (
@@ -113,6 +123,14 @@ $withIcons: map-merge((
     'gridColumns': (
         375: minmax(0, 1fr),
         900: minmax(0, 1fr) 250px,
+    ),
+    'gridColumnsDropdownSearch': (
+        375: minmax(0, 1fr),
+        1200: minmax(0, 1fr) 290px,
+    ),
+    'gridColumnsDropdownSearchWrapper': (
+        375: minmax(0, 1fr),
+        1200: 290px,
     ),
     'gridRows': (
         375: 1fr,

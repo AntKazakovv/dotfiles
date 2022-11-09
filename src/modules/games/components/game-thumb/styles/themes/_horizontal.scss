@@ -1,0 +1,51 @@
+.wlc-game-thumb--theme-horizontal:host {
+
+    .wlc-game-thumb {
+        @include bm.transition(background);
+        display: flex;
+        align-items: center;
+        padding: ef.get-value($themeHorizontal, 'containerHorizontalPadding');
+        background: ef.get-value($themeHorizontal, 'containerHorizontalBg');
+        border-radius: ef.get-value($themeHorizontal, 'containerHorizontalRadius');
+        cursor: pointer;
+
+        &__name {
+            @include text.get-text-style(ef.get-value($themeHorizontal, 'gameNameTextStyle'), ef.get-value($themeHorizontal, 'gameNameColor'));
+            @include bm.transition(border-color);
+            border-bottom: ef.get-value($themeHorizontal, 'gameNameBorder');
+        }
+
+        &__img {
+            position: relative;
+            display: block;
+            width: ef.get-value($themeHorizontal, 'imgWidth');
+            height: ef.get-value($themeHorizontal, 'imgHeight');
+            border-radius: ef.get-value($themeHorizontal, 'imgRadius');
+            overflow: hidden;
+
+            img {
+                position: absolute;
+                top: 0;
+                left: 0;
+
+                display: block;
+                width: 100%;
+                height: 100%;
+
+                object-fit: cover;
+                object-position: center;
+            }
+        }
+
+        &__block {
+
+            &--right {
+                margin-left: ef.get-value($themeHorizontal, 'rightBlockMarginLeft');
+            }
+        }
+
+        @include bm.hover() {
+            background: ef.get-value($themeHorizontal, 'containerHorizontalBgHover');
+        }
+    }
+}

@@ -222,6 +222,7 @@ export class PaymentSystem extends AbstractModel<IPaymentSystem> {
     public isLastAccountsObj: boolean;
     public isHosted: boolean = false;
     public cryptoCheck: boolean;
+    public readonly isKauri: boolean = false;
     public readonly isCashier: boolean = false;
     public readonly isPregeneration: boolean = false;
     public disabledBy: null | keyof typeof disabledReasons = null;
@@ -239,6 +240,7 @@ export class PaymentSystem extends AbstractModel<IPaymentSystem> {
     ) {
         super({from: _assign({model: 'PaymentSystem'}, from)});
         this.init(data);
+        this.isKauri = _includes(this.alias, 'kauri');
         this.isCashier = !!this.data.isPIQCashier;
         this.isPregeneration = !!this.customParams?.pregeneration_request;
     }
