@@ -8,6 +8,7 @@ import {
     Inject,
     Injectable,
 } from '@angular/core';
+
 import {
     BehaviorSubject,
     distinctUntilChanged,
@@ -155,6 +156,10 @@ export class ZendeskService extends LivechatAbstract<ILivechatZendeskConfig> {
         }
 
         if (this.options.onlyProd && this.window.WLC_ENV) {
+            return;
+        }
+
+        if (this.isExcludeStates) {
             return;
         }
 

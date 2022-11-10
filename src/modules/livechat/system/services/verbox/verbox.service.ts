@@ -15,7 +15,6 @@ import {
 import {BehaviorSubject} from 'rxjs';
 import {filter} from 'rxjs/operators';
 import _isNull from 'lodash-es/isNull';
-import _includes from 'lodash-es/includes';
 
 import {EventService} from 'wlc-engine/modules/core/system/services/event/event.service';
 import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
@@ -127,7 +126,7 @@ export class VerboxService extends LivechatAbstract<ILivechatVerboxConfig> {
             return;
         }
 
-        if (_includes(this.options.excludeStates, this.routerGlobals.$current.name)) {
+        if (this.isExcludeStates) {
             return;
         }
         const script = this.document.createElement('script');

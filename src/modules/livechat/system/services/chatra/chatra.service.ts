@@ -113,6 +113,10 @@ export class ChatraService extends LivechatAbstract<ILivechatChatraConfig> {
             return;
         }
 
+        if (this.isExcludeStates) {
+            return;
+        }
+
         const locale = this.translateService.currentLang || 'en';
         this.changeLocale(locale);
 

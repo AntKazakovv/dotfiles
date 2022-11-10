@@ -170,6 +170,10 @@ export class ZohoChatService extends LivechatAbstract<ILivechatZohoConfig> {
             return;
         }
 
+        if (this.isExcludeStates) {
+            return;
+        }
+
         this.window.$zoho ||= {};
         this.window.$zoho.salesiq ||= {
             widgetcode: this.options.code,

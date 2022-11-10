@@ -1,17 +1,19 @@
-import {Directive} from '@angular/core';
-
-import {BehaviorSubject} from 'rxjs';
-
-import {EventService} from 'wlc-engine/modules/core';
-
+import {
+    Directive,
+    Inject,
+} from '@angular/core';
+import {DOCUMENT} from '@angular/common';
 import {
     Transition,
     UIRouter,
 } from '@uirouter/core';
+
+import {BehaviorSubject} from 'rxjs';
+import _includes from 'lodash-es/includes';
+
+import {EventService} from 'wlc-engine/modules/core';
 import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
 import {ILivechatConfig} from 'wlc-engine/modules/livechat/system/interfaces/livechat.interface';
-
-import _includes from 'lodash-es/includes';
 
 export enum ChatState {
     loaded,
@@ -46,7 +48,7 @@ export abstract class LivechatAbstract<T extends ILivechatConfig>  {
     protected options: T = this.configService.get<T>('$base.livechat');
 
     constructor(
-        protected document: HTMLDocument,
+        @Inject(DOCUMENT) protected document: Document,
         protected eventService: EventService,
         protected router: UIRouter,
         protected configService: ConfigService,
@@ -124,6 +126,16 @@ export abstract class LivechatAbstract<T extends ILivechatConfig>  {
         this.eventService.filter({name: 'LIVECHAT_OPEN'}).subscribe(() => this.openChat());
         this.eventService.filter({name: 'LIVECHAT_CLOSE'}).subscribe(() => this.hideChat());
     }
+
+    /**
+     *
+     * Checks whether the target state is included in excludeStates
+     * @returns {boolean} boolean
+     */
+    protected get isExcludeStates(): boolean {
+        return _includes(this.options.excludeStates, this.router.globals.current.name);
+    }
+
     /**
      * Check target transition state and close chat, if it's excludeStates in config
      */

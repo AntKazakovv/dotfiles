@@ -135,6 +135,10 @@ export class LivechatincService extends LivechatAbstract<ILivechatIncConfig> {
             return;
         }
 
+        if (this.isExcludeStates) {
+            return;
+        }
+
         this.window.__lc = {};
         this.window.__lc.license = this.options.code;
         _assign(this.window.__lc, this.options.livechatincSetup);

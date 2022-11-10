@@ -4,7 +4,9 @@ import {
 } from '@angular/core';
 import {UIRouter} from '@uirouter/core';
 import {DOCUMENT} from '@angular/common';
+
 import {BehaviorSubject} from 'rxjs';
+import _get from 'lodash-es/get';
 
 import {EventService} from 'wlc-engine/modules/core/system/services/event/event.service';
 import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
@@ -15,8 +17,6 @@ import {
     ChatState,
 } from 'wlc-engine/modules/livechat/system/classes/livechatAbstract.class';
 import {WINDOW} from 'wlc-engine/modules/app/system';
-
-import _get from 'lodash-es/get';
 
 @Injectable({
     providedIn: 'root',
@@ -138,6 +138,10 @@ export class TawkChatService extends LivechatAbstract<ILivechatTawkConfig> {
         }
 
         if (this.options.onlyProd && this.window.WLC_ENV) {
+            return;
+        }
+
+        if (this.isExcludeStates) {
             return;
         }
 
