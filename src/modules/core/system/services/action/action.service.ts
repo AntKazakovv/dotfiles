@@ -265,72 +265,77 @@ export class ActionService {
                 7 * 24 * 60 * 60 * 1000, // 7 days
             );
         }
-        await bonusesService.checkPromoBonus();
+        try {
+            await bonusesService.checkPromoBonus();
 
-        if (await this.cachingService.get(promocodeCacheKey)) {
-            if (bonusesService.promoBonus) {
-                if (this.configService.get<boolean>('$user.isAuthenticated')) {
-                    const bonus: Bonus = await bonusesService.subscribeBonus(bonusesService.promoBonus, false);
-                    if (bonus) {
+            if (await this.cachingService.get(promocodeCacheKey)) {
+                if (bonusesService.promoBonus) {
+                    if (this.configService.get<boolean>('$user.isAuthenticated')) {
+                        const bonus: Bonus = await bonusesService.subscribeBonus(bonusesService.promoBonus, false);
+                        if (bonus) {
 
-                        switch (bonus.event) {
-                            case 'sign up':
-                            case 'registration':
-                            case 'verification':
-                                this.modalService.showModal('promoSuccess', {
-                                    title: gettext('Bonus success'),
-                                    status: 'fromLink',
-                                    texts: {
-                                        fromLink: this.translateService.instant(
-                                            gettext('Congratulations! You activated bonus'))
-                                                + ` ${bonus.name}! `
-                                                + this.translateService.instant(
-                                                    gettext('Bonus successfully added to the Bonuses page.')),
-                                        redirectPath: '',
-                                    },
-                                });
-                                break;
-                            default:
-                                this.modalService.showModal('promoSuccess', {
-                                    title: gettext('Bonus success'),
-                                    status: 'fromLink',
-                                    texts: {
-                                        fromLink: this.translateService.instant(
-                                            gettext('Congratulations! You have got bonus'))
-                                                + ` ${bonus.name}! `
-                                                + this.translateService.instant(
-                                                    gettext('Bonus successfully added to the Bonuses page.')),
-                                        redirectPath: '',
-                                    },
-                                });
-                                break;
+                            switch (bonus.event) {
+                                case 'sign up':
+                                case 'registration':
+                                case 'verification':
+                                    this.modalService.showModal('promoSuccess', {
+                                        title: gettext('Bonus success'),
+                                        status: 'fromLink',
+                                        texts: {
+                                            fromLink: this.translateService.instant(
+                                                gettext('Congratulations! You activated bonus'))
+                                                    + ` ${bonus.name}! `
+                                                    + this.translateService.instant(
+                                                        gettext('Bonus successfully added to the Bonuses page.')),
+                                        },
+                                    });
+                                    break;
+                                default:
+                                    this.modalService.showModal('promoSuccess', {
+                                        title: gettext('Bonus success'),
+                                        status: 'fromLink',
+                                        texts: {
+                                            fromLink: this.translateService.instant(
+                                                gettext('Congratulations! You have got bonus'))
+                                                    + ` ${bonus.name}! `
+                                                    + this.translateService.instant(
+                                                        gettext('Bonus successfully added to the Bonuses page.')),
+                                        },
+                                    });
+                                    break;
+                            }
+                            this.cachingService.clear(promocodeCacheKey);
                         }
-                        this.cachingService.clear(promocodeCacheKey);
+                    } else {
+                        const subscription: Subscription = this.eventService.subscribe([
+                            {name: 'LOGIN'},
+                        ], (): void => {
+                            this.processPromocode(initialPath).then((): void => {
+                                subscription.unsubscribe();
+                            });
+                        });
+                        if (!this.modalService.getActiveModal('signup')) {
+                            this.modalService.showModal('login');
+                        }
                     }
                 } else {
-                    const subscription: Subscription = this.eventService.subscribe([
-                        {name: 'LOGIN'},
-                    ], (): void => {
-                        this.processPromocode(initialPath).then((): void => {
-                            subscription.unsubscribe();
-                        });
+                    this.eventService.emit({
+                        name: NotificationEvents.PushMessage,
+                        data: <IPushMessageParams>{
+                            type: 'error',
+                            title: gettext('Promocode error'),
+                            message: gettext('No voucher found'),
+                            wlcElement: 'notification_promocode-error',
+                        },
                     });
-                    if (!this.modalService.getActiveModal('signup')) {
-                        this.modalService.showModal('login');
-                    }
+                    this.cachingService.clear(promocodeCacheKey);
                 }
-            } else {
-                this.eventService.emit({
-                    name: NotificationEvents.PushMessage,
-                    data: <IPushMessageParams>{
-                        type: 'error',
-                        title: gettext('Promocode error'),
-                        message: gettext('No voucher found'),
-                        wlcElement: 'notification_promocode-error',
-                    },
-                });
-                this.cachingService.clear(promocodeCacheKey);
             }
+        } catch (error) {
+            this.showErrorNotification(
+                error.errors || error,
+                gettext('Promocode error'),
+            );
         }
     }
 
@@ -551,7 +556,7 @@ export class ActionService {
                                             return prev.depositsCount === curr.depositsCount;
                                         }))
                                 .subscribe((data: TUserDepositCountsInfo): void => {
-                                    if (data.depositsCount === 1) {                                       
+                                    if (data.depositsCount === 1) {
                                         this.eventService.emit({
                                             name: 'FIRST_DEPOSIT_COMPLETE',
                                             data: {

@@ -23,6 +23,8 @@ import {
     StepsEvents,
     IIndexing,
     DataService,
+    IPushMessageParams,
+    NotificationEvents,
 } from 'wlc-engine/modules/core';
 import {UserService} from 'wlc-engine/modules/user';
 import {
@@ -219,6 +221,16 @@ export class SignUpFormComponent extends UserActionsAbstract<Params.ISignUpFormC
             }
         } catch (error) {
             promocodeControl.setErrors({promocode: true});
+
+            this.eventService.emit({
+                name: NotificationEvents.PushMessage,
+                data: <IPushMessageParams>{
+                    type: 'error',
+                    title: gettext('Promocode error'),
+                    message: error.errors || error.message || error,
+                    wlcElement: 'notification_promocode-error',
+                },
+            });
 
             this.logService.sendLog({
                 code: '2.1.2',

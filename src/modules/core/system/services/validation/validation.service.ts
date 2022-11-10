@@ -192,7 +192,7 @@ export class ValidationService {
 
             return response.data.result;
         } catch (error) {
-            throw new Error(error);
+            throw new Error(error.errors || error);
         }
     }
 

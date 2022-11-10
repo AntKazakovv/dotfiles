@@ -35,6 +35,7 @@ import _find from 'lodash-es/find';
 import _isEqual from 'lodash-es/isEqual';
 import _isUndefined from 'lodash-es/isUndefined';
 import _keys from 'lodash-es/keys';
+import _forEach from 'lodash-es/forEach';
 
 import {
     UserProfile,
@@ -110,6 +111,8 @@ export class BonusesService {
     protected historyBonuses: HistoryItemModel[] = [];
     protected lootboxPrizes: LootboxPrizeModel[] = [];
     protected gamesCatalogService: GamesCatalogService;
+    protected promocodeFetchSubscriber: Subscription = {} as Subscription;
+    protected promocodeFetchData: IData = {} as IData;
 
     private subjects: ISubjects = {
         bonuses$: new BehaviorSubject(null),
@@ -344,8 +347,21 @@ export class BonusesService {
      */
     public async getBonusesByCode(code: string): Promise<Bonus[]> {
         try {
+            this.promocodeFetchSubscriber = this.eventService.subscribe([
+                {name: 'BONUSES_BY_PROMO_FETCH_SUCCESS'},
+                {name: 'BONUSES_BY_PROMO_FETCH_FAILED'},
+            ], (data: IData) => {
+                this.promocodeFetchData = data;
+                this.promocodeFetchSubscriber.unsubscribe();
+            });
+
             let bonusResult: Bonus[] = [];
             const bonuses: Bonus[] = await this.queryBonuses(false, undefined, code);
+
+            _forEach(this.promocodeFetchData?.errors, (error: string): void => {
+                throw error;
+            });
+
             bonusResult = bonuses.filter((bonus: Bonus) => {
                 return bonus.status == 1;
             });
@@ -356,7 +372,7 @@ export class BonusesService {
             return bonusResult;
         } catch (error) {
             this.logService.sendLog({code: '10.0.2', data: error});
-            return [];
+            throw error;
         }
     }
 
@@ -612,9 +628,22 @@ export class BonusesService {
                     break;
             }
 
+            if (promoCode) {
+                this.eventService.emit({
+                    name: 'BONUSES_BY_PROMO_FETCH_SUCCESS',
+                });
+            }
             return bonuses as T[];
         } catch (error) {
             this.logService.sendLog({code: '10.0.0', data: error});
+
+            if (!!promoCode) {
+                this.eventService.emit({
+                    name: 'BONUSES_BY_PROMO_FETCH_FAILED',
+                    data: error as IData,
+                });
+            }
+
             this.eventService.emit({
                 name: 'BONUSES_FETCH_FAILED',
                 data: error,
@@ -682,10 +711,15 @@ export class BonusesService {
         const promocode: string = await this.cachingService.get<string>(this.dbPromoUrl);
 
         if (!promocode) return;
-        const bonuses: Bonus[] = await this.getBonusesByCode(promocode);
+        try {
+            const bonuses: Bonus[] = await this.getBonusesByCode(promocode);
 
-        if (bonuses.length) {
-            this.promoBonus = bonuses[0];
+            if (bonuses.length) {
+                this.promoBonus = bonuses[0];
+            }
+        } catch (error) {
+            this.logService.sendLog({code: '10.0.2', data: error});
+            throw error;
         }
     }
 
@@ -937,7 +971,7 @@ export class BonusesService {
                     bonus.data.Inventoried = 0;
                 }
                 break;
-    
+
             case 'cancel':
                 bonus.data.Status = 0;
                 break;
