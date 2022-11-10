@@ -90,6 +90,10 @@ export namespace formConfig {
                 params: betConfig.filterSelect,
             },
             {
+                name: 'core.wlc-select',
+                params: betConfig.orderSelect,
+            },
+            {
                 name: 'core.wlc-button',
                 params: <IButtonCParams>{
                     common: {

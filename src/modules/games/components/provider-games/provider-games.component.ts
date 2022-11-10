@@ -16,6 +16,7 @@ import {
     AbstractComponent,
     ConfigService,
     GlobalHelper,
+    SortDirection,
 } from 'wlc-engine/modules/core';
 import {GamesHelper} from 'wlc-engine/modules/games/system/helpers/games.helpers';
 import {
@@ -105,15 +106,16 @@ export class ProviderGamesComponent extends AbstractComponent implements OnInit 
                 },
             });
         } else {
-            this.gamesGridList = _orderBy(_values(cats), 'sort', 'desc').map((cat: IByMerchantItemCategory) => {
-                return {
-                    ...this.$params.gamesGridCategoryParams,
-                    filter: {
-                        categories: [cat.slug],
-                        merchants: [this.provider.id],
-                    },
-                };
-            });
+            this.gamesGridList = _orderBy(_values(cats), 'sort', SortDirection.NewFirst)
+                .map((cat: IByMerchantItemCategory) => {
+                    return {
+                        ...this.$params.gamesGridCategoryParams,
+                        filter: {
+                            categories: [cat.slug],
+                            merchants: [this.provider.id],
+                        },
+                    };
+                });
         }
 
         this.ready = true;

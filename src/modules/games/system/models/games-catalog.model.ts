@@ -40,6 +40,7 @@ import {
     IFromLog,
     Deferred,
     ILogObj,
+    SortDirection,
 } from 'wlc-engine/modules/core';
 import {UserProfile} from 'wlc-engine/modules/user/system/models/profile.model';
 import {ICategorySettings} from 'wlc-engine/modules/core/system/interfaces/categories.interface';
@@ -437,12 +438,12 @@ export class GamesCatalog extends AbstractModel<IGames> {
                     (category: CategoryModel) => category.sort || 0,
                 ],
                 [
-                    'asc',
-                    'desc',
+                    SortDirection.NewFirst,
+                    SortDirection.OldFirst,
                 ],
             );
         } else {
-            return _orderBy(categories, (category: CategoryModel) => category.sort || 0, 'desc');
+            return _orderBy(categories, (category: CategoryModel) => category.sort || 0, SortDirection.NewFirst);
         }
     }
 

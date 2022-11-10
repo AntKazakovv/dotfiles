@@ -56,6 +56,7 @@ import {
     IPushMessageParams,
     LogService,
     NotificationEvents,
+    SortDirection,
 } from 'wlc-engine/modules/core';
 import {
     Game,
@@ -598,7 +599,7 @@ export class BonusesService {
             const bonuses: Bonus[] = _orderBy(
                 this.checkForbid(await this.modifyBonuses((res as IData<IBonus[]>).data), queryParams),
                 'weight',
-                'desc',
+                SortDirection.OldFirst,
             );
 
             if (bonuses.length) {

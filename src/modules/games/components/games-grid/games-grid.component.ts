@@ -61,6 +61,7 @@ import {
     GlobalHelper,
     IWrapperCParams,
     IFormWrapperCParams,
+    SortDirection,
 } from 'wlc-engine/modules/core';
 import {
     ISlide,
@@ -760,7 +761,7 @@ export class GamesGridComponent extends AbstractComponent implements OnInit, OnD
 
         let breakpoints = _orderBy(
             _map(_keys(this.$params.breakpoints), (val: string) => _isNaN(+val) ? val : +val),
-            'desc',
+            SortDirection.NewFirst,
         );
 
         if (_every(breakpoints, (el) => _isNaN(+el))) {

@@ -9,6 +9,7 @@ import _isNil from 'lodash-es/isNil';
 import {
     IIndexing,
     ICategorySettings,
+    SortDirection,
 } from 'wlc-engine/modules/core';
 import {Game} from 'wlc-engine/modules/games/system/models/game.model';
 import {CategoryModel} from 'wlc-engine/modules/games/system/models/category.model';
@@ -26,7 +27,6 @@ import {
     IByMerchantItemCategory,
     IGamesSortSetting,
     TGameSortFeature,
-    TSortDirection,
 } from 'wlc-engine/modules/games/system/interfaces/games.interfaces';
 
 /**
@@ -44,7 +44,7 @@ interface ISortGamesOptions {
     category?: CategoryModel;
 }
 
-const directions: Record<TSortDirection, number> = {
+const directions: Record<SortDirection, number> = {
     asc: -1,
     desc: 1,
 };
@@ -339,7 +339,7 @@ export class GamesHelper {
      * @returns {Game[]} Sorted games
      */
     public static sortGamesByDefault(games: Game[]): Game[] {
-        return _orderBy(games, (game: Game) => game.sort || 0, 'desc');
+        return _orderBy(games, (game: Game) => game.sort || 0, SortDirection.NewFirst);
     }
 
     /**
@@ -348,10 +348,10 @@ export class GamesHelper {
      * @param {ISortGamesOptions} options Sort options
      */
     public static sortGames(games: Game[], options: ISortGamesOptions): void {
-        const perCountryDirection = options.sortSetting.direction?.sortPerCountry || 'asc';
-        const perLangDirection = options.sortSetting.direction?.sortPerLanguage || 'asc';
-        const perCatDirection = options.sortSetting.direction?.sortPerCategory || 'asc';
-        const baseDirection = options.sortSetting.direction?.baseSort || 'desc';
+        const perCountryDirection = options.sortSetting.direction?.sortPerCountry || SortDirection.NewFirst;
+        const perLangDirection = options.sortSetting.direction?.sortPerLanguage || SortDirection.NewFirst;
+        const perCatDirection = options.sortSetting.direction?.sortPerCategory || SortDirection.NewFirst;
+        const baseDirection = options.sortSetting.direction?.baseSort || SortDirection.OldFirst;
 
         games.sort((a: Game, b: Game): number => {
 
@@ -372,7 +372,7 @@ export class GamesHelper {
                     b,
                     feature as TGameSortFeature,
                     suffix,
-                    direction as TSortDirection,
+                    direction as SortDirection,
                 );
 
                 if (!_isNil(sortValue)) {
@@ -391,7 +391,7 @@ export class GamesHelper {
      * @param {Game} b - game b
      * @param {TGameSortFeature} feature - sorting feature
      * @param {string | number} suffix - specified field in feature
-     * @param {TSortDirection} direction - sort direction
+     * @param {SortDirection} direction - sort direction
      * @returns {number | null} - sorting results
      */
     protected static compareGamesByFeature(
@@ -399,7 +399,7 @@ export class GamesHelper {
         b: Game,
         feature: TGameSortFeature,
         suffix: string | number,
-        direction: TSortDirection,
+        direction: SortDirection,
     ): number | null {
         const perA = _isNil(a[feature]?.[suffix] || null);
         const perB = _isNil(b[feature]?.[suffix] || null);

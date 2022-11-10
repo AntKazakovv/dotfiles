@@ -72,6 +72,7 @@ export class SelectValuesService {
         title: 'Please select country',
     }]);
 
+    protected merchantsList: TConstantValue = null;
     protected configSelectWithIcon: Params.ISelectOptionsWithIcon;
     protected gamesCatalogService: GamesCatalogService;
 
@@ -297,6 +298,9 @@ export class SelectValuesService {
      * @returns {TConstantValue}
      */
     public getMerchantsList(): TConstantValue {
+        if (this.merchantsList) {
+            return this.merchantsList;
+        }
 
         const merchants$ = new BehaviorSubject<Params.ISelectOptions[]>([
             {
@@ -327,7 +331,7 @@ export class SelectValuesService {
                 });
             });
 
-        return merchants$;
+        return this.merchantsList = merchants$;
     }
 
     /**

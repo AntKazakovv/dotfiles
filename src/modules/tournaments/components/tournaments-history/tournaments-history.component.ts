@@ -26,6 +26,7 @@ import {
     ActionService,
     DeviceType,
     ProfileType,
+    SortDirection,
 } from 'wlc-engine/modules/core';
 import {
     HistoryFilterService,
@@ -111,7 +112,11 @@ export class TournamentsHistoryComponent extends AbstractComponent implements On
             });
         }
 
-        return _orderBy(result, (item: TournamentHistory): number => DateTime.fromSQL(item.end).toSeconds(), 'desc');
+        return _orderBy(
+            result,
+            (item: TournamentHistory): number => DateTime.fromSQL(item.end).toSeconds(),
+            SortDirection.NewFirst,
+        );
     }
 
     protected setSubscription(): void {

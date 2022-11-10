@@ -1,4 +1,7 @@
-import {IIndexing} from 'wlc-engine/modules/core/system/interfaces';
+import {
+    IIndexing, 
+    SortDirection,
+} from 'wlc-engine/modules/core';
 import {Game} from 'wlc-engine/modules/games/system/models/game.model';
 import {CategoryModel} from 'wlc-engine/modules/games/system/models/category.model';
 import {MerchantModel} from 'wlc-engine/modules/games/system/models/merchant.model';
@@ -6,7 +9,6 @@ import {ICategoryBlock} from 'wlc-engine/modules/core/system/interfaces/categori
 import {TotalJackpotNoContentByThemeType} from 'wlc-engine/modules/games/components/total-jackpot/total-jackpot.params';
 import {ICacheSettings} from 'wlc-engine/modules/games/system/interfaces/cache.interface';
 
-export type TSortDirection = 'asc' | 'desc';
 /**
 * Disable demo for all users or only for authentificated users
 */
@@ -105,13 +107,13 @@ export interface IDashboardMobileUsageInstruction {
 export interface IGamesSortSetting {
     direction?: {
         /** direction of sorting by sortPerCountry, 'asc' by default */
-        sortPerCountry?: TSortDirection,
+        sortPerCountry?: SortDirection,
         /** direction of sorting by sortPerLanguage, 'asc' by default */
-        sortPerLanguage?: TSortDirection,
+        sortPerLanguage?: SortDirection,
         /** direction of sorting by sortPerCategory, 'asc' by default */
-        sortPerCategory?: TSortDirection;
+        sortPerCategory?: SortDirection;
         /** direction of sorting by general sort value, 'desc' by default */
-        baseSort?: TSortDirection;
+        baseSort?: SortDirection;
     }
 }
 

@@ -59,6 +59,10 @@
         .wlc-select {
             grid-area: ef.get-value($themeDefault, 'selectGridArea');
             max-width: ef.get-value($themeDefault, 'selectMaxWidth');
+
+            &--order {
+                grid-area: ef.get-value($themeDefault, 'selectOrderGridArea');
+            }
         }
 
         .wlc-radio-buttons {

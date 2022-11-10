@@ -13,6 +13,7 @@ import {
     ConfigService,
     DeviceType,
     GlobalHelper,
+    SortDirection,
 } from 'wlc-engine/modules/core';
 import {
     CategoryModel,
@@ -75,7 +76,10 @@ export class GamesCatalogComponent extends AbstractComponent implements OnInit {
             if (category?.gameBlocks.length) {
                 const grids: IGamesGridCParams[] = [];
                 const gameBlocks = (category.view === 'restricted-blocks')
-                    ? _orderBy(category.gameBlocks, (gameBlock: IGameBlock) => _get(gameBlock, 'settings.order'), 'asc')
+                    ? _orderBy(
+                        category.gameBlocks, (gameBlock: IGameBlock) => _get(gameBlock, 'settings.order'),
+                        SortDirection.NewFirst,
+                    )
                     : category.gameBlocks;
 
                 _forEach(gameBlocks, (gameBlock: IGameBlock, index) => {
