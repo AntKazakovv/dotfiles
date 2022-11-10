@@ -1,7 +1,8 @@
 <ng-container *ngIf="useRecaptcha">
    <div class="{{$class}}__text">
       <div wlc-dynamic-html
-         [html]=" 'This site is protected by reCAPTCHA and the Google Privacy Policy and Terms of Service apply' | translate"
+         [html]="'This site is protected by reCAPTCHA and the Google Privacy Policy and Terms of Service apply' | translate"
          [parseAsPlainHTML]="true">
       </div>
    </div>
+</ng-container>

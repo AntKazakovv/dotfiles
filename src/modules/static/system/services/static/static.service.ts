@@ -11,6 +11,7 @@ import {
 import {TranslateService} from '@ngx-translate/core';
 import {DomSanitizer} from '@angular/platform-browser';
 
+import {lastValueFrom} from 'rxjs';
 import _filter from 'lodash-es/filter';
 import _union from 'lodash-es/union';
 import _extend from 'lodash-es/extend';
@@ -23,7 +24,7 @@ import _replace from 'lodash-es/replace';
 import _join from 'lodash-es/join';
 import _isArray from 'lodash-es/isArray';
 import _isNumber from 'lodash-es/isNumber';
-import _forEach from 'lodash-es/forEach';
+import _isObject from 'lodash-es/isObject';
 
 import {IIndexing} from 'wlc-engine/modules/core/system/interfaces/global.interface';
 import {CachingService} from 'wlc-engine/modules/core/system/services/caching/caching.service';
@@ -64,6 +65,14 @@ export class StaticService {
         'content',
         'image',
     ];
+    private fieldsForCategory: (keyof ICategoryStaticText)[] = [
+        'parent',
+        'description',
+        'name',
+        'id',
+        'slug',
+        'count',
+    ];
     private $resolve: () => void;
     private ready: Promise<boolean> = new Promise((resolve: (v?: boolean) => void): void => {
         this.$resolve = resolve;
@@ -82,38 +91,54 @@ export class StaticService {
         this.init();
     }
 
+    /**
+     * Returns post from WP by the slug
+     *
+     * @param {string} slug the slug by post
+     * @returns {TextDataModel} post model
+     */
     public async getPost(slug: string): Promise<TextDataModel> {
         slug = await this.hooksService.run(this.slugPrepareHookName, slug);
         return this.getStaticData('post', {slug});
     }
 
+    /**
+     * Returns page from WP by the slug
+     *
+     * @param {string} slug the slug by post
+     * @returns {TextDataModel} page model
+     */
     public async getPage(slug: string): Promise<TextDataModel> {
         slug = await this.hooksService.run(this.slugPrepareHookName, slug);
         return this.getStaticData('page', {slug});
     }
 
-    public getTag(slug: string): Promise<TextDataModel> {
-        return this.getStaticData('tag', {slug});
-    }
-
+    /**
+     * Returns posts from WP by the category
+     *
+     * @param {string} categorySlug the category unique slug
+     * @param {IStaticParams} [params = {}] filter for getting posts, by default `{}`
+     * @param {boolean} [all = true]  if `true` (by default) gets post including subcategories
+     * @returns {TextDataModel[]} post models
+     */
     public async getPostsListByCategorySlug(
-        categorySlug: string | string[],
+        categorySlug: string,
         params: IStaticParams = {},
-        all = true,
+        all: boolean = true,
     ): Promise<TextDataModel[]> {
         await this.ready;
-        if (all && !_isArray(categorySlug)) {
-            const categories: ICategoryStaticText[] = this.getSubCategories(categorySlug);
-            const parentCatId: number = this.getCategoryIdBySlug(categorySlug);
-            const catsId = _map(categories, (item) => +item.id);
-            catsId.push(parentCatId);
-
-            return await this.getPostList(catsId, params);
-        } else if (_isArray(categorySlug)) {
-            const currentCategoryId: number = this.getCategoryIdBySlug(categorySlug);
-
-            return await this.getPostList([+currentCategoryId], params);
+        const categoryId: number | undefined = this.getCategoryIdBySlug(categorySlug);
+        if (!_isNumber(categoryId)) {
+            return [];
         }
+
+        const idCategories: number[] = [categoryId];
+        if (all) {
+            const subCategories: ICategoryStaticText[] = this.getSubCategories(categoryId);
+            idCategories.push(...subCategories.map((item: ICategoryStaticText): number => item.id));
+        }
+
+        return await this.getPostList(idCategories, params);
     }
 
     /**
@@ -145,10 +170,6 @@ export class StaticService {
         return '/api/v1/wptopdf?' + queryParams;
     }
 
-    private cacheExpiry(type): number {
-        return this.cacheExpiryParam[type];
-    }
-
     private async init(): Promise<void> {
         await this.configService.ready;
         await this.setConfig();
@@ -156,20 +177,12 @@ export class StaticService {
         this.ready = Promise.resolve(true);
     }
 
-    private getCategoryIdBySlug(slug: string | string[]): number {
-        if (!_isArray(slug)) {
-            return _find(this.categories, (res) => res.slug === slug)?.id;
-        }
+    private cacheExpiry(type: string): number {
+        return this.cacheExpiryParam[type];
+    }
 
-        const parentId: number = _find(this.categories, (res) => res.slug === slug[0])?.id;
-
-        if (slug[0] === slug[1]) {
-            return parentId;
-        }
-
-        if (parentId) {
-            return _find(this.categories, (res) => res.slug === slug[1] && res.parent === parentId)?.id;
-        }
+    private getCategoryIdBySlug(slug: string): number | undefined {
+        return _find(this.categories, (res) => res.slug === slug)?.id;
     }
 
     private async getCategories(): Promise<void> {
@@ -184,8 +197,11 @@ export class StaticService {
             }
         }
 
-        const response = await this.requestData<ICategoryStaticText[]>('category');
-        this.categories = response?.body || [];
+        const params: IStaticParams = {
+            _fields: this.fieldsForCategory.join(','),
+        };
+        const response = await this.requestData<ICategoryStaticText[]>('category', params);
+        this.categories = _filter(response?.body, (category) => _isObject(category));
         this.$resolve();
 
         if (cacheExpiry) {
@@ -198,23 +214,11 @@ export class StaticService {
         }
     }
 
-    private getSubCategories(slug: string | string[]): ICategoryStaticText[] {
-        const subCategories: ICategoryStaticText[] = [];
-        const parentId = this.getCategoryIdBySlug(slug);
-
-        if (!_isNumber(parentId)) {
-            return;
-        }
-
-        _forEach(this.categories, (item: ICategoryStaticText) => {
-            const id = item.slug === 'news' ? item.id : item.parent;
-
-            if (id === parentId) {
-                subCategories.push(item);
-            }
+    private getSubCategories(parentId: number): ICategoryStaticText[] {
+        return _filter(this.categories, (category: ICategoryStaticText): boolean => {
+            const id: number | undefined = category.slug === 'news' ? category.id : category.parent;
+            return id === parentId;
         });
-
-        return subCategories;
     }
 
     private async getStaticData(type: StaticTextType, params: IStaticParams): Promise<TextDataModel> {
@@ -280,17 +284,10 @@ export class StaticService {
     private async requestData<T>(type: StaticTextType, params: IStaticParams = {}): Promise<HttpResponse<T>> {
         const httpRequestParams = this.getHttpRequestParams<T>(type, params);
         try {
-            return await this.httpClient.request(httpRequestParams).toPromise() as HttpResponse<T>;
+            return await lastValueFrom(this.httpClient.request(httpRequestParams)) as HttpResponse<T>;
         } catch (e) {
             console.error(e);
         }
-    }
-
-    private getSlugPages(isPage: boolean): string[] {
-        if (isPage) {
-            return [];
-        }
-        return this.configService.get<string[]>('$static.pagesOnly');
     }
 
     private getWpApiUrl(type: StaticTextType, lang: string): string {
@@ -353,9 +350,8 @@ export class StaticService {
 
         try {
             if (!plugins.length) {
-                plugins = await this.httpClient
-                    .request<string[]>('GET', requestUrl)
-                    .toPromise();
+                plugins = await lastValueFrom(this.httpClient.request<string[]>('GET', requestUrl));
+
                 if (cacheExpiry) {
                     this.cachingService.set<string>(requestUrl, plugins, false, cacheExpiry);
                 }
