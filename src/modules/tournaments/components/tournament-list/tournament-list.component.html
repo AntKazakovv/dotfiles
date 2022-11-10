@@ -29,11 +29,13 @@
                     <div class="container swiper-button-container">
                         <button wlc-icon
                                 class="wlc-swiper-button-prev"
-                                iconPath="/wlc/icons/arrow.svg">
+                                iconPath="/wlc/icons/arrow.svg"
+                                [class]="'wlc-swiper-button-prev-' + navigationId">
                         </button>
                         <button wlc-icon
                                 class="wlc-swiper-button-next"
-                                iconPath="/wlc/icons/arrow.svg">
+                                iconPath="/wlc/icons/arrow.svg"
+                                [class]="'wlc-swiper-button-next-' + navigationId">
                         </button>
                     </div>
                 </div>
