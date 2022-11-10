@@ -14,7 +14,7 @@ $commonStyles: map-merge((
     'iconHeight': ef.size(8),
     'iconBorderRadius': 50%,
     'iconColor': currentColor,
-    'iconBgBase': ef.get('mainColors', 'bg700'),
+    'iconBgBase': ef.get('mainColors', 'bg100'),
     'iconBg': (
         'gp': #dc4e41,
         'ok': #f98d2e,

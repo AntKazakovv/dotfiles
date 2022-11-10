@@ -54,8 +54,8 @@
         }
 
         &__bottom {
-            @include bm.get-mq-map('padding', $themeDefault, 'infoBtmPaddingWithImg');
-            background: ef.get-value($themeRegFirst, 'bottomBackground');
+            @include bm.get-mq-map('padding', $themeRegFirst, 'infoBtmPaddingWithImg');
+            @include bm.get-mq-map('background', $themeRegFirst, 'bottomBackground');
         }
 
         &__info-block {
@@ -63,13 +63,20 @@
         }
 
         &__name {
-            @include nameCommonStyles;
+            @include text.get-text-style(ef.get-value($themeRegFirst, 'nameTextStyle', 375), ef.get-value($themeRegFirst, 'nameFontColor'));
             @include bm.get-mq-map('width', $themeRegFirst, 'infoWidth');
+            @include mq.min(1630) {
+                @include text.get-text-style(ef.get-value($themeRegFirst, 'nameTextStyle', 1630), null);
+            }
         }
 
         &__description {
-            @include descriptionCommonStyles;
+            @include text.get-text-style(ef.get-value($themeRegFirst, 'descriptionTextStyle', 375), ef.get-value($themeRegFirst, 'descriptionFontColor'));
+            @include bm.transition(opacity);
+            @include bm.lineClamp(3);
             @include bm.get-mq-map('width', $themeRegFirst, 'infoWidth');
+
+            max-width: 100%;
         }
     }
 

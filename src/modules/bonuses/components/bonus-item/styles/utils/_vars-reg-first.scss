@@ -32,5 +32,19 @@ $themeRegFirst: map-merge((
     'tagPosTop': ef.size(4),
     'tagTransform': translateX(-50%),
 
-    'bottomBackground': var(--mc-bg500),
+    'nameTextStyle': (
+        375: 'PrimaryTextBold',
+        1630: 'QoteTextBold',
+    ),
+    'nameFontColor': var(--mc-baseMain),
+
+    'bottomBackground': (
+        320: var(--mc-bg300),
+        900: var(--mc-bg500),
+    ),
+    'infoBtmPaddingWithImg': (
+        320: ef.size(2) 0,
+    ),
+    'descriptionTextStyle': 'SignText',
+    'descriptionFontColor': var(--mc-baseMain),
 ), $customThemeRegFirst);

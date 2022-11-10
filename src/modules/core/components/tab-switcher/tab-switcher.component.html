@@ -8,9 +8,9 @@
             {{tab.name | translate}}
         </div>
     </div>
-    <div class="{{$class}}-body">
-        <div *ngFor="let tab of tabs"
-             class="{{$class}}-body__item {{$class + '-body__item--' + tab.modifier}}"
+
+    <div *ngFor="let tab of tabs" class="{{$class}}-body {{$class + '-body--' + tab.modifier}}" [class.active]="tab.active">
+        <div class="{{$class}}-body__item {{$class + '-body__item--' + tab.modifier}}"
              [class.active]="tab.active"
         >
             <ng-container *ngIf="tab.active"

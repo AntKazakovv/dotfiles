@@ -65,7 +65,7 @@ $themeDefault: map-merge((
     ),
 
     'bonusListMargin': (
-        320: 0 auto ef.size(6),
+        320: 0 auto ef.size(12),
         900: ef.size(2) auto ef.size(8) auto,
         1630: ef.size(4) auto ef.size(8) auto,
     ),
@@ -73,7 +73,7 @@ $themeDefault: map-merge((
     'swiperControlsTopPos': 117px,
     'swiperContainerPadding': 0,
 
-    'singupHeadMaxWidth': 285px,
+    'singupHeadMaxWidth': 100%,
     'singupHeadWidth': 100%,
     'singupHeadPadding': 0 ef.size(3),
 
@@ -81,7 +81,8 @@ $themeDefault: map-merge((
         320: flex,
         560: block,
     ),
-    'singupLinkBlockRightPos': 100%,
+    'singupBackLinkBlockRightPos': 100%,
+    'singupBackLinkBlockLeftPos': 10px,
     'singupLinkBlockBottomPos': (
         320: ef.size(8),
         900: ef.size(6),
@@ -93,7 +94,7 @@ $themeDefault: map-merge((
     'singupLinkBlockWidth': 100%,
     'singupLinkBlockJustify': center,
     'singupLinkBlockTopPos': (
-        320: 4px,
+        320: -10px,
         560: ef.size(2),
     ),
     'singupLinkBlockMarign': (
@@ -101,13 +102,14 @@ $themeDefault: map-merge((
         560: 0 ef.size(3) 0 0,
     ),
     'singupLinkBlockSize': (
-        320: 30px,
+        320: 40px,
         560: auto,
     ),
     'singupLinkBlockMaxWidth': (
         320: none,
         560: 70px,
     ),
+    'singupLinkBg': var(--mc-bg700),
 
     'singupBtnTextFontSize': 0,
     'singupBtnTextFontSizeMD': 'CaptionTextBold',
@@ -127,6 +129,7 @@ $themeDefault: map-merge((
     'singupIconSvgTransform': rotateZ(90deg),
 
     'singupTextBlockAlign': center,
+    'singupTextBlockMargin': 0 0 ef.size(6),
     'signUpWithPromoWidth': (
         320: 100%,
         900: auto,

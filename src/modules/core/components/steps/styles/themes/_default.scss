@@ -59,11 +59,13 @@
                             @include bm.get-mq-map('height', $themeDefault, 'singupLinkBlockSize');
                             @include bm.get-mq-map('max-width', $themeDefault, 'singupLinkBlockMaxWidth');
                             position: absolute;
-                            right: ef.get-value($themeDefault, 'singupLinkBlockRightPos');
-                            left: initial;
+                            right: ef.get-value($themeDefault, 'singupBackLinkBlockRightPos');
+                            left: ef.get-value($themeDefault, 'singupBackLinkBlockLeftPos');
                             align-items: ef.get-value($themeDefault, 'singupLinkBlockAlignItems');
                             justify-content: ef.get-value($themeDefault, 'singupLinkBlockJustify');
                             overflow: hidden;
+                            background: ef.get-value($themeDefault, 'singupLinkBg');
+                            border-radius: 50%;
 
                             .wlc-btn__text {
                                 display: flex;
@@ -109,6 +111,10 @@
 
                         .wlc-text-block {
                             text-align: ef.get-value($themeDefault, 'singupTextBlockAlign');
+
+                            &:first-child {
+                                margin: ef.get-value($themeDefault, 'singupTextBlockMargin');
+                            }
 
                             &__dynamic {
                                 @include bm.lineClamp(2);
@@ -210,17 +216,6 @@
             &__container {
                 @include bm.get-mq-map('min-height', $themeDefault, 'containerFirstMinHeight');
                 display: block;
-
-                &--sign-up {
-
-                    .wlc-steps__head {
-
-                        .wlc-link-block {
-                            left: ef.get-value($themeDefault, 'singupLinkBlockLeftPosTop');
-                            width: ef.get-value($themeDefault, 'singupLinkBlockWidthTop');
-                        }
-                    }
-                }
             }
 
             &__main {

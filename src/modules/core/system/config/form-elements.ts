@@ -510,7 +510,7 @@ export namespace FormElements {
             theme: 'vertical',
             wlcElement: 'block_promocode',
             common: {
-                placeholder: gettext('Promocode'),
+                placeholder: gettext('Promo code'),
                 customModifiers: 'promocode',
             },
             name: 'registrationPromoCode',
