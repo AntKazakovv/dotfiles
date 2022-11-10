@@ -18,6 +18,8 @@ import {UserService} from 'wlc-engine/modules/user/system/services/user/user.ser
 import {UserActionsAbstract} from 'wlc-engine/modules/user/system/classes/user-actions-abstract.class';
 import {SocialService} from 'wlc-engine/modules/user/system/services/social/social.service';
 import {WINDOW} from 'wlc-engine/modules/app/system';
+import {CuracaoRequirement} from 'wlc-engine/modules/app/system';
+import {UserHelper} from 'wlc-engine/modules/user/system/helpers/user.helper';
 
 import * as Params from './social-sign-up-form.params';
 
@@ -41,6 +43,7 @@ export class SocialSignUpFormComponent extends UserActionsAbstract<Params.ISocia
         protected eventService: EventService,
         protected socialService: SocialService,
         @Inject(WINDOW) protected window: Window,
+        @Inject(CuracaoRequirement) private enableRequirement: boolean,
     ) {
         super({
             injectParams,
@@ -52,7 +55,14 @@ export class SocialSignUpFormComponent extends UserActionsAbstract<Params.ISocia
         super.ngOnInit();
 
         this.config = this.$params.formConfig || Params.socialSignUpFormConfig;
+        const data = {
+            shift: 0,
+            config: this.config,
+            selfExcludedText: this.configService.get<string>('$base.legal.selfExcludedCheckboxText'),
+            enableRequirement: this.enableRequirement,
+        };
 
+        UserHelper.modifyFormByLicense(data);
         if (this.$params.formData) {
             this.formData = new BehaviorSubject(this.$params.formData);
         }
@@ -79,5 +89,4 @@ export class SocialSignUpFormComponent extends UserActionsAbstract<Params.ISocia
             form.enable();
         }
     }
-
 }

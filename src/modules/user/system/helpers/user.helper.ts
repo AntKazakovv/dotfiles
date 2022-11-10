@@ -1,9 +1,18 @@
+import _findLastIndex from 'lodash-es/findLastIndex';
 import _set from 'lodash-es/set';
 import _find from 'lodash-es/find';
 
+import {IFormWrapperCParams} from 'wlc-engine/modules/core';
+import {FormElements} from 'wlc-engine/modules/core/system/config/form-elements';
 import {GlobalHelper} from 'wlc-engine/modules/core';
 import {IFormComponent} from 'wlc-engine/modules/core/components/form-wrapper/form-wrapper.component';
 
+interface IDataForModification{
+    shift: number;
+    config: IFormWrapperCParams;
+    selfExcludedText: string;
+    enableRequirement: boolean;
+}
 
 export class UserHelper {
 
@@ -71,6 +80,58 @@ export class UserHelper {
                 }
                 break;
             }
+        }
+    }
+    /**
+     * Set a registration form elements for license
+     *
+     * @param {IDataForModification} data
+     * @returns void
+     */
+    public static modifyFormByLicense(data: IDataForModification): void {
+        if (data.enableRequirement) {
+
+            const components = data.config.components.slice();
+
+            const getInsertIndex = (): number => {
+                const lastCheckbox = _findLastIndex(
+                    data.config.components,
+                    (item) => item.name === 'core.wlc-checkbox',
+                );
+                return lastCheckbox === -1
+                    ? data.config.components.length
+                    : lastCheckbox + data.shift;
+            };
+
+            if (_findLastIndex(components, (item) => item.params.name === 'agreeWithSelfExcluded') === -1) {
+                components.splice(
+                    getInsertIndex(),
+                    0,
+                    {
+                        name: 'core.wlc-checkbox',
+                        params: {
+                            name: 'agreeWithSelfExcluded',
+                            text: data.selfExcludedText
+                                || gettext('I have not self-excluded from any gambling website in the past 12 months'),
+                            wlcElement: 'block_self_excluded',
+                            common: {
+                                customModifiers: 'self-exclude',
+                            },
+                            validators: ['requiredTrue'],
+                        },
+                    },
+                );
+            }
+
+            if (_findLastIndex(components, (item) => item.params.name === 'agreedWithTermsAndConditions') === -1) {
+                components.splice(getInsertIndex(), 0, FormElements.terms);
+            }
+
+            if (_findLastIndex(components, (item) => item.params.name === 'ageConfirmed') === -1) {
+                components.splice(getInsertIndex(), 0, FormElements.age);
+            }
+
+            data.config.components = components;
         }
     }
 }

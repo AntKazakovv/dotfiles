@@ -48,9 +48,12 @@
             @include inherit.checkboxTermsStyles($themeDefault);
         }
 
+        .wlc-checkbox--self-exclude {
+            @include inherit.checkboxSelfExcludedStyles($themeDefault);
+        }
+
         .wlc-checkbox--privacy {
             @include inherit.checkboxPrivacyStyles($themeDefault);
-            grid-area: privacy;
         }
 
         .wlc-checkbox--age {
