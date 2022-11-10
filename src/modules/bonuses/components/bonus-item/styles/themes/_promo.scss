@@ -67,6 +67,8 @@
 
         &__icon {
             @include bm.get-mq-map('margin', $themePromo, 'iconMargin');
+            @include bm.get-mq-map('width', $themePromo, 'iconSize');
+            @include bm.get-mq-map('height', $themePromo, 'iconSize');
         }
 
         &__info-block {

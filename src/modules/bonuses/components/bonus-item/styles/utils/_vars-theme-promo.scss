@@ -114,13 +114,20 @@ $themePromo: map-merge((
     ),
     'imgPadding': (
         375: ef.size(8) 0 0 0,
-        560: ef.size(8) 0 0 ef.size(8)
+        560: ef.size(4) 0 0 ef.size(4)
     ),
 
     //Bonus icon
     'iconMargin': (
         375: ef.size(2) auto 0,
         560: 0,
+    ),
+    'iconSize': (
+        375: 120px,
+        560: 100px,
+        720: 120px,
+        1200: 100px,
+        1630: 144px,
     ),
 
     'baseBg': var(--mc-bg300),
