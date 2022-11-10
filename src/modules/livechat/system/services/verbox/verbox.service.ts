@@ -116,7 +116,8 @@ export class VerboxService extends LivechatAbstract<ILivechatVerboxConfig> {
         return !!this.window.Verbox;
     }
 
-    protected initChat(): void {
+    protected initChat(isErrorSrc?: boolean): void {
+
         if (this.options.type !== 'verbox' || !this.options.code) {
             this.logService.sendLog({code: '14.0.1'});
             return;
@@ -129,14 +130,20 @@ export class VerboxService extends LivechatAbstract<ILivechatVerboxConfig> {
         if (_includes(this.options.excludeStates, this.routerGlobals.$current.name)) {
             return;
         }
-
         const script = this.document.createElement('script');
         script.type ='text/javascript';
         script.id = 'supportScript';
         script.async = true;
-        script.src = 'https://admin.verbox.ru/support/support.js?h=' + this.options.code;
 
-        const sc = this.document.getElementsByTagName('script')[0];
+        script.src = (isErrorSrc ? 'https://static.site-chat.me/support/support.int.js'
+            : 'https://admin.verbox.ru/support/support.js') + '?h=' + this.options.code;
+
+        script.onerror = () => {
+            if (!isErrorSrc) {
+                this.document.getElementById('supportScript').remove();
+                this.initChat(true);
+            }
+        };
 
         this.window.VerboxSetup = this.options?.verboxSetup || {};
         this.window.VerboxSetup.language  = this.translateService.currentLang || 'en';
@@ -147,12 +154,7 @@ export class VerboxService extends LivechatAbstract<ILivechatVerboxConfig> {
                 (this.window['Verbox'].q = this.window['Verbox'].q || []).push(arguments);
             };
         }
-
-        if (sc) {
-            sc.parentNode.insertBefore(script, sc);
-        } else {
-            this.document.documentElement.firstChild.appendChild(script);
-        }
+        this.document.documentElement.firstChild.appendChild(script);
     }
 
     protected setUserSettings(): void {
