@@ -258,7 +258,7 @@ export class LimitationService {
                 data: <IPushMessageParams>{
                     type: 'error',
                     title: gettext('Profile update failed'),
-                    message: gettext('Mismatch with previously selected limitations'),
+                    message: error.errors,
                     wlcElement: 'notification_set-self-exclusion-error',
                 },
             });
