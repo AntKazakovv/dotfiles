@@ -12,7 +12,8 @@
         display: inline-block;
     }
 
-    svg {
+    svg,
+    path {
         fill: inherit;
     }
 }

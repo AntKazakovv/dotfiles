@@ -93,7 +93,7 @@ export class DepositBonusesComponent extends AbstractComponent implements OnInit
             from: 'finances',
         }, (paySystem?: PaymentSystem): void => {
             this.processPaySystemChange(paySystem);
-            if (this.firstInit) {
+            if (this.firstInit && !paySystem.isParent) {
                 this.firstInit = false;
                 this.setAutoSelect();
             }

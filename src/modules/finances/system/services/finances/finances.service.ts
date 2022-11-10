@@ -230,7 +230,10 @@ export class FinancesService {
 
         const parentSystem: PaymentSystem = new PaymentSystem(
             {helper: 'FinancesService', method: 'updateForCryptoInvoices'},
-            _merge({}, cryptoInvoiceSystem, this.configService.get('$finances.cryptoInvoices.paySystemParams')),
+            _merge({}, cryptoInvoiceSystem,
+                this.configService.get('$finances.cryptoInvoices.paySystemParams'),
+                {tags: FinancesHelper.collectTags(invoicesSystems)},
+            ),
             this.configService.get<BehaviorSubject<UserProfile>>({name: '$user.userProfile$'}),
         );
 

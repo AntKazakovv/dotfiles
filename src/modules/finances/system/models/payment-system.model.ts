@@ -23,7 +23,11 @@ import {
     IFromLog,
     ILogObj,
 } from 'wlc-engine/modules/core';
-import {TPaymentsMethods} from '../interfaces';
+import {
+    TPaymentsMethods,
+    TPaySystemTagAll,
+    TPaySystemTag,
+} from '../interfaces';
 
 export type FilterType = TPaymentsMethods | 'Deposits' | 'Withdraws' | 'all' | 'All';
 
@@ -61,6 +65,7 @@ export interface IPaymentSystem {
     tokenRequired?: boolean;
     visible?: boolean;
     cryptoInvoice?: boolean;
+    tags?: TPaySystemTag[];
 }
 
 export interface IPaymentAdditionalParam {
@@ -401,6 +406,10 @@ export class PaymentSystem extends AbstractModel<IPaymentSystem> {
 
     public get cryptoInvoices(): boolean {
         return this.data.cryptoInvoice || false;
+    }
+
+    public get tags(): TPaySystemTagAll[] {
+        return this.data.tags?.length ? this.data.tags : ['other'];
     }
 
     public checkRequiredFields(type: TPaymentsMethods = 'deposit'): IIndexing<IFieldTemplate> {

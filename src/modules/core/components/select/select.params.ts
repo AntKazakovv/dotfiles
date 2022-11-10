@@ -42,6 +42,10 @@ export interface ISelectCParams<V = unknown> extends IComponentParams<ComponentT
     noResultText?: string;
     autoSelect?: boolean;
     useIcon?: boolean;
+    /**
+     * Update value if control has been changed from outside
+     */
+    updateOnControlChange?: boolean;
 }
 
 export interface ISelectOptions<V = unknown> {

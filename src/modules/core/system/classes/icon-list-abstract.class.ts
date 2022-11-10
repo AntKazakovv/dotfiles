@@ -65,8 +65,6 @@ export interface IAbstractIconsListParams<T, R, M> extends IComponentParams<T, R
 
 @Directive()
 export abstract class IconListAbstract<T> extends AbstractComponent {
-    abstract items: IconModel[];
-
     public $params: IAbstractIconsListParams<unknown, unknown, unknown>;
 
     constructor(

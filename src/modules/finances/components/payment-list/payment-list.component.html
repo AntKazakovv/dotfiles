@@ -104,6 +104,8 @@
 
 <ng-template #list>
     <div class="{{$class}}__list" [ngClass]="classList">
+        <ng-container *ngIf="useTags" [ngTemplateOutlet]="categories"></ng-container>
+
         <ul class="{{$class}}__ul"
             [@appearance]="ready && systems.length"
             [ngSwitch]="$params.theme">
@@ -122,8 +124,9 @@
 </ng-template>
 
 <ng-template #cryptoList>
-    <li *ngFor="let system of systems; index as $index; trackBy:systemTrackBy"
-        class="{{$class}}__item {{$class}}__item--{{system.alias}}">
+    <li *ngFor="let system of systems$ | async; index as $index; trackBy:systemTrackBy"
+        class="{{$class}}__item {{$class}}__item--{{system.alias}}"
+        [class.disabled]="system.disabledBy">
         <button class="{{$class}}__button"
             [class.active]="system.id === currentSystem?.id"
             [class.disabled]="system.disabledBy"
@@ -142,13 +145,13 @@
         <div *ngIf="system.disabledBy"
             wlc-tooltip
             class="{{$class}}__tooltip"
-            [inlineParams]="getErrTooltipParams($index)"
+            [inlineParams]="getErrTooltipParams(system)"
         ></div>
     </li>
 </ng-template>
 
 <ng-template #defaultList>
-    <li *ngFor="let system of systems; index as $index"
+    <li *ngFor="let system of systems$ | async; index as $index"
         class="{{$class}}__item"
         [class.disabled]="system.disabledBy"
         [attr.data-wlc-element]="'block_payment-item-' + system.id">
@@ -160,13 +163,60 @@
                 [attr.aria-label]="system.name"
                 [attr.data-wlc-element]="'block_payment-item-name'"
                 [attr.title]="system.name"
-                [inlineParams]='{icon: items[$index], class: $class + "-item"}'
+                [inlineParams]='{icon: itemsMap.get(system.id), class: $class + "-item"}'
                 (click)='selectPayment(system)'>
         </button>
         <div *ngIf="system.disabledBy"
             wlc-tooltip
             class="{{$class}}__tooltip"
-            [inlineParams]="getErrTooltipParams($index)"
+            [inlineParams]="getErrTooltipParams(system)"
         ></div>
     </li>
+</ng-template>
+
+<ng-template #categories>
+    <ng-container [ngSwitch]="catMenuType">
+        <ng-container *ngSwitchCase="'desktop'"
+            [ngTemplateOutlet]="catsMenu">
+        </ng-container>
+        <ng-container *ngSwitchCase="'dropdown'"
+            [ngTemplateOutlet]="catsDropdown">
+        </ng-container>
+
+    </ng-container>
+
+</ng-template>
+
+<ng-template #catsMenu>
+    <div *ngIf="tagsMenuConfig"
+        class="{{$class}}__categories {{$class}}__categories--{{catMenuTypeMain}}"
+        wlc-wrapper
+        [inlineParams]="tagsMenuConfig">
+    </div>
+</ng-template>
+
+<ng-template #catsDropdown>
+    <div class="{{$class}}__categories {{$class}}__categories--drop">
+        <button class="{{$class}}__tag-main"
+            [class.opened]="showTagsDropDown"
+            (click)="toggleTags()">
+            <span wlc-icon
+                class="icon"
+                iconPath="/wlc/icons/filter-merchants.svg">
+            </span>
+            <span class="{{$class}}__tag-main--text">
+                {{activeTagName | translate}}
+            </span>
+        </button>
+
+        <div [@toggle]="showTagsDropDown ? 'opened' : 'closed'"
+            class="{{$class}}__tag-list">
+            <button *ngFor="let tag of tags"
+                class="{{$class}}__tag-btn {{tag[0]}}"
+                [class.active]="tag[0] === tagsControl.value"
+                (click)="setActiveTag(tag[0])">
+                {{tag[1] | translate}}
+            </button>
+        </div>
+    </div>
 </ng-template>

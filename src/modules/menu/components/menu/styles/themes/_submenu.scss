@@ -1,0 +1,50 @@
+.wlc-menu--theme-submenu:host {
+
+    position: relative;
+    display: grid;
+    overflow: auto hidden;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    border: none;
+    margin: ef.get-value($themeSubmenu, 'menuMargin');
+    grid: {
+        auto-columns: max-content;
+        auto-flow: column;
+        gap: ef.get-value($themeSubmenu, 'menuGridGap');
+    }
+
+    .wlc-menu__item {
+
+        .wlc-menu__link {
+            --wlc-menu--submenu-decor-width: 0;
+            @include text.get-text-style(ef.get-value($themeSubmenu, 'menuItemFontName'), ef.get-value($themeSubmenu, 'menuItemColor'));
+            position: relative;
+            display: block;
+            padding: ef.get-value($themeSubmenu, 'menuItemPadding');
+            text-align: center;
+            text-transform: ef.get-value($themeSubmenu, 'menuItemTextTransform');
+            text-decoration: none;
+
+            &:before {
+                @include bm.transition(width);
+                content: '';
+                position: absolute;
+                bottom: 0;
+                z-index: 2;
+                width: var(--wlc-menu--submenu-decor-width);
+                height: ef.get-value($themeSubmenu, 'menuItemDecorHeight');
+                background: ef.get-value($themeSubmenu, 'menuItemActiveBorderBg');
+            }
+
+            &.active {
+                --wlc-menu--submenu-decor-width: 100%;
+                color: ef.get-value($themeSubmenu, 'menuItemActiveColor');
+                font-weight: ef.get-value($themeSubmenu, 'menuItemActiveWheit');
+            }
+
+            @include bm.hover {
+                --wlc-menu--submenu-decor-width: 100%;
+            }
+        }
+    }
+}

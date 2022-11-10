@@ -1,288 +1,371 @@
-.wlc-payment-list--theme-default {
+::ng-deep .wlc-payment-list--theme-default,
+.wlc-payment-list--theme-default:host {
 
-    &:host::ng-deep,
-    & {
+    .wlc-payment-list {
 
-        .wlc-payment-list {
+        &__ul {
+            @include bm.get-mq-map('grid-template-columns', $themeDefault, 'listGridTemplateColumns');
+            @include bm.get-mq-map('gap', $themeDefault, 'listGridGap');
+            display: grid;
+            margin: ef.get-value($themeDefault, 'listMargin');
+            padding: ef.get-value($themeDefault, 'listPadding');
+            list-style-type: none;
+        }
 
-            &__ul {
-                @include bm.get-mq-map('grid-template-columns', $themeDefault, 'listGridTemplateColumns');
-                @include bm.get-mq-map('gap', $themeDefault, 'listGridGap');
-                display: grid;
-                margin: ef.get-value($themeDefault, 'listMargin');
-                padding: ef.get-value($themeDefault, 'listPadding');
-                list-style-type: none;
+        &__item {
+            position: relative;
+
+            &.disabled {
+                order: 1000;
+            }
+        }
+
+        &__button {
+            position: relative;
+            width: ef.get-value($themeDefault, 'itemWidth');
+            height: 100%;
+            border: ef.get-value($themeDefault, 'itemBorder');
+            color: ef.get-value($themeDefault, 'itemSvgColor');
+            background: ef.get-value($themeDefault, 'itemBg');
+            border-radius: ef.get-value($themeDefault, 'itemBorderRadius');
+            cursor: pointer;
+            transition: ef.get-value($themeDefault, 'itemTransition');
+
+            &:before {
+                content: '';
+                display: block;
+                width: 100%;
+                padding-top: ef.get-value($themeDefault, 'itemBeforePaddingTop');
             }
 
-            &__item {
-                position: relative;
-
-                &.disabled {
-                    order: 1000;
-                }
+            &:focus {
+                outline: none;
             }
 
-            &__button {
-                position: relative;
-                width: ef.get-value($themeDefault, 'itemWidth');
-                height: 100%;
-                border: ef.get-value($themeDefault, 'itemBorder');
-                color: ef.get-value($themeDefault, 'itemSvgColor');
-                background: ef.get-value($themeDefault, 'itemBg');
-                border-radius: ef.get-value($themeDefault, 'itemBorderRadius');
-                cursor: pointer;
-                transition: ef.get-value($themeDefault, 'itemTransition');
-
-                &:before {
-                    content: '';
-                    display: block;
-                    width: 100%;
-                    padding-top: ef.get-value($themeDefault, 'itemBeforePaddingTop');
-                }
-
-                &:focus {
-                    outline: none;
-                }
-
-                &.active {
-                    border-color: ef.get-value($themeDefault, 'itemBorderColorActive');
-                    color: ef.get-value($themeDefault, 'itemSvgColorActive');
-                    box-shadow: ef.get-value($themeDefault, 'itemBoxShadowActive');
-                }
-
-                &.disabled {
-                    cursor: not-allowed;
-                    opacity: ef.get-value($themeDefault, 'itemOpacityDisabled');
-                    pointer-events: none;
-                }
-
-                @include bm.hover() {
-                    color: ef.get-value($themeDefault, 'itemSvgColorHover');
-                    box-shadow: ef.get-value($themeDefault, 'itemBoxShadowHover');
-                }
+            &.active {
+                border-color: ef.get-value($themeDefault, 'itemBorderColorActive');
+                color: ef.get-value($themeDefault, 'itemSvgColorActive');
+                box-shadow: ef.get-value($themeDefault, 'itemBoxShadowActive');
             }
 
-            &__button,
-            &__btn-modal {
+            &.disabled {
+                cursor: not-allowed;
+                opacity: ef.get-value($themeDefault, 'itemOpacityDisabled');
+                pointer-events: none;
+            }
 
-                ::ng-deep {
+            @include bm.hover() {
+                color: ef.get-value($themeDefault, 'itemSvgColorHover');
+                box-shadow: ef.get-value($themeDefault, 'itemBoxShadowHover');
+            }
+        }
 
-                    .wlc-payment-list-item {
+        &__button,
+        &__btn-modal {
 
-                        &__wrp {
-                            position: absolute;
-                            top: 0;
-                            left: 0;
-                            display: flex;
-                            align-items: center;
-                            justify-content: center;
-                            width: 100%;
-                            height: 100%;
-                            padding: ef.get-value($themeDefault, 'itemPadding');
-                            color: ef.get-value($themeDefault, 'itemIconColor');
-                            font-size: ef.get-value($themeDefault, 'itemIconFontSize');
-                        }
+            ::ng-deep {
 
-                        &__error {
-                            @include text.get-text-style(ef.get-value($themeDefault, 'errorTextStyle'), ef.get-value($themeDefault, 'errorColor'));
+                .wlc-payment-list-item {
 
-                            width: 100%;
-                            max-height: 100%;
-                            word-break: break-word;
-                            overflow: hidden;
-                        }
+                    &__wrp {
+                        position: absolute;
+                        top: 0;
+                        left: 0;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        width: 100%;
+                        height: 100%;
+                        padding: ef.get-value($themeDefault, 'itemPadding');
+                        color: ef.get-value($themeDefault, 'itemIconColor');
+                        font-size: ef.get-value($themeDefault, 'itemIconFontSize');
+                    }
 
-                        &__image {
-                            width: 100%;
-                            height: 100%;
-                            object-fit: contain;
-                            object-position: center;
-                        }
+                    &__error {
+                        @include text.get-text-style(ef.get-value($themeDefault, 'errorTextStyle'), ef.get-value($themeDefault, 'errorColor'));
 
-                        &__svg {
-                            display: block;
-                            width: 100%;
-                            height: 100%;
+                        width: 100%;
+                        max-height: 100%;
+                        word-break: break-word;
+                        overflow: hidden;
+                    }
 
-                            ::ng-deep {
+                    &__image {
+                        width: 100%;
+                        height: 100%;
+                        object-fit: contain;
+                        object-position: center;
+                    }
 
-                                .wlc-icon-content svg {
-                                    width: 100%;
-                                    max-width: 100%;
-                                    height: 100%;
-                                    max-height: 100%;
-                                    fill: currentColor;
+                    &__svg {
+                        display: block;
+                        width: 100%;
+                        height: 100%;
 
-                                    path {
-                                        fill: inherit;
-                                    }
-                                }
+                        ::ng-deep {
+
+                            .wlc-icon-content svg {
+                                width: 100%;
+                                max-width: 100%;
+                                height: 100%;
+                                max-height: 100%;
+                                fill: currentColor;
                             }
                         }
                     }
                 }
             }
+        }
 
-            &__btn-modal {
-                display: flex;
-                align-items: center;
-                justify-content: ef.get-value($themeDefault, 'btnJustifyContent');
-                width: ef.get-value($themeDefault, 'btnWidth');
-                max-width: ef.get-value($themeDefault, 'btnMaxWidth');
-                height: ef.get-value($themeDefault, 'btnHeight');
-                margin: ef.get-value($themeDefault, 'btnMargin');
-                padding: ef.get-value($themeDefault, 'btnPadding');
-                border: ef.get-value($themeDefault, 'btnBorder');
-                color: ef.get-value($themeDefault, 'btnColor');
-                border-radius: ef.get-value($themeDefault, 'btnBorderRadius');
-                background: ef.get-value($themeDefault, 'btnBg');
+        &__btn-modal {
+            display: flex;
+            align-items: center;
+            justify-content: ef.get-value($themeDefault, 'btnJustifyContent');
+            width: ef.get-value($themeDefault, 'btnWidth');
+            max-width: ef.get-value($themeDefault, 'btnMaxWidth');
+            height: ef.get-value($themeDefault, 'btnHeight');
+            margin: ef.get-value($themeDefault, 'btnMargin');
+            padding: ef.get-value($themeDefault, 'btnPadding');
+            border: ef.get-value($themeDefault, 'btnBorder');
+            color: ef.get-value($themeDefault, 'btnColor');
+            border-radius: ef.get-value($themeDefault, 'btnBorderRadius');
+            background: ef.get-value($themeDefault, 'btnBg');
 
-                &.use-icon {
+            &.use-icon {
 
-                    .wlc-payment-list__btn-modal-image {
-                        display: flex;
-                        align-items: center;
-                        align-self: stretch;
-                        justify-content: center;
-                        width: 100px;
-                        color: var(--mc-bg500);
-                    }
-
-                    .wlc-payment-list__btn-modal-wrap {
-                        flex-direction: column;
-                        align-items: flex-start;
-                        text-align: left;
-                    }
-
-                    .wlc-payment-list__btn-modal-text:nth-child(1) {
-                        font-weight: 700;
-                        font-size: 16px;
-                    }
-                }
-
-                &.selected {
-                    overflow: hidden;
-
-                    .wlc-payment-list__btn-modal-text {
-                        font-weight: 700;
-                    }
-                }
-
-                &:focus {
-                    outline: none;
-                }
-            }
-
-            &__btn-modal-wrap {
-                display: flex;
-                flex: 1 1 100%;
-                align-items: center;
-                justify-content: center;
-                padding: ef.get-value($themeDefault, 'btnWrapPadding');
-            }
-
-            &__btn-modal-arrow {
-                margin: ef.get-value($themeDefault, 'btnArrowMargin');
-                color: ef.get-value($themeDefault, 'btnArrowColor');
-
-                .wlc-icon-content {
+                .wlc-payment-list__btn-modal-image {
                     display: flex;
                     align-items: center;
+                    align-self: stretch;
                     justify-content: center;
+                    width: 100px;
+                    color: var(--mc-bg500);
+                }
+
+                .wlc-payment-list__btn-modal-wrap {
+                    flex-direction: column;
+                    align-items: flex-start;
+                    text-align: left;
+                }
+
+                .wlc-payment-list__btn-modal-text:nth-child(1) {
+                    font-weight: 700;
+                    font-size: 16px;
                 }
             }
 
-            &__btn-modal-text {
-                display: block;
-                font-size: ef.get-value($themeDefault, 'btnTextFontSize');
-                line-height: 1.2;
-            }
+            &.selected {
+                overflow: hidden;
 
-            &__btn-modal-image {
-                position: relative;
-                flex: 0 0 auto;
-                width: ef.get-value($themeDefault, 'btnImageWidth');
-                height: ef.get-value($themeDefault, 'btnImageHeight');
-                padding: ef.get-value($themeDefault, 'btnImagePadding');
-                color: ef.get-value($themeDefault, 'btnImageSvgColor');
-                background: ef.get-value($themeDefault, 'btnImageBg');
-                border-right: ef.get-value($themeDefault, 'btnImageBorderRight');
-            }
-
-            &__title {
-                @include text.get-text-style('ThirdTitle');
-                margin: ef.get-value($themeDefault, 'titleMargin');
-                color: ef.get-value($themeDefault, 'titleColor');
-                text-align: ef.get-value($themeDefault, 'titleTextAlign');
-            }
-
-            &__sys-table {
-                width: ef.get-value($themeDefault, 'tableWidth');
-                max-width: ef.get-value($themeDefault, 'tableMaxWidth');
-                margin: ef.get-value($themeDefault, 'tableMargin');
-                color: ef.get-value($themeDefault, 'tableColor');
-            }
-
-            &__sys-tr {
-                border-top: ef.get-value($themeDefault, 'tableTrBorderTop');
-
-                &--provider {
-
-                    .wlc-payment-list__sys-td {
-                        max-width: 1em;
-                        white-space: nowrap;
-                        overflow-x: hidden;
-                        text-overflow: ellipsis;
-                    }
+                .wlc-payment-list__btn-modal-text {
+                    font-weight: 700;
                 }
             }
 
-            &__sys-th {
-                width: 1%;
-                padding: ef.get-value($themeDefault, 'tableThPadding');
-                color: ef.get-value($themeDefault, 'tableThColor');
-                font-weight: ef.get-value($themeDefault, 'tableThFontWeight');
-            }
-
-            &__sys-td {
-                padding: ef.get-value($themeDefault, 'tableTdPadding');
-                color: ef.get-value($themeDefault, 'tableTdColor');
-                text-align: ef.get-value($themeDefault, 'tableTdAlignment');
-            }
-
-            &__tooltip {
-                position: absolute;
-                top: ef.get-value($themeDefault, 'tooltipTop');
-                right: ef.get-value($themeDefault, 'tooltipRight');
-                bottom: ef.get-value($themeDefault, 'tooltipBottom');
-                left: ef.get-value($themeDefault, 'tooltipLeft');
-            }
-
-            &__method {
-                @include text.get-text-style(ef.get-value($themeDefault, 'methodTextStyle'), ef.get-value($themeDefault, 'methodTextColor'));
-                padding: ef.get-value($themeDefault, 'methodPadding');
-                text-align: ef.get-value($themeDefault, 'methodAlignment');
-            }
-
-            &__method-text {
-                display: inline;
+            &:focus {
+                outline: none;
             }
         }
 
-        .payments-description {
-            @include text.get-text-style(ef.get-value($themeDefault, 'descriptionFont'), ef.get-value($themeDefault, 'descriptionColor'));
-            @include bm.get-mq-map('text-align', $themeDefault, 'descriptionTextAlign');
+        &__btn-modal-wrap {
+            display: flex;
+            flex: 1 1 100%;
+            align-items: center;
+            justify-content: center;
+            padding: ef.get-value($themeDefault, 'btnWrapPadding');
+        }
 
-            padding: ef.get-value($themeDefault, 'descriptionPadding');
-            white-space: ef.get-value($themeDefault, 'descriptionWhiteSpace');
+        &__btn-modal-arrow {
+            margin: ef.get-value($themeDefault, 'btnArrowMargin');
+            color: ef.get-value($themeDefault, 'btnArrowColor');
 
-            &--desktop {
-                @include bm.get-mq-map('display', $themeDefault, 'descriptionDesktopDisplay');
+            .wlc-icon-content {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+        }
+
+        &__btn-modal-text {
+            display: block;
+            font-size: ef.get-value($themeDefault, 'btnTextFontSize');
+            line-height: 1.2;
+        }
+
+        &__btn-modal-image {
+            position: relative;
+            flex: 0 0 auto;
+            width: ef.get-value($themeDefault, 'btnImageWidth');
+            height: ef.get-value($themeDefault, 'btnImageHeight');
+            padding: ef.get-value($themeDefault, 'btnImagePadding');
+            color: ef.get-value($themeDefault, 'btnImageSvgColor');
+            background: ef.get-value($themeDefault, 'btnImageBg');
+            border-right: ef.get-value($themeDefault, 'btnImageBorderRight');
+        }
+
+        &__title {
+            @include text.get-text-style('ThirdTitle');
+            margin: ef.get-value($themeDefault, 'titleMargin');
+            color: ef.get-value($themeDefault, 'titleColor');
+            text-align: ef.get-value($themeDefault, 'titleTextAlign');
+        }
+
+        &__sys-table {
+            width: ef.get-value($themeDefault, 'tableWidth');
+            max-width: ef.get-value($themeDefault, 'tableMaxWidth');
+            margin: ef.get-value($themeDefault, 'tableMargin');
+            color: ef.get-value($themeDefault, 'tableColor');
+        }
+
+        &__sys-tr {
+            border-top: ef.get-value($themeDefault, 'tableTrBorderTop');
+
+            &--provider {
+
+                .wlc-payment-list__sys-td {
+                    max-width: 1em;
+                    white-space: nowrap;
+                    overflow-x: hidden;
+                    text-overflow: ellipsis;
+                }
+            }
+        }
+
+        &__sys-th {
+            width: 1%;
+            padding: ef.get-value($themeDefault, 'tableThPadding');
+            color: ef.get-value($themeDefault, 'tableThColor');
+            font-weight: ef.get-value($themeDefault, 'tableThFontWeight');
+        }
+
+        &__sys-td {
+            padding: ef.get-value($themeDefault, 'tableTdPadding');
+            color: ef.get-value($themeDefault, 'tableTdColor');
+            text-align: ef.get-value($themeDefault, 'tableTdAlignment');
+        }
+
+        &__tooltip[class] {
+            position: absolute;
+            top: ef.get-value($themeDefault, 'tooltipTop');
+            right: ef.get-value($themeDefault, 'tooltipRight');
+            bottom: ef.get-value($themeDefault, 'tooltipBottom');
+            left: ef.get-value($themeDefault, 'tooltipLeft');
+        }
+
+        &__method {
+            @include text.get-text-style(ef.get-value($themeDefault, 'methodTextStyle'), ef.get-value($themeDefault, 'methodTextColor'));
+            padding: ef.get-value($themeDefault, 'methodPadding');
+            text-align: ef.get-value($themeDefault, 'methodAlignment');
+        }
+
+        &__method-text {
+            display: inline;
+        }
+
+        &__categories {
+            margin: ef.get-value($themeDefault, 'tagsMargin');
+
+            &--menu {
+                position: relative;
+
+                &:before {
+                    content: '';
+                    position: absolute;
+                    bottom: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 2px;
+                    background: ef.get-value($themeDefault, 'tagsMenuDividerBg');
+                }
             }
 
-            @include mq.min(1200) {
-                @include text.get-text-style(ef.get-value($themeDefault, 'descriptionFont', 1200), ef.get-value($themeDefault, 'descriptionColor'));
+            ::ng-deep {
+
+                ::-webkit-scrollbar {
+                    display: none;
+                }
+
+                .wlc-select {
+                    width: ef.get-value($themeDefault, 'tagsSelectWidth');
+                }
             }
+        }
+
+        &__tag-btn,
+        &__tag-main {
+            @include text.get-text-style(ef.get-value($themeDefault, 'tagBtnTextStyle'), ef.get-value($themeDefault, 'tagBtnTextColor'));
+            padding: ef.get-value($themeDefault, 'tagBtnPadding');
+            border: ef.get-value($themeDefault, 'tagBtnBorder');
+            border-radius: ef.get-value($themeDefault, 'tagBtnRadius');
+        }
+
+        &__tag-main {
+            position: relative;
+            display: flex;
+            align-items: center;
+            width: 100%;
+            background: ef.get-value($themeDefault, 'tagBtnMainBg');
+            transition: ef.get-value($themeDefault, 'tagBtnMainTransition');
+
+            &:after {
+                content: '';
+                position: absolute;
+                top: 50%;
+                right: 13px;
+                display: block;
+                width: ef.get-value($themeDefault, 'tagBtnMainArrowSize');
+                height: ef.get-value($themeDefault, 'tagBtnMainArrowSize');
+                transform: translateY(-50%) rotate(225deg);
+                transition: ef.get-value($themeDefault, 'tagBtnMainArrowTransition');
+                border-top: ef.get-value($themeDefault, 'tagBtnMainArrowBorderWidth') solid ef.get-value($themeDefault, 'tagBtnMainArrowBorderColor');
+                border-left: ef.get-value($themeDefault, 'tagBtnMainArrowBorderWidth') solid ef.get-value($themeDefault, 'tagBtnMainArrowBorderColor');
+            }
+
+            .wlc-icon {
+                margin: ef.get-value($themeDefault, 'tagBtnMainIconMargin');
+            }
+
+            &.opened {
+                margin: ef.get-value($themeDefault, 'tagBtnMainOpenedMargin');
+                background: ef.get-value($themeDefault, 'tagBtnMainOpenedBg');
+                border-color: ef.get-value($themeDefault, 'tagBtnMainOpenedBorderColor');
+
+                &:after {
+                    transform: translateY(-30%) rotate(45deg);
+                }
+            }
+        }
+
+        &__tag-list {
+            display: grid;
+            grid-template-columns: ef.get-value($themeDefault, 'tagGridTemplateColumns');
+            gap: ef.get-value($themeDefault, 'tagGridGap');
+        }
+
+        &__tag-btn {
+            display: block;
+            text-align: ef.get-value($themeDefault, 'tagBtnTextAlign');
+            background: ef.get-value($themeDefault, 'tagBtnBg');
+
+            &.active {
+                border-color: ef.get-value($themeDefault, 'tagBtnBorderActive');
+            }
+        }
+    }
+
+    .payments-description {
+        @include text.get-text-style(ef.get-value($themeDefault, 'descriptionFont'), ef.get-value($themeDefault, 'descriptionColor'));
+        @include bm.get-mq-map('text-align', $themeDefault, 'descriptionTextAlign');
+
+        padding: ef.get-value($themeDefault, 'descriptionPadding');
+        white-space: ef.get-value($themeDefault, 'descriptionWhiteSpace');
+
+        &--desktop {
+            @include bm.get-mq-map('display', $themeDefault, 'descriptionDesktopDisplay');
+        }
+
+        @include mq.min(1200) {
+            @include text.get-text-style(ef.get-value($themeDefault, 'descriptionFont', 1200), null);
         }
     }
 }

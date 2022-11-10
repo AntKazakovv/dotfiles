@@ -174,6 +174,16 @@ export class SelectComponent extends AbstractComponent implements OnInit, OnChan
                 }
             }
         }
+
+        if (this.$params.updateOnControlChange) {
+            this.control.valueChanges.pipe(takeUntil(this.$destroy))
+                .subscribe((val: string): void => {
+                    this.activeItemIndex = _findIndex(this.foundItems, {value: val});
+                    this.selectOption(this.foundItems[this.activeItemIndex], false);
+                    this.cdr.markForCheck();
+                });
+        }
+
         this.getSelectedItemIndex();
         this.translateItems();
     }
@@ -434,10 +444,13 @@ export class SelectComponent extends AbstractComponent implements OnInit, OnChan
      *
      * @method selectOption
      * @param {ISelectOptions} item
+     * @param {boolean} pushToControl
      * @returns {void} void
      */
-    protected selectOption(item: Params.ISelectOptions): void {
-        this.control.setValue(item?.value);
+    protected selectOption(item: Params.ISelectOptions, pushToControl: boolean = true): void {
+        if (pushToControl) {
+            this.control.setValue(item?.value);
+        }
 
         this.EventService.emit({
             name: `SELECT_CHOSEN_${this.$params?.name?.toUpperCase()}`,

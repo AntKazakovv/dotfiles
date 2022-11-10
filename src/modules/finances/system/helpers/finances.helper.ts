@@ -1,7 +1,12 @@
-import {PaymentSystem} from '../models/payment-system.model';
-import {ValidatorType, IIndexing} from 'wlc-engine/modules/core';
-
 import _isString from 'lodash-es/isString';
+import _uniq from 'lodash-es/uniq';
+
+import {
+    ValidatorType,
+    IIndexing,
+} from 'wlc-engine/modules/core';
+import {PaymentSystem} from '../models/payment-system.model';
+import {TPaySystemTagAll} from 'wlc-engine/modules/finances/system/interfaces/finances.interface';
 
 type FilterType = 'deposit' | 'Deposits' | 'withdraw' | 'Withdraws' | 'all' | 'All';
 
@@ -60,6 +65,18 @@ export class FinancesHelper {
      */
     public static getSpecialValidators(fieldKey: string): ValidatorType[] {
         return this.validators[fieldKey] || [];
+    }
+
+    /**
+     * Creates array of uniq systems tags
+     * @param systems payment systems collection
+     * @returns array of systems tags
+     */
+    public static collectTags(systems: PaymentSystem[]): TPaySystemTagAll[] {
+        return _uniq(systems.reduce<TPaySystemTagAll[]>(
+            (acc: TPaySystemTagAll[], system: PaymentSystem) => [...acc, ...system.tags],
+            [],
+        ));
     }
 
     private static checkType(isDeposit: boolean, value: FilterType): boolean {

@@ -34,3 +34,20 @@ $themeDefault: map-merge((
     'notifierJustifyContent': space-between,
 ), $customThemeDefault);
 
+$customThemeSubmenu: () !default;
+$themeSubmenu: map-merge((
+    // menu
+    'menuMargin': ef.size(3) 0 ef.size(4),
+    'menuGridGap': ef.size(6),
+
+    // menu item
+    'menuItemRedefine': true,
+    'menuItemFontName': 'PrimaryText',
+    'menuItemColor': var(--mc-baseMain),
+    'menuItemPadding': 0 0 ef.size(2),
+    'menuItemTextTransform': none,
+    'menuItemActiveWheit': 700,
+    'menuItemActiveColor': var(--mc-baseMain),
+    'menuItemActiveBorderBg': var(--mc-main),
+    'menuItemDecorHeight': 2px,
+), $customThemeSubmenu);

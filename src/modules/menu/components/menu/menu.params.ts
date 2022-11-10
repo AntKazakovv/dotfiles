@@ -6,6 +6,7 @@ import {ICategoryMenuCParams} from 'wlc-engine/modules/menu/components/category-
 import {IMenuOptions} from 'wlc-engine/modules/core/system/interfaces/menu.interface';
 import {IIndexing} from 'wlc-engine/modules/core/system/interfaces/global.interface';
 import {ICounterCParams} from 'wlc-engine/modules/core/components/counter/counter.params';
+import {Observable} from 'rxjs';
 
 export interface MenuConfigItemsGroup {
     parent: MenuItemsGroupParent;
@@ -40,11 +41,11 @@ export type ItemType =
     | 'group'
     | 'wordpress'
     | 'categories'
-    | 'market';
-
+    | 'market'
+    | 'action';
 export type WpItemType = 'sref' | 'href';
 export type IMenuTarget = '_blank' | '_self' | '_parent' | '_top';
-export type MenuTheme = string;
+export type MenuTheme = 'default' | 'submenu' | string;
 export type TMenuItemDevice = 'mobile' | 'desktop' | 'all';
 export type PanelType = 'left' | 'right';
 
@@ -104,6 +105,12 @@ export interface IMenuItemParams {
     blockExpand?: boolean;
     wp?: IMenuItemParamsWp;
     event?: IMenuItemParamsEvent;
+    action?: IMenuItemParamsAction;
+}
+
+export interface IMenuItemParamsAction {
+    emit: () => void;
+    isActive?: Observable<boolean>;
 }
 
 export interface IMenuItem {

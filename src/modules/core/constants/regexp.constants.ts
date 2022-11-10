@@ -16,3 +16,9 @@ export namespace ProhibitedPatterns {
 }
 
 export const sanitizeHTMLTags: RegExp = /<[^>]*>/g;
+
+export namespace MediaQueries {
+
+    export const minOrMax: RegExp = /(\(\s*\')\s*(min-width|max-width):\s*\d+(px)\s*\'\s*\)/i;
+
+}

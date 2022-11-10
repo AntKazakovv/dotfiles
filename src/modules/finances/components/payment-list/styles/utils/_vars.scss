@@ -134,6 +134,31 @@ $themeDefault: map-merge(map-merge($common, (
     'tooltipRight': 10px,
     'tooltipBottom': auto,
     'tooltipLeft': auto,
+
+    // tags (categories)
+    'tagsMargin': 0 0 ef.size(4),
+    'tagsMenuDividerBg': var(--mc-baseOpacity),
+    'tagsSelectWidth': 240px,
+    'tagGridTemplateColumns': 1fr 1fr,
+    'tagGridGap': 8px,
+    'tagBtnPadding': ef.size(2) ef.size(1),
+    'tagBtnBorder': 2px solid var(--mc-bg300),
+    'tagBtnRadius': ef.get('radius', 'biger'),
+    'tagBtnTextStyle': 'PrimaryText',
+    'tagBtnTextColor': var(--mc-baseMain),
+    'tagBtnTextAlign': center,
+    'tagBtnBg': transparent,
+    'tagBtnBorderActive': var(--mc-main),
+    'tagBtnMainBg': var(--mc-bg300),
+    'tagBtnMainTransition': all 0.2s,
+    'tagBtnMainArrowSize': 8px,
+    'tagBtnMainArrowTransition': ef.get('time', 'main') linear,
+    'tagBtnMainArrowBorderWidth': 2px,
+    'tagBtnMainArrowBorderColor': var(--mc-baseMain),
+    'tagBtnMainIconMargin': 0 ef.size(2) 0 0,
+    'tagBtnMainOpenedMargin': 0 0 ef.size(2),
+    'tagBtnMainOpenedBg': var(--mc-main),
+    'tagBtnMainOpenedBorderColor': var(--mc-main),
 )), $customThemeDefault);
 
 $customThemeCryptoList: () !default;
