@@ -114,8 +114,8 @@ export class PaymentListComponent extends IconListAbstract<Params.IPaymentListCP
     public dropdownCatMenu: boolean = false;
     public isCryptoInvoices: boolean;
     public activeTag$: BehaviorSubject<TPaySystemTagAll> = new BehaviorSubject(null);
+    public catMenuTypeMain: TPaySystemsSwitcher;
 
-    protected catMenuTypeMain: TPaySystemsSwitcher;
     protected isDeposit: boolean;
     protected lastSucceedRes: number | null = null;
     protected isAutoSelect: boolean;
