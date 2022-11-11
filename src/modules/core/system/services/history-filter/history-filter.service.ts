@@ -15,7 +15,6 @@ import {
     IHistoryFilter,
 } from 'wlc-engine/modules/core/system/interfaces/history-filter.interface';
 import {EventService} from 'wlc-engine/modules/core/system/services/event/event.service';
-import {SortDirection} from 'wlc-engine/modules/core/system/interfaces/global.interface';
 
 @Injectable({
     providedIn: 'root',
@@ -37,7 +36,7 @@ export class HistoryFilterService {
         },
         bet: {
             filterValue: 'all',
-            orderValue: SortDirection.NewFirst,
+            orderDirection: 'desc',
             startDate: null,
             endDate: null,
         },

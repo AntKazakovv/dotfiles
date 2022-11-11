@@ -9,12 +9,11 @@ import _isNil from 'lodash-es/isNil';
 import {
     IIndexing,
     ICategorySettings,
-    SortDirection,
+    TSortDirection,
 } from 'wlc-engine/modules/core';
 import {Game} from 'wlc-engine/modules/games/system/models/game.model';
 import {CategoryModel} from 'wlc-engine/modules/games/system/models/category.model';
 import {MerchantModel} from 'wlc-engine/modules/games/system/models/merchant.model';
-
 import {
     IByCategory,
     IMapping,
@@ -44,10 +43,12 @@ interface ISortGamesOptions {
     category?: CategoryModel;
 }
 
-const directions: Record<SortDirection, number> = {
+const directions: Record<TSortDirection, number> = {
     asc: -1,
     desc: 1,
 };
+
+type TSortRule = [feature: TGameSortFeature, suffix: string | number, direction: TSortDirection];
 
 export class GamesHelper {
 
@@ -339,7 +340,7 @@ export class GamesHelper {
      * @returns {Game[]} Sorted games
      */
     public static sortGamesByDefault(games: Game[]): Game[] {
-        return _orderBy(games, (game: Game) => game.sort || 0, SortDirection.NewFirst);
+        return _orderBy(games, (game: Game) => game.sort ?? 0, 'desc');
     }
 
     /**
@@ -348,20 +349,20 @@ export class GamesHelper {
      * @param {ISortGamesOptions} options Sort options
      */
     public static sortGames(games: Game[], options: ISortGamesOptions): void {
-        const perCountryDirection = options.sortSetting.direction?.sortPerCountry || SortDirection.NewFirst;
-        const perLangDirection = options.sortSetting.direction?.sortPerLanguage || SortDirection.NewFirst;
-        const perCatDirection = options.sortSetting.direction?.sortPerCategory || SortDirection.NewFirst;
-        const baseDirection = options.sortSetting.direction?.baseSort || SortDirection.OldFirst;
+        const {direction} = options.sortSetting;
 
         games.sort((a: Game, b: Game): number => {
 
             let sortValue: number | null = null;
 
-            _each([
-                ['sortPerCountry', options.country, perCountryDirection],
-                ['sortPerLanguage', options.language, perLangDirection],
-                ['sortPerCategory', options.category?.id, perCatDirection],
-            ], ([feature, suffix, direction]) => {
+            const rules: TSortRule[] = [
+                ['sortPerCountry', options.country, direction?.sortPerCountry ?? 'asc'],
+                ['sortPerLanguage', options.language, direction?.sortPerLanguage ?? 'asc'],
+                ['sortPerCategory', options.category?.id, direction?.sortPerCategory ?? 'asc'],
+            ];
+
+
+            _each(rules, ([feature, suffix, direction]) => {
 
                 if (feature === 'sortPerCategory' && !options.category) {
                     return;
@@ -370,9 +371,9 @@ export class GamesHelper {
                 sortValue = GamesHelper.compareGamesByFeature(
                     a,
                     b,
-                    feature as TGameSortFeature,
+                    feature,
                     suffix,
-                    direction as SortDirection,
+                    direction,
                 );
 
                 if (!_isNil(sortValue)) {
@@ -380,7 +381,7 @@ export class GamesHelper {
                 }
             });
 
-            return sortValue || directions[baseDirection] * ((b.sort || 0) - (a.sort || 0));
+            return sortValue || directions[direction?.baseSort ?? 'desc'] * ((b.sort || 0) - (a.sort || 0));
         });
     }
 
@@ -391,7 +392,7 @@ export class GamesHelper {
      * @param {Game} b - game b
      * @param {TGameSortFeature} feature - sorting feature
      * @param {string | number} suffix - specified field in feature
-     * @param {SortDirection} direction - sort direction
+     * @param {TSortDirection} direction - sort direction
      * @returns {number | null} - sorting results
      */
     protected static compareGamesByFeature(
@@ -399,7 +400,7 @@ export class GamesHelper {
         b: Game,
         feature: TGameSortFeature,
         suffix: string | number,
-        direction: SortDirection,
+        direction: TSortDirection,
     ): number | null {
         const perA = _isNil(a[feature]?.[suffix] || null);
         const perB = _isNil(b[feature]?.[suffix] || null);

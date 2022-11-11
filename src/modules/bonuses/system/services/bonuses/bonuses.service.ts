@@ -56,7 +56,6 @@ import {
     IPushMessageParams,
     LogService,
     NotificationEvents,
-    SortDirection,
 } from 'wlc-engine/modules/core';
 import {
     Game,
@@ -158,8 +157,8 @@ export class BonusesService {
             .subscribe((UserProfile) => {
                 this.profile = UserProfile;
 
-                Bonus.userCurrency = UserProfile?.idUser 
-                    ? UserProfile.currency 
+                Bonus.userCurrency = UserProfile?.idUser
+                    ? UserProfile.currency
                     : this.configService.get<string>('$base.defaultCurrency') || 'EUR';
             });
 
@@ -603,7 +602,7 @@ export class BonusesService {
             const bonuses: Bonus[] = _orderBy(
                 this.checkForbid(await this.modifyBonuses((res as IData<IBonus[]>).data), queryParams),
                 'weight',
-                SortDirection.OldFirst,
+                'desc',
             );
 
             if (bonuses.length) {

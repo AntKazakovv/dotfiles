@@ -1,6 +1,6 @@
 import {
-    IIndexing, 
-    SortDirection,
+    IIndexing,
+    TSortDirection,
 } from 'wlc-engine/modules/core';
 import {Game} from 'wlc-engine/modules/games/system/models/game.model';
 import {CategoryModel} from 'wlc-engine/modules/games/system/models/category.model';
@@ -104,17 +104,19 @@ export interface IDashboardMobileUsageInstruction {
     disable?: boolean;
 }
 
+export interface IGamesSortDirection {
+    /** direction of sorting by sortPerCountry, 'asc' by default */
+    sortPerCountry?: TSortDirection;
+    /** direction of sorting by sortPerLanguage, 'asc' by default */
+    sortPerLanguage?: TSortDirection;
+    /** direction of sorting by sortPerCategory, 'asc' by default */
+    sortPerCategory?: TSortDirection;
+    /** direction of sorting by general sort value, 'desc' by default */
+    baseSort?: TSortDirection;
+}
+
 export interface IGamesSortSetting {
-    direction?: {
-        /** direction of sorting by sortPerCountry, 'asc' by default */
-        sortPerCountry?: SortDirection,
-        /** direction of sorting by sortPerLanguage, 'asc' by default */
-        sortPerLanguage?: SortDirection,
-        /** direction of sorting by sortPerCategory, 'asc' by default */
-        sortPerCategory?: SortDirection;
-        /** direction of sorting by general sort value, 'desc' by default */
-        baseSort?: SortDirection;
-    }
+    direction?: IGamesSortDirection;
 }
 
 export interface IExcludeCategories {

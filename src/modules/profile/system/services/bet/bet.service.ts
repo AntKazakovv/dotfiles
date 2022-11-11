@@ -5,7 +5,7 @@ import _filter from 'lodash-es/filter';
 import _orderBy from 'lodash-es/orderBy';
 
 import {
-    SortDirection,
+    TSortDirection,
     IData,
     DataService,
     LogService,
@@ -20,7 +20,7 @@ interface IBetRequestParams {
 interface IGetBetsParams {
     endDate: DateTime;
     startDate: DateTime;
-    orderValue: SortDirection;
+    orderDirection: TSortDirection;
 }
 
 @Injectable({providedIn: 'root'})
@@ -40,7 +40,7 @@ export class BetService {
      *
      * @param {IGetBetsParams} params
      * @param {boolean} needRequest - if date dont change we dont need a new request
-     * 
+     *
      * @returns {Promise<void>}
      */
     public async getBets(params: IGetBetsParams, needRequest: boolean): Promise<IBet[]> {
@@ -63,18 +63,18 @@ export class BetService {
             }
         }
 
-        return this.orderAllBets(params.orderValue);
+        return this.orderAllBets(params.orderDirection);
     }
 
     /**
      * Order allBets array in BetService
      *
-     * @param {SortDirection} order
-     * 
+     * @param {TSortDirection} order
+     *
      * @returns {void}
      */
-    private orderAllBets(order: SortDirection): IBet[] {
-        return order === SortDirection.NewFirst
+    private orderAllBets(order: TSortDirection): IBet[] {
+        return order === 'desc'
             ? this.allBets
             : _orderBy(this.allBets, ['DateISO'], order);
     }
@@ -83,7 +83,7 @@ export class BetService {
      * Request bets list by dates
      *
      * @param {IBetRequestParams} params
-     * 
+     *
      * @returns {Promise<IBet[]>}
      */
     private async requestBetsList(params: IBetRequestParams): Promise<IBet[]> {

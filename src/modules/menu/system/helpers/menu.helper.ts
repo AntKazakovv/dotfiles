@@ -36,7 +36,6 @@ import {
 import {
     IMenuItem,
     IMenuOptions,
-    SortDirection,
 } from 'wlc-engine/modules/core/system/interfaces';
 import {TextDataModel} from 'wlc-engine/modules/static/system/models/textdata.model';
 import {ICategoryMenuCParams} from 'wlc-engine/modules/menu/components/category-menu/category-menu.params';
@@ -401,7 +400,7 @@ export class MenuHelper {
 
         const specialCategories: string[] = ['favourites', 'lastplayed'];
 
-        return _reduce(_orderBy(items, 'order', SortDirection.NewFirst), (items: MenuConfigItem[], item: IMenuItem) => {
+        return _reduce(_orderBy(items, 'order', 'asc'), (items: MenuConfigItem[], item: IMenuItem) => {
 
             if (item.type === 'dropdown') {
                 const dropdownItems: MenuConfigItem[] =

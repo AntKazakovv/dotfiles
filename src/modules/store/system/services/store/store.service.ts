@@ -34,7 +34,6 @@ import {
     IIndexing,
     IForbidBanned,
     InjectionService,
-    SortDirection,
 } from 'wlc-engine/modules/core';
 import {UserProfile} from 'wlc-engine/modules/user/system/models/profile.model';
 import {BonusesService} from 'wlc-engine/modules/bonuses/system/services';
@@ -200,7 +199,7 @@ export class StoreService {
                     Status: '1',
                 }));
 
-            this.storeCategories = _orderBy(categories, 'order', SortDirection.NewFirst);
+            this.storeCategories = _orderBy(categories, 'order', 'desc');
 
             return this.storeCategories;
         } catch (error) {

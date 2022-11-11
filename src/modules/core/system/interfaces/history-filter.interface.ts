@@ -3,7 +3,7 @@ import {DateTime} from 'luxon';
 import {
     IRadioButtonsCParams,
     ISelectCParams,
-    SortDirection,
+    TSortDirection,
 } from 'wlc-engine/modules/core';
 
 export type TTransactionFilter = 'all' | 'deposit' | 'withdraw';
@@ -32,7 +32,7 @@ export interface IHistoryDefault {
 }
 export interface IHistoryFilter<T = string> {
     filterValue?: T;
-    orderValue?: SortDirection;
+    orderDirection?: TSortDirection;
     startDate?: DateTime;
     endDate?: DateTime;
 }

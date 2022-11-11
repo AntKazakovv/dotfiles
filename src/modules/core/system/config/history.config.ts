@@ -8,7 +8,6 @@ import {
     TTournamentsFilter,
     TTransactionFilter,
 } from 'wlc-engine/modules/core/system/interfaces/history-filter.interface';
-import {SortDirection} from 'wlc-engine/modules/core/system/interfaces/global.interface';
 
 export const startDate: IDatepickerCParams = {
     name: 'startDate',
@@ -89,20 +88,20 @@ export namespace betConfig {
         options: 'merchants',
     };
     export const orderSelect: ISelectCParams = {
-        name: 'orderValue',
+        name: 'orderDirection',
         theme: 'vertical',
         common: {
             customModifiers: 'order',
         },
         labelText: gettext('Order by'),
-        control: new FormControl(SortDirection.NewFirst),
+        control: new FormControl('desc'),
         items: [
             {
-                value: SortDirection.NewFirst,
+                value: 'desc',
                 title: gettext('New first'),
             },
             {
-                value: SortDirection.OldFirst,
+                value: 'asc',
                 title: gettext('Old first'),
             },
         ],

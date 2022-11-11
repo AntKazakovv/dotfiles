@@ -1,4 +1,3 @@
-import {SortDirection} from 'wlc-engine/modules/core';
 import {IGamesConfig} from '../interfaces/games.interfaces';
 
 export enum SpecialCategoriesGamesSlug {
@@ -74,10 +73,10 @@ export const gamesConfig: IGamesConfig = {
         ],
         gamesSortSetting: {
             direction: {
-                sortPerCountry: SortDirection.OldFirst,
-                sortPerLanguage: SortDirection.OldFirst,
-                sortPerCategory: SortDirection.OldFirst,
-                baseSort: SortDirection.NewFirst,
+                sortPerCountry: 'asc',
+                sortPerLanguage: 'asc',
+                sortPerCategory: 'asc',
+                baseSort: 'desc',
             },
         },
     },

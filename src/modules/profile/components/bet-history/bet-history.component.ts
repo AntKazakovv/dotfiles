@@ -29,7 +29,7 @@ import {
     ActionService,
     DeviceType,
     HistoryFilterService,
-    SortDirection,
+    TSortDirection,
     IIndexing,
     IHistoryFilter,
 } from 'wlc-engine/modules/core';
@@ -63,7 +63,7 @@ export class BetHistoryComponent extends AbstractComponent implements OnInit {
     public bets$: BehaviorSubject<IBet[]> = new BehaviorSubject([]);
 
     protected filterValue: 'all' | string = 'all';
-    protected orderValue: SortDirection = SortDirection.NewFirst;
+    protected orderDirection: TSortDirection = 'desc';
     protected startDate: DateTime = DateTime.local().minus({month: 1});
     protected endDate: DateTime = DateTime.local().endOf('day');
     protected readonly today: DateTime = DateTime.local().endOf('day');
@@ -98,7 +98,7 @@ export class BetHistoryComponent extends AbstractComponent implements OnInit {
 
         this.historyFilterService.setAllFilters('bet', {
             filterValue: this.filterValue,
-            orderValue: this.orderValue,
+            orderDirection: this.orderDirection,
             startDate: this.startDate,
             endDate: this.endDate,
         });
@@ -154,7 +154,7 @@ export class BetHistoryComponent extends AbstractComponent implements OnInit {
      * Get and filter bets
      *
      * @param {boolean} needRequest - if date dont change we dont need a new request
-     * 
+     *
      * @returns {Promise<IBet[]>}
      */
     protected async getBets(needRequest: boolean): Promise<IBet[]> {
@@ -162,7 +162,7 @@ export class BetHistoryComponent extends AbstractComponent implements OnInit {
             {
                 endDate: this.endDate,
                 startDate: this.startDate,
-                orderValue: this.orderValue,
+                orderDirection: this.orderDirection,
             },
             needRequest,
         );
@@ -174,7 +174,7 @@ export class BetHistoryComponent extends AbstractComponent implements OnInit {
      * Filter bets by merchant and push array to this.filteredBets$
      *
      * @param {IBet[]} bets
-     * 
+     *
      * @returns {IBet[]}
      */
     protected filterBetsByMerchant(bets: IBet[]): IBet[] {
@@ -196,7 +196,7 @@ export class BetHistoryComponent extends AbstractComponent implements OnInit {
                     endDate: !this.endDate.equals(data.endDate),
                     startDate: !this.startDate.equals(data.startDate),
                     filterValue: this.filterValue !== data.filterValue,
-                    orderValue: this.orderValue !== data.orderValue,
+                    orderDirection: this.orderDirection !== data.orderDirection,
                 };
 
                 if (this.ready && !_find(changedData, (value: boolean): boolean => value)) {
@@ -211,9 +211,9 @@ export class BetHistoryComponent extends AbstractComponent implements OnInit {
                     this.setMinMaxDate();
                 }
 
-                if (changedData.orderValue) {
+                if (changedData.orderDirection) {
                     this.orderSelect.control
-                        .setValue(this.orderValue = data.orderValue);
+                        .setValue(this.orderDirection = data.orderDirection);
                 }
 
                 if (changedData.filterValue) {
@@ -247,11 +247,11 @@ export class BetHistoryComponent extends AbstractComponent implements OnInit {
 
         this.orderSelect.control.valueChanges
             .pipe(
+                filter((orderDirection: TSortDirection): boolean => this.orderDirection !== orderDirection),
                 takeUntil(this.$destroy),
-                filter((orderValue: SortDirection): boolean => this.orderValue !== orderValue),
             )
-            .subscribe((orderValue: SortDirection): void => {
-                this.historyFilterService.setFilter('bet', {orderValue});
+            .subscribe((orderDirection: TSortDirection): void => {
+                this.historyFilterService.setFilter('bet', {orderDirection});
             });
 
         this.startDateInput.control.valueChanges

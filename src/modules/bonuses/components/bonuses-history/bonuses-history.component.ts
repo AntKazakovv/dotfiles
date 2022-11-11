@@ -29,7 +29,6 @@ import {
     HistoryFilterService,
     TBonusFilter,
     IHistoryFilterValue,
-    SortDirection,
 } from 'wlc-engine/modules/core';
 import {bonusesConfig} from 'wlc-engine/modules/core/system/config/history.config';
 import {BonusesService} from 'wlc-engine/modules/bonuses/system/services/bonuses/bonuses.service';
@@ -114,7 +113,7 @@ export class BonusesHistoryComponent extends AbstractComponent implements OnInit
         return _orderBy(
             result,
             (item: BonusHistoryItemModel): number => DateTime.fromSQL(item.End).toSeconds(),
-            SortDirection.OldFirst,
+            'desc',
         );
     }
 
