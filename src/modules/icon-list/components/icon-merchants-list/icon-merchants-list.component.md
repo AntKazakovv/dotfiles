@@ -16,7 +16,7 @@ exclude?: string[],
 ### Example
 ```ts
 {
-    name: 'core.wlc-icon-merchants-list',
+    name: 'icon-list.wlc-icon-merchants-list',
     params: {
         exclude: ['all'],
         include: ['tomhorn','netent'],

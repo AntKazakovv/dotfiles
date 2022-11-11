@@ -26,7 +26,7 @@ import {
     GamesCatalogService,
 } from 'wlc-engine/modules/games/system/services/games-catalog/games-catalog.service';
 import {IGamesGridCParams} from 'wlc-engine/modules/games/components/games-grid/games-grid.params';
-import {IconModel} from 'wlc-engine/modules/core/system/models/icon-list-item.model';
+import {IconModel} from 'wlc-engine/modules/icon-list/system/models/icon-list-item.model';
 
 import * as Params from './provider-games.params';
 

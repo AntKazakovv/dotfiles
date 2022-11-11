@@ -11,8 +11,8 @@ import {
     ConfigService,
     EventService,
 } from 'wlc-engine/modules/core';
-import {IconListAbstract} from 'wlc-engine/modules/core/system/classes/icon-list-abstract.class';
-import {IconModel} from 'wlc-engine/modules/core/system/models/icon-list-item.model';
+import {IconListAbstract} from 'wlc-engine/modules/icon-list/system/classes/icon-list-abstract.class';
+import {IconModel} from 'wlc-engine/modules/icon-list/system/models/icon-list-item.model';
 
 import * as Params from './icon-payments-list.params';
 

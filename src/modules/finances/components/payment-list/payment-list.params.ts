@@ -2,7 +2,7 @@ import {
     CustomType,
     DeviceType,
 } from 'wlc-engine/modules/core';
-import {IAbstractIconsListParams} from 'wlc-engine/modules/core/system/classes/icon-list-abstract.class';
+import {IAbstractIconsListParams} from 'wlc-engine/modules/icon-list/system/classes/icon-list-abstract.class';
 import {TPaymentsMethods} from 'wlc-engine/modules/finances/system/interfaces';
 
 export type Theme = 'default' | 'crypto-list' | CustomType;

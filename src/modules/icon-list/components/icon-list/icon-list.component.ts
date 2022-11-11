@@ -12,6 +12,7 @@ import {
     ViewChild,
     Injector,
 } from '@angular/core';
+
 import {fromEvent} from 'rxjs';
 import {
     debounceTime,
@@ -25,9 +26,9 @@ import {
     ActionService,
     InjectionService,
 } from 'wlc-engine/modules/core';
-import {GamesCatalogService} from 'wlc-engine/modules/games/system/services/games-catalog/games-catalog.service';
-import {IconModel} from 'wlc-engine/modules/core/system/models/icon-list-item.model';
-import {IconListAbstract} from 'wlc-engine/modules/core/system/classes/icon-list-abstract.class';
+import {GamesCatalogService} from 'wlc-engine/modules/games';
+import {IconModel} from 'wlc-engine/modules/icon-list/system/models/icon-list-item.model';
+import {IconListAbstract} from 'wlc-engine/modules/icon-list/system/classes/icon-list-abstract.class';
 
 import * as Params from './icon-list.params';
 

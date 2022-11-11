@@ -20,7 +20,6 @@ export {
     IFormComponent,
 } from './form-wrapper/form-wrapper.component';
 export {IIconCParams} from './icon/icon.params';
-export {IIconListCParams} from './icon-list/icon-list.params';
 export {IInfoPageCParams} from './info-page/info-page.params';
 export {IInputCParams} from './input/input.params';
 export {ILanguageSelectorCParams} from './language-selector/language-selector.params';

@@ -1,5 +1,5 @@
 import {CustomType} from 'wlc-engine/modules/core';
-import {IAbstractIconsListParams} from 'wlc-engine/modules/core/system/classes/icon-list-abstract.class';
+import {IAbstractIconsListParams} from 'wlc-engine/modules/icon-list/system/classes/icon-list-abstract.class';
 import {ISliderCParams} from 'wlc-engine/modules/promo';
 
 export type ComponentTheme = 'default' | 'mobile-app' | 'mobile-app-swiper' | CustomType;

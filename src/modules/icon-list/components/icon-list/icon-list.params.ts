@@ -1,5 +1,5 @@
 import {CustomType} from 'wlc-engine/modules/core';
-import {IAbstractIconsListParams} from 'wlc-engine/modules/core/system/classes/icon-list-abstract.class';
+import {IAbstractIconsListParams} from 'wlc-engine/modules/icon-list/system/classes/icon-list-abstract.class';
 
 /** Available component themes */
 export type ComponentTheme = 'merchants' | 'payments' | 'safety' | CustomType;
@@ -39,7 +39,7 @@ export interface IIconListCParams extends IAbstractIconsListParams<ComponentThem
  */
 export const defaultParams: IIconListCParams = {
     class: 'wlc-icon-list',
-    componentName: 'wlc-icon-list',
+    componentName: 'icon-list',
     moduleName: 'core',
     theme: 'merchants',
     imgPlaceholder: '/static/images/placeholder.png',

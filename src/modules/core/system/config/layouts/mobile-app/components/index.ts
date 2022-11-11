@@ -1,6 +1,5 @@
 export * from './core/wlc-button.config';
 export * from './core/wlc-counter.config';
-export * from './core/wlc-icon-list.config';
 export * from './core/wlc-language-selector.config';
 export * from './core/wlc-logo.config';
 export * from './core/wlc-disclaimer.config';
@@ -19,7 +18,6 @@ export * from './core/wlc-scroll-up.config';
 
 export * from './user/wlc-user-info.config';
 export * from './user/wlc-profile-form.config';
-export * from './user/wlc-internal-mails.config';
 export * from './user/wlc-user-stats.config';
 export * from './user/wlc-user-name.config';
 export * from './user/wlc-dashboard-exchange.config';
@@ -82,10 +80,14 @@ export * from './profile/wlc-bet-history.config';
 export * from './store/wlc-store-list.config';
 export * from './store/wlc-store-title.config';
 
+export * from './sportsbook/wlc-sportsbook.config';
+
 export * from './tournaments/wlc-tournament-detail.config';
 export * from './tournaments/wlc-tournaments-history';
 export * from './tournaments/wlc-tournament-list.config';
 
-export * from './sportsbook/wlc-sportsbook.config';
+export * from './internal-mails/wlc-internal-mails.config';
+
+export * from './icon-list/wlc-icon-list.config';
 
 export * from './mobile/wlc-welcome.config';

@@ -8,7 +8,7 @@ Component to display an icon list. It can be used in the following ways:
     Example:
     ```js
     {
-        name: 'core.wlc-icon-list',
+        name: 'icon-list.wlc-icon-list',
         params: {
             theme: 'merchants',
             type: 'svg',
@@ -29,7 +29,7 @@ Component to display an icon list. It can be used in the following ways:
     Example:
     ```js
     {
-        name: 'core.wlc-icon-list',
+        name: 'icon-list.wlc-icon-list',
         params: {
             theme: 'payments',
             common: {
@@ -53,7 +53,7 @@ Component to display an icon list. It can be used in the following ways:
     Example:
     ```js
     {
-        name: 'core.wlc-icon-list',
+        name: 'icon-list.wlc-icon-list',
         params: {
             theme: 'any-name',
             items: [

@@ -18,7 +18,7 @@ items?: IIconParams[];
 ### Example
 ```ts
 {
-    name: 'core.wlc-icon-payments-list',
+    name: 'icon-list.wlc-icon-payments-list',
     params: {
         exclude: ['all'],
         include: ['paycryptos_ethereum'],

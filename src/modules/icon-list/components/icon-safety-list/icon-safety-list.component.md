@@ -53,7 +53,7 @@ The default icons are on gstatic, so we can only completely replace the list of 
 
 ```
 export const $modules = {
-    core: {
+    'icon-list': {
         components: {
             'wlc-icon-safety-list': {
                 items: [
@@ -125,7 +125,7 @@ $customTheme1Footer: (
 
 ```
 export const $modules = {
-    core: {
+    'icon-list': {
         components: {
             'wlc-icon-safety-list': {
                 items: [

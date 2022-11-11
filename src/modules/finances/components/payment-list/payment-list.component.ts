@@ -41,6 +41,13 @@ import {
     IWrapperCParams,
     MediaQueries,
 } from 'wlc-engine/modules/core';
+import {
+    IconModel,
+    IIconParams,
+    TIconErrorCode,
+    IconListAbstract,
+    IMerchantsPaymentsIterator,
+} from 'wlc-engine/modules/icon-list';
 import {FinancesService} from 'wlc-engine/modules/finances/system/services/finances/finances.service';
 import {
     IAutoSelectByDevice,
@@ -50,19 +57,10 @@ import {
     TPaySystemTagAll,
 } from 'wlc-engine/modules/finances/system/interfaces';
 import {PaymentSystem} from 'wlc-engine/modules/finances/system/models/payment-system.model';
-import {
-    IconListAbstract,
-    IMerchantsPaymentsIterator,
-} from 'wlc-engine/modules/core/system/classes/icon-list-abstract.class';
-import {
-    IconModel,
-    IIconParams,
-} from 'wlc-engine/modules/core/system/models/icon-list-item.model';
 import {ThemeToDirectory} from 'wlc-engine/modules/core/system/config/base/icons.config';
 import {WINDOW} from 'wlc-engine/modules/app/system';
 import {IMenuCParams} from 'wlc-engine/modules/menu/components/menu/menu.params';
 import {FinancesHelper} from 'wlc-engine/modules/finances/system/helpers/finances.helper';
-import {TIconErrorCode} from 'wlc-engine/modules/core/components/icon-list-item/icon-list-item.params';
 
 import * as Params from './payment-list.params';
 

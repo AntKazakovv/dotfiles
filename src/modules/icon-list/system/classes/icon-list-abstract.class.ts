@@ -20,7 +20,7 @@ import {
 import {
     IconModel,
     IIconParams,
-} from 'wlc-engine/modules/core/system/models/icon-list-item.model';
+} from 'wlc-engine/modules/icon-list/system/models/icon-list-item.model';
 import {EventService} from 'wlc-engine/modules/core/system/services';
 import {IComponentParams} from 'wlc-engine/modules/core/system/interfaces';
 import {ThemeToDirectory} from 'wlc-engine/modules/core/system/config/base/icons.config';

@@ -17,7 +17,7 @@ import {BehaviorSubject} from 'rxjs';
 import _times from 'lodash-es/times';
 import _sortedUniqBy from 'lodash-es/sortedUniqBy';
 
-import {IconListAbstract} from 'wlc-engine/modules/core/system/classes/icon-list-abstract.class';
+import {IconListAbstract} from 'wlc-engine/modules/icon-list/system/classes/icon-list-abstract.class';
 import {
     ConfigService,
     EventService,
@@ -34,7 +34,7 @@ import {
 } from 'wlc-engine/modules/games/system/services/games-catalog/games-catalog.service';
 import {MerchantModel} from 'wlc-engine/modules/games/system/models/merchant.model';
 import {gamesEvents} from 'wlc-engine/modules/games/system/interfaces/games.interfaces';
-import {IconModel} from 'wlc-engine/modules/core/system/models/icon-list-item.model';
+import {IconModel} from 'wlc-engine/modules/icon-list/system/models/icon-list-item.model';
 import * as Params from './provider-links.params';
 
 @Component({

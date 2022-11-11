@@ -121,6 +121,14 @@ export class InjectionService {
                     this.afterModuleLoad('games', m);
                     return m.GamesModule;
                 });
+            case 'icon-list':
+                if (this.loadedModules.iconList) {
+                    return this.loadedModules.iconList;
+                }
+                return import('wlc-engine/modules/icon-list/icon-list.module').then(m => {
+                    this.afterModuleLoad('icon-list', m);
+                    return m.IconListModule;
+                });
             case 'static':
                 if (this.loadedModules.static) {
                     return this.loadedModules.static;

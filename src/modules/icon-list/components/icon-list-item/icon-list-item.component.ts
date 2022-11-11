@@ -12,9 +12,9 @@ import {
 import {
     AbstractComponent,
     ConfigService,
+    LogService,
 } from 'wlc-engine/modules/core';
-import {IconModel} from 'wlc-engine/modules/core/system/models/icon-list-item.model';
-import {LogService} from 'wlc-engine/modules/core';
+import {IconModel} from 'wlc-engine/modules/icon-list/system/models/icon-list-item.model';
 
 import * as Params from './icon-list-item.params';
 

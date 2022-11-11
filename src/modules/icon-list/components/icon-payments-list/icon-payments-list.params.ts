@@ -1,8 +1,6 @@
-import {
-    CustomType,
-    IIconListCParams,
-} from 'wlc-engine/modules/core';
-import {IAbstractIconsListParams} from 'wlc-engine/modules/core/system/classes/icon-list-abstract.class';
+import {CustomType} from 'wlc-engine/modules/core';
+import {IIconListCParams} from 'wlc-engine/modules/icon-list/components/icon-list/icon-list.params';
+import {IAbstractIconsListParams} from 'wlc-engine/modules/icon-list/system/classes/icon-list-abstract.class';
 
 export type ComponentTheme = 'default' | CustomType;
 export type ComponentType = 'default' | CustomType;
@@ -40,7 +38,7 @@ IAbstractIconsListParams<ComponentTheme, ComponentType, ComponentThemeMod> {
 export const defaultParams: IIconPaymentsListCParams = {
     class: 'wlc-icon-payments-list',
     componentName: 'wlc-icon-payments-list',
-    moduleName: 'core',
+    moduleName: 'icon-list',
     colorIconBg: 'dark',
     iconsType: 'color',
     iconComponentParams: {

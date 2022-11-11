@@ -5,8 +5,8 @@ import {
     OnInit,
 } from '@angular/core';
 
-import {IconListAbstract} from 'wlc-engine/modules/core/system/classes/icon-list-abstract.class';
-import {IconModel} from 'wlc-engine/modules/core/system/models/icon-list-item.model';
+import {IconListAbstract} from 'wlc-engine/modules/icon-list/system/classes/icon-list-abstract.class';
+import {IconModel} from 'wlc-engine/modules/icon-list/system/models/icon-list-item.model';
 import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
 import {EventService} from 'wlc-engine/modules/core/system/services/event/event.service';
 import * as Params from './icon-safety-list.params';

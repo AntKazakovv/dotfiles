@@ -82,10 +82,6 @@ import {
     HistoryFilterFormComponent,
 } from './components/history-filter/history-filter-form/history-filter-form.component';
 import {IconComponent} from './components/icon/icon.component';
-import {IconListComponent} from './components/icon-list/icon-list.component';
-import {IconMerchantsListComponent} from './components/icon-merchants-list/icon-merchants-list.component';
-import {IconPaymentsListComponent} from './components/icon-payments-list/icon-payments-list.component';
-import {IconSafetyListComponent} from './components/icon-safety-list/icon-safety-list.component';
 import {InfoPageComponent} from './components/info-page/info-page.component';
 import {InputComponent} from './components/input/input.component';
 import {LanguageSelectorComponent} from './components/language-selector/language-selector.component';
@@ -116,7 +112,6 @@ import {WlcModalComponent} from './components/modal';
 import {WlcNoContentComponent} from './components/no-content/no-content.component';
 import {WlcPaginationComponent} from './components/pagination/pagination.component';
 import {PlugComponent} from './components/plug/plug.component';
-import {IconListItemComponent} from './components/icon-list-item/icon-list-item.component';
 import {WrapperComponent} from 'wlc-engine/modules/core/components';
 import {ThemeTogglerComponent} from './components/theme-toggler/theme-toggler.component';
 import {AlertComponent} from './components/alert/alert.component';
@@ -188,10 +183,6 @@ export const components = {
     'wlc-history-filter': HistoryFilterComponent,
     'wlc-history-range': HistoryRangeComponent,
     'wlc-icon': IconComponent,
-    'wlc-icon-list': IconListComponent,
-    'wlc-icon-payments-list': IconPaymentsListComponent,
-    'wlc-icon-merchants-list': IconMerchantsListComponent,
-    'wlc-icon-safety-list': IconSafetyListComponent,
     'wlc-info-page': InfoPageComponent,
     'wlc-input': InputComponent,
     'wlc-language-selector': LanguageSelectorComponent,
@@ -324,11 +315,6 @@ export const services = {
         HistoryFilterFormComponent,
         HistoryRangeComponent,
         IconComponent,
-        IconListComponent,
-        IconMerchantsListComponent,
-        IconPaymentsListComponent,
-        IconSafetyListComponent,
-        IconListItemComponent,
         InfoPageComponent,
         InputComponent,
         InputMaskDirective,
@@ -401,11 +387,6 @@ export const services = {
         FormWrapperComponent,
         HistoryNameComponent,
         IconComponent,
-        IconListComponent,
-        IconMerchantsListComponent,
-        IconPaymentsListComponent,
-        IconSafetyListComponent,
-        IconListItemComponent,
         InfoPageComponent,
         InputComponent,
         InputMaskDirective,
