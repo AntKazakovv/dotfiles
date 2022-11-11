@@ -1,6 +1,6 @@
 @mixin menuControls($config) {
 
-    .wlc-category-menu {
+    .wlc-main-menu {
 
         &__controls {
             position: absolute;
@@ -52,23 +52,29 @@
             }
 
             svg {
-                transform: var(--wlc-category-menu-svg-transform, none);
+                transform: var(--wlc-main-menu-svg-transform, none);
                 fill: currentColor;
             }
 
             &--prev {
-                --wlc-category-menu-svg-transform: #{ef.get-value($config, 'controlPrevSvgTransform')};
                 justify-content: ef.get-value($config, 'controlPrevJustifyContent');
                 margin: ef.get-value($config, 'controlPrevMargin');
+
+                svg {
+                    transform: ef.get-value($config, 'controlPrevSvgTransform');
+                }
             }
 
             &--next {
-                --wlc-category-menu-svg-transform: #{ef.get-value($config, 'controlNextSvgTransform')};
                 justify-content: ef.get-value($config, 'controlNextJustifyContent');
                 margin: ef.get-value($config, 'controlNextMargin');
 
                 &:before {
                     transform: scaleX(-1);
+                }
+
+                svg {
+                    transform: ef.get-value($config, 'controlNextSvgTransform');
                 }
             }
 

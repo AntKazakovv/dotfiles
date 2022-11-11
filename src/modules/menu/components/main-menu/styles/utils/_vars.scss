@@ -36,4 +36,19 @@ $themeDefault: map-merge((
     'iconMargin': 0 7px 0 0,
     'iconWidth': ef.size(8),
     'iconHeight': ef.size(8),
+
+    //Controls
+    'controlWidth': 30px,
+    'controlHeight': 100%,
+    'controlPadding': ef.size(1),
+    'controlArrowColor': var(--mc-baseMain),
+    'controlArrowColorHover': var(--mc-main),
+    'controlPrevSvgTransform': rotate(90deg),
+    'controlNextSvgTransform': rotate(-90deg),
+    'controlNextMargin': 0 0 0 auto,
+    'controlPrevJustifyContent': flex-start,
+    'controlPrevMargin': 0 auto 0 0,
+    'controlNextJustifyContent': flex-end,
+    'controlTransition': all 0.3s ease-out,
+    'controlBg': linear-gradient(90deg, var(--mc-bg) 65%, var(--mc-bg-o0) 100%),
 ), $customThemeDefault);

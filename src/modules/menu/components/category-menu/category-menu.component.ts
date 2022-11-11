@@ -20,6 +20,7 @@ import _trim from 'lodash-es/trim';
 import _concat from 'lodash-es/concat';
 import _find from 'lodash-es/find';
 import _filter from 'lodash-es/filter';
+import _merge from 'lodash-es/merge';
 
 import {
     AbstractComponent,
@@ -58,7 +59,6 @@ export class CategoryMenuComponent extends AbstractComponent implements OnInit, 
     public $params: Params.ICategoryMenuCParams;
     public items: MenuParams.IMenuItem[];
     public inited: boolean = false;
-    public useSwiperNavigation: boolean = false;
 
     protected categories: CategoryModel[];
     protected parentCategory: CategoryModel;
@@ -100,20 +100,7 @@ export class CategoryMenuComponent extends AbstractComponent implements OnInit, 
             themeMod: this.$params.themeMod,
         });
 
-        if (this.$params.common?.useSwiperNavigation) {
-            this.useSwiperNavigation = true;
-
-            _assign(this.$params.menuParams, {
-                sliderParams: {
-                    swiper: {
-                        navigation: {
-                            nextEl: '.wlc-category-menu__control--next',
-                            prevEl: '.wlc-category-menu__control--prev',
-                        },
-                    },
-                },
-            });
-        }
+        this.initMenuParams();
 
         this.menuSettings = await this.menuService.getFundistMenuSettings('categoryMenu');
 
@@ -269,6 +256,21 @@ export class CategoryMenuComponent extends AbstractComponent implements OnInit, 
         this.$params.menuParams = _clone(this.$params.menuParams);
         this.inited = true;
         this.cdr.detectChanges();
+    }
+
+    protected initMenuParams(): void {
+        if (this.$params.common?.useSwiperNavigation) {
+            _merge(this.$params.menuParams, {
+                sliderParams: {
+                    swiper: {
+                        navigation: {
+                            nextEl: '.wlc-category-menu__control--next',
+                            prevEl: '.wlc-category-menu__control--prev',
+                        },
+                    },
+                },
+            });
+        }
     }
 
     protected getSpecialCategories(): CategoryModel[] {

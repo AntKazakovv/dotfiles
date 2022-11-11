@@ -16,6 +16,7 @@ export type Modifiers = AutoModifiers | CustomMod | null;
 export interface IMainMenuCParams extends IComponentParams<Theme, Type, ThemeMod> {
     modifiers?: Modifiers[];
     common?: {
+        useSwiperNavigation?: boolean;
         useSwiper?: boolean;
         themeMod?: ThemeMod;
         icons?: {

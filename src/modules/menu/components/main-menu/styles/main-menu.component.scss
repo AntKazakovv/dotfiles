@@ -3,5 +3,6 @@
 @use 'engine-scss/mixins/base.mixins' as bm;
 
 @import './utils/vars';
+@import './utils/mixins';
 
 @import './themes/default';

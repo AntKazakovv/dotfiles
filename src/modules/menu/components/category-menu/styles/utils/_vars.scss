@@ -35,15 +35,17 @@ $themeDefault: map-merge((
     'underlineTransition': all 0.5s cubic-bezier(0.6, 0.1, 0.05, 1.5),
 
     //Controls
-    'controlWidth': 80px,
+    'controlWidth': 30px,
     'controlHeight': 100%,
     'controlPadding': ef.size(1),
     'controlArrowColor': var(--mc-baseMain),
     'controlArrowColorHover': var(--mc-main),
     'controlPrevSvgTransform': rotate(90deg),
     'controlNextSvgTransform': rotate(-90deg),
+    'controlNextMargin': 0 0 0 auto,
     'controlPrevJustifyContent': flex-start,
+    'controlPrevMargin': 0 auto 0 0,
     'controlNextJustifyContent': flex-end,
     'controlTransition': all 0.3s ease-out,
-    'controlBg': linear-gradient(90deg, var(--mc-bg700) 30%, var(--mc-bg700-o0) 100%),
+    'controlBg': linear-gradient(90deg, var(--mc-bg700) 65%, var(--mc-bg700-o0) 100%),
 ), $customThemeDefault);

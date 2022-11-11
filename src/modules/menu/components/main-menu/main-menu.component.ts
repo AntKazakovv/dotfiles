@@ -41,9 +41,9 @@ import {
     GamesCatalogService,
 } from 'wlc-engine/modules/games/system/services/games-catalog/games-catalog.service';
 import {MenuService} from 'wlc-engine/modules/menu/system/services/menu.service';
-import {MenuHelper} from'wlc-engine/modules/menu/system/helpers/menu.helper';
-import {TIconExtension} from'wlc-engine/modules/menu/system/interfaces/menu.interface';
 import {TFixedPanelState} from 'wlc-engine/modules/core/system/interfaces/base-config/fixed-panel.interface';
+import {MenuHelper} from 'wlc-engine/modules/menu/system/helpers/menu.helper';
+import {TIconExtension} from 'wlc-engine/modules/menu/system/interfaces/menu.interface';
 
 import * as Config from 'wlc-engine/modules/menu/system/config/main-menu.items.config';
 import * as MenuParams from 'wlc-engine/modules/menu/components/menu/menu.params';
@@ -90,6 +90,8 @@ export class MainMenuComponent extends AbstractComponent implements OnInit {
     public async ngOnInit(): Promise<void> {
         super.ngOnInit();
         this.gamesCatalogService = await this.injectionService.getService('games.games-catalog-service');
+
+        this.initMenuParams();
 
         this.isAuth = this.configService.get<boolean>('$user.isAuthenticated');
         this.initEventHandlers();
@@ -186,6 +188,21 @@ export class MainMenuComponent extends AbstractComponent implements OnInit {
             });
     }
 
+    protected initMenuParams(): void {
+        if (this.$params.common) {
+            _merge(this.$params.menuParams, {
+                sliderParams: {
+                    swiper: {
+                        navigation: {
+                            nextEl: '.wlc-main-menu__control--next',
+                            prevEl: '.wlc-main-menu__control--prev',
+                        },
+                    },
+                },
+            });
+        }
+    }
+
     protected async addCategoryBtns(): Promise<void> {
         await this.gamesCatalogService.ready;
         const categories: CategoryModel[] = this.gamesCatalogService.getCategoriesByMenu('main-menu');
@@ -196,7 +213,7 @@ export class MainMenuComponent extends AbstractComponent implements OnInit {
         let menuItems: MenuParams.IMenuItem[] = MenuHelper.getItemsForCategories({
             categories: categories,
             lang: this.translate.currentLang,
-            wlcElementPrefix: 'link_main-nav-',
+            wlcElementPrefix: 'link_main-nav',
             icons: {
                 folder: this.iconsFolder,
                 disable: !this.useIcons,

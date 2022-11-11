@@ -1,22 +1,9 @@
 .wlc-main-menu--theme-default:host {
+    position: relative;
 
     ::ng-deep {
 
-        .wlc-slider {
-            padding: ef.get-value($themeDefault, 'swiperPadding');
-
-            &--on-start.wlc-slider--overflow {
-                box-shadow: ef.get-value($themeDefault, 'swiperShadowOnStart');
-            }
-
-            &--on-end {
-                box-shadow: ef.get-value($themeDefault, 'swiperShadowOnEnd');
-            }
-
-            &--on-progress {
-                box-shadow: ef.get-value($themeDefault, 'swiperShadowOnProgress');
-            }
-        }
+        @include menuControls($themeDefault);
 
         .wlc-menu {
             @include bm.get-mq-map('grid-gap', $themeDefault, 'gapSize');

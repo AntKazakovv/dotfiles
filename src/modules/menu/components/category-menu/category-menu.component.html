@@ -1,6 +1,6 @@
 <div *ngIf="inited" class="{{$class}}__content">
     <div wlc-menu [inlineParams]="$params.menuParams"></div>
-    <div class="{{$class}}__controls" *ngIf="useSwiperNavigation">
+    <div *ngIf="this.$params.common?.useSwiperNavigation" class="{{$class}}__controls">
         <button class="{{$class}}__control {{$class}}__control--prev">
             <span wlc-icon iconPath="/wlc/icons/arrow.svg"></span>
         </button>
