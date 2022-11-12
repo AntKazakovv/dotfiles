@@ -64,7 +64,7 @@ export const $layoutsAff: ILayoutsConfig = {
                 container: true,
                 components: [
                     {
-                        name: 'static.wlc-faq',
+                        name: 'affiliates.wlc-faq',
                     },
                 ],
             },
@@ -72,7 +72,7 @@ export const $layoutsAff: ILayoutsConfig = {
                 container: true,
                 components: [
                     {
-                        name: 'static.wlc-testimonials',
+                        name: 'affiliates.wlc-testimonials',
                         params: {
                             common: {
                                 title: 'Testimonials',

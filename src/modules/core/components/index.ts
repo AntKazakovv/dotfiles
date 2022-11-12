@@ -1,4 +1,7 @@
-export {IAccordionCParams} from './accordion/accordion.params';
+export {
+    IAccordionCParams, 
+    IAccordionData,
+} from './accordion/accordion.params';
 export {IBurgerPanelCParams} from './burger-panel/burger-panel.params';
 export {
     IButtonCParams,

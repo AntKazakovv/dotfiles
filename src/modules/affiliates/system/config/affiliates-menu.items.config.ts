@@ -1,6 +1,6 @@
-import * as Params from 'wlc-engine/modules/menu/components/menu/menu.params';
+import {IMenuItemsGlobal} from 'wlc-engine/modules/menu/components/menu/menu.params';
 
-export const wlcAffiliatesMenuItemsGlobal: Params.IMenuItemsGlobal = {
+export const wlcAffiliatesMenuItemsGlobal: IMenuItemsGlobal = {
     'affiliates-menu:why-us': {
         name: gettext('Why Us'),
         type: 'scroll',

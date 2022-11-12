@@ -14,13 +14,14 @@ import {
     AbstractComponent,
     LogService,
     HeightToggleAnimation,
-} from 'wlc-engine/modules/core';
-import {StaticService} from 'wlc-engine/modules/static/system/services/static/static.service';
-import {TextDataModel} from 'wlc-engine/modules/static/system/models/textdata.model';
-import {
     IAccordionData,
     IAccordionCParams,
-} from 'wlc-engine/modules/core/components/accordion/accordion.params';
+    ConfigService,
+} from 'wlc-engine/modules/core';
+import {
+    StaticService,
+    TextDataModel,
+} from 'wlc-engine/modules/static';
 
 import * as Params from './faq.params';
 
@@ -42,17 +43,18 @@ export class FaqComponent extends AbstractComponent implements OnInit {
         protected staticService: StaticService,
         protected cdr: ChangeDetectorRef,
         protected logService: LogService,
+        protected configService: ConfigService,
     ) {
-        super({injectParams, defaultParams: Params.defaultParams});
+        super({injectParams, defaultParams: Params.defaultParams}, configService);
     }
 
     public async ngOnInit(): Promise<void> {
         super.ngOnInit();
 
         this.accordionParams = {
-            title: (this.$params.title ?? this.$params.common?.title) || '',
+            title: this.$params.title,
             titleIconPath: this.$params.titleIconPath,
-            collapseAll: !!(this.$params.collapseAll ?? this.$params.common?.collapseAll),
+            collapseAll: this.$params.collapseAll,
             items: [],
         };
         try {

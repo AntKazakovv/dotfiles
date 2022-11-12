@@ -1,5 +1,5 @@
 <ng-container *ngIf="ready; else preloader">
-    <div class="{{$class}}__header" *ngIf="$params.common.title">{{$params.common.title | translate}}</div>
+    <div class="{{$class}}__header" *ngIf="$params.title">{{$params.title | translate}}</div>
     <div *ngIf="slides.length; else noData"
         class="{{$class}}__content"
         wlc-wrapper
@@ -11,7 +11,7 @@
 </ng-template>
 
 <ng-template #noData>
-    <div *ngIf="$params.common.title">{{'No data' | translate}}</div>
+    <div *ngIf="$params.title">{{'No data' | translate}}</div>
 </ng-template>
 
 <ng-template #tesimonial let-item="item">

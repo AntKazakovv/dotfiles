@@ -106,7 +106,7 @@ export class InfoPageComponent extends AbstractComponent implements OnInit {
 
     protected getAccordionPost(): ILayoutComponent[] {
         return [{
-            name: 'static.wlc-faq',
+            name: 'affiliates.wlc-faq',
             params: <IAccordionCParams>{
                 class: 'wlc-faq',
                 slug: this.uiRouter.params.slug,

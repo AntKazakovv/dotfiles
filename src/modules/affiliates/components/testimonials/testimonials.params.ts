@@ -1,13 +1,11 @@
-import {IComponentParams} from 'wlc-engine/modules/core/system/interfaces/config.interface';
+import {IComponentParams} from 'wlc-engine/modules/core';
 import {SwiperOptions} from 'swiper';
 
 export interface ITestimonialsCParams extends IComponentParams<string, string, string> {
     slug: string;
     sliderParams: SwiperOptions;
-    common?: {
-        showErrors?: boolean;
-        title?: string;
-    }
+    showErrors?: boolean;
+    title?: string;
 }
 
 export interface ITestimonialsData {
@@ -18,8 +16,11 @@ export interface ITestimonialsData {
 }
 
 export const defaultParams: ITestimonialsCParams = {
+    moduleName: 'affiliates',
+    componentName: 'wlc-testimonials',
     class: 'wlc-testimonials',
     slug: 'partners-testimonials',
+    showErrors: true,
     sliderParams: {
         direction: 'horizontal',
         grabCursor: true,

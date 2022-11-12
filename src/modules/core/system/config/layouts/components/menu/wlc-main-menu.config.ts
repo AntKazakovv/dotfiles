@@ -83,7 +83,7 @@ export namespace wlcMainMenu {
     };
 
     export const affiliates: ILayoutComponent = {
-        name: 'menu.wlc-affiliates-menu',
+        name: 'affiliates.wlc-affiliates-menu',
         params: {
             type: 'main-menu',
             wlcElement: 'block_main-nav',

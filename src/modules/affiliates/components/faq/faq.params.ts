@@ -1,4 +1,4 @@
-import {IComponentParams} from 'wlc-engine/modules/core/system/interfaces/config.interface';
+import {IComponentParams} from 'wlc-engine/modules/core';
 
 export interface IFaqCParams extends IComponentParams<string, string, string> {
     /** slug WP post*/
@@ -9,16 +9,11 @@ export interface IFaqCParams extends IComponentParams<string, string, string> {
     collapseAll?: boolean;
     /** Title accordion */
     title?: string;
-    /** @deprecated use props outside common */
-    common?: {
-        /** Collapse all items */
-        collapseAll?: boolean;
-        /** Title accordion */
-        title?: string;
-    }
 }
 
 export const defaultParams: IFaqCParams = {
+    moduleName: 'affiliates',
+    componentName: 'wlc-faq',
     class: 'wlc-faq',
     slug: 'partners-faq',
     titleIconPath: '/wlc/icons/thin-arrow.svg',

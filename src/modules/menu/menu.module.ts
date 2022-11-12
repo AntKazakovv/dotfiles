@@ -3,7 +3,6 @@ import {CommonModule} from '@angular/common';
 import {UIRouterModule} from '@uirouter/angular';
 import {TranslateModule} from '@ngx-translate/core';
 import {CoreModule} from 'wlc-engine/modules/core/core.module';
-import {AffiliatesMenuComponent} from './components/affiliates-menu/affiliates-menu.component';
 import {CategoryMenuComponent} from './components/category-menu/category-menu.component';
 import {MenuComponent} from './components/menu/menu.component';
 import {MainMenuComponent} from './components/main-menu/main-menu.component';
@@ -28,7 +27,6 @@ export const moduleConfig =
     GlobalHelper.mergeConfig<IMenuConfig>(menuConfig, _get($config, '$menu', {}));
 
 export const components = {
-    'wlc-affiliates-menu': AffiliatesMenuComponent,
     'wlc-category-menu': CategoryMenuComponent,
     'wlc-menu': MenuComponent,
     'wlc-main-menu': MainMenuComponent,
@@ -48,7 +46,6 @@ export const services = {
 @NgModule({
     id: 'MenuModule',
     declarations: [
-        AffiliatesMenuComponent,
         CategoryMenuComponent,
         MenuComponent,
         MainMenuComponent,

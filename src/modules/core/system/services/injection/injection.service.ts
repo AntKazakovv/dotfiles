@@ -105,6 +105,14 @@ export class InjectionService {
                     this.afterModuleLoad('core', m);
                     return m.CoreModule;
                 });
+            case 'affiliates':
+                if (this.loadedModules.affiliatesModule) {
+                    return this.loadedModules.affiliatesModule;
+                }
+                return import('wlc-engine/modules/affiliates/affiliates.module').then(m => {
+                    this.afterModuleLoad('affiliates', m);
+                    return m.AffiliatesModule;
+                });
             case 'menu':
                 if (this.loadedModules.menu) {
                     return this.loadedModules.menu;

@@ -5,11 +5,11 @@ import {
     wlcMobileMenuItemsGlobal,
     wlcMobileMenuItemGroupsGlobal,
 } from './mobile-menu.config';
-import {wlcAffiliatesMenuItemsGlobal} from './affiliates-menu.items.config';
 import {wlcProfileMenuItemsGlobal} from './profile-menu.config';
 import {wlcBurgerPanelHeaderMenuItemsGlobal} from './burger-panel-header-menu.items.config';
 import {wlcStickyFooterItemsGlobal} from 'wlc-engine/modules/menu/system/config/sticky-footer.items';
 import {wlcMobileFooterMenuItemsGlobal} from 'wlc-engine/modules/menu/system/config/mobile-footer-menu.config';
+import {wlcAffiliatesMenuItemsGlobal} from 'wlc-engine/modules/affiliates';
 
 export const wlcMenuItemsGlobal: Params.IMenuItemsGlobal = {
     ...wlcMainMenuItemsGlobal,

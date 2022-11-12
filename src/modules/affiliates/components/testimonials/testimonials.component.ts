@@ -11,14 +11,18 @@ import {
 } from '@angular/core';
 
 import _map from 'lodash-es/map';
-import _isUndefined from 'lodash-es/isUndefined';
 import _get from 'lodash-es/get';
 
-import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
-import {StaticService} from 'wlc-engine/modules/static/system/services/static/static.service';
-import {TextDataModel} from 'wlc-engine/modules/static/system/models/textdata.model';
-import {ISlide} from 'wlc-engine/modules/promo/components/slider/slider.params';
-import {IWrapperCParams} from 'wlc-engine/modules/core';
+import {
+    AbstractComponent,
+    ConfigService,
+    IWrapperCParams,
+} from 'wlc-engine/modules/core';
+import {
+    StaticService,
+    TextDataModel,
+} from 'wlc-engine/modules/static';
+import {ISlide} from 'wlc-engine/modules/promo';
 
 import * as Params from './testimonials.params';
 
@@ -37,27 +41,26 @@ export class TestimonialsComponent extends AbstractComponent implements OnInit {
     public ready: boolean = false;
     public $params: Params.ITestimonialsCParams;
 
-    protected showErrors: boolean;
     protected testimonialsData: Params.ITestimonialsData[];
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.ITestimonialsCParams,
         protected staticService: StaticService,
+        protected configService: ConfigService,
         protected cdr: ChangeDetectorRef,
     ) {
-        super({injectParams, defaultParams: Params.defaultParams});
+        super({injectParams, defaultParams: Params.defaultParams}, configService);
     }
 
     public async ngOnInit(): Promise<void> {
         super.ngOnInit();
 
-        this.showErrors = _isUndefined(this.$params.common?.showErrors) ? true : this.$params.common?.showErrors;
         try {
             const data: TextDataModel = await this.getRawData();
             this.testimonialsData = this.parseTableData(data?.html);
             this.getSwiperConfig();
         } catch (e) {
-            if (this.showErrors) {
+            if (this.$params.showErrors) {
                 console.error('Error post loading');
             }
         } finally {
@@ -76,7 +79,7 @@ export class TestimonialsComponent extends AbstractComponent implements OnInit {
         const items: NodeList = doc.querySelectorAll('tr');
 
         if (!items.length) {
-            if (this.showErrors) {
+            if (this.$params.showErrors) {
                 console.error('No valid or empty post');
             }
             return [];

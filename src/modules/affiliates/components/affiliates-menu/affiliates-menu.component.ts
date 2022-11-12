@@ -6,6 +6,9 @@ import {
     Input,
 } from '@angular/core';
 
+import _clone from 'lodash-es/clone';
+import _filter from 'lodash-es/filter';
+
 import {
     AbstractComponent,
     ConfigService,
@@ -13,13 +16,10 @@ import {
 import {
     MenuHelper,
     MenuParams,
-    MenuConfig,
 } from 'wlc-engine/modules/menu';
+import {wlcAffiliatesMenuItemsGlobal} from 'wlc-engine/modules/affiliates/system/config/affiliates-menu.items.config';
 
 import * as Params from './affiliates-menu.params';
-
-import _clone from 'lodash-es/clone';
-import _filter from 'lodash-es/filter';
 
 @Component({
     selector: '[wlc-affiliates-menu]',
@@ -50,7 +50,7 @@ export class AffiliatesMenuComponent extends AbstractComponent implements OnInit
 
         this.$params.menuParams.items = MenuHelper.parseMenuConfig(
             this.configService.get<MenuParams.MenuConfigItem[]>('$menu.affiliatesMenu.items'),
-            MenuConfig.wlcAffiliatesMenuItemsGlobal,
+            wlcAffiliatesMenuItemsGlobal,
         );
 
         if (!this.configService.get<boolean>('$base.affiliate.useTestimonials')) {
