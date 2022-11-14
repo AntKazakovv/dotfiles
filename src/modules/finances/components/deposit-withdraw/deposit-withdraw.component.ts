@@ -548,6 +548,9 @@ export class DepositWithdrawComponent
         saveProfile: boolean = true,
     ): Promise<boolean> {
         this.isShowIframe = this.depositInIframe && this.currentSystem.appearance === 'iframe';
+
+        const isPregeneration: boolean = this.currentSystem.isPregeneration;
+
         try {
             const response = await this.financesService.deposit(
                 this.currentSystem.id,
@@ -556,13 +559,13 @@ export class DepositWithdrawComponent
                 this.cssVariables,
             );
 
-            if (saveProfile && !this.currentSystem.isPregeneration) {
+            if (saveProfile && !isPregeneration) {
                 await this.saveProfile();
             }
 
             if (response.length) {
 
-                if (response[0] === 'message' && this.currentSystem.isPregeneration && this.isWaitingResponse) {
+                if (response[0] === 'message' && isPregeneration && this.isWaitingResponse) {
                     this.currentSystem.message = response[1];
                     return;
                 }
@@ -614,7 +617,7 @@ export class DepositWithdrawComponent
                 this.updateFormConfig();
             }
 
-            if (!this.currentSystem.isPregeneration) {
+            if (!isPregeneration) {
                 this.financesService.fetchPaymentSystems();
             }
         }
