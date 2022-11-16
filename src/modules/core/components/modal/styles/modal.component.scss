@@ -385,12 +385,18 @@
     @include mq.max(900) {
 
         .wlc-modal--login-sign-up + &.fade {
+
+            @if map-get(ev.$modalAnimation, 'modalDisableAnimationMobile') {
+                opacity: 1;
+            } @else {
+                opacity: 0;
+            }
+
             background: ef.get-value($hostModal, 'backdropSignUpBackground');
-            opacity: 1;
         }
 
         .wlc-modal--login-sign-up + &.in {
-            transition: ef.get-value($hostModal, 'backdropSignUpTransition');
+            opacity: 1;
         }
     }
 

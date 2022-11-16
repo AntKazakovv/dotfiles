@@ -98,7 +98,6 @@ $hostModal: map-merge((
     'modalFooterJustify': center,
     'modalBackdrop': var(--mc-bg),
     'modalAnimationSettings': 0.3s forwards ease-in-out,
-    'modalAnimationSettingsOff': 0s forwards ease-in-out,
 
     'modalZIndex': 1050,
     'modalPosition': 0,
@@ -107,7 +106,6 @@ $hostModal: map-merge((
     'backdropBackground': var(--mc-bg),
     'backdropSignUpBackground': var(--mc-bgModal),
     'backdropSignUpOpacity': 1,
-    'backdropSignUpTransition': unset,
     'dialogBackground': var(--mc-bgModal),
     'dialogShadow': (
         375: none,
@@ -299,11 +297,11 @@ $themeDefault: map-merge((
     ),
 
     'loginSignUpTextFontSize': (
-        320: 'ThirdTitleBold',
-        768: 'QoteTextBold',
+        320: ef.get('font', 'ThirdTitleBold'),
+        768: ef.get('font', 'QoteTextBold'),
     ),
     'loginSignUpTextColor': var(--mc-baseMain),
-    'loginSignUpTitleStyle': 'PrimaryText',
+    'loginSignUpTitleStyle': 'PrimaryTextBold',
     'loginSignUpTitleColor': var(--mc-baseMain),
     'loginSignUpTitleAlign': center,
 

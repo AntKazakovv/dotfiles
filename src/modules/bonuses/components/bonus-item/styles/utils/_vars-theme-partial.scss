@@ -44,7 +44,7 @@ $themePartial: map-merge((
         320: block,
         900: none,
     ),
-    'footerBackground': var(--mc-bg700),
+    'footerBackground': var(--mc-bg),
     'footerPadding': ef.size(3) ef.size(4),
     'footerRadius': ef.get('radius', 'biger'),
     'footerMaxWidth': 235px,
@@ -93,7 +93,7 @@ $themePartial: map-merge((
     'bonusNameStyle': 'ThirdTitleBold',
     'bonusNameColor': var(--mc-baseMain),
 
-    'bonusDescriptionStyle': 'PrimaryText',
+    'bonusDescriptionStyle': 'CaptionText',
     'bonusDescriptionColor': var(--mc-baseMain),
 
     'bonusIconValueFontSizeSmall': 1.4rem,

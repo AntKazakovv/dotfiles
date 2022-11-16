@@ -1,26 +1,19 @@
 .wlc-modal__dialog {
 
     .fade & {
-        $effect: map-get(ev.$modalAnimation, 'modalAnimationEffects');
 
         .wlc-modal:not(.wlc-modal--tournament-detail) & {
+            $effect: map-get(ev.$modalAnimation, 'modalAnimationEffects');
+
             @include animationEffect($effect);
             animation: animationModal + $effect ef.get-value($hostModal, 'modalAnimationSettings');
         }
 
         .wlc-modal.wlc-modal--tournament-detail & {
-            $effectTournament: map-get(ev.$modalAnimation, 'modalAnimationTournamentEffects');
+            $effect: map-get(ev.$modalAnimation, 'modalAnimationTournamentEffects');
 
-            @include animationEffect($effectTournament);
-            animation: animationModal + $effectTournament ef.get-value($hostModal, 'modalAnimationSettings');
-        }
-
-        .wlc-modal.wlc-modal--login-sign-up & {
-            animation: animationModal + $effect ef.get-value($hostModal, 'modalAnimationSettingsOff');
-
-            @include mq.min(900) {
-                animation: animationModal + $effect ef.get-value($hostModal, 'modalAnimationSettings');
-            }
+            @include animationEffect($effect);
+            animation: animationModal + $effect ef.get-value($hostModal, 'modalAnimationSettings');
         }
     }
 

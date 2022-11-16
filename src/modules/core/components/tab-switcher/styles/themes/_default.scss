@@ -5,8 +5,6 @@
 
         &__container {
             @include bm.get-mq-map('padding', $themeDefault, 'containerPadding');
-            position: relative;
-            z-index: 1;
             height: ef.get-value($themeDefault, 'height');
             border-radius: ef.get-value($themeDefault, 'containerRadius');
             overflow: visible;
@@ -14,21 +12,7 @@
 
         &-nav {
             @include bm.get-mq-map('display', $themeDefault, 'navDisplay');
-            position: relative;
             min-height: ef.get-value($themeDefault, 'navMinHeight');
-
-            &:before {
-                content: '';
-                position: absolute;
-                top: 0;
-                left: 0;
-                z-index: -1;
-                width: 100%;
-                height: 100%;
-                background: ef.get-value($themeDefault, 'navBeforeBg');
-                border-radius: ef.get-value($themeDefault, 'navItemRadius');
-                opacity: ef.get-value($themeDefault, 'navOpacity');
-            }
 
             &__item {
                 @include text.get-text-style(ef.get-value($themeDefault, 'navItemStyle'), ef.get-value($themeDefault, 'navItemColor'));
@@ -38,43 +22,29 @@
                 text-align: ef.get-value($themeDefault, 'navItemTextAlign');
                 text-overflow: ellipsis;
                 background: ef.get-value($themeDefault, 'navItemBackground');
+
                 overflow: hidden;
                 cursor: pointer;
-                border-radius: ef.get-value($themeDefault, 'navItemRadius');
 
                 &.active {
                     @include text.get-text-style(ef.get-value($themeDefault, 'navItemActiveStyle'), ef.get-value($themeDefault, 'navItemActiveColor'));
                     background: ef.get-value($themeDefault, 'navItemActiveBackground');
+                }
+
+                &:first-child {
+                    border-radius: ef.get-value($themeDefault, 'navItemFirstRadius');
+                }
+
+                &:last-child {
+                    border-radius: ef.get-value($themeDefault, 'navItemLastRadius');
                 }
             }
         }
 
         &-body {
             @include bm.get-mq-map('background', $themeDefault, 'bodyBackground');
-            position: relative;
             height: calc(#{ef.get-value($themeDefault, 'bodyHeight')} - #{ef.get-value($themeDefault, 'navMinHeight')});
             border-radius: ef.get-value($themeDefault, 'bodyRadius');
-
-            &.wlc-tab-switcher-body--login {
-                border-radius: ef.get-value($themeDefault, 'bodyRadiusLogin');
-            }
-
-            &.wlc-tab-switcher-body--signup {
-                border-radius: ef.get-value($themeDefault, 'bodyRadiusSignup');
-            }
-
-            &.active:before {
-                @include bm.get-mq-map('display', $themeDefault, 'bodyAfterDisplay');
-                content: '';
-                position: absolute;
-                top: 0;
-                left: 0;
-                z-index: -1;
-                width: 100%;
-                height: ef.get-value($themeDefault, 'bodyAfterHeight');
-                background: ef.get-value($themeDefault, 'bodyAfterBg');
-                opacity: 0.4;
-            }
 
             &__item {
                 display: none;
