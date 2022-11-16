@@ -78,3 +78,5 @@ gettext('Joint savings');
 gettext('Bank branch');
 gettext('Add info');
 gettext('Change');
+gettext('User rejected the request.');
+gettext('MetaMask Message Signature: User denied message signature.');
