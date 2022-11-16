@@ -277,6 +277,10 @@ export class StoreService {
                 );
                 if (item.isBonus) {
                     item.bonus = _find(storeBonuses, (bonus: Bonus) => bonus.id === item.idBonus);
+
+                    if (!item.bonus) {
+                        continue;
+                    }
                 }
                 queryStore.items.push(item);
             }
@@ -353,10 +357,8 @@ export class StoreService {
 
         this.eventService.subscribe([
             {name: 'STORE_ITEM_BUY_SUCCEEDED'},
-        ], (data: IData) => {
-            if (!(data.data as IStoreBuyResponse).ItemsLeft) {
-                this.updateSubscribers();
-            }
+        ], () => {
+            this.updateSubscribers();
         });
     }
 
