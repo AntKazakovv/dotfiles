@@ -117,6 +117,7 @@
         "idb-keyval": "^6.1.0",
         "imask": "^6.4.2",
         "inquirer": "^8.2.4",
+        "jasmine": "~4.3.0",
         "jasmine-core": "~4.1.1",
         "jasmine-spec-reporter": "~7.0.0",
         "jasmine-ts": "^0.4.0",
