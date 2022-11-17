@@ -32,7 +32,7 @@ export const defaultParams: Partial<IHistoryFilterCParams> = {
 export namespace formConfig {
 
     export const transaction: IFormWrapperCParams = {
-        class: 'wlc-transaction-wrapper',
+        class: 'wlc-transactions-filters',
         components: [
             {
                 name: 'core.wlc-text-block',
@@ -43,8 +43,8 @@ export namespace formConfig {
                 },
             },
             {
-                name: 'core.wlc-radio-buttons',
-                params: transactionConfig.filterRadioBtn,
+                name: 'core.wlc-select',
+                params: transactionConfig.filterSelect,
             },
             {
                 name: 'core.wlc-datepicker',

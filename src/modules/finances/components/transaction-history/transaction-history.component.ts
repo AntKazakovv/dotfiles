@@ -13,7 +13,6 @@ import {
     takeWhile,
 } from 'rxjs/operators';
 import {DateTime} from 'luxon';
-import _cloneDeep from 'lodash-es/cloneDeep';
 import _filter from 'lodash-es/filter';
 import _last from 'lodash-es/last';
 import _first from 'lodash-es/first';
@@ -29,11 +28,11 @@ import {
     DeviceType,
     ProfileType,
     ISelectCParams,
-    IRadioButtonsCParams,
     HistoryFilterService,
-    TTransactionFilter,
     IHistoryFilter,
-    TTransactionFilterType,
+    TTransactionFilter,
+} from 'wlc-engine/modules/core';
+import {
     transactionConfig as config,
     startDate,
     endDate,
@@ -57,13 +56,11 @@ export class TransactionHistoryComponent extends AbstractComponent implements On
     public showFilter: boolean = false;
     public $params: Params.ITransactionHistoryCParams;
     public tableData: ITableCParams;
-    public selectConfig: ISelectCParams<TTransactionFilter> = config.filterSelect;
-    public radioBtnConfig: IRadioButtonsCParams<TTransactionFilter> = config.filterRadioBtn;
-    public startDateInput: IDatepickerCParams = _cloneDeep(startDate);
-    public endDateInput: IDatepickerCParams = _cloneDeep(endDate);
+    public startDateInput: IDatepickerCParams = startDate;
+    public endDateInput: IDatepickerCParams = endDate;
     public transaction$: BehaviorSubject<Transaction[]> = new BehaviorSubject([]);
 
-    protected filterSelect: TTransactionFilterType;
+    protected filterSelect: ISelectCParams<TTransactionFilter> = config.filterSelect;
     protected filterValue: TTransactionFilter = 'all';
     protected startDate: DateTime = DateTime.local();
     protected endDate: DateTime = DateTime.local();
@@ -88,7 +85,6 @@ export class TransactionHistoryComponent extends AbstractComponent implements On
     public async ngOnInit(): Promise<void> {
         super.ngOnInit();
         const profileType: ProfileType = this.configService.get<ProfileType>('$base.profile.type') || 'default';
-        this.filterSelect = this.$params.filterType === 'select' ? this.selectConfig : this.radioBtnConfig;
         this.allTransactions = await this.financesService.getTransactionList();
 
         if (this.allTransactions.length) {
