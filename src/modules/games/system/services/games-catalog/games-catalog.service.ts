@@ -958,7 +958,7 @@ export class GamesCatalogService {
         this.dataService.registerMethod({
             name: 'games',
             url: '/games',
-            cache: 120 * 60 * 1000,
+            cache: 10 * 60 * 1000,
             type: 'GET',
             params: queryGamesParams,
             preload: 'games',
