@@ -87,6 +87,13 @@
                 size: cover;
             }
         }
+
+        .wlc-search--theme-mod-default & {
+
+            &__progressbar {
+                @include bm.get-mq-map('margin', $themeDefault, 'searchProgressBarMargin');
+            }
+        }
     }
 
     &.wlc-games-grid--theme-mod-tournament-detail {

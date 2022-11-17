@@ -28,5 +28,12 @@
             border-radius: ef.get-value($themeDefault, 'barBorderRadius');
             transition: ef.get-value($themeDefault, 'barTransition');
         }
+
+        .wlc-search--theme-mod-default & {
+
+            &__text {
+                @include text.get-text-style('ThirdTitle', ef.get-value($themeDefault, 'textFontColor'));
+            }
+        }
     }
 }

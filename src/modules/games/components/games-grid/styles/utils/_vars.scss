@@ -41,6 +41,11 @@ $themeDefault: map-merge((
         1024: ef.size(8) 0 ef.size(-4),
     ),
 
+    'searchProgressBarMargin': (
+        375: ef.size(3) 0 ef.size(-3),
+        1024: ef.size(4) 0 ef.size(-4),
+    ),
+
     'gridColumnsTournamentDetail': (
         375: repeat(auto-fill, minmax(130px, 1fr)),
         900: repeat(auto-fill, minmax(160px, 1fr)),

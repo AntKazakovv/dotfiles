@@ -270,7 +270,7 @@ export const defaultGamesGridParams: IGamesGridCParams = {
     },
     breakpoints: {
         375: {
-            gamesRows: 2,
+            gamesRows: 4,
         },
         1630: {
             gamesRows: 3,
