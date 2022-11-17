@@ -4,25 +4,23 @@ $themeDefault: map-merge((
     'fontSize': ef.get('font', 'PrimaryText'),
     'fontWeightHighlighted': bold,
 
-    'articleMargin': ef.get('size', 'smaller') 0,
-
-    'iconMargin': ef.get('size', 'smaller') 0,
-    'iconSize': ef.get('size', 'biger'),
+    'iconMargin': ef.size(4) 0,
+    'iconSize': ef.size(10),
     'iconColor': ef.get('fieldColors', 'iconColor'),
 
-    'dividerMargin': ef.get('size', 'smaller') 0,
+    'dividerMargin': ef.size(4) 0,
     'dividerHeight': 2px,
     'dividerColor': ef.get('fieldColors', 'iconColor'),
 
-    'controlsMargin': ef.get('size', 'smaller') 0,
-    'controlsPadding': 0 ef.get('size', 'main'),
+    'controlsMargin': ef.size(4) 0,
+    'controlsPadding': 0 ef.size(8),
 
-    'actionsMargin': ef.get('size', 'smaller') 0,
-    'actionsButtonGap': ef.get('size', 'smaller'),
+    'actionsMargin': ef.size(4) 0,
+    'actionsButtonGap': ef.size(4),
 
     'actionsFlexDirection': row,
     'actionsJustifyContent': center,
     'actionsAlignItems': center,
 
-    'formPadding': ef.get('size', 'smallest') ef.get('size', 'smallest'),
+    'formPadding': ef.size(1) ef.size(1),
 ), $customThemeDefault);
