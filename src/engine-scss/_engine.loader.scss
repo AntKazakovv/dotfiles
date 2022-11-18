@@ -1,5 +1,108 @@
-@import 'engine.variables';
+@use 'engine.variables' as ev;
 @import './mixins/loader.mixins';
+
+$customAppLoader: () !default;
+$appLoader: map-merge((
+    'background': linear-gradient(315deg, var(--mc-bg700) 0%, var(--mc-bg) 75%),
+    'imgBlockPadding': 80px,
+    'imgBlockWidth': 300px,
+    'imgBgUrl': url('/static/images/logo.svg'),
+    'imgBgAltUrl': null,
+    'imgBgRepeat': no-repeat,
+    'imgBgPosition': center,
+    'imgBgSize': contain,
+    'loaderBlockMargin': 20px auto 0,
+    'loaderWidth': 50px,
+    'loaderHeight': 50px,
+    'loaderBorder': 2px solid var(--mc-main),
+
+    'loaderAnime': default, //default, dots1, dots2, dots3, circle, circle2, flip, pulse, jelly
+    'useBgAnime': false,
+
+    //Default
+    'defAnimeSpeed': 1.5s,
+    'defAnimeEasing': cubic-bezier(0.075, 0.82, 0.165, 1),
+
+    //Bg anime
+    'bgAnimeSpeed': 6s,
+    'bgAnimeEasing': ease,
+
+    //Pulse logo
+    'pulseAnimeSpeed': 1.7s,
+    'pulseAnimeEasing': ease-in-out,
+
+    //Dots1
+    'dots1Width': 80px,
+    'dots1LoaderDotSize': 13px,
+    'dots1LoaderDotRadius': 50%,
+    'dots1LoaderDotBg': var(--mc-main),
+    'dots1LoaderAnimeSpeed': 0.6s,
+
+    //Dots2
+    'dots2gap': 15px,
+    'dots2Margin': 30px auto 0,
+    'dots2LoaderWidth': 13px,
+    'dots2LoaderHeight': 13px,
+    'dots2LoaderRadius': 50%,
+    'dots2LoaderBg': transparent,
+    'dots2LoaderAnimeEasing': ease-in-out,
+    'dots2LoaderAnimeSpeed': 1.2s,
+    'dots2LoaderAnimeStep': 0.2s,
+    'dots2LoaderShadow': 0 30px 15px var(--mc-main-o6),
+    'dots2LoaderInnerShadow': inset 0 -1px 1px 1px var(--mc-main-l5),
+
+    //Dots3
+    'dots3Gap': 10px,
+    'dots3DotBg': var(--mc-main),
+    'dots3DotSize': 20px,
+    'dots2DotRadius': 50%,
+    'dots3AnimeSpeed': 1.7s,
+    'dots3AnimeEasing': 'linear',
+    'dots3InnerBg': var(--mc-bg700),
+
+    //Circle
+    'circleLoaderSize': 80px,
+    'circleLoaderWidthСoef': 0.8,
+    'circleWrapperBg': radial-gradient(var(--mc-bg700) 15%, var(--mc-bg)),
+    'circleLoaderBg': var(--mc-bg700),
+    'circleLoaderOuterShadow': (5px 5px 10px var(--mc-bg700-d20), -5px -5px 10px var(--mc-bg700-l10)),
+    'circleLoaderInnerShadow': (inset 3px 3px 7px var(--mc-bg700-d20), inset -3px -3px 7px var(--mc-bg700-l10)),
+    'circleLoaderSpinnerSize': 20px,
+    'circleLoaderSpinnerRadius': null,
+    'circleLoaderSpinnerBg': var(--mc-main),
+    'circleLoaderAnimeSpeed': 1.5s,
+    'circleLoaderAnimeEasing': cubic-bezier(0.2, 0.75, 0.75, 0.2),
+
+    //Circle2
+    'circle2Height': 0,
+    'circle2Margin': -70px 0 0,
+    'circle2LoaderSize': 200px,
+    'circle2LoaderTransform':  perspective(200px) rotateX(75deg),
+    'circle2LoaderBorder': 4px solid var(--mc-bg700-d10),
+    'circle2AnimeSpeed': 1.2s,
+    'circle2mainColor': var(--mc-main),
+    'circle2SecondaryColor': var(--mc-secondary),
+
+    //Flip
+    'flipLoaderBg': var(--mc-main),
+    'flipLoaderBgSecondary': var(--mc-secondary),
+    'flipLoaderAnimeSpeed': 1.5s,
+    'flipLoaderAnimeEasing': linear,
+    'flipLoaderWidth': 40px,
+    'flipLoaderHeight': 40px,
+    'flipLoaderRadius': map-get(ev.$radius, 'smaller'),
+
+    // Jelly
+    'jellyLoaderSize': 40px,
+    'jellyLoaderBg': var(--mc-main),
+    'jellyLoaderRadius': map-get(ev.$radius, 'smaller'),
+    'jellyShadowSize': 5px,
+    'jellyShadowBg': var(--mc-bg-d20),
+    'jellyShadowPosTop': 50px,
+    'jellyAnimeSpeed': 500ms,
+    'jellyAnimeEasing': linear,
+    'jellyShadowOpacity': 1,
+), $customAppLoader);
 
 .wlc-app__preload {
     $animeName: map-get($appLoader, 'loaderAnime');

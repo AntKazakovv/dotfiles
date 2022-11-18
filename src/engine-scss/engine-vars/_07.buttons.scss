@@ -1,0 +1,130 @@
+$customButtonSettings: () !default;
+$dummy: ();
+$buttonSettings: map-merge((
+    'alignItems': center,
+    'justifyContent': center,
+    'scaleParam': 0.9,
+    // Size
+    'minWidth': 110px,
+    'heightSmall': 35px,
+    'heightDefault': (
+        375: 40px,
+    ),
+    'heightLarge': 50px,
+    // Font
+    'fontSize': map-get($font, 'less'),
+    'fontWeight': bold,
+    'fontColor': map-get($mainColors, 'baseMain'), // Locked color
+    'fontColorActive': var(--mc-baseMain),
+    'fontColorSecondary': var(--mc-baseMain),
+    'fontColorSecondaryHover': var(--mc-baseMain),
+    'fontColorActiveSecondary': var(--mc-baseMain),
+    // Transform
+    'textTransform': initial,
+    // Background
+    'background': var(--mc-buttonColor),
+    'backgroundHover': var(--mc-buttonColor-l20),
+    'backgroundSecondary': transparent,
+    'backgroundSecondaryHover': var(--mc-secondary-o2),
+    'backgroundSecondaryActive': var(--mc-buttonColor),
+    'backgroundSecondaryActiveHover': var(--mc-buttonColor),
+    'backgroundResolve': var(--mc-success),
+    'backgroundResolveHover': var(--mc-success-d20),
+    'backgroundReject': var(--mc-error),
+    'backgroundRejectHover': var(--mc-error-d20),
+    'backgroundDisabled': var(--mc-disabled),
+    'backgroundDisabledHover': var(--mc-disabled-d20),
+    // Shadow
+    'shadow': none,
+    'shadowHover': none,
+    'shadowSecondary': none,
+    'shadowHoverSecondary': none,
+    //Border
+    'borderDefault': 2px solid transparent,
+    'borderRadiusDefault': map-get($radius, 'biger'),
+    'borderDefaultHover': 2px solid var(--mc-buttonColor-l20),
+    'borderSecondary': 2px solid var(--mc-secondary),
+    'borderSecondaryHover': 2px solid var(--mc-secondary),
+    'borderSecondaryActive': 2px solid var(--mc-buttonColor),
+    'borderSecondaryActiveHover': 2px solid var(--mc-buttonColor),
+    'borderColorRead': var(--mc-baseOpacity),
+    //Padding
+    'padding': size-func(1) size-func(4),
+    'gap': size-func(1),
+    // Animation
+    'time': 0.3s,
+    'radiusRoundingTheme': 100px,
+    'pendingAnimation': spin 1s infinite linear,
+    'pendingSkewTransform': translate(-50%, -50%) skew(20deg, 0),
+    // Animation Main
+    'mainAnimation': buttonPulse 12.5s infinite cubic-bezier(0.7, 0, 0, 1),
+    'mainBoxShadowAnimationStart': 0 0 0 0 var(--mc-buttonColor),
+    'mainBoxShadowAnimationEnd': 0 0 0 10px var(--mc-buttonColor-o0),
+    // Animation Secondary
+    'secondaryAnimation': buttonPulseSecondary 12.5s infinite cubic-bezier(0.7, 0, 0, 1),
+    'secondaryBoxShadowAnimationStart': 0 0 0 0 var(--mc-secondary),
+    'secondaryBoxShadowAnimationEnd': 0 0 0 10px var(--mc-secondary-o0),
+    // Transform
+    'transformSkew': skew(-20deg, 0),
+    'transformSkewText': skew(20deg, 0),
+    // Disabled button
+    'disabledBg': var(--mc-buttonColor-o6),
+    'disabledBgHover': var(--mc-buttonColor-o6),
+    'disabledColor': var(--mc-baseMain-o6),
+    'disabledColorHover': var(--mc-baseMain-o6),
+    'disabledShadow': none,
+    'disabledShadowHover': none,
+    'disabledBorder': none,
+    'disabledBorderHover': none,
+    'disabledCursor': not-allowed,
+    // Disabled secondary button
+    'disableSecondarydBg': transparent,
+    'disabledSecondaryBgHover': transparent,
+    'disabledSecondaryColor': var(--mc-baseMain-o6),
+    'disabledSecondaryColorHover': var(--mc-baseMain-o6),
+    'disabledSecondaryShadow': none,
+    'disabledSecondaryShadowHover': none,
+    'disabledSecondaryBorder': 2px solid var(--mc-secondary-o6),
+    'disabledSecondaryBorderHover': 2px solid var(--mc-secondary-o6),
+), $customButtonSettings);
+
+$customTableBtnBlock: () !default;
+$tableBtnBlock: map-merge((
+    'btnLeft': 50%,
+    'btnZIndex': 10,
+    'btnTransform': translateX(-50%),
+    'btnJustify': center,
+    'btnAlign': (
+        375: flex-start,
+        1024: center,
+    ),
+    'btnBlockMinWidth': (
+        1024: 110px,
+    ),
+    'btnBlockMinWidthFirst': (
+        375: auto,
+        1200: 110px
+    ),
+    'btnBlockPadding': (
+        375: 0 0 45px,
+        1024: 0,
+    ),
+    'btnBlockPaddingFirst': (
+        375: 0 0 45px,
+        1024: 0 0 45px,
+        1200: 0,
+    ),
+    'btnBottom': (
+        375: size-func(2),
+        1024: auto,
+    ),
+    'btnBottomFirst': (
+        375: size-func(2),
+        1024: size-func(2),
+        1200: auto,
+    ),
+    'btnActionDisplayFirst': (
+        375: block,
+        1200: none,
+    ),
+), $customTableBtnBlock);

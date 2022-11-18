@@ -1,0 +1,141 @@
+/// Основные цвета проекта из дизайна.
+///
+/// @name mainColors
+///
+/// @prop {Color} main [#7f7cff] - main color
+/// @prop {Color} secondary [#1dc0c0] - secondary color
+/// @prop {Color} baseMain [#fff] - base main color
+/// @prop {Color} buttonColor [#7f7cff] - button color
+/// @prop {color} baseOpacity [rgba(147, 158, 183, 0.5)] - base color with transparency
+/// @prop {color} bg100 [#515f84] - background color gradation 100
+/// @prop {color} bg300 [#50566c] - background color gradation 300
+/// @prop {color} bg500 [#50566c] - background color gradation 500
+/// @prop {color} bg700 [#3d4150] - background color gradation 700
+/// @prop {color} bg [#1f1f26] - background color
+/// @prop {color} bgModal [#3d4150] - modal background color
+/// @prop {color} elementsColor [#c4c4c4] - elements color
+/// @prop {color} error [#d96969] - error color
+/// @prop {color} success [#45c195] - success color
+/// @prop {color} warning [#ffa756] - warning color
+/// @prop {color} disabled [#c4c4c4] - disabled color
+$customMainColors: () !default;
+$mainColors: map-merge((
+    'main': #7f7cff,
+    'secondary': #1dc0c0,
+    'baseMain': #fff,
+    'baseContrast': #000,
+    'buttonColor': #7f7cff,
+    'baseOpacity': rgba(147, 158, 183, 0.5),
+    'bg100': #515f84,
+    'bg300': #50566c,
+    'bg500': #43485c,
+    'bg700': #3d4150,
+    'bg': #1f1f26,
+    'bgModal': #2e313d,
+    'elementsColor': #c4c4c4,
+    'error': #d96969,
+    'success': #45c195,
+    'warning': #ffa756,
+    'disabled': #c4c4c4,
+    'black': #000,
+), $customMainColors);
+
+/// Основные цвета для альтернативной цветовой схемы
+/// По набору полей совпадают с mainColors, по значениям - другие
+///
+/// @name mainColorsAlt
+$customMainColorsAlt: () !default;
+$mainColorsAlt: map-merge((
+    'main': #7f7cff,
+    'secondary': #1dc0c0,
+    'baseMain': #000,
+    'baseContrast': #fff,
+    'buttonColor': #7f7cff,
+    'baseOpacity': rgba(0, 0, 0, 0.5),
+    'bg100': #7f99be,
+    'bg300': #f2f5f8,
+    'bg500': #ccd6e5,
+    'bg700': #e5eaf2,
+    'bg': #fff,
+    'bgModal': #f2f5f8,
+    'elementsColor': null,
+    'error': #d96969,
+    'success': #45c195,
+    'warning': #ffa756,
+    'disabled': #c4c4c4,
+), $customMainColorsAlt);
+
+/// Цвета ui элементов из дизайна.
+///
+/// @name fieldColors
+///
+/// @prop {color} labelColor [#8693c4] - label color
+/// @prop {color} inputBg [#fff] - input background color
+/// @prop {color} borderColor [#5d6476] - border color
+/// @prop {color} textColor [#000] - text color
+/// @prop {color} placeholderColor [#5d6476] - placeholder color
+/// @prop {color} disabledPlaceholderColor [#5d6476] - disabled placeholder color
+/// @prop {color} arrowColor [#5d6476] - arrow color
+/// @prop {color} iconColor [#5d6476] - icon color
+/// @prop {color} disableBg [#1f1f26] - disable background color
+/// @prop {color} disableBorder [#2f3141] - disable border
+/// @prop {color} errorBackground [#ffebf2] - error background
+/// @prop {color} errorBorder [#f5e2e8] - error border
+/// @prop {color} errorArrow [#ffbcd5] - error arrow
+/// @prop {color} successElement [#45c195] - success element
+/// @prop {color} successBorder [#acf6d3] - success border
+$customFieldColors: () !default;
+$fieldColors: map-merge((
+    'labelColor': #8693c4,
+    'inputBg': #fff,
+    'borderColor': #5d6476,
+    'textColor': #000,
+    'placeholderColor': #5d6476,
+    'disabledPlaceholderColor': #5d6476,
+    'arrowColor': #5d6476,
+    'iconColor': #5d6476,
+    'disableBg': #1f1f26,
+    'disableBorder': #2f3141,
+    'errorBackground': #ffebf2,
+    'errorBorder': #ffb8d1,
+    'errorArrow': #ffbcd5,
+    'successElement': #45c195,
+    'successBorder': #acf6d3,
+), $customFieldColors);
+
+/// Цвета ui элементов из дизайна для альтернативной цветовой схемы.
+/// По набору полей совпадают с fieldColors
+///
+/// @name fieldColorsAlt
+$customFieldColorsAlt: () !default;
+$fieldColorsAlt: map-merge((
+    'labelColor': #7d7d7d,
+    'inputBg': #fff,
+    'borderColor': #c0c0c0,
+    'textColor': #000000,
+    'placeholderColor': #999,
+    'disabledPlaceholderColor': null,
+    'arrowColor': #999,
+    'iconColor': #999,
+    'disableBg': #d3d6da,
+    'disableBorder': #cbcdd1,
+    'errorBackground': #ffebf2,
+    'errorBorder': #f5e2e8,
+    'errorArrow': null,
+    'successElement': null,
+    'successBorder': null,
+), $customFieldColorsAlt);
+
+/// Конфиг для формирования цветовой палитры на CSS-переменных
+///
+/// Для каждого цвета из @mainColors, @fieldColors (а также для @mainColorsAlt и @fieldColorsAlt в случае использования дополнительной альтернативной цветовой схемы) генерируются соответствующие CSS-переменные с разными настройками яркости и прозрачности. Для генерации css-переменных используется миксин @makeCssColorVars
+///
+/// @name cssVarsConfig
+///
+/// @prop {list} colorTones [(5, 10, 20)] - степени изменения яркости, целые числа от 0 до 100
+/// @prop {list} opacities [(0, 1, 2, 4, 6, 8)] - степени изменения прозрачности, целые числа от 0 до 10
+$customCssVarsConfig: () !default;
+$cssVarsConfig: map-merge((
+    'colorTones': (5, 10, 20),
+    'opacities': (0, 1, 2, 4, 6, 8),
+), $customCssVarsConfig);

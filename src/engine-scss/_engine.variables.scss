@@ -5,26 +5,23 @@
 ////
 @import 'app.variables';
 
+@import './engine-vars/01.radius';
+@import './engine-vars/02.four-elements';
+@import './engine-vars/03.colors';
+@import './engine-vars/04.text';
+@import './engine-vars/05.form';
+@import './engine-vars/06.profile';
+@import './engine-vars/07.buttons';
+@import './engine-vars/08.layout';
+
 $customGap: () !default;
-$customRadius: () !default;
 $customSize: () !default;
 $customButton: () !default;
 $customTime: () !default;
-$customFont: () !default;
-$customForm: () !default;
 $customModalSize: () !default;
-$customProfileSettings: () !default;
-$customProfileSettingsThemeFirst: () !default;
-$customBaseFourElements: () !default;
 
 $customVars: () !default;
-$customButtonSettings: () !default;
 
-$customMainColors: () !default;
-$customFieldColors: () !default;
-$customMainColorsAlt: () !default;
-$customFieldColorsAlt: () !default;
-$customCssVarsConfig: () !default;
 $customBaseVariables: () !default;
 
 $baseVariables: map-merge((
@@ -45,144 +42,6 @@ $baseVariables: map-merge((
 @function size-func($value: 1, $units: 1px) {
     @return map-get($baseVariables, 'baseSize') * $value * $units;
 }
-
-/// Основные цвета проекта из дизайна.
-///
-/// @name mainColors
-///
-/// @prop {Color} main [#7f7cff] - main color
-/// @prop {Color} secondary [#1dc0c0] - secondary color
-/// @prop {Color} baseMain [#fff] - base main color
-/// @prop {Color} buttonColor [#7f7cff] - button color
-/// @prop {color} baseOpacity [rgba(147, 158, 183, 0.5)] - base color with transparency
-/// @prop {color} bg100 [#515f84] - background color gradation 100
-/// @prop {color} bg300 [#50566c] - background color gradation 300
-/// @prop {color} bg500 [#50566c] - background color gradation 500
-/// @prop {color} bg700 [#3d4150] - background color gradation 700
-/// @prop {color} bg [#1f1f26] - background color
-/// @prop {color} bgModal [#3d4150] - modal background color
-/// @prop {color} elementsColor [#c4c4c4] - elements color
-/// @prop {color} error [#d96969] - error color
-/// @prop {color} success [#45c195] - success color
-/// @prop {color} warning [#ffa756] - warning color
-/// @prop {color} disabled [#c4c4c4] - disabled color
-$mainColors: map-merge((
-    'main': #7f7cff,
-    'secondary': #1dc0c0,
-    'baseMain': #fff,
-    'baseContrast': #000,
-    'buttonColor': #7f7cff,
-    'baseOpacity': rgba(147, 158, 183, 0.5),
-    'bg100': #515f84,
-    'bg300': #50566c,
-    'bg500': #43485c,
-    'bg700': #3d4150,
-    'bg': #1f1f26,
-    'bgModal': #2e313d,
-    'elementsColor': #c4c4c4,
-    'error': #d96969,
-    'success': #45c195,
-    'warning': #ffa756,
-    'disabled': #c4c4c4,
-    'black': #000,
-), $customMainColors);
-
-/// Основные цвета для альтернативной цветовой схемы
-/// По набору полей совпадают с mainColors, по значениям - другие
-///
-/// @name mainColorsAlt
-$mainColorsAlt: map-merge((
-    'main': #7f7cff,
-    'secondary': #1dc0c0,
-    'baseMain': #000,
-    'baseContrast': #fff,
-    'buttonColor': #7f7cff,
-    'baseOpacity': rgba(0, 0, 0, 0.5),
-    'bg100': #7f99be,
-    'bg300': #f2f5f8,
-    'bg500': #ccd6e5,
-    'bg700': #e5eaf2,
-    'bg': #fff,
-    'bgModal': #f2f5f8,
-    'elementsColor': null,
-    'error': #d96969,
-    'success': #45c195,
-    'warning': #ffa756,
-    'disabled': #c4c4c4,
-), $customMainColorsAlt);
-
-/// Цвета ui элементов из дизайна.
-///
-/// @name fieldColors
-///
-/// @prop {color} labelColor [#8693c4] - label color
-/// @prop {color} inputBg [#fff] - input background color
-/// @prop {color} borderColor [#5d6476] - border color
-/// @prop {color} textColor [#000] - text color
-/// @prop {color} placeholderColor [#5d6476] - placeholder color
-/// @prop {color} disabledPlaceholderColor [#5d6476] - disabled placeholder color
-/// @prop {color} arrowColor [#5d6476] - arrow color
-/// @prop {color} iconColor [#5d6476] - icon color
-/// @prop {color} disableBg [#1f1f26] - disable background color
-/// @prop {color} disableBorder [#2f3141] - disable border
-/// @prop {color} errorBackground [#ffebf2] - error background
-/// @prop {color} errorBorder [#f5e2e8] - error border
-/// @prop {color} errorArrow [#ffbcd5] - error arrow
-/// @prop {color} successElement [#45c195] - success element
-/// @prop {color} successBorder [#acf6d3] - success border
-$fieldColors: map-merge((
-    'labelColor': #8693c4,
-    'inputBg': #fff,
-    'borderColor': #5d6476,
-    'textColor': #000,
-    'placeholderColor': #5d6476,
-    'disabledPlaceholderColor': #5d6476,
-    'arrowColor': #5d6476,
-    'iconColor': #5d6476,
-    'disableBg': #1f1f26,
-    'disableBorder': #2f3141,
-    'errorBackground': #ffebf2,
-    'errorBorder': #ffb8d1,
-    'errorArrow': #ffbcd5,
-    'successElement': #45c195,
-    'successBorder': #acf6d3,
-), $customFieldColors);
-
-/// Цвета ui элементов из дизайна для альтернативной цветовой схемы.
-/// По набору полей совпадают с fieldColors
-///
-/// @name fieldColorsAlt
-$fieldColorsAlt: map-merge((
-    'labelColor': #7d7d7d,
-    'inputBg': #fff,
-    'borderColor': #c0c0c0,
-    'textColor': #000000,
-    'placeholderColor': #999,
-    'disabledPlaceholderColor': null,
-    'arrowColor': #999,
-    'iconColor': #999,
-    'disableBg': #d3d6da,
-    'disableBorder': #cbcdd1,
-    'errorBackground': #ffebf2,
-    'errorBorder': #f5e2e8,
-    'errorArrow': null,
-    'successElement': null,
-    'successBorder': null,
-), $customFieldColorsAlt);
-
-/// Конфиг для формирования цветовой палитры на CSS-переменных
-///
-/// Для каждого цвета из @mainColors, @fieldColors (а также для @mainColorsAlt и @fieldColorsAlt в случае использования дополнительной альтернативной цветовой схемы) генерируются соответствующие CSS-переменные с разными настройками яркости и прозрачности. Для генерации css-переменных используется миксин @makeCssColorVars
-///
-/// @name cssVarsConfig
-///
-/// @prop {list} colorTones [(5, 10, 20)] - степени изменения яркости, целые числа от 0 до 100
-/// @prop {list} opacities [(0, 1, 2, 4, 6, 8)] - степени изменения прозрачности, целые числа от 0 до 10
-$cssVarsConfig: map-merge((
-    'colorTones': (5, 10, 20),
-    'opacities': (0, 1, 2, 4, 6, 8),
-), $customCssVarsConfig);
-
 
 /// Размеры отступов на сайте.
 /// Здесь перечислены все возможные отступы и поля для всех стандартных элементов на сайте.
@@ -222,99 +81,6 @@ $size: map-merge((
     )
 ), $customSize);
 
-/// Размеры скругления элементов на сайте.
-/// Здесь перечислены все возможные значения скругления для всех стандартных элементов на сайте.
-/// Если в дизайне используются другие значения, то по умолчанию для WLC проектов необходимо
-/// округлять значения до используемых в данной палитре.
-///
-/// @name radius
-///
-/// @prop {Size} smaller [2px] - smaller
-/// @prop {Size} small [4px] - small
-/// @prop {Size} less [6px] - less
-/// @prop {Size} main [8px] - main
-/// @prop {Size} biger [10px] - biger
-/// @prop {Size} big [20px] - big
-$dummy: map-merge((), $customRadius);
-$radius: map-merge((
-    'smaller': 2px,
-    'small': 4px,
-    'less': 6px,
-    'main': 8px,
-    'biger': 10px,
-    'big': 20px,
-    'large': 100px,
-), $customRadius);
-
-/// Размеры шрифта сайта.
-/// По умолчанию используются относительные размеры в REM единицах. Значение `base` задаёт базовый размер,
-/// по отношению к которому выставляются остальные размеры. Базовый размер не используется в SASS файлах напрямую,
-/// он необходим для задания свойства `font-size` для элемента `html` в стилях сайта.
-///
-/// @name font
-///
-/// @prop {Size} base [18px] - base
-/// @prop {Size} small [0.6rem] - small
-/// @prop {Size} smaller [0.8rem] - smaller
-/// @prop {Size} less [0.9rem] - less
-/// @prop {Size} main [1rem] - main
-/// @prop {Size} biger [1.2rem] - biger
-/// @prop {Size} big [2rem] - big
-/// @prop {Size} huge [3.2rem] - huge
-/// @prop {Size} monster [4rem] - monster
-$dummy: map-merge((), $customFont);
-$font: map-merge((
-    'base': 1.8rem,
-    'small': 0.6rem,
-    'smaller': 0.8rem,
-    'less': 0.9rem,
-    'main': 1rem,
-    'biger': 1.2rem,
-    'big': 2rem,
-    'huge': 3.2rem,
-    'monster': 4rem,
-    'SignText': 1rem,
-    'CaptionText': 1.2rem,
-    'PrimaryText': 1.4rem,
-    'ButtonText': 1.4rem,
-    'PlaceholderText': 1.6rem,
-    'ThirdTitle': 1.6rem,
-    'PromoTitle': 3.6rem,
-    'ScreamTitle': 4.8rem,
-    'SignTextBold': 1rem,
-    'CaptionTextBold': 1.2rem,
-    'PrimaryTextBold': 1.4rem,
-    'ThirdTitleBold': 1.6rem,
-    'QoteTextBold': 2.4rem,
-    'QoteTextBoldSmaller': 2rem,
-    'QoteTextBoldTight': 2.4rem,
-    'PlaceholderTextBold': 1.6rem,
-), $customFont);
-
-/// Font weight for text mixins.
-///
-/// @name fontWeight
-///
-$customFontWeight: () !default;
-$fontWeight: map-merge((
-    'SignText': normal,
-    'PlaceholderText': normal,
-    'PrimaryText': normal,
-    'CaptionText': normal,
-    'CaptionTextBold': bold,
-    'ButtonText': bold,
-    'ThirdTitle': normal,
-    'PromoTitle': bold,
-    'ScreamTitle': bold,
-    'SignTextBold': bold,
-    'PrimaryTextBold': bold,
-    'ThirdTitleBold': bold,
-    'QoteTextBold': bold,
-    'QoteTextBoldSmaller': bold,
-    'QoteTextBoldTight': bold,
-    'PlaceholderTextBold': bold,
-), $customFontWeight);
-
 /// Значения длительности анимации.
 /// В основном используются в свойстве `transition`.
 ///
@@ -329,99 +95,6 @@ $time: map-merge((
     'main': 0.3s,
     'long': 0.5s,
 ), $customTime);
-
-/// Параметры элементов форм, используемых на сайте.
-///
-/// @name form
-///
-/// @prop {Color} errorColor [#ea5555] - Цвет сообщений об ошибках валидации элемента формы.
-/// @prop {Color} successColor [#65cb6a] - Цвет сообщения об успешной валидации элемента формы.
-///
-/// @prop {Size} maxWidth [765px] - Максимальная ширина формы. В настоящее время не используется.
-///
-/// @prop {Size} labelFontWeight [normal] - Начертание заголовка элемента формы.
-/// @prop {Color} labelColor [#e2e2e2] - Цвет шрифта заголовка элемента формы.
-/// @prop {Size} labelFontSize [0.8rem] - Размер шрифта заголовка элемента формы.
-///
-/// @prop {Color} inputColor [#000000] - Цвет вводимого текста в элементы `<input>, <select>, <textarea>`.
-/// @prop {Size} inputFontSize [1rem] - Размер шрифта элементов `<input>, <select>, <textarea>`.
-/// @prop {Size} inputHeight [40px] - Высота элементов `<input>, <select>`.
-/// @prop {Color} inputBackground [#ffffff] - Фон элементов `<input>, <select>, <textarea>`.
-/// @prop {Border} inputBorder [2px solid #adadad] - Граница элементов `<input>, <select>, <textarea>`.
-/// @prop {Color} inputBorderFocusColor [#adadad] - Цвет границы активных элементов `<input>, <select>, <textarea>`.
-/// @prop {Size} inputBorderRadius [8px] - Размер скругления элементов `<input>, <select>, <textarea>`.
-/// @prop {Padding} inputPadding [5px 40px 5px 20px] - Поля элементов `<input>, <select>, <textarea>`.
-/// @prop {Align} inputTextAlign [left] - Выравнивание текста внутри элементов `<input>, <select>, <textarea>`.
-///
-/// @prop {Size} selectDropdownHeight [300px] - Максимальная высота выпадающего списка элемента `<select>`.
-/// @prop {Time} selectDropdownItemTransition [0.3s ease-in-out background] - Анимация элементов выпадающего списка `<select>` по наведению.
-///
-/// @prop {Color} selectArrowColor [#000000] - Цвет стрелки элемента `<select>`.
-/// @prop {Size} iconWidth [12px] - Высота иконки валидации для элементов формы.
-/// @prop {Size} iconHeight [12px] - Ширина иконки валидации для элементов формы.
-/// @prop {Size} iconRightShift [15px] - Сдвиг иконки валидации элемента формы от правого края.
-/// @prop {Color} successIconColor [#65cb6a] - Цвет иконки валидации при успехе.
-/// @prop {Color} errorIconColor [#ea5555] - Цвет иконки валидации при ошибке.
-/// @prop {Color} pendingIconColor [#adadad] - Цвет иконки валидации в состоянии передачи данных формой.
-///
-/// @prop {Color} errorsBgColor [#f08282] - Цвет фона сообщения об ошибке.
-/// @prop {Color} errorsColor [#ea5555] - Цвет Текста сообщения об ошибке.
-/// @prop {Size} errorsMinWidth [300px] - Минимальный размер элемента вывода сообщения об ошибке.
-/// @prop {Size} errorsMaxWidth [100%] - Максимальный размер элемента вывода сообщения об ошибке.
-/// @prop {Size} errorsBorderRadius [8px] - Размер скругления элемента вывода сообщения об ошибке.
-/// @prop {Size} errorsFontSize [0.8rem] - Размер шрифта сообщения об ошибке.
-/// @prop {Size} errorsPadding [10px] - Поля элемента вывода сообщения об ошибке.
-///
-/// @prop {Size} placeholderFontSize [0.8rem] - Размер шрифта `placeholder` элемента формы.
-/// @prop {Size} placeholderPadding [0 20px] - Поля `placeholder` элемента формы.
-/// @prop {Size} placeholderShift [-40px] - Сдвиг `placeholder` элемента формы.
-$dummy: map-merge((), $customForm);
-$form: map-merge((
-    'maxWidth': 765px,
-
-    'labelFont': (
-        375: 'SignText',
-        1630: 'CaptionText',
-    ),
-    'labelMinHeight': 20px,
-    'labelAlignItems': center,
-    'labelMargin': 0 0 0 size-func(2),
-    'labelColor': var(--fc-labelColor),
-
-    'inputColor': var(--fc-textColor),
-    'inputTextStyle': 'PlaceholderText',
-    'inputFontSize': map-get($font, 'main'),
-    'inputHeight': 40px,
-    'inputBackground': var(--fc-inputBg),
-    'inputBorder': 2px solid var(--fc-borderColor),
-    'inputBorderFocusColor': var(--fc-borderColor),
-    'inputBorderRadius': map-get($radius, 'biger'),
-    'inputPadding': size-func(2) size-func(8) size-func(2) size-func(2),
-    'selectDropdownPadding': size-func(2),
-    'inputTextAlign': left,
-    'selectDropdownHeight': 300px,
-    'selectDropdownItemTransition': (map-get($time, 'main') ease-in-out background),
-    'selectDroprownItemBgActive': var(--fc-inputBg-d20),
-    'selectArrowColor': var(--fc-arrowColor),
-    'iconWidth': 12px,
-    'iconHeight': 12px,
-    'iconRightShift': 15px,
-    'successIconColor': var(--fc-successElement),
-    'errorIconColor': var(--fc-errorArrow),
-    'pendingIconColor': map-get($fieldColors, 'disabledBorder'),
-    'errorsBgColor': var(--fc-errorBackground),
-    'errorsColor': var(--fc-textColor),
-    'errorsMinWidth': 300px,
-    'errorsMaxWidth': 100%,
-    'errorsBorderRadius': map-get($radius, 'biger'),
-    'errorsBorderColor': var(--fc-errorBorder),
-    'errorsFontSize': map-get($font, 'smaller'),
-    'errorsPadding': size-func(2),
-    'placeholderFontSize': map-get($font, 'smaller'),
-    'placeholderPadding': 0 size-func(4),
-    'placeholderShift': size-func(-6),
-    'textareaMinHeight': 115px,
-), $customForm);
 
 /// Breakpoints для CSS медиа-запросов.
 ///
@@ -627,95 +300,6 @@ $containerPadding: map-merge((
     )
 ), $customContainerPadding);
 
-$dummy: ();
-$buttonSettings: map-merge((
-    'alignItems': center,
-    'justifyContent': center,
-    'scaleParam': 0.9,
-    // Size
-    'minWidth': 110px,
-    'heightSmall': 35px,
-    'heightDefault': (
-        375: 40px,
-    ),
-    'heightLarge': 50px,
-    // Font
-    'fontSize': map-get($font, 'less'),
-    'fontWeight': bold,
-    'fontColor': map-get($mainColors, 'baseMain'), // Locked color
-    'fontColorActive': var(--mc-baseMain),
-    'fontColorSecondary': var(--mc-baseMain),
-    'fontColorSecondaryHover': var(--mc-baseMain),
-    'fontColorActiveSecondary': var(--mc-baseMain),
-    // Transform
-    'textTransform': initial,
-    // Background
-    'background': var(--mc-buttonColor),
-    'backgroundHover': var(--mc-buttonColor-l20),
-    'backgroundSecondary': transparent,
-    'backgroundSecondaryHover': var(--mc-secondary-o2),
-    'backgroundSecondaryActive': var(--mc-buttonColor),
-    'backgroundSecondaryActiveHover': var(--mc-buttonColor),
-    'backgroundResolve': var(--mc-success),
-    'backgroundResolveHover': var(--mc-success-d20),
-    'backgroundReject': var(--mc-error),
-    'backgroundRejectHover': var(--mc-error-d20),
-    'backgroundDisabled': var(--mc-disabled),
-    'backgroundDisabledHover': var(--mc-disabled-d20),
-    // Shadow
-    'shadow': none,
-    'shadowHover': none,
-    'shadowSecondary': none,
-    'shadowHoverSecondary': none,
-    //Border
-    'borderDefault': 2px solid transparent,
-    'borderRadiusDefault': map-get($radius, 'biger'),
-    'borderDefaultHover': 2px solid var(--mc-buttonColor-l20),
-    'borderSecondary': 2px solid var(--mc-secondary),
-    'borderSecondaryHover': 2px solid var(--mc-secondary),
-    'borderSecondaryActive': 2px solid var(--mc-buttonColor),
-    'borderSecondaryActiveHover': 2px solid var(--mc-buttonColor),
-    'borderColorRead': var(--mc-baseOpacity),
-    //Padding
-    'padding': size-func(1) size-func(4),
-    'gap': size-func(1),
-    // Animation
-    'time': map-get($time, 'main'),
-    'radiusRoundingTheme': 100px,
-    'pendingAnimation': spin 1s infinite linear,
-    'pendingSkewTransform': translate(-50%, -50%) skew(20deg, 0),
-    // Animation Main
-    'mainAnimation': buttonPulse 12.5s infinite cubic-bezier(0.7, 0, 0, 1),
-    'mainBoxShadowAnimationStart': 0 0 0 0 var(--mc-buttonColor),
-    'mainBoxShadowAnimationEnd': 0 0 0 10px var(--mc-buttonColor-o0),
-    // Animation Secondary
-    'secondaryAnimation': buttonPulseSecondary 12.5s infinite cubic-bezier(0.7, 0, 0, 1),
-    'secondaryBoxShadowAnimationStart': 0 0 0 0 var(--mc-secondary),
-    'secondaryBoxShadowAnimationEnd': 0 0 0 10px var(--mc-secondary-o0),
-    // Transform
-    'transformSkew': skew(-20deg, 0),
-    'transformSkewText': skew(20deg, 0),
-    // Disabled button
-    'disabledBg': var(--mc-buttonColor-o6),
-    'disabledBgHover': var(--mc-buttonColor-o6),
-    'disabledColor': var(--mc-baseMain-o6),
-    'disabledColorHover': var(--mc-baseMain-o6),
-    'disabledShadow': none,
-    'disabledShadowHover': none,
-    'disabledBorder': none,
-    'disabledBorderHover': none,
-    'disabledCursor': not-allowed,
-    // Disabled secondary button
-    'disableSecondarydBg': transparent,
-    'disabledSecondaryBgHover': transparent,
-    'disabledSecondaryColor': var(--mc-baseMain-o6),
-    'disabledSecondaryColorHover': var(--mc-baseMain-o6),
-    'disabledSecondaryShadow': none,
-    'disabledSecondaryShadowHover': none,
-    'disabledSecondaryBorder': 2px solid var(--mc-secondary-o6),
-    'disabledSecondaryBorderHover': 2px solid var(--mc-secondary-o6),
-), $customButtonSettings);
-
 $customStickyHeader: () !default;
 $stickyHeader: map-merge((
     'headerBackground': var(--mc-bg),
@@ -730,149 +314,6 @@ $stickyHeader: map-merge((
         1630: 70px
     ),
 ), $customStickyHeader);
-
-/// Глобальные настройки лейаута. В качестве параметров принимает map,
-/// состоящий из ключа (название родительского класса или глобально для всех "all")
-/// и листа с перечнем классов.
-///
-/// @name customLayoutGap
-$customLayoutGap: () !default;
-$layoutGap: map-merge((
-    'all': (
-        '.wlc-sections__categories',
-        '.wlc-sections__content-games-first',
-        '.wlc-sections__content-games-second',
-        '.wlc-sections__content-games-third',
-        '.wlc-sections__content-games-top',
-        '.wlc-sections__content-games-bottom',
-        '.wlc-sections__content-games',
-        '.wlc-sections__content-wins',
-        '.wlc-sections__total-jackpot',
-        '.wlc-sections__total-jackpot-interactive',
-        '.wlc-sections__promo-categories',
-        '.wlc-sections__promo-bonuses',
-        '.wlc-sections__home-promo',
-        '.wlc-sections__winners-section',
-        '.wlc-sections__content-games-vertical',
-        '.wlc-sections__loyalty-program',
-        '.wlc-sections__game-widgets',
-        '.wlc-sections__providers',
-        '.wlc-sections__content-games-vertical',
-        '.wlc-sections__content-wins-transparent',
-        '.wlc-sections__random-games',
-        '.wlc-sections__banner-promotion',
-        '.wlc-sections__four-elements',
-    ),
-    '.app-contacts-state': (
-        '.wlc-sections__info-page'
-    ),
-    '[class*=\'app-profile-\']': (
-        '.wlc-sections__profile-content',
-    ),
-), $customLayoutGap);
-
-$customAppLoader: () !default;
-$appLoader: map-merge((
-    'background': linear-gradient(315deg, var(--mc-bg700) 0%, var(--mc-bg) 75%),
-    'imgBlockPadding': 80px,
-    'imgBlockWidth': 300px,
-    'imgBgUrl': url('/static/images/logo.svg'),
-    'imgBgAltUrl': null,
-    'imgBgRepeat': no-repeat,
-    'imgBgPosition': center,
-    'imgBgSize': contain,
-    'loaderBlockMargin': 20px auto 0,
-    'loaderWidth': 50px,
-    'loaderHeight': 50px,
-    'loaderBorder': 2px solid var(--mc-main),
-
-    'loaderAnime': default, //default, dots1, dots2, dots3, circle, circle2, flip, pulse, jelly
-    'useBgAnime': false,
-
-    //Default
-    'defAnimeSpeed': 1.5s,
-    'defAnimeEasing': cubic-bezier(0.075, 0.82, 0.165, 1),
-
-    //Bg anime
-    'bgAnimeSpeed': 6s,
-    'bgAnimeEasing': ease,
-
-    //Pulse logo
-    'pulseAnimeSpeed': 1.7s,
-    'pulseAnimeEasing': ease-in-out,
-
-    //Dots1
-    'dots1Width': 80px,
-    'dots1LoaderDotSize': 13px,
-    'dots1LoaderDotRadius': 50%,
-    'dots1LoaderDotBg': var(--mc-main),
-    'dots1LoaderAnimeSpeed': 0.6s,
-
-    //Dots2
-    'dots2gap': 15px,
-    'dots2Margin': 30px auto 0,
-    'dots2LoaderWidth': 13px,
-    'dots2LoaderHeight': 13px,
-    'dots2LoaderRadius': 50%,
-    'dots2LoaderBg': transparent,
-    'dots2LoaderAnimeEasing': ease-in-out,
-    'dots2LoaderAnimeSpeed': 1.2s,
-    'dots2LoaderAnimeStep': 0.2s,
-    'dots2LoaderShadow': 0 30px 15px var(--mc-main-o6),
-    'dots2LoaderInnerShadow': inset 0 -1px 1px 1px var(--mc-main-l5),
-
-    //Dots3
-    'dots3Gap': 10px,
-    'dots3DotBg': var(--mc-main),
-    'dots3DotSize': 20px,
-    'dots2DotRadius': 50%,
-    'dots3AnimeSpeed': 1.7s,
-    'dots3AnimeEasing': 'linear',
-    'dots3InnerBg': var(--mc-bg700),
-
-    //Circle
-    'circleLoaderSize': 80px,
-    'circleLoaderWidthСoef': 0.8,
-    'circleWrapperBg': radial-gradient(var(--mc-bg700) 15%, var(--mc-bg)),
-    'circleLoaderBg': var(--mc-bg700),
-    'circleLoaderOuterShadow': (5px 5px 10px var(--mc-bg700-d20), -5px -5px 10px var(--mc-bg700-l10)),
-    'circleLoaderInnerShadow': (inset 3px 3px 7px var(--mc-bg700-d20), inset -3px -3px 7px var(--mc-bg700-l10)),
-    'circleLoaderSpinnerSize': 20px,
-    'circleLoaderSpinnerRadius': null,
-    'circleLoaderSpinnerBg': var(--mc-main),
-    'circleLoaderAnimeSpeed': 1.5s,
-    'circleLoaderAnimeEasing': cubic-bezier(0.2, 0.75, 0.75, 0.2),
-
-    //Circle2
-    'circle2Height': 0,
-    'circle2Margin': -70px 0 0,
-    'circle2LoaderSize': 200px,
-    'circle2LoaderTransform':  perspective(200px) rotateX(75deg),
-    'circle2LoaderBorder': 4px solid var(--mc-bg700-d10),
-    'circle2AnimeSpeed': 1.2s,
-    'circle2mainColor': var(--mc-main),
-    'circle2SecondaryColor': var(--mc-secondary),
-
-    //Flip
-    'flipLoaderBg': var(--mc-main),
-    'flipLoaderBgSecondary': var(--mc-secondary),
-    'flipLoaderAnimeSpeed': 1.5s,
-    'flipLoaderAnimeEasing': linear,
-    'flipLoaderWidth': 40px,
-    'flipLoaderHeight': 40px,
-    'flipLoaderRadius': map-get($radius, 'smaller'),
-
-    // Jelly
-    'jellyLoaderSize': 40px,
-    'jellyLoaderBg': var(--mc-main),
-    'jellyLoaderRadius': map-get($radius, 'smaller'),
-    'jellyShadowSize': 5px,
-    'jellyShadowBg': var(--mc-bg-d20),
-    'jellyShadowPosTop': 50px,
-    'jellyAnimeSpeed': 500ms,
-    'jellyAnimeEasing': linear,
-    'jellyShadowOpacity': 1,
-), $customAppLoader);
 
 $customAppOffline: () !default;
 $appOffline: map-merge((
@@ -901,47 +342,6 @@ $thumbAnimation: map-merge((
     'thumbAnimationEffects': 'default',
 ), $customThumbAnimation);
 
-$customTableBtnBlock: () !default;
-$tableBtnBlock: map-merge((
-    'btnLeft': 50%,
-    'btnZIndex': 10,
-    'btnTransform': translateX(-50%),
-    'btnJustify': center,
-    'btnAlign': (
-        375: flex-start,
-        1024: center,
-    ),
-    'btnBlockMinWidth': (
-        1024: 110px,
-    ),
-    'btnBlockMinWidthFirst': (
-        375: auto,
-        1200: 110px
-    ),
-    'btnBlockPadding': (
-        375: 0 0 45px,
-        1024: 0,
-    ),
-    'btnBlockPaddingFirst': (
-        375: 0 0 45px,
-        1024: 0 0 45px,
-        1200: 0,
-    ),
-    'btnBottom': (
-        375: size-func(2),
-        1024: auto,
-    ),
-    'btnBottomFirst': (
-        375: size-func(2),
-        1024: size-func(2),
-        1200: auto,
-    ),
-    'btnActionDisplayFirst': (
-        375: block,
-        1200: none,
-    ),
-), $customTableBtnBlock);
-
 $customTagConfig: () !default;
 $tagConfig: map-merge((
     'textStyle': 'SignText',
@@ -967,7 +367,6 @@ $shadows: map-merge((
     'sm': 0 3px 10px rgba(0, 0, 0, 0.4),
     'lg': 0 0 20px rgba(0, 0, 0, 0.3),
 ), $customShadows);
-
 
 /// Reboot base variables.
 ///
@@ -1045,80 +444,3 @@ $scrollbarConfig: (
     'margin': 5px,
     'borderRadius': map-get($radius, 'less'),
 );
-
-
-
-/// Общие стили компонента four-elements
-$dummy: map-merge((), $customBaseFourElements);
-$baseFourElements: map-merge((
-    'titleColor': var(--mc-baseMain),
-    'titleTextStyle': (
-        375: 'ThirdTitleBold',
-        1630: 'QoteTextBold'
-    ),
-    'descTextStyle': (
-        375: 'CaptionText',
-        1630: 'PrimaryText'
-    ),
-    'descColor': var(--mc-baseMain),
-    'descMargin': (
-        375: none,
-    ),
-
-    'bodyGap': (
-        375: size-func(2),
-        1630: size-func(4),
-    ),
-    'bodyGridTemplateColumns': (
-        375: 1fr,
-        768: 72px auto,
-        1200: 85px auto,
-        1630: 100px auto,
-    ),
-    'bodyGridTemplateRows': (
-        375: 50px auto,
-        768: 1fr,
-    ),
-    'bodyBackground': var(--mc-bg700),
-    'bodyBackgroundHover': var(--mc-bg700-l10),
-
-    'contentTextAlign': (
-        375: center,
-        768: start,
-    ),
-    'imageHeight': (
-        375: 50px,
-        1200: 60px,
-        1630: 70px,
-    ),
-    'imageWidth': (
-        375: 72px,
-        1200: 85px,
-        1630: 100px,
-    ),
-
-    'wrapOverflow': null,
-    'wrapBottom': (
-        375: null,
-    ),
-    'wrapLeft': (
-        375: null,
-    ),
-    'wrapWidth': (
-        375: 100%,
-    ),
-    'wrapHeight': (
-        375: 100%,
-    ),
-    'iconTranslate': null,
-    'iconMargin': (
-        375: 0 auto,
-    ),
-    'iconWidth': (
-        375: 100%,
-    ),
-    'iconMaxHeight': (
-        375: 100%,
-    ),
-    'iconObjectFit': contain,
-), $customBaseFourElements);
