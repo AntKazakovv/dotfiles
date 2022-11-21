@@ -148,7 +148,7 @@
 </ng-template>
 
 <ng-template #noData>
-    <ng-container *ngIf="isReady; esle loader">
+    <ng-container *ngIf="isReady; else loader">
 
         <ng-container *ngIf="!$params.inProfile; else noDataInProfile">
 
