@@ -15,7 +15,7 @@ export type Type = 'default' | 'resolved' | 'rejected' | 'pending' | 'disabled' 
 export type Theme = 'default' | 'skew' | 'rounding' | 'circled' | 'borderless' | 'icon' | 'cleared' | 'resolve'
     | CustomType;
 export type Size = 'default' | 'small' | 'big' | CustomType;
-export type ThemeMod = 'default' | 'secondary' | 'readmore' | CustomType;
+export type ThemeMod = 'default' | 'secondary' | 'readmore' | 'textonly' | CustomType;
 export type Index = number | string | null;
 export type AutoModifiers = Theme | Size | ThemeMod | 'loading';
 export type CustomMod = string;

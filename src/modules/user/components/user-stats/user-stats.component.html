@@ -1,5 +1,23 @@
 <div class="{{$class}}__content" [ngSwitch]="type">
 
+    <ng-template [ngSwitchCase]="'mobile'">
+        <div class="{{$class}}-balance {{$class}}-balance--mobile" data-wlc-element="block_info">
+            <div class="{{$class}}-balance__item {{$class}}-balance__real" data-wlc-element="user-stat-balance_total">
+                <span class="value">
+                    <span wlc-currency [value]="+shownUserStats.balance?.value + +shownUserStats.bonusBalance?.value"></span>
+                </span>
+            </div>
+        </div>
+        <button
+            wlc-button
+            theme="cleared"
+            customMod="deposit"
+            iconPath="/wlc/icons/deposit-icon.svg"
+            sref="app.profile.cash.deposit"
+            wlcElement="button-deposit"
+        ></button>
+    </ng-template>
+
     <ng-template [ngSwitchCase]="'short'">
         <div class="{{$class}}-balance {{$class}}-balance--short" data-wlc-element="block_info">
             <div class="{{$class}}-balance__item {{$class}}-balance__real" data-wlc-element="user-stat-balance_real">

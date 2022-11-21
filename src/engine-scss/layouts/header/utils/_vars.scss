@@ -151,6 +151,14 @@ $theme2Header: map-merge((
     'headerUserBtnRadius': 50%,
     'headerUserBtnFill': var(--mc-secondary),
     'headerSvgBtnHover': var(--mc-baseOpacity-d20),
+
+    'withBalanceBackground': var(--mc-bg700),
+    'withBalanceLogoBackground': var(--mc-bg),
+    'withBalanceBtnBackground': var(--mc-bg500),
+    'withBalanceMarginBottom': ef.size(6),
+    'withBalanceContainerHeight': ef.size(10),
+    'withBalanceBtnHeight': ef.size(7),
+
     'headerLoginBtnTabletPadding': (
         1200: ef.size(1) ef.size(2),
         1366: ef.size(1) ef.size(4)

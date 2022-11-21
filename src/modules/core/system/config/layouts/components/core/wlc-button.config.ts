@@ -182,6 +182,26 @@ export namespace wlcButton {
         },
     };
 
+    export const userIconMobile: ILayoutComponent = {
+        name: 'core.wlc-button',
+        display: {
+            auth: true,
+            before: 1199,
+        },
+        params: {
+            theme: 'cleared',
+            themeMod: 'secondary',
+            customMod: 'user',
+            common: {
+                iconPath: '/wlc/icons/user-icon.svg',
+                event: {
+                    name: 'PANEL_OPEN',
+                    data: 'right',
+                },
+            },
+        },
+    };
+
     export const userIconKiosk: ILayoutComponent = {
         name: 'core.wlc-button',
         display: {
@@ -339,6 +359,42 @@ export namespace wlcButton {
                 event: {
                     name: 'SHOW_MODAL',
                     data: 'login',
+                },
+            },
+        },
+    };
+
+    export const mobileLoginBtnV2: ILayoutComponent = {
+        name: 'core.wlc-button',
+        display: {
+            before: 1199,
+            auth: false,
+        },
+        params: {
+            themeMod: 'textonly',
+            common: {
+                customModifiers: 'mobile-login',
+                text: gettext('Login'),
+                event: {
+                    name: 'SHOW_MODAL',
+                    data: 'login',
+                },
+            },
+        },
+    };
+
+    export const mobileSignupBtn: ILayoutComponent = {
+        name: 'core.wlc-button',
+        display: {
+            before: 1199,
+            auth: false,
+        },
+        params: {
+            common: {
+                text: gettext('Sign up'),
+                event: {
+                    name: 'SHOW_MODAL',
+                    data: 'signup',
                 },
             },
         },

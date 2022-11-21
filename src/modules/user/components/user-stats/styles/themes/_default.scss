@@ -141,6 +141,30 @@
         }
     }
 
+    &.wlc-user-stats--type-mobile {
+
+        .wlc-user-stats__content {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: fit-content;
+            margin-left: auto;
+            background: ef.get-value($themeDefault, 'balanceBackgroundMobile');
+            border-radius: ef.get-value($themeDefault, 'balanceRadiusMobile');
+
+            .wlc-btn--deposit {
+                margin: ef.get-value($themeDefault, 'btnMarginMobile');
+            }
+        }
+
+        .wlc-user-stats-balance {
+            @include text.get-text-style(ef.get-value($themeDefault, 'valueTextStyle'), ef.get-value($themeDefault, 'valueTextColor'));
+            width: auto;
+            padding: ef.get-value($themeDefault, 'balancePaddingMobile');
+            background: unset;
+        }
+    }
+
     .wlc-dashboard-grid.without-store & {
         grid-area: user-stats;
 

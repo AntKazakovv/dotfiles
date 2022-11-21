@@ -75,6 +75,66 @@ export namespace header {
         ],
     };
 
+    export const theme2WithLogoSmall: ILayoutSectionConfig = {
+        replaceConfig: true,
+        order: 0,
+        theme: '2',
+        modifiers: ['with-balance-info'],
+        container: true,
+        components: [
+            componentLib.wlcButton.burger,
+            componentLib.wlcLogo.headerDesktopOnly,
+            componentLib.wlcLogo.headerLogoSmall,
+            componentLib.wlcMainMenu.header,
+            componentLib.wlcLoginSignup.header,
+            componentLib.wlcUserInfo.header,
+            componentLib.wlcUserStats.mobile,
+            componentLib.wlcButton.userIconMobile,
+            componentLib.wlcLanguageSelector.bottomLeft2,
+            componentLib.wlcButton.searchV2,
+            componentLib.wlcButton.mobileLoginBtnV2,
+            componentLib.wlcButton.mobileSignupBtn,
+        ],
+    };
+
+    export const theme2WithDoubleHeader: ILayoutSectionConfig = {
+        replaceConfig: true,
+        order: 0,
+        theme: '2',
+        modifiers: ['with-balance-info', 'with-top-logo'],
+        components: [
+            {
+                name: 'core.wlc-wrapper',
+                display: {
+                    before: 767,
+                },
+                params: {
+                    class: 'wlc-logo__wrapper',
+                    components: [componentLib.wlcLogo.header],
+                },
+            },
+            {
+                name: 'core.wlc-wrapper',
+                params: {
+                    class: 'container',
+                    components: [
+                        componentLib.wlcButton.burger,
+                        componentLib.wlcLogo.headerTabletOnly,
+                        componentLib.wlcMainMenu.header,
+                        componentLib.wlcLoginSignup.header,
+                        componentLib.wlcUserInfo.header,
+                        componentLib.wlcUserStats.mobile,
+                        componentLib.wlcButton.userIconMobile,
+                        componentLib.wlcLanguageSelector.bottomLeft2,
+                        componentLib.wlcButton.searchV2,
+                        componentLib.wlcButton.mobileLoginBtnV2,
+                        componentLib.wlcButton.mobileSignupBtn,
+                    ],
+                },
+            },
+        ],
+    };
+
     export const theme2themeToggler: ILayoutSectionConfig = {
         replaceConfig: true,
         order: 0,

@@ -22,6 +22,11 @@ $themeDefault: map-merge((
         375: 2px solid var(--mc-baseOpacity),
     ),
 
+    'balancePaddingMobile': ef.size(1) ef.size(2),
+    'balanceBackgroundMobile': var(--mc-bg500),
+    'balanceRadiusMobile': ef.get('radius', 'large'),
+    'btnMarginMobile': 0 3px 0 0,
+
     'btnMargin': ef.size(2) auto,
     'btnStickyMargin': ef.size(4) auto 0,
 

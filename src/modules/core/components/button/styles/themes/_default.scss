@@ -14,5 +14,9 @@
         &.wlc-btn--theme-mod-readmore {
             @include buttonReadMore;
         }
+
+        &.wlc-btn--theme-mod-textonly {
+            @include textOnly;
+        }
     }
 }

@@ -63,6 +63,16 @@
     }
 }
 
+@mixin textOnly {
+    min-width: unset;
+    background: unset;
+    border-color: transparent;
+
+    @include bm.hover {
+        border-color: ef.get-value($themeDefault, 'borderColorRead');
+    }
+}
+
 @mixin secondaryActiveState() {
 
     @include secondaryActiveStateStyles;
