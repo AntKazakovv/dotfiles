@@ -155,6 +155,7 @@ export class TransactionHistoryComponent extends AbstractComponent implements On
                 month: disableUntil.month,
                 day: disableUntil.day,
             },
+            alignSelectorRight: true,
         };
     }
 

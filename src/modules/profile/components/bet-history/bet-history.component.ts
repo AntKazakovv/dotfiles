@@ -128,6 +128,7 @@ export class BetHistoryComponent extends AbstractComponent implements OnInit {
                 month: disableUntil.month,
                 day: disableUntil.day,
             },
+            alignSelectorRight: true,
         };
     }
 
