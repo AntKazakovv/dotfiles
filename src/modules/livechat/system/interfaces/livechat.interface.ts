@@ -45,10 +45,16 @@ export interface ILivechatDefaultConfig {
     excludeStates?: string[]; // exclude states - chat will not shown
 }
 
+export interface ILiveChatTawkLangGroup {
+    code?: string;
+    subCode?: string;
+}
+
 export interface ILivechatTawkConfig
     extends ILivechatDefaultConfig {
         type: 'tawkChat';
         subCode?: string;
+        group?: IIndexing<ILiveChatTawkLangGroup>;
     }
 
 export interface ILivechatChatraConfig

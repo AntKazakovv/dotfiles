@@ -131,6 +131,7 @@ declare interface Window extends TAnalyticMethod {
     supportAPIMethod?: string;
     VerboxSetup?: IVerboxSetup;
     Tawk_API?: any,
+    tawk?: any;
     __lc?: any;
     LC_API?: any;
     LiveChatWidget?: any;
