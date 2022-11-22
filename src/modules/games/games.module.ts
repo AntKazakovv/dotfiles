@@ -15,7 +15,6 @@ import {GlobalHelper} from 'wlc-engine/modules/core';
 
 // System
 import {GamesCatalogService} from './system/services/games-catalog/games-catalog.service';
-import {GamesFilterService} from './system/services/games-filter.service';
 import {MerchantFieldsService} from './system/services/merchant-fields/merchant-fields.service';
 import {MerchantWalletService} from './system/services/merchant-wallet/merchant-wallet.service';
 import {IGamesConfig} from './system/interfaces/games.interfaces';
@@ -79,7 +78,6 @@ export const components = {
 
 export const services = {
     'games-catalog-service': GamesCatalogService,
-    'games-filter-service': GamesFilterService,
     'merchant-fields-service': MerchantFieldsService,
     'merchant-wallet-service': MerchantWalletService,
 };
@@ -121,7 +119,6 @@ export const services = {
     ],
     providers: [
         GamesCatalogService,
-        GamesFilterService,
         MerchantFieldsService,
         MerchantWalletService,
     ],

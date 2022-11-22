@@ -10,7 +10,6 @@ import {EventService} from 'wlc-engine/modules/core/system/services/event/event.
 import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
 import {ModalService} from 'wlc-engine/modules/core/system/services/modal/modal.service';
 import {InjectionService} from 'wlc-engine/modules/core/system/services/injection/injection.service';
-import {GamesFilterService} from 'wlc-engine/modules/games/system/services/games-filter.service';
 import {IModalConfig} from 'wlc-engine/modules/core/components/modal/modal.interface';
 import {WINDOW_PROVIDER} from 'wlc-engine/modules/app/system';
 
@@ -22,7 +21,6 @@ describe('ModalService', () => {
     let eventServiceSpy: jasmine.SpyObj<EventService>;
     let logServiceSpy: jasmine.SpyObj<LogService>;
     let injectionServiceSpy: jasmine.SpyObj<InjectionService>;
-    let gamesFilterServiceSpy: jasmine.SpyObj<GamesFilterService>;
 
     const existingModalId = 'test_modal';
     const nonExistingModalId = 'no_existing_modal';
@@ -43,22 +41,10 @@ describe('ModalService', () => {
             'LogService',
             ['sendLog'],
         );
-        gamesFilterServiceSpy = jasmine.createSpyObj(
-            'gamesFilterService',
-            ['delete'],
-            {
-                'ready': Promise.resolve(),
-            },
-        );
         injectionServiceSpy = jasmine.createSpyObj(
             'InjectionService',
-            ['loadComponent', 'getService'],
+            ['loadComponent'],
         );
-        injectionServiceSpy.getService.and.callFake((name: string): Promise<any> => {
-            if (name === 'games.games-filter-service') {
-                return Promise.resolve(gamesFilterServiceSpy);
-            }
-        });
 
         TestBed.configureTestingModule({
             imports: [

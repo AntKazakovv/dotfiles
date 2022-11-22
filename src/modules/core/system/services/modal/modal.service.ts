@@ -44,7 +44,6 @@ import {
     ProcessEventsDescriptions,
 } from 'wlc-engine/modules/monitoring';
 import {Deferred} from 'wlc-engine/modules/core/system/classes';
-import {GamesFilterService} from 'wlc-engine/modules/games/system/services/games-filter.service';
 
 import _assignIn from 'lodash-es/assignIn';
 import _isString from 'lodash-es/isString';
@@ -74,7 +73,6 @@ export class ModalService {
     protected activeModals: IActiveModal[] = [];
     protected closeQueue: string[] = [];
     protected $closeObserver: BehaviorSubject<number> = new BehaviorSubject(0);
-    protected gamesFilterService: GamesFilterService;
     protected readonly modalParams: IModalOptions = this.configService.get('$modals.modalParams') || {};
 
     constructor(
@@ -252,7 +250,7 @@ export class ModalService {
     /**
      * Init listeners of modal events
      */
-    private async initListeners(): Promise<void> {
+    private initListeners(): void {
         this.eventService.subscribe(
             {name: this.events.MODAL_HIDDEN},
             (id: string) => {
@@ -260,19 +258,10 @@ export class ModalService {
             },
         );
 
-        this.gamesFilterService
-            = await this.injectionService.getService<GamesFilterService>('games.games-filter-service');
-
         this.eventService.subscribe(
             {name: 'SHOW_MODAL'},
             (modalId: string) => {
-                this.showModal(modalId).then((modalComponent) => {
-                    modalComponent.closed.then((reason) => {
-                        if (reason !== 'closeAll') {
-                            this.gamesFilterService.delete('modal', true);
-                        }
-                    });
-                });
+                this.showModal(modalId);
             },
         );
 
