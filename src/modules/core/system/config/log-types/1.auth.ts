@@ -135,6 +135,9 @@ export const errorTypes: ILogTypes = {
         // Get UserInfo error
         level: 'fatal',
     },
+    '1.4.0': {
+        // Icon-list image error
+    },
     '1.4.1': {
         // Timeout when get bonuses on deposit/withdraw
     },

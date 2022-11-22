@@ -115,6 +115,7 @@ export class PaymentListComponent extends IconListAbstract<Params.IPaymentListCP
     public isCryptoInvoices: boolean;
     public activeTag$: BehaviorSubject<TPaySystemTagAll> = new BehaviorSubject(null);
     public catMenuTypeMain: TPaySystemsSwitcher;
+    public logImageError: string = '1.4.18';
 
     protected isDeposit: boolean;
     protected lastSucceedRes: number | null = null;

@@ -138,6 +138,7 @@
                 [showSvgAsImg]="true"
                 [iconUrl]="'wlc/icons/currencies/' + system.cryptoTicker + '.svg' | lowercase"
                 [fallback]="'gstatic/wlc/icons/currencies/def.svg'"
+                [logImageErrorChild]="logImageError"
             ></span>
             <span class="{{$class}}__name">{{system.name}}</span>
             <span *ngIf="system.cryptoTicker" class="{{$class}}__ticker">{{system.cryptoTicker}}</span>
@@ -164,6 +165,7 @@
                 [attr.data-wlc-element]="'block_payment-item-name'"
                 [attr.title]="system.name"
                 [inlineParams]='{icon: itemsMap.get(system.id), class: $class + "-item"}'
+                [logImageErrorChild]="logImageError"
                 (click)='selectPayment(system)'>
         </button>
         <div *ngIf="system.disabledBy"
