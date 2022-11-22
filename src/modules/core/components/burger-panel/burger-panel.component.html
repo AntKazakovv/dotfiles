@@ -1,7 +1,7 @@
-<ng-container *ngIf="$params.type === 'left-fixed' || $params.type === 'rigth-fixed'">
+<ng-container *ngIf="$params.type === 'left-fixed' || $params.type === 'right-fixed'">
     <div *ngIf="useBackdrop"
         class="{{$class}}__backdrop"
-        (click)="toggleFixedPanel(1)">
+        (click)="toggleFixedPanel(true)">
     </div>
 </ng-container>
 
@@ -11,7 +11,7 @@
 </ng-container>
 
 <ng-container *ngIf="$params.useScroll; else noScrollBar">
-    <div wlc-scrollbar 
+    <div wlc-scrollbar
         class="{{$class}}__content"
         [update]="updateScrollbar">
         <ng-container [ngTemplateOutlet]="innerContent"></ng-container>
@@ -57,7 +57,7 @@
 <ng-template #headerLeftTypeFixed>
     <div class="{{$class}}__header">
         <button class="{{$class}}__btn-expand {{$class}}__btn-expand--{{fixedPanelState$ | async}}"
-            (click)="toggleFixedPanel(1)">
+            (click)="toggleFixedPanel(true)">
             <span wlc-icon
                 iconPath="/wlc/icons/burger-expand.svg"
             ></span>

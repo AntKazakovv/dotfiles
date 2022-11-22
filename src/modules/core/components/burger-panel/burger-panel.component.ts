@@ -86,6 +86,7 @@ export class BurgerPanelComponent extends AbstractComponent
     public title: string;
     public headerMenuConfig: IWrapperCParams;
     public fixedPanelConfig: IFixedPanelConfig;
+    public fixedPanelState$: BehaviorSubject<TFixedPanelState>;
 
     protected isUseTouchEvents: boolean;
     protected hammer$: any; // HammerInstance
@@ -96,7 +97,6 @@ export class BurgerPanelComponent extends AbstractComponent
     protected animeType: string;
     protected collapsedByUser: boolean = false;
     protected isFixedPanel: boolean;
-    protected fixedPanelState$: BehaviorSubject<TFixedPanelState>;
 
     constructor(
         @Optional() @Inject('injectParams') protected injectParams: Params.IBurgerPanelCParams,
