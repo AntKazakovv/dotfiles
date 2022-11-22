@@ -104,12 +104,6 @@ export const $profileFirstLayouts: ILayoutsConfig = {
             'profile-content': sectionsLib.profileContent.profileWithdrawTypeFirst,
         },
     },
-    'app.profile.cash.wallet': {
-        extends: 'app.profile',
-        sections: {
-            'profile-content': sectionsLib.profileContent.empty,
-        },
-    },
     'app.profile.cash.transactions': {
         extends: 'app.profile',
         sections: {
@@ -183,12 +177,6 @@ export const $profileFirstLayouts: ILayoutsConfig = {
         },
     },
     'app.profile.limits': {
-        extends: 'app.profile',
-        sections: {
-            'profile-content': sectionsLib.profileContent.empty,
-        },
-    },
-    'app.profile.referrals': {
         extends: 'app.profile',
         sections: {
             'profile-content': sectionsLib.profileContent.empty,

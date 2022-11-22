@@ -56,9 +56,6 @@ export const profileConfig: IProfileConfig = {
     store: {
         use: false,
     },
-    referrals: {
-        use: false,
-    },
     dashboard: {
         use: true,
     },
@@ -69,9 +66,6 @@ export const profileConfig: IProfileConfig = {
         inventory: {
             use: false,
         },
-    },
-    wallet: {
-        use: false,
     },
     type: 'default',
     legalAge: 18,

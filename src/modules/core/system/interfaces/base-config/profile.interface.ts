@@ -63,9 +63,6 @@ export interface IProfileConfig {
          */
         singleLevels?: boolean;
     },
-    referrals?: {
-        use: boolean;
-    },
     dashboard?: {
         use: boolean;
     },
@@ -76,9 +73,6 @@ export interface IProfileConfig {
         inventory?: {
             use: boolean;
         },
-    },
-    wallet?: {
-        use: boolean;
     },
     socials?: {
         use: boolean;
