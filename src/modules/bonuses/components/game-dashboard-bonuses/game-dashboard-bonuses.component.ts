@@ -104,9 +104,8 @@ export class GameDashboardBonusesComponent extends AbstractComponent implements 
                         this.bonuses = this.bonusesService.sortBonuses(
                             this.bonusesService.filterBonuses(bonuses, this.filter),
                             this.$params.common?.sortOrder,
-                        );
-                        this.bonuses = this.bonuses.slice(0, 9);
-                        this.bonusesToSlides();
+                        ).slice(0, 9);
+                        this.bonusesToSlides(this.bonuses);
                         this.isReady = true;
                         this.cdr.markForCheck();
                     }
@@ -121,8 +120,8 @@ export class GameDashboardBonusesComponent extends AbstractComponent implements 
      * Transform bonuses to slides
      *
      */
-    protected bonusesToSlides(): void {
-        this.slides = this.bonuses?.map((bonus: Bonus) => {
+    protected bonusesToSlides(bonuses: Bonus[]): void {
+        this.slides = bonuses?.map((bonus: Bonus) => {
             return {
                 templateRef: this.tplBonus,
                 templateParams: {
@@ -148,7 +147,7 @@ export class GameDashboardBonusesComponent extends AbstractComponent implements 
                     && event.device.orientation == DeviceOrientation.Landscape;
                 if (this.landscapeOrientation !== landscapeOrientation) {
                     this.landscapeOrientation = landscapeOrientation;
-                    this.bonusesToSlides();
+                    this.bonusesToSlides(this.bonuses);
                 }
                 this.setDeviceModificators();
                 this.cdr.detectChanges();
@@ -161,7 +160,7 @@ export class GameDashboardBonusesComponent extends AbstractComponent implements 
                     return;
                 }
                 this.isMobile = type !== DeviceType.Desktop;
-                this.bonusesToSlides();
+                this.bonusesToSlides(this.bonuses);
                 this.setDeviceModificators();
                 this.cdr.markForCheck();
             });
