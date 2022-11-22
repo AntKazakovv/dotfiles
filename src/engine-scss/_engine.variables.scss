@@ -714,6 +714,9 @@ $customLayoutGap: () !default;
 $layoutGap: map-merge((
     'all': (
         '.wlc-sections__categories',
+        '.wlc-sections__content-games-first',
+        '.wlc-sections__content-games-second',
+        '.wlc-sections__content-games-third',
         '.wlc-sections__content-games-top',
         '.wlc-sections__content-games-bottom',
         '.wlc-sections__content-games',

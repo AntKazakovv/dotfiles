@@ -24,3 +24,6 @@ export * from './promo-about-us.section';
 export * from './sign-in-page.section';
 export * from './four-elements.section';
 export * from './sticky-footer.section';
+export * from './nav.section';
+export * from './user-info.section';
+export * from './search.section';

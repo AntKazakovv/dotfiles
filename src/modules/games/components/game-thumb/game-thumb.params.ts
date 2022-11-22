@@ -11,7 +11,7 @@ import * as ButtonParams from 'wlc-engine/modules/core/components/button/button.
 export type Type = 'default' | 'modal' | 'vertical' | 'promo-widget' | 'games-slider' | 'horizontal' | CustomType;
 export type Theme = 'default' | 'vertical' | 'promo-widget' | 'horizontal' | CustomType;
 export type ThemeMod = 'default' | 'vertical' | 'circle' | 'bottom-buttons' |
-    'bottom-all' | 'bottom-title' | 'transform' | CustomType;
+    'bottom-all' | 'bottom-title' | 'transform' | 'mobile-app' | CustomType;
 export type AutoModifiers = Theme | ThemeMod;
 export type CustomMod = string;
 export type Modifiers = AutoModifiers | CustomMod | null;

@@ -2,6 +2,13 @@ import {ILayoutSectionConfig} from 'wlc-engine/modules/core';
 import * as componentLib from '../components';
 
 export namespace content {
+    export const welcome: ILayoutSectionConfig = {
+        container: true,
+        components: [
+            componentLib.wlcWelcome.def,
+        ],
+    };
+
     export const empty: ILayoutSectionConfig = {
         container: true,
         components: [

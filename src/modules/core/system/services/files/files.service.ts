@@ -268,6 +268,10 @@ export class FilesService {
                 },
             ).toPromise();
 
+            if (_includes(res.body, '<!DOCTYPE')) {
+                return;
+            }
+
             this.fetchedFiles[url] = res.body;
             return res.body;
         } catch (e) {

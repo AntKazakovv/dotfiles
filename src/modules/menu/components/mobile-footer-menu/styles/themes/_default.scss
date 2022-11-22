@@ -1,0 +1,72 @@
+.wlc-mobile-footer-menu--theme-default:host::ng-deep {
+
+    .wlc-menu--theme-mobile-app {
+        display: flex;
+        gap: ef.get-value($themeDefault, 'menuGag');
+        align-items: center;
+        justify-content: space-between;
+        padding: ef.get-value($themeDefault, 'menuPadding');
+
+        .wlc-menu {
+
+            &__item {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                text-decoration: none;
+            }
+
+            &__icon {
+                position: relative;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: ef.get-value($themeDefault, 'iconSize');
+                height: ef.get-value($themeDefault, 'iconSize');
+                border-radius: ef.get-value($themeDefault, 'iconRadius');
+                line-height: 0;
+                background: ef.get-value($themeDefault, 'iconBg');
+            }
+
+            &__link-text {
+                @include text.get-text-style(ef.get-value($themeDefault, 'linkFont'), ef.get-value($themeDefault, 'linkColor'));
+            }
+
+            &__link {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                text-decoration: none;
+
+                &.active {
+
+                    .wlc-menu__icon {
+                        background: ef.get-value($themeDefault, 'iconActiveBg');
+                    }
+
+                    .wlc-menu__link-text {
+                        @include text.get-text-style(ef.get-value($themeDefault, 'linkFont'), ef.get-value($themeDefault, 'linkActiveColor'));
+                    }
+
+                    .wlc-icon-content {
+                        color: ef.get-value($themeDefault, 'iconSvgActiveColor');
+                    }
+                }
+            }
+        }
+
+        .wlc-icon-content {
+            color: ef.get-value($themeDefault, 'iconSvgColor');
+
+            svg {
+                width: ef.get-value($themeDefault, 'iconSvgSize');
+                height: ef.get-value($themeDefault, 'iconSvgSize');
+                fill: currentColor;
+
+                path {
+                    fill: currentColor;
+                }
+            }
+        }
+    }
+}

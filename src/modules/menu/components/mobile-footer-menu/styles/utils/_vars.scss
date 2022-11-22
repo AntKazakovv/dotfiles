@@ -1,0 +1,18 @@
+$customThemeDefault: () !default;
+$themeDefault: map-merge((
+    'menuGag': ef.size(4),
+    'menuPadding': ef.size(1) ef.size(8),
+
+    'linkFont': 'SignTextBold',
+    'linkColor': var(--mc-baseMain-o6),
+    'linkActiveColor': var(--mc-baseMain),
+
+    'iconSvgColor': #040b21,
+    'iconSvgActiveColor': var(--mc-baseMain),
+    'iconSvgSize': 20px,
+
+    'iconBg': #363c4d,
+    'iconActiveBg': #0a84ff,
+    'iconSize': 40px,
+    'iconRadius': 50%,
+), $customThemeDefault);

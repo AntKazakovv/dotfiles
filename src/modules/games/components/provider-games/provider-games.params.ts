@@ -5,8 +5,8 @@ import {
 } from 'wlc-engine/modules/core';
 import {IGamesGridCParams} from 'wlc-engine/modules/games/components/games-grid/games-grid.params';
 
-export type ComponentTheme = 'default' | CustomType;
-export type ComponentType = 'default' | CustomType;
+export type ComponentTheme = 'default' | 'mobile-app' | CustomType;
+export type ComponentType = 'default' | 'mobile-app' | CustomType;
 export type ComponentThemeMod = 'default' | CustomType;
 
 /**

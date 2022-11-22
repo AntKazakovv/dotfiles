@@ -1,0 +1,49 @@
+.wlc-provider-games--theme-mobile-app:host {
+    @include bm.get-mq-map('padding', $themeMobileApp, 'containerPadding');
+
+    .wlc-provider-games {
+
+        &__header {
+            @include bm.get-mq-map('margin', $themeMobileApp, 'headerMargin');
+        }
+
+        &__games {
+            @include bm.get-mq-map('margin-bottom', $themeMobileApp, 'gamesGridMarginBottom');
+        }
+    }
+
+    ::ng-deep {
+
+        .wlc-provider-games-logo {
+            @include bm.get-mq-map('width', $themeMobileApp, 'logoWidth');
+
+            &__wrp {
+                @include bm.get-mq-map('padding', $themeMobileApp, 'logoWrapPadding');
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            &__error {
+                max-width: 100%;
+                overflow: hidden;
+            }
+
+            &__image {
+                @include bm.get-mq-map('width', $themeMobileApp, 'logoIconWidth');
+                @include bm.get-mq-map('max-width', $themeMobileApp, 'logoIconMaxWidth');
+                @include bm.get-mq-map('height', $themeMobileApp, 'logoIconHeight');
+                @include bm.get-mq-map('max-height', $themeMobileApp, 'logoIconMaxHeight');
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 100%;
+                max-width: 80%;
+                height: 100px;
+                max-height: 100%;
+                object-fit: contain;
+                object-position: center;
+            }
+        }
+    }
+}

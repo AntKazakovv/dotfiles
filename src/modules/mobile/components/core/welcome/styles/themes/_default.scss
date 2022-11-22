@@ -1,0 +1,50 @@
+.wlc-welcome--theme-default:host {
+    position: fixed;
+    top: ef.get-value($themeDefault, 'welcomePosition');
+    right: ef.get-value($themeDefault, 'welcomePosition');
+    bottom: ef.get-value($themeDefault, 'welcomePosition');
+    left: ef.get-value($themeDefault, 'welcomePosition');
+    overflow-x: hidden;
+    overflow-y: scroll;
+
+    .wlc-welcome {
+
+        &__wrapper {
+            @include bm.get-mq-map('grid-template-areas', $themeDefault, 'gridTemplateAreas');
+            display: grid;
+            grid-template-rows: auto 1fr auto;
+            height: 100%;
+        }
+
+        &__header {
+            @include bm.get-mq-map('padding', $themeDefault, 'headerPadding');
+            @include bm.get-mq-map('gap', $themeDefault, 'headerGap');
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        &__title {
+            @include text.get-text-style(ef.get-value($themeDefault, 'titleFontStyle'), ef.get-value($themeDefault, 'titleColor'));
+        }
+
+        &__description {
+            @include text.get-text-style(ef.get-value($themeDefault, 'textFontStyle'), ef.get-value($themeDefault, 'baseOpacity'));
+            max-width: 140px;
+            text-align: center;
+        }
+
+        &__logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        &__buttons {
+            @include bm.get-mq-map('padding', $themeDefault, 'buttonsPadding');
+            @include bm.get-mq-map('gap', $themeDefault, 'buttonsGap');
+            display: grid;
+        }
+    }
+}

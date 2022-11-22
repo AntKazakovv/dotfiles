@@ -27,6 +27,7 @@ $themeDefault: map-merge((
     'balanceRadiusMobile': ef.get('radius', 'large'),
     'btnMarginMobile': 0 3px 0 0,
 
+    'btnPadding': ef.size(1) ef.size(3),
     'btnMargin': ef.size(2) auto,
     'btnStickyMargin': ef.size(4) auto 0,
 

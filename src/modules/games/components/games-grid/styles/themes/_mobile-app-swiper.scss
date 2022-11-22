@@ -1,0 +1,83 @@
+.wlc-games-grid--theme-mobile-app-swiper:host {
+
+    .wlc-games-grid {
+
+        &__content {
+            display: ef.get-value($themeSwiperMobileApp, 'swiperDisplay');
+            grid-template-areas: ef.get-value($themeSwiperMobileApp, 'swiperGridAreas');
+            grid-template-columns: ef.get-value($themeSwiperMobileApp, 'swiperGridColumns');
+            row-gap: ef.get-value($themeSwiperMobileApp, 'swiperGridRowGap');
+        }
+
+        &__show-all-btn,
+        &__link {
+            grid-area: show-all;
+        }
+
+        &__games-slider {
+            position: relative;
+            grid-area: games-grid;
+            min-width: 0;
+
+            &:before {
+                content: '';
+                position: absolute;
+                left: 0;
+                z-index: 2;
+                width: ef.get-value($themeSwiperMobileApp, 'sliderBeforeWidth');
+                height: 100%;
+                background: ef.get-value($themeSwiperMobileApp, 'sliderBeforeBg');
+                transform: translateX(-100%);
+            }
+        }
+
+        &__nocontent {
+            grid-row: ef.get-value($themeSwiperMobileApp, 'swiperNoContentGridRow');
+            grid-column: ef.get-value($themeSwiperMobileApp, 'swiperNoContentGridColumn');
+
+            // If we add a condition to *ngIf in the template, the swiper navigation buttons will lose their binding
+            & + .wlc-games-grid__swiper-buttons-container {
+                display: none;
+            }
+        }
+    }
+
+    &::ng-deep {
+
+        .swiper-horizontal {
+            overflow: visible;
+        }
+    }
+
+    &.wlc-games-grid {
+
+        .wlc-games-grid {
+
+            &__link {
+                @include text.get-text-style(ef.get-value($themeSwiperMobileApp, 'linkFontStyle'), ef.get-value($themeSwiperMobileApp, 'linkColor'));
+
+                ::ng-deep {
+
+                    .wlc-icon {
+                        display: none;
+                    }
+                }
+            }
+
+            &__title {
+                display: ef.get-value($themeSwiperMobileApp, 'titleDisplay');
+                grid-area: title;
+                align-items: ef.get-value($themeSwiperMobileApp, 'titleAlignItems');
+                align-self: ef.get-value($themeSwiperMobileApp, 'titleAlignSelf');
+
+                ::ng-deep {
+
+                    .wlc-title__main {
+                        @include text.get-text-style(ef.get-value($themeSwiperMobileApp, 'headerFontStyle'), ef.get-value($themeSwiperMobileApp, 'headerColor'));
+                        line-height: 1;
+                    }
+                }
+            }
+        }
+    }
+}

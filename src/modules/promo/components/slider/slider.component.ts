@@ -14,6 +14,8 @@ import {
     SimpleChanges,
     ViewChild,
     ViewEncapsulation,
+    TemplateRef,
+    ElementRef,
 } from '@angular/core';
 import {takeUntil} from 'rxjs/operators';
 
@@ -83,6 +85,7 @@ export class SliderComponent extends AbstractComponent
     implements OnInit, AfterViewInit, OnChanges, OnDestroy {
 
     @ViewChild(SwiperComponent) public swiper: SwiperComponent;
+    @ViewChild('slideShowAll') tplShowAll: TemplateRef<ElementRef>;
 
     @Input() public slides: Params.ISlide[];
     @Input() protected inlineParams: Params.ISliderCParams;
@@ -143,13 +146,18 @@ export class SliderComponent extends AbstractComponent
     }
 
     public initEmptySlidesCount(): void {
+        const {swiper} = this.$params;
         if (this.isAutoSlidesAndColumnMode()) {
-            const {swiper} = this.$params;
             if (_isNumber(swiper?.slidesPerView) && swiper?.grid?.rows) {
                 const groupCount: number = swiper.slidesPerView * swiper.grid.rows;
                 const fullFilledSlides: number = Math.floor(this.slides.length / groupCount);
                 this.emptySlidesCount = groupCount - (this.slides.length - (groupCount * fullFilledSlides));
             }
+        } else if (_get(swiper, 'grid.rows', 1) === 1
+            && _isNumber(swiper.slidesPerView)
+            && this.slides.length < swiper.slidesPerView
+        ) {
+            this.emptySlidesCount = swiper.slidesPerView - this.slides.length;
         } else {
             this.emptySlidesCount = 0;
         }
@@ -157,6 +165,15 @@ export class SliderComponent extends AbstractComponent
 
     public ngAfterViewInit(): void {
         setTimeout(() => {
+            if (this.$params.slideShowAll?.use) {
+                let templateParams = {item: {}};
+
+                this.slides.push({
+                    templateRef: this.tplShowAll,
+                    templateParams: templateParams,
+                });
+                this.fixSlidesSequence();
+            }
             this.updateView();
             this.initObserver();
             this.initNavigation();

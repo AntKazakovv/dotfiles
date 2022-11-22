@@ -1,0 +1,62 @@
+.wlc-user-name--theme-mobile-app:host {
+    min-width: 0;
+
+    .wlc-user-name {
+
+        &__container {
+            display: flex;
+            align-items: center;
+            padding: ef.size(4) ef.size(3);
+            background: #0a84ff;
+            cursor: pointer;
+        }
+
+        &__block {
+            flex: 0 1 100%;
+        }
+
+        &__email {
+            display: flex;
+            align-items: center;
+
+            &-icon::ng-deep {
+                flex: 0 1 auto;
+                width: 40px;
+                height: 40px;
+                margin: 0 ef.size(2) 0 0;
+                color: #040b21;
+                background: #ffffff;
+                border-radius: 50%;
+
+                svg {
+                    display: block;
+                    width: 40px;
+                    height: 40px;
+                    fill: currentColor;
+                }
+            }
+
+            &-value {
+                font-weight: bold;
+                font-size: 1.4rem;
+                overflow: hidden;
+                white-space: nowrap;
+                text-overflow: ellipsis;
+            }
+        }
+
+        &__description {
+            font-size: 1.2rem;
+        }
+
+        &__icon-arrow::ng-deep {
+            color: #ffffff;
+
+            svg {
+                width: 14px;
+                height: 12px;
+                fill: currentColor;
+            }
+        }
+    }
+}

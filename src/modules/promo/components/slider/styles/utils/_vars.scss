@@ -27,7 +27,7 @@ $themeDefaultPagination: map-merge((
     'swiperPagiBulletWidth': 8px,
     'swiperPagiBulletHeight': 8px,
     'swiperPagiBulletColor': var(--mc-baseOpacity),
-    'swiperPagiBulletColorActive': var(--mc-buttonColor),
+    'swiperPagiBulletColorActive': var(--mc-baseMain),
     'swiperPagiBulletWidthActive': 8px,
     'swiperPagiBulletHeightActive': 8px,
     'swiperPagiBulletBorderRadius': 50%,
@@ -80,3 +80,23 @@ $themeDefaultBanner: map-merge((
     ),
     'dashboardContainerPadding': 0 ef.size(2),
 ), $customThemeDefaultBanner);
+
+$customThemeShowAll: () !default;
+// Navigation
+$themeShowAll: map-merge((
+    'allDirection': column,
+    'allAlign': center,
+    'allJustify': center,
+    'allBg': var(--mc-bg700),
+    'allBorderRadius': ef.get('radius', 'less'),
+
+    'allIconAlign': center,
+    'allIconJustify': center,
+    'allIconBorderRadius': 50%,
+    'allIconSize': 30px,
+    'allIconBg': var(--mc-baseOpacity),
+
+    'allText': 'PrimaryTextBold',
+    'allTextColor': var(--mc-baseOpacity),
+    'allMargin': ef.size(1) 0 0,
+), $customThemeShowAll);

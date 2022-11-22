@@ -2,17 +2,38 @@ import {ILayoutSectionConfig} from 'wlc-engine/modules/core';
 import * as componentLib from '../components';
 
 export namespace contentGames {
-    export const homeTop: ILayoutSectionConfig = {
-        container: true,
-        components: [
-            componentLib.wlcGamesGrid.allGames2rows,
-        ],
-    };
-
     export const homeTopSwiper: ILayoutSectionConfig = {
         container: true,
         components: [
             componentLib.wlcGamesGrid.popularGamesSwiper,
+        ],
+    };
+
+    export const newTopSwiper: ILayoutSectionConfig = {
+        container: true,
+        components: [
+            componentLib.wlcGamesGrid.newGamesSwiper,
+        ],
+    };
+
+    export const allTopSwiper: ILayoutSectionConfig = {
+        container: true,
+        components: [
+            componentLib.wlcGamesGrid.allGamesSwiper,
+        ],
+    };
+
+    export const catalog: ILayoutSectionConfig = {
+        container: true,
+        components: [
+            componentLib.wlcGamesCatalog.def,
+        ],
+    };
+
+    export const homeTop: ILayoutSectionConfig = {
+        container: true,
+        components: [
+            componentLib.wlcGamesGrid.allGames2rows,
         ],
     };
 
@@ -113,13 +134,6 @@ export namespace contentGames {
         container: true,
         components: [
             componentLib.wlcGamesGrid.newGamesSwiperWithEars,
-        ],
-    };
-
-    export const catalog: ILayoutSectionConfig = {
-        container: true,
-        components: [
-            componentLib.wlcGamesCatalog.def,
         ],
     };
 

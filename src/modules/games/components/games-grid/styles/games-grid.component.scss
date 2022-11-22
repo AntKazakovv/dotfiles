@@ -9,10 +9,12 @@
 @import './utils/vars';
 @import './utils/vars-swiper';
 @import './utils/vars-preview';
+@import './utils/mobile-app-swiper';
 
 @import './themes/default';
 @import './themes/swiper';
 @import './themes/preview';
+@import './themes/mobile-app-swiper';
 
 .wlc-games-grid:host {
 

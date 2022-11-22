@@ -52,6 +52,7 @@ export * from './menu/wlc-profile-menu.config';
 export * from './menu/wlc-mobile-menu.config';
 export * from './menu/wlc-post-menu.config';
 export * from './menu/wlc-sticky-footer.config';
+export * from './menu/wlc-mobile-footer-menu.config';
 
 export * from './games/wlc-game-wrapper.config';
 export * from './games/wlc-games-catalog.config';
@@ -61,6 +62,7 @@ export * from './games/wlc-total-jackpot.config';
 export * from './games/wlc-random-game.config';
 export * from './games/wlc-category-preview.config';
 export * from './games/wlc-game-thumb.config';
+export * from './games/wlc-search.config';
 
 export * from './static/wlc-promo-steps.config';
 export * from './static/wlc-wp-promo.config';
@@ -81,10 +83,9 @@ export * from './store/wlc-store-list.config';
 export * from './store/wlc-store-title.config';
 
 export * from './tournaments/wlc-tournament-detail.config';
+export * from './tournaments/wlc-tournaments-history';
+export * from './tournaments/wlc-tournament-list.config';
 
 export * from './sportsbook/wlc-sportsbook.config';
 
-
-export * from './tournaments/wlc-tournaments-history';
-
-export * from './tournaments/wlc-tournament-list.config';
+export * from './mobile/wlc-welcome.config';

@@ -370,7 +370,8 @@ export class GlobalHelper {
         if (!GlobalHelper.mobileAppApiUrl) {
             return content;
         }
-        return content.replace(/\/(gstatic|static)/g, GlobalHelper.mobileAppApiUrl + '/' + '$1');
+        const result = content.replace(/\/(gstatic|static)/g, GlobalHelper.mobileAppApiUrl + '/' + '$1');
+        return result.replace(/\/app-static/g, '/static');
     }
 
     /**

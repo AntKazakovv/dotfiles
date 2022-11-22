@@ -3,6 +3,8 @@ import {
     TemplateRef,
     Injector,
 } from '@angular/core';
+import {RawParams} from '@uirouter/core';
+
 import {Subject} from 'rxjs';
 import {SwiperOptions} from 'swiper';
 import {NavigationOptions} from 'swiper/types';
@@ -47,6 +49,12 @@ export interface ISliderCParams extends IComponentParams<ComponentTheme, Compone
      */
     class?: string;
     events?: Subject<TSwiperEvent>;
+    slideShowAll?: {
+        use: boolean;
+        sref: string;
+        text?: string;
+        srefParams?: RawParams;
+    },
 };
 
 export const defaultParams: ISliderCParams = {
@@ -60,6 +68,11 @@ export const defaultParams: ISliderCParams = {
                 followFinger: true,
             },
         },
+    },
+    slideShowAll: {
+        use: false,
+        text: gettext('Show all'),
+        sref: '',
     },
 };
 

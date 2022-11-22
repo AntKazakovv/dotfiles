@@ -1,0 +1,98 @@
+.wlc-provider-links--theme-mobile-app:host {
+    display: grid;
+    align-items: ef.get-value($themeMobileApp, 'gridTemplateAlignment');
+    min-width: 0;
+    max-width: 100%;
+
+    .wlc-provider-links {
+
+        &__loader {
+            @include bm.get-mq-map('grid-column', $themeMobileApp, 'loaderColumn');
+        }
+
+        &__title {
+            display: none;
+        }
+
+        &__wrapper {
+            @include bm.get-mq-map('grid-template-columns', $themeMobileApp, 'wrapperTemplateColumns');
+            @include bm.get-mq-map('gap', $themeMobileApp, 'wrapperGap');
+            @include bm.get-mq-map('margin', $themeMobileApp, 'wrapperMargin');
+            display: grid;
+        }
+    }
+
+    ::ng-deep {
+
+        .wlc-provider-links-item {
+            position: relative;
+            background: ef.get-value($themeMobileApp, 'iconBackground');
+            border-radius: ef.get-value($themeMobileApp, 'iconBorderRadius');
+            transition: ef.get-value($themeMobileApp, 'iconTransition');
+
+            &:before {
+                content: '';
+                display: block;
+                width: 100%;
+                padding-top: ef.get-value($themeMobileApp, 'iconPseudoPaddingTop');
+            }
+
+            &__wrp {
+                @include bm.get-mq-map('font-size', $themeMobileApp, 'iconWrapFontSize');
+                @include bm.get-mq-map('padding', $themeMobileApp, 'iconWrapPadding');
+                position: absolute;
+                top: 0;
+                left: 0;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 100%;
+                height: 100%;
+                color: ef.get-value($themeMobileApp, 'iconColor');
+                font-weight: ef.get-value($themeMobileApp, 'iconWrapFontWeight');
+                text-decoration: none;
+            }
+
+            &__image,
+            .wlc-icon-content {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: ef.get-value($themeMobileApp, 'iconWidth');
+                max-width: ef.get-value($themeMobileApp, 'iconMaxWidth');
+                height: ef.get-value($themeMobileApp, 'iconHeight');
+                max-height: ef.get-value($themeMobileApp, 'iconMaxHeight');
+                object-fit: contain;
+                object-position: center;
+            }
+
+            .wlc-icon {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 100%;
+                height: 100%;
+            }
+
+            .wlc-icon svg {
+                display: block;
+                width: 100%;
+                max-width: 100%;
+                height: 100%;
+                max-height: 100%;
+                object-fit: contain;
+                object-position: center;
+
+                path {
+                    fill: currentColor;
+                }
+            }
+
+            &:focus {
+                box-shadow: ef.get-value($themeMobileApp, 'iconHoverBoxShadow');
+                transform: ef.get-value($themeMobileApp, 'iconHoverTransform');
+                transition: ef.get-value($themeMobileApp, 'iconHoverTransition');
+            }
+        }
+    }
+}

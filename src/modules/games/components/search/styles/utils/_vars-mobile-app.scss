@@ -1,0 +1,186 @@
+//media queries variables
+
+$customThemeMobileApp: () !default;
+$themeMobileApp: map-merge((
+    'modalPadding': (
+        375: ef.size(6) ef.size(2),
+    ),
+    'modalDialogMaxWidth': 1433px,
+    'btnPaddingVertical': 8px,
+    'btnPaddingLeft': 10px,
+    'btnArrowColor': var(--mc-baseOpacity),
+    'btnArrowWidth': 2px,
+    'btnArrowSize': 8px,
+    'btnArrowRightMargin': 10px,
+    'btnArrowLeftMargin': 8px,
+    'btnTransition': ef.get('time', 'main'),
+    'btnIconSize': 18px,
+    'btnIconColor': var(--mc-baseMain),
+    'btnIconRightMargin': 10px,
+    'btnBackground': (
+        375: var(--mc-bg700),
+        560: var(--mc-bg),
+    ),
+    'btnBackgroundHover': (
+        375: var(--mc-bg500),
+        560: var(--mc-main),
+    ),
+    'btnBorder': (
+        375: none,
+    ),
+    'btnBorderActive': (
+        320: none,
+    ),
+    'btnActiveAfterTransform': translateY(-30%) rotate(45deg),
+    'btnBackgroundActive': var(--mc-main),
+    'btnColorActive':ef.get('mainColors', 'baseMain'),
+    'btnArrowColorActive': ef.get('mainColors', 'baseMain'),
+    'btnIconColorActive': ef.get('mainColors', 'baseMain'),
+    'btnIconSizeActive': 18px,
+
+    'btnCounterMarginLeft': ef.size(1),
+
+    'alignItemsBtn': center,
+    'justifyBtn': flex-start,
+
+    'widthBtn': 100%,
+
+    'listGrid': (
+        320: 2,
+        900: 4,
+        1200: 5,
+        1420: 6,
+    ),
+
+    'listGap': (
+        375: ef.size(2) ef.size(3),
+        560: 0 ef.size(4),
+    ),
+
+    'listMargin': ef.size(-2) 0 0,
+    'listBtnTransition': ef.get('time', 'main'),
+    'listBtnIconBackground': none,
+    'listBtnIconBackgroundActive': none,
+    'listBtnIconBorder': 2px solid var(--fc-borderColor),
+    'listBtnIconActive': 2px solid var(--mc-main),
+    'listBtnIconMargin': 0 0 0 5px,
+    'listBtnIconRadius': ef.get('radius', 'small'),
+    'listBtnIconSize': 25px,
+    'modalCloseRight': (
+        375: ef.size(1),
+        560: ef.size(2),
+        1200: 33px,
+    ),
+    'closeTop': (
+        375: ef.size(5),
+        1200: 33px,
+    ),
+    'searchBtnItemsFont': 'PrimaryText',
+    'searchBtnItemsFontActive': 'ButtonText',
+    'listBtnColor': var(--mc-baseMain),
+    'listBtnPadding': (
+        375: ef.size(1) ef.size(2),
+        560: ef.size(3) 0,
+    ),
+    'listBtnBackground': var(--mc-bg700),
+    'listBtnRadius': ef.get('radius', 'less'),
+
+    'listBtnBorder': none,
+
+    'listBtnBorderBottom': 2px solid var(--mc-baseOpacity),
+
+    'listBtnBorderBottomActive': (
+        560: 2px solid var(--mc-main),
+    ),
+
+    'listBtnColorActive': (
+        375: var(--mc-baseMain),
+        560: var(--mc-main),
+    ),
+    'listBtnHeight': (
+        375: 40px,
+        560: auto,
+    ),
+    'listBtnCheckColor': var(--mc-main),
+    'listBtnCheckWidth': 9px,
+    'listBtnBackgroundHover': var(--mc-main),
+    'resultPadding': 0 0 ef.size(2),
+    'resultColor': var(--mc-baseOpacity),
+    'resultSize': 'PrimaryText',
+
+    'gamesMoreMargin': (
+        375: ef.size(6) 0 0,
+        1200: ef.size(8) 0 0,
+    ),
+    'gamesPadding': 0 0 ef.size(6),
+    'noGamesPadding': (
+        375: 0 0 ef.size(3),
+        900: 0,
+    ),
+
+    'noGamesMargin': (
+        375: -5px 0 0,
+    ),
+
+    'gamesMargin': 0,
+
+    'searchModalHeaderPadding': (
+        375: ef.size(6) 0 ef.size(3),
+        560: ef.size(6) 0 ef.size(4),
+    ),
+    'searchModalHeaderMargin': 0,
+    'searchModalHeaderFont': (
+        375: 'PrimaryTextBold' ,
+        1200: 'QoteTextBold',
+    ),
+    'searchModalHeaderFontColor': var(--mc-baseMain),
+    'searchModalHeaderBorderBottom': (
+        375: 2px solid var(--mc-baseOpacity),
+        560: none,
+    ),
+    'searchModalHeaderPositionText': (
+        375: center,
+        1200: left,
+    ),
+    'searchPanelGridColumnStart': (
+        375: span 2,
+        900: span 3,
+    ),
+    'searchPanelColumns': (
+        375: 1fr 1fr,
+        900: 1fr 0.6fr 0.6fr,
+        1024: 1fr 0.4fr 0.4fr,
+        1200: 1fr 0.3fr 0.3fr,
+    ),
+    'searchPanelGap': (
+        375: ef.size(4) ef.size(3),
+        900: 0 ef.size(3),
+    ),
+    'searchPanelBg': (
+        375: none,
+        560: var(--mc-bg700),
+    ),
+    'searchPanelBorderRadius': ef.get('radius', 'biger'),
+    'searchPanelPadding': 0 0 ef.size(4),
+    'searchColWidth': (
+        375: 100%,
+        900: 170px,
+    ),
+    'searchTitleWidth': 95px,
+    'btnFont': 'PrimaryText',
+    'btnColor': var(--mc-baseMain),
+    'btnPadding': (
+        375: 8px 35px,
+        900: 10px 30px 10px 35px,
+    ),
+    'btnBorderRadius': ef.get('radius', 'less'),
+    'btnFontActive': 'PrimaryText',
+    'btnColorHover': ef.get('mainColors', 'baseMain'),
+
+    'heightBtn': ef.size(8),
+    'modalPaddingSearch': (
+        375: 0 ef.size(2),
+        560: 0 ef.size(3),
+        1200: 0 ef.size(10),
+    ),
+), $customThemeMobileApp);

@@ -123,13 +123,10 @@ export class ConfigService {
      * Load main appConfig on start app in AppModule;
      */
     public load(): Promise<IData> | Promise<unknown> {
-
-
-
         return this.injector.get<DataService>(DataService).request({
             name: 'bootstrap',
             system: 'config',
-            url: 'bootstrap',
+            url: '/bootstrap',
             type: 'GET',
             preload: 'bootstrap',
             noUseLang: true,

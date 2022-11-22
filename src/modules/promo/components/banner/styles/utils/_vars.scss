@@ -304,3 +304,20 @@ $modWide: map-merge((
         1630: 500px,
     ),
 ), $customModWide);
+
+$customThemeModMobileApp: () !default;
+$themeModMobileApp: map-merge((
+    'colorTitle': ef.get('mainColors', 'baseMain'),
+    'paddingBanner': 0 ef.size(4),
+    'height': (
+        375: 150px,
+        560: 220px,
+    ),
+    'centerButtonMargin': (
+        375: ef.size(2) auto 0,
+        560: ef.size(4) auto 0,
+    ),
+    'backdropColor': transparent,
+    'decorZindex': 11,
+), $customThemeModMobileApp);
+

@@ -395,4 +395,48 @@
             }
         }
     }
+
+    &.wlc-banner--theme-mod-mobile-app {
+
+        ::ng-deep {
+
+            .banner {
+                @include bm.get-mq-map('min-height', $themeModMobileApp, 'height');
+                padding: ef.get-value($themeModMobileApp, 'paddingBanner');
+
+                &__decor {
+                    position: absolute;
+                    z-index: ef.get-value($themeModMobileApp, 'decorZindex');
+                    object-position: initial;
+
+                    img {
+                        display: block;
+                        object-fit: contain;
+                        object-position: inherit;
+                        will-change: transform;
+                    }
+
+                    &--left {
+                        top: 0;
+                        left: 0;
+                    }
+                }
+
+                &--center {
+
+                    .wlc-btn[wlc-button] {
+                        @include bm.get-mq-map('margin', $themeModMobileApp, 'centerButtonMargin');
+                    }
+                }
+
+                &_bg:before {
+                    background: ef.get-value($themeModMobileApp, 'backdropColor');
+                }
+
+                &__title {
+                    @include text.get-text-style('QoteTextBoldSmaller', ef.get-value($themeModMobileApp, 'colorTitle'));
+                }
+            }
+        }
+    }
 }

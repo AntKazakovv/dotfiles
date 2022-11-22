@@ -51,7 +51,21 @@ module.exports = function buildTask() {
             cb && cb();
             process.exit();
         });
-        await this.execShell('npm run build:prod', false, {
+
+        let command = 'npm run build:prod';
+
+        if (this.params.isMobileAppBundle) {
+            const platform = this.parseProcessParams(process.argv)['platform'];
+            const configuration = this.getConfiguration() || 'dev';
+
+            command = `npm run prod-build:${configuration}`;
+
+            if (platform) {
+                command += ` --platform=${platform}`;
+            }
+        }
+
+        await this.execShell(command, false, {
             killOthers: ['success', 'failure'],
             raw: true,
         });
@@ -116,16 +130,18 @@ module.exports = function buildTask() {
     ));
 
     task('cordovaBuild', series(
-        'build:prepare',
+        // 'build:prepare',
+        'cordova:build:prepare',
+        'cordova:build:inline',
         'build:prod',
-        parallel(
-            'build:inline',
-            'build:sw-fix',
-            'build:copyHeadFile',
-            'build:modifyIndexFile',
-            'build:loader-css',
-            'build:hosted-fields-css',
-        ),
+//        parallel(
+//            // 'build:inline',
+//            'build:sw-fix',
+//            'build:copyHeadFile',
+//            'build:modifyIndexFile',
+//            'build:loader-css',
+//            'build:hosted-fields-css',
+//        ),
     ));
 
     task('cordovaBuild:dev', series(

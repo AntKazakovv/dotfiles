@@ -6,7 +6,7 @@ import {TIconExtension} from 'wlc-engine/modules/menu';
 import * as MenuParams from 'wlc-engine/modules/menu/components/menu/menu.params';
 
 export type Type = 'default' | 'dropdown' | CustomType;
-export type Theme = 'default' | 'dropdown' | 'with-icons' | 'icons-compact' | CustomType;
+export type Theme = 'default' | 'dropdown' | 'with-icons' | 'icons-compact' | 'mobile-app' | CustomType;
 export type ThemeMod = 'default' | 'vertical' | 'underlined' | CustomType;
 export type AutoModifiers = Theme | ThemeMod;
 export type CustomMod = string;

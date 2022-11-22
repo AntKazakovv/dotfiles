@@ -27,4 +27,10 @@ $themeDefault: map-merge((
     'inputPaddingCloseShowed': ef.size(2) ef.size(12) ef.size(2) ef.size(2),
     'transition': ef.get('time', 'main') linear,
     'inputHeight': ef.size(8),
+
+    'borderRadiusMobileApp': ef.get('radius', 'less'),
+    'searchIconRightMobileApp': ef.size(3),
+    'clearButtonRightIndentMobileApp': 40px,
+    'inputPaddingMobileApp': ef.size(2) ef.size(2) ef.size(2) ef.size(9),
+    'inputPaddingCloseShowedMobileApp': ef.size(2) ef.size(2) ef.size(2) ef.size(14),
 ), $customThemeDefault);

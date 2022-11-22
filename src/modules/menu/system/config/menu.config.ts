@@ -375,5 +375,17 @@ export const menuConfig: IMenuConfig = {
             use: false,
         },
     },
+    mobileFooterMenu: {
+        items: [
+            'mobile-footer-menu:home',
+            'mobile-footer-menu:games',
+            'mobile-footer-menu:search',
+            'mobile-footer-menu:menu',
+        ],
+        icons: {
+            folder: 'mobile-app/icons',
+            use: true,
+        },
+    },
 };
 

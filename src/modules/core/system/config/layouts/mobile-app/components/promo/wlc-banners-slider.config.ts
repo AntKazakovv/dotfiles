@@ -7,19 +7,26 @@ export namespace wlcBannersSlider {
             class: 'wlc-slider',
             theme: 'default-banner',
             filter: {
-                position: ['home'],
+                position: ['home-mobile-app'],
+            },
+            banner: {
+                themeMod: 'mobile-app',
             },
             sliderParams: {
                 theme: 'default-banner',
                 swiper: {
+                    autoplay: {
+                        delay: 10000,
+                        disableOnInteraction: false,
+                    },
                     slidesPerView: 1,
                     navigation: {
                         nextEl: '.wlc-slider--theme-default-banner .wlc-swiper-button-next',
                         prevEl: '.wlc-slider--theme-default-banner .wlc-swiper-button-prev',
                     },
-                    pagination: false,
-                    autoplay: {
-                        delay: 10000,
+                    pagination: {
+                        enable: true,
+                        clickable: true,
                     },
                     lazy: true,
                 },

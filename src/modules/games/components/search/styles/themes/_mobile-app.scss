@@ -1,0 +1,354 @@
+::ng-deep {
+
+    .wlc-modal--search.wlc-modal--theme-mobile-app {
+
+        .wlc-modal__wrapper {
+            @include bm.get-mq-map('padding', $themeMobileApp, 'modalPadding');
+        }
+
+        .wlc-modal__body {
+            @include bm.get-mq-map('padding', $themeMobileApp, 'modalPaddingSearch');
+        }
+
+        .wlc-modal__dialog {
+            max-width: ef.get-value($themeMobileApp, 'modalDialogMaxWidth');
+        }
+
+        .wlc-modal__close {
+            @include bm.get-mq-map('top', $themeMobileApp, 'closeTop');
+            @include bm.get-mq-map('right', $themeMobileApp, 'modalCloseRight');
+        }
+    }
+}
+
+.wlc-search--theme-mobile-app:host {
+
+    .wlc-search {
+
+        &__title {
+            @include bm.get-mq-map('padding', $themeMobileApp, 'searchModalHeaderPadding');
+            @include bm.get-mq-map('text-align', $themeMobileApp, 'searchModalHeaderPositionText');
+            @include text.get-text-style(ef.get-value($themeMobileApp, 'searchModalHeaderFont'), ef.get-value($themeMobileApp, 'searchModalHeaderFontColor'));
+            margin: ef.get-value($themeMobileApp, 'searchModalHeaderMargin');
+
+            @include mq.min(1200) {
+                @include text.get-text-style(ef.get-value($themeMobileApp, 'searchModalHeaderFont', 1200));
+            }
+        }
+
+        &__panel {
+            @include bm.get-mq-map('gap', $themeMobileApp, 'searchPanelGap');
+            @include bm.get-mq-map('grid-template-columns', $themeMobileApp, 'searchPanelColumns');
+            @include bm.get-mq-map('background', $themeMobileApp, 'searchPanelBg');
+            display: grid;
+            border-radius: ef.get-value($themeMobileApp, 'searchPanelBorderRadius');
+            padding: ef.get-value($themeMobileApp, 'searchPanelPadding');
+        }
+
+        &__col {
+
+            &--search {
+                grid-column-start: span 2;
+
+                @include mq.min(900) {
+                    grid-column-start: initial;
+                }
+            }
+
+            &--merchants,
+            &--categories {
+                @include bm.get-mq-map('min-width', $themeMobileApp, 'searchColWidth');
+            }
+
+            .title {
+                @include text.get-text-style(ef.get-value($themeMobileApp, 'btnFont'), ef.get-value($themeMobileApp, 'btnColor'));
+                display: block;
+                white-space: nowrap;
+                text-overflow: ellipsis;
+                overflow: hidden;
+
+                &-wrap {
+                    display: flex;
+                    flex: 1 1 0%;
+                    align-items: center;
+                    min-width: 0;
+                }
+            }
+        }
+
+        &__btn {
+            @include bm.get-mq-map('padding', $themeMobileApp, 'btnPadding');
+            @include bm.get-mq-map('background', $themeMobileApp, 'btnBackground');
+            @include bm.get-mq-map('border', $themeMobileApp, 'btnBorder');
+
+            position: relative;
+
+            display: flex;
+            align-items: ef.get-value($themeMobileApp, 'alignItemsBtn');
+            justify-content: ef.get-value($themeMobileApp, 'justifyBtn');
+
+            width: ef.get-value($themeMobileApp, 'widthBtn');
+            height: ef.get-value($themeMobileApp, 'heightBtn');
+
+            border-radius: ef.get-value($themeMobileApp, 'btnBorderRadius');
+
+            transition:
+                background-color ef.get-value($themeMobileApp, 'btnTransition') linear,
+                border ef.get-value($themeMobileApp, 'btnTransition') linear;
+
+            &:focus {
+                outline: none;
+            }
+
+            &:after {
+                content: '';
+                position: absolute;
+                top: 50%;
+                right: 13px;
+                display: block;
+                width: ef.get-value($themeMobileApp, 'btnArrowSize');
+                height: ef.get-value($themeMobileApp, 'btnArrowSize');
+                transform: translateY(-50%) rotate(225deg);
+                transition: ef.get-value($themeMobileApp, 'btnTransition') linear;
+                border-top: ef.get-value($themeMobileApp, 'btnArrowWidth') solid ef.get-value($themeMobileApp, 'btnArrowColor');
+                border-left: ef.get-value($themeMobileApp, 'btnArrowWidth') solid ef.get-value($themeMobileApp, 'btnArrowColor');
+            }
+
+            .icon {
+                position: absolute;
+                top: 50%;
+                left: 13px;
+                transform: translateY(-50%);
+
+                ::ng-deep {
+
+                    svg {
+                        width: ef.get-value($themeMobileApp, 'btnIconSize');
+                        height: ef.get-value($themeMobileApp, 'btnIconSize');
+                        fill: ef.get-value($themeMobileApp, 'btnIconColor');
+
+                        path,
+                        mask {
+                            fill: ef.get-value($themeMobileApp, 'btnIconColor');
+                        }
+                    }
+                }
+            }
+
+            .counter {
+                @include text.get-text-style(ef.get-value($themeMobileApp, 'btnFont'), ef.get-value($themeMobileApp, 'btnColor'));
+                margin-left: ef.get-value($themeMobileApp, 'btnCounterMarginLeft');
+            }
+
+            &.active {
+                @include bm.get-mq-map('border', $themeMobileApp, 'btnBorderActive');
+                background: ef.get-value($themeMobileApp, 'btnBackgroundActive');
+
+                &:after {
+                    transform: ef.get-value($themeMobileApp, 'btnActiveAfterTransform');
+                    border-color: ef.get-value($themeMobileApp, 'btnArrowColorActive');
+                }
+
+                .title {
+                    @include text.get-text-style(ef.get-value($themeMobileApp, 'btnFontActive'), ef.get-value($themeMobileApp, 'btnColorActive'));
+                }
+
+                .counter {
+                    color: ef.get-value($themeMobileApp, 'btnColorActive');
+                }
+
+                .icon {
+                    color: ef.get-value($themeMobileApp, 'btnIconColorActive');
+
+                    ::ng-deep {
+
+                        svg {
+                            width: ef.get-value($themeMobileApp, 'btnIconSizeActive');
+                            height: ef.get-value($themeMobileApp, 'btnIconSizeActive');
+                            fill: ef.get-value($themeMobileApp, 'btnIconColorActive');
+
+                            path,
+                            mask {
+                                fill: ef.get-value($themeMobileApp, 'btnIconColorActive');
+                            }
+                        }
+                    }
+                }
+            }
+
+            @include bm.hover {
+                @include bm.get-mq-map('background', $themeMobileApp, 'btnBackgroundHover',true);
+
+                &:after {
+                    border-top: ef.get-value($themeMobileApp, 'btnArrowWidth') solid ef.get-value($themeMobileApp, 'btnColorHover');
+                    border-left: ef.get-value($themeMobileApp, 'btnArrowWidth') solid ef.get-value($themeMobileApp, 'btnColorHover');
+                }
+
+                .title {
+                    @include text.get-text-style(ef.get-value($themeMobileApp, 'btnFont'), ef.get-value($themeMobileApp, 'btnColorHover'));
+                }
+
+                .counter {
+                    color: ef.get-value($themeMobileApp, 'btnColorHover');
+                }
+
+                .icon {
+                    color: ef.get-value($themeMobileApp, 'btnColorHover');
+
+                    ::ng-deep {
+
+                        svg {
+                            fill: ef.get-value($themeMobileApp, 'btnColorHover');
+
+                            path,
+                            mask {
+                                fill: ef.get-value($themeMobileApp, 'btnColorHover');
+                            }
+                        }
+                    }
+                }
+            }
+
+            @include mq.min(900) {
+                justify-content: flex-start;
+            }
+        }
+
+        &__list {
+            @include bm.get-mq-map('grid-column-start', $themeMobileApp, 'searchPanelGridColumnStart');
+            @include bm.get-mq-map('gap', $themeMobileApp, 'listGap');
+            display: grid;
+            margin: ef.get-value($themeMobileApp, 'listMargin');
+            padding: 0;
+            list-style-type: none;
+
+            &-btn {
+                @include text.get-text-style(ef.get-value($themeMobileApp, 'searchBtnItemsFont'), ef.get-value($themeMobileApp, 'listBtnColor'));
+                @include bm.get-mq-map('padding', $themeMobileApp, 'listBtnPadding');
+                @include bm.get-mq-map('border-radius', $themeMobileApp, 'listBtnRadius');
+                @include bm.get-mq-map('height', $themeMobileApp, 'listBtnHeight');
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 100%;
+                background: ef.get-value($themeMobileApp, 'listBtnBackground');
+                transition: border-color, color ef.get-value($themeMobileApp, 'listBtnTransition') linear;
+                border: ef.get-value($themeMobileApp, 'listBtnBorder');
+                border-radius: ef.get-value($themeMobileApp, 'listBtnRadius');
+
+                &:focus {
+                    outline: none;
+                }
+
+                &.active {
+                    @include text.get-text-style(ef.get-value($themeMobileApp, 'searchBtnItemsFontActive'));
+                    @include bm.get-mq-map('color', $themeMobileApp, 'listBtnColorActive');
+                    @include bm.get-mq-map('border-bottom', $themeMobileApp, 'listBtnBorderBottomActive');
+                    background: ef.get-value($themeMobileApp, 'listBtnBackgroundHover');
+                    border: ef.get-value($themeMobileApp, 'listBtnBorder');
+
+                    .wlc-search__list-icon {
+                        border: ef.get-value($themeMobileApp, 'listBtnIconActive');
+                        background: ef.get-value($themeMobileApp, 'listBtnIconBackgroundActive');
+
+                        &::ng-deep {
+
+                            .wlc-icon-content {
+                                @include bm.transition(opacity);
+                                opacity: 1;
+                            }
+                        }
+                    }
+                }
+
+                @include bm.hover {
+                    @include bm.get-mq-map('color', $themeMobileApp, 'listBtnColorActive', true);
+                    @include bm.get-mq-map('background', $themeMobileApp, 'listBtnBackgroundHover', true);
+                    @include bm.get-mq-map('border', $themeMobileApp, 'listBtnBorderActive', true);
+                    @include bm.get-mq-map('border-bottom', $themeMobileApp, 'listBtnBorderBottomActive', true);
+                }
+
+                @include mq.min(560) {
+                    border-bottom: ef.get-value($themeMobileApp, 'listBtnBorderBottom');
+                }
+            }
+
+            &-icon {
+                position: relative;
+                display: none;
+                width: ef.get-value($themeMobileApp, 'listBtnIconSize');
+                min-width: ef.get-value($themeMobileApp, 'listBtnIconSize');
+                height: ef.get-value($themeMobileApp, 'listBtnIconSize');
+                margin: ef.get-value($themeMobileApp, 'listBtnIconMargin');
+                background: ef.get-value($themeMobileApp, 'listBtnIconBackground');
+                transition: ef.get-value($themeMobileApp, 'listBtnTransition') linear;
+                border-radius: ef.get-value($themeMobileApp, 'listBtnIconRadius');
+                border: ef.get-value($themeMobileApp, 'listBtnIconBorder');
+
+                &::ng-deep {
+
+                    .wlc-icon-content {
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        height: 100%;
+                        opacity: 0;
+
+                        svg {
+                            width: ef.get-value($themeMobileApp, 'listBtnCheckWidth');
+                            stroke: ef.get-value($themeMobileApp, 'listBtnCheckColor');
+                            stroke-width: 3px;
+                        }
+                    }
+                }
+
+                @include mq.min(560) {
+                    display: block;
+                }
+            }
+
+            &-text {
+                display: block;
+                width: 95%;
+                white-space: nowrap;
+                text-align: center;
+                text-overflow: ellipsis;
+                overflow: hidden;
+
+                @include mq.min(560) {
+                    text-align: left;
+                }
+            }
+            @if ef.get-value($themeMobileApp, 'listGrid') {
+                @include list-grid(ef.get-value($themeMobileApp, 'listGrid'));
+            } @else {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+
+        &__result {
+            @include text.get-text-style(ef.get-value($themeMobileApp, 'resultSize'), ef.get-value($themeMobileApp, 'resultColor'));
+            padding: ef.get-value($themeMobileApp, 'resultPadding');
+        }
+
+        &__content::ng-deep {
+
+            .wlc-games-grid {
+                padding: ef.get-value($themeMobileApp, 'gamesPadding');
+
+                &__nocontent {
+                    @include bm.get-mq-map('padding', $themeMobileApp, 'noGamesPadding');
+                    @include bm.get-mq-map('margin', $themeMobileApp, 'noGamesMargin');
+                }
+
+                &__list {
+                    margin: ef.get-value($themeMobileApp, 'gamesMargin');
+                }
+
+                &__more {
+                    @include bm.get-mq-map('margin', $themeMobileApp, 'gamesMoreMargin');
+                }
+            }
+        }
+    }
+}

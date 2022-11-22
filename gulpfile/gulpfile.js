@@ -134,9 +134,7 @@ class gulpTask {
         let configuration = this.getConfiguration();
         if (!configuration) return;
 
-        const code = `const window: any = {};
-            import {environment} from "${this.params.paths.src}/environments/environment.${configuration}";
-            console.log(environment.mobileApp.apiUrl)`;
+        const code = `const window: any = {}; import {environment} from "${this.params.paths.src}/environments/environment.${configuration}"; console.log(environment.mobileApp.apiUrl)`;
 
         const result = this.execNativeShellSync("npx ts-node -e '" + code + "' --skip-project --transpile-only").trim();
 

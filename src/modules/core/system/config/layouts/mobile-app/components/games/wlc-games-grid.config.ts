@@ -1,7 +1,135 @@
 import {ILayoutComponent} from 'wlc-engine/modules/core';
 import {IGamesGridCParams} from 'wlc-engine/modules/games';
 
+import _merge from 'lodash-es/merge';
+import _cloneDeep from 'lodash-es/cloneDeep';
+
 export namespace wlcGamesGrid {
+
+    export const categoryGamesSwiperParams: IGamesGridCParams = {
+        type: 'swiper',
+        theme: 'mobile-app-swiper',
+        filter: null,
+        thumbParams: {
+            themeMod: 'mobile-app',
+        },
+        showAllLink: {
+            use: true,
+            text: 'All',
+            sref: 'app.catalog',
+        },
+        showAsSwiper: {
+            maxSlidesCount: 20,
+            sliderParams: {
+                slideShowAll: {
+                    use: true,
+                    sref: 'app.catalog',
+                    srefParams: {
+                        category: null,
+                    },
+                },
+                swiper: {
+                    slidesPerView: 2.5,
+                    slidesPerGroup: 2,
+                    grid: null,
+                    spaceBetween: 10,
+                    loop: false,
+                    breakpoints: {
+                        300: {
+                            slidesPerView: 2.5,
+                            slidesPerGroup: 2,
+                            grid: {
+                                rows: 1,
+                                fill: 'row',
+                            },
+                            spaceBetween: 10,
+                            followFinger: false,
+                        },
+                        560: {
+                            slidesPerView: 3.5,
+                            slidesPerGroup: 3,
+                            grid: null,
+                            spaceBetween: 10,
+                            followFinger: false,
+                        },
+                    },
+                },
+            },
+        },
+    };
+
+    export const popularGamesSwiper: ILayoutComponent = {
+        name: 'games.wlc-games-grid',
+        params: _merge(_cloneDeep(categoryGamesSwiperParams), {
+            title: gettext('Popular games'),
+            filter: {
+                categories: ['popular'],
+            },
+            showAllLink: {
+                params: {
+                    category: 'popular',
+                },
+            },
+            showAsSwiper: {
+                sliderParams: {
+                    slideShowAll: {
+                        srefParams: {
+                            category: 'popular',
+                        },
+                    },
+                },
+            },
+        }),
+    };
+
+    export const newGamesSwiper: ILayoutComponent = {
+        name: 'games.wlc-games-grid',
+        params: _merge(_cloneDeep(categoryGamesSwiperParams), {
+            title: gettext('New games'),
+            filter: {
+                categories: ['new'],
+            },
+            showAllLink: {
+                params: {
+                    category: 'new',
+                },
+            },
+            showAsSwiper: {
+                sliderParams: {
+                    slideShowAll: {
+                        srefParams: {
+                            category: 'new',
+                        },
+                    },
+                },
+            },
+        }),
+    };
+
+    export const allGamesSwiper: ILayoutComponent = {
+        name: 'games.wlc-games-grid',
+        params: _merge(_cloneDeep(categoryGamesSwiperParams), {
+            title: gettext('All games'),
+            filter: {
+                categories: ['casino'],
+            },
+            showAllLink: {
+                params: {
+                    category: 'casino',
+                },
+            },
+            showAsSwiper: {
+                sliderParams: {
+                    slideShowAll: {
+                        srefParams: {
+                            category: 'casino',
+                        },
+                    },
+                },
+            },
+        }),
+    };
+
     export const allGames2rows: ILayoutComponent = {
         name: 'games.wlc-games-grid',
         params: <IGamesGridCParams>{
@@ -171,100 +299,6 @@ export namespace wlcGamesGrid {
         },
     };
 
-    export const popularGamesSwiper: ILayoutComponent = {
-        name: 'games.wlc-games-grid',
-        params: <IGamesGridCParams>{
-            type: 'swiper',
-            theme: 'swiper',
-            title: gettext('Popular games'),
-            filter: {
-                categories: ['popular'],
-            },
-            showAllLink: {
-                use: true,
-                position: 'bottom',
-                showAsBtn: true,
-                sref: 'app.catalog',
-                params: {
-                    category: 'popular',
-                },
-            },
-            breakpoints: {
-                1024: {
-                    showAllLink: {
-                        position: 'top',
-                    },
-                },
-            },
-            showAsSwiper: {
-                useNavigation: true,
-                sliderParams: {
-                    swiper: {
-                        slidesPerView: 1,
-                        slidesPerGroup: 1,
-                        grid: null,
-                        spaceBetween: 10,
-                        breakpoints: {
-                            375: {
-                                slidesPerView: 2,
-                                slidesPerGroup: 2,
-                                grid: {
-                                    rows: 2,
-                                    fill: 'row',
-                                },
-                                spaceBetween: 10,
-                                followFinger: false,
-                            },
-                            560: {
-                                slidesPerView: 3,
-                                slidesPerGroup: 2,
-                                grid: {
-                                    rows: 2,
-                                    fill: 'row',
-                                },
-                                spaceBetween: 10,
-                                followFinger: false,
-                            },
-                            720: {
-                                slidesPerView: 4,
-                                slidesPerGroup: 3,
-                                grid: null,
-                                spaceBetween: 10,
-                                followFinger: false,
-                            },
-                            900: {
-                                slidesPerView: 3,
-                                slidesPerGroup: 2,
-                                grid: null,
-                                spaceBetween: 10,
-                                followFinger: false,
-                            },
-                            1024: {
-                                slidesPerView: 4,
-                                slidesPerGroup: 3,
-                                grid: null,
-                                spaceBetween: 15,
-                                followFinger: true,
-                            },
-                            1200: {
-                                slidesPerView: 5,
-                                slidesPerGroup: 4,
-                                grid: null,
-                                spaceBetween: 15,
-                            },
-                            1630: {
-                                slidesPerView: 6,
-                                slidesPerGroup: 5,
-                                grid: null,
-                                spaceBetween: 20,
-                            },
-                        },
-                    },
-                },
-            },
-        },
-    };
-
     export const popularGamesSwiperWithEars: ILayoutComponent = {
         name: 'games.wlc-games-grid',
         params: <IGamesGridCParams>{
@@ -341,99 +375,6 @@ export namespace wlcGamesGrid {
                             },
                             1630: {
                                 slidesPerView: 6.1,
-                                grid: null,
-                                spaceBetween: 20,
-                            },
-                        },
-                    },
-                },
-            },
-        },
-    };
-
-    export const newGamesSwiper: ILayoutComponent = {
-        name: 'games.wlc-games-grid',
-        params: <IGamesGridCParams>{
-            type: 'swiper',
-            theme: 'swiper',
-            title: gettext('New games'),
-            filter: {
-                categories: ['new'],
-            },
-            showAllLink: {
-                use: true,
-                position: 'bottom',
-                sref: 'app.catalog',
-                showAsBtn: true,
-                params: {
-                    category: 'new',
-                },
-            },
-            breakpoints: {
-                1024: {
-                    showAllLink: {
-                        position: 'top',
-                    },
-                },
-            },
-            showAsSwiper: {
-                useNavigation: true,
-                sliderParams: {
-                    swiper: {
-                        slidesPerView: 1,
-                        grid: null,
-                        spaceBetween: 10,
-                        breakpoints: {
-                            375: {
-                                slidesPerView: 2,
-                                slidesPerGroup: 2,
-                                grid: {
-                                    rows: 2,
-                                    fill: 'row',
-                                },
-                                spaceBetween: 10,
-                                followFinger: false,
-                            },
-                            560: {
-                                slidesPerView: 3,
-                                slidesPerGroup: 3,
-                                grid: {
-                                    rows: 2,
-                                    fill: 'row',
-                                },
-                                spaceBetween: 10,
-                                followFinger: false,
-                            },
-                            720: {
-                                slidesPerView: 4,
-                                slidesPerGroup: 3,
-                                grid: null,
-                                spaceBetween: 10,
-                                followFinger: false,
-                            },
-                            900: {
-                                slidesPerView: 3,
-                                slidesPerGroup: 2,
-                                grid: null,
-                                spaceBetween: 10,
-                                followFinger: false,
-                            },
-                            1024: {
-                                slidesPerView: 4,
-                                slidesPerGroup: 3,
-                                grid: null,
-                                spaceBetween: 15,
-                                followFinger: true,
-                            },
-                            1200: {
-                                slidesPerView: 5,
-                                slidesPerGroup: 4,
-                                grid: null,
-                                spaceBetween: 15,
-                            },
-                            1630: {
-                                slidesPerView: 6,
-                                slidesPerGroup: 5,
                                 grid: null,
                                 spaceBetween: 20,
                             },
@@ -571,5 +512,4 @@ export namespace wlcGamesGrid {
             },
         },
     };
-
 }

@@ -129,6 +129,10 @@
             }
         }
 
+        &__btn {
+            padding: ef.get-value($themeDefault, 'btnPadding');
+        }
+
         &__content {
 
             .wlc-btn-deposit {
@@ -136,6 +140,10 @@
 
                 .wlc-body--sticky-header .wlc-sections__header & {
                     margin: ef.get-value($themeDefault, 'btnStickyMargin');
+                }
+
+                &_mobile {
+                    width: 100%;
                 }
             }
         }

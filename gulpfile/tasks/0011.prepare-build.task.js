@@ -54,7 +54,6 @@ module.exports = function preBuildTask() {
 
     /**
      * Create index.html for mobile app
-     * @returns {*}
      */
     const makeMobileAppIndexHtml = () => {
         return src(`${this.params.paths.engine}/src/mobile-app-index.html`)

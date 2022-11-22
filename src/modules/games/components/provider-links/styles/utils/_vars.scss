@@ -81,3 +81,50 @@ $themeDefault: map-merge((
 
     'buttonMarginAdaptive': ef.size(2) auto 0,
 ), $customThemeDefault);
+
+$customMobileApp: () !default;
+$themeMobileApp: map-merge((
+    'gridTemplateAlignment': center,
+
+    'loaderColumn': list.slash(1, 3),
+
+    'wrapperTemplateColumns': repeat(auto-fit, minmax(150px, 1fr)),
+    'wrapperGap': (
+        375: ef.size(2),
+        768: ef.size(3),
+    ),
+    'wrapperMargin': ef.size(8) 0 0,
+
+    'iconBackground': var(--mc-bg700),
+    'iconBorderRadius': ef.get('radius', 'small'),
+    'iconColor': var(--mc-baseMain),
+    'iconTransition': #{transform 0.2s, box-shadow 2s},
+    'iconWidth': 100%,
+    'iconMaxWidth': 80%,
+    'iconHeight': 100%,
+    'iconMaxHeight': 100%,
+    'iconWrapPadding': 8px 15px,
+    'iconWrapFontSize': ef.get('font', 'big'),
+    'iconWrapFontWeight': 700,
+    'iconPseudoPaddingTop': 73%,
+    'iconHoverTransition': #{transform 0.2s, box-shadow 0.1s},
+    'iconHoverTransform': translate3d(0, -3px, 0),
+    'iconHoverBoxShadow': 0 1px 5px var(--mc-bg100),
+
+    // TODO remove after come up with color icons
+    'iconColorBackground': #777,
+    'iconColorFilter': contrast(1.5),
+
+    'gridTemplateAreasAdaptive': 'title' 'icons' 'button',
+    'gridTemplateColumnsAdaptive': 1fr,
+    'gridGapAdaptive': ef.size(4),
+
+    'wrapperMaxWidthAdaptive': (
+        375: 320px,
+        560: 520px,
+    ),
+    'wrapperMarginAdaptive': 0 auto,
+    'wrapperTemplateAdaptive': repeat(2, minmax(150px, 1fr)),
+
+    'buttonMarginAdaptive': ef.size(2) auto 0,
+), $customMobileApp);

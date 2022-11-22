@@ -1,7 +1,11 @@
 import {Injector} from '@angular/core';
+import {TargetState} from '@uirouter/core';
 import {AppType} from 'wlc-engine/modules/core';
 import {IProfileConfig} from 'wlc-engine/modules/core/system/interfaces/base-config/profile.interface';
 import {IDefaultConfig} from 'wlc-engine/modules/core/system/interfaces/config.interface';
+
+export type LayoutTitleHandlerType = (state: TargetState) => string;
+export type LayoutTitleType = string | LayoutTitleHandlerType;
 
 export interface ILayoutsConfig {
     [key: string]: ILayoutStateConfig;
@@ -12,6 +16,7 @@ export interface IPanelsConfig {
 }
 
 export interface ILayoutStateConfig extends IDefaultConfig {
+    title?: LayoutTitleType;
     extends?: string;
     subcategories?: ILayoutsConfig;
     sections?: ILayoutSectionsConfig;
@@ -75,7 +80,7 @@ export interface ILayoutComponent {
      * @param before {number} display component before this window width
      * @param mobile {boolean} display component only on mobile when true, on desktop when false
      * @param auth {boolean} display component only auth user when true, anon user when false
-    */
+     */
     display?: IDisplayConfig;
     exclude?: string[];
     include?: string[];

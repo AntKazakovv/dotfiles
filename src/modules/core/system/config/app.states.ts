@@ -7,7 +7,9 @@ import {ILanguage} from 'wlc-engine/modules/core/system/interfaces/app-config.in
 import {LayoutComponent} from 'wlc-engine/modules/core/components/layout/layout.component';
 import {polyfillsResolver} from 'wlc-engine/modules/core/system/config/resolvers/polyfills.resolver';
 import {customStates} from 'wlc-src/custom/system/config/custom.states';
+import {GlobalHelper} from 'wlc-engine/modules/core/system/helpers/global.helper';
 import * as States from './states';
+import * as MobileAppStates from './mobile-app/states';
 
 import _map from 'lodash-es/map';
 import _merge from 'lodash-es/merge';
@@ -77,6 +79,19 @@ let states = {
     'app.login': States.loginState,
     'app.signin': States.signin,
 };
+
+if (GlobalHelper.isMobileApp()) {
+    states = _merge(states, {
+        'app.language': MobileAppStates.languageState,
+        'app.games-search': MobileAppStates.gamesSearchState,
+        'app.menu': MobileAppStates.menuState,
+        'app.run-game': MobileAppStates.runGameState,
+        'app.providers': MobileAppStates.providersState,
+        'app.providers.item': MobileAppStates.providersItemState,
+        'app.providers.item.category': MobileAppStates.providersItemCategoryState,
+        'app.welcome': MobileAppStates.welcomeState,
+    });
+}
 
 const appState: Ng2StateDeclaration = {
     name: 'app',

@@ -213,6 +213,11 @@ $themeDefaultBottom: map-merge((
     'iconOpacityHover': 1,
 ), $customThemeDefaultBottom);
 
+$customThemeDefaultModMobile: () !default;
+$themeDefaultModMobile: map-merge((
+    'thumbRadius': ef.get('radius', 'less'),
+), $customThemeDefaultModMobile);
+
 $customBottomButtons: () !default;
 $bottomButtons: map-merge((
     'descHeight': ef.size(12),
