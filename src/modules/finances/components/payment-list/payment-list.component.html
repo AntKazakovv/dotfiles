@@ -138,7 +138,6 @@
                 [showSvgAsImg]="true"
                 [iconUrl]="'wlc/icons/currencies/' + system.cryptoTicker + '.svg' | lowercase"
                 [fallback]="'gstatic/wlc/icons/currencies/def.svg'"
-                [logImageErrorChild]="logImageError"
             ></span>
             <span class="{{$class}}__name">{{system.name}}</span>
             <span *ngIf="system.cryptoTicker" class="{{$class}}__ticker">{{system.cryptoTicker}}</span>

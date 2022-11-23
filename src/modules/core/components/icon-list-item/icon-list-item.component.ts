@@ -28,7 +28,7 @@ import * as Params from './icon-list-item.params';
 
 export class IconListItemComponent extends AbstractComponent implements OnInit, OnChanges {
     @Input() protected inlineParams: Params.IIconListItemCParams;
-    @Input() protected logImageErrorChild: Params.IconErrorCode;
+    @Input() protected logImageErrorChild: Params.TIconErrorCode;
     @Input() public icon: IconModel;
 
     public $params: Params.IIconListItemCParams;

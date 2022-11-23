@@ -62,6 +62,7 @@ import {ThemeToDirectory} from 'wlc-engine/modules/core/system/config/base/icons
 import {WINDOW} from 'wlc-engine/modules/app/system';
 import {IMenuCParams} from 'wlc-engine/modules/menu/components/menu/menu.params';
 import {FinancesHelper} from 'wlc-engine/modules/finances/system/helpers/finances.helper';
+import {TIconErrorCode} from 'wlc-engine/modules/core/components/icon-list-item/icon-list-item.params';
 
 import * as Params from './payment-list.params';
 
@@ -115,7 +116,7 @@ export class PaymentListComponent extends IconListAbstract<Params.IPaymentListCP
     public isCryptoInvoices: boolean;
     public activeTag$: BehaviorSubject<TPaySystemTagAll> = new BehaviorSubject(null);
     public catMenuTypeMain: TPaySystemsSwitcher;
-    public logImageError: string = '1.4.18';
+    public logImageError: TIconErrorCode = '1.4.18';
 
     protected isDeposit: boolean;
     protected lastSucceedRes: number | null = null;
