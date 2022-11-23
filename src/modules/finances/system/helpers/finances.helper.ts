@@ -1,10 +1,6 @@
 import _isString from 'lodash-es/isString';
 import _uniq from 'lodash-es/uniq';
 
-import {
-    ValidatorType,
-    IIndexing,
-} from 'wlc-engine/modules/core';
 import {PaymentSystem} from '../models/payment-system.model';
 import {TPaySystemTagAll} from 'wlc-engine/modules/finances/system/interfaces/finances.interface';
 
@@ -20,24 +16,6 @@ export class FinancesHelper {
      *
      * `validators` - list of validators settings
      */
-    private static validators: IIndexing<ValidatorType[]> = {
-        withdraw_account: [
-            {
-                name: 'pattern',
-                options: '^[a-zA-Z0-9:]*$',
-                text: gettext('Cryptocurrency wallet address is incorrect'),
-            },
-            {
-                name: 'minLength',
-                options: 8,
-            },
-            {
-                name: 'maxLength',
-                text: gettext('The field must be no more than 255 characters long'),
-                options: 255,
-            },
-        ],
-    };
 
     public static isDeposit(value: FilterType): boolean {
         return this.checkType(true, value);
@@ -56,15 +34,6 @@ export class FinancesHelper {
         return  error.errors?.length
             ? error.errors.filter((i: unknown) => _isString(i))
             : gettext('Something went wrong. Please try again later.');
-    }
-
-    /**
-     * Additional fields validators
-     * @param fieldKey additional field key value
-     * @returns list of field validators
-     */
-    public static getSpecialValidators(fieldKey: string): ValidatorType[] {
-        return this.validators[fieldKey] || [];
     }
 
     /**

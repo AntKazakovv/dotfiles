@@ -15,6 +15,12 @@
 
     .wlc-input__label {
         @include cm.labelStyle;
+
+        .wlc-tooltip {
+            @include bm.get-mq-map('transform', $themeVertical, 'tooltipTransform');
+            display: inline-block;
+            margin: ef.get-value($themeVertical, 'tooltipMargin');
+        }
     }
 
     .wlc-input__container {

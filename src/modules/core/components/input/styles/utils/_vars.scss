@@ -87,4 +87,6 @@ $themeVertical: map-merge((
 
     'errorsColor': ef.get('form', 'errorsColor'),
 
+    'tooltipMargin': 0 0 0 5px,
+
 ), $customThemeVertical);

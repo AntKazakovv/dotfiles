@@ -33,4 +33,95 @@ export const financesConfig: IFinancesConfig = {
             },
         },
     },
+    fieldsSettings: {
+        additional: {
+            withdraw_account: {
+                default: {
+                    validators: [
+                        {
+                            name: 'pattern',
+                            options: '^[a-zA-Z0-9:]*$',
+                            text: gettext('Cryptocurrency wallet address is incorrect'),
+                        },
+                        {
+                            name: 'minLength',
+                            options: 8,
+                        },
+                        {
+                            name: 'maxLength',
+                            text: gettext('The field must be no more than 255 characters long'),
+                            options: 255,
+                        },
+                    ],
+                },
+            },
+            accountNumber: {
+                settings: [
+                    {
+                        tooltip: gettext('Please combine the 5 digit Branch number e.g.' +
+                        ' “27370” with the 3 digit Financial institution number e.g. “001” ;' +
+                        ' and the account number digit Account number e.g. “91011112”,' +
+                        ' then you send to Inpay “273700019101112”. Please do not use Dash.'),
+                        validators: [
+                            {
+                                name: 'pattern',
+                                options: '^[0-9:]*$',
+                            },
+                            {
+                                name: 'minLength',
+                                options: 15,
+                            },
+                            {
+                                name: 'maxLength',
+                                options: 15,
+                            },
+                        ],
+                        countries: ['can'],
+                        systems:['inpay_withdraw'],
+                    },
+                    {
+                        tooltip: gettext('Please combine branch code/BSB with the 7 account number and' +
+                        ' 3 digit suffix. E.g. 6 digit BSB e.g. “020432”, Account number “6781299”,' +
+                        ' Suffix “001” then you send to Inpay “0204326781299001”. Please do not use Dash.'),
+                        validators: [
+                            {
+                                name: 'pattern',
+                                options: '^[0-9:]*$',
+                            },
+                            {
+                                name: 'minLength',
+                                options: 15,
+                            },
+                            {
+                                name: 'maxLength',
+                                options: 16,
+                            },
+                        ],
+                        countries: ['nzl'],
+                        systems:['inpay_withdraw'],
+                    },
+                    {
+                        tooltip: gettext('Please enter 11 digit numbers of CPF from RG ID card.' +
+                        ' Please do not use Dash.'),
+                        validators: [
+                            {
+                                name: 'pattern',
+                                options: '^[0-9:]*$',
+                            },
+                            {
+                                name: 'minLength',
+                                options: 11,
+                            },
+                            {
+                                name: 'maxLength',
+                                options: 11,
+                            },
+                        ],
+                        countries: ['bra'],
+                        systems:['pagsmile_brazil'],
+                    },
+                ],
+            },
+        },
+    },
 };

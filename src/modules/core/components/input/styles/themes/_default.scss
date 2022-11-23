@@ -10,6 +10,10 @@
 
     .wlc-input__label {
         @include cm.labelStyle;
+
+        .wlc-tooltip {
+            @include bm.get-mq-map('margin', $themeDefault, 'tooltipMargin');
+        }
     }
 
     .wlc-input__input {

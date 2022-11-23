@@ -31,6 +31,7 @@ import _isEmpty from 'lodash-es/isEmpty';
 import _isObject from 'lodash-es/isObject';
 import _isArray from 'lodash-es/isArray';
 import _isArrayLikeObject from 'lodash-es/isArrayLikeObject';
+import _includes from 'lodash-es/includes';
 import _assign from 'lodash-es/assign';
 import _map from 'lodash-es/map';
 import _keys from 'lodash-es/keys';
@@ -73,6 +74,8 @@ import {FinancesService} from 'wlc-engine/modules/finances/system/services/finan
 import {IPaymentListCParams} from 'wlc-engine/modules/finances/components/payment-list/payment-list.params';
 import {PaymentMessageComponent} from '../payment-message/payment-message.component';
 import {
+    IAdditionalFieldConfig,
+    IAdditionalFieldSettings,
     IPaymentMessage,
     PIQCashierResponse,
     TAdditionalParams,
@@ -169,6 +172,7 @@ export class DepositWithdrawComponent
     private userProfile: UserProfile;
     private cssVariables: string;
     private isDeposit: boolean;
+    private additionalFieldsConfig: IIndexing<IAdditionalFieldConfig>;
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IDepositWithdrawCParams,
@@ -196,6 +200,7 @@ export class DepositWithdrawComponent
         this.depositInIframe = this.configService.get<boolean>('$base.finances.depositInIframe');
         this.useBonuses = this.configService.get<boolean>('$finances.bonusesInDeposit.use');
         this.isDeposit = this.$params.mode === 'deposit';
+        this.additionalFieldsConfig = this.configService.get('$finances.fieldsSettings.additional');
 
         if (this.useBonuses && this.isDeposit) {
             this.steps.add(Params.PaymentSteps.bonus);
@@ -1104,6 +1109,7 @@ export class DepositWithdrawComponent
             if (!_isEmpty(this.additionalParams)) {
                 const additionalFields = _map(_keys(this.additionalParams), (key) => {
                     const field = this.additionalParams[key];
+                    const fieldSettings: IAdditionalFieldSettings = this.checkAdditionalFieldSettings(key);
 
                     const validators = field.optional ? [] : ['required'];
 
@@ -1117,10 +1123,11 @@ export class DepositWithdrawComponent
                                 theme: 'vertical',
                                 common: {
                                     placeholder: field.name,
+                                    tooltipText: fieldSettings.tooltip,
                                 },
                                 control: new FormControl(''),
                                 validators: _concat(validators,
-                                    ...FinancesHelper.getSpecialValidators(key)),
+                                    ...(fieldSettings.validators || [])),
                                 customMod: ['additional'],
                             },
                         };
@@ -1179,6 +1186,37 @@ export class DepositWithdrawComponent
         };
 
         this.cdr.markForCheck();
+    }
+
+    protected checkAdditionalFieldSettings(field: string): IAdditionalFieldSettings {
+
+        let settings: IAdditionalFieldSettings = {};
+
+        if (!_isEmpty(this.additionalFieldsConfig[field])) {
+            const fieldConfig: IAdditionalFieldConfig = this.additionalFieldsConfig[field];
+
+            if (fieldConfig.settings?.length) {
+                for(const sett of fieldConfig.settings) {
+
+                    if (sett.countries?.length && !_includes(sett.countries, this.userProfile.countryCode)) {
+                        continue;
+                    }
+
+                    if (sett.systems?.length && !_includes(sett.systems, this.currentSystem.alias)) {
+                        continue;
+                    }
+
+                    settings = sett;
+                    break;
+                }
+            }
+
+            if (fieldConfig.default && _isEmpty(settings)) {
+                settings = fieldConfig.default;
+            }
+        }
+
+        return settings;
     }
 
     protected addFormToBodyAndSubmit(response): void {

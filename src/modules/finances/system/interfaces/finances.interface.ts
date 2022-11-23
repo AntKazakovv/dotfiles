@@ -1,4 +1,7 @@
-import {IIndexing} from 'wlc-engine/modules/core';
+import {
+    IIndexing,
+    ValidatorType,
+} from 'wlc-engine/modules/core';
 import {IPaymentSystem} from 'wlc-engine/modules/finances/system/models/payment-system.model';
 
 export interface IFinancesConfig {
@@ -14,6 +17,51 @@ export interface IFinancesConfig {
         use?: boolean;
     };
     paySystemCategories?: IPaySystemCategories;
+    /**
+     * Additional & required fields settings config
+     */
+    fieldsSettings?: IFieldsSettings;
+}
+
+export interface IFieldsSettings {
+    /**
+     * Additional fields settings
+     * `key` - key of additional field
+     */
+    additional?: IIndexing<IAdditionalFieldConfig>;
+}
+
+export interface IAdditionalFieldConfig {
+    /**
+     * Default settings for field
+     */
+    default?: IAdditionalFieldSettings;
+    /**
+     * Various settings for field by country and system
+     */
+    settings?: IAdditionalFieldSettingsCustom[];
+}
+
+export interface IAdditionalFieldSettings {
+    /**
+     * Tooltip for field
+     */
+    tooltip?: string;
+    /**
+     * Validators for field
+     */
+    validators?: ValidatorType[];
+}
+
+export interface IAdditionalFieldSettingsCustom extends IAdditionalFieldSettings {
+    /**
+     * An array of countries for which the rule is used.
+     */
+    countries?: string[];
+    /**
+     * An array of systems for which the rule is used.
+     */
+    systems?: string[];
 }
 
 export interface IPaySystemCategories {
