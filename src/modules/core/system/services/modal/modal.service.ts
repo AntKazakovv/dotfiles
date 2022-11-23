@@ -165,7 +165,7 @@ export class ModalService {
         }
 
         if (componentParams) {
-            modalConfig.componentParams = componentParams;
+            modalConfig.componentParams = GlobalHelper.mergeConfig(modalConfig.componentParams, componentParams);
         }
 
         if (modalConfig.dismissAll && this.activeModals.length) {
