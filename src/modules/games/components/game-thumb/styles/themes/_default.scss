@@ -297,7 +297,7 @@
     }
 
     &.wlc-game-thumb--theme-mod-circle {
-        @include circleButton;
+        @include circleButton(default);
         @include thumbJackpotModifiers($themeDefaultModCircle);
 
         .wlc-game-thumb {
@@ -305,17 +305,12 @@
             &__desc {
                 background: ef.get-value($themeDefaultModCircle, 'descBg');
 
-                &:before {
-                    opacity: ef.get-value($themeDefaultModCircle, 'btnsAndIconOpacity');
-                }
-
                 @include mq.min(1024) {
                     opacity: 1;
                 }
             }
 
             &__title {
-                @include bm.transition;
                 position: absolute;
                 bottom: ef.get-value($themeDefaultModCircle, 'titlePosition');
                 left: ef.get-value($themeDefaultModCircle, 'titlePosition');
@@ -330,6 +325,12 @@
                     margin: ef.get-value($themeDefaultModCircle, 'btnsMarginWide');
                 }
             }
+
+            &__desc:before,
+            &__buttons,
+            &__icon {
+                opacity: ef.get-value($themeDefaultModCircle, 'btnsAndIconOpacity');
+            }
         }
 
         .wlc-btn {
@@ -342,6 +343,22 @@
                     .wlc-btn__text {
                         transform: none;
                     }
+                }
+            }
+        }
+
+        @include bm.hover {
+
+            .wlc-game-thumb {
+
+                &__desc:before,
+                &__buttons,
+                &__icon {
+                    opacity: ef.get-value($themeDefaultModCircle, 'btnsAndIconOpacityHover');
+                }
+
+                &__title {
+                    opacity: ef.get-value($themeDefaultModCircle, 'titleOpacityHover');
                 }
             }
         }

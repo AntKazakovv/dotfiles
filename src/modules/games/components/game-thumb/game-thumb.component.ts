@@ -59,6 +59,7 @@ export class GameThumbComponent extends AbstractComponent implements OnInit {
     @Input() protected inlineParams: Params.IGameThumbCParams;
     @HostBinding('attr.data-wlc-element') protected wlcElement;
     @HostBinding('class.no-demo') protected noDemoClass;
+    @HostBinding('class.thumb-transform') protected isTransform;
     @ViewChild('video') video: ElementRef;
     @ViewChild('transform') transform: ElementRef;
     @ViewChildren('layersOne') layersOne: QueryList<ElementRef<HTMLElement>>;
@@ -235,6 +236,7 @@ export class GameThumbComponent extends AbstractComponent implements OnInit {
 
         this.wlcElement = `block_game-thumb-id-${this.game.ID}`;
         this.noDemoClass = this.game.hasDemo;
+        this.isTransform = this.$params.transformThumb?.use;
         const buttonParams = this.configService
             .get<string>('$modules.games.components.wlc-game-thumb.buttons');
 
@@ -288,7 +290,7 @@ export class GameThumbComponent extends AbstractComponent implements OnInit {
             this.video.nativeElement.play();
         }
 
-        if (this.$params.themeMod === 'transform') {
+        if (this.isTransform) {
             this.settingVerticalThumb();
         }
     }
@@ -435,7 +437,8 @@ export class GameThumbComponent extends AbstractComponent implements OnInit {
             .subscribe((type: DeviceType): void => {
                 this.deviceType = type;
 
-                if (this.deviceType === DeviceType.Desktop && this.$params.themeMod === 'transform') {
+                if (this.deviceType === DeviceType.Desktop && this.isTransform) {
+
                     mouseEvents$ = fromEvent(this.elementRef.nativeElement, 'mousemove')
                         .pipe(
                             map((event: MouseEvent): Params.ICoordinates => ({x: event.x, y: event.y})),
@@ -468,7 +471,7 @@ export class GameThumbComponent extends AbstractComponent implements OnInit {
             this.isAuth = false;
             this.cdr.detectChanges();
 
-            if (this.$params.themeMod === 'transform') {
+            if (this.isTransform) {
                 this.settingVerticalThumb();
             }
         });
@@ -479,7 +482,7 @@ export class GameThumbComponent extends AbstractComponent implements OnInit {
             this.isAuth = true;
             this.cdr.detectChanges();
 
-            if (this.$params.themeMod === 'transform') {
+            if (this.isTransform) {
                 this.settingVerticalThumb();
             }
         });

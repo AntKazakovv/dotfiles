@@ -3,6 +3,19 @@
     gap: ef.get-value($btnsLayout, 'btnsGap');
     justify-content: ef.get-value($btnsLayout, 'btnsJustifyContent');
 
+    ::ng-deep {
+
+        .wlc-btn {
+
+            &--demo {
+
+                .wlc-btn__text {
+                    color: ef.get-value($btnsLayout, 'verticalBtnDemoColor');
+                }
+            }
+        }
+    }
+
     @if ($layout == horizontal) {
         grid-template-columns: ef.get-value($btnsLayout, 'btnsGridColumnsHor');
 
@@ -18,19 +31,6 @@
     @if ($layout == vertical) {
         grid-template-rows: ef.get-value($btnsLayout, 'btnsGridRowsVert');
         grid-template-columns: ef.get-value($btnsLayout, 'btnsGridColumnsVert');
-
-        ::ng-deep {
-
-            .wlc-btn {
-
-                &--demo {
-
-                    .wlc-btn__text {
-                        color: ef.get-value($btnsLayout, 'btnDemoColor');
-                    }
-                }
-            }
-        }
 
         &.no-demo {
             grid-template-rows: ef.get-value($btnsLayout, 'btnsNoDemoGridRowsVert');
@@ -93,7 +93,6 @@
             }
 
             &__icon {
-                @include bm.transition;
                 opacity: ef.get-value($themeDefaultBottom, 'iconOpacity');
             }
         }
@@ -107,6 +106,7 @@
                 }
 
                 &__desc {
+                    background: ef.get-value($themeDefaultBottom, 'descBgHover');
 
                     &:before {
                         opacity: ef.get-value($themeDefaultBottom, 'descBeforeOpacityHover');
@@ -176,16 +176,25 @@
 
                 &__title {
                     align-items: ef.get-value($bottomAll, 'titleAlignItems');
+                    width: ef.get-value($bottomAll, 'titleWidth');
+                    text-align: ef.get-value($bottomAll, 'titleTextAlign');
                 }
 
                 &__icon {
                     right: ef.get-value($themeDefault, 'favouritePosition');
                     left: unset;
+                    color: ef.get-value($bottomAll, 'favouriteColor');
                     background-color: ef.get-value($bottomAll, 'favouriteBg');
                     box-shadow: ef.get-value($bottomAll, 'favouriteBoxShadow');
 
+                    &:not(.active) {
+                        @include bm.hover {
+                            color: ef.get-value($bottomAll, 'favouriteColorHover');
+                            background-color: ef.get-value($bottomAll, 'favouriteBg');
+                        }
+                    }
+
                     &.active {
-                        color: ef.get-value($bottomAll, 'favouriteActiveColor');
                         background-color: ef.get-value($bottomAll, 'favouriteBg');
                     }
                 }
@@ -227,19 +236,13 @@
     }
 }
 
-@mixin circleButton {
+@mixin circleButton($opt) {
 
     .wlc-game-thumb {
 
         &__buttons {
             @include btnsLayout(circle);
             @include bm.transition;
-            opacity: ef.get-value($themeDefaultModCircle, 'btnsAndIconOpacity');
-        }
-
-        &__icon {
-            @include bm.transition;
-            opacity: ef.get-value($themeDefaultModCircle, 'btnsAndIconOpacity');
         }
     }
 
@@ -249,21 +252,15 @@
             display: ef.get-value($themeDefaultModCircle, 'btnPlayDisplay');
             align-items: ef.get-value($themeDefaultModCircle, 'btnPlayAlignItems');
             justify-content: ef.get-value($themeDefaultModCircle, 'btnPlayJustifyContent');
-            width: ef.get-value($themeDefaultModCircle, 'btnPlaySize');
-            height: ef.get-value($themeDefaultModCircle, 'btnPlaySize');
             margin: ef.get-value($themeDefaultModCircle, 'btnPlayMargin');
 
             text-indent: ef.get-value($themeDefaultModCircle, 'btnPlayTextIndent');
-            border: ef.get-value($themeDefaultModCircle, 'btnPlayBorder');
             border-radius: ef.get-value($themeDefaultModCircle, 'btnPlayRadius');
             transform: ef.get-value($themeDefaultModCircle, 'btnPlayTransform');
 
             &:before {
                 content: '';
                 position: absolute;
-                left: ef.get-value($themeDefaultModCircle, 'btnPlayIconLeft');
-                width: ef.get-value($themeDefaultModCircle, 'btnPlayIconWidth');
-                height: ef.get-value($themeDefaultModCircle, 'btnPlayIconHeight');
 
                 background: ef.get-value($themeDefaultModCircle, 'btnPlayIconBg');
                 background-repeat: no-repeat;
@@ -280,29 +277,62 @@
         }
 
         &--demo {
-            color: ef.get-value($themeDefaultModCircle, 'btnDemoColor');
             background: ef.get-value($themeDefaultModCircle, 'btnDemoBg');
             border: ef.get-value($themeDefaultModCircle, 'btnDemoBorder');
+
+            ::ng-deep {
+
+                .wlc-btn__text {
+                    color: ef.get-value($themeDefaultModCircle, 'btnDemoColor');
+                }
+            }
 
             @include bm.hover {
                 text-decoration: ef.get-value($themeDefaultModCircle, 'btnDemoHoverDecoration');
                 box-shadow: ef.get-value($themeDefaultModCircle, 'btnDemoHoverBoxShadow');
+
+                ::ng-deep {
+
+                    .wlc-btn__text {
+                        color: ef.get-value($themeDefaultModCircle, 'btnDemoHoverColor');
+                    }
+                }
             }
         }
     }
 
-    @include bm.hover {
+    @if ($opt == default) {
 
-        .wlc-game-thumb {
+        .wlc-btn {
 
-            &__desc:before,
-            &__buttons,
-            &__icon {
-                opacity: ef.get-value($themeDefaultModCircle, 'btnsAndIconOpacityHover');
+            &--play {
+                width: ef.get-value($themeDefaultModCircle, 'btnPlaySize');
+                height: ef.get-value($themeDefaultModCircle, 'btnPlaySize');
+                border: ef.get-value($themeDefaultModCircle, 'btnPlayBorder');
+
+                &:before {
+                    left: ef.get-value($themeDefaultModCircle, 'btnPlayIconLeft');
+                    width: ef.get-value($themeDefaultModCircle, 'btnPlayIconWidth');
+                    height: ef.get-value($themeDefaultModCircle, 'btnPlayIconHeight');
+                }
             }
+        }
+    }
 
-            &__title {
-                opacity: ef.get-value($themeDefaultModCircle, 'titleOpacityHover');
+    @if ($opt == vertical) {
+
+        .wlc-btn {
+
+            &--play {
+                width: ef.get-value($themeDefaultModCircle, 'btnPlaySizeVertical');
+                height: ef.get-value($themeDefaultModCircle, 'btnPlaySizeVertical');
+                border: ef.get-value($themeDefaultModCircle, 'btnPlayBorderVertical');
+
+                &:before {
+                    left: ef.get-value($themeDefaultModCircle, 'btnPlayIconLeftVertical');
+                    width: ef.get-value($themeDefaultModCircle, 'btnPlayIconWidthVertical');
+                    height: ef.get-value($themeDefaultModCircle, 'btnPlayIconHeightVertical');
+                }
             }
         }
     }

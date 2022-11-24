@@ -19,7 +19,7 @@ $themeDefault: map-merge((
     ),
     'descGridRows': 1fr auto,
     'descBeforeZIndex': 1,
-    'descBeforeBg': var(--mc-bg-o8),
+    'descBeforeBg': var(--mc-bg700-o8),
     'descBeforeTransform': translateX(-100%) skewX(35deg),
 
     'titleZIndex': 3,
@@ -50,11 +50,12 @@ $themeDefault: map-merge((
     'favouriteJustifyContent': center,
     'favouriteTransformOrigin': center,
     'favouriteSize': ef.size(6),
-    'favouriteColor': ef.get('mainColors', 'baseMain'), // Locked color
-    'favouriteActiveColor': ef.get('mainColors', 'baseMain'), // Locked color
+    'favouriteColor': ef.get('mainColors', 'baseOpacity'), // Locked color
+    'favouriteActiveColor': ef.get('mainColors', 'main'), // Locked color
     'favouriteBackBg': ef.get('mainColors', 'bg300'), // Locked color
-    'favouriteHoverBg': var(--mc-main),
-    'favouriteBackBgActive': var(--mc-main),
+    'favouriteHoverBg': ef.get('mainColors', 'baseMain'), // Locked color
+    'favouriteBackBgActive': ef.get('mainColors', 'bg300'), // Locked color
+    'favouriteBackBgHover': ef.get('mainColors', 'bg300'), // Locked color
     'favouriteBackSize': ef.size(8),
     'favouriteBackRadius': ef.get('radius', 'biger'),
     'favouriteBoxShadow': none,
@@ -155,6 +156,7 @@ $themeDefaultModCircle: map-merge((
     'titleOpacityHover': 0,
 
     'btnsGridRows': auto ef.size(8),
+    'btnsGridRowsVert': minmax(0, 1fr) minmax(0, 1fr),
     'btnsGridColumns': 1fr,
     'btnsJustifyItems': center,
     'btnsAndIconOpacity': 0,
@@ -165,24 +167,32 @@ $themeDefaultModCircle: map-merge((
     'btnPlayJustifyContent': center,
     'btnPlayMargin': 0 auto,
     'btnPlaySize': 85px,
-    'btnPlayBorder': 4px solid ef.get('mainColors', 'baseMain'),
+    'btnPlaySizeVertical': 115px,
+    'btnPlayBorder': 5px solid ef.get('mainColors', 'baseMain'),
+    'btnPlayBorderVertical': 7px solid ef.get('mainColors', 'baseMain'),
     'btnPlayRadius': 50%,
     'btnPlayTransform': none,
 
     'btnsAlignContentWide': center,
+    'btnsAlignItemsCircVert': center,
     'btnsMarginWide': ef.size(6) 0 0 0,
+    'btnsHeightVert': 60%,
 
     'btnPlayTextIndent': -9999px,
-    'btnPlayIconLeft': calc(50% - 10px),
-    'btnPlayIconWidth': 26px,
-    'btnPlayIconHeight': 32px,
+    'btnPlayIconLeft': calc(50% - 13px),
+    'btnPlayIconLeftVertical': calc(50% - 18px),
+    'btnPlayIconWidth': 32px,
+    'btnPlayIconHeight': 26px,
+    'btnPlayIconWidthVertical': 43px,
+    'btnPlayIconHeightVertical': 34px,
     'btnPlayIconBg': url('/gstatic/wlc/icons/game-play.svg'),
 
     'btnDemoColor': var(--mc-baseMain),
     'btnDemoBg': none,
     'btnDemoBorder': none,
-    'btnDemoHoverDecoration': underline,
+    'btnDemoHoverDecoration': none,
     'btnDemoHoverBoxShadow': none,
+    'btnDemoHoverColor': var(--mc-main),
 
     'jackpotPosTop': (
         1024: 0,
@@ -206,6 +216,7 @@ $themeDefaultBottom: map-merge((
     'descHeight': ef.size(12),
     'descMarginTop': 75%, // (100% / aspect-ratio)
     'descBg': var(--mc-bg700),
+    'descBgHover': var(--mc-bg500),
     'descBeforeOpacity': 0,
     'descBeforeOpacityHover': 1,
 
@@ -247,10 +258,13 @@ $bottomAll: map-merge((
     'descHeight': auto,
 
     'titleAlignItems': start,
+    'titleWidth': 80%,
+    'titleTextAlign': left,
 
-    'favouriteBg': var(--mc-bg700-o4),
-    'favouriteBoxShadow': 0 0 ef.size(2) var(--mc-bg700),
-    'favouriteActiveColor': var(--mc-secondary),
+    'favouriteBg': transparent,
+    'favouriteColor': var(--mc-bg100),
+    'favouriteColorHover': var(--mc-baseMain),
+    'favouriteBoxShadow': none,
 
     'jackpotPosBottom': (
         375: 0,
@@ -336,7 +350,7 @@ $themeVertical: map-merge((
     'notARLeft': 0,
     'notARSize': 100%,
 
-    'controlsBg': linear-gradient(0deg, darken(ef.get('mainColors', 'warning'), 20%) 0%, rgba(255, 138, 0, 0) 100%), // TODO: not design system colors
+    'controlsBg': linear-gradient(0deg, var(--mc-bg700) -0.2%, var(--mc-bg700-o0) 77%),
     'controlPosition': absolute,
     'controlTop': 0,
     'controlLeft': 0,
@@ -417,13 +431,13 @@ $btnsLayout: map-merge((
     'btnsGridColumnsVert': minmax(0, ef.size(22)),
     'btnsNoDemoGridRowsVert': minmax(0, 1fr),
 
-    'btnsGridRowsCirc': auto ef.size(8),
+    'btnsGridRowsCirc': auto 25%,
     'btnsGridColumnsCirc': 1fr,
     'btnsJustifyItemsCirc': center,
     'btnsAlignItemsCirc': end,
     'btnsNoDemoGridRowsCircle': auto ef.size(8),
     'btnsNoDemoAlignItemsCirc': end,
-    'verticalBtnDemoColor': ef.get('mainColors', 'baseMain'),
+    'verticalBtnDemoColor': var(--mc-baseMain),
 ), $customBtnsLayout);
 
 /*

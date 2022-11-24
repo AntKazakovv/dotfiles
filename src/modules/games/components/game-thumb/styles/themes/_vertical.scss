@@ -10,7 +10,6 @@
     .wlc-game-thumb {
 
         &__icon {
-            @include bm.transition();
             opacity: ef.get-value($themeVertical, 'iconOpacity');
         }
 
@@ -127,7 +126,7 @@
         }
     }
 
-    &.wlc-game-thumb--theme-mod-transform {
+    &.thumb-transform {
         perspective: ef.get-value($themeVertical, 'perspective');
         overflow: visible;
 
@@ -187,7 +186,7 @@
         }
     }
 
-    &:not(.wlc-game-thumb--theme-mod-transform) {
+    &:not(.thumb-transform) {
 
         @include bm.hover {
 
@@ -214,18 +213,16 @@
     }
 
     &.wlc-game-thumb--theme-mod-circle {
-        @include circleButton;
 
         .wlc-game-thumb {
 
             &__control {
+                @include circleButton(vertical);
 
                 .wlc-game-thumb__buttons {
-                    align-items: start;
-
-                    &.no-demo {
-                        grid-template-rows: ef.get-value($btnsLayout, 'btnsGridRowsVert');
-                    }
+                    grid-template-rows: ef.get-value($themeDefaultModCircle, 'btnsGridRowsVert');
+                    align-items: ef.get-value($themeDefaultModCircle, 'btnsAlignItemsCircVert');
+                    height: ef.get-value($themeDefaultModCircle, 'btnsHeightVert');
                 }
             }
         }
