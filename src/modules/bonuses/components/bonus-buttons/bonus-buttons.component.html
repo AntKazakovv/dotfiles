@@ -1,9 +1,30 @@
-<ng-container [ngSwitch]="bonusItemTheme">
-    <ng-container [ngTemplateOutlet]="default" *ngSwitchDefault></ng-container>
-    <ng-container [ngTemplateOutlet]="promo" *ngSwitchCase="'promo'"></ng-container>
-    <ng-container [ngTemplateOutlet]="promo" *ngSwitchCase="'promo-home'"></ng-container>
-    <ng-container [ngTemplateOutlet]="long" *ngSwitchCase="'long'"></ng-container>
+<ng-container *ngIf="bonus.showOnly; else themeSwitcher">
+    <button *ngIf="!isInsideModal"
+            wlc-button
+            themeMod="secondary"
+            text="Read more"
+            typeAttr="button"
+            wlcElement="button_read-more"
+            (click)="readMoreClick($event)">
+    </button>
+    <button *ngIf="isInsideModal"
+            wlc-button
+            themeMod="secondary"
+            text="Close"
+            typeAttr="button"
+            wlcElement="button_close"
+            (click)="action('close')">
+    </button>
 </ng-container>
+
+<ng-template #themeSwitcher>
+    <ng-container [ngSwitch]="bonusItemTheme">
+        <ng-container [ngTemplateOutlet]="default" *ngSwitchDefault></ng-container>
+        <ng-container [ngTemplateOutlet]="promo" *ngSwitchCase="'promo'"></ng-container>
+        <ng-container [ngTemplateOutlet]="promo" *ngSwitchCase="'promo-home'"></ng-container>
+        <ng-container [ngTemplateOutlet]="long" *ngSwitchCase="'long'"></ng-container>
+    </ng-container>
+</ng-template>
 
 <ng-template #default>
     <ng-container *ngIf="isAuth">

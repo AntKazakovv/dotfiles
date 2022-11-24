@@ -50,6 +50,14 @@ $themeDefault: map-merge((
         320: 120px,
         1200: 144px,
     ),
+    'showOnlyIconMargin': (
+        375: ef.size(2) auto 0,
+        640: 10px auto 0,
+    ),
+    'showOnlyIconHeight': (
+        375: 60%,
+        560: 100%,
+    ),
 
     // Active block
     'activeBlockMaxWidth': 235px,
@@ -199,6 +207,7 @@ $themeDefault: map-merge((
     'tagBg': ef.get('tagConfig', 'bg'),
     'tagFontColor': ef.get('tagConfig', 'color'),
     'tagBgActive': ef.get('tagConfig', 'bgActive'),
+    'tagBgUnavailable': ef.get('tagConfig', 'bgUnavailable'),
     'tagFontColorActive': ef.get('tagConfig', 'colorActive'),
     'tagRadius': ef.get('tagConfig', 'radius'),
     'tagPadding': ef.get('tagConfig', 'padding'),

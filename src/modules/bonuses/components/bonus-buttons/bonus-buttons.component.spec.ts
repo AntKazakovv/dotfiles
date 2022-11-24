@@ -30,6 +30,7 @@ describe('BonusButtonsComponent', () => {
             'canUnsubscribe': false,
             'isActive': false,
             'isDeposit': false,
+            'showOnly': false,
         });
         injectParams = {
             theme: 'default',
@@ -161,5 +162,23 @@ describe('BonusButtonsComponent', () => {
         fixture.detectChanges();
 
         expect(nativeElement.querySelector('button[text="Sign up"]')).toBeTruthy();
+    });
+
+    it('-> checking for the Read more button represence for showOnly bonus', () => {
+        resetProp('showOnly', true);
+        component.ngOnInit();
+        component.isInsideModal = false;
+        fixture.detectChanges();
+
+        expect(nativeElement.querySelector('button[text="Read more"]')).toBeTruthy();
+    });
+
+    it('-> checking for the Close button inside modal represence for showOnly bonus', () => {
+        resetProp('showOnly', true);
+        component.ngOnInit();
+        component.isInsideModal = true;
+        fixture.detectChanges();
+
+        expect(nativeElement.querySelector('button[text="Close"]')).toBeTruthy();
     });
 });

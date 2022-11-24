@@ -260,7 +260,10 @@ export class DepositBonusesComponent extends AbstractComponent implements OnInit
 
     protected processBonusesResponse(bonuses: Bonus[]): void {
         if (bonuses.length) {
-            this.bonuses = _filter(this.bonusesService.filterBonuses(bonuses, this.$params.filter), {isActive: false});
+            this.bonuses = _filter(
+                this.bonusesService.filterBonuses(bonuses, this.$params.filter),
+                {isActive: false, showOnly: false},
+            );
             const activeBonuses: Bonus[] = this.bonusesService.filterBonuses(bonuses, 'active');
 
             if (activeBonuses.some((bonus: Bonus) => !bonus.allowStack)) {

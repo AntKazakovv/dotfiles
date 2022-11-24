@@ -9,7 +9,7 @@ export namespace wlcBonusesList {
             common: {
                 filter: 'main',
                 useQuery: true,
-                sortOrder: ['active', 'inventory', 'promocode', 'subscribe'],
+                sortOrder: ['notShowOnly', 'active', 'inventory', 'promocode', 'subscribe'],
                 pagination: {
                     use: true,
                     breakpoints: {
@@ -35,7 +35,7 @@ export namespace wlcBonusesList {
             common: {
                 filter: 'main',
                 useQuery: true,
-                sortOrder: ['active', 'inventory', 'promocode', 'subscribe'],
+                sortOrder: ['notShowOnly', 'active', 'inventory', 'promocode', 'subscribe'],
                 pagination: {
                     use: true,
                     breakpoints: {
@@ -66,7 +66,7 @@ export namespace wlcBonusesList {
             common: {
                 filter: 'main',
                 useQuery: true,
-                sortOrder: ['active', 'promocode', 'subscribe', 'inventory'],
+                sortOrder: ['notShowOnly', 'active', 'promocode', 'subscribe', 'inventory'],
                 pagination: {
                     use: true,
                     breakpoints: {
@@ -187,7 +187,7 @@ export namespace wlcBonusesList {
             wlcElement: 'block_bonuses-main',
             common: {
                 useQuery: true,
-                sortOrder: ['active', 'inventory', 'promocode', 'subscribe'],
+                sortOrder: ['notShowOnly', 'active', 'inventory', 'promocode', 'subscribe'],
                 swiper: {
                     nested: true,
                     slidesPerView: 2,
@@ -244,7 +244,7 @@ export namespace wlcBonusesList {
             hideNavigation: true,
             common: {
                 useQuery: true,
-                sortOrder: ['active', 'subscribe', 'inventory'],
+                sortOrder: ['notShowOnly', 'active', 'subscribe', 'inventory'],
                 swiper: {
                     slidesPerView: 2,
                     spaceBetween: 20,
@@ -319,7 +319,7 @@ export namespace wlcBonusesList {
             title: gettext('Bonus'),
             wlcElement: 'block_bonuses-main',
             common: {
-                sortOrder: ['active', 'inventory', 'promocode', 'subscribe'],
+                sortOrder: ['notShowOnly', 'active', 'inventory', 'promocode', 'subscribe'],
                 swiper: {
                     slidesPerView: 1,
                     navigation: {
@@ -358,7 +358,7 @@ export namespace wlcBonusesList {
             title: gettext('Bonus'),
             wlcElement: 'block_bonuses-main',
             common: {
-                sortOrder: ['active', 'inventory', 'promocode', 'subscribe'],
+                sortOrder: ['notShowOnly', 'active', 'inventory', 'promocode', 'subscribe'],
                 swiper: {
                     slidesPerView: 1,
                     navigation: {

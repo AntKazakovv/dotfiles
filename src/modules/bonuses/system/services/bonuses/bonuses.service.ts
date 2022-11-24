@@ -700,6 +700,9 @@ export class BonusesService {
                 case 'promocode':
                     return _unionBy(res, _filter(bonuses, (bonus: Bonus): boolean => bonus.id === this.promoBonus?.id),
                         'id');
+                case 'notShowOnly':
+                    return _unionBy(res, _filter(bonuses, (bonus: Bonus): boolean => !bonus.showOnly),
+                        'id');
                 default:
                     return _unionBy(res, bonuses, 'id');
             }

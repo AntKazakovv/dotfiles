@@ -6,6 +6,7 @@ export const bonusesConfig: IBonusesModule = {
     useNewImageSources: false,
     defaultIconPath: '/gstatic/bonuses/icons/',
     fallBackIconPath: '/gstatic/bonuses/icons/default.svg',
+    showOnlyIconPath: '/gstatic/wlc/bonuses/lock.svg',
     components: {
         'wlc-bonuses-list': {
             noContent: {

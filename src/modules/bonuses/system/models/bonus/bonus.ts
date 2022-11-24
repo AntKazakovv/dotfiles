@@ -59,6 +59,7 @@ const disabledReasons = {
 export class Bonus extends AbstractModel<IBonus> {
     public onChooseChange: Subject<boolean> = new Subject<boolean>();
     public icon: string;
+    public showOnlyIcon: string;
     public disabledBy: null | keyof typeof disabledReasons = null;
     public static userCurrency: string;
     public readonly descriptionClean: string;
@@ -96,6 +97,10 @@ export class Bonus extends AbstractModel<IBonus> {
         this.nameClean = GlobalHelper.deleteHTMLTags(this.data.Name);
         this.allowPromotions = !!_toNumber(this.data.AllowPromotions);
         this.hidePromotionsForUnauthorized = !!_toNumber(this.data.HidePromotionsForUnauthorized);
+
+        if (this.showOnly) {
+            this.showOnlyIcon = GlobalHelper.proxyUrl(Bonus.bonusesConfig.showOnlyIconPath);
+        }
 
         if (Bonus.bonusesConfig.useNewImageSources && this.data.Image_other) {
             this.icon = GlobalHelper.proxyUrl(this.data.Image_other);
@@ -502,6 +507,10 @@ export class Bonus extends AbstractModel<IBonus> {
         return this.data.Conditions || {};
     }
 
+    public get showOnly(): boolean {
+        return !!this.data?.showOnly;
+    }
+
     // additional
     /**
      * @returns {boolean} is bonus active
@@ -781,6 +790,10 @@ export class Bonus extends AbstractModel<IBonus> {
      * @returns {string} bonus tag
      */
     public get tag(): string {
+
+        if (this.showOnly) {
+            return gettext('Unavailable');
+        }
 
         if (this.isActive) {
             return gettext('Active');

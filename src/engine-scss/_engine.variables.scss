@@ -351,6 +351,7 @@ $tagConfig: map-merge((
     // Locked colors
     'bg': map-get($mainColors, 'secondary'),
     'bgActive': map-get($mainColors, 'main'),
+    'bgUnavailable': map-get($mainColors, 'bg300'),
     'color': map-get($mainColors, 'baseMain'),
     'colorActive': map-get($mainColors, 'baseMain'),
 ), $customTagConfig);
