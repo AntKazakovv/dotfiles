@@ -238,10 +238,21 @@ module.exports = function preBuildTask() {
     };
 
     const makeEngineVersion = () => {
-        const rawPackageJsonData = fs.readFileSync(
+        const rawEnginePackageJsonData = fs.readFileSync(
             `${this.params.paths.engine}/package.json`,
         );
-        const packageJson = JSON.parse(rawPackageJsonData);
+        const enginePackageJson = JSON.parse(rawEnginePackageJsonData);
+
+        const rawTranslatePackageJsonData = fs.readFileSync(
+            `${this.params.paths.languagesPack}/package.json`,
+        );
+        const translatePackageJson = JSON.parse(rawTranslatePackageJsonData);
+
+        const rawEngineComposerLockData = fs.readFileSync(
+            `${this.params.paths.root}/composer.lock`,
+        );
+        const engineComposerLock = JSON.parse(rawEngineComposerLockData);
+        const coreVersion = engineComposerLock.packages.find(p => p.name === 'egamings/wlc_core')?.version;
 
         const engineInfoFileName = '/engine.json';
         const engineInfoFile = `${this.params.paths.static}${engineInfoFileName}`;
@@ -251,7 +262,11 @@ module.exports = function preBuildTask() {
         }
         fs.writeFileSync(
             engineInfoFile,
-            `{"version": "${packageJson.version}"}`,
+            '{'
+            + `\n\t"WLC Engine version": "${enginePackageJson.version}",`
+            + `\n\t"WLC Engine Translate version": "${translatePackageJson.version}",`
+            + `\n\t"WLC Core version": "${coreVersion}"`
+            + '\n}',
         );
 
         this.addToGitIgnore(
