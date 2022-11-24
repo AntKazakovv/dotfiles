@@ -158,8 +158,8 @@
 </ng-template>
 
 <ng-template #thumbImg>
-    <div class="{{$class}}__img">
-        <picture data-wlc-element="block_game-thumb-img" (click)="startGame(false, true, $event)">
+    <div class="{{$class}}__img" (click)="startGame(false, true, $event)">
+        <picture data-wlc-element="block_game-thumb-img">
             <source [srcset]="game.getImage(315, 'webp')" type="image/webp">
             <img loading="lazy"
                 [src]="game.getImage(315)"
