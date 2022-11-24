@@ -1,4 +1,7 @@
-import {Injectable} from '@angular/core';
+import {
+    Inject,
+    Injectable,
+} from '@angular/core';
 import {TranslateService} from '@ngx-translate/core';
 import {DateTime} from 'luxon';
 import {
@@ -62,6 +65,7 @@ import {
     ChosenBonusSetParams,
     ChosenBonusType,
 } from 'wlc-engine/modules/bonuses';
+import {WINDOW} from 'wlc-engine/modules/app/system';
 
 export enum LanguageChangeEvents {
     ChangeLanguage = 'CHANGE_LANGUAGE'
@@ -126,6 +130,7 @@ export class UserService {
         private injectionService: InjectionService,
         private stateService: StateService,
         private termsAccept: TermsAcceptService,
+        @Inject(WINDOW) private window: Window,
     ) {
         this.init();
     }
@@ -161,25 +166,6 @@ export class UserService {
             name: 'USER_INFO',
         }, (info: IData<IUserInfo>) => {
             if (info?.code === 401 || _get(info, 'data.status') === 0) {
-                this.logout();
-                return;
-            }
-
-            if (this.configService.get<boolean>('$base.site.useXNonce') && info?.code === 403) {
-                this.modalService.showModal({
-                    id: 'login-error',
-                    modalTitle: gettext('Sorry, something went wrong!'),
-                    modalMessage: gettext(
-                        'Something went wrong during login process. '
-                        + 'Please check the correctness of the entered data and try again.',
-                    ),
-                    closeBtnParams: {
-                        common: {
-                            text: gettext('Close'),
-                        },
-                    },
-                    textAlign: 'center',
-                });
                 this.logout();
                 return;
             }
@@ -264,44 +250,6 @@ export class UserService {
                     });
                 }
             });
-        });
-
-        this.eventService.subscribe({
-            name: 'LOGOUT',
-        }, () => {
-            this.isAuthenticated = false;
-            this.configService.set({name: '$user.isAuthenticated', value: false});
-
-            if (this.modalService.getActiveModal('login-error')) {
-                firstValueFrom(
-                    this.eventService.filter([{name: ProcessEvents.modalClosed}])
-                        .pipe(
-                            first((eventData: IEvent<IProcessEventData>) => eventData.data.eventId === 'login-error'),
-                        ),
-                ).then(() => {
-                    this.stateService.go('app.home', {
-                        locale: this.translate.currentLang,
-                    });
-                });
-            } else {
-                this.stateService.go('app.home', {
-                    locale: this.translate.currentLang,
-                });
-            }
-
-            this.dataService.closeSocket();
-            this.stopUserInfoFetcher();
-
-            this.dataService.deleteNonceFromLocalStorage();
-
-            this.info = new UserInfo(
-                {service: 'UserService', method: 'constructor'},
-                this.translate,
-                this.eventService,
-            );
-            this.userInfo$.next(this.info);
-            this.profile = new UserProfile({service: 'UserService', method: 'constructor'});
-            this.userProfile$.next(this.profile);
         });
 
         this.eventService.subscribe({
@@ -408,7 +356,43 @@ export class UserService {
     }
 
     public logout(): void {
-        this.dataService.request('user/userLogout');
+        this.dataService.request('user/userLogout')
+            .finally(() => {
+
+                if (this.configService.get<boolean>('$base.site.useXNonce')) {
+                    this.dataService.deleteNonceFromLocalStorage();
+                }
+            });
+
+        this.isAuthenticated = false;
+        this.configService.set({name: '$user.isAuthenticated', value: false});
+
+        this.dataService.closeSocket();
+        this.stopUserInfoFetcher();
+
+        this.info = new UserInfo(
+            {service: 'UserService', method: 'constructor'},
+            this.translate,
+            this.eventService,
+        );
+        this.userInfo$.next(this.info);
+        this.profile = new UserProfile({service: 'UserService', method: 'constructor'});
+        this.userProfile$.next(this.profile);
+
+        if (this.modalService.getActiveModal('login-error')) {
+            firstValueFrom(
+                this.eventService.filter([{name: ProcessEvents.modalClosed}])
+                    .pipe(
+                        first((eventData: IEvent<IProcessEventData>) => eventData.data.eventId === 'login-error'),
+                    ),
+            ).then(() => {
+                this.window.location.reload();
+            });
+        } else {
+            this.stateService.go('app.home', {
+                locale: this.translate.currentLang,
+            });
+        }
     }
 
     public createUserProfile(userProfile: IUserProfile): Promise<IIndexing<any>> {

@@ -287,4 +287,8 @@ export const errorTypes: ILogTypes = {
         // Auth via MetaMask error
         level: 'error',
     },
+    '1.8.0': {
+        // Wrong nonce
+        level: 'error',
+    },
 };
