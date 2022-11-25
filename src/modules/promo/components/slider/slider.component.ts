@@ -146,6 +146,11 @@ export class SliderComponent extends AbstractComponent
     }
 
     public initEmptySlidesCount(): void {
+        if (!this.slides.length) {
+            this.emptySlidesCount = 0;
+            return;
+        }
+
         const {swiper} = this.$params;
         if (this.isAutoSlidesAndColumnMode()) {
             if (_isNumber(swiper?.slidesPerView) && swiper?.grid?.rows) {
@@ -154,6 +159,7 @@ export class SliderComponent extends AbstractComponent
                 this.emptySlidesCount = groupCount - (this.slides.length - (groupCount * fullFilledSlides));
             }
         } else if (_get(swiper, 'grid.rows', 1) === 1
+            && !swiper?.loop
             && _isNumber(swiper.slidesPerView)
             && this.slides.length < swiper.slidesPerView
         ) {
@@ -172,6 +178,7 @@ export class SliderComponent extends AbstractComponent
                     templateRef: this.tplShowAll,
                     templateParams: templateParams,
                 });
+                this.initEmptySlidesCount();
                 this.fixSlidesSequence();
             }
             this.updateView();
@@ -184,6 +191,7 @@ export class SliderComponent extends AbstractComponent
 
     public ngOnChanges(changes: SimpleChanges): void {
         if (this.ready) {
+            this.initEmptySlidesCount();
             this.fixSlidesSequence();
             this.cdr.detectChanges();
             this.update();
