@@ -361,7 +361,7 @@ export class UserService {
     public logout(): void {
         this.dataService.request('user/userLogout')
             .finally(() => {
-
+                this.eventService.emit({name: 'LOGOUT'});
                 if (this.configService.get<boolean>('$base.site.useXNonce')) {
                     this.dataService.deleteNonceFromLocalStorage();
                 }
@@ -807,10 +807,6 @@ export class UserService {
             system: 'user',
             url: '/auth',
             type: 'DELETE',
-            events: {
-                success: 'LOGOUT',
-                fail: 'LOGOUT_ERROR',
-            },
         });
 
         this.dataService.registerMethod({

@@ -35,7 +35,6 @@ Below is down description of major events in the `user.service.ts`:
 * `LOGIN` - authentication is successful. In addition to login on the site, this event can occur during fast registration, social registration, after email confirmation и password recovery;
 * `LOGIN_ERROR` - failed to login;
 * `LOGOUT` - logout;
-* `LOGOUT_ERROR` - failed to logout;
 
 * `PROFILE_RESTORE` - a form's data (email, phone) were sent to recover password;
 * `PROFILE_RESTORE_ERROR` - failed to sent data;
