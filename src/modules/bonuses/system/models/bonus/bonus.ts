@@ -62,6 +62,7 @@ export class Bonus extends AbstractModel<IBonus> {
     public static userCurrency: string;
     public readonly descriptionClean: string;
     public readonly termsClean: string;
+    public readonly nameClean: string;
 
     private static regEvents = ['deposit first', 'registration', 'verification'];
     private static depEvents = ['deposit', 'deposit first', 'deposit repeated', 'deposit sum'];
@@ -89,6 +90,7 @@ export class Bonus extends AbstractModel<IBonus> {
 
         this.descriptionClean = GlobalHelper.deleteHTMLTags(this.data.Description);
         this.termsClean = GlobalHelper.deleteHTMLTags(this.data.Terms);
+        this.nameClean = GlobalHelper.deleteHTMLTags(this.data.Name);
 
         if (Bonus.bonusesConfig.useNewImageSources && this.data.Image_other) {
             this.icon = GlobalHelper.proxyUrl(this.data.Image_other);

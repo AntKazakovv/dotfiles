@@ -105,7 +105,7 @@ export class GameDashboardBonusesComponent extends AbstractComponent implements 
                             this.bonusesService.filterBonuses(bonuses, this.filter),
                             this.$params.common?.sortOrder,
                         ).slice(0, 9);
-                        this.bonusesToSlides(this.bonuses);
+                        this.bonusesToSlides(this.bonuses, true);
                         this.isReady = true;
                         this.cdr.markForCheck();
                     }
@@ -120,7 +120,8 @@ export class GameDashboardBonusesComponent extends AbstractComponent implements 
      * Transform bonuses to slides
      *
      */
-    protected bonusesToSlides(bonuses: Bonus[]): void {
+
+    protected bonusesToSlides(bonuses: Bonus[], scroll: boolean = false): void {
         this.slides = bonuses?.map((bonus: Bonus) => {
             return {
                 templateRef: this.tplBonus,
@@ -134,6 +135,10 @@ export class GameDashboardBonusesComponent extends AbstractComponent implements 
                 },
             };
         });
+        if (this.slider?.swiper && scroll) {
+            this.slider.swiper.swiperRef.slideTo(0);
+        }
+        this.cdr.detectChanges();
     }
 
     /**

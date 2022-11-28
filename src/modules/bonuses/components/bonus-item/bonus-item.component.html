@@ -33,15 +33,15 @@
         <div *ngIf="!$params.hideBonusBottom" class="{{$class}}__bottom">
             <h4 *ngIf="bonus.id"
                 class="{{$class}}__name"
-                [wlc-clamp]="$params.common?.nameClamp"
-                data-wlc-element="bonus_title-name">
-                {{bonus.name}}
+                [wlc-clamp]="$params.common?.nameClamp ?? 1"
+                data-wlc-element="bonus_title-name"
+                [innerHTML]="bonus.nameClean">
             </h4>
             <h4 *ngIf="!bonus.id"
                 class="{{$class}}__name"
-                [wlc-clamp]="$params.common?.nameClamp"
-                data-wlc-element="bonus_title-name">
-                {{bonus.name | translate}}
+                [wlc-clamp]="$params.common?.nameClamp ?? 1"
+                data-wlc-element="bonus_title-name"
+                [innerHTML]="bonus.nameClean | translate">
             </h4>
         </div>
     </div>
@@ -69,9 +69,10 @@
                 <ng-container *ngIf="bonus.isActive" [ngTemplateOutlet]="activeBlock"></ng-container>
 
                 <div class="{{$class}}__info-block">
-                    <h4 class="{{$class}}__name" [wlc-clamp]="$params.common?.nameClamp || 1"
-                        data-wlc-element="bonus_title-name">
-                        {{bonus.name}}
+                    <h4 class="{{$class}}__name"
+                        [wlc-clamp]="$params.common?.nameClamp ?? 1"
+                        data-wlc-element="bonus_title-name"
+                        [innerHTML]="bonus.nameClean | translate">
                     </h4>
                     <ng-container [ngTemplateOutlet]="description"></ng-container>
                     <button *ngIf="!$params.common?.iconMoreBtn"
@@ -181,8 +182,8 @@
                 <div class="{{$class}}__info-block">
                     <h4 class="{{$class}}__name"
                         data-wlc-element="bonus_title-name"
-                        [wlc-clamp]="$params.common?.nameClamp || 1">
-                        {{bonus.name}}
+                        [wlc-clamp]="$params.common?.nameClamp ?? 1"
+                        [innerHTML]="bonus.nameClean | translate" >
                     </h4>
                     <ng-container [ngTemplateOutlet]="description"></ng-container>
                 </div>
@@ -235,7 +236,9 @@
                 <div class="{{$class}}__info-block">
                     <h4 class="{{$class}}__name"
                         data-wlc-element="bonus_title-name"
-                        [wlc-clamp]="$params.common?.nameClamp || 2"> {{bonus.name}} </h4>
+                        [wlc-clamp]="$params.common?.nameClamp ?? 2"
+                        [innerHTML]="bonus.nameClean | translate">
+                    </h4>
                     <ng-container [ngTemplateOutlet]="description"></ng-container>
                 </div>
 
@@ -280,8 +283,8 @@
 
                 <h4 class="{{$class}}__name"
                     data-wlc-element="bonus_title-name"
-                    [wlc-clamp]="$params.common?.nameClamp || 2">
-                    {{bonus.name}}
+                    [wlc-clamp]="$params.common?.nameClamp ?? 2"
+                    [innerHTML]="bonus.nameClean | translate">
                 </h4>
             </div>
 
@@ -331,8 +334,8 @@
             <div class="{{$class}}__info-block" data-wlc-element="bonus_info">
                 <h4 class="{{$class}}__name"
                     data-wlc-element="bonus_title-name"
-                    [wlc-clamp]="$params.common?.nameClamp || 1">
-                    {{bonus.name}}
+                    [wlc-clamp]="$params.common?.nameClamp ?? 1"
+                    [innerHTML]="bonus.nameClean | translate">
                 </h4>
                 <ng-container [ngTemplateOutlet]="description"></ng-container>
                 <button *ngIf="!$params.common?.iconMoreBtn"
@@ -369,8 +372,8 @@
 <ng-template #disabledIcon>
     <div class="{{$class}}__more-icon" >
         <div wlc-tooltip
-            class="icon-btn error"
-            [inlineParams]="getErrTooltipParams()">
+             class="icon-btn error"
+             [inlineParams]="getErrTooltipParams()">
         </div>
     </div>
 </ng-template>
@@ -403,9 +406,9 @@
         <ng-template #without>
             <div class="{{$class}}__icon-sign {{$class}}__icon-sign--empty" (click)="chooseBlankBonus()">
                 <span *ngIf="bonus.name"
-                    class="{{$class}}__name"
-                    data-wlc-element="bonus_title-name">
-                    {{bonus.name | translate}}
+                      class="{{$class}}__name"
+                      data-wlc-element="bonus_title-name"
+                      [innerHTML]="bonus.nameClean | translate">
                 </span>
             </div>
         </ng-template>
