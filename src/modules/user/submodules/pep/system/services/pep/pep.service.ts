@@ -10,13 +10,14 @@ import {
     IUserProfile,
     PepStatus,
     PepStatusValuableOnly,
-} from 'wlc-engine/modules/core/system/interfaces/user.interface';
-import {EventService} from 'wlc-engine/modules/core/system/services/event/event.service';
-import {IPushMessageParams} from 'wlc-engine/modules/core/system/services/notification/notification.interface';
-import {LogService} from 'wlc-engine/modules/core';
-import {NotificationEvents} from 'wlc-engine/modules/core/system/services/notification/notification.service';
+    EventService,
+    IPushMessageParams,
+    LogService,
+    NotificationEvents,
+    InjectionService,
+} from 'wlc-engine/modules/core';
 import {UserService} from 'wlc-engine/modules/user';
-import {phrases} from 'wlc-engine/modules/user/system/services/pep/pep.translations';
+import {phrases} from 'wlc-engine/modules/user/submodules/pep/system/services/pep/pep.translations';
 
 type PepPrefixed<S extends string> = `PEP_${S}`;
 
@@ -66,10 +67,12 @@ export class PepService {
         ],
     ]);
 
+    protected userService: UserService;
+
     constructor(
         protected eventService: EventService,
         protected logService: LogService,
-        protected userService: UserService,
+        protected injectionService: InjectionService,
     ) {
         this.listenForPepEvents();
         this.listenForProfileChanges();
@@ -144,7 +147,9 @@ export class PepService {
         });
     }
 
-    protected listenForProfileChanges(): void {
+    protected async listenForProfileChanges(): Promise<void> {
+        this.userService = await this.injectionService.getService<UserService>('user.user-service');
+
         this.userService.userProfile$
             .pipe(
                 filter((profile) => !!profile?.extProfile),
@@ -154,6 +159,10 @@ export class PepService {
     }
 
     protected async updateProfile(updates: Partial<IUserProfile>, requestConfirmation = false): Promise<void> {
+        if (!this.userService) {
+            this.userService = await this.injectionService.getService<UserService>('user.user-service');
+        }
+
         const response = await this.userService.updateProfile(updates, true, false, requestConfirmation);
 
         if (response !== true) {

@@ -289,7 +289,7 @@ export namespace FormElements {
     };
 
     export const pep: IFormComponent = {
-        name: 'user.wlc-pep-select',
+        name: 'pep.wlc-pep-select',
         params: <ISelectCParams>{
             class: 'wlc-select',
             labelText: gettext('PEP'),

@@ -3,14 +3,16 @@ import {
     IComponentParams,
 } from 'wlc-engine/modules/core/system/classes/abstract.component';
 
-import {IFormWrapperCParams} from 'wlc-engine/modules/core/components/form-wrapper/form-wrapper.component';
-import {PepStatusValuableOnly} from 'wlc-engine/modules/core/system/interfaces/user.interface';
-import {IWrapperCParams} from 'wlc-engine/modules/core/components/wrapper/wrapper.component';
-import {ITextBlockCParams} from 'wlc-engine/modules/core/components/text-block/text-block.params';
-import {IIconCParams} from 'wlc-engine/modules/core/components/icon/icon.params';
-import {ICheckboxCParams} from 'wlc-engine/modules/core/components/checkbox/checkbox.params';
-import {IButtonCParams} from 'wlc-engine/modules/core/components/button/button.component';
-import {phrases as pepPhrases} from 'wlc-engine/modules/user/system/services/pep/pep.translations';
+import {
+    IFormWrapperCParams,
+    PepStatusValuableOnly,
+    IWrapperCParams,
+    ITextBlockCParams,
+    IIconCParams,
+    ICheckboxCParams,
+    IButtonCParams,
+} from 'wlc-engine/modules/core';
+import {phrases as pepPhrases} from 'wlc-engine/modules/user/submodules/pep/system/services/pep/pep.translations';
 
 type ComponentTheme = 'default' | CustomType;
 
@@ -31,6 +33,7 @@ export interface IPepInfoCParams extends IComponentParams<ComponentTheme, Compon
 
 export const defaultParams: Partial<IPepInfoCParams> = {
     class: 'wlc-pep-info',
+    moduleName: 'pep',
     config: {
         class: 'wlc-form-wrapper',
         components: [

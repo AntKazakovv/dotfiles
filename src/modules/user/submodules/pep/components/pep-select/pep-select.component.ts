@@ -14,14 +14,16 @@ import {
     takeUntil,
 } from 'rxjs/operators';
 
-import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
-import {ISelectCParams} from 'wlc-engine/modules/core/components/select/select.params';
+import {
+    AbstractComponent,
+    ISelectCParams,
+    ModalService,
+    MODALS_LIST,
+    EventService,
+} from 'wlc-engine/modules/core';
+import {PepService} from 'wlc-engine/modules/user/submodules/pep/system/services/pep/pep.service';
+import {IPepInfoCParams} from 'wlc-engine/modules/user/submodules/pep/components/pep-info/pep-info.params';
 
-import {EventService} from 'wlc-engine/modules/core';
-import {IPepInfoCParams} from 'wlc-engine/modules/user/components/pep/pep-info/pep-info.params';
-import {PepService} from 'wlc-engine/modules/user/system/services/pep/pep.service';
-import {ModalService} from 'wlc-engine/modules/core/system/services/modal/modal.service';
-import {MODALS_LIST} from 'wlc-engine/modules/core/components/modal/modal.params';
 import {defaultParams} from './pep-select.params';
 
 @Component({

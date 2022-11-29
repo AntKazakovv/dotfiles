@@ -22,8 +22,8 @@ export interface IPepSavedCParams extends IComponentParams<ComponentTheme, Compo
     config?: IFormWrapperCParams;
 }
 
-
 export const defaultParams: Partial<IPepSavedCParams> = {
     wlcElement: 'wlc-pep-saved',
     class: 'wlc-pep-saved',
+    moduleName: 'pep',
 };

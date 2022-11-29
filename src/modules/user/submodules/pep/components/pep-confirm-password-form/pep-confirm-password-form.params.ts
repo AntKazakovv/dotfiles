@@ -2,15 +2,15 @@ import {
     CustomType,
     IComponentParams,
 } from 'wlc-engine/modules/core/system/classes/abstract.component';
-import {IFormWrapperCParams} from 'wlc-engine/modules/core/components/form-wrapper/form-wrapper.component';
 import {
     IButtonCParams,
     ITextBlockCParams,
     IWrapperCParams,
     PepStatusValuableOnly,
+    IFormWrapperCParams,
 } from 'wlc-engine/modules/core';
 
-import {phrases as pepPhrases} from 'wlc-engine/modules/user/system/services/pep/pep.translations';
+import {phrases as pepPhrases} from 'wlc-engine/modules/user/submodules/pep/system/services/pep/pep.translations';
 
 type ComponentTheme = 'default' | CustomType;
 
@@ -31,6 +31,7 @@ export interface IPepConfirmPasswordFormCParams extends IComponentParams<Compone
 
 export const defaultParams: Partial<IPepConfirmPasswordFormCParams> = {
     class: 'wlc-pep-confirm-password-form',
+    moduleName: 'pep',
     config: {
         components: [
             {

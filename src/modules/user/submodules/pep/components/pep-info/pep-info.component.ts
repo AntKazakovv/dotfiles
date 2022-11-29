@@ -12,20 +12,23 @@ import {
     firstValueFrom,
 } from 'rxjs';
 
-import {ConfigService} from 'wlc-engine/modules/core';
-import {UserProfile} from 'wlc-engine/modules/user/system/models';
-import {EventService} from 'wlc-engine/modules/core/system/services/event/event.service';
-import {IPepConfirmPasswordFormCParams} from '../pep-confirm-password-form/pep-confirm-password-form.params';
-import {ModalService} from 'wlc-engine/modules/core/system/services/modal/modal.service';
+import {
+    ConfigService,
+    EventService,
+    ModalService,
+} from 'wlc-engine/modules/core';
+import {UserProfile} from 'wlc-engine/modules/user';
+import {
+    IPepConfirmPasswordFormCParams,
+} from 'wlc-engine/modules/user/submodules/pep/components/pep-confirm-password-form/pep-confirm-password-form.params';
 import {
     PepAbstractModalComponent,
-} from 'wlc-engine/modules/user/components/pep/pep-abstract-modal/pep-abstract-modal.component';
+} from 'wlc-engine/modules/user/submodules/pep/system/classes/pep-abstract-modal/pep-abstract-modal.component';
 import {
     PepEventKind,
     PepModalId,
     PepService,
-} from 'wlc-engine/modules/user/system/services/pep/pep.service';
-import {UserService} from 'wlc-engine/modules/user/system/services/user/user.service';
+} from 'wlc-engine/modules/user/submodules/pep/system/services/pep/pep.service';
 import {WINDOW} from 'wlc-engine/modules/app/system/tokens/window';
 
 import {
@@ -54,7 +57,6 @@ export class PepInfoComponent extends PepAbstractModalComponent implements OnIni
         protected eventService: EventService,
         protected modalService: ModalService,
         protected pepService: PepService,
-        protected userService: UserService,
         protected configService: ConfigService,
     ) {
         super(
@@ -62,7 +64,6 @@ export class PepInfoComponent extends PepAbstractModalComponent implements OnIni
             eventService,
             modalService,
             pepService,
-            userService,
             {
                 injectParams,
                 defaultParams,
@@ -107,5 +108,4 @@ export class PepInfoComponent extends PepAbstractModalComponent implements OnIni
 
         return userProfile.type === 'metamask';
     }
-
 }

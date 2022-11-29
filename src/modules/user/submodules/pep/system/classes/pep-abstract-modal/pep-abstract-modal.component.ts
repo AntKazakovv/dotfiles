@@ -23,8 +23,7 @@ import {
     PepEventKind,
     PepModalId,
     PepService,
-} from 'wlc-engine/modules/user/system/services/pep/pep.service';
-import {UserService} from 'wlc-engine/modules/user/system/services/user/user.service';
+} from 'wlc-engine/modules/user/submodules/pep/system/services/pep/pep.service';
 import {WINDOW} from 'wlc-engine/modules/app/system';
 import {WlcModalComponent} from 'wlc-engine/modules/core/components/modal/modal.component';
 
@@ -41,7 +40,6 @@ export abstract class PepAbstractModalComponent extends AbstractComponent implem
         protected eventService: EventService,
         protected modalService: ModalService,
         protected pepService: PepService,
-        protected userService: UserService,
         mixedParams: IMixedParams<unknown>,
     ) {
         super(mixedParams);

@@ -6,17 +6,18 @@ import {
 } from '@angular/core';
 import {FormGroup} from '@angular/forms';
 
-import {EventService} from 'wlc-engine/modules/core/system/services/event/event.service';
-import {ModalService} from 'wlc-engine/modules/core/system/services/modal/modal.service';
 import {
-    PepAbstractModalComponent,
-} from 'wlc-engine/modules/user/components/pep/pep-abstract-modal/pep-abstract-modal.component';
+    EventService,
+    ModalService,
+} from 'wlc-engine/modules/core';
 import {
     PepEventKind,
     PepModalId,
     PepService,
-} from 'wlc-engine/modules/user/system/services/pep/pep.service';
-import {UserService} from 'wlc-engine/modules/user/system/services/user/user.service';
+} from 'wlc-engine/modules/user/submodules/pep/system/services/pep/pep.service';
+import {
+    PepAbstractModalComponent,
+} from 'wlc-engine/modules/user/submodules/pep/system/classes/pep-abstract-modal/pep-abstract-modal.component';
 import {WINDOW} from 'wlc-engine/modules/app/system/tokens/window';
 
 import {
@@ -43,14 +44,12 @@ export class PepConfirmPasswordFormComponent extends PepAbstractModalComponent i
         protected eventService: EventService,
         protected modalService: ModalService,
         protected pepService: PepService,
-        protected userService: UserService,
     ) {
         super(
             window,
             eventService,
             modalService,
             pepService,
-            userService,
             {
                 injectParams,
                 defaultParams,

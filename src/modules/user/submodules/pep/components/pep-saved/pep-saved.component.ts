@@ -9,7 +9,7 @@ import {AbstractComponent} from 'wlc-engine/modules/core';
 import {
     PepPhrases,
     phrases,
-} from 'wlc-engine/modules/user/system/services/pep/pep.translations';
+} from 'wlc-engine/modules/user/submodules/pep/system/services/pep/pep.translations';
 
 import * as Params from './pep-saved.params';
 

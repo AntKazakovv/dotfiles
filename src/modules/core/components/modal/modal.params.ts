@@ -8,7 +8,7 @@ import {
     IRestrictModalOption,
 } from './index';
 
-import {phrases as pepPhrases} from 'wlc-engine/modules/user/system/services/pep/pep.translations';
+import {phrases as pepPhrases} from 'wlc-engine/modules/user/submodules/pep';
 
 export const defaultParams: IModalOptions = {
     moduleName: 'core',
@@ -327,7 +327,7 @@ export const MODALS_LIST: IModalList = {
             size: 'md',
             modalTitle: pepPhrases.modals.info.title,
             showFooter: false,
-            componentName: 'user.wlc-pep-info',
+            componentName: 'pep.wlc-pep-info',
             ignoreBackdropClick: true,
             backdrop: 'static',
         },
@@ -340,7 +340,7 @@ export const MODALS_LIST: IModalList = {
             centered: true,
             textAlign: 'center',
             modalTitle: pepPhrases.modals.confirmation.title,
-            componentName: 'user.wlc-pep-confirm-password-form',
+            componentName: 'pep.wlc-pep-confirm-password-form',
             showFooter: false,
             useBackButton: true,
             backButtonText: pepPhrases.modals.confirmation.back,
@@ -353,7 +353,7 @@ export const MODALS_LIST: IModalList = {
         config: {
             id: 'pepSaved',
             modifier: 'pepSaved',
-            componentName: 'user.wlc-pep-saved',
+            componentName: 'pep.wlc-pep-saved',
             size: 'md',
             centered: true,
             modalTitle: pepPhrases.modals.saved.title,

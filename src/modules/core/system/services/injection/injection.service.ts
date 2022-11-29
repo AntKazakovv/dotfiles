@@ -161,6 +161,14 @@ export class InjectionService {
                     this.afterModuleLoad('user', m);
                     return m.UserModule;
                 });
+            case 'pep':
+                if (this.loadedModules.pep) {
+                    return this.loadedModules.pep;
+                }
+                return import('wlc-engine/modules/user/submodules/pep/pep.module').then(m => {
+                    this.afterModuleLoad('pep', m);
+                    return m.PepModule;
+                });
             case 'finances':
                 if (this.loadedModules.finances) {
                     return this.loadedModules.finances;
