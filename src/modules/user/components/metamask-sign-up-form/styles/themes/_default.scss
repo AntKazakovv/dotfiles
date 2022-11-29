@@ -1,0 +1,59 @@
+.wlc-metamask-sign-up-form--theme-default:host::ng-deep {
+    @include hostStyles($themeDefault);
+
+    .wlc-form-wrapper {
+        @include formWrapperStyles($themeDefault);
+    }
+
+    .wlc-form {
+        @include formStyles($themeDefault);
+
+        > .wlc-btn {
+            @include bm.get-mq-map('margin', $themeDefault, 'btnMargin');
+        }
+    }
+
+    .wlc-select {
+
+        .wlc-select__group {
+
+            .wlc-select__field:disabled {
+                @include selectDisabledStyles($themeDefault);
+            }
+        }
+    }
+
+    .wlc-input,
+    .wlc-select,
+    .wlc-checkbox,
+    .wlc-btn {
+        grid-column: ef.get-value($themeDefault, 'fullGridCol');
+    }
+
+    .wlc-checkbox--terms {
+        @include checkboxTermsStyles($themeDefault);
+    }
+
+    .wlc-checkbox--self-exclude {
+        @include checkboxSelfExcludedStyles($themeDefault);
+    }
+
+    .wlc-checkbox--privacy {
+        @include checkboxPrivacyStyles($themeDefault);
+    }
+
+    .wlc-checkbox--age {
+        @include checkboxAgeStyles($themeDefault);
+    }
+
+    .wlc-select[wlc-select] {
+        @include selectStyles($themeDefault);
+    }
+
+    .wlc-checkbox[wlc-checkbox] {
+
+        .wlc-checkbox__link {
+            @include checkboxLinkStyles($themeDefault);
+        }
+    }
+}

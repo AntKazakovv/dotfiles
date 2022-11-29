@@ -29,10 +29,11 @@ import {
 import {
     TMetamaskMsgAction,
     TMetamaskData,
-    TMetamaskDataReg,
     IMetamaskDepositData,
 } from 'wlc-engine/modules/metamask/system/interfaces/metamask.interfaces';
-import {ICurrencyFormCParams} from 'wlc-engine/modules/metamask/components/currency-form/currency-form.params';
+import {
+    IMetamaskSignUpFormCParams,
+} from 'wlc-engine/modules/user/components/metamask-sign-up-form/metamask-sign-up-form.params';
 
 /**
  * Service for interaction with MetaMask browser application.
@@ -110,11 +111,12 @@ export class MetamaskService {
      * Requests auth data: `walletAddress`, `message`, `signature`, `currency`.
      * Under the hood, it calls modal window to request profile currency.
      * @param {TMetamaskMsgAction} action `'reg'`
-     * @return {TMetamaskDataReg} `TMetamaskDataReg`
+     * @return {TMetamaskData} `TMetamaskData`
      */
-    public async requestAuthData(action: 'reg'): Promise<TMetamaskDataReg>;
 
-    public async requestAuthData(action: TMetamaskMsgAction): Promise<TMetamaskData | TMetamaskDataReg> {
+    public async requestAuthData(action: 'reg'): Promise<TMetamaskData>;
+
+    public async requestAuthData(action: TMetamaskMsgAction): Promise<TMetamaskData> {
         this.checkMetamask();
         await this.getAccount();
 
@@ -128,24 +130,12 @@ export class MetamaskService {
         switch (action) {
             case 'login':
             case 'profile':
+            case 'reg':
                 return {
                     walletAddress: this.accounts[0],
                     message,
                     signature,
                 };
-            case 'reg': {
-                const currency: string = await this.requestCurrency();
-                if (!currency) {
-                    throw {errors: gettext('No currency selected.')};
-                }
-
-                return {
-                    walletAddress: this.accounts[0],
-                    message,
-                    signature,
-                    currency,
-                };
-            }
         }
     }
 
@@ -376,36 +366,48 @@ export class MetamaskService {
     }
 
     /**
-     * Requests profile currency, by calling a modal window with a form.
-     * @returns {string} `string` value of confirmed currency or
-     * `undefined` if modal window is closed without clicking confirm button
+     * Requests profile, by calling a modal window with a form.
+     * @returns {Promise<void>}
      */
-    private async requestCurrency(): Promise<string | undefined> {
-        let currency: string;
-        const submitEventName: string = 'CURRENCY_CHOSEN';
+    public async requestProfile(): Promise<void> {
+        let registrationSuccess: boolean;
+        const authData: TMetamaskData = await this.requestAuthData('profile');
+        const submitEventName: string = 'REGISTRATION_SUCCESS';
         const waiter$: Subject<void> = new Subject();
 
-        this.eventService.subscribe({name: submitEventName}, (data: IIndexing<string>): void => {
-            currency = data.currency;
-            this.modalService.hideModal('request-currency');
+        this.eventService.subscribe({name: submitEventName}, (data: boolean): void => {
+            registrationSuccess = data;
+            this.modalService.hideModal('request-profile');
         }, waiter$);
 
         const modal = await this.modalService.showModal({
-            id: 'request-currency',
-            modifier: 'request-currency',
+            id: 'request-profile',
+            modifier: 'request-profile',
             showFooter: false,
-            modalTitle: gettext('Select profile currency to continue registration'),
-            componentName: 'metamask.wlc-currency-form',
-            componentParams: <ICurrencyFormCParams>{
+            modalTitle: gettext('Fill form to continue registration'),
+            componentName: 'user.wlc-metamask-sign-up-form',
+            componentParams: <IMetamaskSignUpFormCParams> {
+                regData: authData,
                 submitEventName,
             },
+            dismissAll: true,
         });
-
         await modal.closed;
+
         waiter$.next();
         waiter$.complete();
 
-        return currency;
+        if (!registrationSuccess) {
+            this.eventService.emit({
+                name: NotificationEvents.PushMessage,
+                data: <IPushMessageParams>{
+                    type: 'error',
+                    title: gettext('Registration via MetaMask'),
+                    message: gettext('Registration is not completed'),
+                    wlcElement: 'notification_metamask-sign-up-error',
+                },
+            });
+        }
     }
 
     /**

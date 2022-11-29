@@ -13,8 +13,6 @@ export type TMetamaskMsgAction = 'reg' | 'login' | 'profile';
 
 export type TMetamaskData = Required<Pick<IUserProfile, 'walletAddress' | 'message' | 'signature'>>;
 
-export type TMetamaskDataReg = Required<Pick<IUserProfile, 'walletAddress' | 'message' | 'signature' | 'currency'>>;
-
 export interface IMetamaskDepositData {
     address: string;
     contractAccount: string;

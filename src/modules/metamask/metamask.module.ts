@@ -6,7 +6,6 @@ import {CoreModule} from 'wlc-engine/modules/core/core.module';
 import {IIndexing} from 'wlc-engine/modules/core';
 import {MetamaskService} from './system/services/metamask/metamask.service';
 import {MetamaskButtonComponent} from './components/metamask-button/metamask-button.component';
-import {CurrencyFormComponent} from './components/currency-form/currency-form.component';
 import {AmountFormComponent} from './components/amount-form/amount-form.component';
 
 export const services: IIndexing<any> = {
@@ -15,7 +14,6 @@ export const services: IIndexing<any> = {
 
 export const components: IIndexing<any> = {
     'wlc-metamask-button': MetamaskButtonComponent,
-    'wlc-currency-form': CurrencyFormComponent,
     'wlc-amount-form': AmountFormComponent,
 };
 
@@ -30,7 +28,6 @@ export const components: IIndexing<any> = {
     ],
     declarations: [
         AmountFormComponent,
-        CurrencyFormComponent,
         MetamaskButtonComponent,
     ],
     exports: [],

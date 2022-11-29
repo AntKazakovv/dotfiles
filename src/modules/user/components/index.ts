@@ -19,3 +19,4 @@ export {ILimitationsCParams} from './limitations/limitations.params';
 export {ISocialNetworksCParams} from './social-networks/social-networks.params';
 export {ISocialSignUpFormCParams} from './social-sign-up-form/social-sign-up-form.params';
 export {IProfileBlocksCParams} from './profile-blocks/profile-blocks.params';
+export {IMetamaskSignUpFormCParams} from './metamask-sign-up-form/metamask-sign-up-form.params';

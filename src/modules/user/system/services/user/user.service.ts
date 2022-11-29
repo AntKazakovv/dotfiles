@@ -58,7 +58,6 @@ import {
 import {IUserPasswordPost} from 'wlc-engine/modules/user/system/interfaces/user.interface';
 import {
     MetamaskService,
-    TMetamaskDataReg,
     TMetamaskData,
 } from 'wlc-engine/modules/metamask';
 import {
@@ -645,11 +644,7 @@ export class UserService {
             const {data}: IData<ILoginUniqResponse> = await this.loginUnique(account);
 
             if (data.result) {
-                const authData: TMetamaskDataReg = await this.metamaskService.requestAuthData('reg');
-                await this.validateRegistration(this.prepareRegData(authData));
-                this.setProfileData(authData);
-                await this.createUserProfile(this.userProfile.data);
-                this.finishRegistration();
+                await this.metamaskService.requestProfile();
             } else {
                 const authData: TMetamaskData = await this.metamaskService.requestAuthData('login');
                 await this.login(authData);

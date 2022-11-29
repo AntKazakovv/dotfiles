@@ -1,0 +1,77 @@
+@mixin hostStyles($map) {
+    display: flex;
+    flex-direction: ef.get-value($map, 'formFlexDirection');
+    max-width: ef.get-value($map, 'formMaxWidth');
+    height: ef.get-value($map, 'formHeight');
+    margin: ef.get-value($map, 'formMargin');
+}
+
+@mixin formWrapperStyles($map) {
+    height: ef.get-value($map, 'formWraperHeight');
+}
+
+@mixin formStyles($map) {
+    display: grid;
+    grid-gap: ef.get-value($map, 'gridGap');
+    grid-template-columns: ef.get-value($map, 'gridColumns');
+    align-content: ef.get-value($map, 'gridAlignContent');
+    height: ef.get-value($map, 'formHeight');
+}
+
+@mixin selectDisabledStyles($map) {
+    color: ef.get-value($map, 'inputColor');
+    background: ef.get-value($map, 'inputBackground');
+}
+
+@mixin checkboxTermsStyles($map) {
+    @include bm.get-mq-map('padding', $map, 'checkboxPadding');
+
+    .wlc-checkbox__label {
+        position: relative;
+    }
+}
+
+@mixin checkboxPrivacyStyles($map) {
+    @include bm.get-mq-map('padding', $map, 'checkboxPrivacyPadding');
+    margin: ef.get-value($map, 'checkboxPrivacyMargin');
+
+    .wlc-checkbox__label {
+        position: relative;
+    }
+}
+
+@mixin checkboxSelfExcludedStyles($map) {
+    @include bm.get-mq-map('padding', $map, 'checkboxSelfExcludedPadding');
+    margin: ef.get-value($map, 'checkboxSelfExcludedMargin');
+
+    .wlc-checkbox__label {
+        position: relative;
+    }
+}
+
+@mixin checkboxAgeStyles($map) {
+    @include bm.get-mq-map('padding', $map, 'checkboxAgePadding');
+    margin: ef.get-value($map, 'checkboxAgeMargin');
+
+    .wlc-checkbox__label {
+        position: relative;
+    }
+}
+
+@mixin selectStyles($map) {
+
+    .wlc-select__field,
+    .wlc-select__dropdown-item {
+        padding: ef.get-value($map, 'selectPadding');
+    }
+}
+
+@mixin checkboxLinkStyles($map) {
+    color: ef.get-value($map, 'checkboxLinkColor');
+    text-decoration: underline;
+    transition: ef.get-value($map, 'checkboxLinkTransition');
+
+    @include bm.hover {
+        color: ef.get-value($map, 'checkboxLinkColorHover');
+    }
+}

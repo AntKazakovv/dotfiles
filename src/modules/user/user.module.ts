@@ -30,6 +30,7 @@ import {LimitCancelComponent} from './components/limitations/limit-cancel/limit-
 import {LimitValueComponent} from './components/limitations/limit-value/limit-value.component';
 import {LogoutComponent} from './components/logout/logout.component';
 import {LoyaltyProgressComponent} from './components/loyalty-progress/loyalty-progress.component';
+import {MetamaskSignUpFormComponent} from './components/metamask-sign-up-form/metamask-sign-up-form.component';
 import {NewPasswordFormComponent} from './components/new-password-form/new-password-form.component';
 import {PhoneFieldComponent} from './components/phone-field/phone-field.component';
 import {ProfileFormComponent} from './components/profile-form/profile-form.component';
@@ -78,6 +79,7 @@ export const components = {
     'wlc-logout': LogoutComponent,
     'wlc-loyalty-block': DashboardLoyaltyBlockComponent,
     'wlc-loyalty-progress': LoyaltyProgressComponent,
+    'wlc-metamask-sign-up-form': MetamaskSignUpFormComponent,
     'wlc-new-password-form': NewPasswordFormComponent,
     'wlc-profile-form': ProfileFormComponent,
     'wlc-phone-field': PhoneFieldComponent,
@@ -110,6 +112,7 @@ export const components = {
         LimitValueComponent,
         LogoutComponent,
         LoyaltyProgressComponent,
+        MetamaskSignUpFormComponent,
         NewPasswordFormComponent,
         PepConfirmPasswordFormComponent,
         PepInfoComponent,
