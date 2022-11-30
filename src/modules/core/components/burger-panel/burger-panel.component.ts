@@ -23,12 +23,14 @@ import {
     fromEvent,
     Subject,
     BehaviorSubject,
+    asyncScheduler,
 } from 'rxjs';
 import {
     distinctUntilChanged,
     startWith,
     takeUntil,
     takeWhile,
+    throttleTime,
 } from 'rxjs/operators';
 import _forEach from 'lodash-es/forEach';
 
@@ -339,11 +341,15 @@ export class BurgerPanelComponent extends AbstractComponent
         this.fixedPanelState$ = this.configService.get<BehaviorSubject<TFixedPanelState>>('fixedPanelState$');
 
         this.initFixedPanelListeners();
+        this.fixedPanelState$.next(this.fixedPanelState$.getValue());
     }
 
     protected initFixedPanelListeners(): void {
-        const bp: MediaQueryList = this.window.matchMedia(`(min-width: ${this.fixedPanelConfig.breakpoints.expand}px)`);
-        GlobalHelper.mediaQueryObserver(bp)
+        const updateScrollbarThrottleTime: number = 400;
+        const expandBp: MediaQueryList =
+            this.window.matchMedia(`(min-width: ${this.fixedPanelConfig.breakpoints.expand}px)`);
+
+        GlobalHelper.mediaQueryObserver(expandBp)
             .pipe(takeUntil(this.$destroy))
             .subscribe((event: MediaQueryListEvent) => {
                 this.autoSwitchFixedPanel(event.matches);
@@ -363,6 +369,20 @@ export class BurgerPanelComponent extends AbstractComponent
             )
             .subscribe((): void => {
                 this.updateFixedPanelCssVars();
+            });
+
+        GlobalHelper.createMutationObserver(
+            this.hostElement.nativeElement,
+            {
+                childList: true,
+                subtree: true,
+            })
+            .pipe(
+                throttleTime(updateScrollbarThrottleTime, asyncScheduler, {trailing: true}),
+                takeUntil(this.$destroy),
+            )
+            .subscribe(() => {
+                this.updateScrollbar.next();
             });
     }
 

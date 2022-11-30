@@ -45,7 +45,7 @@
 <ng-template #headerDefault>
     <div *ngIf="$params.showHeader; else close" class="{{$class}}__header" [class.no-menu]="!headerMenuConfig">
         <div class="{{$class}}__title">
-            {{title | translate}} {{$params.type}}
+            {{title | translate}}
         </div>
         <div *ngIf="headerMenuConfig" class="{{$class}}__header-menu">
             <div wlc-wrapper [inlineParams]="headerMenuConfig"></div>

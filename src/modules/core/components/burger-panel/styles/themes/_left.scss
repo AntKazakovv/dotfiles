@@ -88,6 +88,7 @@
             }
 
             .wlc-logout {
+                display: var(--bp-logout-display, 'block');
                 grid-area: logout;
             }
 
@@ -140,6 +141,7 @@
 
                     &-text {
                         display: var(--bp-menu-link-text-display);
+                        line-height: initial;
                     }
 
                     &:not(.active) {
@@ -205,6 +207,10 @@
 
         .wlc-post-menu {
             display: var(--bp-postmenu-display);
+
+            .wlc-menu__link {
+                min-height: var(--bp-postmenu-link-height, #{ef.get-value($themeLeft, 'postmenuLinkMinHeight')});
+            }
         }
 
         .wlc-burger-panel__user-deposit {
@@ -298,6 +304,8 @@
         --bp-main-menu-margin: #{ef.get-value($themeLeftFixed, 'mainMenuMargin')};
         --bp-userinfo-margin: #{ef.get-value($themeLeftFixed, 'userInfoMargin')};
         --bp-width: var(--fp-size-compact);
+        --bp-logout-display: #{ef.get-value($themeLeftFixed, 'logoutDisplay')};
+        --bp-postmenu-link-height: #{ef.get-value($themeLeftFixed, 'postmenuLinkMinHeight')};
 
         position: sticky;
         top: 0;

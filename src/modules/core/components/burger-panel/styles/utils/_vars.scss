@@ -176,6 +176,8 @@ $themeLeft: map-merge((
     'themeTogglerAlignItems': center,
     'themeTogglerSeparatorWidth': 100%,
     'themeTogglerSeparatorMargin': 0 auto ef.size(8),
+
+    'postmenuLinkMinHeight': ef.size(8),
 ), $customThemeLeft);
 
 $customThemeOption3: () !default;
@@ -302,6 +304,8 @@ $themeLeftFixed: map-merge((
     'userInfoDisplayCompact': none,
     'userDepositDisplayCompact': none,
     'loginDisplayCompact': none,
+    'logoutDisplay': none,
+    'postmenuLinkMinHeight': ef.size(7),
     'postmenuDisplayCompact': none,
     'menuLinkTextDisplayCompact': none,
     'menuLinkJustifyCompact': cemter,

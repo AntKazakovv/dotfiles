@@ -20,6 +20,10 @@
         }
     }
 
+    .wlc-main-menu {
+        min-width: 0;
+    }
+
     .wlc-body--layout-fixed-panel-left &,
     .wlc-body--layout-fixed-panel-right & {
         margin-right: calc(-1 * var(--fp-size-gap));
