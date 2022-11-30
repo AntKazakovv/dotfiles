@@ -21,7 +21,7 @@
                 }
 
                 p {
-                    max-width: ef.get-value($themeAboutUs, 'descriptionMaxWidth');
+                    @include bm.get-mq-map('max-width', $themeAboutUs, 'descriptionMaxWidth');
                     margin: ef.get-value($themeAboutUs, 'descriptionMargin');
                 }
 
