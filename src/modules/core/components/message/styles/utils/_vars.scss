@@ -5,7 +5,7 @@ $themeDefault: map-merge((
     closeIconHoverColor:    var(--mc-baseMain),
     background:             var(--mc-bgModal),
     border:                 null,
-    borderRadius:           ef.get('radius', 'biger'),
+    borderRadius:           ef.get('radius', 'big'),
     shadow:                 0 0 4px ef.get('mainColors', 'baseContrast'),
     imageMaxWidth:          80px,
 
@@ -16,38 +16,42 @@ $themeDefault: map-merge((
         error:   var(--mc-error),
     ),
     padding: (
-        // 42px - icon size
-        375:  15px (42px + 10px) 15px 10px,
-        900:  20px (42px + 15px) 20px 15px,
-        1200: 25px (42px + 20px) 25px 20px,
+        375: ef.size(4),
     ),
     iconMargin: (
-        375:  ef.size(1) ef.size(2) 0 0,
-        900:  ef.size(1) ef.size(3) 0 0,
-        1200: ef.size(1) ef.size(4) 0 0,
+        375:  0 ef.size(4) 0 0,
+    ),
+    iconWidth: (
+        375: 40px,
+        900: 50px,
+    ),
+    iconHeight: (
+        375: 40px,
+        900: 50px,
     ),
     modalIconMargin: ef.size(8),
     headingColor: var(--mc-baseMain),
     messageColor: var(--mc-baseMain),
     headingStyle: (
-        375: 'QoteTextBoldSmaller',
+        375: 'ThirdTitleBold',
         900: 'QoteTextBoldTight',
     ),
     messageStyle: 'PrimaryText',
 
     dismissPosTop: (
-        375: ef.size(2),
-        900: ef.size(3),
-        1200: ef.size(4),
+        375: ef.size(3),
     ),
     dismissPosRight: (
-        375: ef.size(4),
+        375: ef.size(3),
     ),
     dismissPadding: (
-        375: ef.size(4),
+        375: ef.size(1),
     ),
+    dismissIconWidth: 15px,
+    dismissIconHeight: 15px,
 
-    messageContainerMargin: ef.size(3) 0 0,
+    messageContainerMargin: ef.size(1) 0 0,
+    contentMargin: 0 ef.size(7) 0 0,
 ), $customThemeDefault);
 
 @function get($key) {

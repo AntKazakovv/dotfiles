@@ -15,11 +15,13 @@
             display: flex;
             flex-direction: column;
             justify-content: center;
+            margin: ef.get-value($themeDefault, 'contentMargin');
         }
 
         .wlc-notification-message__icon,
         .wlc-notification-message__icon ::ng-deep svg {
-            width: 50px;
+            @include bm.get-mq-map('width', $themeDefault, 'iconWidth');
+            @include bm.get-mq-map('height', $themeDefault, 'iconHeight');
         }
 
         .wlc-notification-message__icon,
@@ -53,9 +55,9 @@
     }
 
     .wlc-notification-message__icon {
+        @include bm.get-mq-map('max-width', $themeDefault, 'iconWidth');
         display: flex;
         flex: 1 0 auto;
-        max-width: 50px;
     }
 
     .wlc-notification-message__image-container {
@@ -101,7 +103,7 @@
         display: inline-block;
         width: 100%;
         max-width: 100%;
-        margin: ef.get-value($themeDefault, 'messageContainerMargin'),;
+        margin: ef.get-value($themeDefault, 'messageContainerMargin');
     }
 
     .wlc-notification-message__message {
@@ -114,9 +116,11 @@
         @include bm.transition(opacity);
         @include bm.get-mq-map('top', $themeDefault, 'dismissPosTop');
         @include bm.get-mq-map('right', $themeDefault, 'dismissPosRight');
-        @include bm.get-mq-map('padding', $themeDefault, 'dismissPadding');
         position: absolute;
-        max-height: get('closeIconSize');
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: ef.get-value($themeDefault, 'dismissPadding');
         background-color: transparent;
         outline: none;
         cursor: pointer;
@@ -126,6 +130,15 @@
         ::ng-deep line {
             @include bm.transition(stroke);
             stroke: get('closeIconColor');
+        }
+
+        ::ng-deep .wlc-icon-content {
+            display: flex;
+
+            svg {
+                width: ef.get-value($themeDefault, 'dismissIconWidth');
+                height: ef.get-value($themeDefault, 'dismissIconHeight');
+            }
         }
 
         @include bm.hover {

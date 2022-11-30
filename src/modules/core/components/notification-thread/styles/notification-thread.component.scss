@@ -7,6 +7,7 @@
 @import './themes/bottom';
 
 .wlc-notification-thread:host {
+    @include bm.get-mq-map('max-width', $notificationThread, 'maxWidth');
     @include bm.get-mq-map('width', $notificationThread, 'width');
     position: fixed;
     right: 0;
