@@ -143,3 +143,8 @@ export interface IPDFParams {
     /** type of content */
     pageType?: 'page' | 'post';
 }
+
+export interface IMainParamsTextData {
+    slug: string;
+    lang?: string;
+}

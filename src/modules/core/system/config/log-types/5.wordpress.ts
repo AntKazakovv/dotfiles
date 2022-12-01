@@ -3,6 +3,7 @@ import {ILogTypes} from './index';
 export const errorTypes: ILogTypes = {
     '5.0.0': {
         // Post by slug is not found
+        level: 'warning',
     },
     '5.0.1': {
         // The response time from the WP exceeded 3 seconds

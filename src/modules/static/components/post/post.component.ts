@@ -62,6 +62,7 @@ export class PostComponent extends AbstractComponent implements OnInit, AfterVie
 
     public data: TextDataModel;
     public html: string;
+    public defaultSlug: string = '';
     public generatedSlug: string = '';
     public isReady: boolean = false;
     public $params: Params.IPostCParams;
@@ -91,38 +92,21 @@ export class PostComponent extends AbstractComponent implements OnInit, AfterVie
         this.withoutCompilation ??= this.$params.withoutCompilation;
         this.shouldClearStyles ??= this.$params.shouldClearStyles;
         try {
-            const slug: string = this.slug || this.$params.slug || this.uiRouter.params.slug;
-            this.generatedSlug = this.getGeneratedSlug(slug);
-            let data: TextDataModel;
+            this.defaultSlug = this.slug || this.$params.slug || this.uiRouter.params.slug;
+            this.generatedSlug = this.getGeneratedSlug();
+            this.data = await this.getTextModel();
+            this.html = this.domSanitizer
+                .bypassSecurityTrustHtml(this.data.html)?.['changingThisBreaksApplicationSecurity'] ?? '';
 
-            if (this.configService.get<string[]>({name: '$static.pages'}).includes(slug)) {
-                data = await this.staticService.getPage(this.generatedSlug);
-            } else {
-                data = await this.staticService.getPost(this.generatedSlug);
-            }
-
-            if (this.configService.get<string[]>({name: '$static.normalizeInternalLinks'})) {
-                data = this.replaceLinkPaths(data);
-            }
-
-            if (this.isShowDownloadButton(slug)) {
+            if (this.isShowDownloadButton()) {
                 this.$params.downloadPdf.use = true;
             }
 
-            this.data = data;
-            this.html = this.domSanitizer.bypassSecurityTrustHtml(data.html)?.['changingThisBreaksApplicationSecurity'];
-
             if (this.useTitle) {
-                this.params.setTitle?.(data.title);
+                this.params.setTitle?.(this.data.title);
             }
         } catch (error) {
-            // TODO: add log service in static service methods
-            this.logService.sendLog({code: '12.0.0', data: error});
-            if (this.uiRouter.params.slug) {
-                this.stateService.go('app.error', {
-                    locale: this.configService.get('currentLanguage'),
-                });
-            }
+            this.logService.sendLog({code: '5.0.0', data: error});
         } finally {
             this.isReady = true;
             this.cdr.markForCheck();
@@ -137,9 +121,8 @@ export class PostComponent extends AbstractComponent implements OnInit, AfterVie
     public async downloadPdf(): Promise<void> {
         try {
             this.isDownloadingFile = true;
-            const slug = this.slug || this.$params.slug || this.uiRouter.params.slug;
-            const link = this.staticService.getLinkToPdf(slug);
-            await this.staticService.downloadPdf(link, slug);
+            const link = this.staticService.getLinkToPdf(this.defaultSlug);
+            await this.staticService.downloadPdf(link, this.defaultSlug);
         } catch (error) {
             this.logService.sendLog({code: '5.2.0', data: error});
             this.eventService.emit({
@@ -161,12 +144,40 @@ export class PostComponent extends AbstractComponent implements OnInit, AfterVie
         this.viewRef.remove();
     }
 
-    protected getGeneratedSlug(slug: string, lang?: string): string {
-        const splitSettings = this.configService.get<ISplitTexts>({name: '$static.splitStaticTexts'});
-        if (splitSettings?.useByDefault || (splitSettings?.slugs ?? []).includes(slug)) {
-            return `${slug}_${lang ?? this.translate.currentLang}`;
+    protected async getTextModel(): Promise<TextDataModel> {
+        let model: TextDataModel = await this.getData();
+
+        if (!model) {
+            if (this.translate.currentLang !== 'en') {
+                model = await this.getData('en');
+            }
+
+            if (!model) {
+                throw new Error('No data');
+            }
+        }
+
+        if (this.configService.get<string[]>({name: '$static.normalizeInternalLinks'})) {
+            return this.replaceLinkPaths(model);
+        }
+
+        return model;
+    }
+
+    protected getData(lang?: string): Promise<TextDataModel | null> {
+        if (this.configService.get<string[]>({name: '$static.pages'}).includes(this.defaultSlug)) {
+            return this.staticService.getPage(this.generatedSlug, lang);
         } else {
-            return slug;
+            return this.staticService.getPost(this.generatedSlug, lang);
+        }
+    }
+
+    protected getGeneratedSlug(lang?: string): string {
+        const splitSettings = this.configService.get<ISplitTexts>({name: '$static.splitStaticTexts'});
+        if (splitSettings?.useByDefault || (splitSettings?.slugs ?? []).includes(this.defaultSlug)) {
+            return `${this.defaultSlug}_${lang ?? this.translate.currentLang}`;
+        } else {
+            return this.defaultSlug;
         }
     }
 
@@ -175,9 +186,10 @@ export class PostComponent extends AbstractComponent implements OnInit, AfterVie
         return data;
     }
 
-    protected isShowDownloadButton(slug: string): boolean {
+    protected isShowDownloadButton(): boolean {
         return this.configService.get<string>('appConfig.siteconfig.termsOfService')
             && (this.isCuracaoWlc || this.configService.get<boolean>({name: '$static.downloadPdf.forceShowButton'}))
-            && this.configService.get<string[]>({name: '$static.downloadPdf.slugsAvailableForDownload'}).includes(slug);
+            && this.configService.get<string[]>({name: '$static.downloadPdf.slugsAvailableForDownload'})
+                .includes(this.defaultSlug);
     }
 }

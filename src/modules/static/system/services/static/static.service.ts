@@ -37,6 +37,7 @@ import {
     StaticTextType,
     TWpTranslateMode,
     IPDFParams,
+    IMainParamsTextData,
 } from 'wlc-engine/modules/static/system/interfaces/static.interface';
 import {TextDataModel} from 'wlc-engine/modules/static/system/models/textdata.model';
 import {WlcTextData} from 'wlc-engine/modules/static/system/models/textdata.wlc.model';
@@ -55,22 +56,22 @@ export class StaticService {
     private useWpPlugin: boolean;
     private categories: ICategoryStaticText[] = [];
     private params: IIndexing<string>;
-    private fieldsList: string[] = [
+    private readonly fieldsList = [
         'id',
         'date',
         'slug',
         'title',
         'content',
         'image',
-    ];
-    private fieldsForCategory: (keyof ICategoryStaticText)[] = [
+    ] as const;
+    private readonly fieldsForCategory = [
         'parent',
         'description',
         'name',
         'id',
         'slug',
         'count',
-    ];
+    ] as const;
     private $resolve: () => void;
     private ready: Promise<boolean> = new Promise((resolve: (v?: boolean) => void): void => {
         this.$resolve = resolve;
@@ -95,9 +96,9 @@ export class StaticService {
      * @param {string} slug the slug by post
      * @returns {TextDataModel} post model
      */
-    public async getPost(slug: string): Promise<TextDataModel> {
+    public async getPost(slug: string, lang?: string): Promise<TextDataModel | null> {
         slug = await this.hooksService.run(this.slugPrepareHookName, slug);
-        return this.getStaticData('post', {slug});
+        return this.getStaticData('post', this.generateMainParams(slug, lang));
     }
 
     /**
@@ -106,9 +107,9 @@ export class StaticService {
      * @param {string} slug the slug by post
      * @returns {TextDataModel} page model
      */
-    public async getPage(slug: string): Promise<TextDataModel> {
+    public async getPage(slug: string, lang?: string): Promise<TextDataModel | null> {
         slug = await this.hooksService.run(this.slugPrepareHookName, slug);
-        return this.getStaticData('page', {slug});
+        return this.getStaticData('page', this.generateMainParams(slug, lang));
     }
 
     /**
@@ -242,7 +243,7 @@ export class StaticService {
         });
     }
 
-    private async getStaticData(type: StaticTextType, params: IStaticParams): Promise<TextDataModel> {
+    private async getStaticData(type: StaticTextType, params: IStaticParams): Promise<TextDataModel | null> {
         const httpRequestUrl = this.getHttpRequestParams<IPostResponse>(type, params)?.urlWithParams;
         await this.ready;
         const cacheExpiry = this.cacheExpiry(type);
@@ -256,6 +257,9 @@ export class StaticService {
 
         const response: HttpResponse<IPostResponse[]> = await this.requestData<IPostResponse[]>(type, params);
 
+        if (!response.body?.length) {
+            return null;
+        }
         if (cacheExpiry) {
             this.cachingService.set<IPostResponse>(httpRequestUrl, response.body, false, cacheExpiry);
         }
@@ -452,6 +456,16 @@ export class StaticService {
                 this.normalizeContent(item),
                 this.configService);
         });
+    }
+
+    private generateMainParams(slug: string, lang?: string): IMainParamsTextData {
+        const params: IMainParamsTextData = {
+            slug,
+        };
+        if (lang) {
+            params.lang = lang;
+        }
+        return params;
     }
 
     /**

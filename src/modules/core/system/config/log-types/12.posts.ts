@@ -1,8 +1,4 @@
 import {ILogTypes} from './index';
 
-export const errorTypes: ILogTypes = {
-    '12.0.0': {
-        // Error when get legal text
-        level: 'error',
-    },
-};
+// Need to replace another category of errors. Post used in 5.wordpress
+export const errorTypes: ILogTypes = {};

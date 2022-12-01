@@ -1,31 +1,37 @@
 <div *ngIf="isReady; else preloader">
-    <div *ngIf="$params.showTitle"
-         wlc-title
-         [mainText]="data.title">
-    </div>
+    <ng-container *ngIf="data; else noData">
+        <div *ngIf="$params.showTitle"
+            wlc-title
+            [mainText]="data.title">
+        </div>
 
-    <a *ngIf="$params.downloadPdf?.use"
-        class="{{$class}}__download"
-        [ngClass]="{'disabled': isDownloadingFile}"
-        (click)="downloadPdf()">
-        <span class="{{$class}}__download-text">
-            {{'Download PDF file' | translate}} (English)
-        </span>
-        <span wlc-icon
-            class="icon-btn"
-            [iconPath]="$params.downloadPdf.iconPath"
-            wlcElement="button_terms">
-        </span>
-    </a>
+        <a *ngIf="$params.downloadPdf?.use"
+            class="{{$class}}__download"
+            [ngClass]="{'disabled': isDownloadingFile}"
+            (click)="downloadPdf()">
+            <span class="{{$class}}__download-text">
+                {{'Download PDF file' | translate}} (English)
+            </span>
+            <span wlc-icon
+                class="icon-btn"
+                [iconPath]="$params.downloadPdf.iconPath"
+                wlcElement="button_terms">
+            </span>
+        </a>
 
-    <div wlc-dynamic-html
-         [html]="html"
-         [parseAsPlainHTML]="parseAsPlainHTML"
-         [withoutCompilation]="withoutCompilation"
-         [shouldClearStyles]="shouldClearStyles"
-         #wrp>
-    </div>
+        <div wlc-dynamic-html
+            [html]="html"
+            [parseAsPlainHTML]="parseAsPlainHTML"
+            [withoutCompilation]="withoutCompilation"
+            [shouldClearStyles]="shouldClearStyles"
+            #wrp>
+        </div>
+    </ng-container>
 </div>
+
+<ng-template #noData>
+    <div class="{{$class}}__no-data">{{'No data' | translate}}</div>
+</ng-template>
 
 <ng-template #preloader>
     <div wlc-loader></div>
