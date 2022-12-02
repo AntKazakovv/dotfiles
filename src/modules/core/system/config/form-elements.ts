@@ -6,10 +6,10 @@ import {
     ICheckboxCParams,
     IButtonCParams,
     ISelectCParams,
-    ICaptchaCParams,
     IValidatorSettings,
 } from 'wlc-engine/modules/core';
 import {ProhibitedPatterns} from 'wlc-engine/modules/core/constants';
+import {ICaptchaCParams} from 'wlc-engine/modules/security/captcha';
 
 const cityMinLengthValidator: IValidatorSettings = {
     name: 'minLength',
@@ -191,7 +191,7 @@ export namespace FormElements {
     };
 
     export const captcha: IFormComponent = {
-        name: 'core.wlc-captcha',
+        name: 'captcha.wlc-captcha',
         params: <ICaptchaCParams>{},
     };
 

@@ -10,10 +10,11 @@ import {UserService} from 'wlc-engine/modules/user';
 import {NotificationEvents} from 'wlc-engine/modules/core/system/services/notification/notification.service';
 import {IPushMessageParams} from 'wlc-engine/modules/core/system/services/notification/notification.interface';
 import {EventService} from 'wlc-engine/modules/core/system/services/event/event.service';
+import {InjectionService} from 'wlc-engine/modules/core/system/services/injection/injection.service';
 import {ModalService} from 'wlc-engine/modules/core/system/services/modal/modal.service';
-import {CaptchaService} from 'wlc-engine/modules/core/system/services/captcha/captcha.service';
 import {IIndexing} from 'wlc-engine/modules/core/system/interfaces/global.interface';
 import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
+import {CaptchaService} from 'wlc-engine/modules/security/captcha';
 import {
     IFormComponent,
     IFormWrapperCParams,
@@ -68,11 +69,12 @@ export abstract class SignInFormAbstract<T extends IAbstractSignInFormCParams<un
     public config: IFormWrapperCParams;
     public errors$: BehaviorSubject<IIndexing<string>> = new BehaviorSubject(null);
 
+    private captchaService?: CaptchaService;
     private captchaError: boolean = false;
 
     constructor(
         mixedParams: IMixedParams<T>,
-        protected captchaService: CaptchaService,
+        protected injectionService: InjectionService,
         protected userService: UserService,
         protected modalService: ModalService,
         protected eventService: EventService,
@@ -121,7 +123,7 @@ export abstract class SignInFormAbstract<T extends IAbstractSignInFormCParams<un
 
             if (errors?.captcha) {
                 errorMessage = captcha ? this.$params.captchaErrorText : this.$params.captchaCreatingText;
-                this.onCaptchaError(errors.captcha);
+                await this.onCaptchaError(errors.captcha);
             } else if (error.code === 418) {
                 this.modalService.showModal('deviceRegistration', {login: email || login, password: password});
 
@@ -155,7 +157,11 @@ export abstract class SignInFormAbstract<T extends IAbstractSignInFormCParams<un
         });
     }
 
-    private onCaptchaError(error: string): void {
+    private async onCaptchaError(error: string): Promise<void> {
+        if (!this.captchaService) {
+            this.captchaService = await this.injectionService.getService('captcha.captcha-service');
+        }
+
         this.addCaptchaElements();
 
         this.captchaError = true;

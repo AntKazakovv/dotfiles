@@ -1,9 +1,10 @@
 import {TestBed} from '@angular/core/testing';
 import {HttpClientTestingModule} from '@angular/common/http/testing';
 import {DOCUMENT} from '@angular/common';
+
+import {WINDOW} from 'wlc-engine/modules/app/system';
 import {AppModule} from 'wlc-engine/modules/app/app.module';
 import {RecaptchaService} from './recaptcha.service';
-import {WINDOW} from 'wlc-engine/modules/app/system';
 
 class GRecaptcha {
     execute = () => new Promise(resolve => resolve('test-token'));

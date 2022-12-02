@@ -13,11 +13,11 @@ import {
     throwError,
 } from 'rxjs';
 
-import {UserService} from 'wlc-engine/modules/user';
-import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
-import {IData} from 'wlc-engine/modules/core/system/services/data/data.service';
 import {ModalService} from 'wlc-engine/modules/core/system/services/modal/modal.service';
+import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
 import {LogService} from 'wlc-engine/modules/core/system/services/log/log.service';
+import {IData} from 'wlc-engine/modules/core/system/services/data/data.service';
+import {UserService} from 'wlc-engine/modules/user';
 
 @Injectable()
 export class NonceInterceptor implements HttpInterceptor {
@@ -33,6 +33,16 @@ export class NonceInterceptor implements HttpInterceptor {
         req: HttpRequest<IData>,
         next: HttpHandler,
     ): Observable<HttpEvent<IData>> {
+
+        if (this.configService.get<boolean>('$base.site.useXNonce')) {
+            const xNonce: string = this.configService.get<string>({name: 'X-Nonce', storageType: 'localStorage'});
+
+            if (xNonce) {
+                req = req.clone({
+                    headers: req.headers.set('X-Nonce', xNonce),
+                });
+            }
+        }
 
         return next.handle(req).pipe(
             catchError((err: HttpErrorResponse) => {

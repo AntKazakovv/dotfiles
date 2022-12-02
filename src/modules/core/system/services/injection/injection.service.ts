@@ -329,6 +329,22 @@ export class InjectionService {
                     this.afterModuleLoad('chat', m);
                     return m.ChatModule;
                 });
+            case 'captcha':
+                if (this.loadedModules.CaptchaModule) {
+                    return this.loadedModules.CaptchaModule;
+                }
+                return import('wlc-engine/modules/security/captcha/captcha.module').then(m => {
+                    this.afterModuleLoad('captcha', m);
+                    return m.CaptchaModule;
+                });
+            case 'recaptcha':
+                if (this.loadedModules.RecaptchaModule) {
+                    return this.loadedModules.RecaptchaModule;
+                }
+                return import('wlc-engine/modules/security/recaptcha/recaptcha.module').then(m => {
+                    this.afterModuleLoad('recaptcha', m);
+                    return m.RecaptchaModule;
+                });
         }
     }
 

@@ -1,4 +1,4 @@
-import {IComponentParams} from 'wlc-engine/modules/core/system/classes/abstract.component';
+import {IComponentParams} from 'wlc-engine/modules/core';
 
 export type ComponentTheme = 'default';
 export type ComponentType = 'default';
@@ -6,6 +6,6 @@ export interface IRecaptchaPolicyCParams extends IComponentParams<ComponentTheme
 
 export const defaultParams: IRecaptchaPolicyCParams = {
     class: 'wlc-recaptcha-policy',
-    moduleName: 'core',
+    moduleName: 'recaptcha',
     componentName: 'wlc-recaptcha-policy',
 };

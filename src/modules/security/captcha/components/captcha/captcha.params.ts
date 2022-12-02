@@ -1,8 +1,8 @@
-import {IButtonCParams} from 'wlc-engine/modules/core/components/button/button.component';
 import {
     IComponentParams,
     CustomType,
-} from 'wlc-engine/modules/core/system/interfaces/config.interface';
+    IButtonCParams,
+} from 'wlc-engine/modules/core';
 
 export type Theme = 'default' | CustomType;
 export type ComponentType = 'default' | CustomType;
@@ -17,7 +17,7 @@ export interface ICaptchaCParams extends IComponentParams<Theme, ComponentType, 
 }
 
 export const defaultParams: ICaptchaCParams = {
-    moduleName: 'core',
+    moduleName: 'captcha',
     componentName: 'wlc-captcha',
     class: 'wlc-captcha',
     refreshButton: {

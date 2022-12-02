@@ -17,7 +17,6 @@ import {InjectionService} from 'wlc-engine/modules/core/system/services';
 import {IMixedParams} from 'wlc-engine/modules/core/system/classes/abstract.component';
 import {
     AppType,
-    CaptchaService,
     SignInFormAbstract,
 } from 'wlc-engine/modules/core';
 import {UserService} from 'wlc-engine/modules/user';
@@ -45,6 +44,7 @@ export class PlayGameForRealComponent extends SignInFormAbstract<Params.IPlayGam
 
     constructor(
         @Inject('injectParams') protected params: Params.IPlayGameForRealCParams,
+        injectionService: InjectionService,
         protected cdr: ChangeDetectorRef,
         protected modalService: ModalService,
         protected logService: LogService,
@@ -52,8 +52,6 @@ export class PlayGameForRealComponent extends SignInFormAbstract<Params.IPlayGam
         protected translateService: TranslateService,
         protected stateService: StateService,
         protected configService: ConfigService,
-        protected injectionService: InjectionService,
-        protected captchaService: CaptchaService,
         protected userService: UserService,
     ) {
         super(
@@ -61,7 +59,7 @@ export class PlayGameForRealComponent extends SignInFormAbstract<Params.IPlayGam
                 injectParams: params,
                 defaultParams: Params.defaultParams,
             },
-            captchaService,
+            injectionService,
             userService,
             modalService,
             eventService,

@@ -96,6 +96,8 @@ export interface IDisplayConfig {
     mobile?: boolean;
     /** display component only auth user when true, anon user when false */
     auth?: boolean;
+    /** display component only if there is a parameter in the config */
+    configProperty?: string;
 }
 
 export interface IParamsLayoutConfig {

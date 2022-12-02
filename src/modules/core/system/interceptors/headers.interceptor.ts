@@ -3,8 +3,8 @@ import {
     HttpHandler,
     HttpRequest,
     HttpEvent,
-    HttpErrorResponse,
     HttpResponse,
+    HttpErrorResponse,
 } from '@angular/common/http';
 import {
     Inject,
@@ -14,20 +14,15 @@ import {
 import {
     Observable,
     throwError,
-    from,
 } from 'rxjs';
 import {
     catchError,
-    switchMap,
     tap,
 } from 'rxjs/operators';
 import _get from 'lodash-es/get';
 
-import {RecaptchaService} from 'wlc-engine/modules/core/system/services/recaptcha/recaptcha.service';
 import {IData} from 'wlc-engine/modules/core/system/services/data/data.service';
-import {LogService} from 'wlc-engine/modules/core/system/services/log/log.service';
 import {WINDOW} from 'wlc-engine/modules/app/system';
-import {CaptchaService} from 'wlc-engine/modules/core/system/services/captcha/captcha.service';
 import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
 import {GlobalHelper} from 'wlc-engine/modules/core/system/helpers/global.helper';
 
@@ -36,9 +31,6 @@ export class HeadersInterceptor implements HttpInterceptor {
 
     constructor(
         @Inject(WINDOW) private window: Window,
-        private recaptchaService: RecaptchaService,
-        private logService: LogService,
-        private captchaService: CaptchaService,
         private configService: ConfigService,
     ) {
     }
@@ -47,16 +39,6 @@ export class HeadersInterceptor implements HttpInterceptor {
         req: HttpRequest<IData>,
         next: HttpHandler,
     ): Observable<HttpEvent<IData>> {
-
-        if (this.configService.get<boolean>('$base.site.useXNonce')) {
-            const xNonce: string = this.configService.get<string>({name: 'X-Nonce', storageType: 'localStorage'});
-
-            if (xNonce) {
-                req = req.clone({
-                    headers: req.headers.set('X-Nonce', xNonce),
-                });
-            }
-        }
 
         if (req.url.includes('/static/languages/') && GlobalHelper.mobileAppConfig?.translationsDomain) {
             let urlPath: string;
@@ -72,13 +54,6 @@ export class HeadersInterceptor implements HttpInterceptor {
             });
         }
 
-        if (req.url.includes('/api/v1/auth') && this.captchaService.captchaCode) {
-            req = req.clone({
-                headers: req.headers.set('X-Captcha', this.captchaService.captchaCode),
-            });
-            this.captchaService.captchaCode = null;
-        }
-
         if (req.url.includes('/api/v1/')) {
             const jwtAuthToken: string = this.configService.get({
                 name: 'jwtAuthToken',
@@ -90,8 +65,8 @@ export class HeadersInterceptor implements HttpInterceptor {
                     headers: req.headers.set('Authorization', `Bearer ${jwtAuthToken}`),
                 });
             }
-
         }
+
         return next.handle(req).pipe(
             tap (
                 (event) => {
@@ -130,27 +105,6 @@ export class HeadersInterceptor implements HttpInterceptor {
                 },
             ),
             catchError((error: HttpErrorResponse) => {
-                if (error.headers.get('X-RECAPTCHA') && !req.headers.get('X-RECAPTCHA')) {
-                    try {
-                        this.recaptchaService.setToken = error.headers.get('X-RECAPTCHA');
-                        return from(this.recaptchaService.getToken()).pipe(switchMap((value: string) => {
-                            req = req.clone({
-                                headers: req.headers.set('X-RECAPTCHA', value),
-                            });
-                            return next.handle(req);
-                        }));
-                    } catch (error) {
-                        this.logService.sendLog({
-                            data: error,
-                            code: '1.6.0',
-                            from: {
-                                interceptor: 'HeadersInterceptor',
-                            },
-                        });
-                        console.error(error);
-                    }
-                }
-
                 if (error.url.includes('/api/v1/auth') && req.method === 'DELETE') {
                     const cookies = document.cookie.split(';');
                     cookies.forEach((cookie: string) => this.window.WlcCookie.delete(cookie));

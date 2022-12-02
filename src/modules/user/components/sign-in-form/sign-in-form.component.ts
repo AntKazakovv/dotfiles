@@ -9,12 +9,12 @@ import _some from 'lodash-es/some';
 
 import {
     EventService,
+    InjectionService,
     LogService,
     ModalService,
 } from 'wlc-engine/modules/core/system/services';
 import {
     ConfigService,
-    CaptchaService,
     SignInFormAbstract,
     IMixedParams,
     AppType,
@@ -45,12 +45,12 @@ import * as Params from './sign-in-form.params';
 export class SignInFormComponent extends SignInFormAbstract<Params.ISignInFormCParams> implements OnInit {
     constructor(
         @Inject('injectParams') protected injectParams: Params.ISignInFormCParams,
+        injectionService: InjectionService,
         protected eventService: EventService,
         protected logService: LogService,
         protected configService: ConfigService,
         protected modalService: ModalService,
         protected userService: UserService,
-        protected captchaService: CaptchaService,
         protected stateService: StateService,
     ) {
         super(
@@ -58,7 +58,7 @@ export class SignInFormComponent extends SignInFormAbstract<Params.ISignInFormCP
                 injectParams,
                 defaultParams: Params.defaultParams,
             },
-            captchaService,
+            injectionService,
             userService,
             modalService,
             eventService,

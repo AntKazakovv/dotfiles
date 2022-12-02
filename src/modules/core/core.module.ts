@@ -25,7 +25,6 @@ import {MonitoringModule} from 'wlc-engine/modules/monitoring/monitoring.module'
 import {
     ActionService,
     AnimateButtonsService,
-    CaptchaService,
     CachingService,
     ConfigService,
     ContactsService,
@@ -46,7 +45,6 @@ import {
     HistoryFilterService,
     FingerprintService,
 } from './system/services';
-import {RecaptchaService} from './system/services/recaptcha/recaptcha.service';
 // -- SERVICES IMPORTS END  --;
 
 // -- PROVIDERS IMPORTS START --;
@@ -61,7 +59,6 @@ import {AmountLimitComponent} from './components/amount-limit/amount-limit.compo
 import {BirthdayFieldComponent} from './components/birthday-field/birthday-field.component';
 import {BurgerPanelComponent} from './components/burger-panel/burger-panel.component';
 import {ButtonComponent} from './components/button/button.component';
-import {CaptchaComponent} from './components/captcha/captcha.component';
 import {CountryAndStateComponent} from './components/country-and-state/country-and-state.component';
 import {CheckboxComponent} from './components/checkbox/checkbox.component';
 import {CopyrightComponent} from './components/copyright/copyright.component';
@@ -96,7 +93,6 @@ import {MessageComponent} from 'wlc-engine/modules/core/components';
 import {NotificationThreadComponent} from 'wlc-engine/modules/core/components';
 import {RadioButtonsComponent} from './components/radio-buttons/radio-buttons.component';
 import {RatingComponent} from './components/rating/rating.component';
-import {RecaptchaPolicyComponent} from './components/recaptcha-policy/recaptcha-policy.component';
 import {ScrollbarComponent} from './components/scrollbar/scrollbar.component';
 import {ScrollUpComponent} from 'wlc-engine/modules/core/components/scroll-up/scroll-up.component';
 import {SelectComponent} from './components/select/select.component';
@@ -169,7 +165,6 @@ export const components = {
     'wlc-birth-field': BirthdayFieldComponent,
     'wlc-button': ButtonComponent,
     'wlc-burger-panel': BurgerPanelComponent,
-    'wlc-captcha': CaptchaComponent,
     'wlc-country-and-state': CountryAndStateComponent,
     'wlc-checkbox': CheckboxComponent,
     'wlc-copyright': CopyrightComponent,
@@ -204,7 +199,6 @@ export const components = {
     'wlc-radio-buttons': RadioButtonsComponent,
     'wlc-scroll-up': ScrollUpComponent,
     'wlc-rating': RatingComponent,
-    'wlc-recaptcha-policy': RecaptchaPolicyComponent,
     'wlc-select': SelectComponent,
     'wlc-social-icons': SocialIconsComponent,
     'wlc-steps': StepsComponent,
@@ -247,7 +241,6 @@ export const services = {
     providers: [
         DataService,
         EventService,
-        CaptchaService,
         ConfigService,
         FilesService,
         ForbiddenCountryService,
@@ -265,7 +258,6 @@ export const services = {
         NotificationService,
         GlobalHelper.bootstrapProviders(NotificationService),
         BodyClassService,
-        RecaptchaService,
         FingerprintService,
         ColorThemeService,
         HistoryFilterService,
@@ -296,7 +288,6 @@ export const services = {
         BirthdayFieldComponent,
         BurgerPanelComponent,
         ButtonComponent,
-        CaptchaComponent,
         CountryAndStateComponent,
         CheckboxComponent,
         ClampDirective,
@@ -340,7 +331,6 @@ export const services = {
         PlugComponent,
         RadioButtonsComponent,
         RatingComponent,
-        RecaptchaPolicyComponent,
         ScrollbarComponent,
         ScrollUpComponent,
         SelectComponent,
@@ -373,7 +363,6 @@ export const services = {
         BrowserAnimationsModule,
         BurgerPanelComponent,
         ButtonComponent,
-        CaptchaComponent,
         CountryAndStateComponent,
         CheckboxComponent,
         ClampDirective,
@@ -412,7 +401,6 @@ export const services = {
         PlugComponent,
         RadioButtonsComponent,
         RatingComponent,
-        RecaptchaPolicyComponent,
         ScrollbarComponent,
         ScrollUpComponent,
         SelectComponent,

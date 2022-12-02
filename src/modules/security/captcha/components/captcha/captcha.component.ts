@@ -6,12 +6,13 @@ import {
     OnInit,
 } from '@angular/core';
 
-import {EventService} from 'wlc-engine/modules/core/system/services/event/event.service';
-import {CaptchaService} from 'wlc-engine/modules/core/system/services/captcha/captcha.service';
 import {
     AbstractComponent,
+    EventService,
     IMixedParams,
-} from 'wlc-engine/modules/core/system/classes/abstract.component';
+} from 'wlc-engine/modules/core';
+
+import {CaptchaService} from 'wlc-engine/modules/security/captcha/system/services/captcha/captcha.service';
 
 import * as Params from './captcha.params';
 

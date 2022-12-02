@@ -1,8 +1,10 @@
 import {Injectable} from '@angular/core';
 
-import {EventService} from 'wlc-engine/modules/core/system/services/event/event.service';
+import {EventService} from 'wlc-engine/modules/core';
 
-@Injectable()
+@Injectable({
+    providedIn: 'root',
+})
 export class CaptchaService {
     private _captchaImageUrl: string;
     private _captchaCode: string;

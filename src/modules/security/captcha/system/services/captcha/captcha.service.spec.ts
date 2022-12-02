@@ -1,7 +1,7 @@
 import {TestBed} from '@angular/core/testing';
 
-import {CaptchaService} from 'wlc-engine/modules/core/system/services/captcha/captcha.service';
-import {EventService} from 'wlc-engine/modules/core/system/services/event/event.service';
+import {EventService} from 'wlc-engine/modules/core';
+import {CaptchaService} from 'wlc-engine/modules/security/captcha/system/services/captcha/captcha.service';
 
 describe('CaptchaService', () => {
     let captchaService: CaptchaService;

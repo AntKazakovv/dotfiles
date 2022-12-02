@@ -7,7 +7,6 @@ export {
     IButtonCParams,
     TButtonAnimation,
 } from './button/button.params';
-export {ICaptchaCParams} from './captcha/captcha.params';
 export {ICheckboxCParams} from './checkbox/checkbox.params';
 export {ICopyrightCParams} from './copyright/copyright.params';
 export {ICurrencyCParams} from './currency/currency.params';

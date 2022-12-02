@@ -1,5 +1,3 @@
-import {TransitionService, UIRouterGlobals} from '@uirouter/core';
-import {LayoutComponent} from 'wlc-engine/modules/core/components/layout/layout.component';
 import {
     ChangeDetectionStrategy,
     ChangeDetectorRef,
@@ -14,6 +12,15 @@ import {
     SimpleChanges,
     Optional,
 } from '@angular/core';
+import {
+    TransitionService,
+    UIRouterGlobals,
+} from '@uirouter/core';
+
+import _merge from 'lodash-es/merge';
+import _isUndefined from 'lodash-es/isUndefined';
+
+import {LayoutComponent} from 'wlc-engine/modules/core/components/layout/layout.component';
 import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
 import {LayoutService} from 'wlc-engine/modules/core/system/services/layout/layout.service';
 import {EventService} from 'wlc-engine/modules/core/system/services/event/event.service';
@@ -21,7 +28,6 @@ import {ILayoutComponent} from 'wlc-engine/modules/core/system/interfaces/layout
 import {InjectionService} from 'wlc-engine/modules/core/system/services/injection/injection.service';
 import {WINDOW} from 'wlc-engine/modules/app/system';
 
-import _merge from 'lodash-es/merge';
 
 export interface IWrapperCParams {
     components?: ILayoutComponent[];
@@ -49,7 +55,7 @@ export class WrapperComponent extends LayoutComponent implements OnInit, OnChang
 
     constructor(
         @Optional() @Inject('injectParams') protected params: IWrapperCParams,
-        ConfigService: ConfigService,
+        protected configService: ConfigService,
         layoutService: LayoutService,
         protected cdr: ChangeDetectorRef,
         transition: TransitionService,
@@ -60,7 +66,7 @@ export class WrapperComponent extends LayoutComponent implements OnInit, OnChang
         @Inject(WINDOW) protected window: Window,
     ) {
         super(
-            ConfigService,
+            configService,
             layoutService,
             cdr,
             transition,
@@ -95,6 +101,13 @@ export class WrapperComponent extends LayoutComponent implements OnInit, OnChang
         this.allComponents$.length = 0;
 
         for (const el of this.$params?.components) {
+            const configProperty = el.display?.configProperty;
+            if (!_isUndefined(configProperty) &&
+                !this.configService.get<unknown>(configProperty)
+            ) {
+                continue;
+            }
+
             this.allComponents$.push({
                 ...el,
                 componentClass: await this.injectionService.loadComponent(el.name),

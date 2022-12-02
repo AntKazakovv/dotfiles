@@ -1,10 +1,13 @@
 import {Provider} from '@angular/core';
 import {HTTP_INTERCEPTORS} from '@angular/common/http';
+
 import {HeadersInterceptor} from 'wlc-engine/modules/core/system/interceptors/headers.interceptor';
 import {UrlInterceptor} from 'wlc-engine/modules/core/system/interceptors/url.interceptor';
 import {CfErrorsInterceptor} from 'wlc-engine/modules/core/system/interceptors/cf-errors.interceptor';
-import {NonceInterceptor} from 'wlc-engine/modules/core/system/interceptors/nonce.interceptor';
+import {NonceInterceptor} from 'wlc-engine/modules/core/system/interceptors/security/nonce.interceptor';
 import {FingerprintInterceptor} from 'wlc-engine/modules/core/system/interceptors/fingerprint.interceptor';
+import {CaptchaInterceptor} from 'wlc-engine/modules/core/system/interceptors/security/captcha.interceptors';
+import {RecaptchaInterceptor} from 'wlc-engine/modules/core/system/interceptors/security/recaptcha.interceptors';
 import {GlobalHelper} from 'wlc-engine/modules/core/system/helpers/global.helper';
 
 function initInterceptors(): Provider[] {
@@ -27,6 +30,16 @@ function initInterceptors(): Provider[] {
         {
             provide: HTTP_INTERCEPTORS,
             useClass: CfErrorsInterceptor,
+            multi: true,
+        },
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: CaptchaInterceptor,
+            multi: true,
+        },
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: RecaptchaInterceptor,
             multi: true,
         },
     ];

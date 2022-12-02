@@ -4,8 +4,10 @@ import {
 } from '@angular/core';
 import {DOCUMENT} from '@angular/common';
 
-import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
-import {Deferred} from 'wlc-engine/modules/core/system/classes/deferred.class';
+import {
+    ConfigService,
+    Deferred,
+} from 'wlc-engine/modules/core';
 import {WINDOW} from 'wlc-engine/modules/app/system';
 
 @Injectable({
