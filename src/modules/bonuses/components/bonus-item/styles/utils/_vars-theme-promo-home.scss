@@ -72,4 +72,8 @@ $themePromoHome: map-merge((
 
     'tagStatusTopPos': ef.size(2),
     'tagStatusRightPos': ef.size(10),
+    'descrLineClamp': (
+        375: 3,
+        768: 4
+    )
 ), $customThemePromoHome);

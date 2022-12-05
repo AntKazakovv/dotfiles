@@ -126,7 +126,9 @@
         &__description {
             @include bm.get-mq-map('height', $themePromo, 'heightDescription');
             @include text.get-text-style(ef.get-value($themePromo, 'descrTextStyle'), ef.get-value($themePromo, 'descriptionFontColor'));
-            overflow: hidden;
+            @include bm.lineClamp();
+            @include bm.get-mq-map('display', $themePromo, 'descrDisplay');
+            @include bm.get-mq-map('-webkit-line-clamp', $themePromo, 'descrLineClamp');
         }
     }
 
@@ -147,7 +149,9 @@
                 }
 
                 &__description {
-                    @include descriptionCommonStyles;
+                    @include bm.lineClamp();
+                    @include bm.get-mq-map('display', $themePromo, 'descrDisplay');
+                    @include bm.get-mq-map('-webkit-line-clamp', $themePromo, 'descrLineClamp');
                     height: auto;
                 }
 

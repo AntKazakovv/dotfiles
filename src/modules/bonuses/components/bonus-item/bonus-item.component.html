@@ -13,19 +13,19 @@
 
 <ng-template #mini>
     <div class="{{$class}}__content"
-        data-wlc-element="block_bonus"
-        [class.disabled]="bonus.disabledBy"
-        [class.chosen]="bonus.isChoose && $params.themeMod !== 'simple'"
-        [class.blank]="!bonus.id">
+         data-wlc-element="block_bonus"
+         [class.disabled]="bonus.disabledBy"
+         [class.chosen]="bonus.isChoose && $params.themeMod !== 'simple'"
+         [class.blank]="!bonus.id">
         <div class="{{$class}}__wrapper"
-            [style]="{backgroundImage: bonus.id && bonusBg}">
+             [style]="{backgroundImage: bonus.id && bonusBg}">
             <div class="{{$class}}__image-block" data-wlc-element="bonus_image">
                 <ng-container *ngIf="!bonus.id">
                     {{'Without bonus' | translate}}
                 </ng-container>
 
                 <ng-container *ngIf="bonus.id"
-                    [ngTemplateOutlet]="bonusIcon">
+                              [ngTemplateOutlet]="bonusIcon">
                 </ng-container>
 
             </div>
@@ -46,7 +46,7 @@
         </div>
     </div>
     <ng-container *ngIf="!bonus.disabledBy && bonus.id"
-        [ngTemplateOutlet]="moreIcon">
+                  [ngTemplateOutlet]="moreIcon">
     </ng-container>
 
     <ng-container *ngIf="bonus.id && bonus.disabledBy" [ngTemplateOutlet]="disabledIcon"></ng-container>
@@ -83,11 +83,11 @@
                     </button>
                 </div>
                 <div *ngIf="!bonus.isExpired"
-                    wlc-bonus-buttons
-                    class="{{$class}}__btns"
-                    [bonus]="bonus"
-                    [bonusItemTheme]="$params.theme"
-                    [isChooseBtn]="isChooseBtn">
+                     wlc-bonus-buttons
+                     class="{{$class}}__btns"
+                     [bonus]="bonus"
+                     [bonusItemTheme]="$params.theme"
+                     [isChooseBtn]="isChooseBtn">
                 </div>
             </div>
         </div>
@@ -118,10 +118,10 @@
                     </ng-container>
                 </div>
                 <div wlc-bonus-buttons
-                    class="{{$class}}__btns"
-                    [bonus]="bonus"
-                    [bonusItemTheme]="$params.theme"
-                    [isChooseBtn]="isChooseBtn">
+                     class="{{$class}}__btns"
+                     [bonus]="bonus"
+                     [bonusItemTheme]="$params.theme"
+                     [isChooseBtn]="isChooseBtn">
                 </div>
             </div>
             <div class="{{$class}}__image-block"
@@ -169,11 +169,11 @@
     <div class="{{$class}}__content"
          data-wlc-element="block_bonus"
          [class.chosen]="bonus.isChoose">
-         <div class="{{$class}}__wrapper" (click)="chooseBonusNoBtn()">
-                <div class="{{$class}}__image-block" data-wlc-element="bonus_image">
-                    <div *ngIf="$params.common?.showBonusTag && !!bonus.tag"
-                         class="{{$class}}__tag"
-                         data-wlc-element="bonus_type-title">
+        <div class="{{$class}}__wrapper" (click)="chooseBonusNoBtn()">
+            <div class="{{$class}}__image-block" data-wlc-element="bonus_image">
+                <div *ngIf="$params.common?.showBonusTag && !!bonus.tag"
+                     class="{{$class}}__tag"
+                     data-wlc-element="bonus_type-title">
                     {{'Selected' | translate}}
                 </div>
                 <ng-container [ngTemplateOutlet]="bonusImage"></ng-container>
@@ -183,7 +183,7 @@
                     <h4 class="{{$class}}__name"
                         data-wlc-element="bonus_title-name"
                         [wlc-clamp]="$params.common?.nameClamp ?? 1"
-                        [innerHTML]="bonus.nameClean | translate" >
+                        [innerHTML]="bonus.nameClean | translate">
                     </h4>
                     <ng-container [ngTemplateOutlet]="description"></ng-container>
                 </div>
@@ -250,10 +250,10 @@
             <ng-container [ngTemplateOutlet]="moreIcon"></ng-container>
 
             <div wlc-bonus-buttons
-                class="{{$class}}__btns"
-                [bonus]="bonus"
-                [bonusItemTheme]="$params.theme"
-                [isChooseBtn]="isChooseBtn">
+                 class="{{$class}}__btns"
+                 [bonus]="bonus"
+                 [bonusItemTheme]="$params.theme"
+                 [isChooseBtn]="isChooseBtn">
             </div>
         </div>
     </div>
@@ -306,10 +306,10 @@
             <ng-container *ngIf="bonus.isActive" [ngTemplateOutlet]="activeBlock"></ng-container>
 
             <div wlc-bonus-buttons
-                class="{{$class}}__btns"
-                [bonus]="bonus"
-                [bonusItemTheme]="$params.theme"
-                [isChooseBtn]="isChooseBtn">
+                 class="{{$class}}__btns"
+                 [bonus]="bonus"
+                 [bonusItemTheme]="$params.theme"
+                 [isChooseBtn]="isChooseBtn">
             </div>
         </div>
     </div>
@@ -349,17 +349,17 @@
             <ng-container [ngTemplateOutlet]="activeBlock"></ng-container>
 
             <div wlc-bonus-buttons
-                class="{{$class}}__btns"
-                [bonus]="bonus"
-                [bonusItemTheme]="$params.theme"
-                [isChooseBtn]="isChooseBtn">
+                 class="{{$class}}__btns"
+                 [bonus]="bonus"
+                 [bonusItemTheme]="$params.theme"
+                 [isChooseBtn]="isChooseBtn">
             </div>
         </div>
     </div>
 </ng-template>
 
 <ng-template #moreIcon>
-    <div *ngIf="$params.common?.iconMoreBtn && bonus.id" class="{{$class}}__more-icon" >
+    <div *ngIf="$params.common?.iconMoreBtn && bonus.id" class="{{$class}}__more-icon">
         <div wlc-icon
              class="icon-btn"
              iconPath="/wlc/icons/info.svg"
@@ -370,7 +370,7 @@
 </ng-template>
 
 <ng-template #disabledIcon>
-    <div class="{{$class}}__more-icon" >
+    <div class="{{$class}}__more-icon">
         <div wlc-tooltip
              class="icon-btn error"
              [inlineParams]="getErrTooltipParams()">
@@ -386,23 +386,23 @@
 
 <ng-template #bonusIcon>
     <div *ngIf="isShowBonusIcon"
-        class="{{$class}}__icon">
+         class="{{$class}}__icon">
         <span *ngIf="bonus.isChoose && $params.theme === 'partial'"
-                class="{{$class}}__check-icon">
+              class="{{$class}}__check-icon">
             <i wlc-icon
-                class="icon-btn"
-                iconPath="/wlc/icons/check.svg">
+               class="icon-btn"
+               iconPath="/wlc/icons/check.svg">
             </i>
         </span>
         <img *ngIf="bonus.icon; else without"
-                class="{{$class}}__icon-sign"
-                draggable="false"
-                loading="lazy"
-                alt="bonus icon"
-                [src]="bonus.icon"
-                [wlc-fallback]="bonus.fallBackIconPath"
-                (imageError)="imageErrorLoad()"
-                (click)="chooseBonusNoBtn()">
+             class="{{$class}}__icon-sign"
+             draggable="false"
+             loading="lazy"
+             alt="bonus icon"
+             [src]="bonus.icon"
+             [wlc-fallback]="bonus.fallBackIconPath"
+             (imageError)="imageErrorLoad()"
+             (click)="chooseBonusNoBtn()">
         <ng-template #without>
             <div class="{{$class}}__icon-sign {{$class}}__icon-sign--empty" (click)="chooseBlankBonus()">
                 <span *ngIf="bonus.name"
@@ -413,11 +413,11 @@
             </div>
         </ng-template>
         <span *ngIf="bonus.value && !bonus.isLootbox"
-            class="{{$class}}__icon-text"
-            [wlc-value-length]="bonus.value"
-            minLength="4"
-            maxLength="6"
-            (click)="chooseBonusNoBtn()">
+              class="{{$class}}__icon-text"
+              [wlc-value-length]="bonus.value"
+              minLength="4"
+              maxLength="6"
+              (click)="chooseBonusNoBtn()">
             {{bonus.value}}
         </span>
     </div>
@@ -427,7 +427,7 @@
     <div *ngIf="$params.common?.showBonusTag && !!bonus.tag"
          class="{{$class}}__tag"
          data-wlc-element="bonus_type-title">
-         {{bonus.tag | translate}}
+        {{bonus.tag | translate}}
     </div>
 </ng-template>
 
@@ -460,9 +460,9 @@
 
 <ng-template #description>
     <div class="{{$class}}__description"
-         data-wlc-element="bonus_description-name"
-         [wlc-clamp]="$params.common?.descriptionClamp"
-    >{{bonus.descriptionClean}}</div>
+         data-wlc-element="bonus_description-name">
+       <span [innerHtml]="bonus.descriptionClean"></span>
+    </div>
 </ng-template>
 
 <ng-template #dummyTpl>

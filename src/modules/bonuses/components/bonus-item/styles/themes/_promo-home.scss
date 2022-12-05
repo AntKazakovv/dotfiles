@@ -117,4 +117,13 @@
             justify-content: ef.get-value($themePromoHome, 'btnsJustifyContent');
         }
     }
+
+    &.wlc-bonus-item--theme-mod-with-image {
+
+        .wlc-bonus-item__description {
+            @include bm.lineClamp();
+            @include bm.get-mq-map('-webkit-line-clamp', $themePromoHome, 'descrLineClamp');
+            overflow: hidden;
+        }
+    }
 }
