@@ -11,7 +11,7 @@ export interface ICurrentLangCParams {
     hideArrow?: boolean;
 }
 
-export interface ILanguageSelectorDropdownСParams {
+export interface ILanguageSelectorDropdownCParams {
     hideFlag?: boolean;
     hideLang?: boolean;
 }
@@ -28,7 +28,7 @@ export interface ILanguageSelectorCParams extends IComponentParams<ThemeType, Co
         scrollable?: boolean;
     };
     currentLang?: ICurrentLangCParams;
-    dropdown?: ILanguageSelectorDropdownСParams;
+    dropdown?: ILanguageSelectorDropdownCParams;
     toggleOnScroll?: ThemeModType;
     /**
      *  Accepts language codes; Example: ['ru', 'en', 'pt-br'];

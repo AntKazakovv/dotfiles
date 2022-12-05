@@ -315,7 +315,7 @@ export class LanguageSelectorComponent
             hideArrow: isCompact,
         };
 
-        const dropdownConfig: Params.ILanguageSelectorDropdownСParams = {
+        const dropdownConfig: Params.ILanguageSelectorDropdownCParams = {
             hideFlag: false,
             hideLang: isCompact,
         };
