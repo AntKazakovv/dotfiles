@@ -4,7 +4,6 @@
     --fp-padding: calc(var(--fp-size-compact) + var(--fp-size-gap));
 
     .wlc-app {
-        transform: translate3d(0, 0, 0);
         transition: ef.get-value($fixedPanelLayoutConfig, 'globalTransition');
     }
 
