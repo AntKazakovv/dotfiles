@@ -5,7 +5,7 @@ export type ThemeType = 'default';
 export type ThemeModType = 'bottom-left' | 'bottom-right' | 'top-left' | 'top-right' | 'long';
 export type ComponentType = 'click' | 'hover' | 'compact';
 
-export interface ICurrentLangСParams {
+export interface ICurrentLangCParams {
     hideFlag?: boolean;
     hideLang?: boolean;
     hideArrow?: boolean;
@@ -27,7 +27,7 @@ export interface ILanguageSelectorCParams extends IComponentParams<ThemeType, Co
         };
         scrollable?: boolean;
     };
-    currentLang?: ICurrentLangСParams;
+    currentLang?: ICurrentLangCParams;
     dropdown?: ILanguageSelectorDropdownСParams;
     toggleOnScroll?: ThemeModType;
     /**

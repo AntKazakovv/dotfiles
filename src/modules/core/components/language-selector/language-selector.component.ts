@@ -310,7 +310,7 @@ export class LanguageSelectorComponent
 
     protected updateCompactState(isCompact: boolean): void {
         let useTooltip: boolean = false;
-        const currentLangConfig: Params.ICurrentLangСParams = {
+        const currentLangConfig: Params.ICurrentLangCParams = {
             hideLang: isCompact,
             hideArrow: isCompact,
         };
