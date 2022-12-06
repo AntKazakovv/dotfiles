@@ -99,9 +99,7 @@
 
         &__description-block {
             @include bm.transition(opacity);
-
-            width: 100%;
-            min-width: 0;
+            width: ef.get-value($themeLong, 'activeBlockMaxWidth');
             padding: ef.get-value($themeLong, 'descrPadding');
             border-radius: ef.get-value($themeLong, 'radius');
             background: ef.get-value($themeLong, 'descrBg');

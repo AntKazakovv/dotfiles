@@ -79,12 +79,16 @@
                 (click)="join()">
             </button>
         </div>
-        <div *ngIf="isTournamentSelected"
-             wlc-tournament-leaderboard
-             class="{{$class}}__board"
-             [tournament]="tournament"
-             [limit]="8"
-             [showAllBtn]="true"></div>
+        <ng-container *ngIf="isTournamentSelected">
+            <div class="{{$class}}__header">{{'Leaderboard' | translate}}</div>
+            <div
+                wlc-tournament-leaderboard
+                class="{{$class}}__board"
+                [tournament]="tournament"
+                [limit]="8"
+                [showAllBtn]="true">
+            </div>
+        </ng-container>
     </div>
 </ng-template>
 

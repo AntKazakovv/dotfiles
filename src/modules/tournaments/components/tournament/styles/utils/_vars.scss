@@ -26,4 +26,7 @@ $themeDashboard: map-merge((
     'descrPadding': ef.size(3) ef.size(2),
     'descrTextStyle': 'CaptionText',
     'descrColor': var(--mc-baseMain),
+    'titleTextStyle': 'ThirdTitleBold',
+    'titleColor': var(--mc-baseMain),
+    'headerMargin': ef.size(3) 0 ef.size(1),
 ), $customThemeDashboard);

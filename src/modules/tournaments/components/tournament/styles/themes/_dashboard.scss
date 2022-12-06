@@ -119,6 +119,8 @@
         }
 
         &__timer {
+            width: ef.get-value($themeDashboard, 'imgWidth');
+            margin: 0 auto;
 
             &.wlc-timer::ng-deep {
 
@@ -137,10 +139,8 @@
 
         &__description-block {
             @include bm.transition(opacity);
-
-            width: 100%;
-            min-width: 0;
-            margin-top: ef.get-value($themeDashboard, 'gapNoSelect');
+            width: ef.get-value($themeDashboard, 'imgWidth');
+            margin: ef.get-value($themeDashboard, 'gapNoSelect') auto 0;
             padding: ef.get-value($themeDashboard, 'descrPadding');
             border-radius: ef.get-value($themeDashboard, 'borderRadius');
             background: ef.get-value($themeDashboard, 'rowBg');
@@ -155,6 +155,13 @@
 
         &__board {
             padding: ef.get-value($themeDashboard, 'gap') 0 ef.get-value($themeDashboard, 'gap') 0;
+        }
+
+        &__header {
+            @include text.get-text-style(ef.get-value($themeDashboard, 'titleTextStyle'), ef.get-value($themeDashboard, 'titleColor'));
+            @include bm.lineClamp(1);
+            margin: ef.get-value($themeDashboard, 'headerMargin');
+            text-align: center;
         }
     }
 }

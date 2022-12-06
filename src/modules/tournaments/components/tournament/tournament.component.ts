@@ -70,7 +70,6 @@ export class TournamentComponent
     public pending$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
     public detailParams: ITournamentDetailCParams;
     public actionParams: IActionParams = null;
-
     protected userInfo: UserInfo;
 
     constructor(
