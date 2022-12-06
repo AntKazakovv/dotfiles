@@ -1,0 +1,70 @@
+.wlc-mobile-header--theme-default:host {
+
+    .wlc-mobile-header {
+
+        &__content {
+            position: relative;
+            display: grid;
+            grid-template-columns: 1fr minmax(0, 3fr) 1fr;
+            gap: 10px;
+            align-items: center;
+            min-height: 40px;
+            padding: 0 15px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        &__back {
+            display: flex;
+            align-items: center;
+            justify-content: left;
+            color: #0a84ff;
+            font-weight: 700;
+            font-size: 14px;
+
+            .wlc-icon {
+                order: -1;
+            }
+
+            ::ng-deep {
+
+                .wlc-icon-content {
+                    display: flex;
+                    width: 100%;
+                    height: 100%;
+                    margin-right: 5px;
+
+                    svg {
+                        transform: rotate(180deg);
+                        fill: #0a84ff;
+                    }
+                }
+            }
+        }
+
+        &__title {
+            font-weight: 700;
+            font-size: 16px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-align: center;
+            text-overflow: ellipsis;
+        }
+
+        &__action {
+            display: flex;
+            align-items: center;
+            justify-content: right;
+
+            ::ng-deep {
+
+                .wlc-icon-content {
+
+                    svg {
+                        transform: rotate(180deg);
+                        fill: #0a84ff;
+                    }
+                }
+            }
+        }
+    }
+}

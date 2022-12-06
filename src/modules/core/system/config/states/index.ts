@@ -17,7 +17,6 @@ export * from './profile/profile-notifications.state';
 export * from './profile/profile-tournaments.state';
 export * from './profile/profile-store.state';
 export * from './profile/profile-social.state';
-export * from './profile/profile-referrals.state';
 export * from './profile/profile-payments.state';
 export * from './profile/profile-loyalty-level.state';
 export * from './profile/profile-limits.state';

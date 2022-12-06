@@ -120,6 +120,7 @@ export class ActionService {
     private scrollTop: number;
     private depositInIframe: boolean = false;
     private emitDepositStatus$: Subscription;
+    private scrollableElements$: IIndexing<Observable<number>> = {};
 
     constructor(
         private injector: Injector,
@@ -169,8 +170,26 @@ export class ActionService {
 
         if (this.scrollTop) {
             this.window.scrollTo(0, this.scrollTop);
-            this.scrollTop = 0;
         }
+    }
+
+    /**
+     * Save scroll observable for current element
+     *
+     * @param element Element
+     * @param name Identificator for element
+     */
+    public setScrollableElement(element: Element, name: string): void {
+        this.scrollableElements$[name] = fromEvent(element, 'scroll').pipe(map(() => element.scrollTop));
+    }
+
+    /**
+     * Get scroll observable of element
+     *
+     * @param name Identificator of saved element
+     */
+    public scrollableElement(name: string): undefined | Observable<number> {
+        return this.scrollableElements$[name];
     }
 
     /**

@@ -1,0 +1,23 @@
+$customThemeMobileApp: () !default;
+$themeSwiperMobileApp: map-merge((
+    'swiperDisplay': grid,
+    'swiperGridAreas': 'title-icon title swiper-buttons show-all' 'games-grid games-grid games-grid games-grid',
+    'swiperGridColumns': auto auto minmax(0, 1fr) auto,
+    'swiperGridRowGap': ef.size(2),
+
+    'titleAlignSelf': center,
+    'titleDisplay': flex,
+    'titleAlignItems': center,
+
+    'swiperNoContentGridRow': #{'2/3'},
+    'swiperNoContentGridColumn': #{'1/-1'},
+
+    'headerColor': var(--mc-baseMain),
+    'headerFontStyle': 'CaptionTextBold',
+
+    'linkColor': #0a84ff,
+    'linkFontStyle': 'CaptionTextBold',
+
+    'sliderBeforeWidth': 20px,
+    'sliderBeforeBg': var(--mc-bg),
+), $customThemeMobileApp);

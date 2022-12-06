@@ -1,6 +1,7 @@
 import {
     Component,
     OnInit,
+    OnDestroy,
     ElementRef,
     ChangeDetectionStrategy,
     Inject,
@@ -25,7 +26,7 @@ import * as Params from './lottie-animation.params';
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 
-export class LottieAnimationComponent extends AbstractComponent implements OnInit {
+export class LottieAnimationComponent extends AbstractComponent implements OnInit, OnDestroy {
     @Input() protected inlineParams: Params.ILottieAnimationCParams;
 
     public $params: Params.ILottieAnimationCParams;

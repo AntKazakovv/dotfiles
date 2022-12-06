@@ -1,0 +1,32 @@
+.wlc-sections__header--theme-universal {
+    @include bm.get-mq-map('--h-gap', $headerThemeUniversal, 'headerGridGap');
+
+    @include headerBase($headerThemeUniversal);
+
+    .header {
+
+        &__left,
+        &__right {
+            display: flex;
+            align-items: center;
+
+            > * {
+
+                &:not(.wlc-logo) {
+                    margin-right: calc(var(--h-gap) * 0.5);
+                    margin-left: calc(var(--h-gap) * 0.5);
+                }
+            }
+        }
+    }
+
+    .wlc-main-menu {
+        min-width: 0;
+    }
+
+    .wlc-body--layout-fixed-panel-left &,
+    .wlc-body--layout-fixed-panel-right & {
+        margin-right: calc(-1 * var(--fp-size-gap));
+        margin-left: calc(-1 * var(--fp-size-gap));
+    }
+}

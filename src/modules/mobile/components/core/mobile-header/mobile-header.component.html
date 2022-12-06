@@ -1,0 +1,10 @@
+<div class="{{$class}}__content" *ngIf="!isHidden">
+    <div class="{{$class}}__back" *ngIf="$params.backButton?.use" (click)="goBack()">
+        <span class="{{$class}}__back-icon" wlc-icon iconPath="/mobile-app/icons/arrow.svg"></span>
+        <span>{{'Back' | translate}}</span>
+    </div>
+    <div class="{{$class}}__title">{{title | translate}}</div>
+    <div class="{{$class}}__action" *ngIf="actionBtn" (click)="onActionBtnClick()">
+        <div wlc-icon iconPath="{{actionBtn.icon}}"></div>
+    </div>
+</div>

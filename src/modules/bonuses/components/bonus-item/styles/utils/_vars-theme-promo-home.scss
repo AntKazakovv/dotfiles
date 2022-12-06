@@ -2,6 +2,7 @@ $customThemePromoHome: () !default;
 $themePromoHome: map-merge((
     'background': var(--mc-bg700),
     'color': var(--mc-baseMain),
+    'nameTextStyle': 'QoteTextBold',
     'padding': (
         320: ef.size(12) ef.size(4) ef.size(6),
         1024: ef.size(12) ef.size(8) ef.size(8),
@@ -71,4 +72,8 @@ $themePromoHome: map-merge((
 
     'tagStatusTopPos': ef.size(2),
     'tagStatusRightPos': ef.size(10),
+    'descrLineClamp': (
+        375: 3,
+        768: 4
+    )
 ), $customThemePromoHome);

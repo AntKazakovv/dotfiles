@@ -1,13 +1,67 @@
-<div class="{{$class}}__email" data-wlc-element="block_user-stat-username">
+<ng-container [ngSwitch]="$params.type">
+    <ng-template [ngSwitchCase]="'default'">
+        <div class="{{$class}}__email" data-wlc-element="block_user-stat-username">
+            <div wlc-icon
+                 class="{{$class}}__email-icon"
+                 wlcElement="wlc-icon-user"
+                 iconPath="/wlc/icons/user-icon.svg"
+                 [showSvgAsImg]="$params.showSvgAsImg"
+            ></div>
+
+            <div class="{{$class}}__email-value"
+                 data-wlc-element="input_email">
+                {{displayedName | truncate: $params.userNameLength}}
+            </div>
+        </div>
+    </ng-template>
+    <ng-template [ngSwitchCase]="'mobile-app'">
+        <ng-container *ngIf="isAuth; then auth else notAuth"></ng-container>
+    </ng-template>
+</ng-container>
+
+<ng-template #notAuth>
+    <div class="{{$class}}__container" data-wlc-element="block_user-stat-username" (click)="modalSignup()">
+        <ng-template [ngTemplateOutlet]="iconUser"></ng-template>
+        <div class="{{$class}}__block">
+            <div class="{{$class}}__email-value">
+                {{'Guest' | translate}}
+            </div>
+            <div class="{{$class}}__description">
+                {{'Enter to account' | translate}}
+            </div>
+        </div>
+        <ng-template [ngTemplateOutlet]="iconArrow"></ng-template>
+    </div>
+</ng-template>
+
+<ng-template #auth>
+    <div class="{{$class}}__container" data-wlc-element="block_user-stat-username" (click)="openProfile()">
+        <ng-template [ngTemplateOutlet]="iconUser"></ng-template>
+        <div class="{{$class}}__block">
+            <div class="{{$class}}__email-value"
+                 data-wlc-element="input_email">
+                {{displayedName | truncate: $params.userNameLength}}
+            </div>
+            <div class="{{$class}}__description">
+                {{'My account' | translate}}
+            </div>
+        </div>
+        <ng-template [ngTemplateOutlet]="iconArrow"></ng-template>
+    </div>
+</ng-template>
+
+<ng-template #iconUser>
     <div wlc-icon
          class="{{$class}}__email-icon"
          wlcElement="wlc-icon-user"
-         iconPath="/wlc/icons/user-icon.svg"
+         [iconUrl]="'mobile-app/icons/user-logo.svg'"
          [showSvgAsImg]="$params.showSvgAsImg"
     ></div>
+</ng-template>
 
-    <div class="{{$class}}__email-value"
-        data-wlc-element="input_email">
-        {{displayedName | truncate: $params.userNameLength}}
+<ng-template #iconArrow>
+    <div wlc-icon
+         class="{{$class}}__icon-arrow"
+         [iconUrl]="'mobile-app/icons/arrow.svg'">
     </div>
-</div>
+</ng-template>

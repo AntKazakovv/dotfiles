@@ -69,5 +69,15 @@ export const BurgerPanelAppearanceAnimations = [
                 animate('0.2s ease-in', style({opacity: 0})),
             ], {optional: true}),
         ]),
+        transition('expanded <=> compact', [
+            style({
+                opacity: 0,
+                transform: 'translateY(30px)',
+            }),
+            animate('0.25s 0.45s ease-out', style({
+                opacity: 1,
+                transform: 'translateY(0)',
+            })),
+        ]),
     ]),
 ];

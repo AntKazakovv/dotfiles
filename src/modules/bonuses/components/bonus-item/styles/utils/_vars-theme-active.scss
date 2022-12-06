@@ -14,7 +14,7 @@ $themeActive: map-merge((
     'wrapperPadding': (
         375: 0 0 ef.size(4),
         560: 0 ef.size(4) 0 0,
-        1200: 0,
+        1024: 0,
     ),
     'wrapperGap': (
         375: ef.size(4) 0,
@@ -26,10 +26,9 @@ $themeActive: map-merge((
         560: 250px minmax(0, 1fr),
         640: 300px minmax(0, 1fr),
         768: 330px minmax(0, 1fr),
-        900: 395px minmax(0, 1fr),
-        1024: 305px minmax(0, 1fr),
-        1200: 270px minmax(0, 1fr) 250px,
-        1630: 320px minmax(0, 1fr) 250px,
+        900: 350px minmax(0, 1fr),
+        1024: 270px minmax(0, 1fr) 280px,
+        1630: 320px minmax(0, 1fr) 280px,
     ),
     'wrapperHeight': (
         560: 260px,
@@ -37,14 +36,18 @@ $themeActive: map-merge((
     'wrapperTplAreas': (
         375: 'image' 'info' 'active' 'btns',
         560: 'image info' 'image btns',
-        1200: 'image info active' 'image info active' 'image btns active',
+        1024: 'image info active' 'image info active' 'image btns active',
     ),
 
-    'imgBlockBg': var(--mc-bg300),
-    'imgSize': 100%,
+    'imgBlockBg': rgba(0, 0, 0, 0.3),
     'imgBlockHeight': (
         375: 200px,
         560: auto
+    ),
+    'imgSize': 100%,
+    'imgDisplay': (
+        560: none,
+        1024: block,
     ),
 
     'tagPositionTop': ef.size(4),
@@ -61,17 +64,15 @@ $themeActive: map-merge((
         375: 'ThirdTitleBold',
         560: 'QoteTextBold',
     ),
+    'nameMargin': 0 0 ef.size(2) 0,
 
     'descriptionColor': var(--mc-baseMain),
-    'descrMaxWidth': (
-        1630: 34ch
-    ),
 
     'infoBlockPadding': (
         375: 0 ef.size(3),
         560: ef.size(3),
         720: ef.size(3) ef.size(6),
-        1200: ef.size(3),
+        1024: ef.size(3),
     ),
     'infoBlockArea': (
         375: info,
@@ -91,33 +92,43 @@ $themeActive: map-merge((
 
     'activeBlockDisplay': (
         320: flex,
-        1200: grid,
+        1024: grid,
     ),
     'activeBlockTemplateRows': min-content 1fr,
     'activeBlockTemplateColumn': 100%,
-    'activeBlockGap': 10px 0,
+    'activeBlockGap': (
+        375: ef.size(2) 0,
+        560: ef.size(4) 0,
+        1024: ef.size(2) 0,
+    ),
     'activeBlockAlign': (
         375: center,
-        1200: initial,
+        1024: initial,
     ),
     'activeBlockWidth': (
         375: 280px,
         560: 250px,
+        1024: 280px,
     ),
     'activeBlockJustify': (
         375: center,
-        1200: initial,
+        1024: initial,
     ),
     'activeBlockPadding': (
         375: 0 ef.size(2),
         560: 0 ef.size(3),
         640: 0,
-        1200: ef.size(3),
+        1024: ef.size(3),
+    ),
+    'activeBlockMargin': (
+        375: 0,
+        560: ef.size(5) 0 0,
+        1024: 0,
     ),
     'activeBlockArea': (
         375: active,
         560: image,
-        1200: active,
+        1024: active,
     ),
 
     'btnsBlockMargin': (
@@ -130,29 +141,14 @@ $themeActive: map-merge((
         375: 0 ef.size(3) ef.size(4),
         560: 0 ef.size(3) ef.size(3),
         720: 0 ef.size(6) ef.size(3),
-        1200: 0 ef.size(3) ef.size(3),
+        1024: 0 ef.size(3) ef.size(3),
     ),
 
-    'progressPadding': ef.size(2),
+    'progressPadding': ef.size(4),
     'progressMargin': 0,
     'progressBg': (
         320: var(--mc-bg),
     ),
 
     'timerBg': var(--mc-bg),
-
-    'headlineBg': var(--mc-baseOpacity),
-    'headlineDisplay': (
-        375: none,
-        560: block,
-    ),
-    'headlineWidth': (
-        375: 95px,
-    ),
-    'headlineHeight': (
-        375: 1px,
-    ),
-    'headlineMargin': (
-        375: 0 0 ef.size(3),
-    ),
 ), $customThemeActive);

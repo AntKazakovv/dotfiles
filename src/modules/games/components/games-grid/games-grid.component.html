@@ -1,6 +1,7 @@
 <ng-container [ngSwitch]="$params.theme">
     <ng-container *ngSwitchCase="'swiper'" [ngTemplateOutlet]="swiper"></ng-container>
     <ng-container *ngSwitchCase="'preview'" [ngTemplateOutlet]="preview"></ng-container>
+    <ng-container *ngSwitchCase="'mobile-app-swiper'" [ngTemplateOutlet]="mobileApp"></ng-container>
     <ng-container *ngSwitchDefault [ngTemplateOutlet]="default"></ng-container>
 </ng-container>
 
@@ -199,6 +200,32 @@
     <div *ngIf="games.length && $params.showAllLink?.use && $params.showAllLink?.position === 'bottom'"
          class="{{$class}}__more">
         <ng-template [ngTemplateOutlet]="showAllBtn"></ng-template>
+    </div>
+</ng-template>
+
+<ng-template #mobileApp>
+    <div class="{{$class}}__content" [hidden]="hideEmptyComponent">
+        <div *ngIf="$params.showTitle && title"
+             wlc-title
+             class="{{$class}}__title"
+             [mainText]="title"></div>
+
+        <ng-container>
+            <ng-container [ngTemplateOutlet]="showAllLink">
+            </ng-container>
+        </ng-container>
+
+        <ng-container *ngIf="isReadyOrUsePlaceholder else: preloader">
+            <ng-container *ngIf="hasGames; else: noGames">
+                <ng-container *ngIf="showGameSlides; else sliderPlaceholders">
+                    <div wlc-wrapper
+                         class="{{$class}}__games-slider"
+                         [inlineParams]="gamesSliderConfig"
+                         (resized)="onResize($event)">
+                    </div>
+                </ng-container>
+            </ng-container>
+        </ng-container>
     </div>
 </ng-template>
 

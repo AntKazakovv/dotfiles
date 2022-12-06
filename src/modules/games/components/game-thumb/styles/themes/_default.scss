@@ -370,6 +370,10 @@
         @include thumbJackpotModifiers($bottomTitle);
     }
 
+    &.wlc-game-thumb--theme-mod-mobile-app {
+        border-radius: ef.get-value($themeDefaultModMobile, 'thumbRadius');
+    }
+
     &.wlc-game-thumb--type-modal {
 
         .wlc-game-thumb__icon {

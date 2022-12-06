@@ -2,6 +2,10 @@
      (click)="toggle()"
      [ngClass]="[(isOpened || isModalOpen) ? $class + '__current--opened': '']"
      [class.single-lang]="hasSingleLang"
+     [tooltip]="$params.useTooltip && currentLanguage.label"
+     container="body"
+     containerClass="wlc-tooltip--compact"
+     placement="right"
 >
     <div *ngIf="!$params.currentLang?.hideFlag" class="{{$class}}__current-flag">
         <img src="{{getFlagUrl(currentLanguage.code)}}"
@@ -20,7 +24,8 @@
 </div>
 <div *ngIf="availableLanguages.length <= 6"
      class="{{$class}}__dropdown"
-     [@toggle]="$params.themeMod !== 'long' ? (isOpened ? 'opened' : 'closed') : (isOpened ? 'openedHeight' : 'closedHeight')"
+     [@toggle]="animationState()"
+     #dropdown
 >
     <ng-container [ngTemplateOutlet]="langList"
                   [ngTemplateOutletContext]="{list: availableLanguages, class: $class}"
@@ -30,7 +35,11 @@
     <div class="{{$class}}__list">
         <div *ngFor="let lang of list"
              class="{{$class}}__item {{$class}}__item--{{lang.code}}"
-             [ngClass]="[lang.code === currentLanguage.code ? $class + '__item--active': '']">
+             [ngClass]="[lang.code === currentLanguage.code ? $class + '__item--active': '']"
+             [tooltip]="$params.useTooltip && lang.label"
+             container="body"
+             containerClass="wlc-tooltip--compact"
+             placement="right">
 
             <a href="/{{lang.code}}"
                class="{{$class}}__link" [attr.data-wlc-element]="'link_' + lang.code"

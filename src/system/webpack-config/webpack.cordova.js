@@ -141,7 +141,6 @@ module.exports = (config, schema, env) => {
         ]
     }));
 
-
     let platform = process.env.npm_config_platform;
     if (!platform) {
         throw Error('Error on get "process.env.npm_config_platform"');

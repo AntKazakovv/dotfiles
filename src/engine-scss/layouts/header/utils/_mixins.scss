@@ -25,7 +25,7 @@
 
     .wlc-logo {
         @include bm.get-mq-map('width', $theme, 'headerLogoMaxWidth');
-        margin: ef.get-value($theme, 'headerLogoMargin');
+        @include bm.get-mq-map('margin', $theme, 'headerLogoMargin');
 
         &__image {
             @include bm.get-mq-map('height', $theme, 'logoImgHeight');

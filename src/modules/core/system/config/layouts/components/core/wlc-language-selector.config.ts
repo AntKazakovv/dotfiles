@@ -60,6 +60,15 @@ export namespace wlcLanguageSelector {
             themeMod: 'long',
         },
     };
+
+    export const longCompact: ILayoutComponent = {
+        name: 'core.wlc-language-selector',
+        params: <ILanguageSelectorCParams>{
+            themeMod: 'long',
+            compactMod: true,
+        },
+    };
+
     export const footerThemeFirst: ILayoutComponent = {
         name: 'core.wlc-language-selector',
         params: <ILanguageSelectorCParams>{

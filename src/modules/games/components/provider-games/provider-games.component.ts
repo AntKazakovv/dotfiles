@@ -11,28 +11,29 @@ import {
     UIRouter,
     UIRouterGlobals,
 } from '@uirouter/core';
+import {TranslateService} from '@ngx-translate/core';
 
 import {
     AbstractComponent,
     ConfigService,
     GlobalHelper,
 } from 'wlc-engine/modules/core';
-import {GamesHelper} from 'wlc-engine/modules/games/system/helpers/games.helpers';
 import {
+    CategoryModel,
     MerchantModel,
 } from 'wlc-engine/modules/games';
 import {
     GamesCatalogService,
 } from 'wlc-engine/modules/games/system/services/games-catalog/games-catalog.service';
 import {IGamesGridCParams} from 'wlc-engine/modules/games/components/games-grid/games-grid.params';
-import {IByMerchantItemCategory} from 'wlc-engine/modules/games/system/interfaces';
 import {IconModel} from 'wlc-engine/modules/core/system/models/icon-list-item.model';
 
 import * as Params from './provider-games.params';
 
-import _values from 'lodash-es/values';
-import _orderBy from 'lodash-es/orderBy';
+import _filter from 'lodash-es/filter';
 import _isEmpty from 'lodash-es/isEmpty';
+import _cloneDeep from 'lodash-es/cloneDeep';
+import _merge from 'lodash-es/merge';
 
 @Component({
     selector: '[wlc-provider-games]',
@@ -58,6 +59,7 @@ export class ProviderGamesComponent extends AbstractComponent implements OnInit 
         protected uiRouter: UIRouterGlobals,
         protected router: UIRouter,
         protected gamesCatalogService: GamesCatalogService,
+        protected translateService: TranslateService,
         protected stateService: StateService,
         protected cdr: ChangeDetectorRef,
     ) {
@@ -95,9 +97,15 @@ export class ProviderGamesComponent extends AbstractComponent implements OnInit 
     }
 
     protected createGamesGridList(): void {
-        const cats = GamesHelper.getCategoriesByMerchant(this.provider.name.toLowerCase());
+        let categories = this.gamesCatalogService.getCategoriesByMerchatName(this.provider.name);
+        const selectedCategory: string = this.router.globals.params['childCategory']
+            || this.router.globals.params['category'];
 
-        if (_isEmpty(cats)) {
+        if (selectedCategory) {
+            categories = _filter(categories, {'slug': selectedCategory});
+        }
+
+        if (_isEmpty(categories)) {
             this.gamesGridList.push({
                 ...this.$params.gamesGridAllParams,
                 filter: {
@@ -105,16 +113,67 @@ export class ProviderGamesComponent extends AbstractComponent implements OnInit 
                 },
             });
         } else {
-            this.gamesGridList = _orderBy(_values(cats), 'sort', 'desc')
-                .map((cat: IByMerchantItemCategory) => {
-                    return {
-                        ...this.$params.gamesGridCategoryParams,
-                        filter: {
-                            categories: [cat.slug],
-                            merchants: [this.provider.id],
-                        },
-                    };
-                });
+
+            this.gamesGridList = categories.map((category: CategoryModel): IGamesGridCParams => {
+
+                let gamesGridParams = _cloneDeep(this.$params.gamesGridCategoryParams);
+
+                if (this.$params.type === 'mobile-app') {
+                    const categoryModel = this.gamesCatalogService.getCategoryBySlug(category.slug);
+
+                    if (categoryModel) {
+                        let sref: string = '',
+                            category: string = '',
+                            childCategory: string = '';
+
+                        if (!categoryModel.isParent) {
+                            sref = 'app.catalog.child';
+                            category = categoryModel.parentCategory.slug;
+                            childCategory = categoryModel.slug;
+                        } else {
+                            sref = 'app.catalog';
+                            category = categoryModel.slug;
+                        }
+
+                        if (gamesGridParams.showAllLink.use) {
+                            if (!gamesGridParams.showAllLink.params) {
+                                gamesGridParams.showAllLink.params = {};
+                            }
+
+                            gamesGridParams.showAllLink.params = _merge(
+                                gamesGridParams.showAllLink.params,
+                                this.router.globals.params,
+                            );
+
+                            if (!gamesGridParams.showAllLink.sref) {
+                                gamesGridParams.showAllLink.sref = sref;
+                            }
+                            gamesGridParams.showAllLink.params.category = category;
+                            gamesGridParams.showAllLink.params.childCategory = childCategory;
+                        }
+
+                        if (gamesGridParams.showAsSwiper?.sliderParams?.slideShowAll) {
+
+                            if (!gamesGridParams.showAsSwiper.sliderParams.slideShowAll.sref) {
+                                gamesGridParams.showAsSwiper.sliderParams.slideShowAll.sref = sref;
+                            }
+
+                            gamesGridParams.showAsSwiper.sliderParams.slideShowAll.srefParams = {
+                                category: category,
+                                childCategory: childCategory,
+                            };
+                        }
+                    }
+                }
+
+                return {
+                    ...gamesGridParams,
+                    filter: {
+                        categories: [category.slug],
+                        merchants: [this.provider.id],
+                    },
+                };
+            });
         }
 
         this.ready = true;

@@ -212,7 +212,7 @@ $themeDefault: map-merge((
     'tagTransform': translateX(-50%),
 
     // // Description
-    'descriptionMargin': 0,
+    'descriptionMargin': ef.size(1),
 
     // Btns
     'btnsInnerOffset': 0 ef.size(1),

@@ -99,12 +99,6 @@ export const $profileLayouts: IPanelsConfig = {
             'profile-content': sectionsLib.profileContent.profileWithdraw,
         },
     },
-    'app.profile.cash.wallet': {
-        extends: 'app.profile',
-        sections: {
-            'profile-content': sectionsLib.profileContent.empty,
-        },
-    },
     'app.profile.cash.transactions': {
         extends: 'app.profile',
         sections: {
@@ -178,12 +172,6 @@ export const $profileLayouts: IPanelsConfig = {
         },
     },
     'app.profile.limits': {
-        extends: 'app.profile',
-        sections: {
-            'profile-content': sectionsLib.profileContent.empty,
-        },
-    },
-    'app.profile.referrals': {
         extends: 'app.profile',
         sections: {
             'profile-content': sectionsLib.profileContent.empty,

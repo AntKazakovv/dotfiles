@@ -2,6 +2,18 @@ import {ILayoutSectionConfig} from 'wlc-engine/modules/core';
 import * as componentLib from '../components';
 
 export namespace footer {
+
+    export const mobileFooter: ILayoutSectionConfig = {
+        replaceConfig: true,
+        order: 1000,
+        container: false,
+        theme: '1',
+        wlcElement: 'section_mobile_footer',
+        components: [
+            componentLib.wlcMobileFooterMenu.def,
+        ],
+    };
+
     export const themeFirst: ILayoutSectionConfig = {
         replaceConfig: true,
         order: 1000,

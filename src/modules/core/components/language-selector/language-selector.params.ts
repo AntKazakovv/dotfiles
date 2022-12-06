@@ -3,7 +3,18 @@ import {IComponentParams} from 'wlc-engine/modules/core/system/classes/abstract.
 
 export type ThemeType = 'default';
 export type ThemeModType = 'bottom-left' | 'bottom-right' | 'top-left' | 'top-right' | 'long';
-export type ComponentType = 'click' | 'hover';
+export type ComponentType = 'click' | 'hover' | 'compact';
+
+export interface ICurrentLangCParams {
+    hideFlag?: boolean;
+    hideLang?: boolean;
+    hideArrow?: boolean;
+}
+
+export interface ILanguageSelectorDropdownCParams {
+    hideFlag?: boolean;
+    hideLang?: boolean;
+}
 
 export interface ILanguageSelectorCParams extends IComponentParams<ThemeType, ComponentType, ThemeModType> {
     common?: {
@@ -16,20 +27,15 @@ export interface ILanguageSelectorCParams extends IComponentParams<ThemeType, Co
         };
         scrollable?: boolean;
     };
-    currentLang?: {
-        hideFlag?: boolean;
-        hideLang?: boolean;
-        hideArrow?: boolean;
-    };
-    dropdown?: {
-        hideFlag?: boolean;
-        hideLang?: boolean;
-    };
+    currentLang?: ICurrentLangCParams;
+    dropdown?: ILanguageSelectorDropdownCParams;
     toggleOnScroll?: ThemeModType;
     /**
      *  Accepts language codes; Example: ['ru', 'en', 'pt-br'];
      */
     order?: string[];
+    compactMod?: boolean;
+    useTooltip?: boolean;
 }
 
 export const defaultParams: ILanguageSelectorCParams = {
@@ -55,4 +61,6 @@ export const defaultParams: ILanguageSelectorCParams = {
         },
     },
     wlcElement: 'block_language-selector',
+    compactMod: false,
+    useTooltip: false,
 };

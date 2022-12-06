@@ -9,7 +9,6 @@ import {VerboxService} from './system/services/verbox/verbox.service';
 import {TawkChatService} from './system/services/tawk/tawk-chat.service';
 import {CommonChatService} from './system/services/common/common-chat.service';
 import {ZendeskService} from './system/services/zendesk/zendesk.service';
-import {ZohoChatService} from './system/services/zoho/zoho.service';
 
 import {LivechatButtonComponent} from './components/livechat-button/livechat-button.component';
 
@@ -37,7 +36,6 @@ export const services = {
         TawkChatService,
         CommonChatService,
         ZendeskService,
-        ZohoChatService,
     ],
     exports: [],
 })

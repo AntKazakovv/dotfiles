@@ -1,7 +1,15 @@
-import {Inject, Injectable} from '@angular/core';
+import {
+    Inject,
+    Injectable,
+} from '@angular/core';
+import {
+    Transition,
+    TransitionService,
+} from '@uirouter/core';
 
 import {GlobalHelper} from 'wlc-engine/modules/core/system/helpers/global.helper';
 import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
+import {EventService} from 'wlc-engine/modules/core/system/services/event/event.service';
 import {InjectionService} from 'wlc-engine/modules/core/system/services/injection/injection.service';
 import {IIndexing} from 'wlc-engine/modules/core/system/interfaces/global.interface';
 import {IGlobalConfig} from 'wlc-engine/modules/core/system/services/config/config.interface';
@@ -16,12 +24,18 @@ import {
 } from 'wlc-engine/modules/core/system/interfaces/layouts.interface';
 import {WINDOW} from 'wlc-engine/modules/app/system';
 
-import {SectionModel, ISectionData} from 'wlc-engine/modules/core/system/models/section.model';
+import {
+    SectionModel,
+    ISectionData,
+} from 'wlc-engine/modules/core/system/models/section.model';
 
+import {BehaviorSubject} from 'rxjs';
 import _cloneDeep from 'lodash-es/cloneDeep';
+import _get from 'lodash-es/get';
 import _each from 'lodash-es/each';
 import _extend from 'lodash-es/extend';
 import _isString from 'lodash-es/isString';
+import _isFunction from 'lodash-es/isFunction';
 import _isNumber from 'lodash-es/isNumber';
 import _includes from 'lodash-es/includes';
 import _mergeWith from 'lodash-es/mergeWith';
@@ -49,6 +63,9 @@ interface ILayouts {
 })
 export class LayoutService {
 
+    /** Title of page for current state */
+    public pageTitle: BehaviorSubject<string> = new BehaviorSubject(null);
+
     private readonly layouts: ILayouts = {
         pages: {},
         panels: {},
@@ -58,6 +75,8 @@ export class LayoutService {
 
     constructor(
         protected configService: ConfigService,
+        protected eventService: EventService,
+        protected transition: TransitionService,
         protected injectionService: InjectionService,
         @Inject(WINDOW) protected window: Window,
     ) {
@@ -291,6 +310,21 @@ export class LayoutService {
 
         this.layouts.pages = this.configService.get<ILayoutsConfig>('$layouts');
         this.layouts.panels = this.configService.get<IPanelsConfig>('$panelsLayouts');
+
+        this.transition.onSuccess({}, (transition: Transition): void => {
+            this.updatePageTitle(transition);
+        });
+    }
+
+    private updatePageTitle(transition: Transition): void {
+        const layoutConfig: ILayoutStateConfig = _get(this.layouts.pages, transition.targetState().name());
+        if (layoutConfig?.title) {
+            if (_isString(layoutConfig.title)) {
+                this.pageTitle.next(layoutConfig.title);
+            } else if (_isFunction(layoutConfig.title)) {
+                this.pageTitle.next(layoutConfig.title(transition.targetState()));
+            }
+        }
     }
 
     private getLayoutConfig$(type: LayoutsType, state: string, params?: IIndexing<any>): ILayoutStateConfig {

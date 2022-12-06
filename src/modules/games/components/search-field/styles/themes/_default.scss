@@ -98,6 +98,27 @@
             }
         }
     }
+
+    &.wlc-search-field--theme-mod-mobile-app:host {
+
+        .wlc-search-field {
+
+            &__icon {
+                right: unset;
+                left: ef.get-value($themeDefault, 'searchIconRightMobileApp');
+            }
+
+            &__clear {
+                right: unset;
+                left: ef.get-value($themeDefault, 'clearButtonRightIndentMobileApp');
+            }
+
+            &__input {
+                padding: ef.get-value($themeDefault, 'inputPaddingMobileApp');
+                border-radius: ef.get-value($themeDefault, 'borderRadiusMobileApp');
+            }
+        }
+    }
 }
 
 .wlc-search-field--close-icon-showed:host {
@@ -108,6 +129,16 @@
 
             &__input {
                 padding: ef.get-value($themeDefault, 'inputPaddingCloseShowed');
+            }
+        }
+    }
+
+    &.wlc-search-field--theme-mod-mobile-app {
+
+        .wlc-search-field {
+
+            &__input {
+                padding: ef.get-value($themeDefault, 'inputPaddingCloseShowedMobileApp');
             }
         }
     }

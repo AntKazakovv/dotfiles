@@ -9,6 +9,7 @@ import {wlcAffiliatesMenuItemsGlobal} from './affiliates-menu.items.config';
 import {wlcProfileMenuItemsGlobal} from './profile-menu.config';
 import {wlcBurgerPanelHeaderMenuItemsGlobal} from './burger-panel-header-menu.items.config';
 import {wlcStickyFooterItemsGlobal} from 'wlc-engine/modules/menu/system/config/sticky-footer.items';
+import {wlcMobileFooterMenuItemsGlobal} from 'wlc-engine/modules/menu/system/config/mobile-footer-menu.config';
 
 export const wlcMenuItemsGlobal: Params.IMenuItemsGlobal = {
     ...wlcMainMenuItemsGlobal,
@@ -18,6 +19,7 @@ export const wlcMenuItemsGlobal: Params.IMenuItemsGlobal = {
     ...wlcProfileMenuItemsGlobal,
     ...wlcBurgerPanelHeaderMenuItemsGlobal,
     ...wlcStickyFooterItemsGlobal,
+    ...wlcMobileFooterMenuItemsGlobal,
 };
 
 export const wlcMenuItemGroupsGlobal: Params.IMenuItemGroupsGlobal = {

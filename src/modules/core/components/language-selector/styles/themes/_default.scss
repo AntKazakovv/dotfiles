@@ -1,4 +1,8 @@
 .wlc-language-selector--theme-default:host {
+    --ls-link-justify: start;
+    --ls-curr-flag-size: #{ef.get-value($themeDefault, 'currentFlagSize')};
+    --ls-list-bg: #{ef.get-value($themeDefault, 'dropdownBackgroundColor')};
+
     position: relative;
 
     display: flex;
@@ -18,7 +22,7 @@
             cursor: pointer;
 
             &-flag {
-                @include flag(ef.get-value($themeDefault, 'currentFlagSize'), ef.get-value($themeDefault, 'currentFlagSize'), 50%);
+                @include flag(var(--ls-curr-flag-size), var(--ls-curr-flag-size), 50%);
                 @include bm.transition(box-shadow);
             }
 
@@ -78,7 +82,7 @@
         }
 
         &__list {
-            @include list(repeat(3, 1fr), ef.get-value($themeDefault, 'listGap'), ef.get-value($themeDefault, 'listPadding'), ef.get-value($themeDefault, 'dropdownBackgroundColor'));
+            @include list(repeat(3, 1fr), ef.get-value($themeDefault, 'listGap'), ef.get-value($themeDefault, 'listPadding'), var(--ls-list-bg));
 
             filter: drop-shadow(ef.get-value($themeDefault, 'listShadow'));
 
@@ -176,6 +180,19 @@
     }
 
     &.wlc-language-selector--theme-mod-long {
+        --ls-curr-columns: auto 1fr auto;
+        --ls-curr-bg-active: #{ef.get-value($themeDefaultModLog, 'currentBgModLongActive')};
+        --ls-curr-bg-hover: #{ef.get-value($themeDefaultModLog, 'currentBgModLongHover')};
+        --ls-curr-flag-size: #{ef.get-value($themeDefaultModLog, 'currentFlagSize')};
+        --ls-curr-flag-margin-right: #{ef.get-value($themeDefaultModLog, 'currentFlagMargin')};
+        --ls-curr-flag-justify-self: initial;
+        --ls-dropdown-margin: #{ef.get-value($themeDefaultModLog, 'dropdownMarginOpened')};
+        --ls-dropdown-width: 100%;
+        --ls-list-bg: #{ef.get-value($themeDefaultModLog, 'dropdownBgModLong')};
+        --ls-list-padding: #{ef.get-value($themeDefaultModLog, 'dropdownPaddingLong')};
+
+        @include bm.get-mq-map('--ls-curr-bg', $themeDefaultModLog, 'currentBgModLong');
+
         width: 100%;
         max-width: ef.get-value($themeDefaultModLog, 'maxWidthModLong');
         height: auto;
@@ -188,12 +205,12 @@
 
             &__current {
                 @include bm.transition(background);
-                @include bm.get-mq-map('background', $themeDefaultModLog, 'currentBgModLong');
 
-                grid-template-columns: auto 1fr auto;
+                grid-template-columns: var(--ls-curr-columns);
                 min-height: ef.get-value($themeDefaultModLog, 'currentMinHeight');
                 padding: ef.get-value($themeDefaultModLog, 'currentPaddingModLong');
 
+                background: var(--ls-curr-bg);
                 border-radius: ef.get-value($themeDefaultModLog, 'currentBorderRadiusModLong');
 
                 &-lang {
@@ -201,9 +218,8 @@
                 }
 
                 &-flag {
-                    width: ef.get-value($themeDefaultModLog, 'currentFlagSize');
-                    height: ef.get-value($themeDefaultModLog, 'currentFlagSize');
-                    margin-right: ef.get-value($themeDefaultModLog, 'currentFlagMargin');
+                    justify-self: var(--ls-curr-flag-justify-self);
+                    margin-right: var(--ls-curr-flag-margin-right);
 
                     img {
                         width: 100%;
@@ -222,7 +238,7 @@
                 }
 
                 &--opened {
-                    background: ef.get-value($themeDefaultModLog, 'currentBgModLongActive');
+                    background: var(--ls-curr-bg-active);
 
                     .wlc-language-selector__current-arrow::ng-deep {
                         color: ef.get-value($themeDefaultModLog, 'currentFillModLongActive');
@@ -233,7 +249,7 @@
                     }
 
                     + .wlc-language-selector__dropdown {
-                        margin: ef.get-value($themeDefaultModLog, 'dropdownMarginOpened');
+                        margin: var(--ls-dropdown-margin);
                     }
                 }
 
@@ -246,10 +262,10 @@
                         }
 
                         @include mq.min(1024) {
-                            background: ef.get-value($themeDefaultModLog, 'currentBgModLongHover');
+                            background: var(--ls-curr-bg-hover);
 
                             &.single-lang {
-                                background: ef.get-value($themeDefaultModLog, 'currentBgModLong');
+                                background: var(--ls-curr-bg);
                             }
                         }
                     }
@@ -261,7 +277,7 @@
 
                 position: relative;
 
-                width: 100%;
+                width: var(--ls-dropdown-width);
                 overflow: hidden;
 
                 transform-origin: top;
@@ -273,16 +289,13 @@
 
             &__list {
                 grid-template-columns: 1fr;
-                padding: ef.get-value($themeDefaultModLog, 'dropdownPaddingLong');
-
-                background: ef.get-value($themeDefaultModLog, 'dropdownBackgroundColor');
+                padding: var(--ls-list-padding);
                 border-radius: ef.get-value($themeDefaultModLog, 'dropdownBorderRadius');
 
                 filter: (ef.get-value($themeDefaultModLog, 'listShadow'));
             }
 
             &__link {
-
 
                 &-flag {
                     width: ef.get-value($themeDefaultModLog, 'currentFlagSize');
@@ -319,75 +332,78 @@
                 }
             }
         }
-    }
 
-    &.wlc-language-selector--border-around {
-        min-width: ef.get-value($themeBorderAround, 'minWidth');
-        height: ef.get-value($themeBorderAround, 'currentHeight');
+        &.wlc-language-selector--compact {
+            --ls-dropdown-width: #{ef.get-value($themeDefaultModLog, 'ddPopupWidth')};
+            --ls-dropdown-pos-top: auto;
+            --ls-dropdown-pos-bottom: 100%;
+            --ls-dropdown-arrow-pos-top: 100%;
+            --ls-dropdown-arrow-pos-bottom: auto;
+            --ls-dropdown-arrow-transform: #{ef.get-value($themeDefaultModLog, 'ddPopupArrowTransform')};
+            --ls-dropdown-arrow-margin: #{ef.get-value($themeDefaultModLog, 'ddPopupArrowMargin')};
+            --ls-dropdown-transform-origin: center bottom;
+            --ls-dropdown-margin: 0;
 
-        .wlc-language-selector {
+            &.wlc-language-selector--dropdown-bottom {
+                --ls-dropdown-pos-top: 100%;
+                --ls-dropdown-pos-bottom: auto;
+                --ls-dropdown-arrow-pos-top: auto;
+                --ls-dropdown-arrow-pos-bottom: 100%;
+                --ls-dropdown-arrow-transform: #{ef.get-value($themeDefaultModLog, 'ddPopupArrowTransformBottom')};
+                --ls-dropdown-arrow-margin: #{ef.get-value($themeDefaultModLog, 'ddPopupArrowMarginBottom')};
+                --ls-dropdown-transform-origin: center top;
+            }
 
-            &__current {
-                @include bm.transition(border);
-                height: ef.get-value($themeBorderAround, 'currentHeight');
-                padding: ef.get-value($themeBorderAround, 'currentPadding');
-                border: ef.get-value($themeBorderAround, 'currentBorder');
-                border-radius: ef.get-value($themeBorderAround, 'currentRadius');
+            .wlc-language-selector {
 
-                &--opened {
-                    border: ef.get-value($themeBorderAround, 'currentBorderOpened');
+                &__current {
 
-                    .wlc-language-selector__current-arrow::ng-deep {
-                        color: ef.get-value($themeBorderAround, 'currentArrowFillOpened');
-                    }
-                }
+                    &--opened {
 
-                &-arrow::ng-deep {
-                    color: ef.get-value($themeBorderAround, 'currentArrowFill');
-
-                    svg path {
-                        fill: currentColor;
-                    }
-                }
-
-                &-flag {
-                    width: ef.get-value($themeBorderAround, 'currentFlagSize');
-                    height: ef.get-value($themeBorderAround, 'currentFlagSize');
-
-                    img {
-                        width: ef.get-value($themeBorderAround, 'currentFlagSize');
-                        height: ef.get-value($themeBorderAround, 'currentFlagSize');
-                    }
-                }
-
-                @include bm.hover {
-                    border: ef.get-value($themeBorderAround, 'currentBorderHover');
-
-                    &.wlc-language-selector__current--opened {
-                        border: ef.get-value($themeBorderAround, 'currentBorderOpened');
-
-                        .wlc-language-selector__current-arrow::ng-deep {
-
-                            svg path {
-                                fill: ef.get-value($themeBorderAround, 'currentArrowFillOpened');
-                            }
-                        }
-                    }
-
-                    .wlc-language-selector__current {
-
-                        &-arrow::ng-deep {
-
-                            svg path {
-                                fill: ef.get-value($themeBorderAround, 'currentArrowFillHover');
-                            }
-                        }
-
-                        &-flag {
-                            box-shadow: ef.get-value($themeBorderAround, 'flagBoxShadowHover');
+                        .wlc-language-selector__current-flag {
+                            box-shadow: ef.get-value($themeDefaultModLog, 'flagBoxShadowOpened');
                         }
                     }
                 }
+
+                &__dropdown {
+                    position: absolute;
+                    top: var(--ls-dropdown-pos-top);
+                    bottom: var(--ls-dropdown-pos-bottom);
+                    left: ef.get-value($themeDefaultModLog, 'ddPopupPosLeft');
+                    transform: ef.get-value($themeDefaultModLog, 'ddPopupTransform');
+                    transform-origin: var(--ls-dropdown-transform-origin);
+                }
+
+                &__list {
+                    margin: var(--ls-dropdown-arrow-margin);
+
+                    &:after {
+                        content: '';
+                        position: absolute;
+                        top: var(--ls-dropdown-arrow-pos-top);
+                        bottom: var(--ls-dropdown-arrow-pos-bottom);
+                        left: ef.get-value($themeDefaultModLog, 'ddPopupArrowPosLeft');
+                        display: block;
+                        width: ef.get-value($themeDefaultModLog, 'ddPopupArrowWidth');
+                        height: ef.get-value($themeDefaultModLog, 'ddPopupArrowHeight');
+                        border-radius: ef.get-value($themeDefaultModLog, 'ddPopupArrowRadius');
+                        background: ef.get-value($themeDefaultModLog, 'ddPopupArrowBg');
+                        transform: var(--ls-dropdown-arrow-transform);
+                    }
+                }
+            }
+
+            &.wlc-language-selector--state-compact {
+                --ls-curr-columns: #{ef.get-value($themeDefaultModLog, 'compactCurrColumns')};
+                --ls-curr-bg: #{ef.get-value($themeDefaultModLog, 'compactCurrBg')};
+                --ls-curr-bg-hover: #{ef.get-value($themeDefaultModLog, 'compactCurrBgHover')};
+                --ls-curr-bg-active: #{ef.get-value($themeDefaultModLog, 'compactCurrBgActive')};
+                --ls-curr-flag-justify-self: #{ef.get-value($themeDefaultModLog, 'compactCurrFlagJustify')};
+                --ls-curr-flag-size: #{ef.get-value($themeDefaultModLog, 'compactCurrFlagSize')};
+                --ls-curr-flag-margin-right: #{ef.get-value($themeDefaultModLog, 'compactCurrFlagMarginRight')};
+                --ls-link-justify: #{ef.get-value($themeDefaultModLog, 'compactLinkJustify')};
+                --ls-list-padding: #{ef.get-value($themeDefaultModLog, 'compactListPadding')};
             }
         }
     }

@@ -15,7 +15,6 @@ import {
     NotificationEvents,
     ConfigService,
     LogService,
-    IData,
 } from 'wlc-engine/modules/core';
 
 import {
@@ -101,7 +100,7 @@ export class TransactionButtonsComponent extends AbstractComponent implements On
 
         this.$params.transaction.confirmProgress = true;
         try {
-            const response: IData = await this.financesService.confirmWithdrawal(this.$params.transaction.id);
+            const response: string[] = await this.financesService.confirmWithdrawal(this.$params.transaction.id);
 
             if (response[0] === 'redirect' && response[1]) {
                 this.window.open(response[1]);

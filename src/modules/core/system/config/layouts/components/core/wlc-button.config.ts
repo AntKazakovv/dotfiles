@@ -163,6 +163,24 @@ export namespace wlcButton {
         },
     };
 
+    export const burgerMobileFixedPanel: ILayoutComponent = {
+        name: 'core.wlc-button',
+        display: {
+            before: 1023,
+        },
+        params: {
+            class: 'wlc-btn wlc-btn-burger',
+            wlcElement: 'wlc-btn-burger',
+            common: {
+                iconPath: '/wlc/icons/burger.svg',
+                event: {
+                    name: 'PANEL_OPEN',
+                    data: 'left',
+                },
+            },
+        },
+    };
+
     export const userIcon: ILayoutComponent = {
         name: 'core.wlc-button',
         display: {
@@ -174,6 +192,26 @@ export namespace wlcButton {
             common: {
                 iconPath: '/wlc/icons/user-icon.svg',
                 sref: 'app.profile.cash.deposit',
+                event: {
+                    name: 'PANEL_OPEN',
+                    data: 'right',
+                },
+            },
+        },
+    };
+
+    export const userIconMobile: ILayoutComponent = {
+        name: 'core.wlc-button',
+        display: {
+            auth: true,
+            before: 1199,
+        },
+        params: {
+            theme: 'cleared',
+            themeMod: 'secondary',
+            customMod: 'user',
+            common: {
+                iconPath: '/wlc/icons/user-icon.svg',
                 event: {
                     name: 'PANEL_OPEN',
                     data: 'right',
@@ -339,6 +377,42 @@ export namespace wlcButton {
                 event: {
                     name: 'SHOW_MODAL',
                     data: 'login',
+                },
+            },
+        },
+    };
+
+    export const mobileLoginBtnV2: ILayoutComponent = {
+        name: 'core.wlc-button',
+        display: {
+            before: 1199,
+            auth: false,
+        },
+        params: {
+            themeMod: 'textonly',
+            common: {
+                customModifiers: 'mobile-login',
+                text: gettext('Login'),
+                event: {
+                    name: 'SHOW_MODAL',
+                    data: 'login',
+                },
+            },
+        },
+    };
+
+    export const mobileSignupBtn: ILayoutComponent = {
+        name: 'core.wlc-button',
+        display: {
+            before: 1199,
+            auth: false,
+        },
+        params: {
+            common: {
+                text: gettext('Sign up'),
+                event: {
+                    name: 'SHOW_MODAL',
+                    data: 'signup',
                 },
             },
         },

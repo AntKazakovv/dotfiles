@@ -32,6 +32,7 @@ import _includes from 'lodash-es/includes';
 import _times from 'lodash-es/times';
 import _map from 'lodash-es/map';
 import _size from 'lodash-es/size';
+import _slice from 'lodash-es/slice';
 import _cloneDeep from 'lodash-es/cloneDeep';
 import _orderBy from 'lodash-es/orderBy';
 import _isNaN from 'lodash-es/isNaN';
@@ -170,7 +171,7 @@ export class GamesGridComponent extends AbstractComponent implements OnInit, OnD
         this.setWlcElementOnHost();
         this.initTitleIcon();
 
-        if (this.$params.theme !== 'swiper') {
+        if (this.$params.theme !== 'swiper' && this.$params.theme !== 'mobile-app-swiper') {
             this.applyMoreBtnSettings();
         }
 
@@ -327,7 +328,7 @@ export class GamesGridComponent extends AbstractComponent implements OnInit, OnD
         this.games = await this.getGames();
         this.title = this.$params.title || this.gamesCatalogService.getGamesTitleByState() || this.categoryTitle;
 
-        if (this.$params.theme === 'swiper') {
+        if (this.$params.theme === 'swiper' || this.$params.theme === 'mobile-app-swiper') {
             // if we use a class field to this.$params.showAsSwiper.sliderParams.swiper.navigation,
             // the swiper navigation buttons will lose their binding
             if (this.$params.showAsSwiper?.useNavigation) {
@@ -335,6 +336,10 @@ export class GamesGridComponent extends AbstractComponent implements OnInit, OnD
                     prevEl: '.wlc-swiper-button-prev-' + this.navigationId,
                     nextEl: '.wlc-swiper-button-next-' + this.navigationId,
                 };
+            }
+
+            if (this.$params.showAsSwiper.maxSlidesCount) {
+                this.games = _slice(this.games, 0, this.$params.showAsSwiper.maxSlidesCount);
             }
 
             this.gameSlides = this.games.map((game: Game) => {
@@ -378,7 +383,7 @@ export class GamesGridComponent extends AbstractComponent implements OnInit, OnD
     }
 
     protected initEventListeners(): void {
-        if (this.$params.theme !== 'swiper') {
+        if (this.$params.theme !== 'swiper' && this.$params.theme !== 'mobile-app-swiper') {
             this.actionService.deviceType()
                 .pipe(takeUntil(this.$destroy))
                 .subscribe((type: DeviceType) => {
@@ -461,7 +466,7 @@ export class GamesGridComponent extends AbstractComponent implements OnInit, OnD
      * Set grid params
      */
     protected setGridParams(): void {
-        if (this.$params.theme === 'swiper') {
+        if (this.$params.theme === 'swiper' || this.$params.theme === 'mobile-app-swiper') {
             const breakpoints = _orderBy(
                 _map(
                     _keys(this.$params.showAsSwiper?.sliderParams?.swiper?.breakpoints),
@@ -518,7 +523,7 @@ export class GamesGridComponent extends AbstractComponent implements OnInit, OnD
 
     protected setPlaceHolders(): void {
         if (this.$params.usePlaceholders) {
-            if (this.$params.theme === 'swiper') {
+            if (this.$params.theme === 'swiper' || this.$params.theme === 'mobile-app-swiper') {
                 this.placeHoldersSlides = _times(this.gamesCount, Number).map(() => {
                     return {
                         component: GameThumbComponent,
@@ -873,16 +878,17 @@ export class GamesGridComponent extends AbstractComponent implements OnInit, OnD
                         this.loadMoreGames();
                     });
             } else {
-                fromEvent(this.window, 'scroll')
-                    .pipe(
-                        filter((): boolean => this.lazyLoadPositionFilter()),
-                        tap((): void => this.setLazyLoadingTrue()),
-                        throttleTime(this.lazyTimeout),
-                        takeUntil(this.$untilBreakpointOrDestroy),
-                    )
-                    .subscribe((): void => {
-                        this.loadMoreGames();
-                    });
+                merge(
+                    this.actionService.scrollableElement('appContent'),
+                    fromEvent(this.window, 'scroll'),
+                ).pipe(
+                    filter((): boolean => this.lazyLoadPositionFilter()),
+                    tap((): void => this.setLazyLoadingTrue()),
+                    throttleTime(this.lazyTimeout),
+                    takeUntil(this.$untilBreakpointOrDestroy),
+                ).subscribe((): void => {
+                    this.loadMoreGames();
+                });
             }
         }
     }

@@ -1,0 +1,32 @@
+<div *ngIf="isReady" class="{{$class}}__wrapper">
+
+    <div class="{{$class}}__header">
+        <div class="{{$class}}__title">
+        {{$params.title | translate}}
+    </div>
+        <div class="{{$class}}__description">
+            {{$params.description | translate}}
+        </div>
+    </div>
+
+    <div class="{{$class}}__logo">
+        <span wlc-icon
+            [iconPath]="'logo-main.svg'"
+        ></span>
+    </div>
+
+    <div class="{{$class}}__buttons">
+        <button
+            *ngIf="!isAuth"
+            wlc-button
+            themeMod="secondary"
+            [text]="$params.siginIn"
+            (click)="signIn()">
+        </button>
+        <button
+            wlc-button
+            [text]="$params.siginUp"
+            (click)="signUp()">
+        </button>
+    </div>
+</div>

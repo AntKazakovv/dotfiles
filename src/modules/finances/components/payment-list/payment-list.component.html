@@ -164,6 +164,7 @@
                 [attr.data-wlc-element]="'block_payment-item-name'"
                 [attr.title]="system.name"
                 [inlineParams]='{icon: itemsMap.get(system.id), class: $class + "-item"}'
+                [logImageErrorChild]="logImageError"
                 (click)='selectPayment(system)'>
         </button>
         <div *ngIf="system.disabledBy"

@@ -1,6 +1,6 @@
 import {IComponentParams} from 'wlc-engine/modules/core/system/classes/abstract.component';
 
-export type BurgerPanelType = 'left' | 'right';
+export type BurgerPanelType = 'left' | 'right' | 'left-fixed' | 'right-fixed';
 /**
  * fade - simple appearance with fade effect
  *

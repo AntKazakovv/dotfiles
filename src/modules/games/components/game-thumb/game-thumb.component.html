@@ -13,7 +13,7 @@
     <div *ngIf="!initFailed" class="{{$class}}__content">
         <picture class="{{$class}}__img" data-wlc-element="block_game-thumb-img">
             <source [srcset]="game.getImage(640, 'webp')" type="image/webp">
-            <img [wlc-fallback]="game.getImage(640)" [src]="game.getImage(640)" loading="lazy">
+            <img wlc-fallback [src]="game.getImage(640)" loading="lazy">
         </picture>
         <div *ngIf="promoWidgetTitle" class="{{$class}}__title">
             {{promoWidgetTitle | translate}}
@@ -46,7 +46,7 @@
     <picture class="{{$class}}__img"
              data-wlc-element="block_game-thumb-img">
         <source [srcset]="game.getImage(315, 'webp')" type="image/webp">
-        <img [wlc-fallback]="game.getImage(315)" [src]="game.getImage(315)" loading="lazy">
+        <img wlc-fallback [src]="game.getImage(315)" loading="lazy">
     </picture>
     <ng-container [ngTemplateOutlet]="buttonFavourite"></ng-container>
 </ng-template>
@@ -140,7 +140,7 @@
         <img class="{{$class}}__merchants-icon"
             loading="lazy"
             [src]="merchantIconPath"
-            [wlc-fallback]
+            wlc-fallback
             (imageError)="merchantIconErrorHolder()">
 </div>
     <ng-container
@@ -158,12 +158,12 @@
 </ng-template>
 
 <ng-template #thumbImg>
-    <div class="{{$class}}__img">
-        <picture data-wlc-element="block_game-thumb-img" (click)="startGame(false, true, $event)">
+    <div class="{{$class}}__img" (click)="startGame(false, true, $event)">
+        <picture data-wlc-element="block_game-thumb-img">
             <source [srcset]="game.getImage(315, 'webp')" type="image/webp">
-            <img [wlc-fallback]="game.getImage(315)"
+            <img loading="lazy"
                 [src]="game.getImage(315)"
-                loading="lazy"
+                wlc-fallback
                 (load)="successfulLoadImage()"
             >
         </picture>

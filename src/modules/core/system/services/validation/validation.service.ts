@@ -13,6 +13,7 @@ import {
 } from 'rxjs';
 import {
     debounceTime,
+    catchError,
     delay,
     distinctUntilChanged,
     filter,
@@ -132,6 +133,9 @@ export class ValidationService {
                 map(response => {
                     return response.data.result ? null : {'email-not-unique': true};
                 }),
+                catchError((error: IData): Observable<IIndexing<boolean>> => {
+                    return (error.code === 429) ? of({'tooManyRequests': true}) : of(null);
+                }),
             )));
     }
 
@@ -142,6 +146,9 @@ export class ValidationService {
                 map(response => {
                     return !response.data.result ? null : {'email-not-exist': true};
                 }),
+                catchError((error: IData): Observable<IIndexing<boolean>> => {
+                    return (error.code === 429) ? of({'tooManyRequests': true}) : of(null);
+                }),
             )));
     }
 
@@ -151,6 +158,9 @@ export class ValidationService {
                 return value.data.result ? null : {
                     'login-not-unique': true,
                 };
+            })
+            .catch(error => {
+                return (error.code === 429) ? {'tooManyRequests': true} : null;
             });
     }
 

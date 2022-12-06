@@ -11,7 +11,7 @@ import {
 } from 'wlc-engine/modules/games/components/games-grid/games-grid.params';
 import {ISearchFieldCParams} from 'wlc-engine/modules/games/components/search-field/search-field.params';
 
-export type ComponentTheme = 'default' | 'easy' | CustomType;
+export type ComponentTheme = 'default' | 'easy' | 'mobile-app' | CustomType;
 
 export interface IGamesGridCParamsPartial extends IGamesGridCParams {
     type: never,

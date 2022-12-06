@@ -4,10 +4,10 @@ $themeDefault: map-merge((
     'messageFontSize': ef.get('font', 'PrimaryText'),
     'messageTextAlign': center,
 
-    'controlsMargin': ef.get('size', 'smaller') 0,
-    'controlsPadding': 0 ef.get('size', 'main'),
+    'controlsMargin': ef.size(4) 0,
+    'controlsPadding': 0 ef.size(8),
 
-    'actionsMargin': ef.get('size', 'smaller') 0 0,
+    'actionsMargin': ef.size(4) 0 0,
     'actionsFlexDirection': row,
     'actionsJustifyContent': center,
     'actionsAlignItems': center,

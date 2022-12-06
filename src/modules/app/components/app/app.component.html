@@ -1,9 +1,46 @@
-<div wlc-float-panels [sections]="panels"></div>
+<ng-container [ngSwitch]="isMobileApp">
+    <ng-container [ngTemplateOutlet]="mobileApp" *ngSwitchCase="true"></ng-container>
+    <ng-container [ngTemplateOutlet]="default" *ngSwitchDefault></ng-container>
+</ng-container>
 
-<div *ngFor="let section of sections; trackBy: trackBySectionName"
-     wlc-layout
-     [sectionName]="section.name"
-     [attr.data-wlc-element]="section.wlcElement"
-     [layouts]="'pages'"
-     [ngClass]="section.classList(hostClass)"
-></div>
+<ng-template #default>
+    <div wlc-float-panels [sections]="panels"></div>
+    <div *ngFor="let section of sectionsList; trackBy: trackBySectionName"
+         wlc-layout
+         [sectionName]="section.name"
+         [attr.data-wlc-element]="section.wlcElement"
+         [layouts]="'pages'"
+         [ngClass]="section.classList(hostClass)"
+    ></div>
+</ng-template>
+
+<ng-template #mobileApp>
+    <div class="wlc-app">
+        <div wlc-float-panels [sections]="panels"></div>
+        <div wlc-layout
+             *ngIf="headerSection"
+             [sectionName]="headerSection.name"
+             [attr.data-wlc-element]="headerSection.wlcElement"
+             [layouts]="'pages'"
+             [ngClass]="headerSection.classList(hostClass)"
+             class="wlc-app__header">
+        </div>
+        <div class="wlc-app__sections" #appContent>
+            <div *ngFor="let section of sectionsList; trackBy: trackBySectionName"
+                 wlc-layout
+                 [sectionName]="section.name"
+                 [attr.data-wlc-element]="section.wlcElement"
+                 [layouts]="'pages'"
+                 [ngClass]="section.classList(hostClass)">
+            </div>
+        </div>
+        <div wlc-layout
+             *ngIf="navSection"
+             [sectionName]="navSection.name"
+             [attr.data-wlc-element]="navSection.wlcElement"
+             [layouts]="'pages'"
+             [ngClass]="navSection.classList(hostClass)"
+             class="wlc-app__footer">
+        </div>
+    </div>
+</ng-template>

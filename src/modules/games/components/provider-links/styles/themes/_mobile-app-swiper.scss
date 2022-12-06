@@ -1,0 +1,152 @@
+.wlc-provider-links--theme-mobile-app-swiper:host {
+    @include bm.get-mq-map('grid-template-columns', $themeMobileAppSwiper, 'gridTemplateColumns');
+    @include bm.get-mq-map('grid-template-areas', $themeMobileAppSwiper, 'gridTemplateAreas');
+    display: grid;
+    align-items: ef.get-value($themeMobileAppSwiper, 'gridTemplateAlignment');
+    min-width: 0;
+    max-width: 100%;
+
+    .wlc-provider-links {
+
+        &__loader {
+            @include bm.get-mq-map('grid-column', $themeMobileAppSwiper, 'loaderColumn');
+        }
+
+        &__title {
+            @include text.get-text-style(ef.get-value($themeMobileAppSwiper, 'titleText'));
+            text-align: ef.get-value($themeMobileAppSwiper, 'titleAlignment');
+        }
+
+        &__slider,
+        &__wrapper {
+            grid-area: ef.get-value($themeMobileAppSwiper, 'wrapperSliderGridArea');
+            min-width: 0;
+            max-width: 100%;
+        }
+
+        &__wrapper {
+            @include bm.get-mq-map('grid-template-columns', $themeMobileAppSwiper, 'wrapperTemplateColumns');
+            @include bm.get-mq-map('gap', $themeMobileAppSwiper, 'wrapperGap');
+            @include bm.get-mq-map('margin', $themeMobileAppSwiper, 'wrapperMargin');
+            display: grid;
+        }
+
+        &__slider {
+            position: relative;
+
+            &:before {
+                content: '';
+                position: absolute;
+                left: 0;
+                z-index: 2;
+                width: ef.get-value($themeMobileAppSwiper, 'sliderBeforeWidth');
+                height: 100%;
+                background: ef.get-value($themeMobileAppSwiper, 'sliderBeforeBg');
+                transform: translateX(-100%);
+            }
+
+            ::ng-deep {
+
+                .swiper {
+                    @include bm.get-mq-map('margin', $themeMobileAppSwiper, 'sliderContainerMargin');
+                    @include bm.get-mq-map('padding', $themeMobileAppSwiper, 'sliderContainerPadding');
+                }
+            }
+        }
+
+        &__slider-navigation {
+            @include bm.get-mq-map('display', $themeMobileAppSwiper, 'sliderNavigationDisplay');
+        }
+
+        &__btn {
+            @include bm.get-mq-map('margin', $themeMobileAppSwiper, 'sliderButtonMargin');
+            display: block;
+            grid-area: ef.get-value($themeMobileAppSwiper, 'sliderButtonGridArea');
+            min-width: 0;
+            height: auto;
+            padding: 0;
+            background: transparent;
+
+            ::ng-deep {
+
+                .wlc-btn__text {
+                    @include text.get-text-style(ef.get-value($themeMobileAppSwiper, 'linkText'));
+                    color: ef.get-value($themeMobileAppSwiper, 'linkColorText');
+                }
+            }
+        }
+    }
+
+    ::ng-deep {
+
+        .swiper-horizontal {
+            overflow: visible;
+        }
+
+        .wlc-provider-links-item {
+            position: relative;
+            background: ef.get-value($themeMobileAppSwiper, 'iconBackground');
+            border-radius: ef.get-value($themeMobileAppSwiper, 'iconBorderRadius');
+            transition: ef.get-value($themeMobileAppSwiper, 'iconTransition');
+            aspect-ratio: ef.get-value($themeMobileAppSwiper, 'iconRatio');
+
+            &:before {
+                content: '';
+                display: block;
+                width: 100%;
+                padding-top: ef.get-value($themeMobileAppSwiper, 'iconPseudoPaddingTop');
+            }
+
+            &__wrp {
+                @include bm.get-mq-map('font-size', $themeMobileAppSwiper, 'iconWrapFontSize');
+                @include bm.get-mq-map('padding', $themeMobileAppSwiper, 'iconWrapPadding');
+                position: absolute;
+                top: 0;
+                left: 0;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 100%;
+                height: 100%;
+                color: ef.get-value($themeMobileAppSwiper, 'iconColor');
+                font-weight: ef.get-value($themeMobileAppSwiper, 'iconWrapFontWeight');
+                text-decoration: none;
+            }
+
+            &__image,
+            .wlc-icon-content {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: ef.get-value($themeMobileAppSwiper, 'iconWidth');
+                max-width: ef.get-value($themeMobileAppSwiper, 'iconMaxWidth');
+                height: ef.get-value($themeMobileAppSwiper, 'iconHeight');
+                max-height: ef.get-value($themeMobileAppSwiper, 'iconMaxHeight');
+                object-fit: contain;
+                object-position: center;
+            }
+
+            .wlc-icon {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 100%;
+                height: 100%;
+            }
+
+            .wlc-icon svg {
+                display: flex;
+                width: 100%;
+                max-width: 100%;
+                height: 100%;
+                max-height: 100%;
+                object-fit: contain;
+                object-position: center;
+
+                path {
+                    fill: currentColor;
+                }
+            }
+        }
+    }
+}

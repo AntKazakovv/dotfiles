@@ -4,11 +4,13 @@
 
 @import './utils/vars';
 @import './utils/mixins';
+@import './utils/vars-mobile-app';
 
 @import './themes/default';
 @import './themes/with-icons';
 @import './themes/icons-compact';
 @import './themes/dropdown';
+@import './themes/mobile-app';
 
 .wlc-category-menu:host {
     position: relative;

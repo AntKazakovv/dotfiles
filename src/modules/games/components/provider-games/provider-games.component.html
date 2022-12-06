@@ -7,9 +7,10 @@
             [inlineParams]="{class: $class + '-logo'}">
         </div>
 
-        <p class="{{$class}}__subtitle">{{'Provider' | translate}}</p>
-
-        <h1 class="{{$class}}__title">{{provider.alias | translate}}</h1>
+        <ng-container *ngIf="$params.type !== 'mobile-app'">
+            <p class="{{$class}}__subtitle">{{'Provider' | translate}}</p>
+            <h1 class="{{$class}}__title">{{provider.alias | translate}}</h1>
+        </ng-container>
     </div>
 
     <div class="{{$class}}__games"
@@ -21,3 +22,5 @@
 <ng-template #loading>
     <div class="{{$class}}__loader" wlc-loader></div>
 </ng-template>
+
+

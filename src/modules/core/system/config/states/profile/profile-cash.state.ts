@@ -15,10 +15,6 @@ export const profileCashWithdrawState: Ng2StateDeclaration = {
     url: '/withdraw',
 };
 
-export const profileCashWalletState: Ng2StateDeclaration = {
-    url: '/wallet',
-};
-
 export const profileCashTransactionsState: Ng2StateDeclaration = {
     url: '/transactions',
 };

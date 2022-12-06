@@ -151,6 +151,14 @@ $theme2Header: map-merge((
     'headerUserBtnRadius': 50%,
     'headerUserBtnFill': var(--mc-secondary),
     'headerSvgBtnHover': var(--mc-baseOpacity-d20),
+
+    'withBalanceBackground': var(--mc-bg700),
+    'withBalanceLogoBackground': var(--mc-bg),
+    'withBalanceBtnBackground': var(--mc-bg500),
+    'withBalanceMarginBottom': ef.size(6),
+    'withBalanceContainerHeight': ef.size(10),
+    'withBalanceBtnHeight': ef.size(7),
+
     'headerLoginBtnTabletPadding': (
         1200: ef.size(1) ef.size(2),
         1366: ef.size(1) ef.size(4)
@@ -170,17 +178,90 @@ $theme2Header: map-merge((
     'searchIconDisplay': flex,
     'searchIconJustifyContent': center,
     'searchIconAlignItems': center,
-
-    'gridColsNoBurger': (
-        375: 0.5fr 1fr 0.5fr,
-        1200: auto auto minmax(0, 1fr) auto auto,
-    ),
-    'gridColsToggler': (
-        375: 0.5fr minmax(0, 2fr) 0.5fr,
-        1200: auto auto minmax(0, 1fr) auto auto auto auto,
-    ),
-    'gridColsTogglerNoBurger': (
-        375: 0.5fr 1fr 0.5fr,
-        1200: auto auto minmax(0, 1fr) auto auto auto,
-    ),
 ), $customTheme2Header);
+
+
+$customHeaderThemeUniversal: () !default;
+$headerThemeUniversal: map-merge((
+    //base
+    'headerMargin': (
+        320: 0 0 ef.size(2),
+        560: 0 0 ef.size(4),
+    ),
+    'headerBurgerBtnMargin': 0 auto 0 0,
+    'headerBurgerBtnWidth': ef.size(6),
+    'headerBurgerBtnTextAlign': (
+        1024: center
+    ),
+    'headerSearchBtnMargin': 0,
+    'headerContainerDesktopWidth': (
+        1200: 100%
+    ),
+    'headerContainerDesktopMaxWidth': (
+        1200: 1920px
+    ),
+    'headerContainerDesktopMargin': (
+        1200: 0 auto
+    ),
+    'headerGapColumns': ef.size(8),
+    'headerGridColumns': (
+        375: 1fr auto,
+        1366: auto 1fr auto,
+    ),
+    'headerGridGap': (
+        375: ef.size(2),
+        480: ef.size(4),
+    ),
+    'headerMinHeight': (
+        375: 70px,
+        1630: 100px,
+    ),
+    'headerPadding': (
+        375: 0,
+        1200: 0 ef.size(2),
+    ),
+    'headerBackground': transparent,
+    'headerGlobalPadding': ef.size(3),
+    'headerLogoMargin': (
+        375: 0 auto,
+        1024: 0 0 0 ef.size(2),
+    ),
+    'headerLogoMaxWidth': (
+        375: 144px,
+    ),
+    'headerSvgLogoWidth': (
+        375: auto,
+    ),
+    'headerSvgLogoHeight': 100%,
+    'headerSvgLogoMaxHeight': 50%,
+    'headerSvgLogoMargin': 0 auto,
+    'headerSvgBtn': var(--mc-baseOpacity),
+    'headerSvgBtnSize': ef.size(8),
+    'headerDepositBtnMargin': 0 ef.size(2) 0 0,
+    'headerDepositBtnRadius': 50%,
+    'headerDepositBtnFill': var(--mc-main),
+    'headerDepositBtnFillColor': ef.get('mainColors', 'baseMain'),
+    'headerLoginBtnFillColor': var(--mc-baseOpacity),
+    'headerUserBtnRadius': 50%,
+    'headerUserBtnFill': var(--mc-secondary),
+    'headerSvgBtnHover': var(--mc-baseMain),
+    'headerUserBtnInnerFillColor': ef.get('mainColors', 'baseMain'),
+    'headerLoginBtnTabletPadding': (
+        1200: ef.size(1) ef.size(2),
+        1366: ef.size(1) ef.size(4)
+    ),
+    'headerLoginJustifyContent': flex-end,
+    'headerUserInfoJustifyContent': flex-end,
+
+    'logoImgHeight': null,
+    'logoImgAlignItems': center,
+    'logoImgJustifyContent': center,
+    'logoObjPosition': center,
+    'searchBtnTransformOnHover': rotate(30deg),
+    'searchBtnDisplay': flex,
+    'searchBtnJustifyContent': center,
+    'searchBtnAlignItems': center,
+    'searchIconDisplay': flex,
+    'searchIconJustifyContent': center,
+    'searchIconAlignItems': center,
+), $customHeaderThemeUniversal);

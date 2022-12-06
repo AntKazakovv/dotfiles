@@ -26,7 +26,7 @@ export namespace wlcRecommendedBonuses {
                     themeMod: 'active',
                     useIconBonusImage: false,
                     showAdditionalImage: true,
-                    descriptionClamp: 3,
+                    descriptionClamp: 4,
                 },
             },
             useNoDataText: true,

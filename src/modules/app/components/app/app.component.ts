@@ -5,6 +5,9 @@ import {
     Inject,
     OnDestroy,
     OnInit,
+    AfterViewInit,
+    ViewChild,
+    ElementRef,
 } from '@angular/core';
 import {DOCUMENT} from '@angular/common';
 import {TranslateService} from '@ngx-translate/core';
@@ -28,6 +31,7 @@ import {
 
 import _assign from 'lodash-es/assign';
 import _each from 'lodash-es/each';
+import _find from 'lodash-es/find';
 import _findIndex from 'lodash-es/findIndex';
 import _get from 'lodash-es/get';
 import _includes from 'lodash-es/includes';
@@ -77,10 +81,27 @@ const defaultParams = {
     styleUrls: ['./app.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AppComponent extends AbstractComponent implements OnInit, OnDestroy {
+export class AppComponent extends AbstractComponent implements OnInit, AfterViewInit, OnDestroy {
+    @ViewChild('appContent') appContent: ElementRef;
+
     public hostClass = defaultParams.class;
-    public sections: SectionModel[] = [];
     public panels: SectionModel[] = [];
+    public isMobileApp: boolean = GlobalHelper.isMobileApp();
+
+    public get headerSection(): SectionModel {
+        return _find(this.sections, (v)=> v.name === 'nav-header');
+    }
+
+    public get navSection(): SectionModel {
+        return _find(this.sections, (v)=> v.name === 'nav-footer');
+    }
+
+    public get sectionsList(): SectionModel[] {
+        if (this.isMobileApp) {
+            return this.sections.filter((v)=> !_includes(['nav-header', 'nav-footer'], v.name));
+        }
+        return this.sections;
+    }
 
     private testViewPort = false;
     private isIOS: boolean = false;
@@ -88,6 +109,7 @@ export class AppComponent extends AbstractComponent implements OnInit, OnDestroy
     private allSections: SectionModel[] = [];
     private resize$: Subscription;
     private auth$: Subscription;
+    private sections: SectionModel[] = [];
 
     constructor(
         public router: UIRouter,
@@ -125,65 +147,8 @@ export class AppComponent extends AbstractComponent implements OnInit, OnDestroy
     }
 
     public async ngOnInit(): Promise<void> {
-
         this.setOfflineModeHandlers();
-
-        if (GlobalHelper.isMobileApp()) {
-
-            let mobileAppUrlPath: string;
-
-            // this.transition.onSuccess({}, (transition: Transition) => {
-            //
-            //     console.log('go by path 2', mobileAppUrlPath);
-            //
-            //     if (mobileAppUrlPath) {
-            //         this.router.urlService.url(mobileAppUrlPath);
-            //     }
-            // });
-
-            document.addEventListener('deviceready', () => {
-
-                GlobalHelper.appLockScreenOrientation('portrait');
-
-                this.window.universalLinks.subscribe(null, (eventData: universalLinks.IEventData): void => {
-
-                    mobileAppUrlPath = eventData.url.replace(`${eventData.scheme}://${eventData.host}`, '');
-                    if (mobileAppUrlPath) {
-                        this.router.urlService.url(mobileAppUrlPath);
-
-                        const intervalId = setInterval(() => {
-                            if (location.href.indexOf(mobileAppUrlPath) > 0) {
-                                clearInterval(intervalId);
-
-                                const messageInfo = GlobalHelper.parseUrlMessageOrError(eventData.url);
-
-                                if (messageInfo) {
-                                    const messageInfo = GlobalHelper.parseUrlMessageOrError(eventData.url);
-                                    this.actionService.processMessages(messageInfo);
-                                }
-                                return;
-                            }
-                            this.router.urlService.url(mobileAppUrlPath);
-                        }, 100);
-                    }
-                });
-
-            }, false);
-
-            // document.addEventListener('deviceready', () => {
-            //
-            //     window.universalLinks.subscribe(null, (eventData: universalLinks.IEventData): void => {
-            //         const path: string = eventData.url.replace(`${eventData.scheme}://${eventData.host}`, '');
-            //         if (path) {
-            //
-            //             this.router.urlService.url(path);
-            //
-            //             // window.location.replace(`/index.html?redirectTo=${path}`);
-            //         }
-            //     });
-            //
-            // }, false);
-        }
+        this.setMobileAppHandlers();
 
         const depositInIframe = this.configService.get<boolean>('$base.finances.depositInIframe');
         if (depositInIframe && GlobalHelper.isIframe(this.window) && this.checkAllowedReferrers()) {
@@ -253,8 +218,64 @@ export class AppComponent extends AbstractComponent implements OnInit, OnDestroy
         });
     }
 
+    public ngAfterViewInit(): void {
+        if (GlobalHelper.isMobileApp() && this.appContent?.nativeElement) {
+            this.actionService.setScrollableElement(this.appContent.nativeElement, 'appContent');
+        }
+    }
+
     public trackBySectionName(index: number, section: SectionModel): string {
         return section.name;
+    }
+
+    private setMobileAppHandlers(): void {
+        if (GlobalHelper.isMobileApp()) {
+
+            if(
+                !this.configService.get({
+                    name: 'welcomeWasShown',
+                    storageType: 'localStorage',
+                })
+            ) {
+                this.configService.set({
+                    name: 'welcomeWasShown',
+                    value: true,
+                    storageType: 'localStorage',
+                });
+                this.stateService.go('app.welcome');
+            }
+
+            let mobileAppUrlPath: string;
+
+            document.addEventListener('deviceready', () => {
+
+                GlobalHelper.appLockScreenOrientation('portrait');
+
+                this.window.universalLinks?.subscribe(null, (eventData: universalLinks.IEventData): void => {
+
+                    mobileAppUrlPath = eventData.url.replace(`${eventData.scheme}://${eventData.host}`, '');
+                    if (mobileAppUrlPath) {
+                        this.router.urlService.url(mobileAppUrlPath);
+
+                        const intervalId = setInterval(() => {
+                            if (location.href.indexOf(mobileAppUrlPath) > 0) {
+                                clearInterval(intervalId);
+
+                                const messageInfo = GlobalHelper.parseUrlMessageOrError(eventData.url);
+
+                                if (messageInfo) {
+                                    const messageInfo = GlobalHelper.parseUrlMessageOrError(eventData.url);
+                                    this.actionService.processMessages(messageInfo);
+                                }
+                                return;
+                            }
+                            this.router.urlService.url(mobileAppUrlPath);
+                        }, 100);
+                    }
+                });
+
+            }, false);
+        }
     }
 
     private async loadAnalytics(): Promise<void> {
@@ -423,9 +444,7 @@ export class AppComponent extends AbstractComponent implements OnInit, OnDestroy
         this.transition.onSuccess({}, (transition: Transition): void => {
             this.eventService.emit({
                 name: 'TRANSITION_SUCCESS',
-                data: {
-                    transition,
-                },
+                data: transition,
             });
             this.setHostClass();
             this.getAllSections();

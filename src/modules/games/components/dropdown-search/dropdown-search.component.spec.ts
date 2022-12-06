@@ -96,7 +96,7 @@ class ClickOutsideDirective {
 
 @Component({selector: '[wlc-games-grid]'})
 class GamesGridComponent {
-    @Input() swiperProgress;
+    @Input() $swiperProgress;
     @Input() inlineParams;
 }
 

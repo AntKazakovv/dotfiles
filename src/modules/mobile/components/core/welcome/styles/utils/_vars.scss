@@ -1,0 +1,18 @@
+$customThemeDefault: () !default;
+$themeDefault: map-merge((
+    'welcomePosition': 0,
+    'gridTemplateAreas': 'title' 'logo' 'btns',
+
+    'headerGap': ef.size(2),
+    'headerPadding': ef.size(8) ef.size(4) ef.size(4),
+
+    'logoPadding': ef.size(4),
+
+    'buttonsPadding': ef.size(4) ef.size(4) ef.size(16),
+    'buttonsGap': ef.size(2),
+
+    'titleFontStyle': 'QoteTextBold',
+    'titleColor': var(--mc-baseMain),
+    'baseOpacity': var(--mc-baseOpacity),
+    'textFontStyle': 'CaptionText'
+), $customThemeDefault);

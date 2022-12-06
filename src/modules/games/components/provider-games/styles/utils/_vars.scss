@@ -41,3 +41,20 @@ $themeDefault: map-merge((
     'logoColorBackground': #777,
     'logoColorFilter': contrast(1.5),
 ), $customThemeDefault);
+
+
+$customThemeMobileApp: () !default;
+$themeMobileApp: map-merge((
+    'containerPadding': 0,
+
+    'headerMargin': 0 0 ef.size(4),
+
+    'gamesGridMarginBottom': ef.get('baseVariables', 'sectionsGap'),
+
+    'logoWidth': 100%,
+    'logoWrapPadding': ef.size(2),
+    'logoIconWidth': 100%,
+    'logoIconMaxWidth': 100%,
+    'logoIconHeight': 100%,
+    'logoIconMaxHeight': 100%,
+), $customThemeMobileApp);

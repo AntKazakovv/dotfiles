@@ -169,8 +169,8 @@ export class FinancesService {
      *
      * @returns {Promise<IData>}
      */
-    public async confirmWithdrawal(id: number): Promise<IData> {
-        return await this.dataService.request<IData>({
+    public async confirmWithdrawal(id: number): Promise<string[]> {
+        return (await this.dataService.request<IData>({
             name: 'confirmWithdrawal',
             system: 'finances',
             url: '/withdrawals/complete',
@@ -180,7 +180,7 @@ export class FinancesService {
                 success: 'TRANSACTION_CONFIRM',
                 fail: 'TRANSACTION_CONFIRM_FAIL',
             },
-        });
+        })).data;
     }
 
     public async getTransactionList(params: ITransactionRequestParams = {}): Promise<Transaction[]> {

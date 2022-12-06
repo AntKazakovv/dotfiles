@@ -188,6 +188,20 @@ export class StateHelper {
         });
     }
 
+    /**
+     * Save some key with value to state "data"
+     *
+     * @param state State declaration
+     * @param param Name of key
+     * @param value Value
+     */
+    public static setStateData<T>(state: Ng2StateDeclaration, param: string, value: T) {
+        if (!state.data) {
+            state.data = {};
+        }
+        state.data[param] = value;
+    }
+
     public static pageNameResolver = (pageNameHandler: TPageNameHandler) => {
         return {
             token: 'pageName',

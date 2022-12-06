@@ -1,10 +1,9 @@
-import {SwiperOptions} from 'swiper';
-
 import {CustomType} from 'wlc-engine/modules/core';
 import {IAbstractIconsListParams} from 'wlc-engine/modules/core/system/classes/icon-list-abstract.class';
+import {ISliderCParams} from 'wlc-engine/modules/promo';
 
-export type ComponentTheme = 'default' | CustomType;
-export type ComponentType = 'default' | 'slider' | 'mobile' | CustomType;
+export type ComponentTheme = 'default' | 'mobile-app' | 'mobile-app-swiper' | CustomType;
+export type ComponentType = 'default' | 'slider' | 'mobile' | 'mobile-app' | CustomType;
 export type ComponentThemeMod = 'default' | 'inside-modal' | 'adaptive' | CustomType;
 
 /**
@@ -22,7 +21,9 @@ export type ComponentThemeMod = 'default' | 'inside-modal' | 'adaptive' | Custom
  */
 export interface IProviderLinksCParams extends
 IAbstractIconsListParams<ComponentTheme, ComponentType, ComponentThemeMod> {
-    sliderParams?: SwiperOptions;
+    linkText?: string;
+    sliderParams?: ISliderCParams;
+    defaultLinkSref?: string;
 };
 
 export const defaultParams: IProviderLinksCParams = {
@@ -31,45 +32,49 @@ export const defaultParams: IProviderLinksCParams = {
     moduleName: 'games',
     iconsType: 'black',
     type: 'slider',
+    linkText: 'See all',
+    defaultLinkSref: 'app.providers',
     sliderParams: {
-        spaceBetween: 15,
-        slidesPerView: 6,
-        slidesPerGroup: 6,
-        loop: true,
-        navigation: {
-            prevEl: '.wlc-provider-links .wlc-swiper-button-prev',
-            nextEl: '.wlc-provider-links .wlc-swiper-button-next',
-        },
-        breakpoints: {
-            300: {
-                spaceBetween: 10,
-                slidesPerView: 2,
-                slidesPerGroup: 1,
+        swiper: {
+            spaceBetween: 15,
+            slidesPerView: 6,
+            slidesPerGroup: 6,
+            loop: true,
+            navigation: {
+                prevEl: '.wlc-provider-links .wlc-swiper-button-prev',
+                nextEl: '.wlc-provider-links .wlc-swiper-button-next',
             },
-            560: {
-                spaceBetween: 10,
-                slidesPerView: 3,
-                slidesPerGroup: 1,
-            },
-            720: {
-                spaceBetween: 15,
-                slidesPerView: 4,
-                slidesPerGroup: 4,
-            },
-            1024: {
-                spaceBetween: 15,
-                slidesPerView: 5,
-                slidesPerGroup: 5,
-            },
-            1366: {
-                spaceBetween: 15,
-                slidesPerView: 6,
-                slidesPerGroup: 6,
-            },
-            1630: {
-                spaceBetween: 15,
-                slidesPerView: 7,
-                slidesPerGroup: 7,
+            breakpoints: {
+                300: {
+                    spaceBetween: 10,
+                    slidesPerView: 2,
+                    slidesPerGroup: 1,
+                },
+                560: {
+                    spaceBetween: 10,
+                    slidesPerView: 3,
+                    slidesPerGroup: 1,
+                },
+                720: {
+                    spaceBetween: 15,
+                    slidesPerView: 4,
+                    slidesPerGroup: 4,
+                },
+                1024: {
+                    spaceBetween: 15,
+                    slidesPerView: 5,
+                    slidesPerGroup: 5,
+                },
+                1366: {
+                    spaceBetween: 15,
+                    slidesPerView: 6,
+                    slidesPerGroup: 6,
+                },
+                1630: {
+                    spaceBetween: 15,
+                    slidesPerView: 7,
+                    slidesPerGroup: 7,
+                },
             },
         },
     },

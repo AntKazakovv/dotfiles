@@ -1,6 +1,22 @@
+@use 'engine-scss/functions' as ef;
+
 .app-error-state {
 
     .wlc-sections__content {
         margin: auto;
+    }
+}
+
+.wlc-app {
+    display: flex;
+    flex-direction: column;
+    width: 100vw;
+    height: 100vh;
+
+    &__sections {
+        flex-grow: 1;
+        overflow-y: auto;
+        overflow-x: hidden;
+        padding: ef.size(4) 0 0;
     }
 }

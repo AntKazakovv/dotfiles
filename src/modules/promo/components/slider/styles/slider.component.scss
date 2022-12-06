@@ -2,6 +2,7 @@
 @use 'engine-scss/functions' as ef;
 @use 'engine-scss/mixins/base.mixins' as bm;
 @use 'engine-scss/mixins/mediaqueries' as mq;
+@use 'engine-scss/mixins/text' as text;
 
 @import './utils/vars';
 
@@ -35,6 +36,32 @@
 
         .swiper {
             padding: ef.get-value($themeDefaultBanner, 'dashboardContainerPadding');
+        }
+    }
+
+    .slide-show-all {
+        position: relative;
+        display: flex;
+        flex-direction: ef.get-value($themeShowAll, 'allDirection');
+        align-items: ef.get-value($themeShowAll, 'allAlign');
+        justify-content: ef.get-value($themeShowAll, 'allJustify');
+        background: ef.get-value($themeShowAll, 'allBg');
+        border-radius: ef.get-value($themeShowAll, 'allBorderRadius');
+        aspect-ratio: 4/3;
+
+        .wlc-icon-content {
+            display: flex;
+            align-items: ef.get-value($themeShowAll, 'allIconAlign');
+            justify-content: ef.get-value($themeShowAll, 'allIconJustify');
+            border-radius: ef.get-value($themeShowAll, 'allIconBorderRadius');
+            width: ef.get-value($themeShowAll, 'allIconSize');
+            height: ef.get-value($themeShowAll, 'allIconSize');
+            background: ef.get-value($themeShowAll, 'allIconBg');
+        }
+
+        .slide-show-all__text {
+            @include text.get-text-style(ef.get-value($themeShowAll, 'allText'), ef.get-value($themeShowAll, 'allTextColor'));
+            margin: ef.get-value($themeShowAll, 'allMargin');
         }
     }
 }

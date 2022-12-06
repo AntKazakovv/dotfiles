@@ -96,11 +96,7 @@
             max-width: 100%;
 
             h4 {
-                @include text.get-text-style('QoteTextBold', ef.get-value($themePromoHome, 'color'));
-
-                @include mq.min(640) {
-                    @include text.get-text-style('PromoTitle', ef.get-value($themePromoHome, 'color'));
-                }
+                @include text.get-text-style(ef.get-value($themePromoHome, 'nameTextStyle'), ef.get-value($themePromoHome, 'color'));
             }
         }
 
@@ -119,6 +115,15 @@
 
             grid-area: buttons;
             justify-content: ef.get-value($themePromoHome, 'btnsJustifyContent');
+        }
+    }
+
+    &.wlc-bonus-item--theme-mod-with-image {
+
+        .wlc-bonus-item__description {
+            @include bm.lineClamp();
+            @include bm.get-mq-map('-webkit-line-clamp', $themePromoHome, 'descrLineClamp');
+            overflow: hidden;
         }
     }
 }

@@ -11,6 +11,7 @@ import {DOCUMENT} from '@angular/common';
 import {
     fromEvent,
     asyncScheduler,
+    BehaviorSubject,
 } from 'rxjs';
 import {
     map,
@@ -29,6 +30,10 @@ import {ColorThemeValues} from 'wlc-engine/modules/core/constants';
 import {LogService} from 'wlc-engine/modules/core/system/services/log/log.service';
 import {DeviceType} from 'wlc-engine/modules/core/system/interfaces';
 import {WINDOW} from 'wlc-engine/modules/app/system/tokens/window';
+import {
+    IFixedPanelConfig,
+    TFixedPanelState,
+} from 'wlc-engine/modules/core/system/interfaces/base-config/fixed-panel.interface';
 
 export enum BodyClassEvents {
     add = 'BODY_ADD_MODIFIER',
@@ -43,6 +48,7 @@ export enum BodyClassPrefix {
     os = 'wlc-body--os-',
     browser = 'wlc-body--browser-',
     country = 'wlc-body--country-',
+    layout = 'wlc-body--layout-'
 };
 
 export type TBodyClassPrefix = keyof typeof BodyClassPrefix;
@@ -63,6 +69,8 @@ export class BodyClassService {
     private paddingTrottle: ReturnType<typeof setTimeout>;
     private stickyHeaderMobile: boolean;
     private bodyClassList: DOMTokenList = this.document.body.classList;
+    private _fixedPanelConfig: IFixedPanelConfig;
+    private _currFixedPanelBodyState: TFixedPanelState;
 
     constructor(
         @Inject(DOCUMENT) private document: Document,
@@ -124,8 +132,41 @@ export class BodyClassService {
         await this.configService.ready;
         this.addStaticClasses();
         this.initListeners();
+
         if (this.configService.get<boolean>('$base.stickyHeader.use')) {
             this.useStickyHeader();
+        }
+
+        if (this.configService.get<boolean>('$base.fixedPanel.use')) {
+            this.initFixedPanel();
+        }
+    }
+
+    private initFixedPanel(): void {
+        this._fixedPanelConfig = this.configService.get<IFixedPanelConfig>('$base.fixedPanel');
+
+        this.configService.get<BehaviorSubject<TFixedPanelState>>('fixedPanelState$')
+            .subscribe((state: TFixedPanelState): void => {
+                this.addFixedPanelClasses(state);
+            });
+
+        this.addModifier(`${BodyClassPrefix.layout}fixed-panel-${this._fixedPanelConfig.position}`);
+    }
+
+    private addFixedPanelClasses(state?: TFixedPanelState) {
+        const inClass = `${BodyClassPrefix.layout}fixed-panel-in`;
+
+        if (this.window.innerWidth >= this._fixedPanelConfig.breakpoints.display) {
+            const bodyState: TFixedPanelState = this.window.innerWidth < this._fixedPanelConfig.breakpoints.expand
+                ? 'compact'
+                : state;
+
+            this.removeClassByPrefix(`${BodyClassPrefix.layout}fixed-panel-${this._currFixedPanelBodyState}`);
+            this.addModifier(`${BodyClassPrefix.layout}fixed-panel-${bodyState}`);
+            this.addModifier(inClass);
+            this._currFixedPanelBodyState = bodyState;
+        } else {
+            this.removeClassByPrefix(inClass);
         }
     }
 
@@ -154,7 +195,6 @@ export class BodyClassService {
             subtree: true,
         });
     }
-
 
     private addStaticClasses(): void {
         const country = this.configService.get<string>('appConfig.country');

@@ -301,7 +301,7 @@
 
         &__description {
             @include descriptionCommonStyles;
-            margin: ef.get-value($themeDefault, 'descriptionMargin');
+            margin-top: ef.get-value($themeDefault, 'descriptionMargin');
         }
 
         &__remaning {
@@ -481,7 +481,7 @@
             }
 
             &__info-block {
-                justify-content: flex-end;
+                justify-content: center;
                 min-width: 0;
                 padding: ef.get-value($themeDefault, 'infoPaddingMobile');
             }

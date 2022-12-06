@@ -96,6 +96,16 @@
         }
     }
 
+    &.wlc-games-grid--theme-mod-mobile-app-search {
+
+        .wlc-games-grid {
+
+            &__list {
+                @include bm.get-mq-map('grid-template-columns', $themeDefault, 'gridColumnsSearchMobileApp');
+            }
+        }
+    }
+
     &.wlc-games-grid--theme-mod-tournament-detail {
 
         .wlc-games-grid {
@@ -164,6 +174,24 @@
 
             &:not(:first-child) {
                 @include bm.get-mq-map('margin-top', ev.$baseVariables, 'sectionsGap');
+            }
+        }
+    }
+
+    &.wlc-games-grid--theme-mod-mobile-app {
+
+        .wlc-games-grid__header {
+            margin: ef.get-value($modMobileApp, 'headerMargin');
+        }
+
+        .wlc-games-grid__title {
+
+            ::ng-deep {
+
+                .wlc-title__main {
+                    @include text.get-text-style(ef.get-value($modMobileApp, 'headerFontStyle'), ef.get-value($modMobileApp, 'headerColor'));
+                    line-height: 1;
+                }
             }
         }
     }

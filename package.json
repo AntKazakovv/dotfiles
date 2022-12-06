@@ -1,6 +1,6 @@
 {
     "name": "@egamings/wlc-engine",
-    "version": "1.19.1",
+    "version": "1.20.0-rc.11",
     "scripts": {
         "ng": "ng",
         "start": "ng serve",
@@ -8,7 +8,7 @@
         "dev:docs": "compodoc --serve --port=4201 --watch",
         "build:docs": "compodoc --silent",
         "build:sassdocs": "npm run gulp sassdoc",
-        "dist": "git submodule update --init && ng build --project wlc-engine --configuration production && npm run build:docs && npm run build:sassdocs",
+        "dist": "ng build --project wlc-engine --configuration production && npm run build:docs && npm run build:sassdocs",
         "test": "CHROMIUM_BIN=chromium ng test",
         "lint": "lint-staged",
         "eslint": "ng lint",
@@ -19,7 +19,7 @@
         "gulp": "gulp",
         "update": "ng update @angular/cli @angular/core --force",
         "test:api": "cd api-tests && PROJECT_URL=\"https://qa-devcasino.egamings.com\" npx jasmine-ts --config=jasmine.json",
-        "fullup": "git submodule update --init && rm -rf node_modules package-lock.json && npm install",
+        "fullup": "rm -rf node_modules package-lock.json && npm install",
         "prepare": "npx gulp fix-jasmine"
     },
     "lint-staged": {

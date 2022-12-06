@@ -1,7 +1,27 @@
 .wlc-burger-panel--theme-left:host {
+    --bp-width: #{ef.get-value($themeLeft, 'panelWidth')};
+    --bp-login-display: grid;
+    --bp-postmenu-display: block;
+    --bp-login-margin: #{ef.get-value($themeLeft, 'loginBtnMargin')};
+    --bp-login-padding: #{ef.get-value($themeLeft, 'loginBtnPadding')};
+    --bp-login-bg: #{ef.get-value($themeLeft, 'loginBtnBg')};
+    --bp-menu-link-justify: initial;
+    --bp-menu-link-align: #{ef.get-value($themeLeft, 'menuLinksAlign')};
+    --bp-menu-link-padding: #{ef.get-value($themeLeft, 'menuLinksPadding')};
+    --bp-menu-link-text-display: initial;
+    --bp-menu-icon-margin: #{ef.get-value($themeLeft, 'menuLinksIconMargin')};
+    --bp-menu-icon-wrapper-width: #{ef.get-value($themeLeft, 'menuLinksIconWidth')};
+    --bp-separator-width: #{ef.get-value($themeLeft, 'separatorWidth')};
+    --bp-userinfo-display: grid;
+    --bp-userdeposit-display: flex;
+    --bp-lang-max-width: #{ef.get-value($themeLeft, 'langMaxWidthModLong')};
+    --bp-lang-margin: #{ef.get-value($themeLeft, 'langCurrentMarginModLong')};
+
+    @include bm.get-mq-map('--bp-userinfo-margin', $themeLeft, 'userInfoMargin');
+
     left: 0;
 
-    width: ef.get-value($themeLeft, 'panelWidth');
+    width: var(--bp-width);
     max-width: ef.get-value($themeLeft, 'panelWidth');
     height: 100%;
     max-height: 100%;
@@ -32,28 +52,29 @@
         }
 
         .wlc-login-signup {
+            display: var(--bp-login-display);
             grid-auto-flow: initial;
             grid-template-areas: ef.get-value($themeLeft, 'loginBtnTemplateAreas');
             justify-content: center;
-            margin: ef.get-value($themeLeft, 'loginBtnMargin');
-            padding: ef.get-value($themeLeft, 'loginBtnPadding');
+            margin: var(--bp-login-margin);
+            padding: var(--bp-login-padding);
 
-            background: ef.get-value($themeLeft, 'loginBtnBg');
+            background: var(--bp-login-bg);
 
             .wlc-btn {
-                min-width: 100%;
+                min-width: 0;
+                white-space: nowrap;
             }
         }
 
         .wlc-burger-panel__user-info {
-            @include bm.get-mq-map('margin', $themeLeft, 'userInfoMargin');
-
-            display: grid;
+            display: var(--bp-userinfo-display);
             grid-template:
                 'name logout'
                 'stats stats';
             grid-template-columns: 1fr auto;
             align-items: center;
+            margin: var(--bp-userinfo-margin);
             transform: translateZ(0);
 
             .wlc-user-name[wlc-user-name] {
@@ -68,6 +89,7 @@
             }
 
             .wlc-logout {
+                display: var(--bp-logout-display, 'block');
                 grid-area: logout;
             }
 
@@ -90,17 +112,19 @@
             .wlc-btn[wlc-button] {
                 min-width: 120px;
             }
+
+            .wlc-user-stats--theme-default {
+
+                .wlc-user-stats__content {
+
+                    .wlc-btn-deposit[wlc-button] {
+                        margin: 0 auto 20px;
+                    }
+                }
+            }
         }
 
         .wlc-burger-panel__content {
-
-            .wlc-main-menu,
-            .wlc-post-menu {
-
-                &:after {
-                    @include separator();
-                }
-            }
 
             .wlc-menu,
             .wlc-post-menu {
@@ -109,10 +133,17 @@
                     @include text.get-text-style('ThirdTitle', ef.get-value($themeLeft, 'menuLinksColor'));
 
                     display: flex;
-                    align-items: center;
-                    padding: ef.get-value($themeLeft, 'menuLinksPadding');
+                    align-items: var(--bp-menu-link-align);
+                    justify-content: var(--bp-menu-link-justify);
+                    min-height: ef.get-value($themeLeft, 'menuLinksMinHeight');
+                    padding: var(--bp-menu-link-padding);
 
                     text-decoration: ef.get-value($themeLeft, 'menuLinksDecoration');
+
+                    &-text {
+                        display: var(--bp-menu-link-text-display);
+                        line-height: initial;
+                    }
 
                     &:not(.active) {
 
@@ -144,7 +175,12 @@
                 }
 
                 &__icon {
-                    margin: ef.get-value($themeLeft, 'menuLinksIconMargin');
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    width: var(--bp-menu-icon-wrapper-width);
+                    height: ef.get-value($themeLeft, 'menuLinksIconHeight');
+                    margin: var(--bp-menu-icon-margin);
 
                     img,
                     svg {
@@ -162,8 +198,24 @@
             }
         }
 
+        .wlc-main-menu,
+        .wlc-post-menu {
+
+            &:after {
+                @include separator();
+            }
+        }
+
+        .wlc-post-menu {
+            display: var(--bp-postmenu-display);
+
+            .wlc-menu__link {
+                min-height: var(--bp-postmenu-link-height, #{ef.get-value($themeLeft, 'postmenuLinkMinHeight')});
+            }
+        }
+
         .wlc-burger-panel__user-deposit {
-            display: flex;
+            display: var(--bp-userdeposit-display);
             flex-direction: column;
             align-items: center;
             justify-content: center;
@@ -194,8 +246,8 @@
         .wlc-language-selector[wlc-language-selector] {
 
             &.wlc-language-selector--theme-mod-long {
-                max-width: ef.get-value($themeLeft, 'langMaxWidthModLong');
-                margin: ef.get-value($themeLeft, 'langCurrentMarginModLong');
+                max-width: var(--bp-lang-max-width);
+                margin: var(--bp-lang-margin);
             }
 
             + .wlc-theme-toggler {
@@ -220,6 +272,111 @@
 
             &__slide {
                 padding-bottom: ef.size(4);
+            }
+        }
+    }
+
+    /*Fixed panel*/
+    &.wlc-burger-panel--type-left-fixed,
+    &.wlc-burger-panel--type-right-fixed {
+
+        .wlc-burger-panel {
+
+            &__backdrop {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100vw;
+                height: 100%;
+                background: ef.get-value($themeLeftFixed, 'backdropBg');
+                cursor: pointer;
+            }
+        }
+    }
+
+    &.wlc-burger-panel--type-left-fixed {
+        --bp-header-grid-cols: #{ef.get-value($themeLeftFixed, 'headerGridCols')};
+        --bp-header-padding: #{ef.get-value($themeLeftFixed, 'headerPadding')};
+        --bp-login-margin: #{ef.get-value($themeLeftFixed, 'loginMargin')};
+        --bp-login-padding: #{ef.get-value($themeLeftFixed, 'loginPadding')};
+        --bp-login-bg: #{ef.get-value($themeLeftFixed, 'loginBg')};
+        --bp-expand-icon-transform: #{ef.get-value($themeLeftFixed, 'expandIconTransform')};
+        --bp-transition: #{ef.get-value($themeLeftFixed, 'panelTransition')};
+        --bp-main-menu-margin: #{ef.get-value($themeLeftFixed, 'mainMenuMargin')};
+        --bp-userinfo-margin: #{ef.get-value($themeLeftFixed, 'userInfoMargin')};
+        --bp-width: var(--fp-size-compact);
+        --bp-logout-display: #{ef.get-value($themeLeftFixed, 'logoutDisplay')};
+        --bp-postmenu-link-height: #{ef.get-value($themeLeftFixed, 'postmenuLinkMinHeight')};
+
+        position: sticky;
+        top: 0;
+        left: 0;
+        height: 100vh;
+        transform: translate3d(0, 0, 0);
+        will-change: width;
+
+        .wlc-body--layout-fixed-panel-in & {
+            visibility: visible;
+        }
+
+        &.wlc-burger-panel--view-expanded {
+            --bp-width: var(--fp-size-full);
+        }
+
+        &.wlc-burger-panel--view-compact {
+            --bp-login-display: #{ef.get-value($themeLeftFixed, 'loginDisplayCompact')};
+            --bp-postmenu-display: #{ef.get-value($themeLeftFixed, 'postmenuDisplayCompact')};
+            --bp-menu-link-text-display: #{ef.get-value($themeLeftFixed, 'menuLinkTextDisplayCompact')};
+            --bp-menu-link-justify: #{ef.get-value($themeLeftFixed, 'menuLinkJustifyCompact')};
+            --bp-menu-link-align: #{ef.get-value($themeLeftFixed, 'menuLinkAlignCompact')};
+            --bp-menu-link-padding: #{ef.get-value($themeLeftFixed, 'menuLinkPaddingCompact')};
+            --bp-menu-icon-margin: #{ef.get-value($themeLeftFixed, 'menuIconMarginCompact')};
+            --bp-menu-icon-wrapper-width: #{ef.get-value($themeLeftFixed, 'menuIconWrapperWidthCompact')};
+            --bp-main-menu-margin: #{ef.get-value($themeLeftFixed, 'mainMenuMarginCompact')};
+            --bp-separator-width: #{ef.get-value($themeLeftFixed, 'separatorWidthCompact')};
+            --bp-userinfo-display: #{ef.get-value($themeLeftFixed, 'userInfoDisplayCompact')};
+            --bp-userdeposit-display: #{ef.get-value($themeLeftFixed, 'userDepositDisplayCompact')};
+            --bp-lang-max-width: #{ef.get-value($themeLeftFixed, 'langMaxWidthCompact')};
+            --bp-lang-margin: #{ef.get-value($themeLeftFixed, 'langMarginCompact')};
+        }
+
+        .wlc-burger-panel {
+
+            &__btn-expand {
+                justify-self: end;
+                padding: ef.get-value($themeLeftFixed, 'btnExpandPadding');
+                color: ef.get-value($themeLeftFixed, 'btnExpandColor');
+                background: ef.get-value($themeLeftFixed, 'btnExpandBg');
+                border: ef.get-value($themeLeftFixed, 'btnExpandBorder');
+                transition: ef.get-value($themeLeftFixed, 'btnExpandTransition');
+
+                ::ng-deep {
+
+                    svg {
+                        width: ef.get-value($themeLeftFixed, 'btnExpandIconSize');
+                        height: ef.get-value($themeLeftFixed, 'btnExpandIconSize');
+                        transform: var(--bp-expand-icon-transform);
+                        transition: ef.get-value($themeLeftFixed, 'btnExpandIconTransition');
+                        fill: currentColor;
+                    }
+                }
+
+                &--expanded {
+                    --bp-expand-icon-transform: #{ef.get-value($themeLeftFixed, 'expandIconTransformExpanded')};
+                }
+
+                @include bm.hover {
+                    color: ef.get-value($themeLeftFixed, 'btnExpandColorHover');
+                    background: ef.get-value($themeLeftFixed, 'btnExpandBgHover');
+                    border: ef.get-value($themeLeftFixed, 'btnExpandBorderHover');
+                }
+            }
+        }
+
+        ::ng-deep {
+
+            .wlc-main-menu {
+                margin: var(--bp-main-menu-margin);
             }
         }
     }

@@ -35,6 +35,19 @@
     </ng-container>
 </ng-template>
 
+<ng-template #slideShowAll let-item="item">
+    <div [uiSref]="this.$params.slideShowAll.sref"
+         [uiParams]="this.$params.slideShowAll?.srefParams"
+        class="slide-show-all">
+        <div class="slide-show-all__icon">
+            <div wlc-icon iconPath="/wlc/icons/arrow-2.svg"></div>
+        </div>
+        <div class="slide-show-all__text">
+            {{this.$params.slideShowAll.text | translate}}
+        </div>
+    </div>
+</ng-template>
+
 <ng-template #html let-item="item">
     <div [innerHTML]="item.htmlString"></div>
 </ng-template>

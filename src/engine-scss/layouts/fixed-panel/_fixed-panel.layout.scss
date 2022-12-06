@@ -1,0 +1,28 @@
+@import './utils/vars';
+
+.wlc-body--layout-fixed-panel-in {
+    --fp-padding: calc(var(--fp-size-compact) + var(--fp-size-gap));
+
+    .wlc-app {
+        transition: ef.get-value($fixedPanelLayoutConfig, 'globalTransition');
+    }
+
+    &.wlc-body--layout-fixed-panel-expanded {
+        --fp-padding: calc(var(--fp-size-full) + var(--fp-size-gap));
+    }
+
+    &.wlc-body--layout-fixed-panel-left {
+
+        .wlc-app {
+            padding-right: var(--fp-size-gap);
+            padding-left: var(--fp-padding);
+        }
+    }
+
+    &.wlc-body--layout-fixed-panel-right {
+
+        .wlc-app {
+            padding-right: var(--fp-padding);
+        }
+    }
+}

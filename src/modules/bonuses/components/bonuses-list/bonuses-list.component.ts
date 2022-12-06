@@ -386,7 +386,6 @@ export class BonusesListComponent extends AbstractComponent implements OnInit, O
                 ),
             };
         });
-
         if (this.slider?.swiper && scroll) {
             this.slider.swiper.swiperRef.slideTo(0);
         }

@@ -1,0 +1,105 @@
+.wlc-category-menu--theme-mobile-app:host {
+    position: relative;
+
+    ::ng-deep {
+
+        @include menuControls($mobileAppDefault);
+
+        .wlc-slider {
+
+            .swiper {
+                display: flex;
+                flex-direction: column;
+
+                .swiper-pagination {
+                    position: initial;
+                    order: 1;
+                }
+            }
+        }
+
+        .wlc-category-menu {
+
+            &__content {
+                padding: ef.get-value($mobileAppDefault, 'menuContentPading');
+            }
+        }
+
+        .wlc-menu {
+
+            &__item {
+                display: flex;
+                justify-content: center;
+                padding: ef.get-value($mobileAppDefault, 'menuItemPadding');
+            }
+
+            &__link {
+                @include text.get-text-style(ef.get-value($mobileAppDefault, 'linkTextStyle'), ef.get-value($mobileAppDefault, 'linkColor'));
+
+                display: flex;
+                flex-direction: ef.get-value($mobileAppDefault, 'iconDirection');
+                align-items: ef.get-value($mobileAppDefault, 'iconAlign');
+                width: ef.get-value($mobileAppDefault, 'linkWidth');
+
+                text-transform: ef.get-value($themeDefault, 'linkTransform');
+                text-decoration: ef.get-value($themeDefault, 'linkDecoration');
+                transition: ef.get-value($mobileAppDefault, 'linkTransition');
+
+                &-text {
+                    width: 100%;
+                    white-space: nowrap;
+                    text-align: center;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                }
+            }
+
+            &__icon {
+                @include bm.get-mq-map('width', $mobileAppDefault, 'menuIconOuterWidth');
+                @include bm.get-mq-map('height', $mobileAppDefault, 'menuIconOuterHeight');
+                position: relative;
+
+                display: flex;
+                flex-direction: ef.get-value($mobileAppDefault, 'menuIconFlexDirection');
+                align-items: ef.get-value($mobileAppDefault, 'menuIconAlignItems');
+                justify-content: ef.get-value($mobileAppDefault, 'menuIconJustifyContent');
+                overflow: hidden;
+
+                margin-bottom: ef.get-value($mobileAppDefault, 'menuGag');
+
+                color: ef.get-value($mobileAppDefault, 'menuIconInnerFill');
+                background: ef.get-value($mobileAppDefault, 'menuIconBackground');
+                box-shadow: ef.get-value($mobileAppDefault, 'menuIconShadow');
+                border-radius: ef.get-value($mobileAppDefault, 'menuIconBorderRadius');
+                transition: ef.get-value($mobileAppDefault, 'menuIconBoxTransition');
+
+                img,
+                svg {
+                    @include bm.get-mq-map('width', $mobileAppDefault, 'menuIconInnerWidth');
+                    @include bm.get-mq-map('height', $mobileAppDefault, 'menuIconInnerHeight');
+
+                    position: relative;
+                    z-index: 1;
+                    max-width: 100%;
+                    max-height: 100%;
+                }
+
+                img {
+                    display: block;
+                    object-fit: contain;
+                    object-position: ef.get-value($mobileAppDefault, 'menuIconObjPosition');
+                }
+
+                svg {
+
+                    &,
+                    path {
+                        transition: ef.get-value($mobileAppDefault, 'menuIconTransition');
+                        fill: ef.get-value($mobileAppDefault, 'menuIconSvgFill');
+                    }
+                }
+            }
+        }
+    }
+}
+

@@ -14,6 +14,7 @@ import {
     ConfigService,
 } from 'wlc-engine/modules/core';
 import {IconModel} from 'wlc-engine/modules/core/system/models/icon-list-item.model';
+import {LogService} from 'wlc-engine/modules/core';
 
 import * as Params from './icon-list-item.params';
 
@@ -27,6 +28,7 @@ import * as Params from './icon-list-item.params';
 
 export class IconListItemComponent extends AbstractComponent implements OnInit, OnChanges {
     @Input() protected inlineParams: Params.IIconListItemCParams;
+    @Input() protected logImageErrorChild: Params.TIconErrorCode;
     @Input() public icon: IconModel;
 
     public $params: Params.IIconListItemCParams;
@@ -34,6 +36,7 @@ export class IconListItemComponent extends AbstractComponent implements OnInit, 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IIconListItemCParams,
         protected configService: ConfigService,
+        protected logService: LogService,
     ) {
         super({
             injectParams,
@@ -56,6 +59,13 @@ export class IconListItemComponent extends AbstractComponent implements OnInit, 
 
     public errorHandler(): void {
         this.icon.isError = true;
+        this.logService.sendLog({
+            code: (this.logImageErrorChild !== true) ? this.logImageErrorChild : '1.4.0',
+            flog: {
+                iconName: this.icon.data.alt,
+                iconUrl: this.icon.data.iconUrl,
+            },
+        });
     }
 
 }

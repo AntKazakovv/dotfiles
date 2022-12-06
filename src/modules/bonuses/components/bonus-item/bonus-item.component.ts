@@ -6,6 +6,7 @@ import {
     Input,
     OnChanges,
     OnInit,
+    SimpleChanges,
     ViewEncapsulation,
 } from '@angular/core';
 
@@ -130,10 +131,11 @@ export class BonusItemComponent extends AbstractComponent implements OnInit, OnC
         }
     }
 
-    public ngOnChanges(): void {
-        if (_get(this.$params, 'theme') === 'mini'
-            && (_get(this.inlineParams, 'bonus.id') !== _get(this, 'bonus.id')
-                || _get(this.inlineParams, 'bonus.isChoose') !== _get(this, 'bonus.isChoose'))) {
+    public ngOnChanges(change: SimpleChanges): void {
+        if ((_get(this.$params, 'theme') === 'mini'
+                && (_get(this.inlineParams, 'bonus.id') !== _get(this, 'bonus.id')
+                    || _get(this.inlineParams, 'bonus.isChoose') !== _get(this, 'bonus.isChoose')))
+            || (_get(this.$params, 'theme') === 'long' && change.inlineParams)) {
             this.ngOnInit();
         }
     }

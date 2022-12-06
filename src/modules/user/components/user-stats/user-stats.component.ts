@@ -68,6 +68,7 @@ export class UserStatsComponent extends AbstractComponent implements OnInit, OnD
 
         switch (this.type) {
             case 'short':
+            case 'mobile':
                 this.$params.fields = [
                     'balance',
                     'bonusBalance',

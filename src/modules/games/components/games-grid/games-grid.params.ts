@@ -24,13 +24,14 @@ import {
     ISliderCParams,
 } from 'wlc-engine/modules/promo';
 
-export type ComponentTheme = 'default' | 'swiper' | 'preview' | CustomType;
+export type ComponentTheme = 'default' | 'swiper' | 'preview' | 'mobile-app-swiper' | CustomType;
 export type ComponentType = 'default' | 'search' | 'swiper';
 export type ComponentThemeMod = 'default'
     | 'tournament-detail'
     | 'banner-right'
     | 'header-inline'
     | 'centered-controls'
+    | 'mobile-app-search'
     | string;
 
 /**
@@ -103,6 +104,10 @@ export interface IShowAsSwiper {
      * Use navigation buttons
      */
     useNavigation?: boolean;
+    /**
+     * Maximum slides count for display in slider
+     */
+    maxSlidesCount?: number;
     sliderParams: ISliderCParams;
 }
 

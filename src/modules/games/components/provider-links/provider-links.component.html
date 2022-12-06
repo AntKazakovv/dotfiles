@@ -14,8 +14,8 @@
             <button class="{{$class}}__btn"
                 wlc-button
                 [attr.type]="'button'"
-                text="See all"
-                (click)="showModal()">
+                text="{{$params.linkText | translate}}"
+                (click)="showAllProviders()">
             </button>
 
             <div slot-container-start class="{{$class}}__slider-navigation">
@@ -56,8 +56,8 @@
     <button class="{{$class}}__btn"
             wlc-button
             [attr.type]="'button'"
-            text="See all"
-            (click)="showModal()">
+            text="{{$params.linkText | translate}}"
+            (click)="showAllProviders()">
     </button>
 </ng-template>
 

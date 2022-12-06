@@ -7,7 +7,9 @@ import {ILanguage} from 'wlc-engine/modules/core/system/interfaces/app-config.in
 import {LayoutComponent} from 'wlc-engine/modules/core/components/layout/layout.component';
 import {polyfillsResolver} from 'wlc-engine/modules/core/system/config/resolvers/polyfills.resolver';
 import {customStates} from 'wlc-src/custom/system/config/custom.states';
+import {GlobalHelper} from 'wlc-engine/modules/core/system/helpers/global.helper';
 import * as States from './states';
+import * as MobileAppStates from './mobile-app/states';
 
 import _map from 'lodash-es/map';
 import _merge from 'lodash-es/merge';
@@ -55,7 +57,6 @@ let states = {
     'app.profile.cash': States.profileCashState,
     'app.profile.cash.deposit': States.profileCashDepositState,
     'app.profile.cash.withdraw': States.profileCashWithdrawState,
-    'app.profile.cash.wallet': States.profileCashWalletState,
     'app.profile.cash.transactions': States.profileCashTransactionsState,
     'app.profile.gamblings': States.profileGamblingsState,
     'app.profile.gamblings.bets': States.profileGamblingsBetsState,
@@ -68,7 +69,6 @@ let states = {
     'app.profile.payments': States.profilePaymentsState,
     'app.profile.limits': States.profileLimitsState,
     'app.profile.loyalty-level': States.profileLoyaltyLevelState,
-    'app.profile.referrals': States.profileReferralsState,
     'app.profile.dashboard': States.profileDashboardState,
     'app.error': States.errorPageState,
     'app.offline': States.offlineState,
@@ -79,6 +79,19 @@ let states = {
     'app.login': States.loginState,
     'app.signin': States.signin,
 };
+
+if (GlobalHelper.isMobileApp()) {
+    states = _merge(states, {
+        'app.language': MobileAppStates.languageState,
+        'app.games-search': MobileAppStates.gamesSearchState,
+        'app.menu': MobileAppStates.menuState,
+        'app.run-game': MobileAppStates.runGameState,
+        'app.providers': MobileAppStates.providersState,
+        'app.providers.item': MobileAppStates.providersItemState,
+        'app.providers.item.category': MobileAppStates.providersItemCategoryState,
+        'app.welcome': MobileAppStates.welcomeState,
+    });
+}
 
 const appState: Ng2StateDeclaration = {
     name: 'app',

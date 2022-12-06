@@ -13,6 +13,21 @@ import {
     AbstractComponent,
     IMixedParams,
 } from 'wlc-engine/modules/core/system/classes/abstract.component';
+
+import {
+    BehaviorSubject,
+} from 'rxjs';
+import {
+    distinctUntilChanged,
+    takeUntil,
+} from 'rxjs/operators';
+import _set from 'lodash-es/set';
+import _clone from 'lodash-es/clone';
+import _has from 'lodash-es/has';
+import _sortBy from 'lodash-es/sortBy';
+import _merge from 'lodash-es/merge';
+import _pull from 'lodash-es/pull';
+
 import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
 import {LayoutService} from 'wlc-engine/modules/core/system/services/layout/layout.service';
 import {EventService} from 'wlc-engine/modules/core/system/services/event/event.service';
@@ -28,17 +43,11 @@ import {
 import {MenuService} from 'wlc-engine/modules/menu/system/services/menu.service';
 import {MenuHelper} from'wlc-engine/modules/menu/system/helpers/menu.helper';
 import {TIconExtension} from'wlc-engine/modules/menu/system/interfaces/menu.interface';
+import {TFixedPanelState} from 'wlc-engine/modules/core/system/interfaces/base-config/fixed-panel.interface';
 
 import * as Config from 'wlc-engine/modules/menu/system/config/main-menu.items.config';
 import * as MenuParams from 'wlc-engine/modules/menu/components/menu/menu.params';
 import * as Params from 'wlc-engine/modules/menu/components/main-menu/main-menu.params';
-
-import _set from 'lodash-es/set';
-import _clone from 'lodash-es/clone';
-import _has from 'lodash-es/has';
-import _sortBy from 'lodash-es/sortBy';
-import _merge from 'lodash-es/merge';
-import _pull from 'lodash-es/pull';
 
 @Component({
     selector: '[wlc-main-menu]',
@@ -57,6 +66,7 @@ export class MainMenuComponent extends AbstractComponent implements OnInit {
     protected menuSettings: IMenuOptions;
     protected isAuth: boolean;
     protected gamesCatalogService: GamesCatalogService;
+    protected compactState$: BehaviorSubject<TFixedPanelState>;
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IMainMenuCParams,
@@ -139,6 +149,10 @@ export class MainMenuComponent extends AbstractComponent implements OnInit {
             },
         });
 
+        if (this.$params.type === 'fixed-burger') {
+            this.initFixedMenu();
+        }
+
         this.$params.menuParams.items = this.commonMenuItems;
         this.$params.menuParams = _clone(this.$params.menuParams);
 
@@ -155,6 +169,21 @@ export class MainMenuComponent extends AbstractComponent implements OnInit {
         }
 
         this.cdr.markForCheck();
+    }
+
+    protected initFixedMenu(): void {
+        this.compactState$ = this.configService.get<BehaviorSubject<TFixedPanelState>>('fixedPanelState$');
+
+        this.compactState$
+            .pipe(
+                distinctUntilChanged(),
+                takeUntil(this.$destroy),
+            )
+            .subscribe((state: TFixedPanelState) => {
+                this.$params.menuParams.useTooltip = state === 'compact';
+                this.$params.menuParams = _clone(this.$params.menuParams);
+                this.cdr.detectChanges();
+            });
     }
 
     protected async addCategoryBtns(): Promise<void> {

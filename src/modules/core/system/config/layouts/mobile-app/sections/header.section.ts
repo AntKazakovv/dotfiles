@@ -2,7 +2,22 @@ import {ILayoutSectionConfig} from 'wlc-engine/modules/core';
 import * as componentLib from '../components';
 
 export namespace header {
+
     export const def: ILayoutSectionConfig = {
+        replaceConfig: true,
+        order: 0,
+        theme: 'mobile-app',
+        container: false,
+        components: [
+            {
+                name: 'mobile.wlc-mobile-header',
+                params: {
+                },
+            },
+        ],
+    };
+
+    export const defSite: ILayoutSectionConfig = {
         replaceConfig: true,
         order: 0,
         theme: '1',

@@ -714,6 +714,9 @@ $customLayoutGap: () !default;
 $layoutGap: map-merge((
     'all': (
         '.wlc-sections__categories',
+        '.wlc-sections__content-games-first',
+        '.wlc-sections__content-games-second',
+        '.wlc-sections__content-games-third',
         '.wlc-sections__content-games-top',
         '.wlc-sections__content-games-bottom',
         '.wlc-sections__content-games',
@@ -935,6 +938,7 @@ $hlSubstr: map-merge((
 // TODO: стандартизировать все тени, использующиеся в компонентах и ссылаться на них через этот конфиг
 $customShadows: () !default;
 $shadows: map-merge((
+    'sm': 0 3px 10px rgba(0, 0, 0, 0.4),
     'lg': 0 0 20px rgba(0, 0, 0, 0.3),
 ), $customShadows);
 
@@ -990,16 +994,18 @@ $table-th-font-weight: null !default;
 $table-caption-color: var(--mc-elementsColor) !default;
 
 $tooltip-font-size: $font-size-base * 0.875 !default;
+$tooltip-text-style-compact: 'CaptionText' !default;
 $tooltip-opacity: 1 !default;
 $tooltip-padding-y: 10px !default;
 $tooltip-padding-x: 10px !default;
-$tooltip-arrow-width: 0.8rem !default;
-$tooltip-arrow-height: 0.8rem !default;
+$tooltip-arrow-width: 1.2rem !default;
+$tooltip-arrow-height: 0.7rem !default;
 $tooltip-arrow-color: var(--mc-bg100) !default;
 $tooltip-max-width: 200px !default;
 $tooltip-bg: var(--mc-bg100) !default;
 $tooltip-color: var(--mc-baseMain) !default;
 $tooltip-border-radius: map-get($radius, 'biger') !default;
+$tooltip-box-shadow: map-get($shadows, 'sm') !default;
 
 
 /// Globar settings scrollbar

@@ -234,6 +234,27 @@ export class GlobalHelper {
             );
     }
 
+    /** Creates mutation observer
+     * @param {Node} target - target for observe mutations
+     * @param {MutationObserverInit} config - mutation observer config
+     * @returns {Observable<MutationRecord[]>} observable mutation records
+     */
+    public static createMutationObserver(
+        target: Node,
+        config: MutationObserverInit,
+    ): Observable<MutationRecord[]> {
+        return new Observable((observer) => {
+            const mutation = new MutationObserver((mutations) => {
+                observer.next(mutations);
+            });
+            mutation.observe(target, config);
+
+            return () => {
+                mutation.disconnect();
+            };
+        });
+    }
+
     /**
      * Return true if list of elements has resize display params
      *
@@ -370,7 +391,8 @@ export class GlobalHelper {
         if (!GlobalHelper.mobileAppApiUrl) {
             return content;
         }
-        return content.replace(/\/(gstatic|static)/g, GlobalHelper.mobileAppApiUrl + '/' + '$1');
+        const result = content.replace(/\/(gstatic|static)/g, GlobalHelper.mobileAppApiUrl + '/' + '$1');
+        return result.replace(/\/app-static/g, '/static');
     }
 
     /**

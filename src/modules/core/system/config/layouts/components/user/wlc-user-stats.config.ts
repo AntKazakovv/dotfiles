@@ -34,4 +34,15 @@ export namespace wlcUserStats {
             showTooltipDescriptionModal: true,
         },
     };
+
+    export const mobile: ILayoutComponent = {
+        name: 'user.wlc-user-stats',
+        display: {
+            auth: true,
+            before: 1199,
+        },
+        params: {
+            type: 'mobile',
+        },
+    };
 }

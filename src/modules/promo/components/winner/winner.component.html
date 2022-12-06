@@ -46,8 +46,9 @@
 <ng-template #gamePicture>
     <div class="{{$class}}__picture">
         <img class="{{$class}}__image"
+             wlc-fallback
              loading="lazy"
-             [attr.src]="[gameImage]"
+             [src]="gameImage"
              [attr.alt]="[gameName]"
              [attr.data-wlc-element]="'img_item-' + $params.winnerType + '-wins'">
     </div>

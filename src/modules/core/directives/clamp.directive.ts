@@ -8,8 +8,6 @@ import {
     OnInit,
 } from '@angular/core';
 
-import * as clampLib from 'text-overflow-clamp';
-
 import {
     takeUntil,
     distinctUntilChanged,
@@ -69,6 +67,19 @@ export class ClampDirective implements OnInit, AfterViewInit, OnDestroy {
             const height: number = parseInt(styles.height);
             this.lines = _ceil(height/lineHeight);
         }
-        clampLib(this.element.nativeElement, this.lines);
+
+        this.setClampStyle();
+    }
+
+    /**
+     * Adds styles to clip the string and add an ellipsis at the end of the ellipsis
+     * @private
+     */
+    private setClampStyle(): void {
+        const style: CSSStyleDeclaration = this.element.nativeElement.style;
+        style.display = '-webkit-box';
+        style.webkitLineClamp = `${this.lines}`;
+        style.webkitBoxOrient = 'vertical';
+        style.overflow = 'hidden';
     }
 }

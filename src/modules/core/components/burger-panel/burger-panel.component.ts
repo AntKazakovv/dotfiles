@@ -15,17 +15,24 @@ import {
     Inject,
     Optional,
 } from '@angular/core';
+import {DOCUMENT} from '@angular/common';
 
 import {TransitionService} from '@uirouter/core';
 import {
     Observable,
     fromEvent,
     Subject,
+    BehaviorSubject,
+    asyncScheduler,
 } from 'rxjs';
 import {
+    distinctUntilChanged,
+    startWith,
     takeUntil,
     takeWhile,
+    throttleTime,
 } from 'rxjs/operators';
+import _forEach from 'lodash-es/forEach';
 
 import {
     EventService,
@@ -38,10 +45,17 @@ import {ActionService} from 'wlc-engine/modules/core/system/services/action/acti
 import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
 import {HammerConfig} from 'wlc-engine/modules/core/system/config/hammer.config';
 import {panelsEvents} from './../float-panels/float-panels.params';
-import {IWrapperCParams} from 'wlc-engine/modules/core';
+import {
+    GlobalHelper,
+    IWrapperCParams,
+} from 'wlc-engine/modules/core';
 import {WINDOW} from 'wlc-engine/modules/app/system';
 
 import {BurgerPanelAppearanceAnimations} from './burger-panel.animations';
+import {
+    IFixedPanelConfig,
+    TFixedPanelState,
+} from 'wlc-engine/modules/core/system/interfaces/base-config/fixed-panel.interface';
 import * as Params from './burger-panel.params';
 
 enum Directions {
@@ -73,6 +87,8 @@ export class BurgerPanelComponent extends AbstractComponent
     public $params: Params.IBurgerPanelCParams;
     public title: string;
     public headerMenuConfig: IWrapperCParams;
+    public fixedPanelConfig: IFixedPanelConfig;
+    public fixedPanelState$: BehaviorSubject<TFixedPanelState>;
 
     protected isUseTouchEvents: boolean;
     protected hammer$: any; // HammerInstance
@@ -81,6 +97,8 @@ export class BurgerPanelComponent extends AbstractComponent
     protected panend$: Observable<HammerInput>;
     protected $width: number;
     protected animeType: string;
+    protected collapsedByUser: boolean = false;
+    protected isFixedPanel: boolean;
 
     constructor(
         @Optional() @Inject('injectParams') protected injectParams: Params.IBurgerPanelCParams,
@@ -92,6 +110,7 @@ export class BurgerPanelComponent extends AbstractComponent
         protected cdr: ChangeDetectorRef,
         protected actionService: ActionService,
         @Inject(WINDOW) protected window: Window,
+        @Inject(DOCUMENT) protected document: Document,
         private hostElement: ElementRef,
         private injectionService: InjectionService,
     ) {
@@ -123,12 +142,20 @@ export class BurgerPanelComponent extends AbstractComponent
 
             this.initPanListeners();
         }
+
+        if (this.$params.type === 'left-fixed') {
+            this.isOpened = true;
+        }
     }
 
     public ngOnDestroy(): void {
         super.ngOnDestroy();
         this.updateScrollbar.next();
         this.updateScrollbar.complete();
+
+        if (this.isFixedPanel) {
+            this.updateFixedPanelCssVars();
+        }
     }
 
     public closePanel(): void {
@@ -139,13 +166,54 @@ export class BurgerPanelComponent extends AbstractComponent
         });
     }
 
-    public get animationState(): string {
-        return this.isOpened ? `${this.animeType}-open` : 'close';
+    public get animationState(): TFixedPanelState | 'close' | string {
+        let animationState: string;
+        if (this.isFixedPanel) {
+            animationState = this.fixedPanelState$.getValue();
+        } else {
+            animationState = this.isOpened ? `${this.animeType}-open` : 'close';
+        }
+        return animationState;
+    }
+
+    public get useBackdrop(): boolean {
+        return this.fixedPanelState$?.getValue() === 'expanded'
+            && this.window.innerWidth < this.fixedPanelConfig.breakpoints.expand;
+    }
+
+    /** Changes fixed panel state
+     *
+     * @param {boolean} saveState - save fixed panel's current state to localstorage
+     */
+
+    public toggleFixedPanel(saveState: boolean = false): void {
+        const currentState: TFixedPanelState = this.fixedPanelState$.getValue();
+        const state: TFixedPanelState = currentState === 'expanded' ? 'compact' : 'expanded';
+
+        if (saveState) {
+            this.configService.set<TFixedPanelState>({
+                name: 'fixedPanelUserState',
+                value: state,
+                storageType: 'localStorage',
+            });
+        }
+
+        this.fixedPanelState$.next(state);
     }
 
     protected async init(): Promise<void> {
         this.addModifiers(this.id);
         await this.configService.ready;
+
+        const isFixed = this.$params.type === 'left-fixed' || this.$params.type === 'right-fixed';
+        const useFixedPanel = this.configService.get<boolean>('$base.fixedPanel.use');
+
+        this.isFixedPanel = useFixedPanel && isFixed;
+
+        if (this.isFixedPanel) {
+            this.prepareFixedPanel();
+        }
+
         await this.injectionService.importModules(['menu']);
         this.initHeaderMenu();
 
@@ -266,5 +334,86 @@ export class BurgerPanelComponent extends AbstractComponent
                 },
             ],
         };
+    }
+
+    protected prepareFixedPanel(): void {
+        this.fixedPanelConfig = this.configService.get<IFixedPanelConfig>('$base.fixedPanel');
+        this.fixedPanelState$ = this.configService.get<BehaviorSubject<TFixedPanelState>>('fixedPanelState$');
+
+        this.initFixedPanelListeners();
+        this.fixedPanelState$.next(this.fixedPanelState$.getValue());
+    }
+
+    protected initFixedPanelListeners(): void {
+        const updateScrollbarThrottleTime: number = 400;
+        const expandBp: MediaQueryList =
+            this.window.matchMedia(`(min-width: ${this.fixedPanelConfig.breakpoints.expand}px)`);
+
+        GlobalHelper.mediaQueryObserver(expandBp)
+            .pipe(takeUntil(this.$destroy))
+            .subscribe((event: MediaQueryListEvent) => {
+                this.autoSwitchFixedPanel(event.matches);
+            });
+
+        this.fixedPanelState$
+            .pipe(
+                startWith(null),
+                distinctUntilChanged((prev: TFixedPanelState, curr: TFixedPanelState): boolean => {
+                    if (prev !== curr) {
+                        this.removeModifiers(`view-${prev}`);
+                        this.addModifiers(`view-${curr}`);
+                    }
+                    return prev === curr;
+                }),
+                takeUntil(this.$destroy),
+            )
+            .subscribe((): void => {
+                this.updateFixedPanelCssVars();
+            });
+
+        GlobalHelper.createMutationObserver(
+            this.hostElement.nativeElement,
+            {
+                childList: true,
+                subtree: true,
+            })
+            .pipe(
+                throttleTime(updateScrollbarThrottleTime, asyncScheduler, {trailing: true}),
+                takeUntil(this.$destroy),
+            )
+            .subscribe(() => {
+                this.updateScrollbar.next();
+            });
+    }
+
+    protected autoSwitchFixedPanel(canExpanded: boolean): void {
+        const userState: TFixedPanelState = this.configService.get<TFixedPanelState>({
+            name: 'fixedPanelUserState',
+            storageType: 'localStorage',
+        });
+        const currentState: TFixedPanelState = this.fixedPanelState$.getValue();
+
+        if (!userState && (currentState === 'compact' && canExpanded || currentState === 'expanded' && !canExpanded)) {
+            this.toggleFixedPanel();
+        } else {
+            this.fixedPanelState$.next(currentState);
+        }
+    }
+
+    protected updateFixedPanelCssVars(): void {
+        const root: HTMLElement = this.document.documentElement;
+        const isVisiblePanel: boolean = this.document.body.clientWidth >= this.fixedPanelConfig.breakpoints.display;
+
+        if (root) {
+            _forEach(this.fixedPanelConfig.sizes, (val, key) => {
+                const value = isVisiblePanel ? `${val}px` : null;
+                root.style.setProperty(`--fp-size-${key}`, value);
+            });
+
+            _forEach(this.fixedPanelConfig.breakpoints, (val, key) => {
+                const value = isVisiblePanel ? `${val}px` : null;
+                root.style.setProperty(`--fp-breakpoint-${key}`, value);
+            });
+        }
     }
 }

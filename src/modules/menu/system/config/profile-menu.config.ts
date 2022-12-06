@@ -745,31 +745,6 @@ export const wlcProfileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
         },
     },
 
-    'profile-menu:cash-wallet': {
-        name: gettext('Wallet'),
-        type: 'sref',
-        icon: 'wallet',
-        class: 'wallet',
-        params: {
-            state: {
-                name: 'app.profile.cash.wallet',
-                params: {},
-            },
-        },
-    },
-    'profile-first-menu:cash-wallet': {
-        name: gettext('Wallet'),
-        type: 'sref',
-        icon: 'wallet',
-        class: 'wallet',
-        params: {
-            state: {
-                name: 'app.profile.cash.wallet',
-                params: {},
-            },
-        },
-    },
-
     'profile-menu:transaction-history': {
         name: gettext('Transactions history'),
         type: 'sref',
@@ -1152,33 +1127,6 @@ export const wlcProfileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
 
     'profile-first-menu:loyalty-level': profileLoyaltyMenuItem,
 
-    'profile-menu:referrals': {
-        name: gettext('Referrals'),
-        type: 'sref',
-        icon: 'referrals',
-        class: 'referrals',
-        wlcElement: 'link_cc-profile-menu_referrals',
-        params: {
-            state: {
-                name: 'app.profile.referrals',
-                params: {},
-            },
-        },
-    },
-    'profile-first-menu:referrals': {
-        name: gettext('Referrals'),
-        type: 'sref',
-        icon: 'referrals',
-        class: 'referrals',
-        wlcElement: 'link_cc-profile-menu_referrals',
-        params: {
-            state: {
-                name: 'app.profile.referrals',
-                params: {},
-            },
-        },
-    },
-
     'profile-menu:dashboard': {
         name: gettext('Dashboard'),
         type: 'sref',
@@ -1289,28 +1237,12 @@ export const profileMenuFilter: ProfileMenuParams.IProfileMenuFilter[] = [
         item: 'profile-first-menu:loyalty',
     },
     {
-        config: '$base.profile.referrals.use',
-        item: 'profile-menu:referrals',
-    },
-    {
-        config: '$base.profile.referrals.use',
-        item: 'profile-first-menu:referrals',
-    },
-    {
         config: '$base.profile.dashboard.use',
         item: 'profile-menu:dashboard',
     },
     {
         config: '$base.profile.dashboard.use',
         item: 'profile-first-menu:dashboard',
-    },
-    {
-        config: '$base.profile.wallet.use',
-        item: 'profile-menu:cash-wallet',
-    },
-    {
-        config: '$base.profile.wallet.use',
-        item: 'profile-first-menu:cash-wallet',
     },
     {
         config: '$base.profile.socials.usePage',

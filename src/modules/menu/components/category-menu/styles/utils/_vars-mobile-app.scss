@@ -1,0 +1,43 @@
+$customMobileApp: () !default;
+$mobileAppDefault: map-merge((
+    'menuContentPading': 0 ef.size(1),
+    'menuGag': ef.size(2),
+    'iconDirection': column,
+    'iconAlign': center,
+    'menuItemPadding': (
+        375: ef.size(3) 0 0,
+        1630: ef.size(4) 0 0,
+    ),
+
+    'linkTextStyle': 'SignText',
+    'linkColor': var(--mc-baseMain),
+    'linkDecoration': none,
+    'linkTransform': null,
+    'linkTransition': all 0.25s ease-out,
+    'linkWidth': 84px,
+
+    'menuIconFlexDirection': column,
+    'menuIconAlignItems': center,
+    'menuIconJustifyContent': center,
+    'menuIconOuterWidth': (
+        375: 45px,
+    ),
+    'menuIconOuterHeight': (
+        375: 45px,
+    ),
+    'menuIconInnerWidth': (
+        375: 25px,
+    ),
+    'menuIconInnerHeight': (
+        375: 25px,
+    ),
+    'menuIconBackground': var(--mc-bg500),
+    'menuIconBoxTransition': all 0.15s ease-out,
+    'menuIconTransition': fill 0.3s ease-out,
+    'menuIconShadow': null,
+    'menuIconBorderRadius': ef.get('radius', 'large'),
+    'menuIconSvgFill': var(--mc-baseMain),
+    'menuIconInnerFill': null,
+
+    'transition': 0.5s ease-in,
+), $customMobileApp);

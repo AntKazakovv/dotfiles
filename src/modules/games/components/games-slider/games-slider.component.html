@@ -17,7 +17,7 @@
 
         <button wlc-button
             [disabled]="isActive"
-            text="{{$params.buttonText | translate}}"
+            [text]="$params.buttonText"
             (click)="startScrollingSwiper()">
         </button>
 </ng-template>

@@ -9,6 +9,9 @@ import {
     TemplateRef,
     AfterViewInit,
 } from '@angular/core';
+import {
+    StateService,
+} from '@uirouter/core';
 
 import {BehaviorSubject} from 'rxjs';
 import _times from 'lodash-es/times';
@@ -18,6 +21,7 @@ import {IconListAbstract} from 'wlc-engine/modules/core/system/classes/icon-list
 import {
     ConfigService,
     EventService,
+    GlobalHelper,
     IWrapperCParams,
     ModalService,
 } from 'wlc-engine/modules/core';
@@ -61,6 +65,7 @@ export class ProviderLinksComponent extends IconListAbstract<Params.IProviderLin
     constructor(
         @Inject('injectParams') protected injectParams: Params.IProviderLinksCParams,
         protected configService: ConfigService,
+        protected stateService: StateService,
         protected gamesCatalogService: GamesCatalogService,
         protected modalService: ModalService,
         protected eventService: EventService,
@@ -81,7 +86,12 @@ export class ProviderLinksComponent extends IconListAbstract<Params.IProviderLin
         this.ready = true;
     }
 
-    public showModal(): void {
+    public showAllProviders(): void {
+        if (GlobalHelper.isMobileApp()) {
+            this.stateService.go('app.providers');
+            return;
+        }
+
         this.modalService.showModal({
             id: 'provider-list',
             modifier: 'provider-list',
@@ -131,21 +141,20 @@ export class ProviderLinksComponent extends IconListAbstract<Params.IProviderLin
                         nameForPath: item.alias,
                         alt: item.alias,
                         title: gettext('See all games of') + ' ' + item.alias,
-                        sref: 'app.providers',
+                        sref: this.$params.defaultLinkSref,
                         srefParams: {provider: item.menuId},
                         colorIconBg: colorIconBg,
                     }),
                 };
             },
         );
-        this.$itemsChanges.next(this.items);
 
+        this.$itemsChanges.next(this.items);
         this.cdr.markForCheck();
     }
 
     protected setSliderParams(): void {
-        this.sliderParams.swiper = this.$params.sliderParams || {};
-
+        this.sliderParams = this.$params.sliderParams || {};
         this.slides = _times(this.items.length, (index: number) => {
             return {
                 templateRef: this.iconTemplate,

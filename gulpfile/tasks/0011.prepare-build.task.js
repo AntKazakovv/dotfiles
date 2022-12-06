@@ -54,7 +54,6 @@ module.exports = function preBuildTask() {
 
     /**
      * Create index.html for mobile app
-     * @returns {*}
      */
     const makeMobileAppIndexHtml = () => {
         return src(`${this.params.paths.engine}/src/mobile-app-index.html`)
@@ -238,6 +237,45 @@ module.exports = function preBuildTask() {
         }
     };
 
+    const makeEngineVersion = () => {
+        const rawEnginePackageJsonData = fs.readFileSync(
+            `${this.params.paths.engine}/package.json`,
+        );
+        const enginePackageJson = JSON.parse(rawEnginePackageJsonData);
+
+        const rawTranslatePackageJsonData = fs.readFileSync(
+            `${this.params.paths.languagesPack}/package.json`,
+        );
+        const translatePackageJson = JSON.parse(rawTranslatePackageJsonData);
+
+        const rawEngineComposerLockData = fs.readFileSync(
+            `${this.params.paths.root}/composer.lock`,
+        );
+        const engineComposerLock = JSON.parse(rawEngineComposerLockData);
+        const coreVersion = engineComposerLock.packages.find(p => p.name === 'egamings/wlc_core')?.version;
+
+        const engineInfoFileName = '/engine.json';
+        const engineInfoFile = `${this.params.paths.static}${engineInfoFileName}`;
+
+        if (fs.existsSync(engineInfoFile)) {
+            fs.unlinkSync(engineInfoFile);
+        }
+        fs.writeFileSync(
+            engineInfoFile,
+            '{'
+            + `\n\t"WLC Engine version": "${enginePackageJson.version}",`
+            + `\n\t"WLC Engine Translate version": "${translatePackageJson.version}",`
+            + `\n\t"WLC Core version": "${coreVersion}"`
+            + '\n}',
+        );
+
+        this.addToGitIgnore(
+            this.params.paths.static.replace(this.params.paths.root, ''),
+            '',
+            engineInfoFileName,
+        );
+    };
+
     task('prepare:build', (cb) => {
         makeDistDirectory();
         makeTempDirectory();
@@ -251,6 +289,7 @@ module.exports = function preBuildTask() {
         makeApiTestSymlink();
         createPiqFields();
         addMockServiceWorker();
+        makeEngineVersion();
 
         cb();
     });
