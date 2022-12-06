@@ -543,6 +543,10 @@
                 "file": "./900.change-logs/releases/1.20.0-rc.2_22-11-2022.md"
             },
             {
+                "title": "1.20.0RC11 (06-12-2022)",
+                "file": "./900.change-logs/releases/1.20.0-rc.11_06-12-2022.md"
+            },
+            {
                 "title": "1.20.0RC10 (05-12-2022)",
                 "file": "./900.change-logs/releases/1.20.0-rc.10_05-12-2022.md"
             },
@@ -696,6 +700,10 @@
             {
                 "title": "07-09-2022",
                 "file": "./1000.translations/history/07-09-2022.md"
+            },
+            {
+                "title": "06-12-2022",
+                "file": "./1000.translations/history/06-12-2022.md"
             },
             {
                 "title": "05-10-2022",
