@@ -2,6 +2,7 @@ import {
     MenuConfigItem,
 } from 'wlc-engine/modules/menu/components/menu/menu.params';
 import {
+    IIndexing,
     IMenuItem,
 } from 'wlc-engine/modules/core';
 import * as MenuParams from 'wlc-engine/modules/menu/components/menu/menu.params';
@@ -72,6 +73,7 @@ export interface IMenuConfig {
             headerMenu?: IBurgerPanelHeaderMenu;
         }
     },
+    customMenuItems?: IIndexing<MenuParams.MenuItemObjectType>;
 }
 
 export interface IFundist {

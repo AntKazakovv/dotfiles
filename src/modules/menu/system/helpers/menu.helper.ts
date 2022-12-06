@@ -41,6 +41,8 @@ import {TextDataModel} from 'wlc-engine/modules/static/system/models/textdata.mo
 import {ICategoryMenuCParams} from 'wlc-engine/modules/menu/components/category-menu/category-menu.params';
 import * as Params from 'wlc-engine/modules/menu/components/menu/menu.params';
 
+import * as $config from 'wlc-config/index';
+
 export interface IGetItemsByWpPosts {
     posts: TextDataModel[];
     defaultItemState: string,
@@ -418,7 +420,12 @@ export class MenuHelper {
 
             } else if (item.type === 'page') {
                 const itemId: string = `${type}:${item.id}`;
-                const menuItem = _cloneDeep(_get(wlcMenuItemGroupsGlobal, itemId) || _get(wlcMenuItemsGlobal, itemId));
+
+                const menuItem = _cloneDeep(
+                    _get($config, `$menu.customMenuItems.${itemId}`)
+                    || _get(wlcMenuItemGroupsGlobal, itemId)
+                    || _get(wlcMenuItemsGlobal, itemId));
+
                 if (menuItem) {
                     if (_has(menuItem, 'parent')) {
                         const parentItem = _cloneDeep(_get(wlcMenuItemsGlobal, _get(menuItem, 'parent')));
