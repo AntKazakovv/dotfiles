@@ -54,6 +54,12 @@ describe('/api/v1/docs/', () => {
             });
 
         /* get docsID */
+        await getDocsID();
+
+        skipTests = !docsTypes.length || !docsExtensions.length;
+    }, jasmine.DEFAULT_TIMEOUT_INTERVAL * maxRequestRetry);
+
+    const getDocsID = async (): Promise<void> => {
         await fetch(getRequestUrl(docsUrl), {headers})
             .then((res: Response) => res.json())
             .then((response: IData<IUserDoc[]>) => {
@@ -62,9 +68,7 @@ describe('/api/v1/docs/', () => {
                     docsID.push(element.ID);
                 });
             });
-
-        skipTests = !docsTypes.length || !docsExtensions.length;
-    }, jasmine.DEFAULT_TIMEOUT_INTERVAL * maxRequestRetry);
+    };
 
     afterAll(async (): Promise<void> => {
         await logout();
@@ -171,6 +175,9 @@ describe('/api/v1/docs/', () => {
             printWarn('Test skipped');
             return;
         }
+
+        await sendDocFile().catch(fail);
+        await getDocsID().catch(fail);
 
         const fileToDelete = Math.max(...docsID);
 

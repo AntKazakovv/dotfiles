@@ -91,6 +91,8 @@ export interface ICurrency {
     registration?: boolean,
 }
 
+export type TBooleanOptional = boolean | '' | 0 | 1;
+
 export interface ISiteConfig {
     currencies: IIndexing<ICurrency>;
     depositOnlyFullUserData: string; //TODO Should be number
@@ -121,11 +123,11 @@ export interface ISiteConfig {
     /**
      * Generate user password and send on email after registration
      */
-    registerGeneratePassword: number;
+    registerGeneratePassword: boolean;
     /**
      * Dont check password on edit profile on first session
      */
-    skipPassCheckOnFirstSession?: number;
+    skipPassCheckOnFirstSession?: TBooleanOptional;
     systemsGamePlayInfo: IIndexing<IGamePlayInfo>;
     LastWins?: string;
     RestrictMoneyGames?: number;

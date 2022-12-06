@@ -5,7 +5,11 @@ import {
     getRequestUrl,
     login,
     logout,
+    checkIfSuccess,
 } from './helpers/global';
+
+import {IData} from 'wlc-engine/modules/core';
+import {TBets} from 'wlc-engine/modules/profile/system/interfaces/bet.interfaces';
 
 describe('/api/v1/bets', () => {
     const format = 'y-LL-dd\'\T\'HH:mm:ss';
@@ -18,10 +22,8 @@ describe('/api/v1/bets', () => {
         const headers = await login();
         await fetch(url, {headers})
             .then((res: any) => res.json())
-            .then((response: any) => {
-                if (response.code !== 200) {
-                    throw new Error(response.errors);
-                }
+            .then((response: IData<TBets>) => {
+                checkIfSuccess(response);
                 expect(interfaceName).toBeImplemented(response.data);
             })
             .catch((err: unknown) => fail(err))
@@ -30,4 +32,3 @@ describe('/api/v1/bets', () => {
             });
     });
 });
-

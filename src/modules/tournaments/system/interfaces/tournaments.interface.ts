@@ -50,7 +50,7 @@ export interface ITournamentAbstract {
     Name: string;
     WinnerBy: 'bets' | 'wins' | 'turnovers' | 'turnovers_loose' | 'max_win' | 'fr';
     Terms: string;
-    Target: 'balance' | 'loyalty';
+    Target: 'balance' | 'loyalty' | 'bonus';
     Status: string;
     Series: string;
     Qualification: string;

@@ -9,11 +9,11 @@ import {
 
 import {IData} from 'wlc-engine/modules/core';
 import {IIndexing} from 'wlc-engine/modules/core/system/interfaces/global.interface';
-import {ILevel} from 'wlc-engine/modules/promo/system/interfaces/level.interface';
+import {ILevel} from 'wlc-engine/modules/loyalty/system/interfaces';
 
 describe('/api/v1/loyalty/levels', () => {
 
-    it('-> ILevel', async (done: DoneFn): Promise<void> => {
+    it('-> ILevel', async (): Promise<void> => {
 
         const url = getRequestUrl('/api/v1/loyalty/levels');
         const interfaceName = 'ILevel';
@@ -33,6 +33,7 @@ describe('/api/v1/loyalty/levels', () => {
                 }
             })
             .catch(fail)
-            .finally(done);
+            .finally()
+            .then();
     });
 });

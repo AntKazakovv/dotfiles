@@ -59,6 +59,7 @@ import {
     IParamsLayoutConfig,
     ILayoutsConfig,
     IBootstrap,
+    TBooleanOptional,
 } from 'wlc-engine/modules/core/system/interfaces';
 import {
     ICountry,
@@ -230,8 +231,8 @@ export class ConfigService {
         this.set<boolean>({name: '$user.isAuthenticated', value: this.global.appConfig.loggedIn});
         if (
             this.get<number>('appConfig.siteconfig.fastRegistration')
-            && this.get<number>('appConfig.siteconfig.registerGeneratePassword')
-            && this.get<number>('appConfig.siteconfig.skipPassCheckOnFirstSession')
+            && this.get<boolean>('appConfig.siteconfig.registerGeneratePassword')
+            && this.get<TBooleanOptional>('appConfig.siteconfig.skipPassCheckOnFirstSession')
         ) {
             this.set<boolean>({name: '$user.skipPasswordOnEditProfile', value: true});
             this.set<Promise<boolean>>({
