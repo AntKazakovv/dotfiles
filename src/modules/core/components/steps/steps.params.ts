@@ -1,3 +1,5 @@
+import {SwiperOptions} from 'swiper';
+
 import {
     CustomType,
     IComponentParams,
@@ -82,7 +84,7 @@ const textBlockHeaderSms = {
     },
 };
 
-const bonusesSwiperParams = {
+const bonusesSwiperParams: SwiperOptions = {
     slidesPerView: 1,
     spaceBetween: 10,
     loop: false,
@@ -91,6 +93,7 @@ const bonusesSwiperParams = {
         prevEl: '.wlc-bonuses-list .wlc-swiper-button-prev',
     },
     pagination: false,
+    followFinger: false,
 };
 
 const bonusesStepButton = {

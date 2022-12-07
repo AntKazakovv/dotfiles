@@ -19,6 +19,7 @@ export namespace wlcTournamentBannersSlider {
                                 spaceBetween: 5,
                                 pagination: false,
                                 lazy: true,
+                                followFinger: false,
                             },
                         },
                     },

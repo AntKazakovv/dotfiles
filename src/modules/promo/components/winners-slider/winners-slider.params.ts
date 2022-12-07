@@ -47,12 +47,15 @@ export const swiperParamsDefault: IIndexing<SwiperOptions> = {
         breakpoints: {
             320: {
                 slidesPerView: 1,
+                followFinger: false,
             },
             640: {
                 slidesPerView: 2,
+                followFinger: false,
             },
             1024: {
                 slidesPerView: 3,
+                followFinger: true,
             },
             1200: {
                 slidesPerView: 4,
@@ -66,12 +69,15 @@ export const swiperParamsDefault: IIndexing<SwiperOptions> = {
         breakpoints: {
             320: {
                 slidesPerView: 1,
+                followFinger: false,
             },
             640: {
                 slidesPerView: 2,
+                followFinger: false,
             },
             1024: {
                 slidesPerView: 3,
+                followFinger: true,
             },
             1200: {
                 slidesPerView: 3,
@@ -120,6 +126,12 @@ export const swiperParamsDefault: IIndexing<SwiperOptions> = {
         observeParents: true,
         preventClicks: false,
         breakpoints: {
+            320: {
+                followFinger: false,
+            },
+            1024: {
+                followFinger: true,
+            },
             1630: {
                 slidesPerView: 4,
             },

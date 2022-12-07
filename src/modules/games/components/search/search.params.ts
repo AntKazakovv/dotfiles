@@ -88,21 +88,25 @@ const defaultShowAsSwiper: IShowAsSwiper = {
                     slidesPerView: 2,
                     slidesPerGroup: 2,
                     spaceBetween: 10,
+                    followFinger: false,
                 },
                 560: {
                     slidesPerView: 3,
                     slidesPerGroup: 3,
                     spaceBetween: 10,
+                    followFinger: false,
                 },
                 720: {
                     slidesPerView: 4,
                     slidesPerGroup: 4,
                     spaceBetween: 10,
+                    followFinger: false,
                 },
                 1024: {
                     slidesPerView: 4,
                     slidesPerGroup: 4,
                     spaceBetween: 15,
+                    followFinger: true,
                 },
                 1200: {
                     slidesPerView: 5,
@@ -131,18 +135,22 @@ const showAsSwiper: IShowAsSwiper = _merge(
                             rows: 2,
                             fill: 'row',
                         },
+                        followFinger: false,
                     },
                     560: {
                         grid: {
                             rows: 2,
                             fill: 'row',
                         },
+                        followFinger: false,
                     },
                     720: {
                         grid: null,
+                        followFinger: false,
                     },
                     1024: {
                         grid: null,
+                        followFinger: true,
                     },
                     1200: {
                         grid: null,
@@ -168,24 +176,28 @@ const swiperOptionsOnHideSecondBlock: IShowAsSwiper = _merge(
                             rows: 3,
                             fill: 'row',
                         },
+                        followFinger: false,
                     },
                     560: {
                         grid: {
                             rows: 3,
                             fill: 'row',
                         },
+                        followFinger: false,
                     },
                     720: {
                         grid: {
                             rows: 2,
                             fill: 'row',
                         },
+                        followFinger: false,
                     },
                     1024: {
                         grid: {
                             rows: 2,
                             fill: 'row',
                         },
+                        followFinger: true,
                     },
                     1200: {
                         grid: {

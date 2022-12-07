@@ -519,12 +519,15 @@ export class BonusesListComponent extends AbstractComponent implements OnInit, O
                         breakpoints: {
                             320: {
                                 spaceBetween: 0,
+                                followFinger: false,
                             },
                             720: {
                                 spaceBetween: 0,
+                                followFinger: false,
                             },
                             1024: {
                                 spaceBetween: 0,
+                                followFinger: true,
                             },
                             1200: {
                                 spaceBetween: 0,

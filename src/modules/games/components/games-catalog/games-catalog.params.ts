@@ -34,26 +34,32 @@ export const sliderParams: ISliderCParams = {
             200: {
                 slidesPerView: 1,
                 spaceBetween: 10,
+                followFinger: false,
             },
             375: {
                 slidesPerView: 2,
                 spaceBetween: 10,
+                followFinger: false,
             },
             560: {
                 slidesPerView: 3,
                 spaceBetween: 10,
+                followFinger: false,
             },
             720: {
                 slidesPerView: 4,
                 spaceBetween: 10,
+                followFinger: false,
             },
             900: {
                 slidesPerView: 3,
                 spaceBetween: 10,
+                followFinger: false,
             },
             1024: {
                 slidesPerView: 4,
                 spaceBetween: 15,
+                followFinger: true,
             },
             1200: {
                 slidesPerView: 5,

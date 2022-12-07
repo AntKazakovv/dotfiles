@@ -117,40 +117,47 @@ export const defaultParams: IGamesSliderCParams = {
                     coverflowEffect: {
                         stretch: 115,
                     },
+                    followFinger: false,
                 },
                 560: {
                     coverflowEffect: {
                         stretch: 175,
                     },
+                    followFinger: false,
                 },
                 640: {
                     coverflowEffect: {
                         stretch: 204,
                     },
+                    followFinger: false,
                 },
                 720: {
                     coverflowEffect: {
                         stretch: 132,
                     },
                     slidesPerView: 3,
+                    followFinger: false,
                 },
                 768: {
                     coverflowEffect: {
                         stretch: 135,
                     },
                     slidesPerView: 3,
+                    followFinger: false,
                 },
                 900: {
                     coverflowEffect: {
                         stretch: 162,
                     },
                     slidesPerView: 3,
+                    followFinger: false,
                 },
                 1024: {
                     coverflowEffect: {
                         stretch: 145,
                     },
                     slidesPerView: 3,
+                    followFinger: true,
                 },
                 1200: {
                     coverflowEffect: {

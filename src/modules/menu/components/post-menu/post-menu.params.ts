@@ -66,6 +66,12 @@ export const defaultParams: IPostMenuCParams = {
                 slidesPerView: 'auto',
                 spaceBetween: 20,
                 breakpoints: {
+                    320: {
+                        followFinger: false,
+                    },
+                    1024: {
+                        followFinger: true,
+                    },
                     1630: {
                         spaceBetween: 60,
                     },

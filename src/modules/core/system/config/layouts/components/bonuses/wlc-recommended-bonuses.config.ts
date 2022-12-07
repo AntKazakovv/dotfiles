@@ -58,14 +58,17 @@ export namespace wlcRecommendedBonuses {
                             320: {
                                 slidesPerView: 1,
                                 spaceBetween: 10,
+                                followFinger: false,
                             },
                             640: {
                                 slidesPerView: 2,
                                 spaceBetween: 10,
+                                followFinger: false,
                             },
                             1024: {
                                 slidesPerView: 2,
                                 spaceBetween: 20,
+                                followFinger: true,
                             },
                             1200: {
                                 slidesPerView: 3,
@@ -120,30 +123,37 @@ export namespace wlcRecommendedBonuses {
                             320: {
                                 slidesPerView: 1.1,
                                 spaceBetween: 10,
+                                followFinger: false,
                             },
                             480: {
                                 slidesPerView: 1.35,
                                 spaceBetween: 10,
+                                followFinger: false,
                             },
                             560: {
                                 slidesPerView: 1.6,
                                 spaceBetween: 10,
+                                followFinger: false,
                             },
                             640: {
                                 slidesPerView: 2.1,
                                 spaceBetween: 10,
+                                followFinger: false,
                             },
                             768: {
                                 slidesPerView: 2.2,
                                 spaceBetween: 10,
+                                followFinger: false,
                             },
                             900: {
                                 slidesPerView: 2.6,
                                 spaceBetween: 10,
+                                followFinger: false,
                             },
                             1024: {
                                 slidesPerView: 2.1,
                                 spaceBetween: 20,
+                                followFinger: true,
                             },
                             1200: {
                                 slidesPerView: 3.1,

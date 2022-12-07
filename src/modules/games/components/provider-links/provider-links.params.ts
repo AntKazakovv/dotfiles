@@ -49,21 +49,25 @@ export const defaultParams: IProviderLinksCParams = {
                     spaceBetween: 10,
                     slidesPerView: 2,
                     slidesPerGroup: 1,
+                    followFinger: false,
                 },
                 560: {
                     spaceBetween: 10,
                     slidesPerView: 3,
                     slidesPerGroup: 1,
+                    followFinger: false,
                 },
                 720: {
                     spaceBetween: 15,
                     slidesPerView: 4,
                     slidesPerGroup: 4,
+                    followFinger: false,
                 },
                 1024: {
                     spaceBetween: 15,
                     slidesPerView: 5,
                     slidesPerGroup: 5,
+                    followFinger: true,
                 },
                 1366: {
                     spaceBetween: 15,

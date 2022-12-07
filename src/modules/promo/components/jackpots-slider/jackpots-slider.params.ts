@@ -39,6 +39,12 @@ export const defaultParams: Partial<IJackpotsSliderCParams> = {
             observeParents: true,
             preventClicks: false,
             breakpoints: {
+                320: {
+                    followFinger: false,
+                },
+                1024: {
+                    followFinger: true,
+                },
                 1630: {
                     slidesPerView: 4,
                 },

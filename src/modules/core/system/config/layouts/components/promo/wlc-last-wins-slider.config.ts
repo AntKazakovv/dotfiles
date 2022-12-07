@@ -47,9 +47,15 @@ export namespace wlcLastWinsSlider {
                 breakpoints: {
                     320: {
                         slidesPerView: 3,
+                        followFinger: false,
                     },
-                    1200: {
+                    900: {
                         slidesPerView: 4,
+                        followFinger: false,
+                    },
+                    1024: {
+                        slidesPerView: 4,
+                        followFinger: true,
                     },
                 },
             },
@@ -67,9 +73,15 @@ export namespace wlcLastWinsSlider {
                 breakpoints: {
                     320: {
                         slidesPerView: 3,
+                        followFinger: false,
                     },
                     900: {
                         slidesPerView: 4,
+                        followFinger: false,
+                    },
+                    1024: {
+                        slidesPerView: 4,
+                        followFinger: true,
                     },
                 },
             },
@@ -107,6 +119,12 @@ export namespace wlcLastWinsSlider {
             wlcElement: 'section_last-winners',
             swiper: {
                 breakpoints: {
+                    320: {
+                        followFinger: false,
+                    },
+                    1024: {
+                        followFinger: true,
+                    },
                     1200: {
                         slidesPerView: 4,
                     },

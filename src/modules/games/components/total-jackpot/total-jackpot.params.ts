@@ -93,21 +93,25 @@ export const defaultParams: ITotalJackpotCParams = {
                             slidesPerView: 2.4,
                             slidesPerGroup: 2,
                             spaceBetween: 10,
+                            followFinger: false,
                         },
                         560: {
                             slidesPerView: 2.8,
                             slidesPerGroup: 2,
                             spaceBetween: 10,
+                            followFinger: false,
                         },
                         720: {
                             slidesPerView: 4.1,
                             slidesPerGroup: 3,
                             spaceBetween: 10,
+                            followFinger: false,
                         },
                         1024: {
                             slidesPerView: 4,
                             slidesPerGroup: 4,
                             spaceBetween: 15,
+                            followFinger: true,
                         },
                         1200: {
                             slidesPerView: 4,
@@ -135,4 +139,3 @@ export const defaultParams: ITotalJackpotCParams = {
         text: gettext('Play'),
     },
 };
-

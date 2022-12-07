@@ -261,30 +261,37 @@ export namespace wlcBonusesList {
                         320: {
                             slidesPerView: 1.1,
                             spaceBetween: 10,
+                            followFinger: false,
                         },
                         480: {
                             slidesPerView: 1.4,
                             spaceBetween: 10,
+                            followFinger: false,
                         },
                         560: {
                             slidesPerView: 1.6,
                             spaceBetween: 10,
+                            followFinger: false,
                         },
                         640: {
                             slidesPerView: 2.1,
                             spaceBetween: 10,
+                            followFinger: false,
                         },
                         768: {
                             slidesPerView: 2.3,
                             spaceBetween: 10,
+                            followFinger: false,
                         },
                         900: {
                             slidesPerView: 2.7,
                             spaceBetween: 10,
+                            followFinger: false,
                         },
                         1024: {
                             slidesPerView: 2.9,
                             spaceBetween: 15,
+                            followFinger: true,
                         },
                         1366: {
                             slidesPerView: 2.1,

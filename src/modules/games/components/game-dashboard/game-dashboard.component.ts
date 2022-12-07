@@ -312,16 +312,8 @@ export class GameDashboardComponent extends AbstractComponent implements OnInit,
                 },
                 spaceBetween: 10,
                 breakpoints: {
-                    1000: {
-                        direction: 'horizontal',
-                        slidesPerView: 'auto',
-                        grid: {
-                            rows: lastPlayedSlidesPerColumn,
-                        },
-                        spaceBetween: 10,
-                        pagination: {
-                            clickable: true,
-                        },
+                    320: {
+                        followFinger: false,
                     },
                     860: {
                         direction: 'horizontal',
@@ -333,6 +325,22 @@ export class GameDashboardComponent extends AbstractComponent implements OnInit,
                         pagination: {
                             clickable: true,
                         },
+                        followFinger: false,
+                    },
+                    1000: {
+                        direction: 'horizontal',
+                        slidesPerView: 'auto',
+                        grid: {
+                            rows: lastPlayedSlidesPerColumn,
+                        },
+                        spaceBetween: 10,
+                        pagination: {
+                            clickable: true,
+                        },
+                        followFinger: false,
+                    },
+                    1024: {
+                        followFinger: true,
                     },
                 },
             },
