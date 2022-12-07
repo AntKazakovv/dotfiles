@@ -60,7 +60,6 @@ $themeBorderAround: map-merge((
     'currentPadding': ef.size(1),
     'currentRadius': ef.get('radius', 'biger'),
     'currentFlagSize': 27px,
-    'flagBoxShadowHover': none,
 ), $customThemeBorderAround);
 
 $customThemeDefaultModLog: () !default;
@@ -76,7 +75,7 @@ $themeDefaultModLog: map-merge((
     'currentBgModLongActive': var(--mc-main),
     'currentBgModLongHover': var(--mc-bg500-l10),
     'currentFillModLong': var(--mc-baseOpacity),
-    'currentFillModLongHover': inherit,
+    'currentFillModLongHover': currentColor,
     'currentFillModLongActive': ef.get('mainColors', 'baseMain'),
     'currentBorderRadiusModLong': 10px,
     'currentMarginModLong': 5px 0,
