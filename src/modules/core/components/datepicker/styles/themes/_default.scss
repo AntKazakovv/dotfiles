@@ -162,7 +162,8 @@
             }
         }
 
-        .myDpPrevMonth {
+        .myDpPrevMonth,
+        .myDpNextMonth {
             opacity: ef.get-value($themeDefault, 'datepickerDisabledOpacity');
         }
 

@@ -175,6 +175,7 @@ export class HistoryFilterComponent extends AbstractComponent implements OnInit,
                                             styleClass: 'defaultDate',
                                         }],
                                         disableUntil: {day, month, year},
+                                        alignSelectorRight: true,
                                     },
                                 },
                             })
