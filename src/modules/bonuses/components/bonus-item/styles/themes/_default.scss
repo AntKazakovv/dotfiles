@@ -187,15 +187,6 @@
             }
         }
 
-        &.wlc-bonus-item--type-active,
-        &.wlc-bonus-item--is-active {
-
-            .wlc-bonus-item__tag {
-                color: ef.get-value($themeDefault, 'tagFontColorActive');
-                background: ef.get-value($themeDefault, 'tagBgActive');
-            }
-        }
-
         &__content {
 
             &.disabled {
@@ -208,6 +199,15 @@
                     pointer-events: none;
                 }
             }
+        }
+    }
+
+    &.wlc-bonus-item--type-active,
+    &.wlc-bonus-item--is-active {
+
+        .wlc-bonus-item__tag {
+            color: ef.get-value($themeDefault, 'tagFontColorActive');
+            background: ef.get-value($themeDefault, 'tagBgActive');
         }
     }
 }
