@@ -1,0 +1,32 @@
+$customThemePodium: () !default;
+$themePodium: map-merge((
+    'maxWidth': 465px,
+    'margin': 0 auto,
+
+    'wrapperGridAreas': 'p2 p1 p3',
+    'wrapperGridColumns': 30% 40% 30%,
+    'wrapperGap': (
+        375: ef.size(1),
+        768: ef.size(2),
+    ),
+    'wrapperAlignItems': end,
+
+    'itemAlignItems': center,
+
+    'cupMaxWidthP1': 100%,
+    'cupMaxWidthP2': 100px,
+    'cupMaxWidthP3': 85px,
+    'cupBackdropP1': #ffc804,
+    'cupBackdropP2': #87dbff,
+    'cupBackdropP3': #ff0000,
+    'cupBackdropWidth': 90%,
+    'cupBackdropHeight': 75%,
+    'cupBackdropShadowSize': 0 0 35px,
+
+    'captionMargin': ef.size(2) 0 0,
+    'captionPadding': 0 ef.size(2),
+    'captionBg': var(--mc-baseMain),
+    'captionTextStyle': 'PrimaryTextBold',
+    'captionTextColor': var(--fc-textColor),
+    'captionRadius': ef.get('radius', 'biger'),
+), $customThemePodium);

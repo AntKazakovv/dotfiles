@@ -7,11 +7,13 @@ import {
 } from '@angular/core';
 import {
     AbstractComponent,
+    ConfigService,
     GlobalHelper,
 } from 'wlc-engine/modules/core';
 import {Tournament} from 'wlc-engine/modules/tournaments';
 
 import * as Params from './tournament-prizes.params';
+import {TPrizePodiumImages} from 'wlc-engine/modules/tournaments';
 
 import _slice from 'lodash-es/slice';
 
@@ -33,9 +35,11 @@ export class TournamentPrizesComponent
 
     public $params: Params.ITournamentPrizesCParams;
     public prizesTable: any;
+    public podiumImages: TPrizePodiumImages;
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.ITournamentPrizesCParams,
+        protected configService: ConfigService,
     ) {
         super({
             injectParams,
@@ -48,6 +52,7 @@ export class TournamentPrizesComponent
             ['tournament', 'type', 'theme', 'themeMod', 'customMod', 'rowsLimit']));
 
         this.preparePrizesTable();
+        this.podiumImages = this.configService.get<TPrizePodiumImages>('$tournaments.prizePodium.images');
     }
 
     protected preparePrizesTable(): void {

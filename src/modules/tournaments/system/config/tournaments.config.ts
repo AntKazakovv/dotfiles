@@ -11,4 +11,12 @@ export const tournamentsConfig: ITournamentsModule = {
             },
         },
     },
+    prizePodium: {
+        useOnDetail: false,
+        images: {
+            1: '/gstatic/wlc/tournaments/podium/01.png',
+            2: '/gstatic/wlc/tournaments/podium/02.png',
+            3: '/gstatic/wlc/tournaments/podium/03.png',
+        },
+    },
 };

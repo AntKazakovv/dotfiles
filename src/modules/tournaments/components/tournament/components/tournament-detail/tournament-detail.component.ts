@@ -13,7 +13,7 @@ import {
 import {UIRouter} from '@uirouter/core';
 
 import {takeUntil} from 'rxjs/operators';
-import _each from 'lodash-es/each';
+import _map from 'lodash-es/map';
 import _set from 'lodash-es/set';
 
 import {
@@ -57,6 +57,7 @@ export class TournamentDetailComponent extends AbstractComponent implements
     public menuParams: MenuParams.IMenuCParams;
     public gamesGridConfig = Params.gamesGridConfig;
     public menuConfig: IWrapperCParams = {components: []};
+    public usePodium: boolean;
     protected gamesCatalogService: GamesCatalogService;
 
     constructor(
@@ -81,6 +82,8 @@ export class TournamentDetailComponent extends AbstractComponent implements
     public ngOnInit(): void {
         super.ngOnInit(GlobalHelper.prepareParams(this,
             ['tournament', 'type', 'theme', 'themeMod', 'customMod']));
+
+        this.usePodium = this.configService.get<boolean>('$tournaments.prizePodium.useOnDetail');
     }
 
     public async ngAfterViewInit(): Promise<void> {
@@ -143,20 +146,22 @@ export class TournamentDetailComponent extends AbstractComponent implements
     }
 
     private preparePrizeboard(): void {
-        const rows: Params.ITournamentPrizeRows[] = [];
+        const currency: string = this.tournament.targetDefaultCurrency;
+        const digitsInfo: string = this.tournament.currencyDigitsInfo;
         this.tablePrizeboard = this.$params.common.tablePrizeboard;
 
-        _each(this.tournament.winningSpread, (value: number, index: number): void => {
-            rows.push({
-                Place: index + 1,
-                Prize: {
-                    value: this.tournament.winningSpread[index],
-                    currency: this.tournament.targetDefaultCurrency,
-                },
+        this.tablePrizeboard.rows = _map(
+            this.tournament.winningSpread,
+            (value: number, index: number): Params.ITournamentPrizeRows => {
+                return {
+                    Place: index + 1,
+                    Prize: {
+                        value,
+                        currency,
+                        digitsInfo,
+                    },
+                };
             });
-        });
-
-        this.tablePrizeboard.rows = rows;
     }
 
     private prepareMenu(): void {

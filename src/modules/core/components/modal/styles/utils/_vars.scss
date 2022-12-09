@@ -383,6 +383,7 @@ $themeDefault: map-merge((
     ),
     'tournamentDetailFooterPadding': (
         320: ef.size(4) 0,
+        768: ef.size(4) 0 ef.size(8),
     ),
     'tournamentDetailIconCloseTop': (
         320: ef.size(3),

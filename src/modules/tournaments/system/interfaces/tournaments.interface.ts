@@ -95,6 +95,15 @@ export interface ITopTournamentUsers {
     user?: ITournamentUser;
 }
 
+export type TPrizePodiumImages = Partial<Record<1 | 2 | 3, string>>;
+
+export interface IPrizePodium {
+    /** Show prize podium in tournament detail view */
+    useOnDetail?: boolean;
+    /** Images for prize podium */
+    images?: TPrizePodiumImages;
+}
+
 export interface ITournamentsModule {
     components?: ITournamentsComponents;
     defaultImages?: {
@@ -109,6 +118,7 @@ export interface ITournamentsModule {
         /** Tournament extra image to be displayed as decor over the main image on home page */
         imageOther?: string;
     },
+    prizePodium?: IPrizePodium;
 }
 
 export interface ITournamentPlace {

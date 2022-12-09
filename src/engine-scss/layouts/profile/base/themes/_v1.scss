@@ -7,6 +7,10 @@
         @include bm.get-mq-map('display', $profileSettings, 'profileDisplayV1');
         @include bm.get-mq-map('grid-template-columns', $profileSettings, 'profileGridTemplateColumnsV1');
         @include bm.get-mq-map('max-width', $profileSettings, 'profileWidthV1');
+
+        .app-profile-loyalty-tournaments-detail-state & {
+            @include bm.get-mq-map('padding', $profileSettings, 'profilePaddingV1TournDetail');
+        }
     }
 
     .wlc-profile-content {
@@ -21,6 +25,10 @@
 
         .wlc-profile-content__header {
             @include bm.get-mq-map('margin', $profileSettings, 'contentHeaderMarginV1');
+        }
+
+        .app-profile-loyalty-tournaments-detail-state & {
+            @include bm.get-mq-map('padding', $profileSettings, 'contentPaddingV1TourntDetail');
         }
     }
 

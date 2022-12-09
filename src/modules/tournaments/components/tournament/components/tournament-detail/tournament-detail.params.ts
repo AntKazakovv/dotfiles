@@ -47,7 +47,8 @@ export interface ITournamentPrizeRows {
     Place: number,
     Prize: {
         value: number,
-        currency: string
+        currency: string,
+        digitsInfo?: string,
     },
 }
 

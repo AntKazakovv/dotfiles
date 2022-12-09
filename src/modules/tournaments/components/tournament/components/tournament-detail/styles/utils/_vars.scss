@@ -6,11 +6,14 @@ $themeDefault: map-merge((
     ),
     'defaultPadding': (
         320: ef.size(4),
-        768: ef.size(4) 0,
+        768: ef.size(4) 0 ef.size(8),
     ),
     'headerInfoMinHeight': (
         320: auto,
         1024: 345px,
+    ),
+    'headerPadding': (
+        320: ef.size(4) 0,
     ),
     'headerTemplateAreas': (
         320: 'Hstatus' 'Htitle' 'Hdesc' 'Htimer' 'Hbutton',
@@ -27,6 +30,7 @@ $themeDefault: map-merge((
     'headerBorderRadius': (
         560: ef.get('radius', 'big') ef.get('radius', 'big') 0 0,
     ),
+    'headerInnerPadding': 0 ef.size(4),
     'headerBg': var(--mc-bg500),
     'headerBgPosition': center,
     'headerBgSize': cover,
@@ -45,8 +49,7 @@ $themeDefault: map-merge((
         768: 4px,
     ),
     'headerBackLinkLeft': (
-        320: 0,
-        768: 20px,
+        320: ef.size(4),
     ),
     'headerBackLinkTextStyle': 'CaptionTextBold',
     'headerBackLinkTextColor': var(--mc-main),
@@ -106,11 +109,20 @@ $themeDefault: map-merge((
     'leaderboardTitleColor': var(--mc-baseMain),
     'leaderboardTitleAlign': center,
 
+    'prizesBg': (
+        320: linear-gradient(180deg, #124c58 0%, #4f2d69 100%),
+    ),
     'prizepoolTemplateAreas': (
         320: 'PPTitle' 'PPAmount',
     ),
+    'prizepoolRowGap': (
+        320: 0,
+    ),
+    'prizepoolPadding': (
+        320: ef.size(4) 0,
+    ),
     'prizepoolJustifyContent': center,
-    'prizepoolBg': var(--mc-bg700),
+    'prizepoolBg': transparent,
     'prizepoolTitleStyle': 'QoteTextBold',
     'prizepoolTitleColor': var(--mc-baseMain),
     'prizepoolTitleSelf': center,
@@ -122,6 +134,13 @@ $themeDefault: map-merge((
         768: 530px,
     ),
 
+    'podiumPadding': (
+        320: 0 ef.size(4) ef.size(4),
+    ),
+    'podiumBg': (
+        320: transparent,
+    ),
+
     'prizeboardColumnWidth': (
         320: 100%,
         768: 350px,
@@ -130,11 +149,11 @@ $themeDefault: map-merge((
     'prizeboardButtonSelf': center,
 
     'prizeboardButtonTransition': width 0s,
-    'prizeboardBg': var(--mc-bg500),
+    'prizeboardBg': transparent,
 
     'gamesPadding': (
         320: ef.size(4) ef.size(3),
-        768: ef.size(4)
+        768: ef.size(4) ef.size(4) ef.size(8),
     ),
     'gamesTitleStyle': 'QoteTextBold',
     'gamesTitleColor': var(--mc-baseMain),

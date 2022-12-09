@@ -1,0 +1,85 @@
+.wlc-tournament-prizes--theme-podium:host {
+    --podium-cup-max-width: 100%;
+
+    width: 100%;
+    max-width: ef.get-value($themePodium, 'maxWidth');
+    margin: ef.get-value($themePodium, 'margin');
+
+    .wlc-tournament-prizes {
+
+        &__wrapper {
+            @include bm.get-mq-map('gap', $themePodium, 'wrapperGap');
+            display: grid;
+            grid-template-areas: ef.get-value($themePodium, 'wrapperGridAreas');
+            grid-template-columns: ef.get-value($themePodium, 'wrapperGridColumns');
+            align-items: ef.get-value($themePodium, 'wrapperAlignItems');
+            justify-content: center;
+        }
+
+        &__item {
+            display: flex;
+            flex-direction: column;
+            align-items: ef.get-value($themePodium, 'itemAlignItems');
+
+            &-cup-wrapper {
+                position: relative;
+                max-width: var(--podium-cup-max-width);
+
+                &:before {
+                    @include bm.absoluteCentering();
+
+                    content: '';
+                    z-index: 0;
+
+                    display: block;
+                    width: ef.get-value($themePodium, 'cupBackdropWidth');
+                    height: ef.get-value($themePodium, 'cupBackdropHeight');
+
+                    box-shadow: ef.get-value($themePodium, 'cupBackdropShadowSize') var(--podium-cup-backdrop);
+                    border-radius: 50%;
+                }
+            }
+
+            &-cup {
+                position: relative;
+                z-index: 1;
+                max-width: 100%;
+            }
+
+            &-caption {
+                @include text.get-text-style(
+                    ef.get-value($themePodium, 'captionTextStyle'),
+                    ef.get-value($themePodium, 'captionTextColor')
+                );
+
+                position: relative;
+                z-index: 5;
+                margin: ef.get-value($themePodium, 'captionMargin');
+                padding: ef.get-value($themePodium, 'captionPadding');
+                background: ef.get-value($themePodium, 'captionBg');
+                border-radius: ef.get-value($themePodium, 'captionRadius');
+            }
+
+            &:nth-child(1) {
+                --podium-cup-max-width: #{ef.get-value($themePodium, 'cupMaxWidthP1')};
+                --podium-cup-backdrop: #{ef.get-value($themePodium, 'cupBackdropP1')};
+
+                grid-area: p1;
+            }
+
+            &:nth-child(2) {
+                --podium-cup-max-width: #{ef.get-value($themePodium, 'cupMaxWidthP2')};
+                --podium-cup-backdrop: #{ef.get-value($themePodium, 'cupBackdropP2')};
+
+                grid-area: p2;
+            }
+
+            &:nth-child(3) {
+                --podium-cup-max-width: #{ef.get-value($themePodium, 'cupMaxWidthP3')};
+                --podium-cup-backdrop: #{ef.get-value($themePodium, 'cupBackdropP3')};
+
+                grid-area: p3;
+            }
+        }
+    }
+}

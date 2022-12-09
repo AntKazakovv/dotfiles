@@ -84,6 +84,14 @@
                  [currency]="tournament.targetDefaultCurrency">
             </div>
         </div>
+
+        <div *ngIf="usePodium" class="{{$class}}__podium">
+             <div wlc-tournament-prizes
+                [inlineParams]="{theme: 'podium'}"
+                [tournament]="$params.common.tournament">
+            </div>
+        </div>
+
         <div *ngIf="tablePrizeboard" class="{{$class}}__prizeboard">
             <div *ngIf="tablePrizeboard.rows.length; else empty" wlc-table [inlineParams]="tablePrizeboard"></div>
 

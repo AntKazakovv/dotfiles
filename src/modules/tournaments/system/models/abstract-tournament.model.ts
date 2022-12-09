@@ -183,6 +183,11 @@ export abstract class AbstractTournamentModel<T extends ITournamentAbstract> ext
         return this.checkTargetCurrency(!this.useUsersCurrency);
     }
 
+    /** @returns {string} currency formatting config */
+    public get currencyDigitsInfo(): string {
+        return this.targetDefaultCurrency === 'LP' ? '1-0-0' : '1-2-2';
+    }
+
     /**
      * Winners subscription
      *

@@ -1,0 +1,54 @@
+$customThemeDefault: () !default;
+$themeDefault: map-merge((
+    'containerBackground': var(--mc-bg),
+    'containerRadius': ef.get('radius', 'biger'),
+    'containerPadding': ef.size(3) 0,
+
+    'headPadding': 0 ef.size(3) ef.size(2),
+    'headMargin': 0 0 ef.size(3),
+    'headBorderBottom':  2px solid var(--mc-bg500),
+
+    'headTextFontStyle': 'CaptionText',
+    'headTextColor': var(--mc-baseMain),
+    'headTextMaxWidth': 100%,
+
+    'bodyPadding': 0 ef.size(3),
+    'bodyMargin': 0,
+    'bodyBackground': var(--mc-bg),
+    'bodyRadius': ef.get('radius', 'biger'),
+
+    'bodyRowMargin':  0 0 ef.size(3),
+
+    'bodyColFontStyle': 'PrimaryTextBold',
+    'bodyColColor': var(--mc-baseMain),
+
+    'bodyTextAlignItems': center,
+
+    'bodyIconFill': var(--mc-baseOpacity),
+
+    'bodyPlaceMinWidth': 15px,
+    'bodyPlaceMargin': 0 ef.size(1) 0 0,
+
+    'rowAlignItems': center,
+
+    'colFlex': 1 0 0%,
+    'colMinWidth': 0%,
+    'colPadding': 0 2px,
+    'colPercentTextAlign': (
+        320: center,
+        480: left,
+        900: center,
+    ),
+
+    'textAlign': center,
+
+    'containerBackgroundCompact': var(--mc-bg500),
+    'paddingCompact': 0,
+    'headPaddingCompact': 0 ef.size(3),
+    'headMarginCompact': 0 0 ef.size(2),
+    'headTextFontStyleCompact': 'SignText',
+    'bodyBackgroundCompact': var(--mc-bg),
+    'bodyPaddingCompact': ef.size(2) ef.size(3),
+    'bodyRadiusCompact': ef.get('radius', 'biger'),
+    'bodyRowMarginCompact': 0 0 ef.size(2),
+), $customThemeDefault);

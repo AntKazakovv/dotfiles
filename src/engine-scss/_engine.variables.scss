@@ -521,6 +521,10 @@ $profileSettings: map-merge((
         375: size-func(4) size-func(4) size-func(8),
         1200: 0,
     ),
+    'profilePaddingV1TournDetail': (
+        375: 0,
+        1200: 0,
+    ),
     'profileBg': (
         375: var(--mc-bg700),
         1024: var(--mc-bg700),
@@ -554,6 +558,11 @@ $profileSettings: map-merge((
     ),
     'contentPaddingV1': (
         375: size-func(4) 0 0,
+        1200: size-func(3) size-func(6) size-func(4),
+        1630: size-func(4) size-func(8) size-func(6),
+    ),
+    'contentPaddingV1TourntDetail': (
+        375: 0,
         1200: size-func(3) size-func(6) size-func(4),
         1630: size-func(4) size-func(8) size-func(6),
     ),

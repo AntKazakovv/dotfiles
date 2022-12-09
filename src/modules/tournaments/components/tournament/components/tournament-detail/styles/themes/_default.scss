@@ -10,7 +10,7 @@ $selector: '.wlc-tournament-detail';
             @include bm.get-mq-map('row-gap', $themeDefault, 'defaultRowGap');
             @include bm.get-mq-map('justify-content', $themeDefault, 'headerJustifyContent');
             @include bm.get-mq-map('align-items', $themeDefault, 'headerAlignItems');
-            @include bm.get-mq-map('padding', $themeDefault, 'defaultPadding');
+            @include bm.get-mq-map('padding', $themeDefault, 'headerPadding');
             @include bm.get-mq-map('min-height', $themeDefault, 'headerInfoMinHeight');
             @include bm.get-mq-map('background', $themeDefault, 'headerBg');
             @include bm.get-mq-map('background-position', $themeDefault, 'headerBgPosition');
@@ -36,6 +36,10 @@ $selector: '.wlc-tournament-detail';
 
                 position: relative;
                 display: grid;
+            }
+
+            &-inner {
+                padding: ef.get-value($themeDefault, 'headerInnerPadding');
             }
 
             &--back-link {
@@ -167,12 +171,16 @@ $selector: '.wlc-tournament-detail';
             }
         }
 
+        #{$selector}__prizes-block {
+            @include bm.get-mq-map('background', $themeDefault, 'prizesBg');
+        }
+
         #{$selector}__prizepool {
             @include bm.get-mq-map('grid-template-columns', $themeDefault, 'prizepoolColumnWidth');
             @include bm.get-mq-map('grid-template-areas', $themeDefault, 'prizepoolTemplateAreas');
-            @include bm.get-mq-map('row-gap', $themeDefault, 'defaultRowGap');
+            @include bm.get-mq-map('row-gap', $themeDefault, 'prizepoolRowGap');
             @include bm.get-mq-map('justify-content', $themeDefault, 'prizepoolJustifyContent');
-            @include bm.get-mq-map('padding', $themeDefault, 'defaultPadding');
+            @include bm.get-mq-map('padding', $themeDefault, 'prizepoolPadding');
             @include bm.get-mq-map('background', $themeDefault, 'prizepoolBg');
             display: grid;
 
@@ -187,6 +195,11 @@ $selector: '.wlc-tournament-detail';
                 @include text.get-text-style(ef.get-value($themeDefault, 'prizepoolAmoutTitleStyle'), ef.get-value($themeDefault, 'prizepoolAmoutTitleColor'));
                 grid-area: PPAmount;
             }
+        }
+
+        #{$selector}__podium {
+            @include bm.get-mq-map('padding', $themeDefault, 'podiumPadding');
+            @include bm.get-mq-map('background', $themeDefault, 'podiumBg');
         }
 
         #{$selector}__prizeboard {
