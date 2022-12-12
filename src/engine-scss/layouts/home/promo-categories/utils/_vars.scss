@@ -1,13 +1,13 @@
 $customThemePromoCategories: () !default;
 $themePromoCategories: map-merge((
     'sectionGridColumns': (
-        375: repeat(2, 1fr),
-        560: repeat(3, 1fr),
-        720: repeat(4, 1fr),
-        900: repeat(3, 1fr),
-        1024: repeat(4, 1fr),
-        1200: repeat(5, 1fr),
-        1630: repeat(6, 1fr),
+        375: repeat(2, minmax(0, 1fr)),
+        560: repeat(3, minmax(0, 1fr)),
+        720: repeat(4, minmax(0, 1fr)),
+        900: repeat(3, minmax(0, 1fr)),
+        1024: repeat(4, minmax(0, 1fr)),
+        1200: repeat(5, minmax(0, 1fr)),
+        1630: repeat(6, minmax(0, 1fr)),
     ),
     'sectionGap': (
         375: ef.size(2),
