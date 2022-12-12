@@ -60,7 +60,7 @@
     <div *ngIf="!bonuses.length"
         wlc-alert
         class="{{$class}}__empty"
-        [title]="noBonusesText"
+        [title]="noBonusesText | translate"
         level="warning">
     </div>
 
