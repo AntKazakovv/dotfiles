@@ -55,7 +55,7 @@ export const tableConfig: ITableCol[] = [
     },
     {
         key: 'amountValue',
-        title: gettext('Period'),
+        title: gettext('Value'),
         type: 'component',
         order: 20,
         componentClass: LimitValueComponent,
