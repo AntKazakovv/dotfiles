@@ -80,7 +80,7 @@ export class BonusButtonsComponent extends AbstractComponent implements OnInit {
      */
     public get isShowPlayBtn(): boolean {
         return ((this.bonus.isSubscribed && !this.bonus.isDeposit) || this.bonus.isActive)
-            && !this.bonus.isLootbox && !this.bonus.inventoried;
+            && !this.bonus.inventoried;
     }
 
     /**
