@@ -408,25 +408,16 @@
 // fixes for ios
 .wlc-body--os-ios {
 
-    .wlc-modal {
+    .wlc-modal__dialog {
+        margin: ef.get-value($hostModal, 'modalOffsetIosMobile');
 
-        &__dialog {
-            margin: ef.get-value($hostModal, 'modalOffsetIosMobile');
+        &--scrollable {
 
-            &--scrollable {
-
-                .wlc-modal__body {
-                    @include bm.get-mq-map('height', $hostModal, 'staticMaxHeightMobileIos');
-                    overflow-y: auto;
-                }
+            .wlc-modal__body {
+                @include bm.get-mq-map('height', $hostModal, 'staticMaxHeightMobileIos');
+                overflow-y: auto;
             }
         }
-    }
-
-    .modal-backdrop {
-        @include bm.get-mq-map('top', $hostModal, 'backdropIosTop');
-        @include bm.get-mq-map('transform', $hostModal, 'backdropIosTransform');
-        will-change: transform;
     }
 }
 

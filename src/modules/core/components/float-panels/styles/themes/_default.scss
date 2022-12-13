@@ -13,12 +13,10 @@ $baseClass: 'wlc-float-panels';
 :host {
     &.#{$baseClass} {
         @include backdrop();
-
         visibility: hidden;
 
         .#{$baseClass}__backdrop {
             @include backdrop(ef.get-value($themeDefault, zindex - 1));
-
             background: var(--fp-backdrop-background);
             visibility: var(--fp-backdrop-visibility, hidden);
             transition: ef.get-value($themeDefault, transition);

@@ -243,15 +243,6 @@ $hostModal: map-merge((
     'scrollbarTrackBg': var(--mc-bg500),
     'scrollbarThumbBg': var(--mc-main),
     'scrollbarBorder': 1px solid var(--mc-bg500),
-
-    'backdropIosTop': (
-        320: -70px,
-        900: 0,
-    ),
-    'backdropIosTransform': (
-        320: translateY(70px),
-        900: none,
-    ),
 ), $customHostModal);
 
 $customLanguageModal: () !default;
