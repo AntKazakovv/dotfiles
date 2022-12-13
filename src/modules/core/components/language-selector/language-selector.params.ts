@@ -54,7 +54,6 @@ export const defaultParams: ILanguageSelectorCParams = {
                 'zh-hans': 'cn',
                 'zh-hant': 'cn',
                 'sp': 'es',
-                'pt-br': 'pt',
                 'da': 'dk',
                 'sv': 'se',
             },
