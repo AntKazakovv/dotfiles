@@ -332,7 +332,7 @@ export namespace FormElements {
             },
             customMod: ['password'],
             name: 'currentPassword',
-            validators: ['required', 'password', 'passwordLength'],
+            validators: ['required'],
             wlcElement: 'block_password-current',
         },
     };
