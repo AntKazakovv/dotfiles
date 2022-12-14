@@ -46,6 +46,7 @@ export enum BodyClassPrefix {
     theme = 'wlc-body--theme-',
     device = 'wlc-body--device-',
     os = 'wlc-body--os-',
+    osVer = 'wlc-body--osver-',
     browser = 'wlc-body--browser-',
     country = 'wlc-body--country-',
     layout = 'wlc-body--layout-'
@@ -216,6 +217,9 @@ export class BodyClassService {
         this.addModifier(BodyClassPrefix.browser + this.actionService.device.browserName, true);
         this.addModifier(BodyClassPrefix.device + this.actionService.getDeviceType(), true);
 
+        if (this.actionService.device.osVersion) {
+            this.addModifier(BodyClassPrefix.osVer + this.actionService.device.osVersion.replace('.', '-'), true);
+        }
     }
 
     private initListeners(): void {

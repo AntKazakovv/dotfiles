@@ -6,8 +6,12 @@ $baseClass: 'wlc-float-panels';
     left: 0;
     z-index: $zindex;
     width: 100%;
-    height: 100vh;
+    height: 100%;
     will-change: transform;
+
+    [class*='wlc-body--osver-15'] & {
+        height: 100vh;
+    }
 }
 
 :host {

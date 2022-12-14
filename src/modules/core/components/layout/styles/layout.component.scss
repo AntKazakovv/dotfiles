@@ -21,12 +21,31 @@ body {
     flex-direction: column;
     min-height: 100vh;
 
+    .wlc-body--os-ios & {
+        min-height: auto;
+    }
+
     .wlc-sections__footer {
         margin-top: auto;
         overflow-x: hidden;
 
         @include mq.min(1024) {
             overflow-x: initial;
+        }
+    }
+}
+
+.app-gameplay-state {
+
+    .wlc-body--os-ios & {
+
+        .wlc-sections__footer,
+        .wlc-sections__header {
+            display: none;
+
+            @include mq.min(1024) {
+                display: block;
+            }
         }
     }
 }
