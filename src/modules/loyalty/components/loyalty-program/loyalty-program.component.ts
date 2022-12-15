@@ -76,14 +76,6 @@ export class LoyaltyProgramComponent extends AbstractComponent implements OnInit
     }
 
     /**
-     * @returns string
-     * creates a path from configuration parameters and level values
-     */
-    public imageLevel(level: number): string {
-        return this.$params.imagePath ? `${this.$params.imagePath}${level}.${this.$params.imageType}` : '';
-    }
-
-    /**
      * redirects to the profile page to the site levels, if not logged in - shows modal
      */
     public readMore(): void {
@@ -122,7 +114,6 @@ export class LoyaltyProgramComponent extends AbstractComponent implements OnInit
             points: this.setLoyaltyPoints(idx),
             description: level.description,
             image: level.image,
-            fallbackImage: this.imageLevel(level.level),
         };
     }
 

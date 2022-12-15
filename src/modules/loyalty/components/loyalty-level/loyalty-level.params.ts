@@ -31,7 +31,7 @@ export interface ILoyaltyLevelCParams extends IComponentParams<ComponentTheme, C
     /**
      * Path to image will be shown if primary image isn't loaded
      */
-    fallbackImage: string,
+    fallbackImage?: string,
     /**
      * Defines what should be shown as a title
      */
@@ -43,4 +43,5 @@ export const defaultParams: Partial<ILoyaltyLevelCParams> = {
     componentName: 'wlc-loyalty-level',
     class: 'wlc-loyalty-level',
     titleAs: false,
+    fallbackImage: '/gstatic/loyalty-program/loyalty-fallback.png',
 };

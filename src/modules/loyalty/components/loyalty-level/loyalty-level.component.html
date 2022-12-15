@@ -1,9 +1,10 @@
-<div *ngIf="$params.image || $params.fallbackImage"
-     class="{{$class}}__image"
+<div class="{{$class}}__image"
      [ngClass]="{'custom-image': $params.image}">
     <img class="{{$class}}__icon {{$class}}__icon--{{$params.level}}"
          loading="lazy"
-         [src]="$params.image || $params.fallbackImage">
+         [src]="$params.image"
+         [wlc-fallback]="$params.fallbackImage"
+         >
 </div>
 <div class="{{$class}}__title">
      {{levelTitle}}
