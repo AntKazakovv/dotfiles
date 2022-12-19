@@ -94,6 +94,7 @@
         "ethers": "=5.6.9",
         "express": "^4.18.1",
         "faker": "^5.5.3",
+        "fast-sort": "~3.2.0",
         "glob": "^8.0.1",
         "gulp": "^4.0.2",
         "gulp-angular-gettext": "^2.3.0",
