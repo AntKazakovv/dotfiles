@@ -17,7 +17,7 @@ import {
 import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
 import {ISelectCParams} from 'wlc-engine/modules/core/components/select/select.params';
 
-
+import {EventService} from 'wlc-engine/modules/core';
 import {IPepInfoCParams} from 'wlc-engine/modules/user/components/pep/pep-info/pep-info.params';
 import {PepService} from 'wlc-engine/modules/user/system/services/pep/pep.service';
 import {ModalService} from 'wlc-engine/modules/core/system/services/modal/modal.service';
@@ -39,6 +39,7 @@ export class PepSelectComponent extends AbstractComponent implements OnInit {
         protected cdr: ChangeDetectorRef,
         protected modalService: ModalService,
         protected pepService: PepService,
+        protected eventService: EventService,
     ) {
         super({
             injectParams,
@@ -52,6 +53,11 @@ export class PepSelectComponent extends AbstractComponent implements OnInit {
         if (!this.$params?.control) {
             this.$params.control = new FormControl(this.pepService.status);
         }
+
+        this.eventService.subscribe({name: 'PEP_CANCEL'}, () => {
+            this.$params.control.setValue('', {emitEvent: false});
+            this.cdr.detectChanges();
+        }, this.$destroy);
 
         this.changeStatusOnControlChanges();
         this.changeControlValueOnStatusChanges();

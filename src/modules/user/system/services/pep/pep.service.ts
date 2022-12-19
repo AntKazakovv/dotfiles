@@ -24,6 +24,10 @@ type PepStatusEventKind = PepPrefixed<'STATUS_CANCEL'>;
 
 type PepErrorEventKind = PepPrefixed<`ERROR_${'INCORRECT_PASSWORD' | 'CHANGE_STATUS'}`>
 
+interface WithErrors {
+    errors: string[];
+}
+
 export type PepEventKind = PepStatusEventKind | PepErrorEventKind;
 
 export type PepModalId = 'pepInfo' | 'pepConfirmation' | 'pepSaved';
@@ -57,7 +61,7 @@ export class PepService {
             {
                 type: 'error',
                 title: phrases.error.changeStatus.title,
-                message: phrases.error.incorrectPassword.message,
+                message: phrases.error.changeStatus.message,
             },
         ],
     ]);
@@ -94,13 +98,22 @@ export class PepService {
     }
 
     /**
+     * Allows to set either `'true'` or `'false'` as PEP status via Metamask
+     *
+     * @param {PepStatusValuableOnly} pep Is the user PEP or not
+     */
+    public async confirmStatusWithMetamask(pep: PepStatusValuableOnly): Promise<void> {
+        await this.updateProfile({
+            extProfile: {pep},
+        }, true);
+    }
+
+    /**
      * Allows to cancel PEP status.
      * That means status will be the same the `''` (empty string)
      */
     public async cancelStatus(): Promise<void> {
-        await this.updateProfile({
-            extProfile: {pep: ''},
-        });
+        this.eventService.emit({name: 'PEP_CANCEL'});
     }
 
     /**
@@ -140,8 +153,8 @@ export class PepService {
             .subscribe((status) => this.statusChanges$.next(status));
     }
 
-    protected async updateProfile(updates: Partial<IUserProfile>): Promise<void> {
-        const response = await this.userService.updateProfile(updates, true);
+    protected async updateProfile(updates: Partial<IUserProfile>, requestConfirmation = false): Promise<void> {
+        const response = await this.userService.updateProfile(updates, true, false, requestConfirmation);
 
         if (response !== true) {
             this.logService.sendLog({
@@ -152,7 +165,23 @@ export class PepService {
                 },
             });
 
+            if (requestConfirmation) {
+                this.showErrorNotification(response.errors);
+            }
+
             throw new Error('Changing PEP status error');
         }
+    }
+
+    private async showErrorNotification(response: WithErrors): Promise<void> {
+        this.eventService.emit({
+            name: NotificationEvents.PushMessage,
+            data: <IPushMessageParams>{
+                type: 'error',
+                title: gettext('Profile update failed'),
+                message: response.errors,
+                wlcElement: 'notification_profile-update-error',
+            },
+        });
     }
 }
