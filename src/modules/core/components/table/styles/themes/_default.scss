@@ -1,6 +1,8 @@
 $selector: '.wlc-table';
 
 .wlc-table--theme-default:host {
+    @include bm.get-mq-map('--table-cell-first-text-align', $themeDefault, 'cellContentTextAlign');
+
     display: flex;
     flex-direction: column;
     min-height: ef.get-value($themeDefault, 'sectionLoaderHeight');
@@ -142,7 +144,7 @@ $selector: '.wlc-table';
         #{$selector}__content {
             @include bm.get-mq-map('grid-template-columns', $themeDefault, 'rowTemplateColumns');
             display: grid;
-            grid-gap: ef.get-value($themeDefault, 'rowGapMobile');
+            gap: var(--table-gap-mobile, #{ef.get-value($themeDefault, 'rowGapMobile')});
             margin: ef.get-value($themeDefault, 'tableContentMargin');
 
             .wlc-sections__profile-content--theme-first & {
@@ -157,7 +159,7 @@ $selector: '.wlc-table';
             border: ef.get-value($themeDefault, 'rowBorderGrid');
             border-radius: ef.get-value($themeDefault, 'rowBorderRadiusSizeMobile');
             height: ef.get-value($themeDefault, 'rowHeight');
-            background: ef.get-value($themeDefault, 'rowBackgroundMobile');
+            background: var(--table-row-bg-odd, #{ef.get-value($themeDefault, 'rowBackgroundMobile')});
             transition: all ef.get-value($themeDefault, 'animationTime');
             overflow: hidden;
 
@@ -173,15 +175,15 @@ $selector: '.wlc-table';
             &--odd {
 
                 .wlc-table__cell {
-                    background: ef.get-value($themeDefault, 'rowOddBackgroundDesktop');
+                    background: var(--table-cell-bg-odd, #{ef.get-value($themeDefault, 'rowOddBackgroundDesktop')});
                 }
             }
 
             &--even {
-                background: none;
+                background: var(--table-row-bg-even, none);
 
                 .wlc-table__cell {
-                    background: ef.get-value($themeDefault, 'rowEvenBackgroundDesktop');
+                    background: var(--table-cell-bg-even, #{ef.get-value($themeDefault, 'rowEvenBackgroundDesktop')});
                 }
             }
         }
@@ -221,7 +223,7 @@ $selector: '.wlc-table';
 
                 grid-template-columns: ef.get-value($themeDefault, 'firstColumnColumns');
                 align-items: center;
-                min-height: ef.get-value($themeDefault, 'minRowHeight');
+                min-height: var(--table-row-min-height, #{ef.get-value($themeDefault, 'minRowHeight')});
                 font-weight: bold;
                 font-size: ef.get-value($themeDefault, 'fontSizeTitleMobile');
                 background: ef.get-value($themeDefault, 'rowTitleBackgroundMobile');
@@ -276,9 +278,9 @@ $selector: '.wlc-table';
             &-content {
                 @include betweenClass('.wlc-table__cell--first') {
                     @include bm.get-mq-map('padding', $themeDefault, 'cellContentPadding');
-                    @include bm.get-mq-map('text-align', $themeDefault, 'cellContentTextAlign');
                     justify-self: start;
                     width: 100%;
+                    text-align: var(--table-cell-first-text-align);
                 }
 
                 justify-self: end;
@@ -305,5 +307,15 @@ $selector: '.wlc-table';
         #{$selector}__img {
             display: none;
         }
+    }
+
+    &#{$selector}--theme-mod-mobile-cards {
+        --table-gap-mobile: #{ef.get-value($themeDefault, 'rowGapMobCards')};
+        --table-cell-bg-odd: #{ef.get-value($themeDefault, 'rowBackgroundMobCards')};
+        --table-cell-bg-even: #{ef.get-value($themeDefault, 'rowBackgroundMobCards')};
+        --table-row-bg-odd: #{ef.get-value($themeDefault, 'rowBackgroundMobCards')};
+        --table-row-bg-even: #{ef.get-value($themeDefault, 'rowBackgroundMobCards')};
+        --table-row-min-height: #{ef.get-value($themeDefault, 'rowMinHeightMobCards')};
+        --table-cell-first-text-align: #{ef.get-value($themeDefault, 'cellFirstAlignMobCards')};
     }
 }
