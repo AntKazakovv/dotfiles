@@ -11,7 +11,6 @@ import {
     ElementRef,
     ViewChild,
 } from '@angular/core';
-import {ICountry} from 'wlc-engine/modules/core/system/interfaces/fundist.interface';
 import {
     animate,
     style,
@@ -36,6 +35,7 @@ import _cloneDeep from 'lodash-es/cloneDeep';
 import _map from 'lodash-es/map';
 import _has from 'lodash-es/has';
 
+import {ICountry} from 'wlc-engine/modules/core/system/interfaces/fundist.interface';
 import {
     AbstractComponent,
     ConfigService,
@@ -114,7 +114,6 @@ export class SelectComponent extends AbstractComponent implements OnInit, OnChan
 
         this.foundItems = _cloneDeep(this.$params.items);
         this.control = this.$params.control;
-
         this.constantValues = this.selectValues.prepareConstantValues(
             this.$params.options,
             this.control,
@@ -148,14 +147,7 @@ export class SelectComponent extends AbstractComponent implements OnInit, OnChan
 
             switch (this.$params.name) {
                 case 'currency': {
-                    const currency = this.configService.get<string>(
-                        `$base.registration.selectCurrencyByCountry.${country}`,
-                    );
-
-                    if (currency && _find(this.foundItems, item => item.value === currency)) {
-                        this.control.setValue(currency);
-                    }
-
+                    this.setDefaultCurrency(country, this.foundItems);
                     break;
                 }
                 case 'countryCode': {
@@ -182,6 +174,11 @@ export class SelectComponent extends AbstractComponent implements OnInit, OnChan
                     this.selectOption(this.foundItems[this.activeItemIndex], false);
                     this.cdr.markForCheck();
                 });
+        }
+
+        if (this.$params.name === 'currency' &&
+        this.configService.get('$base.registration.filterCurrencyByCountry')) {
+            this.filterCurrencyByCountry();
         }
 
         this.getSelectedItemIndex();
@@ -504,6 +501,54 @@ export class SelectComponent extends AbstractComponent implements OnInit, OnChan
 
                 this.cdr.detectChanges();
             });
+    }
+
+    /**
+     * This method subscribe on change country select
+     *
+     * @method filterCurrencyByCountry
+     * @returns {void} void
+     */
+    public filterCurrencyByCountry() {
+        this.EventService.subscribe({
+            name: 'SELECT_CHOSEN_COUNTRYCODE',
+        }, (data: Params.ISelectOptions) => {
+            this.updateCurrencyOption(data.value.toString());
+        });
+    }
+
+    /**
+     * This method update currency select, if country is selected
+     *
+     * @method updateCurrencyOption
+     * @returns {void} void
+     */
+    public updateCurrencyOption(selectCountry: string): void {
+        if (this.configService.get('$base.registration.regCurrenciesByCountries')) {
+            this.$params.items = this.selectValues.filterCurrency(selectCountry).value;
+        }
+
+        if (this.configService.get('$base.registration.selectCurrencyByCountry')) {
+            this.setDefaultCurrency(selectCountry, this.$params.items);
+        }
+    }
+
+    /**
+     * This method for set default option for currency
+     *
+     * @method setDefaultCurrency
+     * @returns {void} void
+     */
+    public setDefaultCurrency(country: string, items: Params.ISelectOptions[]): void {
+        const currency = this.configService.get<string>(
+            `$base.registration.selectCurrencyByCountry.${country}`,
+        );
+
+        if (currency && _find(items, item => item.value === currency)) {
+            this.control.setValue(currency);
+        } else {
+            this.control.setValue(items[0].value);
+        }
     }
 
     /**

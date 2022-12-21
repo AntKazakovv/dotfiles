@@ -16,6 +16,10 @@ export interface IRegistrationConfig {
      *  }
      */
     regCurrenciesByCountries?: IIndexing<string[]>;
+    /**filter currency by geo (must have regCurrenciesByCountries)**/
+    filterCurrencyByGeo?: boolean;
+     /**filter currency by country when country has been selected (must have regCurrenciesByCountries)**/
+    filterCurrencyByCountry?: boolean;
     /**
      * Currency sorting configuration
      *

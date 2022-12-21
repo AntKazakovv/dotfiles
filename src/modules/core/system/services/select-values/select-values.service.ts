@@ -113,19 +113,29 @@ export class SelectValuesService {
      * Prepares and returns currency objects
      *
      * @returns {TConstantValue} TConstantValue
-     *
+     *this.configService.get<string>('appConfig.country')
      */
     public prepareCurrency(): TConstantValue {
+        if (this.configService.get<IIndexing<ICurrency>>('$base.registration.regCurrenciesByCountries' &&
+            '$base.registration.filterCurrencyByGeo')) {
+            return this.filterCurrency(this.configService.get<string>('appConfig.country'));
+        } else {
+            return this.filterCurrency();
+        }
+    }
+
+    public filterCurrency(country?: string): TConstantValue {
         const currencies = this.configService.get<IIndexing<string>>('$base.rewritingCurrencyName');
         const sortConfig = this.configService.get<string[]>('$base.registration.currencySort');
         let modifyCurrencies = _values(this.configService.get<IIndexing<ICurrency>>('appConfig.siteconfig.currencies'));
 
         modifyCurrencies = GlobalHelper.sortByOrder(modifyCurrencies, sortConfig, 'Name');
 
-        if (this.configService.get<IIndexing<ICurrency>>('$base.registration.regCurrenciesByCountries')) {
+        if (country) {
             const currenciesByCountry = this.configService.get<string>(
-                `$base.registration.regCurrenciesByCountries.${this.configService.get<string>('appConfig.country')}`,
+                `$base.registration.regCurrenciesByCountries.${country}`,
             );
+
             if (currenciesByCountry) {
                 modifyCurrencies = _filter(modifyCurrencies, (el) => {
                     return _includes(currenciesByCountry, el.Name);
