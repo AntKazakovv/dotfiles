@@ -1,8 +1,11 @@
 <div class="{{$class}}__image" wlc-icon [iconPath]="$params.image">
 </div>
 <div class="{{$class}}__message">
-    <h2 class="{{$class}}__title">
-        {{'Ooops! Connection was lost!' | translate}}
-    </h2>
-    <p>{{'Check your internet connection' | translate}}</p>
+    <div class="{{$class}}__message-text">
+        <h2 class="{{$class}}__title">
+            {{'Oops! The connection has been lost!' | translate}}
+        </h2>
+        <p>{{'Check your internet connection' | translate}}</p>
+    </div>
+    <button wlc-button [text]="'Reload the page' | translate"></button>
 </div>

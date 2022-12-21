@@ -25,5 +25,5 @@ export const defaultParams: IOfflinePageCParams = {
     moduleName: 'core',
     componentName: 'wlc-offline-page',
     class: 'wlc-offline-page',
-    image: '/offline.svg',
+    image: 'offline',
 };

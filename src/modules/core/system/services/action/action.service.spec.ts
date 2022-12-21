@@ -3,6 +3,7 @@ import {
     StateService,
     TransitionService,
     UIRouter,
+    UIRouterGlobals,
 } from '@uirouter/core';
 import {TranslateService} from '@ngx-translate/core';
 
@@ -41,6 +42,7 @@ describe('ActionService', () => {
     let dataServiceSpy: jasmine.SpyObj<DataService>;
     let modalServiceSpy: jasmine.SpyObj<ModalService>;
     let routerSpy: jasmine.SpyObj<UIRouter>;
+    let routerGlobalsSpy: jasmine.SpyObj<UIRouterGlobals>;
     let window: Window;
 
     configServiceSpy = jasmine.createSpyObj('ConfigService', ['load', 'get', 'set'], {
@@ -80,6 +82,9 @@ describe('ActionService', () => {
                 to: () => {},
             },
         },
+    });
+
+    routerGlobalsSpy = jasmine.createSpyObj('UIRouterGlobals', ['current', 'params'], {
     });
 
     beforeEach(() => {
@@ -128,6 +133,10 @@ describe('ActionService', () => {
                 {
                     provide: UIRouter,
                     useValue: routerSpy,
+                },
+                {
+                    provide: UIRouterGlobals,
+                    useValue: routerGlobalsSpy,
                 },
                 ActionService,
                 WINDOW_PROVIDER,

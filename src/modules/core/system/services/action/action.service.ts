@@ -4,6 +4,7 @@ import {
     Renderer2,
     RendererFactory2,
     Inject,
+    NgZone,
 } from '@angular/core';
 import {DOCUMENT} from '@angular/common';
 import {TranslateService} from '@ngx-translate/core';
@@ -11,6 +12,8 @@ import {
     StateService,
     TransitionService,
     UIRouter,
+    UIRouterGlobals,
+    StateParams,
 } from '@uirouter/core';
 
 import {
@@ -27,6 +30,8 @@ import {
 import _isString from 'lodash-es/isString';
 import _toNumber from 'lodash-es/toNumber';
 import _forEach from 'lodash-es/forEach';
+import _assign from 'lodash-es/assign';
+import _isEmpty from 'lodash-es/isEmpty';
 
 import {GlobalHelper} from 'wlc-engine/modules/core/system/helpers/global.helper';
 import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
@@ -98,6 +103,11 @@ export interface IResizeEvent {
     event: Event;
 }
 
+export interface IStateObject {
+    lastState: string,
+    lastStateParams: StateParams
+}
+
 @Injectable({
     providedIn: 'root',
 })
@@ -124,12 +134,14 @@ export class ActionService {
         private translateService: TranslateService,
         private rendererFactory: RendererFactory2,
         private router: UIRouter,
+        private uiRouter: UIRouterGlobals,
         private stateService: StateService,
         private cachingService: CachingService,
         private injectionService: InjectionService,
         private transition: TransitionService,
         private logService: LogService,
         private dataService: DataService,
+        private ngZone: NgZone,
         @Inject(DOCUMENT) private document: Document,
         @Inject(WINDOW) private window: Window,
     ) {
@@ -561,6 +573,44 @@ export class ActionService {
                     });
                 },
             });
+
+            this.ngZone.runOutsideAngular(() => {
+                fromEvent(this.window, 'offline').subscribe(()=> {
+                    this.ngZone.run(() => {
+                        const lastState: string = this.uiRouter.current.name;
+                        const lastStateParams: StateParams = _assign({}, this.uiRouter.params);
+                        this.configService.set({
+                            name: 'lastState',
+                            value: {lastState, lastStateParams},
+                            storageType: 'sessionStorage',
+                        });
+                        this.stateService.go('app.offline');
+                    });
+                });
+
+                fromEvent(this.window, 'online').subscribe(() => {
+                    this.ngZone.run(() => {
+                        const lastStateObj: IStateObject = this.configService.get({
+                            name: 'lastState',
+                            storageType: 'sessionStorage',
+                        });
+                        if (!_isEmpty(lastStateObj)) {
+                            const lastState: string = lastStateObj['lastState'];
+                            const lastStateParams: StateParams = lastStateObj['lastStateParams'];
+                            this.configService.set({
+                                name: 'lastState',
+                                value: null,
+                                storageClear: 'sessionStorage',
+                            });
+                            this.stateService.go(lastState, lastStateParams);
+                        }
+                    });
+                });
+            });
+
+            if (!this.window.navigator.onLine) {
+                this.stateService.go('app.offline');
+            }
         });
 
         await this.configService.ready;

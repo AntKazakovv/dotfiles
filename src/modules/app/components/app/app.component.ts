@@ -12,7 +12,6 @@ import {
 import {DOCUMENT} from '@angular/common';
 import {TranslateService} from '@ngx-translate/core';
 import {
-    StateParams,
     StateService,
     Transition,
     TransitionService,
@@ -157,7 +156,6 @@ export class AppComponent extends AbstractComponent implements OnInit, AfterView
     }
 
     public override async ngOnInit(): Promise<void> {
-        this.setOfflineModeHandlers();
         this.setMobileAppHandlers();
 
         const depositInIframe = this.configService.get<boolean>('$base.finances.depositInIframe');
@@ -516,26 +514,6 @@ export class AppComponent extends AbstractComponent implements OnInit, AfterView
         this.transition.onStart({}, () => {
             this.modalService.closeAllModals('any');
         });
-    }
-
-    private setOfflineModeHandlers(): void {
-        let lastState: string;
-        let lastStateParams: StateParams;
-
-        this.window.addEventListener('online', () => {
-            this.stateService.go(lastState, lastStateParams);
-        });
-
-        this.window.addEventListener('offline', () => {
-            lastState = this.uiRouter.current.name;
-            lastStateParams = _assign({}, this.uiRouter.params);
-
-            this.stateService.go('app.offline');
-        });
-
-        if (!this.window.navigator.onLine) {
-            this.stateService.go('app.offline');
-        }
     }
 
     private checkAllowedReferrers(): boolean {

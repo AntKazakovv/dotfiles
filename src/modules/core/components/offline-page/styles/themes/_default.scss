@@ -21,14 +21,7 @@
         &.wlc-icon::ng-deep {
 
             .wlc-icon-content {
-                width: 100%;
-                height: 100%;
                 padding: ef.get-value($themeDefault, 'padding');
-
-                svg {
-                    width: 100%;
-                    height: 100%;
-                }
             }
         }
 
@@ -41,21 +34,25 @@
     }
 
     .wlc-offline-page__message {
-        @include bm.get-mq-map('grid-column', $themeDefault, 'messageColunms');
+        @include bm.get-mq-map('grid-column', $themeDefault, 'messageColumns');
         @include bm.get-mq-map('grid-row', $themeDefault, 'messageRows');
         @include blockDecoration('backgroundText');
         flex-direction: ef.get-value($themeDefault, 'messageDirection');
         box-shadow: ef.get-value($themeDefault, 'boxShadow');
 
-        h2 {
-            @include text.get-text-style(ef.get-value($themeDefault, 'headerStyle'), ef.get-value($themeDefault, 'headerColor'));
-            margin: ef.get-value($themeDefault, 'headerMargin');
-            text-align: ef.get-value($themeDefault, 'headerAlign');
-        }
+        &-text {
+            margin-bottom: ef.size(8);
 
-        p {
-            @include text.get-text-style(ef.get-value($themeDefault, 'textStyle'), ef.get-value($themeDefault, 'textColor'));
-            text-align: ef.get-value($themeDefault, 'textAlign');
+            h2 {
+                @include text.get-text-style(ef.get-value($themeDefault, 'headerStyle'), ef.get-value($themeDefault, 'headerColor'));
+                margin: ef.get-value($themeDefault, 'headerMargin');
+                text-align: ef.get-value($themeDefault, 'headerAlign');
+            }
+
+            p {
+                @include text.get-text-style(ef.get-value($themeDefault, 'textStyle'), ef.get-value($themeDefault, 'textColor'));
+                text-align: ef.get-value($themeDefault, 'textAlign');
+            }
         }
     }
 }
