@@ -35,7 +35,8 @@
         .wlc-birth-field,
         .wlc-link-block,
         .wlc-social-networks,
-        .wlc-phone-field {
+        .wlc-phone-field,
+        .wlc-country-and-state {
             grid-column: ef.get-value($themeDefault, 'fullGridCol');
         }
 

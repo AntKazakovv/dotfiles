@@ -265,7 +265,7 @@ export namespace FormElements {
         name: 'core.wlc-country-and-state',
         params: {
             name: ['countryCode', 'stateCode'],
-            locked: ['countryCode'],
+            locked: ['countryCode', 'stateCode'],
             validatorsField: [
                 {
                     name: 'countryCode',
