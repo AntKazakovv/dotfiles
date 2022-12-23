@@ -196,6 +196,10 @@ export interface IBonus extends IBonusBase {
     TotalWinning: string;
     WageringType: string;
     Conditions?: IBonusConditions;
+    /** Show/hide bonus in Promo ("0" | "1") */
+    AllowPromotions?: string;
+    /** Show/hide bonus in Promo for unauthorized user (available in combination witn AllowPromotions) ("0" | "1") */
+    HidePromotionsForUnauthorized?: string;
 }
 
 export interface ILootboxPrize {

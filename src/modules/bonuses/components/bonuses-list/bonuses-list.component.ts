@@ -282,6 +282,27 @@ export class BonusesListComponent extends AbstractComponent implements OnInit, O
         this.cdr.detectChanges();
     }
 
+    /**
+     * Filter bonuses by group
+     *
+     * @returns Bonus[] - filtered bonuses
+     */
+    public filterBonusesByGroup(): Bonus[] {
+        let bonuses: Bonus[] = [];
+
+        if (this.$params.common?.filterByGroup === 'Promo') {
+            const isAuth: boolean = this.configService.get<boolean>('$user.isAuthenticated');
+
+            bonuses = _filter(this.bonuses, (bonus: Bonus): boolean =>
+                bonus.data.Group === this.$params.common?.filterByGroup || bonus.showInPromotions(isAuth));
+        } else {
+            bonuses = _filter(this.bonuses, (bonus: Bonus): boolean =>
+                bonus.data.Group === this.$params.common?.filterByGroup);
+        }
+
+        return bonuses;
+    }
+
     protected setSubscription(): void {
         this.eventService.subscribe([
             {name: BonusItemComponentEvents.reg},
@@ -420,7 +441,7 @@ export class BonusesListComponent extends AbstractComponent implements OnInit, O
                 return;
             }
 
-            this.bonuses = _filter(this.bonuses, (bonus) => bonus.data.Group === this.$params.common.filterByGroup);
+            this.bonuses = this.filterBonusesByGroup();
         }
     }
 

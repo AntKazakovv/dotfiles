@@ -64,6 +64,8 @@ export class Bonus extends AbstractModel<IBonus> {
     public readonly descriptionClean: string;
     public readonly termsClean: string;
     public readonly nameClean: string;
+    public readonly allowPromotions: boolean;
+    public readonly hidePromotionsForUnauthorized: boolean;
 
     private static regEvents = ['deposit first', 'registration', 'verification'];
     private static depEvents = ['deposit', 'deposit first', 'deposit repeated', 'deposit sum'];
@@ -92,6 +94,8 @@ export class Bonus extends AbstractModel<IBonus> {
         this.descriptionClean = GlobalHelper.deleteHTMLTags(this.data.Description);
         this.termsClean = GlobalHelper.deleteHTMLTags(this.data.Terms);
         this.nameClean = GlobalHelper.deleteHTMLTags(this.data.Name);
+        this.allowPromotions = !!_toNumber(this.data.AllowPromotions);
+        this.hidePromotionsForUnauthorized = !!_toNumber(this.data.HidePromotionsForUnauthorized);
 
         if (Bonus.bonusesConfig.useNewImageSources && this.data.Image_other) {
             this.icon = GlobalHelper.proxyUrl(this.data.Image_other);
@@ -803,6 +807,17 @@ export class Bonus extends AbstractModel<IBonus> {
         }
 
         return '';
+    }
+
+    /**
+     * Show bonus in promotions no matter of group
+     *
+     * @param isAuth - is user authorized
+     *
+     * @returns boolean - show bonus in Promotions
+     */
+    public showInPromotions(isAuth: boolean): boolean {
+        return this.allowPromotions && (!this.hidePromotionsForUnauthorized || isAuth);
     }
 
     /**
