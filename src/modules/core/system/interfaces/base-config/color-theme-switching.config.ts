@@ -34,4 +34,9 @@ export interface IColorThemeSwitchingConfig {
      * Recommended file name is`piq.cashier.alt.scss`
      */
     altPiqCashierStyles?: string;
+
+    /**
+     * If true, color theme is auto switched according to browser (system) settings.
+     */
+    usePrefersColorScheme?: boolean;
 };

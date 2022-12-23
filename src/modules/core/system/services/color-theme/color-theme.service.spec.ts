@@ -4,6 +4,7 @@ import {ColorThemeService} from './color-theme.service';
 import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
 import {EventService} from 'wlc-engine/modules/core/system/services/event/event.service';
 import {LogService} from 'wlc-engine/modules/core/system/services/log/log.service';
+import {WINDOW_PROVIDER} from 'wlc-engine/modules/app/system/';
 
 describe('ColorThemeService', () => {
     let colorThemeService: ColorThemeService;
@@ -25,6 +26,7 @@ describe('ColorThemeService', () => {
 
         TestBed.configureTestingModule({
             providers: [
+                WINDOW_PROVIDER,
                 ColorThemeService,
                 {
                     provide: ConfigService,

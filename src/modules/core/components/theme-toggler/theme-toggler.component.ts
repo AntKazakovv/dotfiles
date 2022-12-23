@@ -7,11 +7,16 @@ import {
     ChangeDetectorRef,
 } from '@angular/core';
 
+import {takeUntil} from 'rxjs';
+
 import {
     AbstractComponent,
     ConfigService,
 } from 'wlc-engine/modules/core';
-import {ColorThemeValues} from 'wlc-engine/modules/core/constants';
+import {
+    ColorThemeService,
+    TColorTheme,
+} from 'wlc-engine/modules/core/system/services/color-theme/color-theme.service';
 import {EventService} from 'wlc-engine/modules/core/system/services/event/event.service';
 
 import * as Params from './theme-toggler.params';
@@ -62,6 +67,7 @@ export class ThemeTogglerComponent extends AbstractComponent implements OnInit {
         @Inject('injectParams') protected injectParams: Params.IThemeTogglerCParams,
         protected configService: ConfigService,
         protected eventService: EventService,
+        protected colorThemeService: ColorThemeService,
         protected cdr: ChangeDetectorRef,
     ) {
         super({injectParams, defaultParams: Params.defaultParams}, configService);
@@ -69,14 +75,11 @@ export class ThemeTogglerComponent extends AbstractComponent implements OnInit {
 
     public ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
-        this.status = !!this.configService.get<string>(ColorThemeValues.configName);
 
-        this.eventService.subscribe(
-            {name: ColorThemeValues.changeEvent},
-            (status: boolean) => {
-                this.status = status;
-                this.cdr.markForCheck();
-            }, this.$destroy);
+        this.colorThemeService.appColorTheme$.pipe(takeUntil(this.$destroy)).subscribe((theme: TColorTheme) => {
+            this.status = theme === 'alt';
+            this.cdr.markForCheck();
+        });
 
         this.leftIcon = '/wlc/icons/theme-toggler-default.svg';
         this.rightIcon = '/wlc/icons/theme-toggler-alt.svg';
@@ -91,10 +94,6 @@ export class ThemeTogglerComponent extends AbstractComponent implements OnInit {
      * It is fired by click on the toggler and emits change color theme event
      */
     public toggleThemeHandler(): void {
-        this.eventService.emit({
-            name: ColorThemeValues.changeEvent,
-            data: this.status,
-        });
+        this.colorThemeService.toggleColorTheme(true);
     }
-
 }

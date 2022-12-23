@@ -26,7 +26,12 @@ import _startsWith from 'lodash-es/startsWith';
 import {EventService} from 'wlc-engine/modules/core/system/services/event/event.service';
 import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
 import {ActionService} from 'wlc-engine/modules/core/system/services/action/action.service';
-import {ColorThemeValues} from 'wlc-engine/modules/core/constants';
+import {InjectionService} from 'wlc-engine/modules/core/system/services/injection/injection.service';
+import {
+    ColorThemeService,
+    TColorTheme,
+} from 'wlc-engine/modules/core/system/services/color-theme/color-theme.service';
+
 import {LogService} from 'wlc-engine/modules/core/system/services/log/log.service';
 import {DeviceType} from 'wlc-engine/modules/core/system/interfaces';
 import {WINDOW} from 'wlc-engine/modules/app/system/tokens/window';
@@ -70,12 +75,14 @@ export class BodyClassService {
     private paddingTrottle: ReturnType<typeof setTimeout>;
     private stickyHeaderMobile: boolean;
     private bodyClassList: DOMTokenList = this.document.body.classList;
+    private colorThemeService: ColorThemeService;
     private _fixedPanelConfig: IFixedPanelConfig;
     private _currFixedPanelBodyState: TFixedPanelState;
 
     constructor(
         @Inject(DOCUMENT) private document: Document,
         @Inject(WINDOW) protected window: Window,
+        private injectionService: InjectionService,
         private configService: ConfigService,
         private eventService: EventService,
         private actionService: ActionService,
@@ -140,6 +147,12 @@ export class BodyClassService {
 
         if (this.configService.get<boolean>('$base.fixedPanel.use')) {
             this.initFixedPanel();
+        }
+
+        if (this.configService.get<boolean>('$base.colorThemeSwitching.use')) {
+            this.colorThemeService =
+                await this.injectionService.getService<ColorThemeService>('core.color-theme-service');
+            this.initColorThemeSwitching();
         }
     }
 
@@ -242,10 +255,6 @@ export class BodyClassService {
         this.initBodyObserver();
 
         this.setMetaThemeColor();
-
-        if (this.configService.get<boolean>('$base.colorThemeSwitching.use')) {
-            this.colorThemeSwitching();
-        }
     }
 
     private setMetaThemeColor(): void {
@@ -262,22 +271,15 @@ export class BodyClassService {
         this.metaThemeColor.content = getComputedStyle(this.document.body).getPropertyValue('--mc-bg') || '#000000';
     }
 
-    private colorThemeSwitching(): void {
-        this.eventService.subscribe(
-            {name: ColorThemeValues.changeEvent},
-            (status: boolean) => {
-                if (status) {
-                    this.addModifier(
-                        BodyClassPrefix.theme +
-                        this.configService.get<string>(ColorThemeValues.configName),
-                    );
-                } else {
-                    this.removeClassByPrefix(BodyClassPrefix.theme);
-                }
-                setTimeout(() => {
-                    this.setMetaThemeColor();
-                }, 0);
-            });
+    private initColorThemeSwitching(): void {
+        this.colorThemeService.appColorTheme$.subscribe((theme: TColorTheme) => {
+            this.removeClassByPrefix(BodyClassPrefix.theme);
+            this.addModifier(BodyClassPrefix.theme + theme);
+
+            setTimeout(() => {
+                this.setMetaThemeColor();
+            }, 0);
+        });
     }
 
     private emitClassEvent(className: string, action: keyof typeof BodyClassEvents): void {

@@ -1,3 +1,5 @@
+import {TColorTheme} from 'wlc-engine/modules/core/system/services/color-theme/color-theme.service';
+
 import {
     IIndexing,
     ILoyalty,
@@ -115,7 +117,7 @@ export interface IExtProfile {
     sendSMS?: boolean;
     paymentSystems?: IExtProfilePaymentSystems;
     realityCheckTime?: string;
-    colorTheme?: string;
+    colorTheme?: TColorTheme;
     pep?: PepStatus;
     nick?: string;
 }

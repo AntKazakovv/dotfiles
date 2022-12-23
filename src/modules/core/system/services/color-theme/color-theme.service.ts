@@ -1,9 +1,11 @@
-import {Injectable} from '@angular/core';
+import {
+    Inject,
+    Injectable,
+} from '@angular/core';
 import {Meta} from '@angular/platform-browser';
 
 import {first} from 'rxjs/operators';
 import {BehaviorSubject} from 'rxjs';
-import _isUndefined from 'lodash-es/isUndefined';
 
 import {
     UserService,
@@ -17,17 +19,22 @@ import {ColorThemeValues} from 'wlc-engine/modules/core/constants/color-theme.co
 import {
     IColorThemeSwitchingConfig,
 } from 'wlc-engine/modules/core/system/interfaces/base-config/color-theme-switching.config';
+import {WINDOW} from 'wlc-engine/modules/app/system/tokens/window';
 
+export type TColorTheme = 'default' | 'alt';
 
 @Injectable({
     providedIn: 'root',
 })
 export class ColorThemeService {
 
+    public appColorTheme$: BehaviorSubject<TColorTheme> = new BehaviorSubject(null);
+
     private config: IColorThemeSwitchingConfig;
     private userService: UserService;
 
     constructor(
+        @Inject(WINDOW) protected window: Window,
         private configService: ConfigService,
         private injectionService: InjectionService,
         private eventService: EventService,
@@ -35,6 +42,18 @@ export class ColorThemeService {
         private meta: Meta,
     ) {
         this.init();
+    }
+
+    /**
+     * Switch color theme
+     *
+     * @param {boolean} needToSave - if true, color theme will saved to localstore and profile (for authorized users)
+     */
+    public toggleColorTheme(needToSave: boolean): void {
+        const theme = this.appColorTheme$.getValue() === 'default' ? 'alt' : 'default';
+        this.appColorTheme$.next(theme);
+
+        this.colorThemeChangeHandler(theme, needToSave);
     }
 
     private init(): void {
@@ -45,60 +64,57 @@ export class ColorThemeService {
 
         this.initListeners();
 
-        const appStartStatus = this.configService.get<string>({
+        const localStorageTheme = this.configService.get<TColorTheme>({
             name: ColorThemeValues.localStoreName,
             storageType: 'localStorage',
-        });
-
-        this.eventService.emit({
-            name: ColorThemeValues.changeEvent,
-            data: !!appStartStatus,
         });
 
         if (this.configService.get<boolean>('$user.isAuthenticated')) {
             this.loginHandler();
         }
+
+        let theme: TColorTheme = localStorageTheme || 'default';
+
+        if (this.config.usePrefersColorScheme && !localStorageTheme) {
+            theme = this.window.matchMedia('(prefers-color-scheme: dark)').matches ? 'alt' : 'default';
+        }
+
+        this.appColorTheme$.next(theme);
     }
 
     private initListeners(): void {
-        this.eventService.subscribe<boolean>(
-            {name: ColorThemeValues.changeEvent},
-            (status) => {
-                this.colorThemeChangeHandler(status);
-            },
-        );
 
         this.eventService.subscribe({name: 'LOGIN'}, () => {
             this.loginHandler();
         });
     }
 
-    private colorThemeChangeHandler(status: boolean): void {
-        const currentTheme = status ? this.config.altName : null;
-
-        this.configService.set({
-            name: ColorThemeValues.localStoreName,
-            value: currentTheme,
-            storageType: 'localStorage',
-            storageClear: status ? null : 'localStorage',
-        });
+    private colorThemeChangeHandler(theme: TColorTheme, needToSave: boolean = false): void {
 
         this.configService.set({
             name: ColorThemeValues.configName,
-            value: currentTheme,
+            value: theme,
         });
 
         if (this.config.metaColorConfig) {
             this.meta.updateTag({
                 name: ColorThemeValues.tagName,
-                content: status
+                content: theme === 'alt'
                     ? this.config.metaColorConfig.alt || ColorThemeValues.defThemeColor
                     : this.config.metaColorConfig.default || ColorThemeValues.defThemeColor,
             });
         }
 
-        if (this.configService.get<boolean>('$user.isAuthenticated')) {
-            this.saveColorThemeToProfile(currentTheme);
+        if (needToSave) {
+            this.configService.set({
+                name: ColorThemeValues.localStoreName,
+                value: theme,
+                storageType: 'localStorage',
+            });
+
+            if (this.configService.get<boolean>('$user.isAuthenticated')) {
+                this.saveColorThemeToProfile(theme);
+            }
         }
     }
 
@@ -112,17 +128,19 @@ export class ColorThemeService {
     }
 
     private getProfileHandler(profile: UserProfile): void {
-        const userTheme = profile.extProfile.colorTheme;
-        const currentTheme = this.configService.get<string>(ColorThemeValues.configName);
+        const userTheme: TColorTheme = profile.extProfile.colorTheme;
+        const currentTheme: TColorTheme = this.appColorTheme$.getValue();
 
-        if (!_isUndefined(userTheme) && userTheme !== currentTheme) {
-            this.eventService.emit({name: ColorThemeValues.changeEvent, data: !!userTheme});
-        } else {
+        if (userTheme && userTheme !== currentTheme) {
+            this.appColorTheme$.next(userTheme);
+        }
+
+        if (!userTheme && currentTheme) {
             this.saveColorThemeToProfile(currentTheme);
         }
     }
 
-    private async saveColorThemeToProfile(theme: string): Promise<void> {
+    private async saveColorThemeToProfile(theme: TColorTheme): Promise<void> {
         if (!this.userService) {
             this.userService = await this.injectionService.getService<UserService>('user.user-service');
         }
