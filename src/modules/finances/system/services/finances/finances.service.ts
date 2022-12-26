@@ -421,7 +421,6 @@ export class FinancesService {
             {service: 'FinancesService', method: 'createPaymentSystems'},
             data,
             this.configService.get<BehaviorSubject<UserProfile>>({name: '$user.userProfile$'}),
-            this.configService.get('$finances.fieldTemplatesNames'),
         );
 
         if (invoicesSystems) {

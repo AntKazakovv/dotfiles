@@ -4,7 +4,6 @@ import _assign from 'lodash-es/assign';
 import _get from 'lodash-es/get';
 import _includes from 'lodash-es/includes';
 import _isArray from 'lodash-es/isArray';
-import _pickBy from 'lodash-es/pickBy';
 import _isEmpty from 'lodash-es/isEmpty';
 import _isObject from 'lodash-es/isObject';
 
@@ -14,7 +13,12 @@ import {GlobalHelper} from 'wlc-engine/modules/core/system/helpers/global.helper
 import {aliasTickerMap} from './../constants/crypto-invoices.constants';
 import {UserProfile} from './../../../user/system/models/profile.model';
 import {IPaymentMessage} from 'wlc-engine/modules/finances/system/interfaces/finances.interface';
-import {IFromLog} from 'wlc-engine/modules/core';
+import {
+    fieldNameByDbName,
+    formFieldTemplates,
+    IFieldTemplate,
+    IFromLog,
+} from 'wlc-engine/modules/core';
 import {
     TPaymentsMethods,
     TPaySystemTagAll,
@@ -115,12 +119,6 @@ export interface IPaymentSystemCustomParams {
     pregeneration_request?: boolean; // To pre-request payment information for Kauri
 }
 
-export interface IFieldTemplate {
-    template: string;
-    dbName: string;
-    label: string;
-}
-
 const disabledReasons = {
     // Apply to payment system if chosen bonus paySystems array doesn't empty
     // and doesn't contain the method id
@@ -150,7 +148,6 @@ export class PaymentSystem extends AbstractModel<IPaymentSystem> {
         from: IFromLog,
         data: IPaymentSystem,
         protected userProfile$: BehaviorSubject<UserProfile>,
-        protected fieldTemplatesNames: IIndexing<IFieldTemplate>,
     ) {
         super({from: _assign({model: 'PaymentSystem'}, from)});
         this.init(data);
@@ -363,16 +360,36 @@ export class PaymentSystem extends AbstractModel<IPaymentSystem> {
     public checkRequiredFields(type: TPaymentsMethods = 'deposit'): IIndexing<IFieldTemplate> {
         const fields = type === 'deposit' ? this.required : this.requiredWithdraw;
 
-        if(_includes(this.required, 'IDState') &&
-            !_includes(this.required, 'IDCountry')) {
+        if (_includes(this.required, 'IDState') &&
+            !_includes(this.required, 'IDCountry')
+        ) {
             this.required.push('IDCountry');
         }
 
-        return _pickBy(this.fieldTemplatesNames, (value: IFieldTemplate, key: string) => {
-            return _includes(fields, value.dbName) &&
-                GlobalHelper.getOwnProperty(this.userProfile$.getValue() as any, key) &&
-                !_get(this.userProfile$.getValue(), [key, 'length'], false);
+        const requiredFields: string[] = [];
+
+        fields.forEach((field : string) => {
+            const realField: string = fieldNameByDbName[field];
+            if (realField) {
+                requiredFields.push(realField);
+            }
         });
+
+        if (requiredFields.length > 1) {
+            requiredFields.sort((a, b) => formFieldTemplates[a].displayOrder - formFieldTemplates[b].displayOrder);
+        }
+
+        return requiredFields.reduce((acc, field) => {
+            if ( GlobalHelper.getOwnProperty(this.userProfile$.getValue() as any, field)
+                && !_get(this.userProfile$.getValue(), [field, 'length'], false)
+            ) {
+                return {
+                    ...acc,
+                    [field]: formFieldTemplates[field],
+                };
+            }
+            return acc;
+        }, {});
     }
 
     public clearHostedFields(): boolean {

@@ -16,37 +16,14 @@ interface IDataForModification{
 
 export class UserHelper {
 
-    // Aliases for form elements in game resolver
-    public static emptyFieldsAlias = {
-        birthDay: 'birthDate',
-        birthMonth: 'birthDate',
-        birthYear: 'birthDate',
-        countryCode: 'countryAndState',
-        stateCode: 'state',
-    };
-
-    // required fields for game play for curacao wlc
-    public static requiredFieldsForCuracaoWlc = [
-        'email',
-        'firstName',
-        'lastName',
-        'birthDay',
-        'birthMonth',
-        'birthYear',
-        'countryCode',
-        'stateCode',
-        'city',
-        'address',
-    ];
-
     /**
-     * Set a validator form elements for curacao license
+     * Set a validator form elements
      *
      * @param {string} fieldName form element name
      * @param {IFormComponent} formElement form element
      * @returns void
      */
-    public static setValidatorsFormElementsForCuracaoWlc(fieldName: string, formElement: IFormComponent): void {
+    public static setValidatorRequired(fieldName: string, formElement: IFormComponent): void {
         switch (fieldName) {
             case 'countryAndState': {
                 if (!formElement.params?.validatorsField) {
@@ -67,10 +44,13 @@ export class UserHelper {
                         validators: ['required'],
                     },
                 });
+
+                if (formElement.params.locked?.length) {
+                    formElement.params.locked.push('stateCode');
+                }
+
                 break;
             }
-            case 'postalCode':
-                break;
             default: {
                 if (!formElement.params.validators) {
                     formElement.params.validators = [];

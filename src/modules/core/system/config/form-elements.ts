@@ -17,6 +17,13 @@ const cityMinLengthValidator: IValidatorSettings = {
     options: 2,
 };
 
+export interface IFieldTemplate {
+    template: string;
+    dbName: string;
+    label: string;
+    displayOrder: number;
+}
+
 export namespace FormElements {
     export const amount: IFormComponent = {
         name: 'core.wlc-input',
@@ -694,3 +701,110 @@ export namespace FormElements {
         },
     };
 }
+
+export const formFieldTemplates: Record<string, IFieldTemplate> = {
+    firstName: {
+        template: 'firstName',
+        dbName: 'Name',
+        label: 'First name',
+        displayOrder: 1,
+    },
+    lastName: {
+        template: 'lastName',
+        dbName: 'LastName',
+        label: 'Last name',
+        displayOrder: 2,
+    },
+    birthDay: {
+        template: 'birthDate',
+        dbName: 'DateOfBirth',
+        label: 'Date of birth',
+        displayOrder: 4,
+    },
+    gender: {
+        template: 'gender',
+        dbName: 'Gender',
+        label: 'Gender',
+        displayOrder: 3,
+    },
+    phoneNumber: {
+        template: 'mobilePhone',
+        dbName: 'Phone',
+        label: 'Mobile phone',
+        displayOrder: 10,
+    },
+    countryCode: {
+        template: 'countryAndState',
+        dbName: 'IDCountry',
+        label: 'Country',
+        displayOrder: 5,
+    },
+    stateCode: {
+        template: 'state',
+        dbName: 'IDState',
+        label: 'State',
+        displayOrder: 6,
+    },
+    city: {
+        template: 'city',
+        dbName: 'City',
+        label: 'City',
+        displayOrder: 7,
+    },
+    address: {
+        template: 'address',
+        dbName: 'Address',
+        label: 'Address',
+        displayOrder: 8,
+    },
+    postalCode: {
+        template: 'postalCode',
+        dbName: 'PostalCode',
+        label: 'Postal code',
+        displayOrder: 9,
+    },
+    bankName: {
+        template: 'bankNameText',
+        dbName: 'BankName',
+        label: 'Bank name',
+        displayOrder: 11,
+    },
+    branchCode: {
+        template: 'branchCode',
+        dbName: 'BranchCode',
+        label: 'Branch code',
+        displayOrder: 12,
+    },
+    idNumber: {
+        template: 'idNumber',
+        dbName: 'IDNumber',
+        label: 'ID number',
+        displayOrder: 15,
+    },
+    swift: {
+        template: 'swift',
+        dbName: 'Swift',
+        label: 'SWIFT',
+        displayOrder: 13,
+    },
+    ibanNumber: {
+        template: 'ibanNumber',
+        dbName: 'Iban',
+        label: 'Iban number',
+        displayOrder: 14,
+    },
+    email: {
+        template: 'email',
+        dbName: 'Email',
+        label: 'Email',
+        displayOrder: 0,
+    },
+} as const;
+
+export const fieldNameByDbName: Record<IFieldTemplate['dbName'], string>
+    = Object.entries(formFieldTemplates).reduce((acc, [key, value]) => {
+        return {
+            ...acc,
+            [value.dbName]: key,
+        };
+    }, {});

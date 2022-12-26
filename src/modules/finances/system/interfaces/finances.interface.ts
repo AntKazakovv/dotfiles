@@ -2,14 +2,10 @@ import {
     IIndexing,
     ValidatorType,
 } from 'wlc-engine/modules/core';
-import {
-    IFieldTemplate,
-    IPaymentSystem,
-} from 'wlc-engine/modules/finances/system/models/payment-system.model';
+import {IPaymentSystem} from 'wlc-engine/modules/finances/system/models/payment-system.model';
 
 export interface IFinancesConfig {
     fastDeposit: IFastDeposit;
-    fieldTemplatesNames?: IIndexing<IFieldTemplate>,
     payment?: IPaySystemAutoSelect;
     paymentInfo?: IPaymentInfo;
     bonusesInDeposit?: IDepositBonusAutoSelect;

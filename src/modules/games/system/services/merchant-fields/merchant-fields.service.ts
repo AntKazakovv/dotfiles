@@ -1,53 +1,28 @@
-import {
-    Inject,
-    Injectable,
-} from '@angular/core';
-import {BehaviorSubject} from 'rxjs';
+import {Injectable} from '@angular/core';
 
-import _get from 'lodash-es/get';
-import _includes from 'lodash-es/includes';
+import {BehaviorSubject} from 'rxjs';
 import _uniq from 'lodash-es/uniq';
 import _filter from 'lodash-es/filter';
-import _concat from 'lodash-es/concat';
-import _forEach from 'lodash-es/forEach';
-import _isArray from 'lodash-es/isArray';
 
-import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
-import {UserProfile} from 'wlc-engine/modules/user/system/models/profile.model';
-import {CuracaoRequirement} from 'wlc-engine/modules/app/system';
-import {IState} from 'wlc-engine/modules/core';
-import {UserHelper} from 'wlc-engine/modules/user';
+import {
+    ConfigService,
+    IState,
+    fieldNameByDbName,
+} from 'wlc-engine/modules/core';
+import {UserProfile} from 'wlc-engine/modules/user';
 
 @Injectable({
     providedIn: 'root',
 })
 export class MerchantFieldsService {
-    private profileFields = [
-        'firstName',
-        'lastName',
-        'gender',
-        'countryCode',
-    ];
-    private DateOfBirth = [
-        'birthDay',
-        'birthMonth',
-        'birthYear',
-    ];
+
     private fieldsByAlias = {
-        DateOfBirth: this.DateOfBirth,
         Country: 'countryCode',
-        City: 'city',
-        Gender: 'gender',
-        Name: 'firstName',
-        LastName: 'lastName',
-    };
+    } as const;
 
     constructor(
-        @Inject(CuracaoRequirement) protected enableRequirement: boolean,
-        protected configService: ConfigService,
-    ) {
-        _concat(this.profileFields, this.DateOfBirth);
-    }
+        private configService: ConfigService,
+    ) {}
 
     /**
      * Check required fields
@@ -62,7 +37,7 @@ export class MerchantFieldsService {
                 resolve();
             } else {
                 try {
-                    const emptyFields: string[] = this.getEmptyFields(requiredFields, merchantId);
+                    const emptyFields: string[] = this.getEmptyFields(requiredFields);
                     if (emptyFields.length) {
                         reject(emptyFields);
                     } else {
@@ -76,16 +51,15 @@ export class MerchantFieldsService {
     }
 
     /**
-     * Get reuired fields of merchant
+     * Get required fields of merchant
      *
      * @param {number} merchantId Merchant id
      * @returns {string[]} Fields names
      */
-    public getRequiredFields(merchantId: number): string[] {
+    private getRequiredFields(merchantId: number): string[] {
         const merchantFields: string[] = this.getMerchantRequiredFields(merchantId);
-        const profileFields: string[] = this.getProfileRequiedFields();
 
-        return _uniq<string>(profileFields.concat(merchantFields));
+        return _uniq<string>(merchantFields);
     }
 
     /**
@@ -94,7 +68,7 @@ export class MerchantFieldsService {
      * @param {number} merchantId Merchant id
      * @returns {string[]} Fields names
      */
-    public getMerchantRequiredFields(merchantId: number): string[] {
+    private getMerchantRequiredFields(merchantId: number): string[] {
         const excludeFields = this.configService.get<string[]>(`$games.excludeRequiredFields.${merchantId}`) || [];
 
         const fields = _filter(
@@ -106,81 +80,38 @@ export class MerchantFieldsService {
 
         let requiredFields: string[] = [];
 
-        _forEach(fields, (field: string) => {
-            const realField: string = _get(this.fieldsByAlias, field);
+        fields.forEach((field : string) => {
+            const realField: string = fieldNameByDbName[field] || this.fieldsByAlias[field];
             if (realField) {
-                if (_isArray(realField)) {
-                    requiredFields = _concat(requiredFields, realField);
-                } else {
-                    requiredFields.push(realField);
-                }
+                requiredFields.push(realField);
             }
         });
+
         return requiredFields;
-    }
-
-    /**
-     * Get profile required fields
-     *
-     * @returns {string[]} Fields names
-     */
-    public getProfileRequiedFields(): string[] {
-        if (this.enableRequirement) {
-            return _concat(this.profileFields, UserHelper.requiredFieldsForCuracaoWlc);
-        }
-
-        return this.profileFields;
     }
 
     /**
      * Get empty required fields
      *
      * @param {string[]} requiredFields Required fields
-     * @param {number} merchantId Merchant id
      * @returns {string[]} Empty fields
      */
-    private getEmptyFields(requiredFields: string[], merchantId: number): string[] {
-        const emptyFields: string[] = [];
+    private getEmptyFields(requiredFields: string[]): string[] {
         const profile: UserProfile = this.configService
             .get<BehaviorSubject<UserProfile>>({name: '$user.userProfile$'})
             .getValue();
-        _forEach(requiredFields, (field) => {
-            if (!profile.hasField(field) && profile.fieldIsEmpty(field)) {
-                emptyFields.push(field);
-            }
+
+        let emptyFields: string[] = requiredFields.filter((field) => {
+            return !profile.hasField(field) && profile.fieldIsEmpty(field);
         });
 
-        if (emptyFields.length) {
-            const merchantFields: string[] = this.getMerchantRequiredFields(merchantId);
-            if (this.enableRequirement) {
-                return this.getEmptyFieldsWithCuracao(profile, emptyFields, merchantFields);
-            }
-
-            const checkFields = _filter(emptyFields, (field: string) => {
-                return _includes(merchantFields, field);
-            });
-
-            if (!checkFields.length) {
-                return [];
-            }
+        if (emptyFields.includes('stateCode')
+            && (emptyFields.includes('countryCode') || (profile.countryCode
+                && !this.configService.get<BehaviorSubject<IState[]>>('states').getValue()[profile.countryCode]))
+        ) {
+            emptyFields = emptyFields.filter((field) => field !== 'stateCode');
         }
+
         return emptyFields;
     }
-
-    private getEmptyFieldsWithCuracao(profile: UserProfile, emptyFields: string[], merchantFields: string[]) {
-        let emptyFieldsWithCuracao: string[] = emptyFields;
-
-        if (_includes(emptyFields, 'stateCode') && (_includes(emptyFields, 'countryCode')
-            || (profile.countryCode
-                && !this.configService.get<BehaviorSubject<IState[]>>('states')
-                    .getValue()[profile.countryCode]))
-        ) {
-            emptyFieldsWithCuracao = _filter(emptyFieldsWithCuracao, (field) => field !== 'stateCode');
-        }
-
-        const merchantAndCuracaoField = _concat(UserHelper.requiredFieldsForCuracaoWlc, merchantFields);
-
-        return _filter(emptyFieldsWithCuracao, ((field: string) => _includes(merchantAndCuracaoField, field))) ;
-    }
-
 }

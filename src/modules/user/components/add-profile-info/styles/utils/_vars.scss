@@ -33,34 +33,3 @@ $themeDefault: map-merge((
     'phoneSelectGap': 0,
 
 ), $customThemeDefault);
-
-
-$customThemeModOverflow: () !default;
-$themeModOverflow: map-merge((
-    'btnMargin': ef.size(2) auto 0,
-    'btnFlexGrow': 0,
-    'btnFlexBasis': auto,
-
-    'columnGap': 10px,
-    'rowGap': 10px,
-
-    'formPlaceContent': center,
-    'formFlexDirection': row,
-    'formFlexWrap': wrap,
-
-    'fieldFlexGrow': 1,
-    'fieldFlexBasis': 50%,
-
-    'wideFields': (
-        '.wlc-phone-field',
-        '.wlc-birth-field',
-        '.wlc-input--phone',
-        '.wlc-input--password',
-        '.wlc-input--iban-number',
-    ),
-    'wideFieldsFlexBasis': 100%,
-
-    'errorNotifyWidth': (
-        375: 100%,
-    ),
-), $customThemeModOverflow);

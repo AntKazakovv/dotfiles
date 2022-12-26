@@ -342,7 +342,7 @@ export class BonusItemComponent extends AbstractComponent implements OnInit, OnC
             this.addModifiers('without-bonus-icon');
         }
 
-        if (this.bonus.showOnly) {
+        if (this.bonus?.showOnly) {
             this.addModifiers('show-only');
         }
     }

@@ -1,6 +1,3 @@
-'use strict';
-
-import {Inject} from '@angular/core';
 import {
     StateService,
     UIRouter,
@@ -23,17 +20,22 @@ import _reduce from 'lodash-es/reduce';
 import _includes from 'lodash-es/includes';
 import _union from 'lodash-es/union';
 import _toNumber from 'lodash-es/toNumber';
-import _uniqWith from 'lodash-es/uniqWith';
 import _isEmpty from 'lodash-es/isEmpty';
 import _cloneDeep from 'lodash-es/cloneDeep';
-import _isEqual from 'lodash-es/isEqual';
 
+import {
+    formFieldTemplates,
+    FormElements,
+} from 'wlc-engine/modules/core/system/config/form-elements';
+import {ActionService} from 'wlc-engine/modules/core/system/services/action/action.service';
 import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
 import {EventService} from 'wlc-engine/modules/core/system/services/event/event.service';
+import {HooksService} from 'wlc-engine/modules/core/system/services/hooks/hooks.service';
 import {
     LogService,
     TWaiter,
 } from 'wlc-engine/modules/core/system/services/log/log.service';
+import {StateHistoryService} from 'wlc-engine/modules/core/system/services/state-history/state-history.service';
 import {ModalService} from 'wlc-engine/modules/core/system/services/modal/modal.service';
 import {IPushMessageParams} from 'wlc-engine/modules/core/system/services/notification/notification.interface';
 import {NotificationEvents} from 'wlc-engine/modules/core/system/services/notification/notification.service';
@@ -41,6 +43,8 @@ import {IRedirect} from 'wlc-engine/modules/core/system/interfaces/core.interfac
 import {Deferred} from 'wlc-engine/modules/core/system/classes/deferred.class';
 import {InjectionService} from 'wlc-engine/modules/core/system/services/injection/injection.service';
 import {IFreeRound} from 'wlc-engine/modules/core/system/interfaces/loyalty.interface';
+import {GlobalHelper} from 'wlc-engine/modules/core/system/helpers/global.helper';
+import {IFormComponent} from 'wlc-engine/modules/core/components/form-wrapper/form-wrapper.component';
 import {
     Bonus,
     BonusesService,
@@ -52,23 +56,15 @@ import {
     IGamesFilterData,
     IPlayGameForRealCParams,
     MerchantFieldsService,
-} from 'wlc-engine/modules/games';
-import {
     GamesCatalogService,
-} from 'wlc-engine/modules/games/system/services/games-catalog/games-catalog.service';
+} from 'wlc-engine/modules/games';
 import {
     UserInfo,
     IAddProfileInfoCParams,
     UserHelper,
+    UserProfile,
 } from 'wlc-engine/modules/user';
 import {AddProfileInfoComponent} from 'wlc-engine/modules/user/components/add-profile-info';
-import {FormElements} from 'wlc-engine/modules/core/system/config/form-elements';
-import {IFormComponent} from 'wlc-engine/modules/core/components/form-wrapper/form-wrapper.component';
-import {HooksService} from 'wlc-engine/modules/core/system/services/hooks/hooks.service';
-import {StateHistoryService} from 'wlc-engine/modules/core/system/services/state-history/state-history.service';
-import {GlobalHelper} from 'wlc-engine/modules/core/system/helpers/global.helper';
-import {ActionService} from 'wlc-engine/modules/core/system/services/action/action.service';
-import {CuracaoRequirement} from 'wlc-engine/modules/app/system';
 
 export interface IHookGameStartData {
     game: Game;
@@ -91,7 +87,6 @@ export enum RejectReason {
 export const startGameResolver: ResolveTypes = {
     token: 'startGame',
     deps: [
-        CuracaoRequirement,
         ConfigService,
         LogService,
         StateService,
@@ -106,7 +101,6 @@ export const startGameResolver: ResolveTypes = {
         ActionService,
     ],
     resolveFn: (
-        enableRequirement: boolean,
         configService: ConfigService,
         logService: LogService,
         stateService: StateService,
@@ -121,7 +115,6 @@ export const startGameResolver: ResolveTypes = {
         actionService: ActionService,
     ) => {
         return new StartGameHandler(
-            enableRequirement,
             configService,
             logService,
             stateService,
@@ -154,7 +147,6 @@ class StartGameHandler {
     private previousState: StateObject;
 
     constructor(
-        @Inject(CuracaoRequirement) protected enableRequirement: boolean,
         private configService: ConfigService,
         private logService: LogService,
         private stateService: StateService,
@@ -542,11 +534,30 @@ class StartGameHandler {
         this.merchantFieldsService.checkRequiredFields(this.merchantId).then((): void => {
             defered.resolve();
         }, async (emptyFields: string[]): Promise<void> => {
-            if (!await this.configService.get<Promise<boolean>>('$user.skipPasswordOnFirstUserSession')) {
-                emptyFields.push('password');
+            const components: IFormComponent[] = [];
+
+            if (emptyFields.length > 1) {
+                emptyFields.sort((a, b) => formFieldTemplates[a].displayOrder - formFieldTemplates[b].displayOrder);
             }
 
-            emptyFields.push('submit');
+            emptyFields.forEach((field) => {
+                const templateName: string = formFieldTemplates[field]?.template;
+                const component: IFormComponent = _cloneDeep(FormElements[templateName]);
+                UserHelper.setValidatorRequired(templateName, component);
+                components.push(component);
+            });
+
+            const userProfile: UserProfile = await firstValueFrom(
+                this.configService.get<BehaviorSubject<UserProfile>>({name: '$user.userProfile$'})
+                    .pipe(first(v => !!v?.idUser)),
+            );
+            if (!await this.configService.get<Promise<boolean>>('$user.skipPasswordOnFirstUserSession')
+                && userProfile.type !== 'metamask'
+            ) {
+                components.push(FormElements.password);
+            }
+
+            components.push(FormElements.submit);
 
             this.modalService.showModal({
                 id: 'add-profile-info',
@@ -554,19 +565,7 @@ class StartGameHandler {
                 component: AddProfileInfoComponent,
                 componentParams: <IAddProfileInfoCParams>{
                     formConfig: {
-                        class: 'wlc-form-wrapper',
-                        components: _uniqWith(emptyFields.map((field: string): IFormComponent => {
-                            const formElement = _cloneDeep(FormElements
-                                [UserHelper.emptyFieldsAlias[field] || field]);
-
-                            if (this.enableRequirement && field !== 'submit') {
-                                UserHelper.setValidatorsFormElementsForCuracaoWlc(
-                                    (UserHelper.emptyFieldsAlias[field] || field), formElement,
-                                );
-                            }
-
-                            return formElement;
-                        }), _isEqual),
+                        components,
                     },
                     redirect: {
                         success: {

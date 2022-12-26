@@ -79,7 +79,6 @@ type TSaveChangesRes = TUpdateProfileRes | TSetNewPasswordRes;
                         'countryAndState',
                         'city',
                         'address',
-                        'postalCode',
                     ];
                     const fieldList = config.get<string[]>('$user.requiredByCuracaoFields');
                     if (fieldList) {
@@ -257,7 +256,7 @@ export class ProfileFormComponent extends ProfileFormAbstract implements OnInit 
                 case 'birthDate':
                 case 'profileMail':
                     fieldParams = this.findBlock(
-                        this.$params.config.components,
+                        this.formConfig.components,
                         'block',
                         FormElements[this.requiredFields[i]].name,
                     );
@@ -270,14 +269,14 @@ export class ProfileFormComponent extends ProfileFormAbstract implements OnInit 
                     }
 
                     fieldParams = this.findBlock(
-                        this.$params.config.components,
+                        this.formConfig.components,
                         'field',
                         fieldName,
                     );
                     break;
             }
             const item: IFormComponent = getField(fieldParams, this.requiredFields[i]);
-            UserHelper.setValidatorsFormElementsForCuracaoWlc(this.requiredFields[i], item);
+            UserHelper.setValidatorRequired(this.requiredFields[i], item);
         }
     }
 
