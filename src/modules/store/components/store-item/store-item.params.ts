@@ -5,7 +5,7 @@ import {
 
 export type Type = 'default' | CustomType;
 export type Theme = 'default' | 'first' | CustomType;
-export type ThemeMod = 'default' | CustomType;
+export type ThemeMod = 'default' | 'chip-v2' | CustomType;
 export type AutoModifiers = Theme | ThemeMod;
 export type CustomMod = string;
 export type Modifiers = AutoModifiers | CustomMod | null;

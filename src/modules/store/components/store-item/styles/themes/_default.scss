@@ -157,8 +157,11 @@
             .icon-text {
                 @include bm.get-mq-map('height', $themeDefault, 'bonusIconValueBlockHeight');
 
-                @include text.get-text-style(ef.get-value($themeDefault, 'bonusIconTextStyle'),
-                ef.get-value($themeDefault, 'bonusIconValueFontColor'));
+                @include text.get-text-style(
+                    ef.get-value($themeDefault, 'bonusIconTextStyle'),
+                    ef.get-value($themeDefault, 'bonusIconValueColor')
+                );
+
                 position: absolute;
                 bottom: ef.get-value($themeDefault, 'bonusIconValueBlockPosB');
                 left: ef.get-value($themeDefault, 'bonusIconValueBlockPosL');
@@ -169,7 +172,7 @@
 
                 width: ef.get-value($themeDefault, 'bonusIconValueBlockWidth');
                 margin: ef.get-value($themeDefault, 'bonusIconValueBlockMagin');
-                color: ef.get-value($themeDefault, 'bonusIconValueFontColor');
+                color: ef.get-value($themeDefault, 'bonusIconValueColor');
                 font-weight: ef.get-value($themeDefault, 'bonusIconValueFontW');
                 line-height: 1;
 

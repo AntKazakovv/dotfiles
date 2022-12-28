@@ -77,7 +77,7 @@ $themeDefault: map-merge((
     'bonusIconTextStyle': 'ThirdTitleBold',
     'bonusIconTextStyleSmall': 1.4rem,
     'bonusIconTextStyleSmaller': 1.2rem,
-    'bonusIconValueFontColor': ef.get('mainColors', 'black'),
+    'bonusIconValueColor': ef.get('mainColors', 'black'),
     'bonusIconValueFontSizeSmall': 1.4rem,
     'bonusIconValueFontSizeSmaller': 1rem,
     'bonusIconValueFontW': 700,
@@ -126,3 +126,5 @@ $themeDefault: map-merge((
     'tagBg': ef.get('tagConfig', 'bg'),
 
 ), $customThemeDefault);
+// Other themes vars
+@import './vars-theme-mod-chip-v2';

@@ -40,6 +40,7 @@ import {
     GlobalHelper,
     ActionService,
     INoContentCParams,
+    IIndexing,
 } from 'wlc-engine/modules/core';
 import {
     ISliderCParams,
@@ -353,13 +354,16 @@ export class BonusesListComponent extends AbstractComponent implements OnInit, O
     }
 
     protected bonusesToSlides(bonuses: Bonus[], scroll?: boolean): void {
+        const themeMod = this.ConfigService
+            ?.get<IIndexing<unknown>>('$modules.bonuses.components.wlc-bonus-item')?.themeMod;
         this.slides = bonuses?.map((item: Bonus) => {
             return {
                 component: BonusItemComponent,
                 componentParams: _merge(
                     {
                         theme: this.$params.theme,
-                        themeMod: this.$params.themeMod,
+                        themeMod: this.$params.themeMod === 'with-ears' && themeMod ? themeMod
+                            : this.$params.themeMod,
                         type: this.$params.common.filter,
                         bonus: item,
                     },
