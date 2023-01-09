@@ -151,6 +151,7 @@ export class DepositWithdrawComponent
     public availableSystems: number[] = [];
     public currentBonus: Bonus;
     public isWaitingResponse: boolean = false;
+    public showErrorHosledLoad: boolean = false;
 
     protected formObject: FormGroup;
     protected inProgress: boolean = false;
@@ -228,7 +229,7 @@ export class DepositWithdrawComponent
         this.updateFormConfig();
         this.initThemeToggleListener();
 
-        if (this.$params.mode === 'withdraw') {
+        if (!this.isDeposit) {
             this.title = gettext('Withdrawal');
             this.listConfig.paymentType = 'withdraw';
 
@@ -250,7 +251,7 @@ export class DepositWithdrawComponent
             this.$params.timerParams,
         );
 
-        if (this.$params.mode === 'deposit'
+        if (this.isDeposit
             && this.configService.get<boolean>('$finances.lastSucceedDepositMethod.use')) {
             this.lastSucceedDepositMethod = this.financesService.getLastSucceedDepositMethod();
         }
@@ -376,17 +377,17 @@ export class DepositWithdrawComponent
         this.formObject = form;
 
         if (this.isDeposit) {
+            this.eventService.emit({
+                name: 'DEPOSIT',
+                data: {
+                    desc: 'deposit_start',
+                },
+            });
+
             return await this.deposit();
         } else {
             return await this.withdraw(this.formObject);
         }
-
-        this.eventService.emit({
-            name: 'DEPOSIT',
-            data: {
-                desc: 'deposit_start',
-            },
-        });
     }
 
     public async deposit(saveProfile: boolean = true): Promise<boolean> {
@@ -395,6 +396,17 @@ export class DepositWithdrawComponent
 
         if (this.currentSystem.isHosted) {
             this.currentSystem.getHostedValue();
+
+            if (this.currentSystem.hostedFields.invalid) {
+                this.inProgress = false;
+
+                if (this.modalService.getActiveModal('data-is-processing')) {
+                    this.modalService.hideModal('data-is-processing');
+                }
+
+                return false;
+            }
+
             return true;
         } else {
             return await this.depositAction(this.formObject.value.amount, this.getAdditionalParams(), saveProfile);
@@ -487,24 +499,24 @@ export class DepositWithdrawComponent
     }
 
     public get minAmount(): number {
-        if (this.$params.mode === 'withdraw') {
-            return this.currentSystem.withdrawMin;
-        } else {
+        if (this.isDeposit) {
             return _max([
                 +this.currentSystem.depositMin,
                 this.currentBonus?.minDeposit,
             ]);
+        } else {
+            return this.currentSystem.withdrawMin;
         }
     }
 
     public get maxAmount(): number {
-        if (this.$params.mode === 'withdraw') {
-            return this.currentSystem.withdrawMax;
-        } else {
+        if (this.isDeposit) {
             return _min([
                 +this.currentSystem.depositMax,
                 this.currentBonus?.maxDeposit || null,
             ]);
+        } else {
+            return this.currentSystem.withdrawMax;
         }
     }
 
@@ -879,33 +891,14 @@ export class DepositWithdrawComponent
         }
 
         this.isShowHostedBlock = false;
+        this.showErrorHosledLoad = false;
 
         if (!system) {
-            if (this.parentSystem && !this.currentSystem) {
-                this.parentSystem = null;
-                this.steps.delete(Params.PaymentSteps.cryptoInvoices);
-                this.steps.add(Params.PaymentSteps.paymentInfo);
-            } else if (this.parentSystem && this.currentSystem?.cryptoInvoices) {
-                this.steps.delete(Params.PaymentSteps.paymentInfo);
-            }
-
-            this.currentSystem = undefined;
-            this.requiredFields = {};
-            this.requiredFieldsKeys.length = 0;
-            this.cryptoCheck = false;
-            this.disableAmount = false;
-            this.additionalParams = {};
-            this.updateFormConfig();
-            this.formData$.next({
-                amount: null,
-            });
-            this.cdr.markForCheck();
+            this.dropCurrentSystem();
             return;
         }
 
-        if (this.currentSystem?.isHosted) {
-            this.currentSystem.resetHostedFields();
-            this.currentSystem.dropHostedFields();
+        if (this.currentSystem?.clearHostedFields()) {
             this.isLoadingHostedFields = false;
             this.cdr.detectChanges();
         }
@@ -915,10 +908,6 @@ export class DepositWithdrawComponent
         if (this.currentSystem.isPregeneration && !this.currentSystem.message) {
             this.isWaitingResponse = true;
             await this.depositAction(0, {bonusId: null});
-
-            if (this.currentSystem.message) {
-                this.currentSystem.cryptoCheck = true;
-            }
         }
 
         this.cryptoCheck = this.currentSystem.cryptoCheck && this.isDeposit;
@@ -962,7 +951,7 @@ export class DepositWithdrawComponent
         if (this.currentSystem.isHosted
             && (!this.isLoadingHostedFields || !this.currentSystem.hostedFields.loaded)
             && _isEmpty(this.requiredFields)) {
-            this.loadHostedFields();
+            await this.loadHostedFields();
         }
 
         if (this.currentSystem.isCashier) {
@@ -970,6 +959,28 @@ export class DepositWithdrawComponent
         }
 
         this.isWaitingResponse = false;
+    }
+
+    protected dropCurrentSystem(): void {
+        if (this.parentSystem && !this.currentSystem) {
+            this.parentSystem = null;
+            this.steps.delete(Params.PaymentSteps.cryptoInvoices);
+            this.steps.add(Params.PaymentSteps.paymentInfo);
+        } else if (this.parentSystem && this.currentSystem?.cryptoInvoices) {
+            this.steps.delete(Params.PaymentSteps.paymentInfo);
+        }
+
+        this.currentSystem = undefined;
+        this.requiredFields = {};
+        this.requiredFieldsKeys.length = 0;
+        this.cryptoCheck = false;
+        this.disableAmount = false;
+        this.additionalParams = {};
+        this.updateFormConfig();
+        this.formData$.next({
+            amount: null,
+        });
+        this.cdr.markForCheck();
     }
 
     protected requestStyles(filePath: string, errorCallback: () => Observable<string>) {
@@ -983,9 +994,17 @@ export class DepositWithdrawComponent
             );
     }
 
-    protected loadHostedFields(): void {
+    protected async loadHostedFields(): Promise<void> {
         this.isLoadingHostedFields = true;
         this.isShowHostedBlock = true;
+
+        if(!(await this.currentSystem.isReadyHostedController)) {
+            this.isLoadingHostedFields = false;
+            this.isShowHostedBlock = false;
+            this.showErrorHosledLoad = true;
+            return;
+        };
+
         this.currentSystem.resetHostedFields();
 
         const formCallbackHandler = (formData: IHostedFormData) => {

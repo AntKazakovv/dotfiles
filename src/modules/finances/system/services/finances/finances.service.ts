@@ -228,17 +228,11 @@ export class FinancesService {
             }
         });
 
-        const parentSystem: PaymentSystem = new PaymentSystem(
-            {helper: 'FinancesService', method: 'updateForCryptoInvoices'},
-            _merge({}, cryptoInvoiceSystem,
-                this.configService.get('$finances.cryptoInvoices.paySystemParams'),
-                {tags: FinancesHelper.collectTags(invoicesSystems)},
-            ),
-            this.configService.get<BehaviorSubject<UserProfile>>({name: '$user.userProfile$'}),
+        const parentSystem: PaymentSystem = this.createPaymentSystem(
+            _merge({}, cryptoInvoiceSystem, this.configService.get('$finances.cryptoInvoices.paySystemParams'),
+                {tags: FinancesHelper.collectTags(invoicesSystems)}),
+            invoicesSystems,
         );
-
-        parentSystem.isParent = true;
-        parentSystem.children = invoicesSystems;
 
         otherSystems.splice(firstInvoiceIndex, 0, parentSystem);
 
@@ -389,16 +383,26 @@ export class FinancesService {
 
         if (data.length) {
             for (const paymentData of data) {
-                const system: PaymentSystem = new PaymentSystem(
-                    {service: 'FinancesService', method: 'createPaymentSystems'},
-                    paymentData,
-                    this.configService.get<BehaviorSubject<UserProfile>>({name: '$user.userProfile$'}),
-                );
-                paymentSystems.push(system);
+                paymentSystems.push(this.createPaymentSystem(paymentData));
             }
         }
 
         return paymentSystems;
+    }
+
+    private createPaymentSystem(data: IPaymentSystem, invoicesSystems?: PaymentSystem[]): PaymentSystem {
+        const paymentSystem: PaymentSystem = new PaymentSystem(
+            {service: 'FinancesService', method: 'createPaymentSystems'},
+            data,
+            this.configService.get<BehaviorSubject<UserProfile>>({name: '$user.userProfile$'}),
+            this.configService.get('$finances.fieldTemplatesNames'),
+        );
+
+        if (invoicesSystems) {
+            paymentSystem.children = invoicesSystems;
+        }
+
+        return paymentSystem;
     }
 
 

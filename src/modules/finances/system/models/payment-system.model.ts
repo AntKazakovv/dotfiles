@@ -1,37 +1,41 @@
-import {aliasTickerMap} from './../constants/crypto-invoices.constants';
 import {BehaviorSubject} from 'rxjs';
-import {UserProfile} from './../../../user/system/models/profile.model';
+
 import _assign from 'lodash-es/assign';
 import _get from 'lodash-es/get';
 import _includes from 'lodash-es/includes';
 import _isArray from 'lodash-es/isArray';
 import _pickBy from 'lodash-es/pickBy';
-import _reduce from 'lodash-es/reduce';
-import _map from 'lodash-es/map';
-import _findIndex from 'lodash-es/findIndex';
-import _uniq from 'lodash-es/uniq';
-import _isString from 'lodash-es/isString';
 import _isEmpty from 'lodash-es/isEmpty';
-import _toNumber from 'lodash-es/toNumber';
+import _isObject from 'lodash-es/isObject';
 
 import {AbstractModel} from 'wlc-engine/modules/core/system/models/abstract.model';
 import {IIndexing} from 'wlc-engine/modules/core/system/interfaces';
 import {GlobalHelper} from 'wlc-engine/modules/core/system/helpers/global.helper';
-import {FinancesHelper} from '../helpers/finances.helper';
+import {aliasTickerMap} from './../constants/crypto-invoices.constants';
+import {UserProfile} from './../../../user/system/models/profile.model';
 import {IPaymentMessage} from 'wlc-engine/modules/finances/system/interfaces/finances.interface';
-import {
-    IFromLog,
-    ILogObj,
-} from 'wlc-engine/modules/core';
+import {IFromLog} from 'wlc-engine/modules/core';
 import {
     TPaymentsMethods,
     TPaySystemTagAll,
     TPaySystemTag,
 } from '../interfaces';
 
+import {
+    IFormCallback,
+    IHostedFieldsControllerM,
+    HostedFieldsControllerM,
+} from 'wlc-engine/modules/finances/system/classes/hosted-fields.controller';
+import {
+    IAdditionalFieldsControllerM,
+    AdditionalFieldsControllerM,
+} from 'wlc-engine/modules/finances/system/classes/additional-fields.controller';
+
 export type FilterType = TPaymentsMethods | 'Deposits' | 'Withdraws' | 'all' | 'All';
 
-export type TPaymentSystems = IPaymentSystem[];
+export interface IHostedFormData extends IIndexing<string | IIndexing<string>> {
+    errors?: IIndexing<string>;
+}
 
 export interface IPaymentSystem {
     additional: string;
@@ -61,11 +65,29 @@ export interface IPaymentSystem {
     showfor: FilterType;
     withdrawMax?: number;
     withdrawMin?: number;
-    paymentSuccess?: boolean;
     tokenRequired?: boolean;
-    visible?: boolean;
     cryptoInvoice?: boolean;
     tags?: TPaySystemTag[];
+}
+
+export interface IHostedFields {
+    merchantId: string;
+    url: string;
+    fields: IHostedField[];
+    loaded?: boolean;
+    loadedError?: boolean;
+    errors?: boolean;
+    invalid?: boolean;
+}
+
+export interface IHostedField {
+    type: string;
+    name: string;
+    label: string;
+    error?: string;
+    helpKey?: string;
+    visible?: string;
+    required?: string;
 }
 
 export interface IPaymentAdditionalParam {
@@ -84,45 +106,6 @@ export interface IPaymentAdditionalParamEx extends Omit<IPaymentAdditionalParam,
     optional?: number;
 }
 
-export interface IHostedFields {
-    merchantId: string;
-    url: string;
-    fields: IHostedField[];
-    loaded?: boolean;
-    errors?: boolean;
-    invalid?: boolean;
-}
-
-export interface IHostedField {
-    type: string;
-    name: string;
-    label: string;
-    error?: string;
-    helpKey?: string;
-    visible?: string;
-    required?: string;
-}
-
-export interface IHostedFieldsParams {
-    merchantId: string;
-    hostedfieldsurl: string;
-    fields: IHostedField[];
-    styles: any;
-    callback: () => void;
-    onLoadCallback: () => void;
-    el: string;
-}
-
-export interface IHostedFieldService {
-    setup: (params: IHostedFieldsParams) => void;
-    get: () => void;
-    reset: () => void;
-}
-
-export interface IHostedFormData extends IIndexing<string | IIndexing<string>> {
-    errors?: IIndexing<string>;
-}
-
 export interface IPaymentSystemCustomParams {
     provider?: string; // PaymentIQ Cashier provider
     merchant_id?: string; // PaymentIQ Cashier merchant ID
@@ -135,84 +118,6 @@ export interface IFieldTemplate {
     label: string;
 }
 
-const fieldTemplatesNames: IIndexing<IFieldTemplate> = {
-    firstName: {
-        template: 'firstName',
-        dbName: 'Name',
-        label: 'First name',
-    },
-    lastName: {
-        template: 'lastName',
-        dbName: 'LastName',
-        label: 'Last name',
-    },
-    birthDay: {
-        template: 'birthDate',
-        dbName: 'DateOfBirth',
-        label: 'Date of birth',
-    },
-    gender: {
-        template: 'gender',
-        dbName: 'Gender',
-        label: 'Gender',
-    },
-    idNumber: {
-        template: 'idNumber',
-        dbName: 'IDNumber',
-        label: 'ID number',
-    },
-    countryCode: {
-        template: 'country',
-        dbName: 'IDCountry',
-        label: 'Country',
-    },
-    stateCode: {
-        template: 'state',
-        dbName: 'IDState',
-        label: 'State',
-    },
-    postalCode: {
-        template: 'postalCode',
-        dbName: 'PostalCode',
-        label: 'Postal code',
-    },
-    city: {
-        template: 'city',
-        dbName: 'City',
-        label: 'City',
-    },
-    address: {
-        template: 'address',
-        dbName: 'Address',
-        label: 'Address',
-    },
-    bankName: {
-        template: 'bankNameText',
-        dbName: 'BankName',
-        label: 'Bank name',
-    },
-    branchCode: {
-        template: 'branchCode',
-        dbName: 'BranchCode',
-        label: 'Branch code',
-    },
-    swift: {
-        template: 'swift',
-        dbName: 'Swift',
-        label: 'SWIFT',
-    },
-    ibanNumber: {
-        template: 'ibanNumber',
-        dbName: 'Iban',
-        label: 'Iban number',
-    },
-    phoneNumber: {
-        template: 'mobilePhone',
-        dbName: 'Phone',
-        label: 'Mobile phone',
-    },
-};
-
 const disabledReasons = {
     // Apply to payment system if chosen bonus paySystems array doesn't empty
     // and doesn't contain the method id
@@ -221,33 +126,65 @@ const disabledReasons = {
 
 export class PaymentSystem extends AbstractModel<IPaymentSystem> {
 
-    public cardFields: boolean;
-    public isPayCryptos: boolean = false;
-    public isPayCryptosV2: boolean = false;
-    public isLastAccountsObj: boolean;
-    public isHosted: boolean = false;
-    public cryptoCheck: boolean;
-    public readonly isKauri: boolean = false;
-    public readonly isCashier: boolean = false;
-    public readonly isPregeneration: boolean = false;
+    public readonly isPayCryptos: boolean;
+    public readonly isKauri: boolean;
+    public readonly isCashier: boolean;
+    public readonly isPayCryptosV2: boolean;
+    public readonly isLastAccountsObj: boolean;
+    public readonly isPregeneration: boolean;
+
     public disabledBy: null | keyof typeof disabledReasons = null;
-
     public isParent: boolean = false;
-    public children: PaymentSystem[] = [];
 
-    private hostedFieldService: IHostedFieldService;
-    private hostedField: any;
+    protected isCryptoCheck: boolean;
+    protected hostedController: IHostedFieldsControllerM;
+    protected additionalController: IAdditionalFieldsControllerM;
+    protected childrenSystems: PaymentSystem[] = [];
 
     constructor(
         from: IFromLog,
         data: IPaymentSystem,
         protected userProfile$: BehaviorSubject<UserProfile>,
+        protected fieldTemplatesNames: IIndexing<IFieldTemplate>,
     ) {
         super({from: _assign({model: 'PaymentSystem'}, from)});
         this.init(data);
-        this.isKauri = _includes(this.alias, 'kauri');
+
+        if (!_isArray(this.data.hostedFields) && !_isEmpty(this.data.hostedFields?.fields)) {
+            this.hostedController = new HostedFieldsControllerM(this.data);
+        }
+
+        if (!_isArray(this.data.additionalParams) && !_isEmpty(this.data.additionalParams)) {
+            this.additionalController = new AdditionalFieldsControllerM(this.data, this.userProfile$);
+        }
+
+        this.isPayCryptos = this.alias.includes('paycryptos');
+        this.isKauri = _includes(this.data.alias, 'kauri');
+        this.isLastAccountsObj = !_isEmpty(this.data.lastAccountsObj);
+        this.isPregeneration = !!(this.data.customParams as IPaymentSystemCustomParams)?.pregeneration_request;
+
+        if (this.isPayCryptos) {
+            this.isPayCryptosV2 = this.data.alias.includes('v2');
+        }
+
         this.isCashier = !!this.data.isPIQCashier;
-        this.isPregeneration = !!this.customParams?.pregeneration_request;
+    }
+
+    public get isHosted(): boolean {
+        return !!this.hostedController;
+    }
+
+    public get children(): PaymentSystem[] {
+        return this.childrenSystems;
+    }
+
+    public set children(systems: PaymentSystem[]) {
+        if (systems.length) {
+            this.childrenSystems = systems;
+            this.isParent = true;
+        } else {
+            this.isParent = false;
+        }
     }
 
     public get cryptoTicker(): string {
@@ -267,23 +204,19 @@ export class PaymentSystem extends AbstractModel<IPaymentSystem> {
     }
 
     public get additionalParams(): IIndexing<IPaymentAdditionalParam> {
-        return _isArray(this.data.additionalParams) ? {} : this.data.additionalParams;
+        return this.additionalController ? this.additionalController.additionalParams : {};
     }
 
     public set additionalParams(data: IIndexing<IPaymentAdditionalParam>) {
         this.data.additionalParams = data;
     }
 
-    public get additionalParamsCount(): number {
-        return Object.keys(this.data.additionalParams).length;
-    }
-
     public get additionalParamsDeposit(): IIndexing<IPaymentAdditionalParam> {
-        return this.getAdditionalParams('deposit');
+        return this.additionalController ? this.additionalController.getAdditionalParams('deposit') : {};
     }
 
     public get additionalParamsWithdraw(): IIndexing<IPaymentAdditionalParam> {
-        return this.getAdditionalParams('withdraw');
+        return this.additionalController ? this.additionalController.getAdditionalParams('withdraw') : {};
     }
 
     public get alias(): string {
@@ -292,6 +225,10 @@ export class PaymentSystem extends AbstractModel<IPaymentSystem> {
 
     public get allowIframe(): boolean {
         return !!this.data.allowiframe;
+    }
+
+    public get cryptoCheck(): boolean {
+        return this.isCryptoCheck;
     }
 
     public get customParams(): IPaymentSystemCustomParams {
@@ -354,6 +291,7 @@ export class PaymentSystem extends AbstractModel<IPaymentSystem> {
 
     public set message(data: string | IIndexing<string> | IPaymentMessage) {
         this.data.message = data;
+        this.cryptoChecking();
     }
 
     public get name(): string {
@@ -384,24 +322,12 @@ export class PaymentSystem extends AbstractModel<IPaymentSystem> {
         return this.data.withdrawMin || 1;
     }
 
-    public get visible(): boolean {
-        return this.data.visible || true;
-    }
-
     public get tokenRequired(): boolean {
         return this.data.tokenRequired;
     }
 
-    public get paymentSuccess(): boolean {
-        return this.data.paymentSuccess;
-    }
-
-    public get hostedFields(): IHostedFields {
-        return _isArray(this.data.hostedFields) ? null : this.data.hostedFields;
-    }
-
-    public get isCardFields(): boolean {
-        return this.cardFields;
+    public get hostedFields(): IHostedFields | null {
+        return this.hostedController ? this.hostedController.hostedFields : null;
     }
 
     public get cryptoInvoices(): boolean {
@@ -412,6 +338,10 @@ export class PaymentSystem extends AbstractModel<IPaymentSystem> {
         return this.data.tags?.length ? this.data.tags : ['other'];
     }
 
+    public get isReadyHostedController(): Promise<boolean> {
+        return this.hostedController.ready.promise;
+    }
+
     public checkRequiredFields(type: TPaymentsMethods = 'deposit'): IIndexing<IFieldTemplate> {
         const fields = type === 'deposit' ? this.required : this.requiredWithdraw;
 
@@ -420,209 +350,77 @@ export class PaymentSystem extends AbstractModel<IPaymentSystem> {
             this.required.push('IDCountry');
         }
 
-        return _pickBy(fieldTemplatesNames, (value: IFieldTemplate, key: string) => {
+        return _pickBy(this.fieldTemplatesNames, (value: IFieldTemplate, key: string) => {
             return _includes(fields, value.dbName) &&
                 GlobalHelper.getOwnProperty(this.userProfile$.getValue() as any, key) &&
                 !_get(this.userProfile$.getValue(), [key, 'length'], false);
         });
     }
 
+    public clearHostedFields(): boolean {
+        if (this.hostedController) {
+            this.hostedController.resetHostedFields();
+            this.hostedController.dropHostedFields();
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public resetHostedFields(): void {
-        this.hostedFieldService.reset();
+        if (this.hostedController) {
+            this.hostedController.resetHostedFields();
+        }
     }
 
     public getHostedValue(): void {
-        this.hostedFieldService.get();
+        if (this.hostedController) {
+            this.hostedController.getHostedValue();
+        }
     }
 
     public dropHostedFields(): void {
-        this.hostedFields.errors = null;
-        this.hostedFields.loaded = false;
+        if (this.hostedController) {
+            this.hostedController.dropHostedFields();
+        }
     }
 
     public validateHostedFields(): void {
-        this.hostedFields.invalid = false;
-        this.hostedFields.errors = null;
+        if (this.hostedController) {
+            this.hostedController.validateHostedFields();
+        }
     }
 
     public invalidateHostedFields(): void {
-        this.hostedFields.invalid = true;
-        this.hostedFields.errors = true;
+        if (this.hostedController) {
+            this.hostedController.invalidateHostedFields();
+        }
     }
 
     public loadedHostedFields(): void {
-        this.hostedFields.invalid = true;
-        this.hostedFields.loaded = true;
+        if (this.hostedController) {
+            this.hostedController.loadedHostedFields();
+        }
     }
 
     public setupHostedFields(
         formLoadedCallback: () => void,
-        formCallback: (formData: IHostedFormData) => void,
+        formCallback: IFormCallback,
         styles: string,
     ): void {
-        const params: IHostedFieldsParams = {
-            merchantId: this.hostedFields.merchantId,
-            hostedfieldsurl: this.hostedFields.url,
-            fields: this.hostedFields.fields,
-            onLoadCallback: () => formLoadedCallback,
-            styles: styles,
-            callback: () => formCallback,
-            el: '#wlc-hosted-fields',
-        };
-
-        params.fields = params.fields.map((conf: IHostedField) => {
-            return new this.hostedField(
-                conf.type,
-                conf.name,
-                conf.name,
-                conf.label,
-                conf.error,
-                conf.helpKey,
-                conf.visible,
-                conf.required,
-            );
-        });
-        this.hostedFieldService.setup(params);
+        if (this.hostedController) {
+            this.hostedController.setupHostedFields(formLoadedCallback, formCallback, styles);
+        }
     }
 
     private init(data: IPaymentSystem): void {
         this.data = data;
-
-        if (!_isArray(this.data.hostedFields) && this.data.hostedFields?.fields?.length) {
-            this.isHosted = true;
-            this.importPackage();
-        }
-
-        this.isLastAccountsObj = !_isEmpty(this.lastAccountsObj);
-
-        if (this.alias.includes('paycryptos')) {
-            this.isPayCryptos = true;
-
-            if (this.alias.includes('v2')) {
-                this.isPayCryptosV2 = true;
-            }
-        }
-
-        this.cryptoCheck = !_isString(this.message)
-            && (this.message.translate === 'pay_to_address' && this.message.address) ? true : false;
-
-        this.prepareAdditionalFields();
-        this.cardFields = this.isWithCardFields();
+        this.cryptoChecking();
     }
 
-    private async importPackage(): Promise<void> {
-        await import('hosted-fields-sdk')
-            .then((m: any) => {
-                this.hostedFieldService = m['HostedFields'];
-                this.hostedField = m['Field'];
-            })
-            .catch((error) => {
-                const logObj: ILogObj = {
-                    code: '7.0.3',
-                    flog: {
-                        error: error.message ? error.message : error,
-                    },
-                };
-                if (this.id) {
-                    logObj.flog.id = this.id;
-                }
-                this.sendLog(logObj);
-            });
-    }
-
-    private prepareAdditionalFields(): void {
-        const hostedFields: IHostedField[] = _get(this, 'hostedFields.fields', {});
-
-        for (const key in this.data.additionalParams) {
-            if (this.additionalParams[key]) {
-                this.data.additionalParams[key] = this.getField(this.data.additionalParams[key]);
-                this.data.additionalParams[key].isHosted = _findIndex(hostedFields,
-                    (f: IHostedField) => f.name === key) !== -1;
-                this.setFieldValue(key, this.additionalParams[key]);
-            }
-        }
-
-        //TODO разобраться с этим ид бонуса
-        /*
-        const addParams = _get(this.UserService,
-            `userProfile.extProfile.paymentSystems.${this.alias}.additionalParams`);
-
-        if (addParams) {
-            delete addParams.bonusId;
-        }
-        */
-    }
-
-    private getAdditionalParams(filterType: FilterType): IIndexing<IPaymentAdditionalParam> {
-        let fields: IIndexing<IPaymentAdditionalParam> = {};
-
-        fields = _pickBy(this.additionalParams, (field: IPaymentAdditionalParam, key: string) => {
-            this.setFieldValue(key, field);
-            return (FinancesHelper.isDeposit(field.showfor) && FinancesHelper.isDeposit(filterType))
-                || (FinancesHelper.isWithdraw(field.showfor) && FinancesHelper.isWithdraw(filterType));
-        });
-
-        return fields;
-    }
-
-    private getField(param: string | any): IPaymentAdditionalParamEx {
-        let field: IPaymentAdditionalParamEx,
-            parsParam: any;
-        try {
-            parsParam = eval(param);
-        } catch {
-            parsParam = param;
-        }
-
-        if (typeof parsParam === 'object') {
-            field = {
-                label: parsParam.label,
-                name: parsParam.label || parsParam.name,
-                type: parsParam.type || 'input',
-                showfor: parsParam.showfor || 'all',
-                skipsaving: _toNumber(parsParam.skipsaving) || 0,
-                optional: _toNumber(parsParam.optional) || 0,
-                params: parsParam.data,
-            };
-        } else if (_isArray(parsParam)) {
-            field = {
-                label: parsParam[0],
-                name: parsParam[0],
-                type: parsParam[1],
-                showfor: 'all',
-                skipsaving: 0,
-                params: parsParam[2],
-            };
-        } else if (typeof parsParam === 'string') {
-            field = {
-                label: parsParam,
-                name: parsParam,
-                type: 'input',
-                showfor: 'all',
-                skipsaving: 0,
-            };
-        }
-
-        return field;
-    }
-
-    private setFieldValue(key: string, field: IPaymentAdditionalParam) {
-        if (!field.skipsaving) {
-            if (['firstName', 'lastName'].includes(key)) {
-                field.value = _get(this.userProfile$.getValue(), key, '');
-            } else {
-                field.value = _get(this.userProfile$.getValue(),
-                    `extProfile.paymentSystems.${this.alias}.additionalParams.${key}`, '');
-            }
-        }
-    }
-
-    private isWithCardFields(): boolean {
-        const params = []; //TODO siteconfig.paymentsWithCardFields
-        let aliases = [];
-        if (params.length) {
-            aliases = _reduce(_map(params, 'aliases'), (res, item) => res.concat(item), []);
-        }
-        return _includes(_uniq(aliases), this.alias);
+    private cryptoChecking(): void {
+        this.isCryptoCheck = _isObject(this.data.message) &&
+        ((this.data.message as IPaymentMessage).translate === 'pay_to_address' &&
+        (this.data.message as IPaymentMessage).address) ? true : false;
     }
 }

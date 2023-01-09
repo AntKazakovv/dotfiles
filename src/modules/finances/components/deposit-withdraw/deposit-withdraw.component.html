@@ -131,17 +131,26 @@
         <div wlc-loader></div>
     </ng-container>
 
-    <ng-container *ngIf="!requiredFieldsKeys.length && !isWaitingResponse">
+    <ng-container *ngIf="showErrorHosledLoad">
+        <div *ngIf="true" class="{{$class}}__alert"
+            wlc-alert
+            [title]="'Loading error. Sorry, this method is not available.' | translate"
+            [level]="'error'"
+        ></div>
+    </ng-container>
+
+    <ng-container *ngIf="!requiredFieldsKeys.length && !isWaitingResponse && !showErrorHosledLoad">
         <div *ngIf="isShowHostedBlock"
             class="wlc-hosted-fields">
             <div id="wlc-hosted-fields"
                 class="wlc-hosted-fields__container"
                 [hidden]="!currentSystem.hostedFields.loaded">
             </div>
-            <span *ngIf="currentSystem.hostedFields.errors"
-                class="wlc-hosted-fields__error">
-                {{'An error has occurred. Check the entered data and try again' | translate}}
-            </span>
+            <div *ngIf="currentSystem.hostedFields.errors" class="{{$class}}__alert"
+                wlc-alert
+                [title]="'An error has occurred. Check the entered data and try again' | translate"
+                [level]="'error'"
+            ></div>
             <div *ngIf="!currentSystem.hostedFields.loaded" wlc-loader></div>
         </div>
 
