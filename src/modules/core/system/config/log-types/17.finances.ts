@@ -9,6 +9,14 @@ export const errorTypes: ILogTypes = {
         // Empty payment markup
         level: 'error',
     },
+    '17.0.1': {
+        // 'Error endpoint deposit
+        level: 'error',
+    },
+    '17.0.2': {
+        // 'Error endpoint withdraw
+        level: 'error',
+    },
     '17.1.1': {
         // Error loading payment markup script
         level: 'error',
