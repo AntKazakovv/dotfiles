@@ -14,14 +14,19 @@ export type Theme = 'default' | CustomType;
 export type AutoModifiers = Theme | TextSide | 'default';
 export type CustomMod = string;
 export type Modifiers = AutoModifiers | CustomMod | null;
-
 export type OnChange = (checked: boolean) => void;
+export type TargetType = '_blank' | '_self' | '_parent' | '_top';
+
 
 export interface ILegalCheckboxWithLink {
     prefix?: string;
     linkText?: string;
     suffix?: string;
     slug?: string;
+    /* Hook for url */
+    urlHook?: string;
+    /* new tab for clickable text (<a>)*/
+    target?: TargetType;
 }
 
 export interface ICheckboxCParams extends IComponentParams<ComponentTheme, ComponentType, string> {

@@ -35,6 +35,8 @@ export class CheckBoxTexts {
             prefix: gettext('I have read and agree to the payment'),
             linkText: gettext('system restrictions'),
             slug: 'terms-and-conditions',
+            urlHook: 'item-8',
+            target: '_blank',
         },
         privacyPolicyText: {
             prefix: gettext('I agree with'),

@@ -37,8 +37,16 @@
         </span>
         <div class="{{$class}}__text">
             {{textWithLink.prefix | translate}}
-            <a [uiSref]="'app.contacts'" [uiParams]="{slug: textWithLink.slug}"
-               class="{{$class}}__link">{{textWithLink.linkText | translate}} *</a>
+            <a
+                [uiSref]="'app.contacts'"
+                [uiParams]="{slug: textWithLink.slug, '#': textWithLink.urlHook}"
+                class="{{$class}}__link"
+                [target]="textWithLink.target"
+            >
+                {{textWithLink.linkText | translate}} *
+            </a>
+
+
             {{textWithLink.suffix | translate}}
         </div>
     </label>
