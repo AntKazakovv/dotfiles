@@ -1,4 +1,5 @@
 .wlc-game-wrapper--theme-fullscreen-game-frame {
+    position: relative;
     margin: ef.get-value($themeFullscreenGameFrame, 'margin');
     overflow: hidden;
 

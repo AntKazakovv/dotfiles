@@ -10,11 +10,10 @@ $themeDefault: map-merge((
     'statusMaxWidth': 350px,
     'statusPadding': ef.size(2),
     'statusGap': ef.size(4),
-    'statusAlignItems': 'center',
-    'statusJustifyContent': 'justify-content',
+    'statusAlignItems': center,
+    'statusJustifyContent': justify-content,
     'statusFlexDirection': (
-        375: column,
-        560: row,
+        375: row,
     ),
     'iframeMinHeight': (
         375: 600px,
