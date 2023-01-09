@@ -4,7 +4,7 @@ $themeDefault: map-merge((
         320: 'PrimaryTextBold',
         768: 'QoteTextBold',
     ),
-    'titleMargin': 0,
+    'titlePadding': 0 ef.size(5),
     'titleColor': var(--mc-baseMain),
 
     'paddingBody': ef.size(6) 0 0,

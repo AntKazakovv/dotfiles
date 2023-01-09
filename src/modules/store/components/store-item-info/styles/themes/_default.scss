@@ -4,7 +4,7 @@
 
         &__title {
             @include text.get-text-style(ef.get-value($themeDefault, 'titleFontSize', 320), ef.get-value($themeDefault, 'titleColor'));
-            margin: ef.get-value($themeDefault, 'titleMargin');
+            padding: ef.get-value($themeDefault, 'titlePadding');
             text-align: center;
 
             @include mq.min(768) {
