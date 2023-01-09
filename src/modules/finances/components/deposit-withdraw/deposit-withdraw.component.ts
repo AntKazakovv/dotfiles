@@ -466,6 +466,7 @@ export class DepositWithdrawComponent
 
             return false;
         } finally {
+
             if (this.modalService.getActiveModal('data-is-processing')) {
                 this.modalService.hideModal('data-is-processing');
             }
@@ -475,10 +476,15 @@ export class DepositWithdrawComponent
     }
 
     public async saveProfile(): Promise<true | IIndexing<any>> {
-        const extProfile: IExtProfile = this.userProfile.extProfile,
+        const extProfile: IExtProfile = _assign({}, this.userProfile.extProfile),
             alias: string = this.currentSystem?.alias,
-            additionalParams: IExtPaymentSystem = {additionalParams: this.checkSkipSaving()};
-        extProfile.paymentSystems = _assign({}, extProfile.paymentSystems, {[alias]: additionalParams});
+            fields: IExtPaymentSystem = {additionalParams: this.checkSkipSaving()};
+
+        if (_isEmpty(fields.additionalParams)) {
+            return;
+        }
+
+        extProfile.paymentSystems = _assign({}, extProfile.paymentSystems, {[alias]: fields});
 
         try {
             if (!this.userService) {
