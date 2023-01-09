@@ -17,6 +17,7 @@ import {
     ConfigService,
     ModalService,
     EventService,
+    GlobalHelper,
 } from 'wlc-engine/modules/core';
 import {StoreItem} from 'wlc-engine/modules/store/system/models/store-item';
 import {StoreService} from 'wlc-engine/modules/store/system/services';
@@ -75,6 +76,10 @@ export class StoreItemComponent extends AbstractComponent implements OnInit, OnD
                 this.storeImage = this.$params.common?.defaultPicPath;
             }
         };
+
+        if (this.configService.get<boolean>('$base.useButtonPending')) {
+            GlobalHelper.addPendingToBtnsParams(this.$params.btnsParams);
+        }
     }
 
     public openDescription(storeItem: StoreItem): void {
@@ -86,8 +91,10 @@ export class StoreItemComponent extends AbstractComponent implements OnInit, OnD
     }
 
     public async buyItem(): Promise<void> {
+        this.$params.btnsParams.buyBtnParams.pending$?.next(true);
         this.buyClick = true;
         await this.storeService.buyItem(this.storeItem.id);
+        this.$params.btnsParams.buyBtnParams.pending$?.next(false);
         this.buyClick = false;
         this.cdr.markForCheck();
     }

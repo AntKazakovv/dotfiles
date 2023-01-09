@@ -4,6 +4,7 @@ import {
     Provider,
 } from '@angular/core';
 import {
+    BehaviorSubject,
     fromEvent,
     fromEventPattern,
     Observable,
@@ -18,13 +19,13 @@ import {
     IDisplayConfig,
     IIndexing,
 } from 'wlc-engine/modules/core/system/interfaces';
+import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
+import {IButtonCParams} from 'wlc-engine/modules/core/components/button/button.params';
 import {INoContentCParams} from 'wlc-engine/modules/core/components/no-content/no-content.params';
-import {ConfigService} from 'wlc-engine/modules/core';
 import {sanitizeHTMLTags} from 'wlc-engine/modules/core/constants/regexp.constants';
 import {environment} from 'wlc-engine/system/environments/environment';
 
 import _size from 'lodash-es/size';
-import _each from 'lodash-es/each';
 import _get from 'lodash-es/get';
 import _isArray from 'lodash-es/isArray';
 import _mergeWith from 'lodash-es/mergeWith';
@@ -34,6 +35,7 @@ import _reduce from 'lodash-es/reduce';
 import _assign from 'lodash-es/assign';
 import _reverse from 'lodash-es/reverse';
 import _replace from 'lodash-es/replace';
+import _forEach from 'lodash-es/forEach';
 
 interface IParams extends IComponentParams<string, string, string> {
     noContent?: IIndexing<INoContentCParams> | IIndexing<IIndexing<INoContentCParams>>,
@@ -86,7 +88,7 @@ export class GlobalHelper {
     public static getModalMessages(errors: string[], title?: string): string[] {
         const messages = title ? [title] : [];
         if (errors) {
-            _each(errors, (error: string) => {
+            _forEach(errors, (error: string) => {
                 messages.push(error);
             });
         }
@@ -201,7 +203,7 @@ export class GlobalHelper {
             common: {},
         }, instance['inlineParams'] || {});
 
-        _each(inputProperties, property => {
+        _forEach(inputProperties, property => {
             if (!_isUndefined(_get(instance, property))) {
                 inlineParams.common[property] = _get(instance, property);
             }
@@ -273,7 +275,7 @@ export class GlobalHelper {
      * @param elementList - List of elements with display params
      */
     public static overrideDisplayResize<T>(elementList: ({display?: IDisplayConfig} & T)[]): void {
-        _each(elementList, (component, key) => {
+        _forEach(elementList, (component, key) => {
             if (_isUndefined(component.display?.before)) {
                 _assign(elementList[key].display, {before: 999999999});
             }
@@ -462,5 +464,19 @@ export class GlobalHelper {
      */
     public static deleteHTMLTags(text: string): string {
         return _replace(text, sanitizeHTMLTags, '');
+    }
+
+    /**
+     * Add pending subject to btns params
+     *
+     * @param {IIndexing<IButtonCParams>} btnsParams
+     * @returns {IIndexing<IButtonCParams>}
+     */
+    public static addPendingToBtnsParams(btnsParams: IIndexing<IButtonCParams>): IIndexing<IButtonCParams> {
+        _forEach(btnsParams, btnParams => {
+            btnParams.pending$ = new BehaviorSubject<boolean>(false);
+        });
+
+        return btnsParams;
     }
 }

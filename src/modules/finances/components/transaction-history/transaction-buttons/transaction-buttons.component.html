@@ -3,17 +3,13 @@
 <button *ngIf="showCancelButton"
         wlc-button
         class="action-btn"
-        typeAttr="button"
-        themeMod="secondary"
-        text="Cancel"
+        [inlineParams]="$params.btnsParams.cancelBtnParams"
         (click)="cancel()">
 </button>
 
 <button *ngIf="showConfirmButton"
         wlc-button
         class="action-btn"
-        typeAttr="button"
-        themeMod="secondary"
-        text="Confirm"
+        [inlineParams]="$params.btnsParams.confirmBtnParams"
         (click)="confirm()">
 </button>

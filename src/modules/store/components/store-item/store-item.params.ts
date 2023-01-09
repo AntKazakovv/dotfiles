@@ -1,5 +1,5 @@
+import {IComponentWithPendingBtns} from 'wlc-engine/modules/core';
 import {
-    IComponentParams,
     CustomType,
 } from 'wlc-engine/modules/core/system/classes/abstract.component';
 
@@ -11,7 +11,7 @@ export type CustomMod = string;
 export type Modifiers = AutoModifiers | CustomMod | null;
 export type TIconExtension = 'svg' | 'png' | 'jpg';
 
-export interface IStoreItemCParams extends IComponentParams<Theme, Type, ThemeMod> {
+export interface IStoreItemCParams extends IComponentWithPendingBtns<Theme, Type, ThemeMod> {
     modifiers?: Modifiers[];
     common?: {
         themeMod?: ThemeMod;
@@ -31,5 +31,14 @@ export const defaultParams: IStoreItemCParams = {
         defaultPicPath: '/gstatic/store/default.png',
         defaultPicPathFirst: '/gstatic/store/default1.png',
         iconFormat: 'svg',
+    },
+    btnsParams: {
+        buyBtnParams: {
+            common: {
+                text: gettext('Buy now'),
+                typeAttr: 'button',
+            },
+            wlcElement: 'button_buy',
+        },
     },
 };

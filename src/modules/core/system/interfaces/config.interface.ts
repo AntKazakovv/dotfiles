@@ -1,3 +1,6 @@
+import {IIndexing} from 'wlc-engine/modules/core/system/interfaces/global.interface';
+import {IButtonCParams} from 'wlc-engine/modules/core/components/button/button.params';
+
 export interface IDefaultConfig {
     replaceConfig?: boolean;
 }
@@ -16,4 +19,8 @@ export interface IComponentParams<T, R, M> {
     type?: R;
     themeMod?: 'default' | M;
     customMod?: string | string[];
+}
+
+export interface IComponentWithPendingBtns<T, R, M> extends IComponentParams<T, R, M> {
+    btnsParams: IIndexing<IButtonCParams>;
 }

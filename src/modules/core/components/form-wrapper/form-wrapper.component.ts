@@ -335,7 +335,7 @@ export class FormWrapperComponent extends WrapperComponent implements OnInit, On
             }
 
             if (
-                this.configService.get<boolean>('$base.forms.useSubmitButtonPending')
+                this.configService.get<boolean>('$base.useButtonPending')
                 && component.params.common?.typeAttr === 'submit'
             ) {
                 this.submitButtonPending$ = new BehaviorSubject(false);

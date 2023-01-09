@@ -36,6 +36,11 @@ describe('BonusButtonsComponent', () => {
             themeMod: 'default',
             type: 'default',
             wlcElement: 'wlc-bonus-buttons',
+            btnsParams: {
+                subscribeBtnParams: {},
+                unsubscribeBtnParams: {},
+                cancelBtnParams: {},
+            },
         };
         TestBed.configureTestingModule({
             imports: [AppModule],
@@ -75,7 +80,7 @@ describe('BonusButtonsComponent', () => {
         component.isAuth = true;
         fixture.detectChanges();
 
-        expect(nativeElement.querySelector('button[text="Subscribe"]')).toBeTruthy();
+        expect(nativeElement.querySelector('button[data-wlc-element="button_subscribe"]')).toBeTruthy();
     });
 
     it('-> checking for the presence of an inventoriedBtn', () => {
@@ -95,7 +100,7 @@ describe('BonusButtonsComponent', () => {
         component.isAuth = true;
         fixture.detectChanges();
 
-        expect(nativeElement.querySelector('button[text="Unsubscribe"]')).toBeTruthy();
+        expect(nativeElement.querySelector('button[data-wlc-element="button_unsubscribe"]')).toBeTruthy();
     });
 
     it('-> checking for the presence of an leaveBtn', () => {
@@ -105,7 +110,7 @@ describe('BonusButtonsComponent', () => {
         component.isAuth = true;
         fixture.detectChanges();
 
-        expect(nativeElement.querySelector('button[text="Cancel"]')).toBeTruthy();
+        expect(nativeElement.querySelector('button[data-wlc-element="button_cancel"]')).toBeTruthy();
     });
 
     it('-> checking for the presence of an chooseBonusBtn', () => {

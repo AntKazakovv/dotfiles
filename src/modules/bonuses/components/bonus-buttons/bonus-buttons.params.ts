@@ -1,7 +1,7 @@
 import {
-    IComponentParams,
     CustomType,
     IIndexing,
+    IComponentWithPendingBtns,
 } from 'wlc-engine/modules/core';
 
 export type Type = 'default' | CustomType;
@@ -13,7 +13,7 @@ export interface ILinkParams {
     params?: IIndexing<string>;
 }
 
-export interface IBonusButtonsCParams extends IComponentParams<Theme, Type, ThemeMod> {
+export interface IBonusButtonsCParams extends IComponentWithPendingBtns<Theme, Type, ThemeMod> {
     /** Use action buttons */
     useActionButtons?: boolean;
     /** Promo links settings*/
@@ -39,6 +39,29 @@ export const defaultParams: IBonusButtonsCParams = {
             params: {
                 category: 'casino',
             },
+        },
+    },
+    btnsParams: {
+        subscribeBtnParams: {
+            common: {
+                text: gettext('Subscribe'),
+                typeAttr: 'button',
+            },
+            wlcElement: 'button_subscribe',
+        },
+        unsubscribeBtnParams: {
+            common: {
+                text: gettext('Unsubscribe'),
+                typeAttr: 'button',
+            },
+            wlcElement: 'button_unsubscribe',
+        },
+        cancelBtnParams: {
+            common: {
+                text: gettext('Cancel'),
+                typeAttr: 'button',
+            },
+            wlcElement: 'button_cancel',
         },
     },
 };

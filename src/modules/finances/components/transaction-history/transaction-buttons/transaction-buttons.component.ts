@@ -15,6 +15,7 @@ import {
     NotificationEvents,
     ConfigService,
     LogService,
+    GlobalHelper,
 } from 'wlc-engine/modules/core';
 
 import {
@@ -63,6 +64,10 @@ export class TransactionButtonsComponent extends AbstractComponent implements On
         this.showCancelButton = this.$params.transaction.allowCancelation;
         this.showConfirmButton = this.$params.transaction.requireConfirmation;
         this.allowCancelation = this.showCancelButton || this.showConfirmButton;
+
+        if (this.configService.get<boolean>('$base.useButtonPending')) {
+            GlobalHelper.addPendingToBtnsParams(this.$params.btnsParams);
+        }
     }
 
     /**
@@ -75,15 +80,17 @@ export class TransactionButtonsComponent extends AbstractComponent implements On
         if (this.$params.transaction.cancelProgress) {
             return;
         }
-
+        this.$params.btnsParams.cancelBtnParams.pending$?.next(true);
         this.$params.transaction.cancelProgress = true;
         try {
             await this.financesService.cancelWithdrawal(this.$params.transaction.id);
+
         } catch (error) {
             this.logService.sendLog({code: '17.4.0', data: error});
             this.emitError(error);
         } finally {
             this.$params.transaction.cancelProgress = false;
+            this.$params.btnsParams.cancelBtnParams.pending$?.next(false);
         }
     }
 
@@ -98,6 +105,7 @@ export class TransactionButtonsComponent extends AbstractComponent implements On
             return;
         }
 
+        this.$params.btnsParams.confirmBtnParams.pending$?.next(true);
         this.$params.transaction.confirmProgress = true;
         try {
             const response: string[] = await this.financesService.confirmWithdrawal(this.$params.transaction.id);
@@ -111,6 +119,7 @@ export class TransactionButtonsComponent extends AbstractComponent implements On
             this.emitError(error);
         } finally {
             this.$params.transaction.confirmProgress = false;
+            this.$params.btnsParams.confirmBtnParams.pending$?.next(false);
         }
     }
 

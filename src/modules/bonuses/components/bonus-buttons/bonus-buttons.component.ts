@@ -6,6 +6,7 @@ import {
     OnInit,
     Input,
 } from '@angular/core';
+
 import {UIRouter} from '@uirouter/core';
 
 import {
@@ -15,6 +16,7 @@ import {
     ModalService,
     EventService,
     InjectionService,
+    GlobalHelper,
 } from 'wlc-engine/modules/core';
 import {Bonus} from 'wlc-engine/modules/bonuses/system/models/bonus/bonus';
 import {BonusesService} from 'wlc-engine/modules/bonuses/system/services/bonuses/bonuses.service';
@@ -65,6 +67,10 @@ export class BonusButtonsComponent extends AbstractComponent implements OnInit {
         ], () => {
             this.isAuth = this.configService.get('$user.isAuthenticated');
         }, this.$destroy);
+
+        if (this.configService.get<boolean>('$base.useButtonPending')) {
+            GlobalHelper.addPendingToBtnsParams(this.$params.btnsParams);
+        }
     }
 
     /**
@@ -85,7 +91,7 @@ export class BonusButtonsComponent extends AbstractComponent implements OnInit {
 
         if (bonus) {
             this.bonus = bonus;
-            
+
             this.redrawingThemeLong();
         }
     }
@@ -94,7 +100,9 @@ export class BonusButtonsComponent extends AbstractComponent implements OnInit {
      * Subscribe for a bonus
      */
     public async join(): Promise<void> {
+        this.$params.btnsParams.subscribeBtnParams.pending$?.next(true);
         const bonus = await this.bonusesService.subscribeBonus(this.bonus);
+        this.$params.btnsParams.subscribeBtnParams.pending$?.next(false);
 
         if (bonus) {
             this.bonus = bonus;
@@ -132,7 +140,9 @@ export class BonusButtonsComponent extends AbstractComponent implements OnInit {
             confirmBtnText: gettext('Yes'),
             textAlign: 'center',
             onConfirm: async () => {
+                this.$params.btnsParams.cancelBtnParams.pending$?.next(true);
                 const bonus = await this.bonusesService.cancelBonus(this.bonus);
+                this.$params.btnsParams.cancelBtnParams.pending$?.next(false);
                 if (bonus) {
                     this.bonus = bonus;
 
@@ -147,7 +157,9 @@ export class BonusButtonsComponent extends AbstractComponent implements OnInit {
      * Unsubscribe from bonus
      */
     public async unsubscribe(): Promise<void> {
+        this.$params.btnsParams.unsubscribeBtnParams.pending$?.next(true);
         const bonus = await this.bonusesService.unsubscribeBonus(this.bonus);
+        this.$params.btnsParams.unsubscribeBtnParams.pending$?.next(false);
 
         if (bonus) {
             this.bonus = bonus;

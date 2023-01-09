@@ -46,9 +46,7 @@
 <ng-template #subscribeBtn>
     <button *ngIf="bonus.canSubscribe"
             wlc-button
-            text="Subscribe"
-            typeAttr="button"
-            wlcElement="button_subscribe"
+            [inlineParams]="$params.btnsParams.subscribeBtnParams"
             (click)="join()">
     </button>
 </ng-template>
@@ -67,9 +65,7 @@
     <button *ngIf="bonus.canUnsubscribe"
             wlc-button
             themeMod="secondary"
-            text="Unsubscribe"
-            typeAttr="button"
-            wlcElement="button_unsubscribe"
+            [inlineParams]="$params.btnsParams.unsubscribeBtnParams"
             (click)="unsubscribe()">
     </button>
 </ng-template>
@@ -77,10 +73,8 @@
 <ng-template #leaveBtn>
     <button *ngIf="bonus.isActive"
             wlc-button
-            text="Cancel"
-            typeAttr="button"
             themeMod="secondary"
-            wlcElement="button_cancel"
+            [inlineParams]="$params.btnsParams.cancelBtnParams"
             (click)="leave()">
     </button>
 </ng-template>
@@ -145,4 +139,3 @@
             (click)="action('openLootbox')">
     </button>
 </ng-template>
-

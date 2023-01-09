@@ -87,10 +87,8 @@
         <div *ngIf="isAuth" class="{{$class}}__btns">
             <button *ngIf="storeItem.canBuy"
                     wlc-button
-                    [attr.type]="'button'"
-                    text="Buy now"
                     [disabled]="buyClick"
-                    [wlcElement]="'button_buy'"
+                    [inlineParams]="$params.btnsParams.buyBtnParams"
                     (click)="buyItem()">
             </button>
         </div>

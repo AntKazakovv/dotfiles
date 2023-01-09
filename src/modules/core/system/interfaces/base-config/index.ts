@@ -127,10 +127,8 @@ export interface IBaseConfig {
     restrictions?: IRestrictionsConfig;
     /** States available with no accepted terms */
     termsAvailableStates?: string[];
-    forms?: {
-        /** Set true to use submit button pending animation */
-        useSubmitButtonPending?: boolean
-    }
+    /** Set true to use submit button in forms and request buttons pending animation */
+    useButtonPending?: boolean
     legal?: {
         termsCheckboxText?: ILegalCheckboxWithLink;
         termsWlcCuracaoCheckboxText?: ILegalCheckboxWithLink;
