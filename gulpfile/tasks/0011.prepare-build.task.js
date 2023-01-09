@@ -58,7 +58,7 @@ module.exports = function preBuildTask() {
     const makeMobileAppIndexHtml = () => {
         return src(`${this.params.paths.engine}/src/mobile-app-index.html`)
             .pipe(data(() => {
-                return require(`${this.params.paths.root}/template.config.json`)
+                return require(`${this.params.paths.root}/template.config.json`);
             }))
             .pipe(nunjucksRender({
                 path: `${this.params.paths.src}/templates/`,
@@ -162,7 +162,7 @@ module.exports = function preBuildTask() {
         fs.access(`${this.params.paths.src}/app-styles/hosted.fields.scss`, (err) => {
             if (err) {
                 fs.writeFileSync(`${this.params.paths.src}/app-styles/hosted.fields.scss`,
-                    '//For create alternate color theme styles for hosted fields:\n'+
+                    '//For create alternate color theme styles for hosted fields:\n' +
                     '// 1. Copy this file and set name hosted.fields.alt.scss\n' +
                     '// 2. Generate new css vars using mixin makeCssColorVars ' +
                     'and maps $mainColorsAlt and $fieldColorsAlt\n\n' +
@@ -173,7 +173,6 @@ module.exports = function preBuildTask() {
             }
         });
     };
-
     /**
      * Create Piq fields scss
      */
@@ -181,7 +180,7 @@ module.exports = function preBuildTask() {
         fs.access(`${this.params.paths.src}/app-styles/piq.cashier.scss`, (err) => {
             if (err) {
                 fs.writeFileSync(`${this.params.paths.src}/app-styles/piq.cashier.scss`,
-                    '//For create alternate color theme styles for hosted fields:\n'+
+                    '//For create alternate color theme styles for hosted fields:\n' +
                     '// 1. Copy this file and set name piq.cashier.alt.scss\n' +
                     '// 2. Generate new css vars using mixin makeCssColorVars ' +
                     'and maps $mainColorsAlt and $fieldColorsAlt\n\n' +

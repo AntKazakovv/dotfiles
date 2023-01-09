@@ -1,0 +1,27 @@
+$customThemeDefault: () !default;
+$themeDefault: map-merge((
+    //Window
+    'shiftRight': -360px,
+    'windowWidth': 360px,
+    'windowHeight': 95vh,
+    'windowBkgColor': #ffffff,
+    'windowBorder': 1px solid #333,
+    //Window-header
+    'headerHeight': 40px,
+    'headerBkgColor': var(--mc-main),
+    //button-chat
+    'buttonTopPosition': 180px,
+    'buttonRightPosition': -230px,
+    'buttonWidth': 120px,
+    'buttonHeight': 30px,
+    'buttonRadius': 0 0 ef.get('radius', 'less') ef.get('radius', 'less'),
+    'textColor': var(--mc-baseMain),
+    'buttonBkgColor': ef.get('mainColors', 'buttonColor'),
+    //icon
+    'iconWidth': 20px,
+    'iconHeight': 20px,
+    'iconMargin': 3px,
+    //text
+    'textMargin': 5px,
+    'buttonTextStyle': 'PrimaryText'
+), $customThemeDefault);

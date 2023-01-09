@@ -265,6 +265,14 @@ export class InjectionService {
                     this.afterModuleLoad('mobile', m);
                     return m.MobileModule;
                 });
+            case 'deadsimplechat':
+                if (this.loadedModules.deadsimplechat) {
+                    return this.loadedModules.deadsimplechat;
+                }
+                return import('wlc-engine/modules/deadsimplechat/deadsimplechat.module').then(m => {
+                    this.afterModuleLoad('deadsimplechat', m);
+                    return m.DeadsimplechatModule;
+                });
         }
     }
 

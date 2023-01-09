@@ -1,0 +1,1 @@
+export * from './deadsimplechat.interface';

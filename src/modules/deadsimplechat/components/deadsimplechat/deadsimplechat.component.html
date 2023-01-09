@@ -1,0 +1,19 @@
+<div *ngIf="ready$ | async"
+    id="chat-wrapper"
+    class="{{$class}}-wrapper">
+
+    <div class="container-{{$class}}-button">
+        <button class="{{$class}}-button" (click)="openChat()">
+            <img class="{{$class}}-button__icon" src="{{$params.common.iconPath}}">
+            <p class="{{$class}}-button__text">{{'Online chat' | translate}}</p>
+        </button>
+    </div>
+    <div class="{{$class}}-wrapper__header">
+        <p>Community Online Chat</p>
+        <button (click)="closeChat()">
+            &times;
+        </button>
+    </div>
+    <div class="{{$class}}-wrapper__body">
+    </div>
+</div>

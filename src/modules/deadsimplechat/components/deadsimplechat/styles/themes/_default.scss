@@ -1,0 +1,68 @@
+.wlc-deadsimplechat-wrapper {
+    position: fixed;
+    right: ef.get-value($themeDefault, 'shiftRight');
+    display: block;
+    width: ef.get-value($themeDefault, 'windowWidth');
+    height: ef.get-value($themeDefault, 'windowHeight');
+    background-color: ef.get-value($themeDefault, 'windowBkgColor');
+    transition: all 0.7s ease-out;
+    border: ef.get-value($themeDefault, 'windowBorder');
+
+    .container-wlc-deadsimplechat-button {
+        transform: rotate(90deg);
+
+        .wlc-deadsimplechat-button {
+            border: 0;
+            position: fixed;
+            top: ef.get-value($themeDefault, 'buttonTopPosition');
+            right: ef.get-value($themeDefault, 'buttonRightPosition');
+            display: flex;
+            flex-direction: row-reverse;
+            width: ef.get-value($themeDefault, 'buttonWidth');
+            height: ef.get-value($themeDefault, 'buttonHeight');
+            border-radius: ef.get-value($themeDefault, 'buttonRadius');
+            padding-right: 1rem;
+            background: ef.get-value($themeDefault, 'buttonBkgColor');
+
+            &__icon {
+                width: ef.get-value($themeDefault, 'iconWidth');
+                height: ef.get-value($themeDefault, 'iconHeight');
+                margin: ef.get-value($themeDefault, 'iconMargin');
+                transform: rotate(270deg);
+            }
+
+            &__text {
+                @include text.get-text-style('ButtonText', ef.get-value($themeDefault, 'textColor'));
+                margin: 5px;
+                font-size: 12px;
+                white-space: nowrap;
+                transform: rotate(180deg);
+            }
+        }
+    }
+
+    &__header {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        height: 40px;
+        background-color: ef.get-value($themeDefault, 'headerBkgColor');
+        cursor: move;
+
+        p {
+            padding: 10px;
+        }
+
+        button {
+            @include text.get-text-style('ButtonText', ef.get-value($themeDefault, 'textColor'));
+            border: 0;
+            font-size: 30px;
+            background-color: rgba(#ffffff, 0);
+        }
+    }
+
+    &__body {
+        width: 100%;
+        height: 90vh;
+    }
+}

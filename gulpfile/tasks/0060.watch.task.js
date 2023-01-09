@@ -87,7 +87,7 @@ module.exports = function watchTask() {
 
         const tasks = [
             'build:hosted-fields-css',
-            'build:piq-cashier-css'
+            'build:piq-cashier-css',
         ];
 
         if (this.params.isMobileAppBundle) {
