@@ -1,0 +1,66 @@
+.wlc-device-registration-form--theme-default:host {
+
+    .wlc-device-registration-form {
+
+        &__user-data {
+            @include text.get-text-style(ef.get-value($themeDefault, 'userDataStyle'), ef.get-value($themeDefault, 'userDataColor'));
+            text-align: center;
+        }
+
+        &__description {
+            @include text.get-text-style(ef.get-value($themeDefault, 'descriptionStyle'), ef.get-value($themeDefault, 'descriptionColor'));
+            @include bm.get-mq-map('margin', $themeDefault, 'descriptionMargin');
+            max-width: ef.get-value($themeDefault, 'descriptionMaxWidth');
+            text-align: center;
+        }
+
+        &__resend-wrapper {
+            display: ef.get-value($themeDefault, 'resendWrpDisplay');
+            flex-direction: ef.get-value($themeDefault, 'resendWrpFlexDirection');
+            align-items: ef.get-value($themeDefault, 'resendWrpAlignItems');
+
+            .wlc-btn {
+                @include bm.get-mq-map('margin', $themeDefault, 'resendBtnMargin');
+
+                // TODO: remove it after 1.21.0 release
+                &:disabled {
+                    cursor: default;
+                    opacity: ef.get-value($themeDefault, 'disabledBtnOpacity');
+
+                    @include bm.hover {
+                        background: ef.get-value($themeDefault, 'disabledBtnHover');
+                        border-color: transparent;
+                    }
+                }
+            }
+        }
+
+        &__resend-text {
+            @include text.get-text-style(ef.get-value($themeDefault, 'resendTextStyle'), ef.get-value($themeDefault, 'resendTextColor'));
+        }
+
+        &__timer-text {
+            @include text.get-text-style(ef.get-value($themeDefault, 'timerTextStyle'), ef.get-value($themeDefault, 'timerTextColor'));
+        }
+
+        &__timer-wrapper {
+            display: ef.get-value($themeDefault, 'timerWrpDisplay');
+            flex-direction: ef.get-value($themeDefault, 'timerWrpFlexDirection');
+        }
+    }
+
+    ::ng-deep {
+
+        .wlc-form {
+            @include bm.get-mq-map('margin', $themeDefault, 'formMargin');
+            display: flex;
+            flex-direction: ef.get-value($themeDefault, 'formFlexDirection');
+            align-items: ef.get-value($themeDefault, 'formAlignItems');
+            max-width: ef.get-value($themeDefault, 'formMaxWidth');
+
+            .wlc-btn {
+                @include bm.get-mq-map('margin', $themeDefault, 'formBtnMargin');
+            }
+        }
+    }
+}

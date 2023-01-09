@@ -338,6 +338,14 @@ export class UserService {
                 this.dataService.deleteNonceFromLocalStorage();
             }
 
+            if (error.code === 418) {
+                if (this.modalService.getActiveModal('device-registration')) {
+                    this.eventService.emit({name: 'RESEND_CODE'});
+                } else {
+                    this.modalService.showModal('deviceRegistration', {login: login, password: password});
+                }
+            }
+
             this.logService.sendRequestLog({
                 coreLog: {code: '1.2.3'},
                 networkLog: {code: '1.2.4'},
@@ -566,6 +574,16 @@ export class UserService {
 
     public fetchUserProfile(): Promise<IData> {
         return this.dataService.request('user/userProfile');
+    }
+
+    /**
+     * New device registration request,
+     * available if the base.config.profile.trustedDevices is set to true
+     * @param {number} code verification code from the user's email
+     * @param {string} login login
+     */
+    public deviceRegistration(code: number, login: string): Promise<any> {
+        return this.dataService.request('user/deviceRegistration', {code, login});
     }
 
     public finishRegistration(): void {
@@ -980,6 +998,17 @@ export class UserService {
             url: '/userInfo',
             type: 'GET',
             period: 10000,
+        });
+
+        this.dataService.registerMethod({
+            name: 'deviceRegistration',
+            system: 'user',
+            url: '/trustDevices',
+            type: 'POST',
+            events: {
+                success: 'DEVICE_REGISTRATION',
+                fail: 'DEVICE_REGISTRATION_ERROR',
+            },
         });
     }
 

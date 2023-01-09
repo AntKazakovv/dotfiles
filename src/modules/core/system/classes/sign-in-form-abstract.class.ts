@@ -122,6 +122,10 @@ export abstract class SignInFormAbstract<T extends IAbstractSignInFormCParams<un
             if (errors?.captcha) {
                 errorMessage = captcha ? this.$params.captchaErrorText : this.$params.captchaCreatingText;
                 this.onCaptchaError(errors.captcha);
+            } else if (error.code === 418) {
+                this.modalService.showModal('deviceRegistration', {login: email || login, password: password});
+
+                return false;
             } else {
                 errorMessage = errors;
             }

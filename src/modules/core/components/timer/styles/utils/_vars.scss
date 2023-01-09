@@ -38,5 +38,12 @@ $themeOneLine: map-merge((
     'iconColor': inherit,
     'iconWidth': 20px,
     'iconHeight': 20px,
-    'iconMargin': auto ef.size(1) 0 0,
+    'iconMargin': 0 ef.size(1) 0 0,
+
+    'smallTextStyle': 'SignText',
+    'smallTextColor': var(--mc-baseMain),
+    'smallAlignItems': center,
+    'smallJustifyContent': center,
+    'smallIconSize': ef.size(2),
+    'smallIconColor': var(--mc-main),
 ), $customThemeOneLine);

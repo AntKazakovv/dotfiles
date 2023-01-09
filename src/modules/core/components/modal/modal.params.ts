@@ -310,6 +310,7 @@ export const MODALS_LIST: IModalList = {
             showFooter: false,
         },
     },
+
     profileBlocks: {
         config: {
             id: 'profile-blocks',
@@ -393,6 +394,18 @@ export const MODALS_LIST: IModalList = {
             showFooter: false,
             size: 'md',
             dismissAll: true,
+        },
+    },
+
+    deviceRegistration: {
+        config: {
+            id: 'device-registration',
+            modifier: 'device-registration',
+            componentName: 'user.wlc-device-registration-form',
+            modalTitle: gettext('Login error'),
+            showFooter: false,
+            dismissAll: true,
+            size: 'md',
         },
     },
 };

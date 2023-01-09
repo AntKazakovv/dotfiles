@@ -47,8 +47,8 @@ export interface IProfileConfig {
      */
     legalAge?: number,
     /**
-     * For change difficult password.
-     * Need to change also back config $cfg['PasswordSecureLevel'] value show to wiki
+     * Password validation settings
+     * Backend site.config $cfg['PasswordSecureLevel'] settings should be applied as well
      */
     passwordValidation?: IPasswordValidation,
     /**
