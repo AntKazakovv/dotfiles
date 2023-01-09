@@ -94,6 +94,15 @@ export interface ICategories {
     parents?: string[];
     /** setting sorting games in category */
     gamesSortSetting?: IGamesSortSetting;
+    /**
+     * Rename category slug
+     *
+     * @example
+     * renameSlugs: {
+     *    slots: 'slots-global',
+     * },
+    **/
+    renameSlugs?: IIndexing<string>;
 }
 
 export interface IGameDashboard {

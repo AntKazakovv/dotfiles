@@ -819,6 +819,16 @@ export class GamesCatalog extends AbstractModel<IGames> {
             });
         }
         response.categories = _concat(this.specialCategories, response.categories);
+
+        const renamedSlugs = this.configService.get<IIndexing<string>>('$games.categories.renameSlugs');
+        if (renamedSlugs) {
+            response.categories.forEach((item) => {
+                if (renamedSlugs[item.Slug]) {
+                    item.Slug = renamedSlugs[item.Slug];
+                }
+            });
+        }
+
         CategoryModel.language = this.translateService.currentLang || 'en';
         CategoryModel.country = this.configService.get('appConfig.country');
 
