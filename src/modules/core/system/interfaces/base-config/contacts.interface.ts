@@ -20,4 +20,13 @@ export interface IContactsConfig {
     socials?: ISocialItem[];
     /** Addidtional info */
     additionalInfo?: IAdditionalInfo;
+     /** translating content by language's code */
+    translate?: TContactsTranslate;
 }
+
+type lang = string;
+type TranslateOptions<T> = {
+    [P in keyof Omit<T, 'translate'>]: Record<lang, T[P]>
+}
+
+export type TContactsTranslate = TranslateOptions<IContactsConfig>;

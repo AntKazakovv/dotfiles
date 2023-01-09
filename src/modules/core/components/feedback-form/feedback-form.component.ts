@@ -6,8 +6,17 @@ import {
     AfterViewInit,
 } from '@angular/core';
 import {FormGroup} from '@angular/forms';
+import {TranslateService} from '@ngx-translate/core';
+
 import {BehaviorSubject} from 'rxjs';
-import {skipWhile, takeUntil} from 'rxjs/operators';
+import {
+    skipWhile,
+    takeUntil,
+} from 'rxjs/operators';
+import _isEmpty from 'lodash-es/isEmpty';
+import _clone from 'lodash-es/clone';
+import _each from 'lodash-es/each';
+
 import {
     AbstractComponent,
     ConfigService,
@@ -18,8 +27,12 @@ import {
     NotificationEvents,
 } from 'wlc-engine/modules/core';
 import {UserProfile} from 'wlc-engine/modules/user';
-import {IContactsConfig} from 'wlc-engine/modules/core/system/interfaces';
+import {
+    IContactsConfig,
+    TContactsTranslate,
+} from 'wlc-engine/modules/core/system/interfaces';
 import * as Params from './feedback-form.params';
+
 
 /**
  * Feedback form component. The senderEmail, senderName, message, subject fields are required.
@@ -38,10 +51,12 @@ import * as Params from './feedback-form.params';
 })
 export class FeedbackFormComponent extends AbstractComponent implements OnInit, AfterViewInit {
     @Input() protected inlineParams: Params.IFeedbackFormCParams;
+
     public $params: Params.IFeedbackFormCParams;
     public config = Params.feedbackConfig;
     public contactsConfig: IContactsConfig;
     public formData$: BehaviorSubject<IIndexing<any>> = new BehaviorSubject(null);
+
     protected userProfile$: BehaviorSubject<UserProfile>;
     protected form: FormGroup;
 
@@ -50,13 +65,15 @@ export class FeedbackFormComponent extends AbstractComponent implements OnInit, 
         protected contactsService: ContactsService,
         protected configService: ConfigService,
         protected eventService: EventService,
+        protected translateService: TranslateService,
     ) {
         super({injectParams: params, defaultParams: Params.defaultParams});
     }
 
     public ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
-        this.contactsConfig = this.configService.get<IContactsConfig>('$base.contacts');
+        this.contactsConfig = _clone(this.configService.get<IContactsConfig>('$base.contacts'));
+        this.modifyConfigByLanguage();
     }
 
     public ngAfterViewInit(): void {
@@ -128,5 +145,16 @@ export class FeedbackFormComponent extends AbstractComponent implements OnInit, 
             senderEmail: email,
             senderName: name,
         });
+    }
+
+    protected modifyConfigByLanguage(): void {
+        if (_isEmpty(this.contactsConfig.translate)) {
+            return;
+        }
+        const lang = this.translateService.currentLang;
+        _each(this.contactsConfig.translate,
+            (value: TContactsTranslate[keyof TContactsTranslate], key: string): void => {
+                this.contactsConfig[key] = value[lang] || this.contactsConfig[key];
+            });
     }
 }
