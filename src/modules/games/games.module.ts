@@ -9,6 +9,7 @@ import {CountUpModule} from 'ngx-countup';
 import _get from 'lodash-es/get';
 
 // Modules
+import {IconListModule} from 'wlc-engine/modules/icon-list/icon-list.module';
 import {CoreModule} from 'wlc-engine/modules/core/core.module';
 import {CompilerModule} from 'wlc-engine/modules/compiler';
 import {GlobalHelper} from 'wlc-engine/modules/core';
@@ -116,6 +117,7 @@ export const services = {
         CountUpModule,
         CoreModule,
         CompilerModule,
+        IconListModule,
     ],
     providers: [
         GamesCatalogService,

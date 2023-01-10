@@ -7,7 +7,7 @@ import {
     Tournament,
 } from 'wlc-engine/modules/tournaments';
 
-export type ComponentTheme = 'default' | CustomType;
+export type ComponentTheme = 'default' | 'podium' | CustomType;
 export type ComponentType = ThumbType | CustomType;
 export type ThemeMod = 'default' | 'compact' | CustomType;
 export type AutoModifiers = ComponentTheme | ThemeMod;

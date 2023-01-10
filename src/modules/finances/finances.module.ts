@@ -9,6 +9,7 @@ import {
     PIQCashierService,
 } from './system/services';
 import {CoreModule} from 'wlc-engine/modules/core/core.module';
+import {IconListModule} from 'wlc-engine/modules/icon-list/icon-list.module';
 import {CompilerModule} from 'wlc-engine/modules/compiler';
 import {TranslateModule} from '@ngx-translate/core';
 import {DepositWithdrawComponent} from './components/deposit-withdraw/deposit-withdraw.component';
@@ -53,6 +54,7 @@ export const components = {
         FormsModule,
         ReactiveFormsModule,
         TranslateModule,
+        IconListModule,
     ],
     declarations: [
         PaymentMessageComponent,
