@@ -8,7 +8,6 @@ import {
 import {CoreModule} from 'wlc-engine/modules/core/core.module';
 import {
     UserService,
-    SmsService,
     SocialService,
     TermsAcceptService,
 } from './system/services';
@@ -38,13 +37,11 @@ import {RestoreLinkComponent} from './components/restore-link/restore-link.compo
 import {RestorePasswordFormComponent} from './components/restore-password-form/restore-password-form.component';
 import {SignInFormComponent} from './components/sign-in-form/sign-in-form.component';
 import {SignUpFormComponent} from './components/sign-up-form/sign-up-form.component';
-import {SmsVerificationComponent} from './components/sms-verification/sms-verification.component';
 import {UserInfoComponent} from './components/user-info/user-info.component';
 import {UserStatsComponent} from './components/user-stats/user-stats.component';
 import {UserNameComponent} from './components/user-name/user-name.component';
 import {SocialNetworksComponent} from './components/social-networks/social-networks.component';
 import {SocialSignUpFormComponent} from './components/social-sign-up-form/social-sign-up-form.component';
-import {RestoreSmsCodeFormComponent} from './components/restore-sms-code-form/restore-sms-code-form.component';
 
 export const services = {
     'user-service': UserService,
@@ -75,11 +72,9 @@ export const components = {
     'wlc-sign-up-form': SignUpFormComponent,
     'wlc-social-networks': SocialNetworksComponent,
     'wlc-social-sign-up-form': SocialSignUpFormComponent,
-    'wlc-sms-verification': SmsVerificationComponent,
     'wlc-user-info': UserInfoComponent,
     'wlc-user-stats': UserStatsComponent,
     'wlc-user-name': UserNameComponent,
-    'wlc-restore-sms-code-form': RestoreSmsCodeFormComponent,
 };
 
 @NgModule({
@@ -101,10 +96,8 @@ export const components = {
         RealityCheckInfoComponent,
         RestoreLinkComponent,
         RestorePasswordFormComponent,
-        RestoreSmsCodeFormComponent,
         SignInFormComponent,
         SignUpFormComponent,
-        SmsVerificationComponent,
         SocialNetworksComponent,
         SocialSignUpFormComponent,
         UserInfoComponent,
@@ -121,7 +114,6 @@ export const components = {
         DataService,
         UserService,
         SocialService,
-        SmsService,
         TermsAcceptService,
     ],
     exports: [
@@ -139,10 +131,8 @@ export const components = {
         ProfileBlocksComponent,
         RealityCheckInfoComponent,
         RestorePasswordFormComponent,
-        RestoreSmsCodeFormComponent,
         SignInFormComponent,
         SignUpFormComponent,
-        SmsVerificationComponent,
         SocialNetworksComponent,
         SocialSignUpFormComponent,
         UserInfoComponent,

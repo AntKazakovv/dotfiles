@@ -28,7 +28,7 @@ export interface IRestoreSmsCodeFormCParams extends IComponentParams<ComponentTh
 export const defaultParams: IRestoreSmsCodeFormCParams = {
     class: 'wlc-restore-sms-code-form',
     componentName: 'wlc-restore-sms-code-form',
-    moduleName: 'user',
+    moduleName: 'sms',
     resendButton: {
         text: gettext('Send again'),
     },

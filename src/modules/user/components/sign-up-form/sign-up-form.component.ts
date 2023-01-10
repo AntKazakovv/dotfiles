@@ -25,11 +25,12 @@ import {
     IPushMessageParams,
     NotificationEvents,
 } from 'wlc-engine/modules/core';
-import {UserService} from 'wlc-engine/modules/user';
 import {
     UserActionsAbstract,
     IValidateData,
-} from '../../system/classes/user-actions-abstract.class';
+    InjectionService,
+} from 'wlc-engine/modules/core';
+import {UserService} from 'wlc-engine/modules/user';
 import {SocialService} from 'wlc-engine/modules/user/system/services/social/social.service';
 import {ValidationService} from 'wlc-engine/modules/core/system/services/validation/validation.service';
 import {IFormComponent} from 'wlc-engine/modules/core/components/form-wrapper/form-wrapper.component';
@@ -76,12 +77,13 @@ export class SignUpFormComponent extends UserActionsAbstract<Params.ISignUpFormC
         protected eventService: EventService,
         protected socialService: SocialService,
         protected dataService: DataService,
+        protected injectionService: InjectionService,
         @Inject(CuracaoRequirement) private enableRequirement: boolean,
     ) {
         super({
             injectParams,
             defaultParams: Params.defaultParams,
-        }, configService, userService, eventService, logService);
+        }, configService, eventService, injectionService, logService);
     }
 
     public ngOnInit(): void {
@@ -167,13 +169,13 @@ export class SignUpFormComponent extends UserActionsAbstract<Params.ISignUpFormC
     public async ngSubmit(form: FormGroup): Promise<boolean> {
         if ((this.getTwoSteps() && !this.isSecondStep())
             || this.configService.get<boolean>('$base.profile.smsVerification.use')) {
-            this.nextStepSubmit(form);
+            await this.nextStepSubmit(form);
             return;
         }
 
         try {
             form.disable();
-            if (!this.checkConfirmation(form)) {
+            if (!await this.checkConfirmation(form)) {
                 return false;
             }
             let regData = this.formDataPreparation(form);
@@ -256,8 +258,8 @@ export class SignUpFormComponent extends UserActionsAbstract<Params.ISignUpFormC
         }
     }
 
-    protected nextStepSubmit(form: FormGroup) {
-        if ((!this.getTwoSteps() || this.isSecondStep()) && !this.checkConfirmation(form)) {
+    protected async nextStepSubmit(form: FormGroup): Promise<void> {
+        if ((!this.getTwoSteps() || this.isSecondStep()) && !await this.checkConfirmation(form)) {
             return;
         }
 

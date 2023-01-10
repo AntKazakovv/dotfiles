@@ -171,7 +171,7 @@ export const MODALS_LIST: IModalList = {
         config: {
             id: 'restore-sms-code',
             modifier: 'restore',
-            componentName: 'user.wlc-restore-sms-code-form',
+            componentName: 'sms.wlc-restore-sms-code-form',
             componentParams: {
                 wlcElement: 'form_password-recovery',
             },

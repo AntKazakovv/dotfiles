@@ -30,7 +30,7 @@ export const defaultParams: ISmsVerificationCParams = {
     class: 'wlc-sms-verification',
     wlcElement: 'modal_signup_sms_verification',
     componentName: 'wlc-sms-verification',
-    moduleName: 'user',
+    moduleName: 'sms',
     functional: 'registration',
     resendButton: {
         common: {

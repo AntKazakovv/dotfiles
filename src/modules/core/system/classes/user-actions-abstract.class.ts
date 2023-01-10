@@ -6,15 +6,16 @@ import _isArray from 'lodash-es/isArray';
 
 import {
     AbstractComponent,
-    ConfigService,
     IMixedParams,
-    EventService,
-    LogService,
-    NotificationEvents,
-    IPushMessageParams,
-    IUserProfile,
-    IIndexing,
-} from 'wlc-engine/modules/core';
+} from 'wlc-engine/modules/core/system/classes/abstract.component';
+import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
+import {IUserProfile} from 'wlc-engine/modules/core/system/interfaces/user.interface';
+import {EventService} from 'wlc-engine/modules/core/system/services/event/event.service';
+import {LogService} from 'wlc-engine/modules/core/system/services/log/log.service';
+import {NotificationEvents} from 'wlc-engine/modules/core/system/services/notification/notification.service';
+import {IPushMessageParams} from 'wlc-engine/modules/core/system/services/notification/notification.interface';
+import {InjectionService} from 'wlc-engine/modules/core/system/services/injection/injection.service';
+import {IIndexing} from 'wlc-engine/modules/core/system/interfaces/global.interface';
 import {UserService} from 'wlc-engine/modules/user';
 import {
     ChosenBonusSetParams,
@@ -34,18 +35,23 @@ export interface IValidateData {
 
 @Directive()
 export abstract class UserActionsAbstract<T> extends AbstractComponent {
+    protected userService: UserService;
 
     constructor(
         protected componentParams: IMixedParams<T>,
         protected configService: ConfigService,
-        protected userService: UserService,
         protected eventService: EventService,
+        protected injectionService: InjectionService,
         protected logService: LogService,
     ) {
         super(componentParams, configService);
     }
 
     protected async finishUserReg(formValue: unknown): Promise<void> {
+        if (!this.userService) {
+            this.userService = await this.injectionService.getService<UserService>('user.user-service');
+        }
+
         this.userService.setProfileData(formValue);
         await this.userService.createUserProfile(this.userService.userProfile.data);
         this.userService.finishRegistration();
@@ -79,11 +85,15 @@ export abstract class UserActionsAbstract<T> extends AbstractComponent {
         });
     }
 
-    protected checkConfirmation(form: FormGroup): boolean {
+    protected async checkConfirmation(form: FormGroup): Promise<boolean> {
         const formValues: IIndexing<number | string | boolean> = form.getRawValue();
         let {ageConfirmed, agreedWithTermsAndConditions} = formValues;
 
         if (['birthYear', 'birthDay', 'birthMonth'].every(el => el in formValues)) {
+            if (!this.userService) {
+                this.userService = await this.injectionService.getService<UserService>('user.user-service');
+            }
+
             ageConfirmed = this.userService.checkUserAge(formValues);
         }
 

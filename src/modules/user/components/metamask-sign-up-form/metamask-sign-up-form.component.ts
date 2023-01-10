@@ -16,9 +16,10 @@ import {
     IFormWrapperCParams,
     IIndexing,
     LogService,
+    UserActionsAbstract,
+    InjectionService,
 } from 'wlc-engine/modules/core';
 import {UserService} from 'wlc-engine/modules/user';
-import {UserActionsAbstract} from 'wlc-engine/modules/user/system/classes/user-actions-abstract.class';
 import {CuracaoRequirement} from 'wlc-engine/modules/app/system';
 import {UserHelper} from 'wlc-engine/modules/user/system/helpers/user.helper';
 
@@ -47,11 +48,12 @@ export class MetamaskSignUpFormComponent
         protected logService: LogService,
         protected configService: ConfigService,
         protected eventService: EventService,
+        protected injectionService: InjectionService,
     ) {
         super({
             injectParams,
             defaultParams: Params.defaultParams,
-        }, configService, userService, eventService, logService);
+        }, configService, eventService, injectionService, logService);
     }
 
     public ngOnInit(): void {

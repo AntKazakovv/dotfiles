@@ -8,28 +8,34 @@ import {
     ChangeDetectionStrategy,
 } from '@angular/core';
 import {FormGroup} from '@angular/forms';
+
 import {DateTime} from 'luxon';
-import {interval, Subscription} from 'rxjs';
-import {takeUntil} from 'rxjs/operators';
-import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
-import {EventService} from 'wlc-engine/modules/core/system/services/event/event.service';
-import {LogService} from 'wlc-engine/modules/core/system/services/log/log.service';
-import {TimerComponent} from 'wlc-engine/modules/core/components/timer/timer.component';
-import {IPushMessageParams} from 'wlc-engine/modules/core/system/services/notification/notification.interface';
-import {NotificationEvents} from 'wlc-engine/modules/core/system/services/notification/notification.service';
-import {IFormWrapperCParams} from 'wlc-engine/modules/core/components/form-wrapper/form-wrapper.component';
-import {ModalService} from 'wlc-engine/modules/core/system/services/modal/modal.service';
-import {DataService} from 'wlc-engine/modules/core';
 import {
-    SmsService,
+    interval,
+    Subscription,
+} from 'rxjs';
+import {takeUntil} from 'rxjs/operators';
+
+import {
+    ConfigService,
+    EventService,
+    LogService,
+    TimerComponent,
+    IPushMessageParams,
+    NotificationEvents,
+    IFormWrapperCParams,
+    ModalService,
+    DataService,
+    UserActionsAbstract,
+    IValidateData,
+    InjectionService,
+} from 'wlc-engine/modules/core';
+import {
     UserService,
     IRegFormDataForConfig,
 } from 'wlc-engine/modules/user';
-import {ISmsSendResponse} from '../../system/services/sms/sms.service';
-import {
-    UserActionsAbstract,
-    IValidateData,
-} from '../../system/classes/user-actions-abstract.class';
+import {ISmsSendResponse} from 'wlc-engine/modules/user/submodules/sms/system/interfaces/sms-responses.interface';
+import {SmsService} from 'wlc-engine/modules/user/submodules/sms/system/services/sms/sms.service';
 
 import * as Params from './sms-verification.params';
 
@@ -39,7 +45,7 @@ import * as Params from './sms-verification.params';
  * @example
  *
  * {
- *     name: 'user.wlc-sms-verification',
+ *     name: 'sms.wlc-sms-verification',
  * }
  *
  */
@@ -72,6 +78,7 @@ export class SmsVerificationComponent extends UserActionsAbstract<Params.ISmsVer
         protected eventService: EventService,
         protected configService: ConfigService,
         protected logService: LogService,
+        protected injectionService: InjectionService,
         protected cdr: ChangeDetectorRef,
         protected smsService: SmsService,
         protected modalService: ModalService,
@@ -80,7 +87,7 @@ export class SmsVerificationComponent extends UserActionsAbstract<Params.ISmsVer
         super({
             injectParams,
             defaultParams: Params.defaultParams,
-        }, configService, userService, eventService, logService);
+        }, configService, eventService, injectionService, logService);
     }
 
     public ngOnInit(): void {
@@ -135,6 +142,10 @@ export class SmsVerificationComponent extends UserActionsAbstract<Params.ISmsVer
             const response = await this.smsService.validate(this.smsToken, smsCode, this.phoneCode, this.phoneNumber);
             if (response?.status) {
                 if (this.$params.functional === 'profile') {
+                    if (!this.userService) {
+                        this.userService = await this.injectionService.getService<UserService>('user.user-service');
+                    }
+
                     const result = await this.userService.updateProfile({
                         phoneCode: this.phoneCode,
                         phoneNumber: this.phoneNumber,
@@ -159,6 +170,10 @@ export class SmsVerificationComponent extends UserActionsAbstract<Params.ISmsVer
                         this.cdr.detectChanges();
                     }
                 } else {
+                    if (!this.userService) {
+                        this.userService = await this.injectionService.getService<UserService>('user.user-service');
+                    }
+
                     await this.userService.validateRegistration(this.formData);
                     await this.finishUserReg(this.formData.data);
                 }

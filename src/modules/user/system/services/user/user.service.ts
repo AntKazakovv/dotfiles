@@ -40,6 +40,7 @@ import {
     IRedirect,
     InjectionService,
     IMGAConfig,
+    IValidateData,
 } from 'wlc-engine/modules/core';
 import {
     IProcessEventData,
@@ -59,7 +60,6 @@ import {WINDOW} from 'wlc-engine/modules/app/system';
 import {UserProfile} from 'wlc-engine/modules/user/system/models/profile.model';
 import {UserInfo} from 'wlc-engine/modules/user/system/models/info.model';
 import {LimitationService} from 'wlc-engine/modules/user/submodules/limitations';
-import {IValidateData} from 'wlc-engine/modules/user/system/classes/user-actions-abstract.class';
 import {IdleService} from 'wlc-engine/modules/user/system/services/idle/idle.service';
 import {TermsAcceptService} from 'wlc-engine/modules/user/system/services/terms/terms-accept.service';
 import {IUserPasswordPost} from 'wlc-engine/modules/user/system/interfaces/user.interface';

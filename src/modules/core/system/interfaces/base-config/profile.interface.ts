@@ -1,4 +1,5 @@
 import {ILimitationsConfig} from 'wlc-engine/modules/user/submodules/limitations';
+import {ISmsVerification} from 'wlc-engine/modules/user/submodules/sms';
 
 export interface ILimitationExclusion {
     type: string;
@@ -15,20 +16,7 @@ export interface IProfileConfig {
          */
         use: boolean;
     },
-    smsVerification?: {
-        /**
-         * Use sms verification in registration
-         */
-        use?: boolean,
-        /**
-         * Use sms verification in profile
-         */
-        useInProfile?: boolean;
-        /**
-         * If `true` - enables restoration password through phone number
-         */
-        useRestorePassword?: boolean;
-    },
+    smsVerification?: ISmsVerification,
     verification?: IVerification,
     limitations?: ILimitationsConfig,
     store?: {

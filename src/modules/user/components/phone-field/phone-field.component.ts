@@ -159,7 +159,7 @@ export class PhoneFieldComponent extends AbstractComponent implements OnInit {
     public openSmsModal(): void {
         this.modalService.showModal({
             id: 'sms-verification',
-            componentName: 'user.wlc-sms-verification',
+            componentName: 'sms.wlc-sms-verification',
             componentParams: {
                 functional: 'profile',
             },

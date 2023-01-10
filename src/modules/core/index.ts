@@ -21,6 +21,8 @@ export {
     Deferred,
     AbstractHook,
     IAbstractHookParams,
+    IValidateData,
+    UserActionsAbstract,
 } from './system/classes';
 export {
     IData,

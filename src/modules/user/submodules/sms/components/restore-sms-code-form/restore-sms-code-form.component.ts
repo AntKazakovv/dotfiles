@@ -7,6 +7,7 @@ import {
     ViewChild,
     ChangeDetectorRef,
 } from '@angular/core';
+
 import {DateTime} from 'luxon';
 
 import {
@@ -18,8 +19,9 @@ import {
     ModalService,
     NotificationEvents,
     TimerComponent,
+    InjectionService,
 } from 'wlc-engine/modules/core';
-import {UserService} from 'wlc-engine/modules/user/system/services/user/user.service';
+import {UserService} from 'wlc-engine/modules/user';
 
 import * as Params from './restore-sms-code-form.params';
 
@@ -36,13 +38,14 @@ export class RestoreSmsCodeFormComponent extends AbstractComponent implements On
     public lockResend: boolean;
     public timeValue: DateTime;
     public formConfig: IFormWrapperCParams;
+    protected userService: UserService;
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IRestoreSmsCodeFormCParams,
         protected configService: ConfigService,
-        protected userService: UserService,
         protected eventService: EventService,
         protected modalService: ModalService,
+        protected injectionService: InjectionService,
         protected cdr: ChangeDetectorRef,
     ) {
         super({injectParams, defaultParams: Params.defaultParams}, configService);
@@ -71,6 +74,11 @@ export class RestoreSmsCodeFormComponent extends AbstractComponent implements On
 
         try {
             form.disable();
+
+            if (!this.userService) {
+                this.userService = await this.injectionService.getService<UserService>('user.user-service');
+            }
+
             await this.userService.validateRestoreCode(code);
 
             this.modalService.showModal('newPassword', {
@@ -98,6 +106,10 @@ export class RestoreSmsCodeFormComponent extends AbstractComponent implements On
         }
 
         try {
+            if (!this.userService) {
+                this.userService = await this.injectionService.getService<UserService>('user.user-service');
+            }
+
             await this.userService.sendPasswordRestore(null, this.$params.phone);
 
             this.pushMessage({

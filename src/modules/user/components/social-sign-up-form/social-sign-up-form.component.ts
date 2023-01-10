@@ -13,9 +13,10 @@ import {
     LogService,
     IIndexing,
     IFormWrapperCParams,
+    UserActionsAbstract,
+    InjectionService,
 } from 'wlc-engine/modules/core';
 import {UserService} from 'wlc-engine/modules/user/system/services/user/user.service';
-import {UserActionsAbstract} from 'wlc-engine/modules/user/system/classes/user-actions-abstract.class';
 import {SocialService} from 'wlc-engine/modules/user/system/services/social/social.service';
 import {WINDOW} from 'wlc-engine/modules/app/system';
 import {CuracaoRequirement} from 'wlc-engine/modules/app/system';
@@ -42,13 +43,14 @@ export class SocialSignUpFormComponent extends UserActionsAbstract<Params.ISocia
         protected userService: UserService,
         protected eventService: EventService,
         protected socialService: SocialService,
+        protected injectionService: InjectionService,
         @Inject(WINDOW) protected window: Window,
         @Inject(CuracaoRequirement) private enableRequirement: boolean,
     ) {
         super({
             injectParams,
             defaultParams: Params.defaultParams,
-        }, configService, userService, eventService, logService);
+        }, configService, eventService,  injectionService, logService);
     }
 
     public ngOnInit(): void {
@@ -72,7 +74,7 @@ export class SocialSignUpFormComponent extends UserActionsAbstract<Params.ISocia
         try {
             form.disable();
 
-            if (!this.checkConfirmation(form)) {
+            if (!await this.checkConfirmation(form)) {
                 return;
             }
 

@@ -241,7 +241,7 @@ const smsVerification = {
                 },
             },
             {
-                name: 'user.wlc-sms-verification',
+                name: 'sms.wlc-sms-verification',
             },
             linkBlock,
         ],

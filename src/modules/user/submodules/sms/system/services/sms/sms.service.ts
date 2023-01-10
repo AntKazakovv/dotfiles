@@ -1,5 +1,12 @@
 import {Injectable} from '@angular/core';
+
 import {timer} from 'rxjs';
+import _concat from 'lodash-es/concat';
+
+import {
+    ISmsSendResponse,
+    ISmsStateResponse,
+} from 'wlc-engine/modules/user/submodules/sms/system/interfaces/sms-responses.interface';
 import {
     IData,
     DataService,
@@ -8,18 +15,6 @@ import {
     IPushMessageParams,
     NotificationEvents,
 } from 'wlc-engine/modules/core';
-
-import _concat from 'lodash-es/concat';
-
-export interface ISmsSendResponse {
-    status?: boolean;
-    token?: string;
-}
-
-export interface ISmsStateResponse {
-    status?: boolean;
-    state?: string;
-}
 
 @Injectable({
     providedIn: 'root',

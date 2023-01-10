@@ -6,7 +6,7 @@ import {UIRouterModule} from '@uirouter/angular';
 import {NgxWebstorageModule} from 'ngx-webstorage';
 
 import {CoreModule} from 'wlc-engine/modules/core/core.module';
-import {SmsService} from 'wlc-engine/modules/user/system/services/sms/sms.service';
+import {SmsService} from 'wlc-engine/modules/user/submodules/sms/system/services/sms/sms.service';
 import {
     DataService,
     EventService,
