@@ -43,4 +43,8 @@ export const errorTypes: ILogTypes = {
         // URL to an external source is not specified
         level: 'warning',
     },
+    '5.2.0': {
+        // Error occurs while downloading pdf file
+        level: 'error',
+    },
 };

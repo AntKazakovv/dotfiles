@@ -76,3 +76,4 @@ export {
 } from './table/components/history-name/history-name.params';
 export {HistoryNameComponent} from './table/components/history-name/history-name.component';
 export {INoContentCParams} from './no-content/no-content.params';
+export {OfflinePageComponent} from './offline-page/offline-page.component';

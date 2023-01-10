@@ -20,6 +20,15 @@ export interface IStaticConfig {
     rewritingLanguages?: IIndexing<string>,
     /** `splitStaticTexts` settings for split static texts */
     splitStaticTexts?: ISplitTexts;
+    downloadPdf?: IDownloadPdf;
+}
+
+export interface IDownloadPdf {
+    slugsAvailableForDownload?: string[];
+    /** By default, the button is displayed on wlc + curacao.
+    * This option allows you to enable the button on demand on any project
+    */
+    forceShowButton?: boolean;
 }
 
 export interface ICacheExpiry {
@@ -120,13 +129,17 @@ export interface ISplitTexts {
 /** Request params to convert to PDF endpoint */
 export interface IPDFParams {
     /** language of post */
-    lang?: string;
-    /** set to 1 when prepath mode in WP enabled */
-    prepath: 0 | 1;
+    lang: string;
     /** set to 1 when wlc-api plugin enabled */
     wpPlugin: 0 | 1;
-    /** type of content */
-    page: 'pages' | 'posts';
     /** page/post slug in WP */
     slug: string;
+    /**
+     * Service version
+     */
+    termsOfService: string;
+    /** set to prepath when prepath mode in WP enabled */
+    mode?: 'prepath' | 'query';
+    /** type of content */
+    pageType?: 'page' | 'post';
 }

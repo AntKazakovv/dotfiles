@@ -31,4 +31,38 @@
             }
         }
     }
+
+    .wlc-post {
+
+        &__download {
+            display: flex;
+            align-items: center;
+            margin: ef.get-value($themeDefault, 'downloadLinkMargin');
+            text-decoration: none;
+            cursor: pointer;
+
+            &-text {
+                color: ef.get-value($themeDefault, 'downloadTextColor');
+                font-weight: 700;
+            }
+
+            &.disabled {
+                pointer-events: none;
+            }
+
+            ::ng-deep {
+
+                .wlc-icon {
+                    margin: ef.get-value($themeDefault, 'downloadIconMargin');
+                }
+            }
+
+            @include bm.hover() {
+
+                .wlc-post__download-text {
+                    color: ef.get-value($themeDefault, 'downloadTextColorHover');
+                }
+            }
+        }
+    }
 }

@@ -16,18 +16,23 @@ import {
     UIRouterGlobals,
 } from '@uirouter/core';
 
+import _get from 'lodash-es/get';
+
+import {
+    EventService,
+    IPushMessageParams,
+    NotificationEvents,
+    ConfigService,
+    AbstractComponent,
+    ActionService,
+    LogService,
+} from 'wlc-engine/modules/core';
 import {StaticService} from 'wlc-engine/modules/static/system/services/static/static.service';
 import {TextDataModel} from 'wlc-engine/modules/static/system/models/textdata.model';
-
-import {LogService} from 'wlc-engine/modules/core/system/services/log/log.service';
-import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
-import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
-import {ActionService} from 'wlc-engine/modules/core/system/services/action/action.service';
 import {ISplitTexts} from 'wlc-engine/modules/static/system/interfaces/static.interface';
+import {CuracaoRequirement} from 'wlc-engine/modules/app/system';
 
 import * as Params from './post.params';
-
-import _get from 'lodash-es/get';
 
 @Component({
     selector: '[wlc-post]',
@@ -57,8 +62,10 @@ export class PostComponent extends AbstractComponent implements OnInit, AfterVie
 
     public data: TextDataModel;
     public html: string;
+    public generatedSlug: string = '';
     public isReady: boolean = false;
     public $params: Params.IPostCParams;
+    public isDownloadingFile: boolean = false;
 
     constructor(
         @Inject('injectParams') protected params: Params.IPostCParams,
@@ -72,6 +79,8 @@ export class PostComponent extends AbstractComponent implements OnInit, AfterVie
         protected logService: LogService,
         protected actionService: ActionService,
         protected translate: TranslateService,
+        protected eventService: EventService,
+        @Inject(CuracaoRequirement) protected isCuracaoWlc: boolean,
     ) {
         super({injectParams: params, defaultParams: Params.defaultParams});
     }
@@ -82,21 +91,22 @@ export class PostComponent extends AbstractComponent implements OnInit, AfterVie
         this.withoutCompilation ??= this.$params.withoutCompilation;
         this.shouldClearStyles ??= this.$params.shouldClearStyles;
         try {
-            let slug: string = this.slug || this.$params.slug || this.uiRouter.params.slug;
+            const slug: string = this.slug || this.$params.slug || this.uiRouter.params.slug;
+            this.generatedSlug = this.getGeneratedSlug(slug);
             let data: TextDataModel;
 
             if (this.configService.get<string[]>({name: '$static.pages'}).includes(slug)) {
-                const splitSettings = this.configService.get<ISplitTexts>({name: '$static.splitStaticTexts'});
-                if (splitSettings?.useByDefault || _get(splitSettings, 'slugs', []).includes(slug)) {
-                    slug = `${slug}_${this.translate.currentLang}`;
-                }
-                data = await this.staticService.getPage(slug);
+                data = await this.staticService.getPage(this.generatedSlug);
             } else {
-                data = await this.staticService.getPost(slug);
+                data = await this.staticService.getPost(this.generatedSlug);
             }
 
             if (this.configService.get<string[]>({name: '$static.normalizeInternalLinks'})) {
                 data = this.replaceLinkPaths(data);
+            }
+
+            if (this.isShowDownloadButton(slug)) {
+                this.$params.downloadPdf.use = true;
             }
 
             this.data = data;
@@ -124,12 +134,50 @@ export class PostComponent extends AbstractComponent implements OnInit, AfterVie
         }
     }
 
+    public async downloadPdf(): Promise<void> {
+        try {
+            this.isDownloadingFile = true;
+            const slug = this.slug || this.$params.slug || this.uiRouter.params.slug;
+            const link = this.staticService.getLinkToPdf(slug);
+            await this.staticService.downloadPdf(link, slug);
+        } catch (error) {
+            this.logService.sendLog({code: '5.2.0', data: error});
+            this.eventService.emit({
+                name: NotificationEvents.PushMessage,
+                data: <IPushMessageParams>{
+                    type: 'error',
+                    title: gettext('Error'),
+                    message: gettext('Error occurred while downloading the file'),
+                    wlcElement: 'notification_download-pdf-error',
+                },
+            });
+        } finally {
+            this.isDownloadingFile = false;
+            this.cdr.markForCheck();
+        }
+    }
+
     public ngAfterViewInit(): void {
         this.viewRef.remove();
+    }
+
+    protected getGeneratedSlug(slug: string, lang?: string): string {
+        const splitSettings = this.configService.get<ISplitTexts>({name: '$static.splitStaticTexts'});
+        if (splitSettings?.useByDefault || (splitSettings?.slugs ?? []).includes(slug)) {
+            return `${slug}_${lang ?? this.translate.currentLang}`;
+        } else {
+            return slug;
+        }
     }
 
     protected replaceLinkPaths(data: TextDataModel): TextDataModel {
         data.html = data.html.replace(/\/static-texts\//g, '/contacts/');
         return data;
+    }
+
+    protected isShowDownloadButton(slug: string): boolean {
+        return this.configService.get<string>('appConfig.siteconfig.termsOfService')
+            && (this.isCuracaoWlc || this.configService.get<boolean>({name: '$static.downloadPdf.forceShowButton'}))
+            && this.configService.get<string[]>({name: '$static.downloadPdf.slugsAvailableForDownload'}).includes(slug);
     }
 }

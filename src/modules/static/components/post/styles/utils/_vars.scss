@@ -14,6 +14,10 @@ $themeDefault: map-merge((
         375: center,
         900: left,
     ),
+    'downloadLinkMargin': 0 0 ef.size(4),
+    'downloadTextColor': var(--mc-secondary),
+    'downloadTextColorHover': var(--mc-baseMain),
+    'downloadIconMargin': 0 0 0 ef.size(3),
 ), $customThemeDefault);
 
 $customThemeAffiliates: () !default;

@@ -1,13 +1,12 @@
-﻿import {Injectable} from '@angular/core';
-import {localFiles} from '../../config/files.config';
-import {getFileBody} from 'wlc-src/svg';
-import imagesList from 'wlc-src/staticImagesList.json';
-import {getEngineFileBody} from 'wlc-engine/svg';
-import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
-import {IIndexing} from 'wlc-engine/modules/core/system/interfaces/global.interface';
-import {HttpClient, HttpResponse} from '@angular/common/http';
-import {LogService} from 'wlc-engine/modules/core';
-import {GlobalHelper} from 'wlc-engine/modules/core/system/helpers/global.helper';
+﻿import {
+    Inject,
+    Injectable,
+} from '@angular/core';
+import {
+    HttpClient,
+    HttpResponse,
+} from '@angular/common/http';
+import {DOCUMENT} from '@angular/common';
 
 import _find from 'lodash-es/find';
 import _findIndex from 'lodash-es/findIndex';
@@ -18,6 +17,15 @@ import _flatten from 'lodash-es/flatten';
 import _includes from 'lodash-es/includes';
 import _forEach from 'lodash-es/forEach';
 import _random from 'lodash-es/random';
+
+import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
+import {IIndexing} from 'wlc-engine/modules/core/system/interfaces/global.interface';
+import {LogService} from 'wlc-engine/modules/core/system/services/log/log.service';
+import {GlobalHelper} from 'wlc-engine/modules/core/system/helpers/global.helper';
+import {localFiles} from 'wlc-engine/modules/core/system/config/files.config';
+import {getFileBody} from 'wlc-src/svg';
+import imagesList from 'wlc-src/staticImagesList.json';
+import {getEngineFileBody} from 'wlc-engine/svg';
 
 type LocationFileType =
     'local-wlc'
@@ -53,6 +61,7 @@ export class FilesService {
         protected configService: ConfigService,
         private httpClient: HttpClient,
         private logService: LogService,
+        @Inject(DOCUMENT) private document: Document,
     ) {
         this.init();
     }
@@ -158,9 +167,34 @@ export class FilesService {
     }
 
     /**
+     * Creates a file and downloads it
+     *
+     * @param {string | ArrayBuffer} text - file text
+     * @param {string} type - type file
+     * @param {string} fileName - file name
+     * @returns {void}
+     */
+    public downloadFile(
+        text: string | ArrayBuffer,
+        type: string,
+        fileName: string,
+    ): void {
+        try {
+            const file = new Blob([text], {type});
+            const a = this.document.createElement('a');
+            a.href = URL.createObjectURL(file);
+            a.download = fileName;
+            a.click();
+            a.remove();
+        } catch (error) {
+            throw new Error('Error occurred while downloading the file');
+        }
+    }
+
+    /**
      * Replace the "id" and all the attributes of the "url" with a random id key
      *
-     * @param htmlString {string} - file html string
+     * @param {string} htmlString - file html string
      * @returns {string} - file html string
      */
     public replaceSvgId(htmlString: string): string {

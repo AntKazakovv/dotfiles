@@ -4,10 +4,7 @@ import {
     HttpRequest,
     HttpResponse,
 } from '@angular/common/http';
-import {
-    Inject,
-    Injectable,
-} from '@angular/core';
+import {Injectable} from '@angular/core';
 import {TranslateService} from '@ngx-translate/core';
 import {DomSanitizer} from '@angular/platform-browser';
 
@@ -18,7 +15,6 @@ import _extend from 'lodash-es/extend';
 import _merge from 'lodash-es/merge';
 import _find from 'lodash-es/find';
 import _map from 'lodash-es/map';
-import _get from 'lodash-es/get';
 import _includes from 'lodash-es/includes';
 import _replace from 'lodash-es/replace';
 import _join from 'lodash-es/join';
@@ -26,9 +22,13 @@ import _isArray from 'lodash-es/isArray';
 import _isNumber from 'lodash-es/isNumber';
 import _isObject from 'lodash-es/isObject';
 
-import {IIndexing} from 'wlc-engine/modules/core/system/interfaces/global.interface';
-import {CachingService} from 'wlc-engine/modules/core/system/services/caching/caching.service';
-import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
+import {
+    FilesService,
+    HooksService,
+    IIndexing,
+    CachingService,
+    ConfigService,
+} from 'wlc-engine/modules/core';
 import {
     ICategoryStaticText,
     IStaticParams,
@@ -36,7 +36,6 @@ import {
     IRequestUrlStaticText,
     StaticTextType,
     TWpTranslateMode,
-    ISplitTexts,
     IPDFParams,
 } from 'wlc-engine/modules/static/system/interfaces/static.interface';
 import {TextDataModel} from 'wlc-engine/modules/static/system/models/textdata.model';
@@ -45,9 +44,8 @@ import {WpTextData} from 'wlc-engine/modules/static/system/models/textdata.wp.mo
 import {
     WpPluginsType,
     ICacheExpiry,
+    ISplitTexts,
 } from 'wlc-engine/modules/static/system/interfaces/static.interface';
-import {HooksService} from 'wlc-engine/modules/core';
-import {CuracaoRequirement} from 'wlc-engine/modules/app/system';
 
 @Injectable({
     providedIn: 'root',
@@ -86,7 +84,7 @@ export class StaticService {
         private httpClient: HttpClient,
         private cachingService: CachingService,
         private hooksService: HooksService,
-        @Inject(CuracaoRequirement) private enableRequirement: boolean,
+        private filesService: FilesService,
     ) {
         this.init();
     }
@@ -150,24 +148,45 @@ export class StaticService {
         const params: IPDFParams = {
             slug,
             wpPlugin: this.useWpPlugin ? 1 : 0,
-            prepath: this.configService.get<TWpTranslateMode>('$static.wpPlugins.translateMode') === 'pre-path' ? 1 : 0,
-            page: 'pages',
+            termsOfService: this.configService.get<string>('appConfig.siteconfig.termsOfService'),
+            lang: 'en',
         };
 
-        if (this.configService.get<string[]>({name: '$static.pages'}).includes(slug)) {
-            const splitSettings = this.configService.get<ISplitTexts>({name: '$static.splitStaticTexts'});
-            if (splitSettings?.useByDefault || _get(splitSettings, 'slugs', []).includes(slug)) {
-                params.lang = this.translateService.currentLang;
-            }
-            params.page = 'pages';
+        const splitSettings = this.configService.get<ISplitTexts>({name: '$static.splitStaticTexts'});
+        if (splitSettings?.useByDefault || (splitSettings?.slugs ?? []).includes(slug)) {
+            params.slug = `${slug}_en`;
         }
 
-        const queryParams = Object.entries(params).reduce((res, [key, value]) => {
-            res.push(`${key}=${value}`);
-            return res;
-        }, []).join('&');
+        if (!this.configService.get<string[]>({name: '$static.pages'}).includes(slug)) {
+            params.pageType = 'post';
+        }
 
-        return '/api/v1/wptopdf?' + queryParams;
+        if (this.configService.get<TWpTranslateMode>('$static.wpPlugins.translateMode') === 'pre-path') {
+            params.mode = 'prepath';
+        }
+
+        const queryParams = Object.entries(params).map(([k, v]) => `${k}=${v}`).join('&');
+
+        return `/api/v1/wptopdf?${queryParams}`;
+    }
+
+    /**
+     * Download pdf file
+     *
+     * @param {string} link - download link
+     * @param {string} slug - slug post/page whose content will be loaded
+     * @returns {Promise<void | Error>}
+     */
+    public async downloadPdf(link: string, slug: string): Promise<void | Error> {
+        try {
+            const text = await lastValueFrom(this.httpClient.request('GET', link, {
+                responseType: 'arraybuffer',
+            }));
+            const fileName = slug.replace(/-/g, '_');
+            this.filesService.downloadFile(text, 'application/pdf', fileName);
+        } catch (error) {
+            throw new Error(error);
+        }
     }
 
     private async init(): Promise<void> {
@@ -298,8 +317,8 @@ export class StaticService {
             : `/content/${(mode === 'query') ? '' : lang}/wp-json/wp/v2/`;
 
         const requestUrls: IRequestUrlStaticText = {
-            category: '/content//wp-json/wp/v2/categories',
-            tag: '/content//wp-json/wp/v2/tags',
+            category: apiUrl + 'categories',
+            tag: apiUrl + 'tags',
             post: apiUrl + (this.useWpPlugin ? 'post' : 'posts?per_page=100'),
             page: apiUrl + (this.useWpPlugin ? 'page' : 'pages'),
         };

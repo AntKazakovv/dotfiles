@@ -136,6 +136,8 @@ export interface ISiteConfig {
     Type: string;
     // Project license from fundist
     License: string;
+    // Current version T&C. Set in the backend config
+    termsOfService?: string;
 }
 
 export interface ISiteconfigLanguage {

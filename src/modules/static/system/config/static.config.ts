@@ -8,6 +8,11 @@ export const staticConfig: IStaticConfig = {
         'fair-play',
         'games-rules',
     ],
+    downloadPdf: {
+        slugsAvailableForDownload: [
+            'terms-and-conditions',
+        ],
+    },
     wpPlugins: {
         wlcApi: false,
         translateMode: 'query',
