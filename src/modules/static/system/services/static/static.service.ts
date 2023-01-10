@@ -182,7 +182,9 @@ export class StaticService {
             const text = await lastValueFrom(this.httpClient.request('GET', link, {
                 responseType: 'arraybuffer',
             }));
-            const fileName = slug.replace(/-/g, '_');
+            const fileName = `${slug.replace(/-/g, '_')}_${
+                this.configService.get<string>('appConfig.siteconfig.termsOfService')
+            }.pdf`;
             this.filesService.downloadFile(text, 'application/pdf', fileName);
         } catch (error) {
             throw new Error(error);
