@@ -1,4 +1,3 @@
-import {CustomType, IComponentParams} from 'wlc-engine/modules/core/system/classes/abstract.component';
 import {
     ISelectCParams,
     IInputCParams,
@@ -6,11 +5,17 @@ import {
     IWrapperCParams,
     ITableCol,
     ProhibitedPatterns,
+    CustomType,
+    IComponentParams,
 } from 'wlc-engine/modules/core';
+import {
+    LimitValueComponent,
+} from 'wlc-engine/modules/user/submodules/limitations/components/limit-value/limit-value.component';
+import {
+    LimitCancelComponent,
+} from 'wlc-engine/modules/user/submodules/limitations/components/limit-cancel/limit-cancel.component';
 
-import {LimitCancelComponent} from 'wlc-engine/modules/user/components/limitations/limit-cancel/limit-cancel.component';
-import {LimitValueComponent} from 'wlc-engine/modules/user/components/limitations/limit-value/limit-value.component';
-export {limitTypeTexts} from './limitations.shared';
+export {limitTypeTexts} from 'wlc-engine/modules/user/submodules/limitations/system/config/limitations.config';
 
 export type ComponentTheme = 'default' | CustomType;
 export type ComponentType = 'default' | CustomType;
@@ -25,7 +30,7 @@ export interface ILimitationsCParams extends IComponentParams<ComponentTheme, Co
 }
 
 export const defaultParams: ILimitationsCParams = {
-    moduleName: 'user',
+    moduleName: 'limitations',
     componentName: 'wlc-limitations',
     class: 'wlc-limitations',
     emptyConfig: {

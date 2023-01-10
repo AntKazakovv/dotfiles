@@ -27,7 +27,10 @@ export {IIconCParams} from './icon/icon.params';
 export {IInfoPageCParams} from './info-page/info-page.params';
 export {IInputCParams} from './input/input.params';
 export {ILanguageSelectorCParams} from './language-selector/language-selector.params';
-export {ILicenseCParams} from './license/license.params';
+export {
+    ILicenseCParams,
+    IMGAConfig,
+} from './license/license.params';
 export {ILinkBlockCParams} from './link-block/link-block.params';
 export {IActionParams} from './link-block/link-block.params';
 export {ILoaderCParams} from './loader/loader.params';

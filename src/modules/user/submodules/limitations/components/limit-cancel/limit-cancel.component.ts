@@ -2,15 +2,15 @@ import {
     Component,
     OnInit,
     Inject,
-    ChangeDetectorRef,
 } from '@angular/core';
+
 import {
     AbstractComponent,
     ModalService,
 } from 'wlc-engine/modules/core';
 import {
     LimitationService,
-} from 'wlc-engine/modules/user/system/services';
+} from 'wlc-engine/modules/user/submodules/limitations/system/services/limitation/limitation.service';
 
 import * as Params from './limit-cancel.params';
 
@@ -27,7 +27,6 @@ export class LimitCancelComponent extends AbstractComponent implements OnInit {
     constructor(
         @Inject('injectParams') protected params: Params.ILimitCancelCParams,
         protected limitationService: LimitationService,
-        protected cdr: ChangeDetectorRef,
         protected modalService: ModalService,
     ) {
         super({injectParams: params, defaultParams: Params.defaultParams});

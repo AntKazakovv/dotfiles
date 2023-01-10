@@ -1,5 +1,8 @@
-import {CustomType, IComponentParams} from 'wlc-engine/modules/core/system/classes/abstract.component';
-import {limitTypeTexts} from '../limitations.shared';
+import {
+    CustomType,
+    IComponentParams,
+} from 'wlc-engine/modules/core';
+import {limitTypeTexts} from 'wlc-engine/modules/user/submodules/limitations/system/config/limitations.config';
 
 export type ComponentTheme = 'default' | CustomType;
 export type ComponentType = 'default' | CustomType;
@@ -15,5 +18,7 @@ export interface ILimitCancelCParams extends IComponentParams<ComponentTheme, Co
 }
 
 export const defaultParams: ILimitCancelCParams = {
+    moduleName: 'limitations',
+    componentName: 'wlc-limit-cancel',
     class: 'wlc-limit-cancel',
 };

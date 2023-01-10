@@ -15,18 +15,22 @@ import _size from 'lodash-es/size';
 
 import {
     AbstractComponent,
-    IFormWrapperCParams,
-    ITableCParams,
-    ISelectOptions,
-    EventService,
-    ModalService,
     ConfigService,
-    NotificationEvents,
+    EventService,
+    IFormWrapperCParams,
     IPushMessageParams,
-    ILimitationTypeItem,
+    ISelectOptions,
+    ITableCParams,
+    ModalService,
+    NotificationEvents,
 } from 'wlc-engine/modules/core';
-import {UserService} from 'wlc-engine/modules/user/system/services/user/user.service';
-import {LimitationService} from 'wlc-engine/modules/user/system/services/limitation/limitation.service';
+import {UserService} from 'wlc-engine/modules/user';
+import {
+    LimitationService,
+} from 'wlc-engine/modules/user/submodules/limitations/system/services/limitation/limitation.service';
+import {
+    ILimitationTypeItem,
+} from 'wlc-engine/modules/user/submodules/limitations/system/interfaces/limitations.interface';
 
 import * as Params from './limitations.params';
 

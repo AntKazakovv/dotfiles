@@ -8,7 +8,6 @@ import {
 import {CoreModule} from 'wlc-engine/modules/core/core.module';
 import {
     UserService,
-    LimitationService,
     SmsService,
     SocialService,
     TermsAcceptService,
@@ -25,9 +24,6 @@ import {
 import {ExchangeComponent} from './components/dashboard-exchange/exchange.component';
 import {FundistUserIdComponent} from './components/fundist-id/fundist-user-id.component';
 import {IconExpLpDescriptionComponent} from './components/icon-exp-lp-description/icon-exp-lp-description.component';
-import {LimitationsComponent} from './components/limitations/limitations.component';
-import {LimitCancelComponent} from './components/limitations/limit-cancel/limit-cancel.component';
-import {LimitValueComponent} from './components/limitations/limit-value/limit-value.component';
 import {LogoutComponent} from './components/logout/logout.component';
 import {LoyaltyProgressComponent} from './components/loyalty-progress/loyalty-progress.component';
 import {MetamaskSignUpFormComponent} from './components/metamask-sign-up-form/metamask-sign-up-form.component';
@@ -59,7 +55,6 @@ import {RestoreSmsCodeFormComponent} from './components/restore-sms-code-form/re
 export const services = {
     'user-service': UserService,
     'social-service': SocialService,
-    'limitation-service': LimitationService,
     'idle-service': IdleService,
     'terms-accept-service': TermsAcceptService,
 };
@@ -75,7 +70,6 @@ export const components = {
     'wlc-exchange': ExchangeComponent,
     'wlc-icon-exp-lp': IconExpLpDescriptionComponent,
     'wlc-fundist-user-id': FundistUserIdComponent,
-    'wlc-limitations': LimitationsComponent,
     'wlc-logout': LogoutComponent,
     'wlc-loyalty-block': DashboardLoyaltyBlockComponent,
     'wlc-loyalty-progress': LoyaltyProgressComponent,
@@ -107,9 +101,6 @@ export const components = {
         ExchangeComponent,
         IconExpLpDescriptionComponent,
         FundistUserIdComponent,
-        LimitationsComponent,
-        LimitCancelComponent,
-        LimitValueComponent,
         LogoutComponent,
         LoyaltyProgressComponent,
         MetamaskSignUpFormComponent,
@@ -143,7 +134,6 @@ export const components = {
     providers: [
         DataService,
         UserService,
-        LimitationService,
         SocialService,
         SmsService,
         TermsAcceptService,
@@ -156,7 +146,6 @@ export const components = {
         ExchangeComponent,
         IconExpLpDescriptionComponent,
         FundistUserIdComponent,
-        LimitationsComponent,
         LogoutComponent,
         LoyaltyProgressComponent,
         PepConfirmPasswordFormComponent,

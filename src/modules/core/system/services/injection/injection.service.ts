@@ -289,6 +289,14 @@ export class InjectionService {
                     this.afterModuleLoad('deadsimplechat', m);
                     return m.DeadsimplechatModule;
                 });
+            case 'limitations':
+                if (this.loadedModules.LimitationsModule) {
+                    return this.loadedModules.LimitationsModule;
+                }
+                return import('wlc-engine/modules/user/submodules/limitations/limitations.module').then(m => {
+                    this.afterModuleLoad('limitations', m);
+                    return m.LimitationsModule;
+                });
         }
     }
 

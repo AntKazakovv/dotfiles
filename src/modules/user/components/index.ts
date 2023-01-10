@@ -15,7 +15,6 @@ export {IRegFormDataForConfig} from './sign-up-form/sign-up-form.component';
 export {IUserInfoCParams} from './user-info/user-info.params';
 export {IUserNameCParams} from './user-name/user-name.params';
 export {IUserStatsCParams} from './user-stats/user-stats.params';
-export {ILimitationsCParams} from './limitations/limitations.params';
 export {ISocialNetworksCParams} from './social-networks/social-networks.params';
 export {ISocialSignUpFormCParams} from './social-sign-up-form/social-sign-up-form.params';
 export {IProfileBlocksCParams} from './profile-blocks/profile-blocks.params';

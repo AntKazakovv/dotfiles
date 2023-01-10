@@ -2,16 +2,10 @@ import {
     Component,
     OnInit,
     Inject,
-    ChangeDetectorRef,
 } from '@angular/core';
 import {TranslateService} from '@ngx-translate/core';
-import {
-    AbstractComponent,
-    ModalService,
-} from 'wlc-engine/modules/core';
-import {
-    LimitationService,
-} from 'wlc-engine/modules/user/system/services';
+
+import {AbstractComponent} from 'wlc-engine/modules/core';
 
 import * as Params from './limit-value.params';
 
@@ -27,9 +21,6 @@ export class LimitValueComponent extends AbstractComponent implements OnInit {
 
     constructor(
         @Inject('injectParams') protected params: Params.ILimitValueCParams,
-        protected limitationService: LimitationService,
-        protected cdr: ChangeDetectorRef,
-        protected modalService: ModalService,
         protected translate: TranslateService,
     ) {
         super({injectParams: params, defaultParams: Params.defaultParams});

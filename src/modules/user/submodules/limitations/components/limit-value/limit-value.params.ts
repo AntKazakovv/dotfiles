@@ -1,4 +1,7 @@
-import {CustomType, IComponentParams} from 'wlc-engine/modules/core/system/classes/abstract.component';
+import {
+    CustomType,
+    IComponentParams,
+} from 'wlc-engine/modules/core';
 
 export type ComponentTheme = 'default' | CustomType;
 export type ComponentType = 'default' | CustomType;
@@ -13,5 +16,7 @@ export interface ILimitValueCParams extends IComponentParams<ComponentTheme, Com
 }
 
 export const defaultParams: ILimitValueCParams = {
+    moduleName: 'limitations',
+    componentName: 'wlc-limit-value',
     class: 'wlc-limit-value',
 };

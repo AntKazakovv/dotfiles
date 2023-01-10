@@ -4,9 +4,7 @@ import {
 } from '@angular/core';
 import {TranslateService} from '@ngx-translate/core';
 import {DateTime} from 'luxon';
-import {
-    StateService,
-} from '@uirouter/core';
+import {StateService} from '@uirouter/core';
 
 import {
     Subscription,
@@ -26,36 +24,28 @@ import _merge from 'lodash-es/merge';
 import _isString from 'lodash-es/isString';
 import _get from 'lodash-es/get';
 
-import {LogService} from 'wlc-engine/modules/core/system/services/log/log.service';
-import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
-import {EventService, IEvent} from 'wlc-engine/modules/core/system/services/event/event.service';
-import {IIndexing} from 'wlc-engine/modules/core/system/interfaces/global.interface';
-import {ModalService} from 'wlc-engine/modules/core/system/services/modal/modal.service';
-import {IPushMessageParams} from 'wlc-engine/modules/core/system/services/notification/notification.interface';
-import {NotificationEvents} from 'wlc-engine/modules/core/system/services/notification/notification.service';
-import {DataService} from 'wlc-engine/modules/core/system/services/data/data.service';
 import {
+    DataService,
+    IData,
+    NotificationEvents,
+    IPushMessageParams,
+    ModalService,
+    IIndexing,
+    EventService,
+    IEvent,
+    ConfigService,
+    LogService,
     IUserInfo,
     IUserProfile,
-} from 'wlc-engine/modules/core/system/interfaces/user.interface';
-import {IRedirect} from 'wlc-engine/modules/core/system/interfaces/core.interface';
-
-import {IData} from 'wlc-engine/modules/core/system/services/data/data.service';
-import {UserProfile} from 'wlc-engine/modules/user/system/models/profile.model';
-import {UserInfo} from 'wlc-engine/modules/user/system/models/info.model';
-import {LimitationService} from 'wlc-engine/modules/user/system/services/limitation/limitation.service';
-import {InjectionService} from 'wlc-engine/modules/core/system/services/injection/injection.service';
-import {IValidateData} from 'wlc-engine/modules/user/system/classes/user-actions-abstract.class';
-import {IdleService} from 'wlc-engine/modules/user/system/services/idle/idle.service';
-import {BonusesService} from 'wlc-engine/modules/bonuses/system/services/bonuses/bonuses.service';
-import {TermsAcceptService} from 'wlc-engine/modules/user/system/services/terms/terms-accept.service';
-import {IMGAConfig} from 'wlc-engine/modules/core/components/license/license.params';
+    IRedirect,
+    InjectionService,
+    IMGAConfig,
+} from 'wlc-engine/modules/core';
 import {
     IProcessEventData,
     ProcessEvents,
     ProcessEventsDescriptions,
 } from 'wlc-engine/modules/monitoring';
-import {IUserPasswordPost} from 'wlc-engine/modules/user/system/interfaces/user.interface';
 import {
     MetamaskService,
     TMetamaskData,
@@ -63,8 +53,16 @@ import {
 import {
     ChosenBonusSetParams,
     ChosenBonusType,
+    BonusesService,
 } from 'wlc-engine/modules/bonuses';
 import {WINDOW} from 'wlc-engine/modules/app/system';
+import {UserProfile} from 'wlc-engine/modules/user/system/models/profile.model';
+import {UserInfo} from 'wlc-engine/modules/user/system/models/info.model';
+import {LimitationService} from 'wlc-engine/modules/user/submodules/limitations';
+import {IValidateData} from 'wlc-engine/modules/user/system/classes/user-actions-abstract.class';
+import {IdleService} from 'wlc-engine/modules/user/system/services/idle/idle.service';
+import {TermsAcceptService} from 'wlc-engine/modules/user/system/services/terms/terms-accept.service';
+import {IUserPasswordPost} from 'wlc-engine/modules/user/system/interfaces/user.interface';
 
 export enum LanguageChangeEvents {
     ChangeLanguage = 'CHANGE_LANGUAGE'
@@ -227,11 +225,14 @@ export class UserService {
             this.configService.set({name: '$user.isAuthenticated', value: true});
             this.fetchUserProfile().then(async () => {
                 this._isMetamaskUser = this.userProfile.type === 'metamask';
-                if (!this.limitationService) {
-                    this.limitationService = await this.injectionService
-                        .getService<LimitationService>('user.limitation-service');
+                if (this.configService.get('$base.profile.limitations.use')) {
+                    if (!this.limitationService) {
+                        this.limitationService = await this.injectionService
+                            .getService<LimitationService>('limitations.limitation-service');
+                    }
+                    this.limitationService.initRealityChecker(this.userProfile$, true);
                 }
-                this.limitationService.initRealityChecker(this.userProfile$, true);
+
                 this.fetchUserInfo();
                 this.startUserInfoFetcher();
                 this.idleHandler();
@@ -260,11 +261,14 @@ export class UserService {
         if (this.isAuthenticated) {
             this.fetchUserProfile().then(async () => {
                 this._isMetamaskUser = this.userProfile.type === 'metamask';
-                if (!this.limitationService) {
-                    this.limitationService = await this.injectionService
-                        .getService<LimitationService>('user.limitation-service');
+                if (this.configService.get('$base.profile.limitations.use')) {
+                    if (!this.limitationService) {
+                        this.limitationService = await this.injectionService
+                            .getService<LimitationService>('limitations.limitation-service');
+                    }
+                    this.limitationService.initRealityChecker(this.userProfile$);
                 }
-                this.limitationService.initRealityChecker(this.userProfile$);
+
                 this.fetchUserInfo();
                 this.startUserInfoFetcher();
                 this.idleHandler();
