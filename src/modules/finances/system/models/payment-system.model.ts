@@ -135,6 +135,7 @@ export class PaymentSystem extends AbstractModel<IPaymentSystem> {
 
     public disabledBy: null | keyof typeof disabledReasons = null;
     public isParent: boolean = false;
+    public autoSelect: boolean = false;
 
     protected isCryptoCheck: boolean;
     protected hostedController: IHostedFieldsControllerM;

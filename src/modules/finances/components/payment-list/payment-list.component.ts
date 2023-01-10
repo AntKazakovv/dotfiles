@@ -190,9 +190,14 @@ export class PaymentListComponent extends IconListAbstract<Params.IPaymentListCP
         system: PaymentSystem | null,
         clearSame: boolean = this.useBonuses,
         hideModal: boolean = this.$params.hideModalOnSelect,
+        autoSelect: boolean = false,
     ): void {
         if (system?.disabledBy) {
             return;
+        }
+
+        if(system) {
+            system.autoSelect = autoSelect;
         }
 
         const chosenSystem: PaymentSystem | null = system?.id === this.currentSystem?.id && clearSame ? null : system;
@@ -208,7 +213,7 @@ export class PaymentListComponent extends IconListAbstract<Params.IPaymentListCP
             this.modalService.hideModal('payment-list');
         }
 
-        this.paymentDescription = system && (this.isDeposit
+        this.paymentDescription = chosenSystem && (this.isDeposit
             ? system.description
             : system.descriptionWithdraw);
 
@@ -285,7 +290,7 @@ export class PaymentListComponent extends IconListAbstract<Params.IPaymentListCP
             } else if (this.isAutoSelect) {
 
                 if (this.currentSystem?.isParent) {
-                    this.selectPayment(null, undefined, false);
+                    this.selectPayment(null, undefined, false, true);
                 }
 
                 this.selectPayment(this.systems$.getValue().find(s => !s.disabledBy), true, false);
@@ -361,11 +366,11 @@ export class PaymentListComponent extends IconListAbstract<Params.IPaymentListCP
                 this.setActiveTag(tag);
             }
 
-            this.selectPayment(system, false, false);
+            this.selectPayment(system, false, false, true);
         } else if (this.systems$.getValue().length === 1 && !this.systems$.getValue()[0].disabledBy) {
-            this.selectPayment(this.systems$.getValue()[0], false, false);
+            this.selectPayment(this.systems$.getValue()[0], false, false, true);
         } else if (this.systems$.getValue().length > 1 && this.isAutoSelect) {
-            this.selectPayment(this.getAutoSelected(), false, false);
+            this.selectPayment(this.getAutoSelected(), false, false, true);
         }
 
         this.cdr.detectChanges();

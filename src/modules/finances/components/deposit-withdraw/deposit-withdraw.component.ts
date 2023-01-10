@@ -63,6 +63,7 @@ import {
     IModalConfig,
     IModalParams,
     IFormComponent,
+    ActionService,
 } from 'wlc-engine/modules/core';
 import {FormElements} from 'wlc-engine/modules/core/system/config/form-elements';
 import {
@@ -152,6 +153,7 @@ export class DepositWithdrawComponent
     public currentBonus: Bonus;
     public isWaitingResponse: boolean = false;
     public showErrorHosledLoad: boolean = false;
+    public hiddenPaymentInfo: boolean;
 
     protected formObject: FormGroup;
     protected inProgress: boolean = false;
@@ -173,6 +175,8 @@ export class DepositWithdrawComponent
     private userProfile: UserProfile;
     private cssVariables: string;
     private isDeposit: boolean;
+    private useScroll: boolean = false;
+
     private additionalFieldsConfig: IIndexing<IAdditionalFieldConfig>;
 
     constructor(
@@ -186,6 +190,7 @@ export class DepositWithdrawComponent
         protected httpClient: HttpClient,
         protected injectionService: InjectionService,
         protected logService: LogService,
+        protected actionService: ActionService,
         @Inject(DOCUMENT) protected document: Document,
         @Inject(WINDOW) private window: Window,
     ) {
@@ -198,6 +203,7 @@ export class DepositWithdrawComponent
 
     public async ngOnInit(): Promise<void> {
         super.ngOnInit();
+        this.hiddenPaymentInfo = this.configService.get<boolean>('$finances.paymentInfo.hiddenPaymentInfo');
         this.depositInIframe = this.configService.get<boolean>('$base.finances.depositInIframe');
         this.useBonuses = this.configService.get<boolean>('$finances.bonusesInDeposit.use');
         this.isDeposit = this.$params.mode === 'deposit';
@@ -216,7 +222,9 @@ export class DepositWithdrawComponent
         }
 
         this.steps.add(Params.PaymentSteps.paymentSystem);
-        this.steps.add(Params.PaymentSteps.paymentInfo);
+        if (!this.hiddenPaymentInfo) {
+            this.steps.add(Params.PaymentSteps.paymentInfo);
+        }
 
         this.configService
             .get<BehaviorSubject<UserProfile>>({name: '$user.userProfile$'})
@@ -920,6 +928,8 @@ export class DepositWithdrawComponent
         this.disableAmount = this.currentSystem.disableAmount;
         this.additionalParams = this.listConfig.paymentType === 'deposit' ?
             system.additionalParamsDeposit : system.additionalParamsWithdraw;
+        this.useScroll = !this.currentSystem.autoSelect &&
+            this.configService.get<boolean>('$finances.paymentInfo.autoScroll');
 
         this.setAdditionalValues();
         this.checkUserProfileForPayment();
@@ -935,8 +945,16 @@ export class DepositWithdrawComponent
                 this.invoiceSystems = this.currentSystem.children;
                 this.steps.delete(Params.PaymentSteps.paymentInfo);
                 this.steps.add(Params.PaymentSteps.cryptoInvoices);
+                if (this.useScroll) {
+                    this.actionService.scrollTo(`.${this.$params.class}__cryptoInvoiceSystems`,
+                        {position: 'center'});
+                }
             } else {
                 this.steps.add(Params.PaymentSteps.paymentInfo);
+                if (this.useScroll) {
+                    this.actionService.scrollTo(`.${this.$params.class}__paymentInfo`,
+                        {position: 'center'});
+                }
             }
 
             const message: IPaymentMessage = this.currentSystem.message as IPaymentMessage;
@@ -951,6 +969,10 @@ export class DepositWithdrawComponent
             this.steps.add(Params.PaymentSteps.paymentInfo);
             this.parentSystem = null;
             this.invoiceSystems = [];
+            if (this.useScroll) {
+                this.actionService.scrollTo(`.${this.$params.class}__paymentInfo`,
+                    {position: 'center'});
+            }
         }
 
 

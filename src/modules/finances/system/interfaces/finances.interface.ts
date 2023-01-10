@@ -11,6 +11,7 @@ export interface IFinancesConfig {
     fastDeposit: IFastDeposit;
     fieldTemplatesNames?: IIndexing<IFieldTemplate>,
     payment?: IPaySystemAutoSelect;
+    paymentInfo?: IPaymentInfo;
     bonusesInDeposit?: IDepositBonusAutoSelect;
     cryptoInvoices?: ICryptoInvoicesParams;
     /**
@@ -144,6 +145,13 @@ export interface IPaymentMessage {
 export interface IPaySystemAutoSelect {
     autoSelect?: boolean;
     alias?: number | string | IAutoSelectByDevice<number | string>;
+}
+
+export interface IPaymentInfo {
+    /** Auto scroll to payment info when choosing a payment system */
+    autoScroll?: boolean;
+    /** Hides payment info until selected payment system */
+    hiddenPaymentInfo?: boolean;
 }
 
 export interface IDepositBonusAutoSelect {

@@ -5,7 +5,7 @@
 <ng-template #stepTpl let-step let-index="index">
     <div class="{{$class}}__step {{$class}}__step--{{index + 1}}">
         <div class="{{$class}}__subtitle">
-            <div class="{{$class}}__subtitle-name"><span>{{index + 1}}.</span> {{step.title | translate}}</div>
+            <div class="{{$class}}__subtitle-name {{$class}}__{{step.template}}"><span>{{index + 1}}.</span> {{step.title | translate}}</div>
         </div>
 
         <ng-container [ngSwitch]="step.template">
@@ -27,7 +27,7 @@
         [availableSystems]="availableSystems"
         [currentSystem]="parentSystem || currentSystem">
     </div>
-    <div class="{{$class}}__divider"></div>
+    <div *ngIf="parentSystem || currentSystem || !hiddenPaymentInfo" class="{{$class}}__divider"></div>
 </ng-template>
 
 <ng-template #bonuses>

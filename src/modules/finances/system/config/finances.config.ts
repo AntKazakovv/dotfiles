@@ -4,6 +4,10 @@ export const financesConfig: IFinancesConfig = {
     fastDeposit: {
         use: false,
     },
+    paymentInfo: {
+        autoScroll: false,
+        hiddenPaymentInfo: false,
+    },
     paySystemCategories: {
         dropdownBefore: '(max-width: 479px)',
         categoriesConfig: {
