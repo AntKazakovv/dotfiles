@@ -9,13 +9,10 @@ import {
 
 import {
     Subject,
-    fromEvent,
     asyncScheduler,
 } from 'rxjs';
 import {
-    switchMap,
     takeUntil,
-    map,
     throttleTime,
     first,
 } from 'rxjs/operators';
@@ -92,39 +89,12 @@ export class DeadsimplechatComponent extends AbstractComponent implements OnInit
                     const container: Element = document.querySelector('.wlc-deadsimplechat-wrapper__body');
                     if (container) {
                         this.renderer.appendChild(container, iframe);
-                        this.createDraggableChat();
                     }
                 });
         }, this.$destroy);
 
         this.eventService.subscribe({name: 'LOGOUT'}, () => {
             this.ready$.next(false);
-        });
-    }
-
-    public createDraggableChat() {
-        const chatWrapper: HTMLElement = this.document.getElementById('chat-wrapper');
-
-        const mousedown$ = fromEvent<MouseEvent>(chatWrapper, 'mousedown');
-        const mousemove$ = fromEvent<MouseEvent>(this.document, 'mousemove');
-        const mouseup$ = fromEvent<MouseEvent>(this.document, 'mouseup');
-
-        const drag$ = mousedown$.pipe(
-            switchMap(
-                (start) => {
-                    return mousemove$.pipe(map(move => {
-                        move.preventDefault();
-                        return {
-                            left: move.clientX - start.offsetX,
-                            top: move.clientY - start.offsetY,
-                        };
-                    }),
-                    takeUntil(mouseup$));
-                }));
-
-        drag$.subscribe(pos => {
-            chatWrapper.style.top = `${pos.top}px`;
-            chatWrapper.style.left = `${pos.left}px`;
         });
     }
 
