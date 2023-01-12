@@ -144,23 +144,15 @@ export class StoreItem extends AbstractModel<IStoreItem> {
      * @returns {string} item type text for tag
      */
     public get itemType(): string {
-        if (!this.isBonus && this.moneyValue) {
-            return gettext('Money');
-        }
 
-        if (this.isBonus && !this.moneyValue) {
-            return gettext('Bonus');
+        switch (this.data.Type) {
+            case 'MoneyBonus':
+                return gettext('Money + Bonus');
+            case 'TournamentPoints':
+                return gettext('Tournament points');
+            default:
+                return this.data.Type;
         }
-
-        if (this.isBonus && this.moneyValue) {
-            return gettext('Money + Bonus');
-        }
-
-        if (this.creditTournamentPoints) {
-            return gettext('Tournament points');
-        }
-
-        return gettext('Real gift');
     }
 
     /**

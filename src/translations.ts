@@ -80,3 +80,6 @@ gettext('Add info');
 gettext('Change');
 gettext('User rejected the request.');
 gettext('MetaMask Message Signature: User denied message signature.');
+gettext('Money');
+gettext('Bonus');
+gettext('Item');
