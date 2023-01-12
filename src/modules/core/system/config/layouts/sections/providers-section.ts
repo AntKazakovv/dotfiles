@@ -50,7 +50,7 @@ export namespace providers {
             {
                 name: 'games.wlc-provider-links',
                 display: {
-                    before: 720,
+                    before: 719,
                 },
                 params: <IProviderLinksCParams>{
                     iconsType: 'color',

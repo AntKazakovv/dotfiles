@@ -117,7 +117,7 @@ export const buttonsResizable: IWrapperCParams = {
                 customMod: 'mini',
             },
             display: {
-                before: 1024,
+                before: 1023,
             },
         },
         {
@@ -133,7 +133,7 @@ export const buttonsResizable: IWrapperCParams = {
                 customMod: 'mini',
             },
             display: {
-                before: 1024,
+                before: 1023,
             },
         },
     ],
