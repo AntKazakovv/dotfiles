@@ -1,21 +1,23 @@
 import {Injectable} from '@angular/core';
 import {Meta} from '@angular/platform-browser';
+
 import {first} from 'rxjs/operators';
 import {BehaviorSubject} from 'rxjs';
+import _isUndefined from 'lodash-es/isUndefined';
 
 import {
     UserService,
     UserProfile,
 } from 'wlc-engine/modules/user';
-import {ColorThemeValues} from 'wlc-engine/modules/core/constants';
 import {LogService} from 'wlc-engine/modules/core/system/services/log/log.service';
 import {EventService} from 'wlc-engine/modules/core/system/services/event/event.service';
 import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
 import {InjectionService} from 'wlc-engine/modules/core/system/services/injection/injection.service';
-import {IColorThemeSwitchingConfig} from
-    'wlc-engine/modules/core/system/interfaces/base-config/color-theme-switching.config';
+import {ColorThemeValues} from 'wlc-engine/modules/core/constants/color-theme.constants';
+import {
+    IColorThemeSwitchingConfig,
+} from 'wlc-engine/modules/core/system/interfaces/base-config/color-theme-switching.config';
 
-import _isUndefined from 'lodash-es/isUndefined';
 
 @Injectable({
     providedIn: 'root',
@@ -142,6 +144,4 @@ export class ColorThemeService {
             }});
         }
     }
-
-
 }

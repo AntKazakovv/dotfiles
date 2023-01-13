@@ -1,14 +1,18 @@
 import {TestBed} from '@angular/core/testing';
 
 import {ColorThemeService} from './color-theme.service';
-import {ConfigService} from 'wlc-engine/modules/core';
-import {AppModule} from 'wlc-engine/modules/app/app.module';
+import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
+import {EventService} from 'wlc-engine/modules/core/system/services/event/event.service';
+import {LogService} from 'wlc-engine/modules/core/system/services/log/log.service';
 
 describe('ColorThemeService', () => {
     let colorThemeService: ColorThemeService;
     let ConfigServiceSpy: jasmine.SpyObj<ConfigService>;
+    let eventServiceSpy: jasmine.SpyObj<EventService>;
+    let logServiceSpy: jasmine.SpyObj<LogService>;
 
     beforeEach(() => {
+        eventServiceSpy = jasmine.createSpyObj('EventService', ['emit', 'subscribe']);
         ConfigServiceSpy = jasmine.createSpyObj(
             'ConfigService',
             ['load', 'get', 'set'],
@@ -20,12 +24,19 @@ describe('ColorThemeService', () => {
         ConfigServiceSpy.get.withArgs('$base.colorThemeSwitching').and.returnValue({use: true});
 
         TestBed.configureTestingModule({
-            imports: [AppModule],
             providers: [
                 ColorThemeService,
                 {
                     provide: ConfigService,
                     useValue: ConfigServiceSpy,
+                },
+                {
+                    provide: EventService,
+                    useValue: eventServiceSpy,
+                },
+                {
+                    provide: LogService,
+                    useValue: logServiceSpy,
                 },
             ],
         });
