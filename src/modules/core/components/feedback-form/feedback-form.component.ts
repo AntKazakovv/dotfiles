@@ -79,7 +79,6 @@ export class FeedbackFormComponent extends AbstractComponent implements OnInit, 
         this.contactsConfig = _clone(this.configService.get<IContactsConfig>('$base.contacts'));
         this.modifyConfigByLanguage();
         this.setConfig();
-        this.contactsConfig = this.configService.get<IContactsConfig>('$base.contacts');
     }
 
     public ngAfterViewInit(): void {
