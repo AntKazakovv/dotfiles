@@ -41,12 +41,9 @@
                 [uiSref]="'app.contacts'"
                 [uiParams]="{slug: textWithLink.slug, '#': textWithLink.urlHook}"
                 class="{{$class}}__link"
-                [target]="textWithLink.target"
-            >
-                {{textWithLink.linkText | translate}} *
+                [target]="textWithLink.target">
+                {{textWithLink.linkText | translate}}*
             </a>
-
-
             {{textWithLink.suffix | translate}}
         </div>
     </label>
