@@ -1,0 +1,10 @@
+<div class="{{$class}}__values">
+    <span *ngFor="let prize of prizes;"
+        class="{{$class}}__val {{$class}}--{{prize.currency.toLowerCase()}}">
+        <span wlc-currency
+            [digitsInfo]="getDigitsInfo(prize.currency)"
+            [value]="prize.value"
+            [currency]="prize.currency">
+        </span>
+    </span>
+</div>

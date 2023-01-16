@@ -62,12 +62,15 @@
         &__content {
             display: flex;
             align-items: ef.get-value($themeDefault, 'timerAlignItems');
-            padding: ef.get-value($themeDefault, 'timerPadding');
-            background-color: ef.get-value($themeDefault, 'timerBg');
+            padding: var(--wlc-timer-padding, #{ef.get-value($themeDefault, 'timerPadding')});
+            background: var(--wlc-timer-bg, #{ef.get-value($themeDefault, 'timerBg')});
             border-radius: ef.get-value($themeDefault, 'timerRadius');
 
             .time-text {
-                @include text.get-text-style(ef.get-value($themeDefault, 'timerFontStyle'), ef.get-value($themeDefault, 'timerColor'));
+                @include text.get-text-style(
+                    ef.get-value($themeDefault, 'timerFontStyle'),
+                    var(--wlc-timer-color, #{ef.get-value($themeDefault, 'timerColor')})
+                );
 
                 &--countdown {
                     display: flex;
@@ -97,7 +100,10 @@
             text-align: ef.get-value($themeDefault, 'timerTextAlign');
 
             .secondary-text {
-                @include text.get-text-style(ef.get-value($themeDefault, 'secondaryTextFontStyle'), ef.get-value($themeDefault, 'secondaryTextColor'));
+                @include text.get-text-style(
+                    ef.get-value($themeDefault, 'secondaryTextFontStyle'),
+                    var(--wlc-timer-subtitle-color, #{ef.get-value($themeDefault, 'secondaryTextColor')})
+                );
             }
         }
     }

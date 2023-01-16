@@ -5,17 +5,22 @@ import {
     Input,
     OnInit,
 } from '@angular/core';
+
+import _slice from 'lodash-es/slice';
+
 import {
     AbstractComponent,
     ConfigService,
     GlobalHelper,
+    ITooltipCParams,
 } from 'wlc-engine/modules/core';
-import {Tournament} from 'wlc-engine/modules/tournaments';
+import {
+    IPrizeRow,
+    TPrizePodiumImages,
+} from 'wlc-engine/modules/tournaments/system/interfaces/tournaments.interface';
+import {Tournament} from 'wlc-engine/modules/tournaments/system/models/tournament.model';
 
 import * as Params from './tournament-prizes.params';
-import {TPrizePodiumImages} from 'wlc-engine/modules/tournaments';
-
-import _slice from 'lodash-es/slice';
 
 @Component({
     selector: '[wlc-tournament-prizes]',
@@ -34,8 +39,12 @@ export class TournamentPrizesComponent
     @Input() public tournament: Tournament;
 
     public $params: Params.ITournamentPrizesCParams;
-    public prizesTable: any;
     public podiumImages: TPrizePodiumImages;
+    public prizesTable: IPrizeRow[];
+    public isExpanded: boolean = false;
+    public rowLimit: number;
+    public hasInfoColumn: boolean;
+    public bonusRewardText: ITooltipCParams;
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.ITournamentPrizesCParams,
@@ -53,11 +62,34 @@ export class TournamentPrizesComponent
 
         this.preparePrizesTable();
         this.podiumImages = this.configService.get<TPrizePodiumImages>('$tournaments.prizePodium.images');
+        this.bonusRewardText = {
+            inlineText: this.configService.get<string>('$tournaments.bonusRewardText'),
+            placement: 'top',
+        };
+        this.hasInfoColumn = this.tournament.target === 'bonus' && this.$params.theme === 'long';
+
+        if (this.$params.theme === 'long') {
+            this.rowLimit = this.$params.common?.rowLimit || Params.PRIMARY_ROW_LIMIT;
+        }
+    }
+
+    public get toggleButtonText(): string {
+        return this.isExpanded ? gettext('Show less') : gettext('Show more');
+    }
+
+    public toggleRows(): void {
+        this.isExpanded = !this.isExpanded;
+
+        if (this.isExpanded) {
+            this.rowLimit = this.tournament.prizeTable.length;
+        } else {
+            this.rowLimit = this.$params.common?.rowLimit || Params.PRIMARY_ROW_LIMIT;
+        }
     }
 
     protected preparePrizesTable(): void {
         this.prizesTable = _slice(
-            this.$params.common.tournament?.winningSpread,
+            this.tournament.prizeTable,
             0,
             this.$params.common.rowLimit || Params.PRIMARY_ROW_LIMIT);
     }

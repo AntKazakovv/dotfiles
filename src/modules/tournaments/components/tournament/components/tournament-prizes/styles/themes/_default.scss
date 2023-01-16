@@ -47,14 +47,6 @@
                 }
             }
 
-            .wlc-tournament-prizes__col {
-                @include text.get-text-style(ef.get-value($themeDefault, 'bodyColFontStyle'), ef.get-value($themeDefault, 'bodyColColor'));
-
-                white-space: nowrap;
-                overflow: hidden;
-                text-overflow: ellipsis;
-            }
-
             &-text {
                 display: flex;
                 align-items: ef.get-value($themeDefault, 'bodyTextAlignItems');
@@ -90,10 +82,22 @@
         }
 
         &__col {
+            @include text.get-text-style(
+                ef.get-value($themeDefault, 'bodyColFontStyle'),
+                ef.get-value($themeDefault, 'bodyColColor')
+            );
             flex: ef.get-value($themeDefault, 'colFlex');
             min-width: ef.get-value($themeDefault, 'colMinWidth');
             padding: ef.get-value($themeDefault, 'colPadding');
-            line-height: 1;
+
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            overflow: hidden;
+
+            &:last-child {
+                flex: ef.get-value($themeDefault, 'lastColFlex');
+                text-align: ef.get-value($themeDefault, 'lastTextAlign');
+            }
         }
 
         &__text {

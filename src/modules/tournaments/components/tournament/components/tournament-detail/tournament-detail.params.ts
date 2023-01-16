@@ -1,10 +1,10 @@
 import {
     IComponentParams,
     CustomType,
-    ITableCParams,
     IWrapperCParams,
 } from 'wlc-engine/modules/core';
 import {IGamesGridCParams} from 'wlc-engine/modules/games';
+import {ITournamentPrizesCParams} from '../tournament-prizes/tournament-prizes.params';
 import {TournamentComponent} from 'wlc-engine/modules/tournaments/components/tournament/tournament.component';
 import {Tournament} from 'wlc-engine/modules/tournaments/system/models/tournament.model';
 
@@ -35,21 +35,9 @@ export interface ITournamentDetailCParams extends IComponentParams<Theme, Type, 
         statusAvaliableText?: string;
         statusActiveText?: string;
         prizePoolText?: string;
-        tablePrizeboard?: ITournamentDetailTableParams;
+        tablePrizeboard?: ITournamentPrizesCParams;
         scrollToSelector?: string;
     };
-}
-
-export interface ITournamentDetailTableParams extends ITableCParams {
-    rows?: ITournamentPrizeRows[]
-}
-export interface ITournamentPrizeRows {
-    Place: number,
-    Prize: {
-        value: number,
-        currency: string,
-        digitsInfo?: string,
-    },
 }
 
 export const defaultParams: ITournamentDetailCParams = {
@@ -81,33 +69,13 @@ export const defaultParams: ITournamentDetailCParams = {
         statusActiveText: gettext('Active'),
         prizePoolText: gettext('Prize pool'),
         tablePrizeboard: {
-            theme: 'tournaments',
-            pageCount: 10,
-            pagination: {
-                use: true,
-                breakpoints: {
-                    0: {
-                        itemPerPage: 10,
-                    },
-                },
+            theme: 'long',
+            common: {
+                rowLimit: 10,
             },
-            head: [
-                {
-                    key: 'Place',
-                    title: gettext('Place'),
-                    type: 'text',
-                    order: 10,
-                    wlcElement: 'wlc-tournament-table__cell_place',
-                },
-                {
-                    key: 'Prize',
-                    title: gettext('Prize'),
-                    type: 'amount',
-                    order: 10,
-                    wlcElement: 'wlc-profile-table__cell_prize',
-                },
-            ],
-            rows: [],
+            prizesRowParams: {
+                useSmartDemicals: true,
+            },
         },
     },
 };

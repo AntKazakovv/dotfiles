@@ -8,6 +8,7 @@ export interface ITooltipCParams extends IComponentParams<unknown, unknown, Them
     iconName?: string;
     modal?: string;
     modalParams?: IIndexing<string>;
+    placement?: 'top' | 'bottom' | 'left' | 'right' | 'auto';
     bsTooltipMod?: 'error' | string;
 }
 
@@ -15,4 +16,5 @@ export const defaultParams: ITooltipCParams = {
     class: 'wlc-tooltip',
     inlineText: 'Info',
     iconName: 'info',
+    placement: 'bottom',
 };

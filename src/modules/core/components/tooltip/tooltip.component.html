@@ -12,6 +12,7 @@
          containerClass="{{$class}}__bs-tooltip {{containerClassMod}}"
          placement="top"
          container="body"
+         [placement]="$params.placement"
          [iconPath]="iconPath"
          [tooltip]="$params.inlineText | translate">
     </div>

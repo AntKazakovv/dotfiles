@@ -13,7 +13,6 @@ import {
 import {UIRouter} from '@uirouter/core';
 
 import {takeUntil} from 'rxjs/operators';
-import _map from 'lodash-es/map';
 import _set from 'lodash-es/set';
 
 import {
@@ -53,7 +52,6 @@ export class TournamentDetailComponent extends AbstractComponent implements
     public isReady: boolean = false;
     public tournamentProcessing: boolean = false;
     public isTournamentSelected: boolean = false;
-    public tablePrizeboard: Params.ITournamentDetailTableParams = {};
     public menuParams: MenuParams.IMenuCParams;
     public gamesGridConfig = Params.gamesGridConfig;
     public menuConfig: IWrapperCParams = {components: []};
@@ -82,8 +80,6 @@ export class TournamentDetailComponent extends AbstractComponent implements
     public ngOnInit(): void {
         super.ngOnInit(GlobalHelper.prepareParams(this,
             ['tournament', 'type', 'theme', 'themeMod', 'customMod']));
-
-        this.usePodium = this.configService.get<boolean>('$tournaments.prizePodium.useOnDetail');
     }
 
     public async ngAfterViewInit(): Promise<void> {
@@ -133,35 +129,27 @@ export class TournamentDetailComponent extends AbstractComponent implements
         }
     }
 
+    /**
+     * Returns text description for timer
+     * */
+    public getTimerText(): string {
+        return this.$params.common.tournament?.isTournamentStarts
+            ? this.$params.common?.timerTextAfterStart
+            : this.$params.common?.timerTextBeforeStart;
+    }
+
     private prepareTournament(): void {
 
         if (this.tournament) {
-            this.preparePrizeboard();
             _set(this.gamesGridConfig, 'components[0].params.tournamentGamesFilter', this.tournament.gamesFilterData);
             _set(this.gamesGridConfig, 'components[0].params.tournamentFreeRoundGames', this.tournament.freeRoundGames);
+
+            this.usePodium = this.configService.get<boolean>('$tournaments.prizePodium.useOnDetail')
+                && this.tournament.target !== 'bonus';
+
             this.prepareMenu();
         }
         this.isReady = true;
-        this.cdr.markForCheck();
-    }
-
-    private preparePrizeboard(): void {
-        const currency: string = this.tournament.targetDefaultCurrency;
-        const digitsInfo: string = this.tournament.currencyDigitsInfo;
-        this.tablePrizeboard = this.$params.common.tablePrizeboard;
-
-        this.tablePrizeboard.rows = _map(
-            this.tournament.winningSpread,
-            (value: number, index: number): Params.ITournamentPrizeRows => {
-                return {
-                    Place: index + 1,
-                    Prize: {
-                        value,
-                        currency,
-                        digitsInfo,
-                    },
-                };
-            });
     }
 
     private prepareMenu(): void {

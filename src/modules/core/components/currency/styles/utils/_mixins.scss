@@ -1,5 +1,5 @@
 @mixin currencyBase {
-    display: inline-flex;
+    display: var(--wlc-currency-display, inline-flex);
     flex-wrap: nowrap;
     align-items: baseline;
     color: map-get($themeDefault, textColor);
@@ -15,8 +15,7 @@
         speak: never;
     }
 
-    .wlc-currency__svg {
-        line-height: 0;
+    .wlc-currency__sign {
 
         &--left {
             margin-right: map-get($themeDefault, iconIndent);
@@ -27,15 +26,9 @@
         }
     }
 
-    .wlc-currency__name {
-
-        &--left {
-            margin-right: map-get($themeDefault, iconIndent);
-        }
-
-        &--right {
-            margin-left: map-get($themeDefault, iconIndent);
-        }
+    .wlc-currency__svg {
+        line-height: 1;
+        vertical-align: text-top;
     }
 
     .wlc-bet-history &,

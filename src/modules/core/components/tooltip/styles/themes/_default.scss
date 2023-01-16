@@ -1,8 +1,6 @@
 .wlc-tooltip--theme-default {
 
     &:host {
-        @include bm.get-mq-map('width', $themeDefault, 'iconWidth');
-        @include bm.get-mq-map('height', $themeDefault, 'iconHeight');
         position: relative;
         display: flex;
         align-items: center;

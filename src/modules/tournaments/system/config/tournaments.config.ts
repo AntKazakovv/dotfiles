@@ -19,4 +19,5 @@ export const tournamentsConfig: ITournamentsModule = {
             3: '/gstatic/wlc/tournaments/podium/03.png',
         },
     },
+    bonusRewardText: gettext('The reward is given through a bonus'),
 };

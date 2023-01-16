@@ -119,19 +119,27 @@ $themeDefault: map-merge((
         320: 0,
     ),
     'prizepoolPadding': (
-        320: ef.size(4) 0,
+        320: ef.size(4),
     ),
     'prizepoolJustifyContent': center,
     'prizepoolBg': transparent,
     'prizepoolTitleStyle': 'QoteTextBold',
     'prizepoolTitleColor': var(--mc-baseMain),
     'prizepoolTitleSelf': center,
-    'prizepoolAmoutTitleStyle': 'PromoTitle',
-    'prizepoolAmoutTitleColor': var(--mc-baseMain),
+    'prizepoolAmoutTextStyle': 'ThirdTitleBold',
+    'prizepoolAmoutTextStyleLg': (
+        375: 'ThirdTitleBold',
+        768: 'PromoTitle',
+    ),
+    'prizepoolAmoutTextColor': var(--mc-baseMain),
     'prizepoolAmoutTitleSelf': center,
+    'prizepoolAmountIconSize': 16px,
+    'prizepoolAmountIconSizeLg': (
+        375: 16px,
+        768: 32px,
+    ),
     'prizepoolColumnWidth': (
         320: 100%,
-        768: 530px,
     ),
 
     'podiumPadding': (
@@ -144,6 +152,10 @@ $themeDefault: map-merge((
     'prizeboardColumnWidth': (
         320: 100%,
         768: 350px,
+    ),
+    'prizeboardPadding': (
+        320: 0 ef.size(4) ef.size(4),
+        768: 0 0 ef.size(8),
     ),
     'prizeboardJustifyContent': center,
     'prizeboardButtonSelf': center,

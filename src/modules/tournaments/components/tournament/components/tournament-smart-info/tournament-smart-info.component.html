@@ -1,5 +1,12 @@
 <div class="{{$class}}__content" *ngIf="tournament; else: noData">
 
+    <div wlc-timer
+        class="{{$class}}__timer-block"
+        [value]="tournament.stateDateTournament"
+        [text]="getTimerText()"
+        (timerEnds)="updateTournaments()">
+    </div>
+    <div class="{{$class}}__delimiter"></div>
     <div class="{{$class}}__prize-block">
         <div wlc-icon
              class="{{$class}}__prize-block--icon"
@@ -9,20 +16,12 @@
             <div class="{{$class}}__prize-block__text--subtitle">
                 {{$params.common?.prizePoolText | translate}}
             </div>
-            <div wlc-currency
-                 class="{{$class}}__prize-block__text--value"
-                 digitsInfo="1-0-0"
-                 [value]="tournament.totalFounds"
-                 [currency]="tournament.targetDefaultCurrency">
+            <div wlc-tournament-prizes-row
+                class="{{$class}}__prize-block__text--value"
+                [inlineParams]="{theme: 'default', themeMod: 'one-line'}"
+                [prizes]="tournament.prizePool">
             </div>
         </div>
-    </div>
-    <div class="{{$class}}__delimiter"></div>
-    <div wlc-timer
-         class="{{$class}}__timer-block"
-         [value]="tournament.stateDateTournament"
-         [text]="getTimerText()"
-         (timerEnds)="updateTournaments()">
     </div>
 </div>
 

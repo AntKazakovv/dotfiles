@@ -1,0 +1,31 @@
+.wlc-tournament-prizes-row--theme-default:host {
+
+    .wlc-tournament-prizes-row {
+
+        &__val {
+            white-space: nowrap;
+
+            &:not(:first-child) {
+
+                &:before {
+                    content: ef.get-value($themeDefault, 'dividerContent');
+                    display: inline-block;
+                    margin: ef.get-value($themeDefault, 'dividerMargin');
+                }
+            }
+        }
+    }
+
+    &.wlc-tournament-prizes-row--theme-mod-one-line {
+        --wlc-currency-display: inline;
+
+        .wlc-tournament-prizes-row {
+
+            &__values {
+                width: 100%;
+                text-overflow: ellipsis;
+                overflow: hidden;
+            }
+        }
+    }
+}

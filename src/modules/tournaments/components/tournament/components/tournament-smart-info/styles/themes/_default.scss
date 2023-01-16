@@ -1,4 +1,5 @@
 .wlc-tournament-smart-info--theme-default:host {
+    max-width: 100%;
 
     .wlc-tournament-smart-info {
 
@@ -28,7 +29,7 @@
             }
 
             &__text {
-                line-height: 0;
+                min-width: 0;
 
                 &--subtitle {
                     @include text.get-text-style(ef.get-value($themeDefault, 'prizeTextStyle'), ef.get-value($themeDefault, 'prizeTextColor'));
@@ -36,6 +37,7 @@
 
                 &--value {
                     @include text.get-text-style(ef.get-value($themeDefault, 'prizeNumStyle'), ef.get-value($themeDefault, 'prizeNumColor'));
+                    white-space: nowrap;
                 }
             }
         }

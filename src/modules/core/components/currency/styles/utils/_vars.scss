@@ -1,7 +1,7 @@
 $customThemeDefault: () !default;
 $themeDefault: map-merge((
     'textColor': inherit,
-    'iconIndent': 5px,
+    'iconIndent': 4px,
     'currencyLessZero': var(--mc-error),
     'currencyAboveZero': var(--mc-success),
 ), $customThemeDefault);

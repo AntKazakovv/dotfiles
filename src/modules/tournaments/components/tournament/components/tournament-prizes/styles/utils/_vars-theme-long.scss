@@ -1,0 +1,33 @@
+$customThemeLong: () !default;
+$themeLong: map-merge((
+    'headTextStyle': 'CaptionText',
+    'headColor': inherit,
+
+    'bodyTextStyle': 'CaptionTextBold',
+    'bodyColor': inherit,
+
+    'controlsMargin': ef.size(2) ef.size(-2),
+    'controlOffset': ef.size(2),
+
+    'rowAlignItems': flex-start,
+    'rowPadding': ef.size(1) ef.size(2) ef.size(1) 0,
+    'rowRadius': ef.get('radius', 'biger'),
+    'rowBgEven': none,
+    'rowBgOdd': var(--mc-bg),
+
+    'topColor': inherit,
+    'topBg': var(--mc-bg),
+
+    'colPlaceFlexSize': 0 0 20%,
+    'colPlacePadding': 0,
+    'colPlaceTextAlign': center,
+
+    'colPrizeFlexSize': 1 1 80%,
+    'colPrizePadding': 0,
+    'colPrizeTextAlign': right,
+
+    'colInfoMinWidth': 18px,
+    'colInfoPadding': 1px 0 0 ef.size(2),
+
+    'iconSize': 15px,
+), $customThemeLong);

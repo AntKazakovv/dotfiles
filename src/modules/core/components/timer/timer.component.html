@@ -42,9 +42,9 @@
              [iconPath]="$params.iconPath">
         </div>
         <div class="{{$class}}__timer-text">
+            <div class="secondary-text">{{$params.common?.text | translate}}</div>
             <div *ngIf="$params.common.noCountDown" class="time-text">{{$params.common.value}}</div>
             <ng-container *ngIf="!$params.common.noCountDown" [ngTemplateOutlet]="countdown"></ng-container>
-            <div class="secondary-text">{{$params.common?.text | translate}}</div>
         </div>
     </div>
 </ng-template>

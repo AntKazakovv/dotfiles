@@ -1,20 +1,8 @@
-.wlc-icon:host {
-    display: inline-block;
-    line-height: 0;
+.wlc-icon {
 
-    * {
-        display: inline-block;
-        line-height: 0;
-    }
-
-
-    &-content {
-        display: inline-block;
-    }
-
-    svg,
-    path {
-        fill: inherit;
+    svg {
+        width: var(--wlc-icon-width);
+        height: var(--wlc-icon-height);
     }
 }
 

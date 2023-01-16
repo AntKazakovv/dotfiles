@@ -37,12 +37,9 @@ $themeAlternative: map-merge((
         768: none,
     ),
 
-    'priceFontStyle': 'QoteTextBold',
-    'priceColor': var(--mc-main),
-    'priceDisplay': (
-        320: block,
-        768: none,
-    ),
+    'prizepoolTextStyle': 'ThirdTitleBold',
+    'prizepoolTextStyleLg': 'QoteTextBold',
+    'prizepoolColor': var(--mc-baseMain),
 
     'imageBlockGridArea': (
         320: image,

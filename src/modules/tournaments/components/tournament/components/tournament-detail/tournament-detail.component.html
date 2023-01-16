@@ -24,10 +24,11 @@
                [innerHtml]="tournament.descriptionClean">
             </p>
 
-            <div wlc-tournament-smart-info
-                 (timerEnds)="updateTournaments()"
-                 class="{{$class}}__header-info--timer"
-                 [tournament]="tournament">
+            <div wlc-timer
+                class="{{$class}}__header-info-timer"
+                [value]="$params.common.tournament?.stateDateTournament"
+                [text]="getTimerText()"
+                (timerEnds)="updateTournaments()">
             </div>
 
             <div *ngIf="tournament.isTournamentStarts" class="{{$class}}__header-info--buttons">
@@ -74,14 +75,13 @@
         </div>
 
         <div class="{{$class}}__prizepool">
-            <h4 class="{{$class}}__prizepool--title">
+            <h4 class="{{$class}}__prizepool-title">
                 {{$params.common?.prizepoolSectionTitle | translate}}
             </h4>
-            <div wlc-currency
-                 class="{{$class}}__prizepool--amount"
-                 [value]="tournament.totalFounds"
-                 digitsInfo="1-0-0"
-                 [currency]="tournament.targetDefaultCurrency">
+            <div wlc-tournament-prizes-row
+                class="{{$class}}__prizepool-amount"
+                [inlineParams]="{theme: 'default'}"
+                [prizes]="tournament.prizePool">
             </div>
         </div>
 
@@ -92,8 +92,12 @@
             </div>
         </div>
 
-        <div *ngIf="tablePrizeboard" class="{{$class}}__prizeboard">
-            <div *ngIf="tablePrizeboard.rows.length; else empty" wlc-table [inlineParams]="tablePrizeboard"></div>
+        <div class="{{$class}}__prizeboard">
+            <div *ngIf="tournament.prizeTable.length; else empty"
+                wlc-tournament-prizes
+                [inlineParams]="$params.common.tablePrizeboard"
+                [tournament]="tournament">
+            </div>
 
             <ng-template #empty>
                 <div wlc-wrapper [inlineParams]="$params.emptyConfig"></div>

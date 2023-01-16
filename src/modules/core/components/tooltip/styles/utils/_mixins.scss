@@ -1,6 +1,6 @@
 @mixin tooltipIcon($config) {
-    @include bm.get-mq-map('width', $config, 'iconWidth');
-    @include bm.get-mq-map('height', $config, 'iconHeight');
+    @include bm.get-mq-map('--wlc-icon-width', $config, 'iconWidth');
+    @include bm.get-mq-map('--wlc-icon-height', $config, 'iconHeight');
     @include bm.transition(color);
     color: ef.get-value($config, 'iconFill');
 
@@ -9,8 +9,6 @@
         ::ng-deep {
 
             svg {
-                @include bm.get-mq-map('width', $config, 'iconWidth');
-                @include bm.get-mq-map('height', $config, 'iconHeight');
                 fill: currentColor;
             }
         }

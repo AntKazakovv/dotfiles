@@ -36,11 +36,11 @@ $themeDefault: map-merge((
         320: none,
         900: block,
     ),
-    'boardTitleFontStyle': 'ThirdTitleBold',
+    'boardTitleFontStyle': (
+        375: 'ThirdTitleBold',
+        900: 'QoteTextBold',
+    ),
     'boardTitleColor': ef.get('mainColors', 'baseMain'),
-
-    'priceFontStyle': 'QoteTextBold',
-    'priceColor': var(--mc-baseMain),
 
     'pseudoElementPosition': 0,
     'pseudoElementZIndex': 2,
@@ -85,6 +85,10 @@ $themeDefault: map-merge((
         900: var(--mc-baseMain),
     ),
     'titleMargin': 0 0 ef.size(6),
+    'prizepoolMargin': 0 0 ef.size(2),
+    'prizepoolTextStyle': 'ThirdTitleBold',
+    'prizepoolColor': var(--mc-baseMain),
+    'prizepoolTextAlign': center,
 
     'descriptionFontStyle': 'PrimaryText',
     'descriptionFontStyleDesk': 'ThirdTitle',

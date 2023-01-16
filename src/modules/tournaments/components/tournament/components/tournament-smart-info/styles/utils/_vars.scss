@@ -1,7 +1,7 @@
 $customThemeDefault: () !default;
 $themeDefault: map-merge((
     'contentFlexWrap': (
-        320: wrap,
+        375: wrap,
         480: nowrap,
     ),
     'contentAlignItems': center,
@@ -9,9 +9,12 @@ $themeDefault: map-merge((
 
     'background': var(--mc-bg),
     'radius': ef.get('radius', 'biger'),
-    'padding': ef.size(2) ef.size(4),
+    'padding': (
+        375: ef.size(2) ef.size(3),
+        1200: ef.size(2) ef.size(4),
+    ),
     'width': (
-        320: 100%,
+        375: 100%,
         480: 350px,
     ),
 
@@ -25,23 +28,23 @@ $themeDefault: map-merge((
     'delimiterColor': var(--mc-baseOpacity),
     'delimiterAlignSelf': stretch,
     'delimiterWidth': (
-        320: 100%,
+        375: 100%,
         480: 2px,
     ),
     'delimiterHeight': (
-        320: 2px,
+        375: 2px,
         480: initial,
     ),
     'delimiterMargin': (
-        320: ef.size(2) 0,
-        480: 0 ef.size(2),
+        375: ef.size(2) 0,
+        480: 0 ef.size(2) 0 ef.size(1),
     ),
 
     'timerResetBg': transparent,
     'timerResetPadding': 0,
     'timerResetRadius': 0,
     'timerResetWidth': (
-        320: 200px,
+        375: 200px,
         480: 185px,
     ),
 
@@ -51,7 +54,7 @@ $themeDefault: map-merge((
     'timerNumColor': var(--mc-baseMain),
 
     'prizeBlockMinWidth': (
-        320: 200px,
-        480: auto,
+        375: 200px,
+        480: 0,
     )
 ), $customThemeDefault);

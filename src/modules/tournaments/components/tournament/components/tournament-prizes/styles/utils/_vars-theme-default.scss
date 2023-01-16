@@ -4,7 +4,7 @@ $themeDefault: map-merge((
     'containerRadius': ef.get('radius', 'biger'),
     'containerPadding': ef.size(3) 0,
 
-    'headPadding': 0 ef.size(3) ef.size(2),
+    'headPadding': 0 ef.size(3) ef.size(2) 0,
     'headMargin': 0 0 ef.size(3),
     'headBorderBottom':  2px solid var(--mc-bg500),
 
@@ -12,7 +12,7 @@ $themeDefault: map-merge((
     'headTextColor': var(--mc-baseMain),
     'headTextMaxWidth': 100%,
 
-    'bodyPadding': 0 ef.size(3),
+    'bodyPadding': 0 ef.size(3) 0 0,
     'bodyMargin': 0,
     'bodyBackground': var(--mc-bg),
     'bodyRadius': ef.get('radius', 'biger'),
@@ -31,7 +31,8 @@ $themeDefault: map-merge((
 
     'rowAlignItems': center,
 
-    'colFlex': 1 0 0%,
+    'colFlex': 0 0 30%,
+    'lastColFlex': 0 0 70%,
     'colMinWidth': 0%,
     'colPadding': 0 2px,
     'colPercentTextAlign': (
@@ -41,6 +42,7 @@ $themeDefault: map-merge((
     ),
 
     'textAlign': center,
+    'lastTextAlign': right,
 
     'containerBackgroundCompact': var(--mc-bg500),
     'paddingCompact': 0,

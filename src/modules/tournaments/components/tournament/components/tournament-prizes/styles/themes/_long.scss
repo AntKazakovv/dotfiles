@@ -1,0 +1,105 @@
+.wlc-tournament-prizes--theme-long:host {
+    $rowRadius: ef.get-value($themeLong, 'rowRadius');
+    $iconSize: ef.get-value($themeLong, 'iconSize');
+
+    .wlc-tournament-prizes {
+
+        &__head {
+            --prizes-row-bg-odd: none;
+
+            @include text.get-text-style(
+                ef.get-value($themeLong, 'headTextStyle'),
+                ef.get-value($themeLong, 'headColor')
+            );
+        }
+
+        &__body {
+            --wlc-icon-width: #{$iconSize};
+            --wlc-icon-height: #{$iconSize};
+
+            @include text.get-text-style(
+                ef.get-value($themeLong, 'bodyTextStyle'),
+                ef.get-value($themeLong, 'bodyColor')
+            );
+        }
+
+        &__controls {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: center;
+
+            &:not(:empty) {
+                margin: ef.get-value($themeLong, 'controlsMargin');
+            }
+
+            > * {
+                margin: ef.get-value($themeLong, 'controlOffset');
+            }
+        }
+
+        &__row {
+            display: flex;
+            align-items: ef.get-value($themeLong, 'rowAlignItems');
+            padding: ef.get-value($themeLong, 'rowPadding');
+
+            &:nth-child(even) {
+                background: var(--prizes-row-bg-even, #{ef.get-value($themeLong, 'rowBgEven')});
+            }
+
+            &:nth-child(odd) {
+                background: var(--prizes-row-bg-odd, #{ef.get-value($themeLong, 'rowBgOdd')});
+            }
+
+            &.top {
+                color: inherit;
+                background: ef.get-value($themeLong, 'topBg');
+                border-top: 1px solid var(--mc-bg500-o6);
+
+                &:first-child {
+                    border-top-left-radius: $rowRadius;
+                    border-top-right-radius: $rowRadius;
+                }
+
+                &:nth-child(3),
+                &:last-child {
+                    border-bottom-right-radius: $rowRadius;
+                    border-bottom-left-radius: $rowRadius;
+                }
+            }
+
+            &:not(.top) {
+                border-radius: $rowRadius;
+            }
+        }
+
+        &__col {
+
+            &--place {
+                flex: ef.get-value($themeLong, 'colPlaceFlexSize');
+                padding: ef.get-value($themeLong, 'colPlacePadding');
+                text-align: ef.get-value($themeLong, 'colPlaceTextAlign');
+            }
+
+            &--prize {
+                flex: ef.get-value($themeLong, 'colPrizeFlexSize');
+                padding: ef.get-value($themeLong, 'colPrizePadding');
+                text-align: ef.get-value($themeLong, 'colPrizeTextAlign');
+            }
+
+            &--info {
+                box-sizing: content-box;
+                min-width: var(--wlc-icon-width);
+                padding: ef.get-value($themeLong, 'colInfoPadding');
+            }
+        }
+    }
+
+    ::ng-deep {
+
+        .wlc-tooltip--theme-default .wlc-tooltip__icon[class] {
+            --wlc-icon-width: #{$iconSize};
+            --wlc-icon-height: #{$iconSize};
+        }
+    }
+}

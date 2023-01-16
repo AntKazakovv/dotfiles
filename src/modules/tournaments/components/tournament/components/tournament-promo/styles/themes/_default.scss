@@ -28,6 +28,15 @@
             }
         }
 
+        &__prizepool {
+            @include text.get-text-style(
+                ef.get-value($themeDefault, 'prizepoolTextStyle'),
+                ef.get-value($themeDefault, 'prizepoolColor')
+            );
+            margin: ef.get-value($themeDefault, 'prizepoolMargin');
+            text-align: ef.get-value($themeDefault, 'prizepoolTextAlign');
+        }
+
         &__board {
             @include bm.get-mq-map('padding', $themeDefault, 'boardPadding');
             position: relative;
@@ -42,20 +51,19 @@
             }
 
             &-title {
-                @include text.get-text-style(ef.get-value($themeDefault, 'boardTitleFontStyle'), ef.get-value($themeDefault, 'boardTitleColor'));
+                @include text.get-text-style(
+                    ef.get-value($themeDefault, 'boardTitleFontStyle', 375),
+                    ef.get-value($themeDefault, 'boardTitleColor')
+                );
 
-                margin: ef.get-value($themeDefault, 'boardTitleMargin');
-                text-align: center;
+                text-align: ef.get-value($themeDefault, 'prizepoolTextAlign');
 
-                &:last-child {
-                    margin-bottom: 0;
+                @include mq.min(900) {
+                    @include text.get-text-style(
+                        ef.get-value($themeDefault, 'boardTitleFontStyle', 900),
+                        null
+                    );
                 }
-            }
-
-
-            &-price {
-                @include text.get-text-style(ef.get-value($themeDefault, 'priceFontStyle'), ef.get-value($themeDefault, 'priceColor'));
-                display: block;
             }
 
             ::ng-deep {

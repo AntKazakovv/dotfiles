@@ -33,6 +33,21 @@
             grid-area: info;
         }
 
+        &__prizepool {
+            @include text.get-text-style(
+                ef.get-value($themeAlternative, 'prizepoolTextStyle'),
+                ef.get-value($themeAlternative, 'prizepoolColor')
+            );
+            margin: ef.get-value($themeDefault, 'prizepoolMargin');
+
+            &.size-lg {
+                @include text.get-text-style(
+                    ef.get-value($themeAlternative, 'prizepoolTextStyleLg'),
+                    null
+                );
+            }
+        }
+
         &__board {
             @include bm.get-mq-map('padding', $themeAlternative, 'boardPadding');
             position: relative;
@@ -43,8 +58,11 @@
             justify-content: center;
 
             &-title {
-                @include text.get-text-style(ef.get-value($themeAlternative, 'boardTitleFontStyle'), ef.get-value($themeAlternative, 'boardTitleColor'));
                 @include bm.get-mq-map('display', $themeAlternative, 'boardTitleDisplay');
+                @include text.get-text-style(
+                    ef.get-value($themeAlternative, 'boardTitleFontStyle'),
+                    ef.get-value($themeAlternative, 'boardTitleColor')
+                );
 
                 margin: ef.get-value($themeAlternative, 'boardTitleMargin');
                 text-align: center;
@@ -52,11 +70,6 @@
                 &:last-child {
                     margin-bottom: 0;
                 }
-            }
-
-            &-price {
-                @include text.get-text-style(ef.get-value($themeAlternative, 'priceFontStyle'), ef.get-value($themeAlternative, 'priceColor'));
-                @include bm.get-mq-map('display', $themeAlternative, 'priceDisplay');
             }
 
             ::ng-deep {

@@ -31,6 +31,9 @@ import {
 import {
     TournamentSmartInfoComponent,
 } from './components/tournament/components/tournament-smart-info/tournament-smart-info.component';
+import {
+    TournamentPrizesRowComponent,
+} from './components/tournament/components/tournament-prizes-row/tournament-prizes-row.component';
 import {CompilerModule} from 'wlc-engine/modules/compiler';
 import {GlobalHelper} from 'wlc-engine/modules/core';
 import {tournamentsConfig} from './system/config/tournaments.config';
@@ -58,6 +61,7 @@ export const components = {
         TournamentConditionComponent,
         TournamentBannerComponent,
         TournamentSmartInfoComponent,
+        TournamentPrizesRowComponent,
     ],
     imports: [
         CommonModule,

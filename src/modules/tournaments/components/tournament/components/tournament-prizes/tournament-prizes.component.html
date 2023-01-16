@@ -1,39 +1,28 @@
 <ng-container [ngSwitch]="$params.theme">
     <ng-container [ngTemplateOutlet]="podium" *ngSwitchCase="'podium'"></ng-container>
+    <ng-container [ngTemplateOutlet]="long" *ngSwitchCase="'long'" ></ng-container>
     <ng-container [ngTemplateOutlet]="default" *ngSwitchDefault></ng-container>
 </ng-container>
 
 <ng-template #default>
     <div class="{{$class}}__container">
-        <div class="{{$class}}__head">
-            <div class="{{$class}}__row">
-                <div class="{{$class}}__col">
-                    <span class="{{$class}}__head-text">
-                    {{'Place' | translate}}
-                    </span>
-                </div>
-                <div class="{{$class}}__col">
-                    <span class="{{$class}}__head-text">
-                        {{'Prize' | translate}}
-                        (<span wlc-currency
-                               [value]="tournament.feeCurrency"
-                               [currency]="tournament.targetDefaultCurrency"
-                               [showIconOnly]="true">
-                        </span>)
-                    </span>
-                </div>
-            </div>
-        </div>
+        <ng-container [ngTemplateOutlet]="prizesHead"></ng-container>
         <div class="{{$class}}__body">
             <div
-                *ngFor="let value of prizesTable; index as i;"
+                *ngFor="let row of prizesTable"
                 class="{{$class}}__row">
-                <div class="{{$class}}__col">
+                <div class="{{$class}}__col {{$class}}__col--place">
                     <span class="{{$class}}__body-text">
-                        <span class="{{$class}}__body-place">{{i + 1}}</span> <span wlc-icon iconPath="/wlc/icons/cup.svg"></span>
+                        <span class="{{$class}}__body-place">{{row.place}}</span>
+                        <span wlc-icon iconPath="/wlc/icons/cup.svg"></span>
                     </span>
                 </div>
-                <div class="{{$class}}__col">{{tournament?.winningSpread[i]}}</div>
+                <div class="{{$class}}__col {{$class}}__col--prize">
+                    <span wlc-tournament-prizes-row
+                          [inlineParams]="{themeMod: 'one-line'}"
+                          [prizes]="row.prize">
+                    </span>
+                </div>
             </div>
         </div>
     </div>
@@ -54,6 +43,55 @@
                   [currency]="tournament.targetDefaultCurrency">
                 </span>
             </div>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #long>
+    <ng-container [ngTemplateOutlet]="prizesHead"></ng-container>
+    <div class="{{$class}}__body">
+        <div *ngFor="let row of tournament.prizeTable | slice:0:rowLimit; index as i;"
+             class="{{$class}}__row"
+             [class.top]="i < 3">
+            <div class="{{$class}}__col {{$class}}__col--place">
+                <span class="{{$class}}__body-text">
+                    <span class="{{$class}}__body-place">{{row.place}}</span>
+                </span>
+            </div>
+            <div class="{{$class}}__col {{$class}}__col--prize">
+                <span wlc-tournament-prizes-row
+                    [inlineParams]="$params.prizesRowParams"
+                    [prizes]="row.prize">
+                </span>
+            </div>
+            <div *ngIf="tournament.target === 'bonus'" class="{{$class}}__col {{$class}}__col--info">
+                <span wlc-tooltip
+                    class="{{$class}}__info"
+                    [inlineParams]="bonusRewardText">
+                </span>
+            </div>
+        </div>
+    </div>
+    <div class="{{$class}}__controls">
+        <button *ngIf="tournament.prizeTable.length > $params.common.rowLimit"
+            wlc-button
+            [attr.type]="'button'"
+            [text]="toggleButtonText"
+            (click)="toggleRows()">
+        </button>
+    </div>
+</ng-template>
+
+<ng-template #prizesHead>
+    <div class="{{$class}}__head">
+        <div class="{{$class}}__row">
+            <div class="{{$class}}__col {{$class}}__col--place">
+                <span class="{{$class}}__head-text">{{'Place' | translate}}</span>
+            </div>
+            <div class="{{$class}}__col {{$class}}__col--prize">
+                <span class="{{$class}}__head-text">{{'Prize' | translate}}</span>
+            </div>
+            <div *ngIf="hasInfoColumn" class="{{$class}}__col {{$class}}__col--info"></div>
         </div>
     </div>
 </ng-template>

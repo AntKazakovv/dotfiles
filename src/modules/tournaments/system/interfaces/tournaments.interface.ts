@@ -50,13 +50,26 @@ export interface ITournamentAbstract {
     Name: string;
     WinnerBy: 'bets' | 'wins' | 'turnovers' | 'turnovers_loose' | 'max_win' | 'fr';
     Terms: string;
-    Target: 'balance' | 'loyalty' | 'bonus';
+    Target: TTournamentTarget;
     Status: string;
     Series: string;
     Qualification: string;
     PointsTotal: string;
     Points?: string;
     StatusText?: string;
+}
+
+export type TCurrency = string | number | Record<string, number>;
+
+export interface ITotalFounds {
+    EUR: string;
+    Currency: TCurrency;
+}
+
+export interface IWinningSpread {
+    Currency: TCurrency[];
+    EUR: number[];
+    Percent: string[];
 }
 
 export interface ITournament extends ITournamentAbstract {
@@ -70,10 +83,10 @@ export interface ITournament extends ITournamentAbstract {
     Repeat: string;
     Selected: number;
     Starts: string;
-    TotalFounds: IIndexing<string>;
+    TotalFounds: ITotalFounds;
     Type: 'absolute' | 'relative';
     Value: string;
-    WinningSpread: IIndexing<string[] | number[]>;
+    WinningSpread: IWinningSpread;
 }
 
 export interface ITopTournamentUsers {
@@ -107,6 +120,8 @@ export interface ITournamentsModule {
         imageOther?: string;
     },
     prizePodium?: IPrizePodium;
+    /** Description for tooltip in prizeboard, when tournament target is bonus */
+    bonusRewardText?: string;
 }
 
 export interface ITournamentPlace {
@@ -165,6 +180,17 @@ export interface IQueryParams {
     currency?: string;
 }
 
+export interface ITournamentPrize {
+    value: number;
+    currency: string;
+}
+
+export interface IPrizeRow {
+    prize: ITournamentPrize[];
+    place?: number;
+}
+
 export type RestType = 'active' | 'history' | 'any';
 export type ThumbType = 'default' | 'dashboard' | 'banner' | 'active' | 'profile' | 'available';
 export type ActionType = 'join' | 'leave';
+export type TTournamentTarget = 'balance' | 'loyalty' | 'bonus';

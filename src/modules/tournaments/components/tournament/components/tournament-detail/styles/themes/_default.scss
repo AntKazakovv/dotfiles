@@ -1,6 +1,7 @@
 $selector: '.wlc-tournament-detail';
 
 #{$selector} {
+    --wlc-timer-padding: #{8px ef.size(4)};
 
     &--theme-default {
         position: relative;
@@ -101,9 +102,10 @@ $selector: '.wlc-tournament-detail';
                 white-space: pre-line;
             }
 
-            &--timer {
+            &-timer {
                 @include bm.get-mq-map('justify-self', $themeDefault, 'headerTimerBlockTimerSelf');
-                display: flex;
+                min-width: 250px;
+                max-width: 100%;
             }
 
             &--buttons {
@@ -183,17 +185,41 @@ $selector: '.wlc-tournament-detail';
             @include bm.get-mq-map('padding', $themeDefault, 'prizepoolPadding');
             @include bm.get-mq-map('background', $themeDefault, 'prizepoolBg');
             display: grid;
+            text-align: center;
 
-            &--title {
+            &-title {
                 @include bm.get-mq-map('justify-self', $themeDefault, 'prizepoolTitleSelf');
                 @include text.get-text-style(ef.get-value($themeDefault, 'prizepoolTitleStyle'), ef.get-value($themeDefault, 'prizepoolTitleColor'));
                 grid-area: PPTitle;
             }
 
-            &--amount {
+            &-amount {
+                --wlc-icon-width: #{ef.get-value($themeDefault, 'prizepoolAmountIconSize')};
+                --wlc-icon-height: #{ef.get-value($themeDefault, 'prizepoolAmountIconSize')};
+
                 @include bm.get-mq-map('justify-self', $themeDefault, 'prizepoolAmoutTitleSelf');
-                @include text.get-text-style(ef.get-value($themeDefault, 'prizepoolAmoutTitleStyle'), ef.get-value($themeDefault, 'prizepoolAmoutTitleColor'));
+                @include text.get-text-style(
+                    ef.get-value($themeDefault, 'prizepoolAmoutTextStyle'),
+                    ef.get-value($themeDefault, 'prizepoolAmoutText')
+                );
                 grid-area: PPAmount;
+
+                &.size-lg {
+                    @include bm.get-mq-map('--wlc-icon-width', $themeDefault, 'prizepoolAmountIconSizeLg');
+                    @include bm.get-mq-map('--wlc-icon-height', $themeDefault, 'prizepoolAmountIconSizeLg');
+
+                    @include text.get-text-style(
+                        ef.get-value($themeDefault, 'prizepoolAmoutTextStyleLg', 375),
+                        null
+                    );
+
+                    @include mq.min(768) {
+                        @include text.get-text-style(
+                            ef.get-value($themeDefault, 'prizepoolAmoutTextStyleLg', 768),
+                            null
+                        );
+                    }
+                }
             }
         }
 
@@ -204,7 +230,7 @@ $selector: '.wlc-tournament-detail';
 
         #{$selector}__prizeboard {
             @include bm.get-mq-map('grid-template-columns', $themeDefault, 'prizeboardColumnWidth');
-            @include bm.get-mq-map('padding', $themeDefault, 'defaultPadding');
+            @include bm.get-mq-map('padding', $themeDefault, 'prizeboardPadding');
             @include bm.get-mq-map('row-gap', $themeDefault, 'defaultRowGap');
             @include bm.get-mq-map('justify-content', $themeDefault, 'prizeboardJustifyContent');
             @include bm.get-mq-map('background', $themeDefault, 'prizeboardBg');

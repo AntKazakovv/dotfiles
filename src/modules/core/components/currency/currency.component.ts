@@ -21,16 +21,6 @@ import {
     takeUntil,
 } from 'rxjs/operators';
 
-import {UserProfile} from 'wlc-engine/modules/user';
-import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
-import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
-import {
-    CurrencyModel,
-    ICurrencyIcon,
-} from 'wlc-engine/modules/core/system/models/currency.model';
-
-import * as Params from './currency.params';
-
 import _filter from 'lodash-es/filter';
 import _each from 'lodash-es/each';
 import _keys from 'lodash-es/keys';
@@ -38,6 +28,17 @@ import _join from 'lodash-es/join';
 import _map from 'lodash-es/map';
 import _isNil from 'lodash-es/isNil';
 import _isNaN from 'lodash-es/isNaN';
+
+import {UserProfile} from 'wlc-engine/modules/user';
+import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
+import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
+import {
+    CurrencyModel,
+    ICurrencyIcon,
+} from 'wlc-engine/modules/core/system/models/currency.model';
+import {CurrenciesInfo} from 'wlc-engine/modules/core/constants/currencies-info.constants';
+
+import * as Params from './currency.params';
 
 /**
  * @ngModule CoreModule
@@ -102,6 +103,8 @@ export class CurrencyComponent
     @Input() public hideSvgName: boolean;
 
     @Input() public svgPosition: 'left' | 'right';
+
+    @Input() public useSvgIconName: boolean;
 
     /**
      * Result that would be displayed
@@ -193,6 +196,14 @@ export class CurrencyComponent
         this.$init = true;
     }
 
+    public get cuurencyDescription(): string | null {
+        if (CurrenciesInfo.specialCurrencies.has(this.currency)) {
+            return CurrenciesInfo.formats[this.currency]?.description || null;
+        } else {
+            return null;
+        }
+    }
+
     protected updateParams(currentParams: Params.ICurrencyCParams = null): void {
         this.$params = {
             ...this.$params,
@@ -250,7 +261,14 @@ export class CurrencyComponent
 
     protected getInlineParams(): Params.ICurrencyCParams {
         const inline = {};
-        _each(['value', 'currency', 'digitsInfo', 'showIconOnly', 'showValueOnly'], (key) => {
+        _each([
+            'value',
+            'currency',
+            'digitsInfo',
+            'showIconOnly',
+            'showValueOnly',
+            'useSvgIconName',
+        ], (key) => {
             if (this[key] !== undefined) {
                 inline[key] = this[key];
             }

@@ -40,11 +40,11 @@ export class TournamentPromoComponent extends AbstractComponent implements OnIni
     @Input() public theme: Params.ComponentTheme;
     @Input() public themeMod: Params.ThemeMod;
     @Input() public customMod: Params.CustomMod;
-    @Input() public tournament: Tournament;
     @Input() public parentInstance: TournamentComponent;
     @Input() public actionParams: Params.IActionParams;
 
     public $params: Params.ITournamentPromoCParams;
+    public tournament: Tournament;
     public isTournamentSelected: boolean;
     public rowLimit: number = PRIMARY_ROW_LIMIT;
     public pending: boolean = false;
@@ -105,7 +105,7 @@ export class TournamentPromoComponent extends AbstractComponent implements OnIni
      * get timer text from its state
      */
     public getTimerText(): string {
-        return this.$params.common.tournament?.isTournamentStarts
+        return this.tournament?.isTournamentStarts
             ? this.$params.common?.timerTextAfterStart
             : this.$params.common?.timerTextBeforeStart;
     }
@@ -113,7 +113,7 @@ export class TournamentPromoComponent extends AbstractComponent implements OnIni
     protected checkParentInstance(): void {
         if (!this.parentInstance) return;
 
-        this.$params.common.tournament = this.parentInstance.tournament;
+        this.tournament = this.parentInstance.tournament;
         this.setSubscription();
     }
 

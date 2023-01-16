@@ -3,6 +3,7 @@ import {DateTime} from 'luxon';
 import _assign from 'lodash-es/assign';
 import _toNumber from 'lodash-es/toNumber';
 import _map from 'lodash-es/map';
+import _reduce from 'lodash-es/reduce';
 
 import {
     ConfigService,
@@ -11,14 +12,20 @@ import {
 } from 'wlc-engine/modules/core';
 import {TFreeRoundGames} from 'wlc-engine/modules/core/system/interfaces/fundist.interface';
 import {
+    IPrizeRow,
     ITournament,
     ITournamentGames,
+    ITournamentPrize,
+    TCurrency,
 } from 'wlc-engine/modules/tournaments/system/interfaces/tournaments.interface';
 import {TournamentsService} from 'wlc-engine/modules/tournaments/system/services/tournaments/tournaments.service';
 import {AbstractTournamentModel} from 'wlc-engine/modules/tournaments/system/models/abstract-tournament.model';
+import {CurrenciesInfo} from 'wlc-engine/modules/core/constants/currencies-info.constants';
 
 export class Tournament extends AbstractTournamentModel<ITournament> {
     public hasGames: boolean = false;
+    public prizePool: ITournamentPrize[];
+    public prizeTable: IPrizeRow[];
 
     private _id: number;
 
@@ -39,6 +46,9 @@ export class Tournament extends AbstractTournamentModel<ITournament> {
     public set data(data: ITournament) {
         super.data = data;
         this.setAvailabilityGames();
+
+        this.preparePrizePool();
+        this.preparePrizeTable();
     }
 
     public get data(): ITournament {
@@ -277,5 +287,60 @@ export class Tournament extends AbstractTournamentModel<ITournament> {
         const {Games = [], Categories = [], Merchants = []} = this.data.Games ?? {};
         this.hasGames = !!(Games.length || Categories.length || Merchants.length);
         this._id = _toNumber(this.data.ID);
+    }
+
+    protected preparePrizePool(): void {
+        const prizes: TCurrency = this.target === 'bonus'
+            ? this.data.TotalFounds.Currency
+            : this.totalFounds;
+        this.prizePool = this.transformPrizes(prizes);
+    }
+
+    protected preparePrizeTable(): void {
+        const currency: string = this.targetDefaultCurrency;
+        const winningsArr: TCurrency[] = (this.target === 'bonus' || currency !== 'EUR')
+            ? this.data.WinningSpread?.Currency
+            : this.data.WinningSpread?.EUR;
+
+        this.prizeTable = _reduce(winningsArr, (res: IPrizeRow[], item: TCurrency, index: number) => {
+            res.push({
+                place: index + 1,
+                prize: this.transformPrizes(item),
+            });
+            return res;
+        }, []);
+    }
+
+    private transformPrizes(rawPrizeRow: TCurrency): ITournamentPrize[] {
+        const prizes: ITournamentPrize[] = [];
+        const currency: string = this.targetDefaultCurrency;
+
+        if (typeof rawPrizeRow === 'object') {
+            const moneyPrize: number = _toNumber(rawPrizeRow[currency]);
+            const specialCurrencies: ReadonlySet<String> = CurrenciesInfo.specialCurrencies;
+            const specialPrizes: ITournamentPrize[] = _reduce(Array.from(specialCurrencies),
+                (result: ITournamentPrize[], currency: string) => {
+                    const value: number = _toNumber(rawPrizeRow[currency]);
+                    if (value) {
+                        result.push({currency, value});
+                    }
+                    return result;
+                }, []);
+
+            if (moneyPrize) {
+                prizes.push({
+                    currency,
+                    value: moneyPrize,
+                });
+            }
+
+            prizes.push(...specialPrizes);
+        } else {
+            prizes.push({
+                currency,
+                value: _toNumber(rawPrizeRow),
+            });
+        }
+        return prizes;
     }
 }

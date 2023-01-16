@@ -8,6 +8,7 @@ export namespace CurrenciesInfo {
         readonly icon?: string;
         readonly svg?: string;
         readonly name?: string;
+        readonly description?: string;
         readonly precision?: number;
         /**
          * Use for custom or non-standard (not iso 4217) currencies
@@ -59,6 +60,14 @@ export namespace CurrenciesInfo {
         'DOGE',
         'EGLD',
         'BUSD',
+    ]);
+
+    /** Special currencis, such as loyalty points, free spins, experience points and free bets */
+    export const specialCurrencies: ReadonlySet<string> = new Set<string>([
+        'LP',
+        'FS',
+        'EP',
+        'FB',
     ]);
 
     export const formats: ICurrencies = {
@@ -164,10 +173,27 @@ export namespace CurrenciesInfo {
         LP: {
             svg: '/currency/lp.svg',
             name: gettext('LP'),
+            description: gettext('Loyalty Points'),
+        },
+        FS: {
+            svg: '/currency/fs.svg',
+            name: gettext('FS'),
+            description: gettext('Free Spins'),
+        },
+        FB: {
+            svg: '/currency/fb.svg',
+            name: gettext('FB'),
+            description: gettext('Free Bets'),
+        },
+        EP: {
+            svg: '/currency/exp.svg',
+            name: gettext('EXP'),
+            description: gettext('Experience Points'),
         },
         EXP: {
             svg: '/currency/exp.svg',
             name: gettext('EXP'),
+            description: gettext('Experience Points'),
         },
         DOGE: {
             symbol: [208],

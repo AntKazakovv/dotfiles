@@ -2,12 +2,11 @@ import {
     CustomType,
     IComponentParams,
 } from 'wlc-engine/modules/core/system/classes/abstract.component';
-import {
-    ThumbType,
-    Tournament,
-} from 'wlc-engine/modules/tournaments';
+import {ThumbType} from 'wlc-engine/modules/tournaments/system/interfaces/tournaments.interface';
+import {Tournament} from 'wlc-engine/modules/tournaments/system/models/tournament.model';
+import {ITournamentPrizesRowCParams} from '../tournament-prizes-row/tournament-prizes-row.params';
 
-export type ComponentTheme = 'default' | 'podium' | CustomType;
+export type ComponentTheme = 'default' | 'podium' | 'long' | CustomType;
 export type ComponentType = ThumbType | CustomType;
 export type ThemeMod = 'default' | 'compact' | CustomType;
 export type AutoModifiers = ComponentTheme | ThemeMod;
@@ -24,8 +23,9 @@ export interface ITournamentPrizesCParams extends IComponentParams<ComponentThem
         themeMod?: ThemeMod;
         customMod?: CustomMod;
         type?: ComponentType;
-        rowLimit: number;
-    }
+        rowLimit?: number;
+    },
+    prizesRowParams?: ITournamentPrizesRowCParams;
 }
 
 export const PRIMARY_ROW_LIMIT = 3;
