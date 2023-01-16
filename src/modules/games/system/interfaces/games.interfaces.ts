@@ -8,6 +8,7 @@ import {MerchantModel} from 'wlc-engine/modules/games/system/models/merchant.mod
 import {ICategoryBlock} from 'wlc-engine/modules/core/system/interfaces/categories.interface';
 import {TotalJackpotNoContentByThemeType} from 'wlc-engine/modules/games/components/total-jackpot/total-jackpot.params';
 import {ICacheSettings} from 'wlc-engine/modules/games/system/interfaces/cache.interface';
+import {TGamesSortDirections} from 'wlc-engine/modules/games/system/interfaces/sorts.interfaces';
 
 /**
 * Disable demo for all users or only for authentificated users
@@ -62,8 +63,12 @@ export interface IGamesConfig {
     /**
      * Cache settings
      */
-    cacheSettings?: ICacheSettings,
+    cacheSettings?: ICacheSettings;
     merchants?: IGameMerchants;
+    sorts?: {
+        use: boolean;
+        settings: IGamesSeparateSortSetting;
+    },
 }
 
 export interface IGamesSearchSettings {
@@ -126,6 +131,10 @@ export interface IGamesSortDirection {
 
 export interface IGamesSortSetting {
     direction?: IGamesSortDirection;
+}
+
+export interface IGamesSeparateSortSetting {
+    direction?: TGamesSortDirections;
 }
 
 export interface IExcludeCategories {
@@ -438,6 +447,10 @@ export const gamesEvents: IIndexing<string> = {
     FETCH_GAME_CATALOG_STARTED: 'FETCH_GAME_CATALOG_STARTED',
     FETCH_GAME_CATALOG_FAILED: 'FETCH_GAME_CATALOG_FAILED',
     FETCH_GAME_CATALOG_SUCCEEDED: 'FETCH_GAME_CATALOG_SUCCEEDED',
+    FETCH_GAME_SORTING: 'FETCH_GAME_SORTING',
+    FETCH_GAME_SORTING_STARTED: 'FETCH_GAME_SORTING_STARTED',
+    FETCH_GAME_SORTING_FAILED: 'FETCH_GAME_SORTING_FAILED',
+    FETCH_GAME_SORTING_SUCCEEDED: 'FETCH_GAME_SORTING_SUCCEEDED',
     FETCH_LAST_GAME_CATALOG_FAILED: 'FETCH_LAST_GAME_CATALOG_FAILED',
     FETCH_LAST_GAME_CATALOG_SUCCEEDED: 'FETCH_LAST_GAME_CATALOG_SUCCEEDED',
     FETCH_JACKPOTS: 'FETCH_JACKPOTS',

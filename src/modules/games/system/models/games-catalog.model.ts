@@ -46,6 +46,7 @@ import {ICategorySettings} from 'wlc-engine/modules/core/system/interfaces/categ
 import {
     gamesEvents,
     IDisableGameMerchants,
+    IGamesSeparateSortSetting,
     IGamesSortSetting,
 } from 'wlc-engine/modules/games/system/interfaces/games.interfaces';
 import {Game} from 'wlc-engine/modules/games/system/models/game.model';
@@ -71,6 +72,7 @@ import {MenuService} from 'wlc-engine/modules/menu/system/services/menu.service'
 import {
     categorySettings as defaultCategorySettings,
 } from 'wlc-engine/modules/games/system/config/fundist-category-settings.config';
+import {IAllSortsItemResponse} from 'wlc-engine/modules/games/system/interfaces/sorts.interfaces';
 
 interface IFilterParameters {
     /**
@@ -137,7 +139,9 @@ export class GamesCatalog extends AbstractModel<IGames> {
     protected userCountry: string;
     protected searchByCyrillicLetters: boolean;
     protected existMenuSettings: boolean;
+    protected useSeparateSorts: boolean;
     protected sortSetting: IGamesSortSetting;
+    protected separateSortSettings: IGamesSeparateSortSetting;
     protected specialCategories: ICategory[] = [
         {
             ID: '-1',
@@ -192,6 +196,7 @@ export class GamesCatalog extends AbstractModel<IGames> {
         protected router: UIRouter,
         protected eventService: EventService,
         protected injectionService: InjectionService,
+        private sorts?: IIndexing<IAllSortsItemResponse>,
     ) {
         super({from: _assign({model: 'GamesCatalog'}, from)});
 
@@ -214,6 +219,15 @@ export class GamesCatalog extends AbstractModel<IGames> {
      */
     public get gamesSortSetting(): IGamesSortSetting {
         return this.sortSetting;
+    }
+
+    /**
+     * Games separate sort settings
+     *
+     * @returns {IGamesSeparateSortSetting}
+     */
+    public get gamesSeparateSortSetting(): IGamesSeparateSortSetting {
+        return this.separateSortSettings;
     }
 
     /**
@@ -251,12 +265,19 @@ export class GamesCatalog extends AbstractModel<IGames> {
             gameList = this.getGamesByCategories(categories);
 
             if (!searchQuery && categories.length > 1) {
-
-                GamesHelper.sortGames(gameList, {
-                    sortSetting: this.sortSetting,
-                    country: this.configService.get('appConfig.country'),
-                    language: this.translateService.currentLang || 'en',
-                });
+                if (this.useSeparateSorts) {
+                    GamesHelper.sortGamesGeneral(gameList, this.sorts, {
+                        sortSetting: this.separateSortSettings,
+                        country: this.configService.get('appConfig.country'),
+                        language: this.translateService.currentLang || 'en',
+                    });
+                } else {
+                    GamesHelper.sortGames(gameList, {
+                        sortSetting: this.sortSetting,
+                        country: this.configService.get('appConfig.country'),
+                        language: this.translateService.currentLang || 'en',
+                    });
+                }
             }
         }
 
@@ -612,10 +633,12 @@ export class GamesCatalog extends AbstractModel<IGames> {
 
     protected async init(): Promise<void> {
         this.ready = this.readyStatus.promise;
+        this.useSeparateSorts = this.configService.get<boolean>('$games.sorts.use');
         this.overrideJackpots = !this.configService.get<boolean>('$games.categories.useFundistJackpots');
         this.searchByCyrillicLetters = this.configService.get<boolean>('$games.search.byCyrillicLetters');
 
         this.sortSetting = this.configService.get<IGamesSortSetting>('$games.categories.gamesSortSetting');
+        this.separateSortSettings = this.configService.get<IGamesSeparateSortSetting>('$games.sorts.settings');
         this.categorySettings = this.configService.get('appConfig.categories');
 
         if (!this.categorySettings && this.configService.get('$games.fundist.defaultCategorySettings.use')) {
@@ -627,7 +650,7 @@ export class GamesCatalog extends AbstractModel<IGames> {
         const menuService: MenuService = await this.injectionService.getService<MenuService>('menu.menu-service');
         this.existMenuSettings = await menuService.existFundistMenuSettings();
 
-        this.processFetchedGamesCatalog(this.data);
+        this.processFetchedGamesCatalog(this.data, this.sorts);
 
         this.translateService.onLangChange.subscribe(({lang}: LangChangeEvent) => {
             if (CategoryModel.language !== lang) {
@@ -675,6 +698,7 @@ export class GamesCatalog extends AbstractModel<IGames> {
         const restrictCountries: string[] = [country, this.userCountry];
         const merchantIds = new Set([]);
 
+
         let disabledMerchants: number[] = [];
 
         if (this.disabledMerchants?.byDefault) {
@@ -701,11 +725,19 @@ export class GamesCatalog extends AbstractModel<IGames> {
             return false;
         });
 
-        GamesHelper.sortGames(this.availableGames, {
-            sortSetting: this.sortSetting,
-            country: this.configService.get('appConfig.country'),
-            language: this.translateService.currentLang || 'en',
-        });
+        if (this.useSeparateSorts) {
+            GamesHelper.sortGamesGeneral(this.availableGames, this.sorts, {
+                sortSetting: this.separateSortSettings,
+                country: this.configService.get('appConfig.country'),
+                language: this.translateService.currentLang || 'en',
+            });
+        } else {
+            GamesHelper.sortGames(this.availableGames, {
+                sortSetting: this.sortSetting,
+                country: this.configService.get('appConfig.country'),
+                language: this.translateService.currentLang || 'en',
+            });
+        }
 
         this.availableMerchants = _filter(this.merchants, (merchant: MerchantModel) => {
             if (disabledMerchants && _includes(disabledMerchants, merchant.id)) {
@@ -787,7 +819,7 @@ export class GamesCatalog extends AbstractModel<IGames> {
      *
      * @param {IGames} response
      */
-    protected processFetchedGamesCatalog(data: IGames): void {
+    protected processFetchedGamesCatalog(data: IGames, sorts: IIndexing<IAllSortsItemResponse>): void {
         this.merchants = [];
         this.categories = [];
         this.availableCategories = [];
@@ -832,7 +864,14 @@ export class GamesCatalog extends AbstractModel<IGames> {
         CategoryModel.language = this.translateService.currentLang || 'en';
         CategoryModel.country = this.configService.get('appConfig.country');
 
-        const categories = GamesHelper.mapCategories(response.categories, this.categorySettings, this.sortSetting);
+        const categories = GamesHelper.mapCategories(
+            response.categories,
+            this.categorySettings,
+            this.sortSetting,
+            sorts,
+            this.separateSortSettings,
+            this.useSeparateSorts,
+        );
         this.categories = this.sortCategories(categories);
 
         /***********************************************************************************************************
@@ -874,11 +913,20 @@ export class GamesCatalog extends AbstractModel<IGames> {
 
         this.games = resultGames;
 
-        GamesHelper.sortGames(this.games, {
-            sortSetting: this.sortSetting,
-            country: this.configService.get('appConfig.country'),
-            language: this.translateService.currentLang || 'en',
-        });
+
+        if (this.useSeparateSorts) {
+            GamesHelper.sortGamesGeneral(this.games, this.sorts, {
+                sortSetting: this.separateSortSettings,
+                country: this.configService.get('appConfig.country'),
+                language: this.translateService.currentLang || 'en',
+            });
+        } else {
+            GamesHelper.sortGames(this.games, {
+                sortSetting: this.sortSetting,
+                country: this.configService.get('appConfig.country'),
+                language: this.translateService.currentLang || 'en',
+            });
+        }
 
         this.availableGames = this.games;
 

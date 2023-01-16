@@ -1,3 +1,4 @@
+import {GamesSortEnum} from 'wlc-engine/modules/games/system/interfaces/sorts.enums';
 import {IGamesConfig} from '../interfaces/games.interfaces';
 
 export enum SpecialCategoriesGamesSlug {
@@ -130,6 +131,25 @@ export const gamesConfig: IGamesConfig = {
         searchGames: {
             saveTime: Number.MAX_SAFE_INTEGER,
             chipsCount: 3,
+        },
+    },
+
+    sorts: {
+        use: false,
+        settings: {
+            direction: {
+                [GamesSortEnum.LocalPerCategoriesByCountries]: 'desc',
+                [GamesSortEnum.LocalByCountries]: 'desc',
+                [GamesSortEnum.LocalByLanguages]: 'desc',
+                [GamesSortEnum.LocalByCategories]: 'desc',
+                [GamesSortEnum.Local]: 'desc',
+
+                [GamesSortEnum.GlobalPerCategoriesByCountries]: 'desc',
+                [GamesSortEnum.GlobalByCountries]: 'desc',
+                [GamesSortEnum.GlobalByLanguages]: 'desc',
+                [GamesSortEnum.GlobalByCategories]: 'desc',
+                [GamesSortEnum.Global]: 'desc',
+            },
         },
     },
 };

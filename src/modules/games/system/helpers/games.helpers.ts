@@ -5,6 +5,12 @@ import _each from 'lodash-es/each';
 import _set from 'lodash-es/set';
 import _orderBy from 'lodash-es/orderBy';
 import _isNil from 'lodash-es/isNil';
+import {
+    inPlaceSort,
+    ISortBy,
+    ISortByFunction,
+    ISortByObjectSorter,
+} from 'fast-sort';
 
 import {
     IIndexing,
@@ -26,7 +32,16 @@ import {
     IByMerchantItemCategory,
     IGamesSortSetting,
     TGameSortFeature,
+    IGamesSeparateSortSetting,
 } from 'wlc-engine/modules/games/system/interfaces/games.interfaces';
+import {
+    IAllSortsItemResponse,
+} from 'wlc-engine/modules/games/system/interfaces/sorts.interfaces';
+import {
+    GamesSortOrder,
+    GamesInCategorySortOrder,
+    sortGetters,
+} from 'wlc-engine/modules/games/system/interfaces/sorts.constants';
 
 /**
  * Games sort options
@@ -36,11 +51,18 @@ import {
  * @param language Used language
  * @param category Used games category.
  */
-interface ISortGamesOptions {
+export interface ISortGamesOptions {
     sortSetting: IGamesSortSetting;
     country: string;
     language: string;
-    category?: CategoryModel;
+    categoryId?: number;
+}
+
+export interface ISeparateSortGamesOptions {
+    sortSetting: IGamesSeparateSortSetting;
+    country: string;
+    language: string;
+    categoryId?: number;
 }
 
 const directions: Record<TSortDirection, number> = {
@@ -106,6 +128,9 @@ export class GamesHelper {
         categories: ICategory[],
         settings: IIndexing<ICategorySettings>,
         sortSetting: IGamesSortSetting,
+        sorts: IIndexing<IAllSortsItemResponse>,
+        separateSortSettings: IGamesSeparateSortSetting,
+        useSeparateSorts: boolean,
     ): CategoryModel[] {
         if (!categories) {
             return;
@@ -119,6 +144,9 @@ export class GamesHelper {
                 item,
                 categorySettings,
                 sortSetting,
+                sorts,
+                separateSortSettings,
+                useSeparateSorts,
             );
 
             if (_get(this.mapping, `categoryByName.${category.slug}`)) {
@@ -358,13 +386,13 @@ export class GamesHelper {
             const rules: TSortRule[] = [
                 ['sortPerCountry', options.country, direction?.sortPerCountry ?? 'asc'],
                 ['sortPerLanguage', options.language, direction?.sortPerLanguage ?? 'asc'],
-                ['sortPerCategory', options.category?.id, direction?.sortPerCategory ?? 'asc'],
+                ['sortPerCategory', options.categoryId, direction?.sortPerCategory ?? 'asc'],
             ];
 
 
             _each(rules, ([feature, suffix, direction]) => {
 
-                if (feature === 'sortPerCategory' && !options.category) {
+                if (feature === 'sortPerCategory' && !options.categoryId) {
                     return;
                 }
 
@@ -413,4 +441,92 @@ export class GamesHelper {
         }
         return null;
     };
+
+    /**
+     * Sorts category games
+     *
+     * @public
+     * @static
+     * @param {Pick<Game, 'ID'>[]} games - games for sorting
+     * @param {IIndexing<Partial<IAllSortsItemResponse>>} sorts - games sorts
+     * @param {ISeparateSortGamesOptions} options - games sort options
+     */
+    public static sortGamesGeneral(
+        games: Pick<Game, 'ID'>[],
+        sorts: IIndexing<Partial<IAllSortsItemResponse>>,
+        options: ISeparateSortGamesOptions,
+    ): void {
+        const direction = options.sortSetting.direction;
+
+        const {country, language} = options;
+
+        const sorters = GamesSortOrder.map(rank => {
+            const sortBy: ISortBy<Pick<Game, 'ID'>> = game => {
+                return sortGetters[rank](sorts[game.ID], rank, country, language);
+            };
+
+            return this.getSorter(direction[rank] ?? 'desc', sortBy);
+        });
+
+        inPlaceSort(games).by(sorters);
+    }
+
+    /**
+     * Sorts category games
+     *
+     * @public
+     * @static
+     * @param {Pick<Game, 'ID'>[]} games - games for sorting
+     * @param {IIndexing<Partial<IAllSortsItemResponse>>} sorts - games sorts
+     * @param {ISeparateSortGamesOptions} options - games sort options
+     */
+    public static sortGamesInCategory(
+        games: Pick<Game, 'ID'>[],
+        sorts: IIndexing<Partial<IAllSortsItemResponse>>,
+        options: ISeparateSortGamesOptions,
+    ): void {
+        const direction = options.sortSetting.direction;
+
+        const {country, language, categoryId} = options;
+
+        const sorters = GamesInCategorySortOrder.map(rank => {
+            const sortBy: ISortBy<Pick<Game, 'ID'>> = game => {
+                return sortGetters[rank](sorts[game.ID], rank, country, language, categoryId);
+            };
+
+            return this.getSorter(direction[rank] ?? 'desc', sortBy);
+        });
+
+        inPlaceSort(games).by(sorters);
+    }
+
+    /**
+     * Default sorting compare function.
+     *
+     * @public
+     * @static
+     * @param {(number | string | undefined)} a index
+     * @param {(number | string | undefined)} b index
+     * @returns {number} position
+     */
+    public static defaultComparerFn(a: number | string | undefined, b: number | string | undefined) {
+        const aNilOrZero = _isNil(a) || a == 0;
+        const bNilOrZero = _isNil(b) || b == 0;
+        if (aNilOrZero && !bNilOrZero) {
+            return -1;
+        } else if (!aNilOrZero && bNilOrZero) {
+            return 1;
+        } else if (!aNilOrZero && !bNilOrZero && b !== a) {
+            return Number(a) - Number(b);
+        }
+        return 0;
+    }
+
+    private static getSorter(direction: TSortDirection, sortBy: ISortByFunction<Pick<Game, 'ID'>>) {
+        const sorter = {
+            comparer: GamesHelper.defaultComparerFn,
+        } as unknown as ISortByObjectSorter<Pick<Game, 'ID'>>;
+        sorter[direction] = sortBy;
+        return sorter;
+    }
 }

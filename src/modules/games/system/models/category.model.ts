@@ -15,6 +15,7 @@ import {
 import {
     ICategory,
     IGameBlock,
+    IGamesSeparateSortSetting,
     IGamesSortSetting,
 } from 'wlc-engine/modules/games/system/interfaces/games.interfaces';
 import {
@@ -26,6 +27,7 @@ import {Deferred} from 'wlc-engine/modules/core/system/classes/deferred.class';
 import {Game} from 'wlc-engine/modules/games/system/models/game.model';
 import {MerchantModel} from 'wlc-engine/modules/games/system/models/merchant.model';
 import {GamesHelper} from 'wlc-engine/modules/games/system/helpers/games.helpers';
+import {IAllSortsItemResponse} from 'wlc-engine/modules/games/system/interfaces/sorts.interfaces';
 
 const specialCategories = [
     'casino',
@@ -69,6 +71,9 @@ export class CategoryModel extends AbstractModel<ICategory> {
         data: ICategory,
         private settings: ICategorySettings,
         private sortSetting: IGamesSortSetting,
+        private sorts: IIndexing<IAllSortsItemResponse>,
+        private separateSortSettings: IGamesSeparateSortSetting,
+        private useSeparateSorts: boolean,
     ) {
         super({from: _assign({model: 'CategoryModel'}, from)});
         this.init(data);
@@ -343,23 +348,40 @@ export class CategoryModel extends AbstractModel<ICategory> {
     public sortGames(): void {
         if (this.availableGames.length) {
 
-            GamesHelper.sortGames(this.availableGames, {
-                sortSetting: this.sortSetting,
-                country: CategoryModel._country,
-                language: CategoryModel.currentLanguage,
-                category: this,
-            });
+            if (this.useSeparateSorts) {
+                GamesHelper.sortGamesInCategory(this.availableGames, this.sorts, {
+                    sortSetting: this.separateSortSettings,
+                    country: CategoryModel._country,
+                    language: CategoryModel.currentLanguage,
+                    categoryId: this.id,
+                });
+            } else {
+                GamesHelper.sortGames(this.availableGames, {
+                    sortSetting: this.sortSetting,
+                    country: CategoryModel._country,
+                    language: CategoryModel.currentLanguage,
+                    categoryId: this.id,
+                });
+            }
 
             if (this._gameBlocks.length) {
 
                 _forEach(this._gameBlocks, (gameBlock: IGameBlock): void => {
-
-                    GamesHelper.sortGames(gameBlock.games, {
-                        sortSetting: this.sortSetting,
-                        country: CategoryModel._country,
-                        language: CategoryModel.currentLanguage,
-                        category: gameBlock.category,
-                    });
+                    if (this.useSeparateSorts) {
+                        GamesHelper.sortGamesInCategory(gameBlock.games, this.sorts, {
+                            sortSetting: this.separateSortSettings,
+                            country: CategoryModel._country,
+                            language: CategoryModel.currentLanguage,
+                            categoryId: gameBlock.category.id,
+                        });
+                    } else {
+                        GamesHelper.sortGames(gameBlock.games, {
+                            sortSetting: this.sortSetting,
+                            country: CategoryModel._country,
+                            language: CategoryModel.currentLanguage,
+                            categoryId: gameBlock.category.id,
+                        });
+                    }
                 });
             }
         }

@@ -10,6 +10,7 @@ import {
 import {TranslateService} from '@ngx-translate/core';
 
 import {
+    forkJoin,
     Observable,
     Subject,
     Subscription,
@@ -19,6 +20,7 @@ import {
     filter,
     first,
     map,
+    take,
 } from 'rxjs/operators';
 import _startsWith from 'lodash-es/startsWith';
 import _isString from 'lodash-es/isString';
@@ -34,11 +36,16 @@ import _union from 'lodash-es/union';
 import _forEach from 'lodash-es/forEach';
 import _intersectionBy from 'lodash-es/intersectionBy';
 import _uniqBy from 'lodash-es/uniqBy';
+import _reduce from 'lodash-es/reduce';
+import _first from 'lodash-es/first';
 
 import {ICategorySettings} from 'wlc-engine/modules/core/system/interfaces/categories.interface';
 import {InjectionService} from 'wlc-engine/modules/core/system/services/injection/injection.service';
 import {DataService} from 'wlc-engine/modules/core/system/services/data/data.service';
-import {EventService} from 'wlc-engine/modules/core/system/services/event/event.service';
+import {
+    EventService,
+    IEvent,
+} from 'wlc-engine/modules/core/system/services/event/event.service';
 import {IData} from 'wlc-engine/modules/core/system/services/data/data.service';
 import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
 import {LogService} from 'wlc-engine/modules/core/system/services/log/log.service';
@@ -52,7 +59,10 @@ import {IPushMessageParams} from 'wlc-engine/modules/core/system/services/notifi
 import {NotificationEvents} from 'wlc-engine/modules/core/system/services/notification/notification.service';
 import {DeviceType} from 'wlc-engine/modules/core/system/models/device.model';
 import {ActionService} from 'wlc-engine/modules/core/system/services/action/action.service';
-import {IJackpot} from 'wlc-engine/modules/games/system/interfaces/games.interfaces';
+import {
+    IGames,
+    IJackpot,
+} from 'wlc-engine/modules/games/system/interfaces/games.interfaces';
 import {Game} from 'wlc-engine/modules/games/system/models/game.model';
 import {MerchantModel} from 'wlc-engine/modules/games/system/models/merchant.model';
 import {GamesHelper} from 'wlc-engine/modules/games/system/helpers/games.helpers';
@@ -79,6 +89,15 @@ import {
     TGamesWithFreeRounds,
 } from 'wlc-engine/modules/core/system/interfaces/fundist.interface';
 import {IIndexing} from 'wlc-engine/modules/core/system/interfaces/global.interface';
+import {
+    IAllSortsItemResponse,
+    TAutoGamesSortResponse,
+    TGamesSortResponses,
+} from 'wlc-engine/modules/games/system/interfaces/sorts.interfaces';
+import {
+    GamesSortEnum,
+    SortTypeEnum,
+} from 'wlc-engine/modules/games/system/interfaces/sorts.enums';
 
 export interface ILaunchGameModal {
     show: boolean;
@@ -119,6 +138,8 @@ export class GamesCatalogService {
     private lastPlayed: Game[] = [];
     private pragmaticPlayLiveService: PragmaticPlayLiveService;
     private useRealJackpots: boolean;
+    private useSeparateSorts: boolean;
+    private sorts: IIndexing<IAllSortsItemResponse>;
 
     constructor(
         public configService: ConfigService,
@@ -147,20 +168,39 @@ export class GamesCatalogService {
         this.loadGames();
 
         this.useRealJackpots = this.configService.get<boolean>('$base.games.jackpots.useRealJackpots');
+        this.useSeparateSorts = this.configService.get<boolean>('$games.sorts.use');
 
-        this.eventService.subscribe({
-            name: gamesEvents.FETCH_GAME_CATALOG_SUCCEEDED,
-        }, (data: IData) => {
+        const fetches: {
+            games: Observable<IEvent<IData<IGames>>>,
+            sorts?: Observable<IEvent<IData<IAllSortsItemResponse[]>>>
+        } = {
+            games: this.eventService.filter<IData<IGames>>({
+                name: gamesEvents.FETCH_GAME_CATALOG_SUCCEEDED,
+            }).pipe(take(1)),
+        };
 
+        if (this.useSeparateSorts) {
+            fetches.sorts = this.eventService.filter<IData<IAllSortsItemResponse[]>>({
+                name: gamesEvents.FETCH_GAME_SORTING_SUCCEEDED,
+            }).pipe(take(1));
+
+            this.loadGameSorts(GamesSortEnum.All);
+        }
+
+        forkJoin(fetches).subscribe(({games, sorts}) => {
+            if (sorts) {
+                this.sorts = this.sortsToDict(sorts.data.data);
+            }
             this.gamesCatalog = new GamesCatalog(
                 {service: 'GamesCatalogService', method: 'init'},
-                data.data,
+                games.data.data,
                 this,
                 this.translateService,
                 this.configService,
                 this.router,
                 this.eventService,
                 this.injectionService,
+                this.sorts,
             );
             this.gamesCatalog.ready.then(() => {
                 if (!this.gamesCatalog.getGameList().length) {
@@ -695,11 +735,19 @@ export class GamesCatalogService {
             });
         }
 
-        GamesHelper.sortGames(games, {
-            sortSetting: this.gamesCatalog.gamesSortSetting,
-            country: this.configService.get('appConfig.country'),
-            language: this.translateService.currentLang || 'en',
-        });
+        if (this.useSeparateSorts) {
+            GamesHelper.sortGamesGeneral(games, this.sorts, {
+                sortSetting: this.gamesCatalog.gamesSeparateSortSetting,
+                country: this.configService.get('appConfig.country'),
+                language: this.translateService.currentLang || 'en',
+            });
+        } else {
+            GamesHelper.sortGames(games, {
+                sortSetting: this.gamesCatalog.gamesSortSetting,
+                country: this.configService.get('appConfig.country'),
+                language: this.translateService.currentLang || 'en',
+            });
+        }
 
         return games;
     }
@@ -1057,6 +1105,53 @@ export class GamesCatalogService {
                     },
                 });
             }
+        }
+    }
+
+    private sortsToDict(allSorts: IAllSortsItemResponse[]): IIndexing<IAllSortsItemResponse> {
+        return _reduce(allSorts, (res, sort) => {
+            res[sort.ID] = sort;
+            return res;
+        }, {});
+    }
+
+    private async loadGameSorts<
+        TSortType extends keyof TGamesSortResponses,
+        TResponse extends TGamesSortResponses[TSortType]
+    >(
+        gameSort: TSortType,
+        ...sortType: TSortType extends keyof TAutoGamesSortResponse ? [SortTypeEnum] : []
+    ): Promise<IData<TResponse>> {
+
+        const type: SortTypeEnum = _first(sortType);
+
+        const path = type ? `${gameSort}/${type}` : gameSort;
+
+        try {
+            const response: IData<TResponse> = await this.dataService.request({
+                name: `sorts/${path}`,
+                url: `/games/sorts/${path}`,
+                system: 'games',
+                cache: 10 * 60 * 1000,
+                type: 'GET',
+                retries: {
+                    count: [1000, 3000],
+                },
+                events: {
+                    success: gamesEvents.FETCH_GAME_SORTING_SUCCEEDED,
+                    fail: gamesEvents.FETCH_GAME_SORTING_FAILED,
+                },
+            });
+            return response;
+        } catch (error) {
+            this.logService.sendLog({
+                code: '22.0.0',
+                data: error,
+                from: {
+                    service: 'GamesCatalogService',
+                    method: 'loadGameSorts',
+                },
+            });
         }
     }
 
