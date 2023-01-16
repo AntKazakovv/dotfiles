@@ -217,6 +217,7 @@ export class GameThumbComponent extends AbstractComponent implements OnInit {
         if (!this.game) {
             this.initFailed = true;
             this.inited = true;
+            this.cdr.markForCheck();
             return;
         }
 
