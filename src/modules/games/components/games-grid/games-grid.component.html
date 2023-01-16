@@ -137,6 +137,9 @@
             <ng-container *ngIf="$params.moreBtn.lazy && lazyLoading; then preloader"></ng-container>
 
             <ng-container *ngIf="moreBlockDisplayCondition; then more"></ng-container>
+
+            <ng-container *ngIf="$params.showAllLink?.use && $params.showAllLink.showAsBtn; then showAllBtn">
+            </ng-container>
         </ng-container>
     </div>
 </ng-template>
