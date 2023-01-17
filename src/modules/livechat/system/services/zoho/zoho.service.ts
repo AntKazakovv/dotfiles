@@ -269,7 +269,7 @@ export class ZohoChatService extends LivechatAbstract<ILivechatZohoConfig> {
             if (_includes(this.options.excludeStates, stateName)) {
                 this.hideWidget();
             } else {
-                this.showWidget();
+                this.chatIsLoaded() ? this.showWidget() : this.initChat();
             }
         });
     }
