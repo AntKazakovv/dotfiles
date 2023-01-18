@@ -10,6 +10,9 @@ $footerCommon: map-merge((
     'gapMobile': ef.size(3),
     'gapTablet': ef.size(4),
     'gapDesktop': ef.size(8),
+    'marginMobile': ef.size(6),
+    'marginTablet': ef.size(4),
+    'marginDesktop': ef.size(8),
 ), $customFooterCommon);
 
 $customTheme1Footer: () !default;
@@ -27,8 +30,9 @@ $theme1Footer: map-merge((
         1024: auto,
     ),
     'footerMobileOffset': (
-        375: ef.size(4) 0,
-        1024: 0,
+        375: 0 0  map-get($footerCommon, 'marginMobile'),
+        900: 0 0  map-get($footerCommon, 'marginTablet'),
+        1200: 0,
     ),
 
     // footer container
@@ -134,13 +138,13 @@ $theme1Footer: map-merge((
     ),
 
     'footerContainerColumnGap': (
-        1024: ef.size(6),
+        1024: map-get($footerCommon, 'marginMobile'),
         1630: map-get($footerCommon, 'gapDesktop'),
     ),
-    'footerContainerRowGap': (
-        375: 0,
-        1024: ef.size(6),
-        1200: ef.size(8),
+    'footerContainerMargin': (
+        375: 0 0 map-get($footerCommon, 'marginMobile'),
+        900: 0 0 map-get($footerCommon, 'marginTablet'),
+        1630: 0 0 map-get($footerCommon, 'marginDesktop'),
     ),
     'footerContainerJustifyItems': (
         375: center,
@@ -156,16 +160,26 @@ $theme1Footer: map-merge((
     'iconListPaymentsMaxWidth': (
         375: calc(100vw - 30px),
     ),
+    'iconListPaymentsWrapperMargin': (
+        375: 0,
+    ),
     'iconListPaymentsWrapperBg': (
-        375: transparent
+        375: transparent,
+        900: var(--mc-bg700),
     ),
     'iconListPaymentsWrapperRadius': (
-        375: 0
+        375: ef.get('radius', 'biger'),
+    ),
+    'iconListPaymentsIconColor': (
+        375: var(--mc-baseMain),
     ),
 
     // disclamer and copyright
     'copyrightMargin': (
-        375: ef.size(4) 0 0,
+        375: 0,
+    ),
+    'recaptchaMargin': (
+        375: 0 0 map-get($footerCommon, 'marginTablet'),
     ),
 
     // license
@@ -218,8 +232,9 @@ $theme2Footer: map-merge((
         900: ef.size(3) ef.size(5),
     ),
     'footerMenuMargin': (
-        375: map-get($footerCommon, 'gapTablet') auto,
-        900: 0,
+        375: 0 auto map-get($footerCommon, 'marginMobile'),
+        900: 0 auto map-get($footerCommon, 'marginTablet'),
+        1630: 0 auto map-get($footerCommon, 'marginDesktop'),
     ),
     'footerMenuMaxWidth': map-get($footerCommon, 'elementMaxWidth'),
     'footerMenuBg': var(--mc-bg700),
@@ -301,9 +316,13 @@ $theme2Footer: map-merge((
     ),
     'footerBottomJustifyContent': center,
     'footerBottomMargin': (
-        375: ef.size(4) 0 ef.size(8),
-        900: ef.size(4) 0,
-        1200: map-get($footerCommon, 'gapDesktop') auto,
+        375: 0 0 map-get($footerCommon, 'marginMobile'),
+        900: 0 0 map-get($footerCommon, 'marginTablet'),
+        1630: 0 auto map-get($footerCommon, 'marginDesktop'),
+    ),
+    'footerBottomRightMargin': (
+        375: 0 0 map-get($footerCommon, 'marginMobile'),
+        900: 0,
     ),
     'footerBottomOrder': (
         900: 2,
@@ -316,8 +335,10 @@ $theme2Footer: map-merge((
     // license
     'licenseMaxWidth': map-get($footerCommon, 'elementMaxWidth'),
     'licenseMargin': (
-        375: ef.size(4) 0 0,
-        900: 0,
+        375: 0,
+    ),
+    'licenseGridTemplateColumns': (
+        375: 1fr auto,
     ),
 
     // disclamer
@@ -336,8 +357,10 @@ $theme2Footer: map-merge((
         900: left,
     ),
     'copyrightMargin': (
-        375: map-get($footerCommon, 'gapTablet') auto,
-        900: map-get($footerCommon, 'gapTablet') auto 0,
+        375: 0,
+    ),
+    'recaptchaMargin': (
+        375: 0 auto map-get($footerCommon, 'marginTablet'),
     ),
     'copyrightTextSpanDisplay': (
         375: block,
@@ -350,8 +373,9 @@ $theme2Footer: map-merge((
     ),
 
     'iconListMerchantsMargin': (
-        375: map-get($footerCommon, 'gapTablet') auto,
-        1200: 0 auto,
+        375: 0 auto map-get($footerCommon, 'marginMobile'),
+        900: 0 auto map-get($footerCommon, 'marginTablet'),
+        1630: 0 auto map-get($footerCommon, 'marginDesktop'),
     ),
 
     // icon list payments
@@ -360,10 +384,9 @@ $theme2Footer: map-merge((
         900: 0,
     ),
     'iconListPaymentsMargin': (
-        375: map-get($footerCommon, 'gapTablet') 0,
-        640: 0 auto map-get($footerCommon, 'gapTablet'),
-        900: map-get($footerCommon, 'gapTablet') auto,
-        1200: map-get($footerCommon, 'gapDesktop') auto,
+        375: 0 auto map-get($footerCommon, 'marginMobile'),
+        900: 0 auto map-get($footerCommon, 'marginTablet'),
+        1630: 0 auto map-get($footerCommon, 'marginDesktop'),
     ),
 
     // icon list safety
@@ -377,8 +400,17 @@ $theme2Footer: map-merge((
         900: map-get($footerCommon, 'gapTablet') auto,
         1200: map-get($footerCommon, 'gapDesktop') auto map-get($footerCommon, 'gapTablet'),
     ),
+
+    // icon list wrapper
+    'iconListWrapperMarginTop': (
+        1200: -10px,
+        1630: -20px,
+    ),
+
     // language selector
-    'languageMargin': ef.size(4) auto,
+    'languageMargin': (
+        375: 0 auto map-get($footerCommon, 'marginMobile'),
+    ),
 
     'themeTogglerMargin': (
         375: 0 0 0 ef.size(3),

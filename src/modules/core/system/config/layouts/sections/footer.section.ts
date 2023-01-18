@@ -10,7 +10,12 @@ export namespace footer {
         wlcElement: 'section_footer',
         components: [
             componentLib.wlcIconList.merchants,
-            componentLib.wlcIconList.payments,
+            {
+                name: 'core.wlc-icon-payments-list',
+                params: {
+                    iconsType: 'black',
+                },
+            },
             componentLib.wlcPostMenu.footerFirst,
             componentLib.wlcLogo.footerFirst,
             componentLib.wlcSocialIcons.compact,

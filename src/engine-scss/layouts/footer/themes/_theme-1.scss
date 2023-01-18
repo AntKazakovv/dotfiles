@@ -1,5 +1,4 @@
 .wlc-sections__footer--theme-1 {
-    @include bm.get-mq-map('padding-top', $theme1Footer, 'basePaddingTopBottom');
     @include bm.get-mq-map('padding-bottom', $theme1Footer, 'basePaddingTopBottom');
     @include bm.get-mq-map('margin-top', $theme1Footer, 'baseMarginTop');
 
@@ -40,7 +39,6 @@
 
         @include bm.get-mq-map('grid-template-columns', $theme1Footer, 'footerContainerGridColumns');
         @include bm.get-mq-map('column-gap', $theme1Footer, 'footerContainerColumnGap');
-        @include bm.get-mq-map('row-gap', $theme1Footer, 'footerContainerRowGap');
         @include bm.get-mq-map('justify-items', $theme1Footer, 'footerContainerJustifyItems');
 
         @if ef.get-value($theme1Footer, 'useSafetyIcons') {
@@ -49,7 +47,6 @@
             @include bm.get-mq-map('grid-template-areas', $theme1Footer, 'footerContainerGridAreas');
         }
 
-        .wlc-icon-list,
         .wlc-post-menu,
         .wlc-footer-disclaimer,
         .wlc-footer-lang,
@@ -115,14 +112,24 @@
 
         &--theme-merchants {
             @include bm.get-mq-map('max-width', $theme1Footer, 'iconListMerchantsMaxWidth');
+            @include bm.get-mq-map('margin', $theme1Footer, 'footerContainerMargin');
         }
 
         &--theme-payments {
-            @include bm.get-mq-map('max-width', $theme1Footer, 'iconListPaymentsMaxWidth');
+            @include bm.get-mq-map('max-width', $theme1Footer, 'iconListMerchantsMaxWidth');
+            @include bm.get-mq-map('margin', $theme1Footer, 'footerContainerMargin');
 
-            .wlc-icon-list__wrapper {
-                @include bm.get-mq-map('background', $theme1Footer, 'iconListPaymentsWrapperBg');
-                @include bm.get-mq-map('border-radius', $theme1Footer, 'iconListPaymentsWrapperRadius');
+            .wlc-icon-list {
+
+                &__wrapper {
+                    @include bm.get-mq-map('background', $theme1Footer, 'iconListPaymentsWrapperBg');
+                    @include bm.get-mq-map('border-radius', $theme1Footer, 'iconListPaymentsWrapperRadius');
+                    @include bm.get-mq-map('margin', $theme1Footer, 'iconListPaymentsWrapperMargin');
+                }
+
+                &__item .wlc-icon svg {
+                    @include bm.get-mq-map('fill', $theme1Footer, 'iconListPaymentsIconColor');
+                }
             }
         }
 
@@ -136,8 +143,11 @@
         }
     }
 
-    .wlc-copyright,
-    .wlc-recaptcha-policy {
+    .wlc-copyright {
         @include bm.get-mq-map('margin', $theme1Footer, 'copyrightMargin');
+    }
+
+    .wlc-recaptcha-policy {
+        @include bm.get-mq-map('margin', $theme1Footer, 'recaptchaMargin');
     }
 }
