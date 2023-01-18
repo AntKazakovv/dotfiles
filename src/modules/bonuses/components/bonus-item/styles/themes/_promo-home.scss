@@ -108,6 +108,7 @@
             @include text.get-text-style('PrimaryText', ef.get-value($themePromoHome, 'color'));
             @include bm.get-mq-map('margin', $themePromoHome, 'descriptionMargin');
             @include bm.lineClamp(3);
+            @include bm.get-mq-map('-webkit-line-clamp', $themePromoHome, 'descrLineClamp');
         }
 
         &__btns {
