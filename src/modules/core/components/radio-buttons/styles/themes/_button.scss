@@ -41,12 +41,22 @@
             font-weight: ef.get('buttonSettings', 'fontWeight');
             font-size: ef.get('font', 'PrimaryText');
             cursor: pointer;
+            transition: ef.get-value($themeButton, 'buttonGroupTransition');
 
             &.active {
                 @include button();
                 padding: ef.get-value($themeButton, 'buttonPadding');
                 color: ef.get-value($themeButton, 'buttonActiveColor');
                 cursor: default;
+                border: ef.get-value($themeButton, 'buttonGroupBorder');
+
+                .wlc-radio-buttons__text {
+                    border: ef.get-value($themeButton, 'buttonGroupTextBorder');
+                }
+
+                @include bm.hover() {
+                    border: ef.get-value($themeButton, 'buttonGroupBorderHover');
+                }
             }
         }
     }

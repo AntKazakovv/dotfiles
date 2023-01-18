@@ -32,4 +32,9 @@ $themeButton: map-merge((
     'buttonBackgroundActiveHover': ef.get('buttonSettings', 'backgroundSecondaryActiveHover'),
     'buttonBackgroundSecondary': ef.get('buttonSettings', 'backgroundSecondary'),
     'buttonBackgroundSecondaryHover': ef.get('buttonSettings', 'backgroundSecondaryHover'),
+
+    'buttonGroupBorder': none,
+    'buttonGroupBorderHover': none,
+    'buttonGroupTextBorder': 2px solid transparent,
+    'buttonGroupTransition': none,
 ), $customThemeButton);
