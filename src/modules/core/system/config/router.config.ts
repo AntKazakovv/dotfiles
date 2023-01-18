@@ -28,7 +28,6 @@ import {
 } from 'wlc-engine/modules/core';
 import {AppType} from 'wlc-engine/modules/core/system/interfaces/base-config/app.interface';
 import {UserInfo} from 'wlc-engine/modules/user/system/models/info.model';
-import {CuracaoRequirement} from 'wlc-engine/modules/app/system';
 import {TermsAcceptService} from 'wlc-engine/modules/user';
 
 export function routerConfigFn(router: UIRouter, injector: Injector) {
@@ -74,7 +73,7 @@ export function routerConfigFn(router: UIRouter, injector: Injector) {
 
         useCountryRestriction(injector, configService);
 
-        if (injector.get(CuracaoRequirement)) {
+        if (configService.get<string>('appConfig.siteconfig.termsOfService')) {
             let termsAcceptService: TermsAcceptService;
             const modalService: ModalService = injector.get(ModalService);
             router.transitionService.onEnter({}, async (trans: Transition) => {

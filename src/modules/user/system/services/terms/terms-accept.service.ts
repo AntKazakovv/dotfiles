@@ -1,7 +1,4 @@
-import {
-    Inject,
-    Injectable,
-} from '@angular/core';
+import {Injectable} from '@angular/core';
 import {RawParams} from '@uirouter/core';
 
 import {
@@ -24,7 +21,6 @@ import {
     ModalService,
     NotificationEvents,
 } from 'wlc-engine/modules/core';
-import {CuracaoRequirement} from 'wlc-engine/modules/app/system';
 import {UserInfo} from 'wlc-engine/modules/user/system/models/info.model';
 import {IHookRequestData} from 'wlc-engine/modules/core/system/services/data/data.service';
 import {IHookGameStartData} from 'wlc-engine/modules/core/system/config/resolvers';
@@ -38,7 +34,6 @@ export class TermsAcceptService {
     private statesMap = new Map<string, IIndexing<unknown>>();
 
     constructor(
-        @Inject(CuracaoRequirement) enableRequirement: boolean,
         protected configService: ConfigService,
         protected modalService: ModalService,
         protected dataService: DataService,
@@ -46,7 +41,7 @@ export class TermsAcceptService {
         protected cachingService: CachingService,
         protected hooksService: HooksService,
     ) {
-        if (enableRequirement) {
+        if (this.configService.get<string>('appConfig.siteconfig.termsOfService')) {
             this.init();
         }
     }
