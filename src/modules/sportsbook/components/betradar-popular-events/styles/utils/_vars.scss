@@ -2,6 +2,8 @@ $customThemeDefault: () !default;
 $themeDefault: map-merge((
     'minHeight': 380px,
     'backgroundColor': var(--mc-bg700),
+    'errorPadding': 0 ef.size(3),
+    'errorTextAlign': center,
     'borderRadius': ef.get('radius', 'biger'),
     'headerTextStyle': 'ThirdTitleBold',
     'headerTextColor': var(--mc-baseMain),
