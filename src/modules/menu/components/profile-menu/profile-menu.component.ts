@@ -6,14 +6,25 @@ import {
     Inject,
     OnDestroy,
 } from '@angular/core';
+import {UIRouter} from '@uirouter/core';
+
+import {
+    takeUntil,
+} from 'rxjs/operators';
+import _clone from 'lodash-es/clone';
+import _has from 'lodash-es/has';
+import _set from 'lodash-es/set';
+import _merge from 'lodash-es/merge';
 
 import {
     AbstractComponent,
+    ActionService,
+    EventService,
     AppType,
+    DeviceType,
     IMixedParams,
     ProfileType,
 } from 'wlc-engine/modules/core';
-import {UIRouter} from '@uirouter/core';
 import {ConfigService} from 'wlc-engine/modules/core';
 import {
     TIconExtension,
@@ -21,11 +32,8 @@ import {
     ProfileMenuService,
     MenuParams,
 } from 'wlc-engine/modules/menu';
-import * as Params from './profile-menu.params';
 
-import _clone from 'lodash-es/clone';
-import _has from 'lodash-es/has';
-import _set from 'lodash-es/set';
+import * as Params from './profile-menu.params';
 
 @Component({
     selector: '[wlc-profile-menu]',
@@ -36,16 +44,21 @@ import _set from 'lodash-es/set';
 export class ProfileMenuComponent extends AbstractComponent implements OnInit, OnDestroy {
     public override $params: Params.IProfileMenuCParams;
     public menuParams: MenuParams.IMenuCParams;
+    public useSliderNavigation: boolean = false;
+    public showSliderNavigation: boolean = false;
 
+    protected isMobile: boolean = false;
     protected iconsFolder: string;
     protected useIcons: boolean;
     protected profileConfig: string;
-    protected transitionOnSuccessDestroy: Function;
+    protected sliderNavigationOptions: Params.ISliderNavigation;
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IProfileMenuCParams,
         cdr: ChangeDetectorRef,
         configService: ConfigService,
+        protected actionService: ActionService,
+        protected eventService: EventService,
         protected profileMenuService: ProfileMenuService,
         protected router: UIRouter,
     ) {
@@ -57,7 +70,6 @@ export class ProfileMenuComponent extends AbstractComponent implements OnInit, O
             configService,
             cdr,
         );
-
     }
 
     public override ngOnInit(): void {
@@ -86,6 +98,10 @@ export class ProfileMenuComponent extends AbstractComponent implements OnInit, O
             this.profileConfig = 'profileMenu';
         }
 
+        this.sliderNavigationOptions = Params.defaultMenuParams[this.$params.type]?.sliderNavigation;
+        this.useSliderNavigation = !!this.sliderNavigationOptions?.use;
+        this.setSliderNavigationVisibility();
+
         this.useIcons = _has(this.$params, 'common.icons.use')
             ? this.$params.common.icons.use
             : this.configService.get<boolean>(`$menu.${this.profileConfig}.${configKey}.use`);
@@ -99,17 +115,25 @@ export class ProfileMenuComponent extends AbstractComponent implements OnInit, O
             themeMod: this.$params.themeMod,
         };
 
-        this.transitionOnSuccessDestroy = this.router.transitionService.onSuccess({}, () => {
-            if (this.profileConfig === 'profileMenu' || this.$params.type === 'submenu') {
-                this.menuParams.items = [];
-                this.initMenu();
-            }
-        });
+        this.initEventHandlers();
         this.initMenu();
     }
 
-    public override ngOnDestroy(): void {
-        this.transitionOnSuccessDestroy();
+    protected setSliderNavigationVisibility(): void {
+        if (!this.useSliderNavigation) {
+            return;
+        }
+
+        switch (this.sliderNavigationOptions.forDevice) {
+            case 'mobile':
+                this.showSliderNavigation = this.isMobile;
+                break;
+            case 'desktop':
+                this.showSliderNavigation = !this.isMobile;
+                break;
+            default:
+                this.showSliderNavigation = true;
+        }
     }
 
     /**
@@ -130,6 +154,9 @@ export class ProfileMenuComponent extends AbstractComponent implements OnInit, O
                 iconsKey = 'icons';
                 break;
             case 'submenu':
+                if (Params.defaultMenuParams[this.$params.type]?.menuParams) {
+                    _merge(this.menuParams, Params.defaultMenuParams[this.$params.type].menuParams);
+                }
                 this.menuParams.items = await this.profileMenuService.getSubMenu(menuOptions);
                 iconsKey = 'subMenuIcons';
                 break;
@@ -146,5 +173,25 @@ export class ProfileMenuComponent extends AbstractComponent implements OnInit, O
 
         this.menuParams = _clone(this.menuParams);
         this.cdr.detectChanges();
+    }
+
+    protected initEventHandlers(): void {
+        this.eventService.subscribe({name: 'TRANSITION_SUCCESS'}, (): void => {
+            if (this.profileConfig === 'profileMenu' || this.$params.type === 'submenu') {
+                this.menuParams.items = [];
+                this.initMenu();
+            }
+        }, this.$destroy);
+
+        this.actionService.deviceType()
+            .pipe(takeUntil(this.$destroy))
+            .subscribe((type: DeviceType) => {
+                if (!type) {
+                    return;
+                }
+                this.isMobile = type !== DeviceType.Desktop;
+                this.setSliderNavigationVisibility();
+                this.cdr.markForCheck();
+            });
     }
 }

@@ -1,3 +1,13 @@
 <div *ngIf="menuParams.items?.length" class="{{$class}}__content">
     <div wlc-menu [inlineParams]="menuParams"></div>
+    <ng-container *ngIf="useSliderNavigation">
+        <div [hidden]="!showSliderNavigation" class="{{$class}}__controls">
+            <button class="{{$class}}__control {{$class}}__control--prev">
+                <span wlc-icon iconPath="/wlc/icons/arrow.svg"></span>
+            </button>
+            <button class="{{$class}}__control {{$class}}__control--next">
+                <span wlc-icon iconPath="/wlc/icons/arrow.svg"></span>
+            </button>
+        </div>
+    </ng-container>
 </div>

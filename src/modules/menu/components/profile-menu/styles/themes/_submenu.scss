@@ -9,20 +9,13 @@
         }
     }
 
+    ::ng-deep {
+        @include menuControls($submenuProfileDefault);
+    }
+
     .wlc-menu--theme-default.wlc-menu--type-profile-first-menu,
     .wlc-menu--theme-default.wlc-menu--type-profile-menu {
         @include bm.get-mq-map('margin', $submenuProfileDefault, 'submenuMargin');
-        display: grid;
-        overflow: auto hidden;
-
-        -ms-overflow-style: none;
-        scrollbar-width: none;
-        grid: {
-            auto-columns: max-content;
-            auto-flow: column;
-
-            gap: ef.get-value($submenuProfileDefault, 'menuGap');
-        }
 
         &:before {
 

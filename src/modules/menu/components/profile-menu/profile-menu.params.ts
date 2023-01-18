@@ -1,7 +1,9 @@
 import {
     IComponentParams,
     CustomType,
+    TDeviceSelection,
 } from 'wlc-engine/modules/core';
+import * as MenuParams from 'wlc-engine/modules/menu/components/menu/menu.params';
 
 export interface IProfileMenuItemsGroup<T> {
     parent: T;
@@ -20,6 +22,21 @@ export type AutoModifiers = Theme | ThemeMod;
 export type CustomMod = string;
 export type Modifiers = AutoModifiers | CustomMod | null;
 
+export interface ISliderNavigation {
+    forDevice: TDeviceSelection;
+    use?: boolean;
+}
+
+export interface ISubMenu {
+    menuParams: MenuParams.IMenuCParams;
+    /** Use slider arrows for menu or not */
+    sliderNavigation?: ISliderNavigation;
+}
+
+export interface IMenuParams {
+    submenu: ISubMenu;
+}
+
 export interface IProfileMenuCParams extends IComponentParams<Theme, Type, ThemeMod> {
     modifiers?: Modifiers[];
     common?: {
@@ -28,9 +45,32 @@ export interface IProfileMenuCParams extends IComponentParams<Theme, Type, Theme
         icons?: {
             folder?: string;
             use?: boolean;
-        }
+        };
     };
 }
+
+export const defaultMenuParams: IMenuParams = {
+    submenu: {
+        sliderNavigation: {
+            use: true,
+            forDevice: 'desktop',
+        },
+        menuParams: {
+            common: {
+                useSwiper: true,
+            },
+            sliderParams: {
+                swiper: {
+                    spaceBetween: 30,
+                    navigation: {
+                        nextEl: '.wlc-profile-menu__control--next',
+                        prevEl: '.wlc-profile-menu__control--prev',
+                    },
+                },
+            },
+        },
+    },
+};
 
 export const defaultParams: IProfileMenuCParams = {
     moduleName: 'menu',

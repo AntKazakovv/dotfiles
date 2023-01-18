@@ -60,13 +60,31 @@ $submenuProfileDefault: map-merge((
         1024: 0 0 ef.size(3)
     ),
     'submenuItemActiveBorder': var(--mc-main),
-    'menuGap': (
-        375: 30px
-    ),
     'submenuItemHoverUnderlineWidth': calc(100% + 30px),
     'linkBeforeHeight': 2px,
     'submenuItemTextStyle': 'PrimaryText',
     'submenuItemTextStyleActive': 'PrimaryTextBold',
+
+    'controlsTop': 0,
+    'controlsLeft': 0,
+    'controlAlignItems': 'start',
+    'controlWidth': 30px,
+    'controlHeight': 100%,
+    'controlPadding': 0,
+    'controlArrowColor': var(--mc-baseMain),
+    'controlArrowColorHover': var(--mc-main),
+    'controlPrevSvgTransform': rotate(90deg),
+    'controlNextSvgTransform': rotate(-90deg),
+    'controlNextMargin': 0 0 0 auto,
+    'controlPrevJustifyContent': flex-start,
+    'controlPrevMargin': 0 auto 0 0,
+    'controlNextJustifyContent': flex-end,
+    'controlTransition': all 0.3s ease-out,
+    'controlBg': linear-gradient(90deg, var(--mc-bg700) 65%, var(--mc-bg700-o0) 100%),
+    'controlVisibility': (
+        375: hidden,
+        900: visible,
+    ),
 ), $customSubmenuProfileDefault);
 
 
