@@ -35,6 +35,7 @@ import {
 import {PaymentSystem} from 'wlc-engine/modules/finances/system/models/payment-system.model';
 import {UserInfo} from 'wlc-engine/modules/user/system/models/info.model';
 import {WINDOW} from 'wlc-engine/modules/app/system';
+import {UserProfile} from 'wlc-engine/modules/user';
 
 export enum PIQCashierServiceEvents {
     loadSuccess = 'PIQ_CASHIER_LOAD_SUCCESS',
@@ -180,6 +181,18 @@ export class PIQCashierService {
             containerHeight: this.configService.get('$base.finances.piqCashier.containerHeight') || 'auto',
             containerWidth: '100%',
         };
+
+        const alias: string = currentSystem.alias;
+
+        if (alias.includes('paymentiq_cashier_astropay')) {
+            cashierConfig.user.country = await this.configService
+                .get<BehaviorSubject<UserProfile>>({name: '$user.userProfile$'})
+                .getValue().countryCode;
+        }
+
+        if (['paymentiq_cashier_idebit', 'paymentiq_cashier_instadebit'].includes(alias)) {
+            cashierConfig.allowMobilePopup = true;
+        }
 
         this.subscribeToIFrameMessages();
 
