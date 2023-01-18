@@ -595,7 +595,6 @@ export class DepositWithdrawComponent
             }
 
             if (response.length) {
-
                 if (response[0] === 'message' && isPregeneration && this.isWaitingResponse) {
                     this.currentSystem.message = response[1];
                     return;
@@ -607,6 +606,8 @@ export class DepositWithdrawComponent
                 } else if (response[0] === 'redirect') {
                     if (this.currentSystem.appearance === 'newtab') {
                         this.window.open(response[1], '_blank');
+                    } else if (this.isShowIframe) {
+                        this.addFormToBodyAndSubmit(response);
                     } else {
                         this.window.location.replace(response[1]);
                     }
@@ -667,6 +668,7 @@ export class DepositWithdrawComponent
             modalTitle: gettext('Deposit'),
             onModalShown: () => form.submit(),
         };
+
         this.modalService.showModal(options);
     }
 
@@ -777,20 +779,27 @@ export class DepositWithdrawComponent
 
     protected createForm(response: any): HTMLFormElement {
         const form: HTMLFormElement = this.document.createElement('form');
-        form.method = response[0];
-        form.action = (response[1] && response[1].URL) ? response[1].URL : '';
 
-        for (const key in response[1]) {
-            if (key === 'URL' || !response[1].hasOwnProperty(key)) {
-                continue;
-            }
+        if (response[0] === 'redirect') {
+            form.method = 'GET';
+            form.action = response[1];
+        } else {
+            form.method = response[0];
+            form.action = (response[1] && response[1].URL) ? response[1].URL : '';
 
-            if (_isArray(response[1][key])) {
-                for (const value of response[1][key]) {
-                    form.appendChild(this.addField(key, value));
+            for (const key in response[1]) {
+
+                if (key === 'URL' || !response[1].hasOwnProperty(key)) {
+                    continue;
                 }
-            } else {
-                form.appendChild(this.addField(key, response[1][key]));
+
+                if (_isArray(response[1][key])) {
+                    for (const value of response[1][key]) {
+                        form.appendChild(this.addField(key, value));
+                    }
+                } else {
+                    form.appendChild(this.addField(key, response[1][key]));
+                }
             }
         }
 
