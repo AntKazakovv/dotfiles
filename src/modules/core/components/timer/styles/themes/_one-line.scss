@@ -4,17 +4,24 @@
 
         &__content {
             @include text.get-text-style(ef.get-value($themeOneLine, 'textStyle'), ef.get-value($themeOneLine, 'textColor'));
-            display: flex;
-            align-items: flex-start;
-        }
+            display: inline;
 
-        &__main {
+            .time-text {
+                white-space: nowrap;
+            }
 
             .time-text__divider,
             .time-text__item,
             .time-text {
                 display: inline;
             }
+        }
+
+        &__label {
+            display: inline-flex;
+            align-items: baseline;
+            justify-content: center;
+            white-space: nowrap;
         }
 
         &__text {

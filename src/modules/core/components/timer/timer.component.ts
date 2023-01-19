@@ -23,6 +23,7 @@ import _merge from 'lodash-es/merge';
 import {
     GlobalHelper,
     ConfigService,
+    DateHelper,
 } from 'wlc-engine/modules/core';
 import {AbstractComponent} from 'wlc-engine/modules/core/system/classes';
 
@@ -66,10 +67,6 @@ export class TimerComponent extends AbstractComponent implements OnInit, OnChang
     public days: string = '00';
 
     private valueFormat: DateTime;
-    private milliSecondsInASecond = 1000;
-    private hoursInADay = 24;
-    private minutesInAnHour = 60;
-    private secondsInAMinute = 60;
     private secondsToDday: number;
     private minutesToDday: number;
     private hoursToDday: number;
@@ -95,7 +92,7 @@ export class TimerComponent extends AbstractComponent implements OnInit, OnChang
         ));
         if (this.checkValueFormat()) {
             this.getTimeDifference();
-            this.intervalSub = interval(this.milliSecondsInASecond).pipe(takeUntil(this.$destroy))
+            this.intervalSub = interval(DateHelper.milliSecondsInSecond).pipe(takeUntil(this.$destroy))
                 .subscribe(() => {
                     this.getTimeDifference();
                     this.cdr.detectChanges();
@@ -146,14 +143,11 @@ export class TimerComponent extends AbstractComponent implements OnInit, OnChang
     }
 
     private allocateTimeUnits(timeDifference: number): void {
-        this.secondsToDday = Math.floor((timeDifference)
-            / (this.milliSecondsInASecond) % this.secondsInAMinute);
-        this.minutesToDday = Math.floor((timeDifference)
-            / (this.milliSecondsInASecond * this.minutesInAnHour) % this.secondsInAMinute);
-        this.hoursToDday = Math.floor((timeDifference)
-            / (this.milliSecondsInASecond * this.minutesInAnHour * this.secondsInAMinute) % this.hoursInADay);
-        this.daysToDday = Math.floor((timeDifference)
-            / (this.milliSecondsInASecond * this.minutesInAnHour * this.secondsInAMinute * this.hoursInADay));
+        this.secondsToDday = Math.floor(timeDifference
+            / DateHelper.milliSecondsInSecond % DateHelper.secondsInMinute);
+        this.minutesToDday = Math.floor(timeDifference / DateHelper.milliSecondsInMinutes % DateHelper.minutesInHour);
+        this.hoursToDday = Math.floor(timeDifference / DateHelper.milliSecondsInHours % DateHelper.hoursInDay);
+        this.daysToDday = Math.floor(timeDifference / DateHelper.milliSecondsInDay);
 
         this.seconds = ('0' + this.secondsToDday).slice(-2);
         this.minutes = ('0' + this.minutesToDday).slice(-2);

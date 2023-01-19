@@ -38,6 +38,7 @@ import {
 } from 'wlc-engine/modules/core';
 
 import * as Params from './payment-message.params';
+import {DateHelper} from '../../../core';
 
 export type TMessageType = 'html'
     | 'pay_to_bank'
@@ -65,7 +66,6 @@ export class PaymentMessageComponent extends AbstractComponent implements OnInit
     @Input() public system: PaymentSystem;
     @Input() public minAmount: number;
     @Input() public maxAmount: number;
-
     public $params: Params.IPaymentMessageCParams;
     public isError: boolean = false;
     public type: TMessageType | null;
@@ -233,6 +233,8 @@ export class PaymentMessageComponent extends AbstractComponent implements OnInit
             amount.control.disable();
             this.inputParamsLockedAmount = amount;
             this.timerParams = _cloneDeep(Params.timerParams);
+            this.timerParams.common.noDays = !DateHelper.dayExists(this.timerValue);
+            this.timerParams.common.noHours = !DateHelper.hoursExists(this.timerValue);
             this.inputParamsCryptoAmount = this.getInputParams('invoice');
         }
 
