@@ -59,8 +59,8 @@ export class TransactionHistoryComponent extends AbstractComponent implements On
     public startDateInput: IDatepickerCParams = startDate;
     public endDateInput: IDatepickerCParams = endDate;
     public transaction$: BehaviorSubject<Transaction[]> = new BehaviorSubject([]);
+    public filterSelect: ISelectCParams<TTransactionFilter> = config.filterSelect;
 
-    protected filterSelect: ISelectCParams<TTransactionFilter> = config.filterSelect;
     protected filterValue: TTransactionFilter = 'all';
     protected startDate: DateTime = DateTime.local();
     protected endDate: DateTime = DateTime.local();
