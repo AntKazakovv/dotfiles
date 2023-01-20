@@ -5,23 +5,12 @@
 ////
 @import 'app.variables';
 
-@import './engine-vars/01.radius';
-@import './engine-vars/02.four-elements';
-@import './engine-vars/03.colors';
-@import './engine-vars/04.text';
-@import './engine-vars/05.form';
-@import './engine-vars/06.profile';
-@import './engine-vars/07.buttons';
-@import './engine-vars/08.layout';
-
 $customGap: () !default;
 $customSize: () !default;
 $customButton: () !default;
 $customTime: () !default;
 $customModalSize: () !default;
-
 $customVars: () !default;
-
 $customBaseVariables: () !default;
 
 $baseVariables: map-merge((
@@ -42,6 +31,16 @@ $baseVariables: map-merge((
 @function size-func($value: 1, $units: 1px) {
     @return map-get($baseVariables, 'baseSize') * $value * $units;
 }
+
+// Do not move imports!
+@import './engine-vars/01.radius';
+@import './engine-vars/02.four-elements';
+@import './engine-vars/03.colors';
+@import './engine-vars/04.text';
+@import './engine-vars/05.form';
+@import './engine-vars/06.profile';
+@import './engine-vars/07.buttons';
+@import './engine-vars/08.layout';
 
 /// Размеры отступов на сайте.
 /// Здесь перечислены все возможные отступы и поля для всех стандартных элементов на сайте.
