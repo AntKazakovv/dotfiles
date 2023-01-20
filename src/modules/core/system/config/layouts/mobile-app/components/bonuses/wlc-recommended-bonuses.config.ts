@@ -43,7 +43,6 @@ export namespace wlcRecommendedBonuses {
                 common: {
                     useQuery: true,
                     useRecommendedBonuses: true,
-                    sortOrder: ['notShowOnly'],
                     filterByGroup: 'recommended',
                     swiper: {
                         slidesPerView: 3,
@@ -110,7 +109,6 @@ export namespace wlcRecommendedBonuses {
                 common: {
                     useQuery: true,
                     useRecommendedBonuses: true,
-                    sortOrder: ['notShowOnly'],
                     filterByGroup: 'recommended',
                     swiper: {
                         navigation: false,

@@ -276,8 +276,17 @@ export interface IGetSubscribeParams {
     ready$?: Subject<boolean>;
 }
 
-export type TBonusSortOrder = 'active' | 'promocode' | 'subscribe' | 'inventory' | 'notShowOnly' | number;
-export type BonusesFilterType = 'all' | 'reg' | 'deposit' | 'promocode' | 'inventory' | 'main' | 'active' | 'default';
+export type TBonusSortOrder = 'active' | 'promocode' | 'subscribe' | 'inventory' | number;
+export type BonusesFilterType =
+    | 'all'
+    | 'reg'
+    | 'deposit'
+    | 'promocode'
+    | 'inventory'
+    | 'main'
+    | 'active'
+    | 'united'
+    | 'default';
 export type RestType = 'active' | 'history' | 'lootboxPrizes' | 'store' | 'any';
 export type ActionType = 'inventory' | 'cancel' | 'expired' | 'subscribe' | 'unsubscribe';
 

@@ -9,7 +9,7 @@ export namespace wlcPromotionsBonusesList {
             common: {
                 filter: 'all',
                 filterByGroup: 'Promo',
-                sortOrder: ['notShowOnly', 'active', 'promocode', 'subscribe', 'inventory'],
+                sortOrder: ['active', 'promocode', 'subscribe', 'inventory'],
             },
             redirectBtnToProfile: {
                 use: true,

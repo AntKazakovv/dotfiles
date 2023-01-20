@@ -31,6 +31,7 @@ import _reduce from 'lodash-es/reduce';
 import _union from 'lodash-es/union';
 import _unionBy from 'lodash-es/unionBy';
 import _isNumber from 'lodash-es/isNumber';
+import _toNumber from 'lodash-es/toNumber';
 import _find from 'lodash-es/find';
 import _isEqual from 'lodash-es/isEqual';
 import _isUndefined from 'lodash-es/isUndefined';
@@ -305,12 +306,7 @@ export class BonusesService {
      */
     public filterBonuses(bonuses: Bonus[], filter: BonusesFilterType): Bonus[] {
         return _filter(bonuses, (bonus: Bonus) => {
-            const status = bonus.status,
-                active = bonus.active,
-                allowCatalog = bonus.allowCatalog,
-                selected = bonus.selected,
-                hasPromoCode = bonus.hasPromoCode,
-                inventoried = bonus.inventoried;
+            const {allowCatalog, selected, active, status, inventoried, hasPromoCode, isStoreEvent} = bonus;
 
             if (!status) {
                 return false;
@@ -318,20 +314,20 @@ export class BonusesService {
 
             switch (filter) {
                 case 'all':
-                    return (allowCatalog || (!allowCatalog && (selected || active)))
-                        && (!hasPromoCode || selected || active || inventoried || this.isPromocodeEntered(bonus))
-                        && (bonus.event !== 'store' || bonus.isActive || inventoried);
+                    return this.isCatalogAllowOrSelectedOrActive(bonus)
+                        && (this.isNotPromoOrSelectedOrActive(bonus) || inventoried || this.isPromocodeEntered(bonus))
+                        && (!isStoreEvent || bonus.isActive || inventoried);
                 case 'deposit':
-                    return (allowCatalog || (!allowCatalog && (selected || active)))
-                        && (!hasPromoCode || selected || active || this.isPromocodeEntered(bonus))
+                    return this.isCatalogAllowOrSelectedOrActive(bonus)
+                        && (this.isNotPromoOrSelectedOrActive(bonus) || this.isPromocodeEntered(bonus))
                         && this.depEvents.indexOf(bonus.event) !== -1;
                 case 'reg':
-                    return (allowCatalog || (!allowCatalog && (selected || active)))
-                        && (!hasPromoCode || selected || active || this.isPromocodeEntered(bonus))
+                    return this.isCatalogAllowOrSelectedOrActive(bonus)
+                        && (this.isNotPromoOrSelectedOrActive(bonus) || this.isPromocodeEntered(bonus))
                         && this.regEvents.indexOf(bonus.event) !== -1;
                 case 'main':
                     return !active && (!hasPromoCode || selected || this.isPromocodeEntered(bonus))
-                        && (allowCatalog || (!allowCatalog && selected))
+                        && (allowCatalog || selected)
                         && !inventoried;
                 case 'promocode':
                     return hasPromoCode && !selected;
@@ -339,6 +335,10 @@ export class BonusesService {
                     return inventoried && !active;
                 case 'active':
                     return bonus.isActive;
+                case 'united':
+                    return this.isCatalogAllowOrSelectedOrActive(bonus)
+                        && (this.isNotPromoOrSelectedOrActive(bonus) || inventoried || this.isPromocodeEntered(bonus))
+                        && (!isStoreEvent || inventoried);
             }
 
             return true;
@@ -683,33 +683,26 @@ export class BonusesService {
      * @returns {Bonus[]} bonuses bonuses array
      */
     public sortBonuses(bonuses: Bonus[], sortOrder: TBonusSortOrder[]): Bonus[] {
-        const result = _reduce(_union(sortOrder), (res: Bonus[], element: TBonusSortOrder): Bonus[] => {
-            if (_isNumber(element)) {
-                return _unionBy(res, [_find(bonuses, (bonus: Bonus): boolean => bonus.id === element)], 'id');
-            }
-            switch (element) {
-                case 'active':
-                    return _unionBy(res, _filter(bonuses, (bonus: Bonus): boolean => bonus.isActive), 'id');
-                case 'inventory':
-                    return _unionBy(res, _filter(bonuses, (bonus: Bonus): boolean => bonus.inventoried), 'id');
-                case 'subscribe':
-                    return _unionBy(res, _filter(
-                        bonuses,
-                        (bonus: Bonus): boolean => bonus.isSubscribed,
-                    ), 'id');
-                case 'promocode':
-                    return _unionBy(res, _filter(bonuses, (bonus: Bonus): boolean => bonus.id === this.promoBonus?.id),
-                        'id');
-                case 'notShowOnly':
-                    return _unionBy(res, _filter(bonuses, (bonus: Bonus): boolean => !bonus.showOnly),
-                        'id');
-                default:
-                    return _unionBy(res, bonuses, 'id');
-            }
-        }, []);
+        let result = [];
 
-        return (result.length === bonuses.length)
-            ? result : _unionBy(result, bonuses, 'id');
+        if(!!sortOrder) {
+            result = _reduce(_union(sortOrder), (res: Bonus[], element: TBonusSortOrder): Bonus[] => {
+                if (_isNumber(element)) {
+                    return _unionBy(res, [_find(bonuses, {id: element})], 'id');
+                }
+
+                return _unionBy(res, this.filterBonusesBySortOrder(bonuses, element), 'id');
+            }, []);
+        }
+
+        result = (result.length === bonuses.length) ? result : _unionBy(result, bonuses, 'id');
+
+        // after sorting by sortOrder, move unavailable (showOnly) bonuses to the end of result list
+        if (bonuses.some((bonus: Bonus) => !bonus.showOnly)) {
+            result.sort((a: Bonus, b: Bonus) => (_toNumber(a.showOnly) - _toNumber(b.showOnly)));
+        }
+
+        return result;
     }
 
     /**
@@ -729,6 +722,27 @@ export class BonusesService {
         } catch (error) {
             this.logService.sendLog({code: '10.0.2', data: error});
             throw error;
+        }
+    }
+
+    /**
+     * Return bonuses fileterd by sort order
+     * @param {Bonus[]} bonuses bonuses array
+     * @param {TBonusSortOrder[]} sortOrder bonuses order
+     * @returns {Bonus[]} bonuses bonuses array
+     */
+    private filterBonusesBySortOrder(bonuses: Bonus[], order: TBonusSortOrder): Bonus[] {
+        switch (order) {
+            case 'active':
+                return _filter(bonuses, {isActive: true});
+            case 'inventory':
+                return _filter(bonuses, {inventoried: true});
+            case 'subscribe':
+                return _filter(bonuses, {isSubscribed: true});
+            case 'promocode':
+                return _filter(bonuses, {id: this.promoBonus?.id});
+            default:
+                return bonuses;
         }
     }
 
@@ -846,6 +860,24 @@ export class BonusesService {
 
     private isPromocodeEntered(bonus: Bonus): boolean {
         return bonus.id === this.promoBonus?.id;
+    }
+
+    /**
+     * Does bonus can be shown in catalog, or is active, or selected
+     * @param bonus
+     * @returns
+     */
+    private isCatalogAllowOrSelectedOrActive(bonus: Bonus): boolean {
+        return bonus.allowCatalog || bonus.selected || bonus.active;
+    }
+
+    /**
+     * Does bonus has promo code or is active, or selected
+     * @param bonus
+     * @returns
+     */
+    private isNotPromoOrSelectedOrActive(bonus: Bonus): boolean {
+        return !bonus.hasPromoCode || bonus.selected || bonus.active;
     }
 
     private setSubscribers(): void {

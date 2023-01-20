@@ -576,6 +576,13 @@ export class Bonus extends AbstractModel<IBonus> {
     }
 
     /**
+     * @returns {boolean} - Does bonus equal 'store'
+     */
+    public get isStoreEvent(): boolean {
+        return this.event === 'store';
+    }
+
+    /**
      * @returns {number} bonus min deposit
      */
     public get minDeposit(): number {
