@@ -177,10 +177,10 @@ $theme1Footer: map-merge((
 
     // disclamer and copyright
     'copyrightMargin': (
-        375: 0,
+        375: ef.size(4) 0 0,
     ),
     'recaptchaMargin': (
-        375: 0 0 map-get($footerCommon, 'marginTablet'),
+        375: map-get($footerCommon, 'marginTablet') 0 0,
     ),
 
     // license
@@ -373,10 +373,10 @@ $theme2Footer: map-merge((
         900: left,
     ),
     'copyrightMargin': (
-        375: 0,
+        375: ef.size(4) 0 0,
     ),
     'recaptchaMargin': (
-        375: 0 auto map-get($footerCommon, 'marginTablet'),
+        375: map-get($footerCommon, 'marginTablet') auto 0,
     ),
     'copyrightTextSpanDisplay': (
         375: block,
