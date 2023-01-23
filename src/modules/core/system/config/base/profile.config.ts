@@ -1,5 +1,5 @@
 import {IProfileConfig} from 'wlc-engine/modules/core/system/interfaces/base-config/profile.interface';
-import {profileLimitations} from 'wlc-engine/modules/user/submodules/limitations';
+import {limitType} from 'wlc-engine/modules/core/system/config/base/limitations.config';
 
 export const profileConfig: IProfileConfig = {
     messages: {
@@ -19,11 +19,11 @@ export const profileConfig: IProfileConfig = {
         use: false,
         autoApplyRealityChecker: true,
         limitTypes: [
-            profileLimitations.limitType.MaxDepositSum,
-            profileLimitations.limitType.MaxBetSum,
-            profileLimitations.limitType.MaxLossSum,
-            profileLimitations.limitType.realityChecker,
-            profileLimitations.limitType.timeOut,
+            limitType.MaxDepositSum,
+            limitType.MaxBetSum,
+            limitType.MaxLossSum,
+            limitType.realityChecker,
+            limitType.timeOut,
         ],
     },
     store: {
