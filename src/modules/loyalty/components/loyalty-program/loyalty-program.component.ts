@@ -108,12 +108,20 @@ export class LoyaltyProgramComponent extends AbstractComponent implements OnInit
      * @returns {ILoyaltyLevelCParams} `inlineParams` for `[wlc-loyalty-level]` component
      */
     public getLoyaltyLevelParams(level: LoyaltyLevelModel, idx: number): ILoyaltyLevelCParams {
+        let imagePath: string = '';
+
+        if (level.image) {
+            imagePath = level.image;
+        } else if (this.$params.imagePath) {
+            imagePath = `${this.$params.imagePath}${level.level}.${this.$params.imageType}`;
+        }
+
         return {
             name: level.name,
             level: String(level.level),
             points: this.setLoyaltyPoints(idx),
             description: level.description,
-            image: level.image,
+            image: imagePath,
         };
     }
 
