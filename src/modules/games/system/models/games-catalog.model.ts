@@ -548,7 +548,10 @@ export class GamesCatalog extends AbstractModel<IGames> {
         } else {
             gamesList = byAllGames ? this.games : this.availableGames;
         }
-        return _find(gamesList, {merchantID, launchCode});
+        return _find(gamesList, (game: Game): boolean => {
+            return (game.merchantID === merchantID || game.subMerchantID === merchantID)
+                && game.launchCode === launchCode;
+        });
     }
 
     /**
