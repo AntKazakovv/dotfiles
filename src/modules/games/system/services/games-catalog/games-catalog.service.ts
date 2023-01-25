@@ -866,7 +866,9 @@ export class GamesCatalogService {
      * @returns {Game[]} List with only available games
      */
     public filterAvailableGames(gamesList: Game[]): Game[] {
-        return _intersectionBy(gamesList, this.getGameList(), 'ID');
+        return _intersectionBy(gamesList, (game: Game): string => {
+            return game.ID + game.launchCode;
+        });
     }
 
     public async getGamesByCategorySlug(slug: string): Promise<Game[]> {

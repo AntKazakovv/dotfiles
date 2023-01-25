@@ -253,7 +253,7 @@ export class CategoryModel extends AbstractModel<ICategory> {
      */
     public updateAvailableGames(projectAvailableGames: Game[]): void {
         this.availableGames = _intersectionBy(this.gamesList, projectAvailableGames, (item: Game): string => {
-            return item.ID + item.name.en;
+            return item.ID + item.launchCode;
         });
 
         _forEach(this._gameBlocks, (gameBlock: IGameBlock): void => {
