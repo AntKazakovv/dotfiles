@@ -280,6 +280,22 @@ export class GamesGridComponent extends AbstractComponent implements OnInit, OnD
         }
     }
 
+    public get showBottomLink(): boolean {
+        return this.$params.showAllLink?.use &&
+            this.$params.showAllLink?.position === 'bottom' &&
+            !this.$params.showAllLink.titleLinkOnly;
+    }
+
+    public get showTopLink(): boolean {
+        return this.$params.showAllLink?.use &&
+            this.$params.showAllLink?.position === 'top' &&
+            !this.$params.showAllLink.titleLinkOnly;
+    }
+
+    public get showDesktopLink(): boolean {
+        return this.$params.showAllLink?.use && this.isDesktop && !this.$params.showAllLink.titleLinkOnly;
+    }
+
     protected get lazyWithClick(): boolean {
         return !this.useLazy || (this.useLazyAfterClick && !this.isClickedLoadMoreBtn);
     }

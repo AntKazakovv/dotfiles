@@ -28,6 +28,26 @@
                     @include text.get-text-style(ef.get-value($commonStyles, 'headerFontStyle'), ef.get-value($commonStyles, 'headerColor'));
                     line-height: 1;
                 }
+
+                .wlc-title__main-link {
+                    @include text.get-text-style(ef.get-value($commonStyles, 'headerFontStyle'), ef.get-value($commonStyles, 'headerColorLink'));
+                    @include bm.transition(color, 0.3s);
+                    line-height: 1;
+                    text-decoration: none;
+
+                    .wlc-icon {
+                        @include bm.transition(opacity, 0.3s);
+                        opacity: 0;
+                    }
+
+                    @include bm.hover {
+                        color: ef.get-value($commonStyles, 'headerColorLinkHover');
+
+                        .wlc-icon {
+                            opacity: 1;
+                        }
+                    }
+                }
             }
         }
 
@@ -79,6 +99,20 @@
                             fill: ef.get-value($commonStyles, 'allLinkColorHover');
                         }
                     }
+                }
+            }
+        }
+    }
+
+    &.wlc-games-grid--theme-mod-all-link-secondary {
+
+        .wlc-games-grid {
+
+            &__link {
+                @include text.get-text-style(ef.get-value($commonStyles, 'allLinkSecondaryTextStyle'), ef.get-value($commonStyles, 'allLinkSecondaryColor'));
+
+                @include bm.hover {
+                    color: ef.get-value($commonStyles, 'allLinkColorHover');
                 }
             }
         }

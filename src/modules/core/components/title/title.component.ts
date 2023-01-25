@@ -1,3 +1,5 @@
+import {RawParams} from '@uirouter/core';
+
 import {
     AfterViewInit,
     ChangeDetectionStrategy,
@@ -35,6 +37,9 @@ export class TitleComponent extends AbstractComponent implements OnInit, AfterVi
 
     @Input() public mainTag: Params.TagType;
     @Input() public secondTag: Params.TagType;
+    @Input() public mainLink: string;
+    @Input() public mainParams: RawParams;
+    @Input() public mainShowTitleLink: boolean;
 
     @Input() protected mainText: Params.TextType;
     @Input() protected secondText: Params.TextType;
@@ -42,6 +47,7 @@ export class TitleComponent extends AbstractComponent implements OnInit, AfterVi
     @Input() protected inlineParams: Params.ITitleCParams;
 
     @ViewChild('div', {static: false}) divTemplate: TemplateRef<ElementRef>;
+    @ViewChild('link') linkTemplate: TemplateRef<ElementRef>;
     @ViewChild('h1') h1Template: TemplateRef<ElementRef>;
     @ViewChild('h2') h2Template: TemplateRef<ElementRef>;
     @ViewChild('span') spanTemplate: TemplateRef<ElementRef>;
@@ -87,7 +93,7 @@ export class TitleComponent extends AbstractComponent implements OnInit, AfterVi
             case 'span':
                 return this.spanTemplate;
             default:
-                return this.divTemplate;
+                return this.mainShowTitleLink ? this.linkTemplate : this.divTemplate;
         }
     }
 

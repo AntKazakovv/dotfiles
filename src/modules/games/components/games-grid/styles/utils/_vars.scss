@@ -84,6 +84,8 @@ $commonStyles: map-merge((
 
     'allLinkTextStyle': 'CaptionTextBold',
     'allLinkColor': var(--mc-main),
+    'allLinkSecondaryTextStyle': 'PrimaryTextBold',
+    'allLinkSecondaryColor': var(--mc-main),
     'allLinkDisplay': flex,
     'allLinkAlign': center,
     'allLinkDecoration': none,
@@ -99,6 +101,8 @@ $commonStyles: map-merge((
     'titleIconFill': var(--mc-baseMain),
 
     'headerColor': var(--mc-baseMain),
+    'headerColorLink': var(--mc-baseOpacity),
+    'headerColorLinkHover': var(--mc-baseMain),
     'headerFontStyle': 'QoteTextBold',
 ), $customCommonStyles);
 

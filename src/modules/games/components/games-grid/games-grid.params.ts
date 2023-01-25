@@ -32,6 +32,7 @@ export type ComponentThemeMod = 'default'
     | 'header-inline'
     | 'centered-controls'
     | 'mobile-app-search'
+    | 'all-link-secondary'
     | string;
 
 /**
@@ -52,6 +53,14 @@ export interface IGamesGridTitleIcon {
 export interface IGamesGridShowAllLink {
     use?: boolean;
     /**
+     * Use link in title
+     */
+    useAsTitle?: boolean;
+    /**
+     * Show link only in title
+     */
+    titleLinkOnly?: boolean;
+    /**
      * Show all link as button on swiper theme in header
      */
     showAsBtn?: boolean;
@@ -60,6 +69,7 @@ export interface IGamesGridShowAllLink {
      */
     position?: 'top' | 'bottom';
     useCounter?: boolean;
+    useIcon?: boolean;
     /** @deprecated use `sref` instead */
     link?: string;
     sref?: string;
@@ -199,6 +209,7 @@ export interface IGamesGridCParams extends IComponentParams<ComponentTheme, Comp
      * Set of parameters fot `show all` link.
      * @param use define if link is visible. `false` by default.
      * @param useCounter if `true` visualize amount of games in filtered request.
+     * @param useIcon if `true` visualize icon.
      * @param link `uiSref` link parameter.
      * @param params `uiParams` link parameters.
      * @param text text of link. `Show all` by default.
@@ -286,6 +297,7 @@ export const defaultParams: IGamesGridCParams = {
     showAllLink: {
         use: false,
         text: gettext('Show all'),
+        useIcon: true,
     },
     moreBtn: {
         hide: false,
