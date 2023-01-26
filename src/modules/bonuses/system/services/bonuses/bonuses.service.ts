@@ -336,7 +336,7 @@ export class BonusesService {
                 case 'active':
                     return bonus.isActive;
                 case 'united':
-                    return this.isCatalogAllowOrSelectedOrActive(bonus)
+                    return !active && (allowCatalog || selected)
                         && (this.isNotPromoOrSelectedOrActive(bonus) || inventoried || this.isPromocodeEntered(bonus))
                         && (!isStoreEvent || inventoried);
             }
