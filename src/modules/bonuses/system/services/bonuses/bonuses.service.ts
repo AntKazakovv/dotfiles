@@ -440,7 +440,7 @@ export class BonusesService {
             }, params);
 
             if (showPush) {
-                this.showSuccess(gettext('Bonus subscribe success'));
+                this.showSuccess(gettext('Successful subscription to the bonus'));
             }
 
             return response.data;
@@ -470,7 +470,7 @@ export class BonusesService {
                     fail: 'BONUS_UNSUBSCRIBE_FAILED',
                 },
             }, params);
-            this.showSuccess(gettext('Bonus unsubscribe success'));
+            this.showSuccess(gettext('You have been successfully unsubscribed from the bonus'));
             return response.data;
         } catch (error) {
             this.showError(error?.errors);
@@ -496,7 +496,7 @@ export class BonusesService {
                     fail: 'BONUS_CANCEL_FAILED',
                 },
             });
-            this.showSuccess(gettext('Bonus cancel success'));
+            this.showSuccess(gettext('The bonus has been cancelled'));
             return response.data;
         } catch (error) {
             this.showError(error?.errors);
@@ -523,11 +523,11 @@ export class BonusesService {
             if (emitDelay) {
                 setTimeout((): void => {
                     this.eventService.emit({name: 'BONUS_TAKE_SUCCEEDED'});
-                    this.showSuccess(gettext('Bonus take success'));
+                    this.showSuccess(gettext('The bonus has been taken successfully'));
                 }, emitDelay);
             } else {
                 this.eventService.emit({name: 'BONUS_TAKE_SUCCEEDED'});
-                this.showSuccess(gettext('Bonus take success'));
+                this.showSuccess(gettext('The bonus has been taken successfully'));
             }
 
             return response.data;
@@ -1115,7 +1115,7 @@ export class BonusesService {
             name: NotificationEvents.PushMessage,
             data: <IPushMessageParams>{
                 type: 'success',
-                title: gettext('Bonus take success'),
+                title: gettext('The bonus has been taken successfully'),
                 wlcElement: 'notification_bonus-activated',
                 displayAsHTML: true,
                 message: this.translate.instant(gettext('The bonus balance has been increased by'))

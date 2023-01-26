@@ -52,10 +52,10 @@
                (change)="uploadFile($any($event.target).files, currentDocGroup.id)">
         <p [ngSwitch]="currentDocGroup.loadingStatus" class="{{$class}}__text">
             <ng-template [ngSwitchCase]="'loading'">
-                {{'File is loading...' | translate}}
+                {{'The file is being uploaded...' | translate}}
             </ng-template>
             <ng-template [ngSwitchCase]="'deleting'">
-                {{'File is deleting...' | translate}}
+                {{'The file is being deleted...' | translate}}
             </ng-template>
             <ng-template ngSwitchDefault>
                 {{'Drop file here or' | translate}}

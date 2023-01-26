@@ -28,7 +28,7 @@ export const defaultParams: ILoyaltyLevelTableCParams = {
             {
                 name: 'profile.wlc-profile-no-content',
                 params: {
-                    text: gettext('An error occurred while loading data. Please try again later.'),
+                    text: gettext('An error has occurred while loading data. Please try again later.'),
                 },
             },
         ],

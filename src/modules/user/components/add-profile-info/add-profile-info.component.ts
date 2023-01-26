@@ -104,7 +104,7 @@ export class AddProfileInfoComponent extends ProfileFormAbstract implements OnIn
             submited = true;
         } else {
 
-            const messages = [gettext('Profile save failed')];
+            const messages = [gettext('Failed to save the profile')];
             if (result.errors) {
                 if (_isString(result.errors)) {
                     messages.push(result.errors);

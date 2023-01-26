@@ -390,7 +390,7 @@ class StartGameHandler {
             }
 
             this.showErrorNotification(
-                gettext('Dear Client, this game has no demo mode, you will be redirected to normal mode.'),
+                gettext('This game has no demo mode. You will be redirected to normal mode'),
                 gettext('Game has no demo!'),
             );
 

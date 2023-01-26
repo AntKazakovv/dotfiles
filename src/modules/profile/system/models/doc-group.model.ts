@@ -137,9 +137,9 @@ export class DocGroupModel extends AbstractDocModel<IDocType> {
 
         switch (this.loadingStatus) {
             case LoaderStatus.Loading:
-                return gettext('File is loading...');
+                return gettext('The file is being uploaded...');
             case LoaderStatus.Deleting:
-                return gettext('File is deleting...');
+                return gettext('The file is being deleted...');
             default:
                 return gettext('Upload');
         }

@@ -58,6 +58,6 @@ export const defaultParams: ILoyaltyProgramCParams = {
     /**
      * this text will be shown on empty state(when there is no content)
      */
-    emptyStateText: gettext('An error occurred while loading data. Please try again later.'),
+    emptyStateText: gettext('An error has occurred while loading data. Please try again later.'),
     sliderParams: sliderDefaultParams,
 };

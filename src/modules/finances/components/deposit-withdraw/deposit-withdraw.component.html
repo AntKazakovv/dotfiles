@@ -148,7 +148,7 @@
             </div>
             <div *ngIf="currentSystem.hostedFields.errors" class="{{$class}}__alert"
                 wlc-alert
-                [title]="'An error has occurred. Check the entered data and try again' | translate"
+                [title]="'An error has occurred. Please check the entered data and try again' | translate"
                 [level]="'error'"
             ></div>
             <div *ngIf="!currentSystem.hostedFields.loaded" wlc-loader></div>

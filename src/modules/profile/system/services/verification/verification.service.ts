@@ -154,12 +154,12 @@ export class VerificationService {
         const extension = file.name.split('.').pop();
 
         if (file.size > maxSize * 1000000) {
-            this.showError('No valid size');
+            this.showError('Invalid size');
             return false;
         }
 
         if (!_includes(fileTypes, extension)) {
-            this.showError('No valid format');
+            this.showError('Invalid format');
             return false;
         }
 

@@ -30,6 +30,6 @@ export const defaultParams: ILoyaltyProgramCParams = {
     decorLeftPath: '/gstatic/loyalty-program/decor/left-decor.png',
     decorRightPath: '/gstatic/loyalty-program/decor/right-decor.png',
     levelsLimit: 4,
-    emptyStateText: 'An error occurred while loading data. Please try again later.',
+    emptyStateText: 'An error has occurred while loading data. Please try again later.',
 }
 ```

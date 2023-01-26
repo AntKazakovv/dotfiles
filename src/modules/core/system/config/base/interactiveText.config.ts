@@ -2,7 +2,7 @@ import {IInteractiveText} from 'wlc-engine/modules/core/system/interfaces/base-c
 
 export const interactiveTextConfig: IInteractiveText[] = [
     {
-        title: gettext('Want more promo content?'),
+        title: gettext('Do you want more promo content?'),
         text: gettext('See all bonuses'),
         actionParams: {
             url: {
