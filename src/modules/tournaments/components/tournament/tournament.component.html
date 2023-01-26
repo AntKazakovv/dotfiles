@@ -83,8 +83,10 @@
             <div
                 wlc-tournament-leaderboard
                 class="{{$class}}__board"
+                [themeMod]="'compact'"
                 [tournament]="tournament"
                 [limit]="8"
+                [useListHead]="true"
                 [showAllBtn]="true">
             </div>
         </ng-container>

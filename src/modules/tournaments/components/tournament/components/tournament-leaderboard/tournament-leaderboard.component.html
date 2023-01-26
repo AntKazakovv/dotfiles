@@ -1,10 +1,19 @@
+<div *ngIf="isMaxWinBetRatio">
+    <p class="{{$class}}__descr">{{$params.common?.winbetRatioText | translate}}
+        <span wlc-currency
+            [value]="tournament.winToBetRatio"
+            [showValueOnly]="true"
+        ></span>
+    </p>
+</div>
+
 <div *ngIf="wins?.length && isReady; else: noData" class="{{$class}}__container">
     <div *ngIf="$params.common?.useListHead" class="{{$class}}__item {{$class}}__item--head">
-        <div class="{{$class}}__cell item-place">{{'Place' | translate}}</div>
-        <div class="{{$class}}__cell item-user">
+        <div class="{{$class}}__cell item-place" title="{{'Place' | translate}}">{{'Place' | translate}}</div>
+        <div class="{{$class}}__cell item-user"  title="{{'Player' | translate}}">
             <span class="user-login">{{'Player' | translate}}</span>
         </div>
-        <div class="{{$class}}__cell item-points">{{'Points' | translate}}</div>
+        <div class="{{$class}}__cell item-points" title="{{pointsTitle | translate}}">{{pointsTitle | translate}}</div>
         <div *ngIf="paramInclude('themeMod', 'history')" class="{{$class}}__cell item-win">
             <span class="win-text">{{'Win' | translate}}</span>
             <span wlc-currency
@@ -14,40 +23,49 @@
         </div>
     </div>
 
-    <div class="{{$class}}__list">
-        <div *ngFor="let win of winsTop; index as $index"
-             class="{{$class}}__item {{$class}}__item--top {{$class}}__item--top-{{$index + 1}}"
-             [class.user]="userId === win.IDUser"
-             [class.first]="!$index"
-             [class.single]="winsTop.length === 1"
-             [class.last]="$index === (winsTop.length - 1)">
-            <div class="{{$class}}__cell item-place">
-                <span class="{{$class}}__cell-place">{{win.IDUserPlace}}</span>
-                <span *ngIf="paramInclude('themeMod', 'tournament-detail')"
-                      wlc-icon
-                      iconPath="/wlc/icons/cup.svg"></span>
+    <div class="{{$class}}__wrapper">
+        <div class="{{$class}}__list {{$class}}__list--top">
+            <div *ngFor="let win of winsTop; index as $index"
+                 class="{{$class}}__item {{$class}}__item--top {{$class}}__item--top-{{$index + 1}}"
+                 [class.user]="userId === win.IDUser"
+                 [class.first]="!$index"
+                 [class.single]="winsTop.length === 1"
+                 [class.last]="$index === (winsTop.length - 1)">
+                <div class="{{$class}}__cell item-place">
+                    <span class="{{$class}}__cell-place">{{win.IDUserPlace}}</span>
+                    <span *ngIf="paramExclude('themeMod', 'history')"
+                        wlc-icon
+                        iconPath="/wlc/icons/cup.svg"></span>
+                </div>
+                <div class="{{$class}}__cell item-user">
+                    <span *ngIf="win.IDUser !== userId; else: userThee" class="user-login">{{getPlayerName(win)}}</span>
+                </div>
+                <span class="{{$class}}__cell item-points">
+                    {{getWinPoints(win) | number: '.0-2'}}
+
+                    <ng-container *ngTemplateOutlet="deltaValue; context: {$implicit: win}"></ng-container>
+                </span>
+                <span *ngIf="paramInclude('themeMod', 'history')" class="{{$class}}__cell item-win">
+                    {{getCurrencyValue(win)}}
+                </span>
             </div>
-            <div class="{{$class}}__cell item-user">
-                <span *ngIf="paramExclude('themeMod', ['tournament-detail', 'history'])"
-                      wlc-icon
-                      iconPath="/wlc/icons/cup.svg"></span>
-                <span *ngIf="win.IDUser !== userId; else: userThee" class="user-login">{{getPlayerName(win)}}</span>
-            </div>
-            <span class="{{$class}}__cell item-points">{{win.points | number: '.0-2'}}</span>
-            <span *ngIf="paramInclude('themeMod', 'history')" class="{{$class}}__cell item-win">
-                {{getCurrencyValue(win)}}
-            </span>
+            <div *ngIf="winsRest.length && paramExclude('themeMod', 'history')" class="delimetr"></div>
         </div>
-        <div *ngIf="winsRest.length && paramInclude('themeMod', 'tournament-detail')" class="delimetr"></div>
-        <div *ngFor="let win of winsRest" class="{{$class}}__item" [class.user]="userId === win.IDUser">
-            <span class="{{$class}}__cell item-place">{{win.IDUserPlace}}</span>
-            <div class="{{$class}}__cell item-user">
-                <span *ngIf="win.IDUser !== userId; else: userThee" class="user-login">{{getPlayerName(win)}}</span>
+        <div *ngIf="winsRest.length" class="{{$class}}__list">
+            <div *ngFor="let win of winsRest" class="{{$class}}__item" [class.user]="userId === win.IDUser">
+                <span class="{{$class}}__cell item-place">{{win.IDUserPlace}}</span>
+                <div class="{{$class}}__cell item-user">
+                    <span *ngIf="win.IDUser !== userId; else: userThee" class="user-login">{{getPlayerName(win)}}</span>
+                </div>
+                <span class="{{$class}}__cell item-points">
+                    {{getWinPoints(win) | number: '.0-2'}}
+
+                    <ng-container *ngTemplateOutlet="deltaValue; context: {$implicit: win}"></ng-container>
+                </span>
+                <span *ngIf="paramInclude('themeMod', 'history')" class="{{$class}}__cell item-win">
+                    {{getCurrencyValue(win)}}
+                </span>
             </div>
-            <span class="{{$class}}__cell item-points">{{win.points | number: '.0-2'}}</span>
-            <span *ngIf="paramInclude('themeMod', 'history')" class="{{$class}}__cell item-win">
-                {{getCurrencyValue(win)}}
-            </span>
         </div>
     </div>
 
@@ -55,8 +73,7 @@
             wlc-button
             class="{{$class}}__btn"
             text="See all prizes"
-            icon="arrow"
-            theme="cleared"
+            theme="default"
             [attr.type]="'button'"
             [wlcElement]="'button_show_all_wins'"
             (click)="showAllWins()">
@@ -71,4 +88,14 @@
 
 <ng-template #userThee>
     <span class="user-login">{{'You' | translate}}</span>
+</ng-template>
+
+<ng-template #deltaValue let-win>
+    <span *ngIf="isMaxWinBetRatio"
+        class="{{$class}}__delta"
+        [tooltip]="'Proximity to the target coefficient' | translate"
+        container="body"
+        placement="top">
+        ({{win.delta | number: '.0-2'}})
+    </span>
 </ng-template>

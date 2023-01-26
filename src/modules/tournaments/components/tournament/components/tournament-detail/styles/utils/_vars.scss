@@ -96,18 +96,24 @@ $themeDefault: map-merge((
     'anchorsMenuLinkPadding': 0 ef.size(2),
 
     'leaderboardBg': var(--mc-bg500),
-    'leaderboardJustifyContent': center,
+    'leaderboardJustifyItems': center,
     'leaderboardPadding': (
-        320: ef.size(6) ef.size(3),
-        768: ef.size(4) 0,
+        375: ef.size(4),
+        768: ef.size(4) ef.size(4) ef.size(8),
     ),
     'leaderboardColumnWidth': (
-        320: 100%,
-        768: 530px,
+        375: 1fr,
+    ),
+    'leaderboardGap': (
+        375: ef.size(2),
     ),
     'leaderboardTitleStyle':'QoteTextBold',
-    'leaderboardTitleColor': var(--mc-baseMain),
-    'leaderboardTitleAlign': center,
+    'leaderboardTitleColor': inherit,
+
+    'leaderboardHeadAlign': (
+        375: center,
+    ),
+    'leaderboardTableMaxWidth': 480px,
 
     'prizesBg': (
         320: linear-gradient(180deg, #124c58 0%, #4f2d69 100%),

@@ -97,6 +97,10 @@ export abstract class AbstractTournamentModel<T extends ITournamentAbstract> ext
         return this.data.WinnerBy;
     }
 
+    public get winToBetRatio(): number {
+        return _toNumber(this.data.WinToBetRatio);
+    }
+
     public get name(): string {
         return this.data.Name;
     }
@@ -216,11 +220,19 @@ export abstract class AbstractTournamentModel<T extends ITournamentAbstract> ext
                 Points: _toString(result.user.Points),
                 UserLogin: this.configService.get<string>('appConfig.user.login'),
                 Win: result.user.Win,
+                BestWinToBetRatio: result.user.BestWinToBetRatio,
             });
         }
 
+        const isBestWinToBetRatio: boolean = this.winnerBy === 'max_app_winbet_ratio';
+
         _each(topWin, (item: ITournamentPlace) => {
             item.points = _toNumber(item.Points);
+
+            if (isBestWinToBetRatio) {
+                item.delta = Math.abs(this.winToBetRatio - _toNumber(item.BestWinToBetRatio));
+            }
+
             if (!item.UserLogin?.length) {
                 item.UserLogin = this.getUserLogin(item);
             }

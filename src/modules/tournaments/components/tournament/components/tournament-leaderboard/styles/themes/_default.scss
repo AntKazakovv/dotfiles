@@ -1,11 +1,134 @@
 .wlc-tournament-leaderboard--theme-default:host {
+    @include bm.get-mq-map('--lb-list-gap', $themeDefault, 'listGap');
+    @include bm.get-mq-map('--lb-wrapper-padding', $themeDefault, 'wrapperPadding');
+    @include bm.get-mq-map('--lb-item-margin', $themeDefault, 'itemMargin');
+    @include bm.get-mq-map('--lb-item-columns', $themeDefault, 'itemGridTemplate');
+    @include bm.get-mq-map('--lb-cell-padding-first', $themeDefault, 'firstCellPadding');
+    @include bm.get-mq-map('--lb-cell-padding-last', $themeDefault, 'lastCellPadding');
 
     .wlc-tournament-leaderboard {
 
+        &__container {
+            max-width: var(--lb-container-max-width, #{ef.get-value($themeDefault, 'containerMaxWidth')});
+            margin: var(--lb-container-margin, #{ef.get-value($themeDefault, 'containerMargin')});
+        }
+
+        &__wrapper {
+            padding: var(--lb-wrapper-padding);
+            background: var(--lb-wrapper-bg, #{ef.get-value($themeDefault, 'wrapperBg')});
+            border-radius: var(--lb-wrapper-radius, #{ef.get-value($themeDefault, 'wrapperRadius')});
+            overflow: hidden;
+        }
+
+        &__descr {
+            @include bm.get-mq-map('margin', $themeDefault, 'descrMargin');
+            @include text.get-text-style(
+                ef.get-value($themeDefault, 'descrStyle'),
+                ef.get-value($themeDefault, 'descrColor')
+            );
+
+            text-align: ef.get-value($themeDefault, 'descrAlign');
+        }
+
         &__list {
             display: grid;
-            grid-gap: ef.get-value($themeDefault, 'gridGap');
             grid-template-columns: ef.get-value($themeDefault, 'gridTemplateColumns');
+            gap: var(--lb-list-gap);
+            padding: var(--lb-list-padding);
+            background: var(--lb-list-bg, #{ef.get-value($themeDefault, 'listBg')});
+            border-radius: ef.get-value($themeDefault, 'listRadius');
+
+            &--top {
+                background: var(--lb-list-bg-top);
+            }
+        }
+
+        &__item {
+            @include text.get-text-style(
+                ef.get-value($themeDefault, 'itemTextStyle'),
+                ef.get-value($themeDefault, 'itemColor')
+            );
+            display: grid;
+            grid-template-columns: var(--lb-item-columns);
+            min-height: var(--lb-item-min-height, #{ef.get-value($themeDefault, 'itemHeight')});
+            margin: var(--lb-item-margin);
+            background: ef.get-value($themeDefault, 'rowBg');
+            border-radius: var(--lb-item-radius, #{ef.get-value($themeDefault, 'itemRadius')});
+
+            .item-user {
+                @include bm.get-mq-map('padding', $themeDefault, 'itemPaddingUser');
+
+                display: flex;
+
+                .wlc-icon::ng-deep {
+                    width: ef.get-value($themeDefault, 'iconSize');
+                    margin: ef.get-value($themeDefault, 'iconMargin');
+                    color: ef.get-value($themeDefault, 'iconUserColor');
+
+                    svg {
+                        width: 100%;
+                        fill: ef.get-value($themeDefault, 'iconBaseColor');
+                    }
+                }
+            }
+
+            &--top {
+                @include text.get-text-style(
+                    ef.get-value($themeDefault, 'itemTextStyleTop'),
+                    ef.get-value($themeDefault, 'itemColorTop')
+                );
+                font-weight: ef.get-value($themeDefault, 'fontWeight');
+
+                .wlc-icon::ng-deep {
+                    @include bm.get-mq-map('width', $themeDefault, 'topIconWidth');
+                    @include bm.get-mq-map('margin', $themeDefault, 'topIconMargin');
+
+                    display: block;
+                    color: ef.get-value($themeDefault, 'topIconColor');
+
+                    svg {
+                        width: 100%;
+                        fill: ef.get-value($themeDefault, 'topIconBaseColor');
+                    }
+                }
+            }
+
+            &--head {
+                @include bm.get-mq-map('padding', $themeDefault, 'headPadding');
+                @include bm.get-mq-map('background', $themeDefault, 'headBg');
+
+                .wlc-tournament-leaderboard__cell {
+                    display: block;
+                    width: 100%;
+                    height: auto;
+                    overflow: hidden;
+                    text-align: var(--lb-head-align, left);
+                    text-overflow: ellipsis;
+
+                    &:first-child {
+                        padding: var(--lb-head-padding-first, var(--lb-cell-padding-first));
+                        text-align: var(--lb-head-align-first, left);
+                    }
+
+                    &:last-child {
+                        padding: var(--lb-head-padding-last, var(--lb-cell-padding-last));
+                        text-align: var(--lb-head-align-last, right);
+                    }
+                }
+            }
+
+            &.user[class] {
+                @include text.get-text-style(
+                    ef.get-value($themeDefault, 'itemUserCellTextStyle'),
+                    ef.get-value($themeDefault, 'itemUserCellTextColor')
+                );
+
+                background: ef.get-value($themeDefault, 'rowUserBg');
+
+                .wlc-icon::ng-deep {
+                    color: ef.get-value($themeDefault, 'topIconUserColor');
+                }
+            }
         }
 
         &__cell {
@@ -14,13 +137,12 @@
             height: ef.get-value($themeDefault, 'rowHeight');
 
             &:first-child {
-                padding: ef.get-value($themeDefault, 'firstCellPadding');
+                padding: var(--lb-cell-padding-first);
             }
 
             &:last-child {
                 justify-content: flex-end;
-
-                padding: ef.get-value($themeDefault, 'lastCellPadding');
+                padding: var(--lb-cell-padding-last);
             }
 
             &-place {
@@ -28,142 +150,8 @@
             }
         }
 
-        &__item {
-            display: grid;
-            grid-template-columns: ef.get-value($themeDefault, 'rowGrid');
-            font-size: ef.get-value($themeDefault, 'fontSize');
-            background-color: ef.get-value($themeDefault, 'rowBg');
-            border-radius: ef.get-value($themeDefault, 'borderRadius');
-
-            .item-user {
-                display: flex;
-                padding: ef.get-value($themeDefault, 'cellPadding');
-
-                .wlc-icon::ng-deep {
-                    width: ef.get-value($themeDefault, 'iconSize');
-
-                    margin: ef.get-value($themeDefault, 'iconMargin');
-
-                    svg {
-                        width: 100%;
-
-                        path {
-                            fill: ef.get-value($themeDefault, 'iconColor');
-                        }
-                    }
-                }
-            }
-
-            &.user {
-                color: ef.get-value($themeDefault, 'rowUserColor');
-                font-weight: ef.get-value($themeDefault, 'rowUserFontWeight');
-                background-color: ef.get-value($themeDefault, 'rowUserBg');
-
-                .item-user {
-
-                    .wlc-icon::ng-deep {
-
-                        svg {
-
-                            path {
-                                fill: ef.get-value($themeDefault, 'iconUserColor');
-                            }
-                        }
-                    }
-                }
-            }
-
-            .user-login {
-                @include bm.lineClamp(1);
-                overflow: hidden;
-                max-width: ef.get-value($themeDefault, 'loginMaxWidth');
-            }
-
-            &--top {
-                margin-bottom: -#{ef.get-value($themeDefault, 'gridGap')};
-
-                font-weight: ef.get-value($themeDefault, 'fontWeight');
-                border-radius: ef.get-value($themeDefault, 'itemTopRadius');
-
-                &.first {
-                    border-radius: ef.get-value($themeDefault, 'borderRadius') ef.get-value($themeDefault, 'borderRadius') 0 0;
-                    padding-top: ef.get-value($themeDefault, 'gridGap') * 0.5;
-                }
-
-                &.last {
-                    margin-bottom: 0;
-                    padding-bottom: ef.get-value($themeDefault, 'gridGap') * 0.5;
-
-                    border-radius: 0 0 ef.get-value($themeDefault, 'borderRadius') ef.get-value($themeDefault, 'borderRadius');
-                }
-
-                &.single {
-                    margin-bottom: 0;
-                    padding-top: ef.get-value($themeDefault, 'gridGap') * 0.5;
-                    padding-bottom: ef.get-value($themeDefault, 'gridGap') * 0.5;
-
-                    border-radius: ef.get-value($themeDefault, 'borderRadius');
-                }
-
-                .wlc-tournament-leaderboard__cell {
-                    height: ef.get-value($themeDefault, 'rowHeight') + ef.get-value($themeDefault, 'gridGap');
-                }
-
-                .item-user {
-                    padding: ef.get-value($themeDefault, 'cellTopPadding');
-                }
-            }
-        }
-
         &__btn {
-            display: block;
-            margin: 0 auto;
-            padding: ef.get-value($themeDefault, 'btnPadding');
-
-            ::ng-deep {
-
-                .wlc-btn__text {
-                    @include bm.transition(color);
-
-                    color: ef.get-value($themeDefault, 'btnTextColor');
-
-                    font-weight: ef.get-value($themeDefault, 'fontWeight');
-                    font-size: ef.get-value($themeDefault, 'btnFontSize');
-
-                    .wlc-icon::ng-deep {
-                        position: relative;
-                        bottom: 0;
-
-                        width: ef.get-value($themeDefault, 'btnIconHeight');
-
-                        svg {
-                            @include bm.transition(fill);
-
-                            width: ef.get-value($themeDefault, 'btnIconWidth');
-                            transform: rotate(-90deg);
-
-                            fill: ef.get-value($themeDefault, 'btnTextColor');
-                        }
-                    }
-                }
-            }
-
-            @include bm.hover {
-
-                ::ng-deep {
-
-                    .wlc-btn__text {
-                        color: ef.get-value($themeDefault, 'btnTextColorHover');
-
-                        .wlc-icon::ng-deep {
-
-                            svg {
-                                fill: ef.get-value($themeDefault, 'btnTextColorHover');
-                            }
-                        }
-                    }
-                }
-            }
+            margin: ef.get-value($themeDefault, 'btnMargin');
         }
 
         &__nocontent {
@@ -172,197 +160,74 @@
             font-size: ef.get-value($themeDefault, 'fontSize');
             text-align: center;
 
-            background-color: ef.get-value($themeDefault, 'rowBg');
-            border-radius: ef.get-value($themeDefault, 'borderRadius');
+            background: var(--lb-nocontent-bg, #{ef.get-value($themeDefault, 'nocontentBg')});
+            border-radius: ef.get-value($themeDefault, 'listRadius');
         }
     }
 
-    .wlc-modal__dialog & {
-
-        .wlc-tournament-leaderboard__item {
-
-            .user-login {
-                max-width: 90%;
-            }
-        }
+    .delimetr {
+        @include bm.get-mq-map('width', $themeDefault, 'delimetrwidth');
+        @include bm.get-mq-map('height', $themeDefault, 'delimetrheight');
+        @include bm.get-mq-map('background', $themeDefault, 'delimetrBg');
     }
 
-    &.wlc-tournament-leaderboard--theme-mod-tournament-detail {
+    .user-login {
+        @include bm.lineClamp(1);
+        overflow: hidden;
+        max-width: ef.get-value($themeDefault, 'loginMaxWidth');
+    }
 
-        .delimetr {
-            @include bm.get-mq-map('width', $themeDefaultModTournamentDetail, 'delimetrwidth');
-            @include bm.get-mq-map('height', $themeDefaultModTournamentDetail, 'delimetrheight');
-            @include bm.get-mq-map('background', $themeDefaultModTournamentDetail, 'delimetrBg');
-        }
+    .win-text {
+        margin: ef.get-value($themeDefault, 'winTextMargin');
+    }
 
-        .wlc-tournament-leaderboard {
-
-            &__list {
-                @include bm.get-mq-map('grid-gap', $themeDefaultModTournamentDetail, 'listGap');
-                @include bm.get-mq-map('padding', $themeDefaultModTournamentDetail, 'listPadding');
-                @include bm.get-mq-map('background', $themeDefaultModTournamentDetail, 'listBg');
-                @include bm.get-mq-map('border-radius', $themeDefaultModTournamentDetail, 'listRadius');
-            }
-
-            &__item {
-                @include bm.get-mq-map('grid-template-columns', $themeDefaultModTournamentDetail, 'itemGridTemplate');
-                @include bm.get-mq-map('margin', $themeDefaultModTournamentDetail, 'itemMargin');
-
-                .wlc-icon::ng-deep {
-                    display: none;
-                }
-
-                .item-user {
-                    @include bm.get-mq-map('padding', $themeDefaultModTournamentDetail, 'itemPaddingUser');
-                }
-
-                &:not(.user) {
-                    @include bm.get-mq-map('background', $themeDefaultModTournamentDetail, 'itemBg');
-                    @include bm.get-mq-map('border-radius', $themeDefaultModTournamentDetail, 'itemRadius');
-                }
-
-                &.user {
-                    @include bm.get-mq-map('margin-bottom', $themeDefaultModTournamentDetail, 'itemUserMarginBottom');
-                    @include bm.get-mq-map('border-radius', $themeDefaultModTournamentDetail, 'itemUserRadius');
-
-                    .item-place {
-                        @include bm.get-mq-map('border-radius', $themeDefaultModTournamentDetail, 'itemUserRadiusPlace');
-                    }
-
-                    .item-points {
-                        @include bm.get-mq-map('border-radius', $themeDefaultModTournamentDetail, 'itemUserRadiusPoints');
-                    }
-
-                    .wlc-tournament-leaderboard__cell {
-                        @include text.get-text-style(
-                            ef.get-value($themeDefaultModTournamentDetail, 'itemUserCellTextStyle'),
-                            ef.get-value($themeDefaultModTournamentDetail, 'itemUserCellTextColor')
-                        );
-                    }
-                }
-
-                &.wlc-tournament-leaderboard__item--head {
-                    @include bm.get-mq-map('padding', $themeDefaultModTournamentDetail, 'headPadding');
-                    @include bm.get-mq-map('background', $themeDefaultModTournamentDetail, 'headBg');
-                }
-
-                &--top {
-
-                    .wlc-tournament-leaderboard__cell {
-                        @include bm.get-mq-map('height', $themeDefaultModTournamentDetail, 'topCellHeight');
-                    }
-
-                    .wlc-icon::ng-deep {
-                        @include bm.get-mq-map('width', $themeDefaultModTournamentDetail, 'topIconWidth');
-                        @include bm.get-mq-map('margin', $themeDefaultModTournamentDetail, 'topIconMargin');
-
-                        display: block;
-
-                        svg {
-                            width: 100%;
-
-                            path {
-                                @include bm.get-mq-map('fill', $themeDefaultModTournamentDetail, 'topIconColor');
-                            }
-                        }
-                    }
-
-                    .item-user {
-                        @include bm.get-mq-map('padding', $themeDefaultModTournamentDetail, 'topCellUserPadding');
-                    }
-
-                    &.first,
-                    &.single,
-                    &.last {
-                        padding-top: 0;
-                        padding-bottom: 0;
-                    }
-
-                    &.user {
-                        margin-bottom: 0;
-
-                        .wlc-icon::ng-deep {
-
-                            svg {
-
-                                path {
-                                    @include bm.get-mq-map('fill', $themeDefaultModTournamentDetail, 'topIconUserColor');
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
+    &.wlc-tournament-leaderboard--theme-mod-compact {
+        --lb-item-columns: #{ef.get-value($themeModCompact, 'itemColumns')};
+        --lb-item-margin: #{ef.get-value($themeModCompact, 'itemMargin')};
+        --lb-cell-padding-first: #{ef.get-value($themeModCompact, 'cellPaddingFirst')};
+        --lb-cell-padding-last: #{ef.get-value($themeModCompact, 'cellPaddingLast')};
+        --lb-head-padding-first: #{ef.get-value($themeModCompact, 'headPaddingFirst')};
     }
 
     &.wlc-tournament-leaderboard--theme-mod-history {
+        --lb-container-max-width: #{ef.get-value($themeDefaultModHistory, 'containerMaxWidth')};
+        --lb-container-margin: #{ef.get-value($themeDefaultModHistory, 'containerMargin')};
+
+        --lb-wrapper-padding: #{ef.get-value($themeDefaultModHistory, 'wrapperPadding')};
+        --lb-wrapper-bg: #{ef.get-value($themeDefaultModHistory, 'wrapperBg')};
+
+        --lb-list-gap: #{ef.get-value($themeDefaultModHistory, 'listGap')};
+        --lb-list-padding: #{ef.get-value($themeDefaultModHistory, 'listPadding')};
+        --lb-list-bg: #{ef.get-value($themeDefaultModHistory, 'listBg')};
+        --lb-list-bg-top: #{ef.get-value($themeDefaultModHistory, 'listBgTop')};
+
+        --lb-head-padding-first: #{ef.get-value($themeDefaultModHistory, 'headPaddingFirst')};
+        --lb-head-padding-last: #{ef.get-value($themeDefaultModHistory, 'headPaddingLast')};
+        --lb-head-align: #{ef.get-value($themeDefaultModHistory, 'headAlign')};
+        --lb-head-align-first: #{ef.get-value($themeDefaultModHistory, 'headAlignFirst')};
+        --lb-head-align-last: #{ef.get-value($themeDefaultModHistory, 'headAlignLast')};
+
+        --lb-item-margin: 0;
+        --lb-item-min-height: #{ef.get-value($themeDefaultModHistory, 'rowHeight')};
+        --lb-item-radius: #{ef.get-value($themeDefaultModHistory, 'itemRadius')};
+
+        --lb-cell-padding-first: #{ef.get-value($themeDefaultModHistory, 'firstCellPadding')};
+        --lb-cell-padding-last: #{ef.get-value($themeDefaultModHistory, 'lastCellPadding')};
+        --lb-nocontent-bg: #{ef.get-value($themeDefaultModHistory, 'nocontentBg')};
+
+        @include bm.get-mq-map('--lb-item-columns', $themeDefaultModHistory, 'rowGrid');
 
         .wlc-tournament-leaderboard {
 
-            &__nocontent {
-                background-color: ef.get-value($themeDefaultModHistory, 'rowPrimaryBg');
-            }
-
-            &__container {
-                max-width: ef.get-value($themeDefaultModHistory, 'tableMaxWidth');
-                margin: ef.get-value($themeDefaultModHistory, 'tableMargin');
-            }
-
-            &__list {
-                grid-gap: ef.get-value($themeDefaultModHistory, 'gridGap');
-            }
-
             &__cell {
-                justify-content: ef.get-value($themeDefaultModHistory, 'cellAlign');
-                height: ef.get-value($themeDefaultModHistory, 'rowHeight');
-
-                &:first-child {
-                    padding: ef.get-value($themeDefaultModHistory, 'firstCellPadding');
-                }
-
-                &:last-child {
-                    padding: ef.get-value($themeDefaultModHistory, 'lastCellPadding');
-                }
-
-                .win-text {
-                    margin: ef.get-value($themeDefaultModHistory, 'textMargin');
-                }
-            }
-
-            &__cell-place {
-                display: flex;
                 justify-content: ef.get-value($themeDefaultModHistory, 'cellAlign');
             }
 
             &__item {
-                @include bm.get-mq-map('grid-template-columns', $themeDefaultModHistory, 'rowGrid');
-                background-color: ef.get-value($themeDefaultModHistory, 'rowPrimaryBg');
+                background: ef.get-value($themeDefaultModHistory, 'rowPrimaryBg');
 
-                &:nth-child(even) {
-                    background-color: ef.get-value($themeDefaultModHistory, 'rowSecondaryBg');
-                }
-
-                &--head {
-                    margin: ef.get-value($themeDefaultModHistory, 'headMargin');
-                    background-color: ef.get-value($themeDefaultModHistory, 'headBg');
-                }
-
-                &--top {
-                    margin: ef.get-value($themeDefaultModHistory, 'topMargin');
-                    background-color: ef.get-value($themeDefaultModHistory, 'rowPrimaryBg');
-
-                    .wlc-tournament-leaderboard__cell {
-                        height: ef.get-value($themeDefaultModHistory, 'rowHeight');
-                    }
-
-                    &:nth-child(even) {
-                        background-color: ef.get-value($themeDefaultModHistory, 'rowPrimaryBg');
-                    }
-                }
-
-                &.user {
-                    background-color: ef.get-value($themeDefault, 'rowUserBg');
+                &:nth-child(odd) {
+                    background: ef.get-value($themeDefaultModHistory, 'rowSecondaryBg');
                 }
             }
         }

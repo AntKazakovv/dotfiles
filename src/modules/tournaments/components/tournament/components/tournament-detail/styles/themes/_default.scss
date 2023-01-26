@@ -160,16 +160,28 @@ $selector: '.wlc-tournament-detail';
         }
 
         #{$selector}__leaderboard {
-            @include bm.get-mq-map('padding', $themeDefault, 'defaultPadding');
-            @include bm.get-mq-map('justify-content', $themeDefault, 'leaderboardJustifyContent');
+            @include bm.get-mq-map('padding', $themeDefault, 'leaderboardPadding');
             @include bm.get-mq-map('grid-template-columns', $themeDefault, 'leaderboardColumnWidth');
-            @include bm.get-mq-map('row-gap', $themeDefault, 'defaultRowGap');
+            @include bm.get-mq-map('row-gap', $themeDefault, 'leaderboardGap');
             @include bm.get-mq-map('background', $themeDefault, 'leaderboardBg');
-            display: grid;
 
-            &--title {
-                @include text.get-text-style(ef.get-value($themeDefault, 'leaderboardTitleStyle'), ef.get-value($themeDefault, 'leaderboardTitleColor'));
-                @include bm.get-mq-map('text-align', $themeDefault, 'leaderboardTitleAlign');
+            display: grid;
+            justify-items: ef.get-value($themeDefault, 'leaderboardJustifyItems');
+
+            &-head {
+                @include bm.get-mq-map('text-align', $themeDefault, 'leaderboardHeadAlign');
+            }
+
+            &-title {
+                @include text.get-text-style(
+                    ef.get-value($themeDefault, 'leaderboardTitleStyle'),
+                    ef.get-value($themeDefault, 'leaderboardTitleColor')
+                );
+            }
+
+            &-table {
+                width: 100%;
+                max-width: ef.get-value($themeDefault, 'leaderboardTableMaxWidth');
             }
         }
 

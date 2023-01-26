@@ -106,6 +106,10 @@ export class TournamentHistory extends AbstractModel<ITournamentHistory> {
         return _toNumber(this.data.Points);
     }
 
+    public get winnerBy(): string {
+        return this.data.WinnerBy;
+    }
+
     public getWinnersSubscribe(
         observer: PartialObserver<ITopTournamentUsers>,
         params?: {
@@ -138,6 +142,7 @@ export class TournamentHistory extends AbstractModel<ITournamentHistory> {
                 Points: _toString(result.user.Points),
                 UserLogin: this.configService.get<string>('appConfig.user.login'),
                 Win: result.user.Win,
+                BestWinToBetRatio: result.user.BestWinToBetRatio,
             });
         }
 

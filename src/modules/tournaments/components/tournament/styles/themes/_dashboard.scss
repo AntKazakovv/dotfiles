@@ -1,4 +1,9 @@
 .wlc-tournament--theme-dashboard:host {
+    // Leaderbord vars
+    --lb-wrapper-bg: #{ef.get-value($themeDashboard, 'leaderboardBg')};
+    --lb-list-bg: #{ef.get-value($themeDashboard, 'leaderboardBg')};
+    --lb-list-bg-top: #{ef.get-value($themeDashboard, 'leaderboardBg')};
+
     height: 100%;
 
     .wlc-tournament {

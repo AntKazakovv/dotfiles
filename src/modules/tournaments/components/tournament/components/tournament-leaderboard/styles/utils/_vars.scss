@@ -1,91 +1,125 @@
 $customThemeDefault: () !default;
 $themeDefault: map-merge((
-    'gridGap': ef.size(2),
+    'containerMaxWidth': 100%,
+    'containerMargin': 0 auto,
     'gridTemplateColumns': 1fr,
-
-    'rowHeight': 26px,
-    'firstCellPadding': 0 0 0 20px,
-    'lastCellPadding': 0 20px 0 0,
-    'rowGrid': 40px 2fr 1fr,
-    'borderRadius': ef.size(2),
-    'cellPadding': 0 ef.size(1),
-    'cellTopPadding': 0 ef.size(1),
-    'cellPlaceMinWidth': 15px,
+    'wrapperBg': var(--mc-bg700),
+    'wrapperPadding': ef.size(2) 0,
+    'wrapperRadius': ef.get('radius', 'biger'),
+    'descrStyle': 'PrimaryText',
+    'descrColor': inherit,
+    'descrMargin': (
+        375: 0 0 ef.size(4),
+    ),
+    'descrAlign': center,
+    'firstCellPadding': (
+        375: 0 0 0 ef.size(3),
+        768: 0 0 0 ef.size(4),
+    ),
+    'lastCellPadding': (
+        375: 0 ef.size(3) 0 0,
+        768: 0 ef.size(4) 0 0,
+    ),
     'iconMargin': 0 ef.size(2) 0 0,
     'iconSize': 12px,
-    'loginMaxWidth': 80px,
-    'btnPadding': ef.size(1) 0 0 0,
+    'loginMaxWidth': 100%,
     'btnIconWidth': 10px,
     'btnIconHeight': 12px,
-    'noContentPadding': ef.size(4),
+    'btnMargin': ef.size(4) auto 0,
+    'nocontentBg': none,
 
     'fontSize': ef.get('font', 'PrimaryText'),
-    'btnFontSize': ef.get('font', 'CaptionText'),
-    'rowBg': var(--mc-bg),
+    'rowBg': transparent,
     'rowUserBg': var(--mc-main),
-    'rowUserColor': null,
-    'rowUserFontWeight': 700,
+    'iconBaseColor': currentColor, // set null if you need to use multicolor icon
     'iconColor': var(--mc-baseOpacity),
     'iconUserColor': var(--mc-bg),
-    'btnTextColor': var(--mc-main),
-    'btnTextColorHover': var(--mc-main-l20),
+    'btnIconColor': var(--mc-main),
+    'btnIconColorHover': var(--mc-main-l20),
 
     'fontWeight': 700,
-    'itemTopRadius': 0,
-), $customThemeDefault);
 
-$customThemeDefaultModTournamentDetail: () !default;
-$themeDefaultModTournamentDetail: map-merge((
     'delimetrwidth': 100%,
     'delimetrheight': 2px,
     'delimetrBg': var(--mc-baseOpacity),
 
     'listGap': ef.size(1),
-    'listPadding': ef.size(2) 0,
     'listBg': var(--mc-bg700),
-    'listRadius': ef.get-value($themeDefault, 'borderRadius'),
+    'listBgTop': none,
+    'listRadius': ef.get('radius', 'biger'),
 
-    'itemMargin': 0 ef.size(3),
-    'itemGridTemplate': 80px 2fr 1fr,
+    'itemRadius': ef.get('radius', 'big'),
+    'itemMargin': (
+        375: 0 ef.size(2),
+        768: 0 ef.size(3),
+    ),
+    'itemHeight': 24px,
+    'itemGridTemplate': 80px 1fr 1fr,
+
     'itemBg': var(--mc-bg700),
-    'itemRadius': 0,
-    'itemPaddingUser': 0 ef.size(3),
+    'itemTextStyle': 'PrimaryText',
+    'itemTextStyleTop': 'PrimaryTextBold',
+    'itemColor': inherit,
+    'itemColorTop': inherit,
+    'itemPaddingUser': 0 ef.size(2),
 
-    'itemUserRadius': ef.get('radius', 'large'),
-    'itemUserMarginBottom': 0,
-    'itemUserRadiusPlace': ef.get('radius', 'large') 0 0 ef.get('radius', 'large'),
-    'itemUserRadiusPoints': 0 ef.get('radius', 'large') ef.get('radius', 'large') 0,
     'itemUserCellTextStyle': 'PrimaryTextBold',
     'itemUserCellTextColor': var(--mc-baseMain),
 
     'headBg': transparent,
-    'headPadding': 0 0 ef.size(2) 0,
+    'headPadding': 0 0 ef.size(1),
 
     'topCellHeight': 26px,
     'topCellUserPadding': 0 ef.size(3) 0 ef.size(2),
     'topIconMargin': 0 0 0 ef.size(1),
     'topIconWidth': 12px,
+    'topIconBaseColor': currentColor, // set null if you need to use multicolor icon
     'topIconColor': var(--mc-baseOpacity),
     'topIconUserColor': var(--mc-bg),
-), $customThemeDefaultModTournamentDetail);
+
+    'winTextMargin': 0 3px 0 0,
+), $customThemeDefault);
+
+$customThemeModCompact: () !default;
+$themeModCompact: map-merge((
+    'itemColumns': 50px 1fr 1fr,
+    'itemMargin': 0 ef.size(2),
+    'cellPaddingFirst': 0 0 0 ef.size(2),
+    'cellPaddingLast': 0 ef.size(2) 0 0,
+    'headPaddingFirst': 0,
+), $customThemeModCompact);
 
 $customThemeDefaultModHistory: () !default;
 $themeDefaultModHistory: map-merge((
+    'containerMaxWidth': 375px,
+    'containerMargin': 0 auto,
+
+    'wrapperPadding': 0,
+    'wrapperBg': none,
+
+    'listGap': 0,
+    'listPadding': 0,
+    'listBg': none,
+    'listBgTop': var(--mc-bg500),
+
+    'headPaddingFirst': 0,
+    'headPaddingLast': 0,
+    'headAlign': center,
+    'headAlignFirst': center,
+    'headAlignLast': center,
+
     'rowPrimaryBg': var(--mc-bg500),
     'rowSecondaryBg': transparent,
-    'headBg': transparent,
-    'tableMaxWidth': 375px,
-    'tableMargin': ef.size(-6) auto ef.size(-4) auto,
-    'gridGap': 0,
-    'rowHeight': ef.size(6),
-    'firstCellPadding': 0 0 0 ef.size(3),
-    'lastCellPadding': 0 ef.size(3) 0 ef.size(2),
+    'rowHeight': 30px,
     'rowGrid':(
         375: 50px 100px 1fr 100px,
-        480: 50px 150px 1fr 100px,
+        480: 60px 100px 1fr 100px,
     ),
-    'headMargin': 0 0 2px 0,
-    'topMargin': 0,
-    'textMargin': 0 3px 0 0,
+
+    'firstCellPadding': 0 ef.size(1),
+    'lastCellPadding': 0 ef.size(2),
+
     'cellAlign': center,
+    'nocontentBg': none,
+    'itemRadius': ef.get('radius', 'biger'),
 ), $customThemeDefaultModHistory);

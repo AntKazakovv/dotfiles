@@ -28,4 +28,8 @@ $themeDashboard: map-merge((
     'titleColor': var(--mc-baseMain),
     'headerMargin': ef.size(3) 0 ef.size(1),
     'blocksSize': 235px,
+
+    'leaderboardBg': var(--mc-bg),
+    'leaderboardListBg': none,
+    'leaderboardListBgTop': none,
 ), $customThemeDashboard);

@@ -59,18 +59,18 @@
 
     <div class="{{$class}}__prizes-block">
         <div *ngIf="tournament.selected" class="{{$class}}__leaderboard">
-
-            <h4 class="{{$class}}__leaderboard--title">
-                {{$params.common?.leaderboardSectionTitle | translate}}
-            </h4>
+            <div class="{{$class}}__leaderboard-head">
+                <h4 class="{{$class}}__leaderboard-title">
+                    {{$params.common?.leaderboardSectionTitle | translate}}
+                </h4>
+            </div>
 
             <div wlc-tournament-leaderboard
-                 class="{{$class}}__board"
+                 class="{{$class}}__leaderboard-table"
                  [tournament]="tournament"
                  [limit]="8"
                  [showAllBtn]="true"
-                 [useListHead]="true"
-                 [themeMod]="'tournament-detail'">
+                 [useListHead]="true">
             </div>
         </div>
 

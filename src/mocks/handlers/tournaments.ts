@@ -25,6 +25,7 @@ export const tournamentsHandler = async (req, res, ctx) => {
                 Selected: datatype.number(),
                 Qualified: datatype.number(),
                 WinnerBy: 'bets',
+                WinToBetRatio: '0.00',
                 PointsTotal: datatype.float().toString(),
                 PointsLimit: datatype.number().toString(),
                 PointsLimitMin: datatype.number().toString(),

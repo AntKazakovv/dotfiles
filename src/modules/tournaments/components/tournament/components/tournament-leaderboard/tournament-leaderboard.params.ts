@@ -25,6 +25,7 @@ export interface ITournamentLeaderboardCParams extends IComponentParams<Componen
         showAllBtn?: boolean;
         useListHead?: boolean;
         useMainCurrency?: boolean;
+        winbetRatioText?: string;
     };
     /**
      * this option is used how to display the name in leaderboard (it can be shown userId or userLogin for example)
@@ -39,5 +40,6 @@ export const defaultParams: ITournamentLeaderboardCParams = {
     displayPlayerName: 'login',
     common: {
         useMainCurrency: false,
+        winbetRatioText: gettext('The winner is considered by the closest approximation to the coefficient:'),
     },
 };

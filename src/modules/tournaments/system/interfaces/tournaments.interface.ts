@@ -48,7 +48,8 @@ export interface ITournamentAbstract {
     Image_promo?: string;
     Image_other?: string;
     Name: string;
-    WinnerBy: 'bets' | 'wins' | 'turnovers' | 'turnovers_loose' | 'max_win' | 'fr';
+    WinnerBy: 'bets' | 'wins' | 'turnovers' | 'turnovers_loose' | 'max_win' | 'fr' | 'max_app_winbet_ratio';
+    WinToBetRatio: string;
     Terms: string;
     Target: TTournamentTarget;
     Status: string;
@@ -136,6 +137,8 @@ export interface ITournamentPlace {
     Win: string;
     WinEUR?: string;
     points?: number;
+    BestWinToBetRatio: string;
+    delta?: number;
 }
 
 export interface ITournamentUser {
@@ -160,6 +163,7 @@ export interface ITournamentUser {
     Win: string;
     WinsAmount: string;
     WinsCount: string;
+    BestWinToBetRatio: string;
 }
 
 export interface ITournamentUserStats {

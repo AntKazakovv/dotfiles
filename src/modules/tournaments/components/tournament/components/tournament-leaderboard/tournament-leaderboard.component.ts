@@ -10,7 +10,6 @@ import {
 import _findIndex from 'lodash-es/findIndex';
 import _isNumber from 'lodash-es/isNumber';
 import _union from 'lodash-es/union';
-import _toNumber from 'lodash-es/toNumber';
 
 import {
     AbstractComponent,
@@ -58,6 +57,8 @@ export class TournamentLeaderboardComponent
     public userId: string;
     public isReady: boolean;
     public currency: string = 'EUR';
+    public pointsTitle: string = gettext('Points');
+    public isMaxWinBetRatio: boolean = false;
 
     protected restLimit: number;
 
@@ -92,6 +93,11 @@ export class TournamentLeaderboardComponent
             this.currency = 'LP';
         } else if (!this.$params.common.useMainCurrency) {
             this.currency = this.tournament.targetDefaultCurrency;
+        }
+
+        if (this.tournament.winnerBy === 'max_app_winbet_ratio') {
+            this.isMaxWinBetRatio = true;
+            this.pointsTitle = gettext('Coefficient');
         }
 
         this.isReady = false;
@@ -147,7 +153,13 @@ export class TournamentLeaderboardComponent
      * @returns number | string
      */
     public getCurrencyValue(win: ITournamentPlace): number | string {
-        return _toNumber(this.currency === 'EUR' ? win.WinEUR : win.Win) || '-';
+        return Number(this.currency === 'EUR' ? win.WinEUR : win.Win) || '-';
+    }
+
+    public getWinPoints(win: ITournamentPlace): number {
+        return this.isMaxWinBetRatio
+            ? Number(win.BestWinToBetRatio)
+            : win.points;
     }
 
     protected prepareModifiers(): void {
