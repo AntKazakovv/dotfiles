@@ -146,7 +146,7 @@ export class RestorePasswordFormComponent extends AbstractComponent implements O
             this.pushMessage({
                 type: 'error',
                 title: gettext('Error'),
-                message: gettext('Account with this e-mail isn\'t exist'),
+                message: gettext('An account with this e-mail does not exist'),
             });
         }
 
