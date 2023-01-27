@@ -482,7 +482,7 @@ export class SelectComponent extends AbstractComponent implements OnInit, OnChan
         this.constantValues?.[this.$params.options]
             .pipe(takeUntil(this.$destroy))
             .subscribe((value) => {
-                this.$params.items = value || [{
+                this.$params.items = value ? _cloneDeep(value) : [{
                     title: gettext('No data'),
                     value: '',
                 }];
