@@ -64,6 +64,7 @@
                             align-items: ef.get-value($themeDefault, 'singupLinkBlockAlignItems');
                             justify-content: ef.get-value($themeDefault, 'singupLinkBlockJustify');
                             overflow: hidden;
+                            white-space: nowrap;
 
                             .wlc-btn__text {
                                 display: flex;

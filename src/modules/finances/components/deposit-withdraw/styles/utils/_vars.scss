@@ -79,7 +79,7 @@ $themeDefault: map-merge((
 
     // Forms
     'formInputMaxWidth': (
-        480: 288px,
+        480: 330px,
     ),
     'formInputMaxWidthBreakpoint': 480,
     'formInputOneLineGridColumnStart': (
@@ -102,7 +102,7 @@ $themeDefault: map-merge((
     'fieldGap': ef.size(2),
     'fieldContaninerMaxWidth': (
         320: 100%,
-        480: 288px,
+        480: 330px,
     ),
     'fieldContaninerGrid': minmax(288px, 1fr),
     'formSubmitJustifySelf': (

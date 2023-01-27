@@ -35,7 +35,7 @@
               [ngClass]="{checked: control?.value}"
               iconPath="/wlc/icons/tick.svg">
         </span>
-        <div class="{{$class}}__text">
+        <div class="{{$class}}__text" dir="auto">
             {{textWithLink.prefix | translate}}
             <a
                 [uiSref]="'app.contacts'"

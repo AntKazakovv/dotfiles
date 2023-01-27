@@ -37,7 +37,7 @@ $themeDefault: map-merge((
     'userInfoDropdownIconInnerFill': ef.get('mainColors', 'baseMain'),
     'userInfoProfileBtnHeight': ef.get('buttonSettings', 'heightDefault'),
     'userInfoProfileBtnMinWidth': 145px,
-    'userInfoProfileBtnPadding': 0 ef.size(1),
+    'userInfoProfileBtnPadding': 0 ef.size(4) 0 ef.size(1),
     'userInfoProfileBtnFlxDir': row-reverse,
     'userInfoProfileBtnFlxJstfy': flex-end,
     'userInfoProfileBtnAlignItms': center,

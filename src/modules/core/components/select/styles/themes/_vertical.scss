@@ -5,6 +5,7 @@
 
         &__label {
             @include cm.labelStyle;
+            @include bm.lineClamp(1);
 
             &.tooltipped {
                 overflow: visible;
