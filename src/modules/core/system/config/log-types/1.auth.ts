@@ -291,4 +291,8 @@ export const errorTypes: ILogTypes = {
         // Wrong nonce
         level: 'error',
     },
+    '1.9.0': {
+        // New device verification failure
+        level: 'error',
+    },
 };

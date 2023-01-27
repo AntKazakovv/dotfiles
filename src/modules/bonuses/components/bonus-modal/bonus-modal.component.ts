@@ -48,5 +48,9 @@ export class BonusModalComponent extends AbstractComponent implements OnInit {
         } else {
             this.bonusBgUrl = this.bonus.imageOther ? `url(${this.bonus.imageOther})` : '';
         }
+
+        if (this.bonus.showOnly) {
+            this.addModifiers('show-only');
+        }
     }
 }

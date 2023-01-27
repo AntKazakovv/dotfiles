@@ -18,6 +18,7 @@
 
             .wlc-form {
                 grid-template-areas: ef.get-value($themeDefault, 'formBetTemplateAreas');
+                grid-template-columns: ef.get-value($themeDefault, 'formBetTemplateColumns');
             }
         }
 
@@ -32,6 +33,14 @@
 
             .wlc-form {
                 grid-template-areas: ef.get-value($themeDefault, 'formTournamentsTemplateAreas');
+            }
+        }
+
+        .wlc-transactions-filters {
+
+            .wlc-form {
+                grid-template-areas: ef.get-value($themeDefault, 'formTransactionsTemplateAreas');
+                grid-template-columns: ef.get-value($themeDefault, 'formTransactionsTemplateColumns');
             }
         }
 

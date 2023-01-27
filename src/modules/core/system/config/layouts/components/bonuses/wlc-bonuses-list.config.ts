@@ -66,7 +66,7 @@ export namespace wlcBonusesList {
             common: {
                 filter: 'main',
                 useQuery: true,
-                sortOrder: ['active', 'promocode', 'subscribe', 'inventory'],
+                sortOrder: ['active', 'promocode', 'inventory', 'subscribe'],
                 pagination: {
                     use: true,
                     breakpoints: {

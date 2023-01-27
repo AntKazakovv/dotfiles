@@ -35,6 +35,9 @@ export class BonusButtonsComponent extends AbstractComponent implements OnInit {
     @Input() public bonus: Bonus;
     @Input() public bonusItemTheme: BonusItemTheme;
     @Input() public isChooseBtn: boolean;
+    @Input() public isInsideModal: boolean = false;
+    @Input() public readMoreClick: ($event: MouseEvent) => Promise<void>;
+
     public $params: Params.IBonusButtonsCParams;
     public isAuth: boolean;
 
@@ -213,6 +216,8 @@ export class BonusButtonsComponent extends AbstractComponent implements OnInit {
             case 'openLootbox':
                 this.modalService.showModal('lootbox', {bonus: this.bonus});
                 break;
+            case 'close':
+                this.hideActiveModal('bonus-modal');
         }
     }
 

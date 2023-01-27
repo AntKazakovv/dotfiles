@@ -93,8 +93,13 @@
         @include bm.get-mq-map('order', $theme2Footer, 'footerBottomOrder');
         @include bm.get-mq-map('max-width', $theme2Footer, 'footerBottomMaxWidth');
 
+        &__right {
+            @include bm.get-mq-map('margin', $theme2Footer, 'footerBottomRightMargin');
+        }
+
         .wlc-license[wlc-license] {
             @include bm.get-mq-map('margin', $theme2Footer, 'licenseMargin');
+            @include bm.get-mq-map('grid-template-columns', $theme2Footer, 'licenseGridTemplateColumns');
         }
 
         .wlc-disclaimer[wlc-disclaimer] {
@@ -106,7 +111,7 @@
         }
 
         .wlc-recaptcha-policy[wlc-recaptcha-policy] {
-            @include bm.get-mq-map('margin', $theme2Footer, 'copyrightMargin');
+            @include bm.get-mq-map('margin', $theme2Footer, 'recaptchaMargin');
 
             grid-area: recaptcha;
         }
@@ -146,6 +151,10 @@
 
         &--theme-safety {
             @include bm.get-mq-map('margin', $theme2Footer, 'iconListSafetyMargin');
+        }
+
+        .wlc-icon-list__wrapper {
+            @include bm.get-mq-map('margin-top', $theme2Footer, 'iconListWrapperMarginTop');
         }
     }
 

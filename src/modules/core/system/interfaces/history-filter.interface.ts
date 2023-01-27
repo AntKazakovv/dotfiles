@@ -1,15 +1,10 @@
 import {BehaviorSubject} from 'rxjs';
 import {DateTime} from 'luxon';
-import {
-    IRadioButtonsCParams,
-    ISelectCParams,
-    TSortDirection,
-} from 'wlc-engine/modules/core';
+import {TSortDirection} from 'wlc-engine/modules/core';
 
 export type TTransactionFilter = 'all' | 'deposit' | 'withdraw';
 export type TTournamentsFilter = 'all' | '-95' | '-99' | '99' | '100' | '0' | '1';
 export type TBonusFilter = 'all' | '-100' | '-99' | '100';
-export type TTransactionFilterType = ISelectCParams<TTransactionFilter> | IRadioButtonsCParams<TTransactionFilter>;
 
 export interface IHistoryData {
     transaction: BehaviorSubject<IHistoryFilter>;

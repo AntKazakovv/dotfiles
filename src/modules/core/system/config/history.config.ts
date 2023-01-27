@@ -1,7 +1,6 @@
 import {FormControl} from '@angular/forms';
 
 import {IDatepickerCParams} from 'wlc-engine/modules/core/components/datepicker/datepicker.params';
-import {IRadioButtonsCParams} from 'wlc-engine/modules/core/components/radio-buttons/radio-buttons.params';
 import {ISelectCParams} from 'wlc-engine/modules/core/components/select/select.params';
 import {
     TBonusFilter,
@@ -35,28 +34,6 @@ export namespace transactionConfig {
         labelText: gettext('Sort by'),
         common: {
             placeholder: gettext('Type'),
-        },
-        control: new FormControl('all'),
-        items: [
-            {
-                value: 'all',
-                title: gettext('All'),
-            },
-            {
-                value: 'deposit',
-                title: gettext('Deposit'),
-            },
-            {
-                value: 'withdraw',
-                title: gettext('Withdrawal'),
-            },
-        ],
-    };
-
-    export const filterRadioBtn: IRadioButtonsCParams<TTransactionFilter> = {
-        name: 'filterValue',
-        common: {
-            placeholder: gettext('Sort by'),
         },
         control: new FormControl('all'),
         items: [

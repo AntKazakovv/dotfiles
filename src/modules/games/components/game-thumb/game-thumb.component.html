@@ -72,9 +72,11 @@
                         <source [srcset]="image.src" [type]="image.type">
                     </ng-container>
 
-                    <img wlc-fallback
-                        [src]="getVerticalContent('background', ['jpg'])"
-                        loading="lazy">
+                    <ng-container *ngFor="let image of backgroundFallback">
+                        <img wlc-fallback
+                             [src]="image.src"
+                             loading="lazy">
+                    </ng-container>
                 </picture>
 
                 <picture class="{{$class}}-media__fg" data-wlc-element="block_game-thumb-media">
@@ -83,10 +85,12 @@
                         <source [srcset]="image.src" [type]="image.type">
                     </ng-container>
 
-                    <img wlc-fallback
-                        #layersOne
-                        [src]="getVerticalContent('foreground', ['png'])"
-                        loading="lazy">
+                    <ng-container *ngFor="let image of foregroundFallback">
+                        <img wlc-fallback
+                             #layersOne
+                             [src]="image.src"
+                             loading="lazy">
+                    </ng-container>
                 </picture>
 
                 <picture class="{{$class}}-media__logo" data-wlc-element="block_game-thumb-media">
@@ -95,10 +99,12 @@
                         <source [srcset]="image.src" [type]="image.type">
                     </ng-container>
 
-                    <img wlc-fallback
-                        #layersOne
-                        [src]="getVerticalContent('logo', ['png'])"
-                        loading="lazy">
+                    <ng-container *ngFor="let image of logoFallback">
+                        <img wlc-fallback
+                             #layersOne
+                             [src]="image.src"
+                             loading="lazy">
+                    </ng-container>
                 </picture>
             </ng-container>
 

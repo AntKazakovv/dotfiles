@@ -38,8 +38,8 @@
 <ng-template #themeDefault>
     <div class="{{$class}}__content" data-wlc-element="block_timer">
         <div wlc-icon
-            class="{{$class}}__clock-icon"
-            [iconPath]="$params.iconPath">
+             class="{{$class}}__clock-icon"
+             [iconPath]="$params.iconPath">
         </div>
         <div class="{{$class}}__timer-text">
             <div *ngIf="$params.common.noCountDown" class="time-text">{{$params.common.value}}</div>
@@ -51,13 +51,13 @@
 
 <ng-template #themeOneLine>
     <div class="{{$class}}__content" data-wlc-element="block_timer">
-        <div wlc-icon
-            class="{{$class}}__icon"
-            [iconPath]="$params.iconPath">
-        </div>
-        <div class="{{$class}}__main">
-            <span *ngIf="$params.common.text" class="{{$class}}__text">{{$params.common.text | translate}}</span>
+            <div class="{{$class}}__label">
+                <div wlc-icon
+                     class="{{$class}}__icon"
+                     [iconPath]="$params.iconPath">
+                </div>
+                <span *ngIf="$params.common.text" class="{{$class}}__text">{{$params.common.text | translate}}</span>
+            </div>
             <ng-container [ngTemplateOutlet]="countdown"></ng-container>
-        </div>
     </div>
 </ng-template>

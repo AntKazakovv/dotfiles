@@ -1,6 +1,7 @@
 export {IAddProfileInfoCParams} from './add-profile-info/add-profile-info.params';
 export {IChangePasswordFormCParams} from './change-password-form/change-password-form.params';
 export {IDashboardExchangeCParams} from './dashboard-exchange/exchange.params';
+export {IDeviceRegistrationFormCParams} from './device-registration-form/device-registration-form.params';
 export {ILoyaltyBlockCParams} from './dashboard-loyalty-block/dashboard-loyalty-block.params';
 export {IExchangeCParams} from './exchange-modal/exchange-modal.params'; // 1
 export {ILogoutCParams} from './logout/logout.params';

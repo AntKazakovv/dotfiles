@@ -1,0 +1,69 @@
+/// Размеры шрифта сайта.
+/// По умолчанию используются относительные размеры в REM единицах. Значение `base` задаёт базовый размер,
+/// по отношению к которому выставляются остальные размеры. Базовый размер не используется в SASS файлах напрямую,
+/// он необходим для задания свойства `font-size` для элемента `html` в стилях сайта.
+///
+/// @name font
+///
+/// @prop {Size} base [18px] - base
+/// @prop {Size} small [0.6rem] - small
+/// @prop {Size} smaller [0.8rem] - smaller
+/// @prop {Size} less [0.9rem] - less
+/// @prop {Size} main [1rem] - main
+/// @prop {Size} biger [1.2rem] - biger
+/// @prop {Size} big [2rem] - big
+/// @prop {Size} huge [3.2rem] - huge
+/// @prop {Size} monster [4rem] - monster
+$customFont: () !default;
+$dummy: map-merge((), $customFont);
+$font: map-merge((
+    'base': 1.8rem,
+    'small': 0.6rem,
+    'smaller': 0.8rem,
+    'less': 0.9rem,
+    'main': 1rem,
+    'biger': 1.2rem,
+    'big': 2rem,
+    'huge': 3.2rem,
+    'monster': 4rem,
+    'SignText': 1rem,
+    'CaptionText': 1.2rem,
+    'PrimaryText': 1.4rem,
+    'ButtonText': 1.4rem,
+    'PlaceholderText': 1.6rem,
+    'ThirdTitle': 1.6rem,
+    'PromoTitle': 3.6rem,
+    'ScreamTitle': 4.8rem,
+    'SignTextBold': 1rem,
+    'CaptionTextBold': 1.2rem,
+    'PrimaryTextBold': 1.4rem,
+    'ThirdTitleBold': 1.6rem,
+    'QoteTextBold': 2.4rem,
+    'QoteTextBoldSmaller': 2rem,
+    'QoteTextBoldTight': 2.4rem,
+    'PlaceholderTextBold': 1.6rem,
+), $customFont);
+
+/// Font weight for text mixins.
+///
+/// @name fontWeight
+///
+$customFontWeight: () !default;
+$fontWeight: map-merge((
+    'SignText': normal,
+    'PlaceholderText': normal,
+    'PrimaryText': normal,
+    'CaptionText': normal,
+    'CaptionTextBold': bold,
+    'ButtonText': bold,
+    'ThirdTitle': normal,
+    'PromoTitle': bold,
+    'ScreamTitle': bold,
+    'SignTextBold': bold,
+    'PrimaryTextBold': bold,
+    'ThirdTitleBold': bold,
+    'QoteTextBold': bold,
+    'QoteTextBoldSmaller': bold,
+    'QoteTextBoldTight': bold,
+    'PlaceholderTextBold': bold,
+), $customFontWeight);

@@ -326,6 +326,9 @@ export class BurgerPanelComponent extends AbstractComponent
             components: [
                 {
                     name: 'menu.wlc-burger-panel-header-menu',
+                    display: {
+                        before: 1023,
+                    },
                     params: {
                         common: {
                             panelType: this.$params.type,

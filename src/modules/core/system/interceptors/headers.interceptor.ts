@@ -153,7 +153,15 @@ export class HeadersInterceptor implements HttpInterceptor {
                         });
                         console.error(error);
                     }
-                } else return throwError(error);
+                }
+
+                if (error.url.includes('/api/v1/auth') && req.method === 'DELETE') {
+                    const cookies = document.cookie.split(';');
+                    cookies.forEach((cookie: string) => this.window.WlcCookie.delete(cookie));
+                    this.window.location.reload();
+                }
+
+                return throwError(() => error);
             }),
         );
     }

@@ -1,25 +1,37 @@
-import {EventEmitter} from '@angular/core';
-
+import {
+    EventEmitter,
+    Pipe,
+    PipeTransform,
+} from '@angular/core';
 import {
     ComponentFixture,
     TestBed,
 } from '@angular/core/testing';
 import {TranslateService} from '@ngx-translate/core';
+import {TooltipModule} from 'ngx-bootstrap/tooltip';
+
 import {Observable} from 'rxjs';
 
-import {AppModule} from 'wlc-engine/modules/app/app.module';
-import {
-    ConfigService,
-    ModalService,
-    LogService,
-} from 'wlc-engine/modules/core/system/services';
-import {ILanguage} from 'wlc-engine/modules/core/system/interfaces';
+import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
+import {ModalService} from 'wlc-engine/modules/core/system/services/modal/modal.service';
+import {LogService} from 'wlc-engine/modules/core/system/services/log/log.service';
+import {ILanguage} from 'wlc-engine/modules/core/system/interfaces/app-config.interface';
 import {
     ILanguageSelectorCParams,
     LanguageSelectorComponent,
 } from './language-selector.component';
+import {WINDOW_PROVIDER} from 'wlc-engine/modules/app/system';
 
-xdescribe('LanguageSelectorComponent', () => {
+@Pipe({
+    name: 'translate',
+})
+class TranslatePipeStub implements PipeTransform {
+    transform(value: string): string {
+        return value;
+    }
+}
+
+describe('LanguageSelectorComponent', () => {
     let fixture: ComponentFixture<LanguageSelectorComponent>;
     let component: LanguageSelectorComponent;
     let mouseEvent: MouseEvent;
@@ -119,10 +131,11 @@ xdescribe('LanguageSelectorComponent', () => {
 
         await TestBed.configureTestingModule({
             imports: [
-                AppModule,
+                TooltipModule,
             ],
             declarations: [
                 LanguageSelectorComponent,
+                TranslatePipeStub,
             ],
             providers: [
                 {
@@ -141,6 +154,7 @@ xdescribe('LanguageSelectorComponent', () => {
                     provide: TranslateService,
                     useValue: TranslateServiceSpy,
                 },
+                WINDOW_PROVIDER,
             ],
         }).overrideComponent(LanguageSelectorComponent, {
             set: {

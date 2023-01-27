@@ -94,13 +94,15 @@ export class LanguageSelectorComponent
     extends AbstractComponent
     implements OnInit, AfterViewInit {
     @ViewChild('langList') langListRef: TemplateRef<any>;
-    @ViewChild('dropdown') dropdownRef: ElementRef<HTMLElement>;
+    @ViewChild('dropdown') protected dropdownRef!: ElementRef<HTMLElement>;
+    @ViewChild('langContainer') protected langContainer!: ElementRef;
     public $params: Params.ILanguageSelectorCParams;
     public availableLanguages: ILanguage[];
     public currentLanguage: ILanguage;
     public isOpened: boolean;
     public isModalOpen: boolean;
     public hasSingleLang: boolean = false;
+    public isDropdownAtTop: boolean = false;
 
     private modToggled: boolean = false;
     private defaultThemeMod: 'default' | Params.ThemeModType;
@@ -128,10 +130,10 @@ export class LanguageSelectorComponent
 
         let availableLanguageNames: string[] = this.translate.getLangs();
 
-        if (availableLanguageNames.length <= 6) {
+        if (availableLanguageNames.length <= this.$params.countLangFromDropdown) {
             availableLanguageNames = availableLanguageNames.filter(
                 (lang: string): boolean => {
-                    if (this.$params.themeMod === 'long') {
+                    if (this.isLongThemeMod) {
                         return lang !== this.translate.currentLang;
                     }
                     return true;
@@ -148,7 +150,7 @@ export class LanguageSelectorComponent
 
         if (this.languagesCount() <= 1) {
             this.hasSingleLang = true;
-        } else if (this.availableLanguages.length <= 6 && this.$params.toggleOnScroll) {
+        } else if (this.isShowLangByDropdown && this.$params.toggleOnScroll) {
             this.defaultThemeMod = this.$params.themeMod;
             merge(
                 fromEvent(this.window, 'scroll'),
@@ -210,12 +212,12 @@ export class LanguageSelectorComponent
     public toggle(): void {
         if (this.hasSingleLang) {
             return;
-        } else if (this.availableLanguages.length <= 6) {
-
+        } else if (this.isShowLangByDropdown) {
             if (this.$params.compactMod && !this.isOpened) {
                 this.setDropdownPosition();
             }
 
+            this.isDropdownAtTop = this.shouldLangListBeShownAtTop();
             this.isOpened = !this.isOpened;
         } else {
             this.modalService.showModal({
@@ -247,10 +249,75 @@ export class LanguageSelectorComponent
         }
     }
 
+    /**
+     * Specifies whether to show langList as a dropdown.
+     *
+     * @returns {boolean} - is show by dropdown.
+     */
+    public get isShowLangByDropdown(): boolean {
+        return this.availableLanguages.length <= this.$params.countLangFromDropdown;
+    }
+
+    /**
+     * Checks themeMod parameter, returns true if it is 'long'.
+     *
+     * @returns {boolean} - 'long' themeMod or not.
+     */
+    public get isLongThemeMod(): boolean {
+        return this.$params.themeMod === 'long';
+    }
+
+    /**
+     * Returns state by themeMod for dropdown langList.
+     *
+     * @returns {string} - state.
+     */
+    public get getStateByTheme(): string {
+        if (this.isLongThemeMod) {
+            return this.isOpened ? 'openedHeight' : 'closedHeight';
+        } else {
+            return this.isOpened ? 'opened' : 'closed';
+        }
+    }
+
+
+    /**
+     * Сalculates whether to display the langList on top.
+     *
+     * @returns {boolean} - display / not display the langList element on top.
+     *
+     * @privateRemarks (!this.isDropdownAtTop && this.isOpened) - the state when dropDown is open and not on top,
+     * because of this, its langContainerBottom change and an artifact occurs in the animation.
+     */
+    protected shouldLangListBeShownAtTop(): boolean {
+        const langListHeight: number = this.computeAvailableLanguagesHeight(this.availableLanguages.length);
+        const langContainerBottom: number = this.langContainer.nativeElement.getBoundingClientRect().bottom;
+        const freeBottomSpace: number = this.window.innerHeight - langContainerBottom;
+
+        return freeBottomSpace < langListHeight && !(!this.isDropdownAtTop && this.isOpened);
+    }
+
+    /**
+     * Returns the approximate height of the block with the list of languages.
+     * Approximate, because we can't find out the exact height of the block until the dropdown animation is over.
+     *
+     * @param {number} langsCount - count of languages ​​in the list.
+     * @returns {number} - the height of the element with the list of languages.
+     *
+     * @throws An exception is thrown if the received number does not fit the required range.
+     */
+    protected computeAvailableLanguagesHeight(langsCount: number): number {
+        if (langsCount >= 1 && langsCount <= this.$params.countLangFromDropdown) {
+            return this.$params.itemLangHeight * (1 + langsCount);
+        } else {
+            throw new Error(`Number not in range 1..${this.$params.countLangFromDropdown}`);
+        }
+    }
+
     @HostListener('document:mousedown', ['$event'])
     protected outsideClick(event: MouseEvent): void {
         if (
-            (this.availableLanguages.length <= 6 || this.$params.themeMod === 'long')
+            (this.isShowLangByDropdown || this.isLongThemeMod)
             && this.isOpened
             && !this.elementRef.nativeElement.contains(event.target)
         ) {

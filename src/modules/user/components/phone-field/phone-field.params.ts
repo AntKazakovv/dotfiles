@@ -45,7 +45,7 @@ export let defaultParams: Partial<IPhoneFieldCParams> = {
         options: 'phoneCodes',
         autoSelect: false,
     },
-    phoneNumber: {
+    phoneNumber: <IInputCParams>{
         common: {
             placeholder: gettext('Phone number'),
             type: 'text',

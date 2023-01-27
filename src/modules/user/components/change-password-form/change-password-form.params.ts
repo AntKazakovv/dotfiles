@@ -47,7 +47,6 @@ export const defaultParams: IChangePasswordFormCParams = {
                     name: 'currentPassword',
                     validators: [
                         'required',
-                        'password',
                     ],
                 },
             },

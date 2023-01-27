@@ -82,6 +82,7 @@ import {
     TAdditionalParams,
 } from 'wlc-engine/modules/finances/system/interfaces/';
 import {FinancesHelper} from '../../system/helpers/finances.helper';
+import {DateHelper} from '../../../core';
 import {ISelectOptions} from 'wlc-engine/modules/profile';
 import {
     UserInfo,
@@ -113,7 +114,6 @@ type TModalType = 'markup' | 'info';
 export class DepositWithdrawComponent
     extends AbstractDepositWithdrawComponent<Params.IDepositWithdrawCParams>
     implements OnInit, OnDestroy {
-
     public showModalCryptoPayment: boolean = true;
     public $params: Params.IDepositWithdrawCParams;
     public cryptoCheck: boolean = false;
@@ -919,6 +919,8 @@ export class DepositWithdrawComponent
 
         this.currentSystem = system;
 
+        this.timerParams.common.noDays = !DateHelper.dayExists(this.dateExpire);
+        this.timerParams.common.noHours = !DateHelper.hoursExists(this.dateExpire);
         if (this.currentSystem.isPregeneration && !this.currentSystem.message) {
             this.isWaitingResponse = true;
             await this.depositAction(0, {bonusId: null});

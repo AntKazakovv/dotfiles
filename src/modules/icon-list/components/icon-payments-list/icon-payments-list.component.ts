@@ -72,6 +72,9 @@ export class IconPaymentsListComponent extends IconListAbstract<Params.IIconPaym
                     icon: this.merchantsPaymentsIterator('payments', {
                         showAs: showIconAs,
                         wlcElement: 'block_payment-' + this.wlcElementTail(item.Name),
+                        sref: this.$params.itemsCommonLinkParams?.sref || null,
+                        srefParams: this.$params.itemsCommonLinkParams?.srefParams || null,
+                        href: this.$params.itemsCommonLinkParams?.href || null,
                         nameForPath: item.Name,
                         colorIconBg,
                     }),

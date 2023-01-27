@@ -1,0 +1,93 @@
+/// Параметры элементов форм, используемых на сайте.
+///
+/// @name form
+///
+/// @prop {Color} errorColor [#ea5555] - Цвет сообщений об ошибках валидации элемента формы.
+/// @prop {Color} successColor [#65cb6a] - Цвет сообщения об успешной валидации элемента формы.
+///
+/// @prop {Size} maxWidth [765px] - Максимальная ширина формы. В настоящее время не используется.
+///
+/// @prop {Size} labelFontWeight [normal] - Начертание заголовка элемента формы.
+/// @prop {Color} labelColor [#e2e2e2] - Цвет шрифта заголовка элемента формы.
+/// @prop {Size} labelFontSize [0.8rem] - Размер шрифта заголовка элемента формы.
+///
+/// @prop {Color} inputColor [#000000] - Цвет вводимого текста в элементы `<input>, <select>, <textarea>`.
+/// @prop {Size} inputFontSize [1rem] - Размер шрифта элементов `<input>, <select>, <textarea>`.
+/// @prop {Size} inputHeight [40px] - Высота элементов `<input>, <select>`.
+/// @prop {Color} inputBackground [#ffffff] - Фон элементов `<input>, <select>, <textarea>`.
+/// @prop {Border} inputBorder [2px solid #adadad] - Граница элементов `<input>, <select>, <textarea>`.
+/// @prop {Color} inputBorderFocusColor [#adadad] - Цвет границы активных элементов `<input>, <select>, <textarea>`.
+/// @prop {Size} inputBorderRadius [8px] - Размер скругления элементов `<input>, <select>, <textarea>`.
+/// @prop {Padding} inputPadding [5px 40px 5px 20px] - Поля элементов `<input>, <select>, <textarea>`.
+/// @prop {Align} inputTextAlign [left] - Выравнивание текста внутри элементов `<input>, <select>, <textarea>`.
+///
+/// @prop {Size} selectDropdownHeight [300px] - Максимальная высота выпадающего списка элемента `<select>`.
+/// @prop {Time} selectDropdownItemTransition [0.3s ease-in-out background] - Анимация элементов выпадающего списка `<select>` по наведению.
+///
+/// @prop {Color} selectArrowColor [#000000] - Цвет стрелки элемента `<select>`.
+/// @prop {Size} iconWidth [12px] - Высота иконки валидации для элементов формы.
+/// @prop {Size} iconHeight [12px] - Ширина иконки валидации для элементов формы.
+/// @prop {Size} iconRightShift [15px] - Сдвиг иконки валидации элемента формы от правого края.
+/// @prop {Color} successIconColor [#65cb6a] - Цвет иконки валидации при успехе.
+/// @prop {Color} errorIconColor [#ea5555] - Цвет иконки валидации при ошибке.
+/// @prop {Color} pendingIconColor [#adadad] - Цвет иконки валидации в состоянии передачи данных формой.
+///
+/// @prop {Color} errorsBgColor [#f08282] - Цвет фона сообщения об ошибке.
+/// @prop {Color} errorsColor [#ea5555] - Цвет Текста сообщения об ошибке.
+/// @prop {Size} errorsMinWidth [300px] - Минимальный размер элемента вывода сообщения об ошибке.
+/// @prop {Size} errorsMaxWidth [100%] - Максимальный размер элемента вывода сообщения об ошибке.
+/// @prop {Size} errorsBorderRadius [8px] - Размер скругления элемента вывода сообщения об ошибке.
+/// @prop {Size} errorsFontSize [0.8rem] - Размер шрифта сообщения об ошибке.
+/// @prop {Size} errorsPadding [10px] - Поля элемента вывода сообщения об ошибке.
+///
+/// @prop {Size} placeholderFontSize [0.8rem] - Размер шрифта `placeholder` элемента формы.
+/// @prop {Size} placeholderPadding [0 20px] - Поля `placeholder` элемента формы.
+/// @prop {Size} placeholderShift [-40px] - Сдвиг `placeholder` элемента формы.
+$customForm: () !default;
+$dummy: map-merge((), $customForm);
+$form: map-merge((
+    'maxWidth': 765px,
+
+    'labelFont': (
+        375: 'SignText',
+        1630: 'CaptionText',
+    ),
+    'labelMinHeight': 20px,
+    'labelAlignItems': center,
+    'labelMargin': 0 0 0 size-func(2),
+    'labelColor': var(--fc-labelColor),
+
+    'inputColor': var(--fc-textColor),
+    'inputTextStyle': 'PlaceholderText',
+    'inputFontSize': map-get($font, 'main'),
+    'inputHeight': 40px,
+    'inputBackground': var(--fc-inputBg),
+    'inputBorder': 2px solid var(--fc-borderColor),
+    'inputBorderFocusColor': var(--fc-borderColor),
+    'inputBorderRadius': map-get($radius, 'biger'),
+    'inputPadding': size-func(2) size-func(8) size-func(2) size-func(2),
+    'selectDropdownPadding': size-func(2),
+    'inputTextAlign': left,
+    'selectDropdownHeight': 300px,
+    'selectDropdownItemTransition': (0.3s ease-in-out background),
+    'selectDroprownItemBgActive': var(--fc-inputBg-d20),
+    'selectArrowColor': var(--fc-arrowColor),
+    'iconWidth': 12px,
+    'iconHeight': 12px,
+    'iconRightShift': 15px,
+    'successIconColor': var(--fc-successElement),
+    'errorIconColor': var(--fc-errorArrow),
+    'pendingIconColor': map-get($fieldColors, 'disabledBorder'),
+    'errorsBgColor': var(--fc-errorBackground),
+    'errorsColor': var(--fc-textColor),
+    'errorsMinWidth': 300px,
+    'errorsMaxWidth': 100%,
+    'errorsBorderRadius': map-get($radius, 'biger'),
+    'errorsBorderColor': var(--fc-errorBorder),
+    'errorsFontSize': map-get($font, 'smaller'),
+    'errorsPadding': size-func(2),
+    'placeholderFontSize': map-get($font, 'smaller'),
+    'placeholderPadding': 0 size-func(4),
+    'placeholderShift': size-func(-6),
+    'textareaMinHeight': 115px,
+), $customForm);

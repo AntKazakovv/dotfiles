@@ -1,0 +1,36 @@
+/// Глобальные настройки лейаута. В качестве параметров принимает map,
+/// состоящий из ключа (название родительского класса или глобально для всех "all")
+/// и листа с перечнем классов.
+///
+/// @name customLayoutGap
+$customLayoutGap: () !default;
+$layoutGap: map-merge((
+    'all': (
+        '.wlc-sections__categories',
+        '.wlc-sections__content-games-top',
+        '.wlc-sections__content-games-bottom',
+        '.wlc-sections__content-games',
+        '.wlc-sections__content-wins',
+        '.wlc-sections__total-jackpot',
+        '.wlc-sections__total-jackpot-interactive',
+        '.wlc-sections__promo-categories',
+        '.wlc-sections__promo-bonuses',
+        '.wlc-sections__home-promo',
+        '.wlc-sections__winners-section',
+        '.wlc-sections__content-games-vertical',
+        '.wlc-sections__loyalty-program',
+        '.wlc-sections__game-widgets',
+        '.wlc-sections__providers',
+        '.wlc-sections__content-games-vertical',
+        '.wlc-sections__content-wins-transparent',
+        '.wlc-sections__random-games',
+        '.wlc-sections__banner-promotion',
+        '.wlc-sections__four-elements',
+    ),
+    '.app-contacts-state': (
+        '.wlc-sections__info-page'
+    ),
+    '[class*=\'app-profile-\']': (
+        '.wlc-sections__profile-content',
+    ),
+), $customLayoutGap);

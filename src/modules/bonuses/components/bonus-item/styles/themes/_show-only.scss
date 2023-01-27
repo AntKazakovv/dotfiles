@@ -1,0 +1,115 @@
+.wlc-bonus-item {
+
+    &.wlc-bonus-item--theme-mod-with-image {
+
+        &.wlc-bonus-item--show-only {
+
+            .wlc-bonus-item {
+
+                &__image-block {
+                    display: block;
+                    width: 100%;
+                }
+
+                &__image {
+                    display: block;
+                }
+
+                &__icon {
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    z-index: 2;
+                    transform: translateX(-50%) translateY(-50%);
+                }
+            }
+
+            &.wlc-bonus-item--theme-promo {
+
+                .wlc-bonus-item {
+
+                    &__image-block {
+                        width: 100%;
+                        height: 100%;
+                    }
+                }
+            }
+        }
+    }
+
+    &.wlc-bonus-item--show-only {
+
+        .wlc-bonus-item {
+
+            &__icon {
+                @include bm.get-mq-map('margin', $themeDefault, 'showOnlyIconMargin');
+            }
+
+            &__icon-lock {
+                width: 64px;
+                height: 80px;
+            }
+
+            &__tag {
+                background: var(--mc-baseOpacity);
+            }
+        }
+    }
+}
+
+.wlc-bonus-item--theme-promo {
+
+    &.wlc-bonus-item--show-only {
+
+        .wlc-bonus-item {
+
+            &__image-block {
+                width: 100%;
+                height: 100%;
+
+                padding: 0;
+            }
+
+            &__icon {
+                @include bm.get-mq-map('margin', $themePromo, 'showOnlyIconMargin');
+                @include bm.get-mq-map('width', $themePromo, 'iconSize');
+                @include bm.get-mq-map('height', $themePromo, 'showOnlyIconHeight');
+            }
+
+            &__icon-lock {
+                width: 80px;
+                height: 100px;
+            }
+        }
+    }
+}
+
+.wlc-bonus-item--theme-promo-home {
+
+    &.wlc-bonus-item--show-only {
+
+        .wlc-bonus-item {
+
+            &__icon {
+                @include bm.get-mq-map('margin', $themePromoHome, 'showOnlyIconMargin');
+                @include bm.get-mq-map('width', $themePromoHome, 'iconSize');
+                @include bm.get-mq-map('height', $themePromoHome, 'showOnlyIconHeight');
+            }
+        }
+
+        &.wlc-bonus-item--theme-mod-with-image {
+
+            .wlc-bonus-item {
+
+                &__image-block {
+                    @include bm.get-mq-map('width', $themePromoHome, 'bonusIconWidth');
+                }
+
+                &__icon {
+                    position: relative;
+                    top: 30%;
+                }
+            }
+        }
+    }
+}

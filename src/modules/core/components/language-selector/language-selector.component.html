@@ -6,6 +6,7 @@
      container="body"
      containerClass="wlc-tooltip--compact"
      placement="right"
+     #langContainer
 >
     <div *ngIf="!$params.currentLang?.hideFlag" class="{{$class}}__current-flag">
         <img src="{{getFlagUrl(currentLanguage.code)}}"
@@ -14,7 +15,7 @@
              (error)="imageError(currentLanguage.code)">
     </div>
     <div *ngIf="!$params.currentLang?.hideLang" class="{{$class}}__current-lang">
-        {{$params.themeMod !== 'long' ? this.currentLanguage?.code : this.currentLanguage?.label | translate}}
+        {{!isLongThemeMod ? this.currentLanguage?.code : this.currentLanguage?.label | translate}}
     </div>
     <div *ngIf="!$params.currentLang?.hideArrow"
          wlc-icon
@@ -22,9 +23,10 @@
          iconPath="/wlc/icons/arrow.svg">
     </div>
 </div>
-<div *ngIf="availableLanguages.length <= 6"
+<div *ngIf="isShowLangByDropdown"
      class="{{$class}}__dropdown"
      [@toggle]="animationState()"
+     [ngClass]="{top: isDropdownAtTop && isLongThemeMod}"
      #dropdown
 >
     <ng-container [ngTemplateOutlet]="langList"

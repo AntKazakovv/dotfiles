@@ -285,6 +285,11 @@
                 .wlc-language-selector__link-lang {
                     @include text.get-text-style('PrimaryText', ef.get-value($themeDefaultModLog, 'currentColorModLang'));
                 }
+
+                &.top {
+                    position: absolute;
+                    bottom: ef.get-value($themeDefaultModLog, 'dropdownBottom');
+                }
             }
 
             &__list {

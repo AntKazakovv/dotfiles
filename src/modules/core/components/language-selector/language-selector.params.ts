@@ -29,6 +29,10 @@ export interface ILanguageSelectorCParams extends IComponentParams<ThemeType, Co
     };
     currentLang?: ICurrentLangCParams;
     dropdown?: ILanguageSelectorDropdownCParams;
+    /** The approximate height of each element along with the space around. */
+    itemLangHeight?: number,
+    /** Count of languages ​​to display in dropdown. */
+    countLangFromDropdown?: number,
     toggleOnScroll?: ThemeModType;
     /**
      *  Accepts language codes; Example: ['ru', 'en', 'pt-br'];
@@ -59,6 +63,8 @@ export const defaultParams: ILanguageSelectorCParams = {
             },
         },
     },
+    itemLangHeight: 40,
+    countLangFromDropdown: 6,
     wlcElement: 'block_language-selector',
     compactMod: false,
     useTooltip: false,

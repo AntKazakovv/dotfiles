@@ -129,6 +129,13 @@ $themePromo: map-merge((
         1200: 100px,
         1630: 144px,
     ),
+    'showOnlyIconMargin': (
+        375: auto,
+    ),
+    'showOnlyIconHeight': (
+        375: 60%,
+        560: 100%,
+    ),
 
     'baseBg': var(--mc-bg300),
     'baseBgHover': var(--mc-bg500),

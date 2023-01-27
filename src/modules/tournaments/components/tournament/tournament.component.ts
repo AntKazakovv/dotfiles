@@ -229,7 +229,7 @@ export class TournamentComponent
                 +this.userInfo?.loyalty.Balance,
                 tournament.feeCurrency,
                 gettext('You can`t subscribe'),
-                gettext('Sorry, not today. Bet more to earn bitcoins and join this tournament!'),
+                gettext('Sorry, not today. Bet more to earn Loyalty points (LP) and join this tournament!'),
                 'deposit',
             );
         }

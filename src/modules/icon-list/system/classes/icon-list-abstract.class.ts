@@ -27,13 +27,20 @@ import {ThemeToDirectory} from 'wlc-engine/modules/core/system/config/base/icons
 
 import _map from 'lodash-es/map';
 
-export interface IMerchantsPaymentsIterator {
+export interface IItemsCommonLinkParams {
+    /** Inside link. Only one parameter available `sref` or `href` */
+    sref?: string;
+    /** Params for sref */
+    srefParams?: RawParams;
+    /** Outside link. Only one parameter available `sref` or `href`. */
+    href?: string;
+}
+
+export interface IMerchantsPaymentsIterator extends IItemsCommonLinkParams {
     showAs: TIconShowAs,
     wlcElement: string,
     nameForPath: string,
     alt?: string,
-    sref?: string,
-    srefParams?: RawParams,
     title?: string,
     colorIconBg?: TIconColorBg;
 }
@@ -45,6 +52,8 @@ export interface IAbstractIconsListParams<T, R, M> extends IComponentParams<T, R
      * Apply colored icons(they will be parsed as img), and black icons will be shown as svg
      */
     iconsType?: TIconsType,
+    /** common params to list items */
+    itemsCommonLinkParams?: IItemsCommonLinkParams,
     /**
     * Array for custom icons
     *
@@ -98,7 +107,7 @@ export abstract class IconListAbstract<T> extends AbstractComponent {
     protected merchantsPaymentsIterator(pathDirectory: keyof typeof ThemeToDirectory,
         params: IMerchantsPaymentsIterator,
     ): IIconParams {
-        const {showAs, wlcElement, nameForPath, alt, sref, srefParams, title, colorIconBg} = params;
+        const {showAs, wlcElement, nameForPath, alt, sref, srefParams, href, title, colorIconBg} = params;
         return {
             showAs: showAs,
             iconUrl: this.getPath(nameForPath, pathDirectory, showAs, colorIconBg),
@@ -107,6 +116,7 @@ export abstract class IconListAbstract<T> extends AbstractComponent {
             wlcElement: wlcElement,
             sref: sref || null,
             srefParams: srefParams || null,
+            href: href || null,
             title: title || null,
         };
     }

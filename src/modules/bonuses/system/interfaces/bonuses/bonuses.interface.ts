@@ -17,6 +17,8 @@ export interface IBonusesModule {
     defaultIconPath?: string;
     /** Default bonus fallback icon path */
     fallBackIconPath?: string;
+    /** Unavailable bonus icon path */
+    showOnlyIconPath?: string;
     defaultImages?: {
         /** Bonus image for bonus in profile dashboard, profile bonuses, bonus block in main page in default profile */
         image?: string;
@@ -196,6 +198,11 @@ export interface IBonus extends IBonusBase {
     TotalWinning: string;
     WageringType: string;
     Conditions?: IBonusConditions;
+    /** Show/hide bonus in Promo ("0" | "1") */
+    AllowPromotions?: string;
+    /** Show/hide bonus in Promo for unauthorized user (available in combination witn AllowPromotions) ("0" | "1") */
+    HidePromotionsForUnauthorized?: string;
+    showOnly?: boolean;
 }
 
 export interface ILootboxPrize {
@@ -270,7 +277,16 @@ export interface IGetSubscribeParams {
 }
 
 export type TBonusSortOrder = 'active' | 'promocode' | 'subscribe' | 'inventory' | number;
-export type BonusesFilterType = 'all' | 'reg' | 'deposit' | 'promocode' | 'inventory' | 'main' | 'active' | 'default';
+export type BonusesFilterType =
+    | 'all'
+    | 'reg'
+    | 'deposit'
+    | 'promocode'
+    | 'inventory'
+    | 'main'
+    | 'active'
+    | 'united'
+    | 'default';
 export type RestType = 'active' | 'history' | 'lootboxPrizes' | 'store' | 'any';
 export type ActionType = 'inventory' | 'cancel' | 'expired' | 'subscribe' | 'unsubscribe';
 

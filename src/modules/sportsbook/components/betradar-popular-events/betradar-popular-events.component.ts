@@ -77,8 +77,7 @@ export class BetradarPopularEventsComponent extends AbstractComponent implements
     protected async init(): Promise<void> {
         try {
             const games: BetradarGameModel[] = await this.betradarService.getPopularEvents();
-            if (games) {
-                this.maxCountImgByCategory = this.$params.maxCountImgByCategory || 2;
+            if (games.length) {
                 this.initImagesDir();
                 await this.gamesToSlides(games);
                 this.sliderConfig = {

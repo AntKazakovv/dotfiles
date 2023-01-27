@@ -1,0 +1,27 @@
+$customThemeDefault: () !default;
+$themeDefault: map-merge((
+    'userDataStyle': 'PrimaryText',
+    'userDataColor': var(--mc-baseMain),
+    'descriptionStyle': 'PrimaryTextBold',
+    'descriptionColor': var(--mc-baseMain),
+    'descriptionMaxWidth': 400px,
+    'descriptionMargin': ef.size(4) auto 0,
+    'resendTextStyle': 'PrimaryText',
+    'resendTextColor': var(--mc-baseMain),
+    'formMargin': ef.size(8) auto,
+    'formMaxWidth': 290px,
+    'formFlexDirection': column,
+    'formAlignItems': center,
+    'formBtnMargin': ef.size(4) 0 0,
+    'resendWrpDisplay': flex,
+    'resendWrpFlexDirection': column,
+    'resendWrpAlignItems': center,
+    'resendBtnMargin': ef.size(4) 0,
+    'disabledBtnOpacity': 0.5,
+    'disabledBtnHover': var(--mc-buttonColor),
+    'timerWrpDisplay': flex,
+    'timerWrpFlexDirection': column,
+    'timerTextStyle': 'SignText',
+    'timerTextColor': var(--mc-baseOpacity),
+), $customThemeDefault);
+

@@ -42,6 +42,9 @@ import {UserStatsComponent} from './components/user-stats/user-stats.component';
 import {UserNameComponent} from './components/user-name/user-name.component';
 import {SocialNetworksComponent} from './components/social-networks/social-networks.component';
 import {SocialSignUpFormComponent} from './components/social-sign-up-form/social-sign-up-form.component';
+import {
+    DeviceRegistrationFormComponent,
+} from 'wlc-engine/modules/user/components/device-registration-form/device-registration-form.component';
 
 export const services = {
     'user-service': UserService,
@@ -54,6 +57,7 @@ export const components = {
     'wlc-accept-terms': AcceptTermsComponent,
     'wlc-add-profile-info': AddProfileInfoComponent,
     'wlc-change-password-form': ChangePasswordFormComponent,
+    'wlc-device-registration-form': DeviceRegistrationFormComponent,
     'wlc-exchange': ExchangeComponent,
     'wlc-icon-exp-lp': IconExpLpDescriptionComponent,
     'wlc-fundist-user-id': FundistUserIdComponent,
@@ -83,6 +87,7 @@ export const components = {
         AddProfileInfoComponent,
         ChangePasswordFormComponent,
         DashboardLoyaltyBlockComponent,
+        DeviceRegistrationFormComponent,
         ExchangeComponent,
         IconExpLpDescriptionComponent,
         FundistUserIdComponent,
@@ -121,6 +126,7 @@ export const components = {
         AddProfileInfoComponent,
         ChangePasswordFormComponent,
         DashboardLoyaltyBlockComponent,
+        DeviceRegistrationFormComponent,
         ExchangeComponent,
         IconExpLpDescriptionComponent,
         FundistUserIdComponent,

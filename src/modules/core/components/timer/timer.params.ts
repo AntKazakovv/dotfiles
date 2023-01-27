@@ -6,7 +6,8 @@ export type ComponentTheme = 'default' | 'one-line';
 export type ComponentType = 'default';
 export type AutoModifiersType = ComponentTheme | ModeType;
 export type ManualModifiersType = '';
-export type ThemeMod = 'default' | 'count-up' | 'light' | string;
+/** Small ThemeMod is used only with the one-line Theme */
+export type ThemeMod = 'default' | 'count-up' | 'light' | 'small' | string;
 export type ModifiersType = AutoModifiersType & ManualModifiersType & string;
 
 export interface ITimerCParams extends IComponentParams<ComponentTheme, ComponentType, ThemeMod> {

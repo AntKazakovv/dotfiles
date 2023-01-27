@@ -1,0 +1,24 @@
+/// Размеры скругления элементов на сайте.
+/// Здесь перечислены все возможные значения скругления для всех стандартных элементов на сайте.
+/// Если в дизайне используются другие значения, то по умолчанию для WLC проектов необходимо
+/// округлять значения до используемых в данной палитре.
+///
+/// @name radius
+///
+/// @prop {Size} smaller [2px] - smaller
+/// @prop {Size} small [4px] - small
+/// @prop {Size} less [6px] - less
+/// @prop {Size} main [8px] - main
+/// @prop {Size} biger [10px] - biger
+/// @prop {Size} big [20px] - big
+$customRadius: () !default;
+$dummy: map-merge((), $customRadius);
+$radius: map-merge((
+    'smaller': 2px,
+    'small': 4px,
+    'less': 6px,
+    'main': 8px,
+    'biger': 10px,
+    'big': 20px,
+    'large': 100px,
+), $customRadius);

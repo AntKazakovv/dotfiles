@@ -76,8 +76,11 @@ export class GameThumbComponent extends AbstractComponent implements OnInit {
     public initFailed: boolean = false;
     public merchantIconPath: string;
     public foreground: Params.IMediaContent[];
+    public foregroundFallback: Params.IMediaContent[];
     public background: Params.IMediaContent[];
+    public backgroundFallback: Params.IMediaContent[];
     public logo: Params.IMediaContent[];
+    public logoFallback: Params.IMediaContent[];
     public videos: Params.IMediaContent[];
 
     /**
@@ -221,8 +224,11 @@ export class GameThumbComponent extends AbstractComponent implements OnInit {
             this.idVerticalVideos = await this.gamesCatalogService.getIdVerticalVideos();
             this.mediaFormatTypes = this.configService.get<IIndexing<string>>('$games.mediaFormatTypes');
             this.background = this.getVerticalContent('background', ['webp']);
+            this.backgroundFallback = this.getVerticalContent('background', ['png', 'jpg']);
             this.foreground = this.getVerticalContent('foreground', ['webp']);
+            this.foregroundFallback = this.getVerticalContent('foreground', ['png']);
             this.logo = this.getVerticalContent('logo', ['webp']);
+            this.logoFallback = this.getVerticalContent('logo', ['png']);
             this.videos = this.getVerticalContent('video', ['av1.mp4', 'hevc.mp4', 'h264.mp4']);
         }
 

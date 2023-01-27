@@ -1,0 +1,32 @@
+<div class="{{$class}}__user-data">
+    {{'You are trying to log in from an unknown device.'| translate}}
+    {{'Location:' | translate}} {{location}}
+    {{'Device:' | translate}} {{userAgent}}
+</div>
+<div class="{{$class}}__description">
+    {{'A confirmation code for the new device has been sent to your e-mail.' | translate}}
+</div>
+<div wlc-form-wrapper [config]="config" [ngSubmit]="ngSubmit.bind(this)"></div>
+<div class="{{$class}}__resend-wrapper">
+    <span class="{{$class}}__resend-text">
+        {{'Haven\'t recieved the code?' | translate}}
+    </span>
+    <button wlc-button
+            typeAttr="button"
+            [inlineParams]="$params.buttonParams"
+            [disabled]="buttonDisabled"
+            (click)="buttonClick()">
+    </button>
+    <div class="{{$class}}__timer-wrapper">
+        <span class="{{$class}}__timer-text">
+            {{'Will be available in' | translate}}
+        </span>
+        <div wlc-timer
+             [inlineParams]="timerParams"
+             [value]="timerValue"
+             [noDays]="true"
+             [noHours]="true"
+             (timerEnds)="timerExpiry()">
+        </div>
+    </div>
+</div>

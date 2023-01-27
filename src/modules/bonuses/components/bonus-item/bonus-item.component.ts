@@ -309,7 +309,8 @@ export class BonusItemComponent extends AbstractComponent implements OnInit, OnC
      */
     public get isShowBonusIcon(): boolean {
         return (!this.asProfileTypeFirst && this.useIconBonusImage)
-            || (this.$params.theme === 'partial' && !_includes(this.$params?.modifiers, 'mobile-reg'));
+            || (this.$params.theme === 'partial' && !_includes(this.$params?.modifiers, 'mobile-reg'))
+            || this.bonus.showOnly;
     }
 
     protected prepareModifiers(): void {
@@ -339,6 +340,10 @@ export class BonusItemComponent extends AbstractComponent implements OnInit, OnC
 
         if (!this.useIconBonusImage) {
             this.addModifiers('without-bonus-icon');
+        }
+
+        if (this.bonus.showOnly) {
+            this.addModifiers('show-only');
         }
     }
 }

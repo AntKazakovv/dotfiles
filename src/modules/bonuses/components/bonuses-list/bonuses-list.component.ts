@@ -54,6 +54,7 @@ import {
     RecommendedListEvents,
 } from 'wlc-engine/modules/bonuses/components/recommended-bonuses/recommended-bonuses.params';
 import {
+    BonusesFilterType,
     BonusItemComponentEvents,
     ChosenBonusSetParams,
     ChosenBonusType,
@@ -103,6 +104,7 @@ export class BonusesListComponent extends AbstractComponent implements OnInit, O
     protected itemsPerPage: number = 0;
     protected chosenBonusIndex: number = 0;
     protected ready$: Subject<boolean> = new Subject();
+    protected filter?: BonusesFilterType;
 
     constructor(
         @Inject('injectParams') protected params: Params.IBonusesListCParams,
@@ -149,55 +151,13 @@ export class BonusesListComponent extends AbstractComponent implements OnInit, O
             this.blankBonus.isChoose = true;
         }
 
-        this.ready$.pipe(takeUntil(this.$destroy)).subscribe((isReady: boolean) => {
-            if (this.params.theme === 'reg-first' || this.$params.theme === 'partial') {
-                const minLength = this.$params.common?.useBlankBonus ? 1 : 0;
-                const isEmptyRegBonuses = isReady && this.bonuses.length <= minLength;
-
-                this.configService.set<boolean>({name: 'EMPTY_REGISTER_BONUSES', value: isEmptyRegBonuses});
-
-                if (isEmptyRegBonuses) {
-                    this.eventService.emit({name: 'EMPTY_REGISTER_BONUSES'});
-                }
-
-                if (isReady && this.$params.theme === 'reg-first') {
-                    if (!this.bonuses.length) {
-                        this.setCheckboxValue(true);
-                    } else if (this.checkBoxParams.control.value) {
-                        this.setCheckboxValue(false);
-                    }
-                }
-            }
-
-            this.isReady = isReady;
-            this.cdr.markForCheck();
-        });
-
-        this.ready$.next(false);
+        this.subscribeOnReady();
 
         if (this.$params.type === 'swiper') {
             this.sliderParams.swiper = _cloneDeep(this.$params.common?.swiper);
         }
 
-        const hasFilteredBonuses = this.bonusesService.hasFilteredBonuses(
-            this.$params.common?.filter,
-            this.$params.common?.restType);
-
-        this.bonusesService.getSubscribe({
-            useQuery: this.$params.common.useQuery || !hasFilteredBonuses,
-            observer: {
-                next: (bonuses: Bonus[]) => {
-                    this.onGetBonuses(bonuses || []);
-                    if (hasFilteredBonuses) {
-                        this.ready$.next(true);
-                    }
-                },
-            },
-            type: this.$params.common?.restType,
-            until: this.$destroy,
-            ready$: !hasFilteredBonuses ? this.ready$ : null,
-        });
-
+        this.setFilterAndSubscribeBonuses();
         this.setSubscription();
         this.bonusBg;
     }
@@ -280,6 +240,27 @@ export class BonusesListComponent extends AbstractComponent implements OnInit, O
         this.paginatedBonuses = value.paginatedItems as Bonus[];
         this.itemsPerPage = value.event.itemsPerPage;
         this.cdr.detectChanges();
+    }
+
+    /**
+     * Filter bonuses by group
+     *
+     * @returns Bonus[] - filtered bonuses
+     */
+    public filterBonusesByGroup(): Bonus[] {
+        let bonuses: Bonus[] = [];
+
+        if (this.$params.common?.filterByGroup === 'Promo') {
+            const isAuth: boolean = this.configService.get<boolean>('$user.isAuthenticated');
+
+            bonuses = _filter(this.bonuses, (bonus: Bonus): boolean =>
+                bonus.data.Group === this.$params.common?.filterByGroup || bonus.showInPromotions(isAuth));
+        } else {
+            bonuses = _filter(this.bonuses, (bonus: Bonus): boolean =>
+                bonus.data.Group === this.$params.common?.filterByGroup);
+        }
+
+        return bonuses;
     }
 
     protected setSubscription(): void {
@@ -393,10 +374,6 @@ export class BonusesListComponent extends AbstractComponent implements OnInit, O
     }
 
     protected sortBonuses(): Bonus[] {
-        if (!this.$params.common?.sortOrder) {
-            return this.bonuses;
-        }
-
         if (!this.bonuses.length) return;
 
         return  this.bonusesService.sortBonuses(this.bonuses, this.$params.common?.sortOrder);
@@ -420,7 +397,7 @@ export class BonusesListComponent extends AbstractComponent implements OnInit, O
                 return;
             }
 
-            this.bonuses = _filter(this.bonuses, (bonus) => bonus.data.Group === this.$params.common.filterByGroup);
+            this.bonuses = this.filterBonusesByGroup();
         }
     }
 
@@ -472,7 +449,7 @@ export class BonusesListComponent extends AbstractComponent implements OnInit, O
 
     protected onGetBonuses(bonuses: Bonus[]): void {
         this.paginatedBonuses = this.bonuses = this.bonusesService
-            .filterBonuses(bonuses, this.$params.common?.filter);
+            .filterBonuses(bonuses, this?.filter);
 
         const chosenBonus = this.configService.get<ChosenBonusType>(ChosenBonusSetParams.ChosenBonus);
 
@@ -589,5 +566,66 @@ export class BonusesListComponent extends AbstractComponent implements OnInit, O
         } else {
             this.router.stateService.go(path);
         }
+    }
+
+    /**
+     * Set bonuses filter from params or by condition and subscribe to bonuses observer
+     */
+    private setFilterAndSubscribeBonuses() {
+        this.ready$.next(false);
+
+        this.filter = this.$params.common?.filter;
+        this.filter = this.filter === 'main' && this.configService.get<boolean>('$bonuses.unitedPageBonuses')
+            ? 'united'
+            : this.filter;
+
+        const hasFilteredBonuses = this.bonusesService.hasFilteredBonuses(
+            this.filter,
+            this.$params.common?.restType);
+
+        this.bonusesService.getSubscribe({
+            useQuery: this.$params.common.useQuery || !hasFilteredBonuses,
+            observer: {
+                next: (bonuses: Bonus[]) => {
+                    this.onGetBonuses(bonuses || []);
+                    if (hasFilteredBonuses) {
+                        this.ready$.next(true);
+                    }
+                },
+            },
+            type: this.$params.common?.restType,
+            until: this.$destroy,
+            ready$: !hasFilteredBonuses ? this.ready$ : null,
+        });
+    }
+
+    /**
+     * Handle bonuses list is ready or not,
+     * if theme is 'reg-first' or 'partial' set config and emit event if bonus list is empty for registration form
+     */
+    private subscribeOnReady() {
+        this.ready$.pipe(takeUntil(this.$destroy)).subscribe((isReady: boolean) => {
+            if (this.params.theme === 'reg-first' || this.$params.theme === 'partial') {
+                const minLength = this.$params.common?.useBlankBonus ? 1 : 0;
+                const isEmptyRegBonuses = isReady && this.bonuses.length <= minLength;
+
+                this.configService.set<boolean>({name: 'EMPTY_REGISTER_BONUSES', value: isEmptyRegBonuses});
+
+                if (isEmptyRegBonuses) {
+                    this.eventService.emit({name: 'EMPTY_REGISTER_BONUSES'});
+                }
+
+                if (isReady && this.$params.theme === 'reg-first') {
+                    if (!this.bonuses.length) {
+                        this.setCheckboxValue(true);
+                    } else if (this.checkBoxParams.control.value) {
+                        this.setCheckboxValue(false);
+                    }
+                }
+            }
+
+            this.isReady = isReady;
+            this.cdr.markForCheck();
+        });
     }
 }

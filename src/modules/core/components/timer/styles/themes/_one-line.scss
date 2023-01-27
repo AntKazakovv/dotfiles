@@ -4,17 +4,24 @@
 
         &__content {
             @include text.get-text-style(ef.get-value($themeOneLine, 'textStyle'), ef.get-value($themeOneLine, 'textColor'));
-            display: flex;
-            align-items: flex-start;
-        }
+            display: inline;
 
-        &__main {
+            .time-text {
+                white-space: nowrap;
+            }
 
             .time-text__divider,
             .time-text__item,
             .time-text {
                 display: inline;
             }
+        }
+
+        &__label {
+            display: inline-flex;
+            align-items: baseline;
+            justify-content: center;
+            white-space: nowrap;
         }
 
         &__text {
@@ -36,6 +43,39 @@
                     svg {
                         width: ef.get-value($themeOneLine, 'iconWidth');
                         height: ef.get-value($themeOneLine, 'iconHeight');
+                    }
+                }
+            }
+        }
+    }
+
+    &.wlc-timer--theme-mod-small {
+
+        .time-text {
+            @include text.get-text-style(ef.get-value($themeOneLine, 'smallTextStyle'), ef.get-value($themeOneLine, 'smallTextColor'));
+        }
+
+        .wlc-timer {
+
+            &__content {
+                align-items: ef.get-value($themeOneLine, 'smallAlignItems');
+                justify-content: ef.get-value($themeOneLine, 'smallJustifyContent');
+            }
+
+            &__icon {
+
+                ::ng-deep {
+
+                    .wlc-icon-content {
+                        width: ef.get-value($themeOneLine, 'smallIconSize');
+                        height: ef.get-value($themeOneLine, 'smallIconSize');
+                        color: ef.get-value($themeOneLine, 'smallIconColor');
+
+                        svg {
+                            width: ef.get-value($themeOneLine, 'smallIconSize');
+                            height: ef.get-value($themeOneLine, 'smallIconSize');
+                            fill: currentColor;
+                        }
                     }
                 }
             }
