@@ -78,6 +78,7 @@ let states = {
     'app.signup': States.signUpState,
     'app.login': States.loginState,
     'app.signin': States.signin,
+    'app.something-wrong': States.somethingWrongState,
 };
 
 if (GlobalHelper.isMobileApp()) {

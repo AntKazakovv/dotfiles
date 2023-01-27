@@ -156,6 +156,11 @@ export const $layouts: ILayoutsConfig = {
             content: sectionsLib.content.offline,
         },
     },
+    'app.something-wrong': {
+        sections: {
+            content: sectionsLib.content.somethingWrong,
+        },
+    },
     'app.tournaments': {
         extends: 'app',
         sections: {

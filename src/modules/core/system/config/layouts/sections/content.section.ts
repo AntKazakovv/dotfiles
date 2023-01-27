@@ -127,5 +127,11 @@ export namespace content {
             componentLib.wlcOfflinePage.def,
         ],
     };
+
+    export const somethingWrong: ILayoutSectionConfig = {
+        components: [
+            componentLib.wlcSomethingWrongPage.def,
+        ],
+    };
 }
 

@@ -1,0 +1,11 @@
+$customThemeDefault: () !default;
+$themeDefault: map-merge((
+    'hostAlignItems': center,
+    'hostJustifyContent': center,
+    'hostPadding': ef.size(3),
+    'imageMargin': 0 0 ef.size(8),
+    'titleMargin': 0 0 ef.size(4),
+    'titleTextAlign': center,
+    'textTextAlign': center,
+    'textMargin': 0 0 ef.size(8),
+), $customThemeDefault);

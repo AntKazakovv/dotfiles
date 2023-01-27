@@ -3,9 +3,10 @@ import {HTTP_INTERCEPTORS} from '@angular/common/http';
 import {HeadersInterceptor} from 'wlc-engine/modules/core/system/interceptors/headers.interceptor';
 import {MocksInterceptor} from 'wlc-engine/modules/core/system/interceptors/mock.interceptor';
 import {UrlInterceptor} from 'wlc-engine/modules/core/system/interceptors/url.interceptor';
-import {GlobalHelper} from 'wlc-engine/modules/core/system/helpers/global.helper';
+import {CfErrorsInterceptor} from 'wlc-engine/modules/core/system/interceptors/cf-errors.interceptor';
 import {NonceInterceptor} from 'wlc-engine/modules/core/system/interceptors/nonce.interceptor';
 import {FingerprintInterceptor} from 'wlc-engine/modules/core/system/interceptors/fingerprint.interceptor';
+import {GlobalHelper} from 'wlc-engine/modules/core/system/helpers/global.helper';
 
 function initInterceptors(): Provider[] {
     const interceptors: Provider[] = [
@@ -17,6 +18,11 @@ function initInterceptors(): Provider[] {
         {
             provide: HTTP_INTERCEPTORS,
             useClass: NonceInterceptor,
+            multi: true,
+        },
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: CfErrorsInterceptor,
             multi: true,
         },
         {

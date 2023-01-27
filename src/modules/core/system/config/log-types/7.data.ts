@@ -17,4 +17,8 @@ export const errorTypes: ILogTypes = {
         // Error while creating model
         level: 'fatal',
     },
+    '7.1.0': {
+        // 5 requests in a row returns 503
+        level: 'fatal',
+    },
 };

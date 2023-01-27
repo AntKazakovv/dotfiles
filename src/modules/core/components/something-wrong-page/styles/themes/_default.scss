@@ -1,0 +1,27 @@
+.wlc-something-wrong-page--theme-default:host {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: ef.get-value($themeDefault, 'hostAlignItems');
+    justify-content: ef.get-value($themeDefault, 'hostJustifyContent');
+    width: 100%;
+    height: 100%;
+    padding: ef.get-value($themeDefault, 'hostPadding');
+
+    .wlc-something-wrong-page {
+
+        &__image {
+            margin: ef.get-value($themeDefault, 'imageMargin');
+        }
+
+        &__title {
+            margin: ef.get-value($themeDefault, 'titleMargin');
+            text-align: ef.get-value($themeDefault, 'titleTextAlign');
+        }
+
+        &__text {
+            margin: ef.get-value($themeDefault, 'textMargin');
+            text-align: ef.get-value($themeDefault, 'textTextAlign');
+        }
+    }
+}

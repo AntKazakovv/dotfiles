@@ -1,0 +1,17 @@
+<div class="{{$class}}__image" wlc-icon [iconPath]="$params.image"></div>
+
+<h2 class="{{$class}}__title">
+    {{$params.title | translate}}
+</h2>
+
+<p class="{{$class}}__text">
+    {{ $params.text | translate}}
+</p>
+
+<button
+    wlc-button
+    [text]="$params.buttonText"
+    typeAttr="button"
+    wlcElement="button_refresh"
+    (click)="reloadPage()">
+</button>

@@ -117,6 +117,9 @@ import {WrapperComponent} from 'wlc-engine/modules/core/components';
 import {ThemeTogglerComponent} from './components/theme-toggler/theme-toggler.component';
 import {AlertComponent} from './components/alert/alert.component';
 import {LottieAnimationComponent} from './components/lottie-animation/lottie-animation.component';
+import {
+    SomethingWrongPageComponent,
+} from 'wlc-engine/modules/core/components/something-wrong-page/something-wrong-page.component';
 // -- COMPONENTS IMPORTS END  --;
 
 //  -- DIRECTIVES IMPORTS STARTS--;
@@ -176,6 +179,7 @@ export const components = {
     'wlc-disclaimer': DisclaimerComponent,
     'wlc-error-page': ErrorPageComponent,
     'wlc-offline-page': OfflinePageComponent,
+    'wlc-something-wrong-page': SomethingWrongPageComponent,
     'wlc-feedback-form': FeedbackFormComponent,
     'wlc-forbidden-country': ForbiddenCountryComponent,
     'wlc-form-control': FormControlComponent,
@@ -306,6 +310,7 @@ export const services = {
         DragNDropDirective,
         ErrorPageComponent,
         OfflinePageComponent,
+        SomethingWrongPageComponent,
         FallbackImgDirective,
         FeedbackFormComponent,
         FloatPanelsComponent,
@@ -382,6 +387,7 @@ export const services = {
         DragNDropDirective,
         ErrorPageComponent,
         OfflinePageComponent,
+        SomethingWrongPageComponent,
         FallbackImgDirective,
         FloatPanelsComponent,
         ForbiddenCountryComponent,

@@ -187,6 +187,11 @@ export const $layoutsMobileApp: ILayoutsConfig = {
             content: sectionsLib.content.offline,
         },
     },
+    'app.something-wrong': {
+        sections: {
+            content: sectionsLib.content.somethingWrong,
+        },
+    },
     'app.tournaments': {
         title: gettext('Tournaments'),
         extends: 'app',
