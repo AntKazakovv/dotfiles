@@ -16,6 +16,11 @@ $appLoader: map-merge((
     'loaderHeight': 50px,
     'loaderBorder': 2px solid var(--mc-main),
 
+    // animation before removing the preloader
+    'deleteAnime': scaleLogo, //scaleLogo, slideToBottom
+    'deleteAnimeSpeed': 1s,
+    'deleteAnimeDelay': 0.3s,
+
     'loaderAnime': default, //default, dots1, dots2, dots3, circle, circle2, flip, pulse, jelly
     'useBgAnime': false,
 
@@ -106,10 +111,12 @@ $appLoader: map-merge((
 
 .wlc-app__preload {
     $animeName: map-get($appLoader, 'loaderAnime');
+    $deleteAnimeName: map-get($appLoader, 'deleteAnime');
 
     position: fixed;
     top: 0;
     left: 0;
+    z-index: 2000;
 
     width: 100%;
     height: 100%;
@@ -147,6 +154,67 @@ $appLoader: map-merge((
 
         height: map-get($appLoader, 'loaderHeight');
         margin: map-get($appLoader, 'loaderBlockMargin');
+    }
+
+    &-text_block {
+        margin: map-get($appLoader, 'textBlockMargin');
+        color: map-get($appLoader, 'textBlockColor');
+    }
+
+    &-title {
+        font-weight: map-get($appLoader, 'titleFontWeight');
+        font-size: map-get($appLoader, 'titleFontSize');
+        line-height: 1.45;
+    }
+
+    &-text {
+        font-weight: map-get($appLoader, 'textFontWeight');
+        font-size: map-get($appLoader, 'textFontSize');
+        line-height: 1.45;
+    }
+
+    &-button {
+        display: map-get($appLoader, 'buttonDisplay');
+        align-items: map-get($appLoader, 'buttonAlignItems');
+        justify-content: map-get($appLoader, 'buttonJustifyContent');
+        min-width: map-get($buttonSettings, 'minWidth');
+
+        height: map-get($appLoader, 'buttonHeigth');
+        margin: map-get($appLoader, 'buttonMargin');
+        padding: map-get($buttonSettings, 'padding');
+
+        color: map-get($buttonSettings, 'fontColor');
+        font-weight: map-get($fontWeight, 'ButtonText');
+        font-size: map-get($font, 'ButtonText');
+        line-height: 1.45;
+
+        text-transform: map-get($buttonSettings, 'textTransform');
+        background: map-get($buttonSettings, 'background');
+        box-shadow: map-get($buttonSettings, 'shadow');
+        transition: all 0.3s linear;
+        border: map-get($buttonSettings, 'borderDefault');
+        border-radius: map-get($buttonSettings, 'borderRadiusDefault');
+
+        @media (hover: hover) and (pointer: fine) {
+            background: map-get($buttonSettings, 'backgroundHover');
+            box-shadow: map-get($buttonSettings, 'shadowHover');
+            border: map-get($buttonSettings, 'borderDefaultHover');
+        }
+    }
+
+    &--animation-delete {
+        animation-name: $deleteAnimeName;
+        animation-duration: map-get($appLoader, 'deleteAnimeSpeed');
+        animation-delay: map-get($appLoader, 'deleteAnimeDelay');
+        animation-iteration-count: 1;
+
+        @if ($deleteAnimeName == 'slideToBottom') {
+            @include slideToBottom;
+        }
+        @else {
+            @include scaleLogo;
+            animation-name: scaleLogo;
+        }
     }
 
     //For animatedGradient

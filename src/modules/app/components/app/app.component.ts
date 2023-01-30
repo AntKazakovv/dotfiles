@@ -205,6 +205,7 @@ export class AppComponent extends AbstractComponent implements OnInit, AfterView
                     },
                 });
                 this.window.WlcFlog?.setCompileSuccess();
+                this.deletePreloader();
             }
         });
 
@@ -495,5 +496,11 @@ export class AppComponent extends AbstractComponent implements OnInit, AfterView
             return !allowedDomains.includes(referrer.hostname);
         }
         return true;
+    }
+
+    private deletePreloader(): void {
+        const preloader: HTMLElement = this.document.querySelector('.wlc-app__preload');
+        preloader.classList.add('wlc-app__preload--animation-delete');
+        preloader.addEventListener('animationend', () => this.document.body.removeChild(preloader));
     }
 }
