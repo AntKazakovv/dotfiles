@@ -275,6 +275,36 @@ module.exports = function preBuildTask() {
         );
     };
 
+    const checkCaptchaKeys = () => {
+        const siteConfigKeys = fs.readFileSync('./config/backend/0.site.config.php').toString().split(';');
+        let hasRecaptcha;
+        let hasRecaptchaSiteKey;
+        let hasRecaptchaSecretKey;
+
+        siteConfigKeys.forEach(str => {
+            if (str.includes("'recaptcha'") && str.split('=')[1].trim() === 'true') {
+                hasRecaptcha = true;
+            }
+
+            if (str.includes("'recaptchaSiteKey'") && str.split('=')[1].trim().length >= 4) {
+                hasRecaptchaSiteKey = true;
+            }
+
+            if (str.includes("'recaptchaSecretKey'") && str.split('=')[1].trim().length >= 4) {
+                hasRecaptchaSecretKey = true;
+            }
+        });
+
+        if (hasRecaptcha && (!hasRecaptchaSiteKey || !hasRecaptchaSecretKey)) {
+            console.error(
+                '-'.repeat(55) +
+                '\n\nERROR: No value was set for recaptchaSiteKey or recaptchaSecretKey.\n\n' +
+                '-'.repeat(55),
+            );
+            process.exit(1);
+        }
+    };
+
     task('prepare:build', (cb) => {
         makeDistDirectory();
         makeTempDirectory();
@@ -289,6 +319,7 @@ module.exports = function preBuildTask() {
         createPiqFields();
         addMockServiceWorker();
         makeEngineVersion();
+        checkCaptchaKeys();
 
         cb();
     });
