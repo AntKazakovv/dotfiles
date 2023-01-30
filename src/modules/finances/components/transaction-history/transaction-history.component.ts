@@ -110,6 +110,14 @@ export class TransactionHistoryComponent extends AbstractComponent implements On
             themeMod: profileType,
             head: Params.transactionTableHeadConfig,
             rows: this.transaction$,
+            pagination: {
+                use: true,
+                breakpoints: {
+                    0: {
+                        itemPerPage: 20,
+                    },
+                },
+            },
             switchWidth: profileType === 'first' ? 1200 : 1024,
         };
 

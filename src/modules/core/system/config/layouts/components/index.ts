@@ -70,7 +70,6 @@ export * from './finances/wlc-transaction-history.config';
 export * from './bonuses/wlc-bonuses-list.config';
 export * from './bonuses/wlc-enter-promocode.config';
 export * from './bonuses/wlc-see-all-bonuses.config';
-export * from './bonuses/wlc-bonuses-history.config';
 export * from './bonuses/wlc-recommended-bonuses.config';
 
 export * from './profile/wlc-verification.config';
@@ -82,9 +81,11 @@ export * from './store/wlc-store-title.config';
 export * from './sportsbook/wlc-sportsbook.config';
 
 export * from './tournaments/wlc-tournament-detail.config';
-export * from './tournaments/wlc-tournaments-history';
 export * from './tournaments/wlc-tournament-list.config';
 
 export * from './internal-mails/wlc-internal-mails.config';
 
 export * from './icon-list/wlc-icon-list.config';
+
+export * from './history/wlc-bonuses-history.config';
+export * from './history/wlc-tournaments-history';

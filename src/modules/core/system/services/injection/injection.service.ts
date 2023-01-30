@@ -289,6 +289,14 @@ export class InjectionService {
                     this.afterModuleLoad('metamask', m);
                     return m.MetamaskModule;
                 });
+            case 'history':
+                if (this.loadedModules.history) {
+                    return this.loadedModules.history;
+                }
+                return import('wlc-engine/modules/history/history.module').then(m => {
+                    this.afterModuleLoad('history', m);
+                    return m.HistoryModule;
+                });
             case 'mobile':
                 if (this.loadedModules.MobileModule) {
                     return this.loadedModules.MobileModule;

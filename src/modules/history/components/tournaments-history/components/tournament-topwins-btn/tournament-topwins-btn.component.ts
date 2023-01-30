@@ -4,20 +4,19 @@ import {
     Inject,
     HostBinding,
 } from '@angular/core';
+
 import {
     AbstractComponent,
     ConfigService,
     IMixedParams,
     ModalService,
 } from 'wlc-engine/modules/core';
-import {
-    TournamentLeaderboardComponent,
-} from '../../../tournament/components/tournament-leaderboard/tournament-leaderboard.component';
-import {
-    ITournamentLeaderboardCParams,
-} from '../../../tournament/components/tournament-leaderboard/tournament-leaderboard.params';
 
 import * as Params from './tournament-topwins-btn.params';
+import {
+    ITournamentLeaderboardCParams,
+    // eslint-disable-next-line max-len
+} from 'wlc-engine/modules/tournaments/components/tournament/components/tournament-leaderboard/tournament-leaderboard.params';
 
 @Component({
     selector: '[wlc-tournament-topwins-btn]',
@@ -53,7 +52,7 @@ export class TournamentTopwinsBtnComponent extends AbstractComponent implements 
             id: 'tournament-history-wins',
             modifier: 'info',
             modalTitle: this.$params.tournament.name,
-            component: TournamentLeaderboardComponent,
+            componentName: 'tournaments.wlc-tournament-leaderboard',
             componentParams: <ITournamentLeaderboardCParams>{
                 themeMod: 'history',
                 common: {

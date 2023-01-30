@@ -5,10 +5,8 @@ import {
     logout,
 } from './helpers/global';
 
-import {
-    ITournamentHistory,
-    ITopTournamentUsers,
-} from 'wlc-engine/modules/tournaments';
+import {ITopTournamentUsers} from 'wlc-engine/modules/tournaments';
+import {ITournamentHistory} from 'wlc-engine/modules/history';
 import {IData} from 'wlc-engine/modules/core';
 
 describe('/api/v1/tournaments?type=history', () => {

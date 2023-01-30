@@ -11,7 +11,6 @@ import {CompilerModule} from 'wlc-engine/modules/compiler/compiler.module';
 
 import {BonusItemComponent} from 'wlc-engine/modules/bonuses/components/bonus-item/bonus-item.component';
 import {BonusesListComponent} from 'wlc-engine/modules/bonuses/components/bonuses-list/bonuses-list.component';
-import {BonusesHistoryComponent} from 'wlc-engine/modules/bonuses/components/bonuses-history/bonuses-history.component';
 import {BonusModalComponent} from 'wlc-engine/modules/bonuses/components/bonus-modal/bonus-modal.component';
 import {BonusButtonsComponent} from 'wlc-engine/modules/bonuses/components/bonus-buttons/bonus-buttons.component';
 import {EnterPromocodeComponent} from 'wlc-engine/modules/bonuses/components/enter-promocode/enter-promocode.component';
@@ -35,7 +34,6 @@ export const moduleConfig = GlobalHelper.mergeConfig<IBonusesModule>(bonusesConf
 
 export const components = {
     'wlc-bonus-item': BonusItemComponent,
-    'wlc-bonuses-history': BonusesHistoryComponent,
     'wlc-bonuses-list': BonusesListComponent,
     'wlc-bonus-modal': BonusModalComponent,
     'wlc-bonus-buttons': BonusButtonsComponent,
@@ -56,7 +54,6 @@ export const services = {
     declarations: [
         BonusItemComponent,
         BonusesListComponent,
-        BonusesHistoryComponent,
         BonusModalComponent,
         BonusButtonsComponent,
         EnterPromocodeComponent,
@@ -81,7 +78,6 @@ export const services = {
     exports: [
         BonusItemComponent,
         BonusesListComponent,
-        BonusesHistoryComponent,
         BonusModalComponent,
         BonusButtonsComponent,
         EnterPromocodeComponent,

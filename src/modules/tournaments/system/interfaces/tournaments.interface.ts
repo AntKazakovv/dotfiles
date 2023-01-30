@@ -59,18 +59,6 @@ export interface ITournamentAbstract {
     StatusText?: string;
 }
 
-export interface ITournamentHistory extends ITournamentAbstract {
-    BetsAmount: string;
-    BetsCount: string;
-    End: string | null;
-    Place: string | null;
-    Start: string;
-    Win: string | null;
-    WinningSpreadCount: number;
-    WinsAmount: string;
-    WinsCount: string;
-}
-
 export interface ITournament extends ITournamentAbstract {
     CurrentTime: number;
     Ends: string;

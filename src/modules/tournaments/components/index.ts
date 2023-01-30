@@ -15,6 +15,3 @@ export {TournamentComponent} from './tournament/tournament.component';
 export {
     TournamentLeaderboardComponent,
 } from './tournament/components/tournament-leaderboard/tournament-leaderboard.component';
-export {
-    TournamentTopwinsBtnComponent,
-} from './tournaments-history/components/tournament-topwins-btn/tournament-topwins-btn.component';

@@ -213,21 +213,6 @@ export interface ILootboxPrize {
     Terms: string;
 }
 
-export interface IBonusHistory extends IBonusBase {
-    BonusWagering: string;
-    BonusWageringDiff: string;
-    CancelInfo: IIndexing<string> | IIndexing<string>[];
-    Ended: number;
-    FreebetsValue: string;
-    FreebetsWinning: string;
-    FreeroundWagering: string;
-    PaySystems: null;
-    Start: string;
-    SubscribeDate: string;
-}
-
-export type TBonusesHistory = IBonusHistory[];
-
 export interface IBonusConditions {
     Levels?: IIndexing<string>;
     PaySystems?: IIndexing<string>;
@@ -287,7 +272,7 @@ export type BonusesFilterType =
     | 'active'
     | 'united'
     | 'default';
-export type RestType = 'active' | 'history' | 'lootboxPrizes' | 'store' | 'any';
+export type RestType = 'active' | 'lootboxPrizes' | 'store' | 'any';
 export type ActionType = 'inventory' | 'cancel' | 'expired' | 'subscribe' | 'unsubscribe';
 
 interface IBlankBonus {

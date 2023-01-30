@@ -2,7 +2,7 @@ import {ILayoutComponent} from 'wlc-engine/modules/core/system/interfaces/layout
 
 export namespace wlcBonusesHistory {
     export const def: ILayoutComponent = {
-        name: 'bonuses.wlc-bonuses-history',
+        name: 'history.wlc-bonuses-history',
         params: {
             transactionTableTheme: 'mobile-app',
         },

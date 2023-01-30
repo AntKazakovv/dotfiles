@@ -3,7 +3,7 @@ import {wlcTitle} from 'wlc-engine/modules/core/system/config/layouts/components
 
 export namespace wlcBonusesHistory {
     export const def: ILayoutComponent = {
-        name: 'bonuses.wlc-bonuses-history',
+        name: 'history.wlc-bonuses-history',
     };
 
     export const filter: ILayoutComponent = {

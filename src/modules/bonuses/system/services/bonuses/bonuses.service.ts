@@ -62,9 +62,6 @@ import {
     Game,
     GamesCatalogService,
 } from 'wlc-engine/modules/games';
-import {
-    BonusHistoryItemModel,
-} from 'wlc-engine/modules/bonuses/system/models/bonus-history-item/bonus-history-item.model';
 import {Bonus} from 'wlc-engine/modules/bonuses/system/models/bonus/bonus';
 import {
     ActionType,
@@ -74,8 +71,6 @@ import {
     IGetSubscribeParams,
     IQueryParams,
     RestType,
-    IBonusHistory,
-    TBonusesHistory,
     ILootboxPrize,
 } from 'wlc-engine/modules/bonuses/system/interfaces/bonuses/bonuses.interface';
 import {LootboxPrizeModel} from 'wlc-engine/modules/bonuses/system/models/lootbox-prize/lootbox-prize.model';
@@ -83,14 +78,13 @@ import {LootboxPrizeModel} from 'wlc-engine/modules/bonuses/system/models/lootbo
 type TUserLoyaltyInfo = Pick<UserInfo, 'bonusesBalance' | 'freeRounds'>;
 
 interface IBonusesData extends IData {
-    data?: IBonus[] | TBonusesHistory | ILootboxPrize[];
+    data?: IBonus[] | ILootboxPrize[];
 }
 
 interface ISubjects {
     bonuses$: BehaviorSubject<Bonus[]>;
     active$: BehaviorSubject<Bonus[]>;
     store$: BehaviorSubject<Bonus[]>;
-    history$: BehaviorSubject<BonusHistoryItemModel[]>;
     lootboxPrizes$: BehaviorSubject<LootboxPrizeModel[]>;
 }
 
@@ -111,7 +105,6 @@ export class BonusesService {
     public bonuses: Bonus[] = [];
 
     protected activeBonuses: Bonus[] = [];
-    protected historyBonuses: BonusHistoryItemModel[] = [];
     protected lootboxPrizes: LootboxPrizeModel[] = [];
     protected gamesCatalogService: GamesCatalogService;
     protected promocodeFetchSubscriber: Subscription = {} as Subscription;
@@ -120,7 +113,6 @@ export class BonusesService {
     private subjects: ISubjects = {
         bonuses$: new BehaviorSubject(null),
         active$: new BehaviorSubject(null),
-        history$: new BehaviorSubject(null),
         lootboxPrizes$: new BehaviorSubject(null),
         store$: new BehaviorSubject(null),
     };
@@ -134,7 +126,6 @@ export class BonusesService {
         [Property in RestType]: BehaviorSubject<boolean>;
     } = {
             active: new BehaviorSubject(false),
-            history: new BehaviorSubject(false),
             lootboxPrizes: new BehaviorSubject(false),
             store: new BehaviorSubject(false),
             any: new BehaviorSubject(false),
@@ -205,8 +196,6 @@ export class BonusesService {
         let bonuses: Bonus[];
 
         switch (type) {
-            case 'history':
-                return !!this.subjects.history$.getValue()?.length;
             case 'lootboxPrizes':
                 return !!this.subjects.lootboxPrizes$.getValue()?.length;
             case 'active':
@@ -272,15 +261,12 @@ export class BonusesService {
      * @param {RestType} type bonuses rest type ('active' | 'history' | 'store' | 'any')
      * @returns {Observable<Bonus[]>} Observable
      */
-    public getObserver<T extends BonusHistoryItemModel | Bonus | LootboxPrizeModel>(type?: RestType): Observable<T[]> {
-        let flow$: BehaviorSubject<(BonusHistoryItemModel | Bonus | LootboxPrizeModel)[]>;
+    public getObserver<T extends Bonus | LootboxPrizeModel>(type?: RestType): Observable<T[]> {
+        let flow$: BehaviorSubject<(Bonus | LootboxPrizeModel)[]>;
 
         switch (type) {
             case 'active':
                 flow$ = this.subjects.active$;
-                break;
-            case 'history':
-                flow$ = this.subjects.history$;
                 break;
             case 'lootboxPrizes':
                 flow$ = this.subjects.lootboxPrizes$;
@@ -545,7 +531,7 @@ export class BonusesService {
      * @param {string} promoCode bonus promocode (no required)
      * @returns {Bonus[]} bonuses array
      */
-    public async queryBonuses<T extends Bonus | BonusHistoryItemModel | LootboxPrizeModel>(
+    public async queryBonuses<T extends Bonus | LootboxPrizeModel>(
         publicSubject: boolean,
         type: RestType = 'any',
         promoCode?: string,
@@ -553,7 +539,7 @@ export class BonusesService {
         this.queryPromises[type].next(true);
         const queryParams: IQueryParams = {};
         if (type) {
-            if (type === 'active' || type === 'history' || type === 'lootboxPrizes') {
+            if (type === 'active' || type === 'lootboxPrizes') {
                 queryParams.type = type;
             }
             if (type === 'store') {
@@ -567,19 +553,6 @@ export class BonusesService {
 
         try {
             const res: IBonusesData = await this.dataService.request('bonuses/bonuses', queryParams);
-
-            if (type === 'history') {
-                this.historyBonuses = _map((res as IData<TBonusesHistory>).data,
-                    (bonus: IBonusHistory): BonusHistoryItemModel => {
-                        return new BonusHistoryItemModel({service: 'BonusesService', method: 'queryBonuses'}, bonus);
-                    });
-
-                if (publicSubject) {
-                    this.subjects.history$.next(this.historyBonuses);
-                }
-
-                return this.historyBonuses as T[];
-            }
 
             if (type === 'lootboxPrizes') {
                 this.lootboxPrizes = _map(
@@ -600,7 +573,7 @@ export class BonusesService {
             }
 
             const bonuses: Bonus[] = _orderBy(
-                this.checkForbid(await this.modifyBonuses((res as IData<IBonus[]>).data), queryParams),
+                this.checkForbid(await this.modifyBonuses((res as IData<IBonus[]>).data)),
                 'weight',
                 'desc',
             );
@@ -776,7 +749,7 @@ export class BonusesService {
         });
     }
 
-    private checkForbid(bonuses: Bonus[], queryParams: IQueryParams): Bonus[] {
+    private checkForbid(bonuses: Bonus[]): Bonus[] {
         if (!bonuses.length) {
             return bonuses;
         }
@@ -788,8 +761,8 @@ export class BonusesService {
                 (
                     _get(this.profile, 'info.loyalty.ForbidBonuses') === '1' ||
                     _get(forbiddenCategories, `${userCategory}.forbidBonuses`, false)
-                ) &&
-                queryParams.type !== 'history')
+                )
+            )
         ) {
             bonuses = _filter(bonuses, (bonus: Bonus) => {
                 return bonus.active || bonus.selected || bonus.inventoried;
@@ -895,15 +868,6 @@ export class BonusesService {
             next: (bonuses: Bonus[]): void => {
                 this.eventService.emit({
                     name: 'BONUSES_FETCH_ACTIVE_SUCCESS',
-                    data: bonuses,
-                });
-            },
-        });
-
-        this.subjects.history$.subscribe({
-            next: (bonuses: BonusHistoryItemModel[]) => {
-                this.eventService.emit({
-                    name: 'BONUSES_FETCH_HISTORY_SUCCESS',
                     data: bonuses,
                 });
             },
@@ -1030,9 +994,6 @@ export class BonusesService {
         }
         if (this.subjects.store$.observers.length > 1) {
             this.queryBonuses(true, 'store');
-        }
-        if (this.subjects.history$.observers.length > 1) {
-            this.queryBonuses(true, 'history');
         }
         if (this.subjects.lootboxPrizes$.observers.length > 1) {
             this.queryBonuses(true, 'lootboxPrizes');

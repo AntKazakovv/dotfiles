@@ -6,7 +6,7 @@ import {
     Tournament,
     ThumbType,
 } from 'wlc-engine/modules/tournaments';
-import {TournamentHistory} from 'wlc-engine/modules/tournaments/system/models/tournament-history.model';
+import {TournamentHistory} from 'wlc-engine/modules/history/system/models/tournament-history/tournament-history.model';
 
 export type ComponentTheme = 'default' | CustomType;
 export type ComponentType = ThumbType | CustomType;

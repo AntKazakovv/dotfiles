@@ -10,9 +10,9 @@ import {
 } from 'wlc-engine/modules/core';
 import {
     TournamentTopwinsBtnComponent,
-// eslint-disable-next-line max-len
-} from 'wlc-engine/modules/tournaments/components/tournaments-history/components/tournament-topwins-btn/tournament-topwins-btn.component';
-import {TournamentHistory} from 'wlc-engine/modules/tournaments/system/models/tournament-history.model';
+    // eslint-disable-next-line max-len
+} from 'wlc-engine/modules/history/components/tournaments-history/components/tournament-topwins-btn/tournament-topwins-btn.component';
+import {TournamentHistory} from 'wlc-engine/modules/history/system/models/tournament-history/tournament-history.model';
 
 export type Theme = 'default' | CustomType;
 export type Type = 'default' | CustomType;

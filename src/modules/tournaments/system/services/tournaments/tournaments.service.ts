@@ -22,8 +22,6 @@ import _isNil from 'lodash-es/isNil';
 import _map from 'lodash-es/map';
 
 import {Tournament} from '../../models/tournament.model';
-import {TournamentHistory} from 'wlc-engine/modules/tournaments/system/models/tournament-history.model';
-import {ITournamentHistory} from 'wlc-engine/modules/tournaments/system/interfaces/tournaments.interface';
 import {
     IData,
     ConfigService,
@@ -61,7 +59,6 @@ export class TournamentsService {
     private subjects = {
         tournaments$: new BehaviorSubject<Tournament[]>(null),
         active$: new BehaviorSubject<Tournament[]>(null),
-        history$: new BehaviorSubject<TournamentHistory[]>(null),
     };
 
     private winnersSubjects: IIndexing<BehaviorSubject<ITopTournamentUsers>> = {};
@@ -108,18 +105,15 @@ export class TournamentsService {
     /**
      * Get tournaments observer from tournaments subjects by rest type
      *
-     * @param {RestType} type bonuses rest type ('active' | 'history' | 'any')
+     * @param {RestType} type bonuses rest type ('active' | 'any')
      * @returns {Observable<Tournament[]>} Observable
      */
-    public getObserver<T extends Tournament[] | TournamentHistory[]>(type?: RestType): Observable<T> {
-        let flow$: BehaviorSubject<Tournament[] | TournamentHistory[]>;
+    public getObserver<T extends Tournament[]>(type?: RestType): Observable<T> {
+        let flow$: BehaviorSubject<Tournament[]>;
 
         switch (type) {
             case 'active':
                 flow$ = this.subjects.active$;
-                break;
-            case 'history':
-                flow$ = this.subjects.history$;
                 break;
             default:
                 flow$ = this.subjects.tournaments$;
@@ -304,14 +298,14 @@ export class TournamentsService {
      * Get tournaments
      *
      * @param {boolean} publicSubject is public rxjs subject from query
-     * @param {RestType} type bonuses rest type ('active' | 'history' | 'any') (no required)
+     * @param {RestType} type bonuses rest type ('active' | 'any') (no required)
      * @returns {Tournament[]} bonuses array
      */
     public async queryTournaments(
         publicSubject: boolean,
         type?: RestType,
-    ): Promise<Tournament[] | TournamentHistory[]> {
-        let tournaments: Tournament[] | TournamentHistory[] = [];
+    ): Promise<Tournament[]> {
+        let tournaments: Tournament[] = [];
         const queryParams: IQueryParams = {};
 
         if (type === 'active' || type === 'history') {
@@ -324,18 +318,15 @@ export class TournamentsService {
         }
 
         try {
-            const res: IData<ITournament[] | ITournamentHistory[]> = await this.dataService.request(
+            const res: IData<ITournament[]> = await this.dataService.request(
                 'tournaments/tournaments', queryParams,
             );
-            const result = this.modifyTournaments(res.data, type);
+            const result = this.modifyTournaments(res.data);
             tournaments = this.checkForbid(result, type);
 
             switch (type) {
                 case 'active':
                     publicSubject ? this.subjects.active$.next(tournaments as Tournament[]) : null;
-                    break;
-                case 'history':
-                    publicSubject ? this.subjects.history$.next(tournaments as TournamentHistory[]) : null;
                     break;
                 default:
                     publicSubject ? this.subjects.tournaments$.next(tournaments as Tournament[]) : null;
@@ -410,9 +401,9 @@ export class TournamentsService {
     }
 
     private checkForbid(
-        tournaments: Tournament[] | TournamentHistory[],
+        tournaments: Tournament[],
         type: RestType,
-    ): Tournament[] | TournamentHistory[] {
+    ): Tournament[] {
         const userCategory: string = _get(this.profile, 'info.category', '').toLowerCase();
         const forbiddenCategories = this.configService.get<IIndexing<IForbidBanned>>('$loyalty.forbidBanned');
 
@@ -421,8 +412,7 @@ export class TournamentsService {
             (
                 _get(this.profile, 'info.loyalty.ForbidTournaments') === '1' ||
                 _get(forbiddenCategories, `${userCategory}.ForbidTournaments`, false)
-            ) &&
-            type !== 'history' && type !== 'active'
+            ) && type !== 'active'
         ) {
             tournaments = _filter(tournaments as Tournament[], (item: Tournament) => item.isSelected);
         }
@@ -431,44 +421,25 @@ export class TournamentsService {
     }
 
     private modifyTournaments(
-        data: ITournament[] | ITournamentHistory[],
-        type: RestType,
-    ): TournamentHistory[] | Tournament[] {
+        data: ITournament[],
+    ): Tournament[] {
         if (data?.length) {
 
-            if (type === 'history') {
-                const queryTournaments = _map<ITournamentHistory, TournamentHistory>(
-                    data as ITournamentHistory[],
-                    (item: ITournamentHistory) => {
-                        return new TournamentHistory(
-                            {service: 'TournamentsService', method: 'modifyTournaments'},
-                            item,
-                            this.configService,
-                            this,
-                        );
-                    });
+            const queryTournaments = _map<ITournament, Tournament>(
+                data as ITournament[],
+                (item: ITournament) => {
+                    return new Tournament(
+                        {service: 'TournamentsService', method: 'modifyTournaments'},
+                        item,
+                        this.configService,
+                        this,
+                    );
+                });
 
-                return _filter(
-                    queryTournaments,
-                    (item: TournamentHistory) => item.status !== -1,
-                );
-            } else {
-                const queryTournaments = _map<ITournament, Tournament>(
-                    data as ITournament[],
-                    (item: ITournament) => {
-                        return new Tournament(
-                            {service: 'TournamentsService', method: 'modifyTournaments'},
-                            item,
-                            this.configService,
-                            this,
-                        );
-                    });
-
-                return _filter(
-                    queryTournaments,
-                    (item: Tournament) => item.status !== -1,
-                );
-            }
+            return _filter(
+                queryTournaments,
+                (item: Tournament) => item.status !== -1,
+            );
         }
     }
 
@@ -492,15 +463,6 @@ export class TournamentsService {
             next: (tournaments: Tournament[]) => {
                 this.eventService.emit({
                     name: 'TOURNAMENTS_FETCH_ACTIVE_SUCCESS',
-                    data: tournaments,
-                });
-            },
-        });
-
-        this.subjects.history$.subscribe({
-            next: (tournaments: TournamentHistory[]) => {
-                this.eventService.emit({
-                    name: 'TOURNAMENTS_FETCH_HISTORY_SUCCESS',
                     data: tournaments,
                 });
             },
@@ -547,9 +509,6 @@ export class TournamentsService {
         }
         if (this.subjects.tournaments$.observers.length > 1) {
             this.queryTournaments(true);
-        }
-        if (this.subjects.history$.observers.length > 1) {
-            this.queryTournaments(true, 'history');
         }
     }
 

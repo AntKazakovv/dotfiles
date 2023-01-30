@@ -25,7 +25,7 @@ import {
     ITopTournamentUsers,
     ITournamentLeaderboardCParams,
 } from 'wlc-engine/modules/tournaments';
-import {TournamentHistory} from 'wlc-engine/modules/tournaments/system/models/tournament-history.model';
+import {TournamentHistory} from 'wlc-engine/modules/history/system/models/tournament-history/tournament-history.model';
 
 import * as Params from './tournament-leaderboard.params';
 
@@ -95,19 +95,21 @@ export class TournamentLeaderboardComponent
         }
 
         this.isReady = false;
-        this.tournament?.getWinnersSubscribe({
-            next: (result) => {
-                if (result) {
-                    this.getWins(result);
-                    this.isReady = true;
-                    this.cdr.markForCheck();
-                }
+        this.tournament?.getWinnersSubscribe(
+            {
+                next: (result) => {
+                    if (result) {
+                        this.getWins(result);
+                        this.isReady = true;
+                        this.cdr.markForCheck();
+                    }
+                },
             },
-        },
-        {
-            until: this.$destroy,
-            limit: 0,
-        });
+            {
+                until: this.$destroy,
+                limit: 0,
+            },
+        );
     }
 
     public get needShowBtn(): boolean {

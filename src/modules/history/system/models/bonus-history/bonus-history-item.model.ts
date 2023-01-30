@@ -5,7 +5,7 @@ import {
     IFromLog,
     GlobalHelper,
 } from 'wlc-engine/modules/core';
-import {IBonusHistory} from 'wlc-engine/modules/bonuses/system/interfaces/bonuses/bonuses.interface';
+import {IBonusHistory} from 'wlc-engine/modules/history/system/interfaces/bonus-history/bonus-history.interface';
 
 export class BonusHistoryItemModel extends AbstractModel<IBonusHistory> {
 

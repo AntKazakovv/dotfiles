@@ -7,7 +7,7 @@ import {
 } from './helpers/global';
 
 import {IData} from 'wlc-engine/modules/core';
-import {TBonusesHistory} from 'wlc-engine/modules/bonuses';
+import {TBonusesHistory} from 'wlc-engine/modules/history';
 
 describe('/api/v1/bonuses', () => {
     const url = getRequestUrl('/api/v1/bonuses?type=history');

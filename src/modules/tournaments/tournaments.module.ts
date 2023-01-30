@@ -29,14 +29,8 @@ import {
     TournamentBannerComponent,
 } from './components/tournament/components/tournament-banner/tournament-banner.component';
 import {
-    TournamentsHistoryComponent,
-} from './components/tournaments-history/tournaments-history.component';
-import {
     TournamentSmartInfoComponent,
 } from './components/tournament/components/tournament-smart-info/tournament-smart-info.component';
-import {
-    TournamentTopwinsBtnComponent,
-} from './components/tournaments-history/components/tournament-topwins-btn/tournament-topwins-btn.component';
 import {CompilerModule} from 'wlc-engine/modules/compiler';
 import {GlobalHelper} from 'wlc-engine/modules/core';
 import {tournamentsConfig} from './system/config/tournaments.config';
@@ -51,12 +45,10 @@ export const components = {
     'wlc-tournament-list': TournamentListComponent,
     'wlc-tournament-leaderboard': TournamentLeaderboardComponent,
     'wlc-tournament': TournamentComponent,
-    'wlc-tournaments-history': TournamentsHistoryComponent,
 };
 
 @NgModule({
     declarations: [
-        TournamentsHistoryComponent,
         TournamentDetailComponent,
         TournamentListComponent,
         TournamentComponent,
@@ -66,7 +58,6 @@ export const components = {
         TournamentConditionComponent,
         TournamentBannerComponent,
         TournamentSmartInfoComponent,
-        TournamentTopwinsBtnComponent,
     ],
     imports: [
         CommonModule,
@@ -81,7 +72,6 @@ export const components = {
         TournamentListComponent,
         TournamentComponent,
         TournamentLeaderboardComponent,
-        TournamentsHistoryComponent,
     ],
 })
 

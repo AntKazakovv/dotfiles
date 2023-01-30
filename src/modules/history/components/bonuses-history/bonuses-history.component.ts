@@ -31,10 +31,10 @@ import {
     IHistoryFilterValue,
 } from 'wlc-engine/modules/core';
 import {bonusesConfig} from 'wlc-engine/modules/core/system/config/history.config';
-import {BonusesService} from 'wlc-engine/modules/bonuses/system/services/bonuses/bonuses.service';
+import {HistoryService} from 'wlc-engine/modules/history/system/services/history.service';
 import {
     BonusHistoryItemModel,
-} from 'wlc-engine/modules/bonuses/system/models/bonus-history-item/bonus-history-item.model';
+} from 'wlc-engine/modules/history/system/models/bonus-history/bonus-history-item.model';
 
 import * as Params from './bonuses-history.params';
 
@@ -60,7 +60,7 @@ export class BonusesHistoryComponent extends AbstractComponent implements OnInit
     constructor(
         @Inject('injectParams') protected params: Params.IBonusesHistoryCParams,
         protected cdr: ChangeDetectorRef,
-        protected bonusesService: BonusesService,
+        protected historyService: HistoryService,
         protected eventService: EventService,
         protected configService: ConfigService,
         protected actionService: ActionService,
@@ -75,7 +75,7 @@ export class BonusesHistoryComponent extends AbstractComponent implements OnInit
 
     public async ngOnInit(): Promise<void> {
         super.ngOnInit();
-        await this.bonusesService.queryBonuses(true, 'history');
+        await this.historyService.queryHistory(true, 'bonusesHistory');
         this.showFilter = this.actionService.getDeviceType() === DeviceType.Desktop;
         this.historyFilterService
             = await this.injectionService.getService<HistoryFilterService>('core.history-filter');
@@ -93,6 +93,14 @@ export class BonusesHistoryComponent extends AbstractComponent implements OnInit
             theme: this.$params.transactionTableTheme || 'default',
             head: Params.bonusHistoryTableHeadConfig,
             rows: this.bonuses$,
+            pagination: {
+                use: true,
+                breakpoints: {
+                    0: {
+                        itemPerPage: 20,
+                    },
+                },
+            },
             switchWidth: (this.configService.get('$base.profile.type') === 'first') ? 1200 : 1024,
         };
 
@@ -134,7 +142,7 @@ export class BonusesHistoryComponent extends AbstractComponent implements OnInit
                 this.cdr.detectChanges();
             });
 
-        this.bonusesService.getObserver<BonusHistoryItemModel>('history')
+        this.historyService.getObserver<BonusHistoryItemModel>('bonusesHistory')
             .pipe(takeUntil(this.$destroy))
             .subscribe((bonuses: BonusHistoryItemModel[]): void => {
                 this.allBonuses = bonuses;

@@ -8,7 +8,7 @@ import {
 } from 'wlc-engine/modules/core';
 import {
     BonusHistoryItemModel,
-} from 'wlc-engine/modules/bonuses/system/models/bonus-history-item/bonus-history-item.model';
+} from 'wlc-engine/modules/history/system/models/bonus-history/bonus-history-item.model';
 
 export type Theme = 'default' | CustomType;
 export type Type = 'default' | CustomType;

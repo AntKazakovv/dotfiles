@@ -11,7 +11,6 @@ import {
     filter,
     takeUntil,
 } from 'rxjs/operators';
-
 import {DateTime} from 'luxon';
 import _filter from 'lodash-es/filter';
 import _orderBy from 'lodash-es/orderBy';
@@ -34,10 +33,8 @@ import {
     TTournamentsFilter,
     IHistoryFilterValue,
 } from 'wlc-engine/modules/core/system/interfaces/history-filter.interface';
-import {
-    TournamentHistory,
-    TournamentsService,
-} from 'wlc-engine/modules/tournaments';
+import {HistoryService} from 'wlc-engine/modules/history/system/services/history.service';
+import {TournamentHistory} from 'wlc-engine/modules/history';
 import {tournamentConfig} from 'wlc-engine/modules/core/system/config/history.config';
 
 import * as Params from './tournaments-history.params';
@@ -62,7 +59,7 @@ export class TournamentsHistoryComponent extends AbstractComponent implements On
     constructor(
         @Inject('injectParams') protected params: Params.ITournamentsHistoryCParams,
         protected cdr: ChangeDetectorRef,
-        protected tournamentsService: TournamentsService,
+        protected historyService: HistoryService,
         protected eventService: EventService,
         protected historyFilterService: HistoryFilterService,
         protected configService: ConfigService,
@@ -78,7 +75,7 @@ export class TournamentsHistoryComponent extends AbstractComponent implements On
     public async ngOnInit(): Promise<void> {
         super.ngOnInit();
         const profileType: ProfileType = this.configService.get<ProfileType>('$base.profile.type') || 'default';
-        await this.tournamentsService.queryTournaments(true, 'history');
+        await this.historyService.queryHistory(true, 'tournamentsHistory');
         this.showFilter = this.actionService.getDeviceType() === DeviceType.Desktop;
 
         if (this.showFilter) {
@@ -135,7 +132,7 @@ export class TournamentsHistoryComponent extends AbstractComponent implements On
                 this.cdr.detectChanges();
             });
 
-        this.tournamentsService.getObserver<TournamentHistory[]>('history')
+        this.historyService.getObserver<TournamentHistory>('tournamentsHistory')
             .pipe(takeUntil(this.$destroy))
             .subscribe((value: TournamentHistory[]): void => {
                 this.allTournaments = value;
