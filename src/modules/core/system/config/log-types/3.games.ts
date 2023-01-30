@@ -21,7 +21,7 @@ export const errorTypes: ILogTypes = {
         // Error on checkMobileLaunch (FAKESID)
     },
     '3.0.6': {
-        // No game iframe after timeout
+        // Successful loading of game iframe
     },
     '3.0.7': {
         // No game redirect after timeout
