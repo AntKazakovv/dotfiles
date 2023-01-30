@@ -23,6 +23,7 @@ import {IMonitoringConfig} from './monitoring.interface';
 import {IIdleConfig} from './idle.interface';
 import {IRestrictionsConfig} from './restrictions.interface';
 import {ILegalCheckboxWithLink} from 'wlc-engine/modules/core/components/checkbox/checkbox.params';
+import {TErrorReplacerMap} from 'wlc-engine/modules/core/system/services/data/data.service';
 
 export * from './games.interface';
 export * from './tournaments.interface';
@@ -145,4 +146,8 @@ export interface IBaseConfig {
         /** dont use signin state */
         hideSigninState?: boolean;
     },
+    /**
+     * Error replacer object, see [[TErrorReplacerMap]]
+     */
+    errorsReplacerMap?: TErrorReplacerMap;
 }

@@ -769,6 +769,7 @@ export class ActionService {
                 type: 'error',
                 title,
                 message,
+                displayAsHTML: true,
                 wlcElement: id ? `notification_${id}-error` : null,
             },
         });

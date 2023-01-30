@@ -121,6 +121,21 @@ interface ISocketQueue {
     params?: any;
 }
 
+interface IErrorReplacerParams {
+    text: string;
+    supportEmail?: boolean;
+}
+
+/**
+ * Error replacer object, where:
+ *
+ * {key} - string, exact match with first string in error array
+ * {value} - replace params:
+ *     `text` - string, new text of the error;
+ *     `supportEmail` - boolean, if `true` add support email ($base.contacts.email) to the end of the text.
+ */
+export type TErrorReplacerMap = Record<string, IErrorReplacerParams>;
+
 @Injectable()
 export class DataService {
 
@@ -140,6 +155,8 @@ export class DataService {
     private requestId: number = 0;
     private socketQueue: ISocketQueue[] = [];
     private socketOpen: boolean = false;
+
+    private errorReplacerMap!: TErrorReplacerMap;
 
     constructor(
         private http: HttpClient,
@@ -361,10 +378,14 @@ export class DataService {
         });
     }
 
-    protected init(): void {
+    protected async init(): Promise<void> {
         if (this.socketUrl) {
             this.socketConnect();
         }
+
+        await this.configService.ready;
+        this.errorReplacerMap = this.configService.get<TErrorReplacerMap>('$base.errorsReplacerMap');
+
     }
 
     protected addToSocketQueue(requestId: number, method: string, params?: any) {
@@ -471,6 +492,9 @@ export class DataService {
                         }
 
                         this.emitRequestFail('0.0.15', method, error);
+
+                        this.replaceErrors(error);
+
                         const errData: IData = {
                             name: method.name,
                             system: method.system,
@@ -480,7 +504,7 @@ export class DataService {
                         };
                         this.flow$.next(errData);
                         method.subject?.next(errData);
-                        return throwError(error.error || error);
+                        return throwError(errData.errors || error);
                     }));
             }),
             map((data: IData): IData => {
@@ -684,4 +708,23 @@ export class DataService {
             withCredentials: true,
         });
     }
+
+    private replaceErrors(errResponse: HttpErrorResponse): void {
+        let errorText!: IErrorReplacerParams;
+
+        if (Array.isArray(errResponse.error?.errors)
+            && (errorText = this.errorReplacerMap[errResponse.error.errors[0]])) {
+            errResponse.error.errors = [this.createErrorMessage(errorText)];
+        }
+    };
+
+    private createErrorMessage(replacer: IErrorReplacerParams): string {
+        return this.translate.instant(replacer.text)
+            + (replacer.supportEmail
+                ? ' ' + this.wrapEmail(this.configService.get('$base.contacts.email')) : '');
+    }
+
+    private wrapEmail(email: string): string {
+        return `<a target="_blank" href="mailto:${email}">${email}</a>`;
+    };
 }

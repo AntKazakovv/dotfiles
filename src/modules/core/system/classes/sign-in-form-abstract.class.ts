@@ -150,6 +150,7 @@ export abstract class SignInFormAbstract<T extends IAbstractSignInFormCParams<un
                 title: gettext('Login error'),
                 message,
                 wlcElement: 'notification_login-error',
+                displayAsHTML: true,
             },
         });
     }
