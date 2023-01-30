@@ -101,6 +101,7 @@ module.exports = function buildTask() {
         'messages',
         parallel(
             'build:inline',
+            'build:domainBalancer',
             'build:sw-fix',
             'build:copyHeadFile',
             'build:modifyIndexFile',

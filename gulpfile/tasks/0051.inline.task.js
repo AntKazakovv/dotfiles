@@ -95,6 +95,34 @@ module.exports = function inlineTask() {
             .pipe(dest(`${this.params.paths.root}/roots/template/`));
     });
 
+    task('build:domainBalancer', (cb) => {
+        const cfg = Object.assign({}, config, {
+            output: {filename: 'domain-balancer.js'},
+        });
+        this.addToGitIgnore('/roots', 'template', 'domain-balancer.js');
+        return src(`${this.params.paths.engine}/src/system/inline/domain-balancer.ts`)
+            .pipe(webpack(cfg, wp))
+            .pipe(dest(`${this.params.paths.root}/roots/template/`));
+    });
+
+    task('watch:domainBalancer', (cb) => {
+        const cfg = Object.assign({}, config, {
+            output: {
+                filename: 'domain-balancer.js',
+            },
+            mode: 'development',
+            watch: true,
+        });
+        this.addToGitIgnore('/roots', 'template', 'domain-balancer.js');
+        process.on('SIGINT', () => {
+            cb && cb();
+            process.exit();
+        });
+        return src(`${this.params.paths.engine}/src/system/inline/domain-balancer.ts`)
+            .pipe(webpack(cfg, wp))
+            .pipe(dest(`${this.params.paths.root}/roots/template/`));
+    });
+
 
     /** :::::::::::::::::: CORDOVA :::::::::::::::::: */
 

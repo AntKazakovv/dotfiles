@@ -16,9 +16,18 @@
             window.WLC_ENV = 'dev';
         {% endif %}
     </script>
+
+    {%if currentDomain == entrypoint %}
+    <script type="text/javascript">
+        window.mirrorDomains = {{mirrorDomains|json_encode|raw }} || [];
+        {% include 'domain-balancer.js' %}
+    </script>
+    {%endif%}
 </head>
 <body>
+{%if currentDomain != entrypoint %}
 <div ui-view class="wlc-app">
+{%endif%}
     {% if 'template/preloader.html' is ondisk %}
         {% include 'preloader.html' %}
     {% else %}
@@ -34,7 +43,9 @@
             </div>
         </div>
     {% endif %}
+{%if currentDomain != entrypoint %}
 </div>
+{%endif%}
 <noscript>Please enable JavaScript to continue using this application.</noscript>
 {% include 'additional-footer.html' ignore missing %}
 </body>
