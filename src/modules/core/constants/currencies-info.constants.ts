@@ -58,6 +58,7 @@ export namespace CurrenciesInfo {
         'BC2',
         'DOGE',
         'EGLD',
+        'BUSD',
     ]);
 
     export const formats: ICurrencies = {
@@ -173,6 +174,10 @@ export namespace CurrenciesInfo {
         },
         // PayCryptos Elrond
         EGLD: {
+            icon: '',
+            literalAs: 'BTC',
+        },
+        BUSD: {
             icon: '',
             literalAs: 'BTC',
         },

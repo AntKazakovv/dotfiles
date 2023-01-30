@@ -52,4 +52,8 @@ export const aliasTickerMap = {
     paycryptos_bnb: 'BNB',
     paycryptos_bseth: 'BSETH',
     paycryptos_busdt: 'BUSDT',
+    paycryptos_busd_v1: 'BUSD',
+    paycryptos_busd_v2: 'BUSD',
+    paycryptos_bbusd_v1: 'BUSD',
+    paycryptos_bbusd_v2: 'BUSD',
 } as const;
