@@ -85,7 +85,10 @@ export class LicenseComponent extends AbstractComponent implements OnInit {
         if (this.$params.apgSeal.sealDomain !== location.host) {
             script.onload = () => {
                 this.replaceHost();
-                this.checkLicenseIcon();
+                this.checkLicenseValue();
+            };
+            script.onerror = () => {
+                this.logService.sendLog({code: '4.0.4'});
             };
         }
 
@@ -102,15 +105,11 @@ export class LicenseComponent extends AbstractComponent implements OnInit {
         item.setAttribute(attr, item.getAttribute(attr).replace(location.host, this.$params.apgSeal.sealDomain));
     }
 
-    protected checkLicenseIcon() {
+    protected checkLicenseValue() {
         const licenseTag = this.document.getElementById('apg-seal-container');
-        const licenseImgSrc = licenseTag.querySelector('img').src?.toString();
+        const licenseImgSrc = licenseTag?.querySelector('img')?.src;
 
-        if (this.licenseType === 'apg' && !licenseTag.querySelector('img')) {
-            this.logService.sendLog({code: '4.0.4'});
-        }
-
-        if (this.licenseType === 'apg' && licenseImgSrc.indexOf('valid') === -1) {
+        if (licenseImgSrc?.includes('invalid')) {
             this.logService.sendLog({code: '4.0.5'});
         }
     }
