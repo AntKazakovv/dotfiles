@@ -76,7 +76,7 @@ export function routerConfigFn(router: UIRouter, injector: Injector) {
         if (configService.get<string>('appConfig.siteconfig.termsOfService')) {
             let termsAcceptService: TermsAcceptService;
             const modalService: ModalService = injector.get(ModalService);
-            router.transitionService.onEnter({}, async (trans: Transition) => {
+            router.transitionService.onBefore({}, async (trans: Transition) => {
                 if (!termsAcceptService) {
                     const injectionService = injector.get(InjectionService);
                     termsAcceptService = await injectionService
@@ -95,12 +95,10 @@ export function routerConfigFn(router: UIRouter, injector: Injector) {
                         if (res.closeReason !== 'accept') {
                             termsAcceptService.showDeniedNotify();
                             trans.abort();
-
-                            if (!trans.from().name) {
-                                router.stateService.go('app.home', trans.params());
-                            };
-
+                            router.stateService.go('app.home', trans.params());
                             return;
+                        } else {
+                            router.stateService.reload();
                         }
                     }
                 }
