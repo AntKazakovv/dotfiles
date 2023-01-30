@@ -29,4 +29,31 @@
         margin-right: calc(-1 * var(--fp-size-gap));
         margin-left: calc(-1 * var(--fp-size-gap));
     }
+
+    &.wlc-sections__header--with-balance-info {
+        @include headerWithBalanceInfo($headerThemeUniversal);
+
+        .wlc-btn-burger {
+            margin: 0;
+        }
+
+        @include mq.max(1200) {
+
+            .header {
+
+                &__left,
+                &__right {
+                    gap: ef.get-value($headerThemeUniversal, 'withBalanceElementsGap');
+
+                    > * {
+
+                        &:not(.wlc-logo) {
+                            margin-right: 0;
+                            margin-left: 0;
+                        }
+                    }
+                }
+            }
+        }
+    }
 }

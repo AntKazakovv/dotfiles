@@ -24,6 +24,8 @@
 
     &.wlc-sections__header--with-balance-info {
 
+        @include headerWithBalanceInfo($theme2Header);
+
         @include mq.max(768) {
 
             &.wlc-sections__header--with-top-logo {
@@ -41,37 +43,9 @@
         }
 
         @include mq.max(1200) {
-            margin-bottom: ef.get-value($theme2Header, 'withBalanceMarginBottom');
-            background: ef.get-value($theme2Header, 'withBalanceBackground');
 
             .container {
                 grid-template-columns: auto auto minmax(0, 1fr) auto;
-                min-height: ef.get-value($theme2Header, 'withBalanceContainerHeight');
-
-                .wlc-logo {
-                    width: auto;
-                }
-
-                .wlc-btn {
-                    height: ef.get-value($theme2Header, 'withBalanceBtnHeight');
-                }
-
-                .wlc-btn-burger {
-
-                    svg {
-                        width: 22px;
-                        height: 22px;
-                    }
-                }
-
-                .wlc-btn--deposit,
-                .wlc-btn--user {
-
-                    svg {
-                        width: ef.size(6);
-                        height: ef.size(6);
-                    }
-                }
             }
         }
     }

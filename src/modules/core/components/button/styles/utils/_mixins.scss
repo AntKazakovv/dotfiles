@@ -68,6 +68,11 @@
     background: unset;
     border-color: transparent;
 
+    .wlc-btn__text {
+        @include bm.transition(color);
+        color: ef.get-value($themeDefault, 'fontColorSecondary');
+    }
+
     @include bm.hover {
         border-color: ef.get-value($themeDefault, 'borderColorRead');
     }

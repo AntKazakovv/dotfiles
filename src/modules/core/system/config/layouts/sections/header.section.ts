@@ -108,25 +108,41 @@ export namespace header {
         ],
     };
 
-    export const theme2WithLogoSmall: ILayoutSectionConfig = {
+    export const universalWithLogoSmall: ILayoutSectionConfig = {
         replaceConfig: true,
         order: 0,
-        theme: '2',
+        theme: 'universal',
         modifiers: ['with-balance-info'],
         container: true,
         components: [
-            componentLib.wlcButton.burger,
-            componentLib.wlcLogo.headerDesktopOnly,
-            componentLib.wlcLogo.headerLogoSmall,
+            {
+                name: 'core.wlc-wrapper',
+                params: {
+                    class: 'header__left',
+                    components: [
+                        componentLib.wlcButton.burger,
+                        componentLib.wlcLogo.headerDesktopOnly,
+                        componentLib.wlcLogo.headerLogoSmall,
+                    ],
+                },
+            },
             componentLib.wlcMainMenu.header,
-            componentLib.wlcLoginSignup.header,
-            componentLib.wlcUserInfo.header,
-            componentLib.wlcUserStats.mobile,
-            componentLib.wlcButton.userIconMobile,
-            componentLib.wlcLanguageSelector.bottomLeft2,
-            componentLib.wlcButton.searchV2,
-            componentLib.wlcButton.mobileLoginBtnV2,
-            componentLib.wlcButton.mobileSignupBtn,
+            {
+                name: 'core.wlc-wrapper',
+                params: {
+                    class: 'header__right',
+                    components: [
+                        componentLib.wlcLoginSignup.header,
+                        componentLib.wlcUserInfo.header,
+                        componentLib.wlcUserStats.mobile,
+                        componentLib.wlcButton.userIconMobile,
+                        componentLib.wlcLanguageSelector.bottomLeft2,
+                        componentLib.wlcButton.searchV2,
+                        componentLib.wlcButton.mobileLoginBtn,
+                        componentLib.wlcButton.mobileSignupBtn,
+                    ],
+                },
+            },
         ],
     };
 

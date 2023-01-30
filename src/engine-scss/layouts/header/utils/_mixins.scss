@@ -217,3 +217,48 @@
         }
     }
 }
+
+
+@mixin headerWithBalanceInfo($theme) {
+
+    @include mq.max(1200) {
+
+        margin-bottom: ef.get-value($theme, 'withBalanceMarginBottom');
+        background: ef.get-value($theme, 'withBalanceBackground');
+
+        .container {
+            min-height: ef.get-value($theme, 'withBalanceContainerHeight');
+
+            .wlc-logo {
+                @include bm.get-mq-map('width', $theme, 'withBalanceLogoWidth');
+                margin: ef.get-value($theme, 'withBalanceLogoMargin');
+            }
+
+            .wlc-btn {
+                grid-column-gap: ef.get-value($theme, 'withBalanceBtnGridGap');
+                height: ef.get-value($theme, 'withBalanceBtnHeight');
+
+                &.wlc-btn--theme-mod-secondary.wlc-btn--mobile-login {
+                    min-width: ef.get-value($theme, 'withBalanceBtnSecondaryWidth');
+                }
+            }
+
+            .wlc-btn-burger {
+
+                svg {
+                    width: ef.get-value($theme, 'withBalanceBurgerSvgSize');
+                    height: ef.get-value($theme, 'withBalanceBurgerSvgSize');
+                }
+            }
+
+            .wlc-btn--deposit,
+            .wlc-btn--user {
+
+                svg {
+                    width: ef.get-value($theme, 'withBalanceBtnSvgSize');
+                    height: ef.get-value($theme, 'withBalanceBtnSvgSize');
+                }
+            }
+        }
+    }
+}

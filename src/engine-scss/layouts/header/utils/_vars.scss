@@ -158,6 +158,9 @@ $theme2Header: map-merge((
     'withBalanceMarginBottom': ef.size(6),
     'withBalanceContainerHeight': ef.size(10),
     'withBalanceBtnHeight': ef.size(7),
+    'withBalanceBtnSecondaryWidth': ef.size(15),
+    'withBalanceBtnGridGap': 0,
+    'withBalanceLogoMargin': 0 ef.size(2),
 
     'headerLoginBtnTabletPadding': (
         1200: ef.size(1) ef.size(2),
@@ -252,6 +255,22 @@ $headerThemeUniversal: map-merge((
     ),
     'headerLoginJustifyContent': flex-end,
     'headerUserInfoJustifyContent': flex-end,
+
+    'withBalanceBackground': var(--mc-bg700),
+    'withBalanceLogoBackground': var(--mc-bg),
+    'withBalanceBtnBackground': var(--mc-bg500),
+    'withBalanceMarginBottom': ef.size(6),
+    'withBalanceContainerHeight': ef.size(10),
+    'withBalanceBtnHeight': ef.size(7),
+    'withBalanceBtnSecondaryWidth': fit-content,
+    'withBalanceBtnGridGap': 0,
+    'withBalanceBurgerSvgSize': 22px,
+    'withBalanceBtnSvgSize': ef.size(6),
+    'withBalanceElementsGap': ef.size(1),
+    'withBalanceLogoMargin': 0 ef.size(2),
+    'withBalanceLogoWidth': (
+        375: auto,
+    ),
 
     'logoImgHeight': null,
     'logoImgAlignItems': center,
