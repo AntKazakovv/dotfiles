@@ -25,8 +25,8 @@ module.exports = function watchTask() {
             console.log(series('cordova:watch:inline')());
         } else {
             // eslint-disable-next-line no-console
-            console.log(series('watch:inline',
-                'watch:domainBalancer')());
+            console.log(series('watch:inline')());
+            console.log(series('watch:domainBalancer')());
         }
 
         const watcher = watch(
