@@ -21,6 +21,10 @@ $themeDefaultNavigation: map-merge((
 $customThemeDefaultPagination: () !default;
 // Pagination
 $themeDefaultPagination: map-merge((
+    'swiperPagiDisplay': (
+        375: block,
+        720: none,
+    ),
     'swiperPagiZindex': 10,
     'swiperPagiBottom': 10px,
     'swiperPagiVerticalAside': 10px,

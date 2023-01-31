@@ -1,4 +1,5 @@
 .swiper-pagination {
+    @include bm.get-mq-map('display', $themeDefaultPagination, 'swiperPagiDisplay');
     position: absolute;
     z-index: ef.get-value($themeDefaultPagination, 'swiperPagiZindex');
     text-align: center;

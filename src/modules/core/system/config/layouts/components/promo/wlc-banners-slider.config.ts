@@ -17,7 +17,10 @@ export namespace wlcBannersSlider {
                         nextEl: '.wlc-slider--theme-default-banner .wlc-swiper-button-next',
                         prevEl: '.wlc-slider--theme-default-banner .wlc-swiper-button-prev',
                     },
-                    pagination: false,
+                    pagination: {
+                        enable: true,
+                        clickable: true,
+                    },
                     autoplay: {
                         delay: 10000,
                     },
