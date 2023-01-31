@@ -66,6 +66,7 @@ export const gamesConfig: IGamesConfig = {
         hide: {
             bySlug: [
                 'vertical',
+                'verticalthumbnails',
             ],
         },
         parents: [

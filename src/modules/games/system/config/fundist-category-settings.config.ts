@@ -65,4 +65,7 @@ export const categorySettings: IIndexing<ICategorySettings> = {
     vertical: {
         view: 'all-games',
     },
+    verticalthumbnails: {
+        view: 'all-games',
+    },
 };
