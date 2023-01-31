@@ -33,10 +33,13 @@ $themeDefault: map-merge((
     'categoryBgLivecasino': null,
     'categoryBgSlots': null,
     'categoryBorderRadius': ef.size(2),
+    'categoryMargin': (
+        375: 0 0 ef.size(2),
+        768: 0 0 ef.size(4),
+    ),
     'gap': (
         375: ef.size(2),
-        1024: ef.size(3),
-        1630: ef.size(4),
+        768: ef.size(4),
     ),
     'categoryLinkDisplay': (
         375: none,

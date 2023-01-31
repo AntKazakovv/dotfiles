@@ -2,9 +2,7 @@
 $customThemeDefault: () !default;
 $themeDefault: map-merge((
     'containerMargin': (
-        375: ef.size(2) 0 0,
-        768: ef.size(4) 0 0,
-        1630: ef.size(8) 0 0,
+        375: ef.size(4) 0 0,
     ),
     'containerRadius': ef.get('radius', 'biger'),
     'promoStepsBackground': var(--mc-bg300),

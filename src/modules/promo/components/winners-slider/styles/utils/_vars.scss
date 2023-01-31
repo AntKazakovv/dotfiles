@@ -86,9 +86,9 @@ $themeTransparent: map-merge((
     // wrapper
     'wrapperRadius': ef.get('radius', 'biger'),
     'wrapperMargin': (
-        375: ef.size(3) 0 0,
-        768: ef.size(3) 0 0,
-        1200: ef.size(3) ef.size(6) 0,
+        375: ef.size(4) 0 0,
+        768: ef.size(4) 0 0,
+        1200: ef.size(4) ef.size(6) 0,
     ),
     'wrapperMaxWidth': 100%,
     'wrapperHeight': 100%,
@@ -98,6 +98,10 @@ $themeTransparent: map-merge((
 
     // title
     'titleColor': var(--mc-baseMain),
+
+    'titlePadding': (
+        375: 0 ef.size(3),
+    ),
     'titleBorderRadius': ef.get('radius', 'biger') 0 ef.get('radius', 'biger') 0,
     'titleFont': 'QoteTextBold',
     'titleNoWinnersFlex': 0 1 auto,

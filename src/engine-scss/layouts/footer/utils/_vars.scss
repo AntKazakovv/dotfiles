@@ -34,6 +34,10 @@ $theme1Footer: map-merge((
         900: 0 0  map-get($footerCommon, 'marginTablet'),
         1200: 0,
     ),
+    'footerMobileOffsetMerchants': (
+        375: 0 0 ef.size(4) 0,
+        1024: 0,
+    ),
 
     // footer container
     'footerContainerDisplay': (

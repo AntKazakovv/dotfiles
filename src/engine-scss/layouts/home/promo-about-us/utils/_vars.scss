@@ -1,16 +1,15 @@
 $customPromoAboutUs: () !default;
 $promoAboutUs: map-merge((
     'sectionMargin': (
-        375: 0 0 ef.size(6),
-        900: 0 0 ef.size(4),
+        375: 0 0 ef.size(8),
     ),
-
     'sectionTitleMargin': 0 auto ef.size(4),
     'sectionTitleAlign': center,
 
     'listGap': (
-        375: ef.size(2),
-        1024: ef.size(4),
+        375: ef.size(4),
+        720: ef.size(2),
+        1200: ef.size(4),
     ),
     'listTemplateColumns': (
         375: 1fr,

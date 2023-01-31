@@ -1,10 +1,9 @@
 $customThemeBannerSection: () !default;
 $themeBannerSection: map-merge((
     'bannerSectionMargin': (
-        375: 0 0 ef.size(2),
-        900: 0 0 ef.size(4),
-        1630: 0 0 ef.size(8),
+        375: 0 0 ef.size(8),
     ),
+    'sectionMarginTop': -20px,
 ), $customThemeBannerSection);
 
 $customThemePlusOne: () !default;

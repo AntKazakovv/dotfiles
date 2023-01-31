@@ -21,7 +21,6 @@ $themeGameWidgets: map-merge((
         1630: unset,
     ),
     'gap': (
-        375: ef.size(2),
-        1200: ef.size(4),
-    )
+        375: ef.size(4),
+    ),
 ), $customThemeGameWidgets);

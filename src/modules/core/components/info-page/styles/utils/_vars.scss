@@ -23,5 +23,5 @@ $themeDefault: map-merge((
     'borderRadius': ef.get('radius', 'biger'),
     'padding': 0,
     'maxWidth': 1200px,
-    'margin': 0 auto ef.size(8) auto,
+    'margin': 0 auto,
 ), $customThemeDefault);

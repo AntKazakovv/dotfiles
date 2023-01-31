@@ -19,9 +19,7 @@ $baseVariables: map-merge((
     //baseSize used in @function size
     'baseSize': 5,
     'sectionsGap': (
-        375: 30px,
-        900: 20px,
-        1630: 40px,
+        375: 40px,
     ),
     /// Глобальные настройки ширины контейнера.
     ///  Если true то ширина контейнера равняется ширине экрана.

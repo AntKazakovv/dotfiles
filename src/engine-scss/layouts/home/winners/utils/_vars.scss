@@ -13,6 +13,10 @@ $themeWinnersSection: map-merge((
     'translateItems': (
         1200: translateY(ef.size(5)),
     ),
+    'sectionMargin': (
+        375: 0 0 ef.size(4),
+        1200: 0 0 ef.size(8),
+    ),
 ), $customThemeWinnersSection);
 
 $customThemeWinnersSectionStripe: () !default;

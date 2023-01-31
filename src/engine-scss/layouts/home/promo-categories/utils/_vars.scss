@@ -10,9 +10,8 @@ $themePromoCategories: map-merge((
         1630: repeat(6, minmax(0, 1fr)),
     ),
     'sectionGap': (
-        375: ef.size(2),
-        1024: ef.size(3),
-        1630: ef.size(4),
+        375: ef.size(4) ef.size(2),
+        768: ef.size(4),
     ),
     'categoryItem2Display': (
         375: none,

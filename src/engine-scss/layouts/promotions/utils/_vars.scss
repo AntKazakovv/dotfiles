@@ -3,10 +3,10 @@ $promotionsThemeDefault: map-merge((
     'titleFontSize': ef.get('font', 'QoteTextBold'),
     'titleAlign': center,
     'listMargin': (
-        375: 0 0 ef.size(6) 0,
-        900: 0 0 ef.size(4) 0,
-        1630: 0 0 ef.size(8) 0,
+        375: 0 0 ef.size(8),
     ),
-
+    'titleMargin': (
+        375: 0 0 ef.size(4),
+    ),
     'btnMargin': 0 auto ef.size(8) auto,
 ), $customPromotionsThemeDefault);

@@ -1,7 +1,6 @@
 .wlc-category-preview--theme-default:host {
 
     .wlc-category-preview__wrapper {
-
         @include bm.get-mq-map('gap', $themeDefault, 'gap');
         display: grid;
         grid-template-columns: ef.get-value($themeDefault, 'wraperGridColumns');
@@ -34,9 +33,17 @@
         }
 
         &__category {
-            @include bm.get-mq-map('margin-bottom', $themeDefault, 'gap');
+            @include bm.get-mq-map('margin', $themeDefault, 'categoryMargin');
             position: relative;
             border-radius: ef.get-value($themeDefault, 'categoryBorderRadius');
+
+            .wrapper {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+            }
 
             @supports (aspect-ratio: 1/1) {
                 aspect-ratio: #{ef.get-value($themeDefault, 'categoryAspectRatio')};
@@ -45,14 +52,6 @@
             @supports not (aspect-ratio: 1/1) {
                 @include bm.aspect-ratio-padding(ef.get-value($themeDefault, 'thumbAspectRatio'));
                 height: 0;
-            }
-
-            .wrapper {
-                position: absolute;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
             }
         }
 

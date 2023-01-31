@@ -103,6 +103,10 @@
 
         &-merchants-list {
             grid-area: merchants;
+
+            .wlc-icon-list {
+                @include bm.get-mq-map('margin', $theme1Footer, 'footerMobileOffsetMerchants');
+            }
         }
 
         &-payments-list {

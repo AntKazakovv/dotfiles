@@ -4,7 +4,7 @@
 
         .wlc-title.wlc-title--promotions[wlc-title],
         .wlc-title.wlc-title--profile[wlc-title] {
-            margin: ef.get-value($promotionsThemeDefault, 'listMargin');
+            margin: ef.get-value($promotionsThemeDefault, 'titleMargin');
             text-align: ef.get-value($promotionsThemeDefault, 'titleAlign');
 
             div.wlc-title__main {
@@ -27,7 +27,7 @@
     .wlc-sections__tournaments--theme-default {
 
         .wlc-title.wlc-title--tournaments[wlc-title] {
-            @include bm.get-mq-map('margin', $promotionsThemeDefault, 'listMargin');
+            @include bm.get-mq-map('margin', $promotionsThemeDefault, 'titleMargin');
             text-align: ef.get-value($promotionsThemeDefault, 'titleAlign');
 
             div.wlc-title__main {

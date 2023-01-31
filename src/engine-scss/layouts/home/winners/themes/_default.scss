@@ -1,4 +1,5 @@
 .wlc-sections__winners-section {
+    @include bm.get-mq-map('margin', $themeWinnersSection, 'sectionMargin');
 
     .wlc-title--theme-default {
         margin: ef.get-value($themeWinnersSection, 'titleMargin');

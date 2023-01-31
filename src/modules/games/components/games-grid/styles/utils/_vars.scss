@@ -24,17 +24,15 @@ $themeDefault: map-merge((
     'placeholderBackground': var(--mc-bg),
     'gridGap': (
         375: ef.size(2),
-        1024: ef.size(3),
-        1630: ef.size(4)
+        900: ef.size(3),
+        1420: ef.size(4)
     ),
     'placeholderBorderRadius': ef.get('radius', 'less'),
     'placeholderTextColor': var(--mc-baseMain),
     'placeholderAlignItems': center,
     'placeholderJustifyContent': center,
     'catalogMoreButtonMargin': (
-        375: ef.size(6) 0 0,
-        900: ef.size(4) 0 0,
-        1630: ef.size(8) 0 0,
+        375: ef.size(4) 0 0,
     ),
     'progressBarMargin': (
         375: ef.size(6) 0 ef.size(-3),
@@ -76,7 +74,7 @@ $themeDefault: map-merge((
 $customCommonStyles: () !default;
 $commonStyles: map-merge((
     'moreButtonMargin': (
-        375: ef.size(6) 0 0,
+        375: ef.size(4) 0 0,
         1200: ef.size(8) 0 0,
     ),
     'moreButtonAlignItems': center,
