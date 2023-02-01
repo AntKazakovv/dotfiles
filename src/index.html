@@ -9,11 +9,11 @@
     <link rel="stylesheet" href="/static/css/app.loader.css">
 
     <script type="text/javascript">
-        window.WLC_VERSION = {{ projectVersion }};
+        window.WLC_VERSION = {{projectVersion}};
         {% if env == 'dev' or env == 'qa' or env == 'test' %}
-        window.WLC_ENV = '{{env}}';
+            window.WLC_ENV = '{{env}}';
         {% elseif GET['eg-debug'] == 1 and env != 'prod' %}
-        window.WLC_ENV = 'dev';
+            window.WLC_ENV = 'dev';
         {% endif %}
     </script>
 
@@ -25,25 +25,28 @@
     {%endif%}
 </head>
 <body>
-    <div ui-view class="wlc-app">
-
-    </div>
+{%if currentDomain != entrypoint %}
+<div ui-view class="wlc-app">
+{%endif%}
     {% if 'template/preloader.html' is ondisk %}
-    {% include 'preloader.html' %}
+        {% include 'preloader.html' %}
     {% else %}
-    <div class="wlc-app__preload">
-        <div class="wlc-app__preload-content">
-            <div class="wlc-app__preload-img"></div>
-            <div class="wlc-app__preload-loader">
-                <div style="--n: 1;"></div>
-                <div style="--n: 2;"></div>
-                <div style="--n: 3;"></div>
-                <div style="--n: 4;"></div>
+        <div class="wlc-app__preload">
+            <div class="wlc-app__preload-content">
+                <div class="wlc-app__preload-img"></div>
+                <div class="wlc-app__preload-loader">
+                    <div style="--n: 1;"></div>
+                    <div style="--n: 2;"></div>
+                    <div style="--n: 3;"></div>
+                    <div style="--n: 4;"></div>
+                </div>
             </div>
         </div>
-    </div>
     {% endif %}
-    <noscript>Please enable JavaScript to continue using this application.</noscript>
-    {% include 'additional-footer.html' ignore missing %}
+{%if currentDomain != entrypoint %}
+</div>
+{%endif%}
+<noscript>Please enable JavaScript to continue using this application.</noscript>
+{% include 'additional-footer.html' ignore missing %}
 </body>
 </html>
