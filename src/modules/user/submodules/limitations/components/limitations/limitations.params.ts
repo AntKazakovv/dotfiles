@@ -149,10 +149,10 @@ export const realityCheckerPeriod = {
     name: 'core.wlc-select',
     params: <ISelectCParams>{
         name: 'limitTime',
-        labelText: gettext('Limit time (Reality checker)'),
+        labelText: gettext('Limit time'),
         wlcElement: 'limit-time',
         common: {
-            placeholder: gettext('Limit time (Reality checker)'),
+            placeholder: gettext('Limit time'),
         },
         validators: ['required'],
         locked: false,
@@ -177,10 +177,10 @@ export const timeOutPeriod = {
     name: 'core.wlc-select',
     params: <ISelectCParams>{
         name: 'limitTime',
-        labelText: gettext('Limit time (Time out)'),
+        labelText: gettext('Limit time'),
         wlcElement: 'limit-time',
         common: {
-            placeholder: gettext('Limit time (Time out)'),
+            placeholder: gettext('Limit time'),
         },
         validators: ['required'],
         locked: false,
