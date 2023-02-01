@@ -29,17 +29,6 @@ import {MerchantModel} from 'wlc-engine/modules/games/system/models/merchant.mod
 import {GamesHelper} from 'wlc-engine/modules/games/system/helpers/games.helpers';
 import {IAllSortsItemResponse} from 'wlc-engine/modules/games/system/interfaces/sorts.interfaces';
 
-const specialCategories = [
-    'casino',
-    'lastplayed',
-    'favourites',
-    'last-played',
-];
-
-const defaultParentsCategories = [
-    'new',
-    'popular',
-];
 
 export class CategoryModel extends AbstractModel<ICategory> {
 
@@ -74,6 +63,8 @@ export class CategoryModel extends AbstractModel<ICategory> {
         private sorts: IIndexing<IAllSortsItemResponse>,
         private separateSortSettings: IGamesSeparateSortSetting,
         private useSeparateSorts: boolean,
+        private defaultSpecialCategories: string[],
+        private defaultParentCategories: string[],
     ) {
         super({from: _assign({model: 'CategoryModel'}, from)});
         this.init(data);
@@ -116,15 +107,15 @@ export class CategoryModel extends AbstractModel<ICategory> {
     }
 
     public get isSpecial(): boolean {
-        return _includes(specialCategories, this.slug);
+        return _includes(this.defaultSpecialCategories, this.slug);
     }
 
     public get isParent(): boolean {
         return !this.parent && (
             this.useAsParent
             || this.menu === 'main-menu'
-            || _includes(specialCategories, this.slug)
-            || _includes(defaultParentsCategories, this.slug)
+            || _includes(this.defaultSpecialCategories, this.slug)
+            || _includes(this.defaultParentCategories, this.slug)
         );
     }
 

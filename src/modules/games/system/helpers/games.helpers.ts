@@ -131,6 +131,8 @@ export class GamesHelper {
         sorts: IIndexing<IAllSortsItemResponse>,
         separateSortSettings: IGamesSeparateSortSetting,
         useSeparateSorts: boolean,
+        defaultSpecialCategories: string[],
+        defaultParentCategories: string[],
     ): CategoryModel[] {
         if (!categories) {
             return;
@@ -147,6 +149,8 @@ export class GamesHelper {
                 sorts,
                 separateSortSettings,
                 useSeparateSorts,
+                defaultSpecialCategories,
+                defaultParentCategories,
             );
 
             if (_get(this.mapping, `categoryByName.${category.slug}`)) {

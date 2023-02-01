@@ -142,6 +142,18 @@ export class GamesCatalog extends AbstractModel<IGames> {
     protected useSeparateSorts: boolean;
     protected sortSetting: IGamesSortSetting;
     protected separateSortSettings: IGamesSeparateSortSetting;
+    protected renamedSlugs: IIndexing<string> = {};
+    protected defaultSpecialCategories: string[] = [
+        'casino',
+        'lastplayed',
+        'favourites',
+        'last-played',
+    ];
+    protected defaultParentCategories: string[] = [
+        'new',
+        'popular',
+    ];
+
     protected specialCategories: ICategory[] = [
         {
             ID: '-1',
@@ -429,6 +441,11 @@ export class GamesCatalog extends AbstractModel<IGames> {
         if (!slug) {
             return;
         }
+
+        if (this.renamedSlugs) {
+            slug = _isString(slug) ? this.transformSlug(slug) : this.transformSlugs(slug);
+        }
+
         const slugs: string[] = _isString(slug) ? [slug] : slug;
         const categoryList = byDefaultCategories ? this.categories : this.getAvailableCategories();
 
@@ -640,6 +657,12 @@ export class GamesCatalog extends AbstractModel<IGames> {
         this.sortSetting = this.configService.get<IGamesSortSetting>('$games.categories.gamesSortSetting');
         this.separateSortSettings = this.configService.get<IGamesSeparateSortSetting>('$games.sortsV2.settings');
         this.categorySettings = this.configService.get('appConfig.categories');
+        this.renamedSlugs = this.configService.get<IIndexing<string>>('$games.categories.renameSlugs');
+
+        if (this.renamedSlugs) {
+            this.defaultSpecialCategories = this.transformSlugs(this.defaultSpecialCategories);
+            this.defaultParentCategories = this.transformSlugs(this.defaultParentCategories);
+        }
 
         if (!this.categorySettings && this.configService.get('$games.fundist.defaultCategorySettings.use')) {
             this.categorySettings = defaultCategorySettings;
@@ -852,12 +875,9 @@ export class GamesCatalog extends AbstractModel<IGames> {
         }
         response.categories = _concat(this.specialCategories, response.categories);
 
-        const renamedSlugs = this.configService.get<IIndexing<string>>('$games.categories.renameSlugs');
-        if (renamedSlugs) {
-            response.categories.forEach((item) => {
-                if (renamedSlugs[item.Slug]) {
-                    item.Slug = renamedSlugs[item.Slug];
-                }
+        if (this.renamedSlugs) {
+            response.categories.forEach((item: ICategory) => {
+                item.Slug = this.transformSlug(item.Slug);
             });
         }
 
@@ -871,6 +891,8 @@ export class GamesCatalog extends AbstractModel<IGames> {
             sorts,
             this.separateSortSettings,
             this.useSeparateSorts,
+            this.defaultSpecialCategories,
+            this.defaultParentCategories,
         );
         this.categories = this.sortCategories(categories);
 
@@ -1278,5 +1300,15 @@ export class GamesCatalog extends AbstractModel<IGames> {
                 showMerchantsFirst,
             ),
         };
+    }
+
+    private transformSlug(slug: string): string {
+        return this.renamedSlugs[slug] ?? slug;
+    }
+
+    private transformSlugs(slug: string[]): string[] {
+        return slug.map((item) => {
+            return this.transformSlug(item);
+        });
     }
 }
