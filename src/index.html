@@ -25,9 +25,11 @@
     {%endif%}
 </head>
 <body>
+    {%if currentDomain != entrypoint %}
     <div ui-view class="wlc-app">
 
     </div>
+    {%endif%}
     {% if 'template/preloader.html' is ondisk %}
     {% include 'preloader.html' %}
     {% else %}
