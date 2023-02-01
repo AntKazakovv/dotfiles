@@ -35,6 +35,8 @@ export const defaultParams: Partial<IDatepickerCParams> = {
             month: tomorrow.month,
             day: tomorrow.day,
         },
+        selectorWidth: '260px',
+        selectorHeight: '277px',
     },
     maskOptions: {
         mask: Date,

@@ -79,6 +79,10 @@
 
         .myDpSelectorArrow {
 
+            &:before {
+                border-bottom-color: transparent;
+            }
+
             &:after {
                 border-color: transparent;
                 border-bottom-color: ef.get-value($themeDefault, 'datepickerBg');
@@ -92,7 +96,18 @@
         .myDpSelectedYear {
 
             &[class] {
+                color: ef.get-value($themeDefault, 'datepickerSelectedDayColor');
                 background-color: ef.get-value($themeDefault, 'datepickerActiveColor');
+            }
+
+            .myDpMarkCurrDay,
+            .myDpMarkCurrMonth,
+            .myDpMonthValue,
+            .myDpMonthNbr,
+            .myDpMarkCurrYear,
+            .myDpYearValue {
+                color: ef.get-value($themeDefault, 'datepickerSelectedDayColor');
+                border-bottom-color: ef.get-value($themeDefault, 'datepickerSelectedDayColor');
             }
 
             @include bm.hover {
@@ -130,10 +145,30 @@
             }
         }
 
-        .myDpMarkCurrDay,
-        .myDpMarkCurrMonth,
-        .myDpMarkCurrYear {
-            border-bottom: 2px solid ef.get-value($themeDefault, 'datepickerColor');
+        .myDpCalTable,
+        .myDpMonthcell,
+        .myDpYearcell {
+            background: ef.get-value($themeDefault, 'datepickerBg');
+        }
+
+        .myDpDaycell {
+            width: 36px;
+            height: 36px;
+            border-radius: ef.get-value($themeDefault, 'datepickerCellBorderRadius');
+            font-weight: ef.get-value($themeDefault, 'datepickerFontWeight');
+
+            &.myDpSelectedDay {
+
+                &[class],
+                .myDpHighlight {
+                    color: ef.get-value($themeDefault, 'datepickerSelectedDayColor');
+                }
+            }
+        }
+
+        .myDpMarkCurrDay {
+            border-bottom: 2px solid ef.get-value($themeDefault, 'datepickerCurrentDayColor');
+            color: ef.get-value($themeDefault, 'datepickerCurrentDayColor');
         }
 
         .myDpMonthYearSelBar,
@@ -152,29 +187,82 @@
                 .myDpDayValue {
                     color: ef.get-value($themeDefault, 'datepickerHoverColor');
                 }
-            }
-        }
 
-        .myDpDaycell {
-
-            &.defaultDate {
-                box-shadow: ef.get-value($themeDefault, 'datepickerDefaultDateBoxShadow');
+                .myDpMarkCurrDay {
+                    border-bottom-color: ef.get-value($themeDefault, 'datepickerHoverColor');
+                }
             }
         }
 
         .myDpPrevMonth,
         .myDpNextMonth {
-            opacity: ef.get-value($themeDefault, 'datepickerDisabledOpacity');
+            font-weight: normal;
+
+            &[class],
+            .myDpHighlight {
+                color: ef.get-value($themeDefault, 'datepickerDisabledColor');
+            }
+
+            .myDpMarkCurrDay {
+                font-weight: ef.get-value($themeDefault, 'datepickerFontWeight');
+            }
         }
 
         .myDpDisabled {
             cursor: not-allowed;
-            opacity: ef.get-value($themeDefault, 'datepickerDisabledOpacity');
+
+            &[class],
+            .myDpHighlight {
+                color: ef.get-value($themeDefault, 'datepickerDisabledColor');
+            }
+        }
+
+        .myDpDimDay,
+        .myDpDisabled.myDpPrevMonth,
+        .myDpDisabled.myDpNextMonth {
+            opacity: 1;
         }
 
         .myDpIcon {
             font-size: ef.get-value($themeDefault, 'datepickerIconSize');
             font-family: angular-mydatepicker;
+        }
+
+        .myDpMonthBtn,
+        .myDpYearBtn {
+            font-weight: ef.get-value($themeDefault, 'datepickerFontWeight');
+        }
+
+        .myDpHeaderBtnDisabled {
+            opacity: 1;
+
+            &[class] {
+                color: ef.get-value($themeDefault, 'datepickerDisabledColor');
+            }
+        }
+
+        .myDpCalTable.myDpNoFooter tbody tr:nth-child(6) td:first-child,
+        .myDpCalTable.myDpNoFooter tbody tr:nth-child(6) td:last-child {
+            border-radius: ef.get-value($themeDefault, 'datepickerCellBorderRadius');
+        }
+
+        .myDpTableSingleDay,
+        .myDpTableSingleMonth,
+        .myDpTableSingleYear {
+            @include bm.hover {
+                color: ef.get-value($themeDefault, 'datepickerHoverColor');
+                background: ef.get-value($themeDefault, 'datepickerHoverBg');
+
+                .myDpMarkCurrMonth,
+                .myDpMarkCurrYear {
+                    border-bottom-color: ef.get-value($themeDefault, 'datepickerHoverColor');
+                }
+            }
+        }
+
+        .myDpMarkCurrMonth,
+        .myDpMarkCurrYear {
+            border-bottom-color: inherit;
         }
     }
 }
