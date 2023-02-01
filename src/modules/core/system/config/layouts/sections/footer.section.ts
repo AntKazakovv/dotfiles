@@ -11,7 +11,7 @@ export namespace footer {
         components: [
             componentLib.wlcIconList.merchants,
             {
-                name: 'core.wlc-icon-payments-list',
+                name: 'icon-list.wlc-icon-payments-list',
                 params: {
                     iconsType: 'black',
                 },
