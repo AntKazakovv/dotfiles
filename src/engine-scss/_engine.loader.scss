@@ -16,18 +16,6 @@ $appLoader: map-merge((
     'loaderHeight': 50px,
     'loaderBorder': 2px solid var(--mc-main),
 
-    'titleFontSize': map-get(ev.$font, 'QoteTextBold'),
-    'titleFontWeight': map-get(ev.$fontWeight, 'QoteTextBold'),
-    'textFontSize': map-get(ev.$font, 'PrimaryText'),
-    'textFontWeight': map-get(ev.$fontWeight, 'PrimaryText'),
-    'textBlockMargin': 30px 0 0 0,
-    'textBlockColor': var(--mc-baseMain),
-    'buttonMargin': 40px auto 0 auto,
-    'buttonHeight': 40px,
-    'buttonDisplay': flex,
-    'buttonJustifyContent': center,
-    'buttonAlignItems': center,
-
     // animation before removing the preloader
     'deleteAnime': scaleLogo, //scaleLogo, slideToBottom
     'deleteAnimeSpeed': 1s,
@@ -189,28 +177,28 @@ $appLoader: map-merge((
         display: map-get($appLoader, 'buttonDisplay');
         align-items: map-get($appLoader, 'buttonAlignItems');
         justify-content: map-get($appLoader, 'buttonJustifyContent');
-        min-width: map-get(ev.$buttonSettings, 'minWidth');
+        min-width: map-get($buttonSettings, 'minWidth');
 
-        height: map-get($appLoader, 'buttonHeight');
+        height: map-get($appLoader, 'buttonHeigth');
         margin: map-get($appLoader, 'buttonMargin');
-        padding: map-get(ev.$buttonSettings, 'padding');
+        padding: map-get($buttonSettings, 'padding');
 
-        color: map-get(ev.$buttonSettings, 'fontColor');
-        font-weight: map-get(ev.$fontWeight, 'ButtonText');
-        font-size: map-get(ev.$font, 'ButtonText');
+        color: map-get($buttonSettings, 'fontColor');
+        font-weight: map-get($fontWeight, 'ButtonText');
+        font-size: map-get($font, 'ButtonText');
         line-height: 1.45;
 
-        text-transform: map-get(ev.$buttonSettings, 'textTransform');
-        background: map-get(ev.$buttonSettings, 'background');
-        box-shadow: map-get(ev.$buttonSettings, 'shadow');
+        text-transform: map-get($buttonSettings, 'textTransform');
+        background: map-get($buttonSettings, 'background');
+        box-shadow: map-get($buttonSettings, 'shadow');
         transition: all 0.3s linear;
-        border: map-get(ev.$buttonSettings, 'borderDefault');
-        border-radius: map-get(ev.$buttonSettings, 'borderRadiusDefault');
+        border: map-get($buttonSettings, 'borderDefault');
+        border-radius: map-get($buttonSettings, 'borderRadiusDefault');
 
         @media (hover: hover) and (pointer: fine) {
-            background: map-get(ev.$buttonSettings, 'backgroundHover');
-            box-shadow: map-get(ev.$buttonSettings, 'shadowHover');
-            border: map-get(ev.$buttonSettings, 'borderDefaultHover');
+            background: map-get($buttonSettings, 'backgroundHover');
+            box-shadow: map-get($buttonSettings, 'shadowHover');
+            border: map-get($buttonSettings, 'borderDefaultHover');
         }
     }
 
