@@ -31,6 +31,7 @@ export const defaultParams: IProviderLinksCParams = {
     componentName: 'wlc-provider-links',
     moduleName: 'games',
     iconsType: 'black',
+    colorIconBg: 'dark',
     type: 'slider',
     linkText: 'See all',
     defaultLinkSref: 'app.providers',

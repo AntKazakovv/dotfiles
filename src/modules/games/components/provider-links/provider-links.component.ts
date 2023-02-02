@@ -102,6 +102,7 @@ export class ProviderLinksComponent extends IconListAbstract<Params.IProviderLin
                 type: 'default',
                 sliderParams: null,
                 iconsType: this.$params.iconsType,
+                colorIconBg: this.$params.colorIconBg,
                 themeMod: 'inside-modal',
             },
         });
