@@ -380,7 +380,7 @@ export class BonusesListComponent extends AbstractComponent implements OnInit, O
     protected sortBonuses(): Bonus[] {
         if (!this.bonuses.length) return;
 
-        return  this.bonusesService.sortBonuses(this.bonuses, this.$params.common?.sortOrder);
+        return this.bonusesService.sortBonuses(this.bonuses, this.$params.common?.sortOrder);
     }
 
     protected prepareBonuses(): void {
@@ -437,15 +437,13 @@ export class BonusesListComponent extends AbstractComponent implements OnInit, O
         let bonuses = _filter(this.bonuses, (bonus) =>
             bonus.data.Group.toLocaleLowerCase() === this.$params.common.filterByGroup.toLocaleLowerCase()
             && bonus.status > 0
-            && !bonus.isActive
-            && !bonus.isSubscribed
-            && (!bonus.isInventory || (bonus.isLootbox && bonus.canSubscribe)));
+            && !bonus.isActive);
 
         if (!bonuses.length) {
             bonuses = _filter(this.bonuses, (bonus) => bonus.status > 0
                 && !bonus.isActive
-                && !bonus.isSubscribed
-                && (!bonus.isInventory || (bonus.isLootbox && bonus.canSubscribe)));
+                && (!bonus.isInventory || (bonus.isLootbox && bonus.canSubscribe))
+                && !bonus.showOnly);
         }
 
         this.bonuses = bonuses;
@@ -454,7 +452,6 @@ export class BonusesListComponent extends AbstractComponent implements OnInit, O
     protected onGetBonuses(bonuses: Bonus[]): void {
         this.paginatedBonuses = this.bonuses = this.bonusesService
             .filterBonuses(bonuses, this?.filter);
-
         const chosenBonus = this.configService.get<ChosenBonusType>(ChosenBonusSetParams.ChosenBonus);
 
         if (chosenBonus?.id) {
