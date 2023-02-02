@@ -122,8 +122,8 @@ export class GamesCatalogService {
     public readonly ready: Promise<void> = new Promise((resolve: () => void): void => {
         this.$resolve = resolve;
     });
-    public readonly gameThumpReady: Promise<void> = new Promise((resolve: () => void): void => {
-        this.$gameThumpResolve = resolve;
+    public readonly gameThumbReady: Promise<void> = new Promise((resolve: () => void): void => {
+        this.$gameThumbResolve = resolve;
     });
     public favourites: Game[] = [];
 
@@ -161,7 +161,7 @@ export class GamesCatalogService {
     }
 
     private $resolve: () => void;
-    private $gameThumpResolve: () => void;
+    private $gameThumbResolve: () => void;
     private isMobile: boolean = false;
 
     public async init(): Promise<void> {
@@ -227,7 +227,7 @@ export class GamesCatalogService {
                     });
                     this.pragmaticPlayLiveService = this.injector.get(PragmaticPlayLiveService);
                 }
-                this.$gameThumpResolve();
+                this.$gameThumbResolve();
                 this.$resolve();
                 this.loadJackpots().then((): void => {
                     if (this.useRealJackpots) {
@@ -350,7 +350,7 @@ export class GamesCatalogService {
                     method: 'loadGames',
                 },
             });
-            this.$gameThumpResolve();
+            this.$gameThumbResolve();
         }
     }
 

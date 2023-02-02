@@ -150,7 +150,7 @@ export class GameThumbComponent extends AbstractComponent implements OnInit {
     }
 
     public async init(): Promise<void> {
-        await this.gamesCatalogService.gameThumpReady;
+        await this.gamesCatalogService.gameThumbReady;
         const gameId = this.$params.common?.gameId;
         this.currentLanguage = this.configService.get<string>('currentLanguage');
 
