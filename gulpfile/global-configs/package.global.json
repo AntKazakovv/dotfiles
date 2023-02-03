@@ -21,6 +21,7 @@
             "watch-inline": "webpack -d --mode development -w --config ./wlc-engine/webpack.inline.js",
             "prerender": "ng run wlc-site:prerender",
             "tsc": "tsc",
+            "update:engine": "npm up @egamings/wlc-engine",
             "fullup": "rm -rf node_modules package-lock.json && npm install",
             "test:api": "npx gulp fix-jasmine && cd api-tests && PROJECT_PATH=$(pwd) npx jasmine-ts --config=jasmine.json",
             "analyze-dev": "ng build --configuration=dev --stats-json --watch=false && webpack-bundle-analyzer roots/static/dist/stats.json -m static -r bundle_report.html",
