@@ -135,7 +135,7 @@ export const gamesConfig: IGamesConfig = {
         },
     },
 
-    sorts: {
+    sortsV2: {
         use: false,
         settings: {
             direction: {

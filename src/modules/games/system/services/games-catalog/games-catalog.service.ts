@@ -168,7 +168,7 @@ export class GamesCatalogService {
         this.loadGames();
 
         this.useRealJackpots = this.configService.get<boolean>('$base.games.jackpots.useRealJackpots');
-        this.useSeparateSorts = this.configService.get<boolean>('$games.sorts.use');
+        this.useSeparateSorts = this.configService.get<boolean>('$games.sortsV2.use');
 
         const fetches: {
             games: Observable<IEvent<IData<IGames>>>,

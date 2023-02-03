@@ -65,7 +65,7 @@ export interface IGamesConfig {
      */
     cacheSettings?: ICacheSettings;
     merchants?: IGameMerchants;
-    sorts?: {
+    sortsV2?: {
         use: boolean;
         settings: IGamesSeparateSortSetting;
     },

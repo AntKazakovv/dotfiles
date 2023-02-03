@@ -633,12 +633,12 @@ export class GamesCatalog extends AbstractModel<IGames> {
 
     protected async init(): Promise<void> {
         this.ready = this.readyStatus.promise;
-        this.useSeparateSorts = this.configService.get<boolean>('$games.sorts.use');
+        this.useSeparateSorts = this.configService.get<boolean>('$games.sortsV2.use');
         this.overrideJackpots = !this.configService.get<boolean>('$games.categories.useFundistJackpots');
         this.searchByCyrillicLetters = this.configService.get<boolean>('$games.search.byCyrillicLetters');
 
         this.sortSetting = this.configService.get<IGamesSortSetting>('$games.categories.gamesSortSetting');
-        this.separateSortSettings = this.configService.get<IGamesSeparateSortSetting>('$games.sorts.settings');
+        this.separateSortSettings = this.configService.get<IGamesSeparateSortSetting>('$games.sortsV2.settings');
         this.categorySettings = this.configService.get('appConfig.categories');
 
         if (!this.categorySettings && this.configService.get('$games.fundist.defaultCategorySettings.use')) {
