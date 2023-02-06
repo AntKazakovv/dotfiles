@@ -170,7 +170,7 @@ export class ValidationService {
      * @returns Observable<IIndexing<boolean> | null>
      */
     public passwordRule(ctrl: AbstractControl): Observable<IIndexing<boolean> | null> {
-        return ctrl.value
+        return ctrl.value && ctrl.valueChanges
             ? ctrl.valueChanges
                 .pipe(
                     distinctUntilChanged(),
