@@ -119,8 +119,11 @@ export interface IVerticalThumbsConfig {
 })
 export class GamesCatalogService {
 
-    public ready: Promise<void> = new Promise((resolve: () => void): void => {
+    public readonly ready: Promise<void> = new Promise((resolve: () => void): void => {
         this.$resolve = resolve;
+    });
+    public readonly gameThumpReady: Promise<void> = new Promise((resolve: () => void): void => {
+        this.$gameThumpResolve = resolve;
     });
     public favourites: Game[] = [];
 
@@ -158,7 +161,7 @@ export class GamesCatalogService {
     }
 
     private $resolve: () => void;
-
+    private $gameThumpResolve: () => void;
     private isMobile: boolean = false;
 
     public async init(): Promise<void> {
@@ -224,7 +227,7 @@ export class GamesCatalogService {
                     });
                     this.pragmaticPlayLiveService = this.injector.get(PragmaticPlayLiveService);
                 }
-
+                this.$gameThumpResolve();
                 this.$resolve();
                 this.loadJackpots().then((): void => {
                     if (this.useRealJackpots) {
@@ -347,6 +350,7 @@ export class GamesCatalogService {
                     method: 'loadGames',
                 },
             });
+            this.$gameThumpResolve();
         }
     }
 

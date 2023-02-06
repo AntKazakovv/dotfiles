@@ -124,13 +124,14 @@ export class GameThumbComponent extends AbstractComponent implements OnInit {
 
         if (!this.dumpy && this.$params.dumpy) {
             this.dumpy = true;
+            this.cdr.markForCheck();
         }
 
         if (this.dumpy) {
             this.inited = true;
+            this.cdr.markForCheck();
             return;
         }
-
         this.init();
     }
 
@@ -149,7 +150,7 @@ export class GameThumbComponent extends AbstractComponent implements OnInit {
     }
 
     public async init(): Promise<void> {
-        await this.gamesCatalogService.ready;
+        await this.gamesCatalogService.gameThumpReady;
         const gameId = this.$params.common?.gameId;
         this.currentLanguage = this.configService.get<string>('currentLanguage');
 
@@ -212,6 +213,8 @@ export class GameThumbComponent extends AbstractComponent implements OnInit {
                 }
             } catch (err) {
                 this.initFailed = true;
+                this.inited = true;
+                this.cdr.markForCheck();
             }
         }
 
