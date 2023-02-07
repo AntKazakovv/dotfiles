@@ -1,11 +1,23 @@
 import {TestBed} from '@angular/core/testing';
+import {EventEmitter} from '@angular/core';
 import {DOCUMENT} from '@angular/common';
-import {Observable} from 'rxjs';
-import {ActionService, ConfigService, DeviceType, IIndexing} from 'wlc-engine/modules/core';
-import {AppModule} from 'wlc-engine/modules/app/app.module';
-import {BodyClassPrefix, BodyClassService, TBodyClassPrefix} from './body-class.service';
+import {TranslateService} from '@ngx-translate/core';
 
+import {Observable} from 'rxjs';
 import _each from 'lodash-es/each';
+
+import {
+    BodyClassPrefix,
+    BodyClassService,
+    TBodyClassPrefix,
+} from './body-class.service';
+import {WINDOW_PROVIDER} from 'wlc-engine/modules/app/system';
+import {ActionService} from 'wlc-engine/modules/core/system/services/action/action.service';
+import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
+import {EventService} from 'wlc-engine/modules/core/system/services/event/event.service';
+import {DeviceType} from 'wlc-engine/modules/core/system/models/device.model';
+import {IIndexing} from 'wlc-engine/modules/core/system/interfaces/global.interface';
+import {LogService} from 'wlc-engine/modules/core/system/services/log/log.service';
 
 describe('BodyClassService', () => {
     let bodyClassService: BodyClassService;
@@ -13,6 +25,9 @@ describe('BodyClassService', () => {
     let body: HTMLBodyElement;
     let ConfigServiceSpy: jasmine.SpyObj<ConfigService>;
     let ActionServiceSpy: jasmine.SpyObj<ActionService>;
+    let eventServiceSpy: jasmine.SpyObj<EventService>;
+    let logServiceSpy: jasmine.SpyObj<LogService>;
+    let translateServiceSpy: jasmine.SpyObj<TranslateService>;
 
     beforeEach(() => {
 
@@ -44,13 +59,34 @@ describe('BodyClassService', () => {
         ConfigServiceSpy.get.withArgs('$base.colorThemeSwitching.use').and.returnValues(false);
         ConfigServiceSpy.get.withArgs('$user.isAuthenticated').and.returnValues(false);
 
+        logServiceSpy = jasmine.createSpyObj('LogService', ['sendLog']);
+        translateServiceSpy = jasmine.createSpyObj('TranslateService', [], {
+            onLangChange: new EventEmitter,
+        });
+        eventServiceSpy = jasmine.createSpyObj(
+            'EventService',
+            ['emit', 'subscribe'],
+        );
+
         TestBed.configureTestingModule({
-            imports: [AppModule],
             providers: [
                 BodyClassService,
+                WINDOW_PROVIDER,
                 {
                     provide: ConfigService,
                     useValue: ConfigServiceSpy,
+                },
+                {
+                    provide: EventService,
+                    useValue: eventServiceSpy,
+                },
+                {
+                    provide: TranslateService,
+                    useValue: translateServiceSpy,
+                },
+                {
+                    provide: LogService,
+                    useValue: logServiceSpy,
                 },
                 {
                     provide: ActionService,
