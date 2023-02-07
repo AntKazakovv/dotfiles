@@ -3,15 +3,17 @@ import {
     TestBed,
 } from '@angular/core/testing';
 
-import {AppModule} from 'wlc-engine/modules/app/app.module';
 import {IconMerchantsListComponent} from './icon-merchants-list.component';
 import {IIconMerchantsListCParams} from './icon-merchants-list.params';
 import {
     ConfigService,
+    EventService,
     InjectionService,
 } from 'wlc-engine/modules/core';
-import {GamesCatalogService} from 'wlc-engine/modules/games/system/services';
-import {MerchantModel} from 'wlc-engine/modules/games';
+import {
+    MerchantModel,
+    GamesCatalogService,
+} from 'wlc-engine/modules/games';
 
 describe('IconMerchantsListComponent', () => {
     let component: IconMerchantsListComponent;
@@ -19,6 +21,7 @@ describe('IconMerchantsListComponent', () => {
     let ConfigServiceSpy: jasmine.SpyObj<ConfigService>;
     let InjectionServiceSpy: jasmine.SpyObj<InjectionService>;
     let GamesCatalogServiceSpy: jasmine.SpyObj<GamesCatalogService>;
+    let eventServiceSpy: jasmine.SpyObj<EventService>;
     let availableMerchants: MerchantModel[];
 
     const injectParams: IIconMerchantsListCParams = {
@@ -76,7 +79,7 @@ describe('IconMerchantsListComponent', () => {
         }),
     ];
 
-    beforeEach(async () => {
+    beforeEach(() => {
         ConfigServiceSpy = jasmine.createSpyObj('ConfigService', ['load', 'get', 'set'], {
             'ready': Promise.resolve(),
         });
@@ -105,14 +108,18 @@ describe('IconMerchantsListComponent', () => {
                 'getService': async () => GamesCatalogServiceSpy,
             },
         );
+        eventServiceSpy = jasmine.createSpyObj('EventService', ['subscribe']);
 
         TestBed.configureTestingModule({
-            imports: [AppModule],
             declarations: [IconMerchantsListComponent],
             providers: [
                 {
                     provide: ConfigService,
                     useValue: ConfigServiceSpy,
+                },
+                {
+                    provide: EventService,
+                    useValue: eventServiceSpy,
                 },
                 {
                     provide: InjectionService,
@@ -128,15 +135,15 @@ describe('IconMerchantsListComponent', () => {
                     },
                 ],
             },
-        }).compileComponents().then(() => {
-            fixture = TestBed.createComponent(IconMerchantsListComponent);
-            component = fixture.componentInstance;
-            availableMerchants = GamesCatalogServiceSpy.getAvailableMerchants();
+        }).compileComponents();
 
-            component.ngOnInit();
+        fixture = TestBed.createComponent(IconMerchantsListComponent);
+        component = fixture.componentInstance;
+        availableMerchants = GamesCatalogServiceSpy.getAvailableMerchants();
 
-            fixture.detectChanges();
-        });
+        component.ngOnInit();
+
+        fixture.detectChanges();
     });
 
     it('-> empty `include` list should not depend to merchants list length', () => {
