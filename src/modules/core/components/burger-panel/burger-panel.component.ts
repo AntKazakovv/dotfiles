@@ -16,6 +16,13 @@ import {
     Optional,
 } from '@angular/core';
 import {DOCUMENT} from '@angular/common';
+import {
+    trigger,
+    transition,
+    useAnimation,
+    query,
+    animateChild,
+} from '@angular/animations';
 
 import {TransitionService} from '@uirouter/core';
 import {
@@ -33,6 +40,8 @@ import {
     throttleTime,
 } from 'rxjs/operators';
 import _forEach from 'lodash-es/forEach';
+import _merge from 'lodash-es/merge';
+import _get from 'lodash-es/get';
 
 import {
     EventService,
@@ -51,17 +60,28 @@ import {
 } from 'wlc-engine/modules/core';
 import {WINDOW} from 'wlc-engine/modules/app/system';
 
-import {BurgerPanelAppearanceAnimations} from './burger-panel.animations';
+import {
+    BurgerPanelAppearanceAnimations,
+    sizeAnimation,
+} from './burger-panel.animations';
 import {
     IFixedPanelConfig,
+    IFixedPanelSizes,
     TFixedPanelState,
 } from 'wlc-engine/modules/core/system/interfaces/base-config/fixed-panel.interface';
+import {$base} from 'wlc-engine/modules/core/system/config/base';
+import * as $config from 'wlc-config/index';
 import * as Params from './burger-panel.params';
 
 enum Directions {
     left = 2,
     right = 4,
 }
+
+const fixedPanelSizes: IFixedPanelSizes = _merge(
+    _get($base, 'fixedPanel.sizes'),
+    _get($config, '$base.fixedPanel.sizes'),
+);
 
 @Component({
     selector: '[wlc-burger-panel]',
@@ -70,6 +90,25 @@ enum Directions {
     changeDetection: ChangeDetectionStrategy.OnPush,
     animations: [
         ...BurgerPanelAppearanceAnimations,
+        trigger('outerAppearance', [
+            transition('* => expanded', [
+                useAnimation(sizeAnimation, {
+                    params: {from: `${fixedPanelSizes.compact}px`},
+                }),
+                query('@innerAppearance', [
+                    animateChild(),
+                ]),
+            ]),
+
+            transition('* => compact', [
+                useAnimation(sizeAnimation, {
+                    params: {from: `${fixedPanelSizes.full}px`},
+                }),
+                query('@innerAppearance', [
+                    animateChild(),
+                ]),
+            ]),
+        ]),
     ],
 })
 export class BurgerPanelComponent extends AbstractComponent
@@ -78,6 +117,7 @@ export class BurgerPanelComponent extends AbstractComponent
     @HostBinding('attr.aria-hidden') get isHidden(): boolean {
         return !this.isOpened;
     };
+    @HostBinding('@outerAppearance') public outerAppearance: string;
 
     @Input() public isOpened: boolean;
     @Input() protected id: string;
@@ -189,6 +229,7 @@ export class BurgerPanelComponent extends AbstractComponent
     public toggleFixedPanel(saveState: boolean = false): void {
         const currentState: TFixedPanelState = this.fixedPanelState$.getValue();
         const state: TFixedPanelState = currentState === 'expanded' ? 'compact' : 'expanded';
+        this.outerAppearance = state;
 
         if (saveState) {
             this.configService.set<TFixedPanelState>({

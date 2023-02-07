@@ -6,7 +6,23 @@ import {
     transition,
     trigger,
     state,
+    animation,
 } from '@angular/animations';
+
+export const sizeAnimation = animation([
+    style({
+        width: '{{ from }}',
+    }),
+    animate('{{ speed }}', style({
+        width: '{{ to }}',
+    })),
+], {
+    params: {
+        from: '60px',
+        to: '*',
+        speed: '0.3s ease-out',
+    },
+});
 
 export const BurgerPanelAppearanceAnimations = [
     trigger('innerAppearance', [
@@ -74,7 +90,7 @@ export const BurgerPanelAppearanceAnimations = [
                 opacity: 0,
                 transform: 'translateY(30px)',
             }),
-            animate('0.25s 0.45s ease-out', style({
+            animate('0.25s 0.1s ease-out', style({
                 opacity: 1,
                 transform: 'translateY(0)',
             })),

@@ -289,7 +289,6 @@ $themeMobile: map-merge((
 
 $customThemeLeftFixed: () !default;
 $themeLeftFixed: map-merge((
-    'panelTransition': width 0.2s ease-in-out,
     'backdropBg': var(--mc-bg-o6),
     'headerGridCols': 1fr,
     'headerPadding': ef.size(2) ef.size(4),

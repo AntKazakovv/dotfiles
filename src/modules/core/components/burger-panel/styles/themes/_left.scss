@@ -301,7 +301,7 @@
         --bp-login-padding: #{ef.get-value($themeLeftFixed, 'loginPadding')};
         --bp-login-bg: #{ef.get-value($themeLeftFixed, 'loginBg')};
         --bp-expand-icon-transform: #{ef.get-value($themeLeftFixed, 'expandIconTransform')};
-        --bp-transition: #{ef.get-value($themeLeftFixed, 'panelTransition')};
+        --bp-transition: none;
         --bp-main-menu-margin: #{ef.get-value($themeLeftFixed, 'mainMenuMargin')};
         --bp-userinfo-margin: #{ef.get-value($themeLeftFixed, 'userInfoMargin')};
         --bp-width: var(--fp-size-compact);
