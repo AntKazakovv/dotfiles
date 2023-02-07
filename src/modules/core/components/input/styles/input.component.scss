@@ -4,11 +4,13 @@
 @use 'engine-scss/mixins/common.mixins' as cm;
 
 @import './utils/vars';
+@import './utils/vars-mobile-app';
 @import './utils/mixins';
 
 @import './themes/default';
 @import './themes/placeholder-shown';
 @import './themes/vertical';
+@import './themes/mobile-app';
 
 .hidden-input.hidden-input.hidden-input.hidden-input:not(.clever-chrome) {
     position: absolute;

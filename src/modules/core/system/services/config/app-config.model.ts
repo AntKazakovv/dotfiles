@@ -14,6 +14,7 @@ import {
     IUser,
     ICategorySettings,
     IBootstrapMenuItem,
+    IMobileApp,
 } from 'wlc-engine/modules/core/system/interfaces';
 
 import _assign from 'lodash-es/assign';
@@ -163,6 +164,13 @@ export class AppConfigModel extends AbstractModel<IBootstrap> {
      */
     public get mobile(): boolean {
         return this.data.mobile;
+    }
+
+    /**
+     * @returns {boolean} mobile device if true
+     */
+    public get mobileApp(): IMobileApp {
+        return this.data.mobileApp;
     }
 
     /**

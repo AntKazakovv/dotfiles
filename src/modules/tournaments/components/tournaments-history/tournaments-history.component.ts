@@ -90,6 +90,7 @@ export class TournamentsHistoryComponent extends AbstractComponent implements On
             filterValue: this.filterValue,
         });
         this.tableData = {
+            theme: this.$params.transactionTableTheme || 'default',
             themeMod: profileType,
             head: Params.tournamentsHistoryTableHeadConfig,
             rows: this.tournaments$,
@@ -131,6 +132,7 @@ export class TournamentsHistoryComponent extends AbstractComponent implements On
             .subscribe((data: IHistoryFilterValue<TTournamentsFilter>): void => {
                 this.filterSelect.control.setValue(this.filterValue = data.filterValue);
                 this.tournaments$.next(this.tournamentsFilter());
+                this.cdr.detectChanges();
             });
 
         this.tournamentsService.getObserver<TournamentHistory[]>('history')
@@ -160,6 +162,7 @@ export class TournamentsHistoryComponent extends AbstractComponent implements On
                     filterValue: this.filterValue = filterValue,
                 });
                 this.tournaments$.next(this.tournamentsFilter());
+                this.cdr.detectChanges();
             });
     }
 }

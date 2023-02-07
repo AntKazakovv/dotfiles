@@ -6,7 +6,7 @@ import {
 } from 'wlc-engine/modules/core';
 import {FormControl} from '@angular/forms';
 
-export type ComponentTheme = 'default' | CustomType;
+export type ComponentTheme = 'default' | 'mobile-app' | CustomType;
 export type ComponentType = 'default' | 'toggle' | CustomType;
 export type TextSide = 'left' | 'right';
 export type CheckboxType = 'terms' | 'age' | 'payment-rules' | 'privacy-policy' | 'legal-modal' | 'legal-link';

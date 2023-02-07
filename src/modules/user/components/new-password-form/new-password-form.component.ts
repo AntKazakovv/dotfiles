@@ -70,8 +70,12 @@ export class NewPasswordFormComponent extends AbstractComponent {
 
             await this.userService.restoreNewPassword(newPassword, repeatPassword, code);
 
-            this.stateService.go('app.home');
-            this.eventService.emit({name: 'LOGIN'});
+            if (this.configService.get<boolean>('$base.site.useJwtToken')) {
+                this.modalService.showModal('login');
+            } else {
+                this.stateService.go('app.home');
+                this.eventService.emit({name: 'LOGIN'});
+            }
 
             this.eventService.emit({
                 name: NotificationEvents.PushMessage,

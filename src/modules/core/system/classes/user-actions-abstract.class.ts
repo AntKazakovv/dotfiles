@@ -3,13 +3,18 @@ import {FormGroup} from '@angular/forms';
 
 import _keys from 'lodash-es/keys';
 import _isArray from 'lodash-es/isArray';
+import _isString from 'lodash-es/isString';
+import _toString from 'lodash-es/toString';
 
 import {
     AbstractComponent,
     IMixedParams,
 } from 'wlc-engine/modules/core/system/classes/abstract.component';
+import {
+    IUserProfile,
+    IExtProfile,
+} from 'wlc-engine/modules/core/system/interfaces/user.interface';
 import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
-import {IUserProfile} from 'wlc-engine/modules/core/system/interfaces/user.interface';
 import {EventService} from 'wlc-engine/modules/core/system/services/event/event.service';
 import {LogService} from 'wlc-engine/modules/core/system/services/log/log.service';
 import {NotificationEvents} from 'wlc-engine/modules/core/system/services/notification/notification.service';
@@ -125,16 +130,30 @@ export abstract class UserActionsAbstract<T> extends AbstractComponent {
             formValues.passwordRepeat = formValues.password;
         }
 
-        const formData = {
+        const extProfile: IExtProfile = {};
+
+        if (formValues.login && this.ConfigService.get('$base.registration.autocompleteNick')) {
+            formValues.nick = formValues.login;
+        }
+
+        if (formValues.nick && _isString(formValues.nick)) {
+            extProfile.nick = formValues.nick;
+            delete formValues.nick;
+        }
+
+        const formData: IValidateData = {
             'TYPE': 'user-register',
-            data: {...formValues},
+            data: {
+                ...formValues,
+                extProfile: _keys(extProfile).length ? extProfile : null,
+            },
             fields: _keys(formValues),
         };
 
         const chosenBonus = this.configService.get<ChosenBonusType>(ChosenBonusSetParams.ChosenBonus);
 
         if (chosenBonus?.id) {
-            formData.data.registrationBonus = chosenBonus.id;
+            formData.data.registrationBonus = _toString(chosenBonus.id);
             formData.fields.push('registrationBonus');
         }
         return formData;

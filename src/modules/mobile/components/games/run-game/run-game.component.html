@@ -1,0 +1,28 @@
+<div *ngIf="isReady">
+    <div class="{{$class}}__thumb">
+        <div wlc-wrapper
+             [inlineParams]="gameThumbParams"
+        ></div>
+    </div>
+    <div class="{{$class}}__buttons">
+        <button
+            *ngIf="!isAuth"
+            wlc-button
+            [text]="$params.buttonsText?.signIn"
+            (click)="signIn()">
+        </button>
+        <button
+            *ngIf="isAuth"
+            wlc-button
+            [text]="$params.buttonsText?.playReal"
+            (click)="play()">
+        </button>
+        <button
+            *ngIf="game.hasDemo"
+            wlc-button
+            themeMod="secondary"
+            [text]="$params.buttonsText?.playDemo"
+            (click)="play(true)">
+        </button>
+    </div>
+</div>

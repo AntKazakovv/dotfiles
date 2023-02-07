@@ -22,6 +22,17 @@ import _keys from 'lodash-es/keys';
 import _omit from 'lodash-es/omit';
 import _some from 'lodash-es/some';
 
+import {HooksService} from 'wlc-engine/modules/core';
+
+export const eventServiceHooks = {
+    emit: 'emit@EventService',
+};
+
+export interface IHookEmit {
+    event: TUnknownEvent;
+    disable: boolean;
+}
+
 export type EventType = 'event' | 'error' | 'system';
 
 export interface IEventFilter {
@@ -65,13 +76,29 @@ export class EventService {
         return this.flow$.asObservable();
     }
 
+    constructor(
+        private hooksService: HooksService,
+    ) {
+
+    }
+
     /**
      * Emits the events
      *
      * @param {TUnknownEvent} event
      */
-    public emit(event: TUnknownEvent): void {
-        this.flow$.next(_assign({type: 'event'}, event));
+    public async emit(event: TUnknownEvent): Promise<void> {
+        const hookData = await this.hooksService.run<IHookEmit>(
+            eventServiceHooks.emit,
+            {
+                event: event,
+                disable: false,
+            },
+        );
+
+        if (!hookData.disable) {
+            this.flow$.next(_assign({type: 'event'}, hookData.event));
+        }
     }
 
     /**

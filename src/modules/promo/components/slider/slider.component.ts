@@ -1,6 +1,7 @@
 import {
     AfterViewInit,
     ChangeDetectorRef,
+    ChangeDetectionStrategy,
     Component,
     EventEmitter,
     Inject,
@@ -80,6 +81,7 @@ SwiperCore.use([
     templateUrl: './slider.component.html',
     styleUrls: ['./styles/slider.component.scss'],
     encapsulation: ViewEncapsulation.None,
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SliderComponent extends AbstractComponent
     implements OnInit, AfterViewInit, OnChanges, OnDestroy {
@@ -96,7 +98,6 @@ export class SliderComponent extends AbstractComponent
 
     public sliderWrap: Element;
     public $params: Params.ISliderCParams;
-
     public ready: boolean = false;
     public slidesSequence: number[] = [];
     public emptySlidesCount: number = 0;
@@ -160,7 +161,7 @@ export class SliderComponent extends AbstractComponent
             }
         } else if (_get(swiper, 'grid.rows', 1) === 1
             && !swiper?.loop
-            && _isNumber(swiper.slidesPerView)
+            && _isNumber(swiper?.slidesPerView)
             && this.slides.length < swiper.slidesPerView
         ) {
             this.emptySlidesCount = swiper.slidesPerView - this.slides.length;
@@ -170,23 +171,34 @@ export class SliderComponent extends AbstractComponent
     }
 
     public ngAfterViewInit(): void {
-        setTimeout(() => {
-            if (this.$params.slideShowAll?.use) {
-                let templateParams = {item: {}};
+        if (this.$params.useStartTimeout) {
+            setTimeout(() => {
+                this.afterViewInit();
+            }, 0);
+        } else {
+            this.afterViewInit();
+        }
+    }
 
-                this.slides.push({
-                    templateRef: this.tplShowAll,
-                    templateParams: templateParams,
-                });
-                this.initEmptySlidesCount();
-                this.fixSlidesSequence();
-            }
-            this.updateView();
-            this.initObserver();
-            this.initNavigation();
-        }, 0);
-        this.initEventHandlers();
+    public afterViewInit(): void {
         this.ready = true;
+        this.cdr.detectChanges();
+
+        if (this.$params.slideShowAll?.use) {
+            let templateParams = {item: {}};
+
+            this.slides.push({
+                templateRef: this.tplShowAll,
+                templateParams: templateParams,
+            });
+            this.initEmptySlidesCount();
+            this.fixSlidesSequence();
+        }
+        this.updateView();
+        this.initObserver();
+        this.initNavigation();
+
+        this.initEventHandlers();
     }
 
     public ngOnChanges(changes: SimpleChanges): void {

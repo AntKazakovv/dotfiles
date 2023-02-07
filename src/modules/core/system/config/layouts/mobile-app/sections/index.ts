@@ -27,3 +27,5 @@ export * from './sticky-footer.section';
 export * from './nav.section';
 export * from './user-info.section';
 export * from './search.section';
+export * from './run-game.section';
+export * from './language.section';

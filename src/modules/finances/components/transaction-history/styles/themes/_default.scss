@@ -47,6 +47,17 @@
             }
         }
 
+        .wlc-table--theme-mobile-app.wlc-table::ng-deep {
+
+            .wlc-table__cell--first {
+                grid-template-columns: ef.get-value($themeDefault, 'firstCellColumnsMobileApp');
+
+                .wlc-table__cell-label {
+                    display: none;
+                }
+            }
+        }
+
         ::ng-deep {
 
             .wlc-table__row:not(.wlc-table__row--head) {

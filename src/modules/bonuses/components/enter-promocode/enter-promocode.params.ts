@@ -3,7 +3,7 @@ import {
     IComponentParams,
 } from 'wlc-engine/modules/core';
 
-export type ComponentTheme = 'default' | CustomType;
+export type ComponentTheme = 'default' | 'mobile-app' |  CustomType;
 export type ComponentType = 'default' | CustomType;
 
 export interface IEnterPromocodeCParams extends IComponentParams<ComponentTheme, ComponentType, string> {

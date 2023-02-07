@@ -5,6 +5,7 @@ import {
     Inject,
 } from '@angular/core';
 import {
+    ConfigService,
     EventService,
     GlobalHelper,
 } from 'wlc-engine/modules/core';
@@ -30,6 +31,7 @@ export class BetPreviewComponent extends AbstractComponent implements OnInit {
 
     constructor(
         @Inject('injectParams') protected params: Params.IBetPreviewParams,
+        protected configService: ConfigService,
         protected cdr: ChangeDetectorRef,
         protected betService: BetService,
         protected eventService: EventService,
@@ -39,7 +41,7 @@ export class BetPreviewComponent extends AbstractComponent implements OnInit {
             <IMixedParams<Params.IBetPreviewParams>>{
                 injectParams: params,
                 defaultParams: Params.defaultParams,
-            });
+            }, configService);
     }
 
     public async ngOnInit(): Promise<void> {
@@ -47,7 +49,7 @@ export class BetPreviewComponent extends AbstractComponent implements OnInit {
         this.date = GlobalHelper.toLocalTime(
             this.$params.bet.DateISO,
             'SQL',
-            (this.window.innerWidth < 480) ? 'HH:mm dd-MM' : 'dd-MM-yyyy HH:mm:ss',
+            (this.window.innerWidth < 480) ? this.$params.dateFormat.mobile : this.$params.dateFormat.desktop,
         );
         this.amount = +this.$params.bet.Amount;
 

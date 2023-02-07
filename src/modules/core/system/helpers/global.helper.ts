@@ -435,6 +435,27 @@ export class GlobalHelper {
     }
 
     /**
+     * Generate href link with jwt auth and refresh tokens
+     *
+     * @param url
+     * @returns {string} Href with jwt tokens
+     */
+    public static hrefLinkWithJwt(href: string): string {
+        const url = new URL(href);
+
+        // eslint-disable-next-line no-restricted-globals
+        let jwtAuthToken = window.localStorage.getItem('ngx-webstorage|jwtauthtoken')?.replace(/"/g, '');
+        // eslint-disable-next-line no-restricted-globals
+        let jwtRefreshToken = window.localStorage.getItem('ngx-webstorage|jwtauthrefreshtoken')?.replace(/"/g, '');
+
+        if (jwtAuthToken && jwtRefreshToken) {
+            url.searchParams.append('token', jwtAuthToken);
+            url.searchParams.append('refresh', jwtRefreshToken);
+        }
+        return url.href;
+    }
+
+    /**
      * Get GET params of url path if url path have ?message or ?error
      *
      * @param {string} url Url path

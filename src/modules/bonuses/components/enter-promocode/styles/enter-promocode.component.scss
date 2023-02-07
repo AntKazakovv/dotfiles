@@ -3,6 +3,8 @@
 @use 'engine-scss/mixins/text' as text;
 
 @import './utils/vars';
+@import './utils/vars-mobile-app';
 @import './utils/mixins';
 @import './themes/default';
 @import './themes/clear';
+@import './themes/mobile-app';

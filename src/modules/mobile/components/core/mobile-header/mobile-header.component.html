@@ -5,6 +5,12 @@
     </div>
     <div class="{{$class}}__title">{{title | translate}}</div>
     <div class="{{$class}}__action" *ngIf="actionBtn" (click)="onActionBtnClick()">
-        <div wlc-icon iconPath="{{actionBtn.icon}}"></div>
+        <div *ngIf="actionBtn.component; else icon">
+            <div wlc-wrapper [inlineParams]="actionBtn.component"></div>
+        </div>
     </div>
 </div>
+
+<ng-template #icon>
+    <div class="{{$class}}__action-icon" wlc-icon iconPath="{{actionBtn.icon}}"></div>
+</ng-template>

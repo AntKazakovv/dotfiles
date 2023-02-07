@@ -19,6 +19,7 @@ export interface ILimitationsConfig {
     * Enable/disable limitations
     */
     use: boolean;
+    autoApplyRealityChecker?: boolean;
     /**
     * Allows you to include some types of limits
     */

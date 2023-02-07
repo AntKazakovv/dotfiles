@@ -13,7 +13,7 @@
             border-bottom: 1px solid rgba(255, 255, 255, 0.2);
         }
 
-        &__back {
+        &__back::ng-deep {
             display: flex;
             align-items: center;
             justify-content: left;
@@ -25,18 +25,15 @@
                 order: -1;
             }
 
-            ::ng-deep {
+            .wlc-icon-content {
+                display: flex;
+                width: 100%;
+                height: 100%;
+                margin-right: 5px;
 
-                .wlc-icon-content {
-                    display: flex;
-                    width: 100%;
-                    height: 100%;
-                    margin-right: 5px;
-
-                    svg {
-                        transform: rotate(180deg);
-                        fill: #0a84ff;
-                    }
+                svg {
+                    transform: rotate(180deg);
+                    fill: #0a84ff;
                 }
             }
         }
@@ -50,18 +47,40 @@
             text-overflow: ellipsis;
         }
 
-        &__action {
+        &__action::ng-deep {
             display: flex;
             align-items: center;
             justify-content: right;
 
-            ::ng-deep {
+            &-icon {
 
                 .wlc-icon-content {
 
                     svg {
+                        color: #0a84ff;
                         transform: rotate(180deg);
-                        fill: #0a84ff;
+                        stroke: none;
+                    }
+                }
+            }
+        }
+    }
+
+    &.wlc-mobile-header--theme-mod-profile-main-info {
+
+        .wlc-mobile-header {
+
+            &__action {
+
+                &-icon::ng-deep {
+
+                    .wlc-icon-content {
+
+                        svg {
+                            color: transparent;
+                            transform: none;
+                            stroke: #0a84ff;
+                        }
                     }
                 }
             }

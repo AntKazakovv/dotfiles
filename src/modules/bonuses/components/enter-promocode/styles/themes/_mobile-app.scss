@@ -1,0 +1,63 @@
+.wlc-enter-promocode--theme-mobile-app:host {
+    border-radius: ef.get-value($themeMobileApp, 'wrapperRadius');
+    overflow: hidden;
+
+    .wlc-enter-promocode {
+        width: ef.get-value($themeMobileApp, 'baseWidth');
+        height: ef.get-value($themeMobileApp, 'baseHeight');
+
+        &__container {
+            @include bm.get-mq-map('padding', $themeMobileApp, 'containerPadding');
+            @include bm.get-mq-map('min-height', $themeMobileApp, 'containerMinHeight');
+
+            display: flex;
+            flex-direction: ef.get-value($themeMobileApp, 'containerFlexDirection');
+            align-items: ef.get-value($themeMobileApp, 'containerAlignItems');
+            justify-content: ef.get-value($themeMobileApp, 'containerJustifyContent');
+
+            height: ef.get-value($themeMobileApp, 'containerHeight');
+
+            background: ef.get-value($themeMobileApp, 'containerBackground');
+            box-shadow: ef.get-value($themeMobileApp, 'containerShadow');
+        }
+
+        &__title {
+            @include bm.get-mq-map('margin', $themeMobileApp, 'titleMargin');
+            @include text.get-text-style(ef.get-value($themeMobileApp, 'titleFontStyle'), ef.get-value($themeMobileApp, 'titleColor'));
+        }
+
+        &__control {
+            @include bm.get-mq-map('max-width', $themeMobileApp, 'controlMaxWidth');
+
+            position: relative;
+            width: ef.get-value($themeMobileApp, 'controlWidth');
+        }
+
+        &__btn {
+            @include enterPromocodeButton();
+        }
+    }
+
+    ::ng-deep {
+
+        .wlc-input.wlc-input--promocode {
+
+            .wlc-input__input input[id]:disabled {
+                color: ef.get-value($themeMobileApp, 'inputColor');
+
+                background: ef.get-value($themeMobileApp, 'inputBackground');
+                -webkit-text-fill-color: ef.get-value($themeMobileApp, 'inputColor');
+
+                opacity: ef.get-value($themeMobileApp, 'inputOpacity'); // for ios
+            }
+
+            input {
+                text-transform: ef.get-value($themeMobileApp, 'inputTextTransform');
+
+                &::placeholder {
+                    text-transform: none;
+                }
+            }
+        }
+    }
+}

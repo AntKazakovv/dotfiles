@@ -10,6 +10,12 @@ $themeDefault: map-merge((
 
     'buttonsPadding': ef.size(4) ef.size(4) ef.size(16),
     'buttonsGap': ef.size(2),
+    'buttonBg': #0a84ff,
+    'buttonColor': #ffffff,
+    'buttonBorder': 2px solid transparent,
+    'buttonBgSecondary': rgba(212, 225, 245, 0.2),
+    'buttonBorderSecondary': 2px solid transparent,
+    'buttonColorSecondary': #ffffff,
 
     'titleFontStyle': 'QoteTextBold',
     'titleColor': var(--mc-baseMain),

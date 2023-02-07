@@ -201,6 +201,10 @@ export class WinnersSliderComponent extends AbstractComponent implements OnInit,
 
         this.sliderParams.swiper = swiper;
         this.sliderParams.wlcElement = 'list_' + this.$params.type + '-wins';
+
+        if (GlobalHelper.isMobileApp()) {
+            this.sliderParams.useStartTimeout = true;
+        }
         this.cdr.markForCheck();
     }
 }

@@ -5,11 +5,9 @@ import {ProhibitedPatterns} from 'wlc-engine/modules/core/constants';
 export type ComponentTheme = 'default' | CustomType;
 export type ComponentType = 'default' | CustomType;
 
-export interface IFeedbackFormCParams extends IComponentParams<ComponentTheme, ComponentType, string> {}
-
-export const defaultParams: IFeedbackFormCParams = {
-    class: 'wlc-feedback-form',
-};
+export interface IFeedbackFormCParams extends IComponentParams<ComponentTheme, ComponentType, string> {
+    formConfig?: IFormWrapperCParams;
+}
 
 export const getFeedbackConfig = (isAuth: boolean): IFormWrapperCParams => ({
     class: 'wlc-form-wrapper',
@@ -127,3 +125,9 @@ export const getFeedbackConfig = (isAuth: boolean): IFormWrapperCParams => ({
         },
     ],
 });
+
+export const defaultParams: IFeedbackFormCParams = {
+    moduleName: 'core',
+    componentName: 'wlc-feedback-form',
+    class: 'wlc-feedback-form',
+};

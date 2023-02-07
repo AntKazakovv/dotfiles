@@ -1,0 +1,8 @@
+<div *ngIf="isReady && isAuth">
+    <div
+        wlc-icon
+        iconPath="{{$params.icon}}"
+        [ngClass]="{'active': game.isFavourite}"
+        (click)="toggleFavourites()">
+    </div>
+</div>

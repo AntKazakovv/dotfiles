@@ -8,6 +8,7 @@ import {
     AbstractModel,
     ConfigService,
     IFromLog,
+    GlobalHelper,
 } from 'wlc-engine/modules/core';
 import {
     IStoreItem,
@@ -60,7 +61,7 @@ export class StoreItem extends AbstractModel<IStoreItem> {
     }
 
     public get description(): string {
-        return this.data.Description;
+        return this.data.Description.replace('storeItem.Price.LOYALTY', 'data.storeItem.priceLoyalty');
     }
 
     public get id(): number {
@@ -68,7 +69,7 @@ export class StoreItem extends AbstractModel<IStoreItem> {
     }
 
     public get image(): string {
-        return this.data.Image;
+        return GlobalHelper.proxyUrl(this.data.Image);
     }
 
     public get name(): string {

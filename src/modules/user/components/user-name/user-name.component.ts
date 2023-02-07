@@ -19,6 +19,7 @@ import {
 import {
     AbstractComponent,
     ConfigService,
+    GlobalHelper,
 } from 'wlc-engine/modules/core';
 import {UserService} from 'wlc-engine/modules/user/system/services';
 import {EventService} from 'wlc-engine/modules/core/system/services/event/event.service';
@@ -85,7 +86,15 @@ export class UserNameComponent extends AbstractComponent implements OnInit, OnDe
             });
     }
 
-    public modalSignup(): void {
+    public modalSignupOrLogin(): void {
+        if (GlobalHelper.isMobileApp()) {
+            this.eventService.emit({
+                name: 'SHOW_MODAL',
+                data: 'login',
+            });
+            return;
+        }
+
         this.eventService.emit({
             name: 'SHOW_MODAL',
             data: 'signup',

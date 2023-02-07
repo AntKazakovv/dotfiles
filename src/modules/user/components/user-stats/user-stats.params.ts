@@ -3,12 +3,14 @@ import {IIndexing} from 'wlc-engine/modules/core';
 
 export type ComponentTheme = 'default' | CustomType;
 export type ComponentType = 'default' | CustomType;
+export type ComponentThemeMod = 'default' | 'mobile-app' | CustomType;
 
-export interface IUserStatsCParams extends IComponentParams<ComponentTheme, ComponentType, string> {
+export interface IUserStatsCParams extends IComponentParams<ComponentTheme, ComponentType, ComponentThemeMod> {
     fields?: string[];
     type?: ComponentType;
     theme?: ComponentTheme;
     useDepositBtn?: boolean;
+    depositBtn?: IDepositButton;
     showTooltipDescriptionModal?: boolean;
 }
 
@@ -18,6 +20,17 @@ export interface IUserStatsItemConfig {
     currency?: string;
     wlcElement?: string;
     path: string;
+}
+
+export interface IButtonOptions {
+    text?: string;
+    themeMod?: string;
+    size?: string;
+}
+
+export interface IDepositButton {
+    default: IButtonOptions,
+    menuMobile: IButtonOptions,
 }
 
 export const shownUserStatsConfig: IIndexing<IUserStatsItemConfig> = {
@@ -106,7 +119,7 @@ export const shownUserStatsConfig: IIndexing<IUserStatsItemConfig> = {
     },
 };
 
-export const defaultParams: IUserStatsCParams = {
+export const defaultParams: Partial<IUserStatsCParams> = {
     class: 'wlc-user-stats',
     moduleName: 'user',
     componentName: 'wlc-user-stats',
@@ -117,4 +130,16 @@ export const defaultParams: IUserStatsCParams = {
         'level',
     ],
     showTooltipDescriptionModal: false,
+    depositBtn: {
+        default: {
+            text: gettext('Deposit'),
+            themeMod: 'default',
+            size: 'default',
+        },
+        menuMobile: {
+            text: gettext('Make a deposit'),
+            themeMod: 'secondary',
+            size: 'big',
+        },
+    },
 };

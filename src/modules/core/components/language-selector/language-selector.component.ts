@@ -175,6 +175,14 @@ export class LanguageSelectorComponent
                     .pipe(takeUntil(this.$destroy))
                     .subscribe(() => {
                         this.configService.set({name: 'currentLanguage', value: this.translate.currentLang});
+
+                        if (GlobalHelper.isMobileApp()) {
+                            this.configService.set({
+                                name: 'currentLanguage',
+                                value: this.translate.currentLang,
+                                storageType: 'localStorage',
+                            });
+                        }
                         if (this.isModalOpen) {
                             this.modalService.hideModal('langSwitcherRef');
                         }

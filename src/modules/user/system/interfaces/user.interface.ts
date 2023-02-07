@@ -11,3 +11,7 @@ export interface IUserPasswordPost {
     sendSmsCode?: number;
     reCaptchaToken?: string;
 }
+
+export interface ILogoutConfirm {
+    modalMessage?: string;
+}

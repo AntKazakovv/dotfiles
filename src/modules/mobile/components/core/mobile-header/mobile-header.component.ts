@@ -65,7 +65,8 @@ export class MobileHeaderComponent
         super.ngOnInit();
 
         this.checkVisibility(this.router.globals.current.name);
-        this.actionBtn = this.$params.actionButtonByState?.[this.router.globals.current.name];
+        this.actionBtn = this.$params.actionButton
+            || this.$params.actionButtonByState?.[this.router.globals.current.name];
 
         this.layoutService.pageTitle.subscribe((title: string) => {
             this.title = title;
@@ -89,6 +90,14 @@ export class MobileHeaderComponent
     }
 
     public goBack(): void {
+        if (this.$params.backButton?.returnTo) {
+            this.stateService.go(
+                this.$params.backButton.returnTo.state,
+                this.$params.backButton.returnTo.params,
+                this.$params.backButton.returnTo.options,
+            );
+            return;
+        }
         this.location.back();
     }
 

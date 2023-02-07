@@ -15,6 +15,7 @@ export * from './core/wlc-social-icons.config';
 export * from './core/wlc-login-signup.config';
 export * from './core/wlc-theme-toggler.config';
 export * from './core/wlc-scroll-up.config';
+export * from './core/wlc-history-filter.config';
 
 export * from './user/wlc-user-info.config';
 export * from './user/wlc-profile-form.config';

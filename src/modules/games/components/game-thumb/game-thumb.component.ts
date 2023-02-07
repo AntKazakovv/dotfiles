@@ -29,6 +29,10 @@ import _forEach from 'lodash-es/forEach';
 import _concat from 'lodash-es/concat';
 import _includes from 'lodash-es/includes';
 
+import {
+    AppType,
+    GlobalHelper,
+} from 'wlc-engine/modules/core';
 import {EventService} from 'wlc-engine/modules/core/system/services/event/event.service';
 import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
 import {ModalService} from 'wlc-engine/modules/core/system/services/modal/modal.service';
@@ -44,7 +48,6 @@ import {
     GamesCatalogService,
 } from 'wlc-engine/modules/games/system/services/games-catalog/games-catalog.service';
 import * as Params from './game-thumb.params';
-import {AppType} from 'wlc-engine/modules/core';
 
 @Component({
     selector: '[wlc-game-thumb]',
@@ -83,6 +86,7 @@ export class GameThumbComponent extends AbstractComponent implements OnInit {
     public logo: Params.IMediaContent[];
     public logoFallback: Params.IMediaContent[];
     public videos: Params.IMediaContent[];
+    public useWebp: boolean = true;
 
     /**
      * Pragmatic play live data model
@@ -153,6 +157,10 @@ export class GameThumbComponent extends AbstractComponent implements OnInit {
         await this.gamesCatalogService.gameThumbReady;
         const gameId = this.$params.common?.gameId;
         this.currentLanguage = this.configService.get<string>('currentLanguage');
+
+        if (GlobalHelper.isMobileApp()) {
+            this.useWebp = false;
+        }
 
         if (this.$params.common?.game) {
             this.game = this.$params.common.game;

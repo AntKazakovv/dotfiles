@@ -87,6 +87,7 @@ export class StoreItemComponent extends AbstractComponent implements OnInit, OnD
             title: storeItem.name,
             description: storeItem.description,
             isDisabled: this.storeItem.isAvailable ? false : true,
+            storeItem: storeItem,
         });
     }
 

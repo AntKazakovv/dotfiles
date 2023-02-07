@@ -3,6 +3,7 @@ import {IGamesConfig} from './games.interface';
 import {IProfileConfig} from './profile.interface';
 import {ITournamentsConfig} from './tournaments.interface';
 import {IAppConfig} from './app.interface';
+import {ISiteConfig} from './site.interface';
 import {INotificationsConfig} from './notifications.interface';
 import {IContactsConfig} from './contacts.interface';
 import {IInteractiveText} from './interactiveText.interface';
@@ -24,6 +25,8 @@ import {IIdleConfig} from './idle.interface';
 import {IRestrictionsConfig} from './restrictions.interface';
 import {ILegalCheckboxWithLink} from 'wlc-engine/modules/core/components/checkbox/checkbox.params';
 import {TErrorReplacerMap} from 'wlc-engine/modules/core/system/services/data/data.service';
+import {IFormsConfig} from 'wlc-engine/modules/core/system/interfaces/base-config/forms.interface';
+import {IHooksConfig} from 'wlc-engine/modules/core/system/interfaces/base-config/hooks.interface';
 
 export * from './games.interface';
 export * from './tournaments.interface';
@@ -31,31 +34,15 @@ export * from './finances.interface';
 export * from './contacts.interface';
 export * from './profile.interface';
 export * from './idle.interface';
+export * from './hooks.interface';
 
 export interface IBaseConfig {
     app?: IAppConfig;
-    site?: {
-        name: string;
-        url: string;
-        removeCreds?: boolean;
-        restrictRegistration?: boolean;
-        /**
-         * Use field username/login
-         */
-        useLogin?: boolean;
-        /**
-        * Link to the main landing page of the affiliate program.
-        * Uses for action 'AFFILIATE_REDIRECT'.
-        */
-        landingUrl?: string,
-        /** Force use Curacao requirements as for WLC */
-        forceCuracaoRequirement?: boolean;
-        /** Use x-nonce on requests */
-        useXNonce?: boolean;
-    };
+    site?: ISiteConfig;
+    hooks?: IHooksConfig;
     /**
-    * Sticky header enabling and settings;
-    */
+     * Sticky header enabling and settings;
+     */
     stickyHeader?: IStickyHeaderConfig;
     fixedPanel?: IFixedPanelConfig;
     affiliate?: {
@@ -129,16 +116,17 @@ export interface IBaseConfig {
     /** States available with no accepted terms */
     termsAvailableStates?: string[];
     /** Set true to use submit button in forms and request buttons pending animation */
-    useButtonPending?: boolean
+    useButtonPending?: boolean;
+    forms?: IFormsConfig;
     legal?: {
         termsCheckboxText?: ILegalCheckboxWithLink;
         termsWlcCuracaoCheckboxText?: ILegalCheckboxWithLink;
         ageCheckboxText?: string;
         ageWlcCuracaoCheckboxText?: string;
         selfExcludedCheckboxText?: string;
-        paymentRulesText?: ILegalCheckboxWithLink,
-        privacyPolicyText?: ILegalCheckboxWithLink,
-    }
+        paymentRulesText?: ILegalCheckboxWithLink;
+        privacyPolicyText?: ILegalCheckboxWithLink;
+    },
     /**
      * Kiosk settings
      */

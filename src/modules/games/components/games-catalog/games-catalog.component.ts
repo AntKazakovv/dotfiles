@@ -6,7 +6,10 @@ import {
 } from '@angular/core';
 import {takeUntil} from 'rxjs/operators';
 import {TranslateService} from '@ngx-translate/core';
-import {TransitionService} from '@uirouter/core';
+import {
+    TransitionService,
+    RawParams,
+} from '@uirouter/core';
 import {
     AbstractComponent,
     ActionService,
@@ -28,6 +31,8 @@ import * as Params from './games-catalog.params';
 import _forEach from 'lodash-es/forEach';
 import _get from 'lodash-es/get';
 import _orderBy from 'lodash-es/orderBy';
+import _merge from 'lodash-es/merge';
+import _cloneDeep from 'lodash-es/cloneDeep';
 
 @Component({
     selector: '[wlc-games-catalog]',
@@ -66,7 +71,47 @@ export class GamesCatalogComponent extends AbstractComponent implements OnInit {
         this.isReady = false;
         this.gameGrids = [];
 
-        if (this.gamesCatalogService.getFundistCategorySettings()) {
+        await this.gamesCatalogService.ready;
+
+        if (this.$params.showAllCategories) {
+            const grids: IGamesGridCParams[] = [];
+
+            _forEach(this.gamesCatalogService.getCategories(), (category: CategoryModel): void => {
+                if (!category.games.length) {
+                    return;
+                }
+
+                const gridParams: IGamesGridCParams = _merge(_cloneDeep(this.$params.gamesGridParams), {
+                    title: category.title[this.translateService.currentLang] || category.title['en'],
+                    byState: false,
+                    filter: {
+                        categories: [category.slug],
+                    },
+                });
+
+                if (gridParams.showAllLink) {
+                    gridParams.showAllLink = _merge(gridParams.showAllLink, {
+                        sref: this.catalogSref(category),
+                        params: this.catalogSrefParams(category),
+                    });
+                }
+
+                if (gridParams.showAsSwiper) {
+                    gridParams.showAsSwiper = _merge(gridParams.showAsSwiper, {
+                        sliderParams: {
+                            slideShowAll: {
+                                sref: this.catalogSref(category),
+                                srefParams: this.catalogSrefParams(category),
+                            },
+                        },
+                    });
+                }
+
+                grids.push(gridParams);
+            });
+
+            this.gameGrids = grids;
+        } else if (this.gamesCatalogService.getFundistCategorySettings()) {
             const category: CategoryModel = this.gamesCatalogService.getChildCategoryByState()
                 || this.gamesCatalogService.getParentCategoryByState();
 
@@ -138,12 +183,10 @@ export class GamesCatalogComponent extends AbstractComponent implements OnInit {
 
                 this.gameGrids = grids;
             }
-
-            this.isReady = true;
-            this.cdr.detectChanges();
-        } else {
-            this.isReady = true;
         }
+
+        this.isReady = true;
+        this.cdr.detectChanges();
     }
 
     /**
@@ -179,5 +222,16 @@ export class GamesCatalogComponent extends AbstractComponent implements OnInit {
                     this.initView();
                 }
             });
+    }
+
+    protected catalogSref(category: CategoryModel): string {
+        return category.isParent ? 'app.catalog' : 'app.catalog.child';
+    }
+
+    protected catalogSrefParams(category: CategoryModel): RawParams {
+        return {
+            category: category.isParent ? category.slug : category.parentCategory.slug,
+            childCategory: category.isParent ? null : category.slug,
+        };
     }
 }

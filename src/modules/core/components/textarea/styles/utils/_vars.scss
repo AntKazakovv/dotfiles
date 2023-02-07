@@ -17,6 +17,7 @@ $themeDefault: map-merge((
         375: ef.get('form', 'textareaMinHeight'),
         720: ef.get('form', 'textareaMinHeight') * 2,
     ),
+    'textareaRadiusMob': 5px,
 
     'iconWidth': ef.get('form', 'iconWidth'),
     'iconHeight': ef.get('form', 'iconHeight'),

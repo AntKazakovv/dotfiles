@@ -32,6 +32,7 @@ import {
 import _assign from 'lodash-es/assign';
 import _each from 'lodash-es/each';
 import _find from 'lodash-es/find';
+import _filter from 'lodash-es/filter';
 import _findIndex from 'lodash-es/findIndex';
 import _get from 'lodash-es/get';
 import _includes from 'lodash-es/includes';
@@ -56,6 +57,8 @@ import {
     LogService,
     InjectionService,
     BodyClassService,
+    IHooksConfig,
+    HooksService,
 } from 'wlc-engine/modules/core';
 import {
     ILivechatConfig,
@@ -119,6 +122,7 @@ export class AppComponent extends AbstractComponent implements OnInit, AfterView
         protected layoutService: LayoutService,
         protected injectionService: InjectionService,
         protected eventService: EventService,
+        protected hookService: HooksService,
         protected uiRouter: UIRouterGlobals,
         protected cdr: ChangeDetectorRef,
         protected actionService: ActionService,
@@ -144,6 +148,7 @@ export class AppComponent extends AbstractComponent implements OnInit, AfterView
 
         this.loadAnalytics();
         this.launchMonitoring();
+        this.initHookHandlers();
     }
 
     public async ngOnInit(): Promise<void> {
@@ -228,6 +233,15 @@ export class AppComponent extends AbstractComponent implements OnInit, AfterView
         return section.name;
     }
 
+    private initHookHandlers(): void {
+        const hooks: IHooksConfig = this.configService.get('$base.hooks');
+        if (hooks?.handlers) {
+            _each(hooks.handlers, (hook): void => {
+                this.hookService.set(hook.name, hook.handler);
+            });
+        }
+    }
+
     private setMobileAppHandlers(): void {
         if (GlobalHelper.isMobileApp()) {
 
@@ -248,33 +262,28 @@ export class AppComponent extends AbstractComponent implements OnInit, AfterView
             let mobileAppUrlPath: string;
 
             document.addEventListener('deviceready', () => {
-
                 GlobalHelper.appLockScreenOrientation('portrait');
 
                 this.window.universalLinks?.subscribe(null, (eventData: universalLinks.IEventData): void => {
-
                     mobileAppUrlPath = eventData.url.replace(`${eventData.scheme}://${eventData.host}`, '');
+
                     if (mobileAppUrlPath) {
                         this.router.urlService.url(mobileAppUrlPath);
-
-                        const intervalId = setInterval(() => {
-                            if (location.href.indexOf(mobileAppUrlPath) > 0) {
-                                clearInterval(intervalId);
-
+                        setTimeout(() => {
+                            const messageInfo = GlobalHelper.parseUrlMessageOrError(eventData.url);
+                            if (messageInfo) {
                                 const messageInfo = GlobalHelper.parseUrlMessageOrError(eventData.url);
-
-                                if (messageInfo) {
-                                    const messageInfo = GlobalHelper.parseUrlMessageOrError(eventData.url);
-                                    this.actionService.processMessages(messageInfo);
-                                }
-                                return;
+                                this.actionService.processMessages(messageInfo);
                             }
-                            this.router.urlService.url(mobileAppUrlPath);
                         }, 100);
                     }
                 });
 
             }, false);
+
+            this.eventService.subscribe({name: 'TRANSITION_FINISH'}, () => {
+                this.appContent?.nativeElement.scrollTo(0, 0);
+            });
         }
     }
 
@@ -414,7 +423,16 @@ export class AppComponent extends AbstractComponent implements OnInit, AfterView
     }
 
     private resolveLang(): void {
-        this.translate.addLangs(this.configService.get<ILanguage[]>('appConfig.languages').map((lang) => lang.code));
+        let languages = this.configService.get<ILanguage[]>('appConfig.languages').map((lang) => lang.code);
+        const availableOnly: string[] = this.configService.get<string[]>('$base.site.languages.availableOnly');
+
+        if (availableOnly) {
+            languages = _filter(languages, (lang): boolean => {
+                return _includes(availableOnly, lang);
+            });
+        }
+
+        this.translate.addLangs(languages);
         const {locale} = this.uiRouter.params;
 
         if (_includes(this.translate.langs, locale)) {
@@ -423,6 +441,14 @@ export class AppComponent extends AbstractComponent implements OnInit, AfterView
                 this.configService.get<Deferred<null>>({name: 'firstLanguageReady'}).resolve();
             });
             this.configService.set({name: 'currentLanguage', value: this.translate.currentLang});
+
+            if (GlobalHelper.isMobileApp()) {
+                this.configService.set({
+                    name: 'currentLanguage',
+                    value: this.translate.currentLang,
+                    storageType: 'localStorage',
+                });
+            }
         } else {
             this.stateService.go('app.error', {
                 locale: _includes(this.translate.langs, this.configService.get<string>('appConfig.language'))
@@ -452,14 +478,23 @@ export class AppComponent extends AbstractComponent implements OnInit, AfterView
             if (!this.configService.get<boolean>('$base.app.demoMode')) {
                 this.actionService.scrollTo();
             }
+
+            setTimeout(() => {
+                this.cdr.detectChanges();
+            });
         });
 
         this.transition.onEnter({}, (transition: Transition): void => {
             this.eventService.emit({
                 name: 'TRANSITION_ENTER',
-                data: {
-                    transition,
-                },
+                data: transition,
+            });
+        });
+
+        this.transition.onFinish({}, (transition: Transition): void => {
+            this.eventService.emit({
+                name: 'TRANSITION_FINISH',
+                data: transition,
             });
         });
 

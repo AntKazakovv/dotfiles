@@ -15,18 +15,35 @@ export namespace providers {
                     linkText: 'All',
                     defaultLinkSref: 'app.providers.item',
                     sliderParams: {
+                        useStartTimeout: false,
                         slideShowAll: {
                             use: true,
                             sref: 'app.providers',
                         },
                         swiper: {
-                            spaceBetween: 10,
                             slidesPerView: 2.5,
                             slidesPerGroup: 2,
+                            grid: null,
+                            spaceBetween: 10,
                             loop: false,
-                            navigation: {
-                                prevEl: '.wlc-provider-links .wlc-swiper-button-prev',
-                                nextEl: '.wlc-provider-links .wlc-swiper-button-next',
+                            breakpoints: {
+                                300: {
+                                    slidesPerView: 2.5,
+                                    slidesPerGroup: 2,
+                                    grid: {
+                                        rows: 1,
+                                        fill: 'row',
+                                    },
+                                    spaceBetween: 10,
+                                    followFinger: false,
+                                },
+                                560: {
+                                    slidesPerView: 3.5,
+                                    slidesPerGroup: 3,
+                                    grid: null,
+                                    spaceBetween: 10,
+                                    followFinger: false,
+                                },
                             },
                         },
                     },

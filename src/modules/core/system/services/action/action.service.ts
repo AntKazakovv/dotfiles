@@ -731,9 +731,13 @@ export class ActionService {
         await this.configService.ready;
         const userService = await this.injectionService.getService<UserService>('user.user-service');
         const isFastRegistration = this.configService.get<number>('appConfig.siteconfig.fastRegistration');
+        const useJwtToken = this.configService.get<boolean>('$base.site.useJwtToken');
 
         try {
-            this.modalService.showModal('registration-success');
+            if (!useJwtToken) {
+                this.modalService.showModal('registration-success');
+            }
+
             await userService.registrationComplete(initialPath.code);
             this.eventService.emit({
                 name: NotificationEvents.PushMessage,
@@ -742,9 +746,14 @@ export class ActionService {
                     title: gettext('Registration success'),
                     message: gettext('You have been successfully registered!'),
                     wlcElement: 'notification_registration-success',
+                    dismissTime: 5,
                 },
             });
-            this.eventService.emit({name: 'LOGIN'});
+
+            if (!useJwtToken) {
+                this.eventService.emit({name: 'LOGIN'});
+            }
+
             if (!isFastRegistration) {
                 this.logService.sendLog({code: '1.1.29'});
             }
@@ -754,10 +763,14 @@ export class ActionService {
                 this.logService.sendLog({code: '1.1.30'});
             }
         } finally {
-            this.modalService.hideModal('registration-success');
-            const redirect = this.configService.get<IRedirect>('$base.redirects.registration');
-            if (redirect) {
-                this.stateService.go(redirect.state, redirect.params || {});
+            if (useJwtToken) {
+                this.modalService.showModal('login');
+            } else {
+                this.modalService.hideModal('registration-success');
+                const redirect = this.configService.get<IRedirect>('$base.redirects.registration');
+                if (redirect) {
+                    this.stateService.go(redirect.state, redirect.params || {});
+                }
             }
         }
     }

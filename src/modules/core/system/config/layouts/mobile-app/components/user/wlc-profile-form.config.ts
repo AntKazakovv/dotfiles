@@ -352,6 +352,9 @@ export namespace wlcProfileForm {
 
     export const def: ILayoutComponent = {
         name: 'user.wlc-profile-form',
+        params: {
+            theme: 'mobile-app',
+        },
     };
 
     export const kiosk: ILayoutComponent = {

@@ -10,6 +10,8 @@ import {TotalJackpotNoContentByThemeType} from 'wlc-engine/modules/games/compone
 import {ICacheSettings} from 'wlc-engine/modules/games/system/interfaces/cache.interface';
 import {TGamesSortDirections} from 'wlc-engine/modules/games/system/interfaces/sorts.interfaces';
 
+export type TScreenOrientation = Extract<OrientationLockType, 'portrait' | 'landscape'>;
+
 /**
 * Disable demo for all users or only for authentificated users
 */
@@ -169,6 +171,8 @@ export interface IMobileGames {
     loginUser?: IMobileLoginUser;
     notRunInIframe?: INotRunInIframe;
     showGameHeader?: IShowGameHeader;
+    /** games screen orientation by merchant id. Usable only for mobile apps */
+    screenOrientation?: IIndexing<TScreenOrientation>;
 }
 
 export interface IMobileLoginUser {

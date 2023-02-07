@@ -1,0 +1,21 @@
+.wlc-phone-field--theme-vertical {
+
+    &:host {
+        display: grid;
+        grid-gap: ef.get-value($themeDefault, 'gap');
+        grid-template-columns: ef.get-value($themeDefault, 'templateColumnsVertical');
+        align-items: flex-end;
+        margin: ef.get-value($themeDefault, 'marginVertical');
+        padding: ef.get-value($themeDefault, 'paddingVertical');
+
+        ::ng-deep {
+
+            .wlc-input[class] {
+
+                .wlc-input__label {
+                    display: none;
+                }
+            }
+        }
+    }
+}

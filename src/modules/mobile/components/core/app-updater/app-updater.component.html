@@ -1,0 +1,17 @@
+<div class="{{$class}}__content" *ngIf="!newVersionDownloaded">
+    <div class="{{$class}}__update" *ngIf="!downloadInProgress">
+        <div class="{{$class}}__description">
+            {{'There is a new version of the application' | translate}}
+        </div>
+        <div class="{{$class}}__update-btn">
+            <button
+                wlc-button
+                [text]="updateBtnText"
+                (click)="update()">
+            </button>
+        </div>
+    </div>
+    <div class="{{$class}}__download" *ngIf="downloadInProgress">
+        {{'Downloading a new version...' | translate}} {{downloadProgress}}%
+    </div>
+</div>

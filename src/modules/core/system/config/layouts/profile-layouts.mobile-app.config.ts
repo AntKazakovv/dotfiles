@@ -21,6 +21,7 @@ export const $profileMobileAppLayouts: IPanelsConfig = {
         title: gettext('Profile'),
         extends: 'app.profile',
         sections: {
+            'nav-header': sectionsLib.header.profileMainInfo,
             'profile-content': sectionsLib.profileContent.profileMain,
         },
     },
@@ -56,6 +57,7 @@ export const $profileMobileAppLayouts: IPanelsConfig = {
         title: gettext('Bonuses history'),
         extends: 'app.profile',
         sections: {
+            'nav-header': sectionsLib.header.bonusesHistory,
             'profile-content': sectionsLib.profileContent.profileBonusesHistory,
         },
     },
@@ -63,7 +65,7 @@ export const $profileMobileAppLayouts: IPanelsConfig = {
         title: gettext('Bonuses promo'),
         extends: 'app.profile',
         sections: {
-            'profile-content': sectionsLib.profileContent.empty,
+            'profile-content': sectionsLib.profileContent.profileVoucher,
         },
     },
     'app.profile.loyalty-bonuses.system': {
@@ -91,6 +93,7 @@ export const $profileMobileAppLayouts: IPanelsConfig = {
         title: gettext('Tournaments history'),
         extends: 'app.profile',
         sections: {
+            'nav-header': sectionsLib.header.tournamentsHistory,
             'profile-content': sectionsLib.profileContent.profileTournamentsHistory,
         },
     },
@@ -105,6 +108,7 @@ export const $profileMobileAppLayouts: IPanelsConfig = {
         title: gettext('Deposit'),
         extends: 'app.profile',
         sections: {
+            'nav-header': sectionsLib.header.returnToSidebar,
             'profile-content': sectionsLib.profileContent.profileDeposit,
         },
     },
@@ -112,6 +116,7 @@ export const $profileMobileAppLayouts: IPanelsConfig = {
         title: gettext('Withdrawal'),
         extends: 'app.profile',
         sections: {
+            'nav-header': sectionsLib.header.returnToSidebar,
             'profile-content': sectionsLib.profileContent.profileWithdraw,
         },
     },
@@ -124,16 +129,18 @@ export const $profileMobileAppLayouts: IPanelsConfig = {
         },
     },
     'app.profile.cash.transactions': {
-        title: gettext('Transactions'),
+        title: gettext('Transactions history'),
         extends: 'app.profile',
         sections: {
+            'nav-header': sectionsLib.header.transactionsHistory,
             'profile-content': sectionsLib.profileContent.profileTransactions,
         },
     },
     'app.profile.gamblings.bets': {
-        title: gettext('Bets'),
+        title: gettext('Bets history'),
         extends: 'app.profile',
         sections: {
+            'nav-header': sectionsLib.header.betsHistory,
             'profile-content': sectionsLib.profileContent.profileBetHistory,
         },
     },
@@ -141,7 +148,7 @@ export const $profileMobileAppLayouts: IPanelsConfig = {
         title: gettext('Loyalty store'),
         extends: 'app.profile',
         sections: {
-            'profile-content': sectionsLib.profileContent.profileStore,
+            'profile-content': sectionsLib.profileContent.profileStoreMob,
         },
     },
     'app.profile.loyalty-store.orders': {

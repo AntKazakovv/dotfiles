@@ -44,7 +44,6 @@ import {
     Bonus,
     BonusesService,
 } from 'wlc-engine/modules/bonuses';
-import {IPrevState} from 'wlc-engine/modules/core/system/services/state-history/state-history.service';
 import {
     Game,
     GamesFilterService,
@@ -200,15 +199,6 @@ class StartGameHandler {
         this.prepare();
 
         this.previousState = this.transition.$from();
-
-        if (this.previousState.name !== 'app.gameplay') {
-
-            const prevStateToSave: IPrevState = {
-                state: this.previousState,
-                params: this.transition.params('from'),
-            };
-            this.stateHistoryService.lastNotGamePlayState = prevStateToSave;
-        }
 
         if (!this.checksForPlayReal() || !await this.checkGame()) {
             return;
@@ -395,9 +385,11 @@ class StartGameHandler {
             );
 
             this.result.reject(RejectReason.GameHasNoDemo);
+
             const stateParams: RawParams = _clone(this.transition.params());
             stateParams.demo = false;
-            this.stateService.go('app.gameplay', stateParams);
+            this.stateService.go(GlobalHelper.isMobileApp() ? 'app.run-game' : 'app.gameplay', stateParams);
+
             return false;
         }
         return true;
@@ -499,30 +491,7 @@ class StartGameHandler {
         deferred.reject(RejectReason.LowBalance);
         const redirect: IRedirect = this.configService.get<IRedirect>('$base.redirects.zeroBalance');
 
-        //WlcStateService.setRedirect('app.games.play', $stateParams);
-
-        if (GlobalHelper.isMobileApp()) {
-            this.showErrorNotification(
-                gettext('You will be redirected to main site for deposit more money.'),
-                gettext('Insufficient balance!'),
-            );
-
-            const jwtAuthToken: string = this.configService.get({
-                name: 'jwtAuthToken',
-                storageType: 'localStorage',
-            });
-
-            if (jwtAuthToken) {
-
-                const lang: string = this.configService.get('currentLanguage');
-
-                setTimeout(() => {
-                    GlobalHelper.openBrowserLinkFromMobileApp(
-                        `${GlobalHelper.mobileAppConfig.apiUrl}/${lang}/profile/cash?token=${jwtAuthToken}`,
-                    );
-                }, 4000);
-            }
-        } else if (redirect.modalInsteadRedirect) {
+        if (redirect.modalInsteadRedirect) {
             this.modalService.showModal(redirect.modalInsteadRedirect, {game: this.game});
         } else {
             this.showErrorNotification(
@@ -609,7 +578,11 @@ class StartGameHandler {
         return defered.promise;
     }
 
-    private showErrorNotification(message: string, title: string = gettext('Game launch error')): void {
+    private showErrorNotification(
+        message: string,
+        title: string = gettext('Game launch error'),
+        dismissTime: number = 5000,
+    ): void {
         this.eventService.emit({
             name: NotificationEvents.PushMessage,
             data: <IPushMessageParams>{
@@ -617,6 +590,7 @@ class StartGameHandler {
                 title,
                 message,
                 wlcElement: 'notification_game-launch-error',
+                dismissTime,
             },
         });
     }
@@ -634,12 +608,11 @@ class StartGameHandler {
                     return;
                 }
 
-                if (this.previousState.name !== 'app.gameplay') {
-                    this.router.stateService.go(this.previousState, this.transition.params('from'));
-                } else {
-                    const lastStateNotGamePlay = this.stateHistoryService.lastNotGamePlayState;
+                const lastStateNotGamePlay = this.stateHistoryService.lastNotGamePlayState;
+                if (lastStateNotGamePlay) {
                     this.router.stateService.go(lastStateNotGamePlay.state, lastStateNotGamePlay.params);
-                    this.stateHistoryService.lastNotGamePlayState = null;
+                } else {
+                    this.router.stateService.go('app.home');
                 }
 
                 if (filterCache) {

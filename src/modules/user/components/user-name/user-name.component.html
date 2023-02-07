@@ -20,7 +20,7 @@
 </ng-container>
 
 <ng-template #notAuth>
-    <div class="{{$class}}__container" data-wlc-element="block_user-stat-username" (click)="modalSignup()">
+    <div class="{{$class}}__container" data-wlc-element="block_user-stat-username" (click)="modalSignupOrLogin()">
         <ng-template [ngTemplateOutlet]="iconUser"></ng-template>
         <div class="{{$class}}__block">
             <div class="{{$class}}__email-value">

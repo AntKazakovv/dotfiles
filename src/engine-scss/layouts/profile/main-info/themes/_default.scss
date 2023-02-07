@@ -1,6 +1,7 @@
 .app-profile-main-info-state .wlc-sections {
 
-    &__profile-content--theme-default {
+    &__profile-content--theme-default,
+    &__profile-content--theme-mobile-app {
 
         > .container {
             display: grid;
@@ -20,8 +21,19 @@
             }
         }
 
+        .wlc-profile-form--theme-mobile-app {
+
+            .wlc-form {
+
+                .wlc-btn[wlc-button] {
+                    justify-self: stretch !important;
+                }
+            }
+        }
+
         // Main info form
-        .wlc-profile-form--theme-default {
+        .wlc-profile-form--theme-default,
+        .wlc-profile-form--theme-mobile-app {
 
             .wlc-form {
                 display: grid;

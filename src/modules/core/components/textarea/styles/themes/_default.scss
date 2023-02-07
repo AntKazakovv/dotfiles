@@ -24,6 +24,27 @@
         }
     }
 
+    &.wlc-textarea--theme-mod-mobile-app {
+
+        .wlc-textarea__label {
+            margin: 0;
+            font-weight: 700;
+            font-size: 1.2rem;
+        }
+
+        .wlc-textarea__textarea {
+
+            textarea {
+                border: ef.get-value($themeDefault, 'textareaBorderFeedbackForm');
+                border-radius: ef.get-value($themeDefault, 'textareaRadiusMob');
+
+                &:focus {
+                    border-color: ef.get-value($themeDefault, 'textareaBorderFocusColorFeedbackForm');
+                }
+            }
+        }
+    }
+
     .wlc-textarea__label {
         @include cm.labelStyle;
     }

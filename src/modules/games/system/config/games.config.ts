@@ -41,6 +41,11 @@ export const gamesConfig: IGamesConfig = {
         showGameHeader: {
             merchants: [990],
         },
+        screenOrientation: {
+            '905': 'landscape',
+            '955': 'landscape',
+            '917': 'landscape',
+        },
     },
     run: {
         skipCheckBalance: false,

@@ -1,9 +1,11 @@
 import {ILayoutComponent} from 'wlc-engine/modules/core/system/interfaces/layouts.interface';
-import {wlcTitle} from 'wlc-engine/modules/core/system/config/layouts/components/core/wlc-title.config';
 
 export namespace wlcBonusesHistory {
     export const def: ILayoutComponent = {
         name: 'bonuses.wlc-bonuses-history',
+        params: {
+            transactionTableTheme: 'mobile-app',
+        },
     };
 
     export const filter: ILayoutComponent = {
@@ -11,7 +13,6 @@ export namespace wlcBonusesHistory {
         params: {
             class: 'profile-history-filter',
             components: [
-                wlcTitle.history,
                 {
                     name: 'core.wlc-history-filter',
                     params: {

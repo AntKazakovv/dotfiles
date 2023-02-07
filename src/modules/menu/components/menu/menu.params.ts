@@ -23,6 +23,7 @@ export type MenuType = 'main-menu'
     | 'profile-menu'
     | 'profile-first-menu'
     | 'mobile-menu'
+    | 'mobile-menu-main'
     | 'post-menu'
     | 'footer:tc'
     | 'footer:about'
@@ -59,6 +60,8 @@ export interface IMenuItemParamsWp {
     defaultState: string;
     /** default type for menu items */
     defaultType: WpItemType;
+    /** post slugs for excludes some posts */
+    exclude?: string[];
 }
 
 export interface IMenuItemParamsState {
@@ -84,6 +87,7 @@ export interface IMenuItemParamsModal {
 
 export interface IMenuItemParamsHref {
     url: string;
+    jwtToken?: boolean;
     baseSiteUrl?: boolean;
 }
 
@@ -170,9 +174,18 @@ export interface IMenuCParams extends IComponentParams<MenuTheme, MenuType, stri
         swiper?: {
             scrollToStart: boolean;
         },
+        /** Additional settings for menu items */
         icons?: {
             fallback?: string;
             extension?: TIconExtension;
+            /** Arrow icons for menu items */
+            arrows?: {
+                use: boolean;
+                /** icon path for inner links */
+                innerLinks?: string;
+                /** icon path for outer links */
+                outerLinks?: string;
+            }
         };
         scrollToSelector?: string;
     },
@@ -220,6 +233,11 @@ export const defaultParams: IMenuCParams = {
         icons: {
             extension: 'svg',
             fallback: '',
+            arrows: {
+                use: false,
+                innerLinks: '/mobile-app/icons/arrow.svg',
+                outerLinks: '/mobile-app/icons/arrow-2.svg',
+            },
         },
     },
     scrollDuration: 300,

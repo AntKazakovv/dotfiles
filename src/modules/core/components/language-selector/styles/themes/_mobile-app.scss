@@ -1,0 +1,70 @@
+.wlc-language-selector--theme-mobile-app:host {
+    padding: ef.get-value($themeMobileApp, 'containerPadding');
+    background: ef.get-value($themeMobileApp, 'containerColor');
+    border-top: ef.get-value($themeMobileApp, 'containerBorder');
+    border-bottom: ef.get-value($themeMobileApp, 'containerBorder');
+
+    .wlc-language-selector {
+
+        &__item {
+
+            &:last-child {
+
+                .wlc-language-selector__link-lang {
+                    border-bottom: 0;
+                }
+            }
+
+            &--active {
+
+                .wlc-language-selector__active {
+                    display: block;
+                }
+            }
+        }
+
+        &__link {
+            @include text.get-text-style(ef.get-value($themeMobileApp, 'linkText'), ef.get-value($themeMobileApp, 'linkColor'));
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            text-decoration: none;
+
+            &-flag {
+                @include flag(ef.get-value($themeMobileApp, 'currentFlagSize'), ef.get-value($themeMobileApp, 'currentFlagSize'), 50%);
+                flex: 0 0 ef.get-value($themeMobileApp, 'currentFlagSize');
+            }
+
+            &::ng-deep {
+
+                .wlc-icon-content {
+                    color: ef.get-value($themeMobileApp, 'currentFlagColor');
+                }
+            }
+        }
+
+        &__link-lang {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            margin: ef.get-value($themeMobileApp, 'langMargin');
+            padding: ef.get-value($themeMobileApp, 'langPadding');
+            border-bottom: ef.get-value($themeMobileApp, 'containerBorder');
+        }
+
+        &__active {
+            display: none;
+
+            &::ng-deep {
+
+                svg {
+                    width: ef.get-value($themeMobileApp, 'checkSize');
+                    height: ef.get-value($themeMobileApp, 'checkSize');
+                    stroke: currentColor;
+                }
+            }
+        }
+    }
+}

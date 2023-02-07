@@ -8,7 +8,7 @@ import {
 } from 'wlc-engine/modules/core';
 import {ThemeMod as TooltipThemeMod} from 'wlc-engine/modules/core/components/tooltip/tooltip.params';
 
-export type ComponentTheme = 'default' | 'placeholder-shown' | 'vertical' | CustomType;
+export type ComponentTheme = 'default' | 'placeholder-shown' | 'vertical' | 'mobile-app' | CustomType;
 export type ComponentType = 'default' | CustomType;
 export type Theme = 'default' | CustomType;
 export type AutoModifiers = Theme | 'default';
@@ -72,6 +72,7 @@ export interface IInputCParams extends IComponentParams<ComponentTheme, Componen
     /** @deprecated Use the global validator. Method left for backward compatibility */
     maskOptions?: IMask.AnyMaskedOptions | string;
     numeric?: INumericInputOptions,
+    isHidden?: () => boolean;
 }
 
 export const defaultParams: Partial<IInputCParams> = {

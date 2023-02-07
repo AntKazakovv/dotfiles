@@ -1,0 +1,18 @@
+.wlc-app-updater--theme-default:host {
+
+    .wlc-app-updater {
+
+        &__content {
+            margin: ef.get-value($themeDefault, 'margin');
+            padding: ef.get-value($themeDefault, 'padding');
+            font-size: 1.4rem;
+            background: ef.get-value($themeDefault, 'background');
+            border-radius: ef.get-value($themeDefault, 'borderRadius');
+        }
+
+        &__update {
+            display: grid;
+            grid-template-columns: 1fr auto;
+        }
+    }
+}

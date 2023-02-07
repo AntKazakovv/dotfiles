@@ -1,0 +1,43 @@
+$customThemeMobileApp: () !default;
+$themeMobileApp: map-merge((
+    'wrapperRadius': ef.get('radius', 'biger'),
+    'baseHeight': 100%,
+    'baseWidth': 100%,
+    'containerPadding': (
+        375: ef.size(4) ef.size(2),
+        768: ef.size(4) ef.size(4),
+        1024: ef.size(4) ef.size(8),
+        1630: ef.size(6) ef.size(8),
+    ),
+    'containerBackground': var(--mc-bg700),
+    'containerShadow': 0 4px 9px 0 var(--mc-bg-o1),
+    'containerMinHeight': (
+        375: 130px,
+        1366: initial,
+    ),
+    'containerHeight': 100%,
+    'containerFlexDirection': column,
+    'containerAlignItems': center,
+    'containerJustifyContent': center,
+
+    'titleFontStyle': 'ThirdTitleBold',
+    'titleColor': var(--mc-baseMain),
+    'titleMargin': (
+        375: 0 0 ef.size(6),
+        900: 0 0 ef.size(4),
+        1630: 0 0 ef.size(6),
+    ),
+
+    'controlWidth': 100%,
+
+    'controlMaxWidth': (
+        375: 250px,
+        560: none,
+    ),
+
+    'inputBackground': var(--fc-inputBg),
+    'inputColor': var(--fc-textColor),
+    'inputTextTransform': uppercase,
+    'inputOpacity': 1,
+
+), $customThemeMobileApp);

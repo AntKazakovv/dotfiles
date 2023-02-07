@@ -1,0 +1,7 @@
+$customThemeDefault: () !default;
+$themeDefault: map-merge((
+    'margin': 0 10px,
+    'padding': 10px,
+    'background': #1d2337,
+    'borderRadius': 10px,
+), $customThemeDefault);

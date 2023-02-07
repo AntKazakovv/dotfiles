@@ -88,12 +88,11 @@ $themeMobileApp: map-merge((
 
     'loaderColumn': list.slash(1, 3),
 
-    'wrapperTemplateColumns': repeat(auto-fit, minmax(150px, 1fr)),
+    'wrapperTemplateColumns': repeat(auto-fit, minmax(125px, 1fr)),
     'wrapperGap': (
         375: ef.size(2),
         768: ef.size(3),
     ),
-    'wrapperMargin': ef.size(8) 0 0,
 
     'iconBackground': var(--mc-bg700),
     'iconBorderRadius': ef.get('radius', 'small'),

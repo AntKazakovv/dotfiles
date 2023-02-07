@@ -1,0 +1,315 @@
+$selector: '.wlc-table';
+
+.wlc-table--theme-mobile-app:host {
+    display: flex;
+    flex-direction: column;
+
+    &.wlc-table {
+
+        &.wlc-table--table {
+
+            #{$selector}__content {
+                display: table;
+                width: 100%;
+                border-collapse: collapse;
+            }
+
+            #{$selector}__row {
+                border: ef.get-value($themeMobileApp, 'rowBorderTable');
+                display: table-row;
+
+                &.wlc-show {
+                    border: none;
+                }
+
+                &--head {
+                    display: table-row;
+                    background: ef.get-value($themeMobileApp, 'rowTitleBackgroundDesktop');
+
+                    .wlc-table__cell {
+                        @include text.get-text-style('PrimaryTextBold', ef.get-value($themeMobileApp, 'textColor'));
+                    }
+                }
+
+                &--odd {
+                    background: none;
+
+                    .wlc-table__cell {
+                        background: ef.get-value($themeMobileApp, 'rowOddBackgroundDesktop');
+                    }
+                }
+
+                &--even {
+                    background: none;
+
+                    .wlc-table__cell {
+                        background: ef.get-value($themeMobileApp, 'rowEvenBackgroundDesktop');
+                    }
+                }
+
+                &:first-of-type {
+
+                    @include bm.hover {
+
+                        .wlc-table__cell {
+                            background: transparent;
+                        }
+                    }
+                }
+
+                @include bm.hover {
+
+                    .wlc-table__cell {
+                        background: ef.get-value($themeMobileApp, 'rowBackgroundDesktopHover');
+                    }
+                }
+            }
+
+            #{$selector}__cell {
+                @include bm.transition(background, ef.get('time', 'less'));
+
+                display: table-cell;
+                padding: ef.get-value($themeMobileApp, 'paddingCellTable');
+                border: ef.get-value($themeMobileApp, 'cellBorderDesktop');
+                text-align: ef.get-value($themeMobileApp, 'textAlignDesktop');
+                vertical-align: ef.get-value($themeMobileApp, 'verticalAlignDesktop');
+
+                &:first-child {
+                    border-radius: ef.get-value($themeMobileApp, 'rowBorderRadiusSizeDesktop') 0 0 ef.get-value($themeMobileApp, 'rowBorderRadiusSizeDesktop');
+                }
+
+                &:last-child {
+                    border-radius: 0 ef.get-value($themeMobileApp, 'rowBorderRadiusSizeDesktop') ef.get-value($themeMobileApp, 'rowBorderRadiusSizeDesktop') 0;
+                }
+
+                &--index {
+                    width: 10%;
+                }
+
+                &--first {
+                    @include betweenClass('.wlc-show') {
+                        border: none;
+                    }
+
+                    font-weight: ef.get-value($themeMobileApp, 'cellFontWeightFirst');
+                    background: ef.get-value($themeMobileApp, 'cellBgFirst');
+                    border-bottom: ef.get-value($themeMobileApp, 'cellBorderBottomFirst');
+                    border-radius: ef.get-value($themeMobileApp, 'cellBorderRadiusFirst');
+                }
+
+                &-label,
+                &-arrow {
+                    display: none;
+                }
+
+                &-content {
+                    @include betweenClass('.wlc-table__cell--first') {
+                        justify-self: ef.get-value($themeMobileApp, 'textAlignDesktop');
+                        text-align: ef.get-value($themeMobileApp, 'textAlignDesktop');
+                    }
+
+                    justify-self: ef.get-value($themeMobileApp, 'textAlignDesktop');
+                    font-weight: ef.get-value($themeMobileApp, 'cellContentFontWeight');
+                    text-align: ef.get-value($themeMobileApp, 'textAlignDesktop');
+                }
+            }
+
+            #{$selector}__img {
+                display: block;
+
+                ::ng-deep {
+
+                    svg {
+                        width: ef.get-value($themeMobileApp, 'emptyImgWidth');
+                        max-width: ef.get-value($themeMobileApp, 'emptyImgMaxWidth');
+                        height: ef.get-value($themeMobileApp, 'emptyImgHeight');
+                        max-height: ef.get-value($themeMobileApp, 'emptyImgMaxHeight');
+
+                        path {
+                            fill: ef.get-value($themeMobileApp, 'emptyImgColor');
+                        }
+                    }
+                }
+            }
+        }
+
+        #{$selector}__content {
+            @include bm.get-mq-map('grid-template-columns', $themeMobileApp, 'rowTemplateColumns');
+            display: grid;
+            grid-gap: ef.get-value($themeMobileApp, 'rowGapMobile');
+            margin: ef.get-value($themeMobileApp, 'tableContentMargin');
+
+            .wlc-sections__profile-content--theme-first & {
+                @include bm.get-mq-map('grid-template-columns', $themeMobileApp, 'rowTemplateColumnsFirstProfile');
+            }
+        }
+
+        #{$selector}__row {
+            position: relative;
+            display: grid;
+            grid-template-columns: ef.get-value($themeMobileApp, 'rowColumns');
+            border-radius: ef.get-value($themeMobileApp, 'rowBorderRadiusSizeMobile');
+            height: ef.get-value($themeMobileApp, 'rowHeight');
+            background: ef.get-value($themeMobileApp, 'rowBackgroundMobile');
+            transition: all ef.get-value($themeMobileApp, 'animationTime');
+            overflow: hidden;
+
+            &.wlc-show {
+                overflow: initial;
+                filter: ef.get-value($themeMobileApp, 'rowFilterShow');
+            }
+
+            &--head {
+                display: none;
+            }
+
+            &--odd {
+
+                .wlc-table__cell {
+                    background: ef.get-value($themeMobileApp, 'rowOddBackgroundDesktop');
+                }
+            }
+
+            &--even {
+                background: none;
+
+                .wlc-table__cell {
+                    background: ef.get-value($themeMobileApp, 'rowEvenBackgroundDesktop');
+                }
+            }
+        }
+
+        #{$selector}__cell {
+            @include text.get-text-style('PrimaryText', ef.get-value($themeMobileApp, 'textColor'));
+
+            display: grid;
+            flex-basis: 100%;
+            flex-grow: 1;
+            grid-auto-columns: ef.get-value($themeMobileApp, 'cellAutoColumns');
+            grid-auto-flow: ef.get-value($themeMobileApp, 'cellAutoFlow');
+            grid-gap: ef.get-value($themeMobileApp, 'cellGapMobile');
+            justify-content: ef.get-value($themeMobileApp, 'cellJustifyContent');
+            padding: ef.get-value($themeMobileApp, 'paddingCellGrid');
+
+            ::ng-deep p {
+                margin: 0;
+            }
+
+            &:first-child {
+                border-radius: ef.get-value($themeMobileApp, 'rowBorderRadiusSizeMobile') ef.get-value($themeMobileApp, 'rowBorderRadiusSizeMobile') 0 0;
+            }
+
+            &:last-child {
+                border-radius: 0 0 ef.get-value($themeMobileApp, 'rowBorderRadiusSizeMobile') ef.get-value($themeMobileApp, 'rowBorderRadiusSizeMobile');
+            }
+
+            &--type {
+                position: relative;
+            }
+
+            &--first {
+                @include betweenClass('.wlc-show') {
+                    border-bottom: ef.get-value($themeMobileApp, 'rowTitleBorderBottomOpenedMobile');
+                }
+
+                grid-template-columns: ef.get-value($themeMobileApp, 'firstColumnColumns');
+                align-items: center;
+                min-height: ef.get-value($themeMobileApp, 'minRowHeight');
+                font-weight: bold;
+                font-size: ef.get-value($themeMobileApp, 'fontSizeTitleMobile');
+                background: ef.get-value($themeMobileApp, 'rowTitleBackgroundMobile');
+            }
+
+            &--Date {
+
+                .wlc-table__cell-label {
+                    display: none;
+                }
+            }
+
+            &-label {
+                justify-self: start;
+            }
+
+            &-arrow {
+                justify-self: end;
+
+                ::ng-deep svg {
+                    @include betweenClass('.wlc-show') {
+                        transform: rotateZ(180deg);
+                    }
+
+                    transition: all ef.get-value($themeMobileApp, 'animationTime');
+
+                    path {
+                        @include betweenClass('.wlc-show') {
+                            fill: ef.get-value($themeMobileApp, 'openIconColorOpened');
+                        }
+
+                        fill: ef.get-value($themeMobileApp, 'openIconColor');
+                    }
+                }
+            }
+
+            // TODO сделать отдельный класс
+            &--status {
+
+                ::ng-deep {
+
+                    .wlc-tooltip[wlc-tooltip] {
+
+                        .wlc-tooltip__content {
+
+                            @include mq.max(1024) {
+                                right: ef.get-value($themeMobileApp, 'tooltipOffset');
+                                left: initial;
+                            }
+                        }
+                    }
+                }
+            }
+
+            &-content {
+                @include betweenClass('.wlc-table__cell--first') {
+                    @include bm.get-mq-map('padding', $themeMobileApp, 'cellContentPadding');
+                    @include bm.get-mq-map('text-align', $themeMobileApp, 'cellContentTextAlign');
+                    justify-self: start;
+                    width: 100%;
+                }
+
+                justify-self: end;
+                font-weight: bold;
+                text-align: end;
+            }
+        }
+
+        #{$selector}__empty {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            grid-column-start: span 2;
+            align-items: flex-end;
+            align-self: center;
+            margin: ef.get-value($themeMobileApp, 'emptySectionMargin');
+            text-align: center;
+
+            &-text {
+                align-self: center;
+            }
+        }
+
+        #{$selector}__img {
+            display: none;
+        }
+    }
+
+    &::ng-deep {
+
+        .wlc-tournament-topwins-btn {
+
+            .wlc-btn {
+                width: calc(100% - 20px);
+            }
+        }
+    }
+}

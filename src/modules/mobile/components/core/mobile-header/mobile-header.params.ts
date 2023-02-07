@@ -3,6 +3,7 @@ import {
     CustomType,
     IIndexing,
     IModalParams,
+    IWrapperCParams,
 } from 'wlc-engine/modules/core';
 import {
     TargetStateDef,
@@ -22,11 +23,21 @@ export interface IActionButton {
     showModal?: IModalParams;
     /** State info for open */
     openState?: TargetStateDef;
+    /** Render button as some component. Other options of actionButton will be ignored */
+    component?: IWrapperCParams;
+}
+
+export interface IReturnTo {
+    state: string;
+    params?: IIndexing<unknown>;
+    options?: IIndexing<unknown>;
 }
 
 export interface IBackButton {
     /** Use or not back button for navigate to prev state */
     use: boolean;
+    /** State for return */
+    returnTo?: IReturnTo;
 }
 
 export interface IMobileHeaderParams extends IComponentParams<Theme, Type, ThemeMod> {
@@ -55,6 +66,7 @@ export interface IMobileHeaderParams extends IComponentParams<Theme, Type, Theme
      *     }
      */
     actionButtonByState?: IIndexing<IActionButton>;
+    actionButton?: IActionButton;
 }
 
 export const defaultParams: IMobileHeaderParams = {

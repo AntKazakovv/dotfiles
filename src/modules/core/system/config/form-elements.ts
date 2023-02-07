@@ -254,7 +254,6 @@ export namespace FormElements {
             },
             name: 'city',
             validators: [cityMinLengthValidator],
-            prohibitedPattern: ProhibitedPatterns.notNamesSymbols,
             wlcElement: 'block_city',
             customMod: ['city'],
         },
@@ -582,6 +581,46 @@ export namespace FormElements {
         },
     };
 
+    export const nationalNumber: IFormComponent = {
+        name: 'core.wlc-input',
+        params: <IInputCParams>{
+            theme: 'vertical',
+            common: {
+                placeholder: gettext('__.__.__.___.__'),
+                separateLabel: gettext('National Registration Number'),
+            },
+            locked: true,
+            name: 'idNumber',
+            customMod: ['nationalNumber'],
+            validators: [
+                'required',
+                {
+                    name: 'minLength',
+                    options: 15,
+                },
+            ],
+            maskOptions: {
+                mask: '00-00-00-000-00',
+            },
+        },
+    };
+
+    export const nickName: IFormComponent = {
+        name: 'core.wlc-input',
+        params: <IInputCParams>{
+            theme: 'vertical',
+            common: {
+                placeholder: gettext('Nickname'),
+                autocomplete: 'Nickname',
+            },
+            locked: true,
+            name: 'nick',
+            validators: ['required'],
+            wlcElement: 'block_nick',
+            customMod: ['nick'],
+        },
+    };
+
     export const login: IFormComponent = {
         name: 'core.wlc-input',
         params: <IInputCParams>{
@@ -601,13 +640,27 @@ export namespace FormElements {
     export const loginEmail: IFormComponent = {
         name: 'core.wlc-input',
         params: <IInputCParams>{
-            theme: 'vertical',
+            theme: 'mobile-app',
             wlcElement: 'block_email-login',
             common: {
                 placeholder: gettext('Username or E-mail'),
             },
             name: 'email',
             validators: ['required', 'loginEmail'],
+        },
+    };
+
+    export const emailAgree: IFormComponent = {
+        name: 'core.wlc-checkbox',
+        params: {
+            text: gettext(
+                'I would like to receive information about promotions, marketings materials and personalised content',
+            ),
+            name: 'emailAgree',
+            wlcElement: 'block_email-agree',
+            common: {
+                customModifiers: 'email-agree',
+            },
         },
     };
 }

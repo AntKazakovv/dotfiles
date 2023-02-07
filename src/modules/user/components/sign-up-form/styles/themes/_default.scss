@@ -91,6 +91,10 @@
                 grid-column: initial;
             }
         }
+
+        .wlc-checkbox--email-agree {
+            margin: ef.get-value($themeDefault, 'checkboxEmailAgreeMargin');
+        }
     }
 
     &.two-steps {

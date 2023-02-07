@@ -169,6 +169,10 @@ export class UserProfile extends AbstractModel<IUserProfile> {
         return this.data.extProfile.pep;
     }
 
+    public get nick(): string {
+        return this.data.extProfile.nick;
+    }
+
     public get type(): TUserType {
         return this.data.type;
     }

@@ -24,6 +24,7 @@ export const components = {
     'wlc-verification': VerificationComponent,
     'wlc-shufti-pro-kycaml': ShuftiProKycamlComponent,
     'wlc-bet-history': BetHistoryComponent,
+    'wlc-bet-preview': BetPreviewComponent,
 };
 
 @NgModule({
@@ -46,6 +47,7 @@ export const components = {
     ],
     exports: [
         ProfileNoContentComponent,
+        BetPreviewComponent,
     ],
 })
 export class ProfileModule {

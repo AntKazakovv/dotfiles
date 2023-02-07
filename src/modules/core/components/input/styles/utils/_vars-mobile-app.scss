@@ -1,0 +1,8 @@
+$customThemeMobileApp: () !default;
+$themeMobileApp: map-merge((
+    'inputBorderRadius': 5px,
+    'inputBackground': #37374b,
+    'iconEyeTop': 50%,
+    'iconEyeRight': ef.size(2),
+    'iconEyeTransform': translateY(-50%),
+), $customThemeMobileApp);

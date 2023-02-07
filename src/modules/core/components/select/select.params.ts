@@ -7,7 +7,7 @@ import {
 } from 'wlc-engine/modules/core';
 import {ThemeMod as TooltipThemeMod} from 'wlc-engine/modules/core/components/tooltip/tooltip.params';
 
-export type ComponentTheme = 'default' | 'vertical' | CustomType;
+export type ComponentTheme = 'default' | 'vertical' | 'mobile-app' | CustomType;
 export type ComponentType = 'default' | CustomType;
 export type Theme = 'default' | CustomType;
 export type AutoModifiers = Theme | 'default';

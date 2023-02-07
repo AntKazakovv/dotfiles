@@ -17,7 +17,6 @@
         &__wrapper {
             @include bm.get-mq-map('grid-template-columns', $themeMobileApp, 'wrapperTemplateColumns');
             @include bm.get-mq-map('gap', $themeMobileApp, 'wrapperGap');
-            @include bm.get-mq-map('margin', $themeMobileApp, 'wrapperMargin');
             display: grid;
         }
     }

@@ -31,4 +31,11 @@
             }
         }
     }
+
+    .wlc-table--theme-mobile-app & {
+
+        .wlc-transaction-preview__time {
+            margin: 0;
+        }
+    }
 }

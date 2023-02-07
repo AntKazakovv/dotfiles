@@ -25,13 +25,10 @@ export const wlcMobileFooterMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
         icon: 'games',
         params: {
             state: {
-                name: 'app.providers',
-                params: {
-                    provider: '',
-                },
+                name: 'app.games',
             },
             href: {
-                url: '/providers',
+                url: '/games',
                 baseSiteUrl: true,
             },
         },

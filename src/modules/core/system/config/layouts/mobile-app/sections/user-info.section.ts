@@ -1,5 +1,4 @@
 import {ILayoutSectionConfig} from 'wlc-engine/modules/core';
-import * as componentLib from 'wlc-engine/modules/core/system/config/layouts/mobile-app/components';
 
 export namespace userInfoSection {
     export const menu: ILayoutSectionConfig = {
@@ -22,9 +21,23 @@ export namespace userInfoSection {
                     auth: true,
                 },
             },
-            componentLib.wlcProfileMenu.vertical,
-            componentLib.wlcMobileMenu.vertical,
-            componentLib.wlcLanguageSelector.long,
+            {
+                name: 'mobile.wlc-app-updater',
+            },
+            {
+                name: 'mobile.wlc-sidebar-menu',
+                reloadOnStateChange: true,
+            },
+        ],
+    };
+
+    export const subMenu: ILayoutSectionConfig = {
+        container: false,
+        components: [
+            {
+                name: 'mobile.wlc-sidebar-menu',
+                reloadOnStateChange: true,
+            },
         ],
     };
 }

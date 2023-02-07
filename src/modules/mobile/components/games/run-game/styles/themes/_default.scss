@@ -1,0 +1,30 @@
+.wlc-run-game--theme-default:host::ng-deep {
+
+    .wlc-run-game {
+
+        &__buttons {
+            display: grid;
+            grid-gap: ef.get-value($themeDefault, 'btnsGridGap');
+            margin: ef.get-value($themeDefault, 'btnsMargin');
+
+            .wlc-btn--theme-default {
+                background: ef.get-value($themeDefault, 'buttonBg');
+                border-radius: ef.get('radius', 'main');
+                border: ef.get-value($themeDefault, 'buttonBorder');
+
+                .wlc-btn__text {
+                    color: ef.get-value($themeDefault, 'buttonColor');
+                }
+            }
+
+            .wlc-btn--theme-mod-secondary {
+                background: ef.get-value($themeDefault, 'buttonBgSecondary');
+                border: ef.get-value($themeDefault, 'buttonBorderSecondary');
+
+                .wlc-btn__text {
+                    color: ef.get-value($themeDefault, 'buttonColorSecondary');
+                }
+            }
+        }
+    }
+}

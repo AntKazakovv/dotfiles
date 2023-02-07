@@ -5,9 +5,13 @@ import {
     Input,
     ChangeDetectorRef,
 } from '@angular/core';
-import {ConfigService} from 'wlc-engine/modules/core';
-import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
-import {ModalService} from 'wlc-engine/modules/core/system/services/modal/modal.service';
+
+import {
+    AbstractComponent,
+    ModalService,
+    ConfigService,
+    EventService,
+} from 'wlc-engine/modules/core';
 import {UserService} from 'wlc-engine/modules/user/system/services/user/user.service';
 import * as Params from './logout.params';
 
@@ -26,6 +30,7 @@ export class LogoutComponent extends AbstractComponent implements OnInit {
         protected cdr: ChangeDetectorRef,
         protected modalService: ModalService,
         protected userService: UserService,
+        protected eventService: EventService,
         protected configService: ConfigService,
     ) {
         super({
@@ -40,31 +45,11 @@ export class LogoutComponent extends AbstractComponent implements OnInit {
     }
 
     public logout(): void {
-        this.modalService.showModal({
-            id: 'logout-confirm',
-            modalTitle: gettext('Confirmation'),
-            modifier: 'confirmation',
-            wlcElement: 'modal_logout',
-            modalMessage: this.$params.textMessage,
-            showConfirmBtn: true,
-            closeBtnParams: {
-                themeMod: 'secondary',
-                wlcElement: 'button_no',
-                common: {
-                    text: gettext('No'),
-                },
+        this.eventService.emit({
+            name: 'LOGOUT_CONFIRM',
+            data: {
+                modalMessage: this.$params.textMessage,
             },
-            confirmBtnParams: {
-                wlcElement: 'button_yes',
-                common: {
-                    text: gettext('Yes'),
-                },
-            },
-            textAlign: 'center',
-            onConfirm: () => {
-                this.userService.logout();
-            },
-            dismissAll: true,
         });
     }
 }

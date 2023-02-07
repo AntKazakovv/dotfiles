@@ -1,7 +1,7 @@
 import {IComponentParams} from 'wlc-engine/modules/core/system/classes/abstract.component';
 
 
-export type ThemeType = 'default';
+export type ThemeType = 'default' | 'mobile-app';
 export type ThemeModType = 'bottom-left' | 'bottom-right' | 'top-left' | 'top-right' | 'long';
 export type ComponentType = 'click' | 'hover' | 'compact';
 

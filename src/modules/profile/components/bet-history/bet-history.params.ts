@@ -14,6 +14,7 @@ export type Type = 'default' | CustomType;
 export type ThemeMod = 'default' | CustomType;
 
 export interface IBetHistoryCParams extends IComponentParams<Theme, Type, ThemeMod> {
+    transactionTableTheme: 'default' | 'mobile-app' | Theme,
     /** wlc-profile-no-content params */
     emptyConfig?: IWrapperCParams;
 }
@@ -22,6 +23,7 @@ export const defaultParams: IBetHistoryCParams = {
     moduleName: 'core',
     componentName: 'wlc-bet-history',
     class: 'wlc-bet-history',
+    transactionTableTheme: 'default',
     emptyConfig: {
         components: [
             {

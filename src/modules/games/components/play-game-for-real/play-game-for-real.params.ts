@@ -8,6 +8,7 @@ import {
     IInputCParams,
     IButtonCParams,
     ITextBlockCParams,
+    GlobalHelper,
 } from 'wlc-engine/modules/core';
 import {FormElements} from 'wlc-engine/modules/core/system/config/form-elements';
 import {IIndexing} from 'wlc-engine/modules/core/system/interfaces';
@@ -125,7 +126,7 @@ export const playGameForRealConfig = (params: IPlayForRealParams): IFormWrapperC
             params.useLogin ? FormElements.loginEmail : {
                 name: 'core.wlc-input',
                 params: <IInputCParams>{
-                    theme: 'vertical',
+                    theme: GlobalHelper.isMobileApp() ? 'mobile-app' : 'vertical',
                     common: {
                         placeholder: gettext('E-mail'),
                         type: 'email',
@@ -137,7 +138,7 @@ export const playGameForRealConfig = (params: IPlayForRealParams): IFormWrapperC
             {
                 name: 'core.wlc-input',
                 params: <IInputCParams>{
-                    theme: 'vertical',
+                    theme: GlobalHelper.isMobileApp() ? 'mobile-app' : 'vertical',
                     common: {
                         placeholder: gettext('Password'),
                         type: 'password',

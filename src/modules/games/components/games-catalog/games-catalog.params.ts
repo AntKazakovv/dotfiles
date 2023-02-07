@@ -19,6 +19,8 @@ export interface IGamesCatalogCParams extends IComponentParams<Theme, Type, Them
      * Slider params if use showAsSwiper
      */
     sliderParams?: ISliderCParams,
+    /** Show games by each category */
+    showAllCategories?: boolean;
 }
 
 export const sliderParams: ISliderCParams = {

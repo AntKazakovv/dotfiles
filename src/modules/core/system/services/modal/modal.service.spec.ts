@@ -1,4 +1,8 @@
-import {TestBed} from '@angular/core/testing';
+import {
+    TestBed,
+    fakeAsync,
+    tick,
+} from '@angular/core/testing';
 import {
     BsModalService,
     ModalModule,
@@ -142,7 +146,7 @@ describe('ModalService', () => {
     it('-> showModal should call closeAllModals with dismissAll option', async () => {
         await modalService.showModal(_assignIn({id: existingModalId}, DEFAULT_MODAL_CONFIG));
         const modalServiceCloseAllModalsSpy = spyOn(modalService, 'closeAllModals');
-        modalService.showModal({id: nonExistingModalId, dismissAll: true});
+        await modalService.showModal({id: nonExistingModalId, dismissAll: true});
 
         expect(modalServiceCloseAllModalsSpy).toHaveBeenCalled();
     });
@@ -150,17 +154,18 @@ describe('ModalService', () => {
     it('-> showModal with opened modal should do nothing', async () => {
         await modalService.showModal(_assignIn({id: existingModalId}, DEFAULT_MODAL_CONFIG));
         const lengthBeforeOpen = modalService['activeModals'].length;
-        modalService.showModal({id: existingModalId});
+        await modalService.showModal({id: existingModalId});
 
         expect(modalService['activeModals'].length).toBe(lengthBeforeOpen);
     });
 
-    it('-> showModal should add modal in activeModals', () => {
+    it('-> showModal should add modal in activeModals', fakeAsync(() => {
         modalService.showModal({id: existingModalId});
-        const indexNewModal = modalService['activeModals'].findIndex(item => item.id === existingModalId);
+        tick(1000);
 
+        const indexNewModal = modalService['activeModals'].findIndex(item => item.id === existingModalId);
         expect(modalService['activeModals'][indexNewModal]).toBeDefined();
-    });
+    }));
 
     it('-> showError should call showModal method with assigning configs', () => {
         const modalServiceShowModalSpy = spyOn(modalService, 'showModal');

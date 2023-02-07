@@ -64,14 +64,14 @@ export class FeedbackFormComponent extends AbstractComponent implements OnInit, 
     protected userProfile$: BehaviorSubject<UserProfile>;
 
     constructor(
-        @Inject('injectParams') protected params: Params.IFeedbackFormCParams,
+        @Inject('injectParams') protected injectParams: Params.IFeedbackFormCParams,
         protected contactsService: ContactsService,
         protected configService: ConfigService,
         protected eventService: EventService,
         protected translateService: TranslateService,
         protected cdr: ChangeDetectorRef,
     ) {
-        super({injectParams: params, defaultParams: Params.defaultParams});
+        super({injectParams, defaultParams: Params.defaultParams}, configService);
     }
 
     public ngOnInit(): void {
@@ -140,7 +140,8 @@ export class FeedbackFormComponent extends AbstractComponent implements OnInit, 
     }
 
     protected setConfig(): void {
-        this.config = Params.getFeedbackConfig(this.configService.get<boolean>('$user.isAuthenticated'));
+        this.config = this.$params.formConfig
+            || Params.getFeedbackConfig(this.configService.get<boolean>('$user.isAuthenticated'));
         this.cdr.markForCheck();
     }
 

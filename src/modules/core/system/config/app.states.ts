@@ -1,6 +1,11 @@
 import {Ng2StateDeclaration} from '@uirouter/angular';
-import {StateHelper} from '../helpers/state.helper';
 
+import _map from 'lodash-es/map';
+import _merge from 'lodash-es/merge';
+import _find from 'lodash-es/find';
+import _keys from 'lodash-es/keys';
+
+import {StateHelper} from '../helpers/state.helper';
 import {AppComponent} from 'wlc-engine/modules/app/components/app/app.component';
 import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
 import {ILanguage} from 'wlc-engine/modules/core/system/interfaces/app-config.interface';
@@ -10,11 +15,6 @@ import {customStates} from 'wlc-src/custom/system/config/custom.states';
 import {GlobalHelper} from 'wlc-engine/modules/core/system/helpers/global.helper';
 import * as States from './states';
 import * as MobileAppStates from './mobile-app/states';
-
-import _map from 'lodash-es/map';
-import _merge from 'lodash-es/merge';
-import _find from 'lodash-es/find';
-import _keys from 'lodash-es/keys';
 
 let states = {
     'app.home': States.homeState,
@@ -85,11 +85,13 @@ if (GlobalHelper.isMobileApp()) {
         'app.language': MobileAppStates.languageState,
         'app.games-search': MobileAppStates.gamesSearchState,
         'app.menu': MobileAppStates.menuState,
+        'app.menu.item': MobileAppStates.menuItemState,
         'app.run-game': MobileAppStates.runGameState,
         'app.providers': MobileAppStates.providersState,
         'app.providers.item': MobileAppStates.providersItemState,
         'app.providers.item.category': MobileAppStates.providersItemCategoryState,
         'app.welcome': MobileAppStates.welcomeState,
+        'app.games': MobileAppStates.gamesState,
     });
 }
 
@@ -106,7 +108,11 @@ const appState: Ng2StateDeclaration = {
             resolveFn: async (config: ConfigService) => {
                 await config.ready;
 
-                const bootstrapLang = config.get<string>('appConfig.language');
+                const bootstrapLang = config.get({
+                    name: 'currentLanguage',
+                    storageType: 'localStorage',
+                }) || config.get<string>('appConfig.language');
+
                 const languages = config.get<ILanguage[]>('appConfig.languages') || [];
 
                 if (_find(languages, (lang) => lang.code === bootstrapLang)) {

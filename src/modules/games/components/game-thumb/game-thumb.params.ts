@@ -76,6 +76,10 @@ export interface IGameThumbButtonsSettings {
     demoThemeMode?: ButtonParams.ThemeMod,
 }
 
+export interface IFavouriteButton {
+    disable?: boolean;
+}
+
 export interface IGameThumbCParams extends IComponentParams<Theme, Type, ThemeMod> {
     modifiers?: Modifiers[];
     common?: {
@@ -121,6 +125,7 @@ export interface IGameThumbCParams extends IComponentParams<Theme, Type, ThemeMo
      * Enable/disable display jackpot amount if available
      */
     showJackpotAmount?: boolean;
+    favouriteButton?: IFavouriteButton;
 }
 
 export const defaultParams: IGameThumbCParams = {

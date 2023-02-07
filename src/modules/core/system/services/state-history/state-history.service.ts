@@ -1,11 +1,14 @@
 import {Injectable} from '@angular/core';
-import _includes from 'lodash-es/includes';
 import {
     StateObject,
     RawParams,
 } from '@uirouter/core';
 
-export interface IPrevState {
+import _includes from 'lodash-es/includes';
+import _find from 'lodash-es/find';
+import _reverse from 'lodash-es/reverse';
+
+export interface IState {
     state: StateObject,
     params: RawParams,
 }
@@ -13,7 +16,21 @@ export interface IPrevState {
 @Injectable()
 export class StateHistoryService {
     protected visitedStates: string[] = [];
-    private _lastNotGamePlayState: IPrevState = null;
+
+    private _lastNotGamePlayState: IState = null;
+    private states: IState[] = [];
+    private readonly maxStatesLength = 5;
+
+    public setState(state: StateObject, params: RawParams): void {
+        this.states.push({
+            state,
+            params,
+        });
+
+        if (this.states.length > this.maxStatesLength) {
+            this.states.shift();
+        }
+    }
 
     /**
      * Push state name in array visitedStates
@@ -39,16 +56,9 @@ export class StateHistoryService {
      * Returns state and params from which the transition was made to GamePlay States
      * @returns IPrevState
      */
-    public get lastNotGamePlayState() {
-        return this._lastNotGamePlayState;
-    }
-
-    /**
-     * Set state and params from which the transition was made to GamePlay States
-     * @returns void
-     * @param prevState IPrevState
-     */
-    public set lastNotGamePlayState(prevState: IPrevState) {
-        this._lastNotGamePlayState = prevState;
+    public get lastNotGamePlayState(): IState {
+        return _find(_reverse(this.states), (stateInfo): boolean => {
+            return !_includes(['app.gameplay', 'app.run-game'], stateInfo.state.name);
+        });
     }
 }

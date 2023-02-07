@@ -2,12 +2,16 @@
     (update)="onUpdate()"
     (resized)="onResize()"
     (beforeResize)="onBeforeResize()">
-    <ng-template swiperSlide
-        *ngFor="let n of slidesSequence">
-        <ng-container [ngTemplateOutlet]="slide"
-            [ngTemplateOutletContext]="{slide: slides[n]}">
-        </ng-container>
-    </ng-template>
+
+    <ng-container *ngIf="ready">
+        <ng-template swiperSlide
+                     *ngFor="let n of slidesSequence">
+            <ng-container [ngTemplateOutlet]="slide"
+                          [ngTemplateOutletContext]="{slide: slides[n]}">
+            </ng-container>
+        </ng-template>
+    </ng-container>
+
     <div slot="container-start">
         <ng-content select="[slot-container-start]"></ng-content>
     </div>

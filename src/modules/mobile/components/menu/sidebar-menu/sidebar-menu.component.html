@@ -1,0 +1,6 @@
+<div class="{{$class}}" *ngIf="menus.length">
+    <div class="{{$class}}__section" *ngFor="let params of menus">
+        <div wlc-wrapper [inlineParams]="params"></div>
+    </div>
+</div>
+

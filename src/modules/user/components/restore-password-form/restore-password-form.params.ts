@@ -5,7 +5,10 @@ import {
 
 import {IFormWrapperCParams} from 'wlc-engine/modules/core/components/form-wrapper/form-wrapper.component';
 import {$base} from 'wlc-config/01.base.config';
-import {IInputCParams} from 'wlc-engine/modules/core';
+import {
+    GlobalHelper,
+    IInputCParams,
+} from 'wlc-engine/modules/core';
 
 export type ComponentTheme = 'default' | CustomType;
 export type ComponentType = 'default' | CustomType;
@@ -43,7 +46,7 @@ export const restorePasswordFormConfig: IFormWrapperCParams = {
         {
             name: 'core.wlc-input',
             params: {
-                theme: 'vertical',
+                theme: GlobalHelper.isMobileApp() ? 'mobile-app' : 'vertical',
                 common: {
                     placeholder: gettext('E-mail'),
                     type: 'email',
@@ -113,7 +116,7 @@ export const restorePasswordWithPhoneFormConfig: IFormWrapperCParams = {
                     'required',
                     'emailOrPhone',
                 ],
-                theme: 'vertical',
+                theme: GlobalHelper.isMobileApp() ? 'mobile-app' : 'vertical',
                 wlcElement: 'input_restore-userlogin',
             },
         },

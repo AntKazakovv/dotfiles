@@ -14,7 +14,7 @@ $mobileAppDefault: map-merge((
     'linkDecoration': none,
     'linkTransform': null,
     'linkTransition': all 0.25s ease-out,
-    'linkWidth': 84px,
+    'linkWidth': 95%,
 
     'menuIconFlexDirection': column,
     'menuIconAlignItems': center,
@@ -31,7 +31,7 @@ $mobileAppDefault: map-merge((
     'menuIconInnerHeight': (
         375: 25px,
     ),
-    'menuIconBackground': var(--mc-bg500),
+    'menuIconBackground': var(--mc-main),
     'menuIconBoxTransition': all 0.15s ease-out,
     'menuIconTransition': fill 0.3s ease-out,
     'menuIconShadow': null,

@@ -1,5 +1,9 @@
 import {Injectable} from '@angular/core';
-import {TestBed} from '@angular/core/testing';
+import {
+    TestBed,
+    fakeAsync,
+    tick,
+} from '@angular/core/testing';
 
 import {WINDOW_PROVIDER} from 'wlc-engine/modules/app/system';
 import {
@@ -336,115 +340,129 @@ describe('ProcessService', () => {
         configServiceSpy = TestBed.inject(ConfigService) as jasmine.SpyObj<ConfigService>;
     });
 
-    it('-> should launch', () => {
+    it('-> should launch', fakeAsync(() => {
         eventService.emit({name: events.launch});
+        tick();
         expect(service['launchedProcesses']['simple config'].status).toBe('launched');
-    });
+    }));
 
-    it('-> should start', () => {
+    it('-> should start', fakeAsync(() => {
         eventService.emit({name: events.launch});
         eventService.emit({name: events.start});
+        tick();
         expect(service['launchedProcesses']['simple config'].status).toBe('started');
         expect(logServiceSpy.sendLog).toHaveBeenCalledWith(jasmine.objectContaining({code: '18.0.0'}));
-    });
+    }));
 
-    it('-> should success', () => {
+    it('-> should success', fakeAsync(() => {
         eventService.emit({name: events.launch});
         eventService.emit({name: events.start});
         eventService.emit({name: events.success});
+        tick();
         expect(service['launchedProcesses']['simple config'].status).toBe('succeed');
         expect(logServiceSpy.sendLog).toHaveBeenCalledWith(jasmine.objectContaining({code: '18.0.1'}));
-    });
+    }));
 
-    it('-> should not success with group event exception', () => {
+    it('-> should not success with group event exception', fakeAsync(() => {
         eventService.emit({name: events.launch});
         eventService.emit({name: events.start});
         eventService.emit({name: events.successGroupException});
         eventService.emit({name: events.success});
+        tick();
         expect(service['launchedProcesses']['simple config with event exceptions'].status).toBe('started');
-    });
-    it('-> should not success with trigger event exception', () => {
+    }));
+    it('-> should not success with trigger event exception', fakeAsync(() => {
         eventService.emit({name: events.launch});
         eventService.emit({name: events.start});
         eventService.emit({name: events.successTriggerException});
         eventService.emit({name: events.success});
+        tick();
         expect(service['launchedProcesses']['simple config with event exceptions'].status).toBe('started');
-    });
-    
-    it('-> should not success with truthy group config exception', () => {
+    }));
+
+    it('-> should not success with truthy group config exception', fakeAsync(() => {
         configServiceSpy.get.and.returnValue(true);
         eventService.emit({name: events.launch});
         eventService.emit({name: events.start});
         eventService.emit({name: events.success});
+        tick();
         expect(configServiceSpy.get).toHaveBeenCalledWith('successConfigException');
         expect(service['launchedProcesses']['success with config group exceptions'].status).toBe('started');
-    });
-    it('-> should success with falsy group config exception', () => {
+    }));
+    it('-> should success with falsy group config exception', fakeAsync(() => {
         configServiceSpy.get.and.returnValue(false);
         eventService.emit({name: events.launch});
         eventService.emit({name: events.start});
         eventService.emit({name: events.success});
+        tick();
         expect(configServiceSpy.get).toHaveBeenCalledWith('successConfigException');
         expect(service['launchedProcesses']['success with config group exceptions'].status).toBe('succeed');
-    });
-    it('-> should not success with truthy trigger config exception', () => {
+    }));
+    it('-> should not success with truthy trigger config exception', fakeAsync(() => {
         configServiceSpy.get.and.returnValue(true);
         eventService.emit({name: events.launch});
         eventService.emit({name: events.start});
         eventService.emit({name: events.success});
+        tick();
         expect(configServiceSpy.get).toHaveBeenCalledWith('successConfigException');
         expect(service['launchedProcesses']['success with config trigger exceptions'].status).toBe('started');
-    });
-    it('-> should success with falsy trigger config exception', () => {
+    }));
+    it('-> should success with falsy trigger config exception', fakeAsync(() => {
         configServiceSpy.get.and.returnValue(false);
         eventService.emit({name: events.launch});
         eventService.emit({name: events.start});
         eventService.emit({name: events.success});
+        tick();
         expect(configServiceSpy.get).toHaveBeenCalledWith('successConfigException');
         expect(service['launchedProcesses']['success with config trigger exceptions'].status).toBe('succeed');
-    });
-    it('-> should not success with truthy group config exception with comparator', () => {
+    }));
+    it('-> should not success with truthy group config exception with comparator', fakeAsync(() => {
         configServiceSpy.get.and.returnValue('2');
         eventService.emit({name: events.launch});
         eventService.emit({name: events.start});
         eventService.emit({name: events.success});
+        tick();
         expect(configServiceSpy.get).toHaveBeenCalledWith('2');
         expect(service['launchedProcesses']['success with config group exceptions with comparator'].status)
             .toBe('started');
-    });
-    it('-> should success with false group config exception with comparator', () => {
+    }));
+    it('-> should success with false group config exception with comparator', fakeAsync(() => {
         configServiceSpy.get.and.returnValue('3');
         eventService.emit({name: events.launch});
         eventService.emit({name: events.start});
         eventService.emit({name: events.success});
+        tick();
         expect(configServiceSpy.get).toHaveBeenCalledWith('2');
         expect(service['launchedProcesses']['success with config group exceptions with comparator'].status)
             .toBe('succeed');
-    });
+    }));
 
-    it('-> should fail', () => {
+    it('-> should fail', fakeAsync(() => {
         eventService.emit({name: events.launch});
         eventService.emit({name: events.start});
         eventService.emit({name: events.fail});
+        tick();
         expect(service['launchedProcesses']['simple config'].status).toBe('failed');
         expect(logServiceSpy.sendLog).toHaveBeenCalledWith(jasmine.objectContaining({code: '18.0.2'}));
-    });
+    }));
 
-    it('-> should stop', () => {
+    it('-> should stop', fakeAsync(() => {
         eventService.emit({name: events.launch});
         eventService.emit({name: events.start});
         eventService.emit({name: events.stop});
+        tick();
         expect(service['launchedProcesses']['simple config'].status).toBe('stopped');
-    });
+    }));
 
-    it('-> should restart', () => {
+    it('-> should restart', fakeAsync(() => {
         eventService.emit({name: events.launch});
         eventService.emit({name: events.start});
         eventService.emit({name: events.restart});
+        tick();
         expect(logServiceSpy.sendLog).toHaveBeenCalledWith(jasmine.objectContaining({code: '18.0.4'}));
         expect(service['launchedProcesses']['simple config'].status).toBe('started');
         expect(logServiceSpy.sendLog).toHaveBeenCalledWith(jasmine.objectContaining({code: '18.0.0'}));
-    });
+    }));
 
     it('-> should not launch with flag use = false', () => {
         expect(service['launchedProcesses']['check use']).toBeUndefined();
@@ -453,27 +471,31 @@ describe('ProcessService', () => {
         expect(service['launchedProcesses']['check launchOnAppStart'].status).toBe('launched');
     });
 
-    it('-> should relaunch after fail', () => {
+    it('-> should relaunch after fail', fakeAsync(() => {
         eventService.emit({name: events.launch});
         eventService.emit({name: events.start});
         eventService.emit({name: events.fail});
+        tick();
         expect(service['launchedProcesses']['check relaunch'].status).toBe('launched');
-    });
-    it('-> should relaunch after success', () => {
+    }));
+    it('-> should relaunch after success', fakeAsync(() => {
         eventService.emit({name: events.launch});
         eventService.emit({name: events.start});
         eventService.emit({name: events.success});
+        tick();
         expect(service['launchedProcesses']['check relaunch'].status).toBe('launched');
-    });
-    it('-> should relaunch after stop', () => {
+    }));
+    it('-> should relaunch after stop', fakeAsync(() => {
         eventService.emit({name: events.launch});
         eventService.emit({name: events.start});
         eventService.emit({name: events.stop});
+        tick();
         expect(service['launchedProcesses']['check relaunch'].status).toBe('launched');
-    });
+    }));
 
     it('-> should launch, start and success by timers', (done) => {
         expect(service['launchedProcesses']['check timers'].status).toBe('created');
+
         setTimeout(() => {
             expect(service['launchedProcesses']['check timers'].status).toBe('launched');
             setTimeout(() => {
@@ -487,7 +509,7 @@ describe('ProcessService', () => {
         }, TIMER_TIME);
     });
 
-    it('-> should success with truthy event data comparator', () => {
+    it('-> should success with truthy event data comparator', fakeAsync(() => {
         eventService.emit({name: events.launch});
         eventService.emit({name: events.start});
         eventService.emit({
@@ -496,9 +518,10 @@ describe('ProcessService', () => {
                 eventId: 'test',
             },
         });
+        tick();
         expect(service['launchedProcesses']['success with event data comparator'].status).toBe('succeed');
-    });
-    it('-> should not success with false event data comparator', () => {
+    }));
+    it('-> should not success with false event data comparator', fakeAsync(() => {
         eventService.emit({name: events.launch});
         eventService.emit({name: events.start});
         eventService.emit({
@@ -507,6 +530,7 @@ describe('ProcessService', () => {
                 eventId: 'wrong-data',
             },
         });
+        tick();
         expect(service['launchedProcesses']['success with event data comparator'].status).toBe('started');
-    });
+    }));
 });

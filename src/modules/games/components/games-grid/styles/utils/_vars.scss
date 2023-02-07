@@ -136,4 +136,12 @@ $modMobileApp: map-merge((
     'headerMargin': 0 0 ef.size(2),
     'headerColor': var(--mc-baseMain),
     'headerFontStyle': 'CaptionTextBold',
+    'gridColumns': (
+        375: repeat(2, 1fr),
+        560: repeat(3, 1fr),
+        720: repeat(4, 1fr),
+        900: repeat(3, 1fr),
+        1024: repeat(4, 1fr),
+        1200: repeat(5, 1fr),
+    ),
 ), $customModMobileApp);

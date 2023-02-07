@@ -97,7 +97,7 @@ export class Game extends AbstractModel<IGame> {
         this.sortPerCountry = !_isArray(data.CustomSort) ? data.CustomSort.Country : {};
         this.sort = _toNumber(data.Sort);
         this.url = data.Url;
-        this.image = data.Image;
+        this.image = GlobalHelper.proxyUrl(data.Image);
         this.sortPerCategory = _isArray(data.SortPerCategory) ? {} : data.SortPerCategory;
         this.countryRestrictionId = data.IDCountryRestriction;
         this.merchantName = this.getMerchantName();

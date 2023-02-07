@@ -935,12 +935,14 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
 
             if (this.router.globals.current.name === 'app.gameplay') {
                 this.router.stateService.go('app.home').then(() => {
-                    this.modalService.showModal<IPlayGameForRealCParams>('runGame', {
-                        common: {
-                            game: this.game,
-                            disableDemo: false,
-                        },
-                    });
+                    if (!GlobalHelper.isMobileApp()) {
+                        this.modalService.showModal<IPlayGameForRealCParams>('runGame', {
+                            common: {
+                                game: this.game,
+                                disableDemo: false,
+                            },
+                        });
+                    }
                 });
             }
         }, this.$destroy);
@@ -982,6 +984,10 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
                     return false;
                 }
 
+                if (data === 'closeGame' || data === 'closeFrame') {
+                    return true;
+                }
+
                 let msg: IWlcPostMessage;
                 try {
                     msg = JSON.parse(data);
@@ -991,7 +997,7 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
                 return msg;
             }),
             filter((message: IWlcPostMessage | boolean): boolean => {
-                return _get(message, 'event') === 'WLC_LOAD_STARTED';
+                return _get(message, 'event') === 'WLC_LOAD_STARTED' || message === true;
             }),
             takeUntil(this.$destroy),
         ).subscribe(() => {

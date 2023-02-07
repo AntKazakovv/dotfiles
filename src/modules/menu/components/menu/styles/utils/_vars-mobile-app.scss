@@ -1,0 +1,14 @@
+$customThemeMobileApp: () !default;
+$themeMobileApp: map-merge((
+    'containerColor': var(--mc-bg700),
+    'containerPadding': 0 0 0 ef.size(3),
+    'containerBorder': 1px solid var(--mc-baseMain-o1),
+
+    'linkText': 'PrimaryText',
+    'linkColor': var(--mc-baseMain),
+    'linkColorLogout': var(--mc-error),
+
+    'iconColor': var(--mc-baseMain-o6),
+
+    'itemPadding': ef.size(3) ef.size(3) ef.size(3) 0,
+), $customThemeDefault);

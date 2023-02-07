@@ -28,4 +28,16 @@
             transform: ef.get-value(ev.$tableBtnBlock, 'btnTransform') ef.get-value($themeDefault, 'transformSkew');
         }
     }
+
+    .wlc-table--theme-mobile-app & {
+
+        &.allow-cancelation {
+            padding: 0 0 70px;
+        }
+
+        .action-btn {
+            bottom: 20px;
+            width: calc(100% - 20px);
+        }
+    }
 }

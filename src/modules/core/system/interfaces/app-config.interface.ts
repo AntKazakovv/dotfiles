@@ -26,6 +26,7 @@ export interface IBootstrap {
     loggedIn: string;
     menu: IBootstrapMenuItem[];
     mobile: boolean;
+    mobileApp?: IMobileApp;
     // seo: any[]; // TODO Check when project with SEO appears
     sessionName: string;
     site: string;
@@ -242,4 +243,8 @@ export interface IUser {
     status: string;
     tradingURL: boolean;
     user_id: string;
+}
+
+export interface IMobileApp {
+    version: string;
 }

@@ -20,6 +20,8 @@ export type Type = 'default' | CustomType;
 export type ThemeMod = 'default' | CustomType;
 
 export interface ITransactionHistoryCParams extends IComponentParams<Theme, Type, ThemeMod> {
+    filterType?: 'select' | 'button';
+    transactionTableTheme: 'default' | 'mobile-app' | Theme,
     /** wlc-profile-no-content params */
     emptyConfig?: IWrapperCParams;
 }
@@ -28,6 +30,8 @@ export const defaultParams: ITransactionHistoryCParams = {
     moduleName: 'finances',
     componentName: 'wlc-transaction-history',
     class: 'wlc-transaction-history',
+    filterType: 'button',
+    transactionTableTheme: 'default',
     emptyConfig: {
         components: [
             {

@@ -12,8 +12,8 @@
 <ng-template #typePromoWidget>
     <div *ngIf="!initFailed" class="{{$class}}__content">
         <picture class="{{$class}}__img" data-wlc-element="block_game-thumb-img">
-            <source [srcset]="game.getImage(640, 'webp')" type="image/webp">
-            <img wlc-fallback [src]="game.getImage(640)" loading="lazy">
+            <source *ngIf="useWebp" [srcset]="game.getImage(640, 'webp')" type="image/webp">
+            <img [wlc-fallback]="game.getImage(640)" [src]="game.getImage(640)" loading="lazy">
         </picture>
         <div *ngIf="promoWidgetTitle" class="{{$class}}__title">
             {{promoWidgetTitle | translate}}
@@ -45,8 +45,8 @@
 <ng-template #typeModal>
     <picture class="{{$class}}__img"
              data-wlc-element="block_game-thumb-img">
-        <source [srcset]="game.getImage(315, 'webp')" type="image/webp">
-        <img wlc-fallback [src]="game.getImage(315)" loading="lazy">
+        <source *ngIf="useWebp" [srcset]="game.getImage(315, 'webp')" type="image/webp">
+        <img [wlc-fallback]="game.getImage(315)" [src]="game.getImage(315)" loading="lazy">
     </picture>
     <ng-container [ngTemplateOutlet]="buttonFavourite"></ng-container>
 </ng-template>
@@ -164,20 +164,20 @@
 </ng-template>
 
 <ng-template #thumbImg>
-    <div class="{{$class}}__img" (click)="startGame(false, true, $event)">
-        <picture data-wlc-element="block_game-thumb-img">
-            <source [srcset]="game.getImage(315, 'webp')" type="image/webp">
-            <img loading="lazy"
-                [src]="game.getImage(315)"
-                wlc-fallback
-                (load)="successfulLoadImage()"
-            >
-        </picture>
-    </div>
+    <picture class="{{$class}}__img"
+             data-wlc-element="block_game-thumb-img"
+             (click)="startGame(false, true, $event)">
+        <source *ngIf="useWebp" [srcset]="game.getImage(315, 'webp')" type="image/webp">
+        <img [wlc-fallback]="game.getImage(315)"
+             [src]="game.getImage(315)"
+             loading="lazy"
+             (load)="successfulLoadImage()"
+        >
+    </picture>
 </ng-template>
 
 <ng-template #buttonFavourite>
-    <div *ngIf="isAuth && !isKiosk"
+    <div *ngIf="isAuth && !isKiosk && !$params.favouriteButton?.disable"
           #layersTwo
           wlc-icon
           class="{{$class}}__icon"

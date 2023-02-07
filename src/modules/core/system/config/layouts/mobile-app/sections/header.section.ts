@@ -1,6 +1,9 @@
 import {ILayoutSectionConfig} from 'wlc-engine/modules/core';
 import * as componentLib from '../components';
 
+import _merge from 'lodash-es/merge';
+import _cloneDeep from 'lodash-es/cloneDeep';
+
 export namespace header {
 
     export const def: ILayoutSectionConfig = {
@@ -12,6 +15,234 @@ export namespace header {
             {
                 name: 'mobile.wlc-mobile-header',
                 params: {
+                },
+            },
+        ],
+    };
+
+    export const profileMainInfo: ILayoutSectionConfig = {
+        replaceConfig: true,
+        order: 0,
+        theme: 'mobile-app',
+        container: false,
+        components: [
+            {
+                name: 'mobile.wlc-mobile-header',
+                params: {
+                    themeMod: 'profile-main-info',
+                    actionButton: {
+                        icon: 'mobile-app/icons/setting.svg',
+                        showModal: 'profileBlocks',
+                    },
+                },
+            },
+        ],
+    };
+
+    export const runGamePage: ILayoutSectionConfig = {
+        replaceConfig: true,
+        order: 0,
+        theme: 'mobile-app',
+        container: false,
+        components: [
+            {
+                name: 'mobile.wlc-mobile-header',
+                params: {
+                    actionButton: {
+                        component: {
+                            class: 'wlc-favourite-icon',
+                            components: [
+                                {
+                                    name: 'games.wlc-favourite-button',
+                                    params: {
+                                        theme: 'mobile-app',
+                                        icon: '/mobile-app/icons/star.svg',
+                                    },
+                                },
+                            ],
+                        },
+                    },
+                },
+            },
+        ],
+    };
+
+    export const languagePage: ILayoutSectionConfig = {
+        replaceConfig: true,
+        order: 0,
+        theme: 'mobile-app',
+        container: false,
+        components: [
+            {
+                name: 'mobile.wlc-mobile-header',
+                params: {
+                    backButton: {
+                        returnTo: {
+                            state: 'app.menu',
+                        },
+                    },
+                },
+            },
+        ],
+    };
+
+    export const profileHistoryPages: ILayoutSectionConfig = {
+        replaceConfig: true,
+        order: 0,
+        theme: 'mobile-app',
+        container: false,
+        components: [
+            {
+                name: 'mobile.wlc-mobile-header',
+                params: {
+                    backButton: {
+                        returnTo: {
+                            state: 'app.menu.item',
+                            params: {
+                                item: 'history',
+                            },
+                        },
+                    },
+                },
+            },
+        ],
+    };
+
+    export const transactionsHistory: ILayoutSectionConfig = _merge(_cloneDeep(profileHistoryPages), {
+        components: [
+            {
+                params: {
+                    actionButton: {
+                        component: {
+                            components: [
+                                componentLib.wlcHistoryFilter.transactions,
+                            ],
+                        },
+                    },
+                },
+            },
+        ],
+    });
+
+    export const bonusesHistory: ILayoutSectionConfig = _merge(_cloneDeep(profileHistoryPages), {
+        components: [
+            {
+                params: {
+                    actionButton: {
+                        component: {
+                            components: [
+                                componentLib.wlcHistoryFilter.bonuses,
+                            ],
+                        },
+                    },
+                },
+            },
+        ],
+    });
+
+    export const tournamentsHistory: ILayoutSectionConfig = _merge(_cloneDeep(profileHistoryPages), {
+        components: [
+            {
+                params: {
+                    actionButton: {
+                        component: {
+                            components: [
+                                componentLib.wlcHistoryFilter.tournaments,
+                            ],
+                        },
+                    },
+                },
+            },
+        ],
+    });
+
+    export const betsHistory: ILayoutSectionConfig = _merge(_cloneDeep(profileHistoryPages), {
+        components: [
+            {
+                params: {
+                    actionButton: {
+                        component: {
+                            components: [
+                                componentLib.wlcHistoryFilter.bets,
+                            ],
+                        },
+                    },
+                },
+            },
+        ],
+    });
+
+    export const returnToSidebar: ILayoutSectionConfig = {
+        replaceConfig: true,
+        order: 0,
+        theme: 'mobile-app',
+        container: false,
+        components: [
+            {
+                name: 'mobile.wlc-mobile-header',
+                params: {
+                    backButton: {
+                        returnTo: {
+                            state: 'app.menu',
+                        },
+                    },
+                },
+            },
+        ],
+    };
+
+    export const returnToHome: ILayoutSectionConfig = {
+        replaceConfig: true,
+        order: 0,
+        theme: 'mobile-app',
+        container: false,
+        components: [
+            {
+                name: 'mobile.wlc-mobile-header',
+                params: {
+                    backButton: {
+                        returnTo: {
+                            state: 'app.home',
+                        },
+                    },
+                },
+            },
+        ],
+    };
+
+    export const providersItem: ILayoutSectionConfig = {
+        replaceConfig: true,
+        order: 0,
+        theme: 'mobile-app',
+        container: false,
+        components: [
+            {
+                name: 'mobile.wlc-mobile-header',
+                params: {
+                    backButton: {
+                        returnTo: {
+                            state: 'app.providers',
+                        },
+                    },
+                },
+            },
+        ],
+    };
+
+    export const providersItemCategory: ILayoutSectionConfig = {
+        replaceConfig: true,
+        order: 0,
+        theme: 'mobile-app',
+        container: false,
+        components: [
+            {
+                name: 'mobile.wlc-mobile-header',
+                params: {
+                    backButton: {
+                        returnTo: {
+                            state: 'app.providers.item',
+                        },
+                    },
                 },
             },
         ],

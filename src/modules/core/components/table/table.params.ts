@@ -6,7 +6,7 @@ import {
 } from 'wlc-engine/modules/core/system/interfaces/config.interface';
 import {IPagination} from 'wlc-engine/modules/core/components/pagination/pagination.params';
 
-export type Theme = 'default' | 'tournaments' | CustomType;
+export type Theme = 'default' | 'tournaments' | 'mobile-app' | CustomType;
 export type Type = 'default' | CustomType;
 export type ThemeMod = 'default' | 'first' | CustomType;
 export type TableColType = 'text' | 'date' | 'index' | 'amount' | 'component';

@@ -9,6 +9,7 @@ import {
     ViewChild,
     ElementRef,
     AfterViewInit,
+    HostBinding,
 } from '@angular/core';
 import {FormControl} from '@angular/forms';
 
@@ -53,6 +54,10 @@ type TValueTransformer = (value: string) => string;
     styleUrls: ['./styles/input.component.scss'],
 })
 export class InputComponent extends AbstractComponent implements OnInit, OnChanges, AfterViewInit {
+    @HostBinding('hidden') get hidden() {
+        return !!this.$params?.isHidden?.();
+    };
+
     @Input() protected inlineParams: Params.IInputCParams;
     @ViewChild('input') input: ElementRef;
 
@@ -85,7 +90,7 @@ export class InputComponent extends AbstractComponent implements OnInit, OnChang
         protected eventService: EventService,
         protected cdr: ChangeDetectorRef,
     ) {
-        super({injectParams, defaultParams: Params.defaultParams});
+        super({injectParams, defaultParams: Params.defaultParams}, configService);
     }
 
     public ngOnInit(): void {

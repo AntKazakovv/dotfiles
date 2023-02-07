@@ -6,6 +6,7 @@ import {
     ValidatorFn,
     Validators,
 } from '@angular/forms';
+
 import {
     Observable,
     from,
@@ -21,6 +22,7 @@ import {
     map,
     switchMap,
 } from 'rxjs/operators';
+import _forEach from 'lodash-es/forEach';
 
 import {IIndexing} from 'wlc-engine/modules/core/system/interfaces/global.interface';
 import {DataService} from 'wlc-engine/modules/core/system/services/data/data.service';
@@ -124,6 +126,11 @@ export class ValidationService {
         this.setRule('loginEmail', loginEmailFieldValidator);
         this.setRule('login', loginFieldValidator);
         this.setRule('emailOrPhone', emailOrPhoneValidator);
+
+        _forEach(this.configService.get<IIndexing<ValidatorFn>>('$base.forms.customValidators'),
+            (validator: ValidatorFn , name: string) => {
+                this.setRule(name, validator);
+            });
     }
 
     public emailUnique(ctrl: AbstractControl): Observable<IIndexing<boolean>> {

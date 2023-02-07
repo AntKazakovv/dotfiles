@@ -34,4 +34,13 @@ export namespace wlcUserStats {
             showTooltipDescriptionModal: true,
         },
     };
+
+    export const storeWithDescriptionIconMob: ILayoutComponent = {
+        name: 'user.wlc-user-stats',
+        params: {
+            themeMod: 'mobile-app',
+            type: 'store',
+            showTooltipDescriptionModal: true,
+        },
+    };
 }

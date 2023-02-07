@@ -17,12 +17,13 @@ import {
 
 export type Theme = 'default' | CustomType;
 export type Type = 'default' | CustomType;
-export type ThemeMod = 'default' | CustomType;
+export type ThemeMod = 'default' | 'mobile-app' | CustomType;
 
 export interface IHistoryFilterCParams extends IComponentParams<Theme, Type, ThemeMod> {
     config: keyof IHistoryDefault,
     defaultValues: {[field: string]: unknown};
     icon?: string;
+    iconPath?: string;
 };
 
 export const defaultParams: Partial<IHistoryFilterCParams> = {

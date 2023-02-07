@@ -15,6 +15,7 @@ export namespace wlcBannersSlider {
             sliderParams: {
                 theme: 'default-banner',
                 swiper: {
+                    loop: false,
                     autoplay: {
                         delay: 10000,
                         disableOnInteraction: false,

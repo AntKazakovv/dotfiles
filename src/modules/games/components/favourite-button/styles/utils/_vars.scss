@@ -1,0 +1,11 @@
+$customThemeDefault: () !default;
+$themeDefault: map-merge((
+
+), $customThemeDefault);
+
+$customThemeMobileApp: () !default;
+$themeMobileApp: map-merge((
+    'iconColor': transparent,
+    'iconActiveColor': #0a84ff,
+    'iconFill': #0a84ff,
+), $customThemeMobileApp);

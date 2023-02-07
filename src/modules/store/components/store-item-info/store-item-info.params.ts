@@ -2,6 +2,7 @@ import {
     IComponentParams,
     CustomType,
 } from 'wlc-engine/modules/core';
+import {StoreItem} from 'wlc-engine/modules/store';
 
 export type Type = 'default' | CustomType;
 export type Theme = 'default' | CustomType;
@@ -14,6 +15,7 @@ export interface IStoreItemInfoCParams extends IComponentParams<Theme, Type, The
     description: string,
     /** Use alert or not */
     isDisabled: boolean,
+    storeItem: StoreItem,
 }
 
 export const defaultParams: Partial<IStoreItemInfoCParams> = {

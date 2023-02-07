@@ -65,6 +65,10 @@
                     .wlc-btn[class] {
                         color: ef.get-value($themeDefault, 'linkBlockColor');
 
+                        .wlc-icon {
+                            color: ef.get-value($themeDefault, 'linkBlockColor');
+                        }
+
                         @include bm.hover {
 
                             &,
@@ -273,6 +277,20 @@
 
             .buttons-wrap {
                 @include bm.get-mq-map('padding', $modAvailable, 'btnsWrapPadding');
+            }
+        }
+    }
+
+    &.wlc-tournament-promo--theme-mod-mobile-app {
+
+        .wlc-tournament-promo {
+
+            &__container {
+                @include bm.get-mq-map('grid-template-columns', $themeDefault, 'modMobileGridTemplateColumns');
+            }
+
+            &__board {
+                @include bm.get-mq-map('padding', $themeDefault, 'modMobileBoardPadding');
             }
         }
     }

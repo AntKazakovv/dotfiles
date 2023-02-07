@@ -17,6 +17,7 @@ export const profileConfig: IProfileConfig = {
     },
     limitations: {
         use: false,
+        autoApplyRealityChecker: true,
         limitTypes: [
             profileLimitations.limitType.MaxDepositSum,
             profileLimitations.limitType.MaxBetSum,

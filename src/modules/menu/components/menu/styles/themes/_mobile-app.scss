@@ -1,0 +1,55 @@
+.wlc-menu--theme-mobile-app-main:host {
+    padding: ef.get-value($themeMobileApp, 'containerPadding');
+    background: ef.get-value($themeMobileApp, 'containerColor');
+    border-top: ef.get-value($themeMobileApp, 'containerBorder');
+    border-bottom: ef.get-value($themeMobileApp, 'containerBorder');
+
+    .wlc-menu {
+
+        &__item {
+            padding: ef.get-value($themeMobileApp, 'itemPadding');
+            border-bottom: ef.get-value($themeMobileApp, 'containerBorder');
+
+            &--logout {
+
+                .wlc-menu__link {
+                    @include text.get-text-style(ef.get-value($themeMobileApp, 'linkText'), ef.get-value($themeMobileApp, 'linkColorLogout'));
+                }
+            }
+
+            &:last-child {
+                border-bottom: 0;
+            }
+        }
+
+        &__link {
+            @include text.get-text-style(ef.get-value($themeMobileApp, 'linkText'),  ef.get-value($themeMobileApp, 'linkColor'));
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            text-decoration: none;
+
+            &::ng-deep {
+
+                .wlc-icon-content {
+                    color: ef.get-value($themeMobileApp, 'iconColor');
+                }
+            }
+        }
+
+        &__link-text {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+
+            &::ng-deep {
+
+                .wlc-icon {
+                    color: ef.get-value($themeMobileApp, 'iconColor');
+                }
+            }
+        }
+    }
+}

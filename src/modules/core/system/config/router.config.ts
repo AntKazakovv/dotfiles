@@ -117,6 +117,8 @@ export function routerConfigFn(router: UIRouter, injector: Injector) {
 
         // TODO: check state params, add subscribe for login/logout and more ...
         router.transitionService.onSuccess({}, (trans) => {
+            stateHistoryService.setState(trans.$to(), trans.params('to'));
+
             _each(stateModals, (option, state) => {
                 if (state !== trans.to().name) {
                     return;

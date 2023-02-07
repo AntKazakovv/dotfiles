@@ -1,4 +1,4 @@
-<button *ngIf="!$params.icon; else withParamsIcon"
+<button *ngIf="!$params.icon && !$params.iconPath; else withParamsIcon"
         wlc-button
         class="{{$class}}__button"
         attr.aria-label="{{'History settings' | translate}}"
@@ -17,6 +17,7 @@
             [ngClass]="{'filtered': isFiltered}"
             theme="custom"
             [icon]="$params.icon"
+            [iconPath]="$params.iconPath"
             (click)="openFilter()">
     </button>
 </ng-template>

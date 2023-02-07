@@ -54,7 +54,7 @@ export class PhoneFieldComponent extends AbstractComponent implements OnInit {
         protected validationService: ValidationService,
         protected modalService: ModalService,
     ) {
-        super({injectParams, defaultParams: Params.defaultParams});
+        super({injectParams, defaultParams: Params.defaultParams}, configService);
     }
 
     public ngOnInit(): void {
@@ -198,7 +198,11 @@ export class PhoneFieldComponent extends AbstractComponent implements OnInit {
     }
 
     protected provideParams(): void {
-        this.$params.phoneCode['theme'] = this.$params.theme;
-        this.$params.phoneNumber['theme'] = this.$params.theme;
+        if (!this.$params.phoneCode['theme']) {
+            this.$params.phoneCode['theme'] = this.$params.theme;
+        }
+        if (!this.$params.phoneNumber['theme']) {
+            this.$params.phoneNumber['theme'] = this.$params.theme;
+        }
     }
 }

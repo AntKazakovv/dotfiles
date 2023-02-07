@@ -90,6 +90,7 @@ export class BonusesHistoryComponent extends AbstractComponent implements OnInit
         });
 
         this.tableData = {
+            theme: this.$params.transactionTableTheme || 'default',
             head: Params.bonusHistoryTableHeadConfig,
             rows: this.bonuses$,
             switchWidth: (this.configService.get('$base.profile.type') === 'first') ? 1200 : 1024,
@@ -130,12 +131,14 @@ export class BonusesHistoryComponent extends AbstractComponent implements OnInit
             .subscribe((data: IHistoryFilterValue<TBonusFilter>): void => {
                 this.filterSelect.control.setValue(this.filterValue = data.filterValue);
                 this.bonuses$.next(this.bonusesFilter());
+                this.cdr.detectChanges();
             });
 
         this.bonusesService.getObserver<BonusHistoryItemModel>('history')
             .pipe(takeUntil(this.$destroy))
             .subscribe((bonuses: BonusHistoryItemModel[]): void => {
                 this.allBonuses = bonuses;
+                this.cdr.detectChanges();
             });
 
         this.filterHandlers();
@@ -160,6 +163,7 @@ export class BonusesHistoryComponent extends AbstractComponent implements OnInit
                     filterValue: this.filterValue = filterValue,
                 });
                 this.bonuses$.next(this.bonusesFilter());
+                this.cdr.detectChanges();
             });
     }
 }

@@ -18,6 +18,6 @@ $themeSwiperMobileApp: map-merge((
     'linkColor': #0a84ff,
     'linkFontStyle': 'CaptionTextBold',
 
-    'sliderBeforeWidth': 20px,
+    'sliderBeforeWidth': 100%,
     'sliderBeforeBg': var(--mc-bg),
 ), $customThemeMobileApp);

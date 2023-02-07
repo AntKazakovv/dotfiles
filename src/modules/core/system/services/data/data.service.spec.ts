@@ -270,6 +270,8 @@ describe('DataService', () => {
             .expectOne('http://test.test/')
             .error(new ErrorEvent('error!'), {status: 404});
 
+        tick();
+
         expect(successEvent).toEqual(2);
         expect(failEvent).toEqual(1);
     }));

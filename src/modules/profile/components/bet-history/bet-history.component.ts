@@ -103,6 +103,7 @@ export class BetHistoryComponent extends AbstractComponent implements OnInit {
             endDate: this.endDate,
         });
         this.tableData = {
+            theme: this.$params.transactionTableTheme || 'default',
             head: Params.betHistoryTableHeadConfig,
             rows: this.bets$,
             switchWidth: (this.configService.get('$base.profile.type') === 'first') ? 1200 : 1024,

@@ -11,7 +11,7 @@ import {IIndexing} from 'wlc-engine/modules/core';
 
 export type ComponentTheme = 'default' | 'alternative' | CustomType;
 export type ComponentType = ThumbType | CustomType;
-export type ThemeMod = 'default' | CustomType;
+export type ThemeMod = 'default' | 'mobile-app' | CustomType;
 export type AutoModifiers = ComponentTheme | ThemeMod;
 export type CustomMod = string;
 export type Modifiers = AutoModifiers | CustomMod | null;

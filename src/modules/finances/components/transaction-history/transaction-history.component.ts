@@ -97,15 +97,16 @@ export class TransactionHistoryComponent extends AbstractComponent implements On
         if (this.showFilter) {
             this.filterHandlers();
         }
-        this.setMinMaxDate();
-        this.setSubscription();
-
         this.historyFilterService.setAllFilters('transaction', {
             filterValue: this.filterValue,
             startDate: this.startDate,
             endDate: this.endDate,
         });
+        this.setMinMaxDate();
+        this.setSubscription();
+
         this.tableData = {
+            theme: this.$params.transactionTableTheme || 'default',
             themeMod: profileType,
             head: Params.transactionTableHeadConfig,
             rows: this.transaction$,
@@ -167,6 +168,7 @@ export class TransactionHistoryComponent extends AbstractComponent implements On
                 this.endDateInput.control.setValue(this.endDate = data.endDate);
                 this.setMinMaxDate();
                 this.transaction$.next(this.transactionFilter());
+                this.cdr.detectChanges();
             });
 
         this.filterHandlers();
@@ -189,6 +191,7 @@ export class TransactionHistoryComponent extends AbstractComponent implements On
             .subscribe((filterValue: TTransactionFilter): void => {
                 this.historyFilterService.setFilter('transaction', {filterValue: this.filterValue = filterValue});
                 this.transaction$.next(this.transactionFilter());
+                this.cdr.detectChanges();
             });
 
         this.startDateInput.control.valueChanges
@@ -200,6 +203,7 @@ export class TransactionHistoryComponent extends AbstractComponent implements On
             .subscribe((startDate: DateTime): void => {
                 this.historyFilterService.setFilter('transaction', {startDate: this.startDate = startDate});
                 this.transaction$.next(this.transactionFilter());
+                this.cdr.detectChanges();
             });
 
         this.endDateInput.control.valueChanges
@@ -211,6 +215,7 @@ export class TransactionHistoryComponent extends AbstractComponent implements On
             .subscribe((endDate: DateTime): void => {
                 this.historyFilterService.setFilter('transaction', {endDate: this.endDate = endDate});
                 this.transaction$.next(this.transactionFilter());
+                this.cdr.detectChanges();
             });
 
         this.eventService.filter(
@@ -229,6 +234,7 @@ export class TransactionHistoryComponent extends AbstractComponent implements On
                 }
                 this.setMinMaxDate();
                 this.transaction$.next(this.transactionFilter());
+                this.cdr.detectChanges();
             },
         });
 

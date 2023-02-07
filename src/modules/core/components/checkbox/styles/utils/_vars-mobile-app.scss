@@ -1,0 +1,5 @@
+$customThemeMobileApp: () !default;
+$themeMobileApp: map-merge((
+    'toggleBackgroundActive': #34c759,
+    'toggleCircleBgActive': #ffffff,
+), $customThemeMobileApp);

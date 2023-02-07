@@ -26,6 +26,11 @@
                           wlc-counter
                           [inlineParams]="item.counterParams"
                     ></span>
+                    <span *ngIf="useArrows"
+                          wlc-icon
+                          class="{{$class}}__icon-arrow"
+                          iconPath="{{menuItemArrow(item)}}">
+                    </span>
                 </span>
             </a>
 
@@ -56,6 +61,11 @@
                           wlc-counter
                           [inlineParams]="item.counterParams"
                     ></span>
+                    <span *ngIf="useArrows"
+                          wlc-icon
+                          class="{{$class}}__icon-arrow"
+                          iconPath="{{menuItemArrow(item)}}">
+                    </span>
                 </span>
             </a>
         </div>
@@ -94,7 +104,8 @@
         <a class="{{$class}}__link"
            [attr.data-wlc-element]="item.wlcElement"
            [target]="item?.params?.target || '_self'"
-           [href]="getHref(item?.params?.href)"
+           [href]="getHref(item)"
+           (click)="hrefClick(item)"
         >
             <span *ngIf="$params.theme === 'first'"
                   wlc-icon
@@ -110,6 +121,11 @@
                   placement="right"></span>
             <span class="{{$class}}__link-text">
                 <span>{{menuItemName(item)}}</span>
+            </span>
+            <span *ngIf="useArrows"
+                  wlc-icon
+                  class="{{$class}}__icon-arrow"
+                  iconPath="{{menuItemArrow(item)}}">
             </span>
         </a>
     </div>
@@ -146,8 +162,14 @@
               [fallback]="getIconFallback(item)">
         </span>
         <a class="{{$class}}__link"
-           (click)="openModal(item)"
-        >{{menuItemName(item)}}</a>
+           (click)="openModal(item)">
+            {{menuItemName(item)}}
+            <span *ngIf="useArrows"
+                wlc-icon
+                class="{{$class}}__icon-arrow"
+                iconPath="{{menuItemArrow(item)}}">
+            </span>
+        </a>
     </div>
 </ng-template>
 

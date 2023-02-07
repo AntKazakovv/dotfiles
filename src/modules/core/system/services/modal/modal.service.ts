@@ -16,9 +16,11 @@ import {
 
 import {GlobalHelper} from 'wlc-engine/modules/core/system/helpers/global.helper';
 import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
+import {HooksService} from 'wlc-engine/modules/core/system/services/hooks/hooks.service';
 import {EventService} from 'wlc-engine/modules/core/system/services/event/event.service';
 import {InjectionService} from 'wlc-engine/modules/core/system/services/injection/injection.service';
 import {LogService} from 'wlc-engine/modules/core/system/services/log/log.service';
+import {MobileAppHooks} from 'wlc-engine/modules/core/system/services/modal/hooks/mobile-app.hooks';
 import {
     MODALS_LIST,
     DEFAULT_MODAL_CONFIG,
@@ -54,6 +56,15 @@ import _remove from 'lodash-es/remove';
 import _forEach from 'lodash-es/forEach';
 import _get from 'lodash-es/get';
 
+export const modalServiceHooks = {
+    showModal: 'showModal@ModalService',
+};
+
+export interface IHookShowModal {
+    config: IModalConfig;
+    show: boolean;
+}
+
 export type IModalParams = IModalConfig | IModalName;
 
 const CLOSE_ALL_REASON = 'closeAll';
@@ -84,8 +95,10 @@ export class ModalService {
         protected logService: LogService,
         protected BsModalService: BsModalService,
         private injectionService: InjectionService,
+        private hooksService: HooksService,
         @Inject(WINDOW) private window: Window,
     ) {
+        this.initHooks();
         this.initListeners();
         this.mergeModalConfig();
     }
@@ -142,6 +155,18 @@ export class ModalService {
                 code: '0.3.1',
                 data: {config: modalConfig},
             });
+            return;
+        }
+
+        const hookData: IHookShowModal = await this.hooksService.run<IHookShowModal>(
+            modalServiceHooks.showModal,
+            {
+                config: modalConfig,
+                show: true,
+            },
+        );
+
+        if (!hookData.show) {
             return;
         }
 
@@ -244,6 +269,17 @@ export class ModalService {
     public closeAllModals(from?: string): void {
         _forEach(this.activeModals, (item: IActiveModal) => {
             this.hideModal(item.id, from, CLOSE_ALL_REASON);
+        });
+    }
+
+    /**
+     * Init hooks
+     */
+    protected initHooks(): void {
+        new MobileAppHooks({
+            hooksService: this.hooksService,
+            configService: this.configService,
+            eventService: this.eventService,
         });
     }
 

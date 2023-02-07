@@ -115,6 +115,7 @@ export interface IExtProfile {
     realityCheckTime?: string;
     colorTheme?: string;
     pep?: PepStatus;
+    nick?: string;
 }
 
 export interface IExtProfilePaymentSystems {

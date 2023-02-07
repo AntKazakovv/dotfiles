@@ -180,6 +180,13 @@
 
     &.wlc-games-grid--theme-mod-mobile-app {
 
+        .wlc-games-grid {
+
+            &__list {
+                @include bm.get-mq-map('grid-template-columns', $modMobileApp, 'gridColumns');
+            }
+        }
+
         .wlc-games-grid__header {
             margin: ef.get-value($modMobileApp, 'headerMargin');
         }

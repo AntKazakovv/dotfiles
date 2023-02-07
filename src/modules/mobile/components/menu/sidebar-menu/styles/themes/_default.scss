@@ -1,0 +1,16 @@
+.wlc-sidebar-menu--theme-default:host::ng-deep {
+
+    .wlc-sidebar-menu {
+
+        &__section {
+
+            .wlc-menu {
+                margin: 0 0 20px 0;
+
+                &--empty {
+                    display: none;
+                }
+            }
+        }
+    }
+}

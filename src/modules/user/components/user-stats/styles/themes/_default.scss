@@ -188,4 +188,12 @@
             }
         }
     }
+
+    &.wlc-user-stats--theme-mod-mobile-app {
+
+        .wlc-user-stats-balance--store {
+            flex-direction: row;
+            justify-content: space-between;
+        }
+    }
 }

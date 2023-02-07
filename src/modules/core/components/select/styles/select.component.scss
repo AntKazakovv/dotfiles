@@ -4,6 +4,9 @@
 @use 'engine-scss/mixins/common.mixins' as cm;
 
 @import './utils/vars';
+@import './utils/vars-mobile-app';
+
+@import './themes/mobile-app';
 
 .wlc-select:host {
     display: grid;

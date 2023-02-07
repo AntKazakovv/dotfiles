@@ -25,7 +25,6 @@ import * as Params from './lottie-animation.params';
     styleUrls: ['./styles/lottie-animation.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
-
 export class LottieAnimationComponent extends AbstractComponent implements OnInit, OnDestroy {
     @Input() protected inlineParams: Params.ILottieAnimationCParams;
 

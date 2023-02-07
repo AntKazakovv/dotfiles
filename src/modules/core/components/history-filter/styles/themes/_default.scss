@@ -42,4 +42,18 @@
             }
         }
     }
+
+    &.wlc-history-filter--theme-mod-mobile-app {
+
+        .wlc-history-filter__button {
+
+            ::ng-deep {
+
+                svg {
+                    fill: ef.get-value($themeDefault, 'modMobileButtonIconFill');
+                    stroke: ef.get-value($themeDefault, 'modMobileButtonIconStroke');
+                }
+            }
+        }
+    }
 }

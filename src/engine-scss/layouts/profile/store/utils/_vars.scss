@@ -48,4 +48,6 @@ $storeThemeDefault: map-merge((
     'submenuMargin': (
         1024: 0,
     ),
+
+    'modMobileMargin': 0 0 ef.size(2),
 ), $customStoreThemeDefault);

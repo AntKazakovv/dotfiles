@@ -29,6 +29,11 @@
             @include bm.get-mq-map('right', $storeThemeDefault, 'statRight');
             @include bm.get-mq-map('z-index', $storeThemeDefault, 'statZIndex');
             position: absolute;
+
+            &.wlc-user-stats--theme-mod-mobile-app {
+                position: initial;
+                margin: ef.get-value($storeThemeDefault, 'modMobileMargin');
+            }
         }
 
         .wlc-title {

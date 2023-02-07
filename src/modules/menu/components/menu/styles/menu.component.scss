@@ -3,11 +3,13 @@
 @use 'engine-scss/mixins/base.mixins' as bm;
 
 @import './utils/vars';
+@import './utils/vars-mobile-app';
 
 @import './themes/default';
 @import './themes/contacts';
 @import './themes/dropdown';
 @import './themes/submenu';
+@import './themes/mobile-app';
 
 .wlc-menu:host {
 

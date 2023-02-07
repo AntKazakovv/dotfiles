@@ -1,0 +1,24 @@
+.wlc-select--theme-mobile-app:host {
+
+    .wlc-select {
+
+        &__label {
+            @include cm.labelStyle;
+            margin: 0;
+            font-weight: 700;
+            font-size: 1.2rem;
+
+            .wlc-tooltip {
+                margin-bottom: 2px;
+                margin-left: 6px;
+            }
+        }
+
+        &__group {
+
+            .wlc-select__field {
+                border-radius: ef.get-value($themeMobileApp, 'selectBorderRadius');
+            }
+        }
+    }
+}

@@ -5,6 +5,9 @@ import {TranslateModule} from '@ngx-translate/core';
 import {CoreModule} from 'wlc-engine/modules/core/core.module';
 import {MobileHeaderComponent} from './components/core/mobile-header/mobile-header.component';
 import {WelcomeComponent} from './components/core/welcome/welcome.component';
+import {RunGameComponent} from './components/games/run-game/run-game.component';
+import {SidebarMenuComponent} from './components/menu/sidebar-menu/sidebar-menu.component';
+import {AppUpdaterComponent} from './components/core/app-updater/app-updater.component';
 
 import {GlobalHelper} from 'wlc-engine/modules/core';
 import {mobileConfig} from './system/config/mobile.config';
@@ -19,6 +22,9 @@ export const moduleConfig =
 export const components = {
     'wlc-mobile-header': MobileHeaderComponent,
     'wlc-welcome': WelcomeComponent,
+    'wlc-run-game': RunGameComponent,
+    'wlc-sidebar-menu': SidebarMenuComponent,
+    'wlc-app-updater': AppUpdaterComponent,
 };
 
 export const services = {};
@@ -27,6 +33,9 @@ export const services = {};
     declarations: [
         MobileHeaderComponent,
         WelcomeComponent,
+        RunGameComponent,
+        SidebarMenuComponent,
+        AppUpdaterComponent,
     ],
     imports: [
         CommonModule,

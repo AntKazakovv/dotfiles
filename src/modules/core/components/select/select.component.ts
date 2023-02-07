@@ -105,7 +105,7 @@ export class SelectComponent extends AbstractComponent implements OnInit, OnChan
         protected selectValues: SelectValuesService,
         protected translate: TranslateService,
     ) {
-        super({injectParams, defaultParams: Params.defaultParams});
+        super({injectParams, defaultParams: Params.defaultParams}, configService);
     }
 
     public ngOnInit(): void {

@@ -64,6 +64,7 @@ import {
     IModalParams,
     IFormComponent,
     ActionService,
+    GlobalHelper,
 } from 'wlc-engine/modules/core';
 import {FormElements} from 'wlc-engine/modules/core/system/config/form-elements';
 import {
@@ -1178,7 +1179,7 @@ export class DepositWithdrawComponent
                             params: <IInputCParams>{
                                 name: key,
                                 value: field.value || '',
-                                theme: 'vertical',
+                                theme: GlobalHelper.isMobileApp() ? 'mobile-app' : 'vertical',
                                 common: {
                                     placeholder: field.name,
                                     tooltipText: fieldSettings.tooltip,
@@ -1195,7 +1196,7 @@ export class DepositWithdrawComponent
                             params: <ISelectCParams>{
                                 labelText: field.name,
                                 name: key,
-                                theme: 'vertical',
+                                theme: GlobalHelper.isMobileApp() ? 'mobile-app' : 'vertical',
                                 common: {
                                     placeholder: field.name,
                                 },

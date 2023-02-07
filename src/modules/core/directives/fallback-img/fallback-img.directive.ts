@@ -49,6 +49,11 @@ export class FallbackImgDirective implements AfterViewInit, OnDestroy {
                 _forEach(sourceElement, (elem: HTMLSourceElement): void => {
                     this.renderer.removeChild(this.renderer.parentNode(eventTarget), elem);
                 });
+            } else if (this.element.nativeElement.parentElement.tagName === 'PICTURE') {
+                const sourceElement = this.element.nativeElement.parentElement.querySelectorAll('source');
+                _forEach(sourceElement, (elem) => {
+                    elem.remove();
+                });
             }
 
             if (this.wlcFallback) {

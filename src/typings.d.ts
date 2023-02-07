@@ -53,6 +53,11 @@ declare interface IMobileDigitainApp {
     addEventListener: (eventName: string, handler: (event: unknown) => void) => void;
 }
 
+declare interface IApkFile {
+    path?: string;
+    url?: string;
+}
+
 declare type TDigitainOnNavigate = (event: IDigitainNavigateEvent) => void;
 
 declare type TInitDigitainApp = (app: IMobileDigitainApp) => void;
@@ -74,12 +79,19 @@ declare type TMethodName = 'fbq' | 'gtag';
 
 declare type TAnalyticMethod = {
     [key in TMethodName]: Function;
-    }
+}
+
+declare type TBundleType = 'site' | 'google-play' | 'app-store';
+
+declare type TBundleType = 'site' | 'google-play' | 'app-store';
 
 declare type TMobileApp = {
     apiUrl: string;
     translationsDomain?: string;
     availableOnlyCountries?: string[];
+    bundleType: TBundleType;
+    apkFile?: IApkFile;
+    site?: string;
 }
 
 declare namespace universalLinks {
@@ -164,6 +176,7 @@ declare interface Window extends TAnalyticMethod {
     mobileApp?: TMobileApp;
     cordova?: any;
     universalLinks?: universalLinks.IUniversalLinks;
+    ApkUpdater?: any;
 }
 
 declare const WLC_VERSION: number;

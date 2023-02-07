@@ -10,6 +10,7 @@ import {
     ViewChild,
     TemplateRef,
     AfterViewInit,
+    AfterContentChecked,
     ElementRef,
     ViewContainerRef,
 } from '@angular/core';
@@ -33,13 +34,17 @@ import {
 import _isString from 'lodash-es/isString';
 import _isObject from 'lodash-es/isObject';
 import _has from 'lodash-es/has';
+import _get from 'lodash-es/get';
 import _set from 'lodash-es/set';
 import _reduce from 'lodash-es/reduce';
 import _find from 'lodash-es/find';
 import _forEach from 'lodash-es/forEach';
 import _map from 'lodash-es/map';
+import _filter from 'lodash-es/filter';
 import _flatten from 'lodash-es/flatten';
 import _isEqual from 'lodash-es/isEqual';
+import _includes from 'lodash-es/includes';
+import _trim from 'lodash-es/trim';
 
 import {
     AbstractComponent,
@@ -50,6 +55,7 @@ import {
     DeviceType,
     EventService,
     InjectionService,
+    GlobalHelper,
 } from 'wlc-engine/modules/core';
 import {ISlide} from 'wlc-engine/modules/promo/components/slider/slider.params';
 import {SliderComponent} from 'wlc-engine/modules/promo/components/slider/slider.component';
@@ -94,7 +100,7 @@ import * as Params from './menu.params';
         ]),
     ],
 })
-export class MenuComponent extends AbstractComponent implements OnInit, OnChanges, AfterViewInit {
+export class MenuComponent extends AbstractComponent implements OnInit, OnChanges, AfterViewInit, AfterContentChecked  {
     public items: Params.MenuItemObjectType[];
     public $params: Params.IMenuCParams;
     public inited: boolean = false;
@@ -113,6 +119,9 @@ export class MenuComponent extends AbstractComponent implements OnInit, OnChange
 
     public slides: ISlide[] = [];
     public iconsFallback: string = '';
+    public useArrows: boolean = false;
+    public innerLinkArrow: string = '';
+    public outerLinkArrow: string = '';
 
     protected staticService: StaticService;
     protected iconsExtension: TIconExtension = 'svg';
@@ -170,9 +179,14 @@ export class MenuComponent extends AbstractComponent implements OnInit, OnChange
         this.initItems();
     }
 
+    public ngAfterContentChecked(): void {
+        this.cdr.detectChanges();
+    }
+
     public ngAfterViewInit(): void {
         this.initItems();
         this.inited = true;
+        this.cdr.detectChanges();
     }
 
     public ngOnInit(): void {
@@ -182,6 +196,12 @@ export class MenuComponent extends AbstractComponent implements OnInit, OnChange
         this.isMobile = this.configService.get<boolean>('appConfig.mobile');
         this.iconsExtension = this.$params.common.icons.extension;
         this.iconsFallback = this.setExtension(this.$params.common.icons.fallback);
+
+        if (_get(this.$params, 'common.icons.arrows.use')) {
+            this.useArrows = true;
+            this.innerLinkArrow = this.$params.common.icons.arrows.innerLinks;
+            this.outerLinkArrow = this.$params.common.icons.arrows.outerLinks;
+        }
 
         if (this.$params.common?.scrollToSelector) {
             setTimeout(() => {
@@ -193,10 +213,27 @@ export class MenuComponent extends AbstractComponent implements OnInit, OnChange
 
         if (this.isAffiliate) {
             this.baseUrl = this.configService.get<string>('$base.affiliate.siteUrl');
+        } else if (GlobalHelper.isMobileApp()) {
+            this.baseUrl = GlobalHelper.mobileAppApiUrl;
         }
 
         this.lang = this.configService.get<string>('currentLanguage') || 'en';
         this.initEventHandlers();
+    }
+
+    /**
+     * Arrow icon for menu item
+     *
+     * @param {IMenuItem} item Menu item
+     * @returns {string} Arrow icon path
+     */
+    public menuItemArrow(item: IMenuItem): string {
+        if (item.type === 'href') {
+            return _includes(this.getHref(item), location.hostname)
+                ? this.innerLinkArrow
+                : this.outerLinkArrow;
+        }
+        return this.innerLinkArrow;
     }
 
     /**
@@ -290,20 +327,38 @@ export class MenuComponent extends AbstractComponent implements OnInit, OnChange
         }
     }
 
+    public hrefClick(item: Params.IMenuItem): void {
+        if (GlobalHelper.isMobileApp()) {
+            const href: string = this.getHref(item);
+            GlobalHelper.openBrowserLinkFromMobileApp(href);
+        }
+    }
+
     /**
      * Get href link
      *
      * @param {string | IMenuItemParamsHref} data Href options
      * @returns {string} Href link
      */
-    public getHref(data: string | Params.IMenuItemParamsHref): string {
-        if (_isString(data)) {
-            return data;
-        } else if (data.baseSiteUrl) {
-            return this.baseUrl + this.lang + data.url;
-        } else {
-            return data.url;
+    public getHref(item: Params.IMenuItem): string {
+        if (!item?.params?.href) {
+            return;
         }
+
+        let href: string = '';
+
+        if (_isString(item.params.href)) {
+            href =  item.params.href;
+        } else {
+            href = item.params.href.baseSiteUrl
+                ? _trim(this.baseUrl, '/') + '/' + this.lang + item.params.href.url
+                : item.params.href.url.replace('[lang]', this.lang);
+
+            if (item.params.href.jwtToken) {
+                href = GlobalHelper.hrefLinkWithJwt(href);
+            }
+        }
+        return href;
     }
 
     /**
@@ -338,12 +393,19 @@ export class MenuComponent extends AbstractComponent implements OnInit, OnChange
                 items: this.$params.items,
             },
         );
+
         if (this.isAffiliate) {
             this.items = this.changeLinkForAffiliate(this.items);
         }
 
         await this.initWpItems();
         this.expandItems();
+
+        if (!this.items.length) {
+            this.addModifiers('empty');
+        } else {
+            this.removeModifiers('empty');
+        }
 
         if (this.$params.common?.useSwiper) {
             this.slides = [];
@@ -529,42 +591,65 @@ export class MenuComponent extends AbstractComponent implements OnInit, OnChange
      * @returns {Promise<void>}
      */
     protected async initWpItems(): Promise<void> {
-        _forEach(this.items, async (item: Params.MenuItemObjectType): Promise<void> => {
+        let newItems: Array<Params.MenuItemObjectType | Params.MenuItemObjectType[]> = [];
+        let useExpand: boolean = false;
 
-            if (item.type === 'group') {
-
+        await Promise.all(_map(this.items, async (item: Params.MenuItemObjectType, index: number): Promise<void> => {
+            let wpParams: Params.IMenuItemParamsWp;
+            if (item.type === 'wordpress') {
+                wpParams = _get(item, 'params.wp');
+            } else if (item.type === 'group') {
                 const itemsGroup: IMenuItemsGroup = item as IMenuItemsGroup;
                 if (itemsGroup.parent.type !== 'wordpress') {
                     return;
                 }
-
-                const wpParams: Params.IMenuItemParamsWp = itemsGroup.parent.params?.wp;
-                if (!wpParams?.slug) {
-                    return;
-                }
-
-                if (!this.staticService) {
-                    this.staticService = await this.injectionService.getService<StaticService>('static.static-service');
-                }
-
-                const requests: Promise<TextDataModel[]>[] = _map(
-                    wpParams.slug,
-                    (slug: string): Promise<TextDataModel[]> => {
-                        return this.staticService.getPostsListByCategorySlug(slug);
-                    });
-
-                Promise.all(requests).then((data: TextDataModel[][]) => {
-                    const posts: TextDataModel[] = _flatten<TextDataModel>(data);
-                    const subItems: Params.IMenuItem[] = MenuHelper.getItemsByWpPosts({
-                        posts: posts,
-                        defaultItemState: wpParams.defaultState,
-                        defaultItemType: wpParams.defaultType,
-                        wlcElementPrefix: `link_${this.$params.type}_`,
-                    });
-                    _set(item, 'items', subItems);
-                    this.expandItems();
-                });
+                wpParams = itemsGroup.parent.params?.wp;
             }
-        });
+
+            if (!wpParams?.slug) {
+                newItems[index] = item;
+                return;
+            }
+
+            if (!this.staticService) {
+                this.staticService = await this.injectionService.getService<StaticService>('static.static-service');
+            }
+
+            const requests: Promise<TextDataModel[]>[] = _map(
+                wpParams.slug,
+                (slug: string): Promise<TextDataModel[]> => {
+                    return this.staticService.getPostsListByCategorySlug(slug);
+                });
+
+            await Promise.all(requests).then((data: TextDataModel[][]) => {
+                let posts: TextDataModel[] = _flatten<TextDataModel>(data);
+                if (_has(item, 'params.wp.exclude')) {
+                    posts = _filter(posts, (post: TextDataModel): boolean => {
+                        return !_includes(_get(item, 'params.wp.exclude'), post.slug);
+                    });
+                }
+
+                const subItems: Params.IMenuItem[] = MenuHelper.getItemsByWpPosts({
+                    posts: posts,
+                    defaultItemState: wpParams.defaultState,
+                    defaultItemType: wpParams.defaultType,
+                    wlcElementPrefix: `link_${this.$params.type}_`,
+                });
+
+                if (item.type === 'group') {
+                    _set(item, 'items', subItems);
+                    useExpand = true;
+                }
+                newItems[index] = subItems;
+            });
+        }));
+
+        if (newItems.length) {
+            this.items = _flatten(newItems);
+        }
+
+        if (useExpand) {
+            this.expandItems();
+        }
     }
 }

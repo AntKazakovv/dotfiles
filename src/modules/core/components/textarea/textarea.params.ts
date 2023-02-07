@@ -7,7 +7,7 @@ import {
 
 export type ComponentTheme = 'default' | 'placeholder-shown' | CustomType;
 export type ComponentType = 'default' | CustomType;
-export type ComponentThemeMod = 'default' | 'feedback-form' | CustomType;
+export type ComponentThemeMod = 'default' | 'feedback-form' | 'mobile-app' | CustomType;
 
 export interface ITextareaCParams extends IComponentParams<ComponentTheme, ComponentType, ComponentThemeMod> {
     name: string;

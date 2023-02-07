@@ -49,6 +49,7 @@ export const $layoutsMobileApp: ILayoutsConfig = {
             'providers': sectionsLib.providers.slider,
             'content-games-second': sectionsLib.contentGames.newTopSwiper,
             'content-games-third': sectionsLib.contentGames.allTopSwiper,
+            'content-wins': sectionsLib.contentGames.homeBiggestTournament,
         },
     },
     'app.gameplay': {
@@ -128,9 +129,10 @@ export const $layoutsMobileApp: ILayoutsConfig = {
         },
     },
     'app.contacts': {
-        title: gettext('Contacts'),
+        title: gettext('Info'),
         extends: 'app',
         sections: {
+            'nav-header': sectionsLib.header.def,
             'info-page': sectionsLib.infoPage.contacts,
         },
     },
@@ -147,10 +149,19 @@ export const $layoutsMobileApp: ILayoutsConfig = {
             },
         },
     },
+    'app.games': {
+        extends: 'app',
+        replaceConfig: true,
+        sections: {
+            'categories': sectionsLib.categories.catalog,
+            'content-games': sectionsLib.contentGames.gamesListByCategories,
+        },
+    },
     'app.catalog': {
         title: (targetState: TargetState) => {
             return targetState.state().data?.categoryName;
         },
+        extends: 'app',
         replaceConfig: true,
         sections: {
             'nav-header': sectionsLib.header.def,
@@ -190,15 +201,16 @@ export const $layoutsMobileApp: ILayoutsConfig = {
         },
         extends: 'app',
         sections: {
-            'nav-header': sectionsLib.header.def,
-            'providers': sectionsLib.providers.list,
+            'nav-header': sectionsLib.header.runGamePage,
+            'run-game': sectionsLib.runGameSection.def,
         },
     },
     'app.language': {
         title: gettext('Language'),
         extends: 'app',
         sections: {
-            'nav-header': sectionsLib.header.def,
+            'nav-header': sectionsLib.header.languagePage,
+            'language': sectionsLib.languageSection.def,
         },
     },
     'app.menu': {
@@ -207,13 +219,23 @@ export const $layoutsMobileApp: ILayoutsConfig = {
             'user-info-menu': sectionsLib.userInfoSection.menu,
         },
     },
+    'app.menu.item': {
+        title: (targetState: TargetState) => {
+            return targetState.state().data?.itemName;
+        },
+        extends: 'app',
+        sections: {
+            'nav-header': sectionsLib.header.returnToSidebar,
+            'user-info-menu': sectionsLib.userInfoSection.subMenu,
+        },
+    },
     'app.providers': {
         title: (targetState: TargetState) => {
             return targetState.state().data?.providerName || gettext('Providers');
         },
         extends: 'app',
         sections: {
-            'nav-header': sectionsLib.header.def,
+            'nav-header': sectionsLib.header.returnToHome,
             'providers': sectionsLib.providers.list,
         },
     },
@@ -223,7 +245,7 @@ export const $layoutsMobileApp: ILayoutsConfig = {
         },
         extends: 'app',
         sections: {
-            'nav-header': sectionsLib.header.def,
+            'nav-header': sectionsLib.header.providersItem,
             'providers-games': sectionsLib.providers.gamesSwiper,
         },
     },
@@ -233,7 +255,7 @@ export const $layoutsMobileApp: ILayoutsConfig = {
         },
         extends: 'app',
         sections: {
-            'nav-header': sectionsLib.header.def,
+            'nav-header': sectionsLib.header.providersItemCategory,
             'providers-games': sectionsLib.providers.gamesGrid,
         },
     },

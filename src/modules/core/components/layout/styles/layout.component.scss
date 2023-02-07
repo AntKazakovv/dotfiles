@@ -21,6 +21,13 @@ body {
     flex-direction: column;
     min-height: 100vh;
 
+    &.app-menu-state {
+
+        .wlc-app__sections {
+            padding: 0;
+        }
+    }
+
     .wlc-body--os-ios & {
         min-height: auto;
     }

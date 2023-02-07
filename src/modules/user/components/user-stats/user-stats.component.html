@@ -68,9 +68,11 @@
             *ngIf="useDepositBtn"
             wlc-button
             class="wlc-btn-deposit"
-            text="Deposit"
+            text="{{$params.depositBtn.default.text}}"
             (click)="depositAction()"
             wlcElement="button-deposit"
+            themeMod="{{$params.depositBtn.default.themeMod}}"
+            size="{{$params.depositBtn.default.size}}"
         ></button>
     </ng-template>
 
@@ -83,11 +85,11 @@
                 *ngIf="useDepositBtn"
                 wlc-button
                 class="wlc-btn-deposit wlc-btn-deposit_mobile"
-                text="Make a deposit"
+                text="{{$params.depositBtn.menuMobile.text}}"
                 (click)="depositAction()"
                 wlcElement="button-deposit"
-                themeMod="secondary"
-                size="big"
+                themeMod="{{$params.depositBtn.menuMobile.themeMod}}"
+                size="{{$params.depositBtn.menuMobile.size}}"
             ></button>
         </div>
     </ng-template>

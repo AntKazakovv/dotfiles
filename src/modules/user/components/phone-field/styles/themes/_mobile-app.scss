@@ -1,0 +1,9 @@
+.wlc-phone-field--theme-mobile-app {
+
+    &:host {
+        display: grid;
+        grid-gap: ef.get-value($themeMobileApp, 'gap');
+        grid-template-columns: ef.get-value($themeMobileApp, 'templateColumns');
+        align-items: flex-end;
+    }
+}

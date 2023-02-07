@@ -1,5 +1,7 @@
 import {Injectable} from '@angular/core';
-import {IIndexing} from 'wlc-engine/modules/core';
+import {
+    IIndexing,
+} from 'wlc-engine/modules/core';
 
 import _bind from 'lodash-es/bind';
 import _forEach from 'lodash-es/forEach';
@@ -33,7 +35,7 @@ export class HooksService {
      *
      * Save handler for hook with current name
      */
-    public set<T>(name: string, handler: HookHandler<T>, context: unknown): IHookHandlerDescriptor {
+    public set<T>(name: string, handler: HookHandler<T>, context: unknown = {}): IHookHandlerDescriptor {
         if (!this.hooks[name]) {
             this.hooks[name] = [];
         }

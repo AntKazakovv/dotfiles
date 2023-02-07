@@ -1,0 +1,152 @@
+.wlc-input--theme-mobile-app:host {
+    @include inputBase($themeDefault);
+
+    .wlc-input__label {
+        @include cm.labelStyle;
+        margin: 0;
+        font-weight: 700;
+        font-size: 1.2rem;
+    }
+
+    .wlc-input__input {
+        position: relative;
+        width: 100%;
+
+        input {
+            @include resetAppearance();
+            @include text.get-text-style(ef.get-value($themeDefault, 'inputTextStyle'), ef.get-value($themeDefault, 'inputColor'));
+
+            width: 100%;
+            height: ef.get-value($themeDefault, 'inputHeight');
+            border: ef.get-value($themeDefault, 'inputBorder');
+            border-radius: ef.get-value($themeMobileApp, 'inputBorderRadius');
+            padding: ef.get-value($themeDefault, 'inputPadding');
+            text-overflow: ellipsis;
+            background: ef.get-value($themeMobileApp, 'inputBackground');
+            overflow: visible;
+
+            &::placeholder {
+                color: ef.get-value($themeDefault, 'inputPlaceholderColor');
+            }
+
+            &:focus {
+                outline: none;
+                border-color: ef.get-value($themeDefault, 'inputBorderFocusColor');
+
+                &::placeholder {
+                    color: transparent;
+                }
+            }
+
+            &.ng-touched {
+
+                &.ng-invalid {
+                    background: ef.get-value($themeDefault, 'errorsBgColor');
+                    border-color: ef.get-value($themeDefault, 'errorsBorderColor');
+                }
+            }
+
+            &:disabled {
+                color: ef.get-value($themeDefault, 'inputDisabledColor');
+                background: ef.get-value($themeDefault, 'inputDisabledBg');
+                border-color: ef.get-value($themeDefault, 'inputDisabledBorder');
+                opacity: ef.get-value($themeDefault, 'inputDisabledOpacity');
+            }
+        }
+    }
+
+    .wlc-input__limits {
+        @include text.get-text-style(ef.get-value($themeDefault, 'inputTextStyle'), ef.get-value($themeDefault, 'limitsColor'));
+        display: block;
+    }
+
+    &.wlc-input--right-shift {
+
+        .field-icon--eye {
+            position: absolute;
+            top: ef.get-value($themeVertical, 'iconEyeTop');
+            right: ef.get-value($themeVertical, 'iconEyeRight');
+            z-index: 1;
+            transform: ef.get-value($themeVertical, 'iconEyeTransform');
+        }
+
+        .field-icon--copy {
+            position: absolute;
+            top: ef.get-value($themeMobileApp, 'iconEyeTop');
+            right: ef.get-value($themeMobileApp, 'iconEyeRight');
+            background: none;
+            border: none;
+            transform: ef.get-value($themeDefault, 'iconEyeTransform');
+            appearance: none;
+        }
+
+        .field-icon--currency {
+            position: absolute;
+            top: ef.get-value($themeMobileApp, 'iconEyeTop');
+            right: ef.get-value($themeMobileApp, 'iconEyeRight');
+
+            transform: ef.get-value($themeMobileApp, 'iconEyeTransform');
+        }
+
+        .wlc-input-status::ng-deep {
+
+            .form-control__icon::ng-deep {
+                right: ef.get-value($themeVertical, 'controlIconRight');
+            }
+
+            .form-control__errors {
+                right: ef.get-value($themeDefault, 'controlErrorRight');
+            }
+        }
+    }
+
+    .field-icon {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        width: ef.get-value($themeDefault, 'fieldIconSize');
+        height: ef.get-value($themeDefault, 'fieldIconSize');
+
+        line-height: ef.get-value($themeDefault, 'fieldIconLineHeight');
+
+        &--copy,
+        &--eye {
+            cursor: pointer;
+
+            ::ng-deep {
+
+                svg path {
+                    @include bm.transition(fill);
+                    fill: ef.get-value($themeDefault, 'fieldIconSvgFill');
+                }
+            }
+
+            &:active {
+
+                ::ng-deep {
+
+                    svg path {
+
+                        fill: ef.get-value($themeDefault, 'fieldIconSvgFillActive');
+                    }
+                }
+            }
+
+            @include bm.hover {
+
+                ::ng-deep {
+
+                    svg path {
+                        fill: ef.get-value($themeDefault, 'fieldIconSvgFillHover');
+                    }
+                }
+            }
+        }
+
+        &--currency {
+            color: ef.get-value($themeDefault, 'fieldIconSvgFill');
+        }
+    }
+}

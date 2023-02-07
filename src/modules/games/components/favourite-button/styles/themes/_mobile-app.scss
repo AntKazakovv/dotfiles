@@ -1,0 +1,17 @@
+.wlc-favourite-button--theme-mobile-app:host::ng-deep {
+
+    .wlc-icon {
+
+        svg {
+            color: ef.get-value($themeMobileApp, 'iconColor');
+            stroke: ef.get-value($themeMobileApp, 'iconFill');
+        }
+
+        &.active {
+
+            svg {
+                color: ef.get-value($themeMobileApp, 'iconActiveColor');
+            }
+        }
+    }
+}

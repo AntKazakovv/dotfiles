@@ -94,6 +94,7 @@ module.exports = function config(root, bundleType, pathsConfig = {}) {
             'mn': {'code': 'mn', 'label': 'Mongolian', 'locale': 'mn_MN'},
             'ms': {'code': 'ms', 'label': 'Malay', 'locale': 'ms_MY'},
             'mt': {'code': 'mt', 'label': 'Maltese', 'locale': 'mt_MT'},
+            'nl': {'code': 'nl', 'label': 'Nederlands', 'locale': 'nl_BE'},
             'no': {'code': 'no', 'label': 'Norwegian', 'locale': 'no_NO'},
             'pl': {'code': 'pl', 'label': 'Polski', 'locale': 'pl_PL'},
             'pt': {'code': 'pt', 'label': 'Portuguese', 'locale': 'pt_PT'},

@@ -34,6 +34,7 @@ export interface ISlide {
 }
 
 export interface ISliderCParams extends IComponentParams<ComponentTheme, ComponentType, ComponentThemeMod> {
+    useStartTimeout?: boolean;
     slidesAspectRatio?: string;
     /**
      * Accepts a set of slide-generating components.

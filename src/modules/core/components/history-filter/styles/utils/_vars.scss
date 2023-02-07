@@ -12,4 +12,6 @@ $themeDefault: map-merge((
     'buttonSignalTransition': all 0.3s,
 
     'iconSize': 23px,
+    'modMobileButtonIconFill': var(--mc-main),
+    'modMobileButtonIconStroke': unset,
 ), $customThemeDefault);

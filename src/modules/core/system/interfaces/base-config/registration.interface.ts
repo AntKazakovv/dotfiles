@@ -1,6 +1,8 @@
 import {IIndexing} from 'wlc-engine/modules/core/system/interfaces';
 
 export interface IRegistrationConfig {
+    /** Nick will be the same as login */
+    autocompleteNick?: boolean;
     selectCurrencyByCountry?: IIndexing<string>;
     /**
      * Сurrencies for the country at registration

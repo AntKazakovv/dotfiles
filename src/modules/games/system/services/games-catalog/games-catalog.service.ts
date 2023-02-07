@@ -1,5 +1,6 @@
 import {Injectable, Injector} from '@angular/core';
 import {
+    StateService,
     UIRouter,
     UIRouterGlobals,
     RawParams,
@@ -39,6 +40,7 @@ import _uniqBy from 'lodash-es/uniqBy';
 import _reduce from 'lodash-es/reduce';
 import _first from 'lodash-es/first';
 
+import {GlobalHelper} from 'wlc-engine/modules/core/system/helpers';
 import {ICategorySettings} from 'wlc-engine/modules/core/system/interfaces/categories.interface';
 import {InjectionService} from 'wlc-engine/modules/core/system/services/injection/injection.service';
 import {DataService} from 'wlc-engine/modules/core/system/services/data/data.service';
@@ -149,6 +151,7 @@ export class GamesCatalogService {
         public router: UIRouter,
         public eventService: EventService,
         public translateService: TranslateService,
+        protected stateService: StateService,
         protected dataService: DataService,
         protected uiRouter: UIRouterGlobals,
         protected actionService: ActionService,
@@ -815,6 +818,12 @@ export class GamesCatalogService {
         return gamesList;
     }
 
+    public getGameByState(): Game {
+        if (this.uiRouter.params?.merchantId && this.uiRouter.params?.launchCode) {
+            return this.getGame(_toNumber(this.uiRouter.params.merchantId), this.uiRouter.params.launchCode);
+        }
+    }
+
     /**
      * Get game
      *
@@ -898,6 +907,13 @@ export class GamesCatalogService {
      * @param {ILaunchGameParams} params
      */
     public launchGame(game: Game, params?: ILaunchGameParams): void {
+        if (GlobalHelper.isMobileApp()) {
+            this.stateService.go('app.run-game', {
+                merchantId: game.merchantID,
+                launchCode: game.launchCode,
+            });
+            return;
+        }
 
         if (game) {
             this.actionService

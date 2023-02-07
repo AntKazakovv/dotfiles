@@ -35,7 +35,7 @@ $themeMobileAppSwiper: map-merge((
     'sliderButtonGridArea': button,
     'sliderButtonMargin': 0 0 0 ef.size(4),
 
-    'sliderBeforeWidth': 20px,
+    'sliderBeforeWidth': 100%,
     'sliderBeforeBg': var(--mc-bg),
 
     'iconBackground': var(--mc-bg700),

@@ -23,6 +23,13 @@ export namespace contentGames {
         ],
     };
 
+    export const gamesListByCategories: ILayoutSectionConfig = {
+        container: true,
+        components: [
+            componentLib.wlcGamesCatalog.categoryGamesSwipers,
+        ],
+    };
+
     export const catalog: ILayoutSectionConfig = {
         container: true,
         components: [
@@ -85,6 +92,22 @@ export namespace contentGames {
                     class: 'wlc-home-wins wlc-home-wins--tournament',
                     components: [
                         componentLib.wlcLastWinsSlider.alongWithTournament,
+                        componentLib.wlcTournamentBannersSlider.def,
+                    ],
+                },
+            },
+        ],
+    };
+
+    export const homeBiggestTournament: ILayoutSectionConfig = {
+        container: true,
+        components: [
+            {
+                name: 'core.wlc-wrapper',
+                params: {
+                    class: 'wlc-home-wins wlc-home-wins--tournament',
+                    components: [
+                        componentLib.wlcBiggestWinsSlider.def,
                         componentLib.wlcTournamentBannersSlider.def,
                     ],
                 },

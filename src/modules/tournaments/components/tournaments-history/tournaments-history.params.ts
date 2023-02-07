@@ -19,6 +19,7 @@ export type Type = 'default' | CustomType;
 export type ThemeMod = 'default' | CustomType;
 
 export interface ITournamentsHistoryCParams extends IComponentParams<Theme, Type, ThemeMod> {
+    transactionTableTheme: 'default' | 'mobile-app' | Theme,
     /** wlc-profile-no-content params */
     emptyConfig?: IWrapperCParams;
 }
@@ -27,6 +28,7 @@ export const defaultParams: ITournamentsHistoryCParams = {
     moduleName: 'tournament',
     componentName: 'wlc-tournaments-history',
     class: 'wlc-tournaments-history',
+    transactionTableTheme: 'default',
     emptyConfig: {
         components: [
             {

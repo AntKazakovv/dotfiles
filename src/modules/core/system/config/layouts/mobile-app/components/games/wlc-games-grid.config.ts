@@ -72,6 +72,7 @@ export namespace wlcGamesGrid {
             },
             showAsSwiper: {
                 sliderParams: {
+                    useStartTimeout: true,
                     slideShowAll: {
                         srefParams: {
                             category: 'popular',
@@ -96,6 +97,7 @@ export namespace wlcGamesGrid {
             },
             showAsSwiper: {
                 sliderParams: {
+                    useStartTimeout: true,
                     slideShowAll: {
                         srefParams: {
                             category: 'new',
@@ -120,6 +122,7 @@ export namespace wlcGamesGrid {
             },
             showAsSwiper: {
                 sliderParams: {
+                    useStartTimeout: true,
                     slideShowAll: {
                         srefParams: {
                             category: 'casino',

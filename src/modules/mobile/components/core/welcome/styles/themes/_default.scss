@@ -45,6 +45,31 @@
             @include bm.get-mq-map('padding', $themeDefault, 'buttonsPadding');
             @include bm.get-mq-map('gap', $themeDefault, 'buttonsGap');
             display: grid;
+
+            .wlc-btn--theme-default:host {
+                background: ef.get-value($themeDefault, 'buttonBg');
+                border-radius: ef.get('radius', 'main');
+                border: ef.get-value($themeDefault, 'buttonBorder');
+
+                ::ng-deep {
+
+                    .wlc-btn__text {
+                        color: ef.get-value($themeDefault, 'buttonColor');
+                    }
+                }
+            }
+
+            .wlc-btn--theme-mod-secondary:host {
+                background: ef.get-value($themeDefault, 'buttonBgSecondary');
+                border: ef.get-value($themeDefault, 'buttonBorderSecondary');
+
+                ::ng-deep {
+
+                    .wlc-btn__text {
+                        color: ef.get-value($themeDefault, 'buttonColorSecondary');
+                    }
+                }
+            }
         }
     }
 }

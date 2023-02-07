@@ -39,7 +39,7 @@ export class BirthdayFieldComponent extends AbstractComponent implements OnInit,
         protected cdr: ChangeDetectorRef,
     )
     {
-        super({injectParams, defaultParams: Params.defaultParams});
+        super({injectParams, defaultParams: Params.defaultParams}, configService);
     }
 
     public ngOnInit(): void {
@@ -54,9 +54,9 @@ export class BirthdayFieldComponent extends AbstractComponent implements OnInit,
     }
 
     protected provideParams(): void {
-        this.$params.birthDay['theme'] = this.$params.theme;
-        this.$params.birthMonth['theme'] = this.$params.theme;
-        this.$params.birthYear['theme'] = this.$params.theme;
+        this.$params.birthDay['theme'] = this.$params.birthDay['theme'] || this.$params.theme;
+        this.$params.birthMonth['theme'] = this.$params.birthMonth['theme'] || this.$params.theme;
+        this.$params.birthYear['theme'] = this.$params.birthYear['theme'] || this.$params.theme;
     }
 
     protected subscribeControlsChanges(): void {

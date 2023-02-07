@@ -15,6 +15,7 @@ export type Type = 'default' | CustomType;
 export type ThemeMod = 'default' | CustomType;
 
 export interface IBonusesHistoryCParams extends IComponentParams<Theme, Type, ThemeMod> {
+    transactionTableTheme: 'default' | 'mobile-app' | Theme,
     /** wlc-profile-no-content params */
     emptyConfig?: IWrapperCParams;
 }
@@ -23,6 +24,7 @@ export const defaultParams: IBonusesHistoryCParams = {
     moduleName: 'bonuses',
     componentName: 'wlc-bonuses-history',
     class: 'wlc-bonuses-history',
+    transactionTableTheme: 'default',
     emptyConfig: {
         components: [
             {
