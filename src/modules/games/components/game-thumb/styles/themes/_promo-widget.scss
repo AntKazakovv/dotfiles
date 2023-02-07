@@ -1,6 +1,8 @@
 .wlc-game-thumb--theme-promo-widget:host {
     position: relative;
     height: 100%;
+    border-radius: ef.get-value($themePromoWidget, 'borderRadius');
+    overflow: hidden;
 
     ::ng-deep {
 
@@ -32,10 +34,6 @@
             align-items: ef.get-value($themePromoWidget, 'contentAlignItems');
             width: 100%;
             height: 100%;
-
-            overflow: hidden;
-
-            border-radius: ef.get-value($themePromoWidget, 'borderRadius');
 
             &:before {
                 content: '';
