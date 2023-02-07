@@ -3,18 +3,20 @@ import {
     TestBed,
 } from '@angular/core/testing';
 
-import {AppModule} from 'wlc-engine/modules/app/app.module';
 import {IconPaymentsListComponent} from './icon-payments-list.component';
 import {IIconPaymentsListCParams} from './icon-payments-list.params';
 import {
     ConfigService,
+    EventService,
     IPaysystem,
 } from 'wlc-engine/modules/core';
 
 describe('IconPaymentsListComponent', () => {
+
     let component: IconPaymentsListComponent;
     let fixture: ComponentFixture<IconPaymentsListComponent>;
     let ConfigServiceSpy: jasmine.SpyObj<ConfigService>;
+    let eventServiceSpy: jasmine.SpyObj<EventService>;
     let nativeElement: HTMLElement;
 
     const payments: IPaysystem[] = [
@@ -45,17 +47,21 @@ describe('IconPaymentsListComponent', () => {
         },
     };
 
-    beforeEach(async () => {
+    beforeEach(() => {
         ConfigServiceSpy = jasmine.createSpyObj('ConfigService', ['load', 'get', 'set'], {
             'ready': Promise.resolve(),
         });
         ConfigServiceSpy.get.and.returnValues();
         ConfigServiceSpy.get.withArgs('appConfig.siteconfig.payment_systems').and.returnValues([...payments]);
+        eventServiceSpy = jasmine.createSpyObj('EventService', ['subscribe']);
 
         TestBed.configureTestingModule({
-            imports: [AppModule],
             declarations: [IconPaymentsListComponent],
             providers: [
+                {
+                    provide: EventService,
+                    useValue: eventServiceSpy,
+                },
                 {
                     provide: ConfigService,
                     useValue: ConfigServiceSpy,
@@ -70,13 +76,13 @@ describe('IconPaymentsListComponent', () => {
                     },
                 ],
             },
-        }).compileComponents().then(() => {
-            fixture = TestBed.createComponent(IconPaymentsListComponent);
-            component = fixture.componentInstance;
-            nativeElement = fixture.nativeElement;
+        }).compileComponents();
 
-            fixture.detectChanges();
-        });
+        fixture = TestBed.createComponent(IconPaymentsListComponent);
+        component = fixture.componentInstance;
+        nativeElement = fixture.nativeElement;
+
+        fixture.detectChanges();
     });
 
     const uniquePaySystems = ['NonExisting', 'Unique'];
