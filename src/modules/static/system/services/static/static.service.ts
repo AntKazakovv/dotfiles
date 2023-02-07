@@ -21,6 +21,7 @@ import _join from 'lodash-es/join';
 import _isArray from 'lodash-es/isArray';
 import _isNumber from 'lodash-es/isNumber';
 import _isObject from 'lodash-es/isObject';
+import _cloneDeep from 'lodash-es/cloneDeep';
 
 import {
     FilesService,
@@ -28,6 +29,7 @@ import {
     IIndexing,
     CachingService,
     ConfigService,
+    LogService,
 } from 'wlc-engine/modules/core';
 import {
     ICategoryStaticText,
@@ -86,6 +88,7 @@ export class StaticService {
         private cachingService: CachingService,
         private hooksService: HooksService,
         private filesService: FilesService,
+        private logService: LogService,
     ) {
         this.init();
     }
@@ -307,11 +310,32 @@ export class StaticService {
     }
 
     private async requestData<T>(type: StaticTextType, params: IStaticParams = {}): Promise<HttpResponse<T>> {
-        const httpRequestParams = this.getHttpRequestParams<T>(type, params);
-        try {
-            return await lastValueFrom(this.httpClient.request(httpRequestParams)) as HttpResponse<T>;
-        } catch (e) {
-            console.error(e);
+        const httpRequestsParams: HttpRequest<T>[] = [this.getHttpRequestParams<T>(type, params)];
+        if (this.translateService.currentLang !== 'en') {
+            const paramsEnVersion: IStaticParams = _cloneDeep(params);
+            if (paramsEnVersion.slug) {
+                const splitSettings = this.configService.get<ISplitTexts>({name: '$static.splitStaticTexts'});
+                const splitSlug: string = paramsEnVersion.slug.split('_')[0];
+                if (splitSettings
+                    && (splitSettings.useByDefault || (splitSettings.slugs ?? []).includes(splitSlug))
+                ) {
+                    paramsEnVersion.slug = `${splitSlug}_en`;
+                }
+            }
+            paramsEnVersion.lang = 'en';
+            const httpRequestEnParams = this.getHttpRequestParams<T>(type, paramsEnVersion);
+            httpRequestsParams.push(httpRequestEnParams);
+        }
+
+        for (const requestParams of httpRequestsParams) {
+            try {
+                return await lastValueFrom(this.httpClient.request(requestParams)) as HttpResponse<T>;
+            } catch (error) {
+                if (requestParams.params.get('lang') === 'en') {
+                    this.logService.sendLog({code: '5.0.2', data: error});
+                    return null;
+                }
+            }
         }
     }
 
