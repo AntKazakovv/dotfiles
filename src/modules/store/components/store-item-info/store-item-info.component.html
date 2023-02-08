@@ -8,10 +8,6 @@
         [title]="'This product will become available for purchase when you have no active bonuses left.' | translate">
     </div>
     <div class="{{$class}}__description">
-        <div wlc-dynamic-html
-             [scope]="scope"
-             [withoutCompilation]="false"
-             [html]="$params.description">
-        </div>
+        {{$params.description | translate}}
     </div>
 </div>

@@ -34,8 +34,8 @@ import * as Params from './sidebar-menu.params';
 })
 export class SidebarMenuComponent extends AbstractComponent implements OnInit {
     public $params!: Params.ISidebarMenuCParams;
+    public menus: IWrapperCParams[] = [];
 
-    protected menus: IWrapperCParams[] = [];
     protected menuConfig!: MenuParams.MenuConfigItem[][];
     protected useIcons!: boolean;
     protected iconsFolder!: string;

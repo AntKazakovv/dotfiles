@@ -1,5 +1,9 @@
-import {CustomType, IComponentParams} from 'wlc-engine/modules/core/system/classes/abstract.component';
+import {
+    CustomType,
+    IComponentParams,
+} from 'wlc-engine/modules/core/system/classes/abstract.component';
 import {IIndexing} from 'wlc-engine/modules/core';
+import * as ButtonParams from 'wlc-engine/modules/core/components/button/button.params';
 
 export type ComponentTheme = 'default' | CustomType;
 export type ComponentType = 'default' | CustomType;
@@ -24,8 +28,8 @@ export interface IUserStatsItemConfig {
 
 export interface IButtonOptions {
     text?: string;
-    themeMod?: string;
-    size?: string;
+    themeMod?: ButtonParams.ThemeMod;
+    size?: ButtonParams.Size;
 }
 
 export interface IDepositButton {
