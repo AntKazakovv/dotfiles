@@ -1,8 +1,13 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
-import {AppModule} from 'wlc-engine/modules/app/app.module';
-import {ILimits} from 'wlc-engine/modules/core/components/amount-limit/amount-limit.params';
-import {AmountLimitComponent} from './amount-limit.component';
-import {defaultParams} from  './amount-limit.params';
+import {
+    ComponentFixture,
+    TestBed,
+} from '@angular/core/testing';
+
+import {AmountLimitComponent} from 'wlc-engine/modules/core/components/amount-limit/amount-limit.component';
+import {
+    ILimits,
+    defaultParams,
+} from 'wlc-engine/modules/core/components/amount-limit/amount-limit.params';
 
 describe('AmountLimitComponent', () => {
     let component: AmountLimitComponent;
@@ -17,7 +22,6 @@ describe('AmountLimitComponent', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [AppModule],
             declarations: [AmountLimitComponent],
             providers: [{
                 provide: 'injectParams',
