@@ -600,10 +600,9 @@ export class MenuComponent extends AbstractComponent implements OnInit, OnChange
                 wpParams = _get(item, 'params.wp');
             } else if (item.type === 'group') {
                 const itemsGroup: IMenuItemsGroup = item as IMenuItemsGroup;
-                if (itemsGroup.parent.type !== 'wordpress') {
-                    return;
+                if (itemsGroup.parent.type === 'wordpress') {
+                    wpParams = itemsGroup.parent.params?.wp;
                 }
-                wpParams = itemsGroup.parent.params?.wp;
             }
 
             if (!wpParams?.slug) {
@@ -640,7 +639,14 @@ export class MenuComponent extends AbstractComponent implements OnInit, OnChange
                     _set(item, 'items', subItems);
                     useExpand = true;
                 }
-                newItems[index] = subItems;
+
+                if (wpParams.replace) {
+                    if (subItems.length) {
+                        newItems[index] = subItems;
+                    }
+                } else {
+                    newItems[index] = item;
+                }
             });
         }));
 

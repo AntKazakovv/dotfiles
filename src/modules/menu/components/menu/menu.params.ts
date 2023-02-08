@@ -62,6 +62,8 @@ export interface IMenuItemParamsWp {
     defaultType: WpItemType;
     /** post slugs for excludes some posts */
     exclude?: string[];
+    /** replace button with buttons for each post slug */
+    replace?: boolean;
 }
 
 export interface IMenuItemParamsState {
