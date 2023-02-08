@@ -184,7 +184,7 @@
                 .wlc-field-container {
                     @include bm.get-mq-map('max-width', $themeDefault, 'fieldContaninerMaxWidth');
                     display: grid;
-                    grid-template-columns: 1fr;
+                    grid-template-columns: ef.get-value($themeDefault, 'fieldContaninerGrid');
                     gap: ef.get-value($themeDefault, 'fieldContaninerGap');
                 }
 

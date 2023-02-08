@@ -86,7 +86,8 @@ $themeDefault: map-merge((
         640: 1,
     ),
     'formInputOneLineGridColumnEnd': (
-        640: 3,
+        640: 2,
+        900: 3,
         1024: 4,
         1366: 5,
     ),
@@ -103,6 +104,7 @@ $themeDefault: map-merge((
         320: 100%,
         480: 288px,
     ),
+    'fieldContaninerGrid': minmax(288px, 1fr),
     'formSubmitJustifySelf': (
         320: center,
         900: left,
