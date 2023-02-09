@@ -135,7 +135,7 @@ $themeActive: map-merge((
     ),
 
     'btnsBlockMargin': (
-        560: auto ef.size(-1) 0,
+        560: auto 0 0,
     ),
     'btnsBlockJustifyContent': (
         560: start,
@@ -143,8 +143,8 @@ $themeActive: map-merge((
     'btnsBlockPadding': (
         375: 0 ef.size(3) ef.size(4),
         560: 0 ef.size(3) ef.size(3),
-        720: 0 ef.size(6) ef.size(3),
-        1024: 0 ef.size(3) ef.size(3),
+        720: 0 ef.size(6) ef.size(4),
+        1024: 0 ef.size(3) ef.size(4),
     ),
 
     'progressPadding': ef.size(4),

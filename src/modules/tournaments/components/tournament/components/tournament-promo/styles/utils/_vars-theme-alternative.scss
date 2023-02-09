@@ -92,18 +92,18 @@ $themeAlternative: map-merge((
     'titleFontStyle': 'ThirdTitleBold',
     'titleFontStyleDesk': 'QoteTextBold',
     'titleColor': (
-        320: ef.get('mainColors', 'baseMain'),
+        375: ef.get('mainColors', 'baseMain'),
         900: var(--mc-baseMain),
     ),
+
     'titleMargin': (
-        320: 0 0 ef.size(6),
-        768: 0 0 ef.size(3),
+        375: 0 0 ef.size(2),
     ),
 
     'descriptionFontStyle': 'PrimaryText',
     'descriptionFontStyleDesk': 'ThirdTitle',
     'descriptionColor': (
-        320: ef.get('mainColors', 'baseMain'),
+        375: ef.get('mainColors', 'baseMain'),
         900: var(--mc-baseMain),
     ),
     'descriptionMargin': 0 0 ef.size(8),

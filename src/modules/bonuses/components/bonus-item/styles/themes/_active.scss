@@ -91,7 +91,7 @@
         &__name {
             @include text.get-text-style(ef.get-value($themeActive, 'nameTextStyle', 375), ef.get-value($themeActive, 'nameColor'));
             @include bm.get-mq-map('line-height', $themeActive, 'nameLine');
-            @include bm.lineClamp();
+            @include bm.lineClamp(2);
             margin: ef.get-value($themeActive, 'nameMargin');
 
             @include mq.min(560) {
@@ -101,12 +101,8 @@
 
         &__description {
             @include text.get-text-style('PrimaryText', ef.get-value($themeActive, 'descriptionColor'));
-            @include bm.lineClamp(3);
+            @include bm.lineClamp(4);
             @include bm.get-mq-map('display', $themeActive, 'infoBlockDscrDisplay');
-
-            @include mq.min(560) {
-                -webkit-line-clamp: 5;
-            }
         }
 
         &__progress {

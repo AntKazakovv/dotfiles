@@ -129,23 +129,43 @@
         }
 
         &__title {
-            @include text.get-text-style(ef.get-value($themeAlternative, 'titleFontStyle'), ef.get-value($themeAlternative, 'titleColor', 320));
+            @include text.get-text-style(
+                ef.get-value($themeAlternative, 'titleFontStyle'),
+                ef.get-value($themeAlternative, 'titleColor', 375)
+            );
             @include bm.lineClamp(2);
             @include bm.get-mq-map('margin', $themeAlternative, 'titleMargin');
             text-transform: uppercase;
 
             @include mq.min(900) {
-                @include text.get-text-style(ef.get-value($themeAlternative, 'titleFontStyleDesk'), ef.get-value($themeAlternative, 'titleColor', 900));
+                @include text.get-text-style(
+                    ef.get-value($themeAlternative, 'titleFontStyleDesk'),
+                    ef.get-value($themeAlternative, 'titleColor', 900)
+                );
             }
         }
 
         &__description {
-            @include bm.lineClamp(3);
-            @include text.get-text-style(ef.get-value($themeAlternative, 'descriptionFontStyle'), ef.get-value($themeAlternative, 'descriptionColor', 320));
+            @include bm.lineClamp(4);
+            @include text.get-text-style(
+                ef.get-value($themeAlternative, 'descriptionFontStyle'),
+                ef.get-value($themeAlternative, 'descriptionColor', 375)
+            );
             margin: ef.get-value($themeAlternative, 'descriptionMargin');
 
             @include mq.min(900) {
-                @include text.get-text-style(ef.get-value($themeAlternative, 'descriptionFontStyleDesk'), ef.get-value($themeAlternative, 'descriptionColor', 900));
+                @include text.get-text-style(
+                    ef.get-value($themeAlternative, 'descriptionFontStyleDesk'),
+                    ef.get-value($themeAlternative, 'descriptionColor', 900)
+                );
+            }
+
+            @include mq.min(768) {
+                @include bm.lineClamp(3);
+            }
+
+            @include mq.min(1024) {
+                @include bm.lineClamp(4);
             }
         }
 
