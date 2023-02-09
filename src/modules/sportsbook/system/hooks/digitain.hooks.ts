@@ -118,8 +118,7 @@ export class DigitainHooks extends AbstractHook {
 
             this.params.window.initDigitainApp = (app: IMobileDigitainApp): void => {
 
-                const pageUrl = location.pathname.replace(/.*\/digitain|sportsbook\//, '');
-
+                const pageUrl = location.pathname.replace(/^\/[a-zA-Z-]*\/(digitain|sportsbook)/, '');
                 if (pageUrl) {
                     app.navigateTo(pageUrl);
                 }
