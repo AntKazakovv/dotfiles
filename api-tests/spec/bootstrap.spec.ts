@@ -1,5 +1,5 @@
 import {
-    fetch,
+    fetchWithRetryNoAuth,
     getRequestUrl,
 } from './helpers/global';
 
@@ -10,11 +10,11 @@ describe('/api/v1/bootstrap', () => {
     const interfaceName = 'IBootstrap';
 
     it('-> IBootstrap', async (): Promise<void> => {
-        await fetch(url).then((res: any) => res.json())
-            .then((response: IBootstrap) => {
-                expect(interfaceName).toBeImplemented(response);
-            })
-            .catch((err: unknown) => fail(err))
-            .finally().then();
+        try {
+            const response = await fetchWithRetryNoAuth<IBootstrap>(url, interfaceName);
+            expect(interfaceName).toBeImplemented(response);
+        } catch (err: unknown) {
+            fail(err);
+        }
     });
 });

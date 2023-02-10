@@ -1,7 +1,10 @@
 {
     "spec_dir": "spec",
     "spec_files": [
-        "**/*.spec.ts"
+        "**/bootstrap.spec.ts",
+        "**/games.spec.ts",
+        "**/jackpots.spec.ts",
+        "**/levels.spec.ts"
     ],
     "helpers": [
         "helpers/**/*.helper.ts"

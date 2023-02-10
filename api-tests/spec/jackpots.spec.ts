@@ -1,6 +1,7 @@
 import {
-    fetch,
+    fetchWithRetryNoAuth,
     getRequestUrl,
+    printWarn,
 } from './helpers/global';
 
 import {IJackpot} from 'wlc-engine/modules/games/system/interfaces/games.interfaces';
@@ -11,22 +12,22 @@ describe('/api/v1/jackpots', () => {
     const interfaceName = 'IJackpot';
 
     it('-> IJackpot', async (): Promise<void> => {
-        await fetch(url)
-            .then((res: Response) => res.json())
-            .then((response: IData<IJackpot[]>) => {
-                if (response.code !== 200) {
-                    throw response.errors;
-                }
+        try {
+            const response = await fetchWithRetryNoAuth<IData<IJackpot[]>>(url, interfaceName);
 
-                if (response.data?.length === 0) {
-                    console.warn('\x1b[31m%s\x1b[0m', '\n  WARN: Jackpots are empty.');
-                } else {
-                    response.data?.forEach((element: IJackpot): void => {
-                        expect(interfaceName).toBeImplemented(element);
-                    });
-                }
-            })
-            .catch((err: unknown) => fail(err))
-            .finally().then();
+            if (response.code !== 200) {
+                throw response.errors;
+            }
+
+            if (!response.data?.length) {
+                printWarn('Jackpots are empty.');
+            } else {
+                response.data?.forEach((element: IJackpot): void => {
+                    expect(interfaceName).toBeImplemented(element);
+                });
+            }
+        } catch (err: unknown) {
+            fail(err);
+        }
     });
 });

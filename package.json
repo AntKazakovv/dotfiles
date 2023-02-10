@@ -18,7 +18,7 @@
         "update-locale": "ngx-translate-extract -i ./src/**/*.{ts,tsx,html} -o node_modules/@egamings/wlc-engine-translate/messages.pot --sort --format pot && node ./utils/pot2po.js",
         "gulp": "gulp",
         "update": "ng update @angular/cli @angular/core --force",
-        "test:api": "cd api-tests && PROJECT_URL=\"https://qa-devcasino.egamings.com\" npx jasmine-ts --config=jasmine.json",
+        "test:api": "cd api-tests && npx jasmine-ts --config=jasmine.json",
         "fullup": "rm -rf node_modules package-lock.json && npm install",
         "prepare": "npx gulp fix-jasmine"
     },

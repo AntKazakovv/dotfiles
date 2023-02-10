@@ -14,8 +14,8 @@ export const login = async (): Promise<TLoginResponse> => {
     const login = await fetch(getRequestUrl('/api/v1/auth'), {
         method: 'PUT',
         body: JSON.stringify({
-            login: 'test@test.com',
-            password: 'Test123!',
+            login: process.env.USER || 'test@test.com',
+            password: process.env.PASS || 'Test123!',
         }),
     });
 
@@ -52,4 +52,14 @@ export const checkIfObject = (response: IData): void => {
     {
         throw Error('response.data is not an object');
     };
+};
+
+export const fetchWithRetryNoAuth = async <T>(url: string, interfaceName: string, triesLeft = 3): Promise<T> => {
+    const res = await fetch(url);
+
+    if (res.status === 500 && triesLeft > 0) {
+        return fetchWithRetryNoAuth(url, interfaceName, triesLeft - 1);
+    } else {
+        return res.json();
+    }
 };

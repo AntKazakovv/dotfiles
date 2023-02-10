@@ -2,7 +2,7 @@
 import {
     checkIfObject,
     checkIfSuccess,
-    fetch,
+    fetchWithRetryNoAuth,
     getRequestUrl,
     printWarn,
 } from './helpers/global';
@@ -12,28 +12,25 @@ import {IIndexing} from 'wlc-engine/modules/core/system/interfaces/global.interf
 import {ILevel} from 'wlc-engine/modules/loyalty/system/interfaces';
 
 describe('/api/v1/loyalty/levels', () => {
+    const url = getRequestUrl('/api/v1/loyalty/levels');
+    const interfaceName = 'ILevel';
 
     it('-> ILevel', async (): Promise<void> => {
+        try {
+            const response = await fetchWithRetryNoAuth<IData<IIndexing<ILevel>>>(url, interfaceName);
 
-        const url = getRequestUrl('/api/v1/loyalty/levels');
-        const interfaceName = 'ILevel';
+            checkIfSuccess(response);
+            checkIfObject(response);
 
-        await fetch(url)
-            .then((res: Response) => res.json())
-            .then((response: IData<IIndexing<ILevel>>) => {
-                checkIfSuccess(response);
-                checkIfObject(response);
-
-                if (response.data && Object.keys(response.data).length) {
-                    for (const element in response.data) {
-                        expect(interfaceName).toBeImplemented(response.data[element]);
-                    }
-                } else {
-                    printWarn('Levels are empty.');
+            if (response.data && Object.keys(response.data).length) {
+                for (const element in response.data) {
+                    expect(interfaceName).toBeImplemented(response.data[element]);
                 }
-            })
-            .catch(fail)
-            .finally()
-            .then();
+            } else {
+                printWarn('Levels are empty.');
+            }
+        } catch (err: unknown) {
+            fail(err);
+        }
     });
 });
