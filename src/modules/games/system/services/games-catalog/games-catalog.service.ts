@@ -1069,7 +1069,7 @@ export class GamesCatalogService {
             type: 'GET',
             period: 10000,
             params: {
-                currency: 'EUR',
+                currency: this.configService.get<string>('$base.games.jackpots.requestCurrency') || 'EUR',
             },
             retries: {
                 count: [1000, 3000],
