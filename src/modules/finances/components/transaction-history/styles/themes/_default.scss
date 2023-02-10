@@ -2,6 +2,8 @@
 
     &:host {
         @include bm.get-mq-map('margin', $themeDefault, 'sectionMargin');
+        @include bm.get-mq-map('grid-template-areas', $themeDefault, 'gridTemplateArea');
+        display: grid;
 
         .wlc-loader {
             min-height: ef.get-value($themeDefault, 'sectionLoaderMinHeight');
@@ -14,6 +16,7 @@
             @include bm.get-mq-map('grid-auto-columns', $themeDefault, 'filterGridAutoColumns');
             @include bm.get-mq-map('gap', $themeDefault, 'filterGap');
             display: ef.get-value($themeDefault, 'sectionDisplay');
+            grid-area: filter;
 
             .wlc-select[wlc-select] {
                 min-width: ef.get-value($themeDefault, 'filterMinWidth');
@@ -36,7 +39,23 @@
             }
         }
 
+        .wlc-history-range--theme-default::ng-deep {
+            grid-area: range;
+            margin: 0 0 ef.size(4);
+
+            &.wlc-history-range__content {
+                @include bm.get-mq-map('align-items', $themeDefault, 'rangeAlignItems');
+                @include bm.get-mq-map('justify-content', $themeDefault, 'rangeJustifyContent');
+                height: 100%;
+            }
+        }
+
+        .wlc-loader--theme-default {
+            grid-area: table;
+        }
+
         .wlc-table--theme-default.wlc-table::ng-deep {
+            grid-area: table;
 
             .wlc-table__cell--first {
                 grid-template-columns: ef.get-value($themeDefault, 'firstCellColumns');

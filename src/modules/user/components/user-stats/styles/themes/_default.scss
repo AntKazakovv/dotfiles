@@ -87,16 +87,26 @@
             }
 
             &--store {
+                @include bm.get-mq-map('margin', $themeDefault, 'storeMargin');
                 display: ef.get-value($themeDefault, 'storeDisplay');
-                flex-direction: column;
+                flex-direction: ef.get-value($themeDefault, 'storeFlexDirection');
                 align-items: flex-end;
+                justify-content: ef.get-value($themeDefault, 'storeJustifyContent');
                 padding: ef.get-value($themeDefault, 'storePadding');
                 background: none;
-                cursor: pointer;
 
                 .wlc-user-stats-balance__item {
+                    margin: ef.get-value($themeDefault, 'storeItemMargin');
                     padding: 0;
                     border-bottom: none;
+                    cursor: pointer;
+
+                    @include bm.hover {
+
+                        .value {
+                            color: ef.get-value($themeDefault, 'storeValueFontColorHover');
+                        }
+                    }
                 }
 
                 .value {
@@ -119,13 +129,6 @@
 
                     @include bm.hover {
                         color: ef.get-value($themeDefault, 'storeValueColorHover');
-                    }
-                }
-
-                @include bm.hover {
-
-                    .value {
-                        color: ef.get-value($themeDefault, 'storeValueFontColorHover');
                     }
                 }
             }

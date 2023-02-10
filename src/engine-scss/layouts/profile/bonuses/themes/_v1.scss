@@ -6,7 +6,7 @@
         .wlc-profile-content {
 
             .wlc-enter-promocode[class] {
-                @include bm.get-mq-map('margin-bottom', $bonusesThemeFirst, 'promocodeMarginBottom');
+                @include bm.get-mq-map('margin', $bonusesThemeFirst, 'promocodeMargin');
             }
         }
     }

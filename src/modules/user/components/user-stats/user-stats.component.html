@@ -39,10 +39,10 @@
 
     <ng-template [ngSwitchCase]="'store'">
         <div class="{{$class}}-balance {{$class}}-balance--store"
-             data-wlc-element="block_info"
-             (click)="descriptionCasinosCurrency()">
+             data-wlc-element="block_info">
             <div class="{{$class}}-balance__item {{$class}}-balance__item--points"
-                 [attr.data-wlc-element]="shownUserStats.points?.wlcElement">
+                 [attr.data-wlc-element]="shownUserStats.points?.wlcElement"
+                 (click)="descriptionCasinosCurrency()">
                 <span wlc-currency
                       class="value"
                       currency="LP"
@@ -50,7 +50,8 @@
                 ></span>
             </div>
             <div class="{{$class}}-balance__item {{$class}}-balance__item--exppoints"
-                 [attr.data-wlc-element]="shownUserStats.expPoints?.wlcElement">
+                 [attr.data-wlc-element]="shownUserStats.expPoints?.wlcElement"
+                 (click)="descriptionCasinosCurrency()">
                 <span wlc-currency
                       class="value"
                       currency="EXP"

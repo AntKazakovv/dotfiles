@@ -19,11 +19,16 @@ export type Theme = 'default' | CustomType;
 export type Type = 'default' | CustomType;
 export type ThemeMod = 'default' | CustomType;
 
+export interface ITransactionHistoryRangeParams {
+    type: string,
+    historyType: string,
+}
 export interface ITransactionHistoryCParams extends IComponentParams<Theme, Type, ThemeMod> {
     filterType?: 'select' | 'button';
     transactionTableTheme: 'default' | 'mobile-app' | Theme,
     /** wlc-profile-no-content params */
     emptyConfig?: IWrapperCParams;
+    historyRangeParams?: any;
 }
 
 export const defaultParams: ITransactionHistoryCParams = {
@@ -41,6 +46,10 @@ export const defaultParams: ITransactionHistoryCParams = {
                 },
             },
         ],
+    },
+    historyRangeParams: {
+        type: 'submenu',
+        historyType: 'transaction',
     },
 };
 

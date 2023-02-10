@@ -32,14 +32,8 @@ const profileFirstLoyaltyType = (isSingleLevels: boolean) => {
                     class: 'wlc-profile-content__header',
                     components: [
                         isSingleLevels
-                            ? componentLib.wlcTitle.profileLoyaltyV1Single
+                            ? componentLib.wlcTitle.profileLoyalty
                             : componentLib.wlcTitle.profileStore,
-                        {
-                            ...componentLib.wlcLoyaltyProgress.def,
-                            display: {
-                                after: 640,
-                            },
-                        },
                     ],
                 },
                 display: {
@@ -59,7 +53,6 @@ const profileFirstLoyaltyType = (isSingleLevels: boolean) => {
                                 components: [
                                     isSingleLevels ? componentLib.wlcTitle.profileLoyaltyV1Single
                                         : componentLib.wlcTitle.profileLoyalty,
-                                    componentLib.wlcLoyaltyProgress.def,
                                 ],
                             },
                             display: {
@@ -71,7 +64,7 @@ const profileFirstLoyaltyType = (isSingleLevels: boolean) => {
                             params: {
                                 class: 'wlc-profile-content__body',
                                 components: [
-                                    componentLib.wlcLoyaltyProgress.market,
+                                    componentLib.wlcLoyaltyProgress.def,
                                     componentLib.wlcLoyaltyLevels.def,
                                 ],
                             },
@@ -347,7 +340,6 @@ export namespace profileContent {
                     class: 'wlc-profile-content__header',
                     components: [
                         componentLib.wlcTitle.bonuses,
-                        componentLib.wlcEnterPromocode.hideTitleV1,
                     ],
                 },
                 display: {
@@ -366,7 +358,6 @@ export namespace profileContent {
                                 class: 'wlc-profile-content__header underlined',
                                 components: [
                                     componentLib.wlcTitle.offers,
-                                    componentLib.wlcEnterPromocode.hideTitle,
                                 ],
                             },
                             display: {
@@ -385,9 +376,6 @@ export namespace profileContent {
                                             components: [
                                                 componentLib.wlcEnterPromocode.hideTitle,
                                             ],
-                                        },
-                                        display: {
-                                            before: 559,
                                         },
                                     },
                                     componentLib.wlcBonusesList.mainFirst,
@@ -1153,7 +1141,6 @@ export namespace profileContent {
                     class: 'wlc-profile-content__header',
                     components: [
                         componentLib.wlcStoreTitle.def,
-                        componentLib.wlcUserStats.store,
                     ],
                 },
                 display: {
@@ -1172,11 +1159,19 @@ export namespace profileContent {
                                 class: 'wlc-profile-content__header underlined',
                                 components: [
                                     componentLib.wlcStoreTitle.category,
-                                    componentLib.wlcUserStats.store,
                                 ],
                             },
                             display: {
                                 after: 1200,
+                            },
+                        },
+                        {
+                            name: 'core.wlc-wrapper',
+                            params: {
+                                class: 'wlc-profile-content__stats',
+                                components: [
+                                    componentLib.wlcUserStats.store,
+                                ],
                             },
                         },
                         {

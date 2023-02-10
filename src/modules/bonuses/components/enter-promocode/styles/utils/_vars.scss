@@ -73,12 +73,15 @@ $themeClear: map-merge((
     'width': 100%,
     'maxWidth': (
         375: 100%,
-        560: 320px
+        480: 300px,
+        640: 320px,
+        768: 640px,
     ),
     'controlWidth': 100%,
     'controlMaxWidth': (
         375: 100%,
-        560: 320px
+        480: 300px,
+        640: 320px,
     ),
     'inputTextTransform': uppercase,
 ), $customThemeClear);

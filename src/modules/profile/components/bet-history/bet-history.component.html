@@ -5,7 +5,8 @@
         <div wlc-select [inlineParams]="filterSelect"></div>
         <div wlc-select [inlineParams]="orderSelect"></div>
     </div>
-    
+    <div wlc-history-range [inlineParams]="$params.historyRangeParams"></div>
+
     <div *ngIf="!awaiting; else preloader" class="{{$class}}__table">
         <div *ngIf="bets$.value.length; else empty"
              wlc-table

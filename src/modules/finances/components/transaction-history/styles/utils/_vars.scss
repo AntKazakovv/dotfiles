@@ -40,4 +40,15 @@ $themeDefault: map-merge((
     ),
     'firstCellColumns': 1fr auto,
     'firstCellColumnsMobileApp': 1fr auto,
+    'gridTemplateArea': (
+        375: 'range' 'table',
+        1024: 'filter filter filter range' 'table table table table',
+    ),
+    'rangeAlignItems': (
+        375: flex-end,
+    ),
+    'rangeJustifyContent': (
+        375: flex-start,
+        1024: flex-end,
+    ),
 ), $customThemeDefault);

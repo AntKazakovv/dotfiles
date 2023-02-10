@@ -1,6 +1,8 @@
 .wlc-bet-history--theme-default {
 
     &:host {
+        @include bm.get-mq-map('grid-template-areas', $themeDefault, 'gridTemplateArea');
+        display: grid;
 
         .wlc-loader {
             min-height: ef.get-value($themeDefault, 'sectionLoaderMinHeight');
@@ -8,13 +10,14 @@
 
         .wlc-bet-history__filter {
             display: grid;
+            grid-area: filter;
             align-items: flex-end;
             margin: ef.get-value($themeDefault, 'filterMargin');
             grid: {
                 auto-flow: column;
                 auto-columns: max-content;
                 gap: ef.get-value($themeDefault, 'filterGap');
-            };
+            }
 
             .wlc-select[wlc-select] {
                 min-width: ef.get-value($themeDefault, 'filterMinWidth');
@@ -23,6 +26,22 @@
             .wlc-sections__profile-content--theme-first & {
                 display: ef.get-value($themeDefault, 'sectionDisplayTypeFirst');
             }
+        }
+
+        .wlc-history-range--theme-default::ng-deep {
+            @include bm.get-mq-map('margin', $themeDefault, 'rangeMargin');
+            grid-area: range;
+
+            &.wlc-history-range__content {
+                @include bm.get-mq-map('align-items', $themeDefault, 'rangeAlignItems');
+                @include bm.get-mq-map('justify-content', $themeDefault, 'rangeJustifyContent');
+                height: 100%;
+            }
+        }
+
+        .wlc-loader--theme-default,
+        .wlc-bet-history__table {
+            grid-area: table;
         }
 
         .wlc-table--theme-default.wlc-table::ng-deep {

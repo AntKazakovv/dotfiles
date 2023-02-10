@@ -13,10 +13,15 @@ export type Theme = 'default' | CustomType;
 export type Type = 'default' | CustomType;
 export type ThemeMod = 'default' | CustomType;
 
+export interface IBetHystoryRangeParams {
+    type: string,
+    historyType: string,
+}
 export interface IBetHistoryCParams extends IComponentParams<Theme, Type, ThemeMod> {
     transactionTableTheme: 'default' | 'mobile-app' | Theme,
     /** wlc-profile-no-content params */
     emptyConfig?: IWrapperCParams;
+    historyRangeParams?: IBetHystoryRangeParams;
 }
 
 export const defaultParams: IBetHistoryCParams = {
@@ -33,6 +38,10 @@ export const defaultParams: IBetHistoryCParams = {
                 },
             },
         ],
+    },
+    historyRangeParams: {
+        type: 'submenu',
+        historyType: 'bet',
     },
 };
 

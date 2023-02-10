@@ -14,10 +14,6 @@
         }
 
         .wlc-loyalty-progress {
-            @include bm.get-mq-map('position',$storeThemeDefault, 'loyaltyProgressPosition');
-            @include bm.get-mq-map('top', $storeThemeDefault, 'loyaltyProgressTop');
-            @include bm.get-mq-map('right', $storeThemeDefault, 'loyaltyProgressRight');
-
             @include bm.get-mq-map('max-width',$storeThemeDefault, 'loyaltyProgressMaxWidth');
             @include bm.get-mq-map('margin',$storeThemeDefault, 'loyaltyProgressMargin');
             grid-area: progress;
@@ -25,10 +21,7 @@
         }
 
         .wlc-user-stats {
-            @include bm.get-mq-map('top', $storeThemeDefault, 'statTop');
-            @include bm.get-mq-map('right', $storeThemeDefault, 'statRight');
-            @include bm.get-mq-map('z-index', $storeThemeDefault, 'statZIndex');
-            position: absolute;
+            grid-area: stats;
 
             &.wlc-user-stats--theme-mod-mobile-app {
                 position: initial;

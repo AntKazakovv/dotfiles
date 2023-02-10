@@ -14,7 +14,13 @@ $loyaltyThemeV1: map-merge((
         640: 300px,
     ),
 
-    'progressBodyWidth': 100%,
-    'progressBodyMargin': 0 0 ef.size(4) 0,
+    'progressBodyWidth': (
+        375: 100%,
+        640: 300px,
+    ),
+    'progressBodyMargin': (
+        375: 0 0 ef.size(4) auto,
+        1024: 0 0 0 auto,
+    ),
 
 ), $customLoyaltyThemeV1);

@@ -4,36 +4,13 @@ $storeThemeDefault: map-merge((
         719: ef.size(2),
         720: ef.size(4),
     ),
-    'statTop': (
-        375: ef.size(3),
-        1024: ef.size(6),
-    ),
-    'statRight': (
-        375: ef.size(3),
-        1024: ef.size(8),
-    ),
-    'statZIndex': 5,
-
-    'loyaltyProgressPosition': (
-        375: static,
-        768: absolute,
-    ),
-    'loyaltyProgressTop': (
-        375: ef.size(3),
-        1630: ef.size(4),
-    ),
-    'loyaltyProgressRight': (
-        375: ef.size(3),
-        1024: ef.size(8),
-    ),
-
     'loyaltyProgressMaxWidth': (
         375: 100%,
-        768: 300px,
+        640: 300px,
     ),
     'loyaltyProgressMargin': (
-        375: 0 0 ef.size(3) 0,
-        768: 0 0 0 auto,
+        375: 0 0 ef.size(4) auto,
+        1024: 0 0 0 auto,
     ),
 
     'containerColumns': (
@@ -41,8 +18,7 @@ $storeThemeDefault: map-merge((
         768: repeat(2, 1fr),
     ),
     'containerAreas': (
-        375: 'title stats' 'submenu submenu' 'progress progress' 'store store',
-        768: 'title stats' 'submenu submenu' 'store store',
+        375: 'title title' 'submenu submenu' 'stats stats' 'progress progress' 'store store',
     ),
 
     'submenuMargin': (

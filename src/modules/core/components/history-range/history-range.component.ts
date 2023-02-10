@@ -29,6 +29,7 @@ import * as Params from './history-range.params';
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HistoryRangeComponent extends AbstractComponent implements OnInit {
+    @Input() private inlineParams: any;
     @Input() public startDate: string;
     @Input() public endDate: string;
 
@@ -51,7 +52,7 @@ export class HistoryRangeComponent extends AbstractComponent implements OnInit {
     }
 
     public ngOnInit(): void {
-        super.ngOnInit();
+        super.ngOnInit(this.inlineParams);
         this.subscribeOnDateChanges();
 
         this.transition.onSuccess({}, async () => {
