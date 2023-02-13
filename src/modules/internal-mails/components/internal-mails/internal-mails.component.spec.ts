@@ -10,7 +10,10 @@ import {
 } from '@angular/core/testing';
 
 import {DateTime} from 'luxon';
-import {BehaviorSubject} from 'rxjs';
+import {
+    BehaviorSubject,
+    Subject,
+} from 'rxjs';
 
 import {
     ActionService,
@@ -34,7 +37,7 @@ interface IInternalMailsServiceStub extends Partial<Omit<InternalMailsService, '
     mails$: BehaviorSubject<string[]>;
 }
 
-interface IHistoryFilterServiceStub 
+interface IHistoryFilterServiceStub
     extends Partial<Omit<HistoryFilterService, 'getFilter' | 'setAllFilters'>> {
     setAllFilters(): void;
     getFilter(): BehaviorSubject<IHistoryFilter<string>>;
@@ -74,6 +77,7 @@ describe('InternalMailsComponent', (): void => {
         internalMailsServiceStub = {
             mailsReady: new Deferred(),
             mails$: new BehaviorSubject([]),
+            readedMailID$: new Subject(),
         };
         historyFilterServiceStub = {
             setAllFilters() {},

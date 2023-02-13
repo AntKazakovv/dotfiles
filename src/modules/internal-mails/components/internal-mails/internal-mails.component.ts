@@ -6,6 +6,10 @@ import {
     OnInit,
 } from '@angular/core';
 
+import {
+    DateTime,
+    ToObjectOutput,
+} from 'luxon';
 import {BehaviorSubject} from 'rxjs';
 import {
     filter,
@@ -15,10 +19,7 @@ import {
 import _filter from 'lodash-es/filter';
 import _last from 'lodash-es/last';
 import _cloneDeep from 'lodash-es/cloneDeep';
-import {
-    DateTime,
-    ToObjectOutput,
-} from 'luxon';
+import _find from 'lodash-es/find';
 
 import {
     ITableCParams,
@@ -148,6 +149,18 @@ export class InternalMailsComponent extends AbstractComponent implements OnInit 
                     this.initFilters();
                 } else {
                     this.internalMails$.next(this.filterMails());
+                    this.cdr.detectChanges();
+                }
+            });
+
+        this.internalMailsService.readedMailID$
+            .pipe(
+                takeUntil(this.$destroy),
+            )
+            .subscribe((id: string): void => {
+                const readedMail = _find(this.allMails, ['id', id]);
+                if (readedMail) {
+                    readedMail.readedStatus = true;
                     this.cdr.detectChanges();
                 }
             });
