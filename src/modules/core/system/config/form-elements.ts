@@ -640,7 +640,7 @@ export namespace FormElements {
     export const loginEmail: IFormComponent = {
         name: 'core.wlc-input',
         params: <IInputCParams>{
-            theme: 'mobile-app',
+            theme: 'vertical',
             wlcElement: 'block_email-login',
             common: {
                 placeholder: gettext('Username or E-mail'),
