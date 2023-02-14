@@ -171,9 +171,11 @@ export class Game extends AbstractModel<IGame> {
      *
      * @returns {string}
      */
-    public getMerchantName(): string {
-        return GamesHelper.getMerchantNameById(this.merchantID)
-            || GamesHelper.getMerchantNameById(this.subMerchantID);
+    public getMerchantName(firstMerchantName: boolean = true): string {
+        const merchantName = GamesHelper.getMerchantNameById(this.merchantID);
+        const subMerchantName = GamesHelper.getMerchantNameById(this.subMerchantID);
+
+        return firstMerchantName ? (merchantName || subMerchantName) : (subMerchantName || merchantName);
     }
 
     public getMerchantAlias(): string {

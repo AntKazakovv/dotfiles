@@ -221,6 +221,7 @@ const thumbParams: IGameThumbCParams = {
     common: {
         merchantIcon: {
             showNameInsteadIcon: true,
+            showSubMerchantLogo: false,
             use: true,
         },
     },

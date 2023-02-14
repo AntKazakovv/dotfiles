@@ -100,6 +100,10 @@ export interface IGameThumbCParams extends IComponentParams<Theme, Type, ThemeMo
              */
             showNameInsteadIcon?: boolean;
             /**
+             * show sub merchant logo
+             */
+            showSubMerchantLogo?: boolean;
+            /**
              * enable/disable usage merchant icon
              */
             use: boolean;
