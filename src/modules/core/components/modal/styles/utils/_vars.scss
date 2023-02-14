@@ -117,7 +117,7 @@ $hostModal: map-merge((
     ),
 
     'titleFontSize': (
-        320: 'PrimaryTextBold',
+        320: 'ThirdTitleBold',
         768: 'QoteTextBold',
     ),
     'titleMargin': 0,
@@ -258,7 +258,7 @@ $themeDefault: map-merge((
     'dialogBorder': 1px solid var(--mc-bg-o2),
     'dialogBorderRadius': ef.get('radius', 'big'),
     'titleFontSize': (
-        320: 'PrimaryTextBold',
+        320: 'ThirdTitleBold',
         768: 'QoteTextBold',
     ),
     'titleMargin': 0,
@@ -300,7 +300,7 @@ $themeDefault: map-merge((
         768: ef.get('font', 'QoteTextBold'),
     ),
     'loginSignUpTextColor': var(--mc-baseMain),
-    'loginSignUpTitleStyle': 'PrimaryTextBold',
+    'loginSignUpTitleStyle': 'ThirdTitleBold',
     'loginSignUpTitleColor': var(--mc-baseMain),
     'loginSignUpTitleAlign': center,
 

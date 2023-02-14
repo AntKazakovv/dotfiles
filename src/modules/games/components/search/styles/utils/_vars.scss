@@ -154,7 +154,7 @@ $themeDefault: map-merge((
     ),
     'searchModalHeaderMargin': 0,
     'searchModalHeaderFont': (
-        375: 'PrimaryTextBold' ,
+        375: 'ThirdTitleBold' ,
         1200: 'QoteTextBold',
     ),
     'searchModalHeaderFontColor': var(--mc-baseMain),
@@ -223,7 +223,7 @@ $themeEasy: map-merge((
         1200: left,
     ),
     'searchModalHeaderFont': (
-        375: 'PrimaryTextBold' ,
+        375: 'ThirdTitleBold' ,
         1200: 'QoteTextBold',
     ),
     'searchModalHeaderMargin': 0,

@@ -1,7 +1,7 @@
 $customThemeDefault: () !default;
 $themeDefault: map-merge((
     'titleFontSize': (
-        320: 'PrimaryTextBold',
+        320: 'ThirdTitleBold',
         768: 'QoteTextBold',
     ),
     'titlePadding': 0 ef.size(5),
