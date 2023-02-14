@@ -114,6 +114,15 @@ $themePromoHome: map-merge((
     'tagTextAlign': center,
     'tagBorderRadius': ef.size(2) 0 ef.size(2) 0,
     'tagColor': ef.get('mainColors', 'baseMain'),
+
+    'widthHomeWins': (
+        900: 50%,
+        1366: 100%,
+    ),
+    'justifySelfHomeWins': (
+        900: center,
+        1366: stretch,
+    ),
 ), $customThemePromoHome);
 
 $customThemeActive: () !default;

@@ -3,8 +3,13 @@
 
 @mixin homePromoWins($map, $name) {
     @include bm.get-mq-map('grid-template-columns', $map, $name + 'Columns');
-    @include bm.get-mq-map('gap', $map, $name + 'Gap');
+    @include bm.get-mq-map('column-gap', $map, $name + 'ColGap');
+    @include bm.get-mq-map('row-gap', $map, $name + 'RowGap');
     display: grid;
+
+    > * {
+        min-width: 0;
+    }
 
     .wlc-winners-slider--theme-vertical[class] {
 
@@ -21,10 +26,5 @@
         .swiper-button-container {
             @include bm.get-mq-map('display', $map, 'tournamentSliderButtonDisplay');
         }
-    }
-
-    .wlc-tournament-banner {
-        @include bm.get-mq-map('height', $map, 'tournamentBannerHeight');
-        @include bm.get-mq-map('min-height', $map, 'tournamentBannerMinHeight');
     }
 }

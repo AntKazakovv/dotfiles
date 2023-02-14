@@ -1,4 +1,5 @@
 .wlc-tournament-banner--theme-default:host {
+    @include bm.get-mq-map('min-height', $themeDefault, 'minHeight');
     position: relative;
     height: ef.get-value($themeDefault, 'baseHeight');
 }
@@ -46,7 +47,10 @@
     }
 
     &__status {
-        @include text.get-text-style(ef.get-value($themeDefault, 'statusTagFontStyle'), ef.get-value($themeDefault, 'statusTagColor'));
+        @include text.get-text-style(
+            ef.get-value($themeDefault, 'statusTagFontStyle'),
+            ef.get-value($themeDefault, 'statusTagColor')
+        );
         @include bm.get-mq-map('right', $themeDefault, 'statusTagRightPos');
         position: absolute;
         top: ef.get-value($themeDefault, 'statusTagTopPos');
@@ -75,7 +79,6 @@
         .icon-btn {
             width: ef.get-value($themeDefault, 'moreIconSize');
             height: ef.get-value($themeDefault, 'moreIconSize');
-
             cursor: pointer;
 
             &::ng-deep {
@@ -124,14 +127,13 @@
     }
 
     &__body-title {
-        @include text.get-text-style(ef.get-value($themeDefault, 'bodyFont', 320), ef.get-value($themeDefault, 'bodyColor'));
-        @include bm.lineClamp(1);
+        @include text.get-text-style(
+            ef.get-value($themeDefault, 'bodyFont'),
+            ef.get-value($themeDefault, 'bodyColor')
+        );
+        @include bm.lineClamp(map-get($themeDefault, 'titleClamp'));
 
         margin: ef.get-value($themeDefault, 'bodyMargin');
-
-        @include mq.min(768) {
-            @include text.get-text-style(ef.get-value($themeDefault, 'bodyFont', 768), ef.get-value($themeDefault, 'bodyColor'));
-        }
     }
 
     &__timer-block {
@@ -139,10 +141,13 @@
     }
 
     &__description {
-        @include text.get-text-style(ef.get-value($themeDefault, 'descriptionFont'), ef.get-value($themeDefault, 'descriptionColor'));
+        @include text.get-text-style(
+            ef.get-value($themeDefault, 'descriptionFont'),
+            ef.get-value($themeDefault, 'descriptionColor')
+        );
         @include bm.get-mq-map('max-width', $themeDefault, 'descriptionWidth');
         @include bm.get-mq-map('margin', $themeDefault, 'descriptionMargin');
-        @include bm.lineClamp(3);
+        @include bm.lineClamp(map-get($themeDefault, 'descriptionClamp'));
     }
 
     ::ng-deep {

@@ -102,22 +102,38 @@
 
 
 /// Property allows to limit the content of the string
+/// Use map-get($map, $value) to pass mediaquery-map as $clamp argument (NOT ef.get-value!)
 ///
 /// @name lineClamp
 ///
-/// @param {number} $clamp [1] - number of rows
+/// @param {number | map} $clamp [1] - number of rows.
 
 @mixin lineClamp($clamp: 1) {
     /* stylelint-disable */
     display: -webkit-box;
-    line-clamp: $clamp;
     box-orient: vertical;
-    -webkit-line-clamp: $clamp;
     -webkit-box-orient: vertical;
     /* stylelint-enable */
     overflow: hidden;
     text-overflow: ellipsis;
     word-break: break-word;
+
+    @if (type-of($clamp) == 'map') {
+
+        @each $bp, $value in $clamp {
+
+            @if ($bp <= 375) {
+                -webkit-line-clamp: $value;
+            } @else {
+
+                @include mq.min($bp) {
+                    -webkit-line-clamp: $value;
+                }
+            }
+        }
+    } @else {
+        -webkit-line-clamp: $clamp;
+    }
 }
 
 /// Creates block with defined aspect ratio

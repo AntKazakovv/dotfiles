@@ -1,6 +1,11 @@
 $customThemeDefault: () !default;
 $themeDefault: map-merge((
     'baseHeight': 100%,
+    'minHeight': (
+        375: 385px,
+        480: 325px,
+        768: 370px,
+    ),
 
     'tournamentBg': var(--mc-bg700),
     'tournamentRadius': ef.get('radius', 'biger'),
@@ -8,7 +13,7 @@ $themeDefault: map-merge((
     'tournamentFlexDirection': column,
 
     'tournamentGradient': (
-        320: linear-gradient(360deg, var(--mc-bg700) 55%, var(--mc-bg700-o0) 101%, var(--mc-bg700-o8) 155%),
+        375: linear-gradient(360deg, var(--mc-bg700) 55%, var(--mc-bg700-o0) 101%, var(--mc-bg700-o8) 155%),
         768: linear-gradient(90deg, var(--mc-bg700) 35%, var(--mc-bg700-o0) 77%, var(--mc-bg700-o8) 100%),
     ),
 
@@ -26,20 +31,19 @@ $themeDefault: map-merge((
     'timerSecondaryColor': var(--mc-baseMain),
 
     'bodyPadding': (
-        320: ef.size(11) ef.size(4) ef.size(6),
+        375: ef.size(11) ef.size(4) ef.size(6),
         1024: ef.size(11) ef.size(8) ef.size(8),
     ),
-    'bodyFont': (
-        320: 'QoteTextBold',
-        768: 'PromoTitle',
-    ),
+
+    'titleClamp': 2,
+    'bodyFont': 'QoteTextBold',
     'bodyColor': var(--mc-baseMain),
     'bodyMargin': 0 0 ef.size(3),
     'bodyBgSize': (
-        320: contain,
+        375: contain,
     ),
     'bodyBgPosition': (
-        320: right bottom,
+        375: right bottom,
     ),
     'bodyFlexDirection': column,
     'bodyAlignItems': flex-start,
@@ -49,8 +53,10 @@ $themeDefault: map-merge((
     'bodyNestedZIindex': 2,
 
     'bodyDecorDisplay': (
-        320: none,
+        375: none,
         768: block,
+        900: none,
+        1200: block,
     ),
     'bodyDecorWidth': 50%,
     'bodyDecorPositionTop': 0,
@@ -62,16 +68,13 @@ $themeDefault: map-merge((
     'descriptionFont': 'PrimaryText',
     'descriptionColor': var(--mc-baseMain),
     'descriptionMargin': (
-        320: 0 0 ef.size(3) 0,
-        768: 0 0 ef.size(9) 0,
+        375: 0 0 ef.size(3),
+        768: 0 0 ef.size(9),
     ),
     'descriptionWidth': (
-        375: 100%,
-        768: 50%,
-        1024: 450px,
-        1200: 50%,
+        375: 450px,
     ),
-
+    'descriptionClamp': 3,
     'btnsWrapAlign': flex-start,
     'btnsWrapMargin': auto 0 0,
     'btnsMinWidth': 110px,
@@ -81,6 +84,8 @@ $themeDefault: map-merge((
     'btnsDisplay': (
         375: none,
         480: grid,
+        900: none,
+        1200: grid,
     ),
 
     'loaderZIndex': 10,
@@ -113,11 +118,11 @@ $themeDefault: map-merge((
     'tagColor': ef.get('mainColors', 'baseMain'),
 
     // More icon
-    'moreIconSize': 22px,
+    'moreIconSize': 20px,
     'moreIconColor': var(--mc-baseOpacity),
     'moreIconColorHover': var(--mc-baseMain),
     'moreIconPosTop': (
-        375: ef.size(2),
+        375: ef.size(4),
     ),
     'moreIconPosRight': (
         375: ef.size(4),
@@ -125,12 +130,16 @@ $themeDefault: map-merge((
     'moreIconDisplay': (
         375: block,
         480: none,
+        900: block,
+        1200: none,
     ),
 
-    'statusTagTopPos': ef.size(2),
+    'statusTagTopPos': ef.size(4),
     'statusTagRightPos': (
-        375: ef.size(10),
-        480: ef.size(4)
+        375: ef.size(12),
+        480: ef.size(4),
+        900: ef.size(12),
+        1200: ef.size(4),
     ),
     'statusTagFontStyle': ef.get('tagConfig', 'textStyle'),
     'statusTagTextPadding': ef.get('tagConfig', 'padding'),

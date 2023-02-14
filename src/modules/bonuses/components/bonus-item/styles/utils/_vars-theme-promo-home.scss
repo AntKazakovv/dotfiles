@@ -18,7 +18,10 @@ $themePromoHome: map-merge((
     'bonusIconWidth': 120px,
     'bonusIconHeight': 120px,
 
-    'imagePadding': 0 0 0 ef.size(8),
+    'imagePadding': (
+        640: 0 0 0 ef.size(6),
+        1630: 0 0 0 ef.size(8),
+    ),
 
     'infoWrapperFlexDir': (
         375: column-reverse,
@@ -29,8 +32,7 @@ $themePromoHome: map-merge((
         640: space-between,
     ),
     'infoWrapperAlignItems': (
-        375: flex-end,
-        640: initial,
+        375: initial,
     ),
 
     'infoBlockPadding': (
@@ -46,7 +48,10 @@ $themePromoHome: map-merge((
     ),
 
     'descriptionMargin': (
-        1024: ef.size(2) 0 0,
+        375: ef.size(2) 0 0,
+    ),
+    'descrMaxWidth': (
+        375: 450px,
     ),
 
     'tagTopPosition': 0,
@@ -68,12 +73,10 @@ $themePromoHome: map-merge((
     'wrapperGridAreas': 'content' 'buttons',
     'wrapperRows': 1fr auto,
 
-    'iconTopPos': ef.size(2),
+    'iconTopPos': ef.size(4),
+    'iconWidth': 20px,
 
-    'tagStatusTopPos': ef.size(2),
-    'tagStatusRightPos': ef.size(10),
-    'descrLineClamp': (
-        375: 3,
-        768: 4
-    )
+    'tagStatusTopPos': ef.size(4),
+    'tagStatusRightPos': ef.size(12),
+    'descrLineClamp': 3,
 ), $customThemePromoHome);

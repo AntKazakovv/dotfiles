@@ -50,4 +50,9 @@
             border-radius: ef.get-value($themePromoHome, 'tagBorderRadius');
         }
     }
+
+    .wlc-home-wins-bonuses & {
+        @include bm.get-mq-map('width', $themePromoHome, 'widthHomeWins');
+        @include bm.get-mq-map('justify-self', $themePromoHome, 'justifySelfHomeWins');
+    }
 }

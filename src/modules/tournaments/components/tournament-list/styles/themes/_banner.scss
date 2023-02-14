@@ -1,6 +1,7 @@
 .wlc-tournament-list--theme-banner:host {
     position: relative;
     overflow: hidden;
+    min-width: 0;
     max-width: 100%;
     height: 100%;
     border-radius: ef.get-value($themeBanner, 'listRadius');

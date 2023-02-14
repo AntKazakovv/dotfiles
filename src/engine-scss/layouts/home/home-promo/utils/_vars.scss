@@ -2,26 +2,26 @@ $customHomePromo: () !default;
 $homePromo: map-merge((
     'promoColumns': (
         320: minmax(250px, 1fr),
-        1200: calc((100% - 80px) / 5 * 2 + 20px) minmax(250px, 1fr),
+        900: repeat(2, 1fr),
+        1200: calc((100% - 60px) / 5 * 2 + 15px) minmax(250px, 1fr),
         1630: calc((100% - 100px) / 6 * 2 + 20px) minmax(250px, 1fr),
     ),
-    'promoGap': (
+    'promoColGap': (
         375: ef.size(4),
+        900: ef.size(2),
+        1024: ef.size(3),
+        1630: ef.size(4),
+    ),
+    'promoRowGap': (
+        375: ef.size(4),
+        900: ef.size(2),
+        1024: ef.size(3),
+        1630: ef.size(4),
     ),
     'promoSliderMaxWidth': 100%,
 
     'tournamentSliderWrapMaxWidth': 100%,
     'tournamentSliderButtonDisplay': (
         320: flex,
-    ),
-    'tournamentBannerHeight': (
-        320: 385px,
-        480: 325px,
-        768: 370px,
-        1024: 100%,
-    ),
-    'tournamentBannerMinHeight': (
-        320: auto,
-        1630: 380px,
     ),
 ), $customHomePromo);

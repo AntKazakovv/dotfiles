@@ -4,8 +4,14 @@ $themeHomeWins: map-merge((
         320: 1fr,
         720: repeat(2, 1fr),
     ),
-    'homeWinsGap': (
-        320: ef.size(4),
+    'homeWinsColGap': (
+        375: ef.size(4),
+        900: ef.size(2),
+        1024: ef.size(3),
+        1630: ef.size(4),
+    ),
+    'homeWinsRowGap': (
+        375: ef.size(4),
     ),
 
     'homeWinsSliderMaxWidth': 100%,
@@ -18,25 +24,22 @@ $themeHomeWins: map-merge((
 
     'tournamentColumns': (
         320: minmax(250px, 1fr),
-        1200: calc((100% - #{ef.size(4)} * 4) / 5 * 2 + #{ef.size(4)}) minmax(250px, 1fr),
+        900: repeat(2, 1fr),
+        1200: calc((100% - #{ef.size(3)} * 4) / 5 * 2 + #{ef.size(3)}) minmax(250px, 1fr),
         1630: calc((100% - #{ef.size(4)} * 5) / 6 * 2 + #{ef.size(4)}) minmax(250px, 1fr),
     ),
-    'tournamentGap': (
-        320: ef.size(4),
+    'tournamentColGap': (
+        375: ef.size(4),
+        900: ef.size(2),
+        1024: ef.size(3),
+        1630: ef.size(4),
+    ),
+    'tournamentRowGap': (
+        375: ef.size(4),
     ),
     'tournamentSliderMaxWidth': 100%,
     'tournamentSliderButtonDisplay': (
         320: flex,
-    ),
-    'tournamentBannerHeight': (
-        320: 385px,
-        480: 325px,
-        768: 370px,
-        1024: 100%,
-    ),
-    'tournamentBannerMinHeight': (
-        320: auto,
-        1024: 380px,
     ),
 
     'bonusesColumns': (
@@ -45,8 +48,17 @@ $themeHomeWins: map-merge((
         1366: repeat(3, 1fr),
     ),
     'bonusesSliderMaxWidth': 100%,
-    'bonusesGap': (
-        320: ef.size(4),
+    'bonusesColGap': (
+        375: ef.size(4),
+        768: ef.size(2),
+        1024: ef.size(3),
+        1630: ef.size(4),
+    ),
+    'bonusesRowGap': (
+        375: ef.size(4),
+        768: ef.size(2),
+        1024: ef.size(3),
+        1630: ef.size(4),
     ),
     'bonusesGridAreas': (
         320: 'recent-wins' 'bonus' 'biggest-wins',
