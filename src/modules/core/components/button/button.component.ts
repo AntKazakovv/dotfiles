@@ -44,6 +44,7 @@ import {IconComponent} from 'wlc-engine/modules/core/components/icon/icon.compon
 import {AnimateButtonsService} from 'wlc-engine/modules/core/system/services/animate-buttons/animate-buttons.service';
 import {TAnimateButtonHandlerOnService} from 'wlc-engine/modules/core/system/interfaces/animate-buttons.interface';
 import {InjectionService} from 'wlc-engine/modules/core/system/services/injection/injection.service';
+import {WINDOW} from 'wlc-engine/modules/app/system';
 
 import * as Params from './button.params';
 
@@ -67,6 +68,7 @@ export class ButtonComponent extends AbstractComponent implements OnInit,
     @ContentChild(IconComponent, {read: ElementRef}) IconComponentElement!: ElementRef;
     @Input() public text: string;
     @Input() public event: {name: string, data?: unknown};
+    @Input() public href: string;
     @Input() public sref: string;
     @Input() public srefParams: RawParams;
 
@@ -89,8 +91,8 @@ export class ButtonComponent extends AbstractComponent implements OnInit,
     @HostBinding('attr.type') get typeAttrValue() {return this.params?.common?.typeAttr || this.typeAttr;}
 
     constructor(
-        @Inject('injectParams')
-        protected params: Params.IButtonCParams,
+        @Inject('injectParams') protected params: Params.IButtonCParams,
+        @Inject(WINDOW) protected window: Window,
         protected elementRef: ElementRef,
         protected cdr: ChangeDetectorRef,
         protected configService: ConfigService,
@@ -144,7 +146,7 @@ export class ButtonComponent extends AbstractComponent implements OnInit,
     }
 
     public ngAfterViewInit(): void {
-        if (this.$params.common?.event || this.$params.common?.sref) {
+        if (this.$params.common?.event || this.$params.common?.sref || this.$params.common?.href) {
             fromEvent(this.elementRef.nativeElement, 'click')
                 .pipe(takeUntil(this.$destroy))
                 .subscribe(() => {
@@ -158,6 +160,8 @@ export class ButtonComponent extends AbstractComponent implements OnInit,
                         }
                     } else if (this.$params.common?.sref) {
                         this.stateService.go(this.$params.common.sref, this.$params.common.srefParams);
+                    } else if (this.$params.common?.href) {
+                        this.window.open(this.$params.common?.href, '_blank');
                     }
                 });
         }

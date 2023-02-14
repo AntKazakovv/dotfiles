@@ -45,6 +45,8 @@ export interface IButtonCParams extends IComponentParams<Theme, Type, ThemeMod> 
         text?: string;
         customModifiers?: CustomMod;
         event?: EventType | EventType[];
+        /** href link for button */
+        href?: string;
         sref?: string;
         srefParams?: RawParams;
         typeAttr?: string;
