@@ -1,6 +1,6 @@
 <ng-template #default>
     <label (click)="dp.toggleCalendar()" class="{{$class}}__label">{{$params.label | translate}}</label>
-    <div class="container">
+    <div class="{{$class}}__container">
         <input class="{{$class}}__input"
                #dp="angular-mydatepicker"
                #mask
