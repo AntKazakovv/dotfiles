@@ -7,11 +7,5 @@ $themeDefault: map-merge((
     'successIconColor': ef.get('mainColors', 'baseMain'),
     'errorIconColor': ef.get('mainColors', 'baseMain'),
     'pendingIconColor': var(--mc-baseContrast),
-    'errorsBgColor': var(--mc-error),
-    'errorsColor': ef.get('mainColors', 'baseContrast'),
-    'errorsMinWidth': 200px,
-    'errorsMaxWidth': 100%,
-    'errorsBorderRadius': 10px,
-    'errorsPadding': 10px,
     'marginBetweenErrorsItem': 3px 0 0 0,
 ), $customThemeDefault);

@@ -419,16 +419,17 @@ $table-caption-color: var(--mc-elementsColor) !default;
 $tooltip-font-size: $font-size-base * 0.875 !default;
 $tooltip-text-style-compact: 'CaptionText' !default;
 $tooltip-opacity: 1 !default;
-$tooltip-padding-y: 10px !default;
-$tooltip-padding-x: 10px !default;
+$tooltip-padding-y: 5px !default;
+$tooltip-padding-x: 6px !default;
 $tooltip-arrow-width: 1.2rem !default;
 $tooltip-arrow-height: 0.7rem !default;
 $tooltip-arrow-color: var(--mc-bg100) !default;
-$tooltip-max-width: 200px !default;
+$tooltip-max-width: 170px !default;
 $tooltip-bg: var(--mc-bg100) !default;
 $tooltip-color: var(--mc-baseMain) !default;
 $tooltip-border-radius: map-get($radius, 'biger') !default;
 $tooltip-box-shadow: map-get($shadows, 'sm') !default;
+$tooltip-bg-error: var(--mc-error) !default;
 
 
 /// Globar settings scrollbar

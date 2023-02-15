@@ -128,33 +128,4 @@
             }
         }
     }
-
-    &-tooltip {
-        min-width: ef.get-value($themeDefault, 'errorsMinWidth');
-
-        .tooltip-inner {
-            @include text.get-text-style('PrimaryText', ef.get-value($themeDefault, 'errorsColor'));
-            background: ef.get-value($themeDefault, 'errorsBgColor');
-        }
-
-        &.bottom {
-
-            .tooltip-arrow {
-
-                &:before {
-                    border-bottom-color: ef.get-value($themeDefault, 'errorsBgColor');
-                }
-            }
-        }
-
-        &.top {
-
-            .tooltip-arrow {
-
-                &:before {
-                    border-top-color: ef.get-value($themeDefault, 'errorsBgColor');
-                }
-            }
-        }
-    }
 }

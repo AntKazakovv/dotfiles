@@ -1,11 +1,21 @@
 .tooltip {
+    --bs-tooltip-bg-color: #{$tooltip-bg};
+    --bs-tooltip-color: #{$tooltip-color};
+
+    @include text.get-text-style(#{$tooltip-text-style-compact}, var(--bs-tooltip-color));
     position: absolute;
     z-index: 1080;
     display: block;
+    max-width: $tooltip-max-width;
     margin: 0;
-    font-size: $tooltip-font-size;
     word-wrap: break-word;
     opacity: 0;
+
+    &.wlc-tooltip__bs-tooltip--error,
+    &.tooltip-error {
+        --bs-tooltip-bg-color: #{$tooltip-bg-error};
+        --bs-tooltip-color: #{$tooltip-color};
+    }
 
     &.show,
     &.in {
@@ -43,7 +53,7 @@
         &:before {
             top: -1px;
             border-width: $tooltip-arrow-height ($tooltip-arrow-width * 0.5) 0;
-            border-top-color: $tooltip-arrow-color;
+            border-top-color: var(--bs-tooltip-bg-color);
         }
     }
 }
@@ -59,7 +69,7 @@
         &:before {
             right: -1px;
             border-width: ($tooltip-arrow-width * 0.5) $tooltip-arrow-height ($tooltip-arrow-width * 0.5) 0;
-            border-right-color: $tooltip-arrow-color;
+            border-right-color: var(--bs-tooltip-bg-color);
         }
     }
 }
@@ -73,7 +83,7 @@
         &:before {
             bottom: -1px;
             border-width: 0 ($tooltip-arrow-width * 0.5) $tooltip-arrow-height;
-            border-bottom-color: $tooltip-arrow-color;
+            border-bottom-color: var(--bs-tooltip-bg-color);
         }
     }
 }
@@ -89,7 +99,7 @@
         &:before {
             left: -1px;
             border-width: ($tooltip-arrow-width * 0.5) 0 ($tooltip-arrow-width * 0.5) $tooltip-arrow-height;
-            border-left-color: $tooltip-arrow-color;
+            border-left-color: var(--bs-tooltip-bg-color);
         }
     }
 }
@@ -112,15 +122,12 @@
         @extend .bs-tooltip-start;
     }
 }
-
 // Wrapper for the tooltip content
 
 .tooltip-inner {
-    max-width: $tooltip-max-width;
     padding: $tooltip-padding-y $tooltip-padding-x;
-    color: $tooltip-color;
     text-align: center;
-    background-color: $tooltip-bg;
     border-radius: $tooltip-border-radius;
+    background-color: var(--bs-tooltip-bg-color);
     box-shadow: $tooltip-box-shadow;
 }

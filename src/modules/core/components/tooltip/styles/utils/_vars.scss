@@ -10,15 +10,6 @@ $themeDefault: map-merge((
     ),
     'iconFill': var(--mc-baseOpacity),
     'iconColorOnHover': var(--mc-baseMain),
-    'contentPadding': ef.size(2) ef.size(4),
-    'contentBg': var(--mc-bg100),
-    'contentBorderRadius': ef.get('radius', 'biger'),
-    'textStyle': 'PrimaryText',
-    'contentColor': var(--mc-baseMain),
-    'contentBoxShadow': 0 4px 4px rgba(0, 0, 0, 0.25),
-
-    'contentBgError': var(--mc-error),
-    'contentColorError': var(--mc-baseMain),
 ), $customThemeDefault);
 
 $customModResolve: () !default;
