@@ -284,3 +284,18 @@ $headerThemeUniversal: map-merge((
     'searchIconJustifyContent': center,
     'searchIconAlignItems': center,
 ), $customHeaderThemeUniversal);
+
+$customStickyHeader: () !default;
+$stickyHeader: map-merge((
+    'headerBackground': var(--mc-bg),
+    'headerMinHeight': (
+        375: 60px,
+        1024: 70px,
+        1630: 100px
+    ),
+    'transformCoef': (
+        375: 1,
+        1630: 0.7,
+    ),
+    'transition': transform 0.3s ease-in-out,
+), $customStickyHeader);

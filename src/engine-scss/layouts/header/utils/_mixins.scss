@@ -183,34 +183,58 @@
             @include bm.get-mq-map('grid-template-columns', $theme, 'gridColsToggler');
         }
     }
+}
 
-    .wlc-body--sticky-header & {
-        $class: &;
+@mixin stickyHeader() {
+    $classSticky: 'wlc-body--sticky-header';
+
+    .#{$classSticky} & {
+        @include bm.get-mq-map('--sticky-transform-coef', $stickyHeader, 'transformCoef');
 
         position: sticky;
         top: 0;
+        left: 0;
         width: 100%;
-        background: ef.get-value($stickyHeader, 'headerBackground');
-        transform: translateY(0%);
+
+        background: none;
+        transform: translate3d(0, 0, 0);
+        transition: ef.get-value($stickyHeader, 'transition');
+
+        &:before {
+            content: '';
+
+            position: absolute;
+            top: -1px;
+            bottom: 0;
+            left: 0;
+            z-index: 0;
+
+            display: block;
+            width: 100%;
+
+            background: ef.get-value($stickyHeader, 'headerBackground');
+            transform: scale3d(1, var(--sticky-scale-val, 1), 1);
+            transform-origin: top;
+            transition: inherit;
+        }
 
         .container {
             @include bm.get-mq-map('min-height', $stickyHeader, 'headerMinHeight');
-        }
 
-        @at-root .wlc-body--os-ios#{$class} {
-            top: -1px;
-        }
-    }
-
-    .wlc-body--sticky-header-scrolling & {
-
-        .container {
-            @include bm.get-mq-map('min-height', $stickyHeader, 'headerScrollingMinHeight');
+            position: relative;
+            z-index: 1;
+            transform: translate3d(0, var(--sticky-translate-val, 0), 0);
+            transition: inherit;
         }
     }
 
-    .wlc-body--sticky-header-down & {
-        transform: translateY(-100%);
+    .#{$classSticky}-scrolling & {
+        --sticky-scale-val: var(--sticky-transform-coef, 1);
+        --sticky-translate-val: calc((var(--sticky-transform-coef) - 1) * 50%);
+    }
+
+    .#{$classSticky}-down & {
+        transform: translate3d(0, -100%, 0);
 
         @media (pointer: fine) {
             transform: unset;

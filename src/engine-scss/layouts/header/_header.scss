@@ -5,6 +5,8 @@
 @import './themes/universal';
 
 .wlc-sections__header {
+    @include stickyHeader();
+
     position: relative;
     z-index: 100;
 

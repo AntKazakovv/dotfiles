@@ -299,21 +299,6 @@ $containerPadding: map-merge((
     )
 ), $customContainerPadding);
 
-$customStickyHeader: () !default;
-$stickyHeader: map-merge((
-    'headerBackground': var(--mc-bg),
-    'headerMinHeight': (
-        375: 60px,
-        1024: 70px,
-        1630: 100px
-    ),
-    'headerScrollingMinHeight': (
-        375: 60px,
-        1024: 70px,
-        1630: 70px
-    ),
-), $customStickyHeader);
-
 $customAppOffline: () !default;
 $appOffline: map-merge((
 
