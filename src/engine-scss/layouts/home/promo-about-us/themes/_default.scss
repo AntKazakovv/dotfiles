@@ -1,7 +1,6 @@
 .wlc-sections {
 
     &__home-about {
-        @include bm.get-mq-map('margin', $promoAboutUs, 'sectionMargin');
 
         .wlc-title {
             margin: ef.get-value($promoAboutUs, 'sectionTitleMargin');
