@@ -51,6 +51,8 @@ export interface INotificationParams extends IComponentParams<TTheme, TType, TTh
      * @default 15000
      */
     defaultDismissTime?: number;
+
+    useModals: boolean;
 }
 
 export const defaultParams: INotificationParams = {
@@ -67,4 +69,5 @@ export const defaultParams: INotificationParams = {
         1366: 3,
         1680: 4,
     },
+    useModals: false,
 };

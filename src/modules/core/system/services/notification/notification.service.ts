@@ -225,9 +225,12 @@ export class NotificationService {
     private async init(): Promise<void> {
         await this.configService.ready;
 
+      
+        //TODO keep only $base config in 2 months after release of #424105
         this.$params = {
             ...Params.defaultParams,
             ...this.configService.get('$modules.core.services.notification'),
+            ...this.configService.get('$base.notifications'),
         };
 
         this.$config = {
@@ -235,7 +238,7 @@ export class NotificationService {
         };
 
         this.injectDependencies();
-        if (!this.$config.useModals) {
+        if (!this.$params.useModals) {
             this.bootstrapThread();
         }
         this.subscribeOnEvents();
@@ -370,7 +373,7 @@ export class NotificationService {
      * Pushes any given component into notification thread
      */
     private pushComponent(params: IPushComponentParams): void {
-        if (this.$config.useModals) {
+        if (this.$params.useModals) {
             this.showAsModal(params);
             return;
         }
@@ -536,7 +539,7 @@ export class NotificationService {
 
     private createNotificationMetadata(id: number): INotificationMetadata {
         return {
-            isModal: this.$config.useModals,
+            isModal: this.$params.useModals,
             dismiss: (from: string = 'notification') => {
                 this.eventService.emit({
                     name: NotificationEvents.Dismiss,
