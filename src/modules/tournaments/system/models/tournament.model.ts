@@ -153,7 +153,8 @@ export class Tournament extends AbstractTournamentModel<ITournament> {
      * @returns {string} tournament fee currency
      */
     public get feeCurrency(): string {
-        return (this.feeType === 'loyalty') ? 'LP' : this.targetDefaultCurrency;
+        const  realCurrency: string = this.useUsersCurrency ? this.userCurrency : 'EUR';
+        return (this.feeType === 'loyalty') ? 'LP' : realCurrency;
     }
 
     /**

@@ -232,6 +232,10 @@ export class TournamentComponent
                 gettext('Sorry, not today. Bet more to earn Loyalty points (LP) and join this tournament!'),
                 'deposit',
             );
+        } else {
+            this.modalService.showError({
+                modalMessage: gettext('Something went wrong. Please try again later.'),
+            });
         }
     }
 
