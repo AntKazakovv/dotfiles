@@ -17,6 +17,7 @@ import {
 import _get from 'lodash-es/get';
 import _isString from 'lodash-es/isString';
 import _find from 'lodash-es/find';
+import _isEmpty from 'lodash-es/isEmpty';
 
 import {GamesHelper} from 'wlc-engine/modules/games/system/helpers/games.helpers';
 import {
@@ -165,7 +166,7 @@ export class SeoService {
     }
 
     protected setMetaTags(onlyTitle?: boolean, state?: string, url?: string): void {
-        if (!this.seo) {
+        if (_isEmpty(this.seo)) {
             return;
         }
 
@@ -173,6 +174,10 @@ export class SeoService {
         const currentLang = this.getLanguageCode();
         let seoState = this.seo[currentState === 'app.catalog.child' ? 'app.catalog' : currentState]
             || this.seo['app.home'];
+
+        if (_isEmpty(seoState)) {
+            return;
+        }
 
         if (seoState?.childred?.length) {
             const currentUrl = url || this.stateService.href(this.router.current);
@@ -199,7 +204,7 @@ export class SeoService {
      */
     protected async setGamesMetaTag(onlyTitle?: boolean): Promise<void> {
         if (this.router.current.name === 'app.gameplay') {
-            if (!this.seoGames) {
+            if (!this.seoGames?.length) {
                 return;
             }
             this.gamesCatalogService = await this.injectionService
