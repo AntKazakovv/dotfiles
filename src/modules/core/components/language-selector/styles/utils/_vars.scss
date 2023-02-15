@@ -13,8 +13,8 @@ $themeDefault: map-merge((
     'currentHeight': ef.size(6),
     'dropdownGap': ef.size(2),
     'dropdownPadding': ef.size(2),
-    'dropdownBackgroundColor': var(--mc-bg),
-    'dropdownBorderRadius': ef.get('radius', 'less'),
+    'dropdownBackgroundColor': var(--mc-bg700),
+    'dropdownBorderRadius': ef.get('radius', 'biger'),
     'dropdownFlagSize': ef.size(6),
     'listShadow': 0 0 5px ef.get('mainColors', 'baseContrast'),
 
@@ -25,7 +25,7 @@ $themeDefault: map-merge((
 
     'langLeft': 50%,
     'langBottom': -30px,
-    'langBg': var(--mc-baseMain),
+    'langBg': var(--mc-bg100),
     'langFontStyle': 'SignText',
     'langFontColor': var(--mc-baseContrast),
     'langPadding': 0 ef.size(2),
@@ -33,9 +33,8 @@ $themeDefault: map-merge((
     'langRadius': 20px,
     'langFontStyleCurrent': 'PrimaryText',
     'langFontColorCurrent': var(--mc-baseMain),
-
-    'listGap': ef.size(4),
-    'listPadding': ef.size(4),
+    'listGap': ef.size(2),
+    'listPadding': ef.size(2),
 ), $customThemeDefault);
 
 $customThemeModal: () !default;
@@ -79,7 +78,7 @@ $themeDefaultModLog: map-merge((
     'currentFillModLongActive': ef.get('mainColors', 'baseMain'),
     'currentBorderRadiusModLong': 10px,
     'currentMarginModLong': 5px 0,
-    'currentColorModLang': var(--mc-baseMain),
+    'currentColorModLang': var(--mc-bg100),
     'currentColorModLangOpened': ef.get('mainColors', 'baseMain'),
     'dropdownBgModLong': var(--mc-bg),
     'dropdownMarginOpened': ef.size(1) 0 0,

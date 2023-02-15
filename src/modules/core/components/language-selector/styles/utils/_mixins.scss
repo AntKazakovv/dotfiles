@@ -6,6 +6,7 @@
     border: ef.get-value($themeDefault, 'currentFlagBorder');
 
     @if $boxShadow != null {
+        margin: 4px;
         box-shadow: $boxShadow;
         transition: box-shadow 0.2s ease-out;
 
@@ -35,7 +36,7 @@
 }
 
 @mixin lang {
-    @include text.get-text-style(ef.get-value($themeDefault, 'langFontStyle'), ef.get-value($themeDefault, 'langFontColor'));
+    @include text.get-text-style(ef.get-value($themeDefault, 'langFontStyle'), ef.get-value($themeDefault, 'langFontColorCurrent'));
     @include bm.transition(opacity);
     position: absolute;
     bottom: ef.get-value($themeDefault, 'langBottom');
@@ -75,6 +76,10 @@
     text-decoration: none;
 
     @include bm.hover {
+
+        .wlc-language-selector__link-flag {
+            box-shadow: ef.get-value($themeDefault, 'flagBoxShadowHover');
+        }
 
         .wlc-language-selector__link-lang,
         .wlc-language-modal__link-lang {
