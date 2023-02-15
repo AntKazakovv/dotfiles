@@ -15,6 +15,8 @@ export interface IBonusesModule {
     useNewImageSources?: boolean;
     /** Default bonus icon path */
     defaultIconPath?: string;
+    /** Default bonus icon extension */
+    defaultIconExtension?: 'svg' | 'png';
     /** Default bonus fallback icon path */
     fallBackIconPath?: string;
     /** Unavailable bonus icon path */
