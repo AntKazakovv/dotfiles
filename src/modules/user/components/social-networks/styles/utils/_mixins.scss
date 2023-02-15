@@ -24,6 +24,12 @@
             span.wlc-icon-content svg {
                 max-width: ef.get-value($map, 'metamaskSvgMaxWidth');
                 max-height: ef.get-value($map, 'metamaskSvgMaxHeight');
+
+                .wlc-body--os-ios &,
+                .wlc-body--os-macos & {
+                    width: ef.get-value($map, 'metamaskSvgWidthIos');
+                    height: ef.get-value($map, 'metamaskSvgHeightIos');
+                }
             }
         }
     }

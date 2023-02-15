@@ -41,6 +41,8 @@ $commonStyles: map-merge((
     // specify
     'metamaskSvgMaxWidth': 70%,
     'metamaskSvgMaxHeight': 70%,
+    'metamaskSvgWidthIos': 28px,
+    'metamaskSvgHeightIos': 28px,
 ), $customCommonStyles);
 
 $customThemeDefault: () !default;
