@@ -88,18 +88,17 @@ export class SignUpFormComponent extends UserActionsAbstract<Params.ISignUpFormC
 
     public ngOnInit(): void {
         super.ngOnInit();
-        this.config = this.$params.formConfig;
+        this.config = _cloneDeep(this.$params.formConfig);
 
         if (!this.config) {
             this.config = this.configService.get<boolean>('$base.site.useLogin')
-                ? Params.signUpWithLoginFormConfig
-                : Params.signUpFormConfig;
+                ? _cloneDeep(Params.signUpWithLoginFormConfig)
+                : _cloneDeep(Params.signUpFormConfig);
         }
-        this.config = _cloneDeep(this.config);
 
         if (this.getTwoSteps()) {
             if (this.isSecondStep()) {
-                this.config = Params.twoStepsFormConfig;
+                this.config = _cloneDeep(Params.twoStepsFormConfig);
                 const data = {
                     shift: 1,
                     config: this.config,
