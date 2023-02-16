@@ -7,7 +7,7 @@ export namespace wlcCategoryMenu {
             theme: 'mobile-app',
             type: 'categories-menu',
             common: {
-                useSwiperNavigation: false,
+                useSliderNavigation: true,
                 icons: {
                     folder: 'mobile-app/categories/',
                     use: true,

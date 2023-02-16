@@ -4,6 +4,7 @@
 @use 'engine-scss/mixins/mediaqueries' as mq;
 
 @import './utils/vars';
+@import './utils/mixins';
 
 @import './themes/default';
 @import './themes/contacts';

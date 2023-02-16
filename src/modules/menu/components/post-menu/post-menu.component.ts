@@ -52,6 +52,7 @@ export class PostMenuComponent extends AbstractComponent implements OnInit {
     public basePath: string;
     public $params: Params.IPostMenuCParams;
     public useSwiper: boolean;
+    public hasPosts = false;
 
     protected staticService: StaticService;
     protected wlcElementPrefix: string;
@@ -74,6 +75,12 @@ export class PostMenuComponent extends AbstractComponent implements OnInit {
 
         this.staticService = await this.injectionService.getService<StaticService>('static.static-service');
         const posts: TextDataModel[][] = await this.getWpPosts();
+
+        if (posts.length) {
+            this.hasPosts = true;
+        }
+
+        this.initMenuParams();
 
         this.setMenuItems(posts);
         this.isReady = true;
@@ -119,6 +126,21 @@ export class PostMenuComponent extends AbstractComponent implements OnInit {
                 });
         } else {
             this.addModifiers('without-swiper');
+        }
+    }
+
+    protected initMenuParams(): void {
+        if (this.$params.common?.useSliderNavigation) {
+            _merge(this.$params.menuParams, {
+                sliderParams: {
+                    swiper: {
+                        navigation: {
+                            nextEl: '.wlc-post-menu__control--next',
+                            prevEl: '.wlc-post-menu__control--prev',
+                        },
+                    },
+                },
+            });
         }
     }
 
@@ -168,9 +190,9 @@ export class PostMenuComponent extends AbstractComponent implements OnInit {
         }
 
         if (exclude) {
-            posts = _map(posts, (list: TextDataModel[])  => {
-                return _filter(list, (listItem) =>  !_includes(exclude, listItem.slug));
-            });
+            posts = _map<TextDataModel[], TextDataModel[]>(posts, (models) => (
+                _filter<TextDataModel>(models, (model) => !_includes(exclude, model.slug))
+            ));
         }
         return posts;
     }

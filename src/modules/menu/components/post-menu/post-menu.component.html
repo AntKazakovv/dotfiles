@@ -3,12 +3,26 @@
     <div *ngIf="groupedMenu && !useSwiper; else default" class="{{$class}}__items">
         <div *ngFor="let menuParams of groupedMenu" class="{{$class}}__items-group">
             <div wlc-menu [inlineParams]="menuParams"></div>
+            <ng-container [ngTemplateOutlet]="controlsBtn"></ng-container>
         </div>
     </div>
 </div>
 
 <ng-template #default>
     <div wlc-menu [inlineParams]="$params.menuParams"></div>
+
+    <ng-container [ngTemplateOutlet]="controlsBtn"></ng-container>
+</ng-template>
+
+<ng-template #controlsBtn>
+    <div *ngIf="hasPosts && this.$params.common?.useSliderNavigation" class="{{$class}}__controls">
+        <button class="{{$class}}__control {{$class}}__control--prev">
+            <span wlc-icon iconPath="/wlc/icons/arrow.svg"></span>
+        </button>
+        <button class="{{$class}}__control {{$class}}__control--next">
+            <span wlc-icon iconPath="/wlc/icons/arrow.svg"></span>
+        </button>
+    </div>
 </ng-template>
 
 <ng-template #preloader>

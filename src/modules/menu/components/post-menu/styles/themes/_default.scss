@@ -1,7 +1,10 @@
 .wlc-post-menu--theme-default:host {
+    position: relative;
     min-width: 0;
 
     ::ng-deep {
+
+        @include menuControls($themeDefault);
 
         .wlc-menu__link {
             @include bm.transition(color);
@@ -19,21 +22,6 @@
 
             @include mq.min(1024) {
                 @include text.get-text-style(ef.get-value($themeDefault, 'linkTextStyle', 1024), ef.get-value($themeDefault, 'linkColor'));
-            }
-        }
-
-        .wlc-slider {
-
-            &--on-start {
-                box-shadow: ef.get-value($themeDefault, 'swiperBoxShadowStart');
-            }
-
-            &--on-end {
-                box-shadow: ef.get-value($themeDefault, 'swiperBoxShadowEnd');
-            }
-
-            &--on-progress {
-                box-shadow: ef.get-value($themeDefault, 'swiperBoxShadowStart'), ef.get-value($themeDefault, 'swiperBoxShadowEnd');
             }
         }
 
@@ -67,6 +55,8 @@
     }
 
     &.wlc-post-menu--theme-mod-footer-first {
+        @include menuControls($themeDefault);
+
         @include bm.get-mq-map('justify-content', $themeDefault, 'ffJustify');
         @include bm.get-mq-map('padding', $themeDefault, 'ffPadding');
 

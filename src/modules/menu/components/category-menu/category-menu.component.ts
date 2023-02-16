@@ -59,6 +59,7 @@ export class CategoryMenuComponent extends AbstractComponent implements OnInit, 
     public $params: Params.ICategoryMenuCParams;
     public items: MenuParams.IMenuItem[];
     public inited: boolean = false;
+    public useSliderNavigation: boolean = false;
 
     protected categories: CategoryModel[];
     protected parentCategory: CategoryModel;
@@ -100,7 +101,20 @@ export class CategoryMenuComponent extends AbstractComponent implements OnInit, 
             themeMod: this.$params.themeMod,
         });
 
-        this.initMenuParams();
+        if (this.$params.common?.useSliderNavigation) {
+            this.useSliderNavigation = true;
+
+            _assign(this.$params.menuParams, {
+                sliderParams: {
+                    swiper: {
+                        navigation: {
+                            nextEl: '.wlc-category-menu__control--next',
+                            prevEl: '.wlc-category-menu__control--prev',
+                        },
+                    },
+                },
+            });
+        }
 
         this.menuSettings = await this.menuService.getFundistMenuSettings('categoryMenu');
 
@@ -259,7 +273,7 @@ export class CategoryMenuComponent extends AbstractComponent implements OnInit, 
     }
 
     protected initMenuParams(): void {
-        if (this.$params.common?.useSwiperNavigation) {
+        if (this.$params.common?.useSliderNavigation) {
             _merge(this.$params.menuParams, {
                 sliderParams: {
                     swiper: {

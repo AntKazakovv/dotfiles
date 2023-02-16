@@ -33,6 +33,8 @@ export interface IPostMenuCParams extends IComponentParams<Theme, Type, ThemeMod
         basePath?: IBasePath;
         /** use slider for mune items or not */
         useSlider?: boolean;
+        /** Use slider arrows for menu or not */
+        useSliderNavigation?: boolean;
     };
     /** css media breakpoints for use menu as html list */
     asListBp: string;
@@ -44,6 +46,7 @@ export const defaultParams: IPostMenuCParams = {
     class: 'wlc-post-menu',
     common: {
         useSlider: false,
+        useSliderNavigation: false,
         groupBySlag: false,
         defaultState: 'app.contacts',
     },

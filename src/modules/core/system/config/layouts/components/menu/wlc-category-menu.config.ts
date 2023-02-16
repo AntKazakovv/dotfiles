@@ -9,7 +9,7 @@ export namespace wlcCategoryMenu {
         params: {
             type: 'categories-menu',
             common: {
-                useSwiperNavigation: true,
+                useSliderNavigation: true,
             },
         },
     };
@@ -22,7 +22,7 @@ export namespace wlcCategoryMenu {
             theme: 'with-icons',
             type: 'categories-menu',
             common: {
-                useSwiperNavigation: true,
+                useSliderNavigation: true,
                 icons: {
                     use: true,
                 },
@@ -39,7 +39,7 @@ export namespace wlcCategoryMenu {
             themeMod: 'big-icons',
             type: 'categories-menu',
             common: {
-                useSwiperNavigation: true,
+                useSliderNavigation: true,
                 icons: {
                     use: true,
                 },
@@ -54,7 +54,7 @@ export namespace wlcCategoryMenu {
         params: {
             theme: 'icons-compact',
             common: {
-                useSwiperNavigation: true,
+                useSliderNavigation: true,
                 icons: {
                     use: true,
                 },
@@ -70,7 +70,7 @@ export namespace wlcCategoryMenu {
             theme: 'icons-compact',
             themeMod: 'underlined',
             common: {
-                useSwiperNavigation: true,
+                useSliderNavigation: true,
                 icons: {
                     use: true,
                 },

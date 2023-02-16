@@ -1,0 +1,82 @@
+@mixin menuControls($config) {
+
+    .wlc-post-menu {
+
+        &__controls {
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        &__control {
+            position: relative;
+            display: flex;
+            align-items: center;
+            width: ef.get-value($config, 'controlWidth');
+            height: ef.get-value($config, 'controlHeight');
+            padding: ef.get-value($config, 'controlPadding');
+            color: ef.get-value($config, 'controlArrowColor');
+            background: none;
+            cursor: pointer;
+            border: none;
+            transition: ef.get-value($config, 'controlTransition');
+            pointer-events: initial;
+
+            &:before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                z-index: 0;
+                display: block;
+                width: 100%;
+                height: 100%;
+                background: ef.get-value($config, 'controlBg');
+            }
+
+            &:disabled {
+                display: none;
+            }
+
+            .wlc-icon {
+                display: block;
+                line-height: 1;
+                transform: ef.get-value($config, 'controlArrowTransform');
+            }
+
+            svg {
+                transform: var(--wlc-post-menu-svg-transform, none);
+                fill: currentColor;
+            }
+
+            &--prev {
+                --wlc-post-menu-svg-transform: #{ef.get-value($config, 'controlPrevSvgTransform')};
+                @include bm.get-mq-map('visibility', $config, 'controlVisibility');
+                justify-content: ef.get-value($config, 'controlPrevJustifyContent');
+                margin: ef.get-value($config, 'controlPrevMargin');
+            }
+
+            &--next {
+                --wlc-post-menu-svg-transform: #{ef.get-value($config, 'controlNextSvgTransform')};
+                @include bm.get-mq-map('visibility', $config, 'controlVisibility');
+                justify-content: ef.get-value($config, 'controlNextJustifyContent');
+                margin: ef.get-value($config, 'controlNextMargin');
+
+                &:before {
+                    transform: scaleX(-1);
+                }
+            }
+
+            @include bm.hover {
+                color: ef.get-value($config, 'controlArrowColorHover');
+            }
+        }
+    }
+}
