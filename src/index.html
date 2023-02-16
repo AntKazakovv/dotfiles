@@ -16,13 +16,13 @@
         {% endif %}
     </script>
 
-    {% set isEntryPoint = entrypoint and currentDomain and mirrorDomains and entrypoint == currentDomain %}
-    {%if isEntryPoint %}
     <script type="text/javascript">
-        window.mirrorDomains = {{mirrorDomains|json_encode|raw }} || [];
-        {% include 'domain-balancer.js' %}
+        {% set isEntryPoint = entrypoint and currentDomain and mirrorDomains and entrypoint == currentDomain %}
+        {%if isEntryPoint %}
+            window.mirrorDomains = {{mirrorDomains|json_encode|raw }} || [];
+            {% include 'domain-balancer.js' %}
+        {% endif %}
     </script>
-    {%endif%}
 </head>
 <body>
 {%if not isEntryPoint  %}
