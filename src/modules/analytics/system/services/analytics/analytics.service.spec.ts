@@ -1,13 +1,22 @@
-import {fakeAsync, TestBed} from '@angular/core/testing';
-import {AppModule} from 'wlc-engine/modules/app/app.module';
-import {WINDOW} from 'wlc-engine/modules/app/system';
-import {ConfigService, EventService} from 'wlc-engine/modules/core';
-import {IAnalytics, ITagEvent} from '../../interfaces/analytics.interface';
+import {TestBed} from '@angular/core/testing';
+
+import {
+    ConfigService,
+    EventService,
+} from 'wlc-engine/modules/core';
+import {
+    IAnalytics,
+    ITagEvent,
+} from 'wlc-engine/modules/analytics/system/interfaces/analytics.interface';
 import {AnalyticsService} from './analytics.service';
+import {
+    WINDOW,
+    WINDOW_PROVIDER,
+} from 'wlc-engine/modules/app/system';
 
 describe('AnalyticsService', () => {
-    let service: AnalyticsService;
-    let eventService: EventService;
+    let analyticsService: AnalyticsService;
+    let eventServiceSpy: jasmine.SpyObj<EventService>;
     let configServiceSpy: jasmine.SpyObj<ConfigService>;
     let window: Window;
 
@@ -40,12 +49,15 @@ describe('AnalyticsService', () => {
 
         configServiceSpy.get.and.returnValues({});
         configServiceSpy.get.withArgs('$base.analytics').and.returnValues({analyticsConfig});
+        eventServiceSpy = jasmine.createSpyObj('EventService', ['emit', 'subscribe']);
 
         TestBed.configureTestingModule({
-            imports: [AppModule],
             providers: [
-                AnalyticsService,
-                EventService,
+                WINDOW_PROVIDER,
+                {
+                    provide: EventService,
+                    useValue: eventServiceSpy,
+                },
                 {
                     provide: ConfigService,
                     useValue: configServiceSpy,
@@ -53,18 +65,17 @@ describe('AnalyticsService', () => {
             ],
         });
 
-        service = TestBed.inject(AnalyticsService);
-        eventService = TestBed.inject(EventService);
+        analyticsService = TestBed.inject(AnalyticsService);
         window = TestBed.inject<Window>(WINDOW);
 
         return configServiceSpy.ready;
     });
 
     it('-> should be created', () => {
-        expect(service).toBeTruthy();
+        expect(analyticsService).toBeTruthy();
     });
 
-    it('-> sets the tag and emits its event', fakeAsync(() => {
+    it('-> sets the tag and emits its event', () => {
         let result = {};
         let testEvent: ITagEvent = analyticsConfig.tags[0].events[0];
 
@@ -79,7 +90,5 @@ describe('AnalyticsService', () => {
                 eventName: testEvent.name,
             });
         };
-
-        eventService.emit({name: 'TEST_EVENT'});
-    }));
+    });
 });

@@ -9,6 +9,8 @@ import {
 import {APP_BASE_HREF} from '@angular/common';
 import {NgModule} from '@angular/core';
 
+import {AppModule} from 'wlc-engine/modules/app/app.module';
+
 declare namespace globalThis {
     let WLC_VERSION: number;
 }
@@ -22,6 +24,7 @@ declare const require: {
 
 @NgModule({
     providers: [
+        AppModule,
         {
             provide: APP_BASE_HREF,
             useValue: '/',
