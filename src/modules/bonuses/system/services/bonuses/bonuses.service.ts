@@ -141,45 +141,7 @@ export class BonusesService {
         private stateService: StateService,
         private injectionService: InjectionService,
     ) {
-        this.registerMethods();
-        this.setSubscribers();
-
-        this.configService
-            .get<BehaviorSubject<UserProfile>>({name: '$user.userProfile$'})
-            .subscribe((UserProfile) => {
-                this.profile = UserProfile;
-
-                Bonus.userCurrency = UserProfile?.idUser
-                    ? UserProfile.currency
-                    : this.configService.get<string>('$base.defaultCurrency') || 'EUR';
-            });
-
-        if (this.configService.get<boolean>('$base.finances.redirectAfterDepositBonus')) {
-            this.configService
-                .get<BehaviorSubject<UserInfo>>('$user.userInfo$')
-                .pipe(
-                    filter((userInfo: UserInfo): boolean => !!userInfo && this.hasBonuses),
-                    map((userInfo: UserInfo): TUserLoyaltyInfo =>
-                        ({bonusesBalance: userInfo.bonusesBalance, freeRounds: userInfo.freeRounds})),
-                    distinctUntilChanged((
-                        prev: {
-                            bonusesBalance: UserInfo['bonusesBalance'],
-                            freeRounds: UserInfo['freeRounds'],
-                        },
-                        curr: {
-                            bonusesBalance: UserInfo['bonusesBalance'],
-                            freeRounds: UserInfo['freeRounds'],
-                        }): boolean => {
-                        return (
-                            _isEqual(curr.bonusesBalance, prev.bonusesBalance)
-                            && _isEqual(curr.freeRounds, prev.freeRounds)
-                        );
-                    }),
-                )
-                .subscribe((userLoyaltyInfo: TUserLoyaltyInfo): void => {
-                    this.checkNewActiveBonuses(userLoyaltyInfo.bonusesBalance, userLoyaltyInfo.freeRounds);
-                });
-        }
+        this.init();
     }
 
     public get hasBonuses(): boolean {
@@ -716,6 +678,50 @@ export class BonusesService {
                 return _filter(bonuses, {id: this.promoBonus?.id});
             default:
                 return bonuses;
+        }
+    }
+
+    private async init(): Promise<void> {
+        this.registerMethods();
+        this.setSubscribers();
+
+        await this.configService.ready;
+
+        this.configService
+            .get<BehaviorSubject<UserProfile>>({name: '$user.userProfile$'})
+            .subscribe((UserProfile) => {
+                this.profile = UserProfile;
+
+                Bonus.userCurrency = UserProfile?.idUser
+                    ? UserProfile.currency
+                    : this.configService.get<string>('$base.defaultCurrency') || 'EUR';
+            });
+
+        if (this.configService.get<boolean>('$base.finances.redirectAfterDepositBonus')) {
+            this.configService
+                .get<BehaviorSubject<UserInfo>>('$user.userInfo$')
+                .pipe(
+                    filter((userInfo: UserInfo): boolean => !!userInfo && this.hasBonuses),
+                    map((userInfo: UserInfo): TUserLoyaltyInfo =>
+                        ({bonusesBalance: userInfo.bonusesBalance, freeRounds: userInfo.freeRounds})),
+                    distinctUntilChanged((
+                        prev: {
+                            bonusesBalance: UserInfo['bonusesBalance'],
+                            freeRounds: UserInfo['freeRounds'],
+                        },
+                        curr: {
+                            bonusesBalance: UserInfo['bonusesBalance'],
+                            freeRounds: UserInfo['freeRounds'],
+                        }): boolean => {
+                        return (
+                            _isEqual(curr.bonusesBalance, prev.bonusesBalance)
+                            && _isEqual(curr.freeRounds, prev.freeRounds)
+                        );
+                    }),
+                )
+                .subscribe((userLoyaltyInfo: TUserLoyaltyInfo): void => {
+                    this.checkNewActiveBonuses(userLoyaltyInfo.bonusesBalance, userLoyaltyInfo.freeRounds);
+                });
         }
     }
 
