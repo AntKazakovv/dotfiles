@@ -48,7 +48,9 @@
                             "@formatjs/intl-pluralrules/polyfill",
                             "css-element-queries",
                             "text-overflow-clamp",
-                            "hosted-fields-sdk"
+                            "hosted-fields-sdk",
+                            "@xmpp/jid",
+                            "@xmpp/client"
                         ],
                         "webWorkerTsConfig": "./tsconfig.worker.json"
                     },

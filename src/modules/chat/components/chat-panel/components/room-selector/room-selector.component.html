@@ -1,0 +1,44 @@
+<div #currentRoom
+    class="{{$class}}__current"
+    tabindex="1"
+    aria-haspopup="listbox"
+    [attr.aria-expanded]="isExpanded"
+    [class.opened]="isExpanded"
+    [class.multiroom]="isMultiRoom">
+    <img class="{{$class}}__flag"
+        [src]="'gstatic/wlc/flags/1x1/' + activeRoom.imgKey + '.svg'"
+        [alt]="activeRoom.id">
+    <span class="{{$class}}__name">
+        {{'Chat:' | translate}} {{activeRoom.name}}
+    </span>
+    <span *ngIf="isMultiRoom"
+        class="{{$class}}__arrow">
+        <svg class="{{$class}}__icon" viewBox="0 0 10 7" fill="currentColor">
+            <path d="M10 1.73906C10 2.07915 9.87826 2.42566 9.62261 2.68234L5.71238 6.6852C5.31987 7.08701 4.6735 7.0868 4.28125 6.68473L0.376631 2.68234C-0.122496 2.16899 -0.128583 1.32837 0.376631 0.808602C0.869671 0.295253 1.6853 0.288836 2.18443 0.808603L5.00267 3.68977L7.81482 0.80218C8.32003 0.28883 9.12958 0.288837 9.62871 0.808603C9.87218 1.06528 10 1.40538 10 1.73906Z" />
+        </svg>
+    </span>
+</div>
+<ul *ngIf="isMultiRoom"
+    #selectList
+    class="{{$class}}__list"
+    [class.opened]="isExpanded"
+    role="listbox"
+    [attr.aria-activedescendan]="activeRoom.name"
+    tabindex="-1"
+    (mouseenter)="listMouseenterHandler()">
+    <li *ngFor="let room of rooms; index as $index;"
+        class="{{$class}}__elem"
+        role="option"
+        [class.active]="room.id === activeRoom.id"
+        [class.hovered]="$index === (hoveredItemIndex - 1)"
+        [attr.aria-selected]="room.id === activeRoom.id"
+        (click)="optionClickHandler($index)"
+        tabindex="0">
+        <img class="{{$class}}__flag"
+            [src]="'gstatic/wlc/flags/1x1/' + room.imgKey + '.svg'"
+            [alt]="room.id">
+        <span class="{{$class}}__name">
+            {{'Chat:' | translate}} {{room.name}}
+        </span>
+    </li>
+</ul>

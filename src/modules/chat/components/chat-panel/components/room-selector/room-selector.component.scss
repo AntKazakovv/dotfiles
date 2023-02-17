@@ -1,0 +1,145 @@
+@use '../../styles/utils/helpers' as helpers;
+
+.wlc-room-selector:host {
+    --arrow-transform: initial;
+    --arrow-color: #{helpers.get-prop('selArrowColor')};
+    --currentBg: #{helpers.get-prop('selCurrentBg')};
+    --elem-color: #{helpers.get-prop('selElemColor')};
+    --elem-bg: #{helpers.get-prop('selElemBg')};
+    --elem-font-weight: #{helpers.get-prop('selElemFontWeight')};
+
+    position: relative;
+    font-size: helpers.get-prop('selFontSize');
+
+    .wlc-room-selector {
+
+        &__current {
+            display: grid;
+            grid-template-columns: auto 1fr auto;
+            gap: helpers.get-prop('selCurrentGap');
+            align-items: center;
+            min-height: helpers.get-prop('selCurrentMinHeight');
+            padding: helpers.get-prop('selCurrentPadding');
+            background: var(--currentBg);
+            border-radius: helpers.get-prop('selCurrentRadius');
+            outline: none;
+
+            &.opened {
+                --arrow-transform: scale(1, -1);
+                --arrow-color: #{helpers.get-prop('selArrowColorOpened')};
+                --currentBg: #{helpers.get-prop('selCurrentBgOpened')};
+            }
+
+            &.multiroom {
+                cursor: pointer;
+
+                &:focus {
+                    outline: 1px solid var(--mc-baseMain-o4);
+                }
+            }
+
+            @include helpers.hover() {
+                --arrow-color: #{helpers.get-prop('selArrowColorHover')};
+                --currentBg: #{helpers.get-prop('selCurrentBgHover')};
+            }
+        }
+
+        &__flag {
+            width: helpers.get-prop('selFlagSize');
+            height: helpers.get-prop('selFlagSize');
+            border-radius: helpers.get-prop('selFlagRadius');
+        }
+
+        &__arrow {
+            display: flex;
+            align-content: center;
+            justify-content: center;
+            color: var(--arrow-color);
+            transition: helpers.get-prop('selArrowTransition');
+        }
+
+        &__icon {
+            width: helpers.get-prop('selIconSize');
+            height: helpers.get-prop('selIconSize');
+            transform: var(--arrow-transform);
+            transition: inherit;
+        }
+
+        &__list {
+            position: absolute;
+            top: helpers.get-prop('selListPosTop');
+            right: helpers.get-prop('selListPosRight');
+            bottom: helpers.get-prop('selListPosBottom');
+            left: helpers.get-prop('selListPosLeft');
+            z-index: -10;
+
+            width: helpers.get-prop('selListWidth');
+            margin: helpers.get-prop('selListMargin');
+            padding: helpers.get-prop('selListPadding');
+            overflow: hidden;
+
+            list-style-type: none;
+            background: helpers.get-prop('selListBg');
+            border-radius: helpers.get-prop('selListRadius');
+            box-shadow: helpers.get-prop('selListShadow');
+
+            transform: scale3d(1, 0, 1);
+            transform-origin: top;
+            visibility: hidden;
+            transition: helpers.get-prop('selListTransition');
+            pointer-events: none;
+
+            &.opened {
+                z-index: 99;
+                transform: scale3d(1, 1, 1);
+                visibility: visible;
+                pointer-events: initial;
+            }
+        }
+
+        &__elem {
+            display: grid;
+            grid-template-columns: auto 1fr;
+            gap: helpers.get-prop('selElemGap');
+            align-items: center;
+            min-height: helpers.get-prop('selElemMinHeight');
+            padding: helpers.get-prop('selElemPadding');
+
+            color: var(--mc-baseMain);
+            font-weight: var(--elem-font-weight);
+            font-size: helpers.get-prop('selElemFontSize');
+            background: var(--elem-bg);
+            cursor: pointer;
+            transition: helpers.get-prop('selElemTransition');
+
+
+            /* stylelint-disable */
+            @include helpers.hover() {
+                --elem-color: #{helpers.get-prop('selElemColorHover')};
+                --elem-bg: #{helpers.get-prop('selElemBgHover')};
+            }
+
+            &.hovered {
+                --elem-color: #{helpers.get-prop('selElemColorHover')};
+                --elem-bg: #{helpers.get-prop('selElemBgHover')};
+            }
+
+            &.active {
+                --elem-color: #{helpers.get-prop('selElemColorActive')};
+                --elem-bg: #{helpers.get-prop('selElemBgActive')};
+                --elem-font-weight: #{helpers.get-prop('selElemFontWeightActive')};
+
+                &.hovered {
+                    --elem-color: #{helpers.get-prop('selElemColorActiveHover')};
+                    --elem-bg: #{helpers.get-prop('selElemBgActiveHover')};
+                }
+
+                @include helpers.hover() {
+                    --elem-color: #{helpers.get-prop('selElemColorActiveHover')};
+                    --elem-bg: #{helpers.get-prop('selElemBgActiveHover')};
+                }
+            }
+            /* stylelint-enable */
+        }
+    }
+}

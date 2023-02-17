@@ -1,0 +1,97 @@
+@use '../../styles/utils/helpers' as helpers;
+
+.wlc-btn:host {
+    --btn-bg: #{helpers.get-prop('btnBg')};
+    --btn-min-width: #{helpers.get-prop('btnMinWidth')};
+    --btn-height: #{helpers.get-prop('btnHeight')};
+    --btn-bg-hover: #{helpers.get-prop('btnBgHover')};
+    --btn-bg-disabled: #{helpers.get-prop('btnBgDisabled')};
+    --btn-color: #{helpers.get-prop('btnColor')};
+    --btn-color-hover: #{helpers.get-prop('btnColorHover')};
+    --btn-color-disabled: #{helpers.get-prop('btnColorDisabled')};
+    --btn-border: #{helpers.get-prop('btnBorder')};
+    --btn-border-hover: #{helpers.get-prop('btnBorderHover')};
+    --btn-shadow: #{helpers.get-prop('btnShadow')};
+    --btn-shadow-disabled: #{helpers.get-prop('btnShadowDisabled')};
+    --btn-padding: #{helpers.get-prop('btnPadding')};
+    --btn-icon-size: #{helpers.get-prop('btnIconSize')};
+    --btn-icon-margin: #{helpers.get-prop('btnIconMargin')};
+
+    @include helpers.buttonBase;
+
+    min-width: var(--btn-min-width);
+    height: var(--btn-height);
+    padding: var(--btn-padding);
+
+    color: var(--btn-color);
+    font-weight: helpers.get-prop('btnFontWeight');
+    font-size: helpers.get-prop('btnFontSize');
+
+    background: var(--btn-bg);
+    box-shadow: var(--btn-shadow);
+    border: var(--btn-border);
+    border-radius: helpers.get-prop('btnRadius');
+    transition: helpers.get-prop('btnTransition');
+
+    ::ng-deep {
+
+        svg {
+            display: block;
+            width: var(--btn-icon-size);
+            height: var(--btn-icon-size);
+            fill: currentColor;
+        }
+    }
+
+    .wlc-btn {
+
+        &__icon {
+            position: relative;
+            display: block;
+            margin: var(--btn-icon-margin);
+
+            &:empty {
+                display: none;
+            }
+        }
+
+        &__caption {
+
+            &:empty {
+                display: none;
+            }
+        }
+    }
+
+    &--mod-primary {
+        --btn-bg: #{helpers.get-prop('btnPrimaryBg')};
+        --btn-bg-hover: #{helpers.get-prop('btnPrimaryBgHover')};
+    }
+
+    &--theme-icon {
+        --btn-padding: 0;
+        --btn-min-width: auto;
+        --btn-color: #{helpers.get-prop('btnIconColor')};
+        --btn-border: none;
+        --btn-border-hover: none;
+        --btn-bg-hover: transparent;
+        --btn-color-hover: #{helpers.get-prop('btnIconColorHover')};
+        --btn-bg-disabled: none;
+        --btn-icon-margin: 0;
+    }
+
+    &:disabled {
+        color: var(--btn-color-disabled);
+        background: var(--btn-bg-disabled);
+        box-shadow: var(--btn-shadow-disabled);
+    }
+
+    @include helpers.hover() {
+
+        &:not(:disabled) {
+            color: var(--btn-color-hover);
+            background: var(--btn-bg-hover);
+            border: var(--btn-border-hover);
+        }
+    }
+}

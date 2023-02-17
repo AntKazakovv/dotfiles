@@ -1,0 +1,53 @@
+@use '../../styles/utils/helpers' as helpers;
+
+.wlc-emoji:host {
+
+    .wlc-emoji {
+
+        &__wrapper {
+            position: absolute;
+            bottom: 100%;
+            left: 0;
+            width: 100%;
+            margin: helpers.get-prop('epMargin');
+        }
+
+        &__panel {
+            width: helpers.get-prop('epWidth');
+            margin: 0 auto;
+            padding: helpers.get-prop('epPadding');
+            background: helpers.get-prop('epBg');
+            box-shadow: helpers.get-prop('epShadow');
+            border-radius: helpers.get-prop('epRadius');
+        }
+
+        &__list {
+            display: grid;
+            grid-template-columns: helpers.get-prop('epListColumns');
+            gap: helpers.get-prop('epListGap');
+            align-items: center;
+            justify-items: center;
+            margin: 0;
+            padding: 0;
+            list-style-type: none;
+        }
+
+        &__item {
+            display: block;
+            padding: helpers.get-prop('epItemPadding');
+            border: none;
+            font-size: helpers.get-prop('epItemSize');
+            line-height: 1;
+            background: transparent;
+            transform: translateZ(0);
+            cursor: pointer;
+            transition: helpers.get-prop('epItemTransition');
+            border-radius: helpers.get-prop('epItemRadius');
+
+            @include helpers.hover {
+                background: helpers.get-prop('epItemBgHover');
+                transform: helpers.get-prop('epItemTransformHover');
+            }
+        }
+    }
+}

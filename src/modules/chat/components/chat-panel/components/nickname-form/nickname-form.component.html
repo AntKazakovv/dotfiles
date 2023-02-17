@@ -1,0 +1,29 @@
+<form class="{{$class}}__form"
+    (ngSubmit)="submitHandler()"
+    [formGroup]="form">
+
+    <label class="{{$class}}__label">
+        <input class="{{$class}}__input"
+            placeholder="{{'Nickname' | translate}}"
+            formControlName="nickname"
+            name="nickname"
+            type="text"
+            maxlength="20">
+    </label>
+
+    <ul class="{{$class}}__errors"
+        [class.empty]="!errors">
+        <ng-container *ngIf="errors">
+            <li *ngFor="let error of errors | keyvalue; trackBy: trackByFn"
+                class="{{$class}}__error-item {{$class}}__error--{{error.key}}">
+                {{error.value | translate}}
+            </li>
+        </ng-container>
+
+    </ul>
+
+
+    <button wlc-btn
+        mod="primary"
+        type="submit">{{'Submit' | translate}}</button>
+</form>

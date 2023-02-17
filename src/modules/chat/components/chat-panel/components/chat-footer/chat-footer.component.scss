@@ -1,0 +1,34 @@
+@use '../../styles/utils/helpers' as helpers;
+
+.wlc-chat-footer:host {
+    position: relative;
+    display: grid;
+    align-items: start;
+    max-width: 100%;
+    // min-height: helpers.get-prop('footerMinHeight');
+    padding: helpers.get-prop('footerPadding');
+    background: helpers.get-prop('footerBg');
+    box-shadow: helpers.get-prop('footerShadow');
+
+    .wlc-chat-footer {
+
+        &__controls {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: center;
+            margin: 5px -5px -5px;
+
+            ::ng-deep {
+
+                .wlc-btn {
+                    margin: 5px;
+                }
+            }
+        }
+    }
+
+    &--type-auth {
+        padding: helpers.get-prop('footerPaddingAuth');
+    }
+}

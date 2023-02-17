@@ -1,0 +1,27 @@
+<ng-container [ngSwitch]="mod">
+    <ng-container [ngTemplateOutlet]="skeleton" *ngSwitchCase="'skeleton'"></ng-container>
+    <ng-container [ngTemplateOutlet]="default" *ngSwitchDefault></ng-container>
+</ng-container>
+
+<ng-template #default>
+    <div class="{{$class}}__left">
+        <img class="{{$class}}__avatar" src="{{avatar}}" alt="avatar">
+    </div>
+    <div class="{{$class}}__main">
+        <div class="{{$class}}__nickname">
+            {{message.from.nickname}}
+        </div>
+        <div class="{{$class}}__bubble">
+            <div class="{{$class}}__body">{{message.body}}</div>
+            <div class="{{$class}}__date" title="{{message.datetime | date:'yyyy/MM/dd, H:mm'}}">{{message.datetime | date:'H:mm'}}</div>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #skeleton>
+    <div class="{{$class}}__left"><span class="{{$class}}__avatar"></span></div>
+    <div class="{{$class}}__main">
+        <div class="{{$class}}__nickname"></div>
+        <div class="{{$class}}__bubble"></div>
+    </div>
+</ng-template>

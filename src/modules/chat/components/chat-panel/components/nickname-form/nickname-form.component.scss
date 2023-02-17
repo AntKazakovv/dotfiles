@@ -1,0 +1,46 @@
+@use '../../styles/utils/helpers' as helpers;
+
+.wlc-nickname-form:host {
+    --input-bg: #{helpers.get-prop('inputBg')};
+    --input-border: #{helpers.get-prop('inputBorder')};
+
+    .wlc-nickname-form {
+
+        &__form {
+            display: grid;
+            gap: helpers.get-prop('nnFormGap');
+            justify-items: helpers.get-prop('nnFormJustifyItems');
+        }
+
+        &__label {
+            width: 100%;
+        }
+
+        &__input {
+            @include helpers.inputBase;
+
+            &.ng-invalid.ng-dirty {
+                border-color: helpers.get-prop('nnErrorColor');
+            }
+        }
+
+        &__errors {
+            width: 100%;
+            margin: -8px 0 0;
+            padding: 0 10px 3px;
+            color: helpers.get-prop('nnErrorColor');
+            font-size: 12px;
+            text-align: left;
+            list-style-type: none;
+
+            &.empty {
+
+                &:before {
+                    content: '0';
+                    display: block;
+                    visibility: hidden;
+                }
+            }
+        }
+    }
+}

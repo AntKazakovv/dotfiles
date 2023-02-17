@@ -1,0 +1,77 @@
+@use '../../styles/utils/helpers' as helpers;
+
+.wlc-alert:host {
+    --alert-panel-border: #{helpers.get-prop('alertPanelBorder')};
+    --alert-border-color: #{helpers.get-prop('alertBorderColor')};
+    --alert-bg: #{helpers.get-prop('alertBg')};
+    --alert-color: #{helpers.get-prop('alertColor')};
+    --alert-icon-color: #{helpers.get-prop('alertIconColor')};
+    color: var(--alert-color);
+
+    font-size: helpers.get-prop('alertFontSize');
+
+    .wlc-alert {
+
+        &__title {
+            margin: helpers.get-prop('alertTitleMargin');
+            font-weight: bold;
+
+            &:empty {
+                display: none;
+            }
+        }
+
+        &__controls {
+            margin: helpers.get-prop('alertControlsMargin');
+
+            &:empty {
+                display: none;
+            }
+        }
+
+        &__icon {
+            padding: helpers.get-prop('alertIconPadding');
+            color: var(--alert-icon-color);
+        }
+    }
+
+    &.wlc-alert--theme-panel {
+        display: grid;
+        grid-template-columns: 1fr auto;
+        padding: helpers.get-prop('alertPanelPadding');
+        background: var(--alert-bg);
+        border: 1px solid var(--alert-border-color);
+        border-radius: helpers.get-prop('alertPanelRadius');
+    }
+
+    &.wlc-alert--mod {
+
+        &-warning {
+            --alert-color: #{helpers.get-prop('alertColorWarning')};
+            --alert-border-color: #{helpers.get-prop('alertBorderColorWarning')};
+            --alert-bg: #{helpers.get-prop('alertBgWarning')};
+            --alert-icon-color: #{helpers.get-prop('alertIconColorWarning')};
+        }
+
+        &-error {
+            --alert-color: #{helpers.get-prop('alertColorError')};
+            --alert-border-color: #{helpers.get-prop('alertBorderColorError')};
+            --alert-bg: #{helpers.get-prop('alertBgError')};
+            --alert-icon-color: #{helpers.get-prop('alertIconColorError')};
+        }
+
+        &-success {
+            --alert-color: #{helpers.get-prop('alertColorSuccess')};
+            --alert-border-color: #{helpers.get-prop('alertBorderColorSuccess')};
+            --alert-bg: #{helpers.get-prop('alertBgSuccess')};
+            --alert-icon-color: #{helpers.get-prop('alertIconColorSuccess')};
+        }
+    }
+
+    ::ng-deep {
+
+        + .wlc-alert {
+            margin-top: helpers.get-prop('alertSiblingsOffset');
+        }
+    }
+}

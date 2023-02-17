@@ -1,0 +1,20 @@
+$customConfig: () !default;
+$config: map-merge((
+    'width': 40px,
+    'height': 40px,
+    'color': var(--mc-baseMain),
+    'colorHover': var(--mc-baseMain),
+    'bg': var(--mc-main),
+    'bgHover': var(--mc-main-l10),
+    'radius': 50%,
+    'border': none,
+    'borderHover': none,
+    'shadow': none,
+    'shadowHover': none,
+    'counterBg': var(--mc-main-d20),
+    'counterRadius': 50%,
+    'counterWidth': 2.4em,
+    'counterHeight': 2.4em,
+    'counterFontSize': 10px,
+    'counterColor': var(--mc-baseMain),
+), $customConfig);

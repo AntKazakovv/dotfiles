@@ -1,0 +1,15 @@
+
+<div *ngIf="isOpened$ | async"
+    class="{{$class}}__wrapper"
+    [@scaleInUp]>
+    <div class="{{$class}}__panel">
+        <ul class="{{$class}}__list">
+            <li  *ngFor="let emoji of emojiList.values();">
+                <button class="{{$class}}__item"
+                    type="button"
+                    (click)="chooseEmoji(emoji)">{{emoji}}</button>
+            </li>
+        </ul>
+    </div>
+</div>
+

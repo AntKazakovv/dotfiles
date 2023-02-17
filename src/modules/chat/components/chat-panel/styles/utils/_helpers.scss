@@ -1,0 +1,96 @@
+@use './vars' as vars;
+
+@function get-prop($prop) {
+
+    @return map-get(vars.$chatConfig, $prop);
+}
+
+
+/// Сhecking for hover on the device.
+/// Mixin was written due to a problem with "@media (hover: hover)" on android.
+///
+/// Tests:
+/// "@media (pointer: coarse)" // work on: android, ios
+/// "@media (pointer: fine)" // work on: desktop
+/// "@media (hover: hover)" // work on: desktop, android
+/// "@media (hover: none)" // work on: ios
+///
+/// @name hover
+///
+/// @param {type} $type [true] - true - if there is a hover, false - if not
+
+@mixin hover($type: true) {
+
+    @if ($type) {
+
+        @media (pointer: fine) {
+
+            &:hover {
+                @content;
+            }
+        }
+    } @else {
+
+        @media (pointer: coarse) {
+            @content;
+        }
+    }
+}
+
+@mixin buttonBase() {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    white-space: nowrap;
+    outline: none;
+}
+
+@mixin inputBase() {
+    --input-bg: #{get-prop('inputBg')};
+    --input-border: #{get-prop('inputBorder')};
+
+    width: 100%;
+    max-width: 100%;
+    height: 100%;
+    min-height: 40px;
+    padding: get-prop('inputPadding');
+    border: var(--input-border);
+    border-radius: get-prop('inputRadius');
+    color: get-prop('inputColor');
+    font-size: 16px;
+    background: var(--input-bg);
+    outline: none;
+    transition: get-prop('inputTransition');
+
+    &::placeholder {
+        color: #{get-prop('inputPlaceholderColor')};
+    }
+
+    /*stylelint-disable*/
+    &:focus {
+        --input-bg: #{get-prop('inputBgFocus')};
+        --input-border: #{get-prop('inputBorderFocus')};
+    }
+
+    &:disabled {
+        --input-bg: #{get-prop('inputBgDisabled')};
+        --input-border: #{get-prop('inputBorderDisabled')};
+    }
+
+    &.ng-touched {
+
+        &.ng-invalid {
+            --input-bg: #{get-prop('inputBgError')};
+            --input-border: #{get-prop('inputBorderError')};
+        }
+    }
+    /*stylelint-enable*/
+}
+
+@mixin fullsizeAbsolute() {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+}

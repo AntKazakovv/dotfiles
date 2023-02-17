@@ -1,0 +1,12 @@
+@use '../../styles/utils/helpers' as helpers;
+
+.wlc-chat-header:host {
+    z-index: 5;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 100%;
+    padding: helpers.get-prop('headerPadding');
+    background: helpers.get-prop('headerBg');
+    box-shadow: helpers.get-prop('headerShadow');
+}

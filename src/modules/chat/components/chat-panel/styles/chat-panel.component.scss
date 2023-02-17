@@ -1,0 +1,26 @@
+@use './utils/helpers' as helpers;
+
+.wlc-chat-panel:host {
+    position: fixed;
+    top: helpers.get-prop('panelPosTop');
+    right: helpers.get-prop('panelPosRight');
+    bottom: helpers.get-prop('panelPosBottom');
+    left: helpers.get-prop('panelPosLeft');
+    z-index: 1199;
+
+    display: grid;
+    grid-template-rows: helpers.get-prop('panelGridRows');
+    width: 100%;
+    max-width: helpers.get-prop('panelWidth');
+    background: helpers.get-prop('panelBg');
+    transition: helpers.get-prop('panelTransition');
+    overflow: hidden;
+
+    &.wlc-chat-panel--opened {
+        box-shadow: helpers.get-prop('panelShadowOpened');
+    }
+
+    &.wlc-chat-panel--closed {
+        transform: helpers.get-prop('panelTransformClosed');
+    }
+}

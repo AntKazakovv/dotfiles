@@ -1,0 +1,149 @@
+@use '../../styles/utils/helpers' as helpers;
+
+.wlc-dialog:host {
+    @include helpers.fullsizeAbsolute;
+    visibility: hidden;
+
+    &.wlc-dialog--opened {
+        visibility: visible;
+    }
+
+    .wlc-dialog {
+
+        &__item {
+            @include helpers.fullsizeAbsolute;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            &.opening {
+
+                .wlc-dialog__backdrop {
+                    animation: fadeIn 0.1s linear forwards;
+                }
+
+                .wlc-dialog__content {
+                    animation: fadeInUp 0.3s linear forwards;
+                }
+            }
+
+            &.hiding {
+
+                .wlc-dialog__backdrop {
+                    animation: fadeOut 0.1s linear 0.2s forwards;
+                }
+
+                .wlc-dialog__content {
+                    animation: fadeOutDown 0.3s linear forwards;
+                }
+            }
+        }
+
+        &__backdrop {
+            @include helpers.fullsizeAbsolute;
+
+            background: helpers.get-prop('dialogBackdropBg');
+        }
+
+        &__wrapper {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            width: helpers.get-prop('dialogWidth');
+            height: auto;
+            padding: helpers.get-prop('dialogPadding');
+            background: helpers.get-prop('dialogBg');
+            border-radius: helpers.get-prop('dialogRadius');
+            box-shadow: helpers.get-prop('dialogShadow');
+        }
+
+        &__header {
+            position: relative;
+            display: flex;
+            flex: 0 1 auto;
+            align-items: center;
+            justify-content: helpers.get-prop('dialogHeaderJustifyContent');
+            padding: helpers.get-prop('dialogHeaderPadding');
+            font-size: 1.6rem;
+            text-align: helpers.get-prop('dialogHeaderTextAlign');
+
+            &.no-title {
+                padding-top: 1.5em;
+            }
+        }
+
+        &__title {
+            margin-bottom: 20px;
+            padding: 0 15px;
+        }
+
+        &__close {
+            position: absolute;
+            top: 0;
+            right: -10px;
+            bottom: auto;
+            left: auto;
+        }
+
+        &__footer {
+            display: flex;
+            flex: 0 1 auto;
+            align-items: center;
+            justify-content: helpers.get-prop('dialogFooterJustifyContent');
+            padding: helpers.get-prop('dialogFooterPadding');
+        }
+
+        &__body {
+            flex: 1 1 auto;
+        }
+    }
+}
+
+@keyframes fadeInUp {
+
+    0% {
+        transform: translateY(-10px);
+        opacity: 0;
+    }
+
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes fadeOutDown {
+
+    0% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+
+    100% {
+        transform: translateY(20px);
+        opacity: 0;
+    }
+}
+
+@keyframes fadeIn {
+
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes fadeOut {
+
+    0% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+    }
+}

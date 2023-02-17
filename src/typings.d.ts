@@ -178,3 +178,138 @@ declare interface Window extends TAnalyticMethod {
 }
 
 declare const WLC_VERSION: number;
+
+// CHAT ONLY
+declare module '@xmpp/client' {
+
+    import {EventEmitter} from '@xmpp/events';
+    import {JID} from '@xmpp/jid';
+    import {Element} from 'ltx';
+
+    export class Client {
+
+        public timeout: number;
+
+        public reconnect: Reconnect;
+
+        public iqCaller: IqCaller;
+
+        public plugins: any;
+
+        public status: string;
+
+        public on(eventName: string, callback: any): void;
+
+        public handle(eventName: string, callback: any): void;
+
+        public write(message: string): void;
+
+        public start(): Promise<void>;
+
+        public stop(): void;
+
+        public send(content: any): PromiseLike<void>;
+
+        public plugin(plugin: any): void;
+
+        public removeAllListeners(): void;
+
+    }
+
+    export function client(clientConf: ClientConfiguration): Client;
+
+    export function jid(fullJid: string): JID;
+    // tslint:disable-next-line:unified-signatures
+    export function jid(local: string, domain: string, resource?: string): JID;
+
+    export function xml(name: string, attrs?: {[key: string]: string}, ...content: any[]): Element;
+
+    export interface ClientConfiguration {
+        service: string;
+        domain: string;
+        resource?: string;
+        username?: string;
+        password?: string;
+        credentials?: (auth: (config: {
+            username: string;
+            password: string;}) => Promise<void>, mechanism: any) => Promise<void>;
+    }
+
+    export interface Reconnect extends EventEmitter {
+
+        stop(): void;
+
+        reconnect(): void;
+
+    }
+
+    export interface IqCaller {
+
+        request(stanza: Element): Promise<Element>;
+
+    }
+
+}
+
+declare module '@xmpp/events' {
+
+    export function timeout<T>(promise: Promise<T>, timeoutInMS: number): Promise<T>;
+
+    export class EventEmitter {
+        addListener(event: string | symbol, listener: (...args: any[]) => void): this;
+
+        on(event: string | symbol, listener: (...args: any[]) => void): this;
+
+        once(event: string | symbol, listener: (...args: any[]) => void): this;
+
+        removeListener(event: string | symbol, listener: (...args: any[]) => void): this;
+
+        removeAllListeners(event?: string | symbol): this;
+
+        setMaxListeners(n: number): this;
+
+        getMaxListeners(): number;
+
+        listeners(event: string | symbol): Function[]; // tslint:disable-line:ban-types
+        emit(event: string | symbol, ...args: any[]): boolean;
+
+        listenerCount(type: string | symbol): number;
+
+        // Added in Node 6...
+        prependListener(event: string | symbol, listener: (...args: any[]) => void): this;
+
+        prependOnceListener(event: string | symbol, listener: (...args: any[]) => void): this;
+
+        eventNames(): Array<string | symbol>;
+    }
+
+}
+
+declare module '@xmpp/jid' {
+
+    export class JID {
+
+        local: string;
+        domain: string;
+        resource: string;
+
+        constructor(local: string, domain: string, resource?: string);
+
+        bare(): JID;
+
+        equals(other: JID): boolean;
+
+        toString(): string;
+
+    }
+
+    export function jid(jid: string): JID;
+
+}
+
+declare module '@xmpp/resource-binding';
+declare module '@xmpp/iq';
+declare module '@xmpp/reconnect';
+declare module '@xmpp/sasl-plain';
+declare module '@xmpp/session-establishment';
+declare module '@xmpp/websocket';

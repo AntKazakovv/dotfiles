@@ -1,0 +1,62 @@
+
+<ng-container [ngSwitch]="footerType$ | async">
+    <ng-container *ngSwitchCase="'notAuth'" [ngTemplateOutlet]="notAuth"></ng-container>
+    <ng-container *ngSwitchCase="'auth'" [ngTemplateOutlet]="auth"></ng-container>
+    <ng-container *ngSwitchCase="'noLogin'" [ngTemplateOutlet]="noLogin"></ng-container>
+    <ng-container *ngSwitchCase="'banned'" [ngTemplateOutlet]="banned"></ng-container>
+    <ng-container *ngSwitchCase="'kicked'" [ngTemplateOutlet]="kicked"></ng-container>
+    <ng-container *ngSwitchCase="'offline'" [ngTemplateOutlet]="offline"></ng-container>
+    <ng-container *ngSwitchCase="'connecting'" [ngTemplateOutlet]="connecting"></ng-container>
+</ng-container>
+
+<ng-template #auth>
+    <div wlc-send-form></div>
+</ng-template>
+
+<ng-template #noLogin>
+    <div wlc-alert theme="panel" [ngSwitch]="nicknameType">
+        <div *ngSwitchCase="'login'" title>{{'Please add your username to use the chat.' | translate}}</div>
+        <div *ngSwitchCase="'chatNickname'" title>{{'Please add nickname to use the chat.' | translate}}</div>
+    </div>
+    <div class="{{$class}}__controls">
+        <button wlc-btn mod="primary" (click)="addLoginHandler()">{{'Add info' | translate}}</button>
+    </div>
+</ng-template>
+
+<ng-template #notAuth>
+    <div wlc-alert theme="panel">
+        <div title>{{'Please login/sign up in order to write in the chat' | translate}}</div>
+    </div>
+    <div class="{{$class}}__controls">
+        <button wlc-btn mod="primary" (click)="loginHandler()">{{'Login' | translate}}</button>
+    </div>
+</ng-template>
+
+<ng-template #banned>
+    <div wlc-alert mod="error" theme="panel">
+        <div title>{{'You\'ve been banned from writing in the chat' | translate}} 🍌</div>
+        <div *ngIf="author">{{'By:' | translate}} {{author}}</div>
+        <div *ngIf="reason">{{'Reason:' | translate}} {{reason}}</div>
+    </div>
+</ng-template>
+
+<ng-template #kicked>
+    <div wlc-alert theme="panel">
+        <div title>{{'Connection lost. Push the button to reconnect.' | translate}} 😱</div>
+    </div>
+    <div class="{{$class}}__controls">
+        <button wlc-btn mod="primary" (click)="connectRoom()">{{'Connect' | translate}}</button>
+    </div>
+</ng-template>
+
+<ng-template #offline>
+    <div wlc-alert theme="panel" mod="warning">
+        <div title>{{'Chat is temporarily unavailable. Please try opening the chat later.' | translate}} 💀</div>
+    </div>
+</ng-template>
+
+<ng-template #connecting>
+    <div wlc-alert theme="panel">
+        <div title>{{'Connecting...' | translate}} 😎</div>
+    </div>
+</ng-template>

@@ -1,0 +1,113 @@
+@use '../../styles/utils/helpers' as helpers;
+
+.wlc-send-form:host {
+
+    // TODO: move to component
+    --btn-bg: #{helpers.get-prop('btnBg')};
+    --btn-min-width: #{helpers.get-prop('btnMinWidth')};
+    --btn-height: #{helpers.get-prop('btnHeight')};
+    --btn-bg-hover: #{helpers.get-prop('btnBgHover')};
+    --btn-color: #{helpers.get-prop('btnColor')};
+    --btn-color-hover: #{helpers.get-prop('btnColorHover')};
+    --btn-border: #{helpers.get-prop('btnBorder')};
+    --btn-border-hover: #{helpers.get-prop('btnBorderHover')};
+    --btn-shadow: #{helpers.get-prop('btnShadow')};
+    --btn-padding: #{helpers.get-prop('btnPadding')};
+    --btn-icon-size: #{helpers.get-prop('btnIconSize')};
+    --nickname-color: #{helpers.get-prop('formNicknameColor')};
+
+    width: 100%;
+
+    .wlc-send-form {
+
+        &__fieldset {
+            display: grid;
+            gap: helpers.get-prop('formFieldsetGap');
+
+            &:disabled {
+                --input-bg: #{helpers.get-prop('inputBgDisabled')};
+                --input-border: #{helpers.get-prop('inputBorderDisabled')};
+            }
+        }
+
+        &__textarea-wrapper {
+            display: grid;
+            grid-template-areas: 'textarea';
+        }
+
+        &__textarea {
+            @include helpers.inputBase;
+
+            grid-area: textarea;
+            resize: none;
+            overflow: hidden;
+
+            &--fake {
+                max-height: 185px;
+                white-space: pre-wrap;
+                word-break: break-all;
+                visibility: hidden;
+            }
+        }
+
+        &__counter {
+            position: relative;
+            z-index: 5;
+            color: helpers.get-prop('formCounterColor');
+            font-size: helpers.get-prop('formCounterFontSize');
+
+            &.overflow {
+                color: var(--mc-error);
+            }
+        }
+
+        &__label {
+            width: 100%;
+        }
+
+        &__buttons {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+
+            &-container {
+                display: grid;
+                grid-auto-columns: min-content;
+                grid-auto-flow: column;
+                gap: helpers.get-prop('formBtnsContainerGap');
+                align-items: center;
+
+                &--right {
+                    margin-left: auto;
+                }
+            }
+        }
+
+        &__nickname {
+            color: var(--nickname-color);
+            font-size: helpers.get-prop('formNicknameFontSize');
+        }
+
+        &__nickname-change {
+            margin-left: 5px;
+            padding: 0;
+            color: helpers.get-prop('btnPrimaryBg');
+            background: transparent;
+            border: none;
+            outline: none;
+
+            svg {
+                width: 1em;
+                height: 1em;
+            }
+
+            &:hover {
+                color: helpers.get-prop('btnPrimaryBgHover');
+            }
+        }
+    }
+
+    &.wlc-send-form--state-connecting {
+        --nickname-color: #{helpers.get-prop('formNicknameColorConnecting')};
+    }
+}

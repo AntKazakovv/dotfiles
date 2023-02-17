@@ -1,0 +1,73 @@
+<ng-container>
+    <div class="{{$class}}__content">
+        <div class="{{$class}}__title">
+            <ng-content select="[title]"></ng-content>
+        </div>
+        <div class="{{$class}}__text">
+            <ng-content></ng-content>
+        </div>
+        <div class="{{$class}}__controls">
+            <ng-content select="[controls]"></ng-content>
+        </div>
+    </div>
+    <div *ngIf="theme === 'panel'" class="{{$class}}__icon" [ngSwitch]="mod">
+        <ng-container [ngTemplateOutlet]="iconError" *ngSwitchCase="'error'"></ng-container>
+        <ng-container [ngTemplateOutlet]="iconSuccess" *ngSwitchCase="'success'"></ng-container>
+        <ng-container [ngTemplateOutlet]="iconWarning" *ngSwitchDefault></ng-container>
+    </div>
+</ng-container>
+
+<ng-template #iconWarning>
+    <svg width="15" height="16" viewBox="0 0 15 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M7.5 15.0388C11.6421 15.0388 15 11.681 15 7.53882C15 3.39668 11.6421 0.0388184 7.5 0.0388184C3.35786 0.0388184 0 3.39668 0 7.53882C0 11.681 3.35786 15.0388 7.5 15.0388ZM8.37247 8.53882L8.57145 3.22014H6.42864L6.62761 8.53882H8.37247ZM6.73858 11.7713C6.95031 11.9753 7.20413 12.0773 7.50004 12.0773C7.68881 12.0773 7.86355 12.0307 8.02426 11.9375C8.18497 11.8418 8.31507 11.7146 8.41456 11.556C8.5166 11.3948 8.5689 11.216 8.57145 11.0196C8.5689 10.7325 8.4592 10.487 8.24237 10.283C8.02809 10.079 7.78065 9.97701 7.50004 9.97701C7.20413 9.97701 6.95031 10.079 6.73858 10.283C6.5294 10.487 6.42608 10.7325 6.42864 11.0196C6.42608 11.3142 6.5294 11.5648 6.73858 11.7713Z"/>
+        </svg>
+</ng-template>
+
+<ng-template #iconSuccess>
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M8 15.0388C12.1451 15.0388 15.5 11.6844 15.5 7.53882C15.5 3.39377 12.1456 0.0388184 8 0.0388184C3.85495 0.0388184 0.5 3.3932 0.5 7.53882C0.5 11.6839 3.85438 15.0388 8 15.0388ZM11.7803 6.31915C12.0732 6.02626 12.0732 5.55138 11.7803 5.25849C11.4874 4.9656 11.0126 4.9656 10.7197 5.25849L7.25 8.72816L5.78033 7.25849C5.48744 6.96559 5.01256 6.96559 4.71967 7.25849C4.42678 7.55138 4.42678 8.02626 4.71967 8.31915L6.71967 10.3191C7.01256 10.612 7.48744 10.612 7.78033 10.3191L11.7803 6.31915Z"/>
+        </svg>
+</ng-template>
+
+<ng-template #iconError>
+    <svg width="15" height="16" viewBox="0 0 15 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M15 7.53882C15 11.6844 11.6451 15.0388 7.5 15.0388C3.35438 15.0388 0 11.6839 0 7.53882C0 3.3932 3.35495 0.0388184 7.5 0.0388184C11.6456 0.0388184 15 3.39377 15 7.53882ZM10.7089 10.7477C11.0018 10.4548 11.0018 9.97998 10.7089 9.68708L8.56115 7.5393L10.7089 5.39152C11.0018 5.09863 11.0018 4.62376 10.7089 4.33086C10.416 4.03797 9.94116 4.03797 9.64826 4.33086L7.50048 6.47864L5.35162 4.32978C5.05873 4.03688 4.58385 4.03688 4.29096 4.32978C3.99807 4.62267 3.99807 5.09754 4.29096 5.39044L6.43982 7.5393L4.29096 9.68817C3.99807 9.98106 3.99807 10.4559 4.29096 10.7488C4.58385 11.0417 5.05873 11.0417 5.35162 10.7488L7.50048 8.59996L9.64826 10.7477C9.94116 11.0406 10.416 11.0406 10.7089 10.7477Z"/>
+        </svg>
+</ng-template>
+
+<!-- EXAMPLES -->
+<!-- <div wlc-alert theme="panel">
+    <div title>Unauthorized</div>
+    <span>Please login/sign up in order to write in the chat</span>
+</div>
+<div wlc-alert theme="panel" mod="warning">
+    <div title>Vanya_bla_bla_bla</div>
+    <div>Chat service is temporary unavailable 💀</div>
+</div>
+<div wlc-alert theme="panel" mod="error">
+    <div title>Connection lost</div>
+    <div>Push the button to reconnect 😱</div>
+    <button controls wlc-btn mod="primary" (click)="connectRoom()">Connect</button>
+</div>
+<div wlc-alert theme="panel" mod="success">
+    <div title>Something funny</div>
+    <div>Connection lost 😱</div>
+</div>
+<div wlc-alert>
+    <div title>Please login/sign up in order to write in the chat</div>
+    <div>Bla bla bla</div>
+</div>
+<div wlc-alert mod="warning">
+    <div title>Vanya_bla_bla_bla</div>
+    <div>Chat service is temporary unavailable 💀</div>
+</div>
+<div wlc-alert mod="error">
+    <div title>Connection lost</div>
+    <div>Push the button to reconnect 😱</div>
+    <button controls wlc-btn mod="primary" (click)="connectRoom()">Connect</button>
+</div>
+<div wlc-alert mod="success">
+    <div title>Something funny</div>
+    <div>Connection lost 😱</div>
+</div>
+-->

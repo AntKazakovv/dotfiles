@@ -1,0 +1,106 @@
+@use '../../styles/utils/helpers' as helpers;
+
+.wlc-chat-wrapper:host {
+    --unread-color: #{helpers.get-prop('wrpUnreadColor')};
+    --unread-bg: #{helpers.get-prop('wrpUnreadBg')};
+    --unread-border: #{helpers.get-prop('wrpUnreadBorder')};
+    --counter-color: #{helpers.get-prop('wrpCounterColor')};
+    --counter-bg: #{helpers.get-prop('wrpCounterBg')};
+
+    position: relative;
+    overflow: hidden;
+
+    .wlc-chat-wrapper {
+
+        &__unread {
+            @include helpers.buttonBase;
+
+            position: absolute;
+            top: helpers.get-prop('wrpUnreadPosTop');
+            right: helpers.get-prop('wrpUnreadPosRight');
+            bottom: helpers.get-prop('wrpUnreadPosBottom');
+            left: helpers.get-prop('wrpUnreadPosLeft');
+
+            width: helpers.get-prop('wrpUnreadWidth');
+            height: helpers.get-prop('wrpUnreadHeight');
+
+            border-radius: helpers.get-prop('wrpUnreadRadius');
+            color: var(--unread-color);
+            background: var(--unread-bg);
+            border: var(--unread-border);
+            transition: helpers.get-prop('wrpUnreadTransition');
+
+            @include helpers.hover() {
+                --unread-color: #{helpers.get-prop('wrpUnreadColorHover')};
+                --unread-bg: #{helpers.get-prop('wrpUnreadBgHover')};
+                --unread-border: #{helpers.get-prop('wrpUnreadBorderHover')};
+                --counter-bg: #{helpers.get-prop('wrpCounterBgHover')};
+                --counter-color: #{helpers.get-prop('wrpCounterColorHover')};
+            }
+        }
+
+        &__counter {
+            position: absolute;
+            top: helpers.get-prop('wrpCounterPosTop');
+            right: helpers.get-prop('wrpCounterPosRight');
+            bottom: helpers.get-prop('wrpCounterPosBottom');
+            left: helpers.get-prop('wrpCounterPosLeft');
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-width: helpers.get-prop('wrpCounterMinWidth');
+            max-width: 100%;
+            height: helpers.get-prop('wrpCounterHeight');
+            padding: helpers.get-prop('wrpCounterPadding');
+            border-radius: helpers.get-prop('wrpCounterRadius');
+
+            color: var(--counter-color);
+            font-weight: helpers.get-prop('wrpCounterFontWeight');
+            font-size: helpers.get-prop('wrpCounterFontSize');
+            background: var(--counter-bg);
+            transform: helpers.get-prop('wrpCounterTransform');
+            transition: helpers.get-prop('wrpCounterTransition');
+        }
+
+        &__scroll {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            height: 100%;
+            max-height: 100%;
+            overflow-y: auto;
+            padding: helpers.get-prop('wrpScrollPadding');
+            contain: content;
+
+            &::-webkit-scrollbar {
+                width: helpers.get-prop('wrpScrollWidth');
+                border-radius: helpers.get-prop('wrpScrollRadius');
+            }
+
+            &::-webkit-scrollbar-track {
+                background-color: helpers.get-prop('wrpScrollTrackBg');
+            }
+
+            &::-webkit-scrollbar-thumb {
+                background-color: helpers.get-prop('wrpScrollThumbBg');
+                border-radius: helpers.get-prop('wrpScrollRadius');
+            }
+        }
+
+        // For virtual scroll
+        // &__anchor {
+        //     order: 2;
+        //     border: 1px solid green;
+        // }
+
+        // &__message {
+
+        //     // &:nth-last-child(3),
+        //     &:nth-last-child(2) {
+        //         order: 3;
+        //     }
+        // }
+        // For virtual scroll
+    }
+}

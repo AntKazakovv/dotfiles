@@ -321,6 +321,14 @@ export class InjectionService {
                     this.afterModuleLoad('limitations', m);
                     return m.LimitationsModule;
                 });
+            case 'chat':
+                if (this.loadedModules.ChatModule) {
+                    return this.loadedModules.ChatModule;
+                }
+                return import('wlc-engine/modules/chat/chat.module').then(m => {
+                    this.afterModuleLoad('chat', m);
+                    return m.ChatModule;
+                });
         }
     }
 

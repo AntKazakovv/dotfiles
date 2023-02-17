@@ -1,0 +1,46 @@
+@import './utils/vars';
+
+.wlc-chat-icon:host {
+
+    .wlc-chat-icon {
+
+        &__button {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: map-get($config, 'width');
+            height: map-get($config, 'height');
+            border: map-get($config, 'border');
+            color: map-get($config, 'color');
+            background: map-get($config, 'bg');
+            border-radius: map-get($config, 'radius');
+            transition: all 0.2s;
+
+            .ch-icon-chat {
+                width: 100%;
+                height: 100%;
+            }
+
+            &:hover {
+                background: map-get($config, 'bgHover');
+            }
+        }
+
+        &__counter {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            bottom: auto;
+            left: auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 2.4em;
+            height: 2.4em;
+            font-size: 10px;
+            background: var(--mc-main-d20);
+            border-radius: 50%;
+        }
+    }
+}

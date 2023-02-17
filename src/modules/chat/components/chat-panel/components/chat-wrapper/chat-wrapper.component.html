@@ -1,0 +1,28 @@
+<div class="{{$class}}__scroll" #scrollContainer>
+    <ng-container *ngIf="!chatConnected; else: messages">
+        <div *ngFor="let i of skeletons"
+            mod="skeleton"
+            wlc-message>
+        </div>
+    </ng-container>
+</div>
+
+<button *ngIf="unread$ | async"
+    (click)="scrollToEnd(true)"
+    class="{{$class}}__unread">
+    <span class="{{$class}}__counter">{{unread$ | async | maxUnread}}</span>
+    <svg class="{{$class}}__icon" width="14" height="9" viewBox="0 0 14 9" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M13.988 1.78a1.703 1.703 0 0 1-.498 1.21L7.98 8.495a.76.76 0 0 1-1.082-.007L1.47 2.914A1.727 1.727 0 0 1 1.486.505a1.635 1.635 0 0 1 2.35.015l3.64 3.727 3.68-3.69a1.644 1.644 0 0 1 2.358.023c.314.332.477.77.474 1.2Z"/></svg>
+</button>
+
+<ng-template #messages>
+    <ng-container *ngFor="let msg of buffer$ | async; trackBy: trackByFn">
+        <div class="{{$class}}__message"
+            wlc-message
+            #intersection="intersection"
+            wlc-observer-element
+            [message]="msg"
+            (isIntersecting)="intersectingHandler($event, msg)">
+        </div>
+    </ng-container>
+
+</ng-template>

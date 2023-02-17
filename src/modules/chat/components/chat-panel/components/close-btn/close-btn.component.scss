@@ -1,0 +1,32 @@
+@use '../../styles/utils/helpers' as helpers;
+
+.wlc-close-btn:host {
+    --close-color: #{helpers.get-prop('closeColor')};
+    --close-bg: #{helpers.get-prop('closeBg')};
+    --close-border: #{helpers.get-prop('closeBorder')};
+
+    @include helpers.buttonBase;
+
+    width: helpers.get-prop('closeWidth');
+    height: helpers.get-prop('closeHeight');
+    padding: helpers.get-prop('closePadding');
+    color: var(--close-color);
+    background: var(--close-bg);
+    border: var(--close-border);
+    border-radius: helpers.get-prop('closeRadius');
+    transition: helpers.get-prop('closeTransition');
+
+    .wlc-close-btn {
+
+        &__icon {
+            width: helpers.get-prop('closeIconSize');
+            height: helpers.get-prop('closeIconSize');
+        }
+    }
+
+    @include helpers.hover() {
+        --close-color: #{helpers.get-prop('closeColorHover')};
+        --close-bg: #{helpers.get-prop('closeBgHover')};
+        --close-border: #{helpers.get-prop('closeBorderHover')};
+    }
+}

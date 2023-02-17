@@ -1,0 +1,47 @@
+
+<ng-container *ngFor="let dialog of dialogs; index as $index; trackBy: trackById">
+    <ng-container [ngTemplateOutlet]="dialogRef"
+        [ngTemplateOutletContext]="{$implicit: dialog}">
+    </ng-container>
+</ng-container>
+
+<ng-template #dialogRef let-dialog>
+    <div class="{{$class}}__item {{$class}}__item--{{dialog.id}} {{dialog.status$ | async}} {{dialog.params.dialogClasses}}">
+        <div class="{{$class}}__backdrop" (click)="dialog.hide('backdrop')"></div>
+        <div class="{{$class}}__wrapper">
+            <div class="{{$class}}__header" [class.no-title]="!dialog.params.headerText">
+                <div *ngIf="dialog.params.headerText"
+                    class="{{$class}}__title">
+                    {{dialog.params.headerText | translate}}
+                </div>
+
+                <button *ngIf="dialog.params.showClose"
+                    (click)="dialog.hide('close')"
+                    class="{{$class}}__close"
+                    type="button"
+                    title="{{'Close' | translate}}"
+                    wlc-close-btn></button>
+            </div>
+            <div class="{{$class}}__body">
+                <div *ngIf="dialog.params.content"
+                    class="{{$class}}__content">
+                    {{dialog.params.content | translate}}
+                </div>
+
+                <ng-container *ngIf="dialog.params.templateRef"
+                    [ngTemplateOutlet]="dialog.params.templateRef"
+                    [ngTemplateOutletContext]="dialog.params.templateParams">
+                </ng-container>
+
+                <ng-container *ngIf="dialog.params.component"
+                    [ngComponentOutlet]="dialog.params.component"
+                    [ngComponentOutletInjector]="getInjector(dialog)">
+                </ng-container>
+
+            </div>
+            <div *ngIf="dialog.params.showFooter" class="{{$class}}__footer">
+                <button type="button" (click)="dialog.hide('close')">{{'Close' | translate}}</button>
+            </div>
+        </div>
+    </div>
+</ng-template>

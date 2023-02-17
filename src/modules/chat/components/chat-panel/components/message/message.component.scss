@@ -1,0 +1,174 @@
+@use '../../styles/utils/helpers' as helpers;
+
+@mixin shine($height: 100%, $delay: 0, $opacity: helpers.get-prop('skOpacityDefault')) {
+    overflow: hidden;
+
+    &:after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 0;
+        display: block;
+        width: 100%;
+        height: $height;
+        background: helpers.get-prop('skShineGradient');
+        transform: translate3d(0, -50%, 0);
+        opacity: $opacity;
+        animation-name: shine;
+        animation-duration: 1s;
+        animation-timing-function: ease-in-out;
+        animation-delay: $delay;
+        animation-iteration-count: infinite;
+    }
+}
+
+.wlc-message:host {
+    --message-grid-columns: #{helpers.get-prop('msgGridCols')};
+    --bubble-radius: #{helpers.get-prop('msgBubbleRadius')};
+    --bubble-bg: #{helpers.get-prop('msgBubbleBg')};
+    --message-margin: #{helpers.get-prop('msgMargin')};
+    --name-color: #{helpers.get-prop('msgNameColor')};
+    --message-max-width: #{helpers.get-prop('msgMaxWidth')};
+    --message-gap: #{helpers.get-prop('msgGap')};
+
+    display: grid;
+    grid-template-columns: var(--message-grid-columns);
+    gap: var(--message-gap);
+    max-width: var(--message-max-width);
+    margin: var(--message-margin);
+    transform: translateZ(0);
+
+    &.out {
+        --bubble-radius: #{helpers.get-prop('msgBubbleRadiusOut')};
+        --bubble-bg: #{helpers.get-prop('msgBubbleBgOut')};
+        --message-margin: #{helpers.get-prop('msgMarginOut')};
+        --message-grid-columns: #{helpers.get-prop('msgGridColsOut')};
+        --message-max-width: #{helpers.get-prop('msgMaxWidthOut')};
+        --message-gap: #{helpers.get-prop('msgGapOut')};
+
+        .wlc-message__left,
+        .wlc-message__nickname {
+            display: none;
+        }
+    }
+
+    // &.wlc-message--moderator {
+
+    //     .wlc-message__nickname {
+    //         --name-color: #{helpers.get-prop('msgNameColorModerator')};
+
+    //         &:before {
+    //             content: '\1F451  ';
+    //         }
+    //     }
+    // }
+
+    &.unread {
+        --bubble-bg: #{helpers.get-prop('msgBubbleBgUnread')};
+    }
+
+    .wlc-message {
+
+        &__main {
+            min-width: 1px;
+        }
+
+        &__avatar {
+            position: relative;
+            display: block;
+            width: helpers.get-prop('msgAvatarSize');
+            height: helpers.get-prop('msgAvatarSize');
+            border-radius: helpers.get-prop('msgAvatarRadius');
+            transform: translateY(5px);
+        }
+
+        &__nickname {
+            position: relative;
+            margin: helpers.get-prop('msgNameMargin');
+            color: var(--name-color);
+            font-weight: helpers.get-prop('msgNameFontWeight');
+            font-size: helpers.get-prop('msgNameFontSize');
+        }
+
+        &__bubble {
+            position: relative;
+            min-height: helpers.get-prop('msgBubbleMinHeight');
+            padding: helpers.get-prop('msgBubblePadding');
+            background: var(--bubble-bg);
+            border-radius: var(--bubble-radius);
+            transition: helpers.get-prop('msgBubbleTransition');
+        }
+
+        &__body {
+            margin: helpers.get-prop('msgBodyMargin');
+            color: helpers.get-prop('msgBodyColor');
+            font-size: helpers.get-prop('msgBodyFontSize');
+            white-space: pre-wrap;
+            overflow-wrap: break-word;
+        }
+
+        &__date {
+            color: helpers.get-prop('msgDateColor');
+            font-size: helpers.get-prop('msgDateFontSize');
+            text-align: helpers.get-prop('msgDateTextAlign');
+        }
+    }
+}
+
+
+.wlc-message--mod-skeleton:host {
+    --sk-body-width: #{helpers.get-prop('skBodyWidth')};
+
+    .wlc-message {
+
+        &__avatar {
+            @include shine();
+
+            background: var(--bubble-bg);
+        }
+
+        &__nickname {
+            @include shine(
+                $height: 18px,
+                $delay: helpers.get-prop('skRightDelay'),
+                $opacity: helpers.get-prop('skOpacityNickname')
+            );
+
+            display: inline-flex;
+            align-items: center;
+            width: 75%;
+            min-height: helpers.get-prop('skNicknameHeight');
+
+            &:before {
+                content: '';
+                display: block;
+                width: 100%;
+                height: helpers.get-prop('skNicknamePseudoHeight');
+                background: var(--name-color);
+                opacity: helpers.get-prop('skNicknamePseudoOpacity');
+                border-radius: helpers.get-prop('skNicknameRadius');
+            }
+        }
+
+        &__bubble {
+            @include shine($delay: helpers.get-prop('skRightDelay'));
+
+            min-width: var(--sk-body-width);
+        }
+    }
+
+    &:nth-child(even) {
+        --sk-body-width: #{helpers.get-prop('skBodyWidthEven')};
+    }
+}
+
+@keyframes shine {
+
+    0% {
+        transform: translate3d(-100%, -50%, 0);
+    }
+
+    100% {
+        transform: translate3d(100%, -50%, 0);
+    }
+}
