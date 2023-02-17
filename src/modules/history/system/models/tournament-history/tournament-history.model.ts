@@ -102,6 +102,10 @@ export class TournamentHistory extends AbstractModel<ITournamentHistory> {
         return this.checkTargetCurrency(!this.useUsersCurrency);
     }
 
+    public get points(): number {
+        return _toNumber(this.data.Points);
+    }
+
     public getWinnersSubscribe(
         observer: PartialObserver<ITopTournamentUsers>,
         params?: {

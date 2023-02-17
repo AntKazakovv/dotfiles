@@ -25,7 +25,7 @@ export interface ITournamentsHistoryCParams extends IComponentParams<Theme, Type
 }
 
 export const defaultParams: ITournamentsHistoryCParams = {
-    moduleName: 'tournament',
+    moduleName: 'history',
     componentName: 'wlc-tournaments-history',
     class: 'wlc-tournaments-history',
     transactionTableTheme: 'default',

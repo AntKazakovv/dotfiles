@@ -88,4 +88,4 @@ export * from './internal-mails/wlc-internal-mails.config';
 export * from './icon-list/wlc-icon-list.config';
 
 export * from './history/wlc-bonuses-history.config';
-export * from './history/wlc-tournaments-history';
+export * from './history/wlc-tournaments-history.config';

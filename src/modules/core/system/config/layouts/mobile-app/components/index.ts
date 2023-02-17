@@ -92,4 +92,4 @@ export * from './icon-list/wlc-icon-list.config';
 export * from './mobile/wlc-welcome.config';
 
 export * from './history/wlc-bonuses-history.config';
-export * from './history/wlc-tournaments-history';
+export * from './history/wlc-tournaments-history.config';

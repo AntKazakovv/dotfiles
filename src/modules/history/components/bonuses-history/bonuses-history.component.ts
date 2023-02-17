@@ -93,14 +93,6 @@ export class BonusesHistoryComponent extends AbstractComponent implements OnInit
             theme: this.$params.transactionTableTheme || 'default',
             head: Params.bonusHistoryTableHeadConfig,
             rows: this.bonuses$,
-            pagination: {
-                use: true,
-                breakpoints: {
-                    0: {
-                        itemPerPage: 20,
-                    },
-                },
-            },
             switchWidth: (this.configService.get('$base.profile.type') === 'first') ? 1200 : 1024,
         };
 

@@ -2,6 +2,7 @@ import {ILayoutComponent} from 'wlc-engine/modules/core/system/interfaces/layout
 import {
     wlcHistoryFilter,
 } from 'wlc-engine/modules/core/system/config/layouts/components/core/wlc-history-filter.config';
+import {wlcTitle} from 'wlc-engine/modules/core/system/config/layouts/components/core/wlc-title.config';
 
 export namespace wlcTournamentsHistory {
     export const filterTypeFirst: ILayoutComponent = {
@@ -19,6 +20,7 @@ export namespace wlcTournamentsHistory {
         params: {
             class: 'profile-history-filter',
             components: [
+                wlcTitle.history,
                 wlcHistoryFilter.tournaments,
             ],
         },
@@ -26,8 +28,5 @@ export namespace wlcTournamentsHistory {
 
     export const def: ILayoutComponent = {
         name: 'history.wlc-tournaments-history',
-        params: {
-            transactionTableTheme: 'mobile-app',
-        },
     };
 }

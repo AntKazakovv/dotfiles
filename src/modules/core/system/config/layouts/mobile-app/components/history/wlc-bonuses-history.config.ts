@@ -4,6 +4,9 @@ import {wlcTitle} from 'wlc-engine/modules/core/system/config/layouts/components
 export namespace wlcBonusesHistory {
     export const def: ILayoutComponent = {
         name: 'history.wlc-bonuses-history',
+        params: {
+            transactionTableTheme: 'mobile-app',
+        },
     };
 
     export const filter: ILayoutComponent = {

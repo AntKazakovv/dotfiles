@@ -21,7 +21,7 @@ export interface IBonusesHistoryCParams extends IComponentParams<Theme, Type, Th
 }
 
 export const defaultParams: IBonusesHistoryCParams = {
-    moduleName: 'bonuses',
+    moduleName: 'history',
     componentName: 'wlc-bonuses-history',
     class: 'wlc-bonuses-history',
     transactionTableTheme: 'default',
