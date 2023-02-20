@@ -250,7 +250,7 @@ export class GameThumbComponent extends AbstractComponent implements OnInit {
         this.videos = this.getMediaContent('video', ['av1.mp4', 'hevc.mp4', 'h264.mp4']);
 
         this.wlcElement = `block_game-thumb-id-${this.game.ID}`;
-        this.noDemoClass = this.game.hasDemo;
+        this.noDemoClass = !this.game.hasDemo;
         this.isTransform = this.$params.transformThumb?.use;
         const buttonParams = this.configService
             .get<string>('$modules.games.components.wlc-game-thumb.buttons');

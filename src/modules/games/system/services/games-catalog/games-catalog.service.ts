@@ -964,12 +964,12 @@ export class GamesCatalogService {
         }
     }
 
-    public showRunGameModal(game: Game, disableDemo: boolean): void {
+    public showRunGameModal(game: Game, disableDemo?: boolean): void {
 
         this.modalService.showModal<IPlayGameForRealCParams>('runGame', {
             common: {
                 game: game,
-                disableDemo: disableDemo,
+                disableDemo: !!disableDemo,
             },
         });
     }
