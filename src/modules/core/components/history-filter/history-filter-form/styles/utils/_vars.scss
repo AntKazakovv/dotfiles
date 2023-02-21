@@ -1,17 +1,15 @@
 $customThemeDefault: () !default;
 $themeDefault: map-merge((
     'formMaxWidth': (
-        320: 100%,
-        768: 285px,
+        320: 285px,
     ),
     'formMargin': auto,
     'formTemplateColumns': repeat(2, 1fr),
     'formTemplateAreas': 'textBlock textBlock' 'radioButtons radioButtons' 'datepicker1 datepicker2' 'button button',
     'formBetTemplateAreas': 'textBlock' 'datepicker1' 'datepicker2' 'selectType' 'selectOrderType' 'button',
-    'formBetTemplateColumns': 0.4fr,
+    'formBetTemplateColumns': 1fr,
     'formTournamentsTemplateAreas': 'textBlock textBlock' 'selectType selectType' 'button button',
     'formBonusesTemplateAreas': 'textBlock textBlock' 'selectType selectType' 'button button',
-    'formTransactionsTemplateColumns': 0.4fr,
     'formTransactionsTemplateAreas': 'textBlock' 'datepicker1' 'datepicker2' 'selectType' 'button',
     'formColumnGap': 15px,
     'formRowGap': 20px,
