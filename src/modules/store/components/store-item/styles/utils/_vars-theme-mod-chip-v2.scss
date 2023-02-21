@@ -1,12 +1,12 @@
 $customChipV2: () !default;
 $chipV2: map-merge((
-    'bonusIconValSize': 23%,
+    'bonusIconValSize': 27%,
     'bonusIconValRadius': ef.get('radius', 'large'),
     'bonusIconValPosR': 20%,
     'bonusIconValPosB': 17%,
     'bonusIconValPadding': 3px,
     'bonusIconValShadow': 0 4px 12px rgba(0, 0, 0, 0.4),
-    'bonusIconTextStyle': 'ThirdTitleBold',
     'bonusIconValueBg': ef.get('mainColors', 'baseMain'),
     'bonusIconValueColor': ef.get('mainColors', 'black'),
+    'bonusIconTextStyle': 'ThirdTitleBold',
 ), $customChipV2);

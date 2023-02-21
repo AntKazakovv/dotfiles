@@ -6,17 +6,18 @@
 
             .icon-text {
                 @include text.get-text-style(
-                    ef.get-value($themeDefault, 'bonusIconTextStyle'),
-                    ef.get-value($themeDefault, 'bonusIconValueColor')
+                    ef.get-value($chipV2, 'bonusIconTextStyle'),
+                    ef.get-value($chipV2, 'bonusIconValueColor')
                 );
 
                 right: ef.get-value($chipV2, 'bonusIconValPosR');
                 bottom: ef.get-value($chipV2, 'bonusIconValPosB');
                 left: auto;
                 width: initial;
+                min-width: ef.get-value($chipV2, 'bonusIconValSize');
                 height: ef.get-value($chipV2, 'bonusIconValSize');
                 padding: ef.get-value($chipV2, 'bonusIconValPadding');
-                background-color: ef.get-value($themeDefault, 'bonusIconValueBg');
+                background-color: ef.get-value($chipV2, 'bonusIconValueBg');
                 border-radius: ef.get-value($chipV2, 'bonusIconValRadius');
                 box-shadow: ef.get-value($chipV2, 'bonusIconValShadow');
             }
