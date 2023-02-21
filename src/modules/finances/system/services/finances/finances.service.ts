@@ -289,17 +289,16 @@ export class FinancesService {
     }
 
     /**
-     * Requests last success deposit method
-     *
+     * Requests last success payment method
+     * @param isDeposit - mode of cash, if true, then the type of request is Deposit, else Withdrawal
      * @returns {number} `number` - method id or null
      */
-    public async getLastSucceedDepositMethod(): Promise<number | null> {
-
+    public async getLastSucceedPaymentMethod(isDeposit: boolean): Promise<number | null> {
         try {
             const result: IData<string> = await this.dataService.request({
-                name: 'lastDepositSucceedMethod',
+                name: isDeposit ? 'lastDepositSucceedMethod' : 'lastWithdrawalSucceedMethod',
                 system: 'finances',
-                url: '/lastSuccessfulDeposit',
+                url: isDeposit ? '/lastSuccessfulDeposit' : '/lastSuccessfulWithdrawal',
                 type: 'GET',
             });
             return Number(result.data) > 0 ? Number(result.data) : null;

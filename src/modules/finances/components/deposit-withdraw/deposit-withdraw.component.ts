@@ -124,7 +124,7 @@ export class DepositWithdrawComponent
     public formData$: BehaviorSubject<TFormData> = new BehaviorSubject(null);
     public userTotalBonus: number;
     public userAvailableWithdraw: number;
-    public lastSucceedDepositMethod: Promise<number | null>;
+    public lastSucceedPaymentMethod: Promise<number | null>;
     public listConfig: IPaymentListCParams = {
         paymentType: 'deposit',
         wlcElement: 'block_payment-list',
@@ -260,11 +260,12 @@ export class DepositWithdrawComponent
             this.$params.timerParams,
         );
 
-        if (this.isDeposit
-            && this.configService.get<boolean>('$finances.lastSucceedDepositMethod.use')) {
-            this.lastSucceedDepositMethod = this.financesService.getLastSucceedDepositMethod();
+        if (
+            (this.isDeposit && this.configService.get<boolean>('$finances.lastSucceedDepositMethod.use'))
+            || (!this.isDeposit && this.configService.get<boolean>('$finances.lastSucceedWithdrawMethod.use'))
+        ) {
+            this.lastSucceedPaymentMethod = this.financesService.getLastSucceedPaymentMethod(this.isDeposit);
         }
-
         await this.financesService.fetchPaymentSystems();
     }
 
@@ -311,16 +312,19 @@ export class DepositWithdrawComponent
         }
 
         switch (msg) {
-            case 'msg1': return !this.isCryptoInvoices
-                && !this.cryptoCheck
-                && this.currentSystem?.isPayCryptosV2
-                && this.$params.showPaymentRules;
-            case 'msg2': return !this.isCryptoInvoices
-                && !this.cryptoCheck
-                && this.currentSystem?.isPayCryptosV2
-                && !this.$params.showPaymentRules;
-            case 'msg3': return this.isCryptoInvoices
-                && !(this.currentSystem?.message as IPaymentMessage)?.dateEnd;
+            case 'msg1':
+                return !this.isCryptoInvoices
+                    && !this.cryptoCheck
+                    && this.currentSystem?.isPayCryptosV2
+                    && this.$params.showPaymentRules;
+            case 'msg2':
+                return !this.isCryptoInvoices
+                    && !this.cryptoCheck
+                    && this.currentSystem?.isPayCryptosV2
+                    && !this.$params.showPaymentRules;
+            case 'msg3':
+                return this.isCryptoInvoices
+                    && !(this.currentSystem?.message as IPaymentMessage)?.dateEnd;
         }
     }
 
@@ -831,7 +835,9 @@ export class DepositWithdrawComponent
                 name: 'select_system',
                 from: 'finances',
             },
-            (system: PaymentSystem) => {this.onPaymentSystemChange(system);},
+            (system: PaymentSystem) => {
+                this.onPaymentSystemChange(system);
+            },
             this.$destroy,
         );
 
@@ -1038,7 +1044,7 @@ export class DepositWithdrawComponent
         this.isLoadingHostedFields = true;
         this.isShowHostedBlock = true;
 
-        if(!(await this.currentSystem.isReadyHostedController)) {
+        if (!(await this.currentSystem.isReadyHostedController)) {
             this.isLoadingHostedFields = false;
             this.isShowHostedBlock = false;
             this.showErrorHosledLoad = true;
@@ -1255,7 +1261,7 @@ export class DepositWithdrawComponent
             const fieldConfig: IAdditionalFieldConfig = this.additionalFieldsConfig[field];
 
             if (fieldConfig.settings?.length) {
-                for(const sett of fieldConfig.settings) {
+                for (const sett of fieldConfig.settings) {
 
                     if (sett.countries?.length && !_includes(sett.countries, this.userProfile.countryCode)) {
                         continue;

@@ -21,6 +21,13 @@ export interface IFinancesConfig {
     lastSucceedDepositMethod?: {
         use?: boolean;
     };
+    /**
+     * Enable selecting last succeed withdraw method.
+     * Can be enabled regardless another autoSelect options and has highest priority.
+     */
+    lastSucceedWithdrawMethod?: {
+        use?: boolean;
+    };
     paySystemCategories?: IPaySystemCategories;
     /**
      * Additional & required fields settings config
