@@ -93,7 +93,6 @@
                 -webkit-backdrop-filter: drop-shadow(ef.get-value($themeDefault, 'listShadow'));
             }
             /* stylelint-enable */
-
             &:before {
                 content: '';
                 position: absolute;
@@ -253,7 +252,10 @@
                 border-radius: ef.get-value($themeDefaultModLog, 'currentBorderRadiusModLong');
 
                 &-lang {
-                    @include text.get-text-style(ef.get-value($themeDefaultModLog, 'langFontStyle'), ef.get-value($themeDefaultModLog, 'currentColorModLang'));
+                    @include text.get-text-style(
+                        ef.get-value($themeDefaultModLog, 'langFontStyle'),
+                        ef.get-value($themeDefaultModLog, 'langFontColorCurrent')
+                    );
                 }
 
                 &-flag {
@@ -307,7 +309,10 @@
                 transform-origin: top;
 
                 .wlc-language-selector__link-lang {
-                    @include text.get-text-style('PrimaryText', ef.get-value($themeDefaultModLog, 'currentColorModLang'));
+                    @include text.get-text-style(
+                        ef.get-value($themeDefaultModLog, 'langFontStyle'),
+                        ef.get-value($themeDefaultModLog, 'langFontColorCurrent')
+                    );
                 }
 
                 &.top {
@@ -467,7 +472,18 @@
         }
 
         &-flag {
-            @include flag(ef.get-value($themeModal, 'dropdownFlagSize'), ef.get-value($themeModal, 'dropdownFlagSize'), 50%, ef.get-value($themeModal, 'flagBoxShadow'), ef.get-value($themeDefault, 'flagBoxShadowHover'));
+            @include flag(
+                ef.get-value($themeModal, 'dropdownFlagSize'),
+                ef.get-value($themeModal, 'dropdownFlagSize'),
+                50%,
+                ef.get-value($themeModal, 'flagBoxShadow')
+            );
+        }
+        @include bm.hover() {
+
+            .wlc-language-modal__link-flag {
+                box-shadow: ef.get-value($themeDefaultModLog, 'flagBoxShadowHover');
+            }
         }
     }
 }
