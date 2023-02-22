@@ -425,6 +425,11 @@ export class GamesCatalog extends AbstractModel<IGames> {
      */
     public getCategoriesBySlugs(slugs: string[], onlyAvailable: boolean = false): CategoryModel[] {
         const categories: CategoryModel[] = onlyAvailable ? this.getAvailableCategories() : this.getCategories();
+
+        if (this.renamedSlugs) {
+            slugs = this.transformSlugs(slugs);
+        }
+
         return _filter(categories, (category: CategoryModel): boolean => {
             return _includes(slugs, category.slug);
         });

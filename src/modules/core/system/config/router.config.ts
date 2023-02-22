@@ -50,6 +50,19 @@ export function routerConfigFn(router: UIRouter, injector: Injector) {
             return isKiosk && !configService.get<boolean>('$user.isAuthenticated') && name !== 'app.signin';
         };
 
+        const renamedSlugs = configService.get<IIndexing<string>>('$games.categories.renameSlugs');
+
+        if (renamedSlugs) {
+            router.transitionService.onBefore({}, (trans: Transition) => {
+                const params = {...trans.params()};
+                if (params?.category && renamedSlugs[params.category]) {
+                    params.category = renamedSlugs[params.category];
+                    trans.abort();
+                    router.stateService.go(trans.to().name, params);
+                }
+            });
+        };
+
         const stateModals = configService.get<IIndexing<IStateModalOption>>('$modals.states');
 
         router.urlService.rules.initial({state: 'app.home', params: {locale: lang}});
