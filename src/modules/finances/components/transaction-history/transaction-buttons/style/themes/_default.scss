@@ -4,12 +4,12 @@
     &.allow-cancelation {
         @include bm.get-mq-map('padding', ev.$tableBtnBlock, 'btnBlockPadding');
 
-        &.wlc-transaction-buttons--profile-first {
+        &.profile-first {
             @include buttonWidth(1200);
             @include bm.get-mq-map('padding', ev.$tableBtnBlock, 'btnBlockPaddingFirst');
         }
 
-        &:not(.wlc-transaction-buttons--profile-first) {
+        &:not(.profile-first) {
             @include buttonWidth(1024);
         }
 

@@ -36,6 +36,7 @@ import * as Params from './transaction-buttons.params';
 })
 export class TransactionButtonsComponent extends AbstractComponent implements OnInit {
     @HostBinding('class.allow-cancelation') protected allowCancelation: boolean;
+    @HostBinding('class.profile-first') protected profileFirst: boolean;
     public override $params: Params.ITransactionButtonsParams;
     public showCancelButton: boolean;
     public showConfirmButton: boolean;
@@ -58,12 +59,10 @@ export class TransactionButtonsComponent extends AbstractComponent implements On
 
     public override ngOnInit(): void {
         super.ngOnInit();
-        if (this.configService.get('$base.profile.type') === 'first') {
-            this.addModifiers('profile-first');
-        }
         this.showCancelButton = this.$params.transaction.allowCancelation;
         this.showConfirmButton = this.$params.transaction.requireConfirmation;
         this.allowCancelation = this.showCancelButton || this.showConfirmButton;
+        this.profileFirst = this.configService.get('$base.profile.type') === 'first';
 
         if (this.configService.get<boolean>('$base.useButtonPending')) {
             GlobalHelper.addPendingToBtnsParams(this.$params.btnsParams);
