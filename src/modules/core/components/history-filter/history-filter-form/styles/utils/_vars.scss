@@ -4,7 +4,7 @@ $themeDefault: map-merge((
         320: 285px,
     ),
     'formMargin': auto,
-    'formTemplateColumns': repeat(2, 1fr),
+    'formTemplateColumns': 1fr,
     'formTemplateAreas': 'textBlock textBlock' 'radioButtons radioButtons' 'datepicker1 datepicker2' 'button button',
     'formBetTemplateAreas': 'textBlock' 'datepicker1' 'datepicker2' 'selectType' 'selectOrderType' 'button',
     'formBetTemplateColumns': 1fr,
