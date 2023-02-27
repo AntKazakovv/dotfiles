@@ -167,7 +167,7 @@ export class StateHelper {
 
                 if (userService.isAuthenticated) {
                     setTimeout(() => {
-                        stateService.go('app.error');
+                        stateService.go('app.home');
                     });
                     return;
                 }
