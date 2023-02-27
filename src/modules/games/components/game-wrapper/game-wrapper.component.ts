@@ -485,7 +485,7 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
                 return;
             }
 
-            let height: string = (this.window.innerHeight - iframe.offsetTop) + 'px';
+            let height: string = (this.window.innerHeight - iframe.getBoundingClientRect().top) + 'px';
 
             const iframeHeightAttr: string = iframe?.getAttribute('height');
             if (_includes(iframeHeightAttr, 'px') && height && !this.$params.gameParams?.disableIframeSelfResize) {

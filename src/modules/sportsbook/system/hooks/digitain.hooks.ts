@@ -44,6 +44,12 @@ export class DigitainHooks extends AbstractHook {
 
     protected launchInfoHook(data: IGameWrapperHookLaunchInfo): IGameWrapperHookLaunchInfo {
         this.integrationMode = _includes(data.launchInfo.gameScript, 'SportFrame.frame') ? 'desktop' : 'mobile';
+
+        if (this.integrationMode === 'desktop' && !_includes(data.launchInfo.gameScript, 'fixedHeight')) {
+            data.launchInfo.gameScript = data.launchInfo.gameScript.replace('SportFrame.frame',
+                '_sp.push(["fixedHeight", true]); SportFrame.frame');
+        }
+
         this.initNavigation(data);
 
         if (this.integrationMode === 'mobile') {
