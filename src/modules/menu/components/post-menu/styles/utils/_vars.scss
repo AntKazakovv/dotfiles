@@ -60,6 +60,9 @@ $themeDefault: map-merge((
         1024: ef.size(-1) 0,
     ),
     'ffItemsLineHeight': 1,
+    'ffVisibility': (
+        375: hidden,
+    ),
 
     //Controls
     'controlWidth': 30px,

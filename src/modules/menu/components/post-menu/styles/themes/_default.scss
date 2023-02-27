@@ -55,12 +55,20 @@
     }
 
     &.wlc-post-menu--theme-mod-footer-first {
-        @include menuControls($themeDefault);
-
         @include bm.get-mq-map('justify-content', $themeDefault, 'ffJustify');
         @include bm.get-mq-map('padding', $themeDefault, 'ffPadding');
-
         width: 100%;
+
+        .wlc-post-menu {
+
+            &__control {
+
+                &--prev,
+                &--next {
+                    @include bm.get-mq-map('visibility', $themeDefault, 'ffVisibility');
+                }
+            }
+        }
 
         &.wlc-post-menu--without-swiper {
 
