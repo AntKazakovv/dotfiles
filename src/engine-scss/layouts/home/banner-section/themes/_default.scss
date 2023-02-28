@@ -1,7 +1,8 @@
 .wlc-sections__banner-section {
     @include bm.get-mq-map('margin', $themeBannerSection, 'bannerSectionMargin');
 
-    + .wlc-sections__categories {
-        margin-top: ef.get-value($themeBannerSection, 'sectionMarginTop');
+    + .wlc-sections__categories,
+    + .wlc-sections__banner-promotion {
+        margin: ef.get-value($themeBannerSection, 'sectionMargin');
     }
 }

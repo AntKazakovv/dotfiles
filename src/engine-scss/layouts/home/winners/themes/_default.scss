@@ -16,7 +16,7 @@
         justify-content: ef.get-value($themeWinnersSection, 'justifyContent');
 
         & > div {
-            margin: ef.get-value($themeWinnersSection, 'itemsMargin');
+            @include bm.get-mq-map('margin', $themeWinnersSection, 'itemsMargin');
 
             &:first-child,
             &:last-child {

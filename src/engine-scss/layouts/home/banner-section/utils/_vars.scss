@@ -3,7 +3,7 @@ $themeBannerSection: map-merge((
     'bannerSectionMargin': (
         375: 0 0 ef.size(8),
     ),
-    'sectionMarginTop': -20px,
+    'sectionMargin': ef.size(-4) 0 ef.size(8),
 ), $customThemeBannerSection);
 
 $customThemePlusOne: () !default;
