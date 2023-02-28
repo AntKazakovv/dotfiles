@@ -57,11 +57,9 @@
     &:before {
         content: '';
         position: absolute;
-        top: -6px;
-        left: 50%;
-        border: 3px solid transparent;
-        border-bottom: 4px solid ef.get-value($themeDefault, 'langBg');
-        transform: translate(-50%, 0);
+        top: -4px;
+        border: 4px solid ef.get-value($themeDefault, 'langBg');
+        rotate: 45deg;
     }
 }
 

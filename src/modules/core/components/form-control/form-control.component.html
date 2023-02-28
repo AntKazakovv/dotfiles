@@ -4,12 +4,14 @@
 
 <ng-template #controlWithErrors>
     <div *ngIf="control.invalid && control.touched && errors.length"
-         class="{{className}}__icon form-control__icon"
-         containerClass="form-control-tooltip tooltip-error"
-         placement="bottom"
-         [isDisabled]="!errors.length"
-         [tooltip]="errorsRef">
-        <div class="icon"></div>
+         class="{{className}}__icon form-control__icon">
+        <div  class="icon"
+              containerClass="form-control-tooltip tooltip-error"
+              placement="bottom"
+              container="form-control"
+              [tooltip]="errorsRef"
+              [isDisabled]="!errors.length">
+        </div>
     </div>
 </ng-template>
 
