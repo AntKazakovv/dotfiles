@@ -6,7 +6,7 @@ import {
     Input,
     ChangeDetectorRef,
 } from '@angular/core';
-import {FormGroup} from '@angular/forms';
+import {UntypedFormGroup} from '@angular/forms';
 import {takeUntil} from 'rxjs/operators';
 import {BehaviorSubject} from 'rxjs';
 import {TranslateService} from '@ngx-translate/core';
@@ -90,7 +90,7 @@ export class MerchantWalletFormComponent extends AbstractComponent implements On
      * Submit transfer form handler
      * @param form FormGroup
      */
-    public async handleSubmit(form: FormGroup): Promise<boolean> {
+    public async handleSubmit(form: UntypedFormGroup): Promise<boolean> {
         this.isSubmitPending = true;
         form.disable();
 
@@ -148,7 +148,7 @@ export class MerchantWalletFormComponent extends AbstractComponent implements On
      * Gets form to subscribe the amount value
      * @param form FormGroup
      */
-    public getForm(form: FormGroup): void {
+    public getForm(form: UntypedFormGroup): void {
         form.controls['amount']?.valueChanges
             .pipe(takeUntil(this.$destroy))
             .subscribe((amount: number): void => {

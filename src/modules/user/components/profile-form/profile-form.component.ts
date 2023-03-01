@@ -5,7 +5,7 @@ import {
     Input,
     ChangeDetectorRef,
 } from '@angular/core';
-import {FormGroup} from '@angular/forms';
+import {UntypedFormGroup} from '@angular/forms';
 
 import {BehaviorSubject} from 'rxjs';
 import _assign from 'lodash-es/assign';
@@ -151,7 +151,7 @@ export class ProfileFormComponent extends ProfileFormAbstract implements OnInit 
      * @param form {FormGroup}
      * @returns save status
      */
-    public async ngSubmit(form: FormGroup): Promise<boolean> {
+    public async ngSubmit(form: UntypedFormGroup): Promise<boolean> {
         const {pep} = form.value;
 
         delete form.value['pep'];
@@ -383,7 +383,7 @@ export class ProfileFormComponent extends ProfileFormAbstract implements OnInit 
         });
     }
 
-    protected saveChanges(form: FormGroup): Promise<TSaveChangesRes> {
+    protected saveChanges(form: UntypedFormGroup): Promise<TSaveChangesRes> {
         if (this.isKiosk) {
             const {currentPassword, newPasswordRepeat} = form.value;
 

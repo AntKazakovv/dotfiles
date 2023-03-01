@@ -1,4 +1,4 @@
-import {FormGroup} from '@angular/forms';
+import {UntypedFormGroup} from '@angular/forms';
 import {
     Component,
     OnInit,
@@ -69,7 +69,7 @@ export class RestoreSmsCodeFormComponent extends AbstractComponent implements On
      * Send form - validate code and open new password modal
      * @param form - `FormGroup`
      */
-    public async sendCode(form: FormGroup): Promise<boolean> {
+    public async sendCode(form: UntypedFormGroup): Promise<boolean> {
         const code = form.value.code;
 
         try {

@@ -5,7 +5,7 @@ import {
     Input,
     ChangeDetectorRef,
 } from '@angular/core';
-import {FormControl} from '@angular/forms';
+import {UntypedFormControl} from '@angular/forms';
 import {
     AbstractComponent,
     ConfigService,
@@ -35,7 +35,7 @@ import _kebabCase from 'lodash-es/kebabCase';
 export class TextareaComponent extends AbstractComponent implements OnInit {
     @Input() protected inlineParams: Params.ITextareaCParams;
     public $params: Params.ITextareaCParams;
-    public control: FormControl;
+    public control: UntypedFormControl;
     public fieldWlcElement: string;
 
     constructor(

@@ -5,7 +5,7 @@ import {
     OnDestroy,
     OnInit,
 } from '@angular/core';
-import {FormControl} from '@angular/forms';
+import {UntypedFormControl} from '@angular/forms';
 
 import {
     BehaviorSubject,
@@ -67,7 +67,7 @@ export class EnterPromocodeComponent
             placeholder: gettext('Enter promo code'),
             useLabel: false,
         },
-        control: new FormControl(''),
+        control: new UntypedFormControl(''),
     };
 
     public ngOnInit(): void {

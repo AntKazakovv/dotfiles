@@ -5,7 +5,7 @@ import {
     Input,
     OnInit,
 } from '@angular/core';
-import {FormGroup} from '@angular/forms';
+import {UntypedFormGroup} from '@angular/forms';
 
 import {BehaviorSubject} from 'rxjs';
 import _each from 'lodash-es/each';
@@ -60,7 +60,7 @@ export class ChangePasswordFormComponent extends AbstractComponent implements On
         });
     }
 
-    public async ngSubmit(form: FormGroup): Promise<boolean> {
+    public async ngSubmit(form: UntypedFormGroup): Promise<boolean> {
         const {currentPassword, newPasswordRepeat} = form.value;
 
         try {

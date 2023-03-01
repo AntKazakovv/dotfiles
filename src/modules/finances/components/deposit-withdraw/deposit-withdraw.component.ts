@@ -7,8 +7,8 @@ import {
     OnDestroy,
 } from '@angular/core';
 import {
-    FormControl,
-    FormGroup,
+    UntypedFormControl,
+    UntypedFormGroup,
 } from '@angular/forms';
 import {HttpClient} from '@angular/common/http';
 import {DOCUMENT} from '@angular/common';
@@ -158,7 +158,7 @@ export class DepositWithdrawComponent
     public showErrorHosledLoad: boolean = false;
     public hiddenPaymentInfo: boolean;
     public isLastMethodExisting: boolean;
-    protected formObject: FormGroup;
+    protected formObject: UntypedFormGroup;
     protected inProgress: boolean = false;
     protected userService: UserService;
 
@@ -332,7 +332,7 @@ export class DepositWithdrawComponent
         }
     }
 
-    public formBeforeSubmit(form: FormGroup): boolean {
+    public formBeforeSubmit(form: UntypedFormGroup): boolean {
         const notificationTitle = this.isDeposit ? gettext('Deposit') : gettext('Withdraw');
         if (!this.currentSystem) {
             this.pushNotification({
@@ -374,12 +374,12 @@ export class DepositWithdrawComponent
      * @param {string} field
      * @returns {boolean} True if empty only current field
      */
-    public emptyOnlyField(form: FormGroup, field: string): boolean {
+    public emptyOnlyField(form: UntypedFormGroup, field: string): boolean {
         if (form.controls[field]?.value) {
             return false;
         }
 
-        return !_find(form.controls, (control: FormControl, key: string): boolean => {
+        return !_find(form.controls, (control: UntypedFormControl, key: string): boolean => {
             if (key !== 'submit' && key !== field) {
                 return !control.value;
             }
@@ -387,7 +387,7 @@ export class DepositWithdrawComponent
         });
     }
 
-    public async sendPrestepForm(form: FormGroup): Promise<boolean> {
+    public async sendPrestepForm(form: UntypedFormGroup): Promise<boolean> {
         this.formObject = form;
         try {
             await this.financesService.makePrestep(
@@ -409,7 +409,7 @@ export class DepositWithdrawComponent
         }
     }
 
-    public async sendForm(form: FormGroup): Promise<boolean> {
+    public async sendForm(form: UntypedFormGroup): Promise<boolean> {
         if (this.inProgress) {
             return false;
         }
@@ -453,7 +453,7 @@ export class DepositWithdrawComponent
         }
     }
 
-    public async withdraw(form: FormGroup, saveProfile: boolean = false): Promise<boolean> {
+    public async withdraw(form: UntypedFormGroup, saveProfile: boolean = false): Promise<boolean> {
         this.modalService.showModal('data-is-processing');
         this.inProgress = true;
 
@@ -1238,7 +1238,7 @@ export class DepositWithdrawComponent
                                     placeholder: field.name,
                                     tooltipText: fieldSettings.tooltip,
                                 },
-                                control: new FormControl(''),
+                                control: new UntypedFormControl(''),
                                 validators: _concat(validators,
                                     ...(fieldSettings.validators || [])),
                                 customMod: ['additional'],
@@ -1260,7 +1260,7 @@ export class DepositWithdrawComponent
                                         title: field.params[item],
                                     };
                                 }),
-                                control: new FormControl(''),
+                                control: new UntypedFormControl(''),
                                 validators: validators,
                                 customMod: ['additional'],
                             },
@@ -1379,7 +1379,7 @@ export class DepositWithdrawComponent
                 },
                 items: items,
                 value: items[0].value,
-                control: new FormControl(''),
+                control: new UntypedFormControl(''),
                 validators: ['required'],
                 customMod: ['additional'],
             },

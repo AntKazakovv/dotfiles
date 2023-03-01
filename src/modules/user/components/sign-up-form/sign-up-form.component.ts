@@ -4,7 +4,7 @@ import {
     Inject,
     OnInit,
 } from '@angular/core';
-import {FormGroup} from '@angular/forms';
+import {UntypedFormGroup} from '@angular/forms';
 
 import {BehaviorSubject} from 'rxjs';
 import _each from 'lodash-es/each';
@@ -164,11 +164,11 @@ export class SignUpFormComponent extends UserActionsAbstract<Params.ISignUpFormC
      * @param form
      * @returns {Promise}
      */
-    public beforeSubmit(form: FormGroup): Promise<boolean> {
+    public beforeSubmit(form: UntypedFormGroup): Promise<boolean> {
         return this.checkRegisterPromocode(form);
     }
 
-    public async ngSubmit(form: FormGroup): Promise<boolean> {
+    public async ngSubmit(form: UntypedFormGroup): Promise<boolean> {
         if ((this.getTwoSteps() && !this.isSecondStep())
             || this.configService.get<boolean>('$base.profile.smsVerification.use')) {
             await this.nextStepSubmit(form);
@@ -211,7 +211,7 @@ export class SignUpFormComponent extends UserActionsAbstract<Params.ISignUpFormC
         }
     }
 
-    protected async checkRegisterPromocode(form: FormGroup): Promise<boolean> {
+    protected async checkRegisterPromocode(form: UntypedFormGroup): Promise<boolean> {
         const promocodeControl = form.get('registrationPromoCode');
         const currencyControl = form.get('currency');
 
@@ -260,7 +260,7 @@ export class SignUpFormComponent extends UserActionsAbstract<Params.ISignUpFormC
         }
     }
 
-    protected async nextStepSubmit(form: FormGroup): Promise<void> {
+    protected async nextStepSubmit(form: UntypedFormGroup): Promise<void> {
         if ((!this.getTwoSteps() || this.isSecondStep()) && !await this.checkConfirmation(form)) {
             return;
         }

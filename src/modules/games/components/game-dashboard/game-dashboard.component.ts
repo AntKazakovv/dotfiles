@@ -21,7 +21,7 @@ import {
     transition,
     trigger,
 } from '@angular/animations';
-import {FormControl} from '@angular/forms';
+import {UntypedFormControl} from '@angular/forms';
 
 import {
     BehaviorSubject,
@@ -152,7 +152,7 @@ export class GameDashboardComponent extends AbstractComponent implements OnInit,
         name: 'dont-show',
         text: gettext('Don\'t show again'),
         textSide: 'right',
-        control: new FormControl(),
+        control: new UntypedFormControl(),
         onChange: (checked: boolean) => {
             this.cachingService.set<boolean>(this.dontShowInstructionKey, checked, true);
         },

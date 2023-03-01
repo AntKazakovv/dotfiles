@@ -10,7 +10,7 @@ import {
     ViewChild,
 } from '@angular/core';
 import {TranslateService} from '@ngx-translate/core';
-import {FormControl} from '@angular/forms';
+import {UntypedFormControl} from '@angular/forms';
 import {takeUntil} from 'rxjs/operators';
 import {Subject} from 'rxjs';
 import {UIRouter} from '@uirouter/core';
@@ -93,7 +93,7 @@ export class BonusesListComponent extends AbstractComponent implements OnInit, O
         name: 'choose-no-bonus',
         text: gettext('Proceed without welcome bonus'),
         textSide: 'right',
-        control: new FormControl(),
+        control: new UntypedFormControl(),
         onChange: (checked: boolean) => {
             checked ? this.chooseBlankBonus() : this.chooseBonusByPosition(this.chosenBonusIndex);
         },

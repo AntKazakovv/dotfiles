@@ -18,7 +18,7 @@ import {
     DomSanitizer,
     Title,
 } from '@angular/platform-browser';
-import {FormControl} from '@angular/forms';
+import {UntypedFormControl} from '@angular/forms';
 import {ResizedEvent} from 'angular-resize-event';
 import {
     UIRouter,
@@ -149,7 +149,7 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
         type: 'toggle',
         text: gettext('Dashboard'),
         textSide: 'left',
-        control: new FormControl(),
+        control: new UntypedFormControl(),
         onChange: (checked: boolean) => {
             this.toggleDasgboard(checked);
         },

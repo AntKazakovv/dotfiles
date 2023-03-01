@@ -7,7 +7,6 @@ import {
 } from '@angular/core';
 
 import {AbstractChatComponent} from 'wlc-engine/modules/chat/system/classes/component.abstract.class';
-import {Changeable, getChangeableProperties} from 'wlc-engine/modules/chat/system/decorators/changeable.decorator';
 
 export type TAlertTheme = 'default' | 'panel';
 export type TAlertMod = 'default' | 'warning' | 'error' | 'success';
@@ -20,9 +19,9 @@ export type TAlertMod = 'default' | 'warning' | 'error' | 'success';
 })
 
 export class AlertComponent extends AbstractChatComponent implements OnChanges {
-    @Input() @Changeable() public theme: TAlertTheme = 'default';
-    @Input() @Changeable() public mod: TAlertMod = 'default';
-    protected changeable: string[] = getChangeableProperties(this);
+    @Input() public theme: TAlertTheme = 'default';
+    @Input() public mod: TAlertMod = 'default';
+    protected changeable: string[] = ['theme', 'mod']; //TODO: fix decorator
 
     constructor() {
         super('wlc-alert');

@@ -6,7 +6,7 @@ import {
     ChangeDetectionStrategy,
     Optional,
 } from '@angular/core';
-import {FormControl} from '@angular/forms';
+import {UntypedFormControl} from '@angular/forms';
 import {
     StateService,
     UIRouterGlobals,
@@ -44,7 +44,7 @@ export class AcceptTermsComponent extends AbstractComponent implements OnInit {
             linkText: gettext('Terms and Conditions'),
             slug: 'terms-and-conditions',
         },
-        control: new FormControl(),
+        control: new UntypedFormControl(),
         wlcElement: 'block_terms-checkbox',
         common: {
             customModifiers: 'terms',

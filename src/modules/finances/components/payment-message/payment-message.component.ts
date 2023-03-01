@@ -8,7 +8,7 @@ import {
     OnInit,
     Renderer2,
 } from '@angular/core';
-import {FormControl} from '@angular/forms';
+import {UntypedFormControl} from '@angular/forms';
 import {DOCUMENT} from '@angular/common';
 
 import {TranslateService} from '@ngx-translate/core';
@@ -231,7 +231,7 @@ export class PaymentMessageComponent extends AbstractComponent implements OnInit
             const amount: IInputCParams = _merge(
                 _cloneDeep(FormElements.amount.params),
                 {
-                    control: new FormControl(this.message.userAmount),
+                    control: new UntypedFormControl(this.message.userAmount),
                     validators: null,
                 },
             );
@@ -273,30 +273,30 @@ export class PaymentMessageComponent extends AbstractComponent implements OnInit
         switch(type) {
             case 'tag':
                 inputParams.common.placeholder = gettext('Tag');
-                inputParams.control = new FormControl(this.message.tag);
+                inputParams.control = new UntypedFormControl(this.message.tag);
                 break;
             case 'memo':
                 inputParams.common.placeholder = gettext('Memo');
-                inputParams.control = new FormControl(this.message.memo);
+                inputParams.control = new UntypedFormControl(this.message.memo);
                 break;
             case 'xadress':
                 inputParams.common.placeholder = gettext('X-addresses');
-                inputParams.control = new FormControl(this.message.x_address);
+                inputParams.control = new UntypedFormControl(this.message.x_address);
                 break;
             case 'invoice':
                 inputParams.common.placeholder =
                     this.translateService.instant(gettext('Amount in'))
                     + ' ' + this.system.cryptoTicker;
-                inputParams.control = new FormControl(this.message.cryptoAmount);
+                inputParams.control = new UntypedFormControl(this.message.cryptoAmount);
                 break;
             case 'cryptoAmount':
                 inputParams.common.placeholder = this.translateService.instant(gettext('Converted crypto amount'))
                     + ` (${this.cryptoCurrency})`;
-                inputParams.control = new FormControl(this.cryptoAmount);
+                inputParams.control = new UntypedFormControl(this.cryptoAmount);
                 break;
             default :
                 inputParams.common.placeholder = gettext('Wallet casino');
-                inputParams.control = new FormControl(this.message.address);
+                inputParams.control = new UntypedFormControl(this.message.address);
                 break;
         }
 

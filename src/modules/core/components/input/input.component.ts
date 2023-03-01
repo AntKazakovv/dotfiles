@@ -11,7 +11,7 @@ import {
     AfterViewInit,
     HostBinding,
 } from '@angular/core';
-import {FormControl} from '@angular/forms';
+import {UntypedFormControl} from '@angular/forms';
 
 import {
     distinctUntilChanged,
@@ -64,7 +64,7 @@ export class InputComponent extends AbstractComponent implements OnInit, OnChang
     @ViewChild('input') input: ElementRef;
 
     public $params: Params.IInputCParams;
-    public control: FormControl;
+    public control: UntypedFormControl;
     public fieldWlcElement: string;
     public useTooltip: boolean;
     public useAutoCompleteFix: boolean = true;

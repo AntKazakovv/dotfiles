@@ -6,7 +6,7 @@ import {
     ChangeDetectorRef,
     ChangeDetectionStrategy,
 } from '@angular/core';
-import {FormControl} from '@angular/forms';
+import {UntypedFormControl} from '@angular/forms';
 
 import {
     AbstractComponent,
@@ -31,7 +31,7 @@ export class RadioButtonsComponent extends AbstractComponent implements OnInit {
     @Input() protected inlineParams: Params.IRadioButtonsCParams;
 
     public $params: Params.IRadioButtonsCParams;
-    public control: FormControl;
+    public control: UntypedFormControl;
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IRadioButtonsCParams,

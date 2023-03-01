@@ -1,4 +1,4 @@
-import {FormControl} from '@angular/forms';
+import {UntypedFormControl} from '@angular/forms';
 import {
     CustomType,
     IComponentParams,
@@ -30,7 +30,7 @@ export interface ISelectCParams<V = unknown> extends IComponentParams<ComponentT
     },
     autocomplete?: string;
     validators?: ValidatorType[];
-    control?: FormControl;
+    control?: UntypedFormControl;
     disabled?: boolean;
     locked?: boolean | string[];
     labelText?: string;

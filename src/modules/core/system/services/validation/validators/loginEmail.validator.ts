@@ -1,5 +1,5 @@
 import {
-    FormControl,
+    UntypedFormControl,
     ValidationErrors,
 } from '@angular/forms';
 import _includes from 'lodash-es/includes';
@@ -12,7 +12,7 @@ import {emailValidator} from './email.validator';
  * @param  ctrl {FormControl} control Form control
  * @returns {ValidationErrors | null} True if contains, else false
  */
-export function loginEmailFieldValidator(ctrl: FormControl): ValidationErrors | null {
+export function loginEmailFieldValidator(ctrl: UntypedFormControl): ValidationErrors | null {
     if (_includes(ctrl.value ,'@')) {
         return emailValidator(ctrl);
     } else {
@@ -26,7 +26,7 @@ export function loginEmailFieldValidator(ctrl: FormControl): ValidationErrors | 
  * @param  ctrl {FormControl} control Form control
  * @returns {ValidationErrors | null} True if contains, else false
  */
-export function loginFieldValidator(ctrl: FormControl): ValidationErrors | null {
+export function loginFieldValidator(ctrl: UntypedFormControl): ValidationErrors | null {
     if (!ctrl.touched) {
         return null;
     }

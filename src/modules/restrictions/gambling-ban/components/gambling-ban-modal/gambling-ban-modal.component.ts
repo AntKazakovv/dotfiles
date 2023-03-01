@@ -4,7 +4,7 @@ import {
     Inject,
     OnInit,
 } from '@angular/core';
-import {FormControl} from '@angular/forms';
+import {UntypedFormControl} from '@angular/forms';
 
 import {
     GamblingBanService,
@@ -64,7 +64,7 @@ export class GamblingBanModalComponent extends AbstractComponent implements OnIn
 
         this.checkboxConfig = {
             ...checkbox,
-            control: new FormControl(checkbox.common?.checkedDefault ?? false),
+            control: new UntypedFormControl(checkbox.common?.checkedDefault ?? false),
         };
     }
 

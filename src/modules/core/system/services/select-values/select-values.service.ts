@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {
     AbstractControl,
-    FormControl,
+    UntypedFormControl,
 } from '@angular/forms';
 
 import {
@@ -411,7 +411,7 @@ export class SelectValuesService {
      * @returns {TConstantValue}
      */
     public getCountryStates(
-        stateControl: FormControl,
+        stateControl: UntypedFormControl,
         destroy: Subject<void>,
     ): TConstantValue {
 
@@ -480,7 +480,7 @@ export class SelectValuesService {
      */
     public prepareConstantValues(
         option: string,
-        control: FormControl,
+        control: UntypedFormControl,
         destroy: Subject<void>,
     ): TConstantValues {
 

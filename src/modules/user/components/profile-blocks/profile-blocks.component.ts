@@ -5,7 +5,7 @@ import {
     Input,
     ChangeDetectorRef,
 } from '@angular/core';
-import {FormControl} from '@angular/forms';
+import {UntypedFormControl} from '@angular/forms';
 
 import {
     takeUntil,
@@ -44,7 +44,7 @@ export class ProfileBlocksComponent extends AbstractComponent implements OnInit 
     public toggleBtn: ICheckboxCParams = {
         name: 'notification',
         type: 'toggle',
-        control: new FormControl(),
+        control: new UntypedFormControl(),
         onChange: (checked: boolean): void => {
             this.notificationToggle(checked);
         },

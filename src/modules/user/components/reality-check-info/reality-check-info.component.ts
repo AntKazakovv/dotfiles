@@ -5,7 +5,7 @@ import {
     Input,
     Inject,
 } from '@angular/core';
-import {FormControl} from '@angular/forms';
+import {UntypedFormControl} from '@angular/forms';
 import {DateTime} from 'luxon';
 import {ICheckboxCParams} from 'wlc-engine/modules/core/components/checkbox/checkbox.params';
 import {ModalService} from 'wlc-engine/modules/core/system/services/modal/modal.service';
@@ -32,7 +32,7 @@ export class RealityCheckInfoComponent extends AbstractComponent implements OnIn
         name: 'i-have-seen',
         text: gettext('I have seen this message'),
         textSide: 'right',
-        control: new FormControl(),
+        control: new UntypedFormControl(),
         onChange: (checked: boolean) => {
             this.showClose = checked;
         },

@@ -17,7 +17,7 @@ import {
     transition,
     trigger,
 } from '@angular/animations';
-import {FormControl} from '@angular/forms';
+import {UntypedFormControl} from '@angular/forms';
 import {TranslateService} from '@ngx-translate/core';
 import {
     BehaviorSubject,
@@ -89,7 +89,7 @@ export class SelectComponent extends AbstractComponent implements OnInit, OnChan
     @Input() protected inlineParams: Params.ISelectCParams;
 
     public $params: Params.ISelectCParams;
-    public control: FormControl;
+    public control: UntypedFormControl;
     public isOpened: boolean;
     public fieldWlcElement: string;
     public activeItemIndex: number;

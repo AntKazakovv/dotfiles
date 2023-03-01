@@ -1,6 +1,6 @@
 import {
-    FormGroup,
-    FormControl,
+    UntypedFormGroup,
+    UntypedFormControl,
     Validators,
     AbstractControl,
 } from '@angular/forms';
@@ -37,11 +37,11 @@ import {Direction} from 'wlc-engine/modules/chat/system/interfaces';
 })
 export class SendFormComponent extends AbstractChatComponent implements OnInit {
 
-    public form: FormGroup = new FormGroup({
-        message: new FormControl(null, [
+    public form: UntypedFormGroup = new UntypedFormGroup({
+        message: new UntypedFormControl(null, [
             Validators.maxLength(160),
         ]),
-        isFake: new FormControl(false),
+        isFake: new UntypedFormControl(false),
     });
     public emojiPanelState$: BehaviorSubject<boolean> = new BehaviorSubject(false);
 

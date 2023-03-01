@@ -1,5 +1,5 @@
 import {Directive} from '@angular/core';
-import {FormGroup} from '@angular/forms';
+import {UntypedFormGroup} from '@angular/forms';
 
 import {
     BehaviorSubject,
@@ -42,7 +42,7 @@ export abstract class ProfileFormAbstract extends AbstractComponent {
      * @param form {FormGroup}
      * @returns {boolean} boolean
      */
-    public beforeSubmit(form: FormGroup, initialFormValues: IIndexing<any>): boolean {
+    public beforeSubmit(form: UntypedFormGroup, initialFormValues: IIndexing<any>): boolean {
         const isNewValues = _some(
             _keys(form.value),
             (key: string) => {

@@ -1,5 +1,5 @@
 import {Directive} from '@angular/core';
-import {FormGroup} from '@angular/forms';
+import {UntypedFormGroup} from '@angular/forms';
 import {StateService} from '@uirouter/core';
 import {TranslateService} from '@ngx-translate/core';
 
@@ -86,7 +86,7 @@ export abstract class SignInFormAbstract<T extends IAbstractSignInFormCParams<un
         super(mixedParams, configService);
     }
 
-    public beforeSubmit(form: FormGroup): boolean {
+    public beforeSubmit(form: UntypedFormGroup): boolean {
         if (this.captchaError) {
             const captcha = form.controls.captcha;
 
@@ -101,7 +101,7 @@ export abstract class SignInFormAbstract<T extends IAbstractSignInFormCParams<un
         return true;
     }
 
-    public async ngSubmit(form: FormGroup): Promise<boolean> {
+    public async ngSubmit(form: UntypedFormGroup): Promise<boolean> {
         const {email, login, password, captcha} = form.value;
 
         if (captcha) {

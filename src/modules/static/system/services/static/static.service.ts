@@ -361,19 +361,15 @@ export class StaticService {
         const lang = this.getLanguageCode(params.lang || this.translateService.currentLang);
         const url = this.getWpApiUrl(type, lang);
 
-        let httpParams = new HttpParams({
-            fromObject: _merge({}, this.params, params, {
-                slug: params.slug,
-                lang,
-            }),
-        });
+        const fromObject = _merge({}, this.params, params, {lang});
 
-        if (!httpParams.get('slug')) {
-            httpParams = httpParams.delete('slug');
+        if (params.slug) {
+            fromObject.slug = params.slug;
         }
-        return new HttpRequest('GET', url, {
-            params: httpParams,
-        });
+
+        const httpParams = new HttpParams({fromObject});
+
+        return new HttpRequest('GET', url, {params: httpParams});
     }
 
     private async setConfig(): Promise<boolean> {
@@ -500,20 +496,4 @@ export class StaticService {
     private getLanguageCode(lang: string): string {
         return this.configService.get<string>(`$static.rewritingLanguages[${lang}]`) || lang.split('-').shift();
     }
-
-    // Just for future
-    // this.hooksService.set(this.slugPrepareHookName, this.termsSlugChange, this);
-    // private async termsSlugChange(slug: string): Promise<string> {
-    //     if (slug === 'terms-and-conditions') {
-    //         const userInfo$ = this.configService.get<BehaviorSubject<UserInfo>>({name: '$user.userInfo$'});
-    //         const userInfo = userInfo$.value ?? await firstValueFrom(userInfo$.pipe(first((v) => !!v)));
-
-    //         if (userInfo.nextTermsVersion <= DateTime.now()) {
-    //             return `${slug}_${userInfo.nextTermsVersion.toFormat('yyyy-LL-dd')}`;
-    //         }
-    //         return `${slug}_${DateTime.now().toFormat('yyyy-LL-dd')}`;
-    //     }
-
-    //     return slug;
-    // }
 }

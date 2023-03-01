@@ -1,4 +1,4 @@
-import {FormControl} from '@angular/forms';
+import {UntypedFormControl} from '@angular/forms';
 
 import {IDatepickerCParams} from 'wlc-engine/modules/core/components/datepicker/datepicker.params';
 import {ISelectCParams} from 'wlc-engine/modules/core/components/select/select.params';
@@ -11,7 +11,7 @@ import {
 export const startDate: IDatepickerCParams = {
     name: 'startDate',
     label: gettext('Start date'),
-    control: new FormControl(''),
+    control: new UntypedFormControl(''),
     event: {
         emit: 'CHANGE_START_DATE',
         subscribe: 'CHANGE_END_DATE',
@@ -21,7 +21,7 @@ export const startDate: IDatepickerCParams = {
 export const endDate: IDatepickerCParams = {
     name: 'endDate',
     label: gettext('End date'),
-    control: new FormControl(''),
+    control: new UntypedFormControl(''),
     event: {
         emit: 'CHANGE_END_DATE',
         subscribe: 'CHANGE_START_DATE',
@@ -35,7 +35,7 @@ export namespace transactionConfig {
         common: {
             placeholder: gettext('Type'),
         },
-        control: new FormControl('all'),
+        control: new UntypedFormControl('all'),
         items: [
             {
                 value: 'all',
@@ -61,7 +61,7 @@ export namespace betConfig {
             placeholder: gettext('All'),
         },
         labelText: gettext('Providers'),
-        control: new FormControl('All'),
+        control: new UntypedFormControl('All'),
         options: 'merchants',
     };
     export const orderSelect: ISelectCParams = {
@@ -71,7 +71,7 @@ export namespace betConfig {
             customModifiers: 'order',
         },
         labelText: gettext('Order by'),
-        control: new FormControl('desc'),
+        control: new UntypedFormControl('desc'),
         items: [
             {
                 value: 'desc',
@@ -93,7 +93,7 @@ export namespace tournamentConfig {
         },
         theme: 'vertical',
         labelText: gettext('Sort by'),
-        control: new FormControl('all'),
+        control: new UntypedFormControl('all'),
         items: [
             {
                 value: 'all',
@@ -135,7 +135,7 @@ export namespace bonusesConfig {
         },
         theme: 'vertical',
         labelText: gettext('Sort by'),
-        control: new FormControl('all'),
+        control: new UntypedFormControl('all'),
         items: [
             {
                 value: 'all',

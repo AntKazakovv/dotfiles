@@ -1,4 +1,4 @@
-import {FormControl} from '@angular/forms';
+import {UntypedFormControl} from '@angular/forms';
 import IMask from 'imask';
 import {
     CustomType,
@@ -60,7 +60,7 @@ export interface IInputCParams extends IComponentParams<ComponentTheme, Componen
         maxLength?: number;
     }
     validators?: ValidatorType[];
-    control?: FormControl;
+    control?: UntypedFormControl;
     exampleValue?: string;
     disabled?: boolean;
     locked?: boolean;

@@ -5,7 +5,7 @@ import {
     ChangeDetectorRef,
     OnInit,
 } from '@angular/core';
-import {FormGroup} from '@angular/forms';
+import {UntypedFormGroup} from '@angular/forms';
 
 import {BehaviorSubject} from 'rxjs';
 import {DateTime} from 'luxon';
@@ -89,7 +89,7 @@ export class DeviceRegistrationFormComponent extends AbstractComponent implement
      * Form sending method
      * @param form {FormGroup}
      */
-    public async ngSubmit(form: FormGroup): Promise<boolean> {
+    public async ngSubmit(form: UntypedFormGroup): Promise<boolean> {
         const regCode: number = _toNumber(form.controls.code.value);
 
         try {

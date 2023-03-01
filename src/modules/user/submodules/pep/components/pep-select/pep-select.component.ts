@@ -6,7 +6,7 @@ import {
     Input,
     OnInit,
 } from '@angular/core';
-import {FormControl} from '@angular/forms';
+import {UntypedFormControl} from '@angular/forms';
 
 import {
     distinctUntilChanged,
@@ -53,7 +53,7 @@ export class PepSelectComponent extends AbstractComponent implements OnInit {
         super.ngOnInit(this.inlineParams);
 
         if (!this.$params?.control) {
-            this.$params.control = new FormControl(this.pepService.status);
+            this.$params.control = new UntypedFormControl(this.pepService.status);
         }
 
         this.eventService.subscribe({name: 'PEP_CANCEL'}, () => {

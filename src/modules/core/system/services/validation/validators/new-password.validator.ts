@@ -1,5 +1,5 @@
 import {
-    FormControl,
+    UntypedFormControl,
     ValidationErrors,
 } from '@angular/forms';
 
@@ -9,7 +9,7 @@ import {
  * @param {FormControl} control Form control
  * @returns {{ValidationErrors | null} True if contains, else false
  */
-export function newPasswordValidator(control: FormControl): ValidationErrors | null {
+export function newPasswordValidator(control: UntypedFormControl): ValidationErrors | null {
     return (/[a-z]+/.test(control.value) &&
         /[A-Z]+/.test(control.value) &&
         /\d+/.test(control.value) &&

@@ -15,8 +15,8 @@ import {
 } from '@angular/core';
 import {
     AsyncValidatorFn,
-    FormControl,
-    FormGroup,
+    UntypedFormControl,
+    UntypedFormGroup,
     ValidatorFn,
 } from '@angular/forms';
 import {
@@ -72,7 +72,7 @@ import {
 } from 'wlc-engine/modules/core/components/wrapper/wrapper.component';
 import {WINDOW} from 'wlc-engine/modules/app/system';
 
-export interface IControls extends IIndexing<FormControl> {
+export interface IControls extends IIndexing<UntypedFormControl> {
 }
 
 export interface IGlobalValidators {
@@ -101,16 +101,18 @@ export interface IFormWrapperCParams extends IWrapperCParams {
     encapsulation: ViewEncapsulation.None,
 })
 export class FormWrapperComponent extends WrapperComponent implements OnInit, OnChanges {
-    @Input() public ngSubmit: (form: FormGroup) => Promise<boolean> | boolean;
-    @Input() private beforeSubmit: (form: FormGroup, initialFormValues?: IIndexing<any>) => boolean | Promise<boolean>;
+    @Input() public ngSubmit: (form: UntypedFormGroup) => Promise<boolean> | boolean;
+    @Input()
+    private beforeSubmit: (form: UntypedFormGroup, initialFormValues?: IIndexing<any>) => boolean | Promise<boolean>;
+
     @Input() private config: IFormWrapperCParams;
     @Input() private formData: BehaviorSubject<IIndexing<any>>;
     @Input() private errors: Observable<IIndexing<string>>;
 
-    @Output() public form$ = new EventEmitter<FormGroup>();
+    @Output() public form$ = new EventEmitter<UntypedFormGroup>();
 
     public $params: IFormWrapperCParams;
-    public form: FormGroup;
+    public form: UntypedFormGroup;
     private controls: IControls = {};
     private allControls: IControls = {};
     private globalValidators: IGlobalValidators;
@@ -193,7 +195,7 @@ export class FormWrapperComponent extends WrapperComponent implements OnInit, On
 
         } else {
             _assign(component.params, {
-                control: this.form?.controls[component.params.name] || new FormControl(''),
+                control: this.form?.controls[component.params.name] || new UntypedFormControl(''),
             });
         }
 
@@ -207,7 +209,7 @@ export class FormWrapperComponent extends WrapperComponent implements OnInit, On
             return;
         }
 
-        _each(this.form.controls, (control: FormControl) => {
+        _each(this.form.controls, (control: UntypedFormControl) => {
             if (!control.touched || !control.valid) {
                 control.markAsTouched();
                 control.updateValueAndValidity();
@@ -314,7 +316,7 @@ export class FormWrapperComponent extends WrapperComponent implements OnInit, On
         this.prepareComponents(this.$params.components);
         this.prepareValidators();
 
-        this.form = new FormGroup(
+        this.form = new UntypedFormGroup(
             this.controls,
             this.globalValidators.validators,
             this.globalValidators.asyncValidators,
@@ -402,7 +404,7 @@ export class FormWrapperComponent extends WrapperComponent implements OnInit, On
                     }
 
                     if (!this.allControls[field] || component.alwaysNew) {
-                        this.allControls[field] = new FormControl(
+                        this.allControls[field] = new UntypedFormControl(
                             {
                                 value: _get(this.formData?.value, field, ''),
                                 disabled: component.params.disabled,
@@ -429,7 +431,7 @@ export class FormWrapperComponent extends WrapperComponent implements OnInit, On
                 });
             } else {
                 if (!this.allControls[component.params.name] || component.alwaysNew) {
-                    this.allControls[component.params.name] = new FormControl(
+                    this.allControls[component.params.name] = new UntypedFormControl(
                         {
                             value: _get(this.formData?.value, component.params.name, component.params.value) || '',
                             disabled: component.params.disabled,
@@ -526,7 +528,7 @@ export class FormWrapperComponent extends WrapperComponent implements OnInit, On
         }
 
         _each(_keys(errors), (key: string): void => {
-            const control: FormControl = this.controls[key];
+            const control: UntypedFormControl = this.controls[key];
             if (control) {
                 control.setErrors({
                     incomingError: errors[key],

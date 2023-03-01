@@ -6,7 +6,7 @@ import {
     Inject,
     Input,
 } from '@angular/core';
-import {FormControl} from '@angular/forms';
+import {UntypedFormControl} from '@angular/forms';
 
 import {
     takeUntil,
@@ -37,7 +37,7 @@ export class EmailFieldComponent extends AbstractComponent implements OnInit {
     public $params!: Params.IEmailFieldCParams;
     public verificationBtn: boolean = false;
     public buttonDisabled: boolean = false;
-    public emailControl!: FormControl;
+    public emailControl!: UntypedFormControl;
     public isVerified!: boolean;
     protected profileEmail!: string;
     protected isExisted: boolean = false;

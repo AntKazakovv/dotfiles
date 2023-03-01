@@ -6,7 +6,7 @@ import {
     Input,
     OnInit,
 } from '@angular/core';
-import {FormControl} from '@angular/forms';
+import {UntypedFormControl} from '@angular/forms';
 
 import {takeUntil} from 'rxjs';
 import _union from 'lodash-es/union';
@@ -32,7 +32,7 @@ type ClassNames = Record<string, boolean>;
 export class CheckboxComponent extends AbstractComponent implements OnInit {
     @Input() protected inlineParams: Params.ICheckboxCParams;
     public $params: Params.ICheckboxCParams;
-    public control: FormControl;
+    public control: UntypedFormControl;
     public fieldWlcElement: string;
     public textContext: Params.ICheckboxCParams['textContext'];
     public textWithLink: Params.ILegalCheckboxWithLink = {

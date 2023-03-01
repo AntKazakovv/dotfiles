@@ -1,5 +1,5 @@
 import {
-    FormControl,
+    UntypedFormControl,
     ValidationErrors,
 } from '@angular/forms';
 
@@ -9,7 +9,7 @@ import {
  * @param {FormControl} control Form control
  * @returns {ValidationErrors | null} True if control contains only latin letters
  */
-export function onlyLettersValidator(control: FormControl): ValidationErrors | null {
+export function onlyLettersValidator(control: UntypedFormControl): ValidationErrors | null {
     return !control.value || /^[A-zА-я]+$/.test(control.value) ? null : {
         'onlyLetters': true,
     };

@@ -3,7 +3,7 @@ import {
     Inject,
     Input,
 } from '@angular/core';
-import {FormGroup} from '@angular/forms';
+import {UntypedFormGroup} from '@angular/forms';
 import {StateService} from '@uirouter/core';
 
 import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
@@ -58,7 +58,7 @@ export class NewPasswordFormComponent extends AbstractComponent {
         });
     }
 
-    public async ngSubmit(form: FormGroup): Promise<boolean> {
+    public async ngSubmit(form: UntypedFormGroup): Promise<boolean> {
         const {newPassword, repeatPassword} = form.value;
         const code = this.injectParams.common.code;
 

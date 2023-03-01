@@ -1,4 +1,4 @@
-import {FormControl} from '@angular/forms';
+import {UntypedFormControl} from '@angular/forms';
 
 import {IInputCParams} from 'wlc-engine/modules/core';
 import {IComponentParams} from 'wlc-engine/modules/core/system/classes/abstract.component';
@@ -18,7 +18,7 @@ export const defaultParams: IFundistUserIdCParams = {
 export const inputParams: IInputCParams = {
     name: 'core.wlc-input',
     locked: true,
-    control: new FormControl(''),
+    control: new UntypedFormControl(''),
     common: {
         readonly: true,
         useLabel: false,

@@ -4,7 +4,7 @@ import {
     ChangeDetectionStrategy,
     Inject,
 } from '@angular/core';
-import {FormGroup} from '@angular/forms';
+import {UntypedFormGroup} from '@angular/forms';
 
 import _reduce from 'lodash-es/reduce';
 import _merge from 'lodash-es/merge';
@@ -48,7 +48,7 @@ export class AmountFormComponent extends AbstractComponent implements OnInit {
      * Handle form-wrapper submit event
      * @param {FormGroup} form `FormGroup`
      */
-    public formSubmit(form: FormGroup): boolean {
+    public formSubmit(form: UntypedFormGroup): boolean {
         this.eventService.emit({
             name: this.$params.submitEventName,
             data: form.getRawValue(),

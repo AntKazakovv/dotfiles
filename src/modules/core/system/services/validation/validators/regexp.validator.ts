@@ -1,5 +1,5 @@
 import {
-    FormControl,
+    UntypedFormControl,
     ValidationErrors,
     ValidatorFn,
 } from '@angular/forms';
@@ -11,7 +11,7 @@ import {
  * @returns {ValidatorFn} Form control validator
  */
 export function regexpValidator(regexp: string): ValidatorFn {
-    return (control: FormControl): ValidationErrors | null => {
+    return (control: UntypedFormControl): ValidationErrors | null => {
         return new RegExp(regexp).test(control.value) ? {'regexp': true} : null;
     };
 }
@@ -22,7 +22,7 @@ export function regexpValidator(regexp: string): ValidatorFn {
  * @returns {ValidatorFn} Form control validator
  */
 export function regexpEmojiValidator(): ValidatorFn {
-    return (control: FormControl): ValidationErrors | null => {
+    return (control: UntypedFormControl): ValidationErrors | null => {
         return (control.value)?.match(new RegExp(/\p{Emoji_Presentation}/gu)) ? {'regexpEmoji': true} : null;
     };
 }

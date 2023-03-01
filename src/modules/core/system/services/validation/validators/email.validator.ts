@@ -1,5 +1,5 @@
 import {
-    FormControl,
+    UntypedFormControl,
     ValidationErrors,
 } from '@angular/forms';
 
@@ -12,7 +12,7 @@ export const emailRegex: RegExp = /^[\w!#$%&\'*+/=?\\^`{|}~-]+(?:\.[\w!#$%&\'*+/
  * @param {FormControl} control Form control
  * @returns {ValidationErrors | null} True if form control value contains valid email
  */
-export function emailValidator(control: FormControl): ValidationErrors | null {
+export function emailValidator(control: UntypedFormControl): ValidationErrors | null {
     return !control.value || emailRegex.test(control.value) ? null : {
         'email': true,
     };

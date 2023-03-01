@@ -7,7 +7,7 @@ import {
     ElementRef,
     ChangeDetectorRef,
 } from '@angular/core';
-import {FormControl} from '@angular/forms';
+import {UntypedFormControl} from '@angular/forms';
 import {TranslateService} from '@ngx-translate/core';
 import {
     IMyDefaultMonth,
@@ -44,7 +44,7 @@ export class DatepickerComponent extends AbstractComponent implements OnInit {
     @ViewChild('mask') mask: ElementRef;
     @ViewChild(AngularMyDatePickerDirective) dp: AngularMyDatePickerDirective;
     public $params: Params.IDatepickerCParams;
-    public control: FormControl;
+    public control: UntypedFormControl;
     public locale: string;
     public defaultMonth: IMyDefaultMonth;
     public dpModel: IMyDateModel;
@@ -62,7 +62,7 @@ export class DatepickerComponent extends AbstractComponent implements OnInit {
     public ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
         this.locale = this.translateService.currentLang;
-        this.control = this.$params.control || new FormControl('');
+        this.control = this.$params.control || new UntypedFormControl('');
         const disableSince = this.$params.datepickerOptions.disableSince;
 
         this.control.valueChanges.subscribe((date: DateTime): void => {

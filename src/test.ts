@@ -47,6 +47,8 @@ getTestBed().initTestEnvironment(
         teardown: {
             destroyAfterEach: false,
         },
+        errorOnUnknownElements: true,
+        errorOnUnknownProperties: true,
     },
 );
 
@@ -54,6 +56,3 @@ getTestBed().initTestEnvironment(
 const context = require.context('./', true, /\.spec\.ts$/);
 // And load the modules.
 context.keys().forEach(context);
-
-// fix in angular 14
-console.error = (data: unknown) => fail(data);

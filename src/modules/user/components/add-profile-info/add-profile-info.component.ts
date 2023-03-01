@@ -7,7 +7,7 @@ import {
     Input,
     ChangeDetectorRef,
 } from '@angular/core';
-import {FormGroup} from '@angular/forms';
+import {UntypedFormGroup} from '@angular/forms';
 import {StateService} from '@uirouter/core';
 
 import _each from 'lodash-es/each';
@@ -74,7 +74,7 @@ export class AddProfileInfoComponent extends ProfileFormAbstract implements OnIn
         });
     }
 
-    public async onSubmit(form: FormGroup): Promise<boolean> {
+    public async onSubmit(form: UntypedFormGroup): Promise<boolean> {
         if (this.isPending) {
             return false;
         }

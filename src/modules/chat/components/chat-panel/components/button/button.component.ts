@@ -6,7 +6,6 @@ import {
     OnChanges,
 } from '@angular/core';
 
-import {Changeable, getChangeableProperties} from 'wlc-engine/modules/chat/system/decorators/changeable.decorator';
 import {AbstractChatComponent} from 'wlc-engine/modules/chat/system/classes/component.abstract.class';
 
 export type TButtonTheme = 'default' | 'icon';
@@ -21,10 +20,10 @@ export type TButtonSize = 'default' | 'sm';
 })
 
 export class ButtonComponent extends AbstractChatComponent implements OnChanges {
-    @Input() @Changeable() protected theme: TButtonTheme = 'default';
-    @Input() @Changeable() protected mod: TButtonMod = 'default';
-    @Input() @Changeable() protected size: TButtonSize = 'default';
-    protected changeable: string[] = getChangeableProperties(this);
+    @Input() protected theme: TButtonTheme = 'default';
+    @Input() protected mod: TButtonMod = 'default';
+    @Input() protected size: TButtonSize = 'default';
+    protected changeable: string[] = ['theme', 'mod', 'size']; //TODO: fix decorator
 
     constructor() {
         super('wlc-btn');

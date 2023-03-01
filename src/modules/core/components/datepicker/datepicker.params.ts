@@ -1,4 +1,4 @@
-import {FormControl} from '@angular/forms';
+import {UntypedFormControl} from '@angular/forms';
 import {IAngularMyDpOptions, IMyDefaultMonth} from 'angular-mydatepicker';
 import {DateTime} from 'luxon';
 import {IMaskOptions} from 'wlc-engine/modules/core/directives/input-mask.directive';
@@ -15,7 +15,7 @@ export interface IDatepickerCParams extends IComponentParams<ComponentTheme, Com
     datepickerOptions?: IAngularMyDpOptions;
     maskOptions?: IMaskOptions;
     label?: string;
-    control?: FormControl;
+    control?: UntypedFormControl;
     defaultMonth?: IMyDefaultMonth;
     event?: {
         emit?: TDatepickerEvent,

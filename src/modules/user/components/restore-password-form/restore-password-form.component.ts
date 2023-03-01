@@ -5,7 +5,7 @@ import {
     Inject,
     OnInit,
 } from '@angular/core';
-import {FormGroup} from '@angular/forms';
+import {UntypedFormGroup} from '@angular/forms';
 
 import _cloneDeep from 'lodash-es/cloneDeep';
 
@@ -73,7 +73,7 @@ export class RestorePasswordFormComponent extends AbstractComponent implements O
      * Submit handler
      * @param form `FormGroup`
      */
-    public async ngSubmit(form: FormGroup): Promise<boolean> {
+    public async ngSubmit(form: UntypedFormGroup): Promise<boolean> {
         let {email, emailOrPhone}: IIndexing<string> = form.value;
         let phone: string;
 

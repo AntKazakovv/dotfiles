@@ -7,7 +7,7 @@ import {
     ViewChild,
     ChangeDetectionStrategy,
 } from '@angular/core';
-import {FormGroup} from '@angular/forms';
+import {UntypedFormGroup} from '@angular/forms';
 
 import {DateTime} from 'luxon';
 import {
@@ -103,7 +103,7 @@ export class SmsVerificationComponent extends UserActionsAbstract<Params.ISmsVer
      *
      * @return {Promise} void
      */
-    public async sendCode(form: FormGroup): Promise<boolean> {
+    public async sendCode(form: UntypedFormGroup): Promise<boolean> {
         this.phoneCode = form.value.phoneCode;
         this.phoneNumber = form.value.phoneNumber;
         if (!this.phoneCode || !this.phoneNumber) {
@@ -126,7 +126,7 @@ export class SmsVerificationComponent extends UserActionsAbstract<Params.ISmsVer
      *
      * @return {Promise} void
      */
-    public async submitCode(form: FormGroup): Promise<boolean> {
+    public async submitCode(form: UntypedFormGroup): Promise<boolean> {
         const smsCode = form.value.code;
         if (!smsCode ) {
             form.markAllAsTouched();

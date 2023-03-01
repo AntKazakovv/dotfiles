@@ -23,7 +23,7 @@ class WlcTemplateReplacePlugins {
         const styleName = path.basename(customStylePath);
 
         if (fs.existsSync(customStylePath)) {
-            resource.request = customStylePath;
+            resource.request = resource.request.replace(/.+\?/, customStylePath + '?');
         } else {
             createDir.sync(customStyleDir);
             const fileData =

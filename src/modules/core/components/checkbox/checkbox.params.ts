@@ -4,7 +4,7 @@ import {
     IIndexing,
     ValidatorType,
 } from 'wlc-engine/modules/core';
-import {FormControl} from '@angular/forms';
+import {UntypedFormControl} from '@angular/forms';
 
 export type ComponentTheme = 'default' | 'mobile-app' | CustomType;
 export type ComponentType = 'default' | 'toggle' | CustomType;
@@ -40,7 +40,7 @@ export interface ICheckboxCParams extends IComponentParams<ComponentTheme, Compo
     textWithLink?: ILegalCheckboxWithLink;
     /* context for text translate */
     textContext?: IIndexing<string | number>;
-    control?: FormControl;
+    control?: UntypedFormControl;
     onChange?: OnChange,
     common?: {
         customModifiers?: CustomMod;

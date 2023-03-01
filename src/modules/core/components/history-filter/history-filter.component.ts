@@ -7,7 +7,7 @@ import {
     ChangeDetectorRef,
     OnDestroy,
 } from '@angular/core';
-import {FormGroup} from '@angular/forms';
+import {UntypedFormGroup} from '@angular/forms';
 
 import {BehaviorSubject} from 'rxjs';
 import {
@@ -79,7 +79,7 @@ export class HistoryFilterComponent extends AbstractComponent implements OnInit,
         }
     }
 
-    public ngSubmit(form: FormGroup): void {
+    public ngSubmit(form: UntypedFormGroup): void {
         this.historyFilterService.setFilter(this.$params.config, form.value);
         this.modalService.hideModal('history-filter');
     }

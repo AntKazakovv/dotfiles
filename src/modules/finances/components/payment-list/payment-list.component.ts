@@ -12,7 +12,7 @@ import {
     OnChanges,
     SimpleChanges,
 } from '@angular/core';
-import {FormControl} from '@angular/forms';
+import {UntypedFormControl} from '@angular/forms';
 import {
     map,
     filter,
@@ -108,7 +108,7 @@ export class PaymentListComponent extends IconListAbstract<Params.IPaymentListCP
     public useTags: boolean = false;
     public tagsConfig: IPaySystemCategories;
     public tags: [TPaySystemTagAll, string][] = [];
-    public tagsControl: FormControl = new FormControl();
+    public tagsControl: UntypedFormControl = new UntypedFormControl();
     public tagsMenuConfig: IWrapperCParams;
     public showTagsDropDown: boolean = false;
     public dropdownCatMenu: boolean = false;

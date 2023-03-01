@@ -1,6 +1,6 @@
 import {
-    FormControl,
-    FormGroup,
+    UntypedFormControl,
+    UntypedFormGroup,
 } from '@angular/forms';
 import {
     fakeAsync,
@@ -25,10 +25,10 @@ describe('ValidationService', () => {
     let dataServiceSpy: jasmine.SpyObj<DataService>;
     let configServiceSpy: jasmine.SpyObj<ConfigService>;
 
-    let formControlEmail: FormControl;
-    let formControlLogin: FormControl;
-    let formControlPassword: FormControl;
-    let formControlEmpty: FormControl;
+    let formControlEmail: UntypedFormControl;
+    let formControlLogin: UntypedFormControl;
+    let formControlPassword: UntypedFormControl;
+    let formControlEmpty: UntypedFormControl;
 
     const validatorsNames: string[] = [
         'emailUnique', 'emailExist', 'loginUnique', 'password', 'requiredTrue',
@@ -62,10 +62,10 @@ describe('ValidationService', () => {
         });
         validationService = TestBed.inject(ValidationService);
 
-        formControlEmail = new FormControl('mr.dmitry98@gmail.com');
-        formControlLogin = new FormControl('login');
-        formControlPassword = new FormControl('password');
-        formControlEmpty = new FormControl();
+        formControlEmail = new UntypedFormControl('mr.dmitry98@gmail.com');
+        formControlLogin = new UntypedFormControl('login');
+        formControlPassword = new UntypedFormControl('password');
+        formControlEmpty = new UntypedFormControl();
     });
 
     it('-> should be created', () => {
@@ -239,9 +239,9 @@ describe('ValidationService', () => {
     it('-> matchingFieldsValidator should set error on second passed field and otherwise null', () => {
         const sameText: string = 'value';
 
-        const firstControl: FormControl = new FormControl(sameText);
-        const secondControl: FormControl = new FormControl('value_not_same');
-        const formGroup: FormGroup = new FormGroup({firstControl, secondControl});
+        const firstControl: UntypedFormControl = new UntypedFormControl(sameText);
+        const secondControl: UntypedFormControl = new UntypedFormControl('value_not_same');
+        const formGroup: UntypedFormGroup = new UntypedFormGroup({firstControl, secondControl});
         matchingFieldsValidator(['firstControl', 'secondControl'])(formGroup);
         expect(secondControl.errors).toEqual({'mustMatch': true});
 
@@ -260,7 +260,7 @@ describe('ValidationService', () => {
         ];
 
         incorrectValues.forEach(item => {
-            const control = new FormControl(
+            const control = new UntypedFormControl(
                 item,
                 [validationService['validatorList'].allowLettersOnly.validator],
             );
@@ -275,7 +275,7 @@ describe('ValidationService', () => {
         ];
 
         correctValues.forEach(item => {
-            const control2 = new FormControl(
+            const control2 = new UntypedFormControl(
                 item,
                 [validationService['validatorList'].allowLettersOnly.validator],
             );
@@ -287,14 +287,14 @@ describe('ValidationService', () => {
     it('-> numberDecimal should return null on correct pattern', () => {
         const trueCases = ['4.20', '1545.1', '0.88', '4.1', '1'];
         trueCases.forEach(item => {
-            const control = new FormControl(item, [validationService['validatorList'].numberDecimal.validator]);
+            const control = new UntypedFormControl(item, [validationService['validatorList'].numberDecimal.validator]);
             control.updateValueAndValidity();
             expect(control.errors).toBeNull();
         });
 
         const falseCases = ['t.e', '1,34', '1232,', '1.333', '3_fd', '5_5', '.', ','];
         falseCases.forEach(item => {
-            const control2 = new FormControl(item, [validationService['validatorList'].numberDecimal.validator]);
+            const control2 = new UntypedFormControl(item, [validationService['validatorList'].numberDecimal.validator]);
             control2.updateValueAndValidity();
             expect(control2.errors.pattern.requiredPattern).toBeDefined();
         });

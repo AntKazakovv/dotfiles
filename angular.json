@@ -164,6 +164,5 @@
     },
     "cli": {
         "analytics": false
-    },
-    "defaultProject": "wlc-engine"
+    }
 }

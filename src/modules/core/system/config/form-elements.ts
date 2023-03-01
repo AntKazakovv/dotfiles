@@ -1,4 +1,4 @@
-import {FormControl} from '@angular/forms';
+import {UntypedFormControl} from '@angular/forms';
 
 import {IFormComponent} from 'wlc-engine/modules/core/components/form-wrapper/form-wrapper.component';
 import {
@@ -322,7 +322,7 @@ export namespace FormElements {
         params: <ISelectCParams>{
             class: 'wlc-select',
             labelText: gettext('PEP'),
-            control: new FormControl(''),
+            control: new UntypedFormControl(''),
             common: {
                 placeholder: gettext('PEP'),
                 tooltipText: gettext('Politically Exposed Person'),

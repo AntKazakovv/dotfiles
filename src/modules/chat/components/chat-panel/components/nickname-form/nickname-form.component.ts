@@ -6,8 +6,8 @@ import {
     OnInit,
 } from '@angular/core';
 import {
-    FormGroup,
-    FormControl,
+    UntypedFormGroup,
+    UntypedFormControl,
     ValidatorFn,
     AbstractControl,
     ValidationErrors,
@@ -35,8 +35,8 @@ export interface INicknameFormCParams {
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NicknameFormComponent extends AbstractChatComponent implements OnInit {
-    public form: FormGroup = new FormGroup({
-        nickname: new FormControl('', [
+    public form: UntypedFormGroup = new UntypedFormGroup({
+        nickname: new UntypedFormControl('', [
             this.required(),
             this.hasEmoji(),
             this.hasForbiddenSymbols(),

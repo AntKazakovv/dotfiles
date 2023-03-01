@@ -1,5 +1,5 @@
 import {BehaviorSubject} from 'rxjs';
-import {FormGroup} from '@angular/forms';
+import {UntypedFormGroup} from '@angular/forms';
 import {
     CustomType,
     IComponentParams,
@@ -15,7 +15,7 @@ export type HistoryFilterFormConfigType = 'transaction' | 'bonus' | 'bet';
 
 export interface IHistoryFilterFormCParams extends IComponentParams<Theme, Type, ThemeMod> {
     formConfig: IFormWrapperCParams;
-    onSubmit: (form: FormGroup) => Promise<boolean>;
+    onSubmit: (form: UntypedFormGroup) => Promise<boolean>;
     formData: BehaviorSubject<IIndexing<any>>;
 }
 

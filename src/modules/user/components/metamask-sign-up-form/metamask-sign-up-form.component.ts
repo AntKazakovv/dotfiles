@@ -4,7 +4,7 @@ import {
     ChangeDetectionStrategy,
     Inject,
 } from '@angular/core';
-import {FormGroup} from '@angular/forms';
+import {UntypedFormGroup} from '@angular/forms';
 import {BehaviorSubject} from 'rxjs';
 
 import _merge from 'lodash-es/merge';
@@ -78,7 +78,7 @@ export class MetamaskSignUpFormComponent
      * @param {FormGroup} form `FormGroup`
      * @returns {Promise<void>}
      */
-    public async ngSubmit(form: FormGroup): Promise<boolean> {
+    public async ngSubmit(form: UntypedFormGroup): Promise<boolean> {
         try {
             form.disable();
 

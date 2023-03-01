@@ -7,7 +7,7 @@ import {
     OnInit,
     ViewChild,
 } from '@angular/core';
-import {FormControl} from '@angular/forms';
+import {UntypedFormControl} from '@angular/forms';
 import {Subscription} from 'rxjs';
 import {
     filter,
@@ -64,7 +64,7 @@ export class VerificationComponent extends AbstractComponent implements OnInit {
         common: {},
         name: undefined,
         items: [],
-        control: new FormControl(''),
+        control: new UntypedFormControl(''),
     };
     public verificationParams: IVerification;
     public isSelectMode: boolean;

@@ -3,7 +3,7 @@ import {
     Inject,
     OnInit,
 } from '@angular/core';
-import {FormGroup} from '@angular/forms';
+import {UntypedFormGroup} from '@angular/forms';
 
 import {
     fromEvent,
@@ -52,7 +52,7 @@ export abstract class PepAbstractModalComponent extends AbstractComponent implem
         this.cancelStatusOnPageClosed();
     }
 
-    public abstract ngSubmit(form: FormGroup): Promise<boolean>;
+    public abstract ngSubmit(form: UntypedFormGroup): Promise<boolean>;
 
     protected cancelStatusOnHidden(): void {
         const modal = this.getModal();

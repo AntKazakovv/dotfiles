@@ -6,7 +6,7 @@ import {
     Inject,
     Input,
 } from '@angular/core';
-import {FormGroup} from '@angular/forms';
+import {UntypedFormGroup} from '@angular/forms';
 
 import {
     AbstractComponent,
@@ -57,7 +57,7 @@ export class PasswordConfirmationFormComponent extends AbstractComponent impleme
      *
      * @param {FormGroup} form
      */
-    public async ngSubmit(form: FormGroup): Promise<boolean> {
+    public async ngSubmit(form: UntypedFormGroup): Promise<boolean> {
         const password: string = form.value.password;
 
         try {

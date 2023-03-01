@@ -1,4 +1,4 @@
-import {FormControl} from '@angular/forms';
+import {UntypedFormControl} from '@angular/forms';
 
 import {
     IComponentParams,
@@ -15,7 +15,7 @@ export interface IRadioButtonsCParams<V = unknown> extends IComponentParams<Them
     common?: {
         placeholder?: string;
     },
-    control?: FormControl;
+    control?: UntypedFormControl;
     disabled?: boolean;
     locked?: boolean;
     items?: IRadioButtonOption<V>[];

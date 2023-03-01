@@ -1,4 +1,4 @@
-import {FormControl} from '@angular/forms';
+import {UntypedFormControl} from '@angular/forms';
 import {
     CustomType,
     IComponentParams,
@@ -19,7 +19,7 @@ export interface ITextareaCParams extends IComponentParams<ComponentTheme, Compo
     }
     exampleValue?: string;
     validators?: ValidatorType[];
-    control?: FormControl;
+    control?: UntypedFormControl;
 }
 
 export const defaultParams: Partial<ITextareaCParams> = {

@@ -4,7 +4,7 @@ import {
     Input,
     OnInit,
 } from '@angular/core';
-import {FormGroup} from '@angular/forms';
+import {UntypedFormGroup} from '@angular/forms';
 
 import {
     EventService,
@@ -64,7 +64,7 @@ export class PepConfirmPasswordFormComponent extends PepAbstractModalComponent i
         this.goBackOnHidden('pepInfo');
     }
 
-    public async ngSubmit(form: FormGroup): Promise<boolean> {
+    public async ngSubmit(form: UntypedFormGroup): Promise<boolean> {
         const {password} = form.value;
         const {pep} = this.$params;
 

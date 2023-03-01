@@ -1,5 +1,5 @@
 import {
-    FormControl,
+    UntypedFormControl,
     ValidationErrors,
 } from '@angular/forms';
 
@@ -16,7 +16,7 @@ const emailOrPhone: RegExp = new RegExp(`(${emailRegex.source})|(${PHONE_REGEX.s
  * @param {FormControl} control Form control
  * @returns {ValidationErrors | null} True if form control value contains valid email or phone
  */
-export function emailOrPhoneValidator(control: FormControl): ValidationErrors | null {
+export function emailOrPhoneValidator(control: UntypedFormControl): ValidationErrors | null {
     return !control.value || emailOrPhone.test(control.value) ? null : {
         'emailOrPhone': true,
     };

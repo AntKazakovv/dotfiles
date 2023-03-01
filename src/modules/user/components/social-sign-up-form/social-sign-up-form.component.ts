@@ -1,4 +1,4 @@
-import {FormGroup} from '@angular/forms';
+import {UntypedFormGroup} from '@angular/forms';
 import {BehaviorSubject} from 'rxjs';
 import {
     Component,
@@ -70,7 +70,7 @@ export class SocialSignUpFormComponent extends UserActionsAbstract<Params.ISocia
         }
     }
 
-    public async ngSubmit(form: FormGroup): Promise<boolean> {
+    public async ngSubmit(form: UntypedFormGroup): Promise<boolean> {
         try {
             form.disable();
 

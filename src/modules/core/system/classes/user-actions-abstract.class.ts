@@ -1,5 +1,5 @@
 import {Directive} from '@angular/core';
-import {FormGroup} from '@angular/forms';
+import {UntypedFormGroup} from '@angular/forms';
 
 import _keys from 'lodash-es/keys';
 import _isArray from 'lodash-es/isArray';
@@ -90,7 +90,7 @@ export abstract class UserActionsAbstract<T> extends AbstractComponent {
         });
     }
 
-    protected async checkConfirmation(form: FormGroup): Promise<boolean> {
+    protected async checkConfirmation(form: UntypedFormGroup): Promise<boolean> {
         const formValues: IIndexing<number | string | boolean> = form.getRawValue();
         let {ageConfirmed, agreedWithTermsAndConditions} = formValues;
 
@@ -123,7 +123,7 @@ export abstract class UserActionsAbstract<T> extends AbstractComponent {
         return false;
     }
 
-    protected formDataPreparation(form: FormGroup): IValidateData {
+    protected formDataPreparation(form: UntypedFormGroup): IValidateData {
         const formValues: IIndexing<number | string | boolean> = form.getRawValue();
 
         if (!form.controls.hasOwnProperty('passwordRepeat')) {

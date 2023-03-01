@@ -7,7 +7,7 @@ import {
     Input,
     OnInit,
 } from '@angular/core';
-import {FormGroup} from '@angular/forms';
+import {UntypedFormGroup} from '@angular/forms';
 import {TranslateService} from '@ngx-translate/core';
 
 import {BehaviorSubject} from 'rxjs';
@@ -101,7 +101,7 @@ export class FeedbackFormComponent extends AbstractComponent implements OnInit, 
             });
     }
 
-    public async ngSubmit(form: FormGroup): Promise<boolean> {
+    public async ngSubmit(form: UntypedFormGroup): Promise<boolean> {
         const {senderEmail, senderName, message, subject} = form.getRawValue();
 
         try {

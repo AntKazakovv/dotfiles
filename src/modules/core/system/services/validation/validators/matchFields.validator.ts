@@ -1,7 +1,7 @@
-import {FormGroup} from '@angular/forms';
+import {UntypedFormGroup} from '@angular/forms';
 
 export function matchingFieldsValidator(controlsName: [string, string]) {
-    return (formGroup: FormGroup) => {
+    return (formGroup: UntypedFormGroup) => {
         const [firstField, secondField] = controlsName;
         const control = formGroup.controls[firstField];
         const matchingControl = formGroup.controls[secondField];

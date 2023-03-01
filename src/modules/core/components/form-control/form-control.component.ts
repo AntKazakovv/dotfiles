@@ -8,7 +8,7 @@ import {
     OnInit,
     ViewEncapsulation,
 } from '@angular/core';
-import {FormControl} from '@angular/forms';
+import {UntypedFormControl} from '@angular/forms';
 import {takeUntil} from 'rxjs/operators';
 import {Subject} from 'rxjs';
 import {TranslateService} from '@ngx-translate/core';
@@ -29,7 +29,7 @@ import _toString from 'lodash-es/toString';
     encapsulation: ViewEncapsulation.None,
 })
 export class FormControlComponent implements OnInit, OnDestroy {
-    @Input() control: FormControl;
+    @Input() control: UntypedFormControl;
     @Input() className: string;
     @Input() fieldName: string;
     @Input() validators: ValidatorType[];

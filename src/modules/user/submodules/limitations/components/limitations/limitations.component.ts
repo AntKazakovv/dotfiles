@@ -5,7 +5,7 @@ import {
     Inject,
     ChangeDetectorRef,
 } from '@angular/core';
-import {FormGroup} from '@angular/forms';
+import {UntypedFormGroup} from '@angular/forms';
 
 import {BehaviorSubject} from 'rxjs';
 import {first} from 'rxjs/operators';
@@ -61,7 +61,7 @@ export class LimitationsComponent extends AbstractComponent implements OnInit {
     public limits: BehaviorSubject<any[]> = new BehaviorSubject([]);
 
     protected pending: boolean = false;
-    protected form: FormGroup;
+    protected form: UntypedFormGroup;
 
     public tableData: ITableCParams = {
         head: Params.tableConfig,
@@ -125,7 +125,7 @@ export class LimitationsComponent extends AbstractComponent implements OnInit {
         }, this.$destroy);
     }
 
-    public getForm(form: FormGroup): void {
+    public getForm(form: UntypedFormGroup): void {
         this.form = form;
     }
 
@@ -133,7 +133,7 @@ export class LimitationsComponent extends AbstractComponent implements OnInit {
         this.modalService.showModal(name, {slug, parseAsPlainHTML: true, shouldClearStyles: true});
     }
 
-    public async onSubmit(form: FormGroup): Promise<boolean> {
+    public async onSubmit(form: UntypedFormGroup): Promise<boolean> {
         if (this.pending) {
             return false;
         }
