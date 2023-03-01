@@ -6,46 +6,22 @@
 
         .wlc-form {
             display: grid;
-            grid-template-areas: ef.get-value($themeDefault, 'formTemplateAreas');
             grid-template-columns: ef.get-value($themeDefault, 'formTemplateColumns');
             align-items: ef.get-value($themeDefault, 'formAlignItems');
             justify-content: ef.get-value($themeDefault, 'formJustifyContent');
             column-gap: ef.get-value($themeDefault, 'formColumnGap');
             row-gap: ef.get-value($themeDefault, 'formRowGap');
-        }
 
-        .wlc-bet-filters {
-
-            .wlc-form {
-                grid-template-areas: ef.get-value($themeDefault, 'formBetTemplateAreas');
-                grid-template-columns: ef.get-value($themeDefault, 'formBetTemplateColumns');
+            > * {
+                grid-column: ef.get-value($themeDefault, 'colunnFull');
             }
-        }
 
-        .wlc-bonuses-filters {
-
-            .wlc-form {
-                grid-template-areas: ef.get-value($themeDefault, 'formBonusesTemplateAreas');
-            }
-        }
-
-        .wlc-tournaments-filters {
-
-            .wlc-form {
-                grid-template-areas: ef.get-value($themeDefault, 'formTournamentsTemplateAreas');
-            }
-        }
-
-        .wlc-transactions-filters {
-
-            .wlc-form {
-                grid-template-areas: ef.get-value($themeDefault, 'formTransactionsTemplateAreas');
-                grid-template-columns: ef.get-value($themeDefault, 'formTransactionsTemplateColumns');
+            > .wlc-datepicker {
+                grid-column: ef.get-value($themeDefault, 'colunnHalf');
             }
         }
 
         .wlc-text-block {
-            grid-area: ef.get-value($themeDefault, 'textBlockGridArea');
             width: 100%;
             margin-bottom: 0;
 
@@ -66,7 +42,6 @@
         }
 
         .wlc-select {
-            grid-area: ef.get-value($themeDefault, 'selectGridArea');
             max-width: ef.get-value($themeDefault, 'selectMaxWidth');
 
             &--order {
@@ -75,7 +50,6 @@
         }
 
         .wlc-radio-buttons {
-            grid-area: ef.get-value($themeDefault, 'radioButtonsGridArea');
             width: 100%;
 
             &__elems[class] {
@@ -86,18 +60,9 @@
 
         .wlc-datepicker {
             max-width: 100%;
-
-            &--start {
-                grid-area: ef.get-value($themeDefault, 'datePicker1GridArea');
-            }
-
-            &--end {
-                grid-area: ef.get-value($themeDefault, 'datePicker2GridArea');
-            }
         }
 
         .wlc-btn {
-            grid-area: ef.get-value($themeDefault, 'btnGridArea');
             width: ef.get-value($themeDefault, 'btnWidth');
             margin: ef.get-value($themeDefault, 'btnMargin');
         }

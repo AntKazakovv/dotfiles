@@ -1,33 +1,18 @@
 $customThemeDefault: () !default;
 $themeDefault: map-merge((
     'formMaxWidth': (
-        320: 285px,
+        375: 285px,
     ),
     'formMargin': auto,
-    'formTemplateColumns': 1fr,
-    'formTemplateAreas': 'textBlock textBlock' 'radioButtons radioButtons' 'datepicker1 datepicker2' 'button button',
-    'formBetTemplateAreas': 'textBlock' 'datepicker1' 'datepicker2' 'selectType' 'selectOrderType' 'button',
-    'formBetTemplateColumns': 1fr,
-    'formTournamentsTemplateAreas': 'textBlock textBlock' 'selectType selectType' 'button button',
-    'formBonusesTemplateAreas': 'textBlock textBlock' 'selectType selectType' 'button button',
-    'formTransactionsTemplateAreas': 'textBlock' 'datepicker1' 'datepicker2' 'selectType' 'button',
+    'formTemplateColumns': repeat(2, 1fr),
+    'colunnFull': span 2,
+    'colunnHalf': span 1,
     'formColumnGap': 15px,
     'formRowGap': 20px,
     'formAlignItems': center,
     'formJustifyContent': center,
 
-    'textBlockGridArea': textBlock,
     'textBlockAlignment': center,
-
-    'selectGridArea': selectType,
-    'selectOrderGridArea': selectOrderType,
-
-    'radioButtonsGridArea': radioButtons,
-
-    'datePicker1GridArea': datepicker1,
-    'datePicker2GridArea': datepicker2,
-
-    'btnGridArea': button,
     'btnWidth': auto,
     'btnMargin': ef.size(4) auto 0,
 ), $customThemeDefault);
