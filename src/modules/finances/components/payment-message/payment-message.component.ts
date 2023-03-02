@@ -46,7 +46,7 @@ export type TMessageType = 'html'
     | 'pay_to_address_with_amount'
     | 'pay_via_invoice';
 
-type TInputName = 'address' | 'invoice' | 'xadress' | 'memo' | 'tag';
+type TInputName = 'address' | 'invoice' | 'xadress' | 'memo' | 'tag' | 'cryptoAmount';
 
 interface IPatchOptions {
     onlySelf?: boolean;
@@ -78,6 +78,8 @@ export class PaymentMessageComponent extends AbstractComponent implements OnInit
     public html: string;
     public parseAmount: string;
     public parseRate: string;
+    public cryptoAmount: string;
+    public cryptoCurrency: string;
     public metamaskButtonConfig: IWrapperCParams | null = null;
 
     public timerParams: ITimerCParams;
@@ -213,10 +215,13 @@ export class PaymentMessageComponent extends AbstractComponent implements OnInit
             this.inputParamsXaddress = null;
             if (this.message.amount) {
                 this.type = 'pay_to_address_with_amount';
-
                 const parsItems: string[] =  this.message.amount.split('~');
                 this.parseAmount = parsItems[0].trim();
                 this.parseRate = parsItems[1].trim();
+                const parseCrypto: string[] = this.parseRate.split(' ');
+                this.cryptoAmount = parseCrypto[0];
+                this.cryptoCurrency = parseCrypto[1];
+                this.inputParamsCryptoAmount = this.getInputParams('cryptoAmount');
             }
         }
 
@@ -283,6 +288,11 @@ export class PaymentMessageComponent extends AbstractComponent implements OnInit
                     this.translateService.instant(gettext('Amount in'))
                     + ' ' + this.system.cryptoTicker;
                 inputParams.control = new FormControl(this.message.cryptoAmount);
+                break;
+            case 'cryptoAmount':
+                inputParams.common.placeholder = this.translateService.instant(gettext('Converted crypto amount'))
+                    + ` (${this.cryptoCurrency})`;
+                inputParams.control = new FormControl(this.cryptoAmount);
                 break;
             default :
                 inputParams.common.placeholder = gettext('Wallet casino');
