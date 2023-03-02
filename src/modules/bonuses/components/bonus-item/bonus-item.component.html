@@ -130,9 +130,10 @@
     <div class="{{$class}}__content"
          data-wlc-element="block_bonus"
          [class.chosen]="bonus.isChoose">
-        <div class="{{$class}}__body"
-             [style]="{backgroundImage: bonusBg}"
-             [ngClass]="{'with-image': bonusBg}">
+        <div class="{{$class}}__body">
+            <div *ngIf="this.bonus.image && this.$params.usePartialMobileImage"
+                class="{{$class}}__img"
+                [style]="{backgroundImage: bonusBg}"></div>
             <ng-container [ngTemplateOutlet]="moreIcon"></ng-container>
             <ng-container [ngTemplateOutlet]="bonusIcon"></ng-container>
             <h4 *ngIf="bonus.name"

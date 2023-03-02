@@ -76,4 +76,5 @@ export const defaultParams: IBonusItemCParams = {
         descriptionClamp: 3,
         usePreviewBonus: false,
     },
+    usePartialMobileImage: false,
 };

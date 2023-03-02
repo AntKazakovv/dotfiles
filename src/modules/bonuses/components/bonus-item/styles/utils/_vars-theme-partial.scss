@@ -40,6 +40,11 @@ $themePartial: map-merge((
     'bodyBackgroundPosition': center,
     'bodyWithImageBeforeGradient': linear-gradient(180deg, var(--mc-baseContrast-o0) 0%, var(--mc-baseContrast) 100%),
 
+    'imgDisplay': (
+        375: block,
+        900: none,
+    ),
+
     'footerDisplay': (
         320: block,
         900: none,
