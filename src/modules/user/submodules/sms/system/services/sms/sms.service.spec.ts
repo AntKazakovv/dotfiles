@@ -1,49 +1,52 @@
 import {TestBed} from '@angular/core/testing';
-import {HttpClientTestingModule} from '@angular/common/http/testing';
 
-import {TranslateModule} from '@ngx-translate/core';
-import {UIRouterModule} from '@uirouter/angular';
-import {NgxWebstorageModule} from 'ngx-webstorage';
-
-import {CoreModule} from 'wlc-engine/modules/core/core.module';
 import {SmsService} from 'wlc-engine/modules/user/submodules/sms/system/services/sms/sms.service';
 import {
     DataService,
     EventService,
     LogService,
 } from 'wlc-engine/modules/core';
-import {WINDOW_PROVIDER} from 'wlc-engine/modules/app/system/tokens/window';
 
 
 describe('SmsService', () => {
     let smsService: SmsService;
+    let logServiceSpy: jasmine.SpyObj<LogService>;
+    let eventServiceSpy: jasmine.SpyObj<EventService>;
+    let dataServiceSpy: jasmine.SpyObj<DataService>;
 
-    let sendLogSpy: jasmine.Spy;
-    let emitEventSpy: jasmine.Spy;
-    let requestSpy: jasmine.Spy;
+    logServiceSpy = jasmine.createSpyObj(
+        'LogService',
+        ['sendLog'],
+    );
+    eventServiceSpy = jasmine.createSpyObj(
+        'EventService',
+        ['emit'],
+    );
+    dataServiceSpy = jasmine.createSpyObj(
+        'DataService',
+        ['request', 'registerMethod'],
+    );
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [
-                CoreModule,
-                TranslateModule.forRoot(),
-                UIRouterModule.forRoot(),
-                NgxWebstorageModule.forRoot(),
-                HttpClientTestingModule,
-            ],
             providers: [
-                WINDOW_PROVIDER,
                 SmsService,
-                LogService,
-                EventService,
-                DataService,
+                {
+                    provide: LogService,
+                    useValue: logServiceSpy,
+                },
+                {
+                    provide: EventService,
+                    useValue: eventServiceSpy,
+                },
+                {
+                    provide: DataService,
+                    useValue: dataServiceSpy,
+                },
             ],
         });
 
         smsService = TestBed.inject(SmsService);
-        sendLogSpy = spyOn(TestBed.inject(LogService), 'sendLog');
-        emitEventSpy = spyOn(TestBed.inject(EventService), 'emit');
-        requestSpy = spyOn(TestBed.inject(DataService), 'request');
     });
 
     it('-> Should be created', () => {
@@ -57,11 +60,12 @@ describe('SmsService', () => {
 
             const smsToken = 'sms-token';
 
-            requestSpy.and.returnValue({
-                data: {
-                    token: smsToken,
-                    status: true,
-                }});
+            dataServiceSpy.request
+                .and.returnValue(Promise.resolve({
+                    data: {
+                        token: smsToken,
+                        status: true,
+                    }}));
 
             const {status, token} = await smsService.send(phoneCode, phoneNumber);
 
@@ -75,28 +79,34 @@ describe('SmsService', () => {
                 phoneNumber,
             };
 
-            expect(requestSpy).toHaveBeenCalledWith(endpoint, body);
+            expect(dataServiceSpy.request).toHaveBeenCalledWith(endpoint, body);
         });
 
         describe('Exceptions handling', () => {
             it('-> Request failure should be logged', async () => {
                 const error = new Error('Mock exception');
 
-                requestSpy.and.callFake(() => {
+                dataServiceSpy.request.and.callFake(() => {
                     throw error;
                 });
 
                 const res = await smsService.send('', '');
 
                 expect(res).toBeUndefined();
-                expect(sendLogSpy).toHaveBeenCalledWith({code: '15.0.0', data: error});
+                expect(logServiceSpy.sendLog).toHaveBeenCalledWith({code: '15.0.0', data: error});
             });
 
             it('-> Request failure should emit an event', async () => {
+                const error = new Error('Mock exception');
+
+                dataServiceSpy.request.and.callFake(() => {
+                    throw error;
+                });
+
                 const res = await smsService.send('', '');
 
                 expect(res).toBeUndefined();
-                expect(emitEventSpy).toHaveBeenCalled();
+                expect(eventServiceSpy.emit).toHaveBeenCalled();
             });
         });
     });
@@ -108,11 +118,12 @@ describe('SmsService', () => {
             const phoneCode = '7';
             const phoneNumber = '9998887766';
 
-            requestSpy.and.returnValue({
-                data: {
-                    token,
-                    status: true,
-                }});
+            dataServiceSpy.request
+                .and.returnValue(Promise.resolve({
+                    data: {
+                        token,
+                        status: true,
+                    }}));
 
             const res = await smsService.validate(
                 token,
@@ -121,7 +132,7 @@ describe('SmsService', () => {
                 phoneNumber,
             );
 
-            expect(requestSpy).toHaveBeenCalled();
+            expect(dataServiceSpy.request).toHaveBeenCalled();
             expect(res.status).toBe(true);
             expect(res.token).toBe(token);
 
@@ -132,28 +143,34 @@ describe('SmsService', () => {
                 token,
                 smsCode,
             };
-            expect(requestSpy).toHaveBeenCalledWith(endpoint, body);
+            expect(dataServiceSpy.request).toHaveBeenCalledWith(endpoint, body);
         });
 
         describe('Exceptions handling', () => {
             it('-> Request failure should be logged', async () => {
                 const error = new Error('Mock exception');
 
-                requestSpy.and.callFake(() => {
+                dataServiceSpy.request.and.callFake(() => {
                     throw error;
                 });
 
                 const res = await smsService.validate('', '', '', '');
 
                 expect(res).toBeUndefined();
-                expect(sendLogSpy).toHaveBeenCalledWith({code: '15.0.1', data: error});
+                expect(logServiceSpy.sendLog).toHaveBeenCalledWith({code: '15.0.1', data: error});
             });
 
             it('-> Request failure should emit an event', async () => {
+                const error = new Error('Mock exception');
+
+                dataServiceSpy.request.and.callFake(() => {
+                    throw error;
+                });
+
                 const res = await smsService.validate('', '', '', '');
 
                 expect(res).toBeUndefined();
-                expect(emitEventSpy).toHaveBeenCalled();
+                expect(eventServiceSpy.emit).toHaveBeenCalled();
             });
         });
     });
@@ -162,11 +179,12 @@ describe('SmsService', () => {
         it('-> Request should be handled', async () => {
             const token = 'sms-token';
 
-            requestSpy.and.returnValue({
-                data: {
-                    state: 'state',
-                    status: true,
-                }});
+            dataServiceSpy.request
+                .and.returnValue(Promise.resolve({
+                    data: {
+                        state: 'state',
+                        status: true,
+                    }}));
 
             const {state, status} = await smsService.state(token);
 
@@ -177,34 +195,34 @@ describe('SmsService', () => {
             const endpoint = 'sms/state';
             const body = {token};
 
-            expect(requestSpy).toHaveBeenCalledWith(endpoint, body);
+            expect(dataServiceSpy.request).toHaveBeenCalledWith(endpoint, body);
         });
 
         describe('Exceptions handling', () => {
             it('-> Request failure should be logged', async () => {
                 const error = new Error('Mock exception');
 
-                requestSpy.and.callFake(() => {
+                dataServiceSpy.request.and.callFake(() => {
                     throw error;
                 });
 
                 const res = await smsService.state('');
 
                 expect(res).toBeUndefined();
-                expect(sendLogSpy).toHaveBeenCalledWith({code: '15.0.2', data: error});
+                expect(logServiceSpy.sendLog).toHaveBeenCalledWith({code: '15.0.2', data: error});
             });
         });
     });
 
     describe('Checking for state', () => {
+        let stateSpy: jasmine.Spy;
+
+        beforeAll(() => {
+            stateSpy = spyOn(SmsService.prototype, 'state');
+        });
+
         describe('Request should be handled', () => {
             const statuses = ['Unknown', 'Sent', 'Failed', 'Delivered', 'Canceled'];
-
-            let stateSpy: jasmine.Spy;
-
-            beforeAll(() => {
-                stateSpy = spyOn(SmsService.prototype, 'state');
-            });
 
             it('-> Should return true if state matches to any status', async () => {
                 const token = 'sms-token';
@@ -248,6 +266,8 @@ describe('SmsService', () => {
 
         describe('Exceptions handling', () => {
             it('-> Request failure returns false', async () => {
+                stateSpy.and.returnValue(Promise.reject());
+
                 const res = await smsService.checkState('');
 
                 expect(res).toBe(false);
