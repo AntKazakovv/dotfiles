@@ -4,6 +4,7 @@ const CSSMQPackerPlugin = require('css-mqpacker-webpack-plugin');
 const StylelintPlugin = require('stylelint-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const ReplaceInFileWebpackPlugin = require('replace-in-file-webpack-plugin');
+const BrowserSyncPlugin = require('browser-sync-webpack-plugin');
 
 const WlcTemplateReplacePlugins = require('./wlcTemplateReplacePlugins');
 const WlcStructureInfoPlugin = require('./wlcStructureInfoPlugin');
@@ -56,7 +57,25 @@ const getMobileAppApiUrl = (rootDir) => {
 module.exports = (config, schema, env) => {
     const isDev = env.configuration === 'dev';
     const platforms = ['android', 'ios', 'browser'];
+    const platform = process.env.npm_config_platform;
     const apiUrl = getMobileAppApiUrl(config.context);
+
+    if (platform === 'browser') {
+        config.plugins.push(new BrowserSyncPlugin({
+            host: 'localhost',
+            port: 8000,
+            server: {
+                baseDir: ['www']
+            },
+            middleware: (req, res, next) => {
+                if (req.url !== '/' && req.url.indexOf('.') === -1) {
+                    res.writeHead(302, {Location: `/index.html?redirectTo=${req.url}`});
+                    res.end();
+                }
+                return next();
+            }
+        }));
+    }
 
     if (apiUrl) {
         config.plugins.push(new ReplaceInFileWebpackPlugin([
@@ -141,7 +160,6 @@ module.exports = (config, schema, env) => {
         ]
     }));
 
-    let platform = process.env.npm_config_platform;
     if (!platform) {
         throw Error('Error on get "process.env.npm_config_platform"');
     }
