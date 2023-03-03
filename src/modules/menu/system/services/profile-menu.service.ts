@@ -22,6 +22,7 @@ import {
 import {
     IMenuItem,
     MenuItemObjectType,
+    MenuItemsGroupParent,
 } from 'wlc-engine/modules/menu/components/menu/menu.params';
 import {MenuHelper} from 'wlc-engine/modules/menu/system/helpers/menu.helper';
 import {
@@ -88,7 +89,10 @@ export class ProfileMenuService {
                 if (_isString(item)) {
                     menuItem = _cloneDeep(wlcProfileMenuItemsGlobal[item]);
                 } else if (_has(item, 'parent')) {
-                    menuItem = _cloneDeep(wlcProfileMenuItemsGlobal[_get(item, 'parent')]);
+                    const parent: MenuItemsGroupParent = _get(item, 'parent');
+                    menuItem = _cloneDeep(
+                        _isString(parent) ? wlcProfileMenuItemsGlobal[parent] : parent,
+                    );
                 } else if (_has(item, 'name')) {
                     menuItem = _cloneDeep(item);
                 }
