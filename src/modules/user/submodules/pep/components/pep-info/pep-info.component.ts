@@ -76,7 +76,7 @@ export class PepInfoComponent extends PepAbstractModalComponent implements OnIni
         this.isMetamask = await this.isAuthWithMetamask();
     }
 
-    public async ngSubmit(): Promise<void> {
+    public async ngSubmit(): Promise<boolean> {
         this.unsubscribeFromCancelingOnClosePage();
 
         if (this.isMetamask) {
@@ -84,6 +84,7 @@ export class PepInfoComponent extends PepAbstractModalComponent implements OnIni
         } else {
             await this.confirmWithPassword();
         }
+        return true;
     };
 
     protected async confirmWithPassword(): Promise<void> {

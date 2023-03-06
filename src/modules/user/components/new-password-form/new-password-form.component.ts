@@ -57,7 +57,7 @@ export class NewPasswordFormComponent extends AbstractComponent {
         });
     }
 
-    public async ngSubmit(form: FormGroup): Promise<void> {
+    public async ngSubmit(form: FormGroup): Promise<boolean> {
         const {newPassword, repeatPassword} = form.value;
         const code = this.injectParams.common.code;
 
@@ -90,7 +90,7 @@ export class NewPasswordFormComponent extends AbstractComponent {
             if (this.modalService.getActiveModal('new-password')) {
                 this.modalService.hideModal('new-password');
             }
-
+            return true;
         } catch (error) {
             if (this.configService.get<boolean>('$base.site.useXNonce')) {
                 this.dataService.deleteNonceFromLocalStorage();
@@ -105,6 +105,7 @@ export class NewPasswordFormComponent extends AbstractComponent {
                     wlcElement: 'notification_password-change-error',
                 },
             });
+            return false;
         } finally {
             form.enable();
         }

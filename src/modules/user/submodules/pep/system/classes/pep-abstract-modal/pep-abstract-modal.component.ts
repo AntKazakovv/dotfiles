@@ -52,7 +52,7 @@ export abstract class PepAbstractModalComponent extends AbstractComponent implem
         this.cancelStatusOnPageClosed();
     }
 
-    public abstract ngSubmit(form: FormGroup): Promise<void>;
+    public abstract ngSubmit(form: FormGroup): Promise<boolean>;
 
     protected cancelStatusOnHidden(): void {
         const modal = this.getModal();

@@ -24,12 +24,12 @@ describe('HooksService', () => {
     let hooksService: HooksService;
 
     const hooks: IIndexing<HookHandler<IHookData>> = {
-        'first': function (data: IHookData): IHookData {
+        'first': function (this: IHookContext, data: IHookData): IHookData {
             const context: IHookContext = this;
             data.content = `${context.prefix}_${data.content}_end`;
             return data;
         },
-        'second': function (data: IHookData): IHookData {
+        'second': function (this: IHookContext, data: IHookData): IHookData {
             const context: IHookContext = this;
             data.content = `${context.prefix}_${data.content}`;
             return data;

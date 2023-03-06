@@ -69,7 +69,7 @@ export class RestoreSmsCodeFormComponent extends AbstractComponent implements On
      * Send form - validate code and open new password modal
      * @param form - `FormGroup`
      */
-    public async sendCode(form: FormGroup): Promise<void> {
+    public async sendCode(form: FormGroup): Promise<boolean> {
         const code = form.value.code;
 
         try {
@@ -85,6 +85,7 @@ export class RestoreSmsCodeFormComponent extends AbstractComponent implements On
                 wlcElement: 'form_forgot-password',
                 common: {code},
             });
+            return true;
         } catch (error) {
             this.pushMessage({
                 type: 'error',
@@ -92,6 +93,7 @@ export class RestoreSmsCodeFormComponent extends AbstractComponent implements On
                 message: error.errors,
                 wlcElement: 'notification_password-reset-success',
             });
+            return false;
         } finally {
             form.enable();
         }

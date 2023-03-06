@@ -48,11 +48,12 @@ export class AmountFormComponent extends AbstractComponent implements OnInit {
      * Handle form-wrapper submit event
      * @param {FormGroup} form `FormGroup`
      */
-    public formSubmit(form: FormGroup): void {
+    public formSubmit(form: FormGroup): boolean {
         this.eventService.emit({
             name: this.$params.submitEventName,
             data: form.getRawValue(),
         });
+        return true;
     }
 
     /**

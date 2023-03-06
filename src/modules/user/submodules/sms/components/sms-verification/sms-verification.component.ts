@@ -103,12 +103,12 @@ export class SmsVerificationComponent extends UserActionsAbstract<Params.ISmsVer
      *
      * @return {Promise} void
      */
-    public async sendCode(form: FormGroup): Promise<void> {
+    public async sendCode(form: FormGroup): Promise<boolean> {
         this.phoneCode = form.value.phoneCode;
         this.phoneNumber = form.value.phoneNumber;
         if (!this.phoneCode || !this.phoneNumber) {
             form.markAllAsTouched();
-            return;
+            return false;
         }
         form.disable();
         const response = await this.smsService.send(this.phoneCode, this.phoneNumber);
@@ -116,6 +116,7 @@ export class SmsVerificationComponent extends UserActionsAbstract<Params.ISmsVer
             await this.senderActions(response, false);
         }
         form.enable();
+        return true;
     }
 
     /**
@@ -125,11 +126,11 @@ export class SmsVerificationComponent extends UserActionsAbstract<Params.ISmsVer
      *
      * @return {Promise} void
      */
-    public async submitCode(form: FormGroup): Promise<void> {
+    public async submitCode(form: FormGroup): Promise<boolean> {
         const smsCode = form.value.code;
         if (!smsCode ) {
             form.markAllAsTouched();
-            return;
+            return false;
         }
 
         try {
@@ -181,12 +182,14 @@ export class SmsVerificationComponent extends UserActionsAbstract<Params.ISmsVer
             } else {
                 setTimeout(() => form.controls.code.setErrors({'wrong-sms-code': true}));
             }
+            return true;
         } catch (error) {
             if (this.configService.get<boolean>('$base.site.useXNonce')) {
                 this.dataService.deleteNonceFromLocalStorage();
             }
 
             this.showRegError(error);
+            return false;
         } finally {
             form.enable();
         }

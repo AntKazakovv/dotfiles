@@ -131,9 +131,9 @@ export class LimitationsComponent extends AbstractComponent implements OnInit {
         this.modalService.showModal(name, {slug, parseAsPlainHTML: true, shouldClearStyles: true});
     }
 
-    public async onSubmit(form: FormGroup): Promise<void> {
+    public async onSubmit(form: FormGroup): Promise<boolean> {
         if (this.pending) {
-            return;
+            return false;
         }
 
         this.pending = true;
@@ -153,7 +153,7 @@ export class LimitationsComponent extends AbstractComponent implements OnInit {
                         },
                     });
                     this.pending = false;
-                    return;
+                    return false;
                 }
                 try {
                     await this.limitationService.setUserSelfExclusion({
@@ -162,6 +162,7 @@ export class LimitationsComponent extends AbstractComponent implements OnInit {
                     });
                 } catch (error) {
                     //
+                    return false;
                 }
                 break;
 
@@ -194,6 +195,7 @@ export class LimitationsComponent extends AbstractComponent implements OnInit {
                             wlcElement: 'notification_profile-update-error',
                         },
                     });
+                    return false;
                 }
                 break;
 
@@ -224,13 +226,14 @@ export class LimitationsComponent extends AbstractComponent implements OnInit {
                     },
                     dismissAll: true,
                 });
-                return;
+                return false;
             default:
                 break;
         }
 
         await this.getLimits();
         this.pending = false;
+        return true;
     }
 
     /**

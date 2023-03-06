@@ -59,7 +59,7 @@ export class ChangePasswordFormComponent extends AbstractComponent implements On
         });
     }
 
-    public async ngSubmit(form: FormGroup): Promise<void> {
+    public async ngSubmit(form: FormGroup): Promise<boolean> {
         const {currentPassword, newPasswordRepeat} = form.value;
 
         try {
@@ -79,6 +79,7 @@ export class ChangePasswordFormComponent extends AbstractComponent implements On
             if (this.modalService.getActiveModal('change-password')) {
                 this.modalService.hideModal('change-password');
             }
+            return true;
         } catch (error) {
 
             const messages: string[] = [];
@@ -104,6 +105,7 @@ export class ChangePasswordFormComponent extends AbstractComponent implements On
                     wlcElement: 'notification_password-update-error',
                 },
             });
+            return false;
         } finally {
             form.enable();
         }

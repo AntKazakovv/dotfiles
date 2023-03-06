@@ -62,7 +62,7 @@ export class PepConfirmPasswordFormComponent extends PepAbstractModalComponent i
         this.goBackOnHidden('pepInfo');
     }
 
-    public async ngSubmit(form: FormGroup): Promise<void> {
+    public async ngSubmit(form: FormGroup): Promise<boolean> {
         const {password} = form.value;
         const {pep} = this.$params;
 
@@ -73,8 +73,10 @@ export class PepConfirmPasswordFormComponent extends PepAbstractModalComponent i
 
             this.modalService.closeAllModals();
             await this.modalService.showModal('pepSaved', {pep});
+            return true;
         } catch (e) {
             this.pepService.fireEvent('PEP_ERROR_INCORRECT_PASSWORD');
+            return false;
         }
     }
 }

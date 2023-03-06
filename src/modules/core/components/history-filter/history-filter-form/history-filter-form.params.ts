@@ -15,7 +15,7 @@ export type HistoryFilterFormConfigType = 'transaction' | 'bonus' | 'bet';
 
 export interface IHistoryFilterFormCParams extends IComponentParams<Theme, Type, ThemeMod> {
     formConfig: IFormWrapperCParams;
-    onSubmit: (form: FormGroup) => void;
+    onSubmit: (form: FormGroup) => Promise<boolean>;
     formData: BehaviorSubject<IIndexing<any>>;
 }
 

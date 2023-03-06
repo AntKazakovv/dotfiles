@@ -73,7 +73,7 @@ export class RestorePasswordFormComponent extends AbstractComponent implements O
      * Submit handler
      * @param form `FormGroup`
      */
-    public async ngSubmit(form: FormGroup): Promise<void> {
+    public async ngSubmit(form: FormGroup): Promise<boolean> {
         let {email, emailOrPhone}: IIndexing<string> = form.value;
         let phone: string;
 
@@ -122,6 +122,7 @@ export class RestorePasswordFormComponent extends AbstractComponent implements O
             if (phone) {
                 this.modalService.showModal('restore-sms-code', {phone});
             }
+            return true;
         } catch (error) {
             this.pushMessage({
                 type: 'error',
@@ -129,6 +130,7 @@ export class RestorePasswordFormComponent extends AbstractComponent implements O
                 message: error.errors,
                 wlcElement: 'notification_password-reset-error',
             });
+            return false;
         } finally {
             form.enable();
             this.cdr.markForCheck();

@@ -49,7 +49,7 @@ export const polyfill = (d: HTMLDocument) => {
      * @param {Number} y
      * @returns {void}
      */
-    function scrollElement(x: number, y: number): void {
+    function scrollElement(this: {scrollLeft: number, scrollTop: number}, x: number, y: number): void {
         this.scrollLeft = x;
         this.scrollTop = y;
     }

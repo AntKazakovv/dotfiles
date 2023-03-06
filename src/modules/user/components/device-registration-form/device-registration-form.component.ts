@@ -89,7 +89,7 @@ export class DeviceRegistrationFormComponent extends AbstractComponent implement
      * Form sending method
      * @param form {FormGroup}
      */
-    public async ngSubmit(form: FormGroup): Promise<void> {
+    public async ngSubmit(form: FormGroup): Promise<boolean> {
         const regCode: number = _toNumber(form.controls.code.value);
 
         try {
@@ -110,6 +110,7 @@ export class DeviceRegistrationFormComponent extends AbstractComponent implement
                 this.modalService.hideModal('device-registration');
             }
             this.eventService.emit({name: 'LOGIN'});
+            return true;
         } catch (error) {
             this.eventService.emit({
                 name: NotificationEvents.PushMessage,
@@ -121,6 +122,7 @@ export class DeviceRegistrationFormComponent extends AbstractComponent implement
                 },
             });
             this.logService.sendLog({code: '1.9.0', data: error});
+            return false;
         } finally {
             form.enable();
         }

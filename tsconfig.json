@@ -17,7 +17,12 @@
         "lib": ["es2018", "dom"],
         "paths": {
             "wlc-engine/*": ["src/*"]
-        }
+        },
+
+        // strict
+        "alwaysStrict": true,
+        "noImplicitThis": true,
+        "strictBindCallApply": true,
     },
     "exclude": ["node_modules"],
     "angularCompilerOptions": {

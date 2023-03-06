@@ -90,7 +90,7 @@ export class MerchantWalletFormComponent extends AbstractComponent implements On
      * Submit transfer form handler
      * @param form FormGroup
      */
-    public async handleSubmit(form: FormGroup): Promise<void> {
+    public async handleSubmit(form: FormGroup): Promise<boolean> {
         this.isSubmitPending = true;
         form.disable();
 
@@ -116,6 +116,7 @@ export class MerchantWalletFormComponent extends AbstractComponent implements On
                     ],
                 },
             });
+            return true;
         } catch (error) {
             this.logService.sendLog({
                 code: `21.0.${this.$params.method === 'deposit' ? 1 : 2}`,
@@ -135,6 +136,7 @@ export class MerchantWalletFormComponent extends AbstractComponent implements On
                         : gettext('Something went wrong. Please try again later.'),
                 },
             });
+            return false;
         } finally {
             this.isSubmitPending = false;
             form.enable();

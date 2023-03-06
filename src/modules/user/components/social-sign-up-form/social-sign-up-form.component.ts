@@ -70,23 +70,25 @@ export class SocialSignUpFormComponent extends UserActionsAbstract<Params.ISocia
         }
     }
 
-    public async ngSubmit(form: FormGroup): Promise<void> {
+    public async ngSubmit(form: FormGroup): Promise<boolean> {
         try {
             form.disable();
 
             if (!await this.checkConfirmation(form)) {
-                return;
+                return false;
             }
 
             const regData = this.formDataPreparation(form);
 
             await this.socialService.socialRegisterComplete(regData.data);
+            return true;
         } catch (error) {
             this.showRegError(
                 error,
                 '1.5.3',
                 gettext('Social registration failed'),
             );
+            return false;
         } finally {
             form.enable();
         }

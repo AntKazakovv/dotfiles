@@ -101,7 +101,7 @@ export interface IFormWrapperCParams extends IWrapperCParams {
     encapsulation: ViewEncapsulation.None,
 })
 export class FormWrapperComponent extends WrapperComponent implements OnInit, OnChanges {
-    @Input() public ngSubmit: (form: FormGroup) => Promise<boolean>;
+    @Input() public ngSubmit: (form: FormGroup) => Promise<boolean> | boolean;
     @Input() private beforeSubmit: (form: FormGroup, initialFormValues?: IIndexing<any>) => boolean | Promise<boolean>;
     @Input() private config: IFormWrapperCParams;
     @Input() private formData: BehaviorSubject<IIndexing<any>>;
