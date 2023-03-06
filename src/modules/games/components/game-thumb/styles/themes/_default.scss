@@ -26,6 +26,22 @@
         -webkit-mask-image: -webkit-radial-gradient(white, black); /* stylelint-disable-line */
     }
 
+    .wlc-game-thumb-media {
+
+        &__wrap {
+            position: relative;
+            overflow: hidden;
+        }
+
+        &__video {
+            display: block;
+            object-fit: cover;
+            object-position: center;
+            width: 100%;
+            aspect-ratio: 4/3;
+        }
+    }
+
     .wlc-game-thumb {
 
         &__img,

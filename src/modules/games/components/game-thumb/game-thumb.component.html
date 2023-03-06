@@ -107,18 +107,6 @@
                     </ng-container>
                 </picture>
             </ng-container>
-
-            <ng-template #videoTemplate>
-                <video #video
-                    class="{{$class}}-media__video"
-                    playsinline
-                    muted
-                    loop>
-                    <ng-container *ngFor="let video of videos">
-                        <source [src]="video.src" [type]="video.type">
-                    </ng-container>
-                </video>
-            </ng-template>
         </div>
         <div class="{{$class}}__control">
             <ng-container [ngTemplateOutlet]="buttonsPlayDemo"></ng-container>
@@ -128,7 +116,11 @@
 </ng-template>
 
 <ng-template #typeDefault>
-    <ng-container [ngTemplateOutlet]="thumbImg"></ng-container>
+    <div class="{{$class}}-media" (click)="startGame(false, true, $event)">
+        <ng-container *ngIf="!hasVideo; else videoTemplate">
+            <ng-container [ngTemplateOutlet]="thumbImg"></ng-container>
+        </ng-container>
+    </div>
     <div class="{{$class}}__desc">
         <div class="{{$class}}__title">
             <ng-container [ngTemplateOutlet]="thumbName"></ng-container>
@@ -160,6 +152,20 @@
         [value]="game.jackpotAmount.amount"
         [currency]="game.jackpotAmount.currency"
     >
+    </div>
+</ng-template>
+
+<ng-template #videoTemplate>
+    <div class="{{$class}}-media__wrap">
+        <video #video
+            class="{{$class}}-media__video"
+            playsinline
+            muted
+            loop>
+            <ng-container *ngFor="let video of videos">
+                <source [src]="video.src" [type]="video.type">
+            </ng-container>
+        </video>
     </div>
 </ng-template>
 

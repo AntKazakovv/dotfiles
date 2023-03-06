@@ -74,6 +74,7 @@ export class GameThumbComponent extends AbstractComponent implements OnInit {
     };
     public isAuth: boolean;
     public isKiosk: boolean;
+    public isMobile: boolean = true;
     public $params: Params.IGameThumbCParams;
     public promoWidgetTitle: string;
     public inited: boolean = false;
@@ -101,7 +102,7 @@ export class GameThumbComponent extends AbstractComponent implements OnInit {
     }
 
     protected deviceType: DeviceType;
-    protected idVerticalVideos: number[];
+    protected idVideos: number[];
     protected mediaFormatTypes: IIndexing<string>;
     protected currentLanguage: string;
     protected staticTData: Partial<Params.IStaticTransformData>;
@@ -156,12 +157,13 @@ export class GameThumbComponent extends AbstractComponent implements OnInit {
     public async init(): Promise<void> {
         await this.gamesCatalogService.gameThumbReady;
         const gameId = this.$params.common?.gameId;
+        this.idVideos = await this.gamesCatalogService.getIdDefVideos();
         this.currentLanguage = this.configService.get<string>('currentLanguage');
 
         if (GlobalHelper.isMobileApp()) {
             this.useWebp = false;
         }
-
+        this.mediaFormatTypes = this.configService.get<IIndexing<string>>('$games.mediaFormatTypes');
         if (this.$params.common?.game) {
             this.game = this.$params.common.game;
         } else if (gameId) {
@@ -234,16 +236,15 @@ export class GameThumbComponent extends AbstractComponent implements OnInit {
         }
 
         if (this.$params.type === 'vertical') {
-            this.idVerticalVideos = await this.gamesCatalogService.getIdVerticalVideos();
-            this.mediaFormatTypes = this.configService.get<IIndexing<string>>('$games.mediaFormatTypes');
-            this.background = this.getVerticalContent('background', ['webp']);
-            this.backgroundFallback = this.getVerticalContent('background', ['png', 'jpg']);
-            this.foreground = this.getVerticalContent('foreground', ['webp']);
-            this.foregroundFallback = this.getVerticalContent('foreground', ['png']);
-            this.logo = this.getVerticalContent('logo', ['webp']);
-            this.logoFallback = this.getVerticalContent('logo', ['png']);
-            this.videos = this.getVerticalContent('video', ['av1.mp4', 'hevc.mp4', 'h264.mp4']);
+            this.idVideos = await this.gamesCatalogService.getIdVerticalVideos();
+            this.background = this.getMediaContent('background', ['webp']);
+            this.backgroundFallback = this.getMediaContent('background', ['png', 'jpg']);
+            this.foreground = this.getMediaContent('foreground', ['webp']);
+            this.foregroundFallback = this.getMediaContent('foreground', ['png']);
+            this.logo = this.getMediaContent('logo', ['webp']);
+            this.logoFallback = this.getMediaContent('logo', ['png']);
         }
+        this.videos = this.getMediaContent('video', ['av1.mp4', 'hevc.mp4', 'h264.mp4']);
 
         this.wlcElement = `block_game-thumb-id-${this.game.ID}`;
         this.noDemoClass = this.game.hasDemo;
@@ -336,22 +337,29 @@ export class GameThumbComponent extends AbstractComponent implements OnInit {
     }
 
     public get hasVideo(): boolean {
-        return this.idVerticalVideos.includes(this.game.ID);
+        return (this.idVideos.includes(this.game.ID) && this.$params.videoThumb) && !this.isMobile;
     }
 
     /**
-     * getting media content for vertical thumbs
+     * getting media content for thumbs
      *
      * @param type - kinds media content
      * @param format - extension file
      * @returns {Params.IMediaContent[] | string}
      */
-    public getVerticalContent(type: Params.MediaType, format: string[]): Params.IMediaContent[] {
+
+    public getMediaContent(type: Params.MediaType, format: string[]): Params.IMediaContent[] {
         const gameName = this.game.name?.en;
+        const merchantName = this.game.getMerchantName();
 
         if (!gameName) return;
 
-        const path = this.configService.get<string>('$games.verticalImagesPath') + gameName
+        let mediaPath = `/gstatic/games/${merchantName}/`;
+
+        if(this.$params.type === 'vertical') {
+            mediaPath = this.configService.get<string>('$games.verticalImagesPath');
+        }
+        const path = mediaPath + gameName
             .toLowerCase()
             .replace(/[&\/:\\|]/g, '')
             .replace(/\s/g, '-');
@@ -449,7 +457,9 @@ export class GameThumbComponent extends AbstractComponent implements OnInit {
             .pipe(takeUntil(this.$destroy))
             .subscribe((type: DeviceType): void => {
                 this.deviceType = type;
-
+                if (type === 'desktop') {
+                    this.isMobile = false;
+                }
                 if (this.deviceType === DeviceType.Desktop && this.isTransform) {
 
                     mouseEvents$ = fromEvent(this.elementRef.nativeElement, 'mousemove')

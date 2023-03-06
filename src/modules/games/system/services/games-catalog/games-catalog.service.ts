@@ -23,6 +23,8 @@ import {
     map,
     take,
 } from 'rxjs/operators';
+
+import _capitalize from 'lodash-es/capitalize';
 import _startsWith from 'lodash-es/startsWith';
 import _isString from 'lodash-es/isString';
 import _isEqual from 'lodash-es/isEqual';
@@ -112,7 +114,7 @@ export interface ILaunchGameParams {
     modal?: ILaunchGameModal;
 }
 
-export interface IVerticalThumbsConfig {
+export interface IVideoThumbsConfig {
     haveVideo: number[];
 }
 
@@ -139,7 +141,8 @@ export class GamesCatalogService {
         'category-menu',
     ];
     private deviceType: DeviceType;
-    private verticalThumbsConfig: IVerticalThumbsConfig;
+    private verticalThumbsConfig: IVideoThumbsConfig;
+    private defaultThumbsConfig: IVideoThumbsConfig;
     private lastPlayed: Game[] = [];
     private pragmaticPlayLiveService: PragmaticPlayLiveService;
     private useRealJackpots: boolean;
@@ -970,16 +973,6 @@ export class GamesCatalogService {
     }
 
     /**
-     * Getting id of games that have video
-     *
-     * @returns {Promise<number[]>}
-     */
-    public async getIdVerticalVideos(): Promise<number[]> {
-        await this.getVerticalThumbsConfig();
-        return this.verticalThumbsConfig.haveVideo;
-    }
-
-    /**
      * Get fundist category settings
      *
      * @returns {IIndexing<ICategorySettings>}
@@ -988,21 +981,28 @@ export class GamesCatalogService {
         return this.gamesCatalog.getCategorySettings();
     }
 
-    protected async getVerticalThumbsConfig(): Promise<IVerticalThumbsConfig> {
+    /**
+     * Getting id of games that have video
+     *
+     * @returns {Promise<number[]>}
+     */
+    public async getIdVerticalVideos(): Promise<number[]> {
+        await this.getThumbConfig('vertical');
+        return this.verticalThumbsConfig.haveVideo;
+    }
 
-        if (!this.verticalThumbsConfig) {
+    public async getIdDefVideos(): Promise<number[]> {
+        await this.getThumbConfig('default');
+        return this.defaultThumbsConfig.haveVideo;
+    }
 
-            this.dataService.registerMethod({
-                name: 'verticalThumbsConfig',
-                system: 'games',
-                cache: 480 * 60 * 1000,
-                fullUrl: this.configService.get<string>('$games.verticalThumbsConfigUrl'),
-                type: 'GET',
-                noUseLang: true,
-            });
+    protected async getThumbConfig(type: 'default' | 'vertical'): Promise<IVideoThumbsConfig> {
+        const thumbType = `${type}ThumbsConfig`;
 
-            await this.dataService.request('games/verticalThumbsConfig').then(({data}) => {
-                this.verticalThumbsConfig = data || {
+        if (!this[thumbType]) {
+
+            await this.dataService.request(`games/${thumbType}`).then(({data}) => {
+                this[thumbType] = data || {
                     haveVideo: [],
                 };
             }).catch((error) => {
@@ -1011,13 +1011,13 @@ export class GamesCatalogService {
                     data: error,
                     from: {
                         service: 'GamesCatalogService',
-                        method: 'getVerticalThumbsConfig',
+                        method: `get${_capitalize(thumbType)}Url`,
                     },
                 });
             });
         }
 
-        return this.verticalThumbsConfig;
+        return this[thumbType];
     }
 
     protected registerMethods(): void {
@@ -1088,6 +1088,24 @@ export class GamesCatalogService {
                 success: gamesEvents.FETCH_FAVOURITES_SUCCEEDED,
                 fail: gamesEvents.FETCH_FAVOURITES_FAILED,
             },
+        });
+
+        this.dataService.registerMethod({
+            name: 'defaultThumbsConfig',
+            system: 'games',
+            cache: 480 * 60 * 1000,
+            fullUrl: this.configService.get<string>('$games.defaultThumbsConfigUrl'),
+            type: 'GET',
+            noUseLang: true,
+        });
+
+        this.dataService.registerMethod({
+            name: 'verticalThumbsConfig',
+            system: 'games',
+            cache: 480 * 60 * 1000,
+            fullUrl: this.configService.get<string>('$games.verticalThumbsConfigUrl'),
+            type: 'GET',
+            noUseLang: true,
         });
     }
 
