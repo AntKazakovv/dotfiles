@@ -44,6 +44,7 @@ export interface IPaymentSystem {
     allowiframe: number;
     appearance: string;
     customParams?: IPaymentSystemCustomParams | [];
+    depositFeatures?: 'prestep' | string;
     description: string;
     description_withdraw?: string;
     disable_amount?: boolean;
@@ -100,10 +101,12 @@ export interface IPaymentAdditionalParam {
     type?: 'input' | 'select';
     params?: IIndexing<string>;
     value?: string;
+    prestep?: string;
 }
-export interface IPaymentAdditionalParamEx extends Omit<IPaymentAdditionalParam, 'skipsaving' | 'optional'> {
+export interface IPaymentAdditionalParamEx extends Omit<IPaymentAdditionalParam,'skipsaving' | 'optional' | 'prestep'> {
     skipsaving?: number;
     optional?: number;
+    prestep?: number;
 }
 
 export interface IPaymentSystemCustomParams {
@@ -132,6 +135,7 @@ export class PaymentSystem extends AbstractModel<IPaymentSystem> {
     public readonly isPayCryptosV2: boolean;
     public readonly isLastAccountsObj: boolean;
     public readonly isPregeneration: boolean;
+    public readonly isPrestep: boolean;
 
     public disabledBy: null | keyof typeof disabledReasons = null;
     public isParent: boolean = false;
@@ -159,6 +163,7 @@ export class PaymentSystem extends AbstractModel<IPaymentSystem> {
             this.additionalController = new AdditionalFieldsControllerM(this.data, this.userProfile$);
         }
 
+        this.isPrestep = this.depositFeatures === 'prestep';
         this.isPayCryptos = this.alias.includes('paycryptos');
         this.isKauri = _includes(this.data.alias, 'kauri');
         this.isLastAccountsObj = !_isEmpty(this.data.lastAccountsObj);
@@ -204,6 +209,14 @@ export class PaymentSystem extends AbstractModel<IPaymentSystem> {
         return this.data.additional;
     }
 
+    public get prestepParams(): IIndexing<IPaymentAdditionalParam> {
+        return this.additionalController ? this.additionalController.prestepParams : {};
+    }
+
+    public get poststepParams(): IIndexing<IPaymentAdditionalParam> {
+        return this.additionalController ? this.additionalController.poststepParams : {};
+    }
+
     public get additionalParams(): IIndexing<IPaymentAdditionalParam> {
         return this.additionalController ? this.additionalController.additionalParams : {};
     }
@@ -238,6 +251,10 @@ export class PaymentSystem extends AbstractModel<IPaymentSystem> {
 
     public get defaultImages(): string[] {
         return this.data.default_images || [];
+    }
+
+    public get depositFeatures(): string {
+        return this.data.depositFeatures || '';
     }
 
     public get depositMax(): number {

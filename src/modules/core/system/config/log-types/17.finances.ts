@@ -21,8 +21,8 @@ export const errorTypes: ILogTypes = {
         // Error loading payment markup script
         level: 'error',
     },
-    // Metamask
     '17.2.0': {
+        // Metamask
         // ethers internal https://docs.ethers.io/v5/api/utils/logger/#errors
         level: 'error',
     },
@@ -40,6 +40,11 @@ export const errorTypes: ILogTypes = {
     },
     '17.3.1': {
         // Cashback reward claim error
+        // Request last successful deposit method error
+        level: 'error',
+    },
+    '17.4.0': {
+        // Error getting code for mobile commerce kz
         level: 'error',
     },
 };

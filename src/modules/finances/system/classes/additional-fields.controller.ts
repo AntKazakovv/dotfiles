@@ -18,6 +18,8 @@ import {
 
 export interface IAdditionalFieldsControllerM {
     additionalParams: IIndexing<IPaymentAdditionalParam>;
+    prestepParams: IIndexing<IPaymentAdditionalParam>;
+    poststepParams: IIndexing<IPaymentAdditionalParam>;
     getAdditionalParams(filterType: FilterType): IIndexing<IPaymentAdditionalParam>;
 }
 
@@ -32,6 +34,34 @@ export class AdditionalFieldsControllerM implements IAdditionalFieldsControllerM
 
     public get additionalParams(): IIndexing<IPaymentAdditionalParam> {
         return this.data.additionalParams as IIndexing<IPaymentAdditionalParam>;
+    }
+
+    public get prestepParams(): IIndexing<IPaymentAdditionalParam> {
+        const params: IIndexing<IPaymentAdditionalParam> = {};
+
+        for(let key in this.additionalParams) {
+            const field = this.additionalParams[key];
+
+            if (field.prestep) {
+                params[key] = field;
+            }
+        }
+
+        return params;
+    }
+
+    public get poststepParams(): IIndexing<IPaymentAdditionalParam> {
+        const params: IIndexing<IPaymentAdditionalParam> = {};
+
+        for(let key in this.additionalParams) {
+            const field = this.additionalParams[key];
+
+            if (!field.prestep) {
+                params[key] = field;
+            }
+        }
+
+        return params;
     }
 
     public getAdditionalParams(filterType: FilterType): IIndexing<IPaymentAdditionalParam> {
@@ -94,6 +124,7 @@ export class AdditionalFieldsControllerM implements IAdditionalFieldsControllerM
                 skipsaving: _toNumber(parsParam.skipsaving) || 0,
                 optional: _toNumber(parsParam.optional) || 0,
                 params: parsParam.data,
+                prestep: _toNumber(parsParam.prestep) || 0,
             };
         } else if (_isString(parsParam)) {
             field = {
