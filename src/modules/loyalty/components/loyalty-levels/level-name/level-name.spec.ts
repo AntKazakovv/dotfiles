@@ -3,8 +3,10 @@ import {
     TestBed,
 } from '@angular/core/testing';
 
-import {AppModule} from 'wlc-engine/modules/app/app.module';
-import {LoyaltyLevelModel} from 'wlc-engine/modules/loyalty/system/models';
+import {MockComponent} from 'ng-mocks';
+
+import {TooltipComponent} from 'wlc-engine/modules/core';
+import {LoyaltyLevelModel} from 'wlc-engine/modules/loyalty/system/models/loyalty-level.model';
 import {LevelNameComponent} from './level-name.component';
 import {
     defaultParams,
@@ -37,8 +39,10 @@ describe('LevelNameComponent', () => {
     beforeEach(() => {
 
         TestBed.configureTestingModule({
-            imports: [AppModule],
-            declarations: [LevelNameComponent],
+            declarations: [
+                LevelNameComponent,
+                MockComponent(TooltipComponent),
+            ],
             providers: [
                 {
                     provide: 'injectParams',

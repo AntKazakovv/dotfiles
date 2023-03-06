@@ -103,13 +103,14 @@ export function routerConfigFn(router: UIRouter, injector: Injector) {
                     const userInfo = userInfo$.value ?? await firstValueFrom(userInfo$.pipe(first((v) => !!v)));
 
                     if (!userInfo.isTermsActual && !modalService.getActiveModal('accept-terms')) {
+                        termsAcceptService.showDeniedNotify();
                         const res = await modalService.showModal('accept-terms', {source: 'router'});
                         await res.closed;
                         if (res.closeReason !== 'accept') {
-                            termsAcceptService.showDeniedNotify();
                             trans.abort();
-                            router.stateService.go('app.home', trans.params());
-                            return;
+                            if (!termsAcceptService.checkState(router.globals.current.name, router.globals.params)) {
+                                router.stateService.go('app.home', trans.params());
+                            }
                         } else {
                             router.stateService.reload();
                         }
