@@ -60,6 +60,7 @@ export namespace CurrenciesInfo {
         'DOGE',
         'EGLD',
         'BUSD',
+        'LB1', // Lebanon (non standard country currency)
     ]);
 
     /** Special currencis, such as loyalty points, free spins, experience points and free bets */
@@ -204,6 +205,11 @@ export namespace CurrenciesInfo {
             literalAs: 'BTC',
         },
         BUSD: {
+            icon: '',
+            literalAs: 'BTC',
+        },
+        // Lebanon (non standard country currency)
+        LB1: {
             icon: '',
             literalAs: 'BTC',
         },
