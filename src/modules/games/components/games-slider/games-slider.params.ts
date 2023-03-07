@@ -63,6 +63,7 @@ export interface IGamesSliderCParams extends IComponentParams<ComponentTheme, Co
      * Text for error template
      */
     errorText?: string;
+    iconUrl?: string;
 };
 
 export const defaultParams: IGamesSliderCParams = {
@@ -177,4 +178,5 @@ export const defaultParams: IGamesSliderCParams = {
             },
         },
     },
+    iconUrl: '/gstatic/images/games-slider.png',
 };

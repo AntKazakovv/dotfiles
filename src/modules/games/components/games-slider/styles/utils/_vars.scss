@@ -15,16 +15,14 @@ $themeDefault: map-merge((
     'thumbBg': #000,
     'thumbOpacity': 0.7,
     'swiperPadding': ef.size(4) 0,
+
     'mobileBodyPadding': ef.size(2) 0 ef.size(2) ef.size(4),
     'mobileGridColumns': 1fr 2fr,
     'mobileRadius': ef.size(2),
-    'mobilePicRadius': ef.size(1),
     'mobileGap': ef.size(4),
     'mobileBackground': var(--mc-main),
     'mobileTextAlign': left,
     'mobileJustifyItems': center,
-    'mobileTranslateCoefficient': 25%,
-    'mobileScaleCoefficient': 0.05,
     'mobileTitleFontStyle': 'ButtonText',
     'mobileSubtitleFontStyle': 'SignText',
     'mobileTitleColor': ef.get('mainColors', 'baseMain'),
@@ -32,4 +30,29 @@ $themeDefault: map-merge((
     'mobileSubtitleMargin': 0,
     'modalButtonMargin': ef.size(8) auto 0,
     'errorMargin': ef.size(4) 0 0,
+
+    'previewMinHeight': (
+        375: 50px,
+        560: 70px,
+        768: 90px,
+    ),
+    'mobileMargin': (
+        375: 0,
+    ),
+    'iconWrapHeight': (
+        375: auto,
+    ),
+    'iconWrapPos': relative,
+    'iconWrapTop': (
+        375: 0,
+    ),
+    'iconWrapLeft': (
+        375: 0,
+    ),
+    'iconMaxWidth': (
+        375: 90%,
+    ),
+    'iconMargin': (
+        375: 0 auto,
+    ),
 ), $customThemeDefault);

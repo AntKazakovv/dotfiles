@@ -92,16 +92,6 @@ export class GamesSliderComponent extends AbstractComponent implements OnInit {
     }
 
     /**
-     * Method calculates index for element of mobile preview
-     *
-     * @method setIndex
-     */
-    public setIndex(index: number, abs: boolean): number {
-        const newIndex: number = index - Math.floor(this.mockGamesList.length / 2);
-        return abs ? Math.abs(newIndex) : newIndex;
-    }
-
-    /**
      * Method starts autoscrolling games in slider for several seconds
      *
      * @method startScrollingSwiper

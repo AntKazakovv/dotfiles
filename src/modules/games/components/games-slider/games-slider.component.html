@@ -30,15 +30,10 @@
         </div>
 
         <div class="{{$class}}__preview-block">
-            <div *ngFor="let game of mockGamesList; index as i"
-                class="{{$class}}__preview-img"
-                style="--i: {{setIndex(i, false)}}; --absIndex: {{setIndex(i, true)}}">
-                <picture class="{{$class}}__img" data-wlc-element="block_game-thumb-img">
-                    <source [srcset]="game.getImage(196, 'webp')" type="image/webp">
-                    <img [wlc-fallback]="game.getImage(196)"
-                        [src]="game.getImage(640)"
-                        loading="lazy">
-                </picture>
+            <div class="{{$class}}__icon-wrap">
+                <img class="{{$class}}__icon"
+                    loading="lazy"
+                    [src]="$params.iconUrl">
             </div>
         </div>
     </div>

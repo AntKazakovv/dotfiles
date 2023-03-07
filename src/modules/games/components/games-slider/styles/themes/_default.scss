@@ -36,6 +36,7 @@
         }
 
         &__mobile {
+            @include bm.get-mq-map('margin', $themeDefault, 'mobileMargin');
             display: grid;
             grid-template-columns: ef.get-value($themeDefault, 'mobileGridColumns');
             gap: ef.get-value($themeDefault, 'mobileGap');
@@ -61,28 +62,27 @@
         }
 
         &__preview-block {
-            --tk: #{ef.get-value($themeDefault, 'mobileTranslateCoefficient')};
-            --sk: #{ef.get-value($themeDefault, 'mobileScaleCoefficient')};
-
+            @include bm.get-mq-map('min-height', $themeDefault, 'previewMinHeight');
             position: relative;
-            display: grid;
-            grid-template-areas: 'pic';
-            justify-items: ef.get-value($themeDefault, 'mobileJustifyItems');
-        }
+            display: flex;
+            align-items: center;
+            width: 100%;
+            height: 100%;
 
-        &__preview-img {
-            --translateX: calc(var(--tk) * var(--i));
-            --scale: calc(1 - var(--sk) * var(--absIndex));
+            .wlc-games-slider__icon-wrap {
+                @include bm.get-mq-map('height', $themeDefault, 'iconWrapHeight');
+                @include bm.get-mq-map('top', $themeDefault, 'iconWrapTop');
+                @include bm.get-mq-map('left', $themeDefault, 'iconWrapLeft');
+                position: ef.get-value($themeDefault, 'iconWrapPos');
+                display: block;
+                width: 100%;
+                overflow: hidden;
 
-            position: relative;
-            z-index: calc(50 - var(--absIndex));
-            grid-area: pic;
-            width: 30%;
-            transform: translateX(var(--translateX)) scale(var(--scale));
-
-            img {
-                max-width: 100%;
-                border-radius: ef.get-value($themeDefault, 'mobilePicRadius');
+                .wlc-games-slider__icon {
+                    @include bm.get-mq-map('max-width', $themeDefault, 'iconMaxWidth');
+                    @include bm.get-mq-map('margin', $themeDefault, 'iconMargin');
+                    display: block;
+                }
             }
         }
 
