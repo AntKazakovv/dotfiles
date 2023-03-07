@@ -3,7 +3,10 @@
 </ng-container>
 
 <div *ngIf="initFailed" class="{{$class}}__error">
-    {{'Popular events load error' | translate}}
+    <div wlc-betradar-no-content
+        [contentText]="'Popular events load error'"
+        [contentImg]="'/gstatic/games/betradar/widgets/popular-events/v1/no_content.jpg'">
+    </div>
 </div>
 
 <ng-template #popularEventsSlide let-game="game" let-image="imagePath">

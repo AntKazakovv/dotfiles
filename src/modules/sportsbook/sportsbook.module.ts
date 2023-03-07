@@ -2,6 +2,7 @@ import {NgModule} from '@angular/core';
 import {CoreModule} from 'wlc-engine/modules/core/core.module';
 import {SportsbookComponent} from './components/sportsbook/sportsbook.component';
 import {BetradarDailyMatchComponent} from './components/betradar-daily-match/betradar-daily-match.component';
+import {BetradarNoContentComponent} from './components/betradar-no-content/betradar-no-content.component';
 import {BetradarPopularEventsComponent} from './components/betradar-popular-events/betradar-popular-events.component';
 import {
     SportsbookService,
@@ -23,6 +24,7 @@ export const components = {
     'wlc-sportsbook': SportsbookComponent,
     'wlc-betradar-daily-match': BetradarDailyMatchComponent,
     'wlc-betradar-popular-events': BetradarPopularEventsComponent,
+    'wlc-betradar-no-content': BetradarNoContentComponent,
 };
 
 export const services = {
@@ -34,6 +36,7 @@ export const services = {
     declarations: [
         SportsbookComponent,
         BetradarDailyMatchComponent,
+        BetradarNoContentComponent,
         BetradarPopularEventsComponent,
     ],
     imports: [
@@ -45,6 +48,7 @@ export const services = {
     exports: [
         SportsbookComponent,
         BetradarDailyMatchComponent,
+        BetradarNoContentComponent,
         BetradarPopularEventsComponent,
     ],
 })

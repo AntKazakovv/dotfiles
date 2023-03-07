@@ -1,0 +1,12 @@
+$customThemeDefault: () !default;
+$themeDefault: map-merge((
+    'noContentPadding': 0 ef.size(3),
+    'noContentTextAlign': center,
+    'noContentBgPosition': 60% 50%,
+    'noContentBgSize': cover,
+    'noContentShadow': var(--mc-bg-o6),
+    'noContentIconColor': var(--mc-baseOpacity),
+    'noContentIconSize': 38px,
+    'noContentIconMargin': 0 0 ef.size(4) 0,
+    'noContentFontWeight': bold,
+), $customThemeDefault);

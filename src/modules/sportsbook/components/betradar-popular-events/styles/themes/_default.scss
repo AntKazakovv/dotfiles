@@ -22,14 +22,7 @@
     .wlc-betradar-popular-events {
 
         &__error {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            height: 100%;
-
-            padding: ef.get-value($themeDefault, 'errorPadding');
-            text-align: ef.get-value($themeDefault, 'errorTextAlign');
-            background-color: ef.get-value($themeDefault, 'backgroundColor');
+            @include bm.get-mq-map('height', $themeDefault, 'noContentHeight');
         }
 
         &__image {
@@ -55,7 +48,7 @@
         }
 
         &__content {
-            height: 100%;
+            @include bm.get-mq-map('height', $themeDefault, 'contentHeight');
         }
 
         &__slide {

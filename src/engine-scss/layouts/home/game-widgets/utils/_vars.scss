@@ -8,12 +8,12 @@ $themeGameWidgets: map-merge((
         1630: minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr),
     ),
     'rows': (
-        375: minmax(240px, 260px) minmax(240px, 1fr) minmax(320px, 360px),
-        480: minmax(240px, 320px) minmax(240px, 1fr) minmax(320px, 360px),
-        560: minmax(240px, 360px) minmax(240px, 1fr) minmax(320px, 360px),
-        640: minmax(240px, 440px) minmax(240px, 1fr) minmax(320px, 360px),
-        720: minmax(290px, 1fr) minmax(320px, 440px),
-        1630: minmax(370px, 1fr),
+        375: 260px minmax(180px, max-content) minmax(180px, max-content),
+        480: 340px minmax(180px, max-content) minmax(180px, max-content),
+        560: 400px minmax(180px, max-content) minmax(180px, max-content),
+        720: minmax(264px, 1fr) max-content,
+        900: minmax(360px, 1fr) max-content,
+        1630: minmax(385px, 1fr),
     ),
     'popularEventsGridColumn': (
         375: unset,

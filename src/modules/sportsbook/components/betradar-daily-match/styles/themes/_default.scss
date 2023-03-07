@@ -1,6 +1,5 @@
 .wlc-betradar-daily-match--theme-default:host {
     position: relative;
-
     overflow: hidden;
 
     border-radius: ef.get-value($themeDefault, 'borderRadius');
@@ -15,14 +14,7 @@
     .wlc-betradar-daily-match {
 
         &__error {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            height: 100%;
-
-            padding: ef.get-value($themeDefault, 'errorPadding');
-            text-align: ef.get-value($themeDefault, 'errorTextAlign');
-            background-color: ef.get-value($themeDefault, 'backgroundColor');
+            @include bm.get-mq-map('height', $themeDefault, 'noContentHeight');
         }
 
         &__content {

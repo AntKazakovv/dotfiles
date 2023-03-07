@@ -1,9 +1,15 @@
 $customThemeDefault: () !default;
 $themeDefault: map-merge((
-    'minHeight': 380px,
+    'contentHeight': (
+        375: 360px,
+        720: 440px,
+        1630: 100%,
+    ),
     'backgroundColor': var(--mc-bg700),
-    'errorPadding': 0 ef.size(3),
-    'errorTextAlign': center,
+    'noContentHeight': (
+        375: 180px,
+        1630: 100%,
+    ),
     'borderRadius': ef.get('radius', 'biger'),
     'headerTextStyle': 'ThirdTitleBold',
     'headerTextColor': var(--mc-baseMain),

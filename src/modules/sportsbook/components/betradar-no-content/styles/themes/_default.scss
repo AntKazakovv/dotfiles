@@ -1,0 +1,54 @@
+.wlc-betradar-no-content--theme-default {
+    height: 100%;
+
+    .wlc-betradar-no-content {
+
+        &__item {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+
+            padding: ef.get-value($themeDefault, 'noContentPadding');
+            font-weight: ef.get-value($themeDefault, 'noContentFontWeight');
+            text-align: ef.get-value($themeDefault, 'noContentTextAlign');
+            background-color: ef.get-value($themeDefault, 'backgroundColor');
+            background-position: ef.get-value($themeDefault, 'noContentBgPosition');
+            background-size: ef.get-value($themeDefault, 'noContentBgSize');
+
+            &:before {
+                @include bm.get-mq-map('background', $themeDefault, 'noContentShadow');
+                content: '';
+                position: absolute;
+                display: block;
+                width: 100%;
+                height: 100%;
+            }
+        }
+
+
+        &__logo,
+        &__text {
+            z-index: 10;
+        }
+
+
+        &__logo {
+            --wlc-icon-width: #{ef.get-value($themeDefault, 'noContentIconSize')};
+            --wlc-icon-height: #{ef.get-value($themeDefault, 'noContentIconSize')};
+
+            display: block;
+            margin: ef.get-value($themeDefault, 'noContentIconMargin');
+
+            svg {
+
+                path {
+                    fill: ef.get-value($themeDefault, 'noContentIconColor');
+                }
+            }
+        }
+    }
+}
+

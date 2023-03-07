@@ -47,7 +47,10 @@
 </ng-container>
 
 <div *ngIf="initFailed" class="{{$class}}__error">
-    {{'Match of the day load error' | translate}}
+    <div wlc-betradar-no-content
+         [contentText]="'Match of the day load error'"
+         [contentImg]="'/gstatic/games/betradar/widgets/daily-match/no_content.jpg'">
+    </div>
 </div>
 
 <ng-template #preloader>
