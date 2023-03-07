@@ -840,7 +840,8 @@ export class GamesGridComponent extends AbstractComponent implements OnInit, OnD
     }
 
     protected loadSlidersComponentsOnReady(): void {
-        if (this.isReadyOrUsePlaceholder && this.hasGames) {
+
+        if (this.isReadyOrUsePlaceholder) {
             this.initGameSliders();
 
             if (this.$params.bannerSettings) {
