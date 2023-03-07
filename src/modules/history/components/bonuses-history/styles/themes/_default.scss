@@ -41,6 +41,11 @@
                     align-items: center;
                     justify-content: space-between;
                     text-align: left;
+
+                    &__name {
+                        text-overflow: ellipsis;
+                        overflow: hidden;
+                    }
                 }
             }
         }
