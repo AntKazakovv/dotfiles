@@ -352,6 +352,7 @@
         }
 
         .wlc-scrollbar {
+            height: 90%;
 
             &__container {
                 padding: ef.get-value($themeDefault, 'scrollbarPadding');
