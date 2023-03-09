@@ -451,25 +451,6 @@ export namespace profileContent {
         theme: 'first',
         components: [
             componentLib.wlcProfileMenu.defTypeFirst,
-            {
-                name: 'core.wlc-wrapper',
-                params: {
-                    class: 'wlc-profile-content__header',
-                    components: [
-                        {
-                            name: 'core.wlc-title',
-                            params: {
-                                customMod: ['profile'],
-                                mainText: gettext('Bonuses'),
-                            },
-                        },
-                        componentLib.wlcEnterPromocode.hideTitleV1,
-                    ],
-                },
-                display: {
-                    before: 1199,
-                },
-            },
             componentLib.wlcProfileMenu.subMenuV1,
             {
                 name: 'core.wlc-wrapper',
@@ -481,15 +462,14 @@ export namespace profileContent {
                             params: {
                                 class: 'wlc-profile-content__header underlined',
                                 components: [
-
                                     {
                                         name: 'core.wlc-title',
                                         params: {
                                             customMod: ['profile'],
                                             mainText: gettext('Bonuses'),
+                                            wlcElement: 'header_bonuses',
                                         },
                                     },
-                                    componentLib.wlcEnterPromocode.hideTitleV1,
                                 ],
                             },
                             display: {
@@ -499,20 +479,26 @@ export namespace profileContent {
                         {
                             name: 'core.wlc-wrapper',
                             params: {
-                                class: 'wlc-profile-content__body',
+                                class: 'wlc-profile-content__promocode',
                                 components: [
                                     {
-                                        name: 'core.wlc-wrapper',
+                                        name: 'bonuses.wlc-enter-promocode',
                                         params: {
-                                            class: 'wlc-profile-content__promocode',
-                                            components: [
-                                                componentLib.wlcEnterPromocode.hideTitle,
-                                            ],
-                                        },
-                                        display: {
-                                            before: 559,
+                                            class: 'all-type wlc-enter-promocode',
+                                            theme: 'clear',
+                                            common: {
+                                                showTitle: false,
+                                            },
                                         },
                                     },
+                                ],
+                            },
+                        },
+                        {
+                            name: 'core.wlc-wrapper',
+                            params: {
+                                class: 'wlc-profile-content__body',
+                                components: [
                                     componentLib.wlcBonusesList.activeFirstWithNoBonusItem,
                                     {
                                         name: 'core.wlc-wrapper',
@@ -1242,13 +1228,6 @@ export namespace profileContent {
                                 class: 'wlc-profile-content__header underlined',
                                 components: [
                                     componentLib.wlcTitle.messages,
-                                    {
-                                        name: 'core.wlc-history-range',
-                                        params: {
-                                            type: 'submenu',
-                                            historyType: 'mails',
-                                        },
-                                    },
                                 ],
                             },
                             display: {
@@ -1260,16 +1239,6 @@ export namespace profileContent {
                             params: {
                                 class: 'wlc-profile-content__body',
                                 components: [
-                                    {
-                                        name: 'core.wlc-history-range',
-                                        params: {
-                                            type: 'submenu',
-                                            historyType: 'mails',
-                                        },
-                                        display: {
-                                            before: 1199,
-                                        },
-                                    },
                                     componentLib.wlcInternalMails.mails,
                                 ],
                             },

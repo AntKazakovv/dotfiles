@@ -1,7 +1,13 @@
 .wlc-internal-mails--theme-default:host {
 
+    .wlc-internal-mails {
+        @include bm.get-mq-map('grid-template-areas', $themeDefault, 'gridTemplateArea');
+        display: grid;
+    }
+
     .wlc-internal-mails__filter {
         display: ef.get-value($themeDefault, 'filterDisplay');
+        grid-area: filter;
         grid-auto-columns: ef.get-value($themeDefault, 'filterGridAutoColumns');
         grid-auto-flow: ef.get-value($themeDefault, 'filterGridAutoFlow');
         gap: ef.get-value($themeDefault, 'filterGap');
@@ -9,7 +15,24 @@
         margin: ef.get-value($themeDefault, 'filterMargin');
     }
 
+    .wlc-history-range--theme-default::ng-deep {
+        @include bm.get-mq-map('margin', $themeDefault, 'rangeMargin');
+        grid-area: range;
+
+        &.wlc-history-range__content {
+            @include bm.get-mq-map('align-items', $themeDefault, 'rangeAlignItems');
+            @include bm.get-mq-map('justify-content', $themeDefault, 'rangeJustifyContent');
+            height: 100%;
+        }
+    }
+
+    .wlc-loader--theme-default,
+    .wlc-internal-mails__empty {
+        grid-area: table;
+    }
+
     .wlc-table::ng-deep {
+        grid-area: table;
 
         .wlc-table {
 

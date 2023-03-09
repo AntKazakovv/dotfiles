@@ -44,6 +44,9 @@ $themeDefault: map-merge((
         375: 'range' 'table',
         1024: 'filter filter filter range' 'table table table table',
     ),
+    'rangeMargin': (
+        375: 0 0 ef.size(4),
+    ),
     'rangeAlignItems': (
         375: flex-end,
     ),

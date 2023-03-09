@@ -16,9 +16,14 @@ export type Theme = 'default' | CustomType;
 export type Type = 'default' | CustomType;
 export type ThemeMod = 'default' | CustomType;
 
+export interface IMailHistoryRangeParams {
+    type: string,
+    historyType: string,
+}
 export interface IInternalMailsCParams extends IComponentParams<Theme, Type, ThemeMod> {
     /** wlc-profile-no-content params */
     emptyConfig?: IWrapperCParams;
+    historyRangeParams?: IMailHistoryRangeParams;
 }
 
 export const defaultParams: IInternalMailsCParams = {
@@ -34,6 +39,10 @@ export const defaultParams: IInternalMailsCParams = {
                 },
             },
         ],
+    },
+    historyRangeParams: {
+        type: 'submenu',
+        historyType: 'mails',
     },
 };
 

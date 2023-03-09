@@ -28,7 +28,7 @@ export interface ITransactionHistoryCParams extends IComponentParams<Theme, Type
     transactionTableTheme: 'default' | 'mobile-app' | Theme,
     /** wlc-profile-no-content params */
     emptyConfig?: IWrapperCParams;
-    historyRangeParams?: any;
+    historyRangeParams?: ITransactionHistoryRangeParams;
 }
 
 export const defaultParams: ITransactionHistoryCParams = {

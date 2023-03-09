@@ -2,6 +2,10 @@
     @include bm.get-mq-map('max-width', $themeClear, 'maxWidth');
     width: ef.get-value($themeClear, 'width');
 
+    &.all-type {
+        @include bm.get-mq-map('max-width', $themeClear, 'maxWidthAllType');
+    }
+
     .wlc-enter-promocode {
 
         &__control {

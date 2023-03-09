@@ -118,7 +118,7 @@
                     ::ng-deep {
 
                         .wlc-icon {
-                            bottom: 2px;
+                            bottom: 0;
 
                             svg {
                                 width: ef.get-value($themeDefault, 'loyaltyIconStoreSize');

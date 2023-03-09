@@ -117,13 +117,6 @@ export namespace wlcProfileMenu {
                         type: 'submenu',
                     },
                 },
-                {
-                    name: 'core.wlc-history-range',
-                    params: {
-                        type: 'submenu',
-                        historyType: 'mails',
-                    },
-                },
             ],
         },
     };

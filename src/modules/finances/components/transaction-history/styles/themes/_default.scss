@@ -40,8 +40,8 @@
         }
 
         .wlc-history-range--theme-default::ng-deep {
+            @include bm.get-mq-map('margin', $themeDefault, 'rangeMargin');
             grid-area: range;
-            margin: 0 0 ef.size(4);
 
             &.wlc-history-range__content {
                 @include bm.get-mq-map('align-items', $themeDefault, 'rangeAlignItems');

@@ -1,5 +1,4 @@
-.app-profile-loyalty-bonuses-main-state,
-.app-profile-loyalty-bonuses-all-state {
+.app-profile-loyalty-bonuses-main-state {
 
     .wlc-sections__profile-content--theme-first[class] {
 
@@ -7,6 +6,19 @@
 
             .wlc-enter-promocode[class] {
                 @include bm.get-mq-map('margin', $bonusesThemeFirst, 'promocodeMargin');
+            }
+        }
+    }
+}
+
+.app-profile-loyalty-bonuses-all-state {
+
+    .wlc-sections__profile-content--theme-first[class] {
+
+        .wlc-profile-content {
+
+            .wlc-enter-promocode[class] {
+                @include bm.get-mq-map('margin', $bonusesThemeFirst, 'promocodeMarginAllState');
             }
         }
     }

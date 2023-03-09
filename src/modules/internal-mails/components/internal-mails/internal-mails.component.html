@@ -3,7 +3,7 @@
         <div wlc-datepicker [inlineParams]="startDateInput"></div>
         <div wlc-datepicker [inlineParams]="endDateInput"></div>
     </div>
-
+    <div wlc-history-range [inlineParams]="$params.historyRangeParams"></div>
     <div *ngIf="internalMailsCount; else empty" wlc-table [inlineParams]='tableData'></div>
 </div>
 
