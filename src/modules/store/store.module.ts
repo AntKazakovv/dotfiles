@@ -3,6 +3,7 @@ import {CommonModule} from '@angular/common';
 import {TranslateModule} from '@ngx-translate/core';
 
 import {CoreModule} from '../core/core.module';
+import {CompilerModule} from 'wlc-engine/modules/compiler/compiler.module';
 
 import {StoreService} from './system/services';
 
@@ -33,6 +34,7 @@ export const services = {
         CommonModule,
         CoreModule,
         TranslateModule,
+        CompilerModule,
     ],
     providers: [
         StoreService,

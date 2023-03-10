@@ -7,7 +7,8 @@
         class="{{$class}}__alert-block"
         [title]="'This product will become available for purchase when you have no active bonuses left.' | translate">
     </div>
-    <div class="{{$class}}__description">
-        {{$params.description | translate}}
-    </div>
+    <div class="{{$class}}__description"
+        wlc-dynamic-html
+        [html]="$params.description"
+        [parseAsPlainHTML]="true"></div>
 </div>
