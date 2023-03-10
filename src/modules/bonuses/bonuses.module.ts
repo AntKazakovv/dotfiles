@@ -29,6 +29,9 @@ import {GlobalHelper} from 'wlc-engine/modules/core';
 import {IBonusesModule} from 'wlc-engine/modules/bonuses/system/interfaces/bonuses/bonuses.interface';
 import {bonusesConfig} from 'wlc-engine/modules/bonuses/system/config/bonuses/bonuses.config';
 import * as $config from 'wlc-config/index';
+import {
+    BonusConfirmationComponent,
+} from './components/bonus-buttons/components/bonus-confirmation/bonus-confirmation.component';
 
 export const moduleConfig = GlobalHelper.mergeConfig<IBonusesModule>(bonusesConfig, _get($config, '$bonuses', {}));
 
@@ -63,6 +66,7 @@ export const services = {
         PromoSuccessComponent,
         RecommendedBonusesComponent,
         DepositBonusesComponent,
+        BonusConfirmationComponent,
     ],
     imports: [
         CommonModule,

@@ -163,3 +163,9 @@
             (click)="action('openLootbox')">
     </button>
 </ng-template>
+<ng-template #cancelModal>
+    <div wlc-bonus-confirmation
+         [loyaltyBonusId]="bonus.LBID"
+         [bonusId]="bonus.id">
+    </div>
+</ng-template>

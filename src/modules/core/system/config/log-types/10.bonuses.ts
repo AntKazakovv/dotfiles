@@ -11,4 +11,8 @@ export const errorTypes: ILogTypes = {
     '10.0.2': {
         // Bonus promocode not found
     },
+    '10.0.3': {
+        // Information to cancel the bonus not found
+        level: 'warning',
+    },
 };

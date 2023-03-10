@@ -72,8 +72,10 @@ import {
     IQueryParams,
     RestType,
     ILootboxPrize,
+    IBonusCanceledInfo,
 } from 'wlc-engine/modules/bonuses/system/interfaces/bonuses/bonuses.interface';
 import {LootboxPrizeModel} from 'wlc-engine/modules/bonuses/system/models/lootbox-prize/lootbox-prize.model';
+import {BonusCancellationInfo} from '../../models/bonus/bonus-cancellation-info.model';
 
 type TUserLoyaltyInfo = Pick<UserInfo, 'bonusesBalance' | 'freeRounds'>;
 
@@ -452,6 +454,39 @@ export class BonusesService {
     }
 
     /**
+     * Receiving information to cancel the bonus
+     * @param {string} loyaltyBonusId loyalty bonus id
+     * @param {number} bonusId bonus id
+     * @returns {BonusCancellationInfo} bonus cancellation information object
+     */
+    public async getCancelInformation(loyaltyBonusId: string, bonusId: number): Promise<BonusCancellationInfo> {
+        try {
+
+            const response: IData = await this.dataService.request({
+                name: 'getCancelInformation',
+                system: 'bonuses',
+                url: `/bonuses?type=cancelInfo&lbid=${loyaltyBonusId}`,
+                type: 'GET',
+            });
+
+            const bonusInfo: IBonusCanceledInfo = response.data[loyaltyBonusId];
+            if (bonusInfo) {
+                return new BonusCancellationInfo(bonusInfo);
+            } else throw new Error();
+
+        } catch (error) {
+            let {errors} = error;
+            if (!errors) {
+                errors = [gettext('An error has occurred while loading data. Please try again later.')];
+            }
+
+            this.logService.sendLog({code: '10.0.3', data: {bonusId}});
+            this.showError(errors);
+            throw errors;
+        }
+    }
+
+    /**
      * Take inventory bonus
      *
      * @param {Bonus} bonus bonus object
@@ -620,7 +655,7 @@ export class BonusesService {
     public sortBonuses(bonuses: Bonus[], sortOrder: TBonusSortOrder[]): Bonus[] {
         let result = [];
 
-        if(!!sortOrder) {
+        if (!!sortOrder) {
             result = _reduce(_union(sortOrder), (res: Bonus[], element: TBonusSortOrder): Bonus[] => {
                 if (_isNumber(element)) {
                     return _unionBy(res, [_find(bonuses, {id: element})], 'id');

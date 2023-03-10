@@ -1,0 +1,13 @@
+$customThemeDefault: () !default;
+$themeDefault: map-merge((
+    'svgColor': var(--mc-bg100),
+    'marginIcon': 0 0 ef.size(4),
+    'marginText': 0 0 ef.size(2),
+    'fill': currentColor,
+    'textStyle': 'PrimaryText',
+    'textColor': inherit,
+    'valueTextStyle': 'PrimaryTextBold',
+    'valueColor': inherit,
+    'currencyTextStyle': null,
+    'currencyColor': inherit,
+), $customThemeDefault);

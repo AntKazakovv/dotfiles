@@ -1,0 +1,37 @@
+.wlc-bonus-confirmation:host {
+    @include text.get-text-style(
+        ef.get-value($themeDefault, 'textStyle'),
+        ef.get-value($themeDefault, 'textColor')
+    );
+    text-align: center;
+
+    .wlc-icon::ng-deep {
+        margin: ef.get-value($themeDefault, 'marginIcon');
+        color: ef.get-value($themeDefault, 'svgColor');
+
+        svg {
+            fill: ef.get-value($themeDefault, 'fill');
+        }
+    }
+
+    .wlc-bonus-confirmation {
+
+        &__text-block {
+            margin: ef.get-value($themeDefault, 'marginText');
+        }
+
+        &__value {
+            @include text.get-text-style(
+                ef.get-value($themeDefault, 'valueTextStyle'),
+                ef.get-value($themeDefault, 'valueColor')
+            );
+        }
+
+        &__currency {
+            @include text.get-text-style(
+                ef.get-value($themeDefault, 'currencyTextStyle'),
+                ef.get-value($themeDefault, 'currencyColor')
+            );
+        }
+    }
+}

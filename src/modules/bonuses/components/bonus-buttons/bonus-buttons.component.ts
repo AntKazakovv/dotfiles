@@ -5,6 +5,9 @@ import {
     Inject,
     OnInit,
     Input,
+    ViewChild,
+    TemplateRef,
+    ElementRef,
 } from '@angular/core';
 
 import {UIRouter} from '@uirouter/core';
@@ -39,6 +42,7 @@ export class BonusButtonsComponent extends AbstractComponent implements OnInit {
     @Input() public readMoreClick: ($event: MouseEvent) => Promise<void>;
     @Input() public isShowUnsubscribe: boolean = false;
 
+    @ViewChild('cancelModal') public tplModal: TemplateRef<ElementRef>;
     public $params: Params.IBonusButtonsCParams;
     public isAuth: boolean;
 
@@ -150,15 +154,15 @@ export class BonusButtonsComponent extends AbstractComponent implements OnInit {
             id: 'bonus-info',
             modalTitle: gettext('Confirmation'),
             modifier: 'confirmation',
-            modalMessage: gettext('Are you sure?'),
             showConfirmBtn: true,
+            confirmBtnText: gettext('Yes'),
             closeBtnParams: {
                 themeMod: 'secondary',
                 common: {
                     text: gettext('No'),
                 },
             },
-            confirmBtnText: gettext('Yes'),
+            templateRef: this.tplModal,
             textAlign: 'center',
             onConfirm: async () => {
                 this.$params.btnsParams.cancelBtnParams.pending$?.next(true);

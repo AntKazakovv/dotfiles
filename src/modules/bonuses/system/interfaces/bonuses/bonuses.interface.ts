@@ -293,3 +293,29 @@ export enum BonusItemComponentEvents {
     deposit = 'CHOOSE_DEPOSIT_BONUS_SUCCEEDED',
     other = 'CHOOSE_OTHER_BONUS_SUCCEEDED',
 }
+
+/**
+ * Information about the loss of funds when canceling the bonus for the player.
+ */
+export interface IBonusCanceledInfo {
+    /**
+     * The amount will burn on the bonus balance
+     */
+    BurnOnBonusBalance: string;
+    /**
+     * The amount will burn on the real balance
+     */
+    BurnOnRealBalance: string;
+    /**
+     * The amount that will be transferred to the player's real balance
+     */
+    TransferredToRealBalance: string;
+    /**
+     * Amount required for wagering.
+     */
+    AmountToCompleteWagering: string;
+    /**
+     * Value currency
+     */
+    Currency: string;
+}

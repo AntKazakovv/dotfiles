@@ -1,0 +1,40 @@
+<div wlc-icon
+     iconPath="{{$params.iconPath}}"></div>
+
+<div class="{{$class}}__text-block">{{$params.text | translate}}</div>
+
+<div class="{{$class}}__text-block">
+    <span>{{$params.textBonusBalanceDecrease | translate}}</span>
+    <ng-container *ngIf="isReady else loading"
+                  [ngTemplateOutlet]="value"
+                  [ngTemplateOutletContext]="{$implicit: bonusInfo?.bonusBalanceDecrease}">
+    </ng-container>
+</div>
+<div>
+    <span>{{$params.textRealBalanceDecrease | translate}}</span>
+    <ng-container *ngIf="isReady else loading"
+                  [ngTemplateOutlet]="value"
+                  [ngTemplateOutletContext]="{$implicit: bonusInfo?.realBalanceDecrease}">
+    </ng-container>
+</div>
+
+<ng-template #value let-value>
+    <ng-template [ngIf]="bonusInfo">
+        <span wlc-currency
+              class="{{$class}}__value"
+              [value]="value"
+              [currency]="bonusInfo?.currency"
+              [showValueOnly]="$params.showCurrencyString"
+        ></span>
+        <ng-template [ngIf]="$params.showCurrencyString">
+            <span class="{{$class}}__currency">
+                {{bonusInfo?.currency}}
+            </span>
+        </ng-template>
+    </ng-template>
+    <ng-template [ngIf]="errors">&ndash;</ng-template>
+</ng-template>
+
+<!-- TODO added because currency loading does not work correctly, currency should be removed after fixing-->
+<ng-template #loading>...</ng-template>
+
