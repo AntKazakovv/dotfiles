@@ -242,10 +242,10 @@ export namespace wlcProfileForm {
                 {
                     name: 'core.wlc-select',
                     params: <ISelectCParams>{
-                        labelText: gettext('Sex'),
+                        labelText: gettext('Gender'),
                         wlcElement: 'block_gender',
                         common: {
-                            placeholder: gettext('Sex'),
+                            placeholder: gettext('Gender'),
                         },
                         locked: true,
                         name: 'gender',
