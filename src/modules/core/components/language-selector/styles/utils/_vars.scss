@@ -80,7 +80,7 @@ $themeDefaultModLog: map-merge((
     'currentMarginModLong': 5px 0,
     'currentColorModLang': var(--mc-bg100),
     'currentColorModLangOpened': ef.get('mainColors', 'baseMain'),
-    'dropdownBackgroundColor': var(--mc-bg),
+    'dropdownBgModLong': var(--mc-bg),
     'dropdownMarginOpened': ef.size(1) 0 0,
     'dropdownBottom': calc(100% + 10px),
     'dropdownBorderRadius': ef.size(2),
