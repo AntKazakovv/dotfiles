@@ -1,5 +1,6 @@
 @use 'sass:string';
 @use 'sass:selector';
+@use 'engine-scss/functions' as ef;
 
 /// Modifies selectors chain
 ///
@@ -26,5 +27,15 @@
 
     @at-root #{selector.parse($newSelector)} {
         @content;
+    }
+}
+
+@mixin hasDescription($layout: '') {
+    display: flex;
+    justify-content: center;
+
+    @if ($layout == 'mobile') {
+        gap: ef.get-value($themeDefault, 'cellGapMobile');
+        align-items: center;
     }
 }

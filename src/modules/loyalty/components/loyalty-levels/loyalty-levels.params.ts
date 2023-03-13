@@ -59,14 +59,24 @@ export const loyaltyTableHeadConfig: ITableCol[] = [
         key: 'nextLevelPoints',
         title: gettext('Experience'),
         type: 'text',
-        wlcElement: 'wlc-profile-table__cell_experience',
         order: 40,
+        wlcElement: 'wlc-profile-table__cell_experience',
+    },
+    {
+        key: 'confirmPoints',
+        title: gettext('Level hold points'),
+        type: 'text',
+        order: 50,
+        wlcElement: 'wlc-profile-table__cell_points',
+        description: gettext(
+            `These are experience points that must be gained over a thirty-day period in order to stay at 
+            the current level. If this does not happen, the level will be lowered to the previous one.`),
     },
     {
         key: 'coef',
         title: gettext('Coefficient'),
         type: 'text',
-        order: 50,
+        order: 60,
         wlcElement: 'wlc-profile-table__cell_coefficient',
     },
 ];

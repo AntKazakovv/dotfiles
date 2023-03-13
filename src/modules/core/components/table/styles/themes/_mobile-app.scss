@@ -28,6 +28,10 @@ $selector: '.wlc-table';
 
                     .wlc-table__cell {
                         @include text.get-text-style('PrimaryTextBold', ef.get-value($themeMobileApp, 'textColor'));
+
+                        &.has-description {
+                            @include hasDescription();
+                        }
                     }
                 }
 
@@ -98,6 +102,7 @@ $selector: '.wlc-table';
                 }
 
                 &-label,
+                &-label.has-description,
                 &-arrow {
                     display: none;
                 }
@@ -229,6 +234,10 @@ $selector: '.wlc-table';
 
             &-label {
                 justify-self: start;
+
+                &.description {
+                    @include hasDescription('mobile');
+                }
             }
 
             &-arrow {
