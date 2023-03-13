@@ -95,7 +95,7 @@ export class ProfileFormComponent extends ProfileFormAbstract implements OnInit 
         protected cdr: ChangeDetectorRef,
         protected eventService: EventService,
         protected configService: ConfigService,
-        @Inject('requiredFields') protected requiredFields: string[],
+        @Inject('requiredFields') protected requiredFields: (keyof typeof FormElements)[],
     ) {
         super(
             {
@@ -189,7 +189,7 @@ export class ProfileFormComponent extends ProfileFormAbstract implements OnInit 
 
         this.findFirstRealIndex(prev);
 
-        const getField = (fieldParams: IFindBlockResult, name: string): IFormComponent => {
+        const getField = (fieldParams: IFindBlockResult, name: keyof typeof FormElements): IFormComponent => {
             let item: IFormComponent;
             if (fieldParams) {
                 item = fieldParams.parent[fieldParams.index];
@@ -270,7 +270,7 @@ export class ProfileFormComponent extends ProfileFormAbstract implements OnInit 
         withClassModifier?: string,
     ): IFindBlockResult | null {
         const path = type === 'block' ? 'name' : 'params.name';
-        let res = null;
+        let res: IFindBlockResult | null = null;
         const dfs = (parent: IFormComponent[]): void => {
             for (let i = 0; i < parent.length; i++) {
                 if (res) {

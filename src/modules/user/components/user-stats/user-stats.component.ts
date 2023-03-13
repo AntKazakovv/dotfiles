@@ -126,7 +126,7 @@ export class UserStatsComponent extends AbstractComponent implements OnInit, OnD
     }
 
     private fillUserStatsFields(): void {
-        const shownUserStats = {};
+        const shownUserStats: IIndexing<IUserStatsItem> = {};
         _each(this.$params.fields, (field) => {
             shownUserStats[field] = {
                 ...Params.shownUserStatsConfig[field],
