@@ -3,7 +3,6 @@ export {IChangePasswordFormCParams} from './change-password-form/change-password
 export {IDashboardExchangeCParams} from './dashboard-exchange/exchange.params';
 export {IDeviceRegistrationFormCParams} from './device-registration-form/device-registration-form.params';
 export {ILoyaltyBlockCParams} from './dashboard-loyalty-block/dashboard-loyalty-block.params';
-export {IExchangeCParams} from './exchange-modal/exchange-modal.params'; // 1
 export {ILogoutCParams} from './logout/logout.params';
 export {ILoyaltyProgressCParams} from './loyalty-progress/loyalty-progress.params';
 export {INewPasswordFormCParams} from './new-password-form/new-password-form.params';

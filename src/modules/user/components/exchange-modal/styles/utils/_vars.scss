@@ -1,4 +1,0 @@
-$customThemeDefault: () !default;
-$themeDefault: map-merge((
-    'background': var(--mc-bgModal),
-), $customThemeDefault);
