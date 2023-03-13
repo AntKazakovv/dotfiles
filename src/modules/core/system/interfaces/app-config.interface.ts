@@ -27,7 +27,6 @@ export interface IBootstrap {
     menu: IBootstrapMenuItem[];
     mobile: boolean;
     mobileApp?: IMobileApp;
-    // seo: any[]; // TODO Check when project with SEO appears
     sessionName: string;
     site: string;
     siteconfig: ISiteConfig;
