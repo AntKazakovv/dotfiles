@@ -155,7 +155,7 @@ export class DepositWithdrawComponent
     public isWaitingResponse: boolean = false;
     public showErrorHosledLoad: boolean = false;
     public hiddenPaymentInfo: boolean;
-
+    public isLastMethodExisting: boolean;
     protected formObject: FormGroup;
     protected inProgress: boolean = false;
     protected userService: UserService;
@@ -209,7 +209,9 @@ export class DepositWithdrawComponent
         this.useBonuses = this.configService.get<boolean>('$finances.bonusesInDeposit.use');
         this.isDeposit = this.$params.mode === 'deposit';
         this.additionalFieldsConfig = this.configService.get('$finances.fieldsSettings.additional');
-
+        this.isLastMethodExisting = (this.isDeposit
+                && this.configService.get<boolean>('$finances.lastSucceedDepositMethod.use'))
+            || (!this.isDeposit && this.configService.get<boolean>('$finances.lastSucceedWithdrawMethod.use'));
         if (this.useBonuses && this.isDeposit) {
             this.steps.add(Params.PaymentSteps.bonus);
             this.bonusesListParams = {
@@ -237,7 +239,9 @@ export class DepositWithdrawComponent
         this.initSubscribers();
         this.updateFormConfig();
         this.initThemeToggleListener();
-
+        if (this.isLastMethodExisting) {
+            this.lastSucceedPaymentMethod = this.financesService.getLastSucceedPaymentMethod(this.isDeposit);
+        }
         if (!this.isDeposit) {
             this.title = gettext('Withdrawal');
             this.listConfig.paymentType = 'withdraw';
@@ -260,12 +264,6 @@ export class DepositWithdrawComponent
             this.$params.timerParams,
         );
 
-        if (
-            (this.isDeposit && this.configService.get<boolean>('$finances.lastSucceedDepositMethod.use'))
-            || (!this.isDeposit && this.configService.get<boolean>('$finances.lastSucceedWithdrawMethod.use'))
-        ) {
-            this.lastSucceedPaymentMethod = this.financesService.getLastSucceedPaymentMethod(this.isDeposit);
-        }
         await this.financesService.fetchPaymentSystems();
     }
 
