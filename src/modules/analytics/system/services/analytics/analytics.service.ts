@@ -9,6 +9,7 @@ import {
     ITagEvent,
 } from 'wlc-engine/modules/analytics/system/interfaces/analytics.interface';
 import {WINDOW} from 'wlc-engine/modules/app/system';
+import {IIndexing} from 'wlc-engine/modules/core';
 import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
 import {EventService} from 'wlc-engine/modules/core/system/services/event/event.service';
 
@@ -32,7 +33,7 @@ export class AnalyticsService {
             return;
         }
 
-        const subscriptions = {};
+        const subscriptions: IIndexing<Function[]> = {};
 
         this.analyticsConfig.tags.forEach((tag: ITag) => {
             if (!tag.use || !tag.events.length) {

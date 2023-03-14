@@ -1,12 +1,10 @@
 import {TestBed} from '@angular/core/testing';
-
-import {
-    ConfigService,
-    EventService,
-} from 'wlc-engine/modules/core';
+import {ConfigService, EventService} from 'wlc-engine/modules/core';
 import {
     IAnalytics,
     ITagEvent,
+    TFacebookPixelEventType,
+    TGtagEventType,
 } from 'wlc-engine/modules/analytics/system/interfaces/analytics.interface';
 import {AnalyticsService} from './analytics.service';
 import {
@@ -79,7 +77,7 @@ describe('AnalyticsService', () => {
         let result = {};
         let testEvent: ITagEvent = analyticsConfig.tags[0].events[0];
 
-        window.fbq = (eventType, eventName) => {
+        window.fbq = (eventType: TFacebookPixelEventType | TGtagEventType, eventName: string) => {
             result = {
                 eventType,
                 eventName,
