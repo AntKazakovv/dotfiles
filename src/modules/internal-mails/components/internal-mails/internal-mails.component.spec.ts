@@ -10,6 +10,7 @@ import {
 } from '@angular/core/testing';
 
 import {DateTime} from 'luxon';
+import {MockComponent} from 'ng-mocks';
 import {
     BehaviorSubject,
     Subject,
@@ -23,6 +24,7 @@ import {
     HistoryFilterService,
     IHistoryFilter,
 } from 'wlc-engine/modules/core';
+import {HistoryRangeComponent} from 'wlc-engine/modules/core/components/history-range/history-range.component';
 import {
     InternalMailsService,
 } from 'wlc-engine/modules/internal-mails/system/services/internal-mails/internal-mails.service';
@@ -105,6 +107,7 @@ describe('InternalMailsComponent', (): void => {
                 WrapperComponent,
                 DatepickerComponent,
                 LoaderComponent,
+                MockComponent(HistoryRangeComponent),
             ],
             providers: [
                 {provide: InternalMailsService, useValue: internalMailsServiceStub},
