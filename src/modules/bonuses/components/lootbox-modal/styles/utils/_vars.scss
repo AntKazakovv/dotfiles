@@ -3,14 +3,14 @@
 $customThemeDefault: () !default;
 $themeDefault: map-merge((
     'textBlockHeight': (
-        320: 180px,
+        375: 180px,
         480: 155px,
     ),
     'textBlockPadding': 0 ef.size(3),
     'textBlockTextAlign': center,
 
     'titleTextStyle': (
-        320: 'ThirdTitleBold',
+        375: 'ThirdTitleBold',
         480: 'QoteTextBold',
     ),
     'titleTextColor': var(--mc-baseMain),
@@ -18,44 +18,44 @@ $themeDefault: map-merge((
     'descLineClamp': 3,
     'descMaxWidth': 380px,
     'descMargin': (
-        320: ef.size(5) auto 0 auto,
+        375: ef.size(5) auto 0 auto,
         480: ef.size(3) auto 0 auto,
     ),
     'descTextStyle': (
-        320: 'PrimaryTextBold',
+        375: 'PrimaryTextBold',
         480: 'ThirdTitleBold',
     ),
     'descTextColor': var(--mc-baseMain),
     'descTextBeforeTop': (
-        320: ef.size(2),
+        375: ef.size(2),
     ),
     'descTextBeforeLeft': (
-        320: 0,
+        375: 0,
     ),
     'descTextBeforeWidth': (
-        320: 130px,
+        375: 130px,
         480: 150px,
         900: 185px,
     ),
     'descTextBeforeHeight': (
-        320: 65px,
+        375: 65px,
         480: 75px,
         900: 90px,
     ),
     'descTextBeforeBg': url('/gstatic/wlc/bonuses/lootbox/decor-2.png') no-repeat center / contain,
     'descTextAfterTop': (
-        320: ef.size(2),
+        375: ef.size(2),
     ),
     'descTextAfterRight': (
-        320: 0,
+        375: 0,
     ),
     'descTextAfterWidth': (
-        320: 130px,
+        375: 130px,
         480: 150px,
         900: 180px,
     ),
     'descTextAfterHeight': (
-        320: 65px,
+        375: 65px,
         480: 75px,
         900: 90px,
     ),
@@ -69,7 +69,7 @@ $themeDefault: map-merge((
     'sliderBlockBeforeTransform': null,
     'sliderBlockBeforeWidth': 100%,
     'sliderBlockBeforeHeight': (
-        320: 12px,
+        375: 12px,
         560: 20px,
     ),
     'sliderBlockBeforeBg': url('/gstatic/wlc/bonuses/lootbox/slider-border.png') center / contain,
@@ -80,7 +80,7 @@ $themeDefault: map-merge((
     'sliderBlockAfterTransform': null,
     'sliderBlockAfterWidth': 100%,
     'sliderBlockAfterHeight': (
-        320: 12px,
+        375: 12px,
         560: 20px,
     ),
     'sliderBlockAfterBg': url('/gstatic/wlc/bonuses/lootbox/slider-border.png') center / contain,
@@ -88,22 +88,22 @@ $themeDefault: map-merge((
     'sliderBeforeTransform': rotate(180deg) translateY(15px),
     'sliderBeforeBg': url('/gstatic/wlc/bonuses/lootbox/arrow.svg') no-repeat center / contain,
     'sliderBeforeWidth': (
-        320: 40px,
+        375: 40px,
         560: 55px,
     ),
     'sliderBeforeHeight': (
-        320: 50px,
+        375: 50px,
         560: 60px,
     ),
 
     'sliderAfterTransform': translateY(15px),
     'sliderAfterBg': url('/gstatic/wlc/bonuses/lootbox/arrow.svg') no-repeat center / contain,
     'sliderAfterWidth': (
-        320: 40px,
+        375: 40px,
         560: 55px,
     ),
     'sliderAfterHeight': (
-        320: 50px,
+        375: 50px,
         560: 60px,
     ),
     'slideWidth': (
@@ -121,7 +121,7 @@ $themeDefault: map-merge((
     'buttonsBg': url('/gstatic/wlc/bonuses/lootbox/decor-3.png') no-repeat bottom / contain,
 
     'swiperPadding': (
-        320: ef.size(7) ef.size(6),
+        375: ef.size(7) ef.size(6),
         560: ef.size(10) ef.size(6),
     ),
     'swiperScrollFunction': cubic-bezier(0.27, 0.9, 0.55, 0.98),
@@ -142,4 +142,5 @@ $themeDefault: map-merge((
     ),
 
     'loaderSize': 150px,
+    'itemBorderradius': ef.get('radius', 'biger'),
 ), $customThemeDefault);

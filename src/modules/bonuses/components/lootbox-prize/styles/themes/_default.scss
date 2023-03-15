@@ -32,21 +32,13 @@
         &__name {
             @include bm.lineClamp(2);
             @include bm.get-mq-map('height', $themeDefault, 'nameHeight');
-            @include bm.get-mq-map('padding', $themeDefault, 'namePadding');
-            @include text.get-text-style(
-                ef.get-value($themeDefault, 'nameTextStyle', 320),
-                ef.get-value($themeDefault, 'nameFontColor'),
-            );
+            @include text.get-text-style(ef.get-value($themeDefault, 'nameTextStyle', 480), null);
+
             @include bm.get-mq-map('font-size', $themeDefault, 'nameFontSize');
+            @include bm.get-mq-map('margin', $themeDefault, 'nameMargin');
+
             position: relative;
-            margin: ef.get-value($themeDefault, 'nameMargin');
             text-align: ef.get-value($themeDefault, 'nameTextAlign');
-            @include mq.min(480) {
-                @include text.get-text-style(ef.get-value($themeDefault, 'nameTextStyle', 480), null);
-            }
-            @include mq.min(640) {
-                @include text.get-text-style(ef.get-value($themeDefault, 'nameTextStyle', 640), null);
-            }
         }
     }
 

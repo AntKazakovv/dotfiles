@@ -12,16 +12,8 @@
                 }
 
                 &.swiper-slide-active {
-
-                    .wlc-bonus-item {
-                        @include bm.transition(box-shadow);
-                        box-shadow: ef.get-value($themeDefault, 'bonusItemShadow');
-
-                        .wlc-icon-content {
-                            visibility: visible;
-                            opacity: 1;
-                        }
-                    }
+                    box-shadow: ef.get-value($themeDefault, 'bonusItemShadow');
+                    border-radius: ef.get-value($themeDefault, 'itemBorderradius');
                 }
             }
 

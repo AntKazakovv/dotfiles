@@ -14,7 +14,6 @@ import {
 export class LootboxPrizeModel extends AbstractModel<ILootboxPrize> {
     public readonly termsClean: string;
     public readonly descriptionClean: string;
-
     protected static $bonuses: IBonusesModule;
 
     constructor(
