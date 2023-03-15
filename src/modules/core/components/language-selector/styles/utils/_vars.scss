@@ -13,7 +13,7 @@ $themeDefault: map-merge((
     'currentHeight': ef.size(6),
     'dropdownGap': ef.size(2),
     'dropdownPadding': ef.size(2),
-    'dropdownBackgroundColor': var(--mc-bg700),
+    'dropdownBackgroundColor': var(--mc-bg),
     'dropdownBorderRadius': ef.get('radius', 'biger'),
     'dropdownFlagSize': ef.size(6),
     'listShadow': 0 0 5px ef.get('mainColors', 'baseContrast'),

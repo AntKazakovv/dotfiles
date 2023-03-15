@@ -159,6 +159,8 @@ export class LanguageSelectorComponent
                 this.toggleThemeMod();
             });
         }
+
+        this.setDropdownModifier();
     }
 
     public ngAfterViewInit(): void {
@@ -286,6 +288,15 @@ export class LanguageSelectorComponent
         } else {
             return this.isOpened ? 'opened' : 'closed';
         }
+    }
+
+    protected setDropdownModifier(): void {
+        let modifier: string;
+        if (!this.$params.currentLang?.hideArrow && this.$params.currentLang?.hideLang){
+            modifier = 'dropdown-with-arrow';
+        }
+
+        this.addModifiers(modifier);
     }
 
 

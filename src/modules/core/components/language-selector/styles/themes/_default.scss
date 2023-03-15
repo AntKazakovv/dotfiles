@@ -185,7 +185,7 @@
             }
 
             &__dropdown {
-                right: 0;
+                right: -6px;
                 bottom: 100%;
                 padding-bottom: ef.get-value($themeDefault, 'dropdownArrowSize');
             }
@@ -210,8 +210,18 @@
 
             &__dropdown {
                 top: 100%;
-                right: 0;
+                right: -5px;
                 padding-top: ef.get-value($themeDefault, 'dropdownArrowSize');
+            }
+        }
+    }
+
+    &.wlc-language-selector--dropdown-with-arrow {
+
+        .wlc-language-selector {
+
+            &__dropdown {
+                right: -15px;
             }
         }
     }

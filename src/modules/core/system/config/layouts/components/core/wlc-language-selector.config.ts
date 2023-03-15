@@ -34,6 +34,7 @@ export namespace wlcLanguageSelector {
             themeMod: 'bottom-left',
             currentLang: {
                 hideLang: true,
+                hideArrow: true,
             },
             toggleOnScroll: 'bottom-left',
         },
