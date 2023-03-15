@@ -47,6 +47,7 @@
                       class="value"
                       currency="LP"
                       [value]="shownUserStats.points?.value"
+                      [useTooltip]="false"
                 ></span>
             </div>
             <div class="{{$class}}-balance__item {{$class}}-balance__item--exppoints"
@@ -56,6 +57,7 @@
                       class="value"
                       currency="EXP"
                       [value]="shownUserStats.expPoints?.value"
+                      [useTooltip]="false"
                 ></span>
             </div>
         </div>

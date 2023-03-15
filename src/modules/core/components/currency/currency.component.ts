@@ -106,6 +106,8 @@ export class CurrencyComponent
 
     @Input() public useSvgIconName: boolean;
 
+    @Input() public useTooltip: boolean = true;
+
     /**
      * Result that would be displayed
      */
@@ -197,7 +199,7 @@ export class CurrencyComponent
     }
 
     public get cuurencyDescription(): string | null {
-        if (CurrenciesInfo.specialCurrencies.has(this.currency)) {
+        if (this.useTooltip && CurrenciesInfo.specialCurrencies.has(this.currency)) {
             return CurrenciesInfo.formats[this.currency]?.description || null;
         } else {
             return null;
