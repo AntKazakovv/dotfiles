@@ -257,7 +257,7 @@ export class ValidationService {
         };
     }
 
-    private checkEmail(ctrl): Promise<IData | Partial<IData>> {
+    private checkEmail(ctrl: AbstractControl): Promise<IData | Partial<IData>> {
         if (this.configService.get<boolean>('appConfig.hideEmailExistence')) {
             return new Promise(resolve => {
                 resolve({
