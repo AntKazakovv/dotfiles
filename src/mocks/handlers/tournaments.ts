@@ -3,9 +3,20 @@ import {
     lorem,
 } from 'faker';
 import {DateTime} from 'luxon';
+import {
+    MockedRequest,
+    ResponseComposition,
+    RestContext,
+} from 'msw';
+
 import {ITournament} from 'wlc-engine/modules/tournaments';
 
-export const tournamentsHandler = async (req, res, ctx) => {
+export const tournamentsHandler = async (
+    req: MockedRequest,
+    res: ResponseComposition<any>,
+    ctx: RestContext,
+) => {
+
     let result;
 
     try {

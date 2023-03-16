@@ -5,11 +5,16 @@ import {
     address,
 } from 'faker';
 import {DateTime} from 'luxon';
+import {
+    MockedRequest,
+    ResponseComposition,
+    RestContext,
+} from 'msw';
 
 import {MockHelper} from 'wlc-engine/mocks/helpers/mock.helper';
 import {IWinnerData} from 'wlc-engine/modules/promo';
 
-export const winsHandler = async (req, res, ctx) => {
+export const winsHandler = async (req: MockedRequest, res: ResponseComposition<any>, ctx: RestContext) => {
     let result;
 
     try {
