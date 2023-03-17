@@ -23,7 +23,7 @@ export interface IChatConfig {
      *
      * TODO multiple rooms is objective for second stream
      */
-    rooms?: IRoom[];
+    rooms?: Omit<IRoom, 'address'>[];
     /**
      * By default is `$base.site.name` in lower case
      */
@@ -31,13 +31,24 @@ export interface IChatConfig {
     /**
      * TODO: temp emoji list, external library in the future
      */
-    emojiList?: Map<string, string>;
+    emojiList?: TEmojiList;
     /**
      * See [[TUseAsNickname]]
      */
     useAsNickname?: TUseAsNickname;
+    pingPongConfig?: {
+        use?: boolean;
+        pingTimeout?: number;
+        pongDelay?: number;
+        connectionDelay?: number;
+    };
+
+    initOptions?: {
+        startsWithOpen?: boolean;
+    };
 }
 
+export type TEmojiList = [string, string][];
 /**
  * Nickname type:
  * `login` - use field login of user profile. If login is empty, asks to fill it via add-info form.
@@ -59,7 +70,16 @@ export const chatConfig: IChatConfig = {
             imgKey: 'gb',
         },
     ],
-    emojiList: new Map<string, string>([
+    initOptions: {
+        startsWithOpen: false,
+    },
+    pingPongConfig: {
+        use: true,
+        pingTimeout: 20000,
+        pongDelay: 5000,
+        connectionDelay: 3000,
+    },
+    emojiList: [
         ['smiling_face_with_smiling_eyes', '😊'],
         ['grinning_face_with_smiling_eyes', '😁'],
         ['winking_face', '😉'],
@@ -78,8 +98,9 @@ export const chatConfig: IChatConfig = {
         ['four_leaf_clover', '🍀'],
         ['ok_hand_sign', '👌'],
         ['pile_of_poo', '💩'],
+        ['angry_face', '😡'],
         ['game_dice', '🎲'],
         ['slot_machine', '🎰'],
-        ['woman_beard', '🧔‍♀️'],
-    ]),
+        // ['woman_beard', '🧔‍♀️'],
+    ],
 };

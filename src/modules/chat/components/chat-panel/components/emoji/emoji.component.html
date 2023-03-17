@@ -4,10 +4,10 @@
     [@scaleInUp]>
     <div class="{{$class}}__panel">
         <ul class="{{$class}}__list">
-            <li  *ngFor="let emoji of emojiList.values();">
+            <li  *ngFor="let emoji of emojiList">
                 <button class="{{$class}}__item"
                     type="button"
-                    (click)="chooseEmoji(emoji)">{{emoji}}</button>
+                    (click)="chooseEmoji(emoji[1])">{{emoji[1]}}</button>
             </li>
         </ul>
     </div>

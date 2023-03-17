@@ -46,6 +46,8 @@ export interface IContact {
     [key: string]: any;
 }
 
+export type TConnectionStatus = 'disconnected' | 'connected' | 'failed';
+
 @Injectable({providedIn: 'root'})
 export class ChatService {
     public readonly roomList: RoomModel[] = [];
@@ -53,10 +55,11 @@ export class ChatService {
     protected mainRoom: string = '';
 
     protected panelRef: ComponentRef<ChatPanelComponent>;
-    protected isChatOpened$: BehaviorSubject<boolean> = new BehaviorSubject(true);
+    protected isChatOpened$: BehaviorSubject<boolean> = new BehaviorSubject(
+        this.config.base.initOptions.startsWithOpen);
     protected activeRoom$: BehaviorSubject<RoomModel> = new BehaviorSubject(null);
 
-    protected roomConnected$: BehaviorSubject<boolean> = new BehaviorSubject(false);
+    protected roomConnected$: BehaviorSubject<TConnectionStatus> = new BehaviorSubject('disconnected');
     protected nickname: string | null = null;
     protected userData: IContact = {
         nickname: '',
@@ -120,7 +123,7 @@ export class ChatService {
         return this.userData;
     }
 
-    public get connectChat$(): BehaviorSubject<boolean> {
+    public get connectChat$(): BehaviorSubject<TConnectionStatus> {
         return this.roomConnected$;
     }
 
@@ -149,7 +152,7 @@ export class ChatService {
             await this.tas.addLoginAction();
 
             if (this.nickname) {
-                this.roomConnected$.next(false);
+                this.roomConnected$.next('disconnected');
                 this.openChat();
             }
         } else {
@@ -161,7 +164,7 @@ export class ChatService {
                 component: NicknameFormComponent,
                 componentParams: {
                     onSuccess: () => {
-                        this.roomConnected$.next(false);
+                        this.roomConnected$.next('disconnected');
                     },
                 },
             }).status$.pipe(first(v => v === 'hidden')));
@@ -191,7 +194,7 @@ export class ChatService {
      */
     public async connectRoom(): Promise<void> {
         if (this.roomConnected$.getValue()) {
-            this.roomConnected$.next(false);
+            this.roomConnected$.next('disconnected');
         }
         await this.xmppService.roomEnter(this.activeRoom.address, this.nickname);
     }
@@ -255,7 +258,7 @@ export class ChatService {
     protected tapClientStatusSubscription(status: string): void {
         if (status === 'failed') {
             this.userChanged$.next('failed');
-            this.roomConnected$.next(false);
+            this.roomConnected$.next('failed');
         } else if (status === 'online') {
             this.userChanged$.next(null);
         }
@@ -267,7 +270,7 @@ export class ChatService {
     protected subscribeIsAuthStatus(): void {
         this.tas.isAuth$
             .pipe(switchMap((isAuth: boolean) => {
-                this.roomConnected$.next(false);
+                this.roomConnected$.next('disconnected');
 
                 return isAuth ? this.tas.login$.pipe(
                     distinctUntilChanged(),
@@ -321,7 +324,7 @@ export class ChatService {
      */
     protected async initClient(username: string, password: string): Promise<void> {
         if (username === tempUser.username && username === this.xmppService.userJid?.local) {
-            this.roomConnected$.next(true);
+            this.roomConnected$.next('connected');
             return;
         }
 
@@ -382,7 +385,7 @@ export class ChatService {
     protected messageHandler(stanza: IStanza): void {
         // chat topic comes after history loaded
         if (stanza.getChild('subject')) {
-            this.roomConnected$.next(true);
+            this.roomConnected$.next('connected');
             return;
         }
 
@@ -413,7 +416,7 @@ export class ChatService {
                 direction: this.selfOId.has(ocId) ? Direction.out : Direction.in,
                 id: stanza.attrs.id,
                 from: contact,
-                read: !this.roomConnected$.getValue(),
+                read: this.roomConnected$.getValue() !== 'connected',
             };
 
             this.rooms.get(from.local)?.messageStore.addMessage(message);
@@ -476,7 +479,7 @@ export class ChatService {
             // Unexpected, login field is uniq
             console.error('Nickname is not uniq =(');
         } else { // any other case
-            this.roomConnected$.next(false);
+            this.roomConnected$.next('disconnected');
             console.error(stanza);
         }
     }

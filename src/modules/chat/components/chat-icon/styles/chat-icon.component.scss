@@ -11,6 +11,7 @@
             justify-content: center;
             width: map-get($config, 'width');
             height: map-get($config, 'height');
+            padding: 5px;
             border: map-get($config, 'border');
             color: map-get($config, 'color');
             background: map-get($config, 'bg');
@@ -20,6 +21,7 @@
             .ch-icon-chat {
                 width: 100%;
                 height: 100%;
+                overflow: initial;
             }
 
             &:hover {

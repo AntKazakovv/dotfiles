@@ -13,6 +13,7 @@ import {
 
 import {moduleConfig} from '../../../../chat.module';
 import {fadeInUpTrigger} from 'wlc-engine/modules/chat/system/animations/chat.animations';
+import {TEmojiList} from 'wlc-engine/modules/chat/system/config/chat.config';
 
 @Component({
     selector: '[wlc-emoji]',
@@ -29,7 +30,7 @@ export class EmojiComponent {
     @Input('isOpened') public isOpened$: BehaviorSubject<boolean> = new BehaviorSubject(false);
     @Output() chooseEmojiEvent = new EventEmitter<string>();
 
-    public emojiList: Map<string, string> = moduleConfig.emojiList;
+    public emojiList: TEmojiList = moduleConfig.emojiList;
 
     constructor() {}
 

@@ -16,13 +16,17 @@ import {
 import {
     takeUntil,
     BehaviorSubject,
+    map,
 } from 'rxjs';
 
 import {AbstractChatComponent} from 'wlc-engine/modules/chat/system/classes/component.abstract.class';
 import {XMPPAdapterService} from 'wlc-engine/modules/chat/system/services/xmpp-adapter.service';
 import {TempAdapterService} from 'wlc-engine/modules/chat/system/services/temp-adapter.service';
 import {ChatListService} from 'wlc-engine/modules/chat/system/services/chat-list.service';
-import {ChatService} from 'wlc-engine/modules/chat/system/services/chat.service';
+import {
+    ChatService,
+    TConnectionStatus,
+} from 'wlc-engine/modules/chat/system/services/chat.service';
 import {Direction} from 'wlc-engine/modules/chat/system/interfaces';
 
 @Component({
@@ -58,18 +62,19 @@ export class SendFormComponent extends AbstractChatComponent implements OnInit {
     public ngOnInit(): void {
         this.form.disable();
 
-        this.chatService.connectChat$
-            .pipe(takeUntil(this.destroy$))
-            .subscribe((isConnected: boolean) => {
-                if (isConnected) {
-                    this.form.enable();
-                } else {
-                    this.form.disable();
-                }
-                this.switchMod('state-connected', isConnected);
-                this.switchMod('state-connecting', !isConnected);
-                this.cdr.markForCheck();
-            });
+        this.chatService.connectChat$.pipe(
+            takeUntil(this.destroy$),
+            map((status: TConnectionStatus) => status === 'connected'),
+        ).subscribe((isConnected: boolean) => {
+            if (isConnected) {
+                this.form.enable();
+            } else {
+                this.form.disable();
+            }
+            this.switchMod('state-connected', isConnected);
+            this.switchMod('state-connecting', !isConnected);
+            this.cdr.markForCheck();
+        });
     }
 
     public get nickname(): string {

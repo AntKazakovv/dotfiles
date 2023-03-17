@@ -21,6 +21,7 @@
         &__icon {
             width: helpers.get-prop('closeIconSize');
             height: helpers.get-prop('closeIconSize');
+            overflow: initial;
         }
     }
 

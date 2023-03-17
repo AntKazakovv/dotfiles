@@ -34,13 +34,15 @@ export class XMPPAdapterService {
 
     public userJid: JID;
 
+    protected pingId!: string;
+    protected pingResolver: boolean = false;
+    protected connecting: boolean = false;
+
     constructor(
         @Inject(WINDOW) protected window: Window,
         protected ngZone: NgZone,
         protected config: ChatConfigService,
-    ){
-        this.init();
-    }
+    ){}
 
     public get stanzaStream$(): Observable<IStanza> {
         return this.stanzas$.asObservable();
@@ -78,24 +80,24 @@ export class XMPPAdapterService {
             });
 
             this.client.on('online', (jid: JID) => {
+                if (this.config.base.pingPongConfig.use) {
+                    this.client.reconnect.stop();
+                }
                 return this.ngZone.run(() => {
                     return this.onOnlineJid(jid);
                 });
             });
 
             this.client.on('error', (error: any) => {
-                this.ngZone.run(() => {
-                    console.error('CHAT', error);
-                });
+                console.error('CHAT', error);
+                // this.onError('event error');
             });
 
             // this.client.on('status', (status: string) => {
-            //     this.ngZone.run(() => {
-            //         console.log(
-            //             '%c CHAT status',
-            //             'background: black; color: chartreuse; font-size: 14px',
-            //             status);
-            //     });
+            //     console.log(
+            //         '%c CHAT status',
+            //         'background: black; color: chartreuse; font-size: 14px',
+            //         status);
             // });
 
             this.client.on('disconnect', () => {
@@ -111,6 +113,12 @@ export class XMPPAdapterService {
             });
 
             this.client.on('stanza', (stanza: IStanza) => {
+                if (stanza.attrs.id
+                    && stanza.attrs.id === this.pingId
+                    && stanza.attrs.type === 'result') {
+                    this.pingResolver = true;
+                }
+
                 this.ngZone.run(() => {
                     if (this.skipXmppClientResponses(stanza)) {
                         return;
@@ -126,6 +134,11 @@ export class XMPPAdapterService {
     }
 
     public async roomEnter(roomAddress: string, nickname: string): Promise<void> {
+        if (this.clientStatus !== 'online') {
+            await this.reconnectChat();
+            return;
+        }
+
         await this.client.send(xml(
             'presence',
             {
@@ -176,10 +189,59 @@ export class XMPPAdapterService {
     protected onOnlineJid(jid: JID): void {
         this.userJid = jid;
         this.status$.next('online');
+        if (this.config.base.pingPongConfig.use) {
+            this.startPing();
+        }
     }
 
-    protected init(): void {
+    protected startPing(): void {
+        this.ngZone.runOutsideAngular(() => {
+            this.sendPing();
+        });
+    }
 
+    protected async sendPing(): Promise<void> {
+        this.pingId = ChatHelper.id();
+
+        this.client.send(xml('iq', {
+            from: this.userJid.bare().toString(),
+            to: this.userJid.domain,
+            type: 'get',
+            id: this.pingId,
+        }, xml('ping', {xmlns: 'urn:xmpp:ping'})));
+
+        this.pingResolver = false;
+
+        await ChatHelper.wait(this.config.base.pingPongConfig.pongDelay);
+
+        if (this.pingResolver) {
+            await ChatHelper.wait(this.config.base.pingPongConfig.pingTimeout);
+            this.sendPing();
+        } else {
+            this.onError();
+            this.client.reconnect.reconnect();
+        }
+    }
+
+    public async reconnectChat(): Promise<void> {
+        if (!this.connecting && this.clientStatus === 'failed'
+            || this.clientStatus === 'reconnecting') {
+            this.ngZone.runOutsideAngular(async () => {
+                this.connecting = true;
+                await ChatHelper.wait(this.config.base.pingPongConfig.connectionDelay);
+
+                if (this.clientStatus !== 'online') {
+                    this.client.reconnect.reconnect();
+                    await ChatHelper.wait(this.config.base.pingPongConfig.connectionDelay);
+                }
+
+                this.connecting = false;
+
+                if (this.clientStatus !== 'online') {
+                    this.onError();
+                }
+            });
+        }
     }
 
     /**

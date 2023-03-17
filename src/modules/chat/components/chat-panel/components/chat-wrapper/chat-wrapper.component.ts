@@ -73,7 +73,7 @@ export class ChatWrapperComponent extends AbstractChatComponent implements OnIni
         this.chatService.connectChat$
             .pipe(
                 takeUntil(this.destroy$),
-                filter(Boolean),
+                filter((status) => status === 'connected'),
             )
             .subscribe((): void => {
                 this.chatConnected = true;

@@ -12,12 +12,21 @@ import {
 } from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 
-import {ChatService} from 'wlc-engine/modules/chat/system/services/chat.service';
+import {
+    ChatService,
+    TConnectionStatus,
+} from 'wlc-engine/modules/chat/system/services/chat.service';
 import {AbstractChatComponent} from 'wlc-engine/modules/chat/system/classes/component.abstract.class';
 import {TempAdapterService} from 'wlc-engine/modules/chat/system/services/temp-adapter.service';
 import {TUseAsNickname} from 'wlc-engine/modules/chat/system/config/chat.config';
 
-export type TFooterType = 'notAuth' | 'auth' | 'noLogin' | 'banned' | 'kicked' | 'offline' | 'connecting';
+export type TFooterType = 'notAuth'
+    | 'auth'
+    | 'noLogin'
+    | 'banned'
+    | 'kicked'
+    | 'offline'
+    | 'connecting';
 @Component({
     selector: '[wlc-chat-footer]',
     templateUrl: './chat-footer.component.html',
@@ -49,11 +58,11 @@ export class ChatFooterComponent extends AbstractChatComponent implements OnInit
 
     public ngOnInit(): void {
         this.chatService.connectChat$.pipe(
-            switchMap((v => {
-                if (!v) {
-                    this.footerType$.next('connecting');
+            switchMap(((v: TConnectionStatus) => {
+                if (v !== 'connected') {
+                    this.footerType$.next(v === 'disconnected' ? 'connecting' : 'kicked');
                 }
-                return v ? this.auth$ : EMPTY;
+                return v === 'connected' ? this.auth$ : EMPTY;
             })),
             takeUntil(this.destroy$),
         ).subscribe();
