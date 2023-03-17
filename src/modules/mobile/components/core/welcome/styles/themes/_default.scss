@@ -12,17 +12,17 @@
         &__wrapper {
             @include bm.get-mq-map('grid-template-areas', $themeDefault, 'gridTemplateAreas');
             display: grid;
-            grid-template-rows: auto 1fr auto;
-            height: 100%;
+            grid-template-rows: ef.get-value($themeDefault, 'wrapperTemplates');
+            height: ef.get-value($themeDefault, 'wrapperHeight');
         }
 
         &__header {
             @include bm.get-mq-map('padding', $themeDefault, 'headerPadding');
             @include bm.get-mq-map('gap', $themeDefault, 'headerGap');
             display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
+            flex-direction: ef.get-value($themeDefault, 'headerDirections');
+            align-items: ef.get-value($themeDefault, 'headerAlignItems');
+            justify-content: ef.get-value($themeDefault, 'headerJustifyContent');
         }
 
         &__title {
@@ -31,14 +31,14 @@
 
         &__description {
             @include text.get-text-style(ef.get-value($themeDefault, 'textFontStyle'), ef.get-value($themeDefault, 'baseOpacity'));
-            max-width: 140px;
-            text-align: center;
+            max-width: ef.get-value($themeDefault, 'descriptionMaxWidth');
+            text-align: ef.get-value($themeDefault, 'descriptionTextAlign');
         }
 
         &__logo {
             display: flex;
-            align-items: center;
-            justify-content: center;
+            align-items: ef.get-value($themeDefault, 'logoAlignItems');
+            justify-content: ef.get-value($themeDefault, 'logoJustifyContent');
         }
 
         &__buttons {
@@ -48,7 +48,7 @@
 
             .wlc-btn--theme-default:host {
                 background: ef.get-value($themeDefault, 'buttonBg');
-                border-radius: ef.get('radius', 'main');
+                border-radius: ef.get-value($themeDefault, 'buttonRadius');
                 border: ef.get-value($themeDefault, 'buttonBorder');
 
                 ::ng-deep {

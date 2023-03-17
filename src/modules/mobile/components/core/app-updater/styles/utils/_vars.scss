@@ -1,7 +1,11 @@
 $customThemeDefault: () !default;
 $themeDefault: map-merge((
-    'margin': 0 10px,
-    'padding': 10px,
-    'background': #1d2337,
-    'borderRadius': 10px,
+    'contentText': 'PrimaryText',
+    'contentTextColor': var(--mc-baseMain),
+    'contentMargin': 0 ef.size(2),
+    'contentPadding': ef.size(2),
+    'contentBackground': var(--mc-bg700),
+    'contentBorderRadius': ef.get('radius', 'biger'),
+
+    'updateTemplateColumns': 1fr auto,
 ), $customThemeDefault);

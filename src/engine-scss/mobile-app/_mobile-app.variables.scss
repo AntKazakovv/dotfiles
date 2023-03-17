@@ -1,0 +1,570 @@
+////
+/// This is a poster comment.
+/// It will apply annotations to all items from file.
+/// @group global
+////
+@import 'app.variables';
+
+@import '../engine.variables';
+
+$customGap: () !default;
+$customSize: () !default;
+$customButton: () !default;
+$customTime: () !default;
+$customModalSize: () !default;
+$customVars: () !default;
+$customBaseVariables: () !default;
+
+$baseVariables: map-merge((
+    // Possible to add image background to body:
+    //imageBackground: url('xxx'),
+    //baseSize used in @function size
+    'baseSize': 5,
+    'sectionsGap': (
+        375: 30px,
+        900: 20px,
+        1630: 40px,
+    ),
+    /// Глобальные настройки ширины контейнера.
+    ///  Если true то ширина контейнера равняется ширине экрана.
+    'useWide': false,
+), $customBaseVariables);
+
+@function size-func($value: 1, $units: 1px) {
+    @return map-get($baseVariables, 'baseSize') * $value * $units;
+}
+
+// Do not move imports!
+@import './vars/01.radius';
+@import './vars/02.four-elements';
+@import './vars/03.colors';
+@import './vars/04.text';
+@import './vars/05.form';
+@import './vars/06.profile';
+@import './vars/07.buttons';
+@import './vars/08.layout';
+
+/// Размеры отступов на сайте.
+/// Здесь перечислены все возможные отступы и поля для всех стандартных элементов на сайте.
+/// Это и отступ заголовка от текста, и расстояние между блоками игр и т.д.
+/// Если в дизайне используются другие значения, то по умолчанию для WLC проектов необходимо
+/// округлять размеры до используемых в данной палитре.
+///
+/// @name size
+///
+/// @prop {Size} smallest [5px] - smallest
+/// @prop {Size} small [10px] - small
+/// @prop {Size} smally [15px] - smallest
+/// @prop {Size} smaller [20px] - smaller
+/// @prop {Size} less [30px] - less
+/// @prop {Size} main [40px] - main
+/// @prop {Size} biger [50px] - biger
+/// @prop {Size} big [60px] - big
+/// @deprecated This map is deprecated and will be deleted soon. Use ef.size(n)
+$dummy: map-merge((), $customSize);
+$size: map-merge((
+    'smallest': 5px,
+    'small': 10px,
+    'smally': 15px,
+    'smaller': 20px,
+    'less': 30px,
+    'main': 40px,
+    'biger': 50px,
+    'big': 60px,
+    'sectionsGap': (
+        375: 30px,
+        900: 20px,
+        1630: 40px,
+    ),
+    'sectionProfileGap': (
+        375: 30px,
+        900: 20px,
+    )
+), $customSize);
+
+/// Значения длительности анимации.
+/// В основном используются в свойстве `transition`.
+///
+/// @name time
+///
+/// @prop {Time} less [0.2s] - less
+/// @prop {Time} main [0.3s] - main
+/// @prop {Time} long [0.5s] - long
+$dummy: map-merge((), $customTime);
+$time: map-merge((
+    'less': 0.2s,
+    'main': 0.3s,
+    'long': 0.5s,
+), $customTime);
+
+/// Breakpoints для CSS медиа-запросов.
+///
+/// @name grid-breakpoints
+///
+/// @prop {Size} 320 [0] - Не используется. Минимальный размер 375px. При меньшем разрешении сайт масштабируется.
+/// @prop {Size} 375 [375px] - 375px
+/// @prop {Size} 480 [480px] - 480px
+/// @prop {Size} 560 [560px] - 560px
+/// @prop {Size} 640 [640px] - 640px
+/// @prop {Size} 720 [720px] - 720px
+/// @prop {Size} 768 [768px] - 768px
+/// @prop {Size} 900 [900px] - 900px
+/// @prop {Size} 1024 [1024px] - 1024px
+/// @prop {Size} 1200 [1200px] - 1200px
+/// @prop {Size} 1366 [1366px] - 1366px
+/// @prop {Size} 1420 [1420px] - 1420px
+/// @prop {Size} 1630 [1630px] - 1630px
+$dummy: ();
+$grid-breakpoints: (
+    320: 0,
+    375: 375px,
+    480: 480px,
+    560: 560px,
+    640: 640px,
+    720: 720px,
+    768: 768px,
+    900: 900px,
+    1024: 1024px,
+    1200: 1200px,
+    1366: 1366px,
+    1420: 1420px,
+    1630: 1630px,
+);
+
+/// Ширина контейнера `container` при минимальной ширине экрана устройства.
+///
+/// @name container-max-widths
+///
+/// @prop {Size} 375 [345px] - 375px - 479px
+/// @prop {Size} 480 [450px] - 480px - 559px
+/// @prop {Size} 560 [530px] - 560px - 639px
+/// @prop {Size} 640 [610px] - 640px - 719px
+/// @prop {Size} 720 [690px] - 720px - 767px
+/// @prop {Size} 768 [738px] - 768px - 899px
+/// @prop {Size} 900 [870px] - 900px - 1023px
+/// @prop {Size} 1024 [994px] - 1024px - 1199px
+/// @prop {Size} 1200 [1170px] - 1200px - 1365px
+/// @prop {Size} 1366 [1336px] - 1366px - 1419px
+/// @prop {Size} 1420 [1390px] - 1420px - 1629px
+/// @prop {Size} 1630 [1600px] - 1630px и выше
+$dummy: ();
+$container-max-widths: (
+    320: 100%,
+);
+
+$dummy: ();
+$container-max-widths-wide: (
+    320: 100%,
+);
+
+/// Глобальные настройки профиля:
+///
+/// @name customProfileSettings
+$dummy: map-merge((), $customProfileSettings);
+$profileSettings: map-merge((
+    'profileWidth': (
+        1366: 1275px
+    ),
+    'profileMinHeight': (
+        375: 120px,
+        1024: 580px,
+        1630: 680px,
+    ),
+    'profileWidthV1': (
+        1366: 1200px,
+        1630: 1370px,
+    ),
+    'titleColor': var(--mc-baseMain),
+    'profilePadding': (
+        375: size-func(3) size-func(3) size-func(6),
+        1024: size-func(4) size-func(8) size-func(6),
+        1630: size-func(6) size-func(8),
+    ),
+    'profilePaddingV1': (
+        375: size-func(4) size-func(4) size-func(8),
+        1200: 0,
+    ),
+    'profilePaddingV1TournDetail': (
+        375: 0,
+        1200: 0,
+    ),
+    'profileBg': (
+        375: var(--mc-bg700),
+        1024: var(--mc-bg700),
+    ),
+    'profileBgV1': var(--mc-bg700),
+    'profileBorderRadius': (
+        375: size-func(2),
+        1024: size-func(2)
+    ),
+    'profileBorderRadiusV1': map-get($radius, 'biger'),
+    'profileBtnWeight': 700,
+    'rangeMarginBottom': size-func(3),
+    'historyFilterDisplay': flex,
+    'historyFilterAlign': center,
+    'historyFilterJustify': space-between,
+    'historyFilterMargin': 0 0 size-func(1),
+    'profileDisplayV1': (
+        320: grid,
+    ),
+    'profileGridTemplateColumnsV1': (
+        1200: 285px auto,
+    ),
+    'contentCenterColGap': (
+        375: 40px,
+        1366: 80px,
+    ),
+    'contentCenterFormColumns': (
+        375: 1fr,
+        1024: minmax(0, 1fr) 30%,
+        1200: minmax(675px, max-content) 330px,
+    ),
+    'contentPaddingV1': (
+        375: size-func(4) 0 0,
+        1200: size-func(3) size-func(6) size-func(4),
+        1630: size-func(4) size-func(8) size-func(6),
+    ),
+    'contentPaddingV1TourntDetail': (
+        375: 0,
+        1200: size-func(3) size-func(6) size-func(4),
+        1630: size-func(4) size-func(8) size-func(6),
+    ),
+    'contentHeaderInsideMarginTopV1': (
+        375: -#{size-func(4)},
+        1024: 0,
+    ),
+    'contentHeaderDisplayV1': flex,
+    'contentHeaderAlignV1': start,
+    'contentHeaderJustifyV1': space-between,
+    'contentHeaderBorderBottomV1': (
+        1024: 2px solid var(--mc-baseOpacity),
+    ),
+    'contentHeaderMarginV1': 0 0 size-func(4) 0,
+    'contentHeaderUnderlinedMarginV1': 0 0 size-func(4) 0,
+    'contentHeaderPaddingV1': (
+        375: 0,
+    ),
+    'contentHeaderHeightV1': (
+        320: 35px,
+        560: 50px,
+        1200: 60px,
+    ),
+    'titleColorV1': var(--mc-baseMain),
+    'titleTextStyleV1': (
+        375: 'ThirdTitleBold',
+        1200: 'QoteTextBold',
+    ),
+    'secondTitleStyle': 'PrimaryText',
+
+    'topMargin': (
+        375: 0 0 size-func(3),
+        1200: 0 0 size-func(4),
+    ),
+    'topBtnsAlignItems': center,
+    'topBtnsJustifyContent': space-between,
+
+    // Locked colors
+    'profileTabAngleBg': map-get($mainColors, 'bg700'),
+    'profileTabAngleBgAlt': map-get($mainColorsAlt, 'bg700'),
+), $customProfileSettings);
+
+/// Глобальные настройки профиля (первая тема):
+///
+/// @name customProfileSettings
+$profileSettingsThemeFirst: map-merge((
+    'profileWidth': (
+        1366: 1200px,
+        1630: 1370px
+    ),
+    'historyRangePadding': size-func(2) 0 0,
+    'historyRangeMargin': 0 0 size-func(4),
+), $customProfileSettingsThemeFirst);
+
+$customContainerPadding: () !default;
+$containerPadding: map-merge((
+    'paddingDef': size-func(3),
+    'paddingWide': size-func(3),
+), $customContainerPadding);
+
+$customStickyHeader: () !default;
+$stickyHeader: map-merge((
+    'headerBackground': var(--mc-bg),
+    'headerMinHeight': (
+        375: 60px,
+        1024: 70px,
+        1630: 100px
+    ),
+    'headerScrollingMinHeight': (
+        375: 60px,
+        1024: 70px,
+        1630: 70px
+    ),
+), $customStickyHeader);
+
+$customAppOffline: () !default;
+$appOffline: map-merge((
+
+), $customAppOffline);
+
+/// Глобальная настройка анимации Pop up
+/// modalAnimationEffects может приниимать значения
+/// 'fadeTop' 'fadeBottom' 'fadeLeft' 'fadeRight'
+/// 'scale' 'fall' 'sideFall'
+/// 'flip' 'superScaled' 'slit'
+$customModalAnimation: () !default;
+$modalAnimation: map-merge((
+    'modalAnimationEffects': 'fadeTop',
+    'modalAnimationTournamentEffects': 'fadeTop',
+    'modalMobileAnimation': true,
+    'modalClosingAnimation': false,
+), $customModalAnimation);
+
+
+/// Глобальная настройка анимации тумбнях
+/// thumbAnimationEffects может приниимать значения
+/// 'default' 'smooth' 'smoothSimple' 'zoom' 'flip' 'scale' 'rotate'  'bounce'
+$customThumbAnimation: () !default;
+$thumbAnimation: map-merge((
+    'thumbAnimationEffects': 'default',
+), $customThumbAnimation);
+
+$customTagConfig: () !default;
+$tagConfig: map-merge((
+    'textStyle': 'SignText',
+    'radius': map-get($radius, 'large'),
+    'padding': 4px 15px,
+
+    // Locked colors
+    'bg': map-get($mainColors, 'secondary'),
+    'bgActive': map-get($mainColors, 'main'),
+    'bgUnavailable': map-get($mainColors, 'bg300'),
+    'color': map-get($mainColors, 'baseMain'),
+    'colorActive': map-get($mainColors, 'baseMain'),
+), $customTagConfig);
+
+$customHlSubstr: () !default;
+$hlSubstr: map-merge((
+    'fontStyle': 'PrimaryTextBold',
+    'textColor': var(--fc-textColor),
+), $customHlSubstr);
+
+// TODO: стандартизировать все тени, использующиеся в компонентах и ссылаться на них через этот конфиг
+$customShadows: () !default;
+$shadows: map-merge((
+    'sm': 0 3px 10px rgba(0, 0, 0, 0.4),
+    'lg': 0 0 20px rgba(0, 0, 0, 0.3),
+), $customShadows);
+
+/// Reboot base variables.
+///
+/// @name reboot
+$body-bg: var(--mc-bg) !default;
+$body-color: var(--mc-baseMain) !default;
+
+$font-size-root: 10px !default;
+$font-size-base: map-get($font, 'base') !default;
+$font-weight-base: 400 !default;
+
+$font-family-sans-serif: Inter, sans-serif !default;
+$font-family-monospace: SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace !default;
+
+$line-height-base: 1.5 !default;
+$body-text-align: null !default;
+
+$link-color: var(--mc-main) !default;
+$link-decoration: underline !default;
+$link-hover-color: var(--mc-baseMain) !default;
+$link-hover-decoration: underline !default;
+
+$hr-margin-y: 1rem !default;
+$hr-color: inherit !default;
+$hr-height: 1px !default;
+$hr-opacity: 0.25 !default;
+
+$headings-margin-bottom: 0 !default;
+$headings-font-family: null !default;
+$headings-font-style: null !default;
+$headings-font-weight: 500 !default;
+$headings-line-height: 1.2 !default;
+$headings-color: null !default;
+
+$h1-font-size: $font-size-base * 2.5 !default;
+$h2-font-size: $font-size-base * 2 !default;
+$h3-font-size: $font-size-base * 1.75 !default;
+$h4-font-size: $font-size-base * 1.5 !default;
+$h5-font-size: $font-size-base * 1.25 !default;
+$h6-font-size: $font-size-base !default;
+
+$paragraph-margin-bottom: 0 !default;
+
+$dt-font-weight: 700 !default;
+
+$table-cell-padding-y: 0.5rem !default;
+$table-cell-padding-x: 0.5rem !default;
+$table-cell-vertical-align: top !default;
+$table-th-font-weight: null !default;
+$table-caption-color: var(--mc-elementsColor) !default;
+
+$tooltip-font-size: $font-size-base * 0.875 !default;
+$tooltip-text-style-compact: 'CaptionText' !default;
+$tooltip-opacity: 1 !default;
+$tooltip-padding-y: 10px !default;
+$tooltip-padding-x: 10px !default;
+$tooltip-arrow-width: 1.2rem !default;
+$tooltip-arrow-height: 0.7rem !default;
+$tooltip-arrow-color: var(--mc-bg100) !default;
+$tooltip-max-width: 200px !default;
+$tooltip-bg: var(--mc-bg100) !default;
+$tooltip-color: var(--mc-baseMain) !default;
+$tooltip-border-radius: map-get($radius, 'biger') !default;
+$tooltip-box-shadow: map-get($shadows, 'sm') !default;
+$tooltip-bg-error: var(--mc-error) !default;
+
+/// Globar settings scrollbar
+/// @name scrollbarConfig
+/// @prop {Size} size [8px]
+/// @prop {Size} margin [5px]
+/// @prop {Size} borderRadius [6px]
+$customScrollbarConfig: () !default;
+$scrollbarConfig: (
+    'size': 5px,
+    'margin': 5px,
+    'borderRadius': map-get($radius, 'biger'),
+);
+
+
+// ==========================
+
+$customMobileAppLoader: () !default;
+$mobileAppLoader: map-merge((
+    'background': linear-gradient(315deg, var(--mc-bg700) 0%, var(--mc-bg) 75%),
+    'imgBlockPadding': 160px,
+    'imgBlockHeight': auto,
+    'imgBlockWidth': 300px,
+    'imgBgUrl': url('/static/images/logo.svg'),
+    'imgBgAltUrl': null,
+    'imgBgRepeat': no-repeat,
+    'imgBgPosition': center,
+    'imgBgSize': contain,
+    'loaderBlockMargin': 20px auto 0,
+    'loaderWidth': 50px,
+    'loaderHeight': 50px,
+    'loaderBorder': 2px solid var(--mc-main),
+    'footerFontSize': 14px,
+    'footerOpacity': 0.5,
+    'footerPadding': 0 5vw 5vh,
+    'footerWidth': 100%,
+
+    'loaderAnime': default, //default, dots1, dots2, dots3, circle, circle2, flip, pulse, jelly
+    'useBgAnime': false,
+
+    //Default
+    'defAnimeSpeed': 1.5s,
+    'defAnimeEasing': cubic-bezier(0.075, 0.82, 0.165, 1),
+
+    //Bg anime
+    'bgAnimeSpeed': 6s,
+    'bgAnimeEasing': ease,
+
+    //Pulse logo
+    'pulseAnimeSpeed': 1.7s,
+    'pulseAnimeEasing': ease-in-out,
+
+    //Dots1
+    'dots1Width': 80px,
+    'dots1LoaderDotSize': 13px,
+    'dots1LoaderDotRadius': 50%,
+    'dots1LoaderDotBg': var(--mc-main),
+    'dots1LoaderAnimeSpeed': 0.6s,
+
+    //Dots2
+    'dots2gap': 15px,
+    'dots2Margin': 30px auto 0,
+    'dots2LoaderWidth': 13px,
+    'dots2LoaderHeight': 13px,
+    'dots2LoaderRadius': 50%,
+    'dots2LoaderBg': transparent,
+    'dots2LoaderAnimeEasing': ease-in-out,
+    'dots2LoaderAnimeSpeed': 1.2s,
+    'dots2LoaderAnimeStep': 0.2s,
+    'dots2LoaderShadow': 0 30px 15px var(--mc-main-o6),
+    'dots2LoaderInnerShadow': inset 0 -1px 1px 1px var(--mc-main-l5),
+
+    //Dots3
+    'dots3Gap': 10px,
+    'dots3DotBg': var(--mc-main),
+    'dots3DotSize': 20px,
+    'dots2DotRadius': 50%,
+    'dots3AnimeSpeed': 1.7s,
+    'dots3AnimeEasing': 'linear',
+    'dots3InnerBg': var(--mc-bg700),
+
+    //Circle
+    'circleLoaderSize': 80px,
+    'circleLoaderWidthСoef': 0.8,
+    'circleWrapperBg': radial-gradient(var(--mc-bg700) 15%, var(--mc-bg)),
+    'circleLoaderBg': var(--mc-bg700),
+    'circleLoaderOuterShadow': (5px 5px 10px var(--mc-bg700-d20), -5px -5px 10px var(--mc-bg700-l10)),
+    'circleLoaderInnerShadow': (inset 3px 3px 7px var(--mc-bg700-d20), inset -3px -3px 7px var(--mc-bg700-l10)),
+    'circleLoaderSpinnerSize': 20px,
+    'circleLoaderSpinnerRadius': null,
+    'circleLoaderSpinnerBg': var(--mc-main),
+    'circleLoaderAnimeSpeed': 1.5s,
+    'circleLoaderAnimeEasing': cubic-bezier(0.2, 0.75, 0.75, 0.2),
+
+    //Circle2
+    'circle2Height': 0,
+    'circle2Margin': -70px 0 0,
+    'circle2LoaderSize': 200px,
+    'circle2LoaderTransform':  perspective(200px) rotateX(75deg),
+    'circle2LoaderBorder': 4px solid var(--mc-bg700-d10),
+    'circle2AnimeSpeed': 1.2s,
+    'circle2mainColor': var(--mc-main),
+    'circle2SecondaryColor': var(--mc-secondary),
+
+    //Flip
+    'flipLoaderBg': var(--mc-main),
+    'flipLoaderBgSecondary': var(--mc-secondary),
+    'flipLoaderAnimeSpeed': 1.5s,
+    'flipLoaderAnimeEasing': linear,
+    'flipLoaderWidth': 40px,
+    'flipLoaderHeight': 40px,
+    'flipLoaderRadius': map-get($radius, 'smaller'),
+
+    // Jelly
+    'jellyLoaderSize': 40px,
+    'jellyLoaderBg': var(--mc-main),
+    'jellyLoaderRadius': map-get($radius, 'smaller'),
+    'jellyShadowSize': 5px,
+    'jellyShadowBg': var(--mc-bg-d20),
+    'jellyShadowPosTop': 50px,
+    'jellyAnimeSpeed': 500ms,
+    'jellyAnimeEasing': linear,
+    'jellyShadowOpacity': 1,
+), $customMobileAppLoader);
+
+$customMobileAppForbidden: () !default;
+$mobileAppForbidden: map-merge((
+    'maxWidth': 90%,
+    'margin': 0 auto,
+
+    'imgMaxWidth': 25vh,
+    'imgMaxHeight': 25vh,
+    'imgMargin': 0 0 5em,
+
+    'titleFontSize': 3rem,
+    'titleMargin': 0 0 1rem 0,
+), $customMobileAppForbidden);
+
+$customMobileAppOffline: () !default;
+$mobileAppOffline: map-merge((
+    'maxWidth': 90%,
+    'margin': 0 auto,
+
+    'imgMaxWidth': 25vh,
+    'imgMaxHeight': 25vh,
+
+    'titleMargin': 0 0 1rem 0,
+), $customMobileAppOffline);
+
+

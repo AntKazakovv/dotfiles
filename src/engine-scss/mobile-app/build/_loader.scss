@@ -1,5 +1,5 @@
-@import 'mobile-app.variables';
-@import './mixins/loader.mixins';
+@import '../mobile-app.variables';
+@import '../../mixins/loader.mixins';
 
 .wlc-app__preload {
     $animeName: map-get($mobileAppLoader, 'loaderAnime');
@@ -16,15 +16,17 @@
 
     &-content {
         position: absolute;
-        top: 50%;
+        top: 40%;
         left: 50%;
+        min-height: auto;
 
         transform: translate(-50%, -50%);
     }
 
     &-img {
         width: map-get($mobileAppLoader, 'imgBlockWidth');
-        padding-bottom: map-get($mobileAppLoader, 'imgBlockPadding');
+        height: map-get($mobileAppLoader, 'imgBlockHeight');
+        padding-bottom: map-get($mobileAppLoader, 'imgBlockPadding'); // 160px
 
         background-image: map-get($mobileAppLoader, 'imgBgUrl');
         background-repeat: map-get($mobileAppLoader, 'imgBgRepeat');
@@ -44,8 +46,10 @@
         bottom: 0;
         display: flex;
         justify-content: center;
-        width: 100%;
+        width: map-get($mobileAppLoader, 'footerWidth');
         padding: map-get($mobileAppLoader, 'footerPadding');
+        font-size: map-get($mobileAppLoader, 'footerFontSize');
+        opacity: map-get($mobileAppLoader, 'footerOpacity');
         overflow: hidden;
     }
 

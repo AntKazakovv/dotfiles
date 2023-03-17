@@ -5,7 +5,7 @@
         &__section {
 
             .wlc-menu {
-                margin: 0 0 20px 0;
+                margin: ef.get-value($themeDefault, 'marginMenu');
 
                 &--empty {
                     display: none;

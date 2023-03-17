@@ -2,10 +2,11 @@ $customThemeDefault: () !default;
 $themeDefault: map-merge((
     'btnsGridGap': ef.size(2),
     'btnsMargin': ef.size(4) 0,
-    'buttonBg': #0a84ff,
-    'buttonColor': #ffffff,
+    'buttonBg': var(--mc-buttonColor),
+    'buttonColor': var(--mc-baseMain),
     'buttonBorder': 2px solid transparent,
-    'buttonBgSecondary': rgba(212, 225, 245, 0.2),
+    'buttonBgSecondary': var(--mc-baseOpacity),
     'buttonBorderSecondary': 2px solid transparent,
-    'buttonColorSecondary': #ffffff,
+    'buttonColorSecondary': var(--mc-baseMain),
+    'buttonRadius': ef.get('radius', 'main'),
 ), $customThemeDefault);
