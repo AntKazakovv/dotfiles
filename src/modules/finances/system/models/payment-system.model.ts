@@ -146,11 +146,11 @@ export class PaymentSystem extends AbstractModel<IPaymentSystem> {
     public disabledBy: null | keyof typeof disabledReasons = null;
     public isParent: boolean = false;
     public autoSelect: boolean = false;
+    public childrenSystems: PaymentSystem[] = [];
 
     protected isCryptoCheck: boolean;
     protected hostedController: IHostedFieldsControllerM;
     protected additionalController: IAdditionalFieldsControllerM;
-    protected childrenSystems: PaymentSystem[] = [];
 
     constructor(
         from: IFromLog,

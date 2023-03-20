@@ -28,6 +28,7 @@ import _filter from 'lodash-es/filter';
 import _find from 'lodash-es/find';
 import _some from 'lodash-es/some';
 import _orderBy from 'lodash-es/orderBy';
+import _every from 'lodash-es/every';
 
 import {
     ActionService,
@@ -70,6 +71,7 @@ interface IPaymentsIterator extends IMerchantsPaymentsIterator {
     defaultImages: string[];
     paymentType: TPaymentsMethods;
 }
+
 export type TCatMenuType = TPaySystemsSwitcher | 'dropdown';
 
 @Component({
@@ -149,7 +151,7 @@ export class PaymentListComponent extends IconListAbstract<Params.IPaymentListCP
         this.useTags = this.tagsConfig.use && this.isDeposit && this.$params.theme !== 'crypto-list';
 
         if (this.configService.get<boolean>('$base.colorThemeSwitching.use')
-        && this.$params.colorIconBg && this.$params.iconsType === 'color') {
+            && this.$params.colorIconBg && this.$params.iconsType === 'color') {
             this.subscribeOnToggleSiteTheme(() => this.setPaymentsIconsList());
         }
 
@@ -204,7 +206,7 @@ export class PaymentListComponent extends IconListAbstract<Params.IPaymentListCP
             return;
         }
 
-        if(system) {
+        if (system) {
             system.autoSelect = autoSelect;
         }
 
@@ -438,10 +440,12 @@ export class PaymentListComponent extends IconListAbstract<Params.IPaymentListCP
                     updateOnControlChange: true,
                     control: this.tagsControl,
                     labelText: gettext('Payment Methods'),
-                    items: this.tags.map(([value, title]) => {return {
-                        value,
-                        title,
-                    };}),
+                    items: this.tags.map(([value, title]) => {
+                        return {
+                            value,
+                            title,
+                        };
+                    }),
                 },
             }],
         };
@@ -472,18 +476,18 @@ export class PaymentListComponent extends IconListAbstract<Params.IPaymentListCP
         let alias: string | number | IAutoSelectByDevice<number | string> =
             this.configService.get('$finances.payment.alias');
 
-        if (typeof(alias) === 'object') {
+        if (typeof (alias) === 'object') {
             alias = this.actionService.getDeviceType() === 'mobile' ? alias.mobile : alias.desktop;
         }
 
         const enabled: PaymentSystem[] = _filter(this.systems$.getValue(), (s: PaymentSystem) => !s.disabledBy);
 
-        if (typeof(alias) === 'number') {
+        if (typeof (alias) === 'number') {
             const index: number = (alias > 0) ? alias - 1 : this.systems$.getValue().length + alias;
             return enabled[index] || enabled[0];
         }
 
-        if (typeof(alias) === 'string')  {
+        if (typeof (alias) === 'string') {
             return enabled.find((system: PaymentSystem) => system.alias === alias) || enabled[0];
         }
 
@@ -604,8 +608,9 @@ export class PaymentListComponent extends IconListAbstract<Params.IPaymentListCP
     protected updatePaySystemsStatus(): void {
         _forEach(this.systems, (system: PaymentSystem): void => {
             system.disabledBy = !this.availableSystems.length
-                || _includes(this.availableSystems, system.id)
-                || system.id < 0
+            || system.childrenSystems.length
+            && !_every(system.childrenSystems, child => !_includes(this.availableSystems, child.id))
+            || _includes(this.availableSystems, system.id)
                 ? null : 1;
         });
     }
