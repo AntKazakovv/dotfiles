@@ -192,6 +192,7 @@ export class PIQCashierService {
 
         if (['paymentiq_cashier_idebit', 'paymentiq_cashier_instadebit'].includes(alias)) {
             cashierConfig.allowMobilePopup = true;
+            cashierConfig.receiptExcludeKeys = ['receiptDepositPspRefId'];
         }
 
         this.subscribeToIFrameMessages();
