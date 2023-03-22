@@ -95,7 +95,7 @@ export namespace FormElements {
 
     export const email: IFormComponent = {
         name: 'core.wlc-input',
-        params: <IInputCParams>{
+        params: <IInputCParams> {
             theme: 'vertical',
             common: {
                 placeholder: gettext('E-mail'),
@@ -107,6 +107,23 @@ export namespace FormElements {
             exampleValue: 'example@mail.com',
             wlcElement: 'block_email',
             customMod: ['email'],
+        },
+    };
+
+    export const profileMail: IFormComponent = {
+        name: 'user.wlc-email-field',
+        params: {
+            name: ['email'],
+            validators: ['required', 'email'],
+            exampleValue: 'example@mail.com',
+            email: {
+                common: {
+                    tooltipIcon: 'verified-icon',
+                    tooltipMod: 'resolve',
+                    tooltipText: gettext('Email is verified'),
+                },
+            },
+            wlcElement: 'block_email',
         },
     };
 

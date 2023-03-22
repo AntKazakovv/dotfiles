@@ -65,6 +65,7 @@ import {TermsAcceptService} from 'wlc-engine/modules/user/system/services/terms/
 import {
     ILogoutConfirm,
     IUserPasswordPost,
+    IEmailVerifyData,
 } from 'wlc-engine/modules/user/system/interfaces/user.interface';
 
 export enum LanguageChangeEvents {
@@ -729,6 +730,19 @@ export class UserService {
         }
     }
 
+    /**
+     * Email verification request
+     *
+     * request without params - generate and send to user's email verification link
+     * request with code param - verification for authorized user
+     * request with code and password - verification for unauthorized user
+     *
+     * @param {IEmailVerifyData} data
+     */
+    public emailVerification(data?: IEmailVerifyData): Promise<IData> {
+        return this.dataService.request('user/emailVerification', data);
+    }
+
     private registrationRedirect(): void {
         const redirect = this.configService.get<IRedirect>('$base.redirects.registration');
         if (redirect) {
@@ -1043,6 +1057,17 @@ export class UserService {
             events: {
                 success: 'DEVICE_REGISTRATION',
                 fail: 'DEVICE_REGISTRATION_ERROR',
+            },
+        });
+
+        this.dataService.registerMethod({
+            name: 'emailVerification',
+            system: 'user',
+            url: '/profiles/confirmation/email',
+            type: 'POST',
+            events: {
+                success: 'EMAIL_VERIFY',
+                fail: 'EMAIL_VERIFY_ERROR',
             },
         });
     }

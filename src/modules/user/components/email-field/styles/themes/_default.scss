@@ -1,0 +1,27 @@
+.wlc-email-field--theme-default:host {
+
+    &.wlc-email-field--unverified {
+        @include bm.get-mq-map('gap', $themeDefault, 'defUnverifiedGap');
+
+        ::ng-deep {
+
+            .wlc-input[class] {
+                @include bm.get-mq-map('grid-template-columns', $themeDefault, 'defUnverifiedInputColumns');
+            }
+        }
+    }
+}
+
+.wlc-email-field--theme-vertical:host {
+
+    &.wlc-email-field--unverified {
+        @include bm.get-mq-map('gap', $themeDefault, 'vertUnverifiedGap');
+
+        ::ng-deep {
+
+            .wlc-input[class] {
+                @include bm.get-mq-map('grid-template-columns', $themeDefault, 'vertUnverifiedInputColumns');
+            }
+        }
+    }
+}

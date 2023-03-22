@@ -39,7 +39,7 @@ export namespace wlcProfileForm {
                             },
                             FormElements.firstName,
                             FormElements.lastName,
-                            FormElements.email,
+                            FormElements.profileMail,
                             insertLogin(useLogin),
                             {
                                 name: FormElements.mobilePhone.name,
@@ -192,14 +192,21 @@ export namespace wlcProfileForm {
         return {
             components: [
                 {
-                    name: 'core.wlc-input',
-                    params: <IInputCParams>{
+                    name: 'user.wlc-email-field',
+                    params: {
+                        name: ['email'],
+                        theme: 'vertical',
                         common: {
                             placeholder: gettext('E-mail'),
                         },
+                        email: {
+                            common: {
+                                tooltipIcon: 'verified-icon',
+                                tooltipMod: 'resolve',
+                                tooltipText: gettext('Email is verified'),
+                            },
+                        },
                         wlcElement: 'block_email',
-                        locked: true,
-                        name: 'email',
                         validators: ['required', 'email'],
                         exampleValue: 'example@mail.com',
                     },

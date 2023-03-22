@@ -1,0 +1,10 @@
+$customThemeDefault: () !default;
+$themeDefault: map-merge((
+    'formFlexDirection': column,
+    'formAlignItems': center,
+    'formMaxWidth': 320px,
+    'formMargin': 0 auto,
+    'inputWidth': 100%,
+    'inputMargin': 0 0 ef.size(6),
+    'titlePadding': 0 ef.size(5),
+), $customThemeDefault);

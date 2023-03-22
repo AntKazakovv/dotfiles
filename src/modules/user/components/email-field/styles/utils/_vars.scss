@@ -1,0 +1,30 @@
+$customThemeDefault: () !default;
+$themeDefault: map-merge((
+    'unverifiedDisplay': grid,
+    'unverifiedAlignItems': end,
+    'unverifiedColumns': (
+        375: 1fr,
+        560: 1fr minmax(110px, max-content),
+    ),
+
+    'defUnverifiedGap': (
+        375: ef.size(2),
+        1630: ef.size(4),
+    ),
+    'defUnverifiedInputColumns': (
+        375: 1fr,
+    ),
+
+    'vertUnverifiedGap': (
+        375: ef.size(4),
+        768: ef.size(3),
+    ),
+    'vertUnverifiedInputColumns': (
+        375: 1fr,
+        768: 258px 1fr,
+        900: 390px 1fr,
+        1024: 150px 1fr,
+        1200: 225px 1fr,
+    ),
+
+), $customThemeDefault);

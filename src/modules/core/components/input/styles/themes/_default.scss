@@ -13,6 +13,7 @@
 
         .wlc-tooltip {
             @include bm.get-mq-map('margin', $themeDefault, 'tooltipMargin');
+            @include bm.get-mq-map('transform', $themeDefault, 'tooltipTransform');
         }
     }
 

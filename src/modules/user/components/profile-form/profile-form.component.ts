@@ -61,7 +61,7 @@ interface IFindBlockResult {
             useFactory: (enabled: boolean, config: ConfigService): string[] => {
                 if (enabled) {
                     const defaultFieldList = [
-                        'email',
+                        'profileMail',
                         'firstName',
                         'lastName',
                         'birthDate',
@@ -114,9 +114,11 @@ export class ProfileFormComponent extends ProfileFormAbstract implements OnInit 
         super.ngOnInit(this.inlineParams);
         await this.configService.ready;
 
-        this.mixinRequiredFields();
+        await this.userService.fetchUserProfile();
 
         this.formConfig = _cloneDeep(this.$params.config);
+
+        this.mixinRequiredFields();
 
         if (await this.configService.get<Promise<boolean>>('$user.skipPasswordOnFirstUserSession')) {
             this.formConfig = this.changePassBlock();
@@ -181,7 +183,7 @@ export class ProfileFormComponent extends ProfileFormAbstract implements OnInit 
 
     protected mixinRequiredFields(): void {
         let prev = {
-            parent: this.$params.config.components,
+            parent: this.formConfig.components,
             index: 0,
         };
 
@@ -232,24 +234,29 @@ export class ProfileFormComponent extends ProfileFormAbstract implements OnInit 
 
             let fieldParams: IFindBlockResult;
 
-            if (this.requiredFields[i] === 'countryAndState' || this.requiredFields[i] === 'birthDate') {
-                fieldParams = this.findBlock(
-                    this.$params.config.components,
-                    'block',
-                    FormElements[this.requiredFields[i]].name,
-                );
-            } else {
-                const fieldName = _get(FormElements, `${this.requiredFields[i]}.params.name`);
-
-                if (!fieldName) {
+            switch (this.requiredFields[i]) {
+                case 'countryAndState':
+                case 'birthDate':
+                case 'profileMail':
+                    fieldParams = this.findBlock(
+                        this.$params.config.components,
+                        'block',
+                        FormElements[this.requiredFields[i]].name,
+                    );
                     break;
-                }
+                default:
+                    const fieldName = _get(FormElements, `${this.requiredFields[i]}.params.name`);
 
-                fieldParams = this.findBlock(
-                    this.$params.config.components,
-                    'field',
-                    fieldName,
-                );
+                    if (!fieldName) {
+                        break;
+                    }
+
+                    fieldParams = this.findBlock(
+                        this.$params.config.components,
+                        'field',
+                        fieldName,
+                    );
+                    break;
             }
             const item: IFormComponent = getField(fieldParams, this.requiredFields[i]);
             UserHelper.setValidatorsFormElementsForCuracaoWlc(this.requiredFields[i], item);

@@ -190,6 +190,7 @@ export class FormWrapperComponent extends WrapperComponent implements OnInit, On
             _each(component.params.name, (field: string) => {
                 _set(component.params, `${field}.control`, this.form?.controls[field]);
             });
+
         } else {
             _assign(component.params, {
                 control: this.form?.controls[component.params.name] || new FormControl(''),

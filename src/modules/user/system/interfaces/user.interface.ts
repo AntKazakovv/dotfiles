@@ -15,3 +15,8 @@ export interface IUserPasswordPost {
 export interface ILogoutConfirm {
     modalMessage?: string;
 }
+
+export interface IEmailVerifyData {
+    code: string;
+    password?: string;
+}

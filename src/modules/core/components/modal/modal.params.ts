@@ -167,6 +167,17 @@ export const MODALS_LIST: IModalList = {
             backButtonModal: 'login',
         },
     },
+    'password-confirmation': {
+        config: {
+            id: 'password-confirmation',
+            modifier: 'password-confirmation',
+            componentName: 'user.wlc-password-confirmation-form',
+            modalTitle: gettext('Password confirmation'),
+            size: 'md',
+            showFooter: false,
+            dismissAll: true,
+        },
+    },
     'restore-sms-code': {
         config: {
             id: 'restore-sms-code',

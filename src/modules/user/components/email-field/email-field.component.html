@@ -1,0 +1,9 @@
+<div wlc-input [inlineParams]="$params.email"></div>
+<button *ngIf="verificationBtn"
+        wlc-button
+        typeAttr="button"
+        text="Verify"
+        theme="resolve"
+        [disabled]="buttonDisabled"
+        (click)="sendLink()">
+</button>

@@ -48,6 +48,13 @@
                     }
                 }
 
+                .wlc-email-field--unverified {
+
+                    .wlc-btn[wlc-button] {
+                        margin-top: 0;
+                    }
+                }
+
                 @include mq.min(768) {
                     grid-gap: ef.get-value($mainInfoThemeDefault, 'formRowGap', 768);
                 }

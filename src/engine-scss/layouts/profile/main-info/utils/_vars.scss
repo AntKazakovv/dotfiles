@@ -165,6 +165,9 @@ $mainInfoThemeV1: map-merge((
 
     'phoneTooltipMargin': 0 0 0 ef.size(1),
 
+    'emailNotVerBtnWidth': min-content,
+    'emailNotVerBtnMargin': 0 auto,
+
     'phoneNotVerColumns': (
         375: 1fr 2fr,
         900: 90px 2fr minmax(110px, max-content),

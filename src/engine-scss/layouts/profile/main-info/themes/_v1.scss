@@ -56,6 +56,7 @@
 
                 & > .wlc-phone-field,
                 & > .wlc-birth-field,
+                & > .wlc-email-field,
                 & > .wlc-select,
                 & > .wlc-input {
                     @include bm.get-mq-map('margin', $mainInfoThemeV1, 'profileFormFieldsMargin');
@@ -74,6 +75,7 @@
                 & > .wlc-input--first-name,
                 & > .wlc-input--last-name,
                 & > .wlc-input--email,
+                & > .wlc-email-field,
                 & > .wlc-input--login,
                 & > .wlc-birth-field,
                 & > .wlc-phone-field {
@@ -82,6 +84,14 @@
 
                 & > .wlc-input.wlc-input--password {
                     @include bm.get-mq-map('flex-basis', $mainInfoThemeV1, 'profileFormCurrentPassFlexBasis');
+                }
+
+                & > .wlc-email-field--unverified {
+
+                    .wlc-btn[wlc-button] {
+                        width: ef.get-value($mainInfoThemeV1, 'emailNotVerBtnWidth');
+                        margin: ef.get-value($mainInfoThemeV1, 'emailNotVerBtnMargin');
+                    }
                 }
 
                 & > .wlc-phone-field {

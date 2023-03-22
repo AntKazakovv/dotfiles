@@ -20,6 +20,7 @@ import {ChangePasswordFormComponent} from './components/change-password-form/cha
 import {
     DashboardLoyaltyBlockComponent,
 } from 'wlc-engine/modules/user/components/dashboard-loyalty-block/dashboard-loyalty-block.component';
+import {EmailFieldComponent} from './components/email-field/email-field.component';
 import {ExchangeComponent} from './components/dashboard-exchange/exchange.component';
 import {FundistUserIdComponent} from './components/fundist-id/fundist-user-id.component';
 import {IconExpLpDescriptionComponent} from './components/icon-exp-lp-description/icon-exp-lp-description.component';
@@ -45,6 +46,9 @@ import {SocialSignUpFormComponent} from './components/social-sign-up-form/social
 import {
     DeviceRegistrationFormComponent,
 } from 'wlc-engine/modules/user/components/device-registration-form/device-registration-form.component';
+import {
+    PasswordConfirmationFormComponent,
+} from 'wlc-engine/modules/user/components/password-confirmation-form/password-confirmation-form.component';
 
 export const services = {
     'user-service': UserService,
@@ -58,6 +62,7 @@ export const components = {
     'wlc-add-profile-info': AddProfileInfoComponent,
     'wlc-change-password-form': ChangePasswordFormComponent,
     'wlc-device-registration-form': DeviceRegistrationFormComponent,
+    'wlc-email-field': EmailFieldComponent,
     'wlc-exchange': ExchangeComponent,
     'wlc-icon-exp-lp': IconExpLpDescriptionComponent,
     'wlc-fundist-user-id': FundistUserIdComponent,
@@ -66,6 +71,7 @@ export const components = {
     'wlc-loyalty-progress': LoyaltyProgressComponent,
     'wlc-metamask-sign-up-form': MetamaskSignUpFormComponent,
     'wlc-new-password-form': NewPasswordFormComponent,
+    'wlc-password-confirmation-form': PasswordConfirmationFormComponent,
     'wlc-profile-form': ProfileFormComponent,
     'wlc-phone-field': PhoneFieldComponent,
     'wlc-profile-blocks': ProfileBlocksComponent,
@@ -88,6 +94,7 @@ export const components = {
         ChangePasswordFormComponent,
         DashboardLoyaltyBlockComponent,
         DeviceRegistrationFormComponent,
+        EmailFieldComponent,
         ExchangeComponent,
         IconExpLpDescriptionComponent,
         FundistUserIdComponent,
@@ -95,6 +102,7 @@ export const components = {
         LoyaltyProgressComponent,
         MetamaskSignUpFormComponent,
         NewPasswordFormComponent,
+        PasswordConfirmationFormComponent,
         ProfileFormComponent,
         PhoneFieldComponent,
         ProfileBlocksComponent,
@@ -127,6 +135,7 @@ export const components = {
         ChangePasswordFormComponent,
         DashboardLoyaltyBlockComponent,
         DeviceRegistrationFormComponent,
+        EmailFieldComponent,
         ExchangeComponent,
         IconExpLpDescriptionComponent,
         FundistUserIdComponent,

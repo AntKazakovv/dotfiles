@@ -50,11 +50,14 @@ import {AppType} from 'wlc-engine/modules/core/system/interfaces/base-config/app
 import {IRedirect} from 'wlc-engine/modules/core/system/interfaces/core.interface';
 import {CachingService} from 'wlc-engine/modules/core/system/services/caching/caching.service';
 import {ColorThemeService} from 'wlc-engine/modules/core/system/services/color-theme/color-theme.service';
-import {UserProfile} from 'wlc-engine/modules/user/system/models/profile.model';
-import {UserService} from 'wlc-engine/modules/user/system/services/user/user.service';
+import {
+    UserProfile,
+    UserService,
+    UserInfo,
+    IEmailVerifyData,
+} from 'wlc-engine/modules/user';
 import {LogService} from 'wlc-engine/modules/core/system/services/log/log.service';
 import {WINDOW} from 'wlc-engine/modules/app/system';
-import {UserInfo} from 'wlc-engine/modules/user/system/models/info.model';
 import {
     Bonus,
     BonusesService,
@@ -251,6 +254,9 @@ export class ActionService {
                 break;
             case 'FINALIZE_SOCIAL_CONNECT':
                 this.onSocialConnect();
+                break;
+            case 'CONFIRMATION_EMAIL':
+                this.mailConfirmation(initialPath);
                 break;
         }
 
@@ -854,6 +860,45 @@ export class ActionService {
                 storageClear: 'localStorage',
             });
         });
+    }
+
+    private async mailConfirmation(initialPath: IIndexing<string>): Promise<void> {
+        if (!initialPath.code) {
+            this.showErrorNotification(
+                gettext('Code missing'),
+                gettext('Mail verification error'),
+                'password-recovery-code');
+        }
+
+        await this.configService.ready;
+
+        if (this.configService.get<boolean>('$user.isAuthenticated')) {
+
+            try {
+                const userService: UserService =
+                    await this.injectionService.getService<UserService>('user.user-service');
+                const data: IEmailVerifyData = {code: initialPath.code};
+                await userService.emailVerification(data);
+                this.eventService.emit({
+                    name: NotificationEvents.PushMessage,
+                    data: <IPushMessageParams>{
+                        type: 'success',
+                        title: gettext('Email verification success'),
+                        message: gettext('Your email has been successfully verified!'),
+                        wlcElement: 'notification_email-verification-success',
+                    },
+                });
+            } catch (error) {
+                this.showErrorNotification(
+                    error.errors,
+                    gettext('Error occurred during email verification'),
+                    'password-recovery');
+
+                return;
+            }
+        } else {
+            this.modalService.showModal('password-confirmation', {code: initialPath.code});
+        }
     }
 
     private setScrollingOffset(element: HTMLElement): void {

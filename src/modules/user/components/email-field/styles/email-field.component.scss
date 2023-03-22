@@ -1,0 +1,26 @@
+@use 'engine-scss/functions' as ef;
+@use 'engine-scss/mixins/base.mixins' as bm;
+
+@import './utils/vars';
+
+@import './themes/default';
+
+.wlc-email-field:host {
+
+    &--unverified,
+    &--no-mail {
+
+        ::ng-deep {
+
+            .wlc-tooltip {
+                display: none;
+            }
+        }
+    }
+
+    &--unverified {
+        @include bm.get-mq-map('grid-template-columns', $themeDefault, 'unverifiedColumns');
+        display: ef.get-value($themeDefault, 'unverifiedDisplay');
+        align-items: ef.get-value($themeDefault, 'unverifiedAlignItems');
+    }
+}

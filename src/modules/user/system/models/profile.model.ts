@@ -65,8 +65,8 @@ export class UserProfile extends AbstractModel<IUserProfile> {
         return this.data.email;
     }
 
-    public get emailVerified(): string {
-        return this.data.emailVerified;
+    public get emailVerified(): boolean {
+        return !!this.data.emailVerified;
     }
 
     public get emailAgree(): boolean {

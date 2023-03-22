@@ -1,0 +1,22 @@
+.wlc-password-confirmation-form:host {
+
+    ::ng-deep {
+
+        .wlc-form {
+            display: flex;
+            flex-direction: ef.get-value($themeDefault, 'formFlexDirection');
+            align-items: ef.get-value($themeDefault, 'formAlignItems');
+            max-width: ef.get-value($themeDefault, 'formMaxWidth');
+            margin: ef.get-value($themeDefault, 'formMargin');
+        }
+
+        .wlc-input {
+            width: ef.get-value($themeDefault, 'inputWidth');
+            margin: ef.get-value($themeDefault, 'inputMargin');
+        }
+
+        .wlc-text-block__head {
+            padding: ef.get-value($themeDefault, 'titlePadding');
+        }
+    }
+}
