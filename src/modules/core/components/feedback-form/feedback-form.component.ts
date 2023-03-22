@@ -79,6 +79,12 @@ export class FeedbackFormComponent extends AbstractComponent implements OnInit, 
         this.contactsConfig = _clone(this.configService.get<IContactsConfig>('$base.contacts'));
         this.modifyConfigByLanguage();
         this.setConfig();
+
+        if (this.configService.get<boolean>('$base.livechat.openChatOnContactUs')) {
+            this.eventService.emit({
+                name: 'OPEN_LIVECHAT',
+            });
+        }
     }
 
     public ngAfterViewInit(): void {

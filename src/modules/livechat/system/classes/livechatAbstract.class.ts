@@ -149,7 +149,7 @@ export abstract class LivechatAbstract<T extends ILivechatConfig>  {
             }
             if (!this.chatIsLoaded()) {
                 this.initChat();
-                if (!this.options.hidden) {
+                if (!this.options.hidden && this.options.type === 'zendesk') {
                     this.showWidget();
                 }
                 return;

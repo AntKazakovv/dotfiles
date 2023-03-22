@@ -5,20 +5,41 @@ import {
 import {UIRouter} from '@uirouter/core';
 import {DOCUMENT} from '@angular/common';
 
-import {skipWhile} from 'rxjs/operators';
-import {BehaviorSubject} from 'rxjs';
+import {
+    skipWhile,
+    filter,
+    first,
+} from 'rxjs/operators';
+import {
+    BehaviorSubject,
+    interval,
+    Subscription,
+    firstValueFrom,
+} from 'rxjs';
 import _assign from 'lodash-es/assign';
 
-import {EventService} from 'wlc-engine/modules/core/system/services/event/event.service';
-import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
-import {LogService} from 'wlc-engine/modules/core/system/services/log/log.service';
-import {UserProfile} from 'wlc-engine/modules/user/system/models/profile.model';
-import {ILivechatIncConfig} from 'wlc-engine/modules/livechat/system/interfaces/livechat.interface';
+import {
+    GlobalHelper,
+    EventService,
+    ConfigService,
+    LogService,
+} from 'wlc-engine/modules/core';
+import {FinancesService} from 'wlc-engine/modules/finances/system/services/finances/finances.service';
+import {
+    UserInfo,
+    UserProfile,
+} from 'wlc-engine/modules/user';
+import {
+    ILivechatIncConfig,
+    IUserDataLiveChatInc,
+} from 'wlc-engine/modules/livechat/system/interfaces/livechat.interface';
 import {
     LivechatAbstract,
     ChatState,
 } from 'wlc-engine/modules/livechat/system/classes/livechatAbstract.class';
 import {WINDOW} from 'wlc-engine/modules/app/system';
+
+export type AssignType = 'loyalty' | 'tag';
 
 @Injectable({
     providedIn: 'root',
@@ -28,10 +49,14 @@ export class LivechatincService extends LivechatAbstract<ILivechatIncConfig> {
     public canChatDestroy = true;
     protected profile: UserProfile;
     protected firstInit: boolean = true;
+    protected intervalSendParams$: Subscription;
+    protected userInfo: UserInfo;
+    private userData: IUserDataLiveChatInc;
 
     constructor(
         @Inject(DOCUMENT) protected document: Document,
         @Inject(WINDOW) protected window: Window,
+        protected financesService: FinancesService,
         protected eventService: EventService,
         protected configService: ConfigService,
         protected logService: LogService,
@@ -47,10 +72,7 @@ export class LivechatincService extends LivechatAbstract<ILivechatIncConfig> {
      */
     public chatIsLoaded(): boolean {
         const chatEl = this.document.getElementById(this.chatId);
-        return chatEl
-            && this.window.LC_API
-            && this.window.LC_API.is_loaded
-            && this.window.LC_API.is_loaded();
+        return chatEl && this.window.LC_API;
     }
 
     /**
@@ -123,7 +145,17 @@ export class LivechatincService extends LivechatAbstract<ILivechatIncConfig> {
         this.initChat();
     }
 
-    protected initChat(): void {
+    protected async initChat(): Promise<void> {
+        if (this.configService.get<boolean>('$user.isAuthenticated')
+            && (this.options.sendUserParams || this.options.assignUsersByGroup)
+        ) {
+            const userInfo$ = this.configService.get<BehaviorSubject<UserInfo>>({name: '$user.userInfo$'});
+            this.userInfo = userInfo$.value ?? await firstValueFrom(userInfo$.pipe(first((v) => !!v)));
+        }
+        this.initialize();
+    }
+
+    protected async initialize(): Promise<void> {
         this.chatState$ = new BehaviorSubject(null);
 
         if (this.options.type !== 'livechatinc' || !this.options.code) {
@@ -141,6 +173,39 @@ export class LivechatincService extends LivechatAbstract<ILivechatIncConfig> {
 
         this.window.__lc = {};
         this.window.__lc.license = this.options.code;
+
+        if (this.configService.get<boolean>('$user.isAuthenticated')) {
+            if (this.options.sendUserParams) {
+                this.subscribeUserInfo();
+            }
+
+            if (this.options.assignUsersByGroup) {
+                this.window.__lc.group = await this.checkSettingsUserGroup();
+            }
+
+            if (this.options.openChatOnContactUs) {
+                this.eventService.subscribe({
+                    name: 'OPEN_LIVECHAT',
+                }, () => {
+                    if (this.window.LiveChatWidget) {
+                        this.openChat();
+                    }
+                });
+            }
+        } else {
+
+            if (this.options.assignUsersByGroup) {
+                this.window.__lc.group = this.options.assignUsersByGroup.defaultGroup;
+            }
+
+            this.eventService.subscribe([
+                {name: 'LOGIN'},
+            ], () => {
+                this.destroyWidget();
+                this.initChat();
+            });
+        }
+
         _assign(this.window.__lc, this.options.livechatincSetup);
 
         const script = this.document.createElement('script');
@@ -177,10 +242,18 @@ export class LivechatincService extends LivechatAbstract<ILivechatIncConfig> {
 
         this.window.LC_API.on_chat_window_opened = () => {
             this.chatState$.next(ChatState.opened);
+
+            if (this.options.sendUserParams) {
+                this.sendUserDetails(this.options?.intervalSendParams);
+            }
         };
 
         this.window.LC_API.on_chat_window_minimized = () => {
             this.chatState$.next(ChatState.minimized);
+
+            if (this.options.sendUserParams) {
+                this.stopSendUserDetails();
+            }
         };
 
         this.window.LC_API.on_chat_window_hidden = () => {
@@ -202,6 +275,7 @@ export class LivechatincService extends LivechatAbstract<ILivechatIncConfig> {
 
     protected setUserDetail(): void {
         if (this.chatIsLoaded()) {
+
             if (this.profile.email) {
                 const userEmail = this.profile.email;
                 const userName = this.profile.firstName + ' ' + this.profile.lastName;
@@ -244,5 +318,142 @@ export class LivechatincService extends LivechatAbstract<ILivechatIncConfig> {
         this.window.LC_API.on_chat_started = () => {
             livechatStarted = true;
         };
+    }
+
+    protected async checkSettingsUserGroup(): Promise<string> {
+        const name = this.options.assignUsersByGroup?.byTags ? 'tag' : 'loyalty';
+        return this.getUserGroup(name);
+    }
+
+    protected async subscribeUserInfo(): Promise<void> {
+        this.configService.get<BehaviorSubject<UserInfo>>(
+            {name: '$user.userInfo$'},
+        ).pipe(filter((v) => !!v))
+            .subscribe((userInfo) => {
+                this.userInfo = userInfo;
+            });
+    }
+
+    protected sendUserDetails(sendInterval?: number): void {
+        this.collectingUserData();
+        this.intervalSendParams$ = interval(sendInterval * 60 * 1000 || 60000)
+            .subscribe(() => {
+                this.refreshDataCollection();
+            });
+    }
+
+    protected stopSendUserDetails(): void {
+        if (this.intervalSendParams$) {
+            this.intervalSendParams$.unsubscribe();
+        }
+    }
+
+    protected get fundistLink(): string {
+        const prodLink = this.options.fundistProdLink || 'fundist.org';
+        switch (this.window.WLC_ENV) {
+            case 'dev' || 'qa':
+                return 'https://qa.fundist.org/en/Users/Summary/';
+            case 'test':
+                return 'https://test.fundist.org/en/Users/Summary/';
+            default:
+                return `https://${prodLink}/en/Users/Summary/`;
+        }
+    }
+
+    protected async collectingUserData(): Promise<void> {
+        if (this.userInfo && this.profile) {
+            this.userData = {
+                lastDepositDate: await this.getLastDepositDate(),
+                project: this.configService.get('$base.site.name'),
+                userId: this.userInfo.idUser ? `${this.fundistLink + this.userInfo.idUser}` : null,
+                name: this.userInfo.firstName || null,
+                surname: this.userInfo.lastName || null,
+                email: this.userInfo.email || null,
+                userTag: this.getUserTag(),
+                phone: `${this.profile.phoneCode || null} ${this.profile.phoneNumber || null}`,
+                userTime: new Date().toLocaleTimeString().slice(0, -3),
+                language: this.configService.get<string>('appConfig.language'),
+                deviceType: this.configService.get<boolean>('appConfig.mobile') ? 'mobile' : 'desktop',
+                siteUrl: this.configService.get<string>('appConfig.site'),
+                loyaltyLevel: `${this.userInfo.loyalty.Level}-${this.userInfo.loyalty.LevelName.en}`,
+            };
+
+            if (this.window.LiveChatWidget) {
+                this.window.LiveChatWidget.call('set_session_variables', this.userData);
+            }
+        }
+    }
+
+    protected async refreshDataCollection(): Promise<void> {
+
+        if (!this.userData) {
+            await this.collectingUserData();
+        }
+
+        this.userData.lastDepositDate = await this.getLastDepositDate();
+        this.userData.userTime = new Date().toLocaleTimeString().slice(0, -3);
+        this.userData.loyaltyLevel = `${this.userInfo.loyalty.Level}-${this.userInfo.loyalty.LevelName.en}`;
+
+        if (this.window.LiveChatWidget) {
+            this.window.LiveChatWidget.call('set_session_variables', this.userData);
+        }
+    }
+
+    protected async getLastDepositDate(): Promise<string> {
+        const allTransactions = await this.financesService.getTransactionList();
+
+        if (!allTransactions.length) {
+            return 'No transactions';
+        }
+        const lastSuccessDep = allTransactions.find(transaction =>
+            transaction.statusCode === 100 &&
+            transaction.type === 'Credit');
+
+        return lastSuccessDep ?
+            GlobalHelper.toLocalTime(lastSuccessDep.dateISO, 'ISO', 'HH:mm:ss dd-MM-yyyy') : 'No success deposits';
+    }
+
+    private getUserTag(): string | string[] {
+        if (this.options.assignUsersByGroup?.byTags) {
+            const tagsConfig = Object.values(this.options.assignUsersByGroup.byTags);
+            const tagsUserInfo = Object.keys(this.userInfo.tags);
+            let userTag: string;
+
+            tagsConfig.forEach((tagConfig) => {
+                tagsUserInfo.forEach((key) => {
+                    if (tagConfig.includes(key)) {
+                        userTag = this.userInfo.tags[key];
+                    }
+                });
+            });
+            return userTag || 'Other';
+        } else {
+            return Object.values(this.userInfo.tags) || 'No tag';
+        }
+    }
+
+    private getUserGroup(assignBy: AssignType): string {
+        let userGroup: string = this.options.assignUsersByGroup.defaultGroup;
+
+        switch (assignBy) {
+            case 'tag':
+                Object.keys(this.userInfo.tags)?.forEach((tag) => {
+                    for (let key in this.options.assignUsersByGroup?.byTags) {
+                        if (this.options.assignUsersByGroup?.byTags[key].includes(tag)) {
+                            userGroup = key;
+                        }
+                    }
+                });
+            case 'loyalty':
+                const levelLoyalty = this.userInfo.loyalty.Level;
+                if (levelLoyalty) {
+                    for (let key in this.options.assignUsersByGroup?.byLoyaltyLevel) {
+                        if (this.options.assignUsersByGroup?.byLoyaltyLevel[key].includes(levelLoyalty)) {
+                            userGroup = key;
+                        }
+                    }
+                }
+        }
+        return userGroup;
     }
 }

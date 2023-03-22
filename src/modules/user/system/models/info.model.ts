@@ -238,6 +238,10 @@ export class UserInfo extends AbstractModel<IUserInfo> {
         return super.data;
     }
 
+    public get tags(): IIndexing<string> {
+        return this.data?.Tags || {};
+    }
+
     protected checkData(): void {
         //TODO AFTER RELEASE 13.11.2020
         /*if (!this.data?.status) {

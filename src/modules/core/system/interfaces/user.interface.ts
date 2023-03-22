@@ -43,6 +43,8 @@ export interface IUserInfo {
     };
     /** Need to accept version of T&C */
     toSWlcVersion: TSQLDate;
+    /*Tags*/
+    Tags?: IIndexing<string>;
 }
 
 export interface IUserProfile {
