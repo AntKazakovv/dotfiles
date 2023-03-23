@@ -72,9 +72,9 @@ export const components = {
     'wlc-metamask-sign-up-form': MetamaskSignUpFormComponent,
     'wlc-new-password-form': NewPasswordFormComponent,
     'wlc-password-confirmation-form': PasswordConfirmationFormComponent,
-    'wlc-profile-form': ProfileFormComponent,
     'wlc-phone-field': PhoneFieldComponent,
     'wlc-profile-blocks': ProfileBlocksComponent,
+    'wlc-profile-form': ProfileFormComponent,
     'wlc-reality-check-info': RealityCheckInfoComponent,
     'wlc-restore-link': RestoreLinkComponent,
     'wlc-restore-password-form': RestorePasswordFormComponent,
@@ -83,8 +83,8 @@ export const components = {
     'wlc-social-networks': SocialNetworksComponent,
     'wlc-social-sign-up-form': SocialSignUpFormComponent,
     'wlc-user-info': UserInfoComponent,
-    'wlc-user-stats': UserStatsComponent,
     'wlc-user-name': UserNameComponent,
+    'wlc-user-stats': UserStatsComponent,
 };
 
 @NgModule({
@@ -105,6 +105,7 @@ export const components = {
         PasswordConfirmationFormComponent,
         ProfileFormComponent,
         PhoneFieldComponent,
+        ProfileFormComponent,
         ProfileBlocksComponent,
         RealityCheckInfoComponent,
         RestoreLinkComponent,
@@ -114,8 +115,8 @@ export const components = {
         SocialNetworksComponent,
         SocialSignUpFormComponent,
         UserInfoComponent,
-        UserStatsComponent,
         UserNameComponent,
+        UserStatsComponent,
     ],
     imports: [
         CommonModule,
@@ -151,8 +152,8 @@ export const components = {
         SocialNetworksComponent,
         SocialSignUpFormComponent,
         UserInfoComponent,
-        UserStatsComponent,
         UserNameComponent,
+        UserStatsComponent,
     ],
 })
 export class UserModule {

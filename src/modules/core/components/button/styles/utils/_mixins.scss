@@ -20,6 +20,11 @@
     border: ef.get-value($themeDefault, 'borderDefault');
     border-radius: ef.get-value($themeDefault, 'borderRadiusDefault');
 
+    &:disabled {
+        opacity: ef.get-value($themeDefault, 'disabledOpacity');
+        pointer-events: none;
+    }
+
     .wlc-btn__text {
         @include text.get-text-style('ButtonText', ef.get-value($themeDefault, 'fontColor'));
         grid-column: 2;

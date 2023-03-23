@@ -183,4 +183,10 @@ export const $profileLayouts: IPanelsConfig = {
             'profile-content': sectionsLib.profileContent.profileDashboard(false),
         },
     },
+    'app.profile.cashback-rewards': {
+        extends: 'app.profile',
+        sections: {
+            'profile-content': sectionsLib.profileContent.profileCashbackRewards,
+        },
+    },
 };

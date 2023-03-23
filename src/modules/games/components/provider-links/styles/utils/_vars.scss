@@ -18,6 +18,10 @@ $themeDefault: map-merge((
     'titleAlignment': left,
     'titleAlignmentInsideModal': center,
 
+    'swiperPaddingMobCustom': ef.size(2),
+    'swiperGridRowsMobCustom': 60px 60px,
+    'swiperGridColumnsMobCustom': 1fr 1fr,
+
     'sliderMargin': ef.size(2) 0 0,
     'sliderContainerMargin': (
         375: -10px -15px -10px -10px,

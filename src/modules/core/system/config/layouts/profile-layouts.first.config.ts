@@ -188,4 +188,10 @@ export const $profileFirstLayouts: ILayoutsConfig = {
             'profile-content': sectionsLib.profileContent.profileDashboardTypeFirst,
         },
     },
+    'app.profile.cashback-rewards': {
+        extends: 'app.profile',
+        sections: {
+            'profile-content': sectionsLib.profileContent.profileCashbackRewardsFirst,
+        },
+    },
 };

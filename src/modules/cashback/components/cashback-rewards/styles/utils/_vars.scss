@@ -1,0 +1,48 @@
+@use 'engine-scss/functions' as ef;
+
+$customThemeDefault: () !default;
+$themeDefault: map-merge((
+    'contentMargin': 0 0 ef.size(4),
+
+    'itemsGap': ef.size(4),
+    'itemsWidth': 100%,
+    'itemsTemplateColumns': (
+        320: minmax(0, 1fr),
+        768: repeat(2, minmax(0, 1fr)),
+        1024: repeat(3, minmax(0, 1fr)),
+    ),
+    'itemsTemplateColumnsModFirst': (
+        320: minmax(0, 1fr),
+        768: repeat(2, minmax(0, 1fr)),
+        1024: repeat(3, minmax(0, 1fr)),
+        1200: repeat(2, minmax(0, 1fr)),
+        1630: repeat(3, minmax(0, 1fr)),
+    ),
+
+    'itemTextStyle': 'PrimaryText',
+    'itemTextColor': inherit,
+    'itemJustifyItems': center,
+    'itemGridRows': repeat(3, auto) 58px auto,
+    'itemGap': ef.size(4),
+    'itemHeight': 320px,
+    'itemRadius': ef.get('radius', 'biger'),
+    'itemPadding': ef.size(7) ef.size(8) ef.size(8),
+    'itemBg': var(--mc-bg300),
+
+    'itemTitleStyle': 'QoteTextBold',
+    'itemTitleColor': inherit,
+    'itemTextAlign': center,
+
+    'itemPendingDisplay': flex,
+    'itemPendingJustifyContent': center,
+    'itemPendingAlignItems': center,
+    'itemPendingRadius': ef.get('radius', 'biger'),
+    'itemPendingBg': var(--mc-bg),
+
+    'itemBtnFlex': 0 1 100%,
+    'itemBtnAlignItems': flex-end,
+
+    'timerContentWidth': 227px,
+    'timerTextDisplay': flex,
+    'timerTextFlexDir': column-reverse,
+), $customThemeDefault);

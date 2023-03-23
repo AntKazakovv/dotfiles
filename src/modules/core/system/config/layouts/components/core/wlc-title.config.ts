@@ -367,4 +367,13 @@ export namespace wlcTitle {
             wlcElement: 'header_cash',
         },
     };
+
+    export const cashback: ILayoutComponent = {
+        name: 'core.wlc-title',
+        params: {
+            customMod: ['profile'],
+            mainText: gettext('Cashback'),
+            wlcElement: 'header_cashback',
+        },
+    };
 }

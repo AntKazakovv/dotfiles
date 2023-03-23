@@ -71,6 +71,9 @@ export class ButtonComponent extends AbstractComponent implements OnInit,
     @Input() public href: string;
     @Input() public sref: string;
     @Input() public srefParams: RawParams;
+    @Input() public disabled: boolean = false;
+    // This prop is used by 'loading' themeMod
+    @Input() public loadingValue?: number;
 
     @Input() protected type: Params.Type;
     @Input() protected typeAttr: string;
@@ -88,7 +91,10 @@ export class ButtonComponent extends AbstractComponent implements OnInit,
     public ready: boolean = false;
     public $params: Params.IButtonCParams;
     protected $loading = new Subject<boolean>();
-    @HostBinding('attr.type') get typeAttrValue() {return this.params?.common?.typeAttr || this.typeAttr;}
+
+    @HostBinding('attr.type') get typeAttrValue(): string {
+        return this.params?.common?.typeAttr || this.typeAttr;
+    }
 
     constructor(
         @Inject('injectParams') protected params: Params.IButtonCParams,
@@ -129,6 +135,7 @@ export class ButtonComponent extends AbstractComponent implements OnInit,
     }
 
     public ngOnChanges(changes) {
+
         if (!this.ready) {
             return;
         }

@@ -16,6 +16,28 @@
         }
     }
 
+    &.wlc-provider-links--theme-mod-mobile-custom {
+
+        .wlc-provider-links {
+
+            &__slider {
+
+                ::ng-deep {
+
+                    .swiper {
+                        padding: ef.get-value($themeDefault, 'swiperPaddingMobCustom');
+
+                        .swiper-wrapper {
+                            display: grid;
+                            grid-template-rows: ef.get-value($themeDefault, 'swiperGridRowsMobCustom');
+                            grid-template-columns: ef.get-value($themeDefault, 'swiperGridColumnsMobCustom');
+                        }
+                    }
+                }
+            }
+        }
+    }
+
     &.wlc-provider-links--theme-mod-adaptive {
         grid-gap: ef.get-value($themeDefault, 'gridGapAdaptive');
         grid-template-areas: ef.get-value($themeDefault, 'gridTemplateAreasAdaptive');

@@ -117,6 +117,7 @@ export const wlcProfileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
             },
         },
     },
+
     'profile-first-menu:edit-profile': {
         name: gettext('General'),
         type: 'sref',
@@ -1127,6 +1128,33 @@ export const wlcProfileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
 
     'profile-first-menu:loyalty-level': profileLoyaltyMenuItem,
 
+    'profile-menu:cashback-rewards': {
+        name: gettext('Cashback'),
+        type: 'sref',
+        wlcElement: 'link_cashback',
+        class: 'cashback-rewards',
+        params: {
+            state: {
+                name: 'app.profile.cashback-rewards',
+                params: {},
+            },
+        },
+    },
+
+    'profile-first-menu:cashback-rewards': {
+        name: gettext('Cashback'),
+        type: 'sref',
+        icon: 'cashback',
+        wlcElement: 'link_cashback',
+        class: 'cashback-rewards',
+        params: {
+            state: {
+                name: 'app.profile.cashback-rewards',
+                params: {},
+            },
+        },
+    },
+
     'profile-menu:dashboard': {
         name: gettext('Dashboard'),
         type: 'sref',
@@ -1191,6 +1219,14 @@ export const profileMenuFilter: ProfileMenuParams.IProfileMenuFilter[] = [
     {
         config: '$base.tournaments.use',
         item: 'profile-menu:tournaments',
+    },
+    {
+        config: '$base.cashbackReward.use',
+        item: 'profile-menu:cashback-rewards',
+    },
+    {
+        config: '$base.cashbackReward.use',
+        item: 'profile-first-menu:cashback-rewards',
     },
     {
         config: '$base.tournaments.use',

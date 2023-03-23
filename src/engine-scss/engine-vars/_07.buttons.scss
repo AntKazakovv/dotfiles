@@ -73,6 +73,7 @@ $buttonSettings: map-merge((
     'disabledColor': var(--mc-baseMain-o6),
     'disabledColorHover': var(--mc-baseMain-o6),
     'disabledShadow': none,
+    'disabledOpacity': 0.5,
     'disabledShadowHover': none,
     'disabledBorder': none,
     'disabledBorderHover': none,

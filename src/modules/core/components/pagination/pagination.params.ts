@@ -17,8 +17,8 @@ export interface IPagination {
     breakpoints: IPaginationBreakepoint | null;
 }
 
-export interface IPaginateOutput {
-    paginatedItems: unknown[],
+export interface IPaginateOutput<T = unknown> {
+    paginatedItems: T[],
     event: PageChangedEvent,
 }
 

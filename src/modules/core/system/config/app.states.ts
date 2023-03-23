@@ -57,6 +57,7 @@ let states = {
     'app.profile.cash': States.profileCashState,
     'app.profile.cash.deposit': States.profileCashDepositState,
     'app.profile.cash.withdraw': States.profileCashWithdrawState,
+    'app.profile.cashback-rewards': States.profileCashbackState,
     'app.profile.cash.transactions': States.profileCashTransactionsState,
     'app.profile.gamblings': States.profileGamblingsState,
     'app.profile.gamblings.bets': States.profileGamblingsBetsState,

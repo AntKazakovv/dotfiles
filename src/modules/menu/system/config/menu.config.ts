@@ -70,6 +70,7 @@ export const menuConfig: IMenuConfig = {
         items: [
             'profile-menu:dashboard',
             'profile-menu:bonuses-as-offers',
+            'profile-menu:cashback-rewards',
             {
                 parent: 'profile-menu:loyalty',
                 type: 'group',
@@ -163,6 +164,7 @@ export const menuConfig: IMenuConfig = {
                     'profile-first-menu:cash-deposit',
                     'profile-first-menu:cash-withdrawal',
                     'profile-first-menu:transaction-history',
+                    'profile-first-menu:cashback-rewards',
                 ],
             },
             {

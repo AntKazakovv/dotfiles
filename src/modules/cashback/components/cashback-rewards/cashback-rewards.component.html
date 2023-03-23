@@ -1,0 +1,52 @@
+<div class="{{$class}}__content">
+    <ng-container *ngIf="ready| async; else loading">
+        <ng-container *ngIf="paginatedCashbackPlans.length; then default else noData"></ng-container>
+    </ng-container>
+</div>
+
+<ng-template #default>
+    <div class="{{$class}}__items">
+        <div *ngFor="let item of itemCashback | async; trackBy: trackAvailable || trackAmount;" class="{{$class}}-item">
+            <div class="{{$class}}-item__title">{{item.title | translate}}</div>
+
+            <div class="{{$class}}-item__desc">{{item.additionalText() | translate}} </div>
+
+            <div class="{{$class}}-item__period">{{item.periodTitle | translate}} </div>
+            <div *ngIf="item.cashbackStatus && !item.isPending"
+                 wlc-timer
+                 value="{{item.cashbackStatus.date}}"
+                 text="{{item.cashbackStatus.text}}"
+                 (timerEnds)="timerExpiry()">
+            </div>
+            <div *ngIf="item.isPending" class="{{$class}}-item__pending">
+                <span class="{{$class}}-item__pending-text">
+                    {{'Await processing' | translate}}
+                </span>
+            </div>
+            <div class="{{$class}}-item__btn-block">
+                <button wlc-button
+                        class="{{$class}}-item__btn"
+                        text="{{item.buttonText}}"
+                        [attr.disabled]="item.isAvailable ? null : ''"
+                        (click)="buttonClick(item)">
+                </button>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="paginatedCashbackPlans?.length"
+         wlc-pagination
+         [items]="paginatedCashbackPlans"
+         [settings]="$params.pagination"
+         (paginationOnChange)="paginationOnChange($event)">
+    </div>
+</ng-template>
+
+<ng-template #noData>
+    <div class="{{$class}}__nocontent">
+         {{ 'No cashback available' | translate}}
+    </div>
+</ng-template>
+
+<ng-template #loading>
+    <div wlc-loader class="{{$class}}__loader"></div>
+</ng-template>

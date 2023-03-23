@@ -34,4 +34,12 @@ export const errorTypes: ILogTypes = {
         // not Metamask or Ethers errors
         level: 'error',
     },
+    '17.3.0': {
+        // Getting cashback plans error
+        level: 'error',
+    },
+    '17.3.1': {
+        // Cashback reward claim error
+        level: 'error',
+    },
 };

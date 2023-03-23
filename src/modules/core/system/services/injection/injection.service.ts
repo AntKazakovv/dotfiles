@@ -345,6 +345,14 @@ export class InjectionService {
                     this.afterModuleLoad('recaptcha', m);
                     return m.RecaptchaModule;
                 });
+            case 'cashback':
+                if (this.loadedModules.CashbackModule) {
+                    return this.loadedModules.CashbackModule;
+                }
+                return import('wlc-engine/modules/cashback/cashback.module').then(m => {
+                    this.afterModuleLoad('cashback', m);
+                    return m.CashbackModule;
+                });
         }
     }
 

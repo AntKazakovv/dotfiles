@@ -28,20 +28,20 @@ import _each from 'lodash-es/each';
     templateUrl: './pagination.component.html',
     styleUrls: ['./styles/pagination.component.scss'],
 })
-export class WlcPaginationComponent extends AbstractComponent implements OnInit, OnChanges {
+export class WlcPaginationComponent<T = unknown> extends AbstractComponent implements OnInit, OnChanges {
     @Input() theme: Params.ComponentTheme;
     @Input() totalItems: number;
     @Input() pageChanged: Function;
     @Input() itemPerPage: number = 1;
-    @Input() items: unknown[];
+    @Input() items: T[];
     @Input() settings: Params.IPagination;
 
-    @Output() public paginationOnChange = new EventEmitter<Params.IPaginateOutput>();
+    @Output() public paginationOnChange = new EventEmitter<Params.IPaginateOutput<T>>();
 
     public $params: Params.IPaginationCParams;
     public currentPage: number = 1;
 
-    protected paginatedItems: unknown[];
+    protected paginatedItems: T[];
 
     constructor(
         @Inject('injectParams') protected params: Params.IPaginationCParams,

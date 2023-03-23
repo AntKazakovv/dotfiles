@@ -27,6 +27,7 @@ export * from './profile/profile-bonuses.state';
 export * from './profile/profile-messages.state';
 export * from './profile/profile-password.state';
 export * from './profile/profile-social.state';
+export * from './profile/profile-cashback.state';
 export * from './providers.state';
 export * from './profile/profile-limitations.state';
 export * from './user-social-register.state';

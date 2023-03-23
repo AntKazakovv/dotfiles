@@ -74,6 +74,12 @@ export interface IBaseConfig {
     analytics?: IAnalytics;
     colorThemeSwitching?: IColorThemeSwitchingConfig;
     registration?: IRegistrationConfig;
+    /**
+     * Enable cashback for user from client side;
+     */
+    cashbackReward?: {
+        use: boolean;
+    };
     finances?: IFinancesConfig;
     /**
      * if true - аfter registering, the notifications will be automatically turned on

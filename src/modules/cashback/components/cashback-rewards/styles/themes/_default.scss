@@ -1,0 +1,76 @@
+.wlc-cashback--theme-default:host {
+
+    .wlc-cashback {
+
+        &__content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: ef.get-value($themeDefault, 'contentMargin');
+        }
+
+        &__items {
+            @include bm.get-mq-map('grid-template-columns', $themeDefault, 'itemsTemplateColumns');
+            display: grid;
+            gap: ef.get-value($themeDefault, 'itemsGap');
+            width: ef.get-value($themeDefault, 'itemsWidth');
+        }
+
+        &-item {
+            @include text.get-text-style(ef.get-value($themeDefault, 'itemTextStyle'), ef.get-value($themeDefault, 'itemTextColor'));
+            display: grid;
+            grid-template-rows: ef.get-value($themeDefault, 'itemGridRows');
+            gap: ef.get-value($themeDefault, 'itemGap');
+            justify-items: ef.get-value($themeDefault, 'itemJustifyItems');
+            min-height: ef.get-value($themeDefault, 'itemHeight');
+            border-radius: ef.get-value($themeDefault, 'itemRadius');
+            padding: ef.get-value($themeDefault, 'itemPadding');
+            text-align: ef.get-value($themeDefault, 'itemTextAlign');
+            background: ef.get-value($themeDefault, 'itemBg');
+
+            &__title {
+                @include bm.lineClamp(2);
+                @include text.get-text-style(ef.get-value($themeDefault, 'itemTitleStyle'), ef.get-value($themeDefault, 'itemTitleColor'));
+            }
+
+            &__pending {
+                display: flex;
+                align-items: ef.get-value($themeDefault, 'itemPendingAlignItems');
+                justify-content: ef.get-value($themeDefault, 'itemPendingJustifyContent');
+                width: 100%;
+                max-width: ef.get-value($themeDefault, 'timerContentWidth');
+                height: 100%;
+                border-radius: ef.get-value($themeDefault, 'itemPendingRadius');
+                background: ef.get-value($themeDefault, 'itemPendingBg');
+            }
+
+            &__btn-block {
+                display: ef.get-value($themeDefault, 'itemBtnDisplay');
+                flex: ef.get-value($themeDefault, 'itemBtnFlex');
+                align-items: ef.get-value($themeDefault, 'itemBtnAlignItems');
+            }
+
+            ::ng-deep {
+
+                .wlc-timer {
+
+                    &__content {
+                        width: ef.get-value($themeDefault, 'timerContentWidth');
+                    }
+
+                    &__timer-text[class] {
+                        display: ef.get-value($themeDefault, 'timerTextDisplay');
+                        flex-direction: ef.get-value($themeDefault, 'timerTextFlexDir');
+                    }
+                }
+            }
+        }
+    }
+
+    &.wlc-cashback--theme-mod-first {
+
+        .wlc-cashback__items {
+            @include bm.get-mq-map('grid-template-columns', $themeDefault, 'itemsTemplateColumnsModFirst');
+        }
+    }
+}

@@ -3,8 +3,8 @@ import {IAbstractIconsListParams} from 'wlc-engine/modules/icon-list/system/clas
 import {ISliderCParams} from 'wlc-engine/modules/promo';
 
 export type ComponentTheme = 'default' | 'mobile-app' | 'mobile-app-swiper' | CustomType;
-export type ComponentType = 'default' | 'slider' | 'mobile' | 'mobile-app' | CustomType;
-export type ComponentThemeMod = 'default' | 'inside-modal' | 'adaptive' | CustomType;
+export type ComponentType = 'default' | 'slider' | 'mobile' | CustomType;
+export type ComponentThemeMod = 'default' | 'inside-modal' | 'mobile-custom' | 'adaptive' | CustomType;
 
 /**
  * Globally set preferences in modules config

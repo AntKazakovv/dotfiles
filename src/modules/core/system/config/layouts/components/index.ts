@@ -61,6 +61,7 @@ export * from './games/wlc-total-jackpot.config';
 export * from './games/wlc-random-game.config';
 export * from './games/wlc-category-preview.config';
 export * from './games/wlc-game-thumb.config';
+export * from './games/wlc-provider-links.config';
 
 export * from './static/wlc-promo-steps.config';
 export * from './static/wlc-wp-promo.config';
@@ -87,6 +88,8 @@ export * from './tournaments/wlc-tournament-list.config';
 export * from './internal-mails/wlc-internal-mails.config';
 
 export * from './icon-list/wlc-icon-list.config';
+
+export * from './cashback/wlc-cashback-rewards.config';
 
 export * from './history/wlc-bonuses-history.config';
 export * from './history/wlc-tournaments-history.config';
