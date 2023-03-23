@@ -174,9 +174,7 @@ export class TournamentListComponent
 
     protected getTournaments(): void {
         this.tournamentsService.getSubscribe({
-            // TODO Fix it. This is not working correctly.
-            // useQuery: !this.tournamentsService.hasTournaments,
-            useQuery: this.tournamentsService.updateData,
+            useQuery: true,
             observer: {
                 next: (tournaments: Tournament[]) => {
                     this.indexOfSelectedTournament = null;

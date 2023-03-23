@@ -110,24 +110,6 @@ export abstract class AbstractTournamentModel<T extends ITournamentAbstract> ext
     }
 
     /**
-     * @returns {number} tournament max Bet
-     */
-    public get maxBet(): number {
-        return _toNumber(this.data.BetMax?.Currency) ||
-            _toNumber(this.data.BetMax[this.userCurrency]) ||
-            _toNumber(this.data.BetMax?.EUR);
-    }
-
-    /**
-     * @returns {number} tournament min Bet
-     */
-    public get minBet(): number {
-        return _toNumber(this.data.BetMin?.Currency) ||
-            _toNumber(this.data.BetMin[this.userCurrency]) ||
-            _toNumber(this.data.BetMin?.EUR);
-    }
-
-    /**
      * @returns {number} tournament fee amount
      */
     public get feeAmount(): number {

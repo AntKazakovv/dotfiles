@@ -188,13 +188,6 @@ export class Tournament extends AbstractTournamentModel<ITournament> {
     }
 
     /**
-     * @returns {number} tournament total founds
-     */
-    public get winningSpreadCount(): number {
-        return this.data.WinningSpread.Percent.length;
-    }
-
-    /**
      * @returns {number[]} tournament winningSpread by percent
      */
     public get winningSpreadByPercent(): number[] {
@@ -247,28 +240,6 @@ export class Tournament extends AbstractTournamentModel<ITournament> {
 
     public get freeRoundGames(): TFreeRoundGames {
         return this.data.FreeroundGames;
-    }
-
-    /**
-     * Formatted tournament starts time
-     *
-     * @param {string} format date format by luxon plugin
-     * @returns {string} formatted date
-     */
-    public startsTime(format: string = 'D T'): string {
-        const defaultTime = DateTime.fromSQL(this.data.Starts);
-        return this.startsLuxon.setLocale(defaultTime.locale).toFormat(format);
-    }
-
-    /**
-     * Formatted tournament end time
-     *
-     * @param {string} format date format by luxon plugin
-     * @returns {string} formatted date
-     */
-    public endsTime(format: string = 'D T'): string {
-        const defaultTime = DateTime.fromSQL(this.data.Ends);
-        return this.endsLuxon.setLocale(defaultTime.locale).toFormat(format);
     }
 
     /**

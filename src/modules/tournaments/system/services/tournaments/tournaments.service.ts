@@ -54,7 +54,6 @@ interface ITournamentData extends IData {
 export class TournamentsService {
     public tournaments: Tournament[] = [];
     public isProcessed$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
-    public updateData: boolean = true;
 
     private subjects = {
         tournaments$: new BehaviorSubject<Tournament[]>(null),
@@ -80,10 +79,6 @@ export class TournamentsService {
 
     public get isTournamentSelected(): boolean {
         return _some(this.tournaments, tournament => tournament.isSelected);
-    }
-
-    public get hasTournaments(): boolean {
-        return !!this.tournaments.length;
     }
 
     /**
