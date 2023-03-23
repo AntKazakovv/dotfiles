@@ -89,7 +89,7 @@ export class PhoneFieldComponent extends AbstractComponent implements OnInit {
                 if (profile.phoneCode || tempPhoneCode) {
                     this.$params.phoneCode.control.setValue(profile.phoneCode || tempPhoneCode);
                     this.$params.phoneCode.control.updateValueAndValidity({onlySelf: true});
-                } else if (!this.$params.phoneCode.control.value) {
+                } else if (!this.$params.phoneCode.control.value && this.$params.phoneCode.autoSelect) {
                     this.configService.get<BehaviorSubject<ICountry[]>>('countries')
                         .pipe(first((v) => !!v.length))
                         .subscribe(data => {
