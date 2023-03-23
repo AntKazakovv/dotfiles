@@ -7,6 +7,7 @@ export interface IError {
 }
 
 export enum ErrorCodes {
+    BalanceLessThanAmount = 2003,
     UserInvalidCredentials = 2004,
-    UnserNotAuthorized = 2005,
+    UserNotAuthorized = 2005,
 }

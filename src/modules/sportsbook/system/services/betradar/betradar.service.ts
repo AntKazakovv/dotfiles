@@ -5,11 +5,14 @@ import {
 } from '@angular/core';
 import {
     StateService,
-    UIRouterGlobals,
+    UIRouter,
 } from '@uirouter/core';
 
 import {takeUntil} from 'rxjs/operators';
-import {Subject} from 'rxjs';
+import {
+    Subject,
+    BehaviorSubject,
+} from 'rxjs';
 import _get from 'lodash-es/get';
 import _forEach from 'lodash-es/forEach';
 import _set from 'lodash-es/set';
@@ -23,7 +26,6 @@ import {
     LogService,
     IData,
 } from 'wlc-engine/modules/core';
-
 import {
     ILocationChange,
     ErrorCodes,
@@ -37,10 +39,10 @@ import {
     IPopularEventsData,
     IGame,
 } from 'wlc-engine/modules/sportsbook/system/interfaces/betradar/widgets.interface';
-
 import {BetradarGameModel} from 'wlc-engine/modules/sportsbook/system/models/betradar-game.model';
 import {SportsbookService} from 'wlc-engine/modules/sportsbook/system/services/sportsbook/sportsbook.service';
 import {WINDOW} from 'wlc-engine/modules/app/system';
+import {UserInfo} from 'wlc-engine/modules/user/system/models/info.model';
 
 export const BetradarEvents = {
     error: 'SPORTSBOOK_ERROR',
@@ -61,7 +63,7 @@ export const BetradarEvents = {
 export class BetradarService {
 
     constructor(
-        protected router: UIRouterGlobals,
+        protected router: UIRouter,
         protected stateService: StateService,
         protected sportsbookService: SportsbookService,
         protected configService: ConfigService,
@@ -144,7 +146,7 @@ export class BetradarService {
      */
     private setBetradarParams(): void {
         const urlParams: string[] = [];
-        const stateParams = this.router.params;
+        const stateParams = this.router.globals.params;
 
         _forEach(this.sportsbookService.urlPathParams, (param: string) => {
             const stateParam = stateParams[param];
@@ -191,13 +193,13 @@ export class BetradarService {
                 const locationPath: string = _get(msg, 'path');
                 if (locationPath) {
                     _forEach(this.sportsbookService.urlPathParams, (param: string) => {
-                        _set(this.router.params, param, '');
+                        _set(this.router.globals.params, param, '');
                     });
 
                     const stateParams = this.sportsbookService.generateStateParams(locationPath);
-                    _merge(this.router.params, stateParams);
+                    _merge(this.router.globals.params, stateParams);
 
-                    const stateName: string = this.router.current.name;
+                    const stateName: string = this.router.globals.current.name;
                     const urlEvent: string = this.stateService.href(stateName, stateParams);
 
                     this.eventService.emit({
@@ -223,8 +225,15 @@ export class BetradarService {
         this.sportsbookService.onIframeMessage(BetradarEvents.error)
             .pipe(takeUntil(cancel))
             .subscribe((msg: IError) => {
-                if (msg.code === ErrorCodes.UnserNotAuthorized) {
+                if (msg.code === ErrorCodes.UserNotAuthorized) {
                     this.modalService.showModal('login');
+                } else if (msg.code === ErrorCodes.BalanceLessThanAmount) {
+                    const userBalance: number = this.configService
+                        .get<BehaviorSubject<UserInfo>>({name: '$user.userInfo$'})
+                        .getValue()?.realBalance || 0;
+                    if (!userBalance) {
+                        this.router.stateService.go('app.profile.cash.deposit');
+                    }
                 }
             });
     }
