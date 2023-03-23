@@ -72,8 +72,8 @@
             </div>
         </div>
     </div>
-    <div class="{{$class}}__controls">
-        <button *ngIf="tournament.prizeTable.length > $params.common.rowLimit"
+    <div *ngIf="useShowMoreButton" class="{{$class}}__controls">
+        <button
             wlc-button
             [attr.type]="'button'"
             [text]="toggleButtonText"

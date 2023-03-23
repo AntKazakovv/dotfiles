@@ -95,7 +95,7 @@
         <div class="{{$class}}__prizeboard">
             <div *ngIf="tournament.prizeTable.length; else empty"
                 wlc-tournament-prizes
-                [inlineParams]="$params.common.tablePrizeboard"
+                [inlineParams]="$params.prizesParams"
                 [tournament]="tournament">
             </div>
 

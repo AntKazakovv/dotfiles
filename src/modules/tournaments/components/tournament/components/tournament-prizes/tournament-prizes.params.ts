@@ -23,6 +23,9 @@ export interface ITournamentPrizesCParams extends IComponentParams<ComponentThem
         themeMod?: ThemeMod;
         customMod?: CustomMod;
         type?: ComponentType;
+    },
+    showMore?: {
+        use?: boolean;
         rowLimit?: number;
     },
     prizesRowParams?: ITournamentPrizesRowCParams;
@@ -34,4 +37,7 @@ export const defaultParams: ITournamentPrizesCParams = {
     moduleName: 'tournaments',
     class: 'wlc-tournament-prizes',
     componentName: 'wlc-tournament-prizes',
+    showMore: {
+        use: true,
+    },
 };

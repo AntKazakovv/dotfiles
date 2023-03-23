@@ -35,9 +35,9 @@ export interface ITournamentDetailCParams extends IComponentParams<Theme, Type, 
         statusAvaliableText?: string;
         statusActiveText?: string;
         prizePoolText?: string;
-        tablePrizeboard?: ITournamentPrizesCParams;
         scrollToSelector?: string;
     };
+    prizesParams?: ITournamentPrizesCParams;
 }
 
 export const defaultParams: ITournamentDetailCParams = {
@@ -68,14 +68,15 @@ export const defaultParams: ITournamentDetailCParams = {
         statusAvaliableText: gettext('Available'),
         statusActiveText: gettext('Active'),
         prizePoolText: gettext('Prize pool'),
-        tablePrizeboard: {
-            theme: 'long',
-            common: {
-                rowLimit: 10,
-            },
-            prizesRowParams: {
-                useSmartDemicals: true,
-            },
+    },
+    prizesParams: {
+        theme: 'long',
+        showMore: {
+            use: true,
+            rowLimit: 10,
+        },
+        prizesRowParams: {
+            useSmartDemicals: true,
         },
     },
 };

@@ -45,6 +45,9 @@ export class TournamentPrizesComponent
     public rowLimit: number;
     public hasInfoColumn: boolean;
     public bonusRewardText: ITooltipCParams;
+    public useShowMoreButton: boolean;
+
+    private _initialRowLimit: number = 0;
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.ITournamentPrizesCParams,
@@ -60,17 +63,17 @@ export class TournamentPrizesComponent
         super.ngOnInit(GlobalHelper.prepareParams(this,
             ['tournament', 'type', 'theme', 'themeMod', 'customMod', 'rowsLimit']));
 
+        this.prepareLimits();
         this.preparePrizesTable();
+
         this.podiumImages = this.configService.get<TPrizePodiumImages>('$tournaments.prizePodium.images');
         this.bonusRewardText = {
             inlineText: this.configService.get<string>('$tournaments.bonusRewardText'),
             placement: 'top',
         };
         this.hasInfoColumn = this.tournament.target === 'bonus' && this.$params.theme === 'long';
-
-        if (this.$params.theme === 'long') {
-            this.rowLimit = this.$params.common?.rowLimit || Params.PRIMARY_ROW_LIMIT;
-        }
+        this.useShowMoreButton =
+            this.$params.showMore?.use && this.tournament.prizeTable.length > this._initialRowLimit;
     }
 
     public get toggleButtonText(): string {
@@ -79,11 +82,16 @@ export class TournamentPrizesComponent
 
     public toggleRows(): void {
         this.isExpanded = !this.isExpanded;
+        this.rowLimit = this.isExpanded ? this.tournament.prizeTable.length : this._initialRowLimit;
+    }
 
-        if (this.isExpanded) {
-            this.rowLimit = this.tournament.prizeTable.length;
+    protected prepareLimits(): void {
+        this._initialRowLimit = this.$params.showMore?.rowLimit || Params.PRIMARY_ROW_LIMIT;
+
+        if (this.$params.theme === 'long') {
+            this.rowLimit = this.$params.showMore.use ? this._initialRowLimit : this.tournament.prizeTable.length;
         } else {
-            this.rowLimit = this.$params.common?.rowLimit || Params.PRIMARY_ROW_LIMIT;
+            this.rowLimit = this._initialRowLimit;
         }
     }
 
@@ -91,6 +99,6 @@ export class TournamentPrizesComponent
         this.prizesTable = _slice(
             this.tournament.prizeTable,
             0,
-            this.$params.common.rowLimit || Params.PRIMARY_ROW_LIMIT);
+            this._initialRowLimit);
     }
 }
