@@ -440,9 +440,10 @@ export class BonusesListComponent extends AbstractComponent implements OnInit, O
             && !bonus.isActive);
 
         if (!bonuses.length) {
-            bonuses = _filter(this.bonuses, (bonus) => bonus.status > 0
+            bonuses = _filter(this.bonuses, (bonus) =>
+                bonus.status > 0
                 && !bonus.isActive
-                && (!bonus.isInventory || (bonus.isLootbox && bonus.canSubscribe))
+                && !bonus.inventoried
                 && !bonus.showOnly);
         }
 

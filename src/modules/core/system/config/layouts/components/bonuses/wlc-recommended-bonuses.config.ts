@@ -46,7 +46,7 @@ export namespace wlcRecommendedBonuses {
                     useQuery: true,
                     useRecommendedBonuses: true,
                     filterByGroup: 'recommended',
-                    sortOrder: ['subscribe'],
+                    sortOrder: ['promocode'],
                     swiper: {
                         slidesPerView: 3,
                         navigation: {
@@ -116,7 +116,7 @@ export namespace wlcRecommendedBonuses {
                     useQuery: true,
                     useRecommendedBonuses: true,
                     filterByGroup: 'recommended',
-                    sortOrder: ['subscribe'],
+                    sortOrder: ['promocode'],
                     swiper: {
                         navigation: false,
                         pagination: false,
