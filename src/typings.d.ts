@@ -49,8 +49,13 @@ declare interface IScreenfull {
 }
 
 declare interface IMobileDigitainApp {
+    Betslip: {
+        iframeContainer: HTMLElement;
+        iframe: HTMLElement;
+    }
     navigateTo: (pageUrl: string) => void;
     addEventListener: (eventName: string, handler: (event: unknown) => void) => void;
+    destroy: () => void;
 }
 
 declare interface IApkFile {
@@ -163,6 +168,7 @@ declare interface Window extends TAnalyticMethod {
      * Use callback that was triggered after changing navigation inside sportsbook iframe
      */
     digitainOnNavigate?: TDigitainOnNavigate;
+    mobileDigitainApp?: IMobileDigitainApp;
     ethereum?: {
         request: (prams: {method: string, params?: any[]}) => any;
         [key: string]: any;

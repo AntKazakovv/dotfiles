@@ -42,6 +42,14 @@ export class DigitainHooks extends AbstractHook {
         this.setHook<IGameWrapperHookLaunchInfo>(gameWrapperHooks.launchInfo, this.launchInfoHook, this);
     }
 
+    protected onDisableHooks(): void {
+        super.onDisableHooks();
+
+        if (this.integrationMode === 'mobile') {
+            this.destroyMobileDigitain();
+        }
+    }
+
     protected launchInfoHook(data: IGameWrapperHookLaunchInfo): IGameWrapperHookLaunchInfo {
         this.integrationMode = _includes(data.launchInfo.gameScript, 'SportFrame.frame') ? 'desktop' : 'mobile';
 
@@ -53,6 +61,7 @@ export class DigitainHooks extends AbstractHook {
         this.initNavigation(data);
 
         if (this.integrationMode === 'mobile') {
+            this.destroyMobileDigitain();
             this.initMobileDigitainHandlers();
         } else {
             this.initDesktopDigitainHandlers();
@@ -105,7 +114,6 @@ export class DigitainHooks extends AbstractHook {
      */
     protected initDesktopDigitainHandlers(): void {
         if (!this.params.window.digitainOnNavigate) {
-
             this.params.window.digitainOnNavigate = (event: IDigitainNavigateEvent): void => {
                 const stateParams: IIndexing<string | number> = {
                     page: _lowerFirst(event.pageName || ''),
@@ -123,9 +131,20 @@ export class DigitainHooks extends AbstractHook {
         if (!this.params.window.initDigitainApp) {
 
             this.params.window.initDigitainApp = (app: IMobileDigitainApp): void => {
+                this.params.window.mobileDigitainApp = app;
 
-                const pageUrl = location.pathname.replace(/.*\/digitain|sportsbook\//, '');
+                setTimeout(() => {
+                    const betslipWrapper: HTMLElement = _get(
+                        this.params.window,
+                        'mobileDigitainApp.Betslip.iframeContainer.parentNode',
+                    );
 
+                    if (betslipWrapper) {
+                        betslipWrapper.style.zIndex = '1000';
+                    }
+                });
+
+                const pageUrl = location.pathname.replace(/.*\/(digitain|sportsbook)\/?/, '');
                 if (pageUrl) {
                     app.navigateTo(pageUrl);
                 }
@@ -165,5 +184,11 @@ export class DigitainHooks extends AbstractHook {
         const urlEvent: string = this.params.router.stateService.href(stateName, stateParams);
 
         history.replaceState(null, null, urlEvent);
+    }
+
+    protected destroyMobileDigitain(): void {
+        if (this.params.window.mobileDigitainApp?.destroy) {
+            this.params.window.mobileDigitainApp.destroy();
+        }
     }
 }

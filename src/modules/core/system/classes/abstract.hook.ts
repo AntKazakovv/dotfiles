@@ -19,7 +19,9 @@ export class AbstractHook {
         protected params: IAbstractHookParams,
     ) {
         if (this.params.disableHooks) {
-            this.params.disableHooks.pipe(finalize(() => this.onDisableHooks()));
+            this.params.disableHooks.pipe(finalize(() => {
+                this.onDisableHooks();
+            })).subscribe();
         }
     }
 
