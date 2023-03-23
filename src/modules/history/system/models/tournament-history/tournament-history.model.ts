@@ -74,6 +74,10 @@ export class TournamentHistory extends AbstractModel<ITournamentHistory> {
         return this.data.WinsCount;
     }
 
+    public get winToBetRatio(): number {
+        return _toNumber(this.data.WinToBetRatio);
+    }
+
     public get statusName(): string {
         return this.data.StatusText;
     }
