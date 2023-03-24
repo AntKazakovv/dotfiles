@@ -150,6 +150,8 @@ declare interface Window extends TAnalyticMethod {
     __lc?: any;
     LC_API?: any;
     LiveChatWidget?: any;
+    intercomSettings?: any;
+    Intercom?: any;
     affiliate: string;
     WlcFlog: any;
     WlcCookie: any;

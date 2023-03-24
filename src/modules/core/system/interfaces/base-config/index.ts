@@ -27,6 +27,7 @@ import {ILegalCheckboxWithLink} from 'wlc-engine/modules/core/components/checkbo
 import {TErrorReplacerMap} from 'wlc-engine/modules/core/system/services/data/data.service';
 import {IFormsConfig} from 'wlc-engine/modules/core/system/interfaces/base-config/forms.interface';
 import {IHooksConfig} from 'wlc-engine/modules/core/system/interfaces/base-config/hooks.interface';
+import {IIntercomSetup} from 'wlc-engine/modules/external-services/system/interfaces/intercom.interface';
 
 export * from './games.interface';
 export * from './tournaments.interface';
@@ -144,4 +145,6 @@ export interface IBaseConfig {
      * Error replacer object, see [[TErrorReplacerMap]]
      */
     errorsReplacerMap?: TErrorReplacerMap;
+    /** Intercom service setup */
+    intercom?: IIntercomSetup;
 }

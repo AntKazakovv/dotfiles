@@ -72,6 +72,8 @@ import {
     ProcessService,
     TProcessConfigs,
 } from 'wlc-engine/modules/monitoring';
+import {IIntercomSetup} from 'wlc-engine/modules/external-services/system/interfaces/intercom.interface';
+import {IntercomService} from 'wlc-engine/modules/external-services/system/services';
 
 const defaultParams = {
     class: 'wlc-sections',
@@ -198,6 +200,7 @@ export class AppComponent extends AbstractComponent implements OnInit, AfterView
                 this.additionalHostClass.push('app-ready');
                 this.setHostClass();
                 this.addLivechat();
+                this.loadIntercom();
                 this.logService.sendLog({
                     code: '0.0.9',
                     flog: {
@@ -530,5 +533,15 @@ export class AppComponent extends AbstractComponent implements OnInit, AfterView
             return !allowedDomains.includes(referrer.hostname);
         }
         return true;
+    }
+
+    private async loadIntercom(): Promise<void> {
+        await this.configService.ready;
+        const intercomConfig = this.configService.get<IIntercomSetup>('$base.intercom');
+
+        if (!intercomConfig || !intercomConfig.appId) {
+            return;
+        }
+        this.injectionService.getService<IntercomService>('external-services.intercom-service');
     }
 }

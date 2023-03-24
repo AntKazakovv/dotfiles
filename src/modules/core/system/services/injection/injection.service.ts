@@ -353,6 +353,14 @@ export class InjectionService {
                     this.afterModuleLoad('cashback', m);
                     return m.CashbackModule;
                 });
+            case 'external-services':
+                if (this.loadedModules.ExternalServicesModule) {
+                    return this.loadedModules.ExternalServicesModule;
+                }
+                return import('wlc-engine/modules/external-services/external-services.module').then(m => {
+                    this.afterModuleLoad('external-services', m);
+                    return m.ExternalServicesModule;
+                });
         }
     }
 
