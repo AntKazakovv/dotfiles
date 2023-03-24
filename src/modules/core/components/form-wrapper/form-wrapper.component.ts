@@ -481,12 +481,8 @@ export class FormWrapperComponent extends WrapperComponent implements OnInit, On
                     control.setValue(value);
                 }
 
-                if (_includes(this.locked, key)) {
-                    if (value) {
-                        control.disable();
-                    } else {
-                        control.enable();
-                    }
+                if (_includes(this.locked, key) && value) {
+                    control.disable();
                 }
             });
 

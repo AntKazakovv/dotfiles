@@ -5,7 +5,6 @@ import {
 
 import {
     IFormWrapperCParams,
-    PepStatusValuableOnly,
     IWrapperCParams,
     ITextBlockCParams,
     IIconCParams,
@@ -27,7 +26,7 @@ type CustomMod = string;
 type Modifiers = AutoModifiers | CustomMod | null;
 
 export interface IPepInfoCParams extends IComponentParams<ComponentTheme, ComponentType, Modifiers> {
-    pep: PepStatusValuableOnly;
+    pep: boolean;
     config?: IFormWrapperCParams;
 }
 

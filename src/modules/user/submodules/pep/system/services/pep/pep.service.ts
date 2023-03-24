@@ -1,15 +1,11 @@
 import {Injectable} from '@angular/core';
 
 import {BehaviorSubject} from 'rxjs';
-import {
-    filter,
-    map,
-} from 'rxjs/operators';
+import {filter} from 'rxjs/operators';
 
 import {
     IUserProfile,
     PepStatus,
-    PepStatusValuableOnly,
     EventService,
     IPushMessageParams,
     LogService,
@@ -38,7 +34,7 @@ export class PepService {
     /**
      * Observable provides actual PEP status
      */
-    public readonly statusChanges$ = new BehaviorSubject<PepStatus | null>(null);
+    public readonly statusChanges$ = new BehaviorSubject<boolean | null>(null);
 
     protected readonly notificationParams = new Map<PepEventKind, IPushMessageParams>([
         [
@@ -88,12 +84,12 @@ export class PepService {
     }
 
     /**
-     * Allows to set either `'true'` or `'false'` as PEP status
+     * Allows to set either `true` or `false` as PEP status
      *
-     * @param {PepStatusValuableOnly} pep Is the user PEP or not
+     * @param {boolean} pep Is the user PEP or not
      * @param {string} password The current user's password
      */
-    public async confirmStatus(pep: PepStatusValuableOnly, password: string): Promise<void> {
+    public async confirmStatus(pep: boolean, password: string): Promise<void> {
         await this.updateProfile({
             extProfile: {pep},
             currentPassword: password,
@@ -101,11 +97,9 @@ export class PepService {
     }
 
     /**
-     * Allows to set either `'true'` or `'false'` as PEP status via Metamask
-     *
-     * @param {PepStatusValuableOnly} pep Is the user PEP or not
+     * Allows to set either `true` or `false` as PEP status via Metamask
      */
-    public async confirmStatusWithMetamask(pep: PepStatusValuableOnly): Promise<void> {
+    public async confirmStatusWithMetamask(pep: boolean): Promise<void> {
         await this.updateProfile({
             extProfile: {pep},
         }, true);
@@ -151,11 +145,8 @@ export class PepService {
         this.userService = await this.injectionService.getService<UserService>('user.user-service');
 
         this.userService.userProfile$
-            .pipe(
-                filter((profile) => !!profile?.extProfile),
-                map((profile) => profile.extProfile.pep),
-            )
-            .subscribe((status) => this.statusChanges$.next(status));
+            .pipe(filter(Boolean))
+            .subscribe((profile) => this.statusChanges$.next(profile.pep));
     }
 
     protected async updateProfile(updates: Partial<IUserProfile>, requestConfirmation = false): Promise<void> {

@@ -11,9 +11,10 @@ export type TUserValidationLevel = 'not-secure' | 'secure';
 
 export type TSQLDate = string;
 
-export type PepStatus = '' | 'true' | 'false';
+/** @deprecated string value */
+export type PepStatusAsString = 'true' | 'false';
 
-export type PepStatusValuableOnly = Exclude<PepStatus, ''>;
+export type PepStatus = PepStatusAsString | boolean;
 
 export interface IUserInfo {
     LockExpiresAt?: string;

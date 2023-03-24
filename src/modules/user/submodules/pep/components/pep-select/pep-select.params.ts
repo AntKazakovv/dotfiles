@@ -11,6 +11,7 @@ export const defaultParams: ISelectCParams = {
         placeholder: gettext('PEP'),
         tooltipText: gettext('Politically Exposed Person'),
     },
+    updateOnControlChange: true,
     locked: true,
     name: 'pep',
     validators: [],

@@ -225,7 +225,7 @@ export class NotificationService {
     private async init(): Promise<void> {
         await this.configService.ready;
 
-      
+
         //TODO keep only $base config in 2 months after release of #424105
         this.$params = {
             ...Params.defaultParams,
@@ -470,7 +470,7 @@ export class NotificationService {
                 displayItems: target.hide ? this.displayItems : this.displayItems + 1,
                 getNextState: (notifications) => {
                     const targetIndex = _findIndex(notifications, {id: targetId});
-                    const targetHeight = notifications[targetIndex].height;
+                    const targetHeight = notifications[targetIndex]?.height;
 
                     return _map(notifications, (notification, index) => {
                         if (index < targetIndex) {

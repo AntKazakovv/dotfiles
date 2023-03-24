@@ -57,7 +57,7 @@ export class PepSelectComponent extends AbstractComponent implements OnInit {
         }
 
         this.eventService.subscribe({name: 'PEP_CANCEL'}, () => {
-            this.$params.control.setValue('', {emitEvent: false});
+            this.$params.control.setValue('');
             this.cdr.detectChanges();
         }, this.$destroy);
 
@@ -88,7 +88,7 @@ export class PepSelectComponent extends AbstractComponent implements OnInit {
                 filter((v) => {
                     const {status} = this.pepService;
 
-                    return (status !== null) && (v !== status);
+                    return (v !== '') && (v !== status);
                 }),
                 takeUntil(this.$destroy),
             )
@@ -98,32 +98,19 @@ export class PepSelectComponent extends AbstractComponent implements OnInit {
     protected changeControlValueOnStatusChanges(): void {
         this.pepService.statusChanges$
             .pipe(
-                filter((status) => (
-                    this.$params.control.value !== status
-                )),
+                distinctUntilChanged(),
+                filter((status) => status !== null),
                 takeUntil(this.$destroy),
             )
-            .subscribe((status) => {
-                this.$params.control.setValue(status, {emitEvent: false});
-                this.cdr.markForCheck();
-            });
-
-        this.pepService.statusChanges$
-            .pipe(
-                distinctUntilChanged(),
-                filter((status) => (
-                    (status !== null) && (this.$params.control.value !== status)
-                )),
-                takeUntil(this.$destroy))
-            .subscribe((pep) => this.updateControl(pep));
+            .subscribe((status) => this.updateControl(status));
     }
 
-    protected updateControl(value: string): void {
+    protected updateControl(value: boolean): void {
         const {control} = this.$params;
 
         control.setValue(value);
 
-        if (value && this.$params.locked) {
+        if (this.$params.locked) {
             control.disable();
         }
     }

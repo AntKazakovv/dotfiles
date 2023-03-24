@@ -33,6 +33,6 @@ export class PepSavedComponent extends AbstractComponent {
     }
 
     public get isMarkedAsPep(): boolean {
-        return this.$params.pep === 'true';
+        return this.$params.pep;
     }
 }

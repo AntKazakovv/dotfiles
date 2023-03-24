@@ -6,7 +6,6 @@ import {
     IButtonCParams,
     ITextBlockCParams,
     IWrapperCParams,
-    PepStatusValuableOnly,
     IFormWrapperCParams,
 } from 'wlc-engine/modules/core';
 
@@ -25,7 +24,7 @@ type CustomMod = string;
 type Modifiers = AutoModifiers | CustomMod | null;
 
 export interface IPepConfirmPasswordFormCParams extends IComponentParams<ComponentTheme, ComponentType, Modifiers> {
-    pep: PepStatusValuableOnly;
+    pep: boolean;
     config?: IFormWrapperCParams;
 }
 

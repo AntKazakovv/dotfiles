@@ -2,7 +2,6 @@ import {
     CustomType,
     IComponentParams,
     IFormWrapperCParams,
-    PepStatusValuableOnly,
 } from 'wlc-engine/modules/core';
 
 type ComponentTheme = 'default' | CustomType;
@@ -18,7 +17,7 @@ type CustomMod = string;
 type Modifiers = AutoModifiers | CustomMod | null;
 
 export interface IPepSavedCParams extends IComponentParams<ComponentTheme, ComponentType, Modifiers> {
-    pep: PepStatusValuableOnly;
+    pep: boolean;
     config?: IFormWrapperCParams;
 }
 

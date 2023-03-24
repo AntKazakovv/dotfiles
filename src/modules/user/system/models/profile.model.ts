@@ -1,12 +1,18 @@
-import {TUserType} from 'wlc-engine/modules/core/system/interfaces/user.interface';
-import {IExtProfile, ISocketsData, IUserProfile} from 'wlc-engine/modules/core/system/interfaces';
-import {AbstractModel} from 'wlc-engine/modules/core/system/models/abstract.model';
-import {IFromLog} from 'wlc-engine/modules/core';
-
 import _assign from 'lodash-es/assign';
 import _get from 'lodash-es/get';
 import _toString from 'lodash-es/toString';
 import _isString from 'lodash-es/isString';
+import _isNil from 'lodash-es/isNil';
+
+import {
+    PepStatus,
+    TUserType,
+    IExtProfile,
+    ISocketsData,
+    IUserProfile,
+} from 'wlc-engine/modules/core';
+import {AbstractModel} from 'wlc-engine/modules/core/system/models/abstract.model';
+import {IFromLog} from 'wlc-engine/modules/core';
 
 export class UserProfile extends AbstractModel<IUserProfile> {
 
@@ -165,8 +171,12 @@ export class UserProfile extends AbstractModel<IUserProfile> {
         return _isString(this.data.socketsData) ? null : this.data.socketsData;
     }
 
-    public get pep(): string {
-        return this.data.extProfile.pep;
+    public get pep(): boolean | null {
+        const value: PepStatus = this.data.extProfile?.pep;
+
+        return _isNil(value)
+            ? null
+            : value === 'true' || value === true;
     }
 
     public get nick(): string {
