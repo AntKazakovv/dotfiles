@@ -6,6 +6,7 @@ import {
     ViewEncapsulation,
     ElementRef,
     ChangeDetectorRef,
+    ChangeDetectionStrategy,
 } from '@angular/core';
 import {
     DomSanitizer,
@@ -13,7 +14,8 @@ import {
 } from '@angular/platform-browser';
 import {DOCUMENT} from '@angular/common';
 import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
-import {ConfigService, LogService} from 'wlc-engine/modules/core';
+import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
+import {LogService} from 'wlc-engine/modules/core/system/services/log/log.service';
 
 import * as Params from './license.params';
 
@@ -26,6 +28,7 @@ import _isString from 'lodash-es/isString';
     templateUrl: './license.component.html',
     styleUrls: ['./styles/license.component.scss'],
     encapsulation: ViewEncapsulation.None,
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LicenseComponent extends AbstractComponent implements OnInit {
     @Input() protected inlineParams: Params.ILicenseCParams;
