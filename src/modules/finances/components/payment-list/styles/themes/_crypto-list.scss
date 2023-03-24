@@ -59,15 +59,12 @@
         }
 
         &__icon {
+            --wlc-icon-width: #{ef.get-value($themeCryptoList, 'itemIconWidth')};
+            --wlc-icon-height: #{ef.get-value($themeCryptoList, 'itemIconHeight')};
 
-            ::ng-deep {
-
-                img,
-                svg {
-                    width: ef.get-value($themeCryptoList, 'itemIconWidth');
-                    height: ef.get-value($themeCryptoList, 'itemIconHeight');
-                }
-            }
+            display: block;
+            width: var(--wlc-icon-width);
+            height: var(--wlc-icon-height);
         }
 
         &__name {
@@ -80,10 +77,10 @@
 
         &__btn-modal {
             display: flex;
-            align-items: center;
+            align-items: stretch;
             justify-content: ef.get-value($themeCryptoList, 'btnJustifyContent');
             width: ef.get-value($themeCryptoList, 'btnWidth');
-            max-width: ef.get-value($themeCryptoList, 'btnMaxWidth');
+            max-width: var(--wlc-dep-btn-modal-maxwidth, #{ef.get-value($themeCryptoList, 'btnMaxWidth')});
             height: ef.get-value($themeCryptoList, 'btnHeight');
             margin: ef.get-value($themeCryptoList, 'btnMargin');
             padding: ef.get-value($themeCryptoList, 'btnPadding');
@@ -102,6 +99,10 @@
         }
 
         &__btn-modal-arrow {
+            --wlc-icon-width: #{ef.get-value($themeCryptoList, 'btnArrowWidth')};
+            --wlc-icon-height: #{ef.get-value($themeCryptoList, 'btnArrowHeight')};
+
+            width: var(--wlc-icon-width);
             margin: ef.get-value($themeCryptoList, 'btnArrowMargin');
             color: ef.get-value($themeCryptoList, 'btnArrowColor');
 
@@ -119,27 +120,27 @@
         }
 
         &__btn-modal-image {
+            --wlc-icon-width: #{ef.get-value($themeCryptoList, 'btnImageWidth')};
+            --wlc-icon-height: #{ef.get-value($themeCryptoList, 'btnImageHeight')};
+
             position: relative;
+            display: flex;
             flex: 0 0 auto;
-            width: auto;
+            align-items: center;
+            box-sizing: content-box;
+            width: var(--wlc-icon-width);
             height: auto;
             padding: ef.get-value($themeCryptoList, 'btnImagePadding');
             color: ef.get-value($themeCryptoList, 'btnImageSvgColor');
             background: ef.get-value($themeCryptoList, 'btnImageBg');
             border-right: ef.get-value($themeCryptoList, 'btnImageBorderRight');
-
-            ::ng-deep {
-
-                img,
-                svg {
-                    width: ef.get-value($themeCryptoList, 'btnImageWidth');
-                    height: ef.get-value($themeCryptoList, 'btnImageHeight');
-                }
-            }
         }
 
         &__method {
-            @include text.get-text-style(ef.get-value($themeCryptoList, 'methodTextStyle'), ef.get-value($themeCryptoList, 'methodTextColor'));
+            @include text.get-text-style(
+                ef.get-value($themeCryptoList, 'methodTextStyle'),
+                ef.get-value($themeCryptoList, 'methodTextColor')
+            );
             padding: ef.get-value($themeCryptoList, 'methodPadding');
             text-align: ef.get-value($themeCryptoList, 'methodAlignment');
         }

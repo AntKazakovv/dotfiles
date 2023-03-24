@@ -2,7 +2,9 @@
 .wlc-alert--theme-default:host {
     --wlc-alert-text-color: #{ef.get-value($themeDefault, 'mainColor')};
     --wlc-alert-bg: #{ef.get-value($themeDefault, 'mainBg')};
-    max-width: ef.get-value($themeDefault, 'maxWidth');
+
+    max-width: var(--wlc-alert-max-width, #{ef.get-value($themeDefault, 'maxWidth')});
+    margin: var(--wlc-alert-margin, 0);
 
     &.wlc-alert--default {
         --wlc-alert-text-color: #{ef.get-value($themeDefault, 'mainColorDefault')};
@@ -67,6 +69,18 @@
             padding: ef.get-value($themeDefault, 'textPadding');
             background: ef.get-value($themeDefault, 'textBg');
             border-radius: ef.get-value($themeDefault, 'textRadius');
+
+            ::ng-deep {
+
+                ul,
+                ol {
+                    margin: 0;
+                }
+            }
+
+            &:empty {
+                display: none;
+            }
         }
 
         &__icon {

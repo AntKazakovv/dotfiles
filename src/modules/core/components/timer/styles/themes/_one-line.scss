@@ -30,6 +30,7 @@
         }
 
         &__icon {
+            align-self: ef.get-value($themeOneLine, 'iconAlign');
             margin: ef.get-value($themeOneLine, 'iconMargin');
             color: ef.get-value($themeOneLine, 'iconColor');
 

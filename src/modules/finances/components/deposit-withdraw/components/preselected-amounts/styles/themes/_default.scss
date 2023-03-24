@@ -4,6 +4,7 @@
     @include bm.get-mq-map('justify-content', $themeDefault, 'amountBtnsJustifyContent');
     @include bm.get-mq-map('max-width', $themeDefault, 'amountBtnsMaxWidth');
     display: flex;
+    min-width: 0;
 
     .wlc-preselected-amounts {
 

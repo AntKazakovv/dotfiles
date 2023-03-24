@@ -41,6 +41,14 @@ $common: map-merge((
 
 $customThemeDefault: () !default;
 $themeDefault: map-merge(map-merge($common, (
+    'alertMargin': 0 0 ef.size(4),
+
+    'groupMargin': 0 0 ef.size(2),
+    'groupMarginLast': 0,
+    'groupTitleTextStyle': 'PrimaryText',
+    'groupTitleColor': var(--mc-baseOpacity),
+    'groupTitleMargin': 0 0 ef.size(2),
+
     // List
     'listMargin': 0,
     'listPadding': 0,
@@ -159,15 +167,12 @@ $themeDefault: map-merge(map-merge($common, (
     'tagBtnMainOpenedMargin': 0 0 ef.size(2),
     'tagBtnMainOpenedBg': var(--mc-main),
     'tagBtnMainOpenedBorderColor': var(--mc-main),
-    'notificationBg': var(--mc-bg500),
-    'notificationPadding': ef.size(2) ef.size(6) ef.size(2) ef.size(2),
-    'notificationWidth': (
-        320: 100%,
-        1200: 50%,
-    ),
-    'notificationRadius': ef.get('radius', 'small'),
-    'notificationIconColor': var(--mc-baseOpacity),
-    'notificationTextColor': var(--mc-baseMain),
+
+    'scrollbarTrackBg': var(--mc-bg300),
+    'scrollbarThumbBg': var(--mc-bg500),
+    'scrollableHeight': 350px,
+    'scrollableMargin': 0 ef.size(-2),
+    'scrollablePadding': 0 ef.size(2),
 )), $customThemeDefault);
 
 $customThemeCryptoList: () !default;
@@ -186,9 +191,11 @@ $themeCryptoList: map-merge(map-merge($common, (
     'itemPadding': ef.size(2) ef.size(3),
 
     'btnHeight': auto,
-    'btnImagePadding': ef.size(2),
+    'btnImagePadding': 0 ef.size(2),
     'btnImageWidth': 30px,
     'btnImageHeight': 30px,
+    'btnArrowWidth': 10px,
+    'btnArrowHeight': 10px,
 
     'tooltipTop': 5px,
     'tooltipRight': 5px,

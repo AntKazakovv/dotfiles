@@ -29,6 +29,7 @@ import _find from 'lodash-es/find';
 import _some from 'lodash-es/some';
 import _orderBy from 'lodash-es/orderBy';
 import _every from 'lodash-es/every';
+import _map from 'lodash-es/map';
 
 import {
     ActionService,
@@ -110,6 +111,7 @@ export class PaymentListComponent extends IconListAbstract<Params.IPaymentListCP
     public paymentDescription: string = '';
     public useBonuses: boolean = false;
     public useTags: boolean = false;
+    public isGroupingByBlocks: boolean = false;
     public tagsConfig: IPaySystemCategories;
     public tags: [TPaySystemTagAll, string][] = [];
     public tagsControl: UntypedFormControl = new UntypedFormControl();
@@ -120,10 +122,12 @@ export class PaymentListComponent extends IconListAbstract<Params.IPaymentListCP
     public activeTag$: BehaviorSubject<TPaySystemTagAll> = new BehaviorSubject(null);
     public catMenuTypeMain: TPaySystemsSwitcher;
     public logImageError: TIconErrorCode = '1.4.18';
+    public paymentCategories: Params.IPaymentsGroup[] = [];
 
     protected isDeposit: boolean;
     protected lastSucceedRes: number | null = null;
     protected isAutoSelect: boolean;
+    protected useScroll: boolean = false;
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IPaymentListCParams,
@@ -148,7 +152,10 @@ export class PaymentListComponent extends IconListAbstract<Params.IPaymentListCP
         this.useBonuses = this.configService.get<boolean>('$finances.bonusesInDeposit.use');
         this.isCryptoInvoices = this.isDeposit && this.$params.theme === 'crypto-list';
         this.tagsConfig = this.configService.get<IPaySystemCategories>('$finances.paySystemCategories');
-        this.useTags = this.tagsConfig.use && this.isDeposit && this.$params.theme !== 'crypto-list';
+        this.useTags = this.tagsConfig.use
+            && (this.isDeposit || this.tagsConfig.desktopMenuType === 'group')
+            && this.$params.theme !== 'crypto-list';
+        this.useScroll = this.configService.get<boolean>('$finances.usePaySystemScroll');
 
         if (this.configService.get<boolean>('$base.colorThemeSwitching.use')
             && this.$params.colorIconBg && this.$params.iconsType === 'color') {
@@ -158,6 +165,8 @@ export class PaymentListComponent extends IconListAbstract<Params.IPaymentListCP
         if (this.useTags) {
             this.catMenuTypeMain = this.tagsConfig.desktopMenuType
                 || (this.configService.get('$base.profile.type') === 'first' ? 'select' : 'menu');
+
+            this.isGroupingByBlocks = this.tagsConfig.desktopMenuType === 'group';
 
             this.tagsControl.valueChanges.pipe(
                 tap(() => this.onTagChange()),
@@ -351,6 +360,7 @@ export class PaymentListComponent extends IconListAbstract<Params.IPaymentListCP
 
         if (this.useTags) {
             this.systems$.next(this.systems.filter((val) => val.tags.includes(this.tagsControl.value)));
+            this.setPaymentCategories();
         } else {
             this.systems$.next(systems);
         }
@@ -409,6 +419,19 @@ export class PaymentListComponent extends IconListAbstract<Params.IPaymentListCP
             (tag: TPaySystemTagAll) => this.tagsConfig.categoriesConfig[tag].order,
             'desc').map((tag) => [tag, this.tagsConfig.categoriesConfig[tag].name]);
 
+        this.setTagsMenuConfig();
+
+        if (!this.tagsControl.value) {
+            this.tagsControl.markAsTouched();
+            this.tagsControl.patchValue(this.tags[0][0], {
+                emitEvent: true,
+                emitModelToViewChange: true,
+                emitViewToModelChange: true,
+            });
+        }
+    }
+
+    protected setTagsMenuConfig(): void {
         this.tagsMenuConfig = this.catMenuTypeMain === 'menu' ? {
             components: [{
                 name: 'menu.wlc-menu',
@@ -449,15 +472,20 @@ export class PaymentListComponent extends IconListAbstract<Params.IPaymentListCP
                 },
             }],
         };
+    }
 
-        if (!this.tagsControl.value && this.tags.length) {
-            this.tagsControl.markAsTouched();
-            this.tagsControl.patchValue(this.tags[0][0], {
-                emitEvent: true,
-                emitModelToViewChange: true,
-                emitViewToModelChange: true,
+    protected setPaymentCategories(): void {
+        this.paymentCategories = _map(this.tags, (item) => {
+            const systemsList: PaymentSystem[] =  _filter(this.systems, (s: PaymentSystem) => {
+                return _includes(s.tags, item[0]);
             });
-        }
+
+            return {
+                tag: item[0],
+                title: item[1],
+                systems: systemsList,
+            };
+        });
     }
 
     protected mapByMode(systems: PaymentSystem[]): PaymentSystem[] {

@@ -13,3 +13,59 @@
         }
     }
 }
+
+@mixin hostedFieldsStyles($config) {
+
+    .wlc-hosted-fields {
+        @include bm.get-mq-map('justify-items', $config, 'hostedFieldsJustifyItems');
+        display: grid;
+
+        &__container {
+            @include bm.get-mq-map('max-width', $config, 'fieldContaninerMaxWidth');
+            width: 100%;
+
+            ::ng-deep {
+
+                .hosted-field-container {
+
+                    iframe {
+                        width: ef.get-value($config, 'hostedFieldsIframeWidth');
+                        height: ef.get-value($config, 'hostedFieldsIframeHeight');
+                        overflow: hidden;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@mixin withdrawInfo($config) {
+
+    @include bm.get-mq-map('max-width', $config, 'withdrawMaxWidth');
+    @include bm.get-mq-map('margin', $config, 'withdrawMargin');
+    @include bm.get-mq-map(' grid-gap', $config, 'withdrawGridGap');
+    display: grid;
+
+    &-item {
+        display: flex;
+        grid-gap: ef.get-value($config, 'itemGridGap');
+        align-items: center;
+        justify-content: space-between;
+        padding: ef.get-value($config, 'itemPadding');
+        border-bottom: ef.get-value($config, 'itemBorderBottom');
+
+        .name {
+            @include text.get-text-style(
+                ef.get-value($config, 'withdrawNameTextStyle'),
+                ef.get-value($config, 'commonColor')
+            );
+        }
+
+        .value {
+            @include text.get-text-style(
+                ef.get-value($config, 'withdrawValTextStyle'),
+                ef.get-value($config, 'commonColor')
+            );
+        }
+    }
+}

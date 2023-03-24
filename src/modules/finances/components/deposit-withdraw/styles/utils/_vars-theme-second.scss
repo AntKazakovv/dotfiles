@@ -1,0 +1,112 @@
+$customThemeSecond: () !default;
+$themeSecond: map-merge((
+    'commonColor': var(--mc-baseMain),
+    'gridColumns': (
+        375: 1fr,
+        768: repeat(2, 1fr),
+        1200: auto 330px,
+        1630: auto 495px,
+    ),
+    'gap': (
+        375: ef.size(6),
+        1366: ef.size(8),
+    ),
+    'innerGap': (
+        375: ef.size(4),
+    ),
+
+    'globalDividerDisplay': (
+        375: none,
+        768: block,
+    ),
+    'dividerSize': 2px,
+    'dividerBg': var(--mc-bg300),
+    'dividerMargin': ef.size(4) 0 0,
+    'dividerMarginCrypto': ef.size(4) 0,
+    'dividerDisplayPs': (
+        375: block,
+        768: none,
+    ),
+
+    'editProfileBtnMargin': (
+        375: ef.size(6) auto 0,
+        900: ef.size(6) 0 0,
+    ),
+
+    'contentMargin': (
+        375: 0 auto,
+        768: 0,
+    ),
+    'contentTextAlign': (
+        375: center,
+        768: left,
+    ),
+
+    'stepTitleTextStyle': 'ThirdTitle',
+    'stepTitleColor': inherit,
+    'stepTitleMargin': 0 0 ef.size(4),
+
+    'paymentInfoAlertMargin': 0 0 ef.size(4),
+
+    'formTemplateColumns': 1fr,
+    'formGap': ef.size(4),
+    'formJustifyItems': (
+        375: initial,
+        480: center,
+        768: start,
+    ),
+    'formInputMaxWidth': (
+        375: 100%,
+        480: 330px,
+    ),
+    'formBtnDepositMargin': ef.size(4) 0 0,
+    'fieldContaninerMaxWidth': (
+        375: 100%,
+        480: 330px,
+    ),
+
+    'hostedFieldsJustifyItems': (
+        375: center,
+        768: start,
+    ),
+    'hostedFieldsIframeWidth': 100%,
+    'hostedFieldsIframeHeight': 65px,
+
+    'invoiceBtnsGap': ef.size(4),
+    'invoiceBtnsMargin': ef.size(7) 0 0,
+
+    'timerMargin': ef.size(4) 0 ef.size(2),
+    'paymentListGap': ef.size(2),
+    'amountLimitMargin': ef.size(1) 0 0,
+
+    'paymentListColumns': (
+        375: repeat(auto-fill, minmax(120px, 1fr)),
+        1366: repeat(auto-fill, minmax(150px, 1fr)),
+    ),
+
+    'btnModalMaxWidth': (
+        375: 100%,
+        480: 330px,
+    ),
+    'clearAmountBtnMargin': (
+        375: 0 auto,
+        768: 0,
+    ),
+
+    'withdrawMargin': (
+        375: 0 auto ef.size(5),
+        768: 0 0 ef.size(5),
+    ),
+    'withdrawGridGap': (
+        375: ef.size(2) 0,
+    ),
+    'withdrawMaxWidth': (
+        375: 100%,
+        480: 330px,
+    ),
+    'withdrawNameTextStyle': 'PrimaryText',
+    'withdrawValTextStyle': 'PrimaryTextBold',
+    'itemGridGap': ef.size(4) 0,
+    'itemBorderBottom': 1px solid var(--mc-baseOpacity),
+    'itemPadding': ef.size(1) 0,
+), $customThemeSecond);

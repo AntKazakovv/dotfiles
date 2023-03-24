@@ -103,11 +103,14 @@
 </ng-template>
 
 <ng-template #list>
-    <div class="{{$class}}__list" [ngClass]="classList">
-        <ng-container *ngIf="useTags" [ngTemplateOutlet]="categories"></ng-container>
+    <div class="{{$class}}__list"
+        [ngClass]="classList"
+        [class.scrollable]="useScroll && !asModal">
+        <ng-container *ngIf="useTags && !isGroupingByBlocks" [ngTemplateOutlet]="categories"></ng-container>
         <ng-container *ngIf="showNotifications" [ngTemplateOutlet]="notifications"></ng-container>
 
-        <ul class="{{$class}}__ul"
+        <ul *ngIf="!isGroupingByBlocks; else groupList"
+            class="{{$class}}__ul"
             [@appearance]="ready && systems.length"
             [ngSwitch]="$params.theme">
             <ng-container *ngSwitchCase="'crypto-list'" [ngTemplateOutlet]="cryptoList"></ng-container>
@@ -176,6 +179,40 @@
     </li>
 </ng-template>
 
+<ng-template #groupList>
+    <div class="{{$class}}__group-wrapper">
+        <div *ngFor="let group of paymentCategories;" class="{{$class}}__group">
+            <p class="{{$class}}__group-title">{{group.title | translate}}</p>
+            <ul class="{{$class}}__ul"
+                [@appearance]="ready && systems.length">
+                <li *ngFor="let system of group.systems; index as $index"
+                    class="{{$class}}__item"
+                    [class.disabled]="system.disabledBy"
+                    [attr.data-wlc-element]="'block_payment-item-' + system.id">
+
+                    <button wlc-icon-list-item
+                            class="{{$class}}__button"
+                            [class.active]="system.id === currentSystem?.id"
+                            [class.disabled]="system.disabledBy"
+                            type="button"
+                            [attr.aria-label]="system.name"
+                            [attr.data-wlc-element]="'block_payment-item-name'"
+                            [attr.title]="system.name"
+                            [inlineParams]='{icon: itemsMap.get(system.id), class: $class + "-item"}'
+                            [logImageErrorChild]="logImageError"
+                            (click)='selectPayment(system)'>
+                    </button>
+                    <div *ngIf="system.disabledBy"
+                        wlc-tooltip
+                        class="{{$class}}__tooltip"
+                        [inlineParams]="getErrTooltipParams(system)"
+                    ></div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</ng-template>
+
 <ng-template #categories>
     <ng-container [ngSwitch]="catMenuType">
         <ng-container *ngSwitchCase="'desktop'"
@@ -184,7 +221,6 @@
         <ng-container *ngSwitchCase="'dropdown'"
             [ngTemplateOutlet]="catsDropdown">
         </ng-container>
-
     </ng-container>
 
 </ng-template>
@@ -225,42 +261,22 @@
 
 <ng-template #notifications>
     <ng-container *ngIf="!userCountry; else emptyPaysystems">
-        <div class="{{$class}}__notification {{$class}}__notification-empty-country">
-            <span>
+        <div wlc-alert>
+            <span title>
                 {{'To display all available payment systems, specify your country on the' | translate}}
-                {{' '}}
-            </span>
-            <a [uiSref]="'app.profile.main.info'" class="{{$class}}__account-settings-link">{{'Profile' | translate}}</a>
-            <span>
-                {{' '}}
+                <a [uiSref]="'app.profile.main.info'">{{'Account Settings' | translate}}</a>
                 {{'page.' | translate}}
             </span>
-            <div class="{{$class}}__notification-icon">
-                <div wlc-icon
-                    class="icon-btn"
-                    iconPath="/wlc/icons/info.svg">
-                </div>
-            </div>
         </div>
     </ng-container>
 
     <ng-template #emptyPaysystems>
-        <div class="{{$class}}__notification">
-            <span>
+        <div wlc-alert>
+            <span title>
                 {{'There are no payment systems available for your country, please check the "Country" field on the' | translate}}
-                {{' '}}
-            </span>
-            <a [uiSref]="'app.profile.main.info'" class="{{$class}}__account-settings-link">{{'Profile' | translate}}</a>
-            <span>
-                {{' '}}
+                <a [uiSref]="'app.profile.main.info'">{{'Account Settings' | translate}}</a>
                 {{'page. If the specified field is filled in, but the payment systems are not displayed, contact the technical support service of our casino.' | translate}}
             </span>
-            <div class="{{$class}}__notification-icon">
-                <div wlc-icon
-                    class="icon-btn"
-                    iconPath="/wlc/icons/info.svg">
-                </div>
-            </div>
         </div>
     </ng-template>
 </ng-template>

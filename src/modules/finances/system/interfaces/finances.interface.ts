@@ -30,6 +30,8 @@ export interface IFinancesConfig {
      */
     fieldsSettings?: IFieldsSettings;
     transactionHistoryAlert?: ITransactionHistoryAlert;
+    /** Add scrollbar if true (for second theme of deposit-withdraw) */
+    usePaySystemScroll?: boolean;
 }
 
 export interface ITransactionHistoryAlert {
@@ -107,7 +109,7 @@ export interface IPaySystemCategories {
     categoriesConfig?: Partial<Record<TPaySystemTagAll, IPaySystemTag>>;
 }
 
-export type TPaySystemsSwitcher = 'select' | 'menu';
+export type TPaySystemsSwitcher = 'select' | 'menu' | 'group';
 
 export interface IPaySystemTag {
     name: string;

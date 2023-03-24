@@ -26,30 +26,7 @@
         }
 
         &__step {
-
-            .wlc-hosted-fields {
-                @include bm.get-mq-map('justify-items', $themeDefault, 'hostedFieldsJustifyItems');
-
-                display: grid;
-
-                &__container {
-                    @include bm.get-mq-map('max-width', $themeDefault, 'fieldContaninerMaxWidth');
-
-                    width: 100%;
-
-                    ::ng-deep {
-
-                        .hosted-field-container {
-
-                            iframe {
-                                width: ef.get-value($themeDefault, 'hostedFieldsIframeWidth');
-                                height: ef.get-value($themeDefault, 'hostedFieldsIframeHeight');
-                                overflow: hidden;
-                            }
-                        }
-                    }
-                }
-            }
+            @include hostedFieldsStyles($themeDefault);
 
             &--1 {
                 @include bm.get-mq-map('background', $themeDefault, 'step1Bg');
@@ -77,66 +54,21 @@
         }
 
         &__withdraw {
-            @include bm.get-mq-map('max-width', $themeDefault, 'withdrawMaxWidth');
-            @include bm.get-mq-map('margin', $themeDefault, 'withdrawMargin');
-            @include bm.get-mq-map(' grid-gap', $themeDefault, 'withdrawGridGap');
-            display: grid;
-
-            &-item {
-                display: flex;
-                grid-gap: ef.get-value($themeDefault, 'itemGridGap');
-                align-items: center;
-                justify-content: space-between;
-                padding: ef.get-value($themeDefault, 'itemPadding');
-                border-bottom: ef.get-value($themeDefault, 'itemBorderBottom');
-
-                .name {
-                    @include text.get-text-style('PrimaryText', ef.get-value($themeDefault, 'commonColor'));
-                }
-
-                .value {
-                    @include text.get-text-style('PrimaryTextBold', ef.get-value($themeDefault, 'commonColor'));
-                }
-            }
+            @include withdrawInfo($themeDefault);
         }
 
-        &__fields-error {
-            @include text.get-text-style(ThirdTitle, ef.get-value($themeDefault, 'errorsColor'));
-            @include bm.get-mq-map('text-align', $themeDefault, 'errorsTextAlign');
-            margin: ef.get-value($themeDefault, 'errorsMargin');
-
-            .wlc-btn {
-                display: inline-grid;
-            }
+        &__fields {
+            @include bm.get-mq-map('--wlc-alert-margin', $themeDefault, 'alertMargin');
         }
 
-        &__fields-message {
-            margin: ef.get-value($themeDefault, 'errorsMessageMargin');
-        }
-
-        &__fields-ul {
-            margin: ef.get-value($themeDefault, 'errorsUlMargin');
-            padding: ef.get-value($themeDefault, 'errorsUlPadding');
-        }
-
-        &__fields-li {
-            list-style-type: ef.get-value($themeDefault, 'errorsLiType');
-
-            &:before {
-                content: ef.get-value($themeDefault, 'errorsLiBeforeContent');
-                display: ef.get-value($themeDefault, 'errorsLiBeforeDisplay');
-                margin: ef.get-value($themeDefault, 'errorsLiBeforeMargin');
-            }
+        &__edit-profile-btn {
+            @include bm.get-mq-map('margin', $themeDefault, 'editProfileBtnMargin');
         }
 
         &__message {
             @include text.get-text-style(ef.get-value($themeDefault, 'messageTextStyle'), ef.get-value($themeDefault, 'messageTextColor'));
             max-width: ef.get-value($themeDefault, 'messageMaxWidth');
             margin: ef.get-value($themeDefault, 'messageMargin');
-        }
-
-        &__alert {
-            @include bm.get-mq-map('margin', $themeDefault, 'alertMargin');
         }
 
         &__timer {
@@ -222,6 +154,13 @@
                     width: 100%;
                 }
             }
+        }
+    }
+
+    ::ng-deep {
+
+        .wlc-payment-list--theme-default {
+            @include bm.get-mq-map('--wlc-alert-max-width', $themeDefault, 'paySysAlertWidth');
         }
     }
 }

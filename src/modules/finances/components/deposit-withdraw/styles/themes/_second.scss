@@ -1,0 +1,176 @@
+.wlc-cash--theme-second:host {
+    @include bm.get-mq-map('--wlc-dep-btn-modal-maxwidth', $themeSecond, 'btnModalMaxWidth');
+    @include hostedFieldsStyles($themeSecond);
+
+    .wlc-cash {
+
+        &__grid {
+            @include bm.get-mq-map('--wlc-cash-gap', $themeSecond, 'gap');
+            @include bm.get-mq-map('grid-template-columns', $themeSecond, 'gridColumns');
+
+            display: grid;
+            gap: var(--wlc-cash-gap);
+            align-items: start;
+
+            &-left,
+            &-right {
+                position: relative;
+                display: grid;
+                gap: ef.get-value($themeSecond, 'innerGap');
+
+                &:before {
+                    @include bm.get-mq-map('display', $themeSecond, 'globalDividerDisplay');
+
+                    content: '';
+                    position: absolute;
+                    left: var(--wlc-divider-pos);
+                    width: ef.get-value($themeSecond, 'dividerSize');
+                    height: 100%;
+                    background: ef.get-value($themeSecond, 'dividerBg');
+                }
+            }
+
+            &-left {
+                --wlc-divider-pos: calc(100% + var(--wlc-cash-gap) / 2);
+            }
+
+            &-right {
+                --wlc-divider-pos: calc(var(--wlc-cash-gap) / -2);
+                --wlc-alert-max-width: 100%;
+            }
+        }
+
+        &__step {
+
+            &-title {
+                @include bm.get-mq-map('text-align', $themeSecond, 'contentTextAlign');
+                @include text.get-text-style(
+                    ef.get-value($themeSecond, 'stepTitleTextStyle'),
+                    ef.get-value($themeSecond, 'stepTitleColor')
+                );
+
+                margin: ef.get-value($themeSecond, 'stepTitleMargin');
+            }
+
+            &--wallet {
+                --cash-divider-display: none;
+            }
+
+            &--paysystems {
+                --wlc-alert-max-width: 100%;
+                @include bm.get-mq-map('--cash-divider-display', $themeSecond, 'dividerDisplayPs');
+            }
+
+            &--paymentinfo {
+                --wlc-alert-margin: #{ef.get-value($themeSecond, 'paymentInfoAlertMargin')};
+            }
+        }
+
+        &__form {
+
+            ::ng-deep {
+
+                .wlc-form,
+                .wlc-additional-fields {
+                    @include bm.get-mq-map('justify-items', $themeSecond, 'formJustifyItems');
+
+                    display: grid;
+                    grid-template-columns: ef.get-value($themeSecond, 'formTemplateColumns');
+                    gap: ef.get-value($themeSecond, 'formGap');
+                }
+
+                .wlc-additional-fields,
+                .wlc-input,
+                .wlc-checkbox,
+                .wlc-field-container {
+                    @include bm.get-mq-map('max-width', $themeSecond, 'formInputMaxWidth');
+
+                    width: 100%;
+                }
+
+                .wlc-btn--deposit,
+                .wlc-btn--withdraw {
+                    margin: ef.get-value($themeSecond, 'formBtnDepositMargin');
+                }
+
+                .wlc-clear-amount-button {
+                    @include bm.get-mq-map('margin', $themeSecond, 'clearAmountBtnMargin');
+                }
+            }
+        }
+
+        &__divider {
+            display: var(--cash-divider-display, block);
+            width: 100%;
+            height: ef.get-value($themeSecond, 'dividerSize');
+            margin: ef.get-value($themeSecond, 'dividerMargin');
+            background: ef.get-value($themeSecond, 'dividerBg');
+
+            &--cryptoblock {
+                margin: ef.get-value($themeSecond, 'dividerMarginCrypto');
+            }
+        }
+
+        &__timer {
+            margin: ef.get-value($themeSecond, 'timerMargin');
+        }
+
+        &__invoice-btns {
+            display: flex;
+            flex-wrap: wrap;
+            gap: ef.get-value($themeSecond, 'invoiceBtnsGap');
+            margin: ef.get-value($themeSecond, 'invoiceBtnsMargin');
+        }
+
+        &__edit-profile-btn {
+            @include bm.get-mq-map('margin', $themeSecond, 'editProfileBtnMargin');
+        }
+
+        &__withdraw {
+            @include withdrawInfo($themeSecond);
+        }
+    }
+
+    ::ng-deep {
+
+        .wlc-payment-list--theme-default {
+            --wlc-payment-list-gap: #{ef.get-value($themeSecond, 'paymentListGap')};
+            @include bm.get-mq-map('--wlc-payment-list-columns', $themeSecond, 'paymentListColumns');
+        }
+
+        .wlc-payment-list--theme-crypto-list {
+
+            .wlc-payment-list__btn-modal[class] {
+                @include bm.get-mq-map('margin', $themeSecond, 'contentMargin');
+            }
+
+            .wlc-payment-list__method[class],
+            .payments-description[class] {
+                @include bm.get-mq-map('text-align', $themeSecond, 'contentTextAlign');
+            }
+        }
+
+        .wlc-deposit-bonuses--theme-default {
+
+            .wlc-deposit-bonuses {
+
+                &__btn[class] {
+                    @include bm.get-mq-map('margin', $themeSecond, 'contentMargin');
+                }
+
+                &__short-bonus[class] {
+                    @include bm.get-mq-map('text-align', $themeSecond, 'contentTextAlign');
+                }
+            }
+        }
+
+        .wlc-amount-limit--theme-default[class] {
+            margin: ef.get-value($themeSecond, 'amountLimitMargin');
+        }
+
+        .wlc-wallets--finances {
+            max-width: 100%;
+            margin: 0;
+        }
+    }
+}

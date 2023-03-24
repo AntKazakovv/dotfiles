@@ -1,10 +1,46 @@
-<ng-container *ngFor="let step of steps; index as $index">
-    <ng-container [ngTemplateOutlet]="stepTpl"
-                  [ngTemplateOutletContext]="{$implicit: step, index: $index}"></ng-container>
+<ng-container [ngSwitch]="$params.theme">
+    <ng-container [ngTemplateOutlet]="second" *ngSwitchCase="'second'"></ng-container>
+    <ng-container [ngTemplateOutlet]="default" *ngSwitchDefault></ng-container>
 </ng-container>
 
 <ng-template #preloader>
     <div wlc-loader></div>
+</ng-template>
+
+<ng-template #second>
+    <div class="{{$class}}__grid">
+        <div #depLeft class="{{$class}}__grid-left">
+            <div *ngIf="isMultiWallet" class="{{$class}}__step {{$class}}__step--wallet">
+                <p class="{{$class}}__step-title">{{'Choose a wallet' | translate}}</p>
+                <ng-container [ngTemplateOutlet]="wallets"></ng-container>
+            </div>
+            <div class="{{$class}}__step {{$class}}__step--paysystems">
+                <p class="{{$class}}__step-title">{{'Choose payment method' | translate}}</p>
+                <ng-container [ngTemplateOutlet]="systems"></ng-container>
+            </div>
+        </div>
+        <div #depRight class="{{$class}}__grid-right">
+            <div *ngIf="isCryptoInvoices" class="{{$class}}__step {{$class}}__step--cryptoinvoices">
+                <p class="{{$class}}__step-title">{{'Select a cryptocurrency' | translate}}</p>
+                <ng-container [ngTemplateOutlet]="cryptoInvoiceSystems"></ng-container>
+            </div>
+            <div *ngIf="showBonuses" class="{{$class}}__step {{$class}}__step--bonuses">
+                <p class="{{$class}}__step-title">{{'Select a bonus' | translate}}</p>
+                <ng-container [ngTemplateOutlet]="bonuses"></ng-container>
+            </div>
+            <div class="{{$class}}__step {{$class}}__step--paymentinfo">
+                <p class="{{$class}}__step-title">{{'Payment information' | translate}}</p>
+                <ng-container [ngTemplateOutlet]="paymentInfo"></ng-container>
+            </div>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #default>
+    <ng-container *ngFor="let step of steps; index as $index">
+        <ng-container [ngTemplateOutlet]="stepTpl"
+                      [ngTemplateOutletContext]="{$implicit: step, index: $index}"></ng-container>
+    </ng-container>
 </ng-template>
 
 <ng-template #stepTpl let-step let-index="index">
@@ -87,18 +123,22 @@
     </div>
 
     <div *ngIf="requiredFieldsKeys.length"
-         class="{{$class}}__fields-error"
+         class="{{$class}}__fields"
          data-wlc-element="add_required_fields">
-        <p class="{{$class}}__fields-message">{{'Payment method is not available. Please, add the following info:' | translate}}
-        </p>
-        <ul class="{{$class}}__fields-ul">
-            <li *ngFor="let item of requiredFieldsKeys"
-                class="{{$class}}__fields-li"
-                [attr.data-wlc-element]="requiredFields[item].template">
-                {{requiredFields[item].label | translate}}
-            </li>
-        </ul>
+         <div wlc-alert
+            [level]="'error'"
+            [title]="'Payment method is not available. Please, add the following info' | translate">
+
+            <ul>
+                <li *ngFor="let item of requiredFieldsKeys"
+                    [attr.data-wlc-element]="requiredFields[item].template">
+                    {{requiredFields[item].label | translate}}
+                </li>
+            </ul>
+        </div>
+
         <button wlc-button
+                class="{{$class}}__edit-profile-btn"
                 text="Edit profile"
                 wlcElement="add_info"
                 (click)="editProfile()"></button>
@@ -112,7 +152,7 @@
              [maxAmount]="maxAmount">
         </div>
 
-        <div class="{{$class}}__divider"></div>
+        <div class="{{$class}}__divider {{$class}}__divider--cryptoblock"></div>
     </ng-container>
 
     <ng-container *ngIf="isInvoicePending">
@@ -137,21 +177,23 @@
          [level]="'warning'"
     ></div>
 
-    <div *ngIf="showCryptoInfo('msg1')"
-         class="{{$class}}__fields-error">
-        {{'Before you can proceed with the deposit, you must read and accept the terms.' | translate}}
-    </div>
-
-    <div *ngIf="showCryptoInfo('msg2')"
-         class="{{$class}}__fields">
-        {{'Please click the Deposit button to create your wallet address.' | translate}}
-    </div>
-
-    <div *ngIf="showCryptoInfo('msg3')"
-         class="{{$class}}__message">
-        {{'After you click on the "Deposit" button, the crypto rate will be fixed for 30 minutes.' | translate}}
-        <br>
-        {{'A modal window with the address specified to send the full amount of cryptocurrency will be opened. The full amount will be credited to your balance.' | translate}}
+    <div class="{{$class}}__fields">
+        <div *ngIf="showCryptoInfo('msg1')"
+            wlc-alert
+            [level]="'error'"
+            [title]="'Before you can proceed with the deposit, you must read and accept the terms.' | translate">
+        </div>
+        <div *ngIf="showCryptoInfo('msg2')"
+            wlc-alert
+            [title]="'Please click the Deposit button to create your wallet address.' | translate">
+        </div>
+        <div *ngIf="showCryptoInfo('msg3')" wlc-alert>
+            <span title>
+                {{'After you click on the "Deposit" button, the crypto rate will be fixed for 30 minutes.' | translate}}
+                <br>
+                {{'A modal window with the address specified to send the full amount of cryptocurrency will be opened. The full amount will be credited to your balance.' | translate}}
+            </span>
+        </div>
     </div>
 
     <ng-container *ngIf="isWaitingResponse">

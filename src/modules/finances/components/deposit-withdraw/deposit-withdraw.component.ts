@@ -160,6 +160,7 @@ export class DepositWithdrawComponent
     public steps: Set<Params.IPaymentStep> = new Set();
 
     public useBonuses: boolean = false;
+    public showBonuses: boolean = false;
     public bonusesListParams: IFormWrapperCParams;
     public availableSystems: number[] = [];
     public currentBonus: Bonus;
@@ -177,6 +178,7 @@ export class DepositWithdrawComponent
     protected formObject: UntypedFormGroup;
     protected inProgress: boolean = false;
     protected userService: UserService;
+    protected isMultiWallet: boolean = false;
 
     private prestepAmount: number = 0;
     private isPrestepComplete: boolean = false;
@@ -200,7 +202,6 @@ export class DepositWithdrawComponent
     private isDeposit: boolean;
     private useScroll: boolean = false;
 
-    private isMultiWallet: boolean = false;
     private additionalFieldsConfig: IIndexing<IAdditionalFieldConfig>;
 
     private walletsReady: Promise<void> = new Promise((resolve: () => void): void => {
@@ -234,10 +235,12 @@ export class DepositWithdrawComponent
 
     public override async ngOnInit(): Promise<void> {
         super.ngOnInit();
+
         this.hiddenPaymentInfo = this.configService.get<boolean>('$finances.paymentInfo.hiddenPaymentInfo');
         this.depositInIframe = this.configService.get<boolean>('$base.finances.depositInIframe');
         this.useBonuses = this.configService.get<boolean>('$finances.bonusesInDeposit.use');
         this.isDeposit = this.$params.mode === 'deposit';
+        this.showBonuses = this.useBonuses && this.isDeposit;
         this.additionalFieldsConfig = this.configService.get('$finances.fieldsSettings.additional');
         this.isLastMethodExisting = (this.isDeposit
                 && this.configService.get<boolean>('$finances.lastSucceedDepositMethod.use'))
@@ -253,7 +256,7 @@ export class DepositWithdrawComponent
             };
         }
 
-        if (this.useBonuses && this.isDeposit) {
+        if (this.showBonuses) {
             this.steps.add(Params.PaymentSteps.bonus);
             this.bonusesListParams = {
                 components: [
@@ -264,6 +267,9 @@ export class DepositWithdrawComponent
                 ],
             };
         }
+
+        /** Готовим параметры (пока только для второй темы) */
+        this.prepareParams();
 
         this.steps.add(Params.PaymentSteps.paymentSystem);
         if (!this.hiddenPaymentInfo) {
@@ -306,11 +312,6 @@ export class DepositWithdrawComponent
                     this.cdr.markForCheck();
                 });
         }
-
-        this.timerParams = _merge(
-            _cloneDeep(Params.timerParams),
-            this.$params.timerParams,
-        );
 
         await this.financesService.fetchPaymentSystems(this.selectedWallet?.walletCurrency);
     }
@@ -697,6 +698,15 @@ export class DepositWithdrawComponent
 
     public get dateExpire(): DateTime {
         return DateTime.fromISO((this.currentSystem?.message as IPaymentMessage)?.dateEnd);
+    }
+
+    private prepareParams(): void {
+        this.cryptoListConfig = _merge(this.cryptoListConfig, this.$params.cryptoListParams);
+
+        this.timerParams = _merge(
+            _cloneDeep(Params.timerParams),
+            this.$params.timerParams,
+        );
     }
 
     private async depositAction(

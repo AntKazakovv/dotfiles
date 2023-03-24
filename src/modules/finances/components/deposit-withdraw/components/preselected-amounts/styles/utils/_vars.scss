@@ -2,7 +2,6 @@ $customThemeDefault: () !default;
 $themeDefault: map-merge((
     'amountBtnsFlexWrap': (
         320: wrap,
-        900: nowrap,
     ),
     'amountBtnsGap': (
         320: 0.5rem,

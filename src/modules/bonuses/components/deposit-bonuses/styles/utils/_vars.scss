@@ -69,4 +69,5 @@ $themeDefault: map-merge((
     'btnImageSvgColor': var(--mc-baseMain),
 
     'btnImageSelectedPadding': 4px,
+    'bonusItemShadow': none,
 ), $customThemeDefault);

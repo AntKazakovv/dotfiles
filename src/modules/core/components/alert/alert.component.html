@@ -1,12 +1,14 @@
 <div class="{{$class}}__main" [class.with-text]="!!text">
     <div class="{{$class}}__title">
-        <div wlc-dynamic-html [html]="title"></div>
+        <ng-content select="[title]"></ng-content>
+        <div *ngIf="title" wlc-dynamic-html [html]="title"></div>
     </div>
     <div wlc-icon
         class="{{$class}}__icon"
         [iconPath]="levelIcon"
     ></div>
 </div>
-<div *ngIf="text" class="{{$class}}__text">
-    <div wlc-dynamic-html [html]="text"></div>
+<div class="{{$class}}__text">
+    <ng-content></ng-content>
+    <div *ngIf="text" wlc-dynamic-html [html]="text"></div>
 </div>

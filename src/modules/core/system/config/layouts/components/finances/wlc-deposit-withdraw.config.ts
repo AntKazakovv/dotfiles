@@ -9,6 +9,15 @@ export namespace wlcDepositWithdraw {
         },
     };
 
+    export const depositSecond: ILayoutComponent = {
+        name: 'finances.wlc-deposit-withdraw',
+        params: {
+            mode: 'deposit',
+            wlcElement: 'block_profile-deposit',
+            theme: 'second',
+        },
+    };
+
     export const pigCashierDeposit: ILayoutComponent = {
         name: 'finances.wlc-piq-cashier',
         params: {

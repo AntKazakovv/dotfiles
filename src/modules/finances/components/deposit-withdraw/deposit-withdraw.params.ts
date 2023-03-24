@@ -7,9 +7,10 @@ import {
     ITimerCParams,
 } from 'wlc-engine/modules/core';
 import {IButtonCParams} from 'wlc-engine/modules/core/components/button/button.component';
+import {IPaymentListCParams} from 'wlc-engine/modules/finances/components/payment-list/payment-list.params';
 import {TPaymentsMethods} from 'wlc-engine/modules/finances/system/interfaces';
 
-export type Theme = 'default' | CustomType;
+export type Theme = 'default' | 'second' | CustomType;
 export type Type = 'default' | CustomType;
 export type ThemeMod = 'default' | CustomType;
 
@@ -22,6 +23,8 @@ export interface IDepositWithdrawCParams extends IComponentParams<Theme, Type, T
     };
     /** Params for timer element */
     timerParams?: ITimerCParams;
+    /** Params for CryptoCurrencies list */
+    cryptoListParams?: IPaymentListCParams;
 }
 
 export const defaultParams: IDepositWithdrawCParams = {

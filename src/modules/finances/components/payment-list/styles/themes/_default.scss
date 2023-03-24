@@ -1,15 +1,30 @@
 ::ng-deep .wlc-payment-list--theme-default,
 .wlc-payment-list--theme-default:host {
+    --wlc-alert-margin: #{ef.get-value($themeDefault, 'alertMargin')};
+    @include bm.get-mq-map('--wlc-payment-list-columns', $themeDefault, 'listGridTemplateColumns');
+    @include bm.get-mq-map('--wlc-payment-list-gap', $themeDefault, 'listGridGap');
 
     .wlc-payment-list {
 
         &__ul {
-            @include bm.get-mq-map('grid-template-columns', $themeDefault, 'listGridTemplateColumns');
-            @include bm.get-mq-map('gap', $themeDefault, 'listGridGap');
             display: grid;
+            grid-template-columns: var(--wlc-payment-list-columns);
+            gap: var(--wlc-payment-list-gap);
             margin: ef.get-value($themeDefault, 'listMargin');
             padding: ef.get-value($themeDefault, 'listPadding');
             list-style-type: none;
+        }
+
+        &__list {
+
+            &.scrollable {
+                @include bm.scrollbar($themeDefault);
+
+                max-height: ef.get-value($themeDefault, 'scrollableHeight');
+                margin: ef.get-value($themeDefault, 'scrollableMargin');
+                padding: ef.get-value($themeDefault, 'scrollablePadding');
+                overflow: auto;
+            }
         }
 
         &__item {
@@ -122,7 +137,7 @@
             align-items: center;
             justify-content: ef.get-value($themeDefault, 'btnJustifyContent');
             width: ef.get-value($themeDefault, 'btnWidth');
-            max-width: ef.get-value($themeDefault, 'btnMaxWidth');
+            max-width: var(--wlc-dep-btn-modal-maxwidth, #{ef.get-value($themeDefault, 'btnMaxWidth')});
             height: ef.get-value($themeDefault, 'btnHeight');
             margin: ef.get-value($themeDefault, 'btnMargin');
             padding: ef.get-value($themeDefault, 'btnPadding');
@@ -252,34 +267,6 @@
             left: ef.get-value($themeDefault, 'tooltipLeft');
         }
 
-        &__notification {
-            @include bm.get-mq-map('width', $themeDefault, 'notificationWidth');
-            @include text.get-text-style('PrimaryTextBold', ef.get-value($themeDefault, 'notificationTextColor'));
-            position: relative;
-            padding: ef.get-value($themeDefault, 'notificationPadding');
-            background: ef.get-value($themeDefault, 'notificationBg');
-            border-radius: ef.get-value($themeDefault, 'notificationRadius');
-
-            &-empty-country {
-                margin-bottom: ef.size(4);
-            }
-
-            &-icon {
-                position: absolute;
-                top: 10px;
-                right: 10px;
-                z-index: 1;
-                width: 15px;
-                height: 15px;
-
-                svg {
-                    width: 100%;
-                    transform: rotate(180deg);
-                    fill: ef.get-value($themeDefault, 'notificationIconColor');
-                }
-            }
-        }
-
         &__method {
             @include text.get-text-style(ef.get-value($themeDefault, 'methodTextStyle'), ef.get-value($themeDefault, 'methodTextColor'));
             padding: ef.get-value($themeDefault, 'methodPadding');
@@ -377,6 +364,22 @@
 
             &.active {
                 border-color: ef.get-value($themeDefault, 'tagBtnBorderActive');
+            }
+        }
+
+        &__group {
+            margin: ef.get-value($themeDefault, 'groupMargin');
+
+            &-title {
+                @include text.get-text-style(
+                    ef.get-value($themeDefault, 'groupTitleTextStyle'),
+                    ef.get-value($themeDefault, 'groupTitleColor'),
+                );
+                margin: ef.get-value($themeDefault, 'groupTitleMargin');
+            }
+
+            &:last-child {
+                margin: ef.get-value($themeDefault, 'groupMarginLast');
             }
         }
     }

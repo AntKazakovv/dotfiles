@@ -1,4 +1,6 @@
 .wlc-store-item-info--theme-default:host {
+    --wlc-alert-max-width: #{ef.get-value($themeDefault, 'alertMaxWidth')};
+    --wlc-alert-margin: #{ef.get-value($themeDefault, 'alertMargin')};
 
     .wlc-store-item-info {
 
@@ -23,14 +25,6 @@
         &__multy-wallet {
             display: inline-block;
             margin: ef.get-value($themeDefault, 'multyWalletMargin');
-        }
-    }
-
-    ::ng-deep {
-
-        .wlc-alert {
-            max-width: ef.get-value($themeDefault, 'alertMaxWidth');
-            margin: ef.get-value($themeDefault, 'alertMargin');
         }
     }
 }

@@ -4,6 +4,7 @@ import {
 } from 'wlc-engine/modules/core';
 import {IAbstractIconsListParams} from 'wlc-engine/modules/icon-list/system/classes/icon-list-abstract.class';
 import {TPaymentsMethods} from 'wlc-engine/modules/finances/system/interfaces';
+import {PaymentSystem} from 'wlc-engine/modules/finances/system/models/payment-system.model';
 
 export type Theme = 'default' | 'crypto-list' | CustomType;
 export type Type = 'default' | 'children' | CustomType;
@@ -53,6 +54,12 @@ export interface IPaymentListCParams extends IAbstractIconsListParams<Theme, Typ
     hideModalOnSelect?: boolean;
     chosenMethodText?: string;
     noSelectedButton?: INoSelectedButton;
+}
+
+export interface IPaymentsGroup {
+    tag: string;
+    title: string;
+    systems: PaymentSystem[];
 }
 
 export const defaultParams: IPaymentListCParams = {

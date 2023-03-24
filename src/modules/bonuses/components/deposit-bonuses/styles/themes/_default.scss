@@ -43,7 +43,7 @@
             align-items: center;
             justify-content: ef.get-value($themeDefault, 'btnJustifyContent');
             width: ef.get-value($themeDefault, 'btnWidth');
-            max-width: ef.get-value($themeDefault, 'btnMaxWidth');
+            max-width: var(--wlc-dep-btn-modal-maxwidth, #{ef.get-value($themeDefault, 'btnMaxWidth')});
             height: auto;
             min-height: ef.get-value($themeDefault, 'btnMinHeight');
             margin: ef.get-value($themeDefault, 'btnMargin');
@@ -121,6 +121,16 @@
                         display: flex;
                         align-items: center;
                         justify-content: center;
+                    }
+                }
+            }
+
+            ::ng-deep {
+
+                .wlc-bonus-item--theme-mini {
+
+                    .wlc-bonus-item__wrapper {
+                        box-shadow: ef.get-value($themeDefault, 'bonusItemShadow');
                     }
                 }
             }

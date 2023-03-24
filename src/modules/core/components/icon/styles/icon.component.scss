@@ -4,7 +4,8 @@
 
 .wlc-icon {
 
-    svg {
+    svg,
+    img {
         width: var(--wlc-icon-width);
         height: var(--wlc-icon-height);
         overflow: visible;
