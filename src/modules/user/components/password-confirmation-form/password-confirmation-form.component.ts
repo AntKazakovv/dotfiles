@@ -33,7 +33,7 @@ export class PasswordConfirmationFormComponent extends AbstractComponent impleme
     @Input() protected inlineParams!: Params.IPasswordConfirmationFormCParams;
 
     public $params!: Params.IPasswordConfirmationFormCParams;
-    public config: IFormWrapperCParams = this.$params.formConfig;
+    public config!: IFormWrapperCParams;
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IPasswordConfirmationFormCParams,
@@ -48,6 +48,8 @@ export class PasswordConfirmationFormComponent extends AbstractComponent impleme
 
     public ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
+
+        this.config = this.$params.formConfig;
     }
 
     /**

@@ -66,6 +66,7 @@ export class EmailFieldComponent extends AbstractComponent implements OnInit {
 
                 if (!profile.email) {
                     this.setModifiers('no-mail');
+                    this.emailControl.enable();
                 }
 
                 if (!this.isVerified && profile.email) {
@@ -73,7 +74,6 @@ export class EmailFieldComponent extends AbstractComponent implements OnInit {
                     this.verificationBtn = true;
                     this.isExisted = true;
                 } else {
-                    this.emailControl.enable();
                     this.verificationBtn = false;
                 }
             }));
