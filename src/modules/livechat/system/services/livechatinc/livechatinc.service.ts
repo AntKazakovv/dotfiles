@@ -151,6 +151,8 @@ export class LivechatincService extends LivechatAbstract<ILivechatIncConfig> {
         ) {
             const userInfo$ = this.configService.get<BehaviorSubject<UserInfo>>({name: '$user.userInfo$'});
             this.userInfo = userInfo$.value ?? await firstValueFrom(userInfo$.pipe(first((v) => !!v)));
+            const userProfile$ = this.configService.get<BehaviorSubject<UserProfile>>('$user.userProfile$');
+            this.profile = userProfile$.value ?? await firstValueFrom(userProfile$.pipe(first((v) => !!v)));
         }
         this.initialize();
     }
@@ -182,16 +184,6 @@ export class LivechatincService extends LivechatAbstract<ILivechatIncConfig> {
             if (this.options.assignUsersByGroup) {
                 this.window.__lc.group = await this.checkSettingsUserGroup();
             }
-
-            if (this.options.openChatOnContactUs) {
-                this.eventService.subscribe({
-                    name: 'OPEN_LIVECHAT',
-                }, () => {
-                    if (this.window.LiveChatWidget) {
-                        this.openChat();
-                    }
-                });
-            }
         } else {
 
             if (this.options.assignUsersByGroup) {
@@ -203,6 +195,16 @@ export class LivechatincService extends LivechatAbstract<ILivechatIncConfig> {
             ], () => {
                 this.destroyWidget();
                 this.initChat();
+            });
+        }
+
+        if (this.options.openChatOnContactUs) {
+            this.eventService.subscribe({
+                name: 'OPEN_LIVECHAT',
+            }, () => {
+                if (this.window.LiveChatWidget) {
+                    this.openChat();
+                }
             });
         }
 
@@ -237,6 +239,13 @@ export class LivechatincService extends LivechatAbstract<ILivechatIncConfig> {
             if (this.options.setUserDetails && this.firstInit) {
                 this.setHandlers();
                 this.firstInit = false;
+            }
+
+            if (this.options.openChatOnContactUs
+                && this.router.globals.current.name === 'app.contacts'
+                && this.window.LiveChatWidget
+            ) {
+                this.openChat();
             }
         };
 
@@ -352,11 +361,11 @@ export class LivechatincService extends LivechatAbstract<ILivechatIncConfig> {
         const prodLink = this.options.fundistProdLink || 'fundist.org';
         switch (this.window.WLC_ENV) {
             case 'dev' || 'qa':
-                return 'https://qa.fundist.org/en/Users/Summary/';
+                return 'https://qa.fundist.org/Users/Summary/';
             case 'test':
-                return 'https://test.fundist.org/en/Users/Summary/';
+                return 'https://test.fundist.org/Users/Summary/';
             default:
-                return `https://${prodLink}/en/Users/Summary/`;
+                return `https://${prodLink}/Users/Summary/`;
         }
     }
 
