@@ -4,6 +4,7 @@ import {
     OnInit,
 } from '@angular/core';
 import {StateService} from '@uirouter/core';
+import {TranslateService} from '@ngx-translate/core';
 
 import _some from 'lodash-es/some';
 
@@ -52,6 +53,7 @@ export class SignInFormComponent extends SignInFormAbstract<Params.ISignInFormCP
         protected modalService: ModalService,
         protected userService: UserService,
         protected stateService: StateService,
+        translateService: TranslateService,
     ) {
         super(
             <IMixedParams<Params.ISignInFormCParams>>{
@@ -63,6 +65,7 @@ export class SignInFormComponent extends SignInFormAbstract<Params.ISignInFormCP
             modalService,
             eventService,
             stateService,
+            translateService,
             configService,
         );
     }

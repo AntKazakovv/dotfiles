@@ -64,6 +64,7 @@ export class PlayGameForRealComponent extends SignInFormAbstract<Params.IPlayGam
             modalService,
             eventService,
             stateService,
+            translateService,
             configService,
         );
 

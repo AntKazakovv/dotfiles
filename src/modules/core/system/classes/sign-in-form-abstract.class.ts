@@ -1,6 +1,7 @@
 import {Directive} from '@angular/core';
 import {FormGroup} from '@angular/forms';
 import {StateService} from '@uirouter/core';
+import {TranslateService} from '@ngx-translate/core';
 
 import {BehaviorSubject} from 'rxjs';
 import _isObject from 'lodash-es/isObject';
@@ -79,6 +80,7 @@ export abstract class SignInFormAbstract<T extends IAbstractSignInFormCParams<un
         protected modalService: ModalService,
         protected eventService: EventService,
         protected stateService: StateService,
+        protected translateService: TranslateService,
         protected configService?: ConfigService,
     ) {
         super(mixedParams, configService);
@@ -89,8 +91,8 @@ export abstract class SignInFormAbstract<T extends IAbstractSignInFormCParams<un
             const captcha = form.controls.captcha;
 
             if (!captcha.value.match(/^[\dA-z]+$/gi)) {
-                this.errors$.next({captcha: this.$params.captchaErrorText});
-                this.notificationLoginError(this.$params.captchaErrorText);
+                this.errors$.next({captcha: this.translateService.instant(this.$params.captchaErrorText)});
+                this.notificationLoginError(this.translateService.instant(this.$params.captchaErrorText));
 
                 return false;
             }
@@ -123,6 +125,7 @@ export abstract class SignInFormAbstract<T extends IAbstractSignInFormCParams<un
 
             if (errors?.captcha) {
                 errorMessage = captcha ? this.$params.captchaErrorText : this.$params.captchaCreatingText;
+                errorMessage = this.translateService.instant(errorMessage);
                 await this.onCaptchaError(errors.captcha);
             } else if (error.code === 418) {
                 this.modalService.showModal('deviceRegistration', {login: email || login, password: password});
@@ -135,7 +138,10 @@ export abstract class SignInFormAbstract<T extends IAbstractSignInFormCParams<un
             this.notificationLoginError(errorMessage);
 
             if (_isObject(errors)) {
-                this.errors$.next(errors.captcha ? {captcha: this.$params.captchaErrorText} : errors);
+                this.errors$.next(errors.captcha
+                    ? {captcha: this.translateService.instant(this.$params.captchaErrorText)}
+                    : errors,
+                );
             }
 
             return false;
