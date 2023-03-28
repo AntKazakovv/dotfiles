@@ -69,8 +69,8 @@ export const loyaltyTableHeadConfig: ITableCol[] = [
         order: 50,
         wlcElement: 'wlc-profile-table__cell_points',
         description: gettext(
-            `These are experience points that must be gained over a thirty-day period in order to stay at 
-            the current level. If this does not happen, the level will be lowered to the previous one.`),
+            'These are experience points that must be gained over a thirty-day period in order to stay at ' +
+            'the current level. If this does not happen, the level will be lowered to the previous one.'),
     },
     {
         key: 'coef',
