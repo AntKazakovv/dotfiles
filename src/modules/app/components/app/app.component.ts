@@ -108,7 +108,7 @@ export class AppComponent extends AbstractComponent implements OnInit, AfterView
 
     private testViewPort = false;
     private isIOS: boolean = false;
-    private additionalHostClass = [];
+    private additionalHostClass: string[] = [];
     private allSections: SectionModel[] = [];
     private resize$: Subscription;
     private auth$: Subscription;
@@ -175,7 +175,7 @@ export class AppComponent extends AbstractComponent implements OnInit, AfterView
             .getAllSection('pages', this.uiRouter.current.name, this.uiRouter.params), 'order');
         this.sections = this.layoutService.filterDisplayElements(this.allSections);
 
-        let filteredPanels = [];
+        let filteredPanels: SectionModel[] = [];
         if (!this.configService.get<boolean>('isPanelsFiltered')) {
             const deferred = new Deferred();
             const handler = this.eventService.subscribe({name: 'FILTER_PANELS'}, (data: SectionModel[]) => {
