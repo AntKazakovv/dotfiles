@@ -134,6 +134,7 @@ export class TournamentHistory extends AbstractModel<ITournamentHistory> {
 
     public getTopArray(result: ITopTournamentUsers): ITournamentPlace[] {
         const topWin = result?.results || [];
+        const isBestWinToBetRatio: boolean = this.winnerBy === 'max_app_winbet_ratio';
 
         if (result?.user && (_toNumber(result.user.Place) > topWin.length || !result.user.Place)) {
             topWin.push({
@@ -152,6 +153,11 @@ export class TournamentHistory extends AbstractModel<ITournamentHistory> {
 
         _each(topWin, (item: ITournamentPlace) => {
             item.points = _toNumber(item.Points);
+
+            if (isBestWinToBetRatio) {
+                item.delta = Math.abs(this.winToBetRatio - _toNumber(item.BestWinToBetRatio));
+            }
+
             if (!item.UserLogin?.length) {
                 item.UserLogin = this.getUserLogin(item);
             }
