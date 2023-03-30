@@ -1,5 +1,20 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
-import {AppModule} from 'wlc-engine/modules/app/app.module';
+import {
+    ComponentFixture,
+    TestBed,
+} from '@angular/core/testing';
+import {TranslatePipe} from '@ngx-translate/core';
+import {StateService} from '@uirouter/core';
+import {
+    MockComponent,
+    MockPipe,
+    MockService,
+} from 'ng-mocks';
+
+import {WINDOW_PROVIDER} from 'wlc-engine/modules/app/system';
+import {IconComponent} from 'wlc-engine/modules/core/components/icon/icon.component';
+import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
+import {EventService} from 'wlc-engine/modules/core/system/services/event/event.service';
+
 import {ButtonComponent} from './button.component';
 import {defaultParams} from './button.params';
 
@@ -20,12 +35,30 @@ describe('ButtonComponent', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [AppModule],
-            declarations: [ButtonComponent],
-            providers: [{
-                provide: 'injectParams',
-                useValue: injectParams,
-            }],
+            declarations: [
+                ButtonComponent,
+                MockComponent(IconComponent),
+                MockPipe(TranslatePipe, value => value),
+            ],
+            providers: [
+                WINDOW_PROVIDER,
+                {
+                    provide: 'injectParams',
+                    useValue: injectParams,
+                },
+                {
+                    provide: ConfigService,
+                    useValue: MockService(ConfigService),
+                },
+                {
+                    provide: StateService,
+                    useValue: MockService(StateService),
+                },
+                {
+                    provide: EventService,
+                    useValue: MockService(EventService),
+                },
+            ],
         }).compileComponents();
 
         fixture = TestBed.createComponent(ButtonComponent);
