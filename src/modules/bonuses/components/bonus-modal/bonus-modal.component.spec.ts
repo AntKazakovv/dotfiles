@@ -1,10 +1,18 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
-import {NO_ERRORS_SCHEMA} from '@angular/core';
+import {
+    ComponentFixture,
+    TestBed,
+} from '@angular/core/testing';
+import {MockComponent} from 'ng-mocks';
 
-import {AppModule} from 'wlc-engine/modules/app/app.module';
+import {BonusButtonsComponent} from 'wlc-engine/modules/bonuses/components/bonus-buttons/bonus-buttons.component';
+import {BonusItemComponent} from 'wlc-engine/modules/bonuses/components/bonus-item/bonus-item.component';
 import {Bonus} from 'wlc-engine/modules/bonuses/system/models/bonus/bonus';
+import {DynamicHtmlComponent} from 'wlc-engine/modules/compiler';
+import {ConfigService} from 'wlc-engine/modules/core';
+import {AccordionComponent} from 'wlc-engine/modules/core/components/accordion/accordion.component';
 
 import {BonusModalComponent} from './bonus-modal.component';
+
 import * as Params from './bonus-modal.params';
 
 describe('BonusModalComponent', () => {
@@ -13,9 +21,12 @@ describe('BonusModalComponent', () => {
     let nativeElement: HTMLElement;
     let bonusSpy: jasmine.SpyObj<Bonus>;
     let injectParams: Params.IBonusModalCParams;
+    let configServiceSpy: jasmine.SpyObj<ConfigService>;
     let defaultParams: Params.IBonusModalCParams = Params.defaultParams;
 
     beforeEach(() => {
+        configServiceSpy = jasmine.createSpyObj('ConfigService', ['get']);
+
         bonusSpy = jasmine.createSpyObj<Bonus>('bonus', [], {
             'viewTarget': 'relative',
             'value': 100,
@@ -34,12 +45,20 @@ describe('BonusModalComponent', () => {
             bonus: bonusSpy,
         };
         TestBed.configureTestingModule({
-            imports: [AppModule],
-            declarations: [BonusModalComponent],
+            declarations: [
+                BonusModalComponent,
+                MockComponent(AccordionComponent),
+                MockComponent(DynamicHtmlComponent),
+                MockComponent(BonusButtonsComponent),
+                MockComponent(BonusItemComponent),
+            ],
             providers: [
+                {
+                    provide: ConfigService,
+                    useValue: configServiceSpy,
+                },
                 {provide: 'injectParams', useValue: injectParams},
             ],
-            schemas: [NO_ERRORS_SCHEMA],
         }).compileComponents();
 
         fixture = TestBed.createComponent(BonusModalComponent);
