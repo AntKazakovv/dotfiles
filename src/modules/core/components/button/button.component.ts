@@ -71,7 +71,6 @@ export class ButtonComponent extends AbstractComponent implements OnInit,
     @Input() public href: string;
     @Input() public sref: string;
     @Input() public srefParams: RawParams;
-    @Input() public disabled: boolean = false;
     // This prop is used by 'loading' themeMod
     @Input() public loadingValue?: number;
 
