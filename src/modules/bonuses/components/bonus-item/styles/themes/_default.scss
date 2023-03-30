@@ -78,6 +78,10 @@
             z-index: 1;
             line-height: 1;
 
+            .wlc-icon-content {
+                display: flex;
+            }
+
             .icon-btn {
                 width: ef.get-value($themeDefault, 'moreIconSize');
                 height: ef.get-value($themeDefault, 'moreIconSize');
