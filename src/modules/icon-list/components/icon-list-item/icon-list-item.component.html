@@ -4,7 +4,7 @@
         [uiSref]="icon.sref"
         [uiParams]="icon.srefParams"
         [attr.target]="icon.target"
-        [attr.title]="icon.title">
+        attr.title="{{icon.title | translate}} {{icon.alt}}">
         <ng-container
             [ngTemplateOutlet]="itemTemplate"
             [ngTemplateOutletContext]="{item: icon}">

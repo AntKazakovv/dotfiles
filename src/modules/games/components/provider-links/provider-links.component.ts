@@ -140,7 +140,7 @@ export class ProviderLinksComponent extends IconListAbstract<Params.IProviderLin
                         wlcElement: item.wlcElement,
                         nameForPath: item.alias,
                         alt: item.alias,
-                        title: gettext('See all games of') + ' ' + item.alias,
+                        title: gettext('See all games of'),
                         sref: this.$params.defaultLinkSref,
                         srefParams: {provider: item.menuId},
                         colorIconBg: colorIconBg,
