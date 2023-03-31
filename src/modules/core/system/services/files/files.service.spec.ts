@@ -1,19 +1,35 @@
 import {TestBed} from '@angular/core/testing';
-import {HttpClientTestingModule} from '@angular/common/http/testing';
-import {AppModule} from 'wlc-engine/modules/app/app.module';
-import {localFiles} from 'wlc-engine/modules/core/system/config/files.config';
-import {FilesService} from './files.service';
+import {HttpClient} from '@angular/common/http';
+import {MockService} from 'ng-mocks';
 
 import _keys from 'lodash-es/keys';
 import _each from 'lodash-es/each';
+
+import {localFiles} from 'wlc-engine/modules/core/system/config/files.config';
+import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
+import {LogService} from 'wlc-engine/modules/core/system/services/log/log.service';
+import {FilesService} from './files.service';
 
 describe('FilesService', () => {
     let filesService: FilesService;
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [AppModule, HttpClientTestingModule],
-            providers: [FilesService],
+            providers: [
+                FilesService,
+                {
+                    provide: ConfigService,
+                    useValue: MockService(ConfigService),
+                },
+                {
+                    provide: LogService,
+                    useValue: MockService(LogService),
+                },
+                {
+                    provide: HttpClient,
+                    useValue: MockService(HttpClient),
+                },
+            ],
         });
 
         filesService = TestBed.inject(FilesService);
