@@ -352,11 +352,18 @@ export class Bonus extends AbstractModel<IBonus> {
     public get imageDeposit(): string {
         return GlobalHelper.proxyUrl(this.data.Image_deposit || Bonus.bonusesConfig.defaultImages?.imageDeposit);
     }
-
+    /**
+     * Whether the bonus is in the player's inventory
+     * @returns {boolean}
+     */
     public get inventoried(): boolean {
         return !!this.data.Inventoried;
     }
 
+    /**
+     * The flag indicates whether the bonus will go into inventory when activated. Lootbox bonus is always true.
+     * @returns {boolean}
+     */
     public get isInventory(): boolean {
         return !!_toNumber(this.data.IsInventory);
     }

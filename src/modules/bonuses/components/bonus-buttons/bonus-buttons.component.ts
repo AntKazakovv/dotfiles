@@ -96,6 +96,15 @@ export class BonusButtonsComponent extends AbstractComponent implements OnInit {
     }
 
     /**
+     * Determines show or not the deposit button in template
+     *
+     * @returns {boolean}
+     */
+    public get isShowDepositBtn(): boolean {
+        return this.bonus.canUnsubscribe && this.bonus.isDeposit && !this.bonus.inventoried;
+    }
+
+    /**
      * Get inventory bonus
      */
     public async getInventory(): Promise<void> {

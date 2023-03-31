@@ -192,6 +192,7 @@ describe('BonusButtonsComponent', () => {
     it('-> checking for the presence of an actionDepositBtn', () => {
         resetProp('canUnsubscribe', true);
         resetProp('isDeposit', true);
+        resetProp('inventoried', false);
         component.ngOnInit();
         component.$params.useActionButtons = true;
         component.bonusItemTheme = 'promo';

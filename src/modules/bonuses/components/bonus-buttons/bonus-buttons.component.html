@@ -115,7 +115,7 @@
 </ng-template>
 
 <ng-template #actionDepositBtn>
-    <button *ngIf="bonus.canUnsubscribe && bonus.isDeposit"
+    <button *ngIf="isShowDepositBtn"
             wlc-button
             text="Deposit"
             typeAttr="button"
