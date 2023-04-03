@@ -550,7 +550,7 @@ export class BonusesListComponent extends AbstractComponent implements OnInit, O
     }
 
     public bonusBg(block: string): string {
-        let imageUrl : string;
+        let imageUrl: string;
         const defaultImg = this.configService.get<string>('$bonuses.defaultImages.imageProfileFirst');
 
         if (block === 'noActive') {

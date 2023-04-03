@@ -214,6 +214,11 @@ export namespace wlcBonusesList {
                             spaceBetween: 10,
                             followFinger: false,
                         },
+                        900: {
+                            slidesPerView: 2,
+                            spaceBetween: 15,
+                            followFinger: true,
+                        },
                         1024: {
                             slidesPerView: 3,
                             spaceBetween: 15,
@@ -235,7 +240,7 @@ export namespace wlcBonusesList {
     export const dashboardWithEars: ILayoutComponent = {
         name: 'bonuses.wlc-bonuses-list',
         display: {
-            before: 1023,
+            before: 899,
         },
         params: <IBonusesListCParams>{
             type: 'swiper',
@@ -246,54 +251,36 @@ export namespace wlcBonusesList {
                 useQuery: true,
                 sortOrder: ['active', 'subscribe', 'inventory'],
                 swiper: {
-                    slidesPerView: 2,
-                    spaceBetween: 20,
+                    slidesPerView: 'auto',
+                    spaceBetween: 15,
                     loop: false,
                     observer: true,
                     observeSlideChildren: true,
                     breakpoints: {
                         320: {
-                            slidesPerView: 1.1,
                             spaceBetween: 10,
                             followFinger: false,
+                            slidesPerView: 'auto',
                         },
                         480: {
-                            slidesPerView: 1.4,
                             spaceBetween: 10,
                             followFinger: false,
+                            slidesPerView: 'auto',
                         },
                         560: {
-                            slidesPerView: 1.6,
                             spaceBetween: 10,
                             followFinger: false,
+                            slidesPerView: 'auto',
                         },
                         640: {
-                            slidesPerView: 2.1,
                             spaceBetween: 10,
                             followFinger: false,
+                            slidesPerView: 'auto',
                         },
                         768: {
-                            slidesPerView: 2.3,
                             spaceBetween: 10,
                             followFinger: false,
-                        },
-                        900: {
-                            slidesPerView: 2.7,
-                            spaceBetween: 10,
-                            followFinger: false,
-                        },
-                        1024: {
-                            slidesPerView: 2.9,
-                            spaceBetween: 15,
-                            followFinger: true,
-                        },
-                        1366: {
-                            slidesPerView: 2.1,
-                            spaceBetween: 15,
-                        },
-                        1630: {
-                            slidesPerView: 1.9,
-                            spaceBetween: 20,
+                            slidesPerView: 'auto',
                         },
                     },
                 },
@@ -303,7 +290,7 @@ export namespace wlcBonusesList {
     export const dashboardDefaultOnDesktop: ILayoutComponent = {
         ...dashboard,
         display: {
-            after: 1024,
+            after: 900,
         },
     };
 

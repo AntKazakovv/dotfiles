@@ -2,18 +2,11 @@ import {
     ComponentFixture,
     TestBed,
 } from '@angular/core/testing';
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {TranslatePipe} from '@ngx-translate/core';
 
-import {
-    MockComponent,
-    MockPipe,
-} from 'ng-mocks';
 import _each from 'lodash-es/each';
 import _trim from 'lodash-es/trim';
 
-import {HeightToggleAnimation} from 'wlc-engine/modules/core/system/animations/height-toggle.animation';
-import {IconComponent} from 'wlc-engine/modules/core/components/icon/icon.component';
+import {AppModule} from 'wlc-engine/modules/app/app.module';
 import {AccordionComponent} from './accordion.component';
 import {
     IAccordionCParams,
@@ -57,22 +50,12 @@ describe('AccordionComponent', (): void => {
 
     beforeEach((): void => {
         TestBed.configureTestingModule({
-            imports: [
-                BrowserAnimationsModule,
-            ],
-            declarations: [
-                AccordionComponent,
-                MockPipe(TranslatePipe, value => value),
-                MockComponent(IconComponent),
-            ],
+            imports: [AppModule],
+            declarations: [AccordionComponent],
             providers: [{
                 provide: 'injectParams',
                 useValue: injectParams,
             }],
-        }).overrideComponent(AccordionComponent, {
-            set: {
-                animations: [HeightToggleAnimation],
-            },
         }).compileComponents();
 
         fixture = TestBed.createComponent(AccordionComponent);
@@ -97,6 +80,13 @@ describe('AccordionComponent', (): void => {
         expect(classes.includes(`${defaultParams.class}--type-${injectParams.type}`)).toBeTrue();
     });
 
+    it('-> checking for svg presence', (): void => {
+        const icon = nativeElement.querySelector('[wlc-icon]');
+
+        expect(icon).toEqual(jasmine.anything());
+        expect(icon.getAttribute('ng-reflect-icon-path')).toEqual(injectParams.titleIconPath);
+    });
+
     it('-> checking for title', (): void => {
         expect(nativeElement.querySelector(`.${defaultParams.class}__header-title`).textContent)
             .toEqual(injectParams.title);
@@ -115,6 +105,9 @@ describe('AccordionComponent', (): void => {
             _each(contentItems, (contentItem: Element, contentItemIndex: number): void => {
                 expect(_trim(contentItem.textContent)).toEqual(injectParams.items[index].content[contentItemIndex]);
             });
+
+            expect(item.querySelector(`.${defaultParams.class}__title-icon`).getAttribute('ng-reflect-icon-path'))
+                .toEqual(injectParams.titleIconPath);
         });
     });
 
