@@ -27,6 +27,10 @@ import {WINDOW} from 'wlc-engine/modules/app/system';
 @Directive({
     selector: '[wlc-clamp]',
 })
+/**
+ * @deprecated
+ * Will be removed
+ */
 export class ClampDirective implements OnInit, AfterViewInit, OnDestroy {
     @Input('wlc-clamp') lines: number;
     private readonly $destroy: Subject<void> = new Subject();

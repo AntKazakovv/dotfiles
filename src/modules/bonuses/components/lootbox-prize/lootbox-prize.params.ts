@@ -14,6 +14,10 @@ export interface ILootboxPrizeCParams extends IComponentParams<Theme, Type, Them
     /** Icon path */
     iconPath?: string;
     /** Name line clamp */
+    /**
+     * @deprecated
+     * Will be removed
+     */
     nameClamp?: number;
 }
 
@@ -22,5 +26,4 @@ export const defaultParams: Partial<ILootboxPrizeCParams> = {
     componentName: 'wlc-lootbox-prize',
     class: 'wlc-lootbox-prize',
     iconPath: '/bonuses/icons/lootbox.svg',
-    nameClamp: 2,
 };

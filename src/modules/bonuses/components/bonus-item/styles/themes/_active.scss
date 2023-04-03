@@ -91,6 +91,7 @@
         &__name {
             @include text.get-text-style(ef.get-value($themeActive, 'nameTextStyle', 375), ef.get-value($themeActive, 'nameColor'));
             @include bm.get-mq-map('line-height', $themeActive, 'nameLine');
+            @include bm.lineClamp();
             margin: ef.get-value($themeActive, 'nameMargin');
 
             @include mq.min(560) {

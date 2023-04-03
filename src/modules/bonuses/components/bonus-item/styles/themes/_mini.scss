@@ -86,6 +86,7 @@
 
         &__name {
             @include text.get-text-style(ef.get-value($themeMini, 'nameFontStyle'), ef.get-value($themeMini, 'nameFontColor'));
+            @include bm.lineClamp();
             text-align: ef.get-value($themeMini, 'nameTextAlign');
         }
 

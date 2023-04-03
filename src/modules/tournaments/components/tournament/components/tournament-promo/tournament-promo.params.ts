@@ -22,6 +22,10 @@ export interface ITournamentPromoCParams extends IComponentParams<ComponentTheme
     type?: ComponentType;
     tournament?: Tournament;
     parentInstance?: TournamentComponent;
+    /**
+     * @deprecated
+     * Will be removed
+     */
     descriptionClamp?: number,
     common?: {
         tournament?: Tournament;
@@ -50,7 +54,6 @@ export const defaultParams: ITournamentPromoCParams = {
     moduleName: 'tournaments',
     class: 'wlc-tournament-promo',
     componentName: 'wlc-tournament-promo',
-    descriptionClamp: 3,
     common: {
         timerTextAfterStart: gettext('Time remaining'),
         timerTextBeforeStart: gettext('Coming soon'),

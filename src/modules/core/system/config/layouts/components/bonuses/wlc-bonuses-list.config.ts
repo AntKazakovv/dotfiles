@@ -115,7 +115,6 @@ export namespace wlcBonusesList {
                     themeMod: 'active',
                     useIconBonusImage: false,
                     showAdditionalImage: true,
-                    descriptionClamp: 3,
                 },
             },
         },
@@ -143,7 +142,6 @@ export namespace wlcBonusesList {
                     themeMod: 'active',
                     useIconBonusImage: false,
                     showAdditionalImage: true,
-                    descriptionClamp: 3,
                 },
             },
             useBtnScroll: true,
@@ -324,11 +322,6 @@ export namespace wlcBonusesList {
                             followFinger: true,
                         },
                     },
-                },
-            },
-            itemsParams: {
-                common: {
-                    nameClamp: 2,
                 },
             },
         },

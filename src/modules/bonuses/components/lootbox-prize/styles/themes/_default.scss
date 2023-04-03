@@ -30,26 +30,20 @@
         }
 
         &__name {
+            @include bm.lineClamp(2);
             @include bm.get-mq-map('height', $themeDefault, 'nameHeight');
             @include bm.get-mq-map('padding', $themeDefault, 'namePadding');
-
             @include text.get-text-style(
                 ef.get-value($themeDefault, 'nameTextStyle', 320),
                 ef.get-value($themeDefault, 'nameFontColor'),
             );
             @include bm.get-mq-map('font-size', $themeDefault, 'nameFontSize');
-
             position: relative;
-            display: flex;
-            flex-direction: ef.get-value($themeDefault, 'nameDirection');
-            align-items: ef.get-value($themeDefault, 'nameAlignItems');
             margin: ef.get-value($themeDefault, 'nameMargin');
             text-align: ef.get-value($themeDefault, 'nameTextAlign');
-
             @include mq.min(480) {
                 @include text.get-text-style(ef.get-value($themeDefault, 'nameTextStyle', 480), null);
             }
-
             @include mq.min(640) {
                 @include text.get-text-style(ef.get-value($themeDefault, 'nameTextStyle', 640), null);
             }

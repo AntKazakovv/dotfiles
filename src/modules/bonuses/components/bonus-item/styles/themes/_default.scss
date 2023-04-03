@@ -16,6 +16,7 @@
         }
 
         &__name {
+            @include bm.lineClamp();
             z-index: 1;
         }
 

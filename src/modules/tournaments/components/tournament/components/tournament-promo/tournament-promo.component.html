@@ -17,7 +17,7 @@
                     >{{tournament.tag | translate}}</span>
                 </div>
                 <h3 class="{{$class}}__title">{{tournament.name}}</h3>
-                <div class="{{$class}}__description" [wlc-clamp]="$params.descriptionClamp">
+                <div class="{{$class}}__description">
                     <div [innerHtml]="tournament.descriptionSafeHTML | safeHtml"></div>
                 </div>
             </div>
@@ -101,7 +101,7 @@
                     >{{tournament.tag | translate}}</span>
                 </div>
                 <h3 class="{{$class}}__title">{{tournament.name}}</h3>
-                <div class="{{$class}}__description" [wlc-clamp]="$params.descriptionClamp">
+                <div class="{{$class}}__description">
                     {{tournament.descriptionClean}}
                 </div>
             </div>
