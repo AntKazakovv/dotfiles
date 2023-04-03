@@ -1,9 +1,21 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import {
+    ComponentFixture,
+    TestBed,
+} from '@angular/core/testing';
 
-import {AppModule} from 'wlc-engine/modules/app/app.module';
+import {MockComponent} from 'ng-mocks';
+import {UIRouter} from '@uirouter/core';
+
 import {Bonus} from 'wlc-engine/modules/bonuses/system/models/bonus/bonus';
+import {BonusButtonsComponent} from 'wlc-engine/modules/bonuses/components/bonus-buttons/bonus-buttons.component';
+import {
+    ConfigService,
+    EventService,
+    ModalService,
+} from 'wlc-engine/modules/core';
+import {BonusesService} from 'wlc-engine/modules/bonuses/system/services/bonuses/bonuses.service';
+import {ButtonComponent} from 'wlc-engine/modules/core/components/button/button.component';
 
-import {BonusButtonsComponent} from './bonus-buttons.component';
 import * as Params from './bonus-buttons.params';
 
 describe('BonusButtonsComponent', () => {
@@ -13,6 +25,11 @@ describe('BonusButtonsComponent', () => {
     let bonusSpy: jasmine.SpyObj<Bonus>;
     let injectParams: Params.IBonusButtonsCParams;
     let defaultParams: Params.IBonusButtonsCParams = Params.defaultParams;
+    let configServiceSpy: jasmine.SpyObj<ConfigService>;
+    let eventServiceSpy: jasmine.SpyObj<EventService>;
+    let modalServiceSpy: jasmine.SpyObj<ModalService>;
+    let bonusesServiceSpy: jasmine.SpyObj<BonusesService>;
+    let routerSpy: jasmine.SpyObj<UIRouter>;
 
     function resetProp(prop: string, value: boolean): void {
         (Object.getOwnPropertyDescriptor(bonusSpy, prop)?.get as jasmine.Spy).and.returnValue(value);
@@ -43,11 +60,58 @@ describe('BonusButtonsComponent', () => {
                 cancelBtnParams: {},
             },
         };
+        configServiceSpy = jasmine.createSpyObj(
+            'ConfigService',
+            ['get'],
+            {ready: Promise.resolve()},
+        );
+        eventServiceSpy = jasmine.createSpyObj(
+            'EventService',
+            ['emit', 'subscribe'],
+        );
+        modalServiceSpy = jasmine.createSpyObj(
+            'ModalService',
+            ['showModal', 'getActiveModal', 'hideModal'],
+        );
+        bonusesServiceSpy = jasmine.createSpyObj(
+            'BonusesService',
+            [
+                'takeInventory',
+                'subscribeBonus',
+                'clearPromoBonus',
+                'cancelBonus',
+                'unsubscribeBonus',
+                'filterBonuses',
+            ],
+        );
+
         TestBed.configureTestingModule({
-            imports: [AppModule],
-            declarations: [BonusButtonsComponent],
+            declarations: [BonusButtonsComponent, MockComponent(ButtonComponent)],
             providers: [
-                {provide: 'injectParams', useValue: injectParams},
+                {
+                    provide: 'injectParams',
+                    useValue: injectParams,
+                },
+                {
+                    provide: ConfigService,
+                    useValue: configServiceSpy,
+                },
+                {
+                    provide: EventService,
+                    useValue: eventServiceSpy,
+                },
+                {
+                    provide: ModalService,
+                    useValue: modalServiceSpy,
+                },
+                {
+                    provide: BonusesService,
+                    useValue: bonusesServiceSpy,
+                },
+                {
+                    provide: UIRouter,
+                    useValue: routerSpy,
+                },
             ],
         }).compileComponents();
 
@@ -81,7 +145,7 @@ describe('BonusButtonsComponent', () => {
         component.isAuth = true;
         fixture.detectChanges();
 
-        expect(nativeElement.querySelector('button[data-wlc-element="button_subscribe"]')).toBeTruthy();
+        expect(nativeElement.querySelector('button[wlcelement="button_subscribe"]')).toBeTruthy();
     });
 
     it('-> checking for the presence of an inventoriedBtn', () => {
@@ -101,7 +165,7 @@ describe('BonusButtonsComponent', () => {
         component.isAuth = true;
         fixture.detectChanges();
 
-        expect(nativeElement.querySelector('button[data-wlc-element="button_unsubscribe"]')).toBeTruthy();
+        expect(nativeElement.querySelector('button[wlcelement="button_unsubscribe"]')).toBeTruthy();
     });
 
     it('-> checking for the presence of an leaveBtn', () => {
@@ -111,7 +175,7 @@ describe('BonusButtonsComponent', () => {
         component.isAuth = true;
         fixture.detectChanges();
 
-        expect(nativeElement.querySelector('button[data-wlc-element="button_cancel"]')).toBeTruthy();
+        expect(nativeElement.querySelector('button[wlcelement="button_leave"]')).toBeTruthy();
     });
 
     it('-> checking for the presence of an chooseBonusBtn', () => {
