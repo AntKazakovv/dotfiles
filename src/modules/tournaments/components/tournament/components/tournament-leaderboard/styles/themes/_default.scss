@@ -39,6 +39,7 @@
             border-radius: ef.get-value($themeDefault, 'listRadius');
 
             &--top {
+                overflow: hidden;
                 background: var(--lb-list-bg-top);
             }
         }
@@ -77,7 +78,6 @@
                     ef.get-value($themeDefault, 'itemTextStyleTop'),
                     ef.get-value($themeDefault, 'itemColorTop')
                 );
-                font-weight: ef.get-value($themeDefault, 'fontWeight');
 
                 .wlc-icon::ng-deep {
                     @include bm.get-mq-map('width', $themeDefault, 'topIconWidth');
@@ -123,10 +123,13 @@
                     ef.get-value($themeDefault, 'itemUserCellTextColor')
                 );
 
-                background: ef.get-value($themeDefault, 'rowUserBg');
-
                 .wlc-icon::ng-deep {
                     color: ef.get-value($themeDefault, 'topIconUserColor');
+                }
+
+                &,
+                &:nth-child(odd) {
+                    background: ef.get-value($themeDefault, 'rowUserBg');
                 }
             }
         }
@@ -169,6 +172,7 @@
         @include bm.get-mq-map('width', $themeDefault, 'delimetrwidth');
         @include bm.get-mq-map('height', $themeDefault, 'delimetrheight');
         @include bm.get-mq-map('background', $themeDefault, 'delimetrBg');
+        margin: ef.get-value($themeDefault, 'delimetrMargin');
     }
 
     .user-login {
@@ -228,6 +232,13 @@
 
                 &:nth-child(odd) {
                     background: ef.get-value($themeDefaultModHistory, 'rowSecondaryBg');
+                }
+            }
+
+            &__list--top {
+
+                .user {
+                    border-radius: ef.get-value($themeDefaultModHistory, 'userTopRadius');
                 }
             }
         }

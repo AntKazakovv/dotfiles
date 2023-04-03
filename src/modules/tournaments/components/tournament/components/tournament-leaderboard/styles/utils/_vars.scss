@@ -37,11 +37,10 @@ $themeDefault: map-merge((
     'btnIconColor': var(--mc-main),
     'btnIconColorHover': var(--mc-main-l20),
 
-    'fontWeight': 700,
-
     'delimetrwidth': 100%,
     'delimetrheight': 2px,
     'delimetrBg': var(--mc-baseOpacity),
+    'delimetrMargin': ef.size(1) 0,
 
     'listGap': ef.size(1),
     'listBg': var(--mc-bg700),
@@ -122,4 +121,5 @@ $themeDefaultModHistory: map-merge((
     'cellAlign': center,
     'nocontentBg': none,
     'itemRadius': ef.get('radius', 'biger'),
+    'userTopRadius': 0,
 ), $customThemeDefaultModHistory);
