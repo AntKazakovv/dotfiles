@@ -3,7 +3,8 @@
     .wlc-winner {
 
         &__wrapper {
-            max-width: ef.get-value($theme1, 'maxWidth');
+            @include bm.get-mq-map('max-width', $theme1, 'maxWidth');
+
             margin: ef.get-value($theme1, 'wrapperMargin');
             padding: ef.get-value($theme1, 'wrapperPadding');
             cursor: pointer;

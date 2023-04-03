@@ -145,8 +145,7 @@ $grid-breakpoints: (
 /// @prop {Size} 1630 [1600px] - 1630px и выше
 $dummy: ();
 $container-max-widths: (
-    320: 290px,
-    375: 345px,
+    375: calc(100% - 30px),
     480: 450px,
     560: 530px,
     640: 610px,

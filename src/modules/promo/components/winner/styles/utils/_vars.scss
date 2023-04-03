@@ -98,7 +98,10 @@ $themeTransparent: map-merge((
 
 $customTheme1: () !default;
 $theme1: map-merge((
-    'maxWidth': 260px,
+    'maxWidth': (
+        375: calc(100% - 40px),
+        480: 260px,
+    ),
 
     'wrapperMargin': 0 auto,
     'wrapperPadding': 0 0 var(--wlc-winner-slider-slide-inner-gap, #{ef.size(3)}) 0,
