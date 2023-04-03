@@ -1299,7 +1299,7 @@ export class DepositWithdrawComponent
             formComponents.push(button);
         }
 
-        if (this.isPrestepComplete) {
+        if (!this.usePrestep || this.isPrestepComplete) {
             this.formConfig = {
                 class: `${this.$params.mode}-form`,
                 components: formComponents,
