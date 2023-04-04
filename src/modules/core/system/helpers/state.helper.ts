@@ -8,6 +8,8 @@ import {first} from 'rxjs/operators';
 import {LazyLoadResult} from '@uirouter/core/lib/state/interface';
 import {Ng2StateDeclaration} from '@uirouter/angular';
 
+import _merge from 'lodash-es/merge';
+
 // If you try to import everything from 'wlc-engine/modules/core' then the project failed loading
 import {
     ConfigService,
@@ -18,9 +20,8 @@ import {UserService} from 'wlc-engine/modules/user/system/services/user/user.ser
 import {TranslateService} from '@ngx-translate/core';
 import {Deferred} from 'wlc-engine/modules/core/system/classes';
 import {IRedirect} from 'wlc-engine/modules/core/system/interfaces/core.interface';
+import {TModuleName} from 'wlc-engine/modules/core/system/constants/modules.constants';
 import {IIndexing} from 'wlc-engine/modules/core/system/interfaces/global.interface';
-
-import _merge from 'lodash-es/merge';
 
 export type TPageNameHandler = (transition: Transition) => string;
 
@@ -57,7 +58,7 @@ export class StateHelper {
     }
 
     public static lazyLoadModules(
-        modules: string[],
+        modules: TModuleName[],
     ): (transition: Transition, state: StateDeclaration) => Promise<LazyLoadResult> {
         return async ($transition) => {
             const configService: ConfigService = $transition.injector().get(ConfigService);

@@ -3,12 +3,17 @@ import {
     InjectionToken,
     Injector,
 } from '@angular/core';
-import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
-import {IIndexing} from 'wlc-engine/modules/core/system/interfaces/global.interface';
 
 import _get from 'lodash-es/get';
 import _set from 'lodash-es/set';
 import _map from 'lodash-es/map';
+
+import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
+import {IIndexing} from 'wlc-engine/modules/core/system/interfaces/global.interface';
+import {
+    TModuleName,
+    modulesApp,
+} from 'wlc-engine/modules/core/system/constants/modules.constants';
 
 @Injectable({
     providedIn: 'root',
@@ -44,7 +49,7 @@ export class InjectionService {
      */
     public async loadComponent<T>(name: string): Promise<T | unknown> {
 
-        const [module] = name.split('.');
+        const [module] = name.split('.') as [TModuleName];
 
         if (!_get(this.components, module)) {
             await this.importModules([module]);
@@ -68,7 +73,7 @@ export class InjectionService {
 
         if (!token) {
             if (!_get(this.services, moduleName)) {
-                await this.importModule(moduleName);
+                await this.importModule(moduleName as TModuleName);
             }
 
 
@@ -87,7 +92,7 @@ export class InjectionService {
      *
      * @return {Promise}
      */
-    public async importModules(modules: string[]): Promise<void> {
+    public async importModules(modules: TModuleName[]): Promise<void> {
         await Promise.all(_map(modules, async (module) => {
             return this.components.hasOwnProperty(module)
                 ? Promise.resolve()
@@ -95,286 +100,17 @@ export class InjectionService {
         }));
     }
 
-    private async importModule(name: string): Promise<any> {
-        switch (name) {
-            case 'core':
-                if (this.loadedModules.core) {
-                    return this.loadedModules.core;
-                }
-                return import('wlc-engine/modules/core/core.module').then(m => {
-                    this.afterModuleLoad('core', m);
-                    return m.CoreModule;
-                });
-            case 'affiliates':
-                if (this.loadedModules.affiliatesModule) {
-                    return this.loadedModules.affiliatesModule;
-                }
-                return import('wlc-engine/modules/affiliates/affiliates.module').then(m => {
-                    this.afterModuleLoad('affiliates', m);
-                    return m.AffiliatesModule;
-                });
-            case 'menu':
-                if (this.loadedModules.menu) {
-                    return this.loadedModules.menu;
-                }
-                return import('wlc-engine/modules/menu/menu.module').then(m => {
-                    this.afterModuleLoad('menu', m);
-                    return m.MenuModule;
-                });
-            case 'games':
-                if (this.loadedModules.games) {
-                    return this.loadedModules.games;
-                }
-                return import('wlc-engine/modules/games/games.module').then(m => {
-                    this.afterModuleLoad('games', m);
-                    return m.GamesModule;
-                });
-            case 'icon-list':
-                if (this.loadedModules.iconList) {
-                    return this.loadedModules.iconList;
-                }
-                return import('wlc-engine/modules/icon-list/icon-list.module').then(m => {
-                    this.afterModuleLoad('icon-list', m);
-                    return m.IconListModule;
-                });
-            case 'static':
-                if (this.loadedModules.static) {
-                    return this.loadedModules.static;
-                }
-                return import('wlc-engine/modules/static/static.module').then(m => {
-                    this.afterModuleLoad('static', m);
-                    return m.StaticModule;
-                });
-            case 'promo':
-                if (this.loadedModules.promo) {
-                    return this.loadedModules.promo;
-                }
-                return import('wlc-engine/modules/promo/promo.module').then(m => {
-                    this.afterModuleLoad('promo', m);
-                    return m.PromoModule;
-                });
-            case 'seo':
-                if (this.loadedModules.seo) {
-                    return this.loadedModules.seo;
-                }
-                return import('wlc-engine/modules/seo/seo.module').then(m => {
-                    this.afterModuleLoad('seo', m);
-                    return m.SeoModule;
-                });
-            case 'user':
-                if (this.loadedModules.user) {
-                    return this.loadedModules.user;
-                }
-                return import('wlc-engine/modules/user/user.module').then(m => {
-                    this.afterModuleLoad('user', m);
-                    return m.UserModule;
-                });
-            case 'pep':
-                if (this.loadedModules.pep) {
-                    return this.loadedModules.pep;
-                }
-                return import('wlc-engine/modules/user/submodules/pep/pep.module').then(m => {
-                    this.afterModuleLoad('pep', m);
-                    return m.PepModule;
-                });
-            case 'sms':
-                if (this.loadedModules.sms) {
-                    return this.loadedModules.sms;
-                }
-                return import('wlc-engine/modules/user/submodules/sms/sms.module').then(m => {
-                    this.afterModuleLoad('sms', m);
-                    return m.SmsModule;
-                });
-            case 'finances':
-                if (this.loadedModules.finances) {
-                    return this.loadedModules.finances;
-                }
-                return import('wlc-engine/modules/finances/finances.module').then(m => {
-                    this.afterModuleLoad('finances', m);
-                    return m.FinancesModule;
-                });
-            case 'bonuses':
-                if (this.loadedModules.bonuses) {
-                    return this.loadedModules.bonuses;
-                }
-                return import('wlc-engine/modules/bonuses/bonuses.module').then(m => {
-                    this.afterModuleLoad('bonuses', m);
-                    return m.BonusesModule;
-                });
-            case 'store':
-                if (this.loadedModules.store) {
-                    return this.loadedModules.store;
-                }
-                return import('wlc-engine/modules/store/store.module').then(m => {
-                    this.afterModuleLoad('store', m);
-                    return m.StoreModule;
-                });
-            case 'tournaments':
-                if (this.loadedModules.tournaments) {
-                    return this.loadedModules.tournaments;
-                }
-                return import('wlc-engine/modules/tournaments/tournaments.module').then(m => {
-                    this.afterModuleLoad('tournaments', m);
-                    return m.TournamentsModule;
-                });
-            case 'profile':
-                if (this.loadedModules.profile) {
-                    return this.loadedModules.profile;
-                }
-                return import('wlc-engine/modules/profile/profile.module').then(m => {
-                    this.afterModuleLoad('profile', m);
-                    return m.ProfileModule;
-                });
-            case 'sportsbook':
-                if (this.loadedModules.sportsbook) {
-                    return this.loadedModules.sportsbook;
-                }
-                return import('wlc-engine/modules/sportsbook/sportsbook.module').then(m => {
-                    this.afterModuleLoad('sportsbook', m);
-                    return m.SportsbookModule;
-                });
-            case 'livechat':
-                if (this.loadedModules.livechat) {
-                    return this.loadedModules.livechat;
-                }
-                return import('wlc-engine/modules/livechat/livechat.module').then(m => {
-                    this.afterModuleLoad('livechat', m);
-                    return m.LivechatModule;
-                });
-            case 'compiler':
-                if (this.loadedModules.compiler) {
-                    return this.loadedModules.compiler;
-                }
-                return import('wlc-engine/modules/compiler/compiler.module').then(m => {
-                    this.afterModuleLoad('compiler', m);
-                    return m.CompilerModule;
-                });
-            case 'custom':
-                if (this.loadedModules.custom) {
-                    return this.loadedModules.custom;
-                }
-                return import('wlc-src/custom/custom.module').then(m => {
-                    this.afterModuleLoad('custom', m);
-                    return m.CustomModule;
-                });
-            case 'analytics':
-                if (this.loadedModules.analytics) {
-                    return this.loadedModules.analytics;
-                }
-                return import('wlc-engine/modules/analytics/analytics.module').then(m => {
-                    this.afterModuleLoad('analytics', m);
-                    return m.AnalyticsModule;
-                });
-            case 'monitoring':
-                if (this.loadedModules.monitoring) {
-                    return this.loadedModules.monitoring;
-                }
-                return import('wlc-engine/modules/monitoring/monitoring.module').then(m => {
-                    this.afterModuleLoad('monitoring', m);
-                    return m.MonitoringModule;
-                });
-            case 'internal-mails':
-                if (this.loadedModules.InternalMailsModule) {
-                    return this.loadedModules.InternalMailsModule;
-                }
-                return import('wlc-engine/modules/internal-mails/internal-mails.module').then(m => {
-                    this.afterModuleLoad('internal-mails', m);
-                    return m.InternalMailsModule;
-                });
-            case 'loyalty':
-                if (this.loadedModules.LoyaltyModule) {
-                    return this.loadedModules.LoyaltyModule;
-                }
-                return import('wlc-engine/modules/loyalty/loyalty.module').then(m => {
-                    this.afterModuleLoad('loyalty', m);
-                    return m.LoyaltyModule;
-                });
-            case 'metamask':
-                if (this.loadedModules.MetamaskModule) {
-                    return this.loadedModules.MetamaskModule;
-                }
-                return import('wlc-engine/modules/metamask/metamask.module').then(m => {
-                    this.afterModuleLoad('metamask', m);
-                    return m.MetamaskModule;
-                });
-            case 'history':
-                if (this.loadedModules.history) {
-                    return this.loadedModules.history;
-                }
-                return import('wlc-engine/modules/history/history.module').then(m => {
-                    this.afterModuleLoad('history', m);
-                    return m.HistoryModule;
-                });
-            case 'mobile':
-                if (this.loadedModules.MobileModule) {
-                    return this.loadedModules.MobileModule;
-                }
-                return import('wlc-engine/modules/mobile/mobile.module').then(m => {
-                    this.afterModuleLoad('mobile', m);
-                    return m.MobileModule;
-                });
-            case 'deadsimplechat':
-                if (this.loadedModules.deadsimplechat) {
-                    return this.loadedModules.deadsimplechat;
-                }
-                return import('wlc-engine/modules/deadsimplechat/deadsimplechat.module').then(m => {
-                    this.afterModuleLoad('deadsimplechat', m);
-                    return m.DeadsimplechatModule;
-                });
-            case 'limitations':
-                if (this.loadedModules.LimitationsModule) {
-                    return this.loadedModules.LimitationsModule;
-                }
-                return import('wlc-engine/modules/user/submodules/limitations/limitations.module').then(m => {
-                    this.afterModuleLoad('limitations', m);
-                    return m.LimitationsModule;
-                });
-            case 'chat':
-                if (this.loadedModules.ChatModule) {
-                    return this.loadedModules.ChatModule;
-                }
-                return import('wlc-engine/modules/chat/chat.module').then(m => {
-                    this.afterModuleLoad('chat', m);
-                    return m.ChatModule;
-                });
-            case 'captcha':
-                if (this.loadedModules.CaptchaModule) {
-                    return this.loadedModules.CaptchaModule;
-                }
-                return import('wlc-engine/modules/security/captcha/captcha.module').then(m => {
-                    this.afterModuleLoad('captcha', m);
-                    return m.CaptchaModule;
-                });
-            case 'recaptcha':
-                if (this.loadedModules.RecaptchaModule) {
-                    return this.loadedModules.RecaptchaModule;
-                }
-                return import('wlc-engine/modules/security/recaptcha/recaptcha.module').then(m => {
-                    this.afterModuleLoad('recaptcha', m);
-                    return m.RecaptchaModule;
-                });
-            case 'cashback':
-                if (this.loadedModules.CashbackModule) {
-                    return this.loadedModules.CashbackModule;
-                }
-                return import('wlc-engine/modules/cashback/cashback.module').then(m => {
-                    this.afterModuleLoad('cashback', m);
-                    return m.CashbackModule;
-                });
-            case 'external-services':
-                if (this.loadedModules.ExternalServicesModule) {
-                    return this.loadedModules.ExternalServicesModule;
-                }
-                return import('wlc-engine/modules/external-services/external-services.module').then(m => {
-                    this.afterModuleLoad('external-services', m);
-                    return m.ExternalServicesModule;
-                });
-            case 'gambling-ban':
-                return this.loadedModules['gambling-ban'] ??
-                    import('wlc-engine/modules/restrictions/gambling-ban/gambling-ban.module').then((module) => {
-                        this.afterModuleLoad('gambling-ban', module);
-                        return module.GamblingBanModule;
-                    });
+    private importModule(name: TModuleName): unknown {
+        if (this.loadedModules[name]) {
+            return this.loadedModules[name];
+        }
+
+        const importModuleFunction: Function | undefined = modulesApp[name];
+
+        if (importModuleFunction) {
+            return importModuleFunction(name, this.afterModuleLoad.bind(this));
+        } else {
+            throw new Error('Module not found');
         }
     }
 

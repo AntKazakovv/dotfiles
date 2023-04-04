@@ -7,28 +7,6 @@ import {
     TransitionService,
 } from '@uirouter/core';
 
-import {GlobalHelper} from 'wlc-engine/modules/core/system/helpers/global.helper';
-import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
-import {EventService} from 'wlc-engine/modules/core/system/services/event/event.service';
-import {InjectionService} from 'wlc-engine/modules/core/system/services/injection/injection.service';
-import {IIndexing} from 'wlc-engine/modules/core/system/interfaces/global.interface';
-import {IGlobalConfig} from 'wlc-engine/modules/core/system/services/config/config.interface';
-import {
-    ILayoutComponent,
-    ILayoutsConfig,
-    ILayoutSectionConfig,
-    ILayoutStateConfig,
-    ILayoutModifyItem,
-    IPanelsConfig,
-    IDisplayConfig,
-} from 'wlc-engine/modules/core/system/interfaces/layouts.interface';
-import {WINDOW} from 'wlc-engine/modules/app/system';
-
-import {
-    SectionModel,
-    ISectionData,
-} from 'wlc-engine/modules/core/system/models/section.model';
-
 import {BehaviorSubject} from 'rxjs';
 import _cloneDeep from 'lodash-es/cloneDeep';
 import _get from 'lodash-es/get';
@@ -50,6 +28,28 @@ import _min from 'lodash-es/min';
 import _max from 'lodash-es/max';
 import _isUndefined from 'lodash-es/isUndefined';
 import _isObject from 'lodash-es/isObject';
+
+import {GlobalHelper} from 'wlc-engine/modules/core/system/helpers/global.helper';
+import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
+import {EventService} from 'wlc-engine/modules/core/system/services/event/event.service';
+import {InjectionService} from 'wlc-engine/modules/core/system/services/injection/injection.service';
+import {IIndexing} from 'wlc-engine/modules/core/system/interfaces/global.interface';
+import {IGlobalConfig} from 'wlc-engine/modules/core/system/services/config/config.interface';
+import {
+    ILayoutComponent,
+    ILayoutsConfig,
+    ILayoutSectionConfig,
+    ILayoutStateConfig,
+    ILayoutModifyItem,
+    IPanelsConfig,
+    IDisplayConfig,
+} from 'wlc-engine/modules/core/system/interfaces/layouts.interface';
+import {WINDOW} from 'wlc-engine/modules/app/system';
+import {
+    SectionModel,
+    ISectionData,
+} from 'wlc-engine/modules/core/system/models/section.model';
+import {TModuleName} from 'wlc-engine/modules/core/system/constants/modules.constants';
 
 export type LayoutsType = 'pages' | 'panels';
 
@@ -166,7 +166,7 @@ export class LayoutService {
         });
 
         const modules = _reduce(res.sections, (sRes: string[], section: ILayoutSectionConfig) =>
-            _union(sRes, section.components?.reduce((cRes: string[], component: (ILayoutComponent | string)) => {
+            _union(sRes, section.components?.reduce((cRes: TModuleName[], component: (ILayoutComponent | string)) => {
                 try {
                     const splitComponent = (_isString(component) ? component : component.name).split('.');
                     if (splitComponent.length >= 2) {
@@ -178,7 +178,7 @@ export class LayoutService {
                 }
             }, [])), []);
 
-        await this.injectionService.importModules(modules);
+        await this.injectionService.importModules(modules as TModuleName[]);
 
         _each(res.sections, (section) => {
             _each(section.components, (component) => {

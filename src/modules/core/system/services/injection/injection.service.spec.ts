@@ -3,20 +3,21 @@ import {TestBed} from '@angular/core/testing';
 import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
 import {InjectionService} from 'wlc-engine/modules/core/system/services';
 import {ButtonComponent} from 'wlc-engine/modules/core/components/button/button.component';
+import {TModuleName} from 'wlc-engine/modules/core/system/constants/modules.constants';
 
 describe('InjectionService', () => {
     let injectionService: InjectionService;
     let configServiceSpy: jasmine.SpyObj<ConfigService>;
 
-    const loadedModuleName: string = 'core';
+    const loadedModuleName: TModuleName = 'core';
     const loadedComponentName: string = 'wlc-button';
     const pathToExistingComponent: string = `${loadedModuleName}.${loadedComponentName}`;
 
-    const noLoadedModuleName: string = 'bonuses';
+    const noLoadedModuleName: TModuleName = 'bonuses';
     const noLoadedComponentName: string = 'wlc-bonuses-list';
     const noLoadedServiceName: string = 'bonuses-service';
     const pathToNonExistingComponent: string = `${noLoadedModuleName}.${noLoadedComponentName}`;
-    const noLoadedModules: string[] = [noLoadedModuleName];
+    const noLoadedModules: TModuleName[] = [noLoadedModuleName];
 
     const nonExistingComponentName: string = 'component_name_that_no_exists';
 
@@ -82,7 +83,7 @@ describe('InjectionService', () => {
         injectionService['importModule'] = jasmine.createSpy('importModule', injectionService['importModule']);
         await injectionService.importModules(noLoadedModules);
 
-        noLoadedModules.forEach((module: string) => {
+        noLoadedModules.forEach((module: TModuleName) => {
             expect(injectionService['importModule']).toHaveBeenCalledWith(module);
         });
     });
@@ -97,7 +98,7 @@ describe('InjectionService', () => {
     });
 
     it('-> importModules should not call importModule for loaded modules', async () => {
-        const loadedModules: string[] = [loadedModuleName];
+        const loadedModules: TModuleName[] = [loadedModuleName];
         injectionService['importModule'] = jasmine.createSpy('importModule', injectionService['importModule']);
         await injectionService.importModules(loadedModules);
 
