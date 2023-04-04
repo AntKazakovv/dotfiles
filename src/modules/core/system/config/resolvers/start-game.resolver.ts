@@ -16,6 +16,7 @@ import {
     Subscription,
 } from 'rxjs';
 import {first} from 'rxjs/operators';
+import _assign from 'lodash-es/assign';
 import _find from 'lodash-es/find';
 import _clone from 'lodash-es/clone';
 import _reduce from 'lodash-es/reduce';
@@ -171,6 +172,12 @@ class StartGameHandler {
     }
 
     private async init(): Promise<void> {
+        const params = this.transition.params();
+        if (!_isEmpty(params.demo) && params.demo !== 'true') {
+            this.stateService.go(this.transition.to(), _assign({}, params, {demo: null}));
+            return;
+        }
+
         const waiter: TWaiter = this.logService.waiter({code: '3.0.11'}, 7000);
 
         await this.configService.ready;
@@ -387,7 +394,7 @@ class StartGameHandler {
             this.result.reject(RejectReason.GameHasNoDemo);
 
             const stateParams: RawParams = _clone(this.transition.params());
-            stateParams.demo = false;
+            stateParams.demo = null;
             this.stateService.go(GlobalHelper.isMobileApp() ? 'app.run-game' : 'app.gameplay', stateParams);
 
             return false;

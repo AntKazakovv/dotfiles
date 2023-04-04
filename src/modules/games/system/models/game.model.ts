@@ -192,7 +192,7 @@ export class Game extends AbstractModel<IGame> {
         this.router.stateService.go('app.gameplay', {
             merchantId: this.subMerchantID || this.merchantID,
             launchCode: this.launchCode,
-            demo: options.demo,
+            demo: options.demo || null,
             locale,
         }, {
             reload: false,
