@@ -4,14 +4,24 @@ import {
     flushMicrotasks,
     TestBed,
 } from '@angular/core/testing';
+import {
+    MockComponent,
+    MockPipe,
+    MockService,
+} from 'ng-mocks';
+import {TranslatePipe} from '@ngx-translate/core';
 
 import {SwiperComponent} from 'swiper/angular';
-
 import _trim from 'lodash-es/trim';
 import _assign from 'lodash-es/assign';
 
+import {
+    ConfigService,
+    EventService,
+    ModalService,
+} from 'wlc-engine/modules/core';
+import {ButtonComponent} from 'wlc-engine/modules/core/components/button/button.component';
 import {SliderComponent} from 'wlc-engine/modules/promo';
-import {AppModule} from 'wlc-engine/modules/app/app.module';
 import {IBonus} from 'wlc-engine/modules/bonuses/system/interfaces/bonuses/bonuses.interface';
 import {Bonus} from 'wlc-engine/modules/bonuses/system/models/bonus/bonus';
 import {BonusesService} from 'wlc-engine/modules/bonuses/system/services/bonuses/bonuses.service';
@@ -66,20 +76,35 @@ describe('LootboxModalComponent', (): void => {
             ['takeInventory', 'getLootboxPrizes'],
         );
         TestBed.configureTestingModule({
-            imports: [AppModule],
             declarations: [
                 LootboxModalComponent,
-                SliderComponent,
-                SwiperComponent,
+                MockComponent(SliderComponent),
+                MockComponent(SwiperComponent),
+                MockComponent(ButtonComponent),
+                MockPipe(TranslatePipe, (val) => val),
             ],
-            providers: [{
-                provide: 'injectParams',
-                useValue: injectParams,
-            },
-            {
-                provide: BonusesService,
-                useValue: BonusesServiceSpy,
-            }],
+            providers: [
+                {
+                    provide: 'injectParams',
+                    useValue: injectParams,
+                },
+                {
+                    provide: BonusesService,
+                    useValue: BonusesServiceSpy,
+                },
+                {
+                    provide: ConfigService,
+                    useValue: MockService(ConfigService),
+                },
+                {
+                    provide: EventService,
+                    useValue: MockService(EventService),
+                },
+                {
+                    provide: ModalService,
+                    useValue: MockService(ModalService),
+                },
+            ],
         }).compileComponents();
 
         fixture = TestBed.createComponent(LootboxModalComponent);
@@ -168,6 +193,7 @@ describe('LootboxModalComponent', (): void => {
 
         await component.ngOnInit();
         await component.btnClick();
+        component.onSlideChangeTransitionEnd();
 
         expect(component.title).toEqual('Congratulations!');
         expect(component.lootboxStatus).toEqual('dropped');
