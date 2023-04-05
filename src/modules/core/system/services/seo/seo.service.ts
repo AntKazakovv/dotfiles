@@ -248,10 +248,12 @@ export class SeoService {
 
     protected updateMetaTags(state: IStateData, currentLang: string): void {
         for (const [name, key] of this.metaTags) {
-            this.meta.updateTag({
-                name,
-                content: state[key][currentLang] || state[key]['en'] || '',
-            });
+            if (state[key]) {
+                this.meta.updateTag({
+                    name,
+                    content: state[key][currentLang] || state[key]['en'] || '',
+                });
+            }
         }
     }
 
