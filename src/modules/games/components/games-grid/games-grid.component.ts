@@ -16,6 +16,7 @@ import {UIRouter} from '@uirouter/core';
 import {
     fromEvent,
     merge,
+    Observable,
     Subject,
 } from 'rxjs';
 import {
@@ -903,17 +904,19 @@ export class GamesGridComponent extends AbstractComponent implements OnInit, OnD
                         this.loadMoreGames();
                     });
             } else {
-                merge(
-                    this.actionService.scrollableElement('appContent'),
-                    fromEvent(this.window, 'scroll'),
-                ).pipe(
-                    filter((): boolean => this.lazyLoadPositionFilter()),
-                    tap((): void => this.setLazyLoadingTrue()),
-                    throttleTime(this.lazyTimeout),
-                    takeUntil(this.$untilBreakpointOrDestroy),
-                ).subscribe((): void => {
-                    this.loadMoreGames();
-                });
+                const scrollEvent = (this.actionService.scrollableElement('appContent')
+                    || fromEvent(this.window, 'scroll')) as Observable<Event>;
+
+                scrollEvent
+                    .pipe(
+                        filter((): boolean => this.lazyLoadPositionFilter()),
+                        tap((): void => this.setLazyLoadingTrue()),
+                        throttleTime(this.lazyTimeout),
+                        takeUntil(this.$untilBreakpointOrDestroy),
+                    )
+                    .subscribe((): void => {
+                        this.loadMoreGames();
+                    });
             }
         }
     }
