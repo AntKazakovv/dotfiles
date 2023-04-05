@@ -69,7 +69,7 @@
     .wlc-sections__profile-menu--theme-default {
 
         > .container {
-            overflow: hidden;
+            @include bm.get-mq-map('overflow', $profileSettings, 'overflow');
         }
     }
 }

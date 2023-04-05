@@ -271,6 +271,10 @@ $profileSettings: map-merge((
     // Locked colors
     'profileTabAngleBg': map-get($mainColors, 'bg700'),
     'profileTabAngleBgAlt': map-get($mainColorsAlt, 'bg700'),
+    'overflow': (
+        375: hidden,
+        900: inherit,
+    )
 ), $customProfileSettings);
 
 /// Глобальные настройки профиля (первая тема):
