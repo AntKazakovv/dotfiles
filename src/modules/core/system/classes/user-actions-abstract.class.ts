@@ -132,7 +132,7 @@ export abstract class UserActionsAbstract<T> extends AbstractComponent {
 
         const extProfile: IExtProfile = {};
 
-        if (formValues.login && this.ConfigService.get('$base.registration.autocompleteNick')) {
+        if (formValues.login && this.configService.get('$base.registration.autocompleteNick')) {
             formValues.nick = formValues.login;
         }
 

@@ -69,7 +69,7 @@ export class TournamentPromoComponent extends AbstractComponent implements OnIni
             ['tournament', 'type', 'theme', 'themeMod', 'customMod', 'actionParams']));
 
         this.isTournamentSelected = this.tournamentsService.isTournamentSelected;
-        this.isAuth = this.ConfigService.get<boolean>('$user.isAuthenticated');
+        this.isAuth = this.configService.get<boolean>('$user.isAuthenticated');
 
         this.checkParentInstance();
 

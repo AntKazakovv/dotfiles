@@ -100,7 +100,7 @@ export class TournamentComponent
             this.$params.type = this.type;
         }
 
-        this.isAuth = this.ConfigService.get<boolean>('$user.isAuthenticated');
+        this.isAuth = this.configService.get<boolean>('$user.isAuthenticated');
         this.isTournamentSelected = this.tournamentsService.isTournamentSelected;
         this.instance = this;
 

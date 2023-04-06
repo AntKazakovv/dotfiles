@@ -95,7 +95,7 @@ export class TournamentListComponent
     public ngOnInit(): void {
         super.ngOnInit(this.prepareParams());
         this.prepareModifiers();
-        this.isAuth = this.ConfigService.get<boolean>('$user.isAuthenticated');
+        this.isAuth = this.configService.get<boolean>('$user.isAuthenticated');
         this.isReady = false;
         if (this.$params.type === 'swiper') {
             this.sliderParams.swiper = this.$params.common?.swiper;

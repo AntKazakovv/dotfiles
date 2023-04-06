@@ -65,7 +65,7 @@ export class TournamentBannerComponent
         super.ngOnInit(GlobalHelper.prepareParams(this,
             ['tournament', 'type', 'theme', 'themeMod', 'customMod', 'parentInstance', 'actionParams']));
 
-        this.isAuth = this.ConfigService.get<boolean>('$user.isAuthenticated');
+        this.isAuth = this.configService.get<boolean>('$user.isAuthenticated');
         this.isTournamentSelected = this.tournamentsService.isTournamentSelected;
 
         this.checkParentInstance();

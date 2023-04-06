@@ -354,7 +354,7 @@ export class BonusesListComponent extends AbstractComponent implements OnInit, O
     }
 
     protected bonusesToSlides(bonuses: Bonus[], scroll?: boolean): void {
-        const themeMod = this.ConfigService
+        const themeMod = this.configService
             ?.get<IIndexing<unknown>>('$modules.bonuses.components.wlc-bonus-item')?.themeMod;
         this.slides = bonuses?.map((item: Bonus) => {
             return {

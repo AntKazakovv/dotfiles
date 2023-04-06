@@ -64,7 +64,7 @@ export class UserNameComponent extends AbstractComponent implements OnInit, OnDe
     public ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
 
-        this.isAuth = this.ConfigService.get<boolean>('$user.isAuthenticated');
+        this.isAuth = this.configService.get<boolean>('$user.isAuthenticated');
         this.$params.userNameLength = this.userNameLength || this.$params.userNameLength;
         this.$params.showSvgAsImg = this.showSvgAsImg || this.$params.showSvgAsImg;
 

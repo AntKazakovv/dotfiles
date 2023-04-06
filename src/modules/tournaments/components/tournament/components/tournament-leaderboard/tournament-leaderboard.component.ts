@@ -79,7 +79,7 @@ export class TournamentLeaderboardComponent
         super.ngOnInit(GlobalHelper.prepareParams(this,
             ['tournament', 'type', 'theme', 'themeMod', 'customMod', 'limit', 'showAllBtn', 'useListHead']));
         this.prepareModifiers();
-        this.isAuth = this.ConfigService.get<boolean>('$user.isAuthenticated');
+        this.isAuth = this.configService.get<boolean>('$user.isAuthenticated');
         if (this.$params.common?.limit) {
             this.limit = this.$params.common.limit;
         }

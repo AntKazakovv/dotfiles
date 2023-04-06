@@ -54,7 +54,7 @@ export class AbstractComponent implements OnDestroy, OnInit, OnChanges {
 
     constructor(
         private mixedParams: IMixedParams<unknown>,
-        protected ConfigService?: ConfigService,
+        protected configService?: ConfigService,
     ) {
     }
 
@@ -62,7 +62,7 @@ export class AbstractComponent implements OnDestroy, OnInit, OnChanges {
         const abstractConfig: IAbstractConfig = _cloneDeep(this.mixedParams.defaultParams);
         this.$params = _mergeWith(
             abstractConfig,
-            this.ConfigService?.get<IIndexing<unknown>>(
+            this.configService?.get<IIndexing<unknown>>(
                 `$modules.${abstractConfig?.moduleName}.components.${abstractConfig?.componentName}`,
             ),
             !inlineParams ? this.mixedParams.injectParams : {},
