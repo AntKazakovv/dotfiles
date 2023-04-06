@@ -161,6 +161,23 @@ export const financesConfig: IFinancesConfig = {
                     },
                 ],
             },
+            ifsc: {
+                settings: [
+                    {
+                        validators: [
+                            {
+                                name: 'minLength',
+                                options: 11,
+                            },
+                            {
+                                name: 'maxLength',
+                                options: 11,
+                            },
+                        ],
+                        systems:['runpay'],
+                    },
+                ],
+            },
         },
     },
     fieldTemplatesNames: {
