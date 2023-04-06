@@ -84,7 +84,8 @@
 
         .wlc-lootbox-prize__icon {
 
-            svg {
+            svg,
+            img {
                 @include bm.get-mq-map('width', $themeDefault, 'iconSize');
                 @include bm.get-mq-map('height', $themeDefault, 'iconSize');
             }
