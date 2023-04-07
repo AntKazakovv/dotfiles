@@ -311,8 +311,8 @@ export class BonusesService {
                 this.promocodeFetchSubscriber.unsubscribe();
             });
 
-            let bonusResult: Bonus[] = [];
             const bonuses: Bonus[] = await this.queryBonuses(false, undefined, code);
+            let bonusResult: Bonus[] = [];
 
             _forEach(this.promocodeFetchData?.errors, (error: string): void => {
                 throw error;
@@ -534,38 +534,13 @@ export class BonusesService {
         promoCode?: string,
     ): Promise<T[]> {
         this.queryPromises[type].next(true);
-        const queryParams: IQueryParams = {};
-        if (type) {
-            if (type === 'active' || type === 'lootboxPrizes') {
-                queryParams.type = type;
-            }
-            if (type === 'store') {
-                queryParams.event = type;
-            }
-        }
-
-        if (promoCode) {
-            queryParams.PromoCode = promoCode;
-        }
+        const queryParams = this.prepareQueryParams(type, promoCode);
 
         try {
             const res: IBonusesData = await this.dataService.request('bonuses/bonuses', queryParams);
 
             if (type === 'lootboxPrizes') {
-                this.lootboxPrizes = _map(
-                    (res as IData<ILootboxPrize[]>).data,
-                    (bonus: ILootboxPrize): LootboxPrizeModel => {
-                        return new LootboxPrizeModel(
-                            {service: 'BonusesService', method: 'queryBonuses'},
-                            bonus,
-                            this.configService,
-                        );
-                    });
-
-                if (publicSubject) {
-                    this.subjects.lootboxPrizes$.next(this.lootboxPrizes);
-                }
-
+                this.lootboxPrizes = this.processLootboxPrizes((res as IData<ILootboxPrize[]>).data, publicSubject);
                 return this.lootboxPrizes as T[];
             }
 
@@ -583,26 +558,7 @@ export class BonusesService {
                 }
             }
 
-            switch (type) {
-                case 'active':
-                    if (publicSubject) {
-                        this.subjects.active$.next(bonuses);
-                    }
-                    this.activeBonuses = bonuses;
-                    break;
-                case 'store':
-                    if (publicSubject) {
-                        this.subjects.store$.next(bonuses);
-                    }
-                    this.storeBonuses = bonuses;
-                    break;
-                default:
-                    if (publicSubject) {
-                        this.subjects.bonuses$.next(bonuses);
-                    }
-                    this.bonuses = bonuses;
-                    break;
-            }
+            this.saveBonuses(type, bonuses, publicSubject);
 
             if (promoCode) {
                 this.eventService.emit({
@@ -695,6 +651,64 @@ export class BonusesService {
         }
     }
 
+    private saveBonuses(type: RestType, bonuses: Bonus[], publicSubject: boolean): void {
+        switch (type) {
+            case 'active':
+                if (publicSubject) {
+                    this.subjects.active$.next(bonuses);
+                }
+                this.activeBonuses = bonuses;
+                break;
+            case 'store':
+                if (publicSubject) {
+                    this.subjects.store$.next(bonuses);
+                }
+                this.storeBonuses = bonuses;
+                break;
+            default:
+                if (publicSubject) {
+                    this.subjects.bonuses$.next(bonuses);
+                }
+                this.bonuses = bonuses;
+                break;
+        }
+    }
+
+    private processLootboxPrizes(data: ILootboxPrize[], publicSubject: boolean): LootboxPrizeModel[] {
+        const lootboxPrizes = _map(data, (prize: ILootboxPrize): LootboxPrizeModel => {
+            return new LootboxPrizeModel(
+                {service: 'BonusesService', method: 'queryBonuses'},
+                prize,
+                this.configService,
+            );
+        });
+
+        if (publicSubject) {
+            this.subjects.lootboxPrizes$.next(lootboxPrizes);
+        }
+
+        return lootboxPrizes;
+    }
+
+    private prepareQueryParams(type: RestType, promoCode: string): IQueryParams {
+        const params: IQueryParams = {};
+
+        if (type) {
+            if (type === 'active' || type === 'lootboxPrizes') {
+                params.type = type;
+            }
+            if (type === 'store') {
+                params.event = type;
+            }
+        }
+
+        if (promoCode) {
+            params.PromoCode = promoCode;
+        }
+
+        return params;
+    }
+
     /**
      * Return bonuses fileterd by sort order
      * @param {Bonus[]} bonuses bonuses array
@@ -755,7 +769,11 @@ export class BonusesService {
                     }),
                 )
                 .subscribe((userLoyaltyInfo: TUserLoyaltyInfo): void => {
-                    this.checkNewActiveBonuses(userLoyaltyInfo.bonusesBalance, userLoyaltyInfo.freeRounds);
+                    this.checkNewActiveBonuses(userLoyaltyInfo.bonusesBalance);
+
+                    if (userLoyaltyInfo.freeRounds) {
+                        this.checkNewFreeRoundGames(userLoyaltyInfo.freeRounds);
+                    }
                 });
         }
     }
@@ -1052,56 +1070,54 @@ export class BonusesService {
      *
      * @return {Promise<void>}
      */
-    private async checkNewActiveBonuses(
-        bonusesBalance: IIndexing<IBonusesBalance>,
-        freeRounds: IFreeRound[],
-    ): Promise<void> {
-        const cacheDataBonusesLBID: string[] = await this.cachingService.get<string[]>('active-loyalty-bonuses') || [];
-        const cacheDataFreeRounds: IFreeRoundData[] =
-            await this.cachingService.get<IFreeRoundData[]>('freeround-games') || [];
-        const activeBonusesLBID: string[] = _map(bonusesBalance, 'IDLoyaltyBonuses');
+    private async checkNewActiveBonuses(bonusesBalance: IIndexing<IBonusesBalance>): Promise<void> {
+        const cacheData: string[] = await this.cachingService.get<string[]>('active-loyalty-bonuses') || [];
+        const activeBonusesIds: string[] = _map(bonusesBalance, 'IDLoyaltyBonuses');
 
-        if (!_isEqual(activeBonusesLBID, cacheDataBonusesLBID) && activeBonusesLBID.length) {
+        if (activeBonusesIds.length && !_isEqual(activeBonusesIds, cacheData)) {
             _each(_keys(bonusesBalance), (bonusID: string): void => {
                 const dataBonus: IBonusesBalance = bonusesBalance[bonusID];
                 if (!_isUndefined(dataBonus.IDLoyaltyBonuses)
-                    && !_includes(cacheDataBonusesLBID, dataBonus.IDLoyaltyBonuses)
+                    && !_includes(cacheData, dataBonus.IDLoyaltyBonuses)
                     && _find(this.bonuses, {id: +bonusID, isDeposit: true})) {
                     this.showMessageBonusBalance(dataBonus.Balance);
                 }
             });
-            await this.cachingService.set('active-loyalty-bonuses', activeBonusesLBID, true, Number.MAX_SAFE_INTEGER);
-        }
 
-        if (freeRounds) {
-            const activeFreeRoundGames: IFreeRoundData[] =
-                _map(freeRounds, (freeRound: IFreeRound): IFreeRoundData => {
-                    return ({
-                        merch: freeRound.IDMerchant,
-                        games: freeRound.Games,
-                        count: freeRound.Count,
-                        date: freeRound.ExpireDate,
-                    });
+            await this.cachingService.set('active-loyalty-bonuses', activeBonusesIds, true, Number.MAX_SAFE_INTEGER);
+        }
+    }
+
+    private async checkNewFreeRoundGames(freeRounds: IFreeRound[]): Promise<void> {
+        const cacheData: IFreeRoundData[] = await this.cachingService.get<IFreeRoundData[]>('freeround-games') || [];
+        const activeFreeRoundGames: IFreeRoundData[] =
+            _map(freeRounds, (freeRound: IFreeRound): IFreeRoundData => {
+                return ({
+                    merch: freeRound.IDMerchant,
+                    games: freeRound.Games,
+                    count: freeRound.Count,
+                    date: freeRound.ExpireDate,
                 });
-
-            if (!this.gamesCatalogService) {
-                this.gamesCatalogService = await this.injectionService.getService('games.games-catalog-service');
-                await this.gamesCatalogService.ready;
-            }
-
-            _each(activeFreeRoundGames, (freeroundData: IFreeRoundData): void => {
-                if (!_find(cacheDataFreeRounds, freeroundData) && +freeroundData.count) {
-                    _each(freeroundData.games, (gameLaunchCode: string): boolean => {
-                        const game: Game = this.gamesCatalogService.getGame(+freeroundData.merch, gameLaunchCode);
-                        if (game) {
-                            this.showMessageBonusFreeRound(freeroundData, game);
-                            return false;
-                        }
-                    });
-                }
             });
-            await this.cachingService.set('freeround-games', activeFreeRoundGames, true, Number.MAX_SAFE_INTEGER);
+
+        if (!this.gamesCatalogService) {
+            this.gamesCatalogService = await this.injectionService.getService('games.games-catalog-service');
+            await this.gamesCatalogService.ready;
         }
+
+        _each(activeFreeRoundGames, (freeRoundData: IFreeRoundData): void => {
+            if (!_find(cacheData, freeRoundData) && +freeRoundData.count) {
+                _each(freeRoundData.games, (gameLaunchCode: string): boolean => {
+                    const game: Game = this.gamesCatalogService.getGame(+freeRoundData.merch, gameLaunchCode);
+                    if (game) {
+                        this.showMessageBonusFreeRound(freeRoundData, game);
+                        return false;
+                    }
+                });
+            }
+        });
+
+        await this.cachingService.set('freeround-games', activeFreeRoundGames, true, Number.MAX_SAFE_INTEGER);
     }
 
     /**
