@@ -111,6 +111,7 @@ export interface ILivechatIncConfig
         livechatincSetup?: ILivechatincSetup;
         sendUserParams?: boolean; //true - if need send user params to livechat back-office
         fundistProdLink?: string; // prod fundist link for set user details (www2.fundist.org)
+        fundistLang?: string; // lang fundist, default en
         intervalSendParams?: number; //user params sending interval (in minutes), default 1 minute
         assignUsersByGroup?: ILiveChatGroups; //if you need to distribute users into groups by tags, or by loyalty level
         openChatOnContactUs?: boolean; //true - if need open livechat window on click "Contacts" link

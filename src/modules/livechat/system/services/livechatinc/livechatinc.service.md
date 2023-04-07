@@ -27,6 +27,7 @@ export const $base: IBaseConfig = {
         setUserDetails: true,
         showOnlyAuth: true,
         fundistProdLink: 'www2.fundist.org',
+        fundistLang: 'ru',
         openChatOnContactUs: true,
         intervalSendParams: 15,
         sendUserParams: true,

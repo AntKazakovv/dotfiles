@@ -369,13 +369,16 @@ export class LivechatincService extends LivechatAbstract<ILivechatIncConfig> {
 
     protected get fundistLink(): string {
         const prodLink = this.options.fundistProdLink || 'fundist.org';
+        const lang = this.options.fundistLang || 'en';
+
         switch (this.window.WLC_ENV) {
-            case 'dev' || 'qa':
-                return 'https://qa.fundist.org/Users/Summary/';
+            case 'qa':
+            case 'dev':
+                return `https://qa.fundist.org/${lang}/Users/Summary/`;
             case 'test':
-                return 'https://test.fundist.org/Users/Summary/';
+                return `https://test.fundist.org/${lang}/Users/Summary/`;
             default:
-                return `https://${prodLink}/Users/Summary/`;
+                return `https://${prodLink}/${lang}/Users/Summary/`;
         }
     }
 
