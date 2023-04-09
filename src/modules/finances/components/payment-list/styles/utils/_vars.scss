@@ -159,6 +159,15 @@ $themeDefault: map-merge(map-merge($common, (
     'tagBtnMainOpenedMargin': 0 0 ef.size(2),
     'tagBtnMainOpenedBg': var(--mc-main),
     'tagBtnMainOpenedBorderColor': var(--mc-main),
+    'notificationBg': var(--mc-bg500),
+    'notificationPadding': ef.size(2) ef.size(6) ef.size(2) ef.size(2),
+    'notificationWidth': (
+        320: 100%,
+        1200: 50%,
+    ),
+    'notificationRadius': ef.get('radius', 'small'),
+    'notificationIconColor': var(--mc-baseOpacity),
+    'notificationTextColor': var(--mc-baseMain),
 )), $customThemeDefault);
 
 $customThemeCryptoList: () !default;

@@ -87,6 +87,7 @@ export class PaymentListComponent extends IconListAbstract<Params.IPaymentListCP
 
     @Input() public currentSystem: PaymentSystem;
     @Input() public availableSystems: number[];
+    @Input() public userCountry: string;
     @Input() protected lastSucceedMethod: Promise<number | null>;
     @Input() protected inlineParams: Params.IPaymentListCParams;
     @ViewChild('list') protected list: TemplateRef<any>;
@@ -268,6 +269,10 @@ export class PaymentListComponent extends IconListAbstract<Params.IPaymentListCP
         return this.dropdownCatMenu || this.asModal ? 'dropdown' : 'desktop';
     }
 
+    public get showNotifications(): boolean {
+        return (!this.systems.length || !this.userCountry) && this.$params.theme !== 'crypto-list';
+    }
+
     protected onTagChange(): void {
         this.activeTag$.next(this.tagsControl.value);
         this.systems$.next(this.systems.filter((val) => val.tags.includes(this.tagsControl.value)));
@@ -388,7 +393,7 @@ export class PaymentListComponent extends IconListAbstract<Params.IPaymentListCP
     }
 
     protected tapToTags(systems: PaymentSystem[]): void {
-        if (!this.useTags) {
+        if (!this.useTags || !systems.length) {
             return;
         }
 

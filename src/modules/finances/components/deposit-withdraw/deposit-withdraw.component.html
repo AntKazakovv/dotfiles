@@ -28,6 +28,7 @@
          [lastSucceedMethod]="lastSucceedPaymentMethod"
          [inlineParams]="listConfig"
          [availableSystems]="availableSystems"
+         [userCountry]="userCountry"
          [currentSystem]="parentSystem || currentSystem">
     </div>
     <div *ngIf="parentSystem || currentSystem || !hiddenPaymentInfo" class="{{$class}}__divider"></div>

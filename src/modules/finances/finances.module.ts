@@ -1,3 +1,4 @@
+import {UIRouterModule} from '@uirouter/angular';
 import {
     FormsModule,
     ReactiveFormsModule,
@@ -48,6 +49,7 @@ export const components = {
 
 @NgModule({
     imports: [
+        UIRouterModule,
         CommonModule,
         CompilerModule,
         CoreModule,

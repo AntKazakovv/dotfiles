@@ -1319,6 +1319,10 @@ export class DepositWithdrawComponent
         this.cdr.markForCheck();
     }
 
+    protected get userCountry(): string {
+        return this.userProfile.countryCode || '';
+    }
+
     protected checkAdditionalFieldSettings(field: string): IAdditionalFieldSettings {
 
         let settings: IAdditionalFieldSettings = {};
