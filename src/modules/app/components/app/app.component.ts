@@ -151,6 +151,7 @@ export class AppComponent extends AbstractComponent implements OnInit, AfterView
         this.loadAnalytics();
         this.launchMonitoring();
         this.initHookHandlers();
+        this.launchGamblingBanFeature();
     }
 
     public async ngOnInit(): Promise<void> {
@@ -309,6 +310,12 @@ export class AppComponent extends AbstractComponent implements OnInit, AfterView
             || _some(processConfigsRemote, ['use', true])
         ) {
             this.injectionService.getService<ProcessService>('monitoring.process-service');
+        }
+    }
+
+    private launchGamblingBanFeature(): void {
+        if (this.configService.get('$base.restrictions.gamblingBan.use')) {
+            this.injectionService.getService('gambling-ban.gambling-ban-service');
         }
     }
 

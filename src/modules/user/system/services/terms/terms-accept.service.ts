@@ -116,6 +116,13 @@ export class TermsAcceptService {
         });
     }
 
+    protected async shouldModalBeShown(userInfo: UserInfo): Promise<boolean> {
+        return !userInfo.isTermsActual
+            && !userInfo.blockByLocation
+            && !this.modalService.getActiveModal(this.acceptModalId)
+            && !await this.checkModalTimeout();
+    }
+
     private init(): void {
         this.hooksService.set<IHookRequestData>('dataService:requestMethod', this.onRequestMethod, this);
         this.hooksService.set<IHookGameStartData>('beforeStartGame', this.beforeStartGame, this);
@@ -133,15 +140,10 @@ export class TermsAcceptService {
             this.statesMap.set(state, params);
         }
 
-        this.configService.get<BehaviorSubject<UserInfo>>(
-            {name: '$user.userInfo$'},
-        )
+        this.configService.get<BehaviorSubject<UserInfo>>({name: '$user.userInfo$'})
             .pipe(filter((v) => !!v))
             .subscribe(async (userInfo) => {
-                if (!userInfo.isTermsActual
-                    && !this.modalService.getActiveModal(this.acceptModalId)
-                    && !await this.checkModalTimeout()
-                ) {
+                if (await this.shouldModalBeShown(userInfo)) {
                     this.modalService.showModal(this.acceptModalId);
                 }
             });

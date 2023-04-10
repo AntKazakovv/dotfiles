@@ -52,7 +52,7 @@ type TFiltersArray = Partial<IEventFilter>[];
 
 type TFilterType = Partial<IEventFilter> | TFiltersArray;
 
-type TSubscriber<T> = (data: T) => void | PartialObserver<T>;
+type TSubscriber<T> = (data: T) => Promise<void> | void | PartialObserver<T>;
 
 type TUnknownEvent = IEvent<unknown>;
 

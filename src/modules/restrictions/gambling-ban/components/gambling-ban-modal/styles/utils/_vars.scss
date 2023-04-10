@@ -1,0 +1,21 @@
+$customThemeDefault: () !default;
+
+$themeDefault: map-merge(
+    (
+        'rootFontSize': ef.get('font', 'PrimaryText'),
+
+        'textTitleFontWeight': 700,
+        'textPrimaryTextAlign': center,
+
+        'confirmationMaxWidth': 300px,
+
+        'signOutColor': var(--mc-main),
+        'signOutColorOnHover': var(--mc-baseMain),
+        'signOutFontWeight': bold,
+
+        'containerDisplay': flex,
+        'containerFlexDirection': column,
+        'containerGap': ef.size(4),
+        'containerAlignItems': center,
+    ), $customThemeDefault
+);

@@ -1,0 +1,33 @@
+<div wlc-logo class='{{$class}}__logo'></div>
+
+<div class='{{$class}}-text'>
+    <div class='{{$class}}-text__title'>
+        {{$params.title.text}}
+    </div>
+
+    <div class='{{$class}}-text__primary'>
+        {{$params.main.text}}
+    </div>
+</div>
+
+<div class='{{$class}}-confirmation'>
+    <div wlc-checkbox
+        class='{{$class}}-confirmation__checkbox'
+        [inlineParams]='checkboxConfig'>
+    </div>
+</div>
+
+<div class='{{$class}}-actions'>
+    <button wlc-button
+        class='{{$class}}-actions__confirm'
+        [inlineParams]='$params.actions.confirm.button'
+        [disabled]='!isConfirmed'
+        (click)='confirm()'>
+    </button>
+
+    <button wlc-button
+        class='{{$class}}-actions__sign-out'
+        [inlineParams]='$params.actions.signOut.button'
+        (click)='signOut()'>
+    </button>
+</div>

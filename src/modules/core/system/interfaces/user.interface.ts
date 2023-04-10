@@ -21,6 +21,7 @@ export interface IUserInfo {
     affiliateID?: string;
     availableWithdraw: number;
     balance: number;
+    blockByLocation: boolean;
     category: string;
     email: string;
     emailHash: string;

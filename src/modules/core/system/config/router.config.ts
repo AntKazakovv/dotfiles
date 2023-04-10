@@ -102,8 +102,9 @@ export function routerConfigFn(router: UIRouter, injector: Injector) {
                     const userInfo$ = configService.get<BehaviorSubject<UserInfo>>({name: '$user.userInfo$'});
                     const userInfo = userInfo$.value ?? await firstValueFrom(userInfo$.pipe(first((v) => !!v)));
 
-                    if (!userInfo.isTermsActual && !modalService.getActiveModal('accept-terms')) {
+                    if (shouldTermsModalBeShown(modalService, userInfo)) {
                         termsAcceptService.showDeniedNotify();
+
                         const res = await modalService.showModal('accept-terms', {source: 'router'});
                         await res.closed;
                         if (res.closeReason !== 'accept') {
@@ -168,6 +169,12 @@ export function routerConfigFn(router: UIRouter, injector: Injector) {
             });
         });
     });
+}
+
+function shouldTermsModalBeShown(modalService: ModalService, userInfo: UserInfo): boolean {
+    return !userInfo.isTermsActual
+        && !userInfo.blockByLocation
+        && !modalService.getActiveModal('accept-terms');
 }
 
 async function useCountryRestriction(injector: Injector, configService: ConfigService): Promise<void> {

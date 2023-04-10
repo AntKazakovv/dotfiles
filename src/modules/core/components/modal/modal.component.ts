@@ -111,6 +111,10 @@ export class WlcModalComponent extends AbstractComponent
         return this.$ready.promise;
     }
 
+    public get nativeElement(): Node {
+        return this.element.nativeElement;
+    }
+
     /**
      * A method that sets the closed state of the modal. Does not close the window itself, it is only used to put
      * the Promise object $closed in the Resolve state.

@@ -361,11 +361,18 @@ export class InjectionService {
                     this.afterModuleLoad('external-services', m);
                     return m.ExternalServicesModule;
                 });
+            case 'gambling-ban':
+                return this.loadedModules['gambling-ban'] ??
+                    import('wlc-engine/modules/restrictions/gambling-ban/gambling-ban.module').then((module) => {
+                        this.afterModuleLoad('gambling-ban', module);
+                        return module.GamblingBanModule;
+                    });
         }
     }
 
     private afterModuleLoad(name: string, loadedModule: any): void {
         this.loadedModules[name] = loadedModule;
+
         if (loadedModule.moduleConfig) {
             this.configService.set({
                 name: '$' + name,

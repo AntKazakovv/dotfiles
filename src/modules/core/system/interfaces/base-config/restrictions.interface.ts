@@ -1,3 +1,7 @@
+export interface IGamblingBanRestrictionConfig {
+    use: boolean;
+}
+
 export interface IRestrictionsConfig {
     /** Forbidden country restrict options */
     country?: {
@@ -5,4 +9,5 @@ export interface IRestrictionsConfig {
         use?: boolean,
         availableOnly?: string[];
     },
+    gamblingBan?: IGamblingBanRestrictionConfig;
 }

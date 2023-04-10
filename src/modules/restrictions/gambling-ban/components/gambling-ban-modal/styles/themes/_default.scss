@@ -1,0 +1,44 @@
+%container {
+    display: ef.get-value($themeDefault, 'containerDisplay');
+    flex-direction: ef.get-value($themeDefault, 'containerFlexDirection');
+    gap: ef.get-value($themeDefault, 'containerGap');
+    align-items: ef.get-value($themeDefault, 'containerAlignItems');
+}
+
+:host.gambling-ban-modal {
+    @extend %container;
+
+    font-size: ef.get-value($themeDefault, 'rootFontSize');
+}
+
+.gambling-ban-modal {
+
+    &-text {
+        @extend %container;
+
+        &__title {
+            font-weight: ef.get-value($themeDefault, 'textTitleFontWeight');
+        }
+
+        &__primary {
+            text-align: ef.get-value($themeDefault, 'textPrimaryTextAlign');
+        }
+    }
+
+    &-confirmation {
+        max-width: ef.get-value($themeDefault, 'confirmationMaxWidth');
+    }
+
+    &-actions {
+        @extend %container;
+
+        &__sign-out {
+            color: ef.get-value($themeDefault, 'signOutColor');
+            font-weight: ef.get-value($themeDefault, 'signOutFontWeight');
+
+            &:hover {
+                color: ef.get-value($themeDefault, 'signOutColorOnHover');
+            }
+        }
+    }
+}

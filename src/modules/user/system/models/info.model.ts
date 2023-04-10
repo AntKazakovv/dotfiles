@@ -51,6 +51,10 @@ export class UserInfo extends AbstractModel<IUserInfo> {
         return this.data?.balance;
     }
 
+    public get blockByLocation(): boolean {
+        return this.data.blockByLocation ?? false;
+    }
+
     public get category(): string {
         return this.data?.category;
     }
