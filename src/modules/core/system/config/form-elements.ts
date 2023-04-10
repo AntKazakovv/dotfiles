@@ -69,6 +69,19 @@ export namespace FormElements {
         },
     };
 
+    export const depositPrestepButton: IFormComponent = {
+        name: 'core.wlc-button',
+        params: <IButtonCParams>{
+            wlcElement: 'button_deposit_prestep',
+            common: {
+                typeAttr: 'submit',
+                text: gettext('Get code'),
+            },
+            themeMod: 'secondary',
+            customMod: ['submit', 'deposit'],
+        },
+    };
+
     export const depositButton: IFormComponent = {
         name: 'core.wlc-button',
         params: <IButtonCParams>{

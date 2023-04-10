@@ -126,6 +126,41 @@ export const financesConfig: IFinancesConfig = {
                     },
                 ],
             },
+            phone: {
+                settings: [
+                    {
+                        tooltip: gettext('Phone number format: 79111111111'),
+                        validators: [
+                            {
+                                name: 'pattern',
+                                options: '^[0-9:]*$',
+                            },
+                            {
+                                name: 'minLength',
+                                options: 11,
+                            },
+                            {
+                                name: 'maxLength',
+                                options: 11,
+                            },
+                        ],
+                        systems:['paycos_k3_mobile_commerce'],
+                    },
+                ],
+            },
+            otp: {
+                settings: [
+                    {
+                        validators: [
+                            {
+                                name: 'pattern',
+                                options: '^[0-9:]*$',
+                            },
+                        ],
+                        systems:['paycos_k3_mobile_commerce'],
+                    },
+                ],
+            },
         },
     },
     fieldTemplatesNames: {

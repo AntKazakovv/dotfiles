@@ -90,7 +90,18 @@
         &.wlc-bonuses-list--theme-mod-with-ears {
 
             .wlc-bonuses-list__list-wrapper {
-                max-width: unset;
+
+                ::ng-deep {
+                    max-width: unset;
+
+                    .swiper {
+                        overflow: visible;
+
+                        .swiper-slide {
+                            @include bm.get-mq-map('width', $themeDefault, 'slideWidth');
+                        }
+                    }
+                }
             }
         }
     }

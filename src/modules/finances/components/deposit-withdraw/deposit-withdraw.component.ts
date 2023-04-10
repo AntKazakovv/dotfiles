@@ -144,6 +144,8 @@ export class DepositWithdrawComponent
     public isCryptoInvoices: boolean = false;
     public timerParams: ITimerCParams;
 
+    public prestepFormConfig: IFormWrapperCParams;
+
     public formConfig: IFormWrapperCParams;
     public isShowHostedBlock: boolean = false;
     public steps: Set<Params.IPaymentStep> = new Set();
@@ -159,6 +161,10 @@ export class DepositWithdrawComponent
     protected formObject: FormGroup;
     protected inProgress: boolean = false;
     protected userService: UserService;
+
+    private prestepAmount: number = 0;
+    private isPrestepComplete: boolean = false;
+    private usePrestep: boolean = false;
 
     private isLoadingHostedFields: boolean = false;
     private hostedFieldsStyles: Record<THostedStyles, string> = {
@@ -381,6 +387,26 @@ export class DepositWithdrawComponent
         });
     }
 
+    public async sendPrestepForm(form: FormGroup) {
+        this.formObject = form;
+        try {
+            await this.financesService.makePrestep(
+                this.currentSystem.id,
+                form.value.amount,
+                this.getAdditionalParams(),
+            );
+            this.isPrestepComplete = true;
+            this.prestepAmount = form.value.amount;
+            this.updateFormConfig();
+        } catch (error) {
+            this.pushNotification({
+                type: 'error',
+                title: gettext('Error'),
+                message: FinancesHelper.errorToMessage(error),
+            });
+        }
+    }
+
     public async sendForm(form: FormGroup): Promise<boolean> {
         if (this.inProgress) {
             return false;
@@ -420,7 +446,8 @@ export class DepositWithdrawComponent
 
             return true;
         } else {
-            return await this.depositAction(this.formObject.value.amount, this.getAdditionalParams(), saveProfile);
+            const amount: number = this.isPrestepComplete ? this.prestepAmount : this.formObject.value.amount;
+            return await this.depositAction(amount, this.getAdditionalParams(), saveProfile);
         }
     }
 
@@ -920,6 +947,7 @@ export class DepositWithdrawComponent
 
         this.isShowHostedBlock = false;
         this.showErrorHosledLoad = false;
+        this.isPrestepComplete = false;
 
         if (!system) {
             this.dropCurrentSystem();
@@ -931,6 +959,7 @@ export class DepositWithdrawComponent
             this.cdr.detectChanges();
         }
 
+        this.usePrestep = system.isPrestep;
         this.currentSystem = system;
 
         this.timerParams.common.noDays = !DateHelper.dayExists(this.dateExpire);
@@ -1102,6 +1131,12 @@ export class DepositWithdrawComponent
     }
 
     protected updateFormConfig(): void {
+
+        if (!this.usePrestep || !this.isPrestepComplete) {
+            this.prestepFormConfig = null;
+            this.formConfig = null;
+        }
+
         const formComponents: IFormComponent[] = [];
         let lastAccount: IFormComponent;
 
@@ -1110,7 +1145,7 @@ export class DepositWithdrawComponent
         // amount
         const hideAmount: boolean = this.isDeposit && this.disableAmount && !this.currentSystem.cryptoInvoices;
 
-        if (!hideAmount) {
+        if (!hideAmount && !this.isPrestepComplete) {
             let amount = _cloneDeep(FormElements.amount);
             let showLimits = false;
 
@@ -1170,8 +1205,18 @@ export class DepositWithdrawComponent
         if (!isDepInvoice) {
             // additional
             if (!_isEmpty(this.additionalParams)) {
-                const additionalFields = _map(_keys(this.additionalParams), (key) => {
-                    const field = this.additionalParams[key];
+
+                let originParams: IIndexing<IPaymentAdditionalParam> = {};
+
+                if (this.usePrestep) {
+                    originParams = this.isPrestepComplete ?
+                        this.currentSystem.poststepParams : this.currentSystem.prestepParams;
+                } else {
+                    originParams = this.additionalParams;
+                }
+
+                const additionalFields = _map(_keys(originParams), (key) => {
+                    const field = originParams[key];
                     const fieldSettings: IAdditionalFieldSettings = this.checkAdditionalFieldSettings(key);
 
                     const validators = field.optional ? [] : ['required'];
@@ -1234,19 +1279,37 @@ export class DepositWithdrawComponent
             }
 
             // rules
-            if (this.isDeposit && this.$params.showPaymentRules) {
+            if (this.isDeposit && this.$params.showPaymentRules && (!this.usePrestep || this.isPrestepComplete)) {
                 formComponents.push(FormElements.rules);
             }
 
             // button
-            const button = this.isDeposit ? FormElements.depositButton : FormElements.withdrawButton;
+            let button;
+
+            if (this.isDeposit) {
+                if (this.usePrestep && !this.isPrestepComplete) {
+                    button = FormElements.depositPrestepButton;
+                } else {
+                    button = FormElements.depositButton;
+                }
+            } else {
+                button = FormElements.withdrawButton;
+            }
+
             formComponents.push(button);
         }
 
-        this.formConfig = {
-            class: `${this.$params.mode}-form`,
-            components: formComponents,
-        };
+        if (!this.usePrestep || this.isPrestepComplete) {
+            this.formConfig = {
+                class: `${this.$params.mode}-form`,
+                components: formComponents,
+            };
+        } else {
+            this.prestepFormConfig = {
+                class: `${this.$params.mode}-form`,
+                components: formComponents,
+            };
+        }
 
         this.cdr.markForCheck();
     }

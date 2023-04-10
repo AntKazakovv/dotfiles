@@ -105,7 +105,8 @@ export class Bonus extends AbstractModel<IBonus> {
         if (Bonus.bonusesConfig.useNewImageSources && this.data.Image_other) {
             this.icon = GlobalHelper.proxyUrl(this.data.Image_other);
         } else if (this.viewTarget) {
-            this.icon = GlobalHelper.proxyUrl(Bonus.bonusesConfig.defaultIconPath + this.viewTarget + '.svg');
+            this.icon = GlobalHelper.proxyUrl(Bonus.bonusesConfig.defaultIconPath + this.viewTarget + '.'
+                + Bonus.bonusesConfig.defaultIconExtension );
         }
 
         this._fallBackIconPath = this.configService.get<string>('$bonuses.fallBackIconPath');

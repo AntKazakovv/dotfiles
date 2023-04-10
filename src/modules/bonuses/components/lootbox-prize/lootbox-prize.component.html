@@ -10,14 +10,13 @@
     </div>
 </div>
 
-<span *ngIf="!isProfileFirst" 
+<span *ngIf="!isProfileFirst"
       wlc-icon
       class="{{$class}}__icon"
       [iconPath]="$params.iconPath">
 </span>
 
 <h4 class="{{$class}}__name"
-    data-wlc-element="lootbox-prize_name"
-    [wlc-clamp]="$params.nameClamp">
+    data-wlc-element="lootbox-prize_name">
     {{$params.prize.name}}
 </h4>

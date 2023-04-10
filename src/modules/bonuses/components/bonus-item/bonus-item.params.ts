@@ -44,8 +44,16 @@ export interface IBonusItemCParams extends IComponentParams<Theme, Type, ThemeMo
         hideDescription?: boolean;
         hideChooseBtn?: boolean;
         iconMoreBtn?: boolean;
+        /**
+         * @deprecated
+         * Will be removed
+         */
         nameClamp?: number;
         usePreviewBonus?: boolean;
+        /**
+         * @deprecated
+         * Will be removed
+         */
         descriptionClamp?: number;
     };
     /**
@@ -72,8 +80,6 @@ export const defaultParams: IBonusItemCParams = {
         hideDescription: false,
         iconMoreBtn: true,
         hideChooseBtn: true,
-        nameClamp: 1,
-        descriptionClamp: 3,
         usePreviewBonus: false,
     },
     usePartialMobileImage: false,

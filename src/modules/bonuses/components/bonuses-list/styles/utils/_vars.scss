@@ -28,6 +28,7 @@ $themeDefault: map-merge((
         480: 340px,
         640: unset,
         768: 650px,
+        900: 665px,
         1024: unset,
     ),
     'sliderPadding': (
@@ -40,13 +41,16 @@ $themeDefault: map-merge((
     'swiperButtonDisplay': (
         375: flex,
     ),
-
     'widthList': (
         480: 340px,
         640: unset,
         768: 640px,
         1024: unset,
     ),
+    'slideWidth': (
+        375: 300px,
+        768: 305px,
+    )
 ), $customThemeDefault);
 
 $customThemePromo: () !default;
@@ -124,7 +128,7 @@ $themeActive: map-merge((
 
 $customNoContent: () !default;
 $noContent: map-merge((
-    'noContentMargin':  80px 0 140px 0,
+    'noContentMargin': 80px 0 140px 0,
     'noContentMarginBtn': ef.size(8) 0 0 0,
     'noContentDisplay': flex,
     'noContentFDirection': column,
@@ -188,7 +192,6 @@ $noBonusItem: map-merge((
         375: 'ThirdTitleBold',
         560: 'QoteTextBold',
     ),
-
     'descriptionColor': var(--mc-baseMain),
     'descrMaxWidth': (
         1630: 34ch

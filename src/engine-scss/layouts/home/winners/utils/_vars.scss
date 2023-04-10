@@ -9,13 +9,14 @@ $themeWinnersSection: map-merge((
         1024: nowrap,
     ),
     'itemsMargin': (
-        365: 0 ef.size(2) ef.size(5),
+        375: 0 0 ef.size(4),
+        480: 0 ef.size(2) ef.size(4),
         1024: 0 ef.size(2),
         1200: 0 ef.size(2) ef.size(5),
     ),
     'lastItemMargin': (
-        365: 0 ef.size(2),
-        1024: 0 ef.size(2),
+        365: 0,
+        480: 0 ef.size(2),
         1200: 0 ef.size(2) ef.size(5),
     ),
     // from first and last elements

@@ -126,7 +126,7 @@ module.exports = function preBuildTask() {
         fs.access(`${this.params.paths.src}/app-styles/mobile-app.loader.scss`, (err) => {
             if (err) {
                 fs.writeFileSync(`${this.params.paths.src}/app-styles/mobile-app.loader.scss`,
-                    '@import \'wlc-engine/engine-scss/_mobile-app.loader.scss\';\n');
+                    '@import \'wlc-engine/engine-scss/mobile-app/build/_loader.scss\';\n');
             }
         });
     };
@@ -138,7 +138,7 @@ module.exports = function preBuildTask() {
         fs.access(`${this.params.paths.src}/app-styles/mobile-app.forbidden.scss`, (err) => {
             if (err) {
                 fs.writeFileSync(`${this.params.paths.src}/app-styles/mobile-app.forbidden.scss`,
-                    '@import \'wlc-engine/engine-scss/_mobile-app.forbidden.scss\';\n');
+                    '@import \'wlc-engine/engine-scss/mobile-app/build/_forbidden.scss\';\n');
             }
         });
     };
@@ -150,7 +150,7 @@ module.exports = function preBuildTask() {
         fs.access(`${this.params.paths.src}/app-styles/mobile-app.offline.scss`, (err) => {
             if (err) {
                 fs.writeFileSync(`${this.params.paths.src}/app-styles/mobile-app.offline.scss`,
-                    '@import \'wlc-engine/engine-scss/_mobile-app.offline.scss\';\n');
+                    '@import \'wlc-engine/engine-scss/mobile-app/build/_offline.scss\';\n');
             }
         });
     };

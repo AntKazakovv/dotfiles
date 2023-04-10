@@ -63,6 +63,12 @@ $themeDefault: map-merge((
     'cellJustifyContent': space-between,
     'cellAutoColumns': auto,
     'cellAutoFlow': column,
+
+    // theme mod mobile-cards
+    'rowGapMobCards': ef.size(2),
+    'rowBackgroundMobCards': var(--mc-bg300),
+    'rowMinHeightMobCards': ef.size(8),
+    'cellFirstAlignMobCards': start,
 ), $customThemeDefault);
 
 $customThemeTournaments: () !default;

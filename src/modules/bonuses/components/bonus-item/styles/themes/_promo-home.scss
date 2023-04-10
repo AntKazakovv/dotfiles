@@ -113,9 +113,12 @@
 
         &__btns {
             @include bm.get-mq-map('min-height', $themePromoHome, 'btnsMinHeight');
-
             grid-area: buttons;
             justify-content: ef.get-value($themePromoHome, 'btnsJustifyContent');
+        }
+
+        &__name {
+            @include bm.lineClamp(2);
         }
     }
 
@@ -124,7 +127,6 @@
         .wlc-bonus-item__description {
             @include bm.lineClamp();
             @include bm.get-mq-map('-webkit-line-clamp', $themePromoHome, 'descrLineClamp');
-            overflow: hidden;
         }
     }
 }

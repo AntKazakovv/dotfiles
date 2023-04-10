@@ -2,10 +2,8 @@ $customThemeDefault: () !default;
 $themeDefault: map-merge((
     // Base settings
     'radius': ef.get('radius', 'biger'),
-    'maxWidth': (
-        320: 275px,
-        480: 300px,
-        640: 100%,
+    'width': (
+        375: 100%,
         768: 305px,
         1024: 100%,
     ),

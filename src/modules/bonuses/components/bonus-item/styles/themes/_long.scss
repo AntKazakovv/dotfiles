@@ -94,11 +94,10 @@
 
         &__name {
             @include text.get-text-style('ThirdTitleBold', ef.get-value($themeLong, 'nameFontColor'));
-
+            @include bm.lineClamp();
             grid-area: title;
             align-self: end;
             max-width: 100%;
-            overflow: hidden;
             text-align: center;
         }
 

@@ -160,11 +160,17 @@
         </div>
 
         <div wlc-form-wrapper
-             class="{{$class}}__form"
-             [config]="formConfig"
-             [formData]="formData$"
-             [beforeSubmit]="formBeforeSubmit.bind(this)"
-             [ngSubmit]="sendForm.bind(this)">
+            class="{{$class}}__form"
+            [config]="prestepFormConfig"
+            [ngSubmit]="sendPrestepForm.bind(this)">
+        </div>
+
+        <div wlc-form-wrapper
+            class="{{$class}}__form"
+            [config]="formConfig"
+            [formData]="formData$"
+            [beforeSubmit]="formBeforeSubmit.bind(this)"
+            [ngSubmit]="sendForm.bind(this)">
         </div>
 
         <div *ngIf="isInvoicePending" class="{{$class}}__invoice-btns">

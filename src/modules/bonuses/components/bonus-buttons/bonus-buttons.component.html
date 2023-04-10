@@ -67,6 +67,7 @@
 <ng-template #subscribeBtn>
     <button *ngIf="bonus.canSubscribe"
             wlc-button
+            wlcElement="button_subscribe"
             [inlineParams]="$params.btnsParams.subscribeBtnParams"
             (click)="join()">
     </button>
@@ -86,6 +87,7 @@
     <button *ngIf="bonus.canUnsubscribe"
             wlc-button
             themeMod="secondary"
+            wlcElement="button_unsubscribe"
             [inlineParams]="$params.btnsParams.unsubscribeBtnParams"
             (click)="unsubscribe()">
     </button>
@@ -95,6 +97,7 @@
     <button *ngIf="bonus.isActive"
             wlc-button
             themeMod="secondary"
+            wlcElement="button_leave"
             [inlineParams]="$params.btnsParams.cancelBtnParams"
             (click)="leave()">
     </button>

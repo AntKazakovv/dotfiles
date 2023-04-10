@@ -3,16 +3,17 @@
     .wlc-app-updater {
 
         &__content {
-            margin: ef.get-value($themeDefault, 'margin');
-            padding: ef.get-value($themeDefault, 'padding');
-            font-size: 1.4rem;
-            background: ef.get-value($themeDefault, 'background');
-            border-radius: ef.get-value($themeDefault, 'borderRadius');
+            @include text.get-text-style(ef.get-value($themeDefault, 'contentText'), ef.get-value($themeDefault, 'contentTextColor'));
+
+            margin: ef.get-value($themeDefault, 'contentMargin');
+            padding: ef.get-value($themeDefault, 'contentPadding');
+            background: ef.get-value($themeDefault, 'contentBackground');
+            border-radius: ef.get-value($themeDefault, 'contentBorderRadius');
         }
 
         &__update {
             display: grid;
-            grid-template-columns: 1fr auto;
+            grid-template-columns: ef.get-value($themeDefault, 'updateTemplateColumns');
         }
     }
 }

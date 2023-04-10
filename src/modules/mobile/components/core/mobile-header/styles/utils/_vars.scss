@@ -1,4 +1,25 @@
 $customThemeDefault: () !default;
 $themeDefault: map-merge((
+    'contentTemplateColumns': 1fr minmax(0, 3fr) 1fr,
+    'contentGap': ef.size(2),
+    'contentMinHeight': 40px,
+    'contentPadding': 0 ef.size(3),
+    'contentBorder':  1px solid var(--mc-baseOpacity),
 
+    'backAlignItems': center,
+    'backJustifyContent': left,
+    'backText': 'PrimaryTextBold',
+    'backTextColor': var(--mc-main),
+
+    'iconContentMargin': 0 ef.size(1) 0 0,
+
+    'svgTransform': rotate(180deg),
+    'svgFill': var(--mc-main),
+
+    'titleText': 'ThirdTitleBold',
+    'titleTextColor': var(--mc-baseMain),
+    'titleTextAlign': center,
+
+    'actionAlignItems': center,
+    'actionJustifyContent': right,
 ), $customThemeDefault);

@@ -1,0 +1,22 @@
+@import '../../engine-vars/03.colors';
+
+$mainColors: map-merge((
+    'main': #0a84ff,
+    'secondary': #e98427,
+    'baseMain': #ffffff,
+    'baseContrast': #000,
+    'buttonColor': #0a84ff,
+    'baseOpacity': rgba(212, 225, 245, 0.5),
+    'bg100': #607896,
+    'bg300': #3b444e,
+    'bg500': #3b444e,
+    'bg700': #1d2337,
+    'bg': #040b21,
+    'bgModal': #040b21,
+    'elementsColor': #0a84ff,
+    'error': #ff453a,
+    'success': #32d74b,
+    'warning': #ffa756,
+    'disabled': #2996e4,
+    'black': #000,
+), $customMainColors);

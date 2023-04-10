@@ -3,19 +3,32 @@ $themeDefault: map-merge((
     'welcomePosition': 0,
     'gridTemplateAreas': 'title' 'logo' 'btns',
 
+    'wrapperTemplates': auto 1fr auto,
+    'wrapperHeight': 100%,
+
     'headerGap': ef.size(2),
     'headerPadding': ef.size(8) ef.size(4) ef.size(4),
+    'headerDirections': column,
+    'headerAlignItems': center,
+    'headerJustifyContent': center,
+
+    'descriptionMaxWidth': 140px,
+    'descriptionTextAlign': center,
+
+    'logoAlignItems': center,
+    'logoJustifyContent': center,
 
     'logoPadding': ef.size(4),
 
     'buttonsPadding': ef.size(4) ef.size(4) ef.size(16),
     'buttonsGap': ef.size(2),
-    'buttonBg': #0a84ff,
-    'buttonColor': #ffffff,
+    'buttonBg': var(--mc-buttonColor),
+    'buttonRadius': ef.get('radius', 'main'),
+    'buttonColor': var(--mc-baseMain),
     'buttonBorder': 2px solid transparent,
-    'buttonBgSecondary': rgba(212, 225, 245, 0.2),
+    'buttonBgSecondary': var(--mc-baseOpacity),
     'buttonBorderSecondary': 2px solid transparent,
-    'buttonColorSecondary': #ffffff,
+    'buttonColorSecondary': var(--mc-baseMain),
 
     'titleFontStyle': 'QoteTextBold',
     'titleColor': var(--mc-baseMain),

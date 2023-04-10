@@ -37,8 +37,9 @@ export class LootboxPrizeComponent extends AbstractComponent implements OnInit {
 
     public ngOnInit(): void {
         super.ngOnInit();
-
         this.isProfileFirst = this.configService.get<string>('$base.profile.type') === 'first';
+        this.$params.iconPath = `/bonuses/icons/lootbox.${this.ConfigService.get<string>(
+            '$bonuses.defaultIconExtension')}`;
         this.prepareModifiers();
     }
 

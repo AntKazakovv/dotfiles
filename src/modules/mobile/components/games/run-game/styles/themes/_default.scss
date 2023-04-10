@@ -9,7 +9,7 @@
 
             .wlc-btn--theme-default {
                 background: ef.get-value($themeDefault, 'buttonBg');
-                border-radius: ef.get('radius', 'main');
+                border-radius: ef.get-value($themeDefault, 'buttonRadius');
                 border: ef.get-value($themeDefault, 'buttonBorder');
 
                 .wlc-btn__text {

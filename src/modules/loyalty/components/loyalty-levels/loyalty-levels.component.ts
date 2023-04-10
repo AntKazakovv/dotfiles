@@ -30,6 +30,7 @@ export class LoyaltyLevelsComponent extends AbstractComponent implements OnInit 
     public levels: BehaviorSubject<LoyaltyLevelModel[]> = new BehaviorSubject([]);
 
     public tableData: ITableCParams = {
+        themeMod: 'mobile-cards',
         pagination: {
             use: false,
             breakpoints: null,

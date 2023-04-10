@@ -1,8 +1,9 @@
 .wlc-jackpot--theme-1:host {
 
     .wlc-jackpot__wrapper {
+        @include bm.get-mq-map('max-width', $theme1, 'maxWidth');
+
         display: flex;
-        max-width: ef.get-value($theme1, 'maxWidth');
         margin: ef.get-value($theme1, 'wrapperMargin');
         padding: ef.get-value($theme1, 'wrapperPadding');
         border-bottom: ef.get-value($theme1, 'wrapperBorderBottom');

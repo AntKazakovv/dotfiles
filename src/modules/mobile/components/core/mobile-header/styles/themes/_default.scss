@@ -5,21 +5,19 @@
         &__content {
             position: relative;
             display: grid;
-            grid-template-columns: 1fr minmax(0, 3fr) 1fr;
-            gap: 10px;
+            grid-template-columns: ef.get-value($themeDefault, 'contentTemplateColumns');
+            gap: ef.get-value($themeDefault, 'contentGap');
             align-items: center;
-            min-height: 40px;
-            padding: 0 15px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            min-height: ef.get-value($themeDefault, 'contentMinHeight');
+            padding: ef.get-value($themeDefault, 'contentPadding');
+            border-bottom: ef.get-value($themeDefault, 'contentBorder');
         }
 
         &__back::ng-deep {
+            @include text.get-text-style(ef.get-value($themeDefault, 'backText'), ef.get-value($themeDefault, 'backTextColor'));
             display: flex;
-            align-items: center;
-            justify-content: left;
-            color: #0a84ff;
-            font-weight: 700;
-            font-size: 14px;
+            align-items: ef.get-value($themeDefault, 'backAlignItems');
+            justify-content: ef.get-value($themeDefault, 'backJustifyContent');
 
             .wlc-icon {
                 order: -1;
@@ -29,36 +27,35 @@
                 display: flex;
                 width: 100%;
                 height: 100%;
-                margin-right: 5px;
+                margin: ef.get-value($themeDefault, 'iconContentMargin');
 
                 svg {
-                    transform: rotate(180deg);
-                    fill: #0a84ff;
+                    transform: ef.get-value($themeDefault, 'svgTransform');
+                    fill: ef.get-value($themeDefault, 'svgFill');
                 }
             }
         }
 
         &__title {
-            font-weight: 700;
-            font-size: 16px;
+            @include text.get-text-style(ef.get-value($themeDefault, 'titleText'), ef.get-value($themeDefault, 'titleTextColor'));
             white-space: nowrap;
             overflow: hidden;
-            text-align: center;
+            text-align: ef.get-value($themeDefault, 'titleTextAlign');
             text-overflow: ellipsis;
         }
 
         &__action::ng-deep {
             display: flex;
-            align-items: center;
-            justify-content: right;
+            align-items: ef.get-value($themeDefault, 'actionAlignItems');
+            justify-content: ef.get-value($themeDefault, 'actionJustifyContent');
 
             &-icon {
 
                 .wlc-icon-content {
 
                     svg {
-                        color: #0a84ff;
-                        transform: rotate(180deg);
+                        color: ef.get-value($themeDefault, 'svgFill');
+                        transform: ef.get-value($themeDefault, 'svgTransform');
                         stroke: none;
                     }
                 }
@@ -79,7 +76,7 @@
                         svg {
                             color: transparent;
                             transform: none;
-                            stroke: #0a84ff;
+                            stroke: ef.get-value($themeDefault, 'svgFill');
                         }
                     }
                 }

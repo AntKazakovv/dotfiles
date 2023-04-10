@@ -157,6 +157,10 @@ export class PIQCashierService {
                 };
             });
 
+        const profile: UserProfile = await this.configService
+            .get<BehaviorSubject<UserProfile>>({name: '$user.userProfile$'})
+            .getValue();
+
         const cashierConfig: IPiqCashierConfig = {
             environment: this.configService.get<string>('appConfig.env') === 'prod' ? 'production' : 'test',
             method: this.method,
@@ -167,6 +171,8 @@ export class PIQCashierService {
             userId: idUser,
             user: {
                 email: userEmail,
+                billingAddress1: profile.address,
+                billingPostcode: profile.postalCode,
             },
             bonusCode: this.bonusId,
             showHeader: !currentSystem.customParams?.provider,
@@ -185,9 +191,7 @@ export class PIQCashierService {
         const alias: string = currentSystem.alias;
 
         if (alias.includes('paymentiq_cashier_astropay')) {
-            cashierConfig.user.country = await this.configService
-                .get<BehaviorSubject<UserProfile>>({name: '$user.userProfile$'})
-                .getValue().countryCode;
+            cashierConfig.user.country = profile.countryCode;
         }
 
         if (['paymentiq_cashier_idebit', 'paymentiq_cashier_instadebit'].includes(alias)) {

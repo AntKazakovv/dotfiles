@@ -311,6 +311,33 @@ export class FinancesService {
         }
     }
 
+    public async makePrestep(
+        systemId: number,
+        amount: number,
+        additionalFields: object,
+    ): Promise<any> {
+        try {
+            const result: IData<string> = await this.dataService.request({
+                name: 'prestep',
+                system: 'finances',
+                url: '/deposits/prestep',
+                type: 'POST',
+            },
+            {
+                systemId,
+                amount,
+                additional: additionalFields,
+            });
+            return result.data;
+        } catch (error) {
+            this.logService.sendLog({
+                code: '17.4.0',
+                data: error,
+            });
+            throw error;
+        }
+    }
+
     private async cancelInvoice(systemId: number): Promise<void> {
         try {
             await this.dataService.request('finances/cancelDeposit', {systemId});

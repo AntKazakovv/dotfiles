@@ -133,6 +133,7 @@
 
         &__name {
             @include bm.get-mq-map('width', $themeFirst, 'infoWidth');
+            @include bm.lineClamp();
             font-weight: bold;
 
             font-size: ef.get-value($themeFirst, 'nameFontSize');

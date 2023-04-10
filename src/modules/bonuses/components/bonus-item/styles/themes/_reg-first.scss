@@ -65,6 +65,7 @@
         &__name {
             @include nameCommonStyles;
             @include bm.get-mq-map('width', $themeRegFirst, 'infoWidth');
+            @include bm.lineClamp();
         }
 
         &__description {

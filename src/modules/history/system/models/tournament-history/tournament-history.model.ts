@@ -39,7 +39,8 @@ export class TournamentHistory extends AbstractModel<ITournamentHistory> {
     }
 
     public get place(): string | number {
-        return _toNumber(this.data.Place) || '#';
+        const {Place} = this.data;
+        return _toNumber(Place) || (Place ?? '#');
     }
 
     public get start(): string {

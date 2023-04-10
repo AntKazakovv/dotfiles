@@ -114,7 +114,10 @@ $themeTransparent: map-merge((
 
 $customTheme1: () !default;
 $theme1: map-merge((
-    'maxWidth': 330px,
+    'maxWidth': (
+        375: 100%,
+        480: 330px,
+    ),
     'background': var(--mc-bg700),
     'borderRadius': ef.size(2),
 

@@ -79,9 +79,6 @@ export const defaultParams: IDepositBonusesCParams = {
     },
     itemParams: {
         theme: 'mini',
-        common: {
-            nameClamp: 2,
-        },
         bonusModalParams: {
             hideBonusButtons: true,
         },

@@ -77,7 +77,7 @@ $themeDefault: map-merge((
     'gridGapAdaptive': ef.size(4),
 
     'wrapperMaxWidthAdaptive': (
-        375: 320px,
+        375: 100%,
         560: 520px,
     ),
     'wrapperMarginAdaptive': 0 auto,

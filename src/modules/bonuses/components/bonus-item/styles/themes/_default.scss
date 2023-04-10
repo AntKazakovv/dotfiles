@@ -16,6 +16,7 @@
         }
 
         &__name {
+            @include bm.lineClamp();
             z-index: 1;
         }
 
@@ -214,9 +215,8 @@
 
 .wlc-bonus-item--theme-default {
     @include viewsBackgrounds;
-    @include bm.get-mq-map('max-width', $themeDefault, 'maxWidth');
+    @include bm.get-mq-map('width', $themeDefault, 'width');
 
-    width: 100%;
     background: ef.get-value($themeDefault, 'backgroundDefault');
 
     .wlc-bonus-item {
