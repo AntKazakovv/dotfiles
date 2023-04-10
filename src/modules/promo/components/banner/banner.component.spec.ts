@@ -1,10 +1,19 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
-import {AppModule} from 'wlc-engine/modules/app/app.module';
-import {BannerModel, BannersService} from 'wlc-engine/modules/promo';
-import {BannerComponent} from './banner.component';
-import {defaultParams} from './banner.params';
+import {
+    ComponentFixture,
+    TestBed,
+} from '@angular/core/testing';
+import {MockService} from 'ng-mocks';
 
 import _set from 'lodash-es/set';
+
+import {BannerModel} from 'wlc-engine/modules/promo/system/models/banner.model';
+import {BannersService} from 'wlc-engine/modules/promo/system/services/banners/banners.service';
+import {BannerComponent} from './banner.component';
+import {defaultParams} from './banner.params';
+import {
+    ConfigService,
+    LogService,
+} from 'wlc-engine/modules/core';
 
 describe('ButtonComponent', () => {
     let component: BannerComponent;
@@ -33,7 +42,6 @@ describe('ButtonComponent', () => {
         });
 
         TestBed.configureTestingModule({
-            imports: [AppModule],
             declarations: [BannerComponent],
             providers: [
                 {
@@ -43,6 +51,14 @@ describe('ButtonComponent', () => {
                 {
                     provide: BannersService,
                     useValue: BannersServiceSpy,
+                },
+                {
+                    provide: ConfigService,
+                    useValue: MockService(ConfigService),
+                },
+                {
+                    provide: LogService,
+                    useValue: MockService(LogService),
                 },
             ],
         }).compileComponents();
