@@ -1,8 +1,4 @@
 import {
-    Component,
-    Input,
-} from '@angular/core';
-import {
     ComponentFixture,
     fakeAsync,
     flushMicrotasks,
@@ -19,16 +15,20 @@ import {
 import {
     ActionService,
     ConfigService,
+    DatepickerComponent,
     Deferred,
     DeviceType,
     HistoryFilterService,
     IHistoryFilter,
+    WrapperComponent,
 } from 'wlc-engine/modules/core';
+import {TableComponent} from 'wlc-engine/modules/core/components/table/table.component';
 import {HistoryRangeComponent} from 'wlc-engine/modules/core/components/history-range/history-range.component';
 import {
     InternalMailsService,
 } from 'wlc-engine/modules/internal-mails/system/services/internal-mails/internal-mails.service';
 import {InternalMailsComponent} from './internal-mails.component';
+
 import * as Params from './internal-mails.params';
 
 interface IConfigServiceStub extends Partial<Omit<ConfigService, 'get'>> {
@@ -103,10 +103,9 @@ describe('InternalMailsComponent', (): void => {
         TestBed.configureTestingModule({
             declarations: [
                 InternalMailsComponent,
-                TableComponent,
-                WrapperComponent,
-                DatepickerComponent,
-                LoaderComponent,
+                MockComponent(WrapperComponent),
+                MockComponent(TableComponent),
+                MockComponent(DatepickerComponent),
                 MockComponent(HistoryRangeComponent),
             ],
             providers: [
@@ -203,20 +202,3 @@ describe('InternalMailsComponent', (): void => {
         expect(nativeElement.querySelectorAll('[wlc-datepicker]').length).toBe(0);
     }));
 });
-
-@Component({selector: '[wlc-table]'})
-class TableComponent {
-    @Input() inlineParams;
-}
-
-@Component({selector: '[wlc-wrapper]'})
-class WrapperComponent {
-    @Input() inlineParams;
-}
-
-@Component({selector: '[wlc-datepicker]'})
-class DatepickerComponent {
-    @Input() inlineParams;
-}
-@Component({selector: '[wlc-loader]'})
-class LoaderComponent {}
