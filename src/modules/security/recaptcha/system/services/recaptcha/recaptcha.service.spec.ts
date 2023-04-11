@@ -1,10 +1,13 @@
 import {TestBed} from '@angular/core/testing';
-import {HttpClientTestingModule} from '@angular/common/http/testing';
 import {DOCUMENT} from '@angular/common';
+import {MockService} from 'ng-mocks';
 
-import {WINDOW} from 'wlc-engine/modules/app/system';
-import {AppModule} from 'wlc-engine/modules/app/app.module';
+import {
+    WINDOW,
+    WINDOW_PROVIDER,
+} from 'wlc-engine/modules/app/system';
 import {RecaptchaService} from './recaptcha.service';
+import {ConfigService} from 'wlc-engine/modules/core';
 
 class GRecaptcha {
     execute = () => new Promise(resolve => resolve('test-token'));
@@ -17,8 +20,14 @@ describe('RecaptchaService', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [AppModule, HttpClientTestingModule],
-            providers: [RecaptchaService],
+            providers: [
+                RecaptchaService,
+                {
+                    provide: ConfigService,
+                    useValue: MockService(ConfigService),
+                },
+                WINDOW_PROVIDER,
+            ],
         });
 
         recaptchaService = TestBed.inject(RecaptchaService);
