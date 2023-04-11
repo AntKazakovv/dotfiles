@@ -387,7 +387,7 @@ export class DepositWithdrawComponent
         });
     }
 
-    public async sendPrestepForm(form: FormGroup) {
+    public async sendPrestepForm(form: FormGroup): Promise<boolean> {
         this.formObject = form;
         try {
             await this.financesService.makePrestep(
@@ -398,12 +398,14 @@ export class DepositWithdrawComponent
             this.isPrestepComplete = true;
             this.prestepAmount = form.value.amount;
             this.updateFormConfig();
+            return true;
         } catch (error) {
             this.pushNotification({
                 type: 'error',
                 title: gettext('Error'),
                 message: FinancesHelper.errorToMessage(error),
             });
+            return false;
         }
     }
 

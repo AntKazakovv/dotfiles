@@ -57,7 +57,7 @@ export class PasswordConfirmationFormComponent extends AbstractComponent impleme
      *
      * @param {FormGroup} form
      */
-    public async ngSubmit(form: FormGroup): Promise<void> {
+    public async ngSubmit(form: FormGroup): Promise<boolean> {
         const password: string = form.value.password;
 
         try {
@@ -75,6 +75,7 @@ export class PasswordConfirmationFormComponent extends AbstractComponent impleme
             });
             this.modalService.hideModal('password-confirmation');
             this.eventService.emit({name: 'LOGIN'});
+            return true;
         } catch (error) {
             this.eventService.emit({
                 name: NotificationEvents.PushMessage,
@@ -85,6 +86,7 @@ export class PasswordConfirmationFormComponent extends AbstractComponent impleme
                     wlcElement: 'notification_email-verification-failure',
                 },
             });
+            return false;
         } finally {
             form.enable();
             this.cdr.markForCheck();
