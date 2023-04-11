@@ -6,10 +6,7 @@ import {
 import {Subject} from 'rxjs';
 
 import {EventService} from './event.service';
-import {
-    IEvent,
-    HooksService,
-} from 'wlc-engine/modules/core';
+import {IEvent} from 'wlc-engine/modules/core';
 
 import _assign from 'lodash-es/assign';
 
@@ -42,10 +39,7 @@ describe('EventService', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            providers: [
-                EventService,
-                HooksService,
-            ],
+            providers: [EventService],
         });
 
         eventService = TestBed.inject(EventService);
@@ -216,40 +210,44 @@ describe('EventService', () => {
         eventService.emit(testEventOne);
     });
 
-    // it('-> should filter do unsubscribe when destroy subject emit', fakeAsync(
-    //     () => {
-    //         let eventNumberDestroy = 0;
-    //         let eventNumber = 0;
-    //         let $destroy = new Subject();
-    //
-    //         eventService.filter({name: testEventOne.name}, $destroy).subscribe({
-    //             next: (event) => {
-    //                 eventNumberDestroy++;
-    //                 expect(event).toEqual(_assign({type: 'event'}, testEventOne));
-    //             },
-    //         });
-    //
-    //         eventService.filter({name: testEventOne.name}).subscribe({
-    //             next: (event) => {
-    //                 eventNumber++;
-    //                 expect(event).toEqual(_assign({type: 'event'}, testEventOne));
-    //             },
-    //         });
-    //
-    //         eventService.emit(testEventOne);
-    //         eventService.emit(testEventOne);
-    //         eventService.emit(testEventOne);
-    //         $destroy.next(null);
-    //         $destroy.complete();
-    //         eventService.emit(testEventOne);
-    //         eventService.emit(testEventOne);
-    //
-    //         tick(1000);
-    //
-    //         expect(eventNumber).toEqual(5);
-    //         expect(eventNumberDestroy).toEqual(3);
-    //     }),
-    // );
+    it('-> should filter do unsubscribe when destroy subject emit', fakeAsync(
+        () => {
+            let eventNumberDestroy = 0;
+            let eventNumber = 0;
+            let $destroy = new Subject();
+
+            eventService.filter({name: testEventOne.name}, $destroy).subscribe({
+                next: (event) => {
+                    eventNumberDestroy++;
+                    expect(event).toEqual(_assign({type: 'event'}, testEventOne));
+                },
+            });
+
+            eventService.filter({name: testEventOne.name}).subscribe({
+                next: (event) => {
+                    eventNumber++;
+                    expect(event).toEqual(_assign({type: 'event'}, testEventOne));
+                },
+            });
+
+            eventService.emit(testEventOne);
+            eventService.emit(testEventOne);
+            eventService.emit(testEventOne);
+
+            tick(1000);
+
+            $destroy.next(null);
+            $destroy.complete();
+
+            eventService.emit(testEventOne);
+            eventService.emit(testEventOne);
+
+            tick(1000);
+
+            expect(eventNumber).toEqual(5);
+            expect(eventNumberDestroy).toEqual(3);
+        }),
+    );
 
     it('-> should subscribe do unsubscribe when destroy subject emit', fakeAsync(
         () => {
