@@ -9,12 +9,16 @@ import {
     HttpTestingController,
 } from '@angular/common/http/testing';
 import {TranslateService} from '@ngx-translate/core';
+
 import {
     datatype,
     internet,
     random,
 } from 'faker';
 import {isObservable} from 'rxjs';
+import _each from 'lodash-es/each';
+import _values from 'lodash-es/values';
+import _merge from 'lodash-es/merge';
 
 import {
     DataService,
@@ -25,29 +29,30 @@ import {ConfigService} from 'wlc-engine/modules/core/system/services/config/conf
 import {CachingService} from 'wlc-engine/modules/core/system/services/caching/caching.service';
 import {LogService} from 'wlc-engine/modules/core/system/services/log/log.service';
 import {WINDOW_PROVIDER} from 'wlc-engine/modules/app/system';
-
-import _each from 'lodash-es/each';
-import _values from 'lodash-es/values';
-import _merge from 'lodash-es/merge';
+import {HooksService} from 'wlc-engine/modules/core/system/services/hooks/hooks.service';
 
 describe('DataService', () => {
     let dataService: DataService;
-    let eventService: EventService;
     let httpTestingController: HttpTestingController;
+    let eventServiceSpy = jasmine.createSpyObj('EventService', ['emit']);
     let logServiceSpy = jasmine.createSpyObj('LogService', ['sendLog']);
     let cachingServiceSpy = jasmine.createSpyObj('CachingService', ['get', 'set']);
-    let configServiceSpy = jasmine.createSpyObj('CachingService', ['get', 'set']);
+    let configServiceSpy = jasmine.createSpyObj('ConfigService', ['get', 'set']);
     let translateServiceSpy = jasmine.createSpyObj('TranslateService', [], {
         currentLang: 'en',
     });
+    let hookServiceSpy: jasmine.SpyObj<HooksService> = jasmine.createSpyObj('hookService', ['run']);
 
     beforeEach(() => {
+        hookServiceSpy.run.and.callFake((name: string, data: any) => {
+            return data;
+        });
+
         TestBed.configureTestingModule({
             imports: [HttpClientTestingModule],
             providers: [
                 WINDOW_PROVIDER,
                 DataService,
-                EventService,
                 {
                     provide: LogService,
                     useValue: logServiceSpy,
@@ -61,14 +66,21 @@ describe('DataService', () => {
                     useValue: translateServiceSpy,
                 },
                 {
+                    provide: EventService,
+                    useValue: eventServiceSpy,
+                },
+                {
                     provide: ConfigService,
                     useValue: configServiceSpy,
                 },
+                {
+                    provide: HooksService,
+                    useValue: hookServiceSpy,
+                },
             ],
         });
+
         dataService = TestBed.inject(DataService);
-        eventService = TestBed.inject(EventService);
-        configServiceSpy = TestBed.inject(ConfigService);
         httpTestingController = TestBed.inject(HttpTestingController);
     });
 
@@ -232,9 +244,6 @@ describe('DataService', () => {
     }));
 
     it('-> checking sending success and fail events', fakeAsync(() => {
-        let successEvent = 0;
-        let failEvent = 0;
-
         registerTestMethod({
             name: 'test123',
             system: 'test123',
@@ -248,32 +257,36 @@ describe('DataService', () => {
             },
         });
 
-        eventService.filter({name: 'SUCCESS_TEST_EVENT'}).subscribe({
-            next: () => successEvent++,
-        });
-
-        eventService.filter({name: 'FAIL_TEST_EVENT'}).subscribe({
-            next: () => failEvent++,
-        });
-
         dataService.request('test123/test123');
         tick();
-        httpTestingController.expectOne('http://test.test/').flush({});
 
-        dataService.request('test123/test123');
-        tick();
         httpTestingController.expectOne('http://test.test/').flush({});
+        tick();
+
+        expect(eventServiceSpy.emit).toHaveBeenCalledWith({
+            name: 'SUCCESS_TEST_EVENT',
+            data: {
+                status: 'success',
+                name: 'test123',
+                system: 'test123',
+                data: {},
+            },
+        });
+
+        expect(eventServiceSpy.emit).toHaveBeenCalledTimes(1);
 
         dataService.request('test123/test123').catch(() => null);
         tick();
         httpTestingController
             .expectOne('http://test.test/')
-            .error(new ErrorEvent('error!'), {status: 404});
+            .error(new ProgressEvent('error!'), {status: 404});
 
-        tick();
 
-        expect(successEvent).toEqual(2);
-        expect(failEvent).toEqual(1);
+        expect(eventServiceSpy.emit).toHaveBeenCalledWith({
+            name: 'FAIL_TEST_EVENT',
+            data: new ProgressEvent('error!'),
+        });
+        expect(eventServiceSpy.emit).toHaveBeenCalledTimes(2);
     }));
 
     it('-> getMethodSubscribe: checking the receipt of a subscription',  () => {
