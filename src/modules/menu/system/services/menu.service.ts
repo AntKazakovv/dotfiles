@@ -22,6 +22,7 @@ import _cloneDeep from 'lodash-es/cloneDeep';
 export class MenuService {
 
     private menuSettings: IMenu;
+    private menuSettingPrepared: boolean = false;
     private loadFailed: boolean = false;
     private gamesCatalogService: GamesCatalogService;
 
@@ -50,6 +51,21 @@ export class MenuService {
      */
     public async getFundistMenuSettings(menuId: string): Promise<IMenuOptions> {
         await this.loadFundistMenuSettings();
+
+        if (!this.menuSettingPrepared && this.menuSettings) {
+
+            if (!this.gamesCatalogService) {
+                this.gamesCatalogService = await this.injectionService
+                    .getService<GamesCatalogService>('games.games-catalog-service');
+            }
+            await this.gamesCatalogService.ready;
+
+            _forEach(this.menuSettings, (settings: IMenuOptions) => {
+                settings.items = this.prepareMenuItems(settings.items);
+            });
+            this.menuSettingPrepared = true;
+        }
+
         return this.menuSettings?.[menuId];
     }
 
@@ -72,20 +88,6 @@ export class MenuService {
                 } catch (err) {
                     this.loadFailed = true;
                 }
-            }
-
-            if (this.menuSettings) {
-
-                if (!this.gamesCatalogService) {
-                    this.gamesCatalogService = await this.injectionService
-                        .getService<GamesCatalogService>('games.games-catalog-service');
-                }
-
-                this.gamesCatalogService.ready.then(() => {
-                    _forEach(this.menuSettings, (settings: IMenuOptions) => {
-                        settings.items = this.prepareMenuItems(settings.items);
-                    });
-                });
             }
         }
     }
