@@ -13,6 +13,7 @@
 
                 &.swiper-slide-active {
                     box-shadow: ef.get-value($themeDefault, 'bonusItemShadow');
+                    border: ef.get-value($themeDefault, 'bonusItemBorder');
                     border-radius: ef.get-value($themeDefault, 'itemBorderradius');
                 }
             }

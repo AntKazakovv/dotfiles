@@ -114,8 +114,8 @@ $themeDefault: map-merge((
     ),
 
     'bonusItemFilter': brightness(0.8),
-    'bonusItemShadow': 0 0 8px 0 var(--mc-main),
-
+    'bonusItemShadow': 0 0 8px var(--mc-main),
+    'bonusItemBorder': 2px solid var(--mc-main),
     'buttonMarginRight': ef.size(2),
     'buttonsPadding': ef.size(9) 0,
     'buttonsBg': url('/gstatic/wlc/bonuses/lootbox/decor-3.png') no-repeat bottom / contain,
