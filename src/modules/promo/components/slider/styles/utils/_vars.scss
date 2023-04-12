@@ -23,7 +23,7 @@ $customThemeDefaultPagination: () !default;
 $themeDefaultPagination: map-merge((
     'swiperPagiDisplay': (
         375: block,
-        720: none,
+        768: none,
     ),
     'swiperPagiZindex': 10,
     'swiperPagiBottom': 10px,
