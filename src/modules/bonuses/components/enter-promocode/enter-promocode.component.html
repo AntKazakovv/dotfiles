@@ -6,10 +6,11 @@
              (keydown.enter)="getBonusByPromocode()">
         </div>
         <button
+            *wlcLet="pending$ | async as pending"
             wlc-button
             class="{{$class}}__btn"
-            [class.pending]="pending$ | async"
-            [disabled]="pending$ | async"
+            [class.pending]="pending"
+            [disabled]="pending"
             theme="icon"
             iconPath="/wlc/icons/enter-arrow.svg"
             wlcElement="buttom_submit"

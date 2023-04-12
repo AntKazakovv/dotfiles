@@ -3,7 +3,10 @@ import {EventEmitter} from '@angular/core';
 import {DOCUMENT} from '@angular/common';
 import {TranslateService} from '@ngx-translate/core';
 
-import {Observable} from 'rxjs';
+import {
+    BehaviorSubject,
+    Observable,
+} from 'rxjs';
 import _each from 'lodash-es/each';
 
 import {
@@ -58,6 +61,7 @@ describe('BodyClassService', () => {
         ConfigServiceSpy.get.withArgs('$base.affiliate.siteUrl').and.returnValues('');
         ConfigServiceSpy.get.withArgs('$base.colorThemeSwitching.use').and.returnValues(false);
         ConfigServiceSpy.get.withArgs('$user.isAuthenticated').and.returnValues(false);
+        ConfigServiceSpy.get.withArgs('$user.isAuth$').and.returnValues(new BehaviorSubject(false));
 
         logServiceSpy = jasmine.createSpyObj('LogService', ['sendLog']);
         translateServiceSpy = jasmine.createSpyObj('TranslateService', [], {

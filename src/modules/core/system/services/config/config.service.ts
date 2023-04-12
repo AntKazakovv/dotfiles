@@ -229,6 +229,9 @@ export class ConfigService {
         this.global.appConfig.data = data;
 
         this.set<boolean>({name: '$user.isAuthenticated', value: this.global.appConfig.loggedIn});
+        this.set<BehaviorSubject<boolean>>({
+            name: '$user.isAuth$',
+            value: new BehaviorSubject(this.global.appConfig.loggedIn)});
         if (
             this.get<number>('appConfig.siteconfig.fastRegistration')
             && this.get<boolean>('appConfig.siteconfig.registerGeneratePassword')

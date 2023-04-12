@@ -3,18 +3,22 @@ import {
     Inject,
     OnInit,
     Input,
-    ChangeDetectorRef,
     ChangeDetectionStrategy,
     OnDestroy,
+    ChangeDetectorRef,
 } from '@angular/core';
 import {
     StateService,
 } from '@uirouter/core';
 
 import {
+    map,
     skipWhile,
-    takeUntil,
 } from 'rxjs/operators';
+import {
+    BehaviorSubject,
+    Observable,
+} from 'rxjs';
 
 import {
     AbstractComponent,
@@ -23,6 +27,7 @@ import {
 } from 'wlc-engine/modules/core';
 import {UserService} from 'wlc-engine/modules/user/system/services';
 import {EventService} from 'wlc-engine/modules/core/system/services/event/event.service';
+import {UserProfile} from 'wlc-engine/modules/user/system/models/profile.model';
 import * as Params from './user-name.params';
 
 /**
@@ -47,8 +52,11 @@ export class UserNameComponent extends AbstractComponent implements OnInit, OnDe
     @Input() protected inlineParams: Params.IUserNameCParams;
 
     public override $params: Params.IUserNameCParams;
-    public displayedName: string;
-    public isAuth: boolean;
+    public isAuth$: BehaviorSubject<boolean> = this.userService.isAuth$;
+    public displayedName$: Observable<string> = this.userService.userProfile$.pipe(
+        skipWhile(v => !v),
+        map(this.processDisplayName.bind(this)),
+    );
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IUserNameCParams,
@@ -64,26 +72,8 @@ export class UserNameComponent extends AbstractComponent implements OnInit, OnDe
     public override ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
 
-        this.isAuth = this.configService.get<boolean>('$user.isAuthenticated');
         this.$params.userNameLength = this.userNameLength || this.$params.userNameLength;
         this.$params.showSvgAsImg = this.showSvgAsImg || this.$params.showSvgAsImg;
-
-        this.userService.userProfile$.pipe(
-            skipWhile(v => !v),
-            takeUntil(this.$destroy),
-        )
-            .subscribe((userInfo) => {
-                this.isAuth = this.configService.get('$user.isAuthenticated');
-
-                if (userInfo.firstName || userInfo.lastName) {
-                    this.displayedName = `${userInfo.firstName} ${userInfo.lastName}`.trim();
-                } else if (userInfo.email) {
-                    this.displayedName = userInfo.email;
-                } else {
-                    this.displayedName = gettext('User');
-                }
-                this.cdr.markForCheck();
-            });
     }
 
     public modalSignupOrLogin(): void {
@@ -103,5 +93,17 @@ export class UserNameComponent extends AbstractComponent implements OnInit, OnDe
 
     public openProfile(): void {
         this.stateService.go('app.profile.main.info');
+    }
+
+    protected processDisplayName({firstName, lastName, email}: UserProfile): string {
+        let name: string = gettext('User');
+
+        if (firstName || lastName) {
+            name = `${firstName} ${lastName}`.trim();
+        } else if (email) {
+            name = email;
+        }
+
+        return name;
     }
 }

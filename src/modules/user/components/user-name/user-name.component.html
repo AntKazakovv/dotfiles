@@ -10,12 +10,12 @@
 
             <div class="{{$class}}__email-value"
                  data-wlc-element="input_email">
-                {{displayedName | truncate: $params.userNameLength}}
+                {{displayedName$ | async | truncate: $params.userNameLength}}
             </div>
         </div>
     </ng-template>
     <ng-template [ngSwitchCase]="'mobile-app'">
-        <ng-container *ngIf="isAuth; then auth else notAuth"></ng-container>
+        <ng-container *ngIf="isAuth$ | async; then auth else notAuth"></ng-container>
     </ng-template>
 </ng-container>
 
@@ -40,7 +40,7 @@
         <div class="{{$class}}__block">
             <div class="{{$class}}__email-value"
                  data-wlc-element="input_email">
-                {{displayedName | truncate: $params.userNameLength}}
+                {{displayedName$ | async | truncate: $params.userNameLength}}
             </div>
             <div class="{{$class}}__description">
                 {{'My account' | translate}}

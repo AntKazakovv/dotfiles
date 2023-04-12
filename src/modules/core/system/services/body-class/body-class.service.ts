@@ -234,13 +234,10 @@ export class BodyClassService {
     }
 
     private initListeners(): void {
-        this.eventService.subscribe({name: 'LOGOUT'}, () => {
-            this.replaceModifier('auth', '0');
-        });
-
-        this.eventService.subscribe({name: 'LOGIN'}, () => {
-            this.replaceModifier('auth', '1');
-        });
+        this.configService.get<BehaviorSubject<boolean>>('$user.isAuth$')
+            .subscribe((isAuth: boolean) => {
+                this.replaceModifier('auth', isAuth ? '1' : '0');
+            });
 
         this.translateService.onLangChange.subscribe((event: LangChangeEvent) => {
             this.replaceModifier('lang', event.lang);

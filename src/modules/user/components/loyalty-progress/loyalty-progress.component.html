@@ -1,19 +1,24 @@
-<div class="{{$class}}__content" data-wlc-element="block_game-play-info-exp-line">
-    <div class="{{$class}}__title" data-wlc-element="user-loyalty-title">{{levelName}}</div>
+<div *wlcLet="levelData$ | async as levelData" class="{{$class}}__content"
+    data-wlc-element="block_game-play-info-exp-line">
+    <div class="{{$class}}__title" data-wlc-element="user-loyalty-title">
+        {{levelData.levelName}}
+    </div>
     <div class="{{$class}}__line">
         <div class="{{$class}}__line-current"
-             [ngStyle]="{'width' :  percentProgress + '%'}"></div>
+             [ngStyle]="{'width' :  levelData.percentProgress + '%'}"></div>
         <div class="{{$class}}__line-sum"></div>
     </div>
     <div class="{{$class}}__points" data-wlc-element="user-loyalty-points">
-        <div wlc-currency 
+        <div wlc-currency
              class="{{$class}}__points-start"
              currency=""
              [showValueOnly]="true"
-             [value]="userPoints">
+             [value]="levelData.userPoints">
         </div>
         <div class="{{$class}}__points-end">
-            <ng-container *ngIf="percentProgress < 100; else maxLevel">{{nextLevelPoints}}</ng-container>
+            <ng-container *ngIf="levelData.percentProgress < 100; else maxLevel">
+                {{levelData.nextLevelPoints}}
+            </ng-container>
         </div>
     </div>
 </div>

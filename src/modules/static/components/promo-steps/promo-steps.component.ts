@@ -6,8 +6,14 @@ import {
     ChangeDetectionStrategy,
     ChangeDetectorRef,
 } from '@angular/core';
+
 import {RawParams} from '@uirouter/core';
-import {takeUntil} from 'rxjs/operators';
+import {BehaviorSubject} from 'rxjs';
+import {
+    takeUntil,
+    tap,
+} from 'rxjs/operators';
+
 import {
     AbstractComponent,
     ConfigService,
@@ -52,7 +58,7 @@ export class PromoStepsComponent extends AbstractComponent implements OnInit {
     public steps: IStep[] = [];
     protected activeStep: number = 0;
     protected showErrors: boolean;
-    private _isAuth: boolean;
+    private isAuth$: BehaviorSubject<boolean> = this.configService.get('$user.isAuth$');
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IPromoStepsCParams,
@@ -69,19 +75,11 @@ export class PromoStepsComponent extends AbstractComponent implements OnInit {
     public override async ngOnInit(): Promise<void> {
         super.ngOnInit(this.inlineParams);
         this.deviceType = this.actionService.getDeviceType();
-        this.isAuth = this.configService.get('$user.isAuthenticated');
 
-        this.eventService.subscribe([
-            {name: 'LOGIN'},
-        ], () => {
-            this.isAuth = true;
-        }, this.$destroy);
-
-        this.eventService.subscribe([
-            {name: 'LOGOUT'},
-        ], () => {
-            this.isAuth = false;
-        }, this.$destroy);
+        this.isAuth$.pipe(
+            takeUntil(this.$destroy),
+            tap(() => this.cdr.markForCheck()),
+        ).subscribe();
 
         try {
             const data: TextDataModel = await this.staticService.getPost('promo-steps');
@@ -112,29 +110,13 @@ export class PromoStepsComponent extends AbstractComponent implements OnInit {
                 case 'all':
                     return true;
                 case 'auth':
-                    return this.isAuth;
+                    return this.isAuth$.getValue();
                 case 'not-auth':
-                    return !this.isAuth;
+                    return !this.isAuth$.getValue();
                 default:
                     return true;
             }
         });
-    }
-
-    /**
-     * Set authorization value
-     * @param value {boolean} - promo step
-     */
-    protected set isAuth(value: boolean) {
-        this._isAuth = value;
-        this.cdr.markForCheck();
-    }
-
-    /**
-     * Get authorization value
-     */
-    protected get isAuth(): boolean {
-        return this._isAuth;
     }
 
     /**

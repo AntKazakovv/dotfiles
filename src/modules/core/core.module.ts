@@ -129,6 +129,7 @@ import {DragNDropDirective} from 'wlc-engine/modules/core/directives/drag-n-drop
 import {ValueLengthDirective} from './directives/value-length.directive';
 import {ParallaxMovementDirective} from './directives/parallax-movement.directive';
 import {AuthDirective} from './directives/auth.directive';
+import {WlcLetDirective} from './directives/wlcLet.directive';
 //  -- DIRECTIVES IMPORTS END  --;
 
 // -- INTERCEPTOR IMPORTS STARTS --;
@@ -353,6 +354,7 @@ export const services = {
         WlcNoContentComponent,
         WlcPaginationComponent,
         WrapperComponent,
+        WlcLetDirective,
     ],
     exports: [
         AlertComponent,
@@ -424,6 +426,7 @@ export const services = {
         WlcNoContentComponent,
         WlcPaginationComponent,
         WrapperComponent,
+        WlcLetDirective,
     ],
 })
 export class CoreModule {

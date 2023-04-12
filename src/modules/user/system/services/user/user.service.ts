@@ -125,7 +125,10 @@ export type TSetNewPasswordRes = IData<Record<'result', string>>;
     providedIn: 'root',
 })
 export class UserService {
+    // TODO: remove later
+    /** @deprecated use isAuth$ */
     public isAuthenticated: boolean;
+    public isAuth$: BehaviorSubject<boolean> = this.configService.get('$user.isAuth$');
 
     protected info: UserInfo;
     protected profile: UserProfile;
@@ -263,6 +266,7 @@ export class UserService {
         this.eventService.subscribe({
             name: 'LOGIN',
         }, () => {
+            this.isAuth$.next(true);
             this.isAuthenticated = true;
             this.configService.set({name: '$user.isAuthenticated', value: true});
             this.fetchUserProfile().then(async () => {
@@ -448,6 +452,7 @@ export class UserService {
                 }
             });
 
+        this.isAuth$.next(false);
         this.isAuthenticated = false;
         this.configService.set({name: '$user.isAuthenticated', value: false});
 
