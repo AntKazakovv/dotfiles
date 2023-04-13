@@ -1,3 +1,5 @@
+export type TBrowserColorScheme = 'dark' | 'light';
+
 export interface IColorThemeSwitchingConfig {
     /**
      * If true, application follows for the theme-switcher component.
@@ -36,7 +38,12 @@ export interface IColorThemeSwitchingConfig {
     altPiqCashierStyles?: string;
 
     /**
-     * If true, color theme is auto switched according to browser (system) settings.
+     * If true, color scheme is auto switched according to browser (system) settings.
      */
     usePrefersColorScheme?: boolean;
+
+    /**
+     * Project color scheme by default. Used with usePrefersColorScheme parameter
+     */
+    defaultProjectColorScheme?: TBrowserColorScheme;
 };

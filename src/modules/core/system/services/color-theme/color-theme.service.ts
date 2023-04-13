@@ -18,6 +18,7 @@ import {InjectionService} from 'wlc-engine/modules/core/system/services/injectio
 import {ColorThemeValues} from 'wlc-engine/modules/core/constants/color-theme.constants';
 import {
     IColorThemeSwitchingConfig,
+    TBrowserColorScheme,
 } from 'wlc-engine/modules/core/system/interfaces/base-config/color-theme-switching.config';
 import {WINDOW} from 'wlc-engine/modules/app/system/tokens/window';
 
@@ -76,7 +77,9 @@ export class ColorThemeService {
         let theme: TColorTheme = localStorageTheme || 'default';
 
         if (this.config.usePrefersColorScheme && !localStorageTheme) {
-            theme = this.window.matchMedia('(prefers-color-scheme: dark)').matches ? 'alt' : 'default';
+            const projectColorScheme: TBrowserColorScheme = this.config.defaultProjectColorScheme || 'light';
+
+            theme = this.window.matchMedia(`(prefers-color-scheme: ${projectColorScheme})`).matches ? 'default' : 'alt';
         }
 
         this.appColorTheme$.next(theme);
