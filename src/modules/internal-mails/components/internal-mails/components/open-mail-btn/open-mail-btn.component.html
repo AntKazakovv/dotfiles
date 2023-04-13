@@ -7,5 +7,5 @@
 </button>
 
 <ng-template #message>
-    <div class="internal-mail__content" [innerHtml]="$params.internalMail.content"></div>
+    <div class="internal-mail__content" [innerHtml]="$params.internalMail.content | safeHtml"></div>
 </ng-template>
