@@ -9,8 +9,6 @@ import {
 import {UIRouter} from '@uirouter/core';
 import {TranslateService} from '@ngx-translate/core';
 
-import _cloneDeep from 'lodash-es/cloneDeep';
-
 import {
     AbstractComponent,
     IMixedParams,
@@ -45,6 +43,7 @@ export class SportsbookComponent extends AbstractComponent implements OnInit, On
     public $params: Params.ISportsbookCParams;
     public gameConfig: IWrapperCParams;
 
+    protected isAuth: boolean;
     protected settings: ISportsbookSettings;
     protected hooks: IIndexing<Function> = {
         'digitain': () => {
@@ -101,52 +100,27 @@ export class SportsbookComponent extends AbstractComponent implements OnInit, On
     protected async init(): Promise<void> {
         await this.sportsbookService.ready;
 
+        this.settings = this.sportsbookSettings();
+        this.isAuth = this.configService.get<boolean>('$user.isAuthenticated');
+
+        if (this.settings) {
+            if (this.settings.id === 'betradar') {
+                this.betradarService.setBetradarParams();
+                this.betradarService.initNavigation(this.$destroy, this.cdr);
+            }
+            this.initHooks();
+            this.initGameConfig();
+            this.initSubscribers();
+        }
+        this.cdr.detectChanges();
+    }
+
+    protected sportsbookSettings(): ISportsbookSettings {
         const filter: ISportsbookSettingsFilter = {};
         if (this.$params.common?.sportsbookId) {
             filter.id = this.$params.common.sportsbookId;
         }
-        this.settings = this.sportsbookService.getSportsbookSettings(filter);
-
-        if (this.settings) {
-            this.initHooks();
-
-            const gameWrapperParams: IGameWrapperCParams = {
-                gameParams: {
-                    merchantId: this.settings.merchantId,
-                    launchCode: this.settings.launchCode,
-                    isSportsbook: true,
-                },
-                wlcElement: 'section_sportsbook_game-play',
-                theme: 'fullscreen-game-frame',
-            };
-
-            if (this.settings.id === 'betradar') {
-                this.betradarService.setBetradarParams();
-                this.betradarService.initNavigation(this.$destroy, this.cdr);
-            } else if (this.settings.id === 'digitain') {
-                gameWrapperParams.gameParams.disableIframeSelfResize = true;
-            } else if (this.settings.id === 'tglab') {
-                gameWrapperParams.gameParams.disableIframeDefaultResize = true;
-            }
-
-            this.gameConfig = {
-                components: [
-                    {
-                        name: 'games.wlc-game-wrapper',
-                        params: gameWrapperParams,
-                    },
-                ],
-            };
-
-            this.eventService.subscribe([
-                {name: 'LOGIN'},
-                {name: 'LOGOUT'},
-            ], () => {
-                this.gameConfig = _cloneDeep(this.gameConfig);
-                this.cdr.detectChanges();
-            }, this.$destroy);
-        }
-        this.cdr.detectChanges();
+        return this.sportsbookService.getSportsbookSettings(filter);
     }
 
     protected initHooks(): void {
@@ -156,4 +130,42 @@ export class SportsbookComponent extends AbstractComponent implements OnInit, On
         }
     }
 
+    protected initGameConfig(): void {
+        const gameWrapperParams: IGameWrapperCParams = {
+            gameParams: {
+                merchantId: this.settings.merchantId,
+                launchCode: this.settings.launchCode,
+                isSportsbook: true,
+                demo: !this.isAuth,
+            },
+            wlcElement: 'section_sportsbook_game-play',
+            theme: 'fullscreen-game-frame',
+        };
+
+        if (this.settings.id === 'digitain') {
+            gameWrapperParams.gameParams.disableIframeSelfResize = true;
+        } else if (this.settings.id === 'tglab') {
+            gameWrapperParams.gameParams.disableIframeDefaultResize = true;
+        }
+
+        this.gameConfig = {
+            components: [
+                {
+                    name: 'games.wlc-game-wrapper',
+                    params: gameWrapperParams,
+                },
+            ],
+        };
+    }
+
+    protected initSubscribers(): void {
+        this.eventService.subscribe([
+            {name: 'LOGIN'},
+            {name: 'LOGOUT'},
+        ], () => {
+            this.isAuth = this.configService.get<boolean>('$user.isAuthenticated');
+            this.initGameConfig();
+            this.cdr.detectChanges();
+        }, this.$destroy);
+    }
 }
