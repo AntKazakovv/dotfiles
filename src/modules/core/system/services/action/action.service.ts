@@ -250,7 +250,7 @@ export class ActionService {
                 this.completeRegistration(initialPath);
                 break;
             case 'EMAIL_UNSUBSCRIBE':
-                //TODO
+                this.onEmailUnsubscribe();
                 break;
             case 'FINALIZE_SOCIAL_CONNECT':
                 this.onSocialConnect();
@@ -441,6 +441,54 @@ export class ActionService {
             return DeviceType.Tablet;
         } else {
             return DeviceType.Mobile;
+        }
+    }
+
+    protected onEmailUnsubscribe() {
+        this.emailUnsubscribe().then(() => {
+            this.eventService.emit({
+                name: NotificationEvents.PushMessage,
+                data: <IPushMessageParams>{
+                    type: 'success',
+                    title: gettext('Unsubscribe complete'),
+                    message: [
+                        gettext('You have been successfully unsubscribed from receiving email notifications'),
+                    ],
+                },
+            });
+        }, (error) => {
+            this.eventService.emit({
+                name: NotificationEvents.PushMessage,
+                data: <IPushMessageParams>{
+                    type: 'error',
+                    title: gettext('Unsubscribe not completed'),
+                    message: [
+                        gettext('Error occured during unsibscribe'),
+                    ],
+                },
+            });
+            this.logService.sendLog({
+                code: '24.0.0', data: error,
+            });
+        });
+    }
+
+    protected async emailUnsubscribe(): Promise<void> {
+        try {
+            await this.dataService.request<IData>({
+                name: 'emailUnsubscribe',
+                url: '/profiles',
+                system: 'user',
+                type: 'PATCH',
+            }, {
+                extProfile: {
+                    dontSendEmail: true,
+                    sendEmail: false,
+                },
+                emailAgree: false,
+            });
+        } catch (error) {
+            return Promise.reject(error);
         }
     }
 

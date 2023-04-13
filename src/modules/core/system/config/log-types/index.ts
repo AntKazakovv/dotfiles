@@ -22,6 +22,7 @@ import {errorTypes as bannersLogs} from './20.banners';
 import {errorTypes as merchantWalletLogs} from './21.merchant-wallet';
 import {errorTypes as sortLogs} from './22.sorts';
 import {errorTypes as intercomLogs} from './23.intercom';
+import {errorTypes as emailLogs} from './24.email';
 
 export const defaultLogMethods: TLogMethods[] = ['flog'];
 export const defaultLogLevel: TLogLevel = 'log';
@@ -90,4 +91,5 @@ export const logTypes: ILogTypes = Object.assign(
     merchantWalletLogs,
     sortLogs,
     intercomLogs,
+    emailLogs,
 );
