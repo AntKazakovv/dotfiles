@@ -2,38 +2,42 @@ $customThemeDefault: () !default;
 $themeDefault: map-merge((
     'containerRadius': ef.get('radius', 'biger'),
     'containerBackground': (
-        320: var(--mc-bg500),
+        375: var(--mc-bg500),
         900: var(--mc-bg700),
     ),
     'containerGridTemplateColumns': (
-        320: minmax(290px, 1fr),
-        900: minmax(320px, 1fr) 340px,
+        375: minmax(290px, 1fr),
+        900: minmax(375px, 1fr) 340px,
+    ),
+    'containerGridTemplateRow': (
+        720: 226px auto auto,
+        900: initial
     ),
     'containerGridTemplateAreas': (
-        320: 'info' 'board' 'btns',
+        375: 'info' 'board' 'btns',
         900: 'info board' 'btns board',
     ),
 
     'containerHeight': (
-        320: auto,
+        375: 100%,
         900: 400px,
     ),
 
     'infoPadding': (
-        320: ef.size(4) ef.size(4) ef.size(6),
+        375: ef.size(4) ef.size(4) ef.size(6),
         640: ef.size(6) ef.size(8) ef.size(8),
     ),
     'infoPElementDisplay': (
-        320: block,
+        375: block,
         900: none,
     ),
 
     'boardPadding': (
-        320: ef.size(4) ef.size(6),
+        375: ef.size(4) ef.size(6),
         640: ef.size(4) ef.size(8),
     ),
     'boardPElementDisplay': (
-        320: none,
+        375: none,
         900: block,
     ),
     'boardTitleFontStyle': (
@@ -51,11 +55,11 @@ $themeDefault: map-merge((
     'innerBlockZIndex': 3,
 
     'imageDisplayDesk': (
-        320: none,
+        375: none,
         900: block,
     ),
     'imageDisplay': (
-        320: block,
+        375: block,
         900: none,
     ),
     'imageSize': 100%,
@@ -65,7 +69,7 @@ $themeDefault: map-merge((
     'imageObjectPosition': center,
 
     'textAlign': (
-        320: center,
+        375: center,
         900: left,
     ),
 
@@ -81,7 +85,7 @@ $themeDefault: map-merge((
     'titleFontStyle': 'ThirdTitleBold',
     'titleFontStyleDesk': 'PromoTitle',
     'titleColor': (
-        320: ef.get('mainColors', 'baseMain'),
+        375: ef.get('mainColors', 'baseMain'),
         900: var(--mc-baseMain),
     ),
     'titleMargin': 0 0 ef.size(6),
@@ -100,27 +104,36 @@ $themeDefault: map-merge((
 
     'btnsWrapMargin': auto 0 0 0,
     'btnsWrapAlign': (
-        320: center,
-        900: flex-start,
+        900: flex-end,
     ),
     'btnsWrapPadding': (
-        320: 0 ef.size(6) ef.size(4),
-        640: 0 ef.size(8) ef.size(8),
+        375: 0 0 ef.size(4),
+        720: 0 0 ef.size(4),
+        900: 0 ef.size(8) ef.size(8),
     ),
     'btnsWrapperFlexDirection': (
-        320: column,
+        375: column,
         480: row,
+        720: column,
+        900: row,
     ),
     'btnsMinWidthColumn': (
-        320: 150px,
-        480: 110px,
+        375: 150px,
+        900: 110px,
     ),
     'btnsGridColumnGap': 0,
     'btnsPadding': ef.size(1) ef.size(3),
     'firstBtnColumnMargin': (
-        320: 0 0 ef.size(4) 0,
+        375: 0 0 ef.size(4),
         480: 0 ef.size(4) 0 0,
+        720: 0 0 ef.size(4),
+        900: 0 ef.size(4) 0 0,
     ),
+    'btnsWrapJustify': (
+        375: center,
+        900: initial
+    ),
+    'btnsAlignSelf': end,
     'prizesMargin': ef.size(2) auto,
 
     'loaderZIndex': 10,
@@ -144,11 +157,11 @@ $themeDefault: map-merge((
     'boardTitleMargin': 0 0 ef.size(2) 0,
 
     'modMobileGridTemplateColumns': (
-        320: minmax(260px, 1fr),
-        900: minmax(320px, 1fr) 340px,
+        375: minmax(260px, 1fr),
+        900: minmax(375px, 1fr) 340px,
     ),
     'modMobileBoardPadding': (
-        320: ef.size(4) ef.size(3),
+        375: ef.size(4) ef.size(3),
         640: ef.size(4) ef.size(8),
     ),
 ), $customThemeDefault);
@@ -156,37 +169,37 @@ $themeDefault: map-merge((
 $customModAvailable: () !default;
 $modAvailable: map-merge((
     'containerGridTemplateColumns': (
-        320: minmax(290px, 1fr),
-        900: minmax(320px, 1fr) 290px,
-        1200: minmax(320px, 1fr) 340px,
+        375: minmax(290px, 1fr),
+        900: minmax(375px, 1fr) 290px,
+        1200: minmax(375px, 1fr) 340px,
     ),
     'containerBackground': (
-        320: var(--mc-bg500),
+        375: var(--mc-bg500),
     ),
 
     'containerHeight': (
-        320: auto,
+        375: auto,
         900: 380px,
         1630: 400px,
     ),
 
     'infoPadding': (
-        320: ef.size(4),
+        375: ef.size(4),
         640: ef.size(3),
         1024: ef.size(4) ef.size(3),
         1630: ef.size(6) ef.size(8) ef.size(8),
     ),
 
     'btnsWrapPadding': (
-        320: 0 ef.size(6) ef.size(4),
+        375: 0 ef.size(6) ef.size(4),
         640: 0 ef.size(3) ef.size(3),
         1024: 0 ef.size(3) ef.size(4),
         1630: 0 ef.size(8) ef.size(8),
     ),
 
     'boardPadding': (
-        320:ef.size(2) ef.size(4) ef.size(4),
-        640: ef.size(3),
+        375: ef.size(2) ef.size(4) ef.size(4),
+        640: ef.size(3) ef.size(3) ef.size(4),
         1630: ef.size(4) ef.size(8),
     ),
 ), $customModAvailable);

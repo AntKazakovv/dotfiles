@@ -1,6 +1,8 @@
 .wlc-tournament-promo--theme-default:host {
+    @include bm.get-mq-map('height', $themeDefault, 'containerHeight');
 
     .wlc-tournament-promo {
+        @include bm.get-mq-map('height', $themeDefault, 'containerHeight');
 
         &__container {
             @include bm.get-mq-map('grid-template-columns', $themeDefault, 'containerGridTemplateColumns');
@@ -9,6 +11,7 @@
             @include bm.get-mq-map('height', $themeDefault, 'containerHeight');
 
             @include bm.get-mq-map('background', $themeDefault, 'containerBackground');
+            @include bm.get-mq-map('grid-template-rows', $themeDefault, 'containerGridTemplateRow');
 
             position: relative;
             display: grid;
@@ -44,7 +47,7 @@
             display: flex;
             flex-direction: column;
             grid-area: board;
-            justify-content: center;
+            justify-content: flex-start;
 
             &:before {
                 @include bm.get-mq-map('display', $themeDefault, 'boardPElementDisplay');
@@ -114,7 +117,10 @@
             line-height: 0;
 
             &-text {
-                @include text.get-text-style(ef.get-value($themeDefault, 'tagFontStyle'), ef.get-value($themeDefault, 'tagColor'));
+                @include text.get-text-style(
+                    ef.get-value($themeDefault, 'tagFontStyle'),
+                    ef.get-value($themeDefault, 'tagColor'),
+                );
 
                 display: inline-block;
                 padding: ef.get-value($themeDefault, 'tagTextPadding');
@@ -130,24 +136,36 @@
         }
 
         &__title {
-            @include text.get-text-style(ef.get-value($themeDefault, 'titleFontStyle'), ef.get-value($themeDefault, 'titleColor', 320));
+            @include text.get-text-style(
+                ef.get-value($themeDefault, 'titleFontStyle'),
+                ef.get-value($themeDefault, 'titleColor')
+            );
             @include bm.lineClamp(2);
             margin: ef.get-value($themeDefault, 'titleMargin');
             text-transform: uppercase;
 
             @include mq.min(900) {
-                @include text.get-text-style(ef.get-value($themeDefault, 'titleFontStyleDesk'), ef.get-value($themeDefault, 'titleColor', 900));
+                @include text.get-text-style(
+                    ef.get-value($themeDefault, 'titleFontStyleDesk'),
+                    ef.get-value($themeDefault, 'titleColor', 900),
+                );
             }
         }
 
         &__description {
             @include bm.lineClamp(3);
-            @include text.get-text-style(ef.get-value($themeDefault, 'descriptionFontStyle'), ef.get-value($themeDefault, 'descriptionColor', 320));
+            @include text.get-text-style(
+                ef.get-value($themeDefault, 'descriptionFontStyle'),
+                ef.get-value($themeDefault, 'descriptionColor', 320),
+            );
             @include bm.lineClamp(3);
             margin: ef.get-value($themeDefault, 'descriptionMargin');
 
             @include mq.min(900) {
-                @include text.get-text-style(ef.get-value($themeDefault, 'descriptionFontStyleDesk'), ef.get-value($themeDefault, 'descriptionColor', 900));
+                @include text.get-text-style(
+                    ef.get-value($themeDefault, 'descriptionFontStyleDesk'),
+                    ef.get-value($themeDefault, 'descriptionColor', 900),
+                );
             }
         }
 
@@ -240,17 +258,16 @@
         }
 
         .buttons-wrap {
-            @include bm.get-mq-map('justify-content', $themeDefault, 'btnsWrapAlign');
-            @include bm.get-mq-map('padding', $themeDefault, 'btnsWrapPadding');
+            @include bm.get-mq-map('align-items', $themeDefault, 'btnsWrapAlign');
             @include bm.get-mq-map('flex-direction', $themeDefault, 'btnsWrapperFlexDirection');
+            @include bm.get-mq-map('justify-self', $themeDefault, 'btnsWrapJustify');
+            @include bm.get-mq-map('padding', $themeDefault, 'btnsWrapPadding');
 
             display: flex;
             grid-area: btns;
-            align-items: center;
-            margin: ef.get-value($themeDefault, 'btnsWrapMargin');
+            align-self: ef.get-value($themeDefault, 'btnsAlignSelf');
 
             & > .wlc-btn {
-                @include bm.get-mq-map('min-width', $themeDefault, 'btnsMinWidthColumn');
                 @include bm.get-mq-map('margin', $themeDefault, 'firstBtnColumnMargin');
 
                 grid-column-gap: ef.get-value($themeDefault, 'btnsGridColumnGap');
