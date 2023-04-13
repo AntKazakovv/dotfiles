@@ -547,6 +547,10 @@ export class UserService {
     private async getUpdateProfileParams(updates: IUserProfile, options: IUpdateProfileOptions): Promise<IUserProfile> {
         const {updatePartial = false, isAfterDepositWithdraw} = options;
 
+        if (updates?.phoneCode && !updates.phoneNumber) {
+            updates.phoneCode = '';
+        }
+
         const requestParams = updatePartial
             ? _assign({}, updates, isAfterDepositWithdraw ? {isAfterDepositWithdraw} : {})
             : _assign({}, this.profile.data, updates);
