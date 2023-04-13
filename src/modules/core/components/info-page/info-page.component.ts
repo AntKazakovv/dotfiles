@@ -43,7 +43,7 @@ import _get from 'lodash-es/get';
 })
 export class InfoPageComponent extends AbstractComponent implements OnInit {
     @Input() protected inlineParams: Params.IInfoPageCParams;
-    public $params: Params.IInfoPageCParams;
+    public override $params: Params.IInfoPageCParams;
     public config: Params.IInfoPageConfig;
     public content: IWrapperCParams;
 
@@ -51,13 +51,13 @@ export class InfoPageComponent extends AbstractComponent implements OnInit {
         @Inject('injectParams') protected params: Params.IInfoPageCParams,
         private uiRouter: UIRouterGlobals,
         private transition: TransitionService,
-        protected cdr: ChangeDetectorRef,
-        protected configService: ConfigService,
+        cdr: ChangeDetectorRef,
+        configService: ConfigService,
     ) {
-        super({injectParams: params, defaultParams: Params.defaultParams}, configService);
+        super({injectParams: params, defaultParams: Params.defaultParams}, configService, cdr);
     }
 
-    public ngOnInit(): void {
+    public override ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
         this.config = this.$params.config;
         this.transition.onSuccess({}, () => {

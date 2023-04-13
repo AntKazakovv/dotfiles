@@ -27,7 +27,7 @@ import * as Params from './mail-preview.params';
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProfileMessagePreviewComponent extends AbstractComponent implements OnInit {
-    public $params: Params.IMailPreviewCParams;
+    public override $params: Params.IMailPreviewCParams;
     /**
      * Date of creation of the mail
      */
@@ -44,16 +44,16 @@ export class ProfileMessagePreviewComponent extends AbstractComponent implements
     constructor(
         @Inject('injectParams') protected params: Params.IMailPreviewCParams,
         protected internalMailsService: InternalMailsService,
-        protected cdr: ChangeDetectorRef,
+        cdr: ChangeDetectorRef,
     ) {
         super(
             <IMixedParams<Params.IMailPreviewCParams>>{
                 injectParams: params,
                 defaultParams: Params.defaultParams,
-            });
+            }, null, cdr);
     }
 
-    public ngOnInit(): void {
+    public override ngOnInit(): void {
         super.ngOnInit();
         this.date = this.$params.internalMail.date;
         this.from = this.$params.internalMail.from;

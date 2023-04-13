@@ -34,18 +34,18 @@ import * as Params from './favourite-button.params';
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FavouriteButtonComponent extends AbstractComponent implements OnInit {
-    public $params!: Params.IFavouriteButtonCParams;
+    public override $params!: Params.IFavouriteButtonCParams;
     public isAuth: boolean = false;
     public isReady: boolean = false;
     public game!: Game;
 
     constructor(
         @Inject('injectParams') protected params: Params.IFavouriteButtonCParams,
-        protected cdr: ChangeDetectorRef,
+        cdr: ChangeDetectorRef,
         protected modalService: ModalService,
         protected eventService: EventService,
         protected stateService: StateService,
-        protected configService: ConfigService,
+        configService: ConfigService,
         protected gamesCatalogService: GamesCatalogService,
         protected userService: UserService,
     ) {
@@ -53,11 +53,11 @@ export class FavouriteButtonComponent extends AbstractComponent implements OnIni
             <IMixedParams<Params.IFavouriteButtonCParams>>{
                 injectParams: params,
                 defaultParams: Params.defaultParams,
-            }, configService,
+            }, configService, cdr,
         );
     }
 
-    public ngOnInit(): void {
+    public override ngOnInit(): void {
         super.ngOnInit();
         this.init();
     }

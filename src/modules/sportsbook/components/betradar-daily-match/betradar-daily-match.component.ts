@@ -27,7 +27,7 @@ import _trim from 'lodash-es/trim';
 })
 export class BetradarDailyMatchComponent extends AbstractComponent implements OnInit {
 
-    public $params: Params.IBetradarDailyMatchCParams;
+    public override $params: Params.IBetradarDailyMatchCParams;
     public inited: boolean = false;
     public initFailed: boolean = false;
     public imagePath: string;
@@ -37,19 +37,19 @@ export class BetradarDailyMatchComponent extends AbstractComponent implements On
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IBetradarDailyMatchCParams,
-        protected cdr: ChangeDetectorRef,
+        cdr: ChangeDetectorRef,
         protected betradarService: BetradarService,
         protected sportsbookService: SportsbookService,
-        protected configService: ConfigService,
+        configService: ConfigService,
         protected fileService: FilesService,
     ) {
         super({
             injectParams,
             defaultParams: Params.defaultParams,
-        }, configService);
+        }, configService, cdr);
     }
 
-    public ngOnInit(): void {
+    public override ngOnInit(): void {
         super.ngOnInit();
         this.init();
     }

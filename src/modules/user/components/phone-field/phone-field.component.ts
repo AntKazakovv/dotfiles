@@ -39,7 +39,7 @@ import _clone from 'lodash-es/clone';
 })
 export class PhoneFieldComponent extends AbstractComponent implements OnInit {
     @Input() protected inlineParams: Params.IPhoneFieldCParams;
-    public $params: Params.IPhoneFieldCParams;
+    public override $params: Params.IPhoneFieldCParams;
     public phoneCode: ISelectCParams;
     public phoneNumber: IInputCParams;
     public smsVerification: boolean;
@@ -49,17 +49,17 @@ export class PhoneFieldComponent extends AbstractComponent implements OnInit {
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IPhoneFieldCParams,
-        protected configService: ConfigService,
+        configService: ConfigService,
         protected selectValues: SelectValuesService,
-        protected cdr: ChangeDetectorRef,
+        cdr: ChangeDetectorRef,
         protected userService: UserService,
         protected validationService: ValidationService,
         protected modalService: ModalService,
     ) {
-        super({injectParams, defaultParams: Params.defaultParams}, configService);
+        super({injectParams, defaultParams: Params.defaultParams}, configService, cdr);
     }
 
-    public ngOnInit(): void {
+    public override ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
         this.provideParams();
 

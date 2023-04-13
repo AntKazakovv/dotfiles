@@ -26,17 +26,17 @@ export {IHistoryFilterFormCParams} from './history-filter-form.params';
 export class HistoryFilterFormComponent extends AbstractComponent implements OnInit {
     @Input() protected inlineParams: Params.IHistoryFilterFormCParams;
 
-    public $params: Params.IHistoryFilterFormCParams;
+    public override $params: Params.IHistoryFilterFormCParams;
     public formData: BehaviorSubject<IIndexing<any>>;
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IHistoryFilterFormCParams,
-        protected configService: ConfigService,
+        configService: ConfigService,
     ) {
         super({injectParams, defaultParams: Params.defaultParams}, configService);
     }
 
-    public ngOnInit(): void {
+    public override ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
         this.formData = this.$params.formData;
     }

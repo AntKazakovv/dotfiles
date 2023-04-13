@@ -36,16 +36,16 @@ export class MobileHeaderComponent
     extends AbstractComponent
     implements OnInit {
 
-    public $params: Params.IMobileHeaderParams;
+    public override $params: Params.IMobileHeaderParams;
     public title: string = '';
     public isHidden: boolean = false;
     public actionBtn: Params.IActionButton;
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IMobileHeaderParams,
-        protected configService: ConfigService,
+        configService: ConfigService,
         protected router: UIRouter,
-        protected cdr: ChangeDetectorRef,
+        cdr: ChangeDetectorRef,
         protected modalService: ModalService,
         protected stateService: StateService,
         protected eventService: EventService,
@@ -58,10 +58,11 @@ export class MobileHeaderComponent
                 defaultParams: Params.defaultParams,
             },
             configService,
+            cdr,
         );
     }
 
-    public ngOnInit(): void {
+    public override ngOnInit(): void {
         super.ngOnInit();
 
         this.checkVisibility(this.router.globals.current.name);

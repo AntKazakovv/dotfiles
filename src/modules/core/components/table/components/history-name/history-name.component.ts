@@ -19,16 +19,16 @@ import * as Params from './history-name.params';
 })
 export class HistoryNameComponent extends AbstractComponent implements OnInit {
 
-    public $params: Params.IHistoryNameParams;
+    public override $params: Params.IHistoryNameParams;
 
     constructor(
         @Inject('injectParams') protected params: Params.IHistoryNameParams,
-        protected cdr: ChangeDetectorRef,
+        cdr: ChangeDetectorRef,
     ) {
         super(
             <IMixedParams<Params.IHistoryNameParams>>{
                 injectParams: params,
                 defaultParams: Params.defaultParams,
-            });
+            }, null, cdr);
     }
 }

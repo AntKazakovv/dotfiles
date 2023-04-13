@@ -1,4 +1,7 @@
-import {Directive} from '@angular/core';
+import {
+    ChangeDetectorRef,
+    Directive,
+} from '@angular/core';
 
 import _isEqual from 'lodash-es/isEqual';
 import _transform from 'lodash-es/transform';
@@ -29,7 +32,7 @@ import {TPaymentsMethods} from '../interfaces';
 @Directive()
 export abstract class AbstractDepositWithdrawComponent<T extends {mode: TPaymentsMethods}> extends AbstractComponent {
 
-    public $params: T & IComponentParams<unknown, unknown, unknown>;
+    public override $params: T & IComponentParams<unknown, unknown, unknown>;
     public currentSystem: PaymentSystem;
     public requiredFields: IIndexing<IFieldTemplate> = {};
     public requiredFieldsKeys: string[] = [];
@@ -39,10 +42,11 @@ export abstract class AbstractDepositWithdrawComponent<T extends {mode: TPayment
         protected params: IMixedParams<unknown>,
         protected logService: LogService,
         protected modalService: ModalService,
-        protected configService: ConfigService,
+        configService: ConfigService,
         protected injectionService: InjectionService,
+        cdr: ChangeDetectorRef,
     ) {
-        super(params, configService);
+        super(params, configService, cdr);
     }
 
     /**

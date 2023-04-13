@@ -64,30 +64,30 @@ export interface IRegFormDataForConfig {
 export class SignUpFormComponent extends UserActionsAbstract<Params.ISignUpFormCParams> implements OnInit {
 
     public config: IFormWrapperCParams;
-    public $params: Params.ISignUpFormCParams;
+    public override $params: Params.ISignUpFormCParams;
     public formData: BehaviorSubject<IIndexing<unknown>>;
     public errors$: BehaviorSubject<IIndexing<string>> = new BehaviorSubject(null);
     @HostBinding('class.two-steps') useTwoStepsClass: boolean = this.getTwoSteps();
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.ISignUpFormCParams,
-        protected userService: UserService,
+        userService: UserService,
         protected validationService: ValidationService,
-        protected logService: LogService,
-        protected configService: ConfigService,
-        protected eventService: EventService,
+        logService: LogService,
+        configService: ConfigService,
+        eventService: EventService,
         protected socialService: SocialService,
         protected dataService: DataService,
-        protected injectionService: InjectionService,
+        injectionService: InjectionService,
         @Inject(CuracaoRequirement) private enableRequirement: boolean,
     ) {
         super({
             injectParams,
             defaultParams: Params.defaultParams,
-        }, configService, eventService, injectionService, logService);
+        }, configService, eventService, injectionService, logService, userService);
     }
 
-    public ngOnInit(): void {
+    public override ngOnInit(): void {
         super.ngOnInit();
         this.config = _cloneDeep(this.$params.formConfig);
 

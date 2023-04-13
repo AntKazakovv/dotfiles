@@ -40,7 +40,7 @@ export class DeadsimplechatComponent extends AbstractComponent implements OnInit
     @Input() protected iconPath: string;
 
     public ready$: Subject<boolean> = new Subject();
-    public $params: Params.IDeadsimplechatCParams;
+    public override $params: Params.IDeadsimplechatCParams;
     public zIndexLiveChat: string = '';
     public roomId: string;
     public liveChatExist: boolean = false;
@@ -49,7 +49,7 @@ export class DeadsimplechatComponent extends AbstractComponent implements OnInit
         @Inject(DOCUMENT) protected document: Document,
         @Inject('injectParams') protected params: Params.IDeadsimplechatCParams,
         protected deadsimplechatService: DeadsimplechatService,
-        protected configService: ConfigService,
+        configService: ConfigService,
         protected eventService: EventService,
         protected renderer: Renderer2,
         protected translate: TranslateService,
@@ -60,7 +60,7 @@ export class DeadsimplechatComponent extends AbstractComponent implements OnInit
         }, configService);
     }
 
-    public ngOnInit(): void {
+    public override ngOnInit(): void {
         super.ngOnInit();
         this.init();
     }

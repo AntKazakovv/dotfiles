@@ -47,14 +47,14 @@ export class PlayGameForRealComponent extends SignInFormAbstract<Params.IPlayGam
     constructor(
         @Inject('injectParams') protected params: Params.IPlayGameForRealCParams,
         injectionService: InjectionService,
-        protected cdr: ChangeDetectorRef,
-        protected modalService: ModalService,
+        cdr: ChangeDetectorRef,
+        modalService: ModalService,
         protected logService: LogService,
-        protected eventService: EventService,
-        protected translateService: TranslateService,
-        protected stateService: StateService,
-        protected configService: ConfigService,
-        protected userService: UserService,
+        eventService: EventService,
+        translateService: TranslateService,
+        stateService: StateService,
+        configService: ConfigService,
+        userService: UserService,
     ) {
         super(
             <IMixedParams<Params.IPlayGameForRealCParams>>{
@@ -68,6 +68,7 @@ export class PlayGameForRealComponent extends SignInFormAbstract<Params.IPlayGam
             stateService,
             translateService,
             configService,
+            cdr,
         );
 
         this.config = Params.playGameForRealConfig({
@@ -80,7 +81,7 @@ export class PlayGameForRealComponent extends SignInFormAbstract<Params.IPlayGam
         });
     }
 
-    public ngOnInit(): void {
+    public override ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
         this.onLoginSuccess();
         this.onPlayDemo();

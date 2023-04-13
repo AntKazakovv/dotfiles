@@ -31,7 +31,7 @@ export class TabSwitcherComponent
     @Input() public inlineParams: Params.ITabSwitcherParams;
     @Input() public theme: Params.ComponentTheme;
     @Input() public themeMod: Params.ThemeMod;
-    public $params: Params.ITabSwitcherParams;
+    public override $params: Params.ITabSwitcherParams;
     public activeTab: Params.ITab;
     public component: unknown;
 
@@ -39,17 +39,17 @@ export class TabSwitcherComponent
         @Inject('injectParams') protected injectParams: Params.ITabSwitcherParams,
         protected injector: Injector,
         protected injectionService: InjectionService,
-        protected cdr: ChangeDetectorRef,
+        cdr: ChangeDetectorRef,
         protected modalService: ModalService,
-        protected configService: ConfigService,
+        configService: ConfigService,
     ) {
         super({
             injectParams,
             defaultParams: Params.defaultParams,
-        });
+        }, configService, cdr);
     }
 
-    public ngOnInit(): void {
+    public override ngOnInit(): void {
         this.setThemeMod();
         super.ngOnInit();
         this.applyConfig();

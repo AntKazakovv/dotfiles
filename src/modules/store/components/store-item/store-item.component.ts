@@ -39,7 +39,7 @@ export class StoreItemComponent extends AbstractComponent implements OnInit, OnD
     @Input() public themeMod: Params.ThemeMod;
     @Input() public customMod: Params.CustomMod;
 
-    public $params: Params.IStoreItemCParams;
+    public override $params: Params.IStoreItemCParams;
     public isAuth: boolean;
     public buyClick: boolean = false;
     public storeImage: string;
@@ -48,8 +48,8 @@ export class StoreItemComponent extends AbstractComponent implements OnInit, OnD
 
     constructor(
         @Inject('injectParams') protected params: Params.IStoreItemCParams,
-        protected cdr: ChangeDetectorRef,
-        protected configService: ConfigService,
+        cdr: ChangeDetectorRef,
+        configService: ConfigService,
         protected modalService: ModalService,
         protected eventService: EventService,
         protected storeService: StoreService,
@@ -58,10 +58,10 @@ export class StoreItemComponent extends AbstractComponent implements OnInit, OnD
             <IMixedParams<Params.IStoreItemCParams>>{
                 injectParams: params,
                 defaultParams: Params.defaultParams,
-            }, configService);
+            }, configService, cdr);
     }
 
-    public ngOnInit(): void {
+    public override ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
         this.prepareModifiers();
         this.isProfileFirst = this.configService.get<string>('$base.profile.type') === 'first';

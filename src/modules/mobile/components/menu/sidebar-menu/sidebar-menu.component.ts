@@ -33,7 +33,7 @@ import * as Params from './sidebar-menu.params';
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SidebarMenuComponent extends AbstractComponent implements OnInit {
-    public $params!: Params.ISidebarMenuCParams;
+    public override $params!: Params.ISidebarMenuCParams;
     public menus: IWrapperCParams[] = [];
 
     protected menuConfig!: MenuParams.MenuConfigItem[][];
@@ -42,8 +42,8 @@ export class SidebarMenuComponent extends AbstractComponent implements OnInit {
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.ISidebarMenuCParams,
-        protected cdr: ChangeDetectorRef,
-        protected configService: ConfigService,
+        cdr: ChangeDetectorRef,
+        configService: ConfigService,
         protected router: UIRouter,
     ) {
         super(
@@ -52,10 +52,11 @@ export class SidebarMenuComponent extends AbstractComponent implements OnInit {
                 defaultParams: Params.defaultParams,
             },
             configService,
+            cdr,
         );
     }
 
-    public async ngOnInit(): Promise<void> {
+    public override async ngOnInit(): Promise<void> {
         super.ngOnInit();
 
         this.initConfig();

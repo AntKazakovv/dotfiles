@@ -40,17 +40,17 @@ export class InternalMailsNotifierComponent extends AbstractComponent implements
     constructor(
         @Inject('injectParams') protected params: Params.IInternalMailsNotifierCParams,
         protected internalMailsService: InternalMailsService,
-        protected cdr: ChangeDetectorRef,
-        protected configService: ConfigService,
+        cdr: ChangeDetectorRef,
+        configService: ConfigService,
     ) {
         super(
             <IMixedParams<Params.IInternalMailsNotifierCParams>>{
                 injectParams: params,
                 defaultParams: Params.defaultParams,
-            }, configService);
+            }, configService, cdr);
     }
 
-    public ngOnInit(): void {
+    public override ngOnInit(): void {
         super.ngOnInit();
 
         this.internalMailsService.unreadMailsCount$

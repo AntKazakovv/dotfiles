@@ -44,7 +44,7 @@ export class JackpotsSliderComponent extends AbstractComponent implements OnInit
     @Input() protected inlineParams: Params.IJackpotsSliderCParams;
     public slides: ISlide[] = [];
     public ready: boolean = false;
-    public $params: Params.IJackpotsSliderCParams;
+    public override $params: Params.IJackpotsSliderCParams;
     public noContentParams: INoContentCParams;
 
     protected useCssProps: boolean = false;
@@ -56,17 +56,17 @@ export class JackpotsSliderComponent extends AbstractComponent implements OnInit
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IJackpotsSliderCParams,
-        protected configService: ConfigService,
-        protected cdr: ChangeDetectorRef,
+        configService: ConfigService,
+        cdr: ChangeDetectorRef,
         protected injectionService: InjectionService,
         protected renderer: Renderer2,
         @Inject(WINDOW) protected window: Window,
         private element: ElementRef,
     ) {
-        super({injectParams, defaultParams: Params.defaultParams}, configService);
+        super({injectParams, defaultParams: Params.defaultParams}, configService, cdr);
     }
 
-    public async ngOnInit(): Promise<void> {
+    public override async ngOnInit(): Promise<void> {
         super.ngOnInit(this.inlineParams);
         this.gamesCatalogService = await this.injectionService.getService('games.games-catalog-service');
         this.noContentParams = GlobalHelper.getNoContentParams(this.$params, this.$class, this.configService);

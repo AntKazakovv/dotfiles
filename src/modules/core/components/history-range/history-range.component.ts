@@ -33,25 +33,25 @@ export class HistoryRangeComponent extends AbstractComponent implements OnInit {
     @Input() public startDate: string;
     @Input() public endDate: string;
 
-    public $params: Params.IHistoryRangeCParams;
+    public override $params: Params.IHistoryRangeCParams;
     public ready: boolean;
 
     constructor(
         @Inject('injectParams') protected params: Params.IHistoryRangeCParams,
-        protected configService: ConfigService,
+        configService: ConfigService,
         protected eventService: EventService,
         protected historyFilterService: HistoryFilterService,
-        protected cdr: ChangeDetectorRef,
+        cdr: ChangeDetectorRef,
         protected transition: TransitionService,
     ) {
         super(
             <IMixedParams<Params.IHistoryRangeCParams>>{
                 injectParams: params,
                 defaultParams: Params.defaultParams,
-            }, configService);
+            }, configService, cdr);
     }
 
-    public ngOnInit(): void {
+    public override ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
         this.subscribeOnDateChanges();
 

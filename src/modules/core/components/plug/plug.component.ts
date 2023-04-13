@@ -26,7 +26,7 @@ import * as Params from './plug.params';
 })
 export class PlugComponent extends AbstractComponent implements OnInit {
     @Input() protected inlineParams: Params.IPlugCParams;
-    public $params: Params.IPlugCParams;
+    public override $params: Params.IPlugCParams;
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IPlugCParams,
@@ -34,7 +34,7 @@ export class PlugComponent extends AbstractComponent implements OnInit {
         super({injectParams, defaultParams: Params.defaultParams});
     }
 
-    public ngOnInit(): void {
+    public override ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
     }
 }

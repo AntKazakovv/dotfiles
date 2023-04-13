@@ -112,13 +112,13 @@ export class Bonus extends AbstractModel<IBonus> {
         this._fallBackIconPath = this.configService.get<string>('$bonuses.fallBackIconPath');
     }
 
-    public set data(data: IBonus) {
+    public override set data(data: IBonus) {
         super.data = data;
         this._isDep = Bonus.depEvents.indexOf(this.data.Event) !== -1;
         this._isReg = Bonus.regEvents.indexOf(this.data.Event) !== -1;
     }
 
-    public get data(): IBonus {
+    public override get data(): IBonus {
         return super.data;
     }
 

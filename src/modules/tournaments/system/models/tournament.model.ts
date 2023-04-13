@@ -43,7 +43,7 @@ export class Tournament extends AbstractTournamentModel<ITournament> {
         );
     }
 
-    public set data(data: ITournament) {
+    public override set data(data: ITournament) {
         super.data = data;
         this.setAvailabilityGames();
 
@@ -51,7 +51,7 @@ export class Tournament extends AbstractTournamentModel<ITournament> {
         this.preparePrizeTable();
     }
 
-    public get data(): ITournament {
+    public override get data(): ITournament {
         return super.data;
     }
 
@@ -64,36 +64,36 @@ export class Tournament extends AbstractTournamentModel<ITournament> {
         return this.data.Ends;
     }
 
-    public get feeType(): string {
+    public override get feeType(): string {
         return this.data.FeeType || null;
     }
 
-    public get id(): number {
+    public override get id(): number {
         return this._id;
     }
 
-    public get image(): string {
+    public override get image(): string {
         return GlobalHelper.proxyUrl(
             this.data.Image || this.configService.get('$tournaments.defaultImages.image'));
     }
 
-    public get imagePromo(): string {
+    public override get imagePromo(): string {
         return GlobalHelper.proxyUrl(
             this.data.Image_promo || this.configService.get('$tournaments.defaultImages.imagePromo'));
     }
 
-    public get imageDashboard(): string {
+    public override get imageDashboard(): string {
         return GlobalHelper.proxyUrl(
             this.data.Image_dashboard || this.configService.get('$tournaments.defaultImages.imageDashboard'));
     }
 
-    public get imageDescription(): string {
+    public override get imageDescription(): string {
         return GlobalHelper.proxyUrl(
             this.data.Image_description || this.configService.get('$tournaments.defaultImages.imageDescription'));
     }
 
     /** Tournament default imageOther shall be displayed only if neither background nor decor image is set in Fundist */
-    public get imageOther(): string {
+    public override get imageOther(): string {
         if (this.data.Image || this.data.Image_other) {
             return GlobalHelper.proxyUrl(this.data.Image_other);
         } else {

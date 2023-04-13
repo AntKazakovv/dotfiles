@@ -104,7 +104,7 @@ export class GamesGridComponent extends AbstractComponent implements OnInit, OnD
     @ViewChild('gameItem') protected gameItem: ElementRef;
     @ViewChild('gameBanner') protected gameBanner: ElementRef;
 
-    public $params: Params.IGamesGridCParams;
+    public override $params: Params.IGamesGridCParams;
     public isReady: boolean = false;
     public games: Game[] = [];
     public gamesCount: number = 1;
@@ -151,19 +151,19 @@ export class GamesGridComponent extends AbstractComponent implements OnInit, OnD
         protected gamesCatalogService: GamesCatalogService,
         protected eventService: EventService,
         protected actionService: ActionService,
-        protected configService: ConfigService,
+        configService: ConfigService,
         protected router: UIRouter,
-        protected cdr: ChangeDetectorRef,
+        cdr: ChangeDetectorRef,
         protected renderer: Renderer2,
         protected elementRef: ElementRef,
         @Inject(WINDOW) protected window: Window,
         protected gamesFilterService: GamesFilterService,
     ) {
-        super({injectParams, defaultParams: Params.defaultParams}, configService);
+        super({injectParams, defaultParams: Params.defaultParams}, configService, cdr);
         this.trackGames = this.trackGames.bind(this);
     }
 
-    public ngOnInit(): void {
+    public override ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
 
         this.$params.wlcElement ??= `wlc-games-grid-${this.getWlcSuffix()}`;
@@ -194,7 +194,7 @@ export class GamesGridComponent extends AbstractComponent implements OnInit, OnD
         this.setNoContentText();
     }
 
-    public ngOnDestroy(): void {
+    public override ngOnDestroy(): void {
         super.ngOnDestroy();
 
         this.$untilBreakpointOrDestroy.next();

@@ -41,28 +41,29 @@ import * as Params from './add-profile-info.params';
 export class AddProfileInfoComponent extends ProfileFormAbstract implements OnInit {
     @Input() protected inlineParams: Params.IAddProfileInfoCParams;
 
-    public $params: Params.IAddProfileInfoCParams;
+    public override $params: Params.IAddProfileInfoCParams;
     public errors$: BehaviorSubject<IIndexing<string>> = new BehaviorSubject(null);
     public formConfig: IFormWrapperCParams;
     protected isPending: boolean = false;
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IAddProfileInfoCParams,
-        protected configService: ConfigService,
+        configService: ConfigService,
         protected userService: UserService,
         protected modalService: ModalService,
-        protected cdr: ChangeDetectorRef,
-        protected eventService: EventService,
+        cdr: ChangeDetectorRef,
+        eventService: EventService,
         protected stateService: StateService,
         protected selectService: SelectValuesService,
     ) {
         super({injectParams, defaultParams: Params.defaultParams},
             eventService,
             configService,
+            cdr,
         );
     }
 
-    public ngOnInit(): void {
+    public override ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
         this.disableStatesControl();
         this.formConfig = _cloneDeep(this.$params.formConfig);

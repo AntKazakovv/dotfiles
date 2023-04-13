@@ -27,16 +27,16 @@ export class AlertComponent extends AbstractComponent implements OnInit {
 
     @Input() protected inlineParams: Params.IAlertCParams;
 
-    public $params: Params.IAlertCParams;
+    public override $params: Params.IAlertCParams;
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IAlertCParams,
-        protected configService: ConfigService,
+        configService: ConfigService,
     ) {
         super({injectParams, defaultParams: Params.defaultParams}, configService);
     }
 
-    public ngOnInit(): void {
+    public override ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
 
         this.title ??= this.$params.title;

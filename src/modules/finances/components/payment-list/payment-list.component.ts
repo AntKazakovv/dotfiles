@@ -91,7 +91,7 @@ export class PaymentListComponent extends IconListAbstract<Params.IPaymentListCP
     @Input() protected inlineParams: Params.IPaymentListCParams;
     @ViewChild('list') protected list: TemplateRef<any>;
 
-    public $params: Params.IPaymentListCParams;
+    public override $params: Params.IPaymentListCParams;
 
     public systems: PaymentSystem[] = [];
     public systems$: BehaviorSubject<PaymentSystem[]> = new BehaviorSubject(null);
@@ -123,20 +123,20 @@ export class PaymentListComponent extends IconListAbstract<Params.IPaymentListCP
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IPaymentListCParams,
-        protected cdr: ChangeDetectorRef,
+        cdr: ChangeDetectorRef,
         protected financesService: FinancesService,
         protected eventService: EventService,
-        protected colorThemeService: ColorThemeService,
+        colorThemeService: ColorThemeService,
         protected modalService: ModalService,
         protected actionService: ActionService,
-        protected configService: ConfigService,
+        configService: ConfigService,
         private hostRef: ElementRef,
         @Inject(WINDOW) private window: Window,
     ) {
-        super({injectParams, defaultParams: Params.defaultParams}, configService, colorThemeService);
+        super({injectParams, defaultParams: Params.defaultParams}, configService, colorThemeService, cdr);
     }
 
-    public ngOnInit(): void {
+    public override ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
 
         this.isDeposit = this.$params.paymentType === 'deposit';
@@ -174,7 +174,7 @@ export class PaymentListComponent extends IconListAbstract<Params.IPaymentListCP
         this.classList = this.hostRef.nativeElement.classList.value;
     }
 
-    public ngOnChanges(changes: SimpleChanges): void {
+    public override ngOnChanges(changes: SimpleChanges): void {
         if (changes['availableSystems'] && this.$params) {
             this.updatePaySystemsStatus();
         }
@@ -518,7 +518,7 @@ export class PaymentListComponent extends IconListAbstract<Params.IPaymentListCP
         };
     }
 
-    protected merchantsPaymentsIterator(pathDirectory: keyof typeof ThemeToDirectory,
+    protected override merchantsPaymentsIterator(pathDirectory: keyof typeof ThemeToDirectory,
         params: IPaymentsIterator,
     ): IIconParams {
         const res = super.merchantsPaymentsIterator(pathDirectory, params);

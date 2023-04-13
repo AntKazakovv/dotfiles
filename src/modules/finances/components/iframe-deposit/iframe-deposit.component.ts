@@ -20,7 +20,7 @@ export class IframeDepositComponent extends AbstractComponent implements OnInit 
 
     @Input() protected inlineParams: Params.IFrameDepositCParams;
 
-    public $params: Params.IFrameDepositCParams;
+    public override $params: Params.IFrameDepositCParams;
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IFrameDepositCParams,
@@ -28,7 +28,7 @@ export class IframeDepositComponent extends AbstractComponent implements OnInit 
         super({injectParams, defaultParams: Params.defaultParams});
     }
 
-    public ngOnInit(): void {
+    public override ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
     }
 }

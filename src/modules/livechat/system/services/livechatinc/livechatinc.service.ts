@@ -47,7 +47,7 @@ export type AssignType = 'loyalty' | 'tag';
     providedIn: 'root',
 })
 export class LivechatincService extends LivechatAbstract<ILivechatIncConfig> {
-    public chatId = 'chat-widget-container';
+    public override chatId = 'chat-widget-container';
     public canChatDestroy = true;
     protected profile: UserProfile;
     protected firstInit: boolean = true;
@@ -56,13 +56,13 @@ export class LivechatincService extends LivechatAbstract<ILivechatIncConfig> {
     private userData: IUserDataLiveChatInc;
 
     constructor(
-        @Inject(DOCUMENT) protected document: Document,
+        @Inject(DOCUMENT) document: Document,
         @Inject(WINDOW) protected window: Window,
         protected financesService: FinancesService,
-        protected eventService: EventService,
-        protected configService: ConfigService,
+        eventService: EventService,
+        configService: ConfigService,
         protected logService: LogService,
-        protected router: UIRouter,
+        router: UIRouter,
         protected translateService: TranslateService,
     ) {
         super(document, eventService, router, configService);
@@ -116,7 +116,7 @@ export class LivechatincService extends LivechatAbstract<ILivechatIncConfig> {
     /**
      * Hides chat widget button
      */
-    public hideWidget(): void {
+    public override hideWidget(): void {
         try {
             this.window.LC_API.hide_chat_window();
         } catch (error) {
@@ -127,7 +127,7 @@ export class LivechatincService extends LivechatAbstract<ILivechatIncConfig> {
     /**
      * Shows hidden chats widget button
      */
-    public showWidget(): void {
+    public override showWidget(): void {
         this.hideChat();
     }
 
@@ -148,7 +148,7 @@ export class LivechatincService extends LivechatAbstract<ILivechatIncConfig> {
         this.initChat();
     }
 
-    protected async initChat(): Promise<void> {
+    protected override async initChat(): Promise<void> {
         if (this.configService.get<boolean>('$user.isAuthenticated')
             && (this.options.sendUserParams || this.options.assignUsersByGroup)
         ) {

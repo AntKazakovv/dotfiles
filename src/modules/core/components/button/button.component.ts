@@ -88,7 +88,7 @@ export class ButtonComponent extends AbstractComponent implements OnInit,
     @Input() protected inlineParams: Params.IButtonCParams;
 
     public ready: boolean = false;
-    public $params: Params.IButtonCParams;
+    public override $params: Params.IButtonCParams;
     protected $loading = new Subject<boolean>();
 
     @HostBinding('attr.type') get typeAttrValue(): string {
@@ -99,8 +99,8 @@ export class ButtonComponent extends AbstractComponent implements OnInit,
         @Inject('injectParams') protected params: Params.IButtonCParams,
         @Inject(WINDOW) protected window: Window,
         protected elementRef: ElementRef,
-        protected cdr: ChangeDetectorRef,
-        protected configService: ConfigService,
+        cdr: ChangeDetectorRef,
+        configService: ConfigService,
         protected stateService: StateService,
         protected eventService: EventService,
         protected injectionService: InjectionService,
@@ -109,10 +109,10 @@ export class ButtonComponent extends AbstractComponent implements OnInit,
             <IMixedParams<Params.IButtonCParams>>{
                 injectParams: params,
                 defaultParams: Params.defaultParams,
-            }, configService);
+            }, configService, cdr);
     }
 
-    public ngOnInit(): void {
+    public override ngOnInit(): void {
         super.ngOnInit(this.prepareParams());
         this.prepareModifiers();
         if (this.$params.common.animation) {
@@ -133,7 +133,7 @@ export class ButtonComponent extends AbstractComponent implements OnInit,
         }
     }
 
-    public ngOnChanges(changes) {
+    public override ngOnChanges(changes) {
 
         if (!this.ready) {
             return;

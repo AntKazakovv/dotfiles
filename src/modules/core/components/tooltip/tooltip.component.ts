@@ -28,8 +28,8 @@ import * as Params from './tooltip.params';
 export class TooltipComponent extends AbstractComponent implements OnInit {
     @Input() protected inlineParams: Params.ITooltipCParams;
 
-    public $class: string;
-    public $params: Params.ITooltipCParams;
+    public override $class: string;
+    public override $params: Params.ITooltipCParams;
     public isShow: boolean;
     public iconPath: string;
 
@@ -39,7 +39,7 @@ export class TooltipComponent extends AbstractComponent implements OnInit {
     constructor(
         @Inject('injectParams') protected injectParams: Params.ITooltipCParams,
         protected modalService: ModalService,
-        protected cdr: ChangeDetectorRef,
+        cdr: ChangeDetectorRef,
         protected actionService: ActionService,
     )
     {
@@ -47,10 +47,10 @@ export class TooltipComponent extends AbstractComponent implements OnInit {
             <IMixedParams<Params.ITooltipCParams>>{
                 injectParams: injectParams,
                 defaultParams: Params.defaultParams,
-            });
+            }, null, cdr);
     }
 
-    public ngOnInit(): void {
+    public override ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
         this.iconPath = `/wlc/icons/${this.$params.iconName}.svg`;
     }

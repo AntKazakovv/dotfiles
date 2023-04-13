@@ -12,12 +12,12 @@ import * as Params from './error-page.params';
 })
 export class ErrorPageComponent extends AbstractComponent implements OnInit {
 
-    public $params: Params.IErrorPageCParams;
+    public override $params: Params.IErrorPageCParams;
     public links: Params.LinkType[] = [];
 
     constructor(
         @Inject('injectParams') protected params: Params.IErrorPageCParams,
-        protected configService: ConfigService,
+        configService: ConfigService,
     ) {
         super(<IMixedParams<any>>{
             injectParams: params,
@@ -25,7 +25,7 @@ export class ErrorPageComponent extends AbstractComponent implements OnInit {
         }, configService);
     }
 
-    public ngOnInit(): void {
+    public override ngOnInit(): void {
         super.ngOnInit();
         this.links = this.$params.links?.slice(0, 2);
     }

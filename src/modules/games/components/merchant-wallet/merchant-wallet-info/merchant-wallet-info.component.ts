@@ -20,16 +20,16 @@ import * as Params from './merchant-wallet-info.params';
 })
 
 export class MerchantWalletInfoComponent extends AbstractComponent implements OnInit {
-    public $params: Params.IMerchantWalletInfoCParams;
+    public override $params: Params.IMerchantWalletInfoCParams;
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IMerchantWalletInfoCParams,
-        protected configService: ConfigService,
+        configService: ConfigService,
     ) {
         super({injectParams, defaultParams: Params.defaultParams}, configService);
     }
 
-    public ngOnInit(): void {
+    public override ngOnInit(): void {
         super.ngOnInit();
     }
 

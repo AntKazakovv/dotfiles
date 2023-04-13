@@ -29,12 +29,12 @@ export class TawkChatService extends LivechatAbstract<ILivechatTawkConfig> {
     public canChatDestroy = false;
     private locale: ILiveChatTawkLangGroup;
     constructor(
-        @Inject(DOCUMENT) protected document: Document,
+        @Inject(DOCUMENT) document: Document,
         @Inject(WINDOW) protected window: Window,
-        protected eventService: EventService,
-        protected configService: ConfigService,
+        eventService: EventService,
+        configService: ConfigService,
         protected logService: LogService,
-        protected router: UIRouter,
+        router: UIRouter,
         protected translateService: TranslateService,
     ) {
         super(document, eventService, router, configService);
@@ -80,7 +80,7 @@ export class TawkChatService extends LivechatAbstract<ILivechatTawkConfig> {
     /**
      * Hides chat widget button
      */
-    public hideWidget(): void {
+    public override hideWidget(): void {
         try {
             this.window.Tawk_API.hideWidget();
         } catch (error) {
@@ -106,7 +106,7 @@ export class TawkChatService extends LivechatAbstract<ILivechatTawkConfig> {
     /**
      * Shows hidden chats widget button
      */
-    public showWidget(): void {
+    public override showWidget(): void {
         try {
             this.window.Tawk_API.showWidget();
         } catch (error) {
@@ -117,7 +117,7 @@ export class TawkChatService extends LivechatAbstract<ILivechatTawkConfig> {
     /**
      * Toggle chat window method
      */
-    public toggleChat(): void {
+    public override toggleChat(): void {
         if (!this.chatIsLoaded()) {
             return;
         }
@@ -140,7 +140,7 @@ export class TawkChatService extends LivechatAbstract<ILivechatTawkConfig> {
         this.initChat();
     }
 
-    protected initChat(): void {
+    protected override initChat(): void {
 
         if (this.options?.group) {
             const changeLang = this.translateService.onLangChange.subscribe(() => {

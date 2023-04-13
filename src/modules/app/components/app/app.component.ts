@@ -118,7 +118,7 @@ export class AppComponent extends AbstractComponent implements OnInit, AfterView
 
     constructor(
         public router: UIRouter,
-        public configService: ConfigService,
+        configService: ConfigService,
         protected translate: TranslateService,
         protected stateService: StateService,
         protected layoutService: LayoutService,
@@ -126,7 +126,7 @@ export class AppComponent extends AbstractComponent implements OnInit, AfterView
         protected eventService: EventService,
         protected hookService: HooksService,
         protected uiRouter: UIRouterGlobals,
-        protected cdr: ChangeDetectorRef,
+        cdr: ChangeDetectorRef,
         protected actionService: ActionService,
         protected modalService: ModalService,
         protected seo: SeoService,
@@ -138,7 +138,7 @@ export class AppComponent extends AbstractComponent implements OnInit, AfterView
         @Inject(WINDOW) private window: Window,
         @Inject(DOCUMENT) private document: Document,
     ) {
-        super({injectParams: {}, defaultParams}, configService);
+        super({injectParams: {}, defaultParams}, configService, cdr);
         this.configService.set({name: 'firstLanguageReady', value: new Deferred()});
         this.resolveLang();
 
@@ -154,7 +154,7 @@ export class AppComponent extends AbstractComponent implements OnInit, AfterView
         this.launchGamblingBanFeature();
     }
 
-    public async ngOnInit(): Promise<void> {
+    public override async ngOnInit(): Promise<void> {
         this.setOfflineModeHandlers();
         this.setMobileAppHandlers();
 

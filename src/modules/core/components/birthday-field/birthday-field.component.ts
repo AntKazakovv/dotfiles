@@ -32,25 +32,25 @@ import * as Params from './birthday-field.params';
 })
 export class BirthdayFieldComponent extends AbstractComponent implements OnInit, OnDestroy {
     @Input() protected inlineParams: Params.IBirthFieldCParams;
-    public $params: Params.IBirthFieldCParams;
+    public override $params: Params.IBirthFieldCParams;
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IBirthFieldCParams,
-        protected configService: ConfigService,
+        configService: ConfigService,
         protected selectValues: SelectValuesService,
-        protected cdr: ChangeDetectorRef,
+        cdr: ChangeDetectorRef,
     )
     {
-        super({injectParams, defaultParams: Params.defaultParams}, configService);
+        super({injectParams, defaultParams: Params.defaultParams}, configService, cdr);
     }
 
-    public ngOnInit(): void {
+    public override ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
         this.provideParams();
         this.subscribeControlsChanges();
     }
 
-    public ngOnDestroy(): void {
+    public override ngOnDestroy(): void {
         super.ngOnDestroy();
         this.selectValues.setDaysInMonth(31);
     }

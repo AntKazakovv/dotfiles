@@ -46,7 +46,7 @@ export interface IStep {
 export class PromoStepsComponent extends AbstractComponent implements OnInit {
     @Input() protected inlineParams: Params.IPromoStepsCParams;
 
-    public $params: Params.IPromoStepsCParams;
+    public override $params: Params.IPromoStepsCParams;
     public ready: boolean = false;
     public deviceType: DeviceType;
     public steps: IStep[] = [];
@@ -56,17 +56,17 @@ export class PromoStepsComponent extends AbstractComponent implements OnInit {
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IPromoStepsCParams,
-        protected configService: ConfigService,
+        configService: ConfigService,
         protected modalService: ModalService,
         protected staticService: StaticService,
-        protected cdr: ChangeDetectorRef,
+        cdr: ChangeDetectorRef,
         protected actionService: ActionService,
         protected eventService: EventService,
     ) {
-        super({injectParams, defaultParams: Params.defaultParams}, configService);
+        super({injectParams, defaultParams: Params.defaultParams}, configService, cdr);
     }
 
-    public async ngOnInit(): Promise<void> {
+    public override async ngOnInit(): Promise<void> {
         super.ngOnInit(this.inlineParams);
         this.deviceType = this.actionService.getDeviceType();
         this.isAuth = this.configService.get('$user.isAuthenticated');

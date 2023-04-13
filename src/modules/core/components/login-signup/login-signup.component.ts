@@ -31,7 +31,7 @@ import * as Params from './login-signup.params';
     styleUrls: ['./styles/login-signup.component.scss'],
 })
 export class LoginSignupComponent extends AbstractComponent implements OnInit {
-    public $params: Params.ILoginSignupCParams;
+    public override $params: Params.ILoginSignupCParams;
     protected isAffiliate: boolean = false;
     protected affiliateUrl: string = '';
 
@@ -39,14 +39,14 @@ export class LoginSignupComponent extends AbstractComponent implements OnInit {
         @Inject('injectParams') protected injectParams: Params.ILoginSignupCParams,
         @Inject(WINDOW) protected window: Window,
         protected modalService: ModalService,
-        protected configService: ConfigService,
+        configService: ConfigService,
         protected logService: LogService,
         protected eventService: EventService,
     ) {
         super({injectParams, defaultParams: Params.defaultParams}, configService);
     }
 
-    public ngOnInit(): void {
+    public override ngOnInit(): void {
         super.ngOnInit();
         this.isAffiliate = this.configService.get('$base.app.type') === 'aff';
         if (this.isAffiliate) {

@@ -34,14 +34,14 @@ import * as Params from './wp-promo.params';
 })
 export class WpPromoComponent extends AbstractComponent implements OnInit {
     @Input() public inlineParams: Params.IWpPromoCParams;
-    public $params: Params.IWpPromoCParams;
+    public override $params: Params.IWpPromoCParams;
     public items: WpPromoModel[] = [];
     protected response: TextDataModel[];
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IWpPromoCParams,
-        protected configService: ConfigService,
-        protected cdr: ChangeDetectorRef,
+        configService: ConfigService,
+        cdr: ChangeDetectorRef,
         protected modalService: ModalService,
         protected staticService: StaticService,
         protected logService: LogService,
@@ -53,10 +53,11 @@ export class WpPromoComponent extends AbstractComponent implements OnInit {
                 defaultParams: Params.defaultParams,
             },
             configService,
+            cdr,
         );
     }
 
-    public ngOnInit(): void {
+    public override ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
         this.getItemsBySlug();
         this.initEventHandlers();

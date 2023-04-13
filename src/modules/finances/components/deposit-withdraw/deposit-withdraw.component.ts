@@ -116,7 +116,7 @@ export class DepositWithdrawComponent
     extends AbstractDepositWithdrawComponent<Params.IDepositWithdrawCParams>
     implements OnInit, OnDestroy {
     public showModalCryptoPayment: boolean = true;
-    public $params: Params.IDepositWithdrawCParams;
+    public override $params: Params.IDepositWithdrawCParams;
     public cryptoCheck: boolean = false;
     public disableAmount: boolean = false;
     public title: string = gettext('Deposit');
@@ -188,15 +188,15 @@ export class DepositWithdrawComponent
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IDepositWithdrawCParams,
-        protected configService: ConfigService,
+        configService: ConfigService,
         protected financesService: FinancesService,
         protected eventService: EventService,
-        protected modalService: ModalService,
-        protected cdr: ChangeDetectorRef,
+        modalService: ModalService,
+        cdr: ChangeDetectorRef,
         protected translateService: TranslateService,
         protected httpClient: HttpClient,
-        protected injectionService: InjectionService,
-        protected logService: LogService,
+        injectionService: InjectionService,
+        logService: LogService,
         protected actionService: ActionService,
         @Inject(DOCUMENT) protected document: Document,
         @Inject(WINDOW) private window: Window,
@@ -205,10 +205,10 @@ export class DepositWithdrawComponent
             <IMixedParams<Params.IDepositWithdrawCParams>>{
                 injectParams,
                 defaultParams: Params.defaultParams,
-            }, logService, modalService, configService, injectionService);
+            }, logService, modalService, configService, injectionService, cdr);
     }
 
-    public async ngOnInit(): Promise<void> {
+    public override async ngOnInit(): Promise<void> {
         super.ngOnInit();
         this.hiddenPaymentInfo = this.configService.get<boolean>('$finances.paymentInfo.hiddenPaymentInfo');
         this.depositInIframe = this.configService.get<boolean>('$base.finances.depositInIframe');
@@ -273,7 +273,7 @@ export class DepositWithdrawComponent
         await this.financesService.fetchPaymentSystems();
     }
 
-    public ngOnDestroy(): void {
+    public override ngOnDestroy(): void {
         super.ngOnDestroy();
         if (this.useBonuses) {
             this.configService.set({name: 'chosenPaySystem', value: null});

@@ -35,7 +35,7 @@ import * as Params from './social-networks.params';
 export class SocialNetworksComponent extends AbstractComponent implements OnInit {
     @Input() protected inlineParams: Params.ISocialNetworksCParams;
 
-    public $params: Params.ISocialNetworksCParams;
+    public override $params: Params.ISocialNetworksCParams;
     public networks: Params.INetwork[] = [];
     public metamask: Params.INetwork;
     public connected: string[] = [];
@@ -51,16 +51,16 @@ export class SocialNetworksComponent extends AbstractComponent implements OnInit
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.ISocialNetworksCParams,
-        protected configService: ConfigService,
+        configService: ConfigService,
         protected eventService: EventService,
         protected injectionService: InjectionService,
-        protected cdr: ChangeDetectorRef,
+        cdr: ChangeDetectorRef,
         @Inject(WINDOW) protected window: Window,
     ) {
-        super({injectParams, defaultParams: Params.defaultParams}, configService);
+        super({injectParams, defaultParams: Params.defaultParams}, configService, cdr);
     }
 
-    public async ngOnInit(): Promise<void> {
+    public override async ngOnInit(): Promise<void> {
         super.ngOnInit(this.inlineParams);
         if (this.isSocials) {
             this.getSocialNetworks();

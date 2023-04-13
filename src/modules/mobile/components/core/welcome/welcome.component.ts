@@ -41,17 +41,17 @@ import * as Params from './welcome.params';
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class WelcomeComponent extends AbstractComponent implements OnInit {
-    public $params!: Params.IWelcomeCParams;
+    public override $params!: Params.IWelcomeCParams;
     public isAuth: boolean = false;
     public isReady: boolean = false;
 
     constructor(
         @Inject('injectParams') protected params: Params.IWelcomeCParams,
-        protected cdr: ChangeDetectorRef,
+        cdr: ChangeDetectorRef,
         protected modalService: ModalService,
         protected eventService: EventService,
         protected stateService: StateService,
-        protected configService: ConfigService,
+        configService: ConfigService,
         protected injectionService: InjectionService,
         protected userService: UserService,
     ) {
@@ -59,11 +59,11 @@ export class WelcomeComponent extends AbstractComponent implements OnInit {
             <IMixedParams<Params.IWelcomeCParams>>{
                 injectParams: params,
                 defaultParams: Params.defaultParams,
-            }, configService,
+            }, configService, cdr,
         );
     }
 
-    public ngOnInit(): void {
+    public override ngOnInit(): void {
         super.ngOnInit();
         this.init();
     }

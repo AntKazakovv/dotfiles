@@ -40,7 +40,7 @@ import * as Params from './profile-blocks.params';
 })
 export class ProfileBlocksComponent extends AbstractComponent implements OnInit {
     @Input() protected inlineParams: Params.IProfileBlocksCParams;
-    public $params: Params.IProfileBlocksCParams;
+    public override $params: Params.IProfileBlocksCParams;
     public toggleBtn: ICheckboxCParams = {
         name: 'notification',
         type: 'toggle',
@@ -54,18 +54,19 @@ export class ProfileBlocksComponent extends AbstractComponent implements OnInit 
     constructor(
         @Inject('injectParams') protected params: Params.IProfileBlocksCParams,
         protected userService: UserService,
-        protected cdr: ChangeDetectorRef,
+        cdr: ChangeDetectorRef,
         protected modalService: ModalService,
-        protected configService: ConfigService,
+        configService: ConfigService,
         protected eventService: EventService,
     ) {
         super(
             {injectParams: params, defaultParams: Params.defaultParams},
             configService,
+            cdr,
         );
     }
 
-    public async ngOnInit(): Promise<void> {
+    public override async ngOnInit(): Promise<void> {
         super.ngOnInit(this.inlineParams);
         await this.configService.ready;
         await this.userService.userProfile$.pipe(

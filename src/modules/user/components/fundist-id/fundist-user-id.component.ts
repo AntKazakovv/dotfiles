@@ -32,18 +32,18 @@ import * as Params from './fundist-user-id.params';
 export class FundistUserIdComponent extends AbstractComponent implements OnInit {
     @Input() protected inlineParams: Params.IFundistUserIdCParams;
 
-    public $params: Params.IFundistUserIdCParams;
+    public override $params: Params.IFundistUserIdCParams;
     public inputParams: IInputCParams = Params.inputParams;
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IFundistUserIdCParams,
-        protected cdr: ChangeDetectorRef,
-        protected configService: ConfigService,
+        cdr: ChangeDetectorRef,
+        configService: ConfigService,
     ) {
-        super({injectParams, defaultParams: Params.defaultParams});
+        super({injectParams, defaultParams: Params.defaultParams}, configService, cdr);
     }
 
-    public async ngOnInit(): Promise<void> {
+    public override async ngOnInit(): Promise<void> {
         super.ngOnInit(this.inlineParams);
 
         this.prepareInput();

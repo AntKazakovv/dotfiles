@@ -17,17 +17,17 @@ import * as Params from './loyalty-info.params';
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LoyaltyInfoComponent extends AbstractComponent implements OnInit {
-    public $params: Params.ILoyaltyInfoCParams;
+    public override $params: Params.ILoyaltyInfoCParams;
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.ILoyaltyInfoCParams,
-        protected configService: ConfigService,
+        configService: ConfigService,
     ) {
         super({injectParams, defaultParams: Params.defaultParams}, configService);
     }
 
 
-    public async ngOnInit(): Promise<void> {
+    public override async ngOnInit(): Promise<void> {
         super.ngOnInit();
 
         this.$params.title ??= this.configService.get<string>('$loyalty.loyalty.programTitle');

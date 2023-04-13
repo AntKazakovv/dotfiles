@@ -51,11 +51,11 @@ export class ZendeskService extends LivechatAbstract<ILivechatZendeskConfig> {
     private isHide: boolean = false;
 
     constructor(
-        @Inject(DOCUMENT) protected document: Document,
+        @Inject(DOCUMENT) document: Document,
         @Inject(WINDOW) protected window: Window,
-        protected eventService: EventService,
-        protected router: UIRouter,
-        protected configService: ConfigService,
+        eventService: EventService,
+        router: UIRouter,
+        configService: ConfigService,
         private logService: LogService,
         private translateService: TranslateService,
         private dataService: DataService,
@@ -88,7 +88,7 @@ export class ZendeskService extends LivechatAbstract<ILivechatZendeskConfig> {
     /**
      * Show hidden chat widget
      */
-    public showWidget(): void {
+    public override showWidget(): void {
         try {
             this.window.zE('webWidget', 'show');
             this.isHide = false;
@@ -112,7 +112,7 @@ export class ZendeskService extends LivechatAbstract<ILivechatZendeskConfig> {
     /**
      * Hide chat widget
      */
-    public hideWidget(): void {
+    public override hideWidget(): void {
         try {
             this.window.zE('webWidget', 'hide');
             this.isHide = true;
@@ -138,7 +138,7 @@ export class ZendeskService extends LivechatAbstract<ILivechatZendeskConfig> {
     /**
      * Toggle chat window
      */
-    public toggleChat(): void {
+    public override toggleChat(): void {
         try {
             this.window.zE('webWidget', 'toggle');
         } catch (error) {
@@ -146,7 +146,7 @@ export class ZendeskService extends LivechatAbstract<ILivechatZendeskConfig> {
         }
     }
 
-    protected initChat(): void {
+    protected override initChat(): void {
 
         this.chatState$ = new BehaviorSubject(null);
 
@@ -212,7 +212,7 @@ export class ZendeskService extends LivechatAbstract<ILivechatZendeskConfig> {
     /**
      * Authentication in chat after login and exit from chat after logout
      */
-    protected initEvents(): void {
+    protected override initEvents(): void {
         super.initEvents();
 
         this.eventService.filter([

@@ -101,7 +101,7 @@ export class CurrencyModel extends AbstractModel<ICurrencyOptions>{
         return this.data.svgPosition;
     }
 
-    public toString(): string {
+    public override toString(): string {
         return _join(_map(this.currencyParts, (part) => part.value), '');
     }
 

@@ -41,7 +41,7 @@ export class EnterPromocodeComponent
     @Input() public inlineParams: Params.IEnterPromocodeCParams;
     @Input() public title: string;
 
-    public $params: Params.IEnterPromocodeCParams;
+    public override $params: Params.IEnterPromocodeCParams;
     public pending$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
     protected bonus: Bonus[];
@@ -70,11 +70,11 @@ export class EnterPromocodeComponent
         control: new UntypedFormControl(''),
     };
 
-    public ngOnInit(): void {
+    public override ngOnInit(): void {
         super.ngOnInit(GlobalHelper.prepareParams(this, ['title']));
     }
 
-    public ngOnDestroy(): void {
+    public override ngOnDestroy(): void {
         super.ngOnDestroy();
 
         this.pendingSubscriber?.unsubscribe();

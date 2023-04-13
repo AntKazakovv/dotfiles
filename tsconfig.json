@@ -18,6 +18,7 @@
         "paths": {
             "wlc-engine/*": ["src/*"]
         },
+        "noImplicitOverride": true,
 
         // strict
         "alwaysStrict": true,
@@ -29,6 +30,6 @@
         "enableIvy": true,
         "strictTemplates": true,
         "strictInjectionParameters": true,
-        "disableTypeScriptVersionCheck": true
+        "disableTypeScriptVersionCheck": true,
     }
 }

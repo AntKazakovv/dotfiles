@@ -38,7 +38,7 @@ export class MessageComponent
     @HostBinding('class.wlc-notification-message--popup')
     public isPopup: boolean = !this.meta.isModal;
 
-    public $params: Params.IMessageParams;
+    public override $params: Params.IMessageParams;
     public title: string;
     public messages: string[];
     public action: {
@@ -70,7 +70,7 @@ export class MessageComponent
         );
     }
 
-    public ngOnInit(): void {
+    public override ngOnInit(): void {
         this.params.wlcElement = `${(this.params.wlcElement || 'notification_status-' + this.params.type)}`;
         if (this.params.messageContext) {
             this.messageContext = this.params.messageContext;

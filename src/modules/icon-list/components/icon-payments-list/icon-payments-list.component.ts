@@ -33,19 +33,19 @@ export class IconPaymentsListComponent extends IconListAbstract<Params.IIconPaym
     @Input() protected inlineParams: Params.IIconPaymentsListCParams;
 
     public items: IconModel[] = [];
-    public $params: Params.IIconPaymentsListCParams;
+    public override $params: Params.IIconPaymentsListCParams;
     protected payments: IPaysystem[];
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IIconPaymentsListCParams,
-        protected configService: ConfigService,
-        protected colorThemeService: ColorThemeService,
-        protected cdr: ChangeDetectorRef,
+        configService: ConfigService,
+        colorThemeService: ColorThemeService,
+        cdr: ChangeDetectorRef,
     ) {
-        super({injectParams, defaultParams: Params.defaultParams}, configService, colorThemeService);
+        super({injectParams, defaultParams: Params.defaultParams}, configService, colorThemeService, cdr);
     }
 
-    public async ngOnInit(): Promise<void> {
+    public override async ngOnInit(): Promise<void> {
         super.ngOnInit(this.inlineParams);
         await this.configService.ready;
 

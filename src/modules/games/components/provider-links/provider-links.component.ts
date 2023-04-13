@@ -53,7 +53,7 @@ export class ProviderLinksComponent extends IconListAbstract<Params.IProviderLin
     @ViewChild('iconItem') iconTemplate: TemplateRef<any>;
     @ViewChild('providersList') providersList: TemplateRef<any>;
 
-    public $params: Params.IProviderLinksCParams;
+    public override $params: Params.IProviderLinksCParams;
     public items: IconModel[] = [];
     public ready: boolean = false;
     public slides: ISlide[] = [];
@@ -67,18 +67,18 @@ export class ProviderLinksComponent extends IconListAbstract<Params.IProviderLin
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IProviderLinksCParams,
-        protected configService: ConfigService,
+        configService: ConfigService,
         protected stateService: StateService,
         protected gamesCatalogService: GamesCatalogService,
         protected modalService: ModalService,
         protected eventService: EventService,
-        protected colorThemeService: ColorThemeService,
-        protected cdr: ChangeDetectorRef,
+        colorThemeService: ColorThemeService,
+        cdr: ChangeDetectorRef,
     ) {
-        super({injectParams, defaultParams: Params.defaultParams}, configService, colorThemeService);
+        super({injectParams, defaultParams: Params.defaultParams}, configService, colorThemeService, cdr);
     }
 
-    public ngOnInit(): void {
+    public override ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
         this.prepareModalLinkParams();
     }

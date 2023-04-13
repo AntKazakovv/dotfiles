@@ -130,7 +130,7 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
 
     @Input() public inlineParams: IGameWrapperCParams;
 
-    public $params: IGameWrapperCParams;
+    public override $params: IGameWrapperCParams;
     public game: Game;
     public gameHtml: string = '';
     public useMobileIframe: boolean = false;
@@ -200,13 +200,13 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
         protected router: UIRouter,
         protected eventService: EventService,
         protected gamesCatalogService: GamesCatalogService,
-        protected configService: ConfigService,
+        configService: ConfigService,
         protected actionService: ActionService,
         protected modalService: ModalService,
         protected logService: LogService,
         protected elementRef: ElementRef,
         protected domSanitizer: DomSanitizer,
-        protected cdr: ChangeDetectorRef,
+        cdr: ChangeDetectorRef,
         protected renderer: Renderer2,
         protected hostElement: ElementRef,
         protected hooksService: HooksService,
@@ -215,10 +215,10 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
         protected stateService: StateService,
         protected injectionService: InjectionService,
     ) {
-        super({injectParams, defaultParams});
+        super({injectParams, defaultParams}, configService, cdr);
     }
 
-    public async ngOnInit(): Promise<void> {
+    public override async ngOnInit(): Promise<void> {
         super.ngOnInit(this.inlineParams);
 
         if (this.configService.get<boolean>('appConfig.mobile')) {
@@ -361,7 +361,7 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
         this.eventService.emit({name: 'CLOSE_GAME'});
     }
 
-    public ngOnDestroy(): void {
+    public override ngOnDestroy(): void {
         super.ngOnDestroy();
         this.destroyed = true;
         this.containerObserver?.disconnect();

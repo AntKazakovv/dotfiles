@@ -33,22 +33,22 @@ export class OpenMailBtnComponent extends AbstractComponent implements OnInit {
      * A template to send to a modal as a message from an mail
      */
     @ViewChild('message') protected message: TemplateRef<ElementRef>;
-    public $params: Params.IOpenMailMessageBtn;
+    public override $params: Params.IOpenMailMessageBtn;
 
     constructor(
         @Inject('injectParams') protected params: Params.IOpenMailMessageBtn,
         protected modalService: ModalService,
-        protected configService: ConfigService,
+        configService: ConfigService,
         protected internalMailsService: InternalMailsService,
     ) {
         super(
             <IMixedParams<Params.IOpenMailMessageBtn>>{
                 injectParams: params,
                 defaultParams: Params.defaultParams,
-            });
+            }, configService);
     }
 
-    public ngOnInit(): void {
+    public override ngOnInit(): void {
         super.ngOnInit();
         this.profileFirst = this.configService.get('$base.profile.type') === 'first';
     }

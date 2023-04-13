@@ -37,26 +37,26 @@ export class MetamaskSignUpFormComponent
     implements OnInit {
 
     public config: IFormWrapperCParams;
-    public $params: Params.IMetamaskSignUpFormCParams;
+    public override $params: Params.IMetamaskSignUpFormCParams;
     public formData: BehaviorSubject<IIndexing<unknown>>;
     public errors$: BehaviorSubject<IIndexing<string>> = new BehaviorSubject(null);
 
     constructor(
         @Inject(CuracaoRequirement) private enableRequirement: boolean,
         @Inject('injectParams') protected injectParams: Params.IMetamaskSignUpFormCParams,
-        protected userService: UserService,
-        protected logService: LogService,
-        protected configService: ConfigService,
-        protected eventService: EventService,
-        protected injectionService: InjectionService,
+        userService: UserService,
+        logService: LogService,
+        configService: ConfigService,
+        eventService: EventService,
+        injectionService: InjectionService,
     ) {
         super({
             injectParams,
             defaultParams: Params.defaultParams,
-        }, configService, eventService, injectionService, logService);
+        }, configService, eventService, injectionService, logService, userService);
     }
 
-    public ngOnInit(): void {
+    public override ngOnInit(): void {
         super.ngOnInit();
 
         this.config = this.$params.formConfig || Params.metamaskSignUpFormConfig;

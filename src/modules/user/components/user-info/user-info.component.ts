@@ -52,7 +52,7 @@ import * as Params from './user-info.params';
 })
 export class UserInfoComponent extends AbstractComponent implements OnInit {
     @Input() protected inlineParams: Params.IUserInfoCParams;
-    public $params: Params.IUserInfoCParams;
+    public override $params: Params.IUserInfoCParams;
     public isOpened: boolean;
     public dropdownBtnActive: boolean;
     public hasNotifier: boolean;
@@ -62,16 +62,16 @@ export class UserInfoComponent extends AbstractComponent implements OnInit {
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IUserInfoCParams,
-        protected configService: ConfigService,
+        configService: ConfigService,
         protected elementRef: ElementRef,
         protected stateService: StateService,
         protected eventService: EventService,
-        protected cdr: ChangeDetectorRef,
+        cdr: ChangeDetectorRef,
     ) {
-        super({injectParams, defaultParams: Params.defaultParams}, configService);
+        super({injectParams, defaultParams: Params.defaultParams}, configService, cdr);
     }
 
-    public ngOnInit(): void {
+    public override ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
 
         this.hasNotifier = this.configService.get<boolean>('$base.profile.messages.use');

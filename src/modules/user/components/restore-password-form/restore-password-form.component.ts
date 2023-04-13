@@ -44,7 +44,7 @@ import * as Params from './restore-password-form.params';
 })
 export class RestorePasswordFormComponent extends AbstractComponent implements OnInit {
 
-    public $params: Params.IRestorePasswordFormCParams;
+    public override $params: Params.IRestorePasswordFormCParams;
     public config: IFormWrapperCParams = _cloneDeep(Params.restorePasswordFormConfig);
 
     constructor(
@@ -52,16 +52,16 @@ export class RestorePasswordFormComponent extends AbstractComponent implements O
         protected eventService: EventService,
         protected modalService: ModalService,
         protected userService: UserService,
-        protected configService: ConfigService,
-        protected cdr: ChangeDetectorRef,
+        configService: ConfigService,
+        cdr: ChangeDetectorRef,
     ) {
         super({
             injectParams,
             defaultParams: Params.defaultParams,
-        });
+        }, configService, cdr);
     }
 
-    public ngOnInit(): void {
+    public override ngOnInit(): void {
         super.ngOnInit();
 
         if (this.configService.get<boolean>('$base.profile.smsVerification.useRestorePassword')) {

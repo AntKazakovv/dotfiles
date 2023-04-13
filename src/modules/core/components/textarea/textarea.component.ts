@@ -34,19 +34,19 @@ import _kebabCase from 'lodash-es/kebabCase';
 })
 export class TextareaComponent extends AbstractComponent implements OnInit {
     @Input() protected inlineParams: Params.ITextareaCParams;
-    public $params: Params.ITextareaCParams;
+    public override $params: Params.ITextareaCParams;
     public control: UntypedFormControl;
     public fieldWlcElement: string;
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.ITextareaCParams,
-        protected configService: ConfigService,
-        protected cdr: ChangeDetectorRef,
+        configService: ConfigService,
+        cdr: ChangeDetectorRef,
     ) {
-        super({injectParams, defaultParams: Params.defaultParams});
+        super({injectParams, defaultParams: Params.defaultParams}, configService, cdr);
     }
 
-    public ngOnInit(): void {
+    public override ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
         this.control = this.$params?.control;
         this.fieldWlcElement = 'textarea_' + _kebabCase(this.$params.name);

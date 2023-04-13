@@ -124,7 +124,7 @@ export class BurgerPanelComponent extends AbstractComponent
     @Input() protected inlineParams: Params.IBurgerPanelCParams;
 
     public updateScrollbar: Subject<void> = new Subject();
-    public $params: Params.IBurgerPanelCParams;
+    public override $params: Params.IBurgerPanelCParams;
     public title: string;
     public headerMenuConfig: IWrapperCParams;
     public fixedPanelConfig: IFixedPanelConfig;
@@ -142,12 +142,12 @@ export class BurgerPanelComponent extends AbstractComponent
 
     constructor(
         @Optional() @Inject('injectParams') protected injectParams: Params.IBurgerPanelCParams,
-        protected configService: ConfigService,
+        configService: ConfigService,
         protected eventService: EventService,
         protected renderer: Renderer2,
         protected logService: LogService,
         protected transitionService: TransitionService,
-        protected cdr: ChangeDetectorRef,
+        cdr: ChangeDetectorRef,
         protected actionService: ActionService,
         @Inject(WINDOW) protected window: Window,
         @Inject(DOCUMENT) protected document: Document,
@@ -157,15 +157,15 @@ export class BurgerPanelComponent extends AbstractComponent
         super({
             injectParams: {},
             defaultParams: Params.defaultParams,
-        }, configService);
+        }, configService, cdr);
     }
 
-    public ngOnInit(): void {
+    public override ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
         this.init();
     }
 
-    public ngOnChanges(changes: SimpleChanges): void {
+    public override ngOnChanges(changes: SimpleChanges): void {
         const {isOpened} = changes;
         this.onToggleHandler(isOpened);
     }
@@ -188,7 +188,7 @@ export class BurgerPanelComponent extends AbstractComponent
         }
     }
 
-    public ngOnDestroy(): void {
+    public override ngOnDestroy(): void {
         super.ngOnDestroy();
         this.updateScrollbar.next();
         this.updateScrollbar.complete();

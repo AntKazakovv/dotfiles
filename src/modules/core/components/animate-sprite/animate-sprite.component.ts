@@ -50,7 +50,7 @@ export class AnimateSpriteComponent extends AbstractComponent implements OnInit,
     @Input() public parentElementRef: HTMLElement;
     @Input() protected inlineParams: Params.IAnimateSpriteCParams;
 
-    public $params: Params.IAnimateSpriteCParams;
+    public override $params: Params.IAnimateSpriteCParams;
 
     protected context: CanvasRenderingContext2D;
     protected frameWidth: number;
@@ -75,9 +75,9 @@ export class AnimateSpriteComponent extends AbstractComponent implements OnInit,
         @Inject('injectParams') protected injectParams: Params.IAnimateSpriteCParams,
         @Inject(WINDOW) protected window: Window,
         protected actionService: ActionService,
-        protected configService: ConfigService,
+        configService: ConfigService,
         protected elementRef: ElementRef<HTMLElement>,
-        protected cdr: ChangeDetectorRef,
+        cdr: ChangeDetectorRef,
     ) {
         super(
             <IMixedParams<Params.IAnimateSpriteCParams>>{
@@ -85,6 +85,7 @@ export class AnimateSpriteComponent extends AbstractComponent implements OnInit,
                 defaultParams: Params.defaultParams,
             },
             configService,
+            cdr,
         );
     }
 

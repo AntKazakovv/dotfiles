@@ -60,7 +60,7 @@ export class SmsVerificationComponent extends UserActionsAbstract<Params.ISmsVer
 
     @Input() public inlineParams: Params.ISmsVerificationCParams;
     @ViewChild(TimerComponent) public timer: TimerComponent;
-    public $params: Params.ISmsVerificationCParams;
+    public override $params: Params.ISmsVerificationCParams;
     public config: IFormWrapperCParams;
     public configCode = Params.smsVerificationFormCodeConfig;
     public codeSended: boolean = false;
@@ -74,12 +74,12 @@ export class SmsVerificationComponent extends UserActionsAbstract<Params.ISmsVer
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.ISmsVerificationCParams,
-        protected userService: UserService,
-        protected eventService: EventService,
-        protected configService: ConfigService,
-        protected logService: LogService,
-        protected injectionService: InjectionService,
-        protected cdr: ChangeDetectorRef,
+        userService: UserService,
+        eventService: EventService,
+        configService: ConfigService,
+        logService: LogService,
+        injectionService: InjectionService,
+        cdr: ChangeDetectorRef,
         protected smsService: SmsService,
         protected modalService: ModalService,
         protected dataService: DataService,
@@ -87,10 +87,10 @@ export class SmsVerificationComponent extends UserActionsAbstract<Params.ISmsVer
         super({
             injectParams,
             defaultParams: Params.defaultParams,
-        }, configService, eventService, injectionService, logService);
+        }, configService, eventService, injectionService, logService, userService, cdr);
     }
 
-    public ngOnInit(): void {
+    public override ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
         this.config = this.$params.formConfig || Params.smsVerificationFormConfig;
         this.configCode = this.$params.codeConfig || Params.smsVerificationFormCodeConfig;

@@ -41,24 +41,24 @@ export class LinkBlockComponent
     @Input() public useInteractiveText: boolean;
     @Input() public useLinkButton: boolean;
 
-    public $params: Params.ILinkBlockCParams;
+    public override $params: Params.ILinkBlockCParams;
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.ILinkBlockCParams,
         protected eventService: EventService,
         protected modalService: ModalService,
         protected router: UIRouter,
-        protected cdr: ChangeDetectorRef,
+        cdr: ChangeDetectorRef,
         protected interactiveTextService: InteractiveTextService,
-        protected configService: ConfigService,
+        configService: ConfigService,
     ) {
         super({
             injectParams,
             defaultParams: Params.defaultParams,
-        }, configService);
+        }, configService, cdr);
     }
 
-    public ngOnInit(): void {
+    public override ngOnInit(): void {
         const inputProperties: string[] = [
             'title', 'subtitle', 'link', 'actionParams', 'useInteractiveText', 'useLinkButton',
         ];

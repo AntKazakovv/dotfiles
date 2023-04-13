@@ -44,7 +44,7 @@ import * as Params from './winner.params';
 })
 export class WinnerComponent extends AbstractComponent implements OnInit {
     @HostBinding('@enter') protected animation = true;
-    public $params: Params.IWinnerCParams;
+    public override $params: Params.IWinnerCParams;
 
     @Input() protected inlineParams: Params.IWinnerCParams;
 
@@ -52,7 +52,7 @@ export class WinnerComponent extends AbstractComponent implements OnInit {
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IWinnerCParams,
-        protected configService: ConfigService,
+        configService: ConfigService,
         protected translate: TranslateService,
         protected injectionService: InjectionService,
         protected modalService: ModalService,
@@ -100,7 +100,7 @@ export class WinnerComponent extends AbstractComponent implements OnInit {
         return this.$params.winner.date;
     }
 
-    public ngOnInit(): void {
+    public override ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
     }
 

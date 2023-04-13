@@ -57,7 +57,7 @@ import * as Params from 'wlc-engine/modules/menu/components/main-menu/main-menu.
 })
 export class MainMenuComponent extends AbstractComponent implements OnInit {
     public items: MenuParams.IMenuItem[];
-    public $params: Params.IMainMenuCParams;
+    public override $params: Params.IMainMenuCParams;
     public commonMenuItems: MenuParams.MenuItemType[];
 
     protected menuConfig: MenuParams.MenuConfigItem[];
@@ -70,11 +70,11 @@ export class MainMenuComponent extends AbstractComponent implements OnInit {
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IMainMenuCParams,
-        protected cdr: ChangeDetectorRef,
+        cdr: ChangeDetectorRef,
         protected layoutService: LayoutService,
         protected translate: TranslateService,
         protected eventService: EventService,
-        protected configService: ConfigService,
+        configService: ConfigService,
         protected injectionService: InjectionService,
         protected menuService: MenuService,
     ) {
@@ -84,10 +84,11 @@ export class MainMenuComponent extends AbstractComponent implements OnInit {
                 defaultParams: Params.defaultParams,
             },
             configService,
+            cdr,
         );
     }
 
-    public async ngOnInit(): Promise<void> {
+    public override async ngOnInit(): Promise<void> {
         super.ngOnInit();
         this.gamesCatalogService = await this.injectionService.getService('games.games-catalog-service');
 

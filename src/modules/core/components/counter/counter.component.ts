@@ -36,7 +36,7 @@ import * as Params from './counter.params';
 })
 export class CounterComponent extends AbstractComponent implements OnInit {
     @HostBinding('hidden') public hidden: boolean;
-    public $params: Params.ICounterCParams;
+    public override $params: Params.ICounterCParams;
     public count: number | '9+';
 
     @Input() public wlcElement: string;
@@ -45,18 +45,18 @@ export class CounterComponent extends AbstractComponent implements OnInit {
     constructor(
         @Inject('injectParams') protected params: Params.ICounterCParams,
         protected eventService: EventService,
-        protected configService: ConfigService,
+        configService: ConfigService,
         protected injectionService: InjectionService,
-        protected cdr: ChangeDetectorRef,
+        cdr: ChangeDetectorRef,
     ) {
         super(
             <IMixedParams<Params.ICounterCParams>>{
                 injectParams: params,
                 defaultParams: Params.defaultParams,
-            });
+            }, configService, cdr);
     }
 
-    public async ngOnInit(): Promise<void> {
+    public override async ngOnInit(): Promise<void> {
         super.ngOnInit(this.inlineParams);
 
         await this.configService.ready;

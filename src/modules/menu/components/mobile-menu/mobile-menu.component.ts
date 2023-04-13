@@ -43,7 +43,7 @@ import * as Params from './mobile-menu.params';
 })
 export class MobileMenuComponent extends AbstractComponent implements OnInit {
 
-    public $params: Params.IMobileMenuCParams;
+    public override $params: Params.IMobileMenuCParams;
     public menuParams: MenuParams.IMenuCParams;
 
     protected menuConfig: MenuParams.MenuConfigItem[];
@@ -53,8 +53,8 @@ export class MobileMenuComponent extends AbstractComponent implements OnInit {
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IMobileMenuCParams,
-        protected cdr: ChangeDetectorRef,
-        protected configService: ConfigService,
+        cdr: ChangeDetectorRef,
+        configService: ConfigService,
         protected translateService: TranslateService,
         protected eventService: EventService,
         protected injectionService: InjectionService,
@@ -66,10 +66,11 @@ export class MobileMenuComponent extends AbstractComponent implements OnInit {
                 defaultParams: Params.defaultParams,
             },
             configService,
+            cdr,
         );
     }
 
-    public async ngOnInit(): Promise<void> {
+    public override async ngOnInit(): Promise<void> {
         super.ngOnInit();
 
         this.gamesCatalogService = await this.injectionService

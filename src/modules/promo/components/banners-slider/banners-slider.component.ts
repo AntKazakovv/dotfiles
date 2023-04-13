@@ -30,22 +30,22 @@ import _merge from 'lodash-es/merge';
 export class BannersSliderComponent extends AbstractComponent implements OnInit {
     @Input() protected inlineParams: Params.IBannersSliderCParams;
 
-    public $params: Params.IBannersSliderCParams;
+    public override $params: Params.IBannersSliderCParams;
     public ready: boolean = false;
     public slides: ISlide[] = [];
     public useNavigation: boolean = false;
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IBannersSliderCParams,
-        protected configService: ConfigService,
+        configService: ConfigService,
         protected bannerService: BannersService,
-        protected cdr: ChangeDetectorRef,
+        cdr: ChangeDetectorRef,
         protected eventService: EventService,
     ) {
-        super({injectParams, defaultParams: Params.defaultParams}, configService);
+        super({injectParams, defaultParams: Params.defaultParams}, configService, cdr);
     }
 
-    public ngOnInit(): void {
+    public override ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
 
         this.createSlides();

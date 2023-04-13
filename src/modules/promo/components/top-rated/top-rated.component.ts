@@ -20,12 +20,12 @@ import * as Params from './top-rated.params';
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TopRatedComponent extends AbstractComponent {
-    public $params: Params.ITopRatedCParams;
+    public override $params: Params.ITopRatedCParams;
 
     constructor(
         public elementRef: ElementRef,
         @Inject('injectParams') protected injectParams: Params.ITopRatedCParams,
-        protected configService: ConfigService,
+        configService: ConfigService,
     ) {
         super(
             <IMixedParams<Params.ITopRatedCParams>>{

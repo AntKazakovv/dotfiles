@@ -10,7 +10,7 @@ export class HammerConfig extends HammerGestureConfig {
         this.window['Hammer'] = Hammer.default;
     }
 
-    public overrides = <IIndexing<Object>>{
+    public override overrides = <IIndexing<Object>>{
         swipe: {
             direction: Hammer.DIRECTION_ALL,
         },

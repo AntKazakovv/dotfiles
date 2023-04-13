@@ -1,4 +1,7 @@
-import {Directive} from '@angular/core';
+import {
+    Directive,
+    ChangeDetectorRef,
+} from '@angular/core';
 import {UntypedFormGroup} from '@angular/forms';
 
 import _keys from 'lodash-es/keys';
@@ -40,23 +43,20 @@ export interface IValidateData {
 
 @Directive()
 export abstract class UserActionsAbstract<T> extends AbstractComponent {
-    protected userService: UserService;
 
     constructor(
         protected componentParams: IMixedParams<T>,
-        protected configService: ConfigService,
+        configService: ConfigService,
         protected eventService: EventService,
         protected injectionService: InjectionService,
         protected logService: LogService,
+        protected userService: UserService,
+        cdr?: ChangeDetectorRef,
     ) {
-        super(componentParams, configService);
+        super(componentParams, configService, cdr);
     }
 
     protected async finishUserReg(formValue: unknown): Promise<void> {
-        if (!this.userService) {
-            this.userService = await this.injectionService.getService<UserService>('user.user-service');
-        }
-
         this.userService.setProfileData(formValue);
         await this.userService.createUserProfile(this.userService.userProfile.data);
         this.userService.finishRegistration();
@@ -95,10 +95,6 @@ export abstract class UserActionsAbstract<T> extends AbstractComponent {
         let {ageConfirmed, agreedWithTermsAndConditions} = formValues;
 
         if (['birthYear', 'birthDay', 'birthMonth'].every(el => el in formValues)) {
-            if (!this.userService) {
-                this.userService = await this.injectionService.getService<UserService>('user.user-service');
-            }
-
             ageConfirmed = this.userService.isAgeLegal(formValues);
         }
 

@@ -36,7 +36,7 @@ import * as Params from './livechat-button.params';
 export class LivechatButtonComponent extends AbstractComponent implements OnInit, OnDestroy {
     @Input() protected inlineParams: Params.ILivechatButtonCParams;
 
-    public $params: Params.ILivechatButtonCParams;
+    public override $params: Params.ILivechatButtonCParams;
     /** Hides button if chat is unavailable */
     public unavailable: boolean = false;
     /** Hides button if chat is hide */
@@ -50,16 +50,16 @@ export class LivechatButtonComponent extends AbstractComponent implements OnInit
     constructor(
         @Inject('injectParams') protected injectParams: Params.ILivechatButtonCParams,
         @Inject(DOCUMENT) private document: Document,
-        protected configService: ConfigService,
+        configService: ConfigService,
         protected chatService: CommonChatService,
         protected eventService: EventService,
-        protected cdr: ChangeDetectorRef,
+        cdr: ChangeDetectorRef,
         protected renderer: Renderer2,
     ) {
-        super({injectParams, defaultParams: Params.defaultParams}, configService);
+        super({injectParams, defaultParams: Params.defaultParams}, configService, cdr);
     }
 
-    public ngOnInit(): void {
+    public override ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
 
         if (this.chatService.config.type) {
@@ -83,7 +83,7 @@ export class LivechatButtonComponent extends AbstractComponent implements OnInit
         }
     }
 
-    public ngOnDestroy(): void {
+    public override ngOnDestroy(): void {
         super.ngOnDestroy();
 
         if (this.$params.replaceDefault && !this.chatIsHide) {

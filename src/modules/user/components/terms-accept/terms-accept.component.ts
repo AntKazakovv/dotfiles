@@ -35,7 +35,7 @@ import * as Params from './terms-accept.params';
 export class AcceptTermsComponent extends AbstractComponent implements OnInit {
     @Input() protected inlineParams: Params.ITermsAcceptCParams;
 
-    public $params: Params.ITermsAcceptCParams;
+    public override $params: Params.ITermsAcceptCParams;
     public checkBoxParams: ICheckboxCParams = {
         name: 'agreedWithTermsAndConditions',
         checkboxType: 'legal-modal',
@@ -60,15 +60,15 @@ export class AcceptTermsComponent extends AbstractComponent implements OnInit {
         protected modal: WlcModalComponent,
         protected modalService: ModalService,
         protected eventService: EventService,
-        protected configService: ConfigService,
+        configService: ConfigService,
         protected termsAcceptService: TermsAcceptService,
         protected stateService: StateService,
         protected uiRouter: UIRouterGlobals,
     ) {
-        super({injectParams, defaultParams: Params.defaultParams});
+        super({injectParams, defaultParams: Params.defaultParams}, configService);
     }
 
-    public async ngOnInit(): Promise<void> {
+    public override async ngOnInit(): Promise<void> {
         super.ngOnInit(this.inlineParams);
 
         this.modal?.closed.then((status) => {

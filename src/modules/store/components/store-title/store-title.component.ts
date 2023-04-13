@@ -30,13 +30,13 @@ import * as Params from './store-title.params';
 })
 export class StoreTitleComponent extends AbstractComponent implements OnInit, OnDestroy {
 
-    public $params: Params.IStoreTitleCParams;
+    public override $params: Params.IStoreTitleCParams;
     public title: string;
 
     constructor(
         @Inject('injectParams') protected params: Params.IStoreTitleCParams,
-        protected cdr: ChangeDetectorRef,
-        protected configService: ConfigService,
+        cdr: ChangeDetectorRef,
+        configService: ConfigService,
         protected modalService: ModalService,
         protected eventService: EventService,
         protected storeService: StoreService,
@@ -47,10 +47,10 @@ export class StoreTitleComponent extends AbstractComponent implements OnInit, On
             <IMixedParams<Params.IStoreTitleCParams>>{
                 injectParams: params,
                 defaultParams: Params.defaultParams,
-            }, configService);
+            }, configService, cdr);
     }
 
-    public ngOnInit(): void {
+    public override ngOnInit(): void {
         super.ngOnInit();
         this.init();
     }

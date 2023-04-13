@@ -35,7 +35,7 @@ import _isNil from 'lodash-es/isNil';
     encapsulation: ViewEncapsulation.None,
 })
 export class IconComponent extends AbstractComponent implements OnInit, OnChanges {
-    public $params: Params.IIconCParams;
+    public override $params: Params.IIconCParams;
     public imageHtml: SafeHtml;
     public imagePath: string;
     public ready: boolean;
@@ -57,15 +57,15 @@ export class IconComponent extends AbstractComponent implements OnInit, OnChange
         protected sanitizer: DomSanitizer,
         protected fileService: FilesService,
         protected elRef: ElementRef,
-        protected cdr: ChangeDetectorRef,
+        cdr: ChangeDetectorRef,
     ) {
         super({
             injectParams: injectParams || {},
             defaultParams: Params.defaultParams,
-        });
+        }, null, cdr);
     }
 
-    public ngOnInit(): void {
+    public override ngOnInit(): void {
         if (this.injectParams && _isNil(this.iconPath) && _isNil(this.iconName) && _isNil(this.iconUrl)) {
             this.iconPath = this.injectParams.iconPath;
             this.iconName = this.injectParams.iconName;
@@ -76,7 +76,7 @@ export class IconComponent extends AbstractComponent implements OnInit, OnChange
         this.ready = true;
     }
 
-    public ngOnChanges(): void {
+    public override ngOnChanges(): void {
         if (this.ready) {
             this.imageHtml = null;
             this.imagePath = null;

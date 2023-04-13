@@ -23,7 +23,7 @@ export class TglabHooks extends AbstractHook {
     protected inplayOpened: boolean = false;
 
     constructor(
-        protected params: ITglabHooksParams,
+        protected override params: ITglabHooksParams,
     ) {
         super({
             hooksService: params.hooksService,

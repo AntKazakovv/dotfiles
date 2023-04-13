@@ -40,7 +40,7 @@ import * as Params from './loyalty-program.params';
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LoyaltyProgramComponent extends AbstractComponent implements OnInit {
-    public $params: Params.ILoyaltyProgramCParams;
+    public override $params: Params.ILoyaltyProgramCParams;
     public levels: LoyaltyLevelModel[] = [];
     public ready = false;
     public isAuth: boolean;
@@ -50,17 +50,17 @@ export class LoyaltyProgramComponent extends AbstractComponent implements OnInit
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.ILoyaltyProgramCParams,
-        protected cdr: ChangeDetectorRef,
-        protected configService: ConfigService,
+        cdr: ChangeDetectorRef,
+        configService: ConfigService,
         protected loyaltyLevelsService: LoyaltyLevelsService,
         protected modalService: ModalService,
         protected actionService: ActionService,
         protected router: UIRouter,
     ) {
-        super({injectParams, defaultParams: Params.defaultParams}, configService);
+        super({injectParams, defaultParams: Params.defaultParams}, configService, cdr);
     }
 
-    public async ngOnInit(): Promise<void> {
+    public override async ngOnInit(): Promise<void> {
         super.ngOnInit();
 
         await this.configService.ready;

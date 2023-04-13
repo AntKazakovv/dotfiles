@@ -14,7 +14,7 @@ export interface IBetGamesHooksParams {
 export class BetGamesHooks extends AbstractHook {
 
     constructor (
-        protected params: IBetGamesHooksParams,
+        protected override params: IBetGamesHooksParams,
     ) {
         super({
             hooksService: params.hooksService,

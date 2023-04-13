@@ -26,7 +26,7 @@ import {WINDOW} from 'wlc-engine/modules/app/system';
     providedIn: 'root',
 })
 export class ZohoChatService extends LivechatAbstract<ILivechatZohoConfig> {
-    public chatId = 'zsalesiq';
+    public override chatId = 'zsalesiq';
     public canChatDestroy = false;
     public chatLoaded$: BehaviorSubject<boolean> = new BehaviorSubject(false);
     protected profile: UserProfile;
@@ -66,13 +66,13 @@ export class ZohoChatService extends LivechatAbstract<ILivechatZohoConfig> {
     ];
 
     constructor(
-        @Inject(DOCUMENT) protected document: Document,
+        @Inject(DOCUMENT) document: Document,
         @Inject(WINDOW) protected window: Window,
-        protected eventService: EventService,
-        protected configService: ConfigService,
+        eventService: EventService,
+        configService: ConfigService,
         protected logService: LogService,
         protected translateService: TranslateService,
-        protected router: UIRouter,
+        router: UIRouter,
     ) {
         super(document, eventService, router, configService);
     }
@@ -80,7 +80,7 @@ export class ZohoChatService extends LivechatAbstract<ILivechatZohoConfig> {
     /**
      * Main init zoho chat code method
      */
-    public init(): void {
+    public override init(): void {
         super.init();
         this.lang = this.getLang(this.translateService.currentLang);
         this.rerunWidget();
@@ -132,7 +132,7 @@ export class ZohoChatService extends LivechatAbstract<ILivechatZohoConfig> {
     /**
      * Hides chat widget button
      */
-    public hideWidget(): void {
+    public override hideWidget(): void {
         this.window.$zoho?.salesiq.floatwindow.visible('hide');
         this.window.$zoho?.salesiq.floatbutton.visible('hide');
     };
@@ -140,7 +140,7 @@ export class ZohoChatService extends LivechatAbstract<ILivechatZohoConfig> {
     /**
      * Shows hidden chats widget button
      */
-    public showWidget(): void {
+    public override showWidget(): void {
         this.window.$zoho?.salesiq.floatbutton.visible('show');
     };
 
@@ -156,7 +156,7 @@ export class ZohoChatService extends LivechatAbstract<ILivechatZohoConfig> {
         }
     }
 
-    protected initChat(): void {
+    protected override initChat(): void {
         if (this.chatIsLoaded()) {
             return;
         }
@@ -263,7 +263,7 @@ export class ZohoChatService extends LivechatAbstract<ILivechatZohoConfig> {
     /**
      * Check target transition state and close chat, if it's excludeStates in config
      */
-    protected checkExcludeStates(): void {
+    protected override checkExcludeStates(): void {
         this.router.transitionService.onSuccess({}, (transition: Transition) => {
             const stateName: string = transition.targetState().name();
             if (_includes(this.options.excludeStates, stateName)) {

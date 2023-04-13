@@ -35,16 +35,16 @@ export class TextBlockComponent extends AbstractComponent implements OnInit {
     @Input() public textBlockSubtitle: string | string[];
     @Input() public textBlockText: string;
 
-    public $params: Params.ITextBlockCParams;
+    public override $params: Params.ITextBlockCParams;
 
     constructor(
         @Inject('injectParams') protected params: Params.ITextBlockCParams,
-        protected configService: ConfigService,
+        configService: ConfigService,
     ) {
-        super({injectParams: params, defaultParams: Params.defaultParams});
+        super({injectParams: params, defaultParams: Params.defaultParams}, configService);
     }
 
-    public ngOnInit(): void {
+    public override ngOnInit(): void {
         super.ngOnInit(GlobalHelper.prepareParams(this,
             ['textBlockTitle', 'textBlockSubtitle', 'textBlockText', 'dynamicText']));
     }

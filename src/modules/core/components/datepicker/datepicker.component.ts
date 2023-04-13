@@ -43,7 +43,7 @@ export class DatepickerComponent extends AbstractComponent implements OnInit {
     @Input() protected inlineParams: Params.IDatepickerCParams;
     @ViewChild('mask') mask: ElementRef;
     @ViewChild(AngularMyDatePickerDirective) dp: AngularMyDatePickerDirective;
-    public $params: Params.IDatepickerCParams;
+    public override $params: Params.IDatepickerCParams;
     public control: UntypedFormControl;
     public locale: string;
     public defaultMonth: IMyDefaultMonth;
@@ -51,15 +51,15 @@ export class DatepickerComponent extends AbstractComponent implements OnInit {
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IDatepickerCParams,
-        protected configService: ConfigService,
+        configService: ConfigService,
         protected translateService: TranslateService,
-        protected cdr: ChangeDetectorRef,
+        cdr: ChangeDetectorRef,
         protected eventService: EventService,
     ) {
-        super({injectParams, defaultParams: Params.defaultParams});
+        super({injectParams, defaultParams: Params.defaultParams}, configService, cdr);
     }
 
-    public ngOnInit(): void {
+    public override ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
         this.locale = this.translateService.currentLang;
         this.control = this.$params.control || new UntypedFormControl('');

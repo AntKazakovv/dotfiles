@@ -63,7 +63,7 @@ export class InputComponent extends AbstractComponent implements OnInit, OnChang
     @Input() protected inlineParams: Params.IInputCParams;
     @ViewChild('input') input: ElementRef;
 
-    public $params: Params.IInputCParams;
+    public override $params: Params.IInputCParams;
     public control: UntypedFormControl;
     public fieldWlcElement: string;
     public useTooltip: boolean;
@@ -88,14 +88,14 @@ export class InputComponent extends AbstractComponent implements OnInit, OnChang
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IInputCParams,
-        protected configService: ConfigService,
+        configService: ConfigService,
         protected eventService: EventService,
-        protected cdr: ChangeDetectorRef,
+        cdr: ChangeDetectorRef,
     ) {
-        super({injectParams, defaultParams: Params.defaultParams}, configService);
+        super({injectParams, defaultParams: Params.defaultParams}, configService, cdr);
     }
 
-    public ngOnInit(): void {
+    public override ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
         this.control = this.$params?.control;
         this.prepareModifiers();
@@ -117,7 +117,7 @@ export class InputComponent extends AbstractComponent implements OnInit, OnChang
         }
     }
 
-    public ngOnChanges(changes: SimpleChanges): void {
+    public override ngOnChanges(changes: SimpleChanges): void {
         if (this.$params) {
             super.ngOnChanges(changes);
             this.$params = _clone(this.$params);

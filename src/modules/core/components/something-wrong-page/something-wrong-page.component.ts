@@ -19,12 +19,12 @@ import * as Params from './something-wrong-page.params';
 })
 export class SomethingWrongPageComponent extends AbstractComponent {
 
-    public $params: Params.ISomethingWrongPageCParams;
+    public override $params: Params.ISomethingWrongPageCParams;
 
     constructor(
         @Inject('injectParams') protected params: Params.ISomethingWrongPageCParams,
         @Inject(WINDOW) protected window: Window,
-        protected configService: ConfigService,
+        configService: ConfigService,
     ) {
         super(<IMixedParams<any>>{
             injectParams: params,

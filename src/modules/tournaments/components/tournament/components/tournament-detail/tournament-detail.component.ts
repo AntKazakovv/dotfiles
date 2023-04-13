@@ -48,7 +48,7 @@ export class TournamentDetailComponent extends AbstractComponent implements
     @Input() public inlineParams: Params.ITournamentDetailCParams;
     @Input() public parentInstance: TournamentComponent;
 
-    public $params: Params.ITournamentDetailCParams;
+    public override $params: Params.ITournamentDetailCParams;
     public isReady: boolean = false;
     public tournamentProcessing: boolean = false;
     public isTournamentSelected: boolean = false;
@@ -61,12 +61,12 @@ export class TournamentDetailComponent extends AbstractComponent implements
     constructor(
         @Inject('injectParams')
         protected injectParams: Params.ITournamentDetailCParams,
-        protected configService: ConfigService,
+        configService: ConfigService,
         protected tournamentsService: TournamentsService,
         protected modalService: ModalService,
         protected injectionService: InjectionService,
         protected router: UIRouter,
-        protected cdr: ChangeDetectorRef,
+        cdr: ChangeDetectorRef,
     ) {
         super(
             <IMixedParams<Params.ITournamentDetailCParams>>{
@@ -74,10 +74,11 @@ export class TournamentDetailComponent extends AbstractComponent implements
                 defaultParams: Params.defaultParams,
             },
             configService,
+            cdr,
         );
     }
 
-    public ngOnInit(): void {
+    public override ngOnInit(): void {
         super.ngOnInit(GlobalHelper.prepareParams(this,
             ['tournament', 'type', 'theme', 'themeMod', 'customMod']));
     }

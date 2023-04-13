@@ -19,13 +19,13 @@ import * as Params from './scroll-up.params';
 })
 
 export class ScrollUpComponent extends AbstractComponent implements OnInit {
-    public $params: Params.IScrollUpParams;
+    public override $params: Params.IScrollUpParams;
     public windowScrolled: boolean = false;
     public disabledButton: boolean = true;
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IScrollUpParams,
-        protected configService: ConfigService,
+        configService: ConfigService,
         protected actionService: ActionService,
         @Inject(DOCUMENT) private document: Document,
     ){
@@ -35,7 +35,7 @@ export class ScrollUpComponent extends AbstractComponent implements OnInit {
         }, configService);
     }
 
-    public ngOnInit(): void {
+    public override ngOnInit(): void {
         super.ngOnInit();
     }
 

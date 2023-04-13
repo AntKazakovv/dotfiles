@@ -40,24 +40,24 @@ export class WlcPaginationComponent<T = unknown> extends AbstractComponent imple
 
     @Output() public paginationOnChange = new EventEmitter<Params.IPaginateOutput<T>>();
 
-    public $params: Params.IPaginationCParams;
+    public override $params: Params.IPaginationCParams;
     public currentPage: number = 1;
 
     protected paginatedItems: T[];
 
     constructor(
         @Inject('injectParams') protected params: Params.IPaginationCParams,
-        protected cdr: ChangeDetectorRef,
+        cdr: ChangeDetectorRef,
         @Inject(WINDOW) private window: Window,
     ) {
         super(
             <IMixedParams<Params.IPaginationCParams>>{
                 injectParams: params,
                 defaultParams: Params.defaultParams,
-            });
+            }, null, cdr);
     }
 
-    public ngOnChanges(): void {
+    public override ngOnChanges(): void {
         if (!this.pageChanged) {
             this.pageChanged = this.pageChangedDefault;
         }
@@ -68,7 +68,7 @@ export class WlcPaginationComponent<T = unknown> extends AbstractComponent imple
         }
     }
 
-    public ngOnInit(): void {
+    public override ngOnInit(): void {
         super.ngOnInit();
 
         if (this.settings?.breakpoints) {

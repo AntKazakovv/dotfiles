@@ -51,17 +51,17 @@ export class ShuftiProKycamlComponent extends AbstractComponent implements OnIni
     constructor(
         @Inject('injectParams') protected injectParams: Params.IShuftiProKycamlCParams,
         protected shuftiProKycamlService: ShuftiProKycamlService,
-        protected configService: ConfigService,
-        protected cdr: ChangeDetectorRef,
+        configService: ConfigService,
+        cdr: ChangeDetectorRef,
     ) {
         super(
             <IMixedParams<Params.IShuftiProKycamlCParams>>{
                 injectParams,
                 defaultParams: Params.defaultParams,
-            }, configService);
+            }, configService, cdr);
     }
 
-    public async ngOnInit(): Promise<void> {
+    public override async ngOnInit(): Promise<void> {
         super.ngOnInit(this.injectParams);
 
         try {

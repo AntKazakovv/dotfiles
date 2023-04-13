@@ -24,7 +24,7 @@ interface IScope {
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class StoreItemInfoComponent extends AbstractComponent {
-    public $params: Params.IStoreItemInfoCParams;
+    public override $params: Params.IStoreItemInfoCParams;
 
     public get scope(): IScope {
         return {
@@ -34,7 +34,7 @@ export class StoreItemInfoComponent extends AbstractComponent {
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IStoreItemInfoCParams,
-        protected configService: ConfigService,
+        configService: ConfigService,
     ) {
         super(
             <IMixedParams<Params.IStoreItemInfoCParams>>{

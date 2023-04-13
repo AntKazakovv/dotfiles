@@ -1,4 +1,7 @@
-import {Directive} from '@angular/core';
+import {
+    Directive,
+    ChangeDetectorRef,
+} from '@angular/core';
 import {UntypedFormGroup} from '@angular/forms';
 import {StateService} from '@uirouter/core';
 import {TranslateService} from '@ngx-translate/core';
@@ -66,7 +69,7 @@ export const defaultSignInFormParams: IDefaultAbstractSignInCParams = {
 export abstract class SignInFormAbstract<T extends IAbstractSignInFormCParams<unknown, unknown, unknown>>
     extends AbstractComponent {
 
-    public $params: T;
+    public override $params: T;
     public config: IFormWrapperCParams;
     public errors$: BehaviorSubject<IIndexing<string>> = new BehaviorSubject(null);
 
@@ -81,9 +84,10 @@ export abstract class SignInFormAbstract<T extends IAbstractSignInFormCParams<un
         protected eventService: EventService,
         protected stateService: StateService,
         protected translateService: TranslateService,
-        protected configService?: ConfigService,
+        configService?: ConfigService,
+        cdr?: ChangeDetectorRef,
     ) {
-        super(mixedParams, configService);
+        super(mixedParams, configService, cdr);
     }
 
     public beforeSubmit(form: UntypedFormGroup): boolean {

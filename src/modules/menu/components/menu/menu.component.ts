@@ -102,7 +102,7 @@ import * as Params from './menu.params';
 })
 export class MenuComponent extends AbstractComponent implements OnInit, OnChanges, AfterViewInit, AfterContentChecked  {
     public items: Params.MenuItemObjectType[];
-    public $params: Params.IMenuCParams;
+    public override $params: Params.IMenuCParams;
     public inited: boolean = false;
 
     @ViewChild('slider') slider: SliderComponent;
@@ -134,11 +134,11 @@ export class MenuComponent extends AbstractComponent implements OnInit, OnChange
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IMenuCParams,
-        protected cdr: ChangeDetectorRef,
+        cdr: ChangeDetectorRef,
         protected actionService: ActionService,
         protected modalService: ModalService,
         protected stateService: StateService,
-        protected configService: ConfigService,
+        configService: ConfigService,
         protected eventService: EventService,
         protected injectionService: InjectionService,
         protected translateService: TranslateService,
@@ -150,6 +150,7 @@ export class MenuComponent extends AbstractComponent implements OnInit, OnChange
                 defaultParams: Params.defaultParams,
             },
             configService,
+            cdr,
         );
     }
 
@@ -171,7 +172,7 @@ export class MenuComponent extends AbstractComponent implements OnInit, OnChange
         item.expand = !item.expand;
     }
 
-    public ngOnChanges(changes: SimpleChanges): void {
+    public override ngOnChanges(changes: SimpleChanges): void {
         super.ngOnChanges(changes);
         if (!this.inited) {
             return;
@@ -189,7 +190,7 @@ export class MenuComponent extends AbstractComponent implements OnInit, OnChange
         this.cdr.detectChanges();
     }
 
-    public ngOnInit(): void {
+    public override ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
 
         this.isAuth = this.configService.get<boolean>('$user.isAuthenticated');

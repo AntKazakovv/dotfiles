@@ -45,7 +45,7 @@ import * as Params from './banner.params';
     styleUrls: ['./styles/banner.component.scss'],
 })
 export class BannerComponent extends AbstractComponent implements OnInit, AfterViewInit {
-    public $params: Params.IBannerCParams;
+    public override $params: Params.IBannerCParams;
 
     @Input() protected inlineParams: Params.IBannerCParams;
     @Input() protected themeMod: Params.ComponentMod;
@@ -54,7 +54,7 @@ export class BannerComponent extends AbstractComponent implements OnInit, AfterV
     constructor(
         @Inject('injectParams') protected injectParams: Params.IBannerCParams,
         protected bannersService: BannersService,
-        protected configService: ConfigService,
+        configService: ConfigService,
         protected logService: LogService,
         protected element: ElementRef,
         @Inject(DOCUMENT) protected document: Document,
@@ -62,7 +62,7 @@ export class BannerComponent extends AbstractComponent implements OnInit, AfterV
         super({injectParams, defaultParams: Params.defaultParams}, configService);
     }
 
-    public ngOnInit(): void {
+    public override ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
         this.getBanner();
         this.setSubscription();

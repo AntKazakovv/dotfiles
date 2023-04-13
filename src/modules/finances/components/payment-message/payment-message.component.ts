@@ -66,7 +66,7 @@ export class PaymentMessageComponent extends AbstractComponent implements OnInit
     @Input() public system: PaymentSystem;
     @Input() public minAmount: number;
     @Input() public maxAmount: number;
-    public $params: Params.IPaymentMessageCParams;
+    public override $params: Params.IPaymentMessageCParams;
     public isError: boolean = false;
     public type: TMessageType | null;
 
@@ -96,9 +96,9 @@ export class PaymentMessageComponent extends AbstractComponent implements OnInit
         @Inject('injectParams') protected injectParams: Params.IPaymentMessageCParams,
         @Inject(DOCUMENT) protected document: Document,
         protected renderer: Renderer2,
-        protected configService: ConfigService,
+        configService: ConfigService,
         protected logService: LogService,
-        protected cdr: ChangeDetectorRef,
+        cdr: ChangeDetectorRef,
         protected translateService: TranslateService,
         protected modalService: ModalService,
         protected financesService: FinancesService,
@@ -107,7 +107,7 @@ export class PaymentMessageComponent extends AbstractComponent implements OnInit
             <IMixedParams<Params.IPaymentMessageCParams>>{
                 injectParams,
                 defaultParams: Params.defaultParams,
-            }, configService);
+            }, configService, cdr);
     }
 
     public get message(): IPaymentMessage {
@@ -131,7 +131,7 @@ export class PaymentMessageComponent extends AbstractComponent implements OnInit
         return DateTime.fromISO(this.message.dateEnd);
     }
 
-    public ngOnInit(): void {
+    public override ngOnInit(): void {
         super.ngOnInit();
         this.system = this.$params?.system || this.system;
         this.minAmount ??= this.$params?.minAmount;
@@ -150,7 +150,7 @@ export class PaymentMessageComponent extends AbstractComponent implements OnInit
         this.cdr.markForCheck();
     }
 
-    public ngOnChanges(): void {
+    public override ngOnChanges(): void {
         this.type = null;
         this.prepareMessage();
     }

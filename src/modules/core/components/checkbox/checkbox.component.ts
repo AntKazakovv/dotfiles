@@ -31,7 +31,7 @@ type ClassNames = Record<string, boolean>;
 })
 export class CheckboxComponent extends AbstractComponent implements OnInit {
     @Input() protected inlineParams: Params.ICheckboxCParams;
-    public $params: Params.ICheckboxCParams;
+    public override $params: Params.ICheckboxCParams;
     public control: UntypedFormControl;
     public fieldWlcElement: string;
     public textContext: Params.ICheckboxCParams['textContext'];
@@ -46,15 +46,15 @@ export class CheckboxComponent extends AbstractComponent implements OnInit {
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.ICheckboxCParams,
-        protected configService: ConfigService,
-        protected cdr: ChangeDetectorRef,
+        configService: ConfigService,
+        cdr: ChangeDetectorRef,
         protected modalService: ModalService,
         protected checkBoxTexts: CheckBoxTexts,
     ) {
-        super({injectParams, defaultParams: Params.defaultParams}, configService);
+        super({injectParams, defaultParams: Params.defaultParams}, configService, cdr);
     }
 
-    public ngOnInit(): void {
+    public override ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
         if (this.$params.common?.checkedDefault) {
             this.$params.control?.setValue(true);

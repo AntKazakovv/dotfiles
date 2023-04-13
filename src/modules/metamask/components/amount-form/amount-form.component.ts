@@ -27,18 +27,18 @@ import * as Params from './amount-form.params';
 })
 export class AmountFormComponent extends AbstractComponent implements OnInit {
 
-    public $params: Params.IAmountFormCParams;
+    public override $params: Params.IAmountFormCParams;
     public formConfig: IFormWrapperCParams;
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IAmountFormCParams,
-        protected configService: ConfigService,
+        configService: ConfigService,
         protected eventService: EventService,
     ) {
         super({injectParams, defaultParams: Params.defaultParams}, configService);
     }
 
-    public ngOnInit(): void {
+    public override ngOnInit(): void {
         super.ngOnInit();
         this.modifyFormConfig(this.$params.formConfig.components);
         this.formConfig = this.$params.formConfig;

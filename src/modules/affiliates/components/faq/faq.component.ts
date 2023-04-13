@@ -35,20 +35,20 @@ export class FaqComponent extends AbstractComponent implements OnInit {
     @Input() protected slug: string;
 
     public ready: boolean = false;
-    public $params: Params.IFaqCParams;
+    public override $params: Params.IFaqCParams;
     public accordionParams: IAccordionCParams;
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IFaqCParams,
         protected staticService: StaticService,
-        protected cdr: ChangeDetectorRef,
+        cdr: ChangeDetectorRef,
         protected logService: LogService,
-        protected configService: ConfigService,
+        configService: ConfigService,
     ) {
-        super({injectParams, defaultParams: Params.defaultParams}, configService);
+        super({injectParams, defaultParams: Params.defaultParams}, configService, cdr);
     }
 
-    public async ngOnInit(): Promise<void> {
+    public override async ngOnInit(): Promise<void> {
         super.ngOnInit();
 
         this.accordionParams = {

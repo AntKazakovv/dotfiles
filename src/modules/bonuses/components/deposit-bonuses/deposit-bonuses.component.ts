@@ -48,7 +48,7 @@ import * as Params from './deposit-bonuses.params';
 export class DepositBonusesComponent extends AbstractComponent implements OnInit {
     @ViewChild('bonusesList') protected list: TemplateRef<any>;
 
-    public $params: Params.IDepositBonusesCParams;
+    public override $params: Params.IDepositBonusesCParams;
     public bonuses: Bonus[] = [];
     public ready: boolean = false;
     public asModal: boolean;
@@ -64,17 +64,17 @@ export class DepositBonusesComponent extends AbstractComponent implements OnInit
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IDepositBonusesCParams,
-        protected configService: ConfigService,
+        configService: ConfigService,
         protected bonusesService: BonusesService,
         protected eventService: EventService,
         protected modalService: ModalService,
-        protected cdr: ChangeDetectorRef,
+        cdr: ChangeDetectorRef,
         @Inject(WINDOW) private window: Window,
     ) {
-        super({injectParams, defaultParams: Params.defaultParams}, configService);
+        super({injectParams, defaultParams: Params.defaultParams}, configService, cdr);
     }
 
-    public ngOnInit(): void {
+    public override ngOnInit(): void {
         super.ngOnInit();
 
         this.autoSelect = this.configService.get('$finances.bonusesInDeposit.autoSelect.use')

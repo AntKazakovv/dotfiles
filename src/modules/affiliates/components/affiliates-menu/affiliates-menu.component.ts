@@ -31,16 +31,16 @@ import * as Params from './affiliates-menu.params';
 export class AffiliatesMenuComponent extends AbstractComponent implements OnInit {
     @Input() protected inlineParams: Params.IAffiliatesMenuCParams;
 
-    public $params: Params.IAffiliatesMenuCParams;
+    public override $params: Params.IAffiliatesMenuCParams;
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IAffiliatesMenuCParams,
-        protected configService: ConfigService,
+        configService: ConfigService,
     ) {
         super({injectParams, defaultParams: Params.defaultParams}, configService);
     }
 
-    public ngOnInit(): void {
+    public override ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
 
         this.initConfig();

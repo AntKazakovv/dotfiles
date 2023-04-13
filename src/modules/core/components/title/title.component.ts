@@ -32,7 +32,7 @@ import _isString from 'lodash-es/isString';
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TitleComponent extends AbstractComponent implements OnInit, AfterViewInit {
-    public $params: Params.ITitleCParams;
+    public override $params: Params.ITitleCParams;
     public ready: boolean = false;
 
     @Input() public mainTag: Params.TagType;
@@ -54,16 +54,16 @@ export class TitleComponent extends AbstractComponent implements OnInit, AfterVi
 
     constructor(
         @Inject('injectParams') protected params: Params.ITitleCParams,
-        protected cdr: ChangeDetectorRef,
+        cdr: ChangeDetectorRef,
     ) {
         super(
             <IMixedParams<Params.ITitleCParams>>{
                 injectParams: params,
                 defaultParams: Params.defaultParams,
-            });
+            }, null, cdr);
     }
 
-    public ngOnInit(): void {
+    public override ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
 
         this.prepareParams();

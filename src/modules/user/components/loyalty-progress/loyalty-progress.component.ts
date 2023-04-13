@@ -24,7 +24,7 @@ import * as Params from './loyalty-progress.params';
 export class LoyaltyProgressComponent extends AbstractComponent implements OnInit, OnDestroy {
     @Input() protected inlineParams: Params.ILoyaltyProgressCParams;
 
-    public $params: Params.ILoyaltyProgressCParams;
+    public override $params: Params.ILoyaltyProgressCParams;
     public nextLevelPoints: number;
     public percentProgress: number;
     public userPoints: number;
@@ -32,15 +32,15 @@ export class LoyaltyProgressComponent extends AbstractComponent implements OnIni
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.ILoyaltyProgressCParams,
-        protected configService: ConfigService,
+        configService: ConfigService,
         protected UserService: UserService,
-        protected cdr: ChangeDetectorRef,
+        cdr: ChangeDetectorRef,
         protected modalService: ModalService,
     ) {
-        super({injectParams, defaultParams: Params.defaultParams}, configService);
+        super({injectParams, defaultParams: Params.defaultParams}, configService, cdr);
     }
 
-    public ngOnInit(): void {
+    public override ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
         this.subscribeUserInfo();
     }

@@ -50,11 +50,11 @@ export class AbstractComponent implements OnDestroy, OnInit, OnChanges {
 
     protected $destroy: Subject<void> = new Subject();
     protected modifiers: string[] = [];
-    protected cdr: ChangeDetectorRef;
 
     constructor(
         private mixedParams: IMixedParams<unknown>,
         protected configService?: ConfigService,
+        protected cdr?: ChangeDetectorRef,
     ) {
     }
 

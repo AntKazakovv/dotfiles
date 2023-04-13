@@ -55,21 +55,21 @@ import * as Params from './theme-toggler.params';
 export class ThemeTogglerComponent extends AbstractComponent implements OnInit {
     @Input() protected inlineParams: Params.IThemeTogglerCParams;
 
-    public $params: Params.IThemeTogglerCParams;
+    public override $params: Params.IThemeTogglerCParams;
     public status: boolean;
     public leftIcon: string;
     public rightIcon: string;
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IThemeTogglerCParams,
-        protected configService: ConfigService,
+        configService: ConfigService,
         protected colorThemeService: ColorThemeService,
-        protected cdr: ChangeDetectorRef,
+        cdr: ChangeDetectorRef,
     ) {
-        super({injectParams, defaultParams: Params.defaultParams}, configService);
+        super({injectParams, defaultParams: Params.defaultParams}, configService, cdr);
     }
 
-    public ngOnInit(): void {
+    public override ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
 
         this.colorThemeService.appColorTheme$.pipe(takeUntil(this.$destroy)).subscribe((theme: TColorTheme) => {

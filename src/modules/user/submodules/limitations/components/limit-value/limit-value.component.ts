@@ -17,7 +17,7 @@ import * as Params from './limit-value.params';
     styleUrls: ['./styles/limit-value.component.scss'],
 })
 export class LimitValueComponent extends AbstractComponent implements OnInit {
-    public $params: Params.ILimitValueCParams;
+    public override $params: Params.ILimitValueCParams;
 
     public timeText: string;
 
@@ -28,7 +28,7 @@ export class LimitValueComponent extends AbstractComponent implements OnInit {
         super({injectParams: params, defaultParams: Params.defaultParams});
     }
 
-    public ngOnInit(): void {
+    public override ngOnInit(): void {
         super.ngOnInit();
 
         if (this.$params.valueType === 'realityChecker') {

@@ -54,7 +54,7 @@ export class TransactionHistoryComponent extends AbstractComponent implements On
 
     public ready: boolean = false;
     public showFilter: boolean = false;
-    public $params: Params.ITransactionHistoryCParams;
+    public override $params: Params.ITransactionHistoryCParams;
     public tableData: ITableCParams;
     public startDateInput: IDatepickerCParams = startDate;
     public endDateInput: IDatepickerCParams = endDate;
@@ -68,21 +68,21 @@ export class TransactionHistoryComponent extends AbstractComponent implements On
 
     constructor(
         @Inject('injectParams') protected params: Params.ITransactionHistoryCParams,
-        protected cdr: ChangeDetectorRef,
+        cdr: ChangeDetectorRef,
         protected financesService: FinancesService,
         protected eventService: EventService,
         protected historyFilterService: HistoryFilterService,
-        protected configService: ConfigService,
+        configService: ConfigService,
         protected actionService: ActionService,
     ) {
         super(
             <IMixedParams<Params.ITransactionHistoryCParams>>{
                 injectParams: params,
                 defaultParams: Params.defaultParams,
-            }, configService);
+            }, configService, cdr);
     }
 
-    public async ngOnInit(): Promise<void> {
+    public override async ngOnInit(): Promise<void> {
         super.ngOnInit();
         const profileType: ProfileType = this.configService.get<ProfileType>('$base.profile.type') || 'default';
         this.allTransactions = await this.financesService.getTransactionList();

@@ -20,11 +20,11 @@ import * as Params from './offline-page.params';
 })
 export class OfflinePageComponent extends AbstractComponent implements OnInit {
 
-    public $params: Params.IOfflinePageCParams;
+    public override $params: Params.IOfflinePageCParams;
 
     constructor(
         @Inject('injectParams') protected params: Params.IOfflinePageCParams,
-        protected configService: ConfigService,
+        configService: ConfigService,
     ) {
         super(<IMixedParams<any>>{
             injectParams: params,
@@ -32,7 +32,7 @@ export class OfflinePageComponent extends AbstractComponent implements OnInit {
         }, configService);
     }
 
-    public ngOnInit(): void {
+    public override ngOnInit(): void {
         super.ngOnInit();
     }
 }

@@ -28,19 +28,19 @@ import {WINDOW} from 'wlc-engine/modules/app/system';
     providedIn: 'root',
 })
 export class VerboxService extends LivechatAbstract<ILivechatVerboxConfig> {
-    public chatId = 'verbox';
-    public forceHideStyles = '#supportTrigger {display: none !important;}';
+    public override chatId = 'verbox';
+    public override forceHideStyles = '#supportTrigger {display: none !important;}';
     public canChatDestroy = true;
     private currentEmail: string = null;
 
     constructor(
-        @Inject(DOCUMENT) protected document: Document,
+        @Inject(DOCUMENT) document: Document,
         @Inject(WINDOW) protected window: Window,
-        protected eventService: EventService,
-        protected configService: ConfigService,
+        eventService: EventService,
+        configService: ConfigService,
         protected logService: LogService,
         protected translateService: TranslateService,
-        protected router: UIRouter,
+        router: UIRouter,
         protected routerGlobals: UIRouterGlobals,
     ) {
         super(document, eventService, router, configService);
@@ -49,7 +49,7 @@ export class VerboxService extends LivechatAbstract<ILivechatVerboxConfig> {
     /**
      * Main init verbox chat code method
      */
-    public init(): void {
+    public override init(): void {
         super.init();
 
         let current = this.translateService.currentLang;
@@ -115,7 +115,7 @@ export class VerboxService extends LivechatAbstract<ILivechatVerboxConfig> {
         return !!this.window.Verbox;
     }
 
-    protected initChat(isErrorSrc?: boolean): void {
+    protected override initChat(isErrorSrc?: boolean): void {
 
         if (this.options.type !== 'verbox' || !this.options.code) {
             this.logService.sendLog({code: '14.0.1'});

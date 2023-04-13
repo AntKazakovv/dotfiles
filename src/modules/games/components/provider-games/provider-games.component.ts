@@ -45,7 +45,7 @@ import _merge from 'lodash-es/merge';
 export class ProviderGamesComponent extends AbstractComponent implements OnInit {
     @Input() protected inlineParams: Params.IProviderGamesCParams;
 
-    public $params: Params.IProviderGamesCParams;
+    public override $params: Params.IProviderGamesCParams;
 
     public provider: MerchantModel;
     public icon: IconModel;
@@ -55,18 +55,18 @@ export class ProviderGamesComponent extends AbstractComponent implements OnInit 
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IProviderGamesCParams,
-        protected configService: ConfigService,
+        configService: ConfigService,
         protected uiRouter: UIRouterGlobals,
         protected router: UIRouter,
         protected gamesCatalogService: GamesCatalogService,
         protected translateService: TranslateService,
         protected stateService: StateService,
-        protected cdr: ChangeDetectorRef,
+        cdr: ChangeDetectorRef,
     ) {
-        super({injectParams, defaultParams: Params.defaultParams}, configService);
+        super({injectParams, defaultParams: Params.defaultParams}, configService, cdr);
     }
 
-    public ngOnInit(): void {
+    public override ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
 
         this.getProviderByState();

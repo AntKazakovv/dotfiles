@@ -57,13 +57,13 @@ export class WrapperComponent extends LayoutComponent implements OnInit, OnChang
         @Optional() @Inject('injectParams') protected params: IWrapperCParams,
         protected configService: ConfigService,
         layoutService: LayoutService,
-        protected cdr: ChangeDetectorRef,
+        cdr: ChangeDetectorRef,
         transition: TransitionService,
         injector: Injector,
         uiRouter: UIRouterGlobals,
         eventService: EventService,
         protected injectionService: InjectionService,
-        @Inject(WINDOW) protected window: Window,
+        @Inject(WINDOW) window: Window,
     ) {
         super(
             configService,
@@ -77,7 +77,7 @@ export class WrapperComponent extends LayoutComponent implements OnInit, OnChang
         );
     }
 
-    public async ngOnInit(): Promise<void> {
+    public override async ngOnInit(): Promise<void> {
         this.prepareParams();
         await this.initComponents();
         this.initReady = true;

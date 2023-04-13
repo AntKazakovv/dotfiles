@@ -55,7 +55,7 @@ export interface ITotalJackpotCurrency {
 export class TotalJackpotComponent extends AbstractComponent implements OnInit {
     @Input() protected inlineParams: Params.ITotalJackpotCParams;
 
-    public $params: Params.ITotalJackpotCParams;
+    public override $params: Params.ITotalJackpotCParams;
     public amount: number;
     public currency: ITotalJackpotCurrency;
     public noContentParams: INoContentCParams;
@@ -64,16 +64,16 @@ export class TotalJackpotComponent extends AbstractComponent implements OnInit {
     constructor(
         public elementRef: ElementRef,
         @Inject('injectParams') protected params: Params.ITotalJackpotCParams,
-        protected configService: ConfigService,
-        protected cdr: ChangeDetectorRef,
+        configService: ConfigService,
+        cdr: ChangeDetectorRef,
         protected translateService: TranslateService,
         protected cachingService: CachingService,
         protected gamesCatalogService: GamesCatalogService,
     ) {
-        super({injectParams: params, defaultParams: Params.defaultParams});
+        super({injectParams: params, defaultParams: Params.defaultParams}, configService, cdr);
     }
 
-    public ngOnInit(): void {
+    public override ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
         this.getCache();
         this.gamesCatalogService.ready.then(() => {

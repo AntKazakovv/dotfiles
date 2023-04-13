@@ -43,15 +43,15 @@ export class BonusButtonsComponent extends AbstractComponent implements OnInit {
     @Input() public isShowUnsubscribe: boolean = false;
 
     @ViewChild('cancelModal') public tplModal: TemplateRef<ElementRef>;
-    public $params: Params.IBonusButtonsCParams;
+    public override $params: Params.IBonusButtonsCParams;
     public isAuth: boolean;
 
     private static sportsbookService: SportsbookService;
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IBonusButtonsCParams,
-        protected cdr: ChangeDetectorRef,
-        protected configService: ConfigService,
+        cdr: ChangeDetectorRef,
+        configService: ConfigService,
         protected modalService: ModalService,
         protected bonusesService: BonusesService,
         protected eventService: EventService,
@@ -62,10 +62,10 @@ export class BonusButtonsComponent extends AbstractComponent implements OnInit {
             <IMixedParams<Params.IBonusButtonsCParams>>{
                 injectParams,
                 defaultParams: Params.defaultParams,
-            }, configService);
+            }, configService, cdr);
     }
 
-    public ngOnInit(): void {
+    public override ngOnInit(): void {
         super.ngOnInit();
         this.isAuth = this.configService.get<boolean>('$user.isAuthenticated');
 

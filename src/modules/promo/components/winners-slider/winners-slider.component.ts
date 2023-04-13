@@ -55,7 +55,7 @@ export class WinnersSliderComponent extends AbstractComponent implements OnInit,
     @Input() protected inlineParams: Params.IWinnersSliderCParams;
     @ViewChild('winner') winner: TemplateRef<WinnerModel>;
 
-    public $params: Params.IWinnersSliderCParams;
+    public override $params: Params.IWinnersSliderCParams;
     public sliderParams: ISliderCParams = {
         swiper: {},
     };
@@ -71,18 +71,18 @@ export class WinnersSliderComponent extends AbstractComponent implements OnInit,
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IWinnersSliderCParams,
-        protected configService: ConfigService,
+        configService: ConfigService,
         protected winnersService: WinnersService,
-        protected cdr: ChangeDetectorRef,
+        cdr: ChangeDetectorRef,
         protected renderer: Renderer2,
         protected actionService: ActionService,
         @Inject(WINDOW) protected window: Window,
         private element: ElementRef,
     ) {
-        super({injectParams, defaultParams: Params.defaultParams}, configService);
+        super({injectParams, defaultParams: Params.defaultParams}, configService, cdr);
     }
 
-    public ngOnInit(): void {
+    public override ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
 
         this.prepareSliderParams();

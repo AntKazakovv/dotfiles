@@ -221,7 +221,7 @@ export class UserInfo extends AbstractModel<IUserInfo> {
         return this.data.validationLevel;
     }
 
-    public set data(data: IUserInfo) {
+    public override set data(data: IUserInfo) {
         super.data = _cloneDeep(data);
         if (this.data && this.separateLoyalty) {
             if (this.$loyaltyData) {
@@ -238,7 +238,7 @@ export class UserInfo extends AbstractModel<IUserInfo> {
         }
     }
 
-    public get data(): IUserInfo {
+    public override get data(): IUserInfo {
         return super.data;
     }
 
@@ -246,7 +246,7 @@ export class UserInfo extends AbstractModel<IUserInfo> {
         return this.data?.Tags || {};
     }
 
-    protected checkData(): void {
+    protected override checkData(): void {
         //TODO AFTER RELEASE 13.11.2020
         /*if (!this.data?.status) {
             this.eventService.emit({

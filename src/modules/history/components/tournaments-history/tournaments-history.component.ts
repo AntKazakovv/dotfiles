@@ -49,7 +49,7 @@ export class TournamentsHistoryComponent extends AbstractComponent implements On
 
     public ready: boolean = false;
     public showFilter: boolean = false;
-    public $params: Params.ITournamentsHistoryCParams;
+    public override $params: Params.ITournamentsHistoryCParams;
     public tableData: ITableCParams;
     public filterSelect: ISelectCParams<TTournamentsFilter> = tournamentConfig.filterSelect;
     public tournaments$: BehaviorSubject<TournamentHistory[]> = new BehaviorSubject([]);
@@ -58,21 +58,21 @@ export class TournamentsHistoryComponent extends AbstractComponent implements On
 
     constructor(
         @Inject('injectParams') protected params: Params.ITournamentsHistoryCParams,
-        protected cdr: ChangeDetectorRef,
+        cdr: ChangeDetectorRef,
         protected historyService: HistoryService,
         protected eventService: EventService,
         protected historyFilterService: HistoryFilterService,
-        protected configService: ConfigService,
+        configService: ConfigService,
         protected actionService: ActionService,
     ) {
         super(
             <IMixedParams<Params.ITournamentsHistoryCParams>>{
                 injectParams: params,
                 defaultParams: Params.defaultParams,
-            });
+            }, configService, cdr);
     }
 
-    public async ngOnInit(): Promise<void> {
+    public override async ngOnInit(): Promise<void> {
         super.ngOnInit();
         const profileType: ProfileType = this.configService.get<ProfileType>('$base.profile.type') || 'default';
         await this.historyService.queryHistory(true, 'tournamentsHistory');

@@ -52,28 +52,28 @@ import * as Params from './history-filter.params';
 export class HistoryFilterComponent extends AbstractComponent implements OnInit, OnDestroy {
     @Input() protected inlineParams: Params.IHistoryFilterCParams;
 
-    public $params: Params.IHistoryFilterCParams;
+    public override $params: Params.IHistoryFilterCParams;
     public isFiltered: boolean = false;
     protected formData: BehaviorSubject<IHistoryFilter | IHistoryFilterValue> = new BehaviorSubject(null);
     protected defaultFormData: IHistoryFilter | IHistoryFilterValue;
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IHistoryFilterCParams,
-        protected configService: ConfigService,
+        configService: ConfigService,
         protected eventService: EventService,
         protected modalService: ModalService,
         protected historyFilterService: HistoryFilterService,
-        protected cdr: ChangeDetectorRef,
+        cdr: ChangeDetectorRef,
     ) {
-        super({injectParams, defaultParams: Params.defaultParams}, configService);
+        super({injectParams, defaultParams: Params.defaultParams}, configService, cdr);
     }
 
-    public ngOnInit(): void {
+    public override ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
         this.subscriber();
     }
 
-    public ngOnDestroy(): void {
+    public override ngOnDestroy(): void {
         if (this.modalService.getActiveModal('history-filter')) {
             this.modalService.hideModal('history-filter');
         }

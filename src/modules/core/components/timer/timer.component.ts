@@ -59,7 +59,7 @@ export class TimerComponent extends AbstractComponent implements OnInit, OnChang
 
     @Output() public timerEnds = new EventEmitter();
 
-    public $params: Params.ITimerCParams;
+    public override $params: Params.ITimerCParams;
 
     public seconds: string = '00';
     public minutes: string = '00';
@@ -77,13 +77,13 @@ export class TimerComponent extends AbstractComponent implements OnInit, OnChang
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.ITimerCParams,
-        protected configService: ConfigService,
-        protected cdr: ChangeDetectorRef,
+        configService: ConfigService,
+        cdr: ChangeDetectorRef,
     ) {
-        super({injectParams, defaultParams: Params.defaultParams});
+        super({injectParams, defaultParams: Params.defaultParams}, configService, cdr);
     }
 
-    public ngOnInit(): void {
+    public override ngOnInit(): void {
         const inputProperties: string[] = ['value', 'text', 'noCountDown', 'countUp', 'noDays', 'noHours'];
         super.ngOnInit(_merge(
             {},
@@ -101,7 +101,7 @@ export class TimerComponent extends AbstractComponent implements OnInit, OnChang
         this.isInited = true;
     }
 
-    public ngOnChanges(changes: SimpleChanges): void {
+    public override ngOnChanges(changes: SimpleChanges): void {
         if (this.isInited && (!this.intervalSub || changes['value'])) {
             this.ngOnInit();
         }

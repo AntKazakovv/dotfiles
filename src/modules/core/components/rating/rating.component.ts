@@ -34,17 +34,17 @@ export class RatingComponent extends AbstractComponent implements OnInit {
     @ViewChild('starsParent', {static: true}) protected starsParent: ElementRef<HTMLElement>;
     @Input() protected inlineParams: Params.IRatingCParams;
 
-    public $params: Params.IRatingCParams;
+    public override $params: Params.IRatingCParams;
     public stars: number[];
 
     protected rating: number = 0;
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IRatingCParams,
-        protected configService: ConfigService,
+        configService: ConfigService,
         protected cachingService: CachingService,
         protected renderer: Renderer2,
-        protected cdr: ChangeDetectorRef,
+        cdr: ChangeDetectorRef,
     ) {
         super(
             <IMixedParams<Params.IRatingCParams>>{
@@ -52,10 +52,11 @@ export class RatingComponent extends AbstractComponent implements OnInit {
                 defaultParams: Params.defaultParams,
             },
             configService,
+            cdr,
         );
     }
 
-    public ngOnInit(): void {
+    public override ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
         this.stars = _times(this.$params.starsCount, (n: number) => n);
         this.renderer.setStyle(this.starsParent.nativeElement, '--stars-count', this.stars.length, 2);

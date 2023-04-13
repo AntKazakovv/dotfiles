@@ -38,7 +38,7 @@ export class BetradarPopularEventsComponent extends AbstractComponent implements
 
     @ViewChild('popularEventsSlide') tplPopularEventsSlide: TemplateRef<ElementRef>;
 
-    public $params: Params.IBetradarPopularEventsCParams;
+    public override $params: Params.IBetradarPopularEventsCParams;
     public slides: ISlide[] = [];
     public sliderConfig: IWrapperCParams = {};
     public inited: boolean = false;
@@ -50,19 +50,19 @@ export class BetradarPopularEventsComponent extends AbstractComponent implements
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IBetradarPopularEventsCParams,
-        protected cdr: ChangeDetectorRef,
+        cdr: ChangeDetectorRef,
         protected betradarService: BetradarService,
         protected sportsbookService: SportsbookService,
-        protected configService: ConfigService,
+        configService: ConfigService,
         protected fileService: FilesService,
     ) {
         super({
             injectParams,
             defaultParams: Params.defaultParams,
-        });
+        }, configService, cdr);
     }
 
-    public ngOnInit(): void {
+    public override ngOnInit(): void {
         super.ngOnInit();
         this.init();
     }

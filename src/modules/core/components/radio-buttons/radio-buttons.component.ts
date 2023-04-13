@@ -30,18 +30,18 @@ import _concat from 'lodash-es/concat';
 export class RadioButtonsComponent extends AbstractComponent implements OnInit {
     @Input() protected inlineParams: Params.IRadioButtonsCParams;
 
-    public $params: Params.IRadioButtonsCParams;
+    public override $params: Params.IRadioButtonsCParams;
     public control: UntypedFormControl;
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IRadioButtonsCParams,
-        protected configService: ConfigService,
-        protected cdr: ChangeDetectorRef,
+        configService: ConfigService,
+        cdr: ChangeDetectorRef,
     ) {
-        super({injectParams, defaultParams: Params.defaultParams}, configService);
+        super({injectParams, defaultParams: Params.defaultParams}, configService, cdr);
     }
 
-    public ngOnInit(): void {
+    public override ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
         this.control = this.$params.control;
 

@@ -311,7 +311,7 @@ const processConfigsMock: IIndexing<IProcessConfig> = {
 
 @Injectable()
 class ProcessServiceMock extends ProcessService {
-    getConfig(): any {
+    override getConfig(): any {
         return processConfigsMock;
     }
 }

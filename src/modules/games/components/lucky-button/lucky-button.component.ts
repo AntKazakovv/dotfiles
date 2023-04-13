@@ -27,10 +27,10 @@ export class LuckyButtonComponent extends RandomGameAbstract<Params.IFeelingLuck
     constructor(
         public elementRef: ElementRef,
         @Inject('injectParams') protected injectParams: Params.IFeelingLuckyButtonCParams,
-        protected configService: ConfigService,
-        protected gamesCatalogService: GamesCatalogService,
-        protected eventService: EventService,
-        protected modalService: ModalService,
+        configService: ConfigService,
+        gamesCatalogService: GamesCatalogService,
+        eventService: EventService,
+        modalService: ModalService,
     ) {
         super(
             {

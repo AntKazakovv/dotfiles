@@ -50,7 +50,7 @@ export class PostMenuComponent extends AbstractComponent implements OnInit {
     public title: string;
     public type: WpItemType = 'sref';
     public basePath: string;
-    public $params: Params.IPostMenuCParams;
+    public override $params: Params.IPostMenuCParams;
     public useSwiper: boolean;
     public hasPosts = false;
 
@@ -60,16 +60,16 @@ export class PostMenuComponent extends AbstractComponent implements OnInit {
     constructor(
         @Inject('injectParams') protected injectParams: Params.IPostMenuCParams,
         protected injectionService: InjectionService,
-        protected cdr: ChangeDetectorRef,
-        protected configService: ConfigService,
+        cdr: ChangeDetectorRef,
+        configService: ConfigService,
         protected actionService: ActionService,
         private translate: TranslateService,
         @Inject(WINDOW) private window: Window,
     ) {
-        super({injectParams, defaultParams: Params.defaultParams});
+        super({injectParams, defaultParams: Params.defaultParams}, configService, cdr);
     }
 
-    public async ngOnInit(): Promise<void> {
+    public override async ngOnInit(): Promise<void> {
         super.ngOnInit();
         this.prepareParams();
 

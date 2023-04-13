@@ -97,7 +97,7 @@ export class SliderComponent extends AbstractComponent
     @Output() public slideChangeTransitionStart$ = new EventEmitter<Swiper>();
 
     public sliderWrap: Element;
-    public $params: Params.ISliderCParams;
+    public override $params: Params.ISliderCParams;
     public ready: boolean = false;
     public slidesSequence: number[] = [];
     public emptySlidesCount: number = 0;
@@ -109,17 +109,17 @@ export class SliderComponent extends AbstractComponent
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.ISliderCParams,
-        protected configService: ConfigService,
+        configService: ConfigService,
         protected winnersService: WinnersService,
-        protected cdr: ChangeDetectorRef,
+        cdr: ChangeDetectorRef,
         protected renderer: Renderer2,
         protected injector: Injector,
         protected actionService: ActionService,
     ) {
-        super({injectParams, defaultParams: Params.defaultParams}, configService);
+        super({injectParams, defaultParams: Params.defaultParams}, configService, cdr);
     }
 
-    public ngOnInit(): void {
+    public override ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
 
         if (this.$params.slides && !this.slides) {
@@ -201,7 +201,7 @@ export class SliderComponent extends AbstractComponent
         this.initEventHandlers();
     }
 
-    public ngOnChanges(changes: SimpleChanges): void {
+    public override ngOnChanges(changes: SimpleChanges): void {
         if (this.ready) {
             this.initEmptySlidesCount();
             this.fixSlidesSequence();
@@ -273,7 +273,7 @@ export class SliderComponent extends AbstractComponent
         this.handleBeforeResize.emit(this.swiper.swiperRef);
     }
 
-    public ngOnDestroy(): void {
+    public override ngOnDestroy(): void {
         super.ngOnDestroy();
         if (this.observer) {
             this.observer.disconnect();

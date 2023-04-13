@@ -15,7 +15,7 @@ export interface IEvoHooksParams {
 export class EvoGamesHooks extends AbstractHook {
 
     constructor(
-        protected params: IEvoHooksParams,
+        protected override params: IEvoHooksParams,
     ) {
         super({
             hooksService: params.hooksService,

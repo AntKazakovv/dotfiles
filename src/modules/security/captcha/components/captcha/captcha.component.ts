@@ -23,24 +23,24 @@ import * as Params from './captcha.params';
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CaptchaComponent extends AbstractComponent implements OnInit {
-    public $params: Params.ICaptchaCParams;
+    public override $params: Params.ICaptchaCParams;
     public imageUrl: string;
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.ICaptchaCParams,
         protected eventService: EventService,
         protected captchaService: CaptchaService,
-        protected cdr: ChangeDetectorRef,
+        cdr: ChangeDetectorRef,
     ) {
         super(
             <IMixedParams<Params.ICaptchaCParams>>{
                 injectParams,
                 defaultParams: Params.defaultParams,
-            },
+            }, null, cdr,
         );
     }
 
-    public ngOnInit(): void {
+    public override ngOnInit(): void {
         super.ngOnInit();
         this.imageUrl = this.captchaService.captchaImageUrl;
         this.setSubscription();

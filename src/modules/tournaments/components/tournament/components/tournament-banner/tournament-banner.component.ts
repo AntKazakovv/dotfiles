@@ -41,7 +41,7 @@ export class TournamentBannerComponent
     @Input() public actionParams: Params.IActionParams;
     @Input() public isAlternative: boolean;
 
-    public $params: Params.ITournamentBannerCParams;
+    public override $params: Params.ITournamentBannerCParams;
     public isTournamentSelected: boolean;
     public isProcessed: boolean = false;
     public pending: boolean = false;
@@ -50,18 +50,18 @@ export class TournamentBannerComponent
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.ITournamentBannerCParams,
-        protected cdr: ChangeDetectorRef,
-        protected configService: ConfigService,
+        cdr: ChangeDetectorRef,
+        configService: ConfigService,
         protected tournamentsService: TournamentsService,
     ) {
         super(
             <IMixedParams<Params.ITournamentBannerCParams>>{
                 injectParams,
                 defaultParams: Params.defaultParams,
-            }, configService);
+            }, configService, cdr);
     }
 
-    public ngOnInit(): void {
+    public override ngOnInit(): void {
         super.ngOnInit(GlobalHelper.prepareParams(this,
             ['tournament', 'type', 'theme', 'themeMod', 'customMod', 'parentInstance', 'actionParams']));
 

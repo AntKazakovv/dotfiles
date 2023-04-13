@@ -34,11 +34,11 @@ import {defaultParams} from './pep-select.params';
 export class PepSelectComponent extends AbstractComponent implements OnInit {
     @Input() protected inlineParams!: ISelectCParams;
 
-    public $params!: ISelectCParams;
+    public override $params!: ISelectCParams;
 
     constructor(
         @Inject('injectParams') protected injectParams: ISelectCParams,
-        protected cdr: ChangeDetectorRef,
+        cdr: ChangeDetectorRef,
         protected modalService: ModalService,
         protected pepService: PepService,
         protected eventService: EventService,
@@ -46,10 +46,10 @@ export class PepSelectComponent extends AbstractComponent implements OnInit {
         super({
             injectParams,
             defaultParams,
-        });
+        }, null, cdr);
     }
 
-    public ngOnInit(): void {
+    public override ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
 
         if (!this.$params?.control) {

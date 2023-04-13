@@ -94,7 +94,7 @@ type TSaveChangesRes = TUpdateProfileRes | TSetNewPasswordRes;
 })
 export class ProfileFormComponent extends ProfileFormAbstract implements OnInit {
     @Input() protected inlineParams: Params.IProfileFormCParams;
-    public $params: Params.IProfileFormCParams;
+    public override $params: Params.IProfileFormCParams;
     public userProfile = this.userService.userProfile$;
     public errors$: BehaviorSubject<IIndexing<string>> = new BehaviorSubject(null);
     public ready: boolean = false;
@@ -105,9 +105,9 @@ export class ProfileFormComponent extends ProfileFormAbstract implements OnInit 
     constructor(
         @Inject('injectParams') protected params: Params.IProfileFormCParams,
         protected userService: UserService,
-        protected cdr: ChangeDetectorRef,
-        protected eventService: EventService,
-        protected configService: ConfigService,
+        cdr: ChangeDetectorRef,
+        eventService: EventService,
+        configService: ConfigService,
         @Inject('requiredFields') protected requiredFields: (keyof typeof FormElements)[],
     ) {
         super(
@@ -120,10 +120,11 @@ export class ProfileFormComponent extends ProfileFormAbstract implements OnInit 
             },
             eventService,
             configService,
+            cdr,
         );
     }
 
-    public async ngOnInit(): Promise<void> {
+    public override async ngOnInit(): Promise<void> {
         super.ngOnInit(this.inlineParams);
         await this.configService.ready;
 

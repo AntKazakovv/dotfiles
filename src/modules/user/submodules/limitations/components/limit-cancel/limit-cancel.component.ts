@@ -22,7 +22,7 @@ import * as Params from './limit-cancel.params';
     styleUrls: ['./styles/limit-cancel.component.scss'],
 })
 export class LimitCancelComponent extends AbstractComponent implements OnInit {
-    public $params: Params.ILimitCancelCParams;
+    public override $params: Params.ILimitCancelCParams;
     public cancelable: boolean = false;
     public pending: boolean = false;
 
@@ -34,7 +34,7 @@ export class LimitCancelComponent extends AbstractComponent implements OnInit {
         super({injectParams: params, defaultParams: Params.defaultParams});
     }
 
-    public ngOnInit(): void {
+    public override ngOnInit(): void {
         super.ngOnInit();
 
         if (Params.limitCancelTypes.includes(this.$params.value)) {

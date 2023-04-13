@@ -53,7 +53,7 @@ export type PanelsType = 'left' | 'right' | 'left-fixed' | 'right-fixed';
 export class FloatPanelsComponent extends AbstractComponent implements OnInit {
     @Input() public sections: SectionModel[] = [];
     public openedPanel: string = '';
-    public $params: Params.IFloatPanelsCParams;
+    public override $params: Params.IFloatPanelsCParams;
     public shownSections: SectionModel[] = [];
 
     protected panelIds: string[] = [];
@@ -72,9 +72,9 @@ export class FloatPanelsComponent extends AbstractComponent implements OnInit {
 
     constructor(
         @Inject(DOCUMENT) protected document: Document,
-        protected configService: ConfigService,
+        configService: ConfigService,
         protected eventService: EventService,
-        protected cdr: ChangeDetectorRef,
+        cdr: ChangeDetectorRef,
         protected logService: LogService,
         protected actionService: ActionService,
         protected layoutService: LayoutService,
@@ -84,10 +84,10 @@ export class FloatPanelsComponent extends AbstractComponent implements OnInit {
         super({
             injectParams: {},
             defaultParams: Params.defaultParams,
-        }, configService);
+        }, configService, cdr);
     }
 
-    public ngOnInit(): void {
+    public override ngOnInit(): void {
         super.ngOnInit();
 
         if (!_isUndefined(this.sections) && this.sections.length) {

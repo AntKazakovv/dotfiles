@@ -27,14 +27,14 @@ import * as Params from './bet-preview.params';
 })
 export class BetPreviewComponent extends AbstractComponent implements OnInit {
 
-    public $params: Params.IBetPreviewParams;
+    public override $params: Params.IBetPreviewParams;
     public date: string;
     public amount: number;
 
     constructor(
         @Inject('injectParams') protected params: Params.IBetPreviewParams,
-        protected configService: ConfigService,
-        protected cdr: ChangeDetectorRef,
+        configService: ConfigService,
+        cdr: ChangeDetectorRef,
         protected betService: BetService,
         protected eventService: EventService,
         @Inject(WINDOW) private window: Window,
@@ -43,10 +43,10 @@ export class BetPreviewComponent extends AbstractComponent implements OnInit {
             <IMixedParams<Params.IBetPreviewParams>>{
                 injectParams: params,
                 defaultParams: Params.defaultParams,
-            }, configService);
+            }, configService, cdr);
     }
 
-    public async ngOnInit(): Promise<void> {
+    public override async ngOnInit(): Promise<void> {
         super.ngOnInit();
         this.date = GlobalHelper.toLocalTime(
             this.$params.bet.DateISO,

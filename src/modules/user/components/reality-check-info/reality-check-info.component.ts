@@ -25,7 +25,7 @@ import * as Params from './reality-check-info.params';
 })
 export class RealityCheckInfoComponent extends AbstractComponent implements OnInit, OnDestroy {
     @Input() public inlineParams: Params.IRealityCheckInfoCParams;
-    public $params: Params.IRealityCheckInfoCParams;
+    public override $params: Params.IRealityCheckInfoCParams;
     public playTime: string;
     public showClose: boolean = false;
     public checkBoxParams: ICheckboxCParams = {
@@ -46,12 +46,12 @@ export class RealityCheckInfoComponent extends AbstractComponent implements OnIn
         super({injectParams: params, defaultParams: Params.defaultParams});
     }
 
-    public async ngOnInit(): Promise<void> {
+    public override async ngOnInit(): Promise<void> {
         super.ngOnInit(this.inlineParams);
         this.playTime = DateTime.fromJSDate(new Date(this.$params.FromTime + ' UTC')).toFormat('yyyy-LL-dd HH:mm:ss');
     }
 
-    public ngOnDestroy(): void {
+    public override ngOnDestroy(): void {
         super.ngOnDestroy();
         if (!this.showClose) {
             this.logout();

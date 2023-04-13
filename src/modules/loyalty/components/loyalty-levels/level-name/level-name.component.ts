@@ -18,7 +18,7 @@ import * as Params from './level-name.params';
     styleUrls: ['./styles/level-name.component.scss'],
 })
 export class LevelNameComponent extends AbstractComponent implements OnInit {
-    public $params: Params.ILevelNameParams;
+    public override $params: Params.ILevelNameParams;
     public tooltipSettings: ITooltipCParams;
 
     constructor(
@@ -27,7 +27,7 @@ export class LevelNameComponent extends AbstractComponent implements OnInit {
         super({injectParams: params, defaultParams: Params.defaultParams});
     }
 
-    public ngOnInit(): void {
+    public override ngOnInit(): void {
         super.ngOnInit();
 
         this.tooltipSettings = {

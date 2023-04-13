@@ -47,7 +47,7 @@ import * as Params from './merchant-wallet-form.params';
 export class MerchantWalletFormComponent extends AbstractComponent implements OnInit {
     @Input() protected inlineParams: Params.IMerchantWalletFormCParams;
 
-    public $params: Params.IMerchantWalletFormCParams;
+    public override $params: Params.IMerchantWalletFormCParams;
     public merchantWalletBalance: IMerchantWalletBalance;
     public formConfig: IFormWrapperCParams;
     public isUpdatePending: boolean;
@@ -56,17 +56,17 @@ export class MerchantWalletFormComponent extends AbstractComponent implements On
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IMerchantWalletFormCParams,
-        protected configService: ConfigService,
+        configService: ConfigService,
         protected merchantWalletService: MerchantWalletService,
         protected eventService: EventService,
         protected logService: LogService,
         protected translateService: TranslateService,
-        protected cdr: ChangeDetectorRef,
+        cdr: ChangeDetectorRef,
     ) {
-        super({injectParams, defaultParams: Params.defaultParams}, configService);
+        super({injectParams, defaultParams: Params.defaultParams}, configService, cdr);
     }
 
-    public ngOnInit(): void {
+    public override ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
         this.merchantWalletBalance = this.merchantWalletService.balance;
         this.setFormConfig();

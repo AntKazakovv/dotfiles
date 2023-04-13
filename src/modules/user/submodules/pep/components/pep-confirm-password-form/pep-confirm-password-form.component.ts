@@ -35,17 +35,17 @@ import {
 export class PepConfirmPasswordFormComponent extends PepAbstractModalComponent implements OnInit {
     @Input() public inlineParams!: IPepConfirmPasswordFormCParams;
 
-    public $params!: IPepConfirmPasswordFormCParams;
+    public override $params!: IPepConfirmPasswordFormCParams;
 
     protected readonly modalId: PepModalId = 'pepConfirmation';
     protected readonly cancellingEvent: PepEventKind = 'PEP_STATUS_CANCEL';
 
     constructor(
         @Inject('injectParams') protected injectParams: IPepConfirmPasswordFormCParams,
-        @Inject(WINDOW) protected window: Window,
-        protected eventService: EventService,
-        protected modalService: ModalService,
-        protected pepService: PepService,
+        @Inject(WINDOW) window: Window,
+        eventService: EventService,
+        modalService: ModalService,
+        pepService: PepService,
     ) {
         super(
             window,
@@ -59,7 +59,7 @@ export class PepConfirmPasswordFormComponent extends PepAbstractModalComponent i
         );
     }
 
-    public ngOnInit(): void {
+    public override ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
         this.goBackOnHidden('pepInfo');
     }

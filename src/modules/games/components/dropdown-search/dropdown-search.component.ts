@@ -41,7 +41,7 @@ import {
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DropdownSearchComponent extends AbstractComponent implements OnInit {
-    
+
     @ViewChild(ScrollbarComponent) protected scrollbar: ScrollbarComponent;
     @ViewChild('searchContainer') protected searchContainer: ElementRef;
 
@@ -56,23 +56,23 @@ export class DropdownSearchComponent extends AbstractComponent implements OnInit
     };
     public searchFieldParams: ISearchFieldCParams;
     public $swiperProgress: Subject<number> = new Subject();
-    public $params: IDropdownSearchCParams;
+    public override $params: IDropdownSearchCParams;
 
     constructor(
         @Inject('injectParams') protected injectParams: IDropdownSearchCParams,
-        protected configService: ConfigService,
+        configService: ConfigService,
         protected eventService: EventService,
         protected gamesCatalogService: GamesCatalogService,
         protected gamesFilterService: GamesFilterService,
-        protected cdr: ChangeDetectorRef,
+        cdr: ChangeDetectorRef,
     ) {
         super({
             injectParams: injectParams,
             defaultParams: defaultParams,
-        }, configService);
+        }, configService, cdr);
     }
 
-    public async ngOnInit(): Promise<void> {
+    public override async ngOnInit(): Promise<void> {
         super.ngOnInit();
         await this.gamesCatalogService.ready;
 
@@ -91,7 +91,7 @@ export class DropdownSearchComponent extends AbstractComponent implements OnInit
 
     /**
      * Disabled scrolling when the search is open
-     * 
+     *
      * @return void
      */
     public clickOnTheSearchField(): void {
@@ -111,7 +111,7 @@ export class DropdownSearchComponent extends AbstractComponent implements OnInit
 
     /**
      * Close dropdown search
-     * 
+     *
      * @return void
      */
     public clickOutside(): void {
@@ -120,7 +120,7 @@ export class DropdownSearchComponent extends AbstractComponent implements OnInit
 
     /**
      * Passes search query to false
-     * 
+     *
      * @param query {string} - Search query
      * @return void
      */
@@ -136,7 +136,7 @@ export class DropdownSearchComponent extends AbstractComponent implements OnInit
 
     /**
      * Passes swiper progress to wlc-games-grid
-     * 
+     *
      * @param value {number} - Swiper progress (from 0 to 1)
      * @return void
      */

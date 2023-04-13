@@ -46,7 +46,7 @@ export class LootboxModalComponent extends AbstractComponent implements OnInit {
     @ViewChild(SliderComponent) protected slider: SliderComponent;
 
     public slidesReady: boolean = false;
-    public $params: Params.ILootboxModalCParams;
+    public override $params: Params.ILootboxModalCParams;
     public slides: ISlide[] = [];
     public title: string = gettext('Lootbox');
     public lootboxStatus: TLootboxStatus = 'open';
@@ -58,8 +58,8 @@ export class LootboxModalComponent extends AbstractComponent implements OnInit {
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.ILootboxModalCParams,
-        protected cdr: ChangeDetectorRef,
-        protected configService: ConfigService,
+        cdr: ChangeDetectorRef,
+        configService: ConfigService,
         protected bonusesService: BonusesService,
         protected modalService: ModalService,
         protected eventService: EventService,
@@ -68,10 +68,10 @@ export class LootboxModalComponent extends AbstractComponent implements OnInit {
             <IMixedParams<Params.ILootboxModalCParams>>{
                 injectParams,
                 defaultParams: Params.defaultParams,
-            }, configService);
+            }, configService, cdr);
     }
 
-    public async ngOnInit(): Promise<void> {
+    public override async ngOnInit(): Promise<void> {
         super.ngOnInit();
 
         this.prizes = await this.bonusesService.getLootboxPrizes(this.$params.bonus);

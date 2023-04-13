@@ -38,7 +38,7 @@ export class TournamentPrizesComponent
     @Input() public customMod: Params.CustomMod;
     @Input() public tournament: Tournament;
 
-    public $params: Params.ITournamentPrizesCParams;
+    public override $params: Params.ITournamentPrizesCParams;
     public podiumImages: TPrizePodiumImages;
     public prizesTable: IPrizeRow[];
     public isExpanded: boolean = false;
@@ -51,15 +51,15 @@ export class TournamentPrizesComponent
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.ITournamentPrizesCParams,
-        protected configService: ConfigService,
+        configService: ConfigService,
     ) {
         super({
             injectParams,
             defaultParams: Params.defaultParams,
-        });
+        }, configService);
     }
 
-    public ngOnInit(): void {
+    public override ngOnInit(): void {
         super.ngOnInit(GlobalHelper.prepareParams(this,
             ['tournament', 'type', 'theme', 'themeMod', 'customMod', 'rowsLimit']));
 

@@ -32,21 +32,21 @@ import * as Params from './password-confirmation-form.params';
 export class PasswordConfirmationFormComponent extends AbstractComponent implements OnInit {
     @Input() protected inlineParams!: Params.IPasswordConfirmationFormCParams;
 
-    public $params!: Params.IPasswordConfirmationFormCParams;
+    public override $params!: Params.IPasswordConfirmationFormCParams;
     public config!: IFormWrapperCParams;
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IPasswordConfirmationFormCParams,
-        protected configService: ConfigService,
+        configService: ConfigService,
         protected userService: UserService,
         protected eventService: EventService,
         protected modalService: ModalService,
-        protected cdr: ChangeDetectorRef,
+        cdr: ChangeDetectorRef,
     ) {
-        super({injectParams, defaultParams: Params.defaultParams}, configService);
+        super({injectParams, defaultParams: Params.defaultParams}, configService, cdr);
     }
 
-    public ngOnInit(): void {
+    public override ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
 
         this.config = this.$params.formConfig;

@@ -39,20 +39,20 @@ export class TestimonialsComponent extends AbstractComponent implements OnInit {
     public sliderConfig: IWrapperCParams = {};
     public slides: ISlide[] = [];
     public ready: boolean = false;
-    public $params: Params.ITestimonialsCParams;
+    public override $params: Params.ITestimonialsCParams;
 
     protected testimonialsData: Params.ITestimonialsData[];
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.ITestimonialsCParams,
         protected staticService: StaticService,
-        protected configService: ConfigService,
-        protected cdr: ChangeDetectorRef,
+        configService: ConfigService,
+        cdr: ChangeDetectorRef,
     ) {
-        super({injectParams, defaultParams: Params.defaultParams}, configService);
+        super({injectParams, defaultParams: Params.defaultParams}, configService, cdr);
     }
 
-    public async ngOnInit(): Promise<void> {
+    public override async ngOnInit(): Promise<void> {
         super.ngOnInit();
 
         try {

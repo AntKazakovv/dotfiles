@@ -46,7 +46,7 @@ import * as Params from './country-and-state.params';
 })
 export class CountryAndStateComponent extends AbstractComponent implements OnInit {
     @Input() protected inlineParams: Params.ICountryAndStateCParams;
-    public $params: Params.ICountryAndStateCParams;
+    public override $params: Params.ICountryAndStateCParams;
 
     public showState: boolean = false;
     protected states: IIndexing<IState[]> = {};
@@ -54,14 +54,14 @@ export class CountryAndStateComponent extends AbstractComponent implements OnIni
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.ICountryAndStateCParams,
-        protected configService: ConfigService,
-        protected cdr: ChangeDetectorRef,
+        configService: ConfigService,
+        cdr: ChangeDetectorRef,
         @Inject('requiredValidator') protected requiredValidator: ValidatorFn,
     ) {
-        super({injectParams, defaultParams: Params.defaultParams});
+        super({injectParams, defaultParams: Params.defaultParams}, configService, cdr);
     }
 
-    public ngOnInit(): void {
+    public override ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
         this.provideParams();
         this.setListeners();

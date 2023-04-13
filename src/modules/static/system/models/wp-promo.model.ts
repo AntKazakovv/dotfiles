@@ -136,7 +136,7 @@ export class WpPromoModel extends AbstractModel<TextDataModel>{
         return _toNumber(this._acf.promo_sort_weight) || 0;
     }
 
-    public set data(data: TextDataModel) {
+    public override set data(data: TextDataModel) {
         super.data = data;
 
         const acf: IPromoCustomFieldsResponse = this.data.extFields?.acf || {};
@@ -159,7 +159,7 @@ export class WpPromoModel extends AbstractModel<TextDataModel>{
         this._acf = _assign(acf, urlButtonSettings);
     }
 
-    public get data(): TextDataModel {
+    public override get data(): TextDataModel {
         return super.data;
     }
 }

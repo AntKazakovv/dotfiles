@@ -34,7 +34,7 @@ import * as Params from './restore-sms-code-form.params';
 export class RestoreSmsCodeFormComponent extends AbstractComponent implements OnInit {
     @ViewChild(TimerComponent) public timer: TimerComponent;
 
-    public $params: Params.IRestoreSmsCodeFormCParams;
+    public override $params: Params.IRestoreSmsCodeFormCParams;
     public lockResend: boolean;
     public timeValue: DateTime;
     public formConfig: IFormWrapperCParams;
@@ -42,16 +42,16 @@ export class RestoreSmsCodeFormComponent extends AbstractComponent implements On
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IRestoreSmsCodeFormCParams,
-        protected configService: ConfigService,
+        configService: ConfigService,
         protected eventService: EventService,
         protected modalService: ModalService,
         protected injectionService: InjectionService,
-        protected cdr: ChangeDetectorRef,
+        cdr: ChangeDetectorRef,
     ) {
-        super({injectParams, defaultParams: Params.defaultParams}, configService);
+        super({injectParams, defaultParams: Params.defaultParams}, configService, cdr);
     }
 
-    public ngOnInit(): void {
+    public override ngOnInit(): void {
         super.ngOnInit();
         this.formConfig = Params.formConfig;
         this.setResendTimer();

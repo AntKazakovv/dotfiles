@@ -77,7 +77,7 @@ export class GameThumbComponent extends AbstractComponent implements OnInit {
     public isAuth: boolean;
     public isKiosk: boolean;
     public isMobile: boolean = true;
-    public $params: Params.IGameThumbCParams;
+    public override $params: Params.IGameThumbCParams;
     public promoWidgetTitle: string;
     public inited: boolean = false;
     public initFailed: boolean = false;
@@ -112,8 +112,8 @@ export class GameThumbComponent extends AbstractComponent implements OnInit {
     constructor(
         @Inject('injectParams') protected injectParams: Params.IGameThumbCParams,
         protected actionService: ActionService,
-        protected cdr: ChangeDetectorRef,
-        protected configService: ConfigService,
+        cdr: ChangeDetectorRef,
+        configService: ConfigService,
         protected eventService: EventService,
         protected colorThemeService: ColorThemeService,
         protected gamesCatalogService: GamesCatalogService,
@@ -124,10 +124,10 @@ export class GameThumbComponent extends AbstractComponent implements OnInit {
         super({
             injectParams,
             defaultParams: Params.defaultParams,
-        }, configService);
+        }, configService, cdr);
     }
 
-    public ngOnInit(): void {
+    public override ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
 
         if (!this.dumpy && this.$params.dumpy) {

@@ -23,7 +23,7 @@ export class AmountLimitComponent extends AbstractComponent implements OnInit {
     @Input() public maxValue: number;
     @Input() public showLimits?: boolean | Params.ILimits;
 
-    public $params: Params.IAmountLimitCParams;
+    public override $params: Params.IAmountLimitCParams;
     public limits: Params.ILimits;
 
     constructor(
@@ -35,7 +35,7 @@ export class AmountLimitComponent extends AbstractComponent implements OnInit {
         });
     }
 
-    public ngOnInit(): void {
+    public override ngOnInit(): void {
         super.ngOnInit(GlobalHelper.prepareParams(this, ['minValue', 'maxValue', 'showLimits']));
         this.setLimits();
     }

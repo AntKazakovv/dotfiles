@@ -23,12 +23,12 @@ export class IconExpLpDescriptionComponent extends AbstractComponent implements 
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IIconExpLpDescriptionCParams,
-        protected configService: ConfigService,
+        configService: ConfigService,
     ) {
-        super({injectParams, defaultParams: Params.defaultParams});
+        super({injectParams, defaultParams: Params.defaultParams}, configService);
     }
 
-    public ngOnInit(): void {
+    public override ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
         this.siteName = this.configService.get('$base.site.name');
     }

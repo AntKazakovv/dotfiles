@@ -42,7 +42,7 @@ export class StoreListComponent extends AbstractComponent implements OnInit, OnD
     @Input() protected customMod: Params.CustomMod;
     @Input() protected inlineParams: Params.IStoreListCParams;
 
-    public $params: Params.IStoreListCParams;
+    public override $params: Params.IStoreListCParams;
     public storeItems: StoreItem[] = [];
     public paginatedStoreItems: StoreItem[] = [];
     public isReady: boolean = false;
@@ -56,8 +56,8 @@ export class StoreListComponent extends AbstractComponent implements OnInit, OnD
 
     constructor(
         @Inject('injectParams') protected params: Params.IStoreListCParams,
-        protected cdr: ChangeDetectorRef,
-        protected ConfigService: ConfigService,
+        cdr: ChangeDetectorRef,
+        configService: ConfigService,
         protected storeService: StoreService,
         protected eventService: EventService,
         protected router: UIRouter,
@@ -66,14 +66,14 @@ export class StoreListComponent extends AbstractComponent implements OnInit, OnD
             <IMixedParams<Params.IStoreListCParams>>{
                 injectParams: params,
                 defaultParams: Params.defaultParams,
-            }, ConfigService);
+            }, configService, cdr);
     }
 
-    public ngOnInit(): void {
+    public override ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
         this.prepareModifiers();
         this.isReady = false;
-        this.isProfileFirst = this.ConfigService.get<string>('$base.profile.type') === 'first';
+        this.isProfileFirst = this.configService.get<string>('$base.profile.type') === 'first';
         this.itemTheme = this.isProfileFirst ? 'first' : 'default';
 
         this.storeService.getSubscribe({

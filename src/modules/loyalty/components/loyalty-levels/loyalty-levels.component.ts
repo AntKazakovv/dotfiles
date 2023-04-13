@@ -26,7 +26,7 @@ import * as Params from './loyalty-levels.params';
 })
 export class LoyaltyLevelsComponent extends AbstractComponent implements OnInit {
     public ready = false;
-    public $params: Params.ILoyaltyLevelTableCParams;
+    public override $params: Params.ILoyaltyLevelTableCParams;
     public levels: BehaviorSubject<LoyaltyLevelModel[]> = new BehaviorSubject([]);
 
     public tableData: ITableCParams = {
@@ -41,7 +41,7 @@ export class LoyaltyLevelsComponent extends AbstractComponent implements OnInit 
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.ILoyaltyLevelTableCParams,
-        protected cdr: ChangeDetectorRef,
+        cdr: ChangeDetectorRef,
         protected loyaltyLevelsService: LoyaltyLevelsService,
     )
     {
@@ -49,10 +49,10 @@ export class LoyaltyLevelsComponent extends AbstractComponent implements OnInit 
             <IMixedParams<Params.ILoyaltyLevelTableCParams>>{
                 injectParams,
                 defaultParams: Params.defaultParams,
-            });
+            }, null, cdr);
     }
 
-    public async ngOnInit(): Promise<void> {
+    public override async ngOnInit(): Promise<void> {
         super.ngOnInit();
         this.levels.next(await this.loyaltyLevelsService.getLoyaltyLevelsSafely());
         this.ready = true;

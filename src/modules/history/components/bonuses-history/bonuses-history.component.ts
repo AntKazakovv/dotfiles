@@ -48,7 +48,7 @@ export class BonusesHistoryComponent extends AbstractComponent implements OnInit
 
     public ready: boolean = false;
     public showFilter: boolean = false;
-    public $params: Params.IBonusesHistoryCParams;
+    public override $params: Params.IBonusesHistoryCParams;
     public tableData: ITableCParams;
     public filterSelect: ISelectCParams<TBonusFilter> = bonusesConfig.filterSelect;
     public bonuses$: BehaviorSubject<BonusHistoryItemModel[]> = new BehaviorSubject([]);
@@ -59,10 +59,10 @@ export class BonusesHistoryComponent extends AbstractComponent implements OnInit
 
     constructor(
         @Inject('injectParams') protected params: Params.IBonusesHistoryCParams,
-        protected cdr: ChangeDetectorRef,
+        cdr: ChangeDetectorRef,
         protected historyService: HistoryService,
         protected eventService: EventService,
-        protected configService: ConfigService,
+        configService: ConfigService,
         protected actionService: ActionService,
         protected injectionService: InjectionService,
     ) {
@@ -70,10 +70,10 @@ export class BonusesHistoryComponent extends AbstractComponent implements OnInit
             <IMixedParams<Params.IBonusesHistoryCParams>>{
                 injectParams: params,
                 defaultParams: Params.defaultParams,
-            });
+            }, configService, cdr);
     }
 
-    public async ngOnInit(): Promise<void> {
+    public override async ngOnInit(): Promise<void> {
         super.ngOnInit();
         await this.historyService.queryHistory(true, 'bonusesHistory');
         this.showFilter = this.actionService.getDeviceType() === DeviceType.Desktop;

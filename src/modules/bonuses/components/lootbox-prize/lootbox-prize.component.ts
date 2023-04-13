@@ -21,12 +21,12 @@ import * as Params from './lootbox-prize.params';
 })
 export class LootboxPrizeComponent extends AbstractComponent implements OnInit {
 
-    public $params: Params.ILootboxPrizeCParams;
+    public override $params: Params.ILootboxPrizeCParams;
     public isProfileFirst: boolean;
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.ILootboxPrizeCParams,
-        protected configService: ConfigService,
+        configService: ConfigService,
     ) {
         super(
             <IMixedParams<Params.ILootboxPrizeCParams>>{
@@ -35,7 +35,7 @@ export class LootboxPrizeComponent extends AbstractComponent implements OnInit {
             }, configService);
     }
 
-    public ngOnInit(): void {
+    public override ngOnInit(): void {
         super.ngOnInit();
         this.isProfileFirst = this.configService.get<string>('$base.profile.type') === 'first';
         this.$params.iconPath = `/bonuses/icons/lootbox.${this.configService.get<string>(

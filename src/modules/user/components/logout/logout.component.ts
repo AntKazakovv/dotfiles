@@ -25,23 +25,23 @@ import * as Params from './logout.params';
 export class LogoutComponent extends AbstractComponent implements OnInit {
     @Input() public inlineParams: Params.ILogoutCParams;
     @Input() public useText: boolean;
-    public $params: Params.ILogoutCParams;
+    public override $params: Params.ILogoutCParams;
 
     constructor(
         @Inject('injectParams') protected params: Params.ILogoutCParams,
-        protected cdr: ChangeDetectorRef,
+        cdr: ChangeDetectorRef,
         protected modalService: ModalService,
         protected userService: UserService,
         protected eventService: EventService,
-        protected configService: ConfigService,
+        configService: ConfigService,
     ) {
         super({
             injectParams: params,
             defaultParams: Params.defaultParams,
-        }, configService);
+        }, configService, cdr);
     }
 
-    public ngOnInit(): void {
+    public override ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
         this.$params.useText = this.$params.useText || this.useText;
     }

@@ -19,18 +19,18 @@ import _get from 'lodash-es/get';
     providedIn: 'root',
 })
 export class ChatraService extends LivechatAbstract<ILivechatChatraConfig> {
-    public chatId = 'chatra';
-    public forceHideStyles = '#chatra:not(.chatra--expanded) {display: none !important;}';
+    public override chatId = 'chatra';
+    public override forceHideStyles = '#chatra:not(.chatra--expanded) {display: none !important;}';
     public canChatDestroy: true;
 
     constructor(
-        @Inject(DOCUMENT) protected document: Document,
+        @Inject(DOCUMENT) document: Document,
         @Inject(WINDOW) protected window: Window,
-        protected eventService: EventService,
-        protected configService: ConfigService,
+        eventService: EventService,
+        configService: ConfigService,
         protected logService: LogService,
         protected translateService: TranslateService,
-        protected router: UIRouter,
+        router: UIRouter,
     ) {
         super(document, eventService, router, configService);
     }
@@ -38,7 +38,7 @@ export class ChatraService extends LivechatAbstract<ILivechatChatraConfig> {
     /**
      * Main init chatra chat code method
      */
-    public init(): void {
+    public override init(): void {
         super.init();
 
         if (this.options?.group) {
@@ -103,7 +103,7 @@ export class ChatraService extends LivechatAbstract<ILivechatChatraConfig> {
         this.window.Chatra('restart');
     }
 
-    protected initChat(): void {
+    protected override initChat(): void {
         if (this.options.type !== 'chatra' || !this.options.code) {
             this.logService.sendLog({code: '14.0.1'});
             return;

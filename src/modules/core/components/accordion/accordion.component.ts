@@ -26,16 +26,16 @@ export class AccordionComponent extends AbstractComponent implements OnInit {
 
     public items: Params.IAccordionData[];
     public ready: boolean = false;
-    public $params: Params.IAccordionCParams;
+    public override $params: Params.IAccordionCParams;
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IAccordionCParams,
-        protected cdr: ChangeDetectorRef,
+        cdr: ChangeDetectorRef,
     ) {
-        super({injectParams, defaultParams: Params.defaultParams});
+        super({injectParams, defaultParams: Params.defaultParams}, null, cdr);
     }
 
-    async ngOnInit(): Promise<void> {
+    public override async ngOnInit(): Promise<void> {
         super.ngOnInit(this.inlineParams);
 
         this.items = this.$params.items;

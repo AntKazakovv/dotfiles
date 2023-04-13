@@ -56,7 +56,7 @@ export class CategoryMenuComponent extends AbstractComponent implements OnInit, 
 
     @Input() public inlineParams: Params.ICategoryMenuCParams;
 
-    public $params: Params.ICategoryMenuCParams;
+    public override $params: Params.ICategoryMenuCParams;
     public items: MenuParams.IMenuItem[];
     public inited: boolean = false;
     public useSliderNavigation: boolean = false;
@@ -75,8 +75,8 @@ export class CategoryMenuComponent extends AbstractComponent implements OnInit, 
 
     constructor(
         @Inject('injectParams') protected params: Params.ICategoryMenuCParams,
-        protected cdr: ChangeDetectorRef,
-        protected configService: ConfigService,
+        cdr: ChangeDetectorRef,
+        configService: ConfigService,
         protected eventService: EventService,
         protected translate: TranslateService,
         protected router: UIRouter,
@@ -89,10 +89,11 @@ export class CategoryMenuComponent extends AbstractComponent implements OnInit, 
                 defaultParams: Params.defaultParams,
             },
             configService,
+            cdr,
         );
     }
 
-    public async ngOnInit(): Promise<void> {
+    public override async ngOnInit(): Promise<void> {
         super.ngOnInit(this.inlineParams);
         this.gamesCatalogService = await this.injectionService
             .getService<GamesCatalogService>('games.games-catalog-service');
@@ -143,7 +144,7 @@ export class CategoryMenuComponent extends AbstractComponent implements OnInit, 
         this.onInitEnded = true;
     }
 
-    public ngOnChanges(changes: SimpleChanges): void {
+    public override ngOnChanges(changes: SimpleChanges): void {
         super.ngOnChanges(changes);
         if (this.onInitEnded) {
             this.init();

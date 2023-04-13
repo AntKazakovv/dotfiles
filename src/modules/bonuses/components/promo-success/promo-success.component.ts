@@ -25,7 +25,7 @@ export class PromoSuccessComponent
     extends AbstractComponent
     implements OnInit {
 
-    public $params: Params.IPromoSuccessCParams;
+    public override $params: Params.IPromoSuccessCParams;
 
     @Input() public inlineParams: Params.IPromoSuccessCParams;
 
@@ -33,7 +33,7 @@ export class PromoSuccessComponent
         @Inject('injectParams') protected injectParams: Params.IPromoSuccessCParams,
         protected modalService: ModalService,
         protected router: UIRouter,
-        protected configService: ConfigService,
+        configService: ConfigService,
 
     ) {
         super(
@@ -43,7 +43,7 @@ export class PromoSuccessComponent
             }, configService);
     }
 
-    public ngOnInit(): void {
+    public override ngOnInit(): void {
         super.ngOnInit();
     }
 

@@ -28,7 +28,7 @@ import * as Params from './lottie-animation.params';
 export class LottieAnimationComponent extends AbstractComponent implements OnInit, OnDestroy {
     @Input() protected inlineParams: Params.ILottieAnimationCParams;
 
-    public $params: Params.ILottieAnimationCParams;
+    public override $params: Params.ILottieAnimationCParams;
     public lottieConfig: AnimationOptions;
 
     private _animationItem: AnimationItem;
@@ -39,7 +39,7 @@ export class LottieAnimationComponent extends AbstractComponent implements OnIni
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.ILottieAnimationCParams,
-        protected configService: ConfigService,
+        configService: ConfigService,
         private ngZone: NgZone,
         private elementRef: ElementRef,
         private renderer2: Renderer2,
@@ -47,13 +47,13 @@ export class LottieAnimationComponent extends AbstractComponent implements OnIni
         super({injectParams, defaultParams: Params.defaultParams}, configService);
     }
 
-    public ngOnInit(): void {
+    public override ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
 
         this.prepareParams();
     }
 
-    public ngOnDestroy(): void {
+    public override ngOnDestroy(): void {
         this.removeListeners();
     }
 

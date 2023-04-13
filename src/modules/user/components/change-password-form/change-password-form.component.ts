@@ -44,7 +44,7 @@ import * as Params from './change-password-form.params';
 export class ChangePasswordFormComponent extends AbstractComponent implements OnInit {
 
     @Input() public inlineParams: Params.IChangePasswordFormCParams;
-    public $params: Params.IChangePasswordFormCParams;
+    public override $params: Params.IChangePasswordFormCParams;
     public errors$: BehaviorSubject<Record<string, string>> = new BehaviorSubject(null);
 
     constructor(

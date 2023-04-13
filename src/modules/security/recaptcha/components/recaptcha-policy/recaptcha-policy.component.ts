@@ -31,17 +31,17 @@ import * as Params from './recaptcha-policy.params';
 })
 export class RecaptchaPolicyComponent extends AbstractComponent implements OnInit {
     @Input() protected inlineParams: Params.IRecaptchaPolicyCParams;
-    public $params: Params.IRecaptchaPolicyCParams;
+    public override $params: Params.IRecaptchaPolicyCParams;
     public useRecaptcha: boolean;
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IRecaptchaPolicyCParams,
-        protected configService: ConfigService,
+        configService: ConfigService,
     ) {
         super({injectParams, defaultParams: Params.defaultParams}, configService);
     }
 
-    public ngOnInit(): void {
+    public override ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
         this.useRecaptcha = this.configService.get<boolean>('appConfig.useRecaptcha');
     }

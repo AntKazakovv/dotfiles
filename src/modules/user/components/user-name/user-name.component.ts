@@ -46,22 +46,22 @@ export class UserNameComponent extends AbstractComponent implements OnInit, OnDe
     @Input() public showSvgAsImg: boolean;
     @Input() protected inlineParams: Params.IUserNameCParams;
 
-    public $params: Params.IUserNameCParams;
+    public override $params: Params.IUserNameCParams;
     public displayedName: string;
     public isAuth: boolean;
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IUserNameCParams,
-        protected configService: ConfigService,
+        configService: ConfigService,
         protected userService: UserService,
         protected eventService: EventService,
         protected stateService: StateService,
-        protected cdr: ChangeDetectorRef,
+        cdr: ChangeDetectorRef,
     ) {
-        super({injectParams, defaultParams: Params.defaultParams}, configService);
+        super({injectParams, defaultParams: Params.defaultParams}, configService, cdr);
     }
 
-    public ngOnInit(): void {
+    public override ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
 
         this.isAuth = this.configService.get<boolean>('$user.isAuthenticated');

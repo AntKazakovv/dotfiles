@@ -45,7 +45,7 @@ export class MerchantWalletPreviewComponent extends AbstractComponent implements
 
     public buttonsConfig: IWrapperCParams = Params.buttonsDefault;
 
-    public $params: Params.IMerchantWalletPreviewCParams;
+    public override $params: Params.IMerchantWalletPreviewCParams;
     public userBalance: IMerchantWalletBalance;
     public isError: boolean;
     public isReady: boolean;
@@ -54,17 +54,17 @@ export class MerchantWalletPreviewComponent extends AbstractComponent implements
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IMerchantWalletPreviewCParams,
-        protected configService: ConfigService,
+        configService: ConfigService,
         protected eventService: EventService,
         protected logService: LogService,
         protected merchantWalletService: MerchantWalletService,
         protected actionService: ActionService,
-        protected cdr: ChangeDetectorRef,
+        cdr: ChangeDetectorRef,
     ) {
-        super({injectParams, defaultParams: Params.defaultParams}, configService);
+        super({injectParams, defaultParams: Params.defaultParams}, configService, cdr);
     }
 
-    public ngOnInit(): void {
+    public override ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
 
         if (this.$params.common?.buttons.type === 'resizable') {

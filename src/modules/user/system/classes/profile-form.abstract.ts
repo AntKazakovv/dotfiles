@@ -1,4 +1,7 @@
-import {Directive} from '@angular/core';
+import {
+    Directive,
+    ChangeDetectorRef,
+} from '@angular/core';
 import {UntypedFormGroup} from '@angular/forms';
 
 import {
@@ -32,9 +35,10 @@ export abstract class ProfileFormAbstract extends AbstractComponent {
     constructor(
         mixedParams: IMixedParams<unknown>,
         protected eventService: EventService,
-        protected configService?: ConfigService,
+        configService?: ConfigService,
+        cdr?: ChangeDetectorRef,
     ) {
-        super(mixedParams, configService);
+        super(mixedParams, configService, cdr);
     }
 
     /**

@@ -88,7 +88,7 @@ export class SelectComponent extends AbstractComponent implements OnInit, OnChan
 
     @Input() protected inlineParams: Params.ISelectCParams;
 
-    public $params: Params.ISelectCParams;
+    public override $params: Params.ISelectCParams;
     public control: UntypedFormControl;
     public isOpened: boolean;
     public fieldWlcElement: string;
@@ -101,16 +101,16 @@ export class SelectComponent extends AbstractComponent implements OnInit, OnChan
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.ISelectCParams,
-        protected configService: ConfigService,
-        protected cdr: ChangeDetectorRef,
+        configService: ConfigService,
+        cdr: ChangeDetectorRef,
         protected EventService: EventService,
         protected selectValues: SelectValuesService,
         protected translate: TranslateService,
     ) {
-        super({injectParams, defaultParams: Params.defaultParams}, configService);
+        super({injectParams, defaultParams: Params.defaultParams}, configService, cdr);
     }
 
-    public ngOnInit(): void {
+    public override ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
         this.prepareModifiers();
 
@@ -209,7 +209,7 @@ export class SelectComponent extends AbstractComponent implements OnInit, OnChan
         }
     }
 
-    public ngOnChanges(changes: SimpleChanges): void {
+    public override ngOnChanges(changes: SimpleChanges): void {
         if (this.$params) {
             super.ngOnChanges(changes);
             this.cdr.detectChanges();

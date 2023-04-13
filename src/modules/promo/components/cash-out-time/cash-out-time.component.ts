@@ -31,16 +31,16 @@ import * as Params from './cash-out-time.params';
 export class CashOutTimeComponent extends AbstractComponent implements OnInit {
     @Input() protected inlineParams: Params.ICashOutTimeCParams;
 
-    public $params: Params.ICashOutTimeCParams;
+    public override $params: Params.ICashOutTimeCParams;
     public minutes: number;
     public seconds: number;
 
     constructor(
         public elementRef: ElementRef,
         @Inject('injectParams') protected injectParams: Params.ICashOutTimeCParams,
-        protected configService: ConfigService,
+        configService: ConfigService,
         protected cachingService: CachingService,
-        protected cdr: ChangeDetectorRef,
+        cdr: ChangeDetectorRef,
     ) {
         super(
             <IMixedParams<Params.ICashOutTimeCParams>>{
@@ -48,10 +48,11 @@ export class CashOutTimeComponent extends AbstractComponent implements OnInit {
                 defaultParams: Params.defaultParams,
             },
             configService,
+            cdr,
         );
     }
 
-    public ngOnInit(): void {
+    public override ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
         this.initTime();
 

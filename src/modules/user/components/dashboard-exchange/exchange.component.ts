@@ -30,15 +30,15 @@ export class ExchangeComponent extends AbstractComponent implements OnInit, OnDe
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IDashboardExchangeCParams,
-        protected configService: ConfigService,
+        configService: ConfigService,
         protected UserService: UserService,
-        protected cdr: ChangeDetectorRef,
+        cdr: ChangeDetectorRef,
         protected modalService: ModalService,
     ) {
-        super({injectParams, defaultParams: Params.defaultParams});
+        super({injectParams, defaultParams: Params.defaultParams}, configService, cdr);
     }
 
-    ngOnInit(): void {
+    public override ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
         this.points = this.UserService.userInfo?.loyalty?.Balance;
         this.cdr.markForCheck();

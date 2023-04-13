@@ -48,12 +48,12 @@ export class SignInFormComponent extends SignInFormAbstract<Params.ISignInFormCP
     constructor(
         @Inject('injectParams') protected injectParams: Params.ISignInFormCParams,
         injectionService: InjectionService,
-        protected eventService: EventService,
+        eventService: EventService,
         protected logService: LogService,
-        protected configService: ConfigService,
-        protected modalService: ModalService,
-        protected userService: UserService,
-        protected stateService: StateService,
+        configService: ConfigService,
+        modalService: ModalService,
+        userService: UserService,
+        stateService: StateService,
         translateService: TranslateService,
     ) {
         super(
@@ -71,7 +71,7 @@ export class SignInFormComponent extends SignInFormAbstract<Params.ISignInFormCP
         );
     }
 
-    public ngOnInit(): void {
+    public override ngOnInit(): void {
         super.ngOnInit();
         this.config = this.$params.formConfig || Params.generateConfig(
             this.configService.get<boolean>('$base.site.useLogin'),

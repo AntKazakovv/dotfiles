@@ -43,12 +43,12 @@ export class StoreItem extends AbstractModel<IStoreItem> {
         return _includes(this.data.Categories, categoryId);
     }
 
-    public set data(data: IStoreItem) {
+    public override set data(data: IStoreItem) {
         super.data = data;
         this.$availableForLevels = _map(this.data.AvailableForLevels.split(','), (item: string) => _toNumber(item));
     }
 
-    public get data(): IStoreItem {
+    public override get data(): IStoreItem {
         return super.data;
     }
 

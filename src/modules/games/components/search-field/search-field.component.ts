@@ -52,24 +52,24 @@ export class SearchFieldComponent extends AbstractComponent implements OnInit, A
     @ViewChild('searchField') protected searchField: ElementRef<HTMLInputElement>;
     public searchQuery: string = '';
     public searchQuery$: Subject<string> = new Subject();
-    public $params: ISearchFieldCParams;
+    public override $params: ISearchFieldCParams;
 
     protected disabledSymbols: RegExp = /[$%*;<=>?@\^{|}~№]/gi;
 
     constructor(
         @Inject('injectParams') protected injectParams: ISearchFieldCParams,
-        protected cdr: ChangeDetectorRef,
+        cdr: ChangeDetectorRef,
         protected eventService: EventService,
         protected gamesFilterService: GamesFilterService,
-        protected configService: ConfigService,
+        configService: ConfigService,
     ) {
         super({
             injectParams: injectParams,
             defaultParams: defaultParams,
-        }, configService);
+        }, configService, cdr);
     }
 
-    public ngOnInit(): void {
+    public override ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
         this.searchQuery$
             .pipe(
@@ -98,7 +98,7 @@ export class SearchFieldComponent extends AbstractComponent implements OnInit, A
 
     /**
      * Show search icon
-     * 
+     *
      * @return {boolean}
      */
     public get showSearch(): boolean {
@@ -111,7 +111,7 @@ export class SearchFieldComponent extends AbstractComponent implements OnInit, A
 
     /**
      * Show clear icon
-     * 
+     *
      * @return {boolean}
      */
     public get showClear(): boolean {

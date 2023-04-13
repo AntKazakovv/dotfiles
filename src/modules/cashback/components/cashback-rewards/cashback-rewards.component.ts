@@ -41,7 +41,7 @@ import * as Params from './cashback-rewards.params';
 export class CashbackRewardsComponent extends AbstractComponent implements OnInit {
 
     @Input() public inlineParams!: Params.ICashbackRewardCParams;
-    public $params!: Params.ICashbackRewardCParams;
+    public override $params!: Params.ICashbackRewardCParams;
     public paginatedCashbackPlans: CashbackPlanModel[] = [];
     public itemCashback: BehaviorSubject<CashbackPlanModel[]> = new BehaviorSubject([]);
     public ready: BehaviorSubject<boolean> = new BehaviorSubject(false);
@@ -52,15 +52,15 @@ export class CashbackRewardsComponent extends AbstractComponent implements OnIni
         protected cashbackService: CashbackService,
         protected modalService: ModalService,
         protected eventService: EventService,
-        protected cdr: ChangeDetectorRef,
+        cdr: ChangeDetectorRef,
     ) {
         super({
             injectParams,
             defaultParams: Params.defaultParams,
-        });
+        }, null, cdr);
     }
 
-    public async ngOnInit(): Promise<void> {
+    public override async ngOnInit(): Promise<void> {
         super.ngOnInit(this.inlineParams);
         this.cashbackService.cashbackPlans
             .subscribe((cashbackPlans: CashbackPlanModel[]): void => {

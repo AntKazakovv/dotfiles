@@ -133,7 +133,7 @@ export class GameDashboardComponent extends AbstractComponent implements OnInit,
     @Input() public opened: boolean;
     @Input() public isMerchantWallet: boolean;
 
-    public $params: Params.IGameDashboardCParams;
+    public override $params: Params.IGameDashboardCParams;
     public tabs: Params.IGameDashboardTab[];
     public activeTab: Params.IGameDashboardTab;
     public isMobile: boolean = false;
@@ -196,9 +196,9 @@ export class GameDashboardComponent extends AbstractComponent implements OnInit,
         @Inject('injectParams') protected injectParams: Params.IGameDashboardCParams,
         @Inject(DOCUMENT) protected document: Document,
         @Inject(WINDOW) protected window: Window,
-        protected cdr: ChangeDetectorRef,
+        cdr: ChangeDetectorRef,
         protected actionService: ActionService,
-        protected configService: ConfigService,
+        configService: ConfigService,
         protected renderer: Renderer2,
         protected cachingService: CachingService,
         protected eventService: EventService,
@@ -207,10 +207,10 @@ export class GameDashboardComponent extends AbstractComponent implements OnInit,
         super({
             injectParams,
             defaultParams: Params.defaultParams,
-        });
+        }, configService, cdr);
     }
 
-    public async ngOnInit(): Promise<void> {
+    public override async ngOnInit(): Promise<void> {
         super.ngOnInit();
 
         this.tutorialImage = GlobalHelper.proxyUrl('/gstatic/wlc/game-dashboard/crown.png');
@@ -281,7 +281,7 @@ export class GameDashboardComponent extends AbstractComponent implements OnInit,
         this.cdr.markForCheck();
     }
 
-    public ngOnChanges(changes: SimpleChanges): void {
+    public override ngOnChanges(changes: SimpleChanges): void {
         super.ngOnChanges(changes);
         if (changes.opened && this.$params) {
             if (changes.opened.currentValue) {

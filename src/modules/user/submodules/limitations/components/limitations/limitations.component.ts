@@ -44,7 +44,7 @@ import * as Params from './limitations.params';
 export class LimitationsComponent extends AbstractComponent implements OnInit {
     @Input() public inlineParams: Params.ILimitationsCParams;
     @Input() public useText: boolean;
-    public $params: Params.ILimitationsCParams;
+    public override $params: Params.ILimitationsCParams;
     public loading: boolean = true;
 
     public formConfig: IFormWrapperCParams = {
@@ -74,13 +74,13 @@ export class LimitationsComponent extends AbstractComponent implements OnInit {
         protected limitationService: LimitationService,
         protected eventService: EventService,
         protected modalService: ModalService,
-        protected cdr: ChangeDetectorRef,
-        protected configService: ConfigService,
+        cdr: ChangeDetectorRef,
+        configService: ConfigService,
     ) {
-        super({injectParams: params, defaultParams: Params.defaultParams}, configService);
+        super({injectParams: params, defaultParams: Params.defaultParams}, configService, cdr);
     }
 
-    public async ngOnInit(): Promise<void> {
+    public override async ngOnInit(): Promise<void> {
         super.ngOnInit(this.inlineParams);
         this.patchLimitTypeItems();
         await this.getLimits();

@@ -19,7 +19,7 @@ export interface IMobileAppHooksParams {
 export class MobileAppHooks extends AbstractHook {
 
     constructor (
-        protected params: IMobileAppHooksParams,
+        protected override params: IMobileAppHooksParams,
     ) {
         super({
             hooksService: params.hooksService,

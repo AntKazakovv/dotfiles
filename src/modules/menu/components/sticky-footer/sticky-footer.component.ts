@@ -40,7 +40,7 @@ import * as Params from './sticky-footer.params';
 
 export class StickyFooterComponent extends AbstractComponent implements OnInit, OnDestroy {
 
-    public $params: Params.IStickyFooterCParams;
+    public override $params: Params.IStickyFooterCParams;
     public menuParams: MenuParams.IMenuCParams;
 
     protected useIcons: boolean;
@@ -51,12 +51,12 @@ export class StickyFooterComponent extends AbstractComponent implements OnInit, 
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IStickyFooterCParams,
-        protected configService: ConfigService,
+        configService: ConfigService,
         protected menuService: MenuService,
         protected eventService: EventService,
         protected bodyClassService: BodyClassService,
         protected translate: TranslateService,
-        protected cdr: ChangeDetectorRef,
+        cdr: ChangeDetectorRef,
     ) {
         super(
             <IMixedParams<Params.IStickyFooterCParams>>{
@@ -64,10 +64,11 @@ export class StickyFooterComponent extends AbstractComponent implements OnInit, 
                 defaultParams: Params.defaultParams,
             },
             configService,
+            cdr,
         );
     }
 
-    public async ngOnInit(): Promise<void> {
+    public override async ngOnInit(): Promise<void> {
         super.ngOnInit();
 
         this.isAuth = this.configService.get<boolean>('$user.isAuthenticated');
@@ -77,7 +78,7 @@ export class StickyFooterComponent extends AbstractComponent implements OnInit, 
         this.bodyClassService.addModifier('wlc-body--sticky-footer');
     }
 
-    public ngOnDestroy(): void {
+    public override ngOnDestroy(): void {
         super.ngOnDestroy();
         this.bodyClassService.removeClassByPrefix('wlc-body--sticky-footer');
     }

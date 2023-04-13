@@ -45,7 +45,7 @@ import {
 export class PepInfoComponent extends PepAbstractModalComponent implements OnInit {
     @Input() public inlineParams!: IPepInfoCParams;
 
-    public $params!: IPepInfoCParams;
+    public override $params!: IPepInfoCParams;
 
     protected readonly modalId: PepModalId = 'pepInfo';
     protected readonly cancellingEvent: PepEventKind = 'PEP_STATUS_CANCEL';
@@ -53,11 +53,11 @@ export class PepInfoComponent extends PepAbstractModalComponent implements OnIni
 
     constructor(
         @Inject('injectParams') protected injectParams: IPepInfoCParams,
-        @Inject(WINDOW) protected window: Window,
-        protected eventService: EventService,
-        protected modalService: ModalService,
-        protected pepService: PepService,
-        protected configService: ConfigService,
+        @Inject(WINDOW) window: Window,
+        eventService: EventService,
+        modalService: ModalService,
+        pepService: PepService,
+        configService: ConfigService,
     ) {
         super(
             window,
@@ -68,10 +68,11 @@ export class PepInfoComponent extends PepAbstractModalComponent implements OnIni
                 injectParams,
                 defaultParams,
             },
+            configService,
         );
     }
 
-    public async ngOnInit(): Promise<void> {
+    public override async ngOnInit(): Promise<void> {
         super.ngOnInit(this.inlineParams);
         this.isMetamask = await this.isAuthWithMetamask();
     }

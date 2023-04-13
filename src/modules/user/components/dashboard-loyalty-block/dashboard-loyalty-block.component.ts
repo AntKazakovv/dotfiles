@@ -24,15 +24,15 @@ export class DashboardLoyaltyBlockComponent extends AbstractComponent implements
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.ILoyaltyBlockCParams,
-        protected configService: ConfigService,
+        configService: ConfigService,
         protected UserService: UserService,
-        protected cdr: ChangeDetectorRef,
+        cdr: ChangeDetectorRef,
         protected modalService: ModalService,
     ) {
-        super({injectParams, defaultParams: Params.defaultParams});
+        super({injectParams, defaultParams: Params.defaultParams}, configService, cdr);
     }
 
-    ngOnInit(): void {
+    public override ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
         this.UserService.userInfo$.pipe(
             skipWhile(v => !v),

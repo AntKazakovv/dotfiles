@@ -29,7 +29,7 @@ export class DigitainHooks extends AbstractHook {
     protected integrationMode: IntegrationMode;
 
     constructor(
-        protected params: IDigitainHooksParams,
+        protected override params: IDigitainHooksParams,
     ) {
         super({
             hooksService: params.hooksService,
@@ -42,7 +42,7 @@ export class DigitainHooks extends AbstractHook {
         this.setHook<IGameWrapperHookLaunchInfo>(gameWrapperHooks.launchInfo, this.launchInfoHook, this);
     }
 
-    protected onDisableHooks(): void {
+    protected override onDisableHooks(): void {
         super.onDisableHooks();
 
         if (this.integrationMode === 'mobile') {

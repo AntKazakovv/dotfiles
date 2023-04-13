@@ -34,22 +34,22 @@ export class IconMerchantsListComponent extends IconListAbstract<Params.IIconMer
     @Input() public inlineParams: Params.IIconMerchantsListCParams;
 
     public items: IconModel[] = [];
-    public $params: Params.IIconMerchantsListCParams;
+    public override $params: Params.IIconMerchantsListCParams;
 
     protected merchants: MerchantModel[];
     protected gamesCatalogService: GamesCatalogService;
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IIconMerchantsListCParams,
-        protected configService: ConfigService,
-        protected colorThemeService: ColorThemeService,
+        configService: ConfigService,
+        colorThemeService: ColorThemeService,
         protected injectionService: InjectionService,
-        protected cdr: ChangeDetectorRef,
+        cdr: ChangeDetectorRef,
     ) {
-        super({injectParams, defaultParams: Params.defaultParams}, configService, colorThemeService);
+        super({injectParams, defaultParams: Params.defaultParams}, configService, colorThemeService, cdr);
     }
 
-    public async ngOnInit(): Promise<void> {
+    public  override async ngOnInit(): Promise<void> {
         super.ngOnInit(this.inlineParams);
 
         this.gamesCatalogService = await this.injectionService

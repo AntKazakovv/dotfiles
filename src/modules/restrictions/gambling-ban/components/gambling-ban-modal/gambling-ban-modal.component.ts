@@ -26,12 +26,12 @@ import {
 })
 export class GamblingBanModalComponent extends AbstractComponent implements OnInit {
     public checkboxConfig!: ICheckboxCParams;
-    public $params!: Params.IGamblingBanModalParams;
+    public override $params!: Params.IGamblingBanModalParams;
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IGamblingBanModalParams,
         protected eventService: EventService,
-        protected configService: ConfigService,
+        configService: ConfigService,
         protected gamblingBanService: GamblingBanService,
     ) {
         super({injectParams, defaultParams: Params.defaultParams}, configService);
@@ -41,7 +41,7 @@ export class GamblingBanModalComponent extends AbstractComponent implements OnIn
         return this.checkboxConfig?.control.value ?? false;
     }
 
-    public ngOnInit(): void {
+    public override ngOnInit(): void {
         super.ngOnInit();
         this.initCheckboxConfig();
     }

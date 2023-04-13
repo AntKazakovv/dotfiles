@@ -47,7 +47,7 @@ import _concat from 'lodash-es/concat';
 })
 export class IconListComponent extends IconListAbstract<Params.IIconListCParams> implements OnInit, AfterViewChecked {
     /** List of items being rendered. */
-    public $params: Params.IIconListCParams;
+    public override $params: Params.IIconListCParams;
     protected wrapper: HTMLElement;
     protected resized: boolean = false;
     protected gamesCatalogService: GamesCatalogService;
@@ -61,19 +61,19 @@ export class IconListComponent extends IconListAbstract<Params.IIconListCParams>
     constructor(
         @Inject('injectParams') protected injectParams: Params.IIconListCParams,
         protected logService: LogService,
-        protected cdr: ChangeDetectorRef,
-        protected configService: ConfigService,
-        protected colorThemeService: ColorThemeService,
+        cdr: ChangeDetectorRef,
+        configService: ConfigService,
+        colorThemeService: ColorThemeService,
         protected actionService: ActionService,
         protected injectionService: InjectionService,
         private injector: Injector,
         private hostElement: ElementRef,
     ) {
-        super({injectParams, defaultParams: Params.defaultParams}, configService, colorThemeService);
+        super({injectParams, defaultParams: Params.defaultParams}, configService, colorThemeService, cdr);
     }
 
     /** Calls method based on the component theme */
-    public ngOnInit(): void {
+    public override ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
         this.setCustomList();
         this.cdr.markForCheck();

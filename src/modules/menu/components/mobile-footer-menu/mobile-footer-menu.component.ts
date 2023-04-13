@@ -27,7 +27,7 @@ import * as Params from 'wlc-engine/modules/menu/components/mobile-footer-menu/m
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MobileFooterMenuComponent extends AbstractComponent implements OnInit {
-    public $params!: Params.IMobileFooterMenuCParams;
+    public override $params!: Params.IMobileFooterMenuCParams;
 
     protected menuConfig!: MenuParams.MenuConfigItem[];
     protected useIcons!: boolean;
@@ -35,8 +35,8 @@ export class MobileFooterMenuComponent extends AbstractComponent implements OnIn
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IMobileFooterMenuCParams,
-        protected cdr: ChangeDetectorRef,
-        protected configService: ConfigService,
+        cdr: ChangeDetectorRef,
+        configService: ConfigService,
     ) {
         super(
             <IMixedParams<Params.IMobileFooterMenuCParams>>{
@@ -44,10 +44,11 @@ export class MobileFooterMenuComponent extends AbstractComponent implements OnIn
                 defaultParams: Params.defaultParams,
             },
             configService,
+            cdr,
         );
     }
 
-    public async ngOnInit(): Promise<void> {
+    public override async ngOnInit(): Promise<void> {
         super.ngOnInit();
 
         this.initConfig();

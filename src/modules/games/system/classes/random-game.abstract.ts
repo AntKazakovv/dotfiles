@@ -19,14 +19,14 @@ import {GamesCatalogService} from 'wlc-engine/modules/games/system/services';
 export abstract class RandomGameAbstract<T extends IComponentParams<unknown, unknown, unknown>>
     extends AbstractComponent {
 
-    public $params: T;
+    public override $params: T;
 
     protected games: Game[];
     protected gamesForAuthorized: boolean = false;
 
     constructor(
         mixedParams: IMixedParams<T>,
-        protected configService: ConfigService,
+        configService: ConfigService,
         protected modalService: ModalService,
         protected eventService: EventService,
         protected gamesCatalogService: GamesCatalogService,

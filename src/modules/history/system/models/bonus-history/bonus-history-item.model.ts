@@ -17,11 +17,11 @@ export class BonusHistoryItemModel extends AbstractModel<IBonusHistory> {
         this.data = this.modifyData(data);
     }
 
-    public set data(data: any) {
+    public override set data(data: any) {
         super.data = data;
     }
 
-    public get data(): any {
+    public override get data(): any {
         return super.data;
     }
 

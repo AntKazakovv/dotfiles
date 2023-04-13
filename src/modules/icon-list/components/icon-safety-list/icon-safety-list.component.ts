@@ -21,17 +21,17 @@ export class IconSafetyListComponent extends IconListAbstract<Params.IIconSafety
     @Input() protected inlineParams: Params.IIconSafetyListCParams;
 
     public items: IconModel[] = [];
-    public $params: Params.IIconSafetyListCParams;
+    public override $params: Params.IIconSafetyListCParams;
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IIconSafetyListCParams,
-        protected configService: ConfigService,
-        protected colorThemeService: ColorThemeService,
+        configService: ConfigService,
+        colorThemeService: ColorThemeService,
     ) {
         super({injectParams, defaultParams: Params.defaultParams}, configService, colorThemeService);
     }
 
-    public ngOnInit(): void {
+    public override ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
         this.items = this.getConvertedCustomList({component: 'IconListComponent', method: 'setCustomList'});
     }

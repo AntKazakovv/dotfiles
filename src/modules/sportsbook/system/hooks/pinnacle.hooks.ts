@@ -16,7 +16,7 @@ export interface IPinnacleHooksParams extends ISportsbookHook {
 export class PinnacleHooks extends AbstractHook {
 
     constructor(
-        protected params: IPinnacleHooksParams,
+        protected override params: IPinnacleHooksParams,
     ) {
         super({
             hooksService: params.hooksService,

@@ -34,7 +34,7 @@ import * as Params from './email-field.params';
 
 export class EmailFieldComponent extends AbstractComponent implements OnInit {
     @Input() protected inlineParams!: Params.IEmailFieldCParams;
-    public $params!: Params.IEmailFieldCParams;
+    public override $params!: Params.IEmailFieldCParams;
     public verificationBtn: boolean = false;
     public buttonDisabled: boolean = false;
     public emailControl!: UntypedFormControl;
@@ -44,15 +44,15 @@ export class EmailFieldComponent extends AbstractComponent implements OnInit {
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IEmailFieldCParams,
-        protected configService: ConfigService,
+        configService: ConfigService,
         protected userService: UserService,
         protected eventService: EventService,
-        protected cdr: ChangeDetectorRef,
+        cdr: ChangeDetectorRef,
     ) {
-        super({injectParams, defaultParams: Params.defaultParams}, configService);
+        super({injectParams, defaultParams: Params.defaultParams}, configService, cdr);
     }
 
-    public ngOnInit(): void {
+    public override ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
         this.emailControl = this.$params.email.control;
 

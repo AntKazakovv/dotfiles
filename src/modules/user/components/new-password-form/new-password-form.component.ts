@@ -40,7 +40,7 @@ import * as Params from './new-password-form.params';
 export class NewPasswordFormComponent extends AbstractComponent {
 
     @Input() public inlineParams: Params.INewPasswordFormCParams;
-    public $params: Params.INewPasswordFormCParams;
+    public override $params: Params.INewPasswordFormCParams;
     public config = Params.newPasswordFormConfig;
 
     constructor(
@@ -49,13 +49,13 @@ export class NewPasswordFormComponent extends AbstractComponent {
         protected userService: UserService,
         protected modalService: ModalService,
         protected eventService: EventService,
-        protected configService: ConfigService,
+        configService: ConfigService,
         protected dataService: DataService,
     ) {
         super({
             injectParams,
             defaultParams: Params.defaultParams,
-        });
+        }, configService);
     }
 
     public async ngSubmit(form: UntypedFormGroup): Promise<boolean> {

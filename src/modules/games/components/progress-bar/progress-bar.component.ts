@@ -26,11 +26,11 @@ export class ProgressBarComponent extends AbstractComponent implements OnInit {
     @Input() public maxValue: number = 0;
     @Input() public currentValue: number = 0;
 
-    public $params: Params.IProgressBarCParams;
+    public override $params: Params.IProgressBarCParams;
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IProgressBarCParams,
-        protected configService: ConfigService,
+        configService: ConfigService,
     ) {
         super({injectParams, defaultParams: Params.defaultParams}, configService);
     }
@@ -39,7 +39,7 @@ export class ProgressBarComponent extends AbstractComponent implements OnInit {
         return (this.currentValue / this.maxValue * 100) + '%';
     }
 
-    public ngOnInit(): void {
+    public override ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
     }
 

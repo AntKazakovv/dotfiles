@@ -22,7 +22,7 @@ import * as Params from './pep-saved.params';
 export class PepSavedComponent extends AbstractComponent {
     @Input() public inlineParams: Params.IPepSavedCParams;
 
-    public $params: Params.IPepSavedCParams;
+    public override $params: Params.IPepSavedCParams;
     public readonly phrases: PepPhrases = phrases;
 
     constructor(@Inject('injectParams') protected injectParams: Params.IPepSavedCParams) {

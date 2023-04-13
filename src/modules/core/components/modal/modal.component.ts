@@ -70,7 +70,7 @@ export class WlcModalComponent extends AbstractComponent
     @ViewChild('modal') public modalElement: ElementRef;
     @ViewChild(ModalDirective) modalDirect: ModalDirective;
 
-    public $params: IModalOptions;
+    public override $params: IModalOptions;
     public dialogClasses: string[] = [];
     public inject: Injector;
     public bsOptions: IModalBsOptions = {};
@@ -85,7 +85,7 @@ export class WlcModalComponent extends AbstractComponent
         @Inject('injectParams') protected params: IModalOptions,
         protected eventService: EventService,
         protected injector: Injector,
-        protected ConfigService: ConfigService,
+        configService: ConfigService,
         protected modalService: ModalService,
         protected element: ElementRef,
         protected renderer: Renderer2,
@@ -94,7 +94,7 @@ export class WlcModalComponent extends AbstractComponent
         super(<IMixedParams<IModalOptions>>{
             injectParams: params,
             defaultParams: defaultParams,
-        }, ConfigService);
+        }, configService);
     }
 
     /**
@@ -123,7 +123,7 @@ export class WlcModalComponent extends AbstractComponent
         this.$closed.resolve(this.closeReason);
     }
 
-    public ngOnInit(): void {
+    public override ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
         this.applyConfig();
         this.$params.wlcElement = this.$params.config?.wlcElement || this.$params.wlcElement || 'wlc-modal';

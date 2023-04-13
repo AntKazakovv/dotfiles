@@ -21,21 +21,21 @@ import * as Params from './loyalty-level.params';
 export class LoyaltyLevelComponent extends AbstractComponent implements OnInit {
     @Input() public inlineParams: Params.ILoyaltyLevelCParams;
 
-    public $params: Params.ILoyaltyLevelCParams;
+    public override $params: Params.ILoyaltyLevelCParams;
     public levelTitle: string;
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.ILoyaltyLevelCParams,
-        protected cdr: ChangeDetectorRef,
-        protected configService: ConfigService,
+        cdr: ChangeDetectorRef,
+        configService: ConfigService,
     ) {
         super({
             injectParams,
             defaultParams: Params.defaultParams,
-        }, configService);
+        }, configService, cdr);
     }
 
-    public ngOnInit(): void {
+    public override ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
 
         if (this.$params.titleAs) {

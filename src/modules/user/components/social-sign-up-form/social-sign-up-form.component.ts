@@ -33,27 +33,27 @@ import * as Params from './social-sign-up-form.params';
 
 export class SocialSignUpFormComponent extends UserActionsAbstract<Params.ISocialSignUpFormCParams> implements OnInit {
     public config: IFormWrapperCParams;
-    public $params: Params.ISocialSignUpFormCParams;
+    public override $params: Params.ISocialSignUpFormCParams;
     public formData: BehaviorSubject<IIndexing<unknown>>;
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.ISocialSignUpFormCParams,
-        protected configService: ConfigService,
-        protected logService: LogService,
-        protected userService: UserService,
-        protected eventService: EventService,
+        configService: ConfigService,
+        logService: LogService,
+        userService: UserService,
+        eventService: EventService,
         protected socialService: SocialService,
-        protected injectionService: InjectionService,
+        injectionService: InjectionService,
         @Inject(WINDOW) protected window: Window,
         @Inject(CuracaoRequirement) private enableRequirement: boolean,
     ) {
         super({
             injectParams,
             defaultParams: Params.defaultParams,
-        }, configService, eventService,  injectionService, logService);
+        }, configService, eventService,  injectionService, logService, userService);
     }
 
-    public ngOnInit(): void {
+    public override ngOnInit(): void {
         super.ngOnInit();
 
         this.config = this.$params.formConfig || Params.socialSignUpFormConfig;

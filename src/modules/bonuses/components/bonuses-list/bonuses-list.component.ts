@@ -81,7 +81,7 @@ export class BonusesListComponent extends AbstractComponent implements OnInit, O
     @ViewChild(SliderComponent) public slider: SliderComponent;
     @HostBinding('class.single-bonus-swiper') isSingleBonus: boolean = false;
 
-    public $params: Params.IBonusesListCParams;
+    public override $params: Params.IBonusesListCParams;
     public bonuses: Bonus[] = [];
     public paginatedBonuses: Bonus[] = [];
     public isReady: boolean = false;
@@ -109,10 +109,10 @@ export class BonusesListComponent extends AbstractComponent implements OnInit, O
 
     constructor(
         @Inject('injectParams') protected params: Params.IBonusesListCParams,
-        protected configService: ConfigService,
+        configService: ConfigService,
         protected bonusesService: BonusesService,
         protected cachingService: CachingService,
-        protected cdr: ChangeDetectorRef,
+        cdr: ChangeDetectorRef,
         protected eventService: EventService,
         protected translate: TranslateService,
         protected actionService: ActionService,
@@ -122,10 +122,10 @@ export class BonusesListComponent extends AbstractComponent implements OnInit, O
             <IMixedParams<Params.IBonusesListCParams>>{
                 injectParams: params,
                 defaultParams: Params.defaultParams,
-            }, configService);
+            }, configService, cdr);
     }
 
-    public async ngOnInit(): Promise<void> {
+    public override async ngOnInit(): Promise<void> {
         super.ngOnInit(this.inlineParams);
         this.prepareModifiers();
 
@@ -163,7 +163,7 @@ export class BonusesListComponent extends AbstractComponent implements OnInit, O
         this.bonusBg;
     }
 
-    public ngOnDestroy(): void {
+    public override ngOnDestroy(): void {
         super.ngOnDestroy();
         this.unchooseBonuses();
     }

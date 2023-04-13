@@ -49,7 +49,7 @@ export class TournamentLeaderboardComponent
     @Input() public useUserLogin: boolean;
     @Input() public useListHead: boolean;
 
-    public $params: Params.ITournamentLeaderboardCParams;
+    public override $params: Params.ITournamentLeaderboardCParams;
     public isAuth: boolean;
     public wins: ITournamentPlace[];
     public winsTop: ITournamentPlace[];
@@ -64,18 +64,18 @@ export class TournamentLeaderboardComponent
 
     constructor(
         @Inject('injectParams') protected params: Params.ITournamentLeaderboardCParams,
-        protected cdr: ChangeDetectorRef,
-        protected configService: ConfigService,
+        cdr: ChangeDetectorRef,
+        configService: ConfigService,
         protected modalService: ModalService,
     ) {
         super(
             <IMixedParams<Params.ITournamentLeaderboardCParams>>{
                 injectParams: params,
                 defaultParams: Params.defaultParams,
-            }, configService);
+            }, configService, cdr);
     }
 
-    public ngOnInit(): void {
+    public override ngOnInit(): void {
         super.ngOnInit(GlobalHelper.prepareParams(this,
             ['tournament', 'type', 'theme', 'themeMod', 'customMod', 'limit', 'showAllBtn', 'useListHead']));
         this.prepareModifiers();

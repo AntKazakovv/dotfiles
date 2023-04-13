@@ -27,21 +27,21 @@ import {
 })
 export class TournamentTopwinsBtnComponent extends AbstractComponent implements OnInit {
     @HostBinding('class.profile-first') protected profileFirst: boolean;
-    public $params: Params.ITournamentTopwinsBtnParams;
+    public override $params: Params.ITournamentTopwinsBtnParams;
 
     constructor(
         @Inject('injectParams') protected params: Params.ITournamentTopwinsBtnParams,
         protected modalService: ModalService,
-        protected configService: ConfigService,
+        configService: ConfigService,
     ) {
         super(
             <IMixedParams<Params.ITournamentTopwinsBtnParams>>{
                 injectParams: params,
                 defaultParams: Params.defaultParams,
-            });
+            }, configService);
     }
 
-    public ngOnInit(): void {
+    public override ngOnInit(): void {
         super.ngOnInit();
         this.profileFirst = this.configService.get('$base.profile.type') === 'first';
     }

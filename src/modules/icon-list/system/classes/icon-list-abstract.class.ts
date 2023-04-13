@@ -1,4 +1,7 @@
-import {Directive} from '@angular/core';
+import {
+    ChangeDetectorRef,
+    Directive,
+} from '@angular/core';
 import {RawParams} from '@uirouter/core';
 
 import {takeUntil} from 'rxjs';
@@ -77,14 +80,15 @@ export interface IAbstractIconsListParams<T, R, M> extends IComponentParams<T, R
 
 @Directive()
 export abstract class IconListAbstract<T> extends AbstractComponent {
-    public $params: IAbstractIconsListParams<unknown, unknown, unknown>;
+    public override $params: IAbstractIconsListParams<unknown, unknown, unknown>;
 
     constructor(
         protected componentParams: IMixedParams<T>,
-        protected configService: ConfigService,
+        configService: ConfigService,
         protected colorThemeService: ColorThemeService,
+        cdr?: ChangeDetectorRef,
     ) {
-        super(componentParams, configService);
+        super(componentParams, configService, cdr);
     }
 
     /**

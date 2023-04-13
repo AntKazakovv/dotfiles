@@ -55,7 +55,7 @@ export class GameDashboardBonusesComponent extends AbstractComponent implements 
     public isMobile: boolean;
     public isReady: boolean = false;
     public slides: ISlide[] = [];
-    public $params: Params.IGameDashboardBonusesCParams;
+    public override $params: Params.IGameDashboardBonusesCParams;
 
     public defaultSliderConfig: IWrapperCParams = {components: []};
     public landscapeSliderConfig: IWrapperCParams = {components: []};
@@ -64,8 +64,8 @@ export class GameDashboardBonusesComponent extends AbstractComponent implements 
 
     constructor(
         @Inject('injectParams') protected params: Params.IGameDashboardBonusesCParams,
-        protected cdr: ChangeDetectorRef,
-        protected configService: ConfigService,
+        cdr: ChangeDetectorRef,
+        configService: ConfigService,
         protected eventService: EventService,
         protected actionService: ActionService,
         protected bonusesService: BonusesService,
@@ -74,10 +74,10 @@ export class GameDashboardBonusesComponent extends AbstractComponent implements 
             <IMixedParams<Params.IGameDashboardBonusesCParams>>{
                 injectParams: params,
                 defaultParams: Params.defaultParams,
-            }, configService);
+            }, configService, cdr);
     }
 
-    public ngOnInit(): void {
+    public override ngOnInit(): void {
         super.ngOnInit();
         this.isAuth = this.configService.get<boolean>('$user.isAuthenticated');
         this.landscapeOrientation = this.actionService.device.orientation === DeviceOrientation.Landscape;

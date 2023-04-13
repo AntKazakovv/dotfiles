@@ -29,27 +29,29 @@ import _isString from 'lodash-es/isString';
 })
 export class LicenseComponent extends AbstractComponent implements OnInit {
     @Input() protected inlineParams: Params.ILicenseCParams;
-    public $params: Params.ILicenseCParams;
+    public override $params: Params.ILicenseCParams;
     public licenseType: Params.LicenseType;
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.ILicenseCParams,
         @Inject(DOCUMENT) protected document: HTMLDocument,
-        protected cdr: ChangeDetectorRef,
+        cdr: ChangeDetectorRef,
         private sanitizer: DomSanitizer,
         private elRef: ElementRef,
         configService: ConfigService,
         private logService: LogService,
     ) {
-        super({
-            injectParams,
-            defaultParams: Params.defaultParams,
-        },
-        configService,
+        super(
+            {
+                injectParams,
+                defaultParams: Params.defaultParams,
+            },
+            configService,
+            cdr,
         );
     }
 
-    public ngOnInit(): void {
+    public override ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
         if (this.$params.apgSeal?.sealId && this.$params.apgSeal.sealDomain) {
             this.licenseType = 'apg';

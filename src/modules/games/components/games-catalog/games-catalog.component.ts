@@ -45,23 +45,23 @@ export class GamesCatalogComponent extends AbstractComponent implements OnInit {
 
     public gameGrids: IGamesGridCParams[] = [];
     public isReady: boolean = false;
-    public $params: Params.IGamesCatalogCParams;
+    public override $params: Params.IGamesCatalogCParams;
 
     protected isMobile: boolean = false;
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IGamesCatalogCParams,
         protected gamesCatalogService: GamesCatalogService,
-        protected configService: ConfigService,
+        configService: ConfigService,
         protected actionService: ActionService,
         protected translateService: TranslateService,
         protected transition: TransitionService,
-        protected cdr: ChangeDetectorRef,
+        cdr: ChangeDetectorRef,
     ) {
-        super({injectParams, defaultParams: Params.defaultParams}, configService);
+        super({injectParams, defaultParams: Params.defaultParams}, configService, cdr);
     }
 
-    public ngOnInit(): void {
+    public override ngOnInit(): void {
         super.ngOnInit();
 
         this.isMobile = this.configService.get<boolean>('appConfig.mobile');

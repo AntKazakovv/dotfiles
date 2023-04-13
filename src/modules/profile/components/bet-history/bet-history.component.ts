@@ -54,7 +54,7 @@ export class BetHistoryComponent extends AbstractComponent implements OnInit {
     public ready: boolean = false;
     public awaiting: boolean = false;
     public showFilter: boolean = false;
-    public $params: Params.IBetHistoryCParams;
+    public override $params: Params.IBetHistoryCParams;
     public tableData: ITableCParams;
     public filterSelect: ISelectCParams = betConfig.filterSelect;
     public orderSelect: ISelectCParams = betConfig.orderSelect;
@@ -71,21 +71,21 @@ export class BetHistoryComponent extends AbstractComponent implements OnInit {
 
     constructor(
         @Inject('injectParams') protected params: Params.IBetHistoryCParams,
-        protected cdr: ChangeDetectorRef,
+        cdr: ChangeDetectorRef,
         protected betService: BetService,
         protected eventService: EventService,
         protected historyFilterService: HistoryFilterService,
-        protected configService: ConfigService,
+        configService: ConfigService,
         protected actionService: ActionService,
     ) {
         super(
             <IMixedParams<Params.IBetHistoryCParams>>{
                 injectParams: params,
                 defaultParams: Params.defaultParams,
-            }, configService);
+            }, configService, cdr);
     }
 
-    public ngOnInit(): void {
+    public override ngOnInit(): void {
         super.ngOnInit();
         this.showFilter = this.actionService.getDeviceType() === DeviceType.Desktop;
 
@@ -137,7 +137,7 @@ export class BetHistoryComponent extends AbstractComponent implements OnInit {
      * Push bets to table and show loader in process
      *
      * @param {boolean} needRequest - if date dont change we dont need a new request
-     * 
+     *
      * @returns {Promise<void>}
      */
     protected async pushNewBetsList(needRequest: boolean): Promise<void> {

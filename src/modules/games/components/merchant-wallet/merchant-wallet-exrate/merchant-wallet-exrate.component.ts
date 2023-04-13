@@ -32,19 +32,19 @@ import * as Params from './merchant-wallet-exrate.params';
 export class MerchantWalletExrateComponent extends AbstractComponent implements OnInit {
     @Input() protected inlineParams: Params.IMerchantWalletExrateCParams;
 
-    public $params: Params.IMerchantWalletExrateCParams;
+    public override $params: Params.IMerchantWalletExrateCParams;
     public value: number;
     public exrate: number;
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IMerchantWalletExrateCParams,
-        protected configService: ConfigService,
-        protected cdr: ChangeDetectorRef,
+        configService: ConfigService,
+        cdr: ChangeDetectorRef,
     ) {
-        super({injectParams, defaultParams: Params.defaultParams}, configService);
+        super({injectParams, defaultParams: Params.defaultParams}, configService, cdr);
     }
 
-    public ngOnInit(): void {
+    public override ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
 
         if (this.$params.value && this.$params.currency) {

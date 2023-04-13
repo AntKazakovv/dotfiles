@@ -43,7 +43,7 @@ export class TournamentPromoComponent extends AbstractComponent implements OnIni
     @Input() public parentInstance: TournamentComponent;
     @Input() public actionParams: Params.IActionParams;
 
-    public $params: Params.ITournamentPromoCParams;
+    public override $params: Params.ITournamentPromoCParams;
     public tournament: Tournament;
     public isTournamentSelected: boolean;
     public rowLimit: number = PRIMARY_ROW_LIMIT;
@@ -53,18 +53,18 @@ export class TournamentPromoComponent extends AbstractComponent implements OnIni
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.ITournamentPromoCParams,
-        protected cdr: ChangeDetectorRef,
-        protected configService: ConfigService,
+        cdr: ChangeDetectorRef,
+        configService: ConfigService,
         protected tournamentsService: TournamentsService,
     ) {
         super(
             <IMixedParams<Params.ITournamentPromoCParams>>{
                 injectParams,
                 defaultParams: Params.defaultParams,
-            }, configService);
+            }, configService, cdr);
     }
 
-    public ngOnInit(): void {
+    public override ngOnInit(): void {
         super.ngOnInit(GlobalHelper.prepareParams(this,
             ['tournament', 'type', 'theme', 'themeMod', 'customMod', 'actionParams']));
 

@@ -31,11 +31,11 @@ export class IconListItemComponent extends AbstractComponent implements OnInit, 
     @Input() protected logImageErrorChild: Params.TIconErrorCode;
     @Input() public icon: IconModel;
 
-    public $params: Params.IIconListItemCParams;
+    public override $params: Params.IIconListItemCParams;
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IIconListItemCParams,
-        protected configService: ConfigService,
+        configService: ConfigService,
         protected logService: LogService,
     ) {
         super({
@@ -44,14 +44,14 @@ export class IconListItemComponent extends AbstractComponent implements OnInit, 
         }, configService);
     }
 
-    public ngOnInit(): void {
+    public override ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
         if (!this.icon) {
             this.icon = this.$params.icon;
         }
     }
 
-    public ngOnChanges(changes: SimpleChanges): void {
+    public override ngOnChanges(changes: SimpleChanges): void {
         if (changes['icon']) {
             this.icon.isError = false;
         }

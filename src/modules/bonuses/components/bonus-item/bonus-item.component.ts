@@ -49,7 +49,7 @@ import * as Params from './bonus-item.params';
 export class BonusItemComponent extends AbstractComponent implements OnInit, OnChanges {
     @Input() public inlineParams: Params.IBonusItemCParams;
 
-    public $params: Params.IBonusItemCParams;
+    public override $params: Params.IBonusItemCParams;
     public isAuth: boolean;
     public currency: string;
     public isChooseBtn: boolean;
@@ -59,8 +59,8 @@ export class BonusItemComponent extends AbstractComponent implements OnInit, OnC
 
     constructor(
         @Inject('injectParams') protected params: Params.IBonusItemCParams,
-        protected cdr: ChangeDetectorRef,
-        protected configService: ConfigService,
+        cdr: ChangeDetectorRef,
+        configService: ConfigService,
         protected modalService: ModalService,
         protected eventService: EventService,
         protected bonusesService: BonusesService,
@@ -69,10 +69,10 @@ export class BonusItemComponent extends AbstractComponent implements OnInit, OnC
             <IMixedParams<Params.IBonusItemCParams>>{
                 injectParams: params,
                 defaultParams: Params.defaultParams,
-            }, configService);
+            }, configService, cdr);
     }
 
-    public ngOnInit(): void {
+    public override ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
 
         if (this.$params.dummy) {
@@ -132,7 +132,7 @@ export class BonusItemComponent extends AbstractComponent implements OnInit, OnC
         }
     }
 
-    public ngOnChanges(change: SimpleChanges): void {
+    public override ngOnChanges(change: SimpleChanges): void {
         if ((_get(this.$params, 'theme') === 'mini'
                 && (_get(this.inlineParams, 'bonus.id') !== _get(this, 'bonus.id')
                     || _get(this.inlineParams, 'bonus.isChoose') !== _get(this, 'bonus.isChoose')))

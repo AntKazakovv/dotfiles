@@ -35,7 +35,7 @@ export class StepsComponent extends AbstractComponent implements OnInit {
 
     @Input() public inlineParams: Params.IStepsParams;
     @Input() public themeMod: Params.ThemeMod;
-    public $params: Params.IStepsParams;
+    public override $params: Params.IStepsParams;
     public currentStep: Params.IStep;
     public stepList: Params.IStep[];
     public noBackLink: boolean;
@@ -45,18 +45,19 @@ export class StepsComponent extends AbstractComponent implements OnInit {
     constructor(
         @Inject('injectParams') protected injectParams: Params.IStepsParams,
         protected eventService: EventService,
-        protected configService: ConfigService,
-        protected cdr: ChangeDetectorRef,
+        configService: ConfigService,
+        cdr: ChangeDetectorRef,
     ) {
         super({
             injectParams,
             defaultParams: Params.defaultParams,
-        }, configService);
+        }, configService, cdr);
+
         this.isSkipBonus = this.configService.get<boolean>('$base.registration.skipBonusStep');
         this.usePromoBanner = this.configService.get<boolean>('$base.registration.usePromoBanner');
     }
 
-    public ngOnInit(): void {
+    public override ngOnInit(): void {
         this.setThemeMod();
         super.ngOnInit();
         if (this.configService.get<IMGAConfig>('$modules.core.components["wlc-license"].mga')) {

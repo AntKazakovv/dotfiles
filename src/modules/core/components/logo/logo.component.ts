@@ -23,7 +23,7 @@ import * as Params from './logo.params';
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LogoComponent extends AbstractComponent implements OnInit {
-    public $params: Params.ILogoCParams;
+    public override $params: Params.ILogoCParams;
     public logoImageSource: string;
     public logoName: boolean = true;
     public isAffiliate: boolean = false;
@@ -31,17 +31,17 @@ export class LogoComponent extends AbstractComponent implements OnInit {
 
     constructor(
         @Inject('injectParams') protected componentParams: Params.ILogoCParams,
-        protected configService: ConfigService,
-        protected cdr: ChangeDetectorRef,
+        configService: ConfigService,
+        cdr: ChangeDetectorRef,
         protected eventService: EventService,
     ) {
         super({
             injectParams: componentParams,
             defaultParams: Params.defaultParams,
-        }, configService);
+        }, configService, cdr);
     }
 
-    public ngOnInit(): void {
+    public override ngOnInit(): void {
         super.ngOnInit();
 
         if (this.$params.disableLink) {

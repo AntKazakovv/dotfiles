@@ -60,7 +60,7 @@ export class WinnerModel extends AbstractModel<IWinnerData> {
         return this.gamesCatalogService.getGameById(this.gameId);
     }
 
-    protected checkData(): void {
+    protected override checkData(): void {
         // TODO or not TODO...
     }
 }

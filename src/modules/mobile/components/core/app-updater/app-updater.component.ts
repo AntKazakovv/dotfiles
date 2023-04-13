@@ -39,7 +39,7 @@ export class AppUpdaterComponent
         return this.isHidden;
     };
 
-    public $params: Params.IAppUpdaterParams;
+    public override $params: Params.IAppUpdaterParams;
     public isHidden: boolean = true;
 
     public downloadInProgress: boolean = false;
@@ -49,9 +49,9 @@ export class AppUpdaterComponent
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IAppUpdaterParams,
-        protected configService: ConfigService,
+        configService: ConfigService,
         protected router: UIRouter,
-        protected cdr: ChangeDetectorRef,
+        cdr: ChangeDetectorRef,
         protected modalService: ModalService,
         protected stateService: StateService,
         protected eventService: EventService,
@@ -65,10 +65,11 @@ export class AppUpdaterComponent
                 defaultParams: Params.defaultParams,
             },
             configService,
+            cdr,
         );
     }
 
-    public async ngOnInit(): Promise<void> {
+    public override async ngOnInit(): Promise<void> {
         super.ngOnInit();
         await this.appUpdateService.ready;
 

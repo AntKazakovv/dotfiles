@@ -47,7 +47,7 @@ import * as Params from './run-game.params';
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RunGameComponent extends AbstractComponent implements OnInit {
-    public $params!: Params.IRunGameCParams;
+    public override $params!: Params.IRunGameCParams;
     public isAuth: boolean = false;
     public isReady: boolean = false;
     public game!: Game;
@@ -57,11 +57,11 @@ export class RunGameComponent extends AbstractComponent implements OnInit {
 
     constructor(
         @Inject('injectParams') protected params: Params.IRunGameCParams,
-        protected cdr: ChangeDetectorRef,
+        cdr: ChangeDetectorRef,
         protected modalService: ModalService,
         protected eventService: EventService,
         protected stateService: StateService,
-        protected configService: ConfigService,
+        configService: ConfigService,
         protected injectionService: InjectionService,
         protected userService: UserService,
     ) {
@@ -69,11 +69,11 @@ export class RunGameComponent extends AbstractComponent implements OnInit {
             <IMixedParams<Params.IRunGameCParams>>{
                 injectParams: params,
                 defaultParams: Params.defaultParams,
-            }, configService,
+            }, configService, cdr,
         );
     }
 
-    public ngOnInit(): void {
+    public override ngOnInit(): void {
         super.ngOnInit();
         this.init();
     }

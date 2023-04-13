@@ -46,7 +46,7 @@ export class TableComponent extends AbstractComponent implements OnInit {
 
     @Input() protected inlineParams: Params.ITableCParams;
 
-    public $params: Params.ITableCParams;
+    public override $params: Params.ITableCParams;
     public rows: TableRowModel[] = [];
     public paginatedRows: TableRowModel[] = [];
     public itemPerPage: number;
@@ -62,9 +62,9 @@ export class TableComponent extends AbstractComponent implements OnInit {
     constructor(
         @Inject('injectParams') protected params: Params.ITableCParams,
         protected injectionService: InjectionService,
-        protected cdr: ChangeDetectorRef,
+        cdr: ChangeDetectorRef,
         protected injector: Injector,
-        protected configService: ConfigService,
+        configService: ConfigService,
         protected actionService: ActionService,
         @Inject(WINDOW) protected window: Window,
     ) {
@@ -72,10 +72,10 @@ export class TableComponent extends AbstractComponent implements OnInit {
             <IMixedParams<Params.ITableCParams>>{
                 injectParams: params,
                 defaultParams: Params.defaultParams,
-            });
+            }, configService, cdr);
     }
 
-    public async ngOnInit(): Promise<void> {
+    public override async ngOnInit(): Promise<void> {
         super.ngOnInit(this.inlineParams);
 
         if (this.window.innerWidth >= this.$params.switchWidth) {

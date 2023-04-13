@@ -34,7 +34,7 @@ import * as Params from './device-registration-form.params';
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DeviceRegistrationFormComponent extends AbstractComponent implements OnInit {
-    public $params!: Params.IDeviceRegistrationFormCParams;
+    public override $params!: Params.IDeviceRegistrationFormCParams;
     public config: IFormWrapperCParams = Params.deviceRegistrationFormConfig;
     public userAgent: string = this.window.navigator.userAgent;
     public location: string = this.configService.get<string>('appConfig.country');
@@ -47,18 +47,18 @@ export class DeviceRegistrationFormComponent extends AbstractComponent implement
         protected userService: UserService,
         protected modalService: ModalService,
         protected eventService: EventService,
-        protected configService: ConfigService,
+        configService: ConfigService,
         protected logService: LogService,
-        protected cdr: ChangeDetectorRef,
+        cdr: ChangeDetectorRef,
         @Inject(WINDOW) private window: Window,
     ) {
         super({
             injectParams,
             defaultParams: Params.defaultParams,
-        });
+        }, configService, cdr);
     }
 
-    public ngOnInit(): void {
+    public override ngOnInit(): void {
         super.ngOnInit();
         this.$params.buttonParams.pending$ = new BehaviorSubject(false);
         this.setTimer();

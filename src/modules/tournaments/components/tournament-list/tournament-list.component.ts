@@ -57,7 +57,7 @@ export class TournamentListComponent
     @Input() protected inlineParams: Params.ITournamentListCParams;
     @ViewChild(SliderComponent) public slider: SliderComponent;
 
-    public $params: Params.ITournamentListCParams;
+    public override $params: Params.ITournamentListCParams;
     public isTournamentSelected: boolean;
     public activeTournament: Tournament;
     public tournaments: Tournament[] = [];
@@ -81,18 +81,18 @@ export class TournamentListComponent
         @Inject('injectParams') protected params: Params.ITournamentListCParams,
         protected tournamentsService: TournamentsService,
         protected eventService: EventService,
-        protected configService: ConfigService,
-        protected cdr: ChangeDetectorRef,
+        configService: ConfigService,
+        cdr: ChangeDetectorRef,
         protected uiRouter: UIRouterGlobals,
     ) {
         super(
             <IMixedParams<Params.ITournamentListCParams>>{
                 injectParams: params,
                 defaultParams: Params.defaultParams,
-            }, configService);
+            }, configService, cdr);
     }
 
-    public ngOnInit(): void {
+    public override ngOnInit(): void {
         super.ngOnInit(this.prepareParams());
         this.prepareModifiers();
         this.isAuth = this.configService.get<boolean>('$user.isAuthenticated');

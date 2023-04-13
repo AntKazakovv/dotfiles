@@ -34,7 +34,7 @@ import _set from 'lodash-es/set';
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProfileMenuComponent extends AbstractComponent implements OnInit, OnDestroy {
-    public $params: Params.IProfileMenuCParams;
+    public override $params: Params.IProfileMenuCParams;
     public menuParams: MenuParams.IMenuCParams;
 
     protected iconsFolder: string;
@@ -44,8 +44,8 @@ export class ProfileMenuComponent extends AbstractComponent implements OnInit, O
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IProfileMenuCParams,
-        protected cdr: ChangeDetectorRef,
-        protected configService: ConfigService,
+        cdr: ChangeDetectorRef,
+        configService: ConfigService,
         protected profileMenuService: ProfileMenuService,
         protected router: UIRouter,
     ) {
@@ -55,11 +55,12 @@ export class ProfileMenuComponent extends AbstractComponent implements OnInit, O
                 defaultParams: Params.defaultParams,
             },
             configService,
+            cdr,
         );
 
     }
 
-    public ngOnInit(): void {
+    public override ngOnInit(): void {
         super.ngOnInit();
 
         let configKey: string = 'icons';
@@ -107,7 +108,7 @@ export class ProfileMenuComponent extends AbstractComponent implements OnInit, O
         this.initMenu();
     }
 
-    public ngOnDestroy(): void {
+    public override ngOnDestroy(): void {
         this.transitionOnSuccessDestroy();
     }
 

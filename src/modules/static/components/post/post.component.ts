@@ -65,7 +65,7 @@ export class PostComponent extends AbstractComponent implements OnInit, AfterVie
     public defaultSlug: string = '';
     public generatedSlug: string = '';
     public isReady: boolean = false;
-    public $params: Params.IPostCParams;
+    public override $params: Params.IPostCParams;
     public isDownloadingFile: boolean = false;
 
     constructor(
@@ -73,9 +73,9 @@ export class PostComponent extends AbstractComponent implements OnInit, AfterVie
         protected staticService: StaticService,
         protected viewRef: ViewContainerRef,
         protected domSanitizer: DomSanitizer,
-        protected cdr: ChangeDetectorRef,
+        cdr: ChangeDetectorRef,
         protected uiRouter: UIRouterGlobals,
-        protected configService: ConfigService,
+        configService: ConfigService,
         protected stateService: StateService,
         protected logService: LogService,
         protected actionService: ActionService,
@@ -83,10 +83,10 @@ export class PostComponent extends AbstractComponent implements OnInit, AfterVie
         protected eventService: EventService,
         @Inject(CuracaoRequirement) protected isCuracaoWlc: boolean,
     ) {
-        super({injectParams: params, defaultParams: Params.defaultParams});
+        super({injectParams: params, defaultParams: Params.defaultParams}, configService, cdr);
     }
 
-    public async ngOnInit(): Promise<void> {
+    public override async ngOnInit(): Promise<void> {
         super.ngOnInit(this.inlineParams);
         this.parseAsPlainHTML ??= this.$params.parseAsPlainHTML;
         this.withoutCompilation ??= this.$params.withoutCompilation;

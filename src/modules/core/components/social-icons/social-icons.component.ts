@@ -19,16 +19,16 @@ import _sortBy from 'lodash-es/sortBy';
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SocialIconsComponent extends AbstractComponent implements OnInit {
-    public $params: Params.ISocialIconsCParams;
+    public override $params: Params.ISocialIconsCParams;
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.ISocialIconsCParams,
-        protected configService: ConfigService,
+        configService: ConfigService,
     ) {
         super({injectParams, defaultParams: Params.defaultParams}, configService);
     }
 
-    public ngOnInit(): void {
+    public override ngOnInit(): void {
         super.ngOnInit();
         _merge(this.$params.socials, this.configService.get<Params.ISocialItem[]>('$base.contacts.socials') || []);
         this.$params.socials = _sortBy(this.$params.socials, (item) => item.order);

@@ -15,7 +15,7 @@ import * as Params from './restore-link.params';
     styleUrls: ['./styles/restore-link.component.scss'],
 })
 export class RestoreLinkComponent extends AbstractComponent implements OnInit {
-    public $params: Params.IRestoreLinkCParams;
+    public override $params: Params.IRestoreLinkCParams;
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IRestoreLinkCParams,

@@ -33,7 +33,7 @@ export class BonusConfirmationComponent extends AbstractComponent implements OnI
     @Input() protected loyaltyBonusId: string;
     @Input() protected bonusId: number;
 
-    public $params: Params.IBonusConfirmationParams;
+    public override $params: Params.IBonusConfirmationParams;
     public bonusInfo: BonusCancellationInfo;
     public errors: string[];
     public isReady: boolean = false;
@@ -41,16 +41,16 @@ export class BonusConfirmationComponent extends AbstractComponent implements OnI
     constructor(
         @Inject('injectParams') protected injectParams: Params.IBonusConfirmationParams,
         protected bonusesService: BonusesService,
-        protected cdr: ChangeDetectorRef,
+        cdr: ChangeDetectorRef,
     ) {
         super(
             <IMixedParams<Params.IBonusConfirmationParams>>{
                 injectParams,
                 defaultParams: Params.defaultParams,
-            });
+            }, null, cdr);
     }
 
-    public async ngOnInit(): Promise<void> {
+    public override async ngOnInit(): Promise<void> {
         super.ngOnInit();
 
         try {

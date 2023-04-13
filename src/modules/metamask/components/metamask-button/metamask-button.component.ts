@@ -25,19 +25,19 @@ import * as Params from './metamask-button.params';
 export class MetamaskButtonComponent extends AbstractComponent implements OnInit {
     @Input() protected inlineParams: Params.IMetamaskButtonCParams;
 
-    public $params: Params.IMetamaskButtonCParams;
+    public override $params: Params.IMetamaskButtonCParams;
 
     protected metamaskService: MetamaskService;
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IMetamaskButtonCParams,
-        protected configService: ConfigService,
+        configService: ConfigService,
         protected injectionService: InjectionService,
     ) {
         super({injectParams, defaultParams: Params.defaultParams}, configService);
     }
 
-    public ngOnInit(): void {
+    public override ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
     }
 

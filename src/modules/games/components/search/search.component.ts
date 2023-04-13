@@ -81,7 +81,7 @@ import _isEmpty from 'lodash-es/isEmpty';
     ],
 })
 export class SearchComponent extends AbstractComponent implements OnInit {
-    public $params: ISearchCParams;
+    public override $params: ISearchCParams;
     public categories: CategoryModel[];
     public merchants: MerchantModel[];
 
@@ -109,9 +109,9 @@ export class SearchComponent extends AbstractComponent implements OnInit {
 
     constructor(
         @Inject('injectParams') protected injectParams: ISearchCParams,
-        protected configService: ConfigService,
+        configService: ConfigService,
         protected gamesCatalogService: GamesCatalogService,
-        protected cdr: ChangeDetectorRef,
+        cdr: ChangeDetectorRef,
         protected eventService: EventService,
         protected translate: TranslateService,
         protected gamesFilterService: GamesFilterService,
@@ -119,12 +119,12 @@ export class SearchComponent extends AbstractComponent implements OnInit {
         super({
             injectParams: injectParams,
             defaultParams: defaultParams,
-        }, configService);
+        }, configService, cdr);
 
         this.currentLanguage = this.translate.currentLang;
     }
 
-    public async ngOnInit(): Promise<void> {
+    public override async ngOnInit(): Promise<void> {
         super.ngOnInit();
         await this.gamesCatalogService.ready;
         if (this.$params.theme === 'easy') {

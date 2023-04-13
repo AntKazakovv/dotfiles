@@ -11,20 +11,20 @@ import * as Params from './transaction-status.params';
 })
 export class TransactionStatusComponent extends AbstractComponent implements OnInit {
 
-    public $params: Params.ITransactionStatusParams;
+    public override $params: Params.ITransactionStatusParams;
 
     constructor(
         @Inject('injectParams') protected params: Params.ITransactionStatusParams,
-        protected cdr: ChangeDetectorRef,
+        cdr: ChangeDetectorRef,
     ) {
         super(
             <IMixedParams<Params.ITransactionStatusParams>>{
                 injectParams: params,
                 defaultParams: Params.defaultParams,
-            });
+            }, null, cdr);
     }
 
-    public async ngOnInit(): Promise<void> {
+    public override async ngOnInit(): Promise<void> {
         super.ngOnInit();
     }
 }

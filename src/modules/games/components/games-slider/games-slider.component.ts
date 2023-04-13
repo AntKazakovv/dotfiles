@@ -48,7 +48,7 @@ import * as Params from './games-slider.params';
 export class GamesSliderComponent extends AbstractComponent implements OnInit {
 
     @Input() protected inlineParams: Params.IGamesSliderCParams;
-    public $params: Params.IGamesSliderCParams;
+    public override $params: Params.IGamesSliderCParams;
     public slides: ISlide[] = [];
     public ready: boolean = false;
     public isMobile: boolean = false;
@@ -62,18 +62,18 @@ export class GamesSliderComponent extends AbstractComponent implements OnInit {
     constructor(
         @Inject('injectParams') protected injectParams: Params.IGamesSliderCParams,
         protected gamesCatalogService: GamesCatalogService,
-        protected configService: ConfigService,
-        protected cdr: ChangeDetectorRef,
+        configService: ConfigService,
+        cdr: ChangeDetectorRef,
         protected modalService: ModalService,
         protected actionService: ActionService,
     ) {
         super({
             injectParams,
             defaultParams: Params.defaultParams,
-        }, configService);
+        }, configService, cdr);
     }
 
-    public async ngOnInit(): Promise<void> {
+    public override async ngOnInit(): Promise<void> {
         super.ngOnInit(this.inlineParams);
 
         this.isMobile = this.configService.get<boolean>('appConfig.mobile');

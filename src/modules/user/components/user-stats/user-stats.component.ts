@@ -45,25 +45,25 @@ export class UserStatsComponent extends AbstractComponent implements OnInit, OnD
     @Input() public type: string = 'default';
     @Input() public useDepositBtn: boolean = true;
     @Input() public inlineParams: Params.IUserStatsCParams;
-    public $params: Params.IUserStatsCParams;
+    public override $params: Params.IUserStatsCParams;
     public shownUserStats: IIndexing<IUserStatsItem> = {};
 
     private userStats: UserInfo;
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IUserStatsCParams,
-        protected configService: ConfigService,
+        configService: ConfigService,
         protected userService: UserService,
-        protected cdr: ChangeDetectorRef,
+        cdr: ChangeDetectorRef,
         protected modalService: ModalService,
         private stateService: StateService,
     ) {
         super(
             <IMixedParams<Params.IUserStatsCParams>>{injectParams: injectParams, defaultParams: Params.defaultParams},
-            configService);
+            configService, cdr);
     }
 
-    public ngOnInit(): void {
+    public override ngOnInit(): void {
         super.ngOnInit(this.prepareParams());
 
         switch (this.type) {

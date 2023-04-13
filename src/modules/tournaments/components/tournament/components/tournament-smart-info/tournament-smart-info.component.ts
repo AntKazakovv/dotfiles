@@ -38,20 +38,20 @@ export class TournamentSmartInfoComponent extends AbstractComponent implements O
 
     @Output() public timerEnds = new EventEmitter();
 
-    public $params: Params.ITournamentSmartInfoCParams;
+    public override $params: Params.ITournamentSmartInfoCParams;
 
     constructor(
         @Inject('injectParams') protected params: Params.ITournamentSmartInfoCParams,
-        protected cdr: ChangeDetectorRef,
-        protected configService: ConfigService,
+        cdr: ChangeDetectorRef,
+        configService: ConfigService,
     ) {
         super(
             <IMixedParams<Params.ITournamentSmartInfoCParams>>{
                 injectParams: params,
                 defaultParams: Params.defaultParams,
-            }, configService);
+            }, configService, cdr);
     }
-    public ngOnInit(): void {
+    public override ngOnInit(): void {
         super.ngOnInit(GlobalHelper.prepareParams(this,
             ['tournament', 'type',
                 'theme', 'themeMod', 'customMod', 'prizePoolText', 'timerTextBeforeStart', 'timerTextAfterStart']));

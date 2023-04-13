@@ -39,10 +39,10 @@ export class ScrollbarComponent extends AbstractComponent implements OnInit, Aft
     @Input() protected update: Subject<void>;
     @Output() protected swiperProgress: EventEmitter<number> = new EventEmitter();
 
-    public $params: Params.IScrollbarCParams;
+    public override $params: Params.IScrollbarCParams;
 
     constructor(
-        protected configService: ConfigService,
+        configService: ConfigService,
     ) {
         super({
             injectParams: {},
@@ -54,7 +54,7 @@ export class ScrollbarComponent extends AbstractComponent implements OnInit, Aft
         this.initEventHandlers();
     }
 
-    public ngOnInit(): void {
+    public override ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
     }
 

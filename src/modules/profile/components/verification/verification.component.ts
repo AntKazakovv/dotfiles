@@ -57,7 +57,7 @@ export class VerificationComponent extends AbstractComponent implements OnInit {
     public acceptFormat: string;
     public currentDocGroup: DocGroupModel;
     public loaded: boolean = false;
-    public $params: Params.IVerificationCParams;
+    public override $params: Params.IVerificationCParams;
     public selectParams: ISelectCParams = {
         labelText: gettext('Type document'),
         theme: 'vertical',
@@ -74,9 +74,9 @@ export class VerificationComponent extends AbstractComponent implements OnInit {
     constructor(
         @Inject('injectParams') protected injectParams: Params.IVerificationCParams,
         protected actionService: ActionService,
-        protected configService: ConfigService,
+        configService: ConfigService,
         protected verificationService: VerificationService,
-        protected cdr: ChangeDetectorRef,
+        cdr: ChangeDetectorRef,
         protected eventService: EventService,
         protected translate: TranslateService,
     ) {
@@ -84,10 +84,10 @@ export class VerificationComponent extends AbstractComponent implements OnInit {
             <IMixedParams<Params.IVerificationCParams>>{
                 injectParams,
                 defaultParams: Params.defaultParams,
-            }, configService);
+            }, configService, cdr);
     }
 
-    public async ngOnInit(): Promise<void> {
+    public override async ngOnInit(): Promise<void> {
         super.ngOnInit(this.injectParams);
         this.docTypes = await this.verificationService.getDocsTypes();
         this.fileTypes = await this.verificationService.getFileTypes();

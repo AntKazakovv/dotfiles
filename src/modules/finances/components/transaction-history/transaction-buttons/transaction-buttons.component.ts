@@ -36,27 +36,27 @@ import * as Params from './transaction-buttons.params';
 })
 export class TransactionButtonsComponent extends AbstractComponent implements OnInit {
     @HostBinding('class.allow-cancelation') protected allowCancelation: boolean;
-    public $params: Params.ITransactionButtonsParams;
+    public override $params: Params.ITransactionButtonsParams;
     public showCancelButton: boolean;
     public showConfirmButton: boolean;
 
     constructor(
         @Inject('injectParams') protected params: Params.ITransactionButtonsParams,
         @Inject(WINDOW) protected window: Window,
-        protected cdr: ChangeDetectorRef,
+        cdr: ChangeDetectorRef,
         protected financesService: FinancesService,
         protected eventService: EventService,
-        protected configService: ConfigService,
+        configService: ConfigService,
         protected logService: LogService,
     ) {
         super(
             <IMixedParams<Params.ITransactionButtonsParams>>{
                 injectParams: params,
                 defaultParams: Params.defaultParams,
-            });
+            }, configService, cdr);
     }
 
-    public ngOnInit(): void {
+    public override ngOnInit(): void {
         super.ngOnInit();
         if (this.configService.get('$base.profile.type') === 'first') {
             this.addModifiers('profile-first');

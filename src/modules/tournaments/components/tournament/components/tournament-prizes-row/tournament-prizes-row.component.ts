@@ -31,16 +31,16 @@ export class TournamentPrizesRowComponent extends AbstractComponent implements O
         return this.prizes.length < 4 ? 'size-lg' : 'size-default';
     }
 
-    public $params: Params.ITournamentPrizesRowCParams;
+    public override $params: Params.ITournamentPrizesRowCParams;
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.ITournamentPrizesRowCParams,
-        protected configService: ConfigService,
+        configService: ConfigService,
     ) {
         super({injectParams, defaultParams: Params.defaultParams}, configService);
     }
 
-    public ngOnInit(): void {
+    public override ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
     }
 

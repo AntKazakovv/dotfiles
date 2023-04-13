@@ -45,7 +45,7 @@ export class PIQCashierComponent
 {
 
     public ready = false;
-    public $params: Params.IPIQCashierCParams;
+    public override $params: Params.IPIQCashierCParams;
 
     private piqFieldsStyles: Record<THostedStyles, string> = {
         current: '/static/css/piq.cashier.css',
@@ -57,21 +57,21 @@ export class PIQCashierComponent
     constructor(
         @Inject(DOCUMENT) protected document: Document,
         @Inject('injectParams') protected injectParams: Params.IPIQCashierCParams,
-        protected cdr: ChangeDetectorRef,
-        protected configService: ConfigService,
+        cdr: ChangeDetectorRef,
+        configService: ConfigService,
         protected eventService: EventService,
         protected financesService: FinancesService,
         protected piqCashierService: PIQCashierService,
-        protected logService: LogService,
-        protected modalService: ModalService,
-        protected injectionService: InjectionService,
+        logService: LogService,
+        modalService: ModalService,
+        injectionService: InjectionService,
         protected httpClient: HttpClient,
     ) {
         super({injectParams, defaultParams: Params.defaultParams},
-            logService, modalService, configService, injectionService);
+            logService, modalService, configService, injectionService, cdr);
     }
 
-    public async ngOnInit(): Promise<void> {
+    public override async ngOnInit(): Promise<void> {
         super.ngOnInit();
 
         if (this.$params.modal) {
@@ -94,7 +94,7 @@ export class PIQCashierComponent
         this.setHandlers();
     }
 
-    public ngOnDestroy(): void {
+    public override ngOnDestroy(): void {
         super.ngOnDestroy();
 
         if (this.piqCashierService.closedIframe$) {

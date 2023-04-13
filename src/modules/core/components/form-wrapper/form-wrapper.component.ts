@@ -111,7 +111,7 @@ export class FormWrapperComponent extends WrapperComponent implements OnInit, On
 
     @Output() public form$ = new EventEmitter<UntypedFormGroup>();
 
-    public $params: IFormWrapperCParams;
+    public override $params: IFormWrapperCParams;
     public form: UntypedFormGroup;
     private controls: IControls = {};
     private allControls: IControls = {};
@@ -125,18 +125,18 @@ export class FormWrapperComponent extends WrapperComponent implements OnInit, On
     private initiated: boolean;
 
     constructor(
-        @Inject('injectParams') protected params: IFormWrapperCParams,
+        @Inject('injectParams') params: IFormWrapperCParams,
         layoutService: LayoutService,
         transition: TransitionService,
         injector: Injector,
         uiRouter: UIRouterGlobals,
         eventService: EventService,
-        protected configService: ConfigService,
+        protected override configService: ConfigService,
         protected validationService: ValidationService,
         protected elRef: ElementRef,
-        protected cdr: ChangeDetectorRef,
-        protected injectionService: InjectionService,
-        @Inject(WINDOW) protected window: Window,
+        cdr: ChangeDetectorRef,
+        injectionService: InjectionService,
+        @Inject(WINDOW) window: Window,
     ) {
         super(
             params,
@@ -152,7 +152,7 @@ export class FormWrapperComponent extends WrapperComponent implements OnInit, On
         );
     }
 
-    public async ngOnInit() {
+    public override async ngOnInit() {
         super.ngOnInit();
         this.prepareParams();
         this.initForm();
@@ -169,7 +169,7 @@ export class FormWrapperComponent extends WrapperComponent implements OnInit, On
         }
     }
 
-    public ngOnChanges(changes: SimpleChanges): void {
+    public override ngOnChanges(changes: SimpleChanges): void {
         if (this.form && changes.config) {
             this.formDataStorage = _assign({}, this.formDataStorage, this.form.value);
             this.controls = {};
@@ -178,7 +178,7 @@ export class FormWrapperComponent extends WrapperComponent implements OnInit, On
         }
     }
 
-    public getInjector(component: any): Injector {
+    public override getInjector(component: any): Injector {
 
         if (component.params.components) {
 
@@ -307,7 +307,7 @@ export class FormWrapperComponent extends WrapperComponent implements OnInit, On
         return errors;
     }
 
-    protected prepareParams(): void {
+    protected override prepareParams(): void {
         this.$params = _merge(this.config, this.params);
         this.$params.components = this.filterNullComponents(this.$params.components);
     }

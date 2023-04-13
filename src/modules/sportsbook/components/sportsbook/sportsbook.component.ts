@@ -40,7 +40,7 @@ import * as Params from './sportsbook.params';
 })
 export class SportsbookComponent extends AbstractComponent implements OnInit, OnDestroy {
 
-    public $params: Params.ISportsbookCParams;
+    public override $params: Params.ISportsbookCParams;
     public gameConfig: IWrapperCParams;
 
     protected isAuth: boolean;
@@ -73,10 +73,10 @@ export class SportsbookComponent extends AbstractComponent implements OnInit, On
 
     constructor(
         @Inject('injectParams') protected params: Params.ISportsbookCParams,
-        protected cdr: ChangeDetectorRef,
+        cdr: ChangeDetectorRef,
         protected sportsbookService: SportsbookService,
         protected betradarService: BetradarService,
-        protected configService: ConfigService,
+        configService: ConfigService,
         protected eventService: EventService,
         protected hooksService: HooksService,
         protected router: UIRouter,
@@ -89,10 +89,11 @@ export class SportsbookComponent extends AbstractComponent implements OnInit, On
                 defaultParams: Params.defaultParams,
             },
             configService,
+            cdr,
         );
     }
 
-    public ngOnInit(): void {
+    public override ngOnInit(): void {
         super.ngOnInit();
         this.init();
     }

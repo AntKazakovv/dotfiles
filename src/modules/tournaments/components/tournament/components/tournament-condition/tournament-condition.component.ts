@@ -29,7 +29,7 @@ export class TournamentConditionComponent
     @Input() public text: string;
     @Input() public actionType: ActionType;
 
-    public $params: Params.ITournamentConditionCParams;
+    public override $params: Params.ITournamentConditionCParams;
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.ITournamentConditionCParams,
@@ -40,7 +40,7 @@ export class TournamentConditionComponent
         });
     }
 
-    public ngOnInit(): void {
+    public override ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
     }
 }

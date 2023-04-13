@@ -49,7 +49,7 @@ import * as Params from './internal-mails.params';
 })
 export class InternalMailsComponent extends AbstractComponent implements OnInit {
     public ready: boolean = false;
-    public $params: Params.IInternalMailsCParams;
+    public override $params: Params.IInternalMailsCParams;
     public internalMailsCount: number = 0;
     public showFilter: boolean = false;
     public startDateInput: IDatepickerCParams = _cloneDeep(startDate);
@@ -63,8 +63,8 @@ export class InternalMailsComponent extends AbstractComponent implements OnInit 
     constructor(
         @Inject('injectParams') protected params: Params.IInternalMailsCParams,
         protected internalMailsService: InternalMailsService,
-        protected cdr: ChangeDetectorRef,
-        protected configService: ConfigService,
+        cdr: ChangeDetectorRef,
+        configService: ConfigService,
         protected historyFilterService: HistoryFilterService,
         protected actionService: ActionService,
     ) {
@@ -72,10 +72,10 @@ export class InternalMailsComponent extends AbstractComponent implements OnInit 
             <IMixedParams<Params.IInternalMailsCParams>>{
                 injectParams: params,
                 defaultParams: Params.defaultParams,
-            }, configService);
+            }, configService, cdr);
     }
 
-    public async ngOnInit(): Promise<void> {
+    public override async ngOnInit(): Promise<void> {
         super.ngOnInit();
 
         await this.internalMailsService.mailsReady.promise;

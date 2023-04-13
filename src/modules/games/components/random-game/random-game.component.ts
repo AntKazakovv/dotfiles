@@ -30,10 +30,10 @@ export class RandomGameComponent extends RandomGameAbstract<Params.IRandomGameCP
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IRandomGameCParams,
-        protected gamesCatalogService: GamesCatalogService,
-        protected configService: ConfigService,
-        protected modalService: ModalService,
-        protected eventService: EventService,
+        gamesCatalogService: GamesCatalogService,
+        configService: ConfigService,
+        modalService: ModalService,
+        eventService: EventService,
     ) {
         super(
             {
@@ -47,7 +47,7 @@ export class RandomGameComponent extends RandomGameAbstract<Params.IRandomGameCP
         );
     }
 
-    public async ngOnInit(): Promise<void> {
+    public override async ngOnInit(): Promise<void> {
         super.ngOnInit(this.inlineParams);
         this.$params.image =  this.inlineParams?.image || this.injectParams?.image || Params.defaultParams.image;
     }

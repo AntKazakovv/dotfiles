@@ -23,11 +23,11 @@ import * as Params from './profile-no-content.params';
 export class ProfileNoContentComponent extends AbstractComponent implements OnInit {
     @Input() protected inlineParams: Params.IProfileNoContentCParams;
 
-    public $params: Params.IProfileNoContentCParams;
+    public override $params: Params.IProfileNoContentCParams;
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IProfileNoContentCParams,
-        protected configService: ConfigService,
+        configService: ConfigService,
     ) {
         super(
             <IMixedParams<Params.IProfileNoContentCParams>>{
@@ -36,7 +36,7 @@ export class ProfileNoContentComponent extends AbstractComponent implements OnIn
             }, configService);
     }
 
-    public ngOnInit(): void {
+    public override ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
     }
 }

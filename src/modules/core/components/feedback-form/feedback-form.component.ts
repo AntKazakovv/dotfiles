@@ -56,7 +56,7 @@ import * as Params from './feedback-form.params';
 export class FeedbackFormComponent extends AbstractComponent implements OnInit, AfterViewInit {
     @Input() protected inlineParams: Params.IFeedbackFormCParams;
 
-    public $params: Params.IFeedbackFormCParams;
+    public override $params: Params.IFeedbackFormCParams;
     public config!: IFormWrapperCParams;
     public contactsConfig: IContactsConfig;
     public formData$: BehaviorSubject<IIndexing<any>> = new BehaviorSubject(null);
@@ -66,15 +66,15 @@ export class FeedbackFormComponent extends AbstractComponent implements OnInit, 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IFeedbackFormCParams,
         protected contactsService: ContactsService,
-        protected configService: ConfigService,
+        configService: ConfigService,
         protected eventService: EventService,
         protected translateService: TranslateService,
-        protected cdr: ChangeDetectorRef,
+        cdr: ChangeDetectorRef,
     ) {
-        super({injectParams, defaultParams: Params.defaultParams}, configService);
+        super({injectParams, defaultParams: Params.defaultParams}, configService, cdr);
     }
 
-    public ngOnInit(): void {
+    public override ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
         this.contactsConfig = _clone(this.configService.get<IContactsConfig>('$base.contacts'));
         this.modifyConfigByLanguage();

@@ -244,7 +244,7 @@ export class AppConfigModel extends AbstractModel<IBootstrap> {
         return this.siteconfig.License;
     }
 
-    protected checkData(): void {
+    protected override checkData(): void {
         super.checkData();
 
         if (!this.objectData.languages?.length) {

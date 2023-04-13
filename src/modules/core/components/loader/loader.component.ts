@@ -20,19 +20,19 @@ import * as Params from './loader.params';
 })
 export class LoaderComponent extends AbstractComponent implements OnInit {
     @Input() public inlineParams: Params.ILoaderCParams;
-    public $params: Params.ILoaderCParams;
+    public override $params: Params.ILoaderCParams;
 
     constructor(
         @Self()
         @Optional()
         @Inject('injectParams')
         protected injectParams: Params.ILoaderCParams,
-        protected configService: ConfigService,
+        configService: ConfigService,
     ) {
         super({injectParams, defaultParams: Params.defaultParams}, configService);
     }
 
-    public ngOnInit(): void {
+    public override ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
     }
 }

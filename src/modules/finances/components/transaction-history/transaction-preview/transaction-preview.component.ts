@@ -23,13 +23,13 @@ import * as Params from './transaction-preview.params';
 })
 export class TransactionPreviewComponent extends AbstractComponent implements OnInit {
 
-    public $params: Params.ITransactionPreviewParams;
+    public override $params: Params.ITransactionPreviewParams;
     public date: string;
     public amount: number;
 
     constructor(
         @Inject('injectParams') protected params: Params.ITransactionPreviewParams,
-        protected cdr: ChangeDetectorRef,
+        cdr: ChangeDetectorRef,
         protected financesService: FinancesService,
         protected eventService: EventService,
         @Inject(WINDOW) private window: Window,
@@ -38,10 +38,10 @@ export class TransactionPreviewComponent extends AbstractComponent implements On
             <IMixedParams<Params.ITransactionPreviewParams>>{
                 injectParams: params,
                 defaultParams: Params.defaultParams,
-            });
+            }, null, cdr);
     }
 
-    public async ngOnInit(): Promise<void> {
+    public override async ngOnInit(): Promise<void> {
         super.ngOnInit();
         this.date = GlobalHelper.toLocalTime(this.$params.transaction.dateISO, 'ISO', 'HH:mm:ss dd-MM-yyyy');
         this.amount = this.$params.transaction.amount;

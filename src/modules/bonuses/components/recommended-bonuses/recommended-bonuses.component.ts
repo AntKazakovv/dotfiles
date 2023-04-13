@@ -22,20 +22,20 @@ export class RecommendedBonusesComponent
     extends AbstractComponent
     implements OnInit {
 
-    public $params: Params.ICRecommendedBonusesParams;
+    public override $params: Params.ICRecommendedBonusesParams;
     public activeBonusesParams: IBonusesListCParams = null;
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.ICRecommendedBonusesParams,
-        protected cdr: ChangeDetectorRef,
+        cdr: ChangeDetectorRef,
     ) {
         super({
             injectParams,
             defaultParams: Params.defaultParams,
-        });
+        }, null, cdr);
     }
 
-    public ngOnInit(): void {
+    public override ngOnInit(): void {
         super.ngOnInit();
 
         this.activeBonusesParams = {

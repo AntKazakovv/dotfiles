@@ -122,7 +122,7 @@ export class CurrencyComponent
      * and the currency icon is on the left side.
      */
     public icon: ICurrencyIcon;
-    public $params: Params.ICurrencyCParams;
+    public override $params: Params.ICurrencyCParams;
     public loaded: boolean = false;
     public isNegative: boolean = false;
     public showName: boolean = false;
@@ -134,7 +134,7 @@ export class CurrencyComponent
     constructor(
         protected changeDetectorRef: ChangeDetectorRef,
         protected translateService: TranslateService,
-        protected configService: ConfigService,
+        configService: ConfigService,
         @Optional()
         @Inject('injectParams')
         protected injectParams: Params.ICurrencyCParams,
@@ -145,14 +145,14 @@ export class CurrencyComponent
         }, configService);
     }
 
-    public ngOnChanges(): void {
+    public override ngOnChanges(): void {
         if (this.$init) {
             this.updateParams();
             this.updateModel();
         }
     }
 
-    public ngOnInit(): void {
+    public override ngOnInit(): void {
         super.ngOnInit(this.getInlineParams());
         this.loaded = !!this.$params.currency;
 

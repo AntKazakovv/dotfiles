@@ -40,23 +40,23 @@ export class VerificationGroupComponent extends AbstractComponent implements OnI
     @Input() public fileTypes: string[];
     @Input() public acceptFormat: string;
     @Output() protected needUpdate = new EventEmitter<void>();
-    public $params: Params.IVerificationGroupCParams;
+    public override $params: Params.IVerificationGroupCParams;
     public verificationParams: IVerification;
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IVerificationGroupCParams,
-        protected configService: ConfigService,
+        configService: ConfigService,
         protected verificationService: VerificationService,
         protected eventService: EventService,
-        protected cdr: ChangeDetectorRef,
+        cdr: ChangeDetectorRef,
     ) {
         super(
             <IMixedParams<Params.IVerificationGroupCParams>>{
                 defaultParams: Params.defaultParams,
-            }, configService);
+            }, configService, cdr);
     }
 
-    public ngOnInit(): void {
+    public override ngOnInit(): void {
         super.ngOnInit(this.injectParams);
         this.verificationParams = this.configService.get<IVerification>('$base.profile.verification');
 
@@ -71,7 +71,7 @@ export class VerificationGroupComponent extends AbstractComponent implements OnI
             });
     }
 
-    public ngOnChanges() {
+    public override ngOnChanges() {
         this.switchLoader();
     }
 

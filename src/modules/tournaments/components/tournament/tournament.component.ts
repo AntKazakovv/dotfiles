@@ -63,7 +63,7 @@ export class TournamentComponent
     @Input() public tournament: Tournament;
     @Input() public isAlternative: boolean;
 
-    public $params: Params.ITournamentCParams;
+    public override $params: Params.ITournamentCParams;
     public isAuth: boolean;
     public isTournamentSelected: boolean;
     public instance: TournamentComponent;
@@ -76,18 +76,18 @@ export class TournamentComponent
         @Inject('injectParams') protected params: Params.ITournamentCParams,
         protected modalService: ModalService,
         protected tournamentsService: TournamentsService,
-        protected cdr: ChangeDetectorRef,
-        protected configService: ConfigService,
+        cdr: ChangeDetectorRef,
+        configService: ConfigService,
         protected router: UIRouter,
     ) {
         super(
             <IMixedParams<Params.ITournamentCParams>>{
                 injectParams: params,
                 defaultParams: Params.defaultParams,
-            }, configService);
+            }, configService, cdr);
     }
 
-    public ngOnInit(): void {
+    public override ngOnInit(): void {
         super.ngOnInit(GlobalHelper.prepareParams(this,
             ['tournament', 'type', 'theme', 'themeMod', 'customMod']));
         this.prepareModifiers();

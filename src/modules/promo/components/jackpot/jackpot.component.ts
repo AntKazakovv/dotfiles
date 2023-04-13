@@ -26,7 +26,7 @@ import * as Params from './jackpot.params';
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class JackpotComponent extends AbstractComponent implements OnInit {
-    public $params: Params.IJackpotCParams;
+    public override $params: Params.IJackpotCParams;
 
     @Input() protected inlineParams: Params.IJackpotCParams;
 
@@ -34,7 +34,7 @@ export class JackpotComponent extends AbstractComponent implements OnInit {
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IJackpotCParams,
-        protected configService: ConfigService,
+        configService: ConfigService,
         protected translate: TranslateService,
         protected injectionService: InjectionService,
         protected modalService: ModalService,
@@ -46,7 +46,7 @@ export class JackpotComponent extends AbstractComponent implements OnInit {
         );
     }
 
-    public async ngOnInit(): Promise<void> {
+    public override async ngOnInit(): Promise<void> {
         super.ngOnInit(this.inlineParams);
         this.gamesCatalogService = await this.injectionService.getService('games.games-catalog-service');
     }

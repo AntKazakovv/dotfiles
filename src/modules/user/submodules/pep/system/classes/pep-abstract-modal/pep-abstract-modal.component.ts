@@ -26,6 +26,7 @@ import {
 } from 'wlc-engine/modules/user/submodules/pep/system/services/pep/pep.service';
 import {WINDOW} from 'wlc-engine/modules/app/system';
 import {WlcModalComponent} from 'wlc-engine/modules/core/components/modal/modal.component';
+import {ConfigService} from 'wlc-engine/modules/core';
 
 
 @Directive()
@@ -41,11 +42,12 @@ export abstract class PepAbstractModalComponent extends AbstractComponent implem
         protected modalService: ModalService,
         protected pepService: PepService,
         mixedParams: IMixedParams<unknown>,
+        configService?: ConfigService,
     ) {
-        super(mixedParams);
+        super(mixedParams, configService);
     }
 
-    public ngOnInit(inlineParams?: IComponentParams<unknown, unknown, unknown>): void {
+    public override ngOnInit(inlineParams?: IComponentParams<unknown, unknown, unknown>): void {
         super.ngOnInit(inlineParams);
 
         this.cancelStatusOnHidden();

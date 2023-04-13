@@ -34,7 +34,7 @@ interface ICategory {
 })
 export class CategoryPreviewComponent extends AbstractComponent implements OnInit {
 
-    public $params: Params.ICategoryPreviewCParams;
+    public override $params: Params.ICategoryPreviewCParams;
     public categories: ICategory[] = [];
     public lang: string;
     protected availableCategories: CategoryModel[];
@@ -44,17 +44,17 @@ export class CategoryPreviewComponent extends AbstractComponent implements OnIni
     constructor(
         @Inject('injectParams') protected injectParams: Params.ICategoryPreviewCParams,
         protected gamesCatalogService: GamesCatalogService,
-        protected configService: ConfigService,
+        configService: ConfigService,
         protected translateService: TranslateService,
-        protected cdr: ChangeDetectorRef,
+        cdr: ChangeDetectorRef,
     ) {
         super({
             injectParams,
             defaultParams: Params.defaultParams,
-        });
+        }, configService, cdr);
     }
 
-    public async ngOnInit(): Promise<void> {
+    public override async ngOnInit(): Promise<void> {
         await this.gamesCatalogService.ready;
         super.ngOnInit(this.inlineParams);
 

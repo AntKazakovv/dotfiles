@@ -22,7 +22,7 @@ import * as Params from './no-content.params';
 export class WlcNoContentComponent extends AbstractComponent implements OnInit {
     @Input() public inlineParams: Params.INoContentCParams;
     @Input() public loading: boolean = false;
-    public $params: Params.INoContentCParams;
+    public override $params: Params.INoContentCParams;
 
     public get bgImage(): string {
         return this.$params.bgImage ? `url('${GlobalHelper.proxyUrl(this.$params.bgImage)}')` : '';
@@ -30,12 +30,12 @@ export class WlcNoContentComponent extends AbstractComponent implements OnInit {
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.INoContentCParams,
-        protected configService: ConfigService,
+        configService: ConfigService,
     ) {
         super({injectParams, defaultParams: Params.defaultParams}, configService);
     }
 
-    public ngOnInit(): void {
+    public override ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
         if (this.$params.parentComponentClass) {
             this.addModifiers(this.$params.parentComponentClass);

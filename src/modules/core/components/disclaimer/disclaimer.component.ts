@@ -29,20 +29,20 @@ import {defaultParams, IDisclaimerCParams} from './disclaimer.params';
     styleUrls: ['./styles/disclaimer.component.scss'],
 })
 export class DisclaimerComponent extends AbstractComponent implements OnInit {
-    public $params: IDisclaimerCParams;
+    public override $params: IDisclaimerCParams;
     public disclaimer: string;
 
     @Input() protected inlineParams: IDisclaimerCParams;
 
     constructor(
         @Inject('injectParams') protected params: IDisclaimerCParams,
-        protected configService: ConfigService,
+        configService: ConfigService,
         protected translate: TranslateService,
     ) {
-        super({injectParams: params, defaultParams});
+        super({injectParams: params, defaultParams}, configService);
     }
 
-    public ngOnInit(): void {
+    public override ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
         this.createDisclaimer();
 

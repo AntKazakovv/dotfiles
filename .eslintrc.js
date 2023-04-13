@@ -35,7 +35,14 @@ module.exports = {
         'no-debugger': 'error',
         'semi': ['error', 'always'],
         'comma-dangle': ['error', 'always-multiline'],
-        'indent': ['error', 4, {'SwitchCase': 1}],
+        'indent': ['error', 4, {
+            'SwitchCase': 1,
+            'ignoredNodes': [
+                'PropertyDefinition[decorators]',
+                'TSUnionType',
+                'FunctionExpression[params]:has(Identifier[decorators])',
+            ]
+        }],
         'quotes': ['error', 'single'],
         'max-len': ['error', {code: 120}],
         '@typescript-eslint/no-unused-vars': 'error',

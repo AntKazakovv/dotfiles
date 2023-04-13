@@ -59,7 +59,7 @@ export class NotificationThreadComponent extends AbstractComponent {
         return this.$params.zIndex;
     };
 
-    public $params: Params.INotificationParams;
+    public override $params: Params.INotificationParams;
 
     public get notifications$(): Observable<INotification[]> {
         return this.notificationService.notifications$;
@@ -75,7 +75,7 @@ export class NotificationThreadComponent extends AbstractComponent {
 
     constructor (
         protected notificationService: NotificationService,
-        protected configService: ConfigService,
+        configService: ConfigService,
         @Inject('injectParams')
         @Optional() @Self()
         params: Params.INotificationParams,

@@ -96,7 +96,7 @@ export class LanguageSelectorComponent
     @ViewChild('langList') langListRef: TemplateRef<any>;
     @ViewChild('dropdown') protected dropdownRef!: ElementRef<HTMLElement>;
     @ViewChild('langContainer') protected langContainer!: ElementRef;
-    public $params: Params.ILanguageSelectorCParams;
+    public override $params: Params.ILanguageSelectorCParams;
     public availableLanguages: ILanguage[];
     public currentLanguage: ILanguage;
     public isOpened: boolean;
@@ -112,17 +112,17 @@ export class LanguageSelectorComponent
     constructor(
         public translate: TranslateService,
         @Inject('injectParams') protected injectParams: Params.ILanguageSelectorCParams,
-        protected cdr: ChangeDetectorRef,
-        protected configService: ConfigService,
+        cdr: ChangeDetectorRef,
+        configService: ConfigService,
         protected elementRef: ElementRef,
         protected modalService: ModalService,
         protected logService: LogService,
         @Inject(WINDOW) private window: Window,
     ) {
-        super({injectParams, defaultParams: Params.defaultParams}, configService);
+        super({injectParams, defaultParams: Params.defaultParams}, configService, cdr);
     }
 
-    public ngOnInit(): void {
+    public override ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
         if (this.$params.currentLang?.hideLang === false) {
             this.addModifiers('border-around');

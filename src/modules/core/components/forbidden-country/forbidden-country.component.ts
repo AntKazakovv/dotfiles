@@ -18,11 +18,11 @@ import * as Params from './forbidden-country.params';
     styleUrls: ['./styles/forbidden-country.component.scss'],
 })
 export class ForbiddenCountryComponent extends AbstractComponent {
-    public $params: Params.IForbiddenCountryParams;
+    public override $params: Params.IForbiddenCountryParams;
 
     constructor(
         @Inject('injectParams') protected params: Params.IForbiddenCountryParams,
-        protected configService: ConfigService,
+        configService: ConfigService,
     ) {
         super({
             injectParams: params,
