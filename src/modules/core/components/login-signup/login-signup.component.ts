@@ -23,6 +23,8 @@ import {WINDOW} from 'wlc-engine/modules/app/system';
 
 import * as Params from './login-signup.params';
 
+// TODO:REFACTOR:change-detection-rule
+// eslint-disable-next-line @angular-eslint/prefer-on-push-component-change-detection
 @Component({
     selector: '[wlc-login-signup]',
     templateUrl: './login-signup.component.html',

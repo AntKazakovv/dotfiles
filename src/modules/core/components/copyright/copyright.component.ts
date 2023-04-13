@@ -18,6 +18,8 @@ import * as Params from './copyright.params';
  * }
  *
  */
+// TODO:REFACTOR:change-detection-rule
+// eslint-disable-next-line @angular-eslint/prefer-on-push-component-change-detection
 @Component({
     selector: '[wlc-copyright]',
     templateUrl: './copyright.component.html',

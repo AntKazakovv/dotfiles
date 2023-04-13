@@ -30,7 +30,8 @@ import * as Params from './new-password-form.params';
  * }
  *
  */
-
+// TODO:REFACTOR:change-detection-rule
+// eslint-disable-next-line @angular-eslint/prefer-on-push-component-change-detection
 @Component({
     selector: '[wlc-new-password-form]',
     templateUrl: './new-password-form.component.html',

@@ -18,6 +18,8 @@ import {WINDOW} from 'wlc-engine/modules/app/system';
 
 import * as Params from './bet-preview.params';
 
+// TODO:REFACTOR:change-detection-rule
+// eslint-disable-next-line @angular-eslint/prefer-on-push-component-change-detection
 @Component({
     selector: '[wlc-bet-preview]',
     templateUrl: './bet-preview.component.html',

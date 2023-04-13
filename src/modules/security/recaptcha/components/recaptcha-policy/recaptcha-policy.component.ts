@@ -22,6 +22,8 @@ import * as Params from './recaptcha-policy.params';
  * }
  *
  */
+// TODO:REFACTOR:change-detection-rule
+// eslint-disable-next-line @angular-eslint/prefer-on-push-component-change-detection
 @Component({
     selector: '[wlc-recaptcha-policy]',
     templateUrl: './recaptcha-policy.component.html',

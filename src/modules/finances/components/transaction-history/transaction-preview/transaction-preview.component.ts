@@ -14,6 +14,8 @@ import {WINDOW} from 'wlc-engine/modules/app/system';
 
 import * as Params from './transaction-preview.params';
 
+// TODO:REFACTOR:change-detection-rule
+// eslint-disable-next-line @angular-eslint/prefer-on-push-component-change-detection
 @Component({
     selector: '[wlc-transaction-preview]',
     templateUrl: './transaction-preview.component.html',

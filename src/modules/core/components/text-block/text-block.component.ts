@@ -22,7 +22,8 @@ import * as Params from './text-block.params';
  * }
  *
  */
-
+// TODO:REFACTOR:change-detection-rule
+// eslint-disable-next-line @angular-eslint/prefer-on-push-component-change-detection
 @Component({
     selector: '[wlc-text-block]',
     templateUrl: './text-block.component.html',

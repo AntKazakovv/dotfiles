@@ -25,6 +25,8 @@ import {
     IPepConfirmPasswordFormCParams,
 } from './pep-confirm-password-form.params';
 
+// TODO:REFACTOR:change-detection-rule
+// eslint-disable-next-line @angular-eslint/prefer-on-push-component-change-detection
 @Component({
     selector: '[wlc-pep-confirm-password-form]',
     templateUrl: './pep-confirm-password-form.component.html',

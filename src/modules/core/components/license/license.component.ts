@@ -19,6 +19,8 @@ import * as Params from './license.params';
 
 import _isString from 'lodash-es/isString';
 
+// TODO:REFACTOR:change-detection-rule
+// eslint-disable-next-line @angular-eslint/prefer-on-push-component-change-detection
 @Component({
     selector: '[wlc-license]',
     templateUrl: './license.component.html',

@@ -57,6 +57,8 @@ import {
  * @param {Injector} inject Angular Injector class.
  * @param {IModalBsOptions} bsOptions Bootstrap modal config.
  */
+// TODO:REFACTOR:change-detection-rule
+// eslint-disable-next-line @angular-eslint/prefer-on-push-component-change-detection
 @Component({
     selector: '[wlc-modal-window]',
     templateUrl: './modal.component.html',

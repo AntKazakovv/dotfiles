@@ -48,6 +48,8 @@ type TValueTransformer = (value: string) => string;
  * }
  *
  */
+// TODO:REFACTOR:change-detection-rule
+// eslint-disable-next-line @angular-eslint/prefer-on-push-component-change-detection
 @Component({
     selector: '[wlc-input]',
     templateUrl: './input.component.html',

@@ -33,6 +33,8 @@ import * as Params from './play-game-for-real.params';
  * }
  *
  */
+// TODO:REFACTOR:change-detection-rule
+// eslint-disable-next-line @angular-eslint/prefer-on-push-component-change-detection
 @Component({
     selector: '[wlc-play-game-for-real]',
     templateUrl: './play-game-for-real.component.html',

@@ -20,6 +20,8 @@ import {GlobalHelper} from 'wlc-engine/modules/core/system/helpers/global.helper
 
 import _each from 'lodash-es/each';
 
+// TODO:REFACTOR:change-detection-rule
+// eslint-disable-next-line @angular-eslint/prefer-on-push-component-change-detection
 @Component({
     selector: '[wlc-dynamic-html]',
     templateUrl: './dynamic-html.component.html',

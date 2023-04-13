@@ -81,5 +81,11 @@ module.exports = {
                 ],
             },
         },
+        {
+            files: ['*.component.ts'],
+            rules: {
+                '@angular-eslint/prefer-on-push-component-change-detection': 'error',
+            },
+        },
     ],
 };

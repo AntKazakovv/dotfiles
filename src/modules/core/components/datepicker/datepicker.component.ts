@@ -32,6 +32,8 @@ import * as Params from './datepicker.params';
  * }
  *
  */
+// TODO:REFACTOR:change-detection-rule
+// eslint-disable-next-line @angular-eslint/prefer-on-push-component-change-detection
 @Component({
     selector: '[wlc-datepicker]',
     templateUrl: './datepicker.component.html',
@@ -118,9 +120,9 @@ export class DatepickerComponent extends AbstractComponent implements OnInit {
         if (this.$params.name === 'endDate') {
             dateTime = dateTime.endOf('day');
         }
-        
+
         this.control.setValue(dateTime);
-        
+
         if (this.$params.event?.emit) {
             this.eventService.emit({
                 name: this.$params.event.emit,

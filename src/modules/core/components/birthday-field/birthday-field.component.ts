@@ -23,6 +23,8 @@ import {
 
 import * as Params from './birthday-field.params';
 
+// TODO:REFACTOR:change-detection-rule
+// eslint-disable-next-line @angular-eslint/prefer-on-push-component-change-detection
 @Component({
     selector: '[wlc-birth-field]',
     templateUrl: './birthday-field.component.html',

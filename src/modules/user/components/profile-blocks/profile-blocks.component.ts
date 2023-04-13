@@ -31,6 +31,8 @@ import {IAddProfileInfoCParams} from 'wlc-engine/modules/user/components/add-pro
 
 import * as Params from './profile-blocks.params';
 
+// TODO:REFACTOR:change-detection-rule
+// eslint-disable-next-line @angular-eslint/prefer-on-push-component-change-detection
 @Component({
     selector: '[wlc-profile-blocks]',
     templateUrl: './profile-blocks.component.html',

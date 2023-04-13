@@ -23,6 +23,8 @@ import * as Params from './pagination.params';
 import _keys from 'lodash-es/keys';
 import _each from 'lodash-es/each';
 
+// TODO:REFACTOR:change-detection-rule
+// eslint-disable-next-line @angular-eslint/prefer-on-push-component-change-detection
 @Component({
     selector: '[wlc-pagination]',
     templateUrl: './pagination.component.html',

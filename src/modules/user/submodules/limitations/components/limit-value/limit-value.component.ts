@@ -9,6 +9,8 @@ import {AbstractComponent} from 'wlc-engine/modules/core';
 
 import * as Params from './limit-value.params';
 
+// TODO:REFACTOR:change-detection-rule
+// eslint-disable-next-line @angular-eslint/prefer-on-push-component-change-detection
 @Component({
     selector: '[wlc-limit-value]',
     templateUrl: './limit-value.component.html',

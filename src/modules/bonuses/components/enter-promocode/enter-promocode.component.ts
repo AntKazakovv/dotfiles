@@ -27,6 +27,8 @@ import {TPromoSuccessStatus} from 'wlc-engine/modules/bonuses/components/promo-s
 
 import * as Params from 'wlc-engine/modules/bonuses/components/enter-promocode/enter-promocode.params';
 
+// TODO:REFACTOR:change-detection-rule
+// eslint-disable-next-line @angular-eslint/prefer-on-push-component-change-detection
 @Component({
     selector: '[wlc-enter-promocode]',
     templateUrl: './enter-promocode.component.html',

@@ -10,6 +10,8 @@ import {
 
 import * as Params from './level-name.params';
 
+// TODO:REFACTOR:change-detection-rule
+// eslint-disable-next-line @angular-eslint/prefer-on-push-component-change-detection
 @Component({
     selector: '[wlc-level-name]',
     templateUrl: './level-name.component.html',
@@ -34,4 +36,3 @@ export class LevelNameComponent extends AbstractComponent implements OnInit {
         };
     }
 }
-

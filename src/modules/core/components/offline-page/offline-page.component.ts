@@ -11,6 +11,8 @@ import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract
 
 import * as Params from './offline-page.params';
 
+// TODO:REFACTOR:change-detection-rule
+// eslint-disable-next-line @angular-eslint/prefer-on-push-component-change-detection
 @Component({
     selector: '[wlc-offline-page]',
     templateUrl: './offline-page.component.html',

@@ -24,6 +24,9 @@ import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract
 import * as Params from './scrollbar.params';
 
 SwiperCore.use([FreeMode]);
+
+// TODO:REFACTOR:change-detection-rule
+// eslint-disable-next-line @angular-eslint/prefer-on-push-component-change-detection
 @Component({
     selector: '[wlc-scrollbar]',
     templateUrl: './scrollbar.component.html',

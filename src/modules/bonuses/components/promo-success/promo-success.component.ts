@@ -14,6 +14,8 @@ import {
 
 import * as Params from './promo-success.params';
 
+// TODO:REFACTOR:change-detection-rule
+// eslint-disable-next-line @angular-eslint/prefer-on-push-component-change-detection
 @Component({
     selector: '[wlc-promo-success]',
     templateUrl: './promo-success.component.html',

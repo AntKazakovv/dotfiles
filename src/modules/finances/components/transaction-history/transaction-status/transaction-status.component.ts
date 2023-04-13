@@ -2,6 +2,8 @@ import {Component, OnInit, ChangeDetectorRef, Inject} from '@angular/core';
 import {AbstractComponent, IMixedParams} from 'wlc-engine/modules/core/system/classes/abstract.component';
 import * as Params from './transaction-status.params';
 
+// TODO:REFACTOR:change-detection-rule
+// eslint-disable-next-line @angular-eslint/prefer-on-push-component-change-detection
 @Component({
     selector: '[wlc-transaction-status]',
     templateUrl: './transaction-status.component.html',

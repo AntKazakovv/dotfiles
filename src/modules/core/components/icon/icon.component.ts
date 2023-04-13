@@ -26,6 +26,8 @@ import * as Params from './icon.params';
 import _keys from 'lodash-es/keys';
 import _isNil from 'lodash-es/isNil';
 
+// TODO:REFACTOR:change-detection-rule
+// eslint-disable-next-line @angular-eslint/prefer-on-push-component-change-detection
 @Component({
     selector: '[wlc-icon]',
     templateUrl: './icon.component.html',

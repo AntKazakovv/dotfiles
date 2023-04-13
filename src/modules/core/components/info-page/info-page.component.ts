@@ -34,6 +34,8 @@ import _get from 'lodash-es/get';
  * }
  *
  */
+// TODO:REFACTOR:change-detection-rule
+// eslint-disable-next-line @angular-eslint/prefer-on-push-component-change-detection
 @Component({
     selector: '[wlc-info-page]',
     templateUrl: './info-page.component.html',

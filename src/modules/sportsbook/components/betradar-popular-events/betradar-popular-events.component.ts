@@ -27,6 +27,8 @@ import {
 
 import * as Params from './betradar-popular-events.params';
 
+// TODO:REFACTOR:change-detection-rule
+// eslint-disable-next-line @angular-eslint/prefer-on-push-component-change-detection
 @Component({
     selector: '[wlc-betradar-popular-events]',
     templateUrl: './betradar-popular-events.component.html',

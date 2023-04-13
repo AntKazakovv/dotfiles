@@ -25,6 +25,8 @@ import _kebabCase from 'lodash-es/kebabCase';
  * }
  *
  */
+// TODO:REFACTOR:change-detection-rule
+// eslint-disable-next-line @angular-eslint/prefer-on-push-component-change-detection
 @Component({
     selector: '[wlc-textarea]',
     templateUrl: './textarea.component.html',

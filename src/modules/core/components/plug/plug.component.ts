@@ -17,6 +17,8 @@ import * as Params from './plug.params';
  * }
  *
  */
+// TODO:REFACTOR:change-detection-rule
+// eslint-disable-next-line @angular-eslint/prefer-on-push-component-change-detection
 @Component({
     selector: '[wlc-plug]',
     templateUrl: './plug.component.html',

@@ -18,6 +18,8 @@ import {
     // eslint-disable-next-line max-len
 } from 'wlc-engine/modules/tournaments/components/tournament/components/tournament-leaderboard/tournament-leaderboard.params';
 
+// TODO:REFACTOR:change-detection-rule
+// eslint-disable-next-line @angular-eslint/prefer-on-push-component-change-detection
 @Component({
     selector: '[wlc-tournament-topwins-btn]',
     templateUrl: './tournament-topwins-btn.component.html',

@@ -23,6 +23,8 @@ import _concat from 'lodash-es/concat';
 import _uniqBy from 'lodash-es/uniqBy';
 import _includes from 'lodash-es/includes';
 
+// TODO:REFACTOR:change-detection-rule
+// eslint-disable-next-line @angular-eslint/prefer-on-push-component-change-detection
 @Component({
     selector: '[wlc-icon-payments-list]',
     templateUrl: './icon-payments-list.component.html',

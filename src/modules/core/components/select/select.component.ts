@@ -62,6 +62,8 @@ import * as Params from './select.params';
  * }
  *
  */
+// TODO:REFACTOR:change-detection-rule
+// eslint-disable-next-line @angular-eslint/prefer-on-push-component-change-detection
 @Component({
     selector: '[wlc-select]',
     templateUrl: './select.component.html',

@@ -10,6 +10,8 @@ import * as Params from 'wlc-engine/modules/core/components/amount-limit/amount-
 
 import _isObject from 'lodash-es/isObject';
 
+// TODO:REFACTOR:change-detection-rule
+// eslint-disable-next-line @angular-eslint/prefer-on-push-component-change-detection
 @Component({
     selector: '[wlc-amount-limit]',
     templateUrl: './amount-limit.component.html',

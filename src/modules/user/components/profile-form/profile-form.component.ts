@@ -50,6 +50,8 @@ interface IFindBlockResult {
  * }
  *
  */
+// TODO:REFACTOR:change-detection-rule
+// eslint-disable-next-line @angular-eslint/prefer-on-push-component-change-detection
 @Component({
     selector: '[wlc-profile-form]',
     templateUrl: './profile-form.component.html',

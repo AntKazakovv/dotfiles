@@ -34,6 +34,8 @@ import {
 
 import * as Params from './limitations.params';
 
+// TODO:REFACTOR:change-detection-rule
+// eslint-disable-next-line @angular-eslint/prefer-on-push-component-change-detection
 @Component({
     selector: '[wlc-limitations]',
     templateUrl: './limitations.component.html',

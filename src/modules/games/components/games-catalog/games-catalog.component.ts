@@ -34,6 +34,8 @@ import _orderBy from 'lodash-es/orderBy';
 import _merge from 'lodash-es/merge';
 import _cloneDeep from 'lodash-es/cloneDeep';
 
+// TODO:REFACTOR:change-detection-rule
+// eslint-disable-next-line @angular-eslint/prefer-on-push-component-change-detection
 @Component({
     selector: '[wlc-games-catalog]',
     templateUrl: './games-catalog.component.html',
