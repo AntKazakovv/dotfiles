@@ -7,6 +7,10 @@ import {
     IButtonCParams,
     ISelectCParams,
 } from 'wlc-engine/modules/core';
+import {
+    IClearAmountButtonCParams, 
+    IPreselectedAmountsCParams,
+} from 'wlc-engine/modules/finances';
 import {ProhibitedPatterns} from 'wlc-engine/modules/core/constants';
 import {ICaptchaCParams} from 'wlc-engine/modules/security/captcha';
 import {FormValidators} from 'wlc-engine/modules/core/system/services/validation/validators';
@@ -92,6 +96,20 @@ export namespace FormElements {
                 text: gettext('Deposit'),
             },
             customMod: ['submit', 'deposit'],
+        },
+    };
+
+    export const preselectedAmounts: IFormComponent = {
+        name: 'finances.wlc-preselected-amounts',
+        params: <IPreselectedAmountsCParams>{
+            amounts: [],
+        },
+    };
+
+    export const clearAmountButton: IFormComponent = {
+        name: 'finances.wlc-clear-amount-button',
+        params: <IClearAmountButtonCParams>{
+            isAmountEmpty: true,
         },
     };
 

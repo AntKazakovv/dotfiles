@@ -1,0 +1,10 @@
+<button *ngFor="let amount of $params.amounts"
+    class={{$class}}__amount-item
+    type="button"
+    (click)="setAmount(amount)">
+    <span wlc-currency 
+        [currency]="$params.currency"
+        [value]="amount"
+        [digitsInfo]="'1-0-0'">
+    </span>
+</button>

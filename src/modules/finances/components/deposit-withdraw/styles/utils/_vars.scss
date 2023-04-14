@@ -80,6 +80,7 @@ $themeDefault: map-merge((
     // Forms
     'formInputMaxWidth': (
         480: 330px,
+        900: 288px,
     ),
     'formInputMaxWidthBreakpoint': 480,
     'formInputOneLineGridColumnStart': (
@@ -105,6 +106,10 @@ $themeDefault: map-merge((
         480: 330px,
     ),
     'fieldContaninerGrid': minmax(288px, 1fr),
+    'fieldContaninerGridAreas': (
+        320: 'amount' 'limits' 'clear',
+        900: 'amount clear' 'limits limits',
+    ),
     'formSubmitJustifySelf': (
         320: center,
         900: left,
@@ -115,6 +120,11 @@ $themeDefault: map-merge((
         900: start,
     ),
 
+    // Form with preselected amounts
+    'formWithAmountsGridAreas': (
+        320: 'amounts' 'amount' 'limits' 'clear',
+        900: 'amounts amounts' 'amount clear' 'limits limits',
+    ),
     'additionalFieldsTemplateColumns': (
         320: repeat(1, minmax(288px, 1fr)),
         900: repeat(2, minmax(288px, 1fr)),

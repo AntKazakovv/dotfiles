@@ -137,7 +137,6 @@ export class DepositWithdrawComponent
         noSelectedButton: null,
         buttonText: gettext('Show all cryptocurrencies'),
     };
-
     public invoiceSystems: PaymentSystem[] = [];
     public parentSystem: PaymentSystem = null;
     /** Defines if crypto invoice payment chosen */
@@ -158,6 +157,10 @@ export class DepositWithdrawComponent
     public showErrorHosledLoad: boolean = false;
     public hiddenPaymentInfo: boolean;
     public isLastMethodExisting: boolean;
+    
+    protected amountControl: UntypedFormControl;
+    protected clearAmountButton = _cloneDeep(FormElements.clearAmountButton);
+    protected preselectedAmounts: number[] = [];
     protected formObject: UntypedFormGroup;
     protected inProgress: boolean = false;
     protected userService: UserService;
@@ -590,6 +593,21 @@ export class DepositWithdrawComponent
         this.financesService.cancelInvoiceHandler(this.currentSystem?.id);
     }
 
+    public setAmountSubscriber(form: UntypedFormGroup): void {
+        this.amountControl = <UntypedFormControl>form.controls['amount'];
+
+        this.amountControl.valueChanges.subscribe(val => {
+            if (val === '') {
+                this.eventService.emit({name: 'AMOUNT_IS_EMPTY'});
+                this.clearAmountButton.params.isAmountEmpty = true;
+            } else {
+                this.eventService.emit({name: 'AMOUNT_NOT_EMPTY'});
+                this.clearAmountButton.params.isAmountEmpty = false;
+            }
+        });
+        this.formData$.next({amount: `${form.value.amount}`});
+    }
+
     public get isInvoicePending(): boolean {
         return this.isDeposit && !!(this.currentSystem?.message as IPaymentMessage)?.dateEnd
             && this.dateExpire > DateTime.now();
@@ -877,6 +895,18 @@ export class DepositWithdrawComponent
             this.$destroy,
         );
 
+        this.eventService.subscribe(
+            {name: 'SELECT_AMOUNT'},
+            (data: any): void => {
+                this.formData$.next({amount: `${data.amount}`});
+            });
+
+        this.eventService.subscribe(
+            {name: 'CLEAR_AMOUNT'},
+            () => {
+                this.formData$.next({amount: ''});
+            });
+
         if (this.useBonuses) {
             this.eventService.subscribe([
                 {name: BonusItemComponentEvents.deposit},
@@ -967,6 +997,14 @@ export class DepositWithdrawComponent
         this.usePrestep = system.isPrestep;
         this.currentSystem = system;
 
+        if ((this.isDeposit && !_isEmpty(this.currentSystem?.preselectedDepositAmounts))) {
+            this.preselectedAmounts = this.currentSystem?.preselectedDepositAmounts;
+        } else if (!this.isDeposit && !_isEmpty(this.currentSystem?.preselectedWithdrawAmounts)) {
+            this.preselectedAmounts = this.currentSystem?.preselectedWithdrawAmounts;
+        } else {
+            this.preselectedAmounts = [];
+        }
+
         this.timerParams.common.noDays = !DateHelper.dayExists(this.dateExpire);
         this.timerParams.common.noHours = !DateHelper.hoursExists(this.dateExpire);
         if (this.currentSystem.isPregeneration && !this.currentSystem.message) {
@@ -1018,7 +1056,6 @@ export class DepositWithdrawComponent
             this.steps.delete(Params.PaymentSteps.cryptoInvoices);
             this.steps.add(Params.PaymentSteps.paymentInfo);
             this.parentSystem = null;
-            this.invoiceSystems = [];
             if (this.useScroll) {
                 this.actionService.scrollTo(`.${this.$params.class}__paymentInfo`,
                     {position: 'center'});
@@ -1136,7 +1173,6 @@ export class DepositWithdrawComponent
     }
 
     protected updateFormConfig(): void {
-
         if (!this.usePrestep || !this.isPrestepComplete) {
             this.prestepFormConfig = null;
             this.formConfig = null;
@@ -1181,29 +1217,43 @@ export class DepositWithdrawComponent
                 name: 'core.wlc-wrapper',
                 params: {
                     class: 'wlc-field-container',
+                    components: [],
+                },
+            };
+
+            const limitsWrapper = {
+                name: 'core.wlc-wrapper',
+                params: {
+                    class: 'wlc-amount-limit__wrap',
                     components: [
-                        amount,
                         {
-                            name: 'core.wlc-wrapper',
+                            name: 'core.wlc-amount-limit',
                             params: {
-                                class: 'wlc-amount-limit__wrap',
-                                components: [
-                                    {
-                                        name: 'core.wlc-amount-limit',
-                                        params: {
-                                            minValue: amount.params.validators
-                                                .find((val) => val['name'] && val['name'] === 'min')['options'],
-                                            maxValue: amount.params.validators
-                                                .find((val) => val['name'] && val['name'] === 'max')['options'],
-                                            showLimits,
-                                        },
-                                    },
-                                ],
+                                minValue: amount.params.validators
+                                    .find((val) => val['name'] && val['name'] === 'min')['options'],
+                                maxValue: amount.params.validators
+                                    .find((val) => val['name'] && val['name'] === 'max')['options'],
+                                showLimits,
                             },
                         },
                     ],
                 },
             };
+
+            if (!_isEmpty(this.preselectedAmounts)) {
+                const preselectedAmountsComponent = _cloneDeep(FormElements.preselectedAmounts);
+                preselectedAmountsComponent.params.amounts = this.preselectedAmounts;
+                preselectedAmountsComponent.params.currency = this.userProfile.currency;
+                formComponents.push(preselectedAmountsComponent);
+                fieldWrap.params.class += ' wlc-field-container--with-amounts';
+            }
+
+            fieldWrap.params.components = [
+                amount,
+                limitsWrapper,
+                this.clearAmountButton,
+            ];
+
             formComponents.push(fieldWrap);
         }
 

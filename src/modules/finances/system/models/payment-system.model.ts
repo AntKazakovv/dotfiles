@@ -4,6 +4,7 @@ import _assign from 'lodash-es/assign';
 import _get from 'lodash-es/get';
 import _includes from 'lodash-es/includes';
 import _isArray from 'lodash-es/isArray';
+import _find from 'lodash-es/find';
 import _isEmpty from 'lodash-es/isEmpty';
 import _isObject from 'lodash-es/isObject';
 
@@ -65,6 +66,8 @@ export interface IPaymentSystem {
     message: string | IIndexing<string> | IPaymentMessage;
     name: string;
     name_withdraw?: string;
+    preselectedDepositAmounts?: IPreselectedAmount[];
+    preselectedWithdrawAmounts?: IPreselectedAmount[];
     required: string[];
     required_withdraw: string[];
     showfor: FilterType;
@@ -117,6 +120,11 @@ export interface IPaymentSystemCustomParams {
     provider?: string; // PaymentIQ Cashier provider
     merchant_id?: string; // PaymentIQ Cashier merchant ID
     pregeneration_request?: boolean; // To pre-request payment information for Kauri
+}
+
+export interface IPreselectedAmount {
+    currency: string;
+    amounts: number[];
 }
 
 const disabledReasons = {
@@ -315,6 +323,14 @@ export class PaymentSystem extends AbstractModel<IPaymentSystem> {
 
     public get nameWithdraw(): string {
         return this.data.name_withdraw || this.name;
+    }
+
+    public get preselectedDepositAmounts(): number[] {
+        return _find(this.data.preselectedDepositAmounts, {'currency': this.userCurrency})?.amounts || [];
+    }
+
+    public get preselectedWithdrawAmounts(): number[] {
+        return _find(this.data.preselectedWithdrawAmounts, {'currency': this.userCurrency})?.amounts || [];
     }
 
     public get required(): string[] {

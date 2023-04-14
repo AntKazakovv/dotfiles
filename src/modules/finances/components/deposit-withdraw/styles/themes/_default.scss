@@ -183,9 +183,32 @@
 
                 .wlc-field-container {
                     @include bm.get-mq-map('max-width', $themeDefault, 'fieldContaninerMaxWidth');
+                    @include bm.get-mq-map('grid-template-areas', $themeDefault, 'fieldContaninerGridAreas');
                     display: grid;
                     grid-template-columns: ef.get-value($themeDefault, 'fieldContaninerGrid');
                     gap: ef.get-value($themeDefault, 'fieldContaninerGap');
+                    max-width: 100%;
+
+                    .wlc-input--amount {
+                        grid-area: amount;
+                    }
+
+                    .wlc-amount-limit__wrap {
+                        grid-area: limits;
+                    }
+
+
+                    &--with-amounts {
+                        @include bm.get-mq-map('grid-template-areas', $themeDefault, 'formWithAmountsGridAreas');
+
+                        .wlc-input--amount {
+                            grid-area: amount;
+                        }
+
+                        .wlc-amount-limit__wrap {
+                            grid-area: limits;
+                        }
+                    }
                 }
 
                 .wlc-input,
@@ -205,7 +228,7 @@
                     @include bm.get-mq-map('grid-column-end', $themeDefault, 'formInputOneLineGridColumnEnd');
                 }
 
-                .wlc-btn {
+                .wlc-btn .wlc-btn--submit {
                     @include bm.get-mq-map('justify-self', $themeDefault, 'formSubmitJustifySelf');
                     margin: ef.get-value($themeDefault, 'formSubmitMargin');
                 }

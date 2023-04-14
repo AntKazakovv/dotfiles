@@ -511,7 +511,7 @@ export class FormWrapperComponent extends WrapperComponent implements OnInit, On
             _each(this.form.controls, (control, key): void => {
                 const value = _get(data, key);
 
-                if (!!value) {
+                if (!!value || value === '') {
                     control.setValue(value);
                 }
 

@@ -28,6 +28,10 @@ import {PaymentListComponent} from './components/payment-list/payment-list.compo
 import {PaymentMessageComponent} from './components/payment-message/payment-message.component';
 import {PIQCashierComponent} from './components/piq-cashier/piq-cashier.component';
 import {IframeDepositComponent} from './components/iframe-deposit/iframe-deposit.component';
+import {PreselectedAmountsComponent} 
+    from './components/deposit-withdraw/components/preselected-amounts/preselected-amounts.component';
+import {ClearAmountButtonComponent} 
+    from './components/deposit-withdraw/components/clear-amount-button/clear-amount-button.component';
 
 import {GlobalHelper} from 'wlc-engine/modules/core';
 import {financesConfig} from './system/config/finances.config';
@@ -45,6 +49,8 @@ export const components = {
     'wlc-transaction-history': TransactionHistoryComponent,
     'wlc-iframe-deposit': IframeDepositComponent,
     'wlc-piq-cashier': PIQCashierComponent,
+    'wlc-preselected-amounts': PreselectedAmountsComponent,
+    'wlc-clear-amount-button': ClearAmountButtonComponent,
 };
 
 @NgModule({
@@ -68,6 +74,8 @@ export const components = {
         TransactionButtonsComponent,
         TransactionPreviewComponent,
         IframeDepositComponent,
+        PreselectedAmountsComponent,
+        ClearAmountButtonComponent,
     ],
     providers: [
         FinancesService,

@@ -170,6 +170,7 @@
             class="{{$class}}__form"
             [config]="formConfig"
             [formData]="formData$"
+            (form$)="setAmountSubscriber($event)"
             [beforeSubmit]="formBeforeSubmit.bind(this)"
             [ngSubmit]="sendForm.bind(this)">
         </div>

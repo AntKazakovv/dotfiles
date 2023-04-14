@@ -1,0 +1,22 @@
+.wlc-clear-amount-button--theme-default:host {
+    @include bm.get-mq-map('justify-self', $themeDefault, 'btnJustifySelf');
+    display: flex;
+    grid-area: clear;
+    justify-content: center;
+    border: none;
+    width: fit-content;
+
+    &.hidden {
+        display: none;
+    }
+
+    .wlc-clear-amount-button {
+        @include text.get-text-style(
+            ef.get-value($themeDefault, 'btnText'),
+            ef.get-value($themeDefault, 'btnTextColor')
+        );
+        @include bm.get-mq-map('margin', $themeDefault, 'btnMargin');
+        height: ef.get-value($themeDefault, 'btnHeight');
+        white-space: nowrap;
+    }
+}

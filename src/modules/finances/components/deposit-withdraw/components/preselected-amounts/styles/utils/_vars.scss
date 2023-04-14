@@ -1,0 +1,29 @@
+$customThemeDefault: () !default;
+$themeDefault: map-merge((
+    'amountBtnsFlexWrap': (
+        320: wrap,
+        900: nowrap,
+    ),
+    'amountBtnsGap': (
+        320: 0.5rem,
+        900: 1rem,
+    ),
+    'amountBtnsJustifyContent': (
+        320: left,
+        900: unset,
+    ),
+    'amountBtnsMaxWidth': (
+        320: 100%,
+        480: 330px,
+        900: 100%,
+    ),
+    'itemBtnTextColor': var(--mc-baseMain),
+    'itemBtnText': 'ButtonText',
+    'itemBtnBorder': ef.get('buttonSettings', 'borderDefault'),
+    'itemBtnRadius': ef.get('buttonSettings', 'borderRadiusDefault'),
+    'itemBtnMinWidth': ef.size(15),
+    'itemBtnHeight': ef.size(8),
+    'itemBtnPadding': 0 ef.size(4),
+    'itemBtnBg': var(--mc-bg),
+    'itemBtnBgHover': var(--mc-bg300),
+), $customThemeDefault);

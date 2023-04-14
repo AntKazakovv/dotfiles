@@ -1,0 +1,28 @@
+.wlc-preselected-amounts--theme-default:host {
+    @include bm.get-mq-map('flex-wrap', $themeDefault, 'amountBtnsFlexWrap');
+    @include bm.get-mq-map('gap', $themeDefault, 'amountBtnsGap');
+    @include bm.get-mq-map('justify-content', $themeDefault, 'amountBtnsJustifyContent');
+    @include bm.get-mq-map('max-width', $themeDefault, 'amountBtnsMaxWidth');
+    display: flex;
+
+    .wlc-preselected-amounts {
+
+        &__amount-item {
+            @include text.get-text-style(
+                ef.get-value($themeDefault, 'itemBtnText'),
+                ef.get-value($themeDefault, 'itemBtnTextColor')
+            );
+            @include bm.get-mq-map('height', $themeDefault, 'itemBtnHeight');
+            border: ef.get-value($themeDefault, 'itemBtnBorder');
+            border-radius: ef.get-value($themeDefault, 'itemBtnRadius');
+            min-width: ef.get-value($themeDefault, 'itemBtnMinWidth');
+            padding: ef.get-value($themeDefault, 'itemBtnPadding');
+            background: ef.get-value($themeDefault, 'itemBtnBg');
+            cursor: pointer;
+
+            @include bm.hover {
+                background: ef.get-value($themeDefault, 'itemBtnBgHover');
+            }
+        }
+    }
+}

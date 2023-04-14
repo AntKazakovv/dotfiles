@@ -1,0 +1,14 @@
+$customThemeDefault: () !default;
+$themeDefault: map-merge((
+    'btnText': 'ButtonText',
+    'btnTextColor': var(--mc-main),
+    'btnMargin': (
+        320: 0,
+        900: ef.size(4) auto  0 0,
+    ),
+    'btnHeight': ef.size(8),
+    'btnJustifySelf': (
+        320: center,
+        900: left,
+    ),
+), $customThemeDefault);
