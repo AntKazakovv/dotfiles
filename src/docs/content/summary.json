@@ -251,6 +251,10 @@
                 "file": "./900.change-logs/releases/1.4.0_03-06-2022.md"
             },
             {
+                "title": "1.30.0RC5 (14-04-2023)",
+                "file": "./900.change-logs/releases/1.30.0-rc.5_14-04-2023.md"
+            },
+            {
                 "title": "1.30.0RC4 (13-04-2023)",
                 "file": "./900.change-logs/releases/1.30.0-rc.4_13-04-2023.md"
             },
@@ -736,6 +740,10 @@
             {
                 "title": "14-06-2022",
                 "file": "./1000.translations/history/14-06-2022.md"
+            },
+            {
+                "title": "14-04-2023",
+                "file": "./1000.translations/history/14-04-2023.md"
             },
             {
                 "title": "13-03-2023",
