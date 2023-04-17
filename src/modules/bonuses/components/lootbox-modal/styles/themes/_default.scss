@@ -63,7 +63,7 @@
 
         &__title {
             @include text.get-text-style(
-                ef.get-value($themeDefault, 'titleTextStyle', 320),
+                ef.get-value($themeDefault, 'titleTextStyle', 375),
                 ef.get-value($themeDefault, 'titleTextColor'),
             );
             position: relative;
@@ -78,7 +78,7 @@
             @include bm.lineClamp(ef.get-value($themeDefault, 'descLineClamp'));
             @include bm.get-mq-map('margin', $themeDefault, 'descMargin');
             @include text.get-text-style(
-                ef.get-value($themeDefault, 'descTextStyle', 320),
+                ef.get-value($themeDefault, 'descTextStyle', 375),
                 ef.get-value($themeDefault, 'descTextColor'),
             );
             position: relative;
