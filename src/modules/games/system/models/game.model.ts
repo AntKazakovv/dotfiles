@@ -183,16 +183,16 @@ export class Game extends AbstractModel<IGame> {
      *
      * @returns {string}
      */
-    public getMerchantName(firstMerchantName: boolean = true): string {
-        const merchantName = GamesHelper.getMerchantNameById(this.merchantID);
-        const subMerchantName = GamesHelper.getMerchantNameById(this.subMerchantID);
-
-        return firstMerchantName ? (merchantName || subMerchantName) : (subMerchantName || merchantName);
+    public getMerchantName(): string {
+        return GamesHelper.getMerchantNameById(this.merchantID)
+            || GamesHelper.getMerchantNameById(this.subMerchantID);
     }
 
-    public getMerchantAlias(): string {
-        return GamesHelper.getMerchantAliasById(this.merchantID)
-            || GamesHelper.getMerchantAliasById(this.subMerchantID);
+    public getMerchantAlias(firstMerchantAlias: boolean = true): string {
+        const merchantAlias = GamesHelper.getMerchantAliasById(this.merchantID);
+        const subMerchantAlias = GamesHelper.getMerchantAliasById(this.subMerchantID);
+
+        return firstMerchantAlias ? (merchantAlias || subMerchantAlias) : (subMerchantAlias || merchantAlias);
     }
 
     /**

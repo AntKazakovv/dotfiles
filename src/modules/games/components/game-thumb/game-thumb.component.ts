@@ -258,10 +258,10 @@ export class GameThumbComponent extends AbstractComponent implements OnInit {
         }
 
         if (this.$params.common?.merchantIcon?.use && !this.$params.common.merchantIcon.showNameInsteadIcon) {
-            const merchantName = this.game.getMerchantName(!this.$params.common.merchantIcon.showSubMerchantLogo);
+            const merchantAlias = this.game.getMerchantAlias(!this.$params.common.merchantIcon.showSubMerchantLogo);
 
             this.merchantIconPath = IconHelper.getIconPath(
-                merchantName,
+                merchantAlias,
                 'merchants',
                 this.$params.common.merchantIcon.showAs || 'img',
                 IconHelper.getColorThemeBgType(
@@ -275,7 +275,7 @@ export class GameThumbComponent extends AbstractComponent implements OnInit {
             if (this.configService.get<boolean>('$base.colorThemeSwitching.use')) {
                 this.colorThemeService.appColorTheme$.pipe(takeUntil(this.$destroy)).subscribe((theme: TColorTheme) => {
                     this.merchantIconPath = IconHelper.getIconPath(
-                        merchantName,
+                        merchantAlias,
                         'merchants',
                         this.$params.common.merchantIcon.showAs || 'img',
                         IconHelper.getColorThemeBgType(
