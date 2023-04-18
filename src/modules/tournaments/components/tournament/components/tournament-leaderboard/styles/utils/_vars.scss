@@ -4,6 +4,7 @@ $themeDefault: map-merge((
     'containerMargin': 0 auto,
     'gridTemplateColumns': 1fr,
     'wrapperBg': var(--mc-bg700),
+    'wrapperBgAlt': var(--mc-bg500-o4),
     'wrapperPadding': ef.size(2) 0,
     'wrapperRadius': ef.get('radius', 'biger'),
     'descrStyle': 'PrimaryText',

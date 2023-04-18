@@ -83,7 +83,7 @@ $themeDefault: map-merge((
     'headerTimerBlockTimerSelf': center,
     'headerTimerBlockButtonSelf': center,
 
-    'anchorsBg': var(--mc-bg700),
+    'anchorsBg': var(--mc-bg),
     'anchorsMenuAlignItems': center,
     'anchorsMenuPadding': (
         320: ef.size(4) 0,
@@ -95,7 +95,8 @@ $themeDefault: map-merge((
     'anchorsMenuLinkTextDecoration': none,
     'anchorsMenuLinkPadding': 0 ef.size(2),
 
-    'leaderboardBg': var(--mc-bg500),
+    'leaderboardBg': var(--mc-bg),
+    'leaderboardBgAlt': var(--bg500-o4),
     'leaderboardJustifyItems': center,
     'leaderboardPadding': (
         375: ef.size(4),
@@ -115,9 +116,7 @@ $themeDefault: map-merge((
     ),
     'leaderboardTableMaxWidth': 480px,
 
-    'prizesBg': (
-        320: linear-gradient(180deg, #124c58 0%, #4f2d69 100%),
-    ),
+    'prizesBg': var(--mc-bg500),
     'prizepoolTemplateAreas': (
         320: 'PPTitle' 'PPAmount',
     ),
@@ -176,7 +175,7 @@ $themeDefault: map-merge((
     'gamesTitleStyle': 'QoteTextBold',
     'gamesTitleColor': var(--mc-baseMain),
     'gamesTitleAlign': center,
-
+    'gamesBg': var(--mc-bg),
     'rulesColumnWidth': (
         320: 100%,
         768: 600px,
@@ -232,4 +231,5 @@ $themeDefault: map-merge((
         1024: 300px,
         1630: 345px,
     ),
+    'gamesBgV1': var(--mc-bg),
 ), $customThemeDefault);

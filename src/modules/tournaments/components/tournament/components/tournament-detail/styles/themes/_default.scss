@@ -257,6 +257,7 @@ $selector: '.wlc-tournament-detail';
 
         #{$selector}__games {
             @include bm.get-mq-map('padding', $themeDefault, 'gamesPadding');
+            background: ef.get-value($themeDefault, 'gamesBg');
 
             &--title {
                 @include text.get-text-style(ef.get-value($themeDefault, 'gamesTitleStyle'), ef.get-value($themeDefault, 'gamesTitleColor'));
@@ -301,22 +302,25 @@ $selector: '.wlc-tournament-detail';
 
         .wlc-sections__profile-content--theme-first & {
 
-            .wlc-tournament-detail__content {
-                overflow: hidden;
-            }
+            #{$selector} {
 
-            .wlc-tournament-detail__anchors {
-                @include bm.get-mq-map('background', $themeDefault, 'tournamentDetailAnchorsBgV1');
-            }
+                &__content {
+                    overflow: hidden;
+                }
 
-            .wlc-tournament-detail__header-info {
-                @include bm.get-mq-map('border-radius', $themeDefault, 'headerInfoBorderRadiusV1');
-                @include bm.get-mq-map('min-height', $themeDefault, 'headerInfoMinHeightV1');
-                overflow: hidden;
-            }
+                &__header-info {
+                    @include bm.get-mq-map('border-radius', $themeDefault, 'headerInfoBorderRadiusV1');
+                    @include bm.get-mq-map('min-height', $themeDefault, 'headerInfoMinHeightV1');
+                    overflow: hidden;
+                }
 
-            .wlc-tournament-detail__prizepool {
-                @include bm.get-mq-map('background', $themeDefault, 'tournamentDetailPrizepoolBgV1');
+                &__prizepool {
+                    background: ef.get-value($themeDefault, 'tournamentDetailPrizepoolBgV1');
+                }
+
+                &__games {
+                    background: ef.get-value($themeDefault, 'gamesBgV1');
+                }
             }
         }
     }

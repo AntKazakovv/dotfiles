@@ -193,6 +193,10 @@
         --lb-head-padding-first: #{ef.get-value($themeModCompact, 'headPaddingFirst')};
     }
 
+    .wlc-body--theme-alt & {
+        --lb-wrapper-bg: #{ef.get-value($themeDefault, 'wrapperBgAlt')};
+    }
+
     &.wlc-tournament-leaderboard--theme-mod-history {
         --lb-container-max-width: #{ef.get-value($themeDefaultModHistory, 'containerMaxWidth')};
         --lb-container-margin: #{ef.get-value($themeDefaultModHistory, 'containerMargin')};

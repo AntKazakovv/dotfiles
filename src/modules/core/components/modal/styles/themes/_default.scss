@@ -135,6 +135,7 @@
 
         .wlc-modal__footer {
             @include bm.get-mq-map('padding', $themeDefault, 'tournamentDetailFooterPadding');
+            background: ef.get-value($themeDefault, 'tournamentDetailFooterBg');
         }
 
         .wlc-modal__header--headless {

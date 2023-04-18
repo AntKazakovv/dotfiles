@@ -69,15 +69,15 @@
                     [inlineParams]="$params.config.confirmBtnParams"
                     (click)="confirm($params.config.id)">
             </button>
-            <button wlc-button
-                    typeAttr="button"
+            <button *ngIf="$params.config.rejectBtnVisibility"
+                    wlc-button
                     type="rejected"
-                    *ngIf="$params.config.rejectBtnVisibility"
+                    themeMod="secondary"
+                    typeAttr="button"
+                    wlcElement="button_close"
                     [text]="$params.config.closeBtnText || 'Close'"
-                    [wlcElement]="'button_close'"
                     [inlineParams]="$params.config.closeBtnParams"
-                    (click)="closeModalByIcon($params.config.id)"
-                    wlcElement="button_close">
+                    (click)="closeModalByIcon($params.config.id)">
             </button>
         </div>
     </div>

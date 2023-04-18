@@ -48,7 +48,7 @@
             }
 
             &:nth-child(odd) {
-                background: var(--prizes-row-bg-odd, #{ef.get-value($themeLong, 'rowBgOdd')});
+                background: var(--prizes-row-bg-odd, #{ef.get-value($themeLong, 'topBg')});
             }
 
             &.top {
