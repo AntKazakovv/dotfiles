@@ -40,6 +40,7 @@ import {
     ITooltipCParams,
     IWrapperCParams,
     MediaQueries,
+    ColorThemeService,
 } from 'wlc-engine/modules/core';
 import {
     IconModel,
@@ -125,13 +126,14 @@ export class PaymentListComponent extends IconListAbstract<Params.IPaymentListCP
         protected cdr: ChangeDetectorRef,
         protected financesService: FinancesService,
         protected eventService: EventService,
+        protected colorThemeService: ColorThemeService,
         protected modalService: ModalService,
         protected actionService: ActionService,
         protected configService: ConfigService,
         private hostRef: ElementRef,
         @Inject(WINDOW) private window: Window,
     ) {
-        super({injectParams, defaultParams: Params.defaultParams}, configService, eventService);
+        super({injectParams, defaultParams: Params.defaultParams}, configService, colorThemeService);
     }
 
     public ngOnInit(): void {

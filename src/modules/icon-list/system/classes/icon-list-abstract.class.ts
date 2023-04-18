@@ -1,12 +1,15 @@
 import {Directive} from '@angular/core';
 import {RawParams} from '@uirouter/core';
 
+import {takeUntil} from 'rxjs';
+
 import {
     AbstractComponent,
     ConfigService,
     GlobalHelper,
     IMixedParams,
     IFromLog,
+    ColorThemeService,
 } from 'wlc-engine/modules/core';
 import {ColorThemeValues} from 'wlc-engine/modules/core/constants';
 import {
@@ -17,11 +20,11 @@ import {
     TIconShowAs,
     TIconColorBg,
 } from 'wlc-engine/modules/core/system/interfaces/core.interface';
+import {TColorTheme} from 'wlc-engine/modules/core/system/interfaces/base-config/color-theme-switching.config';
 import {
     IconModel,
     IIconParams,
 } from 'wlc-engine/modules/icon-list/system/models/icon-list-item.model';
-import {EventService} from 'wlc-engine/modules/core/system/services';
 import {IComponentParams} from 'wlc-engine/modules/core/system/interfaces';
 import {ThemeToDirectory} from 'wlc-engine/modules/core/system/config/base/icons.config';
 
@@ -79,7 +82,7 @@ export abstract class IconListAbstract<T> extends AbstractComponent {
     constructor(
         protected componentParams: IMixedParams<T>,
         protected configService: ConfigService,
-        protected eventService: EventService,
+        protected colorThemeService: ColorThemeService,
     ) {
         super(componentParams, configService);
     }
@@ -163,18 +166,14 @@ export abstract class IconListAbstract<T> extends AbstractComponent {
             this.$params.colorIconBg = this.getColorThemeBgType(defaultColorIconBg);
         }
 
-        this.eventService.subscribe<boolean>(
-            {name: ColorThemeValues.changeEvent},
-            (theme) => {
-                this.$params.colorIconBg = this.getColorThemeBgType(defaultColorIconBg, theme);
-                themeChangeCallback();
-            },
-            this.$destroy,
-        );
+        this.colorThemeService.appColorTheme$.pipe(takeUntil(this.$destroy)).subscribe((theme: TColorTheme) => {
+            this.$params.colorIconBg = this.getColorThemeBgType(defaultColorIconBg, theme);
+            themeChangeCallback();
+        });
     }
 
-    protected getColorThemeBgType(defaultIconsColor: TIconColorBg, altSiteTheme: boolean = true): TIconColorBg {
-        return IconHelper.getColorThemeBgType(defaultIconsColor, altSiteTheme);
+    protected getColorThemeBgType(defaultIconsColor: TIconColorBg, theme: TColorTheme = 'default'): TIconColorBg {
+        return IconHelper.getColorThemeBgType(defaultIconsColor, theme !== 'default');
     }
 
     /**

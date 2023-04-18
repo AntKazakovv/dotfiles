@@ -19,10 +19,9 @@ import {ColorThemeValues} from 'wlc-engine/modules/core/constants/color-theme.co
 import {
     IColorThemeSwitchingConfig,
     TBrowserColorScheme,
+    TColorTheme,
 } from 'wlc-engine/modules/core/system/interfaces/base-config/color-theme-switching.config';
 import {WINDOW} from 'wlc-engine/modules/app/system/tokens/window';
-
-export type TColorTheme = 'default' | 'alt';
 
 @Injectable({
     providedIn: 'root',

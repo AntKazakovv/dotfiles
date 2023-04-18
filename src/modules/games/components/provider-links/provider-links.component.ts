@@ -16,6 +16,7 @@ import {
 import {BehaviorSubject} from 'rxjs';
 import _times from 'lodash-es/times';
 import _sortedUniqBy from 'lodash-es/sortedUniqBy';
+import _unset from 'lodash-es/unset';
 
 import {IconListAbstract} from 'wlc-engine/modules/icon-list/system/classes/icon-list-abstract.class';
 import {
@@ -24,6 +25,7 @@ import {
     GlobalHelper,
     IWrapperCParams,
     ModalService,
+    ColorThemeService,
 } from 'wlc-engine/modules/core';
 import {
     ISlide,
@@ -61,6 +63,7 @@ export class ProviderLinksComponent extends IconListAbstract<Params.IProviderLin
     public sliderConfig: IWrapperCParams;
 
     protected $itemsChanges = new BehaviorSubject<IconModel[]>([]);
+    protected modalLinkParams: Params.IProviderLinksCParams;
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IProviderLinksCParams,
@@ -69,13 +72,15 @@ export class ProviderLinksComponent extends IconListAbstract<Params.IProviderLin
         protected gamesCatalogService: GamesCatalogService,
         protected modalService: ModalService,
         protected eventService: EventService,
+        protected colorThemeService: ColorThemeService,
         protected cdr: ChangeDetectorRef,
     ) {
-        super({injectParams, defaultParams: Params.defaultParams}, configService, eventService);
+        super({injectParams, defaultParams: Params.defaultParams}, configService, colorThemeService);
     }
 
     public ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
+        this.prepareModalLinkParams();
     }
 
     public async ngAfterViewInit(): Promise<void> {
@@ -98,13 +103,7 @@ export class ProviderLinksComponent extends IconListAbstract<Params.IProviderLin
             size: 'lg',
             wlcElement: 'provider-list',
             component: ProviderLinksComponent,
-            componentParams: {
-                type: 'default',
-                sliderParams: null,
-                iconsType: this.$params.iconsType,
-                colorIconBg: this.$params.colorIconBg,
-                themeMod: 'inside-modal',
-            },
+            componentParams: this.modalLinkParams,
         });
     }
 
@@ -193,5 +192,21 @@ export class ProviderLinksComponent extends IconListAbstract<Params.IProviderLin
                 },
             ],
         };
+    }
+
+    protected prepareModalLinkParams(): void {
+        const params: Params.IProviderLinksCParams = {
+            type: 'default',
+            sliderParams: null,
+            iconsType: this.$params.iconsType,
+            colorIconBg: this.$params.colorIconBg,
+            themeMod: 'inside-modal',
+        };
+
+        if (this.configService.get<boolean>('$base.colorThemeSwitching.use')) {
+            _unset(params, 'colorIconBg');
+        }
+
+        this.modalLinkParams = params;
     }
 }

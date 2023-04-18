@@ -3,11 +3,13 @@ import {
     TestBed,
 } from '@angular/core/testing';
 
+import {BehaviorSubject} from 'rxjs';
+
 import {IconPaymentsListComponent} from './icon-payments-list.component';
 import {IIconPaymentsListCParams} from './icon-payments-list.params';
 import {
     ConfigService,
-    EventService,
+    ColorThemeService,
     IPaysystem,
 } from 'wlc-engine/modules/core';
 
@@ -16,7 +18,7 @@ describe('IconPaymentsListComponent', () => {
     let component: IconPaymentsListComponent;
     let fixture: ComponentFixture<IconPaymentsListComponent>;
     let ConfigServiceSpy: jasmine.SpyObj<ConfigService>;
-    let eventServiceSpy: jasmine.SpyObj<EventService>;
+    let colorThemeServiceSpy: jasmine.SpyObj<ColorThemeService>;
     let nativeElement: HTMLElement;
 
     const payments: IPaysystem[] = [
@@ -53,14 +55,18 @@ describe('IconPaymentsListComponent', () => {
         });
         ConfigServiceSpy.get.and.returnValues();
         ConfigServiceSpy.get.withArgs('appConfig.siteconfig.payment_systems').and.returnValues([...payments]);
-        eventServiceSpy = jasmine.createSpyObj('EventService', ['subscribe']);
+        colorThemeServiceSpy = jasmine.createSpyObj(
+            'ColorThemeService',
+            [],
+            {'appColorTheme$': new BehaviorSubject(null)},
+        );
 
         TestBed.configureTestingModule({
             declarations: [IconPaymentsListComponent],
             providers: [
                 {
-                    provide: EventService,
-                    useValue: eventServiceSpy,
+                    provide: ColorThemeService,
+                    useValue: colorThemeServiceSpy,
                 },
                 {
                     provide: ConfigService,

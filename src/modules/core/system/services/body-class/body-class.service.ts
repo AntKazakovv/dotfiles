@@ -27,10 +27,7 @@ import {EventService} from 'wlc-engine/modules/core/system/services/event/event.
 import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
 import {ActionService} from 'wlc-engine/modules/core/system/services/action/action.service';
 import {InjectionService} from 'wlc-engine/modules/core/system/services/injection/injection.service';
-import {
-    ColorThemeService,
-    TColorTheme,
-} from 'wlc-engine/modules/core/system/services/color-theme/color-theme.service';
+import {ColorThemeService} from 'wlc-engine/modules/core/system/services/color-theme/color-theme.service';
 
 import {LogService} from 'wlc-engine/modules/core/system/services/log/log.service';
 import {DeviceType} from 'wlc-engine/modules/core/system/interfaces';
@@ -39,6 +36,7 @@ import {
     IFixedPanelConfig,
     TFixedPanelState,
 } from 'wlc-engine/modules/core/system/interfaces/base-config/fixed-panel.interface';
+import {TColorTheme} from 'wlc-engine/modules/core/system/interfaces/base-config/color-theme-switching.config';
 
 export enum BodyClassEvents {
     add = 'BODY_ADD_MODIFIER',

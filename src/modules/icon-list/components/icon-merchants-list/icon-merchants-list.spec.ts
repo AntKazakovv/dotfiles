@@ -3,11 +3,13 @@ import {
     TestBed,
 } from '@angular/core/testing';
 
+import {BehaviorSubject} from 'rxjs';
+
 import {IconMerchantsListComponent} from './icon-merchants-list.component';
 import {IIconMerchantsListCParams} from './icon-merchants-list.params';
 import {
     ConfigService,
-    EventService,
+    ColorThemeService,
     InjectionService,
 } from 'wlc-engine/modules/core';
 import {
@@ -21,7 +23,7 @@ describe('IconMerchantsListComponent', () => {
     let ConfigServiceSpy: jasmine.SpyObj<ConfigService>;
     let InjectionServiceSpy: jasmine.SpyObj<InjectionService>;
     let GamesCatalogServiceSpy: jasmine.SpyObj<GamesCatalogService>;
-    let eventServiceSpy: jasmine.SpyObj<EventService>;
+    let colorThemeServiceSpy: jasmine.SpyObj<ColorThemeService>;
     let availableMerchants: MerchantModel[];
 
     const injectParams: IIconMerchantsListCParams = {
@@ -108,7 +110,10 @@ describe('IconMerchantsListComponent', () => {
                 'getService': async () => GamesCatalogServiceSpy,
             },
         );
-        eventServiceSpy = jasmine.createSpyObj('EventService', ['subscribe']);
+        colorThemeServiceSpy = jasmine.createSpyObj(
+            'ColorThemeService',
+            [],
+            {'appColorTheme$': new BehaviorSubject(null)});
 
         TestBed.configureTestingModule({
             declarations: [IconMerchantsListComponent],
@@ -118,8 +123,8 @@ describe('IconMerchantsListComponent', () => {
                     useValue: ConfigServiceSpy,
                 },
                 {
-                    provide: EventService,
-                    useValue: eventServiceSpy,
+                    provide: ColorThemeService,
+                    useValue: colorThemeServiceSpy,
                 },
                 {
                     provide: InjectionService,

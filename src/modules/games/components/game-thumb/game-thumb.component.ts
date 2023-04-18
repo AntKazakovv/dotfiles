@@ -34,6 +34,7 @@ import {
     GlobalHelper,
 } from 'wlc-engine/modules/core';
 import {EventService} from 'wlc-engine/modules/core/system/services/event/event.service';
+import {ColorThemeService} from 'wlc-engine/modules/core/system/services/color-theme/color-theme.service';
 import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
 import {ModalService} from 'wlc-engine/modules/core/system/services/modal/modal.service';
 import {DeviceType} from 'wlc-engine/modules/core/system/models/device.model';
@@ -44,6 +45,7 @@ import {IIndexing} from 'wlc-engine/modules/core/system/interfaces/global.interf
 import {ActionService} from 'wlc-engine/modules/core/system/services/action/action.service';
 import {Game} from 'wlc-engine/modules/games/system/models/game.model';
 import {PragmaticLiveModel} from 'wlc-engine/modules/games/system/models/pragmatic-live.model';
+import {TColorTheme} from 'wlc-engine/modules/core/system/interfaces/base-config/color-theme-switching.config';
 import {
     GamesCatalogService,
 } from 'wlc-engine/modules/games/system/services/games-catalog/games-catalog.service';
@@ -113,6 +115,7 @@ export class GameThumbComponent extends AbstractComponent implements OnInit {
         protected cdr: ChangeDetectorRef,
         protected configService: ConfigService,
         protected eventService: EventService,
+        protected colorThemeService: ColorThemeService,
         protected gamesCatalogService: GamesCatalogService,
         protected modalService: ModalService,
         protected elementRef: ElementRef<HTMLElement>,
@@ -272,22 +275,18 @@ export class GameThumbComponent extends AbstractComponent implements OnInit {
             this.addModifiers('merchant-icon');
 
             if (this.configService.get<boolean>('$base.colorThemeSwitching.use')) {
-                this.eventService.subscribe<boolean>(
-                    {name: ColorThemeValues.changeEvent},
-                    (theme) => {
-                        this.merchantIconPath = IconHelper.getIconPath(
-                            merchantName,
-                            'merchants',
-                            this.$params.common.merchantIcon.showAs || 'img',
-                            IconHelper.getColorThemeBgType(
-                                this.$params.common.merchantIcon.colorIconBg || 'dark',
-                                theme,
-                            ),
-                        );
-                        this.cdr.markForCheck();
-                    },
-                    this.$destroy,
-                );
+                this.colorThemeService.appColorTheme$.pipe(takeUntil(this.$destroy)).subscribe((theme: TColorTheme) => {
+                    this.merchantIconPath = IconHelper.getIconPath(
+                        merchantName,
+                        'merchants',
+                        this.$params.common.merchantIcon.showAs || 'img',
+                        IconHelper.getColorThemeBgType(
+                            this.$params.common.merchantIcon.colorIconBg || 'dark',
+                            theme !== 'default',
+                        ),
+                    );
+                    this.cdr.markForCheck();
+                });
             }
         }
 

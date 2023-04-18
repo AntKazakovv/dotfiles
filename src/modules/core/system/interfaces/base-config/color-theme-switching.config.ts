@@ -1,5 +1,7 @@
 export type TBrowserColorScheme = 'dark' | 'light';
 
+export type TColorTheme = 'default' | 'alt';
+
 export interface IColorThemeSwitchingConfig {
     /**
      * If true, application follows for the theme-switcher component.

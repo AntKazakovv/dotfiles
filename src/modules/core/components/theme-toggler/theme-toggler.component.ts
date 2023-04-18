@@ -13,11 +13,8 @@ import {
     AbstractComponent,
     ConfigService,
 } from 'wlc-engine/modules/core';
-import {
-    ColorThemeService,
-    TColorTheme,
-} from 'wlc-engine/modules/core/system/services/color-theme/color-theme.service';
-import {EventService} from 'wlc-engine/modules/core/system/services/event/event.service';
+import {ColorThemeService} from 'wlc-engine/modules/core/system/services/color-theme/color-theme.service';
+import {TColorTheme} from 'wlc-engine/modules/core/system/interfaces/base-config/color-theme-switching.config';
 
 import * as Params from './theme-toggler.params';
 
@@ -66,7 +63,6 @@ export class ThemeTogglerComponent extends AbstractComponent implements OnInit {
     constructor(
         @Inject('injectParams') protected injectParams: Params.IThemeTogglerCParams,
         protected configService: ConfigService,
-        protected eventService: EventService,
         protected colorThemeService: ColorThemeService,
         protected cdr: ChangeDetectorRef,
     ) {

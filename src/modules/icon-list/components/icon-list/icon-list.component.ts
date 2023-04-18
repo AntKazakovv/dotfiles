@@ -21,10 +21,10 @@ import {
 
 import {
     ConfigService,
-    EventService,
     LogService,
     ActionService,
     InjectionService,
+    ColorThemeService,
 } from 'wlc-engine/modules/core';
 import {GamesCatalogService} from 'wlc-engine/modules/games';
 import {IconModel} from 'wlc-engine/modules/icon-list/system/models/icon-list-item.model';
@@ -63,13 +63,13 @@ export class IconListComponent extends IconListAbstract<Params.IIconListCParams>
         protected logService: LogService,
         protected cdr: ChangeDetectorRef,
         protected configService: ConfigService,
-        protected eventService: EventService,
+        protected colorThemeService: ColorThemeService,
         protected actionService: ActionService,
         protected injectionService: InjectionService,
         private injector: Injector,
         private hostElement: ElementRef,
     ) {
-        super({injectParams, defaultParams: Params.defaultParams}, configService, eventService);
+        super({injectParams, defaultParams: Params.defaultParams}, configService, colorThemeService);
     }
 
     /** Calls method based on the component theme */

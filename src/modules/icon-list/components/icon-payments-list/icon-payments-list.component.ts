@@ -9,7 +9,7 @@ import {
 import {
     IPaysystem,
     ConfigService,
-    EventService,
+    ColorThemeService,
 } from 'wlc-engine/modules/core';
 import {IconListAbstract} from 'wlc-engine/modules/icon-list/system/classes/icon-list-abstract.class';
 import {IconModel} from 'wlc-engine/modules/icon-list/system/models/icon-list-item.model';
@@ -37,10 +37,10 @@ export class IconPaymentsListComponent extends IconListAbstract<Params.IIconPaym
     constructor(
         @Inject('injectParams') protected injectParams: Params.IIconPaymentsListCParams,
         protected configService: ConfigService,
-        protected eventService: EventService,
+        protected colorThemeService: ColorThemeService,
         protected cdr: ChangeDetectorRef,
     ) {
-        super({injectParams, defaultParams: Params.defaultParams}, configService, eventService);
+        super({injectParams, defaultParams: Params.defaultParams}, configService, colorThemeService);
     }
 
     public async ngOnInit(): Promise<void> {

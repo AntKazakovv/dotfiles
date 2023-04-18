@@ -1,4 +1,4 @@
-import {TColorTheme} from 'wlc-engine/modules/core/system/services/color-theme/color-theme.service';
+import {TColorTheme} from 'wlc-engine/modules/core/system/interfaces/base-config/color-theme-switching.config';
 
 import {
     IIndexing,

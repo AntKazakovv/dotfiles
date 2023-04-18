@@ -8,8 +8,8 @@ import {
 
 import {
     ConfigService,
-    EventService,
     InjectionService,
+    ColorThemeService,
 } from 'wlc-engine/modules/core';
 import {MerchantModel} from 'wlc-engine/modules/games';
 import {GamesCatalogService} from 'wlc-engine/modules/games/system/services';
@@ -40,11 +40,11 @@ export class IconMerchantsListComponent extends IconListAbstract<Params.IIconMer
     constructor(
         @Inject('injectParams') protected injectParams: Params.IIconMerchantsListCParams,
         protected configService: ConfigService,
-        protected eventService: EventService,
+        protected colorThemeService: ColorThemeService,
         protected injectionService: InjectionService,
         protected cdr: ChangeDetectorRef,
     ) {
-        super({injectParams, defaultParams: Params.defaultParams}, configService, eventService);
+        super({injectParams, defaultParams: Params.defaultParams}, configService, colorThemeService);
     }
 
     public async ngOnInit(): Promise<void> {
