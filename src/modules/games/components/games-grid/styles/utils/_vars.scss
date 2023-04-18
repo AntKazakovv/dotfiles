@@ -31,11 +31,7 @@ $themeDefault: map-merge((
     'placeholderTextColor': var(--mc-baseMain),
     'placeholderAlignItems': center,
     'placeholderJustifyContent': center,
-    'showMoreBtnMargin': (
-        375: ef.size(6) auto 0,
-        900: ef.size(4) auto 0,
-        1630: ef.size(8) auto 0,
-    ),
+    'showMoreBtnMargin': ef.size(4) auto 0,
     'catalogMoreButtonMargin': (
         375: ef.size(4) 0 0,
     ),
@@ -78,10 +74,6 @@ $themeDefault: map-merge((
 
 $customCommonStyles: () !default;
 $commonStyles: map-merge((
-    'moreButtonMargin': (
-        375: ef.size(4) 0 0,
-        1200: ef.size(8) 0 0,
-    ),
     'moreButtonAlignItems': center,
     'moreButtonJustifyContent': center,
 
