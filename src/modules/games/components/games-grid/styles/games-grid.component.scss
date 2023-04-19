@@ -52,6 +52,7 @@
         }
 
         &__more {
+            @include bm.get-mq-map('margin', $commonStyles, 'moreButtonMargin');
             display: flex;
             align-items: ef.get-value($commonStyles, 'moreButtonAlignItems');
             justify-content: ef.get-value($commonStyles, 'moreButtonJustifyContent');
