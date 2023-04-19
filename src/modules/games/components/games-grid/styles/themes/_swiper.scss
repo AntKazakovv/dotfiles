@@ -13,6 +13,15 @@
             grid-area: title-icon;
         }
 
+        &__list {
+            @include list();
+            grid-area: games-grid;
+        }
+
+        &__item {
+            @include item();
+        }
+
         &__title {
             display: ef.get-value($themeSwiper, 'titleDisplay');
             grid-area: title;

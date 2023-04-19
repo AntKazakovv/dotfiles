@@ -160,16 +160,12 @@
             </ng-container>
         </ng-container>
 
-        <ng-container *ngIf="isReadyOrUsePlaceholder else: preloader">
-            <ng-container *ngIf="hasGames; else: noGames">
-                <ng-container *ngIf="showGameSlides; else sliderPlaceholders">
-                    <div wlc-wrapper
-                         class="{{$class}}__games-slider"
-                         [inlineParams]="gamesSliderConfig"
-                         (resized)="onResize($event)">
-                    </div>
-                </ng-container>
-            </ng-container>
+        <ng-container *ngIf="showGameSlides else: preloaderForSlider">
+                <div wlc-wrapper
+                     class="{{$class}}__games-slider"
+                     [inlineParams]="gamesSliderConfig"
+                     (resized)="onResize($event)">
+                </div>
         </ng-container>
 
         <!-- The button block should be located after the swiper block to hide the button block
@@ -339,4 +335,13 @@
     <div *ngIf="isShowPreloader"
          wlc-loader
          class="{{$class}}__preloader"></div>
+</ng-template>
+
+<ng-template #preloaderForSlider>
+    <ng-container *ngIf="hasGames; else: noGames">
+            <div class="{{$class}}__list"
+                 (resized)="onResize($event)">
+            <ng-container [ngTemplateOutlet]="placeholders"></ng-container>
+            </div>
+    </ng-container>
 </ng-template>

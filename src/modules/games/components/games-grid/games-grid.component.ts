@@ -389,13 +389,23 @@ export class GamesGridComponent extends AbstractComponent implements OnInit, OnD
                     }
                 });
         }
+
+        if (this.router.globals.transitionHistory.peekTail().$from().name) {
+            setTimeout(() => {
+                this.setReadyFlags();
+            });
+        } else {
+            this.setReadyFlags();
+        }
+    }
+
+    protected setReadyFlags(): void {
         this.isReady = true;
         this.$isReady.next();
-
         if (!this.games.length && this.$params.hideEmpty) {
             this.hideEmptyComponent = true;
         }
-        this.cdr.detectChanges();
+        this.cdr.markForCheck();
     }
 
     protected initEventListeners(): void {
@@ -538,22 +548,21 @@ export class GamesGridComponent extends AbstractComponent implements OnInit, OnD
     }
 
     protected setPlaceHolders(): void {
-        if (this.$params.usePlaceholders) {
-            if (this.$params.theme === 'swiper' || this.$params.theme === 'mobile-app-swiper') {
-                this.placeHoldersSlides = _times(this.gamesCount, Number).map(() => {
-                    return {
-                        component: GameThumbComponent,
-                        componentParams: {
-                            common: {
-                                dumpy: true,
-                            },
+
+        if (this.$params.usePlaceholders &&
+            this.$params.theme === 'swiper' || this.$params.theme === 'mobile-app-swiper') {
+            this.placeHoldersSlides = _times(this.gamesCount, Number).map(() => {
+                return {
+                    component: GameThumbComponent,
+                    componentParams: {
+                        common: {
+                            dumpy: true,
                         },
-                    };
-                });
-            } else {
-                this.placeHolders = _times(this.gamesCount, Number);
-            }
+                    },
+                };
+            });
         }
+        this.placeHolders = _times(this.gamesCount, Number);
     }
 
     /**
