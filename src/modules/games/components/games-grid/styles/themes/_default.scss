@@ -88,11 +88,6 @@
             }
         }
 
-        &__show-all-btn {
-            @include bm.get-mq-map('margin', $themeDefault, 'showMoreBtnMargin');
-        }
-
-
         .wlc-search--theme-mod-default & {
 
             &__progressbar {

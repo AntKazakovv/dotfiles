@@ -203,21 +203,18 @@ export class GamesGridComponent extends AbstractComponent implements OnInit, OnD
 
     /**
      * return true if visible games is less than games length
-     * and if cardView param is set to false
-     * and if useLazy is set to false or useLazy set to true and showAsBtn param is false
+     * and if cardView params setted to false
+     * and if useLazy is setted to false or useLazy setted to true and buton was clicked
      * @returns boolean
      */
     public get moreBlockDisplayCondition(): boolean {
-        return !this.moreBtnCardView
-            && this.gamesCount < this.games.length
-            && this.lazyWithClick
-            && !this.$params.showAllLink?.showAsBtn;
+        return !this.moreBtnCardView && this.gamesCount < this.games.length && this.lazyWithClick;
     }
 
     /**
      * return true if hide param in button is false
-     * and showAllLink.use is set to false
-     * and if useLazy is set to false or useLazy set to true and button was clicked
+     * and showAllLink.use is setted to false
+     * and if useLazy is setted to false or useLazy setted to true and buton was clicked
      * @returns boolean
      */
     public get loadMoreDisplayCondition(): boolean {
@@ -296,10 +293,7 @@ export class GamesGridComponent extends AbstractComponent implements OnInit, OnD
     }
 
     public get showDesktopLink(): boolean {
-        return this.$params.showAllLink?.use
-                && this.isDesktop
-                && !this.$params.showAllLink.titleLinkOnly
-                && !this.$params.showAllLink.showAsBtn;
+        return this.$params.showAllLink?.use && this.isDesktop && !this.$params.showAllLink.titleLinkOnly;
     }
 
     protected get lazyWithClick(): boolean {
