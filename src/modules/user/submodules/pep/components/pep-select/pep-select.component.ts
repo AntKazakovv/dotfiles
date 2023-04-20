@@ -13,6 +13,7 @@ import {
     filter,
     takeUntil,
 } from 'rxjs/operators';
+import _isUndefined from 'lodash-es/isUndefined';
 
 import {
     AbstractComponent,
@@ -87,6 +88,11 @@ export class PepSelectComponent extends AbstractComponent implements OnInit {
                 distinctUntilChanged(),
                 filter((v) => {
                     const {status} = this.pepService;
+
+                    if (_isUndefined(v)) {
+                        this.$params.control.setValue('');
+                        return false;
+                    }
 
                     return (v !== '') && (v !== status);
                 }),

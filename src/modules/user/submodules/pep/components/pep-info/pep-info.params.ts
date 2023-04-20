@@ -136,6 +136,7 @@ export const defaultParams: Partial<IPepInfoCParams> = {
                             params: <IButtonCParams>{
                                 name: 'close',
                                 themeMod: 'secondary',
+                                wlcElement: 'wlc-btn_close',
                                 common: {
                                     event: {name: 'PEP_STATUS_CANCEL'},
                                     typeAttr: 'button',
@@ -147,8 +148,8 @@ export const defaultParams: Partial<IPepInfoCParams> = {
                             name: 'core.wlc-button',
                             params: <IButtonCParams>{
                                 name: 'submit',
+                                wlcElement: 'wlc-btn_next',
                                 common: {
-                                    wlcElement: 'button_submit',
                                     typeAttr: 'submit',
                                     text: pepPhrases.modals.info.next,
                                 },
