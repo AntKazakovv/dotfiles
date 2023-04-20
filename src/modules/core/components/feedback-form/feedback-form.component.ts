@@ -136,7 +136,7 @@ export class FeedbackFormComponent extends AbstractComponent implements OnInit, 
                 data: <IPushMessageParams>{
                     type: 'error',
                     title: gettext('Form submitting error'),
-                    message: gettext('Check the correctness of filling in the data'),
+                    message: error.errors[0],
                     wlcElement: 'notification_feedback-send-error',
                 },
             });
