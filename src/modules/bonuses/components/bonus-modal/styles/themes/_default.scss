@@ -47,17 +47,19 @@
         }
 
         &__btns {
-            display: ef.get-value($themeDefault, 'btnsDisplay');
-            justify-content: ef.get-value($themeDefault, 'btnsJustifyContent');
-            margin: ef.get-value($themeDefault, 'btnsMargin');
+            @include bm.get-mq-map('flex-direction', $themeDefault, 'btnWrapFlexDirection');
+            @include bm.get-mq-map('width', $themeDefault, 'btnWrapWidth');
+            @include bm.get-mq-map('margin', $themeDefault, 'btnWrapMargin');
+
+            display: ef.get-value($themeDefault, 'btnWrapDisplay');
+            justify-content: ef.get-value($themeDefault, 'btnWrapJustifyContent');
 
             ::ng-deep {
 
                 button {
-                    margin-right: ef.get-value($themeDefault, 'btnMarginRight');
 
-                    &:last-child {
-                        margin-right: 0;
+                    &:first-child {
+                        @include bm.get-mq-map('margin', $themeDefault, 'btnMargin');
                     }
                 }
             }

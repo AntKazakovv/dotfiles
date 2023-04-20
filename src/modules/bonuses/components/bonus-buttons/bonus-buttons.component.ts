@@ -37,6 +37,7 @@ export class BonusButtonsComponent extends AbstractComponent implements OnInit {
     @Input() public isChooseBtn: boolean;
     @Input() public isInsideModal: boolean = false;
     @Input() public readMoreClick: ($event: MouseEvent) => Promise<void>;
+    @Input() public isShowUnsubscribe: boolean = false;
 
     public $params: Params.IBonusButtonsCParams;
     public isAuth: boolean;
@@ -84,6 +85,14 @@ export class BonusButtonsComponent extends AbstractComponent implements OnInit {
     public get isShowPlayBtn(): boolean {
         return ((this.bonus.isSubscribed && !this.bonus.isDeposit) || this.bonus.isActive)
             && !this.bonus.inventoried;
+    }
+    /**
+     * Determines show or not the unsubscribe button in template
+     *
+     * @returns {boolean}
+     */
+    public get isShowUnsubscribeBtn(): boolean {
+        return this.bonus.canUnsubscribe && (!this.bonus.inventoried || this.isShowUnsubscribe);
     }
 
     /**

@@ -163,6 +163,7 @@ describe('BonusButtonsComponent', () => {
         component.ngOnInit();
         component.bonusItemTheme = 'default';
         component.isAuth = true;
+        component.isShowUnsubscribe = true;
         fixture.detectChanges();
 
         expect(nativeElement.querySelector('button[wlcelement="button_unsubscribe"]')).toBeTruthy();

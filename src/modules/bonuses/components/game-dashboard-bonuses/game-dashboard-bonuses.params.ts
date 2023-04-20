@@ -15,7 +15,6 @@ export interface IGameDashboardBonusesCParams extends IComponentParams<Theme, Ty
     defaultSliderParams?: ISliderCParams,
     landscapeSliderParams?: ISliderCParams,
     sortOrder?: TBonusSortOrder[];
-    numberOfBonuses?: number;
 }
 
 export const defaultParams: IGameDashboardBonusesCParams = {
@@ -40,5 +39,4 @@ export const defaultParams: IGameDashboardBonusesCParams = {
         },
     },
     sortOrder: ['active', 'promocode', 'subscribe', 'inventory'],
-    numberOfBonuses: 10,
 };

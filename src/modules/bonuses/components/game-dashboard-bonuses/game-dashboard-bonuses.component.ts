@@ -12,7 +12,6 @@ import {
 
 import {takeUntil} from 'rxjs/operators';
 import _map from 'lodash-es/map';
-import _slice from 'lodash-es/slice';
 import _merge from 'lodash-es/merge';
 
 import {
@@ -111,7 +110,6 @@ export class GameDashboardBonusesComponent extends AbstractComponent implements 
                             this.bonusesService.filterBonuses(bonuses, this.filter),
                             this.$params.sortOrder,
                         );
-                        this.bonuses = _slice(this.bonuses, 0, this.$params.numberOfBonuses - 1);
                         this.bonusesToSlides(this.bonuses, true);
                         this.initSliderComponents();
                         this.isReady = true;

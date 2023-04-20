@@ -176,6 +176,7 @@ export namespace wlcBonusesList {
                     },
                 },
             },
+            themeMod: 'with-image',
         },
     };
     export const dashboard: ILayoutComponent = {

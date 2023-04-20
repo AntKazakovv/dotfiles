@@ -11,7 +11,20 @@ $themeDefault: map-merge((
     'bonusDescColor': var(--mc-baseMain),
     'bonusDescAlign': center,
     'bonusDescOverflow': hidden,
-
+    'btnWrapWidth': (
+        375: max-content,
+        560: 100%
+    ),
+    'btnWrapFlexDirection': (
+        375: column,
+        560: row
+    ),
+    'btnWrapMargin': (
+        375: auto,
+        560: 0 0 ef.size(8),
+    ),
+    'btnWrapDisplay': flex,
+    'btnWrapJustifyContent': center,
     'imageBlockHeight': (
         375: 181px,
         560: 200px,
@@ -32,11 +45,10 @@ $themeDefault: map-merge((
     'infoBlockGap': ef.size(6),
     'infoBlockPadding': ef.size(8) ef.size(12),
 
-    'btnsDisplay': flex,
-    'btnsJustifyContent': center,
-    'btnsMargin': 0 0 ef.size(8) 0,
-    'btnMarginRight': ef.size(4),
-
+    'btnMargin': (
+        375: 0 0 ef.size(2),
+        560: 0 ef.size(4) 0 0,
+    ),
     'descBlockDisplay': grid,
     'descBlockGap': ef.size(4),
 
