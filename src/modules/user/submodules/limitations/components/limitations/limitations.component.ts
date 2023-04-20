@@ -174,7 +174,7 @@ export class LimitationsComponent extends AbstractComponent implements OnInit {
                         extProfile: {
                             realityCheckTime: form.value.limitTime,
                         },
-                    }, true);
+                    }, {updatePartial: true});
 
                     if (result) {
                         this.eventService.emit({

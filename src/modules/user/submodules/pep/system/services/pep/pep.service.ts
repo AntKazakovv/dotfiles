@@ -12,6 +12,7 @@ import {
     NotificationEvents,
     InjectionService,
 } from 'wlc-engine/modules/core';
+import {IMessageData} from 'wlc-engine/modules/core/components/message/message.interface';
 import {UserService} from 'wlc-engine/modules/user';
 import {phrases} from 'wlc-engine/modules/user/submodules/pep/system/services/pep/pep.translations';
 
@@ -20,10 +21,6 @@ type PepPrefixed<S extends string> = `PEP_${S}`;
 type PepStatusEventKind = PepPrefixed<'STATUS_CANCEL'>;
 
 type PepErrorEventKind = PepPrefixed<`ERROR_${'INCORRECT_PASSWORD' | 'CHANGE_STATUS'}`>
-
-interface WithErrors {
-    errors: string[];
-}
 
 export type PepEventKind = PepStatusEventKind | PepErrorEventKind;
 
@@ -154,9 +151,13 @@ export class PepService {
             this.userService = await this.injectionService.getService<UserService>('user.user-service');
         }
 
-        const response = await this.userService.updateProfile(updates, true, false, requestConfirmation);
+        const response = await this.userService.updateProfile(updates, {
+            requestConfirmation,
+            updatePartial: true,
+            isAfterDepositWithdraw: false,
+        });
 
-        if (response !== true) {
+        if (response.code !== 200) {
             this.logService.sendLog({
                 code: '1.1.26',
                 from: {
@@ -165,7 +166,7 @@ export class PepService {
                 },
             });
 
-            if (requestConfirmation) {
+            if (requestConfirmation && Array.isArray(response.errors)) {
                 this.showErrorNotification(response.errors);
             }
 
@@ -173,15 +174,14 @@ export class PepService {
         }
     }
 
-    private async showErrorNotification(response: WithErrors): Promise<void> {
-        this.eventService.emit({
-            name: NotificationEvents.PushMessage,
-            data: <IPushMessageParams>{
-                type: 'error',
-                title: gettext('Profile update failed'),
-                message: response.errors,
-                wlcElement: 'notification_profile-update-error',
-            },
-        });
+    private async showErrorNotification(message: IMessageData['message']): Promise<void> {
+        const data: IPushMessageParams = {
+            message,
+            type: 'error',
+            title: gettext('Profile update failed'),
+            wlcElement: 'notification_profile-update-error',
+        };
+
+        this.eventService.emit({data, name: NotificationEvents.PushMessage});
     }
 }

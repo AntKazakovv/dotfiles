@@ -83,6 +83,44 @@ interface ILoginPasswordData {
 
 type TLoginData = TMetamaskData | ILoginPasswordData;
 
+type ProfileParamsWithMetamask = IUserProfile & TMetamaskData & Pick<IUserProfile, 'type'>;
+
+/**
+ *
+ */
+export interface IUpdateProfileOptions {
+    /**
+     * Allows to change updating strategy.
+     * In other words "PUT" or "PATCH" HTTP method will be used.
+     *
+     * Partial update requires an object
+     * that can include any set of  `IUserProfile` properties.
+     *
+     * Full update requires only fully-implementing `IUserProfile` object.
+     */
+    updatePartial: boolean;
+    /**
+     * Indicates is profile updating after deposit or withdraw action.
+     */
+    isAfterDepositWithdraw?: boolean;
+    /**
+     * Only for profiles using Metamask.
+     * Defines should confirmation be demanded or not.
+     */
+    requestConfirmation?: boolean;
+}
+
+/**
+ * Return type for `updateProfile` method by `UserService`
+ */
+export type TUpdateProfileRes = IData<{result: boolean}> & {errors?: string[] | IIndexing<string> | null};
+
+/**
+ * Return type for `setNewPassword` method by `UserService`
+ */
+
+export type TSetNewPasswordRes = IData<Record<'result', string>>;
+
 @Injectable({
     providedIn: 'root',
 })
@@ -478,64 +516,82 @@ export class UserService {
         return this.dataService.request('user/registrationComplete', {code});
     }
 
-    public async updateProfile(
-        profile: IUserProfile,
-        updatePartial: boolean = false,
-        isAfterDepositWithdraw?: boolean,
-        requestConfirmation?: boolean,
-    ): Promise<true | IIndexing<any>> {
-        const params = updatePartial
-            ? _assign({}, profile, isAfterDepositWithdraw ? {isAfterDepositWithdraw} : {})
-            : _assign({}, this.profile.data, profile);
-
-        const needAgeCheck: boolean = ['birthYear', 'birthDay', 'birthMonth'].every(el => el in profile);
-
-        if (needAgeCheck && !this.checkUserAge(profile)) {
-            let errorAgeText = this.translate.instant(gettext('You are under the age of'));
-            errorAgeText += ' ' + this.configService.get('$base.profile.legalAge');
-            errorAgeText += this.translate.instant(gettext('age_end'));
-
-            return {
-                errors: [errorAgeText],
-            };
-        }
-
+    public async updateProfile(updates: IUserProfile, options: IUpdateProfileOptions): Promise<TUpdateProfileRes> {
         try {
-            if (this._isMetamaskUser && (!updatePartial || requestConfirmation)) {
-                if (!this.metamaskService) {
-                    this.metamaskService = await this.injectionService
-                        .getService<MetamaskService>('metamask.metamask-service');
-                }
+            this.checkForAgeLegality(updates);
 
-                const metamaskData: TMetamaskData = await this.metamaskService.requestAuthData('profile');
+            const requestParams = await this.getUpdateProfileParams(updates, options);
 
-                _assign<Partial<IUserProfile>, TMetamaskData, Pick<IUserProfile, 'type'>>(
-                    params,
-                    metamaskData,
-                    {type: 'metamask'},
-                );
-            }
-
-            const response: IData = await this.dataService.request({
+            const response: TUpdateProfileRes = await this.dataService.request({
                 name: 'updateProfile',
                 system: 'user',
                 url: '/profiles',
-                type: updatePartial ? 'PATCH' : 'PUT',
+                type: options.updatePartial ? 'PATCH' : 'PUT',
                 events: {
                     success: 'PROFILE_UPDATE',
                     fail: 'PROFILE_UPDATE_ERROR',
                 },
-            }, params);
+            }, requestParams);
 
             if (response.data?.result) {
-                _merge(this.profile.data, profile);
+                _merge(this.profile.data, updates);
                 this.userProfile$.next(this.userProfile);
-                return true;
-            } else {
-                return response;
             }
+
+            return response;
         } catch (error) {
             return error;
+        }
+    }
+
+    private async getUpdateProfileParams(updates: IUserProfile, options: IUpdateProfileOptions): Promise<IUserProfile> {
+        const {updatePartial = false, isAfterDepositWithdraw} = options;
+
+        const requestParams = updatePartial
+            ? _assign({}, updates, isAfterDepositWithdraw ? {isAfterDepositWithdraw} : {})
+            : _assign({}, this.profile.data, updates);
+
+        if (this.shouldUpdateProfileWithMetamask(options)) {
+            return await this.getUpdateProfileParamsWithMetamask(requestParams);
+        }
+
+        return requestParams;
+    }
+
+    private async getUpdateProfileParamsWithMetamask(requestParams: IUserProfile): Promise<ProfileParamsWithMetamask> {
+        if (!this.metamaskService) {
+            this.metamaskService = await this.injectionService
+                .getService<MetamaskService>('metamask.metamask-service');
+        }
+
+        const metamaskData: TMetamaskData = await this.metamaskService.requestAuthData('profile');
+
+        return _assign(
+            requestParams,
+            metamaskData,
+            {type: 'metamask'},
+        );
+    }
+
+    private shouldUpdateProfileWithMetamask(options: IUpdateProfileOptions): boolean {
+        return this._isMetamaskUser && (
+            !options.updatePartial || options.requestConfirmation
+        );
+    }
+
+    private shouldAgeBeChecked(updates: IUserProfile): boolean {
+        return ['birthYear', 'birthDay', 'birthMonth'].every((key) => key in updates);
+    }
+
+    private checkForAgeLegality(updates: IUserProfile): void {
+        if (this.shouldAgeBeChecked(updates) && !this.isAgeLegal(updates)) {
+            const explanationStart = this.translate.instant(gettext('You are under the age of'));
+            const legalAge = this.configService.get<number>('$base.profile.legalAge');
+            const explanationFinal = this.translate.instant(gettext('age_end'));
+
+            const message = `${explanationStart} ${legalAge}${explanationFinal}`;
+
+            throw {errors: [message]};
         }
     }
 
@@ -559,9 +615,11 @@ export class UserService {
         return this.dataService.request('user/validateRestoreCode', params);
     }
 
-    public setNewPassword(password: string, newPassword: string): Promise<IIndexing<any>> {
+    public async setNewPassword(password: string, newPassword: string): Promise<TSetNewPasswordRes> {
         const params = {password, newPassword};
-        return this.dataService.request('user/newPassword', params);
+        const response: TSetNewPasswordRes = await this.dataService.request('user/newPassword', params);
+
+        return response;
     }
 
     public changePhone(phoneCode: string, phoneNumber: string): void {
@@ -757,7 +815,7 @@ export class UserService {
      *
      * @return {boolean}
      */
-    public checkUserAge({birthDay, birthYear, birthMonth}: IUserProfile): boolean {
+    public isAgeLegal({birthDay, birthYear, birthMonth}: IUserProfile): boolean {
         const legalAge: number = this.configService.get('$base.profile.legalAge');
         return DateTime.utc(+birthYear, +birthMonth, +birthDay)
             .diffNow('years')

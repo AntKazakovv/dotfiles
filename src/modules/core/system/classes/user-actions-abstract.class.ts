@@ -99,7 +99,7 @@ export abstract class UserActionsAbstract<T> extends AbstractComponent {
                 this.userService = await this.injectionService.getService<UserService>('user.user-service');
             }
 
-            ageConfirmed = this.userService.checkUserAge(formValues);
+            ageConfirmed = this.userService.isAgeLegal(formValues);
         }
 
         if (ageConfirmed && agreedWithTermsAndConditions) {

@@ -531,7 +531,10 @@ export class DepositWithdrawComponent
                 this.userService = await this.injectionService.getService<UserService>('user.user-service');
             }
 
-            return await this.userService.updateProfile({extProfile}, true, true);
+            return await this.userService.updateProfile({extProfile}, {
+                updatePartial: true,
+                isAfterDepositWithdraw: true,
+            });
         } catch (error) {
             this.eventService.emit({
                 name: NotificationEvents.PushMessage,

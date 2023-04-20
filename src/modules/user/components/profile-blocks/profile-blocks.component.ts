@@ -139,7 +139,7 @@ export class ProfileBlocksComponent extends AbstractComponent implements OnInit 
                     sendEmail: checked,
                 },
                 emailAgree: checked,
-            }, true);
+            }, {updatePartial: true});
         } catch (error) {
             this.eventService.emit({
                 name: NotificationEvents.PushMessage,

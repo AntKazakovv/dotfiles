@@ -16,6 +16,7 @@ import _get from 'lodash-es/get';
 import _cloneDeep from 'lodash-es/cloneDeep';
 
 import {
+    AppType,
     ConfigService,
     EventService,
     IFormWrapperCParams,
@@ -32,6 +33,10 @@ import {ProfileFormAbstract} from 'wlc-engine/modules/user/system/classes/profil
 import {FormElements} from 'wlc-engine/modules/core/system/config/form-elements';
 import {CuracaoRequirement} from 'wlc-engine/modules/app/system';
 import {UserHelper} from 'wlc-engine/modules/user/system/helpers/user.helper';
+import {
+    TSetNewPasswordRes,
+    TUpdateProfileRes,
+} from 'wlc-engine/modules/user/system/services/user/user.service';
 
 import * as Params from './profile-form.params';
 
@@ -39,6 +44,10 @@ interface IFindBlockResult {
     parent: IFormComponent[];
     index: number;
 }
+
+type SavingErrors = TUpdateProfileRes['errors'];
+
+type TSaveChangesRes = TUpdateProfileRes | TSetNewPasswordRes;
 
 /**
  * Profile form component.
@@ -91,6 +100,8 @@ export class ProfileFormComponent extends ProfileFormAbstract implements OnInit 
     public ready: boolean = false;
     public formConfig: IFormWrapperCParams;
 
+    protected isKiosk: boolean = false;
+
     constructor(
         @Inject('injectParams') protected params: Params.IProfileFormCParams,
         protected userService: UserService,
@@ -122,6 +133,8 @@ export class ProfileFormComponent extends ProfileFormAbstract implements OnInit 
 
         this.mixinRequiredFields();
 
+        this.isKiosk = this.configService.get<AppType>('$base.app.type') === 'kiosk';
+
         if (await this.configService.get<Promise<boolean>>('$user.skipPasswordOnFirstUserSession')) {
             this.formConfig = this.changePassBlock();
         }
@@ -147,9 +160,9 @@ export class ProfileFormComponent extends ProfileFormAbstract implements OnInit 
             form.value.extProfile = _assign({}, form.value.extProfile, {pep});
         }
 
-        const result = await this.userService.updateProfile(form.value, false);
+        const response = await this.saveChanges(form);
 
-        if (result === true) {
+        if (response.status === 'success') {
             form.controls.password?.setValue('');
             form.controls.newPasswordRepeat?.setValue('');
             this.eventService.emit({
@@ -165,18 +178,20 @@ export class ProfileFormComponent extends ProfileFormAbstract implements OnInit 
 
             return true;
         } else {
+            const errors = this.extractSavingErrors(response);
+
             this.eventService.emit({
                 name: NotificationEvents.PushMessage,
                 data: <IPushMessageParams>{
                     type: 'error',
                     title: gettext('Profile update failed'),
-                    message: result.errors,
+                    message: errors ?? '',
                     wlcElement: 'notification_profile-update-error',
                 },
             });
 
-            if (_isObject(result.errors)) {
-                this.errors$.next(result.errors as IIndexing<string>);
+            if (_isObject(errors)) {
+                this.errors$.next(errors as IIndexing<string>);
             }
 
             return false;
@@ -366,5 +381,21 @@ export class ProfileFormComponent extends ProfileFormAbstract implements OnInit 
                 return false;
             }
         });
+    }
+
+    protected saveChanges(form: FormGroup): Promise<TSaveChangesRes> {
+        if (this.isKiosk) {
+            const {currentPassword, newPasswordRepeat} = form.value;
+
+            return this.userService.setNewPassword(currentPassword, newPasswordRepeat);
+        }
+
+        return this.userService.updateProfile(form.value, {updatePartial: false});
+    }
+
+    protected extractSavingErrors(response: TSaveChangesRes): SavingErrors {
+        return _isObject(response) && ('errors' in response)
+            ? response['errors']
+            : null;
     }
 }

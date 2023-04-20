@@ -82,9 +82,13 @@ export class AddProfileInfoComponent extends ProfileFormAbstract implements OnIn
         this.isPending = true;
         this.modalService.showModal('data-is-processing');
 
-        const result = await this.userService.updateProfile(form.value, true, false, true);
+        const response = await this.userService.updateProfile(form.value, {
+            updatePartial: true,
+            isAfterDepositWithdraw: false,
+            requestConfirmation: true,
+        });
 
-        if (result === true) {
+        if (response.status === 'success') {
             this.modalService.closeAllModals();
 
             if (this.$params.redirect?.success) {
@@ -105,15 +109,20 @@ export class AddProfileInfoComponent extends ProfileFormAbstract implements OnIn
         } else {
 
             const messages = [gettext('Failed to save the profile')];
-            if (result.errors) {
-                if (_isString(result.errors)) {
-                    messages.push(result.errors);
+            const {errors} = response;
+
+            if (errors) {
+                if (_isString(errors)) {
+                    messages.push(errors);
                 } else {
-                    _each(result.errors, (error: any): void => {
+                    _each(errors, (error): void => {
                         messages.push(String(error));
                     });
+
+                    if (!Array.isArray(errors)) {
+                        this.errors$.next(response.errors as IIndexing<string>);
+                    }
                 }
-                this.errors$.next(result.errors);
             }
 
             this.modalService.hideModal('data-is-processing');

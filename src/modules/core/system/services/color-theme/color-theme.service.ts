@@ -156,7 +156,7 @@ export class ColorThemeService {
                 extProfile: {
                     colorTheme: theme,
                 },
-            }, true);
+            }, {updatePartial: true});
         } catch (error) {
             this.logService.sendLog({code: '1.1.26', data: error, from: {
                 service: 'ColorThemeService',

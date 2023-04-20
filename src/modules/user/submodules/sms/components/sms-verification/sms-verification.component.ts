@@ -151,7 +151,7 @@ export class SmsVerificationComponent extends UserActionsAbstract<Params.ISmsVer
                         phoneCode: this.phoneCode,
                         phoneNumber: this.phoneNumber,
                         phoneVerified: true,
-                    }, true);
+                    }, {updatePartial: true});
 
                     if (result) {
                         this.eventService.emit({
