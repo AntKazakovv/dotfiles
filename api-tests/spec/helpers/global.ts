@@ -2,6 +2,11 @@ import {IData} from 'wlc-engine/modules/core';
 
 const projectUrl = process.env.PROJECT_URL || 'https://test-devcasino.egamings.com';
 
+export const testUser = {
+    email: 'test@test.com',
+    password: 'Test123!',
+};
+
 export type TLoginResponse = Record<'cookie', string>;
 
 export const fetch = require('node-fetch');
@@ -14,8 +19,8 @@ export const login = async (): Promise<TLoginResponse> => {
     const login = await fetch(getRequestUrl('/api/v1/auth'), {
         method: 'PUT',
         body: JSON.stringify({
-            login: process.env.USER || 'test@test.com',
-            password: process.env.PASS || 'Test123!',
+            login: process.env.USER || testUser.email,
+            password: process.env.PASS || testUser.password,
         }),
     });
 
