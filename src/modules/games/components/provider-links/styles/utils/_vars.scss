@@ -84,6 +84,8 @@ $themeDefault: map-merge((
     'wrapperTemplateAdaptive': repeat(2, minmax(150px, 1fr)),
 
     'buttonMarginAdaptive': ef.size(2) auto 0,
+
+    'errorLineHeight': 1.15,
 ), $customThemeDefault);
 
 $customMobileApp: () !default;

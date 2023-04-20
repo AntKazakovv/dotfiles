@@ -33,7 +33,7 @@ export const defaultParams: IProviderLinksCParams = {
     iconsType: 'black',
     colorIconBg: 'dark',
     type: 'slider',
-    linkText: 'See all',
+    linkText: gettext('Show all'),
     defaultLinkSref: 'app.providers',
     sliderParams: {
         swiper: {

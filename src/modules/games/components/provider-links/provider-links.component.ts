@@ -186,8 +186,8 @@ export class ProviderLinksComponent extends IconListAbstract<Params.IProviderLin
                 {
                     name: 'promo.wlc-slider',
                     params: <ISliderCParams>{
-                        slides: this.slides,
                         ...this.sliderParams,
+                        slides: this.slides,
                     },
                 },
             ],

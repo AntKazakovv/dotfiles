@@ -150,6 +150,14 @@
                 text-decoration: none;
             }
 
+            &__error {
+                line-height: ef.get-value($themeDefault, 'errorLineHeight');
+                text-align: center;
+
+                overflow-wrap: anywhere;
+                overflow: hidden;
+            }
+
             &__image,
             .wlc-icon-content {
                 display: flex;

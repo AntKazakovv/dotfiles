@@ -8,6 +8,10 @@ export namespace providers {
         components: [
             {
                 name: 'games.wlc-provider-links',
+                params: {
+                    iconsType: 'color',
+                    colorIconBg: 'dark',
+                } as IProviderGamesCParams,
             },
         ],
     };
@@ -17,6 +21,10 @@ export namespace providers {
         components: [
             {
                 name: 'games.wlc-provider-games',
+                params: {
+                    iconType: 'color',
+                    colorIconBg: 'dark',
+                } as IProviderGamesCParams,
             },
         ],
     };
