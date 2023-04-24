@@ -65,7 +65,6 @@
                 svg {
                     width: ef.get-value($themeDefault, 'userIconWidth');
                     margin: ef.get-value($themeDefault, 'userIconMargin');
-                    vertical-align: ef.get-value($themeDefault, 'userIconVertAlign');
                 }
             }
         }

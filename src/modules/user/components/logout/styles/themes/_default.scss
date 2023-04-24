@@ -7,6 +7,7 @@
 
             .wlc-btn__text {
                 @include text.get-text-style(ef.get-value($themeDefault, 'textFont'), ef.get-value($themeDefault, 'textColor'));
+                @include bm.transition(color);
                 display: flex;
                 align-items: center;
             }
@@ -14,6 +15,7 @@
             .wlc-icon {
 
                 path {
+                    @include bm.transition(all);
                     fill: ef.get-value($themeDefault, 'iconColor');
                     stroke: ef.get-value($themeDefault, 'iconColor');
                 }
@@ -25,14 +27,12 @@
             ::ng-deep {
 
                 .wlc-btn__text {
-                    @include bm.transition(color);
                     color: ef.get-value($themeDefault, 'textColorHover');
                 }
 
                 ::ng-deep {
 
                     path {
-                        @include bm.transition(all);
                         fill: ef.get-value($themeDefault, 'textColorHover');
                         stroke: ef.get-value($themeDefault, 'textColorHover');
                     }
