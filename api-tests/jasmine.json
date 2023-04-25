@@ -5,7 +5,8 @@
         "**/games.spec.ts",
         "**/jackpots.spec.ts",
         "**/levels.spec.ts",
-        "**/wins.spec.ts"
+        "**/wins.spec.ts",
+        "**/user-logout.spec.ts"
     ],
     "helpers": [
         "helpers/**/*.helper.ts"
