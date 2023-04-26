@@ -166,7 +166,7 @@
 
         display: flex;
         justify-content: ef.get-value($themeDefault, 'btnsWrapAlign');
-
+        min-height: ef.get-value($themeDefault, 'btnsWrapMinHeight');
         margin: ef.get-value($themeDefault, 'btnsWrapMargin');
 
 
@@ -174,7 +174,6 @@
             grid-column-gap: ef.get-value($themeDefault, 'btnsGridColumnGap');
 
             min-width: ef.get-value($themeDefault, 'btnsMinWidth');
-
             margin: ef.get-value($themeDefault, 'btnsMargin');
             padding: ef.get-value($themeDefault, 'btnsPadding');
 
