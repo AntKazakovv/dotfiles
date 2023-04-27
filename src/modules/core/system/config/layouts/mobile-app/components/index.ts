@@ -78,6 +78,8 @@ export * from './bonuses/wlc-recommended-bonuses.config';
 export * from './profile/wlc-verification.config';
 export * from './profile/wlc-bet-history.config';
 
+export * from './rates/wlc-rates.config';
+
 export * from './store/wlc-store-list.config';
 export * from './store/wlc-store-title.config';
 

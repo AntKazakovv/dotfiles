@@ -29,6 +29,7 @@ import {IFormsConfig} from 'wlc-engine/modules/core/system/interfaces/base-confi
 import {IHooksConfig} from 'wlc-engine/modules/core/system/interfaces/base-config/hooks.interface';
 import {IIntercomSetup} from 'wlc-engine/modules/external-services/system/interfaces/intercom.interface';
 import {IPopupConfig} from 'wlc-engine/modules/core/system/interfaces/base-config/popup.interface';
+import {ICoupleCurrency} from 'wlc-engine/modules/rates/system/interfaces/rates.interfaces';
 
 export * from './games.interface';
 export * from './tournaments.interface';
@@ -41,6 +42,7 @@ export * from './hooks.interface';
 export interface IBaseConfig {
     app?: IAppConfig;
     site?: ISiteConfig;
+    rates?: ICoupleCurrency[];
     hooks?: IHooksConfig;
     /**
      * Sticky header enabling and settings;

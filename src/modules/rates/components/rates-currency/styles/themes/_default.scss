@@ -1,0 +1,22 @@
+$selector: '.wlc-rates-currency';
+
+.wlc-rates-currency--theme-default:host {
+    @include bm.get-mq-map('display', $themeDefault, 'currencyListDisplay');
+    @include bm.get-mq-map('flex-direction', $themeDefault, 'currencyFlexDirection');
+    @include bm.get-mq-map('align-items', $themeDefault, 'currencyAlignItems');
+    @include bm.get-mq-map('margin', $themeDefault, 'currencyMargin');
+
+    #{$selector}__item {
+        @include text.get-text-style(
+            ef.get-value($themeDefault, 'currencyTextStyle', 375),
+            ef.get-value($themeDefault, 'currencyTextColor')
+        );
+
+        @include mq.min(1024) {
+            @include text.get-text-style(
+                ef.get-value($themeDefault, 'currencyTextStyle', 1024),
+                null
+            );
+        }
+    }
+}

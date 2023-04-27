@@ -29,6 +29,7 @@ export type TModuleName =
     | 'limitations'
     | 'chat'
     | 'captcha'
+    | 'rates'
     | 'recaptcha'
     | 'cashback'
     | 'external-services'
@@ -188,6 +189,11 @@ export const modulesApp: Record<TModuleName, IFunctionImportModule> = {
         const m = await import('wlc-engine/modules/security/captcha/captcha.module');
         callback(name, m);
         return m.CaptchaModule;
+    },
+    'rates': async (name: TModuleName, callback: Function) => {
+        const m = await import('wlc-engine/modules/rates/rates.module');
+        callback(name, m);
+        return m.RatesModule;
     },
     'recaptcha': async (name: TModuleName, callback: Function) => {
         const m = await import('wlc-engine/modules/security/recaptcha/recaptcha.module');

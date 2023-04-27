@@ -1,0 +1,24 @@
+$customThemeDefault: () !default;
+$themeDefault: map-merge((
+    'currencyListDisplay': (
+        375: flex,
+        1024: block,
+    ),
+    'currencyFlexDirection': (
+        375: column,
+        1024: null,
+    ),
+    'currencyAlignItems': (
+        375: center,
+        1024: null,
+    ),
+    'currencyMargin': (
+        375: ef.size(3) 0 0,
+        1024: ef.size(4) 0 0,
+    ),
+    'currencyTextStyle': (
+        375: 'CaptionTextBold',
+        1024: 'PrimaryTextBold',
+    ),
+    'currencyTextColor': var(--mc-baseOpacity),
+), $customThemeDefault);

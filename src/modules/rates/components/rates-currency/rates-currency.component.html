@@ -1,0 +1,11 @@
+<div class="{{$class}}__list">
+    <div *ngFor="let item of ratesList"
+        class="{{$class}}__item">
+        <ng-template [ngIf]="item.rate">
+            1 {{item.cryptoCurrency}} =
+            <span wlc-currency
+                  [value]="item.rate"
+                  [currency]="item.currency"></span>
+        </ng-template>
+    </div>
+</div>

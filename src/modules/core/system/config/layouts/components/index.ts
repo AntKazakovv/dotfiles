@@ -93,3 +93,5 @@ export * from './cashback/wlc-cashback-rewards.config';
 
 export * from './history/wlc-bonuses-history.config';
 export * from './history/wlc-tournaments-history.config';
+
+export * from './rates/wlc-rates-currency.config';
