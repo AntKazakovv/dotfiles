@@ -88,6 +88,7 @@ import {
     IStartGameOptions,
     gamesEvents,
 } from 'wlc-engine/modules/games/system/interfaces/games.interfaces';
+import {Type as IGameThumbType} from 'wlc-engine/modules/games/components/game-thumb/game-thumb.params';
 import {ITournamentGames} from 'wlc-engine/modules/tournaments/system/interfaces/tournaments.interface';
 import {
     TFreeRoundGames,
@@ -131,9 +132,9 @@ export class GamesCatalogService {
         this.$gameThumbResolve = resolve;
     });
     public favourites: Game[] = [];
-
     public favoritesUpdated: Subject<void> = new Subject<void>();
-
+    public idDefVideos: number[] = [];
+    public idVerticalVideos: number[] = [];
     private searchBySpecialCats: boolean = true;
     private gamesCatalog: GamesCatalog;
     private onlyAuthSpecial: string[] = ['lastplayed', 'favourites', 'last-played'];
@@ -177,6 +178,11 @@ export class GamesCatalogService {
         this.registerMethods();
 
         this.loadGames();
+
+        if (this.configService.get<boolean>('$games.useVideoThumbs.use')) {
+            this.getIdDefVideos();
+            this.getIdVerticalVideos();
+        }
 
         this.useRealJackpots = this.configService.get<boolean>('$base.games.jackpots.useRealJackpots');
         this.useSeparateSorts = this.configService.get<boolean>('$games.sortsV2.use');
@@ -986,19 +992,26 @@ export class GamesCatalogService {
         return this.gamesCatalog.getCategorySettings();
     }
 
+    public hasVideo(gameId: number, type: IGameThumbType): boolean {
+        if (type === 'vertical') {
+            return this.idVerticalVideos.includes(gameId);
+        }
+        return this.idDefVideos.includes(gameId);
+    }
+
     /**
      * Getting id of games that have video
      *
-     * @returns {Promise<number[]>}
+     * @returns {Promise<void>}
      */
-    public async getIdVerticalVideos(): Promise<number[]> {
+    protected async getIdVerticalVideos(): Promise<void> {
         await this.getThumbConfig('vertical');
-        return this.verticalThumbsConfig.haveVideo;
+        this.idVerticalVideos = this.verticalThumbsConfig.haveVideo;
     }
 
-    public async getIdDefVideos(): Promise<number[]> {
+    protected async getIdDefVideos(): Promise<void> {
         await this.getThumbConfig('default');
-        return this.defaultThumbsConfig.haveVideo;
+        this.idDefVideos = this.defaultThumbsConfig.haveVideo;
     }
 
     protected async getThumbConfig(type: 'default' | 'vertical'): Promise<IVideoThumbsConfig> {

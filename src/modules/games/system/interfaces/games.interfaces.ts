@@ -30,6 +30,9 @@ export interface IGamesConfig {
     gameDashboard?: IGameDashboard;
     mediaFormatTypes?: IIndexing<string>;
     idVerticalVideos?: number[];
+    useVideoThumbs?: {
+        use?: boolean;
+    };
     defaultThumbsConfigUrl?: string;
     verticalThumbsConfigUrl?: string;
     verticalImagesPath?: string;

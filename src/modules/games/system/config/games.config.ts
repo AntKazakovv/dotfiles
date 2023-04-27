@@ -96,6 +96,9 @@ export const gamesConfig: IGamesConfig = {
         'avif': 'image/avif',
         'webp': 'image/webp',
     },
+    useVideoThumbs: {
+        use: true,
+    },
     defaultThumbsConfigUrl: '/gstatic/games/default-thumb.json',
     verticalThumbsConfigUrl: '/gstatic/vertical-thumbs/vertical-thumb.json',
     verticalImagesPath: '/gstatic/vertical-thumbs/',

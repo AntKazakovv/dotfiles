@@ -90,6 +90,7 @@ export class GameThumbComponent extends AbstractComponent implements OnInit {
     public logoFallback: Params.IMediaContent[];
     public videos: Params.IMediaContent[];
     public useWebp: boolean = true;
+    public hasVideo: boolean = false;
 
     /**
      * Pragmatic play live data model
@@ -104,7 +105,6 @@ export class GameThumbComponent extends AbstractComponent implements OnInit {
     }
 
     protected deviceType: DeviceType;
-    protected idVideos: number[];
     protected mediaFormatTypes: IIndexing<string>;
     protected currentLanguage: string;
     protected staticTData: Partial<Params.IStaticTransformData>;
@@ -160,7 +160,6 @@ export class GameThumbComponent extends AbstractComponent implements OnInit {
     public async init(): Promise<void> {
         await this.gamesCatalogService.gameThumbReady;
         const gameId = this.$params.common?.gameId;
-        this.idVideos = await this.gamesCatalogService.getIdDefVideos();
         this.currentLanguage = this.configService.get<string>('currentLanguage');
 
         if (GlobalHelper.isMobileApp()) {
@@ -239,7 +238,6 @@ export class GameThumbComponent extends AbstractComponent implements OnInit {
         }
 
         if (this.$params.type === 'vertical') {
-            this.idVideos = await this.gamesCatalogService.getIdVerticalVideos();
             this.background = this.getMediaContent('background', ['webp']);
             this.backgroundFallback = this.getMediaContent('background', ['png', 'jpg']);
             this.foreground = this.getMediaContent('foreground', ['webp']);
@@ -295,6 +293,7 @@ export class GameThumbComponent extends AbstractComponent implements OnInit {
         this.isAuth = this.configService.get<boolean>('$user.isAuthenticated');
         this.isKiosk = this.configService.get<AppType>('$base.app.type') === 'kiosk';
         this.initEventHandlers();
+        this.hasVideo = !this.isMobile && this.gamesCatalogService.hasVideo(this.game.ID, this.$params.type);
         this.inited = true;
         this.cdr.detectChanges();
 
@@ -333,10 +332,6 @@ export class GameThumbComponent extends AbstractComponent implements OnInit {
         } catch (error) {
             // TODO обработка ошибок
         }
-    }
-
-    public get hasVideo(): boolean {
-        return (this.idVideos.includes(this.game.ID) && this.$params.videoThumb) && !this.isMobile;
     }
 
     /**

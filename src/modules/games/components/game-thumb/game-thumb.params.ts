@@ -130,7 +130,6 @@ export interface IGameThumbCParams extends IComponentParams<Theme, Type, ThemeMo
      */
     showJackpotAmount?: boolean;
     favouriteButton?: IFavouriteButton;
-    videoThumb?: boolean;
 }
 
 export const defaultParams: IGameThumbCParams = {
@@ -145,5 +144,4 @@ export const defaultParams: IGameThumbCParams = {
         },
     },
     showJackpotAmount: false,
-    videoThumb: true,
 };
