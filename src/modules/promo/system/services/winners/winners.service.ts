@@ -64,6 +64,8 @@ export interface IWinnerData {
     Name: string;
 };
 
+export type TWinnersData = IWinnerData[];
+
 const defaultParams: IIndexing<IWinnersParams> = {
     latestWins: {
         period: 30000,

@@ -4,7 +4,8 @@
         "**/bootstrap.spec.ts",
         "**/games.spec.ts",
         "**/jackpots.spec.ts",
-        "**/levels.spec.ts"
+        "**/levels.spec.ts",
+        "**/wins.spec.ts"
     ],
     "helpers": [
         "helpers/**/*.helper.ts"
