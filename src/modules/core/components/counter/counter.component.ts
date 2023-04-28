@@ -5,6 +5,7 @@ import {
     ChangeDetectorRef,
     Inject,
     HostBinding,
+    ChangeDetectionStrategy,
 } from '@angular/core';
 
 import {
@@ -27,12 +28,11 @@ import {InternalMailsService} from 'wlc-engine/modules/internal-mails';
 
 import * as Params from './counter.params';
 
-// TODO:REFACTOR:change-detection-rule
-// eslint-disable-next-line @angular-eslint/prefer-on-push-component-change-detection
 @Component({
     selector: '[wlc-counter]',
     templateUrl: './counter.component.html',
     styleUrls: ['./styles/counter.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CounterComponent extends AbstractComponent implements OnInit {
     @HostBinding('hidden') public hidden: boolean;
