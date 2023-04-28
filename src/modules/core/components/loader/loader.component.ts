@@ -5,6 +5,7 @@ import {
     Self,
     Optional,
     Input,
+    ChangeDetectionStrategy,
 } from '@angular/core';
 
 import {
@@ -14,12 +15,11 @@ import {
 import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
 import * as Params from './loader.params';
 
-// TODO:REFACTOR:change-detection-rule
-// eslint-disable-next-line @angular-eslint/prefer-on-push-component-change-detection
 @Component({
     selector: '[wlc-loader]',
     templateUrl: './loader.component.html',
     styleUrls: ['./styles/loader.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LoaderComponent extends AbstractComponent implements OnInit {
     @Input() public inlineParams: Params.ILoaderCParams;
