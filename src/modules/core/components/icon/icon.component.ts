@@ -10,6 +10,7 @@ import {
     EventEmitter,
     Inject,
     Optional,
+    ChangeDetectionStrategy,
 } from '@angular/core';
 
 import {IIndexing} from 'wlc-engine/modules/core/system/interfaces/global.interface';
@@ -22,13 +23,12 @@ import * as Params from './icon.params';
 import _keys from 'lodash-es/keys';
 import _isNil from 'lodash-es/isNil';
 
-// TODO:REFACTOR:change-detection-rule
-// eslint-disable-next-line @angular-eslint/prefer-on-push-component-change-detection
 @Component({
     selector: '[wlc-icon]',
     templateUrl: './icon.component.html',
     styleUrls: ['./styles/icon.component.scss'],
     encapsulation: ViewEncapsulation.None,
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class IconComponent extends AbstractComponent implements OnInit, OnChanges {
     public override $params: Params.IIconCParams;
