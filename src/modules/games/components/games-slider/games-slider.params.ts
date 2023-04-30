@@ -72,7 +72,7 @@ export const defaultParams: IGamesSliderCParams = {
     minTimer: 1500,
     maxTimer: 4000,
     minAmount: 11,
-    maxAmount: 21,
+    maxAmount: 11,
     /**
      * Highly recommended not to change category because slots always contain enough games for slider
      */
@@ -98,10 +98,12 @@ export const defaultParams: IGamesSliderCParams = {
             },
             slidesPerView: 2,
             centeredSlides: true,
-            loopedSlides: 21,
+            loopedSlides: 11,
             loop: true,
             pagination: false,
             preventClicks: true,
+            preloadImages: false,
+            lazy: true,
             autoplay: {
                 delay: 0,
             },

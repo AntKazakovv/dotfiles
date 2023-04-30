@@ -216,6 +216,8 @@ export namespace wlcGamesGrid {
                 useNavigation: true,
                 sliderParams: {
                     swiper: {
+                        preloadImages: false,
+                        lazy: true,
                         slidesPerView: 1,
                         slidesPerGroup: 1,
                         grid: null,
@@ -326,6 +328,8 @@ export namespace wlcGamesGrid {
             showAsSwiper: {
                 sliderParams: {
                     swiper: {
+                        preloadImages: false,
+                        lazy: true,
                         slidesPerView: 1.1,
                         grid: null,
                         spaceBetween: 10,
@@ -428,6 +432,8 @@ export namespace wlcGamesGrid {
                 useNavigation: true,
                 sliderParams: {
                     swiper: {
+                        preloadImages: false,
+                        lazy: true,
                         slidesPerView: 1,
                         grid: null,
                         spaceBetween: 10,
@@ -537,6 +543,8 @@ export namespace wlcGamesGrid {
             showAsSwiper: {
                 sliderParams: {
                     swiper: {
+                        preloadImages: false,
+                        lazy: true,
                         slidesPerView: 1.1,
                         grid: null,
                         spaceBetween: 10,
