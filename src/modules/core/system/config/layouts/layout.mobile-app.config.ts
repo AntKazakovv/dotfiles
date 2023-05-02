@@ -73,35 +73,35 @@ export const $layoutsMobileApp: ILayoutsConfig = {
         },
     },
     'app.betradar': {
-        title: gettext('Betradar'),
+        title: 'Betradar',
         extends: 'app',
         sections: {
             content: sectionsLib.content.sportsbookBetradar,
         },
     },
     'app.digitain': {
-        title: gettext('Digitain'),
+        title: 'Digitain',
         extends: 'app',
         sections: {
             content: sectionsLib.content.sportsbookDigitain,
         },
     },
     'app.pinnacle': {
-        title: gettext('Pinnacle'),
+        title: 'Pinnacle',
         extends: 'app',
         sections: {
             content: sectionsLib.content.sportsbookPinnacleSW,
         },
     },
     'app.altenar': {
-        title: gettext('Alternal'),
+        title: 'Alternal',
         extends: 'app',
         sections: {
             content: sectionsLib.content.sportsbookAltenar,
         },
     },
     'app.tglab': {
-        title: gettext('Tglab'),
+        title: 'Tglab',
         extends: 'app',
         sections: {
             content: sectionsLib.content.sportsbookTglab,
@@ -122,7 +122,7 @@ export const $layoutsMobileApp: ILayoutsConfig = {
         },
     },
     'app.nova': {
-        title: gettext('Nova'),
+        title: 'Nova',
         extends: 'app',
         sections: {
             content: sectionsLib.content.sportsbookNova,
