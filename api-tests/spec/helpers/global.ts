@@ -5,6 +5,10 @@ const projectUrl = process.env.PROJECT_URL || 'https://test-devcasino.egamings.c
 export const testUser = {
     email: 'test@test.com',
     password: 'Test123!',
+    firstName: 'John',
+    lastName: 'Silver',
+    currency: 'EUR',
+    countryCode: 'rus',
 };
 
 export type TLoginResponse = Record<'cookie', string>;

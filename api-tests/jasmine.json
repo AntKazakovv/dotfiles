@@ -10,7 +10,8 @@
         "**/user-logout.spec.ts",
         "**/sportsbook.spec.ts",
         "**/countries.spec.ts",
-        "**/states.spec.ts"
+        "**/states.spec.ts",
+        "**/userprofile.spec.ts"
     ],
     "helpers": [
         "helpers/**/*.helper.ts"
