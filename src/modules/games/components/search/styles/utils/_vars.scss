@@ -124,8 +124,7 @@ $themeDefault: map-merge((
         375: none,
     ),
     'resultMargin': (
-        375: 0,
-        560: 20px 0 0,
+        375: ef.size(4) 0 0,
     ),
     'resultColor': var(--mc-baseMain),
     'resultSize': 'PrimaryText',
@@ -233,7 +232,6 @@ $themeEasy: map-merge((
 
     'resultMargin': (
         375: 0 0 ef.size(4),
-        900: 0 0 ef.size(8),
     ),
     'resultSize': 'ThirdTitle',
     'resultColor': var(--fc-placeholderColor),
