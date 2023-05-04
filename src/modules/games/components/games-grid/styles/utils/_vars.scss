@@ -40,8 +40,13 @@ $themeDefault: map-merge((
     ),
 
     'searchProgressBarMargin': (
-        375: ef.size(3) 0 ef.size(-3),
-        1024: ef.size(4) 0 ef.size(-4),
+        375: ef.size(4) 0,
+        1024: ef.size(4) 0,
+    ),
+
+    'providersProgressBarMargin': (
+        375: ef.size(4) 0,
+        1024: ef.size(4) 0,
     ),
 
     'gridColumnsTournamentDetail': (
@@ -77,6 +82,12 @@ $commonStyles: map-merge((
         375: ef.size(4) 0 0,
         1200: ef.size(8) 0 0,
     ),
+
+    'providersMoreButtonMargin': (
+        375: ef.size(4) 0 0,
+        1200: ef.size(4) 0 0,
+    ),
+
     'moreButtonAlignItems': center,
     'moreButtonJustifyContent': center,
 

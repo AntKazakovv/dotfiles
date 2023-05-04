@@ -94,6 +94,13 @@
                 @include bm.get-mq-map('margin', $themeDefault, 'searchProgressBarMargin');
             }
         }
+
+        .wlc-provider-games--theme-mod-default & {
+
+            &__progressbar {
+                @include bm.get-mq-map('margin', $themeDefault, 'providersProgressBarMargin');
+            }
+        }
     }
 
     &.wlc-games-grid--theme-mod-mobile-app-search {

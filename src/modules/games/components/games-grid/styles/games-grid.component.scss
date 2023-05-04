@@ -56,6 +56,10 @@
             display: flex;
             align-items: ef.get-value($commonStyles, 'moreButtonAlignItems');
             justify-content: ef.get-value($commonStyles, 'moreButtonJustifyContent');
+
+            .wlc-provider-games--theme-mod-default & {
+                @include bm.get-mq-map('margin', $commonStyles, 'providersMoreButtonMargin');
+            }
         }
 
         &__link {
