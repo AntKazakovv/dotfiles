@@ -50,6 +50,7 @@ import {
     EventService,
     IEvent,
 } from 'wlc-engine/modules/core/system/services/event/event.service';
+import {HooksService} from 'wlc-engine/modules/core/system/services/hooks/hooks.service';
 import {IData} from 'wlc-engine/modules/core/system/services/data/data.service';
 import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
 import {LogService} from 'wlc-engine/modules/core/system/services/log/log.service';
@@ -154,6 +155,7 @@ export class GamesCatalogService {
         public router: UIRouter,
         public eventService: EventService,
         public translateService: TranslateService,
+        protected hooksService: HooksService,
         protected stateService: StateService,
         protected dataService: DataService,
         protected uiRouter: UIRouterGlobals,
@@ -209,6 +211,7 @@ export class GamesCatalogService {
                 this.router,
                 this.eventService,
                 this.injectionService,
+                this.hooksService,
                 this.sorts,
             );
             this.gamesCatalog.ready.then(() => {

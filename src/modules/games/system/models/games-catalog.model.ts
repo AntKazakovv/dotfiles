@@ -40,6 +40,7 @@ import {
     IFromLog,
     Deferred,
     ILogObj,
+    HooksService,
 } from 'wlc-engine/modules/core';
 import {UserProfile} from 'wlc-engine/modules/user/system/models/profile.model';
 import {ICategorySettings} from 'wlc-engine/modules/core/system/interfaces/categories.interface';
@@ -73,6 +74,10 @@ import {
     categorySettings as defaultCategorySettings,
 } from 'wlc-engine/modules/games/system/config/fundist-category-settings.config';
 import {IAllSortsItemResponse} from 'wlc-engine/modules/games/system/interfaces/sorts.interfaces';
+
+export const gamesCatalogHooks: IIndexing<string> = {
+    modifyGame: 'modifyGame@GamesCatalogModel',
+};
 
 interface IFilterParameters {
     /**
@@ -208,6 +213,7 @@ export class GamesCatalog extends AbstractModel<IGames> {
         protected router: UIRouter,
         protected eventService: EventService,
         protected injectionService: InjectionService,
+        protected hooksService: HooksService,
         private sorts?: IIndexing<IAllSortsItemResponse>,
     ) {
         super({from: _assign({model: 'GamesCatalog'}, from)});
@@ -549,8 +555,8 @@ export class GamesCatalog extends AbstractModel<IGames> {
             gamesList = byAllGames ? this.games : this.availableGames;
         }
         return _find(gamesList, (game: Game): boolean => {
-            return (game.merchantID === merchantID || game.subMerchantID === merchantID)
-                && game.launchCode === launchCode;
+            return _includes([game.merchantID, game.subMerchantID, game.launchMerchantID], merchantID)
+            && game.launchCode === launchCode;
         });
     }
 
@@ -681,7 +687,7 @@ export class GamesCatalog extends AbstractModel<IGames> {
         const menuService: MenuService = await this.injectionService.getService<MenuService>('menu.menu-service');
         this.existMenuSettings = await menuService.existFundistMenuSettings();
 
-        this.processFetchedGamesCatalog(this.data, this.sorts);
+        await this.processFetchedGamesCatalog(this.data, this.sorts);
 
         this.translateService.onLangChange.subscribe(({lang}: LangChangeEvent) => {
             if (CategoryModel.language !== lang) {
@@ -850,7 +856,7 @@ export class GamesCatalog extends AbstractModel<IGames> {
      *
      * @param {IGames} response
      */
-    protected processFetchedGamesCatalog(data: IGames, sorts: IIndexing<IAllSortsItemResponse>): void {
+    protected async processFetchedGamesCatalog(data: IGames, sorts: IIndexing<IAllSortsItemResponse>): Promise<void> {
         this.merchants = [];
         this.categories = [];
         this.availableCategories = [];
@@ -916,12 +922,19 @@ export class GamesCatalog extends AbstractModel<IGames> {
         const resultGames: Game[] = [];
         const sportsbookMerchants: number[] = this.configService.get<number[]>('$games.sportsbookMerchants');
 
+        Game.enabledMerchants = this.merchants;
+
         for (const item of response.games) {
             const game = new Game(
                 {parentModel: 'GamesCatalog', method: 'processFetchedGamesCatalog'},
                 item,
                 this.router,
                 this.configService,
+            );
+
+            await this.hooksService.run<Game>(
+                gamesCatalogHooks.modifyGame,
+                game,
             );
 
             if (!_isArray(game.categoryID)) {
@@ -942,7 +955,6 @@ export class GamesCatalog extends AbstractModel<IGames> {
         }
 
         this.games = resultGames;
-
 
         if (this.useSeparateSorts) {
             GamesHelper.sortGamesGeneral(this.games, this.sorts, {

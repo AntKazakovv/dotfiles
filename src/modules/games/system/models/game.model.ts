@@ -8,6 +8,7 @@ import _includes from 'lodash-es/includes';
 import _toNumber from 'lodash-es/toNumber';
 import _map from 'lodash-es/map';
 import _isArray from 'lodash-es/isArray';
+import _find from 'lodash-es/find';
 
 import {IIndexing} from 'wlc-engine/modules/core/system/interfaces/global.interface';
 import {AbstractModel} from 'wlc-engine/modules/core/system/models/abstract.model';
@@ -18,6 +19,7 @@ import {
     IStartGameOptions,
     IGameJackpotAmount,
     TGameImageSize,
+    MerchantModel,
 } from 'wlc-engine/modules/games';
 import {GamesHelper} from 'wlc-engine/modules/games/system/helpers/games.helpers';
 import {Bonus} from 'wlc-engine/modules/bonuses/system/models/bonus/bonus';
@@ -45,6 +47,7 @@ export class Game extends AbstractModel<IGame> {
     public jackpot?: number;
     public isFavourite?: boolean;
     public sortPerCategory: IIndexing<number>;
+    public launchMerchantID: number;
 
     protected url: string;
     protected isRestricted: boolean;
@@ -56,6 +59,7 @@ export class Game extends AbstractModel<IGame> {
     protected _withFreeRounds: boolean;
 
     private _jackpotAmount: IGameJackpotAmount;
+    private static _enabledMerchants: MerchantModel[];
 
     // что-то не нужное
     // protected MobileUrl: string;
@@ -93,6 +97,9 @@ export class Game extends AbstractModel<IGame> {
         this.launchCode = data.LaunchCode;
         this.merchantID = _toNumber(data.MerchantID);
         this.subMerchantID = _toNumber(data.SubMerchantID);
+        this.launchMerchantID = this.subMerchantID && _find(Game._enabledMerchants, {id: this.subMerchantID})
+            ? this.subMerchantID
+            : this.merchantID;
         this.sortPerLanguage = !_isArray(data.CustomSort) ? data.CustomSort.Lang : {};
         this.sortPerCountry = !_isArray(data.CustomSort) ? data.CustomSort.Country : {};
         this.sort = _toNumber(data.Sort);
@@ -105,6 +112,10 @@ export class Game extends AbstractModel<IGame> {
         this.disableDemoBtnsFor = this.configService.get<TDisableDemoFor>('$games.disableDemoBtnsFor');
         this._withFreeRounds = data.Freeround === '1';
         this.data = data;
+    }
+
+    public static set enabledMerchants(merchants: MerchantModel[]) {
+        Game._enabledMerchants = merchants;
     }
 
     public get hasDemo(): boolean {
@@ -190,7 +201,7 @@ export class Game extends AbstractModel<IGame> {
     public launch(options: IStartGameOptions): void {
         const locale = this.configService.get('currentLanguage') ?? this.configService.get('appConfig.language');
         this.router.stateService.go('app.gameplay', {
-            merchantId: this.subMerchantID || this.merchantID,
+            merchantId: this.launchMerchantID,
             launchCode: this.launchCode,
             demo: options.demo || null,
             locale,

@@ -47,7 +47,10 @@ import {
     ILogObj,
     LogService,
 } from 'wlc-engine/modules/core/system/services/log/log.service';
-import {ISocketsData} from 'wlc-engine/modules/core/system/interfaces';
+import {
+    IIndexing,
+    ISocketsData,
+} from 'wlc-engine/modules/core/system/interfaces';
 import {WINDOW} from 'wlc-engine/modules/app/system';
 import {ConfigService} from 'wlc-engine/modules/core/system/services';
 
@@ -103,6 +106,11 @@ export interface IRequestMethod {
         fail?: string;
     };
 }
+
+export const dataServiceHooks: IIndexing<string> = {
+    requestData: 'dataService:requestMethod',
+    requestSuccess: 'requestSuccess@DataService',
+};
 
 export interface IHookRequestData {
     request: IRequestMethod,
@@ -240,7 +248,7 @@ export class DataService {
         }
 
         const method = await this.hooksService.run<IHookRequestData>(
-            'dataService:requestMethod',
+            dataServiceHooks.requestData,
             {
                 request: requestMethod,
                 params,
@@ -558,6 +566,8 @@ export class DataService {
                             data.data = await data.data;
                         }
                     }
+
+                    data = await this.hooksService.run<IData>(dataServiceHooks.requestSuccess, data);
 
                     if (method.events?.success) {
                         this.eventService.emit({
