@@ -11,10 +11,6 @@ import {
     Inject,
     Optional,
 } from '@angular/core';
-import {
-    DomSanitizer,
-    SafeHtml,
-} from '@angular/platform-browser';
 
 import {IIndexing} from 'wlc-engine/modules/core/system/interfaces/global.interface';
 import {FilesService} from 'wlc-engine/modules/core/system/services/files/files.service';
@@ -36,7 +32,7 @@ import _isNil from 'lodash-es/isNil';
 })
 export class IconComponent extends AbstractComponent implements OnInit, OnChanges {
     public override $params: Params.IIconCParams;
-    public imageHtml: SafeHtml;
+    public imageHtml: string;
     public imagePath: string;
     public ready: boolean;
 
@@ -54,7 +50,6 @@ export class IconComponent extends AbstractComponent implements OnInit, OnChange
     constructor(
         @Optional()
         @Inject('injectParams') protected injectParams: Params.IIconCParams,
-        protected sanitizer: DomSanitizer,
         protected fileService: FilesService,
         protected elRef: ElementRef,
         cdr: ChangeDetectorRef,
@@ -109,7 +104,7 @@ export class IconComponent extends AbstractComponent implements OnInit, OnChange
         }
 
         if (file?.htmlString && !this.showSvgAsImg) {
-            this.imageHtml = this.sanitizer.bypassSecurityTrustHtml(this.fileService.replaceSvgId(file.htmlString));
+            this.imageHtml = this.fileService.replaceSvgId(file.htmlString);
             this.addModifiers(['loaded', 'svg']);
         } else if (file?.url) {
             this.imagePath = file.url;

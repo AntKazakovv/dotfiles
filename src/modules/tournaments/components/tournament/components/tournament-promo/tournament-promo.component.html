@@ -18,7 +18,7 @@
                 </div>
                 <h3 class="{{$class}}__title">{{tournament.name}}</h3>
                 <div class="{{$class}}__description">
-                    <div [innerHtml]="tournament.descriptionSafeHTML | safeHtml"></div>
+                    <div [innerHtml]="tournament.descriptionSafeHTML | safeValue:'html'"></div>
                 </div>
             </div>
         </div>

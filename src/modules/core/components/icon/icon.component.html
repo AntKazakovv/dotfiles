@@ -1,6 +1,6 @@
 <span class="{{$class}}-content"
       *ngIf="imageHtml"
-      [innerHTML]="imageHtml"></span>
+      [innerHTML]="imageHtml | safeValue:'html'"></span>
 
 <img class="{{$class}}-content"
      *ngIf="imagePath"

@@ -121,12 +121,12 @@
 
         <div
             class="{{$class}}__rules--descr"
-            [innerHTML]="tournament.descriptionSafeHTML | safeHtml">
+            [innerHTML]="tournament.descriptionSafeHTML | safeValue:'html'">
         </div>
 
         <div
             class="{{$class}}__rules--terms"
-            [innerHTML]="tournament.termsSafeHTML | safeHtml">
+            [innerHTML]="tournament.termsSafeHTML | safeValue:'html'">
         </div>
     </div>
 

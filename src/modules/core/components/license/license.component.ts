@@ -8,10 +8,6 @@ import {
     ChangeDetectorRef,
     ChangeDetectionStrategy,
 } from '@angular/core';
-import {
-    DomSanitizer,
-    SafeResourceUrl,
-} from '@angular/platform-browser';
 import {DOCUMENT} from '@angular/common';
 import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
 import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
@@ -37,9 +33,8 @@ export class LicenseComponent extends AbstractComponent implements OnInit {
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.ILicenseCParams,
-        @Inject(DOCUMENT) protected document: HTMLDocument,
+        @Inject(DOCUMENT) protected document: Document,
         cdr: ChangeDetectorRef,
-        private sanitizer: DomSanitizer,
         private elRef: ElementRef,
         configService: ConfigService,
         private logService: LogService,
@@ -78,10 +73,6 @@ export class LicenseComponent extends AbstractComponent implements OnInit {
             }
         }
         this.cdr.markForCheck();
-    }
-
-    public safeUrl(url: string): SafeResourceUrl {
-        return this.sanitizer.bypassSecurityTrustResourceUrl(url);
     }
 
     protected initApgSeal(): void {

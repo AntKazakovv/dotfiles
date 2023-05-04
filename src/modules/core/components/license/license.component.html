@@ -17,7 +17,7 @@
 
 <ng-template #curacao>
     <div class="{{$class}}__curacao" data-wlc-element="block_curacao-license">
-        <iframe [src]="safeUrl($params.curacao.url)"></iframe>
+        <iframe [src]="$params.curacao.url | safeValue:'resourceUrl'"></iframe>
     </div>
 </ng-template>
 

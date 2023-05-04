@@ -27,7 +27,7 @@
 
         <div class="{{$class}}__description"
              [title]="$params.tournament?.descriptionClean">
-            <p [innerHtml]="$params.tournament?.descriptionSafeHTML | safeHtml"></p>
+            <p [innerHtml]="$params.tournament?.descriptionSafeHTML | safeValue:'html'"></p>
         </div>
 
         <div class="buttons-wrap">
