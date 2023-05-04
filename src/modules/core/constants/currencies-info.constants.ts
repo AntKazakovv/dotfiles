@@ -44,6 +44,8 @@ export namespace CurrenciesInfo {
     ]);
 
     export const cryptocurrencies: ReadonlySet<string> = new Set<string>([
+        'AETH',
+        'AUSDT',
         'BTC',
         'MBC',
         'XB3',
@@ -200,6 +202,14 @@ export namespace CurrenciesInfo {
             symbol: [208],
         },
         // PayCryptos Elrond
+        AETH: {
+            icon: '',
+            code: [65, 69, 84, 72],
+        },
+        AUSDT: {
+            icon: '',
+            code: [65, 85, 83, 68, 84],
+        },
         EGLD: {
             icon: '',
             literalAs: 'BTC',
