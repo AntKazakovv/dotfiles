@@ -1,10 +1,12 @@
 @use 'engine-scss/functions' as ef;
 
 @import './utils/vars';
+@import './utils/mixins';
 
 @import 'themes/ring';
 @import 'themes/logo';
 @import 'themes/not-ready-mod';
+@import 'themes/ring-with-logo';
 
 .wlc-loader {
 
@@ -12,8 +14,8 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        width: ef.get-value($themeRingDefault, size);
-        height: ef.get-value($themeRingDefault, size);
+        min-width: ef.get-value($themeRingDefault, size);
+        min-height: ef.get-value($themeRingDefault, size);
         margin: ef.get-value($themeRingDefault, margin);
     }
 }

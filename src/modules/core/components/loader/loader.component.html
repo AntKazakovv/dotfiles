@@ -1,9 +1,11 @@
-<div class="{{$class}}__element">
-    <ng-container [ngSwitch]="$params.type">
-        <ng-container *ngSwitchCase="'logo'">
-            <div wlc-icon iconPath="/wlc/icons/defaultLogo.svg"></div>
-        </ng-container>
+<ng-container *ngIf="ringType">
+    <ng-container *ngIf="$params.type === 'ring-with-logo'" [ngTemplateOutlet]="logoIcon">
     </ng-container>
-</div>
+    <div class="{{$class}}__element"></div>
+</ng-container>
 
+<ng-container *ngIf="$params.type === 'logo'" [ngTemplateOutlet]="logoIcon"></ng-container>
 
+<ng-template #logoIcon>
+    <div wlc-icon iconPath="{{$params.common.logoPath}}"></div>
+</ng-template>

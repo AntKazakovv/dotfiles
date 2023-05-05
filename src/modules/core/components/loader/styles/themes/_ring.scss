@@ -1,54 +1,6 @@
 .wlc-loader--type-ring:host {
 
     .wlc-loader {
-
-        &__element {
-            position: relative;
-            width: ef.get-value($themeRingDefault, 'size');
-            height: ef.get-value($themeRingDefault, 'size');
-            border-radius: 50%;
-
-            &:after,
-            &:before {
-                content: '';
-                position: absolute;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%);
-                opacity: 0;
-                border: ef.get-value($themeRingDefault, 'width') solid ef.get-value($themeRingDefault, 'color');
-                border-radius: 50%;
-            }
-
-            &:before {
-                animation: loader ef.get-value($themeRingDefault, 'duration') infinite;
-            }
-
-            &:after {
-                animation: loader ef.get-value($themeRingDefault, 'duration') ef.get-value($themeRingDefault, 'duration') * 0.5 infinite;
-            }
-        }
-    }
-}
-
-@keyframes loader {
-
-    0% {
-        width: 0;
-        height: 0;
-        opacity: 0;
-        border-width: 0;
-    }
-
-    20% {
-        opacity: 1;
-        border-width: ef.get-value($themeRingDefault, 'width');
-    }
-
-    100% {
-        width: 100%;
-        height: 100%;
-        opacity: 0;
-        border-width: ef.get-value($themeRingDefault, 'width') + 2;
+        @include ring($themeRingDefault);
     }
 }

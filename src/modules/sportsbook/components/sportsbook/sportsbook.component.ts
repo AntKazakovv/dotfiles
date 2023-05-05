@@ -27,6 +27,7 @@ import {
     PinnacleHooks,
     TglabHooks,
 } from 'wlc-engine/modules/sportsbook';
+import {BetradarEvents} from 'wlc-engine/modules/sportsbook/system/services/betradar/betradar.service';
 import {IGameWrapperCParams} from 'wlc-engine/modules/games';
 import {WINDOW} from 'wlc-engine/modules/app/system';
 
@@ -40,8 +41,9 @@ import * as Params from './sportsbook.params';
 })
 export class SportsbookComponent extends AbstractComponent implements OnInit, OnDestroy {
 
-    public override $params: Params.ISportsbookCParams;
-    public gameConfig: IWrapperCParams;
+    public override $params!: Params.ISportsbookCParams;
+    public gameConfig!: IWrapperCParams;
+    public showOwnLoader: boolean = false;
 
     protected isAuth: boolean;
     protected settings: ISportsbookSettings;
@@ -99,6 +101,11 @@ export class SportsbookComponent extends AbstractComponent implements OnInit, On
     }
 
     protected async init(): Promise<void> {
+
+        if (this.$params.ownLoader.use) {
+            this.addModifiers('show-loader');
+        }
+
         await this.sportsbookService.ready;
 
         this.settings = this.sportsbookSettings();
@@ -106,6 +113,14 @@ export class SportsbookComponent extends AbstractComponent implements OnInit, On
 
         if (this.settings) {
             if (this.settings.id === 'betradar') {
+
+                if (this.$params.ownLoader.use) {
+                    this.sportsbookService.onIframeMessage(BetradarEvents.loaded)
+                        .subscribe(() => {
+                            this.removeModifiers('show-loader');
+                        });
+                }
+
                 this.betradarService.setBetradarParams();
                 this.betradarService.initNavigation(this.$destroy, this.cdr);
             }

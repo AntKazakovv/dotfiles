@@ -7,7 +7,10 @@ import {
     Input,
 } from '@angular/core';
 
-import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
+import {
+    AbstractComponent,
+    IMixedParams,
+} from 'wlc-engine/modules/core/system/classes/abstract.component';
 import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
 import * as Params from './loader.params';
 
@@ -20,6 +23,7 @@ import * as Params from './loader.params';
 })
 export class LoaderComponent extends AbstractComponent implements OnInit {
     @Input() public inlineParams: Params.ILoaderCParams;
+    @Input() public type: Params.Type;
     public override $params: Params.ILoaderCParams;
 
     constructor(
@@ -29,10 +33,18 @@ export class LoaderComponent extends AbstractComponent implements OnInit {
         protected injectParams: Params.ILoaderCParams,
         configService: ConfigService,
     ) {
-        super({injectParams, defaultParams: Params.defaultParams}, configService);
+        super(
+            <IMixedParams<Params.ILoaderCParams>>{
+                injectParams: injectParams,
+                defaultParams: Params.defaultParams,
+            }, configService);
     }
 
     public override ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
+    }
+
+    public get ringType(): boolean {
+        return this.$params.type === 'ring' || this.$params.type === 'ring-with-logo';
     }
 }

@@ -8,7 +8,9 @@ import {
     UIRouterGlobals,
 } from '@uirouter/core';
 import {takeUntil} from 'rxjs/operators';
-import {Subject} from 'rxjs';
+import {
+    Subject,
+} from 'rxjs';
 import {IBetradar} from 'wlc-engine/modules/sportsbook';
 import {
     ConfigService,
@@ -31,22 +33,22 @@ import _forEach from 'lodash-es/forEach';
 import _set from 'lodash-es/set';
 import _merge from 'lodash-es/merge';
 
+export const BetradarEvents = {
+    scrollTop: 'SPORTSBOOK_SCROLL_TOP',
+    loaded: 'SPORTSBOOK_LOADED',
+    openPage: 'SPORTSBOOK_OPEN_PAGE',
+    openLeftMenu: 'SPORTSBOOK_OPEN_LEFT_MENU',
+    openRightMenu: 'SPORTSBOOK_OPEN_RIGHT_MENU',
+    betsCountChanged: 'SPORTSBOOK_BETS_COUNT_CHANGED',
+    hideMenu: 'SPORTSBOOK_HIDE_MENU',
+    showMenu: 'SPORTSBOOK_SHOW_MENU',
+    locationChange: 'SPORTSBOOK_LOCATION_CHANGE',
+} as const;
+
 @Injectable({
     providedIn: 'root',
 })
 export class BetradarService {
-
-    protected events = {
-        scrollTop: 'SPORTSBOOK_SCROLL_TOP',
-        loaded: 'SPORTSBOOK_LOADED',
-        openPage: 'SPORTSBOOK_OPEN_PAGE',
-        openLeftMenu: 'SPORTSBOOK_OPEN_LEFT_MENU',
-        openRightMenu: 'SPORTSBOOK_OPEN_RIGHT_MENU',
-        betsCountChanged: 'SPORTSBOOK_BETS_COUNT_CHANGED',
-        hideMenu: 'SPORTSBOOK_HIDE_MENU',
-        showMenu: 'SPORTSBOOK_SHOW_MENU',
-        locationChange: 'SPORTSBOOK_LOCATION_CHANGE',
-    };
 
     constructor(
         protected router: UIRouterGlobals,
@@ -107,7 +109,7 @@ export class BetradarService {
      * @param {Subject<void>} cancel
      */
     public initNavigation(cancel: Subject<void>, cdr: ChangeDetectorRef): void {
-        this.sportsbookService.onIframeMessage(this.events.locationChange)
+        this.sportsbookService.onIframeMessage(BetradarEvents.locationChange)
             .pipe(takeUntil(cancel))
             .subscribe((msg: IMessageDataLocationChange) => {
                 const locationPath: string = _get(msg, 'path');

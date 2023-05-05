@@ -1,0 +1,28 @@
+@use 'engine-scss/functions' as ef;
+
+@import './utils/vars';
+
+.wlc-sportsbook:host {
+
+    .wlc-sportsbook {
+
+        &__own-loader {
+            display: none;
+        }
+    }
+
+    &--show-loader {
+
+        ::ng-deep {
+
+            .wlc-game-wrapper {
+                display: none;
+            }
+        }
+
+        .wlc-sportsbook__own-loader {
+            display: flex;
+            min-height: ef.get-value($base, 'ownLoaderMinHeight');
+        }
+    }
+}

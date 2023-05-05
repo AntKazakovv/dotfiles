@@ -13,3 +13,13 @@ $themeLogo: map-merge((
     'height': 100px,
     'animation': logo infinite 3s,
 ), $customThemeLogo);
+
+$customThemeRingWithLogo: () !default;
+$themeRingWithLogo: map-merge((
+    'color': ef.get('mainColors', main),
+    'width': 4px,
+    'duration': 3s,
+    'size': 50px,
+    'margin': 0 auto,
+    'iconMargin': 0 0 ef.size(4),
+), $customThemeRingWithLogo);

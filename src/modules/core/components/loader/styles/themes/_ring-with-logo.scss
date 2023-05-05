@@ -1,0 +1,12 @@
+.wlc-loader--type-ring-with-logo:host {
+
+    flex-direction: column;
+
+    .wlc-loader {
+        @include ring($themeRingWithLogo);
+    }
+
+    .wlc-icon {
+        margin: ef.get-value($themeRingWithLogo, 'iconMargin');
+    }
+}
