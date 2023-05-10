@@ -4,6 +4,7 @@ import {
     OnInit,
     Component,
     ChangeDetectorRef,
+    ChangeDetectionStrategy,
 } from '@angular/core';
 
 import {
@@ -24,11 +25,10 @@ import _filter from 'lodash-es/filter';
 import _includes from 'lodash-es/includes';
 import _sortedUniqBy from 'lodash-es/sortedUniqBy';
 
-// TODO:REFACTOR:change-detection-rule
-// eslint-disable-next-line @angular-eslint/prefer-on-push-component-change-detection
 @Component({
     selector: '[wlc-icon-merchants-list]',
     templateUrl: './icon-merchants-list.component.html',
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class IconMerchantsListComponent extends IconListAbstract<Params.IIconMerchantsListCParams> implements OnInit {
     @Input() public inlineParams: Params.IIconMerchantsListCParams;
