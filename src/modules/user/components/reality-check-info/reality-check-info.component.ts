@@ -4,6 +4,7 @@ import {
     OnDestroy,
     Input,
     Inject,
+    ChangeDetectionStrategy,
 } from '@angular/core';
 import {UntypedFormControl} from '@angular/forms';
 import {DateTime} from 'luxon';
@@ -16,12 +17,11 @@ import {
 
 import * as Params from './reality-check-info.params';
 
-// TODO:REFACTOR:change-detection-rule
-// eslint-disable-next-line @angular-eslint/prefer-on-push-component-change-detection
 @Component({
     selector: '[wlc-reality-check-info]',
     templateUrl: './reality-check-info.component.html',
     styleUrls: ['./styles/reality-check-info.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RealityCheckInfoComponent extends AbstractComponent implements OnInit, OnDestroy {
     @Input() public inlineParams: Params.IRealityCheckInfoCParams;
@@ -59,12 +59,15 @@ export class RealityCheckInfoComponent extends AbstractComponent implements OnIn
     }
 
     public close(): void {
-        this.modalService.hideModal('reality-check-info');
+        if (this.modalService.getActiveModal('reality-check-info')) {
+            this.modalService.hideModal('reality-check-info');
+        }
     }
 
     public logout(): void {
         try {
             this.userService.logout();
+            this.close();
         } catch (error) {
             //
         }
