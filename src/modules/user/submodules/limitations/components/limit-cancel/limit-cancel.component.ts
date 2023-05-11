@@ -2,6 +2,7 @@ import {
     Component,
     OnInit,
     Inject,
+    ChangeDetectionStrategy,
 } from '@angular/core';
 
 import {
@@ -14,12 +15,11 @@ import {
 
 import * as Params from './limit-cancel.params';
 
-// TODO:REFACTOR:change-detection-rule
-// eslint-disable-next-line @angular-eslint/prefer-on-push-component-change-detection
 @Component({
     selector: '[wlc-limit-cancel]',
     templateUrl: './limit-cancel.component.html',
     styleUrls: ['./styles/limit-cancel.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LimitCancelComponent extends AbstractComponent implements OnInit {
     public override $params: Params.ILimitCancelCParams;

@@ -2,6 +2,7 @@ import {
     Component,
     OnInit,
     Inject,
+    ChangeDetectionStrategy,
 } from '@angular/core';
 import {TranslateService} from '@ngx-translate/core';
 
@@ -9,12 +10,11 @@ import {AbstractComponent} from 'wlc-engine/modules/core';
 
 import * as Params from './limit-value.params';
 
-// TODO:REFACTOR:change-detection-rule
-// eslint-disable-next-line @angular-eslint/prefer-on-push-component-change-detection
 @Component({
     selector: '[wlc-limit-value]',
     templateUrl: './limit-value.component.html',
     styleUrls: ['./styles/limit-value.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LimitValueComponent extends AbstractComponent implements OnInit {
     public override $params: Params.ILimitValueCParams;

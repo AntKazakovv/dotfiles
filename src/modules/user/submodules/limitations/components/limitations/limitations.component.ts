@@ -4,6 +4,7 @@ import {
     Input,
     Inject,
     ChangeDetectorRef,
+    ChangeDetectionStrategy,
 } from '@angular/core';
 import {UntypedFormGroup} from '@angular/forms';
 
@@ -34,12 +35,11 @@ import {
 
 import * as Params from './limitations.params';
 
-// TODO:REFACTOR:change-detection-rule
-// eslint-disable-next-line @angular-eslint/prefer-on-push-component-change-detection
 @Component({
     selector: '[wlc-limitations]',
     templateUrl: './limitations.component.html',
     styleUrls: ['./styles/limitations.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LimitationsComponent extends AbstractComponent implements OnInit {
     @Input() public inlineParams: Params.ILimitationsCParams;
