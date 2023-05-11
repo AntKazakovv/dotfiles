@@ -1,4 +1,5 @@
 import {
+    ChangeDetectionStrategy,
     ChangeDetectorRef,
     Component,
     Inject,
@@ -30,12 +31,11 @@ import * as Params from './phone-field.params';
 import _find from 'lodash-es/find';
 import _clone from 'lodash-es/clone';
 
-// TODO:REFACTOR:change-detection-rule
-// eslint-disable-next-line @angular-eslint/prefer-on-push-component-change-detection
 @Component({
     selector: '[wlc-phone-field]',
     templateUrl: './phone-field.component.html',
     styleUrls: ['./styles/phone-field.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PhoneFieldComponent extends AbstractComponent implements OnInit {
     @Input() protected inlineParams: Params.IPhoneFieldCParams;
