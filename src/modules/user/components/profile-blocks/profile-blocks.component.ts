@@ -4,6 +4,7 @@ import {
     OnInit,
     Input,
     ChangeDetectorRef,
+    ChangeDetectionStrategy,
 } from '@angular/core';
 import {UntypedFormControl} from '@angular/forms';
 
@@ -31,12 +32,11 @@ import {IAddProfileInfoCParams} from 'wlc-engine/modules/user/components/add-pro
 
 import * as Params from './profile-blocks.params';
 
-// TODO:REFACTOR:change-detection-rule
-// eslint-disable-next-line @angular-eslint/prefer-on-push-component-change-detection
 @Component({
     selector: '[wlc-profile-blocks]',
     templateUrl: './profile-blocks.component.html',
     styleUrls: ['./styles/profile-blocks.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProfileBlocksComponent extends AbstractComponent implements OnInit {
     @Input() protected inlineParams: Params.IProfileBlocksCParams;
