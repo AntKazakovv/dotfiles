@@ -1,4 +1,5 @@
 import {
+    ChangeDetectionStrategy,
     Component,
     Inject,
     Input,
@@ -11,11 +12,10 @@ import {ConfigService} from 'wlc-engine/modules/core/system/services/config/conf
 import {ColorThemeService} from 'wlc-engine/modules/core';
 import * as Params from './icon-safety-list.params';
 
-// TODO:REFACTOR:change-detection-rule
-// eslint-disable-next-line @angular-eslint/prefer-on-push-component-change-detection
 @Component({
     selector: '[wlc-icon-safety-list]',
     templateUrl: './icon-safety-list.component.html',
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class IconSafetyListComponent extends IconListAbstract<Params.IIconSafetyListCParams> implements OnInit {
     @Input() protected inlineParams: Params.IIconSafetyListCParams;
