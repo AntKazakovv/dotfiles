@@ -4,6 +4,7 @@ import {
     OnInit,
     Input,
     ChangeDetectorRef,
+    ChangeDetectionStrategy,
 } from '@angular/core';
 import {UntypedFormGroup} from '@angular/forms';
 
@@ -59,12 +60,11 @@ type TSaveChangesRes = TUpdateProfileRes | TSetNewPasswordRes;
  * }
  *
  */
-// TODO:REFACTOR:change-detection-rule
-// eslint-disable-next-line @angular-eslint/prefer-on-push-component-change-detection
 @Component({
     selector: '[wlc-profile-form]',
     templateUrl: './profile-form.component.html',
     styleUrls: ['./styles/profile-form.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
     providers: [
         {
             provide: 'requiredFields',
@@ -142,7 +142,7 @@ export class ProfileFormComponent extends ProfileFormAbstract implements OnInit 
         await this.updateFormForMetamask();
 
         this.ready = true;
-        this.cdr.detectChanges();
+        this.cdr.markForCheck();
     }
 
     /**
@@ -174,7 +174,6 @@ export class ProfileFormComponent extends ProfileFormAbstract implements OnInit 
                     wlcElement: 'notification_profile-update-success',
                 },
             });
-            this.cdr.detectChanges();
 
             return true;
         } else {
