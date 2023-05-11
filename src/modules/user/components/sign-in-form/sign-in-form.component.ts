@@ -1,4 +1,5 @@
 import {
+    ChangeDetectionStrategy,
     Component,
     Inject,
     OnInit,
@@ -37,12 +38,11 @@ import * as Params from './sign-in-form.params';
  * }
  *
  */
-// TODO:REFACTOR:change-detection-rule
-// eslint-disable-next-line @angular-eslint/prefer-on-push-component-change-detection
 @Component({
     selector: '[wlc-sign-in-form]',
     templateUrl: './sign-in-form.component.html',
     styleUrls: ['./styles/sign-in-form.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SignInFormComponent extends SignInFormAbstract<Params.ISignInFormCParams> implements OnInit {
     constructor(
