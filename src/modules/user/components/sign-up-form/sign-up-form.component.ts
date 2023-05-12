@@ -1,4 +1,5 @@
 import {
+    ChangeDetectionStrategy,
     Component,
     HostBinding,
     Inject,
@@ -54,12 +55,11 @@ export interface IRegFormDataForConfig {
  * }
  *
  */
-// TODO:REFACTOR:change-detection-rule
-// eslint-disable-next-line @angular-eslint/prefer-on-push-component-change-detection
 @Component({
     selector: '[wlc-sign-up-form]',
     templateUrl: './sign-up-form.component.html',
     styleUrls: ['./styles/sign-up-form.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SignUpFormComponent extends UserActionsAbstract<Params.ISignUpFormCParams> implements OnInit {
 
