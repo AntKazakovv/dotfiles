@@ -477,7 +477,8 @@ class StartGameHandler {
             return deferred.promise;
         }
         const merchantFreeRound = _find(userInfo.freeRounds, (freeRound: IFreeRound): boolean => {
-            return this.merchantId === +freeRound.IDMerchant
+            return ((this.game.merchantID === +freeRound.IDMerchant) ||
+            (this.game.subMerchantID === +freeRound.IDMerchant))
                 && +freeRound.Count
                 && freeRound.Games.includes(this.game.launchCode);
         });
