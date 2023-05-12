@@ -66,6 +66,10 @@ import {
     DataService,
     IData,
 } from 'wlc-engine/modules/core/system/services/data/data.service';
+import {
+    IPopupModalConfig,
+    IPopupModalItem,
+} from 'wlc-engine/modules/core/system/interfaces/base-config/popup.interface';
 
 export type ScrollPositionType = 'start' | 'end' | 'center' | 'nearest';
 
@@ -267,6 +271,31 @@ export class ActionService {
         }
 
         this.processPromocode(initialPath);
+
+        this.openPopup(initialPath);
+
+    }
+
+    /**
+     * Open popup modal from query parameters
+     *
+     * @param {IIndexing<string>} initialPath
+     * @returns {Promise<void>}
+     */
+    public async openPopup(initialPath: IIndexing<string>): Promise<void> {
+        if (!initialPath.popup) {
+            return;
+        }
+        await this.configService.ready;
+        const usePopup = this.configService.get<boolean>('$base.popupByQuery.use');
+        if (usePopup) {
+            const modalConfig = this.configService.get<IPopupModalConfig>('$base.popupByQuery.modals');
+            const modalParams: IPopupModalItem = modalConfig[initialPath.popup];
+            const isAuth = this.configService.get('$user.isAuthenticated');
+            if (modalParams?.auth !== !isAuth) {
+                this.modalService.showModal(modalParams?.config);
+            }
+        }
     }
 
     /**

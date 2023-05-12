@@ -28,6 +28,7 @@ import {TErrorReplacerMap} from 'wlc-engine/modules/core/system/services/data/da
 import {IFormsConfig} from 'wlc-engine/modules/core/system/interfaces/base-config/forms.interface';
 import {IHooksConfig} from 'wlc-engine/modules/core/system/interfaces/base-config/hooks.interface';
 import {IIntercomSetup} from 'wlc-engine/modules/external-services/system/interfaces/intercom.interface';
+import {IPopupConfig} from 'wlc-engine/modules/core/system/interfaces/base-config/popup.interface';
 
 export * from './games.interface';
 export * from './tournaments.interface';
@@ -147,4 +148,25 @@ export interface IBaseConfig {
     errorsReplacerMap?: TErrorReplacerMap;
     /** Intercom service setup */
     intercom?: IIntercomSetup;
+    /**
+     * Use query parameters (?popup=sign-up-2) for show popup modal
+     *  @example:
+     *  popupByQuery: {
+     *      use: true,
+     *      modals: {
+     *          'search': {
+     *              config: 'search',
+     *          },
+     *          'sign-up-2': {
+     *              config: {
+     *                  id: 'wlc-sign-up-second-modal',
+     *                  modalTitle: 'Registration',
+     *                  componentName: 'custom.wlc-sign-up-second-modal',
+     *              },
+     *              auth: false,
+     *          },
+     *      },
+     *  },
+     */
+    popupByQuery?: IPopupConfig;
 }

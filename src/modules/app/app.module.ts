@@ -105,7 +105,11 @@ export class AppModule {
     }
 
     protected parseInitPath(path: string): void {
-        if (path.includes('message') || path.includes('error') || path.includes('promocode')) {
+        if (path.includes('message')
+            || path.includes('error')
+            || path.includes('promocode')
+            || path.includes('popup'))
+        {
             this.initialPath = {};
             const values: string[] = path.split('?')?.[1]?.split('&') || [];
 

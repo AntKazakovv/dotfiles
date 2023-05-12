@@ -76,4 +76,17 @@ export const $base: IBaseConfig = {
             text: gettext('Please wait, Your account is being verified'),
         },
     },
+    popupByQuery: {
+        use: false,
+        modals: {
+            'login': {
+                config: 'login',
+                auth: false,
+            },
+            'signup': {
+                config: 'signup',
+                auth: false,
+            },
+        },
+    },
 };
