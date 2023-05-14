@@ -4,6 +4,7 @@ import {
     OnInit,
     Input,
     ChangeDetectorRef,
+    ChangeDetectionStrategy,
 } from '@angular/core';
 
 import {
@@ -15,12 +16,11 @@ import {
 import {UserService} from 'wlc-engine/modules/user/system/services/user/user.service';
 import * as Params from './logout.params';
 
-// TODO:REFACTOR:change-detection-rule
-// eslint-disable-next-line @angular-eslint/prefer-on-push-component-change-detection
 @Component({
     selector: '[wlc-logout]',
     templateUrl: './logout.component.html',
     styleUrls: ['./styles/logout.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LogoutComponent extends AbstractComponent implements OnInit {
     @Input() public inlineParams: Params.ILogoutCParams;
