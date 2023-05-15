@@ -63,8 +63,8 @@ export class SocialNetworksComponent extends AbstractComponent implements OnInit
     public override async ngOnInit(): Promise<void> {
         super.ngOnInit(this.inlineParams);
         if (this.isSocials) {
-            this.getSocialNetworks();
             this.socialService = await this.injectionService.getService<SocialService>('user.social-service');
+            this.getSocialNetworks();
         }
 
         if (this.isSocials && this.isAuth) {
@@ -143,8 +143,8 @@ export class SocialNetworksComponent extends AbstractComponent implements OnInit
         }
     }
 
-    protected getSocialNetworks(): void {
-        this.networks = this.prepareList();
+    protected async getSocialNetworks(): Promise<void> {
+        this.networks = await this.prepareList();
         this.cdr.markForCheck();
     }
 
@@ -153,9 +153,10 @@ export class SocialNetworksComponent extends AbstractComponent implements OnInit
         this.cdr.markForCheck();
     }
 
-    protected prepareList(): Params.INetwork[] {
+    protected async prepareList(): Promise<Params.INetwork[]> {
+        const socialNetworksList = await this.socialService.getSocialNetworksList();
         return _map<ISocialNetwork, Params.INetwork>(
-            this.configService.get<ISocialNetwork[]>('appConfig.socialNetworks'),
+            socialNetworksList,
             (item: ISocialNetwork) => {
                 const {iconPath, replaceConfig} = this.$params;
 

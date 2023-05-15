@@ -12,6 +12,9 @@ import {
     EventService,
     IUserProfile,
 } from 'wlc-engine/modules/core';
+
+import {ISocialNetwork} from 'wlc-engine/modules/core/system/interfaces/app-config.interface';
+
 import {
     ChosenBonusSetParams,
     ChosenBonusType,
@@ -121,6 +124,24 @@ export class SocialService {
         });
 
         return this.getAuthUrl(provider);
+    }
+
+    /**
+     *
+     * @returns list of social networks connected for user
+     */
+    public async getSocialNetworksList(): Promise<ISocialNetwork[]> {
+        try {
+            const res = await this.dataService.request<IData<string>>({
+                name: 'socialNetworks',
+                url: '/socialNetworks',
+                system: 'user',
+                type: 'GET',
+            });
+            return res.data || [];
+        } catch (error) {
+            this.logService.sendLog({code: '1.5.5', data: error});
+        }
     }
 
     /**

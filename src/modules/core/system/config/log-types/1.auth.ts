@@ -279,6 +279,9 @@ export const errorTypes: ILogTypes = {
     '1.5.4': {
         // Wrong social data, abort social registration
     },
+    '1.5.5': {
+        // Error getting list of social networks connected for user
+    },
     '1.6.0': {
         // Error during getting recaptcha token
         level: 'fatal',
