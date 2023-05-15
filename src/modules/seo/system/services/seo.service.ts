@@ -1,5 +1,3 @@
-'use strict';
-
 import {
     Injectable,
 } from '@angular/core';
@@ -14,29 +12,30 @@ import {
     UIRouterGlobals,
 } from '@uirouter/core';
 
+import {EventService} from 'wlc-engine/modules/core';
+
 import _get from 'lodash-es/get';
 import _isString from 'lodash-es/isString';
 import _find from 'lodash-es/find';
 import _isEmpty from 'lodash-es/isEmpty';
 
-import {GamesHelper} from 'wlc-engine/modules/games/system/helpers/games.helpers';
 import {
+    GamesHelper,
     GamesCatalogService,
-} from 'wlc-engine/modules/games/system/services/games-catalog/games-catalog.service';
-import {IIndexing} from 'wlc-engine/modules/core/system/interfaces/global.interface';
+} from 'wlc-engine/modules/games';
 import {
+    IIndexing,
     DataService,
     IData,
-} from 'wlc-engine/modules/core/system/services/data/data.service';
-import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
-import {CachingService} from 'wlc-engine/modules/core/system/services/caching/caching.service';
-import {InjectionService} from 'wlc-engine/modules/core/system/services/injection/injection.service';
+    ConfigService,
+    CachingService,
+    InjectionService,
+} from 'wlc-engine/modules/core';
 import {
     IGameStateData,
     IStateData,
     IStateDataWithChild,
-} from 'wlc-engine/modules/core/system/services/seo/seo.interfaces';
-import {EventService} from 'wlc-engine/modules/core';
+} from 'wlc-engine/modules/seo/system/interfaces/seo.interfaces';
 
 type MetaTagKey = string;
 
@@ -44,7 +43,9 @@ type OpenGraphKey = string;
 
 type MetaTagInfo = [MetaTagKey, OpenGraphKey];
 
-@Injectable()
+@Injectable({
+    providedIn: 'root',
+})
 export class SeoService {
     public seo: IIndexing<IStateDataWithChild> = {};
     public seoGames: IGameStateData[] = [];
@@ -75,9 +76,7 @@ export class SeoService {
         private injectionService: InjectionService,
         private eventService: EventService,
     ) {
-        if (this.configService.get<boolean>('$base.useSeo')) {
-            this.init();
-        }
+        this.init();
     }
 
     /**

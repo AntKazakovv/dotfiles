@@ -14,7 +14,6 @@ export {
     ModalService,
     IModalParams,
 } from './modal/modal.service';
-export {SeoService} from './seo/seo.service';
 export {StateHistoryService} from './state-history/state-history.service';
 export {ContactsService} from './contacts/contacts.service';
 export {

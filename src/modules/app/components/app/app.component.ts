@@ -53,7 +53,6 @@ import {
     LayoutService,
     ModalService,
     SectionModel,
-    SeoService,
     LogService,
     InjectionService,
     BodyClassService,
@@ -64,6 +63,7 @@ import {
     ILivechatConfig,
     CommonChatService,
 } from 'wlc-engine/modules/livechat';
+import {SeoService} from 'wlc-engine/modules/seo';
 import {IAnalytics} from 'wlc-engine/modules/analytics/system/interfaces/analytics.interface';
 import {AnalyticsService} from 'wlc-engine/modules/analytics';
 import {WINDOW} from 'wlc-engine/modules/app/system';
@@ -129,7 +129,6 @@ export class AppComponent extends AbstractComponent implements OnInit, AfterView
         cdr: ChangeDetectorRef,
         protected actionService: ActionService,
         protected modalService: ModalService,
-        protected seo: SeoService,
         protected bodyClassService: BodyClassService,
         private transition: TransitionService,
         private meta: Meta,
@@ -152,6 +151,7 @@ export class AppComponent extends AbstractComponent implements OnInit, AfterView
         this.launchMonitoring();
         this.initHookHandlers();
         this.launchGamblingBanFeature();
+        this.enableSeo();
     }
 
     public override async ngOnInit(): Promise<void> {
@@ -540,6 +540,13 @@ export class AppComponent extends AbstractComponent implements OnInit, AfterView
             return !allowedDomains.includes(referrer.hostname);
         }
         return true;
+    }
+
+    private async enableSeo(): Promise<void> {
+        await this.configService.ready;
+        if (this.configService.get<boolean>('$base.useSeo')) {
+            this.injectionService.getService<SeoService>('seo.seo-service');
+        }
     }
 
     private async loadIntercom(): Promise<void> {

@@ -153,6 +153,14 @@ export class InjectionService {
                     this.afterModuleLoad('promo', m);
                     return m.PromoModule;
                 });
+            case 'seo':
+                if (this.loadedModules.seo) {
+                    return this.loadedModules.seo;
+                }
+                return import('wlc-engine/modules/seo/seo.module').then(m => {
+                    this.afterModuleLoad('seo', m);
+                    return m.SeoModule;
+                });
             case 'user':
                 if (this.loadedModules.user) {
                     return this.loadedModules.user;

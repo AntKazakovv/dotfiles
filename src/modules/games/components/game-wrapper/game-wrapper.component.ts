@@ -65,12 +65,12 @@ import {
     ModalService,
     ICheckboxCParams,
     IIndexing,
-    SeoService,
     InjectionService,
     AppType,
     TWaiter,
     GlobalHelper,
 } from 'wlc-engine/modules/core';
+import {SeoService} from 'wlc-engine/modules/seo';
 import {MerchantWalletService} from 'wlc-engine/modules/games/system/services/merchant-wallet/merchant-wallet.service';
 import {
     BetGamesHooks,
@@ -211,7 +211,6 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
         protected hostElement: ElementRef,
         protected hooksService: HooksService,
         protected titleService: Title,
-        protected seoService: SeoService,
         protected stateService: StateService,
         protected injectionService: InjectionService,
     ) {
@@ -270,7 +269,12 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
         this.screenfull = (await import('screenfull'))?.default;
     }
 
-    public ngAfterViewInit(): void {
+    public async ngAfterViewInit(): Promise<void> {
+        let seoService: SeoService | null = null;
+        if (this.configService.get<boolean>('$base.useSeo')) {
+            seoService = await this.injectionService.getService<SeoService>('seo.seo-service');
+        }
+
         this.showDashboardBtn = true;
         this.initStartResizeParams();
         this.initFullPageIframeSize();
@@ -282,7 +286,7 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
             this.titleObserver.disconnect();
             this.titleObserver = null;
             if (this.configService.get<boolean>('$base.useSeo')) {
-                this.seoService.setTitle();
+                seoService.setTitle();
             } else {
                 this.titleService.setTitle(`${this.gameTitle} | ${this.configService.get<boolean>('$base.site.name')}`);
             }
