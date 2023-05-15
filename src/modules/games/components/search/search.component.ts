@@ -50,6 +50,10 @@ import _uniqBy from 'lodash-es/uniqBy';
 import _assignIn from 'lodash-es/assignIn';
 import _sortBy from 'lodash-es/sortBy';
 import _isEmpty from 'lodash-es/isEmpty';
+import {
+    IProcessEventData,
+    ProcessEvents,
+} from 'wlc-engine/modules/monitoring';
 
 @Component({
     selector: '[wlc-search]',
@@ -161,18 +165,6 @@ export class SearchComponent extends AbstractComponent implements OnInit {
         this.getMerchants();
         this.initSearchListener();
         this.initActiveFilters();
-
-        this.eventService.subscribe(
-            {name: 'CLOSE_MODAL'},
-            (modalId: string) => {
-                if (modalId !== 'search') {
-                    return;
-                }
-
-                this.gamesFilterService.delete(this.gamesGridParams.searchFilterName, true);
-            },
-            this.$destroy,
-        );
 
         this.ready = true;
         this.cdr.detectChanges();
@@ -368,6 +360,28 @@ export class SearchComponent extends AbstractComponent implements OnInit {
         }, (data: IGamesFilterData) => {
             this.filters.searchQuery = data.searchQuery;
         }, this.$destroy);
+
+        this.eventService.subscribe(
+            {name: 'CLOSE_MODAL'},
+            (modalId: string) => {
+                if (modalId !== 'search') {
+                    return;
+                }
+                this.deleteFilter();
+            },
+            this.$destroy,
+        );
+
+        this.eventService.subscribe(
+            {name: ProcessEvents.modalClosed},
+            (data: IProcessEventData) => {
+                if (data.eventId !== 'search' && data.description !== 'backdrop-click') {
+                    return;
+                }
+                this.deleteFilter();
+            },
+            this.$destroy,
+        );
     }
 
     protected getCategories(): void {
@@ -411,5 +425,9 @@ export class SearchComponent extends AbstractComponent implements OnInit {
 
     protected setFilter(): void {
         this.gamesFilterService.set(this.gamesGridParams.searchFilterName, this.filters, true);
+    }
+
+    protected deleteFilter(): void {
+        this.gamesFilterService.delete(this.gamesGridParams.searchFilterName, true);
     }
 }
