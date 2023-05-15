@@ -42,6 +42,7 @@
     }
 
     &.wlc-no-content--theme-mod-default,
+    &.wlc-no-content--theme-mod-stripe,
     &.wlc-no-content--theme-mod-along-with-tournament {
 
         .wlc-no-content {
@@ -70,6 +71,29 @@
                 align-items: center;
                 justify-content: space-between;
                 text-align: center;
+            }
+        }
+    }
+
+    &.wlc-no-content--theme-mod-stripe {
+
+        .wlc-no-content {
+
+            &__wrapper {
+                @include bm.get-mq-map('padding', $slidersWinnersModStripe, 'wrapperPadding');
+            }
+
+            &__title {
+                @include text.get-text-style(ef.get-value($slidersWinnersModStripe, 'nodataBodyTitleFontSize'));
+            }
+
+            &__text {
+                @include bm.get-mq-map('margin', $slidersWinnersModStripe, 'nodataBodyTextMargin');
+            }
+
+            &__content {
+                flex: ef.get-value($slidersWinnersModStripe, 'contentFlex');
+                gap: ef.get-value($slidersWinnersModStripe, 'contentGap');
             }
         }
     }

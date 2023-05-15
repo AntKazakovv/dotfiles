@@ -10,7 +10,7 @@ import {IWinnerCParams} from 'wlc-engine/modules/promo/components/winner/winner.
 
 export type WinnersSliderType = 'latest' | 'biggest';
 export type WinnersSliderTheme = 'default' | 'vertical' | '1' | 'transparent' | CustomType;
-export type WinnersSliderThemeMod = 'default' | 'vertical' | 'along-with-tournament' | CustomType;
+export type WinnersSliderThemeMod = 'default' | 'vertical' | 'along-with-tournament' | 'stripe' | CustomType;
 export type NoContentByThemeType = Partial<Record<WinnersSliderTheme, INoContentCParams>>;
 export type WinnersSliderNoContentByThemeType = Partial<Record<WinnersSliderType, NoContentByThemeType>>;
 

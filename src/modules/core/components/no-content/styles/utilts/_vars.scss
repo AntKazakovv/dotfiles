@@ -90,6 +90,22 @@ $slidersWinnersTransparent: map-merge((
     'buttonMargin': ef.size(5) 0 ef.size(5),
 ), $customSlidersWinnersTransparent);
 
+$customSlidersWinnersModStripe: () !default;
+$slidersWinnersModStripe: map-merge((
+    'nodataBodyTitleFontSize': 'ThirdTitleBold',
+    'nodataBodyTextMargin': (
+        320: 0,
+    ),
+
+    'wrapperPadding': (
+        375: ef.size(1) 0,
+        1200: ef.size(1) 0,
+    ),
+
+    'contentFlex': none,
+    'contentGap': ef.size(1),
+), $customSlidersWinnersModStripe);
+
 $customTotalJackpot: () !default;
 $totalJackpot: map-merge((
     'nodataTextAlign': center,

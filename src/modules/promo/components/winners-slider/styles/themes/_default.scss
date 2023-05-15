@@ -9,13 +9,10 @@
 
         &__container {
             @include bm.get-mq-map('padding', $themeDefault, 'containerPadding');
-            min-height: ef.get-value($themeDefault, 'containerMinHeigth');
+            min-height: ef.get-value($themeDefault, 'containerMinHeight');
+
 
             @include mq.min(ef.get-value($themeDefault, 'breakpoint')) {
-                @include manualMod('wlc-winners-slider', 'default', 'headless') {
-                    display: block;
-                }
-
                 display: flex;
                 align-items: center;
                 justify-content: center;

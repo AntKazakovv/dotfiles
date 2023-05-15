@@ -93,6 +93,7 @@ export namespace wlcLastWinsSlider {
         name: 'promo.wlc-winners-slider',
         params: {
             type: 'latest',
+            themeMod: 'stripe',
             wlcElement: 'section_last-winners',
         },
     };
@@ -101,6 +102,7 @@ export namespace wlcLastWinsSlider {
         name: 'promo.wlc-winners-slider',
         params: {
             type: 'latest',
+            themeMod: 'stripe',
             title: gettext('Last Winners:'),
             wlcElement: 'section_last-winners',
         },
