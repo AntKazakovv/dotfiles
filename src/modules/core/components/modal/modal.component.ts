@@ -10,6 +10,7 @@ import {
     ViewChild,
     ElementRef,
     Renderer2,
+    ChangeDetectionStrategy,
 } from '@angular/core';
 import {takeUntil} from 'rxjs/operators';
 import {ModalDirective} from 'ngx-bootstrap/modal';
@@ -57,13 +58,12 @@ import {
  * @param {Injector} inject Angular Injector class.
  * @param {IModalBsOptions} bsOptions Bootstrap modal config.
  */
-// TODO:REFACTOR:change-detection-rule
-// eslint-disable-next-line @angular-eslint/prefer-on-push-component-change-detection
 @Component({
     selector: '[wlc-modal-window]',
     templateUrl: './modal.component.html',
     styleUrls: ['./styles/modal.component.scss'],
     encapsulation: ViewEncapsulation.None,
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class WlcModalComponent extends AbstractComponent
     implements OnInit, AfterViewInit, OnDestroy {
