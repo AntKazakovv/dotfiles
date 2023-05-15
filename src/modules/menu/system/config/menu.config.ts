@@ -373,7 +373,7 @@ export const menuConfig: IMenuConfig = {
             'sticky-footer:profile',
         ],
         icons: {
-            folder: 'wlc/icons',
+            folder: 'wlc/icons/stickyFooter',
             use: false,
         },
     },
@@ -390,4 +390,3 @@ export const menuConfig: IMenuConfig = {
         },
     },
 };
-
