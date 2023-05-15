@@ -27,25 +27,24 @@
 <body>
 {%if not isEntryPoint  %}
 <div ui-view class="wlc-app">
-{%endif%}
-    {% if 'template/preloader.html' is ondisk %}
-        {% include 'preloader.html' %}
-    {% else %}
-        <div class="wlc-app__preload">
-            <div class="wlc-app__preload-content">
-                <div class="wlc-app__preload-img"></div>
-                <div class="wlc-app__preload-loader">
-                    <div style="--n: 1;"></div>
-                    <div style="--n: 2;"></div>
-                    <div style="--n: 3;"></div>
-                    <div style="--n: 4;"></div>
-                </div>
-            </div>
-        </div>
-    {% endif %}
-{%if not isEntryPoint %}
+
 </div>
 {%endif%}
+{% if 'template/preloader.html' is ondisk %}
+    {% include 'preloader.html' %}
+{% else %}
+    <div class="wlc-app__preload">
+        <div class="wlc-app__preload-content">
+            <div class="wlc-app__preload-img"></div>
+            <div class="wlc-app__preload-loader">
+                <div style="--n: 1;"></div>
+                <div style="--n: 2;"></div>
+                <div style="--n: 3;"></div>
+                <div style="--n: 4;"></div>
+            </div>
+        </div>
+    </div>
+{% endif %}
 <noscript>Please enable JavaScript to continue using this application.</noscript>
 {% include 'additional-footer.html' ignore missing %}
 </body>
