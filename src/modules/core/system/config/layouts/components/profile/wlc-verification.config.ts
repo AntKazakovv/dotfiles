@@ -6,6 +6,6 @@ export namespace wlcVerification {
     };
 
     export const shuftiProKycaml: ILayoutComponent = {
-        name: 'profile.wlc-shufti-pro-kycaml',
+        name: 'aml.wlc-shufti-pro-kycaml',
     };
 }

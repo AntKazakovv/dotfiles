@@ -1,6 +1,8 @@
+
 <ng-container
     *ngIf="ready || error; else preloader"
     [ngSwitch]="validationLevel">
+
     <ng-container *ngSwitchCase="'not-secure'">
         <div class="{{$class}}__status {{$class}}__status-not-secure"
             data-wlc-element="shufti-pro-kycaml-not-secure">
@@ -41,13 +43,22 @@
     </div>
 </ng-container>
 
-<iframe
-    *ngIf="url"
-    class="{{$class}}__iframe"
-    allow="camera"
-    data-wlc-element="shufti-pro-kycaml-iframe"
-    [src]="url">
-</iframe>
+<ng-container *ngIf="ready">
+    <ng-container [ngSwitch]="data.service">
+        <ng-container *ngSwitchCase="'SumSub'">
+            <div class="{{$class}}__iframe-container" #sumsubwebsdk></div>
+        </ng-container>
+
+        <ng-container *ngSwitchCaseDefault>
+            <iframe *ngIf="url"
+                class="{{$class}}__iframe"
+                allow="camera"
+                data-wlc-element="shufti-pro-kycaml-iframe"
+                [src]="url">
+            </iframe>
+        </ng-container>
+    </ng-container>
+</ng-container>
 
 <ng-template #preloader>
     <div wlc-loader></div>

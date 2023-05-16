@@ -57,6 +57,10 @@
             border-radius: ef.get-value($themeDefault, 'iframeBorderRadius');
         }
 
+        &__iframe-container {
+            margin-top: ef.get-value($themeDefault, 'iframeMarginTop');
+        }
+
         &__error {
             @include text.get-text-style('PrimaryText');
             display: flex;

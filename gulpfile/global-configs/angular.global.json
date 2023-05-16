@@ -16,7 +16,8 @@
                 "@formatjs/intl-pluralrules/should-polyfill",
                 "css-element-queries",
                 "text-overflow-clamp",
-                "hosted-fields-sdk"
+                "hosted-fields-sdk",
+                "@sumsub/websdk"
             ],
             "outputPath": "roots/static/dist",
             "baseHref": "/",

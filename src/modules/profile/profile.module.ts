@@ -3,9 +3,6 @@ import {NgModule} from '@angular/core';
 import {TranslateModule} from '@ngx-translate/core';
 import {UIRouterModule} from '@uirouter/angular';
 import {CoreModule} from 'wlc-engine/modules/core/core.module';
-import {
-    ShuftiProKycamlComponent,
-} from 'wlc-engine/modules/profile/components/shufti-pro-kycaml/shufti-pro-kycaml.component';
 import {VerificationComponent} from 'wlc-engine/modules/profile/components/verification/verification.component';
 import {
     ProfileNoContentComponent,
@@ -22,14 +19,12 @@ import {
 export const components = {
     'wlc-profile-no-content': ProfileNoContentComponent,
     'wlc-verification': VerificationComponent,
-    'wlc-shufti-pro-kycaml': ShuftiProKycamlComponent,
     'wlc-bet-history': BetHistoryComponent,
     'wlc-bet-preview': BetPreviewComponent,
 };
 
 @NgModule({
     declarations: [
-        ShuftiProKycamlComponent,
         VerificationComponent,
         VerificationGroupComponent,
         BetHistoryComponent,

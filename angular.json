@@ -51,7 +51,8 @@
                             "text-overflow-clamp",
                             "hosted-fields-sdk",
                             "@xmpp/jid",
-                            "@xmpp/client"
+                            "@xmpp/client",
+                            "@sumsub/websdk"
                         ],
                         "webWorkerTsConfig": "./tsconfig.worker.json"
                     },
