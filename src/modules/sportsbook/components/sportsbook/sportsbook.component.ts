@@ -102,7 +102,7 @@ export class SportsbookComponent extends AbstractComponent implements OnInit, On
 
     protected async init(): Promise<void> {
 
-        if (this.$params.ownLoader.use) {
+        if (this.$params.ownLoader?.use) {
             this.addModifiers('show-loader');
         }
 
@@ -114,7 +114,7 @@ export class SportsbookComponent extends AbstractComponent implements OnInit, On
         if (this.settings) {
             if (this.settings.id === 'betradar') {
 
-                if (this.$params.ownLoader.use) {
+                if (this.$params.ownLoader?.use) {
                     this.sportsbookService.onIframeMessage(BetradarEvents.loaded)
                         .subscribe(() => {
                             this.removeModifiers('show-loader');

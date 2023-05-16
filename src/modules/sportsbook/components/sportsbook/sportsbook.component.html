@@ -1,8 +1,8 @@
 <div *ngIf="gameConfig">
     <div wlc-wrapper [inlineParams]="gameConfig"></div>
 </div>
-<div *ngIf="$params.ownLoader.use" class="{{$class}}__own-loader">
+<div *ngIf="$params.ownLoader?.use" class="{{$class}}__own-loader">
     <div wlc-loader
-         [inlineParams]="$params.ownLoader.loaderParams">
+         [inlineParams]="$params.ownLoader?.loaderParams">
     </div>
 </div>

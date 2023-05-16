@@ -12,8 +12,8 @@ export type CustomMod = string;
 export type Modifiers = AutoModifiers | CustomMod | null;
 
 export interface IOwnLoader {
-    use: boolean,
-    loaderParams: ILoaderCParams,
+    use?: boolean,
+    loaderParams?: ILoaderCParams,
 }
 
 export interface ISportsbookCParams extends IComponentParams<Theme, Type, ThemeMod> {
