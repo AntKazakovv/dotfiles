@@ -1063,7 +1063,10 @@ export class GamesCatalogService {
             name: 'lastGames',
             url: '/games',
             type: 'GET',
-            params: {lastGames: '1'},
+            params: {
+                lastGames: '1',
+                limit: this.configService.get<number>('$games.limitLastGames') || 10,
+            },
             system: 'games',
             events: {
                 success: gamesEvents.FETCH_LAST_GAME_CATALOG_SUCCEEDED,

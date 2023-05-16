@@ -75,6 +75,8 @@ export interface IGamesConfig {
         use: boolean;
         settings: IGamesSeparateSortSetting;
     },
+    //number of last played games in the last-games section
+    limitLastGames?: number;
 }
 
 export interface IGamesSearchSettings {
