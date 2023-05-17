@@ -28,7 +28,6 @@ import {EmojiComponent} from './components/chat-panel/components/emoji/emoji.com
 import {IntersectionDirective} from './system/directives/intersection.directive';
 
 import {ChatService} from './system/services/chat.service';
-import {FakeService} from './system/services/fake.service';
 import {ChatListService} from './system/services/chat-list.service';
 import {DialogService} from './system/services/dialog.service';
 import {TempAdapterService} from './system/services/temp-adapter.service';
@@ -82,7 +81,6 @@ export const components = {
     providers: [
         ChatService,
         ChatListService,
-        FakeService,
         DialogService,
         TempAdapterService,
         XMPPAdapterService,

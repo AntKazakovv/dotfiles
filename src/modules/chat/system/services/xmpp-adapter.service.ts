@@ -3,12 +3,17 @@ import {
     Injectable,
     NgZone,
 } from '@angular/core';
+import {DOCUMENT} from '@angular/common';
 import {
     Subject,
     BehaviorSubject,
     first,
     Observable,
     firstValueFrom,
+    skip,
+    timeout,
+    catchError,
+    of,
 } from 'rxjs';
 import {
     Client,
@@ -25,21 +30,32 @@ import {tempUser} from 'wlc-engine/modules/chat/system/constants/core.constants'
 
 export type TChatStatus = 'offline' | 'online' | 'reconnecting' | 'disconnected' | 'failed';
 
+export interface IMsgQueueElem {
+    msg: string;
+    user: string;
+    room: string;
+    timestamp: number;
+    waiter?: {
+        $: Subject<boolean>;
+        cb: () => Observable<boolean>;
+    };
+}
+
 @Injectable({providedIn: 'root'})
 export class XMPPAdapterService {
     public client!: Client;
+    public userJid: JID;
+
     protected stanzas$: Subject<IStanza> = new Subject();
     protected status$: BehaviorSubject<TChatStatus> = new BehaviorSubject('offline');
     protected roomConnected$: BehaviorSubject<boolean> = new BehaviorSubject(false);
-
-    public userJid: JID;
-
+    protected pingResolver$: BehaviorSubject<boolean> = new BehaviorSubject(false);
     protected pingId!: string;
-    protected pingResolver: boolean = false;
-    protected connecting: boolean = false;
+    protected msgQueue: Map<string, IMsgQueueElem> = new Map();
 
     constructor(
         @Inject(WINDOW) protected window: Window,
+        @Inject(DOCUMENT) protected document: Document,
         protected ngZone: NgZone,
         protected config: ChatConfigService,
     ){}
@@ -60,13 +76,48 @@ export class XMPPAdapterService {
         return this.userJid?.local === tempUser.username;
     }
 
-    public send(roomAddress: string, message: string): void {
+    /**
+     * sendQueue
+     */
+    public clearQueue(): void {
+        this.msgQueue.clear();
+    }
+
+    /**
+     * Send chat message to socket
+     * @param roomAddress room address
+     * @param message
+     * @returns
+     */
+    public send(roomAddress: string, message: string): Observable<boolean> {
+        const waiter$ = new Subject<boolean>();
+        const id = ChatHelper.id();
+
+        const msgQueueEl: IMsgQueueElem = {
+            msg: message,
+            user: this.userJid.bare().toString(),
+            room: roomAddress,
+            timestamp: Date.now(),
+            waiter: {
+                $: waiter$,
+                cb: () => waiter$.pipe(
+                    timeout(this.config.base.pingPongConfig.messageWaitDelay),
+                    catchError(() => of(false)),
+                    first(),
+                ),
+            },
+        };
+
+        this.msgQueue.set(id, msgQueueEl);
+
         this.client.send(xml('message', {
             from: this.userJid.bare().toString(),
             to: roomAddress,
             type: 'groupchat',
-            id: ChatHelper.id(),
+            id: id,
         }, xml('body', {}, message)));
+
+        return msgQueueEl.waiter.cb();
     }
 
     public async authClient(username: string, password: string): Promise<void> {
@@ -80,9 +131,6 @@ export class XMPPAdapterService {
             });
 
             this.client.on('online', (jid: JID) => {
-                if (this.config.base.pingPongConfig.use) {
-                    this.client.reconnect.stop();
-                }
                 return this.ngZone.run(() => {
                     return this.onOnlineJid(jid);
                 });
@@ -116,7 +164,15 @@ export class XMPPAdapterService {
                 if (stanza.attrs.id
                     && stanza.attrs.id === this.pingId
                     && stanza.attrs.type === 'result') {
-                    this.pingResolver = true;
+                    this.pingResolver$.next(true);
+                }
+
+                if (stanza.is('message') && !stanza.getChild('delay')) {
+                    const id = stanza.attrs.id;
+                    if (this.msgQueue.has(id)) {
+                        this.msgQueue.get(id).waiter.$.next(true);
+                        this.msgQueue.delete(id);
+                    }
                 }
 
                 this.ngZone.run(() => {
@@ -134,11 +190,6 @@ export class XMPPAdapterService {
     }
 
     public async roomEnter(roomAddress: string, nickname: string): Promise<void> {
-        if (this.clientStatus !== 'online') {
-            await this.reconnectChat();
-            return;
-        }
-
         await this.client.send(xml(
             'presence',
             {
@@ -189,18 +240,9 @@ export class XMPPAdapterService {
     protected onOnlineJid(jid: JID): void {
         this.userJid = jid;
         this.status$.next('online');
-        if (this.config.base.pingPongConfig.use) {
-            this.startPing();
-        }
     }
 
-    protected startPing(): void {
-        this.ngZone.runOutsideAngular(() => {
-            this.sendPing();
-        });
-    }
-
-    protected async sendPing(): Promise<void> {
+    public checkPing(): Observable<boolean> {
         this.pingId = ChatHelper.id();
 
         this.client.send(xml('iq', {
@@ -210,38 +252,14 @@ export class XMPPAdapterService {
             id: this.pingId,
         }, xml('ping', {xmlns: 'urn:xmpp:ping'})));
 
-        this.pingResolver = false;
+        this.pingResolver$.next(false);
 
-        await ChatHelper.wait(this.config.base.pingPongConfig.pongDelay);
-
-        if (this.pingResolver) {
-            await ChatHelper.wait(this.config.base.pingPongConfig.pingTimeout);
-            this.sendPing();
-        } else {
-            this.onError();
-            this.client.reconnect.reconnect();
-        }
-    }
-
-    public async reconnectChat(): Promise<void> {
-        if (!this.connecting && this.clientStatus === 'failed'
-            || this.clientStatus === 'reconnecting') {
-            this.ngZone.runOutsideAngular(async () => {
-                this.connecting = true;
-                await ChatHelper.wait(this.config.base.pingPongConfig.connectionDelay);
-
-                if (this.clientStatus !== 'online') {
-                    this.client.reconnect.reconnect();
-                    await ChatHelper.wait(this.config.base.pingPongConfig.connectionDelay);
-                }
-
-                this.connecting = false;
-
-                if (this.clientStatus !== 'online') {
-                    this.onError();
-                }
-            });
-        }
+        return this.pingResolver$.pipe(
+            skip(1),
+            timeout(this.config.base.pingPongConfig.pongDelay),
+            catchError(() => this.pingResolver$),
+            first(),
+        );
     }
 
     /**

@@ -2,8 +2,12 @@ import {
     BehaviorSubject,
     firstValueFrom,
     Observable,
+    timer,
 } from 'rxjs';
-import {first} from 'rxjs/operators';
+import {
+    first,
+    tap,
+} from 'rxjs/operators';
 
 import {
     IDialogParams,
@@ -57,10 +61,10 @@ export class DialogModel<T> {
         return new Promise((resolve) => {
             this._status$.next('opening');
 
-            setTimeout(() => {
+            timer(300).pipe(tap(() => {
                 this._status$.next('opened');
                 resolve();
-            }, 300);
+            })).subscribe();
         });
     }
 
@@ -74,10 +78,10 @@ export class DialogModel<T> {
         return new Promise((resolve) => {
             this._status$.next('hiding');
 
-            setTimeout(() => {
+            timer(300).pipe(tap(() => {
                 this._status$.next('hidden');
                 resolve(reason);
-            }, 300);
+            })).subscribe();
         });
     }
 }

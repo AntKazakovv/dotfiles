@@ -5,7 +5,12 @@ import {
     Injector,
     OnInit,
 } from '@angular/core';
-import {takeUntil} from 'rxjs';
+import {
+    switchMap,
+    takeUntil,
+    tap,
+    timer,
+} from 'rxjs';
 
 import {AbstractChatComponent} from 'wlc-engine/modules/chat/system/classes/component.abstract.class';
 import {DialogService} from 'wlc-engine/modules/chat/system/services/dialog.service';
@@ -30,14 +35,12 @@ export class DialogComponent extends AbstractChatComponent implements OnInit {
     public ngOnInit(): void {
         this.cdr.detach();
 
-        this.dialogService.dialogs$
-            .pipe(takeUntil(this.destroy$))
-            .subscribe(() => {
-                this.switchMod('opened', !!this.dialogs.length);
-                setTimeout(() => {
-                    this.cdr.detectChanges();
-                });
-            });
+        this.dialogService.dialogs$.pipe(
+            tap(() => this.switchMod('opened', !!this.dialogs.length)),
+            switchMap(() => timer(0)),
+            tap(() => this.cdr.detectChanges()),
+            takeUntil(this.destroy$),
+        ).subscribe();
     }
 
     public get dialogs(): DialogModel<unknown>[] {

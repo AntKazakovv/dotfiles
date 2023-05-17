@@ -36,14 +36,22 @@ export interface IChatConfig {
      * See [[TUseAsNickname]]
      */
     useAsNickname?: TUseAsNickname;
+    /**
+     * Feature to detect if socket is Ok
+     */
     pingPongConfig?: {
-        use?: boolean;
-        pingTimeout?: number;
+        /** Timeout for waiting pong response after tab visibility change and offline->online event */
         pongDelay?: number;
-        connectionDelay?: number;
+        /** Timeout for waiting of message response */
+        messageWaitDelay?: number;
     };
-
+    /**
+     * Chat init options
+     */
     initOptions?: {
+        /**
+         * If true, chat will be opened on application init
+         */
         startsWithOpen?: boolean;
     };
 }
@@ -74,10 +82,8 @@ export const chatConfig: IChatConfig = {
         startsWithOpen: false,
     },
     pingPongConfig: {
-        use: true,
-        pingTimeout: 20000,
-        pongDelay: 5000,
-        connectionDelay: 3000,
+        pongDelay: 2000,
+        messageWaitDelay: 2000,
     },
     emojiList: [
         ['smiling_face_with_smiling_eyes', '😊'],

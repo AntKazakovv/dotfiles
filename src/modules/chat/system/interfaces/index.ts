@@ -4,7 +4,7 @@ import {IContact} from 'wlc-engine/modules/chat/system/services/chat.service';
 /**
  * Extends default typescript `Event` with adding type to target element
  */
-export interface DOMEvent<T extends EventTarget & HTMLElement = HTMLElement> extends Event {
+export interface DOMEvent<T extends EventTarget & Node = HTMLElement> extends Event {
     readonly target: T;
 }
 

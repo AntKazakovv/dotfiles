@@ -51,11 +51,4 @@ export class ChatHelper {
 
     public static nicknameForbiddenSymbols: RegExp = /[\t\n\r!"&',./:<>?@]/;
 
-    public static async wait(time: number): Promise<void> {
-
-        await new Promise((resolve) => {
-            setTimeout(resolve, time);
-        });
-    };
-
 }

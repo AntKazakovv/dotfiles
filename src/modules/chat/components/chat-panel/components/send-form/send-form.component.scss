@@ -27,6 +27,7 @@
             &:disabled {
                 --input-bg: #{helpers.get-prop('inputBgDisabled')};
                 --input-border: #{helpers.get-prop('inputBorderDisabled')};
+                --input-color: #{helpers.get-prop('inputColorDisabled')};
             }
         }
 
@@ -41,13 +42,6 @@
             grid-area: textarea;
             resize: none;
             overflow: hidden;
-
-            &--fake {
-                max-height: 185px;
-                white-space: pre-wrap;
-                word-break: break-all;
-                visibility: hidden;
-            }
         }
 
         &__counter {

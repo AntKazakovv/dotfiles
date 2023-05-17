@@ -12,14 +12,19 @@ import {
     Observable,
     BehaviorSubject,
     fromEvent,
+    EMPTY,
+    combineLatest,
+    timer,
 } from 'rxjs';
 import {
     filter,
     debounceTime,
+    map,
+    switchMap,
+    distinctUntilChanged,
 } from 'rxjs/operators';
 
 import {AbstractChatComponent} from 'wlc-engine/modules/chat/system/classes/component.abstract.class';
-import {FakeService} from 'wlc-engine/modules/chat/system/services/fake.service';
 import {ChatListService} from 'wlc-engine/modules/chat/system/services/chat-list.service';
 import {ChatService} from 'wlc-engine/modules/chat/system/services/chat.service';
 import {
@@ -51,7 +56,6 @@ export class ChatWrapperComponent extends AbstractChatComponent implements OnIni
         protected elRef: ElementRef,
         protected chatService: ChatService,
         protected chatListService: ChatListService,
-        protected fakeService: FakeService,
         protected cdr: ChangeDetectorRef,
         protected renderer: Renderer2,
         protected tas: TempAdapterService,
@@ -81,26 +85,35 @@ export class ChatWrapperComponent extends AbstractChatComponent implements OnIni
                 this.scrollToEnd(true);
             });
 
-        this.chatListService.messages$
-            .pipe(takeUntil(this.destroy$))
-            .subscribe((message: IMessage): void => {
-                if (this.chatService.isChatOpened) {
-                    if (!this.chatConnected || !this.scrollUp) {
-                        message.read = true;
-                    }
-
-                    if (message.direction === Direction.out || (!this.scrollUp))  {
-                        message.read = true;
-                        this.scrollToEnd();
-                    } else {
-                        this.updateBuffer(this.scrollUp, true);
-                    }
-
-                    if (this.chatConnected) {
-                        this.chatListService.countUnread();
-                    }
+        combineLatest([
+            this.chatService.isChatOpenedObserver$,
+            this.chatService.tabVisibility$,
+        ]).pipe(
+            map(([chatVisibility, tabVisibility]): boolean => chatVisibility && tabVisibility),
+            distinctUntilChanged((prev, curr) => {
+                if (prev != curr && curr) {
+                    this.updateBuffer(this.scrollUp);
                 }
-            });
+                return false;
+            }),
+            switchMap((visible: boolean) => visible ? this.chatListService.messages$ : EMPTY),
+            takeUntil(this.destroy$),
+        ).subscribe((message: IMessage) => {
+            if (!this.chatConnected || !this.scrollUp) {
+                message.read = true;
+            }
+
+            if (message.direction === Direction.out || (!this.scrollUp))  {
+                message.read = true;
+                this.scrollToEnd();
+            } else {
+                this.updateBuffer(this.scrollUp, true);
+            }
+
+            if (this.chatConnected) {
+                this.chatListService.countUnread();
+            }
+        });
 
         let lastPos: number = 0;
         fromEvent(this.scrollContainer.nativeElement, 'scroll')
@@ -141,13 +154,14 @@ export class ChatWrapperComponent extends AbstractChatComponent implements OnIni
 
         this.updateBuffer(false);
 
-        setTimeout((): void => {
-            this.scrollContainer.nativeElement.scrollTo({
-                top: this.scrollContainer.nativeElement.scrollHeight,
-                left: 0,
-                behavior: 'smooth',
+        timer(0).pipe(takeUntil(this.destroy$))
+            .subscribe(() => {
+                this.scrollContainer.nativeElement.scrollTo({
+                    top: this.scrollContainer.nativeElement.scrollHeight,
+                    left: 0,
+                    behavior: 'smooth',
+                });
             });
-        });
 
     }
 

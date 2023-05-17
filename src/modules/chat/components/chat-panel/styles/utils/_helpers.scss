@@ -48,6 +48,7 @@
 @mixin inputBase() {
     --input-bg: #{get-prop('inputBg')};
     --input-border: #{get-prop('inputBorder')};
+    --input-color: #{get-prop('inputColor')};
 
     width: 100%;
     max-width: 100%;
@@ -56,7 +57,7 @@
     padding: get-prop('inputPadding');
     border: var(--input-border);
     border-radius: get-prop('inputRadius');
-    color: get-prop('inputColor');
+    color: var(--input-color);
     font-size: 16px;
     background: var(--input-bg);
     outline: none;
@@ -75,6 +76,7 @@
     &:disabled {
         --input-bg: #{get-prop('inputBgDisabled')};
         --input-border: #{get-prop('inputBorderDisabled')};
+        --input-color: #{get-prop('inputColorDisabled')};
     }
 
     &.ng-touched {

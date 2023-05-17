@@ -9,14 +9,16 @@ import {
     ChangeDetectorRef,
     Component,
     ElementRef,
-    HostListener,
     OnInit,
+    ViewChild,
 } from '@angular/core';
 
 import {
     takeUntil,
     BehaviorSubject,
     map,
+    fromEvent,
+    filter,
 } from 'rxjs';
 
 import {AbstractChatComponent} from 'wlc-engine/modules/chat/system/classes/component.abstract.class';
@@ -27,7 +29,6 @@ import {
     ChatService,
     TConnectionStatus,
 } from 'wlc-engine/modules/chat/system/services/chat.service';
-import {Direction} from 'wlc-engine/modules/chat/system/interfaces';
 
 @Component({
     selector: '[wlc-send-form]',
@@ -36,12 +37,12 @@ import {Direction} from 'wlc-engine/modules/chat/system/interfaces';
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SendFormComponent extends AbstractChatComponent implements OnInit {
+    @ViewChild('message', {static: true}) protected textarea: ElementRef<HTMLTextAreaElement>;
 
     public form: UntypedFormGroup = new UntypedFormGroup({
         message: new UntypedFormControl(null, [
             Validators.maxLength(160),
         ]),
-        isFake: new UntypedFormControl(false),
     });
     public emojiPanelState$: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
@@ -63,8 +64,8 @@ export class SendFormComponent extends AbstractChatComponent implements OnInit {
         this.form.disable();
 
         this.chatService.connectChat$.pipe(
-            takeUntil(this.destroy$),
             map((status: TConnectionStatus) => status === 'connected'),
+            takeUntil(this.destroy$),
         ).subscribe((isConnected: boolean) => {
             if (isConnected) {
                 this.form.enable();
@@ -75,6 +76,8 @@ export class SendFormComponent extends AbstractChatComponent implements OnInit {
             this.switchMod('state-connecting', !isConnected);
             this.cdr.markForCheck();
         });
+
+        this.keyPressSubscription();
     }
 
     public get nickname(): string {
@@ -87,34 +90,23 @@ export class SendFormComponent extends AbstractChatComponent implements OnInit {
 
     public submitHandler(): void {
         if (this.form.valid && this.form.controls.message.value?.trim()) {
-            if (this.form.controls['isFake'].value)  {
-                this.chatListService.addMessage({
-                    direction: Direction.out,
-                    body: this.form.controls['message'].value,
-                    datetime: new Date(),
-                    from: {
-                        nickname: this.chatService.currentNickname,
-                        affiliation: 'none',
-                        role: 'faker',
-                        jid: this.xmppService.userJid,
-                    },
+            this.form.disable();
+
+            this.chatService.sendMsgToRoom(this.form.controls['message'].value)
+                .pipe(takeUntil(this.destroy$))
+                .subscribe((isSent: boolean) => {
+                    if (isSent) {
+                        this.form.controls['message'].setValue(null);
+                    }
+
+                    this.form.enable();
+                    this.textarea.nativeElement.focus();
+                    this.cdr.markForCheck();
                 });
-            } else {
-                this.chatService.sendMsgToRoom(this.form.controls['message'].value);
-            }
-            this.form.controls['message'].setValue(null);
 
             if (this.emojiPanelState$.getValue()) {
                 this.emojiPanelState$.next(false);
             }
-        }
-    }
-
-    @HostListener('keypress', ['$event'])
-    public keypressHandler(event: KeyboardEvent): void {
-        if (event.key === 'Enter' && !event.shiftKey) {
-            event.preventDefault();
-            this.submitHandler();
         }
     }
 
@@ -133,5 +125,15 @@ export class SendFormComponent extends AbstractChatComponent implements OnInit {
 
     public saveCursorPosition($event: FocusEvent): void {
         this.cursorPosition = ($event.target as HTMLTextAreaElement).selectionStart;
+    }
+
+    protected keyPressSubscription(): void {
+        fromEvent(this.elementRef.nativeElement, 'keypress').pipe(
+            filter((event: KeyboardEvent) => event.key === 'Enter' && !event.shiftKey),
+            takeUntil(this.destroy$),
+        ).subscribe((event: KeyboardEvent) => {
+            event.preventDefault();
+            this.submitHandler();
+        });
     }
 }

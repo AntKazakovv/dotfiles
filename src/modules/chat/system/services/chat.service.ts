@@ -6,19 +6,27 @@ import {
     Inject,
     Injectable,
     Injector,
+    NgZone,
 } from '@angular/core';
 import {
     BehaviorSubject,
     distinctUntilChanged,
     EMPTY,
+    filter,
     first,
     firstValueFrom,
+    fromEvent,
+    map,
+    merge,
     Observable,
     of ,
+    skip,
+    startWith,
     Subject,
     switchMap,
     takeWhile,
     tap,
+    timer,
 } from 'rxjs';
 import {jid as parseJid} from '@xmpp/client';
 import {JID} from '@xmpp/jid';
@@ -51,6 +59,11 @@ export type TConnectionStatus = 'disconnected' | 'connected' | 'failed';
 @Injectable({providedIn: 'root'})
 export class ChatService {
     public readonly roomList: RoomModel[] = [];
+    public readonly tabVisibility$: Observable<boolean> = fromEvent(this.document, 'visibilitychange')
+        .pipe(map(() => this.document.visibilityState === 'visible'), startWith(true));
+    public readonly messageFail$: Subject<void> = new Subject();
+    protected checkCompleted: boolean = false;
+
     protected rooms: Map<string, RoomModel> = new Map([]);
     protected mainRoom: string = '';
 
@@ -81,6 +94,7 @@ export class ChatService {
         private xmppService: XMPPAdapterService,
         private config: ChatConfigService,
         private dialog: DialogService,
+        private zone: NgZone,
     ) {
         this.init();
     }
@@ -175,8 +189,9 @@ export class ChatService {
      * Send message to room from current active user
      * @param message text
      */
-    public sendMsgToRoom(message: string): void {
-        this.xmppService.send(this.activeRoom.address, message);
+    public sendMsgToRoom(message: string): Observable<boolean> {
+        return this.xmppService.send(this.activeRoom.address, message)
+            .pipe(tap(v => !v && this.messageFail$.next()));
     }
 
     /**
@@ -221,12 +236,13 @@ export class ChatService {
         this.subscribeStanzaStream();
         this.subscribeClientStatus();
         this.subscribeIsAuthStatus();
+        this.subscribeVisibilityStatus();
 
-        setTimeout(() => {
+        timer(0).pipe(tap(() => {
             if (!this.panelRef) {
                 this.attachPanel();
             }
-        }, 0);
+        })).subscribe();
     }
 
     /**
@@ -262,6 +278,48 @@ export class ChatService {
         } else if (status === 'online') {
             this.userChanged$.next(null);
         }
+    }
+
+    protected subscribeVisibilityStatus(): void {
+        this.zone.runOutsideAngular(() => {
+            merge(
+                fromEvent(this.window, 'offline'),
+                this.tabVisibility$.pipe(skip(1), filter(Boolean)),
+                this.messageFail$,
+            ).pipe(
+                tap(() => {
+                    if (this.checkCompleted) {
+                        this.checkCompleted = false;
+                    }
+                }),
+                filter(() => !!this.xmppService.userJid && !this.checkCompleted),
+                switchMap(() => this.checkSocket()),
+                tap(() => this.checkCompleted = true),
+            ).subscribe(async (connected: boolean) => {
+                if (!connected) {
+                    this.roomConnected$.next('disconnected');
+                    this.zone.run(async () => await this.authProcess(this.nickname));
+                }
+                this.checkCompleted = true;
+            });
+        });
+    }
+
+    protected checkSocket(): Observable<boolean> {
+        const visible: boolean = this.document.visibilityState === 'visible';
+        const online: boolean = this.window.navigator.onLine;
+
+        if (visible && online) {
+            return this.xmppService.checkPing();
+        }
+
+        if (visible && !online) {
+            return fromEvent(this.window, 'online', {once: true}).pipe(
+                switchMap(() => this.xmppService.checkPing()),
+            );
+        }
+
+        return of(true);
     }
 
     /**
@@ -323,11 +381,6 @@ export class ChatService {
      * @param password one-time password got by request
      */
     protected async initClient(username: string, password: string): Promise<void> {
-        if (username === tempUser.username && username === this.xmppService.userJid?.local) {
-            this.roomConnected$.next('connected');
-            return;
-        }
-
         if (this.xmppService.client) {
             await this.xmppService.logout();
             this.userData.nickname = '';
@@ -386,41 +439,43 @@ export class ChatService {
         // chat topic comes after history loaded
         if (stanza.getChild('subject')) {
             this.roomConnected$.next('connected');
+            this.xmppService.clearQueue();
             return;
         }
 
         // chat message data
-        const delayEl = stanza.getChild('delay');
-        const from = parseJid(stanza.attrs.from);
-        const ocId = stanza.getChild('occupant-id').attrs.id;
-        const body = stanza.getChildText('body')?.trim();
-        const mucUser = stanza.getChild('x', mucUserNs)?.getChild('item');
-        let contact: IContact;
+        const ocId = stanza.getChild('occupant-id')?.attrs.id;
+        if (ocId) {
+            const delayEl = stanza.getChild('delay');
+            const from = parseJid(stanza.attrs.from);
+            const body = stanza.getChildText('body')?.trim();
+            const mucUser = stanza.getChild('x', mucUserNs)?.getChild('item');
+            let contact: IContact;
 
-        if (!this.rooms.get(from.local)?.contacts.get(ocId)) {
-            this.rooms.get(from.local)?.contacts.set(ocId, contact = {
-                nickname: from.resource,
-                role: mucUser?.attrs.role,
-                jid: mucUser ? parseJid(mucUser?.attrs.jid) : null,
-            });
-        } else {
-            contact = this.rooms.get(from.local)?.contacts.get(ocId);
-        }
+            if (!this.rooms.get(from.local)?.contacts.get(ocId)) {
+                this.rooms.get(from.local)?.contacts.set(ocId, contact = {
+                    nickname: from.resource,
+                    role: mucUser?.attrs.role,
+                    jid: mucUser ? parseJid(mucUser?.attrs.jid) : null,
+                });
+            } else {
+                contact = this.rooms.get(from.local)?.contacts.get(ocId);
+            }
 
-        if (from?.resource && body) {
-            const message: IMessage = {
-                ocId: ocId,
-                // history has date, new messages - no
-                datetime: delayEl ? new Date(delayEl?.attrs.stamp) : new Date(),
-                body: body,
-                direction: this.selfOId.has(ocId) ? Direction.out : Direction.in,
-                id: stanza.attrs.id,
-                from: contact,
-                read: this.roomConnected$.getValue() !== 'connected',
-            };
+            if (from?.resource && body) {
+                const message: IMessage = {
+                    ocId: ocId,
+                    // history has date, new messages - no
+                    datetime: delayEl ? new Date(delayEl?.attrs.stamp) : new Date(),
+                    body: body,
+                    direction: this.selfOId.has(ocId) ? Direction.out : Direction.in,
+                    id: stanza.attrs.id,
+                    from: contact,
+                    read: this.roomConnected$.getValue() !== 'connected',
+                };
 
-            this.rooms.get(from.local)?.messageStore.addMessage(message);
-
+                this.rooms.get(from.local)?.messageStore.addMessage(message);
+            }
         }
     }
 

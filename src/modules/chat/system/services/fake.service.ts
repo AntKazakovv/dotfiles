@@ -39,6 +39,9 @@ const randomMessages: string[] = [
         + 'are good at math and those of us who aren\'t.',
 ];
 
+/**
+ * @deprecated Удалю, когда уже точно не понадобится
+ */
 @Injectable({providedIn: 'root'})
 export class FakeService {
     protected randomChat: Subscription;
