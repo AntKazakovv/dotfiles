@@ -291,7 +291,7 @@ export class FormWrapperComponent extends WrapperComponent implements OnInit, On
     }
 
     protected formErrors(): string[] {
-        const errors = [];
+        const errors: string[] = [];
 
         _each(this.controls, (control, controlName) => {
 
@@ -328,7 +328,7 @@ export class FormWrapperComponent extends WrapperComponent implements OnInit, On
     }
 
     private prepareComponents(components: IFormComponent[]): void {
-        const controls = {};
+        const controls: IIndexing<UntypedFormControl> = {};
 
         components = this.filterNullComponents(components);
         _each(components, (component) => {

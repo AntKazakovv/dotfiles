@@ -116,10 +116,11 @@ export class HistoryFilterComponent extends AbstractComponent implements OnInit,
         this.defaultFormData = this.historyFilterService.getDefaultFilter(this.$params.config);
         this.isFiltered = !_keys(this.defaultFormData)
             .every((key: string): boolean => {
-                if (this.defaultFormData[key] instanceof DateTime) {
-                    return this.defaultFormData[key].toFormat('y-LL-dd') === data[key].toFormat('y-LL-dd');
+                const formData: IIndexing<any> = this.defaultFormData;
+                if ((formData[key] instanceof DateTime) && (data[key] instanceof DateTime)) {
+                    return formData[key].toFormat('y-LL-dd') === data[key].toFormat('y-LL-dd');
                 }
-                return _isEqual(this.defaultFormData[key], data[key]);
+                return _isEqual(formData[key], data[key]);
             });
         this.cdr.markForCheck();
     }

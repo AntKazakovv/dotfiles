@@ -8,7 +8,7 @@ export type ThemeMod = 'default' | CustomType;
 export interface IPaginationCParams extends IComponentParams<ComponentTheme, ComponentType, ThemeMod> {
 }
 export interface IPaginationBreakepoint {
-    [key: number]: {
+    [key: string]: {
         itemPerPage: number;
     }
 }
