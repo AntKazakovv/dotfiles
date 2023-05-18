@@ -286,7 +286,7 @@ export class BonusesService {
                 case 'active':
                     return bonus.isActive;
                 case 'united':
-                    return !active && (allowCatalog || selected)
+                    return !active && (allowCatalog || selected || inventoried)
                         && (this.isNotPromoOrSelectedOrActive(bonus) || inventoried || this.isPromocodeEntered(bonus))
                         && (!isStoreEvent || inventoried);
             }
@@ -777,7 +777,8 @@ export class BonusesService {
             }
         }
         return _filter(queryBonuses, (bonus: Bonus) => {
-            return bonus.allowCatalog || (!bonus.allowCatalog && (bonus.selected || bonus.active));
+            return bonus.allowCatalog
+                || (!bonus.allowCatalog && (bonus.selected || bonus.active || bonus.inventoried));
         });
     }
 
@@ -882,7 +883,7 @@ export class BonusesService {
      * @returns
      */
     private isCatalogAllowOrSelectedOrActive(bonus: Bonus): boolean {
-        return bonus.allowCatalog || bonus.selected || bonus.active;
+        return bonus.allowCatalog || bonus.selected || bonus.active || bonus.inventoried;
     }
 
     /**
