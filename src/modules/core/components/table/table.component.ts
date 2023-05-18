@@ -117,7 +117,7 @@ export class TableComponent extends AbstractComponent implements OnInit {
         const columnWithComponent = _filter(this.head, (item) => item.type === 'component' && !item.componentClass);
 
         if (columnWithComponent?.length) {
-            const componentsLoadPromises = [];
+            const componentsLoadPromises: Promise<unknown>[] = [];
             _uniq(columnWithComponent.map((item) => item.component)).forEach(async (component) => {
                 componentsLoadPromises.push(
                     (async () => {
