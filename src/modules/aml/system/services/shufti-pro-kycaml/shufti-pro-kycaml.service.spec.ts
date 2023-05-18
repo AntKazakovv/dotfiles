@@ -1,7 +1,8 @@
 import {TestBed} from '@angular/core/testing';
 
-import {AppModule} from 'wlc-engine/modules/app/app.module';
-import {CoreModule} from 'wlc-engine/modules/core/core.module';
+import {MockService} from 'ng-mocks';
+
+import {DataService} from 'wlc-engine/modules/core';
 import {ShuftiProKycamlService} from './shufti-pro-kycaml.service';
 
 describe('ShuftiProKycamlService', () => {
@@ -9,11 +10,11 @@ describe('ShuftiProKycamlService', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [
-                AppModule,
-                CoreModule,
-            ],
             providers: [
+                {
+                    provide: DataService,
+                    useValue: MockService(DataService),
+                },
                 ShuftiProKycamlService,
             ],
         });
