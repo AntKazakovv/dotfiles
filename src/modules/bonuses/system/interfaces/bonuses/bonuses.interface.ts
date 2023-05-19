@@ -79,8 +79,7 @@ export type TBonusTarget =
     | 'freebets'
     | 'freerounds'
     | 'loyalty'
-    | 'lootbox'
-    | '';
+    | 'lootbox';
 
 export type TBonusResultValueType = 'absolute' | 'relative';
 

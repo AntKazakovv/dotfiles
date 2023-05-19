@@ -705,7 +705,7 @@ export class BonusesService {
      * @returns {Bonus[]} bonuses bonuses array
      */
     public sortBonuses(bonuses: Bonus[], sortOrder: TBonusSortOrder[]): Bonus[] {
-        let result = [];
+        let result: Bonus[] = [];
 
         if (!!sortOrder) {
             result = _reduce(_union(sortOrder), (res: Bonus[], element: TBonusSortOrder): Bonus[] => {

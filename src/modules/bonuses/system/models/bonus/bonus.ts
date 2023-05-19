@@ -677,7 +677,8 @@ export class Bonus extends AbstractModel<IBonus> {
             return _toNumber(resultsTarget.ReleaseWagering) || 0;
         } else {
             return _toNumber(resultsTarget?.AwardWagering?.COEF)
-                || _toNumber(resultsTarget?.AwardWagering[Bonus.userCurrency])
+                || _toNumber(resultsTarget?.AwardWagering
+                    [Bonus.userCurrency as (keyof IBonusResultValue['AwardWagering'])])
                 || _toNumber(resultsTarget?.AwardWagering?.EUR)
                 || 0;
         }
@@ -696,7 +697,9 @@ export class Bonus extends AbstractModel<IBonus> {
     public get isWagerEUR(): boolean {
         const resultsTarget = this.results[this.target];
         if (this.isWagerAbsolute) {
-            return !resultsTarget?.AwardWagering[Bonus.userCurrency] && !!resultsTarget?.AwardWagering?.EUR;
+            return !resultsTarget?.AwardWagering
+                [Bonus.userCurrency as keyof IBonusResultValue['AwardWagering']]
+            && !!resultsTarget?.AwardWagering?.EUR;
         }
     }
 
@@ -718,7 +721,8 @@ export class Bonus extends AbstractModel<IBonus> {
             case 'lootbox':
                 return (resultsTarget as IBonusResultValueLootbox).Value;
             default:
-                return _round(_toNumber(resultsTarget.Value[Bonus.depositCurrency ?? Bonus.userCurrency]))
+                return _round(_toNumber((resultsTarget as IBonusResultValueDefault).Value[Bonus.depositCurrency
+                        ?? Bonus.userCurrency]))
                     || _round(_toNumber((resultsTarget as IBonusResultValueDefault).Value?.Currency))
                     * WalletHelper.coefficientOriginalCurrencyСonversion
                     || _round(_toNumber((resultsTarget as IBonusResultValueDefault).Value?.EUR))
@@ -1066,11 +1070,13 @@ export class Bonus extends AbstractModel<IBonus> {
 
     protected modifyData(bonus: IBonus): IBonus {
         if (!bonus.Target && _isObject(bonus.Results)) {
-            bonus.Target = '';
+            let target = '';
             _each(bonus.Results, (value: any, key: any) => {
-                bonus.Target += key;
-                bonus.Target += ' ';
+                target += key;
+                target += ' ';
             });
+
+            bonus.Target = target as TBonusTarget;
         }
 
         if (bonus.Target && _isString(bonus.Target)) {
