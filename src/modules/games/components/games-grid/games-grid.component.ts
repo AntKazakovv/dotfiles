@@ -10,7 +10,6 @@ import {
     Renderer2,
     ViewChild,
 } from '@angular/core';
-import {ResizedEvent} from 'angular-resize-event';
 import {UIRouter} from '@uirouter/core';
 
 import {
@@ -76,6 +75,7 @@ import {GamesFilterServiceEvents} from 'wlc-engine/modules/games/system/services
 import {GameThumbComponent} from 'wlc-engine/modules/games/components/game-thumb/game-thumb.component';
 import {GamesFilterService} from 'wlc-engine/modules/games/system/services/games-filter.service';
 import {IGameThumbCParams} from 'wlc-engine/modules/games/components/game-thumb/game-thumb.params';
+import {ResizedEventModel} from 'wlc-engine/modules/core';
 
 import {
     GamesCatalogService,
@@ -262,7 +262,7 @@ export class GamesGridComponent extends AbstractComponent implements OnInit, OnD
     /**
      * Resize container handler
      */
-    public onResize(event: ResizedEvent): void {
+    public onResize(event: ResizedEventModel): void {
         if (!event.oldRect?.width || Math.abs(event.oldRect.width - event.newRect.width) > 20) {
             this.setGridParams();
         }

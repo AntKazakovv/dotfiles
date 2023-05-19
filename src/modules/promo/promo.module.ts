@@ -1,4 +1,3 @@
-import {AngularResizeEventModule} from 'angular-resize-event';
 import {CommonModule} from '@angular/common';
 import {UIRouterModule} from '@uirouter/angular';
 import {NgModule} from '@angular/core';
@@ -57,7 +56,6 @@ export const components = {
         TopRatedComponent,
     ],
     imports: [
-        AngularResizeEventModule,
         CommonModule,
         UIRouterModule,
         CoreModule,

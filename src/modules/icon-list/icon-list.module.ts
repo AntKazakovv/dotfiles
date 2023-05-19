@@ -1,7 +1,6 @@
 import {CommonModule} from '@angular/common';
 import {NgModule} from '@angular/core';
 import {UIRouterModule} from '@uirouter/angular';
-import {AngularResizeEventModule} from 'angular-resize-event';
 import {TranslateModule} from '@ngx-translate/core';
 
 import {CoreModule} from 'wlc-engine/modules/core/core.module';
@@ -37,7 +36,6 @@ export const components = {
         UIRouterModule,
         CommonModule,
         CoreModule,
-        AngularResizeEventModule,
         TranslateModule,
     ],
     exports: [

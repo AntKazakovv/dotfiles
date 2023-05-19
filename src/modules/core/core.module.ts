@@ -5,7 +5,6 @@ import {NgModule} from '@angular/core';
 import {HammerModule} from '@angular/platform-browser';
 import {AngularMyDatePickerModule} from 'angular-mydatepicker';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {AngularResizeEventModule} from 'angular-resize-event';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {ModalModule, MODAL_CONFIG_DEFAULT_OVERRIDE} from 'ngx-bootstrap/modal';
 import {PaginationModule} from 'ngx-bootstrap/pagination';
@@ -129,6 +128,7 @@ import {ValueLengthDirective} from './directives/value-length.directive';
 import {ParallaxMovementDirective} from './directives/parallax-movement.directive';
 import {AuthDirective} from './directives/auth.directive';
 import {WlcLetDirective} from './directives/wlcLet.directive';
+import {ResizedDirective} from 'wlc-engine/modules/core/directives/resized.directive';
 //  -- DIRECTIVES IMPORTS END  --;
 
 // -- INTERCEPTOR IMPORTS STARTS --;
@@ -229,7 +229,6 @@ export const services = {
         FormsModule,
         SwiperModule,
         ReactiveFormsModule,
-        AngularResizeEventModule,
         ModalModule,
         TooltipModule.forRoot(),
         PaginationModule.forRoot(),
@@ -353,6 +352,7 @@ export const services = {
         WlcPaginationComponent,
         WrapperComponent,
         WlcLetDirective,
+        ResizedDirective,
     ],
     exports: [
         AlertComponent,
@@ -425,6 +425,7 @@ export const services = {
         WlcPaginationComponent,
         WrapperComponent,
         WlcLetDirective,
+        ResizedDirective,
     ],
 })
 export class CoreModule {

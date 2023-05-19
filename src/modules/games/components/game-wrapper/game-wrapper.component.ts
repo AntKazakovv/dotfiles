@@ -19,7 +19,6 @@ import {
     Title,
 } from '@angular/platform-browser';
 import {UntypedFormControl} from '@angular/forms';
-import {ResizedEvent} from 'angular-resize-event';
 import {
     UIRouter,
     RawParams,
@@ -71,6 +70,7 @@ import {
     AppType,
     TWaiter,
     GlobalHelper,
+    ResizedEventModel,
 } from 'wlc-engine/modules/core';
 import {SeoService} from 'wlc-engine/modules/seo';
 import {MerchantWalletService} from 'wlc-engine/modules/games/system/services/merchant-wallet/merchant-wallet.service';
@@ -314,7 +314,7 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
                && this.$params.dashboardSide === dashboardSide;
     }
 
-    public onResize(event: ResizedEvent): void {
+    public onResize(event: ResizedEventModel): void {
         this.setGameWindowSize(event.newRect.width);
     }
 

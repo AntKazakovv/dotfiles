@@ -4,6 +4,7 @@ export * from './system/helpers';
 export * from './system/models/device.model';
 export * from './system/models/abstract.model';
 export * from './system/models/section.model';
+export * from './system/models/resized.model';
 export * from './system/services/config/config.service';
 export * from './system/services/files/files.service';
 export * from './system/services/caching/caching.service';

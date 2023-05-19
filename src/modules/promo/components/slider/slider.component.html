@@ -1,6 +1,6 @@
 <swiper [config]="$params.swiper"
     (update)="onUpdate()"
-    (resized)="onResize()"
+    (wlc-resized)="onResize()"
     (beforeResize)="onBeforeResize()">
 
     <ng-template swiperSlide *ngFor="let n of slidesSequence">

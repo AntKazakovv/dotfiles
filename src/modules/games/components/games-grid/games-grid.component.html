@@ -27,7 +27,7 @@
             <div *ngIf="games.length || ($params.usePlaceholders && !isReady); else: noGames"
                 #gameList
                 class="{{$class}}__list"
-                (resized)="onResize($event)">
+                (wlc-resized)="onResize($event)">
 
                 <ng-container *ngIf="games.length && isReady; else: placeholders">
                     <div *ngFor="let game of games | slice: 0:gamesCount; trackBy: trackGames"
@@ -90,7 +90,11 @@
             <div *ngIf="hasGames; else: noGames"
                 #gameList
                 class="{{$class}}__list"
+<<<<<<< HEAD
                 (resized)="onResize($event)">
+=======
+                (wlc-resized)="onResize($event)">
+>>>>>>> 4de5cdb13 (SCR #479496 - feat: delete lib angular resize)
 
                 <ng-container *ngIf="$params.themeMod === 'header-inline'; then headerInline"></ng-container>
 
@@ -160,11 +164,19 @@
         </ng-container>
 
         <ng-container *ngIf="showGameSlides else: preloaderForSlider">
+<<<<<<< HEAD
             <div wlc-wrapper
                 class="{{$class}}__games-slider"
                 [inlineParams]="gamesSliderConfig"
                 (resized)="onResize($event)">
             </div>
+=======
+                <div wlc-wrapper
+                    class="{{$class}}__games-slider"
+                    [inlineParams]="gamesSliderConfig"
+                    (wlc-resized)="onResize($event)">
+                </div>
+>>>>>>> 4de5cdb13 (SCR #479496 - feat: delete lib angular resize)
         </ng-container>
 
         <!-- The button block should be located after the swiper block to hide the button block
@@ -210,7 +222,11 @@
                     <div wlc-wrapper
                         class="{{$class}}__games-slider"
                         [inlineParams]="gamesSliderConfig"
+<<<<<<< HEAD
                         (resized)="onResize($event)">
+=======
+                        (wlc-resized)="onResize($event)">
+>>>>>>> 4de5cdb13 (SCR #479496 - feat: delete lib angular resize)
                     </div>
                 </ng-container>
             </ng-container>
@@ -291,7 +307,11 @@
     <div wlc-wrapper
         class="{{$class}}__games-slider"
         [inlineParams]="gamePlaceholdersSliderConfig"
+<<<<<<< HEAD
         (resized)="onResize($event)">
+=======
+        (wlc-resized)="onResize($event)">
+>>>>>>> 4de5cdb13 (SCR #479496 - feat: delete lib angular resize)
     </div>
 </ng-template>
 
@@ -337,8 +357,13 @@
 
 <ng-template #preloaderForSlider>
     <ng-container *ngIf="hasGames; else: noGames">
+<<<<<<< HEAD
         <div class="{{$class}}__list"
             (resized)="onResize($event)">
+=======
+            <div class="{{$class}}__list"
+                (wlc-resized)="onResize($event)">
+>>>>>>> 4de5cdb13 (SCR #479496 - feat: delete lib angular resize)
             <ng-container [ngTemplateOutlet]="placeholders"></ng-container>
         </div>
     </ng-container>
