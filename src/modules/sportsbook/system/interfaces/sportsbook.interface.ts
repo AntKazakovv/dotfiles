@@ -57,9 +57,9 @@ export interface IBetradarPopularEvents {
     imagesDir?: string;
 }
 
-interface ISportEvent {
-    id: string;
-    team_home_id: string;
+export interface ISportEvent {
+    id: string | number;
+    team_home_id: string
     team_away_id: string;
     team_home_name: string;
     team_away_name: string;
@@ -82,6 +82,7 @@ export interface IBetradarGame extends ISportEvent {
     p1?: string;
     p2?: string;
     x?: string;
+    language?: string;
 }
 
 export interface IDailyMatchData extends ISportEvent {

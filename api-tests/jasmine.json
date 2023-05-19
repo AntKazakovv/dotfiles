@@ -7,7 +7,8 @@
         "**/levels.spec.ts",
         "**/wins.spec.ts",
         "**/topWins.spec.ts",
-        "**/user-logout.spec.ts"
+        "**/user-logout.spec.ts",
+        "**/sportsbook.spec.ts"
     ],
     "helpers": [
         "helpers/**/*.helper.ts"

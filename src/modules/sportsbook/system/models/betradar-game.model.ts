@@ -36,7 +36,7 @@ export class BetradarGameModel extends AbstractModel<IBetradarGame> {
      *
      * @returns {string}
      */
-    public get id(): string {
+    public get id(): string | number {
         return this.data.id;
     }
 
