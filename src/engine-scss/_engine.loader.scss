@@ -16,23 +16,6 @@ $appLoader: map-merge((
     'loaderHeight': 50px,
     'loaderBorder': 2px solid var(--mc-main),
 
-    'titleFontSize': map-get(ev.$font, 'QoteTextBold'),
-    'titleFontWeight': map-get(ev.$fontWeight, 'QoteTextBold'),
-    'textFontSize': map-get(ev.$font, 'PrimaryText'),
-    'textFontWeight': map-get(ev.$fontWeight, 'PrimaryText'),
-    'textBlockMargin': 30px 0 0 0,
-    'textBlockColor': var(--mc-baseMain),
-    'buttonMargin': 40px auto 0 auto,
-    'buttonHeight': 40px,
-    'buttonDisplay': flex,
-    'buttonJustifyContent': center,
-    'buttonAlignItems': center,
-
-    // animation before removing the preloader
-    'deleteAnime': scaleLogo, //scaleLogo, slideToBottom
-    'deleteAnimeSpeed': 1s,
-    'deleteAnimeDelay': 0.3s,
-
     'loaderAnime': default, //default, dots1, dots2, dots3, circle, circle2, flip, pulse, jelly
     'useBgAnime': false,
 
@@ -123,21 +106,16 @@ $appLoader: map-merge((
 
 .wlc-app__preload {
     $animeName: map-get($appLoader, 'loaderAnime');
-    $deleteAnimeName: map-get($appLoader, 'deleteAnime');
 
     position: fixed;
     top: 0;
     left: 0;
-    z-index: 2000;
 
     width: 100%;
     height: 100%;
     overflow: hidden;
 
     background-image: map-get($appLoader, 'background');
-
-    transform: scale(1);
-    opacity: 1;
 
     &-content {
         position: absolute;
@@ -169,67 +147,6 @@ $appLoader: map-merge((
 
         height: map-get($appLoader, 'loaderHeight');
         margin: map-get($appLoader, 'loaderBlockMargin');
-    }
-
-    &-text_block {
-        margin: map-get($appLoader, 'textBlockMargin');
-        color: map-get($appLoader, 'textBlockColor');
-    }
-
-    &-title {
-        font-weight: map-get($appLoader, 'titleFontWeight');
-        font-size: map-get($appLoader, 'titleFontSize');
-        line-height: 1.45;
-    }
-
-    &-text {
-        font-weight: map-get($appLoader, 'textFontWeight');
-        font-size: map-get($appLoader, 'textFontSize');
-        line-height: 1.45;
-    }
-
-    &-button {
-        display: map-get($appLoader, 'buttonDisplay');
-        align-items: map-get($appLoader, 'buttonAlignItems');
-        justify-content: map-get($appLoader, 'buttonJustifyContent');
-        min-width: map-get(ev.$buttonSettings, 'minWidth');
-
-        height: map-get($appLoader, 'buttonHeight');
-        margin: map-get($appLoader, 'buttonMargin');
-        padding: map-get(ev.$buttonSettings, 'padding');
-
-        color: map-get(ev.$buttonSettings, 'fontColor');
-        font-weight: map-get(ev.$fontWeight, 'ButtonText');
-        font-size: map-get(ev.$font, 'ButtonText');
-        line-height: 1.45;
-
-        text-transform: map-get(ev.$buttonSettings, 'textTransform');
-        background: map-get(ev.$buttonSettings, 'background');
-        box-shadow: map-get(ev.$buttonSettings, 'shadow');
-        transition: all 0.3s linear;
-        border: map-get(ev.$buttonSettings, 'borderDefault');
-        border-radius: map-get(ev.$buttonSettings, 'borderRadiusDefault');
-
-        @media (hover: hover) and (pointer: fine) {
-            background: map-get(ev.$buttonSettings, 'backgroundHover');
-            box-shadow: map-get(ev.$buttonSettings, 'shadowHover');
-            border: map-get(ev.$buttonSettings, 'borderDefaultHover');
-        }
-    }
-
-    &--animation-delete {
-        animation-name: $deleteAnimeName;
-        animation-duration: map-get($appLoader, 'deleteAnimeSpeed');
-        animation-delay: map-get($appLoader, 'deleteAnimeDelay');
-        animation-iteration-count: 1;
-
-        @if ($deleteAnimeName == 'slideToBottom') {
-            @include slideToBottom;
-        }
-        @else {
-            @include scaleLogo;
-            animation-name: scaleLogo;
-        }
     }
 
     //For animatedGradient

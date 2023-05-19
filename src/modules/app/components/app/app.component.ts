@@ -8,7 +8,6 @@ import {
     AfterViewInit,
     ViewChild,
     ElementRef,
-    Renderer2,
 } from '@angular/core';
 import {DOCUMENT} from '@angular/common';
 import {TranslateService} from '@ngx-translate/core';
@@ -28,7 +27,6 @@ import {
 import {
     takeUntil,
     filter,
-    first,
 } from 'rxjs/operators';
 
 import _assign from 'lodash-es/assign';
@@ -132,7 +130,6 @@ export class AppComponent extends AbstractComponent implements OnInit, AfterView
         protected actionService: ActionService,
         protected modalService: ModalService,
         protected bodyClassService: BodyClassService,
-        protected renderer: Renderer2,
         private transition: TransitionService,
         private meta: Meta,
         private logService: LogService,
@@ -231,7 +228,6 @@ export class AppComponent extends AbstractComponent implements OnInit, AfterView
     }
 
     public ngAfterViewInit(): void {
-        this.deletePreloader();
         if (GlobalHelper.isMobileApp() && this.appContent?.nativeElement) {
             this.actionService.setScrollableElement(this.appContent.nativeElement, 'appContent');
         }
@@ -561,17 +557,5 @@ export class AppComponent extends AbstractComponent implements OnInit, AfterView
             return;
         }
         this.injectionService.getService<IntercomService>('external-services.intercom-service');
-    }
-
-    private deletePreloader(): void {
-        const preloader: HTMLElement | null = this.document.querySelector('.wlc-app__preload');
-        if (preloader) {
-            this.renderer.addClass(preloader, 'wlc-app__preload--animation-delete');
-            fromEvent(preloader, 'animationend')
-                .pipe(first())
-                .subscribe(() => {
-                    this.renderer.removeChild(this.document, preloader);
-                });
-        }
     }
 }
