@@ -78,7 +78,6 @@
         &__wrapper {
             @include bm.get-mq-map('grid-template-columns', $themeDefault, 'wrapperTemplateColumns');
             @include bm.get-mq-map('gap', $themeDefault, 'wrapperGap');
-            @include bm.get-mq-map('margin', $themeDefault, 'wrapperMargin');
             display: grid;
         }
 

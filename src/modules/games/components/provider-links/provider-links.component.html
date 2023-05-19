@@ -1,11 +1,12 @@
-<h2 class="{{$class}}__title"
+<h2 *ngIf="$params.type !== 'default'"
+    class="{{$class}}__title"
     wlc-title
     mainText="Providers"></h2>
 
 <ng-container [ngSwitch]="$params.type">
     <ng-container *ngSwitchCase="'slider'" [ngTemplateOutlet]="slider"></ng-container>
     <ng-container *ngSwitchCase="'mobile'" [ngTemplateOutlet]="mobileList"></ng-container>
-    <ng-container *ngSwitchDefault  [ngTemplateOutlet]="providersList"></ng-container>
+    <ng-container *ngSwitchDefault [ngTemplateOutlet]="providersList"></ng-container>
 </ng-container>
 
 <ng-template #slider>

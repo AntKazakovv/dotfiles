@@ -4,7 +4,7 @@
 </ng-container>
 
 <ng-template #default>
-    <div class="{{$class}}__title" *ngIf="$params.theme !== 'mobile-app'">
+    <div *ngIf="$params.theme !== 'mobile-app'" class="{{$class}}__title">
         {{'Search for games' | translate}}
     </div>
 
@@ -142,10 +142,9 @@
 </ng-template>
 
 <ng-template #easy>
-    <h6 wlc-title
-        class="{{$class}}__title"
-        [mainText]="$params.easyThemeParams.titleText"
-    ></h6>
+    <div *ngIf="$params.theme !== 'mobile-app'" class="{{$class}}__title">
+        {{$params.easyThemeParams.titleText | translate}}
+    </div>
 
     <div wlc-search-field
          class="{{$class}}__search-input"

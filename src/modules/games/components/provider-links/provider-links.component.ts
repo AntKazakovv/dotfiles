@@ -99,6 +99,7 @@ export class ProviderLinksComponent extends IconListAbstract<Params.IProviderLin
 
         this.modalService.showModal({
             id: 'provider-list',
+            modalTitle: gettext('Providers'),
             modifier: 'provider-list',
             size: 'lg',
             wlcElement: 'provider-list',
