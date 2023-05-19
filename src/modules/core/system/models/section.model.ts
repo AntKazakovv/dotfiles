@@ -17,7 +17,7 @@ export interface ISectionData {
     order: number;
 }
 
-export class SectionModel { // implements ILayoutSectionConfig | IPanelSectionConfig;
+export class SectionModel implements ILayoutSectionConfig, IPanelSectionConfig {
     public readonly name: string;
     public readonly order: number;
     public readonly container: string | boolean;
@@ -26,6 +26,16 @@ export class SectionModel { // implements ILayoutSectionConfig | IPanelSectionCo
     public readonly modifiers: string[];
     public readonly theme: string;
     public readonly wlcElement: string;
+    public readonly hide?: boolean;
+    public readonly replaceConfig?: boolean;
+    public readonly showClose?: boolean;
+    public readonly showLogo?: boolean;
+    public readonly showHeader?: boolean;
+    public readonly usePreloader?: boolean;
+    public readonly type?: 'default' | 'fixed';
+    public readonly class?: string;
+    public readonly themeMod?: string;
+    public readonly customMod?: string;
     public display: IDisplayConfig;
     public useScroll: boolean;
     protected preparedModifiers: string[] = [];

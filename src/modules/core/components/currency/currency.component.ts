@@ -37,6 +37,7 @@ import {
     ICurrencyIcon,
 } from 'wlc-engine/modules/core/system/models/currency.model';
 import {CurrenciesInfo} from 'wlc-engine/modules/core/constants/currencies-info.constants';
+import {IIndexing} from 'wlc-engine/modules/core/system/interfaces';
 
 import * as Params from './currency.params';
 
@@ -262,7 +263,7 @@ export class CurrencyComponent
     }
 
     protected getInlineParams(): Params.ICurrencyCParams {
-        const inline = {};
+        const inline: IIndexing<any> = {};
         _each([
             'value',
             'currency',
@@ -270,7 +271,7 @@ export class CurrencyComponent
             'showIconOnly',
             'showValueOnly',
             'useSvgIconName',
-        ], (key) => {
+        ], (key: keyof CurrencyComponent) => {
             if (this[key] !== undefined) {
                 inline[key] = this[key];
             }

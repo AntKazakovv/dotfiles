@@ -57,7 +57,7 @@ export class FloatPanelsComponent extends AbstractComponent implements OnInit {
     public shownSections: SectionModel[] = [];
 
     protected panelIds: string[] = [];
-    protected sectionOptions: string[] = [
+    protected sectionOptions: (keyof SectionModel)[] = [
         'wlcElement',
         'class',
         'theme',

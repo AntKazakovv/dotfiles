@@ -11,6 +11,7 @@ import {
     OnDestroy,
     OnInit,
     HostBinding,
+    SimpleChanges,
 } from '@angular/core';
 import {
     RawParams,
@@ -33,6 +34,7 @@ import _isUndefined from 'lodash-es/isUndefined';
 import _merge from 'lodash-es/merge';
 import _isArray from 'lodash-es/isArray';
 import _has from 'lodash-es/has';
+import _set from 'lodash-es/set';
 
 import {
     AbstractComponent,
@@ -134,7 +136,7 @@ export class ButtonComponent extends AbstractComponent implements OnInit,
         }
     }
 
-    public override ngOnChanges(changes): void {
+    public override ngOnChanges(changes: SimpleChanges): void {
 
         if (!this.ready) {
             return;
@@ -179,15 +181,13 @@ export class ButtonComponent extends AbstractComponent implements OnInit,
             return this.inlineParams;
         }
 
-        const inputProperties: string[] = [
+        const inputProperties: (keyof Params.IButtonCParams['common'])[] = [
             'text',
             'size',
             'icon',
             'iconPath',
             'index',
             'event',
-            'type',
-            'theme',
             'sref',
             'srefParams',
             'typeAttr',
@@ -201,7 +201,7 @@ export class ButtonComponent extends AbstractComponent implements OnInit,
 
         _forEach(inputProperties, key => {
             if (!_isUndefined(_get(this, key))) {
-                inlineParams.common[key] = _get(this, key);
+                _set(inlineParams.common, key, _get(this, key));
             }
         });
 
