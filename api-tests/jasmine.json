@@ -6,6 +6,7 @@
         "**/jackpots.spec.ts",
         "**/levels.spec.ts",
         "**/wins.spec.ts",
+        "**/topWins.spec.ts",
         "**/user-logout.spec.ts"
     ],
     "helpers": [
