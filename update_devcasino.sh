@@ -10,14 +10,14 @@ declare -A branches
 projects[0]="git@wlcgitlab.egamings.com:wlcdevcasino/web.git";
 branches[0]="develop test master scr1-profile scr2-var1 scr2-var2 scr1-var1 scr1-var2 scr1-aff scr1-kiosk scr2-kiosk";
 
-# projects[1]="git@wlcgitlab.egamings.com:sportsbook/enginesportsbooks.git";
-# branches[1]="develop test";
+projects[1]="git@wlcgitlab.egamings.com:sportsbook/enginesportsbooks.git";
+branches[1]="develop test";
 
-# projects[2]="git@wlcgitlab.egamings.com:tkcatcasino/web.git";
-# branches[2]="+scr0-pretest";
+projects[2]="git@wlcgitlab.egamings.com:tkcatcasino/web.git";
+branches[2]="+scr0-pretest";
 
-# projects[3]="git@wlcgitlab.egamings.com:wlcdevcasinokiosk/web.git";
-# branches[3]="develop master scr1-var1 scr1-var2";
+projects[3]="git@wlcgitlab.egamings.com:wlcdevcasinokiosk/web.git";
+branches[3]="develop master scr1-var1 scr1-var2";
 
 clean_temp() {
     cd $current_dir
