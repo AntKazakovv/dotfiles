@@ -147,6 +147,14 @@
             }
         }
 
+        &__btn-center {
+            display: flex;
+            gap: ef.get-value($themeDefault, 'btnCenterGap');
+            align-items: center;
+            justify-content: start;
+            width: 100%;
+        }
+
         &__game-area {
             position: relative;
             margin-right: auto;
@@ -211,6 +219,30 @@
 
             &__game-container {
                 height: 100%;
+            }
+        }
+    }
+
+    &.wlc-game-wrapper--left {
+
+        .wlc-game-wrapper {
+
+            &__btn-left {
+                margin: 0;
+
+                .wlc-checkbox--theme-default {
+
+                    &.wlc-checkbox--type-toggle {
+
+                        .wlc-checkbox__label {
+                            padding: 0;
+                        }
+                    }
+                }
+            }
+
+            &__btn-center {
+                justify-content: center;
             }
         }
     }

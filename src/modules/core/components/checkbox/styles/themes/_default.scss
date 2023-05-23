@@ -109,18 +109,6 @@
         }
     }
 
-    &.wlc-checkbox--text-left {
-
-        .wlc-checkbox {
-            padding: ef.get-value($themeDefault, 'leftTextPadding');
-
-            &__elem {
-                right: 0;
-                left: unset;
-            }
-        }
-    }
-
     &.wlc-checkbox--type-toggle {
 
         .wlc-checkbox {
@@ -203,6 +191,35 @@
 
             &.checked {
                 @include checkboxChecked;
+            }
+        }
+    }
+
+    &.wlc-checkbox--text-left {
+
+        .wlc-checkbox {
+            padding: ef.get-value($themeDefault, 'leftTextPadding');
+
+            &__elem {
+                right: 0;
+                left: unset;
+            }
+        }
+    }
+
+    &.wlc-checkbox--text-right {
+
+        .wlc-checkbox {
+
+            &__text {
+                padding-right: ef.get-value($themeDefault, 'togglePaddingLeftText');
+                padding-left: ef.get-value($themeDefault, 'togglePaddingRightText');
+            }
+
+            &__elem {
+                right: unset;
+                left: 0;
+                order: 1;
             }
         }
     }

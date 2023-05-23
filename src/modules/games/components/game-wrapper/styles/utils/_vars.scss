@@ -12,6 +12,7 @@ $themeDefault: map-merge((
     'headerColor': var(--mc-baseMain),
     'headerMargin': 0,
     'btnLeftMargin': 0 auto 0 30px,
+    'btnCenterGap': ef.size(6),
     'titleWidth': 50%,
     'iconsColor': var(--mc-baseMain),
     'iconsColorHover': var(--mc-baseMain),

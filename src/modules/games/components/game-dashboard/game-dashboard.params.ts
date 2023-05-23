@@ -17,7 +17,6 @@ export type DashboardTab = 'profile' | 'bonuses' | 'tournaments' | 'lastplayed';
 export interface IGameDashboardCParams extends IComponentParams<Theme, Type, ThemeMod> {
     modifiers?: Modifiers[];
     common?: {
-        desktopSide: DashboardSide;
         themeMod?: ThemeMod;
         tournamentsListParams?: ITournamentListCParams;
     }
@@ -44,7 +43,6 @@ export const defaultParams: IGameDashboardCParams = {
     componentName: 'game-dashboard',
     class: 'wlc-game-dashboard',
     common: {
-        desktopSide: 'right',
         tournamentsListParams: {
             type: 'swiper',
             theme: 'dashboard',

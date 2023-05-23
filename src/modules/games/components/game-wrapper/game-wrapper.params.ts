@@ -1,5 +1,6 @@
 import {CustomType, IComponentParams} from 'wlc-engine/modules/core/system/classes/abstract.component';
 import {ICustomGameParams} from '../../system/interfaces/games.interfaces';
+import {DashboardSide} from 'wlc-engine/modules/games/components/game-dashboard/game-dashboard.params';
 
 export type Type = 'default' | CustomType;
 export type Theme = 'default' | 'fullscreen-game-frame' | CustomType;
@@ -13,6 +14,7 @@ export interface IGameWrapperCParams extends IComponentParams<Theme, Type, Theme
     padding?: number;
     gameParams: ICustomGameParams;
     type?: Type;
+    dashboardSide?: DashboardSide,
 }
 
 export const defaultParams: IGameWrapperCParams = {
@@ -28,4 +30,5 @@ export const defaultParams: IGameWrapperCParams = {
         minGameWindowHeight: 250,
     },
     wlcElement: 'section_game-play-container',
+    dashboardSide: 'right',
 };

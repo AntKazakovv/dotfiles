@@ -44,7 +44,9 @@ import {GamesCatalogService} from 'wlc-engine/modules/games/system/services/game
 import {
     IPlayGameForRealCParams,
 } from 'wlc-engine/modules/games/components/play-game-for-real/play-game-for-real.params';
-import {GameDashboardEvents} from 'wlc-engine/modules/games/components/game-dashboard/game-dashboard.params';
+import {
+    GameDashboardEvents,
+} from 'wlc-engine/modules/games/components/game-dashboard/game-dashboard.params';
 import {
     IExcludeMerchantSettings,
     ICustomGameParams,
@@ -76,14 +78,11 @@ import {
     BetGamesHooks,
     EvoGamesHooks,
 } from './hooks';
-import {
-    defaultParams,
-    IGameWrapperCParams,
-} from './game-wrapper.params';
+import {IGameWrapperCParams} from './game-wrapper.params';
 import {WINDOW} from 'wlc-engine/modules/app/system';
 import {IMerchantWalletPreviewCParams}
     from 'wlc-engine/modules/games/components/merchant-wallet/merchant-wallet-preview/merchant-wallet-preview.params';
-
+import * as Params from './game-wrapper.params';
 interface IError {
     msg?: string;
     state?: string;
@@ -151,7 +150,7 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
         textSide: 'left',
         control: new UntypedFormControl(),
         onChange: (checked: boolean) => {
-            this.toggleDasgboard(checked);
+            this.toggleDashboard(checked);
         },
     };
     public isMobile: boolean = false;
@@ -214,7 +213,10 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
         protected stateService: StateService,
         protected injectionService: InjectionService,
     ) {
-        super({injectParams, defaultParams}, configService, cdr);
+        super({
+            injectParams,
+            defaultParams: Params.defaultParams,
+        }, configService, cdr);
     }
 
     public override async ngOnInit(): Promise<void> {
@@ -225,6 +227,8 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
             this.realMobile = true;
             this.addModifiers('real-mobile');
         }
+        this.addModifiers(this.$params.dashboardSide);
+        this.dashboardBtn.textSide = this.$params.dashboardSide === 'right' ? 'left' : 'right';
         this.isAuth = this.configService.get<boolean>('$user.isAuthenticated');
         this.isKiosk = this.configService.get<AppType>('$base.app.type') === 'kiosk';
         this.locale = this.router.stateService.params?.locale || 'en';
@@ -303,6 +307,11 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
         if (this.$params) {
             this.setGameWindowSize();
         }
+    }
+
+    public dashboardSideView(dashboardSide:string): boolean {
+        return this.showDashboardBtn && (!this.isKiosk || this.isAuth)
+               && this.$params.dashboardSide === dashboardSide;
     }
 
     public onResize(event: ResizedEvent): void {
@@ -436,7 +445,7 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
      *
      * @param {boolean} open
      */
-    protected toggleDasgboard(open: boolean): void {
+    protected toggleDashboard(open: boolean): void {
         open ? this.addModifiers('open-dashboard') : this.removeModifiers('open-dashboard');
         this.openDashboard = open;
     }

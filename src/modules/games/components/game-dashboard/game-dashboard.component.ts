@@ -132,6 +132,7 @@ export class GameDashboardComponent extends AbstractComponent implements OnInit,
 
     @Input() public opened: boolean;
     @Input() public isMerchantWallet: boolean;
+    @Input() public dashboardSide: DashboardSide;
 
     public override $params: Params.IGameDashboardCParams;
     public tabs: Params.IGameDashboardTab[];
@@ -237,8 +238,8 @@ export class GameDashboardComponent extends AbstractComponent implements OnInit,
         this.initLastPlayedSwiper();
         this.loadSliderComponentOnMobileLandscaped();
 
-        if (this.$params.common?.desktopSide) {
-            this.desktopSide = this.$params.common.desktopSide;
+        if (this.dashboardSide) {
+            this.desktopSide = this.dashboardSide;
         }
 
         await this.configService.ready;
@@ -506,7 +507,7 @@ export class GameDashboardComponent extends AbstractComponent implements OnInit,
                 `${this.dashboardWidth}px`,
             );
 
-            if (this.side == 'right' && this.container.nativeElement) {
+            if (this.container.nativeElement) {
                 this.translate = this.dashboardWidth;
                 this.renderer.setStyle(
                     this.container.nativeElement,
@@ -515,7 +516,7 @@ export class GameDashboardComponent extends AbstractComponent implements OnInit,
                 );
                 this.renderer.setStyle(
                     this.container.nativeElement,
-                    'right',
+                    this.side,
                     '0',
                 );
             }

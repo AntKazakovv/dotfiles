@@ -1,15 +1,26 @@
 <div *ngIf="$params.theme == 'default'" class="{{$class}}__content container" (resized)="onResize($event)">
     <div class="{{$class}}__header" #header data-wlc-element="block_game-play-title">
-        <ng-container [ngTemplateOutlet]="gameName"></ng-container>
-        <div class="{{$class}}__btn-left" *ngIf="gameParams?.demo" data-wlc-element="wlc-game-play-for-real">
-            <button wlc-button
+        <div class="{{$class}}__btn-left"
+             *ngIf="dashboardSideView('left')">
+            <div class="icon-btn">
+                <div wlc-checkbox
+                    [inlineParams]="dashboardBtn">
+                </div>
+            </div>
+        </div>
+
+        <div class="{{$class}}__btn-center" data-wlc-element="wlc-game-play-for-real">
+            <ng-container [ngTemplateOutlet]="gameName"></ng-container>
+            <button *ngIf="gameParams?.demo"
+                    wlc-button
                     text="Play for real"
                     (click)="playForReal()">
             </button>
         </div>
+
         <div class="{{$class}}__btn-right">
             <div class="icon-btn">
-                <div *ngIf="showDashboardBtn && (!isKiosk || isAuth)"
+                <div *ngIf="dashboardSideView('right')"
                      wlc-checkbox
                      [inlineParams]="dashboardBtn">
                 </div>
@@ -31,6 +42,7 @@
             <ng-container [ngTemplateOutlet]="buttonClose"></ng-container>
         </div>
     </div>
+
     <div class="{{$class}}__game-area" #wrp>
         <div *ngIf="!isReady"
              wlc-loader
@@ -40,6 +52,7 @@
         <div wlc-game-dashboard
             [opened]="openDashboard"
             [isMerchantWallet]="isMerchantWallet"
+            [dashboardSide]="$params.dashboardSide"
         ></div>
 
         <div *ngIf="isMobile && enableGameHeader" class="{{$class}}__game-header">
