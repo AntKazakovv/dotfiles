@@ -1,15 +1,9 @@
 import {Injectable} from '@angular/core';
 import {TranslateService} from '@ngx-translate/core';
 
-import {
-    IData,
-    IBanner,
-    DataService,
-    ConfigService,
-    LogService,
-} from 'wlc-engine/modules/core';
+import {IBanner} from 'wlc-engine/modules/core/system/interfaces/promo.interface';
+import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
 import {BannerModel} from 'wlc-engine/modules/promo/system/models/banner.model';
-import {Deferred} from 'wlc-engine/modules/core/system/classes/deferred.class';
 
 import _filter from 'lodash-es/filter';
 import _intersection from 'lodash-es/intersection';
@@ -29,20 +23,19 @@ export interface IBannersFilter {
     providedIn: 'root',
 })
 export class BannersService {
-    public readyStatus: Deferred<void> = new Deferred<void>();
-
     protected banners: BannerModel[] = [];
     protected defaultBanners: BannerModel[] = [];
-    protected allBanners: IBanner[] = [];
 
     constructor(
         protected configService: ConfigService,
         protected translate: TranslateService,
-        protected dataService: DataService,
-        protected logService: LogService,
     ) {
-        this.registerMethods();
-        this.requestBanners();
+        this.defaultBanners = this.prepareBanners();
+        this.banners = this.prepareBanners(this.translate.currentLang);
+
+        this.translate.onLangChange.subscribe(() => {
+            this.banners = this.prepareBanners(this.translate.currentLang);
+        });
     }
 
     /**
@@ -100,7 +93,7 @@ export class BannersService {
     protected prepareBanners(lang: string = 'en'): BannerModel[] {
         let banners = _map(
             _filter(
-                this.allBanners[lang],
+                this.configService.get<IBanner[]>(`appConfig.banners[${lang}]`),
                 banner => banner.html,
             ),
             (banner: IBanner): BannerModel => new BannerModel(
@@ -155,35 +148,6 @@ export class BannersService {
                 && !!_intersection(banner.visibility, visibility).length;
 
             return result;
-        });
-    }
-
-    protected async requestBanners(): Promise<void> {
-        try {
-            const res: IData<IBanner[]> = await this.dataService.request('banners/banners');
-            if (res.data) {
-                this.allBanners = res.data;
-
-                this.defaultBanners = this.prepareBanners();
-                this.banners = this.prepareBanners(this.translate.currentLang);
-
-                this.translate.onLangChange.subscribe(() => {
-                    this.banners = this.prepareBanners(this.translate.currentLang);
-                });
-            }
-        } catch (error) {
-            this.logService.sendLog({code: '20.0.1', data: error});
-        } finally {
-            this.readyStatus.resolve();
-        }
-    }
-
-    protected registerMethods(): void {
-        this.dataService.registerMethod({
-            name: 'banners',
-            system: 'banners',
-            url: '/banners',
-            type: 'GET',
         });
     }
 }

@@ -1,32 +1,25 @@
 import {
     ComponentFixture,
-    fakeAsync,
-    flushMicrotasks,
     TestBed,
 } from '@angular/core/testing';
 import {MockService} from 'ng-mocks';
 
 import _set from 'lodash-es/set';
 
-import {Deferred} from 'wlc-engine/modules/core';
+import {BannerModel} from 'wlc-engine/modules/promo/system/models/banner.model';
+import {BannersService} from 'wlc-engine/modules/promo/system/services/banners/banners.service';
+import {BannerComponent} from './banner.component';
+import {defaultParams} from './banner.params';
 import {
     ConfigService,
     LogService,
 } from 'wlc-engine/modules/core';
-import {
-    BannerModel,
-    BannersService,
-} from 'wlc-engine/modules/promo';
-import {BannerComponent} from './banner.component';
-import {defaultParams} from './banner.params';
 
-describe('BannerComponent', () => {
+describe('ButtonComponent', () => {
     let component: BannerComponent;
     let fixture: ComponentFixture<BannerComponent>;
     let nativeElement: HTMLElement;
     let BannersServiceSpy: jasmine.SpyObj<BannersService>;
-    let bannersServiceReadyStatus: Deferred<void> = new Deferred<void>();
-    bannersServiceReadyStatus.resolve();
 
     const injectParams = {
         wlcElement: 'test-wlc-element',
@@ -44,14 +37,9 @@ describe('BannerComponent', () => {
     });
 
     beforeEach(() => {
-        BannersServiceSpy = jasmine.createSpyObj('BannersService',
-            {
-                getBanners: [testBanner],
-            },
-            {
-                readyStatus: bannersServiceReadyStatus,
-            },
-        );
+        BannersServiceSpy = jasmine.createSpyObj('BannersService', {
+            getBanners: [testBanner],
+        });
 
         TestBed.configureTestingModule({
             declarations: [BannerComponent],
@@ -96,11 +84,11 @@ describe('BannerComponent', () => {
         expect(nativeElement.classList.contains(`${defaultParams.class}--type-default`)).toBeTrue();
     });
 
-    it('-> getBanner: getting a banner by filter', fakeAsync(() => {
+    it('-> getBanner: getting a banner by filter', () => {
         _set(component, 'inlineParams.filter.position', ['any']);
         fixture.detectChanges();
         component.ngOnInit();
-        flushMicrotasks();
+
         expect(component.$params.banner).toEqual(testBanner);
-    }));
+    });
 });

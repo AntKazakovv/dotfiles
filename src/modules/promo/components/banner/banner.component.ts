@@ -62,11 +62,8 @@ export class BannerComponent extends AbstractComponent implements OnInit, AfterV
         super({injectParams, defaultParams: Params.defaultParams}, configService);
     }
 
-    public override async ngOnInit(): Promise<void> {
+    public override ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
-
-        await this.bannersService.readyStatus.promise;
-
         this.getBanner();
         this.setSubscription();
     }

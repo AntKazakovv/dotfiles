@@ -45,10 +45,8 @@ export class BannersSliderComponent extends AbstractComponent implements OnInit 
         super({injectParams, defaultParams: Params.defaultParams}, configService, cdr);
     }
 
-    public override async ngOnInit(): Promise<void> {
+    public override ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
-
-        await this.bannerService.readyStatus.promise;
 
         this.createSlides();
 
