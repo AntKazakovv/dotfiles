@@ -58,6 +58,17 @@ export const financesConfig: IFinancesConfig = {
                         },
                     ],
                 },
+                settings: [
+                    {
+                        validators: [
+                            {
+                                name: 'pattern',
+                                options: '^.*$',
+                            },
+                        ],
+                        systems:['mifinity_acct2acct'],
+                    },
+                ],
             },
             accountNumber: {
                 settings: [
