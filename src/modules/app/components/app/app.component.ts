@@ -74,6 +74,7 @@ import {
 } from 'wlc-engine/modules/monitoring';
 import {IIntercomSetup} from 'wlc-engine/modules/external-services/system/interfaces/intercom.interface';
 import {IntercomService} from 'wlc-engine/modules/external-services/system/services';
+import {BannersService} from 'wlc-engine/modules/promo';
 
 const defaultParams = {
     class: 'wlc-sections',
@@ -130,6 +131,7 @@ export class AppComponent extends AbstractComponent implements OnInit, AfterView
         protected actionService: ActionService,
         protected modalService: ModalService,
         protected bodyClassService: BodyClassService,
+        protected bannerService: BannersService,
         private transition: TransitionService,
         private meta: Meta,
         private logService: LogService,
@@ -220,6 +222,9 @@ export class AppComponent extends AbstractComponent implements OnInit, AfterView
         this.setWatcher();
         this.setHostClass();
         this.updateMetaTag();
+
+        await this.bannerService.readyStatus.promise;
+
         this.cdr.markForCheck();
 
         fromEvent(this.window, 'resize').pipe(filter(() => !this.testViewPort)).subscribe(() => {
