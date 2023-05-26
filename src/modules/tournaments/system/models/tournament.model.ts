@@ -47,8 +47,10 @@ export class Tournament extends AbstractTournamentModel<ITournament> {
         super.data = data;
         this.setAvailabilityGames();
 
-        this.preparePrizePool();
-        this.preparePrizeTable();
+        this.configService.ready.then(() => {
+            this.preparePrizePool();
+            this.preparePrizeTable();
+        });
     }
 
     public override get data(): ITournament {
