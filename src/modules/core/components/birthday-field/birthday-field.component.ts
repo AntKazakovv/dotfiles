@@ -5,6 +5,7 @@ import {
     Input,
     OnDestroy,
     OnInit,
+    ChangeDetectionStrategy,
 } from '@angular/core';
 import {DateTime} from 'luxon';
 import {
@@ -23,12 +24,11 @@ import {
 
 import * as Params from './birthday-field.params';
 
-// TODO:REFACTOR:change-detection-rule
-// eslint-disable-next-line @angular-eslint/prefer-on-push-component-change-detection
 @Component({
     selector: '[wlc-birth-field]',
     templateUrl: './birthday-field.component.html',
     styleUrls: ['./styles/birthday-field.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BirthdayFieldComponent extends AbstractComponent implements OnInit, OnDestroy {
     @Input() protected inlineParams: Params.IBirthFieldCParams;
@@ -102,7 +102,7 @@ export class BirthdayFieldComponent extends AbstractComponent implements OnInit,
                     dayControl.setValue('');
                 }
 
-                this.cdr.detectChanges();
+                this.cdr.markForCheck();
             });
     }
 }
