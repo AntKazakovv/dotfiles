@@ -283,6 +283,10 @@ export class WlcModalComponent extends AbstractComponent
     }
 
     protected eventHandler(type: string, callback: () => void) {
+        this.eventService.emit({
+            name: type,
+            data: this.$params.config.id,
+        });
         if (type === this.modalService.events.MODAL_HIDDEN) {
             const reason: string = this.modalDirect.dismissReason || this.closeReason ||
                 ProcessEventsDescriptions.noReason;
@@ -290,15 +294,11 @@ export class WlcModalComponent extends AbstractComponent
                 name: ProcessEvents.modalClosed,
                 data: <IProcessEventData>{
                     eventId: this.$params.config.id,
-                    description: reason,
+                    description: ProcessEventsDescriptions.modalClosed + reason,
                 },
             });
         }
 
-        this.eventService.emit({
-            name: type,
-            data: this.$params.config.id,
-        });
 
         if (callback) {
             callback();
