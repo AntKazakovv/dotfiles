@@ -1,7 +1,7 @@
 import {IIndexing} from 'wlc-engine/modules/core/system/interfaces/global.interface';
 
 export interface ICountry {
-    phoneCode: string;
+    phoneCode: string | null;
     title: string;
     value: string;
     iso2?: string;
@@ -14,6 +14,11 @@ export interface ICountry {
 
 export interface ICountries {
     countries: ICountry[];
+    lang: string;
+}
+
+export interface IStates {
+    states: TStates;
     lang: string;
 }
 

@@ -8,7 +8,9 @@
         "**/wins.spec.ts",
         "**/topWins.spec.ts",
         "**/user-logout.spec.ts",
-        "**/sportsbook.spec.ts"
+        "**/sportsbook.spec.ts",
+        "**/countries.spec.ts",
+        "**/states.spec.ts"
     ],
     "helpers": [
         "helpers/**/*.helper.ts"
