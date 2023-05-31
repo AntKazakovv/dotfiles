@@ -6,6 +6,7 @@ import {
     TemplateRef,
     ViewChild,
     ElementRef,
+    ChangeDetectionStrategy,
 } from '@angular/core';
 
 import _trim from 'lodash-es/trim';
@@ -27,12 +28,11 @@ import {
 
 import * as Params from './betradar-popular-events.params';
 
-// TODO:REFACTOR:change-detection-rule
-// eslint-disable-next-line @angular-eslint/prefer-on-push-component-change-detection
 @Component({
     selector: '[wlc-betradar-popular-events]',
     templateUrl: './betradar-popular-events.component.html',
     styleUrls: ['./styles/betradar-popular-events.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BetradarPopularEventsComponent extends AbstractComponent implements OnInit {
 
@@ -101,7 +101,7 @@ export class BetradarPopularEventsComponent extends AbstractComponent implements
             this.initFailed = true;
         }
         this.inited = true;
-        this.cdr.detectChanges();
+        this.cdr.markForCheck();
     }
 
     /**
