@@ -27,7 +27,7 @@ clean_temp() {
 #clear npm cache
 if [[ $1 != "no-docker" ]]; then
     cd ~/Projects/wlc-docker/
-    ./node16.sh wlc-engine npm cache clear -f
+    ./node18.sh wlc-engine npm cache clear -f
     cd -
 else
     npm cache clear -f
@@ -78,7 +78,7 @@ for key in ${!projects[*]}; do
     rm -rf node_modules package-lock.json
     if [[ $1 != "no-docker" ]]; then
         cd ~/Projects/wlc-docker/
-        ./node16.sh wlc-engine/$temp_dir npm i
+        ./node18.sh wlc-engine/$temp_dir npm i
         cd -
     else
         npm i
