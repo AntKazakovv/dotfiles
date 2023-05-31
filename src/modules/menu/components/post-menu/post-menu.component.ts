@@ -63,7 +63,7 @@ export class PostMenuComponent extends AbstractComponent implements OnInit {
         cdr: ChangeDetectorRef,
         configService: ConfigService,
         protected actionService: ActionService,
-        private translate: TranslateService,
+        private translateService: TranslateService,
         @Inject(WINDOW) private window: Window,
     ) {
         super({injectParams, defaultParams: Params.defaultParams}, configService, cdr);
@@ -165,7 +165,7 @@ export class PostMenuComponent extends AbstractComponent implements OnInit {
     protected setBasePath(): void {
         this.basePath = MenuHelper.getHrefItemBasePath({
             url: this.$params.common.basePath?.url,
-            lang: this.$params.common.basePath?.addLanguage ? this.translate.currentLang : '',
+            lang: this.$params.common.basePath?.addLanguage ? this.translateService.currentLang : '',
             page: this.$params.common.basePath?.page,
         });
     }

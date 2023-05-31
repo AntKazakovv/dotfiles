@@ -51,7 +51,7 @@ export class NicknameFormComponent extends AbstractChatComponent implements OnIn
         @Inject('dialog') protected dialog: DialogModel<INicknameFormCParams>,
         protected chatService: ChatService,
         protected cdr: ChangeDetectorRef,
-        protected translate: TranslateService,
+        protected translateService: TranslateService,
         protected tas: TempAdapterService,
     ) {
         super('wlc-nickname-form');
@@ -117,7 +117,7 @@ export class NicknameFormComponent extends AbstractChatComponent implements OnIn
     protected hasForbiddenSymbols(): ValidatorFn {
         return (ctrl: AbstractControl): ValidationErrors | null => {
             return ctrl.value && ChatHelper.nicknameForbiddenSymbols.test(ctrl.value) ? {
-                'hasForbiddenSymbols': this.translate.instant('Value can\'t contain symbols:')
+                'hasForbiddenSymbols': this.translateService.instant('Value can\'t contain symbols:')
                     + ' \\t\\n\\r!"&\',./:<>?@',
             } : null;
         };

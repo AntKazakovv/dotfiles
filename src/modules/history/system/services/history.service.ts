@@ -83,7 +83,7 @@ export class HistoryService {
         private dataService: DataService,
         private eventService: EventService,
         private logService: LogService,
-        private translate: TranslateService,
+        private translateService: TranslateService,
     ) {
         this.registerMethods();
         this.setSubscribers();
@@ -191,7 +191,7 @@ export class HistoryService {
             },
         });
 
-        this.translate.onLangChange.subscribe((): void => {
+        this.translateService.onLangChange.subscribe((): void => {
             this.updateSubscribers();
         });
 

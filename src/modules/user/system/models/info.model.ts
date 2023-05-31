@@ -29,7 +29,7 @@ export class UserInfo extends AbstractModel<IUserInfo> {
 
     constructor(
         from: IFromLog,
-        protected translate: TranslateService,
+        protected translateService: TranslateService,
         protected eventService: EventService,
     ) {
         super({from: _assign({model: 'UserInfo'}, from)});
@@ -158,7 +158,7 @@ export class UserInfo extends AbstractModel<IUserInfo> {
 
     public get levelName(): string {
         const defaultLanguage = 'en'; //TODO default lang
-        const currentLanguage = this.translate.currentLang;
+        const currentLanguage = this.translateService.currentLang;
 
         return this.data?.loyalty?.LevelName[currentLanguage] || this.data?.loyalty?.LevelName[defaultLanguage];
     }

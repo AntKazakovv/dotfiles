@@ -41,7 +41,7 @@ export class FormControlComponent implements OnInit, OnDestroy {
 
     constructor(
         private cdr: ChangeDetectorRef,
-        private translate: TranslateService,
+        private translateService: TranslateService,
     ) {
     }
 
@@ -82,7 +82,7 @@ export class FormControlComponent implements OnInit, OnDestroy {
 
             if (_isObject(validator) && validator.text) {
                 return gettext(validator.text);
-            } else if (this.translate.instant(key) !== key) {
+            } else if (this.translateService.instant(key) !== key) {
                 return key;
             } else {
                 return 'validator-' + item;

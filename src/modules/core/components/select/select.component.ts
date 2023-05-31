@@ -105,7 +105,7 @@ export class SelectComponent extends AbstractComponent implements OnInit, OnChan
         cdr: ChangeDetectorRef,
         protected EventService: EventService,
         protected selectValues: SelectValuesService,
-        protected translate: TranslateService,
+        protected translateService: TranslateService,
     ) {
         super({injectParams, defaultParams: Params.defaultParams}, configService, cdr);
     }
@@ -203,7 +203,7 @@ export class SelectComponent extends AbstractComponent implements OnInit, OnChan
 
             setTimeout(() => {
                 if (!this.control.disabled) {
-                    this.searchText = this.translate.instant(this.placeholderText);
+                    this.searchText = this.translateService.instant(this.placeholderText);
                 }
             });
         }
@@ -240,7 +240,7 @@ export class SelectComponent extends AbstractComponent implements OnInit, OnChan
      */
     protected translateItems(): void {
         this.$params.items = _map(this.$params.items, (item) => {
-            item.title = this.translate.instant(item.title.toString());
+            item.title = this.translateService.instant(item.title.toString());
             return item;
         });
     }
@@ -319,7 +319,7 @@ export class SelectComponent extends AbstractComponent implements OnInit, OnChan
         this.control.updateValueAndValidity();
         this.isOpened = false;
         this.clearSearchField();
-        this.searchText = this.translate.instant(this.placeholderText);
+        this.searchText = this.translateService.instant(this.placeholderText);
         this.getSelectedItemIndex();
     }
 
@@ -457,7 +457,7 @@ export class SelectComponent extends AbstractComponent implements OnInit, OnChan
         });
 
         if (!this.isOpened) {
-            this.searchText = this.translate.instant(this.placeholderText);
+            this.searchText = this.translateService.instant(this.placeholderText);
         }
     }
 

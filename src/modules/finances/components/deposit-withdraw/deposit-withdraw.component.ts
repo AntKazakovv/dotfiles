@@ -489,8 +489,8 @@ export class DepositWithdrawComponent
                 type: 'success',
                 title: gettext('Withdraw'),
                 message: [
-                    this.translateService.instant(gettext('Withdraw request has been successfully sent!')),
-                    this.translateService.instant(gettext('Withdraw sum')) + ` ${currencyIcon}`,
+                    this.translateService.instant('Withdraw request has been successfully sent!'),
+                    this.translateService.instant('Withdraw sum') + ` ${currencyIcon}`,
                 ],
                 wlcElement: 'notification_withdraw-request-success',
                 displayAsHTML: true,

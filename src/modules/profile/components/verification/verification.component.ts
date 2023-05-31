@@ -78,7 +78,7 @@ export class VerificationComponent extends AbstractComponent implements OnInit {
         protected verificationService: VerificationService,
         cdr: ChangeDetectorRef,
         protected eventService: EventService,
-        protected translate: TranslateService,
+        protected translateService: TranslateService,
     ) {
         super(
             <IMixedParams<Params.IVerificationCParams>>{
@@ -253,7 +253,7 @@ export class VerificationComponent extends AbstractComponent implements OnInit {
         return _map(this.docTypes, ({ID, Name}) => {
             return {
                 value: ID,
-                title: this.translate.instant(ID) !== ID ? this.translate.instant(ID) : Name,
+                title: this.translateService.instant(ID) !== ID ? this.translateService.instant(ID) : Name,
             };
         });
     }

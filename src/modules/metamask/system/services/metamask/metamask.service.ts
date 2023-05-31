@@ -75,7 +75,7 @@ export class MetamaskService {
         protected modalService: ModalService,
         protected logService: LogService,
         protected eventService: EventService,
-        protected translate: TranslateService,
+        protected translateService: TranslateService,
     ) {}
 
     /**
@@ -354,7 +354,7 @@ export class MetamaskService {
                 submitEventName,
                 walletCurrency,
                 showMetamaskBlock: true,
-                amountLabelText: `${walletCurrency} ${this.translate.instant('Deposit amount')}`,
+                amountLabelText: `${walletCurrency} ${this.translateService.instant('Deposit amount')}`,
             },
         });
 
@@ -416,9 +416,9 @@ export class MetamaskService {
      * @returns translated `string` message to be signed
      */
     private createMessage(action: TMetamaskMsgAction): string {
-        return this.translate.instant(metamaskActionMessages[action])
+        return this.translateService.instant(metamaskActionMessages[action])
             + ` ${this.configService.get<string>('$base.site.name')}`
-            + ` ${this.translate.instant('on')} `
+            + ` ${this.translateService.instant('on')} `
             + DateTime.now().toLocaleString(DateTime.DATETIME_SHORT);
     }
 

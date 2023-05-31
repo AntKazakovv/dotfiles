@@ -55,7 +55,7 @@ export class StickyFooterComponent extends AbstractComponent implements OnInit, 
         protected menuService: MenuService,
         protected eventService: EventService,
         protected bodyClassService: BodyClassService,
-        protected translate: TranslateService,
+        protected translateService: TranslateService,
         cdr: ChangeDetectorRef,
     ) {
         super(
@@ -112,7 +112,7 @@ export class StickyFooterComponent extends AbstractComponent implements OnInit, 
 
         if (this.menuSettings) {
             this.menuConfig = MenuHelper.parseMenuSettings(
-                this.menuSettings, 'sticky-footer', this.translate.currentLang,
+                this.menuSettings, 'sticky-footer', this.translateService.currentLang,
                 {
                     isAuth: this.isAuth,
                     wlcElementPrefix: 'link_sticky-footer-nav-',

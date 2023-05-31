@@ -38,7 +38,7 @@ export class CashbackPlanModel extends AbstractModel<ICashbackPlan> {
     }
 
     public get periodTitle(): string {
-        return `${this.translate.instant(gettext('Period'))}: ${this.translate.instant(gettext(this.data.Period))}`;
+        return `${this.translate.instant('Period')}: ${this.translate.instant(this.data.Period)}`;
     }
 
     public get id(): string {
@@ -75,7 +75,7 @@ export class CashbackPlanModel extends AbstractModel<ICashbackPlan> {
     public get buttonText(): string {
 
         return this.amount > 0 && this.isAvailable
-            ? this.translate.instant(gettext('Claim')) + ` ${this.createCurrencyModel()}`
+            ? this.translate.instant('Claim') + ` ${this.createCurrencyModel()}`
             : gettext('Get cashback');
     }
 

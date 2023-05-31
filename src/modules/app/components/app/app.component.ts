@@ -119,7 +119,7 @@ export class AppComponent extends AbstractComponent implements OnInit, AfterView
     constructor(
         public router: UIRouter,
         configService: ConfigService,
-        protected translate: TranslateService,
+        protected translateService: TranslateService,
         protected stateService: StateService,
         protected layoutService: LayoutService,
         protected injectionService: InjectionService,
@@ -163,7 +163,7 @@ export class AppComponent extends AbstractComponent implements OnInit, AfterView
             return;
         }
 
-        this.translate.onLangChange.pipe(takeUntil(this.$destroy)).subscribe((v) => {
+        this.translateService.onLangChange.pipe(takeUntil(this.$destroy)).subscribe((v) => {
             this.stateService.go(
                 this.uiRouter.current.name,
                 _assign({}, this.uiRouter.params, {locale: v.lang}),
@@ -442,28 +442,28 @@ export class AppComponent extends AbstractComponent implements OnInit, AfterView
             });
         }
 
-        this.translate.addLangs(languages);
+        this.translateService.addLangs(languages);
         const {locale} = this.uiRouter.params;
 
-        if (_includes(this.translate.langs, locale)) {
-            this.translate.setDefaultLang(locale);
-            this.translate.use(locale).toPromise().then(() => {
+        if (_includes(this.translateService.langs, locale)) {
+            this.translateService.setDefaultLang(locale);
+            this.translateService.use(locale).toPromise().then(() => {
                 this.configService.get<Deferred<null>>({name: 'firstLanguageReady'}).resolve();
             });
-            this.configService.set({name: 'currentLanguage', value: this.translate.currentLang});
+            this.configService.set({name: 'currentLanguage', value: this.translateService.currentLang});
 
             if (GlobalHelper.isMobileApp()) {
                 this.configService.set({
                     name: 'currentLanguage',
-                    value: this.translate.currentLang,
+                    value: this.translateService.currentLang,
                     storageType: 'localStorage',
                 });
             }
         } else {
             this.stateService.go('app.error', {
-                locale: _includes(this.translate.langs, this.configService.get<string>('appConfig.language'))
+                locale: _includes(this.translateService.langs, this.configService.get<string>('appConfig.language'))
                     ? this.configService.get<string>('appConfig.language')
-                    : (this.translate.langs[0] || 'en'),
+                    : (this.translateService.langs[0] || 'en'),
             });
         }
     }

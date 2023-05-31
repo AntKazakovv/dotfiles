@@ -139,7 +139,7 @@ export class BonusesService {
         private eventService: EventService,
         private configService: ConfigService,
         private logService: LogService,
-        private translate: TranslateService,
+        private translateService: TranslateService,
         private stateService: StateService,
         private injectionService: InjectionService,
     ) {
@@ -968,7 +968,7 @@ export class BonusesService {
             }
         });
 
-        this.translate.onLangChange.subscribe((): void => {
+        this.translateService.onLangChange.subscribe((): void => {
             this.updateSubscribers();
         });
     }
@@ -1121,7 +1121,7 @@ export class BonusesService {
                 title: gettext('The bonus has been taken successfully'),
                 wlcElement: 'notification_bonus-activated',
                 displayAsHTML: true,
-                message: this.translate.instant(gettext('The bonus balance has been increased by'))
+                message: this.translateService.instant('The bonus balance has been increased by')
                     + ` ${currencyElement}`,
             },
         });

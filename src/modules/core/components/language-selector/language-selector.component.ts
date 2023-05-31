@@ -110,7 +110,7 @@ export class LanguageSelectorComponent
     @Input() protected inlineParams: Params.ILanguageSelectorCParams;
 
     constructor(
-        public translate: TranslateService,
+        public translateService: TranslateService,
         @Inject('injectParams') protected injectParams: Params.ILanguageSelectorCParams,
         cdr: ChangeDetectorRef,
         configService: ConfigService,
@@ -128,13 +128,13 @@ export class LanguageSelectorComponent
             this.addModifiers('border-around');
         }
 
-        let availableLanguageNames: string[] = this.translate.getLangs();
+        let availableLanguageNames: string[] = this.translateService.getLangs();
 
         if (availableLanguageNames.length <= this.$params.countLangFromDropdown) {
             availableLanguageNames = availableLanguageNames.filter(
                 (lang: string): boolean => {
                     if (this.isLongThemeMod) {
-                        return lang !== this.translate.currentLang;
+                        return lang !== this.translateService.currentLang;
                     }
                     return true;
                 },
@@ -146,7 +146,7 @@ export class LanguageSelectorComponent
             this.$params.order,
             'code',
         );
-        this.currentLanguage = this.findLanguage(this.translate.currentLang);
+        this.currentLanguage = this.findLanguage(this.translateService.currentLang);
 
         if (this.languagesCount() <= 1) {
             this.hasSingleLang = true;
@@ -172,16 +172,16 @@ export class LanguageSelectorComponent
     public changeLanguage(lang: string, event: MouseEvent): void {
         event.preventDefault();
         try {
-            if (lang !== this.translate.currentLang) {
-                this.translate.use(lang)
+            if (lang !== this.translateService.currentLang) {
+                this.translateService.use(lang)
                     .pipe(takeUntil(this.$destroy))
                     .subscribe(() => {
-                        this.configService.set({name: 'currentLanguage', value: this.translate.currentLang});
+                        this.configService.set({name: 'currentLanguage', value: this.translateService.currentLang});
 
                         if (GlobalHelper.isMobileApp()) {
                             this.configService.set({
                                 name: 'currentLanguage',
-                                value: this.translate.currentLang,
+                                value: this.translateService.currentLang,
                                 storageType: 'localStorage',
                             });
                         }
@@ -250,7 +250,7 @@ export class LanguageSelectorComponent
                 },
                 modifier: 'type-lang',
                 templateRefParams: {
-                    list: this.translate
+                    list: this.translateService
                         .getLangs()
                         .map(this.findLanguage.bind(this)),
                     class: 'wlc-language-modal',

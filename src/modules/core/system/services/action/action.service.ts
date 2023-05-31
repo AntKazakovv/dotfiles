@@ -600,8 +600,8 @@ export class ActionService {
                     const type = initialPath.type?.toLowerCase();
                     const message: string[] = [
                         (type === 'withdraw')
-                            ? this.translateService.instant(gettext('Withdraw request has been successfully sent!'))
-                            : this.translateService.instant(gettext('Deposit completed successfully')),
+                            ? this.translateService.instant('Withdraw request has been successfully sent!')
+                            : this.translateService.instant('Deposit completed successfully'),
                     ];
 
                     if (initialPath.amount) {
@@ -610,7 +610,7 @@ export class ActionService {
 
                         if (type === 'withdraw') {
                             message.push(
-                                this.translateService.instant(gettext('Withdraw sum')) + ` ${currencyElement}`,
+                                this.translateService.instant('Withdraw sum') + ` ${currencyElement}`,
                             );
                         } else {
                             message.push(

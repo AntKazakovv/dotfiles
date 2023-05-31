@@ -78,7 +78,7 @@ export class CategoryMenuComponent extends AbstractComponent implements OnInit, 
         cdr: ChangeDetectorRef,
         configService: ConfigService,
         protected eventService: EventService,
-        protected translate: TranslateService,
+        protected translateService: TranslateService,
         protected router: UIRouter,
         protected injectionService: InjectionService,
         protected menuService: MenuService,
@@ -230,7 +230,7 @@ export class CategoryMenuComponent extends AbstractComponent implements OnInit, 
             let menuItems;
             if (this.menuSettings) {
                 const itemsConfig = MenuHelper
-                    .parseMenuSettings(this.menuSettings, 'category-menu', this.translate.currentLang, {
+                    .parseMenuSettings(this.menuSettings, 'category-menu', this.translateService.currentLang, {
                         isAuth: this.isAuth,
                         wlcElementPrefix: 'link_game-categories-',
                     });
@@ -245,7 +245,7 @@ export class CategoryMenuComponent extends AbstractComponent implements OnInit, 
                 menuItems = MenuHelper.getItemsForCategories({
                     categories: this.categories,
                     openChildCatalog: true,
-                    lang: this.translate.currentLang,
+                    lang: this.translateService.currentLang,
                     icons: {
                         folder: this.iconsFolder,
                         disable: !this.useIcons,
@@ -358,7 +358,7 @@ export class CategoryMenuComponent extends AbstractComponent implements OnInit, 
         if (specialCategories.length) {
             dropdownMenu = MenuHelper.getItemsForCategories({
                 categories: specialCategories,
-                lang: this.translate.currentLang,
+                lang: this.translateService.currentLang,
                 icons: {
                     folder: this.iconsFolder,
                     disable: true,
@@ -369,7 +369,7 @@ export class CategoryMenuComponent extends AbstractComponent implements OnInit, 
         _forEach(parentCategories, (category) => {
             const menuItems = MenuHelper.getItemsForCategories({
                 categories: [category],
-                lang: this.translate.currentLang,
+                lang: this.translateService.currentLang,
                 icons: {
                     folder: this.iconsFolder,
                     disable: true,
@@ -378,7 +378,7 @@ export class CategoryMenuComponent extends AbstractComponent implements OnInit, 
             if (category.childCategories.length) {
                 const childItems = MenuHelper.getItemsForCategories({
                     categories: category.childCategories,
-                    lang: this.translate.currentLang,
+                    lang: this.translateService.currentLang,
                     icons: {
                         folder: this.iconsFolder,
                         disable: !this.useIcons,

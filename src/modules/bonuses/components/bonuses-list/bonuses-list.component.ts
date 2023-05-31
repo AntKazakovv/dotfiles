@@ -114,7 +114,7 @@ export class BonusesListComponent extends AbstractComponent implements OnInit, O
         protected cachingService: CachingService,
         cdr: ChangeDetectorRef,
         protected eventService: EventService,
-        protected translate: TranslateService,
+        protected translateService: TranslateService,
         protected actionService: ActionService,
         protected router: UIRouter,
     ) {

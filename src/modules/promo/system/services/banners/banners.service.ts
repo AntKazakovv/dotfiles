@@ -28,13 +28,13 @@ export class BannersService {
 
     constructor(
         protected configService: ConfigService,
-        protected translate: TranslateService,
+        translateService: TranslateService,
     ) {
         this.defaultBanners = this.prepareBanners();
-        this.banners = this.prepareBanners(this.translate.currentLang);
+        this.banners = this.prepareBanners(translateService.currentLang);
 
-        this.translate.onLangChange.subscribe(() => {
-            this.banners = this.prepareBanners(this.translate.currentLang);
+        translateService.onLangChange.subscribe(() => {
+            this.banners = this.prepareBanners(translateService.currentLang);
         });
     }
 

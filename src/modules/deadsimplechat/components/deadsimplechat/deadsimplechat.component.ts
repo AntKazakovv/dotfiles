@@ -17,7 +17,6 @@ import {
     first,
 } from 'rxjs/operators';
 
-import {TranslateService} from '@ngx-translate/core';
 import {
     AbstractComponent,
     ConfigService,
@@ -52,7 +51,6 @@ export class DeadsimplechatComponent extends AbstractComponent implements OnInit
         configService: ConfigService,
         protected eventService: EventService,
         protected renderer: Renderer2,
-        protected translate: TranslateService,
     ) {
         super(<IMixedParams<Params.IDeadsimplechatCParams>>{
             injectParams: params,

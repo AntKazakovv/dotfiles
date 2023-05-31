@@ -37,7 +37,7 @@ export class DisclaimerComponent extends AbstractComponent implements OnInit {
     constructor(
         @Inject('injectParams') protected params: IDisclaimerCParams,
         configService: ConfigService,
-        protected translate: TranslateService,
+        protected translateService: TranslateService,
     ) {
         super({injectParams: params, defaultParams}, configService);
     }
@@ -46,7 +46,7 @@ export class DisclaimerComponent extends AbstractComponent implements OnInit {
         super.ngOnInit(this.inlineParams);
         this.createDisclaimer();
 
-        this.translate.onLangChange.pipe(takeUntil(this.$destroy)).subscribe(() => {
+        this.translateService.onLangChange.pipe(takeUntil(this.$destroy)).subscribe(() => {
             this.createDisclaimer();
         });
     }
@@ -56,7 +56,7 @@ export class DisclaimerComponent extends AbstractComponent implements OnInit {
     }
 
     protected getTextFromConfig(key: string): string {
-        return this.configService.get<string>(`${key}.${this.translate.currentLang}`)
+        return this.configService.get<string>(`${key}.${this.translateService.currentLang}`)
             || this.configService.get<string>(`${key}.en`);
     }
 }

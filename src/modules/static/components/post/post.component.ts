@@ -79,7 +79,7 @@ export class PostComponent extends AbstractComponent implements OnInit, AfterVie
         protected stateService: StateService,
         protected logService: LogService,
         protected actionService: ActionService,
-        protected translate: TranslateService,
+        protected translateService: TranslateService,
         protected eventService: EventService,
         @Inject(CuracaoRequirement) protected isCuracaoWlc: boolean,
     ) {
@@ -148,7 +148,7 @@ export class PostComponent extends AbstractComponent implements OnInit, AfterVie
         let model: TextDataModel = await this.getData();
 
         if (!model) {
-            if (this.translate.currentLang !== 'en') {
+            if (this.translateService.currentLang !== 'en') {
                 model = await this.getData('en');
             }
 
@@ -175,7 +175,7 @@ export class PostComponent extends AbstractComponent implements OnInit, AfterVie
     protected getGeneratedSlug(lang?: string): string {
         const splitSettings = this.configService.get<ISplitTexts>({name: '$static.splitStaticTexts'});
         if (splitSettings?.useByDefault || (splitSettings?.slugs ?? []).includes(this.defaultSlug)) {
-            return `${this.defaultSlug}_${lang ?? this.translate.currentLang}`;
+            return `${this.defaultSlug}_${lang ?? this.translateService.currentLang}`;
         } else {
             return this.defaultSlug;
         }

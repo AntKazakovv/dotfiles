@@ -163,7 +163,7 @@ export class UserService {
     private _isMetamaskUser: boolean = false;
 
     constructor(
-        public translate: TranslateService,
+        public translateService: TranslateService,
         private dataService: DataService,
         private eventService: EventService,
         private configService: ConfigService,
@@ -188,7 +188,7 @@ export class UserService {
             this.configUserInfo$.next(userInfo);
         });
 
-        this.translate.onLangChange.subscribe(async () => {
+        this.translateService.onLangChange.subscribe(async () => {
             if (!this.isAuthenticated) return;
 
             await this.updateLanguage();
@@ -199,7 +199,7 @@ export class UserService {
 
         this.info = new UserInfo(
             {service: 'UserService', method: 'constructor'},
-            this.translate,
+            this.translateService,
             this.eventService,
         );
         this.profile = new UserProfile({service: 'UserService', method: 'constructor'});
@@ -461,7 +461,7 @@ export class UserService {
 
         this.info = new UserInfo(
             {service: 'UserService', method: 'constructor'},
-            this.translate,
+            this.translateService,
             this.eventService,
         );
         this.userInfo$.next(this.info);
@@ -479,7 +479,7 @@ export class UserService {
             });
         } else {
             this.stateService.go('app.home', {
-                locale: this.translate.currentLang,
+                locale: this.translateService.currentLang,
             });
         }
     }
@@ -594,9 +594,9 @@ export class UserService {
 
     private checkForAgeLegality(updates: IUserProfile): void {
         if (this.shouldAgeBeChecked(updates) && !this.isAgeLegal(updates)) {
-            const explanationStart = this.translate.instant(gettext('You are under the age of'));
+            const explanationStart = this.translateService.instant(gettext('You are under the age of'));
             const legalAge = this.configService.get<number>('$base.profile.legalAge');
-            const explanationFinal = this.translate.instant(gettext('age_end'));
+            const explanationFinal = this.translateService.instant(gettext('age_end'));
 
             const message = `${explanationStart} ${legalAge}${explanationFinal}`;
 

@@ -7,7 +7,6 @@ import {
     OnInit,
 } from '@angular/core';
 import {UIRouter} from '@uirouter/core';
-import {TranslateService} from '@ngx-translate/core';
 
 import {
     AbstractComponent,
@@ -82,7 +81,6 @@ export class SportsbookComponent extends AbstractComponent implements OnInit, On
         protected eventService: EventService,
         protected hooksService: HooksService,
         protected router: UIRouter,
-        protected translate: TranslateService,
         @Inject(WINDOW) protected window: Window,
     ) {
         super(

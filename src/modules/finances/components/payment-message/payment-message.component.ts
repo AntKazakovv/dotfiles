@@ -285,12 +285,12 @@ export class PaymentMessageComponent extends AbstractComponent implements OnInit
                 break;
             case 'invoice':
                 inputParams.common.placeholder =
-                    this.translateService.instant(gettext('Amount in'))
+                    this.translateService.instant('Amount in')
                     + ' ' + this.system.cryptoTicker;
                 inputParams.control = new UntypedFormControl(this.message.cryptoAmount);
                 break;
             case 'cryptoAmount':
-                inputParams.common.placeholder = this.translateService.instant(gettext('Converted crypto amount'))
+                inputParams.common.placeholder = this.translateService.instant('Converted crypto amount')
                     + ` (${this.cryptoCurrency})`;
                 inputParams.control = new UntypedFormControl(this.cryptoAmount);
                 break;

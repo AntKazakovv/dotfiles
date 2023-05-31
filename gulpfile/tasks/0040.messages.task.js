@@ -210,7 +210,10 @@ module.exports = function messagesTask() {
             this.params.paths.src + '/**/*.html',
             '!' + this.params.paths.src + '/custom/**/~*.*',
         ])
-            .pipe(gettext.extract('front.pot', {}))
+            .pipe(gettext.extract('front.pot', {
+                "moduleName": "translateService",
+                "moduleMethodString": "instant",
+            }))
             .pipe(dest(this.params.paths.temp));
     });
 

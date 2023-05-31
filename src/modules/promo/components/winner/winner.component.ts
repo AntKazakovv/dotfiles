@@ -53,7 +53,7 @@ export class WinnerComponent extends AbstractComponent implements OnInit {
     constructor(
         @Inject('injectParams') protected injectParams: Params.IWinnerCParams,
         configService: ConfigService,
-        protected translate: TranslateService,
+        protected translateService: TranslateService,
         protected injectionService: InjectionService,
         protected modalService: ModalService,
         protected eventService: EventService,
@@ -69,7 +69,7 @@ export class WinnerComponent extends AbstractComponent implements OnInit {
     }
 
     public get gameName(): string {
-        return this.$params.winner.game.name[this.translate.currentLang] || this.$params.winner.game.name.en;
+        return this.$params.winner.game.name[this.translateService.currentLang] || this.$params.winner.game.name.en;
     }
 
     public get name(): string {

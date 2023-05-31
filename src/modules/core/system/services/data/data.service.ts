@@ -168,7 +168,7 @@ export class DataService {
 
     constructor(
         private http: HttpClient,
-        private translate: TranslateService,
+        private translateService: TranslateService,
         private eventService: EventService,
         private cachingService: CachingService,
         private logService: LogService,
@@ -425,7 +425,7 @@ export class DataService {
         }
 
         const requestParams = _assign(
-            {lang: this.translate.currentLang || 'en'},
+            {lang: this.translateService.currentLang || 'en'},
             method.params,
             method.type === 'GET' ? params : {},
         );
@@ -729,7 +729,7 @@ export class DataService {
     };
 
     private createErrorMessage(replacer: IErrorReplacerParams): string {
-        return this.translate.instant(replacer.text)
+        return this.translateService.instant(replacer.text)
             + (replacer.supportEmail
                 ? ' ' + this.wrapEmail(this.configService.get('$base.contacts.email')) : '');
     }

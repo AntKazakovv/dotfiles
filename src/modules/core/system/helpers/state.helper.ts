@@ -86,11 +86,11 @@ export class StateHelper {
                 transition: Transition,
                 injectionService: InjectionService,
                 modalService: ModalService,
-                translate: TranslateService,
+                translateService: TranslateService,
             ) => {
                 const result = new Deferred();
 
-                translate.stream('currentLang')
+                translateService.stream('currentLang')
                     .pipe(first())
                     .subscribe(async () => {
                         await configService.ready;

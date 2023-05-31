@@ -113,7 +113,7 @@ export class SearchComponent extends AbstractComponent implements OnInit {
         protected gamesCatalogService: GamesCatalogService,
         cdr: ChangeDetectorRef,
         protected eventService: EventService,
-        protected translate: TranslateService,
+        protected translateService: TranslateService,
         protected gamesFilterService: GamesFilterService,
     ) {
         super({
@@ -121,7 +121,7 @@ export class SearchComponent extends AbstractComponent implements OnInit {
             defaultParams: defaultParams,
         }, configService, cdr);
 
-        this.currentLanguage = this.translate.currentLang;
+        this.currentLanguage = this.translateService.currentLang;
     }
 
     public override async ngOnInit(): Promise<void> {
