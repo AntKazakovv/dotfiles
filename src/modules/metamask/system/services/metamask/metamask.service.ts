@@ -428,7 +428,7 @@ export class MetamaskService {
     private checkMetamask(): void | never {
         if (!this.isMetamask) {
             throw {errors: gettext(
-                'The MetaMask wallet is not installed. Please think about trying MetaMask.',
+                'MetaMask is not installed. Please, install and register in MetaMask and then try again.',
             )};
         }
     }
@@ -448,7 +448,7 @@ export class MetamaskService {
             this.logService.sendLog({code: '17.2.0', data: {method, error}});
         } else if (error.code === -32002) {
             // Metamask internal -32002
-            errors = gettext('Request is already pending. Please continue with MetaMask app.');
+            errors = gettext('The request is already pending. Please, continue with MetaMask.');
         } else if (error.code < 0 && error.message) {
             // Metamask internal except -32002
             errors = error.message;
