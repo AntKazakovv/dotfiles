@@ -487,3 +487,33 @@ $animations: map-merge((
     'hoverScaleShadow': 0 0 10px var(--mc-baseContrast-o6),
     'hoverScaleDescShadow': 1,
 ), $customAnimations);
+
+$customPromoGame: () !default;
+$promoGame: map-merge((
+    'bannerGameDescPadding': (
+        375: ef.size(2) ef.size(2) ef.size(8),
+    ),
+    'bannerGameNameFontStyle': 'QoteTextBoldSmaller',
+    'bannerGameNameFontColor': var(--mc-baseMain),
+    'merchantsBlockW': (
+        375: 120px,
+        900: 150px,
+    ),
+    'merchantsBlockH': (
+        375: 40px,
+        900: 50px,
+    ),
+    'merchantsIconW': (
+        375: 110px,
+        900: 140px,
+    ),
+    'merchantsIconH': (
+        375: 25px,
+        900: 35px,
+    ),
+    'merchantsPadding': ef.size(1) ef.size(2),
+    'btnsGridColumnsVert': minmax(0, 220px),
+
+    'jackpotHeight': 65px,
+    'jackpotPadding': 0 0 ef.size(6),
+), $customPromoGame);

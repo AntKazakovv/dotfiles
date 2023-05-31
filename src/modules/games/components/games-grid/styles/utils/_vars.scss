@@ -8,8 +8,7 @@ $themeDefault: map-merge((
     'listMargin': ef.size(12),
     'gridColumns': (
         375: repeat(auto-fill, minmax(160px, 1fr)),
-        900: repeat(auto-fill, minmax(225px, 1fr)),
-        1024: repeat(auto-fill, minmax(200px, 1fr)),
+        900: repeat(auto-fill, minmax(200px, 1fr)),
         1630: repeat(auto-fill, minmax(220px, 1fr)),
     ),
     'gridColumnsWide': (
@@ -62,9 +61,31 @@ $themeDefault: map-merge((
         320: #{'1 / 3'}
     ),
     'gridBannerColumnRight': (
-        320: #{'1 / -3'}
+        320: #{'-1 / -3'}
     ),
+
     'bannerBorderRadius': ef.get('radius', 'biger'),
+
+    'bannerWrapPadding': (
+        375: ef.size(8),
+    ),
+    'bannerTitleMargin': (
+        375: 0 0 ef.size(2),
+    ),
+    'bannerTitleFontStyle': (
+        375: 'QoteTextBold',
+        900: 'PromoTitle',
+    ),
+    'bannerTitleFontColor': var(--mc-baseMain),
+    'bannerDescMargin': (
+        375: 0 0 ef.size(6),
+    ),
+    'bannerDescFontStyle': (
+        375: 'CaptionText',
+        900: 'ThirdTitle',
+    ),
+    'bannerDescFontColor': var(--mc-baseMain),
+
     'cardProgressBarMargin': (
         375: 0 0 ef.size(4) 0,
     ),

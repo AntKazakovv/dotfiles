@@ -136,4 +136,18 @@ export namespace contentGames {
             componentLib.wlcGamesGrid.popularVertical,
         ],
     };
+
+    export const popularGamesGridBanner: ILayoutSectionConfig = {
+        container: true,
+        components: [
+            componentLib.wlcGamesGrid.popularGamesGridBanner,
+        ],
+    };
+
+    export const newGamesGridBanner: ILayoutSectionConfig = {
+        container: true,
+        components: [
+            componentLib.wlcGamesGrid.newGamesGridBanner,
+        ],
+    };
 }

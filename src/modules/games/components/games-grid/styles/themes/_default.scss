@@ -30,6 +30,10 @@
             align-self: stretch;
             width: 100%;
 
+            div {
+                height: 100%;
+            }
+
             [class*='wlc-banners'] {
                 height: 100%;
             }
@@ -44,15 +48,109 @@
 
                 .wlc-banner {
                     height: 100%;
+                    border-radius: ef.get-value($themeDefault, 'bannerBorderRadius');
+                }
+
+                .wlc-game-grid__banner {
+                    --banner-justify-content: flex-start;
+                    --banner-gradient: linear-gradient(var(--banner-grad-angle, 90deg), var(--mc-bg-o8), transparent);
+                    --banner-max-width: 80%;
+                    --banner-text-align: left;
+                    --banner-btn-margin: 0 auto 0 0;
+
+                    position: relative;
+                    display: flex;
+                    align-items: center;
+                    justify-content: var(--banner-justify-content);
+                    height: 100%;
                     overflow: hidden;
 
-                    border-radius: ef.get-value($themeDefault, 'bannerBorderRadius');
+                    &.text-center {
+                        --banner-grad-angle: 180deg;
+                        --banner-max-width: 100%;
+                        --banner-text-align: center;
+                        --banner-btn-margin: 0 auto;
+                    }
 
-                    img {
+                    &.text-right {
+                        --banner-grad-angle: 270deg;
+                        --banner-justify-content: flex-end;
+                        --banner-text-align: right;
+                        --banner-btn-margin: 0 0 0 auto;
+                    }
+
+                    .wlc-banner__bg {
+                        position: absolute;
+                        top: 0;
+                        left: 0;
                         width: 100%;
                         height: 100%;
-                        object-fit: cover;
+
+                        img {
+                            width: 100%;
+                            height: 100%;
+                            object-fit: cover;
+                        }
+
+                        &.gradient {
+
+                            &:before {
+                                content: '';
+                                position: absolute;
+                                top: 0;
+                                left: 0;
+                                z-index: 1;
+                                width: 100%;
+                                height: 100%;
+                                background: var(--banner-gradient);
+                            }
+                        }
                     }
+
+                    .wlc-banner__container {
+                        @include bm.get-mq-map('padding', $themeDefault, 'bannerWrapPadding');
+                        position: relative;
+                        z-index: 20;
+                        max-width: var(--banner-max-width);
+                        text-align: var(--banner-text-align);
+
+                        .banner__title {
+                            @include bm.get-mq-map('margin', $themeDefault, 'bannerTitleMargin');
+                            @include text.get-text-style(
+                                ef.get-value($themeDefault, 'bannerTitleFontStyle'),
+                                ef.get-value($themeDefault, 'bannerTitleFontColor')
+                            );
+                            @include mq.min(900) {
+                                @include text.get-text-style(
+                                    ef.get-value($themeDefault, 'bannerTitleFontStyle', 900),
+                                    null
+                                );
+                            }
+                        }
+
+                        .banner__description {
+                            @include bm.get-mq-map('margin', $themeDefault, 'bannerDescMargin');
+                            @include text.get-text-style(
+                                ef.get-value($themeDefault, 'bannerDescFontStyle'),
+                                ef.get-value($themeDefault, 'bannerDescFontColor')
+                            );
+                            @include mq.min(900) {
+                                @include text.get-text-style(
+                                    ef.get-value($themeDefault, 'bannerDescFontStyle', 900),
+                                    null
+                                );
+                            }
+                        }
+
+                        .wlc-btn--theme-default {
+                            margin: var(--banner-btn-margin);
+                        }
+                    }
+                }
+
+                .wlc-game-grid__game {
+                    height: 100%;
+                    overflow: hidden;
                 }
             }
         }
@@ -153,7 +251,10 @@
                     ::ng-deep {
 
                         .wlc-title__main {
-                            @include text.get-text-style(ef.get-value($modHeaderInline, 'headerFontStyle'), ef.get-value($modHeaderInline, 'headerColor'));
+                            @include text.get-text-style(
+                                ef.get-value($modHeaderInline, 'headerFontStyle'),
+                                ef.get-value($modHeaderInline, 'headerColor')
+                            );
                             @include bm.lineClamp();
                             max-width: 100%;
                         }
@@ -203,7 +304,10 @@
             ::ng-deep {
 
                 .wlc-title__main {
-                    @include text.get-text-style(ef.get-value($modMobileApp, 'headerFontStyle'), ef.get-value($modMobileApp, 'headerColor'));
+                    @include text.get-text-style(
+                        ef.get-value($modMobileApp, 'headerFontStyle'),
+                        ef.get-value($modMobileApp, 'headerColor')
+                    );
                     line-height: 1;
                 }
             }

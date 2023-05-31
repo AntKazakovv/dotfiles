@@ -108,19 +108,31 @@
 
         &__name {
             @include bm.lineClamp(2);
-            @include text.get-text-style(ef.get-value($themeDefault, 'nameTextStyle'), ef.get-value($themeDefault, 'nameColor'));
+            @include text.get-text-style(
+                ef.get-value($themeDefault, 'nameTextStyle'),
+                ef.get-value($themeDefault, 'nameColor')
+            );
             z-index: ef.get-value($themeDefault, 'nameZIndex');
 
             @include mq.min(1630) {
-                @include text.get-text-style(ef.get-value($themeDefault, 'nameTextStyle', 1630), ef.get-value($themeDefault, 'nameColor'));
+                @include text.get-text-style(
+                    ef.get-value($themeDefault, 'nameTextStyle', 1630),
+                    ef.get-value($themeDefault, 'nameColor')
+                );
             }
         }
 
         &__merchant {
-            @include text.get-text-style(ef.get-value($themeDefault, 'merchantTextStyle'), ef.get-value($themeDefault, 'merchantColor'));
+            @include text.get-text-style(
+                ef.get-value($themeDefault, 'merchantTextStyle'),
+                ef.get-value($themeDefault, 'merchantColor')
+            );
 
             @include mq.min(1630) {
-                @include text.get-text-style(ef.get-value($themeDefault, 'merchantTextStyle', 1630), ef.get-value($themeDefault, 'merchantColor'));
+                @include text.get-text-style(
+                    ef.get-value($themeDefault, 'merchantTextStyle', 1630),
+                    ef.get-value($themeDefault, 'merchantColor')
+                );
             }
         }
 
@@ -148,7 +160,10 @@
             }
 
             &-name-wrapper {
-                @include text.get-text-style(ef.get-value($themeDefault, 'merchantNameFont'), ef.get-value($themeDefault, 'merchantNameFontColor'));
+                @include text.get-text-style(
+                    ef.get-value($themeDefault, 'merchantNameFont'),
+                    ef.get-value($themeDefault, 'merchantNameFontColor')
+                );
 
                 position: relative;
                 top: 0;
@@ -279,7 +294,10 @@
         }
 
         &__jackpot {
-            @include text.get-text-style(ef.get-value($themeDefault, 'jackpotTextStyle'), ef.get-value($themeDefault, 'jackpotColor'));
+            @include text.get-text-style(
+                ef.get-value($themeDefault, 'jackpotTextStyle'),
+                ef.get-value($themeDefault, 'jackpotColor')
+            );
             @include bm.transition(ef.get-value($themeDefault, 'jackpotTransition')...);
 
             position: absolute;
@@ -413,6 +431,58 @@
             top: ef.get-value($themeDefault, 'favouritePosition');
             left: ef.get-value($themeDefault, 'favouritePosition');
             opacity: 1;
+        }
+    }
+
+    &.wlc-game-thumb--type-promo-game {
+        aspect-ratio: auto;
+        height: 100%;
+
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .wlc-game-thumb {
+
+            &__desc {
+                @include bm.get-mq-map('padding', $promoGame, 'bannerGameDescPadding');
+            }
+
+            &__name {
+                @include text.get-text-style(
+                    ef.get-value($promoGame, 'bannerGameNameFontStyle'),
+                    ef.get-value($themeDefault, 'bannerGameNameFontColor')
+                );
+            }
+
+            &__merchants {
+
+                &-block {
+                    @include bm.get-mq-map('width', $promoGame, 'merchantsBlockW');
+                    @include bm.get-mq-map('height', $promoGame, 'merchantsBlockH');
+                    padding: ef.get-value($promoGame, 'merchantsPadding');
+                }
+
+                &-icon {
+                    @include bm.get-mq-map('max-width', $promoGame, 'merchantsIconW');
+                    @include bm.get-mq-map('max-height', $promoGame, 'merchantsIconH');
+                    object-fit: contain;
+                }
+            }
+
+            &__jackpot {
+                height: ef.get-value($promoGame, 'jackpotHeight');
+                padding: ef.get-value($promoGame, 'jackpotPadding');
+            }
+        }
+
+        &.wlc-game-thumb--theme-mod-vertical {
+
+            .wlc-game-thumb__buttons {
+                grid-template-columns: ef.get-value($promoGame, 'btnsGridColumnsVert');
+            }
         }
     }
 

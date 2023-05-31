@@ -1,5 +1,6 @@
 import {ILayoutComponent} from 'wlc-engine/modules/core';
 import {IGamesGridCParams} from 'wlc-engine/modules/games';
+import {IBannersSliderCParams} from 'wlc-engine/modules/promo';
 
 export namespace wlcGamesGrid {
     export const allGames2rows: ILayoutComponent = {
@@ -644,4 +645,106 @@ export namespace wlcGamesGrid {
         },
     };
 
+    export const popularGamesGridBanner: ILayoutComponent = {
+        name: 'games.wlc-games-grid',
+        params: <IGamesGridCParams>{
+            gamesRows: 2,
+            breakpoints: {
+                'mobile': {
+                    gamesRows: 2,
+                },
+            },
+            title: gettext('Popular games'),
+            filter: {
+                categories: ['popular'],
+            },
+            bannerSettings: <IBannersSliderCParams> {
+                sliderParams: {
+                    swiper: {
+                        enabled: true,
+                        spaceBetween: 20,
+                        pagination: {
+                            enable: true,
+                            clickable: true,
+                        },
+                        autoplay: {
+                            delay: 10000,
+                        },
+                        loop: true,
+                    },
+                },
+                hideNavigation: true,
+                params: {
+                    theme: 'game-banner',
+                },
+                banner: {
+                    theme: 'game-banner',
+                },
+                filter: {
+                    position: ['games-grid-banner-popular'],
+                },
+            },
+            usePlaceholders: true,
+            byState: true,
+            showAllLink: {
+                use: true,
+                sref: 'app.catalog',
+                params: {
+                    category: 'new',
+                },
+            },
+        },
+    };
+
+    export const newGamesGridBanner: ILayoutComponent = {
+        name: 'games.wlc-games-grid',
+        params: <IGamesGridCParams>{
+            themeMod: 'banner-right',
+            gamesRows: 2,
+            breakpoints: {
+                'mobile': {
+                    gamesRows: 2,
+                },
+            },
+            title: gettext('New games'),
+            filter: {
+                categories: ['new'],
+            },
+            bannerSettings: <IBannersSliderCParams> {
+                sliderParams: {
+                    swiper: {
+                        enabled: true,
+                        spaceBetween: 20,
+                        pagination: {
+                            enable: true,
+                            clickable: true,
+                        },
+                        autoplay: {
+                            delay: 10000,
+                        },
+                        loop: true,
+                    },
+                },
+                hideNavigation: true,
+                params: {
+                    theme: 'game-banner',
+                },
+                banner: {
+                    theme: 'game-banner',
+                },
+                filter: {
+                    position: ['games-grid-banner-new'],
+                },
+            },
+            usePlaceholders: true,
+            byState: true,
+            showAllLink: {
+                use: true,
+                sref: 'app.catalog',
+                params: {
+                    category: 'popular',
+                },
+            },
+        },
+    };
 }
