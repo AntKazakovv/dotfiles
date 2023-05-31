@@ -40,7 +40,6 @@ export const defaultParams: IProviderLinksCParams = {
             spaceBetween: 15,
             slidesPerView: 6,
             slidesPerGroup: 6,
-            loop: true,
             navigation: {
                 prevEl: '.wlc-provider-links .wlc-swiper-button-prev',
                 nextEl: '.wlc-provider-links .wlc-swiper-button-next',
