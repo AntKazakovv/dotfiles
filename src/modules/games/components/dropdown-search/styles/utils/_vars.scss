@@ -52,4 +52,5 @@ $themeDefault: map-merge((
     'wlcScrollbarBorderRadius': ef.size(2),
     'iconRightIC': ef.size(2),
     'iconLeftIC': unset,
+    'border': none,
 ), $customThemeDefault);

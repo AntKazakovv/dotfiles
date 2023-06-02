@@ -194,14 +194,14 @@ $themeDefault: map-merge((
         900: 170px,
     ),
     'searchTitleWidth': 95px,
-    'btnFont': 'ThirdTitle',
+    'btnFont': 'PrimaryText',
     'btnColor': var(--mc-baseMain),
     'btnPadding': (
         375: 8px 35px,
         900: 10px 30px 10px 35px,
     ),
     'btnBorderRadius': ef.get('radius', 'biger'),
-    'btnFontActive': 'ThirdTitle',
+    'btnFontActive': 'PrimaryText',
     'btnColorHover': ef.get('mainColors', 'baseMain'),
 
     'heightBtn': ef.size(8),
@@ -222,10 +222,6 @@ $themeEasy: map-merge((
         375: center,
         1200: left,
     ),
-    'searchModalHeaderFont': (
-        375: 'ThirdTitleBold' ,
-        1200: 'QoteTextBold',
-    ),
     'searchModalHeaderMargin': 0,
 
     'searchFieldMargin': 0 0 ef.size(4),
@@ -242,7 +238,10 @@ $themeEasy: map-merge((
 
     'recentTitleMargin': 0 0 ef.size(2) 0,
     'recentTitleColor': var(--mc-baseMain),
-    'recentTitleFontStyle': 'QoteTextBold',
+    'recentTitleFontStyle': (
+        375: 'ThirdTitle',
+        1024: 'QoteTextBold',
+    ),
     'recentWrapperMargin': (
         375: 0 0 ef.size(2),
         900: 0 0 ef.size(6),

@@ -180,6 +180,7 @@
                         padding: ef.get-value($themeDefault, 'searchInputPaddingIC');
                         color: ef.get-value($themeDefault, 'searchInputColorIC');
                         background: ef.get-value($themeDefault, 'searchInputBGIC');
+                        border: ef.get-value($themeDefault, 'border');
                     }
                 }
             }

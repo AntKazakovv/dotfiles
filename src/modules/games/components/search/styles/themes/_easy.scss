@@ -5,15 +5,22 @@
         &__title {
             @include bm.get-mq-map('padding', $themeEasy, 'searchModalHeaderPadding');
             @include bm.get-mq-map('text-align', $themeEasy, 'searchModalHeaderPositionText');
-            @include text.get-text-style(
-                ef.get-value($themeEasy, 'searchModalHeaderFont'),
-                ef.get-value($themeEasy, 'searchModalHeaderFontColor')
-            );
 
             margin: ef.get-value($themeEasy, 'searchModalHeaderMargin');
 
-            @include mq.min(1200) {
-                @include text.get-text-style(ef.get-value($themeEasy, 'searchModalHeaderFont', 1200), null);
+            ::ng-deep {
+
+                .wlc-title__main {
+                    @include text.get-text-style(
+                        ef.get-value($themeEasy, 'recentTitleFontStyle'),
+                        ef.get-value($themeEasy, 'recentTitleColor'),
+                    );
+                    line-height: 1;
+
+                    @include mq.min(1024) {
+                        @include text.get-text-style(ef.get-value($themeEasy, 'recentTitleFontStyle', 1024), null);
+                    }
+                }
             }
         }
 
@@ -45,6 +52,10 @@
                         ef.get-value($themeEasy, 'recentTitleColor'),
                     );
                     line-height: 1;
+
+                    @include mq.min(1024) {
+                        @include text.get-text-style(ef.get-value($themeEasy, 'recentTitleFontStyle', 1024), null);
+                    }
                 }
             }
         }
@@ -107,6 +118,18 @@
             @include bm.get-mq-map('margin', $themeEasy, 'gamesMargin');
 
             ::ng-deep {
+
+                .wlc-title__main {
+                    @include text.get-text-style(
+                        ef.get-value($themeEasy, 'recentTitleFontStyle'),
+                        ef.get-value($themeEasy, 'recentTitleColor'),
+                    );
+                    line-height: 1;
+
+                    @include mq.min(1024) {
+                        @include text.get-text-style(ef.get-value($themeEasy, 'recentTitleFontStyle', 1024), null);
+                    }
+                }
 
                 .wlc-games-grid__swiper-buttons-container {
                     margin: ef.get-value($themeEasy, 'buttonsSliderMargin');

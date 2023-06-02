@@ -174,7 +174,7 @@ $themeMobileApp: map-merge((
         900: 10px 30px 10px 35px,
     ),
     'btnBorderRadius': ef.get('radius', 'less'),
-    'btnFontActive': 'PrimaryText',
+    'btnFontActive': 'ThirdTitle',
     'btnColorHover': ef.get('mainColors', 'baseMain'),
 
     'heightBtn': ef.size(8),

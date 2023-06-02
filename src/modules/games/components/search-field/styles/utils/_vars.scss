@@ -21,7 +21,7 @@ $themeDefault: map-merge((
     'searchIconTranslateY': translateY(-50%),
     'spaceBetweenIcons': 14px,
     'borderRadius': ef.get('radius', 'biger'),
-    'border': none,
+    'border': 2px solid var(--fc-borderColor),
     'borderColorActive': var(--fc-borderColor),
     'inputPadding': ef.size(2) ef.size(7) ef.size(2) ef.size(2),
     'inputPaddingCloseShowed': ef.size(2) ef.size(12) ef.size(2) ef.size(2),
