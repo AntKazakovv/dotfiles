@@ -690,7 +690,7 @@ export namespace wlcGamesGrid {
                 use: true,
                 sref: 'app.catalog',
                 params: {
-                    category: 'new',
+                    category: 'popular',
                 },
             },
         },
@@ -709,6 +709,9 @@ export namespace wlcGamesGrid {
             title: gettext('New games'),
             filter: {
                 categories: ['new'],
+            },
+            thumbParams: {
+                theme: 'default',
             },
             bannerSettings: <IBannersSliderCParams> {
                 sliderParams: {
@@ -742,7 +745,7 @@ export namespace wlcGamesGrid {
                 use: true,
                 sref: 'app.catalog',
                 params: {
-                    category: 'popular',
+                    category: 'new',
                 },
             },
         },

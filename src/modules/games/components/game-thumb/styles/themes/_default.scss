@@ -453,7 +453,7 @@
             &__name {
                 @include text.get-text-style(
                     ef.get-value($promoGame, 'bannerGameNameFontStyle'),
-                    ef.get-value($themeDefault, 'bannerGameNameFontColor')
+                    ef.get-value($promoGame, 'bannerGameNameFontColor')
                 );
             }
 
@@ -481,7 +481,44 @@
         &.wlc-game-thumb--theme-mod-vertical {
 
             .wlc-game-thumb__buttons {
-                grid-template-columns: ef.get-value($promoGame, 'btnsGridColumnsVert');
+                grid-template-columns: ef.get-value($promoGame, 'btnVertGridColumns');
+            }
+        }
+
+        &.wlc-game-thumb--theme-mod-circle {
+
+            .wlc-game-thumb__desc {
+                padding: ef.get-value($promoGame, 'btnCirceDescPadding');
+            }
+
+            .wlc-game-thumb__buttons {
+                grid-template-rows: ef.get-value($promoGame, 'btnCircleGridRows');
+                align-items: ef.get-value($promoGame, 'btnCircleAlignItems');
+
+                .wlc-btn--play {
+                    @include bm.get-mq-map('width', $promoGame, 'btnCircleSize');
+                    @include bm.get-mq-map('height', $promoGame, 'btnCircleSize');
+                    grid-row: 2;
+
+                    &:before {
+                        @include bm.get-mq-map('width', $promoGame, 'btnCircleArrowWidth');
+                        @include bm.get-mq-map('height', $promoGame, 'btnCircleArrowHeight');
+                    }
+                }
+
+                .wlc-btn--demo {
+                    grid-row: 3;
+
+                    ::ng-deep {
+
+                        .wlc-btn__text {
+                            @include text.get-text-style(
+                                ef.get-value($promoGame, 'btnCircleTextStyle'),
+                                null
+                            );
+                        }
+                    }
+                }
             }
         }
     }
