@@ -6,7 +6,7 @@
 @import './vars';
 
 @mixin buttonBase {
-    @include bm.get-mq-map('min-height', $themeDefault, 'heightDefault');
+    @include bm.get-mq-map('height', $themeDefault, 'heightDefault');
     display: grid;
     grid-column-gap: ef.get-value($themeDefault, 'gap');
     grid-template-columns: auto 1fr auto;
