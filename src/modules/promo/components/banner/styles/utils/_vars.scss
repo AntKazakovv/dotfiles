@@ -227,7 +227,7 @@ $themeDefault4Banner: map-merge((
         768: block,
     ),
     'fixedBgImages': (
-        375: #{url('/gstatic/wlc/new-banners/banner-4/left-fixed.svg'), url('/gstatic/wlc/new-banners/banner-4/right-fixed.svg')},
+        375: #{ef.static('wlc/new-banners/banner-4/left-fixed.svg'), ef.static('wlc/new-banners/banner-4/right-fixed.svg')},
     ),
     'fixedBgPos': (
         375: #{-375% 0, 110% 0},
@@ -320,4 +320,3 @@ $themeModMobileApp: map-merge((
     'backdropColor': transparent,
     'decorZindex': 11,
 ), $customThemeModMobileApp);
-

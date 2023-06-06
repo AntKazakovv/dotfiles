@@ -70,3 +70,36 @@
 @function size($value: 1, $units: 1px) {
     @return ev.size-func($value, $units);
 }
+
+/// Return agstatic.com
+///
+/// @example scss - Return string
+/// $theme: (
+///     'key': ef.static('wlc/path/xxx.ext', true)
+/// );
+/// background: url(map-get($theme, 'key'));
+///
+/// // Output
+/// background: url('//agstatic.com/wlc/path/img.png');
+///
+/// @example scss - Return url(...)
+/// $theme: (
+///     'key': ef.static('wlc/path/xxx.ext')
+/// );
+/// background: map-get($theme, 'key');
+///
+/// // Output
+/// background: url('//agstatic.com/wlc/path/img.png');
+///
+/// @name static
+///
+/// @param {string} $url - url
+/// @param {boolean} $string [false] - return string
+
+@function static($url, $string: false) {
+    @if ($string == true) {
+        @return '//agstatic.com/#{$url}';
+    } @else {
+        @return url('//agstatic.com/#{$url}');
+    }
+}

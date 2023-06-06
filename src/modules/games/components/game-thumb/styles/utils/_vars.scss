@@ -185,7 +185,7 @@ $themeDefaultModCircle: map-merge((
     'btnPlayIconHeight': 26px,
     'btnPlayIconWidthVertical': 43px,
     'btnPlayIconHeightVertical': 34px,
-    'btnPlayIconBg': url('/gstatic/wlc/icons/game-play.svg'),
+    'btnPlayIconBg': ef.static('wlc/icons/game-play.svg'),
 
     'btnDemoColor': var(--mc-baseMain),
     'btnDemoBg': none,

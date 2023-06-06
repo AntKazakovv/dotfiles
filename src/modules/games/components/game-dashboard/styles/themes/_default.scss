@@ -75,7 +75,7 @@
                 left: 0;
                 width: ef.get-value($themeDefault, 'decorWidth');
                 height: ef.get-value($themeDefault, 'decorHeight');
-                background: url('/gstatic/wlc/game-dashboard/tutorial.png') right bottom no-repeat;
+                background: ef.static('wlc/game-dashboard/tutorial.png') right bottom no-repeat;
             }
 
             &-right-decor {
@@ -84,7 +84,7 @@
                 right: 0;
                 width: ef.get-value($themeDefault, 'decorWidth');
                 height: ef.get-value($themeDefault, 'decorHeight');
-                background: url('/gstatic/wlc/game-dashboard/tutorial-top.png') top left no-repeat;
+                background: ef.static('wlc/game-dashboard/tutorial-top.png') top left no-repeat;
             }
         }
 
@@ -394,7 +394,7 @@
                 &__tutorial {
 
                     &-left-decor {
-                        background: url('/gstatic/wlc/game-dashboard/tutorial-bottom.png') right bottom no-repeat;
+                        background: ef.static('wlc/game-dashboard/tutorial-bottom.png') right bottom no-repeat;
                     }
                 }
 

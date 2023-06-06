@@ -440,7 +440,7 @@ $themeDefault: map-merge((
         640: 650px,
     ),
     'lootboxModalBodyPadding': ef.size(6) 0 0,
-    'lootboxModalBodyBg': url('/gstatic/wlc/bonuses/lootbox/lootbox-modal-bg.jpg') no-repeat center,
+    'lootboxModalBodyBg': ef.static('wlc/bonuses/lootbox/lootbox-modal-bg.jpg') no-repeat center,
     'lootboxModalBodyBgSize': cover,
     // lootbox-modal
 ), $customThemeDefault);

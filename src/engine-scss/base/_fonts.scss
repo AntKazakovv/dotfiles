@@ -57,8 +57,8 @@
     font-family: CryptocurrencySymbols;
     font-style: normal;
     src:
-        url('/gstatic/wlc/fonts/Cryptocurrencies/cryptocurrency-symbols.woff2') format('woff2'),
-        url('/gstatic/wlc/fonts/Cryptocurrencies/cryptocurrency-symbols.woff') format('woff');
+        ef.static('wlc/fonts/Cryptocurrencies/cryptocurrency-symbols.woff2') format('woff2'),
+        ef.static('wlc/fonts/Cryptocurrencies/cryptocurrency-symbols.woff') format('woff');
     font-display: block;
 }
 
@@ -89,7 +89,7 @@ $fontConfig: (
         weight: (100, 300, 400, 500, 600),
         style: (normal),
         format: ('woff2', 'woff'),
-        path: '/gstatic/wlc/fonts/Inter/inter-v3-vietnamese_latin-ext_latin_greek-ext_greek_cyrillic-ext_cyrillic',
+        path: ef.static('wlc/fonts/Inter/inter-v3-vietnamese_latin-ext_latin_greek-ext_greek_cyrillic-ext_cyrillic', true),
     );
     @include initFont($fontConfig, $inter);
 }
@@ -100,7 +100,7 @@ $fontConfig: (
         weight: (100, 300, 400, 500, 700, 900),
         style: (normal, italic),
         format: ('woff2', 'woff'),
-        path: '/gstatic/wlc/fonts/Roboto/roboto-v20-vietnamese_latin-ext_latin_greek-ext_greek_cyrillic-ext_cyrillic',
+        path: ef.static('wlc/fonts/Roboto/roboto-v20-vietnamese_latin-ext_latin_greek-ext_greek_cyrillic-ext_cyrillic', true),
     );
     @include initFont($fontConfig, $roboto);
 }

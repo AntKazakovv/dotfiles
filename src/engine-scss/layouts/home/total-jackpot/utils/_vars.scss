@@ -1,6 +1,6 @@
 $customThemeTotalJackpot: () !default;
 $themeTotalJackpot: map-merge((
-    'sectionBackground': url('/gstatic/wlc/jackpots/total-jackpot-bg.jpg'),
+    'sectionBackground': ef.static('wlc/jackpots/total-jackpot-bg.jpg'),
     'sectionBorderRadius': ef.size(2),
     'sectionHeight': (
         375: 250px,
@@ -13,7 +13,7 @@ $themeTotalJackpot: map-merge((
         375: 20px,
     ),
 
-    'secondaryBackground': url('/gstatic/wlc/jackpots/total-jackpot-coins.png'),
+    'secondaryBackground': ef.static('wlc/jackpots/total-jackpot-coins.png'),
     'secondaryBackgroundHeight': (
         375: 120px,
         720: 175px,
