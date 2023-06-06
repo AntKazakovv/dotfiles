@@ -179,12 +179,14 @@ export class MenuComponent extends AbstractComponent implements OnInit, OnChange
         item.expand = !item.expand;
     }
 
-    public override ngOnChanges(changes: SimpleChanges): void {
+    public override async ngOnChanges(changes: SimpleChanges): Promise<void> {
         super.ngOnChanges(changes);
         if (!this.inited) {
             return;
         }
-        this.initItems();
+        await this.initItems();
+        // TODO after #465119
+        this.initSliderConfig();
     }
 
     public ngAfterContentChecked(): void {
