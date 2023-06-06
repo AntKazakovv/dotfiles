@@ -1,4 +1,5 @@
 import {
+    ChangeDetectionStrategy,
     Component,
     Inject,
     Input,
@@ -27,16 +28,13 @@ import {TPromoSuccessStatus} from 'wlc-engine/modules/bonuses/components/promo-s
 
 import * as Params from 'wlc-engine/modules/bonuses/components/enter-promocode/enter-promocode.params';
 
-// TODO:REFACTOR:change-detection-rule
-// eslint-disable-next-line @angular-eslint/prefer-on-push-component-change-detection
 @Component({
     selector: '[wlc-enter-promocode]',
     templateUrl: './enter-promocode.component.html',
     styleUrls: ['./styles/enter-promocode.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class EnterPromocodeComponent
-    extends AbstractComponent
-    implements OnInit, OnDestroy {
+export class EnterPromocodeComponent extends AbstractComponent implements OnInit, OnDestroy {
 
     @Input() public inlineParams: Params.IEnterPromocodeCParams;
     @Input() public title: string;
