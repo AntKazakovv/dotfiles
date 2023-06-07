@@ -306,8 +306,7 @@ export class GamesGridComponent extends AbstractComponent implements OnInit, OnD
             return;
         }
 
-        this.gamesRowsLoaded += this.$params.gamesRows;
-
+        this.gamesRowsLoaded += this.$params.gamesRowsOnShowMore || this.$params.gamesRows;
         this.setGridParams();
 
         if (this.$params.moreBtn?.scrollToEnd && !this.useLazy) {

@@ -104,6 +104,7 @@ export interface IGamesGridTabletSettings {
 
 export interface IGamesGridBreakpoints {
     gamesRows?: number;
+    gamesRowsOnShowMore?: number;
     showTitle?: boolean;
     showAllLink?: IGamesGridShowAllLink;
     moreBtn?: IGamesGridMoreBtn;
@@ -131,6 +132,10 @@ export interface IGamesGridCParams extends IComponentParams<ComponentTheme, Comp
      * Amount of rows in a grid. `4` by default.
      */
     gamesRows?: number;
+    /**
+     * Amount of rows of rows which are shown on button showMore click. gamesRows by default.
+     */
+    gamesRowsOnShowMore?: number;
     /**
      * List of games, which will be showed in games grid (filtering logic not needed)
      */
