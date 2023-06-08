@@ -1,0 +1,71 @@
+$customThemeDefault: () !default;
+$themeDefault: map-merge((
+    'gridColumns': (
+        375: 1fr 1fr,
+        900: 1fr auto auto 1fr,
+    ),
+    'backgroundColor': var(--mc-bgModal),
+    'gridAreas': (
+        375:
+        'text button'
+        'link button',
+        900:
+        'text text button link',
+    ),
+    'gridAreasWoBtn': (
+        375:
+        'text text'
+        'link link',
+        900:
+        'text text link link',
+    ),
+    'alignItemsNotify': center,
+    'justifyItemsNotify': center,
+    'minHeightNotify': 70px,
+    'columnGapNotify': (
+        375: ef.size(6),
+        480: ef.size(2),
+    ),
+    'btnBorder': 1px solid #fff,
+    'btnHeight': auto,
+    'btnMarginLeft': ef.size(6),
+    'btnPadding': ef.size(1) 13px,
+    'btnCloseWidth': ef.size(6),
+    'btnCloseHeight': ef.size(6),
+    'btnCloseMargin': 0 0 0 auto,
+    'btnClosePadding': 0,
+    'btnCloseOpacity': 0.5,
+    'btnCloseOpacityHover': 0.8,
+    'lineHeightLink': 0.5,
+    'display': grid,
+    'padding': (
+        375: ef.size(3) ef.size(3) ef.size(2),
+        480: 0 ef.size(5),
+        1024: 0 ef.size(8),
+    ),
+    'messageTextStyle': (
+        375: 'PrimaryTextBold',
+        1024: 'ThirdTitleBold',
+    ),
+    'messageTextColor': #fff,
+    'linkTextStyle': 'ButtonText',
+    'linkTextColor': #fff,
+    'verLinkMarginRight': ef.size(8),
+    'btnTextStyle': (
+        375: 'CaptionTextBold',
+        1024: 'ButtonText',
+    ),
+    'btnCloseColor': var(--mc-baseMain),
+    'btnMailHoverColor': #fff,
+    'btnMailHoverBackgroundColor': var(--mc-baseOpacity),
+    'btnMailBorderColor': #fff,
+    'btnTextColor': #fff,
+    'btnMinHeight': (
+        375: ef.size(6),
+        1024: ef.size(8),
+    ),
+    'btnJustifySelf': (
+        375: start,
+        480: center,
+    ),
+), $customThemeDefault);

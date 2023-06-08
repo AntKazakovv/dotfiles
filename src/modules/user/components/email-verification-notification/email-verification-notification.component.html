@@ -1,0 +1,27 @@
+<ng-container *ngIf="show$ | async">
+    <div class="{{$class}}__message-wrp">
+        <div class="{{$class}}__message">
+            {{'Your e-mail has not been confirmed!' | translate}}
+        </div>
+    </div>
+    <button wlc-button
+            *ngIf="$params.useButtonGoToMail"
+            class="{{$class}}__mail-btn"
+            themeMod="secondary"
+            text="{{'Go to your mail' | translate}}"
+            (click)="goToMail()">
+    </button>
+    <div class="{{$class}}__link-wrp"
+        [class.without-btn]="!$params.useButtonGoToMail">
+        <a class="{{$class}}__verification-link"
+            (click)="sendVerificationLink()">
+            {{'Send again' | translate}}
+        </a>
+    </div>
+    <button wlc-button
+            class="{{$class}}__close"
+            theme="cleared"
+            (click)="close()"
+            iconPath="/wlc/icons/close.svg">
+    </button>
+</ng-container>

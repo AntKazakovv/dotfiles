@@ -1,0 +1,124 @@
+.wlc-email-verification-notification--theme-default:host {
+
+    &.wlc-email-verification-notification--show {
+        @include bm.get-mq-map('grid-template-columns', $themeDefault, 'gridColumns');
+        @include bm.get-mq-map('grid-template-areas', $themeDefault, 'gridAreas');
+        @include bm.get-mq-map('padding', $themeDefault, 'padding');
+        @include bm.get-mq-map('column-gap', $themeDefault, 'columnGapNotify');
+        display: ef.get-value($themeDefault, 'display');
+        align-items: ef.get-value($themeDefault, 'alignItemsNotify');
+        justify-items: ef.get-value($themeDefault, 'justifyItemsNotify');
+        min-height: ef.get-value($themeDefault, 'minHeightNotify');
+        background: ef.get-value($themeDefault, 'backgroundColor');
+
+        &.wlc-email-verification-notification--without-btn {
+            @include bm.get-mq-map('grid-template-areas', $themeDefault, 'gridAreasWoBtn');
+        }
+    }
+
+    .wlc-email-verification-notification {
+
+        &__message-wrp {
+            grid-area: text;
+            align-self: end;
+            justify-self: start;
+
+            @include mq.min(900) {
+                grid-column: 2/3;
+                align-self: auto;
+                justify-self: unset;
+            }
+        }
+
+        &__link-wrp {
+            grid-area: link;
+            justify-self: end;
+            line-height: ef.get-value($themeDefault, 'lineHeightLink');
+
+            &.without-btn {
+                @include mq.min(900) {
+                    justify-self: start;
+                }
+            }
+
+            @include mq.max(900) {
+                justify-self: start;
+            }
+        }
+
+        &__message {
+            @include text.get-text-style(ef.get-value($themeDefault, 'messageTextStyle', 375), ef.get-value($themeDefault, 'messageTextColor'));
+
+            @include mq.min(1024) {
+                @include text.get-text-style(ef.get-value($themeDefault, 'messageTextStyle', 1024), ef.get-value($themeDefault, 'messageTextColor'));
+            }
+        }
+
+        &__verification-link {
+            @include text.get-text-style(ef.get-value($themeDefault, 'linkTextStyle'), ef.get-value($themeDefault, 'linkTextColor'));
+            cursor: pointer;
+
+            @include bm.hover {
+                text-decoration: none;
+            }
+
+            @include mq.min(900) {
+                margin-right: ef.get-value($themeDefault, 'verLinkMarginRight');
+            }
+        }
+
+        &__mail-btn {
+            @include bm.get-mq-map('min-height', $themeDefault, 'btnMinHeight');
+            @include bm.get-mq-map('justify-self', $themeDefault, 'btnJustifySelf');
+            grid-area: button;
+            border: ef.get-value($themeDefault, 'btnBorder');
+            height: ef.get-value($themeDefault, 'btnHeight');
+            padding: ef.get-value($themeDefault, 'btnPadding');
+
+            ::ng-deep {
+
+                .wlc-btn__text {
+                    @include text.get-text-style(
+                        ef.get-value($themeDefault, 'btnTextStyle', 375),
+                        ef.get-value($themeDefault, 'btnTextColor')
+                    );
+
+                    @include mq.min(1024) {
+                        @include text.get-text-style(
+                            ef.get-value($themeDefault, 'btnTextStyle', 1024),
+                            null
+                        );
+                    }
+                }
+            }
+
+            @include bm.hover {
+                color: ef.get-value($themeDefault, 'btnMailHoverColor');
+                background: ef.get-value($themeDefault, 'btnMailHoverBackgroundColor');
+                border-color: ef.get-value($themeDefault, 'btnMailBorderColor');
+            }
+        }
+
+        &__close {
+            position: absolute;
+            right: 5px;
+            width: ef.get-value($themeDefault, 'btnCloseWidth');
+            height: ef.get-value($themeDefault, 'btnCloseHeight');
+            margin: ef.get-value($themeDefault, 'btnCloseMargin');
+            padding: ef.get-value($themeDefault, 'btnClosePadding');
+            color: ef.get-value($themeDefault, 'btnCloseColor');
+            background: transparent;
+            opacity: ef.get-value($themeDefault, 'btnCloseOpacity');
+            appearance: none;
+            border: none;
+
+            &:focus {
+                outline: none;
+            }
+
+            @include bm.hover {
+                opacity: ef.get-value($themeDefault, 'btnCloseOpacityHover');
+            }
+        }
+    }
+}

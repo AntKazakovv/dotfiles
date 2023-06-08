@@ -44,6 +44,10 @@ import {UserNameComponent} from './components/user-name/user-name.component';
 import {SocialNetworksComponent} from './components/social-networks/social-networks.component';
 import {SocialSignUpFormComponent} from './components/social-sign-up-form/social-sign-up-form.component';
 import {
+    EmailVerificationNotificationComponent,
+} from './components/email-verification-notification/email-verification-notification.component';
+
+import {
     DeviceRegistrationFormComponent,
 } from 'wlc-engine/modules/user/components/device-registration-form/device-registration-form.component';
 import {
@@ -85,6 +89,7 @@ export const components = {
     'wlc-user-info': UserInfoComponent,
     'wlc-user-name': UserNameComponent,
     'wlc-user-stats': UserStatsComponent,
+    'wlc-email-verification-notification': EmailVerificationNotificationComponent,
 };
 
 @NgModule({
@@ -117,6 +122,7 @@ export const components = {
         UserInfoComponent,
         UserNameComponent,
         UserStatsComponent,
+        EmailVerificationNotificationComponent,
     ],
     imports: [
         CommonModule,
@@ -154,6 +160,7 @@ export const components = {
         UserInfoComponent,
         UserNameComponent,
         UserStatsComponent,
+        EmailVerificationNotificationComponent,
     ],
 })
 export class UserModule {
