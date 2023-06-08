@@ -6,7 +6,7 @@
 
     function tryLoadFromMirror(mirror) {
         const img = new Image();
-        img.src = '//' + mirror + '/gstatic/wlc/icons/arrow.svg';
+        img.src = '//' + mirror + '/static/images/logo.svg';
         img.onload = function () {
             startRedirect(mirror);
         };
