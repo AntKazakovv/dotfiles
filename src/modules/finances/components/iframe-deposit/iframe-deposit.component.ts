@@ -1,4 +1,5 @@
 import {
+    ChangeDetectionStrategy,
     Component,
     OnInit,
     Inject,
@@ -9,12 +10,11 @@ import {AbstractComponent} from 'wlc-engine/modules/core';
 
 import * as Params from './iframe-deposit.params';
 
-// TODO:REFACTOR:change-detection-rule
-// eslint-disable-next-line @angular-eslint/prefer-on-push-component-change-detection
 @Component({
     selector: '[wlc-iframe-deposit]',
     templateUrl: './iframe-deposit.component.html',
     styleUrls: ['./styles/iframe-deposit.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class IframeDepositComponent extends AbstractComponent implements OnInit {
 
