@@ -84,7 +84,7 @@ export abstract class PepAbstractModalComponent extends AbstractComponent implem
         return this.modalService.getActiveModal(this.modalId)?.ref?.instance ?? null;
     }
 
-    protected goBackOnHidden(goBackToModalId: PepModalId): void {
+    protected goBackOnHidden(goBackToModalId: PepModalId, params: unknown): void {
         const modal = this.getModal();
 
         if (modal) {
@@ -92,7 +92,7 @@ export abstract class PepAbstractModalComponent extends AbstractComponent implem
                 modal.closeReason = 'goBack';
                 this.modalService.closeAllModals();
 
-                await this.modalService.showModal(goBackToModalId);
+                await this.modalService.showModal(goBackToModalId, params);
                 modal.closeReason = '';
             };
         }

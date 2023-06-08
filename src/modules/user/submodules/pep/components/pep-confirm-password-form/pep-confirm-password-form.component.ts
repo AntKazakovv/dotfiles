@@ -61,7 +61,9 @@ export class PepConfirmPasswordFormComponent extends PepAbstractModalComponent i
 
     public override ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
-        this.goBackOnHidden('pepInfo');
+        this.goBackOnHidden('pepInfo', {
+            pep: this.$params.pep,
+        });
     }
 
     public async ngSubmit(form: UntypedFormGroup): Promise<boolean> {
