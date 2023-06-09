@@ -3,6 +3,7 @@
 @use 'engine-scss/mixins/base.mixins' as bm;
 @use 'modules/core/components/button/styles/utils/mixins' as button;
 @use 'engine-scss/mixins/common.mixins' as cm;
+@use 'engine-scss/engine.variables' as ev;
 
 @import './utils/vars';
 

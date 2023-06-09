@@ -8,18 +8,12 @@
 
         .wlc-bonuses-history__filter {
             display: ef.get-value($themeDefault, 'filterDisplay');
-            grid-auto-columns: max-content;
-            grid-auto-flow: column;
+            flex-wrap: wrap;
             gap: ef.get-value($themeDefault, 'filterGap');
-            align-items: flex-end;
             margin: ef.get-value($themeDefault, 'filterMargin');
 
             .wlc-select[wlc-select] {
-                min-width: ef.get-value($themeDefault, 'filterMinWidth');
-            }
-
-            .wlc-sections__profile-content--theme-first & {
-                display: ef.get-value($themeDefault, 'filterDisplayV1');
+                width: ef.get-value($themeDefault, 'filterWidth');
             }
         }
 

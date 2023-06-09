@@ -1,23 +1,12 @@
 $customThemeDefault: () !default;
 $themeDefault: map-merge((
-    'sectionDisplay': grid,
-
+    'sectionDisplay': flex,
     'sectionMargin': (
         1024: ef.size(4) 0 0,
     ),
     'sectionLoaderMinHeight': 400px,
-
-    'filterAlignItems': (
-        1024: flex-end,
-    ),
     'filterMargin': (
         1024: 0 0 ef.size(4),
-    ),
-    'filterGridAutoFlow': (
-        1024: column
-    ),
-    'filterGridAutoColumns': (
-        1024: max-content
     ),
     'filterGap': (
         1024: ef.size(3)
@@ -25,13 +14,11 @@ $themeDefault: map-merge((
     'filterBtnGap': (
         1024: 0 ef.size(3)
     ),
-    'filterMinWidth': 140px,
+    'filterWidth': ef.get-value(ev.$profileSettings, 'filterWidth'),
     'filterBtnMinWidth': 110px,
-
     'btnMinHeight': 40px,
     'labelAreas': 'label label label' '. . .',
-
-    'actionTextOpacity':  (
+    'actionTextOpacity': (
         1024: 1,
         1200: 0,
     ),
@@ -40,18 +27,7 @@ $themeDefault: map-merge((
     ),
     'firstCellColumns': 1fr auto,
     'firstCellColumnsMobileApp': 1fr auto,
-    'gridTemplateArea': (
-        375: 'range' 'table',
-        1024: 'filter filter filter range' 'table table table table',
-    ),
     'rangeMargin': (
         375: 0 0 ef.size(4),
-    ),
-    'rangeAlignItems': (
-        375: flex-end,
-    ),
-    'rangeJustifyContent': (
-        375: flex-start,
-        1024: flex-end,
     ),
 ), $customThemeDefault);

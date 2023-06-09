@@ -1,6 +1,6 @@
 $customThemeDefault: () !default;
 $themeDefault: map-merge((
-    'historyRangeTextStyle': 'CaptionText',
+    'historyRangeTextStyle': 'PrimaryText',
     'historyRangeColor': var(--mc-baseOpacity),
-    'margin': 0 5px 0 0,
+    'historyRangeMargin': 0 0 ef.size(4),
 ), $customThemeDefault);

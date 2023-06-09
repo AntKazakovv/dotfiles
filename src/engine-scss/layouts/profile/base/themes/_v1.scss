@@ -71,10 +71,6 @@
         &.underlined {
             @include bm.get-mq-map('border-bottom', $profileSettings, 'contentHeaderBorderBottomV1');
             @include bm.get-mq-map('margin', $profileSettings, 'contentHeaderUnderlinedMarginV1');
-
-            .wlc-history-range {
-                padding: ef.get-value($profileSettingsThemeFirst, 'historyRangePadding');
-            }
         }
 
         .wlc-title[class] {
@@ -86,13 +82,6 @@
                     @include text.get-text-style(ef.get-value($profileSettings, 'titleTextStyleV1', 1200), ef.get-value($profileSettings, 'titleColorV1'));
                 }
             }
-        }
-    }
-
-    .wlc-profile-content__body {
-
-        .wlc-history-range {
-            margin: ef.get-value($profileSettingsThemeFirst, 'historyRangeMargin');
         }
     }
 }

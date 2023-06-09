@@ -4,11 +4,10 @@ $themeDefault: map-merge((
     'sectionLoaderMinHeight': 400px,
     'filterMargin': 0 0 ef.size(4) ,
     'filterGap': ef.size(3),
-    'filterMinWidth': 140px,
+    'filterWidth': ef.get-value(ev.$profileSettings, 'filterWidth'),
     'firstCellColumns':  1fr auto,
     'historyNameGap': ef.size(2),
-    'filterDisplay': grid,
-    'filterDisplayV1': grid,
+    'filterDisplay': flex,
     'historyNamePadding': (
         1024: 0 0 0 ef.size(2),
     ),

@@ -2,24 +2,23 @@
 
     &:host {
         @include bm.get-mq-map('margin', $themeDefault, 'sectionMargin');
-        @include bm.get-mq-map('grid-template-areas', $themeDefault, 'gridTemplateArea');
-        display: grid;
 
         .wlc-loader {
             min-height: ef.get-value($themeDefault, 'sectionLoaderMinHeight');
         }
 
         .wlc-transaction-history__filter {
-            @include bm.get-mq-map('align-items', $themeDefault, 'filterAlignItems');
             @include bm.get-mq-map('margin', $themeDefault, 'filterMargin');
-            @include bm.get-mq-map('grid-auto-flow', $themeDefault, 'filterGridAutoFlow');
-            @include bm.get-mq-map('grid-auto-columns', $themeDefault, 'filterGridAutoColumns');
             @include bm.get-mq-map('gap', $themeDefault, 'filterGap');
             display: ef.get-value($themeDefault, 'sectionDisplay');
-            grid-area: filter;
+            flex-wrap: wrap;
 
             .wlc-select[wlc-select] {
-                min-width: ef.get-value($themeDefault, 'filterMinWidth');
+                width: ef.get-value($themeDefault, 'filterWidth');
+            }
+
+            .wlc-datepicker--theme-default[class] {
+                max-width: ef.get-value($themeDefault, 'filterWidth');
             }
         }
 
@@ -39,23 +38,7 @@
             }
         }
 
-        .wlc-history-range--theme-default::ng-deep {
-            @include bm.get-mq-map('margin', $themeDefault, 'rangeMargin');
-            grid-area: range;
-
-            &.wlc-history-range__content {
-                @include bm.get-mq-map('align-items', $themeDefault, 'rangeAlignItems');
-                @include bm.get-mq-map('justify-content', $themeDefault, 'rangeJustifyContent');
-                height: 100%;
-            }
-        }
-
-        .wlc-loader--theme-default {
-            grid-area: table;
-        }
-
         .wlc-table--theme-default.wlc-table::ng-deep {
-            grid-area: table;
 
             .wlc-table__cell--first {
                 grid-template-columns: ef.get-value($themeDefault, 'firstCellColumns');

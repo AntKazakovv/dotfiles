@@ -276,8 +276,6 @@ $profileSettingsThemeFirst: map-merge((
         1366: 1200px,
         1630: 1370px
     ),
-    'historyRangePadding': size-func(2) 0 0,
-    'historyRangeMargin': 0 0 size-func(4),
 ), $customProfileSettingsThemeFirst);
 
 $customContainerPadding: () !default;

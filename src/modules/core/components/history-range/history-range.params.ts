@@ -10,8 +10,10 @@ export type ThemeMod = 'default' | CustomType;
 
 export interface IHistoryRangeCParams extends IComponentParams<Theme, Type, ThemeMod> {
     historyType: keyof IHistoryDefault;
+    text: string;
 }
 
 export const defaultParams: Partial<IHistoryRangeCParams> = {
     class: 'wlc-history-range',
+    text: gettext('Results'),
 };

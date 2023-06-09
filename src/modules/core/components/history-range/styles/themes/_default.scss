@@ -1,26 +1,8 @@
 .wlc-history-range--theme-default:host {
-
-    .wlc-history-range {
-
-        &__content {
-            display: flex;
-            flex-wrap: wrap;
-            align-items: center;
-        }
-
-        &__value {
-            display: flex;
-            align-items: center;
-        }
-
-        &__name {
-            margin: ef.get-value($themeDefault, 'margin');
-        }
-
-        &__name,
-        &__value {
-            @include text.get-text-style(ef.get-value($themeDefault, 'historyRangeTextStyle'), ef.get-value($themeDefault, 'historyRangeColor'));
-            white-space: nowrap;
-        }
-    }
+    @include text.get-text-style(
+        ef.get-value($themeDefault, 'historyRangeTextStyle'),
+        ef.get-value($themeDefault, 'historyRangeColor')
+    );
+    margin: ef.get-value($themeDefault, 'historyRangeMargin');
+    white-space: nowrap;
 }

@@ -7,21 +7,13 @@
         }
 
         .wlc-tournaments-history__filter {
-            display: none;
+            @include bm.get-mq-map('display', $themeDefault, 'filterDisplay');
+            flex-wrap: wrap;
+            gap: ef.get-value($themeDefault, 'filterGap');
+            margin: ef.get-value($themeDefault, 'filterMargin');
 
             .wlc-select[wlc-select] {
-                min-width: ef.get-value($themeDefault, 'filterMinWidth');
-            }
-
-            @include mq.min(1024) {
-                display: grid;
-                align-items: ef.get-value($themeDefault, 'filterAlignItems');
-                margin: ef.get-value($themeDefault, 'filterMargin');
-                grid: {
-                    auto-flow: ef.get-value($themeDefault, 'filterGridAutoFlow');
-                    auto-columns: ef.get-value($themeDefault, 'filterGrodAutoCols');
-                    gap: ef.get-value($themeDefault, 'filterGap');
-                };
+                width: ef.get-value($themeDefault, 'filterWidth');
             }
         }
 
