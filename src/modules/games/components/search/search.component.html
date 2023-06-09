@@ -65,10 +65,9 @@
         </ng-container>
     </div>
 
-    <div class="{{$class}}__content">
+    <div *ngIf="ready" class="{{$class}}__content">
 
-        <div *ngIf="searchQuery"
-            class="{{$class}}__result">
+        <div *ngIf="searchQuery" class="{{$class}}__result">
             {{'Search query:' | translate}} {{searchQuery}}
         </div>
 

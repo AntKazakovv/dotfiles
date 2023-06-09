@@ -81,7 +81,7 @@ export class SearchFieldComponent extends AbstractComponent implements OnInit, A
                 this.emitSearch(query);
             });
 
-        if (this.inlineParams.searchQueryFromCache) {
+        if (this.inlineParams?.searchQueryFromCache) {
             this.searchQuery = this.inlineParams.searchQueryFromCache;
             this.emitSearch(this.searchQuery);
             this.processSearchStringLength();
