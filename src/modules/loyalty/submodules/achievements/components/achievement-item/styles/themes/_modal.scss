@@ -1,0 +1,34 @@
+.wlc-achievement-item--theme-modal:host {
+
+    .wlc-achievement-item {
+
+        &__container {
+            @include containerCommonStyles($themeModal);
+        }
+
+        &__image-container {
+            @include imageCommonStyles($themeModal);
+        }
+
+        &__progress {
+            @include progressCommonStyles($themeModal);
+        }
+
+        &__name {
+            @include nameCommonStyles($themeModal);
+        }
+
+        &__description {
+            @include descriptionCommonStyles($themeModal);
+        }
+
+        &__button {
+            @include bm.get-mq-map('grid-area', $themeModal, 'buttonArea');
+            @include bm.get-mq-map('margin', $themeModal, 'buttonMargin');
+        }
+
+        &__date {
+            @include dateCommonStyles($themeModal);
+        }
+    }
+}

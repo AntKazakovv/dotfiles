@@ -1181,6 +1181,65 @@ export namespace profileContent {
     export const profileLoyaltyLevelsTypeFirst: ILayoutSectionConfig = profileFirstLoyaltyType(false);
     export const profileLoyaltyLevelsTypeFirstSingle: ILayoutSectionConfig = profileFirstLoyaltyType(true);
 
+    export const profileAchievements: ILayoutSectionConfig = {
+        container: true,
+        components: [
+            componentLib.wlcTitle.profileLoyalty,
+            componentLib.wlcProfileMenu.submenu,
+            componentLib.wlcAchievementsList.def,
+        ],
+    };
+
+    export const profileAchievementsTypeFirst: ILayoutSectionConfig = {
+        container: true,
+        theme: 'first',
+        components: [
+            componentLib.wlcProfileMenu.defTypeFirst,
+            {
+                name: 'core.wlc-wrapper',
+                params: {
+                    class: 'wlc-profile-content__header',
+                    components: [
+                        componentLib.wlcTitle.profileLoyalty,
+                    ],
+                },
+                display: {
+                    before: 1199,
+                },
+            },
+            componentLib.wlcProfileMenu.subMenuV1,
+            {
+                name: 'core.wlc-wrapper',
+                params: {
+                    class: 'wlc-profile-content',
+                    components: [
+                        {
+                            name: 'core.wlc-wrapper',
+                            params: {
+                                class: 'wlc-profile-content__header underlined',
+                                components: [
+                                    componentLib.wlcTitle.profileAchievements,
+                                ],
+                            },
+                            display: {
+                                after: 1200,
+                            },
+                        },
+                        {
+                            name: 'core.wlc-wrapper',
+                            params: {
+                                class: 'wlc-profile-content__body',
+                                components: [
+                                    componentLib.wlcAchievementsList.def,
+                                ],
+                            },
+                        },
+                    ],
+                },
+            },
+        ],
+    };
+
     export const profileMessages: ILayoutSectionConfig = {
         container: true,
         components: [

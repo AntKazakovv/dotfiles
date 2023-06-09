@@ -22,6 +22,7 @@ export type TModuleName =
     | 'monitoring'
     | 'internal-mails'
     | 'loyalty'
+    | 'achievements'
     | 'metamask'
     | 'history'
     | 'mobile'
@@ -154,6 +155,11 @@ export const modulesApp: Record<TModuleName, IFunctionImportModule> = {
         const m = await import('wlc-engine/modules/loyalty/loyalty.module');
         callback(name, m);
         return m.LoyaltyModule;
+    },
+    'achievements': async (name: TModuleName, callback: Function) => {
+        const m = await import('wlc-engine/modules/loyalty/submodules/achievements/achievements.module');
+        callback(name, m);
+        return m.AchievementsModule;
     },
     'metamask': async (name: TModuleName, callback: Function) => {
         const m = await import('wlc-engine/modules/metamask/metamask.module');

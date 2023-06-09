@@ -1,0 +1,13 @@
+.wlc-achievement-list--theme-default:host {
+
+    .wlc-achievement-list {
+
+        &__list {
+            @include bm.get-mq-map('grid-template-columns', $themeDefault, 'listGridColumns');
+            @include bm.get-mq-map('gap', $themeDefault, 'listGridGap');
+            @include bm.get-mq-map('margin', $themeDefault, 'listMargin');
+
+            display: grid;
+        }
+    }
+}

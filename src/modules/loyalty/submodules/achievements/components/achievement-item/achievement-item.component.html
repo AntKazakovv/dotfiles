@@ -1,0 +1,88 @@
+<ng-container [ngSwitch]="$params.type">
+    <ng-container [ngTemplateOutlet]="typeModal" *ngSwitchCase="'modal'"></ng-container>
+    <ng-container [ngTemplateOutlet]="typeDefault" *ngSwitchDefault></ng-container>
+</ng-container>
+
+<!-- default -->
+<ng-template #typeDefault>
+    <div class="{{$class}}__container {{$class}}__container--{{achievement.status}}">
+        <ng-container [ngTemplateOutlet]="achievementImage"></ng-container>
+        <ng-container *ngIf="showProgress" [ngTemplateOutlet]="achievementProgress"></ng-container>
+        <ng-container *ngIf="achievement.name" [ngTemplateOutlet]="achievementName"></ng-container>
+        <ng-container *ngIf="achievement.description" [ngTemplateOutlet]="achievementDescription"></ng-container>
+        <ng-container *ngIf="showButton" [ngTemplateOutlet]="achievementButton"></ng-container>
+        <ng-container *ngIf="achievement.isReceived" [ngTemplateOutlet]="achievementDate"></ng-container>
+        <div class="{{$class}}__info">
+            <div wlc-icon
+                 class="icon-btn"
+                 iconPath="/wlc/icons/info.svg"
+                 wlcElement="button_terms"
+                 (click)="openDescription()"></div>
+        </div>
+    </div>
+</ng-template>
+
+<!-- modal -->
+<ng-template #typeModal>
+    <div class="{{$class}}__container {{$class}}__container--{{achievement.status}}">
+        <ng-container [ngTemplateOutlet]="achievementImage"></ng-container>
+        <ng-container *ngIf="showProgress" [ngTemplateOutlet]="achievementProgress"></ng-container>
+        <ng-container *ngIf="achievement.name" [ngTemplateOutlet]="achievementName"></ng-container>
+        <ng-container *ngIf="achievement.description" [ngTemplateOutlet]="achievementDescription"></ng-container>
+        <ng-container *ngIf="showButton" [ngTemplateOutlet]="achievementButton"></ng-container>
+        <ng-container *ngIf="achievement.isReceived" [ngTemplateOutlet]="achievementDate"></ng-container>
+    </div>
+</ng-template>
+
+<ng-template #achievementImage>
+    <div class="{{$class}}__image-container">
+        <div wlc-icon
+             [iconUrl]="achievement.currentImage"
+             wlcElement="achievement_image"></div>
+    </div>
+</ng-template>
+
+<ng-template #achievementProgress>
+    <div class="{{$class}}__progress"
+         data-wlc-element="achievement_progress">
+        <div class="{{$class}}__progress-details">
+            {{achievement.progressCurrent}} / {{achievement.progressTotal}}
+        </div>
+        <div class="{{$class}}__progress-line">
+            <div class="{{$class}}__progress-line-inner"
+                 [ngStyle]="{width: achievement.progressPercent + '%'}"></div>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #achievementName>
+    <div class="{{$class}}__name"
+         data-wlc-element="achievement_name">
+        <div class="{{$class}}__name-text">
+            {{achievement.name}}
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #achievementDescription>
+    <div class="{{$class}}__description"
+         data-wlc-element="achievement_description">
+        <div class="{{$class}}__description-text">
+            {{achievement.description}}
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #achievementButton>
+    <div class="{{$class}}__button">
+        <button wlc-button
+                [inlineParams]="buttonParams"></button>
+    </div>
+</ng-template>
+
+<ng-template #achievementDate>
+    <div class="{{$class}}__date"
+         data-wlc-element="achievement_date">
+        {{'Сlaimed' | translate}} {{achievement.receivingDate}}
+    </div>
+</ng-template>

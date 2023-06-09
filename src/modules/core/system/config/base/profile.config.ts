@@ -40,6 +40,9 @@ export const profileConfig: IProfileConfig = {
             use: false,
         },
     },
+    achievements: {
+        use: false,
+    },
     type: 'default',
     legalAge: 18,
 };

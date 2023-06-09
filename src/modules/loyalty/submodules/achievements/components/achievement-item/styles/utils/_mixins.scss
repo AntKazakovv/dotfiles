@@ -1,0 +1,239 @@
+@mixin containerCommonStyles($theme: $themeDefault) {
+    --image-container-decor-filter: #{ef.get-value($theme, 'imageContainerDecorFilter')};
+
+    @include bm.get-mq-map('grid-template-areas', $theme, 'achievementGridAreas');
+    @include bm.get-mq-map('grid-template-rows', $theme, 'achievementGridRows');
+    @include bm.get-mq-map('grid-template-columns', $theme, 'achievementGridColumns');
+
+    @include bm.get-mq-map('height', $theme, 'achievementHeight');
+    @include bm.get-mq-map('padding', $theme, 'achievementPadding');
+    @include bm.get-mq-map('border-radius', $theme, 'achievementRadius');
+
+    display: grid;
+
+    background: ef.get-value($theme, 'achievementBackground');
+
+    &--received {
+        --image-container-decor-filter: #{ef.get-value($theme, 'imageContainerDecorFilterReceived')};
+    }
+}
+
+@mixin imageCommonStyles($theme: $themeDefault) {
+    @include bm.get-mq-map('grid-area', $theme, 'imageContainerArea');
+
+    @include bm.get-mq-map('width', $theme, 'imageContainerSize');
+    @include bm.get-mq-map('height', $theme, 'imageContainerSize');
+    @include bm.get-mq-map('margin', $theme, 'imageContainerMargin');
+    @include bm.get-mq-map('padding', $theme, 'imageContainerPadding');
+    @include bm.get-mq-map('border-radius', $theme, 'imageContainerRadius');
+
+    position: relative;
+
+    background: ef.get-value($theme, 'imageContainerBackground');
+    box-shadow: ef.get-value($theme, 'imageContainerBoxShadow');
+
+    overflow: hidden;
+
+    &:before {
+        content: '';
+
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+
+        background: ef.get-value($theme, 'imageContainerDecorBackground');
+        filter: var(--image-container-decor-filter);
+    }
+
+    .wlc-icon {
+        position: relative;
+
+        width: 100%;
+        height: 100%;
+
+        &--img {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            ::ng-deep {
+
+                img {
+                    max-width: 100%;
+                    max-height: 100%;
+                }
+            }
+        }
+
+        &--svg {
+
+            ::ng-deep {
+
+                .wlc-icon-content {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+
+                    width: 100%;
+                    height: 100%;
+                }
+
+                svg {
+                    max-width: 100%;
+                    max-height: 100%;
+
+                    fill: ef.get-value($theme, 'imageIconSvgFill');
+
+                    .wlc-body--theme-alt & {
+                        fill: ef.get-value($theme, 'imageIconSvgFillAlt');
+                    }
+                }
+            }
+        }
+    }
+}
+
+@mixin progressCommonStyles($theme: $themeDefault) {
+    @include bm.get-mq-map('grid-area', $theme, 'progressArea');
+    @include bm.get-mq-map('width', $theme, 'progressWidth');
+    @include bm.get-mq-map('margin', $theme, 'progressMargin');
+
+    position: relative;
+
+    &-details {
+        @include bm.get-mq-map('margin', $theme, 'progressDetailsMargin');
+        @include bm.get-mq-map('text-align', $theme, 'progressDetailsTextAlign');
+
+        @include text.get-text-style(
+            ef.get-value($theme, 'progressDetailsTextStyle'),
+            ef.get-value($theme, 'progressDetailsColor'),
+        );
+
+        @include mq.min(560) {
+
+            @include text.get-text-style(
+                ef.get-value($theme, 'progressDetailsTextStyle', 560),
+                null,
+            );
+        }
+
+        @include mq.min(1024) {
+
+            @include text.get-text-style(
+                ef.get-value($theme, 'progressDetailsTextStyle', 1024),
+                null,
+            );
+        }
+    }
+
+    &-line {
+        @include bm.get-mq-map('display', $theme, 'progressLineDisplay');
+        @include bm.get-mq-map('height', $theme, 'progressLineHeight');
+
+        border-radius: ef.get-value($theme, 'progressLineRadius');
+        background: ef.get-value($theme, 'progressLineBackground');
+        box-shadow: ef.get-value($theme, 'progressLineBoxShadow');
+
+        overflow: hidden;
+
+        &-inner {
+            height: 100%;
+
+            border-radius: ef.get-value($theme, 'progressLineInnerRadius');
+            background: ef.get-value($theme, 'progressLineInnerBackground');
+        }
+    }
+}
+
+@mixin nameCommonStyles($theme: $themeDefault) {
+    @include bm.get-mq-map('grid-area', $theme, 'nameArea');
+    @include bm.get-mq-map('margin', $theme, 'nameMargin');
+
+    &-text {
+        @include bm.get-mq-map('text-align', $theme, 'nameTextAlign');
+        @include bm.lineClamp(map-get($theme, 'nameLineClamp'));
+
+        @include text.get-text-style(
+            ef.get-value($theme, 'nameTextStyle'),
+            ef.get-value($theme, 'nameColor'),
+        );
+
+        @include mq.min(560) {
+
+            @include text.get-text-style(
+                ef.get-value($theme, 'nameTextStyle', 560),
+                null,
+            );
+        }
+
+        @include mq.min(1024) {
+
+            @include text.get-text-style(
+                ef.get-value($theme, 'nameTextStyle', 1024),
+                null,
+            );
+        }
+    }
+}
+
+@mixin descriptionCommonStyles($theme: $themeDefault) {
+    @include bm.get-mq-map('grid-area', $theme, 'descriptionArea');
+    @include bm.get-mq-map('margin', $theme, 'descriptionMargin');
+
+    &-text {
+        @include bm.get-mq-map('text-align', $theme, 'descriptionTextAlign');
+        @include bm.lineClamp(map-get($theme, 'descriptionLineClamp'));
+
+        @include text.get-text-style(
+            ef.get-value($theme, 'descriptionTextStyle'),
+            ef.get-value($theme, 'descriptionColor'),
+        );
+
+        @include mq.min(560) {
+
+            @include text.get-text-style(
+                ef.get-value($theme, 'descriptionTextStyle', 560),
+                null,
+            );
+        }
+
+        @include mq.min(1024) {
+
+            @include text.get-text-style(
+                ef.get-value($theme, 'descriptionTextStyle', 1024),
+                null,
+            );
+        }
+    }
+}
+
+@mixin dateCommonStyles($theme: $themeDefault) {
+    @include bm.get-mq-map('grid-area', $theme, 'dateArea');
+    @include bm.get-mq-map('margin', $theme, 'dateMargin');
+    @include bm.get-mq-map('text-align', $theme, 'dateTextAlign');
+
+    @include text.get-text-style(
+        ef.get-value($theme, 'dateTextStyle'),
+        ef.get-value($theme, 'dateColor'),
+    );
+
+    position: relative;
+
+    @include mq.min(560) {
+
+        @include text.get-text-style(
+            ef.get-value($theme, 'dateTextStyle', 560),
+            null,
+        );
+    }
+
+    @include mq.min(1024) {
+
+        @include text.get-text-style(
+            ef.get-value($theme, 'dateTextStyle', 1024),
+            null,
+        );
+    }
+}

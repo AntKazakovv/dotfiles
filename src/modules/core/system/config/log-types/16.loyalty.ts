@@ -5,4 +5,8 @@ export const errorTypes: ILogTypes = {
         // 'Error occurred while getting loyalty levels
         level: 'error',
     },
+    '16.0.1': {
+        // 'Error occurred while getting achievements
+        level: 'error',
+    },
 };

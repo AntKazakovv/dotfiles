@@ -1,0 +1,9 @@
+$customThemeDefault: () !default;
+$themeDefault: map-merge((
+    'listGridColumns': (
+        375: 1fr,
+        768: 1fr 1fr,
+    ),
+    'listGridGap': ef.size(4),
+    'listMargin': 0,
+), $customThemeDefault);

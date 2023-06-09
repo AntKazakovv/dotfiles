@@ -55,6 +55,15 @@ export interface IProfileConfig {
      * Specifies should be shown user id from Fundist or not
      */
     fundistUserId?: IFundistUserId;
+    /**
+     * Achievements
+     */
+    achievements?: {
+        /**
+         * Enable achievements
+         */
+        use: boolean;
+    }
 }
 
 export interface IFundistUserId {

@@ -307,6 +307,15 @@ export namespace wlcTitle {
         },
     };
 
+    export const profileAchievements: ILayoutComponent = {
+        name: 'core.wlc-title',
+        params:  <ITitleCParams>{
+            customMod: ['profile'],
+            mainText: gettext('Achievements'),
+            wlcElement: 'header_achievements',
+        },
+    };
+
     export const totalJackpot: ILayoutComponent = {
         name: 'core.wlc-title',
         params: {

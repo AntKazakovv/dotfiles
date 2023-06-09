@@ -304,6 +304,37 @@ export const MODALS_LIST: IModalList = {
             },
         },
     },
+    achievementInfo: {
+        config: {
+            id: 'achievement-info',
+            componentName: 'achievements.wlc-achievement-item',
+            componentParams: {
+                type: 'modal',
+                theme: 'modal',
+                buttonParams: {
+                    Bet: {
+                        theme: 'default',
+                    },
+                    Deposit: {
+                        theme: 'default',
+                    },
+                    GroupWins: {
+                        theme: 'default',
+                    },
+                    Verification: {
+                        theme: 'default',
+                    },
+                    Win: {
+                        theme: 'default',
+                    },
+                    Withdrawal: {
+                        theme: 'default',
+                    },
+                },
+            },
+            showFooter: false,
+        },
+    },
     bonusModal: {
         config: {
             id: 'bonus-modal',

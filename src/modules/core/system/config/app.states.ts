@@ -70,6 +70,7 @@ let states = {
     'app.profile.payments': States.profilePaymentsState,
     'app.profile.limits': States.profileLimitsState,
     'app.profile.loyalty-level': States.profileLoyaltyLevelState,
+    'app.profile.achievements': States.profileAchievementsState,
     'app.profile.dashboard': States.profileDashboardState,
     'app.error': States.errorPageState,
     'app.offline': States.offlineState,

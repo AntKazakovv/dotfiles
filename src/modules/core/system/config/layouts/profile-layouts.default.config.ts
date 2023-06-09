@@ -129,6 +129,12 @@ export const $profileLayouts: IPanelsConfig = {
             'profile-content': sectionsLib.profileContent.profileLoyaltyLevelsSingle,
         },
     },
+    'app.profile.achievements': {
+        extends: 'app.profile',
+        sections: {
+            'profile-content': sectionsLib.profileContent.profileAchievements,
+        },
+    },
     'app.profile.messages': {
         extends: 'app.profile',
         sections: {

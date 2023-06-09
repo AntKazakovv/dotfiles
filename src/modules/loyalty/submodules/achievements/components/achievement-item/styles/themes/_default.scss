@@ -1,0 +1,87 @@
+.wlc-achievement-item--theme-default:host {
+
+    .wlc-achievement-item {
+
+        &__container {
+            @include containerCommonStyles($themeDefault);
+        }
+
+        &__image-container {
+            @include imageCommonStyles($themeDefault);
+        }
+
+        &__progress {
+            @include progressCommonStyles($themeDefault);
+        }
+
+        &__name {
+            @include nameCommonStyles($themeDefault);
+        }
+
+        &__description {
+            @include descriptionCommonStyles($themeDefault);
+        }
+
+        &__button {
+            @include bm.get-mq-map('grid-area', $themeDefault, 'buttonArea');
+            @include bm.get-mq-map('margin', $themeDefault, 'buttonMargin');
+
+            .wlc-btn {
+                @include text.get-text-style(
+                    ef.get-value($themeDefault, 'buttonTextStyle'),
+                    ef.get-value($themeDefault, 'buttonColor')
+                );
+
+                @include bm.hover {
+                    color: ef.get-value($themeDefault, 'buttonColorHover');
+                }
+
+                @include mq.min(1024) {
+
+                    @include text.get-text-style(
+                        ef.get-value($themeDefault, 'buttonTextStyle', 1024),
+                        null,
+                    );
+                }
+            }
+        }
+
+        &__date {
+            @include dateCommonStyles($themeDefault);
+        }
+
+        &__info {
+            @include bm.get-mq-map('grid-area', $themeDefault, 'infoArea');
+            @include bm.get-mq-map('margin', $themeDefault, 'infoMargin');
+
+            position: relative;
+
+            .wlc-icon {
+                cursor: pointer;
+
+                ::ng-deep {
+
+                    svg {
+                        @include bm.get-mq-map('width', $themeDefault, 'infoIconWidth');
+                        @include bm.get-mq-map('height', $themeDefault, 'infoIconHeight');
+                        @include bm.transition(fill);
+
+                        display: block;
+
+                        fill: ef.get-value($themeDefault, 'infoIconFill');
+                    }
+                }
+
+                @include bm.hover {
+
+                    ::ng-deep {
+
+                        svg {
+                            fill: ef.get-value($themeDefault, 'infoIconFillHover');
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

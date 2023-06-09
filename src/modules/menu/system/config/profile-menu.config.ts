@@ -1109,6 +1109,7 @@ export const wlcProfileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
         params: {
             state: {
                 parent: [
+                    'app.profile.achievements',
                     'app.profile.loyalty-level',
                 ],
                 name: 'app.profile.loyalty-level',
@@ -1127,6 +1128,34 @@ export const wlcProfileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
     'profile-menu:loyalty-level': profileLoyaltyMenuItem,
 
     'profile-first-menu:loyalty-level': profileLoyaltyMenuItem,
+
+    'profile-menu:achievements': {
+        name: gettext('Achievements'),
+        type: 'sref',
+        icon: 'achievements',
+        class: 'achievements',
+        wlcElement: 'link_achievements',
+        params: {
+            state: {
+                name: 'app.profile.achievements',
+                params: {},
+            },
+        },
+    },
+
+    'profile-first-menu:achievements': {
+        name: gettext('Achievements'),
+        type: 'sref',
+        icon: 'achievements',
+        class: 'achievements',
+        wlcElement: 'link_achievements',
+        params: {
+            state: {
+                name: 'app.profile.achievements',
+                params: {},
+            },
+        },
+    },
 
     'profile-menu:cashback-rewards': {
         name: gettext('Cashback'),
@@ -1271,6 +1300,14 @@ export const profileMenuFilter: ProfileMenuParams.IProfileMenuFilter[] = [
     {
         config: '$base.profile.store.singleLevels',
         item: 'profile-first-menu:loyalty',
+    },
+    {
+        config: '$base.profile.achievements.use',
+        item: 'profile-menu:achievements',
+    },
+    {
+        config: '$base.profile.achievements.use',
+        item: 'profile-first-menu:achievements',
     },
     {
         config: '$base.profile.dashboard.use',

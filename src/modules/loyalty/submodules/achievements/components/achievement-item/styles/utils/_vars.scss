@@ -1,0 +1,200 @@
+$customThemeDefault: () !default;
+$themeDefault: map-merge((
+    'achievementGridAreas': (
+        375: (
+            'image    name        name        name        info       '
+            'image    description description description description'
+            'progress progress    button-date button-date button-date'
+        ),
+        1024: (
+            'image-progress name        info       '
+            'image-progress description description'
+            'image-progress button-date button-date'
+        ),
+    ),
+    'achievementGridRows': min-content 1fr min-content,
+    'achievementGridColumns': (
+        375: min-content 1fr 1fr 1fr min-content,
+        1024: min-content 1fr min-content,
+    ),
+    'achievementHeight': (
+        375: 120px,
+        1024: 190px,
+    ),
+    'achievementPadding': (
+        375: ef.size(2),
+        1024: ef.size(4),
+    ),
+    'achievementRadius': ef.get('radius', 'biger'),
+    'achievementBackground': var(--mc-bg300),
+
+    'imageContainerArea': (
+        375: image,
+        1024: image-progress,
+    ),
+    'imageContainerSize': (
+        375: 72px,
+        1024: 150px,
+    ),
+    'imageContainerMargin': (
+        375: 0 ef.size(2) 0 0,
+        1024: 0 ef.size(4) 0 0,
+    ),
+    'imageContainerPadding': (
+        375: ef.size(1),
+        1024: ef.size(3),
+    ),
+    'imageContainerRadius': (
+        375: ef.get('radius', 'less'),
+        1024: ef.get('radius', 'biger'),
+    ),
+    'imageContainerBackground': var(--mc-bg),
+
+    'imageContainerDecorBackground': no-repeat center/cover url('/gstatic/wlc/achievements/background.png'),
+    'imageContainerDecorFilter': grayscale(100%),
+    'imageContainerDecorFilterReceived': initial,
+
+    'imageIconSvgFill': var(--mc-baseContrast-d20),
+    'imageIconSvgFillAlt': var(--mc-baseContrast-d20),
+
+    'progressArea': (
+        375: progress,
+        1024: image-progress,
+    ),
+    'progressWidth': (
+        1024: 120px,
+    ),
+    'progressMargin': (
+        375: auto 0 0 0,
+        1024: auto ef.size(3) ef.size(2),
+    ),
+
+    'progressDetailsMargin': (
+        1024: 0 0 ef.size(1),
+    ),
+    'progressDetailsTextAlign': (
+        1024: center,
+    ),
+    'progressDetailsTextStyle': 'SignText',
+    'progressDetailsColor': var(--mc-baseMain),
+
+    'progressLineDisplay': (
+        375: none,
+        1024: block,
+    ),
+    'progressLineHeight': 6px,
+    'progressLineRadius': ef.get('radius', 'less'),
+    'progressLineBackground': var(--fc-inputBg),
+    'progressLineBoxShadow': inset 0 0 4px rgba(0, 0, 0, 0.25),
+    'progressLineInnerRadius': ef.get('radius', 'less'),
+    'progressLineInnerBackground': var(--mc-main),
+
+    'nameArea': name,
+    'nameLineClamp': 2,
+    'nameTextStyle': (
+        375: 'PrimaryTextBold',
+        1024: 'ThirdTitleBold',
+    ),
+    'nameColor': var(--mc-baseMain),
+
+    'descriptionArea': description,
+    'descriptionMargin': (
+        1024: ef.size(2) 0 0,
+    ),
+    'descriptionLineClamp': (
+        375: 2,
+        1024: 3,
+    ),
+    'descriptionTextStyle': (
+        375: 'CaptionText',
+        1024: 'PrimaryText',
+    ),
+    'descriptionColor': var(--mc-baseMain),
+
+    'buttonArea': button-date,
+    'buttonMargin': (
+        375: 0 0 -4px auto,
+        1024: 0,
+    ),
+    'buttonTextStyle': 'ButtonText',
+    'buttonColor': var(--mc-main),
+    'buttonColorHover': var(--mc-baseMain),
+
+    'dateArea': button-date,
+    'dateTextAlign': right,
+    'dateTextStyle': 'SignText',
+    'dateColor': var(--mc-baseOpacity),
+
+    'infoArea': info,
+    'infoMargin': 0 0 auto ef.size(2),
+    'infoIconWidth': 21px,
+    'infoIconHeight': 20px,
+    'infoIconFill': var(--mc-baseOpacity),
+    'infoIconFillHover': var(--mc-baseMain),
+), $customThemeDefault);
+
+$customThemeModal: () !default;
+$themeModal: map-merge((
+    'achievementGridAreas': (
+        'image      '
+        'name       '
+        'description'
+        'progress   '
+        'button     '
+        'date       '
+    ),
+
+    'imageContainerArea': image,
+    'imageContainerSize': 275px,
+    'imageContainerMargin': 0 auto,
+    'imageContainerPadding': ef.size(5),
+    'imageContainerRadius': ef.get('radius', 'big'),
+    'imageContainerBackground': var(--mc-bg),
+
+    'imageContainerDecorBackground': no-repeat center/cover url('/gstatic/wlc/achievements/background.png'),
+    'imageContainerDecorFilter': grayscale(100%),
+    'imageContainerDecorFilterReceived': initial,
+
+    'imageIconSvgFill': var(--mc-baseContrast-d20),
+    'imageIconSvgFillAlt': var(--mc-baseContrast-d20),
+
+    'nameArea': name,
+    'nameMargin': ef.size(8) 0 0,
+    'nameTextAlign': center,
+    'nameTextStyle': (
+        375: 'ThirdTitleBold',
+        560: 'QoteTextBold',
+    ),
+    'nameColor': var(--mc-baseMain),
+
+    'descriptionArea': description,
+    'descriptionMargin': ef.size(4) 0 0,
+    'descriptionTextAlign': center,
+    'descriptionTextStyle': 'PrimaryText',
+    'descriptionColor': var(--mc-baseMain),
+
+    'progressArea': progress,
+    'progressWidth': 275px,
+    'progressMargin': ef.size(4) auto 0,
+
+    'progressDetailsMargin': 0 0 ef.size(2),
+    'progressDetailsTextAlign': center,
+    'progressDetailsTextStyle': 'CaptionText',
+    'progressDetailsColor': var(--mc-baseMain),
+
+    'progressLineHeight': 8px,
+    'progressLineRadius': ef.get('radius', 'less'),
+    'progressLineBackground': var(--fc-inputBg),
+    'progressLineBoxShadow': inset 0 0 4px rgba(0, 0, 0, 0.25),
+    'progressLineInnerRadius': ef.get('radius', 'less'),
+    'progressLineInnerBackground': var(--mc-main),
+
+    'buttonArea': button,
+    'buttonMargin': ef.size(8) auto 0,
+
+    'dateArea': date,
+    'dateMargin': ef.size(4) 0 0,
+    'dateTextAlign': center,
+    'dateTextStyle': 'CaptionText',
+    'dateColor': var(--mc-baseOpacity),
+), $customThemeModal);

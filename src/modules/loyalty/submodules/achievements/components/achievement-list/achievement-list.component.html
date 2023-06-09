@@ -1,0 +1,29 @@
+<ng-container *ngIf="ready; else preloader">
+    <ng-container *ngIf="$params.pagination?.use; else defaultWithoutPagination">
+        <div class="{{$class}}__list">
+            <div *ngFor="let achievement of paginatedAchievements"
+                 wlc-achievement-item
+                 [inlineParams]="{achievement: achievement}">
+            </div>
+        </div>
+        <div wlc-pagination
+             theme="default"
+             [items]="achievements"
+             [settings]="$params.pagination"
+             (paginationOnChange)="paginationOnChange($event)">
+        </div>
+    </ng-container>
+</ng-container>
+
+<ng-template #defaultWithoutPagination>
+    <div class="{{$class}}__list">
+        <div *ngFor="let achievement of achievements"
+             wlc-achievement-item
+             [inlineParams]="{achievement: achievement}">
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #preloader>
+    <div wlc-loader></div>
+</ng-template>
