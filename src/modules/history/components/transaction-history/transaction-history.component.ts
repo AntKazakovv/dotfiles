@@ -17,6 +17,7 @@ import {DateTime} from 'luxon';
 import _filter from 'lodash-es/filter';
 import _last from 'lodash-es/last';
 import _first from 'lodash-es/first';
+import _merge from 'lodash-es/merge';
 
 import {
     AbstractComponent,
@@ -29,20 +30,20 @@ import {
     DeviceType,
     ProfileType,
     ISelectCParams,
-    HistoryFilterService,
-    IHistoryFilter,
-    TTransactionFilter,
 } from 'wlc-engine/modules/core';
+import {ITransactionHistoryAlert, financesConfig} from 'wlc-engine/modules/finances';
+
 import {
     transactionConfig as config,
     startDate,
     endDate,
-} from 'wlc-engine/modules/core';
-import {
-    FinancesService,
-} from 'wlc-engine/modules/finances/system/services/finances/finances.service';
-import {Transaction} from 'wlc-engine/modules/finances/system/models/transaction-history.model';
-import {ITransactionHistoryAlert} from 'wlc-engine/modules/finances/system/interfaces';
+    IHistoryFilter,
+    TTransactionFilter,
+} from 'wlc-engine/modules/history';
+
+import {HistoryService} from 'wlc-engine/modules/history/system/services/history.service';
+import {HistoryFilterService} from 'wlc-engine/modules/history/system/services/history-filter.service';
+import {Transaction} from 'wlc-engine/modules/history/system/models/transaction-history/transaction-history.model';
 
 import * as Params from './transaction-history.params';
 
@@ -72,7 +73,7 @@ export class TransactionHistoryComponent extends AbstractComponent implements On
     constructor(
         @Inject('injectParams') protected params: Params.ITransactionHistoryCParams,
         cdr: ChangeDetectorRef,
-        protected financesService: FinancesService,
+        protected historyService: HistoryService,
         protected eventService: EventService,
         protected historyFilterService: HistoryFilterService,
         configService: ConfigService,
@@ -88,7 +89,7 @@ export class TransactionHistoryComponent extends AbstractComponent implements On
 
     public override async ngOnInit(): Promise<void> {
         super.ngOnInit();
-        this.allTransactions = await this.financesService.getTransactionList();
+        this.allTransactions = await this.historyService.getTransactionList();
 
         if (this.allTransactions.length) {
             this.startDate = DateTime.fromISO(_last(this.allTransactions).dateISO, {zone: 'utc'}).toLocal();
@@ -108,7 +109,8 @@ export class TransactionHistoryComponent extends AbstractComponent implements On
         this.setMinMaxDate();
         this.setSubscription();
 
-        this.alertConfig = this.configService.get<ITransactionHistoryAlert>('$finances.transactionHistoryAlert');
+        this.alertConfig = _merge({}, financesConfig.transactionHistoryAlert,
+            this.configService.get<ITransactionHistoryAlert>('$finances.transactionHistoryAlert'));
 
         this.transaction$.next(this.transactionFilter());
         this.prepareTableParams();
@@ -234,7 +236,7 @@ export class TransactionHistoryComponent extends AbstractComponent implements On
             this.$destroy,
         ).subscribe({
             next: async (): Promise<void> => {
-                this.allTransactions = await this.financesService.getTransactionList();
+                this.allTransactions = await this.historyService.getTransactionList();
                 if (this.allTransactions.length) {
                     this.startDate = DateTime.fromISO(_last(this.allTransactions).dateISO, {zone: 'utc'}).toLocal();
                     this.endDate = DateTime.fromISO(_first(this.allTransactions).dateISO, {zone: 'utc'}).toLocal();

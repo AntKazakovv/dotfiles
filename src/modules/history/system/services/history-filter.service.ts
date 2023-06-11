@@ -13,7 +13,7 @@ import {
     IHistoryFilterValue,
     IHistoryDefault,
     IHistoryFilter,
-} from 'wlc-engine/modules/core/system/interfaces/history-filter.interface';
+} from 'wlc-engine/modules/history/system/interfaces/history-filter.interface';
 import {EventService} from 'wlc-engine/modules/core/system/services/event/event.service';
 
 @Injectable({

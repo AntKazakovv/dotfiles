@@ -7,14 +7,14 @@ import {
 } from 'wlc-engine/modules/core';
 import {
     TransactionStatusComponent,
-} from 'wlc-engine/modules/finances/components/transaction-history/transaction-status/transaction-status.component';
+} from 'wlc-engine/modules/history/components/transaction-history/transaction-status/transaction-status.component';
 import {
     TransactionButtonsComponent,
-} from 'wlc-engine/modules/finances/components/transaction-history/transaction-buttons/transaction-buttons.component';
+} from 'wlc-engine/modules/history/components/transaction-history/transaction-buttons/transaction-buttons.component';
 import {
     TransactionPreviewComponent,
-} from 'wlc-engine/modules/finances/components/transaction-history/transaction-preview/transaction-preview.component';
-import {Transaction} from 'wlc-engine/modules/finances/system/models/transaction-history.model';
+} from 'wlc-engine/modules/history/components/transaction-history/transaction-preview/transaction-preview.component';
+import {Transaction} from 'wlc-engine/modules/history/system/models/transaction-history/transaction-history.model';
 
 export type Theme = 'default' | CustomType;
 export type Type = 'default' | CustomType;
@@ -78,7 +78,7 @@ export const transactionTableHeadConfig: ITableCol[] = [
 ];
 
 export const defaultParams: ITransactionHistoryCParams = {
-    moduleName: 'finances',
+    moduleName: 'history',
     componentName: 'wlc-transaction-history',
     class: 'wlc-transaction-history',
     filterType: 'button',

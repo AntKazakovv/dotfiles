@@ -29,15 +29,15 @@ import {
 } from 'wlc-engine/modules/core';
 import {
     HistoryFilterService,
-} from 'wlc-engine/modules/core/system/services/history-filter/history-filter.service';
+} from 'wlc-engine/modules/history/system/services/history-filter.service';
 import {
     TTournamentsFilter,
     IHistoryFilterValue,
-} from 'wlc-engine/modules/core/system/interfaces/history-filter.interface';
+} from 'wlc-engine/modules/history/system/interfaces/history-filter.interface';
 import {HistoryService} from 'wlc-engine/modules/history/system/services/history.service';
 import {TournamentsService} from 'wlc-engine/modules/tournaments/system/services/tournaments/tournaments.service';
 import {TournamentHistory} from 'wlc-engine/modules/history';
-import {tournamentConfig} from 'wlc-engine/modules/core/system/config/history.config';
+import {tournamentConfig} from 'wlc-engine/modules/history/system/config/history.config';
 
 import * as Params from './tournaments-history.params';
 

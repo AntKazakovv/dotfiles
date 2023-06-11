@@ -26,16 +26,15 @@ import {
     ActionService,
     DeviceType,
     InjectionService,
-    HistoryFilterService,
-    TBonusFilter,
-    IHistoryFilterValue,
 } from 'wlc-engine/modules/core';
-import {bonusesConfig} from 'wlc-engine/modules/core/system/config/history.config';
-import {HistoryService} from 'wlc-engine/modules/history/system/services/history.service';
 import {
+    IHistoryFilterValue,
+    TBonusFilter,
+    bonusesConfig,
+    HistoryService,
+    HistoryFilterService,
     BonusHistoryItemModel,
-} from 'wlc-engine/modules/history/system/models/bonus-history/bonus-history-item.model';
-
+} from 'wlc-engine/modules/history';
 import * as Params from './bonuses-history.params';
 
 @Component({
@@ -78,7 +77,7 @@ export class BonusesHistoryComponent extends AbstractComponent implements OnInit
         await this.historyService.queryHistory(true, 'bonusesHistory');
         this.showFilter = this.actionService.getDeviceType() === DeviceType.Desktop;
         this.historyFilterService
-            = await this.injectionService.getService<HistoryFilterService>('core.history-filter');
+            = await this.injectionService.getService<HistoryFilterService>('history.history-filter');
 
         if (this.showFilter) {
             this.filterHandlers();

@@ -5,10 +5,10 @@ import {
     IWrapperCParams,
     ITableCParams,
 } from 'wlc-engine/modules/core';
-import {Bet} from 'wlc-engine/modules/profile/system/models/bet-history.model';
+import {Bet} from 'wlc-engine/modules/history/system/models/bet-history/bet-history.model';
 import {
     BetPreviewComponent,
-} from 'wlc-engine/modules/profile/components/bet-history/bet-preview/bet-preview.component';
+} from 'wlc-engine/modules/history/components/bet-history/bet-preview/bet-preview.component';
 
 export type Theme = 'default' | CustomType;
 export type Type = 'default' | CustomType;

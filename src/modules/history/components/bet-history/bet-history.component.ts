@@ -28,18 +28,18 @@ import {
     ConfigService,
     ActionService,
     DeviceType,
-    HistoryFilterService,
     TSortDirection,
     IIndexing,
-    IHistoryFilter,
 } from 'wlc-engine/modules/core';
+import {IHistoryFilter} from 'wlc-engine/modules/history/system/interfaces/history-filter.interface';
 import {
     betConfig,
     startDate,
     endDate,
-} from 'wlc-engine/modules/core/system/config/history.config';
+} from 'wlc-engine/modules/history/system/config/history.config';
 import {IBet} from 'wlc-engine/modules/profile/system/interfaces/bet.interfaces';
-import {BetService} from 'wlc-engine/modules/profile/system/services/bet/bet.service';
+import {BetService} from 'wlc-engine/modules/history/system/services/bet.service';
+import {HistoryFilterService} from 'wlc-engine/modules/history/system/services/history-filter.service';
 
 import * as Params from './bet-history.params';
 

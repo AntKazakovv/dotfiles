@@ -3,12 +3,7 @@ import {wlcTitle} from 'wlc-engine/modules/core/system/config/layouts/components
 
 export namespace wlcTransactionHistory {
     export const def: ILayoutComponent = {
-        name: 'finances.wlc-transaction-history',
-        params: {
-            tableConfig: {
-                theme: 'mobile-app',
-            },
-        },
+        name: 'history.wlc-transaction-history',
     };
 
     export const filter: ILayoutComponent = {
@@ -16,6 +11,7 @@ export namespace wlcTransactionHistory {
         params: {
             class: 'profile-history-filter',
             components: [
+                wlcTitle.history,
                 {
                     name: 'core.wlc-history-filter',
                     params: {

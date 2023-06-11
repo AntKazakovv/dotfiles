@@ -27,18 +27,19 @@ import {
     IMixedParams,
     AbstractComponent,
     IDatepickerCParams,
-    startDate,
-    endDate,
-    HistoryFilterService,
-    IHistoryFilter,
     ActionService,
     DeviceType,
 } from 'wlc-engine/modules/core';
 import {
+    startDate,
+    endDate,
+    IHistoryFilter,
+    HistoryFilterService,
+} from 'wlc-engine/modules/history';
+import {
     InternalMailsService,
 } from 'wlc-engine/modules/internal-mails/system/services/internal-mails/internal-mails.service';
 import {InternalMailModel} from 'wlc-engine/modules/internal-mails/system/models/internal-mail.model';
-
 import * as Params from './internal-mails.params';
 
 @Component({

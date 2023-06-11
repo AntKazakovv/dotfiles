@@ -43,6 +43,11 @@ import {
     ITournamentPrize,
     TCurrency,
 } from 'wlc-engine/modules/tournaments/system/interfaces/tournaments.interface';
+import {
+    Transaction,
+    ITransaction,
+    ITransactionRequestParams,
+} from 'wlc-engine/modules/history/system/models/transaction-history/transaction-history.model';
 
 interface IBonusesData extends IData {
     data?: TBonusesHistory;
@@ -153,6 +158,10 @@ export class HistoryService {
         }
     }
 
+    public async getTransactionList(params: ITransactionRequestParams = {}): Promise<Transaction[]> {
+        return (await this.dataService.request<IData>('finances/transactions', params)).data as Transaction[];
+    }
+
     public getObserver<T extends BonusHistoryItemModel | TournamentHistory>(
         type?: RestType,
     ): Observable<T[]> {
@@ -182,6 +191,18 @@ export class HistoryService {
             system: 'tournaments',
             url: '/tournaments',
             type: 'GET',
+        });
+
+        this.dataService.registerMethod({
+            name: 'transactions',
+            system: 'finances',
+            url: '/transactions',
+            type: 'GET',
+            events: {
+                success: 'TRANSACTIONS',
+                fail: 'TRANSACTIONS_ERROR',
+            },
+            mapFunc: this.createTransaction.bind(this),
         });
     }
 
@@ -215,6 +236,13 @@ export class HistoryService {
         if (this.subjects.bonusesHistory$.observers.length > 1) {
             this.queryHistory(true, 'bonusesHistory');
         }
+    }
+
+    private createTransaction(data: ITransaction[]): Transaction[] {
+        return data.map((item) => new Transaction(
+            {service: 'HistoryService', method: 'createTransaction'},
+            item,
+        ));
     }
 
     public getWinnersSubjects(

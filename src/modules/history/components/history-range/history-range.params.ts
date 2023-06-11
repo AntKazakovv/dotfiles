@@ -1,4 +1,4 @@
-import {IHistoryDefault} from 'wlc-engine/modules/core';
+import {IHistoryDefault} from 'wlc-engine/modules/history';
 import {
     IComponentParams,
     CustomType,

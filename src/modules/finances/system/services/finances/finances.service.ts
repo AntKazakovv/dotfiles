@@ -46,11 +46,6 @@ import {
     FilterType,
 } from 'wlc-engine/modules/finances/system/models/payment-system.model';
 import {
-    Transaction,
-    ITransaction,
-    ITransactionRequestParams,
-} from 'wlc-engine/modules/finances/system/models/transaction-history.model';
-import {
     PIQCashierResponse,
     TPaymentsMethods,
 } from 'wlc-engine/modules/finances/system/interfaces/piq-cashier.interface';
@@ -216,9 +211,6 @@ export class FinancesService {
         })).data;
     }
 
-    public async getTransactionList(params: ITransactionRequestParams = {}): Promise<Transaction[]> {
-        return (await this.dataService.request<IData>('finances/transactions', params)).data as Transaction[];
-    }
 
     public async fetchPaymentSystems(currency: string = ''): Promise<PaymentSystem[]> {
         this.systems =
@@ -606,13 +598,6 @@ export class FinancesService {
     }
 
 
-    private createTransaction(data: ITransaction[]): Transaction[] {
-        return data.map((item) => new Transaction(
-            {service: 'FinancesService', method: 'createTransaction'},
-            item,
-        ));
-    }
-
     private pushNotification(params: IPushMessageParams): void {
         this.eventService.emit({
             name: NotificationEvents.PushMessage,
@@ -630,17 +615,6 @@ export class FinancesService {
                 success: 'PAYMENT_SYSTEMS',
                 fail: 'PAYMENT_SYSTEMS_ERROR',
             },
-        });
-        this.dataService.registerMethod({
-            name: 'transactions',
-            system: 'finances',
-            url: '/transactions',
-            type: 'GET',
-            events: {
-                success: 'TRANSACTIONS',
-                fail: 'TRANSACTIONS_ERROR',
-            },
-            mapFunc: this.createTransaction.bind(this),
         });
         this.dataService.registerMethod({
             name: 'deposits',

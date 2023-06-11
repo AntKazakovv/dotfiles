@@ -18,12 +18,11 @@ import {
     DatepickerComponent,
     Deferred,
     DeviceType,
-    HistoryFilterService,
-    IHistoryFilter,
     WrapperComponent,
 } from 'wlc-engine/modules/core';
+import {HistoryFilterService, IHistoryFilter} from 'wlc-engine/modules/history';
 import {TableComponent} from 'wlc-engine/modules/core/components/table/table.component';
-import {HistoryRangeComponent} from 'wlc-engine/modules/core/components/history-range/history-range.component';
+import {HistoryRangeComponent} from 'wlc-engine/modules/history/components/history-range/history-range.component';
 import {
     InternalMailsService,
 } from 'wlc-engine/modules/internal-mails/system/services/internal-mails/internal-mails.service';

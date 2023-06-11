@@ -11,24 +11,16 @@ import {VerificationService} from 'wlc-engine/modules/profile/system/services';
 import {
     VerificationGroupComponent,
 } from 'wlc-engine/modules/profile/components/verification-group/verification-group.component';
-import {BetHistoryComponent} from 'wlc-engine/modules/profile/components/bet-history/bet-history.component';
-import {
-    BetPreviewComponent,
-} from './components/bet-history/bet-preview/bet-preview.component';
 
 export const components = {
     'wlc-profile-no-content': ProfileNoContentComponent,
     'wlc-verification': VerificationComponent,
-    'wlc-bet-history': BetHistoryComponent,
-    'wlc-bet-preview': BetPreviewComponent,
 };
 
 @NgModule({
     declarations: [
         VerificationComponent,
         VerificationGroupComponent,
-        BetHistoryComponent,
-        BetPreviewComponent,
         ProfileNoContentComponent,
     ],
     imports: [
@@ -42,7 +34,6 @@ export const components = {
     ],
     exports: [
         ProfileNoContentComponent,
-        BetPreviewComponent,
     ],
 })
 export class ProfileModule {

@@ -13,7 +13,7 @@ import {
     AbstractComponent,
     IMixedParams,
 } from 'wlc-engine/modules/core/system/classes/abstract.component';
-import {BetService} from 'wlc-engine/modules/profile/system/services/bet/bet.service';
+import {BetService} from 'wlc-engine/modules/history/system/services/bet.service';
 import {WINDOW} from 'wlc-engine/modules/app/system';
 
 import * as Params from './bet-preview.params';

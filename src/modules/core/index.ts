@@ -10,7 +10,6 @@ export * from './system/services/files/files.service';
 export * from './system/services/caching/caching.service';
 export * from './system/services/action/action.service';
 export * from './system/services';
-export * from './system/config/history.config';
 export * from './system/config/form-elements';
 export * from './system/animations';
 export * from './components';

@@ -5,7 +5,24 @@ import {TranslateModule} from '@ngx-translate/core';
 
 import {CoreModule} from 'wlc-engine/modules/core/core.module';
 import {BonusesHistoryComponent} from 'wlc-engine/modules/history/components/bonuses-history/bonuses-history.component';
+import {BetHistoryComponent} from 'wlc-engine/modules/history/components/bet-history/bet-history.component';
+import {BetPreviewComponent} from 'wlc-engine/modules/history/components/bet-history/bet-preview/bet-preview.component';
+import {
+    TransactionHistoryComponent,
+} from 'wlc-engine/modules/history/components/transaction-history/transaction-history.component';
+import {
+    TransactionButtonsComponent,
+} from 'wlc-engine/modules/history/components/transaction-history/transaction-buttons/transaction-buttons.component';
+import {
+    TransactionPreviewComponent,
+} from 'wlc-engine/modules/history/components/transaction-history/transaction-preview/transaction-preview.component';
+import {
+    TransactionStatusComponent,
+} from 'wlc-engine/modules/history/components/transaction-history/transaction-status/transaction-status.component';
+import {HistoryRangeComponent} from 'wlc-engine/modules/history/components/history-range/history-range.component';
+
 import {HistoryService} from 'wlc-engine/modules/history/system/services/history.service';
+import {HistoryFilterService} from 'wlc-engine/modules/history/system/services/history-filter.service';
 import {TournamentsHistoryComponent} from './components/tournaments-history/tournaments-history.component';
 import {
     TournamentTopwinsBtnComponent,
@@ -14,10 +31,14 @@ import {
 export const components = {
     'wlc-bonuses-history': BonusesHistoryComponent,
     'wlc-tournaments-history': TournamentsHistoryComponent,
+    'wlc-bet-history': BetHistoryComponent,
+    'wlc-transaction-history': TransactionHistoryComponent,
+    'wlc-history-range': HistoryRangeComponent,
 };
 
 export const services = {
     'history-service': HistoryService,
+    'history-filter': HistoryFilterService,
 };
 
 @NgModule({
@@ -25,6 +46,14 @@ export const services = {
         BonusesHistoryComponent,
         TournamentsHistoryComponent,
         TournamentTopwinsBtnComponent,
+        BetHistoryComponent,
+        BetPreviewComponent,
+        TransactionHistoryComponent,
+        TransactionButtonsComponent,
+        TransactionPreviewComponent,
+        TransactionStatusComponent,
+        HistoryRangeComponent,
+
     ],
     imports: [
         CommonModule,
@@ -33,10 +62,18 @@ export const services = {
     ],
     providers: [
         HistoryService,
+        HistoryFilterService,
     ],
     exports: [
         BonusesHistoryComponent,
         TournamentsHistoryComponent,
+        BetHistoryComponent,
+        BetPreviewComponent,
+        TransactionHistoryComponent,
+        TransactionButtonsComponent,
+        TransactionPreviewComponent,
+        TransactionStatusComponent,
+        HistoryRangeComponent,
     ],
 })
 

@@ -46,7 +46,6 @@ export {
 export {ColorThemeService} from './color-theme/color-theme.service';
 export {ForbiddenCountryService} from './forbidden-country/forbidden-country.service';
 export {AnimateButtonsService} from './animate-buttons/animate-buttons.service';
-export {HistoryFilterService} from './history-filter/history-filter.service';
 export {
     configUrlForFingerprint,
     FingerprintService,

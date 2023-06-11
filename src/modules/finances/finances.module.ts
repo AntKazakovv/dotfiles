@@ -14,16 +14,6 @@ import {IconListModule} from 'wlc-engine/modules/icon-list/icon-list.module';
 import {CompilerModule} from 'wlc-engine/modules/compiler';
 import {TranslateModule} from '@ngx-translate/core';
 import {DepositWithdrawComponent} from './components/deposit-withdraw/deposit-withdraw.component';
-import {TransactionHistoryComponent} from './components/transaction-history/transaction-history.component';
-import {
-    TransactionStatusComponent,
-} from './components/transaction-history/transaction-status/transaction-status.component';
-import {
-    TransactionButtonsComponent,
-} from './components/transaction-history/transaction-buttons/transaction-buttons.component';
-import {
-    TransactionPreviewComponent,
-} from './components/transaction-history/transaction-preview/transaction-preview.component';
 import {PaymentListComponent} from './components/payment-list/payment-list.component';
 import {PaymentMessageComponent} from './components/payment-message/payment-message.component';
 import {PIQCashierComponent} from './components/piq-cashier/piq-cashier.component';
@@ -47,7 +37,6 @@ export const moduleConfig =
 export const components = {
     'wlc-deposit-withdraw': DepositWithdrawComponent,
     'wlc-payment-list': PaymentListComponent,
-    'wlc-transaction-history': TransactionHistoryComponent,
     'wlc-iframe-deposit': IframeDepositComponent,
     'wlc-piq-cashier': PIQCashierComponent,
     'wlc-preselected-amounts': PreselectedAmountsComponent,
@@ -75,10 +64,6 @@ export const services = {
         DepositWithdrawComponent,
         PaymentListComponent,
         PIQCashierComponent,
-        TransactionHistoryComponent,
-        TransactionStatusComponent,
-        TransactionButtonsComponent,
-        TransactionPreviewComponent,
         IframeDepositComponent,
         PreselectedAmountsComponent,
         ClearAmountButtonComponent,
@@ -90,7 +75,6 @@ export const services = {
     exports: [
         DepositWithdrawComponent,
         PaymentListComponent,
-        TransactionHistoryComponent,
         TranslateModule,
     ],
 })

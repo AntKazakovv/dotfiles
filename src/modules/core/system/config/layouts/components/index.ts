@@ -66,7 +66,6 @@ export * from './static/wlc-promo-steps.config';
 export * from './static/wlc-wp-promo.config';
 
 export * from './finances/wlc-deposit-withdraw.config';
-export * from './finances/wlc-transaction-history.config';
 
 export * from './bonuses/wlc-bonuses-list.config';
 export * from './bonuses/wlc-enter-promocode.config';
@@ -74,7 +73,6 @@ export * from './bonuses/wlc-see-all-bonuses.config';
 export * from './bonuses/wlc-recommended-bonuses.config';
 
 export * from './profile/wlc-verification.config';
-export * from './profile/wlc-bet-history.config';
 
 export * from './store/wlc-store-list.config';
 export * from './store/wlc-store-title.config';
@@ -92,6 +90,8 @@ export * from './cashback/wlc-cashback-rewards.config';
 
 export * from './history/wlc-bonuses-history.config';
 export * from './history/wlc-tournaments-history.config';
+export * from './history/wlc-transaction-history.config';
+export * from './history/wlc-bet-history.config';
 
 export * from './rates/wlc-rates-currency.config';
 export * from './achievements/wlc-achievements-list.config';

@@ -3,7 +3,7 @@ import {wlcTitle} from 'wlc-engine/modules/core/system/config/layouts/components
 
 export namespace wlcBetHistory {
     export const def: ILayoutComponent = {
-        name: 'profile.wlc-bet-history',
+        name: 'history.wlc-bet-history',
     };
 
     export const filter: ILayoutComponent = {

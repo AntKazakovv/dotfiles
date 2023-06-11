@@ -26,7 +26,7 @@ import {
     ConfigService,
     LogService,
 } from 'wlc-engine/modules/core';
-import {FinancesService} from 'wlc-engine/modules/finances/system/services/finances/finances.service';
+import {HistoryService} from 'wlc-engine/modules/history/system/services/history.service';
 import {
     UserInfo,
     UserProfile,
@@ -58,7 +58,7 @@ export class LivechatincService extends LivechatAbstract<ILivechatIncConfig> {
     constructor(
         @Inject(DOCUMENT) document: Document,
         @Inject(WINDOW) protected window: Window,
-        protected financesService: FinancesService,
+        protected historyService: HistoryService,
         eventService: EventService,
         configService: ConfigService,
         protected logService: LogService,
@@ -422,7 +422,7 @@ export class LivechatincService extends LivechatAbstract<ILivechatIncConfig> {
     }
 
     protected async getLastDepositDate(): Promise<string> {
-        const allTransactions = await this.financesService.getTransactionList();
+        const allTransactions = await this.historyService.getTransactionList();
 
         if (!allTransactions.length) {
             return 'No transactions';

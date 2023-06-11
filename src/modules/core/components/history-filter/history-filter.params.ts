@@ -1,7 +1,7 @@
 import {IFormWrapperCParams} from 'wlc-engine/modules/core/components/form-wrapper/form-wrapper.component';
 import {ITextBlockCParams} from 'wlc-engine/modules/core/components/text-block/text-block.params';
 import {IButtonCParams} from 'wlc-engine/modules/core/components/button/button.params';
-import {IHistoryDefault} from 'wlc-engine/modules/core/system/interfaces/history-filter.interface';
+import {IHistoryDefault} from 'wlc-engine/modules/history/system/interfaces/history-filter.interface';
 import {
     transactionConfig,
     betConfig,
@@ -9,7 +9,7 @@ import {
     bonusesConfig,
     startDate,
     endDate,
-} from 'wlc-engine/modules/core/system/config/history.config';
+} from 'wlc-engine/modules/history/system/config/history.config';
 import {
     IComponentParams,
     CustomType,

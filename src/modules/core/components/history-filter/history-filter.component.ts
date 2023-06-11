@@ -27,11 +27,11 @@ import {ModalService} from 'wlc-engine/modules/core/system/services/modal/modal.
 import {IIndexing} from 'wlc-engine/modules/core/system/interfaces/global.interface';
 import {
     HistoryFilterService,
-} from 'wlc-engine/modules/core/system/services/history-filter/history-filter.service';
+} from 'wlc-engine/modules/history/system/services/history-filter.service';
 import {
     IHistoryFilterValue,
     IHistoryFilter,
-} from 'wlc-engine/modules/core/system/interfaces/history-filter.interface';
+} from 'wlc-engine/modules/history/system/interfaces/history-filter.interface';
 import {
     IFormWrapperCParams,
     IFormComponent,

@@ -6,7 +6,7 @@ import {
     TBonusFilter,
     TTournamentsFilter,
     TTransactionFilter,
-} from 'wlc-engine/modules/core/system/interfaces/history-filter.interface';
+} from 'wlc-engine/modules/history/system/interfaces/history-filter.interface';
 
 export const startDate: IDatepickerCParams = {
     name: 'startDate',

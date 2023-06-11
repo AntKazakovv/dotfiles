@@ -17,8 +17,8 @@ import {
 } from 'wlc-engine/modules/core/system/classes/abstract.component';
 import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
 import {EventService} from 'wlc-engine/modules/core/system/services/event/event.service';
-import {IHistoryFilter} from 'wlc-engine/modules/core/system/interfaces/history-filter.interface';
-import {HistoryFilterService} from 'wlc-engine/modules/core/system/services/history-filter/history-filter.service';
+import {IHistoryFilter} from 'wlc-engine/modules/history/system/interfaces/history-filter.interface';
+import {HistoryFilterService} from 'wlc-engine/modules/history/system/services/history-filter.service';
 
 import * as Params from './history-range.params';
 
