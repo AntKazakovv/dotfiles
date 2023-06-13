@@ -121,12 +121,12 @@ export class BonusesHistoryComponent extends AbstractComponent implements OnInit
     protected setSubscription(): void {
         this.historyFilterService.getFilter('bonus')
             .pipe(
-                takeUntil(this.$destroy),
                 filter(
                     (data: IHistoryFilterValue<TBonusFilter>): boolean => {
                         return !!data && this.filterValue !== data.filterValue;
                     },
                 ),
+                takeUntil(this.$destroy),
             )
             .subscribe((data: IHistoryFilterValue<TBonusFilter>): void => {
                 this.filterSelect.control.setValue(this.filterValue = data.filterValue);

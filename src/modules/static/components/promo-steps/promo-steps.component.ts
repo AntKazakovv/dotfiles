@@ -77,8 +77,8 @@ export class PromoStepsComponent extends AbstractComponent implements OnInit {
         this.deviceType = this.actionService.getDeviceType();
 
         this.isAuth$.pipe(
-            takeUntil(this.$destroy),
             tap(() => this.cdr.markForCheck()),
+            takeUntil(this.$destroy),
         ).subscribe();
 
         try {

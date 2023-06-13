@@ -3,6 +3,7 @@ module.exports = {
     extends: [
         'plugin:@angular-eslint/recommended',
         'plugin:sonarjs/recommended',
+        'plugin:rxjs/recommended',
     ],
     plugins: [
         '@typescript-eslint',
@@ -25,6 +26,10 @@ module.exports = {
             'blacklist': ['charEscapeUnescape']
         }],
         "no-restricted-globals": ["error", "window", "globalThis"],
+        'rxjs/no-async-subscribe': 'off',
+        'rxjs/no-ignored-takewhile-value': 'off',
+        'rxjs/no-nested-subscribe': 'off',
+        'rxjs/no-implicit-any-catch': 'off',
         'sonarjs/cognitive-complexity': ['error', 140],
         'sonarjs/no-duplicate-string': 'off',
         'sonarjs/no-small-switch': 'off',

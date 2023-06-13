@@ -76,8 +76,8 @@ export class ChatWrapperComponent extends AbstractChatComponent implements OnIni
 
         this.chatService.connectChat$
             .pipe(
-                takeUntil(this.destroy$),
                 filter((status) => status === 'connected'),
+                takeUntil(this.destroy$),
             )
             .subscribe((): void => {
                 this.chatConnected = true;
@@ -118,8 +118,8 @@ export class ChatWrapperComponent extends AbstractChatComponent implements OnIni
         let lastPos: number = 0;
         fromEvent(this.scrollContainer.nativeElement, 'scroll')
             .pipe(
-                takeUntil(this.destroy$),
                 debounceTime(100),
+                takeUntil(this.destroy$),
             )
             .subscribe((event: DOMEvent<HTMLDivElement>): void => {
                 this.updateBuffer(lastPos > event.target.scrollTop);

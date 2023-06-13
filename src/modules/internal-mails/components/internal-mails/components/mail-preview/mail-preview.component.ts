@@ -66,8 +66,8 @@ export class ProfileMessagePreviewComponent extends AbstractComponent implements
     protected mailReadedSubscribe(): void {
         this.internalMailsService.readedMailID$
             .pipe(
-                takeUntil(this.$destroy),
                 filter((id: string): boolean => id === this.$params.internalMail.id),
+                takeUntil(this.$destroy),
             )
             .subscribe((): void => {
                 this.iconPath = '/wlc/icons/mails/read-mail.svg';

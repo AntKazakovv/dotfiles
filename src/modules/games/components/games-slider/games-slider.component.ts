@@ -173,8 +173,8 @@ export class GamesSliderComponent extends AbstractComponent implements OnInit {
     protected checkDeviceType(): void {
         this.actionService.deviceType()
             .pipe(
-                takeUntil(this.$destroy),
                 filter((type: DeviceType): boolean => this.isMobile !== (type !== DeviceType.Desktop)),
+                takeUntil(this.$destroy),
             ).subscribe((type: DeviceType): void => {
                 this.isMobile = type !== DeviceType.Desktop;
 

@@ -217,8 +217,8 @@ export class DepositBonusesComponent extends AbstractComponent implements OnInit
     protected getBonuses(): void {
         const errorCatcher$: Subject<boolean> = new Subject();
         errorCatcher$.pipe(
-            takeUntil(this.$destroy),
             filter((isReady: boolean) => isReady && !this.bonuses.length),
+            takeUntil(this.$destroy),
         ).subscribe((): void => {
             this.ready = true;
             this.cdr.markForCheck();

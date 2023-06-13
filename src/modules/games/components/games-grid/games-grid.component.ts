@@ -895,10 +895,10 @@ export class GamesGridComponent extends AbstractComponent implements OnInit, OnD
             if (this.$swiperProgress) {
                 this.$swiperProgress
                     .pipe(
-                        takeUntil(this.$untilBreakpointOrDestroy),
                         filter((value: number): boolean => value >= 0.98),
                         tap((): void => this.setLazyLoadingTrue()),
                         throttleTime(this.lazyTimeout),
+                        takeUntil(this.$untilBreakpointOrDestroy),
                     )
                     .subscribe((): void => {
                         this.loadMoreGames();

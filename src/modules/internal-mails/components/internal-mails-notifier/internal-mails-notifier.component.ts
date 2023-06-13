@@ -55,8 +55,8 @@ export class InternalMailsNotifierComponent extends AbstractComponent implements
 
         this.internalMailsService.unreadMailsCount$
             .pipe(
-                takeUntil(this.$destroy),
                 filter((value) => this.hasUnread !== !!value),
+                takeUntil(this.$destroy),
             )
             .subscribe((unreadMailsCount: number): void => {
                 this.hasUnread = !!unreadMailsCount;

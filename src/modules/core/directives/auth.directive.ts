@@ -40,8 +40,8 @@ export class AuthDirective implements OnInit, OnDestroy {
 
     public ngOnInit(): void {
         this.isAuth$.pipe(
-            takeUntil(this.$destroy),
             tap(this.isAuth.bind(this)),
+            takeUntil(this.$destroy),
         ).subscribe();
     }
 

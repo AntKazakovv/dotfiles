@@ -167,8 +167,8 @@ export class InternalMailsComponent extends AbstractComponent implements OnInit 
 
         this.historyFilterService.getFilter('mails')
             .pipe(
-                takeUntil(this.$destroy),
                 filter((data: IHistoryFilter): boolean => !!data),
+                takeUntil(this.$destroy),
             )
             .subscribe((data: IHistoryFilter): void => {
                 this.startDateInput.control.setValue(this.startDate = data.startDate);

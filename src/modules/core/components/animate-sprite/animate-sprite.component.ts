@@ -213,8 +213,8 @@ export class AnimateSpriteComponent extends AbstractComponent implements OnInit,
 
             fromEvent<MouseEvent>(this.elementRef.nativeElement, 'mouseleave')
                 .pipe(
-                    takeUntil(this.$destroy),
-                    filter(() => !this.shouldAnimationPlayFromOut))
+                    filter(() => !this.shouldAnimationPlayFromOut),
+                    takeUntil(this.$destroy))
                 .subscribe(() => {
                     this.playUntilMouseLeave = false;
                     this.stopOnCycleIsNotFull();

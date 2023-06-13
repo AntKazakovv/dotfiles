@@ -119,12 +119,12 @@ export class TournamentsHistoryComponent extends AbstractComponent implements On
     protected setSubscription(): void {
         this.historyFilterService.getFilter('tournaments')
             .pipe(
-                takeUntil(this.$destroy),
                 filter(
                     (data: IHistoryFilterValue<TTournamentsFilter>): boolean => {
                         return !!data && this.filterValue !== data.filterValue;
                     },
                 ),
+                takeUntil(this.$destroy),
             )
             .subscribe((data: IHistoryFilterValue<TTournamentsFilter>): void => {
                 this.filterSelect.control.setValue(this.filterValue = data.filterValue);
@@ -151,8 +151,8 @@ export class TournamentsHistoryComponent extends AbstractComponent implements On
     protected filterHandlers(): void {
         this.filterSelect.control.valueChanges
             .pipe(
-                takeUntil(this.$destroy),
                 filter((filterValue: TTournamentsFilter): boolean => this.filterValue != filterValue),
+                takeUntil(this.$destroy),
             )
             .subscribe((filterValue: TTournamentsFilter): void => {
                 this.historyFilterService.setFilter('tournaments', {

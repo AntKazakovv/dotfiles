@@ -94,11 +94,11 @@ export class CounterComponent extends AbstractComponent implements OnInit {
 
                 internalMailsService.unreadMailsCount$
                     .pipe(
-                        takeUntil(this.$destroy),
                         filter((value) => {
                             const count = value < 10 ? value : '9+';
                             return this.count !== count;
                         }),
+                        takeUntil(this.$destroy),
                     )
                     .subscribe((unreadMailsCount: number): void => {
                         if (unreadMailsCount < 10) {

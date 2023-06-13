@@ -75,8 +75,8 @@ export class ProfileBlocksComponent extends AbstractComponent implements OnInit 
         this.isDefaultUser = this.userService.userProfile.type === 'default';
 
         this.userService.userProfile$.pipe(
-            takeUntil(this.$destroy),
             distinct((profile: UserProfile): boolean => profile.emailAgree),
+            takeUntil(this.$destroy),
         ).subscribe((profile: UserProfile): void => {
             this.toggleBtn.control.setValue(profile.emailAgree);
         });

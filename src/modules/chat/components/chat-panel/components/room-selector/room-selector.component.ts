@@ -143,8 +143,8 @@ export class RoomSelectorComponent extends AbstractChatComponent implements OnIn
                 first((event: MouseEvent) => {
                     return !this.elRef.nativeElement.contains(event.target as HTMLElement);
                 }),
-                takeUntil(this.destroy$),
                 takeWhile(() => this.isExpanded),
+                takeUntil(this.destroy$),
             ).subscribe(() => {
                 this.isExpanded = false;
                 this.cdr.markForCheck();

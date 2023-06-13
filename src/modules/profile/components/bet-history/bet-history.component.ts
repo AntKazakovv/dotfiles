@@ -190,8 +190,8 @@ export class BetHistoryComponent extends AbstractComponent implements OnInit {
     protected setSubscription(): void {
         this.historyFilterService.getFilter('bet')
             .pipe(
-                takeUntil(this.$destroy),
                 filter((filter: IHistoryFilter) => !!filter),
+                takeUntil(this.$destroy),
             )
             .subscribe(async (data: IHistoryFilter): Promise<void> => {
                 const changedData: IIndexing<boolean> = {

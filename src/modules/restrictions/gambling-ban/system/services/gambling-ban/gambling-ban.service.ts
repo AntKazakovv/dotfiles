@@ -41,9 +41,9 @@ export class GamblingBanService {
     protected readonly showRestrictModal$: Observable<unknown> = this.eventService
         .filter<IEvent<UserInfo>>({name: 'USER_INFO'})
         .pipe(
-            takeUntil(this.eventService.filter({name: 'LOGOUT'}).pipe(first())),
             first(({data}) => data.data?.blockByLocation),
             tap(() => this.openRestrictModal()),
+            takeUntil(this.eventService.filter({name: 'LOGOUT'}).pipe(first())),
         );
 
     protected mutations?: LockedNodeMutations;
