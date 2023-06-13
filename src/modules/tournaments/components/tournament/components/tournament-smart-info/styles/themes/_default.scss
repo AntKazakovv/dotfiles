@@ -1,4 +1,6 @@
 .wlc-tournament-smart-info--theme-default:host {
+    --wlc-prizes-row-alignment: #{ef.get-value($themeDefault, 'prizeTextAlign')};
+
     max-width: 100%;
 
     .wlc-tournament-smart-info {

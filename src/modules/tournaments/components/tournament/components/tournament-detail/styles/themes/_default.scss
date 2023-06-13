@@ -40,6 +40,7 @@ $selector: '.wlc-tournament-detail';
             }
 
             &-inner {
+                min-width: 0;
                 padding: ef.get-value($themeDefault, 'headerInnerPadding');
             }
 
@@ -91,6 +92,8 @@ $selector: '.wlc-tournament-detail';
                 @include bm.get-mq-map('justify-self', $themeDefault, 'headerTitleJustifySelf');
                 @include bm.get-mq-map('text-align', $themeDefault, 'headerTitleTextAlign');
                 @include text.get-text-style(ef.get-value($themeDefault, 'headerTitleTextStyle'), ef.get-value($themeDefault, 'headerTitleTextColor'));
+
+                word-break: break-word;
             }
 
             &--description {
@@ -241,6 +244,8 @@ $selector: '.wlc-tournament-detail';
         }
 
         #{$selector}__prizeboard {
+            --wlc-prizes-row-alignment: #{ef.get-value($themeDefault, 'prizesAlignment')};
+
             @include bm.get-mq-map('grid-template-columns', $themeDefault, 'prizeboardColumnWidth');
             @include bm.get-mq-map('padding', $themeDefault, 'prizeboardPadding');
             @include bm.get-mq-map('row-gap', $themeDefault, 'defaultRowGap');
@@ -383,9 +388,7 @@ $selector: '.wlc-tournament-detail';
         }
     }
 
-
     .wlc-games-grid--theme-default.wlc-games-grid {
-
 
         .wlc-games-grid__list + .wlc-games-grid__more {
             margin: ef.get-value($themeDefault, 'gamesMoreBtn');

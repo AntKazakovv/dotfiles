@@ -24,6 +24,7 @@ $themeDefault: map-merge((
     'prizeTextColor': var(--mc-baseMain),
     'prizeNumStyle': 'ButtonText',
     'prizeNumColor': var(--mc-baseMain),
+    'prizeTextAlign': left,
 
     'delimiterColor': var(--mc-baseOpacity),
     'delimiterAlignSelf': stretch,

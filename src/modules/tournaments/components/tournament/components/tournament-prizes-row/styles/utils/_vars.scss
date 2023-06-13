@@ -2,4 +2,5 @@ $customThemeDefault: () !default;
 $themeDefault: map-merge((
     'dividerContent': '+',
     'dividerMargin': 0 ef.size(1),
+    'valuesAlignment': center,
 ), $customThemeDefault);

@@ -1,4 +1,5 @@
 .wlc-tournament-prizes--theme-default:host {
+    --wlc-prizes-row-alignment: #{ef.get-value($themeDefault, 'lastTextAlign')};
 
     .wlc-tournament-prizes {
 
