@@ -38,6 +38,7 @@
 
                         &__input {
                             @include bm.transition(background);
+                            border: none;
                             @include bm.hover {
                                 background: ef.get-value($themeDefault, 'searchInputBackgroundHover');
                             }
@@ -131,6 +132,7 @@
                 padding: ef.get-value($themeDefault, 'searchInputPadding');
                 color: ef.get-value($themeDefault, 'searchInputColor');
                 background: ef.get-value($themeDefault, 'searchInputBackground');
+                border: none;
 
                 &::placeholder {
                     color: ef.get-value($themeDefault, 'searchInputColor');
