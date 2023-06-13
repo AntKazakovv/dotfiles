@@ -110,7 +110,8 @@ export abstract class UserActionsAbstract<T> extends AbstractComponent {
                 message: gettext('You must agree with Terms and Conditions '
                     + 'as well as confirm that you are at least 18 years old'),
                 messageContext: {
-                    age: this.configService.get('$base.profile.legalAge') || 18,
+                    age: this.configService.get('legalAgeByCountry')
+                        || this.configService.get('$base.profile.legalAge'),
                 },
                 wlcElement: 'notification_registration-terms-error',
             },

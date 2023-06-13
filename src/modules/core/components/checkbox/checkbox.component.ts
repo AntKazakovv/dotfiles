@@ -18,6 +18,7 @@ import {ConfigService} from 'wlc-engine/modules/core/system/services/config/conf
 import {ModalService} from 'wlc-engine/modules/core/system/services/modal/modal.service';
 import {CheckBoxTexts} from 'wlc-engine/modules/core/system/classes/checkbox-text.class';
 import {IBaseConfig} from 'wlc-engine/modules/core/system/interfaces';
+import {EventService} from 'wlc-engine/modules/core/system/services/event/event.service';
 
 import * as Params from './checkbox.params';
 
@@ -50,6 +51,7 @@ export class CheckboxComponent extends AbstractComponent implements OnInit {
         cdr: ChangeDetectorRef,
         protected modalService: ModalService,
         protected checkBoxTexts: CheckBoxTexts,
+        protected eventService: EventService,
     ) {
         super({injectParams, defaultParams: Params.defaultParams}, configService, cdr);
     }
@@ -63,6 +65,9 @@ export class CheckboxComponent extends AbstractComponent implements OnInit {
 
         this.listenForCheckboxStatusChanges();
         this.updateCheckboxClassNames();
+        if (this.$params.checkboxType === 'age') {
+            this.listenForCountrySelectStatusChanges();
+        }
 
         this.prepareModifiers();
         this.fieldWlcElement = 'checkbox_' + _kebabCase(this.$params.name);
@@ -160,6 +165,21 @@ export class CheckboxComponent extends AbstractComponent implements OnInit {
             [`${this.$class}__checkbox`]: true,
             [`${this.$class}__checkbox--invalid`]: this.control.invalid && this.control.touched,
         };
+        this.cdr.markForCheck();
+    }
+
+    protected listenForCountrySelectStatusChanges(): void {
+        this.eventService.subscribe({name: 'UPDATE_LEGAL_AGE'}, () => {
+            this.updateCheckboxText();
+        }, this.$destroy);
+    }
+
+    protected updateCheckboxText(): void {
+        this.textContext = {
+            age: this.configService.get('legalAgeByCountry')
+                || this.configService.get('$base.profile.legalAge'),
+        };
+        this.$params.text = this.checkBoxTexts.get('ageCheckboxText') as string;
         this.cdr.markForCheck();
     }
 }

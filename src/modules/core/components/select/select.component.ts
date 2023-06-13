@@ -103,7 +103,7 @@ export class SelectComponent extends AbstractComponent implements OnInit, OnChan
         @Inject('injectParams') protected injectParams: Params.ISelectCParams,
         configService: ConfigService,
         cdr: ChangeDetectorRef,
-        protected EventService: EventService,
+        protected eventService: EventService,
         protected selectValues: SelectValuesService,
         protected translateService: TranslateService,
     ) {
@@ -181,6 +181,10 @@ export class SelectComponent extends AbstractComponent implements OnInit, OnChan
         if (this.$params.name === 'currency' &&
         this.configService.get('$base.registration.filterCurrencyByCountry')) {
             this.filterCurrencyByCountry();
+        }
+
+        if (this.$params.name === 'countryCode') {
+            this.changeLegalAgeByCountry();
         }
 
         this.getSelectedItemIndex();
@@ -451,7 +455,7 @@ export class SelectComponent extends AbstractComponent implements OnInit, OnChan
             this.control.setValue(item?.value);
         }
 
-        this.EventService.emit({
+        this.eventService.emit({
             name: `SELECT_CHOSEN_${this.$params?.name?.toUpperCase()}`,
             data: item,
         });
@@ -512,7 +516,7 @@ export class SelectComponent extends AbstractComponent implements OnInit, OnChan
      * @returns {void} void
      */
     public filterCurrencyByCountry() {
-        this.EventService.subscribe({
+        this.eventService.subscribe({
             name: 'SELECT_CHOSEN_COUNTRYCODE',
         }, (data: Params.ISelectOptions) => {
             this.updateCurrencyOption(data.value.toString());
@@ -568,5 +572,38 @@ export class SelectComponent extends AbstractComponent implements OnInit, OnChan
 
         modifiers = _union(modifiers, this.$params.common.customModifiers.split(' '));
         this.addModifiers(modifiers);
+    }
+
+    /**
+     * This method subscribe on change country select
+     *
+     * @method changeLegalAgeByCountry
+     * @returns {void} void
+     */
+    protected changeLegalAgeByCountry(): void {
+        this.eventService.subscribe({
+            name: 'SELECT_CHOSEN_COUNTRYCODE',
+        }, (data: Params.ISelectOptions) => {
+            this.updateLegalAgeByCountry(data.value.toString());
+        }, this.$destroy);
+    }
+
+    /**
+     * This method update the legal age for Estonia
+     *
+     * @method updateLegalAgeByCountry
+     * @returns {void} void
+     */
+    protected updateLegalAgeByCountry(selectCountry: string): void {
+        const legalAge = this.getAgeFromConfig(selectCountry);
+        if (legalAge !== this.configService.get('legalAgeByCountry')) {
+            this.configService.set<number>({name: 'legalAgeByCountry', value: legalAge});
+            this.eventService.emit({name: 'UPDATE_LEGAL_AGE'});
+        }
+    }
+
+    protected getAgeFromConfig(selectCountry: string): number {
+        return this.configService.get<number>(`appConfig.countryAgeBan.${selectCountry}`)
+            || this.configService.get('$base.profile.legalAge');
     }
 }

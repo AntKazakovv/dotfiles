@@ -38,6 +38,7 @@ export interface IBootstrap {
     games?: IGames;
     menuSettings?: IMenu;
     showProfileMenu?: boolean; // TODO Does it need?
+    countryAgeBan: IIndexing<number>;
 }
 
 export type TEnv = 'dev' | 'qa' | 'test' | 'prod';

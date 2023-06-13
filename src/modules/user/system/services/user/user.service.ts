@@ -595,7 +595,8 @@ export class UserService {
     private checkForAgeLegality(updates: IUserProfile): void {
         if (this.shouldAgeBeChecked(updates) && !this.isAgeLegal(updates)) {
             const explanationStart = this.translateService.instant(gettext('You are under the age of'));
-            const legalAge = this.configService.get<number>('$base.profile.legalAge');
+            const legalAge = this.configService.get('legalAgeByCountry')
+                            || this.configService.get<number>('$base.profile.legalAge');
             const explanationFinal = this.translateService.instant(gettext('age_end'));
 
             const message = `${explanationStart} ${legalAge}${explanationFinal}`;
@@ -825,7 +826,8 @@ export class UserService {
      * @return {boolean}
      */
     public isAgeLegal({birthDay, birthYear, birthMonth}: IUserProfile): boolean {
-        const legalAge: number = this.configService.get('$base.profile.legalAge');
+        const legalAge: number = this.configService.get('legalAgeByCountry')
+                                || this.configService.get('$base.profile.legalAge');
         return DateTime.utc(+birthYear, +birthMonth, +birthDay)
             .diffNow('years')
             .years * -1 >= legalAge;

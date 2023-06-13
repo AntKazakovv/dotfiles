@@ -244,6 +244,14 @@ export class AppConfigModel extends AbstractModel<IBootstrap> {
         return this.siteconfig.License;
     }
 
+    /**
+     * Returns the legal age by country.
+     * @returns {IIndexing<number>} age ban for each country
+     */
+    public get countryAgeBan(): IIndexing<number> {
+        return this.data.countryAgeBan;
+    }
+
     protected override checkData(): void {
         super.checkData();
 
