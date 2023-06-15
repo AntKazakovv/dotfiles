@@ -1,9 +1,16 @@
 <ng-template #items>
     <ng-container *ngIf="ready; else preloader">
-        <ng-container
-            *ngFor="let component of components;"
-            [ngComponentOutlet]="$any(component.componentClass)"
-            [ngComponentOutletInjector]="getInjector(component)">
+        <ng-container *ngIf="useColumnsLayout else rawItems">
+            <div class="wlc-columns-layout {{smartSectionConfig?.innerClasses}}">
+                <div
+                    *ngFor="let component of components; index as i"
+                    class="{{getColumnClasses(i)}}">
+                    <ng-container
+                        [ngComponentOutlet]="$any(component.componentClass)"
+                        [ngComponentOutletInjector]="getInjector(component)">
+                    </ng-container>
+                </div>
+            </div>
         </ng-container>
     </ng-container>
 </ng-template>
@@ -18,4 +25,12 @@
 
 <ng-template #preloader>
     <div wlc-loader [inlineParams]="{themeMod:'not-ready'}"></div>
+</ng-template>
+
+<ng-template #rawItems>
+    <ng-container
+            *ngFor="let component of components;"
+            [ngComponentOutlet]="$any(component.componentClass)"
+            [ngComponentOutletInjector]="getInjector(component)">
+        </ng-container>
 </ng-template>

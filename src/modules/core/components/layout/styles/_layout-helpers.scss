@@ -1,0 +1,18 @@
+.wlc-columns-layout {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+
+    margin: calc(var(--wlc-section-gap) / -2);
+
+    [class*='wlc-c-'] {
+        min-width: 0;
+        padding: calc(var(--wlc-section-gap) / 2);
+
+        > * {
+            height: 100%;
+        }
+    }
+}
+
+@include makeSmartGrid();

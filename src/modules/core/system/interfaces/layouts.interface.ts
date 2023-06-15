@@ -35,6 +35,15 @@ export interface IPanelsSectionsConfig {
     [key: string]: IPanelSectionConfig;
 }
 
+export interface ISmartSectionConfig {
+    /** Classes which apply to host element section */
+    hostClasses?: string;
+    /** Classes which apply to section row element */
+    innerClasses?: string;
+    /** Classes for each column in section row */
+    columns?: string[];
+}
+
 export interface ILayoutSectionConfig {
     replaceConfig?: boolean;
     container?: string | boolean;
@@ -47,6 +56,7 @@ export interface ILayoutSectionConfig {
     order?: number;
     wlcElement?: string;
     display?: IDisplayConfig;
+    smartSection?: ISmartSectionConfig;
 }
 
 export interface IPanelSectionConfig extends ILayoutSectionConfig {

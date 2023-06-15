@@ -1,0 +1,23 @@
+@use 'engine-scss/functions' as ef;
+
+$columnsCount: 12;
+
+$offsets: (
+    'xs': ef.size(2),
+    'sm': ef.size(3),
+    'md': ef.size(4),
+    'lg': ef.size(6),
+    'xl': ef.size(8),
+);
+
+$orders: (
+    'first': -1,
+    'last': 100,
+    'unset': unset,
+);
+
+$alignment: (
+    'start': flex-start,
+    'end': flex-end,
+    'center': center,
+);

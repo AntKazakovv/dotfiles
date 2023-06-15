@@ -58,17 +58,17 @@ export namespace contentGames {
     export const homeWinsTournament: ILayoutSectionConfig = {
         container: true,
         components: [
-            {
-                name: 'core.wlc-wrapper',
-                params: {
-                    class: 'wlc-home-wins wlc-home-wins--tournament',
-                    components: [
-                        componentLib.wlcLastWinsSlider.alongWithTournament,
-                        componentLib.wlcTournamentBannersSlider.def,
-                    ],
-                },
-            },
+            componentLib.wlcLastWinsSlider.alongWithTournament,
+            componentLib.wlcTournamentBannersSlider.def,
         ],
+        smartSection: {
+            hostClasses: 'wlc-mb-xl',
+            innerClasses: 'wlc-gap-sm wlc-gap-1420-md',
+            columns: [
+                'wlc-c-12 wlc-c-900-6 wlc-c-1200-5 wlc-c-1630-4',
+                'wlc-c-12 wlc-c-900-6 wlc-c-1200-7 wlc-c-1630-8',
+            ],
+        },
     };
 
     export const randomGames: ILayoutSectionConfig = {
@@ -81,18 +81,19 @@ export namespace contentGames {
     export const homeWinsBonuses: ILayoutSectionConfig = {
         container: true,
         components: [
-            {
-                name: 'core.wlc-wrapper',
-                params: {
-                    class: 'wlc-home-wins-bonuses',
-                    components: [
-                        componentLib.wlcLastWinsSlider.def,
-                        componentLib.wlcBonusesList.promoHome,
-                        componentLib.wlcBiggestWinsSlider.def,
-                    ],
-                },
-            },
+            componentLib.wlcLastWinsSlider.def,
+            componentLib.wlcBonusesList.promoHome,
+            componentLib.wlcBiggestWinsSlider.def,
         ],
+        smartSection: {
+            hostClasses: 'wlc-mb-xl',
+            innerClasses: 'wlc-gap-sm wlc-gap-1420-md',
+            columns: [
+                'wlc-c-12 wlc-c-768-6 wlc-c-1366-4',
+                'wlc-c-12 wlc-c-768-12 wlc-c-900-6 wlc-c-1366-4 wlc-order-768-last wlc-order-1366-unset',
+                'wlc-c-12 wlc-c-768-6 wlc-c-1366-4',
+            ],
+        },
     };
 
     export const homeBottom: ILayoutSectionConfig = {

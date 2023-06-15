@@ -9,17 +9,10 @@
                 padding-top: ef.get-value($themeVertical, 'wrapperPaddingTopHeadless', ef.get-value($themeVertical, 'breakpoint'));
             }
 
-            max-width: ef.get-value($themeVertical, 'wrapperMaxWidth');
             height: ef.get-value($themeDefault, 'sliderWrapperHeight');
             background: ef.get-value($themeVertical, 'wrapperBackground');
             border-radius: ef.get-value($themeVertical, 'wrapperBorderRadius');
             overflow: hidden;
-
-            @if (ef.get('baseVariables', 'useWide') == true) {
-                max-width: ef.get-value($themeVertical, 'wrapperWideMaxWidth');
-            } @else {
-                max-width: ef.get-value($themeVertical, 'wrapperMaxWidth');
-            }
         }
 
         &__container {

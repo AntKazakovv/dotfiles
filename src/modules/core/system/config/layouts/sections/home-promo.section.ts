@@ -6,33 +6,33 @@ export namespace homePromo {
         theme: 'wins',
         container: true,
         components: [
-            {
-                name: 'core.wlc-wrapper',
-                params: {
-                    class: 'wlc-home-promo',
-                    components: [
-                        componentLib.wlcLastWinsSlider.alongWithTournament,
-                        componentLib.wlcTournamentBannersSlider.def,
-                    ],
-                },
-            },
+            componentLib.wlcLastWinsSlider.alongWithTournament,
+            componentLib.wlcTournamentBannersSlider.def,
         ],
+        smartSection: {
+            hostClasses: 'wlc-mb-xl',
+            innerClasses: 'wlc-gap-sm wlc-gap-1420-md',
+            columns: [
+                'wlc-c-12 wlc-c-900-6 wlc-c-1200-5 wlc-c-1630-4',
+                'wlc-c-12 wlc-c-900-6 wlc-c-1200-7 wlc-c-1630-8',
+            ],
+        },
     };
 
     export const bonuses: ILayoutSectionConfig = {
         theme: 'bonuses',
         container: true,
         components: [
-            {
-                name: 'core.wlc-wrapper',
-                params: {
-                    class: 'wlc-home-promo',
-                    components: [
-                        componentLib.wlcBonusesList.promoHome,
-                        componentLib.wlcTournamentBannersSlider.def,
-                    ],
-                },
-            },
+            componentLib.wlcBonusesList.promoHome,
+            componentLib.wlcTournamentBannersSlider.def,
         ],
+        smartSection: {
+            hostClasses: 'wlc-mb-xl',
+            innerClasses: 'wlc-gap-sm wlc-gap-1420-md',
+            columns: [
+                'wlc-c-12 wlc-c-900-6 wlc-c-1200-5 wlc-c-1630-4',
+                'wlc-c-12 wlc-c-900-6 wlc-c-1200-7 wlc-c-1630-8',
+            ],
+        },
     };
 }

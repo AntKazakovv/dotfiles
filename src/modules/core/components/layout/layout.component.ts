@@ -2,6 +2,7 @@ import {
     ChangeDetectionStrategy,
     ChangeDetectorRef,
     Component,
+    HostBinding,
     Injector,
     Input,
     OnInit,
@@ -23,6 +24,7 @@ import {
     ILayoutComponent,
     ILayoutStateConfig,
     ILayoutSectionConfig,
+    ISmartSectionConfig,
 } from 'wlc-engine/modules/core/system/interfaces/layouts.interface';
 import {WINDOW} from 'wlc-engine/modules/app/system';
 import {
@@ -46,7 +48,7 @@ import _findIndex from 'lodash-es/findIndex';
     encapsulation: ViewEncapsulation.None,
 })
 export class LayoutComponent implements OnInit, OnDestroy {
-
+    @HostBinding('class') protected $hostClass: string;
     @Input() protected sectionName: string;
     @Input() protected layouts: LayoutsType;
 
@@ -55,6 +57,9 @@ export class LayoutComponent implements OnInit, OnDestroy {
     public ready: boolean = true;
     protected allComponents$: ILayoutComponent[] = [];
     protected $destroy: Subject<void> = new Subject();
+    protected useColumnsLayout: boolean = false;
+    protected smartSectionConfig: ISmartSectionConfig;
+    protected columnList: string[];
     private currentConfig: ILayoutStateConfig;
 
     private resize$: Subscription;
@@ -83,7 +88,6 @@ export class LayoutComponent implements OnInit, OnDestroy {
                 this.uiRouter.transition?.targetState().params(),
             );
         }, this.$destroy);
-
     }
 
     public getInjector(component: ILayoutComponent): Injector {
@@ -121,9 +125,27 @@ export class LayoutComponent implements OnInit, OnDestroy {
             },
         });
         this.section = this.currentConfig.sections[this.sectionName];
+
+        if (this.section.smartSection) {
+            this.initSmartSection();
+        }
+
         this.getAllComponents();
         this.setWatcher();
         this.updateComponents();
+    }
+
+    protected initSmartSection(): void {
+        this.useColumnsLayout = this.section.components?.length > 1;
+        this.smartSectionConfig = this.section.smartSection;
+
+        if (this.smartSectionConfig.hostClasses) {
+            this.$hostClass = this.smartSectionConfig.hostClasses;
+        }
+    }
+
+    protected getColumnClasses(index: number): string {
+        return this.smartSectionConfig.columns ? this.smartSectionConfig.columns[index] : 'wlc-c-12';
     }
 
     protected setWatcher(): void {

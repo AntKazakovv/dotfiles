@@ -1,0 +1,81 @@
+@use 'sass:math';
+@use './helpers.config' as config;
+@use 'engine-scss/engine.variables' as ev;
+
+/// Генерация классов-хелперов для разметки секций
+///
+/// @name makeSmartGrid
+
+@mixin makeSmartGrid() {
+    @include generateColumnHelpers(config.$columnsCount);
+    @include generateResponsiveHelpers('--wlc-section-gap', 'gap', config.$offsets);
+    @include generateResponsiveHelpers('margin-bottom', 'mb', config.$offsets);
+    @include generateResponsiveHelpers('order', 'order', config.$orders);
+    @include generateResponsiveHelpers('justify-content', 'h-align', config.$alignment);
+
+    @each $key, $bp in ev.$grid-breakpoints {
+
+        @if ($key != 320 and $key != 375) {
+
+            @media (min-width: #{$bp}) {
+                @include generateColumnHelpers(config.$columnsCount, $key);
+                @include generateResponsiveHelpers('--wlc-section-gap', 'gap', config.$offsets, $key);
+                @include generateResponsiveHelpers('margin-bottom', 'mb', config.$offsets, $key);
+                @include generateResponsiveHelpers('order', 'order', config.$orders, $key);
+                @include generateResponsiveHelpers('justify-content', 'h-align', config.$alignment, $key);
+            }
+        }
+    }
+}
+
+///  Генерирует колоночные классы с учетом движковых брейкпоинтов из ev.$grid-breakpoints
+/// .wlc-c-1 ... .wlc-c-12
+/// .wlc-c-1630-1 ... .wlc-c-1630-12
+///
+/// @name generateColumnHelpers
+///
+/// @param {number} $columnsCount - количество колонок
+/// @param {string | number} $breakpointName [12] - название брейкпоинта, используется для формирования имени класса
+
+@mixin generateColumnHelpers($columnsCount: 12, $breakpointName: null) {
+    $prefix: wlc-c;
+
+    @if ($breakpointName) {
+        $prefix: wlc-c-#{$breakpointName};
+    }
+
+    @for $col from 1 to ($columnsCount + 1) {
+        .#{$prefix}-#{$col} {
+            width: math.div(100%, $columnsCount) * $col;
+        }
+    }
+}
+
+/// Генерирует классы-хелперы с произвольным свойством с учетом движковых брейкпоинтов из ev.$grid-breakpoints
+///
+/// @name generateResponsiveHelpers
+///
+/// @param {string} $prop - свойство, которое будет содержаться в классе
+/// @param {string} $mod - модификатор для формирования имени класса
+/// @param {map} $config - мапа с возможными модификациями значений свойств
+/// @param {string | number} $breakpointName - название брейкпоинта, используется для формирования имени класса
+///
+/// @example
+/// generateResponsiveHelpers('margin-bottom', 'mb', $offsets, 1024);
+///
+/// Скомпилированные классы:
+/// .wlc-mb-1024-sm, .wlc-mb-1024-md, .wlc-mb-1024-lg, .wlc-mb-1024-xl...
+
+@mixin generateResponsiveHelpers($prop, $mod, $config, $breakpointName: null) {
+    $prefix: wlc-#{$mod};
+
+    @if $breakpointName {
+        $prefix: wlc-#{$mod}-#{$breakpointName};
+    }
+
+    @each $key, $val in $config {
+        .#{$prefix}-#{$key} {
+            #{$prop}: $val;
+        }
+    }
+}

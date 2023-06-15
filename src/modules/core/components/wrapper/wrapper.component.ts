@@ -24,7 +24,10 @@ import {LayoutComponent} from 'wlc-engine/modules/core/components/layout/layout.
 import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
 import {LayoutService} from 'wlc-engine/modules/core/system/services/layout/layout.service';
 import {EventService} from 'wlc-engine/modules/core/system/services/event/event.service';
-import {ILayoutComponent} from 'wlc-engine/modules/core/system/interfaces/layouts.interface';
+import {
+    ILayoutComponent,
+    ISmartSectionConfig,
+} from 'wlc-engine/modules/core/system/interfaces/layouts.interface';
 import {InjectionService} from 'wlc-engine/modules/core/system/services/injection/injection.service';
 import {WINDOW} from 'wlc-engine/modules/app/system';
 
@@ -33,6 +36,7 @@ export interface IWrapperCParams {
     components?: ILayoutComponent[];
     class?: string;
     wlcElement?: string;
+    smartSection?: ISmartSectionConfig;
 }
 
 @Component({
@@ -42,7 +46,7 @@ export interface IWrapperCParams {
     encapsulation: ViewEncapsulation.None,
 })
 export class WrapperComponent extends LayoutComponent implements OnInit, OnChanges {
-    @HostBinding('class') protected $hostClass: string;
+    @HostBinding('class') protected override $hostClass: string;
     @HostBinding('attr.data-wlc-element') protected $wlcElement: string;
     @Input() protected inlineParams: IWrapperCParams;
     /**
@@ -79,6 +83,13 @@ export class WrapperComponent extends LayoutComponent implements OnInit, OnChang
 
     public override async ngOnInit(): Promise<void> {
         this.prepareParams();
+
+        if (this.$params.smartSection) {
+            this.initSmartSection();
+        }
+
+        this.setHostClass();
+
         await this.initComponents();
         this.initReady = true;
     }
@@ -88,6 +99,7 @@ export class WrapperComponent extends LayoutComponent implements OnInit, OnChang
         if (this.initReady) {
             this.prepareParams();
             this.initComponents();
+
         }
     }
 
@@ -95,9 +107,23 @@ export class WrapperComponent extends LayoutComponent implements OnInit, OnChang
         this.$params = _merge(this.inlineParams, this.inline, this.params);
     }
 
+    protected setHostClass(): void {
+        let hostClass = this.$params.class || '';
+
+        if (this.smartSectionConfig?.hostClasses) {
+            hostClass += ` ${this.smartSectionConfig.hostClasses}`;
+        }
+
+        this.$hostClass = hostClass;
+    }
+
+    protected override initSmartSection(): void {
+        this.useColumnsLayout = this.$params.components?.length > 1;
+        this.smartSectionConfig = this.$params.smartSection;
+    }
+
     private async initComponents(): Promise<void> {
-        this.$hostClass = this.$params?.class;
-        this.$wlcElement = this.$params?.wlcElement;
+        this.$wlcElement = this.$params.wlcElement;
         this.allComponents$.length = 0;
 
         for (const el of this.$params?.components) {

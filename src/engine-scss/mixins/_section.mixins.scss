@@ -1,7 +1,14 @@
 @use 'engine-scss/functions' as ef;
 @use 'engine-scss/mixins/base.mixins' as bm;
 
+/// Making grid for sections:
+/// wins + tournaments, bonuses + tournaments, latest wins + bonuses + biggest wins
+///
+/// @name homePromoWins
+/// @deprecated this mixin is deprecated. Use smart sections config for making section grid. See more: https://wiki.egamings.com/pages/viewpage.action?pageId=119138350
+
 @mixin homePromoWins($map, $name) {
+    @warn 'Mixin homePromoWins is deprecated. Use smart sections config for making section grid. See more: https://wiki.egamings.com/pages/viewpage.action?pageId=119138350';
     @include bm.get-mq-map('grid-template-columns', $map, $name + 'Columns');
     @include bm.get-mq-map('column-gap', $map, $name + 'ColGap');
     @include bm.get-mq-map('row-gap', $map, $name + 'RowGap');

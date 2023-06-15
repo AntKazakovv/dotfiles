@@ -1,4 +1,17 @@
-<ng-container *ngFor="let component of components"
-              [ngComponentOutlet]="$any(component.componentClass)"
-              [ngComponentOutletInjector]="getInjector(component)"
-></ng-container>
+<ng-container *ngIf="useColumnsLayout; else rawItems">
+    <div class="wlc-columns-layout {{smartSectionConfig.innerClasses}}">
+        <div *ngFor="let component of components; index as i" class="{{getColumnClasses(i)}}">
+            <ng-container
+                [ngComponentOutlet]="$any(component.componentClass)"
+                [ngComponentOutletInjector]="getInjector(component)">
+            </ng-container>
+        </div>
+    </div>
+</ng-container>
+
+<ng-template #rawItems>
+    <ng-container *ngFor="let component of components"
+        [ngComponentOutlet]="$any(component.componentClass)"
+        [ngComponentOutletInjector]="getInjector(component)">
+    </ng-container>
+</ng-template>
