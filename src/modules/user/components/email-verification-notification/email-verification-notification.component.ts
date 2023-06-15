@@ -122,6 +122,18 @@ export class EmailVerificationNotificationComponent extends AbstractComponent im
     }
 
     protected logoutHandler(): void {
+        this.configService.set({
+            name: 'verified',
+            value: null,
+            storageType: 'localStorage',
+        });
+
+        this.show$.next(false);
+        this.removeModifiers('show');
+        this.bodyClassService.removeClassByPrefix('wlc-body--notify');
+    }
+
+    protected setVerificationState(profile: UserProfile): void {
         const state: boolean = this.configService.get({
             name: 'verified',
             storageType: 'localStorage',
@@ -130,22 +142,13 @@ export class EmailVerificationNotificationComponent extends AbstractComponent im
         if (!state) {
             this.configService.set({
                 name: 'verified',
-                value: true,
-                storageClear: 'localStorage',
+                value: profile.emailVerified,
+                storageType: 'localStorage',
             });
-            this.show$.next(false);
-            this.removeModifiers('show');
-            this.bodyClassService.removeClassByPrefix('wlc-body--notify');
         }
-    }
 
-    protected setVerificationState(profile: UserProfile): void {
-        this.configService.set({
-            name: 'verified',
-            value: profile.emailVerified,
-            storageType: 'localStorage',
-        });
         this.stateCheck();
+
     }
 
     protected stateCheck(): void {

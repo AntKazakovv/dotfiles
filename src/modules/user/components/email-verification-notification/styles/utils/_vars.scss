@@ -47,9 +47,9 @@ $themeDefault: map-merge((
         375: 'PrimaryTextBold',
         1024: 'ThirdTitleBold',
     ),
-    'messageTextColor': #fff,
+    'messageTextColor': var(--mc-baseMain),
     'linkTextStyle': 'ButtonText',
-    'linkTextColor': #fff,
+    'linkTextColor': var(--mc-baseMain),
     'verLinkMarginRight': ef.size(8),
     'btnTextStyle': (
         375: 'CaptionTextBold',
