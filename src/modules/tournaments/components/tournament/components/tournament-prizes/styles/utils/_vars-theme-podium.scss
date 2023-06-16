@@ -25,7 +25,7 @@ $themePodium: map-merge((
 
     'captionMargin': ef.size(2) 0 0,
     'captionPadding': 0 ef.size(2),
-    'captionBg': var(--mc-baseMain),
+    'captionBg': #fff,
     'captionTextStyle': 'PrimaryTextBold',
     'captionTextColor': var(--fc-textColor),
     'captionRadius': ef.get('radius', 'biger'),
