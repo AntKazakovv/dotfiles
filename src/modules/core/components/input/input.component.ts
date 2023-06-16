@@ -10,6 +10,7 @@ import {
     ElementRef,
     AfterViewInit,
     HostBinding,
+    ChangeDetectionStrategy,
 } from '@angular/core';
 import {UntypedFormControl} from '@angular/forms';
 
@@ -48,12 +49,11 @@ type TValueTransformer = (value: string) => string;
  * }
  *
  */
-// TODO:REFACTOR:change-detection-rule
-// eslint-disable-next-line @angular-eslint/prefer-on-push-component-change-detection
 @Component({
     selector: '[wlc-input]',
     templateUrl: './input.component.html',
     styleUrls: ['./styles/input.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class InputComponent extends AbstractComponent implements OnInit, OnChanges, AfterViewInit {
     @HostBinding('hidden') get hidden() {
@@ -122,7 +122,6 @@ export class InputComponent extends AbstractComponent implements OnInit, OnChang
             super.ngOnChanges(changes);
             this.$params = _clone(this.$params);
             this.setUseAutoCompleteFix();
-            this.cdr.detectChanges();
             this.cdr.markForCheck();
         }
     }
