@@ -377,11 +377,14 @@ export class ModalService {
         });
 
         setTimeout(() => {
-            const backDropElement = _get(windowCmptRef, 'instance.modalDirect.backdrop.location.nativeElement');
+            const backDropElement: HTMLElement = _get(
+                windowCmptRef, 'instance.modalDirect.backdrop.location.nativeElement',
+            );
+
             if (backDropElement) {
                 const currentZIndex = +this.window?.getComputedStyle(modalElement).zIndex;
                 modalElement.style.zIndex = currentZIndex + this.activeModals.length * 10;
-                backDropElement.style.zIndex = +modalElement.style.zIndex - 1;
+                backDropElement.style.zIndex = (+modalElement.style.zIndex - 1)?.toString();
             }
         });
 

@@ -80,7 +80,7 @@ export class AbstractComponent implements OnDestroy, OnInit, OnChanges {
             this.$params.themeMod = _get(this, 'themeMod');
         }
         if (_get(this, 'customMod')) {
-            this.$params.customMod = _get(this, 'customMod');
+            this.$params.customMod = _get(this, 'customMod') as string | string[];
         }
         this.$class = this.$params?.class;
         if (this.$params.customMod) {

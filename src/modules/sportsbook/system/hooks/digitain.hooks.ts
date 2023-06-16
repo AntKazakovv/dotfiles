@@ -134,10 +134,10 @@ export class DigitainHooks extends AbstractHook {
                 this.params.window.mobileDigitainApp = app;
 
                 setTimeout(() => {
-                    const betslipWrapper: HTMLElement = _get(
+                    const betslipWrapper = _get(
                         this.params.window,
                         'mobileDigitainApp.Betslip.iframeContainer.parentNode',
-                    );
+                    ) as HTMLElement;
 
                     if (betslipWrapper) {
                         betslipWrapper.style.zIndex = '1000';

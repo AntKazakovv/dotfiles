@@ -108,7 +108,9 @@ export class GlobalHelper {
             return items;
         }
         return items.sort((a: T, b: T): number => {
-            return orderByAsc ? _get(a, attr, 0) - _get(b, attr, 0) : _get(b, attr, 0) - _get(a, attr, 0);
+            return orderByAsc
+                ? (_get(a, attr, 0) as number) - (_get(b, attr, 0) as number)
+                : (_get(b, attr, 0) as number) - (_get(a, attr, 0) as number);
         });
     }
 

@@ -1,3 +1,5 @@
+const {join} = require("path");
+
 module.exports = {
     root: true,
     extends: [
@@ -11,6 +13,12 @@ module.exports = {
         'sonarjs',
         'import',
     ],
+    parser: "@typescript-eslint/parser",
+    parserOptions: {
+        ecmaVersion: 2022,
+        project: join(__dirname, "./tsconfig.json"),
+        sourceType: "module"
+    },
     rules: {
         '@angular-eslint/no-input-rename': 'off',
         '@typescript-eslint/no-inferrable-types': 'off',
@@ -68,7 +76,7 @@ module.exports = {
             files: ['*.component.ts'],
             parser: '@typescript-eslint/parser',
             parserOptions: {
-                ecmaVersion: '2020',
+                ecmaVersion: 2022,
                 sourceType: 'module',
                 // project: [
                 //     './tsconfig.json',

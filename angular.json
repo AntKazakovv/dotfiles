@@ -43,6 +43,7 @@
                         },
                         "allowedCommonJsDependencies": [
                             "@formatjs/intl-locale/polyfill",
+                            "@formatjs/intl-locale/should-polyfill",
                             "@formatjs/intl-numberformat/should-polyfill",
                             "@formatjs/intl-numberformat/polyfill",
                             "@formatjs/intl-pluralrules/should-polyfill",
@@ -52,7 +53,17 @@
                             "hosted-fields-sdk",
                             "@xmpp/jid",
                             "@xmpp/client",
-                            "@sumsub/websdk"
+                            "@sumsub/websdk",
+                            "bn.js",
+                            "aes-js",
+                            "scrypt-js",
+                            "js-sha3",
+                            "bech32",
+                            "hash.js",
+                            "msw",
+                            "lottie-web/build/player/lottie_svg",
+                            "bowser",
+                            "paymentiq-cashier-bootstrapper"
                         ],
                         "webWorkerTsConfig": "./tsconfig.worker.json"
                     },

@@ -128,7 +128,7 @@ export class ProfileMenuService {
         const parentInMenuConfig: MenuParams.MenuConfigItemsGroup = _find(
             this.profileMenuConfig, (item: MenuParams.MenuConfigItem) => {
                 if (_has(item, 'items')) {
-                    for (const subItemData of _get(item, 'items')) {
+                    for (const subItemData of _get(item, 'items', [])) {
                         const subItem = _isString(subItemData)
                             ? Config.wlcProfileMenuItemsGlobal[subItemData]
                             : subItemData;

@@ -12,22 +12,29 @@
         "module": "esnext",
         "moduleResolution": "node",
         "importHelpers": true,
-        "target": "es2020",
+        "target": "ES2022",
         "skipLibCheck": true,
-        "lib": ["es2018", "dom"],
+        "lib": [
+            "es2018",
+            "dom"
+        ],
         "paths": {
-            "wlc-engine/*": ["src/*"]
+            "wlc-engine/*": [
+                "src/*"
+            ]
         },
         "noImplicitOverride": true,
+        "useDefineForClassFields": false,
 
         // strict
         "alwaysStrict": true,
         "noImplicitThis": true,
         "strictBindCallApply": true,
     },
-    "exclude": ["node_modules"],
+    "exclude": [
+        "node_modules"
+    ],
     "angularCompilerOptions": {
-        "enableIvy": true,
         "strictTemplates": true,
         "strictInjectionParameters": true,
         "disableTypeScriptVersionCheck": true,

@@ -227,7 +227,7 @@ export class GamesHelper {
      * @returns {string}
      */
     public static getMerchantIdByName(merchantName: string): string {
-        return _get(this.mapping, `merchantNameToIdMapping[${merchantName}]`, '');
+        return _get(this.mapping, `merchantNameToIdMapping[${merchantName}]` as string, '');
     }
 
     /**
@@ -246,7 +246,7 @@ export class GamesHelper {
      * @returns {MerchantModel}
      */
     public static getMerchantByName(merchantName: string): MerchantModel {
-        return _get(this.mapping, `merchantNameToObjectMapping[${merchantName}]`, '');
+        return _get(this.mapping, `merchantNameToObjectMapping[${merchantName}]`, '') as MerchantModel;
     }
 
     /**
@@ -316,7 +316,7 @@ export class GamesHelper {
      * @returns {IByCategory}
      */
     public static getMerchantsByCategory(categoryName: string): IByCategory {
-        return _get(this.mapping, `byCategory[${categoryName}].merchants`, {});
+        return _get(this.mapping, `byCategory[${categoryName}].merchants` as string, {});
     }
 
     /**

@@ -15,13 +15,6 @@ declare namespace globalThis {
     let WLC_VERSION: number;
 }
 
-declare const require: {
-    context(path: string, deep?: boolean, filter?: RegExp): {
-        keys(): string[];
-        <T>(id: string): T;
-    };
-};
-
 @NgModule({
     providers: [
         AppModule,
@@ -51,8 +44,3 @@ getTestBed().initTestEnvironment(
         errorOnUnknownProperties: true,
     },
 );
-
-// Then we find all the tests.
-const context = require.context('./', true, /\.spec\.ts$/);
-// And load the modules.
-context.keys().forEach(context);

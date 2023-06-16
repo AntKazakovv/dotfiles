@@ -428,20 +428,20 @@ export class MenuHelper {
 
                 if (menuItem) {
                     if (_has(menuItem, 'parent')) {
-                        const parentItem = _cloneDeep(_get(wlcMenuItemsGlobal, _get(menuItem, 'parent')));
+                        const parentItem = _cloneDeep(_get(wlcMenuItemsGlobal, _get(menuItem, 'parent'))) as IMenuItem;
                         parentItem.iconUrl = item.iconUrl;
                         _set(parentItem, 'device', item.device || 'all');
-                        _set(menuItem, 'parent', parentItem);
+                        _set(menuItem as MenuConfigItemsGroup, 'parent', parentItem);
                     } else {
                         if (item.iconUrl) {
                             if (_get(menuItem, 'icon')) {
                                 delete (menuItem as Params.IMenuItem).icon;
                             }
-                            _set(menuItem, 'iconUrl', item.iconUrl);
+                            _set(menuItem as IMenuItem, 'iconUrl', item.iconUrl);
                         }
-                        _set(menuItem, 'device', item.device || 'all');
+                        _set(menuItem as IMenuItem, 'device', item.device || 'all');
                     }
-                    items.push(menuItem);
+                    items.push(menuItem as MenuConfigItem);
                 }
 
             } else if (item.type === 'category') {

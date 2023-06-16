@@ -60,7 +60,7 @@ const categoryGetter = (
 const defaultGetter = (
     sort: Partial<IAllSortsItemResponse>,
     rank: GamesSortEnum,
-): string | number | undefined => _get(sort, rank);
+): string | number | undefined => _get(sort, rank) as string | number | undefined;
 
 
 
