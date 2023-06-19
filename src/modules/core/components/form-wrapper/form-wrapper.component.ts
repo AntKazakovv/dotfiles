@@ -399,14 +399,23 @@ export class FormWrapperComponent extends WrapperComponent implements OnInit, On
                     const fieldAsyncValidators: AsyncValidatorFn[] = [];
 
                     if (_find(component.params.validatorsField, {name: field})) {
-                        const validator = _find(component.params.validatorsField, {name: field})['validators'];
-                        this.getValidator(validator, fieldAsyncValidators, fieldValidator);
+                        const validators: string | string[] = _find(
+                            component.params.validatorsField, {name: field},
+                        )['validators'];
+
+                        if (Array.isArray(validators)) {
+                            for (let validator of validators) {
+                                this.getValidator(validator, fieldAsyncValidators, fieldValidator);
+                            }
+                        } else {
+                            this.getValidator(validators, fieldAsyncValidators, fieldValidator);
+                        }
                     }
 
                     if (!this.allControls[field] || component.alwaysNew) {
                         this.allControls[field] = new UntypedFormControl(
                             {
-                                value: _get(this.formData?.value, field, ''),
+                                value: _get(this.formData?.value, field, component.params[field]?.value) || '',
                                 disabled: component.params.disabled,
                             },
                             !!fieldValidator.length ? fieldValidator : validators,

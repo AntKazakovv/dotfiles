@@ -394,9 +394,7 @@ export namespace FormElements {
                 theme: 'vertical',
             },
             name: ['phoneCode', 'phoneNumber'],
-            validators: [
-                'required',
-            ],
+            validators: ['required'],
             locked: true,
         },
     };
@@ -458,8 +456,6 @@ export namespace FormElements {
         params: {
             theme: 'vertical',
             name: ['birthDay', 'birthMonth', 'birthYear'],
-            validators: ['required'],
-            locked: true,
         },
     };
 

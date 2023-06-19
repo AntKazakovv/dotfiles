@@ -1,13 +1,16 @@
 import {
     ChangeDetectionStrategy,
     Component,
-    HostBinding,
     Inject,
     OnInit,
 } from '@angular/core';
 import {UntypedFormGroup} from '@angular/forms';
 
-import {BehaviorSubject} from 'rxjs';
+import {
+    BehaviorSubject,
+    debounceTime,
+    takeUntil,
+} from 'rxjs';
 import _each from 'lodash-es/each';
 import _some from 'lodash-es/some';
 import _filter from 'lodash-es/filter';
@@ -67,7 +70,7 @@ export class SignUpFormComponent extends UserActionsAbstract<Params.ISignUpFormC
     public override $params: Params.ISignUpFormCParams;
     public formData: BehaviorSubject<IIndexing<unknown>>;
     public errors$: BehaviorSubject<IIndexing<string>> = new BehaviorSubject(null);
-    @HostBinding('class.two-steps') useTwoStepsClass: boolean = this.getTwoSteps();
+    private isTwoSteps: boolean;
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.ISignUpFormCParams,
@@ -90,6 +93,12 @@ export class SignUpFormComponent extends UserActionsAbstract<Params.ISignUpFormC
     public override ngOnInit(): void {
         super.ngOnInit();
         this.config = _cloneDeep(this.$params.formConfig);
+        this.isTwoSteps = this.configService.get<boolean>('$modules.user.params.twoSteps')
+        || !!this.configService.get<IMGAConfig>('$modules.core.components["wlc-license"].mga');
+
+        if(this.isTwoSteps) {
+            this.addModifiers('two-steps');
+        }
 
         if (!this.config) {
             this.config = this.configService.get<boolean>('$base.site.useLogin')
@@ -97,7 +106,7 @@ export class SignUpFormComponent extends UserActionsAbstract<Params.ISignUpFormC
                 : _cloneDeep(Params.signUpFormConfig);
         }
 
-        if (this.getTwoSteps()) {
+        if (this.isTwoSteps) {
             if (this.isSecondStep()) {
                 this.config = _cloneDeep(Params.twoStepsFormConfig);
                 const data = {
@@ -123,15 +132,19 @@ export class SignUpFormComponent extends UserActionsAbstract<Params.ISignUpFormC
         }
 
         if (this.configService.get<boolean>('$base.profile.smsVerification.use')
-            || (this.getTwoSteps() && !this.isSecondStep())) {
+            || this.isTwoSteps
+        ) {
             const formValues = this.configService.get<IRegFormDataForConfig>('regFormData');
             _each(this.config.components, (item) => {
-                if (item.name === 'core.wlc-button' && item.params?.common?.text) {
+                if (item.name === 'core.wlc-button' && item.params?.common?.text && !this.isSecondStep()) {
                     item.params.common.text = gettext('Next');
                 }
                 _each(formValues?.form?.data, (value, key) => {
                     if (item.params.name === key) {
                         item.params.value = value;
+                    }
+                    if (Array.isArray(item.params.name) && item.params[key]) {
+                        item.params[key].value = value;
                     }
                 });
             });
@@ -154,11 +167,6 @@ export class SignUpFormComponent extends UserActionsAbstract<Params.ISignUpFormC
         }
     }
 
-    public getTwoSteps(): boolean {
-        return this.configService.get<boolean>('$modules.user.params.twoSteps')
-            || !!this.configService.get<IMGAConfig>('$modules.core.components["wlc-license"].mga');
-    }
-
     /**
      * method runs before sending and checks if the form is correct
      * @param form
@@ -168,8 +176,13 @@ export class SignUpFormComponent extends UserActionsAbstract<Params.ISignUpFormC
         return this.checkRegisterPromocode(form);
     }
 
+    /**
+     * implementation of submit; in addition to validation and sending data, this method can switch next step
+     * @param form
+     * @returns {Promise}
+     */
     public async ngSubmit(form: UntypedFormGroup): Promise<boolean> {
-        if ((this.getTwoSteps() && !this.isSecondStep())
+        if ((this.isTwoSteps && !this.isSecondStep())
             || this.configService.get<boolean>('$base.profile.smsVerification.use')) {
             await this.nextStepSubmit(form);
             return;
@@ -181,7 +194,7 @@ export class SignUpFormComponent extends UserActionsAbstract<Params.ISignUpFormC
                 return false;
             }
             let regData = this.formDataPreparation(form);
-            if (this.getTwoSteps() && this.isSecondStep()) {
+            if (this.isTwoSteps && this.isSecondStep()) {
                 regData = _merge(this.configService.get<IRegFormDataForConfig>('regFormData')?.form, regData);
             }
 
@@ -209,6 +222,22 @@ export class SignUpFormComponent extends UserActionsAbstract<Params.ISignUpFormC
         } finally {
             form.enable();
         }
+    }
+
+    /**
+     * get form for saving data by configService
+     * @param form
+     * @returns {void}
+     */
+    public getForm(form: UntypedFormGroup): void {
+        form.valueChanges
+            .pipe(
+                debounceTime(500),
+                takeUntil(this.$destroy),
+            )
+            .subscribe(() => {
+                this.saveFormData(form);
+            });
     }
 
     protected async checkRegisterPromocode(form: UntypedFormGroup): Promise<boolean> {
@@ -261,10 +290,13 @@ export class SignUpFormComponent extends UserActionsAbstract<Params.ISignUpFormC
     }
 
     protected async nextStepSubmit(form: UntypedFormGroup): Promise<void> {
-        if ((!this.getTwoSteps() || this.isSecondStep()) && !await this.checkConfirmation(form)) {
+        if ((!this.isTwoSteps || this.isSecondStep()) && !await this.checkConfirmation(form)) {
             return;
         }
+        this.eventService.emit({name: StepsEvents.Next});
+    }
 
+    protected saveFormData(form: UntypedFormGroup): void {
         const formData = _merge(
             this.configService.get<IRegFormDataForConfig>('regFormData')?.form,
             this.formDataPreparation(form),
@@ -274,7 +306,6 @@ export class SignUpFormComponent extends UserActionsAbstract<Params.ISignUpFormC
             name: 'regFormData',
             value: {form: formData},
         });
-        this.eventService.emit({name: StepsEvents.Next});
     }
 
     protected isSecondStep(): boolean {

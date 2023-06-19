@@ -141,7 +141,7 @@ export abstract class UserActionsAbstract<T> extends AbstractComponent {
             'TYPE': 'user-register',
             data: {
                 ...formValues,
-                extProfile: _keys(extProfile).length ? extProfile : null,
+                extProfile: _keys(extProfile).length ? extProfile : undefined,
             },
             fields: _keys(formValues),
         };
