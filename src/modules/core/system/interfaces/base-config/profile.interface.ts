@@ -64,6 +64,14 @@ export interface IProfileConfig {
          */
         use: boolean;
     }
+    /*
+     * Toggle auto fields
+     */
+    autoFields?: {
+        cpf?: {
+            use: boolean;
+        };
+    };
 }
 
 export interface IFundistUserId {

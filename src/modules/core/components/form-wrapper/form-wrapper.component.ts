@@ -54,7 +54,6 @@ import {EventService} from 'wlc-engine/modules/core/system/services/event/event.
 import {
     ValidationService,
     ValidatorType,
-    IValidatorSettings,
     IValidatorListItem,
 } from 'wlc-engine/modules/core/system/services/validation/validation.service';
 import {
@@ -80,14 +79,32 @@ export interface IGlobalValidators {
     asyncValidators: AsyncValidatorFn[];
 }
 
+export type TFormComponentParams = IInputCParams
+    | ITextareaCParams
+    | ISelectCParams
+    | IButtonCParams
+    | any;
+
 export interface IFormComponent {
     name: string;
-    params: IInputCParams | ITextareaCParams | ISelectCParams | IButtonCParams | any;
+    params: TFormComponentParams | TFormCompositeComponent<any>;
     alwaysNew?: {
         saveValue?: boolean;
     };
     blockName?: string;
 }
+
+/**
+ * Type for components which are compose multiple components with any inner logic
+ */
+export type TFormCompositeComponent<T extends string> = {
+    name: T[],
+    locked: T[],
+    validatorsField: {
+        name: T,
+        validators: ValidatorType | ValidatorType[],
+    }[]
+} & Record<T, TFormComponentParams>;
 
 export interface IFormWrapperCParams extends IWrapperCParams {
     components: IFormComponent[];
@@ -399,16 +416,15 @@ export class FormWrapperComponent extends WrapperComponent implements OnInit, On
                     const fieldAsyncValidators: AsyncValidatorFn[] = [];
 
                     if (_find(component.params.validatorsField, {name: field})) {
-                        const validators: string | string[] = _find(
-                            component.params.validatorsField, {name: field},
-                        )['validators'];
+                        const validator: ValidatorType | ValidatorType[] =
+                            _find(component.params.validatorsField, {name: field})['validators'];
 
-                        if (Array.isArray(validators)) {
-                            for (let validator of validators) {
-                                this.getValidator(validator, fieldAsyncValidators, fieldValidator);
-                            }
+                        if (Array.isArray(validator)) {
+                            _each(validator, (val: ValidatorType) => {
+                                this.getValidator(val, fieldAsyncValidators, fieldValidator);
+                            });
                         } else {
-                            this.getValidator(validators, fieldAsyncValidators, fieldValidator);
+                            this.getValidator(validator, fieldAsyncValidators, fieldValidator);
                         }
                     }
 
@@ -503,7 +519,7 @@ export class FormWrapperComponent extends WrapperComponent implements OnInit, On
     }
 
     private getValidator(
-        validatorSettings: string | IValidatorSettings,
+        validatorSettings: ValidatorType,
         asyncValidators: AsyncValidatorFn[],
         validators: ValidatorFn[],
     ): void {

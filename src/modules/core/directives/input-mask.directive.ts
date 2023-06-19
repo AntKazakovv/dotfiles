@@ -44,7 +44,10 @@ export interface IMaskOptions {
     overwrite?: boolean;
 }
 
-/** @deprecated Use the global validator. Method left for backward compatibility */
+/**
+ * @deprecated Replaced with angular-imask
+ * TODO remove after #479511
+ * */
 @Directive({
     selector: '[wlc-input-mask]',
 })

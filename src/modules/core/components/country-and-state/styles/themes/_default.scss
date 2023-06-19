@@ -4,6 +4,7 @@
 
         ::ng-deep {
 
+            .wlc-input--cpf,
             .wlc-select--state {
 
                 margin-top: ef.get-value($themeDefault, 'formRowGap');
@@ -23,6 +24,7 @@
 
         .wlc-country-and-state--theme-mod-default {
 
+            .wlc-input--cpf,
             .wlc-select--state {
                 margin-top: ef.get-value($themeDefault, 'formSignUpwGap');
             }

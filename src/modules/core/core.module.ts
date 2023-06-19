@@ -16,6 +16,8 @@ import {
 import {TooltipModule} from 'ngx-bootstrap/tooltip';
 import {TranslateModule} from '@ngx-translate/core';
 import {UIRouterModule} from '@uirouter/angular';
+import {IMaskModule} from 'angular-imask';
+
 import {CompilerModule} from 'wlc-engine/modules/compiler/compiler.module';
 import {MonitoringModule} from 'wlc-engine/modules/monitoring/monitoring.module';
 // -- MODULES IMPORTS END --;
@@ -237,6 +239,7 @@ export const services = {
         MonitoringModule,
         LottieModule.forRoot({player: playerFactory}),
         LottieCacheModule.forRoot(),
+        IMaskModule,
     ],
     providers: [
         DataService,

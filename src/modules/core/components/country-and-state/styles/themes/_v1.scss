@@ -8,6 +8,7 @@
 
         ::ng-deep {
 
+            .wlc-input--cpf,
             .wlc-select--state,
             .wlc-select--country {
                 @include bm.get-mq-map('padding', $themeV1, 'profileFormFieldsPadding');
