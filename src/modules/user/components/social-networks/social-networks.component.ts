@@ -154,7 +154,11 @@ export class SocialNetworksComponent extends AbstractComponent implements OnInit
     }
 
     protected async prepareList(): Promise<Params.INetwork[]> {
-        const socialNetworksList = await this.socialService.getSocialNetworksList();
+        const cacheSocialNetworkList: ISocialNetwork[] = this.configService.get(
+            {name: 'socialNetworks', storageType: 'sessionStorage'},
+        );
+
+        const socialNetworksList = cacheSocialNetworkList ?? await this.socialService.getSocialNetworksList();
         return _map<ISocialNetwork, Params.INetwork>(
             socialNetworksList,
             (item: ISocialNetwork) => {

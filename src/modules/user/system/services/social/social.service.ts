@@ -138,6 +138,13 @@ export class SocialService {
                 system: 'user',
                 type: 'GET',
             });
+
+            this.configService.set({
+                name: 'socialNetworks',
+                value: res.data,
+                storageType: 'sessionStorage',
+            });
+
             return res.data || [];
         } catch (error) {
             this.logService.sendLog({code: '1.5.5', data: error});

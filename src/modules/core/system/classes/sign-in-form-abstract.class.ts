@@ -10,7 +10,10 @@ import {BehaviorSubject} from 'rxjs';
 import _isObject from 'lodash-es/isObject';
 import _assign from 'lodash-es/assign';
 
-import {UserService} from 'wlc-engine/modules/user';
+import {
+    ILoginWithPhoneData,
+    UserService,
+} from 'wlc-engine/modules/user';
 import {NotificationEvents} from 'wlc-engine/modules/core/system/services/notification/notification.service';
 import {IPushMessageParams} from 'wlc-engine/modules/core/system/services/notification/notification.interface';
 import {EventService} from 'wlc-engine/modules/core/system/services/event/event.service';
@@ -114,7 +117,7 @@ export abstract class SignInFormAbstract<T extends IAbstractSignInFormCParams<un
 
         try {
             form.disable();
-            await this.userService.login(email || login, password);
+            await this.signIn(form.value);
 
             if (this.stateService.is('app.signin')) {
                 this.stateService.go('app.home');
@@ -151,6 +154,19 @@ export abstract class SignInFormAbstract<T extends IAbstractSignInFormCParams<un
             return false;
         } finally {
             form.enable();
+        }
+    }
+
+    protected async signIn(formValues: IIndexing<string>): Promise<void> {
+        if (formValues.phoneCode && formValues.phoneNumber && (!formValues.login || !formValues.email)) {
+            const loginDataPhone: ILoginWithPhoneData = {
+                password: formValues.password,
+                phoneCode: formValues.phoneCode,
+                phoneNumber: formValues.phoneNumber,
+            };
+            await this.userService.login(loginDataPhone);
+        } else {
+            await this.userService.login(formValues.login || formValues.email, formValues.password);
         }
     }
 

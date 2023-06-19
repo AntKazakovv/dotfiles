@@ -63,6 +63,7 @@ import {LimitationService} from 'wlc-engine/modules/user/submodules/limitations'
 import {IdleService} from 'wlc-engine/modules/user/system/services/idle/idle.service';
 import {TermsAcceptService} from 'wlc-engine/modules/user/system/services/terms/terms-accept.service';
 import {
+    ILoginWithPhoneData,
     ILogoutConfirm,
     IUserPasswordPost,
     IEmailVerifyData,
@@ -76,12 +77,16 @@ interface ILoginUniqResponse {
     result: boolean;
 }
 
+interface ICreateProfileQueryParams {
+    smsLogin?: 1 | 0;
+}
+
 interface ILoginPasswordData {
     login: string;
     password: string;
 }
 
-type TLoginData = TMetamaskData | ILoginPasswordData;
+type TLoginData = TMetamaskData | ILoginPasswordData | ILoginWithPhoneData;
 
 type ProfileParamsWithMetamask = IUserProfile & TMetamaskData & Pick<IUserProfile, 'type'>;
 
@@ -399,8 +404,9 @@ export class UserService {
      * @param {TMetamaskData} login object with metamask login data
      */
     public login(login: TMetamaskData): Promise<IIndexing<any>>;
+    public login(login: ILoginWithPhoneData): Promise<IIndexing<any>>;
 
-    public login(login: string | TMetamaskData, password?: string): Promise<IIndexing<any>> {
+    public login(login: string | TMetamaskData | ILoginWithPhoneData, password?: string): Promise<IIndexing<any>> {
         if (this.configService.get<boolean>('$base.site.useXNonce')) {
             this.dataService.setNonceToLocalStorage();
         }
@@ -482,25 +488,42 @@ export class UserService {
                 locale: this.translateService.currentLang,
             });
         }
+
+        if (this.configService.get('phoneNumber')) {
+            this.configService.set({
+                name: 'phoneNumber',
+                value: null,
+            });
+        }
+
+        if (this.configService.get('phoneCode')) {
+            this.configService.set({
+                name: 'phoneCode',
+                value: null,
+            });
+        }
     }
 
     public createUserProfile(userProfile: IUserProfile): Promise<IIndexing<any>> {
+        this.prepareCreateProfile(userProfile);
+        const queryParams: ICreateProfileQueryParams = {};
 
-        if (this.configService.get('$base.profile.limitations.use')
-            && this.configService.get('$base.profile.limitations.autoApplyRealityChecker')
-            && !userProfile.extProfile?.realityCheckTime) {
-            _set(userProfile, 'extProfile.realityCheckTime', 30);
+        if (userProfile.phoneCode && userProfile.phoneNumber && (!userProfile.login || !userProfile.email)) {
+            queryParams.smsLogin = 1;
         }
 
-        if (this.configService.get<boolean>('$base.turnOnSendEmailNotificationInRegister')) {
-            userProfile.emailAgree = true;
-        }
+        const response = this.dataService.request({
+            name: 'createProfile',
+            system: 'user',
+            url: '/profiles',
+            type: 'POST',
+            params: queryParams,
+            events: {
+                success: 'PROFILE_CREATE',
+                fail: 'PROFILE_CREATE_ERROR',
+            },
+        }, userProfile);
 
-        if (userProfile?.phoneCode && !userProfile?.phoneNumber) {
-            userProfile.phoneCode = '';
-        }
-
-        const response = this.dataService.request('user/createProfile', userProfile as any);
         this.logService.sendLog({code: '1.1.25'});
         this.sendFlogAfterFastRegistration();
         response.catch((error: unknown) => {
@@ -811,6 +834,23 @@ export class UserService {
         return this.dataService.request('user/emailVerification', data);
     }
 
+    protected prepareCreateProfile(userProfile: IUserProfile): void {
+        if (this.configService.get('$base.profile.limitations.use')
+            && this.configService.get('$base.profile.limitations.autoApplyRealityChecker')
+            && !userProfile.extProfile?.realityCheckTime
+        ) {
+            _set(userProfile, 'extProfile.realityCheckTime', 30);
+        }
+
+        if (this.configService.get('$base.turnOnSendEmailNotificationInRegister')) {
+            userProfile.emailAgree = true;
+        }
+
+        if (userProfile?.phoneCode && !userProfile?.phoneNumber) {
+            userProfile.phoneCode = '';
+        }
+    }
+
     private registrationRedirect(): void {
         const redirect = this.configService.get<IRedirect>('$base.redirects.registration');
         if (redirect) {
@@ -943,17 +983,6 @@ export class UserService {
             system: 'user',
             url: '/auth',
             type: 'DELETE',
-        });
-
-        this.dataService.registerMethod({
-            name: 'createProfile',
-            system: 'user',
-            url: '/profiles',
-            type: 'POST',
-            events: {
-                success: 'PROFILE_CREATE',
-                fail: 'PROFILE_CREATE_ERROR',
-            },
         });
 
         this.dataService.registerMethod({

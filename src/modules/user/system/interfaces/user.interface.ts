@@ -20,3 +20,9 @@ export interface IEmailVerifyData {
     code: string;
     password?: string;
 }
+
+export interface ILoginWithPhoneData {
+    phoneCode: string;
+    phoneNumber: string;
+    password: string;
+}

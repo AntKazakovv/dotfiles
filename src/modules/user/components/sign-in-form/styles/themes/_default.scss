@@ -14,6 +14,11 @@
         .wlc-form {
             display: flex;
             flex-direction: ef.get-value($themeDefault, 'formFlexDirection');
+
+            .wlc-phone-field {
+                grid-template-columns: 100px 1fr;
+                margin-bottom: ef.size(4);
+            }
         }
 
         .wlc-restore-link {
