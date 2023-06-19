@@ -131,38 +131,6 @@
         }
     }
 
-    &.wlc-game-thumb--theme-mod-bottom-buttons {
-        @include animationBounce;
-
-        @include bm.hover {
-
-            .wlc-game-thumb {
-
-                &__title {
-                    opacity: 1;
-                }
-            }
-        }
-    }
-
-    &.wlc-game-thumb--theme-mod-bottom-all {
-        @include animationBounce;
-    }
-
-    &.wlc-game-thumb--theme-mod-bottom-title {
-        @include animationBounce;
-
-        @include bm.hover {
-
-            .wlc-game-thumb {
-
-                &__buttons {
-                    opacity: 1;
-                }
-            }
-        }
-    }
-
     @include bm.hover {
 
         .wlc-game-thumb__ppl,

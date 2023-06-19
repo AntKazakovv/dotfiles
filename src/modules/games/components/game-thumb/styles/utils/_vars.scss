@@ -229,65 +229,6 @@ $themeDefaultModMobile: map-merge((
     'thumbRadius': ef.get('radius', 'less'),
 ), $customThemeDefaultModMobile);
 
-$customBottomButtons: () !default;
-$bottomButtons: map-merge((
-    'descHeight': ef.size(12),
-
-    'titleWidth': 100%,
-    'titleTransform': translate(-50%, -40px),
-    'titleOpacity': 0,
-    'titleOpacityHover': 1,
-
-    'jackpotPosBottom': (
-        375: 0,
-        1024: ef.size(12),
-    ),
-    'jackpotPosBottomMobile': 0,
-), $customBottomButtons);
-
-$customBottomAll: () !default;
-$bottomAll: map-merge((
-    'imgBeforeOpacity': 0,
-    'imgBeforeOpacityHover': 1,
-    'imgBeforeBg': linear-gradient(180deg, var(--mc-baseContrast-o0) 50%, var(--mc-baseContrast) 100%),
-
-    'descPosition': relative,
-    'descGridRows': ef.size(8) auto,
-    'descGridColumns': 1fr,
-    'descGap': ef.size(2),
-    'descHeight': auto,
-
-    'titleAlignItems': start,
-    'titleWidth': 80%,
-    'titleTextAlign': left,
-
-    'favouriteBg': transparent,
-    'favouriteColor': var(--mc-bg100),
-    'favouriteColorHover': var(--mc-baseMain),
-    'favouriteBoxShadow': none,
-
-    'jackpotPosBottom': (
-        375: 0,
-        1024: ef.size(22),
-    ),
-    'jackpotPosBottomMobile': 0,
-), $customBottomAll);
-
-$customBottomTitle: () !default;
-$bottomTitle: map-merge((
-    'descHeight': ef.size(12),
-
-    'btnsTranslate': translate(-50%, -75px),
-    'btnsNoDemoTranslate': translate(-50%, -50px),
-    'btnsOpacity': 0,
-    'btnsOpacityHover': 1,
-
-    'jackpotPosBottom': (
-        375: 0,
-        1024: ef.size(12),
-    ),
-    'jackpotPosBottomMobile': 0,
-), $customBottomTitle);
 
 $customThemePromoWidget: () !default;
 $themePromoWidget: map-merge((

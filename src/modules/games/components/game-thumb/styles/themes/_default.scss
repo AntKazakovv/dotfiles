@@ -398,29 +398,6 @@
         }
     }
 
-    &.wlc-game-thumb--theme-mod-bottom-buttons {
-        @include thumbsBottom(buttons);
-        @include thumbJackpotModifiers($bottomButtons);
-    }
-
-    &.wlc-game-thumb--theme-mod-bottom-all {
-        @include thumbsBottom(all);
-        @include thumbJackpotModifiers($bottomAll);
-
-
-        @include bm.hover() {
-
-            .wlc-game-thumb__jackpot {
-                opacity: 1;
-            }
-        }
-    }
-
-    &.wlc-game-thumb--theme-mod-bottom-title {
-        @include thumbsBottom(title);
-        @include thumbJackpotModifiers($bottomTitle);
-    }
-
     &.wlc-game-thumb--theme-mod-mobile-app {
         border-radius: ef.get-value($themeDefaultModMobile, 'thumbRadius');
     }

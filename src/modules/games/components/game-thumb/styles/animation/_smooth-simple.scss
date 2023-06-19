@@ -92,66 +92,6 @@
         }
     }
 
-    &.wlc-game-thumb--theme-mod-bottom-buttons {
-
-        .wlc-game-thumb {
-
-            &__title {
-                @include bm.transition();
-                opacity: 0;
-            }
-
-            &__buttons {
-                opacity: 1;
-            }
-        }
-
-        @include bm.hover {
-
-            .wlc-game-thumb {
-
-                &__title {
-                    opacity: 1;
-                }
-            }
-        }
-    }
-
-    &.wlc-game-thumb--theme-mod-bottom-title {
-
-        .wlc-game-thumb {
-
-            &__title {
-                opacity: 1;
-            }
-
-            &__buttons {
-                @include bm.transition();
-                transform: ef.get-value($bottomTitle, 'btnsTranslate');
-                opacity: 0;
-
-                &.no-demo {
-                    transform: ef.get-value($bottomTitle, 'btnsNoDemoTranslate');
-                }
-            }
-        }
-
-        @include bm.hover {
-
-            .wlc-game-thumb {
-
-                &__buttons {
-                    transform: ef.get-value($bottomTitle, 'btnsTranslate');
-                    opacity: 1;
-
-                    &.no-demo {
-                        transform: ef.get-value($bottomTitle, 'btnsNoDemoTranslate');
-                    }
-                }
-            }
-        }
-    }
-
     @include bm.hover {
 
         .wlc-game-thumb {

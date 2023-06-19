@@ -114,62 +114,6 @@
         }
     }
 
-    &.wlc-game-thumb--theme-mod-bottom-buttons {
-
-        .wlc-game-thumb {
-            @include commonStyleDescBefore;
-        }
-
-        @include bm.hover {
-
-            .wlc-game-thumb {
-                @include commonStyleDescBefore($hover: true);
-
-                &__title {
-                    opacity: 1;
-                }
-            }
-        }
-    }
-
-    &.wlc-game-thumb--theme-mod-bottom-all {
-
-        .wlc-game-thumb {
-
-            &__title {
-                opacity: 1;
-            }
-
-            &__desc {
-                transform: unset;
-                border-radius: 0;
-            }
-        }
-    }
-
-    &.wlc-game-thumb--theme-mod-bottom-title {
-
-        .wlc-game-thumb {
-            @include commonStyleDescBefore;
-        }
-
-        @include bm.hover {
-
-            .wlc-game-thumb {
-
-                @include commonStyleDescBefore($hover: true);
-
-                &__buttons {
-                    opacity: 1;
-                }
-
-                &__title {
-                    opacity: 1;
-                }
-            }
-        }
-    }
-
     @include bm.hover {
 
         .wlc-game-thumb {

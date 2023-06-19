@@ -37,32 +37,6 @@
         }
     }
 
-    &.wlc-game-thumb--theme-mod-bottom-buttons {
-
-        @include bm.hover {
-
-            .wlc-game-thumb {
-
-                &__title {
-                    opacity: 1;
-                }
-            }
-        }
-    }
-
-    &.wlc-game-thumb--theme-mod-bottom-title {
-
-        @include bm.hover {
-
-            .wlc-game-thumb {
-
-                &__buttons {
-                    opacity: 1;
-                }
-            }
-        }
-    }
-
     @include bm.hover {
         box-shadow: ef.get-value($animations, 'hoverScaleShadow');
         transform: ef.get-value($animations, 'hoverScaleTransform');
