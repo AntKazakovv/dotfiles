@@ -6,16 +6,10 @@ import {
     ICheckboxCParams,
     IButtonCParams,
     ISelectCParams,
-    IValidatorSettings,
 } from 'wlc-engine/modules/core';
 import {ProhibitedPatterns} from 'wlc-engine/modules/core/constants';
 import {ICaptchaCParams} from 'wlc-engine/modules/security/captcha';
-
-const cityMinLengthValidator: IValidatorSettings = {
-    name: 'minLength',
-    text: gettext('Field length must be more than 2 characters'),
-    options: 2,
-};
+import {FormValidators} from 'wlc-engine/modules/core/system/services/validation/validators';
 
 export interface IFieldTemplate {
     template: string;
@@ -271,12 +265,16 @@ export namespace FormElements {
     export const countryAndState: IFormComponent = {
         name: 'core.wlc-country-and-state',
         params: {
-            name: ['countryCode', 'stateCode'],
-            locked: ['countryCode'],
+            name: ['countryCode', 'stateCode', 'cpf'],
+            locked: ['countryCode', 'cpf'],
             validatorsField: [
                 {
                     name: 'countryCode',
                     validators: 'required',
+                },
+                {
+                    name: 'cpf',
+                    validators: ['required', FormValidators.cpfPattern],
                 },
             ],
         },
@@ -290,7 +288,7 @@ export namespace FormElements {
                 placeholder: gettext('City'),
             },
             name: 'city',
-            validators: [cityMinLengthValidator],
+            validators: [FormValidators.cityMinLength],
             wlcElement: 'block_city',
             customMod: ['city'],
         },
@@ -694,6 +692,28 @@ export namespace FormElements {
             common: {
                 customModifiers: 'email-agree',
             },
+        },
+    };
+
+    export const cpf: IFormComponent = {
+        name: 'core.wlc-input',
+        params: <IInputCParams>{
+            name: 'cpf',
+            customMod: ['cpf'],
+            wlcElement: 'block_cpf',
+            common: {
+                placeholder: gettext('___.___.___-__'),
+                separateLabel: gettext('CPF'),
+            },
+            validators: [
+                'required',
+                FormValidators.cpfPattern,
+            ],
+            maskOptions: {
+                mask: '000.000.000-00',
+                overwrite: true,
+            },
+            locked: true,
         },
     };
 }

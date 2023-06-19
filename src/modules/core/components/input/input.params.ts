@@ -1,5 +1,4 @@
 import {UntypedFormControl} from '@angular/forms';
-import IMask from 'imask';
 import {
     CustomType,
     IComponentParams,
@@ -69,8 +68,7 @@ export interface IInputCParams extends IComponentParams<ComponentTheme, Componen
     clipboard?: boolean;
     showCurrency?: boolean;
     prohibitedPattern?: RegExp;
-    /** @deprecated Use the global validator. Method left for backward compatibility */
-    maskOptions?: IMask.AnyMaskedOptions | string;
+    maskOptions?: IMask.AnyMaskedOptions;
     numeric?: INumericInputOptions,
     isHidden?: () => boolean;
 }

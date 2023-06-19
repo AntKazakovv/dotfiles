@@ -163,6 +163,10 @@ export class UserProfile extends AbstractModel<IUserProfile> {
         return this.data.birthDate;
     }
 
+    public get cpf(): string {
+        return this.data.cpf;
+    }
+
     public get oddsStyle(): string {
         return this.data.oddsStyle;
     }

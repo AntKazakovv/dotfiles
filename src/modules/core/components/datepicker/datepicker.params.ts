@@ -1,7 +1,6 @@
 import {UntypedFormControl} from '@angular/forms';
 import {IAngularMyDpOptions, IMyDefaultMonth} from 'angular-mydatepicker';
 import {DateTime} from 'luxon';
-import {IMaskOptions} from 'wlc-engine/modules/core/directives/input-mask.directive';
 import {CustomType, IComponentParams} from 'wlc-engine/modules/core/system/classes';
 
 export type ComponentTheme = 'default' | CustomType;
@@ -13,7 +12,7 @@ export interface IDatepickerCParams extends IComponentParams<ComponentTheme, Com
     icon?: string;
     iconPath?: string;
     datepickerOptions?: IAngularMyDpOptions;
-    maskOptions?: IMaskOptions;
+    maskOptions?: IMask.AnyMaskedOptions;
     label?: string;
     control?: UntypedFormControl;
     defaultMonth?: IMyDefaultMonth;

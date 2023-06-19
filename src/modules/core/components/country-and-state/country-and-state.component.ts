@@ -6,10 +6,10 @@ import {
     Input,
     OnInit,
 } from '@angular/core';
-import {ValidatorFn} from '@angular/forms';
 
 import {
     BehaviorSubject,
+    EMPTY,
     merge,
 } from 'rxjs';
 import {
@@ -23,40 +23,95 @@ import {
     ConfigService,
     IIndexing,
     IState,
-    ValidationService,
 } from 'wlc-engine/modules/core';
 import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
 
 import * as Params from './country-and-state.params';
 
+
+/**
+ * @description Using cpf field requires `$base.profile.autoFields.cpf.use` setting to be `true` (`false` by default)
+ * @description By default in profile: cpf required, stateCode - not required
+ * @example
+ * <IFormComponent>{
+        name: 'core.wlc-country-and-state',
+        params: {
+            name: ['countryCode', 'stateCode', 'cpf'],
+            locked: ['countryCode', 'cpf'],
+            validatorsField: [
+                {
+                    name: 'countryCode',
+                    validators: 'required',
+                },
+                {
+                    name: 'cpf',
+                    validators: ['required', FormValidators.cpf],
+                },
+            ],
+        },
+    }
+ * @description In profile with all required
+ * @example
+ * <IFormComponent>{
+        name: 'core.wlc-country-and-state',
+        params: {
+            name: ['countryCode', 'stateCode', 'cpf'],
+            locked: ['countryCode', 'stateCode', 'cpf'],
+            validatorsField: [
+                {
+                    name: 'countryCode',
+                    validators: 'required',
+                },
+                {
+                    name: 'stateCode',
+                    validators: 'required',
+                },
+                {
+                    name: 'cpf',
+                    validators: ['required', FormValidators.cpf],
+                },
+            ],
+        },
+    }
+ * @description Use in registration with all required and NO StateCode
+ * @example
+* <IFormComponent>{
+        name: 'core.wlc-country-and-state',
+        params: {
+            name: ['countryCode', 'cpf'],
+            locked: ['countryCode', 'cpf'],
+            validatorsField: [
+                {
+                    name: 'countryCode',
+                    validators: 'required',
+                },
+                {
+                    name: 'cpf',
+                    validators: ['required', FormValidators.cpf],
+                },
+            ],
+        },
+    }
+ */
 @Component({
     selector: '[wlc-country-and-state]',
     templateUrl: './country-and-state.component.html',
     styleUrls: ['./styles/country-and-state.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
-    providers: [
-        {
-            provide: 'requiredValidator',
-            useFactory: (validationService: ValidationService): ValidatorFn => {
-                return validationService.getValidator('required').validator;
-            },
-            deps: [ValidationService],
-        },
-    ],
 })
 export class CountryAndStateComponent extends AbstractComponent implements OnInit {
     @Input() protected inlineParams: Params.ICountryAndStateCParams;
     public override $params: Params.ICountryAndStateCParams;
 
     public showState: boolean = false;
+    public showCpf: boolean = false;
     protected states: IIndexing<IState[]> = {};
-    protected stateStartRequired: boolean = false;
+    protected useCpf: boolean = this.configService.get<boolean>('$base.profile.autoFields.cpf.use');
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.ICountryAndStateCParams,
         configService: ConfigService,
         cdr: ChangeDetectorRef,
-        @Inject('requiredValidator') protected requiredValidator: ValidatorFn,
     ) {
         super({injectParams, defaultParams: Params.defaultParams}, configService, cdr);
     }
@@ -68,19 +123,19 @@ export class CountryAndStateComponent extends AbstractComponent implements OnIni
         this.checkUserData();
     }
 
-    protected get stateHasRequired(): boolean {
-        return this.$params.stateCode.control.hasValidator(this.requiredValidator);
-    }
-
     protected provideParams(): void {
         this.$params.countryCode['theme'] = this.$params.theme;
         this.$params.stateCode['theme'] = this.$params.theme;
-        this.stateStartRequired = this.stateHasRequired;
+        this.$params.cpf['theme'] = this.$params.theme;
+
+        this.$params.stateCode.control?.disable();
+        this.$params.cpf.control?.disable();
     }
 
     protected checkUserData(): void {
         if (this.$params.countryCode.control?.value) {
             this.updateStates(this.$params.countryCode.control.value);
+            this.updateCpf(this.$params.countryCode.control.value);
         }
     }
 
@@ -103,22 +158,30 @@ export class CountryAndStateComponent extends AbstractComponent implements OnIni
             )
             .subscribe((countryCode: string) => {
                 this.updateStates(countryCode);
+                this.updateCpf(countryCode);
             });
 
-        merge(
-            this.$params.countryCode.control.statusChanges,
-            this.$params.stateCode.control.valueChanges,
-        )
-            .pipe(
-                distinctUntilChanged(),
-                takeUntil(this.$destroy),
+        if (this.$params.stateCode.control || (this.$params.cpf.control && this.useCpf)) {
+            merge(
+                this.$params.countryCode.control.statusChanges,
+                this.$params.stateCode.control?.valueChanges || EMPTY,
+                this.useCpf ? this.$params.cpf.control?.valueChanges : EMPTY,
             )
-            .subscribe((): void => {
-                this.cdr.markForCheck();
-            });
+                .pipe(
+                    distinctUntilChanged(),
+                    takeUntil(this.$destroy),
+                )
+                .subscribe((): void => {
+                    this.cdr.markForCheck();
+                });
+        }
     }
 
     protected updateStates(countryCode: string): void {
+        if (!this.$params.stateCode.control) {
+            return;
+        }
+
         const states = this.states[countryCode];
         if (states?.length) {
             this.configService
@@ -128,20 +191,32 @@ export class CountryAndStateComponent extends AbstractComponent implements OnIni
         } else {
             this.showState = false;
         }
-        this.toggleStateRequired();
+        this.toggleFieldRequired('stateCode', this.showState);
         this.cdr.detectChanges();
     }
 
-    protected toggleStateRequired(): void {
-        if (!this.stateStartRequired) {
+    protected updateCpf(countryCode: string): void {
+        if (this.useCpf && this.$params.cpf.control) {
+            this.showCpf = countryCode === 'bra';
+            this.toggleFieldRequired('cpf', this.showCpf);
+            this.cdr.markForCheck();
+        }
+    }
+
+    protected toggleFieldRequired(field: Params.TDependentFields, show: boolean): void {
+        const control = this.$params[field].control;
+
+        if (!control) {
             return;
         }
-        const hasRequired = this.stateHasRequired;
 
-        if (this.showState && !hasRequired) {
-            this.$params.stateCode.control.addValidators(this.requiredValidator);
-        } else if (!this.showState && hasRequired) {
-            this.$params.stateCode.control.removeValidators(this.requiredValidator);
+        if (show) {
+            if (!control.value && control.disabled) {
+                control.enable();
+            }
+        } else {
+            control.patchValue('', {emitEvent: false});
+            control.disable();
         }
     }
 }
