@@ -102,12 +102,15 @@ export class BetHistoryComponent extends AbstractComponent implements OnInit {
             startDate: this.startDate,
             endDate: this.endDate,
         });
-        this.tableData = {
-            theme: this.$params.transactionTableTheme || 'default',
-            head: Params.betHistoryTableHeadConfig,
-            rows: this.bets$,
-            switchWidth: (this.configService.get('$base.profile.type') === 'first') ? 1200 : 1024,
-        };
+        this.prepareTableParams();
+    }
+
+    protected prepareTableParams(): void {
+        this.tableData = this.$params.tableConfig;
+        this.tableData.rows = this.bets$;
+        this.tableData.switchWidth ??= this.configService.get('$base.profile.type') === 'first'
+            ? 1200
+            : 1024;
     }
 
     protected setMinMaxDate(): void {

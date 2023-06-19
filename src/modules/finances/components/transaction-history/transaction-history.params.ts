@@ -3,6 +3,7 @@ import {
     CustomType,
     IWrapperCParams,
     ITableCol,
+    ITableCParams,
 } from 'wlc-engine/modules/core';
 import {
     TransactionStatusComponent,
@@ -25,33 +26,11 @@ export interface ITransactionHistoryRangeParams {
 }
 export interface ITransactionHistoryCParams extends IComponentParams<Theme, Type, ThemeMod> {
     filterType?: 'select' | 'button';
-    transactionTableTheme: 'default' | 'mobile-app' | Theme,
+    tableConfig?: ITableCParams,
     /** wlc-profile-no-content params */
     emptyConfig?: IWrapperCParams;
     historyRangeParams?: ITransactionHistoryRangeParams;
 }
-
-export const defaultParams: ITransactionHistoryCParams = {
-    moduleName: 'finances',
-    componentName: 'wlc-transaction-history',
-    class: 'wlc-transaction-history',
-    filterType: 'button',
-    transactionTableTheme: 'default',
-    emptyConfig: {
-        components: [
-            {
-                name: 'profile.wlc-profile-no-content',
-                params: {
-                    text: gettext('No transactions history'),
-                },
-            },
-        ],
-    },
-    historyRangeParams: {
-        type: 'submenu',
-        historyType: 'transaction',
-    },
-};
 
 export const transactionTableHeadConfig: ITableCol[] = [
     {
@@ -96,3 +75,28 @@ export const transactionTableHeadConfig: ITableCol[] = [
         wlcElement: 'wlc-profile-table__cell_type',
     },
 ];
+
+export const defaultParams: ITransactionHistoryCParams = {
+    moduleName: 'finances',
+    componentName: 'wlc-transaction-history',
+    class: 'wlc-transaction-history',
+    filterType: 'button',
+    tableConfig: {
+        theme: 'default',
+        head: transactionTableHeadConfig,
+    },
+    emptyConfig: {
+        components: [
+            {
+                name: 'profile.wlc-profile-no-content',
+                params: {
+                    text: gettext('No transactions history'),
+                },
+            },
+        ],
+    },
+    historyRangeParams: {
+        type: 'submenu',
+        historyType: 'transaction',
+    },
+};

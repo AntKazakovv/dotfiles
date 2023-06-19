@@ -4,7 +4,9 @@ export namespace wlcBetHistory {
     export const def: ILayoutComponent = {
         name: 'profile.wlc-bet-history',
         params: {
-            transactionTableTheme: 'mobile-app',
+            tableConfig: {
+                theme: 'mobile-app',
+            },
         },
     };
 

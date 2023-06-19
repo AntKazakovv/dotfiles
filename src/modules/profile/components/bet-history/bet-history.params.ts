@@ -3,6 +3,7 @@ import {
     CustomType,
     ITableCol,
     IWrapperCParams,
+    ITableCParams,
 } from 'wlc-engine/modules/core';
 import {Bet} from 'wlc-engine/modules/profile/system/models/bet-history.model';
 import {
@@ -18,32 +19,11 @@ export interface IBetHystoryRangeParams {
     historyType: string,
 }
 export interface IBetHistoryCParams extends IComponentParams<Theme, Type, ThemeMod> {
-    transactionTableTheme: 'default' | 'mobile-app' | Theme,
+    tableConfig: ITableCParams,
     /** wlc-profile-no-content params */
     emptyConfig?: IWrapperCParams;
     historyRangeParams?: IBetHystoryRangeParams;
 }
-
-export const defaultParams: IBetHistoryCParams = {
-    moduleName: 'core',
-    componentName: 'wlc-bet-history',
-    class: 'wlc-bet-history',
-    transactionTableTheme: 'default',
-    emptyConfig: {
-        components: [
-            {
-                name: 'profile.wlc-profile-no-content',
-                params: {
-                    text: gettext('No bets history'),
-                },
-            },
-        ],
-    },
-    historyRangeParams: {
-        type: 'submenu',
-        historyType: 'bet',
-    },
-};
 
 export const betHistoryTableHeadConfig: ITableCol[] = [
     {
@@ -77,3 +57,27 @@ export const betHistoryTableHeadConfig: ITableCol[] = [
         wlcElement: 'wlc-profile-table__cell_game',
     },
 ];
+
+export const defaultParams: IBetHistoryCParams = {
+    moduleName: 'profile',
+    componentName: 'wlc-bet-history',
+    class: 'wlc-bet-history',
+    tableConfig: {
+        theme: 'default',
+        head: betHistoryTableHeadConfig,
+    },
+    emptyConfig: {
+        components: [
+            {
+                name: 'profile.wlc-profile-no-content',
+                params: {
+                    text: gettext('No bets history'),
+                },
+            },
+        ],
+    },
+    historyRangeParams: {
+        type: 'submenu',
+        historyType: 'bet',
+    },
+};

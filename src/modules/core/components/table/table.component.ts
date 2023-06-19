@@ -104,7 +104,7 @@ export class TableComponent extends AbstractComponent implements OnInit {
             this.$params.rows.pipe(takeUntil(this.$destroy)).subscribe((rows) => {
                 this.rows = this.createTableRow(rows);
                 this.indexFactor = 0;
-                this.paginatedRows = this.rows?.slice(0, this.itemPerPage);
+                this.paginationUseCheck();
                 this.cdr.markForCheck();
             });
         } else {
@@ -136,7 +136,7 @@ export class TableComponent extends AbstractComponent implements OnInit {
             this.cdr.markForCheck();
         }
 
-        this.paginatedRows = this.rows?.slice(0, this.itemPerPage);
+        this.paginationUseCheck();
         this.setPaginatedRowsModifier();
         this.cdr.markForCheck();
         this.subscribeDeviceChange();
@@ -187,7 +187,7 @@ export class TableComponent extends AbstractComponent implements OnInit {
         this.actionService.scrollTo('body');
         this.indexFactor = (value.event.page - 1) * value.event.itemsPerPage;
         this.setPaginatedRowsModifier();
-        this.cdr.markForCheck();
+        this.cdr.detectChanges();
     }
 
     public toggleRows(): void {
@@ -203,6 +203,12 @@ export class TableComponent extends AbstractComponent implements OnInit {
 
     private createTableRow(rows: unknown[]): TableRowModel[] {
         return rows.map((row) => new TableRowModel(row, this.$params));
+    }
+
+    private paginationUseCheck(): void {
+        if (!this.$params?.pagination.use) {
+            this.paginatedRows = this.rows?.slice(0, this.itemPerPage);
+        }
     }
 
     private prepareHead(): void {

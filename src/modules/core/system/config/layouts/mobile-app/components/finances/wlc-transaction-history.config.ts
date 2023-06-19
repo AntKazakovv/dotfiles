@@ -5,7 +5,9 @@ export namespace wlcTransactionHistory {
     export const def: ILayoutComponent = {
         name: 'finances.wlc-transaction-history',
         params: {
-            transactionTableTheme: 'mobile-app',
+            tableConfig: {
+                theme: 'mobile-app',
+            },
         },
     };
 

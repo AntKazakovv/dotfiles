@@ -5,7 +5,9 @@ export namespace wlcBonusesHistory {
     export const def: ILayoutComponent = {
         name: 'history.wlc-bonuses-history',
         params: {
-            transactionTableTheme: 'mobile-app',
+            tableConfig: {
+                theme: 'mobile-app',
+            },
         },
     };
 

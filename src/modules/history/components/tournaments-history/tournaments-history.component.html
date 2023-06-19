@@ -3,7 +3,7 @@
         <div wlc-select [inlineParams]="filterSelect"></div>
     </div>
 
-    <div *ngIf="tournaments$.value.length; else empty" wlc-table [inlineParams]='tableData'></div>
+    <div *ngIf="tournaments$.value.length; else empty" wlc-table [inlineParams]="tableData"></div>
 </ng-container>
 
 <ng-template #empty>

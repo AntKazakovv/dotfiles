@@ -29,7 +29,9 @@ export namespace wlcTournamentsHistory {
     export const def: ILayoutComponent = {
         name: 'history.wlc-tournaments-history',
         params: {
-            transactionTableTheme: 'mobile-app',
+            tableConfig: {
+                theme: 'mobile-app',
+            },
         },
     };
 }

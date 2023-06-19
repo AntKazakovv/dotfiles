@@ -1,6 +1,7 @@
 import {
     IComponentParams,
     CustomType,
+    ITableCParams,
     ITableCol,
     IWrapperCParams,
     IHistoryNameItem,
@@ -15,27 +16,10 @@ export type Type = 'default' | CustomType;
 export type ThemeMod = 'default' | CustomType;
 
 export interface IBonusesHistoryCParams extends IComponentParams<Theme, Type, ThemeMod> {
-    transactionTableTheme: 'default' | 'mobile-app' | Theme,
     /** wlc-profile-no-content params */
     emptyConfig?: IWrapperCParams;
+    tableConfig?: ITableCParams;
 }
-
-export const defaultParams: IBonusesHistoryCParams = {
-    moduleName: 'history',
-    componentName: 'wlc-bonuses-history',
-    class: 'wlc-bonuses-history',
-    transactionTableTheme: 'default',
-    emptyConfig: {
-        components: [
-            {
-                name: 'profile.wlc-profile-no-content',
-                params: {
-                    text: gettext('No bonuses history'),
-                },
-            },
-        ],
-    },
-};
 
 export const bonusHistoryTableHeadConfig: ITableCol[] = [
     {
@@ -105,3 +89,25 @@ export const bonusHistoryTableHeadConfig: ITableCol[] = [
         wlcElement: 'wlc-profile-table__cell_status',
     },
 ];
+
+export const defaultParams: IBonusesHistoryCParams = {
+    moduleName: 'history',
+    componentName: 'wlc-bonuses-history',
+    class: 'wlc-bonuses-history',
+    tableConfig: {
+        theme: 'default',
+        head: bonusHistoryTableHeadConfig,
+    },
+    emptyConfig: {
+        components: [
+            {
+                name: 'profile.wlc-profile-no-content',
+                params: {
+                    text: gettext('No bonuses history'),
+                },
+            },
+        ],
+    },
+};
+
+

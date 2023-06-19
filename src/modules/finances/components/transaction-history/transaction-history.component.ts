@@ -84,7 +84,6 @@ export class TransactionHistoryComponent extends AbstractComponent implements On
 
     public override async ngOnInit(): Promise<void> {
         super.ngOnInit();
-        const profileType: ProfileType = this.configService.get<ProfileType>('$base.profile.type') || 'default';
         this.allTransactions = await this.financesService.getTransactionList();
 
         if (this.allTransactions.length) {
@@ -105,17 +104,19 @@ export class TransactionHistoryComponent extends AbstractComponent implements On
         this.setMinMaxDate();
         this.setSubscription();
 
-        this.tableData = {
-            theme: this.$params.transactionTableTheme || 'default',
-            themeMod: profileType,
-            head: Params.transactionTableHeadConfig,
-            rows: this.transaction$,
-            switchWidth: profileType === 'first' ? 1200 : 1024,
-        };
-
         this.transaction$.next(this.transactionFilter());
+        this.prepareTableParams();
         this.ready = true;
         this.cdr.detectChanges();
+    }
+
+    protected prepareTableParams(): void {
+        const profileType: ProfileType = this.configService.get<ProfileType>('$base.profile.type') || 'default';
+
+        this.tableData = this.$params.tableConfig;
+        this.tableData.themeMod ??= profileType;
+        this.tableData.rows = this.transaction$;
+        this.tableData.switchWidth ??= profileType === 'first' ? 1200 : 1024;
     }
 
     protected transactionFilter(): Transaction[] {

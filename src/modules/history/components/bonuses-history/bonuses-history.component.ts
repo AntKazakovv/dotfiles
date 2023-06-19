@@ -89,17 +89,20 @@ export class BonusesHistoryComponent extends AbstractComponent implements OnInit
             filterValue: this.filterValue,
         });
 
-        this.tableData = {
-            theme: this.$params.transactionTableTheme || 'default',
-            head: Params.bonusHistoryTableHeadConfig,
-            rows: this.bonuses$,
-            switchWidth: (this.configService.get('$base.profile.type') === 'first') ? 1200 : 1024,
-        };
-
         this.bonuses$.next(this.bonusesFilter());
+
+        this.prepareTableParams();
 
         this.ready = true;
         this.cdr.detectChanges();
+    }
+
+    protected prepareTableParams(): void {
+        this.tableData = this.$params.tableConfig;
+        this.tableData.rows = this.bonuses$;
+        this.tableData.switchWidth ??= (this.configService.get('$base.profile.type') === 'first')
+            ? 1200
+            : 1024;
     }
 
     protected bonusesFilter(): BonusHistoryItemModel[] {

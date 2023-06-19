@@ -74,7 +74,6 @@ export class TournamentsHistoryComponent extends AbstractComponent implements On
 
     public override async ngOnInit(): Promise<void> {
         super.ngOnInit();
-        const profileType: ProfileType = this.configService.get<ProfileType>('$base.profile.type') || 'default';
         await this.historyService.queryHistory(true, 'tournamentsHistory');
         this.showFilter = this.actionService.getDeviceType() === DeviceType.Desktop;
 
@@ -86,18 +85,20 @@ export class TournamentsHistoryComponent extends AbstractComponent implements On
         this.historyFilterService.setAllFilters('tournaments', {
             filterValue: this.filterValue,
         });
-        this.tableData = {
-            theme: this.$params.transactionTableTheme || 'default',
-            themeMod: profileType,
-            head: Params.tournamentsHistoryTableHeadConfig,
-            rows: this.tournaments$,
-            switchWidth: profileType === 'first' ? 1200 : 1024,
-        };
-
+        this.prepareTableParams();
         this.tournaments$.next(this.tournamentsFilter());
-
         this.ready = true;
         this.cdr.detectChanges();
+    }
+
+    protected prepareTableParams(): void {
+        const profileType: ProfileType = this.configService.get<ProfileType>('$base.profile.type') || 'default';
+        this.tableData = this.$params.tableConfig;
+        this.tableData.themeMod = profileType;
+        this.tableData.rows = this.tournaments$;
+        this.tableData.switchWidth ??= profileType === 'first'
+            ? 1200
+            : 1024;
     }
 
     protected tournamentsFilter(): TournamentHistory[] {

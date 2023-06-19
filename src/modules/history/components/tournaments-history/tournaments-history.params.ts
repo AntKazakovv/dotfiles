@@ -7,6 +7,7 @@ import {
     CurrencyComponent,
     HistoryNameComponent,
     IHistoryNameItem,
+    ITableCParams,
 } from 'wlc-engine/modules/core';
 import {
     TournamentTopwinsBtnComponent,
@@ -19,27 +20,10 @@ export type Type = 'default' | CustomType;
 export type ThemeMod = 'default' | CustomType;
 
 export interface ITournamentsHistoryCParams extends IComponentParams<Theme, Type, ThemeMod> {
-    transactionTableTheme: 'default' | 'mobile-app' | Theme,
+    tableConfig: ITableCParams,
     /** wlc-profile-no-content params */
     emptyConfig?: IWrapperCParams;
 }
-
-export const defaultParams: ITournamentsHistoryCParams = {
-    moduleName: 'history',
-    componentName: 'wlc-tournaments-history',
-    class: 'wlc-tournaments-history',
-    transactionTableTheme: 'default',
-    emptyConfig: {
-        components: [
-            {
-                name: 'profile.wlc-profile-no-content',
-                params: {
-                    text: gettext('No tournaments history'),
-                },
-            },
-        ],
-    },
-};
 
 export const tournamentsHistoryTableHeadConfig: ITableCol[] = [
     {
@@ -113,3 +97,23 @@ export const tournamentsHistoryTableHeadConfig: ITableCol[] = [
         wlcElement: 'wlc-profile-table__cell_status',
     },
 ];
+
+export const defaultParams: ITournamentsHistoryCParams = {
+    moduleName: 'history',
+    componentName: 'wlc-tournaments-history',
+    class: 'wlc-tournaments-history',
+    tableConfig: {
+        theme: 'default',
+        head: tournamentsHistoryTableHeadConfig,
+    },
+    emptyConfig: {
+        components: [
+            {
+                name: 'profile.wlc-profile-no-content',
+                params: {
+                    text: gettext('No tournaments history'),
+                },
+            },
+        ],
+    },
+};
