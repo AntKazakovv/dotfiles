@@ -508,7 +508,7 @@ export class UserService {
         this.prepareCreateProfile(userProfile);
         const queryParams: ICreateProfileQueryParams = {};
 
-        if (userProfile.phoneCode && userProfile.phoneNumber && (!userProfile.login || !userProfile.email)) {
+        if (userProfile.phoneCode && userProfile.phoneNumber && !userProfile.login && !userProfile.email) {
             queryParams.smsLogin = 1;
         }
 

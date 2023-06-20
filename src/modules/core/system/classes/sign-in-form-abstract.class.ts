@@ -158,11 +158,11 @@ export abstract class SignInFormAbstract<T extends IAbstractSignInFormCParams<un
     }
 
     protected async signIn(formValues: IIndexing<string>): Promise<void> {
-        if (formValues.phoneCode && formValues.phoneNumber && (!formValues.login || !formValues.email)) {
+        if (formValues.phoneCode && formValues.phoneNumber && !formValues.login && !formValues.email) {
             const loginDataPhone: ILoginWithPhoneData = {
-                password: formValues.password,
                 phoneCode: formValues.phoneCode,
                 phoneNumber: formValues.phoneNumber,
+                password: formValues.password,
             };
             await this.userService.login(loginDataPhone);
         } else {
